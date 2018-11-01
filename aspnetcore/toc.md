@@ -3,6 +3,8 @@
 ## [Porovnání ASP.NET Core a ASP.NET](xref:fundamentals/choose-between-aspnet-and-aspnetcore)
 ## [Porovnání .NET Core a .NET Framework](/dotnet/articles/standard/choosing-core-framework-server)
 
+# [Začínáme](xref:getting-started)
+
 # Kurzy
 ## Webové aplikace
 ### Razor Pages
@@ -149,7 +151,7 @@
 #### [Obrázek](xref:mvc/views/tag-helpers/builtin-th/image-tag-helper)
 #### [Vstup](mvc/views/working-with-forms.md#the-input-tag-helper)
 #### [Popisek](mvc/views/working-with-forms.md#the-label-tag-helper)
-#### [Částečné zobrazení](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)
+#### [Partial](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)
 #### [Výběr](mvc/views/working-with-forms.md#the-select-tag-helper)
 #### [Textové pole](mvc/views/working-with-forms.md#the-textarea-tag-helper)
 #### [Ověřovací zpráva](mvc/views/working-with-forms.md#the-validation-message-tag-helper)
@@ -219,7 +221,7 @@
 ## [Ladění snímků](/azure/application-insights/app-insights-snapshot-debugger)
 ## [Ladění snímků v sadě Visual Studio](/visualstudio/debugger/debug-live-azure-applications)
 ## [Integrační testy](xref:test/integration-tests)
-## [Odstraňování potíží](xref:test/troubleshoot)
+## [Řešení potíží](xref:test/troubleshoot)
 
 # Přístup k datům
 ## Kurzy

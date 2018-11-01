@@ -57,7 +57,7 @@ Ujistěte se, že kořenový web má alespoň jednu *.cshtml* soubor v ní.
 
 Pokud tato chyba se zobrazí, když je webový server na vzdáleném serveru, obraťte se na správce serveru. Ověřte, že server má rozhraní .NET Framework 4 nebo novější. Také se ujistěte, že aplikace běží ve fondu aplikací, který je nakonfigurovaný na tuto verzi rozhraní.NET Framework.
 
-Pokud budete mít kontrolu nad serveru, ujistěte se, že běží správnou verzi rozhraní .NET Framework. Můžete se taky může snažit opravíte spuštěním instalace `aspnet_regiis -iru` příkazu. (Například, pokud nainstalujete službu IIS po instalaci rozhraní .NET Framework, služby IIS nebudě správně nakonfigurovaná pro spuštění stránky technologie ASP.NET.) Další informace najdete v tématu [ASP.NET IIS Registration Tool (Aspnet\_regiis.exe)](https://msdn.microsoft.com/library/k6h9cz8h(v=vs.100).aspx).
+Pokud budete mít kontrolu nad serveru, ujistěte se, že běží správnou verzi rozhraní .NET Framework. Můžete se taky může snažit opravíte spuštěním instalace `aspnet_regiis -iru` příkazu. (Například, pokud nainstalujete službu IIS po instalaci rozhraní .NET Framework, služby IIS nebudě správně nakonfigurovaná pro spuštění stránky technologie ASP.NET.) Další informace najdete v tématu [ASP.NET IIS Registrační nástroj (Aspnet\_regiis.exe)](https://msdn.microsoft.com/library/k6h9cz8h(v=vs.100).aspx).
 
 ### <a name="http-error-40314---forbidden"></a>Chyba protokolu HTTP 403.14 – zakázáno
 

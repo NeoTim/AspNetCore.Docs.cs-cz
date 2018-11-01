@@ -187,7 +187,7 @@ Jak začít využívat výhod asynchronní webovou aplikaci, můžete potřebova
 - Windows 7, Windows Vista, Windows 8, Windows klienta operačních systémů a mít maximálně 10 souběžných požadavků. Je třeba operační systém Windows Server na jeho výhody asynchronních metod v případě velkého zatížení.
 - Registrace rozhraní .NET 4.5 se službou IIS z příkazového řádku se zvýšenými oprávněními pomocí následujícího příkazu:  
   %windir%\Microsoft.NET\Framework64 \v4.0.30319\aspnet\_regiis -i  
-  Zobrazit [ASP.NET IIS Registration Tool (Aspnet\_regiis.exe)](https://msdn.microsoft.com/library/k6h9cz8h.aspx)
+  Zobrazit [ASP.NET IIS Registrační nástroj (Aspnet\_regiis.exe)](https://msdn.microsoft.com/library/k6h9cz8h.aspx)
 - Možná budete muset zvýšit [HTTP.sys](https://www.iis.net/learn/get-started/introduction-to-iis/introduction-to-iis-architecture) limit fronty z výchozí hodnoty 1 000 až 5 000. Pokud je nastavení příliš nízké, může se zobrazit [HTTP.sys](https://www.iis.net/learn/get-started/introduction-to-iis/introduction-to-iis-architecture) zamítnout žádosti se stavem HTTP 503. Chcete-li změnit HTTP.sys limit fronty:
 
     - Otevřete Správce služby IIS a přejděte do podokna fondy aplikací.
