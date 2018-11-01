@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: index
-ms.openlocfilehash: fcd95b88b970073f4d7eddf89729683d18be449d
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 37448b1b3d0da4e3cb34b1cd51f663b7e53ddced
+ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090651"
+ms.lasthandoff: 10/29/2018
+ms.locfileid: "50207391"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -66,6 +66,14 @@ Cílení na .NET Core má několik výhod, které přibývají s každou vydanou
 * Open source
 
 Ze všech sil se snažíme doplnit rozhraní API z .NET Framework do .NET Core. Sada [Windows Compatibility Pack](/dotnet/core/porting/windows-compat-pack) zpřístupnila v .NET Core tisíce rozhraní API, která byla určena jen pro Windows. Tato rozhraní API nebyla v .NET Core 1.x dostupná.
+
+## <a name="how-to-download-a-sample"></a>Jak si stáhnout ukázku
+
+Řada článků a kurzů obsahuje odkazy na vzorový kód.
+
+1. [Stáhněte si soubor zip úložiště ASP.NET](https://codeload.github.com/aspnet/Docs/zip/master).
+1. Rozbalte soubor *Docs-master.zip*.
+1. Adresa URL v ukázkovém odkazu vám pomůže s přechodem do ukázkového adresáře.
 
 ## <a name="next-steps"></a>Další kroky
 
