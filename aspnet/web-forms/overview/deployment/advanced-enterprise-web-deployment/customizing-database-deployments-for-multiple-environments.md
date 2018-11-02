@@ -91,7 +91,7 @@ ms.locfileid: "41753761"
 
     ![](customizing-database-deployments-for-multiple-environments/_static/image1.png)
 3. <span data-ttu-id="366a3-200">V **nové konfigurační soubor nasazení** dialogové okno pole, zadejte smysluplný název souboru (například **TestEnvironment.sqldeployment**) a potom klikněte na tlačítko **Uložit**.</span><span class="sxs-lookup"><span data-stu-id="366a3-200">In the **New Deployment Configuration File** dialog box, give the file a meaningful name (for example, **TestEnvironment.sqldeployment**), and then click **Save**.</span></span>
-4. <span data-ttu-id="366a3-201">Na *[název_souboru] *** .sqldeployment** stránky, nastavit vlastnosti nasazení tak, aby odpovídaly požadavkům vaší cílové prostředí a pak soubor uložte.</span><span class="sxs-lookup"><span data-stu-id="366a3-201">On the *[Filename]***.sqldeployment** page, set the deployment properties to match the requirements of your destination environment, and then save the file.</span></span>
+4. <span data-ttu-id="366a3-201">Na *[název_souboru] \*\*\* .sqldeployment*\* stránky, nastavit vlastnosti nasazení tak, aby odpovídaly požadavkům vaší cílové prostředí a pak soubor uložte.</span><span class="sxs-lookup"><span data-stu-id="366a3-201">On the *[Filename]\*\*\*.sqldeployment*\* page, set the deployment properties to match the requirements of your destination environment, and then save the file.</span></span>
 
     ![](customizing-database-deployments-for-multiple-environments/_static/image2.png)
 5. <span data-ttu-id="366a3-202">Všimněte si, že se přidá nový soubor do vlastnosti složky v projektu databáze.</span><span class="sxs-lookup"><span data-stu-id="366a3-202">Notice that the new file is added to the Properties folder in your database project.</span></span>
