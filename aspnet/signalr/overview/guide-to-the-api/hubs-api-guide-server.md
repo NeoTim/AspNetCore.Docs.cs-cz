@@ -8,12 +8,12 @@ ms.date: 06/10/2014
 ms.assetid: b19913e5-cd8a-4e4b-a872-5ac7a858a934
 msc.legacyurl: /signalr/overview/guide-to-the-api/hubs-api-guide-server
 msc.type: authoredcontent
-ms.openlocfilehash: 03dd8a73141330348f2877760a5978a8a0b95122
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 6545491cfa36bb9fee555eb0348ec0a319bff470
+ms.sourcegitcommit: fc2486ddbeb15ab4969168d99b3fe0fbe91e8661
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41752657"
+ms.lasthandoff: 11/01/2018
+ms.locfileid: "50758242"
 ---
 <a name="aspnet-signalr-hubs-api-guide---server-c"></a>Pokyny k rozhraní API Center SignalR technologie ASP.NET – Server (C#)
 ====================
@@ -304,6 +304,11 @@ Chcete-li volat metody klienta ze serveru, použijte `Clients` vlastnost v metod
 
 [!code-csharp[Main](hubs-api-guide-server/samples/sample23.cs?highlight=5)]
 
+Volání metody klienta je asynchronní operace a vrátí `Task`. Použití `await`:
+
+* Aby se zprávy, se pošlou bez chyby. 
+* Pro povolení zachytávání a zpracování chyb v bloku try-catch.
+
 **JavaScript klienta s použitím vygenerovaný proxy server**
 
 [!code-html[Main](hubs-api-guide-server/samples/sample24.html?highlight=1)]
@@ -572,7 +577,7 @@ VB.NET nebo v centru se silnými typy, volající objekt stavu nelze přistupova
 
 ## <a name="how-to-handle-errors-in-the-hub-class"></a>Zpracování chyb ve třídě centra
 
-Zpracování chyb, ke kterým dochází ve vašich metodách rozbočovače třídy, použijte jeden nebo více z následujících metod:
+Zpracování chyb, ke kterým dochází ve vašich metodách rozbočovače třídy, nejprve zkontrolujte můžete "sledovat" všechny výjimky v asynchronních operací (například volání metody klienta) s použitím `await`. Použije jeden nebo více z následujících metod:
 
 - Zabalit váš kód metody do bloků try-catch a protokolu objekt výjimky. Pro účely ladění může posílat výjimku do klienta, ale pro zabezpečení se nedoporučuje z důvodů odeslání podrobné informace pro klienty v produkčním prostředí.
 - Vytvoření modulu kanálu rozbočovače, který zpracovává [OnIncomingError](https://msdn.microsoft.com/library/microsoft.aspnet.signalr.hubs.hubpipelinemodule.onincomingerror(v=vs.111).aspx) metody. Následující příklad ukazuje modulu kanálu, který protokoluje chyby, za nímž následuje kód v souboru Startup.cs, který se vloží do kanálu rozbočovače modul.

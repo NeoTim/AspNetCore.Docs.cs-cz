@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2018
 uid: mvc/controllers/testing
-ms.openlocfilehash: 939a4b0162fad778f5f4717462074b9390542a50
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: 7e27f30e35c2c6e9062c8321b8b8544a38a69605
+ms.sourcegitcommit: fc2486ddbeb15ab4969168d99b3fe0fbe91e8661
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50252992"
+ms.lasthandoff: 11/01/2018
+ms.locfileid: "50758138"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>Testovací kontroler logiku v ASP.NET Core
 
@@ -141,7 +141,7 @@ První test potvrdí, že kontroler vrací `ActionResult` , ale ne neexistujíc�
 
 [!code-csharp[](testing/sample/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ForSessionActionResult_ReturnsNotFoundObjectResultForNonexistentSession&highlight=7,10,13-14)]
 
-Pro platné relace `id`, druhý test potvrdí, že metoda vrací:
+Pro relaci platný `id`, druhý test potvrdí, že metoda vrací:
 
 * `ActionResult` s `List<IdeaDTO>` typu.
 * [ActionResult&lt;T&gt;. Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Value*) je `List<IdeaDTO>` typu.

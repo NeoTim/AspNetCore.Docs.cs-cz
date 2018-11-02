@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 09/21/2018
 uid: fundamentals/servers/index
-ms.openlocfilehash: 161ab3fdf48e58d8c9af991dc5531e46d9c5adff
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
+ms.openlocfilehash: 6b6ebbe9d31d571ea470fba0989d622dcf6e68af
+ms.sourcegitcommit: fc2486ddbeb15ab4969168d99b3fe0fbe91e8661
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49325858"
+ms.lasthandoff: 11/01/2018
+ms.locfileid: "50758203"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementací webového serveru v ASP.NET Core
 
@@ -19,7 +19,7 @@ Podle [Petr Dykstra](https://github.com/tdykstra), [Steve Smith](https://ardalis
 
 Aplikace ASP.NET Core spouští implementaci serveru HTTP v procesu. Implementace server přijímá požadavky protokolu HTTP a poskytuje je na aplikaci jako sady [funkce požadavků](xref:fundamentals/request-features) složený do <xref:Microsoft.AspNetCore.Http.HttpContext>.
 
-ASP.NET Core se celá dodává tři implementace serveru:
+ASP.NET Core se dodává s následující implementace serveru:
 
 ::: moniker range=">= aspnetcore-2.2"
 

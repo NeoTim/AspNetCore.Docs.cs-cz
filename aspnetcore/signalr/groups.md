@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 06/04/2018
 uid: signalr/groups
-ms.openlocfilehash: d3e580dfc42a36762358899892831c8b68f544b0
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 02db46f090c487a03171de244ff7ad0d5e9de0fa
+ms.sourcegitcommit: fc2486ddbeb15ab4969168d99b3fe0fbe91e8661
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207157"
+ms.lasthandoff: 11/01/2018
+ms.locfileid: "50758164"
 ---
 # <a name="manage-users-and-groups-in-signalr"></a>Správa uživatelů a skupin v knihovně SignalR
 
@@ -54,6 +54,8 @@ Skupina je kolekce připojení přidružená k názvu. Pro všechna připojení 
 [!code-csharp[Hub methods](groups/sample/hubs/chathub.cs?range=15-27)]
 
 Členství ve skupině se nezachová při opětovném navázání připojení. Připojení je potřeba znovu vstoupit skupině znovu zřízeno. Není možné počet členů skupiny, protože tyto informace není k dispozici v případě, že aplikace je škálovaný na více serverů.
+
+Chcete-li chránit přístup k prostředkům a používání skupin, použijte [ověřování a autorizace](xref:signalr/authn-and-authz) funkce v ASP.NET Core. Pokud pouze přidáte uživatele do skupiny při přihlašovací údaje jsou platné pro tuto skupinu, zprávy odeslané do této skupiny přejdete jenom na autorizované uživatele. Skupiny však nejsou funkce zabezpečení. Ověřování deklarací identity má funkce, které skupiny tomu tak není, jako je například vypršení platnosti a odvolání. Pokud se odvolat oprávnění uživatele pro přístup ke skupině, budete muset ručně zjišťovat a odebrat ze skupiny.
 
 > [!NOTE]
 > Názvy skupin rozlišují malá a velká písmena.
