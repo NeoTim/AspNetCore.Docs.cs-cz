@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/09/2018
 uid: fundamentals/configuration/index
-ms.openlocfilehash: cbc48222aeb4a1d23144bfb70aece5a83a700d09
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 2af66c0f35109dc1de954bf501f33ad61ddef4db
+ms.sourcegitcommit: 85f2939af7a167b9694e1d2093277ffc9a741b23
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207898"
+ms.lasthandoff: 11/02/2018
+ms.locfileid: "50968368"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -152,7 +152,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace k dispozici pro
 | [Azure zprostředkovatel konfigurace trezoru klíčů](xref:security/key-vault-configuration) (*zabezpečení* témata) | Azure Key Vault |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
 | [Vlastního poskytovatele konfigurace](#custom-configuration-provider) | Vlastní zdroj |
-| [Proměnné prostředí poskytovatele konfigurace](#environment-variables-configuration-provider) | Proměnné prostředí |
+| [Zprostředkovatel konfigurace proměnných prostředí](#environment-variables-configuration-provider) | Proměnné prostředí |
 | [Zprostředkovatel konfigurace souboru](#file-configuration-provider) | Soubory INI, JSON, XML) |
 | [Poskytovatel konfigurace pro každý soubor klíče](#key-per-file-configuration-provider) | Adresář souborů |
 | [Zprostředkovatel konfigurace paměti](#memory-configuration-provider) | Kolekce v paměti |
@@ -167,7 +167,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace k dispozici pro
 | [Azure zprostředkovatel konfigurace trezoru klíčů](xref:security/key-vault-configuration) (*zabezpečení* témata) | Azure Key Vault |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
 | [Vlastního poskytovatele konfigurace](#custom-configuration-provider) | Vlastní zdroj |
-| [Proměnné prostředí poskytovatele konfigurace](#environment-variables-configuration-provider) | Proměnné prostředí |
+| [Zprostředkovatel konfigurace proměnných prostředí](#environment-variables-configuration-provider) | Proměnné prostředí |
 | [Zprostředkovatel konfigurace souboru](#file-configuration-provider) | Soubory INI, JSON, XML) |
 | [Zprostředkovatel konfigurace paměti](#memory-configuration-provider) | Kolekce v paměti |
 | [Tajné klíče uživatelů (tajný klíč správce)](xref:security/app-secrets) (*zabezpečení* témata) | Soubor v adresáři profilu uživatele |
@@ -180,7 +180,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace k dispozici pro
 | -------- | ----------------------------------- |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
 | [Vlastního poskytovatele konfigurace](#custom-configuration-provider) | Vlastní zdroj |
-| [Proměnné prostředí poskytovatele konfigurace](#environment-variables-configuration-provider) | Proměnné prostředí |
+| [Zprostředkovatel konfigurace proměnných prostředí](#environment-variables-configuration-provider) | Proměnné prostředí |
 | [Zprostředkovatel konfigurace souboru](#file-configuration-provider) | Soubory INI, JSON, XML) |
 | [Zprostředkovatel konfigurace paměti](#memory-configuration-provider) | Kolekce v paměti |
 | [Tajné klíče uživatelů (tajný klíč správce)](xref:security/app-secrets) (*zabezpečení* témata) | Soubor v adresáři profilu uživatele |
@@ -392,9 +392,9 @@ V rámci stejného příkazu Nekombinujte argument příkazového řádku páry 
 Příklady příkazů:
 
 ```console
-dotnet run CommandLineKey1=value --CommandLineKey2=value /CommandLineKey2=value
-dotnet run --CommandLineKey1 value /CommandLineKey2 value
-dotnet run CommandLineKey1= CommandLineKey2=value
+dotnet run CommandLineKey1=value1 --CommandLineKey2=value2 /CommandLineKey3=value3
+dotnet run --CommandLineKey1 value1 /CommandLineKey2 value2
+dotnet run CommandLineKey1= CommandLineKey2=value2
 ```
 
 ### <a name="switch-mappings"></a>Přepnout mapování
@@ -546,7 +546,7 @@ Při práci s hierarchické klíče v seznamu proměnných prostředí, oddělov
 * [Tajné klíče uživatelů (tajný klíč správce)](xref:security/app-secrets) (ve vývojovém prostředí).
 * Argumenty příkazového řádku.
 
-Poskytovatel konfigurace proměnných prostředí je volána po navázání konfigurace z tajných kódů uživatelů a *appsettings* soubory. Volání zprostředkovatele na této pozici umožňuje proměnné prostředí načteny za běhu přepsat konfiguraci nastavil tajných kódů uživatelů a *appsettings* soubory.
+Zprostředkovatel konfigurace proměnných prostředí je volána po navázání konfigurace z tajných kódů uživatelů a *appsettings* soubory. Volání zprostředkovatele na této pozici umožňuje proměnné prostředí načteny za běhu přepsat konfiguraci nastavil tajných kódů uživatelů a *appsettings* soubory.
 
 ::: moniker-end
 

@@ -1,17 +1,17 @@
 ---
 title: Zpracování chyb v ASP.NET Core
-author: ardalis
+author: tdykstra
 description: Objevte, jak zpracovávat chyby v aplikacích ASP.NET Core.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 07/05/2018
+ms.date: 11/01/2018
 uid: fundamentals/error-handling
-ms.openlocfilehash: d1e94fdc89fbebc264dc001bbf35666af16f4799
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 89117d78486493747d649c3bb0d9cce9f97ef419
+ms.sourcegitcommit: 85f2939af7a167b9694e1d2093277ffc9a741b23
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50208028"
+ms.lasthandoff: 11/02/2018
+ms.locfileid: "50968316"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
@@ -119,17 +119,28 @@ Middleware podporuje několik metod rozšíření. Jedna metoda má výraz lambd
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePages)]
 
-Jinou metodou přijímá řetězec typ a formát obsahu:
+Přetížení `UseStatusCodePages` obsahu typ a formát řetězce:
 
 ```csharp
 app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
 ```
+### <a name="redirect-re-execute-extension-methods"></a>Znovu provést rozšiřující metody pro přesměrování
 
-Existují také přesměrovat a znovu provést metody rozšíření. Metoda přesměrování odesílá *302 Found* stavový kód na straně klienta a přesměruje klienta do šablony adresy URL zadané umístění. Šablona může obsahovat `{0}` zástupný symbol pro stavový kód. Adresy URL začínající `~` před základní cesty. Adresa URL, která nezačíná `~` je použitá.
+<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*>:
+
+* Odešle *302 - nalezen* stavový kód na straně klienta.
+* Přesměruje klienta do umístění, které jsou součástí adresy URL šablony. 
+
+Šablona může obsahovat `{0}` zástupný symbol pro stavový kód. Šablona musí začínat lomítkem (`/`).
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithRedirect)]
 
-Znovu spustit metodu vrátí původní kód stavu klienta a určuje, že tělo odpovědi by měl být vygenerován znovu spuštěním kanálu požadavku pomocí alternativní cesty. Tato cesta může obsahovat `{0}` zástupný symbol pro kód stavu:
+<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*>:
+
+* Vrátí původní stavový kód do klienta.
+* Určuje, že tělo odpovědi by měl být vygenerován znovu spuštěním kanálu požadavku pomocí alternativní cesty. 
+
+Šablona může obsahovat `{0}` zástupný symbol pro stavový kód. Šablona musí začínat lomítkem (`/`).
 
 ```csharp
 app.UseStatusCodePagesWithReExecute("/error/{0}");
@@ -146,7 +157,7 @@ if (statusCodePagesFeature != null)
 }
 ```
 
-Pokud se používá `UseStatusCodePages*` přetížení body do koncového bodu v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Například [dotnet nové](/dotnet/core/tools/dotnet-new) šablony pro aplikace Razor Pages vytvoří následující stránky a modelu třídy stránky:
+Použití `UseStatusCodePages*` přetížení body do koncového bodu v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Například [dotnet nové](/dotnet/core/tools/dotnet-new) šablony pro aplikace Razor Pages vytvoří následující stránky a modelu třídy stránky:
 
 *Error.cshtml*:
 
