@@ -179,8 +179,8 @@
 ### [Web API se sadou Visual Studio pro Mac](xref:tutorials/first-web-api-mac)
 ### [Web API pro nativní mobilní aplikace](xref:mobile/native-mobile-backend)
 ## Swagger / OpenAPI
-### [Přehled](xref:tutorials/get-started-with-swashbuckle)
-### [Stránky nápovědy pro Swagger](xref:tutorials/web-api-help-pages-using-swagger)
+### [Přehled](xref:tutorials/web-api-help-pages-using-swagger)
+### [Začínáme se službou Swashbuckle](xref:tutorials/get-started-with-swashbuckle)
 ### [Začínáme se službou NSwag](xref:tutorials/get-started-with-nswag)
 ## [Návratové typy akcí](xref:web-api/action-return-types)
 ## [Formátování dat odpovědi](xref:web-api/advanced/formatting)
