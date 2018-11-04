@@ -1,7 +1,7 @@
 ASP.NET Core nabízí následující výhody:
 
 * Jednotné prostředí pro vytváření webového uživatelského rozhraní a webových rozhraní API.
-* Navrženou pro [testovatelnosti](xref:test/index).
+* Navržený pro testovatelnost.
 * [Stránky Razor](xref:razor-pages/index) Díky kódování zaměřené na stránce scénáře jednodušší a produktivnější.
 * Možnost vyvíjet a spouštět ve Windows, macOS a Linuxu.
 * Architektura zaměřená na open-source a [komunitu](https://live.asp.net/)
