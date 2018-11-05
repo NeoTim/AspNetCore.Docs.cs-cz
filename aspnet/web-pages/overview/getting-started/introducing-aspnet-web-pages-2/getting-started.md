@@ -1,19 +1,19 @@
 ---
 uid: web-pages/overview/getting-started/introducing-aspnet-web-pages-2/getting-started
 title: Začínáme | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Služba WebMatrix už nedoporučuje jako integrované vývojové prostředí pro ASP.NET Web Pages. Pomocí sady Visual Studio nebo Visual Studio Code. Tyto doprovodné materiály...
 ms.author: riande
 ms.date: 05/28/2015
 ms.assetid: a36d3bdf-ef1b-47a4-b932-3a0cf4cad716
 msc.legacyurl: /web-pages/overview/getting-started/introducing-aspnet-web-pages-2/getting-started
 msc.type: authoredcontent
-ms.openlocfilehash: 467239fdd2758240e589f4e1bfb40501502b83cf
-ms.sourcegitcommit: f43f430a166a7ec137fcad12ded0372747227498
+ms.openlocfilehash: 79f76410e091b137e2792127b0a42524270761e8
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2018
-ms.locfileid: "49391268"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021492"
 ---
 <a name="getting-started"></a>Začínáme
 ====================

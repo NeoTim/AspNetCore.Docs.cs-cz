@@ -1,19 +1,19 @@
 ---
 uid: web-pages/overview/data/5-working-with-data
 title: Úvod k práci s databází v rozhraní ASP.NET Web Pages servery (Razor) | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Tato kapitola popisuje, jak přistupovat k datům z databáze a zobrazení pomocí rozhraní ASP.NET Web Pages.
 ms.author: riande
 ms.date: 02/18/2014
 ms.assetid: 673d502f-2c16-4a6f-bb63-dbfd9a77ef47
 msc.legacyurl: /web-pages/overview/data/5-working-with-data
 msc.type: authoredcontent
-ms.openlocfilehash: b6db23c6f9bba418dff7e6b50bbc1c54f13ccb70
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: a688761c87376aa93463c13eaa07858d3acb9dc2
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756666"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021687"
 ---
 <a name="introduction-to-working-with-a-database-in-aspnet-web-pages-razor-sites"></a>Úvod k práci s databází v rozhraní ASP.NET Web Pages servery (Razor)
 ====================

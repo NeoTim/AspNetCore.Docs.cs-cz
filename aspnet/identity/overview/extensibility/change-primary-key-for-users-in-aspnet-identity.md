@@ -1,19 +1,19 @@
 ---
 uid: identity/overview/extensibility/change-primary-key-for-users-in-aspnet-identity
 title: Změna primárního klíče pro uživatele v identitě ASP.NET | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Výchozí webová aplikace v sadě Visual Studio 2013, používá řetězcovou hodnotu pro klíč pro uživatelské účty. ASP.NET Identity umožňuje změnit typ...
 ms.author: riande
 ms.date: 09/30/2014
 ms.assetid: 44925849-5762-4504-a8cd-8f0cd06f6dc3
 msc.legacyurl: /identity/overview/extensibility/change-primary-key-for-users-in-aspnet-identity
 msc.type: authoredcontent
-ms.openlocfilehash: 2ec9894df2f9a48ef482715ce71bb09fb4758127
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: d2856ce1ca61a29e091bfbd16647b673e6fc659b
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41752917"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021102"
 ---
 <a name="change-primary-key-for-users-in-aspnet-identity"></a>Změna primárního klíče uživatelů v ASP.NET Identity
 ====================

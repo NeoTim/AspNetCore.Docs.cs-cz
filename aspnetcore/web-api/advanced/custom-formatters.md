@@ -5,12 +5,12 @@ description: Zjistěte, jak vytvořit a použít vlastní formátovací moduly p
 ms.author: tdykstra
 ms.date: 02/08/2017
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: a038cd9c05950333fce9e72f67d6721198fae4d3
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: ee6f166ced41c41506f2a17a7d362399c165b718
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206312"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51020647"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>Vlastní formátování v rozhraní Web API ASP.NET Core
 
@@ -51,6 +51,8 @@ Typ média textu (například soubor vCard), jsou odvozeny z [TextInputFormatter
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=classdef)]
 
+Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
+
 Pro binární typy jsou odvozeny z [InputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.inputformatter) nebo [OutputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformatter) základní třídy.
 
 ### <a name="specify-valid-media-types-and-encodings"></a>Zadejte platné médium typy a kódování
@@ -58,6 +60,8 @@ Pro binární typy jsou odvozeny z [InputFormatter](/dotnet/api/microsoft.aspnet
 V konstruktoru, určete přidáním do platné médium typy a kódování `SupportedMediaTypes` a `SupportedEncodings` kolekce.
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=ctor&highlight=3,5-6)]
+
+Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
 
 > [!NOTE]
 > Injektáž závislostí konstruktoru ve třídě formátovacího modulu nelze provést. Například nelze získat protokolovač tak, že přidáte parametr protokolovač konstruktoru. Pro přístup ke službám, budete muset použít objekt kontextu, který získá předán do metody. Příklad kódu [níže](#read-write) ukazuje, jak to provést.
@@ -67,6 +71,8 @@ V konstruktoru, určete přidáním do platné médium typy a kódování `Suppo
 Určení typu lze deserializovat do nebo z serializovat tak, že přepíšete `CanReadType` nebo `CanWriteType` metody. Například může být pouze budete moci vytvořit vCard text z `Contact` typu a naopak.
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=canwritetype)]
+
+Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
 
 #### <a name="the-canwriteresult-method"></a>CanWriteResult – metoda
 
@@ -84,6 +90,8 @@ Předpokládejme například, vrátí podpis metody akce `Person` typu, ale mů�
 Vykonávají samotnou práci rušení serializace nebo serializace v `ReadRequestBodyAsync` nebo `WriteResponseBodyAsync`. Zvýrazněné řádky v následujícím příkladu ukazují, jak získat služby z kontejneru pro vkládání závislosti (je již nelze získat z parametrů konstruktoru).
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=writeresponse&highlight=3-4)]
+
+Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
 
 ## <a name="how-to-configure-mvc-to-use-a-custom-formatter"></a>Jak nakonfigurovat MVC pomocí vlastního formátovacího modulu
 

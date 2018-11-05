@@ -1,19 +1,19 @@
 ---
 uid: web-pages/overview/ui-layouts-and-themes/10-working-with-video
 title: Zobrazení videa v ASP.NET Web Pages lokality (Razor) | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Tato kapitola popisuje zobrazení videa ASP.NET Web Pages se stránkou pro syntaxi Razor.
 ms.author: riande
 ms.date: 02/20/2014
 ms.assetid: 332fb3da-e2a5-460d-bb90-dd911e1e2c95
 msc.legacyurl: /web-pages/overview/ui-layouts-and-themes/10-working-with-video
 msc.type: authoredcontent
-ms.openlocfilehash: 28884d8c4998ea5b00a60bf094f41b915b565bd8
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 8f4b7186ae5c7b7b384ebcb23f7c9ad65caeb0bd
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41754317"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021037"
 ---
 <a name="displaying-video-in-an-aspnet-web-pages-razor-site"></a>Zobrazení videa na webu rozhraní ASP.NET Web Pages (Razor)
 ====================

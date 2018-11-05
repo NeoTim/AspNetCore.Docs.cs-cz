@@ -1,19 +1,19 @@
 ---
 uid: web-pages/overview/ui-layouts-and-themes/4-working-with-forms
 title: Práce s formuláři HTML na webech ASP.NET Web Pages (Razor) | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Formulář je část dokumentu HTML místo, kam dáte ovládací prvky vstupu uživatele, jako jsou textová pole, zaškrtávací políčka, přepínače a rozevírací seznamy. Použití formulářů co...
 ms.author: riande
 ms.date: 02/10/2014
 ms.assetid: f3f4b8c8-e8f6-4474-ad94-69228a6c01ee
 msc.legacyurl: /web-pages/overview/ui-layouts-and-themes/4-working-with-forms
 msc.type: authoredcontent
-ms.openlocfilehash: 3f4effecb3b871f1bd7db1cd2a7aab6eeca80c50
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: de700055168f9d17167c82afe836b546160c6e91
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41752622"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021612"
 ---
 <a name="working-with-html-forms-in-aspnet-web-pages-razor-sites"></a>Práce s formuláři HTML v lokalitách rozhraní ASP.NET Web Pages (Razor)
 ====================

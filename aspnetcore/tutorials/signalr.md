@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 08/31/2018
 uid: tutorials/signalr
-ms.openlocfilehash: fcfe2fa6cc88b9eee1389e171fa5eb7711b4f14f
-ms.sourcegitcommit: fc2486ddbeb15ab4969168d99b3fe0fbe91e8661
+ms.openlocfilehash: 7d9f3a3f8aa7a5e47169da66e6fa2d6a28de3853
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2018
-ms.locfileid: "50758125"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021245"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s knihovnou SignalR technologie ASP.NET Core
 
@@ -69,12 +69,13 @@ Na konci budete mít funkční aplikaci chatu:
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code/)
 
-* Otevřete složku, která můžete použít pro nový projekt.
+* Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal) do složky, ve kterém bude vytvořena nová složka projektu.
 
-* V [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal), spusťte následující příkaz:
+* Spusťte následující příkazy:
 
    ```console
    dotnet new webapp -o SignalRChat
+   code -r SignalRChat
    ```
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
@@ -113,13 +114,11 @@ Je součástí serveru knihovny SignalR `Microsoft.AspNetCore.App` Microsoft.asp
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code/)
 
-* V **integrovaný terminál**, spusťte následující příkaz k instalaci LibMan.
+* V integrovaném terminálu spusťte následující příkaz k instalaci LibMan.
 
   ```console
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
-
-* Přejděte do složky projektu (ten, který obsahuje *SignalRChat.csproj* souboru).
 
 * Spusťte následující příkaz s použitím LibMan získat klientské knihovně SignalR. Budete muset počkat několik sekund, než výstup.
 
@@ -225,8 +224,12 @@ Na serveru funkce SignalR nastavené předat požadavky SignalR SignalR.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* Stisknutím klávesy **CTRL + F5** a spusťte tak aplikaci bez ladění.
+* V integrovaném terminálu spusťte následující příkaz:
 
+  ```console
+  dotnet run -p SignalRChat
+  ```
+  
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * V nabídce vyberte **spuštění > Spustit bez ladění**.

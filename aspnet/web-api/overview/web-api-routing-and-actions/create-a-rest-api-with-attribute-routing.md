@@ -8,12 +8,12 @@ ms.date: 06/26/2013
 ms.assetid: 23fc77da-2725-4434-99a0-ff872d96336b
 msc.legacyurl: /web-api/overview/web-api-routing-and-actions/create-a-rest-api-with-attribute-routing
 msc.type: authoredcontent
-ms.openlocfilehash: 3b66f02c9be6441ff7d6c38d6180cc8556c6b8b9
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 18a44c280e6df1603837938d24d7d639d8c87cc2
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912888"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021414"
 ---
 <a name="create-a-rest-api-with-attribute-routing-in-aspnet-web-api-2"></a>Vytvořit rozhraní REST API se směrováním atributů ve rozhraní ASP.NET Web API 2
 ====================
@@ -52,11 +52,11 @@ Pro většinu požadavků, ale rozhraní API vrátí podmnožinu těchto dat (n�
 
 Začněte tím, že spustíte Visual Studio. Z **souboru** nabídce vyberte možnost **nový** a pak vyberte **projektu**.
 
-Rozbalte **nainstalováno** > **Visual C#** kategorie. V části **Visual C#** vyberte **webové**. V seznamu šablon projektu vyberte **webové aplikace ASP.NET MVC 4**. Pojmenujte projekt &quot;BooksAPI&quot;.
+Rozbalte **nainstalováno** > **Visual C#** kategorie. V části **Visual C#** vyberte **webové**. V seznamu šablon projektu vyberte **webová aplikace ASP.NET (.NET Framework)**. Pojmenujte projekt &quot;BooksAPI&quot;.
 
 ![](create-a-rest-api-with-attribute-routing/_static/image1.png)
 
-V **nový projekt ASP.NET** dialogového okna, vyberte **prázdný** šablony. V části "Přidat složky a základní odkazy pro" vyberte **webového rozhraní API** zaškrtávací políčko. Klikněte na tlačítko **vytvoření projektu**.
+V **nová webová aplikace ASP.NET** dialogového okna, vyberte **prázdný** šablony. V části "Přidat složky a základní odkazy pro" vyberte **webového rozhraní API** zaškrtávací políčko. Klikněte na tlačítko **OK**.
 
 ![](create-a-rest-api-with-attribute-routing/_static/image2.png)
 
@@ -86,7 +86,7 @@ V Průzkumníku řešení klikněte pravým tlačítkem myši na složku řadič
 
 ![](create-a-rest-api-with-attribute-routing/_static/image4.png)
 
-V **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte možnost "webového rozhraní API 2 kontroler s akcemi čtení/zápisu pomocí Entity Frameworku."
+V **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **Kontroleru webového rozhraní API 2 s akcemi používající nástroj Entity Framework**.
 
 [![](create-a-rest-api-with-attribute-routing/_static/image6.png)](create-a-rest-api-with-attribute-routing/_static/image5.png)
 

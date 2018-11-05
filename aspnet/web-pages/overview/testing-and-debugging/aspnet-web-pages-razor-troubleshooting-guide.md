@@ -1,21 +1,21 @@
 ---
 uid: web-pages/overview/testing-and-debugging/aspnet-web-pages-razor-troubleshooting-guide
 title: ASP.NET – webové stránky příručky pro řešení potíží (Razor) | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Tento článek popisuje problémy, které můžete mít při práci s webových stránek ASP.NET (Razor) a některé doporučené řešení. Verze softwaru Úvo ASP.NET Web...
 ms.author: riande
 ms.date: 02/10/2014
 ms.assetid: 2a2c1833-0bfe-4e2e-9cc0-341b52c7b121
 msc.legacyurl: /web-pages/overview/testing-and-debugging/aspnet-web-pages-razor-troubleshooting-guide
 msc.type: authoredcontent
-ms.openlocfilehash: c27139a720decd34a4ab89e6f93e71c97d123b45
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: ec8cdda5c5b298736a650f82cd6b52d73b6dfe3d
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41752607"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021193"
 ---
-<a name="aspnet-web-pages-razor-troubleshooting-guide"></a>ASP.NET – webové stránky příručky pro řešení potíží (Razor)
+<a name="aspnet-web-pages-razor-troubleshooting-guide"></a>Webové stránky ASP.NET (Razor) – průvodce řešením potíží
 ====================
 podle [Tom FitzMacken](https://github.com/tfitzmac)
 

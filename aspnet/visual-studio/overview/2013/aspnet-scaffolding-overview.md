@@ -1,21 +1,21 @@
 ---
 uid: visual-studio/overview/2013/aspnet-scaffolding-overview
 title: Generování uživatelského rozhraní ASP.NET v sadě Visual Studio 2013 | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Generování uživatelského rozhraní technologie ASP.NET je nová funkce, která je zahrnutá v sadě Visual Studio 2013.
 ms.author: riande
 ms.date: 04/09/2014
 ms.assetid: a41ec9d4-8287-4f31-9e2a-460e7b7f04be
 msc.legacyurl: /visual-studio/overview/2013/aspnet-scaffolding-overview
 msc.type: authoredcontent
-ms.openlocfilehash: c554f592e57f2e6017f7fcfcc9b4c98051e21b37
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 4246a52ad1d10da04a2a214f9dba6a935a9e9e72
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755246"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51020972"
 ---
-<a name="aspnet-scaffolding-in-visual-studio-2013"></a>Generování uživatelského rozhraní ASP.NET v sadě Visual Studio 2013
+<a name="aspnet-scaffolding-in-visual-studio-2013"></a>Vygenerování uživatelského rozhraní ASP.NET v sadě Visual Studio 2013
 ====================
 podle [Tom FitzMacken](https://github.com/tfitzmac)
 

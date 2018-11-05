@@ -1,21 +1,21 @@
 ---
 uid: web-pages/overview/getting-started/aspnet-web-pages-razor-faq
 title: Webové stránky ASP.NET (Razor) – nejčastější dotazy | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Tento článek uvádí některé časté otázky ke správě webových stránek ASP.NET (Razor) a službě WebMatrix. Verze softwaru použít kurz ASP.NET Web Pages (R...
 ms.author: riande
 ms.date: 02/07/2014
 ms.assetid: b137bd04-25e1-47cb-9d96-ef2e179ecf1f
 msc.legacyurl: /web-pages/overview/getting-started/aspnet-web-pages-razor-faq
 msc.type: authoredcontent
-ms.openlocfilehash: 03e89adc2415808ea49107616f529fa895d6e52a
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 27bfbe782455a5f8cf5096953c91712988b8dcab
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756482"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021050"
 ---
-<a name="aspnet-web-pages-razor-faq"></a>Webové stránky ASP.NET (Razor) – nejčastější dotazy
+<a name="aspnet-web-pages-razor-faq"></a>Webové stránky ASP.NET (Razor) – časté otázky
 ====================
 podle [Tom FitzMacken](https://github.com/tfitzmac)
 

@@ -1,19 +1,19 @@
 ---
 uid: web-pages/overview/getting-started/introducing-aspnet-web-pages-2/entering-data
 title: Představení rozhraní ASP.NET Web Pages – zadávání dat do databáze pomocí formulářů | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: V tomto kurzu se dozvíte, jak vytvořit formulář pro zadávání a zadejte data, která získáte z formuláře do databázové tabulky pomocí rozhraní ASP.NET Web Pages (...)
 ms.author: riande
 ms.date: 05/28/2015
 ms.assetid: d37c93fc-25fd-4e94-8671-0d437beef206
 msc.legacyurl: /web-pages/overview/getting-started/introducing-aspnet-web-pages-2/entering-data
 msc.type: authoredcontent
-ms.openlocfilehash: 453ed888bc219175c5a3a25f857dfa79ab22b608
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: e40d2962ccac56eaaf4812819aa42168e69295bc
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756479"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021726"
 ---
 <a name="introducing-aspnet-web-pages---entering-database-data-by-using-forms"></a>Představení rozhraní ASP.NET Web Pages – zadávání dat do databáze pomocí formulářů
 ====================

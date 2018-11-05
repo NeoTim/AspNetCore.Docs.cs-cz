@@ -1,19 +1,19 @@
 ---
 uid: web-pages/overview/getting-started/introducing-aspnet-web-pages-2/deleting-data
 title: Představení rozhraní ASP.NET Web Pages – odstranění databázových dat | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: V tomto kurzu se dozvíte, jak odstranit položku jednotlivých databází. Předpokládá se, že jste dokončili řady prostřednictvím aktualizace dat z databáze v prostředí ASP.NET Pa...
 ms.author: riande
 ms.date: 01/02/2018
 ms.assetid: 75b5c1cf-84bd-434f-8a86-85c568eb5b09
 msc.legacyurl: /web-pages/overview/getting-started/introducing-aspnet-web-pages-2/deleting-data
 msc.type: authoredcontent
-ms.openlocfilehash: 3b759a5c88b066640005c823ce0cc3cc3ac89bc2
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: b2ef8fcc8cc534bd31fea83bf0b085b85995f417
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41752022"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51020439"
 ---
 <a name="introducing-aspnet-web-pages---deleting-database-data"></a>Úvod do webových stránek ASP.NET – odstranění databázových dat
 ====================

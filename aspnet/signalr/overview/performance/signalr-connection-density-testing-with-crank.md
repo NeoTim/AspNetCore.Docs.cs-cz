@@ -1,21 +1,21 @@
 ---
 uid: signalr/overview/performance/signalr-connection-density-testing-with-crank
 title: Funkce SignalR testování hustoty připojení nástrojem Crank | Dokumentace Microsoftu
-author: tfitzmac
-description: Funkce SignalR testování hustoty připojení nástrojem Crank
+author: Rick-Anderson
+description: Testování hustoty připojení nástrojem Crank
 ms.author: riande
 ms.date: 02/22/2015
 ms.assetid: 148d9ca7-1af1-44b6-a9fb-91e261b9b463
 msc.legacyurl: /signalr/overview/performance/signalr-connection-density-testing-with-crank
 msc.type: authoredcontent
-ms.openlocfilehash: feda4906995c6a5b25de4bc54ef96b2d6803eb59
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 556accb1bcc18e9e4d1f813a87fc6f4b67bda088
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756884"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021479"
 ---
-<a name="signalr-connection-density-testing-with-crank"></a>Funkce SignalR testování hustoty připojení nástrojem Crank
+<a name="signalr-connection-density-testing-with-crank"></a>Testování hustoty připojení nástrojem Crank
 ====================
 podle [Tom FitzMacken](https://github.com/tfitzmac)
 

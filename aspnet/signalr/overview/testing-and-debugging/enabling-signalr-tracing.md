@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/testing-and-debugging/enabling-signalr-tracing
 title: Povolení trasování knihovnou SignalR | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Tento dokument popisuje, jak povolit a nakonfigurovat trasování pro funkci SignalR servery a klienty. Trasování umožňuje zobrazit diagnostické informace o události...
 ms.author: riande
 ms.date: 08/08/2014
 ms.assetid: 30060acb-be3e-4347-996f-3870f0c37829
 msc.legacyurl: /signalr/overview/testing-and-debugging/enabling-signalr-tracing
 msc.type: authoredcontent
-ms.openlocfilehash: 89b27267bec5edb0692fe75061d08b4688df5a8c
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 6ab9a5de16a1440d14f7526c0cd417592ba415db
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912063"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021323"
 ---
 <a name="enabling-signalr-tracing"></a>Povolení trasování knihovnou SignalR
 ====================

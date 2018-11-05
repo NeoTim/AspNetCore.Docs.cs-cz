@@ -1,19 +1,19 @@
 ---
 uid: web-pages/overview/performance-and-traffic/14-analyzing-traffic
 title: Sledování návštěvníka informace (Analytics) pro webové stránky ASP.NET (Razor) lokality | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Poté, co jste získali váš web bude, můžete analyzovat provoz vašeho webu.
 ms.author: riande
 ms.date: 02/17/2014
 ms.assetid: 360bc6e1-84c5-4b8e-a84c-ea48ab807aa4
 msc.legacyurl: /web-pages/overview/performance-and-traffic/14-analyzing-traffic
 msc.type: authoredcontent
-ms.openlocfilehash: aabe3177ba9479bfafafe81e1ea99a58f29d5271
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 57e6a0d4681f147faa5e9ca3b6ed0ef287d6a381
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41754877"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51020881"
 ---
 <a name="tracking-visitor-information-analytics-for-an-aspnet-web-pages-razor-site"></a>Sledování návštěvníka informace (Analytics) pro ASP.NET Web Pages (Razor)
 ====================

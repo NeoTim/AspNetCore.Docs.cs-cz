@@ -1,19 +1,19 @@
 ---
 uid: web-pages/overview/getting-started/introducing-razor-syntax-vb
 title: Úvod k programování v rozhraní ASP.NET Web používající syntaxi Razor (Visual Basic) | Dokumentace Microsoftu
-author: tfitzmac
+author: Rick-Anderson
 description: Tento dodatek poskytuje přehled o programování s webovými stránkami ASP.NET v jazyce Visual Basic pomocí syntaxe Razor.
 ms.author: riande
 ms.date: 02/07/2014
 ms.assetid: 5da59646-e973-41cd-88a9-c6b2c0594027
 msc.legacyurl: /web-pages/overview/getting-started/introducing-razor-syntax-vb
 msc.type: authoredcontent
-ms.openlocfilehash: cbec035533c37723afcd5bf4aa0c6e1c83dbae23
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 17a3a4925766b74446955a8e3a6fddbf9d29a721
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756843"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021700"
 ---
 <a name="introduction-to-aspnet-web-programming-using-the-razor-syntax-visual-basic"></a>Úvod k programování v rozhraní ASP.NET Web používající syntaxi Razor (Visual Basic)
 ====================
@@ -275,13 +275,13 @@ Následující tabulka uvádí některé běžné metody převodu a testování 
 
 :::row:::
     :::column:::
-        <strong>– Metoda</strong>
+        <strong>Method</strong>
     :::column-end:::
     :::column:::
-        <strong>Popis</strong>
+        <strong>Description</strong>
     :::column-end:::
     :::column:::
-        <strong>Příklad</strong>
+        <strong>Example</strong>
     :::column-end:::
 :::row-end:::
 * * *
@@ -290,7 +290,7 @@ Následující tabulka uvádí některé běžné metody převodu a testování 
         `AsInt(), IsInt()`
     :::column-end:::
     :::column:::
-        Převede řetězec představující celé číslo (například &quot;593&quot;) na celé číslo.
+        Converts a string that represents a whole number (like &quot;593&quot;) to an integer.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample23.vb)]
@@ -302,7 +302,7 @@ Následující tabulka uvádí některé běžné metody převodu a testování 
         `AsBool(), IsBool()`
     :::column-end:::
     :::column:::
-        Převede řetězec jako &quot;true&quot; nebo &quot;false&quot; s typem Boolean.
+        Converts a string like &quot;true&quot; or &quot;false&quot; to a Boolean type.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample24.vb)]
@@ -314,7 +314,7 @@ Následující tabulka uvádí některé běžné metody převodu a testování 
         `AsFloat(), IsFloat()`
     :::column-end:::
     :::column:::
-        Převede řetězec obsahující desetinná hodnota jako &quot;1.3&quot; nebo &quot;7.439&quot; na číslo s plovoucí desetinnou čárkou.
+        Converts a string that has a decimal value like &quot;1.3&quot; or &quot;7.439&quot; to a floating-point number.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample25.vb)]
@@ -326,7 +326,8 @@ Následující tabulka uvádí některé běžné metody převodu a testování 
         `AsDecimal(), IsDecimal()`
     :::column-end:::
     :::column:::
-        Převede řetězec obsahující desetinná hodnota jako &quot;1.3&quot; nebo &quot;7.439&quot; na desetinné číslo. (V technologii ASP.NET je přesnější než číslo s plovoucí desetinnou čárkou desetinné číslo.) :::column-end:::
+        Converts a string that has a decimal value like &quot;1.3&quot; or &quot;7.439&quot; to a decimal number. (In ASP.NET, a decimal number is more precise than a floating-point number.)
+    :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample26.vb)]
     :::column-end:::
@@ -337,7 +338,7 @@ Následující tabulka uvádí některé běžné metody převodu a testování 
         `AsDateTime(), IsDateTime()`
     :::column-end:::
     :::column:::
-        Převede řetězec představující hodnotu data a času na ASP.NET `DateTime` typu.
+        Converts a string that represents a date and time value to the ASP.NET `DateTime` type.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample27.vb)]
@@ -349,7 +350,7 @@ Následující tabulka uvádí některé běžné metody převodu a testování 
         `ToString()`
     :::column-end:::
     :::column:::
-        Převede jakýkoli jiný typ dat na řetězec.
+        Converts any other data type to a string.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample28.vb)]
@@ -364,13 +365,13 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
 
 :::row:::
     :::column:::
-        <strong>– Operátor</strong>
+        <strong>Operator</strong>
     :::column-end:::
     :::column:::
-        <strong>Popis</strong>
+        <strong>Description</strong>
     :::column-end:::
     :::column:::
-        <strong>Příklady</strong>
+        <strong>Examples</strong>
     :::column-end:::
 :::row-end:::
 * * *
@@ -379,7 +380,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `+ - * /`
     :::column-end:::
     :::column:::
-        Matematické operátory používat ve výrazech pro číselná.
+        Math operators used in numerical expressions.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample29.vb)]
@@ -391,7 +392,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `=`
     :::column-end:::
     :::column:::
-        Přiřazení a rovnosti. V závislosti na kontextu buď přiřadí hodnotu na pravé straně příkazu na objekt na levé straně nebo zkontroluje hodnoty na rovnost.
+        Assignment and equality. Depending on context, either assigns the value on the right side of a statement to the object on the left side, or checks the values for equality.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample30.vb)]
@@ -403,7 +404,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `<>`
     :::column-end:::
     :::column:::
-        Nerovnost. Vrátí `True` Pokud hodnoty nejsou shodné.
+        Inequality. Returns `True` if the values are not equal.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample31.vb)]
@@ -415,7 +416,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `< > <= >=`
     :::column-end:::
     :::column:::
-        Menší než, větší než, menší než nebo rovno a větší než nebo rovno.
+        Less than, greater than, less than or equal, and greater than or equal.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample32.vb)]
@@ -427,7 +428,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `&`
     :::column-end:::
     :::column:::
-        Zřetězení, který se používá pro připojení řetězce.
+        Concatenation, which is used to join strings.
     :::column-end:::
     :::column:::
         [!code-vbhtml[Main](introducing-razor-syntax-vb/samples/sample33.vbhtml)]
@@ -439,7 +440,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `+= -=`
     :::column-end:::
     :::column:::
-        Přírůstek a snížení operátory, které operátorů sčítání a odečítání 1 (v uvedeném pořadí) z proměnné.
+        The increment and decrement operators, which add and subtract 1 (respectively) from a variable.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample34.vb)]
@@ -451,7 +452,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `.`
     :::column-end:::
     :::column:::
-        Tečka. Použít k rozlišení objekty a jejich vlastnosti a metody.
+        Dot. Used to distinguish objects and their properties and methods.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample35.vb)]
@@ -463,7 +464,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `()`
     :::column-end:::
     :::column:::
-        Závorky. Skupinové výrazy, lze pro předání parametrů k metodám a chcete získat přístup ke členům pole a kolekce.
+        Parentheses. Used to group expressions, to pass parameters to methods, and to access members of arrays and collections.
     :::column-end:::
     :::column:::
         [!code-vbhtml[Main](introducing-razor-syntax-vb/samples/sample36.vbhtml)]
@@ -475,7 +476,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `Not`
     :::column-end:::
     :::column:::
-        Není. Vrátí hodnotu true na false a naopak. Obvykle se používá jako zjednodušený způsob, jak otestovat pro `False` (to znamená pro není `True`).
+        Not. Reverses a true value to false and vice versa. Typically used as a shorthand way to test for `False` (that is, for not `True`).
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample37.vb)]
@@ -487,7 +488,7 @@ Operátor je klíčové slovo nebo znak, který říká technologie ASP.NET, jak
         `AndAlso OrElse`
     :::column-end:::
     :::column:::
-        Logický operátor AND a které se používají k propojení podmínky společně.
+        Logical AND and OR, which are used to link conditions together.
     :::column-end:::
     :::column:::
         [!code-vb[Main](introducing-razor-syntax-vb/samples/sample38.vb)]

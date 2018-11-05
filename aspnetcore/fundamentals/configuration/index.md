@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/09/2018
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 2af66c0f35109dc1de954bf501f33ad61ddef4db
-ms.sourcegitcommit: 85f2939af7a167b9694e1d2093277ffc9a741b23
+ms.openlocfilehash: 6dd478770d4eae4d497da576c17fbe7d2c133b89
+ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/02/2018
-ms.locfileid: "50968368"
+ms.lasthandoff: 11/05/2018
+ms.locfileid: "51021739"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -1151,6 +1151,7 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "path/to/files");
                 config.AddKeyPerFile(directoryPath: path, optional: true);
             })
             .UseStartup<Startup>();
@@ -1509,13 +1510,13 @@ viewModel.TvShow = tvShow;
 
 Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tabulce.
 
-| Key     | Hodnota  |
-| :-----: | :----: |
-| pole: 0 | gamma0 |
-| pole: 1 | Hodnota1 |
-| pole: 2 | Hodnota2 |
-| pole: 4 | value4 |
-| pole: 5 | Hodnota5 |
+| Key             | Hodnota  |
+| :-------------: | :----: |
+| pole: položky: 0 | gamma0 |
+| pole: položek: 1 | Hodnota1 |
+| pole: položek: 2 | Hodnota2 |
+| pole: položek: 4 | value4 |
+| pole: položek: 5 | Hodnota5 |
 
 Tyto klíče a hodnoty jsou načteny v ukázkové aplikaci pomocí zprostředkovatele konfigurace paměti:
 
@@ -1574,17 +1575,17 @@ _config.GetSection("array").Bind(arrayExample);
 
 Vázaný objekt, instance `ArrayExample`, přijímá data pole z konfigurace.
 
-| `ArrayExamples.Entries` Index | `ArrayExamples.Entries` Hodnota |
-| :---------------------------: | :---------------------------: |
-| 0                             | gamma0                        |
-| 1                             | Hodnota1                        |
-| 2                             | Hodnota2                        |
-| 3                             | value4                        |
-| 4                             | Hodnota5                        |
+| `ArrayExample.Entries` Index | `ArrayExample.Entries` Hodnota |
+| :--------------------------: | :--------------------------: |
+| 0                            | gamma0                       |
+| 1                            | Hodnota1                       |
+| 2                            | Hodnota2                       |
+| 3                            | value4                       |
+| 4                            | Hodnota5                       |
 
 Index &num;3 v vázaný objekt obsahuje konfigurační data pro `array:4` konfiguračního klíče a jeho hodnota `value4`. Když je vytvořena vazba konfigurační data obsahující pole, indexy pole v konfigurační klíče se používají pouze k iteraci konfiguračních dat při vytváření objektu. Hodnotu null nelze uchovávat v konfiguračních datech a položku s hodnotou null není vytvořená v vázaný objekt, když přeskočí jednu nebo více indexy pole v konfigurační klíče.
 
-Chybějící položky konfigurace pro index &num;3 může být zadán před vazbu `ArrayExamples` instance poskytovatelem žádné konfigurace, která vytváří správné páru klíč hodnota v konfiguraci. Pokud vzorek zahrnuje další poskytovatele konfigurace JSON s chybějící páru klíč hodnota, `ArrayExamples.Entries` odpovídá poli kompletní konfigurace:
+Chybějící položky konfigurace pro index &num;3 může být zadán před vazbu `ArrayExample` instance poskytovatelem žádné konfigurace, která vytváří správné páru klíč hodnota v konfiguraci. Pokud vzorek zahrnuje další poskytovatele konfigurace JSON s chybějící páru klíč hodnota, `ArrayExample.Entries` odpovídá poli kompletní konfigurace:
 
 *missing_value.JSON*:
 
@@ -1620,16 +1621,16 @@ Dvojice klíč hodnota v tabulce se načtou do konfigurace.
 | :-------------: | :----: |
 | pole: položek: 3 | hodnota3 |
 
-Pokud `ArrayExamples` instance třídy je vázán po poskytovatel konfigurace JSON obsahuje položku pro index &num;3, `ArrayExamples.Entries` pole obsahuje hodnotu.
+Pokud `ArrayExample` instance třídy je vázán po poskytovatel konfigurace JSON obsahuje položku pro index &num;3, `ArrayExample.Entries` pole obsahuje hodnotu.
 
-| `ArrayExamples.Entries` Index | `ArrayExamples.Entries` Hodnota |
-| :---------------------------: | :---------------------------: |
-| 0                             | gamma0                        |
-| 1                             | Hodnota1                        |
-| 2                             | Hodnota2                        |
-| 3                             | hodnota3                        |
-| 4                             | value4                        |
-| 5                             | Hodnota5                        |
+| `ArrayExample.Entries` Index | `ArrayExample.Entries` Hodnota |
+| :--------------------------: | :--------------------------: |
+| 0                            | gamma0                       |
+| 1                            | Hodnota1                       |
+| 2                            | Hodnota2                       |
+| 3                            | hodnota3                       |
+| 4                            | value4                       |
+| 5                            | Hodnota5                       |
 
 **Zpracování pole JSON**
 
