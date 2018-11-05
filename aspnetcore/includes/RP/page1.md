@@ -4,7 +4,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Tento kurz zkoumá stránky Razor vytvořené generování uživatelského rozhraní v předchozím kurzu. 
 
-[Zobrazení nebo stažení](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie) vzorku.
+[Zobrazení nebo stažení](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie21) vzorku.
 
 ## <a name="the-create-delete-details-and-edit-pages"></a>Vytvoření, odstranění, podrobností a upravit stránky.
 
@@ -101,7 +101,7 @@ Změnit `<title>` prvek *Pages/Shared/_Layout.cshtml* souboru použijte kratší
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/Pages/_Layout.cshtml?range=1-6&highlight=6)]
 
-Vyhledejte následující element anchor v *Pages/_Layout.cshtml* souboru.
+Vyhledejte následující element anchor v *Pages/Shared/_Layout.cshtml* souboru.
 
 ```cshtml
 <a asp-page="/Index" class="navbar-brand">RazorPagesMovie</a>
@@ -114,7 +114,7 @@ Nahraďte následující značky předchozí prvek.
 
 Předchozí element anchor je [pomocné rutiny značky](xref:mvc/views/tag-helpers/intro). V tomto případě má [ukotvení pomocné rutiny značky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper). `asp-page="/Movies/Index"` Pomocné rutiny značky atribut a hodnota vytvoří odkaz `/Movies/Index` stránky Razor.
 
-Uložte změny a otestujte aplikaci po kliknutí na **RpMovie** odkaz. Zobrazit [_Layout.cshtml](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/Pages/_Layout.cshtml) souboru na Githubu.
+Uložte změny a otestujte aplikaci po kliknutí na **RpMovie** odkaz. Zobrazit [_Layout.cshtml](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/Pages/Shared/_Layout.cshtml) souboru na Githubu.
 
 ### <a name="the-create-page-model"></a>Vytvořit model stránky
 
