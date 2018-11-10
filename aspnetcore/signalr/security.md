@@ -5,14 +5,14 @@ description: Další informace o použití ověřování a autorizace v knihovn�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
-ms.date: 11/06/2018
+ms.date: 10/17/2018
 uid: signalr/security
-ms.openlocfilehash: f646d319cf3030fd4d769e882514da14b230bbdd
-ms.sourcegitcommit: c3fa5aded0bf76a7414047d50b8a2311d27ee1ef
-ms.translationtype: MT
+ms.openlocfilehash: be1dd24c40327d9a0d8f91bf75300128d3d52725
+ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/08/2018
-ms.locfileid: "51276142"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51225366"
 ---
 # <a name="security-considerations-in-aspnet-core-signalr"></a>Informace o zabezpečení ve funkci SignalR technologie ASP.NET Core
 
@@ -35,7 +35,7 @@ Další informace o konfiguraci CORS, najdete v části [povolení prostředků 
 * Metody HTTP `GET` a `POST` musí být povoleno.
 * Přihlašovací údaje musí být povolena, i když se ověřování nepoužívá.
 
-Například následující zásadu CORS umožňuje klientovi SignalR prohlížeče hostované na `https://example.com` přístup k aplikaci SignalR hostitelem `https://signalr.example.com`:
+Například následující zásadu CORS umožňuje klientovi SignalR prohlížeče hostované na `http://example.com` přístup k aplikaci SignalR hostitelem `http://signalr.example.com`:
 
 [!code-csharp[Main](security/sample/Startup.cs?name=snippet1)]
 
@@ -70,14 +70,7 @@ V ASP.NET Core 2.1 nebo novější, hlavičky ověření lze dosáhnout pomocí 
 
 ## <a name="access-token-logging"></a>Protokolování token přístupu
 
-Při použití Server-Sent události nebo protokoly Websocket, klientský prohlížeč odesílá přístupový token v řetězci dotazu. Přijetí přístupový token pomocí řetězce dotazu, je obecně stejně bezpečné jako použití standardní `Authorization` záhlaví. Používejte vždy HTTPS k zajištění zabezpečené připojení mezi klientem a serverem začátku do konce. Mnoho webových serverů protokolu adresu URL pro každý požadavek, včetně řetězec dotazu. Protokolování adresy URL může protokolovat přístupový token. ASP.NET Core protokoly ve výchozím nastavení, která bude obsahovat řetězec dotazu adresy URL pro každý požadavek. Příklad:
-
-```
-info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
-      Request starting HTTP/1.1 GET http://localhost:5000/myhub?access_token=1234
-```
-
-Pokud máte obavy o protokolování tato data pomocí protokolů serveru, můžete zakázat protokolování zcela podle konfigurace `Microsoft.AspNetCore.Hosting` protokolovacího nástroje k `Warning` úroveň nebo novější (tyto zprávy se zapisují na `Info` úroveň). Naleznete v dokumentaci [filtrování protokolu](xref:fundamentals/logging/index#log-filtering) Další informace. Pokud stále chcete protokolovat určité informace o žádostech, můžete [zápisu middleware](xref:fundamentals/middleware/index#write-middleware) protokolování dat vyžadují a filtrování `access_token` dotazování řetězcovou hodnotu (pokud existuje).
+Při použití Server-Sent události nebo protokoly Websocket, klientský prohlížeč odesílá přístupový token v řetězci dotazu. Přijetí přístupový token pomocí řetězce dotazu, je obecně stejně bezpečné jako použití standardní `Authorization` záhlaví. Však mnohé webové servery protokolu adresu URL pro každý požadavek, včetně řetězec dotazu. Protokolování adresy URL může protokolovat přístupový token. Osvědčeným postupem je nastavení webového serveru protokolování zabránit protokolování přístupové tokeny.
 
 ## <a name="exceptions"></a>Výjimky
 
