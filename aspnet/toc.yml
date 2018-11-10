@@ -3,7 +3,7 @@ items:
   href: overview.md
 - name: Kurzy
   href: tutorials.md
-- name: Webové formuláře
+- name: webové formuláře
   href: web-forms/index.md
   items:
   - name: Doprovodné materiály
@@ -1922,7 +1922,7 @@ items:
       - name: Datové ovládací prvky
         href: web-forms/videos/aspnet-35/data-controls/index.md
         items:
-        - name: Ovládací prvek ListView
+        - name: ListView – ovládací prvek
           href: web-forms/videos/aspnet-35/data-controls/the-listview-control.md
         - name: Ovládací prvek DataPager
           href: web-forms/videos/aspnet-35/data-controls/the-datapager-control.md
@@ -2499,7 +2499,7 @@ items:
           href: mvc/overview/older-versions-1/security/authenticating-users-with-windows-authentication-vb.md
         - name: Prevence útoků založených na injektáži JavaScriptu (VB)
           href: mvc/overview/older-versions-1/security/preventing-javascript-injection-attacks-vb.md
-      - name: Testování jednotek
+      - name: Testování částí
         href: mvc/overview/older-versions-1/unit-testing/index.md
         items:
         - name: Vytváření testů jednotek pro aplikace ASP.NET MVC (C#)
@@ -3398,7 +3398,7 @@ items:
   href: visual-studio/overview/2017/index.md
   items:
   - name: Optimalizace výkonu sestavení pro řešení
-    href: xref:visual-studio/overview/2017/optimize-build-perf
+    href: uid:visual-studio/overview/2017/optimize-build-perf
 - name: Visual Studio 2013
   href: visual-studio/overview/2013/index.md
   items:
@@ -3808,9 +3808,9 @@ items:
     href: whitepapers/whats-new-in-aspnet-45-and-visual-studio-2012.md
 - name: referenční dokumentace k rozhraní API
   href: api-ref.md
-ms.openlocfilehash: 14f07082a8936c9ce789f5b9c7dc5bcca0e26cd4
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 3b3ab67607b26618e07d8e2b0512775a3f3340de
+ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50208038"
+ms.lasthandoff: 11/06/2018
+ms.locfileid: "51191383"
