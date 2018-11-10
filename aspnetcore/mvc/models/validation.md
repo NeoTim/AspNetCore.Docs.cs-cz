@@ -4,14 +4,14 @@ author: tdykstra
 description: Další informace o ověření modelu v ASP.NET Core MVC.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 11/06/2018
 uid: mvc/models/validation
-ms.openlocfilehash: 1063fdccb97e55e6b0eb6689187134ff41c10a02
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: f1757f807e50019e5071abc42ec3129935ab77aa
+ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253153"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51225457"
 ---
 # <a name="model-validation-in-aspnet-core-mvc"></a>Ověření modelu v ASP.NET Core MVC
 
@@ -33,10 +33,10 @@ Ověřování atributů představují způsob, jak nakonfigurovat ověřování 
 
 Jsou zadané atributy ověření na úrovni vlastnost: 
 
-```csharp 
-[Required] 
+```csharp
+[Required]
 public string MyProperty { get; set; } 
-``` 
+```
 
 Níže je s poznámkami `Movie` modelů z aplikace, která uchovává informace o filmů a televizních pořadů. Většina vlastností jsou povinné a několik vlastností řetězce mají požadavky na délku. Kromě toho je omezení číselného rozsahu v místě `Price` vlastnost od 0 do $999,99, spolu s vlastní ověřovací atribut.
 
@@ -82,13 +82,19 @@ Ověřování na straně klienta vyžaduje hodnotu pro pole formuláře, který 
 
 Stav modelu představuje chyb při ověřování v zadané hodnoty formuláře HTML.
 
-MVC bude pokračovat až do dosáhne ověřování polí maximální počet chyb (200 ve výchozím nastavení). Toto číslo můžete nakonfigurovat tak, že vloží následující kód do `ConfigureServices` metodu *Startup.cs* souboru:
+MVC bude pokračovat v ověřování polí, dokud nedosáhne maximální počet chyb (200 ve výchozím nastavení). Toto číslo můžete nakonfigurovat pomocí následujícího kódu v `Startup.ConfigureServices`:
 
 [!code-csharp[](validation/sample/Startup.cs?range=27)]
 
-## <a name="handling-model-state-errors"></a>Chyby stavu modelu zpracování
+## <a name="handle-model-state-errors"></a>Chyby stavu modelu popisovač
 
-Ověření modelu nastává před každou volaná akce kontroleru a zodpovídá za metodu akce ke kontrole `ModelState.IsValid` a reagují odpovídajícím způsobem. V mnoha případech odpovídající reakce je reakce na chybu, ideálně s podrobnostmi o příčině selhání ověření modelu.
+Vyvolá se před spuštěním akce kontroleru ověření modelu. Je zodpovědností akce ke kontrole `ModelState.IsValid` a reagují odpovídajícím způsobem. V mnoha případech odpovídající reakce je reakce na chybu, ideálně s podrobnostmi o příčině selhání ověření modelu.
+
+::: moniker range=">= aspnetcore-2.1"
+
+Když `ModelState.IsValid` vyhodnotí jako `false` v kontrolerů webového rozhraní API pomocí `[ApiController]` atribut, je vrácena automatické odpovědi HTTP 400 obsahující podrobnosti o problému. Další informace najdete v tématu [odpovědi HTTP 400 automatické](xref:web-api/index#automatic-http-400-responses).
+
+::: moniker-end
 
 Některé aplikace zvolí dodržovat standardní konvence týkající se chyby ověření modelu, ve kterých může být případ filtr příslušné místo k implementaci těchto zásad. Měli byste otestovat chování vaše akce se stavy model platný nebo neplatný.
 

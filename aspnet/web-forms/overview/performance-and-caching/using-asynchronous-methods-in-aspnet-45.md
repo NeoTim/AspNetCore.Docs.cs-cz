@@ -8,12 +8,12 @@ ms.date: 06/06/2012
 ms.assetid: a585c9a2-7c8e-478b-9706-90f3739c50d1
 msc.legacyurl: /web-forms/overview/performance-and-caching/using-asynchronous-methods-in-aspnet-45
 msc.type: authoredcontent
-ms.openlocfilehash: 61bb977af9dca6fc080151ffd6ea3d966f1b1592
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
+ms.openlocfilehash: 9a3c9fab4932c3bc85733a912cf1d1eaaecc1ab7
+ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49325416"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51225483"
 ---
 <a name="using-asynchronous-methods-in-aspnet-45"></a>Použití asynchronních metod v ASP.NET 4.5
 ====================
@@ -198,9 +198,10 @@ Jak začít využívat výhod asynchronní webovou aplikaci, můžete potřebova
   
   Poznámka: výše uvedené, Image rozhraní .NET framework je uveden jako verzi 4.0, i když se fond aplikací používá rozhraní .NET 4.5. Informace o tom této nesrovnalosti, naleznete v následujících tématech:
 
-        - [.NET Versioning and Multi-Targeting - .NET 4.5 is an in-place upgrade to .NET 4.0](http://www.hanselman.com/blog/NETVersioningAndMultiTargetingNET45IsAnInplaceUpgradeToNET40.aspx)
-        - [How to set an IIS Application or AppPool to use ASP.NET 3.5 rather than 2.0](http://www.hanselman.com/blog/HowToSetAnIISApplicationOrAppPoolToUseASPNET35RatherThan20.aspx)
-        - [.NET Framework Versions and Dependencies](https://msdn.microsoft.com/library/bb822049(VS.110).aspx)
+- [Správa verzí rozhraní .NET a cílení na více platforem - .NET 4.5 je místní upgrade na rozhraní .NET 4.0](http://www.hanselman.com/blog/NETVersioningAndMultiTargetingNET45IsAnInplaceUpgradeToNET40.aspx)
+- [Nastavení aplikace služby IIS nebo fondu aplikací, používat technologii ASP.NET 3.5 spíše než 2.0](http://www.hanselman.com/blog/HowToSetAnIISApplicationOrAppPoolToUseASPNET35RatherThan20.aspx)
+- [Verze rozhraní .NET framework a závislosti](https://msdn.microsoft.com/library/bb822049(VS.110).aspx)
+
 - Pokud vaše aplikace používá webové služby nebo System.NET ke komunikaci s back-end pomocí protokolu HTTP budete možná muset zvýšit [connectionManagement/maxconnection](https://msdn.microsoft.com/library/fb6y0fyc(VS.110).aspx) elementu. Pro aplikace ASP.NET je omezen pomocí funkce automatické konfigurace 12krát větší počet procesorů. To znamená, že na quad-proc, můžete mít nejvýše 12 \* 4 = 48 souběžných připojení na koncový bod IP. Protože to je vázán na [autoConfig](https://msdn.microsoft.com/library/7w2sway1(VS.110).aspx), nejjednodušší způsob, jak zvýšit `maxconnection` v ASP.NET, aplikace je nastavit [System.Net.ServicePointManager.DefaultConnectionLimit](https://msdn.microsoft.com/library/system.net.servicepointmanager.defaultconnectionlimit(VS.110).aspx) programově v z `Application_Start` metodu *global.asax* souboru. Najdete v ukázce stahovat pro příklad.
 - V rozhraní .NET 4.5, výchozí 5000 pro [maxconcurrentrequestspercpu technologie](https://blogs.msdn.com/tmarq/archive/2007/07/21/asp-net-thread-usage-on-iis-7-0-and-6-0.aspx) by měla být v pořádku.
 

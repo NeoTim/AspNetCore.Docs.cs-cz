@@ -759,7 +759,7 @@ Toto vydání [Globalize](https://github.com/jquery/globalize "Globalize") jsou 
 
 ### <a name="respond-releases-on-the-cdn"></a>Reakce vydané verze v síti CDN
 
-Toto vydání [ https://github.com/scottjehl/Respond ] (https://github.com/scottjehl/Respond " https://github.com/scottjehl/Respond ") reakce jsou hostované v síti CDN:
+Toto vydání [https://github.com/scottjehl/Respond](https://github.com/scottjehl/Respond "https://github.com/scottjehl/Respond") reakce jsou hostované v síti CDN:
 
 #### <a name="respond-version-142"></a>Verze 1.4.2 reagovat
 

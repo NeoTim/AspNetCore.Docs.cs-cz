@@ -5,12 +5,12 @@ description: Zjistěte, jak povolit generování kódu QR pro aplikace TOTP, kte
 ms.author: riande
 ms.date: 08/14/2018
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: 4535efdde7340436c6a508848bff86e103df570e
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 437f354f71128a98bae9abdced291e04efc9f48e
+ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756004"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51225379"
 ---
 # <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a>Povolit generování kódu QR pro TOTP aplikace v ASP.NET Core
 
@@ -97,7 +97,7 @@ Název webu v kód QR je převzat z názvu projektu, který si zvolíte při prv
 
 Výchozí kód ze šablony by měl vypadat takto:
 
-```c#
+```csharp
 private string GenerateQrCodeUri(string email, string unformattedKey)
 {
     return string.Format(

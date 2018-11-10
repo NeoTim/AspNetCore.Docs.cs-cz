@@ -5,14 +5,14 @@ description: Zjistěte, jak začít pracovat s objekty Websocket v ASP.NET Core.
 monikerRange: '>= aspnetcore-1.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 06/28/2018
+ms.date: 11/06/2018
 uid: fundamentals/websockets
-ms.openlocfilehash: b0f1aeff6c7a5777993459274293ba23f2d9dc12
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 3a649f88699d61636d9aa7fbfe4468ca67b3b018
+ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206737"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51225405"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>Webové sockety v ASP.NET Core
 
@@ -72,10 +72,24 @@ Přidat objekty Websocket middlewaru v `Configure` metodu `Startup` třídy:
 
 ::: moniker-end
 
+::: moniker range="< aspnetcore-2.2"
+
 Můžete nakonfigurovat následující nastavení:
 
-* `KeepAliveInterval` – Jak často k odesílání rámců "příkaz ping" ke klientovi, aby proxy servery udržení připojení otevřeného.
-* `ReceiveBufferSize` – Velikost vyrovnávací paměti používané přijímat data. Pokročilí uživatelé může být nutné změnit to pro optimalizace na základě velikosti dat výkonu.
+* `KeepAliveInterval` – Jak často k odesílání rámců "příkaz ping" ke klientovi, aby proxy servery udržení připojení otevřeného. Výchozí hodnota je dvě minuty.
+* `ReceiveBufferSize` – Velikost vyrovnávací paměti používané přijímat data. Pokročilí uživatelé může být nutné změnit to pro optimalizace na základě velikosti dat výkonu. Výchozí hodnota je 4 KB.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
+
+Můžete nakonfigurovat následující nastavení:
+
+* `KeepAliveInterval` – Jak často k odesílání rámců "příkaz ping" ke klientovi, aby proxy servery udržení připojení otevřeného. Výchozí hodnota je dvě minuty.
+* `ReceiveBufferSize` – Velikost vyrovnávací paměti používané přijímat data. Pokročilí uživatelé může být nutné změnit to pro optimalizace na základě velikosti dat výkonu. Výchozí hodnota je 4 KB.
+* `AllowedOrigins` – Seznam povolených hodnot hlavičky Origin pro požadavky protokolu WebSocket. Ve výchozím nastavení jsou povoleny všechny původy. Podrobnosti najdete v části "Omezení objektu websocket na straně zdroje" níže.
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -128,6 +142,32 @@ Předá kódu uvedeného výše, který přijme žádost protokolu WebSocket `We
 ::: moniker-end
 
 Při přijímání připojení soketu websocket bylo před zahájením smyčky, middleware kanálu se ukončí. Po zavření soketu, unwinds kanálu. To znamená požadavek se zastaví v budoucnu v kanálu při přijetí objekt WebSocket. Když je smyčka dokončena, je uzavřený soket žádost pokračuje zálohování kanálu.
+
+::: moniker range=">= aspnetcore-2.2"
+
+### <a name="websocket-origin-restriction"></a>Omezení objektu websocket na straně zdroje
+
+Poskytovanou CORS se nevztahují na objekty Websocket. Prohlížeče **není**:
+
+* Provedení přípravné požadavků CORS.
+* Respektujeme zadaná v omezení `Access-Control` záhlaví při provádění požadavků protokolu WebSocket.
+
+Ale prohlížeče odesílají `Origin` záhlaví při vydávání žádostí protokolu WebSocket. Aplikace musí být nakonfigurovaný k ověření tyto hlavičky k zajištění, že jsou povoleny pouze objekty Websocket očekávané původ, odkud pocházejí.
+
+Pokud váš server hostuješ na "https://server.com"a hostování vašeho klienta na"https://client.com", přidejte "https://client.com" k `AllowedOrigins` seznamu pro objekty Websocket ověření.
+
+```csharp
+app.UseWebSockets(new WebSocketOptions()
+{
+    AllowedOrigins.Add("https://client.com");
+    AllowedOrigins.Add("https://www.client.com");
+});
+```
+
+> [!NOTE]
+> `Origin` Záhlaví je řízena klientem a stejně jako `Referer` záhlaví, můžete zfalšovaná. Proveďte **není** používají tyto hlavičky jako mechanismus ověřování.
+
+::: moniker-end
 
 ## <a name="iisiis-express-support"></a>Podpora služby IIS/IIS Express
 

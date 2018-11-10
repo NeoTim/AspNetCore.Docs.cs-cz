@@ -5,14 +5,14 @@ description: Zjistěte, jak používat klientskou sadou Java funkce SignalR tech
 monikerRange: '>= aspnetcore-2.2'
 ms.author: mimengis
 ms.custom: mvc
-ms.date: 10/18/2018
+ms.date: 11/06/2018
 uid: signalr/java-client
-ms.openlocfilehash: 646118c78d5d38b44b89d399cd06a5332a11d064
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 4ee4e61fc301ebeec4d95b1167f94f16c38f3ac5
+ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207768"
+ms.lasthandoff: 11/07/2018
+ms.locfileid: "51225418"
 ---
 # <a name="aspnet-core-signalr-java-client"></a>Klientskou sadou Java základní funkce SignalR technologie ASP.NET
 
@@ -74,6 +74,19 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 ```
 
 To můžete bezpečně ignorovat.
+
+
+## <a name="configure-bearer-token-authentication"></a>Konfigurace ověřování nosného tokenu
+
+V klientovi SignalR Java můžete konfigurovat nosný token pro účely ověření zadáním "access token továrnu" [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java). Použití [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytování [RxJava](https://github.com/ReactiveX/RxJava) [jeden<String>](http://reactivex.io/documentation/single.html). Voláním [Single.defer](http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-), můžou psát logiku k vytvoření přístupové tokeny pro vašeho klienta.
+
+```java
+HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
+    .withAccessTokenProvider(Single.defer(() -> {
+        // Your logic here.
+        return Single.just("An Access Token");
+    })).build();
+```
 
 ## <a name="known-limitations"></a>Známá omezení
 
