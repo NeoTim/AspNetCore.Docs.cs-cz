@@ -74,7 +74,7 @@ V pozdější části kurzu ukážeme, jak se dají zobrazit odpověď HTTP [Pos
 
 ::: moniker-end
 
-* Nahraďte `[controller]` název kontroleru, což je název třídy kontroleru minus příponu "Kontroleru". V tomto příkladu je název třídy kontroleru **Todo**řadiče a názvu kořenového je "todo". ASP.NET Core [směrování](xref:mvc/controllers/routing) velká a malá písmena.
+* Nahraďte `[controller]` s názvem kontroleru, který je název třídy kontroleru minus příponu "Kontroleru". V tomto příkladu je název třídy kontroleru **Todo**řadiče a názvu kořenového je "todo". ASP.NET Core [směrování](xref:mvc/controllers/routing) velká a malá písmena.
 * Pokud `[HttpGet]` atribut má šablona trasy (například `[HttpGet("/products")]`, připojení, která k cestě. Tato ukázka nepoužívá šablony. Další informace najdete v tématu [atribut směrování pomocí protokolu Http [příkaz] atributy](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes).
 
 V následujícím `GetById` metody `"{id}"` je proměnná zástupný symbol pro jedinečný identifikátor položky úkolů. Když `GetById` je vyvolána, přiřadí hodnotu `"{id}"` v adrese URL do metody `id` parametru.

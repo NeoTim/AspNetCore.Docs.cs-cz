@@ -5,12 +5,12 @@ description: Zjistěte, jak začít s migrací projektu aplikace ASP.NET MVC do 
 ms.author: riande
 ms.date: 03/07/2017
 uid: migration/mvc
-ms.openlocfilehash: e2ecc5b1a5e2ede4c815807d4e1b1499ae1a4242
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 7c9d927bbd06f96f130d53e946a2963b5804960b
+ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090469"
+ms.lasthandoff: 11/09/2018
+ms.locfileid: "51505736"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>Migrace z technologie ASP.NET MVC do ASP.NET Core MVC
 
@@ -159,7 +159,7 @@ Otevřít *_Layout.cshtml* soubor a proveďte následující změny (dokončený
 
 * Odebrat `@Scripts.Render("~/bundles/modernizr")`.
 
-* Okomentujte `@Html.Partial("_LoginPartial")` řádku (před a za řádek s `@*...*@`). Se vrátí k němu v budoucích kurzech.
+* Okomentujte `@Html.Partial("_LoginPartial")` řádku (před a za řádek s `@*...*@`). Další informace najdete v části [migrovat ověřování a identita pro ASP.NET Core](xref:migration/identity)
 
 * Nahraďte `@Scripts.Render("~/bundles/jquery")` s `<script>` – element (viz níže).
 

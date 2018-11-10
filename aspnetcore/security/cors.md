@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak CORS jako standard pro povolení nebo odmítnutí žádostí nepůvodního v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/05/2018
+ms.date: 11/05/2018
 uid: security/cors
-ms.openlocfilehash: cfbf24edb1dae76f676d51738b0d57266688d53e
-ms.sourcegitcommit: 317f9be24db600499e79d25872d743af74bd86c0
+ms.openlocfilehash: 8e5056b448d47d75272e9394b03ce8a58b05a0f4
+ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2018
-ms.locfileid: "48045585"
+ms.lasthandoff: 11/06/2018
+ms.locfileid: "51191318"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolení žádostí napříč zdroji (CORS) v ASP.NET Core
 
@@ -137,17 +137,37 @@ Pro některé možnosti, může být užitečné ke čtení [funguje jak CORS](#
 
 ### <a name="set-the-allowed-origins"></a>Nastavte povolené zdroje
 
-Chcete-li povolit jeden nebo více konkrétních zdrojů, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithOrigins*>:
+Middleware CORS v ASP.NET Core MVC má několik způsobů, jak určit povolené zdroje:
+
+* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithOrigins*>: Umožňuje zadat jednu nebo více adres URL. Adresa URL může obsahovat schéma, název hostitele a port bez jakýchkoli informací o cestě. Například `https://example.com`. Adresa URL musí být zadán bez koncové lomítko (`/`).
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=20-24&highlight=4)]
 
-Chcete-li povolit všechny původy, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*>:
+* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*>: Umožňuje požadavků CORS z všechny původy žádné schéma (`http` nebo `https`).
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=28-32&highlight=4)]
 
 Pečlivě zvažte předtím, než žádosti z původu. Povolení žádostí z jakýkoli původ znamená, že *všechny weby* můžete provádět požadavky cross-origin vaší aplikace.
 
+::: moniker range=">= aspnetcore-2.2"
+
+> [!NOTE]
+> Určení `AllowAnyOrigin` a `AllowCredentials` je nezabezpečené konfigurace a může vést k padělání žádosti více webů. CORS služby vrátí neplatnou odpověď CORS, pokud aplikace je nakonfigurovaná s nimi.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+> [!NOTE]
+> Určení `AllowAnyOrigin` a `AllowCredentials` je nezabezpečené konfigurace a může vést k padělání žádosti více webů. Zvažte možnost určení přesný seznam původů, pokud klient potřebuje k autorizaci pro přístup k prostředkům serveru.
+
+::: moniker-end
+
 Toto nastavení má vliv [časový limit předběžné požadavky a hlavičky Access-Control-Allow-Origin](#preflight-requests) (popsáno dále v tomto tématu).
+
+* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> – Umožňuje požadavků CORS domén dílčí dané domény. Schéma nemůže být zástupný znak.
+
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=98-104&highlight=4)]
 
 ### <a name="set-the-allowed-http-methods"></a>Nastavte povolené metody HTTP
 

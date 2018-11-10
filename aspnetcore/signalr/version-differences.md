@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.date: 09/10/2018
 uid: signalr/version-differences
-ms.openlocfilehash: 3cec37719b743b3c805ada77249f526278e44599
-ms.sourcegitcommit: 2ef32676c16f76282f7c23154d13affce8c8bf35
+ms.openlocfilehash: 8f07647959b6ef815eed599703bdb1bfb446572f
+ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50234602"
+ms.lasthandoff: 11/09/2018
+ms.locfileid: "51505749"
 ---
 # <a name="differences-between-aspnet-signalr-and-aspnet-core-signalr"></a>Rozdíly mezi funkce SignalR technologie ASP.NET a technologie SignalR technologie ASP.NET Core
 
@@ -36,6 +36,10 @@ Automatické připojování nepodporují funkce SignalR technologie ASP.NET Core
 ### <a name="protocol-support"></a>Podpora protokolu
 
 Funkce SignalR technologie ASP.NET Core podporuje JSON, jakož i nové binární protokol založený na [MessagePack](xref:signalr/messagepackhubprotocol). Kromě toho je možné vytvářet vlastní protokoly.
+
+### <a name="transports"></a>Přenosy
+
+Přenos navždy rámce není podporován v knihovně SignalR technologie ASP.NET Core.
 
 ## <a name="differences-on-the-server"></a>Rozdíly na serveru
 
@@ -72,6 +76,14 @@ ASP.NET Core SignalR teď podporuje [streamovaná data](xref:signalr/streaming) 
 
 Umožňuje předat libovolný stav mezi klienty a centrum (často označované jako HubState) byla odebrána a také podporu pro zprávy o průběhu. V tuto chvíli není nevyskytují proxy rozbočovače.
 
+### <a name="globalhost"></a>GlobalHost
+
+ASP.NET Core je integrovaný do rozhraní injektáž závislostí (DI). Služby využívat pro přístup k DI [HubContext](xref:signalr/hubcontext). `GlobalHost` Objekt, který se používá v knihovně SignalR technologie ASP.NET k získání `HubContext` neexistuje v knihovně SignalR technologie ASP.NET Core.
+
+### <a name="hubpipeline"></a>Kanálu rozbočovače přidán
+
+Funkce SignalR technologie ASP.NET Core nemá podporu `HubPipeline` moduly.
+
 ## <a name="differences-on-the-client"></a>Rozdíly v klientovi
 
 ### <a name="typescript"></a>TypeScript
@@ -90,6 +102,10 @@ npm install @aspnet/signalr
 ### <a name="jquery"></a>jQuery
 
 Závislost na jQuery byla odebrána, ale projekty můžete dál používat jQuery.
+
+### <a name="internet-explorer-support"></a>Podpora aplikace Internet Explorer
+
+Funkce SignalR technologie ASP.NET Core vyžaduje Microsoft Internet Explorer 11 nebo novější (funkce SignalR technologie ASP.NET podporovány Microsoft Internet Explorer 8 a novější).
 
 ### <a name="javascript-client-method-syntax"></a>Syntaxe využívající metody JavaScript klienta
 

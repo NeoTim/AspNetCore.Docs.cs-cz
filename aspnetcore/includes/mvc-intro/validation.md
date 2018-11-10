@@ -40,8 +40,7 @@ Klepněte **vytvořit nový** odkaz na přidání nového videa. Vyplňte formul
 
 ![Video zobrazit formulář s více chyby ověření na straně klienta jQuery](~/tutorials/first-mvc-app/validation/_static/val.png)
 
-> [!NOTE]
-> Není možné zadat desetinné čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") pro desetinné čárky a USA retweetovat neanglické formáty kalendářního data, je nutné provést kroky aplikaci poslali do světa. To [problém Githubu 4076](https://github.com/aspnet/Docs/issues/4076#issuecomment-326590420) pokyny k přidání desetinné čárky. 
+[!INCLUDE[](~/includes/currency.md)]
 
 Všimněte si, jak formulář automaticky vykreslí příslušné ověřovací chybovou zprávu do každého pole, který obsahuje neplatnou hodnotu. Chyby se vynucují straně klienta (pomocí jazyků JavaScript a jQuery) a na straně serveru (v případě má zakázaný JavaScript).
 

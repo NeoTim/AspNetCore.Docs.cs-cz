@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: f46bddb618d2a030e29b7dfa1671ea53b0d4bcc2
-ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
+ms.openlocfilehash: d4cc0ab9de314c0c5a1a9016efd1e566ff1c47d2
+ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2018
-ms.locfileid: "51021349"
+ms.lasthandoff: 11/09/2018
+ms.locfileid: "51505775"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování do stránky ASP.NET Core Razor
 
@@ -61,8 +61,7 @@ Vyberte **vytvořit nový** odkaz. Vyplňte formulář s některé neplatné hod
 
 ![Video zobrazit formulář kvůli několika chybám ověření na straně klienta jQuery](validation/_static/val.png)
 
-> [!NOTE]
-> Není možné zadávat desetinné tečky a čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) v jiných jazycích než angličtině, které používají čárkou (",") pro desetinné čárky a USA retweetovat neanglické formáty kalendářního data, je nutné provést kroky aplikaci poslali do světa. Zobrazit [další prostředky](#additional-resources) Další informace. Teď zadejte celá čísla, jako je 10.
+[!INCLUDE[](~/includes/currency.md)]
 
 Všimněte si, jak formuláře se automaticky vykreslen chybovou zprávu ověření v každé pole, který obsahuje neplatnou hodnotu. Chyby se vynucují straně klienta (pomocí jazyků JavaScript a jQuery) a na straně serveru (Pokud má uživatel zakázán jazyk JavaScript).
 
