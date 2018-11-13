@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak k nahrání souborů do stránky Razor.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 07/11/2018
+ms.date: 11/10/2018
 uid: razor-pages/upload-files
-ms.openlocfilehash: 92e72869967b6e3202c97b92e341ea22adc69651
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 8d86a84bcd31cc1e1e6fbe0693c7ec179e589f3d
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912498"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51570006"
 ---
 # <a name="upload-files-to-a-razor-page-in-aspnet-core"></a>Nahrání souborů do stránky v ASP.NET Core Razor
 
@@ -22,6 +22,8 @@ Toto téma staví na [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/m
 Toto téma ukazuje, jak použít jednoduchý model vazby k nahrání souborů, což funguje dobře pro nahrávání malých souborů. Informace o datových proudů velkých souborů, najdete v části [nahrávání velkých souborů pomocí streamování](xref:mvc/models/file-uploads#uploading-large-files-with-streaming).
 
 V následujících krocích se funkci odesílání souborů plán video přidá do ukázkové aplikace. Plán video představuje `Schedule` třídy. Třída zahrnuje dvě verze plánu. Jedna verze je poskytováno zákazníkům, `PublicSchedule`. Jiné verze se používá pro zaměstnance společnosti `PrivateSchedule`. Každá verze je odeslán jako samostatný soubor. Tento kurz ukazuje, jak provést dvě nahrávání souborů ze stránky s jeden příspěvek na server.
+
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/upload-files/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="security-considerations"></a>Důležité informace o zabezpečení
 
@@ -261,7 +263,7 @@ Při odeslání formuláře k serveru, `ModelState` je zaškrtnuté políčko. P
 
 ## <a name="link-the-file-upload-razor-page"></a>Propojit samotné nahrávání souborů stránky Razor
 
-Otevřít *Pages/Shared/_Layout.cshtml* a přidat odkaz do navigačního panelu na stránce plány dosáhnout:
+Otevřít *Pages/Shared/_Layout.cshtml* a přidat odkaz na navigačním panelu na stránce plány:
 
 ```cshtml
 <div class="navbar-collapse collapse">

@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak nakonfigurovat modul ASP.NET Core pro hostování aplikací ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/21/2018
+ms.date: 11/12/2018
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: ca86b1548c7c28a64fd391617b2e8290c1c264cf
-ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
-ms.translationtype: HT
+ms.openlocfilehash: 32fbf2b19da2d088847279f447f9a72cedcf8085
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51191357"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51570175"
 ---
 # <a name="aspnet-core-module-configuration-reference"></a>Referenční informace o ASP.NET Core modulu Konfigurace
 
@@ -132,6 +132,8 @@ Následující *web.config* je publikována pro [samostatná nasazení](/dotnet/
   </location>
 </configuration>
 ```
+
+<xref:System.Configuration.SectionInformation.InheritInChildApplications*> Je nastavena na `false` k označení, že nastavení zadané v rámci [ \<umístění >](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) element nedědí od neznámých aplikací, které jsou umístěny v podadresáři aplikace.
 
 ::: moniker-end
 
@@ -280,13 +282,13 @@ Pro hostování v procesu, pokud se nepodaří spustit aplikaci, že modul ASP.N
 
 Pro hostování mimo proces, pokud se nespustí back-endový proces nebo back-endový proces spustí ale nebude moci poslouchat na konfigurovaném portu, že modul ASP.NET Core *502.5 – selhání procesu* se zobrazí stav znakovou stránku.
 
-Chcete-li potlačit tuto stránku a vrátit se na výchozí služby IIS 5xx stav znakovou stránku, použijte `disableStartUpErrorPage` atribut. Další informace o konfiguraci vlastních chybových zpráv, najdete v části [chyby protokolu HTTP &lt;httpErrors&gt;](/iis/configuration/system.webServer/httpErrors/).
+Chcete-li potlačit tuto stránku a vrátit se na výchozí služby IIS 5xx stav znakovou stránku, použijte `disableStartUpErrorPage` atribut. Další informace o konfiguraci vlastních chybových zpráv, najdete v části [chyby protokolu HTTP \<httpErrors >](/iis/configuration/system.webServer/httpErrors/).
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-Pokud se nespustí back-endový proces nebo back-endový proces spustí ale nebude moci poslouchat na konfigurovaném portu, že modul ASP.NET Core *502.5 – selhání procesu* se zobrazí stav znakovou stránku. Chcete-li potlačit tuto stránku a vrátit se na výchozí stav služby IIS 502 znakovou stránku, použijte `disableStartUpErrorPage` atribut. Další informace o konfiguraci vlastních chybových zpráv, najdete v části [chyby protokolu HTTP &lt;httpErrors&gt;](/iis/configuration/system.webServer/httpErrors/).
+Pokud se nespustí back-endový proces nebo back-endový proces spustí ale nebude moci poslouchat na konfigurovaném portu, že modul ASP.NET Core *502.5 – selhání procesu* se zobrazí stav znakovou stránku. Chcete-li potlačit tuto stránku a vrátit se na výchozí stav služby IIS 502 znakovou stránku, použijte `disableStartUpErrorPage` atribut. Další informace o konfiguraci vlastních chybových zpráv, najdete v části [chyby protokolu HTTP \<httpErrors >](/iis/configuration/system.webServer/httpErrors/).
 
 ![502.5 proces selhání stav znaková stránka](aspnet-core-module/_static/ANCM-502_5.png)
 

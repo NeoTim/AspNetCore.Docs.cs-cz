@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/01/2018
 uid: fundamentals/file-providers
-ms.openlocfilehash: 3274615a0d6b6f928301ce97d18f5d9768963a30
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 5d0d46ba82cd84e48e5a9b23d6d330d8888beb41
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207313"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51570097"
 ---
 # <a name="file-providers-in-aspnet-core"></a>Zprostředkovatelé souborů v ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Steve Smith](https://ardalis.com/) a [Luke Latham](https://github.com/gua
 ASP.NET Core abstrahuje přístupu k systému souborů prostřednictvím zprostředkovatelé souborů. Zprostředkovatelé souborů se používají v rozhraní ASP.NET Core:
 
 * [IHostingEnvironment](/dotnet/api/microsoft.extensions.hosting.ihostingenvironment) zpřístupní obsah kořenové a kořenový adresář webové jako aplikace `IFileProvider` typy.
-* [Statické soubory Middleware](xref:fundamentals/static-files) zprostředkovatelé souborů používá k vyhledání statické soubory.
+* [Middleware statické soubory](xref:fundamentals/static-files) zprostředkovatelé souborů používá k vyhledání statické soubory.
 * [Razor](xref:mvc/views/razor) zprostředkovatelé souborů používá k nalezení stránek a zobrazení.
 * Nástroje pro .NET core používá k určení, které soubory by se měly zveřejňovat zprostředkovatelé souborů a vzory glob.
 

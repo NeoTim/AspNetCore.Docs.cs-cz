@@ -2,23 +2,26 @@
 title: Webového hostitele ASP.NET Core
 author: guardrex
 description: Další informace o webového hostitele v ASP.NET Core, který je zodpovědný za spouštění a životního cyklu správy aplikací.
-monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2018
+ms.date: 11/12/2018
 uid: fundamentals/host/web-host
-ms.openlocfilehash: a3601b71c65321af56644eb87c4527d6290e4378
-ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
+ms.openlocfilehash: 5af09ad715768d51ce8ef2c8425cc51ebada6859
+ms.sourcegitcommit: 1d6ab43eed9cb3df6211c22b97bb3a9351ec4419
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2018
-ms.locfileid: "51505814"
+ms.lasthandoff: 11/13/2018
+ms.locfileid: "51597820"
 ---
 # <a name="aspnet-core-web-host"></a>Webového hostitele ASP.NET Core
 
 Podle [Luke Latham](https://github.com/guardrex)
 
+::: moniker range="<= aspnetcore-1.1"
+
 1.1 verzi tohoto tématu, stáhněte si [ASP.NET Core webového hostitele (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Web-Host_1.1.pdf).
+
+::: moniker-end
 
 Konfigurace aplikace ASP.NET Core a spouštění *hostitele*. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Minimálně hostitele nakonfiguruje server a kanálu zpracování požadavků. Toto téma popisuje webového hostitele ASP.NET Core ([IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder)), což je užitečné pro hostování webových aplikací. Pro pokrytí obecný hostitele .NET ([IHostBuilder](/dotnet/api/microsoft.extensions.hosting.ihostbuilder)), najdete v článku <xref:fundamentals/host/generic-host>.
 

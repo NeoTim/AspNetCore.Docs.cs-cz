@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/05/2018
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 945a2ebe138ba6a1f6029f9e867887b1ce8d628f
-ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
-ms.translationtype: HT
+ms.openlocfilehash: b932a0a494366bd13549c1c6c7f7003133d120d4
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51191279"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51570136"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s Swashbuckle a ASP.NET Core
 
@@ -97,7 +97,7 @@ V `Startup.Configure` metoda, povolí middleware pro poskytování generované d
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup2.cs?name=snippet_Configure&highlight=4,8-11)]
 
-Předchozí `UseSwaggerUI` umožňuje volání metody [statické soubory Middleware](xref:fundamentals/static-files). Pokud je zaměřen na rozhraní .NET Framework nebo .NET Core 1.x, přidejte [Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles/) do projektu balíček NuGet.
+Předchozí `UseSwaggerUI` umožňuje volání metody [Middleware statické soubory](xref:fundamentals/static-files). Pokud je zaměřen na rozhraní .NET Framework nebo .NET Core 1.x, přidejte [Microsoft.AspNetCore.StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles/) do projektu balíček NuGet.
 
 Spusťte aplikaci a přejděte do `http://localhost:<port>/swagger/v1/swagger.json`. Vygenerovaný dokument popisující koncových bodů se zobrazí, jak je znázorněno v [Swagger specifikace (swagger.json)](xref:tutorials/web-api-help-pages-using-swagger#swagger-specification-swaggerjson).
 
@@ -401,7 +401,7 @@ Pokud je zaměřen na rozhraní .NET Framework nebo .NET Core 1.x, přidejte [Mi
 
 Pokud cílí na .NET Core je již nainstalována předchozí balíček NuGet 2.x a použití [Microsoft.aspnetcore.all](xref:fundamentals/metapackage).
 
-Povolí middleware statické soubory:
+Povolte Middleware se statickými soubory:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup.cs?name=snippet_Configure&highlight=3)]
 

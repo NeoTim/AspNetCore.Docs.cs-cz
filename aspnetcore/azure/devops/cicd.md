@@ -5,12 +5,12 @@ description: Průvodce, který poskytuje pokyny k začátku do konce na vytvář
 ms.author: scaddie
 ms.date: 10/24/2018
 uid: azure/devops/cicd
-ms.openlocfilehash: 18a59a1ff6fd6bbf51ff664764725b8972dfa1bf
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: edaf2c2e1428e5e82104786d94584a4ef08f9ee3
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090528"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51570084"
 ---
 # <a name="continuous-integration-and-deployment"></a>Průběžná integrace a nasazování
 
@@ -271,7 +271,7 @@ Klepnutím na úkol, slot swap, zobrazí se následující konfigurace úlohy:
 
 ![verze kanálu slotu prohození úloh](media/cicd/release-definition-task2.png)
 
-Předplatné, skupinu prostředků, typ služby, název webové aplikace a podrobnosti o slot nasazení jsou k dispozici. **Prohodit s produkčním** je zaškrtnuté políčko. V důsledku toho nasazené bity *pracovní* do produkčního prostředí se Prohodit slot.
+Předplatné, skupinu prostředků, typ služby, název webové aplikace a podrobnosti o slot nasazení jsou k dispozici. **Prohodit s produkčním** zaškrtávací políčko zaškrtnuto. V důsledku toho nasazené bity *pracovní* do produkčního prostředí se Prohodit slot.
 
 ## <a name="additional-reading"></a>Další čtení
 

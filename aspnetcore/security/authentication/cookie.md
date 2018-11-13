@@ -5,12 +5,12 @@ description: Vysvětlení, používání ověřování souborem cookie bez ASP.N
 ms.author: riande
 ms.date: 10/11/2017
 uid: security/authentication/cookie
-ms.openlocfilehash: 8add7559557d505397c3be8d8a48aa2e9d9e45e8
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: f55b36cf3fc3b60e9d592348625f58ebaba90da7
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207417"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51570110"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>Ověřování souborem cookie bez ASP.NET Core Identity
 
@@ -28,7 +28,7 @@ Použití ASP.NET Core Identity, najdete v článku [Úvod do Identity](xref:sec
 
 ## <a name="configuration"></a>Konfigurace
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x/)
+::: moniker range=">= aspnetcore-2.0"
 
 Pokud se aplikace nepoužívá [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app), vytvořit odkaz na balíček v souboru projektu [Microsoft.AspNetCore.Authentication.Cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) balíčku (verze 2.1.0 nebo později).
 
@@ -81,7 +81,9 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     });
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x/)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 Soubor cookie používá ASP.NET Core 1.x [middleware](xref:fundamentals/middleware/index) hlavní název uživatele, který serializuje do zašifrovaného souboru cookie. Na následné žádosti soubor cookie se ověří a znovu vytvořit a přiřadit k objektu zabezpečení `HttpContext.User` vlastnost.
 
@@ -127,7 +129,7 @@ app.UseCookieAuthentication(new CookieAuthenticationOptions
 });
 ```
 
----
+::: moniker-end
 
 ## <a name="cookie-policy-middleware"></a>Zásady middlewaru souboru cookie.
 
@@ -170,13 +172,15 @@ Nastavení zásad middlewaru souboru Cookie pro `MinimumSameSitePolicy` může m
 
 Pokud chcete vytvořit soubor cookie, která uchovává informace o uživateli, je nutné vytvořit [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal). Informace o uživateli je serializován a uložená v souboru cookie. 
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x/)
+::: moniker range=">= aspnetcore-2.0"
 
 Vytvoření [ClaimsIdentity](/dotnet/api/system.security.claims.claimsidentity) s jakékoli požadované [deklarace identity](/dotnet/api/system.security.claims.claim)s a volání [SignInAsync](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhttpcontextextensions.signinasync?view=aspnetcore-2.0) k přihlášení uživatele:
 
 [!code-csharp[](cookie/samples/2.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet1)]
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x/)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 Volání [SignInAsync](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1.signinasync?view=aspnetcore-1.1) k přihlášení uživatele:
 
@@ -186,7 +190,7 @@ await HttpContext.Authentication.SignInAsync(
     new ClaimsPrincipal(claimsIdentity));
 ```
 
----
+::: moniker-end
 
 `SignInAsync` Vytvoří do zašifrovaného souboru cookie a přidá jej do aktuální odpovědi. Pokud nezadáte `AuthenticationScheme`, se používá výchozí schéma.
 
@@ -194,13 +198,15 @@ Pod pokličkou, je šifrování, které používá ASP.NET Core [ochranu dat](xr
 
 ## <a name="sign-out"></a>Odhlásit se
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x/)
+::: moniker range=">= aspnetcore-2.0"
 
 Chcete-li odhlásit aktuálního uživatele a odstranit jejich souborů cookie, zavolejte [SignOutAsync](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhttpcontextextensions.signoutasync?view=aspnetcore-2.0):
 
 [!code-csharp[](cookie/samples/2.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet2)]
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x/)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 Chcete-li odhlásit aktuálního uživatele a odstranit jejich souborů cookie, zavolejte [SignOutAsync](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1.signoutasync?view=aspnetcore-1.1):
 
@@ -209,7 +215,7 @@ await HttpContext.Authentication.SignOutAsync(
     CookieAuthenticationDefaults.AuthenticationScheme);
 ```
 
----
+::: moniker-end
 
 Pokud nepoužíváte `CookieAuthenticationDefaults.AuthenticationScheme` (nebo "Soubory cookie") jako schéma (například "ContosoCookie"), zadejte schéma, které jste použili při konfiguraci zprostředkovatele ověřování. V opačném případě se používá výchozí schéma.
 
@@ -239,7 +245,7 @@ await HttpContext.SignInAsync(
     new ClaimsPrincipal(claimsIdentity));
 ```
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+::: moniker range=">= aspnetcore-2.0"
 
 K implementaci přepsání `ValidatePrincipal` události, napište metodu s následující signaturou ve třídě, který je odvozen z [CookieAuthenticationEvents](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationevents):
 
@@ -298,7 +304,9 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 services.AddScoped<CustomCookieAuthenticationEvents>();
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 K implementaci přepsání `ValidateAsync` události, napište metodu s následující signaturou:
 
@@ -348,7 +356,7 @@ app.UseCookieAuthentication(new CookieAuthenticationOptions
 });
 ```
 
----
+::: moniker-end
 
 Představte si situaci, ve kterém se aktualizuje uživatelské jméno &mdash; rozhodnutí, která nemá vliv na zabezpečení žádným způsobem. Pokud chcete aktualizovat nedestruktivně hlavní název uživatele, zavolejte `context.ReplacePrincipal` a nastavit `context.ShouldRenew` vlastnost `true`.
 
@@ -361,7 +369,7 @@ Můžete chtít soubor cookie zachovat v rámci relací prohlížeče. Tato trva
 
 Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který odolává prostřednictvím prohlížeče UZÁVĚRECH. Klouzavé vypršení platnosti nastavení jste dříve nakonfigurovali jsou zachované. Pokud se při zavření prohlížeče vyprší platnost souboru cookie, vymaže prohlížeči soubor cookie po jeho restartování.
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+::: moniker range=">= aspnetcore-2.0"
 
 ```csharp
 await HttpContext.SignInAsync(
@@ -375,7 +383,9 @@ await HttpContext.SignInAsync(
 
 [AuthenticationProperties](/dotnet/api/microsoft.aspnetcore.authentication.authenticationproperties?view=aspnetcore-2.0) třídy se nachází v `Microsoft.AspNetCore.Authentication` oboru názvů.
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 ```csharp
 await HttpContext.Authentication.SignInAsync(
@@ -389,7 +399,7 @@ await HttpContext.Authentication.SignInAsync(
 
 [AuthenticationProperties](/dotnet/api/microsoft.aspnetcore.http.authentication.authenticationproperties?view=aspnetcore-1.1) třídy se nachází v `Microsoft.AspNetCore.Http.Authentication` oboru názvů.
 
----
+::: moniker-end
 
 ## <a name="absolute-cookie-expiration"></a>Soubor cookie absolutní vypršení platnosti
 
@@ -397,7 +407,7 @@ Můžete nastavit dobu vypršení platnosti absolutní s `ExpiresUtc`. Musíte t
 
 Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který má platnost po dobu 20 minut. To ignoruje klouzavé vypršení platnosti nastavení předtím nakonfigurovali.
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+::: moniker range=">= aspnetcore-2.0"
 
 ```csharp
 await HttpContext.SignInAsync(
@@ -410,7 +420,9 @@ await HttpContext.SignInAsync(
     });
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 ```csharp
 await HttpContext.Authentication.SignInAsync(
@@ -423,7 +435,7 @@ await HttpContext.Authentication.SignInAsync(
     });
 ```
 
----
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další zdroje
 

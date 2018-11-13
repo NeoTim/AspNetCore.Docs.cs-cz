@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/21/2018
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 84e79df7fcf5790e658a20c80f21d73cdc76c054
-ms.sourcegitcommit: 8bf4dff3069e62972c1b0839a93fb444e502afe7
+ms.openlocfilehash: 6daf201654d68de978141f3dd42d48732c1161f7
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2018
-ms.locfileid: "46483006"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51570032"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -34,7 +34,7 @@ Kanál žádosti ASP.NET Core se skládá z posloupnost požadavek delegáty, vo
 
 ![Vzor zpracování požadavku zobrazující žádosti přicházející, zpracování až tři middlewares a odpovědi opuštění aplikace. Každý middleware běží svou logikou a předá požadavek na další middleware v příkazu metodu next(). Po třetí middleware zpracuje požadavek, žádost prochází zpět předchozí dvě middlewares v obráceném pořadí pro další zpracování po jejich next() příkazy před opuštěním aplikace jako odpověď klientovi.](index/_static/request-delegate-pipeline.png)
 
-Všem delegátům můžete provádět operace, před a po dalším delegáta. Také můžete rozhodnout delegáta úspěšná žádost o další delegátem, která se nazývá *zkrácenou kanál žádosti*. Krátký cyklus je často žádoucí, protože tím eliminujete zbytečné práce. Statické soubory Middleware můžete například vrátit žádost o statický soubor a zkrácenou rest z kanálu. Delegáti zpracování výjimek se nazývají již v rané fázi v kanálu, takže se můžete zachytit výjimky, ke kterým dochází v pozdějších fázích kanálu.
+Všem delegátům můžete provádět operace, před a po dalším delegáta. Také můžete rozhodnout delegáta úspěšná žádost o další delegátem, která se nazývá *zkrácenou kanál žádosti*. Krátký cyklus je často žádoucí, protože tím eliminujete zbytečné práce. Middleware statické soubory můžete například vrátit žádost o statický soubor a zkrácenou rest z kanálu. Delegáti zpracování výjimek se nazývají již v rané fázi v kanálu, takže se můžete zachytit výjimky, ke kterým dochází v pozdějších fázích kanálu.
 
 Nejjednodušší možný aplikace ASP.NET Core nastaví delegáta jedné žádosti, která zpracovává všechny požadavky. Tento případ neobsahuje kanál aktuálního požadavku. Místo toho jednoho anonymní funkce je volána v reakci na každý požadavek HTTP.
 
@@ -153,26 +153,26 @@ V předchozím příkladu kódu, každá metoda rozšíření middlewaru je vyst
 
 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> je první komponenta middlewaru přidané do kanálu. Proto Middleware obslužné rutiny výjimek zachytává všechny výjimky, ke kterým dochází v pozdější volání.
 
-Statické soubory middlewaru je volána v rané fázi kanálu tak, aby mohl zpracovávat požadavky a zkrácenou bez nutnosti kontaktovat zbývající součásti. Statické soubory Middleware poskytuje **žádné** kontroly autorizace. Všechny soubory obsluhuje, včetně těch *wwwroot*, jsou veřejně dostupné. Přístup k zabezpečení statické soubory, naleznete v tématu <xref:fundamentals/static-files>.
+Statický soubor middlewaru je volána v rané fázi kanálu tak, aby mohl zpracovávat požadavky a zkrácenou bez nutnosti kontaktovat zbývající součásti. Poskytuje Middleware statické soubory **žádné** kontroly autorizace. Všechny soubory obsluhuje, včetně těch *wwwroot*, jsou veřejně dostupné. Přístup k zabezpečení statické soubory, naleznete v tématu <xref:fundamentals/static-files>.
 
 ::: moniker range=">= aspnetcore-2.0"
 
-Pokud žádost není zpracovávaných middlewarem statické soubory, je předána Middleware ověřování (<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>), který provádí ověřování. Ověřování není zkrácenou neověřené žádosti. I když ověřovací Middleware ověřuje požadavky, autorizace (a odmítnutí) nastane pouze po MVC vybere konkrétní stránky Razor nebo MVC kontroleru a akce.
+Pokud žádost není zpracovávaných middlewarem statický soubor, je předána Middleware ověřování (<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>), který provádí ověřování. Ověřování není zkrácenou neověřené žádosti. I když ověřovací Middleware ověřuje požadavky, autorizace (a odmítnutí) nastane pouze po MVC vybere konkrétní stránky Razor nebo MVC kontroleru a akce.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.0"
 
-Pokud požadavek není zpracováván statické soubory Middleware, je předána Identity Middleware (<xref:Microsoft.AspNetCore.Builder.BuilderExtensions.UseIdentity*>), který provádí ověřování. Identita není zkrácenou neověřené žádosti. I když žádosti o ověření Identity autorizace (a odmítnutí) nastane pouze po MVC vybere konkrétní kontroleru a akce.
+Pokud požadavek není zpracováván Middleware statické soubory, je předána Identity Middleware (<xref:Microsoft.AspNetCore.Builder.BuilderExtensions.UseIdentity*>), který provádí ověřování. Identita není zkrácenou neověřené žádosti. I když žádosti o ověření Identity autorizace (a odmítnutí) nastane pouze po MVC vybere konkrétní kontroleru a akce.
 
 ::: moniker-end
 
-Následující příklad ukazuje middleware pořadí, ve kterém jsou požadavky pro statické soubory zpracovávány middlewarem statické soubory před Middleware pro kompresi odpovědí. Statické soubory nejsou komprimovaný pomocí tohoto pořadí middlewaru. Odpovědi MVC <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> lze komprimovat.
+Následující příklad ukazuje middleware pořadí, ve kterém jsou požadavky pro statické soubory zpracovávány middlewarem statický soubor před Middleware pro kompresi odpovědí. Statické soubory nejsou komprimovaný pomocí tohoto pořadí middlewaru. Odpovědi MVC <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> lze komprimovat.
 
 ```csharp
 public void Configure(IApplicationBuilder app)
 {
-    // Static files not compressed by Static Files Middleware.
+    // Static files not compressed by Static File Middleware.
     app.UseStaticFiles();
     app.UseResponseCompression();
     app.UseMvcWithDefaultRoute();

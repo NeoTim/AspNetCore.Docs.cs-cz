@@ -5,14 +5,14 @@ description: V tomto kurzu vytvoříte aplikaci chatu, který používá funkce 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 08/31/2018
+ms.date: 11/13/2018
 uid: tutorials/signalr
-ms.openlocfilehash: 7d9f3a3f8aa7a5e47169da66e6fa2d6a28de3853
-ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
+ms.openlocfilehash: b7414b1981508f2424eccb147a44023058c7f97c
+ms.sourcegitcommit: 1d6ab43eed9cb3df6211c22b97bb3a9351ec4419
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2018
-ms.locfileid: "51021245"
+ms.lasthandoff: 11/13/2018
+ms.locfileid: "51597794"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s knihovnou SignalR technologie ASP.NET Core
 
@@ -238,15 +238,11 @@ Na serveru funkce SignalR nastavené předat požadavky SignalR SignalR.
 
 * Zkopírujte adresu URL z adresního řádku, otevřete jinou instanci prohlížeče nebo karty a vložte adresu URL do adresního řádku.
 
-* Zvolte buď prohlížeče, zadejte název a zprávu a vybrat **odeslat** tlačítko.
+* Zvolte buď prohlížeče, zadejte název a zprávu a vybrat **poslat zprávu** tlačítko.
 
   Název a zpráva se zobrazí na obě stránky okamžitě.
 
   ![Ukázková aplikace SignalR](signalr/_static/signalr-get-started-finished.png)
-
-> [!TIP]
-> Pokud aplikace nebude fungovat, otevřete prohlížeč vývojářské nástroje (F12) a přejděte do konzoly. Můžou se zobrazovat chyby související s kódem HTML a JavaScript. Předpokládejme například, kam si ukládáte *signalr.js* v jiné složce než řízené. V takovém případě nebude fungovat odkaz na tento soubor a uvidíte v konzole chybu 404.
-> ![Chyba nenalezení signalr.js](signalr/_static/f12-console.png)
 
 ## <a name="next-steps"></a>Další kroky
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/18/2018
 uid: fundamentals/static-files
-ms.openlocfilehash: 5d00e6ba57053d17b45a24a1c57a446cb3db22ca
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: fb92141b1864574242b29ecc386024ce72a6be87
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207131"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51570123"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -96,7 +96,7 @@ Vezměte v úvahu hierarchii adresářů, ve kterém se obsluhovat statické sou
   * **Bitové kopie**
       * *banner1.svg*
 
-Žádost o přístup *banner1.svg* souboru nakonfigurováním middleware se statickými soubory:
+Žádost o přístup *banner1.svg* souboru nakonfigurováním Middleware statické soubory:
 
 [!code-csharp[](static-files/samples/1x/StartupTwoStaticFiles.cs?name=snippet_ConfigureMethod&highlight=5-10)]
 
@@ -120,12 +120,12 @@ Soubory byly provedeny veřejně možné ukládat do mezipaměti po dobu 10 minu
 
 ## <a name="static-file-authorization"></a>Statický soubor autorizace
 
-Middleware se statickými soubory neposkytuje kontroly autorizace. Všechny soubory obsluhuje, včetně těch *wwwroot*, jsou veřejně přístupné. Poskytování souborů na základě autorizace:
+Middleware statické soubory neposkytuje kontroly autorizace. Všechny soubory obsluhuje, včetně těch *wwwroot*, jsou veřejně přístupné. Poskytování souborů na základě autorizace:
 
-* Store je mimo *wwwroot* a ke každému adresáři přístupné pro middleware se statickými soubory **a**
+* Store je mimo *wwwroot* a ke každému adresáři přístupné pro Middleware statické soubory.
 * Zajišťovat obsluhu prostřednictvím metodu akce, pro které je použito autorizace. Vrátit [FileResult](/dotnet/api/microsoft.aspnetcore.mvc.fileresult) objektu:
 
-[!code-csharp[](static-files/samples/1x/Controllers/HomeController.cs?name=snippet_BannerImageAction)]
+  [!code-csharp[](static-files/samples/1x/Controllers/HomeController.cs?name=snippet_BannerImageAction)]
 
 ## <a name="enable-directory-browsing"></a>Povolí procházení adresáře
 
@@ -154,7 +154,7 @@ Nastavení výchozí domovskou stránku poskytuje návštěvníků logické výc
 [!code-csharp[](static-files/samples/1x/StartupEmpty.cs?name=snippet_ConfigureMethod&highlight=3)]
 
 > [!IMPORTANT]
-> `UseDefaultFiles` musí být volána před `UseStaticFiles` poskytovat výchozí soubor. `UseDefaultFiles` je RW adresu URL, který bariéru ve skutečnosti soubor. Povolit middleware se statickými soubory prostřednictvím `UseStaticFiles` poskytovat souboru.
+> `UseDefaultFiles` musí být volána před `UseStaticFiles` poskytovat výchozí soubor. `UseDefaultFiles` je RW adresu URL, který bariéru ve skutečnosti soubor. Povolit statický soubor Middleware prostřednictvím `UseStaticFiles` poskytovat souboru.
 
 S `UseDefaultFiles`, požadavky na složku vyhledávání:
 

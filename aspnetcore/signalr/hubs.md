@@ -5,14 +5,14 @@ description: Další informace o použití rozbočovače signalr technologie ASP
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 09/12/2018
+ms.date: 11/07/2018
 uid: signalr/hubs
-ms.openlocfilehash: 27aedc5b2f2060d961070fbd1ff5304eaa3956d1
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
-ms.translationtype: HT
+ms.openlocfilehash: 0413d354307208726f4252f431ac59526effed08
+ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225353"
+ms.lasthandoff: 11/12/2018
+ms.locfileid: "51569916"
 ---
 # <a name="use-hubs-in-signalr-for-aspnet-core"></a>Použití rozbočovače signalr pro ASP.NET Core
 
@@ -38,7 +38,15 @@ Při přidávání funkce SignalR pro aplikace ASP.NET Core, nastavit trasy Sign
 
 Vytvoření centra deklarováním třídy, která dědí z `Hub`a přidejte do ní veřejné metody. Klienti mohou volat metody, které jsou definovány jako `public`.
 
-[!code-csharp[Create and use hubs](hubs/sample/hubs/chathub.cs?range=8-37)]
+```csharp
+public class ChatHub : Hub
+{
+    public Task SendMessage(string user, string message)
+    {
+        return Clients.All.SendAsync("ReceiveMessage", user, message);
+    }
+}
+```
 
 Můžete určit návratový typ a parametry, včetně komplexní typy a pole, stejně jako v jakékoli metodě jazyka C#. Funkce SignalR zpracovává serializace a deserializace komplexních objektů a polí v parametry a návratové hodnoty.
 
@@ -87,7 +95,7 @@ Můžete určit návratový typ a parametry, včetně komplexní typy a pole, st
 | `Clients` | Volá metodu pro konkrétní připojených klientů |
 | `Group` | Volá metodu pro všechna připojení v určené skupině  |
 | `GroupExcept` | Volá metodu pro všechna připojení v určené skupině s výjimkou zadaných připojení |
-| `Groups` | Volá metodu k několika skupinám připojení  |
+| `Groups` | Volá metodu pro více skupin pro připojení  |
 | `OthersInGroup` | Volá metodu pro připojení s výjimkou klienta, který volal metodu rozbočovače na skupinu  |
 | `User` | Volá metodu pro všechna připojení, které jsou spojené s konkrétním uživatelem |
 | `Users` | Volá metodu pro všechna připojení přidružená k určení uživatelé |
@@ -96,9 +104,13 @@ Každé vlastnosti nebo metody v předchozích tabulkách vrátí objekt s `Send
 
 ## <a name="send-messages-to-clients"></a>Odesílání zpráv do klientů
 
-Chcete-li provést volání do konkrétních klientů, použijte vlastnosti `Clients` objektu. V následujícím příkladu `SendMessageToCaller` metoda ukazuje odesílání zprávy připojení, které volal metodu rozbočovače. `SendMessageToGroups` Metoda odešle zprávu do skupin uložených v `List` s názvem `groups`.
+Chcete-li provést volání do konkrétních klientů, použijte vlastnosti `Clients` objektu. V následujícím příkladu jsou tři metody rozbočovače:
 
-[!code-csharp[Send messages](hubs/sample/hubs/chathub.cs?range=15-24)]
+* `SendMessage` Odešle zprávu do všech připojených klientů používajících `Clients.All`.
+* `SendMessageToCaller` Odešle zprávu zpět do volajícího a pomocí `Clients.Caller`.
+* `SendMessageToGroups` Odešle zprávu pro všechny klienty v `SignalR Users` skupiny.
+
+[!code-csharp[Send messages](hubs/sample/hubs/chathub.cs?name=HubMethods)]
 
 ## <a name="strongly-typed-hubs"></a>Silného typu rozbočovače
 
@@ -116,17 +128,42 @@ Pomocí `Hub<IChatClient>` povolí kompilaci kontrolu metodu klienta. To brání
 
 Pomocí silného typu `Hub<T>` zakáže možnost používat `SendAsync`.
 
+## <a name="change-the-name-of-a-hub-method"></a>Změnit název metody rozbočovače
+
+Výchozí název metody rozbočovače serveru je název metody rozhraní .NET. Můžete však použít [HubMethodName](xref:Microsoft.AspNetCore.SignalR.HubMethodNameAttribute) změnit toto výchozí nastavení a ručně zadávat název metody atributu. Klient musí použít tento název místo názvu metody rozhraní .NET, při volání metody.
+
+[!code-csharp[HubMethodName attribute](hubs/sample/hubs/chathub.cs?name=HubMethodName&highlight=1)]
+
 ## <a name="handle-events-for-a-connection"></a>Zpracování událostí pro připojení
 
 Poskytuje rozhraní API pro rozbočovače SignalR `OnConnectedAsync` a `OnDisconnectedAsync` virtuální metody pro správu a sledování připojení. Přepsat `OnConnectedAsync` virtuální metody pro provádění akcí po připojení klienta k rozbočovači, jako je například přidávání do skupiny.
 
-[!code-csharp[Handle events](hubs/sample/hubs/chathub.cs?range=26-36)]
+[!code-csharp[Handle connection](hubs/sample/hubs/chathub.cs?name=OnConnectedAsync)]
+
+Přepsat `OnDisconnectedAsync` virtuální metody pro provádění akcí po odpojení klienta. Pokud se klient odpojí záměrně (voláním `connection.stop()`, například), `exception` parametr bude `null`. Nicméně, pokud je klient odpojen z důvodu chyby (jako je například selhání sítě), `exception` parametr bude obsahovat výjimku popisující chybu.
+
+[!code-csharp[Handle disconnection](hubs/sample/hubs/chathub.cs?name=OnDisconnectedAsync)]
 
 ## <a name="handle-errors"></a>Zpracování chyb
 
 Výjimky vzniklé v metodách vašeho centra se posílají klientovi, který volal metodu. Na klientovi JavaScript `invoke` metoda vrátí hodnotu [JavaScript Promise](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises). Když klient obdrží chybu s obslužnou rutinou k němu připojit pomocí promise `catch`, ji má a předají jako JavaScript `Error` objektu.
 
 [!code-javascript[Error](hubs/sample/wwwroot/js/chat.js?range=23)]
+
+Ve výchozím nastavení Pokud vaše Centrum vyvolá výjimku, SignalR vrátí obecnou chybovou zprávu do klienta. Příklad:
+
+```
+Microsoft.AspNetCore.SignalR.HubException: An unexpected error occurred invoking 'MethodName' on the server.
+```
+
+Neočekávané výjimky často obsahují citlivé informace, jako je například název databáze serveru ve výjimce aktivuje v případě selhání připojení k databázi. Funkce SignalR nezveřejňuje tyto podrobné chybové zprávy ve výchozím nastavení jako bezpečnostní opatření. Zobrazit [článku aspekty zabezpečení](xref:signalr/security#exceptions) Další informace o důvod, proč jsou potlačeny podrobnosti o výjimce.
+
+Pokud máte výjimečné podmínce můžete *proveďte* šířit do klienta, můžete použít `HubException` třídy. Pokud vyvoláte `HubException` z vaší metody rozbočovače SignalR **bude** odeslat celá zpráva ke klientovi ponechat beze změny.
+
+[!code-csharp[ThrowHubException](hubs/sample/hubs/chathub.cs?name=ThrowHubException&highlight=3)]
+
+> [!NOTE]
+> Funkce SignalR odesílá pouze `Message` vlastnosti výjimky do klienta. Trasování zásobníku a dalších vlastností o výjimce nejsou k dispozici ke klientovi.
 
 ## <a name="related-resources"></a>Související prostředky
 
