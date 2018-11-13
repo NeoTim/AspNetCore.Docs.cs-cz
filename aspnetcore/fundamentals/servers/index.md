@@ -1,17 +1,17 @@
 ---
 title: Implementací webového serveru v ASP.NET Core
-author: rick-anderson
+author: guardrex
 description: Zjišťování webové servery přes Kestrel a HTTP.sys pro ASP.NET Core. Zjistěte, jak vybrat server a kdy použít reverzní proxy server.
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 09/21/2018
 uid: fundamentals/servers/index
-ms.openlocfilehash: 6b6ebbe9d31d571ea470fba0989d622dcf6e68af
-ms.sourcegitcommit: fc2486ddbeb15ab4969168d99b3fe0fbe91e8661
+ms.openlocfilehash: 06d4bf09b07fc70a10b3e260e78c29fe189486c5
+ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2018
-ms.locfileid: "50758203"
+ms.lasthandoff: 11/09/2018
+ms.locfileid: "51505723"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementací webového serveru v ASP.NET Core
 
@@ -144,7 +144,7 @@ Při spuštění aplikace z příkazového řádku ve složce projektu [dotnet s
 
 * [Kestrel](xref:fundamentals/servers/kestrel#http2-support)
   * Operační systém
-    * Windows Server 2012 R2 nebo Windows 8.1 nebo novější
+    * Windows Server 2016 nebo Windows 10 nebo novější&dagger;
     * Linux s OpenSSL 1.0.2 nebo novější (například Ubuntu 16.04 nebo novější)
     * HTTP/2 budou podporované v systému macOS v budoucí verzi.
   * Cílová architektura: .NET Core 2.2 nebo vyšší
@@ -158,6 +158,8 @@ Při spuštění aplikace z příkazového řádku ve složce projektu [dotnet s
   * Windows Server 2016 nebo Windows 10 nebo novější; IIS 10 nebo novější.
   * Připojení k serveru edge veřejně přístupných používat HTTP/2, ale připojení reverzního proxy serveru na Kestrel používá HTTP/1.1.
   * Cílová architektura: není k dispozici pro nasazení na více instancí procesu služby IIS.
+
+&dagger;Kestrel má omezenou podporu pro HTTP/2 pro systém Windows Server 2012 R2 a Windows 8.1. Podpora je omezená, protože seznam podporovaných šifer TLS sady k dispozici v těchto operačních systémech je omezen. Certifikát vytvořený pomocí křivky digitální podpis algoritmů ECDSA (Elliptic) může být nutné zabezpečení připojení protokol TLS.
 
 ::: moniker-end
 
