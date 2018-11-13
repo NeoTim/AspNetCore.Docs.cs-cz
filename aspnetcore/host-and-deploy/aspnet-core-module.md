@@ -8,7 +8,7 @@ ms.date: 09/21/2018
 uid: host-and-deploy/aspnet-core-module
 ms.openlocfilehash: ca86b1548c7c28a64fd391617b2e8290c1c264cf
 ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/06/2018
 ms.locfileid: "51191357"

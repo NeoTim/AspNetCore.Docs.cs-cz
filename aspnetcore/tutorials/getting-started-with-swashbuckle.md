@@ -8,7 +8,7 @@ ms.date: 11/05/2018
 uid: tutorials/get-started-with-swashbuckle
 ms.openlocfilehash: 945a2ebe138ba6a1f6029f9e867887b1ce8d628f
 ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/06/2018
 ms.locfileid: "51191279"
