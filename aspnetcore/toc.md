@@ -197,6 +197,7 @@
 ### [HubContext](xref:signalr/hubcontext)
 ### [Uživatelé a skupiny](xref:signalr/groups)
 ### [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
+### [Aspekty návrhu rozhraní API](xref:signalr/api-design)
 ## Klienti
 ### [Klient .NET](xref:signalr/dotnet-client)
 ### [Referenční dokumentace k rozhraní .NET API](/dotnet/api/microsoft.aspnetcore.signalr.client)
