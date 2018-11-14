@@ -4,14 +4,14 @@ author: tdykstra
 description: Zjistěte, jak vazby modelu v ASP.NET Core MVC mapují data požadavků HTTP na parametry metod akce.
 ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: tdykstra
-ms.date: 08/14/2018
+ms.date: 11/13/2018
 uid: mvc/models/model-binding
-ms.openlocfilehash: 0ce20a8040c6b19da1f57e1c053a7ef81d8bcb23
-ms.sourcegitcommit: d53e0cc71542b92de867bcce51575b054886f529
+ms.openlocfilehash: 1dc9b41328ed78440622acc1865b6f088d394403
+ms.sourcegitcommit: 1d6ab43eed9cb3df6211c22b97bb3a9351ec4419
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41753541"
+ms.lasthandoff: 11/13/2018
+ms.locfileid: "51597781"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazby modelu v ASP.NET Core
 
@@ -55,7 +55,7 @@ Vzhledem k tomu vyzváni vazby modelu pro klíč s názvem `id` a nic s názvem 
 
 Pokud v příkladu jednoduché typy. V aplikaci MVC jednoduché typy jsou všechny primitivní typ formátu .NET nebo typ s konvertor typu řetězec. Parametr metody akce, jako byly třídu `Movie` typ, který obsahuje jednoduché a komplexní typy jako krásně vlastnosti, MVC model vazby budou nadále ji zpracovat. Reflexe a rekurze používá k procházení vlastnosti komplexní typy hledání shody. Vazby modelu hledá vzor *parameter_name.property_name* k vázání hodnot vlastností. Pokud se nenajde odpovídající hodnoty tohoto formuláře, pokusí se vytvořit vazbu pomocí názvu vlastnosti. Pro tyto typy, jako `Collection` typy vazby modelu hledá odpovídající *parameter_name [index]* nebo jen *[index]*. Model vazba zpracuje `Dictionary` typy podobně s žádostí o *parameter_name [klíč]* nebo jen *[klíč]*, jako jsou klíče jednoduché typy. Klíče, které jsou podporovány odpovídat názvům pole HTML a pomocných rutin značek, které jsou generovány pro stejný typ modelu. To umožňuje verzemi hodnoty tak, aby pole formuláře vyplněné se vstupem uživatele pro jejich pohodlí, například při zůstat vázaných dat od vytvoření nebo úprava úspěšně ověření.
 
-Pro vazbu, která se provede třídy musí mít veřejný výchozí konstruktor a člen vázat musí být zapisovatelný veřejné vlastnosti. Pokud vazba modelu se stane, že třída bude vytvořen pouze pomocí veřejný výchozí konstruktor, můžete nastavit vlastnosti.
+Aby vazba modelu je to možné, třídě musí mít veřejný výchozí konstruktor a veřejný zapisovatelný vlastnosti pro vytvoření vazby. Pokud dojde k vazbě modelu, třída je vytvořen pomocí veřejný výchozí konstruktor a pak můžete nastavit vlastnosti.
 
 Při vazbu parametru vazby modelu zastaví hledání pro hodnoty s tímto názvem a se přejde k další parametr vazby. V opačném případě výchozí chování vazby modelu nastaví na výchozí hodnoty v závislosti na jejich typu parametry:
 
