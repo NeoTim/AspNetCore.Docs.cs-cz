@@ -4,14 +4,14 @@ author: zuckerthoben
 description: Zjistěte, jak přidat do projektu ASP.NET Core webové rozhraní API integrovat uživatelské rozhraní Swagger Swashbuckle.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/05/2018
+ms.date: 11/14/2018
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: b932a0a494366bd13549c1c6c7f7003133d120d4
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 9832e1ea2b59085b6680820469b16d549f4b0582
+ms.sourcegitcommit: f202864efca81a72ea7120c0692940c40d9d0630
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570136"
+ms.lasthandoff: 11/14/2018
+ms.locfileid: "51635339"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s Swashbuckle a ASP.NET Core
 
@@ -107,6 +107,8 @@ Uživatelské rozhraní Swagger lze nalézt v `http://localhost:<port>/swagger`.
 > K poskytování uživatelského rozhraní Swagger kořenové aplikace (`http://localhost:<port>/`), můžete nastavit `RoutePrefix` vlastnost na prázdný řetězec:
 >
 > [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup3.cs?name=snippet_UseSwaggerUI&highlight=4)]
+
+Pokud pomocí virtuální adresáře (s IIS nebo reverzní proxy server, například), nastavení koncového bodu Swaggeru do relativní cesty pomocí `./` předponu. Například `./swagger/v1/swagger.json`. Pomocí `/swagger/v1/swagger.json` Instruuje aplikaci upravovat pro soubor JSON true kořenové adresy URL (plus předponu trasy, pokud se používá). Můžete například `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` namísto `http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`.
 
 ## <a name="customize-and-extend"></a>Přizpůsobení a rozšíření
 

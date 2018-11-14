@@ -3,14 +3,14 @@ title: Vlastní vazba modelu v ASP.NET Core
 author: ardalis
 description: Zjistěte, jak vazby modelu umožňuje akce kontroleru pracovat přímo s typy modelů v ASP.NET Core.
 ms.author: riande
-ms.date: 04/10/2017
+ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: dc901aea3c20e7f2e955f39d923216de70ef015b
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 1da42829270e8ff4a626a45aec4d4e825062bd4f
+ms.sourcegitcommit: f202864efca81a72ea7120c0692940c40d9d0630
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090404"
+ms.lasthandoff: 11/14/2018
+ms.locfileid: "51635287"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>Vlastní vazba modelu v ASP.NET Core
 
@@ -87,11 +87,14 @@ Následující ukázkový používá `ModelBinder` atribut na `Author` modelu:
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Data/Author.cs?highlight=10)]
 
-V předchozím kódu `ModelBinder` atribut určuje typ `IModelBinder` , který má použít k vytvoření vazby `Author` parametry akce. 
+V předchozím kódu `ModelBinder` atribut určuje typ `IModelBinder` , který má použít k vytvoření vazby `Author` parametry akce.
 
-`AuthorEntityBinder` Pro vazbu se použije `Author` parametru načtení entity ze zdroje dat pomocí Entity Framework Core a `authorId`:
+Následující `AuthorEntityBinder` třídy vytvoří vazbu `Author` parametru načtení entity ze zdroje dat pomocí Entity Framework Core a `authorId`:
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Binders/AuthorEntityBinder.cs?name=demo)]
+
+> [!NOTE]
+> Předchozí `AuthorEntityBinder` třídy je určený k objasnění vlastní vazač modelu. Třída není určený k objasnění osvědčené postupy pro scénář vyhledávání. Vyhledávání, vytvořit vazbu `authorId` a dotazování databáze v metodě akce. Tento přístup odděluje selhání vazby modelu z `NotFound` případy.
 
 Následující kód ukazuje způsob použití `AuthorEntityBinder` v metodě akce:
 
@@ -107,7 +110,7 @@ Můžete použít `ModelBinder` atribut vlastnosti jednotlivých modelu (napří
 
 ### <a name="implementing-a-modelbinderprovider"></a>Implementace ModelBinderProvider
 
-Místo použití atributu, můžete implementovat `IModelBinderProvider`. To je, jak se implementují vestavěnou architekturou vazače. Když zadáte typ pracuje vaše vazač, zadejte typ argumentu vytvoří, **není** přijímá vstup vaše vazače. Následující zprostředkovatele vazače spolupracuje `AuthorEntityBinder`. Když se přidá do kolekce MVC od poskytovatelů, není nutné použít `ModelBinder` atribut na `Author` nebo `Author` silné parametry.
+Místo použití atributu, můžete implementovat `IModelBinderProvider`. To je, jak se implementují vestavěnou architekturou vazače. Když zadáte typ pracuje vaše vazač, zadejte typ argumentu vytvoří, **není** přijímá vstup vaše vazače. Následující zprostředkovatele vazače spolupracuje `AuthorEntityBinder`. Když se přidá do kolekce MVC od poskytovatelů, není nutné použít `ModelBinder` atribut na `Author` nebo `Author`-silné parametry.
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Binders/AuthorEntityBinderProvider.cs?highlight=17-20)]
 
@@ -130,6 +133,7 @@ Vazač modelu integrované volána před vlastní vázací objekt má možnost m
 ## <a name="recommendations-and-best-practices"></a>Doporučení a osvědčené postupy
 
 Vazače modelů vlastní:
+
 - By se neměly pokoušet stavové kódy nebo vrátit výsledky (například 404 Nenalezeno). Pokud vazba modelu selže, [filtr akce](xref:mvc/controllers/filters) nebo by měla tuto chybu řešit logiky v rámci samotného metody akce.
 - Jsou zvláště užitečná pro odstranění opakování kódu a převeďte společné aspekty z metody akce.
 - Obvykle neměl by se převod řetězce na vlastní typ, [ `TypeConverter` ](/dotnet/api/system.componentmodel.typeconverter) je obvykle vhodnější.

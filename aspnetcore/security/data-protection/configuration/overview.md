@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak nakonfigurovat ochranu dat v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/17/2017
+ms.date: 11/13/2018
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: 0377fe9fbe5a1eeddb384443370751baa3c0ee43
-ms.sourcegitcommit: 8bf4dff3069e62972c1b0839a93fb444e502afe7
+ms.openlocfilehash: 3be220df4b14ed8dbbd1fab70f46578e9408aa26
+ms.sourcegitcommit: f202864efca81a72ea7120c0692940c40d9d0630
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2018
-ms.locfileid: "46482993"
+ms.lasthandoff: 11/14/2018
+ms.locfileid: "51635313"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany dat ASP.NET Core
 
@@ -135,7 +135,14 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="setapplicationname"></a>SetApplicationName
 
-Ve výchozím nastavení ochrana dat systému izoluje aplikace od sebe, i v případě, že sdílíte stejný fyzický klíče úložiště. To zabrání Principy druhé strany chráněných datových částí aplikace. Chcete-li sdílet mezi dvěma aplikacemi chráněných datových částí, použijte [SetApplicationName](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.setapplicationname) se stejnou hodnotou pro každou aplikaci:
+Ve výchozím nastavení ochrana dat systému izoluje aplikace od sebe, i v případě, že sdílíte stejný fyzický klíče úložiště. To zabrání Principy druhé strany chráněných datových částí aplikace.
+
+Sdílení chráněných datových částí mezi aplikacemi:
+
+* Konfigurace <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*> v každé aplikaci, se stejnou hodnotou.
+* Použijte stejnou verzi nástroje Data Protection API zásobníku napříč aplikací. Provedení **buď** z následujících akcí v souborech projektu aplikace:
+  * Odkazovat na stejnou verzi sdílené architektuře prostřednictvím [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+  * Odkazovat na stejný [ochranu dat balíčku](xref:security/data-protection/introduction#package-layout) verze.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -177,7 +184,7 @@ Pokud ochranu dat systému není k dispozici od hostitele ASP.NET Core (např. P
 
 Ochrana dat zásobníku umožňuje změnit výchozí algoritmus používaný serverem nově vygenerovat klíče. Nejjednodušší způsob, jak to provést, je volání [UseCryptographicAlgorithms](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.usecryptographicalgorithms) ze zpětného volání konfigurace:
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+::: moniker range=">= aspnetcore-2.0"
 
 ```csharp
 services.AddDataProtection()
@@ -189,7 +196,9 @@ services.AddDataProtection()
     });
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 ```csharp
 services.AddDataProtection()
@@ -201,7 +210,7 @@ services.AddDataProtection()
     });
 ```
 
----
+::: moniker-end
 
 Výchozí hodnota načtou algoritmy EncryptionAlgorithm je AES-256-CBC a ValidationAlgorithm výchozí hodnota je HMACSHA256. Výchozí zásady můžete nastavit správce systému prostřednictvím [celého zásad](xref:security/data-protection/configuration/machine-wide-policy), ale explicitní volání konstruktoru `UseCryptographicAlgorithms` přepisuje výchozí zásady.
 
@@ -214,7 +223,7 @@ Můžete ručně zadat implementace prostřednictvím volání [UseCustomCryptog
 
 ### <a name="specifying-custom-managed-algorithms"></a>Zadání vlastní spravované algoritmy
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+::: moniker range=">= aspnetcore-2.0"
 
 Pokud chcete zadat vlastní spravované algoritmů, vytvářet [ManagedAuthenticatedEncryptorConfiguration](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.configurationmodel.managedauthenticatedencryptorconfiguration) instanci, která odkazuje na implementaci typů:
 
@@ -234,7 +243,9 @@ serviceCollection.AddDataProtection()
     });
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 Pokud chcete zadat vlastní spravované algoritmů, vytvářet [ManagedAuthenticatedEncryptionSettings](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.managedauthenticatedencryptionsettings) instanci, která odkazuje na implementaci typů:
 
@@ -254,7 +265,7 @@ serviceCollection.AddDataProtection()
     });
 ```
 
----
+::: moniker-end
 
 Obecně \*typ vlastnosti musí odkazovat na konkrétní, instantiable (přes veřejný konstruktor bez parametrů konstruktoru) implementace [SymmetricAlgorithm](/dotnet/api/system.security.cryptography.symmetricalgorithm) a [KeyedHashAlgorithm](/dotnet/api/system.security.cryptography.keyedhashalgorithm), i když systém speciální případech některé hodnoty, jako jsou `typeof(Aes)` ke zvýšení pohodlí.
 
@@ -263,7 +274,7 @@ Obecně \*typ vlastnosti musí odkazovat na konkrétní, instantiable (přes ve�
 
 ### <a name="specifying-custom-windows-cng-algorithms"></a>Zadání vlastní algoritmů Windows CNG
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+::: moniker range=">= aspnetcore-2.0"
 
 Zadejte vlastní Windows CNG algoritmus HMAC ověření pomocí režimu CBC šifrování, vytvořit [CngCbcAuthenticatedEncryptorConfiguration](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.configurationmodel.cngcbcauthenticatedencryptorconfiguration) instance, která obsahuje vylepšením informace:
 
@@ -285,7 +296,9 @@ services.AddDataProtection()
     });
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 Zadejte vlastní Windows CNG algoritmus HMAC ověření pomocí režimu CBC šifrování, vytvořit [CngCbcAuthenticatedEncryptionSettings](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.cngcbcauthenticatedencryptionsettings) instance, která obsahuje vylepšením informace:
 
@@ -307,12 +320,12 @@ services.AddDataProtection()
     });
 ```
 
----
+::: moniker-end
 
 > [!NOTE]
 > Šifrovací algoritmus symetrického bloku musí mít klíč o délce > = 128 bitů, velikost bloku > = 64 bitů, a musí podporovat režimu CBC šifrování s odsazení PKCS #7. Hashovací algoritmus musí mít velikost digest > = 128 bitů a musí podporovat otevírané pomocí BCRYPT\_ALG\_zpracování\_HMAC\_příznak příznak. \*Můžete nastavit vlastnosti zprostředkovatele hodnoty null lze použít výchozího poskytovatele pro zadaný algoritmus. Zobrazit [BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx) Další informace naleznete v dokumentaci.
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
+::: moniker range=">= aspnetcore-2.0"
 
 K určení vlastního algoritmu Windows CNG pomocí šifrování Galois/čítač režimu ověřování, vytvořit [CngGcmAuthenticatedEncryptorConfiguration](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.configurationmodel.cnggcmauthenticatedencryptorconfiguration) instance, která obsahuje vylepšením informace:
 
@@ -330,7 +343,9 @@ services.AddDataProtection()
     });
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 K určení vlastního algoritmu Windows CNG pomocí šifrování Galois/čítač režimu ověřování, vytvořit [CngGcmAuthenticatedEncryptionSettings](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.cnggcmauthenticatedencryptionsettings) instance, která obsahuje vylepšením informace:
 
@@ -348,7 +363,7 @@ services.AddDataProtection()
     });
 ```
 
----
+::: moniker-end
 
 > [!NOTE]
 > Šifrovací algoritmus symetrického bloku musí mít klíč o délce > = 128 bitů, velikost bloku přesně 128 bitů, a musí podporovat šifrování služby GCM. Můžete nastavit [EncryptionAlgorithmProvider](/dotnet/api/microsoft.aspnetcore.dataprotection.authenticatedencryption.configurationmodel.cngcbcauthenticatedencryptorconfiguration.encryptionalgorithmprovider) vlastnost na hodnotu null k použití výchozího zprostředkovatele pro zadaný algoritmus. Zobrazit [BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx) Další informace naleznete v dokumentaci.
@@ -364,7 +379,7 @@ Při hostování v [Docker](/dotnet/standard/microservices-architecture/containe
 * Složka, která je svazek Dockeru, který potrvá déle než doba platnosti kontejneru, například sdíleného svazku nebo hostitele připojeného svazku.
 * Externího poskytovatele, jako například [Azure Key Vault](https://azure.microsoft.com/services/key-vault/) nebo [Redis](https://redis.io/).
 
-## <a name="see-also"></a>Viz také:
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/data-protection/configuration/non-di-scenarios>
 * <xref:security/data-protection/configuration/machine-wide-policy>
