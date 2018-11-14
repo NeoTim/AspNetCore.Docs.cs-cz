@@ -185,6 +185,8 @@
 ## [Návratové typy akcí](xref:web-api/action-return-types)
 ## [Formátování dat odpovědi](xref:web-api/advanced/formatting)
 ## [Vlastní formátovací moduly](xref:web-api/advanced/custom-formatters)
+## [Analyzátory](xref:web-api/advanced/analyzers)
+## [Konvence](xref:web-api/advanced/conventions)
 
 # Aplikace v reálném čase
 ## [Přehled](xref:signalr/introduction)
