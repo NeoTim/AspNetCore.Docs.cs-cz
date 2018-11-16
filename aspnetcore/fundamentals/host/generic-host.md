@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/30/2018
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 9943c9dd2d6dd67a79186ee880b181a5915d06be
-ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
+ms.openlocfilehash: cac5ccdea7838d26b7468f9bf1ab8d317b444b46
+ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2018
-ms.locfileid: "51505710"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51708514"
 ---
 # <a name="net-generic-host"></a>Obecný hostitele .NET
 
@@ -75,7 +75,7 @@ Konfigurace hostitele bylo vytvořeno.
 **Typ**: *řetězec*  
 **Výchozí**: název sestavení obsahující vstupní bod aplikace.  
 **Sada s použitím**: `HostBuilderContext.HostingEnvironment.ApplicationName`  
-**Proměnná prostředí**: `<PREFIX_>APPLICATIONNAME` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configuration-builder))
+**Proměnná prostředí**: `<PREFIX_>APPLICATIONNAME` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configurehostconfiguration))
 
 ### <a name="content-root"></a>Kořen obsahu
 
@@ -85,7 +85,7 @@ Toto nastavení určuje, kde začíná hostitele vyhledávání obsahu souborů.
 **Typ**: *řetězec*  
 **Výchozí**: výchozí hodnota je složka, ve které se nachází sestavení aplikace.  
 **Sada s použitím**: `UseContentRoot`  
-**Proměnná prostředí**: `<PREFIX_>CONTENTROOT` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configuration-builder))
+**Proměnná prostředí**: `<PREFIX_>CONTENTROOT` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configurehostconfiguration))
 
 Pokud cesta neexistuje, hostitel se nepodaří spustit.
 
@@ -99,7 +99,7 @@ Nastaví aplikace [prostředí](xref:fundamentals/environments).
 **Typ**: *řetězec*  
 **Výchozí**: produkčního prostředí  
 **Sada s použitím**: `UseEnvironment`  
-**Proměnná prostředí**: `<PREFIX_>ENVIRONMENT` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configuration-builder))
+**Proměnná prostředí**: `<PREFIX_>ENVIRONMENT` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configurehostconfiguration))
 
 Prostředí můžete nastavit na libovolnou hodnotu. Hodnoty definované v rámci rozhraní zahrnují `Development`, `Staging`, a `Production`. Hodnoty se velká a malá písmena.
 

@@ -1,64 +1,65 @@
 ---
-title: Instalační program služby Twitter externí přihlášení pomocí ASP.NET Core
+title: Nastavení externí přihlášení pomocí ASP.NET Core na twitteru
 author: rick-anderson
-description: Tento kurz představuje integrační služby Twitter účet uživatele ověřování do existující aplikace ASP.NET Core.
+description: Tento kurz ukazuje, integrace ověřování uživatele účtu Twitter do stávající aplikace ASP.NET Core.
 ms.author: riande
-ms.date: 11/01/2016
+ms.custom: mvc
+ms.date: 11/11/2018
 uid: security/authentication/twitter-logins
-ms.openlocfilehash: 81c19105e4cda932db3302a5df343322fb85abef
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.openlocfilehash: 43a5ea59d8853d297ae2c1ec3f4b1c0c14ec80c3
+ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36278489"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51708423"
 ---
-# <a name="twitter-external-login-setup-with-aspnet-core"></a>Instalační program služby Twitter externí přihlášení pomocí ASP.NET Core
+# <a name="twitter-external-login-setup-with-aspnet-core"></a>Nastavení externí přihlášení pomocí ASP.NET Core na twitteru
 
 Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V tomto kurzu se dozvíte, jak povolit uživatelům [přihlásit pomocí svého účtu služby Twitter](https://dev.twitter.com/web/sign-in/desktop-browser) pomocí projektu ASP.NET 2.0 základní ukázka na vytvořit [předchozí stránce](xref:security/authentication/social/index).
+V tomto kurzu se dozvíte, jak povolit uživatelům [Přihlaste se pomocí svého účtu Twitter](https://dev.twitter.com/web/sign-in/desktop-browser) použitím ukázkového projektu ASP.NET Core 2.0 na vytvoří [předchozí stránce](xref:security/authentication/social/index).
 
-## <a name="create-the-app-in-twitter"></a>Vytvoření aplikace v Twitter
+## <a name="create-the-app-in-twitter"></a>Vytvořit aplikaci na Twitteru
 
-* Přejděte na [ https://apps.twitter.com/ ](https://apps.twitter.com/) a přihlaste se. Pokud nemáte účet služby Twitter, pomocí **[nyní](https://twitter.com/signup)** odkaz k jeho vytvoření. Po přihlášení, **Správa aplikací** stránky se zobrazí:
+* Přejděte do [ https://apps.twitter.com/ ](https://apps.twitter.com/) a přihlaste se. Pokud ještě nemáte účet na Twitteru, použijte **[zaregistrujte se hned teď](https://twitter.com/signup)** odkaz pro vytvoření. Po přihlášení **správy aplikací** stránka je zobrazena:
 
-![Otevřete správu aplikací v Microsoft Edge služby Twitter](index/_static/TwitterAppManage.png)
+  ![Správa aplikací Twitter otevřít v Microsoft Edge](index/_static/TwitterAppManage.png)
 
-* Klepněte na **vytvořit novou aplikaci** a vyplňte aplikace **název**, **popis** a veřejné **webu** identifikátor URI (může to být dočasný dokud Zaregistrujte název domény):
+* Klepněte na **vytvořit novou aplikaci** a vyplnit **název**, **popis** a veřejné **webu** identifikátoru URI (může to být dočasný dokud Tento název domény zaregistrujte):
 
-![Vytvoření stránky aplikace](index/_static/TwitterCreate.png)
+  ![Vytvoření stránky aplikace](index/_static/TwitterCreate.png)
 
-* Zadejte váš vývojový identifikátor URI s `/signin-twitter` připojí do **identifikátory URI pro přesměrování platný OAuth** pole (například: `https://localhost:44320/signin-twitter`). Schéma ověřování služby Twitter nakonfigurované později v tomto kurzu bude automaticky zpracovávat požadavky na `/signin-twitter` trasy k implementaci toku OAuth.
+* Zadejte identifikátor URI vývoje s `/signin-twitter` připojí do **identifikátory URI pro přesměrování platný OAuth** pole (například: `https://localhost:44320/signin-twitter`). Schéma ověřování Twitteru později v tomto kurzu konfiguruje automaticky zpracovává požadavky na `/signin-twitter` trasy, která má implementovat tok OAuth.
 
-> [!NOTE]
-> Segment identifikátoru URI `/signin-twitter` je nastaven jako výchozí zpětného volání zprostředkovatele ověřování služby Twitter. Můžete změnit výchozí identifikátor URI zpětného volání při konfiguraci middleware ověřování služby Twitter prostřednictvím zděděnou [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) vlastnost [TwitterOptions](/dotnet/api/microsoft.aspnetcore.authentication.twitter.twitteroptions) Třída.
+  > [!NOTE]
+  > Segment identifikátoru URI `/signin-twitter` je nastaven jako výchozí zpětného volání zprostředkovatele ověřování Twitteru. Můžete změnit výchozí identifikátor URI zpětného volání při konfiguraci middleware ověřování služby Twitter prostřednictvím zděděnou [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) vlastnost [TwitterOptions](/dotnet/api/microsoft.aspnetcore.authentication.twitter.twitteroptions) Třída.
 
-* Vyplňte zbytek formuláře a klepněte na **vytvořit aplikaci služby Twitter**. Podrobnosti o nové aplikace se zobrazí:
+* Vyplňte zbývající části formuláře a klepněte na **vytvoření aplikace Twitter**. Podrobnosti o nové aplikace se zobrazí:
 
-![Podrobnosti karty na stránce aplikace](index/_static/TwitterAppDetails.png)
+  ![Podrobnosti karty na stránce aplikace](index/_static/TwitterAppDetails.png)
 
-* Při nasazování webu budete potřebovat k pokroku **Správa aplikací** stránky a zaregistrujte nový veřejný identifikátor URI.
+* Při nasazování webu budete potřebovat revidovat **správy aplikací** stránky a zaregistrujte nový veřejný identifikátor URI.
 
-## <a name="storing-twitter-consumerkey-and-consumersecret"></a>Ukládání ConsumerKey služby Twitter a ConsumerSecret
+## <a name="storing-twitter-consumerkey-and-consumersecret"></a>Ukládání Twitter ConsumerKey a ConsumerSecret
 
-Odkaz citlivá nastavení, jako je Twitter `Consumer Key` a `Consumer Secret` do konfigurace vaší aplikace pomocí [tajný klíč správce](xref:security/app-secrets). Pro účely tohoto kurzu, název tokeny `Authentication:Twitter:ConsumerKey` a `Authentication:Twitter:ConsumerSecret`.
+Propojit citlivá nastavení, jako je Twitter `Consumer Key` a `Consumer Secret` pomocí konfigurace aplikace [manažera tajných](xref:security/app-secrets). Pro účely tohoto kurzu se název tokeny `Authentication:Twitter:ConsumerKey` a `Authentication:Twitter:ConsumerSecret`.
 
-Tyto tokeny můžete najít na **klíče a přístupové tokeny** karta po vytvoření nové aplikace služby Twitter:
+Tyto tokeny můžete najít na **klíče a přístupové tokeny** kartu po vytvoření nové aplikace Twitter:
 
 ![Karta klíče a přístupové tokeny](index/_static/TwitterKeys.png)
 
-## <a name="configure-twitter-authentication"></a>Nakonfigurujte ověřování služby Twitter.
+## <a name="configure-twitter-authentication"></a>Konfigurace ověřování Twitteru
 
-Šablona projektu použili v tomto kurzu zajistí, že [Microsoft.AspNetCore.Authentication.Twitter](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Twitter) balíček je již nainstalován.
+Šablona projektu použité v tomto kurzu zajistí, že [Microsoft.AspNetCore.Authentication.Twitter](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Twitter) balíček je už nainstalovaný.
 
-* Chcete-li nainstalovat tento balíček s Visual Studio 2017, klikněte pravým tlačítkem na projekt a vyberte **spravovat balíčky NuGet**.
-* Chcete-li nainstalovat s .NET Core rozhraní příkazového řádku, spusťte následující v adresáři projektu:
+* K instalaci tohoto balíčku pomocí sady Visual Studio 2017, klikněte pravým tlačítkem na projekt a vyberte **spravovat balíčky NuGet**.
+* Instalace s .NET Core CLI, spusťte v adresáři projektu následující:
 
-   `dotnet add package Microsoft.AspNetCore.Authentication.Twitter`
+  `dotnet add package Microsoft.AspNetCore.Authentication.Twitter`
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET základní 2.x](#tab/aspnetcore2x/)
+::: moniker range=">= aspnetcore-2.0"
 
-Přidání služby Twitter `ConfigureServices` metoda v *Startup.cs* souboru:
+Přidat službu Twitter `ConfigureServices` metoda ve *Startup.cs* souboru:
 
 ```csharp
 services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -74,11 +75,13 @@ services.AddAuthentication().AddTwitter(twitterOptions =>
 
 [!INCLUDE [default settings configuration](includes/default-settings.md)]
 
-[!INCLUDE[](~/includes/chain-auth-providers.md)]
+[!INCLUDE[](includes/chain-auth-providers.md)]
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x/)
+::: moniker-end
 
-Přidat v middlewaru Twitter `Configure` metoda v *Startup.cs* souboru:
+::: moniker range="< aspnetcore-2.0"
+
+Přidat v middlewaru Twitter `Configure` metoda ve *Startup.cs* souboru:
 
 ```csharp
 app.UseTwitterAuthentication(new TwitterOptions()
@@ -88,35 +91,37 @@ app.UseTwitterAuthentication(new TwitterOptions()
 });
 ```
 
----
+::: moniker-end
 
-Najdete v článku [TwitterOptions](/dotnet/api/microsoft.aspnetcore.builder.twitteroptions) referenční dokumentace rozhraní API pro další informace o možností konfigurace podporovanou ověřováním služby Twitter. To slouží k požadavku na jiné informace o uživateli.
+Zobrazit [TwitterOptions](/dotnet/api/microsoft.aspnetcore.builder.twitteroptions) reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem ověřování Twitteru. To umožňuje požádat o jiné informace o uživateli.
 
-## <a name="sign-in-with-twitter"></a>Přihlaste se pomocí služby Twitter.
+## <a name="sign-in-with-twitter"></a>Přihlaste se pomocí Twitteru
 
-Spusťte aplikaci a klikněte na tlačítko **přihlásit**. Zobrazí se možnost přihlásit se přes Twitter:
+Spusťte aplikaci a klikněte na tlačítko **přihlášení**. Zobrazí se možnost přihlásit se přes Twitter:
 
-![Webové aplikace: uživatel není ověřen.](index/_static/DoneTwitter.png)
+![Webová aplikace: uživatel nebyl ověřen](index/_static/DoneTwitter.png)
 
-Kliknutím na **Twitter** přesměruje na Twitteru pro ověřování:
+Kliknutím na **Twitteru** přesměruje na Twitter pro ověřování:
 
-![Stránka ověřování služby Twitter.](index/_static/TwitterLogin.png)
+![Stránka ověřování twitteru](index/_static/TwitterLogin.png)
 
-Po zadání přihlašovacích údajů služby Twitter, budete přesměrováni zpět na webovou stránku, kde můžete nastavit e-mailu.
+Po zadání vaše přihlašovací údaje k Twitteru, budete přesměrováni zpět na webovou stránku, kde můžete nastavit e-mailu.
 
-Nyní jste se přihlásili pomocí přihlašovacích údajů služby Twitter:
+Nyní jste přihlášeni pomocí svých přihlašovacích údajů Twitter:
 
-![Webové aplikace: uživatel ověřený](index/_static/Done.png)
+![Webová aplikace: uživatel byl ověřen](index/_static/Done.png)
+
+[!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 
-* **ASP.NET Core 2.x pouze:** pokud identita není nastavena voláním `services.AddIdentity` v `ConfigureServices`, pokusu o ověření bude mít za následek *ArgumentException –: musí být použita volba 'SignInScheme'*. Šablona projektu použili v tomto kurzu zajistí, že to probíhá.
-* Pokud databázi lokality s použitím počáteční migrace vytvořena nebyla, zobrazí se *databázová operace se nezdařila při zpracování požadavku* chyby. Klepněte na **použít migrace** vytvořit databázi a aktualizujte pokračujte dále chyba.
+* **ASP.NET Core 2.x pouze:** pokud identita není nakonfigurována voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: musí být Zadaná možnost "SignInScheme"*. Šablona projektu použité v tomto kurzu zajistí, že to se provádí.
+* Pokud nebyl vytvořen použití počáteční migraci databáze lokality, se zobrazí *databázová operace selhala při zpracování požadavku* chyby. Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.
 
 ## <a name="next-steps"></a>Další kroky
 
-* Tento článek vám ukázal, jak můžete ověřit pomocí služby Twitter. Můžete postupovat podle podobný postup k ověření pomocí jiných poskytovatelů uvedené na [předchozí stránce](xref:security/authentication/social/index).
+* V tomto článku jsme si ukázali, jak ověřování pomocí Twitteru. Můžete postupovat podle podobný přístup k ověření u jiných poskytovatelů na [předchozí stránce](xref:security/authentication/social/index).
 
-* Jakmile budete publikovat web vaší webové aplikace Azure, byste měli obnovit `ConsumerSecret` v portálu pro vývojáře služby Twitter.
+* Po publikování webu do webové aplikace Azure, měli byste resetovat `ConsumerSecret` na portálu pro vývojáře Twitter.
 
-* Nastavte `Authentication:Twitter:ConsumerKey` a `Authentication:Twitter:ConsumerSecret` jako nastavení aplikace v portálu Azure. Konfigurace systému je nastavený čtení klíčů z proměnných prostředí.
+* Nastavte `Authentication:Twitter:ConsumerKey` a `Authentication:Twitter:ConsumerSecret` jako nastavení aplikace na webu Azure Portal. Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.

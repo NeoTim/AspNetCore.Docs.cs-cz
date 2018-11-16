@@ -3,14 +3,15 @@ title: Facebook, Google a externí zprostředkovatel ověřování v ASP.NET Cor
 author: rick-anderson
 description: Tento kurz ukazuje vytvoření ASP.NET Core 2.x aplikace pomocí externího zprostředkovatele ověřování OAuth 2.0.
 ms.author: riande
-ms.date: 11/01/2016
+ms.custom: mvc
+ms.date: 11/11/2018
 uid: security/authentication/social/index
-ms.openlocfilehash: 48a01ab241f9a6ad6ad3fb2ee9e210f459075c33
-ms.sourcegitcommit: a669c4e3f42e387e214a354ac4143555602e6f66
+ms.openlocfilehash: 19074d5014a09446ceec1b89449e78760fc8e7cf
+ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/31/2018
-ms.locfileid: "43336117"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51708371"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook, Google a externí zprostředkovatel ověřování v ASP.NET Core
 
@@ -28,9 +29,9 @@ Poznámka: Balíčky okomentovat abstraktní spoustu složitost tok ověřován�
 
 ## <a name="create-a-new-aspnet-core-project"></a>Vytvořte nový projekt ASP.NET Core
 
-* V sadě Visual Studio 2017, vytvořte nový projekt z úvodní stránky, nebo prostřednictvím **soubor > Nový > projekt**.
+* V sadě Visual Studio 2017, vytvořte nový projekt z úvodní stránky, nebo prostřednictvím **souboru** > **nový** > **projektu**.
 
-* Vyberte **webové aplikace ASP.NET Core** šablony, které jsou k dispozici v **Visual C# > .NET Core** kategorie:
+* Vyberte **webové aplikace ASP.NET Core** šablony, které jsou k dispozici v **Visual C#**   >  **.NET Core** kategorie:
 
 ![Dialogové okno nového projektu](index/_static/new-project.png)
 
@@ -51,9 +52,11 @@ Poznámka: Tento kurz se vztahuje na verzi ASP.NET Core 2.0 SDK, která se dají
 
 OAuth 2.0 vyžaduje použití protokolu SSL pro ověřování prostřednictvím protokolu HTTPS.
 
-Poznámka: Projekty vytvořené využitím **webovou aplikaci** nebo **webového rozhraní API** šablony projektů pro ASP.NET Core 2.x se automaticky konfigurují pro povolení protokolu SSL a spustit s adresou URL protokolu https, pokud **jednotlivé Uživatelské účty** na jste vybrali možnost **dialogové okno Změnit ověřování** v Průvodci vytvořením projektu, jak je znázorněno výše.
+Projekty vytvořené pomocí **webovou aplikaci** nebo **webového rozhraní API** projektu šablony s ASP.NET Core 2.1 nebo novější se automaticky konfigurují pro povolení protokolu SSL. Aplikace spustí s zabezpečené výchozí koncový bod, pokud **jednotlivé uživatelské účty** je vybraná možnost v **dialogové okno Změnit ověřování** projektu průvodce.
 
-* Vyžadování protokolu SSL na vašem webu pomocí následujících kroků v [vynucování SSL v aplikaci ASP.NET Core](xref:security/enforcing-ssl) tématu.
+Další informace naleznete v tématu <xref:security/enforcing-ssl>.
+
+[!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
 ## <a name="use-secretmanager-to-store-tokens-assigned-by-login-providers"></a>Pomocí SecretManager ukládat tokeny přiřadil zprostředkovatele přihlášení
 
@@ -74,7 +77,7 @@ Ke konfiguraci vaší aplikaci použít příslušné poskytovatele použijte n�
 * [Microsoft](xref:security/authentication/microsoft-logins) pokyny
 * [Jiný poskytovatel](xref:security/authentication/otherlogins) pokyny
 
-[!INCLUDE[](~/includes/chain-auth-providers.md)]
+[!INCLUDE[](includes/chain-auth-providers.md)]
 
 ## <a name="optionally-set-password"></a>Volitelně můžete nastavit heslo
 

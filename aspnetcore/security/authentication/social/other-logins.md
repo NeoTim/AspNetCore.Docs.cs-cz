@@ -1,50 +1,50 @@
 ---
-title: Krátký zjišťování dalších zprostředkovatelů ověřování
+title: Externí zprostředkovatelé ověřování OAuth
 author: rick-anderson
+description: Objevte zprostředkovatele ověřování externí OAuth, které pracují s aplikací ASP.NET Core.
 ms.author: riande
-ms.date: 11/03/2016
+ms.custom: mvc
+ms.date: 11/11/2018
 uid: security/authentication/otherlogins
-ms.openlocfilehash: 9c2ce02f4613fddbe0e767724019d80ac056bf7b
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.openlocfilehash: b69c366ec1bf12ccf434991fc8a79eaf8c09da3d
+ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36274050"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51708462"
 ---
-# <a name="short-survey-of-other-authentication-providers"></a>Krátký zjišťování dalších zprostředkovatelů ověřování
-
-<a name="security-authentication-other-logins"></a>
+# <a name="external-oauth-authentication-providers"></a>Externí zprostředkovatelé ověřování OAuth
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Pranav Rastogi](https://github.com/rustd), a [Valeriy Novytskyy](https://github.com/01binary)
 
-Zde jsou nastavit pokyny některých dalších běžných zprostředkovatelů OAuth. Balíčky NuGet třetích stran, jako jsou ty udržované [aspnet contrib](https://www.nuget.org/packages?q=owners%3Aaspnet-contrib+title%3AOAuth) umožňuje doplnit zprostředkovatele ověřování, které jsou implementované týmem ASP.NET Core.
+Následující seznam obsahuje společné externího zprostředkovatele ověřování OAuth, které pracují s aplikací ASP.NET Core. Balíčky NuGet třetích stran, jako jsou ty udržuje [aspnet contrib](https://www.nuget.org/packages?q=owners%3Aaspnet-contrib+title%3AOAuth), můžete použít jako doplněk zprostředkovatele ověřování, které jsou implementované tým ASP.NET Core.
 
-* Nastavit **LinkedIn** přihlášení: [ https://www.linkedin.com/developer/apps ](https://www.linkedin.com/developer/apps). V tématu [oficiální kroky](https://developer.linkedin.com/docs/oauth2).
+* [LinkedIn](https://www.linkedin.com/developer/apps) ([pokyny](https://developer.linkedin.com/docs/oauth2))
 
-* Nastavit **Instagram** přihlášení: [ https://www.instagram.com/developer/register/ ](https://www.instagram.com/developer/register/). V tématu [oficiální kroky](https://www.instagram.com/developer/authentication/).
+* [Instagram](https://www.instagram.com/developer/register/) ([pokyny](https://www.instagram.com/developer/authentication/))
 
-* Nastavit **Reddit** přihlášení: [ https://www.reddit.com/login?dest=https%3A%2F%2Fwww.reddit.com%2Fprefs%2Fapps ](https://www.reddit.com/login?dest=https%3A%2F%2Fwww.reddit.com%2Fprefs%2Fapps). V tématu [oficiální kroky](https://github.com/reddit/reddit/wiki/OAuth2-Quick-Start-Example).
+* [Reddit](https://www.reddit.com/login?dest=https%3A%2F%2Fwww.reddit.com%2Fprefs%2Fapps) ([pokyny](https://github.com/reddit/reddit/wiki/OAuth2-Quick-Start-Example))
 
-* Nastavit **Githubu** přihlášení: [ https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Fapplications%2Fnew ](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Fapplications%2Fnew). V tématu [oficiální kroky](https://developer.github.com/v3/oauth/).
+* [Github](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Fsettings%2Fapplications%2Fnew) ([pokyny](https://developer.github.com/v3/oauth/))
 
-* Nastavit **Yahoo** přihlášení: [ https://login.yahoo.com/config/login?src=devnet&.done=http%3A%2F%2Fdeveloper.yahoo.com%2Fapps%2Fcreate%2F ](https://login.yahoo.com/config/login?src=devnet&.done=http%3A%2F%2Fdeveloper.yahoo.com%2Fapps%2Fcreate%2F). V tématu [oficiální kroky](https://developer.yahoo.com/bbauth/user.html).
+* [Yahoo](https://login.yahoo.com/config/login?src=devnet&.done=http%3A%2F%2Fdeveloper.yahoo.com%2Fapps%2Fcreate%2F) ([pokyny](https://developer.yahoo.com/bbauth/user.html))
 
-* Nastavit **Tumblr** přihlášení: [ https://www.tumblr.com/oauth/apps ](https://www.tumblr.com/oauth/apps). V tématu [oficiální kroky](https://www.tumblr.com/docs/api/v2#auth).
+* [Tumblr](https://www.tumblr.com/oauth/apps) ([pokyny](https://www.tumblr.com/docs/api/v2#auth))
 
-* Nastavit **Pinterest** přihlášení: [ https://www.pinterest.com/login/?next=http%3A%2F%2Fdevsite%2Fapps%2F ](https://www.pinterest.com/login/?next=http%3A%2F%2Fdevsite%2Fapps%2F). V tématu [oficiální kroky](https://developers.pinterest.com/docs/api/overview/?).
+* [Pinterestu](https://www.pinterest.com/login/?next=http%3A%2F%2Fdevsite%2Fapps%2F) ([pokyny](https://developers.pinterest.com/docs/api/overview/?))
 
-* Nastavit **Pocket** přihlášení: [ https://getpocket.com/developer/apps/new ](https://getpocket.com/developer/apps/new). V tématu [oficiální kroky](https://getpocket.com/developer/docs/authentication).
+* [Pocket](https://getpocket.com/developer/apps/new) ([pokyny](https://getpocket.com/developer/docs/authentication))
 
-* Nastavit **Flickr** přihlášení: [ https://www.flickr.com/services/apps/create ](https://www.flickr.com/services/apps/create). V tématu [oficiální kroky](https://www.flickr.com/services/api/auth.oauth.html).
+* [Flickr](https://www.flickr.com/services/apps/create) ([pokyny](https://www.flickr.com/services/api/auth.oauth.html))
 
-* Nastavit **Dribble** přihlášení: [ https://dribbble.com/signup ](https://dribbble.com/signup). V tématu [oficiální kroky](http://developer.dribbble.com/v1/oauth/).
+* [Dribble](https://dribbble.com/signup) ([pokyny](http://developer.dribbble.com/v1/oauth/))
 
-* Nastavit **Vimeo** přihlášení: [ https://vimeo.com/join ](https://vimeo.com/join). V tématu [oficiální kroky](https://developer.vimeo.com/api/authentication).
+* [Vimeo](https://vimeo.com/join) ([pokyny](https://developer.vimeo.com/api/authentication))
 
-* Nastavit **SoundCloud** přihlášení: [ https://soundcloud.com/you/apps/new ](https://soundcloud.com/you/apps/new). V tématu [oficiální kroky](https://developers.soundcloud.com/blog/we-love-oauth-2).
+* [SoundCloud](https://soundcloud.com/you/apps/new) ([pokyny](https://developers.soundcloud.com/blog/we-love-oauth-2))
 
-* Nastavit **VK** přihlášení: [ https://vk.com/apps?act=manage ](https://vk.com/apps?act=manage). V tématu [oficiální kroky](https://vk.com/pages?oid=-17680044&p=Authorizing_Sites).
+* [VK](https://vk.com/apps?act=manage) ([pokyny](https://vk.com/pages?oid=-17680044&p=Authorizing_Sites))
 
-## <a name="multiple-authentication-providers"></a>Více zprostředkovatelů ověřování
+[!INCLUDE[Multiple authentication providers](includes/chain-auth-providers.md)]
 
-[!INCLUDE[](~/includes/chain-auth-providers.md)]
+[!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]

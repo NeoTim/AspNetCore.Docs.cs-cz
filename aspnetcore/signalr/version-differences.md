@@ -4,14 +4,14 @@ author: tdykstra
 description: Rozdíly mezi SignalR a funkce SignalR technologie ASP.NET Core
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
-ms.date: 09/10/2018
+ms.date: 11/14/2018
 uid: signalr/version-differences
-ms.openlocfilehash: 8f07647959b6ef815eed599703bdb1bfb446572f
-ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
+ms.openlocfilehash: c9302f1c9e7cd4e62eaeaef871feb54ef26aa3ca
+ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2018
-ms.locfileid: "51505749"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51708410"
 ---
 # <a name="differences-between-aspnet-signalr-and-aspnet-core-signalr"></a>Rozdíly mezi funkce SignalR technologie ASP.NET a technologie SignalR technologie ASP.NET Core
 
@@ -75,6 +75,10 @@ ASP.NET Core SignalR teď podporuje [streamovaná data](xref:signalr/streaming) 
 ### <a name="state"></a>Stav
 
 Umožňuje předat libovolný stav mezi klienty a centrum (často označované jako HubState) byla odebrána a také podporu pro zprávy o průběhu. V tuto chvíli není nevyskytují proxy rozbočovače.
+
+### <a name="persistentconnection-removal"></a>Odebrání PersistentConnection
+
+V knihovně SignalR technologie ASP.NET Core [PersistentConnection](https://docs.microsoft.com/previous-versions/aspnet/jj919047(v%3dvs.118)) třída odebrala. 
 
 ### <a name="globalhost"></a>GlobalHost
 

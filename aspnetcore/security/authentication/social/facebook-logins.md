@@ -3,14 +3,15 @@ title: Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 author: rick-anderson
 description: Tento kurz ukazuje, integrace ověřování pomocí účtu uživatele Facebooku do stávající aplikace ASP.NET Core.
 ms.author: riande
-ms.date: 08/01/2017
+ms.custom: mvc
+ms.date: 11/11/2018
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: 3ba6fe7785afa268e54e6032f1963c1867f6bb27
-ms.sourcegitcommit: 74c09caec8992635825b45b7f065f871d33c077a
+ms.openlocfilehash: e8ae16538b5d6844af7d983071fad629ebbe6217
+ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2018
-ms.locfileid: "42634806"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51708501"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 
@@ -28,19 +29,19 @@ V tomto kurzu se dozvíte, jak povolit vašim uživatelům přihlašovat se pomo
 
 * Vyplňte formulář a klepněte **vytvoření ID aplikace** tlačítko.
 
-   ![Vytvoření nové aplikace ID formuláře](index/_static/FBNewAppId.png)
+  ![Vytvoření nové aplikace ID formuláře](index/_static/FBNewAppId.png)
 
 * Na **vyberte produkt** klikněte na **Set Up** na **přihlášení k Facebooku** karty.
 
-   ![Stránka nastavení produktu](index/_static/FBProductSetup.png)
+  ![Stránka nastavení produktu](index/_static/FBProductSetup.png)
 
 * **Rychlý Start** průvodce se spustí s **zvolte platformu** jako první stránka. Vynechat Průvodce teď kliknutím **nastavení** odkaz v nabídce na levé straně:
 
-   ![Přeskočit rychlý Start](index/_static/FBSkipQuickStart.png)
+  ![Přeskočit rychlý Start](index/_static/FBSkipQuickStart.png)
 
 * Zobrazí se **nastavení klienta OAuth** stránky:
 
-![Stránka nastavení OAuth klienta](index/_static/FBOAuthSetup.png)
+  ![Stránka nastavení OAuth klienta](index/_static/FBOAuthSetup.png)
 
 * Zadejte identifikátor URI vývoje s */signin-facebook* připojí do **identifikátory URI pro přesměrování platný OAuth** pole (například: `https://localhost:44320/signin-facebook`). Ověřování přes síť Facebook později v tomto kurzu konfiguruje automaticky zpracovává požadavky na */signin-facebook* trasy, která má implementovat tok OAuth.
 
@@ -49,10 +50,9 @@ V tomto kurzu se dozvíte, jak povolit vašim uživatelům přihlašovat se pomo
 
 * Klikněte na tlačítko **uložit změny**.
 
-* Klikněte na tlačítko **Nastavení > Základní** odkaz v levém navigačním panelu. 
+* Klikněte na tlačítko **nastavení** > **základní** odkaz v levém navigačním panelu.
 
-    Na této stránce si poznamenejte vaše `App ID` a `App Secret`. Přidá do vaší aplikace ASP.NET Core v následující části:
-
+  Na této stránce si poznamenejte vaše `App ID` a `App Secret`. Přidá do vaší aplikace ASP.NET Core v následující části:
 
 * Při nasazování webu potřebujete revidovat **přihlášení k Facebooku** stránce instalace a registrace nový veřejný identifikátor URI.
 
@@ -69,7 +69,7 @@ dotnet user-secrets set Authentication:Facebook:AppSecret <app-secret>
 
 ## <a name="configure-facebook-authentication"></a>Konfigurace ověřování sítě Facebook
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x/)
+::: moniker range=">= aspnetcore-2.0"
 
 Přidání služby Facebook v `ConfigureServices` metodu *Startup.cs* souboru:
 
@@ -87,9 +87,11 @@ services.AddAuthentication().AddFacebook(facebookOptions =>
 
 [!INCLUDE [default settings configuration](includes/default-settings.md)]
 
-[!INCLUDE[](~/includes/chain-auth-providers.md)]
+[!INCLUDE[](includes/chain-auth-providers.md)]
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x/)
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.0"
 
 Nainstalujte [Microsoft.AspNetCore.Authentication.Facebook](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Facebook) balíčku.
 
@@ -108,7 +110,7 @@ app.UseFacebookAuthentication(new FacebookOptions()
 });
 ```
 
----
+::: moniker-end
 
 Zobrazit [FacebookOptions](/dotnet/api/microsoft.aspnetcore.builder.facebookoptions) reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem ověřování sítě Facebook. Možnosti konfigurace umožňuje:
 
@@ -134,6 +136,8 @@ Po zadání vašich přihlašovacích údajů k Facebooku budete přesměrováni
 Nyní jste přihlášeni pomocí vašich přihlašovacích údajů k Facebooku:
 
 ![Webová aplikace: uživatel byl ověřen](index/_static/Done.png)
+
+[!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 

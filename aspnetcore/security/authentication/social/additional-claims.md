@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit další deklarace identity a tokeny od ext
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/28/2018
+ms.date: 11/11/2018
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: dc8b3e32141466a12e4eff0c86d2d4bed689afe5
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 9a24ac138950ef2bedac48f506655d06520137cf
+ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206354"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51708358"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>Zachování další deklarace identity a tokeny od externích poskytovatelů v ASP.NET Core
 
@@ -22,13 +22,11 @@ Aplikace ASP.NET Core můžete vytvořit další deklarace identity a tokenů z 
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisite"></a>Předpoklad
+## <a name="prerequisites"></a>Požadavky
 
 Rozhodněte, které externího zprostředkovatele ověřování pro podporu v aplikaci. Pro každého zprostředkovatele aplikace registrovaly a získaly ID klienta a tajný kód klienta. Další informace naleznete v tématu <xref:security/authentication/social/index>. [Ukázkovou aplikaci](#sample-app-instructions) používá [zprostředkovatele ověřování Google](xref:security/authentication/google-logins).
 
-## <a name="authentication-provider-configuration"></a>Konfigurace poskytovatele ověřování
-
-### <a name="set-the-client-id-and-client-secret"></a>Nastavte ID klienta a tajný kód klienta
+## <a name="set-the-client-id-and-client-secret"></a>Nastavte ID klienta a tajný kód klienta
 
 Zprostředkovatele ověřování OAuth vytváří vztah důvěryhodnosti s aplikací pomocí ID klienta a tajný kód klienta. ID klienta a hodnoty tajných kódů klienta jsou vytvořené pro aplikaci zprostředkovatele externího ověřování při registraci aplikace s tímto poskytovatelem. Každý externího poskytovatele, který používá aplikace musí mít nakonfigurovanou nezávisle na sobě ID klienta a tajný kód klienta poskytovatele. Další informace najdete v tématech zprostředkovatele externího ověřování, které platí pro váš scénář:
 
@@ -43,7 +41,7 @@ Ukázková aplikace nakonfiguruje zprostředkovatele ověřování Google s ID k
 
 [!code-csharp[](additional-claims/samples/2.x/AdditionalClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=4,6)]
 
-### <a name="establish-the-authentication-scope"></a>Vytvořit rozsah ověřování
+## <a name="establish-the-authentication-scope"></a>Vytvořit rozsah ověřování
 
 Zadejte seznam oprávnění k načtení z poskytovatele tak, že zadáte <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>. V následující tabulce se zobrazí obory ověřování pro běžné externího poskytovatele.
 
@@ -58,7 +56,7 @@ Ukázková aplikace přidá ke službě Google `plus.login` oboru požadavku Goo
 
 [!code-csharp[](additional-claims/samples/2.x/AdditionalClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=7)]
 
-### <a name="map-user-data-keys-and-create-claims"></a>Mapování uživatelských dat klíčů a vytvářet deklarace identity
+## <a name="map-user-data-keys-and-create-claims"></a>Mapování uživatelských dat klíčů a vytvářet deklarace identity
 
 V možnostech zprostředkovatele, zadejte <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> pro každý klíč externího poskytovatele JSON uživatelské údaje pro identitu aplikace ke čtení na přihlášení. Další informace o typy deklarací identity najdete v tématu <xref:System.Security.Claims.ClaimTypes>.
 
@@ -72,7 +70,7 @@ V ukázkové aplikaci `OnPostConfirmationAsync` (*Account/ExternalLogin.cshtml.c
 
 [!code-csharp[](additional-claims/samples/2.x/AdditionalClaimsSample/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=30-31)]
 
-### <a name="save-the-access-token"></a>Uložit přístupový token
+## <a name="save-the-access-token"></a>Uložit přístupový token
 
 <xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> definuje, jestli tokeny přístupu a aktualizace by měla být uložena v <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> po úspěšném ověření. `SaveTokens` je nastavena na `false` ve výchozím nastavení ke zmenšení velikosti konečné ověřovacího souboru cookie.
 
@@ -93,7 +91,7 @@ Ukázková aplikace uloží přístupového tokenu v:
 
 [!code-csharp[](additional-claims/samples/2.x/AdditionalClaimsSample/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnGetCallbackAsync&highlight=31-32)]
 
-### <a name="how-to-add-additional-custom-tokens"></a>Jak přidat další vlastní tokeny
+## <a name="how-to-add-additional-custom-tokens"></a>Jak přidat další vlastní tokeny
 
 K předvedení jak přidat vlastní token, který je uložený jako součást `SaveTokens`, přidá ukázkovou aplikaci <xref:Microsoft.AspNetCore.Authentication.AuthenticationToken> s aktuálním <xref:System.DateTime> pro [AuthenticationToken.Name](xref:Microsoft.AspNetCore.Authentication.AuthenticationToken.Name*) z `TicketCreated`:
 
@@ -143,3 +141,5 @@ Authentication Properties
 .expires
     Mon, 10 Sep 2018 18:08:05 GMT
 ```
+
+[!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]

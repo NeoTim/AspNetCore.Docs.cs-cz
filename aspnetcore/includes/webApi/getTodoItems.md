@@ -15,7 +15,7 @@ Předchozí kód:
 * Definuje třídu kontroleru rozhraní API bez metody.
 * Vytvoří nový úkol položky, když `TodoItems` je prázdný. Není možné odstranit všechny položky Todo protože konstruktoru vytvoří novou jeden if `TodoItems` je prázdný.
 
-V následujících částech jsou přidány metody k implementaci rozhraní API. Třída je opatřen poznámkou `[ApiController]` atribut pro povolení některé vhodné funkce. Informace o funkcích, které jsou povolené v atributu naleznete v tématu [poznámku s ApiControllerAttribute](xref:web-api/index#annotation-with-apicontrollerattribute).
+V následujících částech jsou přidány metody k implementaci rozhraní API. Třída je opatřen poznámkou `[ApiController]` atribut pro povolení některé vhodné funkce. Informace o funkcích, které jsou povolené v atributu naleznete v tématu [Poznámka atributem objektu ApiController](xref:web-api/index#annotation-with-apicontroller-attribute).
 
 ::: moniker-end
 
