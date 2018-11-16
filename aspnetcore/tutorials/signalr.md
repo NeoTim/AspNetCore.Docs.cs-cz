@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/13/2018
 uid: tutorials/signalr
-ms.openlocfilehash: b7414b1981508f2424eccb147a44023058c7f97c
-ms.sourcegitcommit: 1d6ab43eed9cb3df6211c22b97bb3a9351ec4419
+ms.openlocfilehash: 8916b3659250c1bcbbc2dc9b3d466586f98bcc7e
+ms.sourcegitcommit: d3392f688cfebc1f25616da7489664d69c6ee330
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/13/2018
-ms.locfileid: "51597794"
+ms.lasthandoff: 11/16/2018
+ms.locfileid: "51818379"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s knihovnou SignalR technologie ASP.NET Core
 
@@ -243,6 +243,10 @@ Na serveru funkce SignalR nastavené předat požadavky SignalR SignalR.
   Název a zpráva se zobrazí na obě stránky okamžitě.
 
   ![Ukázková aplikace SignalR](signalr/_static/signalr-get-started-finished.png)
+
+> [!TIP]
+> Pokud aplikace nebude fungovat, otevřete prohlížeč vývojářské nástroje (F12) a přejděte do konzoly. Můžou se zobrazovat chyby související s kódem HTML a JavaScript. Předpokládejme například, kam si ukládáte *signalr.js* v jiné složce než řízené. V takovém případě nebude fungovat odkaz na tento soubor a uvidíte v konzole chybu 404.
+> ![Chyba nenalezení signalr.js](signalr/_static/f12-console.png)
 
 ## <a name="next-steps"></a>Další kroky
 

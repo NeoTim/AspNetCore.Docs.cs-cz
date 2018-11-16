@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak použít rozhraní API pro konfiguraci ke konfiguraci aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/09/2018
+ms.date: 11/15/2018
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 6dd478770d4eae4d497da576c17fbe7d2c133b89
-ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
+ms.openlocfilehash: 766ac77a2af01509f8e4bc646a18f7dfbc923511
+ms.sourcegitcommit: d3392f688cfebc1f25616da7489664d69c6ee330
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2018
-ms.locfileid: "51021739"
+ms.lasthandoff: 11/16/2018
+ms.locfileid: "51818392"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -538,10 +538,11 @@ Při práci s hierarchické klíče v seznamu proměnných prostředí, oddělov
 
 ::: moniker range=">= aspnetcore-2.0"
 
-`AddEnvironmentVariables` je automaticky volána, když inicializujete novou <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> s <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>. Další informace najdete v tématu [webového hostitele: nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
+`AddEnvironmentVariables` je automaticky volána pro proměnné prostředí s předponou `ASPNETCORE_` při inicializaci nové <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>. Další informace najdete v tématu [webového hostitele: nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
 
 `CreateDefaultBuilder` také načítání:
 
+* Konfigurace aplikace z proměnných prostředí unprefixed voláním `AddEnvironmentVariables` bez předpony.
 * Volitelná konfigurace z *appsettings.json* a *appsettings. { Prostředí} .json*.
 * [Tajné klíče uživatelů (tajný klíč správce)](xref:security/app-secrets) (ve vývojovém prostředí).
 * Argumenty příkazového řádku.
@@ -554,7 +555,7 @@ Zprostředkovatel konfigurace proměnných prostředí je volána po navázání
 
 Volání <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> při vytváření hostitele k určení konfigurace aplikace.
 
-`AddEnvironmentVariables` pro proměnné prostředí s předponou `ASPNETCORE_` již byla volána `CreateDefaultBuilder`. Pokud je potřeba zadat konfigurace aplikace z další proměnné prostředí, volání další poskytovatele aplikace v <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> a volat `AddEnvironmentVariables` s předponou.
+Pokud je potřeba zadat konfigurace aplikace z další proměnné prostředí, volání další poskytovatele aplikace v <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> a volat `AddEnvironmentVariables` s předponou.
 
 ```csharp
 public class Program
@@ -585,7 +586,7 @@ Při vytváření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> volat pří
 
 Volání `AddEnvironmentVariables` rozšiřující metody na instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>. Použít konfiguraci <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> s <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> metody.
 
-`AddEnvironmentVariables` pro proměnné prostředí s předponou `ASPNETCORE_` již byla volána `CreateDefaultBuilder`. Pokud je potřeba zadat konfigurace aplikace z další proměnné prostředí, volání další poskytovatele aplikace v <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> a volat `AddEnvironmentVariables` s předponou.
+Pokud je potřeba zadat konfigurace aplikace z další proměnné prostředí, volání další poskytovatele aplikace v <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> a volat `AddEnvironmentVariables` s předponou.
 
 ```csharp
 public class Program
