@@ -332,7 +332,7 @@
 #### [Ověřování Twitteru](xref:security/authentication/twitter-logins)
 #### [Ověřování Googlu](xref:security/authentication/google-logins)
 #### [Ověřování Microsoftu](xref:security/authentication/microsoft-logins)
-#### [Další zprostředkovatelé ověřování](xref:security/authentication/otherlogins)
+#### [Externí zprostředkovatelé ověřování](xref:security/authentication/otherlogins)
 #### [Další deklarace identity](xref:security/authentication/social/additional-claims)
 ### [Ověřování WS-Federation](xref:security/authentication/ws-federation)
 ### [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
