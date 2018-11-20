@@ -1,72 +1,325 @@
 ---
 title: Směrování v ASP.NET Core
-author: ardalis
-description: Zjistěte, jak je zodpovědný za mapování příchozího požadavku k obslužné rutině trasy funkci směrování ASP.NET Core.
+author: rick-anderson
+description: Zjistěte, jak je zodpovědná za mapování požadavku identifikátory URI pro koncový bod selektory a dispatching příchozí požadavky do koncových bodů směrování ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/01/2018
+ms.date: 11/15/2018
 uid: fundamentals/routing
-ms.openlocfilehash: a014782ba503bc8bd0fdefb4cb4f382aa8fde4cd
-ms.sourcegitcommit: c43a6f1fe72d7c2db4b5815fd532f2b45d964e07
+ms.openlocfilehash: bfada2777551253d8bb5b3d6bf89d1b05b26c574
+ms.sourcegitcommit: 04b55a5ce9d649ff2df926157ec28ae47afe79e2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50244967"
+ms.lasthandoff: 11/20/2018
+ms.locfileid: "52156968"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
 Podle [Ryanem Nowak](https://github.com/rynowak), [Steve Smith](https://ardalis.com/), a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Funkce směrování je zodpovědná za mapování příchozího požadavku k obslužné rutině trasy. Trasy jsou definovány v aplikaci a nakonfigurovaná při spuštění aplikace. Trasy můžete volitelně extrakci hodnot z adresy URL, obsaženy v požadavku a tyto hodnoty je pak možné pro zpracování požadavku. Pomocí informací o směrování z aplikace, funkci směrování je také možnost k vygenerování adres URL, které se mapují k obslužné rutině trasy. Proto směrování můžete najít obslužná rutina trasy podle adresy URL, nebo najít adresu URL odpovídající obslužná rutina trasy na základě informací o obslužnou rutinu trasy.
+::: moniker range="<= aspnetcore-1.1"
 
-Většina aplikací by měl zvolte základní a popisný směrování schéma, tak, že jsou adresy URL čitelný a srozumitelný. Výchozí trasa konvenční `{controller=Home}/{action=Index}/{id?}`:
+1.1 verzi tohoto tématu, stáhněte si [směrování v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Routing_1.x.pdf).
 
-* Podporuje základní a popisný směrování schéma:
-* Je vhodná výchozí bod pro webové aplikace určena pro použití prohlížeče.
+::: moniker-end
 
-Se běžně přidávají další stručném trasy k oblastem vysokou návštěvností aplikace v specializované situacích (třeba blogu, elektronického obchodování) pomocí [směrováním atributů](xref:mvc/controllers/routing#attribute-routing) nebo vyhrazené konvenční trasy.
+::: moniker range=">= aspnetcore-2.2"
 
-Webové rozhraní API používejte směrováním atributů pro model její funkce jako sada prostředků kde operace reprezentovány příkazy HTTP. To znamená, že mnoho operací (například GET, POST) se stejným prostředkem logické bude používat stejnou adresu URL. Směrování atributů poskytuje úroveň ovládací prvek, který je potřeba důkladně navrhnout místo adresy URL rozhraní API.
+Směrování je zodpovědná za mapování požadavku identifikátory URI pro koncový bod selektory a dispatching příchozí požadavky do koncových bodů. Trasy jsou definovány v aplikaci a nakonfigurovaná při spuštění aplikace. Trasy můžete volitelně extrakci hodnot z adresy URL, obsaženy v požadavku a tyto hodnoty je pak možné pro zpracování požadavku. Pomocí informací o směrování z aplikace, směrování je také možnost k vygenerování adres URL, které mapují na koncový bod selektorů.
 
-Podpora generování adres URL MVC umožňuje aplikaci byly vyvinuty bez pevného kódování adresu URL, aby propojení aplikace. To umožňuje počínaje základní konfigurace směrování a úprava směrování po obrazec aplikace je určen.
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
+
+Pokud chcete používat nejnovější směrování scénáře v ASP.NET Core 2.2, zadejte [verze kompatibility](xref:mvc/compatibility-version) MVC služby registrace v `Startup.ConfigureServices`:
+
+```csharp
+services.AddMvc()
+    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+```
+
+`EnableEndpointRouting` Možnost určuje, pokud směrování interně používali logiky založené na koncový bod nebo <xref:Microsoft.AspNetCore.Routing.IRouter>– na základě logiky ASP.NET Core 2.1 nebo dřívější. Pokud je verze kompatibility nastavena na verzi 2.2 nebo vyšší, výchozí hodnota je `true`. Nastavte hodnotu na `false` používat předchozí logiku směrování:
+
+```csharp
+// Use the routing logic of ASP.NET Core 2.1 or earlier:
+services.AddMvc(options => options.EnableEndpointRouting = false)
+    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+```
+
+Další informace o <xref:Microsoft.AspNetCore.Routing.IRouter>– směrování, přečtěte si téma [ASP.NET Core 2.1 verzi tohoto tématu](xref:fundamentals/routing?view=aspnetcore-2.1).
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+Směrování je zodpovědná za požadavku mapování identifikátorů URI obslužné rutiny trasy a odeslání příchozích požadavků. Trasy jsou definovány v aplikaci a nakonfigurovaná při spuštění aplikace. Trasy můžete volitelně extrakci hodnot z adresy URL, obsaženy v požadavku a tyto hodnoty je pak možné pro zpracování požadavku. Pomocí nakonfigurované trasy z aplikace, směrování je možné k vygenerování adres URL, které se mapují k obslužné rutině trasy.
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.1"
+
+Chcete-li použít nejnovější směrování scénáře v ASP.NET Core 2.1, zadejte [verze kompatibility](xref:mvc/compatibility-version) MVC služby registrace v `Startup.ConfigureServices`:
+
+```csharp
+services.AddMvc()
+    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+```
+
+::: moniker-end
 
 > [!IMPORTANT]
-> Tento dokument popisuje směrování nízké úrovně ASP.NET Core. Informace o směrování ASP.NET Core MVC najdete v tématu <xref:mvc/controllers/routing>.
+> Tento dokument popisuje směrování nízké úrovně ASP.NET Core. Informace o směrování ASP.NET Core MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvence směrování ve stránky Razor, naleznete v tématu <xref:razor-pages/razor-pages-conventions>.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základní informace o směrování
+
+Většina aplikací by měl zvolte základní a popisný směrování schéma, tak, že jsou adresy URL čitelný a srozumitelný. Výchozí trasa konvenční `{controller=Home}/{action=Index}/{id?}`:
+
+* Podporuje směrování plán basic a popisný.
+* Je vytvoření užitečného počátečního bodu pro aplikace založené na uživatelském rozhraní.
+
+Vývojáři běžně přidat další stručném trasy k oblastem velkým provozem v specializované situacích (třeba blogu a elektronického obchodování koncových bodů) pomocí aplikace [směrováním atributů](xref:mvc/controllers/routing#attribute-routing) nebo vyhrazené konvenční trasy.
+
+Webové rozhraní API používejte směrováním atributů pro model její funkce jako sada prostředků kde operace reprezentovány příkazy HTTP. To znamená, že mnoho operací (například GET, POST) se stejným prostředkem logické bude používat stejnou adresu URL. Směrování atributů poskytuje úroveň ovládacího prvku, který je nezbytný pečlivě návrh rozložení veřejný koncový bod rozhraní API.
+
+Aplikace stránky Razor pomocí konvenční směrování pro obsluhu pojmenovaným prostředkům ve výchozím nastavení *stránky* složky aplikace. Další konvence jsou k dispozici, které umožňují přizpůsobit chování směrování pro stránky Razor. Další informace naleznete v tématu <xref:razor-pages/index> a <xref:razor-pages/razor-pages-conventions>.
+
+Podpora generování adres URL umožňuje aplikaci byly vyvinuty bez pevně kódováno pomocí adres URL pro aplikaci se propojují. Tato podpora umožňuje počínaje základní konfigurace směrování a úprava směrování po aplikace prostředků rozložení je určeno.
+
+::: moniker range=">= aspnetcore-2.2"
+
+Směrování používá *koncové body* (`Endpoint`) pro reprezentaci logické koncové body v aplikaci.
+
+Koncový bod definuje delegáta pro zpracování požadavků a kolekci libovolného metadat. Metadata se vyskytující aspekty používané implementovat na základě zásad a konfigurace, které jsou připojené k každý koncový bod.
+
+Směrování systém má následující vlastnosti:
+
+* Syntaxe šablony trasy se používá k definování tras s parametry tokenizovaná trasy.
+* Konfigurace koncového bodu konvenční – vizuální styl a atributu style je povolený.
+* `IRouteConstraint` slouží k určení, zda parametr adresy URL obsahuje platnou hodnotu pro daný koncový bod omezení.
+* Modely aplikace, jako jsou například stránky MVC a Razor, zaregistrujte všechny své koncové body, které mají předvídatelné provádění scénáře.
+* Implementace směrování provádí rozhodnutí o směrování, bez ohledu na to požadovaného v kanálu middlewaru.
+* Middleware, který se zobrazí po Middleware směrování, můžete si prohlédnout výsledek směrování Middleware rozhodnutí koncový bod pro daný identifikátor URI požadavku.
+* Je možné vytvořit výčet všech koncových bodů v aplikaci kdekoli v kanálu middlewaru.
+* Aplikaci můžete použít směrování k vygenerování adres URL (například pro přesměrování nebo odkazy) na základě informací o koncový bod a vyhnout pevně zakódované adresy URL, která pomáhá udržovatelnost.
+* Generování adresy URL je založená na adresy, které podporují libovolného rozšíření:
+
+  * Rozhraní API generátor odkaz (`LinkGenerator`) lze vyřešit odkudkoli pomocí [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) k vygenerování adres URL.
+  * Pokud není k dispozici prostřednictvím DI, rozhraní API odkazu generátor `IUrlHelper` nabízí metody pro vytvoření adresy URL.
+
+> [!NOTE]
+> S vydáním koncový bod směrování v ASP.NET Core 2.2 koncového bodu propojení je omezená na akce MVC/Razor Pages a stránky. Rozšíření koncového bodu propojení funkcí je plánované v budoucích verzích.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
 
 Směrování používá *trasy* (implementace <xref:Microsoft.AspNetCore.Routing.IRouter>) na:
 
 * Příchozí požadavky na mapování *trasy obslužné rutiny*.
 * Generování adresy URL použité v odpovědi.
 
-Obecně platí aplikace má jedné kolekce tras. Když přijde požadavek, kolekce tras se zpracovávají v pořadí. Příchozí žádost vypadá pro trasu, která odpovídá adrese URL požadavku voláním <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> metodu na každý postup k dispozici v kolekci tras. Oproti tomu odpověď může využívat směrování k vygenerování adres URL (například pro přesměrování nebo odkazy) na základě informací o směrování a proto vyhnout se tak nutnosti pevně zakódovat adresy URL, která pomáhá udržovatelnost.
+Aplikace má ve výchozím nastavení jedné kolekce tras. Když přijde požadavek, trasy v kolekci se zpracovávají v pořadí, že existují v kolekci. Rozhraní se pokusí porovnat adresy URL příchozích žádosti pro trasu v kolekci voláním <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> metodu na každý postup v kolekci. Odpověď může využívat směrování k vygenerování adres URL (například pro přesměrování nebo odkazy) na základě informací o směrování a vyhnout pevně zakódované adresy URL, která pomáhá udržovatelnost.
 
-Směrování je připojen k [middleware](xref:fundamentals/middleware/index) profilace podle <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> třídy. [ASP.NET Core MVC](xref:mvc/overview) přidá do kanálu middleware směrování jako součást konfigurace. Další informace o použití směrování jako samostatné komponenty, naleznete v tématu [použití směrování Middleware](#use-routing-middleware) oddílu.
+Směrování systém má následující vlastnosti:
+
+* Syntaxe šablony trasy se používá k definování tras s parametry tokenizovaná trasy.
+* Konfigurace koncového bodu konvenční – vizuální styl a atributu style je povolený.
+* `IRouteConstraint` slouží k určení, zda parametr adresy URL obsahuje platnou hodnotu pro daný koncový bod omezení.
+* Modely aplikace, jako jsou například stránky MVC a Razor, zaregistrujte všechny jejich tras, které mají předvídatelné provádění scénáře.
+* Odpověď může využívat směrování k vygenerování adres URL (například pro přesměrování nebo odkazy) na základě informací o směrování a vyhnout pevně zakódované adresy URL, která pomáhá udržovatelnost.
+* Generování adresy URL je založená na trasy, které podporují libovolného rozšíření. `IUrlHelper` poskytuje metody pro vytvoření adresy URL.
+
+::: moniker-end
+
+Směrování je připojen k [middleware](xref:fundamentals/middleware/index) profilace podle <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> třídy. [ASP.NET Core MVC](xref:mvc/overview) přidá do kanálu middleware směrování jako součást konfigurace a zpracovává směrování v aplikacích MVC a stránky Razor. Další informace o použití směrování jako samostatné komponenty, najdete v článku [pomocí směrování Middleware](#use-routing-middleware) oddílu.
 
 ### <a name="url-matching"></a>Adresa URL odpovídající
 
+::: moniker range=">= aspnetcore-2.2"
+
+Adresa URL odpovídající je proces, ve které směrování odešle příchozí žádost o *koncový bod*. Tento proces je na základě dat v cestě adresy URL, ale je možné rozšířit na zvažte všechna data v žádosti. Schopnost expedovat požadavky k oddělení obslužné rutiny je klíčem k škálování velikosti a složitosti aplikace.
+
+Směrování systému v směrování koncový bod je zodpovědná za všechny dispatching rozhodnutí. Middleware použije zásady na základě vybraného koncového bodu, proto je důležité, že je uvnitř směrování systému k rozhodnutí může mít vliv na odesílání nebo uplatňování zásad zabezpečení.
+
+Při provádění delegáta koncový bod, vlastnosti `RouteContext.RouteData` jsou nastaveny na odpovídající hodnoty, které jsou založené na zpracování požadavku provést doposud.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
 Adresa URL odpovídající je proces, ve které směrování odešle příchozí požadavek na *obslužná rutina*. Tento proces je na základě dat v cestě adresy URL, ale je možné rozšířit na zvažte všechna data v žádosti. Schopnost expedovat požadavky k oddělení obslužné rutiny je klíčem k škálování velikosti a složitosti aplikace.
 
-Zadejte příchozí požadavky `RouterMiddleware`, který volá <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> metodu na každý postup v pořadí. <xref:Microsoft.AspNetCore.Routing.IRouter> Vybere instanci, jestli se má *zpracování* požadavku tak, že nastavíte [RouteContext.Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler*) na jinou hodnotu null <xref:Microsoft.AspNetCore.Http.RequestDelegate>. Pokud trasa nastaví obslužnou rutinu pro žádosti, směrovat zastaví zpracování a zpracovat požadavek, je vyvolána obslužná rutina. Pokud jsou použity všechny trasy a nenajde žádná obslužná rutina požadavku, middleware volá *Další*, a vyvolat další middleware v kanálu požadavku.
+Zadejte příchozí požadavky `RouterMiddleware`, který volá <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> metodu na každý postup v pořadí. <xref:Microsoft.AspNetCore.Routing.IRouter> Vybere instanci, jestli se má *zpracování* požadavku tak, že nastavíte [RouteContext.Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler*) na jinou hodnotu null <xref:Microsoft.AspNetCore.Http.RequestDelegate>. Pokud trasa nastaví obslužnou rutinu pro žádosti, směrovat zastaví zpracování a zpracovat požadavek, je vyvolána obslužná rutina. Pokud se žádná obslužná rutina trasy nenajde zpracovat požadavek, middleware předá požadavek na další middleware v kanálu požadavku.
 
-Primární vstup do `RouteAsync` je [RouteContext.HttpContext](xref:Microsoft.AspNetCore.Routing.RouteContext.HttpContext*) přidruženého k aktuální žádosti. `RouteContext.Handler` a [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData*) jsou výstupy nastavit po trasa odpovídá.
+Primární vstup do `RouteAsync` je [RouteContext.HttpContext](xref:Microsoft.AspNetCore.Routing.RouteContext.HttpContext*) přidruženého k aktuální žádosti. `RouteContext.Handler` a [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData*) jsou výstupy nastavit po odpovídající trasy.
 
-Shoda během `RouteAsync` také nastaví vlastnosti `RouteContext.RouteData` na odpovídající hodnoty podle doposud provádí zpracování žádostí. Pokud trasa odpovídá žádosti `RouteContext.RouteData` obsahuje informace o stavu důležité o *výsledek*.
+Shoda, která volá `RouteAsync` také nastaví vlastnosti `RouteContext.RouteData` na odpovídající hodnoty podle doposud provádí zpracování žádostí.
+
+::: moniker-end
 
 [RouteData.Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values*) je slovník *hodnot trasy* vytvořenými trasy. Tyto hodnoty jsou obvykle určeny tokenizaci adresu URL a je možné přijímat uživatelský vstup nebo další dispatching rozhodnutí v aplikaci.
 
-[RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) je kontejner objektů a dat o další data související s porovnávané trasy. `DataTokens` jsou k dispozici pro podporu přiřazování dat o stavu se každý postup tak, aby aplikace mohly rozhodnutí později založené na směrování, které odpovídá. Tyto hodnoty jsou definovány pro vývojáře a proveďte **není** ovlivňují chování směrování žádným způsobem. Kromě toho hodnoty dočasně uložily v `RouteData.DataTokens` může být libovolného typu, rozdíl od `RouteData.Values`, která musí být snadno převést do a z řetězce.
+[RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) je kontejner objektů a dat o další data související s porovnávané trasy. `DataTokens` jsou k dispozici pro podporu přiřazování dat o stavu se každý postup tak, aby aplikace mohly rozhodnutí založené na směrování, které odpovídá. Tyto hodnoty jsou definovány pro vývojáře a proveďte **není** ovlivňují chování směrování žádným způsobem. Kromě toho hodnoty dočasně uložily v `RouteData.DataTokens` může být libovolného typu, rozdíl od `RouteData.Values`, která musí být převeditelný na a z řetězce.
 
 [RouteData.Routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers*) je seznam tras, které účastnila úspěšně odpovídající požadavek. Trasy můžete vnořit do mezi sebou. `Routers` Vlastnost odpovídá cestě prostřednictvím logického stromu tras, z kterých vzniklo shoda. Obecně platí, první položky v `Routers` je kolekce tras a byste měli použít pro generování adresy URL. Poslední položky v `Routers` je obslužná rutina trasy, který odpovídá.
 
 ### <a name="url-generation"></a>Generování adresy URL
 
-Generování adresy URL je proces, podle kterých směrování, můžete vytvořit cestu adresy URL na základě sady hodnot trasy. To umožňuje logické rozdělení mezi vaší obslužné rutiny a adresy URL, které k nim přístup.
+::: moniker range=">= aspnetcore-2.2"
 
-Generování adresy URL je iterativní probíhá podobně, ale začíná uživatele nebo architekturní kód volání do <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> metody kolekce tras. Každý *trasy* nemá jeho `GetVirtualPath` metodu volat v pořadí, dokud nebude nenulovým <xref:Microsoft.AspNetCore.Routing.VirtualPathData> je vrácena.
+Generování adresy URL je proces, podle kterých směrování, můžete vytvořit cestu adresy URL na základě sady hodnot trasy. To umožňuje logické rozdělení mezi koncové body a adresy URL, které k nim přístup.
+
+Koncový bod směrování zahrnuje rozhraní API generátor odkaz (`LinkGenerator`). `LinkGenerator` je služba jednotlivý prvek, který můžete získat z DI. Rozhraní API můžete použít mimo kontext provádění požadavku. MVC `IUrlHelper` a scénáře, které spoléhají na `IUrlHelper`, například [pomocných rutin značek](xref:mvc/views/tag-helpers/intro), pomocné rutiny HTML, a [výsledky akce](xref:mvc/controllers/actions), pomocí generátoru odkaz lze zadat odkaz generování možností.
+
+Generátor odkaz je založená na konceptu *adresu* a *adres schémata*. Režim adresy je způsob určení koncových bodů, které by měly být považovány za pro generování odkazů. Názvu trasy a scénáře hodnoty trasy, které mnoho uživatelů znají z MVC/Razor Pages jsou implementovány jako schéma adres.
+
+Generátor odkaz můžete propojit s akce MVC/Razor Pages a stránky pomocí následujících metod rozšíření:
+
+* `GetPathByAction`
+* `GetUriByAction`
+* `GetPathByPage`
+* `GetUriByPage`
+
+Přetížení metody přijímá argumenty, které zahrnují `HttpContext`. Tyto metody jsou funkčně ekvivalentní `Url.Action` a `Url.Page` ale nabízí vyšší flexibilitu a možnosti.
+
+`GetPath*` Metody jsou nejvíc podobný `Url.Action` a `Url.Page` v tom, že se vygenerovat identifikátor URI obsahující absolutní cestu. `GetUri*` Metody vždy generovat absolutní identifikátor URI obsahující schématu a hostitele. Metody, které přijímají `HttpContext` vygenerovat identifikátor URI v kontextu provádění požadavku. Hodnoty okolí trasy, základní cesta adresy URL, schéma a hostitele ze žádosti o provádění se používají, pokud nejsou přepsány.
+
+`LinkGenerator` je volána s adresou. Generování identifikátoru URI dojde ve dvou krocích:
+
+1. Adresa je vázán na seznam koncových bodů, které odpovídají adresu.
+1. Každý koncový bod `RoutePattern` je vyhodnocen, dokud nebude nalezen vzor cesty, který odpovídá zadané hodnoty. Výsledný výstup je kombinovat s jinými URI částmi předaná generátoru odkaz a vrácena.
+
+Metody, které poskytuje `LinkGenerator` podporují možnosti generování standardní odkaz pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkaz je prostřednictvím metody rozšíření, které provádějí operace pro typ konkrétní adresu.
+
+| Metody rozšíření   | Popis                                                         |
+| ------------------ | ------------------------------------------------------------------- |
+| `GetPathByAddress` | Vygeneruje URI absolutní cestu podle zadané hodnoty. |
+| `GetUriByAddress`  | Generuje absolutní identifikátor URI podle zadané hodnoty.             |
+
+> [!WARNING]
+> Věnujte pozornost následujícím důsledkům volání `LinkGenerator` metody:
+>
+> * Použití `GetUri*` metody rozšíření opatrně v konfiguraci aplikace, která neověřuje `Host` záhlaví příchozích požadavků. Pokud `Host` neověří záhlaví příchozích požadavků, vstup nedůvěryhodné požadavku je odeslat zpět klientovi identifikátory URI v zobrazení/stránky. Doporučujeme vám, že všechny aplikace v produkčním prostředí nakonfigurovat svůj server k ověření `Host` záhlaví proti známé platné hodnoty.
+>
+> * Použití `LinkGenerator` opatrně v middlewaru v kombinaci s `Map` nebo `MapWhen`. `Map*` změní základní cesta provádění požadavku, který má vliv výstup generování odkazů. Všechny `LinkGenerator` rozhraní API umožňují určit základní cesta. Vždy zadejte prázdný základní cestu k vrácení zpět `Map*`uživatele vliv na generování odkazů.
+
+## <a name="differences-from-earlier-versions-of-routing"></a>Rozdíl oproti dřívější verze směrování
+
+Existuje několik rozdílů mezi koncovým bodem směrování v ASP.NET Core 2.2 nebo vyšší a dřívějších verzích směrování v ASP.NET Core:
+
+* Směrování systém koncový bod nepodporuje `IRouter`– na základě rozšíření, včetně dědění z `Route`.
+
+* Směrování koncový bod nepodporuje [WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim). Použití sady 2.1 [verze kompatibility](xref:mvc/compatibility-version) (`.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)`) Chcete-li pokračovat pomocí shimu kompatibility.
+
+* Koncový bod směrování s jiným chováním pro použití malých a velkých generované identifikátory URI, při použití konvenční trasy.
+
+  Vezměte v úvahu následující výchozí šablonou trasy:
+
+  ```csharp
+  app.UseMvc(routes =>
+  {
+      routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+  });
+  ```
+
+  Předpokládejme, že vygenerování odkazu na akci s použitím následujícího postupu:
+
+  ```csharp
+  var link = Url.Action("ReadPost", "blog", new { id = 17, });
+  ```
+
+  S `IRouter`– směrování na základě, tento kód vygeneruje identifikátor URI sady `/blog/ReadPost/17`, který respektuje malých a velkých písmen hodnoty zadané trasy. Vytvoří koncový bod směrování v ASP.NET Core 2.2 nebo vyšší `/Blog/ReadPost/17` ("Blogu" je velkými písmeny). Poskytuje koncový bod směrování `IOutboundParameterTransformer` rozhraní, které lze použít k přizpůsobení tohoto chování globálně nebo použít jiné konvence pro mapování adres URL.
+
+  Další informace najdete v tématu [odkaz na parametr transformer](xref:#parameter-transformer-reference) oddílu.
+
+* Generování odkazů, které jsou používány MVC/Razor Pages s konvenčním trasy chová odlišně při pokusu o odkaz na kontroler nebo akce nebo stránka, která neexistuje.
+
+  Vezměte v úvahu následující výchozí šablonou trasy:
+
+  ```csharp
+  app.UseMvc(routes =>
+  {
+      routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+  });
+  ```
+
+  Předpokládejme, že vygenerování odkazu na akci s použitím výchozí šablony s následujícími možnostmi:
+
+  ```csharp
+  var link = Url.Action("ReadPost", "Blog", new { id = 17, });
+  ```
+
+  S `IRouter`– směrování na základě, výsledek je vždy `/Blog/ReadPost/17`, i když `BlogController` neexistuje nebo nemá `ReadPost` metody akce. Koncový bod směrování v ASP.NET Core 2.2 nebo vyšší vytvoří podle očekávání, `/Blog/ReadPost/17` pokud existuje metoda akce. *Ale směrování koncový bod vytvoří prázdný řetězec Pokud akce neexistuje.* Koncepčně koncový bod směrování nepředpokládá, že koncový bod existuje, pokud neexistuje, akce.
+
+* Generování odkazů *okolí hodnotu zneplatnění algoritmus* při použití s směrování koncový bod chová odlišně.
+
+  *Zrušení okolí hodnotu* je algoritmus, který určuje, jaké hodnoty trasy z aktuálně prováděné požadavku (okolí hodnoty) lze použít v operace generování odkazů. Konvenční směrování vždy neplatné hodnoty dodatečné trasy, při odkazování na různé akce. Směrování atributů neměli toto chování před verzí 2.2 technologie ASP.NET Core. V dřívějších verzích sady ASP.NET Core odkazy na další akci, použijte stejné názvy parametrů trasy výsledkem chyby generování odkazu. V ASP.NET Core 2.2 nebo vyšší obě formy směrování zneplatnit hodnoty při připojování ke další akci.
+
+  Zvažte následující příklad v ASP.NET Core 2.1 nebo dřívější. Při připojování ke jinou akci (nebo jiné stránky), hodnoty trasy je možné využít v nežádoucí způsoby.
+
+  V */Pages/Store/Product.cshtml*:
+
+  ```cshtml
+  @page "{id}"
+  @Url.Page("/Login")
+  ```
+
+  V */Pages/Login.cshtml*:
+
+  ```cshtml
+  @page "{id?}"
+  ```
+
+  Pokud je identifikátor URI `/Store/Product/18` v ASP.NET Core 2.1 nebo starší, odkaz generovaným na stránce Store/informace podle `@Url.Page("/Login")` je `/Login/18`. `id` Hodnotu 18 je znovu použít, i když cíl odkazu je úplně jiné části aplikace. `id` Trasy hodnotu v kontextu `/Login` stránky je pravděpodobně hodnotu ID uživatele není hodnotou ID úložiště produktu.
+
+  V koncovém bodě směrování ASP.NET Core 2.2 nebo vyšší, výsledkem je `/Login`. Ambientní hodnoty nebudou znovu po odkazovaný cíl jinou akci nebo stránky.
+
+* Syntaxe parametru trasy verzemi: lomítka nejsou kódování při použití double – hvězdičku (`**`) syntaxe parametr pokrývající vše.
+
+  Při generování odkazů směrování systému zakóduje hodnotu zachycené double hvězdičku (`**`) parametr pokrývající vše (například `{**myparametername}`) s výjimkou lomítka. Hvězdička double pokrývající vše se podporuje s `IRouter`– na základě směrování v ASP.NET Core 2.2 nebo vyšší.
+
+  Parametr pokrývající vše syntaxe jednu hvězdičku v předchozích verzích technologie ASP.NET Core (`{*myparametername}`) je nadále podporován a jsou kódovány lomítka.
+
+  | trasy              | Generuje s použitím odkazu<br>`Url.Action(new { category = "admin/products" })`&hellip; |
+  | ------------------ | --------------------------------------------------------------------- |
+  | `/search/{*page}`  | `/search/admin%2Fproducts` (lomítko kódováním)             |
+  | `/search/{**page}` | `/search/admin/products`                                              |
+
+### <a name="middleware-example"></a>Příklad middlewaru
+
+V následujícím příkladu se využívá middleware `LinkGenerator` uložení rozhraní API pro vytvoření odkazu na metodu akce, která obsahuje seznam produktů. Pomocí generátoru odkaz vložením do třídy a volání `GenerateLink` je k dispozici pro jakoukoli třídu v aplikaci.
+
+```csharp
+public class ProductsLinkMiddleware
+{
+    private readonly LinkGenerator _linkGenerator;
+
+    public ProductsLinkMiddleware(RequestDelegate next, LinkGenerator linkGenerator)
+    {
+        _linkGenerator = linkGenerator;
+    }
+
+    public async Task InvokeAsync(HttpContext httpContext)
+    {
+        var url = _linkGenerator.GenerateLink(new { controller = "Store",
+                                                    action = "ListProducts" });
+
+        httpContext.Response.ContentType = "text/plain";
+
+        await httpContext.Response.WriteAsync($"Go to {url} to see our products.");
+    }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+Generování adresy URL je proces, podle kterých směrování, můžete vytvořit cestu adresy URL na základě sady hodnot trasy. To umožňuje logické rozdělení mezi obslužné rutiny trasy a adresy URL, které k nim přístup.
+
+Generování adresy URL je iterativní probíhá podobně, ale začíná uživatele nebo architekturní kód volání do <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> metody kolekce tras. Každý *trasy* má jeho `GetVirtualPath` metodu volat v pořadí, dokud nebude nenulovým <xref:Microsoft.AspNetCore.Routing.VirtualPathData> je vrácena.
 
 Primární vstupů na `GetVirtualPath` jsou:
 
@@ -74,10 +327,10 @@ Primární vstupů na `GetVirtualPath` jsou:
 * [VirtualPathContext.Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values*)
 * [VirtualPathContext.AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues*)
 
-Trasy primárně používat hodnoty trasy poskytované `Values` a `AmbientValues` rozhodnout, jestli je možné generovat adresu URL a jaké hodnoty je třeba zahrnout. `AmbientValues` Sada hodnot trasy, které byly vytvořeny z odpovídajících aktuální požadavek systému směrování. Naproti tomu `Values` jsou hodnoty trasy, které určují, jak generovat požadovanou adresu URL pro aktuální operaci. `HttpContext` Je k dispozici v případě, že trasy je potřeba získat služby nebo další data související s aktuálním kontextu.
+Trasy primárně používat hodnoty trasy podle `Values` a `AmbientValues` rozhodnout, jestli je možné generovat adresu URL a jaké hodnoty je třeba zahrnout. `AmbientValues` Sada hodnot trasy, které byly vytvořeny z odpovídajících aktuálního požadavku. Naproti tomu `Values` jsou hodnoty trasy, které určují, jak generovat požadovanou adresu URL pro aktuální operaci. `HttpContext` Je k dispozici v případě, že směrování by si měly opatřit služby nebo další data související s aktuálním kontextu.
 
 > [!TIP]
-> Představte si, že [VirtualPathContext.Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values*) jako přepsání pro sadu [VirtualPathContext.AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues*). Generování adresy URL se pokusí znovu použít hodnoty trasy z aktuální žádosti k tomu, aby k vygenerování adres URL pro odkazů pomocí stejného postupu nebo hodnoty trasy.
+> Představte si, že [VirtualPathContext.Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values*) jako přepsání pro sadu [VirtualPathContext.AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues*). Generování adresy URL se pokusí znovu použít hodnoty trasy z aktuální žádosti k vygenerování adres URL pro odkazů pomocí stejného postupu nebo hodnoty trasy.
 
 Výstup `GetVirtualPath` je `VirtualPathData`. `VirtualPathData` je paralelní z `RouteData`. `VirtualPathData` obsahuje `VirtualPath` pro výstupní adresy URL a některé další vlastnosti, které by měl nastavit trasy.
 
@@ -87,13 +340,29 @@ Výstup `GetVirtualPath` je `VirtualPathData`. `VirtualPathData` je paralelní z
 
 [VirtualPathData.DataTokens](xref:Microsoft.AspNetCore.Routing.VirtualPathData.DataTokens*) vlastnosti je slovník další data související s trasy, která vygenerovala adresa URL. Toto je rovnoběžky [RouteData.DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*).
 
-### <a name="creating-routes"></a>Vytváření tras
+::: moniker-end
 
-Směrování poskytuje <xref:Microsoft.AspNetCore.Routing.Route> třídu jako standardní implementace <xref:Microsoft.AspNetCore.Routing.IRouter>. `Route` používá *šablonu trasy* syntaxe pro definování vzory, které odpovídají vůči cestě adresy URL při <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> je volána. `Route` používá stejnou šablonu trasy pro generování adresy URL při `GetVirtualPath` je volána.
+### <a name="create-routes"></a>Vytvoření tras
 
-Většina aplikací vytvářet trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo některou z podobných rozšiřující metody definované v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder>. Všechny tyto metody vytvoření instance <xref:Microsoft.AspNetCore.Routing.Route> a přidejte ho do kolekce tras.
+::: moniker range="< aspnetcore-2.2"
 
-`MapRoute` nepřijímá parametr obslužná rutina trasy. `MapRoute` Přidá trasy, které jsou zpracovávány pouze <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>. Protože je výchozí obslužnou rutinu `IRouter`, může rozhodnout není pro zpracování požadavku. ASP.NET Core MVC je třeba typicky nakonfigurován jako výchozí popisovač, který zpracovává pouze požadavky, které odpovídají k dispozici kontroleru a akce. Další informace o směrování MVC najdete v tématu <xref:mvc/controllers/routing>.
+Směrování poskytuje <xref:Microsoft.AspNetCore.Routing.Route> třídu jako standardní implementace <xref:Microsoft.AspNetCore.Routing.IRouter>. `Route` používá *šablonu trasy* syntaxe pro definování vzory tak, aby odpovídala cestě adresy URL při <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> je volána. `Route` používá stejnou šablonu trasy pro generování adresy URL při `GetVirtualPath` je volána.
+
+::: moniker-end
+
+Většina aplikací vytvářet trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo některou z podobných rozšiřující metody definované v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder>. Některé z `IRouteBuilder` rozšiřující metody vytvoření instance <xref:Microsoft.AspNetCore.Routing.Route> a přidejte ho do kolekce tras.
+
+::: moniker range=">= aspnetcore-2.2"
+
+`MapRoute` nepřijímá parametr obslužná rutina trasy. `MapRoute` Přidá trasy, které jsou zpracovávány pouze <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>. Další informace o směrování v aplikaci MVC najdete v tématu <xref:mvc/controllers/routing>.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+`MapRoute` nepřijímá parametr obslužná rutina trasy. `MapRoute` Přidá trasy, které jsou zpracovávány pouze <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>. Je výchozí obslužnou rutinu `IRouter`, a obslužnou rutinu nemusí zpracovávat žádosti. ASP.NET Core MVC je třeba typicky nakonfigurován jako výchozí popisovač, který zpracovává pouze požadavky, které odpovídají k dispozici kontroleru a akce. Další informace o směrování v aplikaci MVC najdete v tématu <xref:mvc/controllers/routing>.
+
+::: moniker-end
 
 Následující příklad kódu je příkladem `MapRoute` volání používá typické definice trasy ASP.NET Core MVC:
 
@@ -103,13 +372,15 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-Tato šablona odpovídá cesty adresy URL jako `/Products/Details/17` a extrahuje hodnoty trasy `{ controller = Products, action = Details, id = 17 }`. Hodnoty trasy jsou určeny rozdělení cestě adresy URL do segmentů a odpovídající každý segment s *trasy parametr* název v šabloně trasy. Jsou pojmenované parametry trasy. Máte definované uzavřením názvu parametru ve složených závorkách `{ ... }`.
+Tato šablona odpovídá cesty adresy URL a extrahuje hodnoty trasy. Například cesta `/Products/Details/17` následující hodnoty trasy generuje: `{ controller = Products, action = Details, id = 17 }`.
 
-Předchozí šablona může také odpovídat cesty URL `/` a mohlo by dojít hodnoty `{ controller = Home, action = Index }`. K tomu dochází, `{controller}` a `{action}` trasy parametry mají výchozí hodnoty a `id` trasy parametr je nepovinný. Je rovno `=` následovaného hodnotu po definuje výchozí hodnotu pro parametr název parametru trasy. Otazník `?` po název parametru trasy definuje jako volitelný parametr. Parametry s výchozí hodnotou směrování *vždy* vygenerování hodnoty trasy, pokud trasa odpovídá. Volitelné parametry není výsledkem hodnota trasy, pokud se žádný odpovídající segment cesty adresy URL.
+Hodnoty trasy jsou určeny rozdělení cestě adresy URL do segmentů a odpovídající každý segment s *trasy parametr* název v šabloně trasy. Jsou pojmenované parametry trasy. Parametry definované uzavřením názvu parametru ve složených závorkách `{ ... }`.
 
-Zobrazit [trasy – – referenční informace k šablonám](#route-template-reference) důkladné popis funkcí šablonu trasy a syntaxe.
+Předchozí šablona může také odpovídat cesty URL `/` a vytvářet hodnoty `{ controller = Home, action = Index }`. K tomu dochází, `{controller}` a `{action}` trasy parametry mají výchozí hodnoty a `id` trasy parametr je nepovinný. Znaménko rovná se (`=`) následován hodnotou po definuje výchozí hodnotu pro parametr název parametru trasy. Otazník (`?`) po definuje volitelný parametr název parametru trasy.
 
-Tento příklad zahrnuje *trasy omezení*:
+Parametry s výchozí hodnotou směrování *vždy* vygenerování hodnoty trasy, pokud trasa odpovídá. Volitelné parametry není výsledkem hodnota trasy, pokud se žádný odpovídající segment cesty adresy URL. Najdete v článku [trasy referenčními informacemi k šablonám](#route-template-reference) najdete důkladné popis scénáře šablonu trasy a syntaxe.
+
+V následujícím příkladu, definice parametru trasy `{id:int}` definuje [trasy omezení](#route-constraint-reference) pro `id` směrování parametru:
 
 ```csharp
 routes.MapRoute(
@@ -117,11 +388,11 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id:int}");
 ```
 
-Tato šablona odpovídá cesty adresy URL jako `/Products/Details/17` , ale ne `/Products/Details/Apples`. Definice parametru trasy `{id:int}` definuje [trasy omezení](#route-constraint-reference) pro `id` parametr trasa. Implementace omezení trasy <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> a hodnoty trasy k ověření je zkontrolovat. V tomto příkladu je hodnota trasy `id` musí být převeditelný na celé číslo. Zobrazit [trasy omezení referenční](#route-constraint-reference) podrobnější vysvětlení omezení trasy, které jsou k dispozici v rámci rozhraní.
+Tato šablona odpovídá cesty adresy URL jako `/Products/Details/17` , ale ne `/Products/Details/Apples`. Implementace omezení trasy <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> a hodnoty trasy k ověření je zkontrolovat. V tomto příkladu je hodnota trasy `id` musí být převeditelný na celé číslo. V tématu [trasy omezení referenční](#route-constraint-reference) vysvětlení poskytovaného rámcem omezení trasy.
 
-Další přetížení `MapRoute` přijmout hodnoty pro `constraints`, `dataTokens`, a `defaults`. Z těchto dalších parametrech `MapRoute` jsou definovány jako typ `object`. Typické použití těchto parametrů je předat anonymně typovaných objektů, kde názvy vlastností anonymních typů shody směrovat názvy parametrů.
+Další přetížení `MapRoute` přijmout hodnoty pro `constraints`, `dataTokens`, a `defaults`. Typické použití těchto parametrů je předat anonymně typovaných objektů, kde názvy vlastností anonymních typů shody směrovat názvy parametrů.
 
-Následující dva příklady vytvoření ekvivalentní tras:
+Následující `MapRoute` příklady vytvořit ekvivalentní trasy:
 
 ```csharp
 routes.MapRoute(
@@ -135,9 +406,24 @@ routes.MapRoute(
 ```
 
 > [!TIP]
-> Vložená syntaxe pro definování omezení a výchozích hodnot může být vhodné pro jednoduché trasy. Existují však funkce, jako jsou tokeny dat, nepodporované vložená syntaxe.
+> Vložená syntaxe pro definování omezení a výchozích hodnot může být vhodné pro jednoduché trasy. Existují ale scénáře, jako jsou tokeny dat, nepodporované vložená syntaxe.
 
-Následující příklad ukazuje několik více scénářů:
+Následující příklad ukazuje několik dalších scénářů:
+
+::: moniker range=">= aspnetcore-2.2"
+
+```csharp
+routes.MapRoute(
+    name: "blog",
+    template: "Blog/{**article}",
+    defaults: new { controller = "Blog", action = "ReadArticle" });
+```
+
+Odpovídá předchozí šablonu cesty adresy URL jako `/Blog/All-About-Routing/Introduction` a extrahuje hodnoty `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }`. Směrování výchozí hodnoty pro `controller` a `action` jsou vytvářeny trasy, i když neexistují žádné odpovídající trasy parametry v šabloně. V šabloně postupu lze zadat výchozí hodnoty. `article` Parametr trasa je definován jako *pokrývající vše* podle vzhledu hvězdičku double (`**`) před název parametru trasy. Parametry trasy pokrývající vše zachycení zbývající část cesty URL a můžete také hledat shody prázdný řetězec.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
 
 ```csharp
 routes.MapRoute(
@@ -146,9 +432,11 @@ routes.MapRoute(
     defaults: new { controller = "Blog", action = "ReadArticle" });
 ```
 
-Tato šablona odpovídá cesty adresy URL jako `/Blog/All-About-Routing/Introduction` a extrahuje hodnoty `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }`. Směrování výchozí hodnoty pro `controller` a `action` jsou vytvářeny trasy, i když neexistují žádné odpovídající trasy parametry v šabloně. V šabloně postupu lze zadat výchozí hodnoty. `article` Parametr trasa je definován jako *pokrývající vše* podle vzhledu hvězdičku `*` před název parametru trasy. Parametry trasy pokrývající vše zachycení zbývající část cesty URL a můžete také hledat shody prázdný řetězec.
+Odpovídá předchozí šablonu cesty adresy URL jako `/Blog/All-About-Routing/Introduction` a extrahuje hodnoty `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }`. Směrování výchozí hodnoty pro `controller` a `action` jsou vytvářeny trasy, i když neexistují žádné odpovídající trasy parametry v šabloně. V šabloně postupu lze zadat výchozí hodnoty. `article` Parametr trasa je definován jako *pokrývající vše* podle vzhledu hvězdičku (`*`) před název parametru trasy. Parametry trasy pokrývající vše zachycení zbývající část cesty URL a můžete také hledat shody prázdný řetězec.
 
-V tomto příkladu přidá tokeny omezení a data trasy:
+::: moniker-end
+
+Následující příklad přidá tokeny omezení a data trasy:
 
 ```csharp
 routes.MapRoute(
@@ -159,18 +447,18 @@ routes.MapRoute(
     dataTokens: new { locale = "en-US" });
 ```
 
-Tato šablona odpovídá cesty adresy URL jako `/en-US/Products/5` a extrahuje hodnoty `{ controller = Products, action = Details, id = 5 }` a tokeny dat `{ locale = en-US }`.
+Odpovídá předchozí šablonu cesty adresy URL jako `/en-US/Products/5` a extrahuje hodnoty `{ controller = Products, action = Details, id = 5 }` a tokeny dat `{ locale = en-US }`.
 
 ![Tokeny Windows místních hodnot](routing/_static/tokens.png)
 
-### <a name="url-generation"></a>Generování adresy URL
+### <a name="route-class-url-generation"></a>Generování adresy URL trasy třídy
 
 `Route` Třídy můžete také provádět generování adresy URL kombinováním sadu hodnot trasy s jeho šablonu trasy. Toto je logicky procesu zpětné odpovídajících cestě adresy URL.
 
 > [!TIP]
 > Abyste lépe pochopili generování adresy URL, představte si, jakou adresu URL, které chcete generovat a potom rozmyslete si, jak šablonu trasy odpovídají tuto adresu URL. Hodnoty by bylo vytvořeno? Jedná se o ekvivalent hrubý fungování generování adresy URL `Route` třídy.
 
-Tento příklad používá základní styl směrování ASP.NET Core MVC:
+Následující příklad používá obecné výchozí trasa ASP.NET Core MVC:
 
 ```csharp
 routes.MapRoute(
@@ -178,92 +466,71 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-S hodnotami trasy `{ controller = Products, action = List }`, této trasy generuje adresu URL `/Products/List`. Hodnoty trasy jsou substituovány za parametry odpovídající trasy k vytvoření cesty adresy URL. Protože `id` je volitelný parametr trasa, bez obav, že nemá žádnou hodnotu.
+S hodnotami trasy `{ controller = Products, action = List }`, adresu URL `/Products/List` je generován. Hodnoty trasy jsou substituovány za parametry odpovídající trasy k vytvoření cesty adresy URL. Protože `id` je volitelný parametr trasa, adresa URL se úspěšně vygeneroval bez hodnoty pro `id`.
 
-S hodnotami trasy `{ controller = Home, action = Index }`, této trasy generuje adresu URL `/`. Hodnoty trasy, které byly poskytnuty odpovídat výchozím hodnotám tak, aby segmenty odpovídající tyto hodnoty lze bezpečně vynechat. Obě adresy URL vygeneruje zpátečního převodu s touto definicí trasy a vytvářejí stejné hodnoty trasy, které byly použity k vytvoření adresy URL.
+S hodnotami trasy `{ controller = Home, action = Index }`, adresu URL `/` je generován. Hodnoty zadané trasy odpovídat výchozím hodnotám a segmentů odpovídající výchozí hodnoty jsou bezpečně vynechány.
 
-> [!TIP]
+Obě adresy URL generované zpátečního převodu s následující definice trasy (`/Home/Index` a `/`) vytvářet stejné hodnoty trasy, které byly použity k vytvoření adresy URL.
+
+> [!NOTE]
 > Používejte aplikace pomocí ASP.NET Core MVC <xref:Microsoft.AspNetCore.Mvc.Routing.UrlHelper> k vygenerování adres URL, bez volání do směrování přímo.
 
-Další informace o generování adresy URL, najdete v části [odkazem generování url](#url-generation-reference).
+Další informace o generování adresy URL, najdete v článku [odkaz generování adresy Url](#url-generation-reference) oddílu.
 
 ## <a name="use-routing-middleware"></a>Použití směrování middlewaru
 
-::: moniker range=">= aspnetcore-2.1"
-
 Odkaz [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) v souboru projektu vaší aplikace.
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-Odkaz [metabalíček Microsoft.aspnetcore.all](xref:fundamentals/metapackage) v souboru projektu vaší aplikace.
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-Odkaz [Microsoft.AspNetCore.Routing](https://www.nuget.org/packages/Microsoft.AspNetCore.Routing/) v souboru projektu vaší aplikace.
-
-::: moniker-end
 
 Přidání směrování do kontejneru služby v `Startup.ConfigureServices`:
 
-::: moniker range=">= aspnetcore-2.0"
-
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_ConfigureServices&highlight=3)]
 
-::: moniker-end
+Musí být nakonfigurované trasy v `Startup.Configure` metody. Ukázková aplikace používá následující rozhraní API:
 
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](routing/samples/1.x/RoutingSample/Startup.cs?name=snippet_ConfigureServices&highlight=3)]
-
-::: moniker-end
-
-Musí být nakonfigurované trasy v `Startup.Configure` metody. Ukázková aplikace používá tato rozhraní API:
-
-* `RouteBuilder`
-* `Build`
-* `MapGet` &ndash; Odpovídá pouze požadavky HTTP GET.
-* `UseRouter`
-
-::: moniker range=">= aspnetcore-2.0"
+* <xref:Microsoft.AspNetCore.Routing.RouteBuilder>
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*> &ndash; Odpovídá pouze požadavky HTTP GET.
+* <xref:Microsoft.AspNetCore.Builder.RoutingBuilderExtensions.UseRouter*>
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_RouteHandler)]
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](routing/samples/1.x/RoutingSample/Startup.cs?name=snippet_RouteHandler)]
-
-::: moniker-end
-
 V následující tabulce jsou uvedeny odpovědi s danou identifikátory URI.
 
-| Identifikátor URI                  | Odpověď                                          |
-| -------------------- | ------------------------------------------------- |
-| /Package/Create/3    | Dobrý den! Hodnoty trasy: [operace, vytvořit], [id, 3] |
-| / / 3 balíčku/sledování    | Dobrý den! Hodnoty trasy: [operace, sledovat], [id, -3] |
-| / balíček/sledovat/3 /   | Dobrý den! Hodnoty trasy: [operace, sledovat], [id, -3] |
-| / Package/sledování /      | &lt;Předáno, žádná shoda&gt;                    |
-| ZÍSKAT /hello/Joe       | Dobrý den, Joe!                                          |
-| /Hello/Joe příspěvku      | &lt;Předáno, odpovídá pouze HTTP GET&gt;       |
-| ZÍSKAT /hello/Joe/Smith | &lt;Předáno, žádná shoda&gt;                    |
+| Identifikátor URI                    | Odpověď                                          |
+| ---------------------- | ------------------------------------------------- |
+| `/package/create/3`    | Dobrý den! Hodnoty trasy: [operace, vytvořit], [id, 3] |
+| `/package/track/-3`    | Dobrý den! Hodnoty trasy: [operace, sledovat], [id, -3] |
+| `/package/track/-3/`   | Dobrý den! Hodnoty trasy: [operace, sledovat], [id, -3] |
+| `/package/track/`      | Požadavek rozsahu prostřednictvím žádná shoda.              |
+| `GET /hello/Joe`       | Dobrý den, Joe!                                          |
+| `POST /hello/Joe`      | Požadavek nepropadla, odpovídá pouze HTTP GET. |
+| `GET /hello/Joe/Smith` | Požadavek rozsahu prostřednictvím žádná shoda.              |
+
+::: moniker range="< aspnetcore-2.2"
 
 Pokud konfigurujete jednu trasu, zavolejte <xref:Microsoft.AspNetCore.Builder.RoutingBuilderExtensions.UseRouter*> předávajícího `IRouter` instance. Nebudete muset použít <xref:Microsoft.AspNetCore.Routing.RouteBuilder>.
 
-Rozhraní framework obsahuje sadu rozšiřujících metod pro vytváření tras, jako například:
+::: moniker-end
 
-* `MapRoute`
+Rozhraní framework obsahuje sadu rozšiřujících metod pro vytváření tras (<xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions>):
+
+* `MapDelete`
 * `MapGet`
+* `MapMiddlewareDelete`
+* `MapMiddlewareGet`
+* `MapMiddlewarePost`
+* `MapMiddlewarePut`
+* `MapMiddlewareRoute`
+* `MapMiddlewareVerb`
 * `MapPost`
 * `MapPut`
-* `MapDelete`
+* `MapRoute`
 * `MapVerb`
 
-Některé z těchto metod, jako například `MapGet`, vyžadují `RequestDelegate` poskytované. `RequestDelegate` Slouží jako *obslužná rutina trasy* při trasa odpovídá. Jiné metody v této rodině povolit konfiguraci kanálu middleware pro použití jako obslužná rutina trasy. Pokud *mapy* metoda nepřijme obslužnou rutinu, jako například `MapRoute`, potom použije <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>.
+::: moniker range="< aspnetcore-2.2"
+
+Některé uvedené metody, jako například `MapGet`, požadovat `RequestDelegate`. `RequestDelegate` Slouží jako *obslužná rutina trasy* při trasa odpovídá. Jiné metody v této rodině povolit konfiguraci kanálu middleware pro použití jako obslužná rutina trasy. Pokud `Map*` metoda nepřijme obslužnou rutinu, jako například `MapRoute`, použije <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>.
+
+::: moniker-end
 
 `Map[Verb]` Metody omezení trasy, která má v názvu metody akce HTTP pomocí omezení. Viz například <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*> a <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapVerb*>.
 
@@ -271,56 +538,56 @@ Některé z těchto metod, jako například `MapGet`, vyžadují `RequestDelegat
 
 Tokeny ve složených závorkách (`{ ... }`) definovat *trasy parametry* , které jsou vázány, pokud je nalezen odpovídající trasy. Můžete definovat více než jeden parametr trasa v segmentu směrování, ale musí být odděleny literálovou hodnotou. Například `{controller=Home}{action=Index}` není platné trasy, protože neexistuje žádná hodnota literálu mezi `{controller}` a `{action}`. Tyto parametry trasy musí mít název a může zadat další atributy.
 
-Prostý text než parametry trasy (například `{id}`) a oddělovač cesty `/` text v adrese URL se musí shodovat. Odpovídající text je velká a malá písmena a podle dekódovaný reprezentace cesty adresy URL. Tak, aby odpovídaly parametr oddělovače literálu trasy `{` nebo `}`, řídicí znak opakováním (`{{` nebo `}}`).
+Prostý text než parametry trasy (například `{id}`) a oddělovač cesty `/` text v adrese URL se musí shodovat. Odpovídající text je velká a malá písmena a podle dekódovaný reprezentace cesty adresy URL. Tak, aby odpovídaly oddělovač parametr literálu trasy (`{` nebo `}`), oddělovač řídicí znak opakováním (`{{` nebo `}}`).
 
-Vzory adres URL, které se pokusí zaznamenat název souboru s příponou volitelné mají další aspekty. Představte si třeba šablona `files/{filename}.{ext?}`. Pokud obě `filename` a `ext` existuje, naplní se obě hodnoty. Pokud pouze `filename` existuje v adrese URL trasy shody, protože koncové tečky `.` je volitelný. Následující adresy URL, která odpovídá této trasy:
+Vzory adres URL, které se pokusí zaznamenat název souboru s příponou volitelné mají další aspekty. Představte si třeba šablona `files/{filename}.{ext?}`. Když hodnoty pro oba `filename` a `ext` existuje, naplní se obě hodnoty. Pokud pouze hodnotu `filename` existuje v adrese URL trasy shody, protože koncové tečky (`.`) je volitelný. Následující adresy URL, která odpovídá této trasy:
 
 * `/files/myFile.txt`
 * `/files/myFile`
 
-Můžete použít `*` znak jako předpona pro parametr trasy, aby vytvořit vazbu na celý URI. Jedná se *pokrývající vše* parametru. Například `blog/{*slug}` odpovídá libovolný identifikátor URI, který začíná `/blog` a využili všechny hodnoty (která je přiřazená `slug` směrovat hodnota). Parametry catch – to všechno můžete také hledat shody prázdný řetězec.
-
 ::: moniker range=">= aspnetcore-2.2"
+
+Můžete použít hvězdičku (`*`) nebo dvojitou hvězdičku (`**`) jako předponu pro parametr trasy, aby vytvořit vazbu na celý URI. Toto nastavení se nazývá *pokrývající vše* parametry. Například `blog/{**slug}` odpovídá libovolný identifikátor URI, který začíná `/blog` a nemá žádné hodnoty, které je přiřazeno k `slug` trasy hodnotu. Parametry catch – to všechno můžete také hledat shody prázdný řetězec.
 
 Parametr pokrývající vše řídicí sekvence příslušných znaků při trasy se používá ke generování adresy URL, včetně oddělovač cesty (`/`) znaků. Například trasy `foo/{*path}` trasy hodnotami `{ path = "my/path" }` generuje `foo/my%2Fpath`. Všimněte si uvozený uvozovacím znakem lomítka. Operace round-trip cesta oddělovače, použijte `**` předpona parametru trasy. Trasa `foo/{**path}` s `{ path = "my/path" }` generuje `foo/my/path`.
 
 ::: moniker-end
 
-Mohou mít parametry trasy *výchozí hodnoty*, navržené tak, že zadáte výchozí po názvu parametru, které jsou odděleny symbolem rovná se (`=`). Například `{controller=Home}` definuje `Home` jako výchozí hodnota pro `controller`. Výchozí hodnota je použita, pokud je k dispozici v adrese URL pro parametr žádná hodnota. Kromě výchozí hodnoty, parametry trasy, může být volitelná, zadána přidáním otazník (`?`) na konec názvu parametru, jak v `id?`. Rozdíl mezi hodnotami nepovinný a výchozí parametry trasy je, že parametr trasa s výchozí hodnotou vždy vytváří hodnotu; Volitelný parametr má hodnotu pouze v případě, že je žádost o adresu URL zadat hodnotu.
-
-::: moniker range=">= aspnetcore-2.2"
-
-Parametry trasy může mít omezení, které musí odpovídat hodnotě trasy vázán z adresy URL. Přidání dvojtečkou (`:`) a název omezení, určuje název parametru trasy *vložené omezení* na parametru trasy. Pokud omezení vyžaduje argumenty, jsou uzavřeny v závorkách `( )` za název omezení. Několik vložených omezení je možné zadat tak připojení jiného dvojtečka (`:`) a název omezení. Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> služby k vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> použít při zpracování adresy URL. Vyžaduje-li konstruktoru omezení služby, se už přeložit injektáž závislostí aplikace služby. Například šablona trasy `blog/{article:minlength(10)}` Určuje `minlength` omezení s argumentem `10`. Další informace o omezení trasy a seznam omezení poskytovaného rámcem, najdete v článku [trasy referenční omezení](#route-constraint-reference) části.
-
-::: moniker-end
-
 ::: moniker range="< aspnetcore-2.2"
 
-Parametry trasy může mít omezení, které musí odpovídat hodnotě trasy vázán z adresy URL. Přidání dvojtečkou (`:`) a název omezení, určuje název parametru trasy *vložené omezení* na parametru trasy. Pokud omezení vyžaduje argumenty, jsou uzavřeny v závorkách `( )` za název omezení. Několik vložených omezení je možné zadat tak připojení jiného dvojtečka (`:`) a název omezení. Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> služby k vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> použít při zpracování adresy URL. Například šablona trasy `blog/{article:minlength(10)}` Určuje `minlength` omezení s argumentem `10`. Další informace o omezení trasy a seznam omezení poskytovaného rámcem, najdete v článku [trasy referenční omezení](#route-constraint-reference) části.
+Můžete použít hvězdičku (`*`) jako předponu pro parametr trasy, aby vytvořit vazbu na celý URI. Jedná se *pokrývající vše* parametru. Například `blog/{*slug}` odpovídá libovolný identifikátor URI, který začíná `/blog` a nemá žádné hodnoty, které je přiřazeno k `slug` trasy hodnotu. Parametry catch – to všechno můžete také hledat shody prázdný řetězec.
+
+Parametr pokrývající vše řídicí sekvence příslušných znaků při trasy se používá ke generování adresy URL, včetně oddělovač cesty (`/`) znaků. Například trasy `foo/{*path}` trasy hodnotami `{ path = "my/path" }` generuje `foo/my%2Fpath`. Všimněte si uvozený uvozovacím znakem lomítka.
 
 ::: moniker-end
+
+Mohou mít parametry trasy *výchozí hodnoty* určený specifikuje výchozí hodnotu za název parametru odděleny symbolem rovná se (`=`). Například `{controller=Home}` definuje `Home` jako výchozí hodnota pro `controller`. Výchozí hodnota je použita, pokud je k dispozici v adrese URL pro parametr žádná hodnota. Parametry trasy, která jsou teď volitelné přidáním otazník (`?`) na konec názvu parametru, jak v `id?`. Rozdíl mezi hodnotami nepovinný a výchozí parametry trasy je, že parametr trasa s výchozí hodnotou vždy vytváří hodnotu&mdash;volitelný parametr má hodnotu pouze v případě, že je žádost o adresu URL zadat hodnotu.
+
+Parametry trasy může mít omezení, která musí odpovídat hodnotě trasy vázán z adresy URL. Přidání dvojtečkou (`:`) a název omezení, určuje název parametru trasy *vložené omezení* na parametru trasy. Pokud omezení vyžaduje argumenty, jsou uzavřeny v závorkách (`(...)`) za názvem omezení. Několik vložených omezení je možné zadat tak připojení jiného dvojtečka (`:`) a název omezení.
+
+Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> služby k vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> použít při zpracování adresy URL. Například šablona trasy `blog/{article:minlength(10)}` Určuje `minlength` omezení s argumentem `10`. Další informace o omezení trasy a seznam omezení poskytovaného rámcem, najdete v článku [trasy referenční omezení](#route-constraint-reference) části.
 
 ::: moniker range=">= aspnetcore-2.2"
 
-Parametr transformátory, které transformují parametr na hodnotu při generování odkazů a odpovídající akce a stránky pro identifikátory URI mohou mít i parametry trasy. Jako omezení, parametr transformátory jde přidat vložený parametr trasa přidáním dvojtečkou (`:`) a název transformer za název parametru trasy. Například šablona trasy `blog/{article:slugify}` Určuje `slugify` transformátoru.
+Parametry trasy mohou mít i transformátory parametrů, které transformují parametr na hodnotu při generování odkazů a odpovídající akce a stránky pro adresy URL. Jako omezení, parametr transformátory jde přidat vložený parametr trasa přidáním dvojtečkou (`:`) a název transformer za název parametru trasy. Například šablona trasy `blog/{article:slugify}` Určuje `slugify` transformátoru. Další informace o parametru transformátory, najdete v článku [odkaz na parametr transformer](#parameter-transformer-reference) oddílu.
 
 ::: moniker-end
 
-Následující tabulka ukazuje některé šablony trasy a jejich chování.
+Následující tabulka ukazuje příklad šablony trasy a jejich chování.
 
-| Šablona trasy                         | Příklad porovnávání adresy URL  | Poznámky                                                                  |
-| -------------------------------------- | --------------------- | ---------------------------------------------------------------------- |
-| Dobrý den                                  | řetězec Ahoj                | Odpovídá jen jednu cestu `/hello`                                  |
-| {Stránky = Home}                            | /                     | Odpovídá a nastaví `Page` do `Home`                                      |
-| {Stránky = Home}                            | / Kontaktu              | Odpovídá a nastaví `Page` do `Contact`                                   |
-| {controller} / {action} / {id}?            | / / Seznam produktů        | Mapuje `Products` kontroleru a `List` akce                       |
-| {controller} / {action} / {id}?            | / Produkty/podrobnosti/123 |  Mapuje `Products` kontroleru a `Details` akce.  `id` Nastavte na 123 |
-| {controller=Home}/{action=Index}/{id?} | /                     |  Mapuje `Home` kontroleru a `Index` metody. `id` se ignoruje.       |
+| Šablona trasy                           | Příklad odpovídající identifikátor URI    | Identifikátor URI požadavku&hellip;                                                    |
+| ---------------------------------------- | ----------------------- | -------------------------------------------------------------------------- |
+| `hello`                                  | `/hello`                | Odpovídá jen jednu cestu `/hello`.                                     |
+| `{Page=Home}`                            | `/`                     | Odpovídá a nastaví `Page` k `Home`.                                         |
+| `{Page=Home}`                            | `/Contact`              | Odpovídá a nastaví `Page` k `Contact`.                                      |
+| `{controller}/{action}/{id?}`            | `/Products/List`        | Mapuje `Products` kontroleru a `List` akce.                       |
+| `{controller}/{action}/{id?}`            | `/Products/Details/123` | Mapuje `Products` kontroleru a `Details` akce (`id` hodnotu 123). |
+| `{controller=Home}/{action=Index}/{id?`} | `/`                     | Mapuje `Home` kontroleru a `Index` – metoda (`id` ignorováno).        |
 
 Pomocí šablony je obecně nejjednodušším přístupem při směrování. Omezení a výchozí hodnoty lze také zadat mimo šablonu trasy.
 
 > [!TIP]
-> Povolit [protokolování](xref:fundamentals/logging/index) zobrazíte jak součástí směrování implementací, jako například `Route`, shodovat s požadavky.
+> Povolit [protokolování](xref:fundamentals/logging/index) zobrazíte jak předdefinovaných implementací, jako například směrování `Route`, shodovat s požadavky.
 
 ## <a name="reserved-routing-names"></a>Vyhrazené názvy směrování
 
@@ -334,18 +601,18 @@ Následující klíčová slova jsou vyhrazené názvy a nelze jej použít jako
 
 ## <a name="route-constraint-reference"></a>Odkaz na omezení trasy
 
-Omezení trasy provést, když `Route` má odpovídající syntaxe adresy URL příchozích a tokenizovaného cestě adresy URL do hodnoty trasy. Omezení trasy obecně zkontrolovat hodnoty trasy spojený přes šablonu trasy a ujistěte se, hodnota Ano/žádné rozhodnutí o, zda se hodnota je přijatelné. Některá omezení trasy použít data mimo hodnota trasy vzít v úvahu, jestli je možné směrovat požadavek. Například <xref:Microsoft.AspNetCore.Routing.Constraints.HttpMethodRouteConstraint> můžete přijmout nebo odmítnout žádost založené na jeho příkaz protokolu HTTP.
+Omezení trasy spustit, když shoda vedoucí k adresy URL příchozích a cesta URL je tokenizovaného do hodnoty trasy. Omezení trasy obecně zkontrolovat hodnoty trasy spojený přes šablonu trasy a ujistěte se, hodnota Ano/žádné rozhodnutí o, zda se hodnota je přijatelné. Některá omezení trasy použít data mimo hodnota trasy vzít v úvahu, jestli je možné směrovat požadavek. Například <xref:Microsoft.AspNetCore.Routing.Constraints.HttpMethodRouteConstraint> můžete přijmout nebo odmítnout žádost založené na jeho příkaz protokolu HTTP. Omezení se používají v směrování požadavků a propojit generace.
 
 > [!WARNING]
-> Vyhněte se použití omezení pro **ověřování vstupu** protože to znamená neplatný vstup vede *404 - Nenalezeno* odpovědi namísto *400 - Chybný požadavek* s příslušná chybová zpráva. Omezení trasy se používají pro **rozlišení** mezi podobné trasy, není k ověření vstupů pro konkrétní trasy.
+> Nepoužívejte omezení pro **ověřování vstupu**. Pokud omezení se používají pro **ověřování vstupu**, neplatný vstup výsledky v *404 - Nenalezeno* odpovědi namísto *400 - Chybný požadavek* s příslušnou chybovou zprávu. Omezení trasy se používají pro **rozlišení** podobné trasy, není k ověření vstupů pro konkrétní trasy.
 
-Následující tabulka ukazuje některá omezení trasy a jejich očekávané chování.
+Následující tabulka ukazuje příklad omezení trasy a jejich očekávané chování.
 
 | omezení | Příklad | Příklad shody | Poznámky |
 | ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`, `-123456789`  | Odpovídá jakémukoliv celému číslu |
+| `int` | `{id:int}` | `123456789`, `-123456789` | Odpovídá jakémukoliv celému číslu |
 | `bool` | `{active:bool}` | `true`, `FALSE` | Odpovídá `true` nebo `false` (velká a malá písmena) |
-| `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm`  | Odpovídá platný `DateTime` hodnotu (v invariantní jazykové verzi - zobrazí upozornění) |
+| `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm` | Odpovídá platný `DateTime` hodnotu (v invariantní jazykové verzi - zobrazí upozornění) |
 | `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | Odpovídá platný `decimal` hodnotu (v invariantní jazykové verzi - zobrazí upozornění) |
 | `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | Odpovídá platný `double` hodnotu (v invariantní jazykové verzi - zobrazí upozornění) |
 | `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | Odpovídá platný `float` hodnotu (v invariantní jazykové verzi - zobrazí upozornění) |
@@ -360,7 +627,7 @@ Následující tabulka ukazuje některá omezení trasy a jejich očekávané ch
 | `range(min,max)` | `{age:range(18,120)}` | `91` | Celočíselná hodnota musí být alespoň 18, ale ne více než 120 |
 | `alpha` | `{name:alpha}` | `Rick` | Řetězec musí obsahovat minimálně jeden abecední znak (`a`-`z`, velká a malá písmena) |
 | `regex(expression)` | `{ssn:regex(^\\d{{3}}-\\d{{2}}-\\d{{4}}$)}` | `123-45-6789` | Řetězec musí odpovídat regulárnímu výrazu (viz tipy k definování regulárního výrazu) |
-| `required` | `{name:required}` | `Rick` |  Používá k vynucení, že parametr-hodnota je k dispozici během generování adresy URL |
+| `required` | `{name:required}` | `Rick` | Používá k vynucení, že parametr-hodnota je k dispozici během generování adresy URL |
 
 Více, oddělit středníkem omezení se můžou uplatnit na jeden parametr. Například následující omezení omezuje parametr na celočíselnou hodnotu 1 nebo vyšší:
 
@@ -376,22 +643,22 @@ public User GetUserById(int id) { }
 
 Přidá rozhraní ASP.NET Core `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` regulárního výrazu konstruktoru. Zobrazit <xref:System.Text.RegularExpressions.RegexOptions> popis těchto členů.
 
-Regulární výrazy pomocí oddělovače a tokeny, které jsou podobné těm, které používají služby Směrování a jazyka C#. Tokeny regulární výraz musí být uvozena. Použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` znaků jako zadané v `\\` v C# zdrojový soubor, který řídicí `\` řídicí znak řetězce (Pokud nepoužíváte [doslovný řetězec literály](/dotnet/csharp/language-reference/keywords/string). `{`, `}`, `[`, A `]` znaků musí být uvozena zdvojeným je řídicí znaky oddělovače parametr směrování. Následující tabulka ukazuje regulárního výrazu a verze uvozený uvozovacím znakem.
+Regulární výrazy pomocí oddělovače a tokeny, které jsou podobné těm, které používají služby Směrování a jazyka C#. Tokeny regulární výraz musí být uvozena. Použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` znaků (jedno zpětné lomítko) zadaná v řetězci jako `\\` (dvojité zpětné lomítko) znaky v C# zdrojového souboru, aby bylo možné escape `\` řídicí znak řetězce (Pokud nepoužíváte [doslovný řetězec literálů](/dotnet/csharp/language-reference/keywords/string)). Řídicí znaky oddělovače směrování parametru (`{`, `}`, `[`, `]`), dvojité znaků ve výrazu (`{{`, `}`, `[[`, `]]`). Následující tabulka uvádí regulárního výrazu a verze uvozený uvozovacím znakem.
 
-| Výraz            | Uvozeny řídicími znaky                        |
+| Regulární výraz    | Uvozený uvozovacím znakem regulárního výrazu     |
 | --------------------- | ------------------------------ |
 | `^\d{3}-\d{2}-\d{4}$` | `^\\d{{3}}-\\d{{2}}-\\d{{4}}$` |
 | `^[a-z]{2}$`          | `^[[a-z]]{{2}}$`               |
 
-Regulární výrazy použité ve směrování často začínat `^` znak (shoda počáteční pozice tohoto řetězce) a končit `$` znak (shoda koncová pozice tohoto řetězce). `^` a `$` znaků Ujistěte se, že hodnota parametru celého postupu shoda s regulárním výrazem. Bez `^` a `$` znaků, regulární výraz odpovídat jakýkoli podřetězec v rámci řetězce, který je často nežádoucí. Následující tabulka obsahuje příklady a vysvětluje, proč odpovídat nebo selhání tak, aby odpovídaly.
+Regulární výrazy použité ve směrování často začínají znak stříšky (`^`) znak a odpovídají počáteční pozice tohoto řetězce. Výrazy často končit znak dolaru (`$`) znaků a shoda konec řetězce. `^` a `$` znaků Ujistěte se, že hodnota parametru celého postupu shoda s regulárním výrazem. Bez `^` a `$` znaků, regulární výraz odpovídat jakýkoli podřetězec v rámci řetězce, který je často nežádoucí. Následující tabulka obsahuje příklady a vysvětluje, proč odpovídat nebo selhání tak, aby odpovídaly.
 
 | Výraz   | String    | Shoda | Komentář               |
-| ------------ | --------- |  ---- |  -------------------- |
+| ------------ | --------- | :---: |  -------------------- |
 | `[a-z]{2}`   | Dobrý den     | Ano   | shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | shody podřetězců     |
 | `[a-z]{2}`   | mz        | Ano   | odpovídá výrazu    |
 | `[a-z]{2}`   | MZ        | Ano   | nerozlišuje velikost písmen    |
-| `^[a-z]{2}$` |  Dobrý den    | Ne    | Zobrazit `^` a `$` výše |
+| `^[a-z]{2}$` | Dobrý den     | Ne    | Zobrazit `^` a `$` výše |
 | `^[a-z]{2}$` | 123abc456 | Ne    | Zobrazit `^` a `$` výše |
 
 Další informace o syntaxi regulárního výrazu, naleznete v tématu [regulárních výrazech .NET Frameworku](/dotnet/standard/base-types/regular-expression-language-quick-reference).
@@ -408,11 +675,11 @@ Parametr transformátory:
 * Implementace `Microsoft.AspNetCore.Routing.IOutboundParameterTransformer`.
 * Byli nakonfigurováni pomocí <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>.
 * Přijmout hodnoty trasy a transformovat ho do novou řetězcovou hodnotu.
-* Transformovanou hodnotou je používán vytvořený odkaz.
+* Výsledkem použití transformovanou hodnotou v vytvořený odkaz.
 
 Například vlastní `slugify` transformer parametr vzoru trasy `blog\{article:slugify}` s `Url.Action(new { article = "MyTestArticle" })` generuje `blog\my-test-article`.
 
-Parametr transformátory také používají rozhraní k transformaci identifikátor URI, na který se přeloží koncový bod. Například technologie ASP.NET Core MVC používá parametr transformátory Transformace hodnoty trasy slouží k přiřazení `area`, `controller`, `action`, a `page`.
+Parametr transformátory se rozhraním, slouží k transformaci identifikátor URI, kde se řeší koncový bod. Například technologie ASP.NET Core MVC používá parametr transformátory Transformace hodnoty trasy slouží k přiřazení `area`, `controller`, `action`, a `page`.
 
 ```csharp
 routes.MapRoute(
@@ -420,12 +687,12 @@ routes.MapRoute(
     template: "{controller=Home:slugify}/{action=Index:slugify}/{id?}");
 ```
 
-Pomocí předchozího postupu akce `SubscriptionManagementController.GetAll()` je nalezena shoda s identifikátorem URI `/subscription-management/get-all`. Parametr transformer nedojde ke změně hodnoty trasy sloužící ke generování odkazu. `Url.Action("GetAll", "SubscriptionManagement")` Vypíše `/subscription-management/get-all`.
+Pomocí předchozího postupu akce `SubscriptionManagementController.GetAll()` je nalezena shoda s identifikátorem URI `/subscription-management/get-all`. Parametr transformer nedojde ke změně hodnoty trasy sloužící ke generování odkazu. Například `Url.Action("GetAll", "SubscriptionManagement")` výstupy `/subscription-management/get-all`.
 
 ASP.NET Core nabízí vytváření rozhraní API pro parametr transformátory pomocí generovaného trasy:
 
 * ASP.NET Core MVC má `Microsoft.AspNetCore.Mvc.ApplicationModels.RouteTokenTransformerConvention` konvence rozhraní API. Tato konvence zadaný parametr transformer platí pro všechny trasy atributů v aplikaci. Parametr transformer transformuje tokeny atribut trasy, jako se nahradí. Další informace najdete v tématu [transformátoru parametr použít k přizpůsobení náhradních tokenů](/aspnet/core/mvc/controllers/routing#use-a-parameter-transformer-to-customize-token-replacement).
-* Stránky Razor má `Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteTransformerConvention` konvence rozhraní API. Tato konvence zadaný parametr transformer platí pro všechny automaticky zjistí stránky Razor. Parametr transformer transformuje složku a název segmenty souborů tras stránky Razor. Další informace najdete v tématu [transformátoru parametr použít k přizpůsobení stránky trasy](/aspnet/core/razor-pages/razor-pages-conventions#use-a-parameter-transformer-to-customize-page-routes).
+* Má Razor Pages `Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteTransformerConvention` konvence rozhraní API. Tato konvence zadaný parametr transformer platí pro všechny automaticky zjistí stránky Razor. Parametr transformer transformuje složku a název segmenty souborů tras pro stránky Razor. Další informace najdete v tématu [transformátoru parametr použít k přizpůsobení stránky trasy](/aspnet/core/razor-pages/razor-pages-conventions#use-a-parameter-transformer-to-customize-page-routes).
 
 ::: moniker-end
 
@@ -433,32 +700,22 @@ ASP.NET Core nabízí vytváření rozhraní API pro parametr transformátory po
 
 Následující příklad ukazuje, jak ke generování odkazu pro trasu zadaný slovník hodnot trasy a <xref:Microsoft.AspNetCore.Routing.RouteCollection>.
 
-::: moniker range=">= aspnetcore-2.0"
-
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](routing/samples/1.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
-
-::: moniker-end
 
 `VirtualPath` Vygeneruje na konci předchozí ukázka je `/package/create/123`. Poskytuje slovníku `operation` a `id` hodnot "Sledovat balíček trasy" šablony trasy `package/{operation}/{id}`. Podrobnosti najdete v tématu ukázkový kód v [použití směrování Middleware](#use-routing-middleware) části nebo [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/routing/samples).
 
-Druhý parametr `VirtualPathContext` konstruktor je kolekce *okolí hodnoty*. Ambientní hodnoty zajistí pohodlí tím, že omezíte počet hodnot, které vývojář musí zadat v rámci určité kontext požadavku. Aktuální hodnoty trasy z aktuální požadavek jsou považovány za okolí hodnoty pro generování odkazů. V aplikaci ASP.NET Core MVC v `About` akce `HomeController`, není nutné zadat hodnotu trasy kontroleru propojení `Index` akce&mdash;okolí hodnotu `Home` se používá.
+Druhý parametr `VirtualPathContext` konstruktor je kolekce *okolí hodnoty*. Ambientní hodnoty jsou vhodné použít, protože omezují počet hodnot, které vývojář musí zadat v rámci kontextu požadavku. Aktuální hodnoty trasy z aktuální požadavek jsou považovány za okolí hodnoty pro generování odkazů. V aplikaci ASP.NET Core MVC `About` akce `HomeController`, není nutné zadat hodnotu trasy kontroleru propojení `Index` akce&mdash;okolí hodnotu `Home` se používá.
 
-Ambientní hodnoty, které neodpovídají parametru jsou ignorovány a okolí hodnoty jsou také ignorovány, pokud explicitně zadaná hodnota je přepsána, bude zleva doprava v adrese URL.
+Ambientní hodnoty, které neodpovídají parametru jsou ignorovány. Okolí hodnoty jsou ignorovány, i když explicitně zadaná hodnota přepíše hodnotu okolí. Odpovídající vyvolá zleva doprava v adrese URL.
 
-Hodnoty, které jsou explicitně zadat, ale které neodpovídají nic se přidají do řetězce dotazu. V následující tabulce jsou uvedeny výsledek při použití šablonu trasy `{controller}/{action}/{id?}`.
+Explicitně zadanými hodnotami, ale které se neshodují. segment trasy, která jsou přidány do řetězce dotazu. V následující tabulce jsou uvedeny výsledek při použití šablonu trasy `{controller}/{action}/{id?}`.
 
-| Ambientní hodnoty                | Explicitní hodnoty                   | Výsledek                  |
-| ----------------------------- | --------------------------------- | ----------------------- |
-| kontroler = "Domů"             | akce = "O"                    | `/Home/About`           |
-| kontroler = "Domů"             | kontroler = "Order", akce = "O" | `/Order/About`          |
-| kontroler = "Home", color = "Red" | akce = "O"                    | `/Home/About`           |
-| kontroler = "Domů"             | akce = "O", barva = "Red"        | `/Home/About?color=Red` |
+| Ambientní hodnoty                     | Explicitní hodnoty                        | Výsledek                  |
+| ---------------------------------- | -------------------------------------- | ----------------------- |
+| kontroler = "Domů"                | akce = "O"                       | `/Home/About`           |
+| kontroler = "Domů"                | kontroler = "Order", akce = "O" | `/Order/About`          |
+| kontroler = "Home", color = "Red" | akce = "O"                       | `/Home/About`           |
+| kontroler = "Domů"                | akce = "O", barva = "Red"        | `/Home/About?color=Red` |
 
 Pokud trasa má výchozí hodnotu, která neodpovídá instalovanému parametr a explicitně zadat tuto hodnotu, musí odpovídat výchozí hodnota:
 
@@ -467,4 +724,4 @@ routes.MapRoute("blog_route", "blog/{*slug}",
     defaults: new { controller = "Blog", action = "ReadPost" });
 ```
 
-Generování odkazů pouze vytvoří odkaz pro tuto trasu, pokud jsou k dispozici odpovídající hodnoty pro kontroleru a akce.
+Pokud odpovídající hodnoty pro generování odkazů pouze vytvoří odkaz pro tuto trasu `controller` a `action` jsou k dispozici.

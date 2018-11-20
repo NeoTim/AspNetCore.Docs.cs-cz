@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/index
-ms.openlocfilehash: 4277266e20ab1921a2ba24d4500358ba90330370
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: 579e472e01efd08bbafe949e37a3b655a42a5b46
+ms.sourcegitcommit: 04b55a5ce9d649ff2df926157ec28ae47afe79e2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50252942"
+ms.lasthandoff: 11/20/2018
+ms.locfileid: "52156916"
 ---
 # <a name="overview-of-aspnet-core-security"></a>Přehled zabezpečení ASP.NET Core
 
@@ -36,73 +36,4 @@ ASP.NET Core a EF obsahují funkce, které vám pomůžou zabezpečit vaše apli
 * [Proti padělání požadavků mezi weby (CSRF)](xref:security/anti-request-forgery)
 * [Útoky na otevřeném přesměrování](xref:security/preventing-open-redirects)
 
-Existují další chyby zabezpečení, které byste měli vědět. Další informace najdete v části v tomto dokumentu na *dokumentace k ASP.NET Core zabezpečení*.
-
-## <a name="aspnet-core-security-documentation"></a>Dokumentace k zabezpečení ASP.NET Core
-
-* Ověřování
-  * [Úvod do systému Identity](xref:security/authentication/identity)
-  * [Povolení ověřování přes Facebook, Google a další externí zprostředkovatele](xref:security/authentication/social/index)
-  * [Povolení ověření přes WS-Federation](xref:security/authentication/ws-federation)
-  * [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth)
-  * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
-  * [Dvoufaktorové ověřování přes SMS](xref:security/authentication/2fa)
-  * [Používala ověřování souborů cookie bez systému Identity](xref:security/authentication/cookie)
-  * [Azure Active Directory](xref:security/authentication/azure-active-directory/index)
-    * [Integrace Azure AD do webové aplikace ASP.NET Core](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/)
-    * [Volání rozhraní API pro ASP.NET Core Web z aplikace WPF pomocí Azure AD](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-native-aspnetcore/)
-    * [Volání webového rozhraní API webové aplikace ASP.NET Core pomocí Azure AD](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/)
-    * [Webovou aplikaci ASP.NET Core s Azure AD B2C](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapp/)
-  * [Zabezpečení aplikací ASP.NET serverem IdentityServer4](https://identityserver4.readthedocs.io)
-* Autorizace
-  * [Úvod](xref:security/authorization/introduction)
-  * [Vytvoření aplikace s uživatelskými daty chráněnými autorizací](xref:security/authorization/secure-data)
-  * [Jednoduchá autorizace](xref:security/authorization/simple)
-  * [Ověřování založené na rolích](xref:security/authorization/roles)
-  * [Autorizace na základě deklarace identity](xref:security/authorization/claims)
-  * [Autorizace na základě zásad](xref:security/authorization/policies)
-  * [Injektáž závislostí v obslužných rutinách požadavků](xref:security/authorization/dependencyinjection)
-  * [Autorizace na základě prostředků](xref:security/authorization/resourcebased)
-  * [Autorizace na základě zobrazení](xref:security/authorization/views)
-  * [Omezení identity schématem](xref:security/authorization/limitingidentitybyscheme)
-* Ochrana dat
-  * [Úvod do ochrany dat](xref:security/data-protection/introduction)
-  * [Začínáme s rozhraními API na ochranu dat](xref:security/data-protection/using-data-protection)
-  * Rozhraní API příjemců
-    * [Přehled rozhraní API příjemců](xref:security/data-protection/consumer-apis/overview)
-    * [Účelové řetězce](xref:security/data-protection/consumer-apis/purpose-strings)
-    * [Hierarchie účelů a víceklientská architektura](xref:security/data-protection/consumer-apis/purpose-strings-multitenancy)
-    * [Určení hodnoty hash hesel](xref:security/data-protection/consumer-apis/password-hashing)
-    * [Omezení životnosti chráněných datových částí](xref:security/data-protection/consumer-apis/limited-lifetime-payloads)
-    * [Zrušení ochrany datových částí s odvolanými klíči](xref:security/data-protection/consumer-apis/dangerous-unprotect)
-  * [Konfigurace](xref:security/data-protection/configuration/index)
-    * [Konfigurace ochrany dat](xref:security/data-protection/configuration/overview)
-    * [Výchozí nastavení](xref:security/data-protection/configuration/default-settings)
-    * [Zásady pro celý počítač](xref:security/data-protection/configuration/machine-wide-policy)
-    * [Používající DI scénáře](xref:security/data-protection/configuration/non-di-scenarios)
-  * [Rozšiřující rozhraní API](xref:security/data-protection/extensibility/index)
-    * [Rozšiřitelnost základní kryptografie](xref:security/data-protection/extensibility/core-crypto)
-    * [Rozšiřitelnost správy klíčů](xref:security/data-protection/extensibility/key-management)
-    * [Ostatní rozhraní API](xref:security/data-protection/extensibility/misc-apis)
-  * [Implementace](xref:security/data-protection/implementation/index)
-    * [Podrobnosti ověřeného šifrování](xref:security/data-protection/implementation/authenticated-encryption-details)
-    * [Odvozování podklíčů a ověřené šifrování](xref:security/data-protection/implementation/subkeyderivation)
-    * [Kontextová záhlaví](xref:security/data-protection/implementation/context-headers)
-    * [Správa klíčů](xref:security/data-protection/implementation/key-management)
-    * [Zprostředkovatelé úložiště klíčů](xref:security/data-protection/implementation/key-storage-providers)
-    * [Šifrování klíčů v klidovém stavu](xref:security/data-protection/implementation/key-encryption-at-rest)
-    * [Neměnnost klíče a nastavení](xref:security/data-protection/implementation/key-immutability)
-    * [Formát ukládání klíčů](xref:security/data-protection/implementation/key-storage-format)
-    * [Zprostředkovatelé dočasné ochrany dat](xref:security/data-protection/implementation/key-storage-ephemeral)
-  * [Kompatibilita](xref:security/data-protection/compatibility/index)
-    * [Nahraďte \<machineKey > v technologii ASP.NET](xref:security/data-protection/compatibility/replacing-machinekey)
-* [Vytvoření aplikace s uživatelskými daty chráněnými autorizací](xref:security/authorization/secure-data)
-* [Bezpečné ukládání tajných kódů aplikace při vývoji](xref:security/app-secrets)
-* [Zprostředkovatel konfigurace služby Azure Key Vault](xref:security/key-vault-configuration)
-* [Vynucení SSL](xref:security/enforcing-ssl)
-* [Ochrana proti padělání požadavků](xref:security/anti-request-forgery)
-* [Prevence útoků založených na otevřeném přesměrování](xref:security/preventing-open-redirects)
-* [Obrana proti skriptování mezi weby](xref:security/cross-site-scripting)
-* [Povolení žádostí nepůvodního zdroje (CORS)](xref:security/cors)
-* [Sdílení souborů cookie mezi aplikacemi](xref:security/cookie-sharing)
-* [Seznam bezpečných IP adres](xref:security/ip-safelist)
+Existují další chyby zabezpečení, které byste měli vědět. Další informace najdete v tématu v dalších článcích v **zabezpečení a identita** část obsahu.
