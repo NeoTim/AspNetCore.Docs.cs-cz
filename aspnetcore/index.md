@@ -4,14 +4,14 @@ author: rick-anderson
 description: Nechte si představit ASP.NET Core, což je platformově univerzální, vysoce výkonná architektura typu open-source, která slouží k vytváření moderních cloudových aplikací připojených k internetu.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/10/2018
+ms.date: 11/16/2018
 uid: index
-ms.openlocfilehash: 1699acc0086dfd50c573afc239bc8f37eb9e7af9
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: ccf00316218c0787136193a7acaf55b8687c6ede
+ms.sourcegitcommit: 04b55a5ce9d649ff2df926157ec28ae47afe79e2
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51569985"
+ms.lasthandoff: 11/20/2018
+ms.locfileid: "52156942"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -77,7 +77,9 @@ Ze všech sil se snažíme doplnit rozhraní API z .NET Framework do .NET Core. 
 1. Rozbalte soubor *Docs-master.zip*.
 1. Adresa URL v ukázkovém odkazu vám pomůže s přechodem do ukázkového adresáře.
 
-Pro účely demonstrace více scénářů využívají ukázkové aplikace příkazy `#define` a `#if-#else/#elif-#endif` jazyka C# k selektivní kompilaci a spouštění různých částí vzorového kódu. U ukázek, které používají tento přístup, nastavte příkaz `#define` na začátku souborů C# na symbol přidružený ke scénáři, který chcete spustit. Ukázka může vyžadovat nastavení symbolu na začátku několika souborů kvůli spuštění určitého scénáře.
+### <a name="preprocessor-directives-in-sample-code"></a>Direktivy preprocesoru ve vzorovém kódu
+
+Pro účely demonstrace různých scénářů využívají ukázkové aplikace příkazy `#define` a `#if-#else/#elif-#endif` jazyka C# k selektivní kompilaci a spouštění různých částí vzorového kódu. U ukázek, které používají tento přístup, nastavte příkaz `#define` na začátku souborů C# na symbol přidružený ke scénáři, který chcete spustit. U některých ukázek musíte kvůli spuštění scénáře nastavit tento symbol na začátku několika souborů.
 
 Například následující seznam symbolů `#define` udává, že jsou dostupné čtyři scénáře (jeden scénář na symbol). Při aktuální konfiguraci ukázky se spustí scénář `TemplateCode`:
 
@@ -92,6 +94,33 @@ Pokud chcete ukázku změnit tak, aby se spustil scénář `ExpandDefault`, defi
 ```
 
 Další informace o používání [direktiv preprocesoru C#](/dotnet/csharp/language-reference/preprocessor-directives/) k selektivní kompilaci částí kódu najdete v článku [#define (referenční dokumentace jazyka C# )](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-define) a [#if (referenční dokumentace jazyka C#)](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if).
+
+### <a name="regions-in-sample-code"></a>Oblasti ve vzorovém kódu
+
+Některé ukázkové aplikace obsahují úseky kódu, které jsou uzavřené mezi příkazy jazyka C# [#region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) a [#end-region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-endregion). Systém pro sestavování dokumentace vkládá tyto oblasti do zobrazených témat dokumentace.  
+
+Názvy oblastí obvykle obsahují slovo „snippet“. Následující příklad ukazuje oblast s názvem `snippet_FilterInCode`:
+
+```csharp
+#region snippet_FilterInCode
+WebHost.CreateDefaultBuilder(args)
+    .UseStartup<Startup>()
+    .ConfigureLogging(logging =>
+        logging.AddFilter("System", LogLevel.Debug)
+            .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Trace))
+            .Build();
+#endregion
+```
+
+Na předchozí fragment kódu C# odkazuje soubor Markdown tohoto tématu pomocí následujícího řádku:
+
+```
+[!code-csharp[](sample/SampleApp/Program.cs?name=snippet_FilterInCode)]
+```
+
+Příkazy `#region` a `#end-region`, do kterých je kód uzavřený, můžete bezpečně ignorovat. Pokud budete chtít spustit vzorové scénáře popsané v tomto tématu, neměňte kód uvnitř těchto příkazů. Při experimentování s jinými scénáři můžete tento kód klidně pozměnit.
+
+Další informace najdete v článku [Příspěvky k dokumentaci rozhraní ASP.NET: fragmenty kódu](https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md#code-snippets).
 
 ## <a name="next-steps"></a>Další kroky
 

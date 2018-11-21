@@ -34,7 +34,7 @@
 ## [Spuštění aplikace](xref:fundamentals/startup)
 ## [Injektáž závislostí (služby)](xref:fundamentals/dependency-injection)
 ## [Směrování](xref:fundamentals/routing)
-## [Více prostředí](xref:fundamentals/environments)
+## [Prostředí (vývojové, pracovní, produkční)](xref:fundamentals/environments)
 ## [Konfigurace](xref:fundamentals/configuration/index)
 ## [Možnosti](xref:fundamentals/configuration/options)
 ## [Protokolování](xref:fundamentals/logging/index)
@@ -432,6 +432,7 @@
 ## [Komprese odpovědí](xref:performance/response-compression)
 
 # Migrace
+## [Z verze 2.1 do verze 2.2](xref:migration/21-to-22)
 ## [Z verze 2.0 do verze 2.1](xref:migration/20_21)
 ## Z verze 1.x do verze 2.0
 ### [Přehled](xref:migration/1x-to-2x/index)
