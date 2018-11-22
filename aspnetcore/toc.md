@@ -85,7 +85,7 @@
 ##### [Aktualizace stránek](xref:tutorials/razor-pages-mac/da1)
 ##### [Přidání vyhledávání](xref:tutorials/razor-pages-mac/search)
 ### [Filtry](xref:razor-pages/filter)
-### [Knihovny tříd](xref:razor-pages/ui-class)
+### [Knihovny RCL (Razor Class Library)](xref:razor-pages/ui-class)
 ### [Směrování a aplikační konvence](xref:razor-pages/razor-pages-conventions)
 ### [Nahrání souborů](xref:razor-pages/upload-files)
 ### [Sada Razor SDK](xref:razor-pages/sdk)
