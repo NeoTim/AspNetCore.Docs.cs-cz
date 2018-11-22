@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/15/2018
 uid: fundamentals/routing
-ms.openlocfilehash: bfada2777551253d8bb5b3d6bf89d1b05b26c574
-ms.sourcegitcommit: 04b55a5ce9d649ff2df926157ec28ae47afe79e2
+ms.openlocfilehash: f18ec1da2affbf67b7ada570b68f98a42c7256a5
+ms.sourcegitcommit: ad28d1bc6657a743d5c2fa8902f82740689733bb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/20/2018
-ms.locfileid: "52156968"
+ms.locfileid: "52256590"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -232,7 +232,7 @@ Existuje několik rozdílů mezi koncovým bodem směrování v ASP.NET Core 2.2
 
   S `IRouter`– směrování na základě, tento kód vygeneruje identifikátor URI sady `/blog/ReadPost/17`, který respektuje malých a velkých písmen hodnoty zadané trasy. Vytvoří koncový bod směrování v ASP.NET Core 2.2 nebo vyšší `/Blog/ReadPost/17` ("Blogu" je velkými písmeny). Poskytuje koncový bod směrování `IOutboundParameterTransformer` rozhraní, které lze použít k přizpůsobení tohoto chování globálně nebo použít jiné konvence pro mapování adres URL.
 
-  Další informace najdete v tématu [odkaz na parametr transformer](xref:#parameter-transformer-reference) oddílu.
+  Další informace najdete v tématu [odkaz na parametr transformer](#parameter-transformer-reference) oddílu.
 
 * Generování odkazů, které jsou používány MVC/Razor Pages s konvenčním trasy chová odlišně při pokusu o odkaz na kontroler nebo akce nebo stránka, která neexistuje.
 

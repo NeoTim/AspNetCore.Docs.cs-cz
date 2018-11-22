@@ -4,14 +4,14 @@ author: scottaddie
 description: Zjistěte, jak optimalizovat statické prostředky ve webové aplikaci ASP.NET Core s použitím technik sdružování a minifikace.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/04/2018
+ms.date: 11/20/2018
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 152f3c810b587d734c1b1076a09ea38d13872e2d
-ms.sourcegitcommit: 7890dfb5a8f8c07d813f166d3ab0c263f893d0c6
+ms.openlocfilehash: 5d5f0aadb7740c9b2b959d12a585cd8c91758ce8
+ms.sourcegitcommit: 4225e2c49a0081e6ac15acff673587201f54b4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48795402"
+ms.lasthandoff: 11/21/2018
+ms.locfileid: "52282134"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Vytvoření balíčku a minifikace statické prostředky v ASP.NET Core
 
@@ -67,9 +67,21 @@ Prohlížeče jsou poměrně podrobné s ohledem na hlavičky požadavků HTTP. 
 
 ## <a name="configure-bundling-and-minification"></a>Konfigurace sdružování a minifikace
 
-Zadejte šablon projektu MVC a Razor Pages *bundleconfig.json* konfigurační soubor, který definuje možnosti pro každou sadu. Ve výchozím nastavení, konfigurace jedné sadě je definována pro vlastní jazyk JavaScript (*wwwroot/js/site.js*) a šablony stylů (*wwwroot/css/site.css*) soubory:
+::: moniker range="<= aspnetcore-2.0"
+
+V technologii ASP.NET Core 2.0 nebo starší, poskytují šablon projektu MVC a Razor Pages *bundleconfig.json* konfigurační soubor, který definuje možnosti pro každou sadu:
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.1"
+
+V ASP.NET Core 2.1 nebo novější, přidejte nový soubor JSON s názvem *bundleconfig.json*, do kořenu projektu MVC nebo stránky Razor. Zahrnout následující kód JSON do tohoto souboru jako výchozí bod:
+
+::: moniker-end
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/bundleconfig.json)]
+
+*Bundleconfig.json* soubor definuje možnosti pro každý svazek. V předchozím příkladu je definován konfigurace jedné sady pro vlastní jazyk JavaScript (*wwwroot/js/site.js*) a šablony stylů (*wwwroot/css/site.css*) soubory.
 
 Možnosti konfigurace patří:
 
@@ -216,27 +228,31 @@ Zadejte soubory, které chcete zahrnout do stránky s použitím [pomocná rutin
 
 Následující `environment` značky vykreslí nezpracovaných souborů CSS, při spuštění v `Development` prostředí:
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x/)
+::: moniker range=">= aspnetcore-2.0"
 
 [!code-cshtml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/Pages/_Layout.cshtml?highlight=3&range=21-24)]
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x/)
+::: moniker-end
+
+::: moniker range="<= aspnetcore-1.1"
 
 [!code-cshtml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/Pages/_Layout.cshtml?highlight=3&range=9-12)]
 
----
+::: moniker-end
 
 Následující `environment` značky vykreslí soubory šablon stylů CSS jako součást balíčku a minifikovaný při spuštění v prostředí než `Development`. Například používané `Production` nebo `Staging` aktivuje vykreslování tyto šablony stylů:
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x/)
+::: moniker range=">= aspnetcore-2.0"
 
 [!code-cshtml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/Pages/_Layout.cshtml?highlight=5&range=25-30)]
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x/)
+::: moniker-end
+
+::: moniker range="<= aspnetcore-1.1"
 
 [!code-cshtml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/Pages/_Layout.cshtml?highlight=3&range=13-18)]
 
----
+::: moniker-end
 
 ## <a name="consume-bundleconfigjson-from-gulp"></a>Využívání bundleconfig.json z Gulp
 

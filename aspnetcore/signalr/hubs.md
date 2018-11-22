@@ -5,14 +5,14 @@ description: Další informace o použití rozbočovače signalr technologie ASP
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 11/07/2018
+ms.date: 11/20/2018
 uid: signalr/hubs
-ms.openlocfilehash: 0413d354307208726f4252f431ac59526effed08
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 91f92e9d6b776457cd319965d548ee401ddc5e0e
+ms.sourcegitcommit: 4225e2c49a0081e6ac15acff673587201f54b4aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51569916"
+ms.lasthandoff: 11/21/2018
+ms.locfileid: "52282135"
 ---
 # <a name="use-hubs-in-signalr-for-aspnet-core"></a>Použití rozbočovače signalr pro ASP.NET Core
 
@@ -85,7 +85,6 @@ Můžete určit návratový typ a parametry, včetně komplexní typy a pole, st
 | `Caller` | Volá metodu na straně klienta, který volal metodu rozbočovače na |
 | `Others` | Volá metodu na všechny připojené klienty kromě klienta, který volal metodu |
 
-
 `Hub.Clients` obsahuje také následující metody:
 
 | Metoda | Popis |
@@ -126,7 +125,17 @@ Toto rozhraní je možné Refaktorovat předchozí `ChatHub` příklad.
 
 Pomocí `Hub<IChatClient>` povolí kompilaci kontrolu metodu klienta. To brání problémy způsobené pomocí magic řetězců, protože `Hub<T>` můžete poskytnout přístup k metodám definované v rozhraní.
 
-Pomocí silného typu `Hub<T>` zakáže možnost používat `SendAsync`.
+Pomocí silného typu `Hub<T>` zakáže možnost používat `SendAsync`. Jakékoli metody definované v rozhraní může být stále definována jako o asynchronním. Ve skutečnosti, každá z těchto metod by mělo vrátit `Task`. Protože je rozhraní, nepoužívejte `async` – klíčové slovo. Příklad:
+
+```csharp
+public interface IClient
+{
+    Task ClientMethod();
+}
+```
+
+> [!NOTE]
+> `Async` Přípona není odebrána z názvu metody. Pokud vaše metoda klienta je definována s `.on('MyMethodAsync')`, neměli byste používat `MyMethodAsync` jako název.
 
 ## <a name="change-the-name-of-a-hub-method"></a>Změnit název metody rozbočovače
 
@@ -150,7 +159,7 @@ Výjimky vzniklé v metodách vašeho centra se posílají klientovi, který vol
 
 [!code-javascript[Error](hubs/sample/wwwroot/js/chat.js?range=23)]
 
-Ve výchozím nastavení Pokud vaše Centrum vyvolá výjimku, SignalR vrátí obecnou chybovou zprávu do klienta. Příklad:
+Pokud vaše Centrum vyvolá výjimku, nebyly uzavřeny připojení. Ve výchozím nastavení SignalR vrátí obecnou chybovou zprávu do klienta. Příklad:
 
 ```
 Microsoft.AspNetCore.SignalR.HubException: An unexpected error occurred invoking 'MethodName' on the server.
