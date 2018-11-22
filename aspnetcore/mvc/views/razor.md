@@ -5,12 +5,12 @@ description: Další informace o syntaxi Razor kód pro vložení do webových s
 ms.author: riande
 ms.date: 10/26/2018
 uid: mvc/views/razor
-ms.openlocfilehash: 10f0db168b36fed82def8227b3c3edcf5b57f6d7
-ms.sourcegitcommit: 54655f1e1abf0b64d19506334d94cfdb0caf55f6
+ms.openlocfilehash: ab9fb3f55399764c5fe985811d92c504ed210767
+ms.sourcegitcommit: ad28d1bc6657a743d5c2fa8902f82740689733bb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/26/2018
-ms.locfileid: "50148886"
+ms.lasthandoff: 11/20/2018
+ms.locfileid: "52256577"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -197,7 +197,7 @@ Pokud chcete definovat dílčí část objektu bloku kódu, který vykreslovat k
 
 Tuto metodu použijte k vykreslení HTML, který není obklopený značky jazyka HTML. Bez značky jazyka HTML nebo Razor dojde k chybě modulu runtime Razor.
 
-**\<Text >** značka je vhodné pro řízení prázdné znaky, při vykreslování obsahu:
+ **\<Text >** značka je vhodné pro řízení prázdné znaky, při vykreslování obsahu:
 
 * Pouze obsah mezi  **\<text >** je vykreslen. 
 * Žádné prázdné znaky před nebo po  **\<text >** značky se zobrazí ve výstupu protokolu HTML.
@@ -526,6 +526,105 @@ Následující kód je vygenerovaný Razor C# třídy:
 
 `@section` – Direktiva se používá ve spojení s [rozložení](xref:mvc/views/layout) povolit zobrazení k vykreslení obsahu v různých částech stránky HTML. Další informace najdete v tématu [oddíly](xref:mvc/views/layout#layout-sections-label).
 
+## <a name="templated-razor-delegates"></a>Šablony Razor delegátů
+
+Šablony Razor umožňují definovat fragment uživatelského rozhraní v následujícím formátu:
+
+```cshtml
+@<tag>...</tag>
+```
+
+Následující příklad ukazuje, jak zadat bez vizuálního vzhledu Razor delegáta jako <xref:System.Func`2>. [Dynamického typu](/dotnet/csharp/programming-guide/types/using-type-dynamic) je zadaná pro parametr metody, která zapouzdřuje delegáta. [Typ objektu](/dotnet/csharp/language-reference/keywords/object) je zadán jako návratový typ delegáta. Šablona se používá s <xref:System.Collections.Generic.List`1> z `Pet` , který má `Name` vlastnost.
+
+```csharp
+public class Pet
+{
+    public string Name { get; set; }
+}
+```
+
+```cshtml
+@{
+    Func<dynamic, object> petTemplate = @<p>You have a pet named @item.Name.</p>;
+
+    var pets = new List<Pet>
+    {
+        new Pet { Name = "Rin Tin Tin" },
+        new Pet { Name = "Mr. Bigglesworth" },
+        new Pet { Name = "K-9" }
+    };
+}
+```
+
+Šablona je vykreslen pomocí `pets` poskytnutých `foreach` – příkaz:
+
+```cshtml
+@foreach (var pet in pets)
+{
+    @petTemplate2(pet)
+}
+```
+
+Vykresleného výstupu:
+
+```html
+<p>You have a pet named <strong>Rin Tin Tin</strong>.</p>
+<p>You have a pet named <strong>Mr. Bigglesworth</strong>.</p>
+<p>You have a pet named <strong>K-9</strong>.</p>
+```
+
+Šablony Razor vložené lze také zadat jako argument pro metodu. V následujícím příkladu `Repeat` metoda obdrží šablona Razor. Metoda používá šablony k vytvoření HTML obsah s opakování zadaný ze seznamu položek:
+
+```cshtml
+@using Microsoft.AspNetCore.Html
+
+@functions {
+    public static IHtmlContent Repeat(IEnumerable<dynamic> items, int times, 
+        Func<dynamic, IHtmlContent> template)
+    {
+        var html = new HtmlContentBuilder();
+
+        foreach (var item in items)
+        {
+            for (var i = 0; i < times; i++)
+            {
+                html.AppendHtml(template(item));
+            }
+        }
+
+        return html;
+    }
+}
+```
+
+Pomocí seznam mazlíčků z předchozího příkladu `Repeat` metoda je volána pomocí:
+
+* <xref:System.Collections.Generic.List`1> z `Pet`.
+* Počet opakování každou mazlíčků.
+* Vložená šablona použitá pro položky seznamu neuspořádaný seznam.
+
+```cshtml
+<ul>
+    @Repeat(pets, 3, @<li>@item.Name</li>)
+</ul>
+```
+
+Vykresleného výstupu:
+
+```html
+<ul>
+    <li>Rin Tin Tin</li>
+    <li>Rin Tin Tin</li>
+    <li>Rin Tin Tin</li>
+    <li>Mr. Bigglesworth</li>
+    <li>Mr. Bigglesworth</li>
+    <li>Mr. Bigglesworth</li>
+    <li>K-9</li>
+    <li>K-9</li>
+    <li>K-9</li>
+</ul>
+```
+
 ## <a name="tag-helpers"></a>Pomocné rutiny značek
 
 Existují tři direktivy, které se týkají [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).
@@ -541,8 +640,8 @@ Existují tři direktivy, které se týkají [pomocných rutin značek](xref:mvc
 ### <a name="razor-keywords"></a>Klíčová slova Razor
 
 * stránka (vyžaduje ASP.NET Core 2.0 a novější)
-* – obor názvů
-* – funkce
+*  – obor názvů
+*  – funkce
 * Dědí
 * model
 * section
@@ -560,7 +659,7 @@ Klíčová slova Razor jsou uvozeny řídicími znaky s `@(Razor Keyword)` (nap�
 * if
 * else
 * lock
-* – přepínač
+*  – přepínač
 * Zkuste
 * catch
 * finally
