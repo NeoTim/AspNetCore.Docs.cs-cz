@@ -5,12 +5,12 @@ description: Vysvětluje, ASP.NET Core vs. ASP.NET 4.x a jak si vybrat mezi nimi
 ms.author: riande
 ms.date: 09/11/2018
 uid: fundamentals/choose-between-aspnet-and-aspnetcore
-ms.openlocfilehash: f046491e2ec68b6beaad581e2b04e6688a81f2d1
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 79e56e10b756677431ceff289300c251e54bf632
+ms.sourcegitcommit: bdfba5e7575b2a786ef27c0edf688c7dbd09ee95
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911042"
+ms.lasthandoff: 11/22/2018
+ms.locfileid: "52288665"
 ---
 # <a name="choose-between-aspnet-4x-and-aspnet-core"></a>Zvolte mezi ASP.NET 4.x a ASP.NET Core
 
@@ -35,7 +35,7 @@ Následující tabulka porovnává ASP.NET Core, ASP.NET 4.x.
 |Sestavení pro Windows, macOS nebo Linux|Sestavení pro Windows|
 |[Stránky Razor](xref:razor-pages/index) je doporučený postup pro vytváření webového uživatelského rozhraní k ASP.NET Core 2.x. Viz také [MVC](xref:mvc/overview), [webové rozhraní API](xref:tutorials/first-web-api), a [SignalR](xref:signalr/introduction).|Použití [webových formulářů](/aspnet/web-forms), [SignalR](/aspnet/signalr), [MVC](/aspnet/mvc), [webové rozhraní API](/aspnet/web-api/), [Webhooky](/aspnet/webhooks/), nebo [webové stránky](/aspnet/web-pages)|
 |Více verzí na počítač|Jedna verze na počítač|
-|Vývoj s využitím sady Visual Studio [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac/), nebo [Visual Studio Code](https://code.visualstudio.com/) pomocí jazyka C# nebo F #|Vývoj s využitím sady Visual Studio pomocí jazyka C#, VB nebo F #|
+|Vývoj s využitím sady Visual Studio [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac/), nebo [Visual Studio Code](https://code.visualstudio.com/) pomocí C# neboF#|Vývoj s využitím sady Visual Studio C#, VB, neboF#|
 |Vyšší výkon než ASP.NET 4.x|Dobrý výkon|
 |[Zvolte rozhraní .NET Framework nebo .NET Core runtime](/dotnet/articles/standard/choosing-core-framework-server)|Použít modul runtime rozhraní .NET Framework|
 
@@ -61,3 +61,6 @@ Zobrazit [ASP.NET Core, které cílí na rozhraní .NET Framework](xref:index#ta
 * [Úvod do ASP.NET](/aspnet/overview)
 * [Úvod do ASP.NET Core](xref:index)
 * <xref:host-and-deploy/azure-apps/index>
+
+> [!NOTE]
+> Testujeme použitelnost navrhovanou novou strukturu pro ASP.NET Core tabulku obsahu.  Pokud máte pár minut a zkuste cvičení hledání 7 dalších tématech v tabulce navrhované nebo aktuální obsah, prosím [kliknutím sem se účastnit studie](https://dpk4xbh5.optimalworkshop.com/treejack/aa11wn82).
