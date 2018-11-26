@@ -283,7 +283,7 @@
 ## Hostování v Azure App Service
 ### [Přehled](xref:host-and-deploy/azure-apps/index)
 ### [Publikování pomocí sady Visual Studio](xref:tutorials/publish-to-azure-webapp-using-vs)
-### [Publikování pomocí nástrojů CLI](/azure/app-service/app-service-web-get-started-dotnet)
+### [Publikování pomocí nástrojů CLI](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
 ### [Publikování pomocí sady Visual Studio a Gitu](xref:host-and-deploy/azure-apps/azure-continuous-deployment)
 ### [Průběžné nasazování pomocí Azure Pipelines](/azure/devops/pipelines/get-started-yaml)
 ### [Odstraňování chyb při spuštění](xref:host-and-deploy/azure-apps/troubleshoot)
@@ -313,7 +313,6 @@
 ## [Publikační profily v sadě Visual Studio](xref:host-and-deploy/visual-studio-publish-profiles)
 ## [Adresářová struktura](xref:host-and-deploy/directory-structure)
 ## [Referenční informace k chybám u služeb Azure App Service a IIS](xref:host-and-deploy/azure-iis-errors-reference)
-
 
 # Zabezpečení a identita
 ## [Přehled](xref:security/index)
