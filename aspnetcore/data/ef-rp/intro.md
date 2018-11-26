@@ -3,14 +3,14 @@ title: Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 
 author: rick-anderson
 description: Ukazuje, jak vytvořit aplikaci pro stránky Razor pomocí Entity Framework Core
 ms.author: riande
-ms.date: 6/31/2017
+ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: a234d5fefd671d4503f6c63b79074d47c893f69c
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: afba4395fe9dbe22516b6c4ebdc4c582381981fd
+ms.sourcegitcommit: 710fc5fcac258cc8415976dc66bdb355b3e061d5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207703"
+ms.lasthandoff: 11/26/2018
+ms.locfileid: "52299466"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -113,7 +113,7 @@ Vytvoření *modely* složky. V *modely* složce vytvořte soubor třídy *Stude
 
 `ID` Vlastnost se stane sloupec primárního klíče tabulky databáze (databáze), který odpovídá této třídy. Ve výchozím nastavení interpretuje EF Core vlastnost s názvem `ID` nebo `classnameID` jako primární klíč. V `classnameID`, `classname` je název třídy. Alternativním automaticky rozpozná, primární klíč je `StudentID` v předchozím příkladu.
 
-`Enrollments` Je vlastnost [navigační vlastnost](/ef/core/modeling/relationship). Vlastnosti navigace propojit s dalšími subjekty, které se vztahují k této entity. V takovém případě `Enrollments` vlastnost `Student entity` obsahuje všechny `Enrollment` entity, které se vztahují k, které `Student`. Například pokud Student řádků v databázi má dva související řádky registrace `Enrollments` navigační vlastnost obsahuje tyto dvě `Enrollment` entity. Se souvisejícím `Enrollment` řádek je řádek, který obsahuje hodnotu primárního klíče student získal v `StudentID` sloupce. Předpokládejme například, studenta s ID = 1 obsahuje dva řádky `Enrollment` tabulky. `Enrollment` Tabulka obsahuje dva řádky s `StudentID` = 1. `StudentID` je cizí klíč v `Enrollment` tabulka, která určuje studentů v `Student` tabulky.
+`Enrollments` Je vlastnost [navigační vlastnost](/ef/core/modeling/relationships). Vlastnosti navigace propojit s dalšími subjekty, které se vztahují k této entity. V takovém případě `Enrollments` vlastnost `Student entity` obsahuje všechny `Enrollment` entity, které se vztahují k, které `Student`. Například pokud Student řádků v databázi má dva související řádky registrace `Enrollments` navigační vlastnost obsahuje tyto dvě `Enrollment` entity. Se souvisejícím `Enrollment` řádek je řádek, který obsahuje hodnotu primárního klíče student získal v `StudentID` sloupce. Předpokládejme například, studenta s ID = 1 obsahuje dva řádky `Enrollment` tabulky. `Enrollment` Tabulka obsahuje dva řádky s `StudentID` = 1. `StudentID` je cizí klíč v `Enrollment` tabulka, která určuje studentů v `Student` tabulky.
 
 Pokud vlastnost navigace může obsahovat více entit, navigační vlastnost jako musí být typu seznamu `ICollection<T>`. `ICollection<T>` můžete zadat, nebo typu jako `List<T>` nebo `HashSet<T>`. Když `ICollection<T>` je používají, vytvoří EF Core `HashSet<T>` kolekcí ve výchozím nastavení. Navigační vlastnosti, které obsahují více entit, pocházejí z many-to-many a jeden mnoho relací.
 

@@ -4,20 +4,23 @@ title: Rozhraní ASP.NET Web Pages pomocná rutina twitteru | Dokumentace Micros
 author: Rick-Anderson
 description: V tomto tématu a aplikace ukazují, jak přidat do projektu služby WebMatrix 3 Pomocník Twitter. Obsahuje kód Pomocník Twitter a ukazuje způsob volání pomocné rutiny...
 ms.author: riande
-ms.date: 02/07/2014
+ms.date: 11/26/2018
 ms.assetid: c1a1244e-b9c8-42e6-a00b-8456a4ec027c
 msc.legacyurl: /web-pages/overview/ui-layouts-and-themes/twitter-helper
 msc.type: authoredcontent
-ms.openlocfilehash: 89c8c520cd32ca2ee24e6cd90e11f7bdf39c7a80
-ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
+ms.openlocfilehash: fabe9f2b84d278a766dc8d8b7bfc00e1eb967127
+ms.sourcegitcommit: 710fc5fcac258cc8415976dc66bdb355b3e061d5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2018
-ms.locfileid: "51020570"
+ms.lasthandoff: 11/26/2018
+ms.locfileid: "52299427"
 ---
 <a name="twitter-helper-with-aspnet-web-pages"></a>Pomocná rutina Twitteru na webových stránkách ASP.NET
 ====================
 podle [Tom FitzMacken](https://github.com/tfitzmac)
+
+> [!IMPORTANT]
+> Pomocné rutiny twitteru jsou zastaralé. Na Twitteru nejnovější zapojení nástroje pro weby, naleznete v tématu [Twitter pro Websites přehled](https://developer.twitter.com/en/docs/twitter-for-websites/overview).
 
 > V tomto tématu a aplikace ukazují, jak přidat do projektu služby WebMatrix 3 Pomocník Twitter. Obsahuje kód Pomocník Twitter a ukazuje, jak volat metodu helper.
 > 
