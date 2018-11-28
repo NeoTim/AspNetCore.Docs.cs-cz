@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak hostovat několik instancí aplikace ASP.NET Core se sdílenými prostředky v prostředí webové farmy.
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/16/2018
+ms.date: 11/26/2018
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 2435c24bc205486331c828337ca81c43e6e60448
-ms.sourcegitcommit: 3ca527f27c88cfc9d04688db5499e372fbc2c775
+ms.openlocfilehash: 4873665e6174a6acf885e1ebb41fb005d646bd1f
+ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2018
-ms.locfileid: "39096101"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450668"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>Hostitele ASP.NET Core ve webové farmě
 
@@ -67,11 +67,13 @@ Následující scénáře nevyžadují další konfiguraci, ale jsou závislé n
 
 ## <a name="troubleshoot"></a>Řešení potíží
 
+### <a name="data-protection-and-caching"></a>Ochrana dat a ukládání do mezipaměti
+
 Pokud ochranu dat nebo ukládání do mezipaměti není konfigurován pro prostředí webové farmy, dojde k občasné chyby při zpracování žádosti. K tomu dochází, protože uzly není sdílí stejné prostředky a požadavky uživatelů nejsou vždy směrují zpět do stejného uzlu.
 
 Vezměte v úvahu uživatel, který se přihlásí do aplikace ověřování souborem cookie. Uživatel se přihlásí aplikace na uzlu jedné webové farmy. Pokud své příští žádosti o dorazí na stejný uzel, ve kterém jsou přihlášeni, aplikace je schopná dešifrovat ověřovacího souboru cookie a umožňuje přístup ke prostředek vaší aplikace. Pokud své příští žádosti o přijetí na jiný uzel, aplikace nelze dešifrovat ověřovacího souboru cookie z uzlu, kde uživatel přihlášený a autorizaci pro požadovaný prostředek se nezdaří.
 
-Když nastane některá z následujících příznaků **přerušovaně**, problém je obvykle trasovány na nesprávnou konfiguraci ochrany dat nebo ukládání do mezipaměti pro prostředí webové farmy:
+Když nastane některá z následujících příznaků **přerušovaně**, problém je obvykle trasovány nesprávné ochranu dat a konfiguraci ukládání do mezipaměti pro prostředí webové farmy:
 
 * Ověřování konce &ndash; ověřovacího souboru cookie je chybně nakonfigurovaná nebo nelze dešifrovat. OAuth (Facebook, Microsoft, Twitter) nebo přihlášení OpenIdConnect nezdaří s chybou "Korelace se nepovedlo."
 * Povolení konce &ndash; Identity se ztratí.
@@ -81,3 +83,7 @@ Když nastane některá z následujících příznaků **přerušovaně**, probl
 * Příspěvky selhání &ndash; selže kontrola proti padělání.
 
 Další informace o konfiguraci ochrany dat pro webových farem, naleznete v tématu <xref:security/data-protection/configuration/overview>. Další informace o konfiguraci ukládání do mezipaměti pro nasazení webové farmy, naleznete v tématu <xref:performance/caching/distributed>.
+
+## <a name="obtain-data-from-apps"></a>Získání dat z aplikací
+
+Pokud webové farmy aplikace jsou schopné reagovat na požadavky, získáte žádost o připojení a další data z aplikací pomocí terminálu vložené middlewaru. Další informace a ukázky kódu najdete v tématu <xref:test/troubleshoot#obtain-data-from-an-app>.

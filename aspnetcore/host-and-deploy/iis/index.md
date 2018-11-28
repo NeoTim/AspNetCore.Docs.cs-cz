@@ -4,20 +4,23 @@ author: guardrex
 description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/10/2018
+ms.date: 11/26/2018
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 1b34195dc51ca8dab5e8eda10f05ff6678fbc78c
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 77fa6e1ef6a7fc707c2665826d3c1f4c2691979c
+ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570162"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450798"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
 Podle [Luke Latham](https://github.com/guardrex)
 
 [Instalace .NET Core, který je hostitelem svazku](#install-the-net-core-hosting-bundle)
+
+> [!NOTE]
+> Testujeme použitelnost navrhované nové struktury pro obsah ASP.NET Core.  Pokud máte pár minut a chcete si vyzkoušet cvičení, které spočívá ve vyhledání 7 různých témat v aktuálním nebo navrhovaném obsahu, [klikněte prosím sem a zúčastněte se studie](https://dpk4xbh5.optimalworkshop.com/treejack/rps16hd5).
 
 ## <a name="supported-operating-systems"></a>Podporované operační systémy
 
@@ -416,31 +419,19 @@ Chcete-li konfigurovat ochranu dat v rámci služby IIS k uchování aktualizač
 
   Systém ochrany dat má omezenou podporu pro nastavení výchozí [celého zásad](xref:security/data-protection/configuration/machine-wide-policy) pro všechny aplikace, které používání rozhraní Data Protection API. Další informace naleznete v tématu <xref:security/data-protection/introduction>.
 
-## <a name="sub-application-configuration"></a>Dílčí aplikace konfigurace
+## <a name="virtual-directories"></a>Virtuální adresáře
 
-Dílčí aplikace přidány pod kořenové aplikace by neměl obsahovat modul ASP.NET Core jako obslužná rutina. Pokud modul je přidán jako obslužná rutina sub-aplikace *web.config* souboru, *500.19 vnitřní chyba serveru* odkazující na chybného konfiguračního souboru obdržíte, když se pokusíte o procházení podřízeným aplikacím.
+[Virtuální složky IIS](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#virtual-directories) nejsou podporované s aplikací ASP.NET Core. Aplikace je možné hostovat jako [dílčí aplikace](#sub-applications).
 
-Následující příklad ukazuje publikování *web.config* sub aplikace ASP.NET Core v souboru:
+## <a name="sub-applications"></a>Dílčí aplikace
 
-::: moniker range=">= aspnetcore-2.2"
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <location path="." inheritInChildApplications="false">
-    <system.webServer>
-      <aspNetCore processPath="dotnet" 
-        arguments=".\MyApp.dll" 
-        stdoutLogEnabled="false" 
-        stdoutLogFile=".\logs\stdout" />
-    </system.webServer>
-  </location>
-</configuration>
-```
-
-::: moniker-end
+Je možné hostovat aplikace ASP.NET Core jako [dílčí aplikace služby IIS (podřízeným aplikacím)](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#applications). Sub – aplikace cesta stane součástí adresy URL kořenového aplikace.
 
 ::: moniker range="< aspnetcore-2.2"
+
+Odběr aplikace by neměl obsahovat modul ASP.NET Core jako obslužná rutina. Pokud modul je přidán jako obslužná rutina sub-aplikace *web.config* souboru, *500.19 vnitřní chyba serveru* odkazující na chybného konfiguračního souboru obdržíte, když se pokusíte o procházení podřízeným aplikacím.
+
+Následující příklad ukazuje publikování *web.config* sub aplikace ASP.NET Core v souboru:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -454,7 +445,7 @@ Následující příklad ukazuje publikování *web.config* sub aplikace ASP.NET
 </configuration>
 ```
 
-Při hostování za nástrojem sub aplikace ASP.NET Core pod aplikace ASP.NET Core, explicitně odebrat zděděné obslužné rutiny v aplikaci sub *web.config* souboru:
+Při hostování za nástrojem sub aplikace ASP.NET Core pod aplikace ASP.NET Core, sub-aplikace explicitně odebrat obslužnou rutinu zděděné *web.config* souboru:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -473,7 +464,23 @@ Při hostování za nástrojem sub aplikace ASP.NET Core pod aplikace ASP.NET Co
 
 ::: moniker-end
 
-Další informace o konfiguraci modul ASP.NET Core, najdete v článku [Úvod do ASP.NET Core modulu](xref:fundamentals/servers/aspnet-core-module) tématu a [odkaz Konfigurace modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module).
+Odkazy statických prostředků v rámci podřízeným aplikacím měli použít lomítko tilda (`~/`) notaci. Triggery notation tilda lomítko [pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) pro předřazení pathbase, je-sub aplikace pro vykreslený relativní odkaz. Pro odběr aplikace na `/subapp_path`, bitovou kopii propojené s `src="~/image.png"` se vykreslí jako `src="/subapp_path/image.png"`. Middleware kořenové aplikace statické soubory nelze zpracovat požadavek statický soubor. Žádost zpracovává Middleware sub aplikace statické soubory.
+
+Pokud statický prostředek `src` atribut je nastaven na absolutní cestu (například `src="/image.png"`), odkaz je vykreslen bez pathbase, je-sub aplikace. Middleware kořenové aplikace statické soubory pokusí sloužit asset z kořenové aplikace [webroot](xref:fundamentals/index#web-root-webroot), výsledek bude *404 - Nenalezeno* odpovědi Pokud statických prostředků není k dispozici z kořenové aplikace.
+
+K hostování aplikace v ASP.NET Core jako podřízeným aplikacím v rámci jiné aplikace ASP.NET Core:
+
+1. Vytvořte fond aplikací pro aplikaci sub. Nastavte **verze .NET CLR** k **žádný spravovaný kód**.
+
+1. Přidání kořenového webu s podřízeným aplikacím v rámci kořenového webu ve Správci služby IIS.
+
+1. Klikněte pravým tlačítkem na složku podřízeným aplikacím ve Správci služby IIS a vyberte **převést na aplikaci**.
+
+1. V **přidat aplikaci** dialogového okna, použijte **vyberte** tlačítko pro **fond aplikací** přiřadit fondu aplikací, kterou jste vytvořili pro podřízeným aplikacím. Vyberte **OK**.
+
+Přiřazení fondu samostatné aplikace k podřízeným aplikacím je požadavek, pokud používáte model hostingu v procesu.
+
+Další informace o procesu model hostingu a konfigurace modulu ASP.NET Core najdete v tématu <xref:fundamentals/servers/aspnet-core-module> a <xref:host-and-deploy/aspnet-core-module>.
 
 ## <a name="configuration-of-iis-with-webconfig"></a>Konfigurace služby IIS pomocí souboru web.config
 
@@ -610,6 +617,7 @@ Rozlišení běžných chyb při hostování aplikací ASP.NET Core ve službě 
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* <xref:test/troubleshoot>
 * [Úvod do ASP.NET Core](xref:index)
 * [Lokality oficiální Microsoft IIS](https://www.iis.net/)
 * [Technická knihovna obsahu Windows serveru](/windows-server/windows-server)

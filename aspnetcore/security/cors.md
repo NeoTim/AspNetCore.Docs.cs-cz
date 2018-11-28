@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak CORS jako standard pro povolení nebo odmítnutí žádostí nepůvodního v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2018
+ms.date: 11/27/2018
 uid: security/cors
-ms.openlocfilehash: 8e5056b448d47d75272e9394b03ce8a58b05a0f4
-ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
+ms.openlocfilehash: f0e01cfa618184d8a3b19c06212dc3914183a2e4
+ms.sourcegitcommit: e7fafb153b9de7595c2558a0133f8d1c33a3bddb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51191318"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52458540"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolení žádostí napříč zdroji (CORS) v ASP.NET Core
 
@@ -124,7 +124,7 @@ Chcete-li zakázat CORS pro kontroler nebo akce, použijte [ &lbrack;DisableCors
 
 ## <a name="cors-policy-options"></a>Možnosti zásad CORS
 
-Tato část popisuje různé možnosti, které můžete nastavit zásadu CORS.
+Tato část popisuje různé možnosti, které můžete nastavit zásadu CORS. <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> Metoda je volána `Startup.ConfigureServices`.
 
 * [Nastavte povolené zdroje](#set-the-allowed-origins)
 * [Nastavte povolené metody HTTP](#set-the-allowed-http-methods)
@@ -139,55 +139,59 @@ Pro některé možnosti, může být užitečné ke čtení [funguje jak CORS](#
 
 Middleware CORS v ASP.NET Core MVC má několik způsobů, jak určit povolené zdroje:
 
-* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithOrigins*>: Umožňuje zadat jednu nebo více adres URL. Adresa URL může obsahovat schéma, název hostitele a port bez jakýchkoli informací o cestě. Například `https://example.com`. Adresa URL musí být zadán bez koncové lomítko (`/`).
+* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithOrigins*> &ndash; Umožňuje zadat jednu nebo více adres URL. Adresa URL může obsahovat schéma, název hostitele a port bez jakýchkoli informací o cestě. Například `https://example.com`. Adresa URL musí být zadán bez koncové lomítko (`/`).
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=20-24&highlight=4)]
+  [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=20-25&highlight=4-5)]
 
-* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*>: Umožňuje požadavků CORS z všechny původy žádné schéma (`http` nebo `https`).
+* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*> &ndash; Umožňuje požadavků CORS z všechny původy žádné schéma (`http` nebo `https`).
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=28-32&highlight=4)]
+  [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=29-33&highlight=4)]
 
-Pečlivě zvažte předtím, než žádosti z původu. Povolení žádostí z jakýkoli původ znamená, že *všechny weby* můžete provádět požadavky cross-origin vaší aplikace.
+  Pečlivě zvažte předtím, než žádosti z původu. Povolení žádostí z jakýkoli původ znamená, že *všechny weby* můžete provádět požadavky cross-origin vaší aplikace.
 
-::: moniker range=">= aspnetcore-2.2"
+  ::: moniker range=">= aspnetcore-2.2"
 
-> [!NOTE]
-> Určení `AllowAnyOrigin` a `AllowCredentials` je nezabezpečené konfigurace a může vést k padělání žádosti více webů. CORS služby vrátí neplatnou odpověď CORS, pokud aplikace je nakonfigurovaná s nimi.
+  > [!NOTE]
+  > Určení `AllowAnyOrigin` a `AllowCredentials` je nezabezpečené konfigurace a může vést k padělání žádosti více webů. CORS služby vrátí neplatnou odpověď CORS, pokud aplikace je nakonfigurovaná u obou metod.
+
+  ::: moniker-end
+
+  ::: moniker range="< aspnetcore-2.2"
+
+  > [!NOTE]
+  > Určení `AllowAnyOrigin` a `AllowCredentials` je nezabezpečené konfigurace a může vést k padělání žádosti více webů. Zvažte možnost určení přesný seznam původů, pokud klient musí autorizovat samotné pro přístup k prostředkům serveru.
+
+  ::: moniker-end
+
+  Toto nastavení má vliv předběžných požadavků a `Access-Control-Allow-Origin` záhlaví. Další informace najdete v tématu [časový limit předběžné požadavky](#preflight-requests) oddílu.
+
+::: moniker range=">= aspnetcore-2.0"
+
+* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> &ndash; Nastaví <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> vlastnost zásady tak, aby jako funkce, která umožňuje počátky k doméně nakonfigurovaný se zástupnými znaky budou porovnávány názvy při vyhodnocuje se, jestli je povolený původ.
+
+  [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-104&highlight=4)]
 
 ::: moniker-end
-
-::: moniker range="< aspnetcore-2.2"
-
-> [!NOTE]
-> Určení `AllowAnyOrigin` a `AllowCredentials` je nezabezpečené konfigurace a může vést k padělání žádosti více webů. Zvažte možnost určení přesný seznam původů, pokud klient potřebuje k autorizaci pro přístup k prostředkům serveru.
-
-::: moniker-end
-
-Toto nastavení má vliv [časový limit předběžné požadavky a hlavičky Access-Control-Allow-Origin](#preflight-requests) (popsáno dále v tomto tématu).
-
-* <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> – Umožňuje požadavků CORS domén dílčí dané domény. Schéma nemůže být zástupný znak.
-
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=98-104&highlight=4)]
 
 ### <a name="set-the-allowed-http-methods"></a>Nastavte povolené metody HTTP
 
 Chcete-li povolit všechny metody HTTP, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>:
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=45-50&highlight=5)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=46-51&highlight=5)]
 
-Toto nastavení má vliv [časový limit předběžné požadavky a záhlaví přístupu – ovládací prvek-Allow-Methods](#preflight-requests) (popsáno dále v tomto tématu).
+Toto nastavení má vliv předběžných požadavků a `Access-Control-Allow-Methods` záhlaví. Další informace najdete v tématu [časový limit předběžné požadavky](#preflight-requests) oddílu.
 
 ### <a name="set-the-allowed-request-headers"></a>Nastavit hlavičku povolené žádosti
 
 Volá se, aby konkrétní hlavičky se odešle žádost CORS *vytvářet hlavičky žádosti*, volání <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> a zadat povolené hlavičky:
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=54-59&highlight=5)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=55-60&highlight=5)]
 
 Chcete-li povolit všechny hlavičky žádosti, vytvářet volání <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>:
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=63-68&highlight=5)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=64-69&highlight=5)]
 
-Toto nastavení má vliv [časový limit předběžné požadavky a hlavičky Access-Control-Request-Headers](#preflight-requests) (popsáno dále v tomto tématu).
+Toto nastavení má vliv předběžných požadavků a `Access-Control-Request-Headers` záhlaví. Další informace najdete v tématu [časový limit předběžné požadavky](#preflight-requests) oddílu.
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -247,7 +251,7 @@ Hlavičky odpovědi, které jsou k dispozici ve výchozím nastavení jsou:
 
 Specifikace CORS volá tyto hlavičky *hlavičky odpovědi jednoduché*. Chcete-li zpřístupnit další hlavičky pro aplikace, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>:
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=72-77&highlight=5)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=73-78&highlight=5)]
 
 ### <a name="credentials-in-cross-origin-requests"></a>Přihlašovací údaje v požadavky cross-origin
 
@@ -274,7 +278,7 @@ $.ajax({
 
 Na serveru navíc musíte povolit přihlašovací údaje. Chcete-li povolit přihlašovací údaje mezi zdroji, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowCredentials*>:
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=81-86&highlight=5)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=82-87&highlight=5)]
 
 Odpověď HTTP, která zahrnuje `Access-Control-Allow-Credentials` hlavičky, která sděluje prohlížeči, že server umožňuje přihlašovací údaje pro žádosti nepůvodního zdroje.
 
@@ -320,11 +324,11 @@ Předběžný požadavek CORS patří `Access-Control-Request-Headers` hlavičky
 
 Chcete-li povolit konkrétní hlavičky, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>:
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=54-59&highlight=5)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=55-60&highlight=5)]
 
 Chcete-li povolit všechny hlavičky žádosti, vytvářet volání <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>:
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=63-68&highlight=5)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=64-69&highlight=5)]
 
 Nejsou zcela konzistentní v tom, jak je nastavit prohlížeče `Access-Control-Request-Headers`. Pokud nastavíte záhlaví na něco jiného než `"*"` (nebo použijte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.AllowAnyHeader*>), by měl obsahovat alespoň `Accept`, `Content-Type`, a `Origin`, a navíc jakékoli vlastní hlavičky, které chcete podporovat.
 
@@ -349,7 +353,7 @@ Pokud je předběžný požadavek, vrátí aplikaci *200 OK* odpovědi ale nebud
 
 `Access-Control-Max-Age` Záhlaví Určuje, jak dlouho může do mezipaměti odpovědi pro předběžný požadavek. Chcete-li nastavit tuto hlavičku, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetPreflightMaxAge*>:
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=90-95&highlight=5)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=91-96&highlight=5)]
 
 ## <a name="how-cors-works"></a>Jak funguje CORS
 

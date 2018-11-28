@@ -4,14 +4,14 @@ author: rick-anderson
 description: Další informace o nastavení serveru Nginx jako reverzní proxy server na Ubuntu 16.04 směrovat provoz protokolu HTTP k webové aplikaci ASP.NET Core spuštěnou v prostředí Kestrel.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/23/2018
+ms.date: 11/26/2018
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: d29a9287cbce27a54e779fadfa05e57febec0413
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: d4bffab80ba20d4cf77a358249c7b349033de5bd
+ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253114"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450785"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostitele ASP.NET Core v Linuxu se serverem Nginx
 
@@ -186,7 +186,7 @@ Pokud aplikace běží na serveru, ale přestane reagovat přes Internet, zkontr
 
 Po dokončení testování aplikace vypnout aplikaci s `Ctrl+C` příkazového řádku.
 
-## <a name="monitoring-the-app"></a>Monitorování aplikace
+## <a name="monitor-the-app"></a>Sledování aplikace
 
 Server je instalačního programu předat požadavky na `http://<serveraddress>:80` k aplikaci ASP.NET Core spuštěnou v Kestrel na `http://127.0.0.1:5000`. Server Nginx se ale nastavit ke správě procesu Kestrel. *systemd* slouží k vytvoření souboru služby ke spuštění a monitorování základní webové aplikace. *systemd* je init systém, který poskytuje řadu výkonných funkcí pro spouštění, zastavování a Správa procesů. 
 
@@ -268,7 +268,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="viewing-logs"></a>Zobrazení protokolů
+### <a name="view-logs"></a>Zobrazit protokoly
 
 Od webové aplikace pomocí Kestrel se spravuje pomocí `systemd`, centralizované deníku se protokolují všechny události a procesy. Ale tento deník obsahuje všechny položky pro všechny služby a spravuje procesy `systemd`. Chcete-li zobrazit `kestrel-helloapp.service`-konkrétní položky, použijte následující příkaz:
 
@@ -297,13 +297,13 @@ Konfigurace ochrany dat zachovat a aktualizační kanál, který klíč šifrov�
 * <xref:security/data-protection/implementation/key-storage-providers>
 * <xref:security/data-protection/implementation/key-encryption-at-rest>
 
-## <a name="securing-the-app"></a>Zabezpečení aplikace
+## <a name="secure-the-app"></a>Zabezpečení aplikace
 
 ### <a name="enable-apparmor"></a>Povolit AppArmor
 
 Linux zabezpečení moduly (LSM) je architektura, která je součástí linuxového jádra od Linux 2.6. LSM podporuje různé implementace modulů zabezpečení. [AppArmor](https://wiki.ubuntu.com/AppArmor) je LSM, která implementuje systém povinné řízení přístupu, který umožňuje uzavírání program omezenou sadu prostředků. Zajištění AppArmor je povolená a správně nakonfigurovaná.
 
-### <a name="configuring-the-firewall"></a>Konfigurace brány firewall
+### <a name="configure-the-firewall"></a>Konfigurace brány firewall
 
 Zavřete vypnout všechny externí porty, které nejsou používány. Znamená přístupnější aplikaci brány firewall (ufw) poskytuje front-endu pro `iptables` tím, že poskytuje rozhraní příkazového řádku pro konfiguraci brány firewall.
 
@@ -322,7 +322,7 @@ sudo ufw allow 443/tcp
 sudo ufw enable
 ```
 
-### <a name="securing-nginx"></a>Zabezpečení serveru Nginx
+### <a name="secure-nginx"></a>Zabezpečení serveru Nginx
 
 #### <a name="change-the-nginx-response-name"></a>Změnit název odpovědi serveru Nginx
 
@@ -387,5 +387,6 @@ Přidejte řádek `add_header X-Content-Type-Options "nosniff";` a uložte soubo
 
 * [Požadavky pro .NET Core v Linuxu](/dotnet/core/linux-prerequisites)
 * [Serveru Nginx: Binární verze: balíčky oficiální Debian nebo Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)
-* [Konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer)
+* <xref:test/troubleshoot>
+* <xref:host-and-deploy/proxy-load-balancer>
 * [NGINX: Předané záhlaví pomocí](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)

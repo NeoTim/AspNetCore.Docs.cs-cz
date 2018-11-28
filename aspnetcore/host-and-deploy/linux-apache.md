@@ -4,14 +4,14 @@ description: Zjistěte, jak nastavit službu Apache jako reverzní proxy server 
 author: spboyer
 ms.author: spboyer
 ms.custom: mvc
-ms.date: 10/23/2018
+ms.date: 11/26/2018
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 1d303fbde2a398b4628d3390aea80957a59f711b
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: d0e36d0a73df43a26c03dc4154962240683817b5
+ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253140"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450811"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Hostitele ASP.NET Core v Linuxu pomocí Apache
 
@@ -180,9 +180,9 @@ sudo systemctl restart httpd
 sudo systemctl enable httpd
 ```
 
-## <a name="monitoring-the-app"></a>Monitorování aplikace
+## <a name="monitor-the-app"></a>Sledování aplikace
 
-Apache je nyní instalačního programu předat požadavky na `http://localhost:80` pro aplikaci ASP.NET Core spuštěnou v Kestrel na `http://127.0.0.1:5000`.  Apache není však nastavené ke správě procesu Kestrel. Použití *systemd* a vytvořit soubor služby a začít monitorovat základní webovou aplikaci. *systemd* je init systém, který poskytuje řadu výkonných funkcí pro spouštění, zastavování a Správa procesů. 
+Apache je nyní instalačního programu předat požadavky na `http://localhost:80` pro aplikaci ASP.NET Core spuštěnou v Kestrel na `http://127.0.0.1:5000`. Apache není však nastavené ke správě procesu Kestrel. Použití *systemd* a vytvořit soubor služby a začít monitorovat základní webovou aplikaci. *systemd* je init systém, který poskytuje řadu výkonných funkcí pro spouštění, zastavování a Správa procesů.
 
 ### <a name="create-the-service-file"></a>Vytvoření souboru služby
 
@@ -259,7 +259,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="viewing-logs"></a>Zobrazení protokolů
+### <a name="view-logs"></a>Zobrazit protokoly
 
 Od webové aplikace pomocí Kestrel se spravuje pomocí *systemd*, události a procesy jsou protokolovány centralizované deníku. Ale tento deník obsahuje záznamy pro všechny služby a spravuje procesy *systemd*. Chcete-li zobrazit `kestrel-helloapp.service`-konkrétní položky, použijte následující příkaz:
 
@@ -288,7 +288,7 @@ Konfigurace ochrany dat zachovat a aktualizační kanál, který klíč šifrov�
 * <xref:security/data-protection/implementation/key-storage-providers>
 * <xref:security/data-protection/implementation/key-encryption-at-rest>
 
-## <a name="securing-the-app"></a>Zabezpečení aplikace
+## <a name="secure-the-app"></a>Zabezpečení aplikace
 
 ### <a name="configure-firewall"></a>Konfigurace brány firewall
 
@@ -485,4 +485,5 @@ Příklad souboru omezuje šířku pásma jako 600 KB/s v části kořenový adr
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Požadavky pro .NET Core v Linuxu](/dotnet/core/linux-prerequisites)
-* [Konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer)
+* <xref:test/troubleshoot>
+* <xref:host-and-deploy/proxy-load-balancer>
