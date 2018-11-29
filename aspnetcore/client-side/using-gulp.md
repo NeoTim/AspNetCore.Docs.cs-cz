@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 10/04/2018
 uid: client-side/using-gulp
-ms.openlocfilehash: 4f383be0498b5b861bd43cc0f0685b1e62c7571b
-ms.sourcegitcommit: 7890dfb5a8f8c07d813f166d3ab0c263f893d0c6
+ms.openlocfilehash: e280eabecbd427f3e1418b3d7a60e0ea3df46a5a
+ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48795515"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450603"
 ---
 # <a name="use-gulp-in-aspnet-core"></a>Použití nástroje Gulp v ASP.NET Core
 
@@ -58,7 +58,7 @@ Ve výše uvedeném kódu určuje, které moduly uzlu se vyžadují. `require` F
 
 | Název modulu | Popis |
 | ----------- | ----------- |
-| gulp        | Streamování Gulp sestavovací systém. Další informace najdete v tématu [gulp](https://www.npmjs.com/package/gulp). |
+| Gulp        | Streamování Gulp sestavovací systém. Další informace najdete v tématu [gulp](https://www.npmjs.com/package/gulp). |
 | rimraf      | Modul odstranění uzlu. Další informace najdete v tématu [rimraf](https://www.npmjs.com/package/rimraf). |
 | gulp concat | Modul, který zřetězí soubory podle operačního systému znak nového řádku. Další informace najdete v tématu [gulp concat](https://www.npmjs.com/package/gulp-concat). |
 | gulp cssmin | Modul, který minifikuje soubory šablon stylů CSS. Další informace najdete v tématu [gulp cssmin](https://www.npmjs.com/package/gulp-cssmin). |

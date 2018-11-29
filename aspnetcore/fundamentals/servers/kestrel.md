@@ -4,14 +4,14 @@ author: guardrex
 description: Další informace o Kestrel, napříč platformami webový server pro ASP.NET Core.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 11/12/2018
+ms.date: 11/26/2018
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 793aa6e190da0170a395292ea661f7c828f817c1
-ms.sourcegitcommit: 1d6ab43eed9cb3df6211c22b97bb3a9351ec4419
+ms.openlocfilehash: 1ef9491ebbc31fd8aa3752b53123eb6c9cf31b42
+ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/13/2018
-ms.locfileid: "51597807"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450833"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace serveru webové kestrel v ASP.NET Core
 
@@ -1027,7 +1027,8 @@ Middleware filtrování hostitele je ve výchozím nastavení zakázána. Chcete
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Vynucení protokolu HTTPS](xref:security/enforcing-ssl)
+* <xref:test/troubleshoot>
+* <xref:security/enforcing-ssl>
+* <xref:host-and-deploy/proxy-load-balancer>
 * [Kestrel zdrojového kódu](https://github.com/aspnet/KestrelHttpServer)
 * [RFC 7230: Syntaxe a směrování zpráv (oddíl 5.4: hostitele)](https://tools.ietf.org/html/rfc7230#section-5.4)
-* [Konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer)
