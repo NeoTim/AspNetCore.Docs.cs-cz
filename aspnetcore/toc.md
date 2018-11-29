@@ -20,6 +20,7 @@
 ### [S využitím editoru Visual Studio Code](xref:tutorials/web-api-vsc)
 ### [S využitím sady Visual Studio pro Mac](xref:tutorials/first-web-api-mac)
 ### [Pro nativní mobilní aplikace](xref:mobile/native-mobile-backend)
+### [S využitím MongoDB](xref:tutorials/first-mongo-app)
 ## Webové aplikace v reálném čase
 ### [SignalR s JavaScriptem](xref:tutorials/signalr)
 ### [SignalR s TypeScriptem](xref:tutorials/signalr-typescript-webpack)
@@ -178,6 +179,7 @@
 ### [Web API s editorem Visual Studio Code](xref:tutorials/web-api-vsc)
 ### [Web API se sadou Visual Studio pro Mac](xref:tutorials/first-web-api-mac)
 ### [Web API pro nativní mobilní aplikace](xref:mobile/native-mobile-backend)
+### [Web API s MongoDB](xref:tutorials/first-mongo-app)
 ## Swagger / OpenAPI
 ### [Přehled](xref:tutorials/web-api-help-pages-using-swagger)
 ### [Začínáme se službou Swashbuckle](xref:tutorials/get-started-with-swashbuckle)
@@ -189,7 +191,7 @@
 ## [Konvence](xref:web-api/advanced/conventions)
 
 # Aplikace v reálném čase
-## [Přehled](xref:signalr/introduction)
+## [Přehled služby SignalR](xref:signalr/introduction)
 ## [Podporované platformy](xref:signalr/supported-platforms)
 ## Kurzy
 ### [SignalR s JavaScriptem](xref:tutorials/signalr)
@@ -208,6 +210,10 @@
 ### [Klient JavaScriptu](xref:signalr/javascript-client)
 ### [Referenční dokumentace k rozhraní API v JavaScriptu](/javascript/api/?view=signalr-js-latest)
 ### [WebPack a TypeScript](xref:tutorials/signalr-typescript-webpack)
+## Hostování a škálování
+### [Přehled](xref:signalr/scale)
+### [Služba Azure SignalR](/azure/azure-signalr/signalr-overview)
+### [Propojovací rozhraní Redis](xref:signalr/redis-backplane)
 ## [Konfigurace](xref:signalr/configuration)
 ## [Ověřování a autorizace](xref:signalr/authn-and-authz)
 ## [Důležité informace o zabezpečení](xref:signalr/security)
