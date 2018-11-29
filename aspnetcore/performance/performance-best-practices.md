@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 11/29/2018
 uid: performance/performance-best-practices
-ms.openlocfilehash: ced86dbc2d6f40b503493eda122d8977d6df7035
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 9f3ed97bf4d4eb371ff5ae3874234b44745cc4ca
+ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52453012"
+ms.lasthandoff: 11/29/2018
+ms.locfileid: "52618113"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core Performance Best Practices
 
@@ -24,7 +24,7 @@ Toto téma poskytuje pokyny pro výkon osvědčených postupů pomocí ASP.NET C
 
 ## <a name="cache-aggressively"></a>Agresivní do mezipaměti
 
-Ukládání do mezipaměti je podrobněji popsána několik částí tohoto dokumentu. Další informace najdete v tématu [ukládat do mezipaměti odpovědi v ASP.NET Core](xref:performance/caching/index).
+Ukládání do mezipaměti je podrobněji popsána několik částí tohoto dokumentu. Další informace naleznete v tématu <xref:performance/caching/response>.
 
 ## <a name="avoid-blocking-calls"></a>Předcházet zablokování volání
 
@@ -71,7 +71,7 @@ Doporučení:
 
 * **Proveďte** asynchronní volání veškerý datový přístup rozhraní API.
 * **Ne** načíst více dat, než je nezbytné. Zápis dotazů, které vrátí data, která je nezbytná pro aktuální žádost HTTP.
-* **Proveďte** zvažte možnost ukládání do mezipaměti často používaných dat načtených z databáze nebo vzdálené služby, pokud je to přijatelné pro data, která mají být mírně zastaralá. V závislosti na scénáři, můžete použít [MemoryCache](xref:performance/caching/memory) nebo [DistributedCache](xref:performance/caching/distributed). Další informace najdete v tématu [ukládat do mezipaměti odpovědi v ASP.NET Core](xref:performance/caching/index).
+* **Proveďte** zvažte možnost ukládání do mezipaměti často používaných dat načtených z databáze nebo vzdálené služby, pokud je to přijatelné pro data, která mají být mírně zastaralá. V závislosti na scénáři, můžete použít [MemoryCache](xref:performance/caching/memory) nebo [DistributedCache](xref:performance/caching/distributed). Další informace naleznete v tématu <xref:performance/caching/response>.
 * Minimalizovat síťových přenosů. Cílem je načíst všechna data, které se mají provést v jednom volání, nikoli několik volání.
 * **Proveďte** použít [bez sledování dotazy](/ef/core/querying/tracking#no-tracking-queries) v Entity Framework Core při přístupu k datům pro účely jen pro čtení. EF Core může vrátit výsledky dotazů bez sledování efektivněji.
 * **Proveďte** filtr a agregačních dotazů LINQ (s `.Where`, `.Select`, nebo `.Sum` příkazy, například) tak, aby toto filtrování se provádí v databázi.

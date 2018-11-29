@@ -5,14 +5,14 @@ description: Zjistěte, jak implementovat úlohy na pozadí s hostovanými služ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/14/2018
+ms.date: 11/28/2018
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: f8e13e13af22f1be4f14d5e59807c4dae3b78e84
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: de419357d4d96a6e348a77055e67c0fcd190ae42
+ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708488"
+ms.lasthandoff: 11/29/2018
+ms.locfileid: "52618139"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
@@ -41,16 +41,21 @@ Hostované služby, které implementují <xref:Microsoft.Extensions.Hosting.IHos
 
 * [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` obsahuje logiku pro spuštění úlohy na pozadí. Při použití [webového hostitele](xref:fundamentals/host/web-host), `StartAsync` se volá, když server spuštěn a [IApplicationLifetime.ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*) se aktivuje. Při použití [obecný hostitele](xref:fundamentals/host/generic-host), `StartAsync` je volána před provedením `ApplicationStarted` se aktivuje.
 
-* [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) &ndash; aktivuje, pokud hostitel provádí řádné vypnutí. `StopAsync` obsahuje logiku pro ukončení úlohy na pozadí. Implementace <xref:System.IDisposable> a [finalizační metody (destruktory)](/dotnet/csharp/programming-guide/classes-and-structs/destructors) k uvolnění nespravovaných prostředků. 
+* [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) &ndash; aktivuje, pokud hostitel provádí řádné vypnutí. `StopAsync` obsahuje logiku pro ukončení úlohy na pozadí. Implementace <xref:System.IDisposable> a [finalizační metody (destruktory)](/dotnet/csharp/programming-guide/classes-and-structs/destructors) k uvolnění nespravovaných prostředků.
 
   Token rušení, který má výchozí pět druhý časový limit k označení, že proces vypnutí by už nebude bezproblémové. Když bude podán požadavek na token:
-  
+
   * Všechny zbývající operace na pozadí, které provádí aplikace by měla přerušena.
   * Všechny metody v `StopAsync` by měla vrátit okamžitě.
-  
+
   Nicméně úlohy nejsou byly zanechány po zrušení požadováno&mdash;volající čeká na dokončení všech úloh.
 
   Pokud se aplikace ukončí neočekávaně (například aplikace proces selže), `StopAsync` nemusí být volána. Proto jakékoli metody volá nebo operací provedených v `StopAsync` nemusí být.
+
+  Chcete-li rozšířit výchozí pět druhý časový limit ukončení, nastavte:
+
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> jestli používáte obecný hostitele. Další informace naleznete v tématu <xref:fundamentals/host/generic-host#shutdown-timeout>.
+  * Vypnutí vypršení časového limitu hostitele konfigurace nastavení při použití webového hostitele. Další informace naleznete v tématu <xref:fundamentals/host/web-host#shutdown-timeout>.
 
 Hostovaná služba je aktivována jednou při spuštění aplikace a řádné ukončení při vypnutí aplikace. Pokud dojde k chybě při provádění úlohy na pozadí, `Dispose` by měla být volána i v případě `StopAsync` není volána.
 

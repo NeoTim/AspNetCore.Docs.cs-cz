@@ -413,6 +413,15 @@
 ## [Sdílení souborů cookie mezi aplikacemi](xref:security/cookie-sharing)
 ## [Seznam bezpečných IP adres](xref:security/ip-safelist)
 
+# Výkon
+## [Přehled](xref:performance/performance-best-practices)
+##  Ukládání odpovědí do mezipaměti
+### [Přehled](xref:performance/caching/response)
+### [Mezipaměť v paměti](xref:performance/caching/memory)
+### [Distribuované ukládání do mezipaměti](xref:performance/caching/distributed)
+### [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware)
+## [Komprese odpovědí](xref:performance/response-compression)
+
 # Další témata
 ## [Globalizace a lokalizace](xref:fundamentals/localization)
 ## [Lokalizační soubory Portable Object s Orchard Core](xref:fundamentals/portable-object-localization)
@@ -428,13 +437,6 @@
 ## [Metabalíček Microsoft.AspNetCore.All](xref:fundamentals/metapackage)
 ## [Protokolování funkcemi třídy LoggerMessage](xref:fundamentals/logging/loggermessage)
 ## [Sledovací proces souboru](xref:tutorials/dotnet-watch)
-## Reakce mezipaměti
-### [Přehled](xref:performance/caching/index)
-### [Mezipaměť v paměti](xref:performance/caching/memory)
-### [Distribuované ukládání do mezipaměti](xref:performance/caching/distributed)
-### [Ukládání odpovědí do mezipaměti](xref:performance/caching/response)
-### [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware)
-## [Komprese odpovědí](xref:performance/response-compression)
 
 # Migrace
 ## [Z verze 2.1 do verze 2.2](xref:migration/21-to-22)

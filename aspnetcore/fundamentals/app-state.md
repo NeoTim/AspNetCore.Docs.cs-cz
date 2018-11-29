@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/14/2018
 uid: fundamentals/app-state
-ms.openlocfilehash: 5ca909681ca9da3fae0391991902da97581852be
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: ccaaa6fafd611c3cf35a9171d5bfd6100535eeb9
+ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253179"
+ms.lasthandoff: 11/29/2018
+ms.locfileid: "52618126"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>Stav relace a aplikace v ASP.NET Core
 
@@ -33,7 +33,7 @@ Stav může být uložen několik přístupů. Každý přístup je popsána dá
 | [Řetězce dotazů](#query-strings) | Řetězce dotazu HTTP |
 | [Skrytá pole](#hidden-fields) | Pole formuláře HTTP |
 | [HttpContext.Items](#httpcontextitems) | Kód aplikace na straně serveru |
-| [mezipaměť](#cache) | Kód aplikace na straně serveru |
+| [Mezipaměť](#cache) | Kód aplikace na straně serveru |
 | [Injektáž závislostí](#dependency-injection) | Kód aplikace na straně serveru |
 
 ## <a name="cookies"></a>Soubory cookie
@@ -374,7 +374,7 @@ Ukládání do mezipaměti je účinný způsob, jak ukládat a načítat data. 
 
 Data uložená v mezipaměti není spojen s konkrétní požadavek, uživatelem nebo relací. **Buďte opatrní není konkrétního uživatele ukládat data do mezipaměti, který může načíst žádostmi o jiných uživatelů.**
 
-Další informace najdete v tématu [ukládat do mezipaměti odpovědi](xref:performance/caching/index) tématu.
+Další informace naleznete v tématu <xref:performance/caching/response>.
 
 ## <a name="dependency-injection"></a>Injektáž závislostí
 
