@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak diagnostikovat problémy s nasazením aplikací ASP.NET Core Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 11/26/2018
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 2b23bf8230f7a1c207ef7870da098ffb0c597fd5
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.openlocfilehash: 2ff870623de43676be38c5de8f338a7913e885a8
+ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225444"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450707"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>Řešení potíží s ASP.NET Core ve službě IIS
 
@@ -47,7 +47,8 @@ Další informace o podporu ladění, které jsou součástí Visual Studio Code
 
 ## <a name="app-startup-errors"></a>Chyby při spuštění aplikace
 
-**502.5 zpracovat selhání**  
+### <a name="5025-process-failure"></a>502.5 zpracovat selhání
+
 Pracovní proces se nezdaří. Aplikace se nespustí.
 
 Modul ASP.NET Core se pokusí spustit proces dotnet back-endu, ale že ji nebude možné spustit. Příčinu selhání spuštění procesu lze určit obvykle položky [protokolu událostí aplikace](#application-event-log) a [protokolů stdout modul ASP.NET Core](#aspnet-core-module-stdout-log). 
@@ -60,7 +61,7 @@ Běžné chyby je, že aplikace je špatně nakonfigurovaný. kvůli cílení na
 
 ::: moniker range=">= aspnetcore-2.2"
 
-**500.30 v procesu selhání spuštění**
+### <a name="50030-in-process-startup-failure"></a>500.30 v procesu selhání spuštění
 
 Pracovní proces se nezdaří. Aplikace se nespustí.
 
@@ -68,7 +69,7 @@ Modul ASP.NET Core se pokusí spustit .NET Core CLR v procesu, ale že ji nebude
 
 Běžné chyby je, že aplikace je špatně nakonfigurovaný. kvůli cílení na určitou verzi rozhraní framework sdílené ASP.NET Core, který není k dispozici. Zkontrolujte, jaké verze rozhraní framework ASP.NET Core sdílené jsou nainstalovány v cílovém počítači.
 
-**500.0 v procesu selhání načtení obslužné rutiny**
+### <a name="5000-in-process-handler-load-failure"></a>500.0 v procesu selhání načtení obslužné rutiny
 
 Pracovní proces se nezdaří. Aplikace se nespustí.
 
@@ -77,7 +78,7 @@ Modul ASP.NET Core se nepodařilo najít .NET Core CLR a najít obslužnou rutin
 * Aplikace cílí na buď [Microsoft.AspNetCore.Server.IIS](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IIS) balíček NuGet nebo [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 * Verze rozhraní framework ASP.NET Core sdílené cíle, které aplikace nainstalované v cílovém počítači.
 
-**500.0 Chyba načtení out-Of-Process obslužné rutiny**
+### <a name="5000-out-of-process-handler-load-failure"></a>500.0 Chyba načtení out-Of-Process obslužné rutiny
 
 Pracovní proces se nezdaří. Aplikace se nespustí.
 
@@ -85,12 +86,13 @@ Modul ASP.NET Core nenajde žádné obslužné rutiny hostování požadavku na 
 
 ::: moniker-end
 
-**Chyba 500 interní Server**  
+### <a name="500-internal-server-error"></a>Chyba 500 interní Server
+
 Spuštění aplikace, ale chybu brání splnění žádosti. na serveru.
 
 Při spuštění nebo při vytváření odpovědi, k této chybě dochází v kódu aplikace. Odpověď může obsahovat žádný obsah nebo se může zobrazit odpovědi *500 – Interní chyba serveru* v prohlížeči. V protokolu událostí aplikace obvykle hlásí, že aplikace se normálně spustit. Z pohledu serveru, který je správný. Aplikace začal, ale nemůže generovat platnou odpověď. [Spuštění aplikace příkazového řádku](#run-the-app-at-a-command-prompt) na serveru nebo [povolit protokol stdout modul ASP.NET Core](#aspnet-core-module-stdout-log) k vyřešení tohoto problému.
 
-**Obnovení připojení**
+### <a name="connection-reset"></a>Obnovení připojení
 
 Pokud dojde k chybě po odeslání hlavičky, bude příliš pozdě pro server k odeslání **500 – Interní chyba serveru** , když dojde k chybě. Často se to stane, když dojde k chybě při serializaci složitých objektů pro odpověď. Tento typ chyby se zobrazí jako *obnovení připojení* chyba na straně klienta. [Protokolování aplikací](xref:fundamentals/logging/index) mohou pomoci při řešení těchto typů chyb.
 
@@ -113,7 +115,7 @@ Přístup k protokolu událostí aplikace:
 
 Mnoho chyb při spuštění nevytvářejí užitečné informace v protokolu událostí aplikace. Příčin některých chyb můžete najít spuštěním aplikace v příkazovém řádku v hostitelském systému.
 
-**Nasazení závisí na architektuře**
+#### <a name="framework-dependent-deployment"></a>Nasazení závisí na architektuře
 
 Pokud je aplikace [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd):
 
@@ -121,7 +123,7 @@ Pokud je aplikace [nasazení závisí na architektuře](/dotnet/core/deploying/#
 1. Výstup z aplikace zobrazuje všechny chyby konzoly je zapsán do okna konzoly.
 1. Je-li této chybě dojde při požadavku na aplikaci, vytvořte žádost na hostitele a port, kde Kestrel naslouchá. Pomocí výchozího hostitele a post, vytvořit žádost o `http://localhost:5000/`. Aplikace reaguje, obvykle na adrese Kestrel koncový bod, tím je pravděpodobnější týkající se konfigurace reverzního proxy serveru a méně pravděpodobné, že v rámci aplikace.
 
-**Samostatná nasazení**
+#### <a name="self-contained-deployment"></a>Samostatná nasazení
 
 Pokud je aplikace [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd):
 
@@ -142,7 +144,8 @@ Povolení a zobrazení protokolů stdout:
 1. Přejděte *protokoly* složky. Vyhledání a otevření protokolu nejnovější stdout.
 1. Studie v protokolu chyb.
 
-**Důležité!** Zakážete protokolování stdout po dokončení odstraňování potíží.
+> [!IMPORTANT]
+> Zakážete protokolování stdout po dokončení odstraňování potíží.
 
 1. Upravit *web.config* souboru.
 1. Nastavte **stdoutLogEnabled** k `false`.
@@ -153,9 +156,27 @@ Povolení a zobrazení protokolů stdout:
 >
 > Pro rutiny protokolování v aplikaci ASP.NET Core, použijte protokolování knihovnu, která omezuje velikost souboru protokolu a otočí protokoly. Další informace najdete v tématu [zprostředkovatele přihlášení třetí strany](xref:fundamentals/logging/index#third-party-logging-providers).
 
-## <a name="enabling-the-developer-exception-page"></a>Povolení stránce výjimky pro vývojáře
+## <a name="enable-the-developer-exception-page"></a>Povolit na stránce výjimek pro vývojáře
 
 `ASPNETCORE_ENVIRONMENT` [Proměnnou prostředí lze přidat do souboru web.config](xref:host-and-deploy/aspnet-core-module#setting-environment-variables) ke spuštění aplikace ve vývojovém prostředí. Tak dlouho, dokud není prostředí přepsána ve spuštění aplikace podle `UseEnvironment` na tvůrce hostitele nastavení proměnné prostředí umožňuje [stránku výjimek pro vývojáře](xref:fundamentals/error-handling) se zobrazí při spuštění aplikace.
+
+::: moniker range=">= aspnetcore-2.2"
+
+```xml
+<aspNetCore processPath="dotnet"
+      arguments=".\MyApp.dll"
+      stdoutLogEnabled="false"
+      stdoutLogFile=".\logs\stdout"
+      hostingModel="inprocess">
+  <environmentVariables>
+    <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Development" />
+  </environmentVariables>
+</aspNetCore>
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -168,11 +189,17 @@ Povolení a zobrazení protokolů stdout:
 </aspNetCore>
 ```
 
+::: moniker-end
+
 Nastavení proměnné prostředí pro `ASPNETCORE_ENVIRONMENT` se doporučuje jenom pro použití v přípravy a testování serverů, které nejsou vystaveny v Internetu. Odebrat z proměnné prostředí *web.config* soubor po vyřešení potíží. Informace o nastavení proměnných prostředí *web.config*, naleznete v tématu [environmentVariables podřízený prvek aspNetCore](xref:host-and-deploy/aspnet-core-module#setting-environment-variables).
 
-## <a name="common-startup-errors"></a>Běžné chyby spuštění 
+## <a name="common-startup-errors"></a>Běžné chyby spuštění
 
 Viz <xref:host-and-deploy/azure-iis-errors-reference>. Většina běžných problémů, které brání spuštění aplikace jsou zahrnuté v referenčním tématu.
+
+## <a name="obtain-data-from-an-app"></a>Získání dat z aplikace
+
+Pokud aplikace je schopná reagovat na požadavky, získáte žádost o připojení a další data z aplikace pomocí terminálu vložené middlewaru. Další informace a ukázky kódu najdete v tématu <xref:test/troubleshoot#obtain-data-from-an-app>.
 
 ## <a name="slow-or-hanging-app"></a>Pomalá nebo Změ aplikace
 
@@ -190,7 +217,7 @@ Zobrazit [vzdálené ladění ASP.NET Core ve vzdáleném počítači služby II
 
 [Application Insights](/azure/application-insights/) poskytuje telemetrická data z aplikací hostovaných službou IIS, včetně protokolování a generování sestav funkce chyb. Application Insights může jenom nahlásit to o chybách, ke kterým dochází po spuštění aplikace, když funkce protokolování aplikace budou k dispozici. Další informace najdete v tématu [Application Insights pro ASP.NET Core](/azure/application-insights/app-insights-asp-net-core).
 
-## <a name="additional-troubleshooting-advice"></a>Další pomoc při řešení potíží
+## <a name="additional-advice"></a>Další Rady
 
 Někdy funkční aplikace selže okamžitě po provedení upgradu buď .NET Core SDK na vývojové počítače nebo balíček verze v rámci aplikace. V některých případech osamocené balíčky mohou narušit funkce aplikace při provádění hlavní upgrady. Většina těchto problémů můžete opravit podle těchto pokynů:
 
@@ -201,11 +228,12 @@ Někdy funkční aplikace selže okamžitě po provedení upgradu buď .NET Core
 
 > [!TIP]
 > Pohodlný způsob, jak Vymazat mezipaměti balíčku je ke spuštění `dotnet nuget locals all --clear` z příkazového řádku.
-> 
+>
 > Vymazání mezipaměti balíčku provést taky pomocí [nuget.exe](https://www.nuget.org/downloads) nástroj a provádění příkazu `nuget locals all -clear`. *nuget.exe* není připojené instalace s operačním systémem klasické pracovní plochy Windows a je potřeba pořídit samostatně z [webu NuGet](https://www.nuget.org/downloads).
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* <xref:test/troubleshoot>
 * <xref:fundamentals/error-handling>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 * <xref:host-and-deploy/aspnet-core-module>

@@ -3258,6 +3258,8 @@ items:
         href: signalr/overview/performance/signalr-performance.md
       - name: Úvod do škálování aplikace SignalR
         href: signalr/overview/performance/scaleout-in-signalr.md
+      - name: Služba Azure SignalR
+        href: /azure/azure-signalr/signalr-overview
       - name: Škálování aplikace SignalR službou Azure Service Bus
         href: signalr/overview/performance/scaleout-with-windows-azure-service-bus.md
       - name: Šklálování aplikace SignalR službou Redis
@@ -3808,9 +3810,9 @@ items:
     href: whitepapers/whats-new-in-aspnet-45-and-visual-studio-2012.md
 - name: referenční dokumentace k rozhraní API
   href: api-ref.md
-ms.openlocfilehash: 3b3ab67607b26618e07d8e2b0512775a3f3340de
-ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
+ms.openlocfilehash: 6c6d8fc996066fef18c8a9396ec6eed6e4e3fec6
+ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51191383"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52450824"
