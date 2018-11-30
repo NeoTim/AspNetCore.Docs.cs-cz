@@ -5,12 +5,12 @@ description: Zjistěte, jak začít pracovat s ASP.NET Core MVC a sady Visual St
 ms.author: riande
 ms.date: 10/07/2017
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: fe555e4cfcaec5d4bb8ccee00b06d1bbcaae9dcd
-ms.sourcegitcommit: f43f430a166a7ec137fcad12ded0372747227498
+ms.openlocfilehash: 9d50607899058c887597a3d73198552d3ef5b020
+ms.sourcegitcommit: c4572be5ebb301013a5698caf9b5572b76cb2e34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2018
-ms.locfileid: "49391203"
+ms.lasthandoff: 11/30/2018
+ms.locfileid: "52710085"
 ---
 # <a name="get-started-with-aspnet-core-mvc-and-visual-studio"></a>Začínáme s ASP.NET Core MVC a sady Visual Studio
 
@@ -23,6 +23,9 @@ Existují 3 verze tohoto kurzu:
 * macOS: [vytvoření aplikace ASP.NET Core MVC se sadou Visual Studio pro Mac](xref:tutorials/first-mvc-app-mac/start-mvc)
 * Windows: [vytvořit v aplikaci MVC ASP.NET Core pomocí sady Visual Studio](xref:tutorials/first-mvc-app/start-mvc)
 * macOS, Linux a Windows: [vytvoření aplikace ASP.NET Core MVC pomocí Visual Studio Code](xref:tutorials/first-mvc-app-xplat/start-mvc)
+
+> [!NOTE]
+> Testujeme použitelnost navrhované nové struktury pro obsah ASP.NET Core.  Pokud máte pár minut a chcete si vyzkoušet cvičení, které spočívá ve vyhledání 7 různých témat v aktuálním nebo navrhovaném obsahu, [klikněte prosím sem a zúčastněte se studie](https://dpk4xbh5.optimalworkshop.com/treejack/rps16hd5).
 
 ## <a name="install-visual-studio-and-net-core"></a>Instalace sady Visual Studio a .NET Core
 
@@ -81,26 +84,7 @@ V další části tohoto kurzu přidáme další informace o MVC a začít psát
 
 ::: moniker range="<= aspnetcore-2.0"
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x/)
-
 [!INCLUDE [](~/includes/net-core-prereqs.md)]
-
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x/)
-
-Instalace sady Visual Studio Community 2017. Vyberte stáhnout Community. Tento krok přeskočte, pokud máte nainstalovanou sadu Visual Studio 2017.
-
-* [Instalační program sady Visual Studio 2017 domovské stránky](https://www.visualstudio.com/)
-
-Spusťte instalační program a vybrat následující úlohy:
-
-* **Vývoj pro ASP.NET a web** (v části **Web a Cloud**)
-* **Vývoj pro různé platformy .NET core** (v části **další sady nástrojů**)
-
-![**ASP.NET a webového vývoje ** (v části ** Web a Cloud **)](start-mvc/_static/web_workload.png)
-
-![* *.NET core napříč. mezi platfrom vývoj ** (v části ** Další sady nástrojů **)](start-mvc/_static/x_plat_wl.png)
-
----
 
 ## <a name="create-a-web-app"></a>Vytvoření webové aplikace
 
@@ -117,8 +101,6 @@ Dokončení **nový projekt** dialogové okno:
 
 ![Dialogové okno Nový projekt, .net core v levém podokně, web ASP.NET Core ](start-mvc/_static/new_project2.png)
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
-
 Dokončení **nové základní webové aplikace ASP.NET (.NET Core) – MvcMovie** dialogové okno:
 
 * V poli verze selektoru rozevíracího seznamu vyberte **ASP.NET Core 2.-**
@@ -126,19 +108,6 @@ Dokončení **nové základní webové aplikace ASP.NET (.NET Core) – MvcMovie
 * Klepněte na **OK**.
 
 ![Dialogové okno Nový projekt, .net core v levém podokně, web ASP.NET Core ](start-mvc/_static/new_project22.png)
-
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
-
-Dokončení **nové základní webové aplikace ASP.NET (.NET Core) – MvcMovie** dialogové okno:
-
-* V tap verze selektoru rozevíracího seznamu **ASP.NET Core 1.1**
-* Klepněte na **webové aplikace**
-* Ponechte výchozí **bez ověřování**
-* Klepněte na **OK**.
-
-![Nová webová aplikace ASP.NET Core](start-mvc/_static/p3.png)
-
----
 
 Visual Studio používá výchozí šablonu pro projekt MVC, který jste právě vytvořili. Zadáním názvu projektu a výběr několika možností Teď máte funkční aplikaci. Toto je základní počáteční projekt, a je vhodné oddělení na zahájení,
 

@@ -7,12 +7,12 @@ ms.author: pranavkm
 ms.custom: mvc
 ms.date: 11/13/2018
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 023b8d09511aa42966e2a7d1c85e407bb6e79b0f
-ms.sourcegitcommit: f202864efca81a72ea7120c0692940c40d9d0630
+ms.openlocfilehash: ede9a46c160cf6a49aa93da710af0bf0b8f59acc
+ms.sourcegitcommit: c4572be5ebb301013a5698caf9b5572b76cb2e34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/14/2018
-ms.locfileid: "51635363"
+ms.lasthandoff: 11/30/2018
+ms.locfileid: "52710072"
 ---
 # <a name="use-web-api-conventions"></a>Řiďte se vytváření webového rozhraní API
 
@@ -26,7 +26,7 @@ V době běhu <xref:Microsoft.AspNetCore.Mvc.ApiExplorer> rozumí konvence. `Api
 
 ## <a name="apply-web-api-conventions"></a>Použít konvence webového rozhraní API
 
-Existují tři způsoby, jak použít konvence. Konvence není compose, každá akce může být spojen s konvence přesně jeden. Konkrétnější konvence (podrobnosti jsou dole) mají přednost před těmi méně konkrétní. Výběr je Nedeterministický, když dva nebo více konvence stejnou prioritou použijete akci. Existují tyto možnosti použít konvenci akci, od nejkonkrétnější po nejméně konkrétní:
+Existují tři způsoby, jak použít konvence. Konvence není compose. Každá akce může být spojen s konvence přesně jeden. Konkrétnější konvence (podrobnosti jsou dole) mají přednost před těmi méně konkrétní. Výběr je Nedeterministický, když dva nebo více konvence stejnou prioritou použijete akci. Existují tyto možnosti použít konvenci akci, od nejkonkrétnější po nejméně konkrétní:
 
 1. `Microsoft.AspNetCore.Mvc.ApiConventionMethodAttribute` &mdash; Platí pro jednotlivé akce a určuje konvence typ a metodu konvence, která se použije. V následujícím příkladu metoda konvence `Microsoft.AspNetCore.Mvc.DefaultApiConventions.Put` aplikován `Update` akce:
 
