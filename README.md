@@ -1,13 +1,10 @@
-ASP.NET Docs
-============
+# <a name="aspnet-docs"></a><span data-ttu-id="083fe-101">Dokumentace technologie ASP.NET</span><span class="sxs-lookup"><span data-stu-id="083fe-101">ASP.NET Docs</span></span>
 
-This project provides the source for [docs.asp.net](http://docs.asp.net/). You can learn more about ASP.NET Core at the [Home](https://github.com/aspnet/home) repo. See the [Contributing Guide](CONTRIBUTING.md) and the [issues list](\https://github.com/aspnet/Docs/issues) if you would like to help out.
+<span data-ttu-id="083fe-102">Toto úložiště obsahuje koncepční ASP.NET Core a ASP.NET 4.x dokumentace hostovaná na [docs.microsoft.com/aspnet](https://docs.microsoft.com/aspnet).</span><span class="sxs-lookup"><span data-stu-id="083fe-102">This repository contains the conceptual ASP.NET Core and ASP.NET 4.x documentation hosted at [docs.microsoft.com/aspnet](https://docs.microsoft.com/aspnet).</span></span> <span data-ttu-id="083fe-103">Najdete v článku [přispívání průvodce](CONTRIBUTING.md) a [seznamu problémů na](https://github.com/aspnet/Docs/issues) Pokud byste chtěli pomoc.</span><span class="sxs-lookup"><span data-stu-id="083fe-103">See the [Contributing Guide](CONTRIBUTING.md) and the [issues list](https://github.com/aspnet/Docs/issues) if you would like to help out.</span></span>
 
-API PR's ( *api/autoapi/...* ) should not be made here. Changes to API documentation should be made in the source repository against the triple slash /// comments. 
+<span data-ttu-id="083fe-104">Změny v dokumentaci rozhraní API je nutné [ApiDocs úložiště](https://github.com/aspnet/ApiDocs) proti Trojitá lomítko `///` komentáře.</span><span class="sxs-lookup"><span data-stu-id="083fe-104">API documentation changes should be made in the [ApiDocs repository](https://github.com/aspnet/ApiDocs) against the triple slash `///` comments.</span></span>
 
-This project has adopted the [Microsoft Open Source Code of
-Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct
-FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com)
-with any additional questions or comments.
+## <a name="microsoft-open-source-code-of-conduct"></a><span data-ttu-id="083fe-105">Zdrojový kód Microsoft Open chování</span><span class="sxs-lookup"><span data-stu-id="083fe-105">Microsoft Open Source Code of Conduct</span></span>
+
+<span data-ttu-id="083fe-106">Tento projekt přijímá [Microsoft kód chování pro Open Source](https://opensource.microsoft.com/codeofconduct/).</span><span class="sxs-lookup"><span data-stu-id="083fe-106">This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).</span></span>
+<span data-ttu-id="083fe-107">Další informace najdete v tématu [kódu k pravidlům chování](https://opensource.microsoft.com/codeofconduct/faq/) nebo se obraťte na [ opencode@microsoft.com ](mailto:opencode@microsoft.com) s případnými dotazy nebo připomínky.</span><span class="sxs-lookup"><span data-stu-id="083fe-107">For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.</span></span>
