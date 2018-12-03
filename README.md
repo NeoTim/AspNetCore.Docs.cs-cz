@@ -1,13 +1,10 @@
-ASP.NET Docs
-============
+# <a name="aspnet-docs"></a>Dokumentace technologie ASP.NET
 
-This project provides the source for [docs.asp.net](http://docs.asp.net/). You can learn more about ASP.NET Core at the [Home](https://github.com/aspnet/home) repo. See the [Contributing Guide](CONTRIBUTING.md) and the [issues list](\https://github.com/aspnet/Docs/issues) if you would like to help out.
+Toto úložiště obsahuje koncepční ASP.NET Core a ASP.NET 4.x dokumentace hostovaná na [docs.microsoft.com/aspnet](https://docs.microsoft.com/aspnet). Najdete v článku [přispívání průvodce](CONTRIBUTING.md) a [seznamu problémů na](https://github.com/aspnet/Docs/issues) Pokud byste chtěli pomoc.
 
-API PR's ( *api/autoapi/...* ) should not be made here. Changes to API documentation should be made in the source repository against the triple slash /// comments. 
+Změny v dokumentaci rozhraní API je nutné [ApiDocs úložiště](https://github.com/aspnet/ApiDocs) proti Trojitá lomítko `///` komentáře.
 
-This project has adopted the [Microsoft Open Source Code of
-Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct
-FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com)
-with any additional questions or comments.
+## <a name="microsoft-open-source-code-of-conduct"></a>Zdrojový kód Microsoft Open chování
+
+Tento projekt přijímá [Microsoft kód chování pro Open Source](https://opensource.microsoft.com/codeofconduct/).
+Další informace najdete v tématu [kódu k pravidlům chování](https://opensource.microsoft.com/codeofconduct/faq/) nebo se obraťte na [ opencode@microsoft.com ](mailto:opencode@microsoft.com) s případnými dotazy nebo připomínky.
