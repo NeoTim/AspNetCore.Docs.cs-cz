@@ -5,14 +5,14 @@ description: Další informace o kompresi odpovědí a jak používat Middleware
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/21/2018
+ms.date: 12/01/2018
 uid: performance/response-compression
-ms.openlocfilehash: 8c3d74b6a346d51507d3c278b03ddc842feea13e
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 2516fbb30e55990dc4ad0d92069853bc26874bc9
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207976"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861885"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Kompresi odpovědí v ASP.NET Core
 
@@ -24,7 +24,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 ## <a name="when-to-use-response-compression-middleware"></a>Kdy použít Middleware pro kompresi odpovědí
 
-Použití technologie komprese odpovědi na serveru IIS, Apache nebo Nginx. Výkon middleware pravděpodobně nebude odpovídat moduly serveru. [HTTP.sys server](xref:fundamentals/servers/httpsys) a [Kestrel](xref:fundamentals/servers/kestrel) aktuálně nenabízí podporu integrovanou komprese.
+Použití technologie komprese odpovědi na serveru IIS, Apache nebo Nginx. Výkon middleware pravděpodobně nebude odpovídat moduly serveru. [HTTP.sys server](xref:fundamentals/servers/httpsys) serveru a [Kestrel](xref:fundamentals/servers/kestrel) server aktuálně nenabízí podporu integrovanou komprese.
 
 Middleware pro kompresi odpovědí použijte, když jste:
 
@@ -33,8 +33,8 @@ Middleware pro kompresi odpovědí použijte, když jste:
   * [Apache mod_deflate modulu](http://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Server Nginx komprese a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * Hostování přímo na:
-  * [HTTP.sys server](xref:fundamentals/servers/httpsys) (dříve se označovaly jako [WebListener](xref:fundamentals/servers/weblistener))
-  * [Kestrel](xref:fundamentals/servers/kestrel)
+  * [Ovladač HTTP.sys](xref:fundamentals/servers/httpsys) server (dříve se označovaly jako [WebListener](xref:fundamentals/servers/weblistener))
+  * [Kestrel](xref:fundamentals/servers/kestrel) serveru
 
 ## <a name="response-compression"></a>Kompresi odpovědí
 
@@ -432,7 +432,7 @@ Při kompresi odpovědí na základě `Accept-Encoding` záhlaví, jsou potenci�
 
 ## <a name="middleware-issue-when-behind-an-nginx-reverse-proxy"></a>Middleware problém při za reverzní proxy server Nginx
 
-Pokud je požadavek směrovány přes proxy server pomocí Nginx, `Accept-Encoding` odebrat záhlaví. To zabrání middleware komprese odpovědi. Další informace najdete v tématu [NGINX: komprese a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/). Tento problém je sledován pomocí funkce [zjistit průchozí komprese Nginx (BasicMiddleware #123)](https://github.com/aspnet/BasicMiddleware/issues/123).
+Pokud je požadavek směrovány přes proxy server pomocí Nginx, `Accept-Encoding` odebrat záhlaví. Odebrání `Accept-Encoding` záhlaví zabraňuje middleware komprese odpovědi. Další informace najdete v tématu [NGINX: komprese a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/). Tento problém je sledován pomocí funkce [zjistit průchozí komprese Nginx (aspnet/BasicMiddleware \#123)](https://github.com/aspnet/BasicMiddleware/issues/123).
 
 ## <a name="working-with-iis-dynamic-compression"></a>Práce s dynamické komprese služby IIS
 

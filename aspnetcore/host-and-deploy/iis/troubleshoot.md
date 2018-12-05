@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak diagnostikovat problémy s nasazením aplikací ASP.NET Core Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 11/30/2018
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 2ff870623de43676be38c5de8f338a7913e885a8
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 10c40746ffca1343c84f6a7388f3b2d7ab77ab02
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450707"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861573"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>Řešení potíží s ASP.NET Core ve službě IIS
 
@@ -121,7 +121,7 @@ Pokud je aplikace [nasazení závisí na architektuře](/dotnet/core/deploying/#
 
 1. Na příkazovém řádku přejděte do složky pro nasazení a spuštění aplikace spuštěním sestavení aplikace s *dotnet.exe*. V následujícím příkazu nahraďte název sestavení aplikace pro \<název_sestavení >: `dotnet .\<assembly_name>.dll`.
 1. Výstup z aplikace zobrazuje všechny chyby konzoly je zapsán do okna konzoly.
-1. Je-li této chybě dojde při požadavku na aplikaci, vytvořte žádost na hostitele a port, kde Kestrel naslouchá. Pomocí výchozího hostitele a post, vytvořit žádost o `http://localhost:5000/`. Aplikace reaguje, obvykle na adrese Kestrel koncový bod, tím je pravděpodobnější týkající se konfigurace reverzního proxy serveru a méně pravděpodobné, že v rámci aplikace.
+1. Je-li této chybě dojde při požadavku na aplikaci, vytvořte žádost na hostitele a port, kde Kestrel naslouchá. Pomocí výchozího hostitele a post, vytvořit žádost o `http://localhost:5000/`. Aplikace reaguje, obvykle na adrese Kestrel koncový bod, tím je pravděpodobnější týkající se konfigurace hostování a méně pravděpodobné, že v rámci aplikace.
 
 #### <a name="self-contained-deployment"></a>Samostatná nasazení
 
@@ -129,7 +129,7 @@ Pokud je aplikace [samostatná nasazení](/dotnet/core/deploying/#self-contained
 
 1. Na příkazovém řádku přejděte do složky pro nasazení a spuštění spustitelného souboru aplikace. V následujícím příkazu nahraďte název sestavení aplikace pro \<název_sestavení >: `<assembly_name>.exe`.
 1. Výstup z aplikace zobrazuje všechny chyby konzoly je zapsán do okna konzoly.
-1. Je-li této chybě dojde při požadavku na aplikaci, vytvořte žádost na hostitele a port, kde Kestrel naslouchá. Pomocí výchozího hostitele a post, vytvořit žádost o `http://localhost:5000/`. Aplikace reaguje, obvykle na adrese Kestrel koncový bod, tím je pravděpodobnější týkající se konfigurace reverzního proxy serveru a méně pravděpodobné, že v rámci aplikace.
+1. Je-li této chybě dojde při požadavku na aplikaci, vytvořte žádost na hostitele a port, kde Kestrel naslouchá. Pomocí výchozího hostitele a post, vytvořit žádost o `http://localhost:5000/`. Aplikace reaguje, obvykle na adrese Kestrel koncový bod, tím je pravděpodobnější týkající se konfigurace hostování a méně pravděpodobné, že v rámci aplikace.
 
 ### <a name="aspnet-core-module-stdout-log"></a>ASP.NET Core modulu stdout protokolu
 

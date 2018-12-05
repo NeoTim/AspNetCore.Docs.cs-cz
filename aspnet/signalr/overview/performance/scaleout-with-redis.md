@@ -8,23 +8,23 @@ ms.date: 06/10/2014
 ms.assetid: 6ecd08c1-e364-4cd7-ad4c-806521911585
 msc.legacyurl: /signalr/overview/performance/scaleout-with-redis
 msc.type: authoredcontent
-ms.openlocfilehash: ebb61e4296f78bcd74622b729a10d45b60ebb724
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: f92946ae99bf8cb3840adb5d98004acb87e24925
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912784"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861287"
 ---
-<a name="signalr-scaleout-with-redis"></a>Škálování aplikace SignalR službou Redis
+<a name="signalr-scaleout-with-redis"></a>Šklálování aplikace SignalR službou Redis
 ====================
-podle [Mike Wasson](https://github.com/MikeWasson), [Patrick Fletcher](https://github.com/pfletcher)
+podle [Mike Wasson](https://github.com/MikeWasson)
 
 > ## <a name="software-versions-used-in-this-topic"></a>Verze softwaru použitým v tomto tématu
 >
 >
 > - [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013)
 > - .NET 4.5
-> - Funkce SignalR verze 2
+> - Funkce SignalR verze 2.4
 >
 >
 >
@@ -65,7 +65,8 @@ Předtím, než získáme podrobný kurz, zde je rychlý přehled toho, co budet
 2. Přidejte tyto balíčky NuGet pro vaši aplikaci:
 
     - [Microsoft.AspNet.SignalR](http://nuget.org/packages/Microsoft.AspNet.SignalR)
-    - [Microsoft.AspNet.SignalR.Redis](http://nuget.org/packages/Microsoft.AspNet.SignalR.Redis)
+    - [Microsoft.AspNet.SignalR.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.StackExchangeRedis)
+    
 3. Vytvoření aplikace SignalR.
 4. Přidejte následující kód do souboru Startup.cs konfigurace propojovacího rozhraní:
 
@@ -112,7 +113,7 @@ Vytvoření aplikace SignalR pomocí některé z těchto kurzů:
 - [Začínáme s knihovnou SignalR 2.0](../getting-started/tutorial-getting-started-with-signalr.md)
 - [Začínáme s knihovnou SignalR 2.0 a MVC 5](../getting-started/tutorial-getting-started-with-signalr-and-mvc.md)
 
-V dalším kroku upravíme, aby byl chatovací aplikaci, aby podporovala škálování s využitím Redis. Nejprve přidejte balíček SignalR.Redis NuGet do projektu. V aplikaci Visual Studio z **nástroje** příkaz **Správce balíčků NuGet**, vyberte **konzoly Správce balíčků**. V okně konzoly Správce balíčků zadejte následující příkaz:
+V dalším kroku upravíme, aby byl chatovací aplikaci, aby podporovala škálování s využitím Redis. Nejprve přidejte `Microsoft.AspNet.SignalR.StackExchangeRedis` do svého projektu balíček NuGet. V aplikaci Visual Studio z **nástroje** příkaz **Správce balíčků NuGet**, vyberte **konzoly Správce balíčků**. V okně konzoly Správce balíčků zadejte následující příkaz:
 
 [!code-powershell[Main](scaleout-with-redis/samples/sample5.ps1)]
 

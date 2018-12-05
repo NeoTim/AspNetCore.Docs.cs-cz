@@ -3,16 +3,16 @@ uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-
 title: Začínáme s Entity Framework 6 Code First pomocí MVC 5 | Dokumentace Microsoftu
 author: tdykstra
 ms.author: riande
-ms.date: 10/04/2018
+ms.date: 12/04/2018
 ms.assetid: 00bc8b51-32ed-4fd3-9745-be4c2a9c1eaf
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 5dd9a5a24d8c67c5190c98e3240d132eaa27661c
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: c7ab9458f83e05af84f72d9a2519a8c1c39b84b5
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912407"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861430"
 ---
 # <a name="get-started-with-entity-framework-6-code-first-using-mvc-5"></a>Začínáme s Entity Framework 6 Code First pomocí MVC 5
 
@@ -21,7 +21,7 @@ podle [Petr Dykstra](https://github.com/tdykstra)
 [Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
 > [!NOTE]
-> A [novější verzi v této sérii kurzů](/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-2.1) je k dispozici, která používá [Razor Pages](/aspnet/core/razor-pages). Stránky Razor je na stránce programovací model, který je vytváření webového uživatelského rozhraní jednodušší a produktivnější. Doporučujeme kurz stránky Razor verze MVC. Kurz pro stránky Razor:
+> Pro nový vývoj doporučujeme [ASP.NET Core Razor Pages](/aspnet/core/razor-pages) přes zobrazení a kontrolery ASP.NET MVC. Je k dispozici pro stránky Razor podobnou této série kurzů [Razor Pages kurzu](/aspnet/core/tutorials/razor-pages/razor-pages-start):
 >
 > * Je usnadňuje její sledování.
 > * Poskytuje další EF Core osvědčené postupy.

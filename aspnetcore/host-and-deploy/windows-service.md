@@ -2,17 +2,17 @@
 title: Hostitele ASP.NET Core ve službě Windows
 author: guardrex
 description: Zjistěte, jak hostovat aplikace ASP.NET Core ve službě Windows.
-monikerRange: '>= aspnetcore-2.2'
+monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 12/01/2018
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: f857e96108b68bb6ec64a85910bf4d889cdf2822
-ms.sourcegitcommit: e7fafb153b9de7595c2558a0133f8d1c33a3bddb
+ms.openlocfilehash: f53c303dc63e092f08e933fea79eb805523cde9b
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52458514"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861391"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Hostitele ASP.NET Core ve službě Windows
 
@@ -38,202 +38,250 @@ Samostatná nasazení (SCD) nemusí spoléhat na přítomnost sdílené komponen
 
 Do existujícího projektu ASP.NET Core a spusťte tak aplikaci jako službu, proveďte následující změny:
 
-1. Podle podle vaší volby [typ nasazení](#deployment-type), aktualizujte soubor projektu:
+### <a name="project-file-updates"></a>Aktualizace souboru projektu
 
-   * **Nasazení závisí na architektuře (chyba)** &ndash; přidat Windows [identifikátor modulu Runtime (RID)](/dotnet/core/rid-catalog) k `<PropertyGroup>` , která obsahuje cílové rozhraní. Přidat `<SelfContained>` nastavenou na `false`. Zakázat vytváření *web.config* souboru tak, že přidáte `<IsTransformWebConfigDisabled>` nastavenou na `true`.
+Podle podle vaší volby [typ nasazení](#deployment-type), aktualizujte soubor projektu:
 
-     ```xml
-     <PropertyGroup>
-       <TargetFramework>netcoreapp2.2</TargetFramework>
-       <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
-       <SelfContained>false</SelfContained>
-       <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
-     </PropertyGroup>
-     ```
+#### <a name="framework-dependent-deployment-fdd"></a>Nasazení závisí na architektuře (chyba)
 
-     **Samostatná nasazení (SCD)** &ndash; přítomnost Windows [identifikátor modulu Runtime (RID)](/dotnet/core/rid-catalog) nebo přidání identifikátorů RID pro `<PropertyGroup>` , která obsahuje cílové rozhraní. Zakázat vytváření *web.config* souboru tak, že přidáte `<IsTransformWebConfigDisabled>` nastavenou na `true`.
+Přidat Windows [identifikátor modulu Runtime (RID)](/dotnet/core/rid-catalog) k `<PropertyGroup>` , která obsahuje cílové rozhraní. Přidat `<SelfContained>` nastavenou na `false`. Zakázat vytváření *web.config* souboru tak, že přidáte `<IsTransformWebConfigDisabled>` nastavenou na `true`.
 
-     ```xml
-     <PropertyGroup>
-       <TargetFramework>netcoreapp2.2</TargetFramework>
-       <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
-       <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
-     </PropertyGroup>
-     ```
+::: moniker range=">= aspnetcore-2.2"
 
-     Chcete-li publikovat pro více identifikátorů RID:
+```xml
+<PropertyGroup>
+  <TargetFramework>netcoreapp2.2</TargetFramework>
+  <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+  <SelfContained>false</SelfContained>
+  <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+</PropertyGroup>
+```
 
-     * Zadejte identifikátory RID v seznam oddělený středníkem.
-     * Použijte název vlastnosti `<RuntimeIdentifiers>` (množné číslo).
+::: moniker-end
 
-     Další informace najdete v tématu [katalog identifikátorů RID .NET Core](/dotnet/core/rid-catalog).
+::: moniker range="= aspnetcore-2.1"
 
-   * Přidat odkaz na balíček pro [Microsoft.AspNetCore.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.AspNetCore.Hosting.WindowsServices).
+```xml
+<PropertyGroup>
+  <TargetFramework>netcoreapp2.1</TargetFramework>
+  <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+  <UseAppHost>true</UseAppHost>
+  <SelfContained>false</SelfContained>
+  <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+</PropertyGroup>
+```
 
-   * Pokud chcete povolit protokolování protokolu událostí Windows, přidejte odkaz na balíček pro [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog).
+::: moniker-end
 
-     Další informace najdete v tématu [zpracování, spouštění a zastavování události](#handle-starting-and-stopping-events) oddílu.
+#### <a name="self-contained-deployment-scd"></a>Samostatná nasazení (SCD)
 
-1. Proveďte následující změny v `Program.Main`:
+Ověřte existenci Windows [identifikátor modulu Runtime (RID)](/dotnet/core/rid-catalog) nebo přidání identifikátorů RID pro `<PropertyGroup>` , která obsahuje cílové rozhraní. Zakázat vytváření *web.config* souboru tak, že přidáte `<IsTransformWebConfigDisabled>` nastavenou na `true`.
 
-   * K testování a ladění, když se provozují mimo službu, přidání kódu k určení, jestli aplikace běží jako službu nebo konzolové aplikace. Kontrola, pokud je připojen ladicí program nebo `--console` argument příkazového řádku je k dispozici.
+```xml
+<PropertyGroup>
+  <TargetFramework>netcoreapp2.2</TargetFramework>
+  <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+  <IsTransformWebConfigDisabled>true</IsTransformWebConfigDisabled>
+</PropertyGroup>
+```
 
-     Pokud je některá podmínka pravdivá (aplikace není spuštěna jako služba), volání <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*> na webového hostitele.
+Chcete-li publikovat pro více identifikátorů RID:
 
-     Pokud jsou podmínky hodnotu false (aplikace je spuštěn jako služba):
+* Zadejte identifikátory RID v seznam oddělený středníkem.
+* Použijte název vlastnosti `<RuntimeIdentifiers>` (množné číslo).
 
-     * Volání <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseContentRoot*> a použijte cestu k umístění publikované aplikace. Nevolejte <xref:System.IO.Directory.GetCurrentDirectory*> získat cestu, protože aplikace Windows Service vrátí *C:\\WINDOWS\\system32* složky při `GetCurrentDirectory` je volána. Další informace najdete v tématu [aktuálního adresáře a kořenový adresář obsahu](#current-directory-and-content-root) oddílu.
-     * Volání <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> a spusťte tak aplikaci jako službu.
+  Další informace najdete v tématu [katalog identifikátorů RID .NET Core](/dotnet/core/rid-catalog).
 
-     Protože [poskytovatele konfigurace příkazového řádku](xref:fundamentals/configuration/index#command-line-configuration-provider) vyžaduje páry název hodnota pro argumenty příkazového řádku, `--console` přepínače se odebere z argumentů před <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> je obdrží.
+Přidat odkaz na balíček pro [Microsoft.AspNetCore.Hosting.WindowsServices](https://www.nuget.org/packages/Microsoft.AspNetCore.Hosting.WindowsServices).
 
-   * Zapsat do protokolu událostí Windows, přidejte zprostředkovatele protokolu událostí na <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*>. Nastavení úrovně protokolování s `Logging:LogLevel:Default` klíče v *appsettings. Production.JSON* souboru. Soubor nastavení produkčním prostředí ukázkovou aplikaci pro demonstrační účely a testování, nastaví úroveň protokolování na `Information`. V produkčním prostředí, hodnota se obvykle nastavuje na `Error`. Další informace naleznete v tématu <xref:fundamentals/logging/index#windows-eventlog-provider>.
+Pokud chcete povolit protokolování protokolu událostí Windows, přidejte odkaz na balíček pro [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog).
 
-   [!code-csharp[](windows-service/samples/2.x/AspNetCoreService/Program.cs?name=snippet_Program)]
+Další informace najdete v tématu [zpracování, spouštění a zastavování události](#handle-starting-and-stopping-events) oddílu.
 
-1. Publikování aplikace pomocí [dotnet publikovat](/dotnet/articles/core/tools/dotnet-publish), [profil publikování pro Visual Studio](xref:host-and-deploy/visual-studio-publish-profiles), nebo Visual Studio Code. Když pomocí sady Visual Studio, vyberte **FolderProfile** a nakonfigurovat **cílové umístění** před výběrem **publikovat** tlačítko.
+### <a name="programmain-updates"></a>Aktualizace Program.Main
 
-   Chcete-li publikovat ukázkovou aplikaci pomocí nástrojů rozhraní příkazového řádku (CLI), spusťte [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkazu na příkazovém řádku ve složce projektu s předat konfiguraci vydané verze [- c |--konfigurace](/dotnet/core/tools/dotnet-publish#options)možnost. Použití [-o |--výstup](/dotnet/core/tools/dotnet-publish#options) možnost s cestou k publikování do složky mimo aplikaci.
+Proveďte následující změny v `Program.Main`:
 
-   * **Nasazení závisí na architektuře (chyba)**
+* K testování a ladění, když se provozují mimo službu, přidání kódu k určení, jestli aplikace běží jako službu nebo konzolové aplikace. Kontrola, pokud je připojen ladicí program nebo `--console` argument příkazového řádku je k dispozici.
 
-     V následujícím příkladu je aplikace publikována na *c:\\svc* složky:
+  Pokud je některá podmínka pravdivá (aplikace není spuštěna jako služba), volání <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*> na webového hostitele.
 
-     ```console
-     dotnet publish --configuration Release --output c:\svc
-     ```
+  Pokud jsou podmínky hodnotu false (aplikace je spuštěn jako služba):
 
-   * **Samostatná nasazení (SCD)** &ndash; RID musí být zadán v `<RuntimeIdenfifier>` (nebo `<RuntimeIdentifiers>`) vlastnost souboru projektu. Zadejte modul runtime [- r |--runtime](/dotnet/core/tools/dotnet-publish#options) možnost `dotnet publish` příkazu.
+  * Volání <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseContentRoot*> a použijte cestu k umístění publikované aplikace. Nevolejte <xref:System.IO.Directory.GetCurrentDirectory*> získat cestu, protože aplikace Windows Service vrátí *C:\\WINDOWS\\system32* složky při `GetCurrentDirectory` je volána. Další informace najdete v tématu [aktuálního adresáře a kořenový adresář obsahu](#current-directory-and-content-root) oddílu.
+  * Volání <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> a spusťte tak aplikaci jako službu.
 
-     V následujícím příkladu je aplikace publikována pro `win7-x64` modulu runtime *c:\\svc* složky:
+  Protože [poskytovatele konfigurace příkazového řádku](xref:fundamentals/configuration/index#command-line-configuration-provider) vyžaduje páry název hodnota pro argumenty příkazového řádku, `--console` přepínače se odebere z argumentů před <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> je obdrží.
 
-     ```console
-     dotnet publish --configuration Release --runtime win7-x64 --output c:\svc
-     ```
+* Zapsat do protokolu událostí Windows, přidejte zprostředkovatele protokolu událostí na <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*>. Nastavení úrovně protokolování s `Logging:LogLevel:Default` klíče v *appsettings. Production.JSON* souboru. Soubor nastavení produkčním prostředí ukázkovou aplikaci pro demonstrační účely a testování, nastaví úroveň protokolování na `Information`. V produkčním prostředí, hodnota se obvykle nastavuje na `Error`. Další informace naleznete v tématu <xref:fundamentals/logging/index#windows-eventlog-provider>.
 
-1. Vytvořte účet uživatele pro používání služby `net user` příkaz:
+[!code-csharp[](windows-service/samples/2.x/AspNetCoreService/Program.cs?name=snippet_Program)]
 
-   ```console
-   net user {USER ACCOUNT} {PASSWORD} /add
-   ```
+### <a name="publish-the-app"></a>Publikování aplikace
 
-   Pro ukázkovou aplikaci, vytvořte uživatelský účet s názvem `ServiceUser` a heslo. V následujícím příkazu nahraďte `{PASSWORD}` s [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements).
+Publikování aplikace pomocí [dotnet publikovat](/dotnet/articles/core/tools/dotnet-publish), [profil publikování pro Visual Studio](xref:host-and-deploy/visual-studio-publish-profiles), nebo Visual Studio Code. Když pomocí sady Visual Studio, vyberte **FolderProfile** a nakonfigurovat **cílové umístění** před výběrem **publikovat** tlačítko.
 
-   ```console
-   net user ServiceUser {PASSWORD} /add
-   ```
+Chcete-li publikovat ukázkovou aplikaci pomocí nástrojů rozhraní příkazového řádku (CLI), spusťte [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkazu na příkazovém řádku ve složce projektu s předat konfiguraci vydané verze [- c |--konfigurace](/dotnet/core/tools/dotnet-publish#options)možnost. Použití [-o |--výstup](/dotnet/core/tools/dotnet-publish#options) možnost s cestou k publikování do složky mimo aplikaci.
 
-   Pokud potřebujete přidat uživatele do skupiny, použijte `net localgroup` příkaz, kde `{GROUP}` je název skupiny:
+#### <a name="publish-a-framework-dependent-deployment-fdd"></a>Publikování nasazení závisí na architektuře (chyba)
 
-   ```console
-   net localgroup {GROUP} {USER ACCOUNT} /add
-   ```
+V následujícím příkladu je aplikace publikována na *c:\\svc* složky:
 
-   Další informace najdete v tématu [uživatelské účty služby](/windows/desktop/services/service-user-accounts).
+```console
+dotnet publish --configuration Release --output c:\svc
+```
 
-1. Udělit přístup, zápis a čtení a spouštění do složky aplikace pomocí [icacls](/windows-server/administration/windows-commands/icacls) příkaz:
+#### <a name="publish-a-self-contained-deployment-scd"></a>Publikování samostatná nasazení (SCD)
 
-   ```console
-   icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
-   ```
+V musí být zadán identifikátor RID `<RuntimeIdenfifier>` (nebo `<RuntimeIdentifiers>`) vlastnost souboru projektu. Zadejte modul runtime [- r |--runtime](/dotnet/core/tools/dotnet-publish#options) možnost `dotnet publish` příkazu.
 
-   * `{PATH}` &ndash; Cesta ke složce aplikace.
-   * `{USER ACCOUNT}` &ndash; Uživatelský účet (SID).
-   * `(OI)` &ndash; Příznak objekt dědit šíří oprávnění na podřízené soubory.
-   * `(CI)` &ndash; Příznak kontejneru dědit šíří oprávnění na podřízené složky.
-   * `{PERMISSION FLAGS}` &ndash; Nastaví její oprávnění přístupu.
-     * Zápis (`W`)
-     * Čtení (`R`)
-     * Spuštění (`X`)
-     * Úplné (`F`)
-     * Upravit (`M`)
-   * `/t` &ndash; Rekurzivně se vztahují na existující podřízené složky a soubory.
+V následujícím příkladu je aplikace publikována pro `win7-x64` modulu runtime *c:\\svc* složky:
 
-   Pro publikování ukázkové aplikace *c:\\svc* složky a `ServiceUser` účet s oprávněními pro zápis a čtení a spouštění, použijte následující příkaz:
+```console
+dotnet publish --configuration Release --runtime win7-x64 --output c:\svc
+```
 
-   ```console
-   icacls "c:\svc" /grant ServiceUser:(OI)(CI)WRX /t
-   ```
+### <a name="create-a-user-account"></a>Vytvoření uživatelského účtu
 
-   Další informace najdete v tématu [icacls](/windows-server/administration/windows-commands/icacls).
+Vytvořte účet uživatele pro používání služby `net user` příkaz:
 
-1. Použití [sc.exe](https://technet.microsoft.com/library/bb490995) nástroj příkazového řádku vytvořte službu. `binPath` Hodnota je cesta ke spustitelnému souboru aplikace, která zahrnuje název spustitelného souboru. **Mezera mezi znaménko rovná se a znak pro uvození každého parametru a hodnota je povinný.**
+```console
+net user {USER ACCOUNT} {PASSWORD} /add
+```
 
-   ```console
-   sc create {SERVICE NAME} binPath= "{PATH}" obj= "{DOMAIN}\{USER ACCOUNT}" password= "{PASSWORD}"
-   ```
+Pro ukázkovou aplikaci, vytvořte uživatelský účet s názvem `ServiceUser` a heslo. V následujícím příkazu nahraďte `{PASSWORD}` s [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements).
 
-   * `{SERVICE NAME}` &ndash; Název, který chcete přiřadit ke službě v [správce řízení služeb](/windows/desktop/services/service-control-manager).
-   * `{PATH}` &ndash; Cesta ke spustitelnému souboru služby.
-   * `{DOMAIN}` &ndash; Doména počítače připojené k doméně. Pokud počítač není připojený k doméně, názvu místního počítače.
-   * `{USER ACCOUNT}` &ndash; Uživatelský účet, pod kterým je služba spuštěna.
-   * `{PASSWORD}` &ndash; Heslo k uživatelskému účtu.
+```console
+net user ServiceUser {PASSWORD} /add
+```
 
-   > [!WARNING]
-   > Proveďte **není** vynechat, nechte `obj` parametru. Výchozí hodnota pro `obj` je [účet LocalSystem](/windows/desktop/services/localsystem-account) účtu. Spuštěná služba v rámci `LocalSystem` účet představuje významné bezpečnostní riziko. Vždy spuštění služby pomocí uživatelského účtu, který má omezená oprávnění.
+Pokud potřebujete přidat uživatele do skupiny, použijte `net localgroup` příkaz, kde `{GROUP}` je název skupiny:
 
-   V následujícím příkladu pro ukázkovou aplikaci:
+```console
+net localgroup {GROUP} {USER ACCOUNT} /add
+```
 
-   * Služba má název **Moje_služba**.
-   * Publikované služba se nachází v *c:\\svc* složky. Je název spustitelné aplikace *SampleApp.exe*. Uzavřete `binPath` hodnotu do dvojitých uvozovek (").
-   * Je služba spuštěna pod `ServiceUser` účtu. Nahraďte `{DOMAIN}` s účtem uživatele domény nebo názvu místního počítače. Uzavřete `obj` hodnotu do dvojitých uvozovek ("). Příklad: Pokud je hostující systém místní počítač s názvem `MairaPC`, nastavte `obj` k `"MairaPC\ServiceUser"`.
-   * Nahraďte `{PASSWORD}` s heslem uživatelského účtu. Uzavřete `password` hodnotu do dvojitých uvozovek (").
+Další informace najdete v tématu [uživatelské účty služby](/windows/desktop/services/service-user-accounts).
 
-   ```console
-   sc create MyService binPath= "c:\svc\sampleapp.exe" obj= "{DOMAIN}\ServiceUser" password= "{PASSWORD}"
-   ```
+### <a name="set-permissions"></a>Nastavení oprávnění
 
-   > [!IMPORTANT]
-   > Ujistěte se, že mezery mezi symboly rovná parametrů a hodnot parametrů jsou k dispozici.
+Udělit přístup, zápis a čtení a spouštění do složky aplikace pomocí [icacls](/windows-server/administration/windows-commands/icacls) příkaz:
 
-1. Spusťte službu pomocí `sc start {SERVICE NAME}` příkazu.
+```console
+icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
+```
 
-   Spustit službu ukázkové aplikace, použijte následující příkaz:
+* `{PATH}` &ndash; Cesta ke složce aplikace.
+* `{USER ACCOUNT}` &ndash; Uživatelský účet (SID).
+* `(OI)` &ndash; Příznak objekt dědit šíří oprávnění na podřízené soubory.
+* `(CI)` &ndash; Příznak kontejneru dědit šíří oprávnění na podřízené složky.
+* `{PERMISSION FLAGS}` &ndash; Nastaví její oprávnění přístupu.
+  * Zápis (`W`)
+  * Čtení (`R`)
+  * Spuštění (`X`)
+  * Úplné (`F`)
+  * Upravit (`M`)
+* `/t` &ndash; Rekurzivně se vztahují na existující podřízené složky a soubory.
 
-   ```console
-   sc start MyService
-   ```
+Pro publikování ukázkové aplikace *c:\\svc* složky a `ServiceUser` účet s oprávněními pro zápis a čtení a spouštění, použijte následující příkaz:
 
-   Příkaz trvá několik sekund se spustit službu.
+```console
+icacls "c:\svc" /grant ServiceUser:(OI)(CI)WRX /t
+```
 
-1. Chcete-li zkontrolovat stav služby, použijte `sc query {SERVICE NAME}` příkazu. Stav je uveden jako jeden z následujících hodnot:
+Další informace najdete v tématu [icacls](/windows-server/administration/windows-commands/icacls).
 
-   * `START_PENDING`
-   * `RUNNING`
-   * `STOP_PENDING`
-   * `STOPPED`
+## <a name="manage-the-service"></a>Spravovat službu
 
-   Použijte následující příkaz a zkontrolujte stav služby app service vzorku:
+### <a name="create-the-service"></a>Vytvoření služby
 
-   ```console
-   sc query MyService
-   ```
+Použití [sc.exe](https://technet.microsoft.com/library/bb490995) nástroj příkazového řádku vytvořte službu. `binPath` Hodnota je cesta ke spustitelnému souboru aplikace, která zahrnuje název spustitelného souboru. **Mezera mezi znaménko rovná se a znak pro uvození každého parametru a hodnota je povinný.**
 
-1. Pokud je služba v `RUNNING` stavu a pokud je služba webové aplikace, procházet aplikace, její cesta (ve výchozím nastavení, `http://localhost:5000`, který přesměruje `https://localhost:5001` při použití [HTTPS přesměrování Middleware](xref:security/enforcing-ssl)).
+```console
+sc create {SERVICE NAME} binPath= "{PATH}" obj= "{DOMAIN}\{USER ACCOUNT}" password= "{PASSWORD}"
+```
 
-   Aplikační služba ukázkového procházet aplikace na adrese `http://localhost:5000`.
+* `{SERVICE NAME}` &ndash; Název, který chcete přiřadit ke službě v [správce řízení služeb](/windows/desktop/services/service-control-manager).
+* `{PATH}` &ndash; Cesta ke spustitelnému souboru služby.
+* `{DOMAIN}` &ndash; Doména počítače připojené k doméně. Pokud počítač není připojený k doméně, názvu místního počítače.
+* `{USER ACCOUNT}` &ndash; Uživatelský účet, pod kterým je služba spuštěna.
+* `{PASSWORD}` &ndash; Heslo k uživatelskému účtu.
 
-1. Zastavit službu s `sc stop {SERVICE NAME}` příkazu.
+> [!WARNING]
+> Proveďte **není** vynechat, nechte `obj` parametru. Výchozí hodnota pro `obj` je [účet LocalSystem](/windows/desktop/services/localsystem-account) účtu. Spuštěná služba v rámci `LocalSystem` účet představuje významné bezpečnostní riziko. Vždy spuštění služby pomocí uživatelského účtu, který má omezená oprávnění.
 
-   Následující příkaz zastaví aplikační služba ukázkového:
+V následujícím příkladu pro ukázkovou aplikaci:
 
-   ```console
-   sc stop MyService
-   ```
+* Služba má název **Moje_služba**.
+* Publikované služba se nachází v *c:\\svc* složky. Je název spustitelné aplikace *SampleApp.exe*. Uzavřete `binPath` hodnotu do dvojitých uvozovek (").
+* Je služba spuštěna pod `ServiceUser` účtu. Nahraďte `{DOMAIN}` s účtem uživatele domény nebo názvu místního počítače. Uzavřete `obj` hodnotu do dvojitých uvozovek ("). Příklad: Pokud je hostující systém místní počítač s názvem `MairaPC`, nastavte `obj` k `"MairaPC\ServiceUser"`.
+* Nahraďte `{PASSWORD}` s heslem uživatelského účtu. Uzavřete `password` hodnotu do dvojitých uvozovek (").
 
-1. Po krátké prodlevě zastavit službu, odinstalujte službu s `sc delete {SERVICE NAME}` příkazu.
+```console
+sc create MyService binPath= "c:\svc\sampleapp.exe" obj= "{DOMAIN}\ServiceUser" password= "{PASSWORD}"
+```
 
-   Postup kontroly stavu aplikační služba ukázkového:
+> [!IMPORTANT]
+> Ujistěte se, že mezery mezi symboly rovná parametrů a hodnot parametrů jsou k dispozici.
 
-   ```console
-   sc query MyService
-   ```
+### <a name="start-the-service"></a>Spustit službu
 
-   Pokud je aplikační služba ukázkového v `STOPPED` stavu, použijte následující příkaz pro odinstalaci aplikační služba ukázkového:
+Spusťte službu pomocí `sc start {SERVICE NAME}` příkazu.
 
-   ```console
-   sc delete MyService
-   ```
+Spustit službu ukázkové aplikace, použijte následující příkaz:
+
+```console
+sc start MyService
+```
+
+Příkaz trvá několik sekund se spustit službu.
+
+### <a name="determine-the-service-status"></a>Zjistit stav služby
+
+Chcete-li zkontrolovat stav služby, použijte `sc query {SERVICE NAME}` příkazu. Stav je uveden jako jeden z následujících hodnot:
+
+* `START_PENDING`
+* `RUNNING`
+* `STOP_PENDING`
+* `STOPPED`
+
+Použijte následující příkaz a zkontrolujte stav služby app service vzorku:
+
+```console
+sc query MyService
+```
+
+### <a name="browse-a-web-app-service"></a>Procházet služba webové aplikace
+
+Pokud je služba v `RUNNING` stavu a pokud je služba webové aplikace, procházet aplikace, její cesta (ve výchozím nastavení, `http://localhost:5000`, který přesměruje `https://localhost:5001` při použití [HTTPS přesměrování Middleware](xref:security/enforcing-ssl)).
+
+Aplikační služba ukázkového procházet aplikace na adrese `http://localhost:5000`.
+
+### <a name="stop-the-service"></a>Zastavit službu
+
+Zastavit službu s `sc stop {SERVICE NAME}` příkazu.
+
+Následující příkaz zastaví aplikační služba ukázkového:
+
+```console
+sc stop MyService
+```
+
+### <a name="delete-the-service"></a>Odstranit službu
+
+Po krátké prodlevě zastavit službu, odinstalujte službu s `sc delete {SERVICE NAME}` příkazu.
+
+Postup kontroly stavu aplikační služba ukázkového:
+
+```console
+sc query MyService
+```
+
+Pokud je aplikační služba ukázkového v `STOPPED` stavu, použijte následující příkaz pro odinstalaci aplikační služba ukázkového:
+
+```console
+sc delete MyService
+```
 
 ## <a name="handle-starting-and-stopping-events"></a>Zpracování spuštění a zastavení událostí
 

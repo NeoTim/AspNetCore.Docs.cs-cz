@@ -4,14 +4,14 @@ author: guardrex
 description: Zjišťování webové servery přes Kestrel a HTTP.sys pro ASP.NET Core. Zjistěte, jak vybrat server a kdy použít reverzní proxy server.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 09/21/2018
+ms.date: 12/01/2018
 uid: fundamentals/servers/index
-ms.openlocfilehash: 06d4bf09b07fc70a10b3e260e78c29fe189486c5
-ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
+ms.openlocfilehash: 965d69dd071ec71d283284d58e6e1a6e78604f90
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2018
-ms.locfileid: "51505723"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861353"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementací webového serveru v ASP.NET Core
 
@@ -19,20 +19,46 @@ Podle [Petr Dykstra](https://github.com/tdykstra), [Steve Smith](https://ardalis
 
 Aplikace ASP.NET Core spouští implementaci serveru HTTP v procesu. Implementace server přijímá požadavky protokolu HTTP a poskytuje je na aplikaci jako sady [funkce požadavků](xref:fundamentals/request-features) složený do <xref:Microsoft.AspNetCore.Http.HttpContext>.
 
-ASP.NET Core se dodává s následující implementace serveru:
-
 ::: moniker range=">= aspnetcore-2.2"
 
-* [Kestrel](xref:fundamentals/servers/kestrel) je výchozí, server HTTP pro různé platformy pro ASP.NET Core.
-* `IISHttpServer` se používá s [model hostingu v procesu](xref:fundamentals/servers/aspnet-core-module#in-process-hosting-model) a [modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) na Windows.
-* [Ovladač HTTP.sys](xref:fundamentals/servers/httpsys) je na základě protokolu HTTP jenom pro Windows server [ovladač HTTP.sys jádra a rozhraní API serveru HTTP](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx). (Ovladač HTTP.sys se nazývá [WebListener](xref:fundamentals/servers/weblistener) v ASP.NET Core 1.x.)
+# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+
+ASP.NET Core se dodává s následujícími možnostmi:
+
+* [Kestrel server](xref:fundamentals/servers/kestrel) je výchozí, server HTTP pro různé platformy.
+* HTTP serveru služby IIS (`IISHttpServer`) je [v procesu serveru služby IIS](xref:fundamentals/servers/aspnet-core-module#in-process-hosting-model) použitá s implementace [modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module).
+* [HTTP.sys server](xref:fundamentals/servers/httpsys) je na základě protokolu HTTP jenom pro Windows server [ovladač HTTP.sys jádra a rozhraní API serveru HTTP](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx). Je volána HTTP.sys [WebListener](xref:fundamentals/servers/weblistener) v ASP.NET Core 1.x.
+
+# <a name="macostabmacos"></a>[macOS](#tab/macos)
+
+ASP.NET Core se dodává s [Kestrel server](xref:fundamentals/servers/kestrel), což je výchozí, server HTTP pro různé platformy.
+
+# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+
+ASP.NET Core se dodává s [Kestrel server](xref:fundamentals/servers/kestrel), což je výchozí, server HTTP pro různé platformy.
+
+---
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-* [Kestrel](xref:fundamentals/servers/kestrel) je výchozí, server HTTP pro různé platformy pro ASP.NET Core.
-* [Ovladač HTTP.sys](xref:fundamentals/servers/httpsys) je na základě protokolu HTTP jenom pro Windows server [ovladač HTTP.sys jádra a rozhraní API serveru HTTP](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx). (Ovladač HTTP.sys se nazývá [WebListener](xref:fundamentals/servers/weblistener) v ASP.NET Core 1.x.)
+# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+
+ASP.NET Core se dodává s následujícími možnostmi:
+
+* [Kestrel server](xref:fundamentals/servers/kestrel) je výchozí, server HTTP pro různé platformy.
+* [HTTP.sys server](xref:fundamentals/servers/httpsys) je na základě protokolu HTTP jenom pro Windows server [ovladač HTTP.sys jádra a rozhraní API serveru HTTP](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx). Je volána HTTP.sys [WebListener](xref:fundamentals/servers/weblistener) v ASP.NET Core 1.x.
+
+# <a name="macostabmacos"></a>[macOS](#tab/macos)
+
+ASP.NET Core se dodává s [Kestrel server](xref:fundamentals/servers/kestrel), což je výchozí, server HTTP pro různé platformy.
+
+# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+
+ASP.NET Core se dodává s [Kestrel server](xref:fundamentals/servers/kestrel), což je výchozí, server HTTP pro různé platformy.
+
+---
 
 ::: moniker-end
 
@@ -42,7 +68,10 @@ Kestrel je výchozí webový server, která je součástí šablony projektů AS
 
 ::: moniker range=">= aspnetcore-2.0"
 
-Kestrel lze použít samostatně nebo se *reverzní proxy server*, jako je například Apache, IIS nebo Nginx. Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel po některé předběžného zpracování.
+Dá se kestrel:
+
+* Samostatně jako hraniční server zpracování požadavků přímo ze sítě, včetně Internetu.
+* S *reverzní proxy server*, jako například [Internetové informační služby (IIS)](https://www.iis.net/), [Nginx](http://nginx.org), nebo [Apache](https://httpd.apache.org/). Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel.
 
 ![Kestrel komunikuje přímo s Internetu bez reverzní proxy server](kestrel/_static/kestrel-to-internet2.png)
 
@@ -58,17 +87,15 @@ Pokud aplikace přijímá jenom požadavky z interní sítě, je možné Kestrel
 
 ![Kestrel komunikuje přímo s interní sítě](kestrel/_static/kestrel-to-internal.png)
 
-Pokud aplikace je přístupný z Internetu, Kestrel musíte použít službu IIS, serveru Nginx nebo Apache jako *reverzní proxy server*. Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel po některé předběžné zpracování, jak je znázorněno v následujícím diagramu:
+Pokud aplikace je přístupný z Internetu, musíte použít Kestrel *reverzní proxy server*, jako například [Internetové informační služby (IIS)](https://www.iis.net/), [Nginx](http://nginx.org), nebo [Apache ](https://httpd.apache.org/). Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel.
 
 ![Kestrel nepřímo komunikuje přes Internet prostřednictvím reverzního proxy serveru, jako je například Apache, IIS nebo Nginx](kestrel/_static/kestrel-to-internet.png)
 
-Nejdůležitější důvod pomocí reverzního proxy serveru pro veřejnou hraniční server nasazení, které jsou vystaveny přímo k Internetu je zabezpečení. Verze 1.x Kestrel nemají funkcí důležité zabezpečení, ochranu před útoky z Internetu. To zahrnuje, ale není omezený na, odpovídající časové limity, žádost o velikosti omezení a omezení počtu souběžných připojení.
+Nejdůležitější důvod pomocí reverzního proxy serveru pro veřejnou hraniční server nasazení, které jsou vystaveny přímo k Internetu je zabezpečení. Verze 1.x Kestrel nezahrnují funkcí důležité zabezpečení, ochranu před útoky z Internetu. To zahrnuje, ale není omezený na, odpovídající časové limity, žádost o velikosti omezení a omezení počtu souběžných připojení.
 
 Další informace najdete v tématu [použití Kestrel s reverzní proxy server](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy).
 
 ::: moniker-end
-
-Apache, IIS a serveru Nginx nelze použít bez Kestrel nebo [implementace vlastního serveru](#custom-servers). ASP.NET Core je navržená ke spuštění ve svém vlastním procesu tak, aby se může chovat konzistentně napříč platformami. Apache, IIS a serveru Nginx určovat vlastní spouštěcí procedura a prostředí. K použití těchto technologií server přímo, ASP.NET Core potřebovat umožní reagovat na požadavky na každém serveru. Použití implementace webového serveru, jako je například Kestrel, ASP.NET Core má kontrolu nad procesu spouštění a prostředí, když jsou hostované na jiný server technologie.
 
 ### <a name="iis-with-kestrel"></a>IIS s Kestrel
 
@@ -76,29 +103,29 @@ Apache, IIS a serveru Nginx nelze použít bez Kestrel nebo [implementace vlastn
 
 Při použití [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), aplikace ASP.NET Core je buď spuštěn ve stejném procesu jako pracovní proces služby IIS ( *vnitroprocesové* model hostingu) nebo v samostatném procesu z pracovní proces služby IIS ( *mimo proces* model hostingu).
 
-[Modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) je nativní modul služby IIS, která zpracovává nativní požadavků služby IIS mezi Server Http v procesu služby IIS nebo server Kestrel mimo proces. Další informace naleznete v tématu <xref:fundamentals/servers/aspnet-core-module>.
+[Modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) je nativní modul služby IIS, která zpracovává nativní požadavků služby IIS mezi Server HTTP v procesu služby IIS nebo server Kestrel mimo proces. Další informace naleznete v tématu <xref:fundamentals/servers/aspnet-core-module>.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-Při použití [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) jako reverzní proxy server pro ASP.NET Core, ASP.NET Core aplikace běží v procesu nezávisle na pracovní proces služby IIS. V procesu služby IIS [modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) koordinuje vztah reverzního proxy serveru. Primární funkce modul ASP.NET Core jsou ke spuštění aplikace ASP.NET Core, restartujte aplikaci, pokud ho dojde k chybě a přesměrování provozu HTTP na aplikaci. Další informace naleznete v tématu <xref:fundamentals/servers/aspnet-core-module>.
+Při použití [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) jako reverzní proxy server pro ASP.NET Core, ASP.NET Core aplikace běží v procesu nezávisle na pracovní proces služby IIS. V procesu služby IIS [modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) koordinuje vztah reverzního proxy serveru. Primární funkce modul ASP.NET Core jsou ke spuštění aplikace, restartujte aplikaci, pokud ho dojde k chybě a přesměrování provozu HTTP na aplikaci. Další informace naleznete v tématu <xref:fundamentals/servers/aspnet-core-module>.
 
 ::: moniker-end
 
 ### <a name="nginx-with-kestrel"></a>Server Nginx s Kestrel
 
-Informace o tom, jak použít Nginx jako reverzní proxy server pro Kestrel v Linuxu najdete v tématu [hostování v Linuxu se serverem Nginx na](xref:host-and-deploy/linux-nginx).
+Informace o tom, jak použít Nginx jako reverzní proxy server pro Kestrel v Linuxu najdete v tématu <xref:host-and-deploy/linux-nginx>.
 
 ### <a name="apache-with-kestrel"></a>Apache s Kestrel
 
-Informace o tom, jak používat Apache na platformě Linux jako reverzní proxy server pro Kestrel najdete v tématu [hostitele v Linuxu pomocí Apache](xref:host-and-deploy/linux-apache).
+Informace o tom, jak používat Apache na platformě Linux jako reverzní proxy server pro Kestrel najdete v tématu <xref:host-and-deploy/linux-apache>.
 
 ## <a name="httpsys"></a>HTTP.sys
 
 ::: moniker range=">= aspnetcore-2.0"
 
-Pokud aplikace ASP.NET Core běží na Windows, ovladač HTTP.sys se o alternativu k Kestrel. Kestrel obecně se doporučuje pro zajištění nejlepšího výkonu. Ovladač HTTP.sys lze použít v situacích, kdy aplikace je přístupný z Internetu a požadované funkce jsou podporovány, ale ne Kestrel HTTP.sys. Informace o souboru HTTP.sys, naleznete v tématu [HTTP.sys](xref:fundamentals/servers/httpsys).
+Pokud aplikace ASP.NET Core běží na Windows, ovladač HTTP.sys se o alternativu k Kestrel. Kestrel obecně se doporučuje pro zajištění nejlepšího výkonu. Ovladač HTTP.sys lze použít v situacích, kdy aplikace je přístupný z Internetu a požadované funkce jsou podporovány, ale ne Kestrel HTTP.sys. Další informace naleznete v tématu <xref:fundamentals/servers/httpsys>.
 
 ![Ovladač HTTP.sys komunikuje přímo s Internetem](httpsys/_static/httpsys-to-internet.png)
 

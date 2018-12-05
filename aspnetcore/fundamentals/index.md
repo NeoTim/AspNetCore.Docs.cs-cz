@@ -4,14 +4,14 @@ author: rick-anderson
 description: Seznamte se základními koncepty pro vytváření aplikací ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/25/2018
+ms.date: 12/01/2018
 uid: fundamentals/index
-ms.openlocfilehash: ab140051648c1640b3c4f382bfd8201c5c0c2039
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 8bd447632f915cadcc5199ec50b292ad27f6c3ba
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207469"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861582"
 ---
 # <a name="aspnet-core-fundamentals"></a>Základy ASP.NET Core
 
@@ -26,7 +26,7 @@ Aplikace ASP.NET Core je konzolová aplikace, která vytvoří webovým serverem
 * Načtení [.NET Core runtime](https://github.com/dotnet/coreclr).
 * První argument příkazového řádku používá jako cestu pro spravované binární soubor, který obsahuje vstupní bod (`Main`) a zahájí provádění kódu.
 
-V metodě `Main` se volá metoda [WebHost.CreateDefaultBuilder](xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*), která poskytuje implementaci návrhového vzoru [Builder](https://wikipedia.org/wiki/Builder_pattern) a umožňuje tak sestavení hostitele webové aplikace. Samotný Builder obsahuje metody, které specifikují webový server (například <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*>), který se má použít, a třídu pro spuštění (<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*>). Ve výše uvedeném příkladu je automaticky použit webový server [Kestrel](xref:fundamentals/servers/kestrel). ASP.NET Core se zároveň pokusí o spuštění aplikace ve službě IIS, pokud je k dispozici. Voláním patřičné rozšiřující metody je možné aplikaci hostovat i na jiných webových serverech, jako například [HTTP.sys](xref:fundamentals/servers/httpsys). `UseStartup` je vysvětleno v další části.
+V metodě `Main` se volá metoda [WebHost.CreateDefaultBuilder](xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*), která poskytuje implementaci návrhového vzoru [Builder](https://wikipedia.org/wiki/Builder_pattern) a umožňuje tak sestavení hostitele webové aplikace. Tvůrce obsahuje metody, které definují webového serveru (například <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*>) a třída při spuštění (<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*>). Ve výše uvedeném příkladu je automaticky použit webový server [Kestrel](xref:fundamentals/servers/kestrel). Webového hostitele ASP.NET Core se pokusí o spuštění [Internetové informační služby (IIS)](https://www.iis.net/), pokud je k dispozici. Voláním patřičné rozšiřující metody je možné aplikaci hostovat i na jiných webových serverech, jako například [HTTP.sys](xref:fundamentals/servers/httpsys). `UseStartup` je vysvětleno dále v [spuštění](#startup) oddílu.
 
 Typ <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder>, který je vrácen jako výsledek volání `WebHost.CreateDefaultBuilder`, obsahuje mnoho volitelných metod. Jednou z těchto metod je `UseHttpSys` pro hostování aplikace pomocí HTTP.sys a <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseContentRoot*> pro určení kořenového adresáře s obsahem. Metody <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder.Build*> a <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*> slouží k sestavení objektu <xref:Microsoft.AspNetCore.Hosting.IWebHost>, který je hostitelem aplikace, resp. zahájí naslouchání HTTP požadavků.
 
@@ -131,7 +131,50 @@ Další informace naleznete v tématu <xref:fundamentals/host/index>.
 
 ## <a name="servers"></a>Servery
 
-ASP.NET Core nenaslouchá přímo HTTP požadavkům. Spoléhá na HTTP server, který aplikaci předává jednotlivé požadavky. Předaný požadavek je zabalen do objektů, ke kterým je možné přistupovat skrz rozhraní. ASP.NET Core obsahuje zabudovaný multiplatformní webový server [Kestrel](xref:fundamentals/servers/kestrel). Kestrel může běžet v pozadí produkčního webového serveru, jako je například [IIS](https://www.iis.net/) nebo [Nginx](http://nginx.org). Kestrel můžete také spustit jako veřejnou hraniční server přístup přímo k Internetu v ASP.NET Core 2.0 nebo novější.
+ASP.NET Core nenaslouchá přímo HTTP požadavkům. Spoléhá na HTTP server, který aplikaci předává jednotlivé požadavky.
+
+::: moniker range=">= aspnetcore-2.2"
+
+# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+
+ASP.NET Core nabízí následující implementace serveru:
+
+* [Kestrel](xref:fundamentals/servers/kestrel) serveru je spravovaná, napříč platformami webový server. Pomocí konfigurace reverzního proxy serveru je často spustit kestrel [IIS](https://www.iis.net/). Kestrel můžete také spustit jako veřejnou hraniční server přístup přímo k Internetu v ASP.NET Core 2.0 nebo novější.
+* Server služby IIS protokolu HTTP (`IISHttpServer`) je [v procesu serveru služby IIS](xref:fundamentals/servers/aspnet-core-module#in-process-hosting-model).
+* [Ovladač HTTP.sys](xref:fundamentals/servers/httpsys) server je webový server pro ASP.NET Core ve Windows.
+
+# <a name="macostabmacos"></a>[macOS](#tab/macos)
+
+ASP.NET Core využívá [Kestrel](xref:fundamentals/servers/kestrel) implementaci serveru. Kestrel je spravovaná, napříč platformami webový server. Kestrel můžete také spustit jako veřejnou hraniční server přístup přímo k Internetu v ASP.NET Core 2.0 nebo novější.
+
+# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+
+ASP.NET Core využívá [Kestrel](xref:fundamentals/servers/kestrel) implementaci serveru. Kestrel je spravovaná, napříč platformami webový server. Kestrel často běží v konfiguraci reverzní proxy server s [Nginx](http://nginx.org) nebo [Apache](https://httpd.apache.org/). Kestrel můžete také spustit jako veřejnou hraniční server přístup přímo k Internetu v ASP.NET Core 2.0 nebo novější.
+
+---
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+
+ASP.NET Core nabízí následující implementace serveru:
+
+* [Kestrel](xref:fundamentals/servers/kestrel) serveru je spravovaná, napříč platformami webový server. Pomocí konfigurace reverzního proxy serveru je často spustit kestrel [IIS](https://www.iis.net/). Kestrel můžete také spustit jako veřejnou hraniční server přístup přímo k Internetu v ASP.NET Core 2.0 nebo novější.
+* [Ovladač HTTP.sys](xref:fundamentals/servers/httpsys) server je webový server pro ASP.NET Core ve Windows.
+
+# <a name="macostabmacos"></a>[macOS](#tab/macos)
+
+ASP.NET Core využívá [Kestrel](xref:fundamentals/servers/kestrel) implementaci serveru. Kestrel je spravovaná, napříč platformami webový server. Kestrel můžete také spustit jako veřejnou hraniční server přístup přímo k Internetu v ASP.NET Core 2.0 nebo novější.
+
+# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+
+ASP.NET Core využívá [Kestrel](xref:fundamentals/servers/kestrel) implementaci serveru. Kestrel je spravovaná, napříč platformami webový server. Kestrel často běží v konfiguraci reverzní proxy server s [Nginx](http://nginx.org) nebo [Apache](https://httpd.apache.org/). Kestrel můžete také spustit jako veřejnou hraniční server přístup přímo k Internetu v ASP.NET Core 2.0 nebo novější.
+
+---
+
+::: moniker-end
 
 Další informace naleznete v tématu <xref:fundamentals/servers/index>.
 

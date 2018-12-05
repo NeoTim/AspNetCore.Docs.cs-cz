@@ -2,46 +2,38 @@
 title: Přidání vyhledávání do ASP.NET Core Razor Pages
 author: rick-anderson
 description: Ukazuje, jak přidat vyhledávací technologie ASP.NET Core Razor Pages
-monikerRange: '>= aspnetcore-2.0'
+monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
-ms.date: 05/30/2018
+ms.date: 12/3/2018
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 80292f8cfecd5363fb8acc8578f9bb0ca9ee5969
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 0afd22be397f3f887fb6ce9718e01dc625548e71
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090160"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861950"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>Přidání vyhledávání do ASP.NET Core Razor Pages
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V tomto dokumentu, funkce vyhledávání je přidána na indexovou stránku, která umožňuje vyhledávání filmy podle *žánr* nebo *název*.
+[!INCLUDE[](~/includes/rp/download.md)]
+
+V následujících částech hledání filmy podle *žánr* nebo *název* je přidána.
 
 Přidejte následující zvýrazněný vlastnosti do *Pages/Movies/Index.cshtml.cs*:
 
-::: moniker range="= aspnetcore-2.0"
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie21/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
-
-::: moniker-end
-
-* `SearchString`: obsahuje uživatele zadejte do textového pole hledání text.
-* `Genres`: obsahuje seznam žánrů. To umožňuje uživateli vybrat rozšířením podle tematických ze seznamu.
+* `SearchString`: obsahuje uživatele zadejte do textového pole hledání text. `SearchString` je upravena pomocí [ `[BindProperty]` ](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) atribut. `[BindProperty]` vytvoří vazbu hodnot formuláře a řetězce dotazu se stejným názvem jako vlastnost. `(SupportsGet = true)` je potřebná pro svázání pro požadavky GET.
+* `Genres`: obsahuje seznam žánrů. `Genres` Umožňuje uživateli vybrat rozšířením podle tematických ze seznamu. `SelectList` vyžaduje `using Microsoft.AspNetCore.Mvc.Rendering;`
 * `MovieGenre`: obsahuje konkrétní žánr vybere uživatele (například "západní").
 
-Budete pracovat `Genres` a `MovieGenre` vlastnosti dále v tomto dokumentu.
+`Genres` a `MovieGenre` vlastnosti jsou používány později v tomto kurzu.
 
 Aktualizovat indexovou stránku `OnGetAsync` metodu s následujícím kódem:
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs?name=snippet_1stSearch)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_1stSearch)]
 
 První řádek `OnGetAsync` metoda vytvoří [LINQ](/dotnet/csharp/programming-guide/concepts/linq/) dotaz pro výběr videa:
 
@@ -53,21 +45,19 @@ var movies = from m in _context.Movie
 
 Dotaz je *pouze* definované v tomto okamžiku, má **není** byly spuštěny v rámci databáze.
 
-Pokud `searchString` parametr obsahuje řetězec, dotaz filmy je upravit tak, aby filtrování hledaný řetězec:
+Pokud `SearchString` vlastnost není null nebo je prázdný, je filmy dotaz upravit tak, aby filtrování hledaný řetězec:
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs?name=snippet_SearchNull)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_SearchNull)]
 
 `s => s.Title.Contains()` Kód je [výraz Lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Výrazy lambda se používají v založených na volání metody [LINQ](/dotnet/csharp/programming-guide/concepts/linq/) dotazuje jako argumenty pro standardní metody operátoru dotazu, jako [kde](/dotnet/csharp/programming-guide/concepts/linq/query-syntax-and-method-syntax-in-linq) metoda nebo `Contains` (používá se v předchozím kódu). Dotazy LINQ nejsou provedeny, když máte definovány, nebo data jejich voláním metody (například `Where`, `Contains` nebo `OrderBy`). Místo toho provádění dotazu je odloženo. To znamená, že vyhodnocení výrazu je zpožděna, dokud není procházen jeho očekávané hodnoty nebo `ToListAsync` metoda je volána. Zobrazit [provádění dotazu](/dotnet/framework/data/adonet/ef/language-reference/query-execution) Další informace.
 
 **Poznámka:** [obsahuje](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) metodu spustíte v databázi, není v kódu jazyka C#. Rozlišování velikosti písmen u dotazu, závisí na databázi a kolace. Na serveru SQL Server `Contains` mapuje na [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql), což je malá a velká písmena. V SQLite s výchozí kolace je velká a malá písmena.
 
-Nakonec poslední řádek `OnGetAsync` metoda naplní `SearchString` vlastnost s hodnotou hledání uživatele. S `SearchString` vlastnost naplnění hledané hodnotě se uchovávají do vyhledávacího pole po spuštění vyhledávání.
-
-Přejděte na stránku filmy a připojte řetězec dotazu jako `?searchString=Ghost` na adresu URL (například `http://localhost:5000/Movies?searchString=Ghost`). Zobrazují se filtrované filmy.
+Přejděte na stránku filmy a připojte řetězec dotazu jako `?searchString=Ghost` na adresu URL (například `https://localhost:5001/Movies?searchString=Ghost`). Zobrazují se filtrované filmy.
 
 ![Index zobrazení](search/_static/ghost.png)
 
-Pokud na indexovou stránku se přidá následující šablonu trasy, vyhledávací řetězec lze předat jako segment adresy URL (například `http://localhost:5000/Movies/Ghost`).
+Pokud na indexovou stránku se přidá následující šablonu trasy, vyhledávací řetězec lze předat jako segment adresy URL (například `https://localhost:5001/Movies/Ghost`).
 
 ```cshtml
 @page "{searchString?}"
@@ -77,13 +67,20 @@ Předcházející omezení trasy umožňuje hledání názvu jako data trasy (se
 
 ![Index zobrazení na mapách slovo ghost, přidá do adresy Url a vrácené film seznam dvou filmy, Ghostbusters a Ghostbusters 2](search/_static/g2.png)
 
+ASP.NET Core runtime používá [vazby modelu](xref:mvc/models/model-binding) nastavit hodnotu `SearchString` vlastnost z řetězce dotazu (`?searchString=Ghost`) nebo směrovat data (`https://localhost:5001/Movies/Ghost`). Vazby modelu se nerozlišují malá a velká písmena.
+
 Ale nemůžete očekávat, že uživatelům změnit adresu URL pro hledání videa. V tomto kroku se přidá uživatelského rozhraní pro filtrování videa. Pokud jste přidali dané omezení trasy `"{searchString?}"`, odeberte ji.
 
 Otevřít *Pages/Movies/Index.cshtml* a přidejte `<form>` značky v následujícím kódu zvýrazněno:
 
-[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index2.cshtml?highlight=14-19&range=1-22)]
+[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index2.cshtml?highlight=14-19&range=1-22)]
 
-Kód HTML `<form>` označení používá [pomocné rutiny značky formuláře](xref:mvc/views/working-with-forms#the-form-tag-helper). Když se odešle formulář, řetězec filtru posílá *stránek/filmy/Index* stránky. Uložte změny a filtr otestovat.
+Kód HTML `<form>` značky používá následující [pomocných rutin značek](xref:mvc/views/tag-helpers/intro):
+
+* [Pomocná rutina značky formuláře](xref:mvc/views/working-with-forms#the-form-tag-helper). Když se odešle formulář, řetězec filtru posílá *stránek/filmy/Index* stránky pomocí řetězce dotazu.
+* [Pomocná rutina značky vstupu](xref:mvc/views/working-with-forms#the-input-tag-helper)
+
+Uložte změny a filtr otestovat.
 
 ![Index zobrazení na mapách slovo ghost, zadaný do textového pole Název filtru](search/_static/filter.png)
 
@@ -91,31 +88,21 @@ Kód HTML `<form>` označení používá [pomocné rutiny značky formuláře](x
 
 Aktualizace `OnGetAsync` metodu s následujícím kódem:
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs?name=snippet_SearchGenre)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_SearchGenre)]
 
 Následující kód je dotaz LINQ, který načte všechny žánry z databáze.
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs?name=snippet_LINQ)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_LINQ)]
 
 `SelectList` Žánrů se vytvořila projekci odlišné žánrů.
 
-<!-- BUG in OPS
-Tag snippet_selectlist's start line '75' should be less than end line '29' when resolving "[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs?name=snippet_SelectList)]"
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_SelectList)]
 
-There's no start line.
-
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs?name=snippet_SelectList)]
--->
-
-```csharp
-Genres = new SelectList(await genreQuery.Distinct().ToListAsync());
-```
-
-### <a name="adding-search-by-genre"></a>Přidání vyhledávání podle žánru
+### <a name="add-search-by-genre-to-the-razor-page"></a>Přidat hledání podle žánru pro stránky Razor
 
 Aktualizace *Index.cshtml* následujícím způsobem:
 
-[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/IndexFormGenreNoRating.cshtml?highlight=16-18&range=1-26)]
+[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexFormGenreNoRating.cshtml?highlight=16-18&range=1-26)]
 
 Otestujte aplikaci tak, že žánr, název filmu a obě.
 

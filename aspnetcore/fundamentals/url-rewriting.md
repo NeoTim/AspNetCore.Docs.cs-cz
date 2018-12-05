@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/19/2018
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: 98787891a97e49081d72107484f030d216d82f45
-ms.sourcegitcommit: ad28d1bc6657a743d5c2fa8902f82740689733bb
+ms.openlocfilehash: 84052789717738a48c346d35d1a2642017a9ab93
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/20/2018
-ms.locfileid: "52256564"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861911"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware v ASP.NET Core přepisování adres URL
 
@@ -210,7 +210,7 @@ Následující `^rewrite-rule/` část výrazu, jsou dvě skupiny zachycení `(\
 Neexistuje žádné odezvy na server se získat prostředek. Pokud existuje prostředek se načíst a vrácen do klienta se *200 – OK* stavový kód. Protože klient není přesměrován, adresu URL v adresním řádku prohlížeče se nezmění. Klienty nelze rozpoznat, že na serveru došlo k operaci přepisování adres URL.
 
 > [!NOTE]
-> Použití `skipRemainingRules: true` vždy, když možné protože pravidel je výpočetně náročná a zkracuje dobu odezvy aplikace. Nejrychlejší odezvu aplikace:
+> Použití `skipRemainingRules: true` vždy, když možné protože pravidel je výpočetně náročná a zvyšuje doba odezvy aplikace. Nejrychlejší odezvu aplikace:
 >
 > * Pravidla z nejčastěji odpovídající pravidlo pro nejméně často odpovídající pravidlo pro přepis adres pořadí.
 > * Zpracování zbývající pravidla přeskočte, pokud je nalezena shoda, a je potřeba žádná další pravidla zpracování.

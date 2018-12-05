@@ -4,29 +4,29 @@ description: Zjistěte, jak nastavit službu Apache jako reverzní proxy server 
 author: spboyer
 ms.author: spboyer
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 12/01/2018
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: d0e36d0a73df43a26c03dc4154962240683817b5
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 46cdb764b872e86f0fd7d19133aae14891bdd452
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450811"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52862457"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Hostitele ASP.NET Core v Linuxu pomocí Apache
 
 Podle [Shayne Boyer](https://github.com/spboyer)
 
-Pomocí této příručky, zjistěte, jak nastavit [Apache](https://httpd.apache.org/) jako reverzní proxy server na [CentOS 7](https://www.centos.org/) pro přesměrování přenosu dat protokolu HTTP pro webovou aplikaci ASP.NET Core využívající [Kestrel](xref:fundamentals/servers/kestrel). [Mod_proxy rozšíření](http://httpd.apache.org/docs/2.4/mod/mod_proxy.html) a související moduly vytvořit reverzního proxy serveru.
+Pomocí této příručky, zjistěte, jak nastavit [Apache](https://httpd.apache.org/) jako reverzní proxy server na [CentOS 7](https://www.centos.org/) pro přesměrování přenosu dat protokolu HTTP pro webovou aplikaci ASP.NET Core využívající [Kestrel](xref:fundamentals/servers/kestrel) serveru. [Mod_proxy rozšíření](http://httpd.apache.org/docs/2.4/mod/mod_proxy.html) a související moduly vytvořit reverzního proxy serveru.
 
 ## <a name="prerequisites"></a>Požadavky
 
-1. Server se systémem CentOS 7 pomocí standardního uživatelského účtu s oprávněními sudo.
-1. Nainstalujte modul runtime .NET Core na serveru.
+* Server se systémem CentOS 7 pomocí standardního uživatelského účtu s oprávněními sudo.
+* Nainstalujte modul runtime .NET Core na serveru.
    1. Přejděte [.NET Core všechny soubory ke stažení stránky](https://www.microsoft.com/net/download/all).
    1. Vyberte nejnovější modul runtime – ve verzi preview ze seznamu **Runtime**.
    1. Vyberte a postupujte podle pokynů pro CentOS nebo Oracle.
-1. Stávající aplikace ASP.NET Core.
+* Stávající aplikace ASP.NET Core.
 
 ## <a name="publish-and-copy-over-the-app"></a>Publikování a zkopírujte myší na aplikaci
 

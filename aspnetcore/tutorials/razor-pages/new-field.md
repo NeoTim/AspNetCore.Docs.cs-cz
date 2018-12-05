@@ -5,25 +5,30 @@ description: Ukazuje, jak přidat nové pole do stránky Razor pomocí Entity Fr
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 12/5/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: f8be269887903797803257d8a21e002519102047
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: e280bc9553113982a1f1a77eabab32575c905237
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50089510"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52862288"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole do stránky v ASP.NET Core Razor
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V této části použijete [Entity Framework](/ef/core/get-started/aspnetcore/new-db) migrace Code First pro přidání nového pole do modelu a migraci, které změnit na databázi.
+[!INCLUDE[](~/includes/rp/download.md)]
+
+V této části [Entity Framework](/ef/core/get-started/aspnetcore/new-db) se používá k migrace Code First:
+
+* Přidání nového pole do modelu.
+* Migrace novou změnu schématu pole do databáze.
 
 Při použití automaticky vytvořit databázi, Code First EF Code First:
 
 * Přidá do databáze, kterou chcete sledovat, jestli je schéma databáze synchronizované s tříd modelu, které byly vygenerovány z tabulky.
-* Pokud nejsou synchronizované s databáze třídy modelu, EF vyvolá výjimku. 
+* Pokud nejsou synchronizované s databáze třídy modelu, EF vyvolá výjimku.
 
 Automatické ověření schématu a model synchronizované usnadňuje vyhledání potíží nekonzistentní databáze nebo kódu.
 
@@ -31,47 +36,29 @@ Automatické ověření schématu a model synchronizované usnadňuje vyhledán�
 
 Otevřít *Models/Movie.cs* a přidejte `Rating` vlastnost:
 
-::: moniker range="= aspnetcore-2.0"
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Models/MovieDateRating.cs?highlight=11&range=7-18)]
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie21/Models/MovieDateRating.cs?highlight=13&name=snippet)]
-
-::: moniker-end
-
-Vytvořte aplikaci (Ctrl + Shift + B).
+Sestavení aplikace.
 
 Upravit *Pages/Movies/Index.cshtml*a přidejte `Rating` pole:
 
-[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=40-42,61-63)]
+[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexRating.cshtml.?highlight=40-42,61-63)]
 
-Přidat `Rating` pole na stránkách Delete a podrobnosti.
+Aktualizace na následujících stránkách:
 
-Aktualizace *Create.cshtml* s `Rating` pole. Můžete zkopírovat a Vložit předchozí `<div>` aktualizujte pole elementu a umožňují nápovědy technologie intelliSense. Technologie IntelliSense funguje s [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).
-
-![Vývojář napsal písmeno R pro hodnotu atributu ASP-pro druhý popisek prvku zobrazení. Jeho ikona místní nabídku technologie Intellisense zobrazí dostupná pole, včetně hodnocení, který je zvýrazněn v seznamu automaticky. Když vývojář klikne pole nebo stiskne klávesu Enter na klávesnici, hodnota se nastaví na hodnocení.](new-field/_static/cr.png)
-
-Následující kód ukazuje *Create.cshtml* s `Rating` pole:
-
-[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Create.cshtml?highlight=36-40)]
-
-Přidat `Rating` pole na stránce Upravit.
+* Přidat `Rating` pole na stránkách Delete a podrobnosti.
+* Aktualizace [Create.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) s `Rating` pole.
+* Přidat `Rating` pole na stránce Upravit.
 
 Aplikace nebude fungovat, dokud databáze je aktualizováno, aby zahrnovalo nové pole. Je-li spustit, vyvolá aplikaci `SqlException`:
 
-```
-SqlException: Invalid column name 'Rating'.
-```
+`SqlException: Invalid column name 'Rating'.`
 
 Tato chyba je způsobena se liší od schématu tabulky Movie databáze třídy modelu aktualizované video. (Neexistuje žádný `Rating` sloupec v tabulce databáze.)
 
 Řešení chyby několika způsoby:
 
-1. Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi pomocí nové schéma třídy modelu. Tento přístup je vhodný v rané fázi vývojového cyklu; umožňuje rychlý rozvoj schématu modelu a databáze společně. Nevýhodou je, dojít ke ztrátě existujících dat v databázi. Nechcete tuto metodu použijte u provozní databáze. Vyřazení databáze na změny schématu a pomocí inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace.
+1. Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi pomocí nové schéma třídy modelu. Tento přístup je vhodný v rané fázi vývojového cyklu; umožňuje rychlý rozvoj schématu modelu a databáze společně. Nevýhodou je, dojít ke ztrátě existujících dat v databázi. Nepoužívejte tento postup u provozní databáze. Vyřazení databáze na změny schématu a pomocí inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace.
 
 2. Explicitně upravte schéma stávající databázi tak, aby odpovídalo tříd modelu. Výhodou tohoto přístupu je, že zachováte vaše data. Můžete tuto změnu provést buď ručně, nebo tak, že vytvoříte databázi změnit skript.
 
@@ -81,23 +68,18 @@ V tomto kurzu pomocí migrace Code First.
 
 Aktualizace `SeedData` třídy tak, že poskytuje hodnoty pro nový sloupec. Ukázka změnu je uveden níže, ale budete chtít tuto změnu pro každou `new Movie` bloku.
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-::: moniker range="= aspnetcore-2.0"
-
-Zobrazit [dokončit soubor SeedData.cs](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/Models/SeedDataRating.cs).
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
-Zobrazit [dokončit soubor SeedData.cs](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie21/Models/SeedDataRating.cs).
-
-::: moniker-end
+Zobrazit [dokončit soubor SeedData.cs](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).
 
 Sestavte řešení.
 
+<!-- VS -------------------------->
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
 <a name="pmc"></a>
+
+### <a name="add-a-migration-for-the-rating-field"></a>Přidejte migraci pro pole hodnocení
 
 Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet > Konzola správce balíčků**.
 V konzole PMC zadejte následující příkazy:
@@ -128,7 +110,40 @@ Při odstranění všech záznamů v databázi, bude inicializátoru naplnit dat
   Update-Database
   ```
 
-Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole. Pokud databáze není nasazený, zastavte službu IIS Express a pak spusťte aplikaci.
+<!-- Code -------------------------->
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+<!-- copy/paste this tab to the next. Not worth an include  --> SQLite nepodporuje migrace.
+
+* Odstranění databáze nebo změňte název databáze *appsettings.json* souboru.
+* Odstranit *migrace* složku (a všechny soubory ve složce).
+
+Spuštěním následujících příkazů rozhraní příkazového řádku .NET Core:
+
+```console
+dotnet ef migrations add Rating
+dotnet ef database update
+```
+
+<!-- Mac -------------------------->
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+
+SQLite nepodporuje migrace.
+
+* Odstranění databáze nebo změňte název databáze *appsettings.json* souboru.
+* Odstranit *migrace* složku (a všechny soubory ve složce).
+
+Spuštěním následujících příkazů rozhraní příkazového řádku .NET Core:
+
+```console
+dotnet ef migrations add Rating
+dotnet ef database update
+```
+
+---  
+<!-- End of VS tabs -->
+
+Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole. Pokud databáze není nasazený, nastavte zarážky `SeedData.Initialize` metody.
 
 > [!div class="step-by-step"]
 > [Předchozí: Přidání vyhledávací funkce](xref:tutorials/razor-pages/search)

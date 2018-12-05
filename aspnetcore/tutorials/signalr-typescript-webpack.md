@@ -2,17 +2,17 @@
 title: Použití funkce SignalR technologie ASP.NET Core s TypeScript a Webpacku
 author: ssougnez
 description: V tomto kurzu nakonfigurujete Webpacku k vytvoření balíčku a sestavit webovou aplikaci funkce SignalR technologie ASP.NET Core, jejichž klienta je napsána v TypeScript.
-monikerRange: '>= aspnetcore-2.1'
+monikerRange: '>= aspnetcore-2.2'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 06/29/2018
+ms.date: 11/30/2018
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: a7b39bbf657244db83e9d60014a5759000eb5f14
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: b2d59dfc449953cc2d747b507295c00ac0f652dd
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206949"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52862249"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>Použití funkce SignalR technologie ASP.NET Core s TypeScript a Webpacku
 
@@ -31,22 +31,7 @@ V tomto kurzu se naučíte:
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
-
-Nainstalujte následující software:
-
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-* [.NET core SDK 2.1 nebo novější](https://www.microsoft.com/net/download/all)
-* [Node.js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
-* [Visual Studio 2017](https://www.visualstudio.com/downloads/) verze 15.7.3 nebo novější s **vývoj pro ASP.NET a web** pracovního vytížení
-
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
-
-* [.NET core SDK 2.1 nebo novější](https://www.microsoft.com/net/download/all)
-* [Node.js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
-
----
+[!INCLUDE [Prerequisites](~/includes/net-core-prereqs-vs-vsc-2.2.md)]
 
 ## <a name="create-the-aspnet-core-web-app"></a>Vytvoření webové aplikace ASP.NET Core
 
@@ -54,18 +39,18 @@ Nainstalujte následující software:
 
 Konfigurace sady Visual Studio k vyhledání npm v *cesta* proměnné prostředí. Ve výchozím nastavení používá verzi npm nalezen v adresáři instalace sady Visual Studio. Postupujte podle těchto pokynů v sadě Visual Studio:
 
-1. Přejděte do **nástroje** > **možnosti** > **projekty a řešení** > **správy webových balíčků**  >  **Externí webové nástroje**.
-1. Vyberte *$(PATH)* položku seznamu. Klikněte na šipku nahoru přesunout položku na druhém pozici v seznamu. Jako aside první položka odkazuje na místní balíčky v projektu.
+1. Přejděte do **nástroje** > **možnosti** > **projekty a řešení** > **webové správy balíčků**  >  **Externí webové nástroje**.
+1. Vyberte *$(PATH)* položku seznamu. Klikněte na šipku nahoru přesunout položku na druhém pozici v seznamu.
 
     ![Konfigurace sady Visual Studio](signalr-typescript-webpack/_static/signalr-configure-path-visual-studio.png)
 
 Konfigurace Visual Studio je dokončen. Je čas vytvoření projektu.
 
 1. Použití **souboru** > **nový** > **projektu** nabídku a vyberte **webové aplikace ASP.NET Core** Šablona.
-1. Pojmenujte projekt *SignalRWebPack*a klikněte na tlačítko **OK** tlačítko.
-1. Vyberte *.NET Core* cílovém rozhraní rozevíracího seznamu a vyberte *ASP.NET Core 2.1* z rozevírací seznam pro výběr framework. Vyberte **prázdný** šablony a kliknutím **OK** tlačítko.
+1. Pojmenujte projekt *SignalRWebPack*a vyberte **OK**.
+1. Vyberte *.NET Core* cílovém rozhraní rozevíracího seznamu a vyberte *2.2 technologie ASP.NET Core* z rozevírací seznam pro výběr framework. Vyberte **prázdný** šablony a vyberte **OK**.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Spuštěním následujícího příkazu **integrovaný terminál**:
 
@@ -228,7 +213,7 @@ Potvrďte, že aplikace funguje pomocí následujících kroků.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. Spustit Webpacku *release* režimu. Použití **Konzola správce balíčků** okna, spusťte následující příkaz v kořenové složce projektu:
+1. Spustit Webpacku *release* režimu. Použití **Konzola správce balíčků** okna, spusťte následující příkaz v kořenové složce projektu. Pokud nejste v kořenové složce projektu, zadejte `cd SignalRWebPack` před zadáním příkazu.
 
     [!INCLUDE [npm-run-release](../includes/signalr-typescript-webpack/npm-run-release.md)]
 
@@ -238,7 +223,7 @@ Potvrďte, že aplikace funguje pomocí následujících kroků.
 
 1. Zvolte buď prohlížeče, zadejte v něco **zpráva** textového pole a klikněte na tlačítko **odeslat** tlačítko. Jedinečné uživatelské jméno a zpráva se zobrazí na obě stránky okamžitě.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 1. Spustit Webpacku *release* režimu spuštěním následujícího příkazu v kořenovém adresáři projektu:
 

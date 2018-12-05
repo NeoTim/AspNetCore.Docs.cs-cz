@@ -4,14 +4,14 @@ author: rick-anderson
 description: Další informace o ASP.NET Core middleware a kanál žádosti.
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/21/2018
+ms.date: 10/10/2018
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 6daf201654d68de978141f3dd42d48732c1161f7
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 4e5da1036b77e876899ccdea48bdec69454e1657
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570032"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861482"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -237,6 +237,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. *Pořadí* s
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků různého původu. | Před provedením komponent, které používají CORS. |
 | [Diagnostika](xref:fundamentals/error-handling) | Konfiguruje se Diagnostika. | Před provedením komponent, které generují chyby. |
 | [Přesměrovaná záhlaví](/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersextensions) | Předává záhlaví směrovány přes proxy server na aktuální žádost. | Před provedením komponent, které využívají aktualizovanými poli. Příklady: schéma, hostitele, IP adresu klienta, metoda. |
+| [Kontrola stavu](xref:host-and-deploy/health-checks) | Kontroluje stav aplikace ASP.NET Core a jeho závislosti, jako je například kontrola dostupnosti databáze. | Terminál, pokud požadavek odpovídá stav vrácení koncového bodu. |
 | [Přepsání metody HTTP](/dotnet/api/microsoft.aspnetcore.builder.httpmethodoverrideextensions) | Umožňuje příchozí požadavek POST k přepsání metody. | Před provedením komponent, které využívají aktualizované metody. |
 | [Přesměrování protokolu HTTPS](xref:security/enforcing-ssl#require-https) | Přesměrujte všechny požadavky HTTP na HTTPS (ASP.NET Core 2.1 nebo novější). | Před provedením komponent, které využívají adresu URL. |
 | [Zabezpečení striktní přenosu HTTP (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) | Zabezpečení vylepšení middleware, který přidá hlavičku odpovědi speciální (ASP.NET Core 2.1 nebo novější). | Předtím, než se posílají žádosti a po součásti, které mění žádosti. Příklady: Předané záhlaví, přepisování adres URL. |

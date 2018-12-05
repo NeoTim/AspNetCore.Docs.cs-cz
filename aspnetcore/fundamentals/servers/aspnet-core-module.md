@@ -1,17 +1,17 @@
 ---
 title: Modul ASP.NET Core
 author: guardrex
-description: Zjistěte, jak modul ASP.NET Core umožňuje webovému serveru Kestrel k použití jako reverzní proxy server služby IIS nebo IIS Express.
+description: Zjistěte, jak modul ASP.NET Core umožňuje Kestrel webový server pro použití služby IIS nebo IIS Express.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 09/21/2018
+ms.date: 11/30/2018
 uid: fundamentals/servers/aspnet-core-module
-ms.openlocfilehash: 39c1b364f9dab635c79e00561d212c858c0c4395
-ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
+ms.openlocfilehash: d3f3a42dd7aebc425905b865376a584bcf0e5153
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51191253"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861456"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -36,7 +36,7 @@ Podporované verze Windows:
 
 ::: moniker range=">= aspnetcore-2.2"
 
-Při hostování v procesu, modul obsahuje implementaci serveru pro svůj vlastní `IISHttpServer`.
+Při hostování v procesu, modul používá implementaci v procesový server služby IIS, HTTP serveru služby IIS (`IISHttpServer`).
 
 Při hostování mimo proces, modul funguje pouze s Kestrel. Modul je nekompatibilní s [HTTP.sys](xref:fundamentals/servers/httpsys) (dříve se označovaly jako [WebListener](xref:fundamentals/servers/weblistener)).
 
@@ -73,9 +73,9 @@ Následující diagram znázorňuje vztah mezi služby IIS, že modul ASP.NET Co
 
 ![Modul ASP.NET Core](aspnet-core-module/_static/ancm-inprocess.png)
 
-Žádost o přijetí z webu pro ovladač HTTP.sys režimu jádra. Ovladač přesměruje požadavek na nativní služby IIS na webu nakonfigurovaný port, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul obdrží požadavek na nativní a předá řízení k `IISHttpServer`, což je co převede žádosti z nativní do spravované.
+Žádost o přijetí z webu pro ovladač HTTP.sys režimu jádra. Ovladač přesměruje požadavek na nativní služby IIS na webu nakonfigurovaný port, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul obdrží požadavek na nativní a předává je na serveru služby IIS protokolu HTTP (`IISHttpServer`). Server služby IIS protokolu HTTP je implementace v rámci procesu serveru služby IIS, která převede žádosti z nativní do spravované.
 
-Po `IISHttpServer` příjmem požadavku, požadavek se vloží do kanálu middleware ASP.NET Core. Zpracuje požadavek a předává je jako middleware kanálu `HttpContext` instanci aplikace logiky. Odpověď aplikace je předán zpět do služby IIS, které nabízených oznámení je zpět klienta HTTP, který inicioval žádost.
+Po zpracování požadavku HTTP Server služby IIS požadavek odesílají do kanálu middleware ASP.NET Core. Zpracuje požadavek a předává je jako middleware kanálu `HttpContext` instanci aplikace logiky. Odpověď aplikace je předán zpět do služby IIS, které nabízených oznámení je zpět klienta, který inicioval žádost.
 
 ### <a name="out-of-process-hosting-model"></a>Model hostingu mimo proces
 

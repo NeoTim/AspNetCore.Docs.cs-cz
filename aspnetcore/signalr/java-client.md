@@ -5,14 +5,14 @@ description: Zjistěte, jak používat klientskou sadou Java funkce SignalR tech
 monikerRange: '>= aspnetcore-2.2'
 ms.author: mimengis
 ms.custom: mvc
-ms.date: 11/06/2018
+ms.date: 11/07/2018
 uid: signalr/java-client
-ms.openlocfilehash: 4ee4e61fc301ebeec4d95b1167f94f16c38f3ac5
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.openlocfilehash: 78ffdf7488c95b1cf84a249d6d08b6acd23ec208
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225418"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861755"
 ---
 # <a name="aspnet-core-signalr-java-client"></a>Klientskou sadou Java základní funkce SignalR technologie ASP.NET
 
@@ -75,6 +75,12 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 To můžete bezpečně ignorovat.
 
+## <a name="android-development-notes"></a>Poznámky k vývoji pro Android
+
+Při zadávání vaši cílovou verzi sady Android SDK, s ohledem na Kompatibilita sady Android SDK pro funkce klienta SignalR, zvažte následující body:
+
+* Funkce SignalR klientskou sadou Java se spustí na Android API úrovně 16 a později.
+* Připojení prostřednictvím služby Azure SignalR bude vyžadovat Android API úrovně 20 a novější vzhledem k tomu, [služby Azure SignalR](/azure/azure-signalr/signalr-overview) vyžaduje protokol TLS 1.2 a nepodporuje algoritmus SHA-1-based šifrovací sady. Android [přidali podporu pro SHA-256 (a novější) šifrovacích sad](https://developer.android.com/reference/javax/net/ssl/SSLSocket) v rozhraní API úrovně 20.
 
 ## <a name="configure-bearer-token-authentication"></a>Konfigurace ověřování nosného tokenu
 

@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak nakonfigurovat modul ASP.NET Core pro hostování aplikací ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2018
+ms.date: 12/01/2018
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 5a3fd9c3453c07ee550c7de0333c9a49d5d5d1af
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 0feb93c4cbda3a13421c3e120c6f6b7fab626541
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450655"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861599"
 ---
 # <a name="aspnet-core-module-configuration-reference"></a>Referenční informace o ASP.NET Core modulu Konfigurace
 
@@ -37,7 +37,7 @@ Jak nakonfigurovat aplikaci pro hostování v procesu, přidejte `<AspNetCoreHos
 
 Při hostování v procesu platí následující vlastnosti:
 
-* [Kestrel server](xref:fundamentals/servers/kestrel) se nepoužívá. Vlastní <xref:Microsoft.AspNetCore.Hosting.Server.IServer> implementaci `IISHttpServer` funguje jako server aplikace.
+* Server služby IIS protokolu HTTP (`IISHttpServer`) se použije namísto [Kestrel](xref:fundamentals/servers/kestrel) serveru. Server služby IIS protokolu HTTP (`IISHttpServer`) je další <xref:Microsoft.AspNetCore.Hosting.Server.IServer> implementace, který převádí nativní požadavků služby IIS technologie ASP.NET Core spravuje aplikace pro zpracování požadavků.
 
 * [RequestTimeout atribut](#attributes-of-the-aspnetcore-element) neplatí pro hostování v procesu.
 

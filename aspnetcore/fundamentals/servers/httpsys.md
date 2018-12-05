@@ -5,14 +5,14 @@ description: Další informace o souboru HTTP.sys, webový server pro ASP.NET Co
 monikerRange: '>= aspnetcore-2.0'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 12/01/2018
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: f5ab1a3cbd1020a5ab2bd64a81b5782fd116f069
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 8810fd295e8c4269812e712ce2fdc9b9fa2bbb4f
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450642"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861690"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace serveru HTTP.sys web v ASP.NET Core
 
@@ -21,7 +21,7 @@ Podle [Petr Dykstra](https://github.com/tdykstra), [Chris Ross](https://github.c
 > [!NOTE]
 > Toto téma se vztahuje na verzi ASP.NET Core 2.0 nebo novější. V dřívějších verzích sady ASP.NET Core, má název souboru HTTP.sys [WebListener](xref:fundamentals/servers/weblistener).
 
-[Ovladač HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webového serveru pro ASP.NET Core](xref:fundamentals/servers/index) pouze spuštěného na Windows. Ovladač HTTP.sys se o alternativu k [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
+[Ovladač HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webového serveru pro ASP.NET Core](xref:fundamentals/servers/index) pouze spuštěného na Windows. Ovladač HTTP.sys se o alternativu k [Kestrel](xref:fundamentals/servers/kestrel) serveru a nabízí některé funkce, aby Kestrel neposkytuje.
 
 > [!IMPORTANT]
 > Není kompatibilní s HTTP.sys [modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) a nelze jej použít s IIS nebo IIS Express.

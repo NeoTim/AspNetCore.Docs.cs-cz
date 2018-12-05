@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak chcete vyžadovat protokol HTTPS/TLS ve webové aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/18/2018
+ms.date: 12/01/2018
 uid: security/enforcing-ssl
-ms.openlocfilehash: d287d30203fbf367203afe65e05478806fafab34
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: b15c6b5ac77f047c40704c9e164165c55b6ae93b
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570045"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861521"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynucení protokolu HTTPS v ASP.NET Core
 
@@ -76,12 +76,12 @@ Zadejte port HTTPS pomocí kteréhokoli z následujících postupů:
   Při konfiguraci <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> v `Program`:
 
   [!code-csharp[](enforcing-ssl/sample-snapshot/Program.cs?name=snippet_Program&highlight=10)]
-* Označení portu pomocí zabezpečené schéma `ASPNETCORE_URLS` proměnné prostředí. Proměnná prostředí nakonfiguruje server. Middleware nepřímo zjistí port HTTPS přes <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>. (Nemá **není** práce v nasazeních reverzního proxy serveru.)
+* Označení portu pomocí zabezpečené schéma `ASPNETCORE_URLS` proměnné prostředí. Proměnná prostředí nakonfiguruje server. Middleware nepřímo zjistí port HTTPS přes <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>. Tento postup nefunguje v nasazeních reverzního proxy serveru.
 * Při vývoji, nastavte adresu URL HTTPS *launchsettings.json*. Povolení HTTPS, když se používá služba IIS Express.
-* Konfigurace koncového bodu adresy URL HTTPS nasazení veřejnou hraniční [Kestrel](xref:fundamentals/servers/kestrel) nebo [HTTP.sys](xref:fundamentals/servers/httpsys). Pouze **jeden port HTTPS** používají aplikaci. Middleware zjistí port přes <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>.
+* Konfigurace koncového bodu adresy URL HTTPS nasazení veřejnou hraniční [Kestrel](xref:fundamentals/servers/kestrel) serveru nebo [HTTP.sys](xref:fundamentals/servers/httpsys) serveru. Pouze **jeden port HTTPS** používají aplikaci. Middleware zjistí port přes <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>.
 
 > [!NOTE]
-> Při spuštění aplikace za reverzní proxy server (například služby IIS, IIS Express), `IServerAddressesFeature` není k dispozici. Port musí být ručně nakonfigurované. Pokud port není nastavena, přesměrování požadavků.
+> Při spuštění aplikace v konfiguraci reverzní proxy server, <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> není k dispozici. Nastavte port pomocí jednoho z jiných postupů popsaných v této části.
 
 Při Kestrel nebo ovladač HTTP.sys se používá jako veřejnou hraniční server, musí být Kestrel nebo ovladač HTTP.sys nakonfigurovaná k naslouchání na obojí:
 

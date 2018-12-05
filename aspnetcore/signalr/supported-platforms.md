@@ -5,14 +5,14 @@ description: Další informace o podporovaných platforem pro funkci SignalR tec
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/31/2018
+ms.date: 11/12/2018
 uid: signalr/supported-platforms
-ms.openlocfilehash: 773f6c020dbb2982911e177b55855473c750d52a
-ms.sourcegitcommit: fc2486ddbeb15ab4969168d99b3fe0fbe91e8661
+ms.openlocfilehash: be3d4d0049395fb2499bd0b4aac126e953ce7910
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2018
-ms.locfileid: "50758177"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861716"
 ---
 # <a name="aspnet-core-signalr-supported-platforms"></a>Funkce SignalR technologie ASP.NET Core podporované platformy
 
@@ -34,7 +34,7 @@ Funkce SignalR technologie ASP.NET Core podporuje serverová platforma, která p
  
 ## <a name="net-client"></a>.NET client
 
-[Klienta .NET](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) běží na libovolné platformě server podporuje ASP.NET Core.
+[Klienta .NET](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) běží na žádnou platformu podporovanou nástrojem ASP.NET Core. Například [Xamarin mohou vývojáři SignalR](https://github.com/aspnet/Announcements/issues/305) pro vytváření aplikací pro Android pomocí Xamarin.Android 8.4.0.1 a později a aplikace pro iOS pomocí Xamarin.iOS 11.14.0.4 a novější.
 
 Pokud na serveru běží služby IIS, přenosové protokoly Websocket vyžaduje službu IIS 8.0 nebo vyšší na Windows Server 2012 nebo vyšší. Jiné přenosy jsou podporované na všech platformách.
 

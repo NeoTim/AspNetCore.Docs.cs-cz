@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2018
 uid: mvc/controllers/filters
-ms.openlocfilehash: e5305852fad058961661373f9310d6dcaf30aa16
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: d25976af860ed8733c0548a4102e0095969b2ba6
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253192"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861846"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -252,7 +252,8 @@ Tento filtr lze použít na třídy nebo metody pomocí `[SampleActionFilter]` s
 
 ## <a name="authorization-filters"></a>Filtry autorizace
 
-* Filtry autorizace:
+*Filtry autorizace*:
+
 * Řízení přístupu na metody akce.
 * Jsou první filtry, který se spustí v rámci kanálu filtru. 
 * Máte před metodou, ale ne po metodě. 

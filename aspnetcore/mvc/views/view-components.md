@@ -3,14 +3,14 @@ title: Zobrazení komponenty v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak komponenty zobrazení se používají v ASP.NET Core a jejich přidání do aplikací.
 ms.author: riande
-ms.date: 02/14/2017
+ms.date: 12/03/2018
 uid: mvc/views/view-components
-ms.openlocfilehash: 91399acafb36f1f8759ed1783e70e59b631e3bf0
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: 5812abad80cd906d6b9a7175bd7cdefd03a99eb3
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253128"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52861326"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazení komponenty v ASP.NET Core
 
@@ -63,13 +63,13 @@ Zobrazení komponentní třída:
 
 ### <a name="view-component-methods"></a>Zobrazení komponenty metody
 
-Zobrazení komponenty definuje svou logikou v `InvokeAsync` metodu, která vrátí `IViewComponentResult`. Parametry pocházejí přímo z volání zobrazení komponenty, nikoli z vazby modelu. Zobrazení komponenty nikdy přímo zpracovává žádost. Obvykle inicializuje model zobrazení komponenty a předá ji do zobrazení voláním `View` metody. Stručně řečeno zobrazte metody komponenty:
+Zobrazení komponenty definuje svou logikou v `InvokeAsync` metodu, která vrací `Task<IViewComponentResult>` nebo v synchronního `Invoke` metodu, která vrátí `IViewComponentResult`. Parametry pocházejí přímo z volání zobrazení komponenty, nikoli z vazby modelu. Zobrazení komponenty nikdy přímo zpracovává žádost. Obvykle inicializuje model zobrazení komponenty a předá ji do zobrazení voláním `View` metody. Stručně řečeno zobrazte metody komponenty:
 
-* Definování `InvokeAsync` metodu, která vrací `IViewComponentResult`
-* Obvykle inicializuje model a předává je do zobrazení pomocí volání `ViewComponent` `View` – metoda
-* Parametry pocházejí z volání metody, ne HTTP, neexistuje žádná vazba modelu
-* Není dostupný přímo jako koncový bod HTTP, jsou už vyvolané z kódu (obvykle v zobrazení). Zobrazení komponenty nikdy zpracovává žádost
-* Jsou přetížené na podpis a nikoli na jakékoli podrobnosti z aktuální žádosti HTTP
+* Definování `InvokeAsync` metodu, která vrací `Task<IViewComponentResult>` nebo synchronního `Invoke` metodu, která vrátí `IViewComponentResult`.
+* Obvykle inicializuje model a předává je do zobrazení pomocí volání `ViewComponent` `View` metody.
+* Parametry pocházejí z volání metody, ne HTTP. Neexistuje žádná vazba modelu.
+* Nejsou dostupné přímo jako koncový bod HTTP. Se už vyvolána z uživatelského kódu (obvykle v zobrazení). Zobrazení komponenty nikdy zpracuje požadavek.
+* Jsou přetížené na podpis a nikoli na jakékoli podrobnosti z aktuální žádosti HTTP.
 
 ### <a name="view-search-path"></a>Zobrazení cesty pro hledání
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: fundamentals/servers/weblistener
-ms.openlocfilehash: eaf76a44bc7750aef94319042e61aa294c6cba35
-ms.sourcegitcommit: 09affee3d234cb27ea6fe33bc113b79e68900d22
+ms.openlocfilehash: 92a2e567e968cce59ba7b6f374ebd4bc189b81ee
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2018
-ms.locfileid: "51191266"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52862119"
 ---
 # <a name="weblistener-web-server-implementation-in-aspnet-core"></a>Implementace serveru WebListener web v ASP.NET Core
 
@@ -87,7 +87,7 @@ Existují také [nastavení registru Http.Sys](https://support.microsoft.com/kb/
 
 * Konfigurovat adresy URL a porty pro naslouchání 
 
-  Ve výchozím nastavení, ASP.NET Core váže k `http://localhost:5000`. Konfigurace předpony adres URL a portů, můžete použít `UseURLs` metody rozšíření `urls` argument příkazového řádku nebo systém konfigurace ASP.NET Core. Další informace najdete v tématu [hostitele v Core(xref:fundamentals/host/index) technologie ASP.NET.
+  Ve výchozím nastavení, ASP.NET Core váže k `http://localhost:5000`. Konfigurace předpony adres URL a portů, můžete použít `UseURLs` metody rozšíření `urls` argument příkazového řádku nebo systém konfigurace ASP.NET Core. Další informace najdete v tématu [hostitele v ASP.NET Core](xref:fundamentals/host/index).
 
   Web používá naslouchací proces [formáty řetězců předponu Http.Sys](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx). Nejsou žádné požadavky formátu řetězec předpony, které jsou specifické pro WebListener.
 
