@@ -2,54 +2,137 @@
 title: Aktualizovat generované stránky v aplikaci ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak aktualizovat generované stránky v aplikaci ASP.NET Core.
-monikerRange: '>= aspnetcore-2.0'
+monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
-ms.date: 05/30/2018
+ms.date: 12/3/2018
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: f47a68840a6307b69bc92a7b157037d91dce5422
-ms.sourcegitcommit: f5d403004f3550e8c46585fdbb16c49e75f495f3
+ms.openlocfilehash: b88dcd12ee670eb2e0919bdb07b9b7556a5b80e7
+ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/20/2018
-ms.locfileid: "49477212"
+ms.lasthandoff: 12/04/2018
+ms.locfileid: "52862405"
 ---
-# <a name="update-the-generated-pages-in-an-aspnet-core-app"></a><span data-ttu-id="d0452-103">Aktualizovat generované stránky v aplikaci ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="d0452-103">Update the generated pages in an ASP.NET Core app</span></span>
+# <a name="update-the-generated-pages-in-an-aspnet-core-app"></a><span data-ttu-id="2f56c-103">Aktualizovat generované stránky v aplikaci ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="2f56c-103">Update the generated pages in an ASP.NET Core app</span></span>
 
-<span data-ttu-id="d0452-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="d0452-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="2f56c-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="2f56c-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="d0452-105">Máme o dobrý začátek aplikace movie, ale v prezentaci není ideální.</span><span class="sxs-lookup"><span data-stu-id="d0452-105">We have a good start to the movie app, but the presentation isn't ideal.</span></span> <span data-ttu-id="d0452-106">Nechceme zobrazíte čas (12:00:00 dop. na následujícím obrázku) a **ReleaseDate** by měl být **datum vydání** (dvě slova).</span><span class="sxs-lookup"><span data-stu-id="d0452-106">We don't want to see the time (12:00:00 AM in the image below) and **ReleaseDate** should be **Release Date** (two words).</span></span>
+<span data-ttu-id="2f56c-105">Vygenerované filmová aplikace má dobrý začátek, ale v prezentaci není ideální.</span><span class="sxs-lookup"><span data-stu-id="2f56c-105">The scaffolded movie app has a good start, but the presentation isn't ideal.</span></span> <span data-ttu-id="2f56c-106">**Datum releaseDate** by měl být **datum vydání** (dvě slova).</span><span class="sxs-lookup"><span data-stu-id="2f56c-106">**ReleaseDate** should be **Release Date** (two words).</span></span>
 
-![Otevřít v prohlížeči Chrome ukazující data o filmech aplikace Movie](sql/_static/m55.png)
+![Otevřít v prohlížeči Chrome aplikace Movie](sql/_static/m55.png)
 
-## <a name="update-the-generated-code"></a><span data-ttu-id="d0452-108">Aktualizace generovaného kódu</span><span class="sxs-lookup"><span data-stu-id="d0452-108">Update the generated code</span></span>
+## <a name="update-the-generated-code"></a><span data-ttu-id="2f56c-108">Aktualizace generovaného kódu</span><span class="sxs-lookup"><span data-stu-id="2f56c-108">Update the generated code</span></span>
 
-<span data-ttu-id="d0452-109">Otevřít *Models/Movie.cs* a přidejte zvýrazněné řádky je znázorněno v následujícím kódu:</span><span class="sxs-lookup"><span data-stu-id="d0452-109">Open the *Models/Movie.cs* file and add the highlighted lines shown in the following code:</span></span>
+<span data-ttu-id="2f56c-109">Otevřít *Models/Movie.cs* a přidejte zvýrazněné řádky je znázorněno v následujícím kódu:</span><span class="sxs-lookup"><span data-stu-id="2f56c-109">Open the *Models/Movie.cs* file and add the highlighted lines shown in the following code:</span></span>
 
-::: moniker range="= aspnetcore-2.0"
+[!code-csharp[Main](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateFixed.cs?name=snippet_1&highlight=12,17)]
 
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/Models/MovieDate.cs?name=snippet_1&highlight=10-11)]
+<span data-ttu-id="2f56c-110">`[Column(TypeName = "decimal(18, 2)")]` Umožňuje anotaci dat Entity Framework Core správně mapovat `Price` měnu v databázi.</span><span class="sxs-lookup"><span data-stu-id="2f56c-110">The `[Column(TypeName = "decimal(18, 2)")]` data annotation enables Entity Framework Core to correctly map `Price` to currency in the database.</span></span> <span data-ttu-id="2f56c-111">Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).</span><span class="sxs-lookup"><span data-stu-id="2f56c-111">For more information, see [Data Types](/ef/core/modeling/relational/data-types).</span></span>
 
-::: moniker-end
+<span data-ttu-id="2f56c-112">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) se věnujeme v dalším kurzu.</span><span class="sxs-lookup"><span data-stu-id="2f56c-112">[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) is covered in the next tutorial.</span></span> <span data-ttu-id="2f56c-113">[Zobrazit](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) atribut určuje, co má být zobrazen pro název pole (v tomto případě "Datum vydání" místo "ReleaseDate").</span><span class="sxs-lookup"><span data-stu-id="2f56c-113">The [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) attribute specifies what to display for the name of a field (in this case "Release Date" instead of "ReleaseDate").</span></span> <span data-ttu-id="2f56c-114">[Datový typ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) atribut určuje typ dat (datum), takže se nezobrazí čas informací uložených v poli.</span><span class="sxs-lookup"><span data-stu-id="2f56c-114">The [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) attribute specifies the type of the data (Date), so the time information stored in the field isn't displayed.</span></span>
 
-::: moniker range=">= aspnetcore-2.1"
+<span data-ttu-id="2f56c-115">Přejděte na stránky/filmy a najeďte myší **upravit** odkaz zobrazíte cílové adrese URL.</span><span class="sxs-lookup"><span data-stu-id="2f56c-115">Browse to Pages/Movies and  hover over an **Edit** link to see the target URL.</span></span>
 
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie21/Models/MovieDate.cs?name=snippet_1&highlight=10-11,15)]
+![Okno prohlížeče pomocí myši nad odkaz pro úpravy a odkazem na adresu Url http://localhost:1234/Movies/Edit/5 se zobrazí](~/tutorials/razor-pages/da1/edit7.png)
 
-::: moniker-end
+<span data-ttu-id="2f56c-117">**Upravit**, **podrobnosti**, a **odstranit** vygeneroval odkazy [ukotvení pomocné rutiny značky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) v *stránek/filmy / Index.cshtml* souboru.</span><span class="sxs-lookup"><span data-stu-id="2f56c-117">The **Edit**, **Details**, and **Delete** links are generated by the [Anchor Tag Helper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) in the *Pages/Movies/Index.cshtml* file.</span></span>
 
-<span data-ttu-id="d0452-110">Klikněte pravým tlačítkem myši klikněte na červenou vlnovkou čáru > **rychlé akce a Refaktoringy**.</span><span class="sxs-lookup"><span data-stu-id="d0452-110">Right click on a red squiggly line > **Quick Actions and Refactorings**.</span></span>
+[!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
-  ![Zobrazí místní nabídku \*\* > rychlé akce a Refaktoringy \*\*.](da1/qa.png)
+<span data-ttu-id="2f56c-118">[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML.</span><span class="sxs-lookup"><span data-stu-id="2f56c-118">[Tag Helpers](xref:mvc/views/tag-helpers/intro) enable server-side code to participate in creating and rendering HTML elements in Razor files.</span></span> <span data-ttu-id="2f56c-119">V předchozím kódu `AnchorTagHelper` dynamicky generuje kód HTML `href` hodnotu atributu ze stránky Razor (trasy je relativní), `asp-page`a id tras (`asp-route-id`).</span><span class="sxs-lookup"><span data-stu-id="2f56c-119">In the preceding code, the `AnchorTagHelper` dynamically generates the HTML `href` attribute value from the Razor Page (the route is relative), the `asp-page`,  and the route id (`asp-route-id`).</span></span> <span data-ttu-id="2f56c-120">Zobrazit [generování adresy URL pro stránky](xref:razor-pages/index#url-generation-for-pages) Další informace.</span><span class="sxs-lookup"><span data-stu-id="2f56c-120">See [URL generation for Pages](xref:razor-pages/index#url-generation-for-pages) for more information.</span></span>
 
-<span data-ttu-id="d0452-112">Vyberte `using System.ComponentModel.DataAnnotations;`</span><span class="sxs-lookup"><span data-stu-id="d0452-112">Select `using System.ComponentModel.DataAnnotations;`</span></span>
+<span data-ttu-id="2f56c-121">Použití **zobrazit zdroj** z svůj oblíbený prohlížeč prozkoumat generovaného kódu.</span><span class="sxs-lookup"><span data-stu-id="2f56c-121">Use **View Source** from your favorite browser to examine the generated markup.</span></span> <span data-ttu-id="2f56c-122">Část generovaný kód HTML je zobrazena níže:</span><span class="sxs-lookup"><span data-stu-id="2f56c-122">A portion of the generated HTML is shown below:</span></span>
 
-  ![pomocí System.ComponentModel.DataAnnotations v horní části seznamu](da1/da.png)
+```html
+<td>
+  <a href="/Movies/Edit?id=1">Edit</a> |
+  <a href="/Movies/Details?id=1">Details</a> |
+  <a href="/Movies/Delete?id=1">Delete</a>
+</td>
+```
 
-  <span data-ttu-id="d0452-114">Visual Studio přidá `using System.ComponentModel.DataAnnotations;`.</span><span class="sxs-lookup"><span data-stu-id="d0452-114">Visual Studio adds `using System.ComponentModel.DataAnnotations;`.</span></span>
+<span data-ttu-id="2f56c-123">Dynamicky generovaná odkazy předají ID filmů s řetězcem dotazu (například `?id=1` v `https://localhost:5001/Movies/Details?id=1`).</span><span class="sxs-lookup"><span data-stu-id="2f56c-123">The dynamically-generated links pass the movie ID with a query string (for example, the `?id=1` in  `https://localhost:5001/Movies/Details?id=1`).</span></span>
 
-[!INCLUDE [model1](~/includes/RP/da2.md)]
+<span data-ttu-id="2f56c-124">Aktualizujte upravit, podrobnosti a odstranit Razor Pages použít šablonu trasy "{id: int}".</span><span class="sxs-lookup"><span data-stu-id="2f56c-124">Update the Edit, Details, and Delete Razor Pages to use the "{id:int}" route template.</span></span> <span data-ttu-id="2f56c-125">Změnit direktivě stránky pro každou z těchto stránek z `@page` k `@page "{id:int}"`.</span><span class="sxs-lookup"><span data-stu-id="2f56c-125">Change the page directive for each of these pages from `@page` to `@page "{id:int}"`.</span></span> <span data-ttu-id="2f56c-126">Spusťte aplikaci a pak zobrazte zdroj.</span><span class="sxs-lookup"><span data-stu-id="2f56c-126">Run the app and then view source.</span></span> <span data-ttu-id="2f56c-127">Generovaný kód jazyka HTML přidá ID část cesty adresy URL:</span><span class="sxs-lookup"><span data-stu-id="2f56c-127">The generated HTML adds the ID to the path portion of the URL:</span></span>
+
+```html
+<td>
+  <a href="/Movies/Edit/1">Edit</a> |
+  <a href="/Movies/Details/1">Details</a> |
+  <a href="/Movies/Delete/1">Delete</a>
+</td>
+```
+
+<span data-ttu-id="2f56c-128">Požadavek na stránku se šablona trasy "{id: int}", která provádí **není** zahrnují celé číslo, vrátí chybu HTTP 404 (Nenalezeno).</span><span class="sxs-lookup"><span data-stu-id="2f56c-128">A request to the page with the "{id:int}" route template that does **not** include the integer will return an HTTP 404 (not found) error.</span></span> <span data-ttu-id="2f56c-129">Například `http://localhost:5000/Movies/Details` vrátí chybu 404.</span><span class="sxs-lookup"><span data-stu-id="2f56c-129">For example, `http://localhost:5000/Movies/Details` will return a 404 error.</span></span> <span data-ttu-id="2f56c-130">Chcete-li nastavit ID volitelný, přidejte `?` pro dané omezení trasy:</span><span class="sxs-lookup"><span data-stu-id="2f56c-130">To make the ID optional, append `?` to the route constraint:</span></span>
+
+ ```cshtml
+@page "{id:int?}"
+```
+
+<span data-ttu-id="2f56c-131">K otestování chování nebo `@page "{id:int?}"`:</span><span class="sxs-lookup"><span data-stu-id="2f56c-131">To test the behavior or `@page "{id:int?}"`:</span></span>
+
+* <span data-ttu-id="2f56c-132">Nastavit direktivě stránky *Pages/Movies/Details.cshtml* do `@page "{id:int?}"`</span><span class="sxs-lookup"><span data-stu-id="2f56c-132">Set the page directive in *Pages/Movies/Details.cshtml* to `@page "{id:int?}"`</span></span>
+* <span data-ttu-id="2f56c-133">Nastavte zarážky `public async Task<IActionResult> OnGetAsync(int? id)` (v *Pages/Movies/Details.cshtml.cs*).</span><span class="sxs-lookup"><span data-stu-id="2f56c-133">Set a break point in `public async Task<IActionResult> OnGetAsync(int? id)` (in *Pages/Movies/Details.cshtml.cs*).</span></span>
+* <span data-ttu-id="2f56c-134">Přejděte na  `https://localhost:5001/Movies/Details/`</span><span class="sxs-lookup"><span data-stu-id="2f56c-134">Navigate to  `https://localhost:5001/Movies/Details/`</span></span>
+
+<span data-ttu-id="2f56c-135">S `@page "{id:int}"` direktiv, bodu přerušení je nikdy dosaženo.</span><span class="sxs-lookup"><span data-stu-id="2f56c-135">With the `@page "{id:int}"` directive, the break point is never hit.</span></span> <span data-ttu-id="2f56c-136">Modul směrování vrátit chybu HTTP 404.</span><span class="sxs-lookup"><span data-stu-id="2f56c-136">The routing engine return HTTP 404.</span></span> <span data-ttu-id="2f56c-137">Pomocí `@page "{id:int?}"`, `OnGetAsync` vrátí metoda `NotFound` (HTTP 404).</span><span class="sxs-lookup"><span data-stu-id="2f56c-137">Using `@page "{id:int?}"`, the `OnGetAsync` method returns `NotFound` (HTTP 404).</span></span>
+
+<span data-ttu-id="2f56c-138">Však není doporučena, můžete napsat metodu delete jako:</span><span class="sxs-lookup"><span data-stu-id="2f56c-138">Although not recommended, you could write the the delete method as:</span></span>
+
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Delete.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="2f56c-139">Předchozí kód testu:</span><span class="sxs-lookup"><span data-stu-id="2f56c-139">Test the preceding code:</span></span>
+
+* <span data-ttu-id="2f56c-140">Vyberte odkaz pro odstranění.</span><span class="sxs-lookup"><span data-stu-id="2f56c-140">Select a delete link.</span></span>
+* <span data-ttu-id="2f56c-141">Odeberte ID z adresy URL.</span><span class="sxs-lookup"><span data-stu-id="2f56c-141">Remove the ID from the URL.</span></span> <span data-ttu-id="2f56c-142">Například změnit `https://localhost:5001/Movies/Delete/8` do `https://localhost:5001/Movies/Delete`</span><span class="sxs-lookup"><span data-stu-id="2f56c-142">For example, change `https://localhost:5001/Movies/Delete/8` to `https://localhost:5001/Movies/Delete`</span></span>
+* <span data-ttu-id="2f56c-143">Krokovat kód v ladicím programu.</span><span class="sxs-lookup"><span data-stu-id="2f56c-143">Step through the code in the debugger.</span></span>
+
+### <a name="review-concurrency-exception-handling"></a><span data-ttu-id="2f56c-144">Kontrola zpracování výjimky souběžnosti</span><span class="sxs-lookup"><span data-stu-id="2f56c-144">Review concurrency exception handling</span></span>
+
+<span data-ttu-id="2f56c-145">Zkontrolujte `OnPostAsync` metoda ve *Pages/Movies/Edit.cshtml.cs* souboru:</span><span class="sxs-lookup"><span data-stu-id="2f56c-145">Review the `OnPostAsync` method in the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
+
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Edit.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="2f56c-146">Předchozí kód rozpozná výjimky souběžnosti, pokud jeden klient odstraní videa a další klient odešle změny videa.</span><span class="sxs-lookup"><span data-stu-id="2f56c-146">The previous code detects concurrency exceptions when the one client deletes the movie and the other client posts changes to the movie.</span></span>
+
+<span data-ttu-id="2f56c-147">K testování `catch` blok:</span><span class="sxs-lookup"><span data-stu-id="2f56c-147">To test the `catch` block:</span></span>
+
+* <span data-ttu-id="2f56c-148">Nastavení zarážky v `catch (DbUpdateConcurrencyException)`</span><span class="sxs-lookup"><span data-stu-id="2f56c-148">Set a breakpoint on `catch (DbUpdateConcurrencyException)`</span></span>
+* <span data-ttu-id="2f56c-149">Vyberte **upravit** pro videa, provést změny, ale nezadávejte **Uložit**.</span><span class="sxs-lookup"><span data-stu-id="2f56c-149">Select **Edit** for a movie, make changes, but don't enter **Save**.</span></span>
+* <span data-ttu-id="2f56c-150">V jiném okně prohlížeče, vyberte **odstranit** propojit pro stejný film a pak odstraňte video.</span><span class="sxs-lookup"><span data-stu-id="2f56c-150">In another browser window, select the **Delete** link for the same movie, and then delete the movie.</span></span>
+* <span data-ttu-id="2f56c-151">V předchozím okně prohlížeče se publikovat změny videa.</span><span class="sxs-lookup"><span data-stu-id="2f56c-151">In the previous browser window, post changes to the movie.</span></span>
+
+<span data-ttu-id="2f56c-152">Produkční kód může být vhodné k detekci konfliktů souběžnosti.</span><span class="sxs-lookup"><span data-stu-id="2f56c-152">Production code may want to detect concurrency conflicts.</span></span> <span data-ttu-id="2f56c-153">Zobrazit [zpracování konfliktů souběžnosti](xref:data/ef-rp/concurrency) Další informace.</span><span class="sxs-lookup"><span data-stu-id="2f56c-153">See [Handle concurrency conflicts](xref:data/ef-rp/concurrency) for more information.</span></span>
+
+### <a name="posting-and-binding-review"></a><span data-ttu-id="2f56c-154">Účtování a vazby revize</span><span class="sxs-lookup"><span data-stu-id="2f56c-154">Posting and binding review</span></span>
+
+<span data-ttu-id="2f56c-155">Zkontrolujte *Pages/Movies/Edit.cshtml.cs* souboru:</span><span class="sxs-lookup"><span data-stu-id="2f56c-155">Examine the *Pages/Movies/Edit.cshtml.cs* file:</span></span>
+
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Edit21.cshtml.cs?name=snippet2)]
+
+<span data-ttu-id="2f56c-156">Pokud je požadavek HTTP GET provedené na stránce videa nebo upravit (například `http://localhost:5000/Movies/Edit/2`):</span><span class="sxs-lookup"><span data-stu-id="2f56c-156">When an HTTP GET request is made to the Movies/Edit page (for example, `http://localhost:5000/Movies/Edit/2`):</span></span>
+
+* <span data-ttu-id="2f56c-157">`OnGetAsync` Metoda načítá videa z databáze a vrátí `Page` metody.</span><span class="sxs-lookup"><span data-stu-id="2f56c-157">The `OnGetAsync` method fetches the movie from the database and returns the `Page` method.</span></span> 
+* <span data-ttu-id="2f56c-158">`Page` Metoda vykreslí *Pages/Movies/Edit.cshtml* stránky Razor.</span><span class="sxs-lookup"><span data-stu-id="2f56c-158">The `Page` method renders the *Pages/Movies/Edit.cshtml* Razor Page.</span></span> <span data-ttu-id="2f56c-159">*Pages/Movies/Edit.cshtml* soubor obsahuje model – direktiva (`@model RazorPagesMovie.Pages.Movies.EditModel`), které zpřístupňuje model video na stránce.</span><span class="sxs-lookup"><span data-stu-id="2f56c-159">The *Pages/Movies/Edit.cshtml* file contains the model directive (`@model RazorPagesMovie.Pages.Movies.EditModel`), which makes the movie model available on the page.</span></span>
+* <span data-ttu-id="2f56c-160">Zobrazí se formulář pro úpravy s hodnotami z videa.</span><span class="sxs-lookup"><span data-stu-id="2f56c-160">The Edit form is displayed with the values from the movie.</span></span>
+
+<span data-ttu-id="2f56c-161">Při odeslání videa a upravovat stránky:</span><span class="sxs-lookup"><span data-stu-id="2f56c-161">When the Movies/Edit page is posted:</span></span>
+
+* <span data-ttu-id="2f56c-162">Hodnoty formuláře na stránce jsou vázány na `Movie` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="2f56c-162">The form values on the page are bound to the `Movie` property.</span></span> <span data-ttu-id="2f56c-163">`[BindProperty]` Atribut umožňuje [vazby modelu](xref:mvc/models/model-binding).</span><span class="sxs-lookup"><span data-stu-id="2f56c-163">The `[BindProperty]` attribute enables [Model binding](xref:mvc/models/model-binding).</span></span>
+
+  ```csharp
+  [BindProperty]
+  public Movie Movie { get; set; }
+  ```
+
+* <span data-ttu-id="2f56c-164">Pokud jsou ve stavu modelu chyby (například `ReleaseDate` nelze převést na datum), znovu odeslání formuláře pomocí zadané hodnoty.</span><span class="sxs-lookup"><span data-stu-id="2f56c-164">If there are errors in the model state (for example, `ReleaseDate` cannot be converted to a date), the form is posted again with the submitted values.</span></span>
+* <span data-ttu-id="2f56c-165">Pokud nejsou žádné chyby modelu, video se uloží.</span><span class="sxs-lookup"><span data-stu-id="2f56c-165">If there are no model errors, the movie is saved.</span></span>
+
+<span data-ttu-id="2f56c-166">Metody GET protokolu HTTP v indexu, vytvořit a odstranit Razor pages podle podobný vzorec.</span><span class="sxs-lookup"><span data-stu-id="2f56c-166">The HTTP GET methods in the Index, Create, and Delete Razor pages follow a similar pattern.</span></span> <span data-ttu-id="2f56c-167">HTTP POST `OnPostAsync` metody na stránce vytvořit Razor následuje podobný vzorec k `OnPostAsync` metody ve stránce Upravit Razor.</span><span class="sxs-lookup"><span data-stu-id="2f56c-167">The HTTP POST `OnPostAsync` method in the Create Razor Page follows a similar pattern to the `OnPostAsync` method in the Edit Razor Page.</span></span>
+
+<span data-ttu-id="2f56c-168">V dalším kurzu se přidá vyhledávání.</span><span class="sxs-lookup"><span data-stu-id="2f56c-168">Search is added in the next tutorial.</span></span>
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="d0452-115">[Předchozí: Práce s SQL Server LocalDB](xref:tutorials/razor-pages/sql)
-> [Další: doplnili o funkce hledání](xref:tutorials/razor-pages/search)</span><span class="sxs-lookup"><span data-stu-id="d0452-115">[Previous: Working with SQL Server LocalDB](xref:tutorials/razor-pages/sql)
+> <span data-ttu-id="2f56c-169">[Předchozí: Práce s databází](xref:tutorials/razor-pages/sql)
+> [Další: doplnili o funkce hledání](xref:tutorials/razor-pages/search)</span><span class="sxs-lookup"><span data-stu-id="2f56c-169">[Previous: Working with a database](xref:tutorials/razor-pages/sql)
 [Next: Add search](xref:tutorials/razor-pages/search)</span></span>

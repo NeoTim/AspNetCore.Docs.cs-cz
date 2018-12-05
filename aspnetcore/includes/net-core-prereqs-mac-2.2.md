@@ -1,0 +1,2 @@
+* [<span data-ttu-id="38c48-101">Visual Studio pro Mac verze 7,7 nebo novější</span><span class="sxs-lookup"><span data-stu-id="38c48-101">Visual Studio for Mac version 7.7 or later</span></span>](https://www.visualstudio.com/downloads/)
+* [<span data-ttu-id="38c48-102">.NET core SDK 2.2 nebo vyšší</span><span class="sxs-lookup"><span data-stu-id="38c48-102">.NET Core SDK 2.2 or later</span></span>](https://www.microsoft.com/net/download/all)
