@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 05/12/2018
 uid: razor-pages/index
-ms.openlocfilehash: 7fc048e427fd49e2142160615a12989fd4f40303
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: cc881ff42d57ab1654f492a70006a995939e4844
+ms.sourcegitcommit: 8a65f6c2cbe290fb2418eed58f60fb74c95392c8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207612"
+ms.lasthandoff: 12/05/2018
+ms.locfileid: "52892117"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do služby v ASP.NET Core Razor Pages
 
@@ -25,15 +25,15 @@ Tento dokument obsahuje úvod do stránky Razor. Není podrobný kurz. Pokud ně
 
 ## <a name="prerequisites"></a>Požadavky
 
-[!INCLUDE [](~/includes/net-core-prereqs.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
 
 <a name="rpvs17"></a>
 
-## <a name="creating-a-razor-pages-project"></a>Vytvoření projektu pro stránky Razor
+## <a name="create-a-razor-pages-project"></a>Vytvoření projektu pro stránky Razor
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Zobrazit [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) pro podrobné pokyny o tom, jak vytvářet stránky Razor projekt pomocí sady Visual Studio.
+Zobrazit [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) podrobné pokyny o tom, jak vytvořit projekt stránky Razor.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
@@ -65,23 +65,9 @@ Spustit `dotnet new razor` z příkazového řádku.
 
 ::: moniker-end
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
-
-::: moniker range=">= aspnetcore-2.1"
-
-Spustit `dotnet new webapp` z příkazového řádku.
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-Spustit `dotnet new razor` z příkazového řádku.
-
-::: moniker-end
-
 ---
 
-## <a name="razor-pages"></a>Stránky Razor
+## <a name="razor-pages"></a>Razor Pages
 
 Stránky Razor je povolený v *Startup.cs*:
 
@@ -117,7 +103,7 @@ Poznámky:
 * Modul runtime vyhledá soubory Razor Pages *stránky* složky ve výchozím nastavení.
 * `Index` Když neobsahuje adresu URL stránky, je výchozí stránka.
 
-## <a name="writing-a-basic-form"></a>Zápis základní formulář
+## <a name="write-a-basic-form"></a>Zápis základní formulář
 
 Stránky Razor je navržená tak, aby běžné vzory, které se používají u webových prohlížečů snadno se implementuje při sestavování aplikace. [Vazby modelu](xref:mvc/models/model-binding), [pomocných rutin značek](xref:mvc/views/tag-helpers/intro)a všechny pomocných rutin HTML *jenom pracovní* pomocí vlastnosti definované ve třídě stránky Razor. Vezměte v úvahu, který implementuje "kontaktujte nás" formuláře pro základní stránku `Contact` modelu:
 
@@ -173,10 +159,7 @@ Když odeslané formuláře došlo k chybám ověřování, (, které se předá
 
 Stránky Razor, ve výchozím nastavení, vázat vlastnosti pouze s příkazy bez GET. Vytvoření vazby na vlastnosti může snížit množství kódu, který musíte napsat. Vazba snižuje kódu pomocí stejné vlastnosti k vykreslení pole formuláře (`<input asp-for="Customer.Name" />`) a přijměte vstupu.
 
-> [!NOTE]
-> Z bezpečnostních důvodů musíte připojíte k vytvoření vazby data požadavku GET na vlastnosti modelu. Ověření vstupu uživatele před mapování na vlastnosti. Vyjádření výslovného souhlasu s toto chování je užitečné, když adresování scénáře, které jsou závislé na řetězec nebo trasy hodnoty dotazu.
->
-> Chcete-li vytvořit vazbu vlastnosti pro požadavky GET, nastavte `[BindProperty]` atributu `SupportsGet` vlastnost `true`: `[BindProperty(SupportsGet = true)]`
+[!INCLUDE[](~/includes/bind-get.md)]
 
 Na domovské stránce (*Index.cshtml*):
 
@@ -242,11 +225,11 @@ Vlastnosti `PageModel` může být doplněny pomocí [vyžaduje](/dotnet/api/sys
 
 [!code-cs[](index/sample/Create.cshtml.cs?highlight=3,15-16)]
 
-Zobrazit [ověření modelu](xref:mvc/models/validation) Další informace.
+Další informace najdete v tématu [ověření modelu](xref:mvc/models/validation).
 
 ## <a name="manage-head-requests-with-the-onget-handler"></a>Spravovat požadavky HEAD s obslužnou rutinou OnGet
 
-Požadavky HEAD umožňují načíst hlavičky pro konkrétní prostředek. Na rozdíl od požadavků GET HEAD požadavky nevracejte tělo odpovědi. 
+Požadavky HEAD umožňují načíst hlavičky pro konkrétní prostředek. Na rozdíl od požadavků GET HEAD požadavky nevracejte tělo odpovědi.
 
 Obslužnou rutinu HEAD je obvykle vytvořen a volat pro požadavky HEAD: 
 
@@ -477,7 +460,7 @@ Následující kód v *Pages/Customers/Index.cshtml* souboru zobrazí hodnotu `M
 public string Message { get; set; }
 ```
 
-Zobrazit [TempData](xref:fundamentals/app-state#tempdata) Další informace.
+Další informace najdete v tématu [TempData](xref:fundamentals/app-state#tempdata) .
 
 <a name="mhpp"></a>
 ## <a name="multiple-handlers-per-page"></a>Na stránce více obslužných rutin

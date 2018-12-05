@@ -7,12 +7,12 @@ ms.author: mimengis
 ms.custom: mvc
 ms.date: 11/07/2018
 uid: signalr/java-client
-ms.openlocfilehash: 78ffdf7488c95b1cf84a249d6d08b6acd23ec208
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: d0eff38c1f622b896ed1dc3002238aec7b6bfd38
+ms.sourcegitcommit: 8a65f6c2cbe290fb2418eed58f60fb74c95392c8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861755"
+ms.lasthandoff: 12/05/2018
+ms.locfileid: "52892091"
 ---
 # <a name="aspnet-core-signalr-java-client"></a>Klientskou sadou Java základní funkce SignalR technologie ASP.NET
 
@@ -26,13 +26,12 @@ Konzolovou aplikaci Java vzorku, který odkazuje tento článek používá klien
 
 ## <a name="install-the-signalr-java-client-package"></a>Instalace balíčku pro klienta SignalR Java
 
-*Signalr 1.0.0 preview3 35501* soubor JAR umožňuje klientům připojení k rozbočovačům SignalR. Číslo verze nejnovější soubor JAR, najdete v tématu [výsledky hledání Maven](https://search.maven.org/search?q=g:com.microsoft.signalr%20AND%20a:signalr).
+*Signalr 1.0.0* soubor JAR umožňuje klientům připojení k rozbočovačům SignalR. Číslo verze nejnovější soubor JAR, najdete v tématu [výsledky hledání Maven](https://search.maven.org/search?q=g:com.microsoft.signalr%20AND%20a:signalr).
 
 Pokud používáte Gradle, přidejte následující řádek, který `dependencies` část vaší *build.gradle* souboru:
 
 ```gradle
-implementation 'com.microsoft.signalr:signalr:1.0.0-preview3-35501'
-implementation 'io.reactivex.rxjava2:rxjava:2.2.2'
+implementation 'com.microsoft.signalr:signalr:1.0.0'
 ```
 
 Pokud pomocí nástroje Maven, přidejte následující řádky uvnitř `<dependencies>` prvek vaše *pom.xml* souboru:
@@ -95,8 +94,6 @@ HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
 ```
 
 ## <a name="known-limitations"></a>Známá omezení
-
-Toto je verze preview služby klientskou sadou Java. Některé funkce nejsou podporovány:
 
 * Pouze protokol JSON je podporován.
 * Je podporován pouze přenosu objekty Websocket.

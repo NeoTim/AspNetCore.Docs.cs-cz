@@ -1,16 +1,11 @@
-::: moniker range=">= aspnetcore-2.1"
-
-Klikněte pravým tlačítkem myši klikněte na červenou vlnovkou čáru > **rychlé akce a Refaktoringy** na `[Column]` atribute a vyberte `using System.ComponentModel.DataAnnotations.Schema;`
 
 `[Column(TypeName = "decimal(18, 2)")]` Anotace dat se vyžaduje, aby správně můžete mapovat Entity Framework Core `Price` měnu v databázi. Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).
 
 Dokončené modelu:
 
-[!code-csharp[Main](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie21/Models/MovieDateFixed.cs?name=snippet_1)]
+[!code-csharp[Main](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateFixed.cs?name=snippet_1)]
 
-::: moniker-end
-
-Probereme [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) v dalším kurzu. [Zobrazit](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) atribut určuje, co má být zobrazen pro název pole (v tomto případě "Datum vydání" místo "ReleaseDate"). [Datový typ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) atribut určuje typ dat (datum), takže se nezobrazí čas informací uložených v poli.
+[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) se věnujeme v dalším kurzu. [Zobrazit](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) atribut určuje, co má být zobrazen pro název pole (v tomto případě "Datum vydání" místo "ReleaseDate"). [Datový typ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) atribut určuje typ dat (datum), takže se nezobrazí čas informací uložených v poli.
 
 Přejděte na stránky/filmy a najeďte myší **upravit** odkaz zobrazíte cílové adrese URL.
 
@@ -69,23 +64,11 @@ K testování `catch` blok:
 
 Produkční kód by obvykle zjišťování konfliktů souběžnosti, pokud dvě nebo víc klientů současně aktualizuje záznam. Zobrazit [zpracování konfliktů souběžnosti](xref:data/ef-rp/concurrency) Další informace.
 
-::: moniker-end
-
 ### <a name="posting-and-binding-review"></a>Účtování a vazby revize
 
 Zkontrolujte *Pages/Movies/Edit.cshtml.cs* souboru:
 
-::: moniker range="= aspnetcore-2.0"
-
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Edit.cshtml.cs?name=snippet2)]
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Edit21.cshtml.cs?name=snippet2)]
-
-::: moniker-end
 
 Pokud je požadavek HTTP GET provedené na stránce videa nebo upravit (například `http://localhost:5000/Movies/Edit/2`):
 
