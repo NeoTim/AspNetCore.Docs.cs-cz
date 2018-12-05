@@ -6,24 +6,31 @@
 # [Začínáme](xref:getting-started)
 
 # Kurzy
+## [Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
 ## Webové aplikace
 ### Razor Pages
-#### [S využitím sady Visual Studio](xref:tutorials/razor-pages/index)
-#### [S využitím editoru Visual Studio Code](xref:tutorials/razor-pages-vsc/index)
-#### [S využitím sady Visual Studio pro Mac](xref:tutorials/razor-pages-mac/index)
+#### [Úvod do Razor Pages](xref:razor-pages/index)
+
+#### [Kurz k Razor Pages](xref:tutorials/razor-pages/index)
+##### [Začínáme](xref:tutorials/razor-pages/razor-pages-start)
+##### [Přidání modelu](xref:tutorials/razor-pages/model)
+##### [Generování uživatelského rozhraní](xref:tutorials/razor-pages/page)
+##### [Práce s databázemi](xref:tutorials/razor-pages/sql)
+##### [Aktualizace stránek](xref:tutorials/razor-pages/da1)
+##### [Přidání vyhledávání](xref:tutorials/razor-pages/search)
+##### [Přidání nového pole](xref:tutorials/razor-pages/new-field)
+##### [Přidání ověřování](xref:tutorials/razor-pages/validation)
+
 ### MVC
 #### [S využitím sady Visual Studio](xref:tutorials/first-mvc-app/index)
 #### [S využitím editoru Visual Studio Code](xref:tutorials/first-mvc-app-xplat/index)
 #### [S využitím sady Visual Studio pro Mac](xref:tutorials/first-mvc-app-mac/index)
-## Webová rozhraní API
-### [S využitím sady Visual Studio](xref:tutorials/first-web-api)
-### [S využitím editoru Visual Studio Code](xref:tutorials/web-api-vsc)
-### [S využitím sady Visual Studio pro Mac](xref:tutorials/first-web-api-mac)
-### [Pro nativní mobilní aplikace](xref:mobile/native-mobile-backend)
-### [S využitím MongoDB](xref:tutorials/first-mongo-app)
+
 ## Webové aplikace v reálném čase
 ### [SignalR s JavaScriptem](xref:tutorials/signalr)
 ### [SignalR s TypeScriptem](xref:tutorials/signalr-typescript-webpack)
+## [Vytváření back-endových služeb pro nativní mobilní aplikace](xref:mobile/native-mobile-backend)
+
 ## Přístup k datům
 ### [EF Core s Razor Pages](xref:data/ef-rp/index)
 ### [EF Core s MVC, existující databáze](/ef/core/get-started/aspnetcore/existing-db)
@@ -58,33 +65,16 @@
 # Webové aplikace
 ## Razor Pages
 ### [Přehled](xref:razor-pages/index)
-### Kurzy
-#### Razor Pages se sadou Visual Studio
-##### [Přehled](xref:tutorials/razor-pages/index)
-##### [Začínáme](xref:tutorials/razor-pages/razor-pages-start)
-##### [Přidání modelu](xref:tutorials/razor-pages/model)
-##### [Generování uživatelského rozhraní](xref:tutorials/razor-pages/page)
-##### [SQL Server](xref:tutorials/razor-pages/sql)
-##### [Aktualizace stránek](xref:tutorials/razor-pages/da1)
-##### [Přidání vyhledávání](xref:tutorials/razor-pages/search)
-##### [Přidání nového pole](xref:tutorials/razor-pages/new-field)
-##### [Přidání ověřování](xref:tutorials/razor-pages/validation)
-#### Razor Pages s editorem Visual Studio Code
-##### [Přehled](xref:tutorials/razor-pages-vsc/index)
-##### [Začínáme se stránkami Razor](xref:tutorials/razor-pages-vsc/razor-pages-start)
-##### [Přidání modelu](xref:tutorials/razor-pages-vsc/model)
-##### [Vygenerované stránky Razor](xref:tutorials/razor-pages-vsc/page)
-##### [Práce s SQLite](xref:tutorials/razor-pages-vsc/sql)
-##### [Aktualizace stránek](xref:tutorials/razor-pages-vsc/da1)
-##### [Přidání vyhledávání](xref:tutorials/razor-pages-vsc/search)
-#### Razor Pages se sadou Visual Studio pro Mac
-##### [Přehled](xref:tutorials/razor-pages-mac/index)
-##### [Začínáme se stránkami Razor](xref:tutorials/razor-pages-mac/razor-pages-start)
-##### [Přidání modelu](xref:tutorials/razor-pages-mac/model)
-##### [Vygenerované stránky Razor](xref:tutorials/razor-pages-mac/page)
-##### [Práce s SQLite](xref:tutorials/razor-pages-mac/sql)
-##### [Aktualizace stránek](xref:tutorials/razor-pages-mac/da1)
-##### [Přidání vyhledávání](xref:tutorials/razor-pages-mac/search)
+### [Kurz k Razor Pages](xref:tutorials/razor-pages/index)
+#### [Začínáme](xref:tutorials/razor-pages/razor-pages-start)
+#### [Přidání modelu](xref:tutorials/razor-pages/model)
+#### [Generování uživatelského rozhraní](xref:tutorials/razor-pages/page)
+#### [Práce s databázemi](xref:tutorials/razor-pages/sql)
+#### [Aktualizace stránek](xref:tutorials/razor-pages/da1)
+#### [Přidání vyhledávání](xref:tutorials/razor-pages/search)
+#### [Přidání nového pole](xref:tutorials/razor-pages/new-field)
+#### [Přidání ověřování](xref:tutorials/razor-pages/validation)
+
 ### [Filtry](xref:razor-pages/filter)
 ### [Knihovny RCL (Razor Class Library)](xref:razor-pages/ui-class)
 ### [Směrování a aplikační konvence](xref:razor-pages/razor-pages-conventions)
@@ -99,7 +89,7 @@
 ##### [Přidání kontroleru](xref:tutorials/first-mvc-app/adding-controller)
 ##### [Přidání zobrazení](xref:tutorials/first-mvc-app/adding-view)
 ##### [Přidání modelu](xref:tutorials/first-mvc-app/adding-model)
-##### [Práce s SQL Serverem](xref:tutorials/first-mvc-app/working-with-sql)
+##### [Práce s databázemi](xref:tutorials/first-mvc-app/working-with-sql)
 ##### [Akce a zobrazení kontroleru](xref:tutorials/first-mvc-app/controller-methods-views)
 ##### [Přidání vyhledávání](xref:tutorials/first-mvc-app/search)
 ##### [Přidání nového pole](xref:tutorials/first-mvc-app/new-field)
@@ -174,12 +164,9 @@
 
 # Webová rozhraní API
 ## [Přehled](xref:web-api/index)
-## Kurzy
-### [Web API se sadou Visual Studio](xref:tutorials/first-web-api)
-### [Web API s editorem Visual Studio Code](xref:tutorials/web-api-vsc)
-### [Web API se sadou Visual Studio pro Mac](xref:tutorials/first-web-api-mac)
-### [Web API pro nativní mobilní aplikace](xref:mobile/native-mobile-backend)
-### [Web API s MongoDB](xref:tutorials/first-mongo-app)
+
+## [Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
+
 ## Swagger / OpenAPI
 ### [Přehled](xref:tutorials/web-api-help-pages-using-swagger)
 ### [Začínáme se službou Swashbuckle](xref:tutorials/get-started-with-swashbuckle)
@@ -187,6 +174,7 @@
 ## [Návratové typy akcí](xref:web-api/action-return-types)
 ## [Formátování dat odpovědi](xref:web-api/advanced/formatting)
 ## [Vlastní formátovací moduly](xref:web-api/advanced/custom-formatters)
+
 ## [Analyzátory](xref:web-api/advanced/analyzers)
 ## [Konvence](xref:web-api/advanced/conventions)
 
@@ -209,7 +197,6 @@
 ### [Referenční dokumentace k rozhraní API v Javě](/java/api/com.microsoft.signalr?view=aspnet-signalr-java)
 ### [Klient JavaScriptu](xref:signalr/javascript-client)
 ### [Referenční dokumentace k rozhraní API v JavaScriptu](/javascript/api/?view=signalr-js-latest)
-### [WebPack a TypeScript](xref:tutorials/signalr-typescript-webpack)
 ## Hostování a škálování
 ### [Přehled](xref:signalr/scale)
 ### [Služba Azure SignalR](/azure/azure-signalr/signalr-overview)
@@ -319,6 +306,7 @@
 ## [Publikační profily v sadě Visual Studio](xref:host-and-deploy/visual-studio-publish-profiles)
 ## [Adresářová struktura](xref:host-and-deploy/directory-structure)
 ## [Referenční informace k chybám u služeb Azure App Service a IIS](xref:host-and-deploy/azure-iis-errors-reference)
+## [Kontroly stavu](xref:host-and-deploy/health-checks)
 
 # Zabezpečení a identita
 ## [Přehled](xref:security/index)
@@ -455,6 +443,7 @@
 ### [Z modulů HTTP do middlewaru](xref:migration/http-modules)
 
 # Co je nového
+## [Novinky ve verzi 2.2](xref:aspnetcore-2.2)
 ## [Novinky ve verzi 2.1](xref:aspnetcore-2.1)
 ## [Novinky ve verzi 2.0](xref:aspnetcore-2.0)
 ## [Novinky ve verzi 1.1](xref:aspnetcore-1.1)
