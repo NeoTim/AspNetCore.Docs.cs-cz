@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/03/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: 7429cb725a630c080690d81ec75d291bf48be2fc
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: d0bb0698526e2f7af8f0e99b0393f3ce48657b34
+ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862757"
+ms.lasthandoff: 12/05/2018
+ms.locfileid: "52952054"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2.2
 
@@ -23,14 +23,23 @@ Otevřené rozhraní API (také označované jako Swagger) je specifikace bez oh
 
 Další informace naleznete v následujících materiálech:
 
-* <xref:tutorials/web-api-help-pages-using-swagger>
-* [ASP.NET Core 2.2.0-preview1: otevřít rozhraní API analyzátorů & konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/).
+* <xref:web-api/advanced/analyzers>
+* <xref:web-api/advanced/conventions>
+* [ASP.NET Core 2.2.0-preview1: otevřít rozhraní API analyzátorů & konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
+
+## <a name="problem-details-support"></a>Podrobnosti o problému podpory
+
+ASP.NET Core 2.1 zavedené `ProblemDetails`závislosti na specifikaci RFC 7807 pro provádění podrobnosti o chybě se odpověď HTTP. 2.2 `ProblemDetails` je standardní odpověď pro klienta kódy chyb v řadiče s `ApiControllerAttribute`. `IActionResult` Vrátí chyba stavový kód (4xx) nyní vrátí klientovi `ProblemDetails` textu. Výsledek bude obsahovat také Identifikátor korelace, který lze použít ke korelaci chyb pomocí protokolů z požadavku. Chyby klienta `ProducesResponseType` výchozí hodnota je pomocí `ProblemDetails` jako typ odpovědi. To je popsána v Open API / Swagger výstupní vygenerované pomocí službou NSwag nebo Swashbuckle.AspNetCore.
 
 ## <a name="endpoint-routing"></a>Koncový bod směrování
 
-ASP.NET Core 2.2 používá nový *koncový bod směrování* systému pro lepší odesílání požadavků. Mezi tyto změny patří nové propojení členy generování rozhraní API.
+ASP.NET Core 2.2 používá nový *koncový bod směrování* systému pro lepší odesílání požadavků. Mezi tyto změny patří nové propojení členy generování rozhraní API a parametr transformátory trasy.
 
-Další informace najdete v tématu [rozdíly mezi směrování na základě IRouter a koncový bod](xref:fundamentals/routing?view=aspnetcore-2.2#differences-from-earlier-versions-of-routing).
+Další informace naleznete v následujících materiálech:
+
+* [Koncový bod směrování v 2.2](https://blogs.msdn.microsoft.com/webdev/2018/08/27/asp-net-core-2-2-0-preview1-endpoint-routing/)
+* [Parametr transformátory trasy](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx) (viz **směrování** část)
+* [Rozdíly mezi směrování na základě IRouter a koncového bodu](xref:fundamentals/routing?view=aspnetcore-2.2#differences-from-earlier-versions-of-routing)
 
 ## <a name="health-checks"></a>Kontroly stavu
 
@@ -38,7 +47,7 @@ Nový stav kontroluje, že služba bude snazší používat ASP.NET Core v prost
 
 Kontroly stavu jsou používány orchestrátor kontejnerů nebo Vyrovnávání zatížení do rychle zjistit, pokud je systém reagování na žádosti normálně. Orchestrátor kontejnerů může reagovat na stav selhání zkontrolovat, že zastavení nasazení se zajištěním provozu nebo kontejner se restartuje. Nástroj pro vyrovnávání zatížení může reagovat na kontrolu stavu můžete provoz nasměrovat od selhání instance služby.
 
-Kontroly stavu jsou vystaveny jako koncový bod HTTP používají systémy pro monitorování aplikací. Kontroly stavu můžete nakonfigurovat pro různé scénáře monitorování a systémy pro monitorování v reálném čase.
+Kontroly stavu jsou vystaveny jako koncový bod HTTP používají systémy pro monitorování aplikací. Kontroly stavu můžete nakonfigurovat pro různé scénáře monitorování a systémy pro monitorování v reálném čase. Doplněk pro kontroly stavu služby se integruje s [BeatPulse projektu](https://github.com/Xabaril/BeatPulse). snadněji přidání kontroly pro desítek oblíbených systémů a závislostí.
 
 Další informace najdete v tématu [doplněk pro kontroly stavu v ASP.NET Core](xref:host-and-deploy/health-checks).
 
@@ -61,7 +70,7 @@ V dřívějších verzích sady ASP.NET Core, Kestrel možnosti nakonfigurují v
 
 ## <a name="iis-in-process-hosting"></a>Hostování v procesu služby IIS
 
-V dřívějších verzích sady ASP.NET Core služba IIS slouží jako reverzní proxy server. 2.2, že modul ASP.NET Core spouštěcí CoreCLR a hostovat aplikace uvnitř pracovní proces služby IIS (*w3wp.exe*). Hostování v procesu poskytuje výkonu a diagnostické zisky při spuštění pomocí služby IIS.
+V dřívějších verzích sady ASP.NET Core služba IIS slouží jako reverzní proxy server. 2.2, že modul ASP.NET Core spouštěcí CoreCLR a hostovat aplikace uvnitř pracovní proces služby IIS (*w3wp.exe*). Hostování v procesu zajišťuje výkon a diagnostiku zisky při spuštění pomocí služby IIS.
 
 Další informace najdete v tématu [vnitroprocesové hostování IIS](xref:fundamentals/servers/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model).
 

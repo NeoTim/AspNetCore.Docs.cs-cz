@@ -7,12 +7,12 @@ monikerRange: '> aspnetcore-2.1'
 ms.custom: mvc
 ms.date: 11/19/2018
 uid: tutorials/first-web-api
-ms.openlocfilehash: 6e71771cd76b83da98bbad3e96469f635909198f
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 419da905a622fe39693ed10a6b9d5e8a459b4a00
+ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862392"
+ms.lasthandoff: 12/05/2018
+ms.locfileid: "52951989"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API s ASP.NET Core MVC
 
@@ -88,6 +88,8 @@ Následující diagram znázorňuje návrh aplikace.
 * Vyberte **aplikace .NET Core** > **webového rozhraní API ASP.NET Core** > **Další**.
 
   ![macOS dialogové okno nového projektu](first-web-api-mac/_static/1.png)
+  
+* V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z **.NET Core 2.2*.
 
 * Zadejte *TodoApi* pro **název projektu** a pak vyberte **vytvořit**.
 
@@ -268,7 +270,7 @@ Následující odpověď HTTP je vytvořen voláním `GetTodoItems`:
 
 V následujícím `GetTodoItem` metody `"{id}"` je proměnná zástupný symbol pro jedinečný identifikátor položky úkolů. Když `GetTodoItem` je vyvolána, hodnota `"{id}"` v adrese URL je k dispozici v metodě jeho`id` parametru.
 
-[!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_GetTodoItem&highlight=1-2)]
+[!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_GetByID&highlight=1-2)]
 
 `Name = "GetTodo"` Parametr vytvoří pojmenovanou trasu. Zobrazí se vám později jak může aplikace používat název vytvořit odkaz na protokol HTTP pomocí názvu trasy.
 

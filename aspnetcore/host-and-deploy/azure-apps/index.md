@@ -2,16 +2,17 @@
 title: Nasazení aplikace ASP.NET Core do Azure App Service
 author: guardrex
 description: Tento článek obsahuje odkazy na hostiteli Azure a nasazení prostředků.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 12/04/2018
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: c55a5202643bb947b3f38f67aec55ee5cf7b1496
-ms.sourcegitcommit: c43a6f1fe72d7c2db4b5815fd532f2b45d964e07
+ms.openlocfilehash: b32dd3cb84a86d12c61e391b88355ab0411c2815
+ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50244746"
+ms.lasthandoff: 12/05/2018
+ms.locfileid: "52951963"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
 
@@ -41,23 +42,35 @@ Nastavení sestavení CI pro aplikace ASP.NET Core a potom vytvořte vydání pr
 [Azure sandboxu webové aplikace](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)  
 Objevte omezení spuštění modulu runtime služby Azure App Service vynucovaných příslušnou platformou aplikace Azure.
 
-::: moniker range=">= aspnetcore-2.0"
-
 ## <a name="application-configuration"></a>Konfigurace aplikace
 
-Následující balíčky NuGet poskytují funkce automatického protokolování pro aplikace nasazené do služby Azure App Service:
+### <a name="platform"></a>Platforma
+
+::: moniker range=">= aspnetcore-2.2"
+
+Moduly runtime pro (x64) 64bitovým kompilátorem a 32bitový (x 86) aplikace jsou k dispozici ve službě Azure App Service. [.NET Core SDK](/dotnet/core/sdk) k dispozici ve službě App Service je 32-bit, ale můžete nasadit pomocí aplikace 64-bit [Kudu](https://github.com/projectkudu/kudu/wiki) konzole nebo prostřednictvím [publikování MSDeploy pomocí sady Visual Studio profilu nebo rozhraní příkazového řádku](xref:host-and-deploy/visual-studio-publish-profiles).
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+Pro aplikace s nativní závislosti modulů runtime pro aplikace 32bitový (x 86) jsou k dispozici ve službě Azure App Service. [.NET Core SDK](/dotnet/core/sdk) k dispozici ve službě App Service je 32-bit.
+
+::: moniker-end
+
+### <a name="packages"></a>Balíčky
+
+Následující balíčky NuGet a zajistit tak funkce automatického protokolování u aplikací nasazených do služby Azure App Service patří:
 
 * [Microsoft.AspNetCore.AzureAppServices.HostingStartup](https://www.nuget.org/packages/Microsoft.AspNetCore.AzureAppServices.HostingStartup/) používá [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration) k zajištění integrace světla nahoru ASP.NET Core pomocí služby Azure App Service. Poskytované funkce přidání protokolování `Microsoft.AspNetCore.AzureAppServicesIntegration` balíčku.
 * [Microsoft.AspNetCore.AzureAppServicesIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.AzureAppServicesIntegration/) spustí [AddAzureWebAppDiagnostics](/dotnet/api/microsoft.extensions.logging.azureappservicesloggerfactoryextensions.addazurewebappdiagnostics) Přidání poskytovatelů protokolování diagnostiky služby Azure App Service v `Microsoft.Extensions.Logging.AzureAppServices` balíčku.
 * [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/) poskytuje implementace protokolovací nástroj pro podporu funkcí streamování protokolů a protokoly diagnostiky Azure App Service.
 
-Pokud cílí na .NET Core a odkazování [metabalíček Microsoft.aspnetcore.all](xref:fundamentals/metapackage), předchozí balíčky jsou zahrnuty. Chybí balíčky z [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Pokud cílí na rozhraní .NET Framework nebo odkazující `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all, odkazují na balíčky jednotlivé protokolování.
-
-::: moniker-end
+Nejsou k dispozici z předchozích balíčcích [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Aplikace, které cílí na rozhraní .NET Framework nebo odkaz `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all musí explicitně odkazovat na jednotlivé balíčky v souboru projektu vaší aplikace.
 
 ## <a name="override-app-configuration-using-the-azure-portal"></a>Přepsat konfiguraci aplikace pomocí webu Azure Portal
 
-**Nastavení aplikace** oblasti **nastavení aplikace** okno umožňuje nastavit proměnné prostředí pro aplikaci. Mohou být spotřebovány proměnné prostředí [poskytovatele konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
+Nastavení aplikace na webu Azure Portal umožní nastavit proměnné prostředí pro aplikaci. Mohou být spotřebovány proměnné prostředí [poskytovatele konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
 
 Při vytvoření nebo úpravě na webu Azure Portal nastavení aplikace a **Uložit** se vybere tlačítko, restartování aplikace Azure. Proměnná prostředí je k dispozici pro aplikace, po restartování služby.
 
@@ -113,48 +126,36 @@ Použijte jeden z následujících přístupů:
 
 Pokud dojde k potížím s pomocí rozšíření webu ve verzi preview, otevřete problém na [Githubu](https://github.com/aspnet/azureintegration/issues/new).
 
-1. Na webu Azure Portal přejděte do okna služby App Service.
+1. Na webu Azure Portal přejděte do služby App Service.
 1. Vyberte webovou aplikaci.
-1. Zadejte "ex" vyhledávacího pole zadejte nebo přejděte dolů v seznamu management oddíly pro **nástroje pro vývoj**.
-1. Vyberte **nástroje pro vývoj** > **rozšíření**.
+1. Typ "ex" do vyhledávacího pole filtrovat "Rozšíření" nebo se posouvají dolů seznam nástrojů pro správu.
+1. Vyberte **rozšíření**.
 1. Vyberte **přidat**.
-1. Vyberte **ASP.NET Core &lt;x.y&gt; (x86) Runtime** rozšíření ze seznamu, kde `<x.y>` je verze preview ASP.NET Core (například **Runtime ASP.NET Core 2.2 (x86)**). X86 modulu runtime je vhodný pro [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd) , které využívají mimo proces hostování modulu ASP.NET Core.
+1. Vyberte **ASP.NET Core {X.Y} ({x64 | x86}) Runtime** rozšíření ze seznamu, kde `{X.Y}` je verze preview ASP.NET Core a `{x64|x86}` Určuje platformu.
 1. Vyberte **OK** přijměte právní podmínky.
 1. Vyberte **OK** nainstalovat rozšíření.
 
 Po dokončení operace, je nainstalovaná nejnovější verze preview .NET Core. Ověření instalace:
 
-1. Vyberte **Rozšířené nástroje** pod **nástroje pro vývoj**.
-1. Vyberte **Přejít** na **Rozšířené nástroje** okno.
+1. Vyberte **Rozšířené nástroje**.
+1. Vyberte **Přejít** v **Rozšířené nástroje**.
 1. Vyberte **konzolou pro ladění** > **Powershellu** položky nabídky.
-1. Na příkazovém řádku Powershellu spusťte následující příkaz. Nahraďte verze modulu runtime ASP.NET Core pro `<x.y>` v příkazu:
+1. Na příkazovém řádku Powershellu spusťte následující příkaz. Nahraďte verze modulu runtime ASP.NET Core pro `{X.Y}` a platforma pro `{PLATFORM}` v příkazu:
 
    ```powershell
-   Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.<x.y>.x86\
-   ```
-   Pokud modul runtime nainstalovaný ve verzi preview je určený pro ASP.NET Core 2.2, příkaz je:
-   ```powershell
-   Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.2.2.x86\
+   Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.{PLATFORM}\
    ```
    Příkaz vrátí `True` při x64 je nainstalován modul runtime ve verzi preview.
 
-::: moniker range=">= aspnetcore-2.2"
-
 > [!NOTE]
-> Architektura platformy (x86/x64) aplikace služby App Services je nastavena v **nastavení aplikace** okně v části **obecné nastavení** pro aplikace, které jsou hostované na výpočetní prostředky řady A-series nebo lepší hostování vrstvy. Pokud aplikace běží v režimu v procesu a architektura platformy je nakonfigurovaný pro (x64) 64-bit, používá modul ASP.NET Core runtime 64bitová verze preview, pokud jsou k dispozici. Nainstalujte **ASP.NET Core &lt;x.y&gt; (x64) Runtime** rozšíření (například **modulu Runtime ASP.NET Core 2.2 (x64)**).
+> Architektura platformy (x86/x64) aplikace služby App Services je nastavena v nastavení aplikace na webu Azure Portal pro aplikace, které jsou hostované na výpočetní prostředky řady A-series nebo lepší hostování vrstvy. Pokud aplikace běží v režimu v procesu a architektura platformy je nakonfigurovaný pro (x64) 64-bit, používá modul ASP.NET Core runtime 64bitová verze preview, pokud jsou k dispozici. Nainstalujte **{X.Y} (x64) ASP.NET Core Runtime** rozšíření.
 >
-> Po instalaci x64 ve verzi preview modulu runtime, spusťte následující příkaz v příkazovém okně prostředí PowerShell Kudu k ověření instalace. Nahraďte verze modulu runtime ASP.NET Core pro `<x.y>` v příkazu:
+> Po instalaci x64 ve verzi preview modulu runtime, spusťte následující příkaz v příkazovém okně prostředí PowerShell Kudu k ověření instalace. Nahraďte verze modulu runtime ASP.NET Core pro `{X.Y}` v příkazu:
 >
 > ```powershell
-> Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.<x.y>.x64\
-> ```
-> Pokud modul runtime nainstalovaný ve verzi preview je určený pro ASP.NET Core 2.2, příkaz je:
-> ```powershell
-> Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.2.2.x64\
+> Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64\
 > ```
 > Příkaz vrátí `True` při x64 je nainstalován modul runtime ve verzi preview.
-
-::: moniker-end
 
 > [!NOTE]
 > **Rozšíření ASP.NET Core** povoluje další funkce pro ASP.NET Core v Azure App Services, jako například povolení protokolování v Azure. Rozšíření se nainstaluje automaticky při nasazení ze sady Visual Studio. Pokud rozšíření není nainstalovaný, nainstalujte ho pro aplikaci.

@@ -1,17 +1,17 @@
 ---
 title: Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
-author: pratik-khandelwal
+author: prkhandelwal
 description: Tento kurz ukazuje vytvoření webového rozhraní ASP.NET Core API pomocí databáze MongoDB NoSQL.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/29/2018
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: becf55bf94a1bfe78935013d802168a0b05dccce
-ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
+ms.openlocfilehash: 0772de5d697d697da494124efbda092db3835812
+ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/29/2018
-ms.locfileid: "52618087"
+ms.lasthandoff: 12/05/2018
+ms.locfileid: "52952002"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
