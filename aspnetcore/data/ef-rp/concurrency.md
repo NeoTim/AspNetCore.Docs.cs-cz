@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/concurrency
 ms.openlocfilehash: cd06cb1056e1c856214d2440533aad5789907107
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
+ms.lasthandoff: 12/06/2018
 ms.locfileid: "50207339"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - souběžnosti - 8 8
