@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/14/2018
 uid: signalr/javascript-client
-ms.openlocfilehash: 247ccd40412cdb41f38edccbe96d4832751f12cf
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: cd64a65889227d84615768bc3d8fddcd362fbba4
+ms.sourcegitcommit: eef99d14d96dc8c3c1bb0e2c4cb14da152f8a952
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861983"
+ms.lasthandoff: 12/07/2018
+ms.locfileid: "53022476"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript klienta
 
@@ -45,7 +45,7 @@ Odkazovat na klientovi SignalR JavaScript v `<script>` elementu.
 
 Následující kód vytvoří a spustí připojení. Název centra se nerozlišují malá a velká písmena.
 
-[!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=9-12,28)]
+[!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=9-12)]
 
 ### <a name="cross-origin-connections"></a>Nepůvodního zdroje připojení
 
@@ -86,7 +86,7 @@ SignalR Určuje, jakou metodu klienta volat to provede spárováním odpovídaj�
 
 Řetězce `catch` metoda na konec objektu `start` metodu ke zpracování chyby na straně klienta. Použití `console.error` chyby výstup do konzoly prohlížeče.
 
-[!code-javascript[Error handling](javascript-client/sample/wwwroot/js/chat.js?range=28)]
+[!code-javascript[Error handling](javascript-client/sample/wwwroot/js/chat.js?range=43-45)]
 
 Nastavení na straně klienta protokolu trasování předáním protokolovací nástroj a typ události do protokolu, když se připojení. Zprávy jsou zaznamenány na úrovni zadaný protokol a vyšší. Dostupné úrovně jsou následující:
 
@@ -106,7 +106,7 @@ JavaScript klienta pro funkci SignalR nebude automaticky znovu připojit. Musít
 1. Funkce (v tomto případě `start` funkce) se vytvoří připojení spustíte.
 1. Volání `start` funkce v rámci připojení `onclose` obslužné rutiny události.
 
-[!code-javascript[Reconnect the JavaScript client](javascript-client/sample/wwwroot/js/chat.js?range=30-42)]
+[!code-javascript[Reconnect the JavaScript client](javascript-client/sample/wwwroot/js/chat.js?range=28-40)]
 
 Skutečná implementace by použít exponenciální regrese nebo opakování zadaného počtu opakování, než se ukončí. 
 

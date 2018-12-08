@@ -8,12 +8,12 @@ ms.date: 05/28/2015
 ms.assetid: 7e85c70e-1a88-4408-8b3d-29611c7713ed
 msc.legacyurl: /web-pages/overview/getting-started/introducing-aspnet-web-pages-2/publishing
 msc.type: authoredcontent
-ms.openlocfilehash: fe196e5db8fd1cecbe84b2eb970939303f9313d1
-ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
+ms.openlocfilehash: bd6611a03ee4940f5d4176ce23464f313b9ec884
+ms.sourcegitcommit: eef99d14d96dc8c3c1bb0e2c4cb14da152f8a952
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2018
-ms.locfileid: "51021453"
+ms.lasthandoff: 12/07/2018
+ms.locfileid: "53022502"
 ---
 <a name="introducing-aspnet-web-pages---publishing-a-site-by-using-webmatrix"></a>Úvod do webových stránek ASP.NET – publikování webu pomocí Webmatrixu
 ====================
@@ -50,7 +50,7 @@ Tento kurz obsahuje čtyři části:
 <a id="defaultpage"></a>
 ## <a name="setting-up-the-default-page"></a>Nastavení výchozí stránky
 
-Když uživatel přejde na základní adresu pro web, se uživateli zobrazí výchozí stránka pro váš web. Například pokud Default.htm je nastaven jako výchozí stránku webu na www.contoso.com, pak přejdete do <strong>www.contoso.com</strong> je stejný jako přejdete na <strong>www.contoso.com/Default.htm</strong>.
+Když uživatel přejde na základní adresu pro web, se uživateli zobrazí výchozí stránka pro váš web. Například když *Default.htm* je nastaven jako výchozí stránku na webu `www.contoso.com`, pak přejdete do `www.contoso.com` je stejný jako přejdete na `www.contoso.com/Default.htm`.
 
 V současné době je váš web používá **stránku Default.cshtml** jako výchozí stránky. Tato stránka je v pořádku pro výchozí stránku, ale v tomto kurzu jste nepřidali žádný obsah na této stránce tak, že by se zobrazily prázdnou stránku. Otevřete stránku Default.cshtml a nahraďte obsah následujícím kódem.
 

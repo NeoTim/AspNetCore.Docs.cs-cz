@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak diagnostikovat problémy s nasazením aplikací ASP.NET Core Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/30/2018
+ms.date: 12/05/2018
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 10c40746ffca1343c84f6a7388f3b2d7ab77ab02
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 7d9485180cc4d857058597b018a43aae99e1f3c3
+ms.sourcegitcommit: eef99d14d96dc8c3c1bb0e2c4cb14da152f8a952
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861573"
+ms.lasthandoff: 12/07/2018
+ms.locfileid: "53022528"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>Řešení potíží s ASP.NET Core ve službě IIS
 
@@ -92,6 +92,26 @@ Spuštění aplikace, ale chybu brání splnění žádosti. na serveru.
 
 Při spuštění nebo při vytváření odpovědi, k této chybě dochází v kódu aplikace. Odpověď může obsahovat žádný obsah nebo se může zobrazit odpovědi *500 – Interní chyba serveru* v prohlížeči. V protokolu událostí aplikace obvykle hlásí, že aplikace se normálně spustit. Z pohledu serveru, který je správný. Aplikace začal, ale nemůže generovat platnou odpověď. [Spuštění aplikace příkazového řádku](#run-the-app-at-a-command-prompt) na serveru nebo [povolit protokol stdout modul ASP.NET Core](#aspnet-core-module-stdout-log) k vyřešení tohoto problému.
 
+### <a name="failed-to-start-application-errorcode-0x800700c1"></a>Nepovedlo se spustit aplikaci (kód chyby "0x800700c1")
+
+```
+EventID: 1010
+Source: IIS AspNetCore Module V2
+Failed to start application '/LM/W3SVC/6/ROOT/', ErrorCode '0x800700c1'.
+```
+
+Aplikaci se nepodařilo spustit, protože sestavení aplikace (*.dll*) nelze načíst.
+
+Tato chyba nastane, pokud došlo k neshodě bitové verze mezi publikované aplikace a proces w3wp/iisexpress.
+
+Ověřte správnost nastavení 32-bit fondu aplikací:
+
+1. Vyberte fond aplikací ve Správci služby IIS na **fondy aplikací**.
+1. Vyberte **Upřesnit nastavení** pod **upravit fond aplikací** v **akce** panelu.
+1. Nastavte **povolit 32bitové aplikace**:
+   * Pokud nasazení (x86) 32bitové aplikace, nastavte hodnotu na `True`.
+   * Pokud nasazení (x64) 64bitové aplikace, nastavte hodnotu na `False`.
+
 ### <a name="connection-reset"></a>Obnovení připojení
 
 Pokud dojde k chybě po odeslání hlavičky, bude příliš pozdě pro server k odeslání **500 – Interní chyba serveru** , když dojde k chybě. Často se to stane, když dojde k chybě při serializaci složitých objektů pro odpověď. Tento typ chyby se zobrazí jako *obnovení připojení* chyba na straně klienta. [Protokolování aplikací](xref:fundamentals/logging/index) mohou pomoci při řešení těchto typů chyb.
@@ -101,6 +121,21 @@ Pokud dojde k chybě po odeslání hlavičky, bude příliš pozdě pro server k
 Modul ASP.NET Core je nakonfigurovaná s výchozí *startupTimeLimit* 120 sekund. Když necháte na výchozí hodnotu, aplikace může trvat až dvě minuty, spusťte před modulu protokoly selhání procesu. Informace o konfiguraci modulu najdete v tématu [atributy elementu aspNetCore](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element).
 
 ## <a name="troubleshoot-app-startup-errors"></a>Řešení chyb při spuštění aplikace
+
+### <a name="enable-the-aspnet-core-module-debug-log"></a>Povolit protokol ladění modul ASP.NET Core
+
+Přidáním následujícího nastavení obslužné rutiny na aplikaci *web.config* souboru povolení protokolů ladění modul ASP.NET Core:
+
+```xml
+<aspNetCore ...>
+  <handlerSettings>
+    <handlerSetting name="debugLevel" value="file" />
+    <handlerSetting name="debugFile" value="c:\temp\ancm.log" />
+  </handlerSettings>
+</aspNetCore>
+```
+
+Potvrďte, že cesta zadaná pro protokol existuje a že identita fondu aplikací má oprávnění k zápisu do umístění.
 
 ### <a name="application-event-log"></a>Protokol událostí aplikace
 
