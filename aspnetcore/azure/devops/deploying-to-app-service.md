@@ -1,17 +1,17 @@
 ---
-title: DevOps s využitím ASP.NET Core a Azure | Nasazení aplikace do služby App Service
+title: Nasazení aplikace do App Service – DevOps s využitím ASP.NET Core a Azure
 author: CamSoper
-description: Průvodce, který poskytuje pokyny k začátku do konce na vytváření procesních toků pro DevOps pro aplikace ASP.NET Core hostované v Azure.
+description: Nasazení aplikace ASP.NET Core do služby Azure App Service, prvním krokem pro vývoj a provoz s ASP.NET Core a Azure.
 ms.author: casoper
-ms.custom: mvc
+ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: 33026ed510aae63a9e580aa5d708f94aad778fca
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 4424d3d15cbd234357c8265fa276834cb9abf352
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090934"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121217"
 ---
 # <a name="deploy-an-app-to-app-service"></a>Nasazení aplikace do služby App Service
 
@@ -150,18 +150,18 @@ Z příkazového okna již byla nasazena aplikace. S použitím integrovaných n
 3. Stisknutím klávesy **Ctrl**+**Shift**+**B** k sestavení aplikace.
 4. V Průzkumníku řešení klikněte pravým tlačítkem na projekt a klikněte na tlačítko **publikovat**.
 
-    ![Klikněte pravým tlačítkem, publikování](./media/deploying-to-app-service/publish.png)
+    ![Snímek obrazovky znázorňující kliknutí pravým tlačítkem myši, publikovat](./media/deploying-to-app-service/publish.png)
 5. Visual Studio můžete vytvořit nový prostředek služby App Service, ale tato aktualizace bude publikován přes existující nasazení. V **vyberte cíl publikování** dialogového okna, vyberte **služby App Service** ze seznamu na levé straně a pak vyberte **vybrat existující**. Klikněte na tlačítko **publikovat**.
 6. V **služby App Service** dialogovém okně potvrďte, že Microsoft nebo účet organizace použitý při vytvoření vašeho předplatného Azure se zobrazí v pravém horním rohu. Pokud není, klikněte na rozevírací seznam a přidejte ji.
-7. Ujistěte se, že správné Azure **předplatné** zaškrtnuto. Pro **zobrazení**vyberte **skupiny prostředků**. Rozbalte **AzureTutorial** skupinu prostředků a potom vyberte existující webovou aplikaci. Klikněte na tlačítko **OK**.
+7. Ujistěte se, že správné Azure **předplatné** zaškrtnuto. Pro **zobrazení**vyberte **skupiny prostředků**. Rozbalte **AzureTutorial** skupinu prostředků a potom vyberte existující webovou aplikaci. Klikněte na **OK**.
 
-    ![Publikování dialogovém okně App Service](./media/deploying-to-app-service/publish-dialog.png)
+    ![Snímek obrazovky zobrazující dialogovém okně Publikovat App Service](./media/deploying-to-app-service/publish-dialog.png)
 
 Visual Studio vytvoří a nasadí aplikaci do Azure. Přejděte na adresu URL webové aplikace. Ověřit, zda `<h2>` úpravu elementu je v provozu.
 
 ![Aplikaci se změnili jsme název](./media/deploying-to-app-service/app-v2.png)
 
-## <a name="deployment-slots"></a>Sloty nasazení
+## <a name="deployment-slots"></a>Nasazovací sloty
 
 Sloty nasazení podporují pracovní změny bez dopadu na aplikace běžící v produkčním prostředí. Jakmile tým pro zajištění kvality vyhodnocuje připravenou verzi aplikace, je možné Prohodit produkční a přípravné sloty. Aplikace v testovacím prostředí je propagována do produkčního prostředí tímto způsobem. Následující kroky vytvořit přípravný slot, nasadíme do ní nějaké změny a Prohodit s produkčním prostředí po ověření přípravný slot.
 
@@ -211,7 +211,7 @@ Sloty nasazení podporují pracovní změny bez dopadu na aplikace běžící v 
 
 6. Chcete-li ověřit, že V3 nasazení do přípravného slotu, otevřete dvě okna prohlížeče. V jednom okně přejděte na adresu URL původní webové aplikace. V druhém okně přejděte na adresu URL pracovní webové aplikace. Adresa URL výroby slouží V2 aplikace. Přípravnou adresu URL slouží V3 aplikace.
 
-    ![Porovnání okna prohlížeče](./media/deploying-to-app-service/ready-to-swap.png)
+    ![Snímek obrazovky okna prohlížeče porovnání](./media/deploying-to-app-service/ready-to-swap.png)
 
 7. Ve službě Cloud Shell Prohodit slot pro fázi ověření/zahřátého do produkčního prostředí.
 

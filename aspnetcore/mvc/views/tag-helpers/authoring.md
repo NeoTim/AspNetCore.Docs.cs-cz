@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 78e5281d109977e8f41fe1f207254d3016f9c569
-ms.sourcegitcommit: c43a6f1fe72d7c2db4b5815fd532f2b45d964e07
+ms.openlocfilehash: 16f3a435af267a5a17a24ee9fbda2b1c7c8818fd
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50244863"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121619"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>Autor pomocných rutin značek v ASP.NET Core
 
@@ -49,7 +49,7 @@ To znamená značku ukotvení díky tomu se tento odkaz na e-mailu. Můžete to 
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1EmailTagHelperCopy.cs)]
 
-   * Použít zásady vytváření názvů, který cílí na prvky názvu kořenové třídy pomocných rutin značek (minus *Taghelperu* část názvu třídy). V tomto příkladu názvem kořenového **e-mailu**Taghelperu. je *e-mailu*, takže `<email>` budou cílem značky. Tyto zásady vytváření názvů by mělo fungovat pro většinu pomocných rutin značek, později ukážeme postup jeho přepsání.
+   * Použít zásady vytváření názvů, který cílí na prvky názvu kořenové třídy pomocných rutin značek (minus *Taghelperu* část názvu třídy). V tomto příkladu názvem kořenového **EmailTagHelper** je *e-mailu*, takže `<email>` budou cílem značky. Tyto zásady vytváření názvů by mělo fungovat pro většinu pomocných rutin značek, později ukážeme postup jeho přepsání.
 
    * `EmailTagHelper` Třída odvozena z `TagHelper`. `TagHelper` Třída poskytuje metody a vlastnosti pro zápis pomocné rutiny značek.
 

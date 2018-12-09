@@ -3,15 +3,15 @@ title: Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 author: rick-anderson
 description: Tento kurz ukazuje, integrace ověřování pomocí účtu uživatele Facebooku do stávající aplikace ASP.NET Core.
 ms.author: riande
-ms.custom: mvc
+ms.custom: mvc, seodec18
 ms.date: 11/11/2018
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: e8ae16538b5d6844af7d983071fad629ebbe6217
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: 8bb22dc6df9879e827ff9a5ac11e9e3ad5346dc2
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708501"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121502"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 
@@ -129,7 +129,7 @@ Po kliknutí na **Facebook**, budete přesměrováni na Facebook pro ověření:
 
 Požadavky na ověření sítě Facebook veřejný profil a e-mailovou adresu ve výchozím nastavení:
 
-![Stránka pro ověřování sítě Facebook](index/_static/FBLoginDone.png)
+![Obrazovka pro vyjádření souhlasu stránky ověřování sítě Facebook](index/_static/FBLoginDone.png)
 
 Po zadání vašich přihlašovacích údajů k Facebooku budete přesměrováni zpět na váš web, kde můžete nastavit e-mailu.
 

@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: a5a02112d87563a47d5e2dab355359fa39da9a89
-ms.sourcegitcommit: c4572be5ebb301013a5698caf9b5572b76cb2e34
+ms.openlocfilehash: 7eab773746f76b00e8e796387c4ee1dc042a4c23
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2018
-ms.locfileid: "50090352"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121268"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Cesarovi Blum Silveira](https://github.com/cesarbs), a [Rachel Appel](https://twitter.com/rachelappel)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Cesarovi Blum Silveira](https://github.com/cesarbs)
 
 [!INCLUDE [Azure App Service Preview Notice](../includes/azure-apps-preview-notice.md)]
 
@@ -164,7 +164,7 @@ Klikněte na tlačítko **publikovat**. Visual Studio publikuje vaši aplikaci d
 
 ![Ověřte, zda je úkol dokončený](publish-to-azure-webapp-using-vs/_static/final.png)
 
-### <a name="clean-up"></a>Vyčistit
+### <a name="clean-up"></a>Vyčištění
 
 Po dokončení testování aplikace, přejděte [webu Azure portal](https://portal.azure.com/) a odstranit ji.
 

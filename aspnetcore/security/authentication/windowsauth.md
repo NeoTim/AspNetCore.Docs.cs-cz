@@ -3,15 +3,15 @@ title: Konfigurace ověřování Windows v ASP.NET Core
 author: scottaddie
 description: Zjistěte, jak nakonfigurovat ověřování Windows v ASP.NET Core pomocí služby IIS Express, IIS, ovladač HTTP.sys a WebListener.
 ms.author: riande
-ms.custom: mvc
+ms.custom: mvc, seodec18
 ms.date: 11/01/2018
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 87fcab75555c1dae0b2815c30d79fd4615df9660
-ms.sourcegitcommit: 85f2939af7a167b9694e1d2093277ffc9a741b23
+ms.openlocfilehash: 342759a6ff4b5679e0d54c979188ae66d339562d
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/02/2018
-ms.locfileid: "50968290"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121294"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>Konfigurace ověřování Windows v ASP.NET Core
 
@@ -47,7 +47,7 @@ Při vývojových pracích pomocí služby IIS Express Šablona nabízí vešker
 
 Projekt aplikace Visual Studio **vlastnosti** stránky **ladění** karta obsahuje zaškrtávací políčka pro ověřování Windows a anonymní ověřování.
 
-![Snímek obrazovky prohlížeče ověřování Windows](windowsauth/_static/vs-auth-property-menu.png)
+![Snímek obrazovky prohlížeče ověřování Windows se zvýrazněnou možností ověřování](windowsauth/_static/vs-auth-property-menu.png)
 
 Alternativně se dá nakonfigurovat tyto dvě vlastnosti v *launchSettings.json* souboru:
 

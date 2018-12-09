@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tento kurz ukazuje, jak řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 12/07/2018
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: cd06cb1056e1c856214d2440533aad5789907107
-ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
+ms.openlocfilehash: da854bafdb9d3741358fd69c2f862c3cdf1ee406
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2018
-ms.locfileid: "50207339"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121645"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - souběžnosti - 8 8
 
@@ -245,7 +245,7 @@ Změňte jiné pole na druhé záložce prohlížeče.
 
 ![Upravit oddělení po změně – stránka 2](concurrency/_static/edit-after-change-2.png)
 
-Klikněte na tlačítko **Uložit**. Zobrazí se chybové zprávy pro všechna pole, která se neshodují s hodnotami DB:
+Klikněte na **Uložit**. Zobrazí se chybové zprávy pro všechna pole, která se neshodují s hodnotami DB:
 
 ![Oddělení upravit stránku chybová zpráva](concurrency/_static/edit-error.png)
 
@@ -271,7 +271,7 @@ Na stránce odstranit rozpozná konfliktů souběžnosti, pokud entita změněna
 
 Aktualizace *Pages/Departments/Delete.cshtml* následujícím kódem:
 
-[!code-html[](intro/samples/cu/Pages/Departments/Delete.cshtml?highlight=1,10,36,51)]
+[!code-html[](intro/samples/cu/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
 
 
 Předchozí kód provede následující změny:

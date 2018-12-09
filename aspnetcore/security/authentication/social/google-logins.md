@@ -3,15 +3,15 @@ title: Nastavení Google externí přihlášení v technologii ASP.NET Core
 author: rick-anderson
 description: Tento kurz ukazuje, integrace ověřování uživatele účtu Google do stávající aplikace ASP.NET Core.
 ms.author: riande
-ms.custom: mvc
+ms.custom: mvc, seodec18
 ms.date: 11/11/2018
 uid: security/authentication/google-logins
-ms.openlocfilehash: dfda83e1d7cf3c5ff8e31de20c15d468de5d15c0
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: e5deda5d521643e3155be00f4630a86c6a82575c
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708449"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121528"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>Nastavení Google externí přihlášení v technologii ASP.NET Core
 
@@ -27,7 +27,7 @@ V tomto kurzu se dozvíte, jak mohou uživatelé přihlásit s účtem Google + 
 
 * Budete přesměrováni na **správce rozhraní API knihovny** stránky:
 
-![Stránka rozhraní API Správce knihovny](index/_static/GoogleConsoleSwitchboard.png)
+![Cílová na stránce rozhraní API Správce knihovny](index/_static/GoogleConsoleSwitchboard.png)
 
 * Klepněte na **vytvořit** a zadejte vaše **název projektu**:
 
@@ -35,15 +35,15 @@ V tomto kurzu se dozvíte, jak mohou uživatelé přihlásit s účtem Google + 
 
 * Po přijetí dialogového okna, budete přesměrováni zpět na stránku knihovny umožňuje zvolit funkce pro novou aplikaci. Najít **rozhraní API Google +** v seznamu a klikněte na odkaz Přidat funkci rozhraní API:
 
-![Stránka rozhraní API Správce knihovny](index/_static/GoogleConsoleChooseApi.png)
+![Vyhledejte "rozhraní API Google +" na stránce rozhraní API Správce knihovny](index/_static/GoogleConsoleChooseApi.png)
 
 * Zobrazí se stránka pro nově přidané rozhraní API. Klepněte na **povolit** přidání funkce do vaší aplikace Google + přihlásit ve funkci:
 
-![Stránka Správce rozhraní API Google + API](index/_static/GoogleConsoleEnableApi.png)
+![Cílová na stránce Správce rozhraní API Google + API](index/_static/GoogleConsoleEnableApi.png)
 
 * Po povolení rozhraní API, klepněte na **Vytvořte přihlašovací údaje** konfigurace tajné klíče:
 
-![Stránka Správce rozhraní API Google + API](index/_static/GoogleConsoleGoCredentials.png)
+![Vytvoření tlačítka přihlašovací údaje na stránce Správce rozhraní API Google + API](index/_static/GoogleConsoleGoCredentials.png)
 
 * Zvolte:
   * **Google + API**

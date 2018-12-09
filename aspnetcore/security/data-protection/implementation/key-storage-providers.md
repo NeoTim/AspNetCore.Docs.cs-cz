@@ -3,14 +3,14 @@ title: Zprostředkovatelé úložiště klíčů v ASP.NET Core
 author: rick-anderson
 description: Další informace o poskytovatele úložiště klíčů v ASP.NET Core a jak konfigurovat umístění úložiště klíčů.
 ms.author: riande
-ms.date: 07/16/2018
+ms.date: 12/06/2018
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: 35e2cea4b6404af94de95352dc6ebf3071925cb1
-ms.sourcegitcommit: f5d403004f3550e8c46585fdbb16c49e75f495f3
+ms.openlocfilehash: e10271d5979b503a8a842f8866a0e2a3fa040656
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/20/2018
-ms.locfileid: "49477147"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121450"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>Zprostředkovatelé úložiště klíčů v ASP.NET Core
 
@@ -91,7 +91,7 @@ Další informace naleznete v následujících tématech:
 
 * [StackExchange.Redis ConnectionMultiplexer](https://github.com/StackExchange/StackExchange.Redis/blob/master/docs/Basics.md)
 * [Azure Redis Cache](/azure/redis-cache/cache-dotnet-how-to-use-azure-redis-cache#connect-to-the-cache)
-* [Ukázky ASPNET/DataProtection](https://github.com/aspnet/DataProtection/tree/master/samples)
+* [Ukázky ASPNET/DataProtection](https://github.com/aspnet/AspNetCore/tree/2.2.0/src/DataProtection/samples)
 
 ## <a name="registry"></a>Registru
 

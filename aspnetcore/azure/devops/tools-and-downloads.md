@@ -1,17 +1,17 @@
 ---
-title: DevOps s využitím ASP.NET Core a Azure | Nástroje a soubory ke stažení
+title: Nástroje a soubory ke stažení – DevOps s využitím ASP.NET Core a Azure
 author: CamSoper
-description: Průvodce, který poskytuje pokyny k začátku do konce na vytváření procesních toků pro DevOps pro aplikace ASP.NET Core hostované v Azure.
+description: Nástroje a soubory ke stažení potřebné pro vývoj a provoz s ASP.NET Core a Azure.
 ms.author: casoper
-ms.custom: mvc
+ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/tools-and-downloads
-ms.openlocfilehash: 573e257e6fc7614010a8749ff439f16011c2c10a
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: a12bced8826a3399d5cf347be72baf77cc39d8b6
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50089378"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121411"
 ---
 # <a name="tools-and-downloads"></a>Nástroje a soubory ke stažení
 

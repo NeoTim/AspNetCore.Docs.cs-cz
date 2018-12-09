@@ -7,12 +7,12 @@ monikerRange: '> aspnetcore-2.1'
 ms.custom: mvc
 ms.date: 11/19/2018
 uid: tutorials/first-web-api
-ms.openlocfilehash: 419da905a622fe39693ed10a6b9d5e8a459b4a00
-ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
+ms.openlocfilehash: 1af14b85cbaefc00fd97db7c721c4f9436a65fb2
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52951989"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121463"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API s ASP.NET Core MVC
 
@@ -40,13 +40,13 @@ Na konci máte webové rozhraní API, která může spravovat "úkolů" položky
 
 Tento kurz vytvoří následující rozhraní API:
 
-|rozhraní API | Popis | Text žádosti | Text odpovědi |
+|rozhraní API | Popis | Text požadavku | Text odpovědi |
 |--- | ---- | ---- | ---- |
 |ZÍSKAT /api/todo | Získat všechny položky seznamu úkolů | Žádné | Pole položek úkolů|
-|ZÍSKAT/webové rozhraní API/todo / {id} | Získat položky podle ID | Žádné | Položky seznamu úkolů|
+|ZÍSKAT/webové rozhraní API/todo / {id} | Získat položky podle ID | Žádná | Položky seznamu úkolů|
 |Publikovat/api/todo | Přidat novou položku | Položky seznamu úkolů | Položky seznamu úkolů |
-|Vložení/webové rozhraní API/todo / {id} | Aktualizovat existující položku &nbsp; | Položky seznamu úkolů | Žádné |
-|ODSTRANIT/webové rozhraní API/todo / {id} &nbsp; &nbsp; | Odstranění položky &nbsp; &nbsp; | Žádné | Žádné|
+|Vložení/webové rozhraní API/todo / {id} | Aktualizovat existující položku &nbsp; | Položky seznamu úkolů | Žádná |
+|ODSTRANIT/webové rozhraní API/todo / {id} &nbsp; &nbsp; | Odstranění položky &nbsp; &nbsp; | Žádné | Žádná|
 
 Následující diagram znázorňuje návrh aplikace.
 
@@ -298,9 +298,9 @@ Tento kurz používá Postman k otestování webové rozhraní API.
 
 * Vytvořte novou žádost.
   * Nastavte jako metodu HTTP **získat**.
-  * Nastavení adresy URL požadavku `https://localhost:<port>/api/todo`. Například `https://localhost:5001/api/todo`.
+  * Nastavení adresy URL požadavku `https://localhost:<port>/api/todo`. Například, `https://localhost:5001/api/todo`.
 * Nastavte **dvě podokna zobrazení** v nástroji Postman.
-* Vyberte **odeslat**.
+* Vyberte **Poslat**.
 
 ![Postman se požadavek Get](first-web-api/_static/2pv.png)
 
@@ -336,7 +336,7 @@ Předchozí kód je metoda HTTP POST, je určeno [[HttpPost]](/dotnet/api/micros
     }
     ```
 
-* Vyberte **odeslat**.
+* Vyberte **Poslat**.
 
   ![Postman se vytvořit žádost](first-web-api/_static/create.png)
 
@@ -351,7 +351,7 @@ Předchozí kód je metoda HTTP POST, je určeno [[HttpPost]](/dotnet/api/micros
 
 * Nastavte jako metodu GET.
 * Vložte identifikátor URI (například `https://localhost:5001/api/Todo/2`)
-* Vyberte **odeslat**.
+* Vyberte **Poslat**.
 
 ## <a name="add-a-puttodoitem-method"></a>Přidejte metodu PutTodoItem
 
@@ -367,6 +367,7 @@ Aktualizovat položku seznamu úkolů, která má id = 1 a nastavte její název
 
 ```json
   {
+    "ID":1,
     "name":"feed fish",
     "isComplete":true
   }
@@ -463,7 +464,7 @@ Další informace naleznete v následujících materiálech:
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu jste zjistili, jak:
+V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
 > * Vytvořte projekt webového rozhraní api.

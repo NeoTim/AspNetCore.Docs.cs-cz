@@ -1,16 +1,17 @@
 ---
-title: DevOps s využitím ASP.NET Core a Azure | Průběžná integrace a nasazování
+title: Průběžná integrace a nasazování – DevOps s využitím ASP.NET Core a Azure
 author: CamSoper
-description: Průvodce, který poskytuje pokyny k začátku do konce na vytváření procesních toků pro DevOps pro aplikace ASP.NET Core hostované v Azure.
+description: Průběžná integrace a nasazování v DevOps s ASP.NET Core a Azure
 ms.author: scaddie
 ms.date: 10/24/2018
+ms.custom: seodec18
 uid: azure/devops/cicd
-ms.openlocfilehash: edaf2c2e1428e5e82104786d94584a4ef08f9ee3
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: e5bddde41291c9573f58d749bbf830de9ea9319d
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570084"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121586"
 ---
 # <a name="continuous-integration-and-deployment"></a>Průběžná integrace a nasazování
 
@@ -23,7 +24,7 @@ V této části budete provádět následující úlohy:
 * Vytvořit organizaci Azure DevOps
 * Vytvořit týmový projekt ve službách Azure DevOps
 * Vytvořte definici sestavení
-* Vytvořit kanál pro vydávání verzí
+* Vytvoření kanálu verze
 * Potvrzení změn na Githubu a automaticky nasadit do Azure
 * Prozkoumejte Azure kanály kanálu
 
@@ -150,7 +151,7 @@ Existují tři samostatné kroky k dokončení. Dokončením kroků v následuj�
 1. Název definice sestavení vyberte *MyFirstProject ASP.NET Core-CI*, z **zdroj (definice sestavení)** rozevíracího seznamu.
 1. Vyberte *nejnovější* z **výchozí verze** rozevíracího seznamu. Tato možnost sestavení artefakty vytvořené spuštěním nejnovější definice sestavení.
 1. Nahradit text **alias zdroje** textové pole s *vyřadit*.
-1. Klikněte na tlačítko **přidat** tlačítko. **Artefakty** části aktualizací zobrazíte změny.
+1. Klikněte na tlačítko **Přidat**. **Artefakty** části aktualizací zobrazíte změny.
 1. Klikněte na ikonu blesku povolit nepřetržité nasazení:
 
     ![Kanál pro vydávání verzí artefakty – ikona blesku](media/cicd/vsts-artifacts-lightning-bolt.png)
@@ -158,7 +159,7 @@ Existují tři samostatné kroky k dokončení. Dokončením kroků v následuj�
     Tato možnost povolená dojde k nasazení pokaždé, když je k dispozici nové sestavení.
 1. A **trigger průběžného nasazování** panelu se zobrazí na pravé straně. Klikněte na přepínací tlačítko k povolení této funkce. Není nutná pro povolení **triggeru žádosti o přijetí změn**.
 1. Klikněte na tlačítko **přidat** rozevírací seznam v **vytvářet filtry větví** oddílu. Zvolte **Build Definition výchozí větev** možnost. Tento filtr způsobí, že verze aktivovat pouze pro sestavení z úložiště GitHub *hlavní* větve.
-1. Klikněte na tlačítko **Uložit** tlačítko. Klikněte na tlačítko **OK** tlačítko ve výsledné **Uložit** modální dialogové okno.
+1. Klikněte na tlačítko **Uložit**. Klikněte na tlačítko **OK** tlačítko ve výsledné **Uložit** modální dialogové okno.
 1. Klikněte na tlačítko **prostředí 1** pole. **Prostředí** panelu se zobrazí na pravé straně. Změnit *prostředí 1* textu v **název prostředí** testovém poli *produkční*.
 
    ![Kanál pro vydávání verzí – textové pole pro název prostředí](media/cicd/vsts-environment-name-textbox.png)
@@ -174,12 +175,12 @@ Existují tři samostatné kroky k dokončení. Dokončením kroků v následuj�
 1. Vyberte *mywebapp / < unique_number / >* z **název služby App service** rozevíracího seznamu.
 1. Vyberte *AzureTutorial* z **skupiny prostředků** rozevíracího seznamu.
 1. Vyberte *pracovní* z **slotu** rozevíracího seznamu.
-1. Klikněte na tlačítko **Uložit** tlačítko.
+1. Klikněte na tlačítko **Uložit**.
 1. Najeďte myší výchozí název kanálu vydané verze. Klikněte na ikonu tužky a upravte ho. Použití *MyFirstProject ASP.NET Core-CD* jako název.
 
     ![Název kanálu vydané verze](media/cicd/vsts-release-definition-name.png)
 
-1. Klikněte na tlačítko **Uložit** tlačítko.
+1. Klikněte na tlačítko **Uložit**.
 
 ## <a name="commit-changes-to-github-and-automatically-deploy-to-azure"></a>Potvrzení změn na Githubu a automaticky nasadit do Azure
 
@@ -235,15 +236,15 @@ Definice sestavení **úlohy** karta obsahuje seznam jednotlivých kroků, kter�
 
 Klikněte na definici sestavení **Souhrn** odkaz k zobrazení historie sestavení s definicí:
 
-![v historii definic sestavení](media/cicd/build-definition-summary.png)
+![Snímek obrazovky znázorňující v historii definic sestavení](media/cicd/build-definition-summary.png)
 
 Na stránce výsledný kliknutím na odkaz odpovídající číslu jedinečný sestavení:
 
-![Stránka souhrnu definice sestavení](media/cicd/build-definition-completed.png)
+![Snímek obrazovky znázorňující definice stránce se souhrnem sestavení](media/cicd/build-definition-completed.png)
 
 Zobrazí se přehled tohoto konkrétního sestavení. Klikněte na tlačítko **artefakty** kartu a Všimněte si, že *vyřadit* vytvořený sestavením složka se zobrazí:
 
-![definice artefaktů - odkládací složky sestavení](media/cicd/build-definition-artifacts.png)
+![Snímek obrazovky s artefakty definice sestavení - odkládací složky](media/cicd/build-definition-artifacts.png)
 
 Použití **Stáhnout** a **prozkoumat** odkazů ke kontrole publikované artefakty.
 
@@ -251,25 +252,25 @@ Použití **Stáhnout** a **prozkoumat** odkazů ke kontrole publikované artefa
 
 Kanál pro vydávání verzí byl vytvořen s názvem *MyFirstProject ASP.NET Core-CD*:
 
-![Přehled profilace vydaných verzí](media/cicd/release-definition-overview.png)
+![Snímek obrazovky znázorňující verze kanálu přehled](media/cicd/release-definition-overview.png)
 
 Jsou dvě hlavní součásti procesu vydávání verzí **artefakty** a **prostředí**. Kliknutím na pole v **artefakty** odhalí panelu následující části:
 
-![kanál artefaktům vydané verze](media/cicd/release-definition-artifacts.png)
+![Snímek obrazovky znázorňující verze kanálu artefaktů](media/cicd/release-definition-artifacts.png)
 
 **Zdroj (definice sestavení)** hodnota představuje definici sestavení, se kterým je spojen tento kanál pro vydávání verzí. *ZIP* soubor vytvořený úspěšného spuštění definice sestavení se poskytuje *produkční* prostředí pro nasazení do Azure. Klikněte na tlačítko *fáze 1, 2 úlohy* odkaz v *produkční* pole prostředí zobrazíte uvolnění úloh kanálu:
 
-![úkoly uvolnění kanálu](media/cicd/release-definition-tasks.png)
+![Snímek obrazovky znázorňující verze kanálu úlohy](media/cicd/release-definition-tasks.png)
 
 Kanál pro vydávání verzí se skládá ze dvou úloh: *nasazení služby Azure App Service do slotu* a *Správa služby Azure App Service – Prohodit Slot*. Kliknutím na první úkol zobrazí následující konfigurace úlohy:
 
-![Úloha nasazení kanálu pro vydávání verzí](media/cicd/release-definition-task1.png)
+![Úloha nasazení kanálu pro vydávání verzí – snímek obrazovky znázorňující](media/cicd/release-definition-task1.png)
 
 Předplatné Azure, typ služby, název webové aplikace, skupiny prostředků a slot pro nasazení jsou definovány v úlohu nasazení. **Balíčku nebo složky** obsahuje textové pole *ZIP* cesta k souboru extrahována a nasazené do *pracovní* pozici *mywebapp\<jedinečný sez_namu posledních použitých\>*  webové aplikace.
 
 Klepnutím na úkol, slot swap, zobrazí se následující konfigurace úlohy:
 
-![verze kanálu slotu prohození úloh](media/cicd/release-definition-task2.png)
+![Snímek obrazovky znázorňující uvolnění kanálu slotu prohození úlohy](media/cicd/release-definition-task2.png)
 
 Předplatné, skupinu prostředků, typ služby, název webové aplikace a podrobnosti o slot nasazení jsou k dispozici. **Prohodit s produkčním** zaškrtávací políčko zaškrtnuto. V důsledku toho nasazené bity *pracovní* do produkčního prostředí se Prohodit slot.
 

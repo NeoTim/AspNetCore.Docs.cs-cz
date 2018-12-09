@@ -3,14 +3,15 @@ title: Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými au
 author: rick-anderson
 description: Zjistěte, jak vytvořit aplikace Razor Pages s uživatelskými daty chráněnými autorizací. Zahrnuje HTTPS, ověřování, zabezpečení ASP.NET Core Identity.
 ms.author: riande
-ms.date: 7/24/2018
+ms.date: 12/07/2018
+ms.custom: seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 185628d4e06c9b5ae7f2685c10ea9e46dd5abe92
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: d49ee7779b425d625b81c8a65694121c616bfba6
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253218"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121632"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
 
@@ -38,21 +39,21 @@ Tento kurz ukazuje, jak vytvořit webovou aplikaci ASP.NET Core s uživatelským
 
 Na následujícím obrázku, uživatel Rick (`rick@example.com`) je přihlášený. Rick může zobrazit jenom schválené kontakty a **upravit**/**odstranit**/**vytvořit nový** odkazy pro jeho kontakty. Pouze poslední záznam vytvořil Rick, zobrazí **upravit** a **odstranit** odkazy. Ostatní uživatelé neuvidí poslední záznam, dokud správce nebo správce změní stav na "Schváleno".
 
-![obrázek popisuje předchozí](secure-data/_static/rick.png)
+![Snímek obrazovky zobrazující Rick přihlášení](secure-data/_static/rick.png)
 
 Na následujícím obrázku `manager@contoso.com` je podepsán v a v roli správce:
 
-![obrázek popisuje předchozí](secure-data/_static/manager1.png)
+![Snímek obrazovky zobrazující manager@contoso.com přihlášení](secure-data/_static/manager1.png)
 
 Následující obrázek ukazuje vedoucí zobrazení podrobností o kontaktu:
 
-![obrázek popisuje předchozí](secure-data/_static/manager.png)
+![Zobrazení manažera kontaktu](secure-data/_static/manager.png)
 
 **Schválit** a **odmítnout** tlačítek se zobrazí pouze správci a správci.
 
 Na následujícím obrázku `admin@contoso.com` je podepsán v a v roli správce:
 
-![obrázek popisuje předchozí](secure-data/_static/admin.png)
+![Snímek obrazovky zobrazující admin@contoso.com přihlášení](secure-data/_static/admin.png)
 
 Správce má všechna oprávnění. Může číst/upravovat/odstraňovat všechny kontakty a změnit stav kontakty.
 
@@ -281,25 +282,32 @@ Zobrazit [tento problém](https://github.com/aspnet/Docs/issues/8502) informace 
 
 ## <a name="test-the-completed-app"></a>Testování dokončené aplikace
 
+Pokud jste dosud nenastavili hesla pro dosazené uživatelské účty, použijte [nástroj tajný klíč správce](xref:security/app-secrets#secret-manager) nastavit heslo:
+
+* Zvolte silné heslo: použití osm nebo více znaků, aspoň jedno velké písmeno, číslo a symbol. Například `Passw0rd!` splňuje požadavky na silné heslo.
+* Spusťte následující příkaz ze složky projektu, kde `<PW>` je heslo:
+
+  ```console
+  dotnet user-secrets set SeedUserPW <PW>
+  ```
+
 Pokud má kontaktů:
 
 * Odstranění všech záznamů v `Contact` tabulky.
 * Restartujte aplikaci k přidání dat do databáze.
 
-Zaregistrujte pro procházení kontakty uživatele.
-
-Snadný způsob, jak otestovat dokončená aplikace je spustíte tři různé prohlížeče (nebo incognito/InPrivate verze). V jeden prohlížeč, registraci nového uživatele (například `test@example.com`). Přihlaste se k každým prohlížečem s jiným uživatelem. Ověřte následující operace:
+Snadný způsob, jak otestovat dokončená aplikace je spustíte tři různé prohlížeče (nebo incognito/InPrivate relace). V jeden prohlížeč, registraci nového uživatele (například `test@example.com`). Přihlaste se k každým prohlížečem s jiným uživatelem. Ověřte následující operace:
 
 * Registrovaných uživatelů můžete zobrazit všechny schválené kontaktní údaje.
 * Registrovaných uživatelů můžete upravit nebo odstranit svá vlastní data.
-* Vedoucí mohli schválit nebo odmítnout kontaktní údaje. `Details` Zobrazení ukazuje **schválit** a **odmítnout** tlačítka.
+* Správci mohou schvalovat a odmítat kontaktní údaje. `Details` Zobrazení ukazuje **schválit** a **odmítnout** tlačítka.
 * Správci můžou schvalovat a odmítat a upravit nebo odstranit všechna data.
 
-| Uživatel| Možnosti |
-| ------------ | ---------|
-| test@example.com | Můžete upravit nebo odstranit vlastní data |
-| manager@contoso.com | Můžete schvalovat a odmítat a upravit nebo odstranit data jsou vaše vlastnictví |
-| admin@contoso.com | Můžete upravit nebo odstranit a schvalovat a odmítat všechna data|
+| Uživatel                | Nasazených aplikací | Možnosti                                  |
+| ------------------- | :---------------: | ---------------------------------------- |
+| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
+| manager@contoso.com | Ano               | Vlastní data, schvalovat a odmítat a upravit nebo odstranit. |
+| admin@contoso.com   | Ano               | Schválit nebo odmítnout a upravit nebo odstranit všechna data. |
 
 Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro odstranění a upravit z kontaktujte správce. Vložte tyto odkazy do testů webového prohlížeče k ověření, že testovací uživatel nemůže provádět tyto operace.
 

@@ -1,17 +1,17 @@
 ---
-title: DevOps s využitím ASP.NET Core a Azure | Monitorování a ladění
+title: Monitorování a ladění – DevOps s využitím ASP.NET Core a Azure
 author: CamSoper
-description: Průvodce, který poskytuje pokyny k začátku do konce na vytváření procesních toků pro DevOps pro aplikace ASP.NET Core hostované v Azure.
+description: Monitorování a ladění kódu jako součást řešení DevOps s ASP.NET Core a Azure
 ms.author: casoper
-ms.custom: mvc
+ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/monitor
-ms.openlocfilehash: c4013de574fdf34114f2ae6c6a2150d72f807578
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: e005b951aec578b396fc19dec5d2f55cbce4f664
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090181"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121606"
 ---
 # <a name="monitor-and-debug"></a>Monitorování a ladění
 
@@ -35,7 +35,7 @@ Aplikace služby App Service web apps je snadné sledování v reálném čase. 
 
 1. **Přehled** karta obsahuje užitečné informace "na přehledem", včetně grafů zobrazení nedávné metriky.
 
-    ![Přehled panelu](./media/monitoring/overview.png)
+    ![Snímek obrazovky zobrazující Přehled panelu](./media/monitoring/overview.png)
 
     * **Http 5xx**: počet chyb na straně serveru, obvykle výjimek v kódu ASP.NET Core.
     * **Data v**: příchozí přenosy přicházejí do webové aplikace.
@@ -45,7 +45,7 @@ Aplikace služby App Service web apps je snadné sledování v reálném čase. 
 
     Několik samoobslužné nástroje pro řešení potíží a optimalizace, které také najdete na této stránce.
 
-    ![Samoobslužné nástroje](./media/monitoring/wizards.png)
+    ![Snímek obrazovky znázorňující samoobslužné nástroje](./media/monitoring/wizards.png)
 
     * **Diagnostikovat a řešit problémy** je Poradce při potížích samoobslužné služby.
     * **Application Insights** je pro profilaci výkonu a chování aplikace a je popsána dále v této části.
@@ -92,7 +92,7 @@ Protokoly webového serveru a aplikace jsou zakázané ve výchozím nastavení 
 1. Zapnout **protokolování aplikace (systém souborů)**. Pokud se zobrazí výzva, klikněte na políčko pro instalaci rozšíření povolíte protokolování ve webové aplikaci app.
 1. Nastavte **protokolování webového serveru** k **systému souborů**.
 1. Zadejte **dobu uchování** ve dnech. Například 30.
-1. Klikněte na tlačítko **Uložit**.
+1. Klikněte na **Uložit**.
 
 Pro webovou aplikaci se generují protokoly ASP.NET Core a web server (App Service). Stahování lze provádět pomocí FTP/FTPS informace zobrazené. Heslo je stejná jako přihlašovací údaje pro nasazení, vytvořili dříve v tomto průvodci. Může být protokoly [Streamovat přímo do svého místního počítače pomocí Powershellu nebo rozhraní příkazového řádku Azure](/azure/app-service/web-sites-enable-diagnostic-log#download). Můžete se také protokoly [zobrazit ve službě Application Insights](/azure/app-service/web-sites-enable-diagnostic-log#how-to-view-logs-in-application-insights).
 
@@ -103,7 +103,7 @@ Protokoly aplikací a webového serveru můžete streamování v reálném čase
 1. Otevřít [webu Azure portal](https://portal.azure.com)a přejděte *mywebapp\<unique_number\>*  služby App Service.
 1. V nabídce na levé straně, přejděte dolů k položce **monitorování** a vyberte **stream protokolů**.
 
-    ![Propojení stream protokolů](./media/monitoring/log-stream.png)
+    ![Snímek obrazovky znázorňující protokolu stream odkaz](./media/monitoring/log-stream.png)
 
 Můžete se také protokoly [Streamovat prostřednictvím Azure Powershellu nebo rozhraní příkazového řádku Azure](/azure/app-service/web-sites-enable-diagnostic-log#streamlogs), včetně Cloud Shell.
 

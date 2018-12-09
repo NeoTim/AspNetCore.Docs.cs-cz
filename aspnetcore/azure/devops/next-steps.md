@@ -1,17 +1,17 @@
 ---
-title: DevOps s využitím ASP.NET Core a Azure | Další kroky
+title: Další kroky – DevOps s využitím ASP.NET Core a Azure
 author: CamSoper
-description: Průvodce, který poskytuje pokyny k začátku do konce na vytváření procesních toků pro DevOps pro aplikace ASP.NET Core hostované v Azure.
+description: Další postupy výuky pro vývoj a provoz s ASP.NET Core a Azure.
 ms.author: casoper
-ms.custom: mvc
+ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/next-steps
-ms.openlocfilehash: b82e7251b507f8d141930673d50722cfaa576db5
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 7c3b1c701b13b2a2052c72f5f84bba33d4995ad7
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50089875"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121321"
 ---
 # <a name="next-steps"></a>Další kroky
 

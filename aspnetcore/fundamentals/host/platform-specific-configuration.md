@@ -1,20 +1,20 @@
 ---
-title: Vylepšení aplikace z externího sestavení v ASP.NET Core s IHostingStartup
+title: Použití hostování při spuštění sestavení v ASP.NET Core
 author: guardrex
 description: Zjistěte, jak rozšířit aplikace ASP.NET Core z externího sestavení přes IHostingStartup implementace.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.custom: mvc
+ms.custom: mvc,seodec18
 ms.date: 11/22/2018
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: ef3b48dc72f294a783d789c4c9a796e3498a91d9
-ms.sourcegitcommit: 710fc5fcac258cc8415976dc66bdb355b3e061d5
+ms.openlocfilehash: 6c38242afee46b80bafcba47a8f77e2c05f6537e
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/26/2018
-ms.locfileid: "52299453"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121723"
 ---
-# <a name="enhance-an-app-from-an-external-assembly-in-aspnet-core-with-ihostingstartup"></a>Vylepšení aplikace z externího sestavení v ASP.NET Core s IHostingStartup
+# <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>Použití hostování při spuštění sestavení v ASP.NET Core
 
 Podle [Luke Latham](https://github.com/guardrex) a [Pavel Krymets](https://github.com/pakrym)
 
@@ -297,7 +297,7 @@ Hostování rozšíření po spuštění můžete zadat *bin*– nasazení sesta
 * Soubor projektu vylepšené aplikace je odkaz na sestavení pro spouštění hostování (kompilace odkaz). Kompilace odkazem na místě, hostování při spuštění sestavení a všechny jeho závislosti jsou začleněny do závislostí souboru aplikace (*\*. deps.json*). Tento postup platí, pokud scénář nasazení volá pro přesun sestavení zkompilované hostování spuštění knihovny (DLL soubor) náročné projektu nebo do umístění přístupné náročné projektem a se kompilace odkazuje na hostování pro spuštění sestavení.
 * Hostování spouštěcí závislosti soubor je k dispozici do vylepšené aplikace, jak je popsáno v [úložiště modulu Runtime](#runtime-store) část (bez kompilace odkaz).
 
-## <a name="sample-code"></a>Ukázkový kód
+## <a name="sample-code"></a>Ukázka kódu
 
 [Ukázkový kód](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) ([stažení](xref:index#how-to-download-a-sample)) ukazuje implementaci scénáře hostingu po spuštění:
 
@@ -308,7 +308,7 @@ Hostování rozšíření po spuštění můžete zadat *bin*– nasazení sesta
   * Registrované služby
   * Adresa (schéma, hostitele, základ cesty, cesta, řetězec dotazu)
   * Připojení (vzdálenou IP adresu, vzdálený port, místní IP adresu, místní port, klientského certifikátu)
-  * Hlavičky žádosti
+  * Hlavičky požadavku
   * Proměnné prostředí
 
 Ke spuštění ukázky:

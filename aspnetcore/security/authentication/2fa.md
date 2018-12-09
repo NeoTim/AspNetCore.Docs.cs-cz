@@ -5,13 +5,14 @@ description: Zjistěte, jak nastavit dvojúrovňového ověřování (2FA) s apl
 monikerRange: < aspnetcore-2.0
 ms.author: riande
 ms.date: 09/22/2018
+ms.custom: seodec18
 uid: security/authentication/2fa
-ms.openlocfilehash: 5b0866ecf15381b040e3646eecc22374b6b0c9e2
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 6f20928b0dec9b235fa17c1b44c81a48d031e9e0
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50205883"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121658"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>Dvoufaktorové ověřování přes SMS v ASP.NET Core
 
@@ -97,7 +98,7 @@ Otevřít *Views/Manage/Index.cshtml* soubor zobrazení Razor a odeberte znaky k
 
 * Klepněte na jméno uživatele, která se aktivuje `Index` metody akce v kontroleru spravovat. Potom klepněte na telefonní číslo **přidat** odkaz.
 
-![Správa zobrazení](2fa/_static/login2fa2.png)
+![Správa zobrazení – klepnout na odkaz "Přidání"](2fa/_static/login2fa2.png)
 
 * Přidat telefonní číslo, který bude přijímat ověřovací kód a klepněte na **poslat ověřovací kód**.
 
@@ -111,11 +112,11 @@ Pokud vám textovou zprávu, přečtěte si téma twilio protokolu stránky.
 
 * Správa zobrazení ukazuje že vaše telefonní číslo bylo úspěšně přidán.
 
-![Správa zobrazení](2fa/_static/login2fa5.png)
+![Správa zobrazení – telefonní číslo se úspěšně přidal](2fa/_static/login2fa5.png)
 
 * Klepněte na **povolit** povolení dvoufaktorového ověřování.
 
-![Správa zobrazení](2fa/_static/login2fa6.png)
+![Správa zobrazení – povolení dvoufaktorového ověřování](2fa/_static/login2fa6.png)
 
 ### <a name="test-two-factor-authentication"></a>Test dvoufaktorového ověřování
 

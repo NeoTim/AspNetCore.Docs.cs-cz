@@ -1,17 +1,18 @@
 ---
 title: Nahrání souborů do stránky v ASP.NET Core Razor
 author: guardrex
-description: Zjistěte, jak k nahrání souborů do stránky Razor.
+description: Zjistěte, jak k nahrání souborů do stránky Razor v ASP.NET Core s využitím třídy FileUpload.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 11/10/2018
+ms.custom: seodec18
 uid: razor-pages/upload-files
-ms.openlocfilehash: 8d86a84bcd31cc1e1e6fbe0693c7ec179e589f3d
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 80929c6c1a95b46b942958def1540ac8ed5abc81
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570006"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121398"
 ---
 # <a name="upload-files-to-a-razor-page-in-aspnet-core"></a>Nahrání souborů do stránky v ASP.NET Core Razor
 
@@ -25,7 +26,7 @@ V následujících krocích se funkci odesílání souborů plán video přidá 
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/upload-files/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="security-considerations"></a>Důležité informace o zabezpečení
+## <a name="security-considerations"></a>Aspekty zabezpečení
 
 Upozornění musí být provedeny, když zároveň uživatelům poskytují možnost k nahrání souborů do serveru. Útočníci se dá provádět [útok DoS](/windows-hardware/drivers/ifs/denial-of-service) a dalších útoků na systém. Některé kroky zabezpečení, které sníží pravděpodobnost úspěšného útoku, že jsou:
 

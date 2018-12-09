@@ -6,12 +6,12 @@ ms.author: riande
 monikerRange: '>= aspnetcore-2.2'
 ms.date: 12/3/2018
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 3c9b96c8e56672a3c4268d8cd507f30127a812dd
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 91fee1db820493be671fecaee3cfb4c1b7df8bd3
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861469"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121360"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -94,7 +94,7 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 
 * V **třída modelu** rozevírací seznam, vyberte **Movie (RazorPagesMovie.Models)**.
 * V **třída kontextu dat** řádek, vyberte **+** (plus) podepsat a přijměte vygenerovaný název **RazorPagesMovie.Models.RazorPagesMovieContext**.
-* Vyberte **přidat**.
+* Vyberte **Přidat**.
 
 ![Image z předchozích kroků.](model/_static/arp.png)
 
@@ -108,6 +108,12 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 -->
 
 * Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
+* Nainstalujte nástroj pro generování uživatelského rozhraní:
+
+  ```console
+   dotnet tool install --global dotnet-aspnet-codegenerator
+   ```
+
 * **Pro Windows**: spusťte následující příkaz:
 
   ```console
