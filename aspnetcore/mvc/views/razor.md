@@ -5,12 +5,12 @@ description: Další informace o syntaxi Razor kód pro vložení do webových s
 ms.author: riande
 ms.date: 10/26/2018
 uid: mvc/views/razor
-ms.openlocfilehash: ab9fb3f55399764c5fe985811d92c504ed210767
-ms.sourcegitcommit: ad28d1bc6657a743d5c2fa8902f82740689733bb
+ms.openlocfilehash: 2ec86c774e0fd26c4455829680a2b1db687b8090
+ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/20/2018
-ms.locfileid: "52256577"
+ms.lasthandoff: 12/09/2018
+ms.locfileid: "53121581"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -197,7 +197,7 @@ Pokud chcete definovat dílčí část objektu bloku kódu, který vykreslovat k
 
 Tuto metodu použijte k vykreslení HTML, který není obklopený značky jazyka HTML. Bez značky jazyka HTML nebo Razor dojde k chybě modulu runtime Razor.
 
- **\<Text >** značka je vhodné pro řízení prázdné znaky, při vykreslování obsahu:
+**\<Text >** značka je vhodné pro řízení prázdné znaky, při vykreslování obsahu:
 
 * Pouze obsah mezi  **\<text >** je vykreslen. 
 * Žádné prázdné znaky před nebo po  **\<text >** značky se zobrazí ve výstupu protokolu HTML.
@@ -640,8 +640,8 @@ Existují tři direktivy, které se týkají [pomocných rutin značek](xref:mvc
 ### <a name="razor-keywords"></a>Klíčová slova Razor
 
 * stránka (vyžaduje ASP.NET Core 2.0 a novější)
-*  – obor názvů
-*  – funkce
+* – obor názvů
+* – funkce
 * Dědí
 * model
 * section
@@ -659,7 +659,7 @@ Klíčová slova Razor jsou uvozeny řídicími znaky s `@(Razor Keyword)` (nap�
 * if
 * else
 * lock
-*  – přepínač
+* – přepínač
 * Zkuste
 * catch
 * finally
@@ -741,7 +741,7 @@ Zobrazovací modul Razor provádí velká a malá písmena vyhledávání pro zo
 
 Vývojáři nepodnikovým tak, aby odpovídaly malých a velkých písmen názvů použití malých a velkých souborů a adresářů:
 
-    * Názvy oblastí, kontroleru a akce.
-    * Stránky Razor.
+* Názvy oblastí, kontroleru a akce.
+* Stránky Razor.
 
 Odpovídající případ zajistí, že pro nasazení své názory, bez ohledu na podkladový systém souborů.
