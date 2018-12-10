@@ -6,20 +6,11 @@
 # [Začínáme](xref:getting-started)
 
 # Kurzy
-## [Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
+## Webová rozhraní API
+### [Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
+### [Web API s MongoDB](xref:tutorials/first-mongo-app)
 ## Webové aplikace
-### Razor Pages
-#### [Úvod do Razor Pages](xref:razor-pages/index)
-
-#### [Kurz k Razor Pages](xref:tutorials/razor-pages/index)
-##### [Začínáme](xref:tutorials/razor-pages/razor-pages-start)
-##### [Přidání modelu](xref:tutorials/razor-pages/model)
-##### [Generování uživatelského rozhraní](xref:tutorials/razor-pages/page)
-##### [Práce s databázemi](xref:tutorials/razor-pages/sql)
-##### [Aktualizace stránek](xref:tutorials/razor-pages/da1)
-##### [Přidání vyhledávání](xref:tutorials/razor-pages/search)
-##### [Přidání nového pole](xref:tutorials/razor-pages/new-field)
-##### [Přidání ověřování](xref:tutorials/razor-pages/validation)
+### [Stránky Razor](xref:tutorials/razor-pages/index)
 
 ### MVC
 #### [S využitím sady Visual Studio](xref:tutorials/first-mvc-app/index)
@@ -165,7 +156,9 @@
 # Webová rozhraní API
 ## [Přehled](xref:web-api/index)
 
-## [Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
+## Kurzy
+### [Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
+### [Web API s MongoDB](xref:tutorials/first-mongo-app)
 
 ## Swagger / OpenAPI
 ### [Přehled](xref:tutorials/web-api-help-pages-using-swagger)
@@ -420,7 +413,7 @@
 ## [Změna tokenů](xref:fundamentals/change-tokens)
 ## [Otevřené webové rozhraní pro .NET (OWIN)](xref:fundamentals/owin)
 ## [Úlohy na pozadí s hostovanými službami](xref:fundamentals/host/hosted-services)
-## [Vylepšení aplikace z externího sestavení](xref:fundamentals/configuration/platform-specific-configuration)
+## [Hostování spouštěcích sestavení](xref:fundamentals/configuration/platform-specific-configuration)
 ## [Metabalíček Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app)
 ## [Metabalíček Microsoft.AspNetCore.All](xref:fundamentals/metapackage)
 ## [Protokolování funkcemi třídy LoggerMessage](xref:fundamentals/logging/loggermessage)
