@@ -5,14 +5,14 @@ description: Zjistěte, jak třídu pro spuštění v ASP.NET Core konfiguruje s
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/20/2018
+ms.date: 12/10/2018
 uid: mvc/compatibility-version
-ms.openlocfilehash: bedeeba07dcca19176e779f3541c445e94efcd07
-ms.sourcegitcommit: 5a2456cbf429069dc48aaa2823cde14100e4c438
+ms.openlocfilehash: 6c4eb6f327a133a52bb72833920eafec3497c5f8
+ms.sourcegitcommit: 1872d2e6f299093c78a6795a486929ffb0bbffff
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2018
-ms.locfileid: "41910021"
+ms.lasthandoff: 12/11/2018
+ms.locfileid: "53216817"
 ---
 # <a name="compatibility-version-for-aspnet-core-mvc"></a>Verze kompatibility pro ASP.NET Core MVC
 
@@ -20,11 +20,11 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda umožňuje aplikacím vyjádřit výslovný souhlas nebo výslovný nesouhlas s potenciálně rozbíjející změny chování zavedení v ASP.NET Core MVC 2.1 nebo novější. Potenciálně rozbíjející změny chování jsou obecně v způsob, jakým se chová subsystému MVC a jak **kódu** je volána modulem runtime. Vyjádření výslovného souhlasu, získáte nejnovější chování a dlouhodobé chování ASP.NET Core.
 
-Následující kód nastaví režim kompatibility ASP.NET Core 2.1:
+Následující kód nastaví režim kompatibility ASP.NET Core 2.2:
 
 [!code-csharp[Main](compatibility-version/samples/2.x/CompatibilityVersionSample/Startup.cs?name=snippet1)]
 
-Doporučujeme, abyste testování aplikace pomocí nejnovější verze (`CompatibilityVersion.Version_2_1`). Předpokládáme, že většina aplikací nebudou mít nejnovější změny chování pomocí nejnovější verze.
+Doporučujeme, abyste testování aplikace pomocí nejnovější verze (`CompatibilityVersion.Version_2_2`). Předpokládáme, že většina aplikací nebudou mít nejnovější změny chování pomocí nejnovější verze.
 
 Aplikace, které volají `SetCompatibilityVersion(CompatibilityVersion.Version_2_0)` chráněná před potenciálně rozbíjející změny chování zavedené v ASP.NET Core 2.1 MVC a novější verze 2.x. Tato ochrana:
 
@@ -33,7 +33,7 @@ Aplikace, které volají `SetCompatibilityVersion(CompatibilityVersion.Version_2
 
 Výchozí kompatibilitu pro ASP.NET Core 2.1 a vyšší 2.x aplikací, které toho **není** volání `SetCompatibilityVersion` je 2.0 kompatibility. To znamená, že není volání `SetCompatibilityVersion` je stejný jako volání funkce `SetCompatibilityVersion(CompatibilityVersion.Version_2_0)`.
 
-Následující kód nastaví režim kompatibility ASP.NET Core 2.1, s výjimkou následujícího chování:
+Následující kód nastaví režim kompatibility ASP.NET Core 2.2, s výjimkou následujících chování:
 
 * [AllowCombiningAuthorizeFilters](https://github.com/aspnet/Mvc/blob/master/src/Microsoft.AspNetCore.Mvc.Core/MvcOptions.cs)
 * [InputFormatterExceptionPolicy](https://github.com/aspnet/Mvc/blob/master/src/Microsoft.AspNetCore.Mvc.Core/MvcOptions.cs)

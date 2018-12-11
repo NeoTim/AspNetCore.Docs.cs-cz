@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak použít rozhraní API pro konfiguraci ke konfiguraci aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/15/2018
+ms.date: 12/07/2018
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 766ac77a2af01509f8e4bc646a18f7dfbc923511
-ms.sourcegitcommit: d3392f688cfebc1f25616da7489664d69c6ee330
+ms.openlocfilehash: 6f0378ffc4f9a1efa95c8f70d70e7799abef130b
+ms.sourcegitcommit: 1872d2e6f299093c78a6795a486929ffb0bbffff
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/16/2018
-ms.locfileid: "51818392"
+ms.lasthandoff: 12/11/2018
+ms.locfileid: "53216895"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -147,7 +147,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace k dispozici pro
 
 ::: moniker range=">= aspnetcore-2.1"
 
-| Zprostředkovatel | Obsahuje konfiguraci z&hellip; |
+| Poskytovatel | Obsahuje konfiguraci z&hellip; |
 | -------- | ----------------------------------- |
 | [Azure zprostředkovatel konfigurace trezoru klíčů](xref:security/key-vault-configuration) (*zabezpečení* témata) | Azure Key Vault |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
@@ -162,7 +162,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace k dispozici pro
 
 ::: moniker range="= aspnetcore-2.0 || aspnetcore-1.1"
 
-| Zprostředkovatel | Obsahuje konfiguraci z&hellip; |
+| Poskytovatel | Obsahuje konfiguraci z&hellip; |
 | -------- | ----------------------------------- |
 | [Azure zprostředkovatel konfigurace trezoru klíčů](xref:security/key-vault-configuration) (*zabezpečení* témata) | Azure Key Vault |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
@@ -176,7 +176,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace k dispozici pro
 
 ::: moniker range="= aspnetcore-1.0"
 
-| Zprostředkovatel | Obsahuje konfiguraci z&hellip; |
+| Poskytovatel | Obsahuje konfiguraci z&hellip; |
 | -------- | ----------------------------------- |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
 | [Vlastního poskytovatele konfigurace](#custom-configuration-provider) | Vlastní zdroj |
@@ -201,7 +201,7 @@ Je obvyklé na poslední pozici poskytovatele konfigurace příkazového řádku
 
 ::: moniker range=">= aspnetcore-2.0"
 
-Toto pořadí poskytovatelů přejde do místa při inicializaci nové <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> s <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>. Další informace najdete v tématu [webového hostitele: nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
+Toto pořadí poskytovatelů přejde do místa při inicializaci nové <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> s <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>. Další informace najdete v tématu [webového hostitele: Nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
 
 ::: moniker-end
 
@@ -260,7 +260,7 @@ K aktivaci příkazového řádku konfigurace <xref:Microsoft.Extensions.Configu
 
 ::: moniker range=">= aspnetcore-2.0"
 
-`AddCommandLine` je automaticky volána, když inicializujete novou <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> s <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>. Další informace najdete v tématu [webového hostitele: nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
+`AddCommandLine` je automaticky volána, když inicializujete novou <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> s <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>. Další informace najdete v tématu [webového hostitele: Nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
 
 `CreateDefaultBuilder` také načítání:
 
@@ -534,11 +534,11 @@ Chcete-li aktivovat konfigurace proměnných prostředí, zavolejte <xref:Micros
 
 Při práci s hierarchické klíče v seznamu proměnných prostředí, oddělovač dvojtečka (`:`) nemusí fungovat na všech platformách. Dvojitým podtržítkem (`__`) podporuje všechny platformy a nahrazuje dvojtečkou.
 
-[Azure App Service](https://azure.microsoft.com/services/app-service/) umožňuje nastavit proměnné prostředí na webu Azure Portal, můžete přepsat konfiguraci aplikace pomocí zprostředkovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikace Azure: Konfigurace aplikace přepsat pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
+[Azure App Service](https://azure.microsoft.com/services/app-service/) umožňuje nastavit proměnné prostředí na webu Azure Portal, můžete přepsat konfiguraci aplikace pomocí zprostředkovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikace Azure: Přepsat konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
 
 ::: moniker range=">= aspnetcore-2.0"
 
-`AddEnvironmentVariables` je automaticky volána pro proměnné prostředí s předponou `ASPNETCORE_` při inicializaci nové <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>. Další informace najdete v tématu [webového hostitele: nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
+`AddEnvironmentVariables` je automaticky volána pro proměnné prostředí s předponou `ASPNETCORE_` při inicializaci nové <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>. Další informace najdete v tématu [webového hostitele: Nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
 
 `CreateDefaultBuilder` také načítání:
 
@@ -699,7 +699,7 @@ Metoda statické pohodlí `CreateDefaultBuilder` vytvoří <xref:Microsoft.AspNe
 
 Rozhraní API konfigurace má zvláštní zpracování pravidel pro čtyři připojovací řetězec proměnné prostředí používané při konfiguraci Azure připojovací řetězce pro prostředí app. Proměnné prostředí s předponami uvedené v tabulce se načtou do aplikace, pokud není zadána žádná předpona k `AddEnvironmentVariables`.
 
-| Předpona řetězce připojení | Zprostředkovatel |
+| Předpona řetězce připojení | Poskytovatel |
 | ------------------------ | -------- |
 | `CUSTOMCONNSTR_` | Vlastní zprostředkovatel |
 | `MYSQLCONNSTR_` | [MySQL](https://www.mysql.com/) |
@@ -859,7 +859,7 @@ Přetížení povolit zadáním:
 * *appSettings.JSON* &ndash; tento soubor je nejprve pro čtení. Prostředí verze souboru mohou přepsat hodnoty poskytnuté *appsettings.json* souboru.
 * *appSettings. {Prostředí} .json* &ndash; načtení na základě prostředí verze souboru [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).
 
-Další informace najdete v tématu [webového hostitele: nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
+Další informace najdete v tématu [webového hostitele: Nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
 
 `CreateDefaultBuilder` také načítání:
 
@@ -1136,6 +1136,8 @@ Přetížení povolit zadáním:
 
 * `Action<KeyPerFileConfigurationSource>` Delegáta, který nastaví jako zdroj.
 * Určuje, zda daný adresář je volitelné a cestu k adresáři.
+
+Double – podtržítko (`__`) se používá jako oddělovač klíčových konfigurace v názvech souborů. Například název souboru `Logging__LogLevel__System` vytvoří konfigurační klíč `Logging:LogLevel:System`.
 
 Volání <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> při vytváření hostitele tak, aby konfiguraci aplikace, zadejte:
 
@@ -1810,7 +1812,7 @@ public class Startup
 }
 ```
 
-Příklad přístup ke konfiguraci pomocí vhodné metody po spuštění najdete v tématu [spuštění aplikace: vhodné metody](xref:fundamentals/startup#convenience-methods).
+Příklad přístup ke konfiguraci pomocí vhodné metody po spuštění najdete v tématu [spuštění aplikace: Vhodné metody](xref:fundamentals/startup#convenience-methods).
 
 ## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a>Konfigurace přístupu v stránky Razor Pages nebo zobrazení MVC
 

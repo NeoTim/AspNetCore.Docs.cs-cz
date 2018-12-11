@@ -3,14 +3,14 @@ title: Migrace z ASP.NET do ASP.NET Core
 author: isaac2004
 description: Získat pokyny pro migraci stávajících rozhraní ASP.NET MVC nebo webového rozhraní API aplikací na Core.web technologie ASP.NET
 ms.author: scaddie
-ms.date: 08/27/2017
+ms.date: 12/10/2018
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 1a3e3f0b514c262cfe13ea8391ab97b95aa4384e
-ms.sourcegitcommit: 54655f1e1abf0b64d19506334d94cfdb0caf55f6
+ms.openlocfilehash: 6808fefb890dcdec6abdd0604ab61dfd2573d910
+ms.sourcegitcommit: 1872d2e6f299093c78a6795a486929ffb0bbffff
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/26/2018
-ms.locfileid: "50148795"
+ms.lasthandoff: 12/11/2018
+ms.locfileid: "53216791"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET do ASP.NET Core
 
@@ -66,7 +66,7 @@ ASP.NET Core používá podobný přístup, ale nemusí spoléhat na OWIN pro zp
 
 `Startup` musí obsahovat `Configure` metoda. V `Configure`, přidat nezbytné middleware do kanálu. V následujícím příkladu (z výchozí šablony webové stránky) několik rozšiřující metody slouží ke konfiguraci kanálu s podporou:
 
-* [BrowserLink](http://vswebessentials.com/features/browserlink)
+* [Browser Link](xref:client-side/using-browserlink)
 * Chybové stránky
 * Statické soubory
 * ASP.NET Core MVC

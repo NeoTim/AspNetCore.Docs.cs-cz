@@ -4,14 +4,14 @@ author: ardalis
 description: Zjistěte, jak migrovat implementaci webového rozhraní API z ASP.NET 4.x webového rozhraní API pro ASP.NET Core MVC.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/01/2018
+ms.date: 12/10/2018
 uid: migration/webapi
-ms.openlocfilehash: f5d886a7c3182b5cd372762ade67c2e748051049
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 9806c502f8f5244740f9f9614657a40cfaa03314
+ms.sourcegitcommit: 1872d2e6f299093c78a6795a486929ffb0bbffff
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207274"
+ms.lasthandoff: 12/11/2018
+ms.locfileid: "53216830"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>Migrace z rozhraní ASP.NET Web API pro ASP.NET Core
 
@@ -23,8 +23,7 @@ Rozhraní Web API pro ASP.NET 4.x je služba HTTP, kterou půjde používat celo
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Sady SDK .NET core 2.1 nebo novější](https://www.microsoft.com/net/download/all)
-* [Visual Studio 2017](https://www.visualstudio.com/downloads/) verze 15.7.3 nebo novější s **vývoj pro ASP.NET a web** pracovního vytížení
+[!INCLUDE [net-core-prereqs-vs-2.2](../includes/net-core-prereqs-vs-2.2.md)]
 
 ## <a name="review-aspnet-4x-web-api-project"></a>Projděte si projekt webového rozhraní API technologie ASP.NET 4.x
 
@@ -34,15 +33,15 @@ V *Global.asax.cs*, je provedeno volání `WebApiConfig.Register`:
 
 [!code-csharp[](webapi/sample/ProductsApp/Global.asax.cs?highlight=14)]
 
-`WebApiConfig` je definován v *App_Start* složky. Má jenom jednu statickou `Register` metody:
+`WebApiConfig` Třídy se nachází v *App_Start* složky a má statickou `Register` metody:
 
-[!code-csharp[](webapi/sample/ProductsApp/App_Start/WebApiConfig.cs?highlight=15-20)]
+[!code-csharp[](webapi/sample/ProductsApp/App_Start/WebApiConfig.cs)]
 
 Tato třída nakonfiguruje [směrováním atributů](/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2), i když se ve skutečnosti používá v projektu. Nakonfiguruje taky směrovací tabulky, který používá rozhraní ASP.NET Web API. V takovém případě očekává, že webové rozhraní API ASP.NET 4.x adresy URL ve formátu `/api/{controller}/{id}`, s `{id}` je nepovinná.
 
-*ProductsApp* projekt obsahuje jeden kontroler. Kontroler dědí z `ApiController` a poskytuje dvě metody:
+*ProductsApp* projekt obsahuje jeden kontroler. Kontroler dědí z `ApiController` a obsahuje dvě akce:
 
-[!code-csharp[](webapi/sample/ProductsApp/Controllers/ProductsController.cs?highlight=19,24)]
+[!code-csharp[](webapi/sample/ProductsApp/Controllers/ProductsController.cs?highlight=28,33)]
 
 `Product` Model používaný `ProductsController` je jednoduchou třídu:
 
@@ -88,6 +87,12 @@ Opravte chyby následujícím způsobem:
 1. Odstraňte `using System.Web.Http;`.
 1. Změnit `GetProduct` návratový typ akce z `IHttpActionResult` k `ActionResult<Product>`.
 
+Zjednodušení `GetProduct` akce `return` příkaz takto:
+
+```csharp
+return product;
+```
+
 ## <a name="configure-routing"></a>Konfigurace směrování
 
 Konfigurace směrování následujícím způsobem:
@@ -102,11 +107,19 @@ Konfigurace směrování následujícím způsobem:
     Předchozí [[trasy]](xref:Microsoft.AspNetCore.Mvc.RouteAttribute) atribut nakonfiguruje vzor směrování atributů kontroleru. [[Objektu ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) atribut díky atribut směrování požadavků pro všechny akce v tomto kontroleru.
 
     Směrování atributů podporuje tokeny, jako například `[controller]` a `[action]`. Za běhu každý token se nahradí názvem kontroler nebo akce, v uvedeném pořadí, ke které byl použit atribut. Tokeny snížit počet magic řetězců v projektu. Tokeny Ujistěte se také trasy zajistila synchronizovanost s odpovídající kontrolery a akce při automatické přejmenování refaktoringy používají.
+1. Nastavení režimu kompatibility v projektu na verzi 2.2 technologie ASP.NET Core:
+
+    [!code-csharp[](webapi/sample/ProductsCore/Startup.cs?name=snippet_ConfigureServices&highlight=4)]
+
+    Předchozí změny:
+
+    * Je potřeba použít `[ApiController]` atribut na úrovni kontroleru.
+    * Vyjádřit výslovný souhlas pro potenciálně zásadní chování zavedené v ASP.NET Core 2.2.
 1. Povolit požadavky HTTP Get `ProductController` akce:
     * Použít [[HttpGet]](xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute) atribut `GetAllProducts` akce.
     * Použít `[HttpGet("{id}")]` atribut `GetProduct` akce.
 
-Až tyto změny a odstranění nepoužívaných `using` příkazů *ProductsController.cs* souboru vypadá takto:
+Po předchozí změny a odstranění nepoužívaných `using` příkazů *ProductsController.cs* souboru vypadá takto:
 
 [!code-csharp[](webapi/sample/ProductsCore/Controllers/ProductsController.cs)]
 
@@ -147,3 +160,4 @@ Chcete-li použít překrytí kompatibility:
 
 * <xref:web-api/index>
 * <xref:web-api/action-return-types>
+* <xref:mvc/compatibility-version>
