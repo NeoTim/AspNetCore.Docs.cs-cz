@@ -441,6 +441,6 @@
 ## [Novinky ve verzi 2.0](xref:aspnetcore-2.0)
 ## [Novinky ve verzi 1.1](xref:aspnetcore-1.1)
 
-# [Referenční dokumentace rozhraní API](/dotnet/api/?view=aspnetcore-2.0)
+# [Referenční dokumentace rozhraní API](/dotnet/api/?view=aspnetcore-2.2)
 
 # [Psaní příspěvků](https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md)
