@@ -8,16 +8,18 @@ ms.date: 06/10/2014
 ms.assetid: 03960de2-8d95-4444-9169-4426dcc64913
 msc.legacyurl: /signalr/overview/guide-to-the-api/handling-connection-lifetime-events
 msc.type: authoredcontent
-ms.openlocfilehash: 1783a3ab292a5460d5cc1b7ad78073071d65d379
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 6a354179a82eba1d4a64184bfdeb302472fabf5f
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911938"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287976"
 ---
 <a name="understanding-and-handling-connection-lifetime-events-in-signalr"></a>Principy a zpracování událostí doby platnosti v knihovně SignalR
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento článek obsahuje přehled funkce SignalR připojení, opětovné připojení a odpojení události, které dokáže zpracovat a nastavení časového limitu a keepalive, které můžete nakonfigurovat.
 >
@@ -43,7 +45,6 @@ podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://g
 > ## <a name="questions-and-comments"></a>Otázky a komentáře
 >
 > Napište prosím zpětnou vazbu o tom, jak vám líbilo v tomto kurzu a co můžeme zlepšit v komentářích v dolní části stránky. Pokud máte nějaké otázky, které přímo nesouvisejí, najdete v tomto kurzu, můžete je publikovat [fórum ASP.NET SignalR](https://forums.asp.net/1254.aspx/1?ASP+NET+SignalR) nebo [StackOverflow.com](http://stackoverflow.com/).
-
 
 ## <a name="overview"></a>Přehled
 
@@ -81,7 +82,7 @@ Odkazy na témata, Reference k rozhraní API se API verze rozhraní .NET 4.5. Po
 Tento článek bude rozlišovat mezi *připojení SignalR*, *přenosu připojení*, a *fyzické připojení*:
 
 - **Připojení SignalR** odkazuje na logický vztah mezi klientem a adresu URL serveru, spravuje pomocí rozhraní API SignalR a jednoznačně identifikují pomocí ID připojení. Data o tento vztah se spravuje pomocí SignalR a se používá k navázání připojení přenosu. Elementy end relace a technologie SignalR uvolní dat, když klient volá `Stop` metody nebo časový limit je dosaženo během SignalR je snahy o obnovení připojení přenosu ztraceny.
-- **Připojení přenosu** odkazuje na logický vztah mezi klientem a serverem, udržován jednu čtyři přenosu rozhraní API: protokoly Websocket, události odeslané serverem navždy snímků nebo dlouhý interval dotazování. SignalR k vytvoření připojení přenosu používá přenos rozhraní API a rozhraní API pro přenos závisí na existenci fyzické síťové připojení k vytvoření připojení přenosu. Připojení pro přenos končí při SignalR ukončí ho nebo při přenosu rozhraní API zjistí, že fyzické připojení bylo přerušeno.
+- **Připojení přenosu** odkazuje na logický vztah mezi klientem a serverem, udržován jednu čtyři přenosu rozhraní API: Protokoly Websocket, události odeslané serverem, navždy rámce nebo dlouhým dotazováním. SignalR k vytvoření připojení přenosu používá přenos rozhraní API a rozhraní API pro přenos závisí na existenci fyzické síťové připojení k vytvoření připojení přenosu. Připojení pro přenos končí při SignalR ukončí ho nebo při přenosu rozhraní API zjistí, že fyzické připojení bylo přerušeno.
 - **Fyzické připojení** odkazuje na fyzické síťové odkazy – vodičům stanice, bezdrátové signály, směrovače, atd. –, které usnadňují komunikace mezi klientským počítačem a serveru. Fyzické připojení musí být k dispozici, aby bylo možné navázat připojení přenosu a aby bylo možné navázat připojení SignalR musí navázat připojení přenosu. Ale zásadní fyzické připojení není vždy okamžitě ukončí přenosového připojení nebo připojení SignalR, jak budou vysvětlena dále v tomto tématu.
 
 V následujícím diagramu připojení SignalR je reprezentována rozhraní API rozbočovače a SignalR pro rozhraní API PersistentConnection vrstvy, připojení přenosu je reprezentována přenosy vrstvy a fyzické připojení je reprezentována řádky mezi serverem a klienty.
@@ -146,7 +147,7 @@ Některá síťová prostředí záměrně nečinných připojení po zavření 
 
 > [!NOTE]
 >
-> **Důležité**: posloupnost událostí, je zde popsáno, není zaručeno. SignalR je každý pokus o vyvolání událostí doby platnosti v předvídatelné podle tohoto schématu, ale existuje mnoho variant událostí sítě a mnoha způsoby, ve kterých je zpracovávat základní architektury komunikace, jako jsou přenosu rozhraní API. Například `Reconnected` událost nemusí být vyvolána, když klient znovu připojí, nebo `OnConnected` obslužnou rutinu na serveru může spustit, když neúspěšný pokus o navázání připojení. Toto téma popisuje pouze efekty, které by bylo vytvořeno obvykle některé obvyklé okolnosti.
+> **Důležité**: Posloupnost událostí, je zde popsáno, není zaručeno. SignalR je každý pokus o vyvolání událostí doby platnosti v předvídatelné podle tohoto schématu, ale existuje mnoho variant událostí sítě a mnoha způsoby, ve kterých je zpracovávat základní architektury komunikace, jako jsou přenosu rozhraní API. Například `Reconnected` událost nemusí být vyvolána, když klient znovu připojí, nebo `OnConnected` obslužnou rutinu na serveru může spustit, když neúspěšný pokus o navázání připojení. Toto téma popisuje pouze efekty, které by bylo vytvořeno obvykle některé obvyklé okolnosti.
 
 
 <a id="clientdisconnect"></a>

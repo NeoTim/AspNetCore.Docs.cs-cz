@@ -8,22 +8,24 @@ ms.date: 05/01/2013
 ms.assetid: 501db899-e68c-49ff-81b2-1dc561bfe908
 msc.legacyurl: /signalr/overview/older-versions/scaleout-with-windows-azure-service-bus
 msc.type: authoredcontent
-ms.openlocfilehash: d597eebc958815b1b1b9fdffc256c4453efce6b3
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 687d3d7787baa69410ee35d651a029c69d28c70b
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910951"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53286997"
 ---
 <a name="signalr-scaleout-with-azure-service-bus-signalr-1x"></a>Škálování aplikace SignalR službou Azure Service Bus (SignalR 1.x)
 ====================
 podle [Mike Wasson](https://github.com/MikeWasson), [Patrick Fletcher](https://github.com/pfletcher)
 
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
+
 V tomto kurzu se naučíte se nasadit aplikace SignalR webové Role Windows Azure, pomocí propojovací Service Bus rozhraní k distribuci zpráv do jednotlivých instancí rolí.
 
 ![](scaleout-with-windows-azure-service-bus/_static/image1.png)
 
-Předpoklady:
+Požadavky:
 
 - Účet Windows Azure.
 - [Windows Azure SDK](https://go.microsoft.com/fwlink/?linkid=254364&amp;clcid=0x409).
@@ -53,7 +55,7 @@ Pro každou aplikaci vyberte jinou hodnotu pro "YourAppName". Nepoužívejte ste
 
 ## <a name="create-the-azure-services"></a>Vytvoření služby Azure
 
-Vytvoření cloudové služby, jak je popsáno v [jak vytvořit a nasadit Cloudovou službu](https://docs.microsoft.com/azure/cloud-services/cloud-services-how-to-create-deploy). Postupujte podle kroků v části "jak: vytvořit cloudovou službu, pomocí rychlé vytvoření". Pro účely tohoto kurzu není potřeba nahrát certifikát.
+Vytvoření cloudové služby, jak je popsáno v [jak vytvořit a nasadit Cloudovou službu](https://docs.microsoft.com/azure/cloud-services/cloud-services-how-to-create-deploy). Postupujte podle kroků v části "jak: Vytvořit cloudovou službu pomocí metody rychlého vytvoření". Pro účely tohoto kurzu není potřeba nahrát certifikát.
 
 ![](scaleout-with-windows-azure-service-bus/_static/image2.png)
 
@@ -67,7 +69,7 @@ Vytvořte nový obor názvů služby Service Bus, jak je popsáno v [způsob pou
 
 ## <a name="create-the-visual-studio-project"></a>Vytvoření projektu sady Visual Studio
 
-Spusťte sadu Visual Studio. Z **souboru** nabídky, klikněte na tlačítko **nový projekt**.
+Spusťte Visual Studio. Z **souboru** nabídky, klikněte na tlačítko **nový projekt**.
 
 V **nový projekt** dialogového okna rozbalte **Visual C#**. V části **nainstalované šablony**vyberte **cloudu** a pak vyberte **Windows Azure Cloud Service**. Ponechte výchozí rozhraní .NET Framework 4.5. Pojmenujte aplikaci ChatService a klikněte na tlačítko **OK**.
 
@@ -79,7 +81,7 @@ Najeďte myší na novou roli proto na ikonu tužky viditelné. Kliknutím na tu
 
 ![](scaleout-with-windows-azure-service-bus/_static/image5.png)
 
-V **nového projektu ASP.NET MVC 4** průvodce, vyberte **internetovou aplikaci**. Klikněte na tlačítko **OK**. Průvodce projektem vytvoří dva projekty:
+V **nového projektu ASP.NET MVC 4** průvodce, vyberte **internetovou aplikaci**. Klikněte na **OK**. Průvodce projektem vytvoří dva projekty:
 
 - ChatService: Tento projekt je aplikace Windows Azure. Definuje role Azure a další možnosti konfigurace.
 - SignalRChat: Tento projekt není projekt ASP.NET MVC 4.
@@ -122,7 +124,7 @@ Klikněte pravým tlačítkem na roli SignalRChat a vyberte **vlastnosti**. Vybe
 
 Uložte změny.
 
-V Průzkumníku řešení klikněte pravým tlačítkem na projekt ChatService. Vyberte **publikovat**.
+V Průzkumníku řešení klikněte pravým tlačítkem na projekt ChatService. Vyberte **Publikovat**.
 
 ![](scaleout-with-windows-azure-service-bus/_static/image10.png)
 

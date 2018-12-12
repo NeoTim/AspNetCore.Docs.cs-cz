@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/monitor
-ms.openlocfilehash: e005b951aec578b396fc19dec5d2f55cbce4f664
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 00489bd92dfff8fd80bd24c2e60193d32031d7c4
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121606"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284367"
 ---
 # <a name="monitor-and-debug"></a>Monitorování a ladění
 
@@ -37,10 +37,10 @@ Aplikace služby App Service web apps je snadné sledování v reálném čase. 
 
     ![Snímek obrazovky zobrazující Přehled panelu](./media/monitoring/overview.png)
 
-    * **Http 5xx**: počet chyb na straně serveru, obvykle výjimek v kódu ASP.NET Core.
-    * **Data v**: příchozí přenosy přicházejí do webové aplikace.
-    * **Data odesílaná**: Data výchozí přenos dat z vaší webové aplikace pro klienty.
-    * **Požadavky**: počet žádostí HTTP.
+    * **Http 5xx**: Počet chyb na straně serveru, obvykle výjimek v kódu ASP.NET Core.
+    * **Data v**: Příchozí data přicházející do webové aplikace.
+    * **Odchozí data**: Odchozí přenos dat z vaší webové aplikace pro klienty.
+    * **Požadavky**: Počet HTTP žádosti.
     * **Průměrná doba odezvy**: Průměrná doba pro webovou aplikaci, aby odpovídal na požadavky HTTP.
 
     Několik samoobslužné nástroje pro řešení potíží a optimalizace, které také najdete na této stránce.

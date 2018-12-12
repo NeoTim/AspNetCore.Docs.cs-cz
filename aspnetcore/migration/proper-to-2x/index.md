@@ -3,14 +3,14 @@ title: Migrace z ASP.NET do ASP.NET Core
 author: isaac2004
 description: Získat pokyny pro migraci stávajících rozhraní ASP.NET MVC nebo webového rozhraní API aplikací na Core.web technologie ASP.NET
 ms.author: scaddie
-ms.date: 12/10/2018
+ms.date: 12/11/2018
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 6808fefb890dcdec6abdd0604ab61dfd2573d910
-ms.sourcegitcommit: 1872d2e6f299093c78a6795a486929ffb0bbffff
+ms.openlocfilehash: a9eef832a68afa1a73e3c7c545378da190602ce2
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/11/2018
-ms.locfileid: "53216791"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284393"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET do ASP.NET Core
 
@@ -20,7 +20,7 @@ Tento článek slouží jako referenční příručka pro migraci aplikace v ASP
 
 ## <a name="prerequisites"></a>Požadavky
 
-[!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
+[.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download)
 
 ## <a name="target-frameworks"></a>Cílové architektury
 
@@ -28,15 +28,15 @@ Projekty ASP.NET Core nabízí vývojářům flexibilitu cílí na .NET Core a .
 
 Při cílení na rozhraní .NET Framework, projektech muset odkazovat na jednotlivé balíčky NuGet.
 
-Cílení na .NET Core umožňuje eliminovat řadu odkazy na balíček explicitní, díky technologii ASP.NET Core [Microsoft.aspnetcore.all](xref:fundamentals/metapackage). Nainstalujte `Microsoft.AspNetCore.All` Microsoft.aspnetcore.all ve vašem projektu:
+Cílení na .NET Core umožňuje eliminovat řadu odkazy na balíček explicitní, díky technologii ASP.NET Core [Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Nainstalujte `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all ve vašem projektu:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.9" />
+   <PackageReference Include="Microsoft.AspNetCore.App" />
 </ItemGroup>
 ```
 
-Při použití Microsoft.aspnetcore.all žádné balíčky odkazuje Microsoft.aspnetcore.all nasazených s aplikací. Store modulu Runtime .NET Core zahrnuje tyto prostředky a že předkompilovaný ke zlepšení výkonu. Zobrazit [metabalíček Microsoft.aspnetcore.all pro ASP.NET Core 2.x](xref:fundamentals/metapackage) další podrobnosti.
+Při použití Microsoft.aspnetcore.all žádné balíčky odkazuje Microsoft.aspnetcore.all nasazených s aplikací. Store modulu Runtime .NET Core zahrnuje tyto prostředky a že předkompilovaný ke zlepšení výkonu. Zobrazit [Microsoft.AspNetCore.App Microsoft.aspnetcore.all pro ASP.NET Core](xref:fundamentals/metapackage-app) další podrobnosti.
 
 ## <a name="project-structure-differences"></a>Rozdíly struktura projektu
 
@@ -64,15 +64,14 @@ ASP.NET Core používá podobný přístup, ale nemusí spoléhat na OWIN pro zp
 
 [!code-csharp[](samples/program.cs)]
 
-`Startup` musí obsahovat `Configure` metoda. V `Configure`, přidat nezbytné middleware do kanálu. V následujícím příkladu (z výchozí šablony webové stránky) několik rozšiřující metody slouží ke konfiguraci kanálu s podporou:
+`Startup` musí obsahovat `Configure` metoda. V `Configure`, přidat nezbytné middleware do kanálu. V následujícím příkladu (z výchozí šablony webové stránky) konfiguraci metody rozšíření kanálu s podporou:
 
-* [Browser Link](xref:client-side/using-browserlink)
 * Chybové stránky
-* Statické soubory
+* Zabezpečení striktní přenosu HTTP
+* Přesměrování protokolu HTTP na HTTPS
 * ASP.NET Core MVC
-* Identita
 
-[!code-csharp[](../../common/samples/WebApplication1/Startup.cs?highlight=8,9,10,14,17,19,21&start=58&end=84)]
+[!code-csharp[](samples/startup.cs)]
 
 Host a aplikace byla odděleném poskytující možnost přechodu na různé platformy v budoucnu.
 

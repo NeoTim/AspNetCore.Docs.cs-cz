@@ -8,16 +8,18 @@ ms.date: 10/17/2013
 ms.assetid: 3d2dfc0e-eac2-4076-a468-325d3d01cc7b
 msc.legacyurl: /signalr/overview/older-versions/hub-authorization
 msc.type: authoredcontent
-ms.openlocfilehash: 6600e63371d54f14615e4c9af4c572e73464c2e4
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 1bd61b8faff22db3337e9d9c1ed2532d3e64440d
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41754632"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287465"
 ---
-<a name="authentication-and-authorization-for-signalr-hubs-signalr-1x"></a>Ověřování a autorizace Center SignalR (SignalR 1.x)
+<a name="authentication-and-authorization-for-signalr-hubs-signalr-1x"></a>Ověřování a autorizace center SignalR (SignalR 1.x)
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Tom FitzMacken](https://github.com/tfitzmac)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Toto téma popisuje, jak omezit, kteří uživatelé nebo rolí se dostanete metod rozbočovače.
 

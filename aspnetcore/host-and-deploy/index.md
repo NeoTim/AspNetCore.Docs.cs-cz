@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak nastavit hostitelská prostředí a nasazení aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/01/2018
+ms.date: 12/06/2018
 uid: host-and-deploy/index
-ms.openlocfilehash: 86022c33a3c5a8b82b14ae51b98c44497f39bd16
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: f443a8ee28a859b5075a8bb03016407af9a3ddb1
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862444"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284523"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>Hostitelství a nasazení ASP.NET Core
 
@@ -72,7 +72,11 @@ S použitím [funkci Publikovat Web](xref:tutorials/publish-to-azure-webapp-usin
 
 ## <a name="publish-to-azure"></a>Publikování do Azure
 
-Zobrazit <xref:tutorials/publish-to-azure-webapp-using-vs> pokyny o tom, jak publikovat aplikaci do Azure pomocí sady Visual Studio. Aplikace můžete publikovat také do Azure z [příkazového řádku](/azure/app-service/app-service-web-get-started-dotnet).
+Zobrazit <xref:tutorials/publish-to-azure-webapp-using-vs> pokyny o tom, jak publikovat aplikaci do Azure pomocí sady Visual Studio. Další příklad poskytuje [vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet).
+
+## <a name="publish-with-msdeploy-on-windows"></a>Publikování pomocí nástroje MSDeploy na Windows
+
+V tématu <xref:host-and-deploy/visual-studio-publish-profiles> pro profil publikování pokyny o tom, jak publikovat aplikace pomocí sady Visual Studio, včetně pomocí příkazového řádku Windows [dotnet msbuild](/dotnet/core/tools/dotnet-msbuild) příkazu.
 
 ## <a name="host-in-a-web-farm"></a>Hostování ve webové farmě
 

@@ -8,16 +8,18 @@ ms.date: 06/10/2014
 ms.assetid: b19913e5-cd8a-4e4b-a872-5ac7a858a934
 msc.legacyurl: /signalr/overview/guide-to-the-api/hubs-api-guide-server
 msc.type: authoredcontent
-ms.openlocfilehash: 6545491cfa36bb9fee555eb0348ec0a319bff470
-ms.sourcegitcommit: fc2486ddbeb15ab4969168d99b3fe0fbe91e8661
+ms.openlocfilehash: 4730c4d9f601f561cfc884e0a9c2c2d12785ae0f
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2018
-ms.locfileid: "50758242"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53288102"
 ---
 <a name="aspnet-signalr-hubs-api-guide---server-c"></a>Pokyny k rozhraní API Center SignalR technologie ASP.NET – Server (C#)
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento dokument obsahuje úvod do programování na straně serveru rozhraní API pro rozbočovače SignalR technologie ASP.NET pro funkci SignalR verze 2 s představením běžných možností ukázky kódu.
 > 
@@ -41,7 +43,6 @@ podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://g
 > ## <a name="questions-and-comments"></a>Otázky a komentáře
 > 
 > Napište prosím zpětnou vazbu o tom, jak vám líbilo v tomto kurzu a co můžeme zlepšit v komentářích v dolní části stránky. Pokud máte nějaké otázky, které přímo nesouvisejí, najdete v tomto kurzu, můžete je publikovat [fórum ASP.NET SignalR](https://forums.asp.net/1254.aspx/1?ASP+NET+SignalR) nebo [StackOverflow.com](http://stackoverflow.com/).
-
 
 ## <a name="overview"></a>Přehled
 
@@ -103,7 +104,7 @@ Chcete-li definovat trasy, která budou klienti používat pro připojení k cen
 
 [!code-csharp[Main](hubs-api-guide-server/samples/sample1.cs)]
 
-Pokud přidáváte funkce SignalR pro aplikace ASP.NET MVC, ujistěte se, přidá se trasa SignalR před jiným trasám. Další informace najdete v tématu [kurz: Začínáme s knihovnou SignalR 2 a MVC 5](../getting-started/tutorial-getting-started-with-signalr-and-mvc.md).
+Pokud přidáváte funkce SignalR pro aplikace ASP.NET MVC, ujistěte se, přidá se trasa SignalR před jiným trasám. Další informace najdete v tématu [kurzu: Začínáme s knihovnou SignalR 2 a MVC 5](../getting-started/tutorial-getting-started-with-signalr-and-mvc.md).
 
 <a id="signalrurl"></a>
 

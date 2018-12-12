@@ -8,16 +8,18 @@ ms.date: 06/10/2014
 ms.assetid: 400db427-27af-4f2f-abf0-5486d5e024b5
 msc.legacyurl: /signalr/overview/deployment/tutorial-signalr-self-host
 msc.type: authoredcontent
-ms.openlocfilehash: a08ce2e89ae13125cbc3915b44bcd1120fc22150
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 48cb3d4d71c33ac3382b2b35b5a19fa1c4958874
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911520"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287400"
 ---
-<a name="tutorial-signalr-self-host"></a>Kurz: SignalR v místním
+<a name="tutorial-signalr-self-host"></a>Kurz: Hostování na vlastním serveru funkce SignalR
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 [Stáhnout dokončený projekt](http://code.msdn.microsoft.com/SignalR-Self-Host-Sample-6da0f383)
 
@@ -91,7 +93,7 @@ V tomto kurzu vytvoříte server, který je hostován v konzolové aplikaci, ale
 
     Ve výše uvedeném kódu obsahuje tři třídy:
 
-    - **Program**, včetně **hlavní** metoda definování primární cesty spuštění. V této metodě, webové aplikace typu **spuštění** je spuštěn na zadané adrese URL (`http://localhost:8080`). Pro potřeby zabezpečení na koncový bod je možné implementovat SSL. Zobrazit [postupy: Konfigurace portu s certifikátem SSL](https://msdn.microsoft.com/library/ms733791.aspx) Další informace.
+    - **Program**, včetně **hlavní** metoda definování primární cesty spuštění. V této metodě, webové aplikace typu **spuštění** je spuštěn na zadané adrese URL (`http://localhost:8080`). Pro potřeby zabezpečení na koncový bod je možné implementovat SSL. Zobrazit [jak: Konfigurace portu s certifikátem SSL](https://msdn.microsoft.com/library/ms733791.aspx) Další informace.
     - **Po spuštění**, třída obsahující konfiguraci serveru funkce SignalR (Tento kurz používá pouze konfigurace je volání `UseCors`) a volání `MapSignalR`, která vytvoří trasy pro všechny objekty centra v projektu.
     - **MyHub**, třída rozbočovače SignalR, která aplikace bude poskytovat klientům. Tato třída obsahuje jedinou metodu **odeslat**, že klienti zavolá k vysílání zprávy do všech ostatních připojených klientů.
 6. Kompilace a spuštění aplikace. Adresa, na kterém běží server by měl zobrazit v okně konzoly.

@@ -8,16 +8,18 @@ ms.date: 06/10/2014
 ms.assetid: a8b3b778-f009-4369-85c7-e90f9878d8b4
 msc.legacyurl: /signalr/overview/getting-started/tutorial-getting-started-with-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: 676dc0854ef6f041e705ed6b39432e11dd8643ed
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 3b06e7d0a602e061112adbceba92276f836f6311
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910899"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287335"
 ---
-<a name="tutorial-getting-started-with-signalr-2"></a>Kurz: Začínáme s knihovnou SignalR 2
+<a name="tutorial-getting-started-with-signalr-2"></a>Kurz: Začínáme s funkcí SignalR 2
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 [Stáhnout dokončený projekt](http://code.msdn.microsoft.com/SignalR-Getting-Started-b9d18aa9)
 
@@ -87,7 +89,7 @@ Oddíly:
 
 Tato část ukazuje, jak pomocí sady Visual Studio 2013 a technologie SignalR verze 2 můžete vytvořit prázdnou webovou aplikaci ASP.NET, přidejte SignalR a vytvořit chatovací aplikaci.
 
-Předpoklady:
+Požadavky:
 
 - Visual Studio 2013. Pokud nemáte Visual Studio, přečtěte si téma [ASP.NET stáhne](https://www.asp.net/downloads) získat bezplatné Visual Studio 2013 Express vývojový nástroj.
 

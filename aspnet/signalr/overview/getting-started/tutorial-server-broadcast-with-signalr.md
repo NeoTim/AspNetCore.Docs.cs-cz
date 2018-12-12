@@ -8,16 +8,18 @@ ms.date: 10/13/2014
 ms.assetid: 1568247f-60b5-4eca-96e0-e661fbb2b273
 msc.legacyurl: /signalr/overview/getting-started/tutorial-server-broadcast-with-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: 7a85a704dc5d830ec793540fbc44a3ce7ec8c934
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: ad2eee8742d5bc45dc2bdc90f76736b4dc94d14b
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911530"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53288005"
 ---
 <a name="tutorial-server-broadcast-with-signalr-2"></a>Kurz: Serverové vysílání s knihovnou SignalR 2
 ====================
 podle [Petr Dykstra](https://github.com/tdykstra), [Tom FitzMacken](https://github.com/tfitzmac)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá ASP.NET SignalR 2 pro zajištění všesměrového vysílání funkce serveru. Server vysílání znamená, že komunikace klientů jsou spuštěné na serveru. Tento scénář vyžaduje jiný přístup programovací než peer-to-peer scénářů, jako je chatovací aplikace, ve kterých lze inicializovat komunikace klientů pomocí jedné nebo více klientů.
 >
@@ -53,7 +55,6 @@ podle [Petr Dykstra](https://github.com/tdykstra), [Tom FitzMacken](https://gith
 >
 > Napište prosím zpětnou vazbu o tom, jak vám líbilo v tomto kurzu a co můžeme zlepšit v komentářích v dolní části stránky. Pokud máte nějaké otázky, které přímo nesouvisejí, najdete v tomto kurzu, můžete je publikovat [fórum ASP.NET SignalR](https://forums.asp.net/1254.aspx/1?ASP+NET+SignalR) nebo [StackOverflow.com](http://stackoverflow.com/).
 
-
 ## <a name="overview"></a>Přehled
 
 V tomto kurzu budete vytvořit akciích aplikace, která dobře vystihuje aplikací v reálném čase, ve kterých chcete pravidelně "push" nebo všesměrového vysílání, oznámení ze serveru na všechny připojené klienty. V první části tohoto kurzu vytvoříte zjednodušenou verzi této aplikace od začátku. Ve zbývající části tohoto kurzu budete instalaci balíčku NuGet, který obsahuje další funkce a prohlédněte si kód pro tyto funkce.
@@ -66,7 +67,7 @@ Server pravidelně náhodně aktualizuje ceny akcií a nabízených oznámení a
 
 Tento kurz obsahuje následující části:
 
-- [Požadované součásti](#prerequisites)
+- [Požadavky](#prerequisites)
 - [Vytvoření projektu](#createproject)
 - [Nastavte si do kódu serveru](#server)
 - [Nastavit kód klienta](#client)
@@ -273,7 +274,7 @@ Teď jste dokončili nastavení do kódu serveru. V další části budete nasta
 
 <a id="enablelogging"></a>
 
-## <a name="enable-logging"></a>Povolení protokolování
+## <a name="enable-logging"></a>Povolit protokolování
 
 SignalR má vestavěné protokolování funkci, kterou můžete povolit na straně klienta na podporu při řešení potíží. V této části Povolit protokolování a podívejte se na příklady, které ukazují, jak protokoly, že jste které z následujících metod přenosu pomocí SignalR:
 

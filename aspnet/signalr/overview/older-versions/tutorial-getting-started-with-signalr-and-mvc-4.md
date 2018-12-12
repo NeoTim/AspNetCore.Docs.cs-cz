@@ -8,16 +8,18 @@ ms.date: 03/29/2013
 ms.assetid: eeef9f73-6de3-49f9-b50b-9af22108f2ce
 msc.legacyurl: /signalr/overview/older-versions/tutorial-getting-started-with-signalr-and-mvc-4
 msc.type: authoredcontent
-ms.openlocfilehash: 95fc3315149e07dbdb0505a2b5ab197bfedba097
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: a67d05288252c17d84b1d7df5f7bcddde3c887f5
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910873"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287707"
 ---
 <a name="tutorial-getting-started-with-signalr-1x-and-mvc-4"></a>Kurz: Začínáme s knihovnou SignalR 1.x a MVC 4
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Tim Teebken](https://github.com/timlt)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento kurz ukazuje, jak používat knihovnu ASP.NET SignalR k vytvoření aplikace pro chatování v reálném čase. Přidáte funkci SignalR k aplikaci MVC 4 a vytvořit zobrazení chatu k odesílání a zobrazení zprávy.
 
@@ -47,7 +49,7 @@ Oddíly:
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
-Předpoklady:
+Požadavky:
 
 - Visual Studio 2010 SP1, Visual Studio 2012 nebo Visual Studio 2012 Express. Pokud nemáte Visual Studio, přečtěte si téma [ASP.NET stáhne](https://www.asp.net/downloads) získat bezplatné Visual Studio 2012 Express vývojový nástroj.
 - Pro sadu Visual Studio 2010, nainstalujte [ASP.NET MVC 4](https://www.microsoft.com/download/details.aspx?id=30683).

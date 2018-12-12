@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/03/2018
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: d8fd43d9d689396cf30ca371763cdf7ac9423c77
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 6c1c644b2cd44cd00c68a8fd7d1e7d496ec91a59
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862739"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284679"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Doplněk pro kontroly stavu v ASP.NET Core
 
@@ -50,7 +50,7 @@ Další možností kontroly stavu ukazuje, jak filtrovat kontroly stavu port pro
 
 U mnoha aplikací konfiguraci sondy základní stav, který bude hlásit dostupnost aplikace ke zpracování požadavků (*aktivity*) ke zjištění stavu aplikace.
 
-Základní konfigurace zaregistruje služeb kontroly stavu a volá Middleware Kontrola stavu reagovat na koncový bod adresy URL odpovědí stavu. Ve výchozím nastavení jsou registrovány žádné konkrétní stav kontroly testování žádné konkrétní závislost nebo subsystému. Aplikace se považuje za v pořádku, pokud je schopný reagovat na adresu URL koncového bodu stavu. Zapíše zapisovače odpovědí výchozí stav (`HealthCheckStatus`) jako odpověď ve formátu prostého textu zpět do klienta, která `HealthCheckResult.Healthy` nebo `HealthCheckResult.Unhealthy` stav.
+Základní konfigurace zaregistruje služeb kontroly stavu a volá Middleware Kontrola stavu reagovat na koncový bod adresy URL odpovědí stavu. Ve výchozím nastavení jsou registrovány žádné konkrétní stav kontroly testování žádné konkrétní závislost nebo subsystému. Aplikace se považuje za v pořádku, pokud je schopný reagovat na adresu URL koncového bodu stavu. Zapíše zapisovače odpovědí výchozí stav (`HealthStatus`) jako odpověď ve formátu prostého textu zpět do klienta, která `HealthStatus.Healthy`, `HealthStatus.Degraded` nebo `HealthStatus.Unhealthy` stav.
 
 Registrace služby kontroly stavu s `AddHealthChecks` v `Startup.ConfigureServices`. Přidat stav zkontrolujte Middleware s `UseHealthChecks` v kanálu zpracování žádosti o `Startup.Configure`.
 
@@ -216,12 +216,12 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     app.UseHealthChecks("/health", new HealthCheckOptions()
     {
         // The following StatusCodes are the default assignments for
-        // the HealthCheckStatus properties.
+        // the HealthStatus properties.
         ResultStatusCodes =
         {
-            [HealthCheckStatus.Healthy] = StatusCodes.Status200OK,
-            [HealthCheckStatus.Degraded] = StatusCodes.Status200OK,
-            [HealthCheckStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
+            [HealthStatus.Healthy] = StatusCodes.Status200OK,
+            [HealthStatus.Degraded] = StatusCodes.Status200OK,
+            [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
         }
     });
 }

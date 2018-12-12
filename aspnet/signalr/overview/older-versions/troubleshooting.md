@@ -8,16 +8,18 @@ ms.date: 06/05/2013
 ms.assetid: 347210ba-c452-4feb-886f-b51d89f58971
 msc.legacyurl: /signalr/overview/older-versions/troubleshooting
 msc.type: authoredcontent
-ms.openlocfilehash: df949347cecd9ac617a52ad798f37bebdb8524fa
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 6c2a8e72959c9370ff46084ca135c2b2977f4f42
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41754997"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287680"
 ---
 <a name="signalr-troubleshooting-signalr-1x"></a>Řešení potíží s knihovnou SignalR (SignalR 1.x)
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento dokument popisuje řešení běžných problémů s knihovnou SignalR.
 
@@ -53,7 +55,7 @@ Funkce SignalR vyžaduje JSON analyzátor, aby byly k serializaci volání mezi 
 
 ### <a name="mixing-hub-and-persistentconnection-syntax"></a>Kombinování centra a PersistentConnection syntaxe
 
-Funkce SignalR používá dva modely komunikace: rozbočovače a PersistentConnections. Syntaxe pro volání těchto dvou komunikačních modelů se liší v kódu klienta. Pokud jste přidali rozbočovač v serverovém kódu, ověřte, že veškerý kód klienta používá syntaxi správné centra.
+Funkce SignalR používá dva modely komunikace: Rozbočovače a PersistentConnections. Syntaxe pro volání těchto dvou komunikačních modelů se liší v kódu klienta. Pokud jste přidali rozbočovač v serverovém kódu, ověřte, že veškerý kód klienta používá syntaxi správné centra.
 
 **JavaScript klientský kód, který vytvoří PersistentConnection v javascriptový klient**
 
@@ -157,7 +159,7 @@ K této chybě může dojít v prostředí napříč doménami, kde komunikace m
 
 Existuje několik důvodů, proč tento problém. Ověřte všechny z následujících akcí:
 
-- **Odkaz adresy proxy server rozbočovače není správně naformátované:** tato chyba obvykle nastává Pokud odkaz na generovaný centra adresa proxy serveru není správně naformátovaná. Ověřte, že odkaz na adresu centra správně vytvořen. Zobrazit [způsob vytvoření odkazu dynamicky generované proxy](../guide-to-the-api/hubs-api-guide-javascript-client.md#dynamicproxy) podrobnosti.
+- **Odkaz adresy proxy server rozbočovače není správně naformátované:** Tato chyba obvykle nastává Pokud odkaz na generovaný centra adresa proxy serveru není správně naformátovaná. Ověřte, že odkaz na adresu centra správně vytvořen. Zobrazit [způsob vytvoření odkazu dynamicky generované proxy](../guide-to-the-api/hubs-api-guide-javascript-client.md#dynamicproxy) podrobnosti.
 - **Přidání tras pro aplikaci před přidáním trasu rozbočovače:** Pokud vaše aplikace používá jiné trasy, ověřte, zda je první trasa přidaná volání `MapHubs`.
 
 ### <a name="500-internal-server-error"></a>"Chyba 500 interní Server"
@@ -172,7 +174,7 @@ K této chybě dojde, pokud volání `MapHubs` není správně vytvořena. Zobra
 
 Ověřte, že parametry, které odesíláte do vaší metody neobsahují neserializovatelná typy (jako jsou popisovače souborů nebo připojení k databázi). Pokud je potřeba použít členy na objekt na straně serveru, který nechcete být zaslána klientovi (buď pro zabezpečení nebo z důvodu serializace), použijte `JSONIgnore` atribut.
 
-### <a name="protocol-error-unknown-transport-error"></a>"Chyba protokolu: Neznámý přenosu" Chyba
+### <a name="protocol-error-unknown-transport-error"></a>"Chyba protokolu: Došlo k chybě neznámého přenosu"
 
 K této chybě může dojít, pokud klient nepodporuje přenosy, které používá SignalR. Zobrazit [přenosy a náhrad](../getting-started/introduction-to-signalr.md#transports) informace, na kterém je možné prohlížeče s knihovnou SignalR.
 
@@ -188,7 +190,7 @@ Tato chyba může zobrazit, pokud se používá ověřování a klient je odhlá
 
 Klient SignalR JavaScript vyžaduje jQuery ke spuštění. Ověřte, že vaši informaci, abyste jQuery je správný, cesta používá je platný a je odkaz na jQuery před referenční dokumentace ke knihovně SignalR.
 
-### <a name="uncaught-typeerror-cannot-read-property-ltpropertygt-of-undefined-error"></a>"Nezachycená TypeError: Nelze přečíst vlastnost '&lt;vlastnost&gt;" undefined "Chyba
+### <a name="uncaught-typeerror-cannot-read-property-ltpropertygt-of-undefined-error"></a>"Nezachycená TypeError: Nelze přečíst vlastnost '&lt;vlastnost&gt;"undefined" Chyba
 
 Tato chyba je výsledkem nemají jQuery nebo proxy server rozbočovače správně odkazuje. Ověřte, že vaši informaci, jQuery a proxy server rozbočovače je správný, platnost cesty použité a že je odkaz na jQuery před odkaz na proxy server rozbočovače. Výchozí odkaz na proxy server rozbočovače by měl vypadat nějak takto:
 

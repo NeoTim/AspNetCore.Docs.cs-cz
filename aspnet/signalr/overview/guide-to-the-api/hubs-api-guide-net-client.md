@@ -8,16 +8,18 @@ ms.date: 06/10/2014
 ms.assetid: 6d02d9f7-94e5-4140-9f51-5a6040f274f6
 msc.legacyurl: /signalr/overview/guide-to-the-api/hubs-api-guide-net-client
 msc.type: authoredcontent
-ms.openlocfilehash: 2d7dd1480694eacffc0cfa60ac0179b16348488d
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 0a2b24039259ef90579a7f215bb9e35ebef7b9b9
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912992"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53288037"
 ---
 <a name="aspnet-signalr-hubs-api-guide---net-client-c"></a>Funkce SignalR technologie ASP.NET pokyny k rozhraní API Center – klient .NET (C#)
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento dokument obsahuje úvod k používání rozhraní API rozbočovače pro funkci SignalR verze 2 v rozhraní .NET klientů, jako jsou Windows Store (WinRT), WPF, Silverlight a konzolové aplikace.
 >
@@ -41,7 +43,6 @@ podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://g
 > ## <a name="questions-and-comments"></a>Otázky a komentáře
 >
 > Napište prosím zpětnou vazbu o tom, jak vám líbilo v tomto kurzu a co můžeme zlepšit v komentářích v dolní části stránky. Pokud máte nějaké otázky, které přímo nesouvisejí, najdete v tomto kurzu, můžete je publikovat [fórum ASP.NET SignalR](https://forums.asp.net/1254.aspx/1?ASP+NET+SignalR) nebo [StackOverflow.com](http://stackoverflow.com/).
-
 
 ## <a name="overview"></a>Přehled
 
@@ -329,8 +330,8 @@ Pokud metoda serveru má návratovou hodnotu, určit návratový typ jako generi
 
 Funkce SignalR poskytuje následující připojení události doby života, které dokáže zpracovat:
 
-- `Received`: Vyvolá se při přijetí žádná data připojení. Poskytuje přijatá data.
-- `ConnectionSlow`: Vyvolá, když klient zjistí pomalý nebo často vyřazení připojení.
+- `Received`: Vyvoláno, když je veškerá data přijatá v připojení. Poskytuje přijatá data.
+- `ConnectionSlow`: Vyvoláno, když klient zjistí pomalý nebo často vyřazení připojení.
 - `Reconnecting`: Vyvolá se při přenosu začne znovu obnovovat.
 - `Reconnected`: Vyvolá se při přenosu má připojen.
 - `StateChanged`: Vyvolá se při změně stavu připojení. Poskytuje stav starý a nový stav. Informace o připojení najdete v části hodnoty stavu [ConnectionState výčet](https://msdn.microsoft.com/library/microsoft.aspnet.signalr.client.connectionstate(v=vs.111).aspx).

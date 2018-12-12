@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: 4424d3d15cbd234357c8265fa276834cb9abf352
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 9fe17c9e210d4dda9b74818104fc52a60d4f0077
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121217"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284536"
 ---
 # <a name="deploy-an-app-to-app-service"></a>Nasazení aplikace do služby App Service
 
@@ -35,7 +35,7 @@ Nebojte se podívejte kódu, ale je důležité pochopit, že není nic zvlášt
 
 Z příkazové okno stáhnout kód, sestavte projekt a spusťte následujícím způsobem.
 
-> *Poznámka: Uživatelé Linux nebo macOS byste provedli odpovídající změny pro cesty, například pomocí lomítkem (`/`) namísto zpětné lomítko (`\`).*
+> *Poznámka: Linux nebo macOS uživatelů byste provedli odpovídající změny pro cesty, například pomocí lomítkem (`/`) namísto zpětné lomítko (`\`).*
 
 1. Klonování kódu do složky na místním počítači.
 
@@ -141,7 +141,7 @@ Pokud chcete nasadit aplikaci, bude nutné k vytvoření služby App Service [we
 
 ## <a name="deployment-with-visual-studio"></a>Nasazení pomocí sady Visual Studio
 
-> *Poznámka: Tato část se týká Windows pouze. Uživatelé Linuxu a macOS by měl provést změnu je popsáno v kroku 2 níže. Soubor uložte a potvrďte změnu do místního úložiště s `git commit`. Nakonec push změny s `git push`, protože v první části.*
+> *Poznámka: Tato část platí jenom pro Windows. Uživatelé Linuxu a macOS by měl provést změnu je popsáno v kroku 2 níže. Soubor uložte a potvrďte změnu do místního úložiště s `git commit`. Nakonec push změny s `git push`, protože v první části.*
 
 Z příkazového okna již byla nasazena aplikace. S použitím integrovaných nástrojů sady Visual Studio nasadit aktualizace do aplikace. Na pozadí Visual Studio totéž jako nástrojů příkazového řádku, ale v rámci známé uživatelské rozhraní sady Visual Studio.
 

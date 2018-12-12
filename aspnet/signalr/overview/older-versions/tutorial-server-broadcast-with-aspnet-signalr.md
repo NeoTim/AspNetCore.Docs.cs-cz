@@ -8,16 +8,18 @@ ms.date: 04/10/2013
 ms.assetid: ab7b2554-956a-4f6d-b2a0-4ae0c62e8580
 msc.legacyurl: /signalr/overview/older-versions/tutorial-server-broadcast-with-aspnet-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: 7d604af11ade848358e291d1df25f2f8df850132
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: d5c09f6493c4dedb4fc2ecbf9055dd014ede71f2
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911978"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53288044"
 ---
 <a name="tutorial-server-broadcast-with-aspnet-signalr-1x"></a>Kurz: Serverové vysílání s knihovnou ASP.NET SignalR 1.x
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá knihovnu ASP.NET SignalR pro zajištění všesměrového vysílání funkce serveru. Server vysílání znamená, že komunikace klientů jsou spuštěné na serveru. Tento scénář vyžaduje jiný přístup programovací než peer-to-peer scénářů, jako je chatovací aplikace, ve kterých lze inicializovat komunikace klientů pomocí jedné nebo více klientů.
 > 
@@ -40,7 +42,7 @@ Server pravidelně náhodně aktualizuje ceny akcií a nabízených oznámení a
 
 Tento kurz obsahuje následující části:
 
-- [Požadované součásti](#prerequisites)
+- [Požadavky](#prerequisites)
 - [Vytvoření projektu](#createproject)
 - [Přidání balíčků SignalR NuGet](#nugetpackages)
 - [Nastavte si do kódu serveru](#server)
@@ -272,7 +274,7 @@ Teď jste dokončili nastavení do kódu serveru. V další části budete nasta
 
 <a id="enablelogging"></a>
 
-## <a name="enable-logging"></a>Povolení protokolování
+## <a name="enable-logging"></a>Povolit protokolování
 
 SignalR má vestavěné protokolování funkci, kterou můžete povolit na straně klienta na podporu při řešení potíží. V této části Povolit protokolování a podívejte se na příklady, které ukazují, jak protokoly, že jste které z následujících metod přenosu pomocí SignalR:
 

@@ -8,16 +8,18 @@ ms.date: 02/18/2013
 ms.assetid: fdc3599a-5217-44c1-951f-0eec9812dce7
 msc.legacyurl: /signalr/overview/older-versions/tutorial-getting-started-with-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: d541dad19d8fd547d61e8850d64e514ea5db7fcf
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 720a4879f5fbe3c0c2b4c7809cb94c22547329c3
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912420"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287354"
 ---
 <a name="tutorial-getting-started-with-signalr-1x"></a>Kurz: Začínáme s knihovnou SignalR 1.x
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Tim Teebken](https://github.com/timlt)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > V tomto kurzu se naučíte používat funkci SignalR k vytvoření aplikace pro chatování v reálném čase. Přidáte SignalR prázdná webová aplikace ASP.NET a vytvořte stránku HTML k odeslání a zobrazení zprávy.
 
@@ -56,7 +58,7 @@ Oddíly:
 
 Tato část ukazuje, jak vytvořit prázdnou webovou aplikaci ASP.NET, přidejte SignalR a vytvořit chatovací aplikaci.
 
-Předpoklady:
+Požadavky:
 
 - Visual Studio 2010 SP1 nebo 2012. Pokud nemáte Visual Studio, přečtěte si téma [ASP.NET stáhne](https://www.asp.net/downloads) získat bezplatné Visual Studio 2012 Express vývojový nástroj.
 - [Microsoft ASP.NET a Web Tools 2012.2](https://go.microsoft.com/fwlink/?LinkId=279941). Tento instalační program sady Visual Studio 2012, přidá nové funkce technologie ASP.NET, včetně šablon SignalR k sadě Visual Studio. Pro Visual Studio 2010 SP1 instalační program není k dispozici, ale tento kurz můžete dokončit tak jak je popsáno v krocích instalační program instaluje se balíček SignalR NuGet.
@@ -165,7 +167,7 @@ Následující kód ukazuje, jak otevřít připojení v centru. Kód spustí p�
 
 Jste zjistili, že SignalR je architektura určená k vytváření aplikací webu v reálném čase. Také jste se naučili několik úloh vývoje SignalR: jak přidat do aplikace ASP.NET SignalR, jak vytvořit třídu centra a jak odesílat a přijímat zprávy z centra.
 
-Můžete zpřístupnit ukázkovou aplikaci v tomto kurzu nebo jiné aplikace SignalR přes Internet podle jejich nasazení do poskytovatele hostitelských služeb. Společnost Microsoft nabízí bezplatné webových hostitelských služeb pro až 10 webových serverů v bezplatné [zkušebního účtu Windows Azure](https://www.windowsazure.com/pricing/free-trial/?WT.mc_id=A443DD604). Podrobný postup nasazení ukázkové aplikace SignalR, naleznete v tématu [publikovat SignalR získávání spuštění ukázky jako webu Windows Azure](https://blogs.msdn.com/b/timlee/archive/2013/02/27/deploy-the-signalr-getting-started-sample-as-a-windows-azure-web-site.aspx). Podrobné informace o tom, jak nasadit webový projekt sady Visual Studio na webu Windows Azure naleznete v tématu [nasazení aplikace ASP.NET na web Windows Azure](https://docs.microsoft.com/azure/app-service-web/app-service-web-get-started-dotnet). (Poznámka: přenos pomocí protokolu WebSocket není nyní podporován pro Windows Azure websites. Přenos při protokolu WebSocket nejsou k dispozici, SignalR používá k dispozici přenosy, jak je popsáno v části přenosy [Úvod do tématu SignalR](index.md).)
+Můžete zpřístupnit ukázkovou aplikaci v tomto kurzu nebo jiné aplikace SignalR přes Internet podle jejich nasazení do poskytovatele hostitelských služeb. Společnost Microsoft nabízí bezplatné webových hostitelských služeb pro až 10 webových serverů v bezplatné [zkušebního účtu Windows Azure](https://www.windowsazure.com/pricing/free-trial/?WT.mc_id=A443DD604). Podrobný postup nasazení ukázkové aplikace SignalR, naleznete v tématu [publikovat SignalR získávání spuštění ukázky jako webu Windows Azure](https://blogs.msdn.com/b/timlee/archive/2013/02/27/deploy-the-signalr-getting-started-sample-as-a-windows-azure-web-site.aspx). Podrobné informace o tom, jak nasadit webový projekt sady Visual Studio na webu Windows Azure naleznete v tématu [nasazení aplikace ASP.NET na web Windows Azure](https://docs.microsoft.com/azure/app-service-web/app-service-web-get-started-dotnet). (Poznámka: Přenos pomocí protokolu WebSocket není aktuálně podporován pro Windows Azure websites. Přenos při protokolu WebSocket nejsou k dispozici, SignalR používá k dispozici přenosy, jak je popsáno v části přenosy [Úvod do tématu SignalR](index.md).)
 
 Informace o pokročilejších pojmech vývoj SignalR, naleznete na následujících stránkách pro funkci SignalR zdrojový kód a prostředky:
 

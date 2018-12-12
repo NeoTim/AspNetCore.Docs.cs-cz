@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/redis-backplane
-ms.openlocfilehash: c8b09c0d482da344b54d167c0c9757167eaa6186
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 343cb5b2c7ed7162bae7865553a783fea45f0cfb
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52453011"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284464"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-signalr-scale-out"></a>Nastavit propojovací rozhraní Redis pro horizontální navýšení kapacity funkce SignalR technologie ASP.NET Core
 
@@ -32,7 +32,7 @@ Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https:
 
 ::: moniker range="= aspnetcore-2.1"
 
-* V aplikaci SignalR, nainstalujte `Microsoft.AspNetCore.SignalR.Redis` balíček NuGet.
+* V aplikaci SignalR, nainstalujte `Microsoft.AspNetCore.SignalR.Redis` balíček NuGet. (K dispozici je také `Microsoft.AspNetCore.SignalR.StackExchangeRedis` balíček, ale, že jeden je pro ASP.NET Core 2.2 a novější.)
 
 * V `Startup.ConfigureServices` metody, volání `AddRedis` po `AddSignalR`:
 
@@ -59,7 +59,10 @@ Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https:
 
 ::: moniker range="> aspnetcore-2.1"
 
-* V aplikaci SignalR, nainstalujte `Microsoft.AspNetCore.SignalR.StackExchangeRedis` balíček NuGet.
+* V aplikaci SignalR nainstalujte některou z následujících balíčků NuGet:
+
+  * `Microsoft.AspNetCore.SignalR.StackExchangeRedis` -Závisí na StackExchange.Redis 2.X.X. Toto je doporučený balíček pro ASP.NET Core 2.2 a novější.
+  * `Microsoft.AspNetCore.SignalR.Redis` -Závisí na StackExchange.Redis 1.X.X. Tento balíček nebudou přenosů v ASP.NET Core 3.0.
 
 * V `Startup.ConfigureServices` metody, volání `AddStackExchangeRedis` po `AddSignalR`:
 

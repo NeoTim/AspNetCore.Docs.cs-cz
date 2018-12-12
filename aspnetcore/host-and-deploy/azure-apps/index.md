@@ -5,14 +5,14 @@ description: Tento článek obsahuje odkazy na hostiteli Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/04/2018
+ms.date: 12/10/2018
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: b32dd3cb84a86d12c61e391b88355ab0411c2815
-ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
+ms.openlocfilehash: b6ff2124aac7e866f630cf359cbd188e88906844
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52951963"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284692"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
 
@@ -84,9 +84,11 @@ Middleware pro integraci služby IIS, který nakonfiguruje předané Middleware 
 
 ## <a name="monitoring-and-logging"></a>Monitorování a protokolování
 
+Aplikace ASP.NET Core nasadily do App Service automaticky přijímat rozšíření služby App Service, **ASP.NET Core protokolování rozšíření**. Toto rozšíření aktivuje Azure protokolování.
+
 Sledování, protokolování a informace o odstraňování potíží najdete v následujících článcích:
 
-[Postupy: sledování aplikací ve službě Azure App Service](/azure/app-service/web-sites-monitor)  
+[Postupy: Monitorování aplikací ve službě Azure App Service](/azure/app-service/web-sites-monitor)  
 Zjistěte, jak kontrolovat kvóty a metriky pro aplikace a plány služby App Service.
 
 [Povolení protokolování diagnostiky pro webové aplikace ve službě Azure App Service](/azure/app-service/web-sites-enable-diagnostic-log)  
@@ -107,7 +109,7 @@ V tématu běžné chyby konfigurace nasazení pro aplikace hostované pomocí A
 
 Po záměně mezi sloty nasazení, jakéhokoli systému pomocí ochrany dat nebude možné dešifrovat uloženými daty pracujete pomocí aktualizační kanál, který klíč uvnitř předchozí slot. Middlewaru souboru Cookie. technologie ASP.NET používá ochranu dat k ochraně souborů cookie. To vede k uživatelům se odhlásili z aplikace, která používá standardní middlewaru souboru Cookie. technologie ASP.NET. Pro kanál klíč slotu nezávislé na řešení využívají, jako poskytovatele vnější prstenec klíč:
 
-* Úložiště objektů Blob v Azure
+* Azure Blob Storage
 * Azure Key Vault
 * Úložiště SQL
 * Redis cache
@@ -130,7 +132,7 @@ Pokud dojde k potížím s pomocí rozšíření webu ve verzi preview, otevřet
 1. Vyberte webovou aplikaci.
 1. Typ "ex" do vyhledávacího pole filtrovat "Rozšíření" nebo se posouvají dolů seznam nástrojů pro správu.
 1. Vyberte **rozšíření**.
-1. Vyberte **přidat**.
+1. Vyberte **Přidat**.
 1. Vyberte **ASP.NET Core {X.Y} ({x64 | x86}) Runtime** rozšíření ze seznamu, kde `{X.Y}` je verze preview ASP.NET Core a `{x64|x86}` Určuje platformu.
 1. Vyberte **OK** přijměte právní podmínky.
 1. Vyberte **OK** nainstalovat rozšíření.
@@ -179,7 +181,7 @@ Při nasazování samostatnou aplikaci:
 
 1. Vyberte **sestavení** > **{název_aplikace} publikovat** z panelu nástrojů sady Visual Studio.
 1. V **vyberte cíl publikování** dialogového okna, ujistěte se, že **služby App Service** zaškrtnuto.
-1. Vyberte **Advanced**. **Publikovat** otevře se dialogové okno.
+1. Vyberte **Upřesnit**. **Publikovat** otevře se dialogové okno.
 1. V **publikovat** dialogové okno:
    * Ujistěte se, že **vydání** vybrané konfigurace.
    * Otevřít **režim nasazení** rozevíracího seznamu a vyberte **samostatná**.
@@ -211,12 +213,12 @@ Při nasazování samostatnou aplikaci:
 
 ## <a name="protocol-settings-https"></a>Nastavení protokolu (HTTPS)
 
-Zabezpečený protokol vazby umožňují že zadat certifikát má použít při reakci na požadavky přes protokol HTTPS. Vazba vyžaduje platný privátní certifikát (*.pfx*) vydaný pro konkrétní název hostitele. Další informace najdete v tématu [kurz: vytvoření vazby existujícího vlastního certifikátu SSL k Azure Web Apps](/azure/app-service/app-service-web-tutorial-custom-ssl).
+Zabezpečený protokol vazby umožňují že zadat certifikát má použít při reakci na požadavky přes protokol HTTPS. Vazba vyžaduje platný privátní certifikát (*.pfx*) vydaný pro konkrétní název hostitele. Další informace najdete v tématu [kurzu: Vytvoření vazby existujícího vlastního certifikátu SSL k Azure Web Apps](/azure/app-service/app-service-web-tutorial-custom-ssl).
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Přehled Web Apps (5minutové video s přehledem)](/azure/app-service/app-service-web-overview)
-* [Azure App Service: Nejlepší místo k hostování aplikací .NET (55 minutu video s přehledem)](https://channel9.msdn.com/events/dotnetConf/2017/T222)
+* [Azure App Service: Nejlepší umístit do hostitele aplikací .NET (55 minutu video s přehledem)](https://channel9.msdn.com/events/dotnetConf/2017/T222)
 * [Azure Friday: Azure App Service diagnostiku a řešení potíží s prostředí (12 pětiminutové video)](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 * [Přehled diagnostiky služby Azure App Service](/azure/app-service/app-service-diagnostics)
 * <xref:host-and-deploy/web-farm>
@@ -227,4 +229,4 @@ Služba Azure App Service v systému Windows Server používá [Internetové inf
 * <xref:fundamentals/servers/aspnet-core-module>
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
-* [Microsoft TechNet Library: Windows Server](/windows-server/windows-server-versions)
+* [V knihovně Microsoft TechNet: Windows Server](/windows-server/windows-server-versions)

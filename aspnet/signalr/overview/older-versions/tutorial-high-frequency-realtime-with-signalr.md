@@ -8,16 +8,18 @@ ms.date: 04/16/2013
 ms.assetid: ad2a5da5-2e79-40ea-bc84-028d327f5982
 msc.legacyurl: /signalr/overview/older-versions/tutorial-high-frequency-realtime-with-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: c677bcbc78eac6056c035c2b34fe659caac9c6fa
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: a679a7c66a94fa440a1ead64225eb86f7de90c9e
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912277"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287953"
 ---
-<a name="high-frequency-realtime-with-signalr-1x"></a>Vysokofrekvenční Reálný čas s knihovnou SignalR 1.x
+<a name="high-frequency-realtime-with-signalr-1x"></a>Vysokofrekvenční reálný čas s knihovnou SignalR 1.x
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá knihovnu ASP.NET SignalR k zajištění funkce zasílání zpráv vysokou frekvencí. Vysoká frekvence zasílání zpráv v tomto případě znamená, že aktualizace, které se odesílají s pevnou sazbou; v případě této aplikace, až 10 zpráv za sekundu.
 > 
@@ -42,7 +44,7 @@ I aplikace bude fungovat s touto metodou, není doporučenou programovací model
 
 Tento kurz obsahuje následující části:
 
-- [Požadované součásti](#prerequisites)
+- [Požadavky](#prerequisites)
 - [Vytvoření projektu](#createtheproject)
 - [Přidání balíčků funkce SignalR technologie ASP.NET a JQuery.UI NuGet](#nugetpackages)
 - [Vytvoření základní aplikace](#baseapp)

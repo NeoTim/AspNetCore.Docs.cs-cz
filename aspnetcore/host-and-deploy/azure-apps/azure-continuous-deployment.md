@@ -1,19 +1,19 @@
 ---
-title: Průběžné nasazování do Azure pomocí sady Visual Studio a Git s ASP.NET Core
+title: Průběžné nasazování do Azure pomocí sady Visual Studio a Gitu s ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak vytvořit webovou aplikaci ASP.NET Core pomocí sady Visual Studio a nasaďte ji do služby Azure App Service pro průběžné nasazování pomocí Gitu.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/14/2016
+ms.date: 12/06/2018
 uid: host-and-deploy/azure-apps/azure-continuous-deployment
-ms.openlocfilehash: 5ae8ce01610828417fc76ed6626e518c8493bd0f
-ms.sourcegitcommit: 57eccdea7d89a62989272f71aad655465f1c600a
+ms.openlocfilehash: e12c2ee0b78db105b431770e8644e7d19d915765
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/10/2018
-ms.locfileid: "44340196"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284421"
 ---
-# <a name="continuous-deployment-to-azure-with-visual-studio-and-git-with-aspnet-core"></a>Průběžné nasazování do Azure pomocí sady Visual Studio a Git s ASP.NET Core
+# <a name="continuous-deployment-to-azure-with-visual-studio-and-git-with-aspnet-core"></a>Průběžné nasazování do Azure pomocí sady Visual Studio a Gitu s ASP.NET Core
 
 podle [Erik Reitan](https://github.com/Erikre)
 
@@ -36,7 +36,7 @@ Tento kurz předpokládá, že je nainstalovaný následující software:
 
 ## <a name="create-an-aspnet-core-web-app"></a>Vytvoření webové aplikace ASP.NET Core
 
-1. Spusťte sadu Visual Studio.
+1. Spusťte Visual Studio.
 
 1. Z **souboru** nabídce vyberte možnost **nový** > **projektu**.
 
@@ -71,7 +71,7 @@ Následující postup vytvoření webové aplikace na webu Azure Portal:
 
 1. Vyberte **Web + mobilní zařízení** > **webová aplikace**.
 
-   ![Portál Microsoft Azure: Tlačítko Nový: Web + mobilní zařízení v části Marketplace: tlačítko webové aplikace v rámci vybrané aplikace](azure-continuous-deployment/_static/05-azure-newwebapp.png)
+   ![Portál Microsoft Azure: Tlačítko Nová: Web + mobilní zařízení v části Marketplace: Tlačítko webové aplikace v rámci vybrané aplikace](azure-continuous-deployment/_static/05-azure-newwebapp.png)
 
 1. V **webovou aplikaci** okně zadejte jedinečnou hodnotu **název služby App Service**.
 
@@ -82,9 +82,9 @@ Následující postup vytvoření webové aplikace na webu Azure Portal:
 
    Také v **webovou aplikaci** okno, vyberte existující **plán App Service/umístění** nebo vytvořte novou. Pokud vytváříte nový plán, vyberte cenovou úroveň, umístění a další možnosti. Další informace o plánech služby App Service najdete v tématu [podrobný přehled plánů služby Azure App Service](/azure/app-service/azure-web-sites-web-hosting-plans-in-depth-overview).
 
-1. Vyberte **vytvořit**. Azure bude zřídit a spustit webovou aplikaci.
+1. Vyberte **Vytvořit**. Azure bude zřídit a spustit webovou aplikaci.
 
-   ![Webu Azure Portal: Okno základy ukázkové webové aplikaci ukázku 01](azure-continuous-deployment/_static/07-azure-webappblade.png)
+   ![Azure Portal: Okno ukázkové webové aplikace ukázku 01 Essentials](azure-continuous-deployment/_static/07-azure-webappblade.png)
 
 ## <a name="enable-git-publishing-for-the-new-web-app"></a>Povolení publikování Git pro novou webovou aplikaci
 
@@ -98,7 +98,7 @@ Git je distribuovaný systém správy verzí, který slouží k nasazení webov�
 
 1. V **nasazení** okně vyberte **možnosti nasazení** > **zvolit zdroj** > **místní úložiště Git**.
 
-   ![Okno nastavení: okno nasazení zdroj: Vyberte okno zdroje](azure-continuous-deployment/_static/deployment-options.png)
+   ![Okno nastavení: Okno zdroje nasazení: Vyberte okno zdroje](azure-continuous-deployment/_static/deployment-options.png)
 
 1. Vyberte **OK**.
 
@@ -184,7 +184,7 @@ Ověřte, jestli přenos webové aplikace z místního prostředí do Azure se �
 
 V [webu Azure Portal](https://portal.azure.com), vyberte webovou aplikaci. Vyberte **nasazení** > **možnosti nasazení**.
 
-![Portálu Azure Portal: Okno nastavení: nasazení okno zobrazující úspěšné nasazení](azure-continuous-deployment/_static/13-verify-deployment.png)
+![Azure Portal: Okno nastavení: Nasazení okno zobrazující úspěšné nasazení](azure-continuous-deployment/_static/13-verify-deployment.png)
 
 ## <a name="run-the-app-in-azure"></a>Spusťte aplikaci v Azure
 
@@ -230,3 +230,4 @@ Zobrazení aktualizované webové aplikace tak, že vyberete **Procházet** v ok
 
 * [Vytvořit svůj první kanál s kanály Azure](/azure/devops/pipelines/get-started-yaml)
 * [Projekt Kudu](https://github.com/projectkudu/kudu/wiki)
+* <xref:host-and-deploy/visual-studio-publish-profiles>

@@ -8,16 +8,18 @@ ms.date: 05/15/2013
 ms.assetid: eaa206c4-edb3-487e-8fcb-54a3261fed36
 msc.legacyurl: /signalr/overview/older-versions/dependency-injection
 msc.type: authoredcontent
-ms.openlocfilehash: 905dea4918be731673c39e788069ce2dc78e1649
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 2035b3feebfa32dd7ec4d6adf715a7fee5e7b74f
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910691"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287355"
 ---
-<a name="dependency-injection-in-signalr-1x"></a>Injektáž závislostí v knihovně SignalR 1.x
+<a name="dependency-injection-in-signalr-1x"></a>Injektáž závislostí v centrech SignalR 1.x
 ====================
 podle [Mike Wasson](https://github.com/MikeWasson), [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 Injektáž závislostí je způsob, jak odebrat pevně zakódované závislosti mezi objekty usnadnit k nahrazení objektu závislosti, buď pro testování (pomocí mock objektů), nebo chcete změnit chování za běhu. Tento kurz ukazuje, jak provádět injektáž závislostí v centrech SignalR. Také ukazuje, jak používat technologie IoC kontejnery s knihovnou SignalR. Kontejner IoC je obecné rozhraní pro vkládání závislostí.
 
@@ -81,7 +83,7 @@ Chatovací aplikaci je pravděpodobně příliš jednoduché, abyste využili v�
 
 Ukázka StockTicker definuje dva hlavní třídy:
 
-- `StockTickerHub`: Třídy rozbočovače, který spravuje připojení klientů.
+- `StockTickerHub`: Třída rozbočovače, která spravuje připojení klientů.
 - `StockTicker`: Jednotlivý prvek, který obsahuje ceny akcií a je pravidelně aktualizuje.
 
 `StockTickerHub` obsahuje odkaz na `StockTicker` singleton, zatímco `StockTicker` obsahuje odkaz na **IHubConnectionContext** pro `StockTickerHub`. Toto rozhraní se používá ke komunikaci s `StockTickerHub` instancí. (Další informace najdete v tématu [serverové vysílání s knihovnou ASP.NET SignalR](index.md).)
@@ -102,7 +104,7 @@ Vytvoří malou Visual Studio tento druh refaktoringu snadné. Otevřete soubor 
 
 ![](dependency-injection/_static/image1.png)
 
-V **extrahování rozhraní** dialogového okna, klikněte na tlačítko **Vybrat vše**. Nechte ostatní výchozí hodnoty. Klikněte na tlačítko **OK**.
+V **extrahování rozhraní** dialogového okna, klikněte na tlačítko **Vybrat vše**. Nechte ostatní výchozí hodnoty. Klikněte na **OK**.
 
 ![](dependency-injection/_static/image2.png)
 

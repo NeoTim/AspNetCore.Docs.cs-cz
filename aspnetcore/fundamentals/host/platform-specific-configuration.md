@@ -4,15 +4,15 @@ author: guardrex
 description: Zjistěte, jak rozšířit aplikace ASP.NET Core z externího sestavení přes IHostingStartup implementace.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.custom: mvc,seodec18
+ms.custom: mvc, seodec18
 ms.date: 11/22/2018
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: 6c38242afee46b80bafcba47a8f77e2c05f6537e
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: cf7114698635ab2d61fa19eb15b6a8c61a751e5b
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121723"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284718"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>Použití hostování při spuštění sestavení v ASP.NET Core
 
@@ -26,7 +26,7 @@ Podle [Luke Latham](https://github.com/guardrex) a [Pavel Krymets](https://githu
 
 A [HostingStartup](/dotnet/api/microsoft.aspnetcore.hosting.hostingstartupattribute) atribut indikuje přítomnost hostování sestavení po spuštění k aktivaci za běhu.
 
-Vstupní sestavení nebo sestavení obsahující `Startup` třídy automaticky vyhledávat `HostingStartup` atribut. Seznam sestavení, které chcete hledat `HostingStartup` atributy je načtená v době běhu z konfigurace v [WebHostDefaults.HostingStartupAssembliesKey](/dotnet/api/microsoft.aspnetcore.hosting.webhostdefaults.hostingstartupassemblieskey). Načíst seznam sestavení, které chcete vyloučit ze zjišťování z [WebHostDefaults.HostingStartupExcludeAssembliesKey](/dotnet/api/microsoft.aspnetcore.hosting.webhostdefaults.hostingstartupexcludeassemblieskey). Další informace najdete v tématu [webového hostitele: hostování při spuštění sestavení](xref:fundamentals/host/web-host#hosting-startup-assemblies) a [webového hostitele: sestavení vyloučit při spuštění hostování](xref:fundamentals/host/web-host#hosting-startup-exclude-assemblies).
+Vstupní sestavení nebo sestavení obsahující `Startup` třídy automaticky vyhledávat `HostingStartup` atribut. Seznam sestavení, které chcete hledat `HostingStartup` atributy je načtená v době běhu z konfigurace v [WebHostDefaults.HostingStartupAssembliesKey](/dotnet/api/microsoft.aspnetcore.hosting.webhostdefaults.hostingstartupassemblieskey). Načíst seznam sestavení, které chcete vyloučit ze zjišťování z [WebHostDefaults.HostingStartupExcludeAssembliesKey](/dotnet/api/microsoft.aspnetcore.hosting.webhostdefaults.hostingstartupexcludeassemblieskey). Další informace najdete v tématu [webového hostitele: Hostování při spuštění sestavení](xref:fundamentals/host/web-host#hosting-startup-assemblies) a [webového hostitele: Po spuštění hostování vyloučení sestavení](xref:fundamentals/host/web-host#hosting-startup-exclude-assemblies).
 
 V následujícím příkladu, obor názvů hostování sestavení po spuštění je `StartupEnhancement`. Třída obsahující kód hostování spuštění je `StartupEnhancementHostingStartup`:
 

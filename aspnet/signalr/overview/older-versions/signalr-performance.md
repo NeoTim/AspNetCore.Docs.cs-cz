@@ -8,16 +8,18 @@ ms.date: 07/03/2013
 ms.assetid: 9594d644-66b6-4223-acdd-23e29a6e4c46
 msc.legacyurl: /signalr/overview/older-versions/signalr-performance
 msc.type: authoredcontent
-ms.openlocfilehash: 3ac62639617e1ff83761d0a1d45c27303d0b820d
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: ea2d3908544ac8b3ea17ceceaf1d2905c5c6f322
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912758"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287562"
 ---
 <a name="signalr-performance-signalr-1x"></a>Výkon aplikace SignalR (SignalR 1.x)
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Toto téma popisuje, jak navrhovat pro měření a zlepšit výkon aplikace SignalR.
 
@@ -71,7 +73,7 @@ Následující nastavení konfigurace slouží k ladění serveru pro vyšší v
 
 **Nastavení konfigurace SignalR**
 
-- **DefaultMessageBufferSize**: ve výchozím nastavení, zachová SignalR 1000 zpráv v paměti za rozbočovač za připojení. Pokud velké zprávy se používají, to může způsobit problémy s pamětí, které můžete zmírnit tím, že snižuje tuto hodnotu. Toto nastavení je možné nastavit v `Application_Start` obslužné rutiny události v aplikaci ASP.NET nebo `Configuration` metody třídy pro spuštění OWIN v místním prostředí aplikace. Následující příklad ukazuje, jak snížit za účelem snížení paměťových nároků vaší aplikace za účelem snížení množství paměti serveru používá tuto hodnotu:
+- **DefaultMessageBufferSize**: Ve výchozím nastavení zachová SignalR 1000 zpráv v paměti za rozbočovač za připojení. Pokud velké zprávy se používají, to může způsobit problémy s pamětí, které můžete zmírnit tím, že snižuje tuto hodnotu. Toto nastavení je možné nastavit v `Application_Start` obslužné rutiny události v aplikaci ASP.NET nebo `Configuration` metody třídy pro spuštění OWIN v místním prostředí aplikace. Následující příklad ukazuje, jak snížit za účelem snížení paměťových nároků vaší aplikace za účelem snížení množství paměti serveru používá tuto hodnotu:
 
     **Server kódu .NET v souboru Global.asax pro snížení výchozí velikost vyrovnávací paměti zpráv**
 
@@ -79,7 +81,7 @@ Následující nastavení konfigurace slouží k ladění serveru pro vyšší v
 
 **Nastavení konfigurace služby IIS**
 
-- **Maximální počet souběžných požadavků na aplikaci**: navýšení počtu souběžných IIS zvýší požadavky na prostředky serveru k dispozici obsluze žádostí. Výchozí hodnota je 5 000; Pokud chcete zvýšit toto nastavení, spusťte následující příkazy v příkazovém řádku se zvýšenými oprávněními:
+- **Maximální počet souběžných požadavků na aplikaci**: Navýšení počtu souběžných IIS zvýší požadavky na prostředky serveru k dispozici obsluze žádostí. Výchozí hodnota je 5 000; Pokud chcete zvýšit toto nastavení, spusťte následující příkazy v příkazovém řádku se zvýšenými oprávněními:
 
     [!code-console[Main](signalr-performance/samples/sample4.cmd)]
 
@@ -92,10 +94,10 @@ Tato část obsahuje nastavení konfigurace, které je možné nastavit v `aspne
 
 Nastavení technologie ASP.NET, které mohou zlepšit výkon aplikace SignalR patří:
 
-- **Maximální počet souběžných požadavků za procesoru**: zvýšením tohoto nastavení může zmírnění výkonnostní kritické body. Ke zvýšení tohoto nastavení, přidejte následující nastavení konfigurace `aspnet.config` souboru:
+- **Maximální počet souběžných požadavků za procesoru**: Zvýšením tohoto nastavení může zmírnění výkonnostní kritické body. Ke zvýšení tohoto nastavení, přidejte následující nastavení konfigurace `aspnet.config` souboru:
 
     [!code-xml[Main](signalr-performance/samples/sample5.xml?highlight=4)]
-- **Limit fronty požadavků**: pokud překročí celkový počet připojení `maxConcurrentRequestsPerCPU` nastavení technologie ASP.NET se spustí omezování požadavků pomocí fronty. Pokud chcete zvýšit velikost fronty, můžete zvýšit `requestQueueLimit` nastavení. Provedete to tak, přidejte následující nastavení konfigurace `processModel` uzel v `config/machine.config` (spíše než `aspnet.config`):
+- **Limit fronty požadavků**: Pokud překročí celkový počet připojení `maxConcurrentRequestsPerCPU` nastavení technologie ASP.NET se spustí omezování požadavků pomocí fronty. Pokud chcete zvýšit velikost fronty, můžete zvýšit `requestQueueLimit` nastavení. Provedete to tak, přidejte následující nastavení konfigurace `processModel` uzel v `config/machine.config` (spíše než `aspnet.config`):
 
     [!code-xml[Main](signalr-performance/samples/sample6.xml)]
 
@@ -177,14 +179,14 @@ Následující metriky měření provoz přes vnitřní sběrnice zpráv SignalR
 
 Následující metriky měření chyby vygenerované nástrojem přenos zpráv SignalR. **Centrum řešení** dojít k chybám při rozbočovače a metody rozbočovače nelze rozpoznat. **Volání rozbočovače** chyby jsou výjimky vyvolané při volání metody rozbočovače. **Přenos** chyby jsou chyby připojení vyvolána během požadavku HTTP nebo odpovědi.
 
-- **Chyb: Celkový počet všech**
-- **Chyby: All/Sec**
-- **Chyb: Celkový počet centra řešení**
+- **Chyby: Všechny celkem**
+- **Chyby: Vše za sekundu**
+- **Chyby: Centrum řešení celkem**
 - **Chyby: Centrum řešení za sekundu**
 - **Chyby: Celkový počet volání rozbočovače**
-- **Chyby: Centrum volání za sekundu**
-- **Chyb: Celkový přenos**
-- **Chyby: Přenos/s**
+- **Chyby: Volání rozbočovače za sekundu**
+- **Chyby: Celkový přenos**
+- **Chyby: Přenos za sekundu**
 
 **Metriky horizontálním navýšením kapacity**
 

@@ -8,16 +8,18 @@ ms.date: 04/17/2013
 ms.assetid: c334adc3-d6dc-44f3-9f06-f7634475aad3
 msc.legacyurl: /signalr/overview/older-versions/signalr-1x-hubs-api-guide-net-client
 msc.type: authoredcontent
-ms.openlocfilehash: 5889429645ea1c682ea43c4b17afb3745318e32d
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 34356338f24788226351e8e22b47eaaf7ea03e61
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755293"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287975"
 ---
 <a name="aspnet-signalr-hubs-api-guide---net-client-signalr-1x"></a>Funkce SignalR technologie ASP.NET pokyny k rozhraní API Center – klient .NET (SignalR 1.x)
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento dokument obsahuje úvod k používání rozhraní API rozbočovače pro funkci SignalR verze 2 v rozhraní .NET klientů, jako jsou Windows Store (WinRT), WPF, Silverlight a konzolové aplikace.
 > 
@@ -314,8 +316,8 @@ Pokud metoda serveru má návratovou hodnotu, určit návratový typ jako generi
 
 Funkce SignalR poskytuje následující připojení události doby života, které dokáže zpracovat:
 
-- `Received`: Vyvolá se při přijetí žádná data připojení. Poskytuje přijatá data.
-- `ConnectionSlow`: Vyvolá, když klient zjistí pomalý nebo často vyřazení připojení.
+- `Received`: Vyvoláno, když je veškerá data přijatá v připojení. Poskytuje přijatá data.
+- `ConnectionSlow`: Vyvoláno, když klient zjistí pomalý nebo často vyřazení připojení.
 - `Reconnecting`: Vyvolá se při přenosu začne znovu obnovovat.
 - `Reconnected`: Vyvolá se při přenosu má připojen.
 - `StateChanged`: Vyvolá se při změně stavu připojení. Poskytuje stav starý a nový stav. Informace o připojení najdete v části hodnoty stavu [ConnectionState výčet](https://msdn.microsoft.com/library/microsoft.aspnet.signalr.client.connectionstate(v=vs.111).aspx).

@@ -8,23 +8,24 @@ ms.date: 04/18/2018
 ms.assetid: eac31beb-0f46-4afa-9def-e80904dea4f0
 msc.legacyurl: /signalr/overview/getting-started/supported-platforms
 msc.type: authoredcontent
-ms.openlocfilehash: d522602c3523d97a12c74b2d901391bd00d4f2b9
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: e270f9a328f36854fdfb3e23b78e0b40cdda6411
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41751902"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287356"
 ---
 <a name="supported-platforms"></a>Podporované platformy
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento článek popisuje, jaké klienty a servery jsou podporovány systémem SignalR. 
 > 
 > ## <a name="questions-and-comments"></a>Otázky a komentáře
 > 
 > Napište prosím zpětnou vazbu o tom, jak vám líbilo v tomto kurzu a co můžeme zlepšit v komentářích v dolní části stránky. Pokud máte nějaké otázky, které přímo nesouvisejí, najdete v tomto kurzu, můžete je publikovat [fórum ASP.NET SignalR](https://forums.asp.net/1254.aspx/1?ASP+NET+SignalR) nebo [StackOverflow.com](http://stackoverflow.com/).
-
 
 SignalR je podporována v různých konfigurací klienta a serveru. Kromě toho každá možnost přenosu má sadu požadavků na své vlastní. Pokud požadavky na systém pro přenos nejsou k dispozici, bude převzetí služeb při selhání do jiné přenosy řádně SignalR. Další informace o přenosy, které podporuje funkci SignalR naleznete v tématu [přenosy a náhrad](introduction-to-signalr.md#transports).
 
@@ -86,7 +87,7 @@ Kromě nutnosti některé prohlížeče, mají různé přenosy, které použív
 
 | Přenos | Internet Explorer | Chrome (Windows nebo iOS) | Firefox | Safari (OSX nebo iOS) | Android |
 | --- | --- | --- | --- | --- | --- |
-| Protokoly Websocket | 10+ | aktuální - 1 | aktuální - 1 | aktuální - 1 | Není k dispozici |
+| WebSocket | 10+ | aktuální - 1 | aktuální - 1 | aktuální - 1 | Není k dispozici |
 | Události odeslané serverem | Není k dispozici | aktuální - 1 | aktuální - 1 | aktuální - 1 | Není k dispozici |
 | ForeverFrame | 8+ | Není k dispozici | Není k dispozici | Není k dispozici | 4.1 |
 | Dlouhým dotazováním | 8+ | aktuální - 1 | aktuální - 1 | aktuální - 1 | 4.1 |
@@ -125,7 +126,7 @@ SignalR je použít v aplikacích Windows Store a aplikace Windows Phone 8. Nás
 
 | Přenos | Windows Store / .NET | Windows Store / JavaScript | Windows Phone / IE | Windows Phone a .NET |
 | --- | --- | --- | --- | --- |
-| Protokoly Websocket | Není k dispozici | Win8 + | 8+ | Není k dispozici |
+| WebSocket | Není k dispozici | Win8 + | 8+ | Není k dispozici |
 | Navždy rámce | Není k dispozici | Win8 + | 7.5+ | Není k dispozici |
 | Události odeslané serverem | Win8 + | Není k dispozici | Není k dispozici | 8+ |
 | Dlouhým dotazováním | Win8 + | Win8 + | 7.5+ | 8+ |

@@ -8,16 +8,18 @@ ms.date: 04/17/2013
 ms.assetid: dcd4593b-1118-418a-af71-d12ff33fb36d
 msc.legacyurl: /signalr/overview/older-versions/signalr-1x-hubs-api-guide-javascript-client
 msc.type: authoredcontent
-ms.openlocfilehash: 993ad7924d8335f79aa2c3e41c00ddfa8bc26874
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 2d50a92cff96be5c5c60105bba6682d38f9666b6
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755283"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53288089"
 ---
-<a name="signalr-1x-hubs-api-guide---javascript-client"></a>Pokyny rozhraní API Center SignalR 1.x – javascriptový klient
+<a name="signalr-1x-hubs-api-guide---javascript-client"></a>Pokyny k rozhraní API center SignalR 1.x – javascriptový klient
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento dokument obsahuje úvod k používání rozhraní API rozbočovače pro funkci SignalR v klientech jazyka JavaScript, například s prohlížeči a aplikace Windows Store (WinJS) verze 1.1.
 > 
@@ -443,9 +445,9 @@ Předchozí příklady ukazují, jak volat metodu serveru, která nemá žádnou
 
 Funkce SignalR poskytuje následující připojení události doby života, které dokáže zpracovat:
 
-- `starting`: Aktivována před odesláním žádná data přes dané připojení.
-- `received`: Vyvolá se při přijetí žádná data připojení. Poskytuje přijatá data.
-- `connectionSlow`: Vyvolá, když klient zjistí pomalý nebo často vyřazení připojení.
+- `starting`: Vyvoláno před odesláním žádná data přes dané připojení.
+- `received`: Vyvoláno, když je veškerá data přijatá v připojení. Poskytuje přijatá data.
+- `connectionSlow`: Vyvoláno, když klient zjistí pomalý nebo často vyřazení připojení.
 - `reconnecting`: Vyvolá se při přenosu začne znovu obnovovat.
 - `reconnected`: Vyvolá se při přenosu má připojen.
 - `stateChanged`: Vyvolá se při změně stavu připojení. Poskytuje starý stav a nový stav (připojování, připojeno, znovu připojíte nebo odpojeno).

@@ -1,6 +1,6 @@
 ---
 uid: signalr/overview/getting-started/real-time-web-applications-with-signalr
-title: 'Praktické cvičení: V reálném čase webové aplikace s knihovnou SignalR | Dokumentace Microsoftu'
+title: 'Praktické cvičení: Aplikace webu v reálném čase s knihovnou SignalR | Dokumentace Microsoftu'
 author: rick-anderson
 description: Webové aplikace v reálném čase funkcí možnost na straně serveru nabízet obsah připojeným klientům, jakmile k ní dojde, v reálném čase. Pro vývojáře využívající technologii ASP.NET, ASP...
 ms.author: riande
@@ -8,16 +8,19 @@ ms.date: 07/16/2014
 ms.assetid: ba07958c-42e1-4da0-81db-ba6925ed6db0
 msc.legacyurl: /signalr/overview/getting-started/real-time-web-applications-with-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: 59831fb8497c86ec5e02de3912b36a15f416597c
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: de2f2349fc284e167bd8227ae55da79b9f1f4549
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48913229"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287999"
 ---
-<a name="hands-on-lab-real-time-web-applications-with-signalr"></a>Praktické cvičení: V reálném čase webové aplikace s knihovnou SignalR
+<a name="hands-on-lab-real-time-web-applications-with-signalr"></a>Praktické cvičení: Aplikace webu v reálném čase s knihovnou SignalR
 ====================
+
 podle [Campy Web týmu](https://twitter.com/webcamps)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 [Stáhněte si Web Campy školení Kit](http://aka.ms/webcamps-training-kit)
 
@@ -25,9 +28,9 @@ podle [Campy Web týmu](https://twitter.com/webcamps)
 > 
 > **Funkce SignalR** také poskytuje jednoduché rozhraní API vysoké úrovně pro provádění serveru na klienta vzdáleného volání Procedur (volají funkce JavaScript v prohlížečích vašich klientů z kódu .NET na straně serveru) v aplikaci ASP.NET, jakož i přidáním užitečné háky pro správu připojení například události připojení/odpojení, seskupování připojení a autorizaci.
 > 
-> **Funkce SignalR** je abstrakcí přes některé přenosy, které jsou potřeba k práci v reálném čase mezi klientem a serverem. A **SignalR** připojení se spustí jako HTTP a pak je povýšen na **protokolu WebSocket** připojení, pokud je k dispozici. **Protokol WebSocket** je ideální přenos pro **SignalR**, protože je nejefektivnější využití paměti serveru má nejnižší latenci a má nejvíce základní funkce (jako je například plně duplexní komunikace mezi klientem a Server), ale má také nejpřísnějšími požadavky na: **objektu websocket na straně** vyžaduje, aby používat server **systému Windows Server 2012** nebo **Windows 8**, spolu s **Rozhraní .NET framework 4.5**. Pokud tyto požadavky nejsou splněny, **SignalR** se pokusí použít další přenosy, aby jeho připojení (například *Ajax dlouhý interval dotazování*).
+> **Funkce SignalR** je abstrakcí přes některé přenosy, které jsou potřeba k práci v reálném čase mezi klientem a serverem. A **SignalR** připojení se spustí jako HTTP a pak je povýšen na **protokolu WebSocket** připojení, pokud je k dispozici. **Protokol WebSocket** je ideální přenos pro **SignalR**, protože je nejefektivnější využití paměti serveru má nejnižší latenci a má nejvíce základní funkce (jako je například plně duplexní komunikace mezi klientem a Server), ale má také nejpřísnějšími požadavky na: **Protokol WebSocket** vyžaduje, aby používat server **systému Windows Server 2012** nebo **Windows 8**, spolu s **rozhraní .NET Framework 4.5**. Pokud tyto požadavky nejsou splněny, **SignalR** se pokusí použít další přenosy, aby jeho připojení (například *Ajax dlouhý interval dotazování*).
 > 
-> **SignalR** rozhraní API obsahuje dva modely pro komunikaci mezi klienty a servery: **trvalá připojení** a **rozbočovače**. A **připojení** představuje jednoduchý koncový bod pro odesílání jednoho příjemce, seskupené nebo zpráv všesměrového vysílání. A **centra** více základní kanál postavené na rozhraní API připojení, které umožňuje klientem a serverem pro volání metod na sobě navzájem přímo.
+> **SignalR** rozhraní API obsahuje dva modely pro komunikaci mezi klienty a servery: **Trvalá připojení** a **rozbočovače**. A **připojení** představuje jednoduchý koncový bod pro odesílání jednoho příjemce, seskupené nebo zpráv všesměrového vysílání. A **centra** více základní kanál postavené na rozhraní API připojení, které umožňuje klientem a serverem pro volání metod na sobě navzájem přímo.
 > 
 > ![Architektura SignalR](real-time-web-applications-with-signalr/_static/image1.png)
 > 
@@ -270,8 +273,8 @@ Další informace o tom, jak propojovací rozhraní systému SignalR funguje, na
 > Existují některé scénáře, kde propojovací rozhraní se může stát kritickým bodem. Tady jsou některé typické scénáře SignalR:
 > 
 > - [Server vysílání](tutorial-server-broadcast-with-signalr.md) (například akciích): Backplanes fungovat dobře pro tento scénář, protože rychlost, jakou jsou odesílány zprávy pro ovládací prvky server.
-> - [Klient klient](tutorial-getting-started-with-signalr.md) (například konverzace): V tomto scénáři propojovacího rozhraní může být kritickým bodem v případě, že počet zpráv, které se škáluje s počtem klientů; to znamená, pokud roste počet zpráv proporcionálně Další klienti se připojují k.
-> - [Vysokofrekvenční Reálný čas](tutorial-high-frequency-realtime-with-signalr.md) (například hry v reálném čase): pro tento scénář se nedoporučuje propojovacího rozhraní.
+> - [Klient klient](tutorial-getting-started-with-signalr.md) (například konverzace): V tomto scénáři propojovacího rozhraní může být kritickým bodem v případě, že počet zpráv, které se škáluje s počtem klientů; To znamená, pokud roste počet zpráv proporcionálně Další klienti se připojují k.
+> - [Vysokofrekvenční Reálný čas](tutorial-high-frequency-realtime-with-signalr.md) (například hry v reálném čase): Propojovací rozhraní se nedoporučuje pro tento scénář.
 
 
 V tomto cvičení použijete **systému SQL Server** k distribuci zpráv napříč **kvíz Informatik** aplikace. Tyto úlohy poběží na jeden testovací počítač Další informace o nastavení konfigurace, ale pokud chcete získat plný vliv, budete muset nasadit aplikace SignalR pro dva nebo víc serverů. SQL Server musíte nainstalovat také na některý server nebo na samostatný vyhrazený server.
@@ -346,7 +349,7 @@ V této úloze se vytvoří databáze, která bude sloužit jako propojovací ro
     ![Dotazování na stav služby Service Broker](real-time-web-applications-with-signalr/_static/image25.png "dotazování na stav služby Service Broker")
 
     *Dotazování na stav služby Service Broker*
-8. Pokud hodnota **je\_zprostředkovatele\_povolené** sloupec v databázi je &quot;0&quot;, použijte následující příkaz, aby je. Nahraďte **&lt;YOUR DATABASE&gt;** s názvem, který jste nastavili při vytváření databáze (např: SignalR).
+8. Pokud hodnota **je\_zprostředkovatele\_povolené** sloupec v databázi je &quot;0&quot;, použijte následující příkaz, aby je. Nahraďte **&lt;YOUR DATABASE&gt;** s názvem, který jste nastavili při vytváření databáze (například: Funkce SignalR).
 
     [!code-sql[Main](real-time-web-applications-with-signalr/samples/sample12.sql)]
 
@@ -375,7 +378,7 @@ V této úloze nakonfigurujete **kvíz Informatik** pro připojení k propojovac
 5. Opět **sady Visual Studio** spustí dvě instance **kvíz Informatik** v jiné porty. Připne jeden z těchto prohlížečů na levé straně a jiné na pravé straně obrazovky a přihlaste se pomocí svých přihlašovacích údajů. Zachovat triviální prvek stránky na levé straně a přejděte na **statistiky** pagein správné prohlížeče.
 6. Spuštění, odpovídání na dotazy v levém prohlížeče. Tentokrát **statistiky** aktualizaci stránky díky propojovacího rozhraní. Přepínání mezi aplikacemi (**statistiky** je teď na levé straně a **triviální prvek** je na pravé straně) a opakujte test k ověření, že funguje pro obě instance. Propojovacího rozhraní slouží jako *sdílené mezipaměti* zpráv pro každý připojený server a každý server, které budou ukládat zprávy v místní mezipaměti pro distribuci do připojených klientů.
 7. Přejděte zpět do sady Visual Studio a Zastavit ladění.
-8. Komponenta propojovací rozhraní systému SQL Server automaticky vytvoří nezbytné tabulky se zadanou databází. V **Průzkumník objektů systému SQL Server** panelu, otevřete databázi, který jste vytvořili pro propojovacího rozhraní (např: SignalR) a rozbalte jeho tabulek. Měli byste vidět v následující tabulce:
+8. Komponenta propojovací rozhraní systému SQL Server automaticky vytvoří nezbytné tabulky se zadanou databází. V **Průzkumník objektů systému SQL Server** panelu, otevřete databázi, který jste vytvořili pro propojovacího rozhraní (např: Funkce SignalR) a rozbalte jeho tabulek. Měli byste vidět v následující tabulce:
 
     ![Propojovací rozhraní systému vygenerované tabulky](real-time-web-applications-with-signalr/_static/image27.png)
 

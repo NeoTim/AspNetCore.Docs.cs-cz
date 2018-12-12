@@ -8,16 +8,18 @@ ms.date: 04/29/2013
 ms.assetid: 3fd9f11c-799b-4001-bd60-1e70cfc61c19
 msc.legacyurl: /signalr/overview/older-versions/scaleout-in-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: 0cd1e64af031fea8078c8c1ca4c64b1e2e69d7e9
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: fffa424ea4b62a54b9df48aaa409541ab5d1608f
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41753538"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287581"
 ---
 <a name="introduction-to-scaleout-in-signalr-1x"></a>Úvod do škálování aplikace SignalR 1.x
 ====================
 podle [Mike Wasson](https://github.com/MikeWasson), [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 Obecně platí, existují dva způsoby, jak škálovat webovou aplikaci: *vertikálně navýšit kapacitu* a *horizontální navýšení kapacity*.
 
@@ -61,8 +63,8 @@ Mechanismus funguje kurzor i v případě, že klient se směruje na jiný serve
 Maximální propustnost, pomocí propojovací rozhraní, je nižší, než je, pokud klienti komunikovat přímo k uzlu jeden server. Důvodem je, propojovacího rozhraní předává všechny zprávy pro každý uzel, takže propojovacího rozhraní se může stát kritickým bodem. Záleží na aplikaci, zda toto omezení je nějaký problém. Například tady jsou některé typické scénáře SignalR:
 
 - [Server vysílání](tutorial-server-broadcast-with-aspnet-signalr.md) (například akciích): Backplanes fungovat dobře pro tento scénář, protože rychlost, jakou jsou odesílány zprávy pro ovládací prvky server.
-- [Klient klient](tutorial-getting-started-with-signalr.md) (například konverzace): V tomto scénáři propojovacího rozhraní může být kritickým bodem v případě, že počet zpráv, které se škáluje s počtem klientů; to znamená, pokud roste počet zpráv proporcionálně Další klienti se připojují k.
-- [Vysokofrekvenční Reálný čas](tutorial-high-frequency-realtime-with-signalr.md) (například hry v reálném čase): pro tento scénář se nedoporučuje propojovacího rozhraní.
+- [Klient klient](tutorial-getting-started-with-signalr.md) (například konverzace): V tomto scénáři propojovacího rozhraní může být kritickým bodem v případě, že počet zpráv, které se škáluje s počtem klientů; To znamená, pokud roste počet zpráv proporcionálně Další klienti se připojují k.
+- [Vysokofrekvenční Reálný čas](tutorial-high-frequency-realtime-with-signalr.md) (například hry v reálném čase): Propojovací rozhraní se nedoporučuje pro tento scénář.
 
 ## <a name="enabling-tracing-for-signalr-scaleout"></a>Povolení trasování pro škálování aplikace SignalR
 

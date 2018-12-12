@@ -9,24 +9,26 @@ ms.date: 10/03/2018
 ms.assetid: 2a127d3b-21ed-4cc9-bec0-cdab4e742a25
 msc.legacyurl: /signalr/overview/performance/using-signalr-performance-counters-in-an-azure-web-role
 msc.type: authoredcontent
-ms.openlocfilehash: 7304ff17bb53f94bdee1e90602d206bf32184e37
-ms.sourcegitcommit: 7890dfb5a8f8c07d813f166d3ab0c263f893d0c6
+ms.openlocfilehash: bdd875201895c6eaf155b54582d0898c2570d93c
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48795457"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287695"
 ---
 # <a name="using-signalr-performance-counters-in-an-azure-web-role"></a>Použití čítačů výkonu SignalR webové role Azure
 
 Podle [Luke Latham](https://github.com/guardrex)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 Čítače výkonu SignalR slouží k monitorování výkonu vaší aplikace do webové Role Azure. Čítače jsou zachyceny na základě Microsoft Azure Diagnostics. Instalace čítačů výkonu SignalR v Azure s *signalr.exe*, nástroje, který používá pro samostatnou službu nebo místní aplikace. Protože role služby Azure jsou přechodné, konfigurace aplikace pro instalaci a registraci čítačů výkonu SignalR při spuštění.
 
 ## <a name="prerequisites"></a>Požadavky
 
 * Visual Studio 2015 nebo [2017](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017)
-* [Microsoft Azure SDK pro Visual Studio](https://azure.microsoft.com/downloads/) **Poznámka: restartujte počítač po instalaci sady SDK.**
-* Předplatné Microsoft Azure: si zaregistrovat Bezplatný zkušební účet Azure, najdete v článku [bezplatná zkušební verze Azure](https://azure.microsoft.com/free/).
+* [Microsoft Azure SDK pro Visual Studio](https://azure.microsoft.com/downloads/) **Poznámka: Restartujte počítač po instalaci sady SDK.**
+* Předplatné Microsoft Azure: Zaregistrujte si bezplatný účet Azure zkušební, najdete v tématu [bezplatná zkušební verze Azure](https://azure.microsoft.com/free/).
 
 ## <a name="creating-an-azure-web-role-application-that-exposes-signalr-performance-counters"></a>Vytvoření webové Role Azure aplikace, která zveřejňuje čítačů výkonu SignalR
 

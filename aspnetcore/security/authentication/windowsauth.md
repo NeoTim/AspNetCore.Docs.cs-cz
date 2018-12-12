@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 11/01/2018
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 342759a6ff4b5679e0d54c979188ae66d339562d
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 15e388433cc9b01e9db3e2fb56aca1ebb5ba5ba4
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121294"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284409"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>Konfigurace ověřování Windows v ASP.NET Core
 
@@ -61,9 +61,9 @@ Služba IIS použije [modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-
 
 Povolte službu Role služby IIS pro ověřování Windows. Další informace najdete v tématu [povolit ověřování Windows služby Role služby IIS (viz krok 2)](xref:host-and-deploy/iis/index#iis-configuration).
 
-Middleware pro integraci služby IIS je ve výchozím nastavení nakonfigurované k automatickému ověření žádosti. Další informace najdete v tématu [hostitele ASP.NET Core ve Windows se službou IIS: IIS možnosti (AutomaticAuthentication)](xref:host-and-deploy/iis/index#iis-options).
+Middleware pro integraci služby IIS je ve výchozím nastavení nakonfigurované k automatickému ověření žádosti. Další informace najdete v tématu [hostitele ASP.NET Core ve Windows se službou IIS: Možnosti služby IIS (AutomaticAuthentication)](xref:host-and-deploy/iis/index#iis-options).
 
-Modul ASP.NET Core je ve výchozím nastavení nakonfigurovaný pro předávání Windows ověřovací token do aplikace. Další informace najdete v tématu [odkaz Konfigurace modul ASP.NET Core: atributy elementu aspNetCore](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element).
+Modul ASP.NET Core je ve výchozím nastavení nakonfigurovaný pro předávání Windows ověřovací token do aplikace. Další informace najdete v tématu [odkaz na modul ASP.NET Core konfigurace: Atributy elementu aspNetCore](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element).
 
 ### <a name="create-a-new-iis-site"></a>Vytvořit nový web služby IIS
 

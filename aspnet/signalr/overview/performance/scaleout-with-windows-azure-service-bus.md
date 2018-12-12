@@ -8,22 +8,24 @@ ms.date: 06/10/2014
 ms.assetid: ce1305f9-30fd-49e3-bf38-d0a78dfb06c3
 msc.legacyurl: /signalr/overview/performance/scaleout-with-windows-azure-service-bus
 msc.type: authoredcontent
-ms.openlocfilehash: 3adc8768eb7271de32180ba98f67864b22283510
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 5cdb9b5eb6d3f5ebd5c96e4b0d89926c18bddadd
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910795"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287608"
 ---
 <a name="signalr-scaleout-with-azure-service-bus"></a>Škálování aplikace SignalR službou Azure Service Bus
 ====================
 podle [Mike Wasson](https://github.com/MikeWasson), [Patrick Fletcher](https://github.com/pfletcher)
 
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
+
 V tomto kurzu se naučíte se nasadit aplikace SignalR webové Role Windows Azure, pomocí propojovací Service Bus rozhraní k distribuci zpráv do jednotlivých instancí rolí. (Můžete také použít propojovací Service Bus rozhraní s [webové aplikace ve službě Azure App Service](https://docs.microsoft.com/azure/app-service-web/).)
 
 ![](scaleout-with-windows-azure-service-bus/_static/image1.png)
 
-Předpoklady:
+Požadavky:
 
 - Účet Windows Azure.
 - [Windows Azure SDK](https://go.microsoft.com/fwlink/?linkid=254364&amp;clcid=0x409).
@@ -49,13 +51,13 @@ Předtím, než získáme podrobný kurz, zde je rychlý přehled toho, co budet
 
     [!code-csharp[Main](scaleout-with-windows-azure-service-bus/samples/sample1.cs)]
 
-Tento kód nastaví propojovacího rozhraní s výchozími hodnotami u [TopicCount](https://msdn.microsoft.com/library/microsoft.aspnet.signalr.servicebusscaleoutconfiguration.topiccount(v=vs.118).aspx) a [MaxQueueLength](https://msdn.microsoft.com/library/microsoft.aspnet.signalr.messaging.scaleoutconfiguration.maxqueuelength(v=vs.118).aspx). Informace o změně těchto hodnot najdete v tématu [výkon aplikace SignalR: škálování metriky](signalr-performance.md#scaleout_metrics).
+Tento kód nastaví propojovacího rozhraní s výchozími hodnotami u [TopicCount](https://msdn.microsoft.com/library/microsoft.aspnet.signalr.servicebusscaleoutconfiguration.topiccount(v=vs.118).aspx) a [MaxQueueLength](https://msdn.microsoft.com/library/microsoft.aspnet.signalr.messaging.scaleoutconfiguration.maxqueuelength(v=vs.118).aspx). Informace o změně těchto hodnot najdete v tématu [výkon aplikace SignalR: Škálování metriky](signalr-performance.md#scaleout_metrics).
 
 Pro každou aplikaci vyberte jinou hodnotu pro "YourAppName". Nepoužívejte stejnou hodnotu napříč více aplikacemi.
 
 ## <a name="create-the-azure-services"></a>Vytvoření služby Azure
 
-Vytvoření cloudové služby, jak je popsáno v [jak vytvořit a nasadit Cloudovou službu](https://docs.microsoft.com/azure/cloud-services/cloud-services-how-to-create-deploy). Postupujte podle kroků v části "jak: vytvořit cloudovou službu, pomocí rychlé vytvoření". Pro účely tohoto kurzu není potřeba nahrát certifikát.
+Vytvoření cloudové služby, jak je popsáno v [jak vytvořit a nasadit Cloudovou službu](https://docs.microsoft.com/azure/cloud-services/cloud-services-how-to-create-deploy). Postupujte podle kroků v části "jak: Vytvořit cloudovou službu pomocí metody rychlého vytvoření". Pro účely tohoto kurzu není potřeba nahrát certifikát.
 
 ![](scaleout-with-windows-azure-service-bus/_static/image2.png)
 
@@ -69,7 +71,7 @@ Vytvořte nový obor názvů služby Service Bus, jak je popsáno v [způsob pou
 
 ## <a name="create-the-visual-studio-project"></a>Vytvoření projektu sady Visual Studio
 
-Spusťte sadu Visual Studio. Z **souboru** nabídky, klikněte na tlačítko **nový projekt**.
+Spusťte Visual Studio. Z **souboru** nabídky, klikněte na tlačítko **nový projekt**.
 
 V **nový projekt** dialogového okna rozbalte **Visual C#**. V části **nainstalované šablony**vyberte **cloudu** a pak vyberte **Windows Azure Cloud Service**. Ponechte výchozí rozhraní .NET Framework 4.5. Pojmenujte aplikaci ChatService a klikněte na tlačítko **OK**.
 
@@ -128,7 +130,7 @@ Klikněte pravým tlačítkem na roli SignalRChat a vyberte **vlastnosti**. Vybe
 
 Uložte změny.
 
-V Průzkumníku řešení klikněte pravým tlačítkem na projekt ChatService. Vyberte **publikovat**.
+V Průzkumníku řešení klikněte pravým tlačítkem na projekt ChatService. Vyberte **Publikovat**.
 
 ![](scaleout-with-windows-azure-service-bus/_static/image11.png)
 

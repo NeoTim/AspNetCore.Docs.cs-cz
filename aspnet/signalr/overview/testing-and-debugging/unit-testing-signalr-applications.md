@@ -8,16 +8,18 @@ ms.date: 06/10/2014
 ms.assetid: d1983524-e0d5-4ee6-9d87-1f552f7cb964
 msc.legacyurl: /signalr/overview/testing-and-debugging/unit-testing-signalr-applications
 msc.type: authoredcontent
-ms.openlocfilehash: ba8f5d4577403fe9765641d7ee5d88bde045680a
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: d8f3afdc2749173d1e260096ee6bd4bf1ae4c7cb
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910821"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287507"
 ---
-<a name="unit-testing-signalr-applications"></a>Jednotky testování aplikace knihovnou SignalR
+<a name="unit-testing-signalr-applications"></a>Testování jednotek aplikace knihovnou SignalR
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento článek popisuje použití funkce SignalR 2 testování částí.
 >
@@ -42,7 +44,7 @@ Funkce testování částí v SignalR 2 slouží k vytvoření testů jednotek p
 
 V této části přidáte testů jednotek pro aplikace vytvořené v [kurzu Začínáme](../getting-started/tutorial-getting-started-with-signalr.md) pomocí [XUnit.net](https://github.com/xunit/xunit) a [Moq](https://github.com/Moq/moq4).
 
-XUnit.net se dá používat k ovládání testu; Moq se použije k vytvoření [napodobení](http://en.wikipedia.org/wiki/Mock_object) objektu pro testování. Další napodobování architektury je možné v případě potřeby; [NSubstitute](http://nsubstitute.github.io/) je také vhodná. Tento kurz ukazuje, jak nastavit mock objektu dvěma způsoby: první, použití `dynamic` objektu (představíme v rozhraní .NET Framework 4) a druhý, pomocí rozhraní.
+XUnit.net se dá používat k ovládání testu; Moq se použije k vytvoření [napodobení](http://en.wikipedia.org/wiki/Mock_object) objektu pro testování. Další napodobování architektury je možné v případě potřeby; [NSubstitute](http://nsubstitute.github.io/) je také vhodná. Tento kurz ukazuje, jak nastavit mock objektu dvěma způsoby: Nejprve pomocí `dynamic` objektu (představíme v rozhraní .NET Framework 4) a druhý, pomocí rozhraní.
 
 ### <a name="contents"></a>Obsah
 
@@ -64,7 +66,7 @@ V této části přidáte testování částí pro aplikace vytvořené v [kurzu
 4. Přidáte projekt do řešení pro testování částí. Klikněte pravým tlačítkem na řešení v **Průzkumníka řešení** a vyberte **přidat**, **nový projekt...** . V části **jazyka C#** uzlu, vyberte **Windows** uzlu. Vyberte **knihovna tříd**. Název nového projektu **TestLibrary** a klikněte na tlačítko **OK**.
 
     ![Vytvořte knihovnu testu](unit-testing-signalr-applications/_static/image2.png)
-5. Přidáte odkaz v testovém projektu knihovny do projektu SignalRChat. Klikněte pravým tlačítkem myši **TestLibrary** projektu a vyberte **přidat**, **odkaz...** . Vyberte **projekty** pod uzlem **řešení** uzlu a kontrola **SignalRChat**. Klikněte na tlačítko **OK**.
+5. Přidáte odkaz v testovém projektu knihovny do projektu SignalRChat. Klikněte pravým tlačítkem myši **TestLibrary** projektu a vyberte **přidat**, **odkaz...** . Vyberte **projekty** pod uzlem **řešení** uzlu a kontrola **SignalRChat**. Klikněte na **OK**.
 
     ![Přidat odkaz na projekt](unit-testing-signalr-applications/_static/image3.png)
 6. Přidat balíčky SignalR, Moq a XUnit **TestLibrary** projektu. V **Konzola správce balíčků**, nastavte **výchozí projekt** rozevírací nabídku, která **TestLibrary**. V okně konzoly spusťte následující příkazy:

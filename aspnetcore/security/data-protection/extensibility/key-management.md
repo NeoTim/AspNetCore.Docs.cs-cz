@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: security/data-protection/extensibility/key-management
-ms.openlocfilehash: e5ed2a65355a1dba34af09379f2583b3e73c24d7
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 28932cbef1cc797338980f3e0de8b09caee324c0
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121424"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284601"
 ---
 # <a name="key-management-extensibility-in-aspnet-core"></a>Rozšiřitelnost správy klíčů v ASP.NET Core
 
@@ -175,7 +175,7 @@ services.AddSingleton<IXmlRepository>(new MyCustomXmlRepository());
 
 `IXmlEncryptor` Rozhraní představuje typ, který můžete šifrovat element XML ve formátu prostého textu. Poskytuje jediné rozhraní API:
 
-* Šifrování (XElement plaintextElement): EncryptedXmlInfo
+* Encrypt(XElement plaintextElement): EncryptedXmlInfo
 
 Pokud serializovaného `IAuthenticatedEncryptorDescriptor` obsahuje všechny prvky označené jako "vyžaduje šifrování", pak `XmlKeyManager` spustí tyto prvky prostřednictvím nakonfigurované `IXmlEncryptor`společnosti `Encrypt` metoda a zachová enciphered element místo ve formátu prostého textu elementu `IXmlRepository`. Výstup `Encrypt` metoda je `EncryptedXmlInfo` objektu. Tento objekt je obálka, který obsahuje výsledné enciphered `XElement` a typ, který představuje `IXmlDecryptor` které lze používat k dešifrování odpovídající prvek.
 

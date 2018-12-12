@@ -8,16 +8,18 @@ ms.date: 06/10/2014
 ms.assetid: 4b559e6c-4fb0-4a04-9812-45cf08ae5779
 msc.legacyurl: /signalr/overview/testing-and-debugging/troubleshooting
 msc.type: authoredcontent
-ms.openlocfilehash: bdb0562955f3bde56a95ce937c27fdbe4aa94823
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: e41061f0310c021b10dc6667a5c3297788213b0a
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911679"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287946"
 ---
 <a name="signalr-troubleshooting"></a>Řešení potíží s knihovnou SignalR
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento dokument popisuje řešení běžných problémů s knihovnou SignalR.
 >
@@ -71,7 +73,7 @@ Funkce SignalR vyžaduje JSON analyzátor, aby byly k serializaci volání mezi 
 
 ### <a name="mixing-hub-and-persistentconnection-syntax"></a>Kombinování centra a PersistentConnection syntaxe
 
-Funkce SignalR používá dva modely komunikace: rozbočovače a PersistentConnections. Syntaxe pro volání těchto dvou komunikačních modelů se liší v kódu klienta. Pokud jste přidali rozbočovač v serverovém kódu, ověřte, že veškerý kód klienta používá syntaxi správné centra.
+Funkce SignalR používá dva modely komunikace: Rozbočovače a PersistentConnections. Syntaxe pro volání těchto dvou komunikačních modelů se liší v kódu klienta. Pokud jste přidali rozbočovač v serverovém kódu, ověřte, že veškerý kód klienta používá syntaxi správné centra.
 
 **JavaScript klientský kód, který vytvoří PersistentConnection v javascriptový klient**
 
@@ -187,10 +189,10 @@ K této chybě může dojít v prostředí napříč doménami, kde komunikace m
 
 Existuje několik důvodů, proč tento problém. Ověřte všechny z následujících akcí:
 
-- **Odkaz adresy proxy server rozbočovače není správně naformátované:** tato chyba obvykle nastává Pokud odkaz na generovaný centra adresa proxy serveru není správně naformátovaná. Ověřte, že odkaz na adresu centra správně vytvořen. Zobrazit [způsob vytvoření odkazu dynamicky generované proxy](../guide-to-the-api/hubs-api-guide-javascript-client.md#dynamicproxy) podrobnosti.
+- **Odkaz adresy proxy server rozbočovače není správně naformátované:** Tato chyba obvykle nastává Pokud odkaz na generovaný centra adresa proxy serveru není správně naformátovaná. Ověřte, že odkaz na adresu centra správně vytvořen. Zobrazit [způsob vytvoření odkazu dynamicky generované proxy](../guide-to-the-api/hubs-api-guide-javascript-client.md#dynamicproxy) podrobnosti.
 - **Přidání tras pro aplikaci před přidáním trasu rozbočovače:** Pokud vaše aplikace používá jiné trasy, ověřte, zda je první trasa přidaná volání `MapSignalR`.
-- **Pomocí služby IIS 7 a 7.5 bez aktualizace pro adresy URL bez přípony:** pomocí služby IIS 7 a 7.5 vyžaduje pro aktualizaci pro adresy URL bez přípony na serveru může poskytnout přístup k definici rozbočovače na `/signalr/hubs`. Aktualizaci můžete najít [tady](https://support.microsoft.com/kb/980368).
-- **Služba IIS mezipaměti zastaralá nebo poškozený:** Pokud chcete ověřit, že obsah mezipaměti nejsou zastaralý, zadejte následující příkaz v okně Powershellu a vymažte mezipaměť:
+- **Pomocí služby IIS 7 a 7.5 bez aktualizace pro adresy URL bez přípony:** Pomocí služby IIS 7 a 7.5 vyžaduje aktualizace pro adresy URL bez přípony, tak, aby server může poskytnout přístup k definici rozbočovače na `/signalr/hubs`. Aktualizaci můžete najít [tady](https://support.microsoft.com/kb/980368).
+- **Mezipaměť služby IIS je zastaralé nebo poškozený:** Pokud chcete ověřit, že obsah mezipaměti nejsou aktuální, zadejte následující příkaz v okně Powershellu a vymažte mezipaměť:
 
     [!code-powershell[Main](troubleshooting/samples/sample11.ps1)]
 
@@ -212,7 +214,7 @@ K této chybě dojde, pokud volání `MapSignalR` není správně vytvořena. Zo
 
 Ověřte, že parametry, které odesíláte do vaší metody neobsahují neserializovatelná typy (jako jsou popisovače souborů nebo připojení k databázi). Pokud je potřeba použít členy na objekt na straně serveru, který nechcete být zaslána klientovi (buď pro zabezpečení nebo z důvodu serializace), použijte `JSONIgnore` atribut.
 
-### <a name="protocol-error-unknown-transport-error"></a>"Chyba protokolu: Neznámý přenosu" Chyba
+### <a name="protocol-error-unknown-transport-error"></a>"Chyba protokolu: Došlo k chybě neznámého přenosu"
 
 K této chybě může dojít, pokud klient nepodporuje přenosy, které používá SignalR. Zobrazit [přenosy a náhrad](../getting-started/introduction-to-signalr.md#transports) informace, na kterém je možné prohlížeče s knihovnou SignalR.
 
@@ -228,7 +230,7 @@ Tato chyba může zobrazit, pokud se používá ověřování a klient je odhlá
 
 Klient SignalR JavaScript vyžaduje jQuery ke spuštění. Ověřte, že vaši informaci, abyste jQuery je správný, cesta používá je platný a je odkaz na jQuery před referenční dokumentace ke knihovně SignalR.
 
-### <a name="uncaught-typeerror-cannot-read-property-ltpropertygt-of-undefined-error"></a>"Nezachycená TypeError: Nelze přečíst vlastnost '&lt;vlastnost&gt;" undefined "Chyba
+### <a name="uncaught-typeerror-cannot-read-property-ltpropertygt-of-undefined-error"></a>"Nezachycená TypeError: Nelze přečíst vlastnost '&lt;vlastnost&gt;"undefined" Chyba
 
 Tato chyba je výsledkem nemají jQuery nebo proxy server rozbočovače správně odkazuje. Ověřte, že vaši informaci, jQuery a proxy server rozbočovače je správný, platnost cesty použité a že je odkaz na jQuery před odkaz na proxy server rozbočovače. Výchozí odkaz na proxy server rozbočovače by měl vypadat nějak takto:
 
@@ -282,7 +284,7 @@ Zprávy jsou zpožděné při používání serveru odesílání událostí na p
 
 Jedná se o známý problém, popsané [tady](https://github.com/SignalR/SignalR/issues/1963). Tento příznak může zobrazit pomocí nejnovější verze knihovny JQuery; Alternativním řešením je na nižší verzi vaší aplikace do JQuery 1.8.2.
 
-### <a name="invalidoperationexception-not-a-valid-web-socket-request"></a>"InvalidOperationException: není platný webový požadavek soketu.
+### <a name="invalidoperationexception-not-a-valid-web-socket-request"></a>"InvalidOperationException: Není platný požadavek pro objekt websocket.
 
 K této chybě může dojít, pokud se používá protokol WebSocket, ale síťový proxy server provádí změny v hlavičce požadavku. Řešením je konfigurace proxy serveru na povolení protokolu WebSocket na portu 80.
 

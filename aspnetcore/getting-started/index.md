@@ -4,16 +4,16 @@ author: rick-anderson
 description: Rychlý kurz, který vytvoří a spustí jednoduchou aplikaci Hello World pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/01/2018
+ms.date: 12/11/2018
 uid: getting-started
-ms.openlocfilehash: 29a328b610b0a6e1616cd6ebc70a8fa3e515eb92
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: cf9e731f7638687b3f40b42864ef7ee8f5522b39
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861703"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284347"
 ---
-# <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET jádro
+# <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
 Tento návod ukazuje, jak vytvořit webovou aplikaci ASP.NET jádro pomocí rozhraní příkazového řádku .NET Core.
 
@@ -31,7 +31,7 @@ Na konci máte spuštěn v místním počítači pomocí aplikace pracovní web 
 
 ## <a name="prerequisites"></a>Požadavky
 
-Nainstalujte [!INCLUDE [](~/includes/2.1-SDK.md)].
+* [.NET core 2.2 SDK](https://www.microsoft.com/net/download/all)
 
 ## <a name="create-a-web-app-project"></a>Vytvoření projektu webové aplikace
 
@@ -91,15 +91,15 @@ Přejděte do [ https://localhost:5001 ](https://localhost:5001). Klikněte na t
 
 ## <a name="edit-a-razor-page"></a>Úprava stránky syntaxe Razor
 
-Otevřít *Pages/About.cshtml* a upravovat na stránce s následující zvýrazněný kód:
+Otevřít *Pages/Index.cshtml* a upravovat na stránce s následující zvýrazněný kód:
 
-[!code-cshtml[](sample/getting-started/about.cshtml?highlight=9)]
+[!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-Přejděte do [ https://localhost:5001/About ](https://localhost:5001/About) a ověřte změny jsou zobrazeny.
+Přejděte do [ https://localhost:5001 ](https://localhost:5001)a ověřte změny jsou zobrazeny.
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu jste zjistili, jak:
+V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
 > * Vytvoření projektu webové aplikace.

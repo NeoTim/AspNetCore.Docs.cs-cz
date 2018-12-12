@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/01/2018
+ms.date: 12/11/2018
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 5919fe66139260bace1c356c833abb132ba4b2e8
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: b71adcaad710ecfb7f81de0cc302f293d1728bec
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121749"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53288115"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -32,6 +32,14 @@ Následující operační systémy se podporují:
 [HTTP.sys server](xref:fundamentals/servers/httpsys) (dříve se označovaly jako [WebListener](xref:fundamentals/servers/weblistener)) nebude fungovat v konfigurace reverzního proxy serveru se službou IIS. Použití [Kestrel server](xref:fundamentals/servers/kestrel).
 
 Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-apps/index>.
+
+## <a name="supported-platforms"></a>Podporované platformy
+
+Aplikace publikovaná (x86) 32bitová verze a nasazení 64bitovou (x 64) jsou podporované. Nasazení aplikace 32-bit, není-li aplikace:
+
+* Vyžaduje větší paměť virtuální adresní prostor k dispozici pro 64bitové aplikace.
+* Vyžaduje větší velikost zásobníku služby IIS.
+* Má závislosti nativní 64bitové.
 
 ## <a name="application-configuration"></a>Konfigurace aplikace
 
@@ -249,10 +257,10 @@ Povolit **konzolu pro správu IIS** a **webové služby**.
 1. Přijměte výchozí funkce pro **webové služby** nebo přizpůsobení funkcí služby IIS.
 
    **Ověřování Windows (volitelné)**  
-   Pokud chcete povolit ověřování Windows, rozbalte následující uzly: **webové služby** > **zabezpečení**. Vyberte **ověřování Windows** funkce. Další informace najdete v tématu [ověřování Windows \<windowsAuthentication >](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Windows nakonfigurovat ověřování](xref:security/authentication/windowsauth).
+   Pokud chcete povolit ověřování Windows, rozbalte následující uzly: **Webová služba** > **zabezpečení**. Vyberte **ověřování Windows** funkce. Další informace najdete v tématu [ověřování Windows \<windowsAuthentication >](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Windows nakonfigurovat ověřování](xref:security/authentication/windowsauth).
 
    **Protokoly Websocket (volitelné)**  
-   Protokoly Websocket je podporována s ASP.NET Core 1.1 nebo vyšší. Pokud chcete povolit protokoly Websocket, rozbalte následující uzly: **webové služby** > **funkce pro vývoj aplikací**. Vyberte **protokol WebSocket** funkce. Další informace najdete v tématu [objekty Websocket](xref:fundamentals/websockets).
+   Protokoly Websocket je podporována s ASP.NET Core 1.1 nebo vyšší. Pokud chcete povolit protokoly Websocket, rozbalte následující uzly: **Webová služba** > **funkce pro vývoj aplikací**. Vyberte **protokol WebSocket** funkce. Další informace najdete v tématu [objekty Websocket](xref:fundamentals/websockets).
 
 1. Pokud instalace služby IIS vyžaduje restartování, restartujte systém.
 
@@ -330,7 +338,7 @@ Při nasazování aplikací na servery s [Webdeploy](/iis/publish/using-web-depl
 
     ASP.NET Core běží v samostatném procesu a spravuje modulu runtime. ASP.NET Core nemusí spoléhat na načítání desktop CLR. Nastavení **verze .NET CLR** k **bez spravovaného kódu** je volitelný.
 
-1. *ASP.NET Core 2.2 nebo vyšší*: pro 64-bit (x 64) [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) , která používá [model hostingu v procesu](xref:fundamentals/servers/aspnet-core-module#in-process-hosting-model), zakažte fond aplikací pro procesy 32bitový (x 86).
+1. *ASP.NET Core 2.2 nebo vyšší*: Pro 64bitové (x64) [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) , která používá [model hostingu v procesu](xref:fundamentals/servers/aspnet-core-module#in-process-hosting-model), zakažte fond aplikací pro procesy 32bitový (x 86).
 
    V **akce** postranního panelu ve Správci služby IIS na **fondy aplikací**vyberte **nastavit výchozí nastavení fondu aplikací** nebo **Upřesnit nastavení**. Vyhledejte **povolit 32bitové aplikace** a nastavte hodnotu na `False`. Toto nastavení nemá vliv na aplikace nasazené pro [mimo proces hostování](xref:fundamentals/servers/aspnet-core-module#out-of-process-hosting-model).
 
@@ -404,7 +412,7 @@ Chcete-li konfigurovat ochranu dat v rámci služby IIS k uchování aktualizač
 
   Pro samostatnou, instalace služby IIS – webové farmě, [skript prostředí PowerShell AutoGenKeys.ps1 poskytování ochrany dat](https://github.com/aspnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1) lze použít pro každý fond aplikací, které jsou součástí aplikace ASP.NET Core. Tento skript vytvoří klíč registru HKLM registru, který je přístupný pouze pro účet pracovního procesu fondu aplikací aplikaci. Klíče se zašifrují neaktivní uložená data pomocí rozhraní DPAPI klíčem celý počítač.
 
-  Ve webových farem lze nastavit aplikaci pro použití cesty UNC pro ukládání jeho data protection klíč kanál. Ve výchozím nastavení klíče ochrany dat nejsou šifrovány. Zajistěte, aby byly omezené na účet Windows, které aplikace běží pod oprávnění pro sdílené síťové složce. X X509 certifikát můžete použít k ochraně klíčů v klidovém stavu. Vezměte v úvahu mechanismus pro uživatelům umožní nahrát certifikáty: místo certifikátů do důvěryhodného certifikátu uživatele ukládat a ujistěte se, jsou k dispozici na všech počítačích, ve kterém běží aplikace uživatele. Zobrazit [Konfigurace ochrany dat ASP.NET Core](xref:security/data-protection/configuration/overview) podrobnosti.
+  Ve webových farem lze nastavit aplikaci pro použití cesty UNC pro ukládání jeho data protection klíč kanál. Ve výchozím nastavení klíče ochrany dat nejsou šifrovány. Zajistěte, aby byly omezené na účet Windows, které aplikace běží pod oprávnění pro sdílené síťové složce. X X509 certifikát můžete použít k ochraně klíčů v klidovém stavu. Vezměte v úvahu mechanismus pro uživatelům umožní nahrát certifikáty: Místo certifikátů do důvěryhodného certifikátu uživatele ukládat a ujistěte se, že jsou k dispozici na všech počítačích, ve kterém běží aplikace daného uživatele. Zobrazit [Konfigurace ochrany dat ASP.NET Core](xref:security/data-protection/configuration/overview) podrobnosti.
 
 * **Konfigurace fondu aplikací služby IIS se načíst profil uživatele**
 
@@ -542,11 +550,11 @@ Pokud pracovní proces služby IIS vyžaduje přístup k aplikaci přes se zvý�
 
 1. Zadejte **fondu aplikací služby IIS\\< app_pool_name >** v **zadejte názvy objektů k výběru** oblasti. Vyberte **Kontrola názvů** tlačítko. Pro *DefaultAppPool* zkontrolovat názvy pomocí **IIS AppPool\DefaultAppPool**. Při **Kontrola názvů** se vybere tlačítko, hodnota **DefaultAppPool** je uveden v oblasti názvy objektu. Není možné zadat název fondu aplikací přímo do oblasti názvy objektu. Použití **fondu aplikací služby IIS\\< app_pool_name >** formátování při vyhledávání pro název objektu.
 
-   ![Vyberte uživatele nebo skupiny dialogové okno pro složky aplikace: název fondu aplikací "DefaultAppPool" se připojí k "fondu aplikací služby IIS\" v oblasti názvy objektu před výběrem"Zkontrolujte názvy."](index/_static/select-users-or-groups-1.png)
+   ![Vyberte uživatele nebo skupiny dialogové okno pro složky aplikace: Název fondu aplikací "DefaultAppPool" se připojí k "fondu aplikací služby IIS\" v oblasti názvy objektu před výběrem"Zkontrolujte názvy."](index/_static/select-users-or-groups-1.png)
 
 1. Vyberte **OK**.
 
-   ![Vyberte uživatele nebo skupiny dialogové okno pro složky aplikace: Po výběru "Kontrola názvů", "DefaultAppPool" se zobrazí v objektu název objektu názvy oblasti.](index/_static/select-users-or-groups-2.png)
+   ![Vyberte uživatele nebo skupiny dialogové okno pro složky aplikace: Po výběru "Kontrola názvů", "DefaultAppPool" název objektu se zobrazí v oblasti názvy objektu.](index/_static/select-users-or-groups-2.png)
 
 1. Čtení &amp; provést ve výchozím nastavení by měl být udělena oprávnění. Zadejte další oprávnění podle potřeby.
 
@@ -584,7 +592,7 @@ Další informace o modelech hostování a mimo proces, najdete v článku <xref
 
 * Windows Server 2016 nebo Windows 10 nebo novější; IIS 10 nebo novější.
 * Připojení k serveru edge veřejně přístupných pomocí protokolu HTTP/2, ale reverzní proxy server připojení k [Kestrel server](xref:fundamentals/servers/kestrel) používá HTTP/1.1.
-* Cílová architektura: není k dispozici pro nasazení mimo proces, protože připojení HTTP/2 je zpracována zcela službou IIS.
+* Cílová architektura: Není k dispozici pro nasazení mimo proces, protože připojení HTTP/2 je zpracována zcela službou IIS.
 * Protokol TLS 1.2 nebo vyšší připojení
 
 Pokud se připojení HTTP/2, [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) sestavy `HTTP/1.1`.

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 11/11/2018
 uid: security/authentication/google-logins
-ms.openlocfilehash: e5deda5d521643e3155be00f4630a86c6a82575c
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 372504eb4f6fea412b5b160e0d5e9251dafe0d56
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121528"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284484"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>Nastavení Google externí přihlášení v technologii ASP.NET Core
 
@@ -54,7 +54,7 @@ V tomto kurzu se dozvíte, jak mohou uživatelé přihlásit s účtem Google + 
 
 * Klepněte na **jaké přihlašovací údaje potřebuji?** který přejde na druhý krok konfigurace aplikace **vytvoření ID klienta OAuth 2.0**:
 
-![Stránka přihlašovací údaje správce rozhraní API: vytvoření ID klienta OAuth 2.0](index/_static/GoogleConsoleCreateClient.png)
+![Stránka přihlašovací údaje správce rozhraní API: Vytvoření ID klienta OAuth 2.0](index/_static/GoogleConsoleCreateClient.png)
 
 * Protože se právě jednu funkci (přihlášení), abychom mohli zadat stejné vytváříme projektu Google + **název** pro ID klienta OAuth 2.0, jako jste použili pro projekt.
 
@@ -67,7 +67,7 @@ V tomto kurzu se dozvíte, jak mohou uživatelé přihlásit s účtem Google + 
 
 * Klepněte na **vytvořit ID klienta**, což vás přesměruje na třetí krok **nastavení OAuth 2.0 obrazovkami pro vyjádření souhlasu**:
 
-![Stránka přihlašovací údaje správce rozhraní API: nastavení obrazovce pro vyjádření souhlasu OAuth 2.0](index/_static/GoogleConsoleAddCred.png)
+![Stránka přihlašovací údaje správce rozhraní API: Nastavení obrazovce pro vyjádření souhlasu OAuth 2.0](index/_static/GoogleConsoleAddCred.png)
 
 * Zadejte vaše veřejné **e-mailová adresa** a **název produktu** uvedené pro vaši aplikaci při Google + se zobrazí výzva k přihlášení. Další možnosti jsou k dispozici v rámci **další možnosti vlastního nastavení**.
 
@@ -136,7 +136,7 @@ Zobrazit [GoogleOptions](/dotnet/api/microsoft.aspnetcore.builder.googleoptions)
 
 Spusťte aplikaci a klikněte na tlačítko **přihlášení**. Zobrazí se možnost přihlásit se přes Google:
 
-![Webové aplikaci běžící v Microsoft Edge: uživatel nebyl ověřen](index/_static/DoneGoogle.png)
+![Webové aplikaci běžící v Microsoft Edge: Uživatel nebyl ověřen](index/_static/DoneGoogle.png)
 
 Když kliknete na Googlu, budete přesměrováni do Googlu pro ověřování:
 
@@ -146,14 +146,14 @@ Jakmile zadáte svoje přihlašovací údaje Google, pak budete přesměrováni 
 
 Nyní jste přihlášeni pomocí svých přihlašovacích údajů Google:
 
-![Webové aplikaci běžící v Microsoft Edge: uživatel byl ověřen](index/_static/Done.png)
+![Webové aplikaci běžící v Microsoft Edge: Uživatel byl ověřen](index/_static/Done.png)
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 
 * Pokud se zobrazí `403 (Forbidden)` chybovou stránku z vaší vlastní aplikace při spuštění v režimu pro vývoj (nebo přerušení do ladicího programu ke stejné chybě), ujistěte se, že **rozhraní API Google +** byla povolena v **správce rozhraní API knihovny** pomocí následujících kroků uvedených v tomto [starších na této stránce](#create-the-app-in-google-api-console). Pokud nebude fungovat přihlašování a nezobrazuje se nějaké chyby, přepněte do režimu vývoj usnadnit problém ladit.
-* **ASP.NET Core 2.x pouze:** pokud identita není nakonfigurována voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: musí být Zadaná možnost "SignInScheme"*. Šablona projektu použité v tomto kurzu zajistí, že to se provádí.
+* **ASP.NET Core 2.x pouze:** Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"*. Šablona projektu použité v tomto kurzu zajistí, že to se provádí.
 * Pokud nebyl vytvořen použití počáteční migraci databáze lokality, se zobrazí *databázová operace selhala při zpracování požadavku* chyby. Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.
 
 ## <a name="next-steps"></a>Další kroky

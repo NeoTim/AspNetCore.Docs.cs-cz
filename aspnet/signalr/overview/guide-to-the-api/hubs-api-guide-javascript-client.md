@@ -8,16 +8,18 @@ ms.date: 09/28/2015
 ms.assetid: a9fd4dc0-1b96-4443-82ca-932a5b4a8ea4
 msc.legacyurl: /signalr/overview/guide-to-the-api/hubs-api-guide-javascript-client
 msc.type: authoredcontent
-ms.openlocfilehash: 9edb7fd100a3f4c5331454045ac206d2f7a81961
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 8e493eda256351904da49e1222773f188e6a2058
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912446"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53288063"
 ---
 <a name="aspnet-signalr-hubs-api-guide---javascript-client"></a>Funkce SignalR technologie ASP.NET pokyny k rozhraní API Center – javascriptový klient
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento dokument obsahuje úvod k používání rozhraní API rozbočovače pro funkci SignalR verze 2 v klientů JavaScript, například s prohlížeči a aplikace Windows Store (WinJS).
 >
@@ -41,7 +43,6 @@ podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://g
 > ## <a name="questions-and-comments"></a>Otázky a komentáře
 >
 > Napište prosím zpětnou vazbu o tom, jak vám líbilo v tomto kurzu a co můžeme zlepšit v komentářích v dolní části stránky. Pokud máte nějaké otázky, které přímo nesouvisejí, najdete v tomto kurzu, můžete je publikovat [fórum ASP.NET SignalR](https://forums.asp.net/1254.aspx/1?ASP+NET+SignalR) nebo [StackOverflow.com](http://stackoverflow.com/).
-
 
 ## <a name="overview"></a>Přehled
 
@@ -226,7 +227,7 @@ V knihovně SignalR 1.x různé požadavky na doménu se řídí jediného pří
 
 Pokud na straně klienta (pro podporu požadavků mezi doménami ve starších prohlížečích) je vyžadováno JSONP, ji budou muset být explicitně povoluje nastavením `EnableJSONP` na `HubConfiguration` objektu `true`, jak je znázorněno níže. JSONP je standardně zakázaná, protože je to méně bezpečné než CORS.
 
-**Přidání Microsoft.Owin.Cors do projektu:** nainstalovat, spusťte následující příkaz v konzole Správce balíčků:
+**Přidání Microsoft.Owin.Cors do projektu:** Pokud chcete nainstalovat tuto knihovnu, spusťte následující příkaz v konzole Správce balíčků:
 
 `Install-Package Microsoft.Owin.Cors`
 
@@ -464,9 +465,9 @@ Předchozí příklady ukazují, jak volat metodu serveru, která nemá žádnou
 
 Funkce SignalR poskytuje následující připojení události doby života, které dokáže zpracovat:
 
-- `starting`: Aktivována před odesláním žádná data přes dané připojení.
-- `received`: Vyvolá se při přijetí žádná data připojení. Poskytuje přijatá data.
-- `connectionSlow`: Vyvolá, když klient zjistí pomalý nebo často vyřazení připojení.
+- `starting`: Vyvoláno před odesláním žádná data přes dané připojení.
+- `received`: Vyvoláno, když je veškerá data přijatá v připojení. Poskytuje přijatá data.
+- `connectionSlow`: Vyvoláno, když klient zjistí pomalý nebo často vyřazení připojení.
 - `reconnecting`: Vyvolá se při přenosu začne znovu obnovovat.
 - `reconnected`: Vyvolá se při přenosu má připojen.
 - `stateChanged`: Vyvolá se při změně stavu připojení. Poskytuje starý stav a nový stav (připojování, připojeno, znovu připojíte nebo odpojeno).

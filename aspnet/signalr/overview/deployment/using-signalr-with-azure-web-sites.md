@@ -8,16 +8,18 @@ ms.date: 07/01/2015
 ms.assetid: 2a7517a0-b88c-4162-ade3-9bf6ca7062fd
 msc.legacyurl: /signalr/overview/deployment/using-signalr-with-azure-web-sites
 msc.type: authoredcontent
-ms.openlocfilehash: c5ede2891ef18b622ed269723603dea3b67a135d
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: da69e1aba1b56d69ad8e710cddd2b492168f1255
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912602"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287752"
 ---
 <a name="using-signalr-with-web-apps-in-azure-app-service"></a>Použití aplikace SignalR s webovými aplikacemi ve službě Azure App Service
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento dokument popisuje, jak nakonfigurovat aplikaci s knihovnou SignalR, která běží na Microsoft Azure.
 >
@@ -54,7 +56,7 @@ Funkce SignalR technologie ASP.NET je možné uvést novou úroveň interakce me
 
 Funkce SignalR nepřidává žádné konkrétní komplikací pro nasazení aplikace do Azure a nasazením na místním serveru. Aplikace, která používá SignalR je možné hostovat v Azure bez jakýchkoli změn v konfiguraci nebo jiná nastavení (i když protokoly Websocket podporu najdete na webu [WebSockets umožňuje ve službě Azure App Service](#websocket) níže.) Pro účely tohoto kurzu budete nasazovat aplikace vytvořená v [kurz Začínáme](../getting-started/tutorial-getting-started-with-signalr.md) do Azure.
 
-**Požadované součásti**
+**Požadavky**
 
 - Visual Studio 2013. Pokud nemáte Visual Studio, Visual Studio 2013 Express pro Web je součástí instalace sady Azure SDK.
 - [Azure SDK 2.3 pro Visual Studio 2013](https://go.microsoft.com/fwlink/?linkid=324322&clcid=0x409) nebo [Azure SDK 2.3 pro sadu Visual Studio 2012](https://go.microsoft.com/fwlink/p/?linkid=323511).
@@ -69,11 +71,11 @@ Funkce SignalR nepřidává žádné konkrétní komplikací pro nasazení aplik
     ![Vyberte model weby Azure](using-signalr-with-azure-web-sites/_static/image1.png)
 4. Pokud nejste přihlášení k účtu Microsoft, klikněte na tlačítko **přihlásit...**  v dialogovém okně "Vyberte existující web" a přihlaste se.
 
-    ![Vyberte existující web](using-signalr-with-azure-web-sites/_static/image2.png)    ![Přihlaste se k Azure](using-signalr-with-azure-web-sites/_static/image3.png)
+    ![Vyberte existující web](using-signalr-with-azure-web-sites/_static/image2.png)    ![Přihlášení k Azure](using-signalr-with-azure-web-sites/_static/image3.png)
 5. V dialogovém okně "Vyberte existující webovou stránku" klikněte na tlačítko **nový**.
 
     ![Nový web](using-signalr-with-azure-web-sites/_static/image4.png)
-6. V dialogovém okně "Při vytváření webu v Windows Azure" Zadejte jedinečný název aplikace. Vyberte oblast co nejblíže k vám v rozevírací nabídce oblasti. Klikněte na tlačítko **vytvořit**.
+6. V dialogovém okně "Při vytváření webu v Windows Azure" Zadejte jedinečný název aplikace. Vyberte oblast co nejblíže k vám v rozevírací nabídce oblasti. Klikněte na možnost **Vytvořit**.
 
     ![Vytvoření webu v Azure](using-signalr-with-azure-web-sites/_static/image5.png)
 7. V dialogovém okně "Publikovat Web" klikněte na tlačítko **publikovat**.
@@ -98,7 +100,7 @@ V horní části stránky konfigurace zajistěte, aby používal rozhraní .NET 
 
 Na stránce konfigurace v **objekty Websocket** vyberte **na**.
 
-![Nastavení objekty Websocket: na](using-signalr-with-azure-web-sites/_static/image10.png)
+![Protokoly Websocket nastavení: On](using-signalr-with-azure-web-sites/_static/image10.png)
 
 V dolní části stránky konfigurace, vyberte **Uložit** uložte provedené změny.
 

@@ -8,16 +8,18 @@ ms.date: 06/10/2014
 ms.assetid: 80bfe5fb-bdfc-41fe-ac43-2132e5d69fac
 msc.legacyurl: /signalr/overview/getting-started/tutorial-getting-started-with-signalr-and-mvc
 msc.type: authoredcontent
-ms.openlocfilehash: a58b95adfb5d0165887b95abd3247d3a829aa882
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 568f82daa67f33736c2bf7a45a3e1339f265c487
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912225"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287508"
 ---
 <a name="tutorial-getting-started-with-signalr-2-and-mvc-5"></a>Kurz: Začínáme s knihovnou SignalR 2 a MVC 5
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Tim Teebken](https://github.com/timlt)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 [Stáhnout dokončený projekt](http://code.msdn.microsoft.com/Getting-Started-with-c366b2f3)
 
@@ -78,7 +80,7 @@ Oddíly:
 
 ## <a name="set-up-the-project"></a>Nastavení projektu
 
-Předpoklady:
+Požadavky:
 
 - Visual Studio 2013. Pokud nemáte Visual Studio, přečtěte si téma [ASP.NET stáhne](https://www.asp.net/downloads) získat bezplatné Visual Studio 2013 Express vývojový nástroj.
 

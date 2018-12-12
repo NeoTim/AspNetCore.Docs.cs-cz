@@ -8,16 +8,18 @@ ms.date: 06/05/2013
 ms.assetid: e608e263-264d-448b-b0eb-6eeb77713b22
 msc.legacyurl: /signalr/overview/older-versions/handling-connection-lifetime-events
 msc.type: authoredcontent
-ms.openlocfilehash: 5a0e912540bf24abd8a7e91c73c87ed9213be487
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: f965c38e18c442268f9bb1d7ffb5e98a135efade
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755303"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287674"
 ---
 <a name="understanding-and-handling-connection-lifetime-events-in-signalr-1x"></a>Principy a zpracování událostí doby platnosti v knihovně SignalR 1.x
 ====================
 podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
 > Tento článek obsahuje přehled funkce SignalR připojení, opětovné připojení a odpojení události, které dokáže zpracovat a nastavení časového limitu a keepalive, které můžete nakonfigurovat.
 > 
@@ -63,7 +65,7 @@ Odkazy na témata, Reference k rozhraní API se API verze rozhraní .NET 4.5. Po
 Tento článek bude rozlišovat mezi *připojení SignalR*, *přenosu připojení*, a *fyzické připojení*:
 
 - **Připojení SignalR** odkazuje na logický vztah mezi klientem a adresu URL serveru, spravuje pomocí rozhraní API SignalR a jednoznačně identifikují pomocí ID připojení. Data o tento vztah se spravuje pomocí SignalR a se používá k navázání připojení přenosu. Elementy end relace a technologie SignalR uvolní dat, když klient volá `Stop` metody nebo časový limit je dosaženo během SignalR je snahy o obnovení připojení přenosu ztraceny.
-- **Připojení přenosu** odkazuje na logický vztah mezi klientem a serverem, udržován jednu čtyři přenosu rozhraní API: protokoly Websocket, události odeslané serverem navždy snímků nebo dlouhý interval dotazování. SignalR k vytvoření připojení přenosu používá přenos rozhraní API a rozhraní API pro přenos závisí na existenci fyzické síťové připojení k vytvoření připojení přenosu. Připojení pro přenos končí při SignalR ukončí ho nebo při přenosu rozhraní API zjistí, že fyzické připojení bylo přerušeno.
+- **Připojení přenosu** odkazuje na logický vztah mezi klientem a serverem, udržován jednu čtyři přenosu rozhraní API: Protokoly Websocket, události odeslané serverem, navždy rámce nebo dlouhým dotazováním. SignalR k vytvoření připojení přenosu používá přenos rozhraní API a rozhraní API pro přenos závisí na existenci fyzické síťové připojení k vytvoření připojení přenosu. Připojení pro přenos končí při SignalR ukončí ho nebo při přenosu rozhraní API zjistí, že fyzické připojení bylo přerušeno.
 - **Fyzické připojení** odkazuje na fyzické síťové odkazy – vodičům stanice, bezdrátové signály, směrovače, atd. –, které usnadňují komunikace mezi klientským počítačem a serveru. Fyzické připojení musí být k dispozici, aby bylo možné navázat připojení přenosu a aby bylo možné navázat připojení SignalR musí navázat připojení přenosu. Ale zásadní fyzické připojení není vždy okamžitě ukončí přenosového připojení nebo připojení SignalR, jak budou vysvětlena dále v tomto tématu.
 
 V následujícím diagramu připojení SignalR je reprezentována rozhraní API rozbočovače a SignalR pro rozhraní API PersistentConnection vrstvy, připojení přenosu je reprezentována přenosy vrstvy a fyzické připojení je reprezentována řádky mezi serverem a klienty.

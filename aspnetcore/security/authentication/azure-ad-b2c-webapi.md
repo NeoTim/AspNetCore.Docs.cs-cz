@@ -6,12 +6,12 @@ ms.author: casoper
 ms.date: 09/21/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: e8ac1e33819dd369460139df25597e1aa0979c91
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 9c541644d276bbdc990bb01f8bd80c92862cd6f0
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121710"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284614"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>Ověřování ve webovém rozhraní API pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -175,14 +175,14 @@ Chcete-li provést ověřený požadavek do webového rozhraní API, je potřeba
    |      <strong>Název tokenu</strong>       |                                          *{Název tokenu}*                                       |                                                                                                                   Zadejte popisný název pro daný token.                                                                                                                    |
    |      <strong>Typ udělení</strong>       |                                           Implicitní                                            |                                                                                                                                                                                                                                                                              |
    |     <strong>Adresa URL zpětného volání</strong>      |                                 `https://getpostman.com/postman`                              |                                                                                                                                                                                                                                                                              |
-   |       <strong>Ověřovací adresa URL</strong>        | `https://login.microsoftonline.com/{tenant domain name}/oauth2/v2.0/authorize?p=B2C_1_SiUpIn` |  Nahraďte *{název domény tenantu}* s názvem domény vašeho tenanta. **Důležité**: Tato adresa URL musí mít stejný název domény jako co se nachází v `AzureAdB2C.Instance` ve webovém rozhraní API *appsettings.json* souboru. Další informace v POZNÁMCE&dagger;.                                                  |
+   |       <strong>Ověřovací adresa URL</strong>        | `https://login.microsoftonline.com/{tenant domain name}/oauth2/v2.0/authorize?p=B2C_1_SiUpIn` |  Nahraďte *{název domény tenantu}* s názvem domény vašeho tenanta. **DŮLEŽITÉ**: Tato adresa URL musí mít stejný název domény jako co se nachází v `AzureAdB2C.Instance` ve webovém rozhraní API *appsettings.json* souboru. Další informace v POZNÁMCE&dagger;.                                                  |
    |       <strong>ID klienta</strong>       |                *{Zadejte aplikaci Postman <b>ID aplikace</b>}*                              |                                                                                                                                                                                                                                                                              |
    |         <strong>Rozsah</strong>         |         `https://{tenant domain name}/{api}/user_impersonation openid offline_access`       | Nahraďte *{název domény tenantu}* s názvem domény vašeho tenanta. Nahraďte *{api}* s identifikátorem URI ID aplikace dáte webového rozhraní API při první registraci (v tomto případě `api`). Vzor adresy URL je: `https://{tenant}.onmicrosoft.com/{api-id-uri}/{scope name}`.         |
    |         <strong>Stav</strong>         |                                      *{ponechejte prázdné}*                                          |                                                                                                                                                                                                                                                                              |
    | <strong>Ověření klienta</strong> |                                Odeslat přihlašovací údaje pro klienta v textu                                |                                                                                                                                                                                                                                                                              |
 
     > [!NOTE]
-    > &dagger; Zobrazí se dialogové okno nastavení zásad, na portálu Azure Active Directory B2C dvě možné adresy URL: jeden ve formátu `https://login.microsoftonline.com/`{název domény tenantu} / {Další informace o cestě} a druhý ve formátu `https://{tenant name}.b2clogin.com/`{název domény tenantu} / {další informace o cestě}. Má **kritické** , součástí domény v `AzureAdB2C.Instance` ve webovém rozhraní API *appsettings.json* soubor odpovídá identifikátoru použitému ve webové aplikaci *appsettings.json* souboru. Jedná se o stejnou doménu, používá pro pole Adresa URL pro ověřování v nástroji Postman. Všimněte si, že Visual Studio používá mírně odlišné formát adresy URL, než co se zobrazí na portálu. Shodují domény, adresa URL funguje.
+    > &dagger; Zobrazí se dialogové okno nastavení zásad na portálu Azure Active Directory B2C dvě možné adresy URL: Jeden ve formátu `https://login.microsoftonline.com/`{název domény tenantu} / {Další informace o cestě} a druhý ve formátu `https://{tenant name}.b2clogin.com/`{název domény tenantu} / {Další informace o cestě}. Má **kritické** , součástí domény v `AzureAdB2C.Instance` ve webovém rozhraní API *appsettings.json* soubor odpovídá identifikátoru použitému ve webové aplikaci *appsettings.json* souboru. Jedná se o stejnou doménu, používá pro pole Adresa URL pro ověřování v nástroji Postman. Všimněte si, že Visual Studio používá mírně odlišné formát adresy URL, než co se zobrazí na portálu. Shodují domény, adresa URL funguje.
 
 3. Vyberte **požádat o Token** tlačítko.
 

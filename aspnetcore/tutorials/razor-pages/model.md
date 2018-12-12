@@ -6,12 +6,12 @@ ms.author: riande
 monikerRange: '>= aspnetcore-2.2'
 ms.date: 12/3/2018
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 91fee1db820493be671fecaee3cfb4c1b7df8bd3
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 667009ced46efc07c2b4e79306382272aa5779b0
+ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121360"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53284510"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -114,16 +114,16 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* **Pro Windows**: spusťte následující příkaz:
+* **Pro Windows**: Spusťte následující příkaz:
 
   ```console
-  dotnet aspnet-codegenerator razorpage -m Movie -dc MovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
+  dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **Pro macOS a Linux**: spusťte následující příkaz:
+* **Pro macOS a Linux**: Spusťte následující příkaz:
 
   ```console
-  dotnet aspnet-codegenerator razorpage -m Movie -dc MovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
+  dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
   ```
 
 [!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
@@ -133,6 +133,11 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
+* Nainstalujte nástroj pro generování uživatelského rozhraní:
+
+  ```console
+   dotnet tool install --global dotnet-aspnet-codegenerator
+   ```
 * Spusťte následující příkaz:
 
   ```console
@@ -147,7 +152,7 @@ Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následují
 
 ### <a name="files-created"></a>Soubory vytvořené
 
-* *Stránky/filmy*: vytvoření, odstranění, podrobností, úpravy a Index.
+* *Stránky/filmy*: Vytvoření, odstranění, podrobností, úpravy a Index.
 * *Data/RazorPagesMovieContext.cs*
 
 ### <a name="file-updated"></a>Aktualizovat soubor
@@ -266,4 +271,4 @@ V dalším kurzu vysvětluje souborů vytvořených databázovým generování u
 
 > [!div class="step-by-step"]
 > [Předchozí: Začínáme](xref:tutorials/razor-pages/razor-pages-start)
-> [Další: generované uživatelské rozhraní pro stránky Razor](xref:tutorials/razor-pages/page)
+> [Další: Vygenerované stránky Razor](xref:tutorials/razor-pages/page)
