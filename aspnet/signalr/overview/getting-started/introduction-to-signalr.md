@@ -8,26 +8,26 @@ ms.date: 06/10/2014
 ms.assetid: 0fab5e35-8c1f-43d4-8635-b8aba8766a71
 msc.legacyurl: /signalr/overview/getting-started/introduction-to-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: 0b7e223b6b793d1860797157be6021ffb7f1bc12
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: c865078c14b8615faa278819f86a9dd623a42f36
+ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090290"
+ms.lasthandoff: 12/12/2018
+ms.locfileid: "53287564"
 ---
 <a name="introduction-to-signalr"></a>Úvod ke knihovně SignalR
 ====================
 
-Zobrazit [Úvod do ASP.NET Core SignalR](/aspnet/core/signalr/introduction) pro aktualizovanou verzi tohoto kurzu, který používá nejnovější verzi sady Visual Studio. Nové kurz používá [ASP.NET Core](/aspnet/core/), která nabízí mnoho vylepšení v porovnání s v tomto kurzu.
-
 podle [Patrick Fletcher](https://github.com/pfletcher)
+
+[!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
+
 
 > Tento článek popisuje, co je SignalR a některé z řešení, která byla navržena k vytvoření. 
 > 
 > ## <a name="questions-and-comments"></a>Otázky a komentáře
 > 
 > Napište prosím zpětnou vazbu o tom, jak vám líbilo v tomto kurzu a co můžeme zlepšit v komentářích v dolní části stránky. Pokud máte nějaké otázky, které přímo nesouvisejí, najdete v tomto kurzu, můžete je publikovat [fórum ASP.NET SignalR](https://forums.asp.net/1254.aspx/1?ASP+NET+SignalR) nebo [StackOverflow.com](https://stackoverflow.com/questions/tagged/signalr).
-
 
 ## <a name="what-is-signalr"></a>Co je SignalR?
 
@@ -57,7 +57,7 @@ SignalR používá nové dopravní WebSocket, pokud je k dispozici a přejde zp�
 
 ## <a name="transports-and-fallbacks"></a>Přenosy a náhrad
 
-SignalR je abstrakcí některé přenosy, které jsou potřeba k práci v reálném čase mezi klientem a serverem. Připojení SignalR se spustí jako HTTP a je pak povýšen na připojení soketu WebSocket, pokud je k dispozici. Objekt WebSocket je ideální přenosu pro funkci SignalR, protože nejúčinnější využívá paměť serveru, má nejnižší latenci a má nejvíce základní funkce (například plně duplexní komunikace mezi klientem a serverem), ale má také nejpřísnější požadavky: protokolu WebSocket vyžaduje server musí používat Windows Server 2012 nebo Windows 8 a rozhraní .NET Framework 4.5. Pokud tyto požadavky nejsou splněny, SignalR se pokusí použít další přenosy, aby jeho připojení.
+SignalR je abstrakcí některé přenosy, které jsou potřeba k práci v reálném čase mezi klientem a serverem. Připojení SignalR se spustí jako HTTP a je pak povýšen na připojení soketu WebSocket, pokud je k dispozici. Objekt WebSocket je ideální přenosu pro funkci SignalR, protože nejúčinnější využívá paměť serveru, má nejnižší latenci a má nejvíce základní funkce (například plně duplexní komunikace mezi klientem a serverem), ale má také nejpřísnější požadavky: Protokol WebSocket vyžaduje server musí používat Windows Server 2012 nebo Windows 8 a rozhraní .NET Framework 4.5. Pokud tyto požadavky nejsou splněny, SignalR se pokusí použít další přenosy, aby jeho připojení.
 
 ### <a name="html-5-transports"></a>Přenáší HTML 5
 
@@ -132,7 +132,7 @@ Pokud chcete, aby klient vyzkoušet konkrétní přenosy v pořadí, můžete za
 
 ## <a name="connections-and-hubs"></a>Připojeními a rozbočovači
 
-Rozhraní API SignalR obsahuje dva modely pro komunikaci mezi klienty a servery: trvalé připojeními a rozbočovači.
+Rozhraní API SignalR obsahuje dva modely pro komunikaci mezi klienty a servery: Trvalé připojeními a rozbočovači.
 
 Připojení představuje jednoduchý koncový bod pro odesílání zpráv jednoho příjemce, seskupené nebo všesměrového vysílání. Poskytuje trvalé připojení rozhraní API (představovanými v kódu .NET třídou PersistentConnection), vývojář přímý přístup k nižší úrovně komunikační protokol, který zveřejňuje funkce SignalR. Pomocí připojení komunikační model bude zkušenosti vývojáře, kteří používají rozhraní API založená na připojení jako je Windows Communication Foundation.
 
