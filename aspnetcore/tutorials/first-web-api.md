@@ -3,16 +3,15 @@ title: 'Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC'
 author: rick-anderson
 description: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
 ms.author: riande
-monikerRange: '> aspnetcore-2.1'
 ms.custom: mvc
 ms.date: 12/10/2018
 uid: tutorials/first-web-api
-ms.openlocfilehash: 614732ede6734aa9a7b190db2fd22e55c3dc6bb3
-ms.sourcegitcommit: 1872d2e6f299093c78a6795a486929ffb0bbffff
+ms.openlocfilehash: a27031550dd6fe810a250b369f83b7fe322aad1f
+ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/11/2018
-ms.locfileid: "53216856"
+ms.lasthandoff: 12/13/2018
+ms.locfileid: "53329169"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: e280bc9553113982a1f1a77eabab32575c905237
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 9b3ad5f6c4b1c9b5f016f5591127c8d1b213948d
+ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862288"
+ms.lasthandoff: 12/13/2018
+ms.locfileid: "53329130"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole do stránky v ASP.NET Core Razor
 
@@ -96,9 +96,13 @@ Update-Database
 
 Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace. Je vhodné použít smysluplný název souboru migrace.
 
+`Update-Database` Příkaz říká rozhraní framework k použití změn schématu do databáze.
+
 <a name="ssox"></a>
 
-Při odstranění všech záznamů v databázi, bude inicializátoru naplnit databáze a zahrnout `Rating` pole. To lze provést pomocí odstranit odkazy v prohlížeči nebo z [Průzkumník objektů systému Sql Server](xref:tutorials/razor-pages/sql#ssox) (SSOX). Pokud chcete odstranit databázi z SSOX:
+Při odstranění všech záznamů v databázi, bude inicializátoru naplnit databáze a zahrnout `Rating` pole. To lze provést pomocí odstranit odkazy v prohlížeči nebo z [Průzkumník objektů systému Sql Server](xref:tutorials/razor-pages/sql#ssox) (SSOX).
+
+Další možností je odstranit databázi a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi v SSOX:
 
 * Vyberte databázi v SSOX.
 * Klikněte pravým tlačítkem na databázi a vyberte *odstranit*.
@@ -111,12 +115,9 @@ Při odstranění všech záznamů v databázi, bude inicializátoru naplnit dat
   ```
 
 <!-- Code -------------------------->
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code nebo Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
-<!-- copy/paste this tab to the next. Not worth an include  --> SQLite nepodporuje migrace.
-
-* Odstranění databáze nebo změňte název databáze *appsettings.json* souboru.
-* Odstranit *migrace* složku (a všechny soubory ve složce).
+<!-- copy/paste this tab to the next. Not worth an include  -->
 
 Spuštěním následujících příkazů rozhraní příkazového řádku .NET Core:
 
@@ -125,20 +126,28 @@ dotnet ef migrations add Rating
 dotnet ef database update
 ```
 
-<!-- Mac -------------------------->
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+`ef migrations add` Příkaz říká rozhraní framework:
 
-SQLite nepodporuje migrace.
+* Porovnání `Movie` modelů s `Movie` schématu databáze.
+* Vytvoření kódu pro migraci schématu databáze na nový model.
 
-* Odstranění databáze nebo změňte název databáze *appsettings.json* souboru.
-* Odstranit *migrace* složku (a všechny soubory ve složce).
+Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace. Je vhodné použít smysluplný název souboru migrace.
 
-Spuštěním následujících příkazů rozhraní příkazového řádku .NET Core:
+`ef database update` Příkaz říká rozhraní framework k použití změn schématu do databáze.
+
+Při odstranění všech záznamů v databázi, bude inicializátoru naplnit databáze a zahrnout `Rating` pole. Můžete to provést s odstranit odkazy v prohlížeči nebo pomocí nástroje SQLite.
+
+Další možností je odstranit databázi a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*). Spusťte `ef database update` příkaz: 
 
 ```console
-dotnet ef migrations add Rating
 dotnet ef database update
 ```
+
+> [!NOTE]
+> EF Core SQLite zprostředkovatel nepodporuje mnoho operací změny schématu. Například přidáním sloupce se podporuje, ale odebráním sloupce se nepodporuje. Pokud chcete přidat migrace odebrat sloupce, `ef migrations add` úspěšný příkaz ale `ef database update` příkaz selže. Ručně napsáním kódu migrace provést znovu vytvořit tabulku, můžete alternativně vyřešit některá omezení. Tabulka opětovné sestavení zahrnuje přejmenování existující tabulky, vytvářet nové tabulky, kopírování dat do nové tabulky a vyřazení staré tabulky. Další informace naleznete v následujících materiálech:
+> * [Omezení poskytovatele pro databázi SQLite EF Core](/ef/core/providers/sqlite/limitations)
+> * [Přizpůsobení migrace kódu](/ef/core/managing-schemas/migrations/#customize-migration-code)
+> * [Předvyplnění dat](/ef/core/modeling/data-seeding)
 
 ---  
 <!-- End of VS tabs -->
@@ -147,4 +156,4 @@ Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rat
 
 > [!div class="step-by-step"]
 > [Předchozí: Přidání vyhledávací funkce](xref:tutorials/razor-pages/search)
-> [Další: Přidání ověření](xref:tutorials/razor-pages/validation)
+> [Další: Přidání ověřování](xref:tutorials/razor-pages/validation)

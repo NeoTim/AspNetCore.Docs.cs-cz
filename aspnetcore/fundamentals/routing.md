@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/15/2018
 uid: fundamentals/routing
-ms.openlocfilehash: f18ec1da2affbf67b7ada570b68f98a42c7256a5
-ms.sourcegitcommit: ad28d1bc6657a743d5c2fa8902f82740689733bb
+ms.openlocfilehash: 66d719bb14095dcec4c2cfa15b63cf74ad7a0d49
+ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/20/2018
-ms.locfileid: "52256590"
+ms.lasthandoff: 12/13/2018
+ms.locfileid: "53329156"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -276,7 +276,7 @@ Existuje několik rozdílů mezi koncovým bodem směrování v ASP.NET Core 2.2
 
   V koncovém bodě směrování ASP.NET Core 2.2 nebo vyšší, výsledkem je `/Login`. Ambientní hodnoty nebudou znovu po odkazovaný cíl jinou akci nebo stránky.
 
-* Syntaxe parametru trasy verzemi: lomítka nejsou kódování při použití double – hvězdičku (`**`) syntaxe parametr pokrývající vše.
+* Syntaxe parametru verzemi trasy: Lomítka nejsou kódování při použití double – hvězdičku (`**`) syntaxe parametr pokrývající vše.
 
   Při generování odkazů směrování systému zakóduje hodnotu zachycené double hvězdičku (`**`) parametr pokrývající vše (například `{**myparametername}`) s výjimkou lomítka. Hvězdička double pokrývající vše se podporuje s `IRouter`– na základě směrování v ASP.NET Core 2.2 nebo vyšší.
 
@@ -679,12 +679,23 @@ Parametr transformátory:
 
 Například vlastní `slugify` transformer parametr vzoru trasy `blog\{article:slugify}` s `Url.Action(new { article = "MyTestArticle" })` generuje `blog\my-test-article`.
 
+Transformer parametr vzoru trasy, nakonfigurovat ji nejdřív pomocí <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v `Startup.ConfigureServices`:
+
+```csharp
+services.AddRouting(options =>
+{
+    // Replace the type and the name used to refer to it with your own
+    // IOutboundParameterTransformer implementation
+    options.ConstraintMap["slugify"] = typeof(SlugifyParameterTransformer);
+});
+```
+
 Parametr transformátory se rozhraním, slouží k transformaci identifikátor URI, kde se řeší koncový bod. Například technologie ASP.NET Core MVC používá parametr transformátory Transformace hodnoty trasy slouží k přiřazení `area`, `controller`, `action`, a `page`.
 
 ```csharp
 routes.MapRoute(
     name: "default",
-    template: "{controller=Home:slugify}/{action=Index:slugify}/{id?}");
+    template: "{controller:slugify=Home}/{action:slugify=Index}/{id?}");
 ```
 
 Pomocí předchozího postupu akce `SubscriptionManagementController.GetAll()` je nalezena shoda s identifikátorem URI `/subscription-management/get-all`. Parametr transformer nedojde ke změně hodnoty trasy sloužící ke generování odkazu. Například `Url.Action("GetAll", "SubscriptionManagement")` výstupy `/subscription-management/get-all`.

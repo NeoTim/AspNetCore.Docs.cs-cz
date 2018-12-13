@@ -5,14 +5,14 @@ description: Další informace o nastavení kontroly stavu pro ASP.NET Core infr
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/03/2018
+ms.date: 12/12/2018
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 6c1c644b2cd44cd00c68a8fd7d1e7d496ec91a59
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: cf2aea91221887dad5646604214f810493d4b175
+ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284679"
+ms.lasthandoff: 12/13/2018
+ms.locfileid: "53329143"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Doplněk pro kontroly stavu v ASP.NET Core
 
@@ -36,10 +36,12 @@ Kontroly stavu se obvykle používají s externí monitorování orchestrator sl
 
 Odkaz [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) nebo přidat odkaz na balíček [Microsoft.AspNetCore.Diagnostics.HealthChecks](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.HealthChecks) balíčku.
 
-Ukázková aplikace poskytuje spouštěcí kód pro demonstraci kontroly stavu pro několik scénářů. [Databáze sondy](#database-probe) scénář sondy stavu připojení databáze pomocí [BeatPulse](https://github.com/Xabaril/BeatPulse). [DbContext sondy](#entity-framework-core-dbcontext-probe) scénář sondy databázi pomocí EF Core `DbContext`. Prozkoumat scénáře databáze pomocí ukázkové aplikace:
+Ukázková aplikace poskytuje při spuštění kód pro demonstraci kontroly stavu pro několik scénářů. [Databáze sondy](#database-probe) scénář zkontroluje stav připojení databáze pomocí [BeatPulse](https://github.com/Xabaril/BeatPulse). [DbContext sondy](#entity-framework-core-dbcontext-probe) scénář zkontroluje databázi pomocí EF Core `DbContext`. Prozkoumat scénáře databázi, ukázková aplikace:
 
-* Vytvoření databáze a zadejte svůj připojovací řetězec *appsettings.json* souboru aplikace.
-* Přidat odkaz na balíček pro [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).
+* Vytvoří databázi a obsahuje ve svém připojovacím řetězci *appsettings.json* souboru.
+* Má následující odkazy na balíčky v jeho souboru projektu:
+  * [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
+  * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
 > [BeatPulse](https://github.com/Xabaril/BeatPulse) není zachována nebo podporovaný společností Microsoft.
@@ -314,9 +316,17 @@ dotnet run --scenario db
 
 ## <a name="entity-framework-core-dbcontext-probe"></a>Entity Framework Core DbContext testu
 
-`DbContext` Kontrola se podporuje aplikace, které používají [Entity Framework (EF) Core](/ef/core/). Tato kontrola ověří, že aplikace mohla komunikovat s databází, které jsou nakonfigurované pro EF Core `DbContext`. Ve výchozím nastavení `DbContextHealthCheck` volá EF Core `CanConnectAsync` metody. Můžete přizpůsobit, jaké operace se spustí, když je kontrola stavu pomocí přetížení `AddDbContextCheck` metody.
+`DbContext` Kontrola potvrdí, že aplikace mohla komunikovat s databází, které jsou nakonfigurované pro EF Core `DbContext`. `DbContext` Kontrola se podporuje v aplikacích, které:
 
-`AddDbContextCheck<TContext>` zaregistruje kontrolu stavu `DbContext` (`TContext`). Ve výchozím nastavení, název kontroly stavu je název `TContext` typu. Přetížení je možné konfigurovat stav chyby, značky a vlastní testovat dotaz.
+* Použití [Entity Framework (EF) Core](/ef/core/).
+* Zahrnout odkaz na balíček pro [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/).
+
+`AddDbContextCheck<TContext>` zaregistruje kontrolu stavu `DbContext`. `DbContext` Je předána jako `TContext` metody. Přetížení je možné konfigurovat stav chyby, značky a vlastní testovat dotaz.
+
+Ve výchozím nastavení:
+
+* `DbContextHealthCheck` Volá EF Core `CanConnectAsync` metody. Můžete přizpůsobit, jaké operace je spuštěna při kontrole stavu pomocí `AddDbContextCheck` přetížení metody.
+* Název kontroly stavu je název `TContext` typu.
 
 V ukázkové aplikaci `AppDbContext` je poskytnuta `AddDbContextCheck` a zaregistrováno jako služba v `Startup.ConfigureServices`.
 

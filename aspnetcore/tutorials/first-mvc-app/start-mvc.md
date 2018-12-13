@@ -5,12 +5,12 @@ description: Zjistěte, jak začít pracovat s ASP.NET Core MVC a sady Visual St
 ms.author: riande
 ms.date: 10/07/2017
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: 738c49272c2ae2b075866001f06ad09fe73969f9
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: dfc9a864cf10db5fc44d5631dcbb2f73325d9e14
+ms.sourcegitcommit: a16352c1c88a71770ab3922200a8cd148fb278a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862197"
+ms.lasthandoff: 12/13/2018
+ms.locfileid: "53335322"
 ---
 # <a name="get-started-with-aspnet-core-mvc-and-visual-studio"></a>Začínáme s ASP.NET Core MVC a sady Visual Studio
 
@@ -20,12 +20,9 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Existují 3 verze tohoto kurzu:
 
-* macOS: [vytvoření aplikace ASP.NET Core MVC se sadou Visual Studio pro Mac](xref:tutorials/first-mvc-app-mac/start-mvc)
-* Windows: [vytvořit v aplikaci MVC ASP.NET Core pomocí sady Visual Studio](xref:tutorials/first-mvc-app/start-mvc)
-* macOS, Linux a Windows: [vytvoření aplikace ASP.NET Core MVC pomocí Visual Studio Code](xref:tutorials/first-mvc-app-xplat/start-mvc)
-
-> [!NOTE]
-> Testujeme použitelnost navrhované nové struktury pro obsah ASP.NET Core.  Pokud máte pár minut a chcete si vyzkoušet cvičení, které spočívá ve vyhledání 7 různých témat v aktuálním nebo navrhovaném obsahu, [klikněte prosím sem a zúčastněte se studie](https://dpk4xbh5.optimalworkshop.com/treejack/aa11wn82).
+* macOS: [Vytvořte v aplikaci MVC ASP.NET Core pomocí sady Visual Studio pro Mac](xref:tutorials/first-mvc-app-mac/start-mvc)
+* Windows: [Vytvořte v aplikaci MVC ASP.NET Core pomocí sady Visual Studio](xref:tutorials/first-mvc-app/start-mvc)
+* macOS, Linux a Windows: [Vytvoření ASP.NET Core MVC aplikace sadou Visual Studio Code](xref:tutorials/first-mvc-app-xplat/start-mvc)
 
 ## <a name="install-visual-studio-and-net-core"></a>Instalace sady Visual Studio a .NET Core
 

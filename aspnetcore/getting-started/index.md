@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/11/2018
 uid: getting-started
-ms.openlocfilehash: cf9e731f7638687b3f40b42864ef7ee8f5522b39
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: dc85fe9189c93476859a6c00d60ec24d6eeec3fa
+ms.sourcegitcommit: a16352c1c88a71770ab3922200a8cd148fb278a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284347"
+ms.lasthandoff: 12/13/2018
+ms.locfileid: "53335309"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
@@ -111,6 +111,3 @@ Další informace o základní technologie ASP.NET naleznete v tématu zavedení
 
 > [!div class="nextstepaction"]
 > <xref:index>
-
-> [!NOTE]
-> Testujeme použitelnost navrhovanou novou strukturu pro ASP.NET Core tabulku obsahu. Pokud máte pár minut a zkuste cvičení sedm různých hledání témat v tabulce navrhované nebo aktuální obsah, [kliknutím sem se účastnit studie](https://dpk4xbh5.optimalworkshop.com/treejack/aa11wn82).

@@ -2,17 +2,16 @@
 title: Použití funkce SignalR technologie ASP.NET Core s TypeScript a Webpacku
 author: ssougnez
 description: V tomto kurzu nakonfigurujete Webpacku k vytvoření balíčku a sestavit webovou aplikaci funkce SignalR technologie ASP.NET Core, jejichž klienta je napsána v TypeScript.
-monikerRange: '>= aspnetcore-2.2'
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/30/2018
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: b2d59dfc449953cc2d747b507295c00ac0f652dd
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 92709beb7a99289b8639135aab9d821937825103
+ms.sourcegitcommit: a16352c1c88a71770ab3922200a8cd148fb278a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862249"
+ms.lasthandoff: 12/13/2018
+ms.locfileid: "53335283"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>Použití funkce SignalR technologie ASP.NET Core s TypeScript a Webpacku
 
@@ -104,8 +103,8 @@ Následující kroky konfigurace převod TypeScript pro JavaScript a vytvářen�
     Vysvětlení skriptů:
 
     * `build`: Obsahuje ureitou vašich prostředků na straně klienta v režimu pro vývoj a sleduje změny souborů. Sledovací proces souborů způsobí, že sada, která má znovu pokaždé, když změny souborů projektu. `mode` Možnost zakáže optimalizace produkčního prostředí, jako je například strom, přičemž a připravenost k minifikaci. Používejte pouze `build` ve vývoji.
-    * `release`: Obsahuje ureitou vašich prostředků na straně klienta v provozním režimu.
-    * `publish`: Spustí `release` skript k vytvoření balíčku sady prostředků na straně klienta v provozním režimu. Volá v .NET Core CLI [publikovat](/dotnet/core/tools/dotnet-publish) příkaz pro publikování aplikace.
+    * `release`: Obsahuje prostředky na straně klienta ureitou v provozním režimu.
+    * `publish`: Spuštění `release` skript k vytvoření balíčku sady prostředků na straně klienta v provozním režimu. Volá v .NET Core CLI [publikovat](/dotnet/core/tools/dotnet-publish) příkaz pro publikování aplikace.
 
 1. Vytvořte soubor s názvem *webpack.config.js*, v kořenové složce projektu s následujícím obsahem:
 
