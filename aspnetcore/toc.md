@@ -177,6 +177,7 @@
 ## Kurzy
 ### [SignalR s JavaScriptem](xref:tutorials/signalr)
 ### [SignalR s TypeScriptem](xref:tutorials/signalr-typescript-webpack)
+## [Ukázky](https://github.com/aspnet/SignalR-samples)
 ## Serverové koncepty
 ### [Centra](xref:signalr/hubs)
 ### [HubContext](xref:signalr/hubcontext)
@@ -402,6 +403,7 @@
 ### [Distribuované ukládání do mezipaměti](xref:performance/caching/distributed)
 ### [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware)
 ## [Komprese odpovědí](xref:performance/response-compression)
+## [Diagnostické nástroje](xref:performance/diagnostic-tools)
 
 # Další témata
 ## [Globalizace a lokalizace](xref:fundamentals/localization)
