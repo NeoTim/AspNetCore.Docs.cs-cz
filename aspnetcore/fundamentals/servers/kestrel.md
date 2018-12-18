@@ -479,7 +479,7 @@ Hodnota zadaná pomocí těchto přístupů může být jeden nebo více HTTP a 
 V následujícím *appsettings.json* příkladu:
 
 * Nastavte **AllowInvalid** k `true` tak, aby povolovala použití neplatné certifikáty (například certifikáty podepsané svým držitelem).
-* Libovolný koncový bod HTTPS, který nemá určenou certifikát (**HttpsDefaultCert** v následujícím příkladu) spadne zpět na cert definované v části **certifikáty** > **výchozí ** nebo certifikát pro vývoj.
+* Libovolný koncový bod HTTPS, který nemá určenou certifikát (**HttpsDefaultCert** v následujícím příkladu) spadne zpět na cert definované v části **certifikáty** > **výchozí** nebo certifikát pro vývoj.
 
 ```json
 {
