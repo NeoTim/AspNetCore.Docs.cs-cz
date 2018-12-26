@@ -7,11 +7,11 @@ ms.author: riande
 ms.date: 05/12/2018
 uid: razor-pages/index
 ms.openlocfilehash: cc881ff42d57ab1654f492a70006a995939e4844
-ms.sourcegitcommit: 8a65f6c2cbe290fb2418eed58f60fb74c95392c8
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52892117"
+ms.lasthandoff: 12/20/2018
+ms.locfileid: "53709551"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do služby v ASP.NET Core Razor Pages
 
@@ -173,7 +173,7 @@ Přidružené `PageModel` třídy (*Index.cshtml.cs*):
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-[Ukotvení pomocné rutiny značky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) použít `asp-route-{value}` atribut pro vygenerování odkazu na stránku pro úpravy. Odkaz obsahuje data trasy s kontaktu ID. Například `http://localhost:5000/Edit/1`.
+[Ukotvení pomocné rutiny značky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) použít `asp-route-{value}` atribut pro vygenerování odkazu na stránku pro úpravy. Odkaz obsahuje data trasy s kontaktu ID. Například, `http://localhost:5000/Edit/1`.
 
 *Pages/Edit.cshtml* souboru:
 
