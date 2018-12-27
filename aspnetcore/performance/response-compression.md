@@ -5,14 +5,14 @@ description: Další informace o kompresi odpovědí a jak používat Middleware
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/01/2018
+ms.date: 12/18/2018
 uid: performance/response-compression
-ms.openlocfilehash: 2516fbb30e55990dc4ad0d92069853bc26874bc9
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 51ab51652a7b3f9b4ef97b3abbffe2e398c0bfb5
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861885"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637752"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Kompresi odpovědí v ASP.NET Core
 
@@ -33,12 +33,12 @@ Middleware pro kompresi odpovědí použijte, když jste:
   * [Apache mod_deflate modulu](http://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Server Nginx komprese a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * Hostování přímo na:
-  * [Ovladač HTTP.sys](xref:fundamentals/servers/httpsys) server (dříve se označovaly jako [WebListener](xref:fundamentals/servers/weblistener))
-  * [Kestrel](xref:fundamentals/servers/kestrel) serveru
+  * [HTTP.sys server](xref:fundamentals/servers/httpsys) (dříve se označovaly jako WebListener)
+  * [Kestrel serveru](xref:fundamentals/servers/kestrel)
 
 ## <a name="response-compression"></a>Kompresi odpovědí
 
-Obvykle žádnou odpověď komprimované nativně využívat kompresi odpovědí. Odpovědí se komprimované nativně obvykle zahrnují: šablony stylů CSS, JavaScript, HTML, XML a JSON. Nativně komprimované prostředky, jako jsou například soubory PNG by neměly komprimovat. Pokud se pokusíte další komprimovat nativně zkomprimovanou odpověď, všechny malé Další velikosti a přenos zkrácení času nutného pravděpodobně overshadowed v době, jakou trvalo zpracování komprese. Nekomprimovat soubory menší než přibližně 150 – 1 000 bajtů (v závislosti na obsahu souboru a efektivity komprese). Režie komprimace malých souborů může vytvořit komprimovaný soubor větší než nekomprimovaného souboru.
+Obvykle žádnou odpověď komprimované nativně využívat kompresi odpovědí. Odpovědí se komprimované nativně obvykle patří: Šablony stylů CSS, JavaScript, HTML, XML a JSON. Nativně komprimované prostředky, jako jsou například soubory PNG by neměly komprimovat. Pokud se pokusíte další komprimovat nativně zkomprimovanou odpověď, všechny malé Další velikosti a přenos zkrácení času nutného pravděpodobně overshadowed v době, jakou trvalo zpracování komprese. Nekomprimovat soubory menší než přibližně 150 – 1 000 bajtů (v závislosti na obsahu souboru a efektivity komprese). Režie komprimace malých souborů může vytvořit komprimovaný soubor větší než nekomprimovaného souboru.
 
 Když klient může zpracovat komprimovaného obsahu, klient informuje server její možnosti odesláním `Accept-Encoding` záhlaví s požadavkem. Když server odešle komprimovaného obsahu, musí obsahovat informace `Content-Encoding` záhlaví na tom, jak je zakódován zkomprimovanou odpověď. V následující tabulce jsou uvedeny obsahu kódování označení podporované middlewarem.
 
@@ -50,7 +50,7 @@ Když klient může zpracovat komprimovaného obsahu, klient informuje server je
 | `deflate`                       | Ne                   | [Formát komprimovaných dat DEFLATE](https://tools.ietf.org/html/rfc1951) |
 | `exi`                           | Ne                   | [W3C XML efektivní výměny](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | Ano                  | [Formát souborů GZIP](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Ano                  | "Bez kódování" identifikátor: odpověď nesmí být zakódován. |
+| `identity`                      | Ano                  | "Bez kódování" identifikátor: Odpověď nesmí být zakódován. |
 | `pack200-gzip`                  | Ne                   | [Formát přenosu sítě pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
 | `*`                             | Ano                  | Žádný k dispozici obsah, kódování není explicitně požadovaný |
 
@@ -64,7 +64,7 @@ Když klient může zpracovat komprimovaného obsahu, klient informuje server je
 | `deflate`                       | Ne                   | [Formát komprimovaných dat DEFLATE](https://tools.ietf.org/html/rfc1951) |
 | `exi`                           | Ne                   | [W3C XML efektivní výměny](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | Ano (výchozí)        | [Formát souborů GZIP](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Ano                  | "Bez kódování" identifikátor: odpověď nesmí být zakódován. |
+| `identity`                      | Ano                  | "Bez kódování" identifikátor: Odpověď nesmí být zakódován. |
 | `pack200-gzip`                  | Ne                   | [Formát přenosu sítě pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
 | `*`                             | Ano                  | Žádný k dispozici obsah, kódování není explicitně požadovaný |
 
@@ -74,7 +74,7 @@ Další informace najdete v tématu [IANA oficiální kódování seznamu obsahu
 
 Middleware umožňuje přidat další komprese zprostředkovatelé pro vlastní `Accept-Encoding` hodnoty hlavičky. Další informace najdete v tématu [Vlastní zprostředkovatelé](#custom-providers) níže.
 
-Middleware je schopný reagovat na hodnotu kvality (qvalue, `q`) vážení při odeslání klientem nástroje k určení priority schémat komprese. Další informace najdete v tématu [RFC 7231: přijmout kódování](https://tools.ietf.org/html/rfc7231#section-5.3.4).
+Middleware je schopný reagovat na hodnotu kvality (qvalue, `q`) vážení při odeslání klientem nástroje k určení priority schémat komprese. Další informace najdete v tématu [RFC 7231: Přijmout kódování](https://tools.ietf.org/html/rfc7231#section-5.3.4).
 
 Algoritmy komprese podléhají kompromis mezi komprese rychlost a efektivitu komprese. *Efektivnost definování* v tomto kontextu označuje velikost výstup po kompresi. Nejmenší velikost se dosahuje nejčastěji *optimální* komprese.
 
@@ -432,7 +432,7 @@ Při kompresi odpovědí na základě `Accept-Encoding` záhlaví, jsou potenci�
 
 ## <a name="middleware-issue-when-behind-an-nginx-reverse-proxy"></a>Middleware problém při za reverzní proxy server Nginx
 
-Pokud je požadavek směrovány přes proxy server pomocí Nginx, `Accept-Encoding` odebrat záhlaví. Odebrání `Accept-Encoding` záhlaví zabraňuje middleware komprese odpovědi. Další informace najdete v tématu [NGINX: komprese a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/). Tento problém je sledován pomocí funkce [zjistit průchozí komprese Nginx (aspnet/BasicMiddleware \#123)](https://github.com/aspnet/BasicMiddleware/issues/123).
+Pokud je požadavek směrovány přes proxy server pomocí Nginx, `Accept-Encoding` odebrat záhlaví. Odebrání `Accept-Encoding` záhlaví zabraňuje middleware komprese odpovědi. Další informace najdete v tématu [NGINX: Komprese a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/). Tento problém je sledován pomocí funkce [zjistit průchozí komprese Nginx (aspnet/BasicMiddleware \#123)](https://github.com/aspnet/BasicMiddleware/issues/123).
 
 ## <a name="working-with-iis-dynamic-compression"></a>Práce s dynamické komprese služby IIS
 
@@ -464,7 +464,7 @@ Pomocí některého nástroje, například [Fiddler](https://www.telerik.com/fid
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>
-* [Mozilla Developer Network: Přijměte – kódování](https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept-Encoding)
-* [RFC 7231 části 3.1.2.1: Obsahu Codings](https://tools.ietf.org/html/rfc7231#section-3.1.2.1)
-* [RFC 7230 oddílu 4.2.3: Gzip kódování](https://tools.ietf.org/html/rfc7230#section-4.2.3)
+* [Mozilla Developer Network: Přijmout kódování](https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept-Encoding)
+* [RFC 7231 části 3.1.2.1: Codings obsahu](https://tools.ietf.org/html/rfc7231#section-3.1.2.1)
+* [RFC 7230 oddílu 4.2.3: Kódování GZIP](https://tools.ietf.org/html/rfc7230#section-4.2.3)
 * [Verze specifikace formátu souboru GZIP 4.3](http://www.ietf.org/rfc/rfc1952.txt)

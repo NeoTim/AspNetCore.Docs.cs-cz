@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2018
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: d713a520368ba86726e46203da5ea33eed4f6e2c
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: e71cb8badbbc852685c845e6bbb0bbb12ab5499f
+ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284588"
+ms.lasthandoff: 12/18/2018
+ms.locfileid: "53577809"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
 
@@ -154,7 +154,9 @@ Klikněte na tlačítko **publikovat**. Visual Studio publikuje vaši aplikaci d
 
 ### <a name="update-the-app"></a>Aktualizace aplikace
 
-* Upravit *Pages/About.cshtml* Razor stránce a změňte jeho obsah. Například můžete upravit odstavec říct "Dobrý den ASP.NET Core!": [!code-html[About](publish-to-azure-webapp-using-vs/sample/about.cshtml?highlight=9&range=1-9)]
+* Upravit *Pages/About.cshtml* Razor stránce a změňte jeho obsah. Například můžete upravit odstavec říct "Dobrý den ASP.NET Core!":
+
+    [!code-html[About](publish-to-azure-webapp-using-vs/sample/about.cshtml?highlight=9&range=1-9)]
 
 * Klikněte pravým tlačítkem na projekt a vyberte **publikování...**  znovu.
 

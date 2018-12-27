@@ -3,14 +3,14 @@ title: Zprostředkovatelé úložiště klíčů v ASP.NET Core
 author: rick-anderson
 description: Další informace o poskytovatele úložiště klíčů v ASP.NET Core a jak konfigurovat umístění úložiště klíčů.
 ms.author: riande
-ms.date: 12/06/2018
+ms.date: 12/19/2018
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: e10271d5979b503a8a842f8866a0e2a3fa040656
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: d6dabc9e4581e0891d1dd14f73e086d50b45bba4
+ms.sourcegitcommit: 3e94d192b2ed9409fe72e3735e158b333354964c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121450"
+ms.lasthandoff: 12/21/2018
+ms.locfileid: "53735736"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>Zprostředkovatelé úložiště klíčů v ASP.NET Core
 
@@ -125,6 +125,38 @@ Chcete-li nakonfigurovat poskytovatele EF Core, zavolejte [ `PersistKeysToDbCont
 Obecný parametr `TContext`, musí dědit z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) a [IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext):
 
 [!code-csharp[Main](key-storage-providers/sample/MyKeysContext.cs)]
+
+Vytvořte `DataProtectionKeys` tabulky. 
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+Spusťte následující příkazy v **Konzola správce balíčků** okno (PMC):
+
+```PowerShell
+Add-Migration AddDataProtectionKeys -Context MyKeysContext
+Update-Database -Context MyKeysContext
+```
+
+# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+
+V příkazovém řádku spusťte následující příkazy:
+
+```console
+dotnet ef migrations add AddDataProtectionKeys --context MyKeysContext
+dotnet ef database update --context MyKeysContext
+```
+
+---
+
+`MyKeysContext` je `DbContext` definované v předchozím příkladu kódu. Pokud používáte `DbContext` s jiným názvem, nahraďte vaše `DbContext` název `MyKeysContext`.
+
+`DataProtectionKeys` Třídy na entitu přijme strukturu je znázorněno v následující tabulce.
+
+| Vlastnost či pole | Typ CLR | Datový typ SQL              |
+| -------------- | -------- | --------------------- |
+| `Id`           | `int`    | `int`, PK, není null   |
+| `FriendlyName` | `string` | `nvarchar(MAX)`, hodnotu null |
+| `Xml`          | `string` | `nvarchar(MAX)`, hodnotu null |
 
 ::: moniker-end
 

@@ -1,0 +1,1 @@
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/first-mvc-app/start-mvc/sample) ([stažení](xref:index#how-to-download-a-sample)).

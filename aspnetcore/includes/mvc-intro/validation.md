@@ -60,11 +60,11 @@ Lze nastavit bod přerušení v `[HttpPost] Create` metoda a ověřit se nikdy n
 
 Následující obrázek ukazuje, jak zakázat jazyka JavaScript v prohlížeči FireFox.
 
-![Firefox: Na kartě obsah z možností, zrušte zaškrtnutí políčka Povolit Javascript.](~/tutorials/first-mvc-app/validation/_static/ff.png)
+![Firefox: Na kartě obsah z možností zrušte zaškrtnutí políčka Povolit Javascript.](~/tutorials/first-mvc-app/validation/_static/ff.png)
 
 Následující obrázek ukazuje, jak zakázat jazyka JavaScript v prohlížeči Chrome.
 
-![Google Chrome: V části Nastavení obsahu v jazyce Javascript, neumožňují vyberte libovolnou lokalitu ke spuštění jazyka JavaScript.](~/tutorials/first-mvc-app/validation/_static/chrome.png)
+![Google Chrome: V části Nastavení obsahu Javascript neumožňují vybrat libovolnou lokalitu spouštět JavaScript.](~/tutorials/first-mvc-app/validation/_static/chrome.png)
 
 Po zakázání JavaScript odeslat neplatná data a projít ladicí program.
 

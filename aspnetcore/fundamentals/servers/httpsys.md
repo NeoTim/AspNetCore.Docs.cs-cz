@@ -5,26 +5,23 @@ description: Další informace o souboru HTTP.sys, webový server pro ASP.NET Co
 monikerRange: '>= aspnetcore-2.0'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/01/2018
+ms.date: 12/18/2018
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 8810fd295e8c4269812e712ce2fdc9b9fa2bbb4f
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: a779fee53109d4c1cabb2005896e757f23467540
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861690"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637622"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace serveru HTTP.sys web v ASP.NET Core
 
 Podle [Petr Dykstra](https://github.com/tdykstra), [Chris Ross](https://github.com/Tratcher), a [Luke Latham](https://github.com/guardrex)
 
-> [!NOTE]
-> Toto téma se vztahuje na verzi ASP.NET Core 2.0 nebo novější. V dřívějších verzích sady ASP.NET Core, má název souboru HTTP.sys [WebListener](xref:fundamentals/servers/weblistener).
-
 [Ovladač HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webového serveru pro ASP.NET Core](xref:fundamentals/servers/index) pouze spuštěného na Windows. Ovladač HTTP.sys se o alternativu k [Kestrel](xref:fundamentals/servers/kestrel) serveru a nabízí některé funkce, aby Kestrel neposkytuje.
 
 > [!IMPORTANT]
-> Není kompatibilní s HTTP.sys [modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) a nelze jej použít s IIS nebo IIS Express.
+> Není kompatibilní s HTTP.sys [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a nelze jej použít s IIS nebo IIS Express.
 
 Ovladač HTTP.sys podporuje následující funkce:
 
@@ -190,7 +187,7 @@ Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování pro
 
    2. Vytvoření certifikátů X.509 podepsaných svým držitelem, podle potřeby.
 
-      [!INCLUDE [How to make an X.509 cert](../../includes/make-x509-cert.md)]
+      [!INCLUDE [How to make an X.509 cert](~/includes/make-x509-cert.md)]
 
 4. Otevřete porty brány firewall pro povolení provozu k dosažení HTTP.sys. Použití *netsh.exe* nebo [rutin prostředí PowerShell](https://technet.microsoft.com/library/jj554906).
 

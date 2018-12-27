@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak diagnostikovat problémy s nasazením služby ASP.NET Core Azure App Service.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 12/18/2018
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: 05bb024f5b0d2b554cc861c250a92fd7ae23437f
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: b36c321c6ba6801a32b5187651063337b4533fd1
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090742"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637648"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>Řešení potíží s ASP.NET Core ve službě Azure App Service
 
@@ -19,14 +19,14 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE [Azure App Service Preview Notice](../../includes/azure-apps-preview-notice.md)]
 
-Tento článek obsahuje pokyny o tom, jak Diagnostika ASP.NET Core problém při spuštění aplikace pomocí diagnostických nástrojů služby Azure App Service. Další pomoc při řešení potíží, najdete v části [Přehled diagnostiky služby Azure App Service](/azure/app-service/app-service-diagnostics) a [postup: monitorování aplikací ve službě Azure App Service](/azure/app-service/web-sites-monitor) v dokumentaci k Azure.
+Tento článek obsahuje pokyny o tom, jak Diagnostika ASP.NET Core problém při spuštění aplikace pomocí diagnostických nástrojů služby Azure App Service. Další pomoc při řešení potíží, najdete v části [Přehled diagnostiky služby Azure App Service](/azure/app-service/app-service-diagnostics) a [jak: Monitorování aplikací ve službě Azure App Service](/azure/app-service/web-sites-monitor) v dokumentaci k Azure.
 
 ## <a name="app-startup-errors"></a>Chyby při spuštění aplikace
 
 **502.5 zpracovat selhání**  
 Pracovní proces se nezdaří. Aplikace se nespustí.
 
-[Modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) pokusy o spuštění pracovního procesu, ale nepovede spustit. Zkoumání v protokolu událostí aplikace často pomáhá při řešení tohoto typu problému. Přístup k protokolu je podrobně [protokolu událostí aplikace](#application-event-log) oddílu.
+[Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) pokusy o spuštění pracovního procesu, ale nepovede spustit. Zkoumání v protokolu událostí aplikace často pomáhá při řešení tohoto typu problému. Přístup k protokolu je podrobně [protokolu událostí aplikace](#application-event-log) oddílu.
 
 *502.5 selhání procesu* při nesprávně nakonfigurované aplikace způsobí, že se pracovní proces selže, vrátí se chybová stránka:
 
@@ -164,7 +164,7 @@ Chcete-li zobrazit protokoly trasování neúspěšných požadavků (protokoly 
 1. Přejděte **diagnostikovat a řešit problémy** okna na webu Azure Portal.
 1. Vyberte **nepovedlo vyžádat trasování protokoly** z **SUPPORT TOOLS** oblasti na bočním panelu.
 
-Zobrazit [část povolit protokolování diagnostiky pro webové aplikace v Azure App Service tématu trasování požadavku se nezdařilo](/azure/app-service/web-sites-enable-diagnostic-log#failed-request-traces) a [nejčastějších dotazech týkajících se výkonu aplikace pro Web Apps v Azure: Jak mohu zapnout trasování chybných požadavků?](/azure/app-service/app-service-web-availability-performance-application-issues-faq#how-do-i-turn-on-failed-request-tracing) Další informace.
+Zobrazit [část povolit protokolování diagnostiky pro webové aplikace v Azure App Service tématu trasování požadavku se nezdařilo](/azure/app-service/web-sites-enable-diagnostic-log#failed-request-traces) a [nejčastějších dotazech týkajících se výkonu aplikace pro Web Apps v Azure: Jak můžu zapnout trasování chybných požadavků? ](/azure/app-service/app-service-web-availability-performance-application-issues-faq#how-do-i-turn-on-failed-request-tracing) Další informace.
 
 Další informace najdete v tématu [povolit protokolování diagnostiky pro webové aplikace ve službě Azure App Service](/azure/app-service/web-sites-enable-diagnostic-log).
 

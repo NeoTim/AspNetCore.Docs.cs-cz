@@ -4,14 +4,14 @@ author: zuckerthoben
 description: Zjistěte, jak přidat do projektu ASP.NET Core webové rozhraní API integrovat uživatelské rozhraní Swagger Swashbuckle.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/30/2018
+ms.date: 12/18/2018
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 9229b4536c3d5090e640de71357c728ddbd5dcc3
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: a8c3d999cfddb4d3d888455d7cc0b899a71e427e
+ms.sourcegitcommit: ea215df889e89db44037a6ac2f01baede0450da9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862340"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53595331"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s Swashbuckle a ASP.NET Core
 
@@ -25,7 +25,7 @@ Existují tři hlavní komponenty pro Swashbuckle:
 
 * [Swashbuckle.AspNetCore.SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): Generátor Swagger, který vytváří `SwaggerDocument` objekty přímo z tras, kontrolerů a modely. Obvykle se zkombinuje s middlewarem koncového bodu Swaggeru k automaticky vystavení dat JSON pro Swagger.
 
-* [Swashbuckle.AspNetCore.SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): embedded verze nástroje pro uživatelské rozhraní Swagger. Interpretuje JSON pro Swagger k vytváření bohatých a přizpůsobitelných prostředí pro popis funkce webového rozhraní API. Zahrnuje integrované testovací postroje pro veřejné metody.
+* [Swashbuckle.AspNetCore.SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): embedded verze nástroje pro uživatelské rozhraní Swagger. Interpretuje JSON pro Swagger k vytváření bohatých a přizpůsobitelných prostředí pro popis webových rozhraní API funkce. Zahrnuje integrované testovací postroje pro veřejné metody.
 
 ## <a name="package-installation"></a>Instalace balíčku
 
@@ -108,7 +108,7 @@ Uživatelské rozhraní Swagger lze nalézt v `http://localhost:<port>/swagger`.
 >
 > [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup3.cs?name=snippet_UseSwaggerUI&highlight=4)]
 
-Pokud do relativní cesty pomocí adresáře pomocí služby IIS nebo reverzního proxy serveru, nastavení koncového bodu Swaggeru `./` předponu. Například `./swagger/v1/swagger.json`. Pomocí `/swagger/v1/swagger.json` Instruuje aplikaci upravovat pro soubor JSON true kořenové adresy URL (plus předponu trasy, pokud se používá). Například použít `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` místo `http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`.
+Pokud do relativní cesty pomocí adresáře pomocí služby IIS nebo reverzního proxy serveru, nastavení koncového bodu Swaggeru `./` předponu. Například, `./swagger/v1/swagger.json`. Pomocí `/swagger/v1/swagger.json` Instruuje aplikaci upravovat pro soubor JSON true kořenové adresy URL (plus předponu trasy, pokud se používá). Například použít `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` místo `http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`.
 
 ## <a name="customize-and-extend"></a>Přizpůsobení a rozšíření
 
@@ -258,7 +258,7 @@ Nakonfigurujte Swagger pro použití generovaného souboru XML. Pro operační s
 
 ::: moniker-end
 
-V předchozím kódu [reflexe](/dotnet/csharp/programming-guide/concepts/reflection) sloužící k sestavení, projekt webového rozhraní API odpovídající název souboru XML. [AppContext.BaseDirectory](/dotnet/api/system.appcontext.basedirectory#System_AppContext_BaseDirectory) vlastnost se používá ke konstrukci cestu k souboru XML.
+V předchozím kódu [reflexe](/dotnet/csharp/programming-guide/concepts/reflection) sloužící k sestavení, který projektu webového rozhraní API odpovídající název souboru XML. [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*) vlastnost se používá ke konstrukci cestu k souboru XML.
 
 Přidávání komentářů třemi lomítky akci rozšiřuje uživatelské rozhraní Swagger tak, že přidáte popis hlavičku oddílu. Přidat [ \<summary >](/dotnet/csharp/programming-guide/xmldoc/summary) element výše `Delete` akce:
 
@@ -367,11 +367,11 @@ Přidat `[Produces("application/json")]` atribut kontroleru rozhraní API. Jeho 
 
 ![Uživatelské rozhraní swagger s výchozím typem obsahu odpovědi](web-api-help-pages-using-swagger/_static/json-response-content-type.png)
 
-Popisný a užitečné stránky nápovědy, jak se zvyšuje využití datových poznámek v rozhraní Web API, uživatelské rozhraní a rozhraní API.
+Popisný a užitečné stránky nápovědy, jak se zvyšuje využití anotacemi dat ve webovém rozhraní API, uživatelské rozhraní a rozhraní API.
 
 ### <a name="describe-response-types"></a>Popis typů odpovědi
 
-Využívání vývojáři jsou nejvíce zajímají co bude vráceno&mdash;konkrétně typů odpovědi a chybové kódy (Pokud není standard). V poznámkách komentáře a data XML jsou rozlišeny typů odpovědi a kódy chyb.
+Vývojáři využívající webové rozhraní API jsou nejvíce zajímají co bude vráceno&mdash;konkrétně typů odpovědi a chybové kódy (Pokud není standard). V poznámkách komentáře a data XML jsou rozlišeny typů odpovědi a kódy chyb.
 
 `Create` Akce v případě úspěchu vrátí stavový kód HTTP 201. Stavový kód HTTP 400 je vrácena, když textu odeslaného požadavku má hodnotu null. Bez správnou dokumentaci v Uživatelském rozhraní Swagger nemá příjemce znalost těchto očekávaných výsledků. Tento problém vyřešit přidáním zvýrazněné řádky v následujícím příkladu:
 
@@ -390,6 +390,12 @@ Využívání vývojáři jsou nejvíce zajímají co bude vráceno&mdash;konkr�
 Uživatelské rozhraní Swagger teď jasně dokumenty očekávané kódy odpovědí protokolu HTTP:
 
 ![Swagger UI zobrazení popisu třídy odpověď POST 'Vrátí nově vytvořenou položku seznamu úkolů' a '400 - Pokud položka má hodnotu null' stavový kód a důvod v odpovědích](web-api-help-pages-using-swagger/_static/data-annotations-response-types.png)
+
+::: moniker range=">= aspnetcore-2.2"
+
+V ASP.NET Core 2.2 nebo vyšší, vytváření názvů může sloužit jako alternativu k upravení explicitně jednotlivé akce s `[ProducesResponseType]`. Další informace naleznete v tématu <xref:web-api/advanced/conventions>.
+
+::: moniker-end
 
 ### <a name="customize-the-ui"></a>Přizpůsobení uživatelského rozhraní
 

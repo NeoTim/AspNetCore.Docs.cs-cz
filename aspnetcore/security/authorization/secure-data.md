@@ -3,15 +3,15 @@ title: Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými au
 author: rick-anderson
 description: Zjistěte, jak vytvořit aplikace Razor Pages s uživatelskými daty chráněnými autorizací. Zahrnuje HTTPS, ověřování, zabezpečení ASP.NET Core Identity.
 ms.author: riande
-ms.date: 12/07/2018
+ms.date: 12/18/2018
 ms.custom: seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: d49ee7779b425d625b81c8a65694121c616bfba6
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: fa82d3d99f4e4b7ad17ed385fb7c029745797e8d
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121632"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637830"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
 
@@ -57,13 +57,13 @@ Na následujícím obrázku `admin@contoso.com` je podepsán v a v roli správce
 
 Správce má všechna oprávnění. Může číst/upravovat/odstraňovat všechny kontakty a změnit stav kontakty.
 
-Aplikace byla vytvořena pomocí [generování uživatelského rozhraní](xref:tutorials/first-mvc-app-xplat/adding-model#scaffold-the-moviecontroller) následující `Contact` modelu:
+Aplikace byla vytvořena pomocí [generování uživatelského rozhraní](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) následující `Contact` modelu:
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet)]
 
 Ukázka obsahuje následující rutiny autorizace:
 
-* `ContactIsOwnerAuthorizationHandler`: Zajistí, že uživatel může upravovat jenom svá data.
+* `ContactIsOwnerAuthorizationHandler`: Zajišťuje, že uživatel může upravovat jenom svá data.
 * `ContactManagerAuthorizationHandler`: Umožňuje správcům schválit nebo odmítnout kontakty.
 * `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schválit nebo odmítnout kontakty a úpravy nebo odstranění kontaktů.
 
@@ -284,7 +284,7 @@ Zobrazit [tento problém](https://github.com/aspnet/Docs/issues/8502) informace 
 
 Pokud jste dosud nenastavili hesla pro dosazené uživatelské účty, použijte [nástroj tajný klíč správce](xref:security/app-secrets#secret-manager) nastavit heslo:
 
-* Zvolte silné heslo: použití osm nebo více znaků, aspoň jedno velké písmeno, číslo a symbol. Například `Passw0rd!` splňuje požadavky na silné heslo.
+* Zvolte silné heslo: Použít osm nebo více znaků a alespoň jeden znak velká písmena, čísla a symbolů. Například `Passw0rd!` splňuje požadavky na silné heslo.
 * Spusťte následující příkaz ze složky projektu, kde `<PW>` je heslo:
 
   ```console

@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak poskytovat zabezpečení statické soubory a konfigurace statického souboru hostování chování middlewaru ve webové aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/18/2018
+ms.date: 12/18/2018
 uid: fundamentals/static-files
-ms.openlocfilehash: fb92141b1864574242b29ecc386024ce72a6be87
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 4c08d65cc1f658ef08a9b4b362ac7f8a3a243557
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570123"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637778"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -239,14 +239,14 @@ Předchozí kód žádost o soubor s Neznámý typ obsahu se vrátí jako obráz
 > [!WARNING]
 > Povolení [ServeUnknownFileTypes](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions.serveunknownfiletypes#Microsoft_AspNetCore_Builder_StaticFileOptions_ServeUnknownFileTypes) představuje bezpečnostní riziko. Ve výchozím nastavení je zakázána a jeho použití se nedoporučuje. [FileExtensionContentTypeProvider](#fileextensioncontenttypeprovider) poskytuje bezpečnější alternativu se, že soubory se nestandardní rozšíření.
 
-### <a name="considerations"></a>Důležité informace
+### <a name="considerations"></a>Požadavky
 
 > [!WARNING]
 > `UseDirectoryBrowser` a `UseStaticFiles` může způsobit únik těchto tajných kódů. Důrazně doporučujeme zakázat procházení adresáře v produkčním prostředí. Pečlivě si prostudujte adresáře, které jsou povolené prostřednictvím `UseStaticFiles` nebo `UseDirectoryBrowser`. Celý adresář a jeho podadresářích stanou veřejně dostupné. Store soubory vhodný pro poskytování obsahu veřejně vyhrazené adresář, například  *\<content_root > / wwwroot*. Tyto soubory oddělte od zobrazení MVC Razor Pages (pouze 2.x), konfigurační soubory, atd.
 
 * Adresy URL pro obsah s `UseDirectoryBrowser` a `UseStaticFiles` musí dodržovat rozlišování velikosti písmen a omezení pro znaky základní systému souborů. Například, velká a malá písmena Windows&mdash;macOS a Linux nejsou.
 
-* Aplikace ASP.NET Core, které jsou hostované v IIS použít [modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module) předávat všechny požadavky na aplikace, včetně žádostí o statický soubor. Obslužná rutina statického souboru službě IIS se nepoužívá. Nemá žádné riziko pro zpracování žádostí, než se zpracování modulem.
+* Aplikace ASP.NET Core, které jsou hostované v IIS použít [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) předávat všechny požadavky na aplikace, včetně žádostí o statický soubor. Obslužná rutina statického souboru službě IIS se nepoužívá. Nemá žádné riziko pro zpracování žádostí, než se zpracování modulem.
 
 * Proveďte následující kroky ve Správci služby IIS odebrat obslužnou rutinu statických souborů služby IIS na úrovni serveru nebo webu:
     1. Přejděte **moduly** funkce.

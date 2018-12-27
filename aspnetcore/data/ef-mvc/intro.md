@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-mvc/intro
-ms.openlocfilehash: f1682203850f2c5440fe8d0b98830ca8772ff70f
-ms.sourcegitcommit: c4572be5ebb301013a5698caf9b5572b76cb2e34
+ms.openlocfilehash: 1191632555dc9331f815c1bfb1f313459824754a
+ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/30/2018
-ms.locfileid: "50244884"
+ms.lasthandoff: 12/18/2018
+ms.locfileid: "53577900"
 ---
 # <a name="aspnet-core-mvc-with-entity-framework-core---tutorial-1-of-10"></a>ASP.NET Core MVC s Entity Framework Core – kurz 1 10
 
@@ -75,7 +75,7 @@ Otevřít Visual Studio a vytvořte nové technologie ASP.NET Core C# projekt we
 
 * Vyberte **ASP.NET Core 2.0** a **webové aplikace (Model-View-Controller)** šablony.
 
-  **Poznámka:** ASP.NET Core 2.0 a EF Core 2.0 nebo novější – Ujistěte se, že v tomto kurzu potřebovat **ASP.NET Core 1.1** není vybraná.
+  **Poznámka:** Tento kurz vyžaduje, ASP.NET Core 2.0 a EF Core 2.0 nebo novější – Ujistěte se, že **ASP.NET Core 1.1** není vybraná.
 
 * Ujistěte se, že **ověřování** je nastavena na **bez ověřování**.
 
@@ -245,14 +245,14 @@ Automatické vytváření metody akcí CRUD a zobrazení se označuje jako gener
 
 Pokud **přidat závislosti MVC** se zobrazí dialogové okno:
 
-* [Aktualizace na nejnovější verzi sady Visual Studio](https://www.visualstudio.com/downloads/). Visual Studio verze starší než 15.5 zobrazí tento dialog.
+* [Aktualizace na nejnovější verzi sady Visual Studio](https://www.visualstudio.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017). Visual Studio verze starší než 15.5 zobrazí tento dialog.
 * Pokud nelze aktualizovat, vyberte **přidat**a pak postupujte podle kroků přidat kontroler.
 
 * V **přidat vygenerované uživatelské rozhraní** dialogové okno:
 
   * Vyberte **kontroler MVC se zobrazeními pomocí Entity Frameworku**.
 
-  * Klikněte na tlačítko **přidat**.
+  * Klikněte na **Přidat**.
 
 * V **přidat kontroler** dialogové okno:
 
@@ -262,7 +262,7 @@ Pokud **přidat závislosti MVC** se zobrazí dialogové okno:
 
   * Přijměte výchozí nastavení **StudentsController** jako název.
 
-  * Klikněte na tlačítko **přidat**.
+  * Klikněte na **Přidat**.
 
   ![Student vygenerované uživatelské rozhraní](intro/_static/scaffold-student.png)
 

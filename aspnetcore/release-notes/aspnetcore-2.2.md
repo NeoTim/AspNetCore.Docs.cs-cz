@@ -4,14 +4,14 @@ author: tdykstra
 description: Informace o nových funkcích v ASP.NET Core 2.2.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/03/2018
+ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: d0bb0698526e2f7af8f0e99b0393f3ce48657b34
-ms.sourcegitcommit: a3a15d3ad4d6e160a69614a29c03bbd50db110a2
+ms.openlocfilehash: 13d7dec834a5661b445b4fc0c0be8be9b7b41b9e
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/05/2018
-ms.locfileid: "52952054"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637726"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2.2
 
@@ -25,7 +25,7 @@ Další informace naleznete v následujících materiálech:
 
 * <xref:web-api/advanced/analyzers>
 * <xref:web-api/advanced/conventions>
-* [ASP.NET Core 2.2.0-preview1: otevřít rozhraní API analyzátorů & konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
+* [ASP.NET Core 2.2.0-preview1: Otevřené rozhraní API analyzátorů a konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
 
 ## <a name="problem-details-support"></a>Podrobnosti o problému podpory
 
@@ -72,7 +72,7 @@ V dřívějších verzích sady ASP.NET Core, Kestrel možnosti nakonfigurují v
 
 V dřívějších verzích sady ASP.NET Core služba IIS slouží jako reverzní proxy server. 2.2, že modul ASP.NET Core spouštěcí CoreCLR a hostovat aplikace uvnitř pracovní proces služby IIS (*w3wp.exe*). Hostování v procesu zajišťuje výkon a diagnostiku zisky při spuštění pomocí služby IIS.
 
-Další informace najdete v tématu [vnitroprocesové hostování IIS](xref:fundamentals/servers/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model).
+Další informace najdete v tématu [proces hostování pro službu IIS](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model).
 
 ## <a name="signalr-java-client"></a>Klientskou sadou SignalR Java
 

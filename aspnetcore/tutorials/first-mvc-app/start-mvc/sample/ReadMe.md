@@ -1,0 +1,1 @@
+V je hotová ukázka *dokončit 2.2* složky. *MvcMovie22* vzorek se používá pro dokumentaci a je těžké používat.

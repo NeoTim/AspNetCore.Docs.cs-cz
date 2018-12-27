@@ -4,14 +4,14 @@ author: guardrex
 description: Další informace o adrese URL přepsání a přesměrování s Middleware pro přepis adres URL v aplikacích ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/19/2018
+ms.date: 12/18/2018
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: 84052789717738a48c346d35d1a2642017a9ab93
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: d2dd5e9b7f196bcbd1940f7ef58331dabd2367a1
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861911"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637804"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware v ASP.NET Core přepisování adres URL
 
@@ -56,7 +56,7 @@ Při přesměrování požadavků na jinou adresu URL, označuje, zda přesměro
 
 * *302 - nalezen* stavový kód se používá v případě přesměrování je dočasný nebo obecně změnit. 302 stavový kód označuje klientovi nechcete uložit adresu URL a budoucí použití.
 
-Další informace o stavových kódů, najdete v části [dokumentu RFC 2616: definice stavových kódů](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
+Další informace o stavových kódů, najdete v části [dokumentu RFC 2616: Definice stavových kódů](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
 
 A *přepsání adresy URL* je operace na straně serveru, který poskytuje prostředek z adres různých prostředků než vyžádáno klientem. Přepisování adres URL nevyžaduje odezvy serveru. Přepsaný adresa URL není vrácen do klienta a nebude zobrazovat v adresním řádku prohlížeče.
 
@@ -78,7 +78,7 @@ Middleware pro přepis adres URL používejte, až budete moci pomocí následuj
 * [Apache mod_rewrite modulu na serveru Apache](https://httpd.apache.org/docs/2.4/rewrite/)
 * [Na serveru Nginx přepisování adres URL](https://www.nginx.com/blog/creating-nginx-rewrite-rules/)
 
-Navíc používat middleware, když je aplikace hostovaná na [serveru HTTP.sys](xref:fundamentals/servers/httpsys) (dříve se označovaly jako [WebListener](xref:fundamentals/servers/weblistener)).
+Navíc používat middleware, když je aplikace hostovaná na [serveru HTTP.sys](xref:fundamentals/servers/httpsys) (dříve se označovaly jako WebListener).
 
 Hlavní důvody pro použití serverem přepisování adres URL technologií ve službě IIS, Apache a Nginx jsou:
 

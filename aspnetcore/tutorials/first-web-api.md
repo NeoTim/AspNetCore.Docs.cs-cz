@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/10/2018
 uid: tutorials/first-web-api
-ms.openlocfilehash: a27031550dd6fe810a250b369f83b7fe322aad1f
-ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
+ms.openlocfilehash: c2b4dcddd5332330cd6e6abe7d3a12697cde845e
+ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53329169"
+ms.lasthandoff: 12/14/2018
+ms.locfileid: "53382001"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
 
@@ -22,7 +22,7 @@ V tomto kurzu se naučíte se základy vytváření webových rozhraní API pomo
 V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
-> * Vytvořte projekt webového rozhraní api.
+> * Vytvořte projekt webového rozhraní API.
 > * Přidejte třídu modelu.
 > * Vytvořte kontext databáze.
 > * Zaregistrujte kontext databáze.
@@ -31,7 +31,7 @@ V tomto kurzu se naučíte:
 > * Konfigurace směrování a cesty adresy URL.
 > * Zadejte návratové hodnoty.
 > * Volání webového rozhraní API pomocí nástroje Postman.
-> * Volání webového rozhraní api pomocí jQuery.
+> * Volání webového rozhraní API s jQuery.
 
 Na konci máte webové rozhraní API, která může spravovat "úkolů" položky uložené v relační databázi.
 

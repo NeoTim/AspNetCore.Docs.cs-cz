@@ -3,14 +3,14 @@ title: Ověřování a identitu migrovat do ASP.NET Core 2.0
 author: scottaddie
 description: Tento článek popisuje nejběžnější postup pro migraci ASP.NET Core 1.x ověřování a identita pro ASP.NET Core 2.0.
 ms.author: scaddie
-ms.date: 10/26/2017
+ms.date: 12/18/2018
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: 6d457d42ad29ca579ba74e3b097d143bd6531b72
-ms.sourcegitcommit: d53e0cc71542b92de867bcce51575b054886f529
+ms.openlocfilehash: d28b4af483c7ec9d6cff6db3e2f1693e765d4202
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755802"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637609"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>Ověřování a identitu migrovat do ASP.NET Core 2.0
 
@@ -283,7 +283,7 @@ Existují dvě varianty ověřování Windows:
 
 První výše popsané není ovlivněn 2.0 změny.
 
-Druhá je popsáno výše je ovlivněny změnami v 2.0. Jako příklad vám může být umožní anonymní uživatelé do vaší aplikace v IIS nebo [HTTP.sys](xref:fundamentals/servers/weblistener) vrstvy ale autorizací uživatele na úrovni Kontroleru. V tomto scénáři, nastavte výchozí schéma na `IISDefaults.AuthenticationScheme` v `ConfigureServices` metoda *Startup.cs*:
+Druhá je popsáno výše je ovlivněny změnami v 2.0. Jako příklad vám může být umožní anonymní uživatelé do vaší aplikace v IIS nebo [HTTP.sys](xref:fundamentals/servers/httpsys) vrstvy ale autorizací uživatele na úrovni Kontroleru. V tomto scénáři, nastavte výchozí schéma na `IISDefaults.AuthenticationScheme` v `Startup.ConfigureServices` metody:
 
 ```csharp
 services.AddAuthentication(IISDefaults.AuthenticationScheme);

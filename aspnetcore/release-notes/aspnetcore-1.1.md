@@ -3,14 +3,14 @@ title: Co je nového v ASP.NET Core 1.1
 author: rick-anderson
 description: Informace o nových funkcích v ASP.NET Core 1.1.
 ms.author: riande
-ms.date: 02/14/2017
+ms.date: 12/18/2018
 uid: aspnetcore-1.1
-ms.openlocfilehash: 1f35874b253ca23743e1b046732723c3a75e855e
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: a21b2b82bfefb5b24898cf58ef97284a143e2e4a
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207820"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637596"
 ---
 # <a name="whats-new-in-aspnet-core-11"></a>Co je nového v ASP.NET Core 1.1
 
@@ -24,7 +24,7 @@ ASP.NET Core 1.1 obsahuje následující nové funkce:
 - [Zprostředkovatel protokolování služby Azure App Service](xref:fundamentals/logging/index#azure-app-service-provider)
 - [Zprostředkovatel konfigurace služby Azure Key Vault](xref:security/key-vault-configuration)
 - [Úložiště Azure a ochranu dat Redis úložiště klíčů](xref:security/data-protection/implementation/key-storage-providers#azure-and-redis)
-- [Serveru WebListener pro Windows](xref:fundamentals/servers/weblistener)
+- Serveru WebListener pro Windows
 - [Webové sockety](xref:fundamentals/websockets)
 
 ## <a name="choosing-between-versions-10-and-11-of-aspnet-core"></a>Volba mezi verze 1.0 a 1.1 ASP.NET Core

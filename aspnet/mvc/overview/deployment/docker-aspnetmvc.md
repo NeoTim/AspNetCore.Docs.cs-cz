@@ -5,14 +5,14 @@ description: Zjistěte, jak využít stávající aplikace ASP.NET MVC a spustí
 keywords: Windows Containers,Docker,ASP.NET MVC
 author: BillWagner
 ms.author: wiwagn
-ms.date: 02/01/2017
+ms.date: 12/14/2018
 ms.assetid: c9f1d52c-b4bd-4b5d-b7f9-8f9ceaf778c4
-ms.openlocfilehash: 7b34187747d3081998b8b60a72adae78cafe2c3e
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: ef184f4256c20e2a66de8fd2d4f8e67f07d9a086
+ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207963"
+ms.lasthandoff: 12/14/2018
+ms.locfileid: "53425156"
 ---
 # <a name="migrating-aspnet-mvc-applications-to-windows-containers"></a>Migrace aplikací ASP.NET MVC do kontejnerů s Windows
 
@@ -68,9 +68,9 @@ Klikněte na tlačítko **publikovat**, a sady Visual Studio zkopíruje všechny
 
 ## <a name="build-the-image"></a>Sestavení image
 
-Definujte vaši image Dockeru v souboru Dockerfile. Soubor Dockerfile obsahuje pokyny pro základní image, další součásti, aplikace, kterou chcete spustit a další konfigurace Image.  Soubor Dockerfile je vstupem `docker build` příkaz, který vytvoří bitovou kopii.
+Vytvořte nový soubor s názvem *soubor Dockerfile* k definování image Dockeru. *Soubor Dockerfile* obsahuje pokyny pro sestavení finální image a zahrnuje názvy základní image, požadované součásti, aplikace, kterou chcete spustit a další konfigurace Image. *Soubor Dockerfile* je vstupem `docker build` příkaz, který vytvoří bitovou kopii.
 
-Sestavíte image založenou na `microsoft/aspnet` image uložená na [Docker Hubu](https://hub.docker.com/r/microsoft/aspnet/).
+Pro účely tohoto cvičení bude sestavte image založenou na `microsoft/aspnet` image uložená na [Docker Hubu](https://hub.docker.com/r/microsoft/aspnet/).
 Základní image `microsoft/aspnet`, je image Windows serveru. Obsahuje jádro systému Windows Server, služba IIS a ASP.NET 4.7.2. Při spuštění této image ve vašem kontejneru se automaticky spustí službu IIS a nainstalované weby.
 
 Soubor Dockerfile, který vytvoří image vypadá takto:

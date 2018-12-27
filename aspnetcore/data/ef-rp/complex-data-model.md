@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 9a0d5a8e722487ccf7e08aadb39f838a0963451d
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 930a6f2b860c71b6f499cff53e0d909a130f7948
+ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090964"
+ms.lasthandoff: 12/19/2018
+ms.locfileid: "53637895"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – Model dat – 5 z 8
 
@@ -384,7 +384,7 @@ Oddělení může mít mnoho kurzů, tedy navigační vlastnost kurzy:
 public ICollection<Course> Courses { get; set; }
 ```
 
-Poznámka: Podle konvence umožňuje EF Core kaskádové odstranění pro Null FKs a vztahy many-to-many. Kaskádové odstranění může způsobit Cyklické kaskádové odstranění pravidla. Kruhový Kaskádové odstraňování pravidel způsobí, že při migraci se přidá výjimku.
+Poznámka: Podle konvence EF Core umožňuje kaskádové odstranění pro Null FKs a vztahy many-to-many. Kaskádové odstranění může způsobit Cyklické kaskádové odstranění pravidla. Kruhový Kaskádové odstraňování pravidel způsobí, že při migraci se přidá výjimku.
 
 Například pokud `Department.InstructorID` vlastnost nebyl definován jako s možnou hodnotou NULL:
 
@@ -538,10 +538,7 @@ Aktualizovat kód v *Data/DbInitializer.cs*:
 
 [!code-csharp[](intro/samples/cu21/Data/DbInitializer.cs?name=snippet_Final)]
 
-Předchozí kód poskytuje data počáteční hodnotu pro nové entity. Většina tento kód vytvoří nové objekty entity a načte ukázková data. Ukázková data se používá pro účely testování. Předchozí kód vytvoří následující many-to-many vztahů:
-
-* `Enrollments`
-* `CourseAssignment`
+Předchozí kód poskytuje data počáteční hodnotu pro nové entity. Většina tento kód vytvoří nové objekty entity a načte ukázková data. Ukázková data se používá pro účely testování. Zobrazit `Enrollments` a `CourseAssignments` pro příklady jak many-to-many spojení tabulek můžete nasadí.
 
 ## <a name="add-a-migration"></a>Přidejte migraci
 

@@ -1,13 +1,13 @@
-# <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidat model do aplikace ASP.NET MVC jádra
+# <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu pro aplikace ASP.NET Core MVC
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [tní Dykstra](https://github.com/tdykstra)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Petr Dykstra](https://github.com/tdykstra)
 
 V této části přidáte některé třídy pro správu filmy v databázi. Tyto třídy bude "**M**odelu" součástí **M**VC aplikace.
 
-Použití těchto tříd s [Entity Framework Core](/ef/core) (EF jader) pro práci s databází. Základní EF je představuje rozhraní objektu relační mapování (ORM), které zjednodušuje data přístupový kód, který máte k zápisu. [Jádro EF podporuje mnoho databázové stroje](/ef/core/providers/).
+Použití těchto tříd s [Entity Framework Core](/ef/core) (EF Core) pro práci s databází. EF Core je objektově relační mapování (ORM) platforma, která zjednodušuje kód přístupu k datům, který musíte napsat. [EF Core podporuje mnoho databázových strojů](/ef/core/providers/).
 
-Třídy modelu, který budete vytvářet se označují jako třídy objektů POCO (z "prostý starý CLR objektů"), protože nemají některé závislé na základní EF. Právě definují vlastnosti data, která bude uložená v databázi.
+Tříd modelu, které vytvoříte jsou označovány jako POCO třídy (od "prostý staré CLR objekty"), protože nemají žádné závislosti na EF Core. Právě definují vlastnosti data, která se uloží v databázi.
 
-V tomto kurzu napíšete třídy modelu nejprve a databáze se vytvoří EF jádra. Alternativní přístup nejsou zahrnuté v tomto poli se generují třídy modelu v databázi již existuje. Informace o tohoto přístupu najdete v tématu [ASP.NET Core - existující databázi](/ef/core/get-started/aspnetcore/existing-db).
+V tomto kurzu budete psát tříd modelu nejprve a databáze se vytvoří EF Core. Alternativní není součástí tohoto přístupu je k vytvoření tříd modelu z databáze již existuje. Informace o tento přístup, najdete v části [ASP.NET Core – existující databáze](/ef/core/get-started/aspnetcore/existing-db).
 
 ## <a name="add-a-data-model-class"></a>Přidejte třídu modelu dat

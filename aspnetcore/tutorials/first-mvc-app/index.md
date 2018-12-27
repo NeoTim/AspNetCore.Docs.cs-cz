@@ -5,22 +5,16 @@ description: Zobrazit obsah Úvod do ASP.NET Core MVC pomocí sady Visual Studio
 ms.author: riande
 ms.date: 10/26/2017
 uid: tutorials/first-mvc-app/index
-ms.openlocfilehash: bd6bc5ba77da506527ddc024f73b4eb195401e46
-ms.sourcegitcommit: 661d30492d5ef7bbca4f7e709f40d8f3309d2dac
+ms.openlocfilehash: 3a679e31c6eda4c86edbd0ada27b4973204c467b
+ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37938116"
+ms.lasthandoff: 12/14/2018
+ms.locfileid: "53382082"
 ---
 # <a name="create-a-web-app-with-aspnet-core-mvc-on-windows-with-visual-studio"></a>Vytvoření webové aplikace s ASP.NET Core MVC ve Windows pomocí sady Visual Studio
 
 [!INCLUDE [consider RP](~/includes/razor.md)]
-
-Existují 3 verze tohoto kurzu:
-
-* Windows: Tuto řadu
-* macOS: [vytvoření aplikace ASP.NET Core MVC se sadou Visual Studio pro Mac](xref:tutorials/first-mvc-app-mac/start-mvc)
-* macOS, Linux a Windows: [vytvoření aplikace ASP.NET Core MVC pomocí Visual Studio Code](xref:tutorials/first-mvc-app-xplat/start-mvc)
 
 Série kurzů zahrnuje následující položky:
 
