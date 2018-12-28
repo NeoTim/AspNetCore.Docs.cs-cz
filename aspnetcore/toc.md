@@ -11,11 +11,7 @@
 ### [Web API s MongoDB](xref:tutorials/first-mongo-app)
 ## Webové aplikace
 ### [Stránky Razor](xref:tutorials/razor-pages/index)
-
-### MVC
-#### [S využitím sady Visual Studio](xref:tutorials/first-mvc-app/index)
-#### [S využitím editoru Visual Studio Code](xref:tutorials/first-mvc-app-xplat/index)
-#### [S využitím sady Visual Studio pro Mac](xref:tutorials/first-mvc-app-mac/index)
+### [MVC](xref:tutorials/first-mvc-app/index)
 
 ## Webové aplikace v reálném čase
 ### [SignalR s JavaScriptem](xref:tutorials/signalr)
@@ -46,11 +42,7 @@
 ### [Přehled](xref:fundamentals/host/index)
 ### [Webový hostitel ](xref:fundamentals/host/web-host)
 ### [Obecný hostitel](xref:fundamentals/host/generic-host)
-## Servery
-### [Přehled](xref:fundamentals/servers/index)
-### [Kestrel](xref:fundamentals/servers/kestrel)
-### [Modul ASP.NET Core](xref:fundamentals/servers/aspnet-core-module)
-### [HTTP.sys](xref:fundamentals/servers/httpsys)
+## [Servery](xref:fundamentals/servers/index)
 ## [Iniciování požadavků HTTP](xref:fundamentals/http-requests)
 
 # Webové aplikace
@@ -66,50 +58,26 @@
 #### [Přidání nového pole](xref:tutorials/razor-pages/new-field)
 #### [Přidání ověřování](xref:tutorials/razor-pages/validation)
 
+## MVC
+### [MVC – přehled](xref:mvc/overview)
+### [MVC – kurz](xref:tutorials/first-mvc-app/index)
+#### [Začínáme](xref:tutorials/first-mvc-app/start-mvc)
+#### [Přidání kontroleru](xref:tutorials/first-mvc-app/adding-controller)
+#### [Přidání zobrazení](xref:tutorials/first-mvc-app/adding-view)
+#### [Přidání modelu](xref:tutorials/first-mvc-app/adding-model)
+#### [Práce s databázemi](xref:tutorials/first-mvc-app/working-with-sql)
+#### [Akce a zobrazení kontroleru](xref:tutorials/first-mvc-app/controller-methods-views)
+#### [Přidání vyhledávání](xref:tutorials/first-mvc-app/search)
+#### [Přidání nového pole](xref:tutorials/first-mvc-app/new-field)
+#### [Přidání ověřování](xref:tutorials/first-mvc-app/validation)
+#### [Zkoumání metod Details a Delete](xref:tutorials/first-mvc-app/details)
+
 ### [Filtry](xref:razor-pages/filter)
 ### [Knihovny RCL (Razor Class Library)](xref:razor-pages/ui-class)
 ### [Směrování a aplikační konvence](xref:razor-pages/razor-pages-conventions)
 ### [Nahrání souborů](xref:razor-pages/upload-files)
 ### [Sada Razor SDK](xref:razor-pages/sdk)
-## MVC
-### [Přehled](xref:mvc/overview)
-### Kurzy
-#### MVC se sadou Visual Studio
-##### [Přehled](xref:tutorials/first-mvc-app/index)
-##### [Začínáme](xref:tutorials/first-mvc-app/start-mvc)
-##### [Přidání kontroleru](xref:tutorials/first-mvc-app/adding-controller)
-##### [Přidání zobrazení](xref:tutorials/first-mvc-app/adding-view)
-##### [Přidání modelu](xref:tutorials/first-mvc-app/adding-model)
-##### [Práce s databázemi](xref:tutorials/first-mvc-app/working-with-sql)
-##### [Akce a zobrazení kontroleru](xref:tutorials/first-mvc-app/controller-methods-views)
-##### [Přidání vyhledávání](xref:tutorials/first-mvc-app/search)
-##### [Přidání nového pole](xref:tutorials/first-mvc-app/new-field)
-##### [Přidání ověřování](xref:tutorials/first-mvc-app/validation)
-##### [Zkoumání metod Details a Delete](xref:tutorials/first-mvc-app/details)
-#### MVC s editorem Visual Studio Code
-##### [Přehled](xref:tutorials/first-mvc-app-xplat/index)
-##### [Začínáme](xref:tutorials/first-mvc-app-xplat/start-mvc)
-##### [Přidání kontroleru](xref:tutorials/first-mvc-app-xplat/adding-controller)
-##### [Přidání zobrazení](xref:tutorials/first-mvc-app-xplat/adding-view)
-##### [Přidání modelu](xref:tutorials/first-mvc-app-xplat/adding-model)
-##### [Práce s SQLite](xref:tutorials/first-mvc-app-xplat/working-with-sql)
-##### [Metody a zobrazení kontroleru](xref:tutorials/first-mvc-app-xplat/controller-methods-views)
-##### [Přidání vyhledávání](xref:tutorials/first-mvc-app-xplat/search)
-##### [Přidání nového pole](xref:tutorials/first-mvc-app-xplat/new-field)
-##### [Přidání ověřování](xref:tutorials/first-mvc-app-xplat/validation)
-##### [Zkoumání metod Details a Delete](xref:tutorials/first-mvc-app/details)
-#### MVC se sadou Visual Studio pro Mac
-##### [Přehled](xref:tutorials/first-mvc-app-mac/index)
-##### [Začínáme](xref:tutorials/first-mvc-app-mac/start-mvc)
-##### [Přidání kontroleru](xref:tutorials/first-mvc-app-mac/adding-controller)
-##### [Přidání zobrazení](xref:tutorials/first-mvc-app-mac/adding-view)
-##### [Přidání modelu](xref:tutorials/first-mvc-app-mac/adding-model)
-##### [Práce s SQLite](xref:tutorials/first-mvc-app-mac/working-with-sql)
-##### [Metody a zobrazení kontroleru](xref:tutorials/first-mvc-app-mac/controller-methods-views)
-##### [Přidání vyhledávání](xref:tutorials/first-mvc-app-mac/search)
-##### [Přidání nového pole](xref:tutorials/first-mvc-app-mac/new-field)
-##### [Přidání ověřování](xref:tutorials/first-mvc-app-mac/validation)
-##### [Zkoumání metod Details a Delete](xref:tutorials/first-mvc-app/details)
+
 ### [Zobrazení](xref:mvc/views/overview)
 ### [Částečná zobrazení](xref:mvc/views/partial)
 ### [Kontrolery](xref:mvc/controllers/actions)
@@ -284,9 +252,11 @@
 ## Hostování ve Windows se službou IIS
 ### [Přehled](xref:host-and-deploy/iis/index)
 ### [Odstraňování potíží ve službě IIS](xref:host-and-deploy/iis/troubleshoot)
-### [Referenční informace k modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
+### [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
 ### [Podpora služby IIS v sadě Visual Studio](xref:host-and-deploy/iis/development-time-iis-support)
 ### [Moduly služby IIS](xref:host-and-deploy/iis/modules)
+## [Kestrel](xref:fundamentals/servers/kestrel)
+## [HTTP.sys](xref:fundamentals/servers/httpsys)
 ## [Hostování ve službě pro Windows](xref:host-and-deploy/windows-service)
 ## [Hostování v Linuxu na serveru Nginx](xref:host-and-deploy/linux-nginx)
 ## [Hostování v Linuxu na serveru Apache](xref:host-and-deploy/linux-apache)
