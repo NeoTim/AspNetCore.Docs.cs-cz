@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/11/2018
 uid: security/authentication/social/index
-ms.openlocfilehash: 19074d5014a09446ceec1b89449e78760fc8e7cf
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: 47ac1f966ff727957e6ed700c3c68efa16b1b38b
+ms.sourcegitcommit: 3e94d192b2ed9409fe72e3735e158b333354964c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708371"
+ms.lasthandoff: 12/24/2018
+ms.locfileid: "53735723"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook, Google a externí zprostředkovatel ověřování v ASP.NET Core
 
@@ -24,8 +24,6 @@ Tento kurz ukazuje, jak vytvářet v ASP.NET Core 2.x aplikaci, která umožňuj
 ![Ikony sociálních médií pro Facebook, Twitter, Google, plus a Windows](index/_static/social.png)
 
 Umožňuje uživatelům přihlašovat se pomocí existujících přihlašovacích údajů je pro uživatele pohodlný a posune mnoho složitých úkolů při správě procesu přihlašování do jiného výrobce. Příklady, jak sociální přihlášení můžete jednotka provoz a zákazníka převody, naleznete v tématu případové studie podle [Facebook](https://www.facebook.com/unsupportedbrowser) a [Twitter](https://dev.twitter.com/resources/case-studies).
-
-Poznámka: Balíčky okomentovat abstraktní spoustu složitost tok ověřování OAuth, ale Princip podrobnosti může být nezbytné při řešení potíží. Mnoho prostředků jsou k dispozici. Viz například [Úvod do OAuth 2](https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2) nebo [Principy OAuth 2](http://www.bubblecode.net/2016/01/22/understanding-oauth2/). Některé problémy dají odstranit pohledem [ASP.NET Core zdrojový kód pro balíčky poskytovatele](https://github.com/aspnet/Security/tree/master/src).
 
 ## <a name="create-a-new-aspnet-core-project"></a>Vytvořte nový projekt ASP.NET Core
 
