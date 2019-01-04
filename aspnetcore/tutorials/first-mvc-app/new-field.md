@@ -4,105 +4,105 @@ author: rick-anderson
 description: Další informace o použití migrace Entity Framework Code First pro přidání nového pole do modelu a migrovat tuto změnu do databáze.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/25/2018
+ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 3c29b01cc97dbfd93c21131c3d96ed309715da1a
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: c6e7fe13a55a14533949d212bfb149ccd91103e5
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53382014"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997237"
 ---
-# <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a><span data-ttu-id="4f600-103">Přidání nového pole do aplikace ASP.NET Core MVC</span><span class="sxs-lookup"><span data-stu-id="4f600-103">Add a new field to an ASP.NET Core MVC app</span></span>
+# <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a><span data-ttu-id="681f8-103">Přidání nového pole do aplikace ASP.NET Core MVC</span><span class="sxs-lookup"><span data-stu-id="681f8-103">Add a new field to an ASP.NET Core MVC app</span></span>
 
-<span data-ttu-id="4f600-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="4f600-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="681f8-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="681f8-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="4f600-105">V této části [Entity Framework](/ef/core/get-started/aspnetcore/new-db) se používá k migrace Code First:</span><span class="sxs-lookup"><span data-stu-id="4f600-105">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
+<span data-ttu-id="681f8-105">V této části [Entity Framework](/ef/core/get-started/aspnetcore/new-db) se používá k migrace Code First:</span><span class="sxs-lookup"><span data-stu-id="681f8-105">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
 
-* <span data-ttu-id="4f600-106">Přidání nového pole do modelu.</span><span class="sxs-lookup"><span data-stu-id="4f600-106">Add a new field to the model.</span></span>
-* <span data-ttu-id="4f600-107">Migrace nové pole do databáze.</span><span class="sxs-lookup"><span data-stu-id="4f600-107">Migrate the new field to the database.</span></span>
+* <span data-ttu-id="681f8-106">Přidání nového pole do modelu.</span><span class="sxs-lookup"><span data-stu-id="681f8-106">Add a new field to the model.</span></span>
+* <span data-ttu-id="681f8-107">Migrace nové pole do databáze.</span><span class="sxs-lookup"><span data-stu-id="681f8-107">Migrate the new field to the database.</span></span>
 
-<span data-ttu-id="4f600-108">Když platforem EF Code First umožňuje automaticky vytvořte databázi, Code First:</span><span class="sxs-lookup"><span data-stu-id="4f600-108">When EF Code First is used to automatically create a database, Code First:</span></span>
+<span data-ttu-id="681f8-108">Když platforem EF Code First umožňuje automaticky vytvořte databázi, Code First:</span><span class="sxs-lookup"><span data-stu-id="681f8-108">When EF Code First is used to automatically create a database, Code First:</span></span>
 
-* <span data-ttu-id="4f600-109">Tabulka se přidá do databáze, kterou chcete sledovat schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="4f600-109">Adds a table to the database to  track the schema of the database.</span></span>
-* <span data-ttu-id="4f600-110">Ověřte, že je synchronizovaný s tříd modelu, které byly vygenerovány z databáze.</span><span class="sxs-lookup"><span data-stu-id="4f600-110">Verify the database is in sync with the model classes it was generated from.</span></span> <span data-ttu-id="4f600-111">Pokud nejsou synchronizované, EF vyvolá výjimku.</span><span class="sxs-lookup"><span data-stu-id="4f600-111">If they aren't in sync, EF throws an exception.</span></span> <span data-ttu-id="4f600-112">Díky tomu je snazší najít problémy s nekonzistentní databáze nebo kódu.</span><span class="sxs-lookup"><span data-stu-id="4f600-112">This makes it easier to find inconsistent database/code issues.</span></span>
+* <span data-ttu-id="681f8-109">Tabulka se přidá do databáze, kterou chcete sledovat schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="681f8-109">Adds a table to the database to  track the schema of the database.</span></span>
+* <span data-ttu-id="681f8-110">Ověřte, že je synchronizovaný s tříd modelu, které byly vygenerovány z databáze.</span><span class="sxs-lookup"><span data-stu-id="681f8-110">Verify the database is in sync with the model classes it was generated from.</span></span> <span data-ttu-id="681f8-111">Pokud nejsou synchronizované, EF vyvolá výjimku.</span><span class="sxs-lookup"><span data-stu-id="681f8-111">If they aren't in sync, EF throws an exception.</span></span> <span data-ttu-id="681f8-112">Díky tomu je snazší najít problémy s nekonzistentní databáze nebo kódu.</span><span class="sxs-lookup"><span data-stu-id="681f8-112">This makes it easier to find inconsistent database/code issues.</span></span>
 
-## <a name="add-a-rating-property-to-the-movie-model"></a><span data-ttu-id="4f600-113">Přidání vlastnosti hodnocení filmů modelu</span><span class="sxs-lookup"><span data-stu-id="4f600-113">Add a Rating Property to the Movie Model</span></span>
+## <a name="add-a-rating-property-to-the-movie-model"></a><span data-ttu-id="681f8-113">Přidání vlastnosti hodnocení filmů modelu</span><span class="sxs-lookup"><span data-stu-id="681f8-113">Add a Rating Property to the Movie Model</span></span>
 
-<span data-ttu-id="4f600-114">Přidat `Rating` vlastnost *Models/Movie.cs*:</span><span class="sxs-lookup"><span data-stu-id="4f600-114">Add a `Rating` property to *Models/Movie.cs*:</span></span>
+<span data-ttu-id="681f8-114">Přidat `Rating` vlastnost *Models/Movie.cs*:</span><span class="sxs-lookup"><span data-stu-id="681f8-114">Add a `Rating` property to *Models/Movie.cs*:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
-<span data-ttu-id="4f600-115">Vytvořte aplikaci (Ctrl + Shift + B).</span><span class="sxs-lookup"><span data-stu-id="4f600-115">Build the app (Ctrl+Shift+B).</span></span>
+<span data-ttu-id="681f8-115">Vytvořte aplikaci (Ctrl + Shift + B).</span><span class="sxs-lookup"><span data-stu-id="681f8-115">Build the app (Ctrl+Shift+B).</span></span>
 
-<span data-ttu-id="4f600-116">Protože jsme přidali nové pole do `Movie` třídy, budete muset aktualizovat vazbu seznamu povolených, aby tuto novou vlastnost budou zahrnuty.</span><span class="sxs-lookup"><span data-stu-id="4f600-116">Because you've added a new field to the `Movie` class, you need to update the binding white list so this new property will be included.</span></span> <span data-ttu-id="4f600-117">V *MoviesController.cs*, aktualizovat `[Bind]` atribut pro obě `Create` a `Edit` metody akce, které chcete zahrnout `Rating` vlastnost:</span><span class="sxs-lookup"><span data-stu-id="4f600-117">In *MoviesController.cs*, update the `[Bind]` attribute for both the `Create` and `Edit` action methods to include the `Rating` property:</span></span>
+<span data-ttu-id="681f8-116">Protože jsme přidali nové pole do `Movie` třídy, budete muset aktualizovat vazbu seznamu povolených, aby tuto novou vlastnost budou zahrnuty.</span><span class="sxs-lookup"><span data-stu-id="681f8-116">Because you've added a new field to the `Movie` class, you need to update the binding white list so this new property will be included.</span></span> <span data-ttu-id="681f8-117">V *MoviesController.cs*, aktualizovat `[Bind]` atribut pro obě `Create` a `Edit` metody akce, které chcete zahrnout `Rating` vlastnost:</span><span class="sxs-lookup"><span data-stu-id="681f8-117">In *MoviesController.cs*, update the `[Bind]` attribute for both the `Create` and `Edit` action methods to include the `Rating` property:</span></span>
 
 ```csharp
 [Bind("ID,Title,ReleaseDate,Genre,Price,Rating")]
    ```
 
-<span data-ttu-id="4f600-118">Aktualizace šablon zobrazení, aby bylo možné zobrazit, vytvořit a upravit novou `Rating` vlastností v okně prohlížeče.</span><span class="sxs-lookup"><span data-stu-id="4f600-118">Update the view templates in order to display, create and edit the new `Rating` property in the browser view.</span></span>
+<span data-ttu-id="681f8-118">Aktualizace šablon zobrazení, aby bylo možné zobrazit, vytvořit a upravit novou `Rating` vlastností v okně prohlížeče.</span><span class="sxs-lookup"><span data-stu-id="681f8-118">Update the view templates in order to display, create, and edit the new `Rating` property in the browser view.</span></span>
 
-<span data-ttu-id="4f600-119">Upravit */Views/Movies/Index.cshtml* a přidejte `Rating` pole:</span><span class="sxs-lookup"><span data-stu-id="4f600-119">Edit the */Views/Movies/Index.cshtml* file and add a `Rating` field:</span></span>
+<span data-ttu-id="681f8-119">Upravit */Views/Movies/Index.cshtml* a přidejte `Rating` pole:</span><span class="sxs-lookup"><span data-stu-id="681f8-119">Edit the */Views/Movies/Index.cshtml* file and add a `Rating` field:</span></span>
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGenreRating.cshtml?highlight=17,39&range=24-64)]
 
-<span data-ttu-id="4f600-120">Aktualizace */Views/Movies/Create.cshtml* s `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="4f600-120">Update the */Views/Movies/Create.cshtml* with a `Rating` field.</span></span> 
+<span data-ttu-id="681f8-120">Aktualizace */Views/Movies/Create.cshtml* s `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="681f8-120">Update the */Views/Movies/Create.cshtml* with a `Rating` field.</span></span>
 
 <!-- VS -------------------------->
-# <a name="visual-studio--visual-studio-for-mactabvisual-studiovisual-studio-mac"></a>[<span data-ttu-id="4f600-121">Visual Studio nebo Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="4f600-121">Visual Studio / Visual Studio for Mac</span></span>](#tab/visual-studio+visual-studio-mac)
+# <a name="visual-studio--visual-studio-for-mactabvisual-studiovisual-studio-mac"></a>[<span data-ttu-id="681f8-121">Visual Studio nebo Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="681f8-121">Visual Studio / Visual Studio for Mac</span></span>](#tab/visual-studio+visual-studio-mac)
 
-<span data-ttu-id="4f600-122">Můžete kopírovat/vložit předchozí "formuláře skupinu" a aktualizujte pole pomohou technologie intelliSense.</span><span class="sxs-lookup"><span data-stu-id="4f600-122">You can copy/paste the previous "form group" and let intelliSense help you update the fields.</span></span> <span data-ttu-id="4f600-123">Technologie IntelliSense funguje s [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).</span><span class="sxs-lookup"><span data-stu-id="4f600-123">IntelliSense works with [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span>
+<span data-ttu-id="681f8-122">Můžete kopírovat/vložit předchozí "formuláře skupinu" a aktualizujte pole pomohou technologie intelliSense.</span><span class="sxs-lookup"><span data-stu-id="681f8-122">You can copy/paste the previous "form group" and let intelliSense help you update the fields.</span></span> <span data-ttu-id="681f8-123">Technologie IntelliSense funguje s [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).</span><span class="sxs-lookup"><span data-stu-id="681f8-123">IntelliSense works with [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span>
 
 ![Vývojář napsal písmeno R pro hodnotu atributu ASP-pro druhý popisek prvku zobrazení.](new-field/_static/cr.png)
 
 <!-- Code -------------------------->
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="4f600-127">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="4f600-127">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="681f8-127">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="681f8-127">Visual Studio Code</span></span>](#tab/visual-studio-code)
 <!-- This tab intentionally left blank. -->
 ---  
 <!-- End of VS tabs -->
 
-<span data-ttu-id="4f600-128">Aktualizace `SeedData` třídy tak, že poskytuje hodnoty pro nový sloupec.</span><span class="sxs-lookup"><span data-stu-id="4f600-128">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="4f600-129">Ukázka změnu je uveden níže, ale budete chtít tuto změnu pro každou `new Movie`.</span><span class="sxs-lookup"><span data-stu-id="4f600-129">A sample change is shown below, but you'll want to make this change for each `new Movie`.</span></span>
+<span data-ttu-id="681f8-128">Aktualizace `SeedData` třídy tak, že poskytuje hodnoty pro nový sloupec.</span><span class="sxs-lookup"><span data-stu-id="681f8-128">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="681f8-129">Ukázka změnu je uveden níže, ale budete chtít tuto změnu pro každou `new Movie`.</span><span class="sxs-lookup"><span data-stu-id="681f8-129">A sample change is shown below, but you'll want to make this change for each `new Movie`.</span></span>
 
 [!code-csharp[](start-mvc/sample/MvcMovie/Models/SeedDataRating.cs?name=snippet1&highlight=6)]
 
-<span data-ttu-id="4f600-130">Aplikace nebude fungovat, dokud databáze je aktualizováno, aby zahrnovalo nové pole.</span><span class="sxs-lookup"><span data-stu-id="4f600-130">The app won't work until the DB is updated to include the new field.</span></span> <span data-ttu-id="4f600-131">Pokud se má spustit nyní následující `SqlException` je vyvolána výjimka:</span><span class="sxs-lookup"><span data-stu-id="4f600-131">If it's run now, the following `SqlException` is thrown:</span></span>
+<span data-ttu-id="681f8-130">Aplikace nebude fungovat, dokud databáze je aktualizováno, aby zahrnovalo nové pole.</span><span class="sxs-lookup"><span data-stu-id="681f8-130">The app won't work until the DB is updated to include the new field.</span></span> <span data-ttu-id="681f8-131">Pokud se má spustit nyní následující `SqlException` je vyvolána výjimka:</span><span class="sxs-lookup"><span data-stu-id="681f8-131">If it's run now, the following `SqlException` is thrown:</span></span>
 
 `SqlException: Invalid column name 'Rating'.`
 
-<span data-ttu-id="4f600-132">K této chybě dochází, protože se liší od schématu tabulky Movie existující databáze aktualizované třídy modelu video.</span><span class="sxs-lookup"><span data-stu-id="4f600-132">This error occurs because the updated Movie model class is different than the schema of the Movie table of the existing database.</span></span> <span data-ttu-id="4f600-133">(Neexistuje žádný `Rating` sloupec v tabulce databáze.)</span><span class="sxs-lookup"><span data-stu-id="4f600-133">(There's no `Rating` column in the database table.)</span></span>
+<span data-ttu-id="681f8-132">K této chybě dochází, protože se liší od schématu tabulky Movie existující databáze aktualizované třídy modelu video.</span><span class="sxs-lookup"><span data-stu-id="681f8-132">This error occurs because the updated Movie model class is different than the schema of the Movie table of the existing database.</span></span> <span data-ttu-id="681f8-133">(Neexistuje žádný `Rating` sloupec v tabulce databáze.)</span><span class="sxs-lookup"><span data-stu-id="681f8-133">(There's no `Rating` column in the database table.)</span></span>
 
-<span data-ttu-id="4f600-134">Řešení chyby několika způsoby:</span><span class="sxs-lookup"><span data-stu-id="4f600-134">There are a few approaches to resolving the error:</span></span>
+<span data-ttu-id="681f8-134">Řešení chyby několika způsoby:</span><span class="sxs-lookup"><span data-stu-id="681f8-134">There are a few approaches to resolving the error:</span></span>
 
-1. <span data-ttu-id="4f600-135">Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi založené na nové schéma třídy modelu.</span><span class="sxs-lookup"><span data-stu-id="4f600-135">Have the Entity Framework automatically drop and re-create the database based on the new model class schema.</span></span> <span data-ttu-id="4f600-136">Tento přístup je velmi vhodné v rané fázi vývojového cyklu při provádění testu databáze; s aktivním vývojem umožňuje rychlý rozvoj schématu modelu a databáze společně.</span><span class="sxs-lookup"><span data-stu-id="4f600-136">This approach is very convenient early in the development cycle when you are doing active development on a test database; it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="4f600-137">Nevýhodou, je však dojít ke ztrátě existujících dat v databázi, takže nechcete tuto metodu použijte u provozní databáze.</span><span class="sxs-lookup"><span data-stu-id="4f600-137">The downside, though, is that you lose existing data in the database — so you don't want to use this approach on a production database!</span></span> <span data-ttu-id="4f600-138">Použití inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace.</span><span class="sxs-lookup"><span data-stu-id="4f600-138">Using an initializer to automatically seed a database with test data is often a productive way to develop an application.</span></span> <span data-ttu-id="4f600-139">To je dobrý nápad pro raného vývoje a při použití SQLite.</span><span class="sxs-lookup"><span data-stu-id="4f600-139">This is a good approach for early development and when using SQLite.</span></span>
+1. <span data-ttu-id="681f8-135">Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi založené na nové schéma třídy modelu.</span><span class="sxs-lookup"><span data-stu-id="681f8-135">Have the Entity Framework automatically drop and re-create the database based on the new model class schema.</span></span> <span data-ttu-id="681f8-136">Tento přístup je velmi vhodné v rané fázi vývojového cyklu, pokud provádíte databázi testu; s aktivním vývojem umožňuje rychlý rozvoj schématu modelu a databáze společně.</span><span class="sxs-lookup"><span data-stu-id="681f8-136">This approach is very convenient early in the development cycle when you're doing active development on a test database; it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="681f8-137">Nevýhodou, je však dojít ke ztrátě existujících dat v databázi, takže nechcete tuto metodu použijte u provozní databáze.</span><span class="sxs-lookup"><span data-stu-id="681f8-137">The downside, though, is that you lose existing data in the database — so you don't want to use this approach on a production database!</span></span> <span data-ttu-id="681f8-138">Použití inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace.</span><span class="sxs-lookup"><span data-stu-id="681f8-138">Using an initializer to automatically seed a database with test data is often a productive way to develop an application.</span></span> <span data-ttu-id="681f8-139">To je dobrý nápad pro raného vývoje a při použití SQLite.</span><span class="sxs-lookup"><span data-stu-id="681f8-139">This is a good approach for early development and when using SQLite.</span></span>
 
-2. <span data-ttu-id="4f600-140">Explicitně upravte schéma stávající databázi tak, aby odpovídalo tříd modelu.</span><span class="sxs-lookup"><span data-stu-id="4f600-140">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="4f600-141">Výhodou tohoto přístupu je, že zachováte vaše data.</span><span class="sxs-lookup"><span data-stu-id="4f600-141">The advantage of this approach is that you keep your data.</span></span> <span data-ttu-id="4f600-142">Můžete tuto změnu provést buď ručně, nebo tak, že vytvoříte databázi změnit skript.</span><span class="sxs-lookup"><span data-stu-id="4f600-142">You can make this change either manually or by creating a database change script.</span></span>
+2. <span data-ttu-id="681f8-140">Explicitně upravte schéma stávající databázi tak, aby odpovídalo tříd modelu.</span><span class="sxs-lookup"><span data-stu-id="681f8-140">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="681f8-141">Výhodou tohoto přístupu je, že zachováte vaše data.</span><span class="sxs-lookup"><span data-stu-id="681f8-141">The advantage of this approach is that you keep your data.</span></span> <span data-ttu-id="681f8-142">Můžete tuto změnu provést buď ručně, nebo tak, že vytvoříte databázi změnit skript.</span><span class="sxs-lookup"><span data-stu-id="681f8-142">You can make this change either manually or by creating a database change script.</span></span>
 
-3. <span data-ttu-id="4f600-143">Pomocí migrace Code First aktualizovat schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="4f600-143">Use Code First Migrations to update the database schema.</span></span>
+3. <span data-ttu-id="681f8-143">Pomocí migrace Code First aktualizovat schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="681f8-143">Use Code First Migrations to update the database schema.</span></span>
 
-<span data-ttu-id="4f600-144">V tomto kurzu se používá migrace Code First.</span><span class="sxs-lookup"><span data-stu-id="4f600-144">For this tutorial, Code First Migrations is used.</span></span>
+<span data-ttu-id="681f8-144">V tomto kurzu se používá migrace Code First.</span><span class="sxs-lookup"><span data-stu-id="681f8-144">For this tutorial, Code First Migrations is used.</span></span>
 
 <!-- VS -------------------------->
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="4f600-145">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="4f600-145">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="681f8-145">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="681f8-145">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="4f600-146">Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet > Konzola správce balíčků**.</span><span class="sxs-lookup"><span data-stu-id="4f600-146">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
+<span data-ttu-id="681f8-146">Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet > Konzola správce balíčků**.</span><span class="sxs-lookup"><span data-stu-id="681f8-146">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
 
   ![PMC nabídky](adding-model/_static/pmc.png)
 
-<span data-ttu-id="4f600-148">V konzole PMC zadejte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="4f600-148">In the PMC, enter the following commands:</span></span>
+<span data-ttu-id="681f8-148">V konzole PMC zadejte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="681f8-148">In the PMC, enter the following commands:</span></span>
 
 ```powershell
 Add-Migration Rating
 Update-Database
 ```
 
-<span data-ttu-id="4f600-149">`Add-Migration` Příkaz říká rozhraní framework migrace ke kontrole aktuální `Movie` modelů s aktuálním `Movie` schématu databáze a vytvářet kód potřebné k migraci databáze na nový model.</span><span class="sxs-lookup"><span data-stu-id="4f600-149">The `Add-Migration` command tells the migration framework to examine the current `Movie` model with the current `Movie` DB schema and create the necessary code to migrate the DB to the new model.</span></span>
+<span data-ttu-id="681f8-149">`Add-Migration` Příkaz říká rozhraní framework migrace ke kontrole aktuální `Movie` modelů s aktuálním `Movie` schématu databáze a vytvářet kód potřebné k migraci databáze na nový model.</span><span class="sxs-lookup"><span data-stu-id="681f8-149">The `Add-Migration` command tells the migration framework to examine the current `Movie` model with the current `Movie` DB schema and create the necessary code to migrate the DB to the new model.</span></span>
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="4f600-150">Visual Studio Code nebo Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="4f600-150">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="681f8-150">Visual Studio Code nebo Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="681f8-150">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-<span data-ttu-id="4f600-151">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="4f600-151">Run the following command:</span></span>
+<span data-ttu-id="681f8-151">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="681f8-151">Run the following command:</span></span>
 
 ```cli
 dotnet ef migrations add Rating
@@ -112,13 +112,13 @@ dotnet ef database update
 ---  
 <!-- End of VS tabs -->
 
-<span data-ttu-id="4f600-152">Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="4f600-152">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="4f600-153">Je vhodné použít smysluplný název souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="4f600-153">It's helpful to use a meaningful name for the migration file.</span></span>
+<span data-ttu-id="681f8-152">Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="681f8-152">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="681f8-153">Je vhodné použít smysluplný název souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="681f8-153">It's helpful to use a meaningful name for the migration file.</span></span>
 
-<span data-ttu-id="4f600-154">Pokud se odstraní všechny záznamy z databáze, Metoda initialize bude počáteční hodnoty databáze a uveďte `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="4f600-154">If all the records in the DB are deleted, the initialize method will seed the DB and include the `Rating` field.</span></span>
+<span data-ttu-id="681f8-154">Pokud se odstraní všechny záznamy z databáze, Metoda initialize bude počáteční hodnoty databáze a uveďte `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="681f8-154">If all the records in the DB are deleted, the initialize method will seed the DB and include the `Rating` field.</span></span>
 
-<span data-ttu-id="4f600-155">Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="4f600-155">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="4f600-156">Měli byste přidat `Rating` pole `Edit`, `Details`, a `Delete` zobrazení šablon.</span><span class="sxs-lookup"><span data-stu-id="4f600-156">You should add the `Rating` field to the `Edit`, `Details`, and `Delete` view templates.</span></span>
+<span data-ttu-id="681f8-155">Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="681f8-155">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="681f8-156">Měli byste přidat `Rating` pole `Edit`, `Details`, a `Delete` zobrazení šablon.</span><span class="sxs-lookup"><span data-stu-id="681f8-156">You should add the `Rating` field to the `Edit`, `Details`, and `Delete` view templates.</span></span>
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="4f600-157">[Předchozí](search.md)
-> [další](validation.md)</span><span class="sxs-lookup"><span data-stu-id="4f600-157">[Previous](search.md)
+> <span data-ttu-id="681f8-157">[Předchozí](search.md)
+> [další](validation.md)</span><span class="sxs-lookup"><span data-stu-id="681f8-157">[Previous](search.md)
 [Next](validation.md)</span></span>  
