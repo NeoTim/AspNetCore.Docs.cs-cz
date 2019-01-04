@@ -4,16 +4,16 @@ title: Použití asynchronních metod v ASP.NET 4.5 | Dokumentace Microsoftu
 author: Rick-Anderson
 description: V tomto kurzu se seznámíte se základy vytváření asynchronní aplikace webových formulářů ASP.NET pomocí Visual Studio Express 2012 pro Web, který je bezplatná...
 ms.author: riande
-ms.date: 06/06/2012
+ms.date: 01/02/2019
 ms.assetid: a585c9a2-7c8e-478b-9706-90f3739c50d1
 msc.legacyurl: /web-forms/overview/performance-and-caching/using-asynchronous-methods-in-aspnet-45
 msc.type: authoredcontent
-ms.openlocfilehash: 9a3c9fab4932c3bc85733a912cf1d1eaaecc1ab7
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.openlocfilehash: c36749f82051ee8965035eca9c2e4e57a5dbd616
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225483"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997341"
 ---
 <a name="using-asynchronous-methods-in-aspnet-45"></a>Použití asynchronních metod v ASP.NET 4.5
 ====================
@@ -68,7 +68,7 @@ Obecně platí použijte asynchronní metody byly splněny následující podmí
 - Operace jsou vázané na síť nebo vstupně-výstupní místo vázané na procesor.
 - Paralelismu je důležitější než zjednodušení kódu.
 - Chcete poskytovat mechanismus, který umožňuje uživatelům zrušit dlouho probíhající požadavek.
-- Když výhodu, že přepínání vlákna si oceňuje náklady na přepnutí kontextu. Obecně platí měli byste zajistit metodu asynchronní Pokud se synchronní metoda blokuje vlákno požadavku ASP.NET v průběhu zpracování operace žádná práce. Tím, že volání asynchronní, není blokován vlákna požadavku ASP.NET dělat nic a bude čekat na dokončení žádosti webové služby.
+- Když výhodu, že přepínání vlákna větší váhu než náklady na přepnutí kontextu. Obecně platí měli byste zajistit metodu asynchronní Pokud se synchronní metoda blokuje vlákno požadavku ASP.NET v průběhu zpracování operace žádná práce. Tím, že volání asynchronní, není blokován vlákna požadavku ASP.NET dělat nic a bude čekat na dokončení žádosti webové služby.
 - Testování ukazuje, že jsou blokující operace problémové místo výkonu webu a, že služba IIS můžete další žádosti o služby s použitím těchto blokujících volání asynchronní metody.
 
   Ukázky ke stažení ukazuje, jak efektivně používat asynchronní metody. Poskytnutou ukázkou, je navržená k poskytování jednoduchého ukázka asynchronního programování v technologii ASP.NET 4.5. Ukázka nemá představovat referenční architekturu pro asynchronní programování v technologii ASP.NET. Ukázkový program volání [rozhraní ASP.NET Web API](../../../web-api/index.md) metody, které pak volat [Task.Delay](https://msdn.microsoft.com/library/hh139096(VS.110).aspx) pro simulaci volání dlouhotrvající webové služby. Většinu provozních aplikací nezobrazí takové zřejmé výhody použití asynchronních metod.   
@@ -79,9 +79,9 @@ Několik aplikace vyžadují všechny metody, chcete-li být asynchronní. Přev
 
 Můžete stáhnout ukázkovou aplikaci z [ https://github.com/RickAndMSFT/Async-ASP.NET ](https://github.com/RickAndMSFT/Async-ASP.NET) na [Githubu](https://github.com/) lokality. Úložiště se skládá ze tří projektů:
 
-- *WebAppAsync*: The webových formulářů ASP.NET projekt, který využívá webové rozhraní API **WebAPIpwg** služby. Většinu kódu pro tento kurz je z tohoto projektu.
-- *WebAPIpgw*: projekt Web API ASP.NET MVC 4, který implementuje `Products, Gizmos and Widgets` řadiče. Poskytuje data pro *WebAppAsync* projektu a *Mvc4Async* projektu.
-- *Mvc4Async*: projekt ASP.NET MVC 4, který obsahuje kód použitý v další kurz. Provede volání webového rozhraní API **WebAPIpwg** služby.
+- *WebAppAsync*: Projekt webových formulářů ASP.NET, která využívá rozhraní Web API **WebAPIpwg** služby. Většinu kódu pro tento kurz je z tohoto projektu.
+- *WebAPIpgw*: Projekt ASP.NET MVC 4 webového rozhraní API, který implementuje `Products, Gizmos and Widgets` řadiče. Poskytuje data pro *WebAppAsync* projektu a *Mvc4Async* projektu.
+- *Mvc4Async*: Projekt ASP.NET MVC 4, který obsahuje kód použitý v další kurz. Provede volání webového rozhraní API **WebAPIpwg** služby.
 
 ## <a id="GizmosSynch"></a>  Na stránce synchronní Gizma
 

@@ -3,14 +3,14 @@ title: Metody kontroleru a zobrazení v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak pracovat s metodami kontroleru, zobrazení a DataAnnotations v ASP.NET Core.
 ms.author: riande
-ms.date: 12/25/2018
+ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: 5984194194f14153aaa1e80df028bbaaf182e02b
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: e6bdaec6dfe681582a54bd39ce1c76bebe6f5fb2
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53382040"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997250"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>Metody kontroleru a zobrazení v ASP.NET Core
 
@@ -52,7 +52,7 @@ Odvolat formát [směrování](xref:mvc/controllers/routing) nastavit *Startup.c
 
 ASP.NET Core se přeloží `https://localhost:5001/Movies/Edit/4` do požadavku na `Edit` metody akce `Movies` řadiče s parametrem `Id` 4. (Metody kontroleru jsou také známé jako metody akce.)
 
-[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) jsou jedním z nejoblíbenějších nové funkce v ASP.NET Core. Zobrazit [další prostředky](#additional-resources) Další informace.
+[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) jsou jedním z nejoblíbenějších nové funkce v ASP.NET Core. Další informace najdete v tématu [další prostředky](#additional-resources).
 
 Otevřít `Movies` kontroleru a prozkoumejte dva `Edit` metody akce. Následující kód ukazuje `HTTP GET Edit` metodu, která načte videa a naplní vygenerovaný formulář pro úpravy *Edit.cshtml* souboru Razor.
 
@@ -76,7 +76,7 @@ Následující kód ukazuje `HTTP POST Edit` metodu, která zpracovává hodnoty
 
 ::: moniker-end
 
-`[Bind]` Atribut je jedním ze způsobů pro ochranu před [over-pass-the účtování](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost). Vlastnosti v by měly obsahovat pouze `[Bind]` atribut, který chcete změnit. Zobrazit [chránit před útoky over-pass-the účtování kontrolér](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application) Další informace. [Modely ViewModels](http://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/) poskytnout alternativní způsob zabráníte typu over-pass-the účtování.
+`[Bind]` Atribut je jedním ze způsobů pro ochranu před [over-pass-the účtování](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost). Vlastnosti v by měly obsahovat pouze `[Bind]` atribut, který chcete změnit. Další informace najdete v tématu [kontrolér chránit před útoky over-pass-the účtování](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application). [Modely ViewModels](http://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/) poskytnout alternativní způsob zabráníte typu over-pass-the účtování.
 
 Všimněte si, že druhá `Edit` předchází metody akce `[HttpPost]` atribut.
 
@@ -136,9 +136,9 @@ Následující seznam ukazuje `[HttpPost]` verzi `Edit` metody akce.
 
 `[ValidateAntiForgeryToken]` Ověří skrytý atribut [XSRF](xref:security/anti-request-forgery) generovaných generátor tokenů proti padělání v tokenu [pomocné rutiny značky formuláře](xref:mvc/views/working-with-forms)
 
-[Vazby modelu](xref:mvc/models/model-binding) systému vezme hodnoty odeslaného formuláře a vytvoří `Movie` objektu, který je předán jako `movie` parametru. `ModelState.IsValid` Metoda ověří, že odeslaná data do formuláře je možné upravit (úpravy nebo aktualizace) `Movie` objektu. Pokud jsou data platná je uložen. Data o filmech aktualizované (upravené) je uložen do databáze pomocí volání `SaveChangesAsync` metoda kontext databáze. Po uložení dat, kód přesměruje uživatele `Index` metody akce `MoviesController` třídu, která zobrazuje kolekce filmů, včetně pouze změny.
+[Vazby modelu](xref:mvc/models/model-binding) systému vezme hodnoty odeslaného formuláře a vytvoří `Movie` objektu, který je předán jako `movie` parametru. `ModelState.IsValid` Metoda ověří, že odeslaná data do formuláře je možné upravit (úpravy nebo aktualizace) `Movie` objektu. Pokud jsou data platná, je uložen. Data o filmech aktualizované (upravené) je uložen do databáze pomocí volání `SaveChangesAsync` metoda kontext databáze. Po uložení dat, kód přesměruje uživatele `Index` metody akce `MoviesController` třídu, která zobrazuje kolekce filmů, včetně pouze změny.
 
-Před formuláře je odeslána na server, ověřování na straně klienta kontroluje všechny ověřovací pravidla pro pole. Pokud nejsou žádné chyby ověření, zobrazí se chybová zpráva a není publikování formuláře. Pokud jazyk JavaScript je zakázán, nebude mít ověřování na straně klienta, ale server rozpozná odeslaných hodnot, které nejsou platné a hodnot formuláře se zobrazí znovu, s chybovými zprávami. Později v tomto kurzu se Zaměřujeme [ověření modelu](xref:mvc/models/validation) podrobněji. [Pomocné rutiny značky ověření](xref:mvc/views/working-with-forms) v *Views/Movies/Edit.cshtml* zobrazení šablony se postará o zobrazení odpovídající chybové zprávy.
+Před formuláře je odeslána na server, na straně klienta ověřovací kontroly všech ověřovacích pravidel na pole. Pokud nejsou žádné chyby ověření, zobrazí se chybová zpráva a není publikování formuláře. Pokud jazyk JavaScript je zakázán, nebude mít ověřování na straně klienta, ale server rozpozná odeslaných hodnot, které nejsou platné a hodnot formuláře se zobrazí znovu, s chybovými zprávami. Později v tomto kurzu se Zaměřujeme [ověření modelu](xref:mvc/models/validation) podrobněji. [Pomocné rutiny značky ověření](xref:mvc/views/working-with-forms) v *Views/Movies/Edit.cshtml* zobrazení šablony se postará o zobrazení odpovídající chybové zprávy.
 
 ![Upravte zobrazení: Výjimka pro nesprávnou hodnotu cena abc uvádí, že pole cena musí být číslo. Výjimka pro nesprávnou hodnotu Datum vydání stavů xyz prosím zadejte platné datum.](~/tutorials/first-mvc-app/controller-methods-views/_static/val.png)
 

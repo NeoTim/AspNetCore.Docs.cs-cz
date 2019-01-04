@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/30/2018
 uid: tutorials/signalr
-ms.openlocfilehash: 904031c58b06f12d41902802f8ab3927b29ae94b
-ms.sourcegitcommit: a16352c1c88a71770ab3922200a8cd148fb278a6
+ms.openlocfilehash: 36296513726f7e098a536afc22fcbfb2cafe946d
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53335339"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997276"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s knihovnou SignalR technologie ASP.NET Core
 
@@ -163,7 +163,7 @@ A *centra* je třída, která slouží jako základní kanál, který zpracováv
 
   `ChatHub` Třída dědí z funkce SignalR `Hub` třídy. `Hub` Třída spravuje připojení, skupiny a zasílání zpráv.
 
-  `SendMessage` Metoda může být volán všech připojených klientů. Přijaté zprávy odešle všem klientům. Kód SignalR je asynchronní zajistit maximální škálovatelnosti.
+  `SendMessage` Metodu je možné vyvolat v připojených klientovi umožní odeslat zprávu pro všechny klienty. Klientský kód jazyka JavaScript, který volá metodu se zobrazí v pozdější části kurzu. Kód SignalR je asynchronní zajistit maximální škálovatelnosti.
 
 ## <a name="configure-signalr"></a>Konfigurace funkce SignalR
 

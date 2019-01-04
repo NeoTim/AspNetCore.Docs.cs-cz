@@ -3,14 +3,14 @@ title: Zkontrolujte podrobnosti a odstranit metody aplikace ASP.NET Core
 author: rick-anderson
 description: Další informace o metodě kontroleru podrobnosti a zobrazit v základní aplikaci ASP.NET Core MVC.
 ms.author: riande
-ms.date: 12/25/2018
+ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: 51609518b97d848aad90eeab0ed40abab2d53d51
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: c02a85b7c92a0cfa6125c5033b6cadd965f1662e
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381962"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997185"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>Zkontrolujte podrobnosti a odstranit metody aplikace ASP.NET Core
 
@@ -20,7 +20,7 @@ Otevřete řadič video a zkontrolovat `Details` metody:
 
 [!code-csharp[](start-mvc/sample/MvcMovie22/Controllers/MoviesController.cs?name=snippet_details)]
 
-Modul generování uživatelského rozhraní MVC, který vytvořili této metodě akce přidá komentář zobrazující požadavek HTTP, který vyvolá metodu. V tomto případě je požadavek GET s tři segmenty adres URL, `Movies` kontroleru, `Details` metoda a `id` hodnotu. Odvolání tyto segmenty jsou definovány v *Startup.cs*.
+Modul generování uživatelského rozhraní MVC, který vytvořili této metodě akce přidá komentář zobrazující požadavek HTTP, který vyvolá metodu. V tomto případě je požadavek GET s tři segmenty adres URL, `Movies` kontroleru, `Details` metody a `id` hodnotu. Odvolání tyto segmenty jsou definovány v *Startup.cs*.
 
 [!code-csharp[](start-mvc/sample/MvcMovie/Startup.cs?highlight=5&name=snippet_1)]
 

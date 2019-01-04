@@ -4,14 +4,14 @@ author: rick-anderson
 description: Další informace o použití migrace Entity Framework Code First pro přidání nového pole do modelu a migrovat tuto změnu do databáze.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/25/2018
+ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 3c29b01cc97dbfd93c21131c3d96ed309715da1a
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: c6e7fe13a55a14533949d212bfb149ccd91103e5
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53382014"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997237"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>Přidání nového pole do aplikace ASP.NET Core MVC
 
@@ -47,7 +47,7 @@ Upravit */Views/Movies/Index.cshtml* a přidejte `Rating` pole:
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGenreRating.cshtml?highlight=17,39&range=24-64)]
 
-Aktualizace */Views/Movies/Create.cshtml* s `Rating` pole. 
+Aktualizace */Views/Movies/Create.cshtml* s `Rating` pole.
 
 <!-- VS -------------------------->
 # <a name="visual-studio--visual-studio-for-mactabvisual-studiovisual-studio-mac"></a>[Visual Studio nebo Visual Studio pro Mac](#tab/visual-studio+visual-studio-mac)
@@ -74,7 +74,7 @@ K této chybě dochází, protože se liší od schématu tabulky Movie existuj�
 
 Řešení chyby několika způsoby:
 
-1. Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi založené na nové schéma třídy modelu. Tento přístup je velmi vhodné v rané fázi vývojového cyklu při provádění testu databáze; s aktivním vývojem umožňuje rychlý rozvoj schématu modelu a databáze společně. Nevýhodou, je však dojít ke ztrátě existujících dat v databázi, takže nechcete tuto metodu použijte u provozní databáze. Použití inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace. To je dobrý nápad pro raného vývoje a při použití SQLite.
+1. Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi založené na nové schéma třídy modelu. Tento přístup je velmi vhodné v rané fázi vývojového cyklu, pokud provádíte databázi testu; s aktivním vývojem umožňuje rychlý rozvoj schématu modelu a databáze společně. Nevýhodou, je však dojít ke ztrátě existujících dat v databázi, takže nechcete tuto metodu použijte u provozní databáze. Použití inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace. To je dobrý nápad pro raného vývoje a při použití SQLite.
 
 2. Explicitně upravte schéma stávající databázi tak, aby odpovídalo tříd modelu. Výhodou tohoto přístupu je, že zachováte vaše data. Můžete tuto změnu provést buď ručně, nebo tak, že vytvoříte databázi změnit skript.
 

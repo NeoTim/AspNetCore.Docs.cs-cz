@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/14/2018
 uid: fundamentals/app-state
-ms.openlocfilehash: ccaaa6fafd611c3cf35a9171d5bfd6100535eeb9
-ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
+ms.openlocfilehash: 2d9fe4fc7c69f23a903b4ada44e328ef140963db
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/29/2018
-ms.locfileid: "52618126"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997302"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>Stav relace a aplikace v ASP.NET Core
 
@@ -64,6 +64,7 @@ Stav relace je třeba následujícího chování:
 * Aplikace si zachová relace po omezenou dobu od poslední žádosti. Aplikace nastaví časový limit relace nebo výchozí hodnotu 20 minut. Stav relace je ideální pro ukládání uživatelských dat, která je specifická pro konkrétní relace, ale pokud dat nevyžaduje, aby trvalého úložiště napříč relacemi.
 * Odstranit data relace buď pokud [ISession.Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) volána implementace nebo vypršení platnosti relace.
 * Neexistuje žádný výchozí mechanismus k informování kód aplikace, že bylo ukončeno prohlížeče klienta nebo když souboru cookie relace se odstraní nebo vypršení platnosti na straně klienta.
+Šablony ASP.NET Core MVC a Razor stránky zahrnují podporu pro [obecného Regulation (GDPR) podporu](xref:security/gdpr). [Soubory cookie pro stav relace nejsou nezbytné](xref:security/gdpr#tempdata-provider-and-session-state-cookies-are-not-essential), stav relace není funkční, při sledování je vypnuté.
 
 > [!WARNING]
 > Citlivá data neukládejte do stavu relace. Uživatel nemusí zavřete prohlížeč a zrušte souboru cookie relace. Některé prohlížeče udržovat platné soubory cookie v prohlížeči windows. Relace nemusí být omezeny na jednoho uživatele&mdash;dalšího uživatele může nadále procházet aplikace pomocí stejného souboru cookie relace.
@@ -368,7 +369,7 @@ Další kód může přistupovat k hodnotu uloženou v `HttpContext.Items` pomoc
 
 Tento přístup také nabízí výhodu v podobě odstranění použití klíčů řetězců v kódu.
 
-## <a name="cache"></a>mezipaměť
+## <a name="cache"></a>Mezipaměť
 
 Ukládání do mezipaměti je účinný způsob, jak ukládat a načítat data. Aplikace může kontrolovat životnost položek v mezipaměti.
 

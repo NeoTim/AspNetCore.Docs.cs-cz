@@ -4,14 +4,14 @@ description: Zjistěte, jak nastavit službu Apache jako reverzní proxy server 
 author: spboyer
 ms.author: spboyer
 ms.custom: mvc
-ms.date: 12/01/2018
+ms.date: 12/20/2018
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 46cdb764b872e86f0fd7d19133aae14891bdd452
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 8c590743328885336498ca2446c618b13a7d2ce2
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862457"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997224"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Hostitele ASP.NET Core v Linuxu pomocí Apache
 
@@ -160,7 +160,7 @@ Vytvoření konfiguračního souboru s názvem *helloapp.conf*, pro aplikace:
 </VirtualHost>
 ```
 
-`VirtualHost` Bloku se mohou objevit více než jednou, v jedné nebo více souborů na serveru. V předchozím konfigurační soubor Apache přijímá veřejné provozu na portu 80. Doména `www.example.com` se obsluhuje a `*.example.com` alias se překládá na stejné webové stránce. Zobrazit [podporu založené na název virtuálního hostitele](https://httpd.apache.org/docs/current/vhosts/name-based.html) Další informace. Požadavky jsou směrovány přes proxy server v kořenovém adresáři na portu 5000 serveru na 127.0.0.1. Pro obousměrnou komunikaci `ProxyPass` a `ProxyPassReverse` jsou povinné. Chcete-li změnit Kestrel jeho IP adresa/port, [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
+`VirtualHost` Bloku se mohou objevit více než jednou, v jedné nebo více souborů na serveru. V předchozím konfigurační soubor Apache přijímá veřejné provozu na portu 80. Doména `www.example.com` se obsluhuje a `*.example.com` alias se překládá na stejné webové stránce. Zobrazit [podporu založené na název virtuálního hostitele](https://httpd.apache.org/docs/current/vhosts/name-based.html) Další informace. Požadavky jsou směrovány přes proxy server v kořenovém adresáři na portu 5000 serveru na 127.0.0.1. Pro obousměrnou komunikaci `ProxyPass` a `ProxyPassReverse` jsou povinné. Chcete-li změnit Kestrel jeho IP adresa/port, [Kestrel: Konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
 > Nepodařilo se určit správnou [ServerName směrnice](https://httpd.apache.org/docs/current/mod/core.html#servername) v **VirtualHost** bloku zpřístupňuje aplikaci tak, aby slabá místa zabezpečení. Vazby zástupný znak subdoménu (například `*.example.com`) nemá představovat toto bezpečnostní riziko, pokud řídíte celý nadřazené domény (nikoli `*.com`, což je ohrožené). Zobrazit [rfc7230 části-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) Další informace.
@@ -259,7 +259,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a>Zobrazit protokoly
+### <a name="view-logs"></a>Zobrazení protokolů
 
 Od webové aplikace pomocí Kestrel se spravuje pomocí *systemd*, události a procesy jsou protokolovány centralizované deníku. Ale tento deník obsahuje záznamy pro všechny služby a spravuje procesy *systemd*. Chcete-li zobrazit `kestrel-helloapp.service`-konkrétní položky, použijte následující příkaz:
 
@@ -471,6 +471,7 @@ Pomocí *mod_ratelimit*, které je součástí *httpd* modulu, šířky pásma k
 ```bash
 sudo nano /etc/httpd/conf.d/ratelimit.conf
 ```
+
 Příklad souboru omezuje šířku pásma jako 600 KB/s v části kořenový adresář:
 
 ```
@@ -481,6 +482,13 @@ Příklad souboru omezuje šířku pásma jako 600 KB/s v části kořenový adr
     </Location>
 </IfModule>
 ```
+
+### <a name="long-request-header-fields"></a>Pole hlavičky dlouhou žádost
+
+Pokud aplikace vyžaduje pole hlavičky požadavku delší než povolená ve výchozím nastavení proxy serveru, nastavení (obvykle 8,190 bajtů), upravte hodnotu [LimitRequestFieldSize](https://httpd.apache.org/docs/2.4/mod/core.html#LimitRequestFieldSize) směrnice. Použít hodnotu závisí na scénáři. Další informace najdete v dokumentaci k serveru.
+
+> [!WARNING]
+> Není výchozí hodnotu zvýšit `LimitRequestFieldSize` není-li nezbytné. Zvýšení hodnoty zvyšují riziko přetečení vyrovnávací paměti (přetečení) a uživateli se zlými úmysly útoků s cílem odepření služby (DoS).
 
 ## <a name="additional-resources"></a>Další zdroje
 

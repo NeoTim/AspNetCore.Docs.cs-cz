@@ -4,14 +4,14 @@ author: rick-anderson
 description: Další informace o nastavení serveru Nginx jako reverzní proxy server na Ubuntu 16.04 směrovat provoz protokolu HTTP k webové aplikaci ASP.NET Core spuštěnou v prostředí Kestrel.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 12/20/2018
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: d4bffab80ba20d4cf77a358249c7b349033de5bd
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 534c62c127e685af9c6076932943def25bd3ac06
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450785"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997328"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostitele ASP.NET Core v Linuxu se serverem Nginx
 
@@ -126,7 +126,7 @@ Další informace naleznete v tématu <xref:host-and-deploy/proxy-load-balancer
 
 ### <a name="install-nginx"></a>Instalaci serveru Nginx
 
-Použití `apt-get` nainstaluje server Nginx. Instalační program vytvoří *systemd* init skript, který spouští server Nginx jako démon na spuštění systému. Postupujte podle pokynů pro Ubuntu na [Nginx: balíčky oficiální Debian nebo Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages).
+Použití `apt-get` nainstaluje server Nginx. Instalační program vytvoří *systemd* init skript, který spouští server Nginx jako démon na spuštění systému. Postupujte podle pokynů pro Ubuntu na [Nginx: Oficiální Debian nebo Ubuntu balíčky](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages).
 
 > [!NOTE]
 > Pokud volitelný moduly Nginx, může být potřeba vytváření Nginx ze zdroje.
@@ -170,7 +170,7 @@ server {
 }
 ```
 
-S předchozím konfigurační soubor a výchozí server, server Nginx přijímá veřejné provozu na portu 80 se hlavička hostitele `example.com` nebo `*.example.com`. Požadavky nejsou odpovídající tito hostitelé se získat předány Kestrel. Nginx předává požadavky odpovídající Kestrel na `http://localhost:5000`. Zobrazit [jak nginx zpracovává žádost](https://nginx.org/docs/http/request_processing.html) Další informace. Chcete-li změnit Kestrel jeho IP adresa/port, [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
+S předchozím konfigurační soubor a výchozí server, server Nginx přijímá veřejné provozu na portu 80 se hlavička hostitele `example.com` nebo `*.example.com`. Požadavky nejsou odpovídající tito hostitelé se získat předány Kestrel. Nginx předává požadavky odpovídající Kestrel na `http://localhost:5000`. Zobrazit [jak nginx zpracovává žádost](https://nginx.org/docs/http/request_processing.html) Další informace. Chcete-li změnit Kestrel jeho IP adresa/port, [Kestrel: Konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
 > Nepodařilo se určit správnou [název_serveru směrnice](https://nginx.org/docs/http/server_names.html) zpřístupňuje aplikaci tak, aby slabá místa zabezpečení. Vazby zástupný znak subdoménu (například `*.example.com`) nemá představovat toto bezpečnostní riziko, pokud řídíte celý nadřazené domény (nikoli `*.com`, což je ohrožené). Zobrazit [rfc7230 části-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) Další informace.
@@ -268,7 +268,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a>Zobrazit protokoly
+### <a name="view-logs"></a>Zobrazení protokolů
 
 Od webové aplikace pomocí Kestrel se spravuje pomocí `systemd`, centralizované deníku se protokolují všechny události a procesy. Ale tento deník obsahuje všechny položky pro všechny služby a spravuje procesy `systemd`. Chcete-li zobrazit `kestrel-helloapp.service`-konkrétní položky, použijte následující příkaz:
 
@@ -296,6 +296,18 @@ Konfigurace ochrany dat zachovat a aktualizační kanál, který klíč šifrov�
 
 * <xref:security/data-protection/implementation/key-storage-providers>
 * <xref:security/data-protection/implementation/key-encryption-at-rest>
+
+## <a name="long-request-header-fields"></a>Pole hlavičky dlouhou žádost
+
+Pokud aplikace vyžaduje požadavek déle, než je povolený proxy server pole hlavičky výchozí nastavení (obvykle 4 kB nebo 8 kb podle platformy), následující direktivy vyžadovat úpravy. Hodnoty pro použití jsou závislé na scénáři. Další informace najdete v dokumentaci k serveru.
+
+* [proxy_buffer_size](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffer_size)
+* [proxy_buffers](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffers)
+* [proxy_busy_buffers_size](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_busy_buffers_size)
+* [large_client_header_buffers](https://nginx.org/docs/http/ngx_http_core_module.html#large_client_header_buffers)
+
+> [!WARNING]
+> Výchozí hodnoty proxy vyrovnávací paměti není zvýšit, není-li nezbytné. Zvýšení tyto hodnoty zvyšují riziko přetečení vyrovnávací paměti (přetečení) a uživateli se zlými úmysly útoků s cílem odepření služby (DoS).
 
 ## <a name="secure-the-app"></a>Zabezpečení aplikace
 
@@ -386,7 +398,7 @@ Přidejte řádek `add_header X-Content-Type-Options "nosniff";` a uložte soubo
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Požadavky pro .NET Core v Linuxu](/dotnet/core/linux-prerequisites)
-* [Serveru Nginx: Binární verze: balíčky oficiální Debian nebo Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)
+* [Server Nginx: Binární verze: Oficiální balíčky Debian nebo Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/proxy-load-balancer>
-* [NGINX: Předané záhlaví pomocí](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)
+* [SERVER NGINX: Pomocí hlavičky předané](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)

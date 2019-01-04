@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak je zodpovědná za mapování požadavku identifikátory URI pro koncový bod selektory a dispatching příchozí požadavky do koncových bodů směrování ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/15/2018
+ms.date: 12/29/2018
 uid: fundamentals/routing
-ms.openlocfilehash: 66d719bb14095dcec4c2cfa15b63cf74ad7a0d49
-ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
+ms.openlocfilehash: c57b309e4474f9aff5c0594a3d9d1c796990d31e
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53329156"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997354"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -292,6 +292,8 @@ Existuje několik rozdílů mezi koncovým bodem směrování v ASP.NET Core 2.2
 V následujícím příkladu se využívá middleware `LinkGenerator` uložení rozhraní API pro vytvoření odkazu na metodu akce, která obsahuje seznam produktů. Pomocí generátoru odkaz vložením do třídy a volání `GenerateLink` je k dispozici pro jakoukoli třídu v aplikaci.
 
 ```csharp
+using Microsoft.AspNetCore.Routing;
+
 public class ProductsLinkMiddleware
 {
     private readonly LinkGenerator _linkGenerator;
@@ -303,8 +305,7 @@ public class ProductsLinkMiddleware
 
     public async Task InvokeAsync(HttpContext httpContext)
     {
-        var url = _linkGenerator.GenerateLink(new { controller = "Store",
-                                                    action = "ListProducts" });
+        var url = _linkGenerator.GetPathByAction("ListProducts", "Store");
 
         httpContext.Response.ContentType = "text/plain";
 

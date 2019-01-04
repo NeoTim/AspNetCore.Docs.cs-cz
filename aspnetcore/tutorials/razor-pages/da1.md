@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak aktualizovat generované stránky v aplikaci ASP.NET Core.
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
-ms.date: 12/3/2018
+ms.date: 12/20/2018
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: b88dcd12ee670eb2e0919bdb07b9b7556a5b80e7
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 396cb9b9eeaab2d3db6108feeba71dbc2bc8981d
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862405"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997198"
 ---
 # <a name="update-the-generated-pages-in-an-aspnet-core-app"></a>Aktualizovat generované stránky v aplikaci ASP.NET Core
 
@@ -69,22 +69,22 @@ Požadavek na stránku se šablona trasy "{id: int}", která provádí **není**
 @page "{id:int?}"
 ```
 
-K otestování chování nebo `@page "{id:int?}"`:
+K otestování chování `@page "{id:int?}"`:
 
-* Nastavit direktivě stránky *Pages/Movies/Details.cshtml* do `@page "{id:int?}"`
+* Nastavit direktivě stránky *Pages/Movies/Details.cshtml* k `@page "{id:int?}"`.
 * Nastavte zarážky `public async Task<IActionResult> OnGetAsync(int? id)` (v *Pages/Movies/Details.cshtml.cs*).
-* Přejděte na  `https://localhost:5001/Movies/Details/`
+* Přejděte na adresu `https://localhost:5001/Movies/Details/`.
 
 S `@page "{id:int}"` direktiv, bodu přerušení je nikdy dosaženo. Modul směrování vrátit chybu HTTP 404. Pomocí `@page "{id:int?}"`, `OnGetAsync` vrátí metoda `NotFound` (HTTP 404).
 
-Však není doporučena, můžete napsat metodu delete jako:
+Však není doporučena, můžete napsat `OnGetAsync` – metoda (v *Pages/Movies/Delete.cshtml.cs*) jako:
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Delete.cshtml.cs?name=snippet)]
 
 Předchozí kód testu:
 
-* Vyberte odkaz pro odstranění.
-* Odeberte ID z adresy URL. Například změnit `https://localhost:5001/Movies/Delete/8` do `https://localhost:5001/Movies/Delete`
+* Vyberte **odstranit** odkaz.
+* Odeberte ID z adresy URL. Například změnit `https://localhost:5001/Movies/Delete/8` k `https://localhost:5001/Movies/Delete`.
 * Krokovat kód v ladicím programu.
 
 ### <a name="review-concurrency-exception-handling"></a>Kontrola zpracování výjimky souběžnosti
@@ -125,7 +125,7 @@ Při odeslání videa a upravovat stránky:
   public Movie Movie { get; set; }
   ```
 
-* Pokud jsou ve stavu modelu chyby (například `ReleaseDate` nelze převést na datum), znovu odeslání formuláře pomocí zadané hodnoty.
+* Pokud jsou ve stavu modelu chyby (například `ReleaseDate` nelze převést na datum), pomocí zadané hodnoty se zobrazí formulář.
 * Pokud nejsou žádné chyby modelu, video se uloží.
 
 Metody GET protokolu HTTP v indexu, vytvořit a odstranit Razor pages podle podobný vzorec. HTTP POST `OnPostAsync` metody na stránce vytvořit Razor následuje podobný vzorec k `OnPostAsync` metody ve stránce Upravit Razor.
@@ -134,4 +134,4 @@ V dalším kurzu se přidá vyhledávání.
 
 > [!div class="step-by-step"]
 > [Předchozí: Práce s databází](xref:tutorials/razor-pages/sql)
-> [Další: doplnili o funkce hledání](xref:tutorials/razor-pages/search)
+> [Další: Přidat vyhledávání](xref:tutorials/razor-pages/search)

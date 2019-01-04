@@ -5,24 +5,24 @@ description: Zjistěte, jak vytvořit a použít vlastní formátovací moduly p
 ms.author: tdykstra
 ms.date: 02/08/2017
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: ee6f166ced41c41506f2a17a7d362399c165b718
-ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
+ms.openlocfilehash: 2861a15a80725dcc237d33313a24822cf8aa9c7e
+ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2018
-ms.locfileid: "51020647"
+ms.lasthandoff: 01/03/2019
+ms.locfileid: "53997289"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>Vlastní formátování v rozhraní Web API ASP.NET Core
 
 podle [Petr Dykstra](https://github.com/tdykstra)
 
-ASP.NET Core MVC obsahuje integrovanou podporu pro výměnu dat ve webovém rozhraní API s použitím formátu JSON, XML nebo prostý text. Tento článek ukazuje, jak přidat podporu pro další formáty tak, že vytvoříte vlastní formátovací moduly.
+ASP.NET Core MVC obsahuje integrovanou podporu pro výměnu dat ve webovém rozhraní API pomocí XML nebo JSON. Tento článek ukazuje, jak přidat podporu pro další formáty tak, že vytvoříte vlastní formátovací moduly.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-custom-formatters"></a>Kdy použít vlastní formátovací moduly
 
-Pokud chcete použít vlastní formátovací modul [vyjednávání obsahu](xref:web-api/advanced/formatting#content-negotiation) proces pro podporu typu obsahu, který není podporován předdefinované formátování (JSON, XML a prostý text).
+Pokud chcete použít vlastní formátovací modul [vyjednávání obsahu](xref:web-api/advanced/formatting#content-negotiation) proces pro podporu typu obsahu, který není podporován předdefinované formátování (JSON a XML).
 
 Například, pokud některé z klientů pro vaše webové rozhraní API může zpracovat [Protobuf](https://github.com/google/protobuf) formátu, můžete chtít použít Protobuf s těmito klienty, protože je mnohem efektivnější. Nebo můžete chtít vaše webové rozhraní API k odeslání jména kontaktů a adresy v [vCard](https://wikipedia.org/wiki/VCard) formát, běžně používaný formát pro výměnu kontaktní údaje. Ukázkovou aplikaci k dispozici v tomto článku implementuje jednoduchou vCard formátování.
 
@@ -103,7 +103,8 @@ Formátovací moduly jsou vyhodnocovány v pořadí, v jakém že je vkládat v 
 
 ## <a name="next-steps"></a>Další kroky
 
-Najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample), který implementuje jednoduchou vCard vstup a formátování výstupu. Aplikace čte a zapisuje vCard, která vypadají, jako v následujícím příkladu:
+* [Prostý text formátovací modul ukázkového kódu na Githubu.](https://github.com/aspnet/Entropy/tree/master/samples/Mvc.Formatters)
+* [Ukázková aplikace pro tento dokument](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample), které implementuje jednoduché vCard Vstupní a výstupní formátování. Aplikace čte a zapisuje vCard, která vypadají, jako v následujícím příkladu:
 
 ```
 BEGIN:VCARD
