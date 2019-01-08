@@ -5,12 +5,12 @@ description: Přidání zobrazení do aplikace MVC
 ms.author: riande
 ms.date: 09/1721/2017
 uid: mvc/overview/getting-started/introduction/adding-a-view
-ms.openlocfilehash: 56c00d5992a95971f48bb6e1ec30d63706948997
-ms.sourcegitcommit: 7b4e3936feacb1a8fcea7802aab3e2ea9c8af5b4
+ms.openlocfilehash: 47447c82506cc0eb4dafabe272b3204f76a2edd7
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48578230"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098659"
 ---
 <a name="adding-a-view"></a>Přidání zobrazení
 ====================
@@ -22,7 +22,7 @@ V této části se chystáte změnit `HelloWorldController` třídu použít zob
 
 Vytvoříte soubor šablony zobrazení pomocí [zobrazovací modul Razor](../../../../web-pages/overview/getting-started/introducing-razor-syntax-c.md). Šablony Razor na základě zobrazení mají *.cshtml* příponu souboru a poskytují elegantní způsob, jak vytvořit HTML výstup pomocí jazyka C#. Razor minimalizuje počet znaků a vyžaduje při psaní zobrazit šablonu stisknutí kláves a umožňuje rychlé, dynamika kódování pracovního postupu.
 
-Aktuálně `Index` metoda vrátí řetězec a zobrazí se zpráva, která je pevně zakódovaný ve třídě controller. Změnit `Index` metodu pro návrat `View` objektu, jak je znázorněno v následujícím kódu:
+Aktuálně `Index` metoda vrátí řetězec a zobrazí se zpráva, která je pevně zakódovaný ve třídě controller. Změnit `Index` metodu chce volat kontrolery [zobrazení](/dotnet/api/microsoft.aspnetcore.mvc.controller.view#Microsoft_AspNetCore_Mvc_Controller_View) způsob, jak je znázorněno v následujícím kódu:
 
 [!code-csharp[Main](adding-a-view/samples/sample1.cs?highlight=1,3)]
 
@@ -112,7 +112,7 @@ Naše nepatrné &quot;data&quot; (v tomto případě &quot;Hello z našich zobra
 
 Předtím, než jsme přejděte k databázi a mluvit o modely, ale nejprve se seznámíme předávání informací z kontroleru zobrazení. Kontroler třídy jsou vyvolány v reakci na příchozí adrese URL žádosti. Třída kontroleru je místo, kde píšete kód, který zpracovává příchozí prohlížeč požádá, načte data z databáze a nakonec rozhodne, jaký typ odpověď k odeslání zpět do prohlížeče. Zobrazit šablony pak lze z kontroleru pro generování a formátovat odpověď ve formátu HTML v prohlížeči.
 
-Kontrolery odpovídají za poskytování libovolné dat nebo objekty jsou nutné v pořadí pro šablonu zobrazení k vykreslení odezva do prohlížeče. Osvědčený postup: **zobrazit šablonu by nikdy provádění obchodní logiky nebo pracovat přímo s databází**. Zobrazit šablonu místo toho by měla fungovat jenom s data, která je poskytována kontroleru. Zachování to &quot;oddělení oblastí zájmu&quot; pomáhá udržovat váš kód čistý, možností intenzivního testování a jednodušší údržbu.
+Kontrolery odpovídají za poskytování libovolné dat nebo objekty jsou nutné v pořadí pro šablonu zobrazení k vykreslení odezva do prohlížeče. Osvědčený postup: **Zobrazit šablonu by nikdy provádění obchodní logiky nebo pracovat přímo s databází**. Zobrazit šablonu místo toho by měla fungovat jenom s data, která je poskytována kontroleru. Zachování to &quot;oddělení oblastí zájmu&quot; pomáhá udržovat váš kód čistý, možností intenzivního testování a jednodušší údržbu.
 
 V současné době `Welcome` metodu akce v `HelloWorldController` třídy přijímá `name` a `numTimes` parametr a potom výstupy hodnoty přímo do prohlížeče. Spíše než mít řadič vykreslení této odpovědi jako řetězec, Změníme kontroler místo toho použít šablonu zobrazení. Zobrazit šablonu vygeneruje dynamické odpovědi, což znamená, že je potřeba předat odpovídající částí dat z kontroleru zobrazení k vygenerování odpovědi. Můžete to provést tak, že kontroler umístit dynamických dat (parametry), která vyžaduje zobrazení šablony `ViewBag` objekt, který se pak můžou zobrazit šablonu.
 

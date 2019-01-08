@@ -8,4 +8,4 @@
 
     `dotnet ef database update`
 
-* Povolení protokolu SSL v projektu
+* Povolení HTTPS v projektu

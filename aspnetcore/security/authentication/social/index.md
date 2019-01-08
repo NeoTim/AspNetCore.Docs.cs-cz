@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/11/2018
 uid: security/authentication/social/index
-ms.openlocfilehash: 47ac1f966ff727957e6ed700c3c68efa16b1b38b
-ms.sourcegitcommit: 3e94d192b2ed9409fe72e3735e158b333354964c
+ms.openlocfilehash: 063d452fb6ab91b712ade7f7b7ed99823dbdc657
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/24/2018
-ms.locfileid: "53735723"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098815"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook, Google a externí zprostředkovatel ověřování v ASP.NET Core
 
@@ -46,11 +46,11 @@ Poznámka: Tento kurz se vztahuje na verzi ASP.NET Core 2.0 SDK, která se dají
 * Zadejte e-mail a heslo pro nový účet a potom vyberte **zaregistrovat**.
 * Postupujte podle pokynů a použití migrace.
 
-## <a name="require-ssl"></a>Požadovat protokol SSL
+## <a name="require-https"></a>Vyžadovat protokol HTTPS
 
-OAuth 2.0 vyžaduje použití protokolu SSL pro ověřování prostřednictvím protokolu HTTPS.
+OAuth 2.0 pro ověřování vyžaduje použití protokolu SSL/TLS přes protokol HTTPS.
 
-Projekty vytvořené pomocí **webovou aplikaci** nebo **webového rozhraní API** projektu šablony s ASP.NET Core 2.1 nebo novější se automaticky konfigurují pro povolení protokolu SSL. Aplikace spustí s zabezpečené výchozí koncový bod, pokud **jednotlivé uživatelské účty** je vybraná možnost v **dialogové okno Změnit ověřování** projektu průvodce.
+Projekty vytvořené pomocí **webovou aplikaci** nebo **webového rozhraní API** projektu šablony s ASP.NET Core 2.1 nebo novější se automaticky konfigurují pro povolení HTTPS. Aplikace spustí s zabezpečené výchozí koncový bod, pokud **jednotlivé uživatelské účty** je vybraná možnost v **dialogové okno Změnit ověřování** projektu průvodce.
 
 Další informace naleznete v tématu <xref:security/enforcing-ssl>.
 

@@ -4,14 +4,14 @@ author: mjrousos
 description: Tipy pro zvýšení výkonu aplikací ASP.NET Core a předcházení běžné problémy s výkonem.
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
-ms.date: 11/29/2018
+ms.date: 1/9/2019
 uid: performance/performance-best-practices
-ms.openlocfilehash: 9f3ed97bf4d4eb371ff5ae3874234b44745cc4ca
-ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
+ms.openlocfilehash: 25aa4c1e22ead7db4775c6e5e81b6fd627c6d7a6
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/29/2018
-ms.locfileid: "52618113"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099062"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core Performance Best Practices
 
@@ -19,8 +19,7 @@ Podle [Mike Rousos](https://github.com/mjrousos)
 
 Toto téma poskytuje pokyny pro výkon osvědčených postupů pomocí ASP.NET Core.
 
-<a name="hot"></a>
-<!-- TODO review hot code paths is jargon that won't MT (machine translate) and is not well defined for native speakers. --> V tomto dokumentu horké kódové cestě je definován jako cestu kódu, který se často nazývá a kde většinu doby provádění dojde. Cesty k výměně kódu obvykle omezit horizontální navýšení kapacity aplikace a výkonu.
+<a name="hot"></a> V tomto dokumentu horké kódové cestě je definován jako cestu kódu, který se často nazývá a kde většinu doby provádění dojde. Cesty k výměně kódu obvykle omezit horizontální navýšení kapacity aplikace a výkonu.
 
 ## <a name="cache-aggressively"></a>Agresivní do mezipaměti
 
@@ -129,6 +128,10 @@ Doporučení:
 
 * **Proveďte** používat ASP.NET Core [integrovanou podporu](xref:client-side/bundling-and-minification) pro sdružování a minifikace prostředků klienta.
 * **Proveďte** vezměte v úvahu další nástroje třetích stran, jako je [Gulp](uid:client-side/bundling-and-minification#consume-bundleconfigjson-from-gulp) nebo [Webpacku](https://webpack.js.org/) pro správu prostředků složitější klienta.
+
+## <a name="compress-responses"></a>Kompresi odpovědí
+
+ Na odezvu aplikace, je obvykle nezmenšit velikost této odpovědi často výrazně zvyšuje. Jedním ze způsobů ke zmenšení velikosti datové části je kompresi odpovědí vaší aplikace. Další informace najdete v tématu [kompresi odpovědí](xref:performance/response-compression).
 
 ## <a name="use-the-latest-aspnet-core-release"></a>Použijte nejnovější vydání ASP.NET Core
 

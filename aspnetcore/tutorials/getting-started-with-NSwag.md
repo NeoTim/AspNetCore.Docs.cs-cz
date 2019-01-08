@@ -4,18 +4,18 @@ author: zuckerthoben
 description: Další informace o použití službou NSwag generovat dokumentaci a stránky pro webovému rozhraní API ASP.NET Core nápovědy.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 12/30/2018
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 8af5bed1e042c4f6d83043b05084c51b3064a548
-ms.sourcegitcommit: ea215df889e89db44037a6ac2f01baede0450da9
+ms.openlocfilehash: c03e7513edc3240f3f13f0c190e1ca9480e476af
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53595357"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098725"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme se službou NSwag a ASP.NET Core
 
-Podle [Christoph Nienaber](https://twitter.com/zuckerthoben) a [Rico Suter](https://rsuter.com)
+Podle [Christoph Nienaber](https://twitter.com/zuckerthoben), [Rico Suter](https://rsuter.com), a [společnosti Dave Brock](https://twitter.com/daveabrock)
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -29,27 +29,23 @@ Podle [Christoph Nienaber](https://twitter.com/zuckerthoben) a [Rico Suter](http
 
 ::: moniker-end
 
-Zaregistrujte middlewares službou NSwag na:
+Službou NSwag nabízí následující funkce:
 
-* Generovat specifikaci Swaggeru pro rozhraní API implementované webu.
-* Poskytování uživatelského rozhraní Swagger pro procházení a testování webové rozhraní API.
+ * Možnost využít uživatelské rozhraní Swagger a Swagger generátoru.
+ * Možnosti generování flexibilní kódu.
 
-Použít [službou NSwag](https://github.com/RSuter/NSwag) middlewares ASP.NET Core, nainstalujte [NSwag.AspNetCore](https://www.nuget.org/packages/NSwag.AspNetCore/) balíček NuGet. Tento balíček obsahuje middlewares generovat a slouží specifikace Swaggeru, uživatelské rozhraní Swagger (v2 a v3), a [uživatelského rozhraní ReDoc](https://github.com/Rebilly/ReDoc).
+Se službou NSwag, není nutné existujícího rozhraní API&mdash;můžete použít rozhraní API třetích stran, která začlenit Swagger a generovat implementace klienta. Službou NSwag umožňuje urychlení cyklu vývoje a snadno reagovat na změny rozhraní API.
 
-Kromě toho má důrazně doporučujeme používat vaší službou NSwag možnosti generování kódu. Vyberte jednu z následujících možností využít možnosti generování kódu:
+## <a name="register-the-nswag-middleware"></a>Zaregistrujte middleware službou NSwag
 
-* Použití [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio), desktopové aplikace Windows pro generování klientského kódu v C# a TypeScript pro vaše rozhraní API.
-* Použití [NSwag.CodeGeneration.CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) nebo [NSwag.CodeGeneration.TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) balíčky NuGet, se generování uvnitř projektu kódu.
-* Použití službou NSwag z [příkazového řádku](https://github.com/NSwag/NSwag/wiki/CommandLine).
-* Použití [NSwag.MSBuild](https://github.com/NSwag/NSwag/wiki/MSBuild) balíček NuGet.
+Zaregistrujte službou NSwag middlewaru, který má být:
 
-## <a name="features"></a>Funkce
+ * Generovat specifikaci Swaggeru pro rozhraní API implementované webu.
+ * Poskytování uživatelského rozhraní Swagger pro procházení a testování webové rozhraní API.
 
-Hlavním důvodem pro použití službou NSwag je schopnost pouze uživatelské rozhraní Swagger a generátoru Swagger, ale také vytvářecí využívají možnosti generování flexibilní kódu. Není nutné existujícího rozhraní API&mdash;můžete použít rozhraní API třetích stran, která začlenit Swagger a nechat službou NSwag generovat implementace klienta. V obou případech urychlené vývojový cyklus a snadno přizpůsobit změn rozhraní API.
+Použít [službou NSwag](https://github.com/RSuter/NSwag) middleware ASP.NET Core, nainstalujte [NSwag.AspNetCore](https://www.nuget.org/packages/NSwag.AspNetCore/) balíček NuGet. Tento balíček obsahuje middleware pro generování a obsluhovat specifikace Swaggeru, uživatelské rozhraní Swagger (v2 a v3), a [uživatelského rozhraní ReDoc](https://github.com/Rebilly/ReDoc).
 
-## <a name="package-installation"></a>Instalace balíčku
-
-Balíček NuGet službou NSwag lze přidat pomocí následujících postupů:
+Použijte jednu z následujících dvou přístupů k instalaci balíčku NuGet službou NSwag:
 
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -95,59 +91,75 @@ dotnet add TodoApi.csproj package NSwag.AspNetCore
 
 ## <a name="add-and-configure-swagger-middleware"></a>Přidejte a nakonfigurujte Swagger middleware
 
-Importujte následující obory názvů v `Startup` třídy:
+ Přidat a nakonfigurovat Swagger ve vaší aplikaci ASP.NET Core pomocí provádí následující kroky v `Startup` třídy:
+
+* Importujte následující obory názvů:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_StartupConfigureImports)]
 
-V `Startup.ConfigureServices` metoda, registraci k požadovaným službám Swaggeru: 
+* V `ConfigureServices` metoda, registraci k požadovaným službám Swaggeru:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_ConfigureServices&highlight=8)]
 
-V `Startup.Configure` metoda, povolí middleware pro poskytování generované specifikace Swagger a uživatelské rozhraní Swagger v3:
+ * V `Configure` metoda, povolí middleware pro poskytování generované specifikace Swagger a uživatelské rozhraní Swagger:
 
-[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-10)]
+[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-7)]
 
-Spusťte aplikaci. Přejděte na `http://localhost:<port>/swagger` Chcete-li zobrazit uživatelské rozhraní Swagger. Přejděte do `http://localhost:<port>/swagger/v1/swagger.json` zobrazíte specifikace Swagger.
+ * Spusťte aplikaci. Přejděte do:
+   * `http://localhost:<port>/swagger` Chcete-li zobrazit uživatelské rozhraní Swagger.
+   * `http://localhost:<port>/swagger/v1/swagger.json` Chcete-li zobrazit specifikace Swagger.
 
 ## <a name="code-generation"></a>Generování kódu
 
-### <a name="via-nswagstudio"></a>Via NSwagStudio
+Můžete využít možnosti generování kódu vaší službou NSwag výběrem jedné z následujících možností:
 
-* Nainstalujte NSwagStudio z oficiální [úložiště GitHub](https://github.com/RSuter/NSwag/wiki/NSwagStudio).
-* Spusťte NSwagStudio. Zadejte *swagger.json* adresy URL v souboru **adresa URL specifikace Swaggeru** textového pole a klikněte na tlačítko **vytvořit místní kopii** tlačítko.
-* Vyberte **CSharp klienta** typ výstupu klienta. Další možnosti zahrnují **TypeScript klienta** a **Kontroleru webového rozhraní API CSharp**. Použití Kontroleru webového rozhraní API je v podstatě obrácenou generace. Specifikace služby používá k opětovnému sestavení služby.
-* Klikněte na tlačítko **generovat výstupy** tlačítko. Na dokončení C# klienta implementace *TodoApi.NSwag* projekt je vytvořen. Klikněte na tlačítko **CSharp klienta** karty **výstupy** část kódu generovaného klienta:
+ * [NSwagStudio](https://github.com/NSwag/NSwag/wiki/NSwagStudio) &ndash; desktopové aplikace Windows pro generování kódu klienta pro rozhraní API v C# nebo TypeScript.
+ * [NSwag.CodeGeneration.CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) nebo [NSwag.CodeGeneration.TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) balíčky NuGet pro generování kódu v projektu.
+* Službou NSwag z [příkazového řádku](https://github.com/NSwag/NSwag/wiki/CommandLine).
+ * [NSwag.MSBuild](https://github.com/NSwag/NSwag/wiki/MSBuild) balíček NuGet.
+
+
+### <a name="generate-code-with-nswagstudio"></a>Generování kódu s NSwagStudio
+
+* Nainstalujte NSwagStudio podle pokynů uvedených v [úložiště NSwagStudio GitHub](https://github.com/RSuter/NSwag/wiki/NSwagStudio).
+ * Spusťte NSwagStudio a zadejte *swagger.json* adresy URL v souboru **adresa URL specifikace Swaggeru** textového pole. Například *http://localhost:44354/swagger/v1/swagger.json*.
+* Klikněte na tlačítko **vytvořit místní kopii** pro vygenerování JSON s reprezentací specifikace Swagger.
+
+  ![Vytvořit místní kopii specifikace Swagger](web-api-help-pages-using-swagger/_static/CreateLocalCopy-NSwagStudio.PNG)
+
+ * V **výstupy** oblast, klikněte na tlačítko **CSharp klienta** zaškrtávací políčko. V závislosti na váš projekt, můžete také zvolit **TypeScript klienta** nebo **Kontroleru webového rozhraní API CSharp**. Pokud vyberete **Kontroleru webového rozhraní API CSharp**, specifikace služby znovu sestaví služby slouží jako reverzní generace.
+* Klikněte na tlačítko **generovat výstupy** vytvoří kompletní C# implementace klienta *TodoApi.NSwag* projektu. Chcete-li zobrazit kód klienta vygenerovaný, klikněte na tlačítko **CSharp klienta** kartu:
 
 ```csharp
 //----------------------
 // <auto-generated>
-//     Generated using the NSwag toolchain v11.17.3.0 (NJsonSchema v9.10.46.0 (Newtonsoft.Json v9.0.0.0)) (http://NSwag.org)
+//     Generated using the NSwag toolchain v12.0.9.0 (NJsonSchema v9.13.10.0 (Newtonsoft.Json v11.0.0.0)) (http://NSwag.org)
 // </auto-generated>
 //----------------------
 
 namespace MyNamespace
 {
-    #pragma warning disable // Disable all warnings
+    #pragma warning disable
 
-    [System.CodeDom.Compiler.GeneratedCode("NSwag",
-        "11.17.3.0 (NJsonSchema v9.10.46.0 (Newtonsoft.Json v9.0.0.0))")]
-    public partial class TodoClient
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "12.0.9.0 (NJsonSchema v9.13.10.0 (Newtonsoft.Json v11.0.0.0))")]
+    public partial class TodoClient 
     {
-        private string _baseUrl = "http://localhost:50499";
+        private string _baseUrl = "https://localhost:44354";
+        private System.Net.Http.HttpClient _httpClient;
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
-
-        public TodoClient()
+    
+        public TodoClient(System.Net.Http.HttpClient httpClient)
         {
-            _settings = new System.Lazy
-                <Newtonsoft.Json.JsonSerializerSettings>(() =>
+            _httpClient = httpClient; 
+            _settings = new System.Lazy<Newtonsoft.Json.JsonSerializerSettings>(() => 
             {
                 var settings = new Newtonsoft.Json.JsonSerializerSettings();
                 UpdateJsonSerializerSettings(settings);
                 return settings;
             });
         }
-
-        public string BaseUrl
+    
+        public string BaseUrl 
         {
             get { return _baseUrl; }
             set { _baseUrl = value; }
@@ -157,46 +169,33 @@ namespace MyNamespace
 ```
 
 > [!TIP]
-> Generování kódu klienta jazyka C# na základě definované v nastavení **nastavení** kartě **CSharp klienta** kartu. Změňte nastavení a provádět úlohy, například přejmenování výchozí obor názvů a generování synchronní metody.
+ > C# Generování kódu klienta na základě výběru v **nastavení** kartu. Změňte nastavení a provádět úlohy, například přejmenování výchozí obor názvů a generování synchronní metody.
 
-* Zkopírujte vygenerovaný kód jazyka C# do souboru v projektu klienta (například [Xamarin.Forms](/xamarin/xamarin-forms/) aplikace).
+ * Zkopírujte vygenerovaný C# kód do souboru v projektu klienta, který bude využívat rozhraní API.
 * Spusťte využívající webové rozhraní API:
 
 ```csharp
-var todoClient = new TodoClient();
+ var todoClient = new TodoClient();
 
 // Gets all to-dos from the API
-var allTodos = await todoClient.GetAllAsync();
+ var allTodos = await todoClient.GetAllAsync();
 
-// Create a new TodoItem, and save it in the API
+ // Create a new TodoItem, and save it via the API.
 var createdTodo = await todoClient.CreateAsync(new TodoItem());
 
 // Get a single to-do by ID
 var foundTodo = await todoClient.GetByIdAsync(1);
 ```
 
-> [!NOTE]
-> Základní adresu URL a/nebo klienta HTTP můžete vložit do rozhraní API klienta. Osvědčeným postupem je vždy [opakovaně používat HttpClient](https://aspnetmonsters.com/2016/08/2016-08-27-httpclientwrong/).
-
-### <a name="other-ways-to-generate-client-code"></a>Další možnosti, jak generovat kód klienta
-
-Můžete vygenerovat kód klienta jinými způsoby, další vhodné do svého pracovního postupu:
-
-* [MSBuild](https://www.nuget.org/packages/NSwag.MSBuild/)
-
-* [V kódu](https://github.com/NSwag/NSwag/wiki/SwaggerToCSharpClientGenerator)
-
-* [Šablony T4](https://github.com/NSwag/NSwag/wiki/T4)
-
-## <a name="customize"></a>Přizpůsobit
+## <a name="customize-api-documentation"></a>Přizpůsobení dokumentace k rozhraní API
 
 Swagger poskytuje možnosti pro dokumentace objektového modelu pro usnadnění spotřeby webového rozhraní API.
 
 ### <a name="api-info-and-description"></a>Informace o rozhraní API a popis
 
-V `Startup.Configure` metody akce konfigurace předán `UseSwagger` přidá informace, jako je vytváření, licence a popis metody:
+V `Startup.ConfigureServices` metody akce konfigurace předán `AddSwaggerDocument` přidá informace, jako je vytváření, licence a popis metody:
 
-[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup2.cs?name=snippet_UseSwagger)]
+[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup2.cs?name=snippet_AddSwaggerDocument)]
 
 Uživatelské rozhraní Swagger zobrazí informace na verzi:
 
@@ -204,7 +203,7 @@ Uživatelské rozhraní Swagger zobrazí informace na verzi:
 
 ### <a name="xml-comments"></a>XML – komentáře
 
-Komentáře XML jsou povolené pomocí následujících postupů:
+ Povolit komentáře XML, proveďte následující kroky:
 
 # <a name="visual-studiotabvisual-studio-xml"></a>[Visual Studio](#tab/visual-studio-xml/)
 
@@ -264,11 +263,13 @@ Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 
 ::: moniker range="<= aspnetcore-2.0"
 
-Používá se službou NSwag [reflexe](/dotnet/csharp/programming-guide/concepts/reflection), a doporučené návratový typ pro akce webové rozhraní API je [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult). V důsledku toho službou NSwag nelze odvodit, co dělá akce a návratovou hodnotu. Vezměte v úvahu v následujícím příkladu:
+ Vzhledem k tomu používá službou NSwag [reflexe](/dotnet/csharp/programming-guide/concepts/reflection), a doporučené návratový typ pro akce webové rozhraní API je [IActionResult](xref:Microsoft.AspNetCore.Mvc.IActionResult), nelze odvodit, co dělá akce a návratovou hodnotu.
+
+Vezměte v úvahu v následujícím příkladu:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
-Vrátí předchozí akce `IActionResult`, ale uvnitř akce vrací buď [CreatedAtRoute](/dotnet/api/system.web.http.apicontroller.createdatroute) nebo [chybného požadavku](/dotnet/api/system.web.http.apicontroller.badrequest). Datové poznámky se používají zjistit klientům, kterých se ví, že tato akce vrátit stavové kódy HTTP. Uspořádání akce s následujícími atributy:
+ Vrátí předchozí akce `IActionResult`, ale uvnitř akce vrací buď [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*) nebo [chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*). Použití anotací dat zjistit klientům, kterých se ví, že tato akce vrátit stavové kódy HTTP. Uspořádání akce s následujícími atributy:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
@@ -276,16 +277,20 @@ Vrátí předchozí akce `IActionResult`, ale uvnitř akce vrací buď [CreatedA
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Používá se službou NSwag [reflexe](/dotnet/csharp/programming-guide/concepts/reflection), a doporučené návratový typ pro akce webové rozhraní API je [ActionResult\<T >](/dotnet/api/microsoft.aspnetcore.mvc.actionresult-1). V důsledku toho může službou NSwag pouze odvodit návratový typ určené `T`. Nejde odvodit další možné návratové typy v akci. Vezměte v úvahu v následujícím příkladu:
+ Vzhledem k tomu používá službou NSwag [reflexe](/dotnet/csharp/programming-guide/concepts/reflection), a doporučené návratový typ pro akce webové rozhraní API je [ActionResult\<T >](xref:Microsoft.AspNetCore.Mvc.ActionResult`1), ji pouze odvodit návratový typ určené `T`. Nelze automaticky odvodit další možné návratové typy. 
+
+Vezměte v úvahu v následujícím příkladu:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
-Vrátí předchozí akce `ActionResult<T>`. V akci, vrací [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*). Protože kontroler je doplněn [[objektu ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) atribut, [chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*) odpovědi je také možné,. Další informace najdete v tématu [odpovědi HTTP 400 automatické](xref:web-api/index#automatic-http-400-responses). Datové poznámky se používají zjistit klientům, kterých se ví, že tato akce vrátit stavové kódy HTTP. Uspořádání akce s následujícími atributy:
+Vrátí předchozí akce `ActionResult<T>`. V akci, vrací [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*). Protože kontroler je doplněn [[objektu ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) atribut, [chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*) odpovědi je také možné,. Další informace najdete v tématu [odpovědi HTTP 400 automatické](xref:web-api/index#automatic-http-400-responses). Použití anotací dat zjistit klientům, kterých se ví, že tato akce vrátit stavové kódy HTTP. Uspořádání akce s následujícími atributy:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
-V ASP.NET Core 2.2 nebo vyšší, vytváření názvů může sloužit jako alternativu k upravení explicitně jednotlivé akce s `[ProducesResponseType]`. Další informace naleznete v tématu <xref:web-api/advanced/conventions>.
+V ASP.NET Core 2.2 nebo vyšší, můžete místo explicitně upravení jednotlivé akce s použít konvence `[ProducesResponseType]`. Další informace naleznete v tématu <xref:web-api/advanced/conventions>.
 
 ::: moniker-end
 
-Generátoru Swagger můžete nyní přesně popište tuto akci a vygenerovaný klienti věděli, co se zobrazí při volání koncového bodu. Upravení všechny akce s těmito atributy důrazně doporučujeme. Pokyny pro jaké odpovědi protokolu HTTP, by měla vrátit akce rozhraní API najdete v článku [specifikaci RFC 7231](https://tools.ietf.org/html/rfc7231#section-4.3).
+ Generátoru Swagger můžete nyní přesně popište tuto akci a vygenerovaný klienti věděli, co se zobrazí při volání koncového bodu. Jako doporučení uspořádání všechny akce s těmito atributy. 
+
+Pokyny pro jaké odpovědi protokolu HTTP, by měla vrátit akce rozhraní API najdete v článku [specifikaci RFC 7231](https://tools.ietf.org/html/rfc7231#section-4.3).

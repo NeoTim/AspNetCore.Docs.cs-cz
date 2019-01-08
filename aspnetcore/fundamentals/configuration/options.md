@@ -4,14 +4,14 @@ author: guardrex
 description: Objevte, jak použít model možnosti k reprezentování skupiny související nastavení v aplikacích ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/28/2018
+ms.date: 12/29/2018
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 0e3784de18be16e3217a015dd94f1b43b6621c1c
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: 20365a078327d76693a40fa79a4a594e29e0901c
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577887"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099244"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>Vzor možnosti v ASP.NET Core
 
@@ -217,7 +217,7 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 Možnosti podpory s názvem <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1> je znázorněn příklad &num;6 v ukázkové aplikaci.
 
-*S názvem možnosti* podpora umožňuje, aby aplikace k rozlišení mezi pojmenované možnosti konfigurace. V ukázkové aplikaci s názvem možnosti jsou deklarovány pomocí <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*>. `Configure` volá metodu rozšíření <xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*> metody:
+*S názvem možnosti* podpora umožňuje, aby aplikace k rozlišení mezi pojmenované možnosti konfigurace. V ukázkové aplikaci s názvem možnosti jsou deklarovány pomocí [OptionsServiceCollectionExtensions.Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions\<TOptions >. Konfigurace](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) – metoda rozšíření:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 

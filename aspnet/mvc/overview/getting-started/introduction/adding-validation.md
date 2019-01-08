@@ -4,18 +4,18 @@ title: Přidání ověřování | Dokumentace Microsoftu
 author: Rick-Anderson
 description: ''
 ms.author: riande
-ms.date: 10/17/2013
+ms.date: 01/06/2019
 ms.assetid: 9f35ca15-e216-4db6-9ebf-24380b0f31b4
 msc.legacyurl: /mvc/overview/getting-started/introduction/adding-validation
 msc.type: authoredcontent
-ms.openlocfilehash: 22e59a99a179a7a414447036b973e3ad3b462515
-ms.sourcegitcommit: 7b4e3936feacb1a8fcea7802aab3e2ea9c8af5b4
+ms.openlocfilehash: 6831259ce19c3747c179d6fc1b7e2095051a603b
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48577948"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099023"
 ---
-<a name="adding-validation"></a>Přidání ověřování
+<a name="adding-validation"></a>Přidání ověření
 ====================
 Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
@@ -97,7 +97,7 @@ Může vás zajímat, jak byl vygenerován ověření uživatelského rozhraní 
 
 [!code-csharp[Main](adding-validation/samples/sample5.cs)]
 
-První (HTTP GET) `Create` zobrazí úvodní formulář vytvořit metody akce. Druhý (`[HttpPost]`) verze zpracovává odeslaného formuláře. Druhá `Create` – metoda ( `HttpPost` verze) volání `ModelState.IsValid` ke kontrole, jestli má tento film všechny chyby ověření. Voláním této metody vyhodnotí všechny atributy ověření, které se použily k objektu. Pokud objekt má chyby ověření, `Create` metoda znovu zobrazí formulář. Pokud nejsou žádné chyby, metoda tento nový film uloží v databázi. V našem příkladu film **formuláři není odeslána na server, pokud nejsou zjištěny na straně klienta; chyby ověřování druhého** `Create` **nikdy volána metoda**. Pokud zakážete jazyka JavaScript v prohlížeči, je zakázáno ověřování na straně klienta a HTTP POST `Create` volání metody `ModelState.IsValid` ke kontrole, jestli má tento film všechny chyby ověření.
+První (HTTP GET) `Create` zobrazí úvodní formulář vytvořit metody akce. Druhý (`[HttpPost]`) verze zpracovává odeslaného formuláře. Druhá `Create` – metoda ( `HttpPost` verze) kontroluje `ModelState.IsValid` zjistíte, zda má video všechny chyby ověření. Získání této vlastnosti vyhodnotí všechny atributy ověření, které se použily k objektu. Pokud objekt má chyby ověření, `Create` metoda znovu zobrazí formulář. Pokud nejsou žádné chyby, metoda tento nový film uloží v databázi. V našem příkladu film **formuláři není odeslána na server, pokud nejsou zjištěny na straně klienta; chyby ověřování druhého** `Create` **nikdy volána metoda**. Pokud zakážete jazyka JavaScript v prohlížeči, ověřování na straně klienta je zakázána a HTTP POST `Create` metoda získá `ModelState.IsValid` ke kontrole, jestli má tento film všechny chyby ověření.
 
 Lze nastavit bod přerušení v `HttpPost Create` metoda a ověřit se nikdy nevolá metodu, ověřování na straně klienta nebude odeslat data formuláře, když se zjistí chyby ověření. Pokud zakážete jazyka JavaScript v prohlížeči a pak odesláním formuláře s chybami, se setkají bodu přerušení. Vy i přesto úplného ověření bez jazyka JavaScript. Následující obrázek ukazuje, jak zakázat jazyka JavaScript v aplikaci Internet Explorer.
 
@@ -159,7 +159,7 @@ Pokud používáte `DataType` atribut pomocí pole pro datum, budete muset zadat
 
 Následující kód ukazuje kombinace atributů na jednom řádku:
 
-[!code-csharp[Main](adding-validation/samples/sample10.cs?highlight=6,10)]
+[!code-csharp[Main](adding-validation/samples/sample10.cs?highlight=4,6,10,12)]
 
 V další části série, přidáme zkontrolujte, zda aplikace a vylepšování některé automaticky generované `Details` a `Delete` metody.
 

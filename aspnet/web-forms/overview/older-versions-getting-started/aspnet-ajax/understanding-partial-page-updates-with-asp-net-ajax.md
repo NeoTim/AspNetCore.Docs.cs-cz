@@ -8,12 +8,12 @@ ms.date: 03/28/2008
 ms.assetid: 54d9df99-1161-4899-b4e8-2679c85915e7
 msc.legacyurl: /web-forms/overview/older-versions-getting-started/aspnet-ajax/understanding-partial-page-updates-with-asp-net-ajax
 msc.type: authoredcontent
-ms.openlocfilehash: 2e0b1e1d4cbb282e7fd4b27e0a93ba1b9702edea
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 4883046aa16d5e67b7f0c92e15c897ef1a933b67
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41754322"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098932"
 ---
 <a name="understanding-partial-page-updates-with-aspnet-ajax"></a>Principy částečných aktualizací stránek technologií ASP.NET AJAX
 ====================
@@ -46,7 +46,7 @@ Možná nejviditelnější funkce rozšíření ASP.NET AJAX je schopnost prové
 
 Schopnost integrovat vykreslování části stránky je integrována do technologie ASP.NET s minimálními změnami do vašeho projektu.
 
-## <a name="walkthrough-integrating-partial-rendering-into-an-existing-project"></a>Postupy: Integrace částečného zobrazení do existujícího projektu
+## <a name="walkthrough-integrating-partial-rendering-into-an-existing-project"></a>Průvodce: Integrace částečného zobrazení do existujícího projektu
 
 
 1. V systému Microsoft Visual Studio 2008, vytvořte nový projekt webu ASP.NET tak, že přejdete do <em>souboru</em>  <em>- &gt; nový</em>  <em>- &gt; webu</em> a vyberete webovou stránku ASP.NET z tohoto dialogového okna. Název můžete libovolně a můžete ji nainstalovat do systému souborů nebo do Internetové informační služby (IIS).
@@ -57,7 +57,7 @@ Schopnost integrovat vykreslování části stránky je integrována do technolo
 
 [!code-aspx[Main](understanding-partial-page-updates-with-asp-net-ajax/samples/sample1.aspx)]
 
-**Výpis 2: (Oříznut) v default.aspx.cs Codebehind**
+**Výpis 2: (Oříznut) v default.aspx.cs CodeBehind**
 
 [!code-csharp[Main](understanding-partial-page-updates-with-asp-net-ajax/samples/sample2.cs)]
 
@@ -85,13 +85,13 @@ Schopnost integrovat vykreslování části stránky je integrována do technolo
 1. Kdekoli v rámci `<form>` prvek, ovládací prvek ScriptManager zahrnout dvojitým kliknutím na `ScriptManager` položky na panelu nástrojů.
 2. Upravit `<asp:ScriptManager>` označit tak, že obsahují atribut `EnablePartialRendering= true`.
 
-**Zobrazení 3: Značky default.aspx s povoleným vykreslováním na částečné**
+**Výpis 3: Kód pro default.aspx s povoleným vykreslováním na částečné**
 
 [!code-aspx[Main](understanding-partial-page-updates-with-asp-net-ajax/samples/sample3.aspx)]
 
 1. Otevřete soubor web.config. Všimněte si, že Visual Studio automaticky přidá odkaz na System.Web.Extensions.dll kompilace.
 
-1. Co je nového v sadě Visual Studio 2008: soubor web.config, který je součástí šablony projektu ASP.NET webové stránky automaticky obsahuje všechny potřebné odkazy na rozšíření ASP.NET AJAX a obsahuje komentářem oddíly, které mohou být informace o konfiguraci zrušení komentářem povolit další funkce. Visual Studio 2005 měli podobné šablony, když byly nainstalované rozšíření AJAX technologie ASP.NET 2.0. Ale v sadě Visual Studio 2008, jsou rozšíření AJAX odhlásit ve výchozím nastavení (to znamená, že se odkazuje ve výchozím nastavení, ale je možné odebrat jako odkazy).
+1. Co je nového v sadě Visual Studio 2008: Soubor web.config, která se dodává s webu technologie ASP.NET šablony projektu automaticky obsahuje všechny potřebné odkazy na rozšíření ASP.NET AJAX a obsahuje opatřený komentáři oddíly, které mohou být zrušení komentářem povolit další informace o konfiguraci funkce. Visual Studio 2005 měli podobné šablony, když byly nainstalované rozšíření AJAX technologie ASP.NET 2.0. Ale v sadě Visual Studio 2008, jsou rozšíření AJAX odhlásit ve výchozím nastavení (to znamená, že se odkazuje ve výchozím nastavení, ale je možné odebrat jako odkazy).
 
 
 [![](understanding-partial-page-updates-with-asp-net-ajax/_static/image8.png)](understanding-partial-page-updates-with-asp-net-ajax/_static/image7.png)
@@ -130,7 +130,7 @@ Vlastnosti pouze pro kód:
 | IsDebuggingEnabled | BOOL | Získá, zda skript a ladění kódu je povolena. |
 | IsInAsyncPostback | BOOL | Zjistí, zda je stránka momentálně ve asynchronního požadavku post back. |
 | ProfileService | ProfileService správce | Načte podrobnosti o proxy služby profilace ASP.NET, které se pošlou do klienta. |
-| Skripty | Kolekce&lt;odkaz na skript&gt; | Získá kolekci skriptových odkazů, které se odešlou do klienta. |
+| Scripts | Kolekce&lt;odkaz na skript&gt; | Získá kolekci skriptových odkazů, které se odešlou do klienta. |
 | Služby | Kolekce&lt;odkaz na službu&gt; | Získá kolekci odkazy na proxy webové služby, které se odešlou do klienta. |
 | SupportsPartialRendering | BOOL | Zjistí, zda aktuální klient podporuje částečného zobrazení. Pokud tato vlastnost vrátí **false**, všechny požadavky na stránce budou standardní zpětného odeslání. |
 
@@ -153,7 +153,7 @@ Descendants značky:
 
 Ovládací prvek ScriptManager se základní jádro pro rozšíření ASP.NET AJAX. Poskytuje přístup ke knihovně skriptu (včetně systém typů rozsáhlé skript na straně klienta), podporuje částečné vykreslování a poskytuje rozsáhlou podporu pro další služby technologie ASP.NET (jako je například ověřování a profilování, ale také ostatní webové služby). Ovládací prvek ScriptManager také poskytuje podporu globalizace a lokalizace pro skripty klienta.
 
-## <a name="providing-alterative-and-supplemental-scripts"></a>Poskytuje V.42 a další skripty
+## <a name="providing-alternative-and-supplemental-scripts"></a>Poskytuje alternativní a další skripty
 
 AJAX rozšíření společnosti Microsoft ASP.NET 2.0 zahrnout kód celý skript v obou ladění a verze vydání jako prostředky v odkazovaných sestaveních, vývojáři libovolně udělovat ScriptManager přesměrovat na vlastní skript soubory, jakož i registraci Další nutných skriptů.
 
@@ -169,7 +169,7 @@ Prostřednictvím události AsyncPostBackError, můžete zadat `AsyncPostBackErr
 
 Vlastní nastavení na straně klienta je také možné, namísto použití pole výstrah výchozí. Například můžete chtít zobrazit přizpůsobené `<div>` prvek spíše než výchozí prohlížeč modální dialogové okno. V takovém případě mohou zpracovávat chyby ve skriptu klienta:
 
-**Výpis 5: Skript na straně klienta pro zobrazení vlastních chyb**
+**Výpis 5: Zobrazit vlastní chyby skriptu na straně klienta**
 
 [!code-html[Main](understanding-partial-page-updates-with-asp-net-ajax/samples/sample4.html)]
 
@@ -283,7 +283,7 @@ Povolené značky vlastnosti:
 | **Název vlastnosti** | **Typ** | **Popis** |
 | --- | --- | --- |
 | AssociatedUpdate-PanelID | String | Určuje ID ovládacího prvku UpdatePanel, který by měl vykazovat tento prvek UpdateProgress. |
-| Hodnotou DisplayAfter | int | Určuje časový limit v milisekundách před zobrazením tohoto ovládacího prvku po zahájení Asynchronní požadavek. |
+| Hodnotou DisplayAfter | Int | Určuje časový limit v milisekundách před zobrazením tohoto ovládacího prvku po zahájení Asynchronní požadavek. |
 | DynamicLayout | bool | Určuje, zda průběh vykreslením dynamicky. |
 
 Descendants značky:

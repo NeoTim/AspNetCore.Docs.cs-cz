@@ -5,14 +5,14 @@ description: Další informace o souboru HTTP.sys, webový server pro ASP.NET Co
 monikerRange: '>= aspnetcore-2.0'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 01/03/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: a779fee53109d4c1cabb2005896e757f23467540
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 46538d256ae2c5f3b7e6c725fa8f29092759f69f
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637622"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098851"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace serveru HTTP.sys web v ASP.NET Core
 
@@ -21,7 +21,7 @@ Podle [Petr Dykstra](https://github.com/tdykstra), [Chris Ross](https://github.c
 [Ovladač HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webového serveru pro ASP.NET Core](xref:fundamentals/servers/index) pouze spuštěného na Windows. Ovladač HTTP.sys se o alternativu k [Kestrel](xref:fundamentals/servers/kestrel) serveru a nabízí některé funkce, aby Kestrel neposkytuje.
 
 > [!IMPORTANT]
-> Není kompatibilní s HTTP.sys [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a nelze jej použít s IIS nebo IIS Express.
+> Ovladač HTTP.sys není kompatibilní se systémem [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a nelze jej použít s IIS nebo IIS Express.
 
 Ovladač HTTP.sys podporuje následující funkce:
 
@@ -134,62 +134,133 @@ Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování pro
 
 ### <a name="configure-windows-server"></a>Konfigurace Windows serveru
 
+1. Určit, aby porty otevřete pro aplikaci a pomocí brány Windows Firewall nebo [rutin prostředí PowerShell](https://technet.microsoft.com/library/jj554906) otevřít porty brány firewall pro povolení provozu k dosažení HTTP.sys. Při nasazování do virtuálního počítače Azure, otevřít porty ve [skupinu zabezpečení sítě](/azure/virtual-network/security-overview). V následující příkazy a konfigurace aplikací se používá port 443.
+
+1. Získat a nainstalovat certifikáty X.509, pokud je to nutné.
+
+   Na Windows, vytvořte pomocí certifikátů podepsaných svým držitelem [rutinu Powershellu New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate). Nepodporovaná příklad naleznete v tématu [UpdateIISExpressSSLForChrome.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+
+   Nainstalovat certifikáty podepsané svým držitelem nebo podepsaný certifikační Autoritou na serveru **místního počítače** > **osobní** ukládat.
+
 1. Pokud je aplikace [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte .NET Core a .NET Framework (Pokud aplikace cílí na rozhraní .NET Framework aplikace .NET Core).
 
-   * **.NET core** &ndash; Pokud aplikace vyžaduje .NET Core, získání a spuštění instalačního programu .NET Core z [.NET všechny soubory ke stažení](https://www.microsoft.com/net/download/all).
-   * **Rozhraní .NET framework** &ndash; Pokud aplikace vyžaduje rozhraní .NET Framework, přečtěte si téma [rozhraní .NET Framework: Průvodce instalací](/dotnet/framework/install/) najít pokyny k instalaci. Instalace vyžaduje rozhraní .NET Framework. Instalační program pro nejnovější rozhraní .NET Framework lze nalézt v [.NET všechny soubory ke stažení](https://www.microsoft.com/net/download/all).
+   * **.NET core** &ndash; Pokud aplikace vyžaduje .NET Core, získání a spuštění **.NET Core Runtime** instalačního programu z [soubory ke stažení rozhraní .NET Core](https://dotnet.microsoft.com/download). Neinstalujte úplnou sadu SDK na serveru.
+   * **Rozhraní .NET framework** &ndash; Pokud aplikace vyžaduje rozhraní .NET Framework, přečtěte si článek [Průvodce instalací rozhraní .NET Framework](/dotnet/framework/install/). Instalace vyžaduje rozhraní .NET Framework. Instalační program pro nejnovější rozhraní .NET Framework je k dispozici z [soubory ke stažení rozhraní .NET Core](https://dotnet.microsoft.com/download) stránky.
 
-2. Konfigurace adresy URL a portů pro aplikaci.
+   Pokud je aplikace [samostatná nasazení](/dotnet/core/deploying/#framework-dependent-deployments-scd), tato aplikace obsahuje modul runtime v jeho nasazení. Na serveru není nutné instalovat rozhraní framework.
 
-   Ve výchozím nastavení, ASP.NET Core váže k `http://localhost:5000`. Pokud chcete nakonfigurovat předpony adres URL a portů, mezi možnosti patří pomocí:
+1. Konfigurace adresy URL a portů v aplikaci.
+
+   Ve výchozím nastavení, ASP.NET Core váže k `http://localhost:5000`. Pokud chcete nakonfigurovat předpony adres URL a portů, mezi možnosti patří:
 
    * [UseUrls](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useurls)
    * `urls` argument příkazového řádku
    * `ASPNETCORE_URLS` Proměnná prostředí
    * [UrlPrefixes](/dotnet/api/microsoft.aspnetcore.server.httpsys.httpsysoptions.urlprefixes)
 
-   Následující příklad kódu ukazuje, jak používat [UrlPrefixes](/dotnet/api/microsoft.aspnetcore.server.httpsys.httpsysoptions.urlprefixes):
+   Následující příklad kódu ukazuje, jak používat [UrlPrefixes](/dotnet/api/microsoft.aspnetcore.server.httpsys.httpsysoptions.urlprefixes) s místní IP adresa serveru `10.0.0.4` na portu 443:
 
-   [!code-csharp[](httpsys/sample/Program.cs?name=snippet1&highlight=11)]
+   [!code-csharp[](httpsys/sample_snapshot/Program.cs?name=snippet1&highlight=11)]
 
    Výhodou `UrlPrefixes` je okamžitě vygenerována chybová zpráva pro nesprávně formátovaná předpony.
 
-   Nastavení v `UrlPrefixes` přepsat `UseUrls` / `urls` / `ASPNETCORE_URLS` nastavení. Proto výhodou `UseUrls`, `urls`a `ASPNETCORE_URLS` proměnná prostředí je, že je snadnější přepínání mezi Kestrel a HTTP.sys. Další informace o `UseUrls`, `urls`, a `ASPNETCORE_URLS`, najdete v článku [hostitele v ASP.NET Core](xref:fundamentals/host/index) tématu.
+   Nastavení v `UrlPrefixes` přepsat `UseUrls` / `urls` / `ASPNETCORE_URLS` nastavení. Proto výhodou `UseUrls`, `urls`a `ASPNETCORE_URLS` proměnná prostředí je, že je snadnější přepínání mezi Kestrel a HTTP.sys. Další informace naleznete v tématu <xref:fundamentals/host/web-host>.
 
    Používá HTTP.sys [formáty řetězců HTTP Server API UrlPrefix](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx).
 
    > [!WARNING]
-   > Vazby nejvyšší úrovně zástupný znak (`http://*:80/` a `http://+:80`) by měl **není** použít. Vazby nejvyšší úrovně zástupný znak můžete otevřít aplikaci tak, aby slabá místa zabezpečení. To platí pro silné a slabé zástupné znaky. Používejte explicitní hostitele názvy místo zástupných znaků. Vazby zástupný znak subdoménu (například `*.mysub.com`) nemá toto bezpečnostní riziko, pokud celé nadřazené domény (nikoli `*.com`, což je ohrožené). Zobrazit [rfc7230 části-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) Další informace.
+   > Vazby nejvyšší úrovně zástupný znak (`http://*:80/` a `http://+:80`) by měl **není** použít. Nejvyšší úrovně zástupné vazby vzniknout slabá místa zabezpečení aplikace. To platí pro silné a slabé zástupné znaky. Používejte explicitní hostitele nebo IP adresy místo zástupné znaky. Vazby zástupný znak subdoménu (například `*.mysub.com`) není bezpečnostní riziko, pokud celé nadřazené domény (nikoli `*.com`, což je ohrožené). Další informace najdete v tématu [RFC 7230: Oddíl 5.4: Hostitel](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-3. Preregister předpony adres URL pro vytvoření vazby na ovladač HTTP.sys a nastavit certifikáty x.509.
+1. Preregister předpony adres URL na serveru.
 
-   Pokud předpony adres URL nejsou registrované ve Windows, můžete tuto aplikaci spusťte s oprávněními správce. Jedinou výjimkou je při vytváření vazby na místního hostitele pomocí více než 1 024 číslo portu HTTP (nikoli HTTPS). V takovém případě se vyžaduje oprávnění správce.
+   Integrované nástroje pro konfiguraci HTTP.sys se *netsh.exe*. *Netsh.exe* slouží k předpony adres URL rezervovat a přiřadit certifikáty X.509. Nástroj vyžaduje oprávnění správce.
 
-   1. Integrované nástroje pro konfiguraci HTTP.sys se *netsh.exe*. *Netsh.exe* slouží k předpony adres URL rezervovat a přiřadit certifikáty X.509. Nástroj vyžaduje oprávnění správce.
+   Použití *netsh.exe* nástroj pro registraci adresy URL pro aplikaci:
 
-      Následující příklad ukazuje příkazy pro rezervaci předpony adres URL pro porty 80 a 443:
+   ```console
+   netsh http add urlacl url=<URL> user=<USER>
+   ```
 
-      ```console
-      netsh http add urlacl url=http://+:80/ user=Users
-      netsh http add urlacl url=https://+:443/ user=Users
-      ```
+   * `<URL>` &ndash; Plně kvalifikovanou URL Uniform Resource Locator (). Nepoužívejte zástupné vazby. Použijte platný název hostitele nebo IP adresa. *Adresa URL musí obsahovat koncové lomítko.*
+   * `<USER>` &ndash; Určuje jméno uživatele nebo skupiny uživatelů.
 
-      Následující příklad ukazuje, jak přiřadit certifikát X.509:
+   V následujícím příkladu je místní IP adresa serveru `10.0.0.4`:
 
-      ```console
-      netsh http add sslcert ipport=0.0.0.0:443 certhash=MyCertHash_Here appid="{00000000-0000-0000-0000-000000000000}"
-      ```
+   ```console
+   netsh http add urlacl url=https://10.0.0.4:443/ user=Users
+   ```
 
-      Referenční dokumentace pro *netsh.exe*:
+   Při registraci adresy URL nástroj odpoví `URL reservation successfully added`.
 
-      * [Příkazy Netsh pro Hypertext Transfer Protocol (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)
-      * [UrlPrefix řetězce](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
+   Chcete-li odstranit registrovaný adresu URL, použijte `delete urlacl` příkaz:
 
-   2. Vytvoření certifikátů X.509 podepsaných svým držitelem, podle potřeby.
+   ```console
+   netsh http delete urlacl url=<URL>
+   ```
 
-      [!INCLUDE [How to make an X.509 cert](~/includes/make-x509-cert.md)]
+1. Zaregistrujte certifikáty X.509 na serveru.
 
-4. Otevřete porty brány firewall pro povolení provozu k dosažení HTTP.sys. Použití *netsh.exe* nebo [rutin prostředí PowerShell](https://technet.microsoft.com/library/jj554906).
+   Použití *netsh.exe* nástroj k registraci certifikátů pro aplikace:
+
+   ```console
+   netsh http add sslcert ipport=<IP>:<PORT> certhash=<THUMBPRINT> appid="{<GUID>}"
+   ```
+
+   * `<IP>` &ndash; Určuje místní IP adresa pro vazbu. Nepoužívejte zástupné vazby. Použijte platnou IP adresu.
+   * `<PORT>` &ndash; Určuje port pro vazby.
+   * `<THUMBPRINT>` &ndash; Kryptografický otisk certifikátu X.509.
+   * `<GUID>` &ndash; Vygeneruje pro vývojáře identifikátor GUID představující aplikace k informačním účelům.
+
+   Pro referenční účely uložení identifikátoru GUID v aplikaci jako značku balíčku:
+
+   * V sadě Visual Studio:
+     * Otevřete vlastnosti projektu aplikace kliknutím pravým tlačítkem na aplikaci v **Průzkumníka řešení** a vyberete **vlastnosti**.
+     * Vyberte **balíčku** kartu.
+     * Zadejte identifikátor GUID, které jste vytvořili **značky** pole.
+   * Pokud nepoužíváte Visual Studio:
+     * Otevření souboru projektu vaší aplikace.
+     * Přidat `<PackageTags>` vlastnost na nový nebo existující `<PropertyGroup>` identifikátor GUID, který jste vytvořili:
+
+       ```xml
+       <PropertyGroup>
+         <PackageTags>9412ee86-c21b-4eb8-bd89-f650fbf44931</PackageTags>
+       </PropertyGroup>
+       ```
+
+   V následujícím příkladu:
+
+   * Místní IP adresa serveru je `10.0.0.4`.
+   * Poskytuje online náhodný GUID generator `appid` hodnotu.
+
+   ```console
+   netsh http add sslcert 
+       ipport=10.0.0.4:443 
+       certhash=b66ee04419d4ee37464ab8785ff02449980eae10 
+       appid="{9412ee86-c21b-4eb8-bd89-f650fbf44931}"
+   ```
+
+   Při registraci certifikátu nástroj odpoví `SSL Certificate successfully added`.
+
+   Chcete-li odstranit registrace certifikátu, použijte `delete sslcert` příkaz:
+
+   ```console
+   netsh http delete sslcert ipport=<IP>:<PORT>
+   ```
+
+   Referenční dokumentace pro *netsh.exe*:
+
+   * [Příkazy Netsh pro Hypertext Transfer Protocol (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [UrlPrefix řetězce](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
+
+1. Spusťte aplikaci.
+
+   Oprávnění správce se vyžaduje ke spuštění aplikace při vytváření vazby na místního hostitele pomocí protokolu HTTP (nikoli HTTPS) s více než 1 024 číslo portu. Pro další konfiguraci (například pomocí místní IP adresa nebo vazbu na port 443) spusťte aplikaci s oprávněním správce.
+
+   Aplikace jsou reaguje na veřejnou IP adresu serveru. V tomto příkladu je server dostupný z Internetu na veřejné IP adrese `104.214.79.47`.
+
+   V tomto příkladu se používá certifikát pro vývoj. Stránka načte bezpečně po vynechání upozornění na nedůvěryhodný certifikát prohlížeče.
+
+   ![Načíst okno prohlížeče zobrazující indexová stránka aplikace](httpsys/_static/browser.png)
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 
@@ -197,6 +268,7 @@ Pro aplikace hostované souborem HTTP.sys, které pracují s žádostí z Intern
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* [Povolení ověřování Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#enable-windows-authentication-with-httpsys)
 * [Server HTTP rozhraní API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
 * [úložiště GitHub ASPNET/HttpSysServer (zdrojového kódu)](https://github.com/aspnet/HttpSysServer/)
 * <xref:fundamentals/host/index>

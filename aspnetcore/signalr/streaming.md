@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/14/2018
 uid: signalr/streaming
-ms.openlocfilehash: 6d5f707bd2a37e1999c6e87e3cfc369aa0301207
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: e0d201a7ffebbbe387a874c6d788994faa2be7a5
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708436"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098802"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>Použití datových proudů v knihovně SignalR technologie ASP.NET Core
 
@@ -27,20 +27,20 @@ Funkce SignalR technologie ASP.NET Core podporuje streamování návratové hodn
 Metodu rozbočovače na automaticky stane streamování metody rozbočovače, je po návratu `ChannelReader<T>` nebo `Task<ChannelReader<T>>`. Níže je příklad, který ukazuje základy streamovaných dat na klientovi. Vždy, když je objekt zapsána do `ChannelReader` tento objekt se okamžitě se odešlou do klienta. Na konci `ChannelReader` je dokončit, aby se dali pokyn klientovi, datový proud je uzavřen.
 
 > [!NOTE]
-> Zápis do `ChannelReader` na vlákně na pozadí a vraťte se `ChannelReader` co nejdříve. Další volání rozbočovače se zablokuje, dokud `ChannelReader` je vrácena.
+> * Zápis do `ChannelReader` na vlákně na pozadí a vraťte se `ChannelReader` co nejdříve. Další volání rozbočovače se zablokuje, dokud `ChannelReader` je vrácena.
+> * Zabalení svoji logiku v `try ... catch` a proveďte `Channel` v catch a mimo catch, aby se zajistilo centra volání metody se dokončila správně.
 
 ::: moniker range="= aspnetcore-2.1"
 
-[!code-csharp[Streaming hub method](streaming/sample/Hubs/StreamHub.aspnetcore21.cs?range=12-36)]
+[!code-csharp[Streaming hub method](streaming/sample/Hubs/StreamHub.aspnetcore21.cs?name=snippet1)]
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 
-[!code-csharp[Streaming hub method](streaming/sample/Hubs/StreamHub.cs?range=11-35)]
+[!code-csharp[Streaming hub method](streaming/sample/Hubs/StreamHub.cs?name=snippet1)]
 
-> [!NOTE]
-> V ASP.NET Core 2.2 nebo vyšší, můžete přijmout streamování metod rozbočovače `CancellationToken` parametr, který se aktivuje, když klient zruší z datového proudu. Pomocí tohoto tokenu operace serveru zastavit a uvolnit všechny prostředky, pokud se klient odpojí do konce datového proudu.
+V ASP.NET Core 2.2 nebo vyšší, můžete přijmout streamování metod rozbočovače `CancellationToken` parametr, který se aktivuje, když klient zruší z datového proudu. Pomocí tohoto tokenu operace serveru zastavit a uvolnit všechny prostředky, pokud se klient odpojí do konce datového proudu.
 
 ::: moniker-end
 

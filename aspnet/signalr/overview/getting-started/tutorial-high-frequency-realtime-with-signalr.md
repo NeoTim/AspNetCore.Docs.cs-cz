@@ -1,228 +1,255 @@
 ---
 uid: signalr/overview/getting-started/tutorial-high-frequency-realtime-with-signalr
-title: 'Kurz: Vysokofrekvenční Reálný čas s knihovnou SignalR 2 | Dokumentace Microsoftu'
+title: 'Kurz: Vytvoření aplikace v reálném čase vysokou frekvencí s funkcí SignalR 2 | Dokumentace Microsoftu'
 author: pfletcher
-description: Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá knihovnu ASP.NET SignalR k zajištění funkce zasílání zpráv vysokou frekvencí. Vysoká frekvence zasílání zpráv v...
+description: Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá knihovnu ASP.NET SignalR k zajištění funkce zasílání zpráv vysokou frekvencí.
 ms.author: riande
-ms.date: 06/10/2014
+ms.date: 01/02/2019
 ms.assetid: 9f969dda-78ea-4329-b1e3-e51c02210a2b
 msc.legacyurl: /signalr/overview/getting-started/tutorial-high-frequency-realtime-with-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: 04ce650509268ee63daafe24bc8dcc9725aea16b
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.topic: tutorial
+ms.openlocfilehash: 85503db0b41be6f87136627667d6dd71f0d4f609
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287712"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098587"
 ---
-<a name="tutorial-high-frequency-realtime-with-signalr-2"></a>Kurz: Vysokofrekvenční Reálný čas s knihovnou SignalR 2
-====================
-podle [Patrick Fletcher](https://github.com/pfletcher)
+# <a name="tutorial-create-high-frequency-real-time-app-with-signalr-2"></a>Kurz: Vytvoření aplikace v reálném čase vysokou frekvencí s funkcí SignalR 2
+
+Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá ASP.NET SignalR 2 zasílání zpráv nakonfigurovánu vysokou frekvencí. V tomto případě "vysokou frekvencí zasílání zpráv" znamená, že server odešle aktualizace s pevnou sazbou. Můžete odeslat až 10 zpráv za sekundu.
+
+Vytvářené aplikace zobrazí obrazec, který můžete přetáhnout uživatelů. Na serveru aktualizuje umístění obrazce ve všech propojených prohlížečů tak, aby odpovídala pozici Přetahované tvaru použitím vypršel časový limit aktualizace.
+
+Koncepty představenými v tomto kurzu jste aplikací v reálném čase hry a další aplikace simulace.
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Nastavení projektu
+> * Vytvoření základní aplikace
+> * Mapovat k centru při spuštění aplikace
+> * Přidat klienta
+> * Spuštění aplikace
+> * Přidat cyklus klienta
+> * Přidat cyklus serveru
+> * Přidat plynulou animaci
 
 [!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/SignalR-20-MoveShape-Demo-6285b83a)
-
-> Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá ASP.NET SignalR 2 zasílání zpráv nakonfigurovánu vysokou frekvencí. Vysoká frekvence zasílání zpráv v tomto případě znamená, že aktualizace, které se odesílají s pevnou sazbou; v případě této aplikace, až 10 zpráv za sekundu.
->
-> Aplikace, kterou vytvoříte v tomto kurzu zobrazí obrazec, který můžete přetáhnout uživatelů. Umístění obrazce ve všech propojených prohlížečů pak aktualizuje tak, aby odpovídala pozici Přetahované tvaru použitím vypršel časový limit aktualizace.
->
-> Koncepty představenými v tomto kurzu jste aplikací v reálném čase hry a další aplikace simulace.
->
-> ## <a name="software-versions-used-in-the-tutorial"></a>V tomto kurzu použili verze softwaru
->
->
-> - [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013)
-> - .NET 4.5
-> - Funkce SignalR verze 2
->
->
->
-> ## <a name="using-visual-studio-2012-with-this-tutorial"></a>V tomto kurzu pomocí sady Visual Studio 2012
->
->
-> Pokud chcete použít Visual Studio 2012 s tímto kurzem, postupujte takto:
->
-> - Aktualizace vašeho [Správce balíčků](http://docs.nuget.org/docs/start-here/installing-nuget) na nejnovější verzi.
-> - Nainstalujte [Web Platform Installer](https://www.microsoft.com/web/downloads/platform.aspx).
-> - Instalace webové platformy, vyhledejte a nainstalujte **technologie ASP.NET a webové nástroje 2013.1 pro Visual Studio 2012**. Tím se nainstaluje šablony sady Visual Studio pro funkci SignalR třídy jako **centra**.
-> - Některé šablony (jako například **třídy pro spuštění OWIN**) nebudou k dispozici; pro ty, použijte místo toho soubor třídy.
->
->
-> ## <a name="tutorial-versions"></a>Kurz verze
->
-> Informace o předchozích verzích systému SignalR naleznete v tématu [starší verze funkce SignalR](../older-versions/index.md).
->
-> ## <a name="questions-and-comments"></a>Otázky a komentáře
->
-> Napište prosím zpětnou vazbu o tom, jak vám líbilo v tomto kurzu a co můžeme zlepšit v komentářích v dolní části stránky. Pokud máte nějaké otázky, které přímo nesouvisejí, najdete v tomto kurzu, můžete je publikovat [fórum ASP.NET SignalR](https://forums.asp.net/1254.aspx/1?ASP+NET+SignalR) nebo [StackOverflow.com](http://stackoverflow.com/).
-
-
-## <a name="overview"></a>Přehled
-
-Tento kurz ukazuje, jak vytvořit aplikaci, která sdílí stav objektu se ostatní prohlížeče v reálném čase. Aplikace, kterou vytvoříme, se nazývá MoveShape. Na stránce MoveShape se zobrazí element HTML Div, který uživatel můžete přetáhnout; Když uživatel přetáhne divu, pošle se na server, který vám potom sdělí, všechny ostatní připojené klienty se aktualizovat umístění obrazce tak, aby odpovídaly jeho nové pozice.
-
-![Okno aplikace](tutorial-high-frequency-realtime-with-signalr/_static/image1.png)
-
-Aplikace vytvořené v tomto kurzu je založena na ukázku Damianem Edwardsem. Můžou zobrazit videa obsahující tuto ukázku [tady](https://channel9.msdn.com/Series/Building-Web-Apps-with-ASP-NET-Jump-Start/Building-Web-Apps-with-ASPNET-Jump-Start-08-Real-time-Communication-with-SignalR).
-
-Tento kurz se spustí prokazováním zasílání zpráv SignalR z každé události, který se aktivuje přetáhnout na obrazec. Každý připojený klient aktualizuje umístění v místní verzi tvar pak pokaždé, když je přijata zpráva.
-
-I aplikace bude fungovat s touto metodou, není doporučenou programovací model, protože by existovat žádné horní omezení počtu zpráv, získávání odeslat, aby klienti a server může získat zahlcen zprávy a by dojít ke snížení výkonu . Zobrazené animací na straně klienta by také odděleném jako tvar by okamžitě přesunout jednotlivé metody spíše než přesouvání plynule do každého nového umístění. V dalších částech tohoto kurzu vám ukáže, jak vytvořit funkci časovače, který omezí maximální rychlost přenosu, ve kterém jsou zprávy odesílány klienta nebo serveru a postup přesunutí tvar plynule mezi umístěními. Konečná verze aplikace vytvořené v tomto kurzu si můžete stáhnout z [Galerie kódu na](https://code.msdn.microsoft.com/SignalR-20-MoveShape-Demo-6285b83a).
-
-Tento kurz obsahuje následující části:
-
-- [Požadavky](#prerequisites)
-- [Vytvořte projekt a přidejte balíček SignalR a JQuery.UI NuGet](#createtheproject2013)
-- [Vytvoření základní aplikace](#baseapp)
-- [Od centra při spuštění aplikace](#startup2013)
-- [Přidat cyklus klienta](#clientloop)
-- [Přidat cyklus serveru](#serverloop)
-- [Přidat plynulou animaci na straně klienta](#animation)
-- [Další kroky](#furthersteps)
-
-<a id="prerequisites"></a>
-
 ## <a name="prerequisites"></a>Požadavky
 
-Tento kurz vyžaduje Visual Studio 2013.
+* [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/) s **vývoj pro ASP.NET a web** pracovního vytížení.
 
-<a id="createtheproject2013"></a>
+## <a name="set-up-the-project"></a>Nastavení projektu
 
-## <a name="create-the-project-and-add-the-signalr-and-jqueryui-nuget-package"></a>Vytvořte projekt a přidejte balíček SignalR a JQuery.UI NuGet
+V této části vytvoříte projekt v sadě Visual Studio 2017.
 
-V této části vytvoříme projektu v sadě Visual Studio 2013.
-
-Následující postup slouží k vytvoření prázdná webová aplikace ASP.NET a přidejte knihovny SignalR a jQuery.UI Visual Studio 2013:
+Tato část ukazuje, jak pomocí sady Visual Studio 2017 vytvoří prázdná webová aplikace ASP.NET a přidejte knihovny SignalR a jQuery.UI.
 
 1. V sadě Visual Studio vytvořte webovou aplikaci ASP.NET.
 
-    ![Vytvořte web](tutorial-high-frequency-realtime-with-signalr/_static/image2.png)
-2. V **nový projekt ASP.NET** okně, ponechejte tuto položku **prázdný** vybraný a klikněte na tlačítko **vytvořit projekt**.
+    ![Vytvořte web](tutorial-high-frequency-realtime-with-signalr/_static/image1.png)
 
-    ![Vytvoření prázdného webu](tutorial-high-frequency-realtime-with-signalr/_static/image3.png)
-3. V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt, vyberte **přidat | Třída rozbočovače SignalR (v2)**. Název třídy **MoveShapeHub.cs** a přidejte ho do projektu. Tento krok vytvoří **MoveShapeHub** třídy a přidá do projektu sadu souborů skriptů a odkazy na sestavení, podporující funkci SignalR.
+1. V **nová webová aplikace ASP.NET - MoveShapeDemo** okně, ponechejte tuto položku **prázdný** vybraný a vyberte **OK**.
 
-    > [!NOTE]
-    > Funkce SignalR můžete také přidat do projektu kliknutím **nástroje > Správce balíčků NuGet > Konzola správce balíčků** a spuštění příkazu:
+1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a vyberte **přidat** > **nová položka**.
 
-    `install-package Microsoft.AspNet.SignalR`.
+1. V **přidat novou položku - MoveShapeDemo**vyberte **nainstalováno** > **Visual C#**   >  **webové**  >  **SignalR** a pak vyberte **třída rozbočovače SignalR (v2)**.
 
-    Pokud používáte konzolu pro přidání SignalR, vytvořte třída rozbočovače SignalR jako samostatný krok po přidání SignalR.
-4. Klikněte na tlačítko **nástroje > Správce balíčků NuGet > Konzola správce balíčků**. V okně Správce balíčku spusťte následující příkaz:
+1. Název třídy *MoveShapeHub* a přidejte ho do projektu.
 
-    `Install-Package jQuery.UI.Combined`
+    Tento krok vytvoří *MoveShapeHub.cs* souboru třídy. Současně přidá sadu souborů skriptů a odkazy na sestavení, podporující funkci SignalR k projektu.
 
-    Tím se nainstaluje knihovny uživatelského rozhraní jQuery, které budete používat pro animaci tvaru.
-5. V **Průzkumníka řešení** rozbalte uzel skripty. Knihovny skriptů pro funkci SignalR, jQuery a jQueryUI jsou viditelné v projektu.
+1. Vyberte **nástroje** > **Správce balíčků NuGet** > **Konzola správce balíčků**.
 
-    ![Odkazy na knihovnu skriptu](tutorial-high-frequency-realtime-with-signalr/_static/image4.png)
+1. V **Konzola správce balíčků**, spusťte tento příkaz:
 
-<a id="baseapp"></a>
+    ```console
+    Install-Package jQuery.UI.Combined
+    ```
+
+    Tento příkaz nainstaluje knihovny uživatelského rozhraní jQuery. Použít pro animaci tvaru.
+
+1. V **Průzkumníka řešení**, rozbalte uzel skripty.
+
+    ![Odkazy na knihovnu skriptu](tutorial-high-frequency-realtime-with-signalr/_static/image2.png)
+
+    Knihovny skriptů pro funkci SignalR, jQuery a jQueryUI jsou viditelné v projektu.
 
 ## <a name="create-the-base-application"></a>Vytvoření základní aplikace
 
-V této části vytvoříme aplikaci prohlížeče, která odešle umístění obrazce na server během každou událost pohybu myší. Po přijetí, server pak vyšle tyto informace do všech ostatních připojených klientů. Jsme budete rozbalit na tuto aplikaci v předchozích částech.
+V této části vytvoříte aplikace prohlížeče. Aplikace odešle umístění obrazce na server během každou událost pohybu myší. Server vysílá tyto informace do dalších připojených klientů v reálném čase. Další informace o této aplikaci v předchozích částech.
 
-1. Pokud jste ještě nevytvořili třídu MoveShapeHub.cs v **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a vyberte **přidat**, **třídy...** . Název třídy **MoveShapeHub** a klikněte na tlačítko **přidat**.
-2. Nahraďte kód v novém **MoveShapeHub** třídy následujícím kódem.
+1. Otevřít *MoveShapeHub.cs* souboru.
+
+1. Nahraďte kód v *MoveShapeHub.cs* soubor s tímto kódem:
 
     [!code-csharp[Main](tutorial-high-frequency-realtime-with-signalr/samples/sample1.cs)]
 
-    `MoveShapeHub` Třídy výše je implementace rozbočovače SignalR. Stejně jako [Začínáme s knihovnou SignalR](tutorial-getting-started-with-signalr.md) kurzu centra má metodu, která klientům se volat přímo. V tomto případě klient odešle objekt, který obsahuje novou souřadnice X a Y obrazce na server, který pak získá vysílali pro všechny ostatní připojených klientů. Funkce SignalR bude automaticky serializovat tento objekt pomocí formátu JSON.
+1. Uložte soubor.
 
-    Objekt, který se pošle na klientovi (`ShapeModel`) obsahuje členy k uložení umístění obrazce. Verze objektu na serveru také obsahuje členy, aby mohli sledovat data klientů, které ukládají, tak, aby daného klienta se neodešlou svá vlastní data. Používá tento člen `JsonIgnore` atribut zabránit serializována a může odeslat klientovi.
+`MoveShapeHub` Třída je implementace rozbočovače SignalR. Stejně jako [Začínáme s knihovnou SignalR](tutorial-getting-started-with-signalr.md) kurzu centra má metodu, která klientům volat přímo. V tomto případě klient zasílá objektu s novou X a Y souřadnic tvar, který má na serveru. Všechny ostatní připojeným klientům získat vysílali Tyhle souřadnice. Funkce SignalR automaticky serializuje tento objekt pomocí formátu JSON.
 
-<a id="startup2013"></a>
-## <a name="starting-the-hub-when-the-application-starts"></a>Od centra při spuštění aplikace
+Aplikace odešle `ShapeModel` objektu do klienta. Obsahuje členy k uložení umístění obrazce. Verze objektu na serveru má také členy, aby mohli sledovat kterého klienta data ukládají. Tento objekt brání serveru z odesílání dat klientovi sám na sebe. Používá tento člen `JsonIgnore` atribut, aby byla aplikace z serializace dat a jejich odesláním zpět do klienta.
 
-1. V dalším kroku nastavíme mapování k centru při spuštění aplikace. V SignalR 2, je to tak, že přidáte třídy pro spuštění OWIN, který bude volat `MapSignalR` při spuštění třídy `Configuration` provedení metody při spuštění OWIN. Třída je přidán do vaší OWIN startup zpracovat pomocí `OwinStartup` atribut sestavení.
+## <a name="map-to-the-hub-when-app-starts"></a>Mapovat k centru při spuštění aplikace
 
-    V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a pak klikněte na tlačítko **přidat | Třídy pro spuštění OWIN**. Název třídy *spuštění* a klikněte na tlačítko **OK**.
-2. Změňte obsah souboru Startup.cs následujícím způsobem:
+V dalším kroku můžete nastavit mapování k centru při spuštění aplikace. Přidání třídy pro spuštění OWIN SignalR 2, vytvoří mapování.
+
+1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a vyberte **přidat** > **nová položka**.
+
+1. V **přidat novou položku - MoveShapeDemo** vyberte **nainstalováno** > **Visual C#**   >  **webové** a pak Vyberte **třídy pro spuštění OWIN**.
+
+1. Název třídy *spuštění* a vyberte **OK**.
+
+1. Nahraďte kód v *Startup.cs* soubor s tímto kódem:
 
     [!code-csharp[Main](tutorial-high-frequency-realtime-with-signalr/samples/sample2.cs)]
 
-<a id="client"></a>
-## <a name="adding-the-client"></a>Přidání klienta
+Volání OWIN při spuštění třídy `MapSignalR` kdy aplikace spouští `Configuration` metody. Aplikace přidá třídu pro spuštění OWIN pro zpracování pomocí `OwinStartup` atribut sestavení.
 
-1. V dalším kroku přidáme klienta. V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a pak klikněte na tlačítko **přidat | Nová položka**. V **přidat novou položku** dialogového okna, vyberte **stránku Html**. Pojmenujte stránku **Default.html** a klikněte na tlačítko **přidat**.
-2. V **Průzkumníka řešení**, klikněte pravým tlačítkem na stránku, který jste právě vytvořili a klikněte na tlačítko **nastavit jako úvodní stránku**.
-3. Nahraďte kód výchozí stránku HTML následující fragment kódu.
+## <a name="add-the-client"></a>Přidat klienta
 
-    > [!NOTE]
-    > Ověřte, že skript odkazuje pod shoda balíčky se přidaly do projektu ve složce Scripts.
+Přidáte stránku HTML pro klienta.
 
-    [!code-html[Main](tutorial-high-frequency-realtime-with-signalr/samples/sample3.html)]
+1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a vyberte **přidat** > **stránku HTML**.
 
-    Výše uvedený kód HTML a JavaScript vytvoří red Div volá tvar, umožňuje přetahování chování tvaru pomocí knihovny jQuery a používá obrazce `drag` události a umístění obrazce odeslat na server.
-4. Stisknutím klávesy F5 spusťte aplikaci. Zkopírujte adresu URL na stránku a vložte ho do druhé okno prohlížeče. Přetáhněte obrazec v jednom z okna prohlížeče; tvar v druhém okně prohlížeče by se měla přesunout.
+1. Pojmenujte stránku **výchozí** a vyberte **OK**.
 
-    ![Okno aplikace](tutorial-high-frequency-realtime-with-signalr/_static/image5.png)
+1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na *Default.html* a vyberte **nastavit jako úvodní stránku**.
 
-<a id="clientloop"></a>
+1. Nahraďte kód v *Default.html* soubor s tímto kódem:
+
+    [!code-html[Main](tutorial-high-frequency-realtime-with-signalr/samples/sample3.html?highlight=14-16)]
+
+1. V **Průzkumníka řešení**, rozbalte **skripty**.
+
+    Jsou viditelné v projektu knihovny skriptů pro knihovny jQuery a SignalR.
+
+    > [!IMPORTANT]
+    > Správce balíčků nainstaluje novější verzi skriptů SignalR.
+
+1. Aktualizujte odkazy na skript v bloku kódu tak, aby odpovídala verzi skriptů soubory v projektu.
+
+Tento kód HTML a JavaScript vytvoří červený `div` volá `shape`. Přetahování chování tvaru pomocí knihovny jQuery a používá `drag` události a umístění obrazce odeslat na server.
+
+## <a name="run-the-app"></a>Spuštění aplikace
+
+Aplikaci můžete spustit na se'e fungovat. Při přetažení tvar kolem okno prohlížeče, přesune se v jiných prohlížečích příliš.
+
+1. Na panelu nástrojů, zapněte **ladění skriptů** a pak vyberte tlačítko Přehrát akci spustíte aplikaci v režimu ladění.
+
+    ![Snímek obrazovky uživatele, zapnutí režimu ladění a vyberete play.](tutorial-high-frequency-realtime-with-signalr/_static/image3.png)
+
+    Otevře se okno prohlížeče s červenou tvar v pravém horním rohu.
+
+1. Zkopírujte adresu URL stránky.
+
+1. Otevřete jiný prohlížeč a vložte adresu URL do adresního řádku.
+
+1. Přetáhněte obrazec v jednom z okna prohlížeče. Následuje tvar v druhém okně prohlížeče.
+
+Při použití funkce touto metodou, není doporučenou programovací model. Neexistuje žádná horní limit počtu získání odeslaných zpráv. V důsledku toho klienty a serverem získat zahlcen zprávy a snižuje výkon. Také aplikace zobrazí odděleném animací na straně klienta. Tato přehrávat nepravidelně animace se stane, protože tvar přesune okamžitě každé metody. Je lepší, pokud tvar proběhnout do každého nového umístění. V dalším kroku se dozvíte, jak tyto problémy napravit.
 
 ## <a name="add-the-client-loop"></a>Přidat cyklus klienta
 
-Protože odesílání umístění tvar na každou událost pohybu myší vytvořit nepotřebných objemu síťových přenosů, zpráv od klienta je potřeba omezit. Použijeme javascript `setInterval` funkce nastavit smyčku, která odešle nové informace o umístění na server s pevnou sazbou. Smyčka je velmi základní reprezentace "herní cyklus" opakovaně volaná funkce, která řídí všechny funkce hru nebo jiných simulace.
+Odesílání umístění tvar na každou událost pohybu myší vytvoří zbytečné objemu síťových přenosů. Aplikace je potřeba omezit zprávy z klienta.
 
-1. Aktualizace kódu klienta na stránce HTML tak, aby odpovídala následující fragment kódu.
+Použití jazyka javascript `setInterval` funkce nastavit smyčku, která odešle nové informace o umístění na server s pevnou sazbou. Smyčka je základní reprezentace "herní cyklus." Je opakovaně volaná funkce, která řídí všechny funkce, které jsou součástí hru.
 
-    [!code-html[Main](tutorial-high-frequency-realtime-with-signalr/samples/sample4.html)]
+1. Nahraďte kód klienta v *Default.html* soubor s tímto kódem:
 
-    Výše uvedené aktualizace přidá `updateServerModel` funkce, který je volán na pevnou frekvencí. Tato funkce odesílá umístění dat na server pokaždé, když `moved` příznak určuje, že je nová umístění dat k odeslání.
-2. Stisknutím klávesy F5 spusťte aplikaci. Zkopírujte adresu URL na stránku a vložte ho do druhé okno prohlížeče. Přetáhněte obrazec v jednom z okna prohlížeče; tvar v druhém okně prohlížeče by se měla přesunout. Protože se omezí počet zpráv, které odesílání na server, se nezobrazí animace pohodlné stejně jako v předchozí části.
+    [!code-html[Main](tutorial-high-frequency-realtime-with-signalr/samples/sample4.html?highlight=14-16)]
 
-    ![Okno aplikace](tutorial-high-frequency-realtime-with-signalr/_static/image6.png)
+    > [!IMPORTANT]
+    > Je nutné nahradit odkazy na skript znovu. Musí se shodovat verze skriptů v projektu.
 
-<a id="serverloop"></a>
+    Tento nový kód přidá `updateServerModel` funkce. Je volána na frekvenci dlouhodobého. Funkce odešle data umístění serveru vždy, když `moved` příznak určuje, že je nová umístění dat k odeslání.
+
+1. Vyberte tlačítko Přehrát a spusťte tak aplikaci
+
+1. Zkopírujte adresu URL stránky.
+
+1. Otevřete jiný prohlížeč a vložte adresu URL do adresního řádku.
+
+1. Přetáhněte obrazec v jednom z okna prohlížeče. Následuje tvar v druhém okně prohlížeče.
+
+Protože aplikace omezuje počet zpráv, které odesílání na server, se nezobrazí jako plynulé animace se nespustil na první.
 
 ## <a name="add-the-server-loop"></a>Přidat cyklus serveru
 
-V aktuální aplikaci zprávy odeslané ze serveru klientovi chodit přímo tak často, jak jejich přijetí. To představuje podobný problém, jak je vidět na straně klienta; častěji, než jsou potřeba, a připojení může být zahlcenou díky tomu lze odesílat zprávy. Tato část popisuje postup aktualizace serveru pro implementaci časovač, který omezuje počet odchozích zpráv.
+V aktuální aplikaci zprávy odeslané ze serveru klientovi chodit přímo tak často, jak jste dostali. Tento provoz sítě představuje problém podobné, jak vidíme na straně klienta.
 
-1. Nahraďte obsah `MoveShapeHub.cs` následujícím fragmentem kódu.
+Aplikace může odesílat zprávy častěji, než je budete potřebovat. Díky tomu můžou stát zahlcenou připojení. Tato část popisuje postup aktualizace serveru přidat časovač, který omezuje počet odchozích zpráv.
+
+1. Nahraďte obsah `MoveShapeHub.cs` s tímto kódem:
 
     [!code-csharp[Main](tutorial-high-frequency-realtime-with-signalr/samples/sample5.cs)]
 
-    Výše uvedený kód rozšiřuje klienta k přidání `Broadcaster` třídu, která omezuje odchozí zprávy pomocí `Timer` třídy z rozhraní .NET framework.
+1. Vyberte tlačítko Přehrát a spusťte tak aplikaci.
 
-    Protože je Centrum samotné přechodné (ho vytvoří pokaždé, když je to potřeba), `Broadcaster` se vytvoří jako typ singleton. Opožděná inicializace (představíme v rozhraní .NET 4) slouží k jeho vytvoření odložit, dokud není potřeba, zajištění, že první instanci rozbočovače zcela vytvořil před spuštěním časovač.
+1. Zkopírujte adresu URL stránky.
 
-    Volání klientů `UpdateShape` funkce je poté přesunut mimo centra `UpdateModel` metodu tak, že je volána již okamžitě pokaždé, když se přijme příchozí zprávy. Místo toho se pošle zprávy, které mají klienti ve výši 25 volání za sekundu, spravuje `_broadcastLoop` časovač v rámci `Broadcaster` třídy.
+1. Otevřete jiný prohlížeč a vložte adresu URL do adresního řádku.
 
-    A konečně, namísto volání metody klienta z centra přímo, `Broadcaster` třídy je potřeba získat odkaz na aktuálně operačního centra (`_hubContext`) pomocí `GlobalHost`.
-2. Stisknutím klávesy F5 spusťte aplikaci. Zkopírujte adresu URL na stránku a vložte ho do druhé okno prohlížeče. Přetáhněte obrazec v jednom z okna prohlížeče; tvar v druhém okně prohlížeče by se měla přesunout. Nesmí být vidět rozdíl v prohlížeči z předchozí části, ale se omezí počet zpráv, které odesílání do klienta.
+1. Přetáhněte obrazec v jednom z okna prohlížeče.
 
-    ![Okno aplikace](tutorial-high-frequency-realtime-with-signalr/_static/image7.png)
+Tento kód rozšiřuje klienta k přidání `Broadcaster` třídy. Nová třída omezuje odchozí zprávy pomocí `Timer` třídy z rozhraní .NET framework.
 
-<a id="animation"></a>
+Je dobré se dozvíte, že Centrum samotného je přechodné. Vytvoří se pokaždé, když je to potřeba. Proto vytvoří aplikaci `Broadcaster` jako typ singleton. Opožděná inicializace využívá k odložení `Broadcaster`pro vytváření, dokud nebude potřeba. To zaručuje, že aplikace vytvoří první instanci rozbočovače zcela před zahájením časovač.
 
-## <a name="add-smooth-animation-on-the-client"></a>Přidat plynulou animaci na straně klienta
+Volání klientů `UpdateShape` funkce je poté přesunut mimo centra `UpdateModel` metody. Už je volána ihned pokaždé, když aplikace přijme příchozí zprávy. Místo toho aplikace odesílá zprávy klientům ve výši 25 volání za sekundu. Spravuje proces `_broadcastLoop` časovač v rámci `Broadcaster` třídy.
 
-Aplikace je skoro hotová, ale jsme dokonce vytvářet jeden další vylepšení v pohybu tvar na straně klienta jako je přesunut v reakci na zprávu serveru. Namísto nastavení pozice tvar do nového umístění uvedena v každém serveru, použijeme knihovna uživatelského rozhraní JQuery `animate` funkce přesunout tvar plynule mezi jeho aktuální a nové pozice.
+A konečně, namísto volání metody klienta z centra přímo, `Broadcaster` třídy je potřeba získat odkaz na aktuálně spuštěné `_hubContext` rozbočovače. Získá odkaz se `GlobalHost`.
 
-1. Také aktualizovat klienta sady `updateShape` metoda vypadat jako následující zvýrazněný kód:
+## <a name="add-smooth-animation"></a>Přidat plynulou animaci
+
+Aplikace je téměř dokončena, ale jsme dokonce vytvářet jeden další vylepšení. Aplikace přesune tvar na straně klienta v reakci na zprávu serveru. Namísto nastavení pozice tvar do nového umístění uvedena v každém serveru, použijte uživatelské rozhraní JQuery knihovnu `animate` funkce. To můžete tvar přesunout plynule mezi jeho aktuální a nové pozice.
+
+1. Také aktualizovat klienta sady `updateShape` metodu *Default.html* souboru, aby vypadala jako zvýrazněný kód:
 
     [!code-html[Main](tutorial-high-frequency-realtime-with-signalr/samples/sample6.html?highlight=33-40)]
 
-    Výše uvedený kód přesune tvaru z původního umístění do nové Dal serveru v průběhu intervalu animace (v tomto případě 100 milisekund). Všechny předchozí animace spuštěna s tvarem není zaškrtnuto, před zahájením nové animace.
-2. Stisknutím klávesy F5 spusťte aplikaci. Zkopírujte adresu URL na stránku a vložte ho do druhé okno prohlížeče. Přetáhněte obrazec v jednom z okna prohlížeče; tvar v druhém okně prohlížeče by se měla přesunout. Pohyb tvaru v druhém okně by se zobrazit méně přehrávat nepravidelně, jako je pohyb interpolovaných přes čas Místo nastavování jednou za příchozí zprávy.
+1. Vyberte tlačítko Přehrát a spusťte tak aplikaci.
 
-    ![Okno aplikace](tutorial-high-frequency-realtime-with-signalr/_static/image8.png)
+1. Zkopírujte adresu URL stránky.
 
-<a id="furthersteps"></a>
+1. Otevřete jiný prohlížeč a vložte adresu URL do adresního řádku.
 
-## <a name="further-steps"></a>Další kroky
+1. Přetáhněte obrazec v jednom z okna prohlížeče.
 
-V tomto kurzu jste zjistili, jak programovat aplikace SignalR, která odesílá zprávy s vysokou frekvencí mezi klienty a servery. Toto paradigma komunikace je užitečné pro vývoj online hry a další simulace, jako například [ShootR hru vytvořili s knihovnou SignalR](https://shootr.azurewebsites.net/).
+Pohyb tvaru v druhém okně zobrazí méně přehrávat nepravidelně. Aplikace argument pohyb interpolaci přes čas Místo nastavování jednou za příchozí zprávy.
 
-Hotové aplikace vytvořené v tomto kurzu si můžete stáhnout z [Galerie kódu na](https://code.msdn.microsoft.com/SignalR-20-MoveShape-Demo-6285b83a).
+Tento kód přesune tvaru z původního umístění do nové. Server poskytuje pozici obrazce v průběhu intervalu animace. V tomto případě to je 100 ms. Aplikace vymaže všechny předchozí animace spuštěna s tvarem před zahájením nové animace.
 
-Další informace o konceptech vývoj SignalR, najdete na následujících webech pro funkci SignalR zdrojový kód a prostředky:
+## <a name="additional-resources"></a>Další zdroje
 
-- [Projekt SignalR](http://signalr.net)
-- [Funkce SignalR Githubu a ukázky](https://github.com/SignalR/SignalR)
-- [SignalR Wiki](https://github.com/SignalR/SignalR/wiki)
+Právě jste se dozvěděli o paradigma komunikace je užitečné pro vývoj online hry a další simulace, jako je třeba [ShootR hru vytvořili s knihovnou SignalR](https://shootr.azurewebsites.net/).
 
-Návod k nasazení aplikace SignalR do Azure najdete v tématu [pomocí SignalR s webovými aplikacemi ve službě Azure App Service](../deployment/using-signalr-with-azure-web-sites.md). Podrobné informace o tom, jak nasadit webový projekt sady Visual Studio na webu Windows Azure naleznete v tématu [vytvoření webové aplikace ASP.NET ve službě Azure App Service](https://azure.microsoft.com/documentation/articles/web-sites-dotnet-get-started/).
+Další informace o funkci SignalR naleznete v následujících zdrojích:
+
+* [Projekt SignalR](http://signalr.net)
+
+* [Funkce SignalR Githubu a ukázky](https://github.com/SignalR/SignalR)
+
+* [SignalR Wiki](https://github.com/SignalR/SignalR/wiki)
+
+## <a name="next-steps"></a>Další kroky
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Nastavení projektu
+> * Vytvoření základní aplikace
+> * Mapovat na rozbočovači při spuštění aplikace
+> * Přidání klienta
+> * Spuštění aplikace
+> * Přidání smyčky klienta
+> * Přidat server smyčky
+> * Přidání plynulou animaci
+
+Přejděte k dalším článku se dozvíte, jak vytvořit webovou aplikaci, která používá ASP.NET SignalR 2 pro zajištění všesměrového vysílání funkce serveru.
+> [!div class="nextstepaction"]
+> [Funkce SignalR 2 a vysílání serveru](tutorial-server-broadcast-with-signalr.md)

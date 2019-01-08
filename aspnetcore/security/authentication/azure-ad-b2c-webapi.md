@@ -6,12 +6,12 @@ ms.author: casoper
 ms.date: 09/21/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: 9c541644d276bbdc990bb01f8bd80c92862cd6f0
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: 6d0365b103572d6059ce61c54b9b3406da9e5bd4
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284614"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098698"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>Ověřování ve webovém rozhraní API pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -157,8 +157,8 @@ Pokud chcete ověřit, že webové rozhraní API vyžaduje ověření, nejprve v
     ![401 Neautorizováno odpovědi](./azure-ad-b2c-webapi/postman-401-status.png)
 
 > [!IMPORTANT]
-> Pokud se zobrazí chyba "Nelze získat žádnou odpověď", budete muset zakázat ověřování certifikátu SSL [nastavení nástroje Postman](https://learning.getpostman.com/docs/postman/launching_postman/settings). 
- 
+> Pokud se zobrazí chyba "Nelze získat žádnou odpověď", budete muset zakázat ověřování certifikátu SSL [nastavení nástroje Postman](https://learning.getpostman.com/docs/postman/launching_postman/settings).
+
 ### <a name="obtain-a-bearer-token"></a>Získat nosný token
 
 Chcete-li provést ověřený požadavek do webového rozhraní API, je potřeba nosný token. Postman usnadňuje přihlášení k tenantovi Azure AD B2C a získat token.

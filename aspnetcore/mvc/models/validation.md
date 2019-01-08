@@ -4,14 +4,14 @@ author: tdykstra
 description: Další informace o ověření modelu v ASP.NET Core MVC.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/06/2018
+ms.date: 01/04/2019
 uid: mvc/models/validation
-ms.openlocfilehash: f1757f807e50019e5071abc42ec3129935ab77aa
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.openlocfilehash: f3a34972006b5fdee307c9a8d9989b2cc1e36893
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225457"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099380"
 ---
 # <a name="model-validation-in-aspnet-core-mvc"></a>Ověření modelu v ASP.NET Core MVC
 
@@ -54,11 +54,11 @@ Pouze pro čtení přes model odhalí pravidla týkající se data pro tuto apli
 
 * `[Range]`: Ověří spadá hodnotu vlastnosti v daném rozsahu.
 
-* `[RegularExpression]`: Ověří, že data odpovídá zadanému regulárnímu výrazu.
+* `[RegularExpression]`: Ověřuje, že data odpovídá zadanému regulárnímu výrazu.
 
-* `[Required]`: Vytvoří požadované vlastnosti.
+* `[Required]`: Díky požadované vlastnosti.
 
-* `[StringLength]`: Ověří, že řetězcovou vlastnost má nejvíce dané maximální délky.
+* `[StringLength]`: Ověřuje, že řetězcovou vlastnost má nejvíce dané maximální délky.
 
 * `[Url]`: Ověří vlastnost má formát adresy URL.
 
@@ -84,7 +84,7 @@ Stav modelu představuje chyb při ověřování v zadané hodnoty formuláře H
 
 MVC bude pokračovat v ověřování polí, dokud nedosáhne maximální počet chyb (200 ve výchozím nastavení). Toto číslo můžete nakonfigurovat pomocí následujícího kódu v `Startup.ConfigureServices`:
 
-[!code-csharp[](validation/sample/Startup.cs?range=27)]
+[!code-csharp[](validation/sample/Startup.cs?name=snippet_MaxModelValidationErrors)]
 
 ## <a name="handle-model-state-errors"></a>Chyby stavu modelu popisovač
 

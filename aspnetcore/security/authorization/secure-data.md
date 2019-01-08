@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: fa82d3d99f4e4b7ad17ed385fb7c029745797e8d
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: bdba706c1ef24ebe35129cb8bb2d9949196245a1
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637830"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098919"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
 
@@ -59,7 +59,7 @@ Správce má všechna oprávnění. Může číst/upravovat/odstraňovat všechn
 
 Aplikace byla vytvořena pomocí [generování uživatelského rozhraní](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) následující `Contact` modelu:
 
-[!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet)]
+[!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
 Ukázka obsahuje následující rutiny autorizace:
 
@@ -314,33 +314,33 @@ Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro ods
 ## <a name="create-the-starter-app"></a>Vytvořit úvodní aplikaci
 
 * Vytvoření aplikace stránky Razor s názvem "ContactManager"
-   * Vytvoření aplikace s **jednotlivých uživatelských účtů**.
-   * Pojmenujte ji "ContactManager" tak obor názvů odpovídá oboru názvů použitého v ukázce.
-   * `-uld` Určuje LocalDB místo SQLite
+  * Vytvoření aplikace s **jednotlivých uživatelských účtů**.
+  * Pojmenujte ji "ContactManager" tak obor názvů odpovídá oboru názvů použitého v ukázce.
+  * `-uld` Určuje LocalDB místo SQLite
 
   ```console
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* Přidat *Models\Contact.cs*:
+* Přidat *Models/Contact.cs*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
 * Vygenerované uživatelské rozhraní `Contact` modelu.
 * Vytvořte počáteční migraci a aktualizaci databáze:
 
-```console
-dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
-dotnet ef database drop -f
-dotnet ef migrations add initial
-dotnet ef database update
-```
+  ```console
+  dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
+  dotnet ef database drop -f
+  dotnet ef migrations add initial
+  dotnet ef database update
+  ```
 
 * Aktualizace **ContactManager** ukotvit v *Pages/_Layout.cshtml* souboru:
 
-```cshtml
-<a asp-page="/Contacts/Index" class="navbar-brand">ContactManager</a>
-```
+  ```cshtml
+  <a asp-page="/Contacts/Index" class="navbar-brand">ContactManager</a>
+  ```
 
 * Testování aplikace pomocí vytváření, úpravy a odstranění kontaktu
 

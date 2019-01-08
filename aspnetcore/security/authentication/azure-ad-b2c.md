@@ -5,12 +5,12 @@ description: Zjistěte, jak nastavit ověřování Azure Active Directory B2C s 
 ms.date: 01/25/2018
 ms.custom: mvc
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: 73a66cea1533cc835796f673021bfa45c35f5935
-ms.sourcegitcommit: 4cd8dce371d63a66d780e4af1baab2bcf9d61b24
+ms.openlocfilehash: 2c544475ccd3eb76f2737fec1cf269ac86add372
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43893191"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098984"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Ověření cloudu s Azure Active Directory B2C v ASP.NET Core
 
@@ -48,7 +48,7 @@ Použijte následující hodnoty:
 
 | Nastavení                       | Hodnota                     | Poznámky                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**                      | *&lt;Název aplikace&gt;*        | Zadejte **název** pro aplikace, který popisuje vaši aplikaci pro zákazníky.                                                                                                                                 |
+| **Název**                      | *&lt;Název aplikace&gt;*        | Zadejte **název** pro aplikace, který popisuje vaši aplikaci pro zákazníky.                                                                                                                                 |
 | **Zahrnout webovou aplikaci / webové rozhraní API** | Ano                       |                                                                                                                                                                                                    |
 | **Povolit implicitní tok**       | Ano                       |                                                                                                                                                                                                    |
 | **Adresa URL odpovědi**                 | `https://localhost:44300/signin-oidc` | Adresy URL odpovědí jsou koncové body, kam Azure AD B2C vrací všechny tokeny, které vaše aplikace požaduje. Visual Studio poskytuje pomocí adresy URL odpovědi. Teď zadejte `https://localhost:44300/signin-oidc` k vyplnění formuláře. |
@@ -96,7 +96,7 @@ V sadě Visual Studio:
 Vraťte se do okna prohlížeče s vlastností aplikace B2C stále otevřen. Změnit dočasnou **adresy URL odpovědi** zadaný starší hodnota zkopírovat ze sady Visual Studio. Vyberte **Uložit** v horní části okna.
 
 > [!TIP]
-> Pokud nezkopírovali příslušnou odpovědní adresu URL, použijte adresu SSL na kartě ladění ve vlastnostech projektu webové a připojit **CallbackPath** hodnotu *appsettings.json*.
+> Pokud nezkopírovali příslušnou odpovědní adresu URL, použijte adresu HTTPS z karty ladění ve vlastnostech projektu webové a připojit **CallbackPath** hodnotu *appsettings.json*.
 
 ## <a name="configure-policies"></a>Konfigurace zásad
 
@@ -121,7 +121,7 @@ Po úspěšném přihlášení, prohlížeč přesměruje do webové aplikace.
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu jste zjistili, jak:
+V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
 > * Vytvoření tenanta Azure Active Directory B2C

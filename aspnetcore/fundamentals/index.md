@@ -4,14 +4,14 @@ author: rick-anderson
 description: Seznamte se základními koncepty pro vytváření aplikací ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 01/06/2019
 uid: fundamentals/index
-ms.openlocfilehash: 11dc6336ae7667038983c967f28232bef325f5bb
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: a56beebd796448705c7b84f47699e9739f451419
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637765"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099231"
 ---
 # <a name="aspnet-core-fundamentals"></a>Základy ASP.NET Core
 
@@ -63,7 +63,7 @@ Metoda `UseStartup` třídy `WebHostBuilder` určuje spouštěcí třídu `Start
 
 ::: moniker-end
 
-Ve třídě `Startup` můžete definovat kanál zpracování požadavků a nakonfigurovat všechny služby, které aplikace vyžaduje. Třída `Startup` musí být veřejná a musí obsahovat následující metody:
+`Startup` Je třída, ve kterém jsou nakonfigurované všechny služby nezbytné aplikace a je definován kanál zpracování požadavků. `Startup` Třída musí být veřejné a obvykle obsahuje následující metody. `Startup.ConfigureServices` je volitelný.
 
 ::: moniker range=">= aspnetcore-2.0"
 

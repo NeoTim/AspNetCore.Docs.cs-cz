@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/01/2018
 uid: security/enforcing-ssl
-ms.openlocfilehash: b15c6b5ac77f047c40704c9e164165c55b6ae93b
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 0c3add9c8860a47932cda3a8b07c83dc774bf1f1
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861521"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098971"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynucení protokolu HTTPS v ASP.NET Core
 
@@ -69,9 +69,9 @@ Zadejte port HTTPS pomocí kteréhokoli z následujících postupů:
 
   **Klíč**: `https_port`  
   **Typ**: *řetězec*  
-  **Výchozí**: výchozí hodnota není nastavená.  
+  **Výchozí**: Výchozí hodnota není nastavená.  
   **Sada s použitím**: `UseSetting`  
-  **Proměnná prostředí**: `<PREFIX_>HTTPS_PORT` (předpona je `ASPNETCORE_` při použití [webového hostitele](xref:fundamentals/host/web-host).)
+  **Proměnná prostředí**: `<PREFIX_>HTTPS_PORT` (Předpona je `ASPNETCORE_` při použití [webového hostitele](xref:fundamentals/host/web-host).)
 
   Při konfiguraci <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> v `Program`:
 
@@ -98,7 +98,7 @@ Všechny brány firewall mezi klientem a serverem musí mít také komunikační
 
 Pokud žádosti se předávají v konfiguraci reverzní proxy server, použijte [předané Middleware záhlaví](xref:host-and-deploy/proxy-load-balancer) před voláním Middleware přesměrování protokolu HTTPS. Předané Middleware záhlaví aktualizací `Request.Scheme`, použije `X-Forwarded-Proto` záhlaví. Povolení middleware přesměrování identifikátory URI a další zásady zabezpečení fungovat správně. Kdy předané Middleware záhlaví nepoužívá, back-endu aplikace nemusí dostávat správné schéma a ukládaly ve smyčce přesměrování. Běžné chybová zpráva koncovým uživatelem se, že došlo k příliš mnoha přesměrování.
 
-Při nasazování do služby Azure App Service, postupujte podle pokynů v [kurz: vytvoření vazby existujícího vlastního certifikátu SSL k Azure Web Apps](/azure/app-service/app-service-web-tutorial-custom-ssl).
+Při nasazování do služby Azure App Service, postupujte podle pokynů v [kurzu: Vytvoření vazby existujícího vlastního certifikátu SSL k Azure Web Apps](/azure/app-service/app-service-web-tutorial-custom-ssl).
 
 ### <a name="options"></a>Možnosti
 
@@ -194,7 +194,7 @@ Následující kód:
 
 * `localhost` : IPv4 adresu zpětné smyčky.
 * `127.0.0.1` : IPv4 adresu zpětné smyčky.
-* `[::1]` : IPv6 adresu zpětné smyčky.
+* `[::1]` : Adresu zpětné smyčky protokolu IPv6.
 
 ::: moniker-end
 
@@ -260,7 +260,7 @@ Zobrazit [tento problém Githubu](https://github.com/aspnet/Docs/issues/6199).
 ## <a name="additional-information"></a>Další informace
 
 * <xref:host-and-deploy/proxy-load-balancer>
-* [Hostování ASP.NET Core v Linuxu pomocí Apache: Konfigurace protokolu SSL](xref:host-and-deploy/linux-apache#ssl-configuration)
-* [Hostování ASP.NET Core v Linuxu se serverem Nginx: Konfigurace protokolu SSL](xref:host-and-deploy/linux-nginx#configure-ssl)
+* [Hostitele ASP.NET Core v Linuxu pomocí Apache: Konfigurace protokolu HTTPS](xref:host-and-deploy/linux-apache#https-configuration)
+* [Hostitele ASP.NET Core v Linuxu se serverem Nginx: Konfigurace protokolu HTTPS](xref:host-and-deploy/linux-nginx#https-configuration)
 * [Nastavení protokolu SSL ve službě IIS](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
 * [Podpora prohlížeče OWASP HSTS](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet#Browser_Support)

@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/redis-backplane
-ms.openlocfilehash: 343cb5b2c7ed7162bae7865553a783fea45f0cfb
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: fde7f08ae2310b0b9bf9b7fe25a1dfc4a568adb6
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284464"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099352"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-signalr-scale-out"></a>Nastavit propojovací rozhraní Redis pro horizontální navýšení kapacity funkce SignalR technologie ASP.NET Core
 
@@ -24,7 +24,10 @@ Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https:
 
 * Nasazení serveru Redis.
 
-  Pro použití v produkčním prostředí propojovací rozhraní Redis je doporučeno pouze pro místní infrastrukturu. Abyste minimalizovali latenci serveru Redis by měl být ve stejném datovém centru jako aplikace SignalR. Pokud vaše aplikace SignalR běží v cloudu Azure, doporučujeme namísto Redis propojovací rozhraní služby Azure SignalR. Můžete použít službu Azure Redis Cache pro vývojové a testovací prostředí. Další informace naleznete v následujících materiálech:
+  > [!IMPORTANT] 
+  > Pro použití v produkčním prostředí se doporučuje propojovacího rozhraní Redis pouze v případě, že běží ve stejném datovém centru jako aplikace SignalR. V opačném případě latence sítě snižuje výkon. Pokud vaše aplikace SignalR běží v cloudu Azure, doporučujeme namísto Redis propojovací rozhraní služby Azure SignalR. Můžete použít službu Azure Redis Cache pro vývojové a testovací prostředí.
+
+  Další informace naleznete v následujících materiálech:
 
   * <xref:signalr/scale>
   * [Dokumentace ke službě redis](https://redis.io/)

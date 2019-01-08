@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/11/2018
 uid: security/anti-request-forgery
-ms.openlocfilehash: c4a512e5518380f5f0a43d08cd0bcba2f8c26141
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 3c1ea8f41eb6ed847bf24141ef0ae0c7e03d8a79
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207664"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099218"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>Útokům zabránilo webů žádosti padělání (XSRF/CSRF) v ASP.NET Core
 
@@ -225,7 +225,7 @@ services.AddAntiforgery(options =>
 | [CookiePath](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cesta, nastavte v souboru cookie. Tato vlastnost je zastaralá a bude v budoucí verzi odebrána. Doporučenou alternativou je Cookie.Path. |
 | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | Název skryté pole formuláře antiforgery systému použije k vykreslení antiforgery tokeny v zobrazeních. |
 | [HeaderName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | Název hlavičky používá antiforgery systémem. Pokud `null`, systém bere v úvahu pouze data formuláře. |
-| [Vlastnost RequireSsl](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | Určuje, zda je požadován protokol SSL antiforgery systému. Pokud `true`, neúspěšné žádosti jiného typu než SSL. Výchozí hodnota je `false`. Tato vlastnost je zastaralá a bude v budoucí verzi odebrána. Doporučenou alternativou je nastavit Cookie.SecurePolicy. |
+| [Vlastnost RequireSsl](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | Určuje, zda antiforgery systému vyžadují protokol HTTPS. Pokud `true`, neúspěšné požadavky bez HTTPS. Výchozí hodnota je `false`. Tato vlastnost je zastaralá a bude v budoucí verzi odebrána. Doporučenou alternativou je nastavit Cookie.SecurePolicy. |
 | [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | Určuje, jestli se má potlačit generování `X-Frame-Options` záhlaví. Ve výchozím nastavení je záhlaví generovány s hodnotou "SAMEORIGIN". Výchozí hodnota je `false`. |
 
 ::: moniker-end
@@ -297,7 +297,7 @@ public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel account)
 
 Aplikace ASP.NET Core negenerovat antiforgery tokeny pro bezpečné metody HTTP (GET, HEAD, možnosti a trasování). Místo použití široce `ValidateAntiForgeryToken` atribut a pak jeho pomocí přepsání `IgnoreAntiforgeryToken` atributy, [AutoValidateAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.autovalidateantiforgerytokenattribute) atribut lze použít. Tento atribut funguje stejně jako `ValidateAntiForgeryToken` atribut, s tím rozdílem, že nevyžaduje tokeny pro žádosti pomocí následujících metod HTTP:
 
-* ZÍSKAT
+* GET
 * HLAVNÍ
 * MOŽNOSTI
 * TRACE

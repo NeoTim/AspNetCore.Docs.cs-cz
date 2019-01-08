@@ -4,14 +4,14 @@ author: rick-anderson
 description: Popisuje předdefinované pomocných rutin značek použít s formuláři.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 1/11/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 7319fbbfe3e78e61526f9042b2b6004a351c2186
-ms.sourcegitcommit: 2ef32676c16f76282f7c23154d13affce8c8bf35
+ms.openlocfilehash: cd15c641fbf702071bd57510a1d51737f6ab8e19
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50234615"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099010"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Pomocných rutin značek ve formulářích v ASP.NET Core
 
@@ -108,9 +108,9 @@ Type expected
 |---|---|
 |BOOL|typ = "zaškrtávací políčko"|
 |String|typ = "text"|
-|DateTime|typ = "data a času"|
+|DateTime|typ =["místní data a času"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
 |Byte|typ = "cislo"|
-|int|typ = "cislo"|
+|Int|typ = "cislo"|
 |Jednoduché, Double|typ = "cislo"|
 
 
@@ -364,7 +364,7 @@ Pokud dojde k chybě ověření na straně serveru, (například když máte vla
 |--- |--- |
 |ValidationSummary.All|Vlastnost a model úroveň|
 |ValidationSummary.ModelOnly|Model|
-|ValidationSummary.None|Žádné|
+|ValidationSummary.None|Žádná|
 
 ### <a name="sample"></a>Ukázka
 

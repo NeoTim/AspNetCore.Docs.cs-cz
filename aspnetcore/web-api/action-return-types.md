@@ -4,14 +4,14 @@ author: scottaddie
 description: Další informace o použití různé metody návratové typy akcí kontroleru v ASP.NET Core Web API.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/23/2018
+ms.date: 01/04/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: 84300eae4271c3ee4387be022c3576dc83e144eb
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 98d70e0379d353cff98a6d7a13f2dd00eb4da206
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207521"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098729"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>Návratové typy akcí kontroleru v rozhraní Web API ASP.NET Core
 
@@ -68,13 +68,18 @@ Vezměte v úvahu následující asynchronní akce, ve kterém jsou dvě možné
 
 [!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
 
-V předchozí akci, se vrátí stavový kód 400, pokud selže ověření modelu a [chybného požadavku](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.badrequest) vyvolání Pomocná metoda. Například následující model označuje, že musíte zadat požadavky `Name` vlastnosti a hodnotu. Proto selhání zajistit správnou `Name` v požadavku způsobí selhání ověření modelu.
+V předchozím kódu:
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.DataAccess/Models/Product.cs?name=snippet_ProductClass&highlight=5-6)]
+* Stavový kód 400 ([chybného požadavku](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*)) se vrátí modulem runtime ASP.NET Core, když "XYZ Widget" obsahuje popis produktu.
+* 201 stavový kód je generován [CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) metoda při vytváření produktu. V této cestě kódu `Product` je vrácen objekt.
 
-Předchozí akce další známé návratový kód je 201, který je generován [CreatedAtAction](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.createdataction) Pomocná metoda. V této cestě `Product` je vrácen objekt.
+Například následující model označuje, že musí zahrnovat požadavky `Name` a `Description` vlastnosti. Proto selhání kvůli `Name` a `Description` v požadavku způsobí selhání ověření modelu.
+
+[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.DataAccess/Models/Product.cs?name=snippet_ProductClass&highlight=5-6,8-9)]
 
 ::: moniker range=">= aspnetcore-2.1"
+
+Pokud [[objektu ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) je použit atribut v ASP.NET Core 2.1 nebo novější, stavový kód 400 za následek chyby ověření modelu. Další informace najdete v tématu [odpovědi HTTP 400 automatické](xref:web-api/index#automatic-http-400-responses).
 
 ## <a name="actionresultt-type"></a>ActionResult\<T > typ
 
@@ -114,7 +119,12 @@ Vezměte v úvahu asynchronní akce, ve kterém jsou dvě možné návratové ty
 
 [!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
 
-Pokud selže ověření modelu [chybného požadavku](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.badrequest#Microsoft_AspNetCore_Mvc_ControllerBase_BadRequest_Microsoft_AspNetCore_Mvc_ModelBinding_ModelStateDictionary_) vyvolána metoda vrátit stavový kód 400. [ModelState](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.modelstate) vlastnost obsahující chyby ověřování podle je předán do něj. V případě úspěšného ověření modelu se vytvoří produktu v databázi. Se vrátí 201 stavový kód.
+V předchozím kódu:
+
+* Stavový kód 400 ([chybného požadavku](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*)) se vrátí modulem runtime ASP.NET Core při:
+  * [[Objektu ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) byl použit atribut a selže ověření modelu.
+  * Popis produktu obsahuje "XYZ Widget".
+* 201 stavový kód je generován [CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) metoda při vytváření produktu. V této cestě kódu `Product` je vrácen objekt.
 
 > [!TIP]
 > K ASP.NET Core 2.1 je povolená odvození zdroj vazby parametrů akce, když je doplněn třídu kontroleru `[ApiController]` atribut. Komplexní typ parametry jsou automaticky svázán pomocí textu požadavku. V důsledku toho předchozí akce `product` parametr není explicitně opatřen poznámkou [[FromBody]](/dotnet/api/microsoft.aspnetcore.mvc.frombodyattribute) atribut.

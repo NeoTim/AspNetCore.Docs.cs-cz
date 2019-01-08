@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/20/2018
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 534c62c127e685af9c6076932943def25bd3ac06
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 24973e7bedcb219ac411948db8aa27d7219eac31
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997328"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099283"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostitele ASP.NET Core v Linuxu se serverem Nginx
 
@@ -68,7 +68,7 @@ Reverzní proxy server je společné nastavení pro poskytování dynamické web
 
 ### <a name="use-a-reverse-proxy-server"></a>Použít reverzní proxy server
 
-Kestrel se skvěle hodí pro poskytování dynamický obsah z ASP.NET Core. Však nejsou možnosti obsluhující web jako komplexní jako servery služby IIS, Apache nebo Nginx. Reverzní proxy server může převzít práce, jako je například obsluhuje statický obsah, ukládání do mezipaměti požadavky, komprese požadavků a ukončení protokolu SSL ze serveru HTTP. Reverzní proxy server může nacházet na vyhrazený počítač nebo může být nasadí společně se službou serveru HTTP.
+Kestrel se skvěle hodí pro poskytování dynamický obsah z ASP.NET Core. Však nejsou možnosti obsluhující web jako komplexní jako servery služby IIS, Apache nebo Nginx. Reverzní proxy server může převzít práce, jako je například obsluhuje statický obsah, ukládání do mezipaměti požadavky, komprese požadavků a ukončení HTTPS ze serveru HTTP. Reverzní proxy server může nacházet na vyhrazený počítač nebo může být nasadí společně se službou serveru HTTP.
 
 Pro účely tohoto průvodce se používá jednu instanci serveru Nginx. Běží na stejném serveru, spolu s HTTP serverem. Na základě požadavků, může být zvolen jiný instalační program.
 
@@ -349,7 +349,7 @@ static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 
 Konfigurace serveru s další požadované moduly. Zvažte použití brány firewall webových aplikací, jako například [ModSecurity](https://www.modsecurity.org/), Posilte zabezpečení aplikace.
 
-#### <a name="configure-ssl"></a>Konfigurace SSL
+#### <a name="https-configuration"></a>Konfigurace protokolu HTTPS
 
 * Konfigurace serveru tak, aby naslouchala na přenosy HTTPS na portu `443` zadáním platný certifikát vydaný důvěryhodného certifikátu autority (CA).
 
@@ -357,7 +357,7 @@ Konfigurace serveru s další požadované moduly. Zvažte použití brány fire
 
 * Přidání `HTTP Strict-Transport-Security` záhlaví (HSTS) zajišťuje, že jsou všechny následné požadavky od klienta přes protokol HTTPS.
 
-* Nepřidávejte HSTS záhlaví nebo zvolit odpovídající `max-age` Pokud bude v budoucnu zakázání protokolu SSL.
+* Nepřidávejte HSTS záhlaví nebo zvolit odpovídající `max-age` Pokud bude v budoucnu zakázán protokol HTTPS.
 
 Přidat */etc/nginx/proxy.conf* konfiguračního souboru:
 

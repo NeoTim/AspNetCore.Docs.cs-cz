@@ -4,16 +4,16 @@ title: Zkoumání metod Edit a zobrazení pro úpravy | Dokumentace Microsoftu
 author: Rick-Anderson
 description: ''
 ms.author: riande
-ms.date: 05/22/2015
+ms.date: 01/06/2019
 ms.assetid: 52a4d5fe-aa31-4471-b3cb-a064f82cb791
 msc.legacyurl: /mvc/overview/getting-started/introduction/examining-the-edit-methods-and-edit-view
 msc.type: authoredcontent
-ms.openlocfilehash: 29ece7754bc6e25ea968c25a99a2f48ab837e12c
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 75fd3a7dd55107cbdb9095d5b54b616133b4f65e
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911532"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099393"
 ---
 <a name="examining-the-edit-methods-and-edit-view"></a>Zkoumání metod Edit a zobrazení pro úpravy
 ====================
@@ -83,15 +83,19 @@ Následující seznam ukazuje `HttpPost` verzi `Edit` metody akce.
 
 [ValidateAntiForgeryToken](https://msdn.microsoft.com/library/system.web.mvc.validateantiforgerytokenattribute(v=vs.108).aspx) ověří atribut [XSRF](../../security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages.md) token generovaných `@Html.AntiForgeryToken()` volání v zobrazení.
 
-[Vazač modelu ASP.NET MVC](https://msdn.microsoft.com/library/dd410405.aspx) vezme hodnoty odeslaného formuláře a vytvoří `Movie` objektu, který je předán jako `movie` parametru. `ModelState.IsValid` Metoda ověří, že odeslaná data do formuláře je možné upravit (úpravy nebo aktualizace) `Movie` objektu. Pokud jsou data platná, data o filmech uložená `Movies` kolekce `db(MovieDBContext` instance). Nová data o filmech uložená v databázi voláním `SaveChanges` metoda `MovieDBContext`. Po uložení dat, kód přesměruje uživatele `Index` metody akce `MoviesController` třídu, která zobrazuje kolekce filmů, včetně pouze změny.
+[Vazač modelu ASP.NET MVC](https://msdn.microsoft.com/library/dd410405.aspx) vezme hodnoty odeslaného formuláře a vytvoří `Movie` objektu, který je předán jako `movie` parametru. `ModelState.IsValid` Ověřuje, že odeslaná data do formuláře je možné upravit (úpravy nebo aktualizace) `Movie` objektu. Pokud jsou data platná, data o filmech uložená `Movies` kolekce `db`(`MovieDBContext` instance). Nová data o filmech uložená v databázi voláním `SaveChanges` metoda `MovieDBContext`. Po uložení dat, kód přesměruje uživatele `Index` metody akce `MoviesController` třídu, která zobrazuje kolekce filmů, včetně pouze změny.
 
-Jakmile ověřování na straně klienta zjistí, že hodnoty pole nejsou platné, zobrazí se chybová zpráva. Pokud zakážete jazyka JavaScript, nebude mít ověřování na straně klienta, ale server rozpozná odeslaných hodnot nejsou platné a hodnot formuláře se zobrazí znovu, s chybovými zprávami. V pozdější části kurzu Zkoumáme, ověření podrobněji.
+Jakmile ověřování na straně klienta zjistí, že hodnota pole není platná, zobrazí se chybová zpráva. Pokud jazyk JavaScript je zakázán, je zakázáno ověřování na straně klienta. Však server rozpozná odeslaných hodnot nejsou platné, a zobrazí znovu hodnot formuláře s chybovými zprávami.
+
+Ověření je prozkoumat podrobněji dále v tomto kurzu.
 
 `Html.ValidationMessageFor` Pomocné rutiny v *Edit.cshtml* zobrazení šablony postará o zobrazení odpovídající chybové zprávy.
 
 ![abcNotValid](examining-the-edit-methods-and-edit-view/_static/image4.png)
 
 Všechny `HttpGet` metody podobné tvar. Dostanou video (nebo seznam objektů, v případě `Index`) a předána do zobrazení modelu. `Create` Metoda předává objekt prázdný film zobrazení pro vytváření. Všechny metody, které vytvořit, upravit, odstranit nebo jinak upravit data, proveďte `HttpPost` přetížení metody. Úpravy dat v metodě GET protokolu HTTP je bezpečnostním rizikem, jak je popsáno v příspěvku blogu [ASP.NET MVC Tip #46 – nepoužívejte odstranit odkazy, protože uživatel vytvořit bezpečnostní díry](http://stephenwalther.com/blog/archive/2009/01/21/asp.net-mvc-tip-46-ndash-donrsquot-use-delete-links-because.aspx). Úpravy dat v metodě GET HTTP osvědčené postupy vaší architektury a také porušuje [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer) vzor, který určuje, že požadavky GET by neměly měnit stav vaší aplikace. Jinými slovy provádění operace GET by měl být bezpečný provoz, který nemá žádné vedlejší účinky a nemění trvalá data.
+
+## <a name="jquery-validation-for-non-english-locales"></a>k ověřování jQuery pro neanglická národní prostředí
 
 Pokud používáte jazykovou verzi US English počítače, můžete tuto část přeskočit a přejít k dalšímu kurzu. Můžete stáhnout Globalize verzi tohoto kurzu [tady](https://archive.msdn.microsoft.com/Project/Download/FileDownload.aspx?ProjectName=aspnetmvcsamples&amp;DownloadId=16475). Vynikající kurz dvě části na mezinárodní prostředí, najdete v tématu [Nadeem na ASP.NET MVC 5 internacionalizace](http://afana.me/post/aspnet-mvc-internationalization.aspx).
 

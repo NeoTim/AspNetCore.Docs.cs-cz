@@ -5,12 +5,12 @@ description: Přidání zobrazení pro jednoduchou aplikaci ASP.NET Core MVC
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 5267e5a49bb6ecdd4cef671989f111eae7a64ec4
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: 0c9c682f39bf86b4d83841eca21fc67b718950e9
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381813"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54098711"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do aplikace ASP.NET Core MVC
 
@@ -24,7 +24,7 @@ Aktuálně `Index` metoda vrátí řetězec a zobrazí se zpráva, která je pev
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_4)]
 
-Vrátí předchozí kód `View` objektu. Zobrazit šablonu používá ke generování odpověď ve formátu HTML v prohlížeči. Metody kontroleru (označované také jako metody akce), jako `Index` metody popsané výše, obvykle vracet [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) (nebo třída odvozená z `ActionResult`), není typu jako řetězce.
+Předchozí kód volá kontroleru <xref:Microsoft.AspNetCore.Mvc.Controller.View*> metody. Zobrazit šablonu používá ke generování odpověď jazyka HTML. Metody kontroleru (označované také jako *metody akce*), například `Index` metody popsané výše, obvykle vracet <xref:Microsoft.AspNetCore.Mvc.IActionResult> (nebo třída odvozená z <xref:Microsoft.AspNetCore.Mvc.ActionResult>), není typem, jako jsou `string`.
 
 ## <a name="add-a-view"></a>Přidání zobrazení
 

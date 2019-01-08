@@ -6,12 +6,12 @@ ms.author: spboyer
 ms.custom: mvc
 ms.date: 12/20/2018
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 8c590743328885336498ca2446c618b13a7d2ce2
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 217dc840748ef33173ae6a8c001aee558864ec59
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997224"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099406"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Hostitele ASP.NET Core v Linuxu pomocí Apache
 
@@ -324,15 +324,15 @@ icmp-blocks:
 rich rules: 
 ```
 
-### <a name="ssl-configuration"></a>Konfigurace SSL
+### <a name="https-configuration"></a>Konfigurace protokolu HTTPS
 
-Chcete-li nakonfigurovat i Apache pro protokol SSL, *mod_ssl* modul se používá. Když *httpd* modul byl nainstalován, *mod_ssl* také nainstalován modul. Pokud nebyla nainstalována, použijte `yum` přidejte do konfigurace.
+Chcete-li nakonfigurovat i Apache pro protokol HTTPS, *mod_ssl* modul se používá. Když *httpd* modul byl nainstalován, *mod_ssl* také nainstalován modul. Pokud nebyla nainstalována, použijte `yum` přidejte do konfigurace.
 
 ```bash
 sudo yum install mod_ssl
 ```
 
-K vynucení SSL, nainstalujte `mod_rewrite` modulu, který chcete-li povolit přepisování adres URL:
+Vynucení protokolu HTTPS, nainstalujte `mod_rewrite` modulu, který chcete-li povolit přepisování adres URL:
 
 ```bash
 sudo yum install mod_rewrite
