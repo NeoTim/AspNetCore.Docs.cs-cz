@@ -117,7 +117,7 @@ items:
           href: web-forms/overview/deployment/deploying-web-applications-in-enterprise-scenarios/deploying-web-applications-in-enterprise-scenarios.md
         - name: 'Nasazení podnikového webu: Přehledný scénář'
           href: web-forms/overview/deployment/deploying-web-applications-in-enterprise-scenarios/enterprise-web-deployment-scenario-overview.md
-        - name: 'Správa životního cyklu aplikace: Od vývoje k ostrému provozu'
+        - name: 'Správa životního cyklu aplikací: Od vývoje k ostrému provozu'
           href: web-forms/overview/deployment/deploying-web-applications-in-enterprise-scenarios/application-lifecycle-management-from-development-to-production.md
       - name: ASP.NET 4 – nasazení v podniku (1. část)
         href: web-forms/overview/deployment/web-deployment-in-the-enterprise/index.md
@@ -218,21 +218,21 @@ items:
       - name: ASP.NET 4 – Tailspin Spyworks
         href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/index.md
         items:
-        - name: '1. část: Soubor > Nový projekt'
+        - name: 'Část 1: Soubor > Nový projekt'
           href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-1.md
-        - name: '2. část: Vrstva přístupu k datům'
+        - name: 'Část 2: Vrstva přístupu k datům'
           href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-2.md
-        - name: '3. část: Nabídka Rozložení a Kategorie'
+        - name: 'Část 3: Nabídka Rozložení a Kategorie'
           href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-3.md
-        - name: '4. část: Seznam produktů'
+        - name: 'Část 4: Seznam produktů'
           href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-4.md
-        - name: '5. část: Obchodní logika'
+        - name: 'Část 5: Obchodní logika'
           href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-5.md
-        - name: '6. část: Členství v ASP.NET'
+        - name: 'Část 6: Členství v ASP.NET'
           href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-6.md
-        - name: '7. část: Přidání funkcí'
+        - name: 'Část 7: Přidání funkcí'
           href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-7.md
-        - name: '8. část: Závěrečné stránky, zpracování výjimek a závěr'
+        - name: 'Část 8: Závěrečné stránky, zpracování výjimek a závěr'
           href: web-forms/overview/older-versions-getting-started/tailspin-spyworks/tailspin-spyworks-part-8.md
       - name: ASP.NET 4 – Začínáme se sadou Entity Framework 4 a webovými formuláři
         href: web-forms/overview/older-versions-getting-started/getting-started-with-ef/index.md
@@ -2309,25 +2309,25 @@ items:
       - name: Aplikace MVC 3 Music Store
         href: mvc/overview/older-versions/mvc-music-store/index.md
         items:
-        - name: '1. část: Přehled a Soubor->Nový projekt'
+        - name: 'Část 1: Přehled a Soubor->Nový projekt'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-1.md
-        - name: '2. část: Kontrolery'
+        - name: 'Část 2: Kontrolery'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-2.md
-        - name: '3. část: Zobrazení a modely ViewModel'
+        - name: 'Část 3: Zobrazení a modely ViewModel'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-3.md
-        - name: '4. část: Modely a přístup k datům'
+        - name: 'Část 4: Modely a přístup k datům'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-4.md
-        - name: '5. část: Editační formuláře a šablonování textu'
+        - name: 'Část 5: Editační formuláře a šablonování textu'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-5.md
-        - name: '6. část: Používání datových poznámek k ověření modelu'
+        - name: 'Část 6: Používání datových poznámek k ověření modelu'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6.md
-        - name: '7. část: Členství a ověřování'
+        - name: 'Část 7: Členství a ověřování'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-7.md
-        - name: '8. část: Nákupní košík s aktualizacemi Ajax'
+        - name: 'Část 8: Nákupní košík s aktualizacemi Ajax'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-8.md
-        - name: '9. část: Registrace a pokladna'
+        - name: 'Část 9: Registrace a pokladna'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-9.md
-        - name: '10. část: Závěrečné aktualizace návrhu navigace a webu, závěr'
+        - name: 'Část 10: Závěrečné aktualizace návrhu navigace a webu, závěr'
           href: mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-10.md
       - name: MVC 3 – překryvný kalendář s prvkem DatePicker v uživatelském rozhraní HTML5 a jQuery
         href: mvc/overview/older-versions/using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc/index.md
@@ -2659,13 +2659,13 @@ items:
       - name: ASP.NET MVC pro nás ostatní
         href: mvc/videos/mvc-2/aspnet-mvc-for-the-rest-of-us/index.md
         items:
-        - name: 'ASP.NET MVC pro nás ostatní: 1. část'
+        - name: 'ASP.NET MVC pro nás ostatní: Část 1'
           href: mvc/videos/mvc-2/aspnet-mvc-for-the-rest-of-us/aspnet-mvc-for-the-rest-of-us-part-1.md
-        - name: 'ASP.NET MVC pro nás ostatní: 2. část'
+        - name: 'ASP.NET MVC pro nás ostatní: Část 2'
           href: mvc/videos/mvc-2/aspnet-mvc-for-the-rest-of-us/aspnet-mvc-for-the-rest-of-us-part-2.md
-        - name: 'ASP.NET MVC pro nás ostatní: 3. část'
+        - name: 'ASP.NET MVC pro nás ostatní: Část 3'
           href: mvc/videos/mvc-2/aspnet-mvc-for-the-rest-of-us/aspnet-mvc-for-the-rest-of-us-part-3.md
-        - name: 'ASP.NET MVC pro nás ostatní: 4. část'
+        - name: 'ASP.NET MVC pro nás ostatní: Část 4'
           href: mvc/videos/mvc-2/aspnet-mvc-for-the-rest-of-us/aspnet-mvc-for-the-rest-of-us-part-4.md
       - name: Aplikace Music Store
         href: mvc/videos/mvc-2/music-store/index.md
@@ -2674,7 +2674,7 @@ items:
           href: mvc/videos/mvc-2/music-store/mvc-music-store-part-1-intro-tools-and-project-structure.md
         - name: 'Aplikace MVC Music Store 2. část: Kontrolery'
           href: mvc/videos/mvc-2/music-store/mvc-music-store-part-2-controllers.md
-        - name: 'Aplikace MVC Music Store 3. část: Zobrazení a modely ViewModels'
+        - name: 'Aplikace MVC Music Store 3. část: Zobrazení a modely ViewModel'
           href: mvc/videos/mvc-2/music-store/mvc-music-store-part-3-views-and-viewmodels.md
     - name: ASP.NET MVC 1
       href: mvc/videos/mvc-1/index.md
@@ -2684,7 +2684,7 @@ items:
         items:
         - name: 'Prezentace ASP.NET MVC – část 1: Architektura a celkový přehled'
           href: mvc/videos/mvc-1/aspnet-mvc-storefront/aspnet-mvc-storefront-part-1-architectural-discussion-and-overview.md
-        - name: 'Prezentace ASP.NET MVC – část 2: Úložiště'
+        - name: 'Prezentace ASP.NET MVC – část 2: Vzor úložiště'
           href: mvc/videos/mvc-1/aspnet-mvc-storefront/aspnet-mvc-storefront-part-2-the-repository-pattern.md
         - name: 'Prezentace ASP.NET MVC – část 3: Kanály a filtry'
           href: mvc/videos/mvc-1/aspnet-mvc-storefront/aspnet-mvc-storefront-part-3-pipes-and-filters.md
@@ -2722,7 +2722,7 @@ items:
           href: mvc/videos/mvc-1/aspnet-mvc-storefront/aspnet-mvc-storefront-part-19-processing-orders-with-windows-workflow.md
         - name: 'Prezentace ASP.NET MVC – část 19a: Pokračování pracovního postupu Windows'
           href: mvc/videos/mvc-1/aspnet-mvc-storefront/aspnet-mvc-storefront-part-19a-windows-workflow-followup.md
-        - name: 'Prezentace ASP.NET MVC – část 20: Přihlášení'
+        - name: 'Prezentace ASP.NET MVC – část 20: protokolování'
           href: mvc/videos/mvc-1/aspnet-mvc-storefront/aspnet-mvc-storefront-part-20-logging.md
         - name: 'Prezentace ASP.NET MVC – část 21: Správa objednávek a přizpůsobení'
           href: mvc/videos/mvc-1/aspnet-mvc-storefront/aspnet-mvc-storefront-part-21-order-manager-and-personalization.md
@@ -2931,7 +2931,7 @@ items:
         href: web-api/overview/advanced/httpclient-message-handlers.md
       - name: 'Posílání dat formulářů HTML ve webovém rozhraní API: Data formuláře kódovaná pomocí adresy URL'
         href: web-api/overview/advanced/sending-html-form-data-part-1.md
-      - name: 'Posílání dat formulářů HTML ve webovém rozhraní API: Nahrání souboru a vícedílné zprávy MIME'
+      - name: 'Posílání dat formulářů HTML ve webovém rozhraní API: Nahrání souboru a vícedílné zprávy standardu MIME'
         href: web-api/overview/advanced/sending-html-form-data-part-2.md
       - name: Soubory cookie HTTP ve webovém rozhraní API technologie ASP.NET
         href: web-api/overview/advanced/http-cookies.md
@@ -3208,15 +3208,15 @@ items:
         href: signalr/overview/getting-started/introduction-to-signalr.md
       - name: Podporované platformy
         href: signalr/overview/getting-started/supported-platforms.md
-      - name: 'Kurz: Začínáme s knihovnou SignalR 2'
+      - name: Chatování v reálném čase s knihovnou SignalR 2
         href: signalr/overview/getting-started/tutorial-getting-started-with-signalr.md
-      - name: 'Kurz: Začínáme s knihovnou SignalR 2 a MVC 5'
+      - name: Chatování v reálném čase s knihovnou SignalR 2 a MVC 5
         href: signalr/overview/getting-started/tutorial-getting-started-with-signalr-and-mvc.md
-      - name: 'Kurz: Vysokofrekvenční reálný čas s knihovnou SignalR 2'
+      - name: Vysokofrekvenční reálný čas s knihovnou SignalR 2
         href: signalr/overview/getting-started/tutorial-high-frequency-realtime-with-signalr.md
-      - name: 'Kurz: Serverové vysílání s knihovnou SignalR 2'
+      - name: Serverové vysílání s knihovnou SignalR 2
         href: signalr/overview/getting-started/tutorial-server-broadcast-with-signalr.md
-      - name: 'Praktické cvičené: Webové aplikace v reálném čase s knihovnou SignalR'
+      - name: 'Praktické cvičení: Webové aplikace v reálném čase s knihovnou SignalR'
         href: signalr/overview/getting-started/real-time-web-applications-with-signalr.md
     - name: Pokyny k rozhraní API
       href: signalr/overview/guide-to-the-api/index.md
@@ -3290,7 +3290,7 @@ items:
     - name: Starší verze
       href: signalr/overview/older-versions/index.md
       items:
-      - name: 'Kurz: Začínáme s knihovnou SignalR 1.x'
+      - name: 'Kurz: Začínáme s funkcí SignalR 1.x'
         href: signalr/overview/older-versions/tutorial-getting-started-with-signalr.md
       - name: 'Kurz: Začínáme s knihovnou SignalR 1.x a MVC 4'
         href: signalr/overview/older-versions/tutorial-getting-started-with-signalr-and-mvc-4.md
@@ -3743,9 +3743,9 @@ items:
       href: aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/queue-centric-work-pattern.md
     - name: Další postupy a pokyny
       href: aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/more-patterns-and-guidance.md
-    - name: 'Příloha: ukázková aplikace Fix It'
+    - name: 'Příloha: Ukázková aplikace Fix It'
       href: aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/the-fix-it-sample-application.md
-  - name: 'Praktické cvičení: Udržitelné weby Azure – správa změn a škálování'
+  - name: 'Praktické cvičení: Udržitelné weby Azure: Správa změn a škálování'
     href: aspnet/overview/developing-apps-with-windows-azure/maintainable-azure-websites-managing-change-and-scale.md
 - name: OWIN a Katana
   href: aspnet/overview/owin-and-katana/index.md
@@ -3790,7 +3790,7 @@ items:
     href: whitepapers/mvc4-beta-release-notes.md
   - name: Spuštění ASP.NET 1.1 se službou IIS 6.0
     href: whitepapers/aspnet-and-iis6.md
-  - name: 'Postup: Přidání mobilních stránek do webových formulářů ASP.NET/aplikace MVC'
+  - name: 'Postupy: Přidání mobilních stránek do webových formulářů ASP.NET/aplikace MVC'
     href: whitepapers/add-mobile-pages-to-your-aspnet-web-forms-mvc-application.md
   - name: Oprava chyby „Serverová aplikace není k dispozici“ po použití aktualizace zabezpečení pro IE
     href: whitepapers/ms03-32-issue.md
@@ -3810,9 +3810,9 @@ items:
     href: whitepapers/whats-new-in-aspnet-45-and-visual-studio-2012.md
 - name: referenční dokumentace k rozhraní API
   href: api-ref.md
-ms.openlocfilehash: 6c6d8fc996066fef18c8a9396ec6eed6e4e3fec6
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: cb887e46701baa93d1deed63eb01c7c0dc1faa55
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450824"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099309"
