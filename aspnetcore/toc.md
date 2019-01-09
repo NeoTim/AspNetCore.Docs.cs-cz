@@ -179,7 +179,9 @@
 ## [Ladění snímků](/azure/application-insights/app-insights-snapshot-debugger)
 ## [Ladění snímků v sadě Visual Studio](/visualstudio/debugger/debug-live-azure-applications)
 ## [Integrační testy](xref:test/integration-tests)
+## [Zátěžové testování](xref:test/loadtests)
 ## [Řešení potíží](xref:test/troubleshoot)
+## [Protokolování](xref:fundamentals/logging/index)
 
 # Přístup k datům
 ## Kurzy
@@ -392,6 +394,7 @@
 ## [Sledovací proces souboru](xref:tutorials/dotnet-watch)
 
 # Migrace
+## [Z verze 2.2 do verze 3.0](xref:migration/22-to-30)
 ## [Z verze 2.1 do verze 2.2](xref:migration/21-to-22)
 ## [Z verze 2.0 do verze 2.1](xref:migration/20_21)
 ## Z verze 1.x do verze 2.0
@@ -406,6 +409,7 @@
 ### [ClaimsPrincipal.Current](xref:migration/claimsprincipal-current)
 ### [Členství v Identity](xref:migration/proper-to-2x/membership-to-core-identity)
 ### [Z modulů HTTP do middlewaru](xref:migration/http-modules)
+## [Protokolování (ne u ASP.NET Core)](xref:migration/logging-nonaspnetcore)
 
 # Co je nového
 ## [Novinky ve verzi 2.2](xref:aspnetcore-2.2)
