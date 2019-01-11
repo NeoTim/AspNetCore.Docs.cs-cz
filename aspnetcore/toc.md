@@ -1,3 +1,5 @@
+# [Dokumentace k ASP.NET Core](/aspnet/#pivot=core)
+
 # Přehled
 ## [Informace o ASP.NET Core](xref:index)
 ## [Porovnání ASP.NET Core a ASP.NET](xref:fundamentals/choose-between-aspnet-and-aspnetcore)
@@ -5,8 +7,14 @@
 
 # [Začínáme](xref:getting-started)
 
+# Co je nového
+## [Novinky ve verzi 2.2](xref:aspnetcore-2.2)
+## [Novinky ve verzi 2.1](xref:aspnetcore-2.1)
+## [Novinky ve verzi 2.0](xref:aspnetcore-2.0)
+## [Novinky ve verzi 1.1](xref:aspnetcore-1.1)
+
 # Kurzy
-## Webová rozhraní API
+## Aplikace Web API
 ### [Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
 ### [Web API s MongoDB](xref:tutorials/first-mongo-app)
 ## Webové aplikace
@@ -121,7 +129,7 @@
 ### [Vlastní vazba modelu](xref:mvc/advanced/custom-model-binding)
 ### [Kompatibilita – verze](xref:mvc/compatibility-version)
 
-# Webová rozhraní API
+# Aplikace Web API
 ## [Přehled](xref:web-api/index)
 
 ## Kurzy
@@ -376,6 +384,7 @@
 ### [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware)
 ## [Komprese odpovědí](xref:performance/response-compression)
 ## [Diagnostické nástroje](xref:performance/diagnostic-tools)
+## [Zátěžové testování](xref:test/loadtests)
 
 # Další témata
 ## [Globalizace a lokalizace](xref:fundamentals/localization)
@@ -410,12 +419,6 @@
 ### [Členství v Identity](xref:migration/proper-to-2x/membership-to-core-identity)
 ### [Z modulů HTTP do middlewaru](xref:migration/http-modules)
 ## [Protokolování (ne u ASP.NET Core)](xref:migration/logging-nonaspnetcore)
-
-# Co je nového
-## [Novinky ve verzi 2.2](xref:aspnetcore-2.2)
-## [Novinky ve verzi 2.1](xref:aspnetcore-2.1)
-## [Novinky ve verzi 2.0](xref:aspnetcore-2.0)
-## [Novinky ve verzi 1.1](xref:aspnetcore-1.1)
 
 # [Referenční dokumentace rozhraní API](/dotnet/api/?view=aspnetcore-2.2)
 
