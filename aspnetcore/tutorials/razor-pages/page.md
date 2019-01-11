@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 12/4/2018
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: acfc446732803c67714943fe3e5b7a31055ebcd7
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 2b68523ac84596bda2914d9c348ddea8c7ea9465
+ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862002"
+ms.lasthandoff: 01/10/2019
+ms.locfileid: "54207379"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>Vygenerované stránky Razor v ASP.NET Core
 
@@ -57,6 +57,12 @@ Prozkoumejte výrazu lambda použít v následujících pomocné rutiny HTML:
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
 
 `@model` Direktiva Určuje typ modelu předané do stránky Razor. V předchozím příkladu `@model` řádek provede `PageModel`-odvozené třídy, které jsou k dispozici pro stránky Razor. Model se používá v `@Html.DisplayNameFor` a `@Html.DisplayFor` [pomocných rutin HTML](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) na stránce.
+
+### <a name="the-layout-page"></a>Stránka rozložení
+
+Vyberte nabídky odkazy (**RazorPagesMovie**, **Domů**, a **ochrany osobních údajů**). Každá stránka zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementována v *Pages/Shared/_Layout.cshtml* souboru. Otevřít *Pages/Shared/_Layout.cshtml* souboru.
+
+[Rozložení](xref:mvc/views/layout) šablony umožňují zadat kontejner rozložení HTML vašeho webu na jednom místě a použijte ji na několika stránkách ve vaší lokalitě. Najít `@RenderBody()` řádku. `RenderBody` je zástupný symbol, kde všechny specifický pro stránku zobrazení, se kterými create, show *zabalené* stránce rozložení. Například, pokud jste vybrali **ochrany osobních údajů** odkaz, **Pages/Privacy.cshtml** je zobrazení vykresleno uvnitř `RenderBody` metody.
 
 <a name="vd"></a>
 ### <a name="viewdata-and-layout"></a>ViewData a rozložení
@@ -169,4 +175,4 @@ Modul generování uživatelského rozhraní vytvoří kód Razor pro každé po
 
 > [!div class="step-by-step"]
 > [Předchozí: Přidání modelu](xref:tutorials/razor-pages/model)
-> [Další: databáze](xref:tutorials/razor-pages/sql)
+> [Další: Základ dat](xref:tutorials/razor-pages/sql)

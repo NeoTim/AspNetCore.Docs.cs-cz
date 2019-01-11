@@ -5,12 +5,12 @@ description: Tento kurz ukazuje, jak nainstalovat a používat nástroje pro .NE
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: fc08efa433f688a0b9009aed35fdee2b0c228619
-ms.sourcegitcommit: e12f45ddcbe99102a74d4077df27d6c0ebba49c1
+ms.openlocfilehash: f1e0d91b27df4af7cbfb6f2547c94c0370c65d0d
+ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2018
-ms.locfileid: "39063296"
+ms.lasthandoff: 01/10/2019
+ms.locfileid: "54207499"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>Vyvíjejte aplikace ASP.NET Core s využitím sledovací proces souborů
 
@@ -99,7 +99,7 @@ Ověřte `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí sprá
 1. Změnit `Product` metoda *MathController.cs* zpět do vrací součet. Uložte soubor.
 1. V příkazovém řádku přejděte *WebAppTests* složky.
 1. Spustit [dotnet restore](/dotnet/core/tools/dotnet-restore).
-1. Spustit `dotnet watch test`. Výstup udává, že se nezdařil test a že sledovací proces čeká na změny v souboru:
+1. Spusťte `dotnet watch test`. Výstup udává, že se nezdařil test a že sledovací proces čeká na změny v souboru:
 
      ```console
      Total tests: 2. Passed: 1. Failed: 1. Skipped: 0.
@@ -179,4 +179,4 @@ VSTest provede při změn v souboru v obou testovacího projektu.
 
 ## <a name="dotnet-watch-in-github"></a>`dotnet-watch` v Githubu
 
-`dotnet-watch` je součástí Githubu [DotNetTools úložiště](https://github.com/aspnet/DotNetTools/tree/master/src/dotnet-watch).
+`dotnet-watch` je součástí Githubu [aspnet/AspNetCore úložiště](https://github.com/aspnet/AspNetCore/tree/master/src/Tools/dotnet-watch).
