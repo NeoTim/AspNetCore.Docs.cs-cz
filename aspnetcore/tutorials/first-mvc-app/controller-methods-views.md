@@ -5,18 +5,18 @@ description: Zjistěte, jak pracovat s metodami kontroleru, zobrazení a DataAnn
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: e6bdaec6dfe681582a54bd39ce1c76bebe6f5fb2
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: cd1b0f2ccffaa660f137b8d739933e56018f2702
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997250"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249409"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>Metody kontroleru a zobrazení v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Máme o dobrý začátek aplikace movie, ale v prezentaci není ideální. Nechceme zobrazíte čas (12:00:00 dop. na následujícím obrázku) a **ReleaseDate** by měla být dvě slova.
+Máme o dobrý začátek aplikace movie, ale v prezentaci není ideální, například **ReleaseDate** by měla být dvě slova.
 
 ![Index zobrazení: Datum vydání je jedno slovo (bez mezer) a každý film datum vydání ukazuje čas 12: 00](working-with-sql/_static/m55.png)
 

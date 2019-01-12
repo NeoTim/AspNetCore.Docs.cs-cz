@@ -5,12 +5,12 @@ description: Přidání zobrazení pro jednoduchou aplikaci ASP.NET Core MVC
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 0c9c682f39bf86b4d83841eca21fc67b718950e9
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 321ffd6b0168d4befc950a58035d19561e879491
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098711"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249448"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do aplikace ASP.NET Core MVC
 
@@ -86,9 +86,9 @@ Vyberte nabídky odkazy (**MvcMovie**, **Domů**, a **ochrany osobních údajů*
 
 [Rozložení](xref:mvc/views/layout) šablony umožňují zadat kontejner rozložení HTML vašeho webu na jednom místě a použijte ji na několika stránkách ve vaší lokalitě. Najít `@RenderBody()` řádku. `RenderBody` je zástupný symbol, kde všechny v zobrazení konkrétní stránky, můžete vytvořit, zobrazit *zabalené* stránce rozložení. Například, pokud jste vybrali **ochrany osobních údajů** odkaz, **Views/Home/Privacy.cshtml** je zobrazení vykresleno uvnitř `RenderBody` metody.
 
-## <a name="change-the-title-and-menu-link-in-the-layout-file"></a>Změnit název a nabídky odkaz v souboru rozložení
+## <a name="change-the-title-footer-and-menu-link-in-the-layout-file"></a>Změnit název, nabídek a zápatí odkaz v souboru rozložení
 
-* Do prvku název změnit `MvcMovie` k `Movie App`.
+* V názvu a zápatí prvky, změňte `MvcMovie` k `Movie App`.
 * Změnit anchor element `<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcMovie</a>` k `<a class="navbar-brand" asp-controller="Movies" asp-action="Index">Movie App</a>`.
 
 Následující kód ukazuje zvýrazněné změny:

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: b66d20a46b29b6975512026fa940f7f9e50deeb5
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: 868163ed621ef9818759efd72ed3d233dc958219
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425130"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249500"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -261,6 +261,8 @@ EF Core vytvoří prázdná databáze. V této části `Initialize` metoda je za
 V *Data* složku, vytvořte nový soubor třídy *DbInitializer.cs* a přidejte následující kód:
 
 [!code-csharp[](intro/samples/cu21/Data/DbInitializer.cs?name=snippet_Intro)]
+
+Poznámka: Předchozí kód používá `Models` pro obor názvů (`namespace ContosoUniversity.Models`) spíše než `Data`. `Models` je v souladu s generované generátor kódu. Další informace najdete v tématu [tento problém generování uživatelského rozhraní Githubu](https://github.com/aspnet/Scaffolding/issues/822).
 
 Kód kontroluje, jestli na databáze nejsou všechny studenty. Pokud v databázi nejsou žádní studenti, databáze je inicializována s testovací data. Načte testovací data do pole spíše než `List<T>` kolekce za účelem optimalizace výkonu.
 

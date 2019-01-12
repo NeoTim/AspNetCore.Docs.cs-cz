@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 481e3810f1e1aca40e0ee1ce3da6c67dc9d841f4
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: 892fb8898c78a1645c766544715a8256462207c6
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425104"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249383"
 ---
 # <a name="use-web-api-conventions"></a>Řiďte se vytváření webového rozhraní API
 
@@ -49,6 +49,8 @@ Konvence není compose; Každá akce může být spojen s konvence přesně jede
     [ProducesResponseType(404)]
     [ProducesResponseType(400)]
     ```
+
+Další informace o `[ProducesDefaultResponseType]`, naleznete v tématu [výchozí odpověď](https://swagger.io/docs/specification/describing-responses/#default).
 
 1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` použijí pro kontroler &mdash; typ zadané konvence se vztahuje na všechny akce v kontroleru. Metoda konvence je upravený pomocí tipů, které určují akce, u kterých bude použito metodu konvence. Další informace o pomocných parametrů najdete v tématu [vytvoření webového rozhraní API konvence](#create-web-api-conventions)).
 

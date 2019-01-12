@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/02/2018
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: fdd8f9232c4332aa8307b9dbdfba6af48dfafa72
-ms.sourcegitcommit: 317f9be24db600499e79d25872d743af74bd86c0
+ms.openlocfilehash: ef3e81da6fb9e2e332b553607be35fcd79e9362d
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/02/2018
-ms.locfileid: "48045494"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249370"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>Vlastní zprostředkovatelé zásad autorizace pomocí IAuthorizationPolicyProvider v ASP.NET Core 
 
@@ -25,7 +25,7 @@ Uvedené příklady situací, kdy vlastní [IAuthorizationPolicyProvider](/dotne
 * Pomocí velkého rozsahu zásad (pro jiné místnosti čísla nebo ve věku, například), proto nemá smysl pro přidání jednotlivých zásad jednotlivé autorizace pomocí `AuthorizationOptions.AddPolicy` volání.
 * Vytváření zásad za běhu na základě informací v externího zdroje dat (třeba databáze) nebo určení požadavků na povolení dynamicky prostřednictvím jiného mechanismu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AuthSamples/tree/master/samples/CustomPolicyProvider) z [úložiště GitHub aspnet/AuthSamples](https://github.com/aspnet/AuthSamples). Stáhněte soubor ZIP aspnet/AuthSamples úložiště.
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/AuthSamples/) z [úložiště AspNetCore GitHub](https://github.com/aspnet/AspNetCore). Stáhněte soubor ZIP aspnet/AuthSamples úložiště.
 Rozbalte *AuthSamples-master.zip* souboru. Přejděte *samples/CustomPolicyProvider* složky projektu.
 
 ## <a name="customize-policy-retrieval"></a>Přizpůsobení načtení zásad

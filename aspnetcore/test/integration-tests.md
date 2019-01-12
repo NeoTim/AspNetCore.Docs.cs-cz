@@ -5,14 +5,14 @@ description: Zjistěte, jak zkoušky integrace Ujistěte se, že součásti vaš
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 01/11/2019
 uid: test/integration-tests
-ms.openlocfilehash: 9729925c89c212bb6e6fac1a484b6288697afe57
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 0f919d7715a26f1efdb37d35b047a7050e46a272
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450746"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249513"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -26,7 +26,7 @@ V tomto tématu se předpokládá základní znalost testů jednotek. Pokud nezn
 
 Ukázková aplikace je aplikace Razor Pages a předpokládá základní znalost stránky Razor. Pokud neznáte stránky Razor, naleznete v následujících tématech:
 
-* [Úvod do stránky Razor](xref:razor-pages/index)
+* [Úvod do Razor Pages](xref:razor-pages/index)
 * [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start)
 * [Testy jednotek stránek Razor](xref:test/razor-pages-tests)
 
@@ -72,9 +72,9 @@ Integrační testy podle posloupnost událostí, které zahrnují obvyklého *us
 
 1. Je nakonfigurovaný SUT webového hostitele.
 1. Testovací klient serveru se vytvoří odesílat žádosti do aplikace.
-1. *Uspořádat* provádí se krok testu: aplikace pro testy připraví žádost.
-1. *Act* provádí se krok testu: klient odešle žádost a obdrží odpověď.
-1. *Assert* provádí se krok testu: *skutečné* odpovědi je ověřen jako *předat* nebo *selhání* na základě *očekávání*  odpovědi.
+1. *Uspořádat* provádí se krok testu: Aplikace pro testy připraví žádost.
+1. *Act* provádí se krok testu: Klient odešle žádost a obdrží odpověď.
+1. *Assert* provádí se krok testu: *Skutečné* odpovědi je ověřen jako *předat* nebo *selhání* na základě *očekává* odpovědi.
 1. Proces pokračuje, dokud všechny testy jsou spouštěny.
 1. Výsledky testů jsou hlášeny.
 
@@ -114,7 +114,7 @@ Tyto požadavky si můžete prohlédnout ve [ukázkovou aplikaci](https://github
 
 [WebApplicationFactory&lt;TEntryPoint&gt; ](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro testy integrace. `TEntryPoint` vstupní bod třídu SUT, je obvykle `Startup` třídy.
 
-Implementace třídy testu *třídy testovací přípravek* rozhraní (`IClassFixture`) k označení třídy obsahuje testy a poskytuje instance objektů sdílené napříč testů ve třídě.
+Implementace třídy testu *třídy testovací přípravek* rozhraní ([IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)) k označení třídy obsahuje testy a poskytuje instance objektů sdílené napříč testů ve třídě.
 
 ### <a name="basic-test-of-app-endpoints"></a>Základní test přenosu koncových bodů aplikace
 
@@ -151,7 +151,7 @@ Konfigurace webového hostitele je možné vytvořit nezávisle na testovacích 
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs?name=snippet1)]
 
-   Synchronizace replik indexů v databázi [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/test/integration-tests/samples) provádí `InitializeDbForTests` metoda. Metoda je popsána v [integrační testy vzorku: testování aplikace organizace](#test-app-organization) oddílu.
+   Synchronizace replik indexů v databázi [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/test/integration-tests/samples) provádí `InitializeDbForTests` metoda. Metoda je popsána v [integrační testy vzorku: Testování aplikace organizace](#test-app-organization) oddílu.
 
 2. Použít vlastní `CustomWebApplicationFactory` v testovacích třídách. Následující příklad používá objekt pro vytváření v `IndexPageTests` třídy:
 
@@ -173,9 +173,9 @@ Konfigurace webového hostitele je možné vytvořit nezávisle na testovacích 
 
 * `GetDocumentAsync` &ndash; Přijímá [objekt HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument`. `GetDocumentAsync` používá objekt factory, který připraví *virtuální odpovědi* založena na původní `HttpResponseMessage`. Další informace najdete v tématu [AngleSharp dokumentaci](https://github.com/AngleSharp/AngleSharp#documentation).
 * `SendAsync` rozšiřující metody pro `HttpClient` compose [HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volat [SendAsync(HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odesílání požadavků SUT. Přetížení pro `SendAsync` přijmout formuláře HTML (`IHtmlFormElement`) a následující:
-  - Tlačítko formuláře odeslat (`IHtmlElement`)
-  - Kolekce hodnot formuláře (`IEnumerable<KeyValuePair<string, string>>`)
-  - Tlačítko Odeslat (`IHtmlElement`) a hodnoty (`IEnumerable<KeyValuePair<string, string>>`)
+  * Tlačítko formuláře odeslat (`IHtmlElement`)
+  * Kolekce hodnot formuláře (`IEnumerable<KeyValuePair<string, string>>`)
+  * Tlačítko Odeslat (`IHtmlElement`) a hodnoty (`IEnumerable<KeyValuePair<string, string>>`)
 
 > [!NOTE]
 > [AngleSharp](https://anglesharp.github.io/) je třetí strany parsování knihovna používaná pro demonstrační účely v tomto tématu a ukázkovou aplikaci. AngleSharp není podporován nebo potřebné pro testování integrace aplikací ASP.NET Core. Další analyzátory je možné, například [Html flexibilitu Pack (HAP)](http://html-agility-pack.net/). Další možností je napsat kód pro zpracování žádosti o token pro ověření a antiforgery soubor cookie antiforgery systému přímo.

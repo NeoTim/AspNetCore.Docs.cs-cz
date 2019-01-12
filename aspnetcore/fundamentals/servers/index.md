@@ -4,14 +4,14 @@ author: guardrex
 description: Zjišťování webové servery přes Kestrel a HTTP.sys pro ASP.NET Core. Zjistěte, jak vybrat server a kdy použít reverzní proxy server.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 01/11/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: 2c209942ed219b6d6ca309d8aba94b264d421158
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 4210d67397c85a1608f79fc4ed9d283521356226
+ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637739"
+ms.lasthandoff: 01/12/2019
+ms.locfileid: "54249487"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementací webového serveru v ASP.NET Core
 
@@ -48,6 +48,8 @@ Modul ASP.NET Core:
   * Načtení [CoreCLR](/dotnet/standard/glossary#coreclr).
   * Volání `Program.Main`.
 * Zpracovává životnost nativní požadavků služby IIS.
+
+Model hostingu v procesu není podporována pro aplikace ASP.NET Core, které jsou cíleny rozhraní .NET Framework.
 
 Následující diagram znázorňuje vztah mezi služby IIS, že modul ASP.NET Core a aplikace hostované v procesu:
 
