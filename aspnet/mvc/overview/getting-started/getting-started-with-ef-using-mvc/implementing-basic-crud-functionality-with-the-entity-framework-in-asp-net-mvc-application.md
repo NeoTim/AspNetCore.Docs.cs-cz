@@ -1,40 +1,49 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application
-title: Implementace základních funkcí CRUD s rozhraním Entity Framework v aplikaci ASP.NET MVC | Dokumentace Microsoftu
+title: 'Kurz: Implementace funkcí CRUD s rozhraním Entity Framework v architektuře ASP.NET MVC | Dokumentace Microsoftu'
+description: Zkontrolovat a upravit vytvořit, číst, aktualizovat, odstranění (CRUD) kód, který automaticky vytvoří základní kostry aplikace MVC v kontrolerů a zobrazení.
 author: tdykstra
-description: Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí sady Visual Studio a Entity Framework 6 Code First...
 ms.author: riande
-ms.date: 10/05/2015
+ms.date: 01/11/2019
+ms.topic: tutorial
 ms.assetid: a2f70ba4-83d1-4002-9255-24732726c4f2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 08b5d38b38d3323e347f0f849ccc0c25fe49efb9
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 9c6f8f3a2ffc0a9c5e15111ae47c331dab24ff43
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912653"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341717"
 ---
-<a name="implementing-basic-crud-functionality-with-the-entity-framework-in-aspnet-mvc-application"></a>Implementace základních funkcí CRUD s rozhraním Entity Framework v aplikaci ASP.NET MVC
-====================
-podle [Petr Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-implement-crud-functionality-with-the-entity-framework-in-aspnet-mvc"></a>Kurz: Implementace funkcí CRUD s rozhraním Entity Framework v architektuře ASP.NET MVC
 
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Ukázková webová aplikace Contoso University ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí Entity Framework 6 kód první a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md).
-
-V předchozím kurzu jste vytvořili aplikaci MVC, která ukládá a zobrazuje data pomocí rozhraní Entity Framework a SQL Server LocalDB. V tomto kurzu budete zkontrolovat a upravit vytvořit, číst, aktualizovat, odstranění (CRUD) kód, který generování uživatelského rozhraní MVC se automaticky vytvoří za vás do kontrolerů a zobrazení.
+V [předchozí kurz o službě](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md), vytvoříte aplikaci MVC, která ukládá a zobrazuje data pomocí Entity Framework (EF) 6 a SQL Server LocalDB. V tomto kurzu můžete zkontrolovat a upravit vytvořit, číst, aktualizovat, odstranění (CRUD) kód, který generování uživatelského rozhraní MVC se automaticky vytvoří za vás do kontrolerů a zobrazení.
 
 > [!NOTE]
-> Je běžnou praxí pro implementaci vzoru úložiště chcete-li vytvořit vrstvu HAL mezi řadiči a vrstva přístupu k datům. Na tyto kurzy byly jednoduché a zaměřují se na vyučují způsob použití rozhraní Entity Framework samotné, nepoužívejte úložišť. Informace o tom, jak implementovat úložiště, najdete v článku [mapa obsahu přístupu k Data technologie ASP.NET](../../../../whitepapers/aspnet-data-access-content-map.md).
+> Je běžnou praxí pro implementaci vzoru úložiště chcete-li vytvořit vrstvu HAL mezi řadiči a vrstva přístupu k datům. Na tyto kurzy byly jednoduché a zaměřují se na vyučují použití EF 6 samotné, nepoužívejte úložišť. Informace o tom, jak implementovat úložiště najdete v tématu [mapa obsahu přístupu k Data technologie ASP.NET](../../../../whitepapers/aspnet-data-access-content-map.md).
 
-V tomto kurzu vytvoříte následujících webových stránek:
+Tady jsou příklady webových stránek, které vytvoříte:
 
-![Student_Details_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image1.png)
+![Snímek obrazovky stránky s podrobnostmi studentů.](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image1.png)
 
-![Student_Edit_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image2.png)
+![Snímek obrazovky student vytvořit stránku.](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image2.png)
 
-![Student_delete_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image3.png)
+![Snímek obrazovky ot studenta odstranění stránky.](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image3.png)
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Vytvoření stránky podrobností
+> * Aktualizovat stránku vytvořit
+> * Aktualizovat metoda HttpPost úprav
+> * Aktualizovat stránku Delete
+> * Připojení k databázi zavřít
+> * Zpracování transakcí
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Vytvoření datového modelu Entity Framework](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)
 
 ## <a name="create-a-details-page"></a>Vytvoření stránky podrobností
 
@@ -46,7 +55,7 @@ V *Controllers\StudentController.cs*, metoda akce pro `Details` zobrazení použ
 
 Hodnota klíče, která se předá metodě jako `id` parametr a pochází z *směrování dat* v **podrobnosti** hypertextový odkaz na indexovou stránku.
 
-### <a name="tip-route-data"></a>Tip: **směrování dat**
+### <a name="tip-route-data"></a>Tip: **Data trasy**
 
 Data trasy, která jsou data, která v segment adresy URL zadané ve směrovací tabulce nalezen vazač modelu. Například výchozí trasa určuje `controller`, `action`, a `id` segmenty:
 
@@ -86,9 +95,7 @@ V následujícím kódu `courseID` neodpovídá parametru v této výchozí tras
 
 3. Otevřete stránku podrobností spuštěním programu (**Ctrl**+**F5**), vyberete **studenty** kartu a pak levým na **podrobnosti** odkaz Alexander Carsonovy. (Pokud stisknete **Ctrl**+**F5** zatímco *Details.cshtml* je soubor otevřen, dojde k chybě HTTP 400. Je to proto, že Visual Studio se pokusí spustit na stránce podrobností, ale nebyl dosažen z odkazu, který určuje student k zobrazení. Pokud k tomu dojde, odeberte "Student/Details" z adresy URL a zkuste to znovu, nebo, zavřete prohlížeč, klikněte pravým tlačítkem na projekt a klikněte na tlačítko **zobrazení** > **zobrazit v prohlížeči**.)
 
-    Zobrazí seznam kurzů a známek pro vybrané studenta:
-
-    ![Student_Details_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image4.png)
+    Zobrazí seznam kurzů a známek pro vybrané studentů.
 
 4. Zavřete prohlížeč.
 
@@ -136,19 +143,15 @@ V následujícím kódu `courseID` neodpovídá parametru v této výchozí tras
 
 3. Zadejte názvy a neplatné datum a klikněte na tlačítko **vytvořit** zobrazíte chybovou zprávu.
 
-    ![Students_Create_page_error_message](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image6.png)
-
     Toto je ověřování na straně serveru, který získáte ve výchozím nastavení. V pozdějších kurzech uvidíte, jak přidat atributy, které generují kód pro ověřování na straně klienta. Následující zvýrazněný kód ukazuje model ověřování vrácení se změnami **vytvořit** metody.
 
     [!code-csharp[Main](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/samples/sample10.cs?highlight=1)]
 
 4. Změňte na platnou hodnotu data a klikněte na tlačítko **vytvořit** zobrazíte nového objektu student joinkind **Index** stránky.
 
-    ![Students_Index_page_with_new_student](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image7.png)
-
 5. Zavřete prohlížeč.
 
-## <a name="update-the-edit-httppost-method"></a>Metoda HttpPost upravit aktualizace
+## <a name="update-httppost-edit-method"></a>Metoda HttpPost upravit aktualizace
 
 1. Nahradit <xref:System.Web.Mvc.HttpPostAttribute> `Edit` metody akce s následujícím kódem:
 
@@ -189,11 +192,7 @@ V následujícím kódu `courseID` neodpovídá parametru v této výchozí tras
 
 2. Spuštěním programu spustit na stránce Výběr **studenty** kartu a pak levým na **upravit** hypertextový odkaz.
 
-   ![Student_Edit_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image8.png)
-
 3. Některá data a klikněte na tlačítko Změnit **Uložit**. Zobrazí změněných dat v indexovou stránku.
-
-   ![Students_Index_page_after_edit](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image9.png)
 
 4. Zavřete prohlížeč.
 
@@ -229,9 +228,7 @@ Přidáte `try-catch` bloku <xref:System.Web.Mvc.HttpPostAttribute> `Delete` met
 
     [!code-cshtml[Main](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/samples/sample15.cshtml?highlight=2)]
 
-4. Spuštěním programu spustit na stránce Výběr **studenty** kartu a pak levým na **odstranit** hypertextový odkaz:
-
-    ![Student_Delete_page](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application/_static/image10.png)
+4. Spuštěním programu spustit na stránce Výběr **studenty** kartu a pak levým na **odstranit** hypertextový odkaz.
 
 5. Zvolte **odstranit** na stránce, která uvádí, že **Opravdu chcete odstranit tento?**.
 
@@ -249,16 +246,24 @@ Základní `Controller` implementuje třída již `IDisposable` rozhraní, takž
 
 Ve výchozím nastavení rozhraní Entity Framework implementuje implicitně transakce. V situacích, kdy provést změny na více řádcích nebo tabulky a poté zavolejte `SaveChanges`, Entity Framework automaticky zajišťuje, že všechny změny úspěšné nebo se všechny nezdaří. Pokud některé změny nejprve dokončení a potom se stane chyba, tyto změny se automaticky vrátí zpět. Pro scénáře, kde je nutné mít lepší kontrolu&mdash;například, pokud chcete zahrnout operací provést v transakci mimo rozhraní Entity Framework&mdash;naleznete v tématu [práce s transakcí](/ef/ef6/saving/transactions).
 
-## <a name="summary"></a>Souhrn
+## <a name="additional-resources"></a>Další zdroje
 
 Teď máte úplnou sadu stránek, které provádějí jednoduché operace CRUD pro `Student` entity. Pomocné rutiny MVC jste použili k vygenerování prvky uživatelského rozhraní pro datová pole. Další informace o pomocné rutiny MVC najdete v tématu [vykreslení formuláři pomocí pomocných rutin HTML](/previous-versions/aspnet/dd410596(v=vs.98)) (Tento článek je pro MVC 3, ale je stále relevantní pro MVC 5).
 
-V dalším kurzu rozšiřujete funkce indexovou stránku tak, že přidáte řazení a stránkování.
+Odkazy na další zdroje EF 6 lze nalézt v [přístup k datům ASP.NET – doporučené zdroje informací](../../../../whitepapers/aspnet-data-access-content-map.md).
 
-Jak vám v tomto kurzu líbilo a co můžeme zlepšit nám prosím zpětnou vazbu.
+## <a name="next-steps"></a>Další kroky
 
-Odkazy na další zdroje Entity Framework lze nalézt v [přístup k datům ASP.NET – doporučené zdroje informací](../../../../whitepapers/aspnet-data-access-content-map.md).
+V tomto kurzu se naučíte:
 
-> [!div class="step-by-step"]
-> [Předchozí](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)
-> [další](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+> [!div class="checklist"]
+> * Vytvoření stránky podrobností
+> * Aktualizovat na stránce vytvořit
+> * Aktualizovat metoda HttpPost úprav
+> * Aktualizovat stránku Delete
+> * Připojení uzavřeno databáze
+> * Zpracování transakcí
+
+Přejděte k dalším článku se naučíte, jak přidat řazení, filtrování a stránkování do projektu.
+> [!div class="nextstepaction"]
+> [Řazení, filtrování a stránkování](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application.md)

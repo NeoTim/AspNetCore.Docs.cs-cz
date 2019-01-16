@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak je zodpovědná za mapování požadavku identifikátory URI pro koncový bod selektory a dispatching příchozí požadavky do koncových bodů směrování ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/29/2018
+ms.date: 01/14/2019
 uid: fundamentals/routing
-ms.openlocfilehash: c57b309e4474f9aff5c0594a3d9d1c796990d31e
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 96d098115f2f9b150f796e08cf14e60611f59e17
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997354"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341755"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -46,7 +46,7 @@ services.AddMvc(options => options.EnableEndpointRouting = false)
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-Další informace o <xref:Microsoft.AspNetCore.Routing.IRouter>– směrování, přečtěte si téma [ASP.NET Core 2.1 verzi tohoto tématu](xref:fundamentals/routing?view=aspnetcore-2.1).
+Další informace o <xref:Microsoft.AspNetCore.Routing.IRouter>– směrování, přečtěte si téma [ASP.NET Core 2.1 verzi tohoto tématu](/aspnet/core/fundamentals/routing?view=aspnetcore-2.1).
 
 ::: moniker-end
 

@@ -1,33 +1,39 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application
-title: Odolnost připojení a zachycení příkazů s Entity Framework v aplikaci ASP.NET MVC | Dokumentace Microsoftu
+title: 'Kurz: Odolnost proti chybám a příkaz zachycení připojení pomocí EF v aplikaci ASP.NET MVC'
 author: tdykstra
-description: Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí sady Visual Studio a Entity Framework 6 Code First...
+description: V tomto kurzu dozvíte, jak používat připojení odolnost proti chybám a příkaz zachycení. Jsou dvě důležité funkce Entity Framework 6.
 ms.author: riande
-ms.date: 01/13/2015
+ms.date: 01/14/2018
+ms.topic: tutorial
 ms.assetid: c89d809f-6c65-4425-a3fa-c9f6e8ac89f2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: ab6a553100d704746840eaad512ec140d4576c44
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: fae5c7e1ad1000ed90630c3620b853de3a735d60
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48911783"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341721"
 ---
-<a name="connection-resiliency-and-command-interception-with-the-entity-framework-in-an-aspnet-mvc-application"></a>Odolnost připojení a zachycení příkazů s Entity Framework v aplikaci ASP.NET MVC
-====================
-podle [Petr Dykstra](https://github.com/tdykstra)
-
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Ukázková webová aplikace Contoso University ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí Entity Framework 6 kód první a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md).
+# <a name="tutorial-use-connection-resiliency-and-command-interception-with-entity-framework-in-an-aspnet-mvc-app"></a>Kurz: Použití připojení odolnost proti chybám a příkaz zachycení s Entity Framework v aplikaci ASP.NET MVC
 
 Zatím aplikace je spuštěné místně v rámci služby IIS Express na vašem vývojovém počítači. Aplikace skutečný zpřístupnit ostatním uživatelům používat přes Internet, je zapotřebí nasadit na web poskytovatele hostitelských služeb a je zapotřebí nasadit databázi k databázovému serveru.
 
-V tomto kurzu se dozvíte o použití dvou funkcí Entity Framework 6, které jsou obzvláště cenná tehdy, když provádíte nasazení do prostředí cloudu: odolnost připojení (automatické opakování pro přechodné chyby) a příkaz zachycení (catch všechny SQL dotazy Odesláno do databáze za účelem protokolu nebo je změnit).
+V tomto kurzu dozvíte, jak používat připojení odolnost proti chybám a příkaz zachycení. Jsou dvě důležité funkce Entity Framework 6, které jsou obzvláště cenná tehdy, když provádíte nasazení do prostředí cloudu: odolnost připojení (automatické opakování pro přechodné chyby) a příkaz zachycení (catch všechny dotazy SQL odeslané do databáze Pokud chcete protokolovat nebo je změnit).
 
 Tento kurz pro zachycení odolnost proti chybám a příkaz připojení je volitelné. Pokud jste tento kurz přeskočit, bude mít několik drobné úpravy má být provedeno v dalších kurzech.
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Povolit odolnost připojení
+> * Povolit zachycení příkazů
+> * Nová konfigurace testu
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Řazení, filtrování a stránkování](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application.md)
 
 ## <a name="enable-connection-resiliency"></a>Povolit odolnost připojení
 
@@ -135,7 +141,7 @@ Dále vytvoříte třídy, které rozhraní Entity Framework volat pokaždé, kd
 
     Jste napsali kód přechodná chyba simulace způsobem, který umožňuje způsobit přechodné chyby tak, že zadáte jinou hodnotu v uživatelském rozhraní. Jako alternativu můžete napsat kód zachycování vždy generovat posloupnost přechodným výjimkám bez kontroly pro konkrétní parametr hodnoty. Sběrač, pak můžete přidat pouze v případě, že chcete vygenerovat přechodné chyby. Pokud to uděláte, ale nepřidávejte zachycování až po dokončení inicializace databází. Jinými slovy proveďte nejméně jednu databázi operace, jako například dotaz na jednom ze sady entit, před zahájením generování přechodné chyby. Entity Framework provede několik dotazů během inicializace databází a nebudou provedeny v transakci, takže chyby při inicializaci by mohlo způsobit kontext k získání do nekonzistentního stavu.
 
-## <a name="test-logging-and-connection-resiliency"></a>Test připojení k protokolování a odolnost proti chybám
+## <a name="test-the-new-configuration"></a>Nová konfigurace testu
 
 1. Stisknutím klávesy **F5** spusťte aplikaci v režimu ladění, a klikněte **studenty** kartu.
 2. Podívejte se na Visual Studio **výstup** okno a zobrazit výstup trasování. Budete muset posunout nahoru za některé chyby JavaScriptu získat protokoly vytvořené vaší protokolovacího nástroje.
@@ -167,14 +173,19 @@ Dále vytvoříte třídy, které rozhraní Entity Framework volat pokaždé, kd
     ![Fiktivní výjimky](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
 5. Zrušením komentáře u *SetExecutionStrategy* řádku v *SchoolConfiguration.cs*.
 
-## <a name="summary"></a>Souhrn
-
-V tomto kurzu jste viděli, jak povolit odolnost připojení a protokolů příkazy SQL, které lze kombinovat rozhraní Entity Framework a odesílá do databáze. V dalším kurzu nasazujete aplikace na Internetu, pomocí migrace Code First pro nasazení databáze.
-
-Jak vám v tomto kurzu líbilo a co můžeme zlepšit nám prosím zpětnou vazbu.
+## <a name="additional-resources"></a>Další zdroje
 
 Odkazy na další zdroje Entity Framework lze nalézt v [přístup k datům ASP.NET – doporučené zdroje informací](../../../../whitepapers/aspnet-data-access-content-map.md).
 
-> [!div class="step-by-step"]
-> [Předchozí](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application.md)
-> [další](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+## <a name="next-steps"></a>Další kroky
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Odolnost připojení
+> * Zachycení povolených příkazů
+> * Otestovat novou konfiguraci
+
+Přejděte k dalším článku se dozvíte o Code First Migration a nasazení Azure.
+> [!div class="nextstepaction"]
+> [Code First Migration a nasazení v Azure](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application.md)

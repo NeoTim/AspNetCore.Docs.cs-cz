@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 4e5da1036b77e876899ccdea48bdec69454e1657
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: c55dbd5a9ac31f55daf1cb3146fb18b91b016919
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861482"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341586"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Steve Smith](https://a
 Middleware je software, který je sestaven do kanálu služby aplikace pro zpracování požadavků a odpovědí. Jednotlivé komponenty:
 
 * Zvolí, zda se má předat požadavky na další komponenta v kanálu.
-* Práci můžete provádět, před a po zavolání další komponenta v kanálu.
+* Můžete provádět práci před a po další komponenta v kanálu.
 
 Delegáti požadavku se používají k vytvoření kanálu požadavku. Delegáti žádost o zpracování konkrétního požadavku HTTP.
 
@@ -54,7 +54,7 @@ Zřetězit více požadavek delegátů spolu s <xref:Microsoft.AspNetCore.Builde
 >
 > <xref:Microsoft.AspNetCore.Http.HttpResponse.HasStarted*> je užitečné nápovědu k označení, pokud byly odeslány hlavičky nebo text byl zapsán do.
 
-## <a name="order"></a>Pořadí
+## <a name="order"></a>Objednání
 
 Pořadí, ve kterém middlewarových komponent přidány `Startup.Configure` metoda definuje pořadí, ve kterém jsou vyvolány middlewarových komponent na požadavky a obrácenému pořadí pro odpověď. Pořadí je důležité pro zabezpečení, výkon a funkčnost.
 
@@ -189,10 +189,10 @@ Konfigurace kanálu HTTP pomocí `Use`, `Run`, a `Map`. `Use` Metoda můžete zk
 
 V následující tabulce jsou uvedeny požadavky a odpovědi z `http://localhost:1234` pomocí předchozího kódu.
 
-| Požadavek             | Odpověď                     |
+| Žádost             | Odpověď                     |
 | ------------------- | ---------------------------- |
-| 1234      | Dobrý den ze bez mapování delegáta. |
-| 1234 / map1 | Mapování Test 1                   |
+| localhost:1234      | Dobrý den ze bez mapování delegáta. |
+| localhost:1234/map1 | Mapování Test 1                   |
 | localhost:1234/map2 | Mapování testů 2                   |
 | localhost:1234/map3 | Dobrý den ze bez mapování delegáta. |
 
@@ -204,9 +204,9 @@ Když `Map` se používá, segmenty cesty odpovídající jsou odebrány z `Http
 
 V následující tabulce jsou uvedeny požadavky a odpovědi z `http://localhost:1234` pomocí předchozího kódu.
 
-| Požadavek                       | Odpověď                     |
+| Žádost                       | Odpověď                     |
 | ----------------------------- | ---------------------------- |
-| 1234                | Dobrý den ze bez mapování delegáta. |
+| localhost:1234                | Dobrý den ze bez mapování delegáta. |
 | localhost:1234/?branch=master | Větev se použije hlavní =         |
 
 `Map` podporuje vnořené, například:
@@ -230,7 +230,7 @@ app.Map("/level1", level1App => {
 
 ASP.NET Core se dodává s následujícími součástmi middlewaru. *Pořadí* sloupec obsahuje poznámky k umístění middleware v kanálu požadavku a za jakých podmínek middleware může ukončit žádosti a zabránit dalším middlewarem zpracování požadavku.
 
-| Middleware | Popis | Pořadí |
+| Middleware | Popis | Objednání |
 | ---------- | ----------- | ----- |
 | [Ověřování](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Před `HttpContext.User` je potřeba. Terminál pro zpětná volání OAuth. |
 | [Zásady souborů cookie](xref:security/gdpr) | Sleduje svolení od uživatelů pro ukládání osobních údajů a vynucuje minimální standardy pro soubor cookie pole, jako například `secure` a `SameSite`. | Před middlewaru, který vydá soubory cookie. Příklady: Ověřování, relace, MVC (TempData). |

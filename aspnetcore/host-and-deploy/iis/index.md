@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/11/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 3239b4652d739ed2ac205c9daae7754dbd8e918c
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 83c084beb059d803811e9739d34bdbdd6bcff463
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249552"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341794"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -312,11 +312,6 @@ Při nasazování aplikací na servery s [Webdeploy](/iis/publish/using-web-depl
 ## <a name="create-the-iis-site"></a>Vytvořte web služby IIS
 
 1. V hostitelském systému vytvořte složku obsahující soubory a složky publikované aplikace. Rozložení nasazení vaší aplikace je popsána v [adresářovou strukturu](xref:host-and-deploy/directory-structure) tématu.
-
-1. V rámci novou složku vytvořit *protokoly* složku pro uložení protokolů stdout modul ASP.NET Core, pokud je povoleno protokolování stdout. Pokud je aplikace nasazena s *protokoly* složek v datové části, tento krok přeskočit. Pokyny o tom, jak povolit MSBuild k vytvoření *protokoly* složku automaticky, pokud je projekt je sestaven místně, najdete v článku [adresářovou strukturu](xref:host-and-deploy/directory-structure) tématu.
-
-   > [!IMPORTANT]
-   > Pouze pomocí protokolu stdout řešení potíží s chybami při spuštění aplikace. Nikdy nepoužívejte stdout protokolování pro protokolování běžné aplikace. Neexistuje žádné omezení velikosti souboru protokolu nebo počet souborů protokolů, které jsou vytvořeny. Fond aplikací musí mít oprávnění k zápisu do umístění, kde se zapisují protokoly. Všechny složky na cestu k umístění protokolu musí existovat. Další informace o protokolu stdout najdete v tématu [vytváření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection). Informace o protokolování v aplikaci ASP.NET Core, najdete v článku [protokolování](xref:fundamentals/logging/index) tématu.
 
 1. V **Správce služby IIS**, otevřete uzel serveru v **připojení** panelu. Klikněte pravým tlačítkem myši **lokality** složky. Vyberte **přidat web** z kontextové nabídky.
 

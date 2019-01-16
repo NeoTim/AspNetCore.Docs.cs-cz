@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/14/2018
 uid: signalr/javascript-client
-ms.openlocfilehash: cd64a65889227d84615768bc3d8fddcd362fbba4
-ms.sourcegitcommit: eef99d14d96dc8c3c1bb0e2c4cb14da152f8a952
+ms.openlocfilehash: acdb4d1a59d980010fe89fe381190425cbb12901
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/07/2018
-ms.locfileid: "53022476"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341449"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript klienta
 
@@ -60,7 +60,7 @@ Aby se zabránilo škodlivým webům ve čtení citlivých dat z jiné lokality 
 Klientům JavaScript volat veřejné metody rozbočovače prostřednictvím [vyvolat](/javascript/api/%40aspnet/signalr/hubconnection#invoke) metodu [HubConnection](/javascript/api/%40aspnet/signalr/hubconnection). `invoke` Metoda přijímá dva argumenty:
 
 * Název metody rozbočovače. V následujícím příkladu je název metody rozbočovače `SendMessage`.
-* Všechny argumenty podle metody rozbočovače. V následujícím příkladu je název argumentu `message`.
+* Všechny argumenty podle metody rozbočovače. V následujícím příkladu je název argumentu `message`. Příklad kódu používá syntaxe funkce šipku, která je podporována v aktuálních verzích všechny hlavní prohlížeče s výjimkou aplikace Internet Explorer.
 
   [!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=24)]
 

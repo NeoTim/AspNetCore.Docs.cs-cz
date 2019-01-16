@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/11/2018
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: ee0bebb8b5c688f8471d6420d1641b87ac271f6c
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: 4bc5ead8e24c4bb7fe6cd2f52fd2aa622187180c
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284562"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341391"
 ---
 # <a name="aspnet-core-directory-structure"></a>Struktura adresářů ASP.NET Core
 
@@ -28,8 +28,8 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 | Typ aplikace | Adresářová struktura |
 | -------- | ------------------- |
-| [Nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd) | <ul><li>Publikování&dagger;<ul><li>Protokoly&dagger; (volitelné, pokud to není vyžadováno pro příjem protokolů stdout)</li><li>Zobrazení&dagger; (aplikace MVC; Pokud nejsou předkompilované zobrazení)</li><li>Stránky&dagger; (MVC Razor Pages aplikace nebo; pokud nejsou předkompilované stránky)</li><li>Wwwroot&dagger;</li><li>*\.soubory knihoven DLL</li><li>{NÁZEV sestavení} deps.JSON</li><li>{NÁZEV sestavení} .dll</li><li>{NÁZEV sestavení} .pdb</li><li>{NÁZEV SESTAVENÍ}. Views.dll</li><li>{NÁZEV SESTAVENÍ}. Views.pdb</li><li>{NÁZEV sestavení}.runtimeconfig.json</li><li>soubor Web.config (nasazení služby IIS)</li></ul></li></ul> |
-| [Samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>Publikování&dagger;<ul><li>Protokoly&dagger; (volitelné, pokud to není vyžadováno pro příjem protokolů stdout)</li><li>Zobrazení&dagger; (aplikace MVC; Pokud nejsou předkompilované zobrazení)</li><li>Stránky&dagger; (MVC Razor Pages aplikace nebo; pokud nejsou předkompilované stránky)</li><li>Wwwroot&dagger;</li><li>\*knihovny DLL</li><li>{NÁZEV sestavení} deps.JSON</li><li>{NÁZEV sestavení} .dll</li><li>{NÁZEV sestavení} .exe</li><li>{NÁZEV sestavení} .pdb</li><li>{NÁZEV SESTAVENÍ}. Views.dll</li><li>{NÁZEV SESTAVENÍ}. Views.pdb</li><li>{NÁZEV sestavení}.runtimeconfig.json</li><li>soubor Web.config (nasazení služby IIS)</li></ul></li></ul> |
+| [Nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd) | <ul><li>Publikování&dagger;<ul><li>Protokoly&dagger; (volitelné, pokud to není vyžadováno pro příjem protokolů stdout)</li><li>Zobrazení&dagger; (aplikace MVC; Pokud nejsou předkompilované zobrazení)</li><li>Stránky&dagger; (MVC Razor Pages aplikace nebo; pokud nejsou předkompilované stránky)</li><li>wwwroot&dagger;</li><li>*\.soubory knihoven DLL</li><li>{NÁZEV sestavení} deps.JSON</li><li>{NÁZEV sestavení} .dll</li><li>{NÁZEV sestavení} .pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{NÁZEV SESTAVENÍ}. Views.pdb</li><li>{NÁZEV sestavení}.runtimeconfig.json</li><li>soubor Web.config (nasazení služby IIS)</li></ul></li></ul> |
+| [Samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>Publikování&dagger;<ul><li>Protokoly&dagger; (volitelné, pokud to není vyžadováno pro příjem protokolů stdout)</li><li>Zobrazení&dagger; (aplikace MVC; Pokud nejsou předkompilované zobrazení)</li><li>Stránky&dagger; (MVC Razor Pages aplikace nebo; pokud nejsou předkompilované stránky)</li><li>wwwroot&dagger;</li><li>\*knihovny DLL</li><li>{NÁZEV sestavení} deps.JSON</li><li>{NÁZEV sestavení} .dll</li><li>{NÁZEV sestavení} .exe</li><li>{NÁZEV sestavení} .pdb</li><li>{ASSEMBLY NAME}.Views.dll</li><li>{NÁZEV SESTAVENÍ}. Views.pdb</li><li>{NÁZEV sestavení}.runtimeconfig.json</li><li>soubor Web.config (nasazení služby IIS)</li></ul></li></ul> |
 
 &dagger;Určuje adresář
 
@@ -37,7 +37,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 *Wwwroot* adresář, pokud jsou k dispozici, obsahuje pouze statické prostředky.
 
-Stdout *protokoly* lze vytvořit adresář pro nasazení pomocí jedné z následujících dvou přístupů:
+A *protokoly* lze vytvořit adresář pro nasazení pomocí jedné z následujících dvou přístupů:
 
 * Přidejte následující `<Target>` element do souboru projektu:
 
@@ -57,6 +57,8 @@ Stdout *protokoly* lze vytvořit adresář pro nasazení pomocí jedné z násle
 * Fyzicky vytvořit *protokoly* adresáře na serveru v nasazení.
 
 Adresář nasazení vyžaduje oprávnění ke čtení a spouštění. *Protokoly* directory vyžaduje oprávnění ke čtení/zápisu. Další adresáře, kde soubory jsou zapsány vyžadují oprávnění pro čtení a zápis.
+
+[ASP.NET Core modulu stdout protokolování](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection) nevyžaduje, aby *protokoly* složky v nasazení. Modul je schopná vytvořit některou ze složek v `stdoutLogFile` cesta při vytvoření souboru protokolu. Vytváření *protokoly* složka je užitečné pro [modul ASP.NET Core rozšířené protokolování ladění](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs). Složky v cestě k dispozici na `<handlerSetting>` hodnoty nevytvoří modulem automaticky a měla by existovat předem v nasazení umožňuje modulu pro zápis protokolů ladění.
 
 ## <a name="additional-resources"></a>Další zdroje
 

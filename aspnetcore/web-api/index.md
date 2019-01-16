@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/11/2019
 uid: web-api/index
-ms.openlocfilehash: a826bdecdd3a25eb23597123166695c169ba4229
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 8ba20c51f38a43adca4133a402c6d741379a4c54
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249435"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341609"
 ---
 # <a name="build-web-apis-with-aspnet-core"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -133,7 +133,9 @@ Zdrojový atribut vazby definuje umístění, ve kterém není nalezena hodnota 
 > [!WARNING]
 > Nepoužívejte `[FromRoute]` při může obsahovat hodnoty `%2f` (to znamená `/`). `%2f` nebude znaků bez řídících k `/`. Použití `[FromQuery]` Pokud hodnota může obsahovat `%2f`.
 
-Bez `[ApiController]` atribut, vytvoření vazby zdroje nejsou explicitně definovány atributy. V následujícím příkladu `[FromQuery]` atribut označuje, že `discontinuedOnly` je zadána hodnota parametru v řetězci dotazu v adrese URL požadavku:
+Bez `[ApiController]` atribut, vytvoření vazby zdroje nejsou explicitně definovány atributy. Bez `[ApiController]` nebo jiné atributy zdroje vazby, jako je `[FromQuery]`, modul runtime ASP.NET Core se pokusí použít komplexní objekt vazače modelu. Vazač modelu komplexní objekt si vyžádá data z zprostředkovatele hodnot (které mají definovanou pořadí). Například 'body vazač modelu' je vždy vyjádřit výslovný souhlas.
+
+V následujícím příkladu `[FromQuery]` atribut označuje, že `discontinuedOnly` je zadána hodnota parametru v řetězci dotazu v adrese URL požadavku:
 
 [!code-csharp[](define-controller/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_BindingSourceAttributes&highlight=3)]
 
@@ -245,3 +247,4 @@ Použití `ClientErrorMapping` vlastnosti ke konfiguraci obsah `ProblemDetails` 
 * <xref:web-api/advanced/formatting>
 * <xref:tutorials/web-api-help-pages-using-swagger>
 * <xref:mvc/controllers/routing>
+****

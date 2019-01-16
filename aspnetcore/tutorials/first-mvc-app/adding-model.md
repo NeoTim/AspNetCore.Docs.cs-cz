@@ -5,12 +5,12 @@ description: Přidání modelu pro jednoduchou aplikaci ASP.NET Core.
 ms.author: riande
 ms.date: 12/8/2017
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 630b4b0549a8549d9570d701fb1691310ec442c3
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: 062a248ffdf8e30ed01a72e0a555c1c9a1ab1b6d
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381852"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341600"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu pro aplikace ASP.NET Core MVC
 
@@ -34,7 +34,7 @@ Klikněte pravým tlačítkem myši *modely* složky > **přidat** > **třídy**
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 
 <!-- Code -------------------------->
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code nebo Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * Přidat třídu *modely* složku s názvem *Movie.cs*.
 
@@ -103,7 +103,7 @@ Automatické vytváření kontext databáze a [CRUD](https://wikipedia.org/wiki/
 
 <!-- Mac -------------------------->
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
@@ -164,13 +164,17 @@ Update-Database
 `Add-Migration` Příkaz vygeneruje kód pro vytvoření schématu počáteční databáze.
 <!-- Code -------------------------->
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code nebo Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 `ef migrations add InitialCreate` Příkaz vygeneruje kód pro vytvoření schématu počáteční databáze.
 
 ---  
 <!-- End of VS tabs -->
+
+Předchozí příkazy Generovat následující upozornění: "Pro desetinných sloupec"Price"na typ entity"Video"nebyl zadán žádný typ. To způsobí, že hodnoty bylo tiché zkrácení, pokud to není ve výchozí přesnost a měřítko. Explicitně zadat typ sloupce serveru SQL, který zvládne všech hodnot pomocí "HasColumnType()"."
+
+Můžete tuto upozornění ignorovat, opravíme v pozdějších kurzech.
 
 Schéma je založen na zadaném v modelu `DbContext` (v *Models/MvcMovieContext.cs* souboru). `InitialCreate` Argument se používá k pojmenování migrace. Můžete použít libovolný název, ale podle konvence vybraný název, který popisuje migraci.
 
@@ -199,7 +203,7 @@ Předchozí kód vytvoří [ `DbSet<Movie>` ](/dotnet/api/microsoft.entityframew
 Název připojovacího řetězce je předán v rámci voláním metody na [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) objektu. Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) načte připojovací řetězec z *appsettings.json* souboru.
 <!-- Code -------------------------->
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code nebo Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 ASP.NET Core využívá rozhraní [injektáž závislostí](xref:fundamentals/dependency-injection). Služby (například kontext EF Core databáze) jsou registrované pomocí vkládání závislostí při spuštění aplikace. Komponenty, které vyžadují tyto služby (například stránky Razor) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru. Později v tomto kurzu se zobrazí kód konstruktor, který získá instanci kontext databáze.
 

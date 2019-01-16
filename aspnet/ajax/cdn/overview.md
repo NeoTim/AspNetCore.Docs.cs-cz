@@ -8,12 +8,12 @@ ms.date: 10/14/2017
 ms.assetid: 8935bf14-ca6d-4a4e-9dbe-b96ce74cef49
 msc.legacyurl: /ajax/cdn
 msc.type: content
-ms.openlocfilehash: 2445d788df8ae80ccaad2dfeb19d1ccb91954d40
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 65eee9bc477fc8adf10e8d819b93375ffbb72d7b
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249578"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341836"
 ---
 <a name="microsoft-ajax-content-delivery-network"></a>Microsoft Ajax Content Delivery Network
 ====================
@@ -27,7 +27,7 @@ ms.locfileid: "54249578"
 ## <a name="table-of-contents"></a>Obsah
 
 **[Přejmenovat ajax.aspnetcdn.com adresu AJAX.microsoft.com](#ajaxmicrosoftcom_renamed_to_ajaxaspnetcdncom_18)**  
-**[Podpora .vsdoc sady Visual Studio](#Visual_Studio_vsdoc_Support_19)**  
+**[Visual Studio .vsdoc Support](#Visual_Studio_vsdoc_Support_19)**  
 **[Pomocí prvku ASP.NET Ajax z CDN](#Using_ASPNET_Ajax_from_the_CDN_20)**  
 **[Pomocí jQuery z CDN](#Using_jQuery_from_the_CDN_21)**  
 **[Pomocí jQuery UI z CDN](#Using_jQuery_UI_from_the_CDN_22)**  
@@ -222,7 +222,7 @@ Tyto verze jQuery jsou hostované v síti CDN:
 - https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js
 - https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.map
 
-#### <a name="jquery-version-223"></a>jQuery verze 2.2.3
+#### <a name="jquery-version-223"></a>jQuery version 2.2.3
 
 - https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.3.js
 - https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.3.min.js
@@ -276,7 +276,7 @@ Tyto verze jQuery jsou hostované v síti CDN:
 - https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.0-vsdoc.js
 - https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.0.min.map
 
-#### <a name="jquery-version-203"></a>jQuery verzi 2.0.3
+#### <a name="jquery-version-203"></a>jQuery version 2.0.3
 
 - https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.js
 - https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js
@@ -589,13 +589,13 @@ Tyto verze knihovny uživatelského rozhraní jQuery jsou hostované na této s�
 - [uživatelské rozhraní jQuery 1.8.14](jquery-ui/cdnjqueryui1814.md "uživatelské rozhraní jQuery 1.8.14 ve službě Microsoft Ajax CDN")
 - [uživatelské rozhraní jQuery 1.8.13](jquery-ui/cdnjqueryui1813.md "uživatelské rozhraní jQuery 1.8.13 ve službě Microsoft Ajax CDN")
 - [uživatelské rozhraní jQuery 1.8.12](jquery-ui/cdnjqueryui1812.md "uživatelské rozhraní jQuery 1.8.12 ve službě Microsoft Ajax CDN")
-- [uživatelské rozhraní jQuery 1.8.11](jquery-ui/cdnjqueryui1811.md "uživatelské rozhraní jQuery 1.8.11 ve službě Microsoft Ajax CDN")
+- [jQuery UI 1.8.11](jquery-ui/cdnjqueryui1811.md "jQuery UI 1.8.11 on the Microsoft Ajax CDN")
 - [uživatelské rozhraní jQuery 1.8.10](jquery-ui/cdnjqueryui1910.md "uživatelské rozhraní jQuery 1.8.10 ve službě Microsoft Ajax CDN")
 - [uživatelské rozhraní jQuery 1.8.9](jquery-ui/cdnjqueryui189.md "uživatelské rozhraní jQuery 1.8.9 ve službě Microsoft Ajax CDN")
 - [uživatelské rozhraní jQuery 1.8.8](jquery-ui/cdnjqueryui188.md "uživatelské rozhraní jQuery 1.8.8 ve službě Microsoft Ajax CDN")
 - [uživatelské rozhraní jQuery 1.8.7](jquery-ui/cdnjqueryui187.md "uživatelské rozhraní jQuery 1.8.7 ve službě Microsoft Ajax CDN")
 - [jQuery UI 1.8.6](jquery-ui/cdnjqueryui186.md "jQuery UI 1.8.6 ve službě Microsoft Ajax CDN")
-- [uživatelské rozhraní jQuery 1.8.5](jquery-ui/cdnjqueryui185.md "uživatelské rozhraní jQuery 1.8.5")
+- [jQuery UI 1.8.5](jquery-ui/cdnjqueryui185.md "jQuery UI 1.8.5")
 
 <a id="jQuery_Validation_Releases_on_the_CDN_3"></a>
 
@@ -606,21 +606,21 @@ Tyto verze knihovny jQuery ověření jsou hostované na této sítě CDN. Klikn
 - [jQuery ověřit 1.19.0](jquery-validate/cdnjqueryvalidate1190.md "jQuery ověření 1.19.0")
 - [jQuery ověřit 1.17.0](jquery-validate/cdnjqueryvalidate1170.md "jQuery ověření 1.17.0")
 - [jQuery ověřit 1.16.0](jquery-validate/cdnjqueryvalidate1160.md "jQuery ověření 1.16.0")
-- [jQuery ověřit 1.15.1](jquery-validate/cdnjqueryvalidate1151.md "jQuery ověření 1.15.1")
+- [jQuery Validate 1.15.1](jquery-validate/cdnjqueryvalidate1151.md "jQuery Validation 1.15.1")
 - [jQuery ověřit 1.15.0](jquery-validate/cdnjqueryvalidate1150.md "jQuery ověření 1.15.0")
-- [jQuery ověřit 1.14.0](jquery-validate/cdnjqueryvalidate1140.md "jQuery ověření 1.14.0")
-- [jQuery ověřit 1.13.1](jquery-validate/cdnjqueryvalidate1131.md "jQuery ověření 1.13.1")
-- [jQuery ověřit 1.13.0](jquery-validate/cdnjqueryvalidate1130.md "jQuery ověření 1.13.0")
-- [jQuery 1.12.0 ověřit](jquery-validate/cdnjqueryvalidate1120.md "jQuery 1.12.0 ověření")
-- [jQuery 1.11.1 ověřit](jquery-validate/cdnjqueryvalidate1111.md "jQuery 1.11.1 ověření")
+- [jQuery Validate 1.14.0](jquery-validate/cdnjqueryvalidate1140.md "jQuery Validation 1.14.0")
+- [jQuery Validate 1.13.1](jquery-validate/cdnjqueryvalidate1131.md "jQuery Validation 1.13.1")
+- [jQuery Validate 1.13.0](jquery-validate/cdnjqueryvalidate1130.md "jQuery Validation 1.13.0")
+- [jQuery Validate 1.12.0](jquery-validate/cdnjqueryvalidate1120.md "jQuery Validation 1.12.0")
+- [jQuery Validate 1.11.1](jquery-validate/cdnjqueryvalidate1111.md "jQuery Validation 1.11.1")
 - [jQuery 1.11.0 ověřit](jquery-validate/cdnjqueryvalidate111.md "jQuery 1.11.0 ověření")
 - [jQuery 1.10.0 ověřit](jquery-validate/cdnjqueryvalidate110.md "jQuery 1.10.0 ověření")
-- [jQuery ověřit 1.9](jquery-validate/cdnjqueryvalidate19.md "jquery.validate verze 1.9")
+- [jQuery Validate 1.9](jquery-validate/cdnjqueryvalidate19.md "jquery.validate version 1.9")
 - [jQuery ověřit 1.8.1](jquery-validate/cdnjqueryvalidate181.md "jquery.validate verze 1.8.1")
-- [jQuery ověřit 1.8](jquery-validate/cdnjqueryvalidate18.md "jquery.validate verze 1.8")
-- [jQuery ověřit 1.7](jquery-validate/cdnjqueryvalidate17.md "jquery.validate verze 1.7")
-- [jQuery ověřit 1.6](jquery-validate/cdnjqueryvalidate16.md "jQuery ověřit 1.6")
-- [jQuery ověřit 1.5.5](jquery-validate/cdnjqueryvalidate155.md "jQuery ověřit 1.5.5")
+- [jQuery Validate 1.8](jquery-validate/cdnjqueryvalidate18.md "jquery.validate version 1.8")
+- [jQuery Validate 1.7](jquery-validate/cdnjqueryvalidate17.md "jquery.validate version 1.7")
+- [jQuery Validate 1.6](jquery-validate/cdnjqueryvalidate16.md "jQuery Validate 1.6")
+- [jQuery Validate 1.5.5](jquery-validate/cdnjqueryvalidate155.md "jQuery Validate 1.5.5")
 
 <a id="jQuery_Mobile_Releases_on_the_CDN_4"></a>
 
@@ -636,14 +636,14 @@ Tyto verze knihovny jQuery Mobile jsou hostované na této sítě CDN. Klikněte
 - [jQuery Mobile 1.3.1](jquery-mobile/cdnjquerymobile131.md "jQuery Mobile 1.3.1 ve službě Microsoft Ajax CDN")
 - [jQuery Mobile 1.3.0](jquery-mobile/cdnjquerymobile130.md "jQuery Mobile 1.3.0 ve službě Microsoft Ajax CDN")
 - [jQuery Mobile 1.2.0](jquery-mobile/cdnjquerymobile120.md "jQuery Mobile 1.2.0 ve službě Microsoft Ajax CDN")
-- [jQuery Mobile 1.1.2](jquery-mobile/cdnjquerymobile112.md "jQuery Mobile 1.1.2 ve službě Microsoft Ajax CDN")
+- [jQuery Mobile 1.1.2](jquery-mobile/cdnjquerymobile112.md "jQuery Mobile 1.1.2 on the Microsoft Ajax CDN")
 - [jQuery Mobile 1.1.1](jquery-mobile/cdnjquerymobile111.md "jQuery Mobile 1.1.1 ve službě Microsoft Ajax CDN")
 - [jQuery Mobile 1.1.0](jquery-mobile/cdnjquerymobile110.md "jQuery Mobile 1.1.0 ve službě Microsoft Ajax CDN")
 - [jQuery Mobile 1.1.0 RC 2](jquery-mobile/cdnjquerymobile110rc2.md "jQuery Mobile 1.1.0 RC2 ve službě Microsoft Ajax CDN")
 - [jQuery Mobile 1.0.1](jquery-mobile/cdnjquerymobile101.md "jQuery Mobile 1.0.1 ve službě Microsoft Ajax CDN")
 - [jQuery Mobile 1.0](jquery-mobile/cdnjquerymobile10.md "jQuery Mobile 1.0 ve službě Microsoft Ajax CDN")
-- [jQuery Mobile 1.0 RC 2](jquery-mobile/cdnjquerymobile10rc2.md "jQuery Mobile 1.0 RC2 ve službě Microsoft Ajax CDN")
-- [jQuery Mobile 1.0 RC1](jquery-mobile/cdnjquerymobile10rc1.md "jQuery Mobile 1.0 RC1 ve službě Microsoft Ajax CDN")
+- [jQuery Mobile 1.0 RC 2](jquery-mobile/cdnjquerymobile10rc2.md "jQuery Mobile 1.0 RC2 on the Microsoft Ajax CDN")
+- [jQuery Mobile 1.0 RC 1](jquery-mobile/cdnjquerymobile10rc1.md "jQuery Mobile 1.0 RC1 on the Microsoft Ajax CDN")
 - [jQuery Mobile 1.0 beta 3](jquery-mobile/cdnjquerymobile10b3.md "jQuery Mobile 1.0 Beta 3 ve službě Microsoft Ajax CDN")
 
 <a id="jQuery_Templates_Releases_on_the_CDN_5"></a>
@@ -660,9 +660,9 @@ Tyto verze modulu plug-in jQuery šablony jsou hostovány na této sítě CDN. K
 
 Tyto verze modulu plug-in jQuery cyklu jsou hostované na této sítě CDN. Klikněte na každý odkaz zobrazíte skutečný seznam souborů.
 
-- [jQuery cyklu 2.99](jquery-cycle/cdnjquerycycle299.md "jQuery 2.99 cyklu")
-- [jQuery cyklu 2.94](jquery-cycle/cdnjquerycycle294.md "jQuery 2.94 cyklu")
-- [jQuery cyklu 2,88](jquery-cycle/cdnjquerycycle288.md "jQuery 2,88 cyklu")
+- [jQuery Cycle 2.99](jquery-cycle/cdnjquerycycle299.md "jQuery Cycle 2.99")
+- [jQuery Cycle 2.94](jquery-cycle/cdnjquerycycle294.md "jQuery Cycle 2.94")
+- [jQuery Cycle 2.88](jquery-cycle/cdnjquerycycle288.md "jQuery Cycle 2.88")
 
 <a id="jQuery_DataTables_Releases_on_the_CDN_7"></a>
 
@@ -672,7 +672,7 @@ Tyto verze modulu plug-in jQuery DataTables jsou hostované na této sítě CDN.
 
 - [jQuery DataTables 1.10.5](jquery-datatables/cdnjquerydatatables105.md "jQuery DataTables 1.10.5")
 - [jQuery DataTables 1.10.4](jquery-datatables/cdnjquerydatatables104.md "jQuery DataTables 1.10.4")
-- [jQuery DataTables otázku 1.9.4](jquery-datatables/cdnjquerydatatables194.md "jQuery DataTables otázku 1.9.4")
+- [jQuery DataTables 1.9.4](jquery-datatables/cdnjquerydatatables194.md "jQuery DataTables 1.9.4")
 - [jQuery DataTables 1.9.3](jquery-datatables/cdnjquerydatatables193.md "jQuery DataTables 1.9.3")
 - [jQuery DataTables 1.9.2](jquery-datatables/cdnjquerydatatables192.md "jQuery DataTables 1.9.2")
 - [jQuery DataTables 1.9.1](jquery-datatables/cdnjquerydatatables191.md "jQuery DataTables 1.9.1")
@@ -797,6 +797,21 @@ Toto vydání [https://github.com/scottjehl/Respond](https://github.com/scottjeh
 
 Toto vydání [getbootstrap.com](http://getbootstrap.com "getbootstrap.com") bootstrap jsou hostované v síti CDN:
 
+#### <a name="bootstrap-version-421"></a>Zavedení verze 4.2.1
+
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/bootstrap.js
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/bootstrap.min.js
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/bootstrap.bundle.js
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap.css.map
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap.min.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap-grid.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap-grid.min.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap-grid.css.map
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap-reboot.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap-reboot.min.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/4.2.1/css/bootstrap-reboot.css.map
+
 #### <a name="bootstrap-version-411"></a>Verze 4.1.1 Bootstrap
 
 - https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.1/bootstrap.js
@@ -826,6 +841,22 @@ Toto vydání [getbootstrap.com](http://getbootstrap.com "getbootstrap.com") boo
 - https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/css/bootstrap-reboot.css
 - https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/css/bootstrap-reboot.min.css
 - https://ajax.aspnetcdn.com/ajax/bootstrap/4.0.0/css/bootstrap-reboot.css.map
+
+#### <a name="bootstrap-version-340"></a>Verze 3.4.0 Bootstrap
+
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/bootstrap.js
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/bootstrap.min.js
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/css/bootstrap.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/css/bootstrap.css.map
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/css/bootstrap.min.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/css/bootstrap-theme.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/css/bootstrap-theme.css.map
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/css/bootstrap-theme.min.css
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/fonts/glyphicons-halflings-regular.eot
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/fonts/glyphicons-halflings-regular.svg
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/fonts/glyphicons-halflings-regular.ttf
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/fonts/glyphicons-halflings-regular.woff
+- https://ajax.aspnetcdn.com/ajax/bootstrap/3.4.0/fonts/glyphicons-halflings-regular.woff2
 
 #### <a name="bootstrap-version-337"></a>Verze 3.3.7 Bootstrap
 

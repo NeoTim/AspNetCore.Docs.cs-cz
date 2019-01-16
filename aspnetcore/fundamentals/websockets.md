@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 11/06/2018
 uid: fundamentals/websockets
-ms.openlocfilehash: 3a649f88699d61636d9aa7fbfe4468ca67b3b018
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.openlocfilehash: 6c32269181ea3311c4aea99c08a1c043e7833b05
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225405"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341446"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>Webové sockety v ASP.NET Core
 
@@ -34,7 +34,7 @@ Tento článek vysvětluje, jak začít pracovat s objekty Websocket v ASP.NET C
 * Pokud aplikace běží na Windows se službou IIS:
 
   * Windows 8 nebo Windows Server 2012 nebo novější
-  * Služba IIS 8 / 8 služby IIS Express
+  * IIS 8 / IIS 8 Express
   * Musí být povolené protokoly Websocket (najdete v článku [podpora služby IIS/IIS Express](#iisiis-express-support) části.).
   
 * Pokud aplikace běží na [HTTP.sys](xref:fundamentals/servers/httpsys):
@@ -156,13 +156,7 @@ Ale prohlížeče odesílají `Origin` záhlaví při vydávání žádostí pro
 
 Pokud váš server hostuješ na "https://server.com"a hostování vašeho klienta na"https://client.com", přidejte "https://client.com" k `AllowedOrigins` seznamu pro objekty Websocket ověření.
 
-```csharp
-app.UseWebSockets(new WebSocketOptions()
-{
-    AllowedOrigins.Add("https://client.com");
-    AllowedOrigins.Add("https://www.client.com");
-});
-```
+[!code-csharp[](websockets/samples/2.x/WebSocketsSample/Startup.cs?name=UseWebSocketsOptionsAO&highlight=6-7)]
 
 > [!NOTE]
 > `Origin` Záhlaví je řízena klientem a stejně jako `Referer` záhlaví, můžete zfalšovaná. Proveďte **není** používají tyto hlavičky jako mechanismus ověřování.
@@ -189,7 +183,7 @@ Pokud chcete povolit podporu protokolu WebSocket ve Windows serveru 2012 nebo no
 1. Rozbalte **webového serveru (IIS)** v **role** stromu, rozbalte **Webový Server**a potom rozbalte **vývoj aplikací**.
 1. Vyberte **protokol WebSocket**. Vyberte **Další**.
 1. Pokud nejsou potřebné další funkce, vyberte **Další**.
-1. Vyberte **nainstalovat**.
+1. Vyberte **Install** (Nainstalovat).
 1. Po dokončení instalace, vybrat **Zavřít** ukončíte průvodce.
 
 Pokud chcete povolit podporu protokolu WebSocket v systému Windows 8 nebo novější:

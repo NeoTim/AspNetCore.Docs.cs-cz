@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/14/2018
 uid: fundamentals/app-state
-ms.openlocfilehash: 2d9fe4fc7c69f23a903b4ada44e328ef140963db
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 23bbb3063d696f588abecb1fe05ea3381ab2346d
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997302"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341690"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>Stav relace a aplikace v ASP.NET Core
 

@@ -6,12 +6,12 @@ ms.author: riande
 monikerRange: '>= aspnetcore-2.2'
 ms.date: 12/3/2018
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 0915c525d5fb96a3d32f91fbd65a4e1f62ee28b8
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: 9aa3171c2d47c4cc5827ab480d1e7d3d4c38d28e
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577861"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341417"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -130,7 +130,7 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 
 <!-- Mac -------------------------->
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
@@ -147,6 +147,10 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 [!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
 
 ---
+
+Předchozí příkazy Generovat následující upozornění: "Pro desetinných sloupec"Price"na typ entity"Video"nebyl zadán žádný typ. To způsobí, že hodnoty bylo tiché zkrácení, pokud to není ve výchozí přesnost a měřítko. Explicitně zadat typ sloupce serveru SQL, který zvládne všech hodnot pomocí "HasColumnType()"."
+
+Můžete tuto upozornění ignorovat, opravíme v pozdějších kurzech.
 
 Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následující soubory:
 

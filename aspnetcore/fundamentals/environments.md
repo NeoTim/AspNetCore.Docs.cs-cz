@@ -5,12 +5,12 @@ description: Zjistěte, jak řídit chování aplikace napříč několika prost
 ms.author: riande
 ms.date: 07/03/2018
 uid: fundamentals/environments
-ms.openlocfilehash: 865257d127084671036147dd1f28c9c4843feef6
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 642af9e8f9e322e3624dad46bb1463f6525f5c9e
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206845"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341664"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>Používání více prostředí v ASP.NET Core
 
@@ -22,7 +22,7 @@ ASP.NET Core nakonfiguruje chování aplikace založené na prostředí modulu r
 
 ## <a name="environments"></a>Prostředí
 
-ASP.NET Core načte proměnnou prostředí `ASPNETCORE_ENVIRONMENT` při spuštění aplikace a uloží hodnotu v [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname). Můžete nastavit `ASPNETCORE_ENVIRONMENT` na libovolnou hodnotu, ale [tří hodnot](/dotnet/api/microsoft.aspnetcore.hosting.environmentname) jsou podporovány v rámci rozhraní: [vývoj](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development), [pracovní](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging), a [produkční](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production). Pokud `ASPNETCORE_ENVIRONMENT` není nastavený, použije se výchozí `Production`.
+ASP.NET Core načte proměnnou prostředí `ASPNETCORE_ENVIRONMENT` při spuštění aplikace a uloží hodnotu v [IHostingEnvironment.EnvironmentName](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment.environmentname). Můžete nastavit `ASPNETCORE_ENVIRONMENT` na libovolnou hodnotu, ale [tří hodnot](/dotnet/api/microsoft.aspnetcore.hosting.environmentname) jsou podporovány v rámci rozhraní: [Vývoj](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.development), [pracovní](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.staging), a [produkční](/dotnet/api/microsoft.aspnetcore.hosting.environmentname.production). Pokud `ASPNETCORE_ENVIRONMENT` není nastavený, použije se výchozí `Production`.
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet)]
 
@@ -111,9 +111,9 @@ Následující kód JSON ukazuje tři profily *launchSettings.json* souboru:
 
 Při spuštění aplikace s [dotnet spustit](/dotnet/core/tools/dotnet-run), první profil s `"commandName": "Project"` se používá. Hodnota `commandName` specifikuje webový server ke spuštění. `commandName` může být jedna z následujících akcí:
 
-* Služba IIS Express
-* IIS
-* Projekt (které spustí Kestrel)
+* `IISExpress`
+* `IIS`
+* `Project` (které spustí Kestrel)
 
 Když je aplikace spuštěna s [dotnet spustit](/dotnet/core/tools/dotnet-run):
 
@@ -183,7 +183,7 @@ Chcete-li nastavit prostředí [služby Azure App Service](https://azure.microso
 1. V **nastavení** skupiny, vyberte **nastavení aplikace** okno.
 1. V **nastavení aplikace** vyberte **přidat nové nastavení**.
 1. Pro **zadejte název**, poskytují `ASPNETCORE_ENVIRONMENT`. Pro **zadejte hodnotu**, poskytovat prostředí (například `Staging`).
-1. Vyberte **nastavení slotu** zaškrtávací políčko, pokud chcete nastavení prostředí, které zůstane s aktuálním slotu, když se Prohodit sloty nasazení. Další informace najdete v tématu [dokumentaci k Azure: nastavení, které jsou přehozeny?](/azure/app-service/web-sites-staged-publishing).
+1. Vyberte **nastavení slotu** zaškrtávací políčko, pokud chcete nastavení prostředí, které zůstane s aktuálním slotu, když se Prohodit sloty nasazení. Další informace najdete v tématu [dokumentaci k Azure: Nastavení, které jsou přehozeny? ](/azure/app-service/web-sites-staged-publishing).
 1. Vyberte **Uložit** v horní části okna.
 
 Po nastavení aplikace (proměnnou prostředí) přidání, změně nebo odstranění na webu Azure Portal, Azure App Service automaticky restartuje aplikaci.
@@ -276,8 +276,8 @@ Pro distribuce Linuxu, použijte `export` příkazu na příkazovém řádku pro
 
 Načtení konfigurace podle prostředí, doporučujeme:
 
-* *appSettings* soubory (* appsettings.&lt; <Environment> &gt;.json). Zobrazit [konfigurace: poskytovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider).
-* proměnné prostředí (nastavený v každém systému je hostitelem aplikace). V tématu [konfigurace: poskytovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) a [bezpečné ukládání tajných kódů aplikace při vývoji: proměnné prostředí](xref:security/app-secrets#environment-variables).
+* *appsettings* files (*appsettings.&lt;<Environment>&gt;.json). Zobrazit [konfigurace: Zprostředkovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider).
+* proměnné prostředí (nastavený v každém systému je hostitelem aplikace). Zobrazit [konfigurace: Zprostředkovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) a [bezpečné ukládání tajných kódů aplikace při vývoji: Proměnné prostředí](xref:security/app-secrets#environment-variables).
 * Tajný klíč správce (ve vývojovém prostředí pouze). Viz <xref:security/app-secrets>.
 
 ## <a name="environment-based-startup-class-and-methods"></a>Na základě prostředí při spuštění třídy a metody

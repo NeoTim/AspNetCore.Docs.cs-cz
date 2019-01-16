@@ -4,14 +4,14 @@ author: tdykstra
 description: Další informace o protokolovacího rozhraní v ASP.NET Core. Objevte poskytovatelé vestavěné protokolování a další informace o Oblíbené zprostředkovatele třetí strany.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/11/2018
+ms.date: 01/14/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: f7cfb3823a188f28398d59e0d009e9ddc159dc32
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 0908cc6eeaaba4006a0029ef86d3e47dcf3f9a28
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207573"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341742"
 ---
 # <a name="logging-in-aspnet-core"></a>Protokolování v ASP.NET Core
 
@@ -272,7 +272,7 @@ Následující kód vytvoří `Information` a `Warning` protokoly:
 
 V předchozím kódu je první parametr [protokolu událost s ID](#log-event-id). Druhý parametr je šablona zprávy s zástupné symboly pro argument hodnoty podle zbývající parametry metody. Parametry metody jsou vysvětleny v [zpráv šablonu části](#log-message-template) dále v tomto článku.
 
-Metody, které obsahují v názvu metody na úrovni protokolu (například `LogInformation` a `LogWarning`) jsou [rozšiřující metody pro ILogger](xref:Microsoft.Extensions.Logging.LoggerExtensions). Tyto metody volat `Log` metodu, která přebírá `LogLevel` parametru. Můžete volat `Log` metoda přímo spíše než jeden z těchto metod rozšíření, ale syntaxe je poměrně složitý. Další informace najdete v tématu <xref:Microsoft.Extensions.Logging.ILogger> a [rozšíření protokolovače zdrojový kód](https://github.com/aspnet/Logging/blob/master/src/Microsoft.Extensions.Logging.Abstractions/LoggerExtensions.cs).
+Metody, které obsahují v názvu metody na úrovni protokolu (například `LogInformation` a `LogWarning`) jsou [rozšiřující metody pro ILogger](xref:Microsoft.Extensions.Logging.LoggerExtensions). Tyto metody volat `Log` metodu, která přebírá `LogLevel` parametru. Můžete volat `Log` metoda přímo spíše než jeden z těchto metod rozšíření, ale syntaxe je poměrně složitý. Další informace najdete v tématu <xref:Microsoft.Extensions.Logging.ILogger> a [rozšíření protokolovače zdrojový kód](https://github.com/aspnet/Extensions/blob/release/2.2/src/Logging/Logging.Abstractions/src/LoggerExtensions.cs).
 
 ASP.NET Core definuje následující úrovně protokolu zde seřazené od nejnižší a nejvyšší závažnost.
 
@@ -282,7 +282,7 @@ ASP.NET Core definuje následující úrovně protokolu zde seřazené od nejni�
 
 * Ladění = 1
 
-  Informace, které mohou být užitečné pro vývoj a ladění. Příklad: `Entering method Configure with flag set to true.` povolit `Debug` úroveň zaznamená v produkčním prostředí pouze při řešení potíží, kvůli velkému počtu protokoly.
+  Informace, které mohou být užitečné pro vývoj a ladění. Příklad: `Entering method Configure with flag set to true.` Povolit `Debug` úroveň zaznamená v produkčním prostředí pouze při řešení potíží, kvůli velkému počtu protokoly.
 
 * Informace o = 2
 
@@ -464,7 +464,7 @@ Druhá `AddFilter` Určuje zprostředkovatele, který ladění pomocí názvu ty
 
 Konfigurační data a `AddFilter` kód zobrazený v předchozích ukázkách vytvořit pravidla je znázorněno v následující tabulce. Prvních šest pocházet z příklad konfigurace a poslední dva pocházejí z příkladu kódu.
 
-| Číslo | Zprostředkovatel      | Kategorie, které začínají...          | Minimální úroveň protokolování |
+| Číslo | Poskytovatel      | Kategorie, které začínají...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
 | 1      | Ladit         | Všechny kategorie                          | Informace o       |
 | 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
@@ -497,7 +497,7 @@ Každý poskytovatel definuje *alias* , který lze použít v konfiguraci místo
 
 * Konzola
 * Ladit
-* Protokol událostí
+* EventLog
 * AzureAppServices
 * TraceSource
 * EventSource
@@ -566,7 +566,7 @@ Následující kód umožní obory pro zprostředkovatele konzoly:
 
 ::: moniker range="> aspnetcore-2.0"
 
-*Soubor program.cs*:
+*Program.cs*:
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_Scopes&highlight=4)]
 
@@ -579,7 +579,7 @@ Následující kód umožní obory pro zprostředkovatele konzoly:
 
 ::: moniker range="= aspnetcore-2.0"
 
-*Soubor program.cs*:
+*Program.cs*:
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_Scopes&highlight=4)]
 
@@ -861,9 +861,9 @@ Přejděte **streamování protokolů** stránku, abyste zobrazili zprávy aplik
 
 Sada SDK služby Application Insights můžete shromažďovat a sestavy protokoly generované protokolování infrastruktury ASP.NET Core. Další informace naleznete v následujících materiálech:
 
-* [Přehled služby Application Insights](/azure/application-insights/app-insights-overview)
+* [Application Insights overview](/azure/application-insights/app-insights-overview)
 * [Application Insights pro ASP.NET Core](/azure/application-insights/app-insights-asp-net-core)
-* [Wikiweb Microsoft/ApplicationInsights-aspnetcore: protokolování](https://github.com/Microsoft/ApplicationInsights-aspnetcore/wiki/Logging).
+* [Microsoft/ApplicationInsights-aspnetcore Wiki: Protokolování](https://github.com/Microsoft/ApplicationInsights-aspnetcore/wiki/Logging).
 
 ::: moniker-end
 
@@ -871,10 +871,10 @@ Sada SDK služby Application Insights můžete shromažďovat a sestavy protokol
 
 Rozhraní protokolování třetích stran, které pracují s ASP.NET Core:
 
-* [elmah.IO](https://elmah.io/) ([úložiště GitHub se vzorovými](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
+* [elmah.io](https://elmah.io/) ([GitHub repo](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
 * [Gelf](http://docs.graylog.org/en/2.3/pages/gelf.html) ([úložiště GitHub se vzorovými](https://github.com/mattwcole/gelf-extensions-logging))
 * [JSNLog](http://jsnlog.com/) ([úložiště GitHub se vzorovými](https://github.com/mperdeck/jsnlog))
-* [KissLog.net](https://kisslog.net/) ([úložiště GitHub se vzorovými](https://github.com/catalingavan/KissLog-net))
+* [KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))
 * [Loggr](http://loggr.net/) ([úložiště GitHub se vzorovými](https://github.com/imobile3/Loggr.Extensions.Logging))
 * [NLog](http://nlog-project.org/) ([úložiště GitHub se vzorovými](https://github.com/NLog/NLog.Extensions.Logging))
 * [SENTRY](https://sentry.io/welcome/) ([úložiště GitHub se vzorovými](https://github.com/getsentry/sentry-dotnet))
