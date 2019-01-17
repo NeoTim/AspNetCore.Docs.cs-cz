@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: a3ac1ac389892681e8c122d569e6325353ed6e88
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.translationtype: HT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341677"
+---
 # [Dokumentace k ASP.NET Core](/aspnet/#pivot=core)
 
 # Přehled
@@ -251,7 +259,9 @@
 ### [Publikování pomocí nástrojů CLI](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
 ### [Publikování pomocí sady Visual Studio a Gitu](xref:host-and-deploy/azure-apps/azure-continuous-deployment)
 ### [Průběžné nasazování pomocí Azure Pipelines](/azure/devops/pipelines/get-started-yaml)
-### [Odstraňování chyb při spuštění](xref:host-and-deploy/azure-apps/troubleshoot)
+### [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
+### [Řešení potíží](xref:host-and-deploy/azure-apps/troubleshoot)
+### [Referenční informace o chybách](xref:host-and-deploy/azure-iis-errors-reference)
 ## DevOps 
 ### [Přehled](xref:azure/devops/index)
 ### [Nástroje a soubory ke stažení](xref:azure/devops/tools-and-downloads)
@@ -261,10 +271,11 @@
 ### [Další postup](xref:azure/devops/next-steps)
 ## Hostování ve Windows se službou IIS
 ### [Přehled](xref:host-and-deploy/iis/index)
-### [Odstraňování potíží ve službě IIS](xref:host-and-deploy/iis/troubleshoot)
 ### [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
 ### [Podpora služby IIS v sadě Visual Studio](xref:host-and-deploy/iis/development-time-iis-support)
 ### [Moduly služby IIS](xref:host-and-deploy/iis/modules)
+### [Řešení potíží](xref:host-and-deploy/iis/troubleshoot)
+### [Referenční informace o chybách](xref:host-and-deploy/azure-iis-errors-reference)
 ## [Kestrel](xref:fundamentals/servers/kestrel)
 ## [HTTP.sys](xref:fundamentals/servers/httpsys)
 ## [Hostování ve službě pro Windows](xref:host-and-deploy/windows-service)
@@ -279,7 +290,6 @@
 ## [Hostování ve webové farmě](xref:host-and-deploy/web-farm)
 ## [Publikační profily v sadě Visual Studio](xref:host-and-deploy/visual-studio-publish-profiles)
 ## [Adresářová struktura](xref:host-and-deploy/directory-structure)
-## [Referenční informace k chybám u služeb Azure App Service a IIS](xref:host-and-deploy/azure-iis-errors-reference)
 ## [Kontroly stavu](xref:host-and-deploy/health-checks)
 
 # Zabezpečení a identita
@@ -420,6 +430,6 @@
 ### [Z modulů HTTP do middlewaru](xref:migration/http-modules)
 ## [Protokolování (ne u ASP.NET Core)](xref:migration/logging-nonaspnetcore)
 
-# [Referenční dokumentace rozhraní API](/dotnet/api/?view=aspnetcore-2.2)
+# [Referenční dokumentace rozhraní API](/dotnet/api/?view=aspnetcore-2.1)
 
 # [Psaní příspěvků](https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md)
