@@ -4,14 +4,14 @@ author: rick-anderson
 description: Nechte si představit ASP.NET Core, což je platformově univerzální, vysoce výkonná architektura typu open-source, která slouží k vytváření moderních cloudových aplikací připojených k internetu.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/16/2018
+ms.date: 01/15/2019
 uid: index
-ms.openlocfilehash: fed81090f123084f3f33e75f86d09f55ac7fb481
-ms.sourcegitcommit: a16352c1c88a71770ab3922200a8cd148fb278a6
+ms.openlocfilehash: e7c81ff82e5206a5aca217417f6cb1c339d72e89
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53335296"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341404"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -97,7 +97,7 @@ Další informace o používání [direktiv preprocesoru C#](/dotnet/csharp/lang
 
 ### <a name="regions-in-sample-code"></a>Oblasti ve vzorovém kódu
 
-Některé ukázkové aplikace obsahují úseky kódu, které jsou uzavřené mezi příkazy jazyka C# [#region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) a [#end-region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-endregion). Systém pro sestavování dokumentace vkládá tyto oblasti do zobrazených témat dokumentace.  
+Některé ukázkové aplikace obsahují úseky kódu, které jsou uzavřené mezi příkazy jazyka C# [#region](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-region) a [#endregion](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-endregion). Systém pro sestavování dokumentace vkládá tyto oblasti do zobrazených témat dokumentace.  
 
 Názvy oblastí obvykle obsahují slovo „snippet“. Následující příklad ukazuje oblast s názvem `snippet_FilterInCode`:
 
@@ -118,7 +118,7 @@ Na předchozí fragment kódu C# odkazuje soubor Markdown tohoto tématu pomocí
 [!code-csharp[](sample/SampleApp/Program.cs?name=snippet_FilterInCode)]
 ```
 
-Příkazy `#region` a `#end-region`, do kterých je kód uzavřený, můžete bezpečně ignorovat. Pokud budete chtít spustit vzorové scénáře popsané v tomto tématu, neměňte kód uvnitř těchto příkazů. Při experimentování s jinými scénáři můžete tento kód klidně pozměnit.
+Příkazy `#region` a `#endregion`, do kterých je kód uzavřený, můžete bezpečně ignorovat. Pokud budete chtít spustit vzorové scénáře popsané v tomto tématu, neměňte kód uvnitř těchto příkazů. Při experimentování s jinými scénáři můžete tento kód klidně pozměnit.
 
 Další informace najdete v článku [Příspěvky k dokumentaci rozhraní ASP.NET: fragmenty kódu](https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md#code-snippets).
 

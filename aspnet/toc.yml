@@ -3812,9 +3812,9 @@ items:
     href: whitepapers/whats-new-in-aspnet-45-and-visual-studio-2012.md
 - name: referenční dokumentace k rozhraní API
   href: api-ref.md
-ms.openlocfilehash: 3f0bb74e1dc69479200b6e52cd0e27446815cfba
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: e96b99f5a6432ae359e1b8543701e4e2d49171a4
+ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207522"
+ms.lasthandoff: 01/16/2019
+ms.locfileid: "54341846"
