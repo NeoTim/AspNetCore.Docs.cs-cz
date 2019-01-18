@@ -4,14 +4,14 @@ author: tdykstra
 description: Další informace o ověření modelu v ASP.NET Core MVC.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/04/2019
+ms.date: 01/14/2019
 uid: mvc/models/validation
-ms.openlocfilehash: f3a34972006b5fdee307c9a8d9989b2cc1e36893
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 7c8255097dfc72480794930ebe4d6cb568edbd7c
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099380"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396191"
 ---
 # <a name="model-validation-in-aspnet-core-mvc"></a>Ověření modelu v ASP.NET Core MVC
 
@@ -35,7 +35,7 @@ Jsou zadané atributy ověření na úrovni vlastnost:
 
 ```csharp
 [Required]
-public string MyProperty { get; set; } 
+public string MyProperty { get; set; }
 ```
 
 Níže je s poznámkami `Movie` modelů z aplikace, která uchovává informace o filmů a televizních pořadů. Většina vlastností jsou povinné a několik vlastností řetězce mají požadavky na délku. Kromě toho je omezení číselného rozsahu v místě `Price` vlastnost od 0 do $999,99, spolu s vlastní ověřovací atribut.
@@ -78,6 +78,37 @@ Při použití [Nullable\<T > typ](/dotnet/csharp/programming-guide/nullable-typ
 
 Ověřování na straně klienta vyžaduje hodnotu pro pole formuláře, který odpovídá vlastnosti modelu, který jste označili `Required` a Null typu vlastnosti, která nejsou označena `Required`. `Required` můžete použít k řízení chybovou zprávu ověření na straně klienta.
 
+::: moniker range=">= aspnetcore-2.1"
+
+## <a name="top-level-node-validation"></a>Uzel nejvyšší úrovně ověření
+
+Uzly nejvyšší úrovně patří:
+
+* Parametry akce
+* Vlastnosti kontroleru
+* Parametry rutiny stránky
+* Vlastnosti modelu stránky
+
+Model vázaný uzly nejvyšší úrovně se ověří kromě ověřování vlastnosti modelu. V následujícím příkladu z ukázkové aplikace `VerifyPhone` metoda používá <xref:System.ComponentModel.DataAnnotations.RegularExpressionAttribute> ověřit data uživatele do pole Telefon formuláře:
+
+[!code-csharp[](validation/sample/UsersController.cs?name=snippet_VerifyPhone)]
+
+Uzly nejvyšší úrovně můžete použít <xref:Microsoft.AspNetCore.Mvc.ModelBinding.BindRequiredAttribute> s atributy ověření. V následujícím příkladu z ukázkové aplikace `CheckAge` metody Určuje, že `age` parametr musí být vázán z řetězce dotazu, když se odešle formulář:
+
+[!code-csharp[](validation/sample/UsersController.cs?name=snippet_CheckAge)]
+
+Na stránce Zkontrolovat stáří (*CheckAge.cshtml*), existují dva typy. První formulář odešle `Age` hodnotu `99` jako řetězec dotazu: `https://localhost:5001/Users/CheckAge?Age=99`.
+
+Když správně formátovaná `age` parametr z řetězce dotazu se odešle, ověří formuláře.
+
+Druhý formulář na stránce Zkontrolovat stáří odešle `Age` hodnoty v těle žádosti a ověření selže. Vazba se nezdaří, protože `age` parametr musí pocházet z řetězce dotazu.
+
+Ověření je ve výchozím nastavení povolené a řídí <xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowValidatingTopLevelNodes*> vlastnost <xref:Microsoft.AspNetCore.Mvc.MvcOptions>. Chcete-li zakázat ověřování uzel nejvyšší úrovně, nastavte `AllowValidatingTopLevelNodes` k `false` v možnostech MVC (`Startup.ConfigureServices`):
+
+[!code-csharp[](validation/sample_snapshot/Startup.cs?name=snippet_AddMvc&highlight=4)]
+
+::: moniker-end
+
 ## <a name="model-state"></a>Stav modelu
 
 Stav modelu představuje chyb při ověřování v zadané hodnoty formuláře HTML.
@@ -104,7 +135,7 @@ Po dokončení vazby modelu a ověření můžete opakovat jeho části. Napří
 
 Budete muset ručně spusťte ověření. Chcete-li tak učinit, zavolejte `TryValidateModel` způsob, jak je znázorněno zde:
 
-[!code-csharp[](validation/sample/MoviesController.cs?range=52)]
+[!code-csharp[](validation/sample/MoviesController.cs?name=snippet_TryValidateModel)]
 
 ## <a name="custom-validation"></a>Vlastní ověřování
 
@@ -112,17 +143,17 @@ Atributy ověření fungovat pro většinu ověření potřeb. Některá pravidl
 
 V následujícím příkladu obchodní pravidlo uvádí, zda uživatelé nemusí nastaveno žánr *Classic* filmu vydanou po 1960. `[ClassicMovie]` Atribut žánr nejprve zkontroluje, a pokud jde o klasický, pak zkontroluje, že je novější než 1960 datum vydání. Pokud se uvolní po 1960, ověření se nezdaří. Atribut přijímá jako parametr celé číslo představující rok, který vám pomůže ověřit data. Hodnota parametru v konstruktoru atributu, můžete zachytit, jak je znázorněno zde:
 
-[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?range=9-28)]
+[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?name=snippet_ClassicMovieAttribute)]
 
 `movie` Proměnné výše představuje `Movie` objekt, který obsahuje data z odeslání formuláře k ověření. V takovém případě ověřovací kód kontroluje data a rozšířením podle tematických v `IsValid` metodu `ClassicMovieAttribute` třídy podle pravidla. Po úspěšném ověření`IsValid` vrátí `ValidationResult.Success` kódu. Když se ověřování nezdaří, `ValidationResult` s chybou je vrácená zpráva:
 
-[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?range=55-58)]
+[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?name=snippet_GetErrorMessage)]
 
 Když uživatel změní `Genre` pole a odešle formulář, `IsValid` metodu `ClassicMovieAttribute` ověří, zda je tento film klasický. Stejně jako všechny vestavěné atributy, použije `ClassicMovieAttribute` na vlastnost, jako `ReleaseDate` k zajištění ověření dojde, jak je znázorněno v předchozí ukázce kódu. Protože příklad funguje pouze s `Movie` typy, je vhodnější použít `IValidatableObject` jak je znázorněno v následujícím odstavci.
 
 Alternativně může umístit tento stejný kód v modelu implementací `Validate` metodu na `IValidatableObject` rozhraní. Při vlastní ověřovací atributy fungovat dobře pro jednotlivé vlastnosti ověřování, implementace `IValidatableObject` je možné provádět ověřování na úrovni třídy, jak je vidět tady.
 
-[!code-csharp[](validation/sample/MovieIValidatable.cs?range=32-40)]
+[!code-csharp[](validation/sample/MovieIValidatable.cs?name=snippet_Validate)]
 
 ## <a name="client-side-validation"></a>Ověřování na straně klienta
 
@@ -130,13 +161,13 @@ Ověřování na straně klienta je skvělé usnadnění práce pro uživatele. 
 
 Zobrazení s správné odkazy skriptu JavaScript musí mít nastavené pro ověřování na straně klienta fungovat jako tady vidíte.
 
-[!code-cshtml[](validation/sample/Views/Shared/_Layout.cshtml?range=37)]
+[!code-cshtml[](validation/sample/Views/Shared/_Layout.cshtml?name=snippet_ScriptTag)]
 
 [!code-cshtml[](validation/sample/Views/Shared/_ValidationScriptsPartial.cshtml)]
 
 [JQuery Nerušivý ověření](https://github.com/aspnet/jquery-validation-unobtrusive) skript je vlastní Microsoft front-endu knihovnu, která staví na oblíbené [jQuery ověřit](https://jqueryvalidation.org/) modulu plug-in. Bez jQuery Nerušivý ověřování, bude muset kód stejnou logiku ověřování na dvou místech: jednou v atributů ověření na straně serveru na vlastnosti projektu a poté znovu v skripty na straně klienta (příklady pro architekturu jQuery ověřením vaší [ `validate()` ](https://jqueryvalidation.org/validate/) metoda ukazuje, jak komplexní to může být). Místo toho MVC [pomocných rutin značek](xref:mvc/views/tag-helpers/intro) a [pomocných rutin HTML](xref:mvc/views/overview) budou moct používat atributy ověření a metadata z vlastnosti modelu k vykreslení HTML 5 typu [datové atributy](http://w3c.github.io/html/dom.html#embedding-custom-non-visible-data-with-the-data-attributes) v elementy formuláře, které vyžadují ověřování. MVC vygeneruje `data-` atributy pro předdefinované a vlastní atributy. pak analyzuje jQuery Nerušivý ověření `data-` atributy a předá logiku jQuery ověřit efektivně "kopírování" logiku ověřování na straně serveru do klienta. Zobrazení chyb ověřování na straně klienta, použití pomocných rutin značek relevantní, jak je znázorněno zde:
 
-[!code-cshtml[](validation/sample/Views/Movies/Create.cshtml?highlight=4,5&range=19-25)]
+[!code-cshtml[](validation/sample/Views/Movies/Create.cshtml?name=snippet_ReleaseDate&highlight=4-5)]
 
 Výše uvedené pomocných rutin značek vykreslení HTML níže. Všimněte si, že `data-` atributů v kódu HTML výstup odpovídají atributů ověření pro `ReleaseDate` vlastnost. `data-val-required` Atribut obsahuje chybovou zprávu se zobrazí, pokud uživatel nemá vyplnit pole Datum vydání verze. jQuery Nerušivý ověření tuto hodnotu předá jQuery ověřit [ `required()` ](https://jqueryvalidation.org/required-method/) metodu, která se zobrazí zpráva v souvisejícím  **\<span >** elementu.
 
@@ -211,7 +242,7 @@ $.get({
 
 Můžete vytvořit logiku na straně klienta pro vaše vlastní atribut a [nerušivý ověření](http://bradwilson.typepad.com/blog/2010/10/mvc3-unobtrusive-validation.html) která vytvoří adaptér pro [k ověřování jquery](http://jqueryvalidation.org/documentation/) se spustí na straně klienta za vás automaticky jako součást ověření. Prvním krokem je řídit, jaké atributy dat. přidá implementace `IClientModelValidator` rozhraní, jak je znázorněno zde:
 
-[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?range=30-42)]
+[!code-csharp[](validation/sample/ClassicMovieAttribute.cs?name=snippet_AddValidation)]
 
 Atributy, které toto rozhraní implementují můžete přidat do generované pole atributů HTML. Zkoumání výstup `ReleaseDate` element odhalí kód HTML, který je podobný jako předchozí příklad, s tím rozdílem, nyní je `data-val-classicmovie` atribut, který byl definován v `AddValidation` metodu `IClientModelValidator`.
 
@@ -236,7 +267,7 @@ Vzdálené ověření je skvělé funkce, která použijte, pokud je potřeba ov
 
 Implementace vzdáleného ověřování ve dvou krocích. Nejprve musíte označit modelu pomocí `[Remote]` atribut. `[Remote]` Atribut je možné zadat více přetížení, můžete použít ke směrování JavaScript na straně klienta na odpovídající kód pro volání. Následující příklad ukazuje na `VerifyEmail` metody akce `Users` kontroleru.
 
-[!code-csharp[](validation/sample/User.cs?range=7-8)]
+[!code-csharp[](validation/sample/User.cs?name=snippet_UserEmailProperty)]
 
 Druhý krok je uvedení kód pro ověření v odpovídající metody akce, jak jsou definovány v `[Remote]` atribut. Podle jQuery ověřit [vzdálené](https://jqueryvalidation.org/remote-method/) metoda dokumentaci odpovědi serveru musí být řetězec formátu JSON, který je buď:
 
@@ -247,17 +278,17 @@ Pokud odpověď serveru je řetězec (například `"That name is already taken, 
 
 Definice `VerifyEmail` metoda řídí následujícími pravidly, jak je znázorněno níže. Vrátí Chyba ověřování zpráv, pokud se používá e-mailu, nebo `true` Pokud e-mailu je zdarma a zabalí výsledek `JsonResult` objektu. Na straně klienta můžete použít vrácené hodnoty pak pokračujte v případě potřeby zobrazí chybu.
 
-[!code-csharp[](validation/sample/UsersController.cs?range=19-28)]
+[!code-csharp[](validation/sample/UsersController.cs?name=snippet_VerifyEmail)]
 
 Nyní když uživatelé zadají e-mailu, JavaScript v zobrazení zavolá vzdálené zobrazíte-li tuto e-mailu je už zabraný a pokud ano, zobrazí se chybová zpráva. V opačném případě uživatel odešle formulář jako obvykle.
 
 `AdditionalFields` Vlastnost `[Remote]` atribut je užitečné pro ověření kombinace různých typů polí s daty na serveru. Například pokud `User` modelu výše má dvě další vlastnosti volá `FirstName` a `LastName`, můžete chtít ověřit, že stávající uživatelé už nemají tohoto páru názvy. Můžete definovat nové vlastnosti, jak je znázorněno v následujícím kódu:
 
-[!code-csharp[](validation/sample/User.cs?range=10-13)]
+[!code-csharp[](validation/sample/User.cs?name=snippet_UserNameProperties)]
 
 `AdditionalFields` mohli jste explicitně nastavena na řetězce `"FirstName"` a `"LastName"`, ale pomocí [ `nameof` ](/dotnet/csharp/language-reference/keywords/nameof) operátor takto zjednodušuje později refaktoring. Metody akce k provedení ověření pak musí přijmout dva argumenty, jeden pro hodnotu vlastnosti `FirstName` a jeden pro hodnotu `LastName`.
 
-[!code-csharp[](validation/sample/UsersController.cs?range=30-39)]
+[!code-csharp[](validation/sample/UsersController.cs?name=snippet_VerifyName)]
 
 Nyní když uživatelé zadat křestní jméno a příjmení, JavaScript:
 
@@ -272,4 +303,4 @@ Pokud je potřeba ověřit dvě nebo více polí s `[Remote]` atribut, je uvád�
 public string MiddleName { get; set; }
 ```
 
-`AdditionalFields`, jako jsou všechny argumenty atributu musí být konstantní výraz. Proto se nesmí používat [interpolovaný řetězec](/dotnet/csharp/language-reference/keywords/interpolated-strings) nebo volání [ `string.Join()` ](https://msdn.microsoft.com/library/system.string.join(v=vs.110).aspx) inicializovat `AdditionalFields`. Pro každé další pole, které přidáte do `[Remote]` atribut, je nutné přidat další argument na odpovídající metodu akce kontroleru.
+`AdditionalFields`, jako jsou všechny argumenty atributu musí být konstantní výraz. Proto se nesmí používat [interpolovaný řetězec](/dotnet/csharp/language-reference/keywords/interpolated-strings) nebo volání <xref:System.String.Join*> inicializovat `AdditionalFields`. Pro každé další pole, které přidáte do `[Remote]` atribut, je nutné přidat další argument na odpovídající metodu akce kontroleru.

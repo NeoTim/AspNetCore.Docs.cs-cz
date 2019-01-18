@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/11/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: a39ece169199d256b2914d6b1a6d24dbf6a276d6
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 192e4bf8e970083cc05babcd7fb3cf52985e35bf
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341781"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396321"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -544,7 +544,9 @@ Instalační protokoly hostování sady prostředků modulu se nacházejí v *C:
 
 **Služba IIS Express**
 
-   * %ProgramFiles%\IIS Express\config\templates\PersonalWebServer\applicationHost.config
+   * Visual Studio: {Kořenový adresář aplikace}\\.vs\config\applicationHost.config
+   
+   * *iisexpress.exe* CLI: %USERPROFILE%\Documents\IISExpress\config\applicationhost.config
 
 Soubory můžete najít tak, že *aspnetcore* v *applicationHost.config* souboru.
 

@@ -4,20 +4,19 @@ title: Principy a zpracování událostí doby platnosti v knihovně SignalR | D
 author: pfletcher
 description: Tento článek popisuje, jak pomocí událostí vystavené API rozbočovače.
 ms.author: riande
-ms.date: 06/10/2014
+ms.date: 01/15/2019
 ms.assetid: 03960de2-8d95-4444-9169-4426dcc64913
 msc.legacyurl: /signalr/overview/guide-to-the-api/handling-connection-lifetime-events
 msc.type: authoredcontent
-ms.openlocfilehash: 6a354179a82eba1d4a64184bfdeb302472fabf5f
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 5aaec6795f714ba0877ec3b22eff45eb281b44aa
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287976"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396165"
 ---
 <a name="understanding-and-handling-connection-lifetime-events-in-signalr"></a>Principy a zpracování událostí doby platnosti v knihovně SignalR
 ====================
-podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
 
 [!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
@@ -32,7 +31,7 @@ podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://g
 > ## <a name="software-versions-used-in-this-topic"></a>Verze softwaru použitým v tomto tématu
 >
 >
-> - [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013)
+> - [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
 > - .NET 4.5
 > - Funkce SignalR verze 2
 >

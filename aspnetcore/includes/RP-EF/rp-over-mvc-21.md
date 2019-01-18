@@ -1,20 +1,24 @@
+---
+ms.openlocfilehash: b7c97f3b329bea452e1f49c351231f92310c97b5
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "53335069"
+---
 ::: moniker range=">= aspnetcore-2.1"
 
 V tomto kurzu nebyl upgradován na verzi ASP.NET Core 2.1. ASP.NET Core 2.0 verzi tohoto kurzu je k dispozici výběrem **ASP.NET Core 2.0** výše uvedené tabulky obsahu nebo v horní části stránky:
 
 ![tutoriály ](~//data/ef-rp/read-related-data/_static/2.1.png)
 
-ASP.NET Core 2.1 Razor Pages verzi tohoto kurzu má mnoho vylepšení verze 2.0.
+ASP.NET Core 2.1 [Razor Pages](xref:data/ef-rp/intro) verzi tohoto kurzu má mnoho vylepšení verze 2.0.
 
-2.0 kurzu se naučíte ASP.NET, MVC Core a Entity Framework Core pomocí kontrolerů a zobrazení. Stránky Razor je na stránce programovací model, který je vytváření webového uživatelského rozhraní jednodušší a produktivnější. Doporučujeme, abyste [Razor Pages](xref:data/ef-rp/intro) kurz přes verze MVC. Kurz pro stránky Razor:
+2.0 kurzu se naučíte ASP.NET, MVC Core a Entity Framework Core pomocí kontrolerů a zobrazení. Aktualizovali jsme kurzu stránky Razor s následujícími vylepšeními:
 
 * Je usnadňuje její sledování. Například kód generování uživatelského rozhraní je výrazně zjednodušené.
 * Poskytuje další EF Core osvědčené postupy.
 * Používá účinnější dotazy.
-* Je více aktuální pomocí nejnovější rozhraní API.
-* Zahrnuje další funkce.
-* Je upřednostňovaný způsob pro nový vývoj aplikací.
-
-Pokud se rozhodnete v tomto kurzu přes [Razor Pages](xref:data/ef-rp/intro) verze, dejte nám vědět, proč v [této diskuse Githubu](https://github.com/aspnet/Docs/issues/6146).
+* Využívá nejnovější rozhraní API pro EF Core.
 
 ::: moniker-end

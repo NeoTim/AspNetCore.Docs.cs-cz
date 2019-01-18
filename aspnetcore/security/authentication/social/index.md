@@ -4,20 +4,20 @@ author: rick-anderson
 description: Tento kurz ukazuje vytvoření ASP.NET Core 2.x aplikace pomocí externího zprostředkovatele ověřování OAuth 2.0.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/11/2018
+ms.date: 1/19/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: 063d452fb6ab91b712ade7f7b7ed99823dbdc657
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 48dd8b772234ff18158423a36ed1716102bc2f31
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098815"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396139"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook, Google a externí zprostředkovatel ověřování v ASP.NET Core
 
 Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Tento kurz ukazuje, jak vytvářet v ASP.NET Core 2.x aplikaci, která umožňuje uživatelům přihlášení pomocí přihlašovacích údajů z externího zprostředkovatele ověřování OAuth 2.0.
+Tento kurz ukazuje, jak vytvořit aplikaci 2.2 technologie ASP.NET Core, která umožňuje uživatelům přihlášení pomocí přihlašovacích údajů z externího zprostředkovatele ověřování OAuth 2.0.
 
 [Facebook](xref:security/authentication/facebook-logins), [Twitter](xref:security/authentication/twitter-logins), [Google](xref:security/authentication/google-logins), a [Microsoft](xref:security/authentication/microsoft-logins) poskytovatelé jsou popsané v následujících částech. Ostatní zprostředkovatelé jsou k dispozici v balíčky třetích stran, jako [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers) a [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers).
 
@@ -30,29 +30,13 @@ Umožňuje uživatelům přihlašovat se pomocí existujících přihlašovacíc
 * V sadě Visual Studio 2017, vytvořte nový projekt z úvodní stránky, nebo prostřednictvím **souboru** > **nový** > **projektu**.
 
 * Vyberte **webové aplikace ASP.NET Core** šablony, které jsou k dispozici v **Visual C#**   >  **.NET Core** kategorie:
-
-![Dialogové okno nového projektu](index/_static/new-project.png)
-
-* Klepněte na **webovou aplikaci** a ověřte **ověřování** je nastavena na **jednotlivé uživatelské účty**:
-
-![Dialogové okno nové webové aplikace](index/_static/select-project.png)
-
-Poznámka: Tento kurz se vztahuje na verzi ASP.NET Core 2.0 SDK, která se dají v horní části průvodce.
+* Vyberte **změna ověřování** a ověřování sady **jednotlivé uživatelské účty**.
 
 ## <a name="apply-migrations"></a>Použití migrace
 
-* Spusťte aplikaci a vyberte **přihlášení** odkaz.
-* Vyberte **zaregistrujte se jako nový uživatel** odkaz.
+* Spusťte aplikaci a vyberte **zaregistrovat** odkaz.
 * Zadejte e-mail a heslo pro nový účet a potom vyberte **zaregistrovat**.
 * Postupujte podle pokynů a použití migrace.
-
-## <a name="require-https"></a>Vyžadovat protokol HTTPS
-
-OAuth 2.0 pro ověřování vyžaduje použití protokolu SSL/TLS přes protokol HTTPS.
-
-Projekty vytvořené pomocí **webovou aplikaci** nebo **webového rozhraní API** projektu šablony s ASP.NET Core 2.1 nebo novější se automaticky konfigurují pro povolení HTTPS. Aplikace spustí s zabezpečené výchozí koncový bod, pokud **jednotlivé uživatelské účty** je vybraná možnost v **dialogové okno Změnit ověřování** projektu průvodce.
-
-Další informace naleznete v tématu <xref:security/enforcing-ssl>.
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
@@ -83,11 +67,11 @@ Při registraci se externího zprostředkovatele přihlášení, není nutné he
 
 Chcete-li vytvořit heslo a přihlaste se pomocí e-mailu, kterou jste nastavili během procesu přihlašování s externí zprostředkovatele:
 
-* Klepněte **Hello &lt;e-mailový alias&gt;**  v pravém horním rohu přejít na odkaz **spravovat** zobrazení.
+* Vyberte **Hello &lt;e-mailový alias&gt;**  v pravém horním rohu přejít na odkaz **spravovat** zobrazení.
 
 ![Zobrazení Správa webové aplikace](index/_static/pass1a.png)
 
-* Klepněte na **vytvořit**
+* Vyberte **Vytvořit**.
 
 ![Nastavte heslo stránku](index/_static/pass2a.png)
 

@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte aktivní i neaktivní moduly IIS pro aplikace ASP.NET Core a jak spravovat moduly služby IIS.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/30/2018
+ms.date: 01/17/2019
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: c6a6cc9b6b3410267c6f5034f824648a1ebbe10f
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 8c32a668b3945f0da0194162e19e965b4aed3934
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52862236"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396269"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>Moduly IIS s ASP.NET Core
 
@@ -23,7 +23,7 @@ Některé z nativních modulů IIS a všechny moduly služby IIS spravované nej
 
 Tabulka udává nativní moduly služby IIS, které fungují s aplikací ASP.NET Core a že modul ASP.NET Core.
 
-| Modul | Funkční aplikace ASP.NET Core | Možnost ASP.NET Core |
+| Modul | Funkční aplikace ASP.NET Core | ASP.NET Core Option |
 | --- | :---: | --- |
 | **Anonymní ověřování**<br>`AnonymousAuthenticationModule`                                  | Ano | |
 | **Základní ověřování**<br>`BasicAuthenticationModule`                                          | Ano | |
@@ -37,14 +37,14 @@ Tabulka udává nativní moduly služby IIS, které fungují s aplikací ASP.NET
 | **Procházení adresářů**<br>`DirectoryListingModule`                                               | Ne  | [Middleware pro procházení adresáře](xref:fundamentals/static-files#enable-directory-browsing) |
 | **Dynamické komprese**<br>`DynamicCompressionModule`                                            | Ano | [Middleware pro kompresi odpovědí](xref:performance/response-compression) |
 | **Trasování**<br>`FailedRequestsTracingModule`                                                     | Ano | [Protokolování ASP.NET Core](xref:fundamentals/logging/index#tracesource-provider) |
-| **Ukládání souborů do mezipaměti**<br>`FileCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
-| **Ukládání do mezipaměti pomocí protokolu HTTP**<br>`HttpCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
+| **File Caching**<br>`FileCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
+| **HTTP Caching**<br>`HttpCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
 | **Protokolování HTTP**<br>`HttpLoggingModule`                                                          | Ano | [Protokolování ASP.NET Core](xref:fundamentals/logging/index) |
 | **Přesměrování protokolu HTTP**<br>`HttpRedirectionModule`                                                  | Ano | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
 | **Ověřování pomocí mapování klientských certifikátů služby IIS**<br>`IISCertificateMappingAuthenticationModule` | Ano | |
 | **Omezení domény a IP**<br>`IpRestrictionModule`                                          | Ano | |
 | **Filtry ISAPI**<br>`IsapiFilterModule`                                                         | Ano | [Middleware](xref:fundamentals/middleware/index) |
-| **ROZHRANÍ ISAPI**<br>`IsapiModule`                                                                       | Ano | [Middleware](xref:fundamentals/middleware/index) |
+| **ISAPI**<br>`IsapiModule`                                                                       | Ano | [Middleware](xref:fundamentals/middleware/index) |
 | **Podpora protokolu**<br>`ProtocolSupportModule`                                                  | Ano | |
 | **Filtrování žádostí**<br>`RequestFilteringModule`                                                | Ano | [Middleware pro přepis adres URL `IRule`](xref:fundamentals/url-rewriting#irule-based-rule) |
 | **Monitorování žádostí**<br>`RequestMonitorModule`                                                    | Ano | |
@@ -63,20 +63,20 @@ Tabulka udává nativní moduly služby IIS, které fungují s aplikací ASP.NET
 
 Spravované moduly jsou *není* díky hostované aplikace ASP.NET Core, pokud je fond aplikací .NET CLR verze nastavena na **bez spravovaného kódu**. ASP.NET Core nabízí alternativy middlewaru v několika případech.
 
-| Modul                  | Možnost ASP.NET Core |
+| Modul                  | ASP.NET Core Option |
 | ----------------------- | ------------------- |
 | AnonymousIdentification | |
 | DefaultAuthentication   | |
 | FileAuthorization       | |
-| Ověřování pomocí formulářů     | [Middleware ověřování souborů cookie](xref:security/authentication/cookie) |
-| outputCache             | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
+| FormsAuthentication     | [Middleware ověřování souborů cookie](xref:security/authentication/cookie) |
+| OutputCache             | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
 | Profil                 | |
 | RoleManager             | |
-| ScriptModule 4.0        | |
+| ScriptModule-4.0        | |
 | Relace                 | [Relace middlewaru](xref:fundamentals/app-state) |
 | UrlAuthorization        | |
 | UrlMappingsModule       | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
-| UrlRoutingModule 4.0    | [ASP.NET Core Identity](xref:security/authentication/identity) |
+| UrlRoutingModule-4.0    | [ASP.NET Core Identity](xref:security/authentication/identity) |
 | WindowsAuthentication   | |
 
 ## <a name="iis-manager-application-changes"></a>Změny aplikace Správce služby IIS
@@ -105,13 +105,13 @@ Další informace o zakázání modulů s nastavením konfigurace, použijte odk
 
 Pokud se vyžadují pro odebrání modulu s nastavením v *web.config*odemknout modulu a odemknutí `<modules>` část *web.config* první:
 
-1. Odemknete modul na úrovni serveru. Server služby IIS vyberte ve Správci služby IIS **připojení** bočním panelu. Otevřít **moduly** v **IIS** oblasti. V seznamu vyberte modul. V **akce** bočního panelu na pravé straně vyberte **odemknout**. Odemknout libovolný počet modulů, jak máte v úmyslu odebrat z *web.config* později.
+1. Odemknete modul na úrovni serveru. Server služby IIS vyberte ve Správci služby IIS **připojení** bočním panelu. Otevřít **moduly** v **IIS** oblasti. V seznamu vyberte modul. V **akce** bočního panelu na pravé straně vyberte **odemknout**. Pokud se zobrazí jako záznam akce pro modul **Zámek**, už je odemknuté modulu a nemusíte nic dělat. Odemknout libovolný počet modulů, jak máte v úmyslu odebrat z *web.config* později.
 
 2. Nasazení aplikace bez `<modules>` tématu *web.config*. Pokud je aplikace nasazená s *web.config* obsahující `<modules>` část bez nutnosti odemknout části nejprve v Správce služby IIS, Configuration Manager dojde k výjimce při pokusu o odemknutí části. Proto nasadit aplikaci bez `<modules>` oddílu.
 
-3. Odemknout `<modules>` část *web.config*. V **připojení** bočním panelu vyberte web v **lokality**. V **správu** oblasti, otevřete **Editor konfigurace**. Použít ovládací prvky navigace a vyberte `system.webServer/modules` oddílu. V **akce** bočního panelu na pravé straně vyberte **odemknout** části.
+3. Odemknout `<modules>` část *web.config*. V **připojení** bočním panelu vyberte web v **lokality**. V **správu** oblasti, otevřete **Editor konfigurace**. Použít ovládací prvky navigace a vyberte `system.webServer/modules` oddílu. V **akce** bočního panelu na pravé straně vyberte **odemknout** části. Pokud záznam akce pro části modulu se zobrazí jako **zamknout oddíl**, už je odemknuté části modulu a nemusíte nic dělat.
 
-4. V tomto okamžiku `<modules>` části mohou být přidány do *web.config* soubor s `<remove>` element příslušný modul odeberete z aplikace. Více `<remove>` elementy lze přidat více modulů odebrat. Pokud *web.config* změn na serveru, okamžitě provést stejné změny do projektu *web.config* soubor místně. Odebrání modulu díky tomu nebude mít vliv na používání modulu s jinými aplikacemi na serveru.
+4. Přidat `<modules>` části k aplikaci prvku místní *web.config* soubor s `<remove>` element příslušný modul odeberete z aplikace. Přidání více `<remove>` prvky k odebrání více modulů. Pokud *web.config* změn na serveru, okamžitě provést stejné změny do projektu *web.config* soubor místně. Odebrání modulu tento přístup nemá vliv na používání modulu s jinými aplikacemi na serveru.
 
    ```xml
    <configuration>
@@ -122,6 +122,26 @@ Pokud se vyžadují pro odebrání modulu s nastavením v *web.config*odemknout 
     </system.webServer>
    </configuration>
    ```
+   
+Pokud chcete přidat nebo odebrat moduly pro služby IIS Express pomocí *web.config*, upravte *applicationHost.config* k odemknutí `<modules>` části:
+
+1. Otevřít *{kořenový adresář aplikace}\\.vs\config\applicationhost.config*.
+
+1. Vyhledejte `<section>` – element pro moduly služby IIS a změnit `overrideModeDefault` z `Deny` k `Allow`:
+
+   ```xml
+   <section name="modules" 
+            allowDefinition="MachineToApplication" 
+            overrideModeDefault="Allow" />
+   ```
+   
+1. Vyhledejte `<location path="" overrideMode="Allow"><system.webServer><modules>` oddílu. Pro všechny moduly, které chcete odebrat, nastavte `lockItem` z `true` k `false`. V následujícím příkladu je odemknuté modulu CGI:
+
+   ```xml
+   <add name="CgiModule" lockItem="false" />
+   ```
+   
+1. Po `<modules>` oddílu a jednotlivé moduly jsou odemknutí, budete moci přidat nebo odebrat moduly služby IIS pomocí aplikace *web.config* souboru ke spuštění aplikace ve službě IIS Express.
 
 Modul služby IIS může být odebrán také s *Appcmd.exe*. Zadejte `MODULE_NAME` a `APPLICATION_NAME` v příkazu:
 
@@ -146,7 +166,7 @@ Modul HTTP ukládání do mezipaměti (`HttpCacheModule`) implementuje výstupn�
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:host-and-deploy/iis/index>
-* [Úvod do architektury služby IIS: moduly ve službě IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#modules-in-iis)
+* [Úvod do architektury služby IIS: Moduly ve službě IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#modules-in-iis)
 * [Přehled moduly služby IIS](/iis/get-started/introduction-to-iis/iis-modules-overview)
 * [Vlastní nastavení služby IIS 7.0 role a moduly](https://technet.microsoft.com/library/cc627313.aspx)
-* [SLUŽBA IIS `<system.webServer>`](/iis/configuration/system.webServer/)
+* [IIS `<system.webServer>`](/iis/configuration/system.webServer/)

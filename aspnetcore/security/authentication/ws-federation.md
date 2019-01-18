@@ -1,89 +1,89 @@
 ---
-title: Ověřuje uživatele pomocí protokolu WS-Federation v ASP.NET Core
+title: Ověřování uživatelů pomocí WS-Federation v ASP.NET Core
 author: chlowell
-description: Tento kurz ukazuje, jak používat v aplikaci ASP.NET Core WS-Federation.
+description: Tento kurz ukazuje, jak použít v aplikaci ASP.NET Core WS-Federation.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/27/2018
+ms.date: 01/16/2019
 uid: security/authentication/ws-federation
-ms.openlocfilehash: 55504ed28cf8ef1095bf16c101c09a6f374f038c
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.openlocfilehash: 6b568928aaf6c958d66279af9fef80ac0c968c8b
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36277436"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396152"
 ---
-# <a name="authenticate-users-with-ws-federation-in-aspnet-core"></a>Ověřuje uživatele pomocí protokolu WS-Federation v ASP.NET Core
+# <a name="authenticate-users-with-ws-federation-in-aspnet-core"></a>Ověřování uživatelů pomocí WS-Federation v ASP.NET Core
 
-Tento kurz ukazuje, jak povolit uživatelům přihlásit se přes zprostředkovatele ověřování WS-Federation jako je Active Directory Federation Services (ADFS) nebo [Azure Active Directory](/azure/active-directory/) (AAD). Používá technologii ASP.NET 2.0 základní ukázková aplikace popsané v [Facebook, Google a externí zprostředkovatel ověřování](xref:security/authentication/social/index).
+Tento kurz ukazuje, jak povolit uživatelům přihlašovat se pomocí zprostředkovatele ověřování WS-Federation, jako je Active Directory Federation Services (ADFS) nebo [Azure Active Directory](/azure/active-directory/) (AAD). Používá ukázkovou aplikaci ASP.NET Core 2.0 je popsáno v [Facebook, Google a externí zprostředkovatel ověřování](xref:security/authentication/social/index).
 
-Pro aplikace ASP.NET Core 2.0 WS-Federation podpora je k dispozici ve [Microsoft.AspNetCore.Authentication.WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation). Tato součást je přenášet mezi [Microsoft.Owin.Security.WsFederation](https://www.nuget.org/packages/Microsoft.Owin.Security.WsFederation) a celá řada mechanismy tuto součást. Komponenty se však lišit v několika důležitých způsoby.
+Pro aplikace ASP.NET Core 2.0, WS-Federation podporu poskytuje [Microsoft.AspNetCore.Authentication.WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation). Tato součást se přenáší z [Microsoft.Owin.Security.WsFederation](https://www.nuget.org/packages/Microsoft.Owin.Security.WsFederation) a celá řada mechanics tuto součást. Komponenty se však liší v několika důležitých směrech –.
 
-Ve výchozím nastavení nové middleware:
+Ve výchozím nastavení nový middleware:
 
-* Neumožňuje nevyžádané přihlášení. Tato funkce protokolu WS-Federation je ohrožena útoky XSRF. Ale lze je aktivovat pomocí `AllowUnsolicitedLogins` možnost.
-* Neohlásí každých post formuláře pro přihlašování zprávy. Pouze žádosti `CallbackPath` zkontrolují sign in `CallbackPath` výchozí `/signin-wsfed` lze ji však změnit prostřednictvím zděděnou [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) vlastnost [ WsFederationOptions](/dotnet/api/microsoft.aspnetcore.authentication.wsfederation.wsfederationoptions) třídy. Tato cesta je možné sdílet s dalších zprostředkovatelů ověřování povolením [SkipUnrecognizedRequests](/dotnet/api/microsoft.aspnetcore.authentication.wsfederation.wsfederationoptions.skipunrecognizedrequests) možnost.
+* Neumožňuje nevyžádané přihlášení. Tato funkce protokol WS-Federation je ohrožen útoky XSRF. Ale lze je aktivovat pomocí `AllowUnsolicitedLogins` možnost.
+* Neprovádí kontrolu každých odeslaného formuláře pro přihlašování zprávy. Jenom požadavky na `CallbackPath` kontroluje sign in `CallbackPath` výchozí hodnota je `/signin-wsfed` lze ji však změnit prostřednictvím zděděnou [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) vlastnost [ WsFederationOptions](/dotnet/api/microsoft.aspnetcore.authentication.wsfederation.wsfederationoptions) třídy. Tato cesta je sdílet s další zprostředkovatelé ověřování tím, že [SkipUnrecognizedRequests](/dotnet/api/microsoft.aspnetcore.authentication.wsfederation.wsfederationoptions.skipunrecognizedrequests) možnost.
 
-## <a name="register-the-app-with-active-directory"></a>Zaregistrovat aplikaci služby Active Directory
+## <a name="register-the-app-with-active-directory"></a>Registrace aplikace v Active Directory
 
-### <a name="active-directory-federation-services"></a>Služba Active Directory Federation Services
+### <a name="active-directory-federation-services"></a>Active Directory Federation Services
 
-* Otevřete serveru **předávající strany Průvodce přidáním vztahu důvěryhodnosti** z konzoly pro správu služby AD FS:
+* Otevřete serveru **předávající strana Průvodce přidáním vztahu důvěryhodnosti** z konzoly pro správu služby AD FS:
 
-![Přidat vztah důvěryhodnosti předávající strany Průvodce: úvodní](ws-federation/_static/AdfsAddTrust.png)
+![Přidáte průvodce předávající strany vztahu důvěryhodnosti: Vítej](ws-federation/_static/AdfsAddTrust.png)
 
-* Vyberte ručně zadat data:
+* Zvolte zadat údaje ručně:
 
-![Přidání průvodce předávající strany vztahu důvěryhodnosti: Vyberte zdroj dat](ws-federation/_static/AdfsSelectDataSource.png)
+![Přidáte průvodce předávající strany vztahu důvěryhodnosti: Vyberte zdroj dat](ws-federation/_static/AdfsSelectDataSource.png)
 
-* Zadejte zobrazovaný název předávající strany. Název není důležité, abyste aplikaci ASP.NET Core.
+* Zadejte zobrazovaný název pro předávající stranu. Název není důležité, abyste aplikace ASP.NET Core.
 
-* [Microsoft.AspNetCore.Authentication.WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation) chybí podporu pro šifrování tokenu, takže nemusíte nakonfigurovat certifikát šifrování tokenů:
+* [Microsoft.AspNetCore.Authentication.WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation) schází podpora šifrování tokenů, takže nekonfigurujte certifikát šifrování tokenů:
 
-![Přidání průvodce předávající strany vztahu důvěryhodnosti: Konfigurace certifikátu](ws-federation/_static/AdfsConfigureCert.png)
+![Přidáte průvodce předávající strany vztahu důvěryhodnosti: Konfigurace certifikátu](ws-federation/_static/AdfsConfigureCert.png)
 
-* Povolte podporu pasivního protokolu WS-Federation protokolu, pomocí adresy URL aplikace. Ověřte, že port je správný pro aplikaci:
+* Povolte podporu protokolu WS-Federation Passive, pomocí adresy URL aplikace. Ověřte, že port je správný pro aplikaci:
 
-![Přidání průvodce předávající strany vztahu důvěryhodnosti: Konfigurace adresy URL](ws-federation/_static/AdfsConfigureUrl.png)
+![Přidáte průvodce předávající strany vztahu důvěryhodnosti: Konfigurovat adresy URL](ws-federation/_static/AdfsConfigureUrl.png)
 
 > [!NOTE]
-> Toto musí být adresu URL HTTPS. Služba IIS Express můžete zadat certifikát podepsaný svým držitelem při hostování aplikace během vývoje. Kestrel vyžaduje konfiguraci certifikáty ručně. Najdete v článku [Kestrel dokumentace](xref:fundamentals/servers/kestrel) další podrobnosti.
+> Musí se jednat adresu URL HTTPS. Služba IIS Express můžete zadat certifikát podepsaný svým držitelem, při hostování aplikace během vývoje. Kestrel vyžaduje certifikáty ručně konfiguraci. Najdete v článku [Kestrel dokumentaci](xref:fundamentals/servers/kestrel) další podrobnosti.
 
-* Klikněte na tlačítko **Další** procházení zbývající části v průvodci a **Zavřít** na konci.
+* Klikněte na tlačítko **Další** postupujte podle zbývajících kroků průvodce a **Zavřít** na konci.
 
-* ASP.NET Core Identity vyžaduje **ID názvu** deklarací identity. Přidejte jedno z **upravit pravidla deklarací identity** dialogové okno:
+* ASP.NET Core Identity vyžaduje **ID názvu** deklarací identity. Přidejte jeden z **upravit pravidla deklarací identity** dialogové okno:
 
 ![Upravit pravidla deklarace identity](ws-federation/_static/EditClaimRules.png)
 
-* V **průvodci Přidat transformované deklarace identity pravidlo**, ponechte výchozí nastavení **odesílat atributy LDAP jako deklarace identity** vybraná šablona a klikněte na **Další**. Přidat pravidlo mapování **název účtu SAM** atributu LDAP **ID názvu** odchozí deklarace identity:
+* V **průvodci Přidat transformované deklarace identity pravidlo**, ponechte výchozí nastavení **odesílat atributy LDAP jako deklarace identity** zvolenou šablonu a klikněte na tlačítko **Další**. Přidat pravidlo mapování **název účtu SAM** atributu LDAP **ID názvu** odchozí deklarace identity:
 
-![Přidání průvodce pravidla transformace deklarací identity: Konfigurace pravidla deklarace identity](ws-federation/_static/AddTransformClaimRule.png)
+![Přidáte Průvodce vytvořením pravidla transformace deklarací identity: Konfigurace pravidla deklarace identity](ws-federation/_static/AddTransformClaimRule.png)
 
-* Klikněte na tlačítko **Dokončit** > **OK** v **upravit pravidla deklarací identity** okno.
+* Klikněte na tlačítko **Dokončit** > **OK** v **upravit pravidla deklarací identity** okna.
 
 ### <a name="azure-active-directory"></a>Azure Active Directory
 
-* Přejděte do okna registrace klienta AAD aplikace. Klikněte na tlačítko **nové registrace aplikace**:
+* Přejděte do okna registrace klienta AAD aplikace. Klikněte na tlačítko **registrace nové aplikace**:
 
-![Azure Active Directory: Registrace aplikace](ws-federation/_static/AadNewAppRegistration.png)
+![Azure Active Directory: Registrace aplikací](ws-federation/_static/AadNewAppRegistration.png)
 
-* Zadejte název pro registraci aplikace. Tato akce není důležité, abyste aplikaci ASP.NET Core.
+* Zadejte název pro registraci aplikace. To není důležité, abyste aplikace ASP.NET Core.
 * Zadejte adresu URL aplikace naslouchá na jako **přihlašovací adresa URL**:
 
-![Azure Active Directory: Registrace aplikací vytvořit](ws-federation/_static/AadCreateAppRegistration.png)
+![Azure Active Directory: Vytvoření registrace aplikace](ws-federation/_static/AadCreateAppRegistration.png)
 
-* Klikněte na tlačítko **koncové body** a poznamenejte si **dokument federačních metadat** adresy URL. Toto je WS-Federation middleware `MetadataAddress`:
+* Klikněte na tlačítko **koncové body** a poznamenejte si **dokument metadat federace** adresy URL. Toto je WS-Federation middleware `MetadataAddress`:
 
-![Azure Active Directory: koncové body](ws-federation/_static/AadFederationMetadataDocument.png)
+![Azure Active Directory: Koncové body](ws-federation/_static/AadFederationMetadataDocument.png)
 
-* Přejděte do nové aplikace registrace. Klikněte na tlačítko **nastavení** > **vlastnosti** a poznamenejte si **identifikátor ID URI aplikace**. Toto je WS-Federation middleware `Wtrealm`:
+* Přejděte do registrace nové aplikace. Klikněte na tlačítko **nastavení** > **vlastnosti** a poznamenejte si **identifikátor ID URI aplikace**. Toto je WS-Federation middleware `Wtrealm`:
 
 ![Azure Active Directory: Vlastnosti registrace aplikace](ws-federation/_static/AadAppIdUri.png)
 
-## <a name="add-ws-federation-as-an-external-login-provider-for-aspnet-core-identity"></a>Přidat jako poskytovatel externí přihlášení pro ASP.NET Core Identity WS-Federation
+## <a name="add-ws-federation-as-an-external-login-provider-for-aspnet-core-identity"></a>Přidat WS-Federation jako externího zprostředkovatele přihlášení pro ASP.NET Core Identity
 
 * Přidat závislost na [Microsoft.AspNetCore.Authentication.WsFederation](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.WsFederation) do projektu.
-* Přidat WS-Federation k `Configure` metoda v *Startup.cs*:
+* Přidat WS-Federation a `Startup.ConfigureServices`:
 
     ```csharp
     services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -110,19 +110,19 @@ Ve výchozím nastavení nové middleware:
 
 [!INCLUDE [default settings configuration](social/includes/default-settings.md)]
 
-### <a name="log-in-with-ws-federation"></a>Přihlaste se pomocí protokolu WS-Federation
+### <a name="log-in-with-ws-federation"></a>Přihlaste se pomocí WS-Federation
 
-Přejděte na aplikace a klikněte na tlačítko **přihlásit** odkaz v hlavičce navigaci. Je k dispozici možnost se přihlásit WsFederation: ![s přihlašovací stránkou](ws-federation/_static/WsFederationButton.png)
+Přejděte na aplikace a kliknutím **přihlášení** odkaz v záhlaví navigace. Nabízí možnost přihlásit se prostřednictvím WsFederation: ![S přihlašovací stránkou](ws-federation/_static/WsFederationButton.png)
 
-Se službou AD FS jako zprostředkovatel tlačítko přesměruje na přihlašovací stránku služby AD FS: ![přihlašovací stránku služby AD FS](ws-federation/_static/AdfsLoginPage.png)
+S využitím AD FS jako zprostředkovatel tlačítko přesměruje na přihlašovací stránku služby AD FS: ![Přihlašovací stránku služby AD FS](ws-federation/_static/AdfsLoginPage.png)
 
-S Azure Active Directory jako zprostředkovatel, tlačítko přesměruje na přihlašovací stránku služby AAD: ![AAD přihlašovací stránky](ws-federation/_static/AadSignIn.png)
+S Azure Active Directory jako zprostředkovatele tlačítko přesměruje na přihlašovací stránku AAD: ![AAD přihlašovací stránky](ws-federation/_static/AadSignIn.png)
 
-U úspěšné přihlášení pro nového uživatele přesměruje na stránku registrace uživatele aplikace: ![stránku registrace](ws-federation/_static/Register.png)
+U úspěšné přihlášení pro nového uživatele přesměruje na stránce registrace aplikace uživatele: ![Stránka pro registraci](ws-federation/_static/Register.png)
 
-## <a name="use-ws-federation-without-aspnet-core-identity"></a>Pomocí protokolu WS-Federation bez ASP.NET Core Identity
+## <a name="use-ws-federation-without-aspnet-core-identity"></a>Použití WS-Federation bez ASP.NET Core Identity
 
-Middleware WS-Federation můžete použít bez Identity. Příklad:
+Middleware WS-Federation, je možné bez Identity. Příklad:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

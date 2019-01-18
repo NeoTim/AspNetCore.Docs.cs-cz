@@ -3,14 +3,15 @@ title: ASP.NET Core MVC s EF Core – rozšířené – 10 10
 author: rick-anderson
 description: Tento kurz představuje užitečné tématech překračují základní informace o vývoji webových aplikací ASP.NET Core využívající Entity Framework Core.
 ms.author: tdykstra
-ms.date: 03/15/2017
+ms.custom: mvc
+ms.date: 10/24/2018
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 5cdba79c0b8edd9b865bda8328c86356cbe6a0a2
-ms.sourcegitcommit: b2723654af4969a24545f09ebe32004cb5e84a96
+ms.openlocfilehash: ba3834b29e78972bf914a5cba1a2cae3cc19a315
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46010920"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "50090781"
 ---
 # <a name="aspnet-core-mvc-with-ef-core---advanced---10-of-10"></a>ASP.NET Core MVC s EF Core – rozšířené – 10 10
 
@@ -100,7 +101,7 @@ Klikněte na tlačítko **zpět do seznamu** zobrazíte seznam kurzů s revidova
 
 Všimněte si, že produkčního kódu zajistí, že se aktualizace vždy výsledkem platná data. Zjednodušené kód zobrazený zde vynásobit počet dostatečně kredity za následek čísla větší než 5. ( `Credits` Má vlastnost `[Range(0, 5)]` atribut.) Dotaz update bude fungovat, ale neplatná data může vést k neočekávaným výsledkům v jiných částí systému, které předpokládají, že je číslo kredity ve výši 5 nebo menší.
 
-Další informace o nezpracované dotazy SQL najdete v tématu [nezpracované dotazy SQL](https://docs.microsoft.com/ef/core/querying/raw-sql).
+Další informace o nezpracované dotazy SQL najdete v tématu [nezpracované dotazy SQL](/ef/core/querying/raw-sql).
 
 ## <a name="examine-sql-sent-to-the-database"></a>Prozkoumejte odeslán do databáze SQL
 
@@ -176,7 +177,7 @@ I když se zdrojový kód je otevřený, Entity Framework Core plně podporovat 
 
 ## <a name="reverse-engineer-from-existing-database"></a>Zpětná analýza z existující databáze
 
-Chcete-li provést zpětnou analýzu datový model, včetně tříd entit z existující databáze, použijte [vygenerované uživatelské rozhraní dbcontext](https://docs.microsoft.com/ef/core/miscellaneous/cli/powershell#scaffold-dbcontext) příkazu. Zobrazit [úvodním kurzu](https://docs.microsoft.com/ef/core/get-started/aspnetcore/existing-db).
+Chcete-li provést zpětnou analýzu datový model, včetně tříd entit z existující databáze, použijte [vygenerované uživatelské rozhraní dbcontext](/ef/core/miscellaneous/cli/powershell#scaffold-dbcontext) příkazu. Zobrazit [úvodním kurzu](/ef/core/get-started/aspnetcore/existing-db).
 
 <a id="dynamic-linq"></a>
 ## <a name="use-dynamic-linq-to-simplify-sort-selection-code"></a>Zjednodušení řazení výběr kód pomocí dynamických LINQ
@@ -189,11 +190,11 @@ Chcete-li provést zpětnou analýzu datový model, včetně tříd entit z exis
 
 Dokončení tohoto postupu Tato série kurzů týkající se použití Entity Framework Core v aplikaci ASP.NET Core MVC.
 
-Další informace o EF Core najdete v článku [dokumentace Entity Framework Core](https://docs.microsoft.com/ef/core). Kniha je také k dispozici: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
+Další informace o EF Core najdete v článku [dokumentace Entity Framework Core](/ef/core). Kniha je také k dispozici: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
 
-Informace o tom, jak nasadit webovou aplikaci, najdete v části [hostitele a nasadit](xref:host-and-deploy/index).
+Informace o tom, jak nasadit webovou aplikaci, najdete v části <xref:host-and-deploy/index>.
 
-Informace o dalších témat souvisejících s ASP.NET Core MVC, jako je například ověřování a autorizaci, najdete v článku [dokumentace k ASP.NET Core](xref:index).
+Informace o dalších témat souvisejících s ASP.NET Core MVC, jako je například ověřování a autorizaci, najdete v části <xref:index>.
 
 ## <a name="acknowledgments"></a>Potvrzení
 
@@ -239,7 +240,7 @@ dotnet ef database drop
 
 Chybová zpráva:
 
-> Při navazování připojení k serveru SQL Server došlo k chybě související se sítí nebo s instancí. Server nebyl nalezen nebo nebyl přístupný. Ověřte, zda je název instance správný a, SQL Server je nakonfigurován pro povolit vzdálená připojení. (poskytovatel: rozhraní sítě systému SQL, chyba: 26 - Chyba vyhledávání serveru či Instance zadáno)
+> Při navazování připojení k serveru SQL Server došlo k chybě související se sítí nebo s instancí. Server nebyl nalezen nebo nebyl přístupný. Ověřte, zda je název instance správný a, SQL Server je nakonfigurován pro povolit vzdálená připojení. (poskytovatel: Rozhraní sítě systému SQL, chyba: 26 - Chyba při vyhledávání zadaného serveru či Instance)
 
 Řešení:
 

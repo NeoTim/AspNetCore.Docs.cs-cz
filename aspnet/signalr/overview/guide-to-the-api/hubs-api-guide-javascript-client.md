@@ -4,20 +4,19 @@ title: Funkce SignalR technologie ASP.NET pokyny k rozhraní API Center – java
 author: pfletcher
 description: Tento dokument obsahuje úvod k používání rozhraní API rozbočovače pro funkci SignalR verze 2 v klientů JavaScript, například s prohlížeči a Windows Store (WinJS) applicat...
 ms.author: riande
-ms.date: 09/28/2015
+ms.date: 01/15/2019
 ms.assetid: a9fd4dc0-1b96-4443-82ca-932a5b4a8ea4
 msc.legacyurl: /signalr/overview/guide-to-the-api/hubs-api-guide-javascript-client
 msc.type: authoredcontent
-ms.openlocfilehash: a8352045d99b77713c94ab809417c5dc4675557f
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 12d675b6a2f2f6acdd8c3a5d0d27b5ad2fb1efc4
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099270"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396308"
 ---
 <a name="aspnet-signalr-hubs-api-guide---javascript-client"></a>Funkce SignalR technologie ASP.NET pokyny k rozhraní API Center – javascriptový klient
 ====================
-podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://github.com/tdykstra)
 
 [!INCLUDE [Consider ASP.NET Core SignalR](~/includes/signalr/signalr-version-disambiguation.md)]
 
@@ -30,7 +29,7 @@ podle [Patrick Fletcher](https://github.com/pfletcher), [Petr Dykstra](https://g
 > ## <a name="software-versions-used-in-this-topic"></a>Verze softwaru použitým v tomto tématu
 >
 >
-> - [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013)
+> - [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
 > - .NET 4.5
 > - Funkce SignalR verze 2
 >
@@ -142,9 +141,7 @@ V aplikaci webových formulářů ASP.NET pomocí `ResolveClientUrl` pro vaše p
 
 Obecně platí použijte stejnou metodu pro zadávání adresy URL "/ signalr/centra", který používáte pro soubory CSS a JavaScript. Pokud zadáte adresu URL bez použití vlnovkou, v některých scénářích aplikace bude fungovat správně při testování v sadě Visual Studio pomocí služby IIS Express, ale selže s chyby 404 při nasazování do úplnou službu IIS. Další informace najdete v tématu **řešení odkazy na prostředky na kořenové úrovni** v [webové servery v sadě Visual Studio pro webové projekty ASP.NET](https://msdn.microsoft.com/library/58wxa9w5.aspx) na webu MSDN.
 
-Při spuštění webový projekt v sadě Visual Studio 2013 v režimu ladění, a pokud používáte Internet Explorer jako prohlížeč, zobrazí se soubor proxy v **Průzkumníka řešení** pod **dokumenty skriptu**, jak je znázorněno Následující obrázek.
-
-![Vygenerovaný proxy soubor jazyka JavaScript v Průzkumníku řešení](hubs-api-guide-javascript-client/_static/image1.png)
+Při spuštění webový projekt v sadě Visual Studio 2017 v režimu ladění, a pokud používáte Internet Explorer jako prohlížeč, zobrazí se soubor proxy v **Průzkumníka řešení** pod **skripty**.
 
 Pokud chcete zobrazit obsah souboru, klikněte dvakrát na **rozbočovače**. Pokud nepoužíváte Visual Studio 2012 nebo 2013 a aplikace Internet Explorer, nebo pokud nejste v režimu ladění, můžete také získat obsah souboru tak, že přejdete na adresu "/ signalR/centra". Například, pokud vaše lokalita běží v `http://localhost:56699`, přejděte na stránku `http://localhost:56699/SignalR/hubs` v prohlížeči.
 

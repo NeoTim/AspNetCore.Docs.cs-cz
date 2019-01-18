@@ -4,14 +4,14 @@ author: guardrex
 description: Zjišťování webové servery přes Kestrel a HTTP.sys pro ASP.NET Core. Zjistěte, jak vybrat server a kdy použít reverzní proxy server.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 01/11/2019
+ms.date: 01/17/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: 4210d67397c85a1608f79fc4ed9d283521356226
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: a9f40ad7e9a63d6f88b6533578db8dfc55490bc9
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249487"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396243"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementací webového serveru v ASP.NET Core
 
@@ -40,7 +40,7 @@ Při použití [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-ar
 
 ### <a name="in-process-hosting-model"></a>Model hostingu v procesu
 
-Proces hostování, ASP.NET Core pomocí app běží ve stejném procesu jako jeho pracovní proces služby IIS. Tím snížení výkonu na více instancí procesu požadavků proxy prostřednictvím adaptéru zpětné smyčky, síťové rozhraní, které vrátí odchozí síťový provoz do stejného počítače. Služba IIS zpracovává proces správy pomocí [Windows Process Activation Service (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
+Proces hostování, ASP.NET Core pomocí app běží ve stejném procesu jako jeho pracovní proces služby IIS. Hostování v procesu poskytuje Vylepšený výkon oproti mimo proces hostování, protože žádosti nejsou směrovány přes proxy server prostřednictvím adaptéru zpětné smyčky, síťové rozhraní, které vrátí odchozí síťový provoz do stejného počítače. Služba IIS zpracovává proces správy pomocí [Windows Process Activation Service (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
 Modul ASP.NET Core:
 
@@ -178,7 +178,7 @@ Informace o tom, jak používat Apache na platformě Linux jako reverzní proxy 
 
 ::: moniker range=">= aspnetcore-2.2"
 
-## <a name="iis-http-server"></a>HTTP serveru služby IIS
+## <a name="iis-http-server"></a>IIS HTTP Server
 
 Server služby IIS protokolu HTTP [v procesový server](#in-process-hosting-model) pro službu IIS a požadované pro nasazení v rámci procesu. [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) zpracovává nativní služby IIS požadavky mezi službou IIS a Server služby IIS protokolu HTTP. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
