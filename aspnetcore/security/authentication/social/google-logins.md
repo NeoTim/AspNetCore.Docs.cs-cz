@@ -4,162 +4,72 @@ author: rick-anderson
 description: Tento kurz ukazuje, integrace ověřování uživatele účtu Google do stávající aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 11/11/2018
+ms.date: 1/11/2019
 uid: security/authentication/google-logins
-ms.openlocfilehash: 4bb5a36cf654deb694d60da126fa42baf382f729
-ms.sourcegitcommit: 3e94d192b2ed9409fe72e3735e158b333354964c
+ms.openlocfilehash: 98857a84238124e75d695242c8d421b9a29f02e7
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/21/2018
-ms.locfileid: "53735762"
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "54396102"
 ---
-# <a name="google-external-login-setup-in-aspnet-core"></a><span data-ttu-id="79998-103">Nastavení Google externí přihlášení v technologii ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="79998-103">Google external login setup in ASP.NET Core</span></span>
+# <a name="google-external-login-setup-in-aspnet-core"></a><span data-ttu-id="aee2f-103">Nastavení Google externí přihlášení v technologii ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="aee2f-103">Google external login setup in ASP.NET Core</span></span>
 
-<span data-ttu-id="79998-104">Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="79998-104">By [Valeriy Novytskyy](https://github.com/01binary) and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="aee2f-104">Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="aee2f-104">By [Valeriy Novytskyy](https://github.com/01binary) and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="79998-105">V tomto kurzu se dozvíte, jak mohou uživatelé přihlásit s účtem Google + použitím ukázkového projektu ASP.NET Core 2.0 vytvořené na [předchozí stránce](xref:security/authentication/social/index).</span><span class="sxs-lookup"><span data-stu-id="79998-105">This tutorial shows you how to enable your users to sign in with their Google+ account using a sample ASP.NET Core 2.0 project created on the [previous page](xref:security/authentication/social/index).</span></span> <span data-ttu-id="79998-106">Začneme podle [oficiální kroky](https://developers.google.com/identity/sign-in/web/devconsole-project) k vytvoření nové aplikace konzoly rozhraní API Google.</span><span class="sxs-lookup"><span data-stu-id="79998-106">We start by following the [official steps](https://developers.google.com/identity/sign-in/web/devconsole-project) to create a new app in Google API Console.</span></span>
+<span data-ttu-id="aee2f-105">V lednu 2019 Google začali [vypnout](https://developers.google.com/+/api-shutdown) Google +. Přihlaste se a vývojáři musí přesunout na znaménko Google nová v systému podle dne.</span><span class="sxs-lookup"><span data-stu-id="aee2f-105">In January 2019 Google started to [shut down](https://developers.google.com/+/api-shutdown) Google+ sign in and developers must move to a new Google sign in system by March.</span></span> <span data-ttu-id="aee2f-106">ASP.NET Core 2.1 a 2,2 balíčky pro ověřování Google se aktualizují v únoru s ohledem změny.</span><span class="sxs-lookup"><span data-stu-id="aee2f-106">The ASP.NET Core 2.1 and 2.2 packages for Google Authentication will be updated in February to accommodate the changes.</span></span> <span data-ttu-id="aee2f-107">Další informace a dočasné opatření pro ASP.NET Core najdete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/6486).</span><span class="sxs-lookup"><span data-stu-id="aee2f-107">For more information and temporary mitigations for ASP.NET Core, see [this GitHub issue](https://github.com/aspnet/AspNetCore/issues/6486).</span></span> <span data-ttu-id="aee2f-108">V tomto kurzu má aktualizované a přinášejí nové procesu instalace.</span><span class="sxs-lookup"><span data-stu-id="aee2f-108">This tutorial has been updated with the new setup process.</span></span>
 
-## <a name="create-the-app-in-google-api-console"></a><span data-ttu-id="79998-107">Vytvoření aplikace v konzole rozhraní API Google</span><span class="sxs-lookup"><span data-stu-id="79998-107">Create the app in Google API Console</span></span>
+<span data-ttu-id="aee2f-109">V tomto kurzu se dozvíte, jak povolit uživatelům přihlásit se přes jejich účet Google pomocí ASP.NET Core 2.2 projektu vytvořeného na [předchozí stránce](xref:security/authentication/social/index).</span><span class="sxs-lookup"><span data-stu-id="aee2f-109">This tutorial shows you how to enable users to sign in with their Google account using the ASP.NET Core 2.2 project created on the [previous page](xref:security/authentication/social/index).</span></span>
 
-* <span data-ttu-id="79998-108">Přejděte do [ https://console.developers.google.com/projectselector/apis/library ](https://console.developers.google.com/projectselector/apis/library) a přihlaste se.</span><span class="sxs-lookup"><span data-stu-id="79998-108">Navigate to [https://console.developers.google.com/projectselector/apis/library](https://console.developers.google.com/projectselector/apis/library) and sign in.</span></span> <span data-ttu-id="79998-109">Pokud ještě nemáte účet Google, použijte **další možnosti** > **[vytvořit účet](https://accounts.google.com/SignUpWithoutGmail?service=cloudconsole&continue=https%3A%2F%2Fconsole.developers.google.com%2Fprojectselector%2Fapis%2Flibrary&ltmpl=api)**  odkaz pro vytvoření:</span><span class="sxs-lookup"><span data-stu-id="79998-109">If you don't already have a Google account, use **More options** > **[Create account](https://accounts.google.com/SignUpWithoutGmail?service=cloudconsole&continue=https%3A%2F%2Fconsole.developers.google.com%2Fprojectselector%2Fapis%2Flibrary&ltmpl=api)** link to create one:</span></span>
+## <a name="create-a-google-api-console-project-and-client-id"></a><span data-ttu-id="aee2f-110">Vytvořit ID projektu a klientské konzole rozhraní API Google</span><span class="sxs-lookup"><span data-stu-id="aee2f-110">Create a Google API Console project and client ID</span></span>
 
-![Konzola rozhraní API Google](index/_static/GoogleConsoleLogin.png)
+* <span data-ttu-id="aee2f-111">Přejděte do [integraci Google přihlásit do své webové aplikace](https://developers.google.com/identity/sign-in/web/devconsole-project) a vyberte **konfigurace projektu A**.</span><span class="sxs-lookup"><span data-stu-id="aee2f-111">Navigate to [Integrating Google Sign-In into your web app](https://developers.google.com/identity/sign-in/web/devconsole-project) and select **CONFIGURE A PROJECT**.</span></span>
+* <span data-ttu-id="aee2f-112">V **konfigurace klienta OAuth** dialogového okna, vyberte **webový server**.</span><span class="sxs-lookup"><span data-stu-id="aee2f-112">In the **Configure your OAuth client** dialog, select **Web server**.</span></span>
+* <span data-ttu-id="aee2f-113">V **identifikátory URI pro přesměrování autorizovaní** pole pro zadání textu, nastavte identifikátor URI pro přesměrování.</span><span class="sxs-lookup"><span data-stu-id="aee2f-113">In the **Authorized redirect URIs** text entry box, set the redirect URI.</span></span> <span data-ttu-id="aee2f-114">Třeba `https://localhost:5001/signin-google`.</span><span class="sxs-lookup"><span data-stu-id="aee2f-114">For example, `https://localhost:5001/signin-google`</span></span>
+* <span data-ttu-id="aee2f-115">Uložit **ID klienta** a **tajný kód klienta**.</span><span class="sxs-lookup"><span data-stu-id="aee2f-115">Save the **Client ID** and **Client Secret**.</span></span>
+* <span data-ttu-id="aee2f-116">Při nasazování webu, registrovat novou veřejnou adresu url z **konzoly Google**.</span><span class="sxs-lookup"><span data-stu-id="aee2f-116">When deploying the site, register the new public url from the **Google Console**.</span></span>
 
-* <span data-ttu-id="79998-111">Budete přesměrováni na **správce rozhraní API knihovny** stránky:</span><span class="sxs-lookup"><span data-stu-id="79998-111">You are redirected to **API Manager Library** page:</span></span>
+## <a name="store-google-clientid-and-clientsecret"></a><span data-ttu-id="aee2f-117">Store Google ClientID a ClientSecret</span><span class="sxs-lookup"><span data-stu-id="aee2f-117">Store Google ClientID and ClientSecret</span></span>
 
-![Cílová na stránce rozhraní API Správce knihovny](index/_static/GoogleConsoleSwitchboard.png)
+<span data-ttu-id="aee2f-118">Citlivá nastavení, například ke službě Google Store `Client ID` a `Client Secret` s [manažera tajných](xref:security/app-secrets).</span><span class="sxs-lookup"><span data-stu-id="aee2f-118">Store sensitive settings such as the Google `Client ID` and `Client Secret` with the [Secret Manager](xref:security/app-secrets).</span></span> <span data-ttu-id="aee2f-119">Pro účely tohoto kurzu se název tokeny `Authentication:Google:ClientId` a `Authentication:Google:ClientSecret`:</span><span class="sxs-lookup"><span data-stu-id="aee2f-119">For the purposes of this tutorial, name the tokens `Authentication:Google:ClientId` and `Authentication:Google:ClientSecret`:</span></span>
 
-* <span data-ttu-id="79998-113">Klepněte na **vytvořit** a zadejte vaše **název projektu**:</span><span class="sxs-lookup"><span data-stu-id="79998-113">Tap **Create** and enter your **Project name**:</span></span>
-
-![Dialogové okno nového projektu](index/_static/GoogleConsoleNewProj.png)
-
-* <span data-ttu-id="79998-115">Po přijetí dialogového okna, budete přesměrováni zpět na stránku knihovny umožňuje zvolit funkce pro novou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="79998-115">After accepting the dialog, you are redirected back to the Library page allowing you to choose features for your new app.</span></span> <span data-ttu-id="79998-116">Najít **rozhraní API Google +** v seznamu a klikněte na odkaz Přidat funkci rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="79998-116">Find **Google+ API** in the list and click on its link to add the API feature:</span></span>
-
-![Vyhledejte "rozhraní API Google +" na stránce rozhraní API Správce knihovny](index/_static/GoogleConsoleChooseApi.png)
-
-* <span data-ttu-id="79998-118">Zobrazí se stránka pro nově přidané rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="79998-118">The page for the newly added API is displayed.</span></span> <span data-ttu-id="79998-119">Klepněte na **povolit** přidání funkce do vaší aplikace Google + přihlásit ve funkci:</span><span class="sxs-lookup"><span data-stu-id="79998-119">Tap **Enable** to add Google+ sign in feature to your app:</span></span>
-
-![Cílová na stránce Správce rozhraní API Google + API](index/_static/GoogleConsoleEnableApi.png)
-
-* <span data-ttu-id="79998-121">Po povolení rozhraní API, klepněte na **Vytvořte přihlašovací údaje** konfigurace tajné klíče:</span><span class="sxs-lookup"><span data-stu-id="79998-121">After enabling the API, tap **Create credentials** to configure the secrets:</span></span>
-
-![Vytvoření tlačítka přihlašovací údaje na stránce Správce rozhraní API Google + API](index/_static/GoogleConsoleGoCredentials.png)
-
-* <span data-ttu-id="79998-123">Zvolte:</span><span class="sxs-lookup"><span data-stu-id="79998-123">Choose:</span></span>
-  * <span data-ttu-id="79998-124">**Google + API**</span><span class="sxs-lookup"><span data-stu-id="79998-124">**Google+ API**</span></span>
-  * <span data-ttu-id="79998-125">**Webový server (například node.js, Tomcat)**, a</span><span class="sxs-lookup"><span data-stu-id="79998-125">**Web server (e.g. node.js, Tomcat)**, and</span></span>
-  * <span data-ttu-id="79998-126">**Uživatelská data**:</span><span class="sxs-lookup"><span data-stu-id="79998-126">**User data**:</span></span>
-
-![Stránka přihlašovací údaje správce rozhraní API: Podívejte se, jaké druhy přihlašovací údaje můžete potřebovat panel](index/_static/GoogleConsoleChooseCred.png)
-
-* <span data-ttu-id="79998-128">Klepněte na **jaké přihlašovací údaje potřebuji?** který přejde na druhý krok konfigurace aplikace **vytvoření ID klienta OAuth 2.0**:</span><span class="sxs-lookup"><span data-stu-id="79998-128">Tap **What credentials do I need?** which takes you to the second step of app configuration, **Create an OAuth 2.0 client ID**:</span></span>
-
-![Stránka přihlašovací údaje správce rozhraní API: Vytvoření ID klienta OAuth 2.0](index/_static/GoogleConsoleCreateClient.png)
-
-* <span data-ttu-id="79998-130">Protože se právě jednu funkci (přihlášení), abychom mohli zadat stejné vytváříme projektu Google + **název** pro ID klienta OAuth 2.0, jako jste použili pro projekt.</span><span class="sxs-lookup"><span data-stu-id="79998-130">Because we are creating a Google+ project with just one feature (sign in), we can enter the same **Name** for the OAuth 2.0 client ID as the one we used for the project.</span></span>
-
-* <span data-ttu-id="79998-131">Zadejte identifikátor URI vývoje s `/signin-google` připojí do **identifikátory URI pro přesměrování autorizovaní** pole (například: `https://localhost:44320/signin-google`).</span><span class="sxs-lookup"><span data-stu-id="79998-131">Enter your development URI with `/signin-google` appended into the **Authorized redirect URIs** field (for example: `https://localhost:44320/signin-google`).</span></span> <span data-ttu-id="79998-132">Ověřování Google později v tomto kurzu konfiguruje automaticky zpracovává požadavky na `/signin-google` trasy, která má implementovat tok OAuth.</span><span class="sxs-lookup"><span data-stu-id="79998-132">The Google authentication configured later in this tutorial will automatically handle requests at `/signin-google` route to implement the OAuth flow.</span></span>
-
-> [!NOTE]
-> <span data-ttu-id="79998-133">Segment identifikátoru URI `/signin-google` je nastaven jako výchozí zpětného volání zprostředkovatele ověřování Google.</span><span class="sxs-lookup"><span data-stu-id="79998-133">The URI segment `/signin-google` is set as the default callback of the Google authentication provider.</span></span> <span data-ttu-id="79998-134">Můžete změnit výchozí identifikátor URI zpětného volání při konfiguraci middleware ověřování Google přes zděděnou [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) vlastnost [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) třídy.</span><span class="sxs-lookup"><span data-stu-id="79998-134">You can change the default callback URI while configuring the Google authentication middleware via the inherited [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) property of the [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) class.</span></span>
-
-* <span data-ttu-id="79998-135">Stiskněte klávesu TAB pro přidání **identifikátory URI pro přesměrování autorizovaní** položka.</span><span class="sxs-lookup"><span data-stu-id="79998-135">Press TAB to add the **Authorized redirect URIs** entry.</span></span>
-
-* <span data-ttu-id="79998-136">Klepněte na **vytvořit ID klienta**, což vás přesměruje na třetí krok **nastavení OAuth 2.0 obrazovkami pro vyjádření souhlasu**:</span><span class="sxs-lookup"><span data-stu-id="79998-136">Tap **Create client ID**, which takes you to the third step, **Set up the OAuth 2.0 consent screen**:</span></span>
-
-![Stránka přihlašovací údaje správce rozhraní API: Nastavení obrazovce pro vyjádření souhlasu OAuth 2.0](index/_static/GoogleConsoleAddCred.png)
-
-* <span data-ttu-id="79998-138">Zadejte vaše veřejné **e-mailová adresa** a **název produktu** uvedené pro vaši aplikaci při Google + se zobrazí výzva k přihlášení.</span><span class="sxs-lookup"><span data-stu-id="79998-138">Enter your public facing **Email address** and the **Product name** shown for your app when Google+ prompts the user to sign in.</span></span> <span data-ttu-id="79998-139">Další možnosti jsou k dispozici v rámci **další možnosti vlastního nastavení**.</span><span class="sxs-lookup"><span data-stu-id="79998-139">Additional options are available under **More customization options**.</span></span>
-
-* <span data-ttu-id="79998-140">Klepněte na **pokračovat** k přejděte k poslednímu kroku **stáhnout přihlašovací údaje**:</span><span class="sxs-lookup"><span data-stu-id="79998-140">Tap **Continue** to proceed to the last step, **Download credentials**:</span></span>
-
-![Stránka přihlašovací údaje správce rozhraní API: Stáhněte si přihlašovací údaje](index/_static/GoogleConsoleFinish.png)
-
-* <span data-ttu-id="79998-142">Klepněte na **Stáhnout** uložit soubor JSON s tajných klíčů aplikací a **provádí** nezbytných k dokončení vytvoření nové aplikace.</span><span class="sxs-lookup"><span data-stu-id="79998-142">Tap **Download** to save a JSON file with application secrets, and **Done** to complete creation of the new app.</span></span>
-
-* <span data-ttu-id="79998-143">Při nasazování webu budete potřebovat revidovat **konzoly Google** a zaregistrujte novou veřejnou adresu url.</span><span class="sxs-lookup"><span data-stu-id="79998-143">When deploying the site you'll need to revisit the **Google Console** and register a new public url.</span></span>
-
-## <a name="store-google-clientid-and-clientsecret"></a><span data-ttu-id="79998-144">Store Google ClientID a ClientSecret</span><span class="sxs-lookup"><span data-stu-id="79998-144">Store Google ClientID and ClientSecret</span></span>
-
-<span data-ttu-id="79998-145">Propojit citlivá nastavení, jako je Google `Client ID` a `Client Secret` pomocí konfigurace aplikace [manažera tajných](xref:security/app-secrets).</span><span class="sxs-lookup"><span data-stu-id="79998-145">Link sensitive settings like Google `Client ID` and `Client Secret` to your application configuration using the [Secret Manager](xref:security/app-secrets).</span></span> <span data-ttu-id="79998-146">Pro účely tohoto kurzu se název tokeny `Authentication:Google:ClientId` a `Authentication:Google:ClientSecret`.</span><span class="sxs-lookup"><span data-stu-id="79998-146">For the purposes of this tutorial, name the tokens `Authentication:Google:ClientId` and `Authentication:Google:ClientSecret`.</span></span>
-
-<span data-ttu-id="79998-147">Hodnoty pro tyto tokeny najdete v souboru JSON si stáhli v předchozím kroku v části `web.client_id` a `web.client_secret`.</span><span class="sxs-lookup"><span data-stu-id="79998-147">The values for these tokens can be found in the JSON file downloaded in the previous step under `web.client_id` and `web.client_secret`.</span></span>
-
-## <a name="configure-google-authentication"></a><span data-ttu-id="79998-148">Konfigurace ověřování Google</span><span class="sxs-lookup"><span data-stu-id="79998-148">Configure Google Authentication</span></span>
-
-::: moniker range=">= aspnetcore-2.0"
-
-<span data-ttu-id="79998-149">Přidat služby Google v `ConfigureServices` metoda *Startup.cs* souboru:</span><span class="sxs-lookup"><span data-stu-id="79998-149">Add the Google service in the `ConfigureServices` method in *Startup.cs* file:</span></span>
-
-```csharp
-services.AddDefaultIdentity<IdentityUser>()
-        .AddDefaultUI(UIFramework.Bootstrap4)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
-
-services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-});
+```console
+dotnet user-secrets set "Authentication:Google:ClientId" "X.apps.googleusercontent.com"
+dotnet user-secrets set "Authentication:Google:ClientSecret" "<client secret>"
 ```
 
-[!INCLUDE [default settings configuration](includes/default-settings.md)]
+<span data-ttu-id="aee2f-120">Můžete spravovat vaše přihlašovací údaje rozhraní API a jeho použití v [rozhraní API konzoly](https://console.developers.google.com/apis/dashboard).</span><span class="sxs-lookup"><span data-stu-id="aee2f-120">You can manage your API credentials and usage in the [API Console](https://console.developers.google.com/apis/dashboard).</span></span>
 
-[!INCLUDE[](includes/chain-auth-providers.md)]
+## <a name="configure-google-authentication"></a><span data-ttu-id="aee2f-121">Konfigurace ověřování Google</span><span class="sxs-lookup"><span data-stu-id="aee2f-121">Configure Google authentication</span></span>
 
-::: moniker-end
+<span data-ttu-id="aee2f-122">Přidat služby Google `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="aee2f-122">Add the Google service to `Startup.ConfigureServices`.</span></span>
 
-::: moniker range="< aspnetcore-2.0"
+[!INCLUDE [default settings configuration](includes/default-settings2-2.md)]
 
-<span data-ttu-id="79998-150">Šablona projektu použité v tomto kurzu zajistí, že [Microsoft.AspNetCore.Authentication.Google](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Google) instalaci balíčku.</span><span class="sxs-lookup"><span data-stu-id="79998-150">The project template used in this tutorial ensures that [Microsoft.AspNetCore.Authentication.Google](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Google) package is installed.</span></span>
+## <a name="sign-in-with-google"></a><span data-ttu-id="aee2f-123">Přihlásit se přes Google</span><span class="sxs-lookup"><span data-stu-id="aee2f-123">Sign in with Google</span></span>
 
-* <span data-ttu-id="79998-151">K instalaci tohoto balíčku pomocí sady Visual Studio 2017, klikněte pravým tlačítkem na projekt a vyberte **spravovat balíčky NuGet**.</span><span class="sxs-lookup"><span data-stu-id="79998-151">To install this package with Visual Studio 2017, right-click on the project and select **Manage NuGet Packages**.</span></span>
-* <span data-ttu-id="79998-152">Instalace s .NET Core CLI, spusťte v adresáři projektu následující:</span><span class="sxs-lookup"><span data-stu-id="79998-152">To install with .NET Core CLI, execute the following in your project directory:</span></span>
-
-`dotnet add package Microsoft.AspNetCore.Authentication.Google`
-
-<span data-ttu-id="79998-153">Přidat v middlewaru Google `Configure` metoda *Startup.cs* souboru:</span><span class="sxs-lookup"><span data-stu-id="79998-153">Add the Google middleware in the `Configure` method in *Startup.cs* file:</span></span>
-
-```csharp
-app.UseGoogleAuthentication(new GoogleOptions()
-{
-    ClientId = Configuration["Authentication:Google:ClientId"],
-    ClientSecret = Configuration["Authentication:Google:ClientSecret"]
-});
-```
-
-::: moniker-end
-
-<span data-ttu-id="79998-154">Zobrazit [GoogleOptions](/dotnet/api/microsoft.aspnetcore.builder.googleoptions) reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem ověřování Google.</span><span class="sxs-lookup"><span data-stu-id="79998-154">See the [GoogleOptions](/dotnet/api/microsoft.aspnetcore.builder.googleoptions) API reference for more information on configuration options supported by Google authentication.</span></span> <span data-ttu-id="79998-155">To umožňuje požádat o jiné informace o uživateli.</span><span class="sxs-lookup"><span data-stu-id="79998-155">This can be used to request different information about the user.</span></span>
-
-## <a name="sign-in-with-google"></a><span data-ttu-id="79998-156">Přihlásit se přes Google</span><span class="sxs-lookup"><span data-stu-id="79998-156">Sign in with Google</span></span>
-
-<span data-ttu-id="79998-157">Spusťte aplikaci a klikněte na tlačítko **přihlášení**.</span><span class="sxs-lookup"><span data-stu-id="79998-157">Run your application and click **Log in**.</span></span> <span data-ttu-id="79998-158">Zobrazí se možnost přihlásit se přes Google:</span><span class="sxs-lookup"><span data-stu-id="79998-158">An option to sign in with Google appears:</span></span>
-
-![Webové aplikaci běžící v Microsoft Edge: Uživatel nebyl ověřen](index/_static/DoneGoogle.png)
-
-<span data-ttu-id="79998-160">Když kliknete na Googlu, budete přesměrováni do Googlu pro ověřování:</span><span class="sxs-lookup"><span data-stu-id="79998-160">When you click on Google, you are redirected to Google for authentication:</span></span>
-
-![Dialog ověřování Google](index/_static/GoogleLogin.png)
-
-<span data-ttu-id="79998-162">Jakmile zadáte svoje přihlašovací údaje Google, pak budete přesměrováni zpět na webovou stránku, kde můžete nastavit e-mailu.</span><span class="sxs-lookup"><span data-stu-id="79998-162">After entering your Google credentials, then you are redirected back to the web site where you can set your email.</span></span>
-
-<span data-ttu-id="79998-163">Nyní jste přihlášeni pomocí svých přihlašovacích údajů Google:</span><span class="sxs-lookup"><span data-stu-id="79998-163">You are now logged in using your Google credentials:</span></span>
-
-![Webové aplikaci běžící v Microsoft Edge: Uživatel byl ověřen](index/_static/Done.png)
+* <span data-ttu-id="aee2f-124">Spusťte aplikaci a klikněte na tlačítko **přihlášení**.</span><span class="sxs-lookup"><span data-stu-id="aee2f-124">Run the app and click **Log in**.</span></span> <span data-ttu-id="aee2f-125">Zobrazí se možnost přihlásit se přes Google.</span><span class="sxs-lookup"><span data-stu-id="aee2f-125">An option to sign in with Google appears.</span></span>
+* <span data-ttu-id="aee2f-126">Klikněte na tlačítko **Google** tlačítka, který přesměruje do Googlu pro ověřování.</span><span class="sxs-lookup"><span data-stu-id="aee2f-126">Click the **Google** button, which redirects to Google for authentication.</span></span>
+* <span data-ttu-id="aee2f-127">Jakmile zadáte svoje přihlašovací údaje Google, budete přesměrováni zpět na web.</span><span class="sxs-lookup"><span data-stu-id="aee2f-127">After entering your Google credentials, you are redirected back to the web site.</span></span>
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
-## <a name="troubleshooting"></a><span data-ttu-id="79998-165">Poradce při potížích</span><span class="sxs-lookup"><span data-stu-id="79998-165">Troubleshooting</span></span>
+[!INCLUDE[](includes/chain-auth-providers.md)]
 
-* <span data-ttu-id="79998-166">Pokud se zobrazí `403 (Forbidden)` chybovou stránku z vaší vlastní aplikace při spuštění v režimu pro vývoj (nebo přerušení do ladicího programu ke stejné chybě), ujistěte se, že **rozhraní API Google +** byla povolena v **správce rozhraní API knihovny** pomocí následujících kroků uvedených v tomto [starších na této stránce](#create-the-app-in-google-api-console).</span><span class="sxs-lookup"><span data-stu-id="79998-166">If you receive a `403 (Forbidden)` error page from your own app when running in development mode (or break into the debugger with the same error), ensure that **Google+ API** has been enabled in the **API Manager Library** by following the steps listed [earlier on this page](#create-the-app-in-google-api-console).</span></span> <span data-ttu-id="79998-167">Pokud nebude fungovat přihlašování a nezobrazuje se nějaké chyby, přepněte do režimu vývoj usnadnit problém ladit.</span><span class="sxs-lookup"><span data-stu-id="79998-167">If the sign in doesn't work and you aren't getting any errors, switch to development mode to make the issue easier to debug.</span></span>
-* <span data-ttu-id="79998-168">**ASP.NET Core 2.x pouze:** Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"*.</span><span class="sxs-lookup"><span data-stu-id="79998-168">**ASP.NET Core 2.x only:** If Identity isn't configured by calling `services.AddIdentity` in `ConfigureServices`, attempting to authenticate will result in *ArgumentException: The 'SignInScheme' option must be provided*.</span></span> <span data-ttu-id="79998-169">Šablona projektu použité v tomto kurzu zajistí, že to se provádí.</span><span class="sxs-lookup"><span data-stu-id="79998-169">The project template used in this tutorial ensures that this is done.</span></span>
-* <span data-ttu-id="79998-170">Pokud nebyl vytvořen použití počáteční migraci databáze lokality, se zobrazí *databázová operace selhala při zpracování požadavku* chyby.</span><span class="sxs-lookup"><span data-stu-id="79998-170">If the site database has not been created by applying the initial migration, you will get *A database operation failed while processing the request* error.</span></span> <span data-ttu-id="79998-171">Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.</span><span class="sxs-lookup"><span data-stu-id="79998-171">Tap **Apply Migrations** to create the database and refresh to continue past the error.</span></span>
+<span data-ttu-id="aee2f-128">Zobrazit [GoogleOptions](/dotnet/api/microsoft.aspnetcore.builder.googleoptions) reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem ověřování Google.</span><span class="sxs-lookup"><span data-stu-id="aee2f-128">See the [GoogleOptions](/dotnet/api/microsoft.aspnetcore.builder.googleoptions) API reference for more information on configuration options supported by Google authentication.</span></span> <span data-ttu-id="aee2f-129">To umožňuje požádat o jiné informace o uživateli.</span><span class="sxs-lookup"><span data-stu-id="aee2f-129">This can be used to request different information about the user.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="79998-172">Další kroky</span><span class="sxs-lookup"><span data-stu-id="79998-172">Next steps</span></span>
+## <a name="change-the-default-callback-uri"></a><span data-ttu-id="aee2f-130">Změnit výchozí identifikátor URI zpětného volání</span><span class="sxs-lookup"><span data-stu-id="aee2f-130">Change the default callback URI</span></span>
 
-* <span data-ttu-id="79998-173">V tomto článku jsme si ukázali, jak můžete ověřit s Google.</span><span class="sxs-lookup"><span data-stu-id="79998-173">This article showed how you can authenticate with Google.</span></span> <span data-ttu-id="79998-174">Můžete postupovat podle podobný přístup k ověření u jiných poskytovatelů na [předchozí stránce](xref:security/authentication/social/index).</span><span class="sxs-lookup"><span data-stu-id="79998-174">You can follow a similar approach to authenticate with other providers listed on the [previous page](xref:security/authentication/social/index).</span></span>
+<span data-ttu-id="aee2f-131">Segment identifikátoru URI `/signin-google` je nastaven jako výchozí zpětného volání zprostředkovatele ověřování Google.</span><span class="sxs-lookup"><span data-stu-id="aee2f-131">The URI segment `/signin-google` is set as the default callback of the Google authentication provider.</span></span> <span data-ttu-id="aee2f-132">Můžete změnit výchozí identifikátor URI zpětného volání při konfiguraci middleware ověřování Google přes zděděnou [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) vlastnost [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) třídy.</span><span class="sxs-lookup"><span data-stu-id="aee2f-132">You can change the default callback URI while configuring the Google authentication middleware via the inherited [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) property of the [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) class.</span></span>
 
-* <span data-ttu-id="79998-175">Po publikování webu do webové aplikace Azure, měli byste resetovat `ClientSecret` v konzole rozhraní API Google.</span><span class="sxs-lookup"><span data-stu-id="79998-175">Once you publish your web site to Azure web app, you should reset the `ClientSecret` in the Google API Console.</span></span>
+## <a name="troubleshooting"></a><span data-ttu-id="aee2f-133">Poradce při potížích</span><span class="sxs-lookup"><span data-stu-id="aee2f-133">Troubleshooting</span></span>
 
-* <span data-ttu-id="79998-176">Nastavte `Authentication:Google:ClientId` a `Authentication:Google:ClientSecret` jako nastavení aplikace na webu Azure Portal.</span><span class="sxs-lookup"><span data-stu-id="79998-176">Set the `Authentication:Google:ClientId` and `Authentication:Google:ClientSecret` as application settings in the Azure portal.</span></span> <span data-ttu-id="79998-177">Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.</span><span class="sxs-lookup"><span data-stu-id="79998-177">The configuration system is set up to read keys from environment variables.</span></span>
+* <span data-ttu-id="aee2f-134">Pokud se nezobrazují žádné chyby přihlášení nebude fungovat, přepněte do režimu vývoj snazší ladit problém.</span><span class="sxs-lookup"><span data-stu-id="aee2f-134">If the sign-in doesn't work and you aren't getting any errors, switch to development mode to make the issue easier to debug.</span></span>
+* <span data-ttu-id="aee2f-135">Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, při pokusu o ověření za následek *ArgumentException: Musí být Zadaná možnost "SignInScheme"*.</span><span class="sxs-lookup"><span data-stu-id="aee2f-135">If Identity isn't configured by calling `services.AddIdentity` in `ConfigureServices`, attempting to authenticate results in *ArgumentException: The 'SignInScheme' option must be provided*.</span></span> <span data-ttu-id="aee2f-136">Šablona projektu použité v tomto kurzu zajistí, že to se provádí.</span><span class="sxs-lookup"><span data-stu-id="aee2f-136">The project template used in this tutorial ensures that this is done.</span></span>
+* <span data-ttu-id="aee2f-137">Pokud nebyl vytvořen použití počáteční migraci databáze lokality, můžete získat *databázová operace selhala při zpracování požadavku* chyby.</span><span class="sxs-lookup"><span data-stu-id="aee2f-137">If the site database has not been created by applying the initial migration, you get *A database operation failed while processing the request* error.</span></span> <span data-ttu-id="aee2f-138">Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.</span><span class="sxs-lookup"><span data-stu-id="aee2f-138">Tap **Apply Migrations** to create the database and refresh to continue past the error.</span></span>
+
+## <a name="next-steps"></a><span data-ttu-id="aee2f-139">Další kroky</span><span class="sxs-lookup"><span data-stu-id="aee2f-139">Next steps</span></span>
+
+* <span data-ttu-id="aee2f-140">V tomto článku jsme si ukázali, jak můžete ověřit s Google.</span><span class="sxs-lookup"><span data-stu-id="aee2f-140">This article showed how you can authenticate with Google.</span></span> <span data-ttu-id="aee2f-141">Můžete postupovat podle podobný přístup k ověření u jiných poskytovatelů na [předchozí stránce](xref:security/authentication/social/index).</span><span class="sxs-lookup"><span data-stu-id="aee2f-141">You can follow a similar approach to authenticate with other providers listed on the [previous page](xref:security/authentication/social/index).</span></span>
+* <span data-ttu-id="aee2f-142">Po publikování aplikace do Azure, resetovat `ClientSecret` v konzole rozhraní API Google.</span><span class="sxs-lookup"><span data-stu-id="aee2f-142">Once you publish the app to Azure, reset the `ClientSecret` in the Google API Console.</span></span>
+* <span data-ttu-id="aee2f-143">Nastavte `Authentication:Google:ClientId` a `Authentication:Google:ClientSecret` jako nastavení aplikace na webu Azure Portal.</span><span class="sxs-lookup"><span data-stu-id="aee2f-143">Set the `Authentication:Google:ClientId` and `Authentication:Google:ClientSecret` as application settings in the Azure portal.</span></span> <span data-ttu-id="aee2f-144">Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.</span><span class="sxs-lookup"><span data-stu-id="aee2f-144">The configuration system is set up to read keys from environment variables.</span></span>

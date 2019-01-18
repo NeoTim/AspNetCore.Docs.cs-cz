@@ -1,20 +1,24 @@
+---
+ms.openlocfilehash: b7c97f3b329bea452e1f49c351231f92310c97b5
+ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 01/18/2019
+ms.locfileid: "53335069"
+---
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="9481b-101">V tomto kurzu nebyl upgradován na verzi ASP.NET Core 2.1.</span><span class="sxs-lookup"><span data-stu-id="9481b-101">This tutorial has not been upgraded to ASP.NET Core 2.1.</span></span> <span data-ttu-id="9481b-102">ASP.NET Core 2.0 verzi tohoto kurzu je k dispozici výběrem **ASP.NET Core 2.0** výše uvedené tabulky obsahu nebo v horní části stránky:</span><span class="sxs-lookup"><span data-stu-id="9481b-102">The ASP.NET Core 2.0 version of this tutorial is available by selecting **ASP.NET Core 2.0** above the table of contents or at the top of the page:</span></span>
+<span data-ttu-id="32847-101">V tomto kurzu nebyl upgradován na verzi ASP.NET Core 2.1.</span><span class="sxs-lookup"><span data-stu-id="32847-101">This tutorial has not been upgraded to ASP.NET Core 2.1.</span></span> <span data-ttu-id="32847-102">ASP.NET Core 2.0 verzi tohoto kurzu je k dispozici výběrem **ASP.NET Core 2.0** výše uvedené tabulky obsahu nebo v horní části stránky:</span><span class="sxs-lookup"><span data-stu-id="32847-102">The ASP.NET Core 2.0 version of this tutorial is available by selecting **ASP.NET Core 2.0** above the table of contents or at the top of the page:</span></span>
 
-![<span data-ttu-id="9481b-103">tutoriály</span><span class="sxs-lookup"><span data-stu-id="9481b-103">tutorials</span></span> ](~//data/ef-rp/read-related-data/_static/2.1.png)
+![<span data-ttu-id="32847-103">tutoriály</span><span class="sxs-lookup"><span data-stu-id="32847-103">tutorials</span></span> ](~//data/ef-rp/read-related-data/_static/2.1.png)
 
-<span data-ttu-id="9481b-104">ASP.NET Core 2.1 Razor Pages verzi tohoto kurzu má mnoho vylepšení verze 2.0.</span><span class="sxs-lookup"><span data-stu-id="9481b-104">The ASP.NET Core 2.1 Razor Pages version of this tutorial has many improvements over the 2.0 version.</span></span>
+<span data-ttu-id="32847-104">ASP.NET Core 2.1 [Razor Pages](xref:data/ef-rp/intro) verzi tohoto kurzu má mnoho vylepšení verze 2.0.</span><span class="sxs-lookup"><span data-stu-id="32847-104">The ASP.NET Core 2.1 [Razor Pages](xref:data/ef-rp/intro) version of this tutorial has many improvements over the 2.0 version.</span></span>
 
-<span data-ttu-id="9481b-105">2.0 kurzu se naučíte ASP.NET, MVC Core a Entity Framework Core pomocí kontrolerů a zobrazení.</span><span class="sxs-lookup"><span data-stu-id="9481b-105">The 2.0 tutorial teaches ASP.NET Core MVC and Entity Framework Core with controllers and views.</span></span> <span data-ttu-id="9481b-106">Stránky Razor je na stránce programovací model, který je vytváření webového uživatelského rozhraní jednodušší a produktivnější.</span><span class="sxs-lookup"><span data-stu-id="9481b-106">Razor Pages is a page-based programming model that makes building web UI easier and more productive.</span></span> <span data-ttu-id="9481b-107">Doporučujeme, abyste [Razor Pages](xref:data/ef-rp/intro) kurz přes verze MVC.</span><span class="sxs-lookup"><span data-stu-id="9481b-107">We recommend the [Razor Pages](xref:data/ef-rp/intro) tutorial over the MVC version.</span></span> <span data-ttu-id="9481b-108">Kurz pro stránky Razor:</span><span class="sxs-lookup"><span data-stu-id="9481b-108">The Razor Pages tutorial:</span></span>
+<span data-ttu-id="32847-105">2.0 kurzu se naučíte ASP.NET, MVC Core a Entity Framework Core pomocí kontrolerů a zobrazení.</span><span class="sxs-lookup"><span data-stu-id="32847-105">The 2.0 tutorial teaches ASP.NET Core MVC and Entity Framework Core with controllers and views.</span></span> <span data-ttu-id="32847-106">Aktualizovali jsme kurzu stránky Razor s následujícími vylepšeními:</span><span class="sxs-lookup"><span data-stu-id="32847-106">The Razor Pages tutorial has been updated with the following improvements:</span></span>
 
-* <span data-ttu-id="9481b-109">Je usnadňuje její sledování.</span><span class="sxs-lookup"><span data-stu-id="9481b-109">Is easier to follow.</span></span> <span data-ttu-id="9481b-110">Například kód generování uživatelského rozhraní je výrazně zjednodušené.</span><span class="sxs-lookup"><span data-stu-id="9481b-110">For example, the scaffolding code has been significantly simplified.</span></span>
-* <span data-ttu-id="9481b-111">Poskytuje další EF Core osvědčené postupy.</span><span class="sxs-lookup"><span data-stu-id="9481b-111">Provides more EF Core best practices.</span></span>
-* <span data-ttu-id="9481b-112">Používá účinnější dotazy.</span><span class="sxs-lookup"><span data-stu-id="9481b-112">Uses more efficient queries.</span></span>
-* <span data-ttu-id="9481b-113">Je více aktuální pomocí nejnovější rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="9481b-113">Is more current with the latest API.</span></span>
-* <span data-ttu-id="9481b-114">Zahrnuje další funkce.</span><span class="sxs-lookup"><span data-stu-id="9481b-114">Covers more features.</span></span>
-* <span data-ttu-id="9481b-115">Je upřednostňovaný způsob pro nový vývoj aplikací.</span><span class="sxs-lookup"><span data-stu-id="9481b-115">Is the preferred approach for new application development.</span></span>
-
-<span data-ttu-id="9481b-116">Pokud se rozhodnete v tomto kurzu přes [Razor Pages](xref:data/ef-rp/intro) verze, dejte nám vědět, proč v [této diskuse Githubu](https://github.com/aspnet/Docs/issues/6146).</span><span class="sxs-lookup"><span data-stu-id="9481b-116">If you choose this tutorial over the [Razor Pages](xref:data/ef-rp/intro) version, let us know why in [this GitHub discussion](https://github.com/aspnet/Docs/issues/6146).</span></span>
+* <span data-ttu-id="32847-107">Je usnadňuje její sledování.</span><span class="sxs-lookup"><span data-stu-id="32847-107">Is easier to follow.</span></span> <span data-ttu-id="32847-108">Například kód generování uživatelského rozhraní je výrazně zjednodušené.</span><span class="sxs-lookup"><span data-stu-id="32847-108">For example, the scaffolding code has been significantly simplified.</span></span>
+* <span data-ttu-id="32847-109">Poskytuje další EF Core osvědčené postupy.</span><span class="sxs-lookup"><span data-stu-id="32847-109">Provides more EF Core best practices.</span></span>
+* <span data-ttu-id="32847-110">Používá účinnější dotazy.</span><span class="sxs-lookup"><span data-stu-id="32847-110">Uses more efficient queries.</span></span>
+* <span data-ttu-id="32847-111">Využívá nejnovější rozhraní API pro EF Core.</span><span class="sxs-lookup"><span data-stu-id="32847-111">Uses the latest EF Core API.</span></span>
 
 ::: moniker-end
