@@ -1,36 +1,41 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application
-title: Ošetření souběžnosti se sadou Entity Framework 6 v aplikaci ASP.NET MVC 5 (10 12) | Dokumentace Microsoftu
+title: 'Kurz: Popisovač souběžnosti ovládacím prvkem EF v aplikaci ASP.NET MVC 5'
+description: Tento kurz ukazuje, jak použít optimistické řízení souběžnosti řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
 author: tdykstra
-description: Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí sady Visual Studio a Entity Framework 6 Code First...
 ms.author: riande
-ms.date: 12/08/2014
+ms.date: 01/21/2019
+ms.topic: tutorial
 ms.assetid: be0c098a-1fb2-457e-b815-ddca601afc65
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 22fd6bc92aa0d516e1bfeb5aa6a67d7246d977ac
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: b77b8d6f952472f4d3030f54665f970b8ace2caf
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48913252"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444178"
 ---
-<a name="handling-concurrency-with-the-entity-framework-6-in-an-aspnet-mvc-5-application-10-of-12"></a>Ošetření souběžnosti se sadou Entity Framework 6 v aplikaci ASP.NET MVC 5 (10 12)
-====================
-podle [Petr Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-handle-concurrency-with-ef-in-an-aspnet-mvc-5-app"></a>Kurz: Popisovač souběžnosti ovládacím prvkem EF v aplikaci ASP.NET MVC 5
 
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+V předchozích kurzech jste zjistili, jak aktualizovat data. Tento kurz ukazuje, jak použít optimistické řízení souběžnosti řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu. Změnit webové stránky, které využívají službu `Department` entity tak, aby se zpracování chyb souběžnosti. Upravit a odstranit stránky, včetně některé zprávy, které se zobrazí, pokud dojde ke konfliktu souběžnosti na následujících obrázcích.
 
-> Ukázková webová aplikace Contoso University ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí Entity Framework 6 kód první a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md).
+![Department_Edit_page_2_after_clicking_Save](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image10.png)
 
+![Department_Edit_page_2_after_clicking_Save](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image15.png)
 
-V předchozích kurzech jste zjistili, jak aktualizovat data. Tento kurz ukazuje, jak řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
+V tomto kurzu se naučíte:
 
-Webové stránky, které pracují s změníte `Department` entity tak, aby se zpracování chyb souběžnosti. Na následujících obrázcích je Index a odstranění stránky, včetně některé zprávy, které se zobrazí, pokud dojde ke konfliktu souběžnosti.
+> [!div class="checklist"]
+> * Další informace o konfliktů souběžnosti
+> * Přidat optimistického řízení souběžnosti
+> * Změna kontroleru oddělení
+> * Test souběžného zpracování
+> * Aktualizovat stránku Delete
 
-![Department_Index_page_before_edits](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image1.png)
+## <a name="prerequisites"></a>Požadavky
 
-![Department_Edit_page_2_after_clicking_Save](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image2.png)
+* [Async a uložené procedury](async-and-stored-procedures-with-the-entity-framework-in-an-asp-net-mvc-application.md)
 
 ## <a name="concurrency-conflicts"></a>Konflikty souběžnosti
 
@@ -46,11 +51,7 @@ Zámky pro správu má nevýhody. Může být složité do programu. Vyžaduje v
 
 Je alternativou k Pesimistická souběžnost *optimistického řízení souběžnosti*. Povolení konfliktů souběžnosti, která se provede a reaguje správně, pokud tomu znamená, že optimistického řízení souběžnosti. Například Jan spustí oddělení upravit stránku, změny **rozpočtu** velikost pro anglickou oddělení od $350,000.00 0.00 $.
 
-![Changing_English_dept_budget_to_100000](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
-
 Předtím, než Jan klikne **Uložit**, spustí Jana na stejnou stránku a změny **datum zahájení** pole z 9/1/2007 na verzi 8 nebo 8/2013.
-
-![Changing_English_dept_start_date_to_1999](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
 
 Jan klikne **Uložit** první a jeho změna návratu prohlížeč na indexovou stránku, pak Jana klikne vidí **Uložit**. Co bude dál se určuje podle způsobu zpracování konfliktů souběžnosti. Mezi možnosti patří následující:
 
@@ -75,7 +76,7 @@ Konflikty lze vyřešit zpracování [OptimisticConcurrencyException](https://ms
 
 Ve zbývající části tohoto kurzu přidáte [rowversion](https://msdn.microsoft.com/library/ms182776(v=sql.110).aspx) vlastnost pro sledování `Department` entity, vytvořte kontroler a zobrazení a otestovat a ověřit, že vše funguje správně.
 
-## <a name="add-an-optimistic-concurrency-property-to-the-department-entity"></a>Přidat vlastnost optimistického řízení souběžnosti na entitu oddělení
+## <a name="add-optimistic-concurrency"></a>Přidat optimistického řízení souběžnosti
 
 V *Models\Department.cs*, přidání vlastnosti sledování do s názvem `RowVersion`:
 
@@ -91,7 +92,7 @@ Přidáním vlastnosti změnit model databáze, takže je třeba provést dalš�
 
 [!code-console[Main](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample3.cmd)]
 
-## <a name="modify-the-department-controller"></a>Změna Kontroleru oddělení
+## <a name="modify-department-controller"></a>Změna kontroleru oddělení
 
 V *Controllers\DepartmentController.cs*, přidejte `using` – příkaz:
 
@@ -135,37 +136,23 @@ V *Views\Department\Edit.cshtml*, přidání skrytého pole k uložení `RowVers
 
 [!code-cshtml[Main](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample12.cshtml?highlight=18)]
 
-## <a name="testing-optimistic-concurrency-handling"></a>Testování zpracování optimistického řízení souběžnosti
+## <a name="test-concurrency-handling"></a>Test souběžného zpracování
 
-Spuštění tohoto webu a klikněte na tlačítko **oddělení**:
-
-![Department_Index_page_before_edits](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image5.png)
+Spuštění tohoto webu a klikněte na tlačítko **oddělení**.
 
 Klikněte pravým tlačítkem myši **upravit** hypertextového odkazu pro anglickou oddělení a vyberte **otevřít na nové kartě** klikněte **upravit** hypertextového odkazu pro anglickou oddělení. Dvě karty zobrazí stejné informace.
 
-![Department_Edit_page_before_changes](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image6.png)
-
 Změňte pole na první záložce prohlížeče a klikněte na tlačítko **Uložit**.
-
-![Department_Edit_page_1_after_change](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
 
 Prohlížeč zobrazí indexovou stránku s změněné hodnoty.
 
-![Departments_Index_page_after_first_budget_edit](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image8.png)
-
-Změňte pole na druhé záložce prohlížeče a klikněte na tlačítko **Uložit**.
-
-![Department_Edit_page_2_after_change](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image9.png)
-
-Klikněte na tlačítko **Uložit** na druhé záložce prohlížeče. Zobrazí chybová zpráva:
+Změňte pole na druhé záložce prohlížeče a klikněte na tlačítko **Uložit**. Zobrazí chybová zpráva:
 
 ![Department_Edit_page_2_after_clicking_Save](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image10.png)
 
 Klikněte na tlačítko **Uložit** znovu. Hodnota, kterou jste zadali na druhé záložce prohlížeče je uložen spolu s původní hodnoty dat, který jste změnili v první prohlížeče. Uložené hodnoty se zobrazí, jakmile se zobrazí stránka indexu.
 
-![Department_Index_page_with_change_from_second_browser](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image11.png)
-
-## <a name="updating-the-delete-page"></a>Aktualizace stránky Delete
+## <a name="update-the-delete-page"></a>Aktualizovat stránku Delete
 
 Odstranění stránky Entity Framework detekuje souběžnosti konflikty způsobené někdo jinak úpravy oddělení podobným způsobem. Když `HttpGet` `Delete` metoda zobrazí potvrzení zobrazení, zobrazení zahrnuje původní `RowVersion` hodnotu ve skrytém poli. Hodnota se pak k dispozici na `HttpPost` `Delete` metodu, která je volána, když uživatel potvrdí odstranění. Když vytvoří SQL Entity Framework `DELETE` příkazu, obsahuje `WHERE` klauzule s původní `RowVersion` hodnotu. Pokud vliv na výsledky příkazu v nulový počet řádků (tj. řádek byl změněn, jakmile se zobrazí stránka potvrzení odstranění), je vyvolána výjimka souběžnosti a `HttpGet Delete` metoda je volána příznakem chyba nastavena na `true` k opětovnému zobrazení potvrzovací stránku s chybovou zprávou. Je také možné, že vzhledem k tomu, že řádek byl odstraněn jiným uživatelem, tak v tom případě se zobrazí různé chybová zpráva vliv nulový počet řádků.
 
@@ -209,17 +196,11 @@ Nakonec přidá skryté pole `DepartmentID` a `RowVersion` vlastnosti po `Html.B
 
 Spustíte oddělení indexovou stránku. Klikněte pravým tlačítkem myši **odstranit** hypertextového odkazu pro anglickou oddělení a vyberte **otevřít na nové kartě** na první kartě klikněte na tlačítko **upravit** hypertextového odkazu pro anglickou oddělení.
 
-V prvním okně, změňte jednu z hodnot a klikněte na tlačítko **Uložit** :
-
-![Department_Edit_page_after_change_before_delete](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image12.png)
+V prvním okně, změňte jednu z hodnot a klikněte na tlačítko **Uložit**.
 
 Indexovou stránku potvrdí změny.
 
-![Departments_Index_page_after_budget_edit_before_delete](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image13.png)
-
 Na druhé kartě klikněte **odstranit**.
-
-![Department_Delete_confirmation_page_before_concurrency_error](handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image14.png)
 
 Zobrazí chybová zpráva souběžnosti a oddělení hodnoty se aktualizují s tím, co je aktuálně v databázi.
 
@@ -227,12 +208,27 @@ Zobrazí chybová zpráva souběžnosti a oddělení hodnoty se aktualizují s t
 
 Vyberete-li **odstranit** znovu, budete přesměrováni na indexovou stránku, který ukazuje, že byl odstraněn z oddělení.
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Dokončení tohoto postupu Úvod ke zpracování konfliktů souběžnosti. Informace o dalších způsobech pro různé scénáře souběžného zpracování naleznete v tématu [optimistického řízení souběžnosti vzorů](https://msdn.microsoft.com/data/jj592904) a [práce s hodnotami vlastností](https://msdn.microsoft.com/data/jj592677) na webové stránce MSDN. Další kurz ukazuje postupy při implementaci tabulky na hierarchii dědičnosti pro `Instructor` a `Student` entity.
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+
+## <a name="additional-resources"></a>Další zdroje
 
 Odkazy na další zdroje Entity Framework najdete v [přístup k datům ASP.NET – doporučené zdroje informací](../../../../whitepapers/aspnet-data-access-content-map.md).
 
-> [!div class="step-by-step"]
-> [Předchozí](async-and-stored-procedures-with-the-entity-framework-in-an-asp-net-mvc-application.md)
-> [další](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+Informace o dalších způsobech pro různé scénáře souběžného zpracování naleznete v tématu [optimistického řízení souběžnosti vzorů](https://msdn.microsoft.com/data/jj592904) a [práce s hodnotami vlastností](https://msdn.microsoft.com/data/jj592677) na webové stránce MSDN. Další kurz ukazuje postupy při implementaci tabulky na hierarchii dědičnosti pro `Instructor` a `Student` entity.
+
+## <a name="next-steps"></a>Další kroky
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Dozvěděli jste se o konfliktů souběžnosti
+> * Přidání optimistického řízení souběžnosti
+> * Upravené oddělení kontroleru
+> * Zpracování otestované souběžnosti
+> * Aktualizovat stránku Delete
+
+Přejděte k dalším článku se dozvíte, jak implementovat dědičnosti v datovém modelu.
+> [!div class="nextstepaction"]
+> [Implementace dědičnosti v datovém modelu](implementing-inheritance-with-the-entity-framework-in-an-asp-net-mvc-application.md)

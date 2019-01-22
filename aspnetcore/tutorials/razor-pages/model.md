@@ -6,12 +6,12 @@ ms.author: riande
 monikerRange: '>= aspnetcore-2.2'
 ms.date: 12/3/2018
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: b9e8ece6da2c25a77ef0396eb22a19efde58563e
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 5693fb833d19375ef53e0f367bc6064e239b01d3
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396113"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444101"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -228,7 +228,7 @@ Zkontrolujte `Startup.ConfigureServices` metody. Zvýrazněný řádek byl přid
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
-Předchozí kód vytvoří [DbSet /\<video >](/dotnet/api/microsoft.entityframeworkcore.dbset-1) vlastnost sady entit. Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky. Entita odpovídající řádek v tabulce.
+Předchozí kód vytvoří [ `DbSet<Movie>` ](/dotnet/api/microsoft.entityframeworkcore.dbset-1) vlastnost sady entit. Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky. Entita odpovídající řádek v tabulce.
 
 Název připojovacího řetězce je předán v rámci voláním metody na [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) objektu. Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) načte připojovací řetězec z *appsettings.json* souboru.
 <!-- Code -------------------------->

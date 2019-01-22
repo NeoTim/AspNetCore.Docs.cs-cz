@@ -4,14 +4,14 @@ author: mjrousos
 description: Další informace o použití vlastních IAuthorizationPolicyProvider v aplikaci ASP.NET Core pro dynamické generování zásad autorizace.
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/02/2018
+ms.date: 01/21/2019
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: ef3e81da6fb9e2e332b553607be35fcd79e9362d
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: ca57a9fd8e3c11f15fe14bbe4538bc748c4c84b6
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249370"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444152"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>Vlastní zprostředkovatelé zásad autorizace pomocí IAuthorizationPolicyProvider v ASP.NET Core 
 
@@ -25,8 +25,7 @@ Uvedené příklady situací, kdy vlastní [IAuthorizationPolicyProvider](/dotne
 * Pomocí velkého rozsahu zásad (pro jiné místnosti čísla nebo ve věku, například), proto nemá smysl pro přidání jednotlivých zásad jednotlivé autorizace pomocí `AuthorizationOptions.AddPolicy` volání.
 * Vytváření zásad za běhu na základě informací v externího zdroje dat (třeba databáze) nebo určení požadavků na povolení dynamicky prostřednictvím jiného mechanismu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/AuthSamples/) z [úložiště AspNetCore GitHub](https://github.com/aspnet/AspNetCore). Stáhněte soubor ZIP aspnet/AuthSamples úložiště.
-Rozbalte *AuthSamples-master.zip* souboru. Přejděte *samples/CustomPolicyProvider* složky projektu.
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider) z [úložiště AspNetCore GitHub](https://github.com/aspnet/AspNetCore). Stáhněte soubor ZIP aspnet/AspNetCore úložiště. Rozbalte tento soubor. Přejděte *src/Security/samples/CustomPolicyProvider* složky projektu.
 
 ## <a name="customize-policy-retrieval"></a>Přizpůsobení načtení zásad
 
@@ -154,4 +153,4 @@ Použití vlastních zásad ze `IAuthorizationPolicyProvider`, musíte:
 services.AddSingleton<IAuthorizationPolicyProvider, MinimumAgePolicyProvider>();
 ```
 
-Kompletní vlastní `IAuthorizationPolicyProvider` ukázka je k dispozici v [úložiště GitHub aspnet/AuthSamples](https://github.com/aspnet/AuthSamples/tree/master/samples/CustomPolicyProvider).
+Kompletní vlastní `IAuthorizationPolicyProvider` ukázka je k dispozici v [úložiště GitHub aspnet/AuthSamples](https://github.com/aspnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider).

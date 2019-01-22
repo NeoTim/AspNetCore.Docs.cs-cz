@@ -1,30 +1,24 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
-title: Aktualizace souvisejících dat s Entity Framework v aplikaci ASP.NET MVC | Dokumentace Microsoftu
+title: 'Kurz: Aktualizace souvisejících dat v aplikaci ASP.NET MVC s EF'
+description: V tomto kurzu budete aktualizovat související data. U většiny relací to můžete udělat prostřednictvím aktualizace pole cizích klíčů nebo navigační vlastnosti.
 author: tdykstra
-description: Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí sady Visual Studio a Entity Framework 6 Code First...
 ms.author: riande
-ms.date: 05/01/2015
+ms.date: 01/17/2019
+ms.topic: tutorial
 ms.assetid: 7ba88418-5d0a-437d-b6dc-7c3816d4ec07
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 647793a65dec8feaf37de561ad77b4585bb869a8
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 3f95470fd1832d7d25a331a1b6a9dfede7356f38
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912212"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444308"
 ---
-<a name="updating-related-data-with-the-entity-framework-in-an-aspnet-mvc-application"></a>Aktualizace souvisejících dat s Entity Framework v aplikaci ASP.NET MVC
-====================
-podle [Petr Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-update-related-data-with-ef-in-an-aspnet-mvc-app"></a>Kurz: Aktualizace souvisejících dat v aplikaci ASP.NET MVC s EF
 
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Ukázková webová aplikace Contoso University ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí Entity Framework 6 kód první a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md).
-
-
-V předchozím kurzu zobrazí související data; v tomto kurzu budete aktualizovat související data. U většiny relací to můžete udělat prostřednictvím aktualizace pole cizích klíčů nebo navigační vlastnosti. U relací m: n Entity Framework nezveřejňuje tabulky spojení přímo, tak přidání a odebrání entity do a z odpovídající navigační vlastnosti.
+V předchozím kurzu zobrazí související data. V tomto kurzu budete aktualizovat související data. U většiny relací to můžete udělat prostřednictvím aktualizace pole cizích klíčů nebo navigační vlastnosti. U relací m: n Entity Framework nezveřejňuje tabulky spojení přímo, tak přidání a odebrání entity do a z odpovídající navigační vlastnosti.
 
 Následující ilustrace znázorňují některé stránky, které budete pracovat.
 
@@ -34,7 +28,20 @@ Následující ilustrace znázorňují některé stránky, které budete pracova
 
 ![Upravit instruktorem s kurzy](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
 
-## <a name="customize-the-create-and-edit-pages-for-courses"></a>Přizpůsobení vytvoření a úprava stránky pro kurzy
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Přizpůsobení stránek kurzy
+> * Přidat office na stránku Instruktoři
+> * Přidání kurzů na stránku Instruktoři
+> * Aktualizace DeleteConfirmed
+> * Přidat na stránku vytvořit pobočky a kurzy
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Čtení souvisejících dat](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+
+## <a name="customize-courses-pages"></a>Přizpůsobení stránek kurzy
 
 Při vytvoření nové entity kurzu musí mít relaci k existující oddělení. K provedení této obsahuje automaticky generovaný kód metody kontroleru a vytvořit a upravit zobrazení, které zahrnují rozevíracího seznamu pro výběr oddělení. Sady rozevíracího seznamu `Course.DepartmentID` vlastnost cizího klíče, a to je všechny Entity Framework, které potřebujete-li načíst `Department` navigační vlastnost s příslušnou `Department` entity. Budete používat automaticky generovaný kód, ale mírně se přidání zpracování chyb a rozevírací seznam seřadit změnit.
 
@@ -82,19 +89,20 @@ V *Views\Course\Delete.cshtml* a *Views\Course\Details.cshtml*, změnit titulek 
 
 Spustit **vytvořit** stránky (Zobrazit kurz indexovou stránku a klikněte na tlačítko **vytvořit nový**) a zadejte data pro nový kurzu:
 
-![Course_create_page](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
+| Hodnota | Nastavení |
+| ----- | ------- |
+| Číslo | Zadejte *1000*. |
+| Název | Zadejte *algebraický*. |
+| Závěrečné titulky | Zadejte *4*. |
+|Oddělení | Vyberte **matematiky**. |
 
-Klikněte na tlačítko **vytvořit**. Kurz indexovou stránku se zobrazí nové kurzu přidat do seznamu. Název oddělení v seznamu Index stránky pochází z navigační vlastnosti zobrazující, že byla správně vytvoří vztah.
-
-![Course_Index_page_showing_new_course](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image5.png)
+Klikněte na možnost **Vytvořit**. Kurz indexovou stránku se zobrazí nové kurzu přidat do seznamu. Název oddělení v seznamu Index stránky pochází z navigační vlastnosti zobrazující, že byla správně vytvoří vztah.
 
 Spustit **upravit** stránky (Zobrazit kurz indexovou stránku a klikněte na tlačítko **upravit** v kurzu).
 
-![Course_edit_page](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image6.png)
-
 Data na stránce a klikněte na tlačítko **Uložit**. S daty aktualizovaný kurz se zobrazí stránka kurzu indexu.
 
-## <a name="adding-an-edit-page-for-instructors"></a>Přidání stránky pro úpravu pro vyučující
+## <a name="add-office-to-instructors-page"></a>Přidat office na stránku Instruktoři
 
 Při úpravě záznamu instruktorem, budete chtít být schopen aktualizovat přiřazení kanceláře instruktorem. `Instructor` Entita má vztah k nule nebo jednom s `OfficeAssignment` entity, což znamená, že je nutné zpracovat v následujících případech:
 
@@ -116,7 +124,7 @@ Nahradit `HttpPost` `Edit` metodu s následujícím kódem. která zpracovává 
 
 [!code-csharp[Main](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample11.cs)]
 
-Odkaz na `RetryLimitExceededException` vyžaduje `using` příkazu; Chcete-li přidat, klikněte pravým tlačítkem na `RetryLimitExceededException`a potom klikněte na tlačítko **vyřešit** - **pomocí System.Data.Entity.Infrastructure**.
+Odkaz na `RetryLimitExceededException` vyžaduje `using` příkazu. Přidat, najeďte myší na `RetryLimitExceededException`. Vysvětlení těchto potíží se zobrazí. Vyberte **ukazují možné opravy** a potom klikněte na tlačítko **pomocí System.Data.Entity.Infrastructure;**.
 
 ![Vyřešit výjimku opakování](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
 
@@ -138,13 +146,9 @@ V *Views\Instructor\Edit.cshtml*, poté, co `div` prvky pro **datum přijetí** 
 
 Spuštění stránky (vyberte **Instruktoři** kartu a potom klikněte na tlačítko **upravit** na instruktorem). Změnit **pobočce** a klikněte na tlačítko **Uložit**.
 
-![Changing_the_office_location](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image8.png)
+## <a name="add-courses-to-instructors-page"></a>Přidání kurzů na stránku Instruktoři
 
-## <a name="adding-course-assignments-to-the-instructor-edit-page"></a>Stránka upravit přidáním kurzu přiřazení kurzů vedených
-
-Instruktoři může představuje libovolný počet kurzů. Teď budete vylepšit kurzů vedených upravit stránku tak, že přidáte změnit přiřazení kurz pomocí skupiny zaškrtávacích políček, jak je znázorněno na následujícím snímku obrazovky:
-
-![Instructor_edit_page_with_courses](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image9.png)
+Instruktoři může představuje libovolný počet kurzů. Teď budete vylepšit kurzů vedených upravit stránku tak, že přidáte změnit přiřazení kurz pomocí skupiny zaškrtávacích políček.
 
 Vztah mezi `Course` a `Instructor` entity je many-to-many, což znamená, že nemáte přímý přístup k vlastnosti cizího klíče, které jsou v tabulce spojení. Místo toho můžete přidat nebo odebrat entity do a z `Instructor.Courses` navigační vlastnost.
 
@@ -204,20 +208,15 @@ Pak přidejte novou buňku podrobností hned za buňku office umístění podrob
 
 [!code-cshtml[Main](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample23.cshtml?highlight=7-14)]
 
-Spustit **kurzů vedených Index** stránku, abyste zobrazili kurzy přiřazené jednotlivých kurzů vedených:
-
-![Instructor_index_page](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image10.png)
+Spustit **kurzů vedených Index** stránku, abyste zobrazili kurzy přiřazená každé instruktorem.
 
 Klikněte na tlačítko **upravit** na instruktorem zobrazíte stránky pro úpravu.
-
-![Instructor_edit_page_with_courses](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image11.png)
 
 Některá přiřazení kurzu a klikněte na tlačítko **Uložit**. Provedené změny se projeví na indexovou stránku.
 
  Poznámka: Přístup provádět upravovat data kurzu kurzů vedených funguje dobře, když je omezený počet kurzů. Pro kolekce, které jsou mnohem větší různé uživatelské rozhraní a jinou metodu aktualizace by vyžaduje.
 
-
-## <a name="update-the-deleteconfirmed-method"></a>Aktualizace DeleteConfirmed – metoda
+## <a name="update-deleteconfirmed"></a>Aktualizace DeleteConfirmed
 
 V *InstructorController.cs*, odstranit `DeleteConfirmed` metoda a vložte následující kód na příslušné místo.
 
@@ -258,21 +257,31 @@ Po vložení kódu oprava konce řádků a odsazení jako jste to udělali dří
 
 Spusťte stránka pro vytvoření a přidání instruktorem.
 
-![Vytvoření instruktorem s kurzy](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image12.png)
-
 <a id="transactions"></a>
+
 ## <a name="handling-transactions"></a>Zpracování transakcí
 
 Jak je vysvětleno v [základních funkcí CRUD kurzu](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application.md), ve výchozím nastavení rozhraní Entity Framework implicitně implementuje transakce. Pro scénáře, kde můžete potřebovat mít lepší kontrolu – například pokud budete chtít zahrnout operace provedené mimo rozhraní Entity Framework v rámci transakce – viz [práce s transakcí](https://msdn.microsoft.com/data/dn456843) na webové stránce MSDN.
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Teď jste dokončili tento úvod k práci s související data. V těchto kurzech zatím jste pracovali s kódem, který provádí synchronní vstupně-výstupních operací. Provedete aplikací, používají webové prostředky serveru efektivněji díky implementaci asynchronního kódu, tedy budete používat v dalším kurzu.
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
-Jak vám v tomto kurzu líbilo a co můžeme zlepšit nám prosím zpětnou vazbu.
+## <a name="additional-resources"></a>Další zdroje
 
 Odkazy na další zdroje Entity Framework lze nalézt v [přístup k datům ASP.NET – doporučené zdroje informací](../../../../whitepapers/aspnet-data-access-content-map.md).
 
-> [!div class="step-by-step"]
-> [Předchozí](reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application.md)
-> [další](async-and-stored-procedures-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+## <a name="next-step"></a>Další krok
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Přizpůsobené kurzy stránky
+> * Přidání office na stránku Instruktoři
+> * Přidání kurzů na stránku Instruktoři
+> * Aktualizované DeleteConfirmed
+> * Přidání pobočky a kurzů na stránku vytvořit
+
+Přejděte k dalším článku se dozvíte, jak k implementaci asynchronního programovacího modelu.
+> [!div class="nextstepaction"]
+> [Asynchronní programovací model](async-and-stored-procedures-with-the-entity-framework-in-an-asp-net-mvc-application.md)

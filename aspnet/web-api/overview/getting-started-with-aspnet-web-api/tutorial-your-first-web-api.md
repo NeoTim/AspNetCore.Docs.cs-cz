@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 11/28/2017
 msc.legacyurl: /web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
 msc.type: authoredcontent
-ms.openlocfilehash: 62e99a41ba935470c39476c9aea8ee4193543425
-ms.sourcegitcommit: 7890dfb5a8f8c07d813f166d3ab0c263f893d0c6
+ms.openlocfilehash: 7bec95af4532535f0d620bfe6862958907466874
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48795290"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444256"
 ---
 <a name="get-started-with-aspnet-web-api-2-c"></a>Začínáme s rozhraním ASP.NET Web API 2 (C#)
 ====================
@@ -43,7 +43,7 @@ V **šablony** vyberte **nainstalované šablony** a rozbalte **Visual C#** uzlu
 
 ![](tutorial-your-first-web-api/_static/image2.png)
 
-V **nový projekt ASP.NET** dialogového okna, vyberte **prázdný** šablony. V části &quot;přidat složky a základní odkazy pro&quot;, zkontrolujte **webového rozhraní API**. Klikněte na tlačítko **OK**.
+V **nový projekt ASP.NET** dialogového okna, vyberte **prázdný** šablony. V části &quot;přidat složky a základní odkazy pro&quot;, zkontrolujte **webového rozhraní API**. Klikněte na **OK**.
 
 ![](tutorial-your-first-web-api/_static/image3.png)
 
@@ -65,7 +65,7 @@ Název třídy &quot;produktu&quot;. Přidejte následující vlastnosti pro `Pr
 
 [!code-csharp[Main](tutorial-your-first-web-api/samples/sample1.cs)]
 
-## <a name="adding-a-controller"></a>Přidání Kontroleru
+## <a name="adding-a-controller"></a>Přidání kontroleru
 
 V rozhraní Web API *řadič* je objekt, který zpracovává požadavky HTTP. Přidáme kontroler, který může vrátit seznam produktů nebo jednoho produktu určeným ID.
 
@@ -76,11 +76,11 @@ V **Průzkumníka řešení**, klikněte pravým tlačítkem na složku řadiče
 
 ![](tutorial-your-first-web-api/_static/image5.png)
 
-V **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **Kontroleru webového rozhraní API – prázdný**. Klikněte na tlačítko **přidat**.
+V **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **Kontroleru webového rozhraní API – prázdný**. Klikněte na **Přidat**.
 
 ![](tutorial-your-first-web-api/_static/image6.png)
 
-V **přidat kontroler** dialogového okna, názvu kontroleru &quot;ProductsController&quot;. Klikněte na tlačítko **přidat**.
+V **přidat kontroler** dialogového okna, názvu kontroleru &quot;ProductsController&quot;. Klikněte na **Přidat**.
 
 ![](tutorial-your-first-web-api/_static/image7.png)
 
@@ -103,7 +103,7 @@ Kontroler definuje dvě metody, které vracejí produkty:
 - `GetAllProducts` Metoda vrátí celý seznam produktů jako **IEnumerable&lt;produktu&gt;**  typu.
 - `GetProduct` Metoda vyhledá jeden produkt pomocí jeho ID.
 
-Je to! Máte pracovní webové rozhraní API. Každá metoda v řadiči odpovídá jedné nebo více identifikátorů URI:
+A to je vše! Máte pracovní webové rozhraní API. Každá metoda v řadiči odpovídá jedné nebo více identifikátorů URI:
 
 | Metoda kontroleru | Identifikátor URI |
 | --- | --- |
@@ -178,7 +178,7 @@ Pokud kliknete na kartě tělo odpovědi, uvidíte, jak byl seznam produktů ser
 
 Chcete zobrazit dokončené web spuštěný jako živou webovou aplikaci? Kompletní verze aplikace můžete nasadit ke svému účtu Azure jednoduše kliknutím na následující tlačítko.
 
-[![](http://azuredeploy.net/deploybutton.png)](https://deploy.azure.com/?WT.mc_id=deploy_azure_aspnet&repository=https://github.com/tfitzmac/WebAPI-ProductsApp#/form/setup)
+[![](https://azuredeploy.net/deploybutton.png)](https://deploy.azure.com/?WT.mc_id=deploy_azure_aspnet&repository=https://github.com/tfitzmac/WebAPI-ProductsApp#/form/setup)
 
 Potřebujete účet Azure k nasazení tohoto řešení do Azure. Pokud ještě nemáte účet, máte následující možnosti:
 

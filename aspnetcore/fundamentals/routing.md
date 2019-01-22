@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/14/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 96d098115f2f9b150f796e08cf14e60611f59e17
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 070200b6fdc8b3178e2b7b12375ba1dd56080697
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341755"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444373"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -737,3 +737,9 @@ routes.MapRoute("blog_route", "blog/{*slug}",
 ```
 
 Pokud odpovídající hodnoty pro generování odkazů pouze vytvoří odkaz pro tuto trasu `controller` a `action` jsou k dispozici.
+
+## <a name="complex-segments"></a>Komplexní segmenty
+
+Komplexní segmentech (například `[Route("/x{token}y")]`) jsou zpracovány odpovídající nahoru literály zprava doleva bez metody greedy způsobem. Zobrazit [tento kód](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) podrobné vysvětlení toho, jak jsou porovnány komplexní segmenty. [Vzorový kód](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) se nepoužije, ASP.NET Core, ale poskytuje dobré vysvětlení komplexní segmentů.
+<!-- While that code is no longer used by ASP.NET Core for complex segment matching, it provides a good match to the current algorithm. The [current code](https://github.com/aspnet/AspNetCore/blob/91514c9af7e0f4c44029b51f05a01c6fe4c96e4c/src/Http/Routing/src/Matching/DfaMatcherBuilder.cs#L227-L244) is too abstracted from matching to be useful for understanding complex segment matching.
+-->

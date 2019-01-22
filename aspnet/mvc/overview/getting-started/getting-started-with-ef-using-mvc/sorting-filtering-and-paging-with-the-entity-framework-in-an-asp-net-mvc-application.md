@@ -1,35 +1,42 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
-title: Řazení, filtrování a stránkování s Entity Framework v aplikaci ASP.NET MVC | Dokumentace Microsoftu
+title: 'Kurz: Přidat řazení, filtrování a stránkování s Entity Framework v aplikaci ASP.NET MVC | Dokumentace Microsoftu'
 author: tdykstra
-description: Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí sady Visual Studio a Entity Framework 6 Code First...
+description: V tomto kurzu přidáte řazení, filtrování a stránkování funkce, které **studenty** indexovou stránku. Můžete také vytvořit stránku jednoduché seskupení.
 ms.author: riande
-ms.date: 10/08/2018
+ms.date: 01/14/2019
 ms.assetid: d5723e46-41fe-4d09-850a-e03b9e285bfa
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 9fabb5a90af715d4e96ff79b43bfff5a4600ac08
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.topic: tutorial
+ms.openlocfilehash: 1f18a15d39d58ffb4ac48cfccee6519d33294e85
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912771"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444192"
 ---
-# <a name="sorting-filtering-and-paging-with-the-entity-framework-in-an-aspnet-mvc-application"></a>Řazení, filtrování a stránkování s Entity Framework v aplikaci ASP.NET MVC
+# <a name="tutorial-add-sorting-filtering-and-paging-with-the-entity-framework-in-an-aspnet-mvc-application"></a>Kurz: Přidat řazení, filtrování a stránkování s Entity Framework v aplikaci ASP.NET MVC
 
-podle [Petr Dykstra](https://github.com/tdykstra)
+V [předchozí kurz o službě](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md), implementovat sadu webových stránek pro základní operace CRUD pro `Student` entity. V tomto kurzu přidáte řazení, filtrování a stránkování funkce, které **studenty** indexovou stránku. Můžete také vytvořit stránku jednoduché seskupení.
 
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Ukázková webová aplikace Contoso University ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí Entity Framework 6 kód první a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md).
-
-V předchozím kurzu jste implementovali sadu webových stránek pro základní operace CRUD pro `Student` entity. V tomto kurzu přidáte řazení, filtrování a stránkování funkce, které **studenty** indexovou stránku. Také vytvoříte stránky, která provádí jednoduché seskupení.
-
-Následující obrázek znázorňuje, co bude stránka vypadat až to budete mít. Záhlaví sloupců jsou odkazy, které může uživatel kliknout, chcete-li seřadit podle sloupce. Kliknutím na záhlaví opakovaně sloupce přepíná mezi vzestupným a sestupným řazením.
+Následující obrázek ukazuje, co bude stránka vypadat až to budete mít. Záhlaví sloupců jsou odkazy, které může uživatel kliknout, chcete-li seřadit podle sloupce. Kliknutím na záhlaví opakovaně sloupce přepíná mezi vzestupným a sestupným řazením.
 
 ![Students_Index_page_with_paging](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image1.png)
 
-## <a name="add-column-sort-links-to-the-students-index-page"></a>Přidat sloupec řazení odkazy na indexovou stránku studentů
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Přidat sloupec řazení odkazy
+> * Přidání vyhledávacího pole
+> * Přidání stránkování
+> * Vytvoření stránky o
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Implementace základních funkcí CRUD](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application.md)
+
+## <a name="add-column-sort-links"></a>Přidat sloupec řazení odkazy
 
 K přidání řazení Student indexovou stránku, změníte `Index` metodu `Student` kontroleru a přidejte kód, který `Student` indexu zobrazení.
 
@@ -70,13 +77,9 @@ Jako alternativu k psaní různých příkazů LINQ pro každé pořadí řazen�
 
 2. Spuštění stránky a klikněte na tlačítko **příjmení** a **datum registrace** záhlaví sloupce. Ověřte, že řazení funguje.
 
-   ![Students_Index_page_with_sort_hyperlinks](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image2.png)
-
    Po klepnutí **příjmení** záhlaví, studenti jsou zobrazena v sestupném pořadí poslední název.
 
-   ![Student index zobrazení ve webovém prohlížeči](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
-
-## <a name="add-a-search-box-to-the-students-index-page"></a>Přidání vyhledávacího pole na indexovou stránku studentů
+## <a name="add-a-search-box"></a>Přidání vyhledávacího pole
 
 Přidání filtrování na indexovou stránku studenty, kurzu přidáte textové pole a tlačítko pro odeslání do zobrazení a provádět odpovídající změny v `Index` metody. Textové pole umožňuje zadat řetězec k vyhledání křestního jména a poslední název pole.
 
@@ -103,15 +106,11 @@ Kód přidá `searchString` parametr `Index` metody. Přijetí hledání řetěz
 
 2. Spuštění stránky, zadejte vyhledávací řetězec a klikněte na tlačítko **hledání** k ověření, že filtrování funguje.
 
-   ![Students_Index_page_with_search_box](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image4.png)
-
    Všimněte si, že adresa URL neobsahuje "k" hledaný řetězec, což znamená, že pokud označit tuto stránku záložkou, nezískáte filtrovaný seznam při použití na záložku. To platí také pro sloupec řazení odkazy, jak se budou řadit celý seznam. Změníte **hledání** tlačítka pomocí řetězců dotazu pro kritéria filtru v pozdější části kurzu.
 
-## <a name="add-paging-to-the-students-index-page"></a>Přidání stránkování na indexovou stránku studentů
+## <a name="add-paging"></a>Přidání stránkování
 
-Přidání stránkování na indexovou stránku studenty, začnete pomocí instalace **PagedList.Mvc** balíček NuGet. Pak provede další změny v `Index` metoda a přidejte odkazy stránkování na `Index` zobrazení. **PagedList.Mvc** je jednou z mnoha dobré stránkování a řazení balíčky pro architekturu ASP.NET MVC a jeho použití v tomto poli je určená jenom jako příklad, nikoli jako doporučení k němu přes jiné možnosti. Následující obrázek znázorňuje odkazy stránkování.
-
-![Students_index_page_with_paging](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image5.png)
+Přidání stránkování na indexovou stránku studenty, začnete pomocí instalace **PagedList.Mvc** balíček NuGet. Pak provede další změny v `Index` metoda a přidejte odkazy stránkování na `Index` zobrazení. **PagedList.Mvc** je jednou z mnoha dobré stránkování a řazení balíčky pro architekturu ASP.NET MVC a jeho použití v tomto poli je určená jenom jako příklad, nikoli jako doporučení k němu přes jiné možnosti.
 
 ### <a name="install-the-pagedlistmvc-nuget-package"></a>Nainstalujte balíček PagedList.MVC NuGet
 
@@ -124,8 +123,6 @@ NuGet **PagedList.Mvc** balíček automaticky nainstaluje **PagedList** balíčk
    ```text
    Install-Package PagedList.Mvc
    ```
-
-   ![Nainstalujte PagedList.Mvc](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image6.png)
 
 3. Sestavte projekt.
 
@@ -197,13 +194,9 @@ NuGet **PagedList.Mvc** balíček automaticky nainstaluje **PagedList** balíčk
 
 2. Spuštění stránky.
 
-   ![Studenti indexovou stránku s stránkování](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
-
    Kliknutím na odkazy stránkování v jiné pořadí řazení pro Ujistěte se, že funguje stránkování. Potom zadejte hledaný řetězec a zkuste to znovu a ověřte, že stránkování také funguje správně s řazením a filtrováním stránkování.
 
-   ![Studenti index stránky s filtrovaným textem vyhledávání](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image8.png)
-
-## <a name="create-an-about-page-that-shows-student-statistics"></a>Vytvořte o stránku, která zobrazuje statistiku studenta
+## <a name="create-an-about-page"></a>Vytvoření stránky o
 
 Pro společnosti Contoso University webu o stránku budete zobrazovat, kolik studenty zaregistrovali pro každé datum registrace. To vyžaduje seskupování a jednoduché výpočtů na skupinách. K tomu budete postupujte takto:
 
@@ -249,14 +242,24 @@ Vytvoření *modely ViewModels* složku ve složce projektu. V této složce, p�
 
    ![About_page](sorting-filtering-and-paging-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image9.png)
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-V tomto kurzu jste viděli, jak vytvořit datový model a provádět základní CRUD, řazení, filtrování, stránkování a seskupování funkce. V dalším kurzu se zobrazí za přibližně pohledu na pokročilejší témata tak, že rozbalíte datového modelu.
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
-Jak vám v tomto kurzu líbilo a co můžeme zlepšit nám prosím zpětnou vazbu.
+## <a name="additional-resources"></a>Další zdroje
 
 Odkazy na další zdroje Entity Framework lze nalézt v [přístup k datům ASP.NET – doporučené zdroje informací](../../../../whitepapers/aspnet-data-access-content-map.md).
 
-> [!div class="step-by-step"]
-> [Předchozí](implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application.md)
-> [další](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application.md)
+## <a name="next-steps"></a>Další kroky
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Přidat sloupec řazení odkazy
+> * Přidání vyhledávacího pole
+> * Přidání stránkování
+> * Vytvoření stránky o
+
+Přejděte k dalším článku se dozvíte, jak používat připojení odolnost proti chybám a příkaz zachycení.
+> [!div class="nextstepaction"]
+> [Zachycení odolnost proti chybám a příkaz připojení](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application.md)

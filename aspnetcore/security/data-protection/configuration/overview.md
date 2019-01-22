@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/13/2018
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: 3be220df4b14ed8dbbd1fab70f46578e9408aa26
-ms.sourcegitcommit: f202864efca81a72ea7120c0692940c40d9d0630
+ms.openlocfilehash: 0aef2680f48b7923579f90943846f22734f61b50
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/14/2018
-ms.locfileid: "51635313"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444269"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany dat ASP.NET Core
 
@@ -135,7 +135,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="setapplicationname"></a>SetApplicationName
 
-Ve výchozím nastavení ochrana dat systému izoluje aplikace od sebe, i v případě, že sdílíte stejný fyzický klíče úložiště. To zabrání Principy druhé strany chráněných datových částí aplikace.
+Ve výchozím nastavení ochrana dat systému izoluje aplikace od sebe podle jejich obsahu kořenových cest, i v případě, že sdílíte stejný fyzický klíče úložiště. To zabrání Principy druhé strany chráněných datových částí aplikace.
 
 Sdílení chráněných datových částí mezi aplikacemi:
 

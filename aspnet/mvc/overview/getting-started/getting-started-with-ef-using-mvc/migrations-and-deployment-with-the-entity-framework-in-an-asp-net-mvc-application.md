@@ -1,36 +1,39 @@
 ---
 uid: mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
-title: Kód nejprve Migration a nasazení s Entity Framework v aplikaci ASP.NET MVC | Dokumentace Microsoftu
+title: 'Kurz: Pomocí migrace EF v aplikaci ASP.NET MVC a nasadit do Azure'
 author: tdykstra
-description: Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí sady Visual Studio a Entity Framework 6 Code First...
+description: V tomto kurzu povolení migrace Code First a nasazení aplikace do cloudu v Azure.
 ms.author: riande
-ms.date: 10/08/2018
+ms.date: 01/16/2019
+ms.topic: tutorial
 ms.assetid: d4dfc435-bda6-4621-9762-9ba270f8de4e
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 5c926c61cec5c7de43e2c3f0e377023b8ee799d0
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 131540113f5ac8ce9e15c8ab92b8dc7ee11de115
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48913018"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444217"
 ---
-<a name="code-first-migrations-and-deployment-with-the-entity-framework-in-an-aspnet-mvc-application"></a>Kód první Migration a nasazení s Entity Framework v aplikaci ASP.NET MVC
-====================
-podle [Petr Dykstra](https://github.com/tdykstra)
+# <a name="tutorial-use-ef-migrations-in-an-aspnet-mvc-app-and-deploy-to-azure"></a>Kurz: Pomocí migrace EF v aplikaci ASP.NET MVC a nasadit do Azure
 
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
-
-> Ukázková webová aplikace Contoso University ukazuje, jak vytvářet aplikace ASP.NET MVC 5 pomocí Entity Framework 6 kód první a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md).
-
-Zatím aplikace je spuštěné místně v rámci služby IIS Express na vašem vývojovém počítači. Aplikace skutečný zpřístupnit ostatním uživatelům používat přes Internet, musíte nasadit na web poskytovatele hostitelských služeb. V tomto kurzu nasadíte aplikaci Contoso University do cloudu v Azure.
-
-Tento kurz obsahuje následující části:
+Zatím ukázkovou webovou aplikaci Contoso University běžel místně v rámci služby IIS Express na vašem vývojovém počítači. Aplikace skutečný zpřístupnit ostatním uživatelům používat přes Internet, musíte nasadit na web poskytovatele hostitelských služeb. V tomto kurzu povolení migrace Code First a nasazení aplikace do cloudu v Azure:
 
 - Povolení migrace Code First. Funkce migrace umožňuje změnit datový model a vaše změny nasadí do produkčního prostředí o aktualizaci schématu databáze, aniž by bylo nutné vyřadit a znovu vytvořit databázi.
 - Nasazení do Azure. Tento krok je nepovinný; Zbývající kurzech můžete pokračovat bez nutnosti nasazení projektu.
 
 Doporučujeme použít proces průběžné integrace se správou zdrojového kódu pro nasazení, ale v tomto kurzu ale nenajdete, tato témata. Další informace najdete v tématu [správy zdrojového kódu](xref:aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/source-control) a [kontinuální integrace](xref:aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/continuous-integration-and-continuous-delivery) kapitoly [vytváření skutečných cloudových aplikací s využitím Azure](xref:aspnet/overview/developing-apps-with-windows-azure/building-real-world-cloud-apps-with-windows-azure/introduction).
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Povolení migrace Code First
+> * Nasazení aplikace v Azure (volitelné)
+
+## <a name="prerequisites"></a>Požadavky
+
+- [Odolnost připojení a zachycení příkazů](connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application.md)
 
 ## <a name="enable-code-first-migrations"></a>Povolení migrace Code First
 
@@ -55,15 +58,11 @@ Tato metoda zachování databáze synchronizované s datovým modelem funguje do
     add-migration InitialCreate
     ```
 
-    ![příkaz povolení migrace](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image1.png)
-
     `enable-migrations` Příkaz vytvoří *migrace* složky v projektu ContosoUniversity a umístí v této složce *Configuration.cs* souboru, který můžete upravit konfiguraci migrace.
 
     (Pokud předchozí krok, který nasměruje můžete změnit název databáze, migrace se najít existující databázi a automaticky provést `add-migration` příkazu. Který je v pořádku, že stačí znamená to, že před nasazením databáze nebude spuštění testu migrace kódu. Později při spuštění `update-database` příkaz nic se nestane, protože databáze již existuje.)
 
-    ![Migrace složky](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image2.png)
-
-    Jako inicializátor třídy, která jste viděli dříve, `Configuration` třída zahrnuje `Seed` metoda.
+    Otevřít *ContosoUniversity\Migrations\Configuration.cs* souboru. Jako inicializátor třídy, která jste viděli dříve, `Configuration` třída zahrnuje `Seed` metoda.
 
     [!code-csharp[Main](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample3.cs)]
 
@@ -121,8 +120,6 @@ Pokud jste vytvořili počáteční migraci databáze již existuje, vygeneruje 
 
     `update-database`
 
-    ![](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image3.png)
-
     `update-database` Příkaz spustí `Up` spustí metodu pro vytvoření databáze a pak ho `Seed` metoda k naplnění databáze. Stejný postup se spustí automaticky v produkčním prostředí po nasazení aplikace, jak uvidíte v následující části.
 2. Použití **Průzkumníka serveru** ke kontrole databáze, stejně jako v prvním kurzu a spuštění aplikace pro ověření, že vše stále funguje stejně jako předtím.
 
@@ -151,13 +148,11 @@ Budete nasazovat databázi do Azure SQL database. SQL database je služba relač
 
 1. V [portálu pro správu Azure](https://portal.azure.com), zvolte **vytvořit prostředek** v levé kartě a klikněte na tlačítko **zobrazit všechny** na **nový** podokna (nebo *okno*) zobrazíte všechny dostupné prostředky. Zvolte **Web App + SQL** v **webové** část **všechno, co** okno. Nakonec vyberte **vytvořit**.
 
-    ![Vytvoření prostředku na webu Azure portal](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/create-azure-resource.png)
+    ![Vytvořit prostředek na webu Azure Portal](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/create-azure-resource.png)
 
    Formulář pro vytvoření nového **nový Web App + SQL** otevře prostředků.
 
 2. Zadejte řetězec **název aplikace** pole použít jako jedinečná adresa URL pro vaši aplikaci. Úplná adresa URL bude obsahovat co zde zadáte plus výchozí doménu služby Azure App Services (. azurewebsites.net). Pokud **název aplikace** se už používá, Průvodce vás upozorní červeným *název aplikace není k dispozici* zprávy. Pokud **název aplikace** je k dispozici, zobrazí se zelené zaškrtnutí.
-
-    ![Vytvoření s odkazem databáze na portálu pro správu](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/create-web-app-sql-resource.png)
 
 3. V **předplatné** vyberte předplatné Azure, ve kterém chcete **služby App Service** uložená.
 
@@ -166,8 +161,6 @@ Budete nasazovat databázi do Azure SQL database. SQL database je služba relač
 5. Vytvořte nový **plán služby App Service** kliknutím *oddílu služby App Service*, **vytvořit nový**a vyplňte **plán služby App Service** (může mít stejný název jako App Service), **umístění**, a **cenová úroveň** (je bezplatnou možností).
 
 6. Klikněte na tlačítko **SQL Database**a klikněte na tlačítko **vytvořit novou databázi** nebo vyberte existující databázi.
-
-    ![](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/new-sql-database.png)
 
 7. V **název** pole, zadejte název pro vaši databázi.
 8. Klikněte na tlačítko **cílový Server** a potom vyberte **vytvořit nový server**. Dříve vytvořený server, je můžete vybrat tento server ze seznamu dostupných serverů.
@@ -187,8 +180,6 @@ Budete nasazovat databázi do Azure SQL database. SQL database je služba relač
 
 1. Ve Visual Studiu klikněte pravým tlačítkem na projekt v **Průzkumníka řešení** a vyberte **publikovat** v místní nabídce.
 
-    ![Publikování položky nabídky v Průzkumníku řešení](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image10.png)
-
 2. Na **vyberte cíl publikování** zvolte **služby App Service** a potom **vybrat existující**a klikněte na tlačítko **publikovat**.
 
     ![Vyberte cílové stránky publikování](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/publish-select-existing-azure-app-service.png)
@@ -197,11 +188,7 @@ Budete nasazovat databázi do Azure SQL database. SQL database je služba relač
 
 4. Na **služby App Service** stránky, vyberte **předplatné** jste přidali do služby App Service. V části **zobrazení**vyberte **skupiny prostředků**. Rozbalte skupinu zdrojů, kterou jste přidali služby App a pak vyberte aplikace služby. Zvolte **OK** Chcete-li publikovat aplikace.
 
-    ![Vyberte službu App Service](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/app-service-page.png)
-
 5. **Výstup** okno zobrazuje, jaké akce nasazení byly provedeny a oznámí úspěšné dokončení nasazení.
-
-    ![V okně Výstup hlášením úspěšného nasazení](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/publish-output.png)
 
 6. Po úspěšném nasazení na adresu URL nasazené webové stránky automaticky otevře výchozí prohlížeč.
 
@@ -217,7 +204,7 @@ Proces nasazení vytvoří taky nový připojovací řetězec *(SchoolContext\_D
 
 ![Připojovací řetězec v souboru Web.config](migrations-and-deployment-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image26.png)
 
-Můžete najít nasazenou verzi souboru Web.config na vašem počítači v *ContosoUniversity\obj\Release\Package\PackageTmp\Web.config*. Můžete přistupovat nasazeném *Web.config* vlastní soubor pomocí protokolu FTP. Pokyny najdete v tématu [nasazení webu ASP.NET pomocí sady Visual Studio: nasazení aktualizace kódu](xref:web-forms/overview/deployment/visual-studio-web-deployment/deploying-a-code-update). Postupujte podle pokynů, které začínají znakem "Pokud chcete použít nástroj FTP, potřebujete tři věci: adresa URL protokolu FTP, uživatelské jméno a heslo."
+Můžete najít nasazenou verzi souboru Web.config na vašem počítači v *ContosoUniversity\obj\Release\Package\PackageTmp\Web.config*. Můžete přistupovat nasazeném *Web.config* vlastní soubor pomocí protokolu FTP. Pokyny najdete v tématu [nasazení webu ASP.NET pomocí sady Visual Studio: Nasazení aktualizace kódu](xref:web-forms/overview/deployment/visual-studio-web-deployment/deploying-a-code-update). Postupujte podle pokynů, které začínají znakem "Pokud chcete použít nástroj FTP, potřebujete tři věci: adresa URL protokolu FTP, uživatelské jméno a heslo."
 
 > [!NOTE]
 > Webové aplikace neimplementuje zabezpečení, takže každý, kdo najde adresu URL mohou změnit data. Pokyny k zabezpečení webového serveru naleznete v tématu [zabezpečení technologie ASP.NET MVC aplikace s databází členství, OAuth a SQL Azure nasadit](/aspnet/core/security/authorization/secure-data). Můžete zabránit ostatním uživatelům webu pomocí zastavení služby pomocí portálu pro správu Azure nebo **Server Explorer** v sadě Visual Studio.
@@ -234,16 +221,24 @@ Informace o dalších scénářů migrace najdete v tématu [migrace záznam dě
 
 V části nasazení viděli [MigrateDatabaseToLatestVersion](https://msdn.microsoft.com/library/hh829476(v=vs.103).aspx) používán inicializátoru. Kód nejprve také poskytuje jiné inicializátory, včetně [CreateDatabaseIfNotExists](https://msdn.microsoft.com/library/gg679221(v=vs.103).aspx) (výchozí), [DropCreateDatabaseIfModelChanges](https://msdn.microsoft.com/library/gg679604(v=VS.103).aspx) (který jste použili dříve) a [ DropCreateDatabaseAlways](https://msdn.microsoft.com/library/gg679506(v=VS.103).aspx). `DropCreateAlways` Inicializátor může být užitečné pro nastavení podmínky pro testování částí. Můžete je zapsat také vlastních inicializátory a může volat inicializátor explicitně Pokud nechcete čekat, dokud se čte z aplikace nebo zapisuje do databáze.
 
-Další informace o inicializátory, naleznete v tématu [Principy inicializátory databáze v Entity Framework Code First](http://www.codeguru.com/csharp/article.php/c19999/Understanding-Database-Initializers-in-Entity-Framework-Code-First.htm) a kapitola 6 knihu [programování rozhraní Entity Framework: Code First](http://shop.oreilly.com/product/0636920022220.do) podle Julie Lerman a Rowan Miller.
+Další informace o inicializátory, naleznete v tématu [Principy inicializátory databáze v Entity Framework Code First](http://www.codeguru.com/csharp/article.php/c19999/Understanding-Database-Initializers-in-Entity-Framework-Code-First.htm) a kapitola 6 knihu [programování rozhraní Entity Framework: Code First](http://shop.oreilly.com/product/0636920022220.do) Julie Lerman a Rowan Miller.
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-V tomto kurzu jste zjistili, jak povolit migrace a nasazení aplikace. V dalším kurzu se zobrazí za přibližně pohledu na pokročilejší témata tak, že rozbalíte datového modelu.
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
-Jak vám v tomto kurzu líbilo a co můžeme zlepšit nám prosím zpětnou vazbu.
+## <a name="additional-resources"></a>Další zdroje
 
 Odkazy na další zdroje Entity Framework lze nalézt v [přístup k datům ASP.NET – doporučené zdroje informací](xref:whitepapers/aspnet-data-access-content-map).
 
-> [!div class="step-by-step"]
-> [Předchozí](xref:mvc/overview/getting-started/getting-started-with-ef-using-mvc/connection-resiliency-and-command-interception-with-the-entity-framework-in-an-asp-net-mvc-application)
-> [další](xref:mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-a-more-complex-data-model-for-an-asp-net-mvc-application)
+## <a name="next-steps"></a>Další kroky
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Povolená migrace Code First
+> * Nasazení aplikace v Azure (volitelné)
+
+Přejděte k dalším článku se naučíte, jak vytvořit složitější datový model pro aplikaci ASP.NET MVC.
+> [!div class="nextstepaction"]
+> [Vytvoření složitějšího datového modelu](creating-a-more-complex-data-model-for-an-asp-net-mvc-application.md)

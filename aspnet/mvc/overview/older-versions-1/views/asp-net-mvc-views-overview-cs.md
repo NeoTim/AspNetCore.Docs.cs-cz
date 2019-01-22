@@ -8,14 +8,14 @@ ms.date: 02/16/2008
 ms.assetid: 152ab1e5-aec2-4ea7-b8cc-27a24dd9acb8
 msc.legacyurl: /mvc/overview/older-versions-1/views/asp-net-mvc-views-overview-cs
 msc.type: authoredcontent
-ms.openlocfilehash: ac47caa46d93c6157926f1c9b5112555fae4f8f5
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: a8e64a99549584f150d64d909ac97210257b1147
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755025"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444126"
 ---
-<a name="aspnet-mvc-views-overview-c"></a>ASP.NET MVC – zobrazení přehled (C#)
+<a name="aspnet-mvc-views-overview-c"></a>ASP.NET MVC – přehled zobrazení (C#)
 ====================
 podle [Stephen Walther](https://github.com/StephenWalther)
 
@@ -28,7 +28,7 @@ podle [Stephen Walther](https://github.com/StephenWalther)
 
 Pro ASP nebo ASP.NET ASP.NET MVC nezahrnuje nic, který přímo odpovídá na stránku. V aplikaci MVC rozhraní ASP.NET není stránku na disku, který odpovídá cestě v adrese URL, kterou zadáte do adresního řádku prohlížeče. Nejbližší věc do stránky v aplikaci ASP.NET MVC se volá *zobrazení*.
 
-ASP.NET MVC prohlížeč aplikace, příchozí požadavky se mapují na akce kontroleru. Zobrazení může vrátit akce kontroleru. Akce kontroleru může ale provést i jiný druh akce, jako je probíhá přesměrování na jiný akce kontroleru.
+V aplikaci ASP.NET MVC se mapují příchozí požadavky prohlížeče na akce kontroleru. Zobrazení může vrátit akce kontroleru. Akce kontroleru může ale provést i jiný druh akce, jako je probíhá přesměrování na jiný akce kontroleru.
 
 Výpis 1 obsahuje řadič jednoduché s názvem HomeController. HomeController zpřístupňuje s názvem Index() a Details() dvě akce kontroleru.
 
@@ -91,7 +91,7 @@ Vzhledem k tomu, že volání metody Response.Write() tak často, Microsoft vám
 
 [!code-aspx[Main](asp-net-mvc-views-overview-cs/samples/sample3.aspx)]
 
-Libovolný jazyk .NET můžete použít ke generování dynamického obsahu v zobrazení. Za normálních okolností vše můžete pomocí jazyka Visual Basic .NET nebo C# pro zápis kontrolerů a zobrazení.
+Libovolný jazyk .NET můžete použít ke generování dynamického obsahu v zobrazení. Za normálních okolností budete používat buď Visual Basic .NET nebo C# zapsat kontrolerů a zobrazení.
 
 ## <a name="using-html-helpers-to-generate-view-content"></a>Použití pomocných rutin HTML k vygenerování zobrazení obsahu
 
@@ -106,7 +106,7 @@ Například zobrazení výpisu 4 využívá registrů tři pomocných rutin HTML
 
 [![Dialogové okno Nový projekt](asp-net-mvc-views-overview-cs/_static/image1.jpg)](asp-net-mvc-views-overview-cs/_static/image1.png)
 
-**Obrázek 01**: standardní přihlašovací formulář ([kliknutím ji zobrazíte obrázek v plné velikosti](asp-net-mvc-views-overview-cs/_static/image2.png))
+**Obrázek 01**: Standardní přihlašovací formulář ([kliknutím ji zobrazíte obrázek v plné velikosti](asp-net-mvc-views-overview-cs/_static/image2.png))
 
 
 Všechny metody pomocných rutin HTML se nazývají na vlastnosti Html zobrazení. Například voláním metody Html.TextBox() vykreslení textové pole.
@@ -139,7 +139,7 @@ Zobrazení výpisu 7 načte zprávy z dat zobrazení a vykreslí zprávy do proh
 
 Všimněte si, že zobrazení využívá metodu pomocné rutiny HTML Html.Encode() při vykreslování zprávy. Pomocné rutiny HTML Html.Encode() kóduje zvláštní znaky, jako &lt; a &gt; do znaků, které jsou bezpečné pro zobrazení na webové stránce. Pokaždé, když se vám zobrazit obsah, který uživatel odešle na web, by měl kódování obsahu, aby se zabránilo útoků založených na injektáži JavaScriptu.
 
-(Protože jsme vytvořili zprávu si v ProductController, budeme zadávat t opravdu potřebujete ke kódování zprávy. Nicméně je dobré se vždy volat metodu Html.Encode() při zobrazení obsahu načítá ze zobrazení dat v rámci zobrazení.)
+(Protože jsme vytvořili zprávu že si v ProductController nepotřebujeme ve skutečnosti ke kódování zprávy. Nicméně je dobré se vždy volat metodu Html.Encode() při zobrazení obsahu načítá ze zobrazení dat v rámci zobrazení.)
 
 Ve výpisu 7 jsme využil předání jednoduché řetězcovou zprávu z řadiče zobrazení dat zobrazení. Zobrazení dat můžete použít také k předání dalších typů dat, jako jsou kolekce záznamů databáze z kontroleru zobrazení. Například pokud chcete zobrazit obsah databázové tabulky produktů v zobrazení, pak by úspěšně prošel zpracováním kolekce databáze záznamů v zobrazení data.
 

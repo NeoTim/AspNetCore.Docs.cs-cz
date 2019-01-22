@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: 13d7dec834a5661b445b4fc0c0be8be9b7b41b9e
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: b8279588e674e3ada486f61bac2c216f1359e86d
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637726"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444386"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2.2
 
@@ -57,7 +57,7 @@ ASP.NET Core 2.2 přidává podporu pro HTTP/2.
 
 HTTP/2 je hlavní revize protokolu HTTP. Některé důležité funkce protokolu HTTP/2 jsou podpora komprimaci hlaviček a plně multiplexní datové proudy přes samostatné připojení. Zatímco HTTP/2 zachovává sémantiku na HTTP (hlavičky protokolu HTTP, metody atd.) je zásadní změnu z HTTP/1.x na tom, jak tato data jsou uvedeny a odeslány prostřednictvím sítě jako.
 
-Následkem této změně rámce servery a klienti potřebovat pro vyjednávání protokolu verze použitá. Vyjednávání protokolu v aplikační vrstvě (ALPN) je rozšíření protokolu TLS, kterého že serveru a klienta vyjednat použít jako součást své metody handshake TLS verze protokolu. I když je možné mít předchozí znalosti mezi serverem a klientem na protokol, podporují všechny hlavní prohlížeče ALPN jako jediný způsob, jak vytvořit připojení HTTP/2.
+Následkem této změně rámce servery a klienti potřebovat pro vyjednávání protokolu verze použitá. Vyjednávání protokolu v aplikační vrstvě (ALPN) je rozšíření protokolu TLS, který umožňuje serveru a klienta pro vyjednávání protokolu verze použitá jako součást své metody handshake TLS. I když je možné mít předchozí znalosti mezi serverem a klientem na protokol, podporují všechny hlavní prohlížeče ALPN jako jediný způsob, jak vytvořit připojení HTTP/2.
 
 Další informace najdete v tématu [podpora HTTP/2](xref:fundamentals/servers/index?view=aspnetcore-2.2#http2-support).
 

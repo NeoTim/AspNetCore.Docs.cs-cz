@@ -4,23 +4,20 @@ author: ardalis
 description: Zjistěte, jak filtry fungují a jak je používat v ASP.NET Core MVC.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2018
+ms.date: 1/15/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: d4fe49a9225b9980a956ef9c773ad631beb557ae
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: fe3082481b51c968fd361dbcc9553c4e35a36f2a
+ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207457"
+ms.lasthandoff: 01/22/2019
+ms.locfileid: "54444347"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Petr Dykstra](https://github.com/tdykstra/), a [Steve Smith](https://ardalis.com/)
 
 *Filtry* v ASP.NET Core MVC umožňuje spuštění kódu před nebo po určitým fázím v kanálu zpracování požadavků.
-
-> [!IMPORTANT]
-> Toto téma se **není** platí pro stránky Razor. ASP.NET Core 2.1 a novějších verzích podporuje [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) a [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) pro stránky Razor. Další informace najdete v tématu [metody filtrování pro Razor Pages](xref:razor-pages/filter).
 
  Integrované filtry naložit s úkoly, jako:
 
@@ -32,7 +29,7 @@ Vlastní filtry lze vytvořit pro zpracování vyskytující aspekty. Filtry mů
 
 [Zobrazit nebo stáhnout ukázky z Githubu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).
 
-## <a name="how-do-filters-work"></a>Jak fungují filtry?
+## <a name="how-filters-work"></a>Jak fungují filtry
 
 Filtry se spouští v rámci *kanálu vyvolání akce MVC*, která se někdy označují jako *filtrovat*.  Spuštění kanálu filtru po MVC vybere akci pro spuštění.
 
@@ -46,7 +43,7 @@ Různé fáze v kanálu filtr spuštění jednotlivých typů filtrů.
 
 * [Filtry prostředků](#resource-filters) první má požadavek zpracovat po povolení.  Mohou spouštět kód před rest kanálu filtr, a po zbytek kanálu byla dokončena. Jsou užitečné k implementaci ukládání do mezipaměti nebo jinak zkrácenou filtr kanálu z důvodů výkonu. Spuštění před vazby modelu, takže ovlivňují vazby modelu.
 
-* [Filtry akcí](#action-filters) může spustit kód bezprostředně před a po volání metody jednotlivé akce. Můžete být použít k manipulaci s argumenty předané do akce a výsledek vrácený z akce.
+* [Filtry akcí](#action-filters) může spustit kód bezprostředně před a po volání metody jednotlivé akce. Můžete být použít k manipulaci s argumenty předané do akce a výsledek vrácený z akce. Filtry akce nejsou podporovány v stránky Razor.
 
 * [Filtry výjimek](#exception-filters) umožňují použití globálních zásad pro neošetřených výjimek, ke kterým dojde před nic se zapsala do datové části odpovědi.
 
@@ -68,14 +65,13 @@ Asynchronní filtry definovat jeden na*fáze*ExecutionAsync metody. Tato metoda 
 
 [!code-csharp[](./filters/sample/src/FiltersSample/Filters/SampleAsyncActionFilter.cs?highlight=6,8-10,13)]
 
-Implementovat rozhraní pro několik fází filtru v jednu třídu. Například [ActionFilterAttribute](/dotnet/api/microsoft.aspnetcore.mvc.filters.actionfilterattribute?view=aspnetcore-2.0) implementuje třída `IActionFilter`, `IResultFilter`a jejich ekvivalenty asynchronní.
+Implementovat rozhraní pro několik fází filtru v jednu třídu. Například <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute> implementuje třída `IActionFilter`, `IResultFilter`a jejich ekvivalenty asynchronní.
 
 > [!NOTE]
-> Implementace **buď** synchronní nebo asynchronní verzi rozhraní filtru, ne obojí. Rozhraní framework nejprve zkontroluje a zjistěte, jestli implementuje rozhraní asynchronní filtr, a pokud ano, který volá. Pokud tomu tak není, volá rozhraní synchronní metody. Pokud byste chtěli implementace obě rozhraní na jednu třídu, by byla volána pouze asynchronní metody. Při používání abstraktních tříd jako [ActionFilterAttribute](/dotnet/api/microsoft.aspnetcore.mvc.filters.actionfilterattribute?view=aspnetcore-2.0) by se mělo přepsat pouze metody synchronní nebo asynchronní metody pro každý typ filtru.
+> Implementace **buď** synchronní nebo asynchronní verzi rozhraní filtru, ne obojí. Rozhraní framework nejprve zkontroluje a zjistěte, jestli implementuje rozhraní asynchronní filtr, a pokud ano, který volá. Pokud tomu tak není, volá rozhraní synchronní metody. Pokud byste chtěli implementace obě rozhraní na jednu třídu, by byla volána pouze asynchronní metody. Při používání abstraktních tříd jako <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute> by se mělo přepsat pouze metody synchronní nebo asynchronní metody pro každý typ filtru.
 
 ### <a name="ifilterfactory"></a>IFilterFactory
-
-[IFilterFactory](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory) implementuje [IFilterMetadata](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifiltermetadata). Proto `IFilterFactory` instance může sloužit jako `IFilterMetadata` instance kdekoli v kanálu filtru. Když rozhraní připraví k vyvolání tohoto filtru, pokusí se vysílat na `IFilterFactory`. Pokud je úspěšná tohoto přetypování [CreateInstance](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory.createinstance) metoda je volána k vytvoření `IFilterMetadata` instanci, která bude volána. To poskytuje flexibilní návrhu, protože kanál přesné filtru nemusí být explicitně nastaveno při spuštění aplikace.
+[IFilterFactory](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory) implementuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>. Proto `IFilterFactory` instance může sloužit jako `IFilterMetadata` instance kdekoli v kanálu filtru. Když rozhraní připraví k vyvolání tohoto filtru, pokusí se vysílat na `IFilterFactory`. Pokud je úspěšná tohoto přetypování [CreateInstance](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory.createinstance) metoda je volána k vytvoření `IFilterMetadata` instanci, která bude volána. To poskytuje flexibilní návrhu, protože kanál přesné filtru nemusí být explicitně nastaveno při spuštění aplikace.
 
 Můžete implementovat `IFilterFactory` na vlastní atribut implementace jako jiný přístup k vytváření filtrů:
 
@@ -280,6 +276,9 @@ Filtry prostředků jsou užitečné pro zkrácenou většinu práce, kterou pro
 
 ## <a name="action-filters"></a>Filtry akcí
 
+> [!IMPORTANT]
+> Filtry akce provést **není** platí pro stránky Razor. Stránky Razor podporuje <xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter> a <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncPageFilter> . Další informace najdete v tématu [metody filtrování pro Razor Pages](xref:razor-pages/filter).
+
 *Filtry akcí*:
 
 * Implementovat buď `IActionFilter` nebo `IAsyncActionFilter` rozhraní.
@@ -289,13 +288,13 @@ Tady je ukázkový filtr akce:
 
 [!code-csharp[](./filters/sample/src/FiltersSample/Filters/SampleActionFilter.cs?name=snippet_ActionFilter)]
 
-[ActionExecutingContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.actionexecutingcontext) poskytuje následující vlastnosti:
+<xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext> Poskytuje následující vlastnosti:
 
 * `ActionArguments` – umožňuje pracovat s vstupy pro akci.
 * `Controller` – umožňuje pracovat s instance kontroleru. 
 * `Result` -nastavení tohoto zkratům provádění metody akce a filtry následné akce. Došlo k výjimce také zabrání spuštění metody akce a následné filtry, ale je považováno za selhání místo úspěšný výsledek.
 
-[ActionExecutedContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.actionexecutedcontext) poskytuje `Controller` a `Result` plus následující vlastnosti:
+<xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext> Poskytuje `Controller` a `Result` plus následující vlastnosti:
 
 * `Canceled` -bude hodnota true v případě provedení akce byla zkratována jiný filtr.
 * `Exception` -bude být jiná než null, pokud akci nebo filtr následné akce došlo k výjimce. Nastavení této vlastnosti na hodnotu null, efektivně '' výjimku zpracovává, a `Result` budou spuštěny, jako kdyby byly vrátil z metody akce normálně.
@@ -391,4 +390,5 @@ Middleware filtry třídí ve stejné fázi kanálu filtr jako prostředek filtr
 
 ## <a name="next-actions"></a>Další akce
 
-Můžete experimentovat s filtry, [stáhnout, testování a tuto ukázku upravíte](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).
+* Zobrazit [metody filtrování pro Razor Pages](xref:razor-pages/filter)
+* Můžete experimentovat s filtry, [stáhnout, otestovat a upravit na Githubu ukázky](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).
