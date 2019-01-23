@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: a3ac1ac389892681e8c122d569e6325353ed6e88
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
-ms.translationtype: HT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341677"
----
 # [Dokumentace k ASP.NET Core](/aspnet/#pivot=core)
 
 # Přehled
@@ -25,6 +17,8 @@ ms.locfileid: "54341677"
 ## Aplikace Web API
 ### [Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
 ### [Web API s MongoDB](xref:tutorials/first-mongo-app)
+### [Back-end pro mobilní zařízení](xref:mobile/native-mobile-backend)
+
 ## Webové aplikace
 ### [Stránky Razor](xref:tutorials/razor-pages/index)
 ### [MVC](xref:tutorials/first-mvc-app/index)
@@ -32,7 +26,6 @@ ms.locfileid: "54341677"
 ## Webové aplikace v reálném čase
 ### [SignalR s JavaScriptem](xref:tutorials/signalr)
 ### [SignalR s TypeScriptem](xref:tutorials/signalr-typescript-webpack)
-## [Vytváření back-endových služeb pro nativní mobilní aplikace](xref:mobile/native-mobile-backend)
 
 ## Přístup k datům
 ### [EF Core s Razor Pages](xref:data/ef-rp/index)
@@ -50,16 +43,13 @@ ms.locfileid: "54341677"
 ## [Možnosti](xref:fundamentals/configuration/options)
 ## [Protokolování](xref:fundamentals/logging/index)
 ## [Ošetření chyb](xref:fundamentals/error-handling)
-## Middleware
-### [Přehled](xref:fundamentals/middleware/index)
-### [Middleware založený na objektu pro vytváření](xref:fundamentals/middleware/extensibility)
-### [Middleware založený na objektu pro vytváření s kontejnerem jiného výrobce](xref:fundamentals/middleware/extensibility-third-party-container)
+## [Middleware](xref:fundamentals/middleware/index)
 ## Hostitel
 ### [Přehled](xref:fundamentals/host/index)
 ### [Webový hostitel ](xref:fundamentals/host/web-host)
 ### [Obecný hostitel](xref:fundamentals/host/generic-host)
 ## [Servery](xref:fundamentals/servers/index)
-## [Iniciování požadavků HTTP](xref:fundamentals/http-requests)
+## [Vytváření požadavků HTTP](xref:fundamentals/http-requests)
 
 # Webové aplikace
 ## Razor Pages
@@ -286,6 +276,7 @@ ms.locfileid: "54341677"
 ### [Vytváření imagí Dockeru](/dotnet/articles/core/docker/building-net-docker-images)
 ### [Visual Studio Tools](xref:host-and-deploy/docker/visual-studio-tools-for-docker)
 ### [Publikování do image Dockeru](/azure/vs-azure-tools-docker-hosting-web-apps-in-docker)
+### [Ukázkové image Dockeru](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md)
 ## [Konfigurace proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer)
 ## [Hostování ve webové farmě](xref:host-and-deploy/web-farm)
 ## [Publikační profily v sadě Visual Studio](xref:host-and-deploy/visual-studio-publish-profiles)
@@ -373,7 +364,7 @@ ms.locfileid: "54341677"
 #### [Zprostředkovatelé dočasné ochrany dat](xref:security/data-protection/implementation/key-storage-ephemeral)
 ### Kompatibilita
 #### [Přehled](xref:security/data-protection/compatibility/index)
-#### [Nahrazení <machineKey> v ASP.NET](xref:security/data-protection/compatibility/replacing-machinekey)
+#### [Nahrazení elementu machineKey v ASP.NET](xref:security/data-protection/compatibility/replacing-machinekey)
 ## [Ochrana tajných kódů při vývoji](xref:security/app-secrets)
 ## [Vynucení protokolu HTTPS](xref:security/enforcing-ssl)
 ## [Podpora obecného nařízení EU o ochraně osobních údajů (GDPR)](xref:security/gdpr)
@@ -396,12 +387,14 @@ ms.locfileid: "54341677"
 ## [Diagnostické nástroje](xref:performance/diagnostic-tools)
 ## [Zátěžové testování](xref:test/loadtests)
 
-# Další témata
-## [Globalizace a lokalizace](xref:fundamentals/localization)
-## [Lokalizační soubory Portable Object s Orchard Core](xref:fundamentals/portable-object-localization)
+# Globalizace a lokalizace
+## [Přehled](xref:fundamentals/localization)
+## [Lokalizace souborů Portable Object](xref:fundamentals/portable-object-localization)
+
+# Upřesnit
 ## [Přepisování adres URL](xref:fundamentals/url-rewriting)
 ## [Zprostředkovatelé souborů](xref:fundamentals/file-providers)
-## [Funkce požadavků](xref:fundamentals/request-features)
+## [Rozhraní žádost-funkce](xref:fundamentals/request-features)
 ## [Access HttpContext](xref:fundamentals/httpcontext)
 ## [Změna tokenů](xref:fundamentals/change-tokens)
 ## [Otevřené webové rozhraní pro .NET (OWIN)](xref:fundamentals/owin)
@@ -411,6 +404,8 @@ ms.locfileid: "54341677"
 ## [Metabalíček Microsoft.AspNetCore.All](xref:fundamentals/metapackage)
 ## [Protokolování funkcemi třídy LoggerMessage](xref:fundamentals/logging/loggermessage)
 ## [Sledovací proces souboru](xref:tutorials/dotnet-watch)
+### [Middleware založený na objektu pro vytváření](xref:fundamentals/middleware/extensibility)
+### [Middleware založený na objektu pro vytváření s kontejnerem jiného výrobce](xref:fundamentals/middleware/extensibility-third-party-container)
 
 # Migrace
 ## [Z verze 2.2 do verze 3.0](xref:migration/22-to-30)
