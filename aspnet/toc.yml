@@ -1,6 +1,4 @@
 items:
-- name: Dokumentace k ASP.NET
-  href: /aspnet/#pivot=aspnet
 - name: Přehled ASP.NET
   href: overview.md
 - name: Kurzy
@@ -3812,9 +3810,9 @@ items:
     href: whitepapers/whats-new-in-aspnet-45-and-visual-studio-2012.md
 - name: referenční dokumentace k rozhraní API
   href: api-ref.md
-ms.openlocfilehash: e96b99f5a6432ae359e1b8543701e4e2d49171a4
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: cb887e46701baa93d1deed63eb01c7c0dc1faa55
+ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341846"
+ms.lasthandoff: 01/08/2019
+ms.locfileid: "54099309"
