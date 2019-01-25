@@ -4,17 +4,17 @@ title: 'Kurz: Implementace funkcí CRUD s rozhraním Entity Framework v architek
 description: Zkontrolovat a upravit vytvořit, číst, aktualizovat, odstranění (CRUD) kód, který automaticky vytvoří základní kostry aplikace MVC v kontrolerů a zobrazení.
 author: tdykstra
 ms.author: riande
-ms.date: 01/11/2019
+ms.date: 01/22/2019
 ms.topic: tutorial
 ms.assetid: a2f70ba4-83d1-4002-9255-24732726c4f2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 9c6f8f3a2ffc0a9c5e15111ae47c331dab24ff43
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
-ms.translationtype: MT
+ms.openlocfilehash: 42971b4e15c4aaf85d0ea50bf63934ba4a78ed91
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341717"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836231"
 ---
 # <a name="tutorial-implement-crud-functionality-with-the-entity-framework-in-aspnet-mvc"></a>Kurz: Implementace funkcí CRUD s rozhraním Entity Framework v architektuře ASP.NET MVC
 
@@ -245,6 +245,10 @@ Základní `Controller` implementuje třída již `IDisposable` rozhraní, takž
 ## <a name="handle-transactions"></a>Zpracování transakcí
 
 Ve výchozím nastavení rozhraní Entity Framework implementuje implicitně transakce. V situacích, kdy provést změny na více řádcích nebo tabulky a poté zavolejte `SaveChanges`, Entity Framework automaticky zajišťuje, že všechny změny úspěšné nebo se všechny nezdaří. Pokud některé změny nejprve dokončení a potom se stane chyba, tyto změny se automaticky vrátí zpět. Pro scénáře, kde je nutné mít lepší kontrolu&mdash;například, pokud chcete zahrnout operací provést v transakci mimo rozhraní Entity Framework&mdash;naleznete v tématu [práce s transakcí](/ef/ef6/saving/transactions).
+
+## <a name="get-the-code"></a>Získat kód
+
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
 ## <a name="additional-resources"></a>Další zdroje
 

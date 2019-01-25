@@ -4,17 +4,17 @@ title: 'Kurz: Začínáme s Entity Framework 6 Code First pomocí MVC 5 | Dokume
 description: V této sérii kurzů se dozvíte, jak sestavit aplikaci ASP.NET MVC 5, která pro přístup k datům používá Entity Framework 6.
 author: tdykstra
 ms.author: riande
-ms.date: 01/10/2019
+ms.date: 01/22/2019
 ms.topic: tutorial
 ms.assetid: 00bc8b51-32ed-4fd3-9745-be4c2a9c1eaf
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 5d524c981af2d9d8f44254c61631937e6f049cdb
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
-ms.translationtype: MT
+ms.openlocfilehash: b72a4ae1a89fd47d9c6ff63ccd45b26324508a63
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341703"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836178"
 ---
 # <a name="tutorial-get-started-with-entity-framework-6-code-first-using-mvc-5"></a>Kurz: Začínáme s Entity Framework 6 Code First pomocí MVC 5
 
@@ -286,6 +286,11 @@ Množství kódu, které jste měli pro zápis v pořadí pro Entity Framework u
 - Vlastnost je interpretován jako vlastnost cizího klíče, pokud je název *&lt;název navigační vlastnosti&gt;&lt;vlastnost primárního klíče název&gt;* (například `StudentID` pro `Student` navigační vlastnost, protože `Student` je primární klíč entity `ID`). Vlastnosti cizího klíče může také být pojmenován stejně jednoduše &lt;vlastnost primárního klíče název&gt; (například `EnrollmentID` od `Enrollment` je primární klíč entity `EnrollmentID`).
 
 Už víte, že konvence lze přepsat. Například jste zadali, že by neměla být pluralized názvy tabulek a později uvidíte, jak lze explicitně označit vlastnost jako vlastnost cizího klíče.
+
+## <a name="get-the-code"></a>Získat kód
+
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+
 ## <a name="additional-resources"></a>Další zdroje
 
 Další informace o EF 6 najdete v těchto článcích:

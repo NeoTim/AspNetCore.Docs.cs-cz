@@ -5,14 +5,14 @@ description: Zjistěte, jak začít pracovat s objekty Websocket v ASP.NET Core.
 monikerRange: '>= aspnetcore-1.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 11/06/2018
+ms.date: 01/17/2019
 uid: fundamentals/websockets
-ms.openlocfilehash: 6c32269181ea3311c4aea99c08a1c043e7833b05
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 76acb9c96ed5e8bbbaf39eeb6cb23307bb44fb8d
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341446"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836855"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>Webové sockety v ASP.NET Core
 
@@ -144,6 +144,12 @@ Předá kódu uvedeného výše, který přijme žádost protokolu WebSocket `We
 Při přijímání připojení soketu websocket bylo před zahájením smyčky, middleware kanálu se ukončí. Po zavření soketu, unwinds kanálu. To znamená požadavek se zastaví v budoucnu v kanálu při přijetí objekt WebSocket. Když je smyčka dokončena, je uzavřený soket žádost pokračuje zálohování kanálu.
 
 ::: moniker range=">= aspnetcore-2.2"
+
+### <a name="handle-client-disconnects"></a>Odpojení popisovač klienta
+
+Server není informována automaticky, když se klient odpojí z důvodu ztráty připojení. Server přijme zprávu o odpojení, pouze pokud klient odešle, nejde provést, pokud dojde ke ztrátě připojení k Internetu. Pokud chcete provést určitou akci, pokud k tomu dojde, nastavte vypršení časového limitu po nic je přijatou od klienta v rámci určité časové okno.
+
+Pokud klient není vždy zasílání zpráv a nechcete konec časového limitu připojení pouze z důvodu nepovede nečinné připojení, mají klienta pomocí časovače odešlete zprávu ping každých X sekund. Na serveru, pokud nebyla zpráva dorazila do 2\*X sekund po předchozí, ukončit připojení a hlásí, že klient byl odpojen. Počkejte, až dvakrát předpokládaného časového intervalu ponechte další čas zpoždění v síti, které mohou zdržet na zprávu ping.
 
 ### <a name="websocket-origin-restriction"></a>Omezení objektu websocket na straně zdroje
 

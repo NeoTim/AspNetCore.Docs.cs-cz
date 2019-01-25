@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/older-versions/scaleout-with-windows-azure-service-bus
 title: Škálování aplikace SignalR službou Azure Service Bus (SignalR 1.x) | Dokumentace Microsoftu
-author: MikeWasson
+author: bradygaster
 description: ''
-ms.author: riande
+ms.author: bradyg
 ms.date: 05/01/2013
 ms.assetid: 501db899-e68c-49ff-81b2-1dc561bfe908
 msc.legacyurl: /signalr/overview/older-versions/scaleout-with-windows-azure-service-bus
 msc.type: authoredcontent
-ms.openlocfilehash: 687d3d7787baa69410ee35d651a029c69d28c70b
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 77186f43b38a8423a1cbd4cf42723c5b9ccdd953
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53286997"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837907"
 ---
 <a name="signalr-scaleout-with-azure-service-bus-signalr-1x"></a>Škálování aplikace SignalR službou Azure Service Bus (SignalR 1.x)
 ====================
@@ -134,7 +134,7 @@ Pokud je toto vaše první čas publikování na platformě Windows Azure, je nu
 
 Klikněte na tlačítko **Import** a vyberte soubor nastavení publikování, který jste stáhli.
 
-Klikněte na tlačítko **Další**. V **nastavení publikování** dialogového okna, v části **Cloudovou službu**, vyberte cloudovou službu, kterou jste vytvořili dříve.
+Klikněte na **Další**. V **nastavení publikování** dialogového okna, v části **Cloudovou službu**, vyberte cloudovou službu, kterou jste vytvořili dříve.
 
 ![](scaleout-with-windows-azure-service-bus/_static/image12.png)
 

@@ -1,20 +1,20 @@
 ---
 uid: signalr/overview/getting-started/tutorial-high-frequency-realtime-with-signalr
 title: 'Kurz: Vytvoření aplikace v reálném čase vysokou frekvencí s funkcí SignalR 2 | Dokumentace Microsoftu'
-author: pfletcher
+author: bradygaster
 description: Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá knihovnu ASP.NET SignalR k zajištění funkce zasílání zpráv vysokou frekvencí.
-ms.author: riande
-ms.date: 01/02/2019
+ms.author: bradyg
+ms.date: 01/22/2019
 ms.assetid: 9f969dda-78ea-4329-b1e3-e51c02210a2b
 msc.legacyurl: /signalr/overview/getting-started/tutorial-high-frequency-realtime-with-signalr
 msc.type: authoredcontent
 ms.topic: tutorial
-ms.openlocfilehash: 85503db0b41be6f87136627667d6dd71f0d4f609
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 44aaa2b0c059de310e963f642fa56c2f00a7e443
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098587"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836724"
 ---
 # <a name="tutorial-create-high-frequency-real-time-app-with-signalr-2"></a>Kurz: Vytvoření aplikace v reálném čase vysokou frekvencí s funkcí SignalR 2
 
@@ -223,6 +223,10 @@ Aplikace je téměř dokončena, ale jsme dokonce vytvářet jeden další vylep
 Pohyb tvaru v druhém okně zobrazí méně přehrávat nepravidelně. Aplikace argument pohyb interpolaci přes čas Místo nastavování jednou za příchozí zprávy.
 
 Tento kód přesune tvaru z původního umístění do nové. Server poskytuje pozici obrazce v průběhu intervalu animace. V tomto případě to je 100 ms. Aplikace vymaže všechny předchozí animace spuštěna s tvarem před zahájením nové animace.
+
+## <a name="get-the-code"></a>Získat kód
+
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/SignalR-20-MoveShape-Demo-6285b83a)
 
 ## <a name="additional-resources"></a>Další zdroje
 

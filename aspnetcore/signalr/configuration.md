@@ -1,24 +1,24 @@
 ---
 title: Konfigurace jádra SignalR technologie ASP.NET
-author: tdykstra
+author: bradygaster
 description: Zjistěte, jak nakonfigurovat aplikace SignalR technologie ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 09/06/2018
 uid: signalr/configuration
-ms.openlocfilehash: 855446003ae9d994854d4d8bb7d0f542a22734e4
-ms.sourcegitcommit: f43f430a166a7ec137fcad12ded0372747227498
+ms.openlocfilehash: bb18ba242584afa7181dcc19a5295f86996aeaa3
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2018
-ms.locfileid: "49391099"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837517"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>Konfigurace jádra SignalR technologie ASP.NET
 
 ## <a name="jsonmessagepack-serialization-options"></a>Serializace JSON/MessagePack možnosti
 
-Funkce SignalR technologie ASP.NET Core pro kódování zpráv podporuje dva protokoly: [JSON](https://www.json.org/) a [MessagePack](https://msgpack.org/index.html). Všechny protokoly, které obsahuje možnosti konfigurace serializace.
+Funkce SignalR technologie ASP.NET Core podporuje dva protokoly pro kódování zprávy: [JSON](https://www.json.org/) a [MessagePack](https://msgpack.org/index.html). Všechny protokoly, které obsahuje možnosti konfigurace serializace.
 
 Serializace JSON lze nastavit na serveru pomocí [AddJsonProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.jsonprotocoldependencyinjectionextensions.addjsonprotocol) metody rozšíření, které mohou být přidány po [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr) v vaše `Startup.ConfigureServices` metody. `AddJsonProtocol` Metoda přijímá delegát, který přijímá `options` objektu. [PayloadSerializerSettings](/dotnet/api/microsoft.aspnetcore.signalr.jsonhubprotocoloptions.payloadserializersettings) vlastnost k tomuto objektu je JSON.NET `JsonSerializerSettings` objekt, který můžete použít ke konfiguraci serializace argumenty a návratové hodnoty. Najdete v článku [JSON.NET dokumentaci](https://www.newtonsoft.com/json/help/html/Introduction.htm) další podrobnosti.
 

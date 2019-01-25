@@ -1,18 +1,18 @@
 ---
 title: Protokol MessagePack rozbočovače signalr pro ASP.NET Core
-author: tdykstra
+author: bradygaster
 description: Přidáte protokol MessagePack rozbočovače SignalR technologie ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 06/04/2018
 uid: signalr/messagepackhubprotocol
-ms.openlocfilehash: 0874afc5493eca5d43dfde30bb28aedc1f193744
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
+ms.openlocfilehash: 2852ca93c62e706e9a5203625822c2fb954fd2b8
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49325574"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54835606"
 ---
 # <a name="use-messagepack-hub-protocol-in-signalr-for-aspnet-core"></a>Protokol MessagePack rozbočovače signalr pro ASP.NET Core
 

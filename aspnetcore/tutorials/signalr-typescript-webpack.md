@@ -2,16 +2,16 @@
 title: Použití funkce SignalR technologie ASP.NET Core s TypeScript a Webpacku
 author: ssougnez
 description: V tomto kurzu nakonfigurujete Webpacku k vytvoření balíčku a sestavit webovou aplikaci funkce SignalR technologie ASP.NET Core, jejichž klienta je napsána v TypeScript.
-ms.author: scaddie
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/30/2018
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 92709beb7a99289b8639135aab9d821937825103
-ms.sourcegitcommit: a16352c1c88a71770ab3922200a8cd148fb278a6
+ms.openlocfilehash: 8292ab2e0ad1f5c67ac7f15c280b49700f6717ad
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53335283"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836321"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>Použití funkce SignalR technologie ASP.NET Core s TypeScript a Webpacku
 
@@ -41,7 +41,7 @@ Konfigurace sady Visual Studio k vyhledání npm v *cesta* proměnné prostřed�
 1. Přejděte do **nástroje** > **možnosti** > **projekty a řešení** > **webové správy balíčků**  >  **Externí webové nástroje**.
 1. Vyberte *$(PATH)* položku seznamu. Klikněte na šipku nahoru přesunout položku na druhém pozici v seznamu.
 
-    ![Konfigurace sady Visual Studio](signalr-typescript-webpack/_static/signalr-configure-path-visual-studio.png)
+    ![Visual Studio Configuration](signalr-typescript-webpack/_static/signalr-configure-path-visual-studio.png)
 
 Konfigurace Visual Studio je dokončen. Je čas vytvoření projektu.
 

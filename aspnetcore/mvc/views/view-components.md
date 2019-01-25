@@ -5,12 +5,12 @@ description: Zjistěte, jak komponenty zobrazení se používají v ASP.NET Core
 ms.author: riande
 ms.date: 12/03/2018
 uid: mvc/views/view-components
-ms.openlocfilehash: 5812abad80cd906d6b9a7175bd7cdefd03a99eb3
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 156db610d99eaf8a8042a4c7c85267d521a20fd4
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861326"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836698"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazení komponenty v ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ## <a name="view-components"></a>Komponenty zobrazení
 
-Zobrazení komponenty jsou podobné částečná zobrazení, ale jsou výrazně výkonnější. Zobrazení komponenty nepoužívejte vazby modelu a pouze závisí na poskytnutý při volání do něj data. Tento článek byl zapsán pomocí ASP.NET Core MVC, ale zobrazení komponenty také pracovat se stránkami Razor.
+Zobrazení komponenty jsou podobné částečná zobrazení, ale jsou výrazně výkonnější. Zobrazení komponenty nepoužívejte vazby modelu a pouze závisí na poskytnutý při volání do něj data. Tento článek byl zapsán pomocí kontrolerů a zobrazení, ale zobrazení komponenty také pracovat se stránkami Razor.
 
 Zobrazení komponenty:
 
@@ -140,7 +140,7 @@ V tomto příkladu je součásti zobrazení volání přímo z kontroleru:
 
 [!code-csharp[](view-components/sample/ViewCompFinal/Controllers/ToDoController.cs?name=snippet_IndexVC)]
 
-## <a name="walkthrough-creating-a-simple-view-component"></a>Návod: Vytvoření jednoduché zobrazení komponenty
+## <a name="walkthrough-creating-a-simple-view-component"></a>Průvodce: Vytvoření jednoduché zobrazení komponenty
 
 [Stáhněte si](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a testování počátečního kódu. Je to Jednoduchý projekt s `Todo` kontroler, který zobrazí seznam *Todo* položky.
 
@@ -206,7 +206,7 @@ Kopírovat *Views/Shared/Components/PriorityList/Default.cshtml* soubor k zobraz
 
 [!code-cshtml[](../../mvc/views/view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/PVC.cshtml?highlight=3)]
 
-Aktualizace *Views/TodoList/Index.cshtml*:
+Update *Views/TodoList/Index.cshtml*:
 
 <!-- Views/TodoList/Index.cshtml is never imported, so change to test tutorial -->
 

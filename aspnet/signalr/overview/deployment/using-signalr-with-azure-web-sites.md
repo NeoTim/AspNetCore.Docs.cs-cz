@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/deployment/using-signalr-with-azure-web-sites
 title: Použití aplikace SignalR s webovými aplikacemi ve službě Azure App Service | Dokumentace Microsoftu
-author: pfletcher
+author: bradygaster
 description: Tento dokument popisuje, jak nakonfigurovat aplikaci s knihovnou SignalR, která běží na Microsoft Azure. V tomto kurzu použili verze softwaru, Visual Studio 2013 nebo Vis....
-ms.author: riande
+ms.author: bradyg
 ms.date: 07/01/2015
 ms.assetid: 2a7517a0-b88c-4162-ade3-9bf6ca7062fd
 msc.legacyurl: /signalr/overview/deployment/using-signalr-with-azure-web-sites
 msc.type: authoredcontent
-ms.openlocfilehash: da69e1aba1b56d69ad8e710cddd2b492168f1255
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 13eb5d29a2c40f52aed4b569ec8695f014a05f03
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287752"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837699"
 ---
 <a name="using-signalr-with-web-apps-in-azure-app-service"></a>Použití aplikace SignalR s webovými aplikacemi ve službě Azure App Service
 ====================
@@ -26,7 +26,7 @@ podle [Patrick Fletcher](https://github.com/pfletcher)
 > ## <a name="software-versions-used-in-the-tutorial"></a>V tomto kurzu použili verze softwaru
 >
 >
-> - [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013) nebo Visual Studio 2012
+> - [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013) or Visual Studio 2012
 > - .NET 4.5
 > - Funkce SignalR verze 2
 > - Azure SDK 2.3 pro Visual Studio 2013 nebo 2012

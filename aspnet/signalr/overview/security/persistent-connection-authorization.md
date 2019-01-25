@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/security/persistent-connection-authorization
 title: Ověřování a autorizace trvalých připojení SignalR | Dokumentace Microsoftu
-author: pfletcher
+author: bradygaster
 description: Toto téma popisuje, jak vynutit autorizaci na trvalé připojení. Obecné informace o integraci zabezpečení do aplikace SignalR...
-ms.author: riande
+ms.author: bradyg
 ms.date: 06/10/2014
 ms.assetid: e264677b-9c01-47ec-94f9-3cd8f08f94af
 msc.legacyurl: /signalr/overview/security/persistent-connection-authorization
 msc.type: authoredcontent
-ms.openlocfilehash: bbbcb5593fb265eca4fb261d378532047d53e674
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 7dab28f4720b34082f71e487c64af88a8ba01e6c
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287370"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54835619"
 ---
 <a name="authentication-and-authorization-for-signalr-persistent-connections"></a>Ověřování a autorizace trvalých připojení SignalR
 ====================

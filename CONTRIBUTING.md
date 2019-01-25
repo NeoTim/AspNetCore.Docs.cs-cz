@@ -34,7 +34,7 @@ Pro každý soubor Markdownu může existovat složka pro bitové kopie a složk
 ![description of image for alt attribute](configuration/index/_static/imagename.png)
 ```
 
-Všechny bitové kopie by měl mít [alternativní text (alt)](https://wikipedia.org/wiki/Alt_attribute). Rady k zadávání alternativní text, najdete v online prostředků, jako například [WebAIM: alternativní Text](https://webaim.org/techniques/alttext/).
+Všechny bitové kopie by měl mít [alternativní text (alt)](https://wikipedia.org/wiki/Alt_attribute). Rady k zadávání alternativní text, najdete v online prostředků, jako například [WebAIM: Alternativní Text](https://webaim.org/techniques/alttext/).
 
 Používat malá písmena pro názvy souborů Markdown a názvy obrázkových souborů.
 
@@ -124,22 +124,20 @@ DocFX vyžaduje:
 
 ### <a name="mono-instructions"></a>Pokyny k mono
 
-* Instalace součásti Mono pomocí Homebrew: `brew install mono`.
+* Instalace součásti Mono pomocí Homebrew:
+
+  ```
+  brew install mono
+  ```
 * Stáhněte si [nejnovější verzi DocFX](https://github.com/dotnet/docfx/releases).
-* Extrahovat do `\bin\docfx`.
-* Vytvořte alias pro **docfx**:
+* Extrahovat archiv do *$HOME/bin/docfx*.
+* Vytvoření páru aliasy pro **docfx** v prostředí bash. První alias sloužící k sestavení v dokumentaci. Druhý alias umožňuje sestavovat a dodávat v dokumentaci.
 
   ```
-  function docfx {
-    mono $HOME/bin/docfx/docfx.exe
-  }
-    
-  function docfx-serve {
-    mono $HOME/bin/docfx/docfx.exe serve _site
-  }
+  alias docfx='mono $HOME/bin/docfx/docfx.exe'
+  alias docfx-serve='mono $HOME/bin/docfx/docfx.exe --serve'
   ```
-
-* Spustit `docfx` v *Docs\aspnet* nebo *Docs\aspnetcore* adresář k vytvoření webu. Spustit `docfx-serve` zobrazíte na webu `http://localhost:8080`.
+* Spustit `docfx` z kořene úložiště k vytvoření webu. Spustit `docfx-serve` zobrazíte na webu `http://localhost:8080`.
 
 ## <a name="voice-and-tone"></a>Pro hlasové hovory a tón
 

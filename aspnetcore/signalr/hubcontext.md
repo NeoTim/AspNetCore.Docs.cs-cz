@@ -1,18 +1,18 @@
 ---
 title: SignalR HubContext
-author: tdykstra
+author: bradygaster
 description: Zjistěte, jak použít službu SignalR HubContext technologie ASP.NET Core pro odesílání oznámení klientům mimo rozbočovač.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/01/2018
 uid: signalr/hubcontext
-ms.openlocfilehash: 6630a99a9598d99d029090b97ac18815459eacc4
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: 73cf2c9d30ed5e409a75827fdab1f22b20427884
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708345"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837933"
 ---
 # <a name="send-messages-from-outside-a-hub"></a>Odeslání zprávy z mimo rozbočovač
 

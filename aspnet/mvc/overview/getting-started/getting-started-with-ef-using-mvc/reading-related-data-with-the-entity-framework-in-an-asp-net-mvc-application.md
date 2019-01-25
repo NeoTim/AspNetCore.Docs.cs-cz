@@ -4,17 +4,17 @@ title: 'Kurz: Čtení souvisejících dat s EF v aplikaci ASP.NET MVC'
 description: V tomto kurzu budete čtení a zobrazení souvisejících dat – to znamená, že data, která načte Entity Framework do navigační vlastnosti.
 author: tdykstra
 ms.author: riande
-ms.date: 01/17/2019
+ms.date: 01/22/2019
 ms.topic: tutorial
 ms.assetid: 18cdd896-8ed9-4547-b143-114711e3eafb
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/reading-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 8660a75655b801364cce7c4b59847c5c00562a27
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
-ms.translationtype: MT
+ms.openlocfilehash: 5f45820cd7abd60e69c19368cee50e91e31a75a0
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396204"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836828"
 ---
 # <a name="tutorial-read-related-data-with-ef-in-an-aspnet-mvc-app"></a>Kurz: Čtení souvisejících dat s EF v aplikaci ASP.NET MVC
 
@@ -243,6 +243,10 @@ Pak explicitně načte každý `Enrollment` týkající entity `Student` entity:
 Všimněte si, že používáte `Collection` metoda načíst vlastnost kolekce, ale pro vlastnost, která obsahuje pouze jednu entitu, můžete použít `Reference` metody.
 
 Spustit kurzů vedených indexovou stránku a zobrazí se vám nijak neliší obsah zobrazený na stránce, i když jste změnili, jak načíst data.
+
+## <a name="get-the-code"></a>Získat kód
+
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
 
 ## <a name="additional-resources"></a>Další zdroje
 

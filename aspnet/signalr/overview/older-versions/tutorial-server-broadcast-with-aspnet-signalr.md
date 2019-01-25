@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/older-versions/tutorial-server-broadcast-with-aspnet-signalr
 title: 'Kurz: Serverové vysílání s knihovnou ASP.NET SignalR 1.x | Dokumentace Microsoftu'
-author: pfletcher
+author: bradygaster
 description: Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá knihovnu ASP.NET SignalR pro zajištění všesměrového vysílání funkce serveru. Serverové vysílání znamená, že to communic...
-ms.author: riande
+ms.author: bradyg
 ms.date: 04/10/2013
 ms.assetid: ab7b2554-956a-4f6d-b2a0-4ae0c62e8580
 msc.legacyurl: /signalr/overview/older-versions/tutorial-server-broadcast-with-aspnet-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: d5c09f6493c4dedb4fc2ecbf9055dd014ede71f2
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 258a55bf72c4b3425d001f478620fa9651952b3f
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53288044"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837465"
 ---
 <a name="tutorial-server-broadcast-with-aspnet-signalr-1x"></a>Kurz: Serverové vysílání s knihovnou ASP.NET SignalR 1.x
 ====================
@@ -117,7 +117,7 @@ Chcete pouze jedna instance třídy StockTicker ke spuštění na serveru, takž
 2. Pokud máte Visual Studio 2012 s [technologie ASP.NET a Web Tools 2012.2 Update](https://go.microsoft.com/fwlink/?LinkId=279941), klikněte na tlačítko **webové** pod **Visual C#** a vyberte **třída rozbočovače SignalR** šablony položky. Další možností je vybrat **třídy** šablony.
 3. Pojmenujte novou třídu *StockTickerHub.cs*a potom klikněte na tlačítko **přidat**.
 
-    ![Přidat StockTickerHub.cs](tutorial-server-broadcast-with-aspnet-signalr/_static/image5.png)
+    ![Add StockTickerHub.cs](tutorial-server-broadcast-with-aspnet-signalr/_static/image5.png)
 4. Nahraďte kód šablony následujícím kódem:
 
     [!code-csharp[Main](tutorial-server-broadcast-with-aspnet-signalr/samples/sample3.cs)]
@@ -297,7 +297,7 @@ Pro jakékoli dané připojení SignalR vybere nejlepší metody přenosu, kter�
 
     Pokud používáte Internet Explorer 10 na Windows 7 (službu IIS 7.5), je způsob přepravy iframe.
 
-    ![IE 10 konzoly, IIS 7.5](tutorial-server-broadcast-with-aspnet-signalr/_static/image11.png)
+    ![IE 10 Console, IIS 7.5](tutorial-server-broadcast-with-aspnet-signalr/_static/image11.png)
 
     V aplikaci Firefox nainstalujte doplněk Firebug okno konzoly. Pokud používáte Firefox 19 ve Windows 8 (IIS 8), je přepravy objekty Websocket.
 

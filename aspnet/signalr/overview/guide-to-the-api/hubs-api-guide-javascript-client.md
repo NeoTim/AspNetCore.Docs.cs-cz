@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/guide-to-the-api/hubs-api-guide-javascript-client
 title: Funkce SignalR technologie ASP.NET pokyny k rozhraní API Center – javascriptový klient | Dokumentace Microsoftu
-author: pfletcher
+author: bradygaster
 description: Tento dokument obsahuje úvod k používání rozhraní API rozbočovače pro funkci SignalR verze 2 v klientů JavaScript, například s prohlížeči a Windows Store (WinJS) applicat...
-ms.author: riande
+ms.author: bradyg
 ms.date: 01/15/2019
 ms.assetid: a9fd4dc0-1b96-4443-82ca-932a5b4a8ea4
 msc.legacyurl: /signalr/overview/guide-to-the-api/hubs-api-guide-javascript-client
 msc.type: authoredcontent
-ms.openlocfilehash: 12d675b6a2f2f6acdd8c3a5d0d27b5ad2fb1efc4
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 7689fa5b6a3e81c9f767831423eb3efad72e1ab3
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396308"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836594"
 ---
 <a name="aspnet-signalr-hubs-api-guide---javascript-client"></a>Funkce SignalR technologie ASP.NET pokyny k rozhraní API Center – javascriptový klient
 ====================

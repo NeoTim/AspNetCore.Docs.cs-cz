@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/performance/signalr-performance
 title: Výkon aplikace SignalR | Dokumentace Microsoftu
-author: pfletcher
+author: bradygaster
 description: Výkon aplikace SignalR
-ms.author: riande
+ms.author: bradyg
 ms.date: 06/10/2014
 ms.assetid: 3751f5e7-59db-4be0-a290-50abc24e5c84
 msc.legacyurl: /signalr/overview/performance/signalr-performance
 msc.type: authoredcontent
-ms.openlocfilehash: 9346f0ff9720361f07afe196f59305f0f38ffe8a
-ms.sourcegitcommit: 74e3be25ea37b5fc8b4b433b0b872547b4b99186
+ms.openlocfilehash: 3326c2e600854fc7a4435d96c45b04a6188d3937
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53287766"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836509"
 ---
 <a name="signalr-performance"></a>Výkon aplikace SignalR
 ====================

@@ -1,18 +1,18 @@
 ---
 title: Úvod do ASP.NET Core SignalR
-author: tdykstra
+author: bradygaster
 description: Zjistěte, jak funkce SignalR technologie ASP.NET Core library usnadňuje přidávání funkcí v reálném čase do aplikací.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/25/2018
 uid: signalr/introduction
-ms.openlocfilehash: da18837c690d2182589db5f486ae74e537ade931
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: 673efafce60dfa46cb99f9537fda2bca42bf9822
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425143"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836360"
 ---
 # <a name="introduction-to-aspnet-core-signalr"></a>Úvod do ASP.NET Core SignalR
 

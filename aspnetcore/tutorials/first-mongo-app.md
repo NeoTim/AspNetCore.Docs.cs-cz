@@ -4,14 +4,14 @@ author: prkhandelwal
 description: Tento kurz ukazuje vytvoření webového rozhraní ASP.NET Core API pomocí databáze MongoDB NoSQL.
 ms.author: scaddie
 ms.custom: mvc, seodec18
-ms.date: 11/29/2018
+ms.date: 01/23/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: bd9a36c5eb06542c820e71e937b8da10f735a0f8
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: 6375ae618816671bd9c64f038603747c64cdce56
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577835"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54835593"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
@@ -54,11 +54,11 @@ V tomto kurzu se naučíte:
 
 ## <a name="configure-mongodb"></a>Nakonfigurovat MongoDB
 
-Pokud používáte Windows, databáze MongoDB nainstaluje na *C:\Program Files\MongoDB* ve výchozím nastavení. Přidat *C:\Program Files\MongoDB\Server\<version_number > \bin* k `Path` proměnné prostředí. Tato změna umožňuje MongoDB přístup z libovolného místa na vývojovém počítači.
+Pokud používáte Windows, databáze MongoDB nainstaluje na *C:\\Program Files\\MongoDB* ve výchozím nastavení. Přidat *C:\\Program Files\\MongoDB\\Server\\\<version_number >\\bin* k `Path` proměnné prostředí. Tato změna umožňuje MongoDB přístup z libovolného místa na vývojovém počítači.
 
 Použití prostředí mongo v následujících krocích k vytvoření databáze, ujistěte se, kolekce a ukládat dokumenty. Další informace o příkazech prostředí mongo naleznete v tématu [práce s mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).
 
-1. Vyberte adresář na vývojovém počítači pro ukládání dat. Například *C:\BooksData* na Windows. Vytvořte adresář, pokud neexistuje. Prostředí mongo nebude vytvářet nové adresáře.
+1. Vyberte adresář na vývojovém počítači pro ukládání dat. Například *C:\\BooksData* na Windows. Vytvořte adresář, pokud neexistuje. Prostředí mongo nebude vytvářet nové adresáře.
 1. Otevřete příkazové okno. Spusťte následující příkaz pro připojení k MongoDB na výchozím portu 27017. Nezapomeňte nahradit `<data_directory_path>` s adresáři, kterou jste zvolili v předchozím kroku.
 
     ```console
@@ -188,7 +188,13 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
     [!code-csharp[](first-mongo-app/sample/BooksApi/Models/Book.cs)]
 
-Ve třídě předchozí `Id` vlastnost se vyžaduje pro mapování objektu Common Language Runtime (CLR) ke kolekci MongoDB. Další vlastnosti ve třídě jsou vybaveny `[BsonElement]` atribut. Hodnota atributu představuje název vlastnosti v kolekci MongoDB.
+Ve třídě předchozí `Id` vlastnost:
+
+* Je vyžadován pro mapování objektu Common Language Runtime (CLR) ke kolekci MongoDB.
+* Je opatřen poznámkou `[BsonId]` se označí jako primární klíč dokumentu této vlastnosti.
+* Je opatřen poznámkou `[BsonRepresentation(BsonType.ObjectId)]` povolit předávání parametru jako typ `string` místo `ObjectId`. Mongo zpracovává server převod z `string` k `ObjectId`.
+
+Další vlastnosti ve třídě, je opatřen poznámkou `[BsonElement]` atribut. Hodnota atributu představuje název vlastnosti v kolekci MongoDB.
 
 ## <a name="add-a-crud-operations-class"></a>Přidejte třídu operace CRUD
 

@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak nakonfigurovat modul ASP.NET Core pro hostování aplikací ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2019
+ms.date: 01/22/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: bb046b9b0eb97486605566eb7827f7ad9a9c9d92
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: 4eea360d08c79b889db00132109cf49492f84de6
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444334"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837777"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -286,7 +286,20 @@ Informace o konfiguraci dílčí aplikace služby IIS, naleznete v tématu <xref
 
 ### <a name="setting-environment-variables"></a>Nastavení proměnných prostředí
 
-Proměnné prostředí se dá nastavit pro proces v `processPath` atribut. Zadat proměnné prostředí s `environmentVariable` podřízený prvek `environmentVariables` prvek kolekce. Proměnné prostředí nastavené v této části přednost systémové proměnné prostředí.
+::: moniker range=">= aspnetcore-3.0"
+
+Proměnné prostředí se dá nastavit pro proces v `processPath` atribut. Zadat proměnné prostředí s `<environmentVariable>` podřízený prvek `<environmentVariables>` prvek kolekce. Proměnné prostředí nastavené v této části přednost systémové proměnné prostředí.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Proměnné prostředí se dá nastavit pro proces v `processPath` atribut. Zadat proměnné prostředí s `<environmentVariable>` podřízený prvek `<environmentVariables>` prvek kolekce.
+
+> [!WARNING]
+> Nastavte proměnné prostředí nastavené v této části konflikt pomocí proměnných prostředí systému se stejným názvem. Pokud proměnná prostředí je nastavena v obou *web.config* souborů a systému úroveň ve Windows, hodnotu z *web.config* souboru bude připojeno k hodnotu proměnné prostředí systému (pro například `ASPNETCORE_ENVIRONMENT: Development;Development`), která zabraňuje spuštění aplikace.
+
+::: moniker-end
 
 Následující příklad nastaví dvou proměnných prostředí. `ASPNETCORE_ENVIRONMENT` nakonfiguruje prostředí aplikace tak, aby `Development`. Vývojáři mohou dočasně nastaví tuto hodnotu *web.config* souboru, aby bylo možné vynutit [stránku výjimek pro vývojáře](xref:fundamentals/error-handling) načíst při ladění aplikace výjimky. `CONFIG_DIR` je příkladem proměnné prostředí, kam má vývojář zapisovat kód, který čte hodnoty při spuštění tvoří cestu pro načtení konfiguračního souboru aplikace.
 
@@ -320,6 +333,19 @@ Následující příklad nastaví dvou proměnných prostředí. `ASPNETCORE_ENV
   </environmentVariables>
 </aspNetCore>
 ```
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
+
+> [!NOTE]
+> Alternativa k nastavení prostředí přímo v *web.config* se zahrnou `<EnvironmentName>` vlastnost v profilu publikování (*.pubxml*) nebo soubor projektu. Tento přístup nastaví prostředí *web.config* při publikování projektu:
+>
+> ```xml
+> <PropertyGroup>
+>   <EnvironmentName>Development</EnvironmentName>
+> </PropertyGroup>
+> ```
 
 ::: moniker-end
 

@@ -5,12 +5,12 @@ description: Přidání zobrazení pro jednoduchou aplikaci ASP.NET Core MVC
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 321ffd6b0168d4befc950a58035d19561e879491
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: f241a19c8821019f327fb160f01fe01eca53c5d0
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249448"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836902"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do aplikace ASP.NET Core MVC
 
@@ -56,7 +56,7 @@ Přidat `Index` zobrazit `HelloWorldController`.
 * Přidat nový soubor, který *zobrazení/HelloWorld* název složky *Index.cshtml*.
 
 <!-- Mac -------------------------->
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na *zobrazení* složky a potom **Přidat > Nová složka** a pojmenujte složku *HelloWorld*.
 * Klikněte pravým tlačítkem na *zobrazení/HelloWorld* složky a potom **Přidat > Nový soubor**.
@@ -104,7 +104,7 @@ V předchozím kódu `asp-area` [atribut ukotvení pomocné rutiny značky](xref
 
 **Poznámka:**: `Movies` Kontroler není implementovaná. V tomto okamžiku `Movie App` odkaz není funkční.
 
-Uložte změny a vyberte **ochrany osobních údajů** odkaz. Všimněte si, jak se zobrazuje jako nadpis informace o kartě prohlížeče **ochrany osobních údajů – filmová aplikace** místo **ochrany osobních údajů – Mvc Movie**:
+Uložte změny a vyberte **ochrany osobních údajů** odkaz. Všimněte si, jak se zobrazuje jako nadpis informace o kartě prohlížeče **zásady ochrany osobních údajů – filmová aplikace** místo **zásady ochrany osobních údajů – Mvc Movie**:
 
 ![Ochrana osobních údajů karty](~/tutorials/first-mvc-app/adding-view/_static/about2.png)
 

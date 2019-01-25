@@ -1,19 +1,19 @@
 ---
 uid: signalr/overview/index
 title: Pokyny k SignalR | Dokumentace Microsoftu
-author: rick-anderson
+author: bradygaster
 description: ''
-ms.author: riande
+ms.author: bradyg
 ms.date: 10/24/2012
 ms.assetid: e57da75a-1d98-4e3c-8787-f1d7e1eb2d86
 msc.legacyurl: /signalr/overview
 msc.type: book
-ms.openlocfilehash: d22f9e561d8d22c2562bc2f723beb2189592fdda
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 2ab5094e863c5762c0c4c70a15f4da1088bc52e7
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756732"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837569"
 ---
 <a name="signalr-guidance"></a>Pokyny k SignalR
 ====================
@@ -23,9 +23,9 @@ ms.locfileid: "41756732"
     - [Podporované platformy](getting-started/supported-platforms.md)
     - [Kurz: Začínáme s knihovnou SignalR 2](getting-started/tutorial-getting-started-with-signalr.md)
     - [Kurz: Začínáme s knihovnou SignalR 2 a MVC 5](getting-started/tutorial-getting-started-with-signalr-and-mvc.md)
-    - [Kurz: Vysokofrekvenční reálný čas s knihovnou SignalR 2](getting-started/tutorial-high-frequency-realtime-with-signalr.md)
+    - [Kurz: Vysokofrekvenční Reálný čas s knihovnou SignalR 2](getting-started/tutorial-high-frequency-realtime-with-signalr.md)
     - [Kurz: Serverové vysílání s knihovnou SignalR 2](getting-started/tutorial-server-broadcast-with-signalr.md)
-    - [Praktické cvičené: Webové aplikace v reálném čase s knihovnou SignalR](getting-started/real-time-web-applications-with-signalr.md)
+    - [Praktické cvičení: Aplikace webu v reálném čase s knihovnou SignalR](getting-started/real-time-web-applications-with-signalr.md)
 - [Pokyny k rozhraní API](guide-to-the-api/index.md)
 
     - [Pokyny k rozhraní API center – server (C#)](guide-to-the-api/hubs-api-guide-server.md)
@@ -55,7 +55,7 @@ ms.locfileid: "41756732"
     - [Použití čítačů výkonu SignalR webové role Azure](performance/using-signalr-performance-counters-in-an-azure-web-role.md)
 - [Nasazení a hostování](deployment/index.md)
 
-    - [Kurz: SignalR v místním prostředí](deployment/tutorial-signalr-self-host.md)
+    - [Kurz: Hostování na vlastním serveru funkce SignalR](deployment/tutorial-signalr-self-host.md)
     - [Použití aplikace SignalR s webovými aplikacemi ve službě Azure App Service](deployment/using-signalr-with-azure-web-sites.md)
 - [Pokročilé](advanced/index.md)
 

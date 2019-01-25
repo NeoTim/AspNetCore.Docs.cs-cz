@@ -3,18 +3,18 @@ uid: signalr/overview/getting-started/tutorial-server-broadcast-with-signalr
 title: 'Kurz: Serverové vysílání s knihovnou SignalR 2 | Dokumentace Microsoftu'
 author: tdykstra
 description: Tento kurz ukazuje, jak vytvořit webovou aplikaci, která používá ASP.NET SignalR 2 pro zajištění všesměrového vysílání funkce serveru.
-ms.author: riande
+ms.author: bradyg
 ms.date: 01/02/2019
 ms.topic: tutorial
 ms.assetid: 1568247f-60b5-4eca-96e0-e661fbb2b273
 msc.legacyurl: /signalr/overview/getting-started/tutorial-server-broadcast-with-signalr
 msc.type: authoredcontent
-ms.openlocfilehash: a6014e604613492db91b2dc6f846c3c73d938d99
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: a243c78c7d552f1c82a88c6083871fcd16538618
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099296"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837426"
 ---
 # <a name="tutorial-server-broadcast-with-signalr-2"></a>Kurz: Server vysílání s knihovnou SignalR 2
 
@@ -81,7 +81,7 @@ Rozhraní API pro rozbočovače SignalR budete používat ke zpracování server
 
 Chcete jenom jednu instanci `StockTicker` má třída spustit na serveru, takže budete muset nastavit odkaz z každého `StockTickerHub` instanci typu singleton `StockTicker` instance. `StockTicker` Třída má vysílat klientům, protože má uložených dat a aktivuje aktualizace, ale `StockTicker` není `Hub` třídy. `StockTicker` Třída má k získání odkazu na objekt kontextu připojení rozbočovače SignalR. Pak můžete objekt context připojení SignalR na klienty.
 
-#### <a name="create-stocktickerhubcs"></a>Vytvoření StockTickerHub.cs
+#### <a name="create-stocktickerhubcs"></a>Create StockTickerHub.cs
 
 1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a vyberte **přidat** > **nová položka**.
 
@@ -105,7 +105,7 @@ Pokud má metodu k získání dat tímto způsobem něco, co by vyžadovalo ček
 
 Jak uvidíte později při vytváření `StockTicker` třídy, aplikace vytvoří instanci typu singleton této třídy v jeho statické `Instance` vlastnost. Tuto instanci typu singleton `StockTicker` se v paměti bez ohledu na to, kolik klientů připojit nebo odpojit. Co je instance `GetAllStocks()` metoda používá k vrácení aktuální uložených informací.
 
-#### <a name="create-stocktickercs"></a>Vytvoření StockTicker.cs
+#### <a name="create-stocktickercs"></a>Create StockTicker.cs
 
 1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a vyberte **přidat** > **třídy**.
 
@@ -195,7 +195,7 @@ V této části můžete nastavit kód, který běží na straně klienta.
 
 Na stránce HTML se zobrazí data a soubor jazyka JavaScript uspořádá data.
 
-#### <a name="create-stocktickerhtml"></a>Vytvoření StockTicker.html
+#### <a name="create-stocktickerhtml"></a>Create StockTicker.html
 
 Nejprve přidejte klienta HTML.
 
@@ -232,7 +232,7 @@ Nejprve přidejte klienta HTML.
 
 1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na *StockTicker.html*a pak vyberte **nastavit jako úvodní stránku**.
 
-#### <a name="create-stocktickerjs"></a>Vytvoření StockTicker.js
+#### <a name="create-stocktickerjs"></a>Create StockTicker.js
 
 Teď vytvořte soubor jazyka JavaScript.
 
@@ -315,7 +315,7 @@ SignalR má vestavěné protokolování funkci, kterou můžete povolit na stran
 
 Pro jakékoli dané připojení SignalR vybere nejlepší metody přenosu, které podporují server i klient.
 
-1. Otevřít *StockTicker.js*.
+1. Open *StockTicker.js*.
 
 1. Přidejte následující zvýrazněný řádek kód pro povolení protokolování bezprostředně před kódem, který inicializuje připojení na konci souboru:
 

@@ -1,18 +1,18 @@
 ---
 title: Hostování v technologii ASP.NET Core SignalR produkčního prostředí a škálování
-author: tdykstra
+author: bradygaster
 description: Zjistěte, jak se vyhnout výkonu a škálování problémů v aplikacích, které používají funkce SignalR technologie ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/scale
-ms.openlocfilehash: 94791ffb73b58a9026942d632bce59773e3fda5b
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 4ac4509acc89d0091a3757c7cfbc9981614f29ad
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52453008"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836919"
 ---
 # <a name="aspnet-core-signalr-hosting-and-scaling"></a>Hostování v technologii ASP.NET Core SignalR a škálování
 
@@ -46,7 +46,7 @@ Aplikaci, která využívá funkce SignalR musí udržovat přehled o všech jeh
 
 Možnosti pro řešení tohoto problému jsou [služby Azure SignalR](#azure-signalr-service) a [Redis propojovací rozhraní systému](#redis-backplane).
 
-## <a name="azure-signalr-service"></a>Službě Azure SignalR
+## <a name="azure-signalr-service"></a>Služba Azure SignalR
 
 Služby Azure SignalR je proxy server, nikoli propojovacího rozhraní. Pokaždé, když klient zahájí připojení k serveru, se klient přesměruje k připojení ke službě. Tento proces je znázorněn v následujícím diagramu:
 

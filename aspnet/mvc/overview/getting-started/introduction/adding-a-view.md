@@ -3,14 +3,14 @@ title: Přidání zobrazení do aplikace MVC
 author: Rick-Anderson
 description: Přidání zobrazení do aplikace MVC
 ms.author: riande
-ms.date: 09/1721/2017
+ms.date: 01/23/2019
 uid: mvc/overview/getting-started/introduction/adding-a-view
-ms.openlocfilehash: 47447c82506cc0eb4dafabe272b3204f76a2edd7
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: afa7584529566ebe82a0eb3849de89bd0df064bd
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098659"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837751"
 ---
 <a name="adding-a-view"></a>Přidání zobrazení
 ====================
@@ -60,7 +60,7 @@ Alternativně spusťte aplikaci a přejděte `HelloWorld` kontroler (`http://loc
 
 ![](adding-a-view/_static/image6.png)
 
-Vypadá hodně Dobrá. Všimněte si však, že v prohlížeči na záhlaví okna zobrazuje &quot;Index - Moje aplikace technologie ASP.NET "a velké objemy odkaz nahoře na stránce říká"Název aplikace." V závislosti na tom, jak malý provedete okno prohlížeče, možná budete muset kliknout na tři pruhy v pravém horním rohu zobrazíte na **Domů**, **o**, **kontakt**, **Zaregistrovat** a **přihlášení** odkazy.
+Vypadá hodně Dobrá. Všimněte si však, že v prohlížeči na záhlaví okna zobrazuje "Index – Moje aplikace ASP.NET," a velké objemy odkazu v horní části stránky říká "Název aplikace." V závislosti na tom, jak malý provedete okno prohlížeče, možná budete muset kliknout na tři pruhy v pravém horním rohu zobrazíte na **Domů**, **o**, **kontakt**, **Zaregistrovat** a **přihlášení** odkazy.
 
 ## <a name="changing-views-and-layout-pages"></a>Změna zobrazení a rozložení stránky
 

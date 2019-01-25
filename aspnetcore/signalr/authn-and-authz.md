@@ -1,18 +1,18 @@
 ---
 title: Ověřování a autorizace v knihovně SignalR technologie ASP.NET Core
-author: tdykstra
+author: bradygaster
 description: Další informace o použití ověřování a autorizace v knihovně SignalR technologie ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
 ms.date: 06/29/2018
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 6624b2b4361eb0a5bb6e45108878ee6fe5ecb443
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
+ms.openlocfilehash: c807b65e0047fe6cedff08aef9f758653fab6a0d
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284410"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54835814"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>Ověřování a autorizace v knihovně SignalR technologie ASP.NET Core
 

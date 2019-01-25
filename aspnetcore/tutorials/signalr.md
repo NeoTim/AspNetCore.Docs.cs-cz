@@ -1,17 +1,17 @@
 ---
 title: Začínáme s knihovnou SignalR technologie ASP.NET Core
-author: tdykstra
+author: bradygaster
 description: V tomto kurzu vytvoříte aplikaci chatu, který používá funkce SignalR technologie ASP.NET Core.
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/30/2018
 uid: tutorials/signalr
-ms.openlocfilehash: 36296513726f7e098a536afc22fcbfb2cafe946d
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 53ec924c2d7b4fac227be0c0bf24d93476528167
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997276"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836555"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s knihovnou SignalR technologie ASP.NET Core
 
@@ -59,7 +59,7 @@ Na konci budete mít funkční aplikaci chatu:
    code -r SignalRChat
    ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V nabídce vyberte **soubor > Nový řešení**.
 
@@ -120,7 +120,7 @@ Je součástí serveru knihovny SignalR `Microsoft.AspNetCore.App` Microsoft.asp
   Installed library "@aspnet/signalr@1.0.3" to "wwwroot/lib/signalr"
   ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V **terminálu**, spusťte následující příkaz k instalaci LibMan.
 
@@ -211,7 +211,7 @@ Na serveru funkce SignalR nastavené předat požadavky SignalR SignalR.
   dotnet run -p SignalRChat.csproj
   ```
   
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V nabídce vyberte **spuštění > Spustit bez ladění**.
 

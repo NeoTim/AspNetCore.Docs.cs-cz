@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/14/2018
 uid: fundamentals/app-state
-ms.openlocfilehash: 23bbb3063d696f588abecb1fe05ea3381ab2346d
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: a510e4f49e158203dd7c5e1e0bd28472541f7925
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341690"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836334"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>Stav relace a aplikace v ASP.NET Core
 
@@ -48,7 +48,7 @@ Mějte na paměti o [Evropské unie obecného nařízení (GDPR)](https://ec.eur
 
 ## <a name="session-state"></a>Stav relace
 
-Stav relace je scénář ASP.NET Core určené k ukládání uživatelských dat, zatímco uživatel prochází webové aplikace. Stav relace používá úložiště udržovat aplikace pro uchovávání dat napříč požadavky klientů. Data relace je založená na mezipaměti a považují za dočasné data&mdash;webu by měl dál fungovat bez data relace.
+Stav relace je scénář ASP.NET Core určené k ukládání uživatelských dat, zatímco uživatel prochází webové aplikace. Stav relace používá úložiště udržovat aplikace pro uchovávání dat napříč požadavky klientů. Data relace je založená na mezipaměti a považují za dočasné data&mdash;webu by měl dál fungovat bez data relace. Nejdůležitější aplikační data by měla uložené v uživatelské databázi a uložili do mezipaměti v relaci pouze jako optimalizaci výkonu.
 
 > [!NOTE]
 > Relace není podporována v [SignalR](xref:signalr/index) aplikace protože [rozbočovače SignalR](xref:signalr/hubs) se dá provádět nezávislé kontextu HTTP. Například tato situace může nastat při dlouho dotazování požadavku je otevřena hub za dobu života kontext žádosti HTTP.

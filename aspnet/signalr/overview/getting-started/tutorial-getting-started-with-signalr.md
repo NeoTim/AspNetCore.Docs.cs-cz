@@ -1,20 +1,20 @@
 ---
 uid: signalr/overview/getting-started/tutorial-getting-started-with-signalr
 title: 'Kurz: Chatování v reálném čase s knihovnou SignalR 2 | Dokumentace Microsoftu'
-author: pfletcher
+author: bradygaster
 description: V tomto kurzu se naučíte používat funkci SignalR k vytvoření aplikace pro chatování v reálném čase. Přidáte do prázdná webová aplikace ASP.NET SignalR.
-ms.author: riande
-ms.date: 01/02/2019
+ms.author: bradyg
+ms.date: 01/22/2019
 ms.assetid: a8b3b778-f009-4369-85c7-e90f9878d8b4
 msc.legacyurl: /signalr/overview/getting-started/tutorial-getting-started-with-signalr
 msc.type: authoredcontent
 ms.topic: tutorial
-ms.openlocfilehash: aa015abc47bb2450e04e167c0404aaa1d119ba2c
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 90f2c03fbda522e3a46200bc0132cc74100ce70f
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098621"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836789"
 ---
 # <a name="tutorial-real-time-chat-with-signalr-2"></a>Kurz: Chatování v reálném čase s knihovnou SignalR 2
 
@@ -161,6 +161,10 @@ Tento kód otevře připojení v centru.
 > Tento přístup zajišťuje, že kód naváže připojení před provedením obslužné rutiny události.
 
 Kód spustí připojení a pak ji předá funkci pro zpracování události kliknutí na **odeslat** tlačítko na stránce HTML.
+
+## <a name="get-the-code"></a>Získat kód
+
+[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/SignalR-Getting-Started-b9d18aa9)
 
 ## <a name="additional-resources"></a>Další zdroje
 

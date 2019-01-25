@@ -1,18 +1,18 @@
 ---
 title: Redis propojovacího rozhraní pro horizontální navýšení kapacity funkce SignalR technologie ASP.NET Core
-author: tdykstra
+author: bradygaster
 description: Zjistěte, jak nastavit propojovací rozhraní Redis umožňuje škálování aplikace SignalR technologie ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/redis-backplane
-ms.openlocfilehash: fde7f08ae2310b0b9bf9b7fe25a1dfc4a568adb6
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: c02d8cd5fb3b6edbb21be4889da2e880099b731b
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099352"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837439"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-signalr-scale-out"></a>Nastavit propojovací rozhraní Redis pro horizontální navýšení kapacity funkce SignalR technologie ASP.NET Core
 
@@ -99,7 +99,7 @@ Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https:
 * Konfigurace vašeho serveru farmy Vyrovnávání zatížení softwaru pro rychlé relace. Tady je několik příkladů dokumentace o tom, jak to udělat:
 
   * [SLUŽBA IIS](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)
-  * [Haproxy:](https://www.haproxy.com/blog/load-balancing-affinity-persistence-sticky-sessions-what-you-need-to-know/)
+  * [HAProxy](https://www.haproxy.com/blog/load-balancing-affinity-persistence-sticky-sessions-what-you-need-to-know/)
   * [Server Nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#sticky)
   * [pfSense](https://www.netgate.com/docs/pfsense/loadbalancing/inbound-load-balancing.html#sticky-connections)
 

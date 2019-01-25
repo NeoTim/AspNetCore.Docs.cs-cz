@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core ve službě Windows.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/01/2018
+ms.date: 01/22/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: bdb29c318c66ac884b9225ba8c2a0dfc1f364255
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: eedaf64710506f2a2aac65c178a9888d2ab33d38
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637700"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54837478"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Hostitele ASP.NET Core ve službě Windows
 
@@ -44,7 +44,9 @@ Podle podle vaší volby [typ nasazení](#deployment-type), aktualizujte soubor 
 
 #### <a name="framework-dependent-deployment-fdd"></a>Nasazení závisí na architektuře (chyba)
 
-Přidat Windows [identifikátor modulu Runtime (RID)](/dotnet/core/rid-catalog) k `<PropertyGroup>` , která obsahuje cílové rozhraní. Přidat `<SelfContained>` nastavenou na `false`. Zakázat vytváření *web.config* souboru tak, že přidáte `<IsTransformWebConfigDisabled>` nastavenou na `true`.
+Přidat Windows [identifikátor modulu Runtime (RID)](/dotnet/core/rid-catalog) k `<PropertyGroup>` , která obsahuje cílové rozhraní. V následujícím příkladu RID nastavena `win7-x64`. Přidat `<SelfContained>` nastavenou na `false`. Tyto vlastnosti dáte pokyn, aby sada SDK pro generování spustitelného souboru (*.exe*) souborů pro Windows.
+
+A *web.config* soubor, který je obvykle vytvořen při publikování aplikace ASP.NET Core, není nutné pro aplikaci služby Windows. Chcete-li zakázat vytváření *web.config* přidejte `<IsTransformWebConfigDisabled>` nastavenou na `true`.
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -60,6 +62,8 @@ Přidat Windows [identifikátor modulu Runtime (RID)](/dotnet/core/rid-catalog) 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.1"
+
+Přidat `<UseAppHost>` nastavenou na `true`. Tato vlastnost poskytuje službu s cestou aktivace (spustitelný soubor, *.exe*) pro disketové jednotky.
 
 ```xml
 <PropertyGroup>

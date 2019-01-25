@@ -3,14 +3,14 @@ title: Používání více prostředí v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak řídit chování aplikace napříč několika prostředími v aplikacích ASP.NET Core.
 ms.author: riande
-ms.date: 07/03/2018
+ms.date: 01/22/2019
 uid: fundamentals/environments
-ms.openlocfilehash: 642af9e8f9e322e3624dad46bb1463f6525f5c9e
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 39e1b48481832a6d76de605b37410fe2e16dcd88
+ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341664"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54836737"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>Používání více prostředí v ASP.NET Core
 
@@ -237,6 +237,20 @@ Když `ASPNETCORE_ENVIRONMENT` proměnnou prostředí je nastavit globálně, pr
 **web.config**
 
 Nastavit `ASPNETCORE_ENVIRONMENT` proměnné prostředí s *web.config*, najdete v článku *nastavení proměnných prostředí* část <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>. Když `ASPNETCORE_ENVIRONMENT` nastavení proměnné prostředí s *web.config*, jeho hodnota se přepíše nastavení na úrovni systému.
+
+::: moniker range=">= aspnetcore-2.2"
+
+**Soubor projektu nebo profil publikování**
+
+**Pro nasazení Windows služby IIS:** Zahrnout `<EnvironmentName>` vlastnost v profilu publikování (*.pubxml*) nebo soubor projektu. Tento přístup nastaví prostředí *web.config* při publikování projektu:
+
+```xml
+<PropertyGroup>
+  <EnvironmentName>Development</EnvironmentName>
+</PropertyGroup>
+```
+
+::: moniker-end
 
 **Na jeden fond aplikací služby IIS**
 
