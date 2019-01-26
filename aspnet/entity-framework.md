@@ -9,26 +9,26 @@ ms.date: 03/12/2010
 ms.technology: aspnet
 msc.legacyurl: /entity-framework
 msc.type: content
-ms.openlocfilehash: 4fe0689f19f284fb29c8222d36116055a7d818b3
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 4f18afb9df3d486845d33735d045ee26f59b3f97
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755235"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54889792"
 ---
 <a name="entity-framework"></a>Entity Framework
 ====================
 Entity Framework (EF) je objektově relační Mapovač, který umožňuje vývojářům .NET pro práci s relačními daty pomocí objektů specifických pro doménu. Díky tomu není nutná většina kódu pro přístup k datům, který vývojáři obvykle musí vytvářet.
 
 
-- [Získat:](https://msdn.com/data/ee712906) přidat do projektu a začít využívat tuto výkonné O/RM.
-- [Začínáme:](https://msdn.com/data/ee712907) naleznete v příručce pro videa a kurzy, které vám pomůžou maximálně využít vaše data.
-- [Get-Help:](https://msdn.com/data/hh913619) zjistěte, jak získat pomoc od expertů a přispívání do komunity dat na webu Stack Overflow.
-- [Přispívat:](https://github.com/aspnet/EntityFramework6) zjistěte, jak může pomoct vylepšit Entity Framework model otevřeného vývoje i návštěvou webu GitHub.
+- [Získáte:](https://msdn.com/data/ee712906) Přidat do projektu a začít využívat tuto výkonné O/RM.
+- [Začínáme:](https://msdn.com/data/ee712907) Naleznete v příručce pro videa a kurzy, které vám pomůžou využít vaše data.
+- [Získání nápovědy:](https://msdn.com/data/hh913619) Zjistěte, jak získat pomoc od expertů a přispívání do komunity dat na webu Stack Overflow.
+- [Přispívat:](https://github.com/aspnet/EntityFramework6) Zjistěte, jak může pomoct vylepšit Entity Framework model otevřeného vývoje i návštěvou webu GitHub.
 
 
 Použití rozhraní Entity Framework s ASP.NET
 
 - [Kurzy webových formulářů](web-forms/overview/older-versions-getting-started/getting-started-with-ef/the-entity-framework-and-aspnet-getting-started-part-1.md)
 - [Kurzy MVC](mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md)
-- [Ukázkové aplikace](https://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+- [Ukázkové aplikace](https://webpifeed.blob.core.windows.net/webpifeed/Partners/ASP.NET%20MVC%20Application%20Using%20Entity%20Framework%20Code%20First.zip)

@@ -4,14 +4,14 @@ author: rick-anderson
 description: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/10/2018
+ms.date: 01/24/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 03936ee74836c7b214cb3dc4023a6e3c252f2a26
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
-ms.translationtype: MT
+ms.openlocfilehash: f677af6a86e20b95efcd16c7472cd9e14169e6cd
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207444"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54889974"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
 
@@ -78,7 +78,7 @@ Následující diagram znázorňuje návrh aplikace.
 
 * Když dialogové okno požádá, pokud chcete do projektu přidejte požadované prostředky, vyberte **Ano**.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Vyberte **souboru** > **nové řešení**.
 
@@ -168,13 +168,9 @@ Třídy modelu můžete kamkoliv v projektu, ale *modely* složky používají k
 
 * Klikněte pravým tlačítkem myši *modely* a pak zvolte položku **přidat** > **třídy**. Název třídy *TodoContext* a klikněte na tlačítko **přidat**.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * Přidat `TodoContext` třídu *modely* složky.
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-* Přidat `TodoContext` třídy v *modely* složky:
 
 ---
 
@@ -207,13 +203,9 @@ Předchozí kód:
 
   ![Přidání nové položky dialogové okno s kontrolerem v vyhledávací pole a webové rozhraní api kontroleru vybrané](first-web-api/_static/new_controller.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * V *řadiče* složku, vytvořte třídu s názvem `TodoController`.
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-* V *řadiče* složky, přidejte třídu `TodoController`.
 
 ---
 
@@ -271,8 +263,6 @@ V následujícím `GetTodoItem` metody `"{id}"` je proměnná zástupný symbol 
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_GetByID&highlight=1-2)]
 
-`Name = "GetTodo"` Parametr vytvoří pojmenovanou trasu. Zobrazí se vám později jak může aplikace používat název vytvořit odkaz na protokol HTTP pomocí názvu trasy.
-
 ## <a name="return-values"></a>Vrácené hodnoty
 
 Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult\<T > typ](xref:web-api/action-return-types#actionresultt-type). ASP.NET Core automaticky serializuje objekt, který má [JSON](https://www.json.org/) a zapíše do datové části zprávy s odpovědí JSON. Kód odpovědi pro tento návratový typ je 200, za předpokladu, že nejsou žádné neošetřené výjimky. Nezpracované výjimky jsou přeloženy do chyby 5xx.
@@ -313,9 +303,9 @@ Předchozí kód je metoda HTTP POST, je určeno [[HttpPost]](/dotnet/api/micros
 
 `CreatedAtAction` Metody:
 
-* Vrátí odezvě 201. HTTP 201 je standardní odpověď pro metodu POST protokolu HTTP, která vytvoří nový prostředek na serveru.
-* Přidá do odpovědi hlavičku umístění. Hlavička umístění Určuje identifikátor URI nově vytvořeného úkolu položky. Další informace najdete v tématu [10.2.2 201 – vytvořeno](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
-* K vytvoření adresy URL používá "GetTodo" s názvem trasy. "GetTodo" s názvem trasy je definována v `GetTodoItem`:
+* Vrátí stavový kód HTTP 201, v případě úspěšného ověření. HTTP 201 je standardní odpověď pro metodu POST protokolu HTTP, která vytvoří nový prostředek na serveru.
+* Přidá `Location` hlavičky odpovědi. `Location` Hlavičky určuje identifikátor URI nově vytvořeného úkolu položky. Další informace najdete v tématu [10.2.2 201 – vytvořeno](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
+* Odkazy `GetTodoItem` akce pro vytvoření `Location` hlavičky identifikátoru URI. C# `nameof` – Klíčové slovo se používá k vyhnuli pevnému zakódování název akce v `CreatedAtAction` volání.
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_GetByID&highlight=1-2)]
 

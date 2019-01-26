@@ -3,20 +3,20 @@ title: Směrování na akce kontroleru v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak ASP.NET Core MVC používá směrování Middleware podle adresy URL příchozích událostí požadavků a jejich namapování na akce.
 ms.author: riande
-ms.date: 09/17/2018
+ms.date: 01/24/2019
 uid: mvc/controllers/routing
-ms.openlocfilehash: 2f6328a5efaa96fd8e4f0cafdbde77dd63a1548f
-ms.sourcegitcommit: f5d403004f3550e8c46585fdbb16c49e75f495f3
+ms.openlocfilehash: f5104bc53581a41fa8c25d8c67e08e038c275391
+ms.sourcegitcommit: c6db8b14521814f1f7e528d7aa06e474e4c04a1f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/20/2018
-ms.locfileid: "49477641"
+ms.lasthandoff: 01/25/2019
+ms.locfileid: "55065006"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování na akce kontroleru v ASP.NET Core
 
 Podle [Ryanem Nowak](https://github.com/rynowak) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core MVC používá směrování [middleware](xref:fundamentals/middleware/index) podle adresy URL příchozích událostí požadavků a jejich namapování na akce. Směrování je definováno v kódu při spuštění nebo atributy. Postupy popisují, jak cesty adresy URL by měla odpovídat akce. Trasy se také používají k vygenerování adres URL (pro odkazy), odeslání odpovědi. 
+ASP.NET Core MVC používá směrování [middleware](xref:fundamentals/middleware/index) podle adresy URL příchozích událostí požadavků a jejich namapování na akce. Směrování je definováno v kódu při spuštění nebo atributy. Postupy popisují, jak cesty adresy URL by měla odpovídat akce. Trasy se také používají k vygenerování adres URL (pro odkazy), odeslání odpovědi.
 
 Akce jsou buď konvenčně směrovat nebo atribut směrovat. Umístění trasy na kontroler nebo akce umožňuje směrovat atribut. Zobrazit [smíšené směrování](#routing-mixed-ref-label) Další informace.
 
@@ -191,7 +191,6 @@ Pokud několik tras odpovídá a MVC nelze najít "nejlepší" směrování, vyv
 
 Řetězce `"blog"` a `"default"` v následujících příkladech jsou názvy tras:
 
-
 ```csharp
 app.UseMvc(routes =>
 {
@@ -339,7 +338,7 @@ public class ProductsApiController : Controller
 
 V tomto příkladu cesty URL `/products` odpovídá `ProductsApi.ListProducts`a cesta URL `/products/5` odpovídá `ProductsApi.GetProduct(int)`. Obě tyto akce HTTP odpovídá pouze `GET` vzhledem k tomu, že upravené pomocí `HttpGetAttribute`.
 
-Směrovat šablony u akce, která začínají `/` není spojit se použijí pro kontroler, šablon trasy. Tento příklad porovná sadu cest URL podobně jako *trasy výchozí*.
+Směrovat šablony u akce, která začínají `/` nebo `~/` není spojit se použijí pro kontroler, šablon trasy. Tento příklad porovná sadu cest URL podobně jako *trasy výchozí*.
 
 ```csharp
 [Route("Home")]
@@ -377,7 +376,7 @@ Atribut trasy můžete nakonfigurovat pořadí, pomocí `Order` vlastnost všech
 > [!TIP]
 > Vyhněte se v závislosti na `Order`. Pokud váš prostor adresy URL vyžaduje explicitní seřazení hodnot pro směrování správně, je pravděpodobně matoucí také klientům. Směrování atributů obecně bude vyberte správné směrování s odpovídajícími adresy URL. Pokud nefunguje výchozí pořadí použili pro generování adresy URL, pomocí názvu trasy, je obvykle jednodušší než použití přepsání `Order` vlastnost.
 
-Stránky Razor směrování a směrování sdílení řadiče MVC implementace. Informace o pořadí trasy v tématech pro stránky Razor je k dispozici na [trasy a aplikační konvence pro stránky Razor: směrování pořadí](xref:razor-pages/razor-pages-conventions#route-order).
+Stránky Razor směrování a směrování sdílení řadiče MVC implementace. Informace o pořadí trasy v tématech pro stránky Razor je k dispozici na [trasy a aplikační konvence pro stránky Razor: Pořadí trasy](xref:razor-pages/razor-pages-conventions#route-order).
 
 <a name="routing-token-replacement-templates-ref-label"></a>
 
@@ -549,7 +548,7 @@ Atribut z výše uvedeném příkladu se automaticky nastaví `Template` k `"api
 
 <a name="routing-mixed-ref-label"></a>
 
-## <a name="mixed-routing-attribute-routing-vs-conventional-routing"></a>Smíšené směrování: atribut směrování vs konvenční směrování
+## <a name="mixed-routing-attribute-routing-vs-conventional-routing"></a>Smíšené směrování: Atribut směrování vs konvenční směrování
 
 Aplikace MVC můžete kombinovat použití konvenční směrování a směrování atributů. Je typické použití konvenční trasy pro kontrolery obsluhující stránky HTML pro prohlížeče, a atribut směrování pro kontrolery slouží rozhraní REST API.
 

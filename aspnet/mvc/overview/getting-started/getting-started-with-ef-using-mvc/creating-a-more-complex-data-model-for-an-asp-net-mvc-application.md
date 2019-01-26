@@ -9,12 +9,12 @@ ms.topic: tutorial
 ms.assetid: 46f7f3c9-274f-4649-811d-92222a9b27e2
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-a-more-complex-data-model-for-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 5d05d456315c019c545a91b527bb05510126c06b
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
-ms.translationtype: HT
+ms.openlocfilehash: 5deab7da776c3c43e3e2cdf42b04922678f956c7
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836622"
+ms.locfileid: "54889987"
 ---
 # <a name="tutorial-create-a-more-complex-data-model-for-an-aspnet-mvc-app"></a>Kurz: Vytvoření složitějšího datového modelu pro aplikace ASP.NET MVC
 
@@ -400,7 +400,7 @@ Klikněte pravým tlačítkem myši `CourseInstructor` tabulky a vyberte **zobra
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+[Stáhnout dokončený projekt](https://webpifeed.blob.core.windows.net/webpifeed/Partners/ASP.NET%20MVC%20Application%20Using%20Entity%20Framework%20Code%20First.zip)
 
 ## <a name="additional-resources"></a>Další zdroje
 

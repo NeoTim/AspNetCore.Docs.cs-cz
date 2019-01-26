@@ -9,12 +9,12 @@ ms.topic: tutorial
 ms.assetid: 7ba88418-5d0a-437d-b6dc-7c3816d4ec07
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 3f95470fd1832d7d25a331a1b6a9dfede7356f38
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: daefbcea39dc341c6fc72eb344b05eb2dbf0c3ba
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444308"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54889844"
 ---
 # <a name="tutorial-update-related-data-with-ef-in-an-aspnet-mvc-app"></a>Kurz: Aktualizace souvisejících dat v aplikaci ASP.NET MVC s EF
 
@@ -265,7 +265,7 @@ Jak je vysvětleno v [základních funkcí CRUD kurzu](implementing-basic-crud-f
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stáhnout dokončený projekt](http://code.msdn.microsoft.com/ASPNET-MVC-Application-b01a9fe8)
+[Stáhnout dokončený projekt](https://webpifeed.blob.core.windows.net/webpifeed/Partners/ASP.NET%20MVC%20Application%20Using%20Entity%20Framework%20Code%20First.zip)
 
 ## <a name="additional-resources"></a>Další zdroje
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/14/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 070200b6fdc8b3178e2b7b12375ba1dd56080697
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: c5303ad418660fa31fe9094f0e61ee31f5d988f7
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444373"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54890013"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -665,6 +665,26 @@ Regulární výrazy použité ve směrování často začínají znak stříšky
 Další informace o syntaxi regulárního výrazu, naleznete v tématu [regulárních výrazech .NET Frameworku](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
 Chcete-li omezit parametr se známou sadou možných hodnot, použijte regulární výraz. Například `{action:regex(^(list|get|create)$)}` odpovídá pouze `action` trasy hodnotu `list`, `get`, nebo `create`. Pokud předaná do slovníku omezení řetězec `^(list|get|create)$` je ekvivalentní. Omezení, předané ve slovníku omezení (ne vložené v rámci šablony), které neodpovídají jedno z známé omezení jsou také považovány za regulární výrazy.
+
+## <a name="custom-route-constraints"></a>Omezení vlastní trasy
+
+Kromě omezení integrované trasy, je možné vytvořit vlastní trasy omezení implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. `IRouteConstraint` Rozhraní obsahuje jedinou metodu `Match`, která vrací `true` splnění omezení a `false` jinak.
+
+Chcete-li použít vlastní `IRouteConstraint`, typ omezení trasy musí být zaregistrovaný v aplikaci `RouteOptions.ConstraintMap` v kontejneru aplikace služby. A <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> je slovník, který mapy směrovat klíče omezení na `IRouteConstraint` implementace, které byly ověřeny těchto omezení. Aplikace `RouteOptions.ConstraintMap` je aktualizovat v `Startup.ConfigureServices` jako součást `services.AddRouting` volání nebo podle konfigurace `RouteOptions` přímo s `services.Configure<RouteOptions>`. Příklad:
+
+```csharp
+services.AddRouting(options =>
+{
+    options.ConstraintMap.Add("customName", typeof(MyCustomConstraint));
+});
+```
+
+Omezení lze pak použít trasy obvyklým způsobem, pomocí názvu zadanému při registraci typu omezení. Příklad:
+
+```csharp
+[HttpGet("{id:customName}")]
+public ActionResult<string> Get(string id)
+```
 
 ::: moniker range=">= aspnetcore-2.2"
 
