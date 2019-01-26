@@ -5,12 +5,12 @@ description: Zjistěte, jak povolit generování kódu QR pro aplikace TOTP, kte
 ms.author: riande
 ms.date: 08/14/2018
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: 437f354f71128a98bae9abdced291e04efc9f48e
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.openlocfilehash: cf99cc21a7a1bb4d01c7cc092106d23375a1a76f
+ms.sourcegitcommit: ca5f03210bedc61c6639a734ae5674bfe095dee8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225379"
+ms.lasthandoff: 01/26/2019
+ms.locfileid: "55073124"
 ---
 # <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a>Povolit generování kódu QR pro TOTP aplikace v ASP.NET Core
 
@@ -25,6 +25,8 @@ Kódy QR vyžaduje ASP.NET Core 2.0 nebo novější.
 ASP.NET Core se dodává s podporou pro aplikace authenticator pro jednotlivé ověřování. Dva faktoru ověřování (2FA), pomocí časovou synchronizací jednorázové heslo algoritmus (TOTP), jsou tyto aplikace v oboru doporučenému přístupu pro 2FA. 2FA pomocí TOTP je upřednostňována před SMS 2FA. Aplikace authenticator poskytuje 6 až 8 číselným kódem, který uživatelé musí zadat po potvrzení uživatelského jména a hesla. Ověřovací aplikace se obvykle instaluje na smartphonu.
 
 Šablony ASP.NET Core webové aplikace podporovat ověřovací data, ale neposkytuje podporu pro generování QRCode. Generátory QRCode usnadnění instalace 2FA. Tento dokument vás provede přidáním [kód QR](https://wikipedia.org/wiki/QR_code) generování ke konfigurační stránce 2FA.
+
+Dvoufaktorové ověřování neproběhne pomocí zprostředkovatele externího ověřování, například [Google](xref:security/authentication/google-logins) nebo [Facebook](xref:security/authentication/facebook-logins). Externí přihlášení jsou chráněny libovolné mechanismem poskytuje na externího zprostředkovatele přihlášení. Zvažte například [Microsoft](xref:security/authentication/microsoft-logins) zprostředkovatele ověřování vyžaduje klíč hardware nebo další 2FA přístup. Pokud výchozí šablony vynucují "local" 2FA by uživatelé vyžadovány k uspokojení dva přístupy 2FA, to není často používaný scénář.
 
 ## <a name="adding-qr-codes-to-the-2fa-configuration-page"></a>Přidání na stránku konfigurace 2FA kódy QR
 

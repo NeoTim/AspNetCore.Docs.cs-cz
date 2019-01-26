@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak použít rozhraní API pro konfiguraci ke konfiguraci aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/07/2018
+ms.date: 01/25/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 6f0378ffc4f9a1efa95c8f70d70e7799abef130b
-ms.sourcegitcommit: 1872d2e6f299093c78a6795a486929ffb0bbffff
+ms.openlocfilehash: 2465570e469020ae2855508bd1bfc8528e188ebb
+ms.sourcegitcommit: ca5f03210bedc61c6639a734ae5674bfe095dee8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/11/2018
-ms.locfileid: "53216895"
+ms.lasthandoff: 01/26/2019
+ms.locfileid: "55073163"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -56,12 +56,6 @@ Konfigurace aplikace v ASP.NET Core je založená na páry klíč hodnota stanov
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-Příklady uvedené v tomto tématu využívají:
-
-* Nastavení základní cesty aplikace s využitím <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` je k dispozici pro aplikaci odkazováním [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíčku.
-* Řešení oddíly konfiguračních souborů s <xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*>. `GetSection` je k dispozici pro aplikaci odkazováním [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) balíčku.
-* Konfigurace vazby na .NET třídy s <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> a [získat&lt;T&gt;](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*). `Bind` a `Get<T>` jsou k dispozici pro aplikaci odkazováním [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) balíčku. `Get<T>` je k dispozici v ASP.NET Core 1.1 nebo novější.
-
 ::: moniker range=">= aspnetcore-2.1"
 
 Tyto tři balíčky jsou součástí [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
@@ -77,6 +71,22 @@ Tyto tři balíčky jsou součástí [metabalíček Microsoft.aspnetcore.all](xr
 ## <a name="host-vs-app-configuration"></a>Hostování a konfigurace aplikací
 
 Předtím, než aplikace je nakonfigurovaná a spuštěna, *hostitele* nakonfigurovaný a spustit. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Aplikace a hostitel jsou nakonfigurováni pomocí zprostředkovatele konfigurace popsané v tomto tématu. Páry klíč hodnota konfigurace hostitele se stanou součástí globální konfiguraci aplikace. Další informace o jak konfiguraci poskytovatele se používají při vytváření hostitele a vliv zdroje konfigurace hostitele konfigurace najdete v tématu <xref:fundamentals/host/index>.
+
+## <a name="default-configuration"></a>Výchozí konfigurace
+
+Webové aplikace založené na technologii ASP.NET Core [dotnet nové](/dotnet/core/tools/dotnet-new) volání šablony <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> při vytváření hostitele. `CreateDefaultBuilder` poskytuje výchozí konfigurace pro aplikaci.
+
+* Konfigurace hostitele je k dispozici od:
+  * Proměnné prostředí s předponou `ASPNETCORE_` (například `ASPNETCORE_ENVIRONMENT`) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).
+  * Argumenty příkazového řádku pomocí [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).
+* Konfigurace aplikace je k dispozici z (v uvedeném pořadí):
+  * *appSettings.JSON* pomocí [poskytovatele konfigurace souboru](#file-configuration-provider).
+  * *appSettings. {Prostředí} .json* pomocí [poskytovatele konfigurace souboru](#file-configuration-provider).
+  * [Tajný klíč správce](xref:security/app-secrets) při spuštění aplikace `Development` prostředí s využitím vstupní sestavení.
+  * Použití proměnných prostředí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).
+  * Argumenty příkazového řádku pomocí [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).
+
+Poskytovatelé konfigurace jsou vysvětleny dále v tomto tématu. Další informace o hostiteli a `CreateDefaultBuilder`, naleznete v tématu <xref:fundamentals/host/web-host#set-up-a-host>.
 
 ## <a name="security"></a>Zabezpečení
 
@@ -116,7 +126,7 @@ Pokud je soubor pro čtení do konfigurace, jedinečné klíče se vytvoří zac
 * section1:key0
 * section1:key1
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> a <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> metody jsou k dispozici k izolaci oddíly a podřízené objekty daného oddílu v konfiguračních datech. Tyto metody jsou popsané dále v [GetSection GetChildren – a Exists](#getsection-getchildren-and-exists).
+<xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> a <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> metody jsou k dispozici k izolaci oddíly a podřízené objekty daného oddílu v konfiguračních datech. Tyto metody jsou popsané dále v [GetSection GetChildren – a Exists](#getsection-getchildren-and-exists). `GetSection` Probíhá [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
 ## <a name="conventions"></a>Konvence
 
@@ -238,7 +248,8 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-V předchozím příkladu název prostředí (`env.EnvironmentName`) a název aplikace sestavení (`env.ApplicationName`) jsou poskytovány <xref:Microsoft.Extensions.Hosting.IHostingEnvironment>. Další informace naleznete v tématu <xref:fundamentals/environments>.
+V předchozím příkladu název prostředí (`env.EnvironmentName`) a název aplikace sestavení (`env.ApplicationName`) jsou poskytovány <xref:Microsoft.Extensions.Hosting.IHostingEnvironment>. Další informace naleznete v tématu <xref:fundamentals/environments>. Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+.
 
 ::: moniker-end
 
@@ -246,7 +257,7 @@ V předchozím příkladu název prostředí (`env.EnvironmentName`) a název ap
 
 ## <a name="configureappconfiguration"></a>ConfigureAppConfiguration
 
-Volání <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> při vytváření webového hostitele k určení aplikace poskytovatelé konfigurace kromě těch, přidání automaticky <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>:
+Volání <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> při vytváření hostitele tak, aby zadejte poskytovatele konfigurace aplikace kromě těch, přidání automaticky <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>:
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=19)]
 
@@ -658,7 +669,7 @@ Udržovat seznam proměnných prostředí vykreslen metodou aplikace krátký, f
 * PROSTŘEDÍ
 * contentRoot
 * AllowedHosts
-* ApplicationName
+* applicationName
 * příkazový řádek
 
 ::: moniker range=">= aspnetcore-2.0"
@@ -763,6 +774,8 @@ public class Program
 }
 ```
 
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 Při vytváření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> volat přímo, <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> s konfigurací:
 
 ::: moniker-end
@@ -793,6 +806,8 @@ public class Program
 }
 ```
 
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 Při vytváření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> volat přímo, <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> s konfigurací:
 
 ::: moniker-end
@@ -814,6 +829,8 @@ var host = new WebHostBuilder()
     .UseKestrel()
     .UseStartup<Startup>();
 ```
+
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
 Obecný příklad konfiguračního souboru INI:
 
@@ -894,6 +911,8 @@ public class Program
 }
 ```
 
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 Při vytváření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> volat přímo, <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> s konfigurací:
 
 ::: moniker-end
@@ -926,6 +945,8 @@ public class Program
 }
 ```
 
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 Při vytváření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> volat přímo, <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> s konfigurací:
 
 ::: moniker-end
@@ -948,6 +969,8 @@ var host = new WebHostBuilder()
     .UseStartup<Startup>();
 ```
 
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 **Příklad**
 
 ::: moniker range=">= aspnetcore-2.0"
@@ -968,7 +991,7 @@ Volání 1.x ukázkové aplikace `AddJsonFile` dvakrát na `ConfigurationBuilder
 | Key                        | Hodnota vývoj | Hodnota produkce |
 | -------------------------- | :---------------: | :--------------: |
 | Protokolování: LogLevel:System    | Informace o       | Informace o      |
-| Protokolování: LogLevel:Microsoft | Informace o       | Informace o      |
+| Logging:LogLevel:Microsoft | Informace o       | Informace o      |
 | Protokolování: LogLevel:Default   | Ladit             | Chyba            |
 | AllowedHosts               | *                 | *                |
 
@@ -1009,6 +1032,8 @@ public class Program
 }
 ```
 
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 Při vytváření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> volat přímo, <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> s konfigurací:
 
 ::: moniker-end
@@ -1039,6 +1064,8 @@ public class Program
 }
 ```
 
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 Při vytváření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> volat přímo, <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> s konfigurací:
 
 ::: moniker-end
@@ -1060,6 +1087,8 @@ var host = new WebHostBuilder()
     .UseKestrel()
     .UseStartup<Startup>();
 ```
+
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
 Soubory XML konfigurace můžete použít názvy různých elementů pro opakující se části:
 
@@ -1102,10 +1131,10 @@ Opakující se elementy, které používají stejný název elementu fungovat, p
 
 Předchozí konfigurační soubor načte následujících klíčů s `value`:
 
-* část: section0:key:key0
-* část: section0:key:key1
-* část: section1:key:key0
-* část: section1:key:key1
+* section:section0:key:key0
+* section:section0:key:key1
+* section:section1:key:key0
+* section:section1:key:key1
 
 Atributy lze použít k zadání hodnoty:
 
@@ -1160,6 +1189,8 @@ public class Program
             .UseStartup<Startup>();
 }
 ```
+
+Nastavení základní cesty s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. `SetBasePath` Probíhá [Microsoft.Extensions.Configuration.FileExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.FileExtensions/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
 Při vytváření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> volat přímo, <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> s konfigurací:
 
@@ -1326,13 +1357,15 @@ Přečtení souboru do konfigurace následujících jedinečné klíče hierarch
 
 ### <a name="getsection"></a>GetSection
 
-[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extrahuje dílčí část konfigurace s klíčem zadaného dílčí část.
+[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extrahuje dílčí část konfigurace s klíčem zadaného dílčí část. `GetSection` Probíhá [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
 Se vraťte <xref:Microsoft.Extensions.Configuration.IConfigurationSection> obsahující pouze páry klíč hodnota v `section1`, volání `GetSection` a zadat název oddílu:
 
 ```csharp
 var configSection = _config.GetSection("section1");
 ```
+
+`configSection` Nemá hodnotu, pouze klíč a cestu.
 
 Podobně a získat tak hodnoty pro klíče v `section2:subsection0`, volání `GetSection` a zadejte cestu k oddílu:
 
@@ -1341,6 +1374,8 @@ var configSection = _config.GetSection("section2:subsection0");
 ```
 
 `GetSection` nikdy nevrátí `null`. Pokud není nalezen odpovídající části, prázdná `IConfigurationSection` je vrácena.
+
+Když `GetSection` vrátí odpovídající části <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> není naplněn. A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> a <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> se vrátí, když existuje části.
 
 ### <a name="getchildren"></a>GetChildren –
 
@@ -1373,7 +1408,7 @@ Zadaný ukázková data `sectionExists` je `false` protože není k dispozici `s
 
 Konfigurace může být vázaný na třídy, které představující skupiny související nastavení použití *možnosti vzor*. Další informace naleznete v tématu <xref:fundamentals/configuration/options>.
 
-Konfigurační hodnoty jsou vrácené jako řetězce, ale volání <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> umožňuje konstrukci [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) objekty.
+Konfigurační hodnoty jsou vrácené jako řetězce, ale volání <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> umožňuje konstrukci [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) objekty. `Bind` Probíhá [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
 Obsahuje ukázkovou aplikaci `Starship` modelu (*Models/Starship.cs*):
 
@@ -1408,7 +1443,7 @@ Následující páry klíč hodnota konfigurace jsou vytvořeny:
 | Key                   | Hodnota                                             |
 | --------------------- | ------------------------------------------------- |
 | starship: name         | USS Enterprise                                    |
-| starship: registru     | PADĚLKY 1701                                          |
+| starship: registru     | NCC-1701                                          |
 | starship: Třída        | Vytvoření                                      |
 | starship: délka       | 304.8                                             |
 | starship: stává | False                                             |
@@ -1428,9 +1463,11 @@ Ukázková aplikace volání `GetSection` s `starship` klíč. `starship` Páry 
 
 ::: moniker-end
 
+`GetSection` Probíhá [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 ## <a name="bind-to-an-object-graph"></a>Vytvořit vazbu grafu objektu
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> je schopen vazby celého grafu objektů POCO.
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> je schopen vazby celého grafu objektů POCO. `Bind` Probíhá [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
 Obsahuje ukázku `TvShow` modelu, jehož graf objektu obsahuje `Metadata` a `Actors` třídy (*Models/TvShow.cs*):
 
@@ -1500,11 +1537,13 @@ viewModel.TvShow = tvShow;
 
 ::: moniker-end
 
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*> Probíhá [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). `Get<T>` je k dispozici v ASP.NET Core 1.1 nebo novější. `GetSection` Probíhá [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 ## <a name="bind-an-array-to-a-class"></a>Svázat pole třídy
 
 *Ukázková aplikace předvádí koncepty je popsáno v této části.*
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> Podporuje pole vazby na objekty pomocí indexy pole v konfigurační klíče. Jakékoli pole formátu, který poskytuje číselné segment klíče (`:0:`, `:1:`, &hellip; `:{n}:`) je schopný vazba pole na pole třídy POCO.
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> Podporuje pole vazby na objekty pomocí indexy pole v konfigurační klíče. Jakékoli pole formátu, který poskytuje číselné segment klíče (`:0:`, `:1:`, &hellip; `:{n}:`) je schopný vazba pole na pole třídy POCO. "Svázat" je v [Microsoft.Extensions.Configuration.Binder](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.Binder/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
 > [!NOTE]
 > Vazba je poskytována konvence. Vlastní zprostředkovatelé konfigurace není nutné implementovat pole vazby.
@@ -1516,8 +1555,8 @@ Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tab
 | Key             | Hodnota  |
 | :-------------: | :----: |
 | pole: položky: 0 | gamma0 |
-| pole: položek: 1 | Hodnota1 |
-| pole: položek: 2 | Hodnota2 |
+| pole: položek: 1 | value1 |
+| pole: položek: 2 | value2 |
 | pole: položek: 4 | value4 |
 | pole: položek: 5 | Hodnota5 |
 
@@ -1558,6 +1597,8 @@ var arrayExample = new ArrayExample();
 _config.GetSection("array").Bind(arrayExample);
 ```
 
+`GetSection` Probíhá [Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+
 ::: moniker range=">= aspnetcore-1.1"
 
 [ConfigurationBinder.Get&lt;T&gt; ](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntaxe je také možné, povede k kompaktnějším kód:
@@ -1581,8 +1622,8 @@ Vázaný objekt, instance `ArrayExample`, přijímá data pole z konfigurace.
 | `ArrayExample.Entries` Index | `ArrayExample.Entries` Hodnota |
 | :--------------------------: | :--------------------------: |
 | 0                            | gamma0                       |
-| 1                            | Hodnota1                       |
-| 2                            | Hodnota2                       |
+| 1                            | value1                       |
+| 2                            | value2                       |
 | 3                            | value4                       |
 | 4                            | Hodnota5                       |
 
@@ -1590,7 +1631,7 @@ Index &num;3 v vázaný objekt obsahuje konfigurační data pro `array:4` konfig
 
 Chybějící položky konfigurace pro index &num;3 může být zadán před vazbu `ArrayExample` instance poskytovatelem žádné konfigurace, která vytváří správné páru klíč hodnota v konfiguraci. Pokud vzorek zahrnuje další poskytovatele konfigurace JSON s chybějící páru klíč hodnota, `ArrayExample.Entries` odpovídá poli kompletní konfigurace:
 
-*missing_value.JSON*:
+*missing_value.json*:
 
 ```json
 {
@@ -1629,8 +1670,8 @@ Pokud `ArrayExample` instance třídy je vázán po poskytovatel konfigurace JSO
 | `ArrayExample.Entries` Index | `ArrayExample.Entries` Hodnota |
 | :--------------------------: | :--------------------------: |
 | 0                            | gamma0                       |
-| 1                            | Hodnota1                       |
-| 2                            | Hodnota2                       |
+| 1                            | value1                       |
+| 2                            | value2                       |
 | 3                            | hodnota3                       |
 | 4                            | value4                       |
 | 5                            | Hodnota5                       |
@@ -1655,10 +1696,10 @@ Zprostředkovatel konfigurace JSON čte konfigurační data do následující p�
 
 | Key                     | Hodnota  |
 | ----------------------- | :----: |
-| json_array:Key          | Hodnotaa |
+| json_array:key          | valueA |
 | json_array:subsection:0 | Hodnotab |
 | json_array:subsection:1 | valueC |
-| json_array:subsection:2 | Vážíme si toho |
+| json_array:subsection:2 | valueD |
 
 V ukázkové aplikaci je k dispozici pro vazbu páry klíč hodnota konfigurace následující třídy POCO:
 
@@ -1680,7 +1721,7 @@ Po vytvoření vazby, `JsonArrayExample.Key` obsahuje hodnotu `valueA`. Dílčí
 | :---------------------------------: | :---------------------------------: |
 | 0                                   | Hodnotab                              |
 | 1                                   | valueC                              |
-| 2                                   | Vážíme si toho                              |
+| 2                                   | valueD                              |
 
 ## <a name="custom-configuration-provider"></a>Vlastního poskytovatele konfigurace
 

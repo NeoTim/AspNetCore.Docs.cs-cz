@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 16f3a435af267a5a17a24ee9fbda2b1c7c8818fd
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: c21decd39b7855cf2eefb2bb482e5e91b9487863
+ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121619"
+ms.lasthandoff: 01/24/2019
+ms.locfileid: "54889935"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>Autor pomocných rutin značek v ASP.NET Core
 
@@ -96,7 +96,7 @@ Aktualizace `EmailTagHelper` třídy následujícím kódem:
 
 [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelperMailTo.cs?range=6-22)]
 
-* Jazyka Pascal – třídy a vlastnosti názvy pro pomocné rutiny značek jsou přeloženy do jejich [snížit kebab případ](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101). Proto použít `MailTo` atributu, budete používat `<email mail-to="value"/>` ekvivalentní.
+* Jazyka Pascal – třídy a vlastnosti názvy pro pomocné rutiny značek jsou přeloženy do jejich [kebab případ](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101). Proto použít `MailTo` atributu, budete používat `<email mail-to="value"/>` ekvivalentní.
 
 * Poslední řádek nastaví dokončené obsah pro naše pomocné rutiny značky minimálně funkční.
 
@@ -189,7 +189,7 @@ Můžete také použít `[HtmlTargetElement]` můžete změnit název cílový e
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/WebsiteInformationTagHelper.cs)]
 
-   * Jak už bylo zmíněno dříve, pomocných rutin značek převádí názvy tříd-jazyka Pascal – C# a vlastnosti pro pomocné rutiny značky do [snížit kebab případ](http://wiki.c2.com/?KebabCase). Proto použít `WebsiteInformationTagHelper` v Razor, napíšete `<website-information />`.
+   * Jak už bylo zmíněno dříve, přeloží pomocných rutin značek-jazyka Pascal C# třídy názvy a vlastnosti pro pomocné rutiny značky do [kebab případ](http://wiki.c2.com/?KebabCase). Proto použít `WebsiteInformationTagHelper` v Razor, napíšete `<website-information />`.
 
    * Nejsou explicitně určení cílového elementu s `[HtmlTargetElement]` atribut, tak výchozí `website-information` budou cílem. Pokud jste provedli následující atribut (Poznámka: není případ kebab ale odpovídá názvu třídy):
 
@@ -197,7 +197,7 @@ Můžete také použít `[HtmlTargetElement]` můžete změnit název cílový e
    [HtmlTargetElement("WebsiteInformation")]
    ```
 
-   Nižší kebab případu značka `<website-information />` shodě. Pokud chcete použít `[HtmlTargetElement]` atribut, můžete využít kebab případu, jak je znázorněno níže:
+   Značka případu kebab `<website-information />` shodě. Pokud chcete použít `[HtmlTargetElement]` atribut, můžete využít kebab případu, jak je znázorněno níže:
 
    ```csharp
    [HtmlTargetElement("Website-Information")]
