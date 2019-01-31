@@ -4,29 +4,29 @@ title: Povolení žádostí nepůvodního zdroje v rozhraní ASP.NET Web API 2 |
 author: MikeWasson
 description: Ukazuje, jak k podpoře sdílení prostředků mezi zdroji (CORS) v rozhraní ASP.NET Web API.
 ms.author: riande
-ms.date: 10/10/2018
+ms.date: 01/29/2019
 ms.assetid: 9b265a5a-6a70-4a82-adce-2d7c56ae8bdd
 msc.legacyurl: /web-api/overview/security/enabling-cross-origin-requests-in-web-api
 msc.type: authoredcontent
-ms.openlocfilehash: 118b779c89edb874f7f928315d1094738be5f097
-ms.sourcegitcommit: 6e6002de467cd135a69e5518d4ba9422d693132a
+ms.openlocfilehash: 97a0027194b019b09e220493dcb593e682027fe3
+ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2018
-ms.locfileid: "49348517"
+ms.lasthandoff: 01/31/2019
+ms.locfileid: "55428444"
 ---
 <a name="enable-cross-origin-requests-in-aspnet-web-api-2"></a>Povolení žádostí nepůvodního v ASP.NET Web API 2
 ====================
 podle [Mike Wasson](https://github.com/MikeWasson)
 
-> Zabezpečení prohlížečů brání zasílání požadavků AJAX na jinou doménu na webové stránce. Toto omezení je volána *zásada stejného zdroje*a brání škodlivým webům ve čtení citlivých dat z jiné lokality. Ale v některých případech můžete chtít nechat ostatních lokalit volání webového rozhraní API.
+> Zabezpečení prohlížečů brání webovým stránkám v odesílání požadavků AJAX na jinou doménu. Toto omezení je volána *zásada stejného zdroje*a brání škodlivým webům ve čtení citlivých dat z jiné lokality. Ale v některých případech můžete chtít nechat ostatních lokalit volání webového rozhraní API.
 >
 > [Mezi sdílení zdrojů původu](http://www.w3.org/TR/cors/) (CORS) je standard W3C, která umožňuje server zmírnit zásadu stejného zdroje. Pomocí CORS, server explicitně můžou některé požadavky cross-origin zatímco jiné odmítnout. CORS je bezpečnější a flexibilnější, než starší techniky, jako [JSONP](http://en.wikipedia.org/wiki/JSONP). Tento kurz ukazuje postupy při povolení CORS v aplikace webového rozhraní API.
 >
 > ## <a name="software-used-in-the-tutorial"></a>V tomto kurzu použili softwaru
 >
 > - [Visual Studio](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017)
-> - Webové rozhraní API 2.2
+> - Web API 2.2
 
 ## <a name="introduction"></a>Úvod
 
@@ -67,7 +67,7 @@ Tyto adresy URL mají různé zdroje než ta předchozí dvě:
 
    [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample1.cs)]
 
-4. Můžete spustit aplikaci místně nebo nasazení do Azure. (Pro snímky obrazovky v tomto kurzu, aplikace nasadí do Azure App Service Web Apps.) Pokud chcete ověřit, že je pracovní webové rozhraní API, přejděte na `http://hostname/api/test/`, kde *název hostitele* je doména, kam jste nasadili aplikaci. Měli byste vidět text odpovědi &quot;získat: testovací zpráva&quot;.
+4. Můžete spustit aplikaci místně nebo nasazení do Azure. (Pro snímky obrazovky v tomto kurzu, aplikace nasadí do Azure App Service Web Apps.) Pokud chcete ověřit, že je pracovní webové rozhraní API, přejděte na `http://hostname/api/test/`, kde *název hostitele* je doména, kam jste nasadili aplikaci. Měli byste vidět text odpovědi &quot;získat: Testovací zpráva&quot;.
 
    ![Webové prohlížeče zobrazující zkušební zprávy](enabling-cross-origin-requests-in-web-api/_static/image4.png)
 
@@ -90,7 +90,7 @@ Po kliknutí na tlačítko "Vyzkoušet" požadavek AJAX se odešle do aplikace w
 ![Chyba "Zkuste to" v prohlížeči](enabling-cross-origin-requests-in-web-api/_static/image7.png)
 
 > [!NOTE]
-> Pokud sledujete přenos pomocí protokolu HTTP v nástroji, jako jsou [Fiddler](http://www.telerik.com/fiddler), uvidíte, že do prohlížeče odeslat požadavek na získání a úspěšného vykonání požadavku, ale volání jazyka AJAX vrátí chybu. Je důležité pochopit, že zásada stejného zdroje nezabraňuje prohlížeče z *odesílání* požadavku. Místo toho brání aplikaci v zobrazení *odpovědi*.
+> Pokud sledujete přenos pomocí protokolu HTTP v nástroji, jako jsou [Fiddler](https://www.telerik.com/fiddler), uvidíte, že do prohlížeče odeslat požadavek na získání a úspěšného vykonání požadavku, ale volání jazyka AJAX vrátí chybu. Je důležité pochopit, že zásada stejného zdroje nezabraňuje prohlížeče z *odesílání* požadavku. Místo toho brání aplikaci v zobrazení *odpovědi*.
 
 ![Ladicí program webové aplikaci Fiddler zobrazují webové požadavky](enabling-cross-origin-requests-in-web-api/_static/image8.png)
 
@@ -106,11 +106,11 @@ Otevřete soubor *aplikace\_Start/WebApiConfig.cs*. Přidejte následující kó
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample4.cs?highlight=9)]
 
-Dále přidejte **[EnableCors]** atribut `TestController` třídy:
+V dalším kroku přidejte **[EnableCors]** atribut `TestController` třídy:
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample5.cs?highlight=3,7)]
 
-Pro *zdroje* parametrů, použijte identifikátor URI, kam jste nasadili webový klient aplikace. Díky tomu požadavky cross-origin z WebClient, při stále Probíhá zakazování všech ostatních požadavků mezi doménami. Později budete I popisují parametry pro **[EnableCors]** podrobněji.
+Pro *zdroje* parametrů, použijte identifikátor URI, kam jste nasadili webový klient aplikace. Díky tomu požadavky cross-origin z WebClient, při stále Probíhá zakazování všech ostatních požadavků mezi doménami. Později, můžu budete popisují parametry **[EnableCors]** podrobněji.
 
 Nezahrnují dopředné lomítko na konci *zdroje* adresy URL.
 
@@ -156,8 +156,8 @@ Tady je příklad předběžný požadavek:
 
 Přípravné požadavek používá metodu HTTP OPTIONS. Obsahuje dva speciálními záhlavími:
 
-- Access-Control-Request-Method: Metoda HTTP, který se použije pro aktuálního požadavku.
-- Access-Control-Request-Headers: Seznam hlaviček požadavků, který *aplikace* nastavit u aktuálního požadavku. (Znovu, nezahrnuje hlavičky, které nastaví prohlížeče.)
+- Access-Control-Request-Method: Metoda protokolu HTTP, který se použije pro aktuálního požadavku.
+- Access-Control-Request-Headers: Seznam hlaviček požadavku, který *aplikace* nastavit u aktuálního požadavku. (Znovu, nezahrnuje hlavičky, které nastaví prohlížeče.)
 
 Tady je příklad odpovědi, za předpokladu, že server umožňuje žádosti:
 
@@ -165,19 +165,35 @@ Tady je příklad odpovědi, za předpokladu, že server umožňuje žádosti:
 
 Odpověď obsahuje hlavičku přístup – ovládací prvek-Allow-Methods, který obsahuje seznam povolených metod a volitelně hlavičky Access-Control-povolit-Headers, která zobrazuje povolené hlavičky. Pokud je předběžný požadavek úspěšné, prohlížeč odesílá skutečnou žádost, jak je popsáno výše.
 
-## <a name="scope-rules-for-enablecors"></a>Obor pravidla pro [EnableCors]
+Nástroje se běžně používá k testování koncových bodů s předběžné požadavky OPTIONS (například [Fiddler](https://www.telerik.com/fiddler) a [Postman](https://www.getpostman.com/)) Neodesílat požadované záhlaví možnosti ve výchozím nastavení. Ujistěte se, že `Access-Control-Request-Method` a `Access-Control-Request-Headers` záhlaví se posílají se požadavek a hlavičky možnosti komunikace s aplikací prostřednictvím služby IIS.
+
+Pro konfiguraci IIS a aplikace ASP.NET pro příjem a zpracování požadavků na možnost povolit, přidejte následující konfiguraci na aplikaci *web.config* soubor `<system.webServer><handlers>` části:
+
+```xml
+<system.webServer>
+  <handlers>
+    <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+    <remove name="OPTIONSVerbHandler" />
+    <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+  </handlers>
+</system.webServer>
+```
+
+Odebrání `OPTIONSVerbHandler` zabrání zpracování možnosti žádostí služby IIS. Nahrazení `ExtensionlessUrlHandler-Integrated-4.0` umožňuje možnosti požadavky k dosažení aplikace, protože výchozí registraci modulu umožňuje pouze požadavky GET, HEAD, POST a ladění pomocí adresy URL bez přípony.
+
+## <a name="scope-rules-for-enablecors"></a>Pravidla rozsahu pro [EnableCors]
 
 CORS můžete povolit každou akci, na kontroler nebo globálně pro všechny kontrolery rozhraní Web API ve vaší aplikaci.
 
 **Za akci**
 
-Povolení CORS pro jednu akci, nastavte **[EnableCors]** atributu na metodu akce. Následující příklad umožňuje použití CORS pro `GetItem` pouze metody.
+Chcete-li povolit CORS pro jednu akci, nastavte **[EnableCors]** atributu na metodu akce. Následující příklad umožňuje použití CORS pro `GetItem` pouze metody.
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample10.cs)]
 
 **Na kontroler**
 
-Nastavíte-li **[EnableCors]** na třídy řadiče, vztahuje se na všechny akce v řadiči. Zakázání CORS pro akci, přidat **[DisableCors]** atribut k akci. Následující příklad umožňuje použití CORS pro každou metodu s výjimkou `PutItem`.
+Pokud nastavíte **[EnableCors]** na třídu kontroleru se vztahuje na všechny akce v kontroleru. K zákazu sdílení CORS pro akci, přidejte **[DisableCors]** atribut na akci. Následující příklad umožňuje použití CORS pro každou metodu s výjimkou `PutItem`.
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample11.cs)]
 
@@ -195,7 +211,7 @@ Pokud jste nastavili atribut na více než jednoho oboru, je pořadí podle prio
 
 ## <a name="set-the-allowed-origins"></a>Nastavte povolené zdroje
 
-*Původu* parametr **[EnableCors]** atribut určuje původu, které jsou povoleny pro přístup k prostředku. Hodnota je čárkou oddělený seznam Povolené zdroje.
+*Zdroje* parametr **[EnableCors]** atribut určuje, jaké zdroje jsou povoleny pro přístup k prostředku. Hodnota je čárkou oddělený seznam Povolené zdroje.
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample13.cs)]
 
@@ -207,13 +223,13 @@ Pečlivě zvažte předtím, než žádosti z původu. To znamená, že doslova 
 
 ## <a name="set-the-allowed-http-methods"></a>Nastavte povolené metody HTTP
 
-*Metody* parametr **[EnableCors]** atribut určuje, jaké metody HTTP jsou povoleny pro přístup k prostředku. Pokud chcete povolit všechny metody, použijte hodnotu zástupný znak "\*". Následující příklad umožňuje pouze požadavky GET a POST.
+*Metody* parametr **[EnableCors]** atribut určuje, jaké metody HTTP je povolen přístup k prostředku. Pokud chcete povolit všechny metody, použijte hodnotu zástupný znak "\*". Následující příklad umožňuje pouze požadavky GET a POST.
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample15.cs)]
 
 ## <a name="set-the-allowed-request-headers"></a>Nastavit hlavičku povolené žádosti
 
-V tomto článku je popsáno dříve jak předběžný požadavek může obsahovat hlavičku Access-Control-Request-Headers, výpis hlavičky protokolu HTTP, nastavte aplikací (takzvaný ", vytvářet hlavičky žádosti"). *Záhlaví* parametr **[EnableCors]** atribut určuje, které autor hlavičky požadavku jsou povoleny. Chcete-li povolit všechny hlavičky, nastavte *záhlaví* na "\*". Na seznamu povolených IP adres konkrétní záhlaví, nastavte *záhlaví* do seznamu Povolené hlavičky oddělené čárkami:
+V tomto článku je popsáno dříve jak předběžný požadavek může obsahovat hlavičku Access-Control-Request-Headers, výpis hlavičky protokolu HTTP, nastavte aplikací (takzvaný ", vytvářet hlavičky žádosti"). *Záhlaví* parametr **[EnableCors]** atribut určuje, která autorovi požadavku záhlaví jsou povolena. Chcete-li povolit všechny hlavičky, nastavte *záhlaví* na "\*". Na seznamu povolených IP adres konkrétní záhlaví, nastavte *záhlaví* do seznamu Povolené hlavičky oddělené čárkami:
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample16.cs)]
 
@@ -232,7 +248,7 @@ Ve výchozím prohlížeči nezveřejňuje všechny hlavičky odpovědí do apli
 - Datum poslední změny
 - Direktiva pragma
 
-Specifikace CORS volá tyto [hlavičky odpovědi jednoduché](https://dvcs.w3.org/hg/cors/raw-file/tip/Overview.html#simple-response-header). Chcete-li zpřístupnit další záhlaví aplikace, nastavte *exposedHeaders* parametr **[EnableCors]**.
+Specifikace CORS volá tyto [hlavičky odpovědi jednoduché](https://dvcs.w3.org/hg/cors/raw-file/tip/Overview.html#simple-response-header). Chcete-li zpřístupnit dalších hlaviček pro aplikaci, nastavte *exposedHeaders* parametr **[EnableCors]**.
 
 V následujícím příkladu, kontroler společnosti `Get` metoda nastaví vlastní hlavičku s názvem "X-Custom-Header". Ve výchozím nastavení nebude prohlížeč vystavit toto záhlaví v žádosti nepůvodního zdroje. Pokud chcete zpřístupnit záhlaví, patří "X-Custom-Header" v *exposedHeaders*.
 
@@ -250,7 +266,7 @@ V jQuery:
 
 [!code-javascript[Main](enabling-cross-origin-requests-in-web-api/samples/sample19.js)]
 
-Na serveru navíc musíte povolit přihlašovací údaje. Nastavení umožňující pověření původu mezi webové rozhraní API **SupportsCredentials** vlastnost na hodnotu true na **[EnableCors]** atribut:
+Na serveru navíc musíte povolit přihlašovací údaje. Chcete-li povolit pověření nepůvodního zdroje v rozhraní Web API, nastavte **SupportsCredentials** vlastnost na hodnotu true na **[EnableCors]** atribut:
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample20.cs)]
 
@@ -262,11 +278,11 @@ Buďte opatrní při nastavení **SupportsCredentials** na hodnotu true, protož
 
 ## <a name="custom-cors-policy-providers"></a>Vlastní zprostředkovatelé zásad CORS
 
-**[EnableCors]** implementuje atribut **ICorsPolicyProvider** rozhraní. Můžete zadat vlastní implementaci tak, že vytvoříte třídu, která je odvozena z **atribut** a implementuje **ICorsProlicyProvider**.
+**[EnableCors]** atribut implementuje **ICorsPolicyProvider** rozhraní. Můžete zadat vlastní implementaci tak, že vytvoříte třídu, která je odvozena z **atribut** a implementuje **ICorsProlicyProvider**.
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample21.cs)]
 
-Nyní můžete použít atribut jakékoli místo, že by měla být umístěna **[EnableCors]**.
+Teď můžete použít atribut jakéhokoli místa, že vložíte **[EnableCors]**.
 
 [!code-csharp[Main](enabling-cross-origin-requests-in-web-api/samples/sample22.cs)]
 

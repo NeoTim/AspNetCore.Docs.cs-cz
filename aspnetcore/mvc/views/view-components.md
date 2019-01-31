@@ -3,14 +3,14 @@ title: Zobrazení komponenty v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak komponenty zobrazení se používají v ASP.NET Core a jejich přidání do aplikací.
 ms.author: riande
-ms.date: 12/03/2018
+ms.date: 1/30/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: 31c0d8f2c08eb06633b604c949cadff24ed5cb7e
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: d0e528fcf9e20afee98e74fbc09c67b81e123e95
+ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236351"
+ms.lasthandoff: 01/31/2019
+ms.locfileid: "55428392"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazení komponenty v ASP.NET Core
 
@@ -75,9 +75,11 @@ Zobrazení komponenty definuje svou logikou v `InvokeAsync` metodu, která vrac�
 
 Modul runtime vyhledává zobrazení v následující cesty:
 
-* Řetězec/Pages/součásti / {název komponenty zobrazení} / {název zobrazení}
 * /Components/ /views/ {název řadiče} {název komponenty zobrazení} / {název zobrazení}
 * / Zobrazení/Shared/Components / {View název komponenty} / {název zobrazení}
+* / Stránek/Shared/Components / {View název komponenty} / {název zobrazení}
+
+Cesty pro hledání se vztahují na projekty na použití kontrolerů a zobrazení a stránky Razor.
 
 Výchozí název zobrazení pro součást zobrazení je *výchozí*, což znamená, že váš soubor zobrazení se obvykle nazývá *stránku Default.cshtml*. Můžete zadat název jiné zobrazení, při vytváření komponenty výsledný objekt zobrazení, nebo při volání `View` metody.
 

@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 07/25/2018
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: bcaeb3ba286feb55c0755c5baee4b7608710e647
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: d56df549d845b1f83ec4a5ec97ce6b44438f725a
+ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207781"
+ms.lasthandoff: 01/31/2019
+ms.locfileid: "55428431"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>Pomocná rutina částečné značky v ASP.NET Core
 
@@ -53,7 +53,7 @@ Následující kód používá cestu k explicitní, což indikuje, že *_Product
 
 ## <a name="for"></a>pro
 
-`for` Atribut přiřadí [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression) má být porovnán s aktuální model. A `ModelExpression` odvodí, `@Model.` syntaxe. Například `for="Product"` lze použít místo `for="@Model.Product"`. Toto výchozí chování odvození přepsán pomocí `@` symbolů k definování vložený výraz. `for` Atributu nelze použít s [modelu](#model) atribut.
+`for` Atribut přiřadí [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression) má být porovnán s aktuální model. A `ModelExpression` odvodí, `@Model.` syntaxe. Například `for="Product"` lze použít místo `for="@Model.Product"`. Toto výchozí chování odvození přepsán pomocí `@` symbolů k definování vložený výraz.
 
 Následující kód načte *_ProductPartial.cshtml*:
 

@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2019
+ms.date: 01/29/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 83c084beb059d803811e9739d34bdbdd6bcff463
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 9392da14e589736b24790676c1c07c9964882737
+ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341794"
+ms.lasthandoff: 01/31/2019
+ms.locfileid: "55428457"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -594,6 +594,12 @@ Pokud se připojení HTTP/2, [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Ht
 ::: moniker-end
 
 HTTP/2 je standardně povolená. Připojení vrátit zpět k protokolu HTTP/1.1, pokud nedojde k připojení k protokolu HTTP/2. Další informace o konfiguraci protokolu HTTP/2 u nasazení ve službě IIS najdete v části [HTTP/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis).
+
+## <a name="cors-preflight-requests"></a>Předběžných požadavků CORS
+
+*Tato část platí jenom pro aplikace ASP.NET Core, které se zaměřují rozhraní .NET Framework.*
+
+Pro aplikace ASP.NET Core, který cílí .NET Framework, možnosti žádosti se předávají do aplikace ve výchozím nastavení ve službě IIS. Další informace o konfiguraci aplikace služby IIS obslužné rutiny v *web.config* předat požadavky OPTIONS, naleznete v tématu [povolení žádostí nepůvodního v ASP.NET Web API 2: Jak funguje CORS](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works).
 
 ## <a name="deployment-resources-for-iis-administrators"></a>Materiály pro nasazení pro správce služby IIS
 

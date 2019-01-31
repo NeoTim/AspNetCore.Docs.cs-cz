@@ -1,2 +1,2 @@
-* [Visual Studio 2017 verze 15.9 nebo vyšší](* [Visual Studio 2017 version 15.9 or later](https://www.visualstudio.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017) with the **ASP.NET and web development** workload) s **vývoj pro ASP.NET a web** pracovního vytížení
-* [.NET core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+* [Visual Studio 2019 Preview](https://visualstudio.microsoft.com/vs/preview/) s **vývoj pro ASP.NET a web** pracovního vytížení
+* [.NET core SDK 3.0 ve verzi Preview](https://dotnet.microsoft.com/download/dotnet-core/3.0)

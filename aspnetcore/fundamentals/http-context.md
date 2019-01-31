@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/27/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: ee185cd30af51fa6ee9a4d23ea60a56ec1b76c8d
-ms.sourcegitcommit: 506a199274e9fe5fb4070b273ba94f29f14cb619
+ms.openlocfilehash: babc637cdec8590ac14f7924c17e862e5b2f6a81
+ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/28/2018
-ms.locfileid: "39332285"
+ms.lasthandoff: 01/31/2019
+ms.locfileid: "55428483"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>Přístup k objektu HttpContext v ASP.NET Core
 
@@ -109,7 +109,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker-end
 
-V předchozím příkladu:
+V následujícím příkladu:
 
 * `UserRepository` deklaruje své závislosti na `IHttpContextAccessor`.
 * Při vkládání závislostí řeší řetězec závislostí a vytvoří instanci objektu zadán závislost `UserRepository`.
