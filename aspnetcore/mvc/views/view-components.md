@@ -5,12 +5,12 @@ description: Zjistěte, jak komponenty zobrazení se používají v ASP.NET Core
 ms.author: riande
 ms.date: 12/03/2018
 uid: mvc/views/view-components
-ms.openlocfilehash: 156db610d99eaf8a8042a4c7c85267d521a20fd4
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 31c0d8f2c08eb06633b604c949cadff24ed5cb7e
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836698"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236351"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazení komponenty v ASP.NET Core
 
@@ -91,9 +91,9 @@ Chcete-li použít komponentu zobrazení, zavolejte následující uvnitř zobra
 @await Component.InvokeAsync("Name of view component", {Anonymous Type Containing Parameters})
 ```
 
-Parametry předávané `InvokeAsync` metody. `PriorityList` z je vyvolána zobrazení komponenty vyvinuté v následujícím článku *Views/Todo/Index.cshtml* zobrazení souboru. V následujícím příkladu `InvokeAsync` metoda je volána s dva parametry:
+Parametry předávané `InvokeAsync` metody. `PriorityList` z je vyvolána zobrazení komponenty vyvinuté v následujícím článku *Views/ToDo/Index.cshtml* zobrazení souboru. V následujícím příkladu `InvokeAsync` metoda je volána s dva parametry:
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexFinal.cshtml?range=35)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
 ::: moniker range=">= aspnetcore-1.1"
 
@@ -101,9 +101,9 @@ Parametry předávané `InvokeAsync` metody. `PriorityList` z je vyvolána zobra
 
 Pro ASP.NET Core 1.1 a vyšší, můžete vyvolat komponentu zobrazení jako [pomocné rutiny značky](xref:mvc/views/tag-helpers/intro):
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexTagHelper.cshtml?range=37-38)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexTagHelper.cshtml?range=37-38)]
 
-Jazyka Pascal – třídy a metody parametry pro pomocné rutiny značek jsou přeloženy do jejich [snížit kebab případ](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101). Pomocná rutina značky k vyvolání komponenty zobrazení používá `<vc></vc>` elementu. Zobrazení komponenty je určena následujícím způsobem:
+Jazyka Pascal – třídy a metody parametry pro pomocné rutiny značek jsou přeloženy do jejich [kebab případ](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101). Pomocná rutina značky k vyvolání komponenty zobrazení používá `<vc></vc>` elementu. Zobrazení komponenty je určena následujícím způsobem:
 
 ```cshtml
 <vc:[view-component-name]
@@ -122,13 +122,13 @@ Zobrazení komponenty můžete zaregistrovat jako pomocné rutiny značky do sou
 
 `InvokeAsync` Metodu použitou v tomto kurzu:
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexFinal.cshtml?range=35)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
 Ve značkách pomocné rutiny značky:
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexTagHelper.cshtml?range=37-38)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexTagHelper.cshtml?range=37-38)]
 
-V příkladu výše `PriorityList` stane součástí zobrazení `priority-list`. Parametry pro zobrazení komponenty jsou předány jako atributy v malá písmena kebab.
+V příkladu výše `PriorityList` stane součástí zobrazení `priority-list`. Parametry pro zobrazení komponenty jsou předány jako atributy v případě kebab.
 
 ::: moniker-end
 
@@ -142,7 +142,7 @@ V tomto příkladu je součásti zobrazení volání přímo z kontroleru:
 
 ## <a name="walkthrough-creating-a-simple-view-component"></a>Průvodce: Vytvoření jednoduché zobrazení komponenty
 
-[Stáhněte si](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a testování počátečního kódu. Je to Jednoduchý projekt s `Todo` kontroler, který zobrazí seznam *Todo* položky.
+[Stáhněte si](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a testování počátečního kódu. Je to Jednoduchý projekt s `ToDo` kontroler, který zobrazí seznam *ToDo* položky.
 
 ![Seznam úloh, ať už](view-components/_static/2dos.png)
 
@@ -175,14 +175,14 @@ Poznámky k kód:
 * Vytvořte *zobrazení/Shared/součásti/PriorityList* složky. Tento název složky musí odpovídat názvu třídy zobrazení komponenty nebo název třídy minus příponu (Pokud jsme postupovali podle úmluvy a použít *ViewComponent* přípony v názvu třídy). Pokud jste použili `ViewComponent` atribut, název třídy by musí odpovídat atributu označení.
 
 * Vytvoření *Views/Shared/Components/PriorityList/Default.cshtml* zobrazení Razor: [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
-    
-   Zobrazení Razor přebírá seznam `TodoItem` a zobrazí je. Pokud komponentu zobrazení `InvokeAsync` metoda neprojde název zobrazení (jako v naší ukázce) *výchozí* používají konvence pro název zobrazení. Později v tomto kurzu můžu ukážeme, jak předat název zobrazení. Pokud chcete přepsat výchozí styl k určitému kontroleru, přidejte do specifické pro kontroler zobrazení složky zobrazení (například *Views/Todo/Components/PriorityList/Default.cshtml)*.
-    
-    Pokud je součást zobrazení specifické pro kontroler, můžete ho přidat do složky specifické pro kontroler (*Views/Todo/Components/PriorityList/Default.cshtml*).
 
-* Přidat `div` obsahujícím volání do seznamu součástí priority k dolnímu okraji *Views/Todo/index.cshtml* souboru:
+   Zobrazení Razor přebírá seznam `TodoItem` a zobrazí je. Pokud komponentu zobrazení `InvokeAsync` metoda neprojde název zobrazení (jako v naší ukázce) *výchozí* používají konvence pro název zobrazení. Později v tomto kurzu můžu ukážeme, jak předat název zobrazení. Pokud chcete přepsat výchozí styl k určitému kontroleru, přidejte do specifické pro kontroler zobrazení složky zobrazení (například *Views/ToDo/Components/PriorityList/Default.cshtml)*.
 
-    [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexFirst.cshtml?range=34-38)]
+    Pokud je součást zobrazení specifické pro kontroler, můžete ho přidat do složky specifické pro kontroler (*Views/ToDo/Components/PriorityList/Default.cshtml*).
+
+* Přidat `div` obsahujícím volání do seznamu součástí priority k dolnímu okraji *Views/ToDo/index.cshtml* souboru:
+
+    [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFirst.cshtml?range=34-38)]
 
 Značky `@await Component.InvokeAsync` ukazuje syntaxi pro volání komponenty zobrazení. Prvním argumentem je název komponenty, které chceme volání nebo volání. Následující parametry jsou předány do komponenty. `InvokeAsync` můžete využít libovolný počet argumentů.
 
@@ -206,11 +206,11 @@ Kopírovat *Views/Shared/Components/PriorityList/Default.cshtml* soubor k zobraz
 
 [!code-cshtml[](../../mvc/views/view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/PVC.cshtml?highlight=3)]
 
-Update *Views/TodoList/Index.cshtml*:
+Update *Views/ToDo/Index.cshtml*:
 
-<!-- Views/TodoList/Index.cshtml is never imported, so change to test tutorial -->
+<!-- Views/ToDo/Index.cshtml is never imported, so change to test tutorial -->
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexFinal.cshtml?range=35)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
 Spusťte aplikaci a ověřte PVC zobrazení.
 
@@ -221,7 +221,7 @@ Pokud není PVC zobrazení vykresleno, ověřte, zda že jsou volání komponent
 ### <a name="examine-the-view-path"></a>Zkontrolujte cestu zobrazení
 
 * Proto se vrátí zobrazení prioritní změňte parametr priority na tři nebo i rychleji.
-* Dočasně přejmenujte *Views/Todo/Components/PriorityList/Default.cshtml* k *1Default.cshtml*.
+* Dočasně přejmenujte *Views/ToDo/Components/PriorityList/Default.cshtml* k *1Default.cshtml*.
 * Testování aplikace, získáte následující chybu:
 
    ```
@@ -232,8 +232,8 @@ Pokud není PVC zobrazení vykresleno, ověřte, zda že jsou volání komponent
    EnsureSuccessful
    ```
 
-* Kopírování *Views/Todo/Components/PriorityList/1Default.cshtml* k *Views/Shared/Components/PriorityList/Default.cshtml*.
-* Přidat některé značky *Shared* Todo zobrazení komponenty k označení zobrazení je z *Shared* složky.
+* Kopírování *Views/ToDo/Components/PriorityList/1Default.cshtml* k *Views/Shared/Components/PriorityList/Default.cshtml*.
+* Přidat některé značky *Shared* ToDo zobrazení komponenty k označení zobrazení je z *Shared* složky.
 * Test **Shared** součásti zobrazení.
 
 ![Výstup úkolů s sdílené komponenty zobrazení](view-components/_static/shared.png)
@@ -246,7 +246,7 @@ Pokud chcete kompilovat bezpečný přístup z více času, můžete nahradit n�
 
 Přidat `using` příkazu vaše Razor zobrazení souboru a použít `nameof` operátor:
 
-[!code-cshtml[](view-components/sample/ViewCompFinal/Views/Todo/IndexNameof.cshtml?range=1-6,35-)]
+[!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexNameof.cshtml?range=1-6,35-)]
 
 ## <a name="perform-synchronous-work"></a>Provedení synchronní práce
 

@@ -1,26 +1,26 @@
 ---
 uid: mvc/overview/getting-started/database-first-development/creating-the-web-application
 title: 'Kurz: Vytvořte webovou aplikaci a datové modely pro EF Database First s ASP.NET MVC'
-description: Tento článek se zaměřuje na vytvoření webové aplikace a generování datové modely založené na databázových tabulek.
+description: Tento kurz se zaměřuje na vytvoření webové aplikace a generování datové modely založené na databázových tabulek.
 author: Rick-Anderson
 ms.author: riande
-ms.date: 01/23/2019
+ms.date: 01/28/2019
 ms.topic: tutorial
 ms.assetid: bc8f2bd5-ff57-4dcd-8418-a5bd517d8953
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/creating-the-web-application
 msc.type: authoredcontent
-ms.openlocfilehash: 095d355866c9ab8fba3759f3e05e2a521992f3d6
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: dced55386c3f810e406c5c2b3f0071b45e3b2dbd
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889766"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236364"
 ---
 # <a name="tutorial-create-the-the-web-application-and-data-models-for-ef-database-first-with-aspnet-mvc"></a>Kurz: Vytvořte webovou aplikaci a datové modely pro EF Database First s ASP.NET MVC
 
  Pomocí generování uživatelského rozhraní ASP.NET, MVC a Entity Framework, můžete vytvořit webovou aplikaci, která poskytuje rozhraní pro existující databázi. V této sérii kurzů se dozvíte, jak automaticky vygenerovat kód, který umožňuje uživatelům zobrazit, upravit, vytvořit a odstranit data, která se nachází v databázové tabulce. Generovaný kód odpovídá sloupců v tabulce databáze.
 
-Tento článek se zaměřuje na vytvoření webové aplikace a generování datové modely založené na databázových tabulek.
+Tento kurz se zaměřuje na vytvoření webové aplikace a generování datové modely založené na databázových tabulek.
 
 V tomto kurzu se naučíte:
 
@@ -102,6 +102,6 @@ V tomto kurzu se naučíte:
 > * Vytvoření webové aplikace ASP.NET
 > * Vygeneruje modely
 
-Pokračujte k dalším článku se dozvíte, jak vytvořit vygenerování kódu založeném na datové modely.
+Pokračujte k dalšímu kurzu se naučíte vytvořit vygenerování kódu založeném na datové modely.
 > [!div class="nextstepaction"]
 > [Generování zobrazení](generating-views.md)

@@ -5,12 +5,12 @@ description: Další informace o metodě kontroleru podrobnosti a zobrazit v zá
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: c02a85b7c92a0cfa6125c5033b6cadd965f1662e
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: f674ca1761f85ce127121603286c97d5936f6716
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997185"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236325"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>Zkontrolujte podrobnosti a odstranit metody aplikace ASP.NET Core
 
@@ -24,7 +24,7 @@ Modul generování uživatelského rozhraní MVC, který vytvořili této metod�
 
 [!code-csharp[](start-mvc/sample/MvcMovie/Startup.cs?highlight=5&name=snippet_1)]
 
-EF usnadňuje hledání pro data s využitím `SingleOrDefaultAsync` metody. Důležitou funkci zabezpečení integrované do metody je, že kód ověří, že metoda hledání našla filmu předtím, než se pokusí provádět s ním. Například se hacker by mohla zanést chyby do lokality tak, že změníte adresu URL vytvořené odkazy z `http://localhost:xxxx/Movies/Details/1` na něco jako `http://localhost:xxxx/Movies/Details/12345` (nebo jinou hodnotu, která nepředstavuje skutečný film). Pokud jste nezaškrtli null filmu, aplikace by vyvolat výjimku.
+EF usnadňuje hledání pro data s využitím `FirstOrDefaultAsync` metody. Důležitou funkci zabezpečení integrované do metody je, že kód ověří, že metoda hledání našla filmu předtím, než se pokusí provádět s ním. Například se hacker by mohla zanést chyby do lokality tak, že změníte adresu URL vytvořené odkazy z `http://localhost:xxxx/Movies/Details/1` na něco jako `http://localhost:xxxx/Movies/Details/12345` (nebo jinou hodnotu, která nepředstavuje skutečný film). Pokud jste nezaškrtli null filmu, aplikace by vyvolat výjimku.
 
 Zkontrolujte `Delete` a `DeleteConfirmed` metody.
 

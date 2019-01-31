@@ -8,12 +8,12 @@ ms.date: 08/15/2012
 ms.assetid: c7e4e1ab-4932-4614-9f53-aaf7c706d498
 msc.legacyurl: /mvc/overview/views/using-page-inspector-in-aspnet-mvc
 msc.type: authoredcontent
-ms.openlocfilehash: c465b0bac9af90a892d6e62a327ba36977d08d4a
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 0dea8b077878139a3f513cb51447b86a93fe55b8
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755719"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236533"
 ---
 <a name="using-page-inspector-in-aspnet-mvc"></a>Použití Page Inspectoru v ASP.NET MVC
 ====================
@@ -27,7 +27,7 @@ podle Tim Ammann
 > 
 > Tento kurz obsahuje následující oddíly:
 > 
-> - [Požadované součásti](#_1_prerequisites)
+> - [Požadavky](#_1_prerequisites)
 > - [Vytvoření webové aplikace](#_2_creating_a)
 > - [Použití Page Inspectoru pro přejděte do zobrazení](#_3_using_page)
 > - [Povolit režim kontroly](#_4_inspection_mode)
@@ -59,7 +59,7 @@ Nejprve vytvořte webovou aplikaci, kterou budete používat nástroj Page Inspe
 
 ![Nové aplikace ASP.NET MVC](using-page-inspector-in-aspnet-mvc/_static/image2.png)
 
-Klikněte na tlačítko **OK**.
+Klikněte na **OK**.
 
 V **nového projektu ASP.NET MVC 4** dialogu **internetovou aplikaci**. Ponechte **Razor** jako výchozí modul zobrazení.
 
@@ -81,7 +81,7 @@ V **Průzkumníka řešení**, rozbalte **zobrazení** složku a potom **Domů**
 
 ![Zobrazení index.cshtm ve nástroj Page Inspector](using-page-inspector-in-aspnet-mvc/_static/image8.png)
 
-Ve výchozím nastavení nástroj Page Inspector je ukotven jako okno na levé straně prostředí sady Visual Studio. Pokud dáváte přednost, můžete ukotvit jinde, nebo zrušit ukotvení v okně. Zobrazit [postupy: rozvržení a dokování Windows](https://msdn.microsoft.com/library/z4y0hsax.aspx).
+Ve výchozím nastavení nástroj Page Inspector je ukotven jako okno na levé straně prostředí sady Visual Studio. Pokud dáváte přednost, můžete ukotvit jinde, nebo zrušit ukotvení v okně. Zobrazit [jak: Rozvržení a dokování Windows](https://msdn.microsoft.com/library/z4y0hsax.aspx).
 
 Horní podokno okna nástroje Page Inspector aktuální stránky zobrazí v okně prohlížeče. V dolním podokně zobrazí na stránce v kódu HTML, spolu s některé karty, která umožňují kontrolovat různé aspekty stránky. Dolní podokno je podobný [vývojářské nástroje F12 pomáhají](https://msdn.microsoft.com/ie/aa740478) v aplikaci Internet Explorer.
 
@@ -161,7 +161,7 @@ V okně prohlížeče nástroj Page Inspector, přesuňte ukazatel myši nad odd
 
 ![Ukazatel myši div.content obálky](using-page-inspector-in-aspnet-mvc/_static/image26.png)
 
-Klikněte v části div.content obálky jednou a poté přesuňte ukazatel myši na **styly** okna. **– Styly** okno zobrazuje všechna pravidla šablon stylů CSS u tohoto elementu. Posuňte se dolů najít .featured .content – obálky třídy selektor. Nyní zrušte zaškrtnutí políčka pro vlastnost barvu pozadí.
+Klikněte v části div.content obálky jednou a poté přesuňte ukazatel myši na **styly** okna. **Styly** okno zobrazuje všechna pravidla šablon stylů CSS u tohoto elementu. Posuňte se dolů najít .featured .content – obálky třídy selektor. Nyní zrušte zaškrtnutí políčka pro vlastnost barvu pozadí.
 
 ![Barva pozadí vymazat](using-page-inspector-in-aspnet-mvc/_static/image28.png)
 
@@ -186,7 +186,7 @@ Klikněte na tlačítko **zkontrolujte, jestli se** uvést do režimu kontroly n
 
 V prohlížeči nástroj Page Inspector, přesuňte ukazatel myši nad oddíl "Home Page" až do **div.content obálky** popisek se zobrazí. Kliknutím vyberte tento element.
 
-**– Styly** okno zobrazuje všechna pravidla šablon stylů CSS u tohoto elementu. Posuňte se dolů najít .featured .content – obálky třídy selektor. Klikněte na ".featured .content obálku". Nástroj Page Inspector otevře soubor šablony stylů CSS, která definuje tento styl (Site.css) a zvýrazní odpovídající stylu CSS.
+**Styly** okno zobrazuje všechna pravidla šablon stylů CSS u tohoto elementu. Posuňte se dolů najít .featured .content – obálky třídy selektor. Klikněte na ".featured .content obálku". Nástroj Page Inspector otevře soubor šablony stylů CSS, která definuje tento styl (Site.css) a zvýrazní odpovídající stylu CSS.
 
 ![](using-page-inspector-in-aspnet-mvc/_static/image32.png)
 
@@ -240,7 +240,7 @@ Verze 1.3 nástroj Page Inspector můžete nyní mapa položky, které byly dyna
 > Šablona jednostránková aplikace vyžaduje [ASP.NET and Web Tools 2012.2](https://go.microsoft.com/fwlink/?LinkId=282650) aktualizovat.
 
 
-V sadě Visual Studio, zvolte **souboru** &gt; **nový projekt**. Na levé straně rozbalte **Visual C#** vyberte **webové**a pak vyberte **webová aplikace ASP.NET MVC4**. Klikněte na tlačítko **OK**.
+V sadě Visual Studio, zvolte **souboru** &gt; **nový projekt**. Na levé straně rozbalte **Visual C#** vyberte **webové**a pak vyberte **webová aplikace ASP.NET MVC4**. Klikněte na **OK**.
 
 V **nového projektu ASP.NET MVC 4** dialogového okna, vyberte **jednostránkové aplikace**.
 

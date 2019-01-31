@@ -1,26 +1,26 @@
 ---
 uid: mvc/overview/getting-started/database-first-development/setting-up-database
 title: 'Kurz: Začínáme s EF Database First pomocí MVC 5'
-description: Tento článek popisuje, jak začít s existující databáze a rychle vytvořit webovou aplikaci, která umožňuje uživatelům interakci s daty.
+description: Tento kurz ukazuje, jak začít s existující databáze a rychle vytvořit webovou aplikaci, která umožňuje uživatelům interakci s daty.
 author: Rick-Anderson
 ms.author: riande
-ms.date: 01/23/2019
+ms.date: 01/28/2019
 ms.topic: tutorial
 ms.assetid: 095abad4-3bfe-4f06-b092-ae6a735b7e49
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/setting-up-database
 msc.type: authoredcontent
-ms.openlocfilehash: 8b094b7c334eaad510c46b55a99ec727b9c381c2
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: a503e3db63c873249178fd4783d322f4067c3208
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889922"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236377"
 ---
 # <a name="tutorial-get-started-with-ef-database-first-using-mvc-5"></a>Kurz: Začínáme s EF Database First pomocí MVC 5
 
 Pomocí generování uživatelského rozhraní ASP.NET, MVC a Entity Framework, můžete vytvořit webovou aplikaci, která poskytuje rozhraní pro existující databázi. V této sérii kurzů se dozvíte, jak automaticky vygenerovat kód, který umožňuje uživatelům zobrazit, upravit, vytvořit a odstranit data, která se nachází v databázové tabulce. Generovaný kód odpovídá sloupců v tabulce databáze. V poslední části série nasadíte lokalitu a databázi do Azure.
 
-Tento článek popisuje, jak začít s existující databáze a rychle vytvořit webovou aplikaci, která umožňuje uživatelům interakci s daty. Používá Entity Framework 6 a MVC 5 k vytvoření webové aplikace. Funkce technologie ASP.NET generování uživatelského rozhraní umožňuje automaticky vygenerovat kód pro zobrazení, aktualizaci, vytvoření a odstranění dat. Pomocí nástroje pro publikování v sadě Visual Studio, můžete snadno nasadit lokalitu a databázi do Azure.
+Tento kurz ukazuje, jak začít s existující databáze a rychle vytvořit webovou aplikaci, která umožňuje uživatelům interakci s daty. Používá Entity Framework 6 a MVC 5 k vytvoření webové aplikace. Funkce technologie ASP.NET generování uživatelského rozhraní umožňuje automaticky vygenerovat kód pro zobrazení, aktualizaci, vytvoření a odstranění dat. Pomocí nástroje pro publikování v sadě Visual Studio, můžete snadno nasadit lokalitu a databázi do Azure.
 
 Tato části této série se zaměřuje na vytvoření databáze a vyplnění daty.
 
@@ -37,7 +37,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="introduction"></a>Úvod
 
-Tento článek se zabývá situace, kdy databázi máte a chcete pro generování kódu pro webovou aplikaci na základě polí dané databáze. Tento přístup se nazývá Database First vývoje. Pokud již nemáte existující databázi, můžete použít přístupu říká vývoje Code First, který zahrnuje definování datových tříd a generování databáze z vlastnosti třídy.
+Tento kurz se zabývá situace, kdy databázi máte a chcete pro generování kódu pro webovou aplikaci na základě polí dané databáze. Tento přístup se nazývá Database First vývoje. Pokud již nemáte existující databázi, můžete použít přístupu říká vývoje Code First, který zahrnuje definování datových tříd a generování databáze z vlastnosti třídy.
 
 ## <a name="set-up-the-database"></a>Nastavení databáze
 
@@ -102,6 +102,6 @@ V tomto kurzu se naučíte:
 > [!div class="checklist"]
 > * Nastavení databáze
 
-Přejděte k dalším článku se dozvíte, jak vytvořit webové aplikace a datových modelů.
+Přejděte k dalšímu kurzu, kde se naučíte, jak vytvořit webové aplikace a datových modelů.
 > [!div class="nextstepaction"]
 > [Vytvoření webové aplikace a datových modelů](creating-the-web-application.md)

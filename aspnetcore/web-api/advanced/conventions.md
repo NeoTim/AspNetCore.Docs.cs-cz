@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 892fb8898c78a1645c766544715a8256462207c6
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 5ae96b213a19464045e1d0b1a76f8eb81089dc5b
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249383"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236338"
 ---
 # <a name="use-web-api-conventions"></a>Řiďte se vytváření webového rozhraní API
 
@@ -58,7 +58,7 @@ Další informace o `[ProducesDefaultResponseType]`, naleznete v tématu [výcho
 
     [!code-csharp[](conventions/sample/Controllers/ContactsConventionController.cs?name=snippet_ApiConventionTypeAttribute&highlight=2)]
 
-1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` použité u sestavení &mdash; typ zadané konvence se vztahuje na všechny řadiče v aktuálním sestavení. Jako doporučení, použijte atributy úrovně sestavení, abyste `Startup` třídy.
+1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` použité u sestavení &mdash; typ zadané konvence se vztahuje na všechny řadiče v aktuálním sestavení. Jako doporučení, použijte atributy úrovně sestavení v *Startup.cs* souboru.
 
     V následujícím příkladu se použije výchozí sadu konvence pro všemi řadiči v sestavení:
 

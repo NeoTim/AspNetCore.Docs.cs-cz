@@ -1,26 +1,26 @@
 ---
 uid: mvc/overview/getting-started/database-first-development/generating-views
 title: 'Kurz: Generovat zobrazení pro EF Database First s ASP.NET MVC aplikace'
-description: Tento článek se soustředí na používání ASP.NET generování uživatelského rozhraní pro generování kontrolerů a zobrazení.
+description: Tento kurz se zaměřuje na použití technologie ASP.NET generování uživatelského rozhraní pro generování kontrolerů a zobrazení.
 author: Rick-Anderson
 ms.author: riande
-ms.date: 01/23/2019
+ms.date: 01/28/2019
 ms.topic: tutorial
 ms.assetid: 669367cf-8e30-4eb6-821d-10a7d9bb906c
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/generating-views
 msc.type: authoredcontent
-ms.openlocfilehash: e1f6646cdf10d293268b92f44b018709e70c0f86
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: 7a56c0f9197a99427bcde6103ebc69d245e8ce63
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889779"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236416"
 ---
 # <a name="tutorial-generate-views-for-ef-database-first-with-aspnet-mvc-app"></a>Kurz: Generovat zobrazení pro EF Database First s ASP.NET MVC aplikace
 
 Pomocí generování uživatelského rozhraní ASP.NET, MVC a Entity Framework, můžete vytvořit webovou aplikaci, která poskytuje rozhraní pro existující databázi. V této sérii kurzů se dozvíte, jak automaticky vygenerovat kód, který umožňuje uživatelům zobrazit, upravit, vytvořit a odstranit data, která se nachází v databázové tabulce. Generovaný kód odpovídá sloupců v tabulce databáze.
 
-Tento článek se soustředí na používání ASP.NET generování uživatelského rozhraní pro generování kontrolerů a zobrazení.
+Tento kurz se zaměřuje na použití technologie ASP.NET generování uživatelského rozhraní pro generování kontrolerů a zobrazení.
 
 V tomto kurzu se naučíte:
 
@@ -101,6 +101,6 @@ V tomto kurzu se naučíte:
 > * Zobrazení zobrazené studenta
 > * Zobrazení zobrazené registrace
 
-Přejděte k dalším článku se naučíte, jak změnit databázi.
+Přejděte k dalšímu kurzu, kde najdete postup změny databáze.
 > [!div class="nextstepaction"]
 > [Změna databáze](changing-the-database.md)

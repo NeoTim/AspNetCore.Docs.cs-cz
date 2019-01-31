@@ -4,32 +4,31 @@ title: Použití rozhraní Web API 2 s Entity Framework 6 | Dokumentace Microsof
 author: MikeWasson
 description: V tomto kurzu se dozvíte, že se se základy vytváření webovou aplikaci s webovým rozhraním API technologie ASP.NET back-endu. Tento kurz používá Entity Framework 6 pro uspořádání dat...
 ms.author: riande
-ms.date: 05/28/2015
+ms.date: 01/17/2019
 ms.assetid: e879487e-dbcd-4b33-b092-d67c37ae768c
 msc.legacyurl: /web-api/overview/data/using-web-api-with-entity-framework/part-1
 msc.type: authoredcontent
-ms.openlocfilehash: d65c0ea35ec766ef9d9093c6502230f9de72a3f3
-ms.sourcegitcommit: 7890dfb5a8f8c07d813f166d3ab0c263f893d0c6
+ms.openlocfilehash: 266c808e3525787181038d2de473194989039e02
+ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48795207"
+ms.lasthandoff: 01/30/2019
+ms.locfileid: "55236520"
 ---
-<a name="using-web-api-2-with-entity-framework-6"></a>Použití rozhraní Web API 2 s Entity Framework 6
+<a name="using-web-api-2-with-entity-framework-6"></a>Použití webového rozhraní API 2 se sadou Entity Framework 6
 ====================
-podle [Mike Wasson](https://github.com/MikeWasson)
 
 [Stáhnout dokončený projekt](https://github.com/MikeWasson/BookService)
 
-> V tomto kurzu se dozvíte, že se se základy vytváření webovou aplikaci s webovým rozhraním API technologie ASP.NET back-endu. Tento kurz používá Entity Framework 6 pro datová vrstva a knihovnou Knockout.js pro aplikace JavaScript na straně klienta. Tento kurz také ukazuje, jak nasadit aplikaci do Azure App Service Web Apps.
+> V tomto kurzu se naučíte, že se se základy vytváření webovou aplikaci s webovým rozhraním API technologie ASP.NET back-endu. Tento kurz používá Entity Framework 6 pro datová vrstva a knihovnou Knockout.js pro aplikace JavaScript na straně klienta. Tento kurz také ukazuje, jak nasadit aplikaci do Azure App Service Web Apps.
 >
 > ## <a name="software-versions-used-in-the-tutorial"></a>V tomto kurzu použili verze softwaru
 >
-> - Webové rozhraní API 2.1
-> - Visual Studio 2013 (stáhněte si Visual Studio 2017 [tady](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017))
+> - Web API 2.1
+> - Visual Studio 2017 (stáhněte si Visual Studio 2017 [tady](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017))
 > - Entity Framework 6
-> - .NET 4.5
-> - [Rozhraní Knockout.js](http://knockoutjs.com/) 3.1
+> - .NET 4.7
+> - [Knockout.js](http://knockoutjs.com/) 3.1
 
 Tento kurz používá prostředí ASP.NET Web API 2 s Entity Framework 6 a vytvořte webovou aplikaci, která zpracovává back-end databáze. Zde je snímek obrazovky aplikace, kterou vytvoříte.
 
@@ -48,7 +47,7 @@ Tady jsou hlavní stavební bloky pro tuto aplikaci:
 
 ## <a name="see-this-app-running-on-azure"></a>Zobrazit tuto aplikaci běžící v Azure
 
-Chcete zobrazit dokončené web spuštěný jako živou webovou aplikaci? Kompletní verze aplikace můžete nasadit ke svému účtu Azure jednoduše kliknutím na následující tlačítko.
+Chcete zobrazit dokončené web spuštěný jako živou webovou aplikaci? Kompletní verze aplikace můžete nasadit ke svému účtu Azure pomocí následujícího tlačítka.
 
 [![](http://azuredeploy.net/deploybutton.png)](https://azuredeploy.net/?WT.mc_id=deploy_azure_aspnet&repository=https://github.com/tfitzmac/BookService)
 
@@ -59,29 +58,47 @@ Potřebujete účet Azure k nasazení tohoto řešení do Azure. Pokud ještě n
 
 ## <a name="create-the-project"></a>Vytvoření projektu
 
-Otevřít Visual Studio. Z **souboru** nabídce vyberte možnost **nový**a pak vyberte **projektu**. (Nebo klikněte na tlačítko **nový projekt** na úvodní stránce.)
+Otevřít Visual Studio. Z **souboru** nabídce vyberte možnost **nový**a pak vyberte **projektu**. (Nebo vyberte **nový projekt** na úvodní stránce.)
 
-V **nový projekt** dialogového okna, klikněte na tlačítko **webové** v levém podokně a **webová aplikace ASP.NET** v prostředním podokně. Pojmenujte projekt BookService a klikněte na tlačítko **OK**.
+V **nový projekt** dialogového okna, vyberte **webové** v levém podokně a **webová aplikace ASP.NET (.NET Framework)** v prostředním podokně. Pojmenujte projekt **BookService** a vyberte **OK**.
 
-[![](part-1/_static/image4.png)](part-1/_static/image3.png)
+[![](part-1/_static/image11.png)](part-1/_static/image11.png)
 
 V **nový projekt ASP.NET** dialogového okna, vyberte **webového rozhraní API** šablony.
 
-[![](part-1/_static/image6.png)](part-1/_static/image5.png)
+[![](part-1/_static/image12.png)](part-1/_static/image12.png)
 
-Pokud chcete k hostování projektu ve službě Azure App Service, nechat **hostovat v cloudu** zaškrtnuté políčko.
 
-Klikněte na tlačítko **OK** pro vytvoření projektu.
+Vyberte **OK** pro vytvoření projektu.
 
 ## <a name="configure-azure-settings-optional"></a>Konfigurace nastavení služby Azure (volitelné)
 
-Pokud jste nechali **hostitel v cloudu** zaškrtnutá možnost, sada Visual Studio vás vyzve k přihlášení k Microsoft Azure
+Po vytvoření projektu můžete nasadit do Azure App Service Web Apps v každém okamžiku. 
 
-[![](part-1/_static/image8.png)](part-1/_static/image7.png)
+1. V Průzkumníku řešení klikněte pravým tlačítkem na projekt a vyberte **publikovat**.
 
-Po přihlášení do Azure, Visual Studio vás vyzve k konfigurace webové aplikace. Zadejte název lokality, vyberte své předplatné Azure a vyberte zeměpisnou oblast. V části **databázový server**vyberte **vytvořit nový server**. Zadejte uživatelské jméno správce a heslo.
+2. V zobrazeném okně vyberte **Start**. **Vyberte cíl publikování** zobrazí se dialogové okno.
 
-[![](part-1/_static/image10.png)](part-1/_static/image9.png)
+   [![](part-1/_static/image14.png)](part-1/_static/image14.png)
+
+3. Vyberte **vytvořit profil**. **Vytvořit službu App Service** zobrazí se dialogové okno.
+
+   [![](part-1/_static/image15.png)](part-1/_static/image15.png)
+
+   Přijměte výchozí hodnoty, nebo zadat jiné hodnoty pro název aplikace, skupiny prostředků, hostování plán předplatného Azure a geografické oblasti. 
+
+4. Vyberte **vytvoření databáze SQL**. **Nakonfigurujte systém SQL Server** zobrazí se dialogové okno. 
+
+   [![](part-1/_static/image16.png)](part-1/_static/image16.png)
+
+   Přijměte výchozí hodnoty nebo zadat jiné hodnoty. Zadejte **uživatelské jméno správce** a **heslo správce** pro novou databázi. Vyberte **OK** po dokončení. **Vytvořit službu App Service** se znovu zobrazí stránka.
+
+5. Vyberte **vytvořit** při vytváření profilu. Zpráva se zobrazí v pravém dolním rohu, která udává, že nasazování probíhá. Po nějakou dobu **publikovat** se znovu zobrazí okno.
+
+    [![](part-1/_static/image17.png)](part-1/_static/image17.png)
+   
+    Profil, který jste vytvořili k nasazení aplikace je nyní k dispozici. 
+
 
 > [!div class="step-by-step"]
 > [Next](part-2.md)
