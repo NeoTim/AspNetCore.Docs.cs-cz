@@ -76,7 +76,7 @@ Poskytuje MessagePack podporu pro Javascript klienta `@aspnet/signalr-protocol-m
 npm install @aspnet/signalr-protocol-msgpack
 ```
 
-Po instalaci balíčku npm, lze použít přímo prostřednictvím zavaděč modulu JavaScript modulu nebo importovat do prohlížeče odkazováním *node_modules\\ @aspnet\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js*  souboru. V prohlížeči `msgpack5` knihovny musí také odkazovat. Použití `<script>` značku k vytvoření odkazu. Knihovnu lze nalézt v *node_modules\msgpack5\dist\msgpack5.js*.
+Po instalaci balíčku npm, lze použít přímo prostřednictvím zavaděč modulu JavaScript modulu nebo importovat do prohlížeče odkazováním *node_modules\\@aspnet\signalr-protocol-msgpack\dist\browser\signalr-protocol-msgpack.js* souboru. V prohlížeči `msgpack5` knihovny musí také odkazovat. Použití `<script>` značku k vytvoření odkazu. Knihovnu lze nalézt v *node_modules\msgpack5\dist\msgpack5.js*.
 
 > [!NOTE]
 > Při použití `<script>` prvku, pořadí je důležité. Pokud *signalr-protocol-msgpack.js* odkazuje před *msgpack5.js*, dojde k chybě při pokusu o připojení s MessagePack. *signalr.js* je také nutné před *signalr-protocol-msgpack.js*.
