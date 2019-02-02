@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 06/04/2018
 uid: signalr/groups
-ms.openlocfilehash: 0a4836cfa3cf79136b56da1ff05ce8533b4df16c
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 45f2bb44e03a586b7fc186525fdd3a2645c820d5
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837881"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667749"
 ---
 # <a name="manage-users-and-groups-in-signalr"></a>Správa uživatelů a skupin v knihovně SignalR
 
@@ -31,21 +31,7 @@ Odeslání zprávy do konkrétního uživatele tím, že předáte identifikáto
 > [!NOTE]
 > Identifikátor uživatele je velká a malá písmena.
 
-```csharp
-public Task SendPrivateMessage(string user, string message)
-{
-    return Clients.User(user).SendAsync("ReceiveMessage", message);
-}
-```
-
-Identifikátor uživatele je možné přizpůsobit tak, že vytvoříte `IUserIdProvider`a registrace v `ConfigureServices`.
-
-[!code-csharp[UserIdProvider](groups/sample/customuseridprovider.cs?range=4-10)]
-
-[!code-csharp[Configure service](groups/sample/startup.cs?range=21-22,39-42)]
-
-> [!NOTE]
-> AddSignalR musí být volána před registrací vaše vlastní služby SignalR.
+[!code-csharp[Configure service](groups/sample/hubs/chathub.cs?range=29-32)]
 
 ## <a name="groups-in-signalr"></a>Skupinami v knihovně SignalR
 

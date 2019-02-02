@@ -4,20 +4,18 @@ title: Vytvoření koncového bodu OData v4 pomocí rozhraní ASP.NET Web API 2.
 author: MikeWasson
 description: Open Data Protocol (OData) je protokol data access pro web. OData nabízí jednotným způsobem pro dotazování a manipulaci s datovými sadami prostřednictvím operace CRUD...
 ms.author: riande
-ms.date: 06/24/2014
+ms.date: 01/23/2019
 ms.assetid: 1e1927c0-ded1-4752-80fd-a146628d2f09
 msc.legacyurl: /web-api/overview/odata-support-in-aspnet-web-api/odata-v4/create-an-odata-v4-endpoint
 msc.type: authoredcontent
-ms.openlocfilehash: 48c1a78c96cb0ebfa0b053dfef84e76433112650
-ms.sourcegitcommit: 7890dfb5a8f8c07d813f166d3ab0c263f893d0c6
+ms.openlocfilehash: c6a4aa4eb563fd77d5afd9248175d5f5b7984d19
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48795415"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667567"
 ---
-<a name="create-an-odata-v4-endpoint-using-aspnet-web-api-22"></a>Vytvoření koncového bodu OData v4 pomocí rozhraní ASP.NET Web API 2.2
-====================
-podle [Mike Wasson](https://github.com/MikeWasson)
+# <a name="create-an-odata-v4-endpoint-using-aspnet-web-api"></a>Vytvoření koncového bodu OData v4 pomocí rozhraní ASP.NET Web API 
 
 > Open Data Protocol (OData) je protokol data access pro web. OData nabízí jednotným způsobem pro dotazování a manipulaci s datovými sadami prostřednictvím operace CRUD (vytváření, čtení, aktualizace a odstranění).
 >
@@ -27,11 +25,11 @@ podle [Mike Wasson](https://github.com/MikeWasson)
 >
 > ## <a name="software-versions-used-in-the-tutorial"></a>V tomto kurzu použili verze softwaru
 >
-> - Webové rozhraní API 2.2
+> - Web API 5.2
 > - OData v4
-> - Visual Studio 2013 (stáhněte si Visual Studio 2017 [tady](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017))
+> - Visual Studio 2017 (stáhněte si Visual Studio 2017 [tady](https://visualstudio.microsoft.com/downloads/))
 > - Entity Framework 6
-> - .NET 4.5
+> - .NET 4.7.2
 >
 > ## <a name="tutorial-versions"></a>Kurz verze
 >
@@ -41,13 +39,17 @@ podle [Mike Wasson](https://github.com/MikeWasson)
 
 V sadě Visual Studio z **souboru** nabídce vyberte možnost **nový** &gt; **projektu**.
 
-Rozbalte **nainstalováno** &gt; **šablony** &gt; **Visual C#** &gt; **webové**a vyberte  **Webová aplikace ASP.NET** šablony. Pojmenujte projekt &quot;ProductService&quot;.
+Rozbalte **nainstalováno** &gt; **Visual C#**  &gt; **webové**a vyberte **webová aplikace ASP.NET (.NET Framework)**  šablony. Pojmenujte projekt &quot;ProductService&quot;.
 
-[![](create-an-odata-v4-endpoint/_static/image2.png)](create-an-odata-v4-endpoint/_static/image1.png)
+[![](create-an-odata-v4-endpoint/_static/image7.png)](create-an-odata-v4-endpoint/_static/image7.png)
 
-V **nový projekt** dialogového okna, vyberte **prázdný** šablony. V části &quot;přidat složky a základní odkazy... &quot;, klikněte na tlačítko **webového rozhraní API**. Klikněte na tlačítko **OK**.
+Vyberte **OK**.
 
-[![](create-an-odata-v4-endpoint/_static/image4.png)](create-an-odata-v4-endpoint/_static/image3.png)
+
+
+[![](create-an-odata-v4-endpoint/_static/image8.png)](create-an-odata-v4-endpoint/_static/image8.png)
+
+Vyberte **prázdný** šablony. V části **přidat složky a základní odkazy pro:** vyberte **webového rozhraní API**. Vyberte **OK**.
 
 ## <a name="install-the-odata-packages"></a>Instalace balíčků OData
 
@@ -138,7 +140,7 @@ Využívá kontroler `ProductsContext` pro přístup k databázi pomocí EF. Vš
 
 Toto je výchozí bod pro kontroler. V dalším kroku přidáme metody pro všechny operace CRUD.
 
-## <a name="querying-the-entity-set"></a>Dotazování na sadu entit
+## <a name="query-the-entity-set"></a>Dotazování sady entit
 
 Přidejte následující metody, které `ProductsController`.
 
@@ -148,13 +150,13 @@ Konstruktor bez parametrů verzi `Get` metoda vrátí celou kolekci produktů. `
 
 **[EnableQuery]** atribut umožňuje upravit dotaz, pomocí možnosti dotazu, jako je například $filter, $sort a $page klientům. Další informace najdete v tématu [podporuje možnosti dotazu OData](../supporting-odata-query-options.md).
 
-## <a name="adding-an-entity-to-the-entity-set"></a>Přidání Entity do sady entit
+## <a name="add-an-entity-to-the-entity-set"></a>Přidání entity do sady entit
 
 Pokud chcete povolit klientům přidání nového produktu do databáze, přidejte následující metodu do `ProductsController`.
 
 [!code-csharp[Main](create-an-odata-v4-endpoint/samples/sample10.cs)]
 
-## <a name="updating-an-entity"></a>Aktualizují se Entity
+## <a name="update-an-entity"></a>Aktualizace entity
 
 OData podporuje dvě různé sémantiky pro aktualizaci entity, opravy a PUT.
 
@@ -169,7 +171,7 @@ V každém případě zde je kód pro opravu a PUT metody:
 
 V případě opravy, využívá kontroler **Delta&lt;T&gt;**  typ sledovat změny.
 
-## <a name="deleting-an-entity"></a>Odstraňuje se entita
+## <a name="delete-an-entity"></a>Odstranění entity
 
 Pokud chcete povolit klientům z databáze odstranit produkt, přidejte následující metodu do `ProductsController`.
 

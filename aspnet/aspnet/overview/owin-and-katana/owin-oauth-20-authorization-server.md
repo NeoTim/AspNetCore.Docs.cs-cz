@@ -4,20 +4,18 @@ title: Autorizační Server OWIN OAuth 2.0 | Dokumentace Microsoftu
 author: hongyes
 description: Tento kurz vám pomůže o tom, jak implementovat serveru autorizace OAuth 2.0 pomocí middlewaru OWIN OAuth. To je pokročilá kurzu této pouze Nastav...
 ms.author: riande
-ms.date: 03/20/2014
+ms.date: 01/28/2019
 ms.assetid: 20acee16-c70c-41e9-b38f-92bfcf9a4c1c
 msc.legacyurl: /aspnet/overview/owin-and-katana/owin-oauth-20-authorization-server
 msc.type: authoredcontent
-ms.openlocfilehash: 095dad49a8e9f963d941a84398afe9da0f46ce0b
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: b8451d2d9e346bd5e2f51ba45e48030a5221b549
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48912264"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667645"
 ---
-<a name="owin-oauth-20-authorization-server"></a>Autorizační Server OWIN OAuth 2.0
-====================
-podle [Hongye Sun](https://github.com/hongyes), [Praburaj manažer](https://github.com/Praburaj), [Rick Anderson]((https://twitter.com/RickAndMSFT))
+# <a name="owin-oauth-20-authorization-server"></a>Autorizační server OWIN OAuth 2.0
 
 > Tento kurz vám pomůže o tom, jak implementovat serveru autorizace OAuth 2.0 pomocí middlewaru OWIN OAuth. Toto je rozšířený výukový program, který popisuje pouze kroky pro vytvoření autorizační Server OWIN OAuth 2.0. Toto není podrobný kurz. [Stáhněte si ukázkový kód](https://code.msdn.microsoft.com/OWIN-OAuth-20-Authorization-ba2b8783/file/114932/1/AuthorizationServer.zip).
 >
@@ -29,9 +27,9 @@ podle [Hongye Sun](https://github.com/hongyes), [Praburaj manažer](https://gith
 >
 > | **Uvedené v tomto kurzu** | **Funguje taky s** |
 > | --- | --- |
-> | Windows 8.1 | Windows 8, Windows 7 |
-> | [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013) | [Visual Studio 2013 Express for Desktop](https://my.visualstudio.com/Downloads?q=visual%20studio%202013#d-2013-express). Visual Studio 2012 s nejnovější aktualizací by měly fungovat, ale kurzu nebyl byly testovány s ním a některé možnosti nabídky a dialogových oknech se liší. |
-> | .NET 4.5 |  |
+> | Windows 8.1 | Windows 10, Windows 8, Windows 7 |
+> | [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
+> | .NET 4.7.2 |  |
 >
 > ## <a name="questions-and-comments"></a>Otázky a komentáře
 >
@@ -53,7 +51,7 @@ V tomto kurzu budou zahrnovat:
 <a id="prerequisites"></a>
 ## <a name="prerequisites"></a>Požadavky
 
-- [Visual Studio 2013](https://www.microsoft.com/visualstudio/eng/downloads#d-2013-editions) nebo bezplatnou [Visual Studio Express 2013](https://www.microsoft.com/visualstudio/eng/downloads#d-2013-express), jak je uvedeno v **verze softwaru** v horní části stránky.
+- [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/) jak je uvedeno v **verze softwaru** v horní části stránky.
 - Znalost OWIN. Zobrazit [Začínáme se službou projektu Katana](https://msdn.microsoft.com/magazine/dn451439.aspx) a [co je nového v OWIN a Katana](index.md).
 - Znalost [OAuth](http://tools.ietf.org/html/rfc6749) terminologii, včetně [role](http://tools.ietf.org/html/rfc6749#section-1.1), [Protocol Flow](http://tools.ietf.org/html/rfc6749#section-1.2), a [udělení autorizace](http://tools.ietf.org/html/rfc6749#section-1.3). [OAuth 2.0 ÚVOD](http://tools.ietf.org/html/rfc6749#section-1) poskytuje vhodným úvodem.
 
@@ -79,13 +77,13 @@ Výše uvedený kód umožňuje přihlášení aplikace/externí soubory cookie 
 
 `UseOAuthAuthorizationServer` – Metoda rozšíření je pro nastavení serveru ověřování. Možnosti instalace jsou:
 
-- `AuthorizeEndpointPath`: K vydání tokenu nebo kódu vyjádření souhlasu požadavek cesta kde klientské aplikace přesměrují uživatelského agenta aby bylo možné získat uživatele. Musí začínat úvodním lomítkem, například "`/Authorize`".
-- `TokenEndpointPath`: Žádost o cestu klientské aplikace přímo komunikují se získat přístupový token. Musí začínat úvodním lomítkem, jako je "/ Token". Pokud klient je vystaven [klienta\_tajný kód](http://tools.ietf.org/html/rfc6749#appendix-A.2), musí být poskytnut do tohoto koncového bodu.
+- `AuthorizeEndpointPath`: Cesta požadavku, kam klientské aplikace přesměrují uživatelského agenta aby bylo možné získat uživatele souhlas k vydání tokenu nebo kódu. Musí začínat úvodním lomítkem, například "`/Authorize`".
+- `TokenEndpointPath`: Klientské aplikace cestu požadavku se získat přístupový token přímo komunikovat. Musí začínat úvodním lomítkem, jako je "/ Token". Pokud klient je vystaven [klienta\_tajný kód](http://tools.ietf.org/html/rfc6749#appendix-A.2), musí být poskytnut do tohoto koncového bodu.
 - `ApplicationCanDisplayErrors`: Nastavte na `true` Pokud webová aplikace chce generovat vlastní chybové stránky pro chyby ověření klienta `/Authorize` koncového bodu. Je to potřeba jenom pro případy, kdy prohlížeč není přesměrován zpět do klientské aplikace, třeba když `client_id` nebo `redirect_uri` , nejsou správné. `/Authorize` Koncový bod by měl očekávat "oauth. Chyba","oauth. Popis chyby"a"oauth. Vlastnosti ErrorUri"jsou přidány do prostředí OWIN.
 
     > [!NOTE]
     > Pokud není true, bude autorizační server vrátit výchozí chybovou stránku s podrobnostmi o chybě.
-- `AllowInsecureHttp`: Hodnota True pro povolení požadavků ověřování a tokenů doručení na adresy HTTP URI a povolit příchozí `redirect_uri` povolit parametry požadavku a adresy HTTP URI.
+- `AllowInsecureHttp`: True pro povolení požadavků ověřování a tokenů doručení na adresy HTTP URI a povolit příchozí `redirect_uri` povolit parametry požadavku a adresy HTTP URI.
 
     > [!WARNING]
     > Zabezpečení – Toto je pouze pro vývoj.
@@ -116,7 +114,7 @@ Projděte si IETF OAuth 2 [udělení autorizačního kódu](http://tools.ietf.or
 |  |  |
 | (A) klienta spouští tok přesměrováním vlastník prostředku uživatelského agenta pro koncový bod autorizace. Klient zahrne identifikátoru klienta, požadovaný obor, místní a identifikátor URI přesměrování, na které pošle autorizační server uživatelského agenta, zpět po přístup je udělen (nebo byl odepřen). | Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint |
 |  |  |
-| (B) autorizační server ověří vlastníka prostředku (prostřednictvím uživatelského agenta) a zjistí, zda vlastník prostředku udělí nebo zamítne žádost o přístup klienta. | **&lt;Pokud uživatel povolí přístup&gt;**  Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint AuthorizationCodeProvider.CreateAsync |
+| (B) autorizační server ověří vlastníka prostředku (prostřednictvím uživatelského agenta) a zjistí, zda vlastník prostředku udělí nebo zamítne žádost o přístup klienta. | **&lt;If user grants access&gt;** Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint AuthorizationCodeProvider.CreateAsync |
 |  |  |
 | (C) za předpokladu, že vlastník prostředku udělí přístup, přesměruje autorizační server uživatelského agenta zpět na klienta pomocí přesměrovacího identifikátoru URI zadaný starší (v žádosti nebo při registraci klienta). ... |  |
 |  |  |
@@ -147,7 +145,7 @@ Najdete IETF OAuth 2 [implicitní Grant](http://tools.ietf.org/html/rfc6749#sect
 |  |  |
 | (A) klienta spouští tok přesměrováním vlastník prostředku uživatelského agenta pro koncový bod autorizace. Klient zahrne identifikátoru klienta, požadovaný obor, místní a identifikátor URI přesměrování, na které pošle autorizační server uživatelského agenta, zpět po přístup je udělen (nebo byl odepřen). | Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint |
 |  |  |
-| (B) autorizační server ověří vlastníka prostředku (prostřednictvím uživatelského agenta) a zjistí, zda vlastník prostředku udělí nebo zamítne žádost o přístup klienta. | **&lt;Pokud uživatel povolí přístup&gt;**  Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint AuthorizationCodeProvider.CreateAsync |
+| (B) autorizační server ověří vlastníka prostředku (prostřednictvím uživatelského agenta) a zjistí, zda vlastník prostředku udělí nebo zamítne žádost o přístup klienta. | **&lt;If user grants access&gt;** Provider.MatchEndpoint Provider.ValidateClientRedirectUri Provider.ValidateAuthorizeRequest Provider.AuthorizeEndpoint AuthorizationCodeProvider.CreateAsync |
 |  |  |
 | (C) za předpokladu, že vlastník prostředku udělí přístup, přesměruje autorizační server uživatelského agenta zpět na klienta pomocí přesměrovacího identifikátoru URI zadaný starší (v žádosti nebo při registraci klienta). ... |  |
 |  |  |

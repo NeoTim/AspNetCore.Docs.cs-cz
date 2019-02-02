@@ -9,12 +9,12 @@ ms.topic: tutorial
 ms.assetid: 0ed5e67a-34c0-4b57-84a6-802b0fb3cd00
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/enhancing-data-validation
 msc.type: authoredcontent
-ms.openlocfilehash: 85299d70c6cba52c1d40a42edfd429c96318134a
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 897cd7c6a40445e2a4abede50d81e101372d3233
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236481"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667619"
 ---
 # <a name="tutorial-enhance-data-validation-for-ef-database-first-with-aspnet-mvc-app"></a>Kurz: Vylepšení ověřování dat pro EF Database First s ASP.NET MVC aplikace
 
@@ -84,6 +84,14 @@ Uložit *ContosoModel.edmx* souboru, aby se změny projevily.
 
 Otevřít *Student.cs* souboru nebo *Enrollment.cs* soubor a Všimněte si, že jste provedli dříve atributy ověření dat už nejsou v souboru. Ale spusťte aplikaci a Všimněte si, že ověřovací pravidla, se uplatní při zadávání dat.
 
+## <a name="conclusion"></a>Závěr
+
+Tato série poskytuje jednoduchý příklad toho, jak generovat kód z existující databáze, která umožňuje uživatelům upravovat, aktualizovat, vytvářet a odstraňovat data. Používá ASP.NET MVC 5, Entity Framework a ASP.NET generování uživatelského rozhraní pro vytvoření projektu. 
+
+Úvodní příklad vývoje Code First najdete v tématu [Začínáme s ASP.NET MVC 5](../introduction/getting-started.md). 
+
+Složitější příklad naleznete v tématu [vytváření datového modelu Entity Framework pro aplikaci ASP.NET MVC 4](../getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application.md). Všimněte si, že rozhraní API pro DbContext, který používáte pro práci s daty v databázi první je stejný jako rozhraní API můžete použít pro práci s daty v Code First. I v případě, že máte v úmyslu použít první databáze, můžete zjistíte, jak zpracovat složitější scénáře, jako je čtení a aktualizace souvisejících dat, zpracování konfliktů souběžnosti, a tak dále z Code First kurzu. Jediný rozdíl spočívá ve vytvoření databáze, třída kontextu a tříd entit.
+
 ## <a name="additional-resources"></a>Další zdroje
 
 Úplný seznam datových poznámek ověření můžete provést u třídy a vlastnosti, naleznete v tématu [System.ComponentModel.DataAnnotations](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.aspx).
@@ -96,6 +104,6 @@ V tomto kurzu se naučíte:
 > * Přidání datových poznámek
 > * Přidání metadat třídy
 
-Přejděte k dalšímu kurzu, kde se naučíte, jak publikovat webovou aplikaci a databázi do Azure.
+Zjistěte, jak nasadit webovou aplikaci a databázi SQL do služby Azure App Service, najdete v tomto kurzu:
 > [!div class="nextstepaction"]
-> [Publikování do Azure](publish-to-azure.md)
+> [Nasazení aplikace .NET do Azure App Service](/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase/)

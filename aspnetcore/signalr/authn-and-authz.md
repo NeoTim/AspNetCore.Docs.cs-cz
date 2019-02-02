@@ -3,16 +3,16 @@ title: Ověřování a autorizace v knihovně SignalR technologie ASP.NET Core
 author: bradygaster
 description: Další informace o použití ověřování a autorizace v knihovně SignalR technologie ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: anurse
+ms.author: bradyg
 ms.custom: mvc
-ms.date: 06/29/2018
+ms.date: 01/31/2019
 uid: signalr/authn-and-authz
-ms.openlocfilehash: c807b65e0047fe6cedff08aef9f758653fab6a0d
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 5d4574775606b4354ec099b6b32e05294d9f0e45
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54835814"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667307"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>Ověřování a autorizace v knihovně SignalR technologie ASP.NET Core
 
@@ -68,22 +68,14 @@ Pokud [ověřování Windows](xref:security/authentication/windowsauth) je nakon
 
 Přidejte novou třídu, která implementuje `IUserIdProvider` a načítat je jedna z deklarací z uživatele, který chcete použít jako identifikátor. Chcete-li například použít deklarace identity "Name" (což je uživatelské jméno Windows ve formuláři `[Domain]\[Username]`), vytvořte následující třídy:
 
-```csharp
-public class NameUserIdProvider : IUserIdProvider
-{
-    public string GetUserId(HubConnectionContext connection)
-    {
-        return connection.User?.FindFirst(ClaimTypes.Name)?.Value;
-    }
-}
-```
+[!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
 Spíše než `ClaimTypes.Name`, můžete použít libovolnou hodnotu od `User` (jako je například identifikátoru Windows SID atd.).
 
 > [!NOTE]
 > Hodnota, kterou zvolíte, musí být jedinečný mezi všemi uživateli ve vašem systému. Zpráva určená pro jednoho uživatele, jinak můžou být nakonec přejdete na jiného uživatele.
 
-Zaregistrujte tuto součást v vaše `Startup.ConfigureServices` metoda **po** volání `.AddSignalR`
+Zaregistrujte tuto součást ve vaší `Startup.ConfigureServices` metody.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -107,6 +99,27 @@ var connection = new HubConnectionBuilder()
 ```
 
 Ověřování Windows je podporována pouze podle klientského prohlížeče, pokud používáte Microsoft Internet Explorer nebo Microsoft Edge.
+
+### <a name="use-claims-to-customize-identity-handling"></a>Použití deklarací identity k přizpůsobení identity zpracování
+
+Aplikace, která ověřuje uživatele lze odvodit z deklarací identity uživatelů ID uživatelů SignalR. Chcete-li určit způsob, jak vytvořit funkci SignalR ID uživatelů, implementovat `IUserIdProvider` a zaregistrujte implementace.
+
+Vzorový kód ukazuje, jak by používat deklarace identity vyberte uživatele e-mailovou adresu jako identifikační vlastnost. 
+
+> [!NOTE]
+> Hodnota, kterou zvolíte, musí být jedinečný mezi všemi uživateli ve vašem systému. Zpráva určená pro jednoho uživatele, jinak můžou být nakonec přejdete na jiného uživatele.
+
+[!code-csharp[Email provider](authn-and-authz/sample/EmailBasedUserIdProvider.cs?name=EmailBasedUserIdProvider)]
+
+Registrace účtu přidá deklaraci identity s typem `ClaimsTypes.Email` k databázi technologie ASP.NET identity.
+
+[!code-csharp[Adding the email to the ASP.NET identity claims](authn-and-authz/sample/pages/account/Register.cshtml.cs?name=AddEmailClaim)]
+
+Zaregistrujte tuto součást ve vaší `Startup.ConfigureServices`.
+
+```csharp
+services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
+```
 
 ## <a name="authorize-users-to-access-hubs-and-hub-methods"></a>Povolit uživatelům přístup rozbočovače a metody
 

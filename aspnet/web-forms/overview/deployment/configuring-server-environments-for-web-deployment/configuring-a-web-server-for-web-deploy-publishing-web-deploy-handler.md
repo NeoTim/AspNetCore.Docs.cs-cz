@@ -4,26 +4,24 @@ title: Konfigurace webového serveru pro webové nasazení publikování (Obslu�
 author: jrjlee
 description: Toto téma popisuje postup konfigurace webového serveru Internetové informační služby (IIS) pro podporu publikování na webu a nasazení pomocí Han nasazení webové služby IIS...
 ms.author: riande
-ms.date: 05/04/2012
+ms.date: 01/29/2017
 ms.assetid: 90ebf911-1c46-4470-b876-1335bd0f590f
 msc.legacyurl: /web-forms/overview/deployment/configuring-server-environments-for-web-deployment/configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler
 msc.type: authoredcontent
-ms.openlocfilehash: 13e4fdf77daf26abe837a90db9c11ecbe1957823
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: cf18a8860d34daa23f61e3dde13c2c79c6c0d4a5
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41755395"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667320"
 ---
-<a name="configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler"></a>Konfigurace webového serveru pro webové nasazení publikování (Obslužná rutina nasazení webu)
-====================
-podle [Jason Lee](https://github.com/jrjlee)
+# <a name="configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler"></a>Konfigurace webového serveru pro publikování nasazeného webu (obslužná rutina nasazení webu)
 
 [Stáhnout PDF](https://msdnshared.blob.core.windows.net/media/MSDNBlogsFS/prod.evol.blogs.msdn.com/CommunityServer.Blogs.Components.WeblogFiles/00/00/00/63/56/8130.DeployingWebAppsInEnterpriseScenarios.pdf)
 
 > Toto téma popisuje postup konfigurace webového serveru Internetové informační služby (IIS) pro podporu publikování na webu a nasazení pomocí rutiny nasazení webové služby IIS.
 > 
-> Při práci s nasazení webu 2.0 nebo novější, existují tři hlavní přístupy, které můžete použít k získání aplikací nebo webů na webovém serveru. Můžeš:
+> Při práci s nasazení webu 2.0 nebo novější, existují tři hlavní přístupy, které můžete použít k získání aplikací nebo webů na webovém serveru. Můžete:
 > 
 > - Použití *Webdeploy služba vzdáleného agenta*. Tento přístup vyžaduje méně konfiguraci webového serveru, ale je potřeba zadat přihlašovací údaje správce místním serveru, aby se nenasazujte nic k serveru.
 > - Použití *obslužná rutina nasazení webu*. Tento přístup je mnohem složitější a vyžaduje další úsilí počáteční nastavení webového serveru. Ale při použití tohoto přístupu můžete nakonfigurovat služby IIS umožňuje uživatelům bez oprávnění správce k provedení nasazení. Obslužné rutiny nasazení webu je pouze k dispozici ve službě IIS verze 7 nebo novější.
@@ -57,9 +55,9 @@ Pro hostování ukázkové řešení ContactManager konkrétně, bude také pot�
 - Instalace rozhraní .NET Framework 4.0.
 - Instalace technologie ASP.NET MVC 3.
 
-Postup pro každý z těchto postupů se zobrazí v tomto tématu. Úlohy a názorné postupy v tomto tématu se předpokládá, že začínáte s čistou server sestavení s Windows serverem 2008 R2. Než budete pokračovat, ujistěte se, že:
+Postup pro každý z těchto postupů se zobrazí v tomto tématu. Úlohy a názorné postupy v tomto tématu se předpokládá, že začínáte s čistou server sestavení s Windows serverem 2016. Než budete pokračovat, ujistěte se, že:
 
-- Windows Server 2008 R2 Service Pack 1 a všechny dostupné aktualizace jsou nainstalovány.
+- Windows Server 2016
 - Server není připojený k doméně.
 - Server má statickou IP adresu.
 
@@ -74,14 +72,14 @@ Tato část vás provede s instalací požadovaných produktů a komponenty na w
 V takovém případě musíte nainstalovat tyto věci:
 
 - **Doporučená konfigurace služby IIS 7**. Díky tomu **webového serveru (IIS)** role na webovém serveru a instalaci sadu modulů IIS a komponenty, které potřebujete k hostování aplikace ASP.NET.
-- **Služby IIS: Služba správy**. Tím se nainstaluje služby webové správy (WMSvc) ve službě IIS. Tato služba umožňuje vzdálenou správu služby IIS weby a zpřístupňuje koncový bod obslužné rutiny webu nasadit na klienty.
-- **Služby IIS: Základní ověření**. Tím se nainstaluje modul základní ověření služby IIS. Díky tomu je služby webové správy (WMSvc) ověřit přihlašovací údaje, které zadáte.
+- **IIS: Služba správy**. Tím se nainstaluje služby webové správy (WMSvc) ve službě IIS. Tato služba umožňuje vzdálenou správu služby IIS weby a zpřístupňuje koncový bod obslužné rutiny webu nasadit na klienty.
+- **IIS: Základní ověřování**. Tím se nainstaluje modul základní ověření služby IIS. Díky tomu je služby webové správy (WMSvc) ověřit přihlašovací údaje, které zadáte.
 - **Webové nástroje pro nasazení 2.1 nebo novější**. Tím se nainstaluje Web Deploy (a její podkladové spustitelný soubor MSDeploy.exe) na serveru. V rámci tohoto procesu se nainstaluje obslužné rutiny nasazení webu a integruje služby webové správy.
-- **Rozhraní .NET framework 4.0**. To je potřeba ke spouštění aplikací, které byly vytvořeny v této verzi rozhraní .NET Framework.
+- **.NET Framework 4.0**. To je potřeba ke spouštění aplikací, které byly vytvořeny v této verzi rozhraní .NET Framework.
 - **ASP.NET MVC 3**. Tím se nainstaluje sestavení, je potřeba spouštět aplikace MVC 3.
 
 > [!NOTE]
-> Tento návod popisuje použití instalačního programu webové platformy nainstalovat a nakonfigurovat různé součásti. I když není nutné používat instalačního programu webové platformy, zjednodušuje proces instalace automaticky zjišťuje závislosti a zajištění vždycky toho nejnovější verze produktu. Další informace najdete v tématu [Microsoft webové platformy verze 3.0](https://go.microsoft.com/?linkid=9805118).
+> Tento návod popisuje použití instalačního programu webové platformy nainstalovat a nakonfigurovat různé součásti. I když není nutné používat instalačního programu webové platformy, zjednodušuje proces instalace automaticky zjišťuje závislosti a zajištění vždycky toho nejnovější verze produktu. Další informace najdete v tématu [instalačního programu webové platformy Microsoft](https://go.microsoft.com/?linkid=9805118).
 
 
 **Chcete-li nainstalovat požadované produkty a komponenty**
@@ -91,7 +89,7 @@ V takovém případě musíte nainstalovat tyto věci:
 
     > [!NOTE]
     > Instalace webové platformy teď můžete spustit kdykoli **Start** nabídky. K tomu, na **Start** nabídky, klikněte na tlačítko **všechny programy**a potom klikněte na tlačítko **instalačního programu webové platformy Microsoft**.
-3. V horní části **3.0 Instalační služby webové platformy** okna, klikněte na tlačítko **produkty**.
+3. V horní části **instalačního programu webové platformy** okna, klikněte na tlačítko **produkty**.
 4. Na levé straně okna, v navigačním podokně klikněte na tlačítko **architektury**.
 5. V **rozhraní Microsoft .NET Framework 4** řádek, pokud rozhraní .NET Framework není nainstalovaná, klikněte na tlačítko **přidat**.
 
@@ -103,13 +101,13 @@ V takovém případě musíte nainstalovat tyto věci:
 7. V navigačním podokně klikněte na tlačítko **Server**.
 8. V **IIS 7 doporučená konfigurace** řádku, klikněte na tlačítko **přidat**.
 9. V **2.1 nástroj Web Deployment** řádku, klikněte na tlačítko **přidat**.
-10. V **služby IIS: základní ověřování** řádku, klikněte na tlačítko **přidat**.
+10. V **služby IIS: Základní ověřování** řádku, klikněte na tlačítko **přidat**.
 11. V **služby IIS: Služba správy** řádku, klikněte na tlačítko **přidat**.
 12. Klikněte na tlačítko **nainstalovat**. Instalace webové platformy zobrazí seznam produktů&#x2014;spolu s případnými přidružené závislosti&#x2014;k instalaci a zobrazí výzvu k potvrzení licenčních podmínek.
 
     ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image2.png)
 13. Přečtěte si licenční podmínky a pokud souhlasíte s podmínkami, klikněte na tlačítko **souhlasím**.
-14. Po dokončení instalace klikněte na tlačítko **Dokončit**a pak zavřete **3.0 Instalační služby webové platformy** okna.
+14. Po dokončení instalace klikněte na tlačítko **Dokončit**a pak zavřete **instalačního programu webové platformy** okna.
 
 Pokud jste nainstalovali .NET Framework 4.0, před instalací služby IIS, budete potřebovat ke spuštění [ASP.NET IIS Registration Tool](https://msdn.microsoft.com/library/k6h9cz8h(v=VS.100).aspx) (aspnet\_regiis.exe) na nejnovější verzi technologie ASP.NET pro službu IIS zaregistrovat. Pokud to neuděláte, zjistíte, že služba IIS bude poskytovat statický obsah (jako jsou soubory HTML) bez problémů, ale vrátí **HTTP Chyba 404.0 – nenalezeno** při pokusu o procházení obsahu ASP.NET. Následující postup slouží k zajištění, že je zaregistrované technologii ASP.NET 4.0.
 
@@ -145,7 +143,7 @@ Teď, když jste nainstalovali všechno, co potřebujete, dalším krokem je kon
     ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image3.png)
 3. V prostředním podokně v části **IIS**, dvakrát klikněte na panel **ověřování**.
 
-    ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image4.png)
+    ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image20.png)
 4. Klikněte pravým tlačítkem na **základní ověřování**a potom klikněte na tlačítko **povolit**.
 
     ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image5.png)
@@ -207,7 +205,7 @@ I když není nic zastavení jste od nasazení obsahu na výchozí web ve služb
     ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image11.png)
 
     > [!NOTE]
-    > V produkčním prostředí budete pravděpodobně chtít hostovat svůj web na portu 80 a nakonfigurovat hlavičku hostitele, společně s odpovídající záznamy DNS. Další informace o konfiguraci hlavičky hostitele ve službě IIS 7, najdete v části [konfigurace hlavičku hostitele pro webový server (IIS 7)](https://technet.microsoft.com/library/cc753195(WS.10).aspx). Další informace o roli serveru DNS ve Windows serveru 2008 R2 najdete v tématu [přehled serveru DNS](https://technet.microsoft.com/en-gb/library/cc770392.aspx) a [DNS Server](https://technet.microsoft.com/windowsserver/dd448607).
+    > V produkčním prostředí budete pravděpodobně chtít hostovat svůj web na portu 80 a nakonfigurovat hlavičku hostitele, společně s odpovídající záznamy DNS. Další informace o konfiguraci hlavičky hostitele ve službě IIS 7, najdete v části [konfigurace hlavičku hostitele pro webový server (IIS 7)](https://technet.microsoft.com/library/cc753195(WS.10).aspx). Další informace o roli serveru DNS ve Windows serveru najdete v tématu [přehled serveru DNS](https://technet.microsoft.com/en-gb/library/cc770392.aspx) a [DNS Server](https://technet.microsoft.com/windowsserver/dd448607).
 9. V **akce** podokně v části **upravit web**, klikněte na tlačítko **vazby**.
 10. V **vazby webu** dialogové okno, klikněte na tlačítko **přidat**.
 
@@ -222,9 +220,9 @@ I když není nic zastavení jste od nasazení obsahu na výchozí web ve služb
 13. V **vazby webu** dialogové okno, klikněte na tlačítko **Zavřít**.
 14. V **připojení** podokně klikněte na tlačítko **fondy aplikací**.
 15. V **fondy aplikací** podokně klikněte pravým tlačítkem na název vašeho fondu aplikací a klikněte na **základní nastavení**. Ve výchozím nastavení, bude název fondu aplikací odpovídat názvu vašeho webu (například **DemoSite**).
-16. V **verzi rozhraní .NET Framework** seznamu vyberte **rozhraní .NET Framework v4.0.30319**a potom klikněte na tlačítko **OK**.
+16. V **verze .NET CLR** seznamu vyberte **.NET CLR v4.0.30319**a potom klikněte na tlačítko **OK**.
 
-    ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image14.png)
+    ![](configuring-a-web-server-for-web-deploy-publishing-web-deploy-handler/_static/image21.png)
 
     > [!NOTE]
     > Ukázkové řešení vyžaduje rozhraní .NET Framework 4.0. Toto není povinné pro nasazení webu obecně.
@@ -281,8 +279,8 @@ Ve výchozím nastavení webová služba správy služby IIS naslouchá na TCP p
 
 | Směr | Z portu | Port | Typ portu |
 | --- | --- | --- | --- |
-| Příchozí | Všechny | 8172 | TCP |
-| Odchozí | 8172 | Všechny | TCP |
+| Příchozí | Jakýkoli | 8172 | TCP |
+| Odchozí | 8172 | Jakýkoli | TCP |
   
 
 Další informace o konfiguraci pravidel brány Windows Firewall, najdete v části [konfigurace pravidel brány Firewall](https://technet.microsoft.com/library/dd448559(WS.10).aspx). Brány firewall třetích stran najdete v dokumentaci k produktu.

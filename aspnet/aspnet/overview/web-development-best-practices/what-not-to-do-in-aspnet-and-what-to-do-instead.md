@@ -4,20 +4,18 @@ title: Co nedělat v ASP.NET a jak to udělat správně | Dokumentace Microsoftu
 author: Rick-Anderson
 description: Toto téma popisuje několik běžných chyb, které uživatelé provést v rámci webové projekty ASP.NET. Poskytuje doporučení pro co dělat, aby se zabránilo tyto commo...
 ms.author: riande
-ms.date: 05/08/2014
+ms.date: 01/28/2019
 ms.assetid: c39b9965-545c-4b04-8f55-21be7f28a9e5
 msc.legacyurl: /aspnet/overview/web-development-best-practices/what-not-to-do-in-aspnet-and-what-to-do-instead
 msc.type: authoredcontent
-ms.openlocfilehash: 69040ca6a1ddeaf029062da45475dd2171b1afa6
-ms.sourcegitcommit: 2d3e5422d530203efdaf2014d1d7df31f88d08d0
+ms.openlocfilehash: 512d2e2b39467635390fa175546f79d8c9f89f4a
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2018
-ms.locfileid: "51021440"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667710"
 ---
-<a name="what-not-to-do-in-aspnet-and-what-to-do-instead"></a>Co nedělat v ASP.NET a jak to udělat správně
-====================
-podle [Tom FitzMacken](https://github.com/tfitzmac)
+# <a name="what-not-to-do-in-aspnet-and-what-to-do-instead"></a>Co nedělat v ASP.NET a jak to udělat správně
 
 > Toto téma popisuje několik běžných chyb, které uživatelé provést v rámci webové projekty ASP.NET. Poskytuje doporučení pro co dělat, aby se zabránilo těchto běžných chyb. Je založen na [prezentace](http://vimeo.com/68390507) podle **Damianem Edwardsem** na konferenci Ndc vývojáři.
 
@@ -67,13 +65,13 @@ Doporučení: Přestat používat adaptérů ovládacích prvků pro adaptivní 
 
 Ovládací prvky adaptéry byly zavedeny v rozhraní .NET 2.0 k vykreslení prezentaci kódu, který byl přizpůsoben pro různá zařízení a prostředí. Nyní tento adaptivního vykreslování můžete provést pomocí šablon stylů CSS a HTML. Měli přestat používat adaptérů ovládacích prvků a převeďte všechny existující adaptéry šablon stylů CSS a HTML.
 
-Další informace najdete v tématu [dotazy na média](http://www.w3.org/TR/css3-mediaqueries/) a [postupy: Přidání mobilní stránky na vaše webové formuláře ASP.NET / aplikace MVC](../../../whitepapers/add-mobile-pages-to-your-aspnet-web-forms-mvc-application.md).
+Další informace najdete v tématu [dotazy na média](http://www.w3.org/TR/css3-mediaqueries/) a [How To: Přidání mobilních stránek do webových formulářů nebo aplikace MVC](../../../whitepapers/add-mobile-pages-to-your-aspnet-web-forms-mvc-application.md).
 
 <a id="styleprop"></a>
 
 ### <a name="style-properties-on-controls"></a>Vlastnosti stylu v ovládacích prvcích
 
-Doporučení: Zastavte nastavit styl hodnoty do ovládacího prvku a místo toho nastavit formátování hodnoty v šablon stylů CSS.
+Doporučení: Zastavit nastavit styl hodnoty do ovládacího prvku a místo toho nastavit formátování hodnoty v šablon stylů CSS.
 
 Ovládací prvky webového serveru obsahují desítky vlastnosti, které můžete použít k nastavení vlastnosti stylu v řádku. Například vlastnosti ForeColor nastaví barvu textu pro ovládací prvek. Můžete provést tento stejný účinek efektivněji pomocí šablon stylů CSS. Šablony stylů umožňují centralizovat hodnoty stylu a vyhněte se nastavení tyto hodnoty v rámci aplikace.
 
@@ -87,9 +85,9 @@ Následující příklad ukazuje, jak dynamicky nastavit třídu CSS.
 
 <a id="callback"></a>
 
-### <a name="page-and-control-callbacks"></a>Stránky a zpětná volání ovládacího prvku
+### <a name="page-and-control-callbacks"></a>Zpětná volání stránky a ovládací prvek
 
-Doporučení: Přestat používat stránky a ovládací prvek zpětná volání a místo toho použít některý z následujících akcí: AJAX, UpdatePanel, metody akce MVC, webové rozhraní API nebo SignalR.
+Doporučení: Přestat používat stránky a ovládací prvek zpětná volání a místo toho použít některý z následujících akcí: AJAX, UpdatePanel, MVC metody akce, webové rozhraní API nebo SignalR.
 
 V předchozích verzích technologie ASP.NET umožňovala stránky a ovládací prvek metody zpětného volání aktualizovat část webové stránky bez aktualizace celé stránky. Teď můžete provádět částečné aktualizace stránky prostřednictvím [AJAX](../../../ajax/index.md), [UpdatePanel](https://msdn.microsoft.com/library/bb386454.aspx), [MVC](../../../mvc/index.md), [webového rozhraní API](../../../web-api/index.md) nebo [SignalR](../../../signalr/index.md). By se měla zastavit pomocí metod zpětného volání, protože může způsobit problémy s přátelské adresy URL a směrování. Ve výchozím nastavení ovládací prvky nepovolujte metody zpětného volání, ale pokud povolíte tuto funkci v ovládacím prvku, měli byste zakázat.
 
@@ -163,9 +161,9 @@ Následující příklad ukazuje, jak nastavit EnableViewStateMac na hodnotu tru
 
 <a id="medium"></a>
 
-### <a name="medium-trust"></a>Úrovni Medium Trust
+### <a name="medium-trust"></a>Úrovni Medium trust
 
-Doporučení: Nezávisí na střední důvěryhodnosti (nebo jiné úroveň důvěryhodnosti) jako hranice zabezpečení.
+Doporučení: Není závislý na střední důvěryhodnosti (nebo jiné úroveň důvěryhodnosti) jako hranice zabezpečení.
 
 Částečným vztahem důvěryhodnosti adekvátní ochranu aplikace by se neměl používat. Místo toho používat plnou důvěryhodnost a izolovat nedůvěryhodné aplikace v samostatných fondech aplikací. Navíc spouštět každý fond aplikací v rámci jedinečnou identitu. Další informace najdete v tématu [ASP.NET částečném vztahu důvěryhodnosti nezaručuje izolace aplikací](https://support.microsoft.com/kb/2698981).
 
@@ -183,7 +181,7 @@ Podrobnosti najdete v tématu [ASP.NET appSettings Element](https://msdn.microso
 
 ### <a name="urlpathencode"></a>UrlPathEncode
 
-Doporučení: Použijte [UrlEncode](https://msdn.microsoft.com/library/zttxte6w.aspx) místo.
+Doporučení: Použití [UrlEncode](https://msdn.microsoft.com/library/zttxte6w.aspx) místo.
 
 Metoda UrlPathEncode byl přidán do rozhraní .NET Framework, chcete-li vyřešit potíže s kompatibilitou velmi určitého webového prohlížeče. Odpovídajícím způsobem kódování adresy URL a není ochrana aplikací před skriptování napříč weby. Nikdy používejte ji v aplikaci. Místo toho použijte [UrlEncode](https://msdn.microsoft.com/library/zttxte6w.aspx).
 
@@ -199,7 +197,7 @@ Následující příklad ukazuje, jak předat adresu URL kódovaný jako paramet
 
 ### <a name="presendrequestheaders-and-presendrequestcontent"></a>PreSendRequestHeaders a PreSendRequestContent
 
-Doporučení: Nepoužívejte tyto události s spravované moduly. Místo toho napište nativní modul služby IIS k provedení požadované úlohy. Zobrazit [vytváření modulů HTTP v nativním kódu](https://msdn.microsoft.com/library/ms693629.aspx).
+Doporučení: Nepoužívejte tyto události spravované moduly. Místo toho napište nativní modul služby IIS k provedení požadované úlohy. Zobrazit [vytváření modulů HTTP v nativním kódu](https://msdn.microsoft.com/library/ms693629.aspx).
 
 Můžete použít [PreSendRequestHeaders](https://msdn.microsoft.com/library/system.web.httpapplication.presendrequestheaders.aspx) a [PreSendRequestContent](https://msdn.microsoft.com/library/system.web.httpapplication.presendrequestcontent.aspx) události s nativní moduly služby IIS.
 > [!WARNING]
@@ -209,7 +207,7 @@ Můžete použít [PreSendRequestHeaders](https://msdn.microsoft.com/library/sys
 
 ### <a name="asynchronous-page-events-with-web-forms"></a>Události asynchronní stránky s webovými formuláři
 
-Doporučení: Ve webových formulářů, vyhněte se zápis async void metody pro události životního cyklu stránky použijte raději [Page.RegisterAsyncTask](https://msdn.microsoft.com/library/system.web.ui.page.registerasynctask.aspx) pro asynchronní kód.
+Doporučení: Ve webových formulářích vyhnout, psaní async void metod pro události životního cyklu stránky použijte raději [Page.RegisterAsyncTask](https://msdn.microsoft.com/library/system.web.ui.page.registerasynctask.aspx) pro asynchronní kód.
 
 Pokud označíte událostí stránky s **asynchronní** a **void**, nelze určit dokončení asynchronního kódu. Místo toho použijte Page.RegisterAsyncTask ke spuštění asynchronního kódu způsobem, který umožňuje sledovat jeho dokončení.
 
@@ -217,7 +215,7 @@ Následující příklad ukazuje a tlačítko klikněte na obslužnou rutinu, kt
 
 [!code-csharp[Main](what-not-to-do-in-aspnet-and-what-to-do-instead/samples/sample11.cs)]
 
-Pokud používáte asynchronních úloh, nastavte cílovou architekturu Http runtime 4.5 v souboru Web.config. Nastavení cílové architektury na 4.5 změní na nový kontext synchronizace, který byl přidán v rozhraní .NET 4.5. Tato hodnota je nastaven ve výchozím nastavení v nových projektech v sadě Visual Studio 2012, ale není možné nastavit při práci s existující projekt.
+Pokud používáte asynchronních úloh, nastavte cílovou architekturu Http runtime 4.5 (nebo novější) v souboru Web.config. Nastavení cílové architektury na 4.5 změní na nový kontext synchronizace, který byl přidán v rozhraní .NET 4.5. Tato hodnota je nastaven ve výchozím nastavení v nových projektech v sadě Visual Studio, ale není možné nastavit při práci s existující projekt.
 
 [!code-xml[Main](what-not-to-do-in-aspnet-and-what-to-do-instead/samples/sample12.xml)]
 
@@ -235,7 +233,7 @@ Pokud je třeba provést tuto práci v rámci technologie ASP.NET, můžete při
 
 <a id="requestentity"></a>
 
-### <a name="request-entity-body"></a>Obsah Entity žádosti
+### <a name="request-entity-body"></a>Obsah entity žádosti
 
 Doporučení: Vyhněte se čtení Request.Form nebo Request.InputStream před obslužnou rutinu události.
 
@@ -247,7 +245,7 @@ Pokud budete potřebovat číst obsah entity žádosti před událostí spoušt�
 
 ### <a name="responseredirect-and-responseend"></a>Response.Redirect a metody Response.End
 
-Doporučení: Znát rozdíly ve zpracování vlákna po volání [Response.Redirect(String)](https://msdn.microsoft.com/library/t9dwyts4.aspx).
+Doporučení: Mějte na paměti rozdíly ve zpracování vlákna po volání [Response.Redirect(String)](https://msdn.microsoft.com/library/t9dwyts4.aspx).
 
 [Response.Redirect(String)](https://msdn.microsoft.com/library/t9dwyts4.aspx) metoda volá metodu metody Response.End. V synchronní zpracování volání Request.Redirect způsobí, že aktuální vlákno, okamžitě zrušit. Ale u asynchronního procesu, metoda Response.Redirect není přerušení aktuálního vlákna, tak pokračuje v provádění kódu pro daný požadavek. U asynchronního procesu musíte se vrátit úlohu z metody na svém vyvolání zastaví provádění kódu.
 
@@ -257,7 +255,7 @@ V projektu aplikace MVC neměli by jste volat Response.Redirect. Místo toho vr�
 
 ### <a name="enableviewstate-and-viewstatemode"></a>EnableViewState a ViewStateMode
 
-Doporučení: ViewStateMode použijte místo EnableViewState zajistit detailní kontrolu nad tím, které pomocí ovládacích prvků stavu zobrazení.
+Doporučení: Použijte ViewStateMode, místo EnableViewState, zajistit detailní kontrolu nad tím, které pomocí ovládacích prvků stavu zobrazení.
 
 EnableViewState nastavená na hodnotu false v direktivě stránky stav zobrazení je zakázaná pro všechny ovládací prvky v rámci stránky a není možné. Pokud chcete povolit stav zobrazení pro pouze některé ovládací prvky na stránce, nastavte pro stránku ViewStateMode zakázáno.
 
@@ -281,9 +279,9 @@ Další informace najdete v tématu [Úvod do ASP.NET Universal Providers](http:
 
 <a id="long"></a>
 
-### <a name="long-running-requests-110-seconds"></a>Dlouho běžící požadavky (> 110 sekund)
+### <a name="long-running-requests-110-seconds"></a>Dlouhodobé požadavky (> 110 sekund)
 
-Doporučení: Použijte [objekty Websocket](https://msdn.microsoft.com/library/system.net.websockets.websocket.aspx) nebo [SignalR](../../../signalr/index.md) pro připojené klienty a použití asynchronní vstupně-výstupních operací.
+Doporučení: Použít [objekty Websocket](https://msdn.microsoft.com/library/system.net.websockets.websocket.aspx) nebo [SignalR](../../../signalr/index.md) pro připojené klienty a použití asynchronní vstupně-výstupních operací.
 
 Dlouhodobé požadavky může způsobit nepředvídatelné výsledky a slabým výkonem ve webové aplikaci. Výchozí nastavení časového limitu pro žádost je 110 sekund. Pokud používáte stav relace se dlouho běžící žádostí, vydá ASP.NET po sekundách 110 zámek na objekt relace. Však může být vaše aplikace provádí operaci u objektu relace, pokud zámek je uvolněn a operace nemusí dokončit úspěšně. Pokud druhou žádost od uživatele se zablokuje při spuštění prvního požadavku, druhou žádost může získat přístup k objektu Session v nekonzistentním stavu.
 

@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/21/2018
 uid: spa/react
-ms.openlocfilehash: c83b119e81d7d0abfd727cb8c72abb09763d9448
-ms.sourcegitcommit: b2723654af4969a24545f09ebe32004cb5e84a96
+ms.openlocfilehash: d83bff8abcd5b59d8bc4a51a101510755394f0c4
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46011418"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667684"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>Šablona projektu React pomocí ASP.NET Core
 
@@ -97,14 +97,22 @@ Projekt je nakonfigurován ke spuštění svoji vlastní instanci vývojový ser
 
 Nevýhodou této výchozí nastavení není k dispozici. Pokaždé, když změníte kód jazyka C# a vaše ASP.NET Core, které aplikace potřebuje k restartování, CRA server se restartuje. Pár sekund jsou vyžadovány pro spuštění zálohování. Pokud vytváříte časté úpravy kódu jazyka C# a nechcete čekat, CRA server restartovat, spusťte server CRA externě, nezávisle na procesu ASP.NET Core. Postup:
 
-1. V příkazovém řádku přejděte *ClientApp* podadresáře a spusťte vývojový server sady CRA:
+1. Přidat *.env* do souboru *ClientApp* podadresář s následujícím nastavením:
+
+    ```
+    BROWSER=none
+    ```
+    
+    Tím zabráníte ve webovém prohlížeči otevřít při spuštění serveru CRA externě.
+
+2. V příkazovém řádku přejděte *ClientApp* podadresáře a spusťte vývojový server sady CRA:
 
     ```console
     cd ClientApp
     npm start
     ```
 
-2. Upravte aplikace ASP.NET Core pro použití externího instance serveru CRA namísto jeho vlastní spuštění. Ve vaší *spuštění* třídy, nahraďte `spa.UseReactDevelopmentServer` vyvolání následujícím kódem:
+3. Upravte aplikace ASP.NET Core pro použití externího instance serveru CRA namísto jeho vlastní spuštění. Ve vaší *spuštění* třídy, nahraďte `spa.UseReactDevelopmentServer` vyvolání následujícím kódem:
 
     ```csharp
     spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");

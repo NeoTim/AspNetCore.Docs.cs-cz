@@ -9,16 +9,16 @@ ms.topic: tutorial
 ms.assetid: 095abad4-3bfe-4f06-b092-ae6a735b7e49
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/setting-up-database
 msc.type: authoredcontent
-ms.openlocfilehash: a503e3db63c873249178fd4783d322f4067c3208
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: dfc6c7a7083524a1e7049fdc879fe679f951084d
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236377"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667736"
 ---
 # <a name="tutorial-get-started-with-ef-database-first-using-mvc-5"></a>Kurz: Začínáme s EF Database First pomocí MVC 5
 
-Pomocí generování uživatelského rozhraní ASP.NET, MVC a Entity Framework, můžete vytvořit webovou aplikaci, která poskytuje rozhraní pro existující databázi. V této sérii kurzů se dozvíte, jak automaticky vygenerovat kód, který umožňuje uživatelům zobrazit, upravit, vytvořit a odstranit data, která se nachází v databázové tabulce. Generovaný kód odpovídá sloupců v tabulce databáze. V poslední části série nasadíte lokalitu a databázi do Azure.
+Pomocí generování uživatelského rozhraní ASP.NET, MVC a Entity Framework, můžete vytvořit webovou aplikaci, která poskytuje rozhraní pro existující databázi. V této sérii kurzů se dozvíte, jak automaticky vygenerovat kód, který umožňuje uživatelům zobrazit, upravit, vytvořit a odstranit data, která se nachází v databázové tabulce. Generovaný kód odpovídá sloupců v tabulce databáze. V poslední části série, se dozvíte, jak přidat anotacemi dat do datového modelu k určení požadavků na ověření a zobrazení formátování. Jakmile budete hotovi, můžete přechodu na Azure článku se dozvíte, jak nasadit aplikaci .NET a SQL database do služby Azure App Service.
 
 Tento kurz ukazuje, jak začít s existující databáze a rychle vytvořit webovou aplikaci, která umožňuje uživatelům interakci s daty. Používá Entity Framework 6 a MVC 5 k vytvoření webové aplikace. Funkce technologie ASP.NET generování uživatelského rozhraní umožňuje automaticky vygenerovat kód pro zobrazení, aktualizaci, vytvoření a odstranění dat. Pomocí nástroje pro publikování v sadě Visual Studio, můžete snadno nasadit lokalitu a databázi do Azure.
 
@@ -51,7 +51,7 @@ Spusťte sadu Visual Studio a vytvořte **databázový projekt SQL Server**. Poj
 
 ![Vytvoření projektu databáze](setting-up-database/_static/image1.png)
 
-Nyní máte projekt prázdnou databázi. Tato databáze do Azure nasadí později v tomto kurzu, budete muset nastavit Azure SQL Database jako cílovou platformu pro projekt. Nastavení cílové platformě není nasazena ve skutečnosti databázi. pouze znamená, že databázový projekt bude ověřte, zda je návrh databáze kompatibilní s cílovou platformu. Chcete-li nastavení cílové platformy, otevřete **vlastnosti** pro projekt a vyberte **Microsoft Azure SQL Database** pro cílovou platformu.
+Nyní máte projekt prázdnou databázi. Pokud chcete mít jistotu, že tato databáze můžete nasadit do Azure, nastavíte Azure SQL Database jako cílovou platformu pro projekt. Nastavení cílové platformě není nasazena ve skutečnosti databázi. pouze znamená, že databázový projekt bude ověřte, zda je návrh databáze kompatibilní s cílovou platformu. Chcete-li nastavení cílové platformy, otevřete **vlastnosti** pro projekt a vyberte **Microsoft Azure SQL Database** pro cílovou platformu.
 
 Můžete vytvořit tabulky pro tento kurz potřeba přidáním skripty SQL, které určují tabulky. Klikněte pravým tlačítkem na projekt a přidat novou položku. Vyberte **tabulek a zobrazení** > **tabulky** a pojmenujte ho *Student*.
 

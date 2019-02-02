@@ -8,12 +8,12 @@ ms.date: 08/29/2011
 ms.assetid: c23d27f7-b0cf-44f2-8445-fb69e045c674
 msc.legacyurl: /mvc/overview/older-versions/using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc/using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc-part-1
 msc.type: authoredcontent
-ms.openlocfilehash: a4cd6e9adfcd85503b9843232903a243bc07c959
-ms.sourcegitcommit: 392a36ed269b88899d6bb652aa7f4dfb72e43e7f
+ms.openlocfilehash: 3e700d2db4f86fe6734e2f08b01c9f8a8a69b6c3
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50220658"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667788"
 ---
 <a name="using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc---part-1"></a>Použití jazyka HTML5 a kalendáře jQuery UI Datepicker s architekturou ASP.NET MVC – část 1
 ====================
@@ -24,19 +24,19 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
 V tomto kurzu se seznámíte se základy práce pomocí editoru šablon, zobrazení šablon a jQuery [kalendář automaticky otevírané okno prvkem datepicker v uživatelském rozhraní](http://plugins.jquery.com/project/datepicker) v aplikaci MVC rozhraní ASP.NET Web. Pro účely tohoto kurzu můžete použít Microsoft Visual Web Developer 2010 Express Service Pack 1 (&quot;Visual Web Developer&quot;), což je bezplatná verze sady Microsoft Visual Studio, nebo pokud už máte, který můžete použít Visual Studio 2010 SP1.
 
-Než začnete, ujistěte se, že jste nainstalovali požadavky uvedené níže. Nainstalujte všechny z nich kliknutím na následující odkaz: [instalačního programu webové platformy](https://www.microsoft.com/web/gallery/install.aspx?appid=VWD2010SP1Pack). Alternativně můžete nainstalovat jednotlivě požadovaný software pomocí následujících odkazů:
+Než začnete, ujistěte se, že jste nainstalovali požadavky uvedené níže. Kliknutím na následující odkaz můžete nainstalovat všechny z nich: [Web Platform Installer](https://www.microsoft.com/web/gallery/install.aspx?appid=VWD2010SP1Pack). Alternativně můžete nainstalovat jednotlivě požadovaný software pomocí následujících odkazů:
 
 - [Visual Studio Web Developer Express SP1 požadavky](https://www.microsoft.com/web/gallery/install.aspx?appid=VWD2010SP1Pack)
-- [ASP.NET MVC 3 nástroje Update](https://www.microsoft.com/web/gallery/install.aspx?appsxml=&amp;appid=MVC3)
+- [ASP.NET MVC 3 Tools Update](https://www.microsoft.com/web/gallery/install.aspx?appsxml=&amp;appid=MVC3)
 - [SQL Server Compact 4.0](https://www.microsoft.com/web/gallery/install.aspx?appid=SQLCE;SQLCEVSTools_4_0)(podpora modulu runtime a nástroje)
 
-Pokud používáte Visual Studio 2010 namísto Visual Web Developer, nainstalujte příslušné požadované součásti po kliknutí na následující odkaz: [požadavky sady Visual Studio 2010](https://www.microsoft.com/web/gallery/install.aspx?appsxml=&amp;appid=VS2010SP1Pack).
+Pokud používáte Visual Studio 2010 namísto Visual Web Developer, nainstalujte příslušné požadované součásti po kliknutí na následující odkaz: [Visual Studio 2010 požadavky](https://www.microsoft.com/web/gallery/install.aspx?appsxml=&amp;appid=VS2010SP1Pack).
 
 V tomto kurzu se předpokládá dokončení [Začínáme s MVC 3](../getting-started-with-aspnet-mvc3/cs/intro-to-aspnet-mvc-3.md) kurzu nebo že jste obeznámeni s vývojem pro ASP.NET MVC. Tento kurz pracuje s dokončený projekt z [Začínáme s MVC 3](../getting-started-with-aspnet-mvc3/cs/intro-to-aspnet-mvc-3.md) kurzu.
 
 Tento kurz ukazuje kód v jazyce C#. Ale [počáteční projekt](https://archive.msdn.microsoft.com/Project/Download/FileDownload.aspx?ProjectName=aspnetmvcsamples&amp;DownloadId=15800) a dokončené projektu jsou také k dispozici v jazyce Visual Basic.
 
-Projekt sady Visual Studio se zdrojovým kódem jazyka C# a Visual Basic je k dispozici v tomto tématu: [Stáhnout](https://archive.msdn.microsoft.com/Project/Download/FileDownload.aspx?ProjectName=aspnetmvcsamples&amp;DownloadId=15800).
+Projekt sady Visual Studio s C# a zdrojový kód jazyka Visual Basic je k dispozici v tomto tématu: [Stáhněte si](https://archive.msdn.microsoft.com/Project/Download/FileDownload.aspx?ProjectName=aspnetmvcsamples&amp;DownloadId=15800).
 
 ### <a name="what-youll-build"></a>Co budete vytvářet
 
@@ -54,7 +54,11 @@ Zde je, co se dozvíte:
 
 ### <a name="getting-started"></a>Začínáme
 
-Pokud ještě nemáte výpisu film aplikaci počáteční projekt, stáhněte si ho pomocí následujícího odkazu: [Stáhnout](https://code.msdn.microsoft.com/Introduction-to-MVC-3-10d1b098). V Průzkumníku Windows, klikněte pravým tlačítkem myši *MvcMovie.zip* a vyberte možnost **vlastnosti**. V **MvcMovie.zip vlastnosti** dialogu **Odblokovat**. (Odblokování brání upozornění zabezpečení, ke které dojde při pokusu o použití *ZIP* soubor, který jste stáhli z webu.)
+Pokud ještě nemáte výpisu film aplikaci počáteční projekt, stáhněte si ji: 
+
+* [Stáhněte si](https://code.msdn.microsoft.com/Introduction-to-MVC-3-10d1b098).
+* V Průzkumníku Windows, klikněte pravým tlačítkem myši *MvcMovie.zip* a vyberte možnost **vlastnosti**. 
+* V **MvcMovie.zip vlastnosti** dialogu **Odblokovat**. (Odblokování brání upozornění zabezpečení, ke které dojde při pokusu o použití *ZIP* soubor, který jste stáhli z webu.)
 
 ![](using-the-html5-and-jquery-ui-datepicker-popup-calendar-with-aspnet-mvc-part-1/_static/image2.png)
 

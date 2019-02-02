@@ -4,39 +4,38 @@ title: Rozpoznání spouštěcí třídy OWIN | Dokumentace Microsoftu
 author: Praburaj
 description: Tento kurz ukazuje, jak konfigurovat načteny které třídy pro spuštění OWIN. Další informace o OWIN naleznete v tématu Přehled projektu Katana. V tomto kurzu se...
 ms.author: riande
-ms.date: 10/17/2013
+ms.date: 01/28/2019
 ms.assetid: 08257f55-36f4-4e39-9c88-2a5602838c79
 msc.legacyurl: /aspnet/overview/owin-and-katana/owin-startup-class-detection
 msc.type: authoredcontent
-ms.openlocfilehash: 4e753187f1caae646402712c2abc28856ae71a79
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 0b34cca8b48383dbb028106651758dff889ed614
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910704"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667294"
 ---
 <a name="owin-startup-class-detection"></a>Rozpoznání spouštěcí třídy OWIN
 ====================
-podle [Praburaj manažer](https://github.com/Praburaj), [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
 > Tento kurz ukazuje, jak konfigurovat načteny které třídy pro spuštění OWIN. Další informace o OWIN, naleznete v tématu [Přehled projektu Katana](an-overview-of-project-katana.md). V tomto kurzu byla zapsána od Ricka Andersona ( [ @RickAndMSFT ](https://twitter.com/#!/RickAndMSFT) ), Manažer Praburaj a Howard Dierking ( [ @howard \_dierking](https://twitter.com/howard_dierking) ).
 >
 > ## <a name="prerequisites"></a>Požadavky
 >
-> [Visual Studio 2013](https://my.visualstudio.com/Downloads?q=visual%20studio%202013)
+> [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
 
 
 ## <a name="owin-startup-class-detection"></a>Rozpoznání spouštěcí třídy OWIN
 
  Každá aplikace OWIN obsahuje třídu spuštění zadávat komponenty pro kanál aplikací. Existují různé způsoby připojení třídu pro spuštění v modulu runtime, v závislosti na model hostingu zvolíte (OwinHost, služby IIS a služby IIS Express). Třída při spuštění uvedeno v tomto kurzu je možné v každé hostitelské aplikace. Třída při spuštění napojení hostování modulu runtime pomocí jedné z těchto přístupů:
 
-1. **Zásady vytváření názvů**: Katana hledá třídu s názvem `Startup` v oboru názvů odpovídající název sestavení nebo v globálním oboru názvů.
-2. **Atribut OwinStartup**: Toto je přístup k určení třída při spuštění bude trvat Většina vývojářů. Tento atribut nastaví na třídu pro spuštění `TestStartup` třídy v `StartupDemo` oboru názvů.
+1. **Zásady vytváření názvů**: Vyhledá Katana pro třídu s názvem `Startup` v oboru názvů odpovídající název sestavení nebo v globálním oboru názvů.
+2. **Atribut OwinStartup**: Toto je postup, jak bude Většina vývojářů zadejte třídu pro spuštění. Tento atribut nastaví na třídu pro spuštění `TestStartup` třídy v `StartupDemo` oboru názvů.
 
     [!code-csharp[Main](owin-startup-class-detection/samples/sample1.cs)]
 
    `OwinStartup` Atribut přepisuje zásady vytváření názvů. Můžete také zadat popisný název k tomuto atributu, ale použít popisný název vyžaduje také použití `appSetting` element v konfiguračním souboru.
-3. **Element nastavení aplikace v konfiguračním souboru**: `appSetting` přepíše element `OwinStartup` atribut a zásady vytváření názvů. Můžete mít více tříd spuštění (každý pomocí `OwinStartup` atribut) a konfigurace, které třída při spuštění bude načten v konfiguračním souboru pomocí značek podobný následujícímu:
+3. **Element nastavení aplikace v konfiguračním souboru**: `appSetting` Přepíše element `OwinStartup` atribut a zásady vytváření názvů. Můžete mít více tříd spuštění (každý pomocí `OwinStartup` atribut) a konfigurace, které třída při spuštění bude načten v konfiguračním souboru pomocí značek podobný následujícímu:
 
     [!code-xml[Main](owin-startup-class-detection/samples/sample2.xml)]
 
@@ -60,7 +59,7 @@ podle [Praburaj manažer](https://github.com/Praburaj), [Rick Anderson]((https:/
 1. Vytvoří prázdná webová aplikace Asp.Net a pojmenujte ho **StartupDemo**. – Instalace `Microsoft.Owin.Host.SystemWeb` pomocí Správce balíčků NuGet. Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet**a potom **Konzola správce balíčků**. Zadejte následující příkaz:
 
     [!code-powershell[Main](owin-startup-class-detection/samples/sample7.ps1)]
-2. Přidání třídy pro spuštění OWIN. V sadě Visual Studio 2013 klikněte pravým tlačítkem projekt a vyberte **přidat třídu**. - v **přidat novou položku** dialogového okna zadejte *OWIN* do vyhledávacího pole a změnit název, který má Startup.cs, a pak klikněte na tlačítko **přidat**.
+2. Přidání třídy pro spuštění OWIN. V sadě Visual Studio 2017, klikněte pravým tlačítkem na projekt a vyberte **přidat třídu**. - v **přidat novou položku** dialogového okna zadejte *OWIN* do vyhledávacího pole a změnit název, který má Startup.cs, a pak vyberte **přidat**.
 
      ![](owin-startup-class-detection/_static/image1.png)
 
@@ -80,7 +79,7 @@ podle [Praburaj manažer](https://github.com/Praburaj), [Rick Anderson]((https:/
      > [!NOTE]
      > Ve výše uvedeném kódu, budeme mít komentář `OwinStartup` atribut a My se spoléhat na konvenci spuštěných třídu s názvem `Startup` .-stiskněte ***F5*** ke spuštění aplikace. Stiskněte několikrát tlačítko Aktualizovat.
 
-    ![](owin-startup-class-detection/_static/image4.png) Poznámka: Na číslo zobrazené na obrázcích v tomto kurzu nebudou odpovídat na číslo uvedené. Milisekundy řetězec se používá k zobrazit nová odpověď, když obnovíte stránku.
+    ![](owin-startup-class-detection/_static/image4.png) Poznámka: Číslo, jak je znázorněno obrázcích v tomto kurzu nebudou odpovídat na číslo uvedené. Milisekundy řetězec se používá k zobrazit nová odpověď, když obnovíte stránku.
   Zobrazí se informace o trasování v **výstup** okna.
 
     ![](owin-startup-class-detection/_static/image5.png)
@@ -158,6 +157,7 @@ V této části přidáme další spuštění třídu. Do vaší aplikace může
 
    Třída při spuštění produkčního prostředí je načtena.
     ![](owin-startup-class-detection/_static/image9.png)
+
    Naše aplikace má více spuštění třídy a v tomto příkladu jsme změnily která třída při spuštění načíst do modulu runtime.
 8. Následující možnosti modulu runtime při spuštění testů:
 
