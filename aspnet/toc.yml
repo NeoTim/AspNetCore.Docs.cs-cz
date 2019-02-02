@@ -2135,8 +2135,6 @@ items:
           href: mvc/overview/getting-started/database-first-development/customizing-a-view.md
         - name: Rozšířené ověřování dat
           href: mvc/overview/getting-started/database-first-development/enhancing-data-validation.md
-        - name: Publikování do Azure
-          href: mvc/overview/getting-started/database-first-development/publish-to-azure.md
       - name: Životní cyklus aplikace ASP.NET MVC 5
         href: mvc/overview/getting-started/lifecycle-of-an-aspnet-mvc-5-application.md
       - name: MVC – doporučené prostředky
@@ -3812,9 +3810,9 @@ items:
     href: whitepapers/whats-new-in-aspnet-45-and-visual-studio-2012.md
 - name: referenční dokumentace k rozhraní API
   href: api-ref.md
-ms.openlocfilehash: e96b99f5a6432ae359e1b8543701e4e2d49171a4
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 32bc0de99f07ad72d4b09dd29ac3f316609b0c69
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341846"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667827"

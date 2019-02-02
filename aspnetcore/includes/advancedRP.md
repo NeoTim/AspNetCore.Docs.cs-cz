@@ -1,0 +1,1 @@
+<span data-ttu-id="0cedb-101">Pokročilejší Úvod zaměřené na zkušených vývojářů, najdete v článku [Úvod do stránky Razor](xref:razor-pages/index).</span><span class="sxs-lookup"><span data-stu-id="0cedb-101">For a more advanced introduction aimed at experienced developers, see [Introduction to Razor Pages](xref:razor-pages/index).</span></span>
