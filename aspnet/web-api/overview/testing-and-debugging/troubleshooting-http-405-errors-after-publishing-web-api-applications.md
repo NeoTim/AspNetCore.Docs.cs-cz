@@ -1,36 +1,34 @@
 ---
 uid: web-api/overview/testing-and-debugging/troubleshooting-http-405-errors-after-publishing-web-api-applications
-title: Řešení potíží s HTTP 405 chyby po publikování webového rozhraní API 2 aplikací | Dokumentace Microsoftu
+title: Řešení potíží s HTTP 405 chyby po publikování webových aplikací API | Dokumentace Microsoftu
 author: rmcmurray
 description: Tento kurz popisuje, jak řešit chyby protokolu HTTP 405 po publikování aplikace webového rozhraní API pro produkční webový server.
 ms.author: riande
-ms.date: 05/01/2014
+ms.date: 01/23/2019
 ms.assetid: 07ec7d37-023f-43ea-b471-60b08ce338f7
 msc.legacyurl: /web-api/overview/testing-and-debugging/troubleshooting-http-405-errors-after-publishing-web-api-applications
 msc.type: authoredcontent
-ms.openlocfilehash: 735b8ceeafa63e0546529ef17f103070dc760794
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: ce5b617cc1032d190cc2450aa554b462ea6f6156
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41752808"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667411"
 ---
-<a name="troubleshooting-http-405-errors-after-publishing-web-api-2-applications"></a>Řešení potíží s HTTP 405 chyby po publikování webového rozhraní API 2 aplikace
-====================
-podle [Robert McMurray](https://github.com/rmcmurray)
+# <a name="troubleshooting-http-405-errors-after-publishing-web-api-applications"></a>Řešení potíží s chybami HTTP 405 po publikování aplikace webového rozhraní API
 
 > Tento kurz popisuje, jak řešit chyby protokolu HTTP 405 po publikování aplikace webového rozhraní API pro produkční webový server.
 > 
-> ## <a name="software-versions-used-in-the-tutorial"></a>V tomto kurzu použili verze softwaru
+> ## <a name="software-used-in-this-tutorial"></a>V tomto kurzu používá software
 > 
 > 
 > - [Internetové informační služby (IIS)](https://www.iis.net/) (verze 7 nebo novější)
-> - [Webové rozhraní API](../../index.md) (verze 1 nebo 2)
+> - [Webové rozhraní API](../../index.md) 
 
 
 Webové rozhraní API aplikace obvykle používají několika běžných příkazů HTTP: GET, POST, PUT, DELETE a někdy oprava. Který říká, vývojáři mohou spustit v situacích, kde tyto akce jsou implementované jiný modul služby IIS na provozním serveru, což vede k situaci, ve kterém kontroler Web API, která funguje správně v sadě Visual Studio nebo na vývojovém serveru vrátí HTTP 405 při nasazení do provozního serveru došlo k chybě. Naštěstí je snadno vyřešit tento problém, ale řešení zaručuje vysvětlení, proč dochází k problému.
 
-## <a name="what-causes-http-405-errors"></a>Jaké HTTP 405 příčiny chyby
+## <a name="what-causes-http-405-errors"></a>Co způsobí, že chyby protokolu HTTP 405
 
 Prvním krokem k tom, jak chyby protokolu HTTP 405 pro řešení problémů je pochopit, co se chybu HTTP 405 ve skutečnosti znamená. Primární řídící dokumentu pro HTTP je [dokumentu RFC 2616](http://www.ietf.org/rfc/rfc2616.txt), která definuje stavový kód HTTP 405 jako ***metoda není povolena***a dále popisuje tímto stavovým kódem jako stav kde &quot;metodu zadané v poli řádek požadavku není povolená pro prostředku označeném identifikátorem URI požadavku.&quot; Jinými slovy příkaz HTTP není povolena pro konkrétní adresu URL, který požádal klienta HTTP.
 
@@ -38,17 +36,17 @@ Jako stručný přehled tady jsou některé z nejčastěji používaných metody
 
 | Metoda HTTP | Popis |
 | --- | --- |
-| **ZÍSKAT** | Tato metoda se používá k načtení dat z identifikátoru URI a pravděpodobně nejčastěji používaných metoda protokolu HTTP. |
+| **GET** | Tato metoda se používá k načtení dat z identifikátoru URI a pravděpodobně nejčastěji používaných metoda protokolu HTTP. |
 | **HLAVNÍ** | Tato metoda je stejně jako v případě metody GET s tím rozdílem, že ve skutečnosti nelze načíst z identifikátoru URI požadavku – jednoduše načte stav protokolu HTTP. |
-| **PŘÍSPĚVEK** | Tato metoda se obvykle používá k odeslání nových dat na identifikátor URI; PŘÍSPĚVEK se často používá k odeslání dat formuláře. |
+| **POST** | Tato metoda se obvykle používá k odeslání nových dat na identifikátor URI; PŘÍSPĚVEK se často používá k odeslání dat formuláře. |
 | **PUT** | Tato metoda se obvykle používá k odesílání nezpracovaná data na identifikátor URI; PUT se často používá k odesílání dat JSON nebo XML do aplikace webového rozhraní API. |
-| **ODSTRANIT** | Tato metoda se používá k odebrání dat z identifikátoru URI. |
+| **DELETE** | Tato metoda se používá k odebrání dat z identifikátoru URI. |
 | **MOŽNOSTI** | Tato metoda se obvykle používá k získání seznamu metod HTTP, které jsou podporovány pro identifikátor URI. |
 | **KOPÍROVÁNÍ PŘESUNUTÍ** | Tyto dvě metody se používají s WebDAV a jejich účelem je zřejmých. |
 | **MKCOL** | Tato metoda se používá s WebDAV a používá se k vytvoření kolekce (např. adresář) se zadaným identifikátorem URI. |
 | **PROPFIND PROPPATCH** | Tyto dvě metody se používají s WebDAV a používají se k dotazování nebo nastavení vlastností pro identifikátor URI. |
 | **ODEMKNOUT UZAMČENÍ** | Tyto dvě metody se používají s WebDAV a používají se k prostředku označeném identifikátorem URI požadavku při vytváření Zamknout/odemknout. |
-| **OPRAVA** | Tato metoda se používá k úpravě existující prostředek HTTP. |
+| **PATCH** | Tato metoda se používá k úpravě existující prostředek HTTP. |
 
 Při jedné z těchto metod HTTP je nakonfigurován pro použití na serveru, server bude reagovat se stavem HTTP a další data, která je vhodná pro daný požadavek. (Například metoda GET může dojít HTTP 200 ***OK*** odpovědi a metodu PUT HTTP 201 dojít ***vytvořeno*** odpověď.)
 
@@ -56,7 +54,7 @@ Pokud metoda HTTP není nakonfigurován pro použití na serveru, server odpoví
 
 Ale při lze metodu HTTP je nakonfigurován pro použití na serveru, ale je zakázaná pro daný identifikátor URI, server bude reagovat pomocí protokolu HTTP 405 ***metoda není povolena*** chyby.
 
-## <a name="example-http-405-error"></a>Příklad HTTP 405 chyba
+## <a name="example-http-405-error"></a>Chyba protokolu HTTP 405 příklad
 
 Následující příklad HTTP žádosti a odpovědi ukazuje situaci, kdy při pokusu o VLOŽTE hodnotu do webového rozhraní API aplikace na webovém serveru je v klientovi HTTP, a server vrátí chybu HTTP, které stavy, které metoda PUT není povolený:
 
@@ -75,7 +73,7 @@ Odpověď HTTP:
 
 V tomto příkladu klienta HTTP poslali žádost o platný JSON na adresu URL pro aplikaci webového rozhraní API na webový server, ale server vrátil HTTP 405 chybovou zprávu, která označuje, že metodu PUT nebyla povolena pro adresu URL. Pokud identifikátor URI požadavku neodpovídá trasu pro aplikace webového rozhraní API, naproti tomu by server vrátit chybu HTTP 404 ***nebyl nalezen*** chyby.
 
-## <a name="resolving-http-405-errors"></a>Řešení HTTP 405 chyby
+## <a name="resolve-http-405-errors"></a>Řešení chyb HTTP 405
 
 Tady je několik důvodů, proč nemusí být povolený konkrétní příkaz HTTP, ale neexistuje jeden primární scénář, který je přední příčinou této chyby ve službě IIS: více obslužných rutin, které jsou definovány pro stejný příkaz/metodu a jedna z obslužných rutin blokuje očekávané obslužnou rutinu z zpracování žádosti. Služba IIS zpracovává prostřednictvím vysvětlení, obslužné rutiny z prvního na posledního podle pořadí položek obslužné rutiny v applicationHost.config a souboru web.config souborů, kde se budou používat odpovídající kombinace cestu, příkaz, zdroje atd., žádost zpracovat.
 
@@ -93,7 +91,7 @@ V této výňatek předefinovalo se mají zahrnout další metody HTTP, které s
 
 [!code-xml[Main](troubleshooting-http-405-errors-after-publishing-web-api-applications/samples/sample5.xml)]
 
-Tento scénář se často vyskytují po publikování aplikace z vývojového prostředí do produkčního prostředí a k tomu dochází, je seznam obslužných rutin nebo modulů rozdíly mezi vývojovou a provozní prostředí. Například pokud používáte Visual Studio 2012 nebo 2013 k vývoji aplikace webového rozhraní API, služby IIS Express 8 se výchozí webový server pro účely testování. Tato vývojovému webovému serveru je verze škálovat dolů úplné funkce služby IIS, která se dodává v serveru produktu a tento vývojovému webovému serveru obsahuje několik změn, které byly přidány pro scénáře vývoje. Například protokol WebDAV je často nainstalován modul na produkčním webovém serveru, na kterém běží úplná verze služby IIS, i když nemusí být v praxi. Verzi služby IIS (služba IIS Express), nainstaluje modul protokolu WebDAV, ale položky pro modul protokolu WebDAV jsou záměrně označené jako komentář, takže modulu protokolu WebDAV je vůbec nenačetl ve službě IIS Express, pokud je konkrétně změnit konfiguraci služby IIS Express nastavení přidat funkci protokolu WebDAV na instalaci služby IIS Express. V důsledku toho může webová aplikace ve svém vývojovém počítači fungovat správně, ale při publikování aplikace webového rozhraní API pro produkční webový server pravděpodobně dojde k chybám protokolu HTTP 405.
+Tento scénář se často vyskytují po publikování aplikace z vývojového prostředí do produkčního prostředí a k tomu dochází, je seznam obslužných rutin nebo modulů rozdíly mezi vývojovou a provozní prostředí. Pokud například používáte sadu Visual Studio 2012 nebo novějším k vývoji aplikace webového rozhraní API, služby IIS Express, je výchozí webový server pro účely testování. Tato vývojovému webovému serveru je verze škálovat dolů úplné funkce služby IIS, která se dodává v serveru produktu a tento vývojovému webovému serveru obsahuje několik změn, které byly přidány pro scénáře vývoje. Například protokol WebDAV je často nainstalován modul na produkčním webovém serveru, na kterém běží úplná verze služby IIS, i když nemusí být v praxi. Verzi služby IIS (služba IIS Express), nainstaluje modul protokolu WebDAV, ale položky pro modul protokolu WebDAV jsou záměrně označené jako komentář, takže modulu protokolu WebDAV je vůbec nenačetl ve službě IIS Express, pokud je konkrétně změnit konfiguraci služby IIS Express nastavení přidat funkci protokolu WebDAV na instalaci služby IIS Express. V důsledku toho může webová aplikace ve svém vývojovém počítači fungovat správně, ale při publikování aplikace webového rozhraní API pro produkční webový server pravděpodobně dojde k chybám protokolu HTTP 405.
 
 ## <a name="summary"></a>Souhrn
 
