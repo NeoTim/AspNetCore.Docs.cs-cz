@@ -92,10 +92,11 @@ items:
   - name: Razor Pages
     items:
     - uid: razor-pages/index
-      name: Přehled
-    - uid: tutorials/razor-pages/index
-      name: Tutoriál
+      name: Úvod
+    - name: Tutoriál
       items:
+      - uid: tutorials/razor-pages/index
+        name: Přehled
       - uid: tutorials/razor-pages/razor-pages-start
         name: Začínáme
       - uid: tutorials/razor-pages/model
@@ -165,6 +166,8 @@ items:
       name: Injektáž závislostí – zobrazení
     - uid: mvc/controllers/testing
       name: Test jednotek
+  - uid: razor-components/index
+    name: Komponenty Razor
   - uid: fundamentals/app-state
     name: Stav relace a aplikace
   - name: Pomocné rutiny značek
@@ -433,6 +436,38 @@ items:
     name: Vytvoření balíčku a minifikace
   - uid: client-side/using-browserlink
     name: Browser Link
+  - name: Komponenty Razor
+    items:
+    - uid: razor-components/index
+      name: Přehled
+    - uid: razor-components/faq
+      name: Nejčastější dotazy
+    - uid: razor-components/get-started
+      name: Začínáme
+    - uid: tutorials/first-blazor-app
+      name: Sestavení první aplikace
+    - uid: razor-components/components
+      name: Součásti
+    - uid: razor-components/class-libraries
+      name: Knihovny komponent
+    - uid: razor-components/layouts
+      name: Rozložení
+    - uid: razor-components/dependency-injection
+      name: Injektáž závislostí
+    - uid: razor-components/routing
+      name: Směrování
+    - uid: razor-components/javascript-interop
+      name: Interoperabilita JavaScriptu
+    - uid: razor-components/debug
+      name: Ladit
+    - uid: razor-components/hosting-models
+      name: Modely hostingu
+    - name: Hostování a nasazení
+      items:
+      - uid: host-and-deploy/razor-components/index
+        name: Přehled
+      - uid: host-and-deploy/razor-components/configure-linker
+        name: Konfigurace Linkeru
   - name: Jednostránkové aplikace
     items:
     - uid: spa/index
@@ -531,6 +566,12 @@ items:
     name: Adresářová struktura
   - uid: host-and-deploy/health-checks
     name: Kontroly stavu
+  - name: Komponenty Razor
+    items:
+    - uid: host-and-deploy/razor-components/index
+      name: Přehled
+    - uid: host-and-deploy/razor-components/configure-linker
+      name: Konfigurace Linkeru
 - name: Zabezpečení a identita
   items:
   - uid: security/index
@@ -812,9 +853,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.1
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: a6169489db7d7365e254c8f1213de348a4429c49
-ms.sourcegitcommit: e7276930515216338a33c4a03c0d7a87fc718ffe
+ms.openlocfilehash: 75c0220d1dac2fa2a51efd075e05cfd1e5070c8c
+ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55293515"
+ms.lasthandoff: 02/02/2019
+ms.locfileid: "55667801"
