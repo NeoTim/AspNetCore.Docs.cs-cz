@@ -5,65 +5,169 @@ description: Zjistěte, jak začít pracovat s rozhraní komponenty Razor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 02/03/2019
 uid: razor-components/get-started
-ms.openlocfilehash: c83af10fd84bc8238f5fe20c66b91ba17de80ae3
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 83f8bbcd415c6776ef14e1ce789f3f0a8cecc464
+ms.sourcegitcommit: a91e8dd2f4b788114c8bc834507277f4b5e8d6c5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55668096"
+ms.lasthandoff: 02/04/2019
+ms.locfileid: "55712228"
 ---
-# <a name="get-started-with-razor-components"></a><span data-ttu-id="b7535-103">Začínáme s Razor komponenty</span><span class="sxs-lookup"><span data-stu-id="b7535-103">Get started with Razor Components</span></span>
+# <a name="get-started-with-razor-components"></a><span data-ttu-id="a6112-103">Začínáme s Razor komponenty</span><span class="sxs-lookup"><span data-stu-id="a6112-103">Get started with Razor Components</span></span>
+
+<span data-ttu-id="a6112-104">Podle [Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="a6112-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
 [!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
-## <a name="setup"></a><span data-ttu-id="b7535-104">Instalace</span><span class="sxs-lookup"><span data-stu-id="b7535-104">Setup</span></span>
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="a6112-105">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="a6112-105">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="b7535-105">Nainstalujte následující:</span><span class="sxs-lookup"><span data-stu-id="b7535-105">Install the following:</span></span>
+<span data-ttu-id="a6112-106">Požadavky:</span><span class="sxs-lookup"><span data-stu-id="a6112-106">Prerequisites:</span></span>
 
-1. <span data-ttu-id="b7535-106">[Sady SDK .NET core 2.1](https://go.microsoft.com/fwlink/?linkid=873092) (2.1.500 nebo novější).</span><span class="sxs-lookup"><span data-stu-id="b7535-106">[.NET Core 2.1 SDK](https://go.microsoft.com/fwlink/?linkid=873092) (2.1.500 or later).</span></span>
-1. <span data-ttu-id="b7535-107">[Visual Studio 2017](https://go.microsoft.com/fwlink/?linkid=873093) (15.9 nebo vyšší) se *vývoj pro ASP.NET a web* vybranou úlohou.</span><span class="sxs-lookup"><span data-stu-id="b7535-107">[Visual Studio 2017](https://go.microsoft.com/fwlink/?linkid=873093) (15.9 or later) with the *ASP.NET and web development* workload selected.</span></span>
-1. <span data-ttu-id="b7535-108">Nejnovější [rozšíření služeb jazyka Blazor](https://go.microsoft.com/fwlink/?linkid=870389) z webu Visual Studio Marketplace.</span><span class="sxs-lookup"><span data-stu-id="b7535-108">The latest [Blazor Language Services extension](https://go.microsoft.com/fwlink/?linkid=870389) from the Visual Studio Marketplace.</span></span>
-1. <span data-ttu-id="b7535-109">Šablony Blazor na příkazovém řádku:</span><span class="sxs-lookup"><span data-stu-id="b7535-109">The Blazor templates on the command-line:</span></span>
+[!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
+
+<span data-ttu-id="a6112-107">Chcete-li vytvořit svůj první projekt Razor komponenty v sadě Visual Studio:</span><span class="sxs-lookup"><span data-stu-id="a6112-107">To create your first Razor Components project in Visual Studio:</span></span>
+
+1. <span data-ttu-id="a6112-108">Vyberte **souboru** > **nový projekt** > **webové** > **webová aplikace ASP.NET Core**.</span><span class="sxs-lookup"><span data-stu-id="a6112-108">Select **File** > **New Project** > **Web** > **ASP.NET Core Web Application**.</span></span>
+1. <span data-ttu-id="a6112-109">Ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány v horní části.</span><span class="sxs-lookup"><span data-stu-id="a6112-109">Make sure **.NET Core** and **ASP.NET Core 3.0** are selected at the top.</span></span>
+1. <span data-ttu-id="a6112-110">Zvolte **Razor komponenty** šablony a vyberte **OK**.</span><span class="sxs-lookup"><span data-stu-id="a6112-110">Choose the **Razor Components** template and select **OK**.</span></span>
+
+   ![Dialogové okno nové aplikace](https://msdnshared.blob.core.windows.net/media/2019/01/razor-components-template.png)
+
+1. <span data-ttu-id="a6112-112">Stisknutím klávesy **F5** ke spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="a6112-112">Press **F5** to run the app.</span></span>
+
+<span data-ttu-id="a6112-113">Blahopřejeme!</span><span class="sxs-lookup"><span data-stu-id="a6112-113">Congratulations!</span></span> <span data-ttu-id="a6112-114">Právě jste spustili svou první aplikaci Razor součásti!</span><span class="sxs-lookup"><span data-stu-id="a6112-114">You just ran your first Razor Components app!</span></span>
+
+<!--
+
+# [Visual Studio Code](#tab/visual-studio-code)
+
+Prerequisites:
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
+
+To create your first Razor Components project in Visual Studio Code:
+
+1. Execute the following command from a command shell:
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates
+   dotnet new razorcomponents -o WebApplication1
    ```
 
-<span data-ttu-id="b7535-110">Chcete-li vytvořit svůj první projekt v sadě Visual Studio:</span><span class="sxs-lookup"><span data-stu-id="b7535-110">To create your first project from Visual Studio:</span></span>
+1. Open the *WebApplication1* folder in Visual Studio Code.
 
-1. <span data-ttu-id="b7535-111">Vyberte **souboru** > **nový projekt** > **webové** > **webová aplikace ASP.NET Core**.</span><span class="sxs-lookup"><span data-stu-id="b7535-111">Select **File** > **New Project** > **Web** > **ASP.NET Core Web Application**.</span></span>
-1. <span data-ttu-id="b7535-112">Ujistěte se, že **.NET Core** a **ASP.NET Core 2.1** jsou vybrány v horní části.</span><span class="sxs-lookup"><span data-stu-id="b7535-112">Make sure **.NET Core** and **ASP.NET Core 2.1** are selected at the top.</span></span>
-1. <span data-ttu-id="b7535-113">Výběr šablony funkce Blazor a vyberte **OK**.</span><span class="sxs-lookup"><span data-stu-id="b7535-113">Choose the Blazor template and select **OK**.</span></span>
+1. Add a *.vscode* folder.
 
-   ![Dialogové okno nové aplikace](https://msdnshared.blob.core.windows.net/media/2018/07/new-blazor-app-dialog-0.5.0.png)
+1. Add a *tasks.json* file to the *.vscode* folder with the following content:
 
-1. <span data-ttu-id="b7535-115">Stisknutím klávesy **Ctrl-F5** a spusťte tak aplikaci *bez ladicího programu*.</span><span class="sxs-lookup"><span data-stu-id="b7535-115">Press **Ctrl-F5** to run the app *without the debugger*.</span></span> <span data-ttu-id="b7535-116">Spouštění v ladicím programu (**F5**) není v tuto chvíli nepodporuje.</span><span class="sxs-lookup"><span data-stu-id="b7535-116">Running with the debugger (**F5**) isn't supported at this time.</span></span>
+   [!code-json[](get-started/samples_snapshot/3.x/tasks.json)]
 
-<span data-ttu-id="b7535-117">Chcete-li vytvořit novou aplikaci Blazor z příkazového řádku:</span><span class="sxs-lookup"><span data-stu-id="b7535-117">To create a new Blazor app from the command-line:</span></span>
+1. Add a *launch.json* file to the *.vscode* folder with the following content:
+
+   [!code-json[](get-started/samples_snapshot/3.x/launch.json)]
+
+1. Execute the app using the Visual Studio Code debugger.
+
+1. In a browser, navigate to `https://localhost:5001`.
+
+Congrats! You just ran your first Razor Components app!
+
+# [Visual Studio for Mac](#tab/visual-studio-mac)
+
+.NET Core 3.0 will be supported with Visual Studio for Mac version 8.0 or later. Visual Studio for Mac version 8.0 Preview isn't available at this time.
+
+Use the [.NET Core CLI version of this topic](xref:razor-components/get-started?tabs=netcore-cli) on macOS.
+
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
+
+To create your first project Razor Components project in Visual Studio for Mac:
+
+1. Select **File** > **New Solution** or **New Project**.
+1. In the sidebar, select **.NET Core** > **App**.
+1. Select **ASP.NET Core Razor Components** and select **Next**.
+1. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
+1. In the **Project Name** field, enter `WebApplication1`. Select **Create**.
+1. Select **Run** > **Run Without Debugging** to run the app *without the debugger*. Running with the debugger isn't supported at this time.
+
+Congratulations! You just ran your first Razor Components app!
+-->
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="a6112-115">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="a6112-115">.NET Core CLI</span></span>](#tab/netcore-cli/)
+
+<span data-ttu-id="a6112-116">Požadavky:</span><span class="sxs-lookup"><span data-stu-id="a6112-116">Prerequisites:</span></span>
+
+* [<span data-ttu-id="a6112-117">.NET core SDK 3.0 ve verzi Preview</span><span class="sxs-lookup"><span data-stu-id="a6112-117">.NET Core SDK 3.0 Preview</span></span>](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+
+<span data-ttu-id="a6112-118">Chcete vytvořit svůj první projekt Razor součásti z příkazové prostředí:</span><span class="sxs-lookup"><span data-stu-id="a6112-118">To create your first Razor Components project from a command shell:</span></span>
 
 ```console
-dotnet new blazor -o BlazorApp1
-cd BlazorApp1
+dotnet new razorcomponents -o WebApplication1
+cd WebApplication1
 dotnet run
 ```
 
-<span data-ttu-id="b7535-118">Gratulujeme!</span><span class="sxs-lookup"><span data-stu-id="b7535-118">Congrats!</span></span> <span data-ttu-id="b7535-119">Právě jste spustili svou první aplikaci Blazor!</span><span class="sxs-lookup"><span data-stu-id="b7535-119">You just ran your first Blazor app!</span></span>
+<span data-ttu-id="a6112-119">Blahopřejeme!</span><span class="sxs-lookup"><span data-stu-id="a6112-119">Congratulations!</span></span> <span data-ttu-id="a6112-120">Právě jste spustili svou první aplikaci Razor součásti!</span><span class="sxs-lookup"><span data-stu-id="a6112-120">You just ran your first Razor Components app!</span></span>
 
-![Domovská stránka Blazor aplikace](https://msdnshared.blob.core.windows.net/media/2018/04/blazor-bootstrap-4.png)
+---
 
-## <a name="help--feedback"></a><span data-ttu-id="b7535-121">Nápověda a zpětná vazba</span><span class="sxs-lookup"><span data-stu-id="b7535-121">Help & feedback</span></span>
+## <a name="razor-components-project"></a><span data-ttu-id="a6112-121">Projekt součásti syntaxe Razor</span><span class="sxs-lookup"><span data-stu-id="a6112-121">Razor Components project</span></span>
 
-<span data-ttu-id="b7535-122">Váš názor je pro nás obzvláště důležité v průběhu této fáze experimentální pro Blazor.</span><span class="sxs-lookup"><span data-stu-id="b7535-122">Your feedback is especially important to us during this experimental phase for Blazor.</span></span> <span data-ttu-id="b7535-123">Pokud narazíte na problémy nebo při pokusu o navýšení kapacity Blazor na něco zeptat, dejte nám vědět!</span><span class="sxs-lookup"><span data-stu-id="b7535-123">If you run into issues or have questions while trying out Blazor, please let us know!</span></span>
+<span data-ttu-id="a6112-122">Vytvořený pomocí šablony Razor komponenty řešení obsahuje dva projekty:</span><span class="sxs-lookup"><span data-stu-id="a6112-122">The solution created by the Razor Components template contains two projects:</span></span>
 
-* <span data-ttu-id="b7535-124">[Soubor problémů na Githubu](https://github.com/aspnet/AspNetCore/issues) jakékoli problémy, které jste narazili nebo a nabízí návrhy pro zlepšení.</span><span class="sxs-lookup"><span data-stu-id="b7535-124">[File issues on GitHub](https://github.com/aspnet/AspNetCore/issues) for any problems you run into or to make suggestions for improvements.</span></span>
-* <span data-ttu-id="b7535-125">Chat s námi a Blazor komunity na [Gitteru](https://gitter.im/aspnet/blazor) Pokud jste nevíte rady nebo sdílet Blazor fungování za vás.</span><span class="sxs-lookup"><span data-stu-id="b7535-125">Chat with us and the Blazor community on [Gitter](https://gitter.im/aspnet/blazor) if you get stuck or to share how Blazor is working for you.</span></span>
+* <span data-ttu-id="a6112-123">*WebApplication1.Server* &ndash; serverový projekt je projekt ASP.NET Core nastavení pro hostování aplikace součásti syntaxe Razor.</span><span class="sxs-lookup"><span data-stu-id="a6112-123">*WebApplication1.Server* &ndash; The server project is an ASP.NET Core project set up to host the Razor Components app.</span></span>
+* <span data-ttu-id="a6112-124">*WebApplication1.App* &ndash; na straně klienta webového projektu uživatelského rozhraní, která používá součásti syntaxe Razor.</span><span class="sxs-lookup"><span data-stu-id="a6112-124">*WebApplication1.App* &ndash; The client-side web UI project that uses Razor Components.</span></span>
 
-<span data-ttu-id="b7535-126">Poté, co jste si vyzkoušeli Blazor, dejte nám prosím vědět co si myslíte o našem průzkumu v rámci produktu.</span><span class="sxs-lookup"><span data-stu-id="b7535-126">After you've tried out Blazor, please let us know what you think by taking our in-product survey.</span></span> <span data-ttu-id="b7535-127">Stačí kliknout na odkaz průzkumu zobrazený na domovské stránce aplikace, když s některým z šablony projektů Blazor:</span><span class="sxs-lookup"><span data-stu-id="b7535-127">Just click the survey link shown on the app home page when running one of the Blazor project templates:</span></span>
+<span data-ttu-id="a6112-125">Logika uživatelského rozhraní *WebApplication1.App* projektu je oddělené od zbytku aplikace kvůli technická omezení v ASP.NET Core 3.0 ve verzi Preview 2.</span><span class="sxs-lookup"><span data-stu-id="a6112-125">The UI logic in the *WebApplication1.App* project is separated from the rest of the app due to a technical limitation in ASP.NET Core 3.0 Preview 2.</span></span> <span data-ttu-id="a6112-126">Přípona souboru Razor (*.cshtml*) použít pro Razor komponenty se také používá pro zobrazení Razor Pages a MVC.</span><span class="sxs-lookup"><span data-stu-id="a6112-126">The Razor file extension (*.cshtml*) used for Razor Components is also used for Razor Pages and MVC views.</span></span> <span data-ttu-id="a6112-127">V současné době Razor součásti a Razor Pages/MVC mají různé kompilace modely, tak soubory Razor Razor komponenty jsou udržovány odděleně.</span><span class="sxs-lookup"><span data-stu-id="a6112-127">Currently, Razor Components and Razor Pages/MVC have different compilation models, so the Razor Components Razor files are kept separate.</span></span> <span data-ttu-id="a6112-128">V budoucí verzi preview, plánujeme zavést novou příponu souboru pro Razor součásti (*.razor*).</span><span class="sxs-lookup"><span data-stu-id="a6112-128">In a future preview, we plan to introduce a new file extension for Razor Components (*.razor*).</span></span> <span data-ttu-id="a6112-129">Součásti, stránky a zobrazení se hostovat *ve stejném projektu*.</span><span class="sxs-lookup"><span data-stu-id="a6112-129">Components, pages, and views will be hosted *in the same project*.</span></span>
 
-![Blazor průzkumu](https://msdnshared.blob.core.windows.net/media/2018/05/blazor-survey-new.png)
+<span data-ttu-id="a6112-130">Při spuštění aplikace jsou k dispozici z karty na bočním panelu více stránek:</span><span class="sxs-lookup"><span data-stu-id="a6112-130">When the app is run, multiple pages are available from tabs in the sidebar:</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="b7535-129">Další kroky</span><span class="sxs-lookup"><span data-stu-id="b7535-129">Next steps</span></span>
+* <span data-ttu-id="a6112-131">Domů</span><span class="sxs-lookup"><span data-stu-id="a6112-131">Home</span></span>
+* <span data-ttu-id="a6112-132">Čítač</span><span class="sxs-lookup"><span data-stu-id="a6112-132">Counter</span></span>
+* <span data-ttu-id="a6112-133">Načtení dat</span><span class="sxs-lookup"><span data-stu-id="a6112-133">Fetch data</span></span>
+
+<span data-ttu-id="a6112-134">Na stránce čítače, vyberte **klikněte na mě** tlačítka se zvýší čítač bez aktualizace stránky.</span><span class="sxs-lookup"><span data-stu-id="a6112-134">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="a6112-135">Zvyšování hodnoty čítače na webové stránce obvykle vyžaduje zadání jazyka JavaScript, ale součásti Razor poskytuje lepší přístup pomocí C#.</span><span class="sxs-lookup"><span data-stu-id="a6112-135">Incrementing a counter in a webpage normally requires writing JavaScript, but Razor Components provides a better approach using C#.</span></span>
+
+<span data-ttu-id="a6112-136">*WebApplication1.App/Pages/Counter.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="a6112-136">*WebApplication1.App/Pages/Counter.cshtml*:</span></span>
+
+[!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.cshtml)]
+
+<span data-ttu-id="a6112-137">Žádost o `/counter` v prohlížeči, jak jsou určené `@page` – direktiva v horní části stránky, způsobí, že součást čítače pro vykreslení jeho obsah.</span><span class="sxs-lookup"><span data-stu-id="a6112-137">A request for `/counter` in the browser, as specified by the `@page` directive at the top, causes the Counter component to render its content.</span></span> <span data-ttu-id="a6112-138">Komponenty vykreslování do reprezentaci v paměti, který lze použít k aktualizaci uživatelského rozhraní v flexibilní a efektivní způsob vykreslení stromu.</span><span class="sxs-lookup"><span data-stu-id="a6112-138">Components render into an in-memory representation of the render tree that can then be used to update the UI in a flexible and efficient way.</span></span>
+
+<span data-ttu-id="a6112-139">Pokaždé, když **klikněte na mě** výběru tlačítka:</span><span class="sxs-lookup"><span data-stu-id="a6112-139">Each time the **Click me** button is selected:</span></span>
+
+* <span data-ttu-id="a6112-140">`onclick` Událost se aktivuje.</span><span class="sxs-lookup"><span data-stu-id="a6112-140">The `onclick` event is fired.</span></span>
+* <span data-ttu-id="a6112-141">`IncrementCount` Metoda je volána.</span><span class="sxs-lookup"><span data-stu-id="a6112-141">The `IncrementCount` method is called.</span></span>
+* <span data-ttu-id="a6112-142">`currentCount` Se zvýší.</span><span class="sxs-lookup"><span data-stu-id="a6112-142">The `currentCount` is incremented.</span></span>
+* <span data-ttu-id="a6112-143">Komponenta se znovu vykreslí.</span><span class="sxs-lookup"><span data-stu-id="a6112-143">The component is rendered again.</span></span>
+
+<span data-ttu-id="a6112-144">Modul runtime porovnává nový obsah na předchozí obsah a platí pouze změněný obsah do modelu Document Object Model (DOM).</span><span class="sxs-lookup"><span data-stu-id="a6112-144">The runtime compares the new content to the previous content and only applies the changed content to the Document Object Model (DOM).</span></span>
+
+<span data-ttu-id="a6112-145">Přidáte součást do jiné součásti pomocí syntaxe HTML.</span><span class="sxs-lookup"><span data-stu-id="a6112-145">Add a component to another component using an HTML-like syntax.</span></span> <span data-ttu-id="a6112-146">Komponenta parametry jsou určeny pomocí atributů nebo podřízený obsah.</span><span class="sxs-lookup"><span data-stu-id="a6112-146">Component parameters are specified using attributes or child content.</span></span> <span data-ttu-id="a6112-147">Například můžete přidat součást čítače na domovskou stránku aplikace tak, že přidáte `<Counter />` – element pro součást indexu.</span><span class="sxs-lookup"><span data-stu-id="a6112-147">For example, a Counter component can be added to the app's homepage by adding a `<Counter />` element to the Index component.</span></span>
+
+<span data-ttu-id="a6112-148">*WebApplication1.App/Pages/Index.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="a6112-148">*WebApplication1.App/Pages/Index.cshtml*:</span></span>
+
+[!code-cshtml[](get-started/samples_snapshot/3.x/Index1.cshtml?highlight=7)]
+
+<span data-ttu-id="a6112-149">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="a6112-149">Run the app.</span></span> <span data-ttu-id="a6112-150">Na domovskou stránku má svůj vlastní čítače.</span><span class="sxs-lookup"><span data-stu-id="a6112-150">The homepage has its own counter.</span></span>
+
+<span data-ttu-id="a6112-151">Přidání parametru do komponenty čítače, aktualizovat součásti `@functions` blok:</span><span class="sxs-lookup"><span data-stu-id="a6112-151">To add a parameter to the Counter component, update the component's `@functions` block:</span></span>
+
+* <span data-ttu-id="a6112-152">Přidání vlastnosti pro `IncrementAmount` dekorován `[Parameter]` atribut.</span><span class="sxs-lookup"><span data-stu-id="a6112-152">Add a property for `IncrementAmount` decorated with the `[Parameter]` attribute.</span></span>
+* <span data-ttu-id="a6112-153">Změnit `IncrementCount` metoda se má použít `IncrementAmount` při zvýšit hodnotu `currentCount`.</span><span class="sxs-lookup"><span data-stu-id="a6112-153">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
+
+<span data-ttu-id="a6112-154">*WebApplication1.App/Pages/Counter.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="a6112-154">*WebApplication1.App/Pages/Counter.cshtml*:</span></span>
+
+[!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.cshtml?highlight=4,8)]
+
+<span data-ttu-id="a6112-155">Zadejte `IncrementAmount` parametr v komponentě domovské `<Counter>` pomocí atributu element.</span><span class="sxs-lookup"><span data-stu-id="a6112-155">Specify an `IncrementAmount` parameter in the Home component's `<Counter>` element using an attribute.</span></span>
+
+<span data-ttu-id="a6112-156">*WebApplication1.App/Pages/Index.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="a6112-156">*WebApplication1.App/Pages/Index.cshtml*:</span></span>
+
+[!code-cshtml[](get-started/samples_snapshot/3.x/Index2.cshtml)]
+
+<span data-ttu-id="a6112-157">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="a6112-157">Run the app.</span></span> <span data-ttu-id="a6112-158">Na domovskou stránku má svůj vlastní čítač, který zvýší o 10 pokaždé, když **klikněte na mě** výběru tlačítka.</span><span class="sxs-lookup"><span data-stu-id="a6112-158">The homepage has its own counter that increments by ten each time the **Click me** button is selected.</span></span>
+
+## <a name="next-steps"></a><span data-ttu-id="a6112-159">Další kroky</span><span class="sxs-lookup"><span data-stu-id="a6112-159">Next steps</span></span>
 
 <xref:tutorials/first-blazor-app>
