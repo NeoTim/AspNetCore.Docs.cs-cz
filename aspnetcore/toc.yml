@@ -70,7 +70,7 @@ items:
   - uid: fundamentals/configuration/options
     name: Možnosti
   - uid: fundamentals/logging/index
-    name: Protokolování
+    name: protokolování
   - uid: fundamentals/error-handling
     name: Ošetření chyb
   - uid: fundamentals/middleware/index
@@ -93,7 +93,7 @@ items:
     items:
     - uid: razor-pages/index
       name: Úvod
-    - name: Kurz
+    - name: Tutoriál
       items:
       - uid: tutorials/razor-pages/index
         name: Přehled
@@ -128,7 +128,7 @@ items:
     - uid: mvc/overview
       name: Přehled
     - uid: tutorials/first-mvc-app/index
-      name: Kurz
+      name: Tutoriál
       items:
       - uid: tutorials/first-mvc-app/start-mvc
         name: Začínáme
@@ -183,7 +183,7 @@ items:
     - name: Integrované pomocné rutiny značek
       items:
       - uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-        name: Anchor
+        name: Ukotvení
       - uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
         name: Mezipaměť
       - uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
@@ -200,7 +200,7 @@ items:
         href: mvc/views/working-with-forms.md#the-label-tag-helper
       - uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
         name: Částečné
-      - name: Vybrat
+      - name: Vyberte
         href: mvc/views/working-with-forms.md#the-select-tag-helper
       - name: Textové pole
         href: mvc/views/working-with-forms.md#the-textarea-tag-helper
@@ -209,7 +209,7 @@ items:
       - name: Souhrn ověření
         href: mvc/views/working-with-forms.md#the-validation-summary-tag-helper
   - uid: mvc/views/layout
-    name: Rozvržení
+    name: Rozložení
   - uid: fundamentals/static-files
     name: Statické soubory
   - uid: mvc/models/model-binding
@@ -218,7 +218,7 @@ items:
     name: Ověření modelu
   - uid: mvc/views/razor
     name: Syntaxe Razor
-  - name: Upřesnění
+  - name: Upřesnit
     items:
     - uid: mvc/views/view-components
       name: Komponenty zobrazení
@@ -276,7 +276,7 @@ items:
       name: SignalR s JavaScriptem
     - uid: tutorials/signalr-typescript-webpack
       name: SignalR s TypeScriptem
-  - name: Ukázky
+  - name: Ukázky kódu
     href: https://github.com/aspnet/SignalR-samples
   - name: Serverové koncepty
     items:
@@ -349,7 +349,7 @@ items:
   - uid: test/troubleshoot
     name: Řešení potíží
   - uid: fundamentals/logging/index
-    name: Protokolování
+    name: protokolování
 - name: Přístup k datům
   items:
   - name: Kurzy
@@ -446,14 +446,14 @@ items:
       name: Nejčastější dotazy
     - uid: razor-components/get-started
       name: Začínáme
-    - uid: tutorials/first-blazor-app
+    - uid: tutorials/first-razor-components-app
       name: Sestavení první aplikace
     - uid: razor-components/components
       name: Součásti
     - uid: razor-components/class-libraries
       name: Knihovny komponent
     - uid: razor-components/layouts
-      name: Rozvržení
+      name: Rozložení
     - uid: razor-components/dependency-injection
       name: Injektáž závislostí
     - uid: razor-components/routing
@@ -786,7 +786,7 @@ items:
     name: Přehled
   - uid: fundamentals/portable-object-localization
     name: Lokalizace souborů Portable Object
-- name: Upřesnění
+- name: Upřesnit
   items:
   - uid: fundamentals/url-rewriting
     name: Přepisování adres URL
@@ -812,11 +812,10 @@ items:
     name: Protokolování funkcemi třídy LoggerMessage
   - uid: tutorials/dotnet-watch
     name: Sledovací proces souboru
-    items:
-    - uid: fundamentals/middleware/extensibility
-      name: Middleware založený na objektu pro vytváření
-    - uid: fundamentals/middleware/extensibility-third-party-container
-      name: Middleware založený na objektu pro vytváření s kontejnerem jiného výrobce
+  - uid: fundamentals/middleware/extensibility
+    name: Middleware založený na objektu pro vytváření
+  - uid: fundamentals/middleware/extensibility-third-party-container
+    name: Middleware založený na objektu pro vytváření s kontejnerem jiného výrobce
 - name: Migrace
   items:
   - uid: migration/22-to-30
@@ -855,9 +854,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.1
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 4cd0cebdaa4e9821ce0e176be61d304f3a876d7e
-ms.sourcegitcommit: 98e9c7187772d4ddefe6d8e85d0d206749dbd2ef
+ms.openlocfilehash: ebe88d54a391dfe44e6fda02028f9103fceb2ef8
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/05/2019
-ms.locfileid: "55737665"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854364"
