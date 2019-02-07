@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/28/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 8e40c8308a692731e71fb8ebebfc64e606874290
-ms.sourcegitcommit: 98e9c7187772d4ddefe6d8e85d0d206749dbd2ef
+ms.openlocfilehash: d255321f6083747ce9b452e1efd4da5bc015bf64
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/05/2019
-ms.locfileid: "55737652"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854429"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace služby Azure Key Vault v ASP.NET Core
 
@@ -31,7 +31,7 @@ Tento scénář je k dispozici pro aplikace, které cílí ASP.NET Core 2.1 nebo
 
 Použití zprostředkovatele konfigurace trezoru klíčů Azure, přidejte odkaz na balíček [Microsoft.Extensions.Configuration.AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/) balíčku.
 
-Přijmout scénář identita spravované služby Azure, přidejte odkaz na balíček [Microsoft.Azure.Services.appauthentication přistupovat](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/) balíčku.
+Přijmout [spravovaných identit pro prostředky Azure](/azure/active-directory/managed-identities-azure-resources/overview) scénář, přidejte odkaz na balíček [Microsoft.Azure.Services.appauthentication přistupovat](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/) balíčku.
 
 > [!NOTE]
 > V době psaní, nejnovější stabilní verzi `Microsoft.Azure.Services.AppAuthentication`, verze `1.0.3`, poskytuje podporu pro [systém přiřadil spravovaných identit](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-worka-namehow-does-it-worka). Podpora pro *uživatelsky přiřazené identity spravované* je k dispozici v `1.0.2-preview` balíčku. Toto téma popisuje použití identit spravovaných systému a připravená ukázková aplikace používá verzi `1.0.3` z `Microsoft.Azure.Services.AppAuthentication` balíčku.
@@ -40,8 +40,8 @@ Přijmout scénář identita spravované služby Azure, přidejte odkaz na balí
 
 Ukázková aplikace spouští v jednom ze dvou režimů, které jsou určeny `#define` příkazu v horní části *Program.cs* souboru:
 
-* `Basic` &ndash; Ukazuje použití ID aplikace klíč trezoru Azure a heslo (tajný klíč klienta), pro přístup k tajnými kódy uloženými v trezoru klíčů. Nasazení `Basic` verzi ukázky na libovolného hostitele, která je schopná obsluhovat aplikace ASP.NET Core.
-* `Managed` &ndash; Ukazuje, jak používat Azure [Identity spravované služby (MSI)](/azure/active-directory/managed-identities-azure-resources/overview) k ověření aplikace do služby Azure Key Vault pomocí ověřování Azure AD bez přihlašovací údaje uložené v kódu nebo konfigurace aplikace. Při použití MSI pro ověření, ID aplikace Azure AD a heslo (tajný klíč klienta) se nevyžadují. `Managed` Verzi vzorku se musí nasadit do Azure.
+* `Basic` &ndash; Ukazuje použití ID aplikace klíč trezoru Azure a heslo (tajný klíč klienta), pro přístup k tajnými kódy uloženými v trezoru klíčů. Nasazení `Basic` verzi ukázky na libovolného hostitele, která je schopná obsluhovat aplikace ASP.NET Core. Postupujte podle pokynů v [pomocí ID aplikace a tajný kód klienta pro aplikace bez Azure hostované](#use-application-id-and-client-secret-for-non-azure-hosted-apps) oddílu.
+* `Managed` &ndash; Ukazuje, jak používat [spravovaných identit pro prostředky Azure](/azure/active-directory/managed-identities-azure-resources/overview) k ověření aplikace do služby Azure Key Vault pomocí ověřování Azure AD bez přihlašovací údaje uložené v kódu nebo konfigurace aplikace. Při použití spravované identity k ověření, ID aplikace Azure AD a heslo (tajný klíč klienta) se nevyžadují. `Managed` Verzi vzorku se musí nasadit do Azure. Postupujte podle pokynů v [pomocí spravované identity pro prostředky Azure](#use-managed-identities-for-azure-resources) oddílu.
 
 Další informace o tom, jak nakonfigurovat ukázkovou aplikaci pomocí direktivy preprocesoru (`#define`), najdete v článku <xref:index#preprocessor-directives-in-sample-code>.
 
@@ -111,12 +111,12 @@ Podle pokynů uvedených [rychlý start: Nastavení a načtení tajného klíče
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "Section--SecretName" --value "secret_value_2_prod"
    ```
 
-## <a name="use-application-id-and-client-secret"></a>Pomocí ID aplikace a tajný kód klienta
+## <a name="use-application-id-and-client-secret-for-non-azure-hosted-apps"></a>Pomocí ID aplikace a tajný kód klienta pro jiné Azure hostované aplikace
 
-Konfigurace služby Azure AD, Azure Key Vault a aplikace použít ID aplikace a heslo (tajný klíč klienta) k ověření do trezoru klíčů, když je aplikace hostovaná mimo Azure.
+Konfigurace služby Azure AD, Azure Key Vault a aplikace použít ID aplikace a heslo (tajný klíč klienta) k ověření do služby key vault **když je aplikace hostovaná mimo Azure**.
 
 > [!NOTE]
-> Ačkoli použití ID aplikace a heslo (tajný klíč klienta) se nepodporují pro aplikace hostované v Azure, doporučujeme použít [zprostředkovatele Identity spravované služby (MSI)](#use-the-managed-service-identity-msi-provider) při hostování aplikace v Azure. MSI nevyžaduje, aby ukládání přihlašovacích údajů do aplikace ani její konfiguraci, tak se považuje obecně bezpečnější.
+> Ačkoli použití ID aplikace a heslo (tajný klíč klienta) se nepodporují pro aplikace hostované v Azure, doporučujeme používat [spravovaných identit pro prostředky Azure](#use-managed-identities-for-azure-resources) při hostování aplikace v Azure. Spravované identity vyžadují ukládání přihlašovacích údajů do aplikace ani její konfiguraci, tak se považuje obecně bezpečnější.
 
 Ukázková aplikace používá při aplikace ID a heslo (tajný klíč klienta) `#define` příkazu v horní části *Program.cs* souboru má nastavenou `Basic`.
 
@@ -155,11 +155,11 @@ Ukázkové hodnoty:
 
 Při spuštění aplikace, webová stránka zobrazuje načíst hodnoty tajných kódů. Ve vývojovém prostředí načíst hodnoty tajných kódů se `_dev` příponu. V produkčním prostředí a hodnoty načíst data pomocí `_prod` příponu.
 
-## <a name="use-the-managed-service-identity-msi-provider"></a>Použití zprostředkovatele Identity (MSI) spravované služby
+## <a name="use-managed-identities-for-azure-resources"></a>Použití spravované identity pro prostředky Azure
 
-Aplikace nasazené do Azure můžete využít výhodu z Identity spravované služby (MSI), který umožňuje aplikaci k ověřování pomocí Azure Key Vault pomocí ověřování Azure AD bez pověření (ID aplikace a tajný kód hesla/klienta) uložených v aplikaci.
+**Aplikace nasazené do Azure** můžou těžit z výhod [spravovaných identit pro prostředky Azure](/azure/active-directory/managed-identities-azure-resources/overview), který umožňuje aplikaci k ověřování pomocí Azure Key Vault pomocí ověřování Azure AD bez pověření (ID aplikace a Tajný kód Password/Client) uložených v aplikaci.
 
-Ukázková aplikace používá MSI při `#define` příkazu v horní části *Program.cs* souboru má nastavenou `Managed`.
+Ukázková aplikace používá identity spravované pro prostředky Azure při `#define` příkazu v horní části *Program.cs* souboru má nastavenou `Managed`.
 
 Zadejte název trezoru do aplikace *appsettings.json* souboru. Ukázková aplikace nevyžaduje, aby aplikace ID a heslo (tajný klíč klienta), pokud je nastavena na `Managed` verze, takže tyto položky konfigurace, můžete ignorovat. Nasazení aplikace do Azure a Azure ověřuje aplikaci přístup k použití pouze na název trezoru uložených v Azure Key Vault *appsettings.json* souboru.
 
@@ -177,7 +177,7 @@ az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secre
 
 Ukázkové aplikace:
 
-* Vytvoří instanci `AzureServiceTokenProvider` třídy bez připojovací řetězec. Když řetězec připojení není k dispozici, poskytovatel se pokusí získat přístupový token z MSI.
+* Vytvoří instanci `AzureServiceTokenProvider` třídy bez připojovací řetězec. Když řetězec připojení není k dispozici, zprostředkovatel pokusy o získání přístupového tokenu ze spravovaných identit pro prostředky Azure.
 * Nový `KeyVaultClient` se vytvoří s `AzureServiceTokenProvider` instance tokenu zpětného volání.
 * `KeyVaultClient` Instance se používá s výchozí implementaci třídy `IKeyVaultSecretManager` , který načte všechny hodnoty tajných kódů a nahradí double pomlčky (`--`) pomocí dvojtečky (`:`) v názvech klíčů.
 

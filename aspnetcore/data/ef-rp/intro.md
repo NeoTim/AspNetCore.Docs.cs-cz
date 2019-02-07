@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: 868163ed621ef9818759efd72ed3d233dc958219
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 0c12aa983f01285e27c10bba4e622b2d2ae0a1f2
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249500"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854442"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -177,6 +177,7 @@ Spusťte následující příkazy k modelu studentů.
 
 ```console
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 2.1.0
+dotnet tool install --global dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.SchoolContext -udl -outDir Pages\Students --referenceScriptLibraries
 ```
 ------
@@ -191,7 +192,7 @@ Proces vygenerované uživatelské rozhraní vytvořit a změnit následující 
 ### <a name="file-updates"></a>Aktualizace souboru
 
 * *Startup.cs* : Změny tohoto souboru jsou podrobně popsané v další části.
-* *appSettings.JSON* : Připojovací řetězec použitý pro připojení k místní databázi se přidá.
+* *appsettings.json* : Připojovací řetězec použitý pro připojení k místní databázi se přidá.
 
 ## <a name="examine-the-context-registered-with-dependency-injection"></a>Prozkoumání kontextu registrovaný pomocí vkládání závislostí
 

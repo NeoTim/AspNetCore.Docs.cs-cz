@@ -6,12 +6,12 @@ ms.author: riande
 monikerRange: '>= aspnetcore-2.2'
 ms.date: 12/3/2018
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 5693fb833d19375ef53e0f367bc6064e239b01d3
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: 5447ad541ee62e0043cfec22b7dd1927737b6f2b
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444101"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854390"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -56,7 +56,7 @@ Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **t�
 * V **nový soubor** dialogové okno:
 
   * Vyberte **Obecné** v levém podokně.
-  * Vyberte **prázdnou třídu** v center usnadnit práci.
+  * Vyberte **prázdnou třídu** v prostředním podokně.
   * Název třídy **film** a vyberte **nový**.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]

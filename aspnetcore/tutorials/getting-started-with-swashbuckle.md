@@ -4,14 +4,14 @@ author: zuckerthoben
 description: Zjistěte, jak přidat do projektu ASP.NET Core webové rozhraní API integrovat uživatelské rozhraní Swagger Swashbuckle.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 02/06/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: a8c3d999cfddb4d3d888455d7cc0b899a71e427e
-ms.sourcegitcommit: ea215df889e89db44037a6ac2f01baede0450da9
+ms.openlocfilehash: 9239a46889691135dce5c99f8fc9b8c7b38ab457
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53595331"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854416"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s Swashbuckle a ASP.NET Core
 
@@ -48,7 +48,7 @@ Swashbuckle lze přidat pomocí následujících postupů:
   * Do vyhledávacího pole zadejte "Swashbuckle.AspNetCore"
   * Vyberte balíček "Swashbuckle.AspNetCore" z **Procházet** kartě a klikněte na tlačítko **instalace**
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem myši *balíčky* složky v **oblasti řešení** > **přidat balíčky...**
 * Nastavte **přidat balíčky** okna **zdroj** rozevíracího seznamu "nuget.org"
@@ -146,7 +146,7 @@ Komentáře XML se dá nastavit pomocí následujících postupů:
 
 ::: moniker-end
 
-#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -204,7 +204,7 @@ Povolení komentáře XML poskytuje informace o ladění pro nedokumentované ve
 warning CS1591: Missing XML comment for publicly visible type or member 'TodoController.GetAll()'
 ```
 
-Chcete-li potlačit upozornění na úrovni projektu, definujte středníkem oddělený seznam kódů upozornění v souboru projektu. Přidávání kódů upozornění, aby `$(NoWarn);` příliš použije výchozí hodnoty jazyka C#.
+Chcete-li potlačit upozornění na úrovni projektu, definujte středníkem oddělený seznam kódů upozornění v souboru projektu. Přidávání kódů upozornění, aby `$(NoWarn);` se vztahuje [ C# výchozí hodnoty](https://github.com/dotnet/sdk/blob/2eb6c546931b5bcb92cd3128b93932a980553ea1/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.CSharp.props#L16) příliš.
 
 ::: moniker range=">= aspnetcore-2.0"
 

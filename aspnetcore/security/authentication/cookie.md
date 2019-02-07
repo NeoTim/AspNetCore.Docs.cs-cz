@@ -5,12 +5,12 @@ description: Vysvětlení, používání ověřování souborem cookie bez ASP.N
 ms.author: riande
 ms.date: 10/11/2017
 uid: security/authentication/cookie
-ms.openlocfilehash: f55b36cf3fc3b60e9d592348625f58ebaba90da7
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: f05e5b83359ec1739115293e092eaed0c811c046
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570110"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854377"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>Ověřování souborem cookie bez ASP.NET Core Identity
 
@@ -53,7 +53,6 @@ V `Configure` metody, použijte `UseAuthentication` metoda k vyvolání ověřov
 | [AccessDeniedPath](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions.accessdeniedpath?view=aspnetcore-2.0) | Určuje cestu k poskytování s 302 Found (adresa URL přesměrování) aktivovaného `HttpContext.ForbidAsync`. Výchozí hodnota je `/Account/AccessDenied`. |
 | [ClaimsIssuer](/dotnet/api/microsoft.aspnetcore.authentication.authenticationschemeoptions.claimsissuer?view=aspnetcore-2.0) | Vystavitel, který má použít pro [vystavitele](/dotnet/api/system.security.claims.claim.issuer) vlastnost na všechny deklarace vytvořené službou ověřování souborů cookie. |
 | [Cookie.Domain](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.domain?view=aspnetcore-2.0) | Název domény, kde je soubor cookie obsluhuje. Ve výchozím nastavení toto je název hostitele žádosti. Prohlížeč odesílá pouze soubor cookie v požadavcích na odpovídající název hostitele. Můžete chtít upravit tak, aby soubory cookie, které jsou k dispozici pro všechny hostitele ve vaší doméně. Například nastavení domény souboru cookie na `.contoso.com` ji zpřístupní k `contoso.com`, `www.contoso.com`, a `staging.www.contoso.com`. |
-| [Cookie.Expiration](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.expiration?view=aspnetcore-2.0) | Získá nebo nastaví životnost do souboru cookie. V současné době to možnost operace a bude zastaralé v ASP.NET Core 2.1 +. Použití `ExpireTimeSpan` možnost nastavit vypršení platnosti souboru cookie. Další informace najdete v tématu [vysvětlení chování CookieAuthenticationOptions.Cookie.Expiration](https://github.com/aspnet/Security/issues/1293). |
 | [Cookie.HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly?view=aspnetcore-2.0) | Příznak označující, pokud by měl být soubor cookie přístupný jenom pro servery. Změna této hodnoty na `false` povoluje skripty na straně klienta pro přístup k souboru cookie a může otevřít aplikaci tak, aby krádež souborů cookie by měl mít vaše aplikace [skriptování napříč weby (XSS)](xref:security/cross-site-scripting) ohrožení zabezpečení. Výchozí hodnota je `true`. |
 | [Cookie.Name](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.name?view=aspnetcore-2.0) | Nastaví název souboru cookie. |
 | [Cookie.Path](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.path?view=aspnetcore-2.0) | Použít k izolaci aplikací spuštěných na stejný název hostitele. Pokud máte aplikaci spuštěnou na `/app1` a chcete omezit souborů cookie do této aplikace, nastavte `CookiePath` vlastnost `/app1`. Díky tomu souboru cookie, který je k dispozici pouze u požadavků na `/app1` a všechny aplikace pod ním. |
@@ -147,7 +146,7 @@ app.UseCookiePolicy(cookiePolicyOptions);
 | [MinimumSameSitePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.minimumsamesitepolicy) | Má vliv na stejný web atribut souboru cookie (viz níže). Výchozí hodnota je `SameSiteMode.Lax`. Tato možnost je dostupná pro ASP.NET Core 2.0 +. |
 | [OnAppendCookie](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.onappendcookie) | Volá se, když je přidán do souboru cookie. |
 | [OnDeleteCookie](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.ondeletecookie) | Volá se, když se odstraní soubor cookie. |
-| [zabezpečení](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.secure) | Ovlivňuje, jestli soubory cookie musí být zabezpečené. Výchozí hodnota je `CookieSecurePolicy.None`. |
+| [Zabezpečení](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.secure) | Ovlivňuje, jestli soubory cookie musí být zabezpečené. Výchozí hodnota je `CookieSecurePolicy.None`. |
 
 **MinimumSameSitePolicy** (ASP.NET Core 2.0 + jenom)
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/hosting-models
-ms.openlocfilehash: dadae3de9ca3b67454865e2557d37c8b595f8f52
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 9aba63860fd8c566b866bb1d3b50b29a7a33c6e8
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55668117"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854468"
 ---
 # <a name="razor-components-hosting-models"></a>Hostování modely součásti syntaxe Razor
 
@@ -59,7 +59,7 @@ Visual Studio obsahuje **Blazor (ASP.NET Core hostované)** šablona projektu pr
 
 V ASP.NET Core Razor komponenty na straně serveru model hostingu aplikace provádí na serveru z v rámci aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání jazyka JavaScript jsou zpracovány prostřednictvím připojení SignalR.
 
-![ASP.NET Core Razor součásti serverové: V prohlížeči komunikuje s aplikaci (už je hostovaná v rámci aplikace ASP.NET Core) na serveru pomocí připojení SignalR.](hosting-models/_static/client-side.png)
+![ASP.NET Core Razor součásti serverové: V prohlížeči komunikuje s aplikaci (už je hostovaná v rámci aplikace ASP.NET Core) na serveru pomocí připojení SignalR.](hosting-models/_static/server-side.png)
 
 Chcete-li vytvořit Razor součásti aplikace pomocí model hostingu na straně serveru, použijte **Blazor (serverové v ASP.NET Core)** šablony (`blazorserver` při použití [dotnet nové](/dotnet/core/tools/dotnet-new) z příkazového řádku). Aplikace ASP.NET Core hostitelem aplikace Razor komponenty na straně serveru a nastaví koncových bodů SignalR, ve kterém se klienti připojují. Aplikace ASP.NET Core odkazuje aplikaci `Startup` třídy přidejte:
 

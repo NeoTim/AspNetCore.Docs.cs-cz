@@ -4,14 +4,14 @@ author: guardrex
 description: Získáte pomoc při řešení potíží pro běžné chyby při hostování aplikací ASP.NET Core v Azure App Service a službu IIS.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2018
+ms.date: 02/05/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 887482d61ffa74bc8ffb39d0af8507fd10199eb8
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: 976f7e3fbeab9e81ba99e2dd7d09a892b854651b
+ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341495"
+ms.lasthandoff: 02/07/2019
+ms.locfileid: "55854458"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
 
@@ -193,7 +193,7 @@ Zkontrolujte web služby IIS **základní nastavení** a složky fyzické aplika
 
 * Zkontrolujte *processPath* atribut na `<aspNetCore>` element v *web.config* potvrďte, že je `dotnet` nasazení závisí na architektuře (chyba) nebo `.\{ASSEMBLY}.exe` pro [samostatná nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
 
-* Pro disketové jednotky *dotnet.exe* nemusí být přístupné přes nastavení cesty. Ujistěte se, že * C:\Program Files\dotnet\* existuje v systémové CESTĚ nastavení.
+* Pro disketové jednotky *dotnet.exe* nemusí být přístupné přes nastavení cesty. Ujistěte se, že *C:\Program Files\dotnet\\*  existuje v systémové CESTĚ nastavení.
 
 * Pro disketové jednotky *dotnet.exe* nemusí být dostupný pro identitu uživatele fondu aplikací. Potvrďte, že identita uživatele fondu aplikací má přístup k *C:\Program Files\dotnet* adresáře. Ověřte, zda jsou nakonfigurovaná pro identitu uživatele fondu aplikací na žádná pravidla Odepřít *C:\Program Files\dotnet* a adresáře aplikace.
 
