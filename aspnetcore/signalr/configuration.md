@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat aplikace SignalR technologie ASP.NET 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 02/07/2019
 uid: signalr/configuration
-ms.openlocfilehash: ce970199984cdb8333ed1fd51f744dcda2df9c61
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: f5449a15743c1f38c550fe30945bdc19f069e3f5
+ms.sourcegitcommit: b72bbc9ae91e4bd37c9ea9b2d09ebf47afb25dd7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667606"
+ms.lasthandoff: 02/08/2019
+ms.locfileid: "55958112"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>Konfigurace jádra SignalR technologie ASP.NET
 
@@ -91,7 +91,28 @@ services.AddSignalR().AddHubOptions<MyHub>(options =>
 });
 ```
 
-Použití `HttpConnectionDispatcherOptions` konfigurace upřesňujících nastavení související s přenosy a správa vyrovnávací paměti. Tyto možnosti jsou nakonfigurované pomocí předání delegáta, kterého [MapHub\<T >](/dotnet/api/microsoft.aspnetcore.signalr.hubroutebuilder.maphub).
+### <a name="advanced-http-configuration-options"></a>Rozšířené možnosti konfigurace protokolu HTTP
+
+Použití `HttpConnectionDispatcherOptions` konfigurace upřesňujících nastavení související s přenosy a správa vyrovnávací paměti. Tyto možnosti jsou nakonfigurované pomocí předání delegáta, kterého [MapHub\<T >](/dotnet/api/microsoft.aspnetcore.signalr.hubroutebuilder.maphub) v `Startup.Configure`.
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    app.UseSignalR((configure) => 
+    {
+        var desiredTransports = 
+            HttpTransportType.WebSockets |
+            HttpTransportType.LongPolling;
+
+        configure.MapHub<MyHub>("/myhub", (options) => 
+        {
+            options.Transports = desiredTransports;
+        });
+    });
+}
+```
+
+Následující tabulka popisuje možnosti pro konfiguraci rozšířené možnosti HTTP SignalR technologie ASP.NET Core:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
