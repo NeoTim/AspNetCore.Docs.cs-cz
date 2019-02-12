@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: b7c97f3b329bea452e1f49c351231f92310c97b5
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "53335069"
----
 ::: moniker range=">= aspnetcore-2.1"
 
 V tomto kurzu nebyl upgradován na verzi ASP.NET Core 2.1. ASP.NET Core 2.0 verzi tohoto kurzu je k dispozici výběrem **ASP.NET Core 2.0** výše uvedené tabulky obsahu nebo v horní části stránky:
