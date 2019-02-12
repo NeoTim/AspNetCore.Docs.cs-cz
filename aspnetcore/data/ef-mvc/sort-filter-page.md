@@ -1,26 +1,19 @@
 ---
-title: ASP.NET Core MVC s EF Core – řazení, filtrování, stránkování - 3 10
+title: 'Kurz: Přidat řazení, filtrování a stránkování – ASP.NET MVC s EF Core'
+description: V tomto kurzu přidáte řazení, filtrování a stránkování funkce pro studenty indexovou stránku. Také vytvoříte stránky, která provádí jednoduché seskupení.
 author: rick-anderson
-description: V tomto kurzu přidáte řazení, filtrování a stránkování funkce pro stránky ASP.NET Core a Entity Framework Core.
 ms.author: tdykstra
-ms.date: 03/15/2017
+ms.date: 02/04/2019
+ms.topic: tutorial
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: 1f80faf0e36332c28e8337ddc331cc8b4c4970d7
-ms.sourcegitcommit: b8a2f14bf8dd346d7592977642b610bbcb0b0757
+ms.openlocfilehash: 51b6b08d2410652f93427371aec299eb4c8789f1
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38193946"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103056"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---sort-filter-paging---3-of-10"></a>ASP.NET Core MVC s EF Core – řazení, filtrování, stránkování - 3 10
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>Kurz: Přidat řazení, filtrování a stránkování – ASP.NET MVC s EF Core
 
 V předchozím kurzu jste implementovali sadu webových stránek pro základní operace CRUD pro studenty entity. V tomto kurzu přidáte řazení, filtrování a stránkování funkce pro studenty indexovou stránku. Také vytvoříte stránky, která provádí jednoduché seskupení.
 
@@ -28,7 +21,21 @@ Následující obrázek znázorňuje, co bude stránka vypadat až to budete mí
 
 ![Studenti indexová stránka](sort-filter-page/_static/paging.png)
 
-## <a name="add-column-sort-links-to-the-students-index-page"></a>Přidat sloupec řazení odkazy na indexovou stránku studentů
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Přidat sloupec řazení odkazy
+> * Přidání vyhledávacího pole
+> * Přidání stránkování k indexu studentů
+> * Přidání stránkování k Index – metoda
+> * Přidat odkazy stránkování
+> * Vytvoření stránky o
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Implementace funkcí CRUD s EF Core ve webové aplikaci ASP.NET Core MVC](crud.md)
+
+## <a name="add-column-sort-links"></a>Přidat sloupec řazení odkazy
 
 K přidání řazení Student indexovou stránku, změníte `Index` metody kontroleru studenty a přidejte kód k zobrazení indexu studentů.
 
@@ -71,7 +78,7 @@ Spusťte aplikaci, vyberte **studenty** kartu a klikněte na tlačítko **příj
 
 ![Studenti indexovou stránku podle názvu](sort-filter-page/_static/name-order.png)
 
-## <a name="add-a-search-box-to-the-students-index-page"></a>Přidání vyhledávacího pole na studenty indexovou stránku
+## <a name="add-a-search-box"></a>Přidání vyhledávacího pole
 
 Pokud chcete přidat, filtrování, abyste studenty indexovou stránku, budete přidat textové pole a tlačítko pro odeslání do zobrazení a provádět odpovídající změny v `Index` metody. Do textového pole umožňují zadat řetězec k vyhledání křestního jména a poslední název pole.
 
@@ -86,7 +93,7 @@ Přidání `searchString` parametr `Index` metody. Přijetí hledání řetězco
 > [!NOTE]
 > Tady jsou volání `Where` metodu `IQueryable` objekt a Filtr zpracuje na serveru. V některých scénářích může být volání `Where` metody jako metody rozšíření v kolekci v paměti. (Například Předpokládejme, že změníte odkaz na `_context.Students` tak místo z EF `DbSet` odkazuje na metodu úložiště, která se vrátí `IEnumerable` kolekce.) Výsledek by obvykle stejný, ale v některých případech může lišit.
 >
->Například rozhraní .NET Framework provádění `Contains` metoda provádí porovnání velká a malá písmena ve výchozím nastavení, ale v systému SQL Server se určuje podle nastavení kolace instance systému SQL Server. Toto nastavení výchozí hodnoty na velká a malá písmena. Lze zavolat `ToUpper` metoda provést test explicitně velká a malá písmena: *kde (s = > s.LastName.ToUpper(). Contains(searchString.ToUpper())*. Který zajistí, že výsledky zůstanou stejné, při změně kódu později použít úložiště, které vrátí `IEnumerable` kolekce místo `IQueryable` objektu. (Při volání `Contains` metodu `IEnumerable` kolekce, získat implementace rozhraní .NET Framework;. při jeho volání na `IQueryable` objektu, získáte implementace poskytovatele databáze.) Je však snížení výkonu pro toto řešení. `ToUpper` Vložili kódu funkce v klauzuli WHERE příkazu TSQL SELECT. Pomocí indexu, který by jinak znemožňovaly Optimalizátor. Vzhledem k tomu, že SQL většinou nainstalovaná jako velkých a malých písmen, je nejlepší je vyhnout `ToUpper` kód, dokud nemigrujete do úložiště dat malá a velká písmena.
+>Například rozhraní .NET Framework provádění `Contains` metoda provádí porovnání velká a malá písmena ve výchozím nastavení, ale v systému SQL Server se určuje podle nastavení kolace instance systému SQL Server. Toto nastavení výchozí hodnoty na velká a malá písmena. Lze zavolat `ToUpper` metoda provést test explicitně velká a malá písmena:  *Kde (s = > s.LastName.ToUpper(). Contains(searchString.ToUpper())*. Který zajistí, že výsledky zůstanou stejné, při změně kódu později použít úložiště, které vrátí `IEnumerable` kolekce místo `IQueryable` objektu. (Při volání `Contains` metodu `IEnumerable` kolekce, získat implementace rozhraní .NET Framework;. při jeho volání na `IQueryable` objektu, získáte implementace poskytovatele databáze.) Je však snížení výkonu pro toto řešení. `ToUpper` Vložili kódu funkce v klauzuli WHERE příkazu TSQL SELECT. Pomocí indexu, který by jinak znemožňovaly Optimalizátor. Vzhledem k tomu, že SQL většinou nainstalovaná jako velkých a malých písmen, je nejlepší je vyhnout `ToUpper` kód, dokud nemigrujete do úložiště dat malá a velká písmena.
 
 ### <a name="add-a-search-box-to-the-student-index-view"></a>Přidat vyhledávací pole k zobrazení indexu studenta
 
@@ -110,7 +117,7 @@ Pokud se označit tuto stránku záložkou, získáte při použití na záložk
 
 V této fázi, pokud kliknete na sloupce záhlaví řazení odkaz ztratíte hodnota filtru, který jste zadali v **hledání** pole. Opravíte to v další části.
 
-## <a name="add-paging-functionality-to-the-students-index-page"></a>Přidání funkce stránkování na studenty indexovou stránku
+## <a name="add-paging-to-students-index"></a>Přidání stránkování k indexu studentů
 
 Přidání stránkování k studenty indexovou stránku, vytvoříte `PaginatedList` třídu, která používá `Skip` a `Take` příkazy k filtrování dat na serveru, místo vždy načítání všech řádků v tabulce. Pak provede další změny v `Index` metoda a přidat tlačítka stránkování `Index` zobrazení. Následující obrázek znázorňuje tlačítka stránkování.
 
@@ -124,7 +131,7 @@ Ve složce projektu vytvořit `PaginatedList.cs`a potom nahraďte kód šablony 
 
 A `CreateAsync` metoda se používá namísto konstruktor k vytvoření `PaginatedList<T>` objektu, protože konstruktory nelze spustit asynchronního kódu.
 
-## <a name="add-paging-functionality-to-the-index-method"></a>Přidání funkce stránkování Index – metoda
+## <a name="add-paging-to-index-method"></a>Přidání stránkování k Index – metoda
 
 V *StudentsController.cs*, nahraďte `Index` metodu s následujícím kódem.
 
@@ -167,7 +174,7 @@ return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pa
 
 `PaginatedList.CreateAsync` Metoda má číslo stránky. Dvě otazníky představují operátoru nulového sjednocení. Definuje výchozí hodnotu pro typ s možnou hodnotou Null; operátoru nulového sjednocení výraz `(page ?? 1)` znamená, že návratová hodnota z `page` Pokud má hodnotu, nebo vrátí 1, pokud `page` má hodnotu null.
 
-## <a name="add-paging-links-to-the-student-index-view"></a>Přidat odkazy stránkování na zobrazení indexu studenta
+## <a name="add-paging-links"></a>Přidat odkazy stránkování
 
 V *Views/Students/Index.cshtml*, nahraďte existující kód následujícím kódem. Změny jsou zvýrazněné.
 
@@ -199,7 +206,7 @@ Spusťte aplikaci a přejděte na stránku pro studenty.
 
 Kliknutím na odkazy stránkování v jiné pořadí řazení pro Ujistěte se, že funguje stránkování. Potom zadejte hledaný řetězec a zkuste to znovu a ověřte, že stránkování také funguje správně s řazením a filtrováním stránkování.
 
-## <a name="create-an-about-page-that-shows-student-statistics"></a>Vytvořte o stránku, která zobrazuje statistiku studenta
+## <a name="create-an-about-page"></a>Vytvoření stránky o
 
 Pro web společnosti Contoso University **o** stránce bude zobrazovat, kolik studenty zaregistrovali pro každé datum registrace. To vyžaduje seskupování a jednoduché výpočtů na skupinách. K tomu budete postupujte takto:
 
@@ -243,14 +250,22 @@ Nahraďte kód v *Views/Home/About.cshtml* souboru následujícím kódem:
 
 Spusťte aplikaci a přejděte na stránku o. Počet studentů pro každé datum registrace se zobrazí v tabulce.
 
-![O stránku](sort-filter-page/_static/about.png)
+## <a name="get-the-code"></a>Získat kód
 
-## <a name="summary"></a>Souhrn
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-V tomto kurzu jste viděli, jak provádět řazení, filtrování, stránkování a seskupení. V dalším kurzu se naučíte zpracování změn datových modelů pomocí migrace.
+## <a name="next-steps"></a>Další kroky
 
-::: moniker-end
+V tomto kurzu se naučíte:
 
-> [!div class="step-by-step"]
-> [Předchozí](crud.md)
-> [další](migrations.md)
+> [!div class="checklist"]
+> * Přidaný sloupec řazení odkazy
+> * Přidání vyhledávacího pole
+> * Přidání stránkování pro studenty indexu
+> * Přidání stránkování k Index – metoda
+> * Přidání odkazů stránkování
+> * Vytvoří stránku o
+
+Přejděte k dalším článku se dozvíte, jak zpracovat změny datového modelu s použitím migrace.
+> [!div class="nextstepaction"]
+> [Zpracování změn datových modelů](migrations.md)

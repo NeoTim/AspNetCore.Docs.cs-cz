@@ -1,26 +1,19 @@
 ---
-title: ASP.NET Core MVC s EF Core – čtení souvisejících dat – 6 10
-author: rick-anderson
+title: 'Kurz: Čtení souvisejících dat – ASP.NET MVC s EF Core'
 description: V tomto kurzu budete čtení a zobrazení souvisejících dat – to znamená, že data, která načte Entity Framework do navigační vlastnosti.
+author: rick-anderson
 ms.author: tdykstra
-ms.date: 03/15/2017
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: a310c9e4b9cec6e2ab2477461f395c9bbd3fa364
-ms.sourcegitcommit: e12f45ddcbe99102a74d4077df27d6c0ebba49c1
+ms.openlocfilehash: 73e225c2cd6d9f88079c54115cccad48f43d7d0c
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2018
-ms.locfileid: "39063283"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103043"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---read-related-data---6-of-10"></a>ASP.NET Core MVC s EF Core – čtení souvisejících dat – 6 10
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Čtení souvisejících dat – ASP.NET MVC s EF Core
 
 V předchozím kurzu jste dokončili školní datového modelu. V tomto kurzu budete čtení a zobrazení souvisejících dat – to znamená, že data, která načte Entity Framework do navigační vlastnosti.
 
@@ -30,7 +23,19 @@ Na následujících obrázcích stránky, kterou budete pracovat.
 
 ![Instruktoři indexová stránka](read-related-data/_static/instructors-index.png)
 
-## <a name="eager-explicit-and-lazy-loading-of-related-data"></a>Nemůžou dočkat, až explicitní a opožděné načtení souvisejících dat
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Zjistěte, jak načíst související data
+> * Vytvoření stránky kurzy
+> * Vytvoření stránky Instruktoři
+> * Další informace o explicitní načtení
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Vytvoření složitějšího datového modelu pro webovou aplikaci ASP.NET Core MVC s EF Core](complex-data-model.md)
+
+## <a name="learn-how-to-load-related-data"></a>Zjistěte, jak načíst související data
 
 Existuje několik způsobů objektově-relační mapování (ORM) určené softwaru, jako je rozhraní Entity Framework mohou načíst související data do navigační vlastnosti entity:
 
@@ -54,7 +59,7 @@ Pokud víte, že budete potřebovat pro každou entitu načíst související da
 
 Na druhé straně v některých případech je efektivnější samostatné dotazy. Předběžné načítání všechna související data v jednom dotazu může vést k velmi složité spojení být vytvořen, kterou SQL Server nemůže zpracovat efektivně. Nebo pokud potřebujete přístup k entity navigační vlastnosti pouze pro dílčí sadu entit, které jste zpracování, samostatné dotazy může lépe provést, protože nemůžou dočkat, až načítání všechno, co ještě před zahájením by byl načten více dat, než potřebujete. Pokud je nejdůležitější výkon, je nejvhodnější pro testování výkonu oba způsoby, aby bylo možné správně se rozhodnout.
 
-## <a name="create-a-courses-page-that-displays-department-name"></a>Vytvoření stránky kurzů, která zobrazuje název oddělení
+## <a name="create-a-courses-page"></a>Vytvoření stránky kurzy
 
 Kurz entita obsahuje navigační vlastnost obsahující tuto entitu oddělení oddělení, která je přiřazena kurzu. Chcete-li zobrazit název přiřazený oddělení v seznamu kurzů, je potřeba získat název vlastnosti z oddělení entity, která je v `Course.Department` navigační vlastnost.
 
@@ -88,7 +93,7 @@ Spusťte aplikaci a vyberte **kurzy** kartu pro zobrazení seznamu s názvy odd�
 
 ![Kurzy indexová stránka](read-related-data/_static/courses-index.png)
 
-## <a name="create-an-instructors-page-that-shows-courses-and-enrollments"></a>Vytvoření stránky školitelů, který ukazuje, kurzy a registrace
+## <a name="create-an-instructors-page"></a>Vytvoření stránky Instruktoři
 
 V této části vytvoříte kontroler a zobrazení entity kurzů vedených mohla zobrazit na stránce Instruktoři:
 
@@ -226,7 +231,7 @@ Znovu aktualizujte stránku a vybrat instruktorem. Vyberte kurzu zobrazíte sezn
 
 ![Kurzů vedených instruktory Index stránky a vybrali kurzu](read-related-data/_static/instructors-index.png)
 
-## <a name="explicit-loading"></a>Explicitní načtení
+## <a name="about-explicit-loading"></a>O explicitní načtení
 
 Když jste získali seznam školitelů v *InstructorsController.cs*, jste zadali pro předběžné načítání `CourseAssignments` navigační vlastnost.
 
@@ -238,12 +243,20 @@ Nový kód klesne *ThenInclude* metoda se volá pro zápis dat z kódu, která n
 
 Spustit aplikaci, přejděte na stránku Instruktoři Index a zobrazí obsah zobrazený na stránce, nijak neliší, i když jste změnili, jak načíst data.
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Teď používáte předběžné načítání jednoho dotazu a s více dotazy ke čtení souvisejících dat do navigační vlastnosti. V dalším kurzu dozvíte, jak aktualizovat související data.
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>Další kroky
 
->[!div class="step-by-step"]
->[Předchozí](complex-data-model.md)
->[další](update-related-data.md)
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Zjistili jste, jak načíst související data
+> * Vytvoření stránky kurzy
+> * Vytvoří stránku Instruktoři
+> * Dozvěděli jste se o explicitní načtení
+
+Přejděte k dalším článku se naučíte, jak aktualizovat související data.
+> [!div class="nextstepaction"]
+> [Aktualizace souvisejících dat](update-related-data.md)

@@ -1,31 +1,41 @@
 ---
-title: ASP.NET Core MVC s EF Core – rozšířené – 10 10
-author: rick-anderson
+title: 'Kurz: Další informace o pokročilých scénářích – ASP.NET MVC s EF Core'
 description: Tento kurz představuje užitečné tématech překračují základní informace o vývoji webových aplikací ASP.NET Core využívající Entity Framework Core.
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: ba3834b29e78972bf914a5cba1a2cae3cc19a315
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: f02aa1d6d8e431e7e2613835b3216786aed4ecd4
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "50090781"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103095"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---advanced---10-of-10"></a>ASP.NET Core MVC s EF Core – rozšířené – 10 10
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: Další informace o pokročilých scénářích – ASP.NET MVC s EF Core
 
 V předchozím kurzu jste implementovali tabulky na hierarchii dědičnosti. Tento kurz představuje několik témat, které jsou užitečné mít na paměti při nad rámec základní informace o vývoji webových aplikací ASP.NET Core využívající Entity Framework Core.
 
-## <a name="raw-sql-queries"></a>Nezpracované dotazy SQL
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Spouštějte nezpracované dotazy SQL
+> * Volání dotaz, který vrací entity
+> * Volání dotaz, který jsou vraceny další typy
+> * Volání dotaz update
+> * Zkontrolujte dotazy SQL
+> * Vytvořit vrstvu HAL
+> * Další informace o zjišťování automaticky změnit
+> * Další informace o plánech zdrojového kódu a vývoj EF Core
+> * Další informace o použití dynamického LINQ pro zjednodušení kódu
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Implementace dědičnosti s EF Core ve webové aplikaci ASP.NET Core MVC](inheritance.md)
+
+## <a name="perform-raw-sql-queries"></a>Spouštějte nezpracované dotazy SQL
 
 Jednou z výhod používající nástroj Entity Framework je, že se eliminuje propojí váš kód příliš úzce na konkrétní metodu ukládat data. Dělá to tak, že generování dotazy SQL a příkazy, které také díky které by bylo nutné napsat sami. Ale existují výjimečné situace, kdy je potřeba spustit konkrétní dotazy SQL, které ručně vytvoříte. Pro tyto scénáře prvního rozhraní API sady Entity Framework kód obsahuje metody, které vám umožní předat příkazů SQL přímo do databáze. Máte následující možnosti v EF Core 1.0:
 
@@ -37,7 +47,7 @@ Pokud je potřeba spustit dotaz, který vrátí typy, které nejsou entity, mů�
 
 Jak platí vždy při spuštění příkazů SQL ve webové aplikaci, je nutné provést opatření k ochraně před útoky prostřednictvím injektáže SQL serveru. Jednou z možností, které se pomocí parametrizovaných dotazů se ujistěte, že řetězce odeslané na webové stránce se nedá interpretovat jako příkazy SQL. V tomto kurzu použijete parametrizovaných dotazů při integraci uživatelský vstup do dotazu.
 
-## <a name="call-a-query-that-returns-entities"></a>Volání dotaz, který vrací entity
+## <a name="call-a-query-to-return-entities"></a>Volání dotaz, který vrací entity
 
 `DbSet<TEntity>` Třída poskytuje metodu, která můžete použít k provedení dotazu, který vrací entity typu `TEntity`. Pokud chcete zobrazit, jak vám to funguje budete změnit kód v `Details` metody kontroleru oddělení.
 
@@ -49,7 +59,7 @@ Chcete-li ověřit, že nový kód funguje správně, vyberte **oddělení** kar
 
 ![Podrobnosti o oddělení](advanced/_static/department-details.png)
 
-## <a name="call-a-query-that-returns-other-types"></a>Volání, která vrací jiné typy dotazu
+## <a name="call-a-query-to-return-other-types"></a>Volání dotaz, který jsou vraceny další typy
 
 Dříve jste vytvořili mřížky student statistiky o stránky, které jsme si ukázali, počet studentů pro každé datum registrace. Jste získali data ze sady entit pro studenty (`_context.Students`) a použít k projekci výsledků do seznamu LINQ `EnrollmentDateGroup` zobrazit objekty modelu. Předpokládejme, že chcete napsat SQL samotné spíše než pomocí jazyka LINQ. Chcete-li provést, je nutné spustit dotaz SQL, který vrací jinou hodnotu než objekty entity. Jeden způsob, jak to udělat v EF Core 1.0, je psaní kódu rozhraní ADO.NET a získání připojení k databázi z EF.
 
@@ -83,7 +93,7 @@ Když **aktualizace** po kliknutí na tlačítko, je volána metoda HttpPost a m
 
 V **Průzkumníku řešení**, klikněte pravým tlačítkem *zobrazení/kurzy* složku a pak klikněte na tlačítko **Přidat > Nová položka**.
 
-V **přidat novou položku** dialogového okna, klikněte na tlačítko **ASP.NET** pod **nainstalováno** v levém podokně klikněte na tlačítko **stránka zobrazení MVC**a pojmenujte nové zobrazení  *UpdateCourseCredits.cshtml*.
+V **přidat novou položku** dialogového okna, klikněte na tlačítko **ASP.NET Core** pod **nainstalováno** v levém podokně klikněte na tlačítko **zobrazení Razor**a pojmenujte nové zobrazení  *UpdateCourseCredits.cshtml*.
 
 V *Views/Courses/UpdateCourseCredits.cshtml*, nahraďte kód šablony následujícím kódem:
 
@@ -103,7 +113,7 @@ Všimněte si, že produkčního kódu zajistí, že se aktualizace vždy výsle
 
 Další informace o nezpracované dotazy SQL najdete v tématu [nezpracované dotazy SQL](/ef/core/querying/raw-sql).
 
-## <a name="examine-sql-sent-to-the-database"></a>Prozkoumejte odeslán do databáze SQL
+## <a name="examine-sql-queries"></a>Zkontrolujte dotazy SQL
 
 Někdy je vhodné se může zobrazit skutečné dotazy SQL, které se odesílají do databáze. Funkce vestavěné protokolování pro ASP.NET Core je automaticky používá EF Core zápis protokolů, které obsahují SQL pro dotazy a aktualizace. V této části uvidíte několik příkladů protokolování SQL.
 
@@ -139,7 +149,7 @@ Můžete si všimnout sem něco, co možná vás překvapí: SQL vybere až 2 ř
 
 Všimněte si, že není nutné použít režim ladění a zastavení na zarážce k získání výstupu protokolování **výstup** okna. Je jenom pohodlný způsob, jak zastavit protokolování v okamžiku, kdy chcete výstup. Pokud není to uděláte, pokračuje v protokolování a budete muset přejděte zpět a najděte částí, které vás zajímají.
 
-## <a name="repository-and-unit-of-work-patterns"></a>Úložiště a jednotky pracovních vzorů
+## <a name="create-an-abstraction-layer"></a>Vytvořit vrstvu HAL
 
 Mnoho vývojářů napsat kód pro implementaci úložiště a jednotky pracovních vzorů jako obálka kolem kód, který funguje s Entity Framework. Tyto vzory jsou určená k vytvoření abstraktní vrstvu mezi vrstva přístupu k datům a vrstvu obchodní logiky aplikace. Implementaci těchto vzorců může pomoci izolovat aplikace před změnami v úložišti dat a mohou usnadnit automatizované testování částí nebo testy řízený vývoj (TDD). Ale psaním dalšího kódu k implementaci těchto vzorců není vždy nejlepší volbou pro aplikace, které používají EF, z několika důvodů:
 
@@ -169,7 +179,7 @@ Pokud sledujete velké množství entit a volání jedné z těchto metod v mnoh
 _context.ChangeTracker.AutoDetectChangesEnabled = false;
 ```
 
-## <a name="entity-framework-core-source-code-and-development-plans"></a>Plány Entity Framework Core zdrojového kódu a vývoj
+## <a name="ef-core-source-code-and-development-plans"></a>EF Core zdrojového kódu a vývoj plány
 
 Zdrojové Entity Framework Core je na [ https://github.com/aspnet/EntityFrameworkCore ](https://github.com/aspnet/EntityFrameworkCore). EF Core úložiště obsahuje denně automatizovaných buildů, sledování problémů, funkce specifikace, poznámky, návrhu a [plán pro budoucí vývoj](https://github.com/aspnet/EntityFrameworkCore/wiki/Roadmap). Soubor nebo najít chyby a přispívat.
 
@@ -180,27 +190,19 @@ I když se zdrojový kód je otevřený, Entity Framework Core plně podporovat 
 Chcete-li provést zpětnou analýzu datový model, včetně tříd entit z existující databáze, použijte [vygenerované uživatelské rozhraní dbcontext](/ef/core/miscellaneous/cli/powershell#scaffold-dbcontext) příkazu. Zobrazit [úvodním kurzu](/ef/core/get-started/aspnetcore/existing-db).
 
 <a id="dynamic-linq"></a>
-## <a name="use-dynamic-linq-to-simplify-sort-selection-code"></a>Zjednodušení řazení výběr kód pomocí dynamických LINQ
+
+## <a name="use-dynamic-linq-to-simplify-code"></a>Zjednodušení kód pomocí dynamických LINQ
 
 [Třetím kurzu této série](sort-filter-page.md) ukazuje, jak napsat kód LINQ podle pevného kódování názvů sloupců v `switch` příkazu. Se dvěma sloupci lze vybírat to funguje správně, ale pokud máte mnoho sloupců kód by mohl získat podrobné. K vyřešení tohoto problému, můžete použít `EF.Property` metody zadejte název vlastnosti jako řetězec. Pokud chcete vyzkoušet tento přístup, nahraďte `Index` metodu `StudentsController` následujícím kódem.
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_DynamicLinq)]
 
-## <a name="next-steps"></a>Další kroky
-
-Dokončení tohoto postupu Tato série kurzů týkající se použití Entity Framework Core v aplikaci ASP.NET Core MVC.
-
-Další informace o EF Core najdete v článku [dokumentace Entity Framework Core](/ef/core). Kniha je také k dispozici: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
-
-Informace o tom, jak nasadit webovou aplikaci, najdete v části <xref:host-and-deploy/index>.
-
-Informace o dalších témat souvisejících s ASP.NET Core MVC, jako je například ověřování a autorizaci, najdete v části <xref:index>.
-
 ## <a name="acknowledgments"></a>Potvrzení
 
-Petr Dykstra a Rick Anderson (twitter @RickAndMSFT) napsal v tomto kurzu. Rowan Miller, Diegu Vega a ostatní členové týmu, Entity Framework s asistencí s revizemi kódu a pomohl ladění problémů, které vznikly, když jsme se pro kurzy psaní kódu.
+Petr Dykstra a Rick Anderson (twitter @RickAndMSFT) napsal v tomto kurzu. Rowan Miller, Diegu Vega a ostatní členové týmu, Entity Framework s asistencí s revizemi kódu a pomohl ladění problémů, které vznikly, když jsme se pro kurzy psaní kódu. Jan Parente a Paul Goldman pracovali na aktualizaci kurz pro ASP.NET Core 2.2.
 
-## <a name="common-errors"></a>Běžné chyby
+<a id="common-errors"></a>
+## <a name="troubleshoot-common-errors"></a>Řešení běžných chyb
 
 ### <a name="contosouniversitydll-used-by-another-process"></a>ContosoUniversity.dll používá jiný proces
 
@@ -246,7 +248,33 @@ Chybová zpráva:
 
 Zkontrolujte připojovací řetězec. Pokud jste ručně odstranili databázový soubor, změňte název databáze v řetězci konstrukce začít znovu s novou databázi.
 
-::: moniker-end
+## <a name="get-the-code"></a>Získat kód
 
-> [!div class="step-by-step"]
-> [Předchozí](inheritance.md)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+
+## <a name="additional-resources"></a>Další zdroje
+
+Další informace o EF Core najdete v článku [dokumentace Entity Framework Core](/ef/core). Kniha je také k dispozici: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
+
+Informace o tom, jak nasadit webovou aplikaci, najdete v části <xref:host-and-deploy/index>.
+
+Informace o dalších témat souvisejících s ASP.NET Core MVC, jako je například ověřování a autorizaci, najdete v části <xref:index>.
+
+## <a name="next-steps"></a>Další kroky
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Prováděné nezpracované dotazy SQL
+> * Volá se dotaz, který vrací entity
+> * Volá se dotaz, který jsou vraceny další typy
+> * Volá se, k aktualizaci dotazu
+> * Přezkoumán dotazy SQL
+> * Vytvořit vrstvu HAL
+> * Dozvěděli jste se o změnu automatické zjišťování
+> * Dozvěděli jste se o EF Core zdrojového kódu a vývoj plány
+> * Zjistili jste, jak používat dynamické LINQ pro zjednodušení kódu
+
+Dokončení tohoto postupu Tato série kurzů týkající se použití Entity Framework Core v aplikaci ASP.NET Core MVC. Pokud chcete další informace o použití EF 6 pomocí ASP.NET Core, najdete v následujícím článku.
+> [!div class="nextstepaction"]
+> [EF 6 s ASP.NET Core](../entity-framework-6.md)

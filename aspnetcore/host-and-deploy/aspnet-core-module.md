@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/22/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 4eea360d08c79b889db00132109cf49492f84de6
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 3de50233987998d6e0072a261dee29dd09f4ef89
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837777"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103147"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -33,7 +33,7 @@ Při hostování v procesu, modul používá v procesu serveru implementace pro 
 
 Při hostování mimo proces, modul funguje pouze s Kestrel. Modul je nekompatibilní s [HTTP.sys](xref:fundamentals/servers/httpsys).
 
-## <a name="hosting-models"></a>Modelech hostování
+## <a name="hosting-models"></a>Modely hostingu
 
 ### <a name="in-process-hosting-model"></a>Model hostingu v procesu
 
@@ -497,6 +497,32 @@ Modul ASP.NET Core instalační program spustí s oprávněními **systému** ú
 1. Spusťte instalační program.
 1. Export aktualizovaný *applicationHost.config* souboru do sdílené složky.
 1. Znovu povolte sdílenou konfiguraci IIS.
+
+::: moniker range=">= aspnetcore-2.2"
+
+## <a name="application-initialization"></a>Inicializace aplikací
+
+[Inicializace aplikací služby IIS](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization) je funkce IIS, který odešle požadavek HTTP do aplikace při spuštění fondu aplikací nebo recykluje. Žádost se aktivuje spuštění aplikace. Inicializace aplikace může využívat i [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model) a [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model) s modul ASP.NET Core verze 2.
+
+Chcete-li povolit inicializaci aplikace:
+
+1. Potvrďte, že funkce inicializace aplikace služby IIS role v povoleno:
+   * Ve Windows 7 nebo novější: Přejděte do **ovládací panely** > **programy** > **programy a funkce** > **zapnout Windows funkce na nebo vypnout** (levé straně obrazovky). Otevřít **Internetová informační služba** > **webové služby** > **funkce pro vývoj aplikací**. Zaškrtněte políčko pro **inicializace aplikace**.
+   * V systému Windows Server 2008 R2 nebo novější, otevřete **Průvodce přidání rolí a funkcí**. Když se dostanete **vybrat služby rolí** panelů, otevřete **vývoj aplikací** uzel a vyberte **inicializace aplikace** zaškrtávací políčko.
+1. Ve Správci služby IIS vyberte **fondy aplikací** v **připojení** panelu.
+1. V seznamu vyberte fond aplikací aplikaci.
+1. Vyberte **Upřesnit nastavení** pod **upravit fond aplikací** v **akce** panelu.
+1. Nastavte **spustit režim** k **AlwaysRunning**.
+1. Otevřít **lokality** uzlu v **připojení** panelu.
+1. Vyberte aplikaci.
+1. Vyberte **Upřesnit nastavení** pod **spravovat web** v **akce** panelu.
+1. Nastavte **předběžné načtení povoleno** k **True**.
+
+Další informace najdete v tématu [inicializace aplikace služby IIS 8.0](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization).
+
+Aplikace, které používají [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model) musíte použít externí služby pravidelně k udržení příkazem ping otestovat aplikaci.
+
+::: moniker-end
 
 ## <a name="module-version-and-hosting-bundle-installer-logs"></a>Verze modulu a hostování sady Instalační protokoly
 

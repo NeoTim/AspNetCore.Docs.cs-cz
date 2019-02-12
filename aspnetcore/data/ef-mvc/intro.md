@@ -1,38 +1,44 @@
 ---
-title: ASP.NET Core MVC s Entity Framework Core – kurz 1 10
+title: 'Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC'
+description: Toto je první ze série kurzů, které vysvětlují, jak vytvořit ukázková aplikace Contoso University úplně od začátku.
 author: rick-anderson
-description: ''
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/06/2019
+ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 1191632555dc9331f815c1bfb1f313459824754a
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: f7b557c8e560393ae886c46fad95c48ccbcc65b4
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577900"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56102965"
 ---
-# <a name="aspnet-core-mvc-with-entity-framework-core---tutorial-1-of-10"></a>ASP.NET Core MVC s Entity Framework Core – kurz 1 10
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
+# <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core 2.0 MVC pomocí Entity Framework (EF) Core 2.0 a Visual Studio 2017.
+Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core 2.2 MVC pomocí Entity Framework (EF) Core 2.0 a Visual Studio 2017.
 
 Ukázková aplikace je webovou stránku pro fiktivní společnosti Contoso University. Zahrnuje funkce, jako student přijetí, kurz vytvoření a přiřazení instruktorem. Toto je první ze série kurzů, které vysvětlují, jak vytvořit ukázková aplikace Contoso University úplně od začátku.
-
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 EF Core 2.0 je nejnovější verze EF, ale ještě nemá všechny funkce verze EF 6.x. Informace o tom, jak si vybrat mezi EF 6.x a EF Core, najdete v části [EF Core vs. EF6.x](/ef/efcore-and-ef6/). Pokud se rozhodnete EF 6.x, naleznete v tématu [předchozí verze v této sérii kurzů](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/creating-an-entity-framework-data-model-for-an-asp-net-mvc-application).
 
 > [!NOTE]
 > ASP.NET Core 1.1 tohoto kurzu, najdete v článku [verze VS 2017 Update 2 v tomto kurzu ve formátu PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/efmvc1.1.pdf).
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Vytvoření webové aplikace ASP.NET Core MVC
+> * Nastavit styl lokality
+> * Další informace o balíčcích EF Core NuGet
+> * Vytvoření datového modelu
+> * Vytvořte kontext databáze
+> * Zaregistrujte SchoolContext
+> * Inicializace databáze s testovací data
+> * Vytvoření kontroleru a zobrazení
+> * Zobrazení databáze
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -45,7 +51,7 @@ Pokud narazíte na problém nevyřešíte sami, můžete najít řešení obvykl
 > [!TIP]
 > Toto je série 10 kurzů, z nichž každý je založena na co se provádí v předchozích kurzech. Zvažte možnost uložení kopie projektu po každé úspěšné dokončení tohoto kurzu. A pokud narazíte na problémy, můžete začít z předchozí kurz o službě místo přechodu zpět na začátek celou řadu.
 
-## <a name="the-contoso-university-web-application"></a>Webová aplikace Contoso University
+## <a name="contoso-university-web-app"></a>Contoso University webové aplikace
 
 Aplikace, kterou je budete vytvářet v těchto kurzech je webová stránka jednoduché university.
 
@@ -57,7 +63,7 @@ Uživatelé mohou zobrazit a aktualizovat Všichni studenti, kurz a informace in
 
 Styl uživatelského rozhraní tohoto webu má blízko co je generována pomocí integrovaných šablon, ukládají, abyste se mohli zaměřit kurz hlavně na tom, jak používat rozhraní Entity Framework.
 
-## <a name="create-an-aspnet-core-mvc-web-application"></a>Vytvořit webovou aplikaci ASP.NET Core MVC
+## <a name="create-aspnet-core-mvc-web-app"></a>Vytvoření webové aplikace ASP.NET Core MVC
 
 Otevřít Visual Studio a vytvořte nové technologie ASP.NET Core C# projekt webu s názvem "ContosoUniversity".
 
@@ -69,19 +75,19 @@ Otevřít Visual Studio a vytvořte nové technologie ASP.NET Core C# projekt we
 
 * Zadejte **ContosoUniversity** jako název a klikněte na **OK**.
 
-  ![Dialogové okno nového projektu](intro/_static/new-project.png)
+  ![Dialogové okno nového projektu](intro/_static/new-project2.png)
 
 * Počkejte **nové technologie ASP.NET Core webová aplikace (.NET Core)** zobrazit dialogové okno
 
-* Vyberte **ASP.NET Core 2.0** a **webové aplikace (Model-View-Controller)** šablony.
+  ![Dialogové okno Nový projekt ASP.NET Core](intro/_static/new-aspnet2.png)
 
-  **Poznámka:** Tento kurz vyžaduje, ASP.NET Core 2.0 a EF Core 2.0 nebo novější – Ujistěte se, že **ASP.NET Core 1.1** není vybraná.
+* Vyberte **2.2 technologie ASP.NET Core** a **webové aplikace (Model-View-Controller)** šablony.
+
+  **Poznámka:** Tento kurz vyžaduje 2.2 technologie ASP.NET Core a EF Core 2.0 nebo novější.
 
 * Ujistěte se, že **ověřování** je nastavena na **bez ověřování**.
 
 * Klikněte na tlačítko **OK**
-
-  ![Dialogové okno Nový projekt ASP.NET Core](intro/_static/new-aspnet.png)
 
 ## <a name="set-up-the-site-style"></a>Nastavit styl lokality
 
@@ -91,11 +97,11 @@ Otevřít *Views/Shared/_Layout.cshtml* a proveďte následující změny:
 
 * Změňte všechny výskyty "ContosoUniversity" na "University společnosti Contoso". Existují tři výskyty.
 
-* Přidání položek nabídky **studenty**, **kurzy**, **Instruktoři**, a **oddělení**a odstranit **kontakt** položku nabídky.
+* Přidání položek nabídky **o**, **studenty**, **kurzy**, **Instruktoři**, a **oddělení**, a Odstranit **ochrany osobních údajů** položku nabídky.
 
 Změny jsou zvýrazněné.
 
-[!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,30,36-39,48)]
+[!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,32-36,51)]
 
 V *Views/Home/Index.cshtml*, nahraďte obsah souboru následující kód, který nahradí text o ASP.NET a MVC o této aplikaci:
 
@@ -105,7 +111,7 @@ Stisknutím kláves CTRL + F5 ke spuštění projektu nebo zvolte **ladit > Spus
 
 ![Domovská stránka vysoké školy contoso](intro/_static/home-page.png)
 
-## <a name="entity-framework-core-nuget-packages"></a>Entity Framework Core NuGet balíčky
+## <a name="about-ef-core-nuget-packages"></a>Informace o balíčcích EF Core NuGet
 
 Do projektu přidat podporu EF Core, nainstalujte poskytovatele databáze, kterou chcete cílit. Tento kurz používá systém SQL Server a je balíček zprostředkovatele [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/). Tento balíček je součástí [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app), takže není nutné, pokud vaše aplikace obsahuje odkaz na balíček pro odkazujte na balíček `Microsoft.AspNetCore.App` balíčku.
 
@@ -185,7 +191,7 @@ Když se vytvoří databáze, EF vytvoří tabulky, které mají názvy, stejně
 
 [!code-csharp[](intro/samples/cu/Data/SchoolContext.cs?name=snippet_TableNames&highlight=16-21)]
 
-## <a name="register-the-context-with-dependency-injection"></a>Zaregistrovat kontext pomocí vkládání závislostí
+## <a name="register-the-schoolcontext"></a>Zaregistrujte SchoolContext
 
 ASP.NET Core implementuje [injektáž závislostí](../../fundamentals/dependency-injection.md) ve výchozím nastavení. Služby (například v kontextu databáze EF) jsou registrované pomocí vkládání závislostí při spuštění aplikace. Komponenty, které vyžadují tyto služby (jako jsou řadiče MVC) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru. Zobrazí se vám kód konstruktoru kontroler, který získá instance kontextu později v tomto kurzu.
 
@@ -207,7 +213,7 @@ Otevřít *appsettings.json* a přidejte připojovací řetězec, jak je znázor
 
 Připojovací řetězec Určuje databázi SQL Server LocalDB. LocalDB je Odlehčená verze SQL serveru Express Database Engine a je určená pro vývoj aplikací, není použití v produkčním prostředí. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení LocalDB vytvoří *.mdf* databázové soubory v `C:/Users/<user>` adresáře.
 
-## <a name="add-code-to-initialize-the-database-with-test-data"></a>Přidejte kód pro inicializaci databáze s testovací data
+## <a name="initialize-db-with-test-data"></a>Inicializace databáze s testovací data
 
 Entity Framework pro vytvoření prázdné databáze. V této části napíšete metodu, která je volána po vytvoření databáze, aby bylo možné naplnit ho daty testu.
 
@@ -235,7 +241,7 @@ V kurzech starší se může zobrazit podobný kód v `Configure` metoda *Startu
 
 Nyní při prvním spuštění aplikace, databáze bude vytvoří a nasadí se testovací data. Pokaždé, když změníte datový model, můžete odstranit databázi, aktualizovat vaše seed – metoda a začít znovu s novou databázi stejným způsobem. V budoucích kurzech uvidíte, jak upravit databázi, když datového modelu změny, bez odstranění a vytvoříte ho znovu.
 
-## <a name="create-a-controller-and-views"></a>Vytvoření kontroleru a zobrazení
+## <a name="create-controller-and-views"></a>Vytvoření kontroleru a zobrazení
 
 V dalším kroku použijete modul generování uživatelského rozhraní v sadě Visual Studio přidat kontroler MVC a zobrazení, která bude používat EF pro dotazování a uložit data.
 
@@ -252,9 +258,9 @@ Pokud **přidat závislosti MVC** se zobrazí dialogové okno:
 
   * Vyberte **kontroler MVC se zobrazeními pomocí Entity Frameworku**.
 
-  * Klikněte na **Přidat**.
+  * Klikněte na **Přidat**. **Přidat kontroler MVC se zobrazeními, používá nástroj Entity Framework** zobrazí se dialogové okno.
 
-* V **přidat kontroler** dialogové okno:
+    ![Student vygenerované uživatelské rozhraní](intro/_static/scaffold-student2.png)
 
   * V **třída modelu** vyberte **Student**.
 
@@ -263,8 +269,6 @@ Pokud **přidat závislosti MVC** se zobrazí dialogové okno:
   * Přijměte výchozí nastavení **StudentsController** jako název.
 
   * Klikněte na **Přidat**.
-
-  ![Student vygenerované uživatelské rozhraní](intro/_static/scaffold-student.png)
 
   Po kliknutí na **přidat**, vytvoří modul generování uživatelského rozhraní sady Visual Studio *StudentsController.cs* souboru a nastavte zobrazení (*.cshtml* soubory), které fungují s kontrolerem.
 
@@ -360,11 +364,27 @@ Je potřeba vědět při psaní asynchronního kódu, který používá Entity F
 
 Další informace o asynchronním programování v rozhraní .NET najdete v tématu [asynchronní přehled](/dotnet/articles/standard/async).
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Právě jste vytvořili jednoduchou aplikaci, která se používá k ukládání a zobrazení dat Entity Framework Core a SQL Server Express LocalDB. V následujícím kurzu se dozvíte jak provést základní CRUD (vytváření, čtení, aktualizace nebo odstranění) operace.
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>Další kroky
 
-> [!div class="step-by-step"]
-> [Next](crud.md)
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Vytvořenou webovou aplikaci ASP.NET Core MVC
+> * Nastavit styl lokality
+> * Dozvěděli jste se o balíčcích EF Core NuGet
+> * Vytvoření datového modelu
+> * Vytvoří kontext databáze
+> * Registrovaný SchoolContext
+> * Inicializované databáze se testovací data
+> * Vytvořený kontroler a zobrazení
+> * Zobrazení databáze
+
+V následujícím kurzu se dozvíte jak provést základní CRUD (vytváření, čtení, aktualizace nebo odstranění) operace.
+
+Pokračujte k dalším článku se naučíte, jak provést základní CRUD (vytváření, čtení, aktualizace nebo odstranění) operace.
+> [!div class="nextstepaction"]
+> [Implementace základních funkcí CRUD](crud.md)

@@ -276,7 +276,7 @@ items:
       name: SignalR s JavaScriptem
     - uid: tutorials/signalr-typescript-webpack
       name: SignalR s TypeScriptem
-  - name: Ukázky kódu
+  - name: Ukázky
     href: https://github.com/aspnet/SignalR-samples
   - name: Serverové koncepty
     items:
@@ -442,8 +442,6 @@ items:
     items:
     - uid: razor-components/index
       name: Přehled
-    - uid: razor-components/faq
-      name: Nejčastější dotazy
     - uid: razor-components/get-started
       name: Začínáme
     - uid: tutorials/first-razor-components-app
@@ -851,12 +849,12 @@ items:
   - uid: migration/logging-nonaspnetcore
     name: Protokolování (ne u ASP.NET Core)
 - name: referenční dokumentace k rozhraní API
-  href: /dotnet/api/?view=aspnetcore-2.1
+  href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: ebe88d54a391dfe44e6fda02028f9103fceb2ef8
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: 202bb46df6692e84e8abcefbd333abf3a3fafb7f
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854364"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103134"

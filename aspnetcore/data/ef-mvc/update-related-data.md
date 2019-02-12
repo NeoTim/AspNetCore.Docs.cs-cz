@@ -1,27 +1,20 @@
 ---
-title: ASP.NET Core MVC s EF Core – aktualizace souvisejících dat – 7 10
-author: rick-anderson
+title: 'Kurz: Aktualizace souvisejících dat – ASP.NET MVC s EF Core'
 description: V tomto kurzu budete aktualizovat souvisejících dat prostřednictvím aktualizace pole cizích klíčů a navigační vlastnosti.
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 37985c945f2e4b15cfcefb0c126c3209e0bdeac4
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: ac94f2e2876c2d8d571a451e4641787ffe37b3d2
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090729"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103030"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---update-related-data---7-of-10"></a>ASP.NET Core MVC s EF Core – aktualizace souvisejících dat – 7 10
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Aktualizace souvisejících dat – ASP.NET MVC s EF Core
 
 V předchozím kurzu zobrazí související data; v tomto kurzu budete aktualizovat souvisejících dat prostřednictvím aktualizace pole cizích klíčů a navigační vlastnosti.
 
@@ -31,7 +24,20 @@ Následující ilustrace znázorňují některé stránky, které budete pracova
 
 ![Stránky pro úpravu instruktorem](update-related-data/_static/instructor-edit-courses.png)
 
-## <a name="customize-the-create-and-edit-pages-for-courses"></a>Přizpůsobení vytvoření a úprava stránky pro kurzy
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Přizpůsobení stránek kurzy
+> * Přidat Instruktoři upravit stránku
+> * Přidejte do stránky pro úpravu kurzy
+> * Stránka pro aktualizaci Delete
+> * Přidat stránku vytvořit pobočky a kurzy
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Čtení souvisejících dat s EF Core pro webovou aplikaci ASP.NET Core MVC](read-related-data.md)
+
+## <a name="customize-courses-pages"></a>Přizpůsobení stránek kurzy
 
 Při vytvoření nové entity kurzu musí mít relaci k existující oddělení. K provedení této obsahuje automaticky generovaný kód metody kontroleru a vytvořit a upravit zobrazení, které zahrnují rozevíracího seznamu pro výběr oddělení. Sady rozevíracího seznamu `Course.DepartmentID` vlastnost cizího klíče, a to je všechny Entity Framework, které potřebujete-li načíst `Department` navigační vlastnost s odpovídající entita oddělení. Budete používat automaticky generovaný kód, ale mírně se přidání zpracování chyb a rozevírací seznam seřadit změnit.
 
@@ -95,7 +101,7 @@ Spusťte aplikaci, vyberte **kurzy** klikněte na tlačítko **vytvořit nový**
 
 ![Stránka pro vytvoření kurzu](update-related-data/_static/course-create.png)
 
-Klikněte na tlačítko **vytvořit**. Kurzy indexovou stránku se zobrazí nové kurzu přidat do seznamu. Název oddělení v seznamu Index stránky pochází z navigační vlastnosti zobrazující, že byla správně vytvoří vztah.
+Klikněte na možnost **Vytvořit**. Kurzy indexovou stránku se zobrazí nové kurzu přidat do seznamu. Název oddělení v seznamu Index stránky pochází z navigační vlastnosti zobrazující, že byla správně vytvoří vztah.
 
 Klikněte na tlačítko **upravit** na kurz v kurzy indexovou stránku.
 
@@ -103,7 +109,7 @@ Klikněte na tlačítko **upravit** na kurz v kurzy indexovou stránku.
 
 Data na stránce a klikněte na tlačítko **Uložit**. S daty aktualizovaný kurz se zobrazí stránka kurzy indexu.
 
-## <a name="add-an-edit-page-for-instructors"></a>Přidat stránku upravit pro vyučující
+## <a name="add-instructors-edit-page"></a>Přidat Instruktoři upravit stránku
 
 Při úpravě záznamu instruktorem, budete chtít být schopen aktualizovat přiřazení kanceláře instruktorem. Entita kurzů vedených má jeden nula nebo m relaci s entitou OfficeAssignment, což znamená, že má váš kód pro zpracování těchto situacích:
 
@@ -163,7 +169,7 @@ Spusťte aplikaci, vyberte **Instruktoři** kartu a potom klikněte na tlačítk
 
 ![Stránky pro úpravu instruktorem](update-related-data/_static/instructor-edit-office.png)
 
-## <a name="add-course-assignments-to-the-instructor-edit-page"></a>Přidat přiřazení kurz na stránce Upravit instruktorem
+## <a name="add-courses-to-edit-page"></a>Přidejte do stránky pro úpravu kurzy
 
 Instruktoři může představuje libovolný počet kurzů. Teď budete vylepšit kurzů vedených upravit stránku tak, že přidáte změnit přiřazení kurz pomocí skupiny zaškrtávacích políček, jak je znázorněno na následujícím snímku obrazovky:
 
@@ -236,7 +242,7 @@ Změňte některá přiřazení kurzu a klikněte na Uložit. Provedené změny 
 > [!NOTE]
 > Přístup provádět upravovat data kurzu kurzů vedených funguje dobře, když je omezený počet kurzů. Pro kolekce, které jsou mnohem větší různé uživatelské rozhraní a jinou metodu aktualizace by vyžaduje.
 
-## <a name="update-the-delete-page"></a>Aktualizovat stránku Delete
+## <a name="update-delete-page"></a>Stránka pro aktualizaci Delete
 
 V *InstructorsController.cs*, odstranit `DeleteConfirmed` metoda a vložte následující kód na příslušné místo.
 
@@ -248,7 +254,7 @@ Tento kód provede následující změny:
 
 * Pokud instruktorem, která se má odstranit je přiřazen jako správce z jakékoli oddělení, odebere z těchto oddělení přiřazení instruktorem.
 
-## <a name="add-office-location-and-courses-to-the-create-page"></a>Přidat na stránku vytvořit pobočky a kurzy
+## <a name="add-office-location-and-courses-to-create-page"></a>Přidat stránku vytvořit pobočky a kurzy
 
 V *InstructorsController.cs*, odstraňte HttpGet a HttpPost `Create` metody a místo nich přidejte následující kód:
 
@@ -293,12 +299,21 @@ Testování tak, že aplikaci spustíte a vytváření instruktorem.
 
 Jak je vysvětleno v [CRUD kurzu](crud.md), Entity Framework implementuje implicitně transakce. Pro scénáře, kde můžete potřebovat mít lepší kontrolu – například pokud budete chtít zahrnout operace provedené mimo rozhraní Entity Framework v rámci transakce – viz [transakce](/ef/core/saving/transactions).
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Teď jste dokončili úvod k práci s související data. V dalším kurzu uvidíte způsob zpracování konfliktů souběžnosti.
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>Další kroky
 
-> [!div class="step-by-step"]
-> [Předchozí](read-related-data.md)
-> [další](concurrency.md)
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Vlastní stránky kurzy
+> * Přidání Instruktoři upravit stránku
+> * Přidání kurzy, které stránky pro úpravu
+> * Aktualizovaná stránka Delete
+> * Přidání pobočky a kurzy, které stránka pro vytvoření
+
+Přejděte k dalším článku se naučíte, jak zpracování konfliktů souběžnosti.
+> [!div class="nextstepaction"]
+> [Zpracování konfliktů souběžnosti](concurrency.md)

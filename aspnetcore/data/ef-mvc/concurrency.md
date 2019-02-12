@@ -1,27 +1,20 @@
 ---
-title: ASP.NET Core MVC s EF Core – souběžnosti - 8, 10.
-author: rick-anderson
+title: 'Kurz: Zpracování souběžnosti – ASP.NET MVC s EF Core'
 description: Tento kurz ukazuje, jak řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 0ae566a76a2ef656843452ed537b8fdfbddaed22
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 7b18927d5d528ec2951087502e26b2b30214f389
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090898"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103017"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---concurrency---8-of-10"></a>ASP.NET Core MVC s EF Core – souběžnosti - 8, 10.
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: Zpracování souběžnosti – ASP.NET MVC s EF Core
 
 V předchozích kurzech jste zjistili, jak aktualizovat data. Tento kurz ukazuje, jak řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
 
@@ -30,6 +23,23 @@ Vytvoříte webové stránky, které pracují s entitou oddělení a zpracován�
 ![Stránky pro úpravu oddělení](concurrency/_static/edit-error.png)
 
 ![Odstranění stránky oddělení](concurrency/_static/delete-error.png)
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Další informace o konfliktů souběžnosti
+> * Přidání vlastnosti sledování do
+> * Vytvoření kontroleru oddělení a zobrazení
+> * Aktualizace zobrazení Index
+> * Aktualizace metod Edit
+> * Aktualizovat zobrazení pro úpravy
+> * Testování konfliktů souběžnosti
+> * Aktualizovat stránku Delete
+> * Aktualizovat podrobnosti a vytvořit zobrazení
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Aktualizace souvisejících dat ve webové aplikaci ASP.NET Core MVC s EF Core](update-related-data.md)
 
 ## <a name="concurrency-conflicts"></a>Konflikty souběžnosti
 
@@ -87,7 +97,7 @@ Konflikty lze vyřešit zpracování `DbConcurrencyException` výjimky, které v
 
 Ve zbývající části tohoto kurzu přidáte `rowversion` vlastnosti sledování do entity oddělení, vytvořit kontroler a zobrazení a otestovat a ověřit, že vše funguje správně.
 
-## <a name="add-a-tracking-property-to-the-department-entity"></a>Přidání vlastnosti sledování do entity oddělení
+## <a name="add-a-tracking-property"></a>Přidání vlastnosti sledování do
 
 V *Models/Department.cs*, přidání vlastnosti sledování do s názvem RowVersion:
 
@@ -114,7 +124,7 @@ dotnet ef migrations add RowVersion
 dotnet ef database update
 ```
 
-## <a name="create-a-departments-controller-and-views"></a>Vytvoření kontroleru oddělení a zobrazení
+## <a name="create-departments-controller-and-views"></a>Vytvoření kontroleru oddělení a zobrazení
 
 Stejně jako dříve pro studenty, kurzy a vyučující, generování uživatelského rozhraní oddělení kontroler a zobrazení.
 
@@ -124,7 +134,7 @@ V *DepartmentsController.cs* souborů, změňte všechny čtyři výskyty "First
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_Dropdown)]
 
-## <a name="update-the-departments-index-view"></a>Aktualizace zobrazení Index oddělení
+## <a name="update-index-view"></a>Aktualizace zobrazení Index
 
 Generování uživatelského rozhraní stroj vytvořil RowVersion sloupec v indexu zobrazení, ale nebude se zobrazovat toto pole.
 
@@ -134,7 +144,7 @@ Nahraďte kód v *Views/Departments/Index.cshtml* následujícím kódem.
 
 To se změní na záhlaví "Oddělení", odstraní sloupec RowVersion a zobrazí jméno a příjmení namísto křestní jméno správce.
 
-## <a name="update-the-edit-methods-in-the-departments-controller"></a>Aktualizace metod Edit v oddělení kontroleru
+## <a name="update-edit-methods"></a>Aktualizace metod Edit
 
 V obou třídy MetadataExchangeClientMode `Edit` metoda a `Details` metodu, přidejte `AsNoTracking`. V třídy MetadataExchangeClientMode `Edit` metodu, přidejte předběžné načítání pro správce.
 
@@ -172,7 +182,7 @@ Nakonec kód nastaví `RowVersion` hodnotu `departmentToUpdate` na novou hodnotu
 
 `ModelState.Remove` Příkazu se totiž `ModelState` má starý `RowVersion` hodnotu. V zobrazení `ModelState` hodnota pole má přednost před hodnoty vlastností modelu Pokud jsou obě přítomny.
 
-## <a name="update-the-department-edit-view"></a>Aktualizace zobrazení pro úpravy pro oddělení
+## <a name="update-edit-view"></a>Aktualizovat zobrazení pro úpravy
 
 V *Views/Departments/Edit.cshtml*, proveďte následující změny:
 
@@ -182,7 +192,7 @@ V *Views/Departments/Edit.cshtml*, proveďte následující změny:
 
 [!code-html[](intro/samples/cu/Views/Departments/Edit.cshtml?highlight=16,34-36)]
 
-## <a name="test-concurrency-conflicts-in-the-edit-page"></a>Na stránce Upravit test konfliktů souběžnosti
+## <a name="test-concurrency-conflicts"></a>Testování konfliktů souběžnosti
 
 Spusťte aplikaci a přejděte na stránku oddělení indexu. Klikněte pravým tlačítkem na **upravit** hypertextového odkazu pro anglickou oddělení a vyberte **otevřít na nové kartě**, klikněte **upravit** hypertextového odkazu pro anglickou oddělení. Prohlížeč dvě karty se nyní zobrazují stejné informace.
 
@@ -196,7 +206,7 @@ Změňte pole na druhé záložce prohlížeče.
 
 ![Upravit oddělení po změně – stránka 2](concurrency/_static/edit-after-change-2.png)
 
-Klikněte na tlačítko **Uložit**. Zobrazí chybová zpráva:
+Klikněte na **Uložit**. Zobrazí chybová zpráva:
 
 ![Oddělení upravit stránku chybová zpráva](concurrency/_static/edit-error.png)
 
@@ -276,12 +286,29 @@ Nahraďte kód v *Views/Departments/Create.cshtml* vyberte možnost přidat do r
 
 [!code-html[](intro/samples/cu/Views/Departments/Create.cshtml?highlight=32-34)]
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Dokončení tohoto postupu Úvod ke zpracování konfliktů souběžnosti. Další informace o tom, jak zpracovat souběžnosti v EF Core najdete v tématu [konfliktů souběžnosti](/ef/core/saving/concurrency). Další kurz ukazuje postupy při implementaci tabulky na hierarchii dědičnosti pro entity instruktorem a studentů.
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="additional-resources"></a>Další zdroje
 
-> [!div class="step-by-step"]
-> [Předchozí](update-related-data.md)
-> [další](inheritance.md)
+ Další informace o tom, jak zpracovat souběžnosti v EF Core najdete v tématu [konfliktů souběžnosti](/ef/core/saving/concurrency).
+
+## <a name="next-steps"></a>Další kroky
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Dozvěděli jste se o konfliktů souběžnosti
+> * Přidání vlastnosti sledování do
+> * Vytvořený kontroler oddělení a zobrazení
+> * Aktualizace zobrazení indexu
+> * Aktualizace metod Edit
+> * Aktualizované zobrazení pro úpravy
+> * Konflikty otestované souběžnosti
+> * Aktualizovat stránku Delete
+> * Aktualizovat podrobnosti a vytvořit zobrazení
+
+Přejděte k dalším článku se dozvíte, jak implementovat tabulky na hierarchii dědičnosti pro entity instruktorem a studentů.
+> [!div class="nextstepaction"]
+> [Implementace tabulky za hierarchie dědičnosti](inheritance.md)

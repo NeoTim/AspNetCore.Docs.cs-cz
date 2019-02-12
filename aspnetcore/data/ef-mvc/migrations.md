@@ -1,41 +1,50 @@
 ---
-title: ASP.NET Core MVC s EF Core – migrace - 4 z 10
-author: rick-anderson
+title: 'Kurz: Pomocí funkce migrace – ASP.NET MVC s EF Core'
 description: V tomto kurzu začnete používat funkci migrace EF Core ke správě změn datových modelů v aplikaci ASP.NET Core MVC.
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/04/2019
+ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 21ef3a675579d8a6671343d84cbe4f4b62979679
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: ac924e7d6bee2f02ab11281a5c27f2c94a7183b3
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090807"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56102991"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---migrations---4-of-10"></a>ASP.NET Core MVC s EF Core – migrace - 4 z 10
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>Kurz: Pomocí funkce migrace – ASP.NET MVC s EF Core
 
 V tomto kurzu začnete používat funkci migrace EF Core ke správě změn datových modelů. V dalších kurzech přidáte další migrace po provedení změny datového modelu.
 
-## <a name="introduction-to-migrations"></a>Úvod do migrace
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Další informace o migraci
+> * Další informace o migraci balíčků NuGet
+> * Změňte připojovací řetězec
+> * Vytvoření počáteční migraci
+> * Prozkoumejte nahoru a dolů metody
+> * Další informace o modelu snímků dat
+> * Použití migrace
+
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Přidat řazení, filtrování a stránkování v aplikaci ASP.NET Core MVC s EF Core](sort-filter-page.md)
+
+## <a name="about-migrations"></a>Informace o migraci
 
 Při vývoji nových aplikací, datového modelu mění často a pokaždé, když změny modelu, získá synchronizován s databází. Tyto kurzy spustil(a) konfigurace technologie Entity Framework pro vytvoření databáze, pokud neexistuje. Pokaždé, když změníte datový model – přidat, odebrat, nebo změňte tříd entit nebo změnit vaší třídy DbContext – potom můžete odstranit databázi a EF vytvoří nový, který odpovídá modelu a nasazení se nasazuje s testovací data.
 
 Tato metoda zachování databáze synchronizované s datovým modelem funguje dobře, dokud nasadit aplikaci do produkčního prostředí. Když je aplikace spuštěna v produkčním prostředí je obvykle ukládá data, která chcete zachovat, a nechcete ztratit všechno, co pokaždé, když provedete změnu např. přidejte nový sloupec. Funkce migrace EF Core tento problém řeší tím, že EF aktualizovat schéma databáze místo vytvoření nové databáze.
 
-## <a name="entity-framework-core-nuget-packages-for-migrations"></a>Entity Framework Core NuGet balíčky pro migrace
+## <a name="about-nuget-migration-packages"></a>Informace o migraci balíčků NuGet
 
 Chcete-li pracovat s migrací, můžete použít **Konzola správce balíčků** (PMC) nebo rozhraní příkazového řádku (CLI).  Tyto kurzy vám ukážou, jak používat příkazy rozhraní příkazového řádku. Informace o konzole PMC je na [konci tohoto kurzu](#pmc).
 
-EF nástroje pro rozhraní příkazového řádku (CLI) jsou k dispozici v [Microsoft.EntityFrameworkCore.Tools.DotNet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools.DotNet). K instalaci tohoto balíčku, přidejte ji tak `DotNetCliToolReference` kolekce v *.csproj* souboru, jak je znázorněno. **Poznámka:** je potřeba nainstalovat tento balíček úpravou *.csproj* soubor; nelze použít `install-package` příkaz nebo grafické uživatelské rozhraní Správce balíčků. Můžete upravit *.csproj* kliknutím pravým tlačítkem myši na název projektu v souboru **Průzkumníka řešení** a vyberete **upravit ContosoUniversity.csproj**.
+EF nástroje pro rozhraní příkazového řádku (CLI) jsou k dispozici v [Microsoft.EntityFrameworkCore.Tools.DotNet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools.DotNet). K instalaci tohoto balíčku, přidejte ji tak `DotNetCliToolReference` kolekce v *.csproj* souboru, jak je znázorněno. **Poznámka:** Je třeba nainstalovat tento balíček úpravou *.csproj* soubor; nelze použít `install-package` příkaz nebo grafické uživatelské rozhraní Správce balíčků. Můžete upravit *.csproj* kliknutím pravým tlačítkem myši na název projektu v souboru **Průzkumníka řešení** a vyberete **upravit ContosoUniversity.csproj**.
 
 [!code-xml[](intro/samples/cu/ContosoUniversity.csproj?range=12-15&highlight=2)]
 
@@ -60,7 +69,7 @@ Tato změna nastaví projekt tak, aby první migrací vytvoří novou databázi.
 
 Uložte změny a sestavte projekt. Pak otevřete okno příkazového řádku a přejděte do složky projektu. Tady je rychlý způsob, jak to udělat:
 
-* V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a zvolte **otevřít v Průzkumníkovi souborů** v místní nabídce.
+* V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a zvolte **otevřít složku v Průzkumníku souborů** v místní nabídce.
 
   ![Otevřít v Průzkumníku souborů položky nabídky](migrations/_static/open-in-file-explorer.png)
 
@@ -89,7 +98,7 @@ Done. To undo this action, use 'ef migrations remove'
 
 Pokud se zobrazí chybová zpráva "*nelze získat přístup k souboru... ContosoUniversity.dll protože je používán jiným procesem.* ", vyhledejte službu IIS Express ikonu na hlavním panelu systému Windows a pravým tlačítkem myši a potom klikněte na tlačítko **ContosoUniversity > zastavení webu**.
 
-## <a name="examine-the-up-and-down-methods"></a>Prozkoumání nahoru a dolů metody
+## <a name="examine-up-and-down-methods"></a>Prozkoumejte nahoru a dolů metody
 
 Při spouštění `migrations add` příkazu EF vygeneruje kód, který se vytvoří databáze od začátku. Tento kód je v *migrace* složku, v souboru s názvem  *\<časové razítko > _InitialCreate.cs*. `Up` Metodu `InitialCreate` třída vytvoří databázové tabulky, které odpovídají sady entit datového modelu a `Down` metoda odstraní, jak je znázorněno v následujícím příkladu.
 
@@ -109,7 +118,7 @@ Při odstranění migrace, použijte [migrace ef dotnet odebrat](/ef/core/miscel
 
 Zobrazit [migrace EF Core v prostředí Team](/ef/core/managing-schemas/migrations/teams) Další informace o tom, jak použít soubor snímku.
 
-## <a name="apply-the-migration-to-the-database"></a>Použití migrace do databáze
+## <a name="apply-the-migration"></a>Použití migrace
 
 V příkazovém řádku zadejte následující příkaz k vytvoření databáze a tabulky v ní.
 
@@ -151,24 +160,36 @@ Spuštění aplikace pro ověření, že všechno funguje stále stejná jako p�
 ![Studenti indexová stránka](migrations/_static/students-index.png)
 
 <a id="pmc"></a>
-## <a name="command-line-interface-cli-vs-package-manager-console-pmc"></a>Rozhraní příkazového řádku (CLI) vs. Konzola správce balíčků (PMC)
+
+## <a name="compare-cli-and-pmc"></a>Porovnání rozhraní příkazového řádku a PMC
 
 EF nástroje pro správu migrace je k dispozici z příkazů rozhraní příkazového řádku .NET Core nebo z rutin prostředí PowerShell v sadě Visual Studio **Konzola správce balíčků** okno (PMC). Tento kurz ukazuje, jak používat rozhraní příkazového řádku, ale pokud dáváte přednost, můžete použít konzolu PMC.
 
 EF příkazů pro příkazy PMC jsou v [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools) balíčku. Tento balíček je součástí [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app), takže není nutné přidat odkaz na balíček, pokud vaše aplikace obsahuje odkaz na balíček pro `Microsoft.AspNetCore.App`.
 
-**Důležité:** to není stejného balíčku, jako je instalace rozhraní příkazového řádku tak, že upravíte *.csproj* souboru. Název tohoto objektu končí `Tools`, na rozdíl od názvu balíčku rozhraní příkazového řádku, které končí na `Tools.DotNet`.
+**Důležité:** Tato akce není stejného balíčku, jako je instalace rozhraní příkazového řádku tak, že upravíte *.csproj* souboru. Název tohoto objektu končí `Tools`, na rozdíl od názvu balíčku rozhraní příkazového řádku, které končí na `Tools.DotNet`.
 
 Další informace o příkazech rozhraní příkazového řádku najdete v tématu [rozhraní příkazového řádku .NET Core](/ef/core/miscellaneous/cli/dotnet).
 
 Další informace o příkazech PMC najdete v tématu [Konzola správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell).
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-V tomto kurzu jste viděli, jak vytvořit a použít první migraci. V dalším kurzu se zobrazí za přibližně pohledu na pokročilejší témata tak, že rozbalíte datového modelu. Na cestě můžete vytvářet a použít další migrace.
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-step"></a>Další krok
 
-> [!div class="step-by-step"]
-> [Předchozí](sort-filter-page.md)
-> [další](complex-data-model.md)
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Dozvěděli jste se o migraci
+> * Dozvěděli jste se o migraci balíčků NuGet
+> * Změnit připojovací řetězec
+> * Vytvoří počáteční migraci
+> * Prozkoumat nahoru a dolů metody
+> * Dozvěděli jste se o snímek dat modelu
+> * Použít na migraci
+
+Přejděte k dalšímu článku zahájíte hledání na pokročilejší témata o rozšiřování datového modelu. Na cestě můžete vytvářet a použít další migrace.
+> [!div class="nextstepaction"]
+> [Vytvořit a použít další migrace](complex-data-model.md)

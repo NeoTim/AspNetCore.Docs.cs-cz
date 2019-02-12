@@ -1,27 +1,20 @@
 ---
-title: ASP.NET Core MVC s EF Core – Model dat – 5 10
-author: rick-anderson
+title: 'Kurz: Vytvoření složitého datového modelu – ASP.NET MVC s EF Core'
 description: V tomto kurzu přidat další entity a relace a přizpůsobte si datový model zadáním formátování, ověřování a pravidel mapování.
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 87212edbfe34af6de938cf95314501e56e64a8be
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: c08fd6ff7c19c63161135b4c87609f6edd3edb80
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50091038"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103121"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---data-model---5-of-10"></a>ASP.NET Core MVC s EF Core – Model dat – 5 10
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>Kurz: Vytvoření složitého datového modelu – ASP.NET MVC s EF Core
 
 V předchozích kurzech jste pracovali s jednoduchý datový model, který se skládá z tři entity. V tomto kurzu přidáte další entity a relace a tak, že zadáte formátování, ověřování a pravidel mapování database budete Přizpůsobte si datový model.
 
@@ -29,7 +22,27 @@ Jakmile budete hotovi, tříd entit budou použity k vytvoření dokončeného d
 
 ![Entity diagram](complex-data-model/_static/diagram.png)
 
-## <a name="customize-the-data-model-by-using-attributes"></a>Přizpůsobte si datový Model s použitím atributů
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Přizpůsobte si datový model
+> * Provádět změny entity studenta
+> * Vytvoření entity instruktorem
+> * Vytvoření OfficeAssignment entity
+> * Upravit entity kurzu
+> * Vytvoření entity oddělení
+> * Upravit entity registrace
+> * Aktualizace kontext databáze
+> * Počáteční hodnota databáze s testovací data
+> * Přidejte migraci
+> * Změňte připojovací řetězec
+> * Aktualizace databáze
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Použití funkce migrace EF Core pro ASP.NET Core ve webové aplikaci MVC](migrations.md)
+
+## <a name="customize-the-data-model"></a>Přizpůsobte si datový model
 
 V této části uvidíte, jak přizpůsobit datového modelu s použitím atributů, které určují databáze mapování pravidel ověřování a formátování. Potom v některé z následujících částí, které si vytvoříte kompletní datový model školní přidáním atributů třídy jste již vytvořili a vytvářet nové třídy pro zbývající typy entit v modelu.
 
@@ -97,9 +110,7 @@ dotnet ef database update
 
 Časové razítko, před kterou je připojený k názvu souboru migrace používá Entity Framework pro řazení migrace. Můžete vytvořit více migrace před spuštěním příkazu update databáze a pak všechny migrace se použijí v pořadí, ve kterém byly vytvořeny.
 
-Spusťte aplikaci, vyberte **studenty** klikněte na tlačítko **vytvořit nový**a zadejte buď název delší než 50 znaků. Po kliknutí na **vytvořit**, zobrazí se chybová zpráva ověření na straně klienta.
-
-![Studenti index stránky zobrazující chyby délky řetězce](complex-data-model/_static/string-length-errors.png)
+Spusťte aplikaci, vyberte **studenty** klikněte na tlačítko **vytvořit nový**a pokuste se zadat buď název delší než 50 znaků. Aplikace by měla by vám bránily v to. 
 
 ### <a name="the-column-attribute"></a>Atribut sloupce
 
@@ -132,7 +143,7 @@ Před použitím první dvě migrace název sloupce se mají z typu nvarchar(MAX
 > [!Note]
 > Pokud se pokusíte zkompilovat před dokončení vytváření všech tříd entit v následujících částech, může docházet k chybám kompilátoru.
 
-## <a name="final-changes-to-the-student-entity"></a>Poslední změny entity studenta
+## <a name="changes-to-student-entity"></a>Změny entity studenta
 
 ![Student entity](complex-data-model/_static/student-entity.png)
 
@@ -160,7 +171,7 @@ public string LastName { get; set; }
 
 `FullName` je počítaná vlastnost, která vrací hodnotu, která se vytváří zřetězením dvou dalších vlastností. Proto má pouze přístupový objekt get a ne `FullName` vygeneruje sloupec v databázi.
 
-## <a name="create-the-instructor-entity"></a>Vytvoření Entity instruktorem
+## <a name="create-instructor-entity"></a>Vytvoření entity instruktorem
 
 ![Entita instruktorem](complex-data-model/_static/instructor-entity.png)
 
@@ -196,7 +207,7 @@ Obchodní pravidla contoso University stavu instruktorem může mít pouze nejv�
 public OfficeAssignment OfficeAssignment { get; set; }
 ```
 
-## <a name="create-the-officeassignment-entity"></a>Vytvoření OfficeAssignment entity
+## <a name="create-officeassignment-entity"></a>Vytvoření OfficeAssignment entity
 
 ![OfficeAssignment entity](complex-data-model/_static/officeassignment-entity.png)
 
@@ -223,7 +234,7 @@ Kurzů vedených entita má s povolenou hodnotou Null `OfficeAssignment` naviga�
 
 Můžete umístit `[Required]` atribut u vlastnosti navigace kurzů vedených a určit tak, že musí být související instruktorem, ale nemáte to provést, protože `InstructorID` cizí klíč (což je také klíč do této tabulky) je null.
 
-## <a name="modify-the-course-entity"></a>Upravit Entity kurzu
+## <a name="modify-course-entity"></a>Upravit entity kurzu
 
 ![Kurz entity](complex-data-model/_static/course-entity.png)
 
@@ -272,7 +283,7 @@ Kurz může být vedená instruktorů více, proto `CourseAssignments` navigačn
 public ICollection<CourseAssignment> CourseAssignments { get; set; }
 ```
 
-## <a name="create-the-department-entity"></a>Vytvoření entity oddělení
+## <a name="create-department-entity"></a>Vytvoření entity oddělení
 
 ![Oddělení entity](complex-data-model/_static/department-entity.png)
 
@@ -318,7 +329,7 @@ public ICollection<Course> Courses { get; set; }
 >    .OnDelete(DeleteBehavior.Restrict)
 > ```
 
-## <a name="modify-the-enrollment-entity"></a>Upravit entity registrace
+## <a name="modify-enrollment-entity"></a>Upravit entity registrace
 
 ![Registrace entity](complex-data-model/_static/enrollment-entity.png)
 
@@ -384,7 +395,7 @@ Přidejte následující zvýrazněný kód do *Data/SchoolContext.cs* souboru:
 
 Tento kód přidá nové entity a nakonfiguruje CourseAssignment entita složený primární klíč.
 
-## <a name="fluent-api-alternative-to-attributes"></a>Fluent API alternativou k atributům
+## <a name="about-a-fluent-api-alternative"></a>O fluent alternativu rozhraní API
 
 Kód v `OnModelCreating` metodu `DbContext` třídy používá *rozhraní fluent API* konfigurace EF chování. Rozhraní API se nazývá "fluent", protože je často používána zavěšování řadu volání metody společně na jediném příkazu, jako v následujícím příkladu od [EF Core dokumentaci](/ef/core/modeling/#methods-of-configuration):
 
@@ -411,7 +422,7 @@ Následující obrázek znázorňuje diagram, který Entity Framework Power Tool
 
 Kromě vztah jednoho k několika řádky (1 k \*), kterou tady vidíte řádek jedna nula nebo 1 v relaci m (1-0..1) mezi instruktorem a OfficeAssignment entity a relace nula nebo 1 n řádek (0.. 1 na *) mezi Entity instruktorem a oddělení.
 
-## <a name="seed-the-database-with-test-data"></a>Přidání dat do databáze s testovací Data
+## <a name="seed-database-with-test-data"></a>Počáteční hodnota databáze s testovací data
 
 Nahraďte kód v *Data/DbInitializer.cs* souboru následujícím kódem, aby bylo možné poskytnout data počáteční hodnotu pro nové entity, které jste vytvořili.
 
@@ -456,7 +467,7 @@ V produkční aplikace měli byste napsat kód nebo skripty pro přidání řád
 
 Uložte změny a sestavte projekt.
 
-## <a name="change-the-connection-string-and-update-the-database"></a>Změňte připojovací řetězec a aktualizaci databáze
+## <a name="change-the-connection-string"></a>Změňte připojovací řetězec
 
 Teď máte nový kód `DbInitializer` třídu, která přidá data počáteční hodnotu pro nové entity pro prázdnou databázi. Chcete-li vytvořit nové prázdné databáze EF, změňte název databáze v připojovacím řetězci v *appsettings.json* ContosoUniversity3 nebo jiný název, který jste ještě nepoužívali v počítači, který používáte.
 
@@ -474,6 +485,8 @@ Uložit změny do *appsettings.json*.
 > ```console
 > dotnet ef database drop
 > ```
+
+## <a name="update-the-database"></a>Aktualizace databáze
 
 Poté, co jste změnili název databáze nebo odstraní databáze, spusťte `database update` příkazu v příkazovém okně k provedení migrace.
 
@@ -493,12 +506,28 @@ Klikněte pravým tlačítkem myši **CourseAssignment** tabulce a vybrat **Data
 
 ![Data CourseAssignment v SSOX](complex-data-model/_static/ssox-ci-data.png)
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Teď máte složitějšího datového modelu a odpovídající databáze. V následujícím kurzu se dozvíte informace o tom, jak přistupovat k související data.
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>Další kroky
 
-> [!div class="step-by-step"]
-> [Předchozí](migrations.md)
-> [další](read-related-data.md)
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Vlastní datový model
+> * Provedl změny entity studenta
+> * Vytvořené entity instruktorem
+> * Vytvořené entity OfficeAssignment
+> * Upravená entita kurzu
+> * Vytvořené entity oddělení
+> * Upravená entita registrace
+> * Aktualizovat kontext databáze
+> * Dosazené databáze s testovací data
+> * Přidání migrace
+> * Změnit připojovací řetězec
+> * Aktualizovat databázi
+
+Přejděte k dalším článku se dozvíte více o tom, jak přistupovat k související data.
+> [!div class="nextstepaction"]
+> [Přístup k související data](read-related-data.md)

@@ -1,33 +1,40 @@
 ---
-title: ASP.NET Core MVC s EF Core – dědičnosti - 9, 10.
-author: rick-anderson
+title: 'Kurz: Implementace dědičnosti – ASP.NET MVC s EF Core'
 description: V tomto kurzu se seznámíte implementace dědičnosti v datovém modelu, s použitím Entity Framework Core v aplikaci ASP.NET Core.
+author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/05/2019
+ms.topic: tutorial
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 60417040dd296311e1aecff8f224aadf8da82779
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 0a5eb1aba43bc2adf746202772c7f98eff49b4ff
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090755"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103004"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---inheritance---9-of-10"></a>ASP.NET Core MVC s EF Core – dědičnosti - 9, 10.
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>Kurz: Implementace dědičnosti – ASP.NET MVC s EF Core
 
 V předchozím kurzu zpracování výjimky souběžnosti. Tento kurzu se dozvíte, jak implementovat dědičnosti v datovém modelu.
 
 V objektově orientované programování, můžete dědičnost usnadňuje opakované využívání kódu. V tomto kurzu změníte `Instructor` a `Student` tak, že jsou odvozeny z třídy `Person` základní třída, která obsahuje vlastnosti, například `LastName` , které jsou společné pro vyučující a studenty. Nebude přidat nebo změnit libovolné webové stránky, ale změníte kód, a tyto změny se automaticky projeví v databázi.
 
-## <a name="options-for-mapping-inheritance-to-database-tables"></a>Možnosti pro mapování dědičnosti na databázových tabulek
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Mapovat dědičnosti do databáze
+> * Vytvořte třídu osoby
+> * Aktualizace instruktorem a studentů
+> * Do modelu přidat osoby
+> * Vytvoření a aktualizaci migrace
+> * Provedení testu
+
+## <a name="prerequisites"></a>Požadavky
+
+* [Popisovač souběžnosti s EF Core ve webové aplikaci ASP.NET Core MVC](concurrency.md)
+
+## <a name="map-inheritance-to-database"></a>Mapovat dědičnosti do databáze
 
 `Instructor` a `Student` třídy v datovém modelu školy mají několik vlastností, které jsou shodné:
 
@@ -64,7 +71,7 @@ Ve složce modely vytvořit Person.cs a nahraďte kód šablony následujícím 
 
 [!code-csharp[](intro/samples/cu/Models/Person.cs)]
 
-## <a name="make-student-and-instructor-classes-inherit-from-person"></a>Ujistěte se, studenty a kurzů vedených třídy dědit od osoby
+## <a name="update-instructor-and-student"></a>Aktualizace instruktorem a studentů
 
 V *Instructor.cs*, kurzů vedených třída odvozena od třídy osoby a odstraňte klíč a název pole. Kód bude vypadat jako v následujícím příkladu:
 
@@ -74,7 +81,7 @@ Provést stejné změny v *Student.cs*.
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_AfterInheritance&highlight=8)]
 
-## <a name="add-the-person-entity-type-to-the-data-model"></a>Přidat typ entity osoba do datového modelu
+## <a name="add-person-to-the-model"></a>Do modelu přidat osoby
 
 Přidat typ entity osoby k *SchoolContext.cs*. Nové řádky jsou zvýrazněné.
 
@@ -82,7 +89,7 @@ Přidat typ entity osoby k *SchoolContext.cs*. Nové řádky jsou zvýrazněné.
 
 To je vše, Entity Framework potřebuje, aby konfigurace tabulky na hierarchii dědičnosti. Jak zjistíte, když se aktualizuje databázi, bude mít tabulku osoba místo tabulky studentů a instruktorem.
 
-## <a name="create-and-customize-migration-code"></a>Vytvoření a přizpůsobení migrace kódu
+## <a name="create-and-update-migrations"></a>Vytvoření a aktualizaci migrace
 
 Uložte změny a sestavte projekt. Potom otevřete okno příkazového řádku ve složce projektu a zadejte následující příkaz:
 
@@ -129,7 +136,7 @@ dotnet ef database update
 > [!NOTE]
 > Je možné získat další chyby při provedení změn schématu v databázi, která obsahuje už existující data. Pokud se zobrazí chyby při migraci, které nelze vyřešit, můžete změnit název databáze v připojovacím řetězci nebo odstranit databázi. S novou databázi nejsou žádná data k migraci a příkazu update databáze má větší pravděpodobnost dokončí bez chyb. Pokud chcete odstranit databázi, použijte SSOX nebo spusťte `database drop` příkazu rozhraní příkazového řádku.
 
-## <a name="test-with-inheritance-implemented"></a>Testování s implementované dědičnosti
+## <a name="test-the-implementation"></a>Provedení testu
 
 Spusťte aplikaci a vyzkoušejte různé stránky. Všechno, co funguje stejně jako předtím.
 
@@ -141,12 +148,26 @@ Klikněte pravým tlačítkem na tabulku osoba a potom klikněte na **zobrazit D
 
 ![Osoba tabulky v SSOX - tabulkových dat](inheritance/_static/ssox-person-data.png)
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Tabulky na hierarchii dědičnosti pro jsme implementovali `Person`, `Student`, a `Instructor` třídy. Další informace o dědičnosti v Entity Framework Core najdete v tématu [dědičnosti](/ef/core/modeling/inheritance). V dalším kurzu uvidíte, jak zpracovat širokou škálu relativně pokročilé scénáře rozhraní Entity Framework.
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="additional-resources"></a>Další zdroje
 
-> [!div class="step-by-step"]
-> [Předchozí](concurrency.md)
-> [další](advanced.md)
+Další informace o dědičnosti v Entity Framework Core najdete v tématu [dědičnosti](/ef/core/modeling/inheritance).
+
+## <a name="next-steps"></a>Další kroky
+
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Mapovaná dědičnosti do databáze
+> * Vytvoření třídy osoby
+> * Aktualizované instruktorem a studentů
+> * Přidání, kdo modelu
+> * Vytvoření a aktualizaci migrace
+> * Testování implementace
+
+Přejděte k dalším článku se dozvíte, jak zpracovat širokou škálu relativně pokročilé scénáře rozhraní Entity Framework.
+> [!div class="nextstepaction"]
+> [Pokročilá témata](advanced.md)

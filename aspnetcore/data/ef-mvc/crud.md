@@ -1,42 +1,38 @@
 ---
-title: ASP.NET Core MVC s EF Core – CRUD - 2 z 10
+title: 'Kurz: Implementace funkcí CRUD – ASP.NET MVC s EF Core'
+description: V tomto kurzu zkontrolujete a přizpůsobit CRUD (vytváření, čtení, aktualizace nebo odstranění) kód, který generování uživatelského rozhraní MVC se automaticky vytvoří za vás do kontrolerů a zobrazení.
 author: rick-anderson
-description: ''
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/04/2019
+ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 34927415beadaa3f5c9035a9101e3c99f7cbc395
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 368b1774ba977ec8020a02d48705200fd54c3bbd
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090820"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56102978"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---crud---2-of-10"></a>ASP.NET Core MVC s EF Core – CRUD - 2 z 10
-
-[!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc-21.md)]
-
-::: moniker range="= aspnetcore-2.0"
-
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvářet webové aplikace ASP.NET Core MVC pomocí Entity Framework Core a Visual Studio. Informace o této sérii kurzů, naleznete v tématu [z prvního kurzu této série](intro.md).
+# <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: Implementace funkcí CRUD – ASP.NET MVC s EF Core
 
 V předchozím kurzu jste vytvořili aplikaci MVC, která ukládá a zobrazuje data pomocí rozhraní Entity Framework a SQL Server LocalDB. V tomto kurzu zkontrolujete a přizpůsobit CRUD (vytváření, čtení, aktualizace nebo odstranění) kód, který generování uživatelského rozhraní MVC se automaticky vytvoří za vás do kontrolerů a zobrazení.
 
 > [!NOTE]
 > Je běžnou praxí pro implementaci vzoru úložiště chcete-li vytvořit vrstvu HAL mezi řadiči a vrstva přístupu k datům. Na tyto kurzy byly jednoduché a zaměřují se na vyučují způsob použití rozhraní Entity Framework samotné, nepoužívejte úložišť. Informace o úložištích s EF najdete v tématu [poslední kurz v této sérii](advanced.md).
 
-V tomto kurzu budete pracovat následujících webových stránek:
+V tomto kurzu se naučíte:
 
-![Stránka s podrobnostmi o studenta](crud/_static/student-details.png)
+> [!div class="checklist"]
+> * Přizpůsobení stránky podrobností
+> * Aktualizovat stránku vytvořit
+> * Aktualizace stránky pro úpravu
+> * Aktualizovat stránku Delete
+> * Připojení k databázi zavřít
 
-![Stránka pro vytvoření studenta](crud/_static/student-create.png)
+## <a name="prerequisites"></a>Požadavky
 
-![Stránka upravit studenta](crud/_static/student-edit.png)
-
-![Odstranění stránky studenta](crud/_static/student-delete.png)
+* [Začínáme s EF Core ve webové aplikaci ASP.NET Core MVC](intro.md)
 
 ## <a name="customize-the-details-page"></a>Přizpůsobení stránky podrobností
 
@@ -172,7 +168,7 @@ Změňte na platnou hodnotu data a klikněte na tlačítko **vytvořit** zobraz�
 
 V *StudentController.cs*, třídy MetadataExchangeClientMode `Edit` – metoda (, aniž byste `HttpPost` atribut) používá `SingleOrDefaultAsync` metodu pro načtení vybranou entitu Student, jak jste viděli v `Details` metoda. Nemusíte změnit tuto metodu.
 
-### <a name="recommended-httppost-edit-code-read-and-update"></a>Doporučuje upravit HttpPost kódu: čtení a aktualizace
+### <a name="recommended-httppost-edit-code-read-and-update"></a>Doporučené HttpPost úpravy kódu: Čtení a aktualizace
 
 Nahraďte následující kód metody HttpPost úpravy akce.
 
@@ -186,7 +182,7 @@ Jako osvědčený postup, aby se zabránilo overposting, pole, která mají být
 
 V důsledku těchto změn, podpis metody HttpPost `Edit` metodu je stejná jako HttpGet `Edit` metoda; proto jste přejmenovali metodu `EditPost`.
 
-### <a name="alternative-httppost-edit-code-create-and-attach"></a>Alternativní HttpPost úpravy kódu: vytvoření a připojení
+### <a name="alternative-httppost-edit-code-create-and-attach"></a>Alternativní HttpPost úpravy kódu: Vytvoření a připojení
 
 Doporučené úpravy kódu HttpPost zajistí, že pouze změněné sloupce aktualizován a zachová data ve vlastnostech, které nechcete, aby zahrnuté pro vazbu modelu. Přístup pro čtení na prvním ale vyžaduje další databáze čtení a může mít za následek složitější kód pro zpracování konfliktů souběžnosti. Alternativou je připojit entitu vytvořené vazač modelu ke kontextu EF a označte ji jako upravená. (Nechcete aktualizovat svůj projekt s tímto kódem má pouze uvedené pro ilustraci metodiky volitelný.)
 
@@ -270,13 +266,13 @@ Spusťte aplikaci, vyberte **studenty** kartu a klikněte na tlačítko **odstra
 
 Klikněte na tlačítko **odstranit**. Zobrazí se indexovou stránku bez odstraněné studentů. (Zobrazí se vám příklad kód v akci v tomto kurzu souběžnosti pro zpracování chyb.)
 
-## <a name="closing-database-connections"></a>Zavření připojení k databázi
+## <a name="close-database-connections"></a>Připojení k databázi zavřít
 
 Tím se uvolní prostředky, které obsahuje připojení k databázi, instance kontextu musí být uvolněn co nejdříve až budete hotovi s ním. ASP.NET Core předdefinované [injektáž závislostí](../../fundamentals/dependency-injection.md) dané úlohy postará za vás.
 
 V *Startup.cs*, volání [AddDbContext rozšiřující metoda](https://github.com/aspnet/EntityFrameworkCore/blob/03bcb5122e3f577a84498545fcf130ba79a3d987/src/Microsoft.EntityFrameworkCore/EntityFrameworkServiceCollectionExtensions.cs) ke zřízení `DbContext` třídy v ASP.NET Core DI kontejneru. Že metoda nastaví doba platnosti služby `Scoped` ve výchozím nastavení. `Scoped` znamená, že doba života objektu kontextu se shoduje s webovou žádost životnosti a `Dispose` metoda se bude automaticky volána na konci webový požadavek.
 
-## <a name="handling-transactions"></a>Zpracování transakcí
+## <a name="handle-transactions"></a>Zpracování transakcí
 
 Ve výchozím nastavení rozhraní Entity Framework implementuje implicitně transakce. V situacích, kdy provést změny na více řádcích nebo tabulky a poté zavolejte `SaveChanges`, Entity Framework automaticky zajišťuje, že všechny změny úspěch nebo selžou všechny. Pokud některé změny nejprve dokončení a potom se stane chyba, tyto změny se automaticky vrátí zpět. Pro scénáře, kde můžete potřebovat mít lepší kontrolu – například pokud budete chtít zahrnout operace provedené mimo rozhraní Entity Framework v rámci transakce – viz [transakce](/ef/core/saving/transactions).
 
@@ -294,12 +290,21 @@ Můžete zakázat sledování objektů entit v paměti, že volání `AsNoTracki
 
 Další informace najdete v tématu [sledování vs. Sledování bez](/ef/core/querying/tracking).
 
-## <a name="summary"></a>Souhrn
+## <a name="get-the-code"></a>Získat kód
 
-Teď máte úplnou sadu stránek, které provádějí jednoduché operace CRUD pro studenty entity. V dalším kurzu budete rozšíření funkcí **Index** stránky tak, že přidáte řazení, filtrování a stránkování.
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-::: moniker-end
+## <a name="next-steps"></a>Další kroky
 
-> [!div class="step-by-step"]
-> [Předchozí](intro.md)
-> [další](sort-filter-page.md)
+V tomto kurzu se naučíte:
+
+> [!div class="checklist"]
+> * Přizpůsobit na stránku podrobností
+> * Aktualizovat na stránce vytvořit
+> * Aktualizace stránky pro úpravu
+> * Aktualizovat stránku Delete
+> * Připojení uzavřeno databáze
+
+Pokračujte k dalším článku se naučíte, jak rozšířit funkce **Index** stránky tak, že přidáte řazení, filtrování a stránkování.
+> [!div class="nextstepaction"]
+> [Řazení, filtrování a stránkování](sort-filter-page.md)

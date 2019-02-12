@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat aplikaci pomocí dvojice název hodno
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/28/2019
+ms.date: 02/08/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: d255321f6083747ce9b452e1efd4da5bc015bf64
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: f70389c86420d81e284ecc863ac8386f726ed2cf
+ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854429"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56103108"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace služby Azure Key Vault v ASP.NET Core
 
@@ -271,8 +271,8 @@ var cert = store.Certificates
         config["CertificateThumbprint"], false);
 
 config.AddAzureKeyVault(
-    builtConfig["Vault"],
-    builtConfig["ClientId"],
+    builtConfig["KeyVaultName"],
+    builtConfig["AzureADApplicationId"],
     cert.OfType<X509Certificate2>().Single(),
     new EnvironmentSecretManager(context.HostingEnvironment.ApplicationName));
 
@@ -342,8 +342,8 @@ Když aplikaci se pak nepodaří načíst konfiguraci pomocí zprostředkovatele
 * Aplikace nemá oprávnění pro přístup k trezoru klíčů.
 * Zásady přístupu neobsahuje `Get` a `List` oprávnění.
 * Ve službě key vault konfigurační data (dvojice název hodnota) je nesprávně pojmenované, chybí, zakázán, nebo vypršela platnost.
-* Aplikace má název chybný trezoru klíčů (`Vault`), Id aplikace Azure AD (`ClientId`), nebo klíč služby Azure AD (`ClientSecret`).
-* Klíč služby Azure AD (`ClientSecret`) vypršela.
+* Aplikace má název chybný trezoru klíčů (`KeyVaultName`), Id aplikace Azure AD (`AzureADApplicationId`), nebo hesel služby Azure AD (tajný klíč klienta) (`AzureADPassword`).
+* Hesel služby Azure AD (tajný klíč klienta) (`AzureADPassword`) vypršela.
 * Konfigurační klíč (název) je nesprávný v aplikaci pro hodnotu, kterou se pokoušíte načíst.
 
 ## <a name="additional-resources"></a>Další zdroje
