@@ -3,14 +3,14 @@ title: Potvrzení účtu a obnovení hesla v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak vytvořit aplikaci ASP.NET Core s e-mailové potvrzení a resetováním hesla.
 ms.author: riande
-ms.date: 7/11/2018
+ms.date: 2/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 0dc9907f9f54c8a0daf2e05a3769897e5145935f
-ms.sourcegitcommit: e418cb9cddeb3de06fa0cb4fdb5529da03ff6d63
+ms.openlocfilehash: 77d7b209d57f9ee44f158798ff780ce85c87aaf2
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "54444139"
+ms.lasthandoff: 02/13/2019
+ms.locfileid: "56159405"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -166,7 +166,7 @@ Implementovat `IEmailSender`, vytvořit *Services/EmailSender.cs* podobně jako 
 
 Přidejte následující kód, který `ConfigureServices` metoda ve *Startup.cs* souboru:
 
-* Přidat `EmailSender` jako služba typu singleton.
+* Přidat `EmailSender` jako přechodné služby.
 * Zaregistrujte `AuthMessageSenderOptions` instance konfigurace.
 
 [!code-csharp[](accconfirm/sample/WebPWrecover21/Startup.cs?name=snippet2&highlight=12-99)]
@@ -213,7 +213,7 @@ Zobrazí se stránka Správa s **profilu** vybraná karta. **E-mailu** zobrazí 
 * Pokud jste přihlášeni, vyberte **odhlášení**.
 * Vyberte **přihlášení** spojit a vybrat možnost **zapomněli jste heslo?** odkaz.
 * Zadejte e-mail, který jste použili k registraci účtu.
-* Odešle e-mail s odkazem k resetování hesla. Zkontrolujte e-mailu a klikněte na odkaz pro resetování hesla. Po úspěšném resetování vašeho hesla můžete přihlásit e-mailu a nové heslo.
+* Odešle e-mail s odkazem k resetování hesla. Zkontrolujte e-mailu a klikněte na odkaz pro resetování hesla. Po úspěšném resetování vašeho hesla se můžete přihlásit pomocí své e-mailu a nové heslo.
 
 <a name="debug"></a>
 
@@ -246,7 +246,7 @@ Klikněte na odkaz pro další přihlášení služby a přijímání požadavk�
 
 ![Spravovat externí přihlášení zobrazení výpisu Facebooku](accconfirm/_static/fb.png)
 
-Byli sloučeni dva účty. Budete moct přihlásit pomocí obou. Můžete chtít uživatelům přidat místní účty v případě nefungující Služba ověřování v jejich přihlášení prostřednictvím sociální sítě nebo spíše se jste ztratili přístup k jejich účtu na sociální síti.
+Byli sloučeni dva účty. Máte možnost přihlásit se přes účet. Můžete chtít uživatelům přidat místní účty v případě nefungující Služba ověřování v jejich přihlášení prostřednictvím sociální sítě nebo spíše se jste ztratili přístup k jejich účtu na sociální síti.
 
 ## <a name="enable-account-confirmation-after-a-site-has-users"></a>Po lokality má uživatelům povolit potvrzení účtu
 
