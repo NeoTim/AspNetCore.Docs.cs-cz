@@ -7,18 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/09/2019
 uid: razor-components/class-libraries
-ms.openlocfilehash: f5073337db88f05f3911fdfb1f29e7302c7cddec
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 0e644627178bae2b8880760335860b3e0ebef156
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102907"
+ms.locfileid: "56159231"
 ---
 # <a name="razor-components-class-libraries"></a>Knihovny tříd Razor komponenty
 
 Podle [Simon Timms](https://github.com/stimms)
-
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
 > [!NOTE]
 > Sada .NET Core 3.0 ve verzi Preview 2 SDK neobsahuje šablona projektu pro knihovny tříd Razor součásti, ale chceme přidat šablonu v budoucí verzi preview. Mezitím můžete použít šablony knihovna tříd komponenty Blazor vysvětlované v tomto tématu.

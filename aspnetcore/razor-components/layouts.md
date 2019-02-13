@@ -7,18 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/layouts
-ms.openlocfilehash: c67ef1ae79f7961c571af7db3da0028cb870c7ed
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 23d8f441c0b3bbde7a73717f6257013831617ec0
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55668116"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159469"
 ---
 # <a name="razor-components-layouts"></a>Rozložení Razor komponenty
 
 Podle [Rainer Stropek](https://www.timecockpit.com)
-
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
 Aplikace obvykle obsahují více než jednu stránku. Prvky, rozložení, jako jsou nabídky, zprávy o autorských právech a loga, musí být k dispozici na všech stránkách. Kopírování kódu z těchto elementů rozložení do všech stránek aplikace není efektivní řešení. Tato duplikace je obtížné udržovat a pravděpodobně povede k nekonzistentní obsah v čase. *Rozložení* tento problém vyřešit.
 

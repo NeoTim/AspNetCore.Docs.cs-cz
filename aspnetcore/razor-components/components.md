@@ -7,18 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/components
-ms.openlocfilehash: 550755d4cc2bd309846e1cc332c3bb1f0b812c25
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 8f0a2c7ab7650894010e39ba3cbdcc6a97e04069
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55668146"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159533"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
 Podle [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27), a [Morné Zaayman](https://github.com/MorneZaayman)
-
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ([stažení](xref:index#how-to-download-a-sample)). Najdete v článku [Začínáme](xref:razor-components/get-started) tématu pro požadavky.
 

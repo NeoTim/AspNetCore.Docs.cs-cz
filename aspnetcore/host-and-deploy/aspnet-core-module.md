@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak nakonfigurovat modul ASP.NET Core pro hostování aplikací ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/22/2019
+ms.date: 02/08/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 3de50233987998d6e0072a261dee29dd09f4ef89
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 9270d7b462bbac1ae0ad896c0937ea6dd909b2cd
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103147"
+ms.locfileid: "56159552"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -51,7 +51,11 @@ Pokud `<AspNetCoreHostingModel>` vlastnost není k dispozici v souboru, výchoz�
 
 Při hostování v procesu platí následující vlastnosti:
 
-* Server služby IIS protokolu HTTP (`IISHttpServer`) se použije namísto [Kestrel](xref:fundamentals/servers/kestrel) serveru.
+* Server služby IIS protokolu HTTP (`IISHttpServer`) se použije namísto [Kestrel](xref:fundamentals/servers/kestrel) serveru. V procesu [CreateDefaultBuilder](xref:fundamentals/host/web-host#set-up-a-host) volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> na:
+
+  * Zaregistrujte `IISHttpServer`.
+  * Konfigurace portu a základní cesta server naslouchat požadavkům na při spuštění za modul ASP.NET Core.
+  * Nakonfigurujte hostitele tak, aby zachycení chyb při spuštění.
 
 * [RequestTimeout atribut](#attributes-of-the-aspnetcore-element) neplatí pro hostování v procesu.
 
@@ -83,6 +87,11 @@ Jak nakonfigurovat aplikaci pro hostování mimo proces, použijte jednu z násl
 ```
 
 [Kestrel](xref:fundamentals/servers/kestrel) server se používá místo protokolu HTTP serveru služby IIS (`IISHttpServer`).
+
+Mimo proces [CreateDefaultBuilder](xref:fundamentals/host/web-host#set-up-a-host) volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> na:
+
+* Konfigurace portu a základní cesta server naslouchat požadavkům na při spuštění za modul ASP.NET Core.
+* Nakonfigurujte hostitele tak, aby zachycení chyb při spuštění.
 
 ### <a name="hosting-model-changes"></a>Hostování změny modelu
 

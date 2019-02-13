@@ -5,12 +5,12 @@ description: Další informace o správu klíčů ochranu dat a životnosti v AS
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/configuration/default-settings
-ms.openlocfilehash: beff17dd81143db02a0cbc79fa7cb3a6a4deeda6
-ms.sourcegitcommit: 3ca527f27c88cfc9d04688db5499e372fbc2c775
+ms.openlocfilehash: 2f022a4c7519485fe629ce47c27d214c8c27d5bc
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/17/2018
-ms.locfileid: "39095096"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159208"
 ---
 # <a name="data-protection-key-management-and-lifetime-in-aspnet-core"></a>Správa klíčů ochrany dat a životnosti v ASP.NET Core
 
@@ -26,6 +26,13 @@ Aplikace se pokusí zjistit jeho provozní prostředí a zpracovávat konfigurac
    * Samostatné nasazovacích slotů, jako je například přípravným a produkčním prostředím, Nesdílejte klíč kanál. Když přepínat mezi sloty nasazení, například pracovní do produkčního prostředí záměna nebo pomocí A / B testování, jakoukoli aplikaci pomocí ochrany dat nebude možné dešifrovat uloženými daty pracujete pomocí aktualizační kanál, který klíč uvnitř předchozí slot. To vede k zaprotokolování mimo aplikaci, která využívá standardní ověřování souborů cookie s ASP.NET Core, protože používá ochranu dat k ochraně souborů cookie uživatele. Pokud vyžadujete, aby okruhy slotu nezávislé na klíč, použití poskytovatele vnější prstenec klíče, jako je Azure Blob Storage, Azure Key Vault, úložišti SQL, nebo z mezipaměti Redis.
 
 1. Pokud se profil uživatele je k dispozici, jsou zachované klíče *%LOCALAPPDATA%\ASP.NET\DataProtection-Keys* složky. Pokud je operační systém Windows, že klíče se zašifrují neaktivní uložená data pomocí rozhraní DPAPI.
+
+   Fond aplikací [setProfileEnvironment atribut](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) také musí být povolené. Výchozí hodnota `setProfileEnvironment` je `true`. V některých případech (například Windows operačního systému) `setProfileEnvironment` je nastavena na `false`. Pokud se klíče nejsou uloženy v adresáři profilu uživatele jako očekávání:
+
+   1. Přejděte *%windir%/system32/inetsrv/config* složky.
+   1. Otevřít *applicationHost.config* souboru.
+   1. Vyhledejte element `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>`.
+   1. Ujistěte se, že `setProfileEnvironment` atribut není k dispozici, která má výchozí hodnotu hodnotu k `true`, nebo explicitně nastavit hodnotu atributu na `true`.
 
 1. Pokud je aplikace hostovaná ve službě IIS, jsou zachované v klíči registru HKLM ve speciální registru klíč, který je ACLed pouze pro účet pracovního procesu. Klíče se zašifrují neaktivní uložená data pomocí rozhraní DPAPI.
 

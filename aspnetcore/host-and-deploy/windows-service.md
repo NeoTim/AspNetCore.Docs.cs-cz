@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core ve službě Windows.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 01/22/2019
+ms.date: 02/07/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: eedaf64710506f2a2aac65c178a9888d2ab33d38
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 5393dcec4f5e2eb37ec9cac2435bf15eedb8e361
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837478"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159366"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Hostitele ASP.NET Core ve službě Windows
 
@@ -147,11 +147,13 @@ dotnet publish --configuration Release --runtime win7-x64 --output c:\svc
 
 ### <a name="create-a-user-account"></a>Vytvoření uživatelského účtu
 
-Vytvořte účet uživatele pro používání služby `net user` příkaz:
+Vytvoření uživatelského účtu pro službu pomocí `net user` příkaz správu příkazové prostředí:
 
 ```console
 net user {USER ACCOUNT} {PASSWORD} /add
 ```
+
+Vypršení platnosti hesla výchozí je šest týdnů.
 
 Pro ukázkovou aplikaci, vytvořte uživatelský účet s názvem `ServiceUser` a heslo. V následujícím příkazu nahraďte `{PASSWORD}` s [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements).
 
@@ -167,9 +169,13 @@ net localgroup {GROUP} {USER ACCOUNT} /add
 
 Další informace najdete v tématu [uživatelské účty služby](/windows/desktop/services/service-user-accounts).
 
+Alternativní způsob správy uživatelů při používání služby Active Directory je použití účtů spravované služby. Další informace najdete v tématu [přehled účtů spravované služby skupiny](/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview).
+
 ### <a name="set-permissions"></a>Nastavení oprávnění
 
-Udělit přístup, zápis a čtení a spouštění do složky aplikace pomocí [icacls](/windows-server/administration/windows-commands/icacls) příkaz:
+#### <a name="access-to-the-app-folder"></a>Přístup ke složce aplikace
+
+Udělit přístup, zápis a čtení a spouštění do složky aplikace pomocí [icacls](/windows-server/administration/windows-commands/icacls) příkaz správu příkazové prostředí:
 
 ```console
 icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
@@ -195,11 +201,23 @@ icacls "c:\svc" /grant ServiceUser:(OI)(CI)WRX /t
 
 Další informace najdete v tématu [icacls](/windows-server/administration/windows-commands/icacls).
 
+#### <a name="log-on-as-a-service"></a>Přihlaste se jako služba
+
+Udělit [přihlásit jako službu](/windows/security/threat-protection/security-policy-settings/log-on-as-a-service) oprávnění pro uživatelský účet:
+
+1. Vyhledejte **přiřazení uživatelských práv** zásad v konzole místní zásady zabezpečení nebo konzolu Editor místních zásad skupiny. Pokyny najdete v tématu: [Konfigurovat nastavení zásad zabezpečení](/windows/security/threat-protection/security-policy-settings/how-to-configure-security-policy-settings).
+1. Vyhledejte `Log on as a service` zásad. Dvakrát klikněte na zásady tak, aby ho otevřete.
+1. Vyberte **přidat uživatele nebo skupinu**.
+1. Vyberte **Upřesnit** a vyberte **najít**.
+1. Vyberte uživatelský účet vytvořený v [vytvoření uživatelského účtu](#create-a-user-account) výše v části. Vyberte **OK** potvrďte výběr.
+1. Vyberte **OK** po potvrzení, že je správný název objektu.
+1. Vyberte **Použít**. Vyberte **OK** zavřete okno zásady.
+
 ## <a name="manage-the-service"></a>Spravovat službu
 
 ### <a name="create-the-service"></a>Vytvoření služby
 
-Použití [sc.exe](https://technet.microsoft.com/library/bb490995) nástroj příkazového řádku vytvořte službu. `binPath` Hodnota je cesta ke spustitelnému souboru aplikace, která zahrnuje název spustitelného souboru. **Mezera mezi znaménko rovná se a znak pro uvození každého parametru a hodnota je povinný.**
+Použití [sc.exe](https://technet.microsoft.com/library/bb490995) vytvoříte službu z správu příkazové okno nástroje příkazového řádku. `binPath` Hodnota je cesta ke spustitelnému souboru aplikace, která zahrnuje název spustitelného souboru. **Mezera mezi znaménko rovná se a znak pro uvození každého parametru a hodnota je povinný.**
 
 ```console
 sc create {SERVICE NAME} binPath= "{PATH}" obj= "{DOMAIN}\{USER ACCOUNT}" password= "{PASSWORD}"
@@ -207,7 +225,7 @@ sc create {SERVICE NAME} binPath= "{PATH}" obj= "{DOMAIN}\{USER ACCOUNT}" passwo
 
 * `{SERVICE NAME}` &ndash; Název, který chcete přiřadit ke službě v [správce řízení služeb](/windows/desktop/services/service-control-manager).
 * `{PATH}` &ndash; Cesta ke spustitelnému souboru služby.
-* `{DOMAIN}` &ndash; Doména počítače připojené k doméně. Pokud počítač není připojený k doméně, názvu místního počítače.
+* `{DOMAIN}` &ndash; Doména počítače připojené k doméně. Pokud počítač není připojený k doméně, použijte název místního počítače.
 * `{USER ACCOUNT}` &ndash; Uživatelský účet, pod kterým je služba spuštěna.
 * `{PASSWORD}` &ndash; Heslo k uživatelskému účtu.
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: dfb67cd4c2a3f0e6fb270eb2e4850a664cdf5741
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 9f7fc5571f8d1a6e5e2d84779082abb02d2fb292
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103160"
+ms.locfileid: "56159392"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -410,7 +410,14 @@ Chcete-li konfigurovat ochranu dat v rámci služby IIS k uchování aktualizač
 
 * **Konfigurace fondu aplikací služby IIS se načíst profil uživatele**
 
-  Toto nastavení je v **Model procesu** části **Upřesnit nastavení** pro fond aplikací. Načíst profil uživatele nastaveno `True`. To ukládá klíče v části adresář profilu uživatele a chrání je pomocí rozhraní DPAPI klíčem specifické pro uživatelský účet je používána ve fondu aplikací.
+  Toto nastavení je v **Model procesu** části **Upřesnit nastavení** pro fond aplikací. Nastavte **načíst profil uživatele** k `True`. Pokud je nastavena na `True`, klíče jsou uložené v adresáři profilu uživatele a chránit pomocí rozhraní DPAPI klíčem specifické pro uživatelský účet. Klíče jsou zachované *%LOCALAPPDATA%/ASP.NET/DataProtection-Keys* složky.
+
+  Fond aplikací [setProfileEnvironment atribut](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) také musí být povolené. Výchozí hodnota `setProfileEnvironment` je `true`. V některých případech (například Windows operačního systému) `setProfileEnvironment` je nastavena na `false`. Pokud se klíče nejsou uloženy v adresáři profilu uživatele jako očekávání:
+
+  1. Přejděte *%windir%/system32/inetsrv/config* složky.
+  1. Otevřít *applicationHost.config* souboru.
+  1. Vyhledejte element `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>`.
+  1. Ujistěte se, že `setProfileEnvironment` atribut není k dispozici, která má výchozí hodnotu hodnotu k `true`, nebo explicitně nastavit hodnotu atributu na `true`.
 
 * **Systém souborů jako kanál klíč úložiště**
 

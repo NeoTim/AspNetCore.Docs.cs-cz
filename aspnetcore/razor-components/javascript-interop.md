@@ -7,18 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/javascript-interop
-ms.openlocfilehash: 99aa2b7844879f3fa9b577116115ba1bfcf9defe
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 9f822fee8990b03ff15ffa9857a2ddd95328a6ce
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55668121"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159266"
 ---
 # <a name="razor-components-javascript-interop"></a>Razor JavaScript součásti zprostředkovatel komunikace s objekty
 
 Podle [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Roth](https://github.com/danroth27), a [Luke Latham](https://github.com/guardrex)
-
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
 Razor součásti aplikace můžete volat funkce jazyka JavaScript od .NET a .NET metody z kódu jazyka JavaScript.
 

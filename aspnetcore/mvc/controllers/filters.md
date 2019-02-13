@@ -4,14 +4,14 @@ author: ardalis
 description: Zjistěte, jak filtry fungují a jak je používat v ASP.NET Core MVC.
 ms.author: riande
 ms.custom: mvc
-ms.date: 1/15/2019
+ms.date: 02/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: fe3082481b51c968fd361dbcc9553c4e35a36f2a
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: 3cd576b389a2a4384c0ba90b5740ac42140533cc
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444347"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159311"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -71,6 +71,7 @@ Implementovat rozhraní pro několik fází filtru v jednu třídu. Například 
 > Implementace **buď** synchronní nebo asynchronní verzi rozhraní filtru, ne obojí. Rozhraní framework nejprve zkontroluje a zjistěte, jestli implementuje rozhraní asynchronní filtr, a pokud ano, který volá. Pokud tomu tak není, volá rozhraní synchronní metody. Pokud byste chtěli implementace obě rozhraní na jednu třídu, by byla volána pouze asynchronní metody. Při používání abstraktních tříd jako <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute> by se mělo přepsat pouze metody synchronní nebo asynchronní metody pro každý typ filtru.
 
 ### <a name="ifilterfactory"></a>IFilterFactory
+
 [IFilterFactory](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory) implementuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>. Proto `IFilterFactory` instance může sloužit jako `IFilterMetadata` instance kdekoli v kanálu filtru. Když rozhraní připraví k vyvolání tohoto filtru, pokusí se vysílat na `IFilterFactory`. Pokud je úspěšná tohoto přetypování [CreateInstance](/dotnet/api/microsoft.aspnetcore.mvc.filters.ifilterfactory.createinstance) metoda je volána k vytvoření `IFilterMetadata` instanci, která bude volána. To poskytuje flexibilní návrhu, protože kanál přesné filtru nemusí být explicitně nastaveno při spuštění aplikace.
 
 Můžete implementovat `IFilterFactory` na vlastní atribut implementace jako jiný přístup k vytváření filtrů:
@@ -348,8 +349,12 @@ Preferovat middleware pro zpracování výjimek. Použít filtry výjimek pouze 
 
 ## <a name="result-filters"></a>Filtry výsledků
 
-* Implementovat buď `IResultFilter` nebo `IAsyncResultFilter` rozhraní.
+* Implementujte rozhraní:
+  * `IResultFilter` nebo `IAsyncResultFilter`.
+  * `IAlwaysRunResultFilter` Nebo `IAsyncAlwaysRunResultFilter`
 * Jejich spuštění obklopuje provádění výsledky akce. 
+
+### <a name="iresultfilter-and-iasyncresultfilter"></a>IResultFilter a IAsyncResultFilter
 
 Tady je příklad výsledku filtru, který přidá hlavičku protokolu HTTP.
 
@@ -371,6 +376,35 @@ Když `OnResultExecuted` metoda pracuje, odpověď se pravděpodobně poslal kli
 Pro `IAsyncResultFilter` volání `await next` na `ResultExecutionDelegate` spustí všechny následné výsledek filtry a výsledku akce. Zkrácenou, nastavte `ResultExecutingContext.Cancel` na hodnotu true a nemůžete volat `ResultExectionDelegate`.
 
 Rozhraní poskytuje abstraktní `ResultFilterAttribute` , ke kterým můžete podtřídy. [AddHeaderAttribute](#add-header-attribute) třídy je uvedeno výše je příkladem atribut filtru výsledků.
+
+### <a name="ialwaysrunresultfilter-and-iasyncalwaysrunresultfilter"></a>IAlwaysRunResultFilter a IAsyncAlwaysRunResultFilter
+
+<xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> a <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter> rozhraní deklarovat <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> implementace, která se spouští pro výsledky akce. Filtr platí pro výsledek akce, není-li <xref:Microsoft.AspNetCore.Mvc.Filters.IExceptionFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter> platí a zkratům odpovědi.
+
+Jinými slovy tyto "vždy spustit" filtry, vždycky spouštět, s výjimkou případů, kdy je filtr výjimek nebo autorizační zkratům. Filtry pro jiné než `IExceptionFilter` a `IAuthorizationFilter` není řečeno okruh je.
+
+Například následující filtr vždy spustí a nastaví výsledek akce (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>) s *422 nezpracované Entity* stavový kód, pokud selže vyjednávání obsahu:
+
+```csharp
+public class UnprocessableResultFilter : Attribute, IAlwaysRunResultFilter
+{
+    public void OnResultExecuting(ResultExecutingContext context)
+    {
+        if (context.Result is StatusCodeResult statusCodeResult &&
+            statusCodeResult.StatusCode == 415)
+        {
+            context.Result = new ObjectResult("Can't process this!")
+            {
+                StatusCode = 422,
+            };
+        }
+    }
+
+    public void OnResultExecuted(ResultExecutedContext context)
+    {
+    }
+}
+```
 
 ## <a name="using-middleware-in-the-filter-pipeline"></a>Pomocí middleware v kanálu filtru
 

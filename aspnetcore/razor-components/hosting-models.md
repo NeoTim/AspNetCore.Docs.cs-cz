@@ -7,22 +7,22 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/hosting-models
-ms.openlocfilehash: 9aba63860fd8c566b866bb1d3b50b29a7a33c6e8
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: d1e0c472d7d10eeb4cef0da735cf703c98dd1645
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854468"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159504"
 ---
 # <a name="razor-components-hosting-models"></a>Hostování modely součásti syntaxe Razor
 
 Podle [Daniel Roth](https://github.com/danroth27)
 
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
-
 Součásti Razor je webová architektura navržený pro běh na straně klienta v prohlížeči na základě WebAssembly .NET runtime (*Blazor*) nebo na serveru ASP.NET Core (*ASP.NET Core Razor komponenty*). Bez ohledu na modelech hostování modelu, aplikace a komponenty *zůstávají stejné*. Tento článek popisuje dostupné modelech hostování.
 
 ## <a name="client-side-hosting-model"></a>Model hostingu na straně klienta
+
+[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
 Hlavní model hostingu pro Blazor je spuštěné straně klienta v prohlížeči. V tomto modelu aplikace Blazor, jeho závislosti a modul .NET runtime se stáhnou do prohlížeče. Aplikace je proveden přímo v prohlížeči vlákno uživatelského rozhraní. Všechny aktualizace uživatelského rozhraní a zpracování událostí se stane v rámci stejného procesu. Prostředky aplikace můžete nasadit jako statické soubory pomocí libovolné webový server je upřednostňovaný (viz [hostitele a nasadit](xref:host-and-deploy/razor-components/index)).
 

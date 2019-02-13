@@ -7,18 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/dependency-injection
-ms.openlocfilehash: 04be8371b6e746929448b24487b07c08cf03cb78
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 6ce8fa74f20145f48797d267c20ef2593368b941
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55668119"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159501"
 ---
 # <a name="razor-components-dependency-injection"></a>Injektáž závislostí součásti syntaxe Razor
 
 Podle [Rainer Stropek](https://www.timecockpit.com)
-
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
 [Injektáž závislostí (DI)](/aspnet/core/fundamentals/dependency-injection) je integrovaný. Aplikace můžou používat integrované služby tak, že je vloženy do komponenty. Aplikace můžete také definovat vlastní služby a zpřístupnit prostřednictvím DI.
 

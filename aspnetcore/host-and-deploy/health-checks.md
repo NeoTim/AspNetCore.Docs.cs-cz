@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/12/2018
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: cf2aea91221887dad5646604214f810493d4b175
-ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
+ms.openlocfilehash: 8e1d29257738dd2902f8afb5685670a6e28b10e2
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53329143"
+ms.lasthandoff: 02/12/2019
+ms.locfileid: "56159418"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Doplněk pro kontroly stavu v ASP.NET Core
 
@@ -415,6 +415,8 @@ dotnet run --scenario liveness
 
 V prohlížeči, navštivte `/health/ready` několikrát až do 15 sekund prošly. Zkontrolujte stav sestavy `Unhealthy` po dobu prvních 15 sekund. Po 15 sekundách koncový bod sestav `Healthy`, která odráží dokončení dlouho běžící úlohy v hostované službě.
 
+Tento příklad také vytvoří vydavatel zkontrolovat stav (`IHealthCheckPublisher` implementace), který spustí první Kontrola připravenosti s dvěma druhý zpoždění. Další informace najdete v tématu [vydavatele zkontrolovat stav](#health-check-publisher) oddílu.
+
 ### <a name="kubernetes-example"></a>Příklad Kubernetes
 
 Použití samostatné kontroly připravenosti a aktivity je užitečná v prostředí, jako [Kubernetes](https://kubernetes.io/). V systému Kubernetes může být aplikace vyžadují k provedení práce časově náročné spuštění před přijetím požadavků, jako je test podkladové databázi dostupnosti. Použití samostatné kontroly umožňuje orchestrator k rozlišení, zda je funkční, ale není ještě připraven aplikace nebo pokud aplikace se nepodařilo spustit. Další informace o připravenosti a testům aktivity v Kubernetes najdete v tématu [konfigurace aktivity a testy připravenosti](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) v dokumentaci ke Kubernetes.
@@ -508,7 +510,7 @@ Registrace služby kontroly stavu s `AddHealthChecks` v `Startup.ConfigureServic
 > [!NOTE]
 > Vytváří se můžete vyhnout *launchSettings.json* soubor v ukázkové aplikaci tak, že nastavíte adresy URL a port pro správu explicitně v kódu. V *Program.cs* kde `WebHostBuilder` je vytvořen, přidejte volání do `UseUrls` a poskytovat normální odpovědi koncového bodu aplikace a portu bodu správy. V *ManagementPortStartup.cs* kde `UseHealthChecks` je volána, explicitně zadat port pro správu.
 >
-> *Soubor program.cs*:
+> *Program.cs*:
 >
 > ```csharp
 > return new WebHostBuilder()
@@ -638,6 +640,45 @@ Když `IHealthCheckPublisher` se přidá do kontejneru služby systém kontroly 
 ```csharp
 Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 ```
+
+`HealthCheckPublisherOptions` Můžete tak nastavit:
+
+* `Delay` &ndash; Počáteční zpoždění byla aplikována za aplikace se spustí před spuštěním `IHealthCheckPublisher` instancí. Zpoždění je použít jednou při spuštění a neplatí pro dalších iteracích. Výchozí hodnota je pět sekund.
+* `Period` &ndash; Období `IHealthCheckPublisher` spuštění. Výchozí hodnota je 30 sekund.
+* `Predicate` &ndash; Pokud `Predicate` je `null` (výchozí), služba stavu zaškrtnutí vydavatele běží všechny kontroly stavu registrované. Pro spuštění podmnožiny kontroly stavu, poskytují funkce, která filtruje sadu kontroly. Predikát je vyhodnocen jednotlivých období.
+* `Timeout` &ndash; Časový limit pro provedení stavu kontroluje všechny `IHealthCheckPublisher`instancí. Použití <xref:System.Threading.Timeout.InfiniteTimeSpan> provádět bez časového limitu. Výchozí hodnota je 30 sekund.
+
+::: moniker range="= aspnetcore-2.2"
+
+> [!WARNING]
+> Ve verzi 2.2 technologie ASP.NET Core, nastavení `Period` není kompilátorem respektovány `IHealthCheckPublisher` provádění; nastaví hodnotu `Delay`. Tento problém bude opraven v ASP.NET Core 3.0. Další informace najdete v tématu [HealthCheckPublisherOptions.Period nastaví hodnotu vlastnosti. Zpoždění](https://github.com/aspnet/Extensions/issues/1041).
+
+::: moniker-end
+
+V ukázkové aplikaci `ReadinessPublisher` je `IHealthCheckPublisher` implementace. Kontrola stavu se zaznamená do `Entries` nebude úspěšné a pro každou kontrolu:
+
+[!code-csharp[](health-checks/samples/2.x/HealthChecksSample/ReadinessPublisher.cs?name=snippet_ReadinessPublisher&highlight=20,22-23)]
+
+V ukázkové aplikaci `LivenessProbeStartup` například `StartupHostedService` kontroly připravenosti má dvě druhý zpoždění spuštění a spustí kontrolu každých 30 sekund. K aktivaci `IHealthCheckPublisher` zaregistruje implementaci vzorku `ReadinessPublisher` jako služba typu singleton v [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) kontejneru:
+
+[!code-csharp[](health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs?name=snippet_ConfigureServices&highlight=12-17,28)]
+
+::: moniker range="= aspnetcore-2.2"
+
+> [!NOTE]
+> Následující alternativní řešení umožňuje přidat `IHealthCheckPublisher` instance služby kontejneru, když jeden nebo více jiných hostované služby již byly přidány do aplikace. Toto řešení nevyžaduje verzi technologie ASP.NET Core 3.0. Další informace najdete v tématu: https://github.com/aspnet/Extensions/issues/639.
+>
+> ```csharp
+> private const string HealthCheckServiceAssembly = 
+>     "Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherHostedService";
+>
+> services.TryAddEnumerable(
+>     ServiceDescriptor.Singleton(typeof(IHostedService), 
+>         typeof(HealthCheckPublisherOptions).Assembly
+>             .GetType(HealthCheckServiceAssembly)));
+> ```
+
+::: moniker-end
 
 > [!NOTE]
 > [BeatPulse](https://github.com/Xabaril/BeatPulse) zahrnuje vydavatele pro několik systémů, včetně [Application Insights](/azure/application-insights/app-insights-overview).
