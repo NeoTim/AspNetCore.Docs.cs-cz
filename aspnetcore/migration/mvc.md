@@ -3,14 +3,14 @@ title: Migrace z technologie ASP.NET MVC do ASP.NET Core MVC
 author: ardalis
 description: Zjistěte, jak začít s migrací projektu aplikace ASP.NET MVC do ASP.NET Core MVC.
 ms.author: riande
-ms.date: 03/07/2017
+ms.date: 02/13/2019
 uid: migration/mvc
-ms.openlocfilehash: 7c9d927bbd06f96f130d53e946a2963b5804960b
-ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
+ms.openlocfilehash: 2ca51a145243444722ad8081fd8cdbb65d72b53a
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2018
-ms.locfileid: "51505736"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248040"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>Migrace z technologie ASP.NET MVC do ASP.NET Core MVC
 
@@ -29,7 +29,7 @@ Abychom si předvedli upgradu, Začneme tím, že vytvoříte aplikaci ASP.NET M
 
 ![Dialogové okno nové webové aplikace: Šablona projektu MVC vybrali panelu šablony ASP.NET](mvc/_static/new-project-select-mvc-template.png)
 
-*Volitelné:* změnit název řešení od *WebApp1* k *Mvc5*. Visual Studio zobrazí nový název řešení (*Mvc5*), což usnadňuje zjistit tento projekt z projektu.
+*Volitelné:* Změňte název řešení od *WebApp1* k *Mvc5*. Visual Studio zobrazí nový název řešení (*Mvc5*), což usnadňuje zjistit tento projekt z projektu.
 
 ## <a name="create-the-aspnet-core-project"></a>Vytvořit projekt ASP.NET Core
 
@@ -37,9 +37,9 @@ Vytvořte nový *prázdný* webové aplikace ASP.NET Core se stejným názvem ja
 
 ![Dialogové okno nového projektu](mvc/_static/new_core.png)
 
-![Dialogové okno nové webové aplikace ASP.NET: Šablona prázdný projekt vybraný v panelech šablony ASP.NET Core](mvc/_static/new-project-select-empty-aspnet5-template.png)
+![Dialogové okno nové webové aplikace ASP.NET: Prázdná šablona projektu vybrané panelu šablony ASP.NET Core](mvc/_static/new-project-select-empty-aspnet5-template.png)
 
-* *Volitelné:* vytvoření nové aplikace ASP.NET Core pomocí *webovou aplikaci* šablony projektu. Pojmenujte projekt *WebApp1*a vyberte možnost ověřování **jednotlivé uživatelské účty**. Přejmenovat tuto aplikaci k *FullAspNetCore*. Vytvoření projektu ušetříte čas při převodu. Můžete si prohlédnout kód generovaný šablony najdete v článku konečný výsledek nebo zkopírujte kód do projektu převodu. Je také užitečné, pokud jste zaseknout se na krok převodu k porovnání s projektem šablona vytvořena.
+* *Volitelné:* Vytvoření nové aplikace ASP.NET Core pomocí *webovou aplikaci* šablony projektu. Pojmenujte projekt *WebApp1*a vyberte možnost ověřování **jednotlivé uživatelské účty**. Přejmenovat tuto aplikaci k *FullAspNetCore*. Vytvoření projektu ušetříte čas při převodu. Můžete si prohlédnout kód generovaný šablony najdete v článku konečný výsledek nebo zkopírujte kód do projektu převodu. Je také užitečné, pokud jste zaseknout se na krok převodu k porovnání s projektem šablona vytvořena.
 
 ## <a name="configure-the-site-to-use-mvc"></a>Konfigurace lokality, aby používala MVC
 
@@ -149,7 +149,7 @@ Staré rozhraní ASP.NET MVC používá projekt [Bootstrap](https://getbootstrap
 
 * Vytvoření *zobrazení/Shared* složky.
 
-* *Volitelné:* kopírování *_ViewImports.cshtml* z *FullAspNetCore* projekt MVC *zobrazení* složku do projektu ASP.NET Core  *Zobrazení* složky. Odebrat všechny deklarace oboru názvů v *_ViewImports.cshtml* souboru. *_ViewImports.cshtml* soubor obsahuje obory názvů pro všechny soubory, zobrazení a přináší [pomocných rutin značek](xref:mvc/views/tag-helpers/intro). Pomocné rutiny značek se používají v novém souboru rozložení. *_ViewImports.cshtml* souboru je nového v ASP.NET Core.
+* *Volitelné:* Kopírování *_ViewImports.cshtml* z *FullAspNetCore* projekt MVC *zobrazení* složku do projektu ASP.NET Core *zobrazení* složka. Odebrat všechny deklarace oboru názvů v *_ViewImports.cshtml* souboru. *_ViewImports.cshtml* soubor obsahuje obory názvů pro všechny soubory, zobrazení a přináší [pomocných rutin značek](xref:mvc/views/tag-helpers/intro). Pomocné rutiny značek se používají v novém souboru rozložení. *_ViewImports.cshtml* souboru je nového v ASP.NET Core.
 
 * Kopírovat *_Layout.cshtml* souboru z původního projektu ASP.NET MVC *zobrazení/Shared* složku do projektu ASP.NET Core *zobrazení/Shared* složky.
 
@@ -188,7 +188,7 @@ Aktualizovaný *_Layout.cshtml* souboru je uveden níže:
 
 Zobrazte webu v prohlížeči. Teď by měl správně načíst data pomocí očekávané styly na místě.
 
-* *Volitelné:* můžete chtít zkuste použít nový soubor rozložení. Pro tento projekt můžete zkopírovat soubor rozložení z *FullAspNetCore* projektu. Nový soubor rozložení, který používá [pomocných rutin značek](xref:mvc/views/tag-helpers/intro) a dalších vylepšení.
+* *Volitelné:* Můžete chtít zkuste použít nový soubor rozložení. Pro tento projekt můžete zkopírovat soubor rozložení z *FullAspNetCore* projektu. Nový soubor rozložení, který používá [pomocných rutin značek](xref:mvc/views/tag-helpers/intro) a dalších vylepšení.
 
 ## <a name="configure-bundling-and-minification"></a>Konfigurace sdružování a minifikace
 
@@ -204,5 +204,5 @@ Neošetřené výjimky ve webové aplikaci ASP.NET Core převede do chybové odp
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Vývoj klientské strany](xref:client-side/index)
-* [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)
+* <xref:razor-components/index>
+* <xref:mvc/views/tag-helpers/intro>

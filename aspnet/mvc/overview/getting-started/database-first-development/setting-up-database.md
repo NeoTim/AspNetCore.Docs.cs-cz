@@ -4,17 +4,17 @@ title: 'Kurz: Začínáme s EF Database First pomocí MVC 5'
 description: Tento kurz ukazuje, jak začít s existující databáze a rychle vytvořit webovou aplikaci, která umožňuje uživatelům interakci s daty.
 author: Rick-Anderson
 ms.author: riande
-ms.date: 01/28/2019
+ms.date: 01/15/2019
 ms.topic: tutorial
 ms.assetid: 095abad4-3bfe-4f06-b092-ae6a735b7e49
 msc.legacyurl: /mvc/overview/getting-started/database-first-development/setting-up-database
 msc.type: authoredcontent
-ms.openlocfilehash: dfc6c7a7083524a1e7049fdc879fe679f951084d
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: d99fdb5382037038d4428ff1946f39aee380fb75
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667736"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248222"
 ---
 # <a name="tutorial-get-started-with-ef-database-first-using-mvc-5"></a>Kurz: Začínáme s EF Database First pomocí MVC 5
 
@@ -33,17 +33,16 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Visual Studio 2017](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=button+cta&utm_content=download+vs2017)
+[Visual Studio 2017](https://visualstudio.microsoft.com/downloads/)
 
-## <a name="introduction"></a>Úvod
-
-Tento kurz se zabývá situace, kdy databázi máte a chcete pro generování kódu pro webovou aplikaci na základě polí dané databáze. Tento přístup se nazývá Database First vývoje. Pokud již nemáte existující databázi, můžete použít přístupu říká vývoje Code First, který zahrnuje definování datových tříd a generování databáze z vlastnosti třídy.
 
 ## <a name="set-up-the-database"></a>Nastavení databáze
 
 Aby napodobovaly prostředí, které máte existující databázi, nejprve vytvořit databázi s předem vyplněný daty a potom vytvořit webové aplikace, která se připojuje k databázi.
 
-V tomto kurzu byla vyvinutá pomocí LocalDB. Můžete použít existující databázový server namísto LocalDB, ale v závislosti na vaší verzi sady Visual Studio a typ databáze, všechny datové nástroje v sadě Visual Studio nemusí být podporován. Pokud nástroje nejsou k dispozici pro vaši databázi, budete muset provést některé kroky specifické pro databázi v sadě management suite pro vaši databázi.
+
+V tomto kurzu byla vyvinutá pomocí LocalDB pomocí sady Visual Studio 2017. Můžete použít existující databázový server namísto LocalDB, ale v závislosti na vaší verzi sady Visual Studio a typ databáze, všechny datové nástroje v sadě Visual Studio nemusí být podporován. Pokud nástroje nejsou k dispozici pro vaši databázi, budete muset provést některé kroky specifické pro databázi v sadě management suite pro vaši databázi.
+
 
 Pokud máte potíže s databází nástroje ve vaší verzi sady Visual Studio, ujistěte se, že máte nainstalovanou nejnovější verzi nástroje databáze. Informace o aktualizaci nebo instalaci databáze nástroje najdete v tématu [Microsoft SQL Server Data Tools](https://msdn.microsoft.com/data/hh297027).
 

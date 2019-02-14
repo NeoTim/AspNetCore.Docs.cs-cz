@@ -4,18 +4,22 @@ title: 'Kurz: Aktualizace souvisejících dat v aplikaci ASP.NET MVC s EF'
 description: V tomto kurzu budete aktualizovat související data. U většiny relací to můžete udělat prostřednictvím aktualizace pole cizích klíčů nebo navigační vlastnosti.
 author: tdykstra
 ms.author: riande
-ms.date: 01/17/2019
+ms.date: 01/19/2019
 ms.topic: tutorial
 ms.assetid: 7ba88418-5d0a-437d-b6dc-7c3816d4ec07
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: daefbcea39dc341c6fc72eb344b05eb2dbf0c3ba
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: 1ef4242ff3bd1dd86f4d58bd04ba08e8b90fdaa4
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889844"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248274"
 ---
+<a name="updating-related-data-with-the-entity-framework-in-an-aspnet-mvc-application"></a>Aktualizace souvisejících dat s Entity Framework v aplikaci ASP.NET MVC
+====================
+
+
 # <a name="tutorial-update-related-data-with-ef-in-an-aspnet-mvc-app"></a>Kurz: Aktualizace souvisejících dat v aplikaci ASP.NET MVC s EF
 
 V předchozím kurzu zobrazí související data. V tomto kurzu budete aktualizovat související data. U většiny relací to můžete udělat prostřednictvím aktualizace pole cizích klíčů nebo navigační vlastnosti. U relací m: n Entity Framework nezveřejňuje tabulky spojení přímo, tak přidání a odebrání entity do a z odpovídající navigační vlastnosti.
@@ -124,9 +128,12 @@ Nahradit `HttpPost` `Edit` metodu s následujícím kódem. která zpracovává 
 
 [!code-csharp[Main](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/samples/sample11.cs)]
 
-Odkaz na `RetryLimitExceededException` vyžaduje `using` příkazu. Přidat, najeďte myší na `RetryLimitExceededException`. Vysvětlení těchto potíží se zobrazí. Vyberte **ukazují možné opravy** a potom klikněte na tlačítko **pomocí System.Data.Entity.Infrastructure;**.
+Odkaz na `RetryLimitExceededException` vyžaduje `using` příkaz Přidat – umístěte ukazatel myši nad `RetryLimitExceededException`. Zobrazí se následující zpráva: ![ Zkuste zpráva o výjimce](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image13.png)
 
-![Vyřešit výjimku opakování](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image7.png)
+
+Vyberte **ukazují potentital opravy**, pak **pomocí System.Data.Entity.Infrastructure**
+
+![Vyřešit výjimku opakování](updating-related-data-with-the-entity-framework-in-an-asp-net-mvc-application/_static/image14.png)
 
 Kód provede následující akce:
 

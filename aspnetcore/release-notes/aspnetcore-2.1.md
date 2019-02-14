@@ -4,14 +4,14 @@ author: isaac2004
 description: Informace o nových funkcích v ASP.NET Core 2.1.
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/30/2018
+ms.date: 02/13/2019
 uid: aspnetcore-2.1
-ms.openlocfilehash: e16bb874f317b922f3900b540596f6ff38debb2f
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 8299af819f86d3d2371650ce3d87deb817f0feb8
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206832"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248170"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>Co je nového v ASP.NET Core 2.1
 
@@ -70,7 +70,7 @@ Použití protokolu HTTPS lze dále vynutit použití [HTTP striktní přenosu z
 
 V produkčním prostředí musí být explicitně nakonfigurován protokol HTTPS. V 2.1 výchozí konfigurace schématu konfigurace HTTPS pro Kestrel přidala. Aplikace je možné nakonfigurovat na použití:
 
-* Více koncových bodů včetně adresy URL. Další informace najdete v tématu [Kestrel webového serveru implementace: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
+* Více koncových bodů včetně adresy URL. Další informace najdete v tématu [implementaci Kestrel webového serveru: Konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 * Certifikát, který se má použít pro protokol HTTPS ze souboru na disku nebo z úložiště certifikátů.
 
 ## <a name="gdpr"></a>GDPR
@@ -131,7 +131,7 @@ Další informace najdete v tématu [zahájit požadavky HTTP](xref:fundamentals
 
 ## <a name="kestrel-transport-configuration"></a>Konfigurace kestrel přenosu
 
-Verze technologie ASP.NET Core 2.1 Kestrel pro výchozí přenos je již podle Libuv ale místo toho podle spravované sokety. Další informace najdete v tématu [Kestrel webového serveru implementace: Konfigurace přenosu](xref:fundamentals/servers/kestrel#transport-configuration).
+Verze technologie ASP.NET Core 2.1 Kestrel pro výchozí přenos je již podle Libuv ale místo toho podle spravované sokety. Další informace najdete v tématu [implementaci Kestrel webového serveru: Konfigurace přenosu](xref:fundamentals/servers/kestrel#transport-configuration).
 
 ## <a name="generic-host-builder"></a>Tvůrce obecný hostitele
 
@@ -144,14 +144,19 @@ Další informace najdete v tématu [obecný hostitele .NET](xref:fundamentals/h
 Jednostránková aplikace šablony pro Angular, React a React s Reduxem se aktualizují, aby používat standardní projekt struktury a systémy pro každé rozhraní, sestavení.
 
 Angular šablona je založena na Angular CLI a šablon React jsou založeny na vytvoření aplikace react.
-Další informace najdete v tématu [šablony jednostránkové aplikace pomocí ASP.NET Core](xref:spa/index).
+
+Další informace naleznete v tématu:
+
+* <xref:spa/angular>
+* <xref:spa/react>
+* <xref:spa/react-with-redux>
 
 ## <a name="razor-pages-search-for-razor-assets"></a>Stránky Razor vyhledávat Razor
 
 2.1 stránky Razor vyhledejte Razor prostředků (např. rozložení a částečných zobrazení) v následujících adresářích v uvedeném pořadí:
 
 1. Aktuální složce stránky.
-1. *Řetězec/Pages/sdílené /*
+1. */Pages/Shared/*
 1. */Views/sdílené /*
 
 ## <a name="razor-pages-in-an-area"></a>Stránky Razor v oblasti.

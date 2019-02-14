@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/14/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 7c8255097dfc72480794930ebe4d6cb568edbd7c
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: ca7ee54b8e6b6ae5091b0cb133e448ad9c04da8f
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396191"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248516"
 ---
 # <a name="model-validation-in-aspnet-core-mvc"></a>Ověření modelu v ASP.NET Core MVC
 
@@ -151,9 +151,9 @@ V následujícím příkladu obchodní pravidlo uvádí, zda uživatelé nemusí
 
 Když uživatel změní `Genre` pole a odešle formulář, `IsValid` metodu `ClassicMovieAttribute` ověří, zda je tento film klasický. Stejně jako všechny vestavěné atributy, použije `ClassicMovieAttribute` na vlastnost, jako `ReleaseDate` k zajištění ověření dojde, jak je znázorněno v předchozí ukázce kódu. Protože příklad funguje pouze s `Movie` typy, je vhodnější použít `IValidatableObject` jak je znázorněno v následujícím odstavci.
 
-Alternativně může umístit tento stejný kód v modelu implementací `Validate` metodu na `IValidatableObject` rozhraní. Při vlastní ověřovací atributy fungovat dobře pro jednotlivé vlastnosti ověřování, implementace `IValidatableObject` je možné provádět ověřování na úrovni třídy, jak je vidět tady.
+Alternativně může umístit tento stejný kód v modelu implementací `Validate` metodu na `IValidatableObject` rozhraní. Při vlastní ověřovací atributy fungovat dobře pro jednotlivé vlastnosti ověřování, implementace `IValidatableObject` je možné provádět ověřování na úrovni třídy:
 
-[!code-csharp[](validation/sample/MovieIValidatable.cs?name=snippet_Validate)]
+[!code-csharp[](validation/sample/MovieIValidatable.cs?name=snippet&highlight=1,26-34)]
 
 ## <a name="client-side-validation"></a>Ověřování na straně klienta
 

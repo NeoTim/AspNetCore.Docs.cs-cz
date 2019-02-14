@@ -4,26 +4,36 @@ title: Hledání | Dokumentace Microsoftu
 author: Rick-Anderson
 description: ''
 ms.author: riande
-ms.date: 05/22/2015
+ms.date: 01/17/2019
 ms.assetid: df001954-18bf-4550-b03d-43911a0ea186
 msc.legacyurl: /mvc/overview/getting-started/introduction/adding-search
 msc.type: authoredcontent
-ms.openlocfilehash: 31fd35ac63f3eb31d824e1710833ad83a0852ac9
-ms.sourcegitcommit: a91e8dd2f4b788114c8bc834507277f4b5e8d6c5
+ms.openlocfilehash: ada125c917656f3a83524ff39e53b4cfc041a497
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/04/2019
-ms.locfileid: "55712260"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248378"
 ---
-<a name="search"></a>Search
+<a name="search"></a>Hledat
 ====================
-Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
 [!INCLUDE [Tutorial Note](sample/code-location.md)]
 
 ## <a name="adding-a-search-method-and-search-view"></a>Přidání vyhledávací metody a zobrazení vyhledávání
 
 V této části přidáte možnost vyhledávání `Index` metody akce, která umožňuje hledat filmy podle žánru nebo názvu.
+
+## <a name="prerequisites"></a>Požadavky
+
+Tak, aby odpovídala této části snímky obrazovky, musíte spustit aplikaci (F5) a přidejte následující videa do databáze.
+
+| Název | Datum vydání | Genre | Cena |
+| ----- | ------------ | ----- | ----- |
+| Ghostbusters | 6/8/1984 | Komedie | 6.99 |
+| Ghostbusters II | 6/16/1989 | Komedie | 6.99 |
+| Globálním opice | 3/27/1986 | Akce | 5.99 |
+
 
 ## <a name="updating-the-index-form"></a>Aktualizuje se Index formuláře
 
@@ -68,7 +78,7 @@ Nyní lze předat název vyhledávání jako data trasy (segment adresy URL) mí
 
 ![](adding-search/_static/image2.png)
 
-Ale nemůžete očekávat, že uživatelům změnit adresu URL pokaždé, když chtějí hledat videa. Takže teď jste přidáte uživatelské rozhraní umožňující je filtrovat videa. Pokud jste změnili podpis `Index` metody testování jak předat parametru ID vázané na trasy, změňte ho tak, aby vaše `Index` metoda použije parametr řetězce s názvem `searchString`:
+Ale nemůžete očekávat, že uživatelům změnit adresu URL pokaždé, když chtějí hledat videa. Takže teď přidáte uživatelského rozhraní, aby to pomohl ostatním filtrovat videa. Pokud jste změnili podpis `Index` metody testování jak předat parametru ID vázané na trasy, změňte ho tak, aby vaše `Index` metoda použije parametr řetězce s názvem `searchString`:
 
 [!code-csharp[Main](adding-search/samples/sample7.cs)]
 
@@ -120,7 +130,7 @@ Následující kód je dotaz LINQ, který načte všechny žánry z databáze.
 
 [!code-csharp[Main](adding-search/samples/sample12.cs)]
 
-Tento kód použije `AddRange` metoda Obecné `List` kolekce pro přidání různých žánry do seznamu. (Bez `Distinct` modifikátor, byly přidány duplicitní žánry – například byly přidány komedie dvakrát v naší ukázce). Pak uloží seznam žánry v kódu `ViewBag.MovieGenre` objektu. Ukládání kategorie dat (takové video rozšířením podle tematických společnosti) jako [SelectList](https://msdn.microsoft.cus/library/system.web.mvc.selectlist(v=vs.108).aspx) objekt `ViewBag`, pak je obvyklý postup pro aplikace MVC se přístup k datům kategorie v rozevíracím seznamu.
+Tento kód použije `AddRange` metoda Obecné `List` kolekce pro přidání různých žánry do seznamu. (Bez `Distinct` modifikátor, byly přidány duplicitní žánry – například byly přidány komedie dvakrát v naší ukázce). Pak uloží seznam žánry v kódu `ViewBag.MovieGenre` objektu. Ukládání kategorie dat (takové film žánry) jako [SelectList](https://msdn.microsoft.cus/library/system.web.mvc.selectlist(v=vs.108).aspx) objekt `ViewBag`, pak je obvyklý postup pro aplikace MVC se přístup k datům kategorie v rozevíracím seznamu.
 
 Následující kód ukazuje, jak zkontrolovat `movieGenre` parametru. Pokud není prázdná, omezí kód dál filmy dotaz omezit vybrané videa k zadaným rozšířením podle tematických.
 

@@ -2,26 +2,19 @@
 title: Šablona projektu Angular s ASP.NET Core
 author: SteveSandersonMS
 description: Zjistěte, jak začít pracovat se šablonou projektu ASP.NET Core jedné stránky aplikace (SPA) zaujetí pro Angular a Angular CLI.
-monikerRange: '>= aspnetcore-2.0'
-ms.author: scaddie
+monikerRange: '>= aspnetcore-2.1'
+ms.author: stevesa
 ms.custom: mvc
-ms.date: 02/21/2018
+ms.date: 02/13/2019
 uid: spa/angular
-ms.openlocfilehash: 8283fe9e96acb57942040dd4c90fabd204a19663
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
+ms.openlocfilehash: 35a839e31369e8dbf00f5dbfb3751a2985335755
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49326040"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248118"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>Šablona projektu Angular s ASP.NET Core
-
-::: moniker range="= aspnetcore-2.0"
-
-> [!NOTE]
-> Tato dokumentace se o šablona projektu Angular součástí ASP.NET Core 2.0. Jde o novější šablony Angular, do kterého můžete ručně aktualizovat. Šablona je zahrnuta v ASP.NET Core 2.1 ve výchozím nastavení.
-
-::: moniker-end
 
 Šablona projektu aktualizované Angular poskytuje příhodný výchozí bod pro ASP.NET Core pomocí Angular a Angular CLI k implementaci bohatě vybaveným a na straně klienta uživatelské rozhraní (UI) aplikace.
 
@@ -29,17 +22,7 @@ ms.locfileid: "49326040"
 
 ## <a name="create-a-new-app"></a>Vytvoření nové aplikace
 
-::: moniker range="= aspnetcore-2.0"
-
-Pokud používáte ASP.NET Core 2.0, zkontrolujte, že máte [nainstalované šablony aktualizovaný projekt Angular](xref:spa/index#installation).
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
 Pokud máte ASP.NET Core 2.1 nainstalovaný, není nutné k instalaci šablona projektu Angular.
-
-::: moniker-end
 
 Vytvoření nového projektu z příkazového řádku pomocí příkazu `dotnet new angular` v prázdném adresáři. Například následující příkazy vytvoří aplikaci *my nové app* adresáře a přepnete se do tohoto adresáře:
 
@@ -70,7 +53,7 @@ Now listening on: http://localhost:<port>
 
 Přejděte na tuto adresu URL v prohlížeči.
 
-Spuštění aplikace instance serveru Angular CLI na pozadí. Bude zaznamenána zpráva podobná následující: *NG Live vývojový Server naslouchá na localhost:&lt;otherport&gt;, otevřete prohlížeč na http://localhost:&lt; otherport&gt; /*  . Tuto zprávu ignorovat&mdash;má **není** adresu URL pro kombinované aplikace ASP.NET Core a Angular CLI.
+Spuštění aplikace instance serveru Angular CLI na pozadí. Bude zaznamenána zpráva podobná této: *NG Live vývojový Server naslouchá na localhost:&lt;otherport&gt;, otevřete prohlížeč na http://localhost:&lt; otherport&gt;/*. Tuto zprávu ignorovat&mdash;má **není** adresu URL pro kombinované aplikace ASP.NET Core a Angular CLI.
 
 ---
 

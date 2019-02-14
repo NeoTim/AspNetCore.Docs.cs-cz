@@ -4,18 +4,21 @@ title: 'Kurz: Popisovač souběžnosti ovládacím prvkem EF v aplikaci ASP.NET 
 description: Tento kurz ukazuje, jak použít optimistické řízení souběžnosti řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
 author: tdykstra
 ms.author: riande
-ms.date: 01/21/2019
 ms.topic: tutorial
+ms.date: 01/15/2019
 ms.assetid: be0c098a-1fb2-457e-b815-ddca601afc65
 msc.legacyurl: /mvc/overview/getting-started/getting-started-with-ef-using-mvc/handling-concurrency-with-the-entity-framework-in-an-asp-net-mvc-application
 msc.type: authoredcontent
-ms.openlocfilehash: 2b41b51de5fd6d87b9905ba2bb3ddf7cedb47e69
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: b513d7d86d382068bc1a8f1bcc61289ee946d38b
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889831"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248300"
 ---
+<a name="handling-concurrency-with-the-entity-framework-6-in-an-aspnet-mvc-5-application-10-of-12"></a>Ošetření souběžnosti se sadou Entity Framework 6 v aplikaci ASP.NET MVC 5 (10 12)
+====================
+
 # <a name="tutorial-handle-concurrency-with-ef-in-an-aspnet-mvc-5-app"></a>Kurz: Popisovač souběžnosti ovládacím prvkem EF v aplikaci ASP.NET MVC 5
 
 V předchozích kurzech jste zjistili, jak aktualizovat data. Tento kurz ukazuje, jak použít optimistické řízení souběžnosti řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu. Změnit webové stránky, které využívají službu `Department` entity tak, aby se zpracování chyb souběžnosti. Upravit a odstranit stránky, včetně některé zprávy, které se zobrazí, pokud dojde ke konfliktu souběžnosti na následujících obrázcích.
@@ -26,12 +29,14 @@ V předchozích kurzech jste zjistili, jak aktualizovat data. Tento kurz ukazuje
 
 V tomto kurzu se naučíte:
 
+
 > [!div class="checklist"]
 > * Další informace o konfliktů souběžnosti
 > * Přidat optimistického řízení souběžnosti
 > * Změna kontroleru oddělení
 > * Test souběžného zpracování
 > * Aktualizovat stránku Delete
+
 
 ## <a name="prerequisites"></a>Požadavky
 

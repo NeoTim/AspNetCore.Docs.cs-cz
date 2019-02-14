@@ -5,12 +5,12 @@ description: Tento článek vysvětluje, jak omezit identity na konkrétní sch�
 ms.author: riande
 ms.date: 10/22/2018
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: fbe9f32e01a214f41b5a6e9f43e8fdee5fc612df
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 778bb61f472ab2e76f85da5999d3c79238188f19
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50089393"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248196"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>Autorizovat s konkrétní schéma v ASP.NET Core
 
@@ -201,6 +201,6 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Jako výchozí zásady autorizace je přepsána, je možné použít jednoduchý `[Authorize]` atribut v zařízení. Kontrolér přijímá požadavky pak pomocí tokenů JWT vydaného vystavitele první nebo druhé.
+Jako výchozí zásady autorizace je přepsána, je možné použít `[Authorize]` atribut v zařízení. Kontrolér přijímá požadavky pak pomocí tokenů JWT vydaného vystavitele první nebo druhé.
 
 ::: moniker-end

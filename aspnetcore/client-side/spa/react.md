@@ -2,26 +2,19 @@
 title: Šablona projektu React pomocí ASP.NET Core
 author: SteveSandersonMS
 description: Zjistěte, jak začít pracovat s ASP.NET Core jedné stránky aplikace (SPA) šablona projektu pro React a vytvořit aplikaci react.
-monikerRange: '>= aspnetcore-2.0'
+monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/21/2018
+ms.date: 02/13/2019
 uid: spa/react
-ms.openlocfilehash: d83bff8abcd5b59d8bc4a51a101510755394f0c4
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: aa08a9d8d06d8b52be564fabf904d4923684d4e4
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667684"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248027"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>Šablona projektu React pomocí ASP.NET Core
-
-::: moniker range="= aspnetcore-2.0"
-
-> [!NOTE]
-> Tato dokumentace se o šablona projektu React součástí ASP.NET Core 2.0. Jde o šabloně novější React, do kterého můžete ručně aktualizovat. Šablona je zahrnuta v ASP.NET Core 2.1 ve výchozím nastavení.
-
-::: moniker-end
 
 Aktualizovaná šablona projektu React poskytuje příhodný výchozí bod pro ASP.NET Core aplikace pomocí React a [vytvořit aplikaci react](https://github.com/facebookincubator/create-react-app) konvence (CRA) k implementaci bohatě vybaveným a na straně klienta uživatelské rozhraní (UI).
 
@@ -29,17 +22,7 @@ Aktualizovaná šablona projektu React poskytuje příhodný výchozí bod pro A
 
 ## <a name="create-a-new-app"></a>Vytvoření nové aplikace
 
-::: moniker range="= aspnetcore-2.0"
-
-Pokud používáte ASP.NET Core 2.0, zkontrolujte, že máte [nainstalované aktualizovaná šablona projektu React](xref:spa/index#installation).
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
 Pokud máte ASP.NET Core 2.1 nainstalovaný, není nutné k instalaci šablona projektu React.
-
-::: moniker-end
 
 Vytvoření nového projektu z příkazového řádku pomocí příkazu `dotnet new react` v prázdném adresáři. Například následující příkazy vytvoří aplikaci *my nové app* adresáře a přepnete se do tohoto adresáře:
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: c70363c9cff94a682553745aba7fd4e396721f4e
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 4c7f2348b13207fb6f2ff830bbf67ffa30e5489c
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637674"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248235"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
 
@@ -215,6 +215,10 @@ Při nasazování samostatnou aplikaci:
 
 Zabezpečený protokol vazby umožňují že zadat certifikát má použít při reakci na požadavky přes protokol HTTPS. Vazba vyžaduje platný privátní certifikát (*.pfx*) vydaný pro konkrétní název hostitele. Další informace najdete v tématu [kurzu: Vytvoření vazby existujícího vlastního certifikátu SSL k Azure Web Apps](/azure/app-service/app-service-web-tutorial-custom-ssl).
 
+## <a name="transform-webconfig"></a>Transformace souboru web.config
+
+Pokud potřebujete transformovat *web.config* při publikování (třeba nastavit proměnné prostředí na základě konfigurace, profil nebo prostředí), viz <xref:host-and-deploy/iis/transform-webconfig>.
+
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Přehled Web Apps (5minutové video s přehledem)](/azure/app-service/app-service-web-overview)
@@ -226,7 +230,6 @@ Zabezpečený protokol vazby umožňují že zadat certifikát má použít při
 Služba Azure App Service v systému Windows Server používá [Internetové informační služby (IIS)](https://www.iis.net/). Následující témata se týkají základní technologie služby IIS:
 
 * <xref:host-and-deploy/iis/index>
-* <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
 * [V knihovně Microsoft TechNet: Windows Server](/windows-server/windows-server-versions)

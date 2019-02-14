@@ -5,14 +5,14 @@ description: Přečtěte si o výhodách předkompilace Razor soubory a jak prov
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2019
+ms.date: 02/13/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 2720708f8e58fdc55b82bfb56665005170e79934
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: c4e8f722fdf3d3f64807cc35ff9f349af7f32abd
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889753"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248183"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>Kompilace souboru Razor v ASP.NET Core
 
@@ -98,7 +98,7 @@ A *< project_name >. PrecompiledViews.dll* soubor obsahující kompilovaných so
 
 ## <a name="recompile-razor-files-on-change"></a>Znovu zkompilovat soubory Razor při změně
 
-<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> `AllowRecompilingViewsOnFileChange` Získává nebo nastavuje hodnotu, která určuje, zda jsou soubory Razor (zobrazení syntaxe Razor a Razor Pages) znovu zkompilovat a pokud soubory na disku.
+<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> Získává nebo nastavuje hodnotu, která určuje, zda jsou soubory Razor (zobrazení syntaxe Razor a Razor Pages) znovu zkompilovat a pokud soubory na disku.
 
 Pokud je nastavena na `true`, [IFileProvider.Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) nakonfigurovaný Watch pro změny v souborech Razor v <xref:Microsoft.Extensions.FileProviders.IFileProvider> instancí.
 
@@ -107,11 +107,11 @@ Výchozí hodnota je `true` pro:
 * Aplikace ASP.NET Core 2.1 nebo dřívější.
 * Aplikace ASP.NET Core 2.2 nebo vyšší ve vývojovém prostředí.
 
-`AllowRecompilingViewsOnFileChange` souvisí s přepínačem kompatibilitu a může poskytnout různé chování v závislosti na nakonfigurovaných kompatibility verzí pro aplikace. Konfigurace aplikace tak, že nastavíte `AllowRecompilingViewsOnFileChange` má přednost před hodnoty odvozené od verze kompatibility aplikace.
+<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> souvisí s přepínačem kompatibilitu a může poskytnout různé chování v závislosti na nakonfigurovaných kompatibility verzí pro aplikace. Konfigurace aplikace tak, že nastavíte <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> má přednost před hodnoty odvozené od verze kompatibility aplikace.
 
-Pokud verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> nebo starší, `AllowRecompilingViewsOnFileChange` je nastavena na `true` dokud explicitně nakonfigurován.
+Pokud verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> nebo starší, <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> je nastavena na `true` dokud explicitně nakonfigurován.
 
-Pokud je verze kompatibility aplikace nastavená na `CompatibilityVersion.Version_2_2` nebo novější, `AllowRecompilingViewsOnFileChange` je nastavena na `false` není-li prostředí vývoj nebo explicitně nastavená hodnotu.
+Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> nebo novější, <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> je nastavena na `false` není-li prostředí vývoj nebo explicitně nastavená hodnotu.
 
 Pokyny a příklady nastavení verze kompatibility aplikace najdete v tématu <xref:mvc/compatibility-version>.
 
