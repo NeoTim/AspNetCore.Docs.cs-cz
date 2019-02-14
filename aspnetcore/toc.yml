@@ -416,28 +416,6 @@ items:
       href: /azure/vs-storage-aspnet5-getting-started-tables/
 - name: Vývoj klientské strany
   items:
-  - uid: client-side/index
-    name: Přehled
-  - uid: client-side/using-gulp
-    name: Gulp
-  - uid: client-side/using-grunt
-    name: Grunt
-  - name: LibMan
-    items:
-    - uid: client-side/libman/index
-      name: Přehled
-    - uid: client-side/libman/libman-cli
-      name: CLI
-    - uid: client-side/libman/libman-vs
-      name: Visual Studio
-  - uid: client-side/bower
-    name: Bower
-  - uid: client-side/less-sass-fa
-    name: LESS, Sass a Font Awesome
-  - uid: client-side/bundling-and-minification
-    name: Vytvoření balíčku a minifikace
-  - uid: client-side/using-browserlink
-    name: Browser Link
   - name: Komponenty Razor
     items:
     - uid: razor-components/index
@@ -470,8 +448,36 @@ items:
         name: Konfigurace Linkeru
   - name: Jednostránkové aplikace
     items:
-    - uid: spa/index
-      name: Přehled
+    - name: Blazor
+      items:
+      - uid: spa/blazor/index
+        name: Přehled
+      - uid: spa/blazor/get-started
+        name: Začínáme
+      - uid: tutorials/first-razor-components-app
+        name: Sestavení první aplikace
+      - uid: razor-components/components
+        name: Součásti
+      - uid: razor-components/class-libraries
+        name: Knihovny komponent
+      - uid: razor-components/layouts
+        name: Rozložení
+      - uid: razor-components/dependency-injection
+        name: Injektáž závislostí
+      - uid: razor-components/routing
+        name: Směrování
+      - uid: razor-components/javascript-interop
+        name: Interoperabilita JavaScriptu
+      - uid: razor-components/debug
+        name: Ladit
+      - uid: razor-components/hosting-models
+        name: Modely hostingu
+      - name: Hostování a nasazení
+        items:
+        - uid: host-and-deploy/razor-components/index
+          name: Přehled
+        - uid: host-and-deploy/razor-components/configure-linker
+          name: Konfigurace Linkeru
     - uid: spa/angular
       name: Angular
     - uid: spa/react
@@ -480,6 +486,26 @@ items:
       name: React with Redux
     - uid: client-side/spa-services
       name: JavaScriptServices
+  - name: LibMan
+    items:
+    - uid: client-side/libman/index
+      name: Přehled
+    - uid: client-side/libman/libman-cli
+      name: CLI
+    - uid: client-side/libman/libman-vs
+      name: Visual Studio
+  - uid: client-side/using-gulp
+    name: Gulp
+  - uid: client-side/using-grunt
+    name: Grunt
+  - uid: client-side/bower
+    name: Bower
+  - uid: client-side/less-sass-fa
+    name: LESS, Sass a Font Awesome
+  - uid: client-side/bundling-and-minification
+    name: Vytvoření balíčku a minifikace
+  - uid: client-side/using-browserlink
+    name: Browser Link
 - name: Hostování a nasazení
   items:
   - uid: host-and-deploy/index
@@ -852,9 +878,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 202bb46df6692e84e8abcefbd333abf3a3fafb7f
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 7c9baf2a9e3a800ff9abfcb757ffde039d49a9a4
+ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103134"
+ms.locfileid: "56159539"
