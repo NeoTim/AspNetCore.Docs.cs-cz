@@ -4,14 +4,14 @@ author: rick-anderson
 description: Nechte si představit ASP.NET Core, což je platformově univerzální, vysoce výkonná architektura typu open-source, která slouží k vytváření moderních cloudových aplikací připojených k internetu.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2019
+ms.date: 02/13/2019
 uid: index
-ms.openlocfilehash: e7c81ff82e5206a5aca217417f6cb1c339d72e89
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: c3f07814bfab19a0f070e0b48b0d2ef6cfc1594e
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341404"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248157"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -44,7 +44,7 @@ Architektura ASP.NET Core MVC nabízí funkce umožňující vytvářet [webová
 
 ## <a name="client-side-development"></a>Vývoj klientské strany
 
-Architektura ASP.NET Core se hladce integruje do oblíbených klientských rozhraní a knihoven, včetně [Angular](xref:spa/angular), [React](xref:spa/react) a [Bootstrap](https://getbootstrap.com/). Další informace najdete v článku [Vývoj na straně klienta](xref:client-side/index).
+Architektura ASP.NET Core se hladce integruje do oblíbených klientských architektur a knihoven, včetně těchto: [komponenty Razor](xref:razor-components/index), [Angular](xref:spa/angular), [React](xref:spa/react) a [Bootstrap](https://getbootstrap.com/). Další informace najdete v tématu věnovaném [komponentám Razor](xref:razor-components/index) a v souvisejících tématech v části *Vývoj na straně klienta*.
 
 <a name="target-framework"></a>
 
