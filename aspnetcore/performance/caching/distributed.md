@@ -4,14 +4,14 @@ author: guardrex
 description: Další informace o použití ASP.NET Core distribuované mezipaměti ke zlepšení výkonu aplikací a škálovatelnost, obzvláště v prostředí cloudu nebo serveru farmy.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/19/2018
+ms.date: 02/13/2019
 uid: performance/caching/distributed
-ms.openlocfilehash: d80cde372535aa04604ce0cd5a731a1448515093
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: a157eb075874d2118e3e34b51410b539a1ec37df
+ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253005"
+ms.lasthandoff: 02/14/2019
+ms.locfileid: "56248585"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>Distribuované ukládání do mezipaměti v ASP.NET Core
 
@@ -76,7 +76,7 @@ Zaregistrujte implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistr
 
 ### <a name="distributed-memory-cache"></a>Distribuované mezipaměti
 
-Distribuované mezipaměti (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) je implementace poskytované rozhraním `IDistributedCache` , který ukládá položky v paměti. Distribuované mezipaměti není skutečný distribuované mezipaměti. Položek v mezipaměti jsou uloženy v instanci aplikace na serveru, kde je aplikace spuštěna.
+Distribuované mezipaměti (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) je implementace poskytované rozhraním <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> , který ukládá položky v paměti. Distribuované mezipaměti není skutečný distribuované mezipaměti. Položek v mezipaměti jsou uloženy v instanci aplikace na serveru, kde je aplikace spuštěna.
 
 Distribuované mezipaměti je užitečné implementace:
 
@@ -149,13 +149,13 @@ Chcete-li nainstalovat Redis na místním počítači:
 
 ## <a name="use-the-distributed-cache"></a>Pomocí distribuované mezipaměti
 
-Použít <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> rozhraní, požádat o instanci `IDistributedCache` z jakéhokoli konstruktoru v aplikaci. Instance je poskytován [injektáž závislostí (DI)](xref:fundamentals/dependency-injection).
+Použít <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> rozhraní, požádat o instanci <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> z jakéhokoli konstruktoru v aplikaci. Instance je poskytován [injektáž závislostí (DI)](xref:fundamentals/dependency-injection).
 
-Při spuštění aplikace `IDistributedCache` se vloží do `Startup.Configure`. Aktuální čas se uloží do mezipaměti pomocí <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> (Další informace najdete v tématu [webového hostitele: rozhraní IApplicationLifetime](xref:fundamentals/host/web-host#iapplicationlifetime-interface)):
+Při spuštění aplikace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> se vloží do `Startup.Configure`. Aktuální čas se uloží do mezipaměti pomocí <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> (Další informace najdete v tématu [webového hostitele: Rozhraní IApplicationLifetime](xref:fundamentals/host/web-host#iapplicationlifetime-interface)):
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_Configure&highlight=10)]
 
-Vloží ukázková aplikace `IDistributedCache` do `IndexModel` používají indexovou stránku.
+Vloží ukázková aplikace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> do `IndexModel` používají indexovou stránku.
 
 Pokaždé, když je načten indexovou stránku, do mezipaměti se kontroluje u mezipaměti čas v `OnGetAsync`. Pokud v mezipaměti Doba nevypršela, zobrazí se čas. Pokud 20 sekund uplynuly od posledního času v mezipaměti se použila (poslední čas na této stránce byl načten), na stránce se zobrazí *uložené v mezipaměti časový limit vypršel*.
 
@@ -164,13 +164,13 @@ Okamžitě aktualizovat uložené v mezipaměti Doba na aktuální čas tak, že
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Pages/Index.cshtml.cs?name=snippet_IndexModel&highlight=7,14-20,25-29)]
 
 > [!NOTE]
-> Není nutné používat jednotlivý prvek nebo rozsah doba života pro `IDistributedCache` instance (nejméně pro předdefinované implementace).
+> Není nutné používat jednotlivý prvek nebo rozsah doba života pro <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instance (nejméně pro předdefinované implementace).
 >
-> Můžete také vytvořit `IDistributedCache` instance bez ohledu na to může být nutné jednu namísto použití DI, ale vytvoření instance v kódu můžou znesnadnit kódu pro testování a je v rozporu [explicitní závislosti Princip](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
+> Můžete také vytvořit <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instance bez ohledu na to může být nutné jednu namísto použití DI, ale vytvoření instance v kódu můžou znesnadnit kódu pro testování a je v rozporu [explicitní závislosti Princip](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 
 ## <a name="recommendations"></a>Doporučení
 
-Při rozhodování o tom, která implementace `IDistributedCache` je nejvhodnější pro vaši aplikaci, vezměte v úvahu následující:
+Při rozhodování o tom, která implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> je nejvhodnější pro vaši aplikaci, vezměte v úvahu následující:
 
 * Stávající infrastruktury
 * Požadavky na výkon
