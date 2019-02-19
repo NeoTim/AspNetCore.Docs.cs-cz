@@ -2,159 +2,158 @@
 title: Přidat nové pole do stránky v ASP.NET Core Razor
 author: rick-anderson
 description: Ukazuje, jak přidat nové pole do stránky Razor pomocí Entity Framework Core
-monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 9b3ad5f6c4b1c9b5f016f5591127c8d1b213948d
-ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
+ms.openlocfilehash: 98de39c63c992dce7d60563df316d848339b811a
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53329130"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410372"
 ---
-# <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a><span data-ttu-id="5a07c-103">Přidat nové pole do stránky v ASP.NET Core Razor</span><span class="sxs-lookup"><span data-stu-id="5a07c-103">Add a new field to a Razor Page in ASP.NET Core</span></span>
+# <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a><span data-ttu-id="bfec7-103">Přidat nové pole do stránky v ASP.NET Core Razor</span><span class="sxs-lookup"><span data-stu-id="bfec7-103">Add a new field to a Razor Page in ASP.NET Core</span></span>
 
-<span data-ttu-id="5a07c-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="5a07c-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="bfec7-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="bfec7-104">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-<span data-ttu-id="5a07c-105">V této části [Entity Framework](/ef/core/get-started/aspnetcore/new-db) se používá k migrace Code First:</span><span class="sxs-lookup"><span data-stu-id="5a07c-105">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
+<span data-ttu-id="bfec7-105">V této části [Entity Framework](/ef/core/get-started/aspnetcore/new-db) se používá k migrace Code First:</span><span class="sxs-lookup"><span data-stu-id="bfec7-105">In this section [Entity Framework](/ef/core/get-started/aspnetcore/new-db) Code First Migrations is used to:</span></span>
 
-* <span data-ttu-id="5a07c-106">Přidání nového pole do modelu.</span><span class="sxs-lookup"><span data-stu-id="5a07c-106">Add a new field to the model.</span></span>
-* <span data-ttu-id="5a07c-107">Migrace novou změnu schématu pole do databáze.</span><span class="sxs-lookup"><span data-stu-id="5a07c-107">Migrate the new field schema change to the database.</span></span>
+* <span data-ttu-id="bfec7-106">Přidání nového pole do modelu.</span><span class="sxs-lookup"><span data-stu-id="bfec7-106">Add a new field to the model.</span></span>
+* <span data-ttu-id="bfec7-107">Migrace novou změnu schématu pole do databáze.</span><span class="sxs-lookup"><span data-stu-id="bfec7-107">Migrate the new field schema change to the database.</span></span>
 
-<span data-ttu-id="5a07c-108">Při použití automaticky vytvořit databázi, Code First EF Code First:</span><span class="sxs-lookup"><span data-stu-id="5a07c-108">When using EF Code First to automatically create a database, Code First:</span></span>
+<span data-ttu-id="bfec7-108">Při použití automaticky vytvořit databázi, Code First EF Code First:</span><span class="sxs-lookup"><span data-stu-id="bfec7-108">When using EF Code First to automatically create a database, Code First:</span></span>
 
-* <span data-ttu-id="5a07c-109">Přidá do databáze, kterou chcete sledovat, jestli je schéma databáze synchronizované s tříd modelu, které byly vygenerovány z tabulky.</span><span class="sxs-lookup"><span data-stu-id="5a07c-109">Adds a table to the database to track whether the schema of the database is in sync with the model classes it was generated from.</span></span>
-* <span data-ttu-id="5a07c-110">Pokud nejsou synchronizované s databáze třídy modelu, EF vyvolá výjimku.</span><span class="sxs-lookup"><span data-stu-id="5a07c-110">If the model classes aren't in sync with the DB, EF throws an exception.</span></span>
+* <span data-ttu-id="bfec7-109">Přidá do databáze, kterou chcete sledovat, jestli je schéma databáze synchronizované s tříd modelu, které byly vygenerovány z tabulky.</span><span class="sxs-lookup"><span data-stu-id="bfec7-109">Adds a table to the database to track whether the schema of the database is in sync with the model classes it was generated from.</span></span>
+* <span data-ttu-id="bfec7-110">Pokud nejsou synchronizované s databáze třídy modelu, EF vyvolá výjimku.</span><span class="sxs-lookup"><span data-stu-id="bfec7-110">If the model classes aren't in sync with the DB, EF throws an exception.</span></span>
 
-<span data-ttu-id="5a07c-111">Automatické ověření schématu a model synchronizované usnadňuje vyhledání potíží nekonzistentní databáze nebo kódu.</span><span class="sxs-lookup"><span data-stu-id="5a07c-111">Automatic verification of schema/model in sync makes it easier to find inconsistent database/code issues.</span></span>
+<span data-ttu-id="bfec7-111">Automatické ověření schématu a model synchronizované usnadňuje vyhledání potíží nekonzistentní databáze nebo kódu.</span><span class="sxs-lookup"><span data-stu-id="bfec7-111">Automatic verification of schema/model in sync makes it easier to find inconsistent database/code issues.</span></span>
 
-## <a name="adding-a-rating-property-to-the-movie-model"></a><span data-ttu-id="5a07c-112">Přidání vlastnosti do hodnocení filmů modelu</span><span class="sxs-lookup"><span data-stu-id="5a07c-112">Adding a Rating Property to the Movie Model</span></span>
+## <a name="adding-a-rating-property-to-the-movie-model"></a><span data-ttu-id="bfec7-112">Přidání vlastnosti do hodnocení filmů modelu</span><span class="sxs-lookup"><span data-stu-id="bfec7-112">Adding a Rating Property to the Movie Model</span></span>
 
-<span data-ttu-id="5a07c-113">Otevřít *Models/Movie.cs* a přidejte `Rating` vlastnost:</span><span class="sxs-lookup"><span data-stu-id="5a07c-113">Open the *Models/Movie.cs* file and add a `Rating` property:</span></span>
+<span data-ttu-id="bfec7-113">Otevřít *Models/Movie.cs* a přidejte `Rating` vlastnost:</span><span class="sxs-lookup"><span data-stu-id="bfec7-113">Open the *Models/Movie.cs* file and add a `Rating` property:</span></span>
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
-<span data-ttu-id="5a07c-114">Sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="5a07c-114">Build the app.</span></span>
+<span data-ttu-id="bfec7-114">Sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="bfec7-114">Build the app.</span></span>
 
-<span data-ttu-id="5a07c-115">Upravit *Pages/Movies/Index.cshtml*a přidejte `Rating` pole:</span><span class="sxs-lookup"><span data-stu-id="5a07c-115">Edit *Pages/Movies/Index.cshtml*, and add a `Rating` field:</span></span>
+<span data-ttu-id="bfec7-115">Upravit *Pages/Movies/Index.cshtml*a přidejte `Rating` pole:</span><span class="sxs-lookup"><span data-stu-id="bfec7-115">Edit *Pages/Movies/Index.cshtml*, and add a `Rating` field:</span></span>
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexRating.cshtml.?highlight=40-42,61-63)]
 
-<span data-ttu-id="5a07c-116">Aktualizace na následujících stránkách:</span><span class="sxs-lookup"><span data-stu-id="5a07c-116">Update the following pages:</span></span>
+<span data-ttu-id="bfec7-116">Aktualizace na následujících stránkách:</span><span class="sxs-lookup"><span data-stu-id="bfec7-116">Update the following pages:</span></span>
 
-* <span data-ttu-id="5a07c-117">Přidat `Rating` pole na stránkách Delete a podrobnosti.</span><span class="sxs-lookup"><span data-stu-id="5a07c-117">Add the `Rating` field to the Delete and Details pages.</span></span>
-* <span data-ttu-id="5a07c-118">Aktualizace [Create.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) s `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="5a07c-118">Update [Create.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) with a `Rating` field.</span></span>
-* <span data-ttu-id="5a07c-119">Přidat `Rating` pole na stránce Upravit.</span><span class="sxs-lookup"><span data-stu-id="5a07c-119">Add the `Rating` field to the Edit Page.</span></span>
+* <span data-ttu-id="bfec7-117">Přidat `Rating` pole na stránkách Delete a podrobnosti.</span><span class="sxs-lookup"><span data-stu-id="bfec7-117">Add the `Rating` field to the Delete and Details pages.</span></span>
+* <span data-ttu-id="bfec7-118">Aktualizace [Create.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) s `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="bfec7-118">Update [Create.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) with a `Rating` field.</span></span>
+* <span data-ttu-id="bfec7-119">Přidat `Rating` pole na stránce Upravit.</span><span class="sxs-lookup"><span data-stu-id="bfec7-119">Add the `Rating` field to the Edit Page.</span></span>
 
-<span data-ttu-id="5a07c-120">Aplikace nebude fungovat, dokud databáze je aktualizováno, aby zahrnovalo nové pole.</span><span class="sxs-lookup"><span data-stu-id="5a07c-120">The app won't work until the DB is updated to include the new field.</span></span> <span data-ttu-id="5a07c-121">Je-li spustit, vyvolá aplikaci `SqlException`:</span><span class="sxs-lookup"><span data-stu-id="5a07c-121">If run now, the app throws a `SqlException`:</span></span>
+<span data-ttu-id="bfec7-120">Aplikace nebude fungovat, dokud databáze je aktualizováno, aby zahrnovalo nové pole.</span><span class="sxs-lookup"><span data-stu-id="bfec7-120">The app won't work until the DB is updated to include the new field.</span></span> <span data-ttu-id="bfec7-121">Je-li spustit, vyvolá aplikaci `SqlException`:</span><span class="sxs-lookup"><span data-stu-id="bfec7-121">If run now, the app throws a `SqlException`:</span></span>
 
 `SqlException: Invalid column name 'Rating'.`
 
-<span data-ttu-id="5a07c-122">Tato chyba je způsobena se liší od schématu tabulky Movie databáze třídy modelu aktualizované video.</span><span class="sxs-lookup"><span data-stu-id="5a07c-122">This error is caused by the updated Movie model class being different than the schema of the Movie table of the database.</span></span> <span data-ttu-id="5a07c-123">(Neexistuje žádný `Rating` sloupec v tabulce databáze.)</span><span class="sxs-lookup"><span data-stu-id="5a07c-123">(There's no `Rating` column in the database table.)</span></span>
+<span data-ttu-id="bfec7-122">Tato chyba je způsobena se liší od schématu tabulky Movie databáze třídy modelu aktualizované video.</span><span class="sxs-lookup"><span data-stu-id="bfec7-122">This error is caused by the updated Movie model class being different than the schema of the Movie table of the database.</span></span> <span data-ttu-id="bfec7-123">(Neexistuje žádný `Rating` sloupec v tabulce databáze.)</span><span class="sxs-lookup"><span data-stu-id="bfec7-123">(There's no `Rating` column in the database table.)</span></span>
 
-<span data-ttu-id="5a07c-124">Řešení chyby několika způsoby:</span><span class="sxs-lookup"><span data-stu-id="5a07c-124">There are a few approaches to resolving the error:</span></span>
+<span data-ttu-id="bfec7-124">Řešení chyby několika způsoby:</span><span class="sxs-lookup"><span data-stu-id="bfec7-124">There are a few approaches to resolving the error:</span></span>
 
-1. <span data-ttu-id="5a07c-125">Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi pomocí nové schéma třídy modelu.</span><span class="sxs-lookup"><span data-stu-id="5a07c-125">Have the Entity Framework automatically drop and re-create the database using the new model class schema.</span></span> <span data-ttu-id="5a07c-126">Tento přístup je vhodný v rané fázi vývojového cyklu; umožňuje rychlý rozvoj schématu modelu a databáze společně.</span><span class="sxs-lookup"><span data-stu-id="5a07c-126">This approach is convenient early in the development cycle; it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="5a07c-127">Nevýhodou je, dojít ke ztrátě existujících dat v databázi.</span><span class="sxs-lookup"><span data-stu-id="5a07c-127">The downside is that you lose existing data in the database.</span></span> <span data-ttu-id="5a07c-128">Nepoužívejte tento postup u provozní databáze.</span><span class="sxs-lookup"><span data-stu-id="5a07c-128">Don't use this approach on a production database!</span></span> <span data-ttu-id="5a07c-129">Vyřazení databáze na změny schématu a pomocí inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace.</span><span class="sxs-lookup"><span data-stu-id="5a07c-129">Dropping the DB on schema changes and using an initializer to automatically seed the database with test data is often a productive way to develop an app.</span></span>
+1. <span data-ttu-id="bfec7-125">Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi pomocí nové schéma třídy modelu.</span><span class="sxs-lookup"><span data-stu-id="bfec7-125">Have the Entity Framework automatically drop and re-create the database using the new model class schema.</span></span> <span data-ttu-id="bfec7-126">Tento přístup je vhodný v rané fázi vývojového cyklu; umožňuje rychlý rozvoj schématu modelu a databáze společně.</span><span class="sxs-lookup"><span data-stu-id="bfec7-126">This approach is convenient early in the development cycle; it allows you to quickly evolve the model and database schema together.</span></span> <span data-ttu-id="bfec7-127">Nevýhodou je, dojít ke ztrátě existujících dat v databázi.</span><span class="sxs-lookup"><span data-stu-id="bfec7-127">The downside is that you lose existing data in the database.</span></span> <span data-ttu-id="bfec7-128">Nepoužívejte tento postup u provozní databáze.</span><span class="sxs-lookup"><span data-stu-id="bfec7-128">Don't use this approach on a production database!</span></span> <span data-ttu-id="bfec7-129">Vyřazení databáze na změny schématu a pomocí inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace.</span><span class="sxs-lookup"><span data-stu-id="bfec7-129">Dropping the DB on schema changes and using an initializer to automatically seed the database with test data is often a productive way to develop an app.</span></span>
 
-2. <span data-ttu-id="5a07c-130">Explicitně upravte schéma stávající databázi tak, aby odpovídalo tříd modelu.</span><span class="sxs-lookup"><span data-stu-id="5a07c-130">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="5a07c-131">Výhodou tohoto přístupu je, že zachováte vaše data.</span><span class="sxs-lookup"><span data-stu-id="5a07c-131">The advantage of this approach is that you keep your data.</span></span> <span data-ttu-id="5a07c-132">Můžete tuto změnu provést buď ručně, nebo tak, že vytvoříte databázi změnit skript.</span><span class="sxs-lookup"><span data-stu-id="5a07c-132">You can make this change either manually or by creating a database change script.</span></span>
+2. <span data-ttu-id="bfec7-130">Explicitně upravte schéma stávající databázi tak, aby odpovídalo tříd modelu.</span><span class="sxs-lookup"><span data-stu-id="bfec7-130">Explicitly modify the schema of the existing database so that it matches the model classes.</span></span> <span data-ttu-id="bfec7-131">Výhodou tohoto přístupu je, že zachováte vaše data.</span><span class="sxs-lookup"><span data-stu-id="bfec7-131">The advantage of this approach is that you keep your data.</span></span> <span data-ttu-id="bfec7-132">Můžete tuto změnu provést buď ručně, nebo tak, že vytvoříte databázi změnit skript.</span><span class="sxs-lookup"><span data-stu-id="bfec7-132">You can make this change either manually or by creating a database change script.</span></span>
 
-3. <span data-ttu-id="5a07c-133">Pomocí migrace Code First aktualizovat schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="5a07c-133">Use Code First Migrations to update the database schema.</span></span>
+3. <span data-ttu-id="bfec7-133">Pomocí migrace Code First aktualizovat schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="bfec7-133">Use Code First Migrations to update the database schema.</span></span>
 
-<span data-ttu-id="5a07c-134">V tomto kurzu pomocí migrace Code First.</span><span class="sxs-lookup"><span data-stu-id="5a07c-134">For this tutorial, use Code First Migrations.</span></span>
+<span data-ttu-id="bfec7-134">V tomto kurzu pomocí migrace Code First.</span><span class="sxs-lookup"><span data-stu-id="bfec7-134">For this tutorial, use Code First Migrations.</span></span>
 
-<span data-ttu-id="5a07c-135">Aktualizace `SeedData` třídy tak, že poskytuje hodnoty pro nový sloupec.</span><span class="sxs-lookup"><span data-stu-id="5a07c-135">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="5a07c-136">Ukázka změnu je uveden níže, ale budete chtít tuto změnu pro každou `new Movie` bloku.</span><span class="sxs-lookup"><span data-stu-id="5a07c-136">A sample change is shown below, but you'll want to make this change for each `new Movie` block.</span></span>
+<span data-ttu-id="bfec7-135">Aktualizace `SeedData` třídy tak, že poskytuje hodnoty pro nový sloupec.</span><span class="sxs-lookup"><span data-stu-id="bfec7-135">Update the `SeedData` class so that it provides a value for the new column.</span></span> <span data-ttu-id="bfec7-136">Ukázka změnu je uveden níže, ale budete chtít tuto změnu pro každou `new Movie` bloku.</span><span class="sxs-lookup"><span data-stu-id="bfec7-136">A sample change is shown below, but you'll want to make this change for each `new Movie` block.</span></span>
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-<span data-ttu-id="5a07c-137">Zobrazit [dokončit soubor SeedData.cs](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).</span><span class="sxs-lookup"><span data-stu-id="5a07c-137">See the [completed SeedData.cs file](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).</span></span>
+<span data-ttu-id="bfec7-137">Zobrazit [dokončit soubor SeedData.cs](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).</span><span class="sxs-lookup"><span data-stu-id="bfec7-137">See the [completed SeedData.cs file](https://github.com/aspnet/Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).</span></span>
 
-<span data-ttu-id="5a07c-138">Sestavte řešení.</span><span class="sxs-lookup"><span data-stu-id="5a07c-138">Build the solution.</span></span>
+<span data-ttu-id="bfec7-138">Sestavte řešení.</span><span class="sxs-lookup"><span data-stu-id="bfec7-138">Build the solution.</span></span>
 
 <!-- VS -------------------------->
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="5a07c-139">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="5a07c-139">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="bfec7-139">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="bfec7-139">Visual Studio</span></span>](#tab/visual-studio)
 
 <a name="pmc"></a>
 
-### <a name="add-a-migration-for-the-rating-field"></a><span data-ttu-id="5a07c-140">Přidejte migraci pro pole hodnocení</span><span class="sxs-lookup"><span data-stu-id="5a07c-140">Add a migration for the rating field</span></span>
+### <a name="add-a-migration-for-the-rating-field"></a><span data-ttu-id="bfec7-140">Přidejte migraci pro pole hodnocení</span><span class="sxs-lookup"><span data-stu-id="bfec7-140">Add a migration for the rating field</span></span>
 
-<span data-ttu-id="5a07c-141">Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet > Konzola správce balíčků**.</span><span class="sxs-lookup"><span data-stu-id="5a07c-141">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
-<span data-ttu-id="5a07c-142">V konzole PMC zadejte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="5a07c-142">In the PMC, enter the following commands:</span></span>
+<span data-ttu-id="bfec7-141">Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet > Konzola správce balíčků**.</span><span class="sxs-lookup"><span data-stu-id="bfec7-141">From the **Tools** menu, select **NuGet Package Manager > Package Manager Console**.</span></span>
+<span data-ttu-id="bfec7-142">V konzole PMC zadejte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="bfec7-142">In the PMC, enter the following commands:</span></span>
 
 ```powershell
 Add-Migration Rating
 Update-Database
 ```
 
-<span data-ttu-id="5a07c-143">`Add-Migration` Příkaz říká rozhraní framework:</span><span class="sxs-lookup"><span data-stu-id="5a07c-143">The `Add-Migration` command tells the framework to:</span></span>
+<span data-ttu-id="bfec7-143">`Add-Migration` Příkaz říká rozhraní framework:</span><span class="sxs-lookup"><span data-stu-id="bfec7-143">The `Add-Migration` command tells the framework to:</span></span>
 
-* <span data-ttu-id="5a07c-144">Porovnání `Movie` modelů s `Movie` schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="5a07c-144">Compare the `Movie` model with the `Movie` DB schema.</span></span>
-* <span data-ttu-id="5a07c-145">Vytvoření kódu pro migraci schématu databáze na nový model.</span><span class="sxs-lookup"><span data-stu-id="5a07c-145">Create code to migrate the DB schema to the new model.</span></span>
+* <span data-ttu-id="bfec7-144">Porovnání `Movie` modelů s `Movie` schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="bfec7-144">Compare the `Movie` model with the `Movie` DB schema.</span></span>
+* <span data-ttu-id="bfec7-145">Vytvoření kódu pro migraci schématu databáze na nový model.</span><span class="sxs-lookup"><span data-stu-id="bfec7-145">Create code to migrate the DB schema to the new model.</span></span>
 
-<span data-ttu-id="5a07c-146">Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="5a07c-146">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="5a07c-147">Je vhodné použít smysluplný název souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="5a07c-147">It's helpful to use a meaningful name for the migration file.</span></span>
+<span data-ttu-id="bfec7-146">Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="bfec7-146">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="bfec7-147">Je vhodné použít smysluplný název souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="bfec7-147">It's helpful to use a meaningful name for the migration file.</span></span>
 
-<span data-ttu-id="5a07c-148">`Update-Database` Příkaz říká rozhraní framework k použití změn schématu do databáze.</span><span class="sxs-lookup"><span data-stu-id="5a07c-148">The `Update-Database` command tells the framework to apply the schema changes to the database.</span></span>
+<span data-ttu-id="bfec7-148">`Update-Database` Příkaz říká rozhraní framework k použití změn schématu do databáze.</span><span class="sxs-lookup"><span data-stu-id="bfec7-148">The `Update-Database` command tells the framework to apply the schema changes to the database.</span></span>
 
 <a name="ssox"></a>
 
-<span data-ttu-id="5a07c-149">Při odstranění všech záznamů v databázi, bude inicializátoru naplnit databáze a zahrnout `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="5a07c-149">If you delete all the records in the DB, the initializer will seed the DB and include the `Rating` field.</span></span> <span data-ttu-id="5a07c-150">To lze provést pomocí odstranit odkazy v prohlížeči nebo z [Průzkumník objektů systému Sql Server](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span><span class="sxs-lookup"><span data-stu-id="5a07c-150">You can do this with the delete links in the browser or from [Sql Server Object Explorer](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span></span>
+<span data-ttu-id="bfec7-149">Při odstranění všech záznamů v databázi, bude inicializátoru naplnit databáze a zahrnout `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="bfec7-149">If you delete all the records in the DB, the initializer will seed the DB and include the `Rating` field.</span></span> <span data-ttu-id="bfec7-150">To lze provést pomocí odstranit odkazy v prohlížeči nebo z [Průzkumník objektů systému Sql Server](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span><span class="sxs-lookup"><span data-stu-id="bfec7-150">You can do this with the delete links in the browser or from [Sql Server Object Explorer](xref:tutorials/razor-pages/sql#ssox) (SSOX).</span></span>
 
-<span data-ttu-id="5a07c-151">Další možností je odstranit databázi a znovu vytvořit databázi pomocí migrace.</span><span class="sxs-lookup"><span data-stu-id="5a07c-151">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="5a07c-152">Pokud chcete odstranit databázi v SSOX:</span><span class="sxs-lookup"><span data-stu-id="5a07c-152">To delete the database in SSOX:</span></span>
+<span data-ttu-id="bfec7-151">Další možností je odstranit databázi a znovu vytvořit databázi pomocí migrace.</span><span class="sxs-lookup"><span data-stu-id="bfec7-151">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="bfec7-152">Pokud chcete odstranit databázi v SSOX:</span><span class="sxs-lookup"><span data-stu-id="bfec7-152">To delete the database in SSOX:</span></span>
 
-* <span data-ttu-id="5a07c-153">Vyberte databázi v SSOX.</span><span class="sxs-lookup"><span data-stu-id="5a07c-153">Select the database in SSOX.</span></span>
-* <span data-ttu-id="5a07c-154">Klikněte pravým tlačítkem na databázi a vyberte *odstranit*.</span><span class="sxs-lookup"><span data-stu-id="5a07c-154">Right click on the database, and select *Delete*.</span></span>
-* <span data-ttu-id="5a07c-155">Zkontrolujte **ukončete stávající připojení**.</span><span class="sxs-lookup"><span data-stu-id="5a07c-155">Check **Close existing connections**.</span></span>
-* <span data-ttu-id="5a07c-156">Vyberte **OK**.</span><span class="sxs-lookup"><span data-stu-id="5a07c-156">Select **OK**.</span></span>
-* <span data-ttu-id="5a07c-157">V [PMC](xref:tutorials/razor-pages/new-field#pmc), aktualizovat databázi:</span><span class="sxs-lookup"><span data-stu-id="5a07c-157">In the [PMC](xref:tutorials/razor-pages/new-field#pmc), update the database:</span></span>
+* <span data-ttu-id="bfec7-153">Vyberte databázi v SSOX.</span><span class="sxs-lookup"><span data-stu-id="bfec7-153">Select the database in SSOX.</span></span>
+* <span data-ttu-id="bfec7-154">Klikněte pravým tlačítkem na databázi a vyberte *odstranit*.</span><span class="sxs-lookup"><span data-stu-id="bfec7-154">Right click on the database, and select *Delete*.</span></span>
+* <span data-ttu-id="bfec7-155">Zkontrolujte **ukončete stávající připojení**.</span><span class="sxs-lookup"><span data-stu-id="bfec7-155">Check **Close existing connections**.</span></span>
+* <span data-ttu-id="bfec7-156">Vyberte **OK**.</span><span class="sxs-lookup"><span data-stu-id="bfec7-156">Select **OK**.</span></span>
+* <span data-ttu-id="bfec7-157">V [PMC](xref:tutorials/razor-pages/new-field#pmc), aktualizovat databázi:</span><span class="sxs-lookup"><span data-stu-id="bfec7-157">In the [PMC](xref:tutorials/razor-pages/new-field#pmc), update the database:</span></span>
 
   ```powershell
   Update-Database
   ```
 
 <!-- Code -------------------------->
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="5a07c-158">Visual Studio Code nebo Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="5a07c-158">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="bfec7-158">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="bfec7-158">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
 <!-- copy/paste this tab to the next. Not worth an include  -->
 
-<span data-ttu-id="5a07c-159">Spuštěním následujících příkazů rozhraní příkazového řádku .NET Core:</span><span class="sxs-lookup"><span data-stu-id="5a07c-159">Run the following .NET Core CLI commands:</span></span>
+<span data-ttu-id="bfec7-159">Spuštěním následujících příkazů rozhraní příkazového řádku .NET Core:</span><span class="sxs-lookup"><span data-stu-id="bfec7-159">Run the following .NET Core CLI commands:</span></span>
 
 ```console
 dotnet ef migrations add Rating
 dotnet ef database update
 ```
 
-<span data-ttu-id="5a07c-160">`ef migrations add` Příkaz říká rozhraní framework:</span><span class="sxs-lookup"><span data-stu-id="5a07c-160">The `ef migrations add` command tells the framework to:</span></span>
+<span data-ttu-id="bfec7-160">`ef migrations add` Příkaz říká rozhraní framework:</span><span class="sxs-lookup"><span data-stu-id="bfec7-160">The `ef migrations add` command tells the framework to:</span></span>
 
-* <span data-ttu-id="5a07c-161">Porovnání `Movie` modelů s `Movie` schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="5a07c-161">Compare the `Movie` model with the `Movie` DB schema.</span></span>
-* <span data-ttu-id="5a07c-162">Vytvoření kódu pro migraci schématu databáze na nový model.</span><span class="sxs-lookup"><span data-stu-id="5a07c-162">Create code to migrate the DB schema to the new model.</span></span>
+* <span data-ttu-id="bfec7-161">Porovnání `Movie` modelů s `Movie` schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="bfec7-161">Compare the `Movie` model with the `Movie` DB schema.</span></span>
+* <span data-ttu-id="bfec7-162">Vytvoření kódu pro migraci schématu databáze na nový model.</span><span class="sxs-lookup"><span data-stu-id="bfec7-162">Create code to migrate the DB schema to the new model.</span></span>
 
-<span data-ttu-id="5a07c-163">Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="5a07c-163">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="5a07c-164">Je vhodné použít smysluplný název souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="5a07c-164">It's helpful to use a meaningful name for the migration file.</span></span>
+<span data-ttu-id="bfec7-163">Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="bfec7-163">The name "Rating" is arbitrary and is used to name the migration file.</span></span> <span data-ttu-id="bfec7-164">Je vhodné použít smysluplný název souboru migrace.</span><span class="sxs-lookup"><span data-stu-id="bfec7-164">It's helpful to use a meaningful name for the migration file.</span></span>
 
-<span data-ttu-id="5a07c-165">`ef database update` Příkaz říká rozhraní framework k použití změn schématu do databáze.</span><span class="sxs-lookup"><span data-stu-id="5a07c-165">The `ef database update` command tells the framework to apply the schema changes to the database.</span></span>
+<span data-ttu-id="bfec7-165">`ef database update` Příkaz říká rozhraní framework k použití změn schématu do databáze.</span><span class="sxs-lookup"><span data-stu-id="bfec7-165">The `ef database update` command tells the framework to apply the schema changes to the database.</span></span>
 
-<span data-ttu-id="5a07c-166">Při odstranění všech záznamů v databázi, bude inicializátoru naplnit databáze a zahrnout `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="5a07c-166">If you delete all the records in the DB, the initializer will seed the DB and include the `Rating` field.</span></span> <span data-ttu-id="5a07c-167">Můžete to provést s odstranit odkazy v prohlížeči nebo pomocí nástroje SQLite.</span><span class="sxs-lookup"><span data-stu-id="5a07c-167">You can do this with the delete links in the browser or by using a SQLite tool.</span></span>
+<span data-ttu-id="bfec7-166">Při odstranění všech záznamů v databázi, bude inicializátoru naplnit databáze a zahrnout `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="bfec7-166">If you delete all the records in the DB, the initializer will seed the DB and include the `Rating` field.</span></span> <span data-ttu-id="bfec7-167">Můžete to provést s odstranit odkazy v prohlížeči nebo pomocí nástroje SQLite.</span><span class="sxs-lookup"><span data-stu-id="bfec7-167">You can do this with the delete links in the browser or by using a SQLite tool.</span></span>
 
-<span data-ttu-id="5a07c-168">Další možností je odstranit databázi a znovu vytvořit databázi pomocí migrace.</span><span class="sxs-lookup"><span data-stu-id="5a07c-168">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="5a07c-169">Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*).</span><span class="sxs-lookup"><span data-stu-id="5a07c-169">To delete the database, delete the database file (*MvcMovie.db*).</span></span> <span data-ttu-id="5a07c-170">Spusťte `ef database update` příkaz:</span><span class="sxs-lookup"><span data-stu-id="5a07c-170">Then run the `ef database update` command:</span></span> 
+<span data-ttu-id="bfec7-168">Další možností je odstranit databázi a znovu vytvořit databázi pomocí migrace.</span><span class="sxs-lookup"><span data-stu-id="bfec7-168">Another option is to delete the database and use migrations to re-create the database.</span></span> <span data-ttu-id="bfec7-169">Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*).</span><span class="sxs-lookup"><span data-stu-id="bfec7-169">To delete the database, delete the database file (*MvcMovie.db*).</span></span> <span data-ttu-id="bfec7-170">Spusťte `ef database update` příkaz:</span><span class="sxs-lookup"><span data-stu-id="bfec7-170">Then run the `ef database update` command:</span></span> 
 
 ```console
 dotnet ef database update
 ```
 
 > [!NOTE]
-> <span data-ttu-id="5a07c-171">EF Core SQLite zprostředkovatel nepodporuje mnoho operací změny schématu.</span><span class="sxs-lookup"><span data-stu-id="5a07c-171">Many schema change operations are not supported by the EF Core SQLite provider.</span></span> <span data-ttu-id="5a07c-172">Například přidáním sloupce se podporuje, ale odebráním sloupce se nepodporuje.</span><span class="sxs-lookup"><span data-stu-id="5a07c-172">For example, adding a column is supported, but removing a column is not supported.</span></span> <span data-ttu-id="5a07c-173">Pokud chcete přidat migrace odebrat sloupce, `ef migrations add` úspěšný příkaz ale `ef database update` příkaz selže.</span><span class="sxs-lookup"><span data-stu-id="5a07c-173">If you add a migration to remove a column, the `ef migrations add` command succeeds but the `ef database update` command fails.</span></span> <span data-ttu-id="5a07c-174">Ručně napsáním kódu migrace provést znovu vytvořit tabulku, můžete alternativně vyřešit některá omezení.</span><span class="sxs-lookup"><span data-stu-id="5a07c-174">You can work around some of the limitations by manually writing migrations code to perform a table rebuild.</span></span> <span data-ttu-id="5a07c-175">Tabulka opětovné sestavení zahrnuje přejmenování existující tabulky, vytvářet nové tabulky, kopírování dat do nové tabulky a vyřazení staré tabulky.</span><span class="sxs-lookup"><span data-stu-id="5a07c-175">A table rebuild involves renaming the existing table, creating a new table, copying data to the new table, and dropping the old table.</span></span> <span data-ttu-id="5a07c-176">Další informace naleznete v následujících materiálech:</span><span class="sxs-lookup"><span data-stu-id="5a07c-176">For more information, see the following resources:</span></span>
-> * [<span data-ttu-id="5a07c-177">Omezení poskytovatele pro databázi SQLite EF Core</span><span class="sxs-lookup"><span data-stu-id="5a07c-177">SQLite EF Core Database Provider Limitations</span></span>](/ef/core/providers/sqlite/limitations)
-> * [<span data-ttu-id="5a07c-178">Přizpůsobení migrace kódu</span><span class="sxs-lookup"><span data-stu-id="5a07c-178">Customize migration code</span></span>](/ef/core/managing-schemas/migrations/#customize-migration-code)
-> * [<span data-ttu-id="5a07c-179">Předvyplnění dat</span><span class="sxs-lookup"><span data-stu-id="5a07c-179">Data seeding</span></span>](/ef/core/modeling/data-seeding)
+> <span data-ttu-id="bfec7-171">EF Core SQLite zprostředkovatel nepodporuje mnoho operací změny schématu.</span><span class="sxs-lookup"><span data-stu-id="bfec7-171">Many schema change operations are not supported by the EF Core SQLite provider.</span></span> <span data-ttu-id="bfec7-172">Například přidáním sloupce se podporuje, ale odebráním sloupce se nepodporuje.</span><span class="sxs-lookup"><span data-stu-id="bfec7-172">For example, adding a column is supported, but removing a column is not supported.</span></span> <span data-ttu-id="bfec7-173">Pokud chcete přidat migrace odebrat sloupce, `ef migrations add` úspěšný příkaz ale `ef database update` příkaz selže.</span><span class="sxs-lookup"><span data-stu-id="bfec7-173">If you add a migration to remove a column, the `ef migrations add` command succeeds but the `ef database update` command fails.</span></span> <span data-ttu-id="bfec7-174">Ručně napsáním kódu migrace provést znovu vytvořit tabulku, můžete alternativně vyřešit některá omezení.</span><span class="sxs-lookup"><span data-stu-id="bfec7-174">You can work around some of the limitations by manually writing migrations code to perform a table rebuild.</span></span> <span data-ttu-id="bfec7-175">Tabulka opětovné sestavení zahrnuje přejmenování existující tabulky, vytvářet nové tabulky, kopírování dat do nové tabulky a vyřazení staré tabulky.</span><span class="sxs-lookup"><span data-stu-id="bfec7-175">A table rebuild involves renaming the existing table, creating a new table, copying data to the new table, and dropping the old table.</span></span> <span data-ttu-id="bfec7-176">Další informace naleznete v následujících materiálech:</span><span class="sxs-lookup"><span data-stu-id="bfec7-176">For more information, see the following resources:</span></span>
+> * [<span data-ttu-id="bfec7-177">Omezení poskytovatele pro databázi SQLite EF Core</span><span class="sxs-lookup"><span data-stu-id="bfec7-177">SQLite EF Core Database Provider Limitations</span></span>](/ef/core/providers/sqlite/limitations)
+> * [<span data-ttu-id="bfec7-178">Přizpůsobení migrace kódu</span><span class="sxs-lookup"><span data-stu-id="bfec7-178">Customize migration code</span></span>](/ef/core/managing-schemas/migrations/#customize-migration-code)
+> * [<span data-ttu-id="bfec7-179">Předvyplnění dat</span><span class="sxs-lookup"><span data-stu-id="bfec7-179">Data seeding</span></span>](/ef/core/modeling/data-seeding)
 
 ---  
 <!-- End of VS tabs -->
 
-<span data-ttu-id="5a07c-180">Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="5a07c-180">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="5a07c-181">Pokud databáze není nasazený, nastavte zarážky `SeedData.Initialize` metody.</span><span class="sxs-lookup"><span data-stu-id="5a07c-181">If the database isn't seeded, set a break point in the `SeedData.Initialize` method.</span></span>
+<span data-ttu-id="bfec7-180">Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole.</span><span class="sxs-lookup"><span data-stu-id="bfec7-180">Run the app and verify you can create/edit/display movies with a `Rating` field.</span></span> <span data-ttu-id="bfec7-181">Pokud databáze není nasazený, nastavte zarážky `SeedData.Initialize` metody.</span><span class="sxs-lookup"><span data-stu-id="bfec7-181">If the database isn't seeded, set a break point in the `SeedData.Initialize` method.</span></span>
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="5a07c-182">[Předchozí: Přidání vyhledávací funkce](xref:tutorials/razor-pages/search)
-> [Další: Přidání ověřování](xref:tutorials/razor-pages/validation)</span><span class="sxs-lookup"><span data-stu-id="5a07c-182">[Previous: Adding Search](xref:tutorials/razor-pages/search)
+> <span data-ttu-id="bfec7-182">[Předchozí: Přidání vyhledávací funkce](xref:tutorials/razor-pages/search)
+> [Další: Přidání ověřování](xref:tutorials/razor-pages/validation)</span><span class="sxs-lookup"><span data-stu-id="bfec7-182">[Previous: Adding Search](xref:tutorials/razor-pages/search)
 [Next: Adding Validation](xref:tutorials/razor-pages/validation)</span></span>
