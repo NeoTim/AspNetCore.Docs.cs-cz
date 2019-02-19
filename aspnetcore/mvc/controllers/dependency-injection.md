@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core MVC řadiče vyžádat jejich závislos
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/controllers/dependency-injection
-ms.openlocfilehash: 12247dbbbb6de3f8feb7bc37caec4ecf4bd21719
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 9d9d0a68927da62fad8df72c868eaf4b8ada440d
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206338"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410268"
 ---
 # <a name="dependency-injection-into-controllers-in-aspnet-core"></a>Injektáž závislostí do kontrolerů v ASP.NET Core
 
@@ -24,7 +24,7 @@ Kontrolery ASP.NET Core MVC by měl požádat o jejich závislosti explicitně p
 
 ## <a name="dependency-injection"></a>Injektáž závislostí
 
-Injektáž závislostí je technika, která následuje [závislost inverzi Princip](http://deviq.com/dependency-inversion-principle/), což pro aplikace se skládá z volně propojených modulů. Má integrovanou podporu pro ASP.NET Core [injektáž závislostí](../../fundamentals/dependency-injection.md), což usnadňuje aplikace pro testování a udržovat.
+Má integrovanou podporu pro ASP.NET Core [injektáž závislostí](../../fundamentals/dependency-injection.md), což usnadňuje aplikace pro testování a udržovat.
 
 ## <a name="constructor-injection"></a>Vkládání konstruktor
 
@@ -63,7 +63,7 @@ Jakmile služba byla nakonfigurována, spuštění aplikace a přejdete na domov
 ![Pozdrav serveru](dependency-injection/_static/server-greeting.png)
 
 >[!TIP]
-> V tématu [testovací kontroler logiku](testing.md) se naučíte explicitní žádost o závislosti [ http://deviq.com/explicit-dependencies-principle/ ](http://deviq.com/explicit-dependencies-principle/) v řadiče usnadňuje kód pro testování.
+> V tématu [testovací kontroler logiku](testing.md) se naučíte usnadňují otestovat explicitní vyžádání závislostí do kontrolerů kódu.
 
 Vkládání předdefinovaných závislostí ASP.NET Core podporuje s pouze jediný konstruktor třídy žádosti o služby. Pokud máte více než jeden konstruktor, můžete být s oznámením výjimce:
 
@@ -101,4 +101,4 @@ Po zadání objekt konfigurace silného typu (v tomto případě `SampleWebSetti
 
 [!code-csharp[](./dependency-injection/sample/src/ControllerDI/Controllers/SettingsController.cs?highlight=3,5,7&range=7-22)]
 
-Následující vzorek možnosti umožňuje nastavení a konfigurace odděleném od sebe a zajišťuje následující kontroler [oddělení oblastí zájmu](http://deviq.com/separation-of-concerns/), protože nepotřebuje vědět, jak a kde najít nastavení informace. Také udržuje kontroler usnadňuje testování částí [testovací kontroler logiku](testing.md), protože neexistuje žádný [statické plevami](http://deviq.com/static-cling/) nebo přímé vytvoření instance třídy nastavení v rámci třídy kontroleru.
+Následující vzorek možnosti umožňuje nastavení a konfigurace odděleném od sebe a zajišťuje následující kontroler [oddělení oblastí zájmu](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns), protože nepotřebuje vědět, jak a kde najít nastavení informace. Také udržuje kontroler usnadňuje [Jednotkový test](testing.md), protože neexistuje žádné přímé vytváření instancí třídy nastavení v rámci třídy kontroleru.

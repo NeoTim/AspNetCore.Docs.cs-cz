@@ -1,17 +1,16 @@
 ---
 title: Začínáme s ASP.NET Core MVC
 author: rick-anderson
-monikerRange: '>= aspnetcore-2.2'
 description: Zjistěte, jak začít pracovat s ASP.NET Core MVC.
 ms.author: riande
 ms.date: 12/12/2018
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: cfce3b5792a5d0673bae5ddbba9e2d4d515a6279
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: f0c2351de017de7f4c62021b8f9478603055e9bc
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381800"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410544"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
@@ -108,7 +107,7 @@ Kurz předpokládá familarity s VS Code. Zobrazit [Začínáme s VS Code](https
   Spuštění aplikace s **Ctrl + F5** (bez ladění režim) umožňuje provádět změny kódu, uložte soubor, aktualizujte prohlížeč a zobrazení změn kódu. Mnoho vývojářů dávají přednost používání režimu bez ladění a aktualizujte stránku, podívejte se na změny.
 
 <!-- Mac -------------------------->
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Vyberte **souboru** > **nové řešení**.
 

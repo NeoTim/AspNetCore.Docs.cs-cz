@@ -2,16 +2,15 @@
 title: Práce s databází a ASP.NET Core
 author: rick-anderson
 description: Vysvětluje, práci s databází a ASP.NET Core.
-monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.date: 12/07/2017
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 817102a7b89ef4f078d7d0a0bf03ba7cb2745a5d
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
+ms.openlocfilehash: 3e05f5dbc73c35f1f938346b2eaab8c0fa7d8ab9
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52861274"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410294"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>Práce s databází a ASP.NET Core
 
@@ -32,7 +31,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Joe Audette](https://t
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 <!-- Mac -------------------------->
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -59,7 +58,7 @@ Hodnota názvu databáze (`Database={Database name}`) se bude lišit pro vygener
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
 <!-- Mac -------------------------->
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
@@ -97,7 +96,7 @@ Poznámka: na ikonu klíče vedle `ID`. Ve výchozím nastavení, EF vytvoří v
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 
 <!-- Mac -------------------------->
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 
@@ -161,7 +160,7 @@ Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční 
 Aplikace zobrazí dosazená data.
 
 <!-- Mac -------------------------->
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota). Zastavení a spuštění aplikace k přidání dat do databáze.
 
@@ -180,4 +179,4 @@ V dalším kurzu se vyčistit prezentace data.
 
 > [!div class="step-by-step"]
 > [Předchozí: Generované uživatelské rozhraní pro stránky Razor](xref:tutorials/razor-pages/page)
-> [Další: aktualizace stránek](xref:tutorials/razor-pages/da1)
+> [Další: Aktualizace stránek](xref:tutorials/razor-pages/da1)

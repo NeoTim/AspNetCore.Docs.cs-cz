@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 3626ce834b904db64c1976aefc77dc60a7bfdf1c
-ms.sourcegitcommit: 4a6bbe84db24c2f3dd2de065de418fde952c8d40
+ms.openlocfilehash: 5e5b9746da9bbc13a147b807aabfd3d9ab90a0ca
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50253166"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410505"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -342,15 +342,15 @@ Následující výpis ukazuje výsledek dvou HTTP požadavků:
 Operace kontroleru:
 
 Transient: d233e165-f417-469b-a866-1cf1935d2518  
-Scoped: 5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
-Singleton: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
+Nastavit rozsah: 5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
+Jednotlivý prvek: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
 Instance: 00000000-0000-0000-0000-000000000000
 
 Operace `OperationService`:
 
 Transient: c6b049eb-1318-4e31-90f1-eb2dd849ff64  
-Scoped: 5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
-Singleton: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
+Nastavit rozsah: 5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
+Jednotlivý prvek: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
 Instance: 00000000-0000-0000-0000-000000000000
 
 **Druhý požadavek:**
@@ -358,15 +358,15 @@ Instance: 00000000-0000-0000-0000-000000000000
 Operace kontroleru:
 
 Transient: b63bd538-0a37-4ff1-90ba-081c5138dda0  
-Scoped: 31e820c5-4834-4d22-83fc-a60118acb9f4  
-Singleton: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
+Nastavit rozsah: 31e820c5-4834-4d22-83fc-a60118acb9f4  
+Jednotlivý prvek: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
 Instance: 00000000-0000-0000-0000-000000000000
 
 Operace `OperationService`:
 
 Transient: c4cbacb8-36a2-436d-81c8-8c1b78808aaf  
-Scoped: 31e820c5-4834-4d22-83fc-a60118acb9f4  
-Singleton: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
+Nastavit rozsah: 31e820c5-4834-4d22-83fc-a60118acb9f4  
+Jednotlivý prvek: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
 Instance: 00000000-0000-0000-0000-000000000000
 
 Všimněte si, které hodnoty `OperationId` se liší v rámci požadavku a mezi požadavky:
@@ -437,10 +437,9 @@ Aplikace by obvykle neměly používat tyto vlastnosti přímo. Místo toho zís
 Osvědčené postupy jsou následující:
 
 * Navrhujte služby tak, aby využívaly vkládání závislostí pro získání jejich závislostí.
-* Vyhněte se stavovému, statickému volání metod (postup známý jako [static cling](https://deviq.com/static-cling/)).
+* Vyhněte se volání stavová a statické metody.
 * Vyhněte se přímému vytváření instancí závislých tříd v rámci služeb. Přímé vytváření instancí způsobuje přímou závislost na konkrétní implementaci.
-
-Dodržováním [zásad SOLID objektově orientovaného návrhu](https://deviq.com/solid/) lze často vyprodukovat malé, dobře navržené a snadno testovatelné třídy aplikace.
+* Malé, skvěle a snadno otestované, vytvořit třídy aplikace.
 
 Pokud má třída nepřiměřeně mnoho vložených závislostí, je to obecně znakem toho, že má třída příliš mnoho zodpovědností a porušuje tak [zásadu jediné zodpovědnosti (Single Responsibility Principle, SRP)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#single-responsibility). V tom případě se pokuste refaktorovat třídu tak, že některé z jeho zodpovědností přesunete do nové třídy. Mějte na paměti, že třídy modelů stránek Razor a třídy kontrolerů MVC by měly být zaměřeny na aspekty uživatelského rozhraní. Business pravidla a konkrétní implementace přístupu k datům by měly být v odpovídajících třídách respektující [princip oddělení zopovědnosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns).
 
@@ -488,7 +487,7 @@ Integrovaný kontejner služeb je primárně určen pro naplnění potřeb frame
 * Vlastní správa životnosti
 * Podpora `Func<T>` pro línou inicializaci
 
-Pro seznam některých kontejnerů podporujících adaptéry, vizte [Soubor readme.md ke Vkládání závislostí](https://github.com/aspnet/DependencyInjection#using-other-containers-with-microsoftextensionsdependencyinjection).
+Pro seznam některých kontejnerů podporujících adaptéry, vizte [Soubor readme.md ke Vkládání závislostí](https://github.com/aspnet/Extensions/tree/master/src/DependencyInjection).
 
 Následující příklad nahrazuje integrovaný kontejner kontejnerem [Autofac](https://autofac.org/):
 
@@ -560,8 +559,7 @@ DI je *alternativní* na vzorech přístupu statická/globální objekt. Nebudet
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/extensibility>
 * [Psaní čistého kódu v ASP.NET Core pomocí vkládání závislostí (MSDN)](https://msdn.microsoft.com/magazine/mt703433.aspx)
-* [Návrh aplikace spravované kontejnerem, předehra: Kam patří kontejner?](https://blogs.msdn.microsoft.com/nblumhardt/2008/12/26/container-managed-application-design-prelude-where-does-the-container-belong/)
+* [Návrh kontejneru spravované aplikace, Prelude: Kam patří kontejneru?](https://blogs.msdn.microsoft.com/nblumhardt/2008/12/26/container-managed-application-design-prelude-where-does-the-container-belong/)
 * [Princip explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)
 * [Kontejner inverze závislostí a vzor vkládání závislostí (Martin Fowler)](https://www.martinfowler.com/articles/injection.html)
-* [Nové je slepované ("lepení" kódu pro konkrétní implementaci)](https://ardalis.com/new-is-glue)
 * [Postup pro registraci služeb s více rozhraními v ASP.NET Core DI](https://andrewlock.net/how-to-register-a-service-with-multiple-interfaces-for-in-asp-net-core-di/)

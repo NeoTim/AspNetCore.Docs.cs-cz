@@ -1,31 +1,31 @@
 ---
-title: Možnosti ověřování komunity operačních systémů pro ASP.NET Core
+title: Možnosti ověřování z komunity OSS pro ASP.NET Core
 author: rick-anderson
-description: Zjistit možnosti ověřování open source pro ASP.NET Core.
+description: Objevte možnosti ověřování open source pro ASP.NET Core.
 ms.author: riande
-ms.date: 03/12/2018
+ms.date: 02/15/2019
 uid: security/authentication/community
-ms.openlocfilehash: 8b3800631cb71f6bd5120157c89765f6d72628ee
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.openlocfilehash: e25df794bdff8f904382e7a299755ae4c23b892e
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36276565"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410281"
 ---
-# <a name="community-oss-authentication-options-for-aspnet-core"></a>Možnosti ověřování komunity operačních systémů pro ASP.NET Core
+# <a name="community-oss-authentication-options-for-aspnet-core"></a>Možnosti ověřování z komunity OSS pro ASP.NET Core
 
-Tato stránka obsahuje možnosti ověřování zadaný komunity open source pro ASP.NET Core. Tato stránka se pravidelně aktualizuje jako nové zprostředkovatele, které jsou k dispozici.
+Tato stránka obsahuje možnosti ověřování poskytované komunitou open source pro ASP.NET Core. Tato stránka se pravidelně aktualizuje jako nového zprostředkovatele k dispozici.
 
-# <a name="oss-authentication-providers"></a>Zprostředkovatelé ověřování operačních systémů
+## <a name="oss-authentication-providers"></a>Zprostředkovatelé ověřování OSS
 
-Tento seznam řadí abecedně.
+Následující seznam je seřazen podle abecedy.
 
 | Název | Popis |
 | ---- | ----------- |
-| [AspNet.Security.OpenIdConnect.Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server) | ASOS je nízké úrovně, první protokolu OpenID Connect serveru rozhraní pro ASP.NET Core a OWIN nebo Katana. |
-| [Cierge](https://github.com/pwdless/Cierge) | Cierge je server OpenID Connect, který zpracovává registrace uživatele, přihlašovací údaje, profily, správu a sociálních přihlášení. |
-| [Gluu serveru](https://gluu.org/) | Připravena, podnikových software typu open source pro identitu, přístup k jednotné přihlašování (SSO) a správu (IAM). Další informace najdete v tématu [Gluu dokumentaci](https://gluu.org/docs/). |
-| [IdentityServer](https://identityserver.io/) | IdentityServer je představuje OpenID Connect a OAuth 2.0 rozhraní pro ASP.NET Core, certifikované OpenID Foundation a v části zásady správného řízení Foundation rozhraní .NET. Další informace najdete v tématu [Vítá vás IdentityServer4 (dokumentace)](https://identityserver4.readthedocs.io/en/release/). |
-| [OpenIddict](https://github.com/openiddict/openiddict-core) | OpenIddict je snadno použitelné OpenID Connect server ASP.NET Core. |
+| [AspNet.Security.OpenIdConnect.Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server) | ASOS je nízké úrovně, první protokolu OpenID Connect serveru rozhraní pro ASP.NET Core a OWIN a Katana. |
+| [Cierge](https://github.com/pwdless/Cierge) | Cierge je server OpenID Connect, který se stará o registraci uživatele, přihlášení, profily, Správa a přihlašování přes sociální sítě. |
+| [Gluu Server](https://gluu.org/) | Organizace, budete mít, opensourcový software pro identity, správy přístupu (IAM) a jednotné přihlašování (SSO). Další informace najdete v tématu [dokumentaci k produktu Gluu](https://gluu.org/docs/). |
+| [IdentityServer](https://identityserver.io/) | IdentityServer je platforma OpenID Connect a OAuth 2.0 pro ASP.NET Core, oficiální certifikaci na nadací OpenID a v části zásady správného řízení .NET Foundation. Další informace najdete v tématu [Vítá vás IdentityServer4 (dokumentace)](https://identityserver4.readthedocs.io/en/latest/). |
+| [OpenIddict](https://github.com/openiddict/openiddict-core) | OpenIddict je snadno použitelné server OpenID Connect pro ASP.NET Core. |
 
-Pro přidání poskytovatele, [upravit tuto stránku](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Faspnet%2FDocs%2Fedit%2Fmaster%2Faspnetcore%2Fsecurity%2Fauthentication%2Fcommunity.md).
+Přidání poskytovatele, [upravit tuto stránku](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Faspnet%2FDocs%2Fedit%2Fmaster%2Faspnetcore%2Fsecurity%2Fauthentication%2Fcommunity.md).

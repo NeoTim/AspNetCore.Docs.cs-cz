@@ -5,12 +5,12 @@ description: Zjistěte, jak oblasti jsou používány pro organizaci souvisejíc
 ms.author: riande
 ms.date: 02/14/2017
 uid: mvc/controllers/areas
-ms.openlocfilehash: b78bb5146f1ab9039fa9ff015471654510718ed6
-ms.sourcegitcommit: ecf2cd4e0613569025b28e12de3baa21d86d4258
+ms.openlocfilehash: 19e818fa198936ea1bee0da8039e88a3c0abbf6b
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/30/2018
-ms.locfileid: "43312215"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410609"
 ---
 # <a name="areas-in-aspnet-core"></a>Oblasti v ASP.NET Core
 
@@ -38,40 +38,24 @@ Oblasti funkce:
 
 * Oblasti podporují víc řadičích se stejným názvem, za předpokladu, že mají různé *oblasti*.
 
-Pojďme se podívat na příklad, který ukazuje, jak vytvořit a použít oblasti. Řekněme, že máte aplikace ze storu, která má dvě odlišné skupiny kontrolerů a zobrazení: produktů a služeb. Složka je obvykle strukturu pro, používat MVC vypadá níže:
+Pojďme se podívat na příklad, který ukazuje, jak vytvořit a použít oblasti. Řekněme, že máte aplikace ze storu, která má dvě odlišné skupiny kontrolerů a zobrazení: Produkty a služby. Složka je obvykle strukturu pro, používat MVC vypadá níže:
 
-* název projektu
-
+* Název projektu
   * Oblasti
-
     * Produkty
-
       * Kontrolery
-
         * HomeController.cs
-
         * ManageController.cs
-
       * Zobrazení
-
         * Domů
-
           * Index.cshtml
-
         * Správa
-
           * Index.cshtml
-
     * Služby
-
       * Kontrolery
-
         * HomeController.cs
-
       * Zobrazení
-
         * Domů
-
           * Index.cshtml
 
 MVC se pokusí pro vykreslení zobrazení v oblasti, ve výchozím nastavení, pokusí se vás pod rouškou v následujících umístěních:

@@ -5,12 +5,12 @@ description: Zjistěte, jak zpracovat zobrazení prezentace dat aplikace a inter
 ms.author: riande
 ms.date: 12/12/2017
 uid: mvc/views/overview
-ms.openlocfilehash: 276540a5d77b1d65119d1b2104508d77f45d5588
-ms.sourcegitcommit: 8f8924ce4eb9effeaf489f177fb01b66867da16f
+ms.openlocfilehash: 6c5b4d7b89ac07a85b5aad626e37855de98064eb
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2018
-ms.locfileid: "39219365"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410431"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>Zobrazení v ASP.NET Core MVC
 
@@ -34,7 +34,7 @@ Použití [rozložení](xref:mvc/views/layout) k zajištění konzistentní webo
 
 ## <a name="benefits-of-using-views"></a>Výhody použití zobrazení
 
-Zobrazení nápovědy k navázání [návrhu oddělení otázky (SoC)](http://deviq.com/separation-of-concerns/) v rámci aplikace MVC oddělením značky uživatelského rozhraní od jiných částí aplikace. Podle SoC návrh umožňuje aplikaci modulární, který poskytuje několik výhod:
+Zobrazení nápovědy k navázání [oddělení oblastí zájmu](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) v rámci aplikace MVC oddělením značky uživatelského rozhraní od jiných částí aplikace. Podle SoC návrh umožňuje aplikaci modulární, který poskytuje několik výhod:
 
 * Aplikace je snazší Údržba, protože je líp uspořádané. Zobrazení jsou obecně seskupené podle funkcí aplikace. Díky tomu je snazší najít související zobrazení při práci na funkci.
 * Součástí aplikace jsou volně vázány. Můžete vytvářet a aktualizovat zobrazení aplikace nezávisle na součásti obchodní logiku a data access. Zobrazení aplikace můžete změnit bez nutnosti nutně aktualizovat ostatní části aplikace.

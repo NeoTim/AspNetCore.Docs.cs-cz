@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 1/11/2019
 uid: security/authentication/google-logins
-ms.openlocfilehash: 98857a84238124e75d695242c8d421b9a29f02e7
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 5b6bfaafba68eaf15a60b7c512a9e7406e3112ee
+ms.sourcegitcommit: 6d8c362a3cb4c634e64cbb3d28069c36bc973581
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396102"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56418663"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>Nastavení Google externí přihlášení v technologii ASP.NET Core
 
@@ -56,7 +56,7 @@ Přidat služby Google `Startup.ConfigureServices`.
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
-Zobrazit [GoogleOptions](/dotnet/api/microsoft.aspnetcore.builder.googleoptions) reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem ověřování Google. To umožňuje požádat o jiné informace o uživateli.
+Zobrazit [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem ověřování Google. To umožňuje požádat o jiné informace o uživateli.
 
 ## <a name="change-the-default-callback-uri"></a>Změnit výchozí identifikátor URI zpětného volání
 

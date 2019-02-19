@@ -2,17 +2,16 @@
 title: Přidat nové pole do stránky v ASP.NET Core Razor
 author: rick-anderson
 description: Ukazuje, jak přidat nové pole do stránky Razor pomocí Entity Framework Core
-monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 9b3ad5f6c4b1c9b5f016f5591127c8d1b213948d
-ms.sourcegitcommit: 1ea1b4fc58055c62728143388562689f1ef96cb2
+ms.openlocfilehash: 98de39c63c992dce7d60563df316d848339b811a
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/13/2018
-ms.locfileid: "53329130"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410372"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole do stránky v ASP.NET Core Razor
 
@@ -115,7 +114,7 @@ Další možností je odstranit databázi a znovu vytvořit databázi pomocí mi
   ```
 
 <!-- Code -------------------------->
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code nebo Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 <!-- copy/paste this tab to the next. Not worth an include  -->
 

@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: b8279588e674e3ada486f61bac2c216f1359e86d
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: 6dcdf71ec5271690718dd1fe750a9a74d498a0f8
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444386"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410333"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2.2
 
@@ -29,7 +29,7 @@ Další informace naleznete v následujících materiálech:
 
 ## <a name="problem-details-support"></a>Podrobnosti o problému podpory
 
-ASP.NET Core 2.1 zavedené `ProblemDetails`závislosti na specifikaci RFC 7807 pro provádění podrobnosti o chybě se odpověď HTTP. 2.2 `ProblemDetails` je standardní odpověď pro klienta kódy chyb v řadiče s `ApiControllerAttribute`. `IActionResult` Vrátí chyba stavový kód (4xx) nyní vrátí klientovi `ProblemDetails` textu. Výsledek bude obsahovat také Identifikátor korelace, který lze použít ke korelaci chyb pomocí protokolů z požadavku. Chyby klienta `ProducesResponseType` výchozí hodnota je pomocí `ProblemDetails` jako typ odpovědi. To je popsána v Open API / Swagger výstupní vygenerované pomocí službou NSwag nebo Swashbuckle.AspNetCore.
+ASP.NET Core 2.1 zavedené `ProblemDetails`na základě [RFC 7807](https://tools.ietf.org/html/rfc7807) specifikace pro provádění podrobnosti o chybě se odpověď HTTP. 2.2 `ProblemDetails` je standardní odpověď pro klienta kódy chyb v řadiče s `ApiControllerAttribute`. `IActionResult` Vrátí chyba stavový kód (4xx) nyní vrátí klientovi `ProblemDetails` textu. Výsledek bude obsahovat také Identifikátor korelace, který lze použít ke korelaci chyb pomocí protokolů z požadavku. Chyby klienta `ProducesResponseType` výchozí hodnota je pomocí `ProblemDetails` jako typ odpovědi. To je popsána v Open API / Swagger výstupní vygenerované pomocí službou NSwag nebo Swashbuckle.AspNetCore.
 
 ## <a name="endpoint-routing"></a>Koncový bod směrování
 
@@ -86,7 +86,7 @@ V dřívějších verzích sady ASP.NET Core, CORS Middleware umožňuje `Accept
 
 Další informace najdete v tématu [Middlewarem CORS](xref:security/cors?view=aspnetcore-2.2#set-the-allowed-request-headers).
 
-## <a name="response-compression"></a>Kompresi odpovědí
+## <a name="response-compression"></a>Komprese odpovědí
 
 ASP.NET Core 2.2 můžete kompresi odpovědí s [formát komprese Brotli](https://tools.ietf.org/html/rfc7932).
 

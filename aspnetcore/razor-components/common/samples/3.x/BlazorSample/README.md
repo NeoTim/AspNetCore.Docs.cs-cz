@@ -1,3 +1,3 @@
 # <a name="blazor-sample"></a>Ukázka Blazor
 
-Tento příklad ukazuje použití metody Blazor scénáře popsaného v dokumentaci k Blazor.
+Tento příklad ukazuje použití Razor komponent a Blazor scénáře popsané v dokumentaci k Blazor a součásti syntaxe Razor.

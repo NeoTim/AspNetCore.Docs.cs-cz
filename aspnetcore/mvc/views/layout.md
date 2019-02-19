@@ -5,12 +5,12 @@ description: Zjistěte, jak používat společné rozložení, sdílet direktivy
 ms.author: riande
 ms.date: 10/18/2018
 uid: mvc/views/layout
-ms.openlocfilehash: b23fd4e0b1d91a4dd5aae548aa2b2081aa37a561
-ms.sourcegitcommit: f43f430a166a7ec137fcad12ded0372747227498
+ms.openlocfilehash: 1bd225c804b333efea834a46b7d9ba46b1bb69d8
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2018
-ms.locfileid: "49391294"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410570"
 ---
 # <a name="layout-in-aspnet-core"></a>Rozložení v ASP.NET Core
 
@@ -22,7 +22,7 @@ Zobrazení stránky a často sdílení visual a programové prvků. Tento člán
 * Sdílet direktivy.
 * Spusťte společný kód před vykreslování stránky nebo zobrazení.
 
-Tento dokument popisuje rozložení pro dva různé přístupy k ASP.NET Core MVC: Razor Pages a kontrolery zobrazení. Pro toto téma jsou minimální rozdíly:
+Tento dokument popisuje rozložení pro dva různé přístupy k ASP.NET Core MVC: A řadiče se zobrazeními Razor Pages. Pro toto téma jsou minimální rozdíly:
 
 * Stránky Razor jsou v *stránky* složky.
 * Kontrolery se používá k zobrazení *zobrazení* složku pro zobrazení.
@@ -33,7 +33,7 @@ Většina webových aplikací mají společné rozložení, který poskytuje už
 
 ![Příklad rozložení stránky](layout/_static/page-layout.png)
 
-Společné struktury HTML, jako jsou skripty a šablony stylů také často používá mnoho stránek v rámci aplikace. Všechny tyto sdílené prvky mohou být definovány v *rozložení* soubor, který může odkazovat ve všech zobrazeních použít v aplikaci. Rozložení snížit duplicitního kódu v zobrazeních, usnadňuje postupujte [není opakujte sami (zkušební) Princip](http://deviq.com/don-t-repeat-yourself/).
+Společné struktury HTML, jako jsou skripty a šablony stylů také často používá mnoho stránek v rámci aplikace. Všechny tyto sdílené prvky mohou být definovány v *rozložení* soubor, který může odkazovat ve všech zobrazeních použít v aplikaci. Rozložení snížit duplicitního kódu v zobrazeních.
 
 Podle konvence je výchozí rozložení aplikace ASP.NET Core s názvem *_Layout.cshtml*. Soubor rozložení pro nové projekty ASP.NET Core, které jsou vytvořené pomocí šablon:
 
@@ -41,7 +41,7 @@ Podle konvence je výchozí rozložení aplikace ASP.NET Core s názvem *_Layout
 
   ![stránky složku v Průzkumníku řešení](layout/_static/rp-web-project-views.png)
 
-* Kontroler se zobrazeními: *Views/Shared/_Layout.cshtml*
+* Kontroler zobrazení: *Views/Shared/_Layout.cshtml*
 
  ![zobrazení složky v Průzkumníku řešení](layout/_static/mvc-web-project-views.png)
 

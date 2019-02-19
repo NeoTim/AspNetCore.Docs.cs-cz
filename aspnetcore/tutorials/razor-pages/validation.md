@@ -2,17 +2,16 @@
 title: Přidání ověřování do stránky ASP.NET Core Razor
 author: rick-anderson
 description: Objevte, jak přidat ověření pro stránky Razor v ASP.NET Core.
-monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 99b1073fe025ee8693d9fe833402d245f78a603d
-ms.sourcegitcommit: e7276930515216338a33c4a03c0d7a87fc718ffe
+ms.openlocfilehash: 93303b76561a8a800432ee707997f240f15e29c7
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55293504"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410453"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování do stránky ASP.NET Core Razor
 

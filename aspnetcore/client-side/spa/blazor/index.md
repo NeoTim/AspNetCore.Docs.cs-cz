@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/11/2019
 uid: spa/blazor/index
-ms.openlocfilehash: 0d22365701a4fc1857582c13459280e50d59c858
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: a83863fa82595a875b73e04604167c7d00d39a81
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159613"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410255"
 ---
 # <a name="introduction-to-blazor"></a>Úvod do Blazor
 
@@ -27,7 +27,7 @@ Pomocí rozhraní .NET v prohlížeči pro vývoj webů na straně klienta nabí
 * **C#jazyk**: Psaní kódu v C# místo JavaScriptu.
 * **.NET Ecosystem**: Využijte stávající ekosystém knihoven .NET.
 * **Kompletní vývojové**: Sdílené složky serveru a na straně klienta logiku.
-* **Rychlost a škálovatelnost**: NET byla vytvořena pro výkon, spolehlivost a zabezpečení.
+* **Rychlost a škálovatelnost**: .NET byla vytvořena pro výkon, spolehlivost a zabezpečení.
 * **Špičkové nástroje**: Produktivní práci s aplikací Visual Studio ve Windows, Linuxu a macOS.
 * **Stabilitu a konzistence**:  Sestavení na commonset jazyků, architektur a nástroje, které jsou stabilní, plně funkční a snadno se používá.
 

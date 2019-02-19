@@ -5,12 +5,12 @@ description: Zjistěte, jak pracovat s metodami kontroleru, zobrazení a DataAnn
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: cd1b0f2ccffaa660f137b8d739933e56018f2702
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 36c8141ba5827366572dabcfd0fdf9600c745706
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249409"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410518"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>Metody kontroleru a zobrazení v ASP.NET Core
 
@@ -100,7 +100,7 @@ Všimněte si, že druhá `Edit` předchází metody akce `[HttpPost]` atribut.
 
 [Pomocné rutiny značky formuláře](xref:mvc/views/working-with-forms) generuje skryté tokenu proti zfalšování, která se musí shodovat `[ValidateAntiForgeryToken]` vygenerovat token proti padělání v `Edit` metody filmy kontroleru. Další informace najdete v tématu [ochrana proti padělání požadavků](xref:security/anti-request-forgery).
 
-`HttpGet Edit` Metoda přebírá tento film `ID` parametr, vyhledá videa pomocí Entity Frameworku `SingleOrDefaultAsync` metoda a vrátí vybraného videa do zobrazení pro úpravy. Pokud nelze najít videa, `NotFound` (HTTP 404), je vrácena.
+`HttpGet Edit` Metoda přebírá tento film `ID` parametr, vyhledá videa pomocí Entity Frameworku `FindAsync` metoda a vrátí vybraného videa do zobrazení pro úpravy. Pokud nelze najít videa, `NotFound` (HTTP 404), je vrácena.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie21/Controllers/MC1.cs?name=snippet_edit1)]
 

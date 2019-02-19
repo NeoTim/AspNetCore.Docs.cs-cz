@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/21/2017
 uid: security/authorization/policies
-ms.openlocfilehash: 937c73c26cd3935c5069d4735e754d1a567f41f4
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: be4812487c92a16c44e3983b234bc9e31be65190
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248105"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410386"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>Autorizace na základě zásad v ASP.NET Core
 
@@ -120,7 +120,7 @@ Například předchozí `BadgeEntryHandler` měl by být přepsán následujíc�
 
 Například MVC předá instance [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) v `Resource` vlastnost. Tato vlastnost poskytuje přístup k `HttpContext`, `RouteData`a všechno, co je jinak poskytované MVC a stránky Razor.
 
-Použití `Resource` vlastnost je konkrétní rozhraní framework. Pomocí informací `Resource` vlastnost omezuje vaše zásady autorizace pro konkrétní platformy. Měli přetypovat `Resource` pomocí vlastnosti `as` – klíčové slovo a potom potvrdit přetypování bylo úspěšně resetováno, aby se váš kód nebude k chybě s `InvalidCastException` při spuštění na ostatní platformy:
+Použití `Resource` vlastnost je konkrétní rozhraní framework. Pomocí informací `Resource` vlastnost omezuje vaše zásady autorizace pro konkrétní platformy. Měli přetypovat `Resource` pomocí vlastnosti `is` – klíčové slovo a potom potvrdit přetypování proběhla úspěšně, aby se váš kód nebude k chybě s `InvalidCastException` při spuštění na ostatní platformy:
 
 ```csharp
 // Requires the following import:

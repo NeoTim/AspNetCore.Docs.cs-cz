@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core MVC je bohatou architekturu pro vytvá�
 ms.author: riande
 ms.date: 01/08/2018
 uid: mvc/overview
-ms.openlocfilehash: d2a50e48c20fe69b1fe691bfc9c91a27d4219922
-ms.sourcegitcommit: 5a2456cbf429069dc48aaa2823cde14100e4c438
+ms.openlocfilehash: 205948cb45709b4eb6014aaf4960bf193a20dc30
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2018
-ms.locfileid: "41902596"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410307"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -20,13 +20,13 @@ ASP.NET Core MVC je bohatou architekturu pro vytváření webových aplikací a 
 
 ## <a name="what-is-the-mvc-pattern"></a>Co je vzor MVC?
 
-Vzor architektury Model-View-Controller (MVC) rozděluje aplikace do tří hlavních skupin součástí: modelů, zobrazení a Kontrolerů. Tento model pomáhá zajistit [oddělení oblastí zájmu](http://deviq.com/separation-of-concerns/). Použití tohoto modelu, jsou uživatelské požadavky směrovány do Kontroleru, který je zodpovědný za práci s modelem k provádění akcí uživatele a/nebo načíst výsledky dotazů. Kontroler vybere zobrazení tak, aby pro uživatele a poskytuje s daty modelu, které vyžaduje.
+Vzor architektury Model-View-Controller (MVC) rozděluje aplikace do tří hlavních skupin součástí: Modely, zobrazení a Kontrolerů. Tento model pomáhá zajistit [oddělení oblastí zájmu](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns). Použití tohoto modelu, jsou uživatelské požadavky směrovány do Kontroleru, který je zodpovědný za práci s modelem k provádění akcí uživatele a/nebo načíst výsledky dotazů. Kontroler vybere zobrazení tak, aby pro uživatele a poskytuje s daty modelu, které vyžaduje.
 
 Následující diagram znázorňuje tři hlavní komponenty a ty, které odkazují na ty ostatní:
 
 ![Vzor MVC](overview/_static/mvc.png)
 
-Tento vymezení odpovědnosti umožňuje škálovat aplikace z hlediska složitost, protože je to snazší pro kódování, ladění a testování (model, zobrazení nebo řadič) něco, co má jedné úlohy (a řídí se [jedné zásadě odpovědnosti ](http://deviq.com/single-responsibility-principle/)). Je obtížnější aktualizace, testování a ladění kódu, který má závislosti rozdělené mezi dva nebo více z těchto tří oblastí. Například logiku uživatelského rozhraní obvykle Chcete-li změnit častěji než obchodní logiku. Pokud prezentaci kódu a obchodní logiky jsou sloučeny do jednoho objektu, musí být objekt, který obsahuje logiku upravena pokaždé, když se změní uživatelské rozhraní. To často představuje chyby a vyžaduje opakované obchodní logiky po každé změně minimální uživatelské rozhraní.
+Tento vymezení odpovědnosti umožňuje škálovat aplikace z hlediska složitost, protože je to snazší pro kódování, ladění a testování (model, zobrazení nebo řadič) něco, co má jednu úlohu. Je obtížnější aktualizace, testování a ladění kódu, který má závislosti rozdělené mezi dva nebo více z těchto tří oblastí. Například logiku uživatelského rozhraní obvykle Chcete-li změnit častěji než obchodní logiku. Pokud prezentaci kódu a obchodní logiky jsou sloučeny do jednoho objektu, musí být objekt, který obsahuje logiku upravena pokaždé, když se změní uživatelské rozhraní. To často představuje chyby a vyžaduje opakované obchodní logiky po každé změně minimální uživatelské rozhraní.
 
 > [!NOTE]
 > Zobrazení a kontroler závisí na modelu. Ale model závisí na zobrazení ani kontroleru. Toto je jedna z klíčových výhod tohoto oddělení. Toto oddělení umožňuje nezávisle na vizuální prezentace modelu, který má být sestaví a otestují.
@@ -34,9 +34,6 @@ Tento vymezení odpovědnosti umožňuje škálovat aplikace z hlediska složito
 ### <a name="model-responsibilities"></a>Model odpovědnosti
 
 Model v aplikaci MVC představuje stav aplikace a veškeré obchodní logiky nebo operací, které by měl provádět ji. Obchodní logika by měl zapouzdřené v modelu, spolu s žádné implementační logika pro uchování stavu aplikace. Zobrazení silného typu obvykle používají typy ViewModel navržené tak, aby obsahovala data pro zobrazení v tomto zobrazení. Správce vytvoří a naplní tyto instance ViewModel z modelu.
-
-> [!NOTE]
-> Existuje mnoho způsobů, jak uspořádat modelu v aplikaci, která používá vzor architektury MVC. Další informace o některých [různé druhy typů modelu](http://deviq.com/kinds-of-models/).
 
 ### <a name="view-responsibilities"></a>Zobrazit odpovědnosti
 
@@ -47,10 +44,10 @@ Zobrazení jsou zodpovědný za prezentování obsah prostřednictvím uživatel
 Kontrolery jsou komponenty, které zpracovávají interakci s uživatelem, pracují s modelem a konečně vybírají vykreslené zobrazení. V aplikaci MVC zobrazení pouze zobrazuje informace; kontroler zpracovává a reaguje na vstup uživatele a interakce. Ve vzoru MVC kontroleru je počáteční vstupní bod a je zodpovědný za výběrem kterém modelu typy pro práci s a které zobrazení k vykreslení (proto jeho název – určuje způsob reakce aplikace na daný požadavek).
 
 > [!NOTE]
-> Kontrolery by neměl příliš složité podle příliš mnoho odpovědností. Chcete-li zachovat logice kontroleru stal zbytečně složité, použijte [jedné zásadě odpovědnost](http://deviq.com/single-responsibility-principle/) nabízených obchodní logiku z kontroleru a do modelu domény.
+> Kontrolery by neměl příliš složité podle příliš mnoho odpovědností. Pokud chcete zachovat logice kontroleru stal zbytečně složité, nabízená oznámení obchodní logiku z kontroleru a do modelu domény.
 
 >[!TIP]
-> Pokud zjistíte, že vaše akce kontroleru často provádějí stejné typy akcí, můžete postupovat podle [Neopakovat sami Princip](http://deviq.com/don-t-repeat-yourself/) přesunutím tyto běžné akce do [filtry](#filters).
+> Pokud zjistíte, že vaše akce kontroleru často provádějí stejné typy akcí, přesunout tyto běžné akce do [filtry](#filters).
 
 ## <a name="what-is-aspnet-core-mvc"></a>Co je ASP.NET Core MVC
 
@@ -146,7 +143,7 @@ Rozhraní framework zpracovává ověřování data žádosti na straně klienta
 
 ### <a name="dependency-injection"></a>Injektáž závislostí
 
-Má integrovanou podporu pro ASP.NET Core [injektáž závislostí (DI)](../fundamentals/dependency-injection.md). V ASP.NET Core MVC [řadiče](controllers/dependency-injection.md) můžete žádost o potřebné služby prostřednictvím jejich konstruktory, takže se budou dodržovat [explicitní závislosti Princip](http://deviq.com/explicit-dependencies-principle/).
+Má integrovanou podporu pro ASP.NET Core [injektáž závislostí (DI)](../fundamentals/dependency-injection.md). V ASP.NET Core MVC [řadiče](controllers/dependency-injection.md) můžete žádost o potřebné služby prostřednictvím jejich konstruktory, takže se budou dodržovat [explicitní závislosti Princip](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 
 Vaše aplikace může také používat [injektáž závislostí v zobrazení souborů](views/dependency-injection.md), použije `@inject` – direktiva:
 
@@ -252,7 +249,7 @@ Pomocné rutiny značek poskytuje vývojové prostředí podporou HTML a bohaté
 
 [Zobrazení komponenty](views/view-components.md) umožňují balíček logiky vykreslování a znovu ji použít v celé aplikaci. Jsou podobné [částečná zobrazení](views/partial.md), ale s přidružené logiky.
 
-## <a name="compatibility-version"></a>Verze kompatibility
+## <a name="compatibility-version"></a>Kompatibilita – verze
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda umožňuje aplikacím vyjádřit výslovný souhlas nebo výslovný nesouhlas s potenciálně rozbíjející změny chování zavedení v ASP.NET Core MVC 2.1 nebo novější.
 

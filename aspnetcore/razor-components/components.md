@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 02/13/2019
 uid: razor-components/components
-ms.openlocfilehash: 8f0a2c7ab7650894010e39ba3cbdcc6a97e04069
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: d1e8075ff1ac6695c98973e6abd8480a78761d92
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159533"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410421"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -20,11 +20,11 @@ Podle [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.c
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ([stažení](xref:index#how-to-download-a-sample)). Najdete v článku [Začínáme](xref:razor-components/get-started) tématu pro požadavky.
 
-Razor komponenty aplikace jsou sestaveny na základě *komponenty*. Komponenta je samostatná blok uživatelského rozhraní (UI), například stránky, dialogové okno nebo formuláře. Komponenta obsahuje kód HTML pro vykreslení spolu s logika zpracování potřeba k vložení dat nebo reakce na události uživatelského rozhraní. Součásti jsou flexibilní a jednoduchý a mohou být vnořené, znovu použít a sdílet mezi projekty.
+Razor komponenty aplikace jsou sestaveny na základě *komponenty*. Komponenta je samostatná blok uživatelského rozhraní (UI), například stránky, dialogové okno nebo formuláře. Komponenta obsahuje kód HTML a zpracování logiku potřebnou k vložení dat nebo v reakci na události uživatelského rozhraní. Součásti jsou flexibilní a jednoduchý. Mohou být vnořené, znovu použít a sdílet mezi projekty.
 
 ## <a name="component-classes"></a>Třídy součásti
 
-Součásti jsou zpravidla implementovaní v  *\*.cshtml* soubory pomocí kombinace C# a značka jazyka HTML. Uživatelské rozhraní pro součást je definován v jazyce HTML. Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](https://docs.microsoft.com/aspnet/core/mvc/views/razor). Když je kompilován Razor součásti aplikace, bude značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty. Název generované třídy odpovídá názvu souboru.
+Součásti jsou zpravidla implementovaní v *.cshtml* soubory pomocí kombinace C# a značka jazyka HTML. Uživatelské rozhraní pro součást je definován v jazyce HTML. Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor). Když je kompilován Razor součásti aplikace, bude značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty. Název generované třídy odpovídá názvu souboru.
 
 Členy třídy komponenty jsou definovány v `@functions` blok (více než jeden `@functions` blok je povolený). V `@functions` bloku, stav komponent (vlastnosti, pole) je zadaný společně s metody pro zpracování událostí nebo definování dalších součástí logiky.
 
@@ -50,7 +50,7 @@ Součásti můžete zahrnout další součásti je deklarací pomocí syntaxe el
 
 Následující kód vykreslí `HeadingComponent` (*HeadingComponent.cshtml*) instance:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.cshtml?start=11&end=11)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.cshtml?name=snippet_HeadingComponent)]
 
 ## <a name="component-parameters"></a>Parametry komponenty
 
@@ -60,7 +60,7 @@ V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Titl
 
 *ParentComponent.cshtml*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?start=1&end=7&highlight=5)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?name=snippet_ParentComponent&highlight=5)]
 
 *ChildComponent.cshtml*:
 
@@ -68,11 +68,11 @@ V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Titl
 
 ## <a name="child-content"></a>Podřízený obsah
 
-Součásti můžete nastavení obsahu v jiné součásti. Přiřazení součásti najdete zde obsah mezi značky, které určují přijímající komponenty. Například `ParentComponent` poskytnete obsah, který má být vykreslen pomocí `ChildComponent` tak, že je obsah uvnitř  **\<ChildComponent >** značky.
+Součásti můžete nastavit obsah jiné součásti. Přiřazení součásti najdete zde obsah mezi značky, které určují přijímající komponenty. Například `ParentComponent` můžete zadat obsah pro vykreslování podle podřízené součásti tak, že je obsah uvnitř `<ChildComponent>` značky.
 
 *ParentComponent.cshtml*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?start=1&end=7&highlight=6)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?name=snippet_ParentComponent&highlight=6-7)]
 
 Obsahuje podřízené součásti `ChildContent` vlastnost, která představuje `RenderFragment`. Hodnota `ChildContent` je umístěn ve značkách podřízené součásti, kde má být vykreslen obsah. V následujícím příkladu, hodnota `ChildContent` přijme od nadřazené komponenty a vykreslit v rámci panelu Bootstrap `panel-body`.
 
@@ -88,7 +88,8 @@ Obsahuje podřízené součásti `ChildContent` vlastnost, která představuje `
 Vazba dat na komponent a prvky modelu DOM se dosahuje pomocí `bind` atribut. Následující příklad vytvoří vazbu `ItalicsCheck` vlastnost na zaškrtávací políčko zaškrtnuto, stav:
 
 ```cshtml
-<input type="checkbox" class="form-check-input" id="italicsCheck" bind="@_italicsCheck" />
+<input type="checkbox" class="form-check-input" id="italicsCheck" 
+    bind="@_italicsCheck" />
 ```
 
 Při zaškrtnutí políčka je a zrušte zaškrtnutí, hodnota vlastnosti je aktualizována na `true` a `false`v uvedeném pořadí.
@@ -102,11 +103,11 @@ Pomocí `bind` s `CurrentValue` vlastnosti (`<input bind="@CurrentValue" />`) je
     onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)" />
 ```
 
-Při vykreslování komponentu `value` elementu input pochází z `CurrentValue` vlastnost. Když uživatel zadá v textovém poli `onchange` se aktivuje a `CurrentValue` je nastavena na hodnotu změněné. Ve skutečnosti je generování kódu poněkud složitější, protože `bind` se zabývá několik případů, kdy jsou provedeny převody typu. V zásadě `bind` přidruží aktuální hodnotu výrazu s `value` obslužné rutiny a atributu změny pomocí zaregistrovaná obslužná rutina.
+Při vykreslování komponentu `value` elementu input pochází z `CurrentValue` vlastnost. Když uživatel zadá v textovém poli `onchange` událost se aktivuje a `CurrentValue` je nastavena na hodnotu změněné. Ve skutečnosti je generování kódu poněkud složitější, protože `bind` zpracovává několik případů, kdy jsou provedeny převody typu. V zásadě `bind` přidruží aktuální hodnotu výrazu s `value` obslužné rutiny a atributu změny pomocí zaregistrovaná obslužná rutina.
 
 **Formátovací řetězce**
 
-Vytváření datových vazeb funguje s [data a času](https://docs.microsoft.com/dotnet/api/system.datetime) formátování řetězce (ale ne jiných výrazech formátu v tuto chvíli, jako je například měnu ani číselných formátů):
+Vytváření datových vazeb funguje s <xref:System.DateTime> řetězce formátu. V tuto chvíli nejsou k dispozici jiných výrazech formátu, například měny nebo číselných formátů.
 
 ```cshtml
 <input bind="@StartDate" format-value="yyyy-MM-dd" />
@@ -136,7 +137,9 @@ Nadřazené komponenty:
 
 <ChildComponent bind-Year="@ParentYear" />
 
-<button class="btn btn-primary" onclick="@ChangeTheYear">Change Year to 1986</button>
+<button class="btn btn-primary" onclick="@ChangeTheYear">
+    Change Year to 1986
+</button>
 
 @functions {
     [Parameter]
@@ -223,7 +226,7 @@ Následující kód volá `CheckboxChanged` metoda při změně zaškrtávacího
 }
 ```
 
-Obslužné rutiny událostí může být také asynchronní a zpět `Task`. Není nutné ručně volat `StateHasChanged()`. Výjimky se protokolují, když k nim dojde.
+Obslužné rutiny událostí může být také asynchronní a zpět <xref:System.Threading.Tasks.Task>. Není nutné ručně volat `StateHasChanged()`. Výjimky se protokolují, když k nim dojde.
 
 ```cshtml
 <button class="btn btn-primary" onclick="@UpdateHeading">
@@ -299,16 +302,16 @@ Komponenta odkazy poskytují způsob, jak získat odkaz na instanci komponenty t
 Při vykreslování komponentu `loginDialog` pole se vyplní `MyLoginDialog` podřízené instance komponenty. Potom můžete vyvolat metody rozhraní .NET na instanci komponenty.
 
 > [!IMPORTANT]
-> `loginDialog` Proměnná je vyplněný pouze poté, co se vykreslí komponentu a zahrnuje její výstup `MyLoginDialog` element vzhledem k tomu, že do té doby se nedá nic odkazovat. K manipulaci s odkazy na součásti po dokončení vykreslení komponentu, použijte `OnAfterRenderAsync` nebo `OnAfterRender` životního cyklu metody.
+> `loginDialog` Proměnná je vyplněný pouze poté, co se vykreslí komponentu a zahrnuje její výstup `MyLoginDialog` elementu. Až do bodu není nutné nic odkazovat. K manipulaci s odkazy na součásti po dokončení vykreslení komponentu, použijte `OnAfterRenderAsync` nebo `OnAfterRender` metody.
 
 Při zachytávání odkazů na komponenty používá podobné syntaxi k [zachytávání odkazy na prvky](xref:razor-components/javascript-interop#capture-references-to-elements), není [zprostředkovatele komunikace s objekty jazyka JavaScript](xref:razor-components/javascript-interop) funkce. Nejsou součástí odkazy předané do kódu jazyka JavaScript; se používá pouze v kódu .NET.
 
 > [!NOTE]
-> Proveďte **není** mutovat stavu podřízenými komponentami pomocí odkazů na komponenty. Vždy použijte normální deklarované parametry k předání dat podřízenými komponentami. To způsobí, že podřízené součásti rerender ve správném čase automaticky.
+> Proveďte **není** mutovat stavu podřízenými komponentami pomocí odkazů na komponenty. Místo toho použijte normální deklarované parametry k předání dat podřízenými komponentami. To způsobí, že podřízené součásti rerender ve správném čase automaticky.
 
 ## <a name="lifecycle-methods"></a>Životní cyklus metody
 
-`OnInitAsync` a `OnInit` spuštění kódu po inicializaci komponentu. Chcete-li provádění asynchronní operace, použijte `OnInitAsync` a použít `await` – klíčové slovo:
+`OnInitAsync` a `OnInit` spouštění kódu se inicializovat komponentu. Chcete-li provádění asynchronní operace, použijte `OnInitAsync` a `await` – klíčové slovo v operaci:
 
 ```csharp
 protected override async Task OnInitAsync()
@@ -326,7 +329,7 @@ protected override void OnInit()
 }
 ```
 
-`OnParametersSetAsync` a `OnParametersSet` se volá, když součást přijme parametry ze svého nadřazeného objektu a hodnoty jsou přiřazeny k vlastnostem. Tyto metody se spustí po `OnInit` při inicializaci součásti.
+`OnParametersSetAsync` a `OnParametersSet` se volá, když součást přijme parametry ze svého nadřazeného objektu a hodnoty jsou přiřazeny k vlastnostem. Tyto metody jsou provedeny po inicializaci součásti a poté je vykreslen komponentu pokaždé, když:
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -342,7 +345,7 @@ protected override void OnParametersSet()
 }
 ```
 
-`OnAfterRenderAsync` a `OnAfterRender` se nazývají pokaždé, když po dokončení vykreslení komponentu. V tomto okamžiku se vyplní elementu a součást odkazy. Pomocí této fázi můžete provést další inicializaci postup pomocí vykreslovaný obsah, jako je aktivace JavaScript knihovny třetích stran, které pracují s vykreslené elementy modelu DOM.
+`OnAfterRenderAsync` a `OnAfterRender` se volá se po vykreslení komponentu. V tomto okamžiku se vyplní elementu a součást odkazy. Pomocí této fázi můžete provést další inicializaci postup pomocí vykreslovaný obsah, jako je aktivace JavaScript knihovny třetích stran, které pracují s vykreslené elementy modelu DOM.
 
 ```csharp
 protected override async Task OnAfterRenderAsync()
@@ -384,7 +387,7 @@ protected override bool ShouldRender()
 
 ## <a name="component-disposal-with-idisposable"></a>Vyřazení komponenty pomocí rozhraní IDisposable
 
-Pokud komponenta implementuje [IDisposable](https://docs.microsoft.com/dotnet/api/system.idisposable), [metoda Dispose](https://docs.microsoft.com/dotnet/standard/garbage-collection/implementing-dispose) se volá, když je součást z uživatelského rozhraní. Používá následující komponenty `@implements IDisposable` a `Dispose` metody:
+Pokud komponenta implementuje <xref:System.IDisposable>, [metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) se volá, když je součást z uživatelského rozhraní. Používá následující komponenty `@implements IDisposable` a `Dispose` metody:
 
 ```csharp
 @using System
@@ -404,11 +407,11 @@ Pokud komponenta implementuje [IDisposable](https://docs.microsoft.com/dotnet/ap
 
 Směrování v součástech Razor se dosahuje tím, že poskytuje šablona trasy pro jednotlivé dostupné komponenty v aplikaci.
 
-Při  *\*.cshtml* soubor s `@page` – direktiva je zkompilován, dostane generované třídy [RouteAttribute](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.mvc.routeattribute) zadání šablonu trasy. Za běhu, směrovač hledá komponentní třídy s `RouteAttribute` a vykreslí podle toho, která komponenta má šablona trasy, která odpovídá požadovanou adresu URL.
+Při *.cshtml* soubor s `@page` – direktiva je zkompilován, dostane generované třídy <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadání šablonu trasy. Za běhu, směrovač hledá komponentní třídy s `RouteAttribute` a vykreslí podle toho, která komponenta má šablona trasy, která odpovídá požadovanou adresu URL.
 
 Více šablon trasy můžete použít pro komponentu. Následující komponenty jsou reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.cshtml?start=1&end=4)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.cshtml?name=snippet_BlazorRoute)]
 
 ## <a name="route-parameters"></a>Parametry trasy
 
@@ -416,19 +419,19 @@ Součásti mohou přijímat parametry trasy z šablonu trasy, které jsou souč�
 
 *RouteParameter.cshtml*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.cshtml?start=1&end=9)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.cshtml?name=snippet_RouteParameter)]
 
 Volitelné parametry nejsou podporovány, tedy dvě `@page` direktivy se použijí v předchozím příkladu. První umožňuje přechod na komponenty bez parametrů. Druhá `@page` trvá – direktiva `{text}` parametr trasa a přiřadí hodnotu do proměnné `Text` vlastnost.
 
 ## <a name="base-class-inheritance-for-a-code-behind-experience"></a>Základní třída dědičnosti "použití modelu code-behind" prostředí
 
-Soubory komponent (*\*.cshtml*) kombinovat kód HTML a C# zpracování kódu ve stejném souboru. `@inherits` – Direktiva je možné poskytovat prostředí "použití modelu code-behind", který odděluje komponenty značek z zpracování kódu Razor součásti aplikace.
+Soubory komponent (*.cshtml*) kombinovat kód HTML a C# zpracování kódu ve stejném souboru. `@inherits` – Direktiva je možné poskytovat prostředí "použití modelu code-behind", který odděluje komponenty značek z zpracování kódu Razor součásti aplikace.
 
 [Ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ukazuje, jak komponenty může dědit základní třídy `BlazorRocksBase`, aby vznikl komponenty vlastnosti a metody.
 
 *BlazorRocks.cshtml*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRocks.cshtml?start=1&end=8)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRocks.cshtml?name=snippet_BlazorRocks)]
 
 *BlazorRocksBase.cs*:
 
@@ -444,20 +447,20 @@ V následující tabulce jsou uvedeny direktivy Razor.
 
 | – Direktiva | Popis |
 | --------- | ----------- |
-| [@functions](https://docs.microsoft.com/aspnet/core/mvc/views/razor#functions) | Přidá C# blok kódu na komponentu. |
+| [@functions](xref:mvc/views/razor#section-5) | Přidá C# blok kódu na komponentu. |
 | `@implements` | Implementuje rozhraní pro třídu vygenerované komponenty. |
-| [@inherits](https://docs.microsoft.com/aspnet/core/mvc/views/razor#inherits) | Poskytuje plnou kontrolu nad třídu, která dědí komponentu. |
-| [@inject](https://docs.microsoft.com/aspnet/core/mvc/views/razor#inject) | Vkládání ze služby umožňuje [kontejneru služby](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection). Další informace najdete v tématu [injektáž závislostí do zobrazení](https://docs.microsoft.com/aspnet/core/mvc/views/dependency-injection). |
+| [@inherits](xref:mvc/views/razor#section-3) | Poskytuje plnou kontrolu nad třídu, která dědí komponentu. |
+| [@inject](xref:mvc/views/razor#section-4) | Vkládání ze služby umožňuje [kontejneru služby](xref:fundamentals/dependency-injection). Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection). |
 | `@layout` | Určuje komponentu rozložení. Rozložení komponenty umožňují zabránit zdvojení kódu a nekonzistence. |
-| [@page](https://docs.microsoft.com/aspnet/core/mvc/razor-pages#razor-pages) | Určuje, že by měla komponenta zpracování požadavků přímo. `@page` – Direktiva je možné zadat při trasy a volitelné parametry. Na rozdíl od Razor Pages `@page` – direktiva nemusí být první – direktiva v horní části souboru. Další informace najdete v tématu [směrování](xref:razor-components/routing). |
-| [@using](https://docs.microsoft.com/aspnet/core/mvc/views/razor#using) | Přidá C# `using` směrnice do třídy vygenerované komponenty. |
-| [@addTagHelper](https://docs.microsoft.com/aspnet/core/mvc/views/razor#tag-helpers) | Použít `@addTagHelper` použít komponentu v jiném sestavení než sestavení aplikace. |
+| [@page](xref:razor-pages/index#razor-pages) | Určuje, že by měla komponenta zpracování požadavků přímo. `@page` – Direktiva je možné zadat při trasy a volitelné parametry. Na rozdíl od Razor Pages `@page` – direktiva nemusí být první – direktiva v horní části souboru. Další informace najdete v tématu [směrování](xref:razor-components/routing). |
+| [@using](xref:mvc/views/razor#using) | Přidá C# `using` směrnice do třídy vygenerované komponenty. |
+| [@addTagHelper](xref:mvc/views/razor#tag-helpers) | Použít `@addTagHelper` použít komponentu v jiném sestavení než sestavení aplikace. |
 
 **Podmíněné atributy**
 
 Atributy jsou vykreslovány podmíněně na základě hodnoty .NET. Pokud je hodnota `false` nebo `null`, atribut není vykreslen. Pokud je hodnota `true`, atribut je vykreslen minimalizovaný.
 
-V následujícím příkladu `IsCompleted` Určuje, zda `checked` se vykreslí v značky ovládacího prvku.
+V následujícím příkladu `IsCompleted` Určuje, zda `checked` se vykreslí v značky ovládacího prvku:
 
 ```cshtml
 <input type="checkbox" checked="@IsCompleted" />
@@ -482,11 +485,11 @@ Pokud `IsCompleted` je `false`, zaškrtněte políčko se vykreslí jako:
 
 **Další informace o syntaxi Razor**
 
-Další informace o syntaxi Razor, najdete v článku [referenční příručka syntaxe Razor](https://docs.microsoft.com/aspnet/core/mvc/views/razor). Všimněte si, že ne všechny funkce Razor jsou k dispozici v součástech Razor v tuto chvíli.
+Další informace o syntaxi Razor, najdete v článku [referenční příručka syntaxe Razor](xref:mvc/views/razor).
 
 ## <a name="raw-html"></a>Raw HTML
 
-Řetězce jsou obvykle vykreslen pomocí modelu DOM textové uzly, což znamená, že všechny značky, které mohou obsahovat je ignorována a považována jako prostý text. Pokud chcete zobrazit nezpracovaný kód HTML, zabalit obsah HTML v `MarkupString` hodnotu, která je pak analyzovat ve formátu HTML nebo SVG a vložit do modelu DOM.
+Řetězce jsou obvykle vykreslen pomocí modelu DOM textové uzly, což znamená, že všechny značky, které mohou obsahovat je ignorována a považována jako prostý text. Pokud chcete zobrazit nezpracovaný kód HTML, zabalit obsah HTML v `MarkupString` hodnotu. Hodnota je analyzovat ve formátu HTML nebo SVG a vložit do modelu DOM.
 
 > [!WARNING]
 > Vykreslování nezpracovaný kód HTML vytvořený z libovolného nedůvěryhodný zdroj je **bezpečnostní riziko** a mělo by se vyhnout!
@@ -565,7 +568,7 @@ Alternativně můžete zadat `Context` atribut na prvek součásti. Zadaný `Con
 
 ### <a name="generic-typed-components"></a>Obecné typy komponenty
 
-Bez vizuálního vzhledu součásti jsou často obecně typu. Obecná součást ListView můžete například použít k vykreslení `IEnumerable<T>` hodnoty. K definování obecné součásti, použijte `@typeparam` směrnice a určete parametry typu.
+Bez vizuálního vzhledu součásti jsou často obecně typu. Například komponentu obecného seznamu zobrazit šablonu můžete použít k vykreslení `IEnumerable<T>` hodnoty. K definování obecné součásti, použijte `@typeparam` směrnice a určete parametry typu.
 
 *Components/ListViewTemplate.cshtml*:
 
@@ -608,7 +611,7 @@ public class ThemeInfo
 }
 ```
 
-Jako součást předchůdce může poskytnout kaskádové hodnotu pomocí `CascadingValue` komponenty. `CascadingValue` Komponenty zabalí podstrom součástí hierarchie a poskytuje jednu hodnotu pro všechny komponenty v rámci této podstrom.
+Jako součást předchůdce může poskytnout kaskádové hodnotu pomocí komponenty kaskádové hodnotu. Součást CSS hodnoty zabalí podstrom součástí hierarchie a poskytuje jednu hodnotu pro všechny komponenty v rámci této podstrom.
 
 Například ukázkové aplikace určuje informace o motivech (`ThemeInfo`) v jednom z rozložení aplikace jako parametr šablony pro všechny součásti, které tvoří rozložení textu `@Body` vlastnost. `ButtonClass` je přiřazena hodnota `btn-success` v komponentě rozložení. Všechny podřízené součásti mohou využívat tuto vlastnost prostřednictvím `ThemeInfo` šablony objektu.
 
@@ -650,7 +653,7 @@ Vazba s hodnotou řetězce názvu platí, pokud máte více kaskádových hodnot
 
 Kaskádové hodnoty se váží k parametrům šablony podle typu.
 
-V ukázkové aplikaci `CascadingValuesParametersTheme` komponenta vytvoří vazbu `ThemeInfo` kaskádové hodnotu pro parametr šablony. Tento parametr se používá nastavení třídy šablony stylů CSS pro jedno z tlačítek zobrazí komponentou.
+V ukázkové aplikaci, komponentě CSS motiv hodnoty parametrů vytvoří vazbu `ThemeInfo` kaskádové hodnotu pro parametr šablony. Tento parametr se používá nastavení třídy šablony stylů CSS pro jedno z tlačítek zobrazí komponentou.
 
 *Pages/CascadingValuesParametersTheme.cshtml*:
 
@@ -695,17 +698,17 @@ Ukázková aplikace má `ITab` rozhraní, které karty implementace:
 
 [!code-cs[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
 
-`CascadingValuesParametersTabSet` Komponenta používá `TabSet` komponenta, která obsahuje několik `Tab` komponenty:
+Komponenta CSS hodnoty parametrů TabSet používá součásti záložku, která obsahuje několik komponent kartu:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.cshtml?name=snippet_TabSet)]
 
-Podřízené `Tab` součásti nejsou explicitně předány jako parametry `TabSet`. Místo toho podřízené `Tab` komponenty jsou součástí podřízený obsah `TabSet`. Ale `TabSet` stále je potřeba vědět o každém `Tab` tak, aby ho může mít za následek záhlaví a na aktivní kartě. Povolit koordinace bez potřeby dalšího kódu, `TabSet` komponenty *samotný můžete zadat jako hodnotu kaskádové* , který pak převezme potomka `Tab` komponenty.
+Podřízené kartu komponenty nejsou explicitně předány jako parametry na kartě nastavení. Místo toho podřízené kartu komponenty jsou součástí podřízenému obsahu ovládacího prvku na kartě nastavení. Však nastavení kartu stále potřebuje vědět o jednotlivých součástech kartu tak, aby ho může mít za následek záhlaví a na aktivní kartě. Povolit koordinace bez potřeby dalšího kódu, nastavte kartu komponenty *samotný můžete zadat jako hodnotu kaskádové* , který se potom vybere potomka kartu komponenty.
 
 *Components/TabSet.cshtml*:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/TabSet.cshtml)]
 
-Potomka `Tab` součásti capture obsahující `TabSet` jako parametr šablony, proto `Tab` součásti přidat samy o sobě `TabSet` a souřadnice, na kterém `Tab` je aktivní.
+Podřízené součásti zachycení kartu obsahující kartu nastavit jako parametr šablony, karta součásti přidaly na kartu Nastavení a souřadnice na které kartě je aktivní.
 
 *Components/Tab.cshtml*:
 

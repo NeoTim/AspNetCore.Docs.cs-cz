@@ -5,12 +5,12 @@ description: Zjistěte, jak vazby modelu umožňuje akce kontroleru pracovat př
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 1da42829270e8ff4a626a45aec4d4e825062bd4f
-ms.sourcegitcommit: f202864efca81a72ea7120c0692940c40d9d0630
+ms.openlocfilehash: 33551c9fc22561b992b4a09a4c7187ade136c09c
+ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/14/2018
-ms.locfileid: "51635287"
+ms.lasthandoff: 02/19/2019
+ms.locfileid: "56410242"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>Vlastní vazba modelu v ASP.NET Core
 
@@ -104,7 +104,7 @@ Následující kód ukazuje způsob použití `AuthorEntityBinder` v metodě akc
 
 [!code-csharp[](custom-model-binding/sample/CustomModelBindingSample/Controllers/BoundAuthorsController.cs?name=demo1&highlight=2)]
 
-V tomto příkladu, protože název argumentu není výchozí `authorId`, je zadán pomocí parametru `ModelBinder` atribut. Všimněte si, že metoda kontroleru a akce jsou zjednodušené ve srovnání s vyhledávání entit v metodě akce. Logika pro načtení Autor pomocí Entity Framework Core se přesune do vazače modelu. To může být značné zjednodušení, pokud máte několik metod, které svázat `Author` model a můžete sledovat [zásada SUCHÝCH](http://deviq.com/don-t-repeat-yourself/).
+V tomto příkladu, protože název argumentu není výchozí `authorId`, je zadán pomocí parametru `ModelBinder` atribut. Všimněte si, že metoda kontroleru a akce jsou zjednodušené ve srovnání s vyhledávání entit v metodě akce. Logika pro načtení Autor pomocí Entity Framework Core se přesune do vazače modelu. To může být značné zjednodušení, pokud máte několik metod, které svázat `Author` modelu.
 
 Můžete použít `ModelBinder` atribut vlastnosti jednotlivých modelu (například na viewmodel) nebo na parametry metod akce k určení vazač modelu nebo název modelu pro právě tento typ nebo akce.
 
