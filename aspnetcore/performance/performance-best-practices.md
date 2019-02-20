@@ -47,7 +47,7 @@ Profiler, jako například [PerfView](https://github.com/Microsoft/perfview), lz
 ## <a name="minimize-large-object-allocations"></a>Minimalizujte velké alokace objektů
 
 <!-- TODO review Bill - replaced original .NET language below with .NET Core since this targets .NET Core --> 
-V aplikacích ASP.NET Core spravuje přidělování a uvolňování paměti automaticky [garbage collector .NET Core](/dotnet/standard/garbage-collection/). Automatické uvolňování paměti obecně znamená, že vývojáři se nemusí starat o to, jak a kdy je paměť uvolněna. Čištění neodkazovaných objektů však zabírá čas procesoru, takže vývojáři by měli minimalizovat alokování objektů v [kritické cestě](#hot). Uvolňování paměti je obzvlášť nákladné u velkých objektů (> 85 kB). Velké objekty jsou uloženy na [haldě pro velké objekty](/dotnet/standard/garbage-collection/large-object-heap) a vyžadují úplné (2. generace) uvolňování paměti pro vyčištění. Na rozdíl od generace 0 a 1. uvolnění paměti 2. generace vyžaduje dočasné pozastavení aplikace. Časté vytváření a rušení velkých objektů může způsobit nekonzistentní výkon.
+[Systém uvolňování paměti .NET Core] automaticky spravuje přidělování a uvolňování paměti v aplikacích ASP.NET Core (/dotnet/standard/garbage-collection/). Automatické uvolňování paměti obecně znamená, že vývojáři se nemusí starat o to, jak a kdy je paměť uvolněna. Čištění neodkazovaných objektů však zabírá čas procesoru, takže vývojáři by měli minimalizovat alokování objektů v [kritické cestě](#hot). Uvolňování paměti je obzvlášť nákladné u velkých objektů (> 85 kB). Velké objekty jsou uloženy na [haldě pro velké objekty](/dotnet/standard/garbage-collection/large-object-heap) a vyžadují úplné (2. generace) uvolňování paměti pro vyčištění. Na rozdíl od generace 0 a 1. uvolnění paměti 2. generace vyžaduje dočasné pozastavení aplikace. Časté vytváření a rušení velkých objektů může způsobit nekonzistentní výkon.
 
 Doporučení:
 
@@ -89,7 +89,7 @@ Problémy dotazů je možné identifikovat kontrolou doby strávené přístupem
 
 ## <a name="pool-http-connections-with-httpclientfactory"></a>Sdružování HTTP spojení pomocí HttpClientFactory
 
-Přestože třída [HttpClient](/dotnet/api/system.net.http.httpclient?view=netstandard-2.0) implementuje rozhraní `IDisposable`, je určena ke znovupoužívaní. Zavřené instance třídy `HttpClient` zanechávají na krátkou dobu otevřené sockety ve stavu `TIME_WAIT`. V důsledku toho se může stát, že pokud kód často vytváří a odstraňuje objekty `HttpClient`, aplikace může vyčerpat dostupné sokety. Jako řešení tohoto problému byla v ASP.NET Core 2.1 zavedena třída [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests), která se stará o sdružování HTTP spojení za účelem optimalizace výkonu a spolehlivosti.
+Přestože třída [HttpClient](/dotnet/api/system.net.http.httpclient?view=netstandard-2.0) implementuje rozhraní `IDisposable`, je určena k opětovnému použití. Zavřené instance třídy `HttpClient` zanechávají na krátkou dobu otevřené sockety ve stavu `TIME_WAIT`. V důsledku toho se může stát, že pokud kód často vytváří a odstraňuje objekty `HttpClient`, aplikace může vyčerpat dostupné sokety. Jako řešení tohoto problému byla v ASP.NET Core 2.1 zavedena třída [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests), která se stará o sdružování HTTP spojení za účelem optimalizace výkonu a spolehlivosti.
 
 Doporučení:
 
