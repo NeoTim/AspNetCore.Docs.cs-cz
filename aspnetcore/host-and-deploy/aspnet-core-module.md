@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak nakonfigurovat modul ASP.NET Core pro hostování aplikací ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/08/2019
+ms.date: 02/19/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 9270d7b462bbac1ae0ad896c0937ea6dd909b2cd
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: e7eed467a0f54df5d0e067efabf6f821b7647d70
+ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159552"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56647964"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -500,12 +500,35 @@ Párování token se používá k zajištění, že požadavků přijatých slu�
 
 ## <a name="aspnet-core-module-with-an-iis-shared-configuration"></a>Modul ASP.NET Core s službu IIS sdílenou konfiguraci
 
-Modul ASP.NET Core instalační program spustí s oprávněními **systému** účtu. Vzhledem k tomu, že místní systémový účet mít nezmění oprávnění pro sdílenou složku cesta používaná systémem sdílené konfiguraci IIS, instalační program narazí na chybu při pokusu o konfiguraci nastavení modulu v odepření přístupu *applicationHost.config* ve sdílené složce. Pokud používáte sdílenou konfiguraci IIS, postupujte podle těchto kroků:
+Modul ASP.NET Core instalační program spustí s oprávněními **TrustedInstaller** účtu. Vzhledem k tomu, že místní systémový účet mít nezmění oprávnění pro sdílenou složku cesta používaná systémem sdílené konfiguraci IIS, instalační program vyvolá chybu při pokusu o konfiguraci nastavení modulu v odepření přístupu *applicationHost.config*  soubor ve sdílené složce.
+
+::: moniker range=">= aspnetcore-2.2"
+
+Pokud používáte sdílenou konfiguraci IIS na stejném počítači jako instalace služby IIS, spusťte instalační program sady hostování technologie ASP.NET Core s `OPT_NO_SHARED_CONFIG_CHECK` parametr nastaven na `1`:
+
+```console
+dotnet-hosting-{VERSION}.exe OPT_NO_SHARED_CONFIG_CHECK=1
+```
+
+Pokud cesta ke sdílené konfigurace není ve stejném počítači jako instalace služby IIS, postupujte takto:
 
 1. Zakážete sdílenou konfiguraci IIS.
 1. Spusťte instalační program.
 1. Export aktualizovaný *applicationHost.config* souboru do sdílené složky.
 1. Znovu povolte sdílenou konfiguraci IIS.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+Pokud používáte sdílenou konfiguraci IIS, postupujte podle těchto kroků:
+
+1. Zakážete sdílenou konfiguraci IIS.
+1. Spusťte instalační program.
+1. Export aktualizovaný *applicationHost.config* souboru do sdílené složky.
+1. Znovu povolte sdílenou konfiguraci IIS.
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 

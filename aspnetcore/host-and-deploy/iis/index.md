@@ -1,17 +1,11 @@
 ---
 title: Hostitele ASP.NET Core ve Windows se službou IIS
 author: guardrex
-description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).
+description: 'Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 02/19/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 5d6ba8b7ee6f09a7d00aa0285802cf0aad267a1d
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248417"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -296,13 +290,14 @@ Chcete-li získat starší verzi instalačního programu:
 
 ### <a name="install-the-hosting-bundle"></a>Instalaci sady hostování
 
-1. Spusťte instalační program na serveru. Při spuštění instalačního programu z příkazového řádku správce jsou k dispozici následující přepínače:
+1. Spusťte instalační program na serveru. Při spuštění instalačního programu ze Správce příkazové prostředí jsou k dispozici následující parametry:
 
    * `OPT_NO_ANCM=1` &ndash; Instalace modulu jádra ASP.NET přeskočit.
    * `OPT_NO_RUNTIME=1` &ndash; Instalace modulu runtime .NET Core přeskočit.
    * `OPT_NO_SHAREDFX=1` &ndash; Přeskočit instalaci rozhraní ASP.NET sdílené (modul runtime technologie ASP.NET).
-   * `OPT_NO_X86=1` &ndash; X86 instalace přeskočit runtimes. Tento přepínač použijte, když víte, že vám nebude hostitelem 32bitových aplikací. Pokud je pravděpodobné, že 32-bit a 64-bit aplikací budou v budoucnu umístěny, není tento přepínač a nainstalovat obě runtimes.
-1. Restartování systému nebo spuštění **net stop byla /y** následovaný **net start w3svc** z příkazového řádku. Restartování služby IIS příjmem změnu systému provedené CESTU, která je proměnná prostředí, instalační služby.
+   * `OPT_NO_X86=1` &ndash; X86 instalace přeskočit runtimes. Tento parametr použijte, když víte, že vám nebude hosting 32bitové aplikace. Pokud je pravděpodobné, že budete hostovat 32bitové a 64bitové aplikace v budoucnu, není tento parametr použijte a nainstalujte oba moduly runtime.
+   * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; Zakázat kontrolu pro použití sdílené konfigurace služby IIS při sdílenou konfiguraci (*applicationHost.config*) je ve stejném počítači jako instalace služby IIS. *K dispozici je pouze pro ASP.NET Core 2.2 nebo vyšší hostování například položky Bundler instalační programy.* Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>.
+1. Restartování systému nebo spuštění **net stop byla /y** následovaný **net start w3svc** z příkazové okno. Restartování služby IIS příjmem změnu systému provedené CESTU, která je proměnná prostředí, instalační služby.
 
 Pokud instalační služby systému Windows, který je hostitelem svazku zjistí, že služba IIS dokončení instalace vyžaduje obnovení, obnoví instalační program služby IIS. Pokud instalační program spustí resetování služby IIS, se restartují všechny fondy aplikací IIS a websites.
 

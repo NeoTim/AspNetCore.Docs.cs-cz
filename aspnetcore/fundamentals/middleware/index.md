@@ -4,14 +4,8 @@ author: rick-anderson
 description: Další informace o ASP.NET Core middleware a kanál žádosti.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/10/2018
+ms.date: 02/17/2019
 uid: fundamentals/middleware/index
-ms.openlocfilehash: c55dbd5a9ac31f55daf1cb3146fb18b91b016919
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341586"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -24,7 +18,7 @@ Middleware je software, který je sestaven do kanálu služby aplikace pro zprac
 
 Delegáti požadavku se používají k vytvoření kanálu požadavku. Delegáti žádost o zpracování konkrétního požadavku HTTP.
 
-Požádat o Delegáti jsou nakonfigurováni pomocí <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*>, <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*>, a <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> metody rozšíření. Delegát jednotlivých požadavků může být zadaný řádek jako anonymní metody (označované jako middlewaru vložených), nebo může být definován ve třídě opakovaně použitelné. Tyto opakovaně použitelné třídy a v řádku anonymní metody jsou *middleware*, označované také jako *middlewarových komponent*. Jednotlivé komponenty middleware v kanálu požadavku zodpovídá za vyvolání další komponenta v kanálu nebo zkrácenou kanálu.
+Požádat o Delegáti jsou nakonfigurováni pomocí <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*>, <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*>, a <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> metody rozšíření. Delegát jednotlivých požadavků může být zadaný řádek jako anonymní metody (označované jako middlewaru vložených), nebo může být definován ve třídě opakovaně použitelné. Tyto opakovaně použitelné třídy a v řádku anonymní metody jsou *middleware*, označované také jako *middlewarových komponent*. Jednotlivé komponenty middleware v kanálu požadavku zodpovídá za vyvolání další komponenta v kanálu nebo zkrácenou kanálu. Při zkratům middleware, je volána *terminálu middleware* protože zabraňuje další middleware v zpracování požadavku.
 
 <xref:migration/http-modules> Vysvětluje rozdíl mezi požadavek kanály v ASP.NET Core a ASP.NET 4.x a poskytuje další ukázky middlewaru.
 
@@ -34,7 +28,7 @@ Kanál žádosti ASP.NET Core se skládá z posloupnost požadavek delegáty, vo
 
 ![Vzor zpracování požadavku zobrazující žádosti přicházející, zpracování až tři middlewares a odpovědi opuštění aplikace. Každý middleware běží svou logikou a předá požadavek na další middleware v příkazu metodu next(). Po třetí middleware zpracuje požadavek, žádost prochází zpět předchozí dvě middlewares v obráceném pořadí pro další zpracování po jejich next() příkazy před opuštěním aplikace jako odpověď klientovi.](index/_static/request-delegate-pipeline.png)
 
-Všem delegátům můžete provádět operace, před a po dalším delegáta. Také můžete rozhodnout delegáta úspěšná žádost o další delegátem, která se nazývá *zkrácenou kanál žádosti*. Krátký cyklus je často žádoucí, protože tím eliminujete zbytečné práce. Middleware statické soubory můžete například vrátit žádost o statický soubor a zkrácenou rest z kanálu. Delegáti zpracování výjimek se nazývají již v rané fázi v kanálu, takže se můžete zachytit výjimky, ke kterým dochází v pozdějších fázích kanálu.
+Všem delegátům můžete provádět operace, před a po dalším delegáta. Zpracování výjimek delegáty by měla být volána již v rané fázi v kanálu, takže se můžete zachytit výjimky, ke kterým dochází v pozdějších fázích kanálu.
 
 Nejjednodušší možný aplikace ASP.NET Core nastaví delegáta jedné žádosti, která zpracovává všechny požadavky. Tento případ neobsahuje kanál aktuálního požadavku. Místo toho jednoho anonymní funkce je volána v reakci na každý požadavek HTTP.
 
@@ -45,6 +39,8 @@ První <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*> delegáta ukončí
 Zřetězit více požadavek delegátů spolu s <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*>. `next` Parametr představuje další delegáta v kanálu. Můžete zkrácenou kanál pomocí *není* volání *Další* parametru. Můžete obvykle provádět akce před i po další delegáta, jak ukazuje následující příklad:
 
 [!code-csharp[](index/snapshot/Chain/Startup.cs?name=snippet1)]
+
+Je-li delegáta není úspěšný žádost o další delegátu, nazývá *zkrácenou kanál žádosti*. Krátký cyklus je často žádoucí, protože tím eliminujete zbytečné práce. Například [Middleware statické soubory](xref:fundamentals/static-files) může fungovat jako *terminálu middleware* tak, že zpracování žádosti o statický soubor a krátký cyklus rest z kanálu. Middleware přidaný do kanálu middleware, který ukončí dalšímu zpracování stále zpracovává kódu po jejich `next.Invoke` příkazy. Nicméně zobrazí následující upozornění o pokusu o zápis, která již byla odeslána odpověď.
 
 > [!WARNING]
 > Nevolejte `next.Invoke` po odeslání odpovědi klientovi. Změny <xref:Microsoft.AspNetCore.Http.HttpResponse> po spuštění odpovědi vrátit výjimku. Například změny, jako je nastavení hlaviček a stavovým kódem vyvolat výjimku. Zápis do datové části odpovědi po volání `next`:
@@ -228,7 +224,7 @@ app.Map("/level1", level1App => {
 
 ## <a name="built-in-middleware"></a>Integrované middlewaru
 
-ASP.NET Core se dodává s následujícími součástmi middlewaru. *Pořadí* sloupec obsahuje poznámky k umístění middleware v kanálu požadavku a za jakých podmínek middleware může ukončit žádosti a zabránit dalším middlewarem zpracování požadavku.
+ASP.NET Core se dodává s následujícími součástmi middlewaru. *Pořadí* sloupec obsahuje poznámky k umístění middleware v kanálu zpracování žádostí a za jakých podmínek middleware může ukončit zpracování požadavku. Je-li middleware zkratům kanál pro zpracování požadavku a zabrání další podřízené middleware zpracování požadavku, nazývá *terminálu middleware*. Další informace o krátký cyklus, najdete v článku [vytvoření kanálu middlewaru s IApplicationBuilder](#create-a-middleware-pipeline-with-iapplicationbuilder) oddílu.
 
 | Middleware | Popis | Objednání |
 | ---------- | ----------- | ----- |

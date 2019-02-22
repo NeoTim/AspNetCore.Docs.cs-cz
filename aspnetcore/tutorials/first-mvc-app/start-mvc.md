@@ -5,12 +5,12 @@ description: Zjistěte, jak začít pracovat s ASP.NET Core MVC.
 ms.author: riande
 ms.date: 12/12/2018
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: f0c2351de017de7f4c62021b8f9478603055e9bc
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 7f8180098523a7d1f48adcc08d6b88217e2ad6a8
+ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410544"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56647873"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
@@ -33,9 +33,6 @@ Aplikaci spravuje databáze filmů produktů. Získáte informace o následujíc
 Na konci budete mít aplikaci, která můžete spravovat a zobrazit data o filmech.
 
 [!INCLUDE[](~/includes/mvc-intro/download.md)]
-
-> [!NOTE]
-> Testujeme použitelnost navrhované nové struktury pro obsah ASP.NET Core.  Pokud máte pár minut a chcete si vyzkoušet cvičení, které spočívá ve vyhledání 7 různých témat v aktuálním nebo navrhovaném obsahu, [klikněte prosím sem a zúčastněte se studie](https://dpk4xbh5.optimalworkshop.com/treejack/aa11wn82).
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
 

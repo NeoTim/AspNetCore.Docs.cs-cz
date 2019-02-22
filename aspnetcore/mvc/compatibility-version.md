@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/15/2019
 uid: mvc/compatibility-version
-ms.openlocfilehash: 7c4189db435088e0803b35add82fa0eb9372e664
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: b360da105799a1dccb1902e167e50e78864b76a9
+ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410142"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56647925"
 ---
 # <a name="compatibility-version-for-aspnet-core-mvc"></a>Verze kompatibility pro ASP.NET Core MVC
 
@@ -45,6 +45,6 @@ Pro aplikace, dojde k rozbíjející změny chování, pomocí příslušné kom
 * Umožňuje použít nejnovější verzi a vyjádřit výslovný nesouhlas zvláštní nejnovější změny chování.
 * Získáte čas na aktualizaci aplikace, funguje s nejnovějšími změnami.
 
-[MvcOptions](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Mvc/Mvc.Core/src/MvcOptions.cs) komentáře zdrojové třídy mají dobrou vysvětlení co změnil a proč změny jsou vylepšení pro většinu uživatelů.
+<xref:Microsoft.AspNetCore.Mvc.MvcOptions> Dokumentace je dobré vysvětlení co změnil a proč změny jsou vylepšení pro většinu uživatelů.
 
 V některé budoucí datum, bude [verze technologie ASP.NET Core 3.0](https://github.com/aspnet/Home/wiki/Roadmap). Ve verzi 3.0 se odebere staré chování podporuje přepínače kompatibility. Domníváme, že se že jedná pozitivní změny, které téměř všechny uživatele. Zavedením teď tyto změny, mohou nyní využívat většinu aplikací a ostatní bude mít čas aktualizovat svoje aplikace.

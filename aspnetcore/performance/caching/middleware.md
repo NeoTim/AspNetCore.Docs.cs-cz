@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat a používat Middleware pro ukládán
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/16/2019
+ms.date: 02/20/2019
 uid: performance/caching/middleware
-ms.openlocfilehash: bb265d04022ec2f8fdb3f2f3bc42f6b3f0b2b338
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: c7c3dbd0c9cf029fa6921d77450e780768c8aa6e
+ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410320"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56647912"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>Odpověď do mezipaměti middlewaru v ASP.NET Core
 
@@ -138,7 +138,7 @@ Při testování a řešení potíží s chování ukládání do mezipaměti, m
 
 * Výsledkem požadavku musí být server odpověď se stavovým kódem 200 (OK).
 * Metoda žádosti musí být GET a HEAD.
-* Terminálu middleware nemůže zpracovat odpověď před Middleware pro ukládání do mezipaměti odpovědí.
+* V `Startup.Configure`, Middleware pro ukládání do mezipaměti odpovědí musí být umístěna před middleware, které vyžadují komprese. Další informace naleznete v tématu <xref:fundamentals/middleware/index>.
 * `Authorization` Hlavičky nesmí být k dispozici.
 * `Cache-Control` parametry záhlaví musí být platná a musí být označena odpověď `public` a není označena jako `private`.
 * `Pragma: no-cache` Hlavičky nesmí být k dispozici Pokud `Cache-Control` záhlaví není k dispozici, jako `Cache-Control` přepíše záhlaví `Pragma` záhlaví, pokud je k dispozici.

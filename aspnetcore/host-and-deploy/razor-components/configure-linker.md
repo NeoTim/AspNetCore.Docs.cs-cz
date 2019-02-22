@@ -5,14 +5,14 @@ description: Zjistěte, jak řídit Linkeru Intermediate Language (IL) při vytv
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 02/20/2019
 uid: host-and-deploy/razor-components/configure-linker
-ms.openlocfilehash: c3c38ec2509344cc02f3895d5d0c2d35059d1d8e
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 7c53e7912ec3b0ae471ea38777f874f55a32487d
+ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55668113"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56647938"
 ---
 # <a name="configure-the-linker-for-blazor"></a>Konfigurace Linkeru pro Blazor
 
@@ -73,7 +73,7 @@ Následující příklad je konfigurační soubor (*Linker.xml*):
 </linker>
 ```
 
-Další informace o formátu souborů pro konfigurační soubor, naleznete v tématu [IL Linkeru: Syntaxe xml popisovače](https://github.com/mono/linker/blob/master/linker/README.md#syntax-of-xml-descriptor).
+Další informace o formátu souborů pro konfigurační soubor, naleznete v tématu [IL Linkeru: Syntaxe xml popisovače](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).
 
 Zadejte konfigurační soubor v souboru projektu `BlazorLinkerDescriptor` položky:
 
