@@ -10,10 +10,10 @@ Následující tabulka uvádí soubory a složky v projektu. Pro účely tohoto 
 
 | Soubor nebo složku              | Účel |
 | ----------------- | ------------ |
-| Wwwroot | Obsahuje statické soubory. Zobrazit [statické soubory](xref:fundamentals/static-files). |
+| wwwroot | Obsahuje statické soubory. Zobrazit [statické soubory](xref:fundamentals/static-files). |
 | Stránky | Složka pro [stránky Razor](xref:razor-pages/index). |
 | *appsettings.json* | [Konfigurace](xref:fundamentals/configuration/index) |
-| *Program.cs* | [Hostitelé](xref:fundamentals/host/index) aplikace ASP.NET Core.|
+| *Program.cs* | [Hostitelé](xref:fundamentals/index#host) aplikace ASP.NET Core.|
 | *Startup.cs* | Nakonfiguruje služby a kanál žádosti. Zobrazit [spuštění](xref:fundamentals/startup).|
 
 ### <a name="the-pages-folder"></a>Složka stránek

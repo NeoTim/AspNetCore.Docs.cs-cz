@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 685b496943642b349321a36a7200d6d51ecf4d6e
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: cfd0a57d5d0b60862b017a170b6d5cbddf56f15a
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396222"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744180"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
@@ -31,7 +31,7 @@ Aplikace ASP.NET Core používají třídu `Startup`, která je konvenčně pojm
 
 [!code-csharp[](startup/sample_snapshot/Startup1.cs?highlight=4,10)]
 
-`Startup` Třída je určena k aplikaci při aplikace [hostitele](xref:fundamentals/host/index) je vytvořená. Hostiteli aplikace je vytvořená při `Build` je volán na tvůrce hostitele v `Program` třídy. `Startup` Třída je obvykle určena voláním [WebHostBuilderExtensions.UseStartup\<TStartup >](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) metodu na tvůrce hostitele:
+`Startup` Třída je určena k aplikaci při aplikace [hostitele](xref:fundamentals/index#host) je vytvořená. Hostiteli aplikace je vytvořená při `Build` je volán na tvůrce hostitele v `Program` třídy. `Startup` Třída je obvykle určena voláním [WebHostBuilderExtensions.UseStartup\<TStartup >](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) metodu na tvůrce hostitele:
 
 [!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=10)]
 
@@ -47,7 +47,7 @@ Ve třídě `Startup` se běžně používá [vkládání závislostí](xref:fun
 
 Alternativou ke vložení `IHostingEnvironment` je použití přístupu založeného na konvencích. Pokud aplikace definuje samostatný `Startup` třídy pro různá prostředí (například `StartupDevelopment`), odpovídající `Startup` třídy je vybrané v době běhu. Třída, jejíž název má příponu odpovídající aktuálnímu prostředí, je upřednostněna. Pokud aplikace běží ve vývojovém prostředí a obsahuje třídu `Startup` i třídu `StartupDevelopment`, použije se třída `StartupDevelopment` . Další informace naleznete v tématu [Používání více prostředí](xref:fundamentals/environments#environment-based-startup-class-and-methods).
 
-Další informace o hostiteli, naleznete v tématu <xref:fundamentals/host/index>. Informace o zpracování chyb během spuštění naleznete v tématu [Zpracování výjimek při spuštění](xref:fundamentals/error-handling#startup-exception-handling).
+Další informace o hostiteli, naleznete v tématu [hostitele](xref:fundamentals/index#host). Informace o zpracování chyb během spuštění naleznete v tématu [Zpracování výjimek při spuštění](xref:fundamentals/error-handling#startup-exception-handling).
 
 ## <a name="the-configureservices-method"></a>Metoda ConfigureServices
 
@@ -59,7 +59,7 @@ Další informace o hostiteli, naleznete v tématu <xref:fundamentals/host/index
 
 Typický vzor je volat všechny `Add{Service}` metody a následně zavolat všechny `services.Configure{Service}` metody. Viz například [konfigurace Identity služby](xref:security/authentication/identity#pw).
 
-Hostitel může nakonfigurovat některé služby před `Startup` metody jsou volány. Další informace naleznete v tématu <xref:fundamentals/host/index>.
+Hostitel může nakonfigurovat některé služby před `Startup` metody jsou volány. Další informace najdete v tématu [hostitele](xref:fundamentals/index#host).
 
 Funkce, které vyžadují značné instalační program, existují `Add{Service}` rozšiřující metody na <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>. Typická aplikace ASP.NET Core zaregistruje služby pro Entity Framework, Identity a MVC:
 
@@ -134,7 +134,7 @@ Pořadí spuštění middlewarů je nastaveno podle pořadí registrace `IStartu
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* <xref:fundamentals/host/index>
+* [Hostitel](xref:fundamentals/index#host)
 * <xref:fundamentals/environments>
 * <xref:fundamentals/middleware/index>
 * <xref:fundamentals/logging/index>

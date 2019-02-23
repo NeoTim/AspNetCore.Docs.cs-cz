@@ -1,28 +1,51 @@
 ---
-title: Obecný hostitele .NET
+title: .NET Generic Host
 author: guardrex
-description: Další informace o obecných Host v .NET, který je zodpovědný za spouštění a životního cyklu správy aplikací.
+description: Další informace o obecných hostitele ASP.NET Core, který je zodpovědný za spouštění a životního cyklu správy aplikací.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 4d435984d8169b558ab026ef8541c90f7a2a96b9
-ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
+ms.openlocfilehash: a128b7c19d544d1dd28ab16f7a208ceef680ce81
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/29/2018
-ms.locfileid: "52618152"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743839"
 ---
-# <a name="net-generic-host"></a>Obecný hostitele .NET
+# <a name="net-generic-host"></a>.NET Generic Host
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Konfigurace aplikace .NET core a spouštění *hostitele*. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Toto téma obsahuje obecný hostitele ASP.NET Core (<xref:Microsoft.Extensions.Hosting.HostBuilder>), což je užitečné pro hostování aplikací, které není zpracovávají požadavky HTTP. Pro pokrytí webového hostitele (<xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>), najdete v článku <xref:fundamentals/host/web-host>.
+::: moniker range="<= aspnetcore-2.2"
 
-Cílem obecný hostitele je oddělit kanálu HTTP z hostitele webového rozhraní API umožňující širší škálu scénářů hostitele. Zasílání zpráv, úlohy na pozadí a další úlohy jiným protokolem než HTTP podle obecného hostitele, který je výhodné společné funkce, jako jsou konfigurace, injektáž závislostí (DI) a protokolování.
+Aplikace ASP.NET Core, konfigurace a spouštění hostitele. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.
 
-Obecný hostitele je nového v ASP.NET Core 2.1 a není vhodné pro scénáře hostování webů. Pro web scénářích hostování, použijte [webového hostitele](xref:fundamentals/host/web-host). Obecný hostitele je ve vývoji a nahraďte webového hostitele v budoucí verzi fungovat jako primární hostitele rozhraní API scénáře jiným protokolem než HTTP a protokolu HTTP.
+Tento článek popisuje obecný hostitele ASP.NET Core (<xref:Microsoft.Extensions.Hosting.HostBuilder>), který se používá pro aplikace, které není zpracovávají požadavky HTTP.
+
+Účelem obecný hostitele je oddělit kanálu HTTP z hostitele webového rozhraní API umožňující širší škálu scénářů hostitele. Zasílání zpráv, úlohy na pozadí a další úlohy jiným protokolem než HTTP podle obecného hostitele je výhodné společné funkce, jako jsou konfigurace, injektáž závislostí (DI) a protokolování.
+
+Obecný hostitele je nového v ASP.NET Core 2.1 a není vhodné pro scénáře hostování webů. Pro web scénářích hostování, použijte [webového hostitele](xref:fundamentals/host/web-host). Obecný hostitele, nahradí webového hostitele v budoucí verzi a fungovat jako primární hostitele rozhraní API scénáře jiným protokolem než HTTP a protokolu HTTP.
+
+::: moniker-end
+
+::: moniker range="> aspnetcore-2.2"
+
+Aplikace ASP.NET Core, konfigurace a spouštění hostitele. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.
+
+Tento článek popisuje obecný hostitele .NET Core (<xref:Microsoft.Extensions.Hosting.HostBuilder>).
+
+Obecný hostitele se liší od webového hostitele v tom, že odděluje kanálu HTTP z hostitele webového rozhraní API umožňující širší škálu scénářů hostitele. Zasílání zpráv, úlohy na pozadí a další úlohy jiným protokolem než HTTP lze použít obecný hostitele a využívat společné funkce, jako jsou konfigurace, injektáž závislostí (DI) a protokolování.
+
+Od verze ASP.NET Core 3.0, obecný hostitele se doporučuje pro úlohy jiným protokolem než HTTP a protokolu HTTP. Implementaci serveru HTTP, pokud je zahrnuto, běží jako implementace <xref:Microsoft.Extensions.Hosting.IHostedService>. `IHostedService` je rozhraní, které lze použít pro jiné procesy.
+
+Webového hostitele už se nedoporučuje pro webové aplikace, ale zůstává k dispozici z důvodu zpětné kompatibility.
+
+> [!NOTE]
+> Tato zbývající část tohoto článku se ještě neaktualizoval 3.0.
+
+::: moniker-end
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
@@ -95,7 +118,7 @@ Konfigurace hostitele bylo vytvořeno.
 
 **Klíč**: applicationName  
 **Typ**: *řetězec*  
-**Výchozí**: název sestavení obsahující vstupní bod aplikace.  
+**Výchozí**: Název sestavení obsahujícího položku aplikaci přejděte.  
 **Sada s použitím**: `HostBuilderContext.HostingEnvironment.ApplicationName`  
 **Proměnná prostředí**: `<PREFIX_>APPLICATIONNAME` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configurehostconfiguration))
 
@@ -105,7 +128,7 @@ Toto nastavení určuje, kde začíná hostitele vyhledávání obsahu souborů.
 
 **Klíč**: contentRoot  
 **Typ**: *řetězec*  
-**Výchozí**: výchozí hodnota je složka, ve které se nachází sestavení aplikace.  
+**Výchozí**: Výchozí hodnota je do složky, ve které se nachází sestavení aplikace.  
 **Sada s použitím**: `UseContentRoot`  
 **Proměnná prostředí**: `<PREFIX_>CONTENTROOT` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configurehostconfiguration))
 
@@ -119,7 +142,7 @@ Nastaví aplikace [prostředí](xref:fundamentals/environments).
 
 **Klíč**: prostředí  
 **Typ**: *řetězec*  
-**Výchozí**: produkčního prostředí  
+**Výchozí**: Produkční  
 **Sada s použitím**: `UseEnvironment`  
 **Proměnná prostředí**: `<PREFIX_>ENVIRONMENT` (`<PREFIX_>` je [volitelné a uživatelem definovanými](#configurehostconfiguration))
 
@@ -150,7 +173,7 @@ Během vývoje. při použití [sady Visual Studio](https://www.visualstudio.com
 
 [Příkazový řádek konfigurace](xref:fundamentals/configuration/index#command-line-configuration-provider) je přidána voláním <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>. Konfigurace příkazového řádku je tak, aby povolovala argumenty příkazového řádku k přepsání konfigurace poskytované starší poskytovatelé konfigurace přidáni jako poslední.
 
-*hostsettings.JSON*:
+*hostsettings.json*:
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/hostsettings.json)]
 
@@ -170,15 +193,15 @@ Příklad aplikace konfigurace pomocí `ConfigureAppConfiguration`:
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureAppConfiguration)]
 
-*appSettings.JSON*:
+*appsettings.json*:
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
 
-*appSettings. Development.JSON*:
+*appsettings.Development.json*:
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Development.json)]
 
-*appSettings. Production.JSON*:
+*appsettings.Production.json*:
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Production.json)]
 

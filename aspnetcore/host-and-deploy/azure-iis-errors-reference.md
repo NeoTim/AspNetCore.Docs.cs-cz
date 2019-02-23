@@ -4,14 +4,14 @@ author: guardrex
 description: Získáte pomoc při řešení potíží pro běžné chyby při hostování aplikací ASP.NET Core v Azure App Service a službu IIS.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 02/21/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 976f7e3fbeab9e81ba99e2dd7d09a892b854651b
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: d1cdac4d27ee1bc3ebb4329c1bbd3bdacb34a58c
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854458"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743944"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
 
@@ -162,6 +162,14 @@ Zkontrolujte web služby IIS **základní nastavení** a složky fyzické aplika
   Další informace najdete v tématu [instalaci sady .NET Core hostování](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
 * Ujistěte se, že **fond aplikací** > **Model procesu** > **Identity** je nastavena na **ApplicationPoolIdentity** nebo vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
+
+* Pokud odinstalaci sady hostování technologie ASP.NET Core a nainstalovat dřívější verzi sady hostování *applicationHost.config* soubor neobsahuje oddíl pro modul ASP.NET Core. Otevřít *applicationHost.config* na *%windir%/System32/inetsrv/config* a najít `<configuration><configSections><sectionGroup name="system.webServer">` skupiny oddílů. Pokud ze skupiny oddílů chybí část pro modul ASP.NET Core, přidejte prvek části:
+
+  ```xml
+  <section name="aspNetCore" overrideModeDefault="Allow" />
+  ```
+  
+  Můžete také nainstalujte nejnovější verzi sady hostování technologie ASP.NET Core. Nejnovější verze je zpětně kompatibilní s aplikací ASP.NET Core s podporou.
 
 ## <a name="incorrect-processpath-missing-path-variable-hosting-bundle-not-installed-systemiis-not-restarted-vc-redistributable-not-installed-or-dotnetexe-access-violation"></a>Nesprávné processPath, chybějící proměnné PATH, hostování sady není nainstalovaný, není restartování systému/IIS, VC ++ Redistributable není nainstalovaný nebo dotnet.exe narušení přístupu
 

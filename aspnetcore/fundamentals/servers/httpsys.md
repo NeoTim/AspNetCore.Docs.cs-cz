@@ -5,14 +5,14 @@ description: Další informace o souboru HTTP.sys, webový server pro ASP.NET Co
 monikerRange: '>= aspnetcore-2.0'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 02/21/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 859e3daeba125ab1a9392c1bdbf2733de2f79a34
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: abb426b1a41226e52d9b9b5c00c41ff816890d36
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248339"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744128"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace serveru HTTP.sys web v ASP.NET Core
 
@@ -135,7 +135,9 @@ Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování pro
 
 ### <a name="configure-windows-server"></a>Konfigurace Windows serveru
 
-1. Určit, aby porty otevřete pro aplikaci a pomocí brány Windows Firewall nebo [rutin prostředí PowerShell](https://technet.microsoft.com/library/jj554906) otevřít porty brány firewall pro povolení provozu k dosažení HTTP.sys. Při nasazování do virtuálního počítače Azure, otevřít porty ve [skupinu zabezpečení sítě](/azure/virtual-network/security-overview). V následující příkazy a konfigurace aplikací se používá port 443.
+1. Určení porty otevřete pro aplikaci a použití [brány Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo [New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) rutinu Powershellu otevřít porty brány firewall pro povolení provozu k dosažení HTTP.sys. V následující příkazy a konfigurace aplikací se používá port 443.
+
+1. Při nasazování do virtuálního počítače Azure, otevřít porty ve [skupinu zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následující příkazy a konfigurace aplikací se používá port 443.
 
 1. Získat a nainstalovat certifikáty X.509, pokud je to nutné.
 
@@ -272,5 +274,5 @@ Pro aplikace hostované souborem HTTP.sys, které pracují s žádostí z Intern
 * [Povolení ověřování Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#enable-windows-authentication-with-httpsys)
 * [Server HTTP rozhraní API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
 * [úložiště GitHub ASPNET/HttpSysServer (zdrojového kódu)](https://github.com/aspnet/HttpSysServer/)
-* <xref:fundamentals/host/index>
+* [Hostitel](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>

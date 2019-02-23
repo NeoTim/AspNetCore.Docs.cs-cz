@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/28/2018
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: de419357d4d96a6e348a77055e67c0fcd190ae42
-ms.sourcegitcommit: 0fc89b80bb1952852ecbcf3c5c156459b02a6ceb
+ms.openlocfilehash: 3b48b32e6abfb02c0f8d2ebdc3aca9f02324df6c
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/29/2018
-ms.locfileid: "52618139"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744063"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
@@ -28,8 +28,8 @@ V ASP.NET Core, je možné implementovat úlohy na pozadí jako *hostovaných sl
 
 Ukázková aplikace je k dispozici ve dvou verzích:
 
-* Webového hostitele &ndash; The webového hostitele je užitečné pro hostování webových aplikací. Příklad kódu v tomto tématu je od verze webového hostitele vzorku. Další informace najdete v tématu [webového hostitele](xref:fundamentals/host/web-host) tématu.
-* Obecný hostitele &ndash; obecný hostitelské Novinky v ASP.NET Core 2.1. Další informace najdete v tématu [obecný hostitele](xref:fundamentals/host/generic-host) tématu.
+* Webového hostitele &ndash; webového hostitele je užitečné pro hostování webových aplikací. Příklad kódu v tomto tématu se z webového hostitele verzi ukázky. Další informace najdete v tématu [webového hostitele](xref:fundamentals/host/web-host) tématu.
+* Obecný hostitele &ndash; obecný hostitele je nového v ASP.NET Core 2.1. Další informace najdete v tématu [obecný hostitele](xref:fundamentals/host/generic-host) tématu.
 
 ## <a name="package"></a>Balíček
 

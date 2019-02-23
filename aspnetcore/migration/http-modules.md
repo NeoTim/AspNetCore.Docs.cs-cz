@@ -5,12 +5,12 @@ description: ''
 ms.author: tdykstra
 ms.date: 12/07/2016
 uid: migration/http-modules
-ms.openlocfilehash: 9dd28b86966912cce87166feb37e65adf3dd6dcb
-ms.sourcegitcommit: 5a2456cbf429069dc48aaa2823cde14100e4c438
+ms.openlocfilehash: 601b93fb12ab5b37b7d8ad8fd9825accc6e314cd
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2018
-ms.locfileid: "41902668"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743852"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>Migrace moduly a obslužné rutiny HTTP do middlewaru ASP.NET Core
 
@@ -96,7 +96,7 @@ Jak je znázorněno v [Middleware](xref:fundamentals/middleware/index) stránky,
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddleware.cs?highlight=9,13,20,24,28,30,32)]
 
-Předchozí šablonu postupem middleware byla získána z část [zápis middlewaru](xref:fundamentals/middleware/index#write-middleware).
+Předchozí šablonu postupem middleware byla získána z část [zápis middlewaru](xref:fundamentals/middleware/write).
 
 *MyMiddlewareExtensions* pomocná třída usnadňuje konfiguraci middlewaru v vaše `Startup` třídy. `UseMyMiddleware` Metoda přidá do kanálu požadavku vaše třída middlewaru. Získání služby nezbytné middlewarem vložený v konstruktoru middlewaru.
 
@@ -260,7 +260,7 @@ Poskytuje jedinečný id pro každý požadavek. Velmi užitečné zahrnout do p
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Method)]
 
-**HttpContext.Request.QueryString** se přeloží na:
+**HttpContext.Request.QueryString** translates to:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Query)]
 
@@ -272,7 +272,7 @@ Poskytuje jedinečný id pro každý požadavek. Velmi užitečné zahrnout do p
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Secure)]
 
-**HttpContext.Request.UserHostAddress** se přeloží na:
+**HttpContext.Request.UserHostAddress** translates to:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Host)]
 
@@ -280,7 +280,7 @@ Poskytuje jedinečný id pro každý požadavek. Velmi užitečné zahrnout do p
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Cookies)]
 
-**HttpContext.Request.RequestContext.RouteData** se přeloží na:
+**HttpContext.Request.RequestContext.RouteData** translates to:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Route)]
 
@@ -288,15 +288,15 @@ Poskytuje jedinečný id pro každý požadavek. Velmi užitečné zahrnout do p
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Headers)]
 
-**HttpContext.Request.UserAgent** se přeloží na:
+**HttpContext.Request.UserAgent** translates to:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Agent)]
 
-**HttpContext.Request.UrlReferrer** se přeloží na:
+**HttpContext.Request.UrlReferrer** translates to:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Referrer)]
 
-**HttpContext.Request.ContentType** se přeloží na:
+**HttpContext.Request.ContentType** translates to:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_Type)]
 

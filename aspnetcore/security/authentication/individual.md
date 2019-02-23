@@ -5,12 +5,12 @@ description: Vyhledat články založené na projekty ASP.NET Core, které jsou 
 ms.author: riande
 ms.date: 11/30/2017
 uid: security/authentication/individual
-ms.openlocfilehash: ac843342ffc73632fbf9f6359c6c1a5878dcef0d
-ms.sourcegitcommit: c12ebdab65853f27fbb418204646baf6ce69515e
+ms.openlocfilehash: c73365eafaf2c38ef02c3c83ccf5ced4264f7dc0
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/21/2018
-ms.locfileid: "46523061"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743771"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>Články podle projekty ASP.NET Core, které jsou vytvořené pomocí jednotlivých uživatelských účtů
 
@@ -22,7 +22,6 @@ Ověřování šablony jsou k dispozici v rozhraní .NET Core CLI s `-au Individ
 
 ```console
 dotnet new mvc -au Individual
-dotnet new webapi -au Individual
 dotnet new webapp -au Individual
 ```
 
@@ -32,11 +31,12 @@ dotnet new webapp -au Individual
 
 ```console
 dotnet new mvc -au Individual
-dotnet new webapi -au Individual
 dotnet new razor -au Individual
 ```
 
 ::: moniker-end
+
+Zobrazit [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/5833) pro ověřování webové rozhraní API.
 
 <a name="no"></a>
 ## <a name="no-authentication"></a>Bez ověřování

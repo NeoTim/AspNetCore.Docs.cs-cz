@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/static-files
-ms.openlocfilehash: 4c08d65cc1f658ef08a9b4b362ac7f8a3a243557
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: e6bda5dd60c62c7bdbfa81f34c14cfcd07e8d700
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637778"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744050"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -23,7 +23,7 @@ Statické soubory, jako jsou HTML, CSS, obrázky a JavaScript, představují maj
 
 ## <a name="serve-static-files"></a>Doručování statických souborů
 
-Statické soubory jsou uloženy v kořenovém adresáři vašeho projektu web. Výchozí adresář je  *\<content_root > / wwwroot*, ale můžete změnit prostřednictvím [UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) metody. Zobrazit [obsahu kořenové](xref:fundamentals/index#content-root) a [kořenový adresář webové](xref:fundamentals/index#web-root-webroot) Další informace.
+Statické soubory jsou uloženy v kořenovém adresáři vašeho projektu web. Výchozí adresář je  *\<content_root > / wwwroot*, ale můžete změnit prostřednictvím [UseWebRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usewebroot#Microsoft_AspNetCore_Hosting_HostingAbstractionsWebHostBuilderExtensions_UseWebRoot_Microsoft_AspNetCore_Hosting_IWebHostBuilder_System_String_) metody. Zobrazit [obsahu kořenové](xref:fundamentals/index#content-root) a [kořenový adresář webové](xref:fundamentals/index#web-root) Další informace.
 
 Hostitel webové aplikace musí být informováni obsahu kořenový adresář.
 
@@ -46,7 +46,7 @@ Nastavení obsahu kořenovém adresáři aktuální adresář vyvoláním [UseCo
 Statické soubory jsou přístupné přes cestu relativní vzhledem k kořenový adresář webové. Například **webovou aplikaci** šablonu projektu obsahuje několik složek v rámci *wwwroot* složky:
 
 * **wwwroot**
-  * **šablony stylů CSS**
+  * **css**
   * **Bitové kopie**
   * **js**
 
@@ -82,14 +82,14 @@ Bezparametrová `UseStaticFiles` soubory v kořenovém adresáři webové jako s
 
 [!code-cshtml[](static-files/samples/1x/Views/Home/Index.cshtml?name=snippet_static_file_wwwroot)]
 
-V předchozím kódu znak tilda `~/` odkazuje na webroot. Další informace najdete v tématu [kořenový adresář webové](xref:fundamentals/index#web-root-webroot).
+V předchozím kódu znak tilda `~/` odkazuje na webroot. Další informace najdete v tématu [kořenový adresář webové](xref:fundamentals/index#web-root).
 
 ### <a name="serve-files-outside-of-web-root"></a>Soubory mimo kořenový adresář webové poskytovat
 
 Vezměte v úvahu hierarchii adresářů, ve kterém se obsluhovat statické soubory nacházejí mimo kořenový adresář webové:
 
 * **wwwroot**
-  * **šablony stylů CSS**
+  * **css**
   * **Bitové kopie**
   * **js**
 * **MyStaticFiles**
@@ -188,7 +188,7 @@ app.UseFileServer(enableDirectoryBrowsing: true);
 Vezměte v úvahu následující hierarchii adresářů:
 
 * **wwwroot**
-  * **šablony stylů CSS**
+  * **css**
   * **Bitové kopie**
   * **js**
 * **MyStaticFiles**

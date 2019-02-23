@@ -13,7 +13,7 @@ Následující tabulka uvádí soubory a složky v projektu. Pro účely tohoto 
 | *wwwroot* | Obsahuje statické prostředky. Zobrazit [statické soubory](xref:fundamentals/static-files). |
 | *Stránky* | Složka pro [stránky Razor](xref:razor-pages/index). |
 | *appsettings.json* | [Konfigurace](xref:fundamentals/configuration/index) |
-| *Program.cs* | Konfiguruje [hostitele](xref:fundamentals/host/index) aplikace ASP.NET Core. |
+| *Program.cs* | Konfiguruje [hostitele](xref:fundamentals/index#host) aplikace ASP.NET Core. |
 | *Startup.cs* | Nakonfiguruje služby a kanál žádosti. Zobrazit [spuštění](xref:fundamentals/startup). |
 
 ### <a name="the-pagesshared-folder"></a>Stránky/sdílené složky

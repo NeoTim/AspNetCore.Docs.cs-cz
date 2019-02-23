@@ -136,7 +136,7 @@ Pokud `UseUrls` je volána v aplikaci ASP.NET Core 1.0, volání **před** volá
 
 ::: moniker-end
 
-Další informace o hostování najdete v tématu [hostitele v ASP.NET Core](xref:fundamentals/host/index).
+Další informace o hostování najdete v tématu [hostitele v ASP.NET Core](xref:fundamentals/index#host).
 
 ### <a name="iis-options"></a>Možnosti služby IIS
 
@@ -478,7 +478,7 @@ Při hostování za nástrojem sub aplikace ASP.NET Core pod aplikace ASP.NET Co
 
 Odkazy statických prostředků v rámci podřízeným aplikacím měli použít lomítko tilda (`~/`) notaci. Triggery notation tilda lomítko [pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) pro předřazení pathbase, je-sub aplikace pro vykreslený relativní odkaz. Pro odběr aplikace na `/subapp_path`, bitovou kopii propojené s `src="~/image.png"` se vykreslí jako `src="/subapp_path/image.png"`. Middleware kořenové aplikace statické soubory nelze zpracovat požadavek statický soubor. Žádost zpracovává Middleware sub aplikace statické soubory.
 
-Pokud statický prostředek `src` atribut je nastaven na absolutní cestu (například `src="/image.png"`), odkaz je vykreslen bez pathbase, je-sub aplikace. Middleware kořenové aplikace statické soubory pokusí sloužit asset z kořenové aplikace [webroot](xref:fundamentals/index#web-root-webroot), výsledek bude *404 - Nenalezeno* odpovědi Pokud statických prostředků není k dispozici z kořenové aplikace.
+Pokud statický prostředek `src` atribut je nastaven na absolutní cestu (například `src="/image.png"`), odkaz je vykreslen bez pathbase, je-sub aplikace. Middleware kořenové aplikace statické soubory pokusí sloužit asset z kořenové aplikace [kořenový adresář webové](xref:fundamentals/index#web-root), výsledek bude *404 - Nenalezeno* odpovědi Pokud statických prostředků není k dispozici z kořenové aplikace.
 
 K hostování aplikace v ASP.NET Core jako podřízeným aplikacím v rámci jiné aplikace ASP.NET Core:
 

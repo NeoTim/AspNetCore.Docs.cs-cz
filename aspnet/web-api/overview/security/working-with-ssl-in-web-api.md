@@ -4,16 +4,16 @@ title: Práce s protokolem SSL ve webovém rozhraní API | Dokumentace Microsoft
 author: MikeWasson
 description: Ukazuje, jak používat protokol SSL s ASP.NET Web API, včetně používání certifikátů SSL klienta.
 ms.author: riande
-ms.date: 12/12/2012
+ms.date: 02/22/2019
 ms.assetid: 97f6164f-59cf-45c0-b820-e4aa29b45396
 msc.legacyurl: /web-api/overview/security/working-with-ssl-in-web-api
 msc.type: authoredcontent
-ms.openlocfilehash: b11b35f58a1f033423f5e6ea5f5373df0d1fcb5f
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: 69c0d217f605096d968435c062ee9931f8dff75f
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41757081"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744102"
 ---
 <a name="working-with-ssl-in-web-api"></a>Práce s protokolem SSL ve webovém rozhraní API
 ====================
@@ -59,7 +59,7 @@ Pokud chcete nakonfigurovat službu IIS tak, aby přijímal klientské certifik�
 3. V části **klientské certifikáty**, vyberte jednu z těchto možností: 
 
     - **Přijměte**: Služba IIS bude přijímat certifikát od klienta, ale nevyžaduje, aby jeden.
-    - **Vyžadovat**: v nástroji vyžadují certifikát klienta. (Chcete-li povolit tuto možnost, musíte také vybrat "Požadovat protokol SSL")
+    - **Vyžadovat**: V nástroji vyžadují certifikát klienta. (Chcete-li povolit tuto možnost, musíte také vybrat "Požadovat protokol SSL")
 
 V souboru ApplicationHost.config můžete také nastavit tyto možnosti:
 
@@ -69,7 +69,7 @@ V souboru ApplicationHost.config můžete také nastavit tyto možnosti:
 
 ### <a name="creating-a-client-certificate-for-testing"></a>Vytváří se klientský certifikát pro účely testování
 
-Pro účely testování můžete použít [MakeCert.exe](https://msdn.microsoft.com/library/bfsktky3.aspx) k vytvoření klientského certifikátu. Nejprve vytvořte testovací kořenové autority:
+Pro účely testování můžete použít [MakeCert.exe](/windows/desktop/SecCrypto/makecert) k vytvoření klientského certifikátu. Nejprve vytvořte testovací kořenové autority:
 
 [!code-console[Main](working-with-ssl-in-web-api/samples/sample4.cmd)]
 

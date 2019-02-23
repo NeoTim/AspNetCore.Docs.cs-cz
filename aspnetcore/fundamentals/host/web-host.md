@@ -1,21 +1,23 @@
 ---
-title: Webového hostitele ASP.NET Core
+title: ASP.NET Core Web Host
 author: guardrex
 description: Další informace o webového hostitele v ASP.NET Core, který je zodpovědný za spouštění a životního cyklu správy aplikací.
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/host/web-host
-ms.openlocfilehash: 7215027a083c0ed0bc3b15196e390a31c5dcfc14
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 878fbaa1a61946dadf23ba8fefbf22021e547cc2
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637843"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56744089"
 ---
-# <a name="aspnet-core-web-host"></a>Webového hostitele ASP.NET Core
+# <a name="aspnet-core-web-host"></a>ASP.NET Core Web Host
 
 Podle [Luke Latham](https://github.com/guardrex)
+
+Konfigurace aplikace ASP.NET Core a spouštění *hostitele*. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Minimálně hostitele nakonfiguruje server a kanálu zpracování požadavků. Hostitele lze také nastavit protokolování, vkládání závislostí a konfiguraci.
 
 ::: moniker range="<= aspnetcore-1.1"
 
@@ -23,7 +25,17 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 ::: moniker-end
 
-Konfigurace aplikace ASP.NET Core a spouštění *hostitele*. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Minimálně hostitele nakonfiguruje server a kanálu zpracování požadavků. Toto téma popisuje webového hostitele ASP.NET Core ([IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder)), což je užitečné pro hostování webových aplikací. Pro pokrytí obecný hostitele .NET ([IHostBuilder](/dotnet/api/microsoft.extensions.hosting.ihostbuilder)), najdete v článku <xref:fundamentals/host/generic-host>.
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+Tento článek se týká webového hostitele ASP.NET Core (<xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder>), což je pro hostování webových aplikací. Informace o hostiteli obecný .NET ([IHostBuilder](/dotnet/api/microsoft.extensions.hosting.ihostbuilder)), najdete v článku <xref:fundamentals/host/generic-host>.
+
+::: moniker-end
+
+::: moniker range="> aspnetcore-2.2"
+
+Tento článek se týká webového hostitele ASP.NET Core ([IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder)). V ASP.NET Core 3.0 nahradí obecný hostitele webového hostitele. Další informace najdete v tématu [hostitele](xref:fundamentals/index#host).
+
+::: moniker-end
 
 ## <a name="set-up-a-host"></a>Nastavení hostitele
 
@@ -313,7 +325,7 @@ Kestrel má svůj vlastní konfigurace koncového bodu rozhraní API. Další in
 
 ### <a name="shutdown-timeout"></a>Časový limit vypnutí
 
-Určuje dobu čekání webového hostitele pro vypnutí.
+Určuje dobu čekání na vypnutí webového hostitele.
 
 **Klíč**: shutdownTimeoutSeconds  
 **Typ**: *int*  
@@ -406,7 +418,7 @@ public class Program
 }
 ```
 
-*hostsettings.JSON*:
+*hostsettings.json*:
 
 ```json
 {
@@ -669,7 +681,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-`IHostingEnvironment` mohou být vloženy do `Invoke` metoda při vytváření vlastní [middleware](xref:fundamentals/middleware/index#write-middleware):
+`IHostingEnvironment` mohou být vloženy do `Invoke` metoda při vytváření vlastní [middleware](xref:fundamentals/middleware/write):
 
 ```csharp
 public async Task Invoke(HttpContext context, IHostingEnvironment env)

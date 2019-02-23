@@ -1,17 +1,11 @@
 ---
 title: Začínáme s ASP.NET Core
 author: rick-anderson
-description: Rychlý kurz, který vytvoří a spustí jednoduchou aplikaci Hello World pomocí ASP.NET Core.
+description: 'Rychlý kurz, který vytvoří a spustí jednoduchou aplikaci Hello World pomocí ASP.NET Core.'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2019
 uid: getting-started
-ms.openlocfilehash: eee927f4306fa7757f3f361e6c6f367658512897
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341807"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
@@ -107,7 +101,7 @@ V tomto kurzu jste se naučili:
 > * Spusťte projekt.
 > * Proveďte změnu.
 
-Další informace o základní technologie ASP.NET naleznete v tématu zavedení:
+Další informace o ASP.NET Core najdete v tématu Doporučené výuky v úvodu:
 
 > [!div class="nextstepaction"]
-> <xref:index>
+> <xref:index#recommended-learning-path>
