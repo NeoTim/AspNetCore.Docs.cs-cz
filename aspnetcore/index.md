@@ -1,17 +1,11 @@
 ---
 title: Úvod do ASP.NET Core
 author: rick-anderson
-description: Nechte si představit ASP.NET Core, což je platformově univerzální, vysoce výkonná architektura typu open-source, která slouží k vytváření moderních cloudových aplikací připojených k internetu.
+description: 'Nechte si představit ASP.NET Core, což je platformově univerzální, vysoce výkonná architektura typu open-source, která slouží k vytváření moderních cloudových aplikací připojených k internetu.'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 02/14/2019
 uid: index
-ms.openlocfilehash: c3f07814bfab19a0f070e0b48b0d2ef6cfc1594e
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
-ms.translationtype: HT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248157"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -68,6 +62,34 @@ Cílení na .NET Core má několik výhod, které přibývají s každou vydanou
 * Open source
 
 Ze všech sil se snažíme doplnit rozhraní API z .NET Framework do .NET Core. Sada [Windows Compatibility Pack](/dotnet/core/porting/windows-compat-pack) zpřístupnila v .NET Core tisíce rozhraní API, která byla určena jen pro Windows. Tato rozhraní API nebyla v .NET Core 1.x dostupná.
+
+## <a name="recommended-learning-path"></a>Doporučený studijní program
+
+Jako úvod do vývoje aplikací ASP.NET Core doporučujeme následující posloupnost kurzů a článků:
+
+1. Postupujte podle kurzu pro typ aplikace, kterou chcete vyvíjet nebo udržovat:
+
+   |Typ aplikace  |Scénář  |Kurz  |
+   |----------|----------|----------|
+   |Webová aplikace       | Vývoj nové aplikace        |[Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) |
+   |Webová aplikace       | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
+   |Webové rozhraní API       |                            |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)\*  |
+   |Aplikace v reálném čase |                            |[Začínáme s funkcí SignalR](xref:tutorials/signalr) |
+
+1. Postupujte podle kurzu, který popisuje základní přístup k datům:
+
+   |Scénář  |Kurz  |
+   |----------|----------|
+   | Vývoj nové aplikace        |[Razor Pages pomocí Entity Framework Core](xref:data/ef-rp/intro) |
+   | Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro)
+
+1. Podívejte se na přehled funkcí ASP.NET Core, které se vztahují na všechny typy aplikací:
+
+   * [Základy](xref:fundamentals/index)
+
+1. Projděte obsah a najděte další témata, která vás zajímají.
+
+\* K dispozici je nový [kurz webového rozhraní API, který můžete kompletně absolvovat v prohlížeči](https://docs.microsoft.com/learn/modules/build-web-api-net-core) bez nutnosti instalace integrovaného vývojového prostředí.  Kód běží v prostředí [Azure Cloud Shell](https://azure.microsoft.com/features/cloud-shell/) a k testování se používá [curl](https://curl.haxx.se/).
 
 ## <a name="how-to-download-a-sample"></a>Jak si stáhnout ukázku
 
@@ -126,7 +148,7 @@ Další informace najdete v článku [Příspěvky k dokumentaci rozhraní ASP.N
 
 Další informace naleznete v následujících materiálech:
 
-* [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start)
+* <xref:getting-started>
 * <xref:tutorials/publish-to-azure-webapp-using-vs>
 * [Základy ASP.NET Core](xref:fundamentals/index)
 * [Týdenní přehled novinek v komunitě ASP.NET](https://live.asp.net/) se zabývá pokrokem v týmových projektech a týmovými plány. Nabízí nové blogové příspěvky a software třetích stran.

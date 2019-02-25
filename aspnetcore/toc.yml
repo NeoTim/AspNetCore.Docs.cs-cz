@@ -58,42 +58,42 @@ items:
   - uid: fundamentals/index
     name: Přehled
   - uid: fundamentals/startup
-    name: Spuštění aplikace
+    name: Spouštěcí třída
   - uid: fundamentals/dependency-injection
     name: Injektáž závislostí (služby)
-  - uid: fundamentals/routing
-    name: Směrování
-  - uid: fundamentals/environments
-    name: Prostředí (vývojové, pracovní, produkční)
-  - uid: fundamentals/configuration/index
-    name: Konfigurace
-  - uid: fundamentals/configuration/options
-    name: Možnosti
-  - uid: fundamentals/logging/index
-    name: protokolování
-  - uid: fundamentals/error-handling
-    name: Ošetření chyb
   - uid: fundamentals/middleware/index
     name: Middleware
   - name: Hostitel
     items:
-    - uid: fundamentals/host/index
-      name: Přehled
     - uid: fundamentals/host/web-host
       name: Webový hostitel
     - uid: fundamentals/host/generic-host
       name: Obecný hostitel
   - uid: fundamentals/servers/index
     name: Servery
+  - uid: fundamentals/configuration/index
+    name: Konfigurace
+  - uid: fundamentals/configuration/options
+    name: Možnosti
+  - uid: fundamentals/environments
+    name: Prostředí (vývojové, pracovní, produkční)
+  - uid: fundamentals/logging/index
+    name: protokolování
+  - uid: fundamentals/routing
+    name: Směrování
+  - uid: fundamentals/error-handling
+    name: Ošetření chyb
   - uid: fundamentals/http-requests
     name: Vytváření požadavků HTTP
+  - uid: fundamentals/static-files
+    name: Statické soubory
 - name: Webové aplikace
   items:
   - name: Razor Pages
     items:
     - uid: razor-pages/index
       name: Úvod
-    - name: Tutoriál
+    - name: Kurz
       items:
       - uid: tutorials/razor-pages/index
         name: Přehled
@@ -128,7 +128,7 @@ items:
     - uid: mvc/overview
       name: Přehled
     - uid: tutorials/first-mvc-app/index
-      name: Tutoriál
+      name: Kurz
       items:
       - uid: tutorials/first-mvc-app/start-mvc
         name: Začínáme
@@ -210,8 +210,6 @@ items:
         href: mvc/views/working-with-forms.md#the-validation-summary-tag-helper
   - uid: mvc/views/layout
     name: Rozložení
-  - uid: fundamentals/static-files
-    name: Statické soubory
   - uid: mvc/models/model-binding
     name: Vazby modelu
   - uid: mvc/models/validation
@@ -814,6 +812,8 @@ items:
     name: Lokalizace souborů Portable Object
 - name: Upřesnit
   items:
+  - uid: fundamentals/middleware/write
+    name: Psaní middlewaru
   - uid: fundamentals/url-rewriting
     name: Přepisování adres URL
   - uid: fundamentals/file-providers
@@ -880,9 +880,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: d2015955147460621d64ea6035f5f8118a02469b
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: e55cfa30103c2a89007f2bc5e9d133dea7f8c6d5
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248391"
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743995"
