@@ -19,7 +19,7 @@ Podle [Mike Rousos](https://github.com/mjrousos)
 
 Toto téma poskytuje pokyny a osvědčené postupy pro zlepšení výkonu aplikací postavených s ASP.NET Core.
 
-<a name="hot"></a> V tomto dokumentu horké kódové cestě je definován jako cestu kódu, který se často nazývá a kde většinu doby provádění dojde. Cesty k výměně kódu obvykle omezit horizontální navýšení kapacity aplikace a výkonu.
+<a name="hot"></a>V tomto dokumentu je pojem **kritická cesta** definován jako kód, který je volán velmi často a v kterém se tráví nejvíce výpočetního času. Kritické cesty obvykle omezují horizontální navýšení kapacity a výkonu aplikace.
 
 ## <a name="cache-aggressively"></a>Agresivní ukládání do mezipaměti
 
