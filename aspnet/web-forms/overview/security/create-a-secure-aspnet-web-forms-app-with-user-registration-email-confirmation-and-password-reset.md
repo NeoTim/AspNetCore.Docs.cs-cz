@@ -8,16 +8,16 @@ ms.date: 10/02/2014
 ms.assetid: 0a8d6044-5fab-4213-82d6-5618d5601358
 msc.legacyurl: /web-forms/overview/security/create-a-secure-aspnet-web-forms-app-with-user-registration-email-confirmation-and-password-reset
 msc.type: authoredcontent
-ms.openlocfilehash: b964257165f8a50bef5cb5d8cee4fb30a5e91cf0
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
+ms.openlocfilehash: acc13776840408756901e20589b9efacc83ff2a9
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41754635"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833680"
 ---
-<a name="create-a-secure-aspnet-web-forms-app-with-user-registration-email-confirmation-and-password-reset-c"></a>Vytvoření zabezpečené aplikace webových formulářů ASP.NET s registrací uživatele, e-mailem potvrzení a resetováním hesla (C#)
+<a name="create-a-secure-aspnet-web-forms-app-with-user-registration-email-confirmation-and-password-reset-c"></a>Vytvoření zabezpečené aplikace webových formulářů ASP.NET s registrací uživatele, potvrzením e-mailu a resetováním hesla (C#)
 ====================
-podle [Erik Reitan](https://github.com/Erikre)
+by [Erik Reitan](https://github.com/Erikre)
 
 > V tomto kurzu se dozvíte, jak vytvořit aplikaci webových formulářů ASP.NET s registrací uživatele, e-mailové potvrzení a resetování hesla pomocí systém členství technologie ASP.NET Identity. Tento kurz je založený na Rick Anderson [kurz ASP.NET MVC](../../../mvc/overview/security/create-an-aspnet-mvc-5-web-app-with-email-confirmation-and-password-reset.md).
 
@@ -29,7 +29,7 @@ Tento kurz vás provede kroky potřebné k vytvoření aplikace webových formul
 ### <a name="tutorial-tasks-and-information"></a>Kurz úkoly a informace:
 
 - [Vytvoření ASP.NET Web Forms app](#createWebForms)
-- [Připojení SendGrid](#SG)
+- [Hook Up SendGrid](#SG)
 - [Vyžadovat e-mailové potvrzení před přihlášení](#require)
 - [Obnovení hesla a obnovení](#reset)
 - [Znovu poslat potvrzovací odkaz e-mailu](#rsend)
@@ -70,6 +70,8 @@ Obvykle chcete novým uživatelům zabránit v účtování žádná data k webu
 
 <a id="SG"></a>
 ## <a name="hook-up-sendgrid"></a>Připojení SendGrid
+
+SendGrid změnila jeho rozhraní API byla zapsána v tomto kurzu. Aktuální SendGrid pokyny najdete v tématu [SendGrid](http://sendgrid.com/) nebo [povolit obnovení potvrzení a heslo účtu](xref:security/authentication/accconfirm#enable-account-confirmation-and-password-recovery).
 
 Tento kurz vysvětluje pouze přidání e-mailové oznámení prostřednictvím [SendGrid](http://sendgrid.com/), můžete poslat e-mailu pomocí protokolu SMTP a další mechanismy (naleznete v tématu [další prostředky](#addRes)).
 

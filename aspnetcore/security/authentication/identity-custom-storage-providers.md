@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: b10731261ca0c748548fcba94a229ba055d46eb5
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: ccd56d0c15639e1ad29094e947f8055702ee2264
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090833"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833667"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>Poskytovatelé vlastního úložiště pro ASP.NET Core Identity
 
@@ -106,7 +106,7 @@ Ukládá a načítá uživatelské přihlašovací údaje (například externí 
 
 Ukládá a načítá, které role jsou přiřazeny jednotlivým uživatelům. [Příklad](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
-**TIP:** pouze implementace třídy, které chcete používat ve vaší aplikaci.
+**TIP:** Implementujte jenom třídám, které chcete používat ve vaší aplikaci.
 
 Datové třídy přístup zadejte kód k provedení operace s daty pro váš mechanismus trvalosti. Například v rámci vlastního zprostředkovatele, může mít následující kód k vytvoření nového uživatele v *ukládání* třídy:
 
@@ -133,7 +133,7 @@ Vytvoření `UserStore` třídu, která poskytuje metody pro všechny operace s 
 * [IUserPasswordStore](/dotnet/api/microsoft.aspnetcore.identity.iuserpasswordstore-1)
 * [IUserSecurityStampStore](/dotnet/api/microsoft.aspnetcore.identity.iusersecuritystampstore-1)
 * [IUserEmailStore](/dotnet/api/microsoft.aspnetcore.identity.iuseremailstore-1)
-* [IPhoneNumberStore](/dotnet/api/microsoft.aspnetcore.identity.iphonenumberstore-1)
+* [IUserPhoneNumberStore](/dotnet/api/microsoft.aspnetcore.identity.iuserphonenumberstore-1)
 * [IQueryableUserStore](/dotnet/api/microsoft.aspnetcore.identity.iqueryableuserstore-1)
 * [IUserLoginStore](/dotnet/api/microsoft.aspnetcore.identity.iuserloginstore-1)
 * [IUserTwoFactorStore](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactorstore-1)
@@ -147,7 +147,7 @@ V rámci `UserStore` třídy, použijte datových tříd přístupu, které jste
 
 ### <a name="interfaces-to-implement-when-customizing-user-store"></a>Rozhraní k implementaci při přizpůsobování úložiště uživatele
 
-* **Úložiště IUserStore**  
+* **IUserStore**  
  [Úložiště IUserStore&lt;TUser&gt; ](/dotnet/api/microsoft.aspnetcore.identity.iuserstore-1) rozhraní je pouze rozhraní, je nutné implementovat v úložišti uživatele. Definuje metody pro vytváření, aktualizaci, odstranění a získávání uživatelů.
 * **IUserClaimStore**  
  [IUserClaimStore&lt;TUser&gt; ](/dotnet/api/microsoft.aspnetcore.identity.iuserclaimstore-1) rozhraní definuje metody, které implementují povolující deklarace identity uživatele. Obsahuje metody pro přidávání, odebírání a načítají deklarace identity uživatelů.

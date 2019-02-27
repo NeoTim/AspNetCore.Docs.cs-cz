@@ -5,14 +5,14 @@ description: Zjistěte, jak implementovat úlohy na pozadí s hostovanými služ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/28/2018
+ms.date: 02/20/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 3b48b32e6abfb02c0f8d2ebdc3aca9f02324df6c
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
-ms.translationtype: MT
+ms.openlocfilehash: 737cdac512f80955c6965dfe8675d42355ca7161
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56744063"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833706"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
@@ -99,7 +99,10 @@ Služby jsou registrované ve `Startup.ConfigureServices`. `IHostedService` Zare
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Startup.cs?name=snippet3)]
 
-V třídě modelu Index stránky `IBackgroundTaskQueue` se vloží do konstruktoru a přiřadí do `Queue`:
+V třídě modelu Index stránky:
+
+* `IBackgroundTaskQueue` Se vloží do konstruktoru a přiřadí do `Queue`.
+* <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> Se vloží a přiřadí do `_serviceScopeFactory`. Objekt factory slouží k vytvoření instance <xref:Microsoft.Extensions.DependencyInjection.IServiceScope>, který se používá k vytvoření služeb v rámci oboru. Chcete-li použít aplikace se vytvoří obor `AppDbContext` (vymezené služby) k zápisu záznamů databáze `IBackgroundTaskQueue` (služby typu singleton).
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Pages/Index.cshtml.cs?name=snippet1)]
 
@@ -110,4 +113,4 @@ Když **přidat úkol** výběru tlačítka na indexovou stránku, `OnPostAddTas
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Implementace úloh na pozadí v mikroslužbách s IHostedService a BackgroundService třídy](/dotnet/standard/microservices-architecture/multi-container-microservice-net-applications/background-tasks-with-ihostedservice)
-* [System.Threading.Timer](xref:System.Threading.Timer)
+* <xref:System.Threading.Timer>

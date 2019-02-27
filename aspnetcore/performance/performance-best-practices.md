@@ -36,7 +36,7 @@ Aplikace ASP.NET Core by měly být navrhovány tak, aby dokázaly zpracovat vel
 * Neblokujte asynchronní běh zavoláním [Task.Wait](/dotnet/api/system.threading.tasks.task.wait) nebo [Task.Result](/dotnet/api/system.threading.tasks.task-1.result).
 * Nepoužívejte zámky v kritických cestách kódu. Aplikace ASP.NET Core dosahují nejlepšího výkonu, když jsou navrženy tak, aby spouštěly kód paralelně.
 
-**Proveďte**:
+**Dělejte**:
 
 * Ujistěte se, že [kritické cesty](#hot) jsou asynchronní.
 * API pro přístup k datům a dlouho běžící operace volejte asynchronně.
@@ -95,7 +95,7 @@ Doporučení:
 * **Nedělejte:** Nevytvářejte a nerušte instance `HttpClient` napřímo.
 * **Dělejte:** Načítejte instance `HttpClient` pomocí [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests). Další informace najdete v tématu [Použití HttpClientFactory k implementaci odolných HTTP požadavků](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests).
 
-## <a name="keep-common-code-paths-fast"></a>Zachovat běžné rychlé cesty kódu
+## <a name="keep-common-code-paths-fast"></a>Udržujte často volaný kód rychlý
 
 Rychlý chcete mít veškerý svůj kód, ale z hlediska optimalizace jsou nejdůležitější často volané části kódu:
 
@@ -126,8 +126,8 @@ Aplikace ASP.NET Core s komplexními front-endy často posílají klientům mnoh
 
 Doporučení:
 
-* **Proveďte** používat ASP.NET Core [integrovanou podporu](xref:client-side/bundling-and-minification) pro sdružování a minifikace prostředků klienta.
-* **Proveďte** vezměte v úvahu další nástroje třetích stran, jako je [Gulp](uid:client-side/bundling-and-minification#consume-bundleconfigjson-from-gulp) nebo [Webpacku](https://webpack.js.org/) pro správu prostředků složitější klienta.
+* **Dělejte:** Použijte [integrovanou podporu](xref:client-side/bundling-and-minification) ASP.NET Core pro sdružování a minifikaci prostředků klienta.
+* **Dělejte:** Vezměte v úvahu další nástroje třetích stran, jako je [Gulp](uid:client-side/bundling-and-minification#consume-bundleconfigjson-from-gulp) nebo [Webpack](https://webpack.js.org/) pro komplexnější správu prostředků klienta.
 
 ## <a name="compress-responses"></a>Komprese odpovědí
 

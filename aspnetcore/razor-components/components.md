@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: razor-components/components
-ms.openlocfilehash: d1e8075ff1ac6695c98973e6abd8480a78761d92
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 1533587f9f11e99f24d860c02f0efb6713119308
+ms.sourcegitcommit: 30f313c63c5b2922bcd1150fe8161b09c730fef0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410421"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56839079"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -447,14 +447,14 @@ V následující tabulce jsou uvedeny direktivy Razor.
 
 | – Direktiva | Popis |
 | --------- | ----------- |
-| [@functions](xref:mvc/views/razor#section-5) | Přidá C# blok kódu na komponentu. |
+| [\@Funkce](xref:mvc/views/razor#section-5) | Přidá C# blok kódu na komponentu. |
 | `@implements` | Implementuje rozhraní pro třídu vygenerované komponenty. |
-| [@inherits](xref:mvc/views/razor#section-3) | Poskytuje plnou kontrolu nad třídu, která dědí komponentu. |
-| [@inject](xref:mvc/views/razor#section-4) | Vkládání ze služby umožňuje [kontejneru služby](xref:fundamentals/dependency-injection). Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection). |
+| [\@inherits](xref:mvc/views/razor#section-3) | Poskytuje plnou kontrolu nad třídu, která dědí komponentu. |
+| [\@Vložení](xref:mvc/views/razor#section-4) | Vkládání ze služby umožňuje [kontejneru služby](xref:fundamentals/dependency-injection). Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection). |
 | `@layout` | Určuje komponentu rozložení. Rozložení komponenty umožňují zabránit zdvojení kódu a nekonzistence. |
-| [@page](xref:razor-pages/index#razor-pages) | Určuje, že by měla komponenta zpracování požadavků přímo. `@page` – Direktiva je možné zadat při trasy a volitelné parametry. Na rozdíl od Razor Pages `@page` – direktiva nemusí být první – direktiva v horní části souboru. Další informace najdete v tématu [směrování](xref:razor-components/routing). |
-| [@using](xref:mvc/views/razor#using) | Přidá C# `using` směrnice do třídy vygenerované komponenty. |
-| [@addTagHelper](xref:mvc/views/razor#tag-helpers) | Použít `@addTagHelper` použít komponentu v jiném sestavení než sestavení aplikace. |
+| [\@Stránka](xref:razor-pages/index#razor-pages) | Určuje, že by měla komponenta zpracování požadavků přímo. `@page` – Direktiva je možné zadat při trasy a volitelné parametry. Na rozdíl od Razor Pages `@page` – direktiva nemusí být první – direktiva v horní části souboru. Další informace najdete v tématu [směrování](xref:razor-components/routing). |
+| [\@použití](xref:mvc/views/razor#using) | Přidá C# `using` směrnice do třídy vygenerované komponenty. |
+| [\@addTagHelper](xref:mvc/views/razor#tag-helpers) | Použít `@addTagHelper` použít komponentu v jiném sestavení než sestavení aplikace. |
 
 **Podmíněné atributy**
 

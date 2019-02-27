@@ -5,14 +5,14 @@ description: Zjistěte, jak zkoušky integrace Ujistěte se, že součásti vaš
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2019
+ms.date: 02/25/2019
 uid: test/integration-tests
-ms.openlocfilehash: 0f919d7715a26f1efdb37d35b047a7050e46a272
-ms.sourcegitcommit: ec71fd5a988f927ae301813aae5ff764feb3bb6a
+ms.openlocfilehash: 053713e148df70b0be6bb567b55b2381a78d6c3e
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/12/2019
-ms.locfileid: "54249513"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833576"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -107,8 +107,12 @@ Musí se projekt testů:
 Tyto požadavky si můžete prohlédnout ve [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte *tests/RazorPagesProject.Tests/RazorPagesProject.Tests.csproj* souboru. Tato ukázková aplikace používá [xUnit](https://xunit.github.io/) rozhraní pro testování a [AngleSharp](https://anglesharp.github.io/) analyzátor knihovny, tak také odkazuje na ukázkovou aplikaci:
 
 * [xunit](https://www.nuget.org/packages/xunit/)
-* [xunit.Runner.VisualStudio](https://www.nuget.org/packages/xunit.runner.visualstudio/)
+* [xunit.runner.visualstudio](https://www.nuget.org/packages/xunit.runner.visualstudio/)
 * [AngleSharp](https://www.nuget.org/packages/AngleSharp/)
+
+## <a name="sut-environment"></a>SUT prostředí
+
+Pokud SUT [prostředí](xref:fundamentals/environments) není nastavena, výchozí nastavení prostředí pro vývoj.
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>Základní testy s výchozím WebApplicationFactory
 
@@ -197,7 +201,7 @@ V následující tabulce jsou uvedeny výchozí [WebApplicationFactoryClientOpti
 | Možnost | Popis | Výchozí |
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, zda je či není `HttpClient` instance by měly dodržovat automaticky přesměrování odpovědi. | `true` |
-| [Vlastnost BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
+| [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
 | [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, zda `HttpClient` instance by měl zpracovat soubory cookie. | `true` |
 | [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | Získá nebo nastaví maximální počet odpovědí na přesměrování, který `HttpClient` postupujte podle instance. | 7 |
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: 3cd576b389a2a4384c0ba90b5740ac42140533cc
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: a9081a9938d56b7612bba13937eba384ff02455b
+ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159311"
+ms.lasthandoff: 02/26/2019
+ms.locfileid: "56833732"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -316,7 +316,7 @@ Filtr akce slouží k ověření stavu modelu a vrátí všechny chyby, pokud ne
 `OnActionExecuted` Metoda spuštění po metody akce a může naleznete v tématu a práci s výsledky akce prostřednictvím `ActionExecutedContext.Result` vlastnost. `ActionExecutedContext.Canceled` se nastaví na hodnotu true, pokud spuštění akce byla zkratována jiný filtr. `ActionExecutedContext.Exception` Nastaví se hodnota jiná než null Pokud akci nebo filtr následné akce došlo k výjimce. Nastavení `ActionExecutedContext.Exception` na hodnotu null:
 
 * Efektivně '' výjimku zpracovává.
-* `ActionExectedContext.Result` je provedeno, jako kdyby byly obvykle vrátil z metody akce.
+* `ActionExecutedContext.Result` je provedeno, jako kdyby byly obvykle vrátil z metody akce.
 
 ## <a name="exception-filters"></a>Filtry výjimek
 
