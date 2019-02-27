@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/27/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: babc637cdec8590ac14f7924c17e862e5b2f6a81
-ms.sourcegitcommit: d22b3c23c45a076c4f394a70b1c8df2fbcdf656d
+ms.openlocfilehash: 446882297524af3cbaed3ba7f941935debf5e7f4
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/31/2019
-ms.locfileid: "55428483"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899195"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>Přístup k objektu HttpContext v ASP.NET Core
 
@@ -131,3 +131,36 @@ public class UserRepository : IUserRepository
     }
 }
 ```
+
+## <a name="httpcontext-access-from-a-background-thread"></a>Přístup k objektu HttpContext z vlákna na pozadí
+
+`HttpContext` není bezpečné pro vlákna. Čtení a zápis vlastnosti `HttpContext` mimo zpracování požadavku může vést `NullReferenceException`.
+
+> [!NOTE]
+> Pomocí `HttpContext` mimo zpracování požadavku často vede `NullReferenceException`. Pokud vaše aplikace generuje sporadické `NullReferenceException`s části revize kódu, které spouštějí zpracování na pozadí nebo který pokračovat ve zpracování po dokončení požadavku. Vyhledejte chyby, jako je definování metody kontroleru jako `async void`.
+
+Bezpečně provádět práce na pozadí s `HttpContext` dat:
+
+* Zkopírujte požadovaná data během zpracování požadavku.
+* Zkopírovaná data předejte úlohu na pozadí.
+
+Aby se zabránilo nebezpečný kód, nikdy předat `HttpContext` do metody, která na pozadí pracovní – předání dat, je nutné místo toho.
+
+```csharp
+public class EmailController
+{
+    public ActionResult SendEmail(string email)
+    {
+        var correlationId = HttpContext.Request.Headers["x-correlation-id"].ToString();
+
+        // Starts sending an email, but doesn't wait for it to complete
+        _ = SendEmailCore(correlationId);
+        return View();
+    }
+
+    private async Task SendEmailCore(string correlationId)
+    {
+        // send the email
+    }
+}
+

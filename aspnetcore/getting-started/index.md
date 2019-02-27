@@ -47,7 +47,7 @@ dotnet dev-certs https --trust
 
 Ve výstupu předchozího příkazu se zobrazí následující dialogové okno:
 
-![Dialogové okno upozornění zabezpečení](_static/cert.png)
+![Dialogové okno upozornění zabezpečení](~/getting-started/_static/cert.png)
 
 Vyberte **Ano** Pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
 
@@ -59,18 +59,17 @@ dotnet dev-certs https --trust
 
 Ve výstupu předchozího příkazu se zobrazí následující zpráva:
 
-*Byla vyžádána důvěřující vývojářský certifikát HTTPS. Pokud certifikát není důvěryhodný provedeme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`.  
-* Tento příkaz vás může vyzvat k zadání hesla k instalaci certifikátu v řetězci klíčů systému.
-
-Heslo: *
-
-Zadejte svoje heslo, pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
+*Byla vyžádána důvěřující vývojářský certifikát HTTPS. Pokud certifikát není důvěryhodný provedeme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`.
+ 
+Tento příkaz příkaz vás může vyzvat k zadání hesla k instalaci certifikátu v řetězci klíčů systému. Zadejte svoje heslo, pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 
 O tom, jak důvěřovat certifikátu protokolu HTTPS vývoj naleznete v dokumentaci k vaší distribuci Linuxu.
 
 ---
+
+Další informace najdete v tématu [důvěřovat certifikátu vývoj pro ASP.NET Core HTTPS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)
 
 ## <a name="run-the-app"></a>Spuštění aplikace
 

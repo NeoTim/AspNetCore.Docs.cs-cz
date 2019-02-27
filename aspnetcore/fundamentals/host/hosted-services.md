@@ -5,14 +5,14 @@ description: Zjistěte, jak implementovat úlohy na pozadí s hostovanými služ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/20/2019
+ms.date: 02/25/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 737cdac512f80955c6965dfe8675d42355ca7161
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
-ms.translationtype: HT
+ms.openlocfilehash: d10a335429752c1a52c1b3619adecc41725a819a
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833706"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899304"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
@@ -21,7 +21,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 V ASP.NET Core, je možné implementovat úlohy na pozadí jako *hostovaných služeb*. Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. Toto téma obsahuje tři příklady hostované služby:
 
 * Úlohy na pozadí, který běží na časovač.
-* Hostovanou službu, která aktivuje vymezené služby. Injektáž závislostí můžete použít službu s vymezeným oborem.
+* Hostovaná služba, která se aktivuje [vymezené služby](xref:fundamentals/dependency-injection#service-lifetimes). Injektáž závislostí můžete použít službu s vymezeným oborem.
 * Úkoly ve frontě na pozadí, které spouští sekvenčně.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/) ([stažení](xref:index#how-to-download-a-sample))
@@ -71,7 +71,7 @@ Není registrován v `Startup.ConfigureServices` s `AddHostedService` – metoda
 
 ## <a name="consuming-a-scoped-service-in-a-background-task"></a>Vymezené služby v rámci úlohy na pozadí
 
-Použití vymezené služby v rámci `IHostedService`, vytvoření oboru. Ve výchozím nastavení je vytvořen žádný obor pro hostovanou službu.
+Použití [vymezené služby](xref:fundamentals/dependency-injection#service-lifetimes) v rámci `IHostedService`, vytvoření oboru. Ve výchozím nastavení je vytvořen žádný obor pro hostovanou službu.
 
 Služba úloh na pozadí s vymezeným oborem obsahuje logiku úlohy na pozadí. V následujícím příkladu <xref:Microsoft.Extensions.Logging.ILogger> se vloží do služby:
 
@@ -102,7 +102,7 @@ Služby jsou registrované ve `Startup.ConfigureServices`. `IHostedService` Zare
 V třídě modelu Index stránky:
 
 * `IBackgroundTaskQueue` Se vloží do konstruktoru a přiřadí do `Queue`.
-* <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> Se vloží a přiřadí do `_serviceScopeFactory`. Objekt factory slouží k vytvoření instance <xref:Microsoft.Extensions.DependencyInjection.IServiceScope>, který se používá k vytvoření služeb v rámci oboru. Chcete-li použít aplikace se vytvoří obor `AppDbContext` (vymezené služby) k zápisu záznamů databáze `IBackgroundTaskQueue` (služby typu singleton).
+* <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> Se vloží a přiřadí do `_serviceScopeFactory`. Objekt factory slouží k vytvoření instance <xref:Microsoft.Extensions.DependencyInjection.IServiceScope>, který se používá k vytvoření služeb v rámci oboru. Chcete-li použít aplikace se vytvoří obor `AppDbContext` ( [vymezené služby](xref:fundamentals/dependency-injection#service-lifetimes)) zapište záznamy databáze `IBackgroundTaskQueue` (služby typu singleton).
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Pages/Index.cshtml.cs?name=snippet1)]
 

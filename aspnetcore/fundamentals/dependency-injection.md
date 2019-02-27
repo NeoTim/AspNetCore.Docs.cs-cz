@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak ASP.NET Core implementuje vkládání závislostí a jak se používá.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 02/25/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: b08e9cb8a848675df1e25477a6aef85ddff7b070
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 5e1522e0819d989a7029c2928c1c33624c1774c7
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743969"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899356"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -253,7 +253,7 @@ Když jsou vyřešeny služby `ActivatorUtilities`, vkládání konstruktor vyž
 
 ## <a name="entity-framework-contexts"></a>Kontexty Entity Frameworku
 
-Kontexty Entity Frameworku by měly být přidány do kontejneru služeb s vymezenou životností. To je automaticky zajištěno voláním metody [AddDbContext](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) při registraci databázového kontextu. Služby, které používají databázový kontext, by měly mít taktéž vymezenou životnost.
+Entity Framework kontexty jsou obvykle přidány do služby kontejneru pomocí [s vymezeným oborem životnost](#service-lifetimes) protože operací databáze webové aplikace jsou obvykle omezená na žádost o. Výchozí doba života má obor, pokud se nezadá životnost <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*> přetížení při registraci kontext databáze. Služby danou dobu života neměli používat kontext databáze s životností kratší než služba.
 
 ## <a name="lifetime-and-registration-options"></a>Životnosti a možnosti registrace
 

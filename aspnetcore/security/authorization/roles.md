@@ -5,25 +5,18 @@ description: Zjistěte, jak omezit přístup kontroleru a akce ASP.NET Core pře
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/roles
-ms.openlocfilehash: 0467ea82831bffe6882e584930c2fa1212a244c7
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: c38e7144166ce7741eee6e3acb4d1c952ad4f024
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248092"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899161"
 ---
 # <a name="role-based-authorization-in-aspnet-core"></a>Autorizace na základě rolí v ASP.NET Core
 
 <a name="security-authorization-role-based"></a>
 
 Když se vytvoří identitu, která může patřit do jedné nebo více rolí. Například Tracy může patřit do role správce a uživatele, zatímco Scott lze přiřadit pouze k roli uživatele. Způsob vytvoření a správa těchto rolí závisí na záložním úložišti proces autorizace. Role jsou vystaveny pro vývojáře prostřednictvím [IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole) metodu [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal) třídy.
-
-::: moniker range=">= aspnetcore-2.0"
-
-> [!IMPORTANT]
-> Toto téma se **není** platí pro stránky Razor. Stránky Razor podporuje [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter) a [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter). Další informace najdete v tématu [metody filtrování pro Razor Pages](xref:razor-pages/filter).
-
-::: moniker-end
 
 ## <a name="adding-role-checks"></a>Přidání kontroly role
 
@@ -94,6 +87,28 @@ public class ControlPanelController : Controller
     }
 }
 ```
+
+::: moniker range=">= aspnetcore-2.0"
+
+Pro stránky Razor `AuthorizeAttribute` lze použít buď:
+
+* Použití [konvence](xref:razor-pages/razor-pages-conventions#page-model-action-conventions), nebo
+* Použití `AuthorizeAttribute` k `PageModel` instance:
+
+```csharp
+[Authorize(Policy = "RequireAdministratorRole")]
+public class UpdateModel : PageModel
+{
+    public ActionResult OnPost()
+    {
+    }
+}
+```
+
+> [!IMPORTANT]
+> Atributy, včetně filtru `AuthorizeAttribute`, lze použít pouze na PageModel a nejde použít u metody obslužné rutiny konkrétní stránky.
+::: moniker-end
+
 
 <a name="security-authorization-role-policy"></a>
 

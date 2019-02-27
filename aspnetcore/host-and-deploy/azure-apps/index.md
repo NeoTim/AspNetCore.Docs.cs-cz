@@ -5,7 +5,7 @@ description: Tento článek obsahuje odkazy na hostiteli Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/25/2019
+ms.date: 02/26/2019
 uid: host-and-deploy/azure-apps/index
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
@@ -19,7 +19,7 @@ Azure [dokumentace k Web Apps](/azure/app-service/) je domovská stránka pro ap
 [Vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet)  
 Vytvoření a nasazení webové aplikace ASP.NET Core do služby Azure App Service ve Windows pomocí sady Visual Studio.
 
-[Vytvoření .NET Core aplikace ve službě App Service v Linuxu](/azure/app-service/containers/quickstart-dotnetcore)  
+[Vytvoření aplikace ASP.NET Core ve službě App Service v Linuxu](/azure/app-service/containers/quickstart-dotnetcore)  
 Vytvoření a nasazení webové aplikace ASP.NET Core do služby Azure App Service v Linuxu pomocí příkazového řádku.
 
 Jsou k dispozici v dokumentaci k ASP.NET Core v následujících článcích:

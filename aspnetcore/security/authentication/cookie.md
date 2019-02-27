@@ -5,12 +5,12 @@ description: Vysvětlení, používání ověřování souborem cookie bez ASP.N
 ms.author: riande
 ms.date: 02/25/2019
 uid: security/authentication/cookie
-ms.openlocfilehash: 7e975da3a276ffb6a3de7ee02f7cc5be67cbbebe
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
-ms.translationtype: HT
+ms.openlocfilehash: 29370a3ff25469b34edc2a71e00601cf6ecc00ca
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833615"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899281"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>Ověřování souborem cookie bez ASP.NET Core Identity
 
@@ -404,7 +404,7 @@ await HttpContext.Authentication.SignInAsync(
 
 ## <a name="absolute-cookie-expiration"></a>Soubor cookie absolutní vypršení platnosti
 
-Můžete nastavit dobu vypršení platnosti absolutní s `ExpiresUtc`. Musíte taky nastavit `IsPersistent`; v opačném případě `ExpiresUtc` je ignorována a vytvoří se soubor cookie jedné relace. Když `ExpiresUtc` je nastavena na `SignInAsync`, přepíše hodnotu `ExpireTimeSpan` možnost `CookieAuthenticationOptions`, pokud nastavení.
+Můžete nastavit dobu vypršení platnosti absolutní s `ExpiresUtc`. K vytvoření trvalého souboru cookie, je nutné nastavit také `IsPersistent`; v opačném případě soubor cookie se vytvoří s životností založeného na relacích a může vypršet buď před nebo po lístek ověřování, který obsahuje. Když `ExpiresUtc` je nastavena na `SignInAsync`, přepíše hodnotu `ExpireTimeSpan` možnost `CookieAuthenticationOptions`, pokud nastavení.
 
 Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který má platnost po dobu 20 minut. To ignoruje klouzavé vypršení platnosti nastavení předtím nakonfigurovali.
 

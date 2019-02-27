@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: Pochopení a odstraňování potíží upozornění a chyby s projekty ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 02/26/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 7a3361970bde2b8761c76884fc1905957d075c5c
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: c8b34f51fd329eb9a7c34f7be93bd7f2aa054283
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450772"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899282"
 ---
 # <a name="troubleshoot-aspnet-core-projects"></a>Řešení potíží s projekty ASP.NET Core
 
@@ -63,10 +63,10 @@ V **nový projekt** dialogové okno pro ASP.NET Core, může zobrazit následuj�
 
 ![Snímek obrazovky dialogového okna OneASP.NET zprávou upozornění](troubleshoot/_static/NoNetCore.png)
 
-Toto upozornění se zobrazí, když je proměnná prostředí `PATH` neodkazuje na žádné .NET Core SDK na počítači. Chcete-li tento problém vyřešit:
+Toto upozornění se zobrazí, když je proměnná prostředí `PATH` neodkazuje na žádné .NET Core SDK na počítači (například `C:\Program Files\dotnet\` a `C:\Program Files (x86)\dotnet\`). Chcete-li tento problém vyřešit:
 
-* Nainstalujte nebo ověřte, že je nainstalovaná sada .NET Core SDK.
-* Ověřte, že `PATH` proměnnou prostředí odkazuje na umístění, ve kterém je nainstalována sada SDK. Instalační program obvykle nastavuje `PATH`.
+* Nainstalujte nebo ověřte, že je nainstalovaná sada .NET Core SDK. Získat nejnovější verzi Instalační služby z [.NET stáhne](https://dotnet.microsoft.com/download). 
+* Ověřte, že `PATH` proměnnou prostředí odkazuje na umístění, kde je nainstalován sady SDK. Instalační program obvykle nastavuje `PATH`.
 
 ## <a name="obtain-data-from-an-app"></a>Získání dat z aplikace
 

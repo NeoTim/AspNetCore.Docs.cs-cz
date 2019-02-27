@@ -7,12 +7,12 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: spa/angular
-ms.openlocfilehash: 35a839e31369e8dbf00f5dbfb3751a2985335755
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: f33f4b96faf71440c3e8878c0480f2908ace70d1
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248118"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899252"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>Šablona projektu Angular s ASP.NET Core
 
@@ -117,51 +117,6 @@ Nevýhodou této výchozí nastavení není k dispozici. Pokaždé, když změn�
     ```
 
 Při spuštění aplikace ASP.NET Core se nespustí serveru Angular CLI. Místo toho se používá instanci, kterou jste spustili ručně. To umožňuje spuštění a restartování rychleji. Se už čeká Angular CLI sestavení pokaždé, když klientské aplikace.
-
-## <a name="server-side-rendering"></a>Vykreslování na straně serveru
-
-Jako funkce výkonu můžete předem vygenerované aplikaci Angular na serveru, jakož i v klientovi spuštěna. To znamená, že prohlížeč obdrží značka jazyka HTML představující počáteční Uživatelském rozhraní aplikace, takže se zobrazí i před stažením a spouští vaše sady JavaScript. Implementaci této pochází z Angular funkci s názvem [Angular univerzální](https://universal.angular.io/).
-
-> [!TIP]
-> Povoluje vykreslování na straně serveru (SSR) představuje celou řadou dalších komplikace i při vývoji a nasazení. Čtení [nevýhody SSR](#drawbacks-of-ssr) k určení, zda SSR je vhodné pro vaše požadavky.
-
-Povolit SSR, budete muset vytvořit počet přidání do projektu.
-
-V *spuštění* třídy *po* řádku, který konfiguruje `spa.Options.SourcePath`, a *před* volání `UseAngularCliServer` nebo `UseProxyToSpaDevelopmentServer`, přidejte následující:
-
-[!code-csharp[](sample/AngularServerSideRendering/Startup.cs?name=snippet_Call_UseSpa&highlight=5-12)]
-
-V režimu pro vývoj, tento kód se pokouší sestavení sady SSR spuštěním skriptu `build:ssr`, který je definován v *ClientApp\package.json*. Tento postup sestaví aplikaci Angular s názvem `ssr`, která ještě není definovaná.
-
-Na konci `apps` obsahuje pole *ClientApp/.angular-cli.json*, definovat další aplikace s názvem `ssr`. Pomocí následujících možností:
-
-[!code-json[](sample/AngularServerSideRendering/ClientApp/.angular-cli.json?range=24-41)]
-
-Tato nová konfigurace aplikace s podporou SSR vyžaduje dva další soubory: *tsconfig.server.json* a *main.server.ts*. *Tsconfig.server.json* soubor Určuje možnosti kompilace TypeScript. *Main.server.ts* souboru slouží jako vstupní bod kódu během SSR.
-
-Přidat nový soubor s názvem *tsconfig.server.json* uvnitř *ClientApp/src* (spolu s existující *tsconfig.app.json*), která obsahuje následující:
-
-[!code-json[](sample/AngularServerSideRendering/ClientApp/src/tsconfig.server.json)]
-
-Tento soubor nastaví pro Angular kompilátor AoT vyhledejte modul s názvem `app.server.module`. Přidat tak, že vytvoříte nový soubor na *ClientApp/src/app/app.server.module.ts* (spolu s existující *app.module.ts*) obsahující následující:
-
-[!code-typescript[](sample/AngularServerSideRendering/ClientApp/src/app/app.server.module.ts)]
-
-Tento modul se dědí z vašeho klienta `app.module` a definuje, které velmi Angular moduly jsou k dispozici během SSR.
-
-Vzpomeňte si, že nový `ssr` záznam v *.angular cli.json* odkazovaný soubor vstupního bodu s názvem *main.server.ts*. Ještě nepřidali tento soubor a nyní je čas Uděláte to tak. Vytvořte nový soubor na *ClientApp/src/main.server.ts* (spolu s existující *main.ts*), která obsahuje následující:
-
-[!code-typescript[](sample/AngularServerSideRendering/ClientApp/src/main.server.ts)]
-
-Tento soubor kódu je co ASP.NET Core provádí pro každý požadavek při spuštění `UseSpaPrerendering` middleware, který jste přidali do *spuštění* třídy. Se zabývá přijímají `params` z kódu .NET (jako je například adresa URL žádá) a volání rozhraní API pro Angular SSR zobrazíte výsledného souboru HTML.
-
-Přísně anglicky mluvícího, to stačí pro povolení SSR ve vývojovém režimu. Je nezbytné, aby jeden poslední změny tak, aby vaše aplikace funguje správně při publikování. V hlavní aplikaci prvku *.csproj* souboru `BuildServerSideRenderer` hodnoty vlastnosti `true`:
-
-[!code-xml[](sample/AngularServerSideRendering/AngularServerSideRendering.csproj?name=snippet_EnableBuildServerSideRenderer)]
-
-Tím se nakonfiguruje proces sestavení prováděn `build:ssr` během publikování a nasazení souborů SSR k serveru. Pokud nechcete povolit, SSR selže v produkčním prostředí.
-
-Pokud vaše aplikace běží v režimu vývojové nebo produkční prostředí, kód Angular předem vykreslí jako kódu HTML na serveru. Spustí kód na straně klienta jako obvykle.
 
 ### <a name="pass-data-from-net-code-into-typescript-code"></a>Předání dat z kódu .NET do kódu TypeScript
 

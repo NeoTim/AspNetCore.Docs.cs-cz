@@ -4,14 +4,14 @@ author: guardrex
 description: Objevte, jak použít model možnosti k reprezentování skupiny související nastavení v aplikacích ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/29/2018
+ms.date: 02/26/2019
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 20365a078327d76693a40fa79a4a594e29e0901c
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 9566ed75375bdfaa9d6d8bf898b9fb2054356017
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099244"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899317"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>Vzor možnosti v ASP.NET Core
 
@@ -262,7 +262,7 @@ named_options_2: option1 = ConfigureAll replacement value, option2 = 5
 > [!NOTE]
 > Všechny možnosti jsou pojmenované instance. Existující <xref:Microsoft.Extensions.Options.IConfigureOptions`1> instancí jsou považovány za cílení `Options.DefaultName` instanci, která je `string.Empty`. <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1> také implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions`1>. Výchozí implementace <xref:Microsoft.Extensions.Options.IOptionsFactory`1> obsahuje logiku pro každý odpovídajícím způsobem používat. `null` Pojmenované možnost se používá cílit na všechny pojmenované instance místo konkrétní pojmenovanou instanci (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> a <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> Tato konvence).
 
-## <a name="optionsbuilder-api"></a>OptionsBuilder rozhraní API
+## <a name="optionsbuilder-api"></a>OptionsBuilder API
 
 <xref:Microsoft.Extensions.Options.OptionsBuilder`1> slouží ke konfiguraci `TOptions` instancí. `OptionsBuilder` zjednodušuje vytváření, s názvem možnosti, jako je pouze jeden parametr do původní `AddOptions<TOptions>(string optionsName)` volat bez povolí, všechny následné volání. Možnosti ověřování a `ConfigureOptions` přetížení, které přijímají závislostí služby jsou dostupné jen přes `OptionsBuilder`.
 
@@ -274,18 +274,22 @@ services.AddOptions<MyOptions>("optionalName")
     .Configure(o => o.Property = "named");
 ```
 
-## <a name="configurelttoptions-tdep1--tdep4gt-method"></a>Konfigurace&lt;TOptions, TDep1,... TDep4&gt; – metoda
+## <a name="use-di-services-to-configure-options"></a>Slouží ke konfiguraci možností služeb DI
 
-Konfigurovat možnosti implementací pomocí služby od DI `IConfigure[Named]Options` standardní způsobem je úplné. Přetížení pro `ConfigureOptions` na `OptionsBuilder<TOptions>` umožňují používat až pět služeb můžete nakonfigurovat možnosti:
+Přístupu k jiným službám od vkládání závislostí při konfiguraci možnosti dvěma způsoby:
 
-```csharp
-services.AddOptions<MyOptions>("optionalName")
-    .Configure<Service1, Service2, Service3, Service4, Service5>(
-        (o, s, s2, s3, s4, s5) => 
-            o.Property = DoSomethingWith(s, s2, s3, s4, s5));
-```
+* Předání delegáta konfigurace k [konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) na [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , které umožňují používat až pět služby můžete nakonfigurovat možnosti:
 
-Přetížení zaregistruje přechodné obecný <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1>, které má konstruktor, který přijímá typy obecné služby určené. 
+  ```csharp
+  services.AddOptions<MyOptions>("optionalName")
+      .Configure<Service1, Service2, Service3, Service4, Service5>(
+          (o, s, s2, s3, s4, s5) => 
+              o.Property = DoSomethingWith(s, s2, s3, s4, s5));
+  ```
+
+* Vytvořit vlastní typ, který implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions`1> nebo <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1> a zaregistrujte se jako služba typu.
+
+Doporučujeme, abyste předání konfigurace delegáta, kterého [konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*), od vytvoření služby je složitější. Vytváří se vlastní typ je ekvivalentní k co rozhraní udělá za vás při použití [konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*). Volání [konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) zaregistruje přechodné obecný <xref:Microsoft.Extensions.Options.IConfigureNamedOptions`1>, které má konstruktor, který přijímá typy obecné služby určené. 
 
 ::: moniker range=">= aspnetcore-2.2"
 

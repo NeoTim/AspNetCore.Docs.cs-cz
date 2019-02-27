@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: spa/react
-ms.openlocfilehash: aa08a9d8d06d8b52be564fabf904d4923684d4e4
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 3b2b2e67b5d577872bafefef5624a13ca1a22449
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248027"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899174"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>Šablona projektu React pomocí ASP.NET Core
 
@@ -102,3 +102,6 @@ Nevýhodou této výchozí nastavení není k dispozici. Pokaždé, když změn�
     ```
 
 Při spuštění aplikace ASP.NET Core se nespustí CRA serveru. Místo toho se používá instanci, kterou jste spustili ručně. To umožňuje spuštění a restartování rychleji. Už čeká na opětovné sestavení pokaždé, když v aplikaci React.
+
+> [!IMPORTANT]
+> "Vykreslování na straně serveru" není podporovanou funkcí této šablony. Naším cílem při vytváření této šablony je pro splnění se "Vytvoření react-app". V důsledku toho scénáře a funkce není součástí projektu "Vytvoření react-app" (například SSR) nejsou podporovány a jsou ponechané jako cvičení pro daného uživatele.

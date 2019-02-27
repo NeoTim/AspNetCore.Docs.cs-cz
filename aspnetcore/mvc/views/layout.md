@@ -3,14 +3,14 @@ title: Rozložení v ASP.NET Core
 author: ardalis
 description: Zjistěte, jak používat společné rozložení, sdílet direktivy a spustit běžné kód před vykreslení zobrazení v aplikaci ASP.NET Core.
 ms.author: riande
-ms.date: 10/18/2018
+ms.date: 02/26/2019
 uid: mvc/views/layout
-ms.openlocfilehash: 1bd225c804b333efea834a46b7d9ba46b1bb69d8
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 7a60ee15e688d6f0e531302457604fa759213758
+ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410570"
+ms.lasthandoff: 02/27/2019
+ms.locfileid: "56899239"
 ---
 # <a name="layout-in-aspnet-core"></a>Rozložení v ASP.NET Core
 
@@ -49,15 +49,15 @@ Rozložení definuje šablonu nejvyšší úrovně pro zobrazení v aplikaci. Ap
 
 Následující kód ukazuje soubor rozložení pro vytvoření projektu s kontroler a zobrazení šablony:
 
-[!code-html[](~/common/samples/WebApplication1/Views/Shared/_Layout.cshtml?highlight=44,72)]
+[!code-cshtml[](~/common/samples/WebApplication1/Views/Shared/_Layout.cshtml?highlight=44,72)]
 
 ## <a name="specifying-a-layout"></a>Určení rozložení
 
 Zobrazení Razor je k dispozici `Layout` vlastnost. Jednotlivá zobrazení zadat rozložení tak, že nastavíte tuto vlastnost:
 
-[!code-html[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
+[!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
 
-Zadané rozložení můžete použít úplnou cestu (například */Pages/Shared/_Layout.cshtml* nebo */Views/Shared/_Layout.cshtml*) nebo částečný název (Příklad: `_Layout`). Když částečný název zadán, bude hledat rozložení souboru pomocí jeho procesu zjišťování standardní zobrazovací modul Razor. Složky, pokud existuje metoda obslužné rutiny (nebo řadič) je nejprve prohledán, za nímž následuje *Shared* složky. Tento proces zjišťování je stejný jako ten, který používá ke zjišťování [částečná zobrazení](partial.md).
+Zadané rozložení můžete použít úplnou cestu (například */Pages/Shared/_Layout.cshtml* nebo */Views/Shared/_Layout.cshtml*) nebo částečný název (Příklad: `_Layout`). Když částečný název zadán, vyhledá zobrazovací modul Razor rozložení souboru pomocí jeho procesu zjišťování standardní. Složky, pokud existuje metoda obslužné rutiny (nebo řadič) je nejprve prohledán, za nímž následuje *Shared* složky. Tento proces zjišťování je stejný jako proces používá ke zjišťování [částečná zobrazení](xref:mvc/views/partial#partial-view-discovery).
 
 Ve výchozím nastavení, musí volat každou rozložení `RenderBody`. Všude, kde volání `RenderBody` je umístěn, bude vykreslen obsah zobrazení.
 
@@ -123,7 +123,7 @@ Tento soubor nepodporuje další funkce Razor, jako je například funkce a defi
 
 Ukázka `_ViewImports.cshtml` souboru:
 
-[!code-html[](../../common/samples/WebApplication1/Views/_ViewImports.cshtml)]
+[!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewImports.cshtml)]
 
 *_ViewImports.cshtml* soubor pro aplikaci ASP.NET Core MVC je obvykle umístěn ve *stránky* (nebo *zobrazení*) složky. A *_ViewImports.cshtml* souboru je možné použít v jakékoli složce, v takovém případě se použijí jenom u ke stránkám nebo zobrazení v této složce a jejích podsložkách. `_ViewImports` soubory se zpracovávají spouštění na kořenové úrovni a potom pro každou složku dovedou až k pozici stránky nebo zobrazení samotný. `_ViewImports` bylo nastaveno na kořenové úrovni může přepsat na úrovni složek.
 
@@ -151,7 +151,7 @@ Kód, který je potřeba spustit před každou zobrazení nebo stránky musí b�
 
 Ukázka *soubor _ViewStart.cshtml* souboru:
 
-[!code-html[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml)]
+[!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml)]
 
 Výše uvedeného souboru Určuje, zda budou používat všechna zobrazení *_Layout.cshtml* rozložení.
 
