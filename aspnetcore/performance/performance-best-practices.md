@@ -56,9 +56,9 @@ Doporučení:
 
 Problémy s pamětí uvedené výše můžete identifikovat kontrolou statistiky uvolňování paměti (garbage collection, GC) v [PerfView](https://github.com/Microsoft/perfview):
 
-* Čas pozastavení kolekce uvolnění paměti.
-* Jaké je procento času procesoru je trvání uvolňování paměti.
-* Kolik kolekce uvolnění paměti jsou 0, 1 a 2. generace.
+* Dobu pozastavení uvolnění paměti.
+* Jaké procento času procesoru zabírá uvolňování paměti.
+* Kolik uvolnění paměti jsou 0, 1 a 2. generace.
 
 Další informace najdete v tématu [uvolňování paměti a výkon](/dotnet/standard/garbage-collection/performance).
 
