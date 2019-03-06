@@ -93,7 +93,7 @@ items:
     items:
     - uid: razor-pages/index
       name: Úvod
-    - name: Kurz
+    - name: Tutoriál
       items:
       - uid: tutorials/razor-pages/index
         name: Přehled
@@ -128,7 +128,7 @@ items:
     - uid: mvc/overview
       name: Přehled
     - uid: tutorials/first-mvc-app/index
-      name: Kurz
+      name: Tutoriál
       items:
       - uid: tutorials/first-mvc-app/start-mvc
         name: Začínáme
@@ -326,6 +326,8 @@ items:
     name: Porovnání SignalR a SignalR Core
   - uid: fundamentals/websockets
     name: WebSockets bez SignalR
+  - uid: signalr/diagnostics
+    name: Protokolování a diagnostika
 - name: Testování, ladění a odstraňování potíží
   items:
   - name: Testování jednotek
@@ -423,7 +425,7 @@ items:
     - uid: tutorials/first-razor-components-app
       name: Sestavení první aplikace
     - uid: razor-components/components
-      name: Součásti
+      name: Komponenty
     - uid: razor-components/class-libraries
       name: Knihovny komponent
     - uid: razor-components/layouts
@@ -455,7 +457,7 @@ items:
       - uid: tutorials/first-razor-components-app
         name: Sestavení první aplikace
       - uid: razor-components/components
-        name: Součásti
+        name: Komponenty
       - uid: razor-components/class-libraries
         name: Knihovny komponent
       - uid: razor-components/layouts
@@ -606,6 +608,8 @@ items:
     items:
     - uid: security/authentication/identity
       name: Úvod do systému Identity
+    - uid: security/authentication/identity/spa
+      name: Identity s jednostránkovými aplikacemi (SPA)
     - uid: security/authentication/scaffold-identity
       name: Vygenerování identity
     - uid: security/authentication/add-user-data
@@ -638,6 +642,8 @@ items:
         name: Další zprostředkovatelé
       - uid: security/authentication/social/additional-claims
         name: Další deklarace identity
+    - uid: security/authentication/policyschemes
+      name: Schémata zásad
     - uid: security/authentication/ws-federation
       name: Ověřování WS-Federation
     - uid: security/authentication/accconfirm
@@ -814,6 +820,8 @@ items:
   items:
   - uid: fundamentals/middleware/write
     name: Psaní middlewaru
+  - uid: fundamentals/middleware/request-response
+    name: Operace žádostí a odpovědí
   - uid: fundamentals/url-rewriting
     name: Přepisování adres URL
   - uid: fundamentals/file-providers
@@ -880,9 +888,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: e55cfa30103c2a89007f2bc5e9d133dea7f8c6d5
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 51fa497e0de917536dc37684cdebc60dec4c19a5
+ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743995"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57400694"
