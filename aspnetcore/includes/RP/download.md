@@ -1,0 +1,1 @@
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/2.2-stage-samples) ([stažení](xref:index#how-to-download-a-sample)).

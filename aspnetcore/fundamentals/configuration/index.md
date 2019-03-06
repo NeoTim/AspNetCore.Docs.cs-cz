@@ -4,7 +4,7 @@ author: guardrex
 description: 'Zjistěte, jak použít rozhraní API pro konfiguraci ke konfiguraci aplikace ASP.NET Core.'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/25/2019
+ms.date: 03/04/2019
 uid: fundamentals/configuration/index
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
@@ -128,7 +128,26 @@ Konfigurace zdroje jsou při spuštění aplikace pro čtení v pořadí, že js
 
 Poskytovatelé konfigurace souboru mají možnost znovu načíst konfiguraci je podkladový soubor nastavení se při změně po spuštění aplikace. Zprostředkovatel konfigurace souboru je popsána dále v tomto tématu.
 
-<xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v aplikaci prvku [Dependency Injection (DI)](xref:fundamentals/dependency-injection) kontejneru. Poskytovatelé konfigurace nemůže využít DI, protože není k dispozici při jejich nastavení hostitele.
+<xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v aplikaci prvku [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) kontejneru. <xref:Microsoft.Extensions.Configuration.IConfiguration> mohou být vloženy do stránky Razor <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> získat konfiguraci pro třídu:
+
+```csharp
+// using Microsoft.Extensions.Configuration;
+
+public class IndexModel : PageModel
+{
+    private readonly IConfiguration _config;
+
+    public IndexModel(IConfiguration config)
+    {
+        _config = config;
+    }
+        
+    // The _config local variable is used to obtain configuration 
+    // throughout the class.
+}
+```
+
+Poskytovatelé konfigurace nemůže využít DI, protože není k dispozici při jejich nastavení hostitele.
 
 Konfigurační klíče použijte následující konvence:
 
@@ -256,6 +275,8 @@ Volání <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguratio
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=19)]
 
 ::: moniker-end
+
+Konfigurace zadaný pro aplikace v <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> je k dispozici při spuštění aplikace, včetně `Startup.ConfigureServices`. Další informace najdete v tématu [konfigurace přístupu při spuštění](#access-configuration-during-startup) oddílu.
 
 ## <a name="command-line-configuration-provider"></a>Zprostředkovatel konfigurace příkazového řádku
 
@@ -1305,10 +1326,29 @@ var host = new WebHostBuilder()
 
 [ConfigurationBinder.GetValue&lt;T&gt; ](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje hodnotu z konfigurace se zadaným klíčem a převede ho na zadaný typ. Přetížení umožňuje zadat výchozí hodnotu, pokud není nalezen klíč.
 
-Následující příklad získá řetězcovou hodnotu z konfigurace s klíčem `NumberKey`, zadá hodnotu jako `int`a uloží hodnotu do proměnné `intValue`. Pokud `NumberKey` nebyl nalezen v konfigurační klíče `intValue` přijme výchozí hodnotu `99`:
+V následujícím příkladu:
+
+* Extrahuje hodnotu řetězce s klíčem z konfigurace `NumberKey`. Pokud `NumberKey` nebyl nalezen v konfigurační klíče, výchozí hodnota `99` se používá.
+* Typy hodnotu jako `int`.
+* Uloží hodnotu v `NumberConfig` vlastnost pro použití na stránce.
 
 ```csharp
-var intValue = config.GetValue<int>("NumberKey", 99);
+// using Microsoft.Extensions.Configuration;
+
+public class IndexModel : PageModel
+{
+    public IndexModel(IConfiguration config)
+    {
+        _config = config;
+    }
+    
+    public int NumberConfig { get; private set; }
+        
+    public void OnGet()
+    {
+        NumberConfig = _config.GetValue<int>("NumberKey", 99);
+    }
+}
 ```
 
 ## <a name="getsection-getchildren-and-exists"></a>GetSection, GetChildren – a existuje

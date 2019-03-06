@@ -2,75 +2,59 @@
 title: Zpracování chyb v ASP.NET Core
 author: tdykstra
 description: Objevte, jak zpracovávat chyby v aplikacích ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 03/01/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: f4358cba81d2aa47a26f90a8d5f4e77310bcad00
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: a2ae2cb25c8cc5048b189b4035abbfc32a29aaff
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637635"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345488"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
-Podle [Steve Smith](https://ardalis.com/) a [Petr Dykstra](https://github.com/tdykstra/)
+Podle [Petr Dykstra](https://github.com/tdykstra/), [Luke Latham](https://github.com/guardrex), a [Steve Smith](https://ardalis.com/)
 
 Tento článek se věnuje běžné přístupy k zpracování chyb v aplikacích ASP.NET Core.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/ErrorHandlingSample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="the-developer-exception-page"></a>Stránce výjimek pro vývojáře
-
-::: moniker range=">= aspnetcore-2.1"
+## <a name="developer-exception-page"></a>Stránce výjimek pro vývojáře
 
 Chcete-li nakonfigurovat aplikaci, která zobrazí stránka, která jsou uvedeny podrobné informace o výjimkách, použijte *stránku výjimek pro vývojáře*. Na stránce je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Přidejte řádek, který `Startup.Configure` metody:
 
-::: moniker-end
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevExceptionPage&highlight=5)]
 
-::: moniker range="= aspnetcore-2.0"
-
-Chcete-li nakonfigurovat aplikaci, která zobrazí stránka, která jsou uvedeny podrobné informace o výjimkách, použijte *stránku výjimek pro vývojáře*. Na stránce je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [metabalíček Microsoft.aspnetcore.all](xref:fundamentals/metapackage). Přidejte řádek, který `Startup.Configure` metody:
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-Chcete-li nakonfigurovat aplikaci, která zobrazí stránka, která jsou uvedeny podrobné informace o výjimkách, použijte *stránku výjimek pro vývojáře*. Na stránce je k dispozici tak, že přidáte odkaz na balíček pro [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíčku v souboru projektu. Přidejte řádek, který `Startup.Configure` metody:
-
-::: moniker-end
-
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevExceptionPage&highlight=7)]
-
-Umístěte volání [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) před veškerý middleware, ve které chcete zaznamenat tak výjimky, jako například `app.UseMvc`.
+Umístěte volání <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> před veškerý middleware, ve které chcete zaznamenat tak výjimky.
 
 > [!WARNING]
-> Povolit na stránce výjimek pro vývojáře **pouze, když je aplikace spuštěna ve vývojovém prostředí**. Nechcete veřejně sdílet podrobné informace o výjimce při spuštění aplikace v produkčním prostředí. [Další informace o konfiguraci prostředí](xref:fundamentals/environments).
+> Povolit na stránce výjimek pro vývojáře **pouze, když je aplikace spuštěna ve vývojovém prostředí**. Nechcete veřejně sdílet podrobné informace o výjimce při spuštění aplikace v produkčním prostředí. Další informace o konfiguraci prostředí najdete v tématu <xref:fundamentals/environments>.
 
-Stránce výjimek pro vývojáře najdete spuštění ukázkové aplikace s prostředím nastavena na `Development` a přidejte `?throw=true` k základní adrese URL aplikace. Stránka obsahuje několik karet s informacemi o výjimku a požadavek. První karta obsahuje trasování zásobníku:
+Stránce výjimek pro vývojáře najdete spuštění ukázkové aplikace s prostředím nastavena na `Development` a přidejte `?throw=true` k základní adrese URL aplikace. Stránka obsahuje následující informace o výjimku a požadavek:
 
-![Trasování zásobníku](error-handling/_static/developer-exception-page.png)
-
-Další karta ukazuje dotaz případné parametry řetězce:
-
-![Parametry řetězce dotazu](error-handling/_static/developer-exception-page-query.png)
-
-Pokud požadavek má soubory cookie, zobrazí se na **soubory cookie** kartu. Záhlaví se zobrazují na kartě poslední:
-
-![Záhlaví](error-handling/_static/developer-exception-page-headers.png)
+* Trasování zásobníku
+* Parametry řetězce dotazu (pokud existuje)
+* Soubory cookie (pokud existuje)
+* Záhlaví
 
 ## <a name="configure-a-custom-exception-handling-page"></a>Konfigurace vlastní výjimky zpracování stránky
 
-Na stránce obslužné rutiny výjimky pro použití při není aplikace spuštěna konfiguraci `Development` prostředí:
+Pokud není aplikace spuštěna ve vývojovém prostředí, zavolejte <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> metodu rozšíření k přidání Middleware zpracování výjimek. Middleware:
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevExceptionPage&highlight=11)]
+* Zachytává výjimky.
+* Protokoly výjimky.
+* Znovu provede požadavek na alternativní kanálu pro stránku nebo řadič uvedené. Daný požadavek není znovu spustit, pokud odpověď byla spuštěna.
 
-V aplikaci s Razor Pages [dotnet nové](/dotnet/core/tools/dotnet-new) šablona Razor Pages nabízí chybovou stránku a chybě `PageModel` třídy v *stránky* složky.
+V následujícím příkladu z ukázkové aplikace <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> přidá Middleware zpracování výjimek v jiných vývojových prostředích. Určuje metodu rozšíření chybové stránky nebo ovladač na `/Error` koncový bod pro znovu spustit požadavky po výjimky jsou zachyceny a přihlášení:
 
-V aplikaci MVC, není uspořádání metody akce obslužná rutina chyby s atributy metody HTTP, jako například `HttpGet`. Explicitní příkazy zabránit v dosažení metodu některé požadavky. Povolit anonymní přístup k metodě tak, aby se neověřené uživatele dostávají zobrazení chyb.
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevExceptionPage&highlight=9)]
 
-Například poskytuje následující metody obslužné rutiny chyb [dotnet nové](/dotnet/core/tools/dotnet-new) šablona MVC a zobrazí se v kontroler Home:
+Šablona aplikace Razor Pages poskytuje chybovou stránku (*.cshtml*) a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> třídy (`ErrorModel`) ve složce stránky.
+
+V aplikaci MVC následující metody obslužné rutiny chyb je součástí šablony aplikace MVC a zobrazí se v kontroler Home:
 
 ```csharp
 [AllowAnonymous]
@@ -81,27 +65,13 @@ public IActionResult Error()
 }
 ```
 
+Není uspořádání metody akce obslužná rutina chyby s atributy metody HTTP, jako například `HttpGet`. Explicitní příkazy zabránit v dosažení metodu některé požadavky. Povolit anonymní přístup k metodě tak, aby se neověřené uživatele dostávají zobrazení chyb.
+
 ## <a name="configure-status-code-pages"></a>Konfigurace stavu znakové stránky
 
-Ve výchozím nastavení, aplikace neposkytuje znakovou stránku bohaté stav pro stavové kódy HTTP, jako například *404 Nenalezeno*. Pokud chcete poskytnout stav znakové stránky, použijte Middleware stránky stavový kód.
-
-::: moniker range=">= aspnetcore-2.1"
+Ve výchozím nastavení, aplikace ASP.NET Core neposkytuje znakovou stránku Stav pro stavové kódy HTTP, jako například *404 - Nenalezeno*. Aplikace se vrátí stavový kód a prázdné tělo odpovědi. Pokud chcete poskytnout stav znakové stránky, použijte Middleware stránky stavový kód.
 
 Middleware je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-Middleware je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [metabalíček Microsoft.aspnetcore.all](xref:fundamentals/metapackage).
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-Middleware je k dispozici tak, že přidáte odkaz na balíček pro [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíčku v souboru projektu.
-
-::: moniker-end
 
 Přidejte řádek, který `Startup.Configure` metody:
 
@@ -109,44 +79,61 @@ Přidejte řádek, který `Startup.Configure` metody:
 app.UseStatusCodePages();
 ```
 
-<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> by měla být volána před požadavkem zpracování middlewares v kanálu (třeba Middleware statické soubory a Middlewarem MVC).
+Volání <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> metoda před požadavkem zpracování middleware (například Middleware statické soubory a Middlewarem MVC).
 
-Ve výchozím nastavení přidá Middleware stránky stavový kód obslužné rutiny pro běžné stavové kódy, jako je například 404 prostého textu:
+Ve výchozím nastavení, Middleware stránky stavový kód přidá prostého textu obslužné rutiny pro běžné stavové kódy, jako například *404 - Nenalezeno*:
 
-![404 – Stránka](error-handling/_static/default-404-status-code.png)
+```
+Status Code: 404; Not Found
+```
 
-Middleware podporuje několik metod rozšíření. Jedna metoda má výraz lambda:
+Middleware podporuje několik metod rozšíření, které umožňují přizpůsobit chování aplikace.
+
+Přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> používá výraz lambda, který můžete použít ke zpracování vlastní logiku zpracování chyb a ručně zápisu odpovědi:
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePages)]
 
-Přetížení `UseStatusCodePages` obsahu typ a formát řetězce:
+Přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> obsahu typ a formát řetězce, který můžete použít pro přizpůsobení obsahu textu, typ a odpovědi:
 
 ```csharp
 app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
 ```
-### <a name="redirect-re-execute-extension-methods"></a>Znovu provést rozšiřující metody pro přesměrování
+
+### <a name="redirect-and-re-execute-extension-methods"></a>Přesměrování a znovu spusťte rozšiřující metody
 
 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*>:
 
 * Odešle *302 - nalezen* stavový kód na straně klienta.
-* Přesměruje klienta do umístění, které jsou součástí adresy URL šablony. 
-
-Šablona může obsahovat `{0}` zástupný symbol pro stavový kód. Šablona musí začínat lomítkem (`/`).
+* Přesměruje klienta do umístění, které jsou součástí adresy URL šablony.
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithRedirect)]
+
+<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*> se obvykle používá, když aplikace:
+
+* Klient by se měla přesměrovat na jiný koncový bod, obvykle v případech, kde různé aplikace zpracovává chyby. Pro web apps odráží adresního řádku prohlížeče klienta přesměrovaného koncový bod.
+* Neměli zachovat a vrátí původní stavový kód odpovědi počáteční přesměrování.
 
 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*>:
 
 * Vrátí původní stavový kód do klienta.
-* Určuje, že tělo odpovědi by měl být vygenerován znovu spuštěním kanálu požadavku pomocí alternativní cesty. 
-
-Šablona může obsahovat `{0}` zástupný symbol pro stavový kód. Šablona musí začínat lomítkem (`/`).
+* Generuje text odpovědi znovu spuštěním kanálu požadavku pomocí alternativní cesty.
 
 ```csharp
-app.UseStatusCodePagesWithReExecute("/error/{0}");
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
 ```
 
-Stav znakové stránky je možné zakázat pro konkrétní požadavky v metodě obslužné rutiny pro stránky Razor nebo kontroler MVC. Zakázat stav znakových stránek, pokus o načtení [IStatusCodePagesFeature](/dotnet/api/microsoft.aspnetcore.diagnostics.istatuscodepagesfeature) z identifikátoru požadavku [HttpContext.Features](/dotnet/api/microsoft.aspnetcore.http.httpcontext.features) kolekce a zakažte funkci, pokud je k dispozici:
+<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*> se obvykle používá při aplikace:
+
+* Zpracování žádosti bez přesměrování na jiný koncový bod. Pro web apps odráží adresního řádku prohlížeče klienta na původně požadovanou koncový bod.
+* Zachovat a vrátí původní kód stavu odpovědi.
+
+Šablony mohou zahrnovat zástupný symbol (`{0}`) pro stavový kód. Šablona musí začínat lomítkem (`/`). Při použití zástupného symbolu, potvrďte, že koncový bod (stránka nebo řadič) může zpracovat segmentu cesty. Například stránky Razor pro chyby by měl přijmout hodnotu volitelná cesta segmentu se `@page` – direktiva:
+
+```cshtml
+@page "{code?}"
+```
+
+Stav znakové stránky je možné zakázat pro konkrétní požadavky v metodě obslužné rutiny pro stránky Razor nebo kontroler MVC. Zakázat stav znakových stránek, pokus o načtení <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature> z identifikátoru požadavku [HttpContext.Features](xref:Microsoft.AspNetCore.Http.HttpContext.Features) kolekce a zakažte funkci, pokud je k dispozici:
 
 ```csharp
 var statusCodePagesFeature = HttpContext.Features.Get<IStatusCodePagesFeature>();
@@ -157,9 +144,64 @@ if (statusCodePagesFeature != null)
 }
 ```
 
-Použití `UseStatusCodePages*` přetížení body do koncového bodu v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Například [dotnet nové](/dotnet/core/tools/dotnet-new) šablony pro aplikace Razor Pages vytvoří následující stránky a modelu třídy stránky:
+Použití <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> přetížení body do koncového bodu v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Například šablona aplikace Razor Pages vytváří následující stránky a modelu třídy stránky:
 
 *Error.cshtml*:
+
+::: moniker range=">= aspnetcore-2.2"
+
+```cshtml
+@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Development Mode</h3>
+<p>
+    Swapping to the <strong>Development</strong> environment displays 
+    detailed information about the error that occurred.
+</p>
+<p>
+    <strong>The Development environment shouldn't be enabled for deployed 
+    applications.</strong> It can result in displaying sensitive information 
+    from exceptions to end users. For local debugging, enable the 
+    <strong>Development</strong> environment by setting the 
+    <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to 
+    <strong>Development</strong> and restarting the app.
+</p>
+```
+
+*Error.cshtml.cs*:
+
+```csharp
+[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+public class ErrorModel : PageModel
+{
+    public string RequestId { get; set; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+    public void OnGet()
+    {
+        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+    }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
 
 ```cshtml
 @page
@@ -210,23 +252,32 @@ public class ErrorModel : PageModel
 }
 ```
 
+::: moniker-end
+
 ## <a name="exception-handling-code"></a>Kód zpracování výjimek
 
 Kód výjimky zpracování stránky může vyvolat výjimky. Často je vhodné pro produkční chybové stránky, které se skládají z čistě statický obsah.
 
-Také mějte na paměti, že po odeslání hlaviček pro odpovědi, nelze změnit stavový kód odpovědi ani žádné výjimce stránky nebo obslužné rutiny poběží. Odpovědi musí dokončit, nebo bylo připojení přerušeno.
+Také, mějte na paměti, jakmile jsou odeslány hlavičky odpovědi:
+
+* Aplikaci nelze změnit stavový kód odpovědi.
+* Žádné výjimce stránky nebo obslužné rutiny nelze spustit. Odpovědi musí dokončit, nebo bylo připojení přerušeno.
 
 ## <a name="server-exception-handling"></a>Zpracování výjimek serveru
 
-Kromě ve vaší aplikaci logiky zpracování výjimek [server](xref:fundamentals/servers/index) hostování vaší aplikace provádí nějaké zpracování výjimek. Pokud server zachytí výjimku, před odesláním záhlaví, odešle server *500 – Interní chyba serveru* odpověď se žádný text. Pokud server zachytí výjimku po odeslání hlavičky, server ukončí připojení. Požadavky, které nejsou zpracovány aplikací jsou zpracovány serverem. Všechny vyvolané výjimky jsou zpracována výjimka serveru zpracování. Žádné nakonfigurované vlastní chybové stránky nebo zpracování výjimek middleware nebo filtry nemají vliv na toto chování.
+Kromě ve vaší aplikaci logiky zpracování výjimek [implementaci serveru](xref:fundamentals/servers/index) dokáže zpracovat některé výjimky. Pokud server zachytí výjimku, před odesláním hlavičky odpovědi, odešle server *500 – Interní chyba serveru* odpovědi bez těla odpovědi. Pokud server zachytí výjimku po odeslání hlaviček odpovědí, server ukončí připojení. Požadavky, které nejsou zpracovány aplikací jsou zpracovány serverem. Všechny vyvolané výjimky jsou zpracována výjimka serveru zpracování. Žádné nakonfigurované vlastní chybové stránky nebo zpracování výjimek middleware nebo filtry nemají vliv na toto chování.
 
 ## <a name="startup-exception-handling"></a>Zpracování výjimek při spuštění
 
-Pouze hostování vrstvy dokáže zpracovat výjimky, které se provedou při spuštění aplikace. Použití [webového hostitele](xref:fundamentals/host/web-host), můžete [konfigurace hostitele chování v reakci na chyby při spuštění](xref:fundamentals/host/web-host#detailed-errors) s `captureStartupErrors` a `detailedErrors` klíče.
+Pouze hostování vrstvy dokáže zpracovat výjimky, které se provedou při spuštění aplikace. Pomocí [webového hostitele](xref:fundamentals/host/web-host), můžete [konfigurace hostitele chování v reakci na chyby při spuštění](xref:fundamentals/host/web-host#detailed-errors) s `captureStartupErrors` a `detailedErrors` klíče.
 
-Hostování můžete jenom zobrazit chybovou stránku pro chyby zaznamenané při spouštění, pokud dojde k chybě po adresa/port hostitele vazby. Pokud z nějakého důvodu selže všechny vazby, hostování vrstvy zaznamená kritické výjimky, dojde k chybě dotnet procesu a žádná chybová stránka se zobrazí, když je aplikace spuštěná na [Kestrel](xref:fundamentals/servers/kestrel) serveru.
+Hostování můžete jenom zobrazit chybovou stránku pro chyby zaznamenané při spouštění, pokud dojde k chybě po adresa/port hostitele vazby. Pokud z nějakého důvodu selže všechny vazby:
 
-Při spuštění na [IIS](/iis) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), *502.5 selhání procesu* je vrácený [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) Pokud proces nemůže být bylo zahájeno. Informace o řešení problémů se spouštěním, při hostování za nástrojem službou IIS najdete v tématu <xref:host-and-deploy/iis/troubleshoot>. Informace o řešení problémů se spouštěním pomocí služby Azure App Service najdete v tématu <xref:host-and-deploy/azure-apps/troubleshoot>.
+* Hostování vrstvy zaznamená kritické výjimky.
+* Dotnet procesu dojde k chybě.
+* Žádná chybová stránka se zobrazí, když je aplikace spuštěná na [Kestrel](xref:fundamentals/servers/kestrel) serveru.
+
+Při spuštění na [IIS](/iis) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), *502.5 – selhání procesu* vrátí [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) Pokud proces nelze spustit. . Další informace naleznete v tématu <xref:host-and-deploy/iis/troubleshoot>. Informace o řešení problémů se spouštěním pomocí služby Azure App Service najdete v tématu <xref:host-and-deploy/azure-apps/troubleshoot>.
 
 ## <a name="aspnet-core-mvc-error-handling"></a>Zpracování chyb technologie ASP.NET Core MVC
 
@@ -234,16 +285,16 @@ Při spuštění na [IIS](/iis) nebo [služby IIS Express](/iis/extensions/intro
 
 ### <a name="exception-filters"></a>Filtry výjimek
 
-Filtry výjimek se dá nakonfigurovat globálně nebo na základě na kontroler nebo akcích v aplikaci MVC. Tyto filtry zpracování neošetřené výjimky, která během provádění akce kontroleru nebo jiný filtr. Tyto filtry nejsou volány jinak. Další informace najdete v tématu [filtry](xref:mvc/controllers/filters).
+Filtry výjimek se dá nakonfigurovat globálně nebo na základě na kontroler nebo akcích v aplikaci MVC. Tyto filtry zpracování neošetřené výjimky, která během provádění akce kontroleru nebo jiný filtr. Tyto filtry nejsou volány jinak. Další informace najdete v tématu <xref:mvc/controllers/filters>.
 
 > [!TIP]
-> Filtry výjimek jsou vhodné pro soutisku výjimky, ke kterým dochází v rámci akce MVC, ale nejsou tak flexibilní jako middleware pro zpracování chyb. Obecně přednost použití middlewaru a použití filtrů jenom tam, kde potřebujete provádět zpracování chyb *jinak* závislosti na zvolené akci, která MVC.
+> Filtry výjimek jsou užitečné pro soutisku výjimky, ke kterým dochází v rámci akce MVC, ale nejsou tak flexibilní jako middleware pro zpracování chyb. Doporučujeme používat middleware. Použití filtrů jenom tam, kde potřebujete provádět zpracování chyb *jinak* závislosti na zvolené akci, která MVC.
 
-### <a name="handling-model-state-errors"></a>Zpracování chyby stavu modelu
+### <a name="handle-model-state-errors"></a>Zpracování chyby stavu modelu
 
-[Ověření modelu](xref:mvc/models/validation) vyvolá se před vyvoláním každé akce kontroleru a zodpovídá za metodu akce ke kontrole `ModelState.IsValid` a reagují odpovídajícím způsobem.
+[Ověření modelu](xref:mvc/models/validation) vyvolá se před vyvoláním každé akce kontroleru a zodpovídá za metodu akce ke kontrole [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) a reagují odpovídajícím způsobem.
 
-Některé aplikace zvolte dodržovat standardní konvence týkající se chyby ověření modelu, v takovém případě [filtr](xref:mvc/controllers/filters) může být vhodné místo pro implementaci tuto zásadu. Měli byste otestovat chování vaše akce se stavy modelu je neplatný. Další informace najdete v [testovací kontroler logiku](xref:mvc/controllers/testing).
+Některé aplikace zvolte dodržovat standardní zásady pro nakládání s [ověření modelu](xref:mvc/models/validation) chyby, v takovém případě [filtr](xref:mvc/controllers/filters) může být vhodné místo pro implementaci tuto zásadu. Měli byste otestovat chování vaše akce se stavy modelu je neplatný. Další informace naleznete v tématu <xref:mvc/controllers/testing>.
 
 ## <a name="additional-resources"></a>Další zdroje
 

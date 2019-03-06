@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/javascript-interop
-ms.openlocfilehash: 9f822fee8990b03ff15ffa9857a2ddd95328a6ce
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 07c19fa80b5e7f8bb9393d7fa4b937c9eab718b5
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159266"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346165"
 ---
 # <a name="razor-components-javascript-interop"></a>Razor JavaScript součásti zprostředkovatel komunikace s objekty
 
@@ -178,7 +178,7 @@ window.myLib = {
 *ElementRefExtensions.cs*:
 
 ```csharp
-using Microsoft.AspNetCore.Blazor;
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Threading.Tasks;
 

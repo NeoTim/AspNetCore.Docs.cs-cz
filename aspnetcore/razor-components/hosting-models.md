@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/hosting-models
-ms.openlocfilehash: d1e0c472d7d10eeb4cef0da735cf703c98dd1645
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 8ffc22201b88b59077a98bd46cbf95e93d2d86e2
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159504"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345659"
 ---
 # <a name="razor-components-hosting-models"></a>Hostování modely součásti syntaxe Razor
 
@@ -28,7 +28,7 @@ Hlavní model hostingu pro Blazor je spuštěné straně klienta v prohlížeči
 
 ![Blazor straně klienta: Blazor aplikace běží na vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/client-side.png)
 
-Chcete-li vytvořit aplikaci Blazor používá model hostování na straně klienta, použijte **Blazor** nebo **Blazor (ASP.NET Core v prostředí)** šablony projektů (`blazor` nebo `blazorhosted` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkazu na příkazovém řádku). Zahrnout *blazor.webassembly.js* skriptu obslužné rutiny:
+Chcete-li vytvořit aplikaci Blazor používá model hostování na straně klienta, použijte **Blazor** nebo **Blazor (ASP.NET Core v prostředí)** šablony projektů (`blazor` nebo `blazorhosted` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkazu na příkazovém řádku). Zahrnout *components.webassembly.js* skriptu obslužné rutiny:
 
 * Stahuje se modul .NET runtime, aplikace a jeho závislosti.
 * Inicializace modulu runtime a spusťte tak aplikaci.
@@ -68,7 +68,7 @@ Chcete-li vytvořit Razor součásti aplikace pomocí model hostingu na straně 
 
 [!code-csharp[](hosting-models/samples_snapshot/Startup.cs?highlight=5,27)]
 
-*Blazor.server.js* skript&dagger; naváže připojení klienta. Je zodpovědností aplikace k zachování a obnovení stavu aplikace podle potřeby (například v případě ztráty připojení).
+*Components.server.js* skript&dagger; naváže připojení klienta. Je zodpovědností aplikace k zachování a obnovení stavu aplikace podle potřeby (například v případě ztráty připojení).
 
 Model hostingu na straně serveru nabízí několik výhod:
 
@@ -86,4 +86,4 @@ Existují nevýhody hostování na straně serveru:
 * Má omezit škálovatelnost: Server musí spravovat připojení více klientů a zpracování stavu klienta.
 * Vyžaduje server služby ASP.NET Core pro obsluhu aplikace. Nasazení bez serveru (například ze sítě CDN) není možné.
 
-&dagger;*Blazor.server.js* do následujícího umístění je publikován skriptu: *bin / {ladění | Verze} / {CÍLOVÁ ARCHITEKTURA} /publish/ {název aplikace}. Aplikace/dist/_architektura*.
+&dagger;*Components.server.js* do následujícího umístění je publikován skriptu: *bin / {ladění | Verze} / {CÍLOVÁ ARCHITEKTURA} /publish/ {název aplikace}. Aplikace/dist/_architektura*.

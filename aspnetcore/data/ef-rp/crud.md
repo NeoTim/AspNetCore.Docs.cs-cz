@@ -5,12 +5,12 @@ description: Ukazuje, jak vytvářet, číst, aktualizovat, odstranit pomocí EF
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/crud
-ms.openlocfilehash: 4af16bdf3928609214c1255cdd411312c8b7d3f3
-ms.sourcegitcommit: f5d403004f3550e8c46585fdbb16c49e75f495f3
+ms.openlocfilehash: adb281277599456356251c6ee30772a25f14ac58
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/20/2018
-ms.locfileid: "49477433"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346047"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - CRUD - 2, 8
 
@@ -48,7 +48,7 @@ Generovaný kód používá [FirstOrDefaultAsync](/dotnet/api/microsoft.entityfr
 
 <a name="FindAsync"></a>
 
-### <a name="findasync"></a>Asynchronně vyhledá
+### <a name="findasync"></a>FindAsync
 
 Prakticky automaticky generovaný kód [asynchronně vyhledá](/dotnet/api/microsoft.entityframeworkcore.dbcontext.findasync#Microsoft_EntityFrameworkCore_DbContext_FindAsync_System_Type_System_Object___) lze použít místo `FirstOrDefaultAsync`.
 
@@ -191,7 +191,7 @@ Entity mohou být v jednom z [následující stavy](/dotnet/api/microsoft.entity
 
 * `Unchanged`: Je nutné uložit s touto entitou žádné změny. Entita má tento stav, když je pro čtení z databáze.
 
-* `Modified`: Byly změněny některé nebo všechny hodnoty vlastností entity. `SaveChanges` Metoda vydá příkazu UPDATE.
+* `Modified`: Některé nebo všechny hodnoty vlastností entity byly změněny. `SaveChanges` Metoda vydá příkazu UPDATE.
 
 * `Deleted`: Entita byla označena k odstranění. `SaveChanges` Metoda vydá příkaz DELETE.
 
@@ -247,6 +247,10 @@ Ověřte stránky Razor obsahuje správný `@page` směrnice. Například by stu
 Musí zahrnovat každou stránku Razor `@page` směrnice.
 
 ::: moniker-end
+
+## <a name="additional-resources"></a>Další zdroje
+
+* [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=F0SP7Ry4flQ&list=PLnVvOWNfuhGV45HnNgd0vuIIkoQ1UaVBf)
 
 > [!div class="step-by-step"]
 > [Předchozí](xref:data/ef-rp/intro)

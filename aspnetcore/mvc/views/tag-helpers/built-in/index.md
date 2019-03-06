@@ -1,18 +1,13 @@
 ---
 title: ASP.NET Core integrované pomocné rutiny značek
 author: pkellner
-description: Zjistěte, jak ASP.NET Core integrovaných pomocných rutin značek zvýší vaši produktivitu.
+description: 'Zjistěte, jak ASP.NET Core integrovaných pomocných rutin značek zvýší vaši produktivitu.'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/Index
-ms.openlocfilehash: 58840d6ecd09bd2ae7f96c046a0cb93c018f9645
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49325481"
 ---
+
 # <a name="aspnet-core-built-in-tag-helpers"></a>ASP.NET Core integrované pomocné rutiny značek
 
 Podle [Peter Kellner](http://peterkellner.net)
@@ -35,6 +30,8 @@ Přehled pomocných rutin značek, naleznete v tématu <xref:mvc/views/tag-helpe
 [comment]: **[FormActionTagHelper](xref:mvc/views/tag-helpers/builtin-th/form-action-tag-helper)**
 
 **[Pomocná rutina značky formuláře](xref:mvc/views/working-with-forms#the-form-tag-helper)**
+
+**[Pomocná rutina značky akce formuláře](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
 
 **[Pomocná rutina značky obrázku](xref:mvc/views/tag-helpers/builtin-th/image-tag-helper)**
 

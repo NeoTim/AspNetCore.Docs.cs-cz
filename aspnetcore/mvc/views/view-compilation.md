@@ -5,14 +5,14 @@ description: Zjistěte, jak kompilace souborech Razor vyvolá se v aplikaci ASP.
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 03/02/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 0b6173a7860f5f1d9d11219fbf3f57f76d703031
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 0b3aea584de63cb8032e4ca112d2441349bdfbb3
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899265"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345481"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>Kompilace souboru Razor v ASP.NET Core
 
@@ -38,7 +38,7 @@ Souboru Razor je zkompilován za běhu, když uživatel vyvolá přidružené zo
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Razor soubory kompilované za obě sestavení a publikování pomocí [Razor SDK](xref:razor-pages/sdk). Kompilace modulu runtime může volitelně stará konfigurace vaší aplikace
+Razor soubory kompilované za obě sestavení a publikování pomocí [Razor SDK](xref:razor-pages/sdk). Kompilace modulu runtime může volitelně stará konfigurace vaší aplikace.
 
 ::: moniker-end
 
@@ -93,7 +93,7 @@ Příprava aplikace pro [nasazení závisí na architektuře](/dotnet/core/deplo
 dotnet publish -c Release
 ```
 
-A *< project_name >. PrecompiledViews.dll* soubor obsahující kompilovaných souborech Razor, je vytvořen při předkompilaci proběhne úspěšně. Například následující snímek obrazovky znázorňuje obsah *Index.cshtml* v rámci *WebApplication1.PrecompiledViews.dll*:
+A  *\<project_name >. PrecompiledViews.dll* soubor obsahující kompilovaných souborech Razor, je vytvořen při předkompilaci proběhne úspěšně. Například následující snímek obrazovky znázorňuje obsah *Index.cshtml* v rámci *WebApplication1.PrecompiledViews.dll*:
 
 ![Zobrazení syntaxe Razor uvnitř knihovny DLL](view-compilation/_static/razor-views-in-dll.png)
 
@@ -122,18 +122,19 @@ Pokyny a příklady nastavení verze kompatibility aplikace najdete v tématu <x
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Kompilace modulu runtime se aktivuje pomocí `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` balíčku. Pokud chcete povolit kompilace modulu runtime, musí aplikace
+Kompilace modulu runtime se aktivuje pomocí `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` balíčku. Pokud chcete povolit kompilace modulu runtime, musí aplikace:
 
 * Nainstalujte [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) balíček NuGet.
 * Aktualizace aplikace `ConfigureServices` zahrnout volání `AddMvcRazorRuntimeCompilation`:
 
-```csharp
-services
-    .AddMvc()
-    .AddMvcRazorRuntimeCompilation()
-```
+  ```csharp
+  services
+      .AddMvc()
+      .AddMvcRazorRuntimeCompilation()
+  ```
 
 Pro kompilaci modulu runtime pro práci při nasazení, musí aplikace upravit kromě jejich soubory projektu, chcete-li nastavit `PreserveCompilationReferences` k `true`.
+
 [!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=3)]
 
 ::: moniker-end

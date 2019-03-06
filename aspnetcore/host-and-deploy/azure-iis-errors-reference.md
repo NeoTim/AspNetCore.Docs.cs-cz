@@ -4,14 +4,14 @@ author: guardrex
 description: Získáte pomoc při řešení potíží pro běžné chyby při hostování aplikací ASP.NET Core v Azure App Service a službu IIS.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/21/2019
+ms.date: 02/28/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: d1cdac4d27ee1bc3ebb4329c1bbd3bdacb34a58c
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 1c8cb31b306b38ec17596af0a84f22ca0e3d911c
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743944"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346223"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
 
@@ -56,6 +56,39 @@ Pokud systém nemá přístup k Internetu při [instalace sady .NET Core hostov�
 Řešení potíží:
 
 Bez operačního systému souborů v **C:\Windows\SysWOW64\inetsrv** directory nezachovají se během operační systém upgradovat. Pokud modul ASP.NET Core je nainstalovaná starší než upgrade operačního systému a pak v každém fondu aplikací běží v 32bitovém režimu po upgradu operačního systému, tento problém nastává. Po upgradu operačního systému opravit modul ASP.NET Core. Zobrazit [instalaci sady .NET Core hostování](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle). Vyberte **opravit** při spuštění Instalační služby.
+
+## <a name="missing-site-extension-32-bit-x86-and-64-bit-x64-site-extensions-installed-or-wrong-process-bitness-set"></a>Chybějící rozšíření webu, (x86) 32bitové a 64bitové (x64) nainstalované rozšíření webu, nebo nastavení bitové verze nesprávné procesu
+
+*Platí pro aplikace hostované v Azure App Service.*
+
+* **Prohlížeč:** Chyba protokolu HTTP 500.0 - ANCM v procesu selhání načtení obslužné rutiny 
+
+* **Protokol aplikace:** Vyvolání hostfxr najít obslužné rutiny inprocess požadavku se nezdařilo bez hledání všechny nativní závislosti. Nelze najít inprocess žádost o obslužnou rutinu. Vyvolání hostfxr zachycené výstup: Nebylo možné najít žádné architektura kompatibilní verzi. Zadané rozhraní "Microsoft.AspNetCore.App", verze: {VERSION} - preview –\*' nebyl nalezen. Nepovedlo se spustit aplikaci "/ LM/W3SVC/1416782824/ROOT", '0x8000ffff' kód chyby.
+
+* **ASP.NET Core modulu stdout protokolu:** Nebylo možné najít žádné architektura kompatibilní verzi. Zadané rozhraní "Microsoft.AspNetCore.App", verze: {VERSION} - preview –\*' nebyl nalezen.
+
+::: moniker range=">= aspnetcore-2.2"
+
+* **Modul ASP.NET Core protokol ladění:** Vyvolání hostfxr najít obslužné rutiny inprocess požadavku se nezdařilo bez hledání všechny nativní závislosti. To pravděpodobně znamená, že aplikace není správně nakonfigurovaný, Zkontrolujte prosím verze balíčky Microsoft.NetCore.App a Microsoft.AspNetCore.App, které jsou cílem aplikace a jsou nainstalovány v počítači. Vrátí selhání HRESULT: 0x8000ffff. Nelze najít inprocess žádost o obslužnou rutinu. Nebylo možné najít žádné architektura kompatibilní verzi. Zadané rozhraní "Microsoft.AspNetCore.App", verze: {VERSION} - preview –\*' nebyl nalezen.
+
+::: moniker-end
+
+Řešení potíží:
+
+* Pokud je aplikace spuštěna v modulu runtime ve verzi preview, instalovat buď 32-bit (x86) **nebo** 64-bit (x64) lokality příponu, která odpovídá počtu bitů aplikace a verze modulu runtime aplikace. **Neprovádějte instalaci rozšíření nebo více verzí modulu runtime rozšíření.**
+
+  * ASP.NET Core {RUNTIME VERSION} (x86) Runtime
+  * ASP.NET Core {RUNTIME VERSION} (x64) Runtime
+
+  Restartujte aplikaci. Počkejte několik sekund pro aplikaci restartovat. 
+
+* Pokud aplikace běží na modulu runtime ve verzi preview a (x86) 32bitové i 64bitové (x64) [rozšířením webu](xref:host-and-deploy/azure-apps/index#install-the-preview-site-extension) jsou nainstalovány, odinstalujte rozšíření webu, který neodpovídá počtu bitů aplikace. Po odebrání rozšíření webu, restartujte aplikaci. Počkejte několik sekund pro aplikaci restartovat.
+
+* Pokud spuštění aplikace v modulu runtime ve verzi preview a rozšíření bitové verze shody, které aplikace, které potvrzení verze preview webu rozšíření *verze modulu runtime* odpovídá verzi modulu runtime aplikace.
+
+* Ujistěte se, že aplikace **platformy** v **nastavení aplikace** odpovídá počtu bitů aplikace.
+
+Další informace naleznete v tématu <xref:host-and-deploy/azure-apps/index#install-the-preview-site-extension>.
 
 ## <a name="an-x86-app-is-deployed-but-the-app-pool-isnt-enabled-for-32-bit-apps"></a>X x86 byla nasazena aplikace, ale fond aplikací není povolená pro 32bitové aplikace
 

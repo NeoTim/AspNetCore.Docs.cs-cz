@@ -5,12 +5,12 @@ description: Vysvětluje, práci s databází a ASP.NET Core.
 ms.author: riande
 ms.date: 12/07/2017
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 3e05f5dbc73c35f1f938346b2eaab8c0fa7d8ab9
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 9f01f5c9fcf9c423ccc2af8ae6ca55c2f427c9c1
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410294"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346025"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>Práce s databází a ASP.NET Core
 
@@ -176,6 +176,10 @@ Aplikace bude zobrazovat dosazená data:
 ![Otevřít v prohlížeči Chrome ukazující data o filmech aplikace Movie](sql/_static/m55.png)
 
 V dalším kurzu se vyčistit prezentace data.
+
+## <a name="additional-resources"></a>Další zdroje
+
+* [Verzi tohoto kurzu na webu YouTube](https://youtu.be/A_5ff11sDHY)
 
 > [!div class="step-by-step"]
 > [Předchozí: Generované uživatelské rozhraní pro stránky Razor](xref:tutorials/razor-pages/page)

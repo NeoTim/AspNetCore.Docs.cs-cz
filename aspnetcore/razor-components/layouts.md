@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/layouts
-ms.openlocfilehash: 23d8f441c0b3bbde7a73717f6257013831617ec0
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: fdb352701cf664dfb1efab5d05c37ee6a930cc4f
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159469"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345795"
 ---
 # <a name="razor-components-layouts"></a>Rozložení Razor komponenty
 
@@ -22,13 +22,13 @@ Aplikace obvykle obsahují více než jednu stránku. Prvky, rozložení, jako j
 
 Technicky vzato rozložení je jenom další komponenty. Rozložení je definována šablona Razor nebo v C# kódu a může obsahovat další běžné funkce komponenty, vkládání závislostí a datové vazby. Zapnout dva další aspekty *komponenty* do *rozložení*:
 
-* Komponenta rozložení musí dědit z `BlazorLayoutComponent`. `BlazorLayoutComponent` definuje `Body` vlastnost, která obsahuje obsah, který se vykreslí uvnitř rozložení.
+* Komponenta rozložení musí dědit z `LayoutComponentBase`. `LayoutComponentBase` definuje `Body` vlastnost, která obsahuje obsah, který se vykreslí uvnitř rozložení.
 * Používá součásti rozložení `Body` vlastnosti a určit, kde má být obsah textu vykreslen pomocí syntaxe Razor `@Body`. Při vykreslování, `@Body` nahrazuje obsah rozložení.
 
-Následující příklad kódu ukazuje šablona Razor součásti rozložení. Všimněte si použití `BlazorLayoutComponent` a `@Body`:
+Následující příklad kódu ukazuje šablona Razor součásti rozložení. Všimněte si použití `LayoutComponentBase` a `@Body`:
 
 ```csharp
-@inherits BlazorLayoutComponent
+@inherits LayoutComponentBase
 
 <header>
     <h1>ERP Master 3000</h1>
@@ -96,7 +96,7 @@ Následující ukázky kódu ukazují, jak používat vnořené rozložení. *Cu
 
 ```csharp
 @layout MainLayout
-@inherits BlazorLayoutComponent
+@inherits LayoutComponentBase
 
 <nav>
     <!-- Menu structure of master data module -->
@@ -111,7 +111,7 @@ Nakonec `MainLayout` obsahuje prvky rozložení nejvyšší úrovně, jako je na
 *MainLayout.cshtml*:
 
 ```csharp
-@inherits BlazorLayoutComponent
+@inherits LayoutComponentBase
 
 <header>...</header>
 <nav>...</nav>

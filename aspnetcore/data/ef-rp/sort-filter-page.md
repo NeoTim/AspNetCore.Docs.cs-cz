@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 350243fb94b4798293a5a61b580c3b3b4d8c6d4a
-ms.sourcegitcommit: 728f4e47be91e1c87bb7c0041734191b5f5c6da3
+ms.openlocfilehash: 4616e93e0cfc25f3ad66721856a4e48910f2fcf5
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/22/2019
-ms.locfileid: "54444295"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345956"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – řazení, filtrování, stránkování – 3 z 8
 
@@ -282,6 +282,7 @@ Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Ladění ASP.NET Core 2.x zdroje](https://github.com/aspnet/Docs/issues/4155)
+* [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=MDs7PFpoMqI)
 
 V dalším kurzu se aplikace používá k aktualizaci modelu dat migrace.
 

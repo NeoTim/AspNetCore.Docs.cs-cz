@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.date: 10/24/2018
 ms.custom: seodec18
 uid: azure/devops/cicd
-ms.openlocfilehash: e5bddde41291c9573f58d749bbf830de9ea9319d
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: 906aae3fd4b4abd0becc8847b0f54c372bda300a
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121586"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346304"
 ---
 # <a name="continuous-integration-and-deployment"></a>Průběžná integrace a nasazování
 
@@ -60,9 +60,9 @@ Odeberte místní nasazení přes Git pomocí následujícího postupu. Kanály 
 
     ![pracovní webové aplikace hledaný termín](media/cicd/portal-search-box.png)
 
-1. Klikněte na tlačítko **možnosti nasazení**. Otevře se nový panel. Klikněte na tlačítko **odpojit** místní Git konfigurace správy zdrojového kódu, který byl přidán v předchozích kapitol odebrat. Operace odstranění potvrďte kliknutím **Ano** tlačítko.
+1. Klikněte na tlačítko **centrum nasazení**. Otevře se nový panel. Klikněte na tlačítko **odpojit** místní Git konfigurace správy zdrojového kódu, který byl přidán v předchozích kapitol odebrat. Operace odstranění potvrďte kliknutím **Ano** tlačítko.
 1. Přejděte *mywebapp < unique_number >* služby App Service. Připomínáme je možné k rychlému vyhledání služby App Service na portálu vyhledávacího pole.
-1. Klikněte na tlačítko **možnosti nasazení**. Otevře se nový panel. Klikněte na tlačítko **odpojit** místní Git konfigurace správy zdrojového kódu, který byl přidán v předchozích kapitol odebrat. Operace odstranění potvrďte kliknutím **Ano** tlačítko.
+1. Klikněte na tlačítko **centrum nasazení**. Otevře se nový panel. Klikněte na tlačítko **odpojit** místní Git konfigurace správy zdrojového kódu, který byl přidán v předchozích kapitol odebrat. Operace odstranění potvrďte kliknutím **Ano** tlačítko.
 
 ## <a name="create-an-azure-devops-organization"></a>Vytvořit organizaci Azure DevOps
 
@@ -262,7 +262,7 @@ Jsou dvě hlavní součásti procesu vydávání verzí **artefakty** a **prost�
 
 ![Snímek obrazovky znázorňující verze kanálu úlohy](media/cicd/release-definition-tasks.png)
 
-Kanál pro vydávání verzí se skládá ze dvou úloh: *nasazení služby Azure App Service do slotu* a *Správa služby Azure App Service – Prohodit Slot*. Kliknutím na první úkol zobrazí následující konfigurace úlohy:
+Kanál pro vydávání verzí se skládá ze dvou úloh: *Nasazení služby Azure App Service do slotu* a *Správa služby Azure App Service – prohození slotů*. Kliknutím na první úkol zobrazí následující konfigurace úlohy:
 
 ![Úloha nasazení kanálu pro vydávání verzí – snímek obrazovky znázorňující](media/cicd/release-definition-task1.png)
 

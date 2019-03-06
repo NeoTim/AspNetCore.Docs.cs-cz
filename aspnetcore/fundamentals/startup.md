@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
-ms.openlocfilehash: cfd0a57d5d0b60862b017a170b6d5cbddf56f15a
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: d629c2f02f9021454d8f8539018f3e2ca4703a00
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56744180"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346395"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
@@ -40,7 +40,7 @@ Hostitel poskytuje služby, které jsou k dispozici na `Startup` konstruktoru t�
 Ve třídě `Startup` se běžně používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení:
 
 * <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> Konfigurace služby pro prostředí.
-* <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> načíst konfiguraci.
+* <xref:Microsoft.Extensions.Configuration.IConfiguration> načíst konfiguraci.
 * <xref:Microsoft.Extensions.Logging.ILoggerFactory> Chcete-li vytvořit protokolovací nástroj v `Startup.ConfigureServices`.
 
 [!code-csharp[](startup/sample_snapshot/Startup2.cs?highlight=7-8)]
@@ -73,7 +73,7 @@ Po přidání služeb do kontejneru jsou tyto služby k dispozici v celé aplika
 
 [Šablony ASP.NET Core](/dotnet/core/tools/dotnet-new) konfiguraci kanálu s podporou:
 
-* [Stránce výjimek pro vývojáře](xref:fundamentals/error-handling#the-developer-exception-page)
+* [Stránce výjimek pro vývojáře](xref:fundamentals/error-handling#developer-exception-page)
 * [Obslužná rutina výjimky](xref:fundamentals/error-handling#configure-a-custom-exception-handling-page)
 * [Zabezpečení striktní přenosu HTTP (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [Přesměrování protokolu HTTPS](xref:security/enforcing-ssl)

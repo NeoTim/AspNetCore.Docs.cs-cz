@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: cf8733e1e806c4be0c4b217fc45c7a338a03a3ce
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 140f482e136acf4daba1248fecc87e06db6866f3
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207553"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345886"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – čtení souvisejících dat – 6 8
 
@@ -42,7 +42,7 @@ Existuje několik způsobů, EF Core můžete načíst související data do nav
   * Jeden dotaz pro hlavní dotaz 
   * Jeden dotaz pro každou kolekci "edge" ve stromové struktuře zatížení.
 
-* Samostatné dotazy s `Load`: data můžete obnovit v samostatné dotazy a EF Core termín "opravy" navigační vlastnosti. "opravy nahoru" znamená, že EF Core automaticky naplní navigační vlastnosti. Samostatné dotazy s `Load` se víc explicitní načtení než předběžné načítání.
+* Samostatné dotazy s `Load`: Data můžete obnovit v samostatné dotazy a EF Core termín "opravy" navigační vlastnosti. "opravy nahoru" znamená, že EF Core automaticky naplní navigační vlastnosti. Samostatné dotazy s `Load` se víc explicitní načtení než předběžné načítání.
 
   ![Příklad samostatné dotazy](read-related-data/_static/separate-queries.png)
 
@@ -184,7 +184,7 @@ Prozkoumat dotaz *Pages/Instructors/Index.cshtml.cs* souboru:
 
 Dotaz má dvě zahrnuje:
 
-* `OfficeAssignment`: Zobrazených v [Instruktoři zobrazení](#IP).
+* `OfficeAssignment`: Zobrazí v [Instruktoři zobrazení](#IP).
 * `CourseAssignments`: Což přináší výukové kurzy.
 
 
@@ -245,7 +245,7 @@ Aktualizace `OnGetAsync` metoda *Pages/Instructors/Index.cshtml.cs* následujíc
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_OnGetAsync&highlight=1,8,16-999)]
 
-Přidat `public int CourseID { get; set; }`
+Add `public int CourseID { get; set; }`
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_1&highlight=12)]
 
@@ -330,6 +330,11 @@ Všimněte si, že předchozí na komentářích ke kódu `.AsNoTracking()`. Nav
 Testování aplikace. Z hlediska uživatelů aplikace chová stejně jako předchozí verze.
 
 Další kurz ukazuje, jak aktualizovat související data.
+
+## <a name="additional-resources"></a>Další zdroje
+
+* [YouTube verzi tohoto kurzu (část 1)](https://www.youtube.com/watch?v=PzKimUDmrvE)
+* [YouTube verzi tohoto kurzu (část2)](https://www.youtube.com/watch?v=xvDDrIHv5ko)
 
 >[!div class="step-by-step"]
 >[Předchozí](xref:data/ef-rp/complex-data-model)

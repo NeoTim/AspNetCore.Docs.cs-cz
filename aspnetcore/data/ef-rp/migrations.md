@@ -5,12 +5,12 @@ description: V tomto kurzu začnete používat funkci migrace EF Core ke správ�
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 2051f55bfa7a9582486df78ec91315f0b03cb1e8
-ms.sourcegitcommit: 661d30492d5ef7bbca4f7e709f40d8f3309d2dac
+ms.openlocfilehash: ef79aca700068aadf9b5b2b689213b6e78a5d729
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37938375"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346434"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – migrace - 4 z 8
 
@@ -171,11 +171,12 @@ The login failed.
 Login failed for user 'user name'.
 ```
 
-Řešení: spustit `dotnet ef database update`
+Řešení: Spustit `dotnet ef database update`
 
 ### <a name="additional-resources"></a>Další zdroje
 
-* [.NET core CLI](/ef/core/miscellaneous/cli/dotnet).
+* [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=OWSUuMLKTJo)
+* [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).
 * [Konzola Správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
 
 ::: moniker-end

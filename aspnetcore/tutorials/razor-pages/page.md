@@ -5,12 +5,12 @@ description: Vysvětluje stránky Razor generovaných generování uživatelské
 ms.author: riande
 ms.date: 12/4/2018
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: ad87e3da72c3dd6adf8cf55d16da58fa47ed5542
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 07ad142b369fab92589f63479533a769136a087b
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410346"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346447"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>Vygenerované stránky Razor v ASP.NET Core
 
@@ -171,6 +171,11 @@ Modul generování uživatelského rozhraní vytvoří kód Razor pro každé po
 [Pomocné rutiny značky popisek](xref:mvc/views/working-with-forms#the-label-tag-helper) (`<label asp-for="Movie.Title" class="control-label"></label>`) generuje titulek popisek a `for` atribut pro `Title` vlastnost.
 
 [Pomocné rutiny značky vstup](xref:mvc/views/working-with-forms) (`<input asp-for="Movie.Title" class="form-control" />`) používá [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) atributy a vytváří atributy HTML, které jsou potřeba pro architekturu jQuery ověření na straně klienta.
+
+## <a name="additional-resources"></a>Další zdroje
+
+* [Verzi tohoto kurzu na webu YouTube](https://youtu.be/zxgKjPYnOMM)
+
 
 > [!div class="step-by-step"]
 > [Předchozí: Přidání modelu](xref:tutorials/razor-pages/model)

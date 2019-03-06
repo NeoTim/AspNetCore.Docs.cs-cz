@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: razor-components/components
-ms.openlocfilehash: 1533587f9f11e99f24d860c02f0efb6713119308
-ms.sourcegitcommit: 30f313c63c5b2922bcd1150fe8161b09c730fef0
+ms.openlocfilehash: 436a0eddd432d355d709262199344df47a920404
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56839079"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346246"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -105,6 +105,14 @@ Pomocí `bind` s `CurrentValue` vlastnosti (`<input bind="@CurrentValue" />`) je
 
 Při vykreslování komponentu `value` elementu input pochází z `CurrentValue` vlastnost. Když uživatel zadá v textovém poli `onchange` událost se aktivuje a `CurrentValue` je nastavena na hodnotu změněné. Ve skutečnosti je generování kódu poněkud složitější, protože `bind` zpracovává několik případů, kdy jsou provedeny převody typu. V zásadě `bind` přidruží aktuální hodnotu výrazu s `value` obslužné rutiny a atributu změny pomocí zaregistrovaná obslužná rutina.
 
+Kromě `onchange`, vlastnost může být vázána pomocí jiné události, jako jsou `oninput` tím, že je explicitní více o tom, co k vytvoření vazby:
+
+```cshtml
+<input type="text" bind-value-oninput="@CurrentValue" />
+```
+
+Na rozdíl od `onchange`, `oninput` aktivována pro každý znak, který je vstup do textového pole.
+
 **Formátovací řetězce**
 
 Vytváření datových vazeb funguje s <xref:System.DateTime> řetězce formátu. V tuto chvíli nejsou k dispozici jiných výrazech formátu, například měny nebo číselných formátů.
@@ -168,8 +176,6 @@ Podřízené součásti:
 }
 ```
 
-`Year` Parametr je s možností vazby, protože má doprovodná `YearChanged` událost, která odpovídá typu používaného `Year` parametru.
-
 Načítají `ParentComponent` vytváří následující značky:
 
 ```html
@@ -193,6 +199,16 @@ Pokud hodnota `ParentYear` vlastnost se změní tak, že vyberete tlačítko v `
 
 <p>Year: 1986</p>
 ```
+
+`Year` Parametr je s možností vazby, protože má doprovodná `YearChanged` událost, která odpovídá typu používaného `Year` parametru.
+
+Podle konvence `<ChildComponent bind-Year="@ParentYear" />` je v podstatě ekvivalentní zápisu
+
+```cshtml
+    <ChildComponent bind-Year-YearChanged="@ParentYear" />
+```
+
+Obecně platí, vlastnost může být vázána na odpovídající obslužná rutina události pomocí `bind-property-event` atribut.
 
 ## <a name="event-handling"></a>Zpracování událostí
 
@@ -265,7 +281,7 @@ Výrazy lambda lze také použít:
 {
     var buttonNumber = i;
 
-    <button class="btn btn-primary" 
+    <button class="btn btn-primary"
             onclick="@(e => UpdateHeading(e, buttonNumber))">
         Button #@i
     </button>
@@ -281,6 +297,9 @@ Výrazy lambda lze také použít:
     }
 }
 ```
+
+> [!NOTE]
+> Proveďte **není** použít proměnnou smyčky (`i`) v `for` smyčky přímo ve výrazu lambda. V opačném případě se používá stejnou proměnnou všechny výrazy lambda způsobí `i`hodnotu být stejné ve všech výrazů lambda. Zachytit její hodnotu v místní proměnné (`buttonNumber` v předchozím příkladu) a pak přes ni.
 
 ## <a name="capture-references-to-components"></a>Zachycení odkazy na komponenty
 
@@ -618,7 +637,7 @@ Například ukázkové aplikace určuje informace o motivech (`ThemeInfo`) v jed
 *Shared/CascadingValuesParametersLayout.cshtml*:
 
 ```cshtml
-@inherits BlazorLayoutComponent
+@inherits LayoutComponentBase
 @using BlazorSample.UIThemeClasses
 
 <div class="container-fluid">

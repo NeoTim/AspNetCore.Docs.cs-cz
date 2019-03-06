@@ -4,18 +4,18 @@ author: rick-anderson
 description: Popisuje předdefinované pomocných rutin značek použít s formuláři.
 ms.author: riande
 ms.custom: mvc
-ms.date: 1/11/2019
+ms.date: 02/27/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: cd15c641fbf702071bd57510a1d51737f6ab8e19
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: a0fbeac51bd1bfbc50c4d369a479ce5f3091358b
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54099010"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346252"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Pomocných rutin značek ve formulářích v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Dave Paquette](https://twitter.com/Dave_Paquette), a [Jerrie Pelser](https://github.com/jerriep)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [N. Taylora MÜLLENA](https://github.com/NTaylorMullen), [Dave Paquette](https://twitter.com/Dave_Paquette), a [Jerrie Pelser](https://github.com/jerriep)
 
 Tento dokument vysvětluje práce s formuláři a elementů HTML běžně používají na formuláři. Kód HTML [formuláře](https://www.w3.org/TR/html401/interact/forms.html) element poskytuje primární mechanismus webové aplikace využívají k odesílání dat zpět na server. Většina tento dokument popisuje [pomocných rutin značek](tag-helpers/intro.md) a jak se vám může pomoci produktivně vytvářet robustní formuláře HTML. Doporučujeme si přečíst [Úvod do pomocné rutiny značek](tag-helpers/intro.md) předtím, než čtete tento dokument.
 
@@ -67,6 +67,98 @@ Počet zobrazení v *zobrazení/účet* složky (vygeneruje, když vytvoříte n
 >[!NOTE]
 >Pomocí integrované šablony `returnUrl` se jenom vyplní automaticky při pokusu o přístup k autorizovaným prostředků, ale nejsou ověřeny nebo oprávnění. Při pokusu o neoprávněný přístup, middleware zabezpečení vás přesměruje na přihlašovací stránku s `returnUrl` nastavit.
 
+## <a name="the-form-action-tag-helper"></a>Pomocná rutina značky akce formuláře
+
+Pomocná rutina značky akce formulář vygeneruje `formaction` atribut generované `<button ...>` nebo `<input type="image" ...>` značky. `formaction` Atribut určuje, kde formulář odešle svá data. Se váže k [ \<vstupní >](https://www.w3.org/wiki/HTML/Elements/input) prvky typu `image` a [ \<tlačítko >](https://www.w3.org/wiki/HTML/Elements/button) elementy. Pomocná rutina značky akce formulář umožňuje použití několika [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) `asp-` atributů, které mají řídit, jaké `formaction` odkaz je generován pro odpovídající prvek.
+
+Podporované [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) atributy řídí hodnota `formaction`:
+
+|Atribut|Popis|
+|---|---|
+|[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|Název kontroleru.|
+|[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|Název metody akce.|
+|[asp-area](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|Název oblasti.|
+|[asp-page](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název stránky Razor.|
+|[asp-page-handler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Název obslužné rutiny pro stránky Razor.|
+|[asp-route](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|Název trasy.|
+|[asp-route-{value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|Jednu hodnotu adresy URL trasy. Například, `asp-route-id="1234"`.|
+|[asp-all-route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|Všechny hodnoty trasy.|
+|[asp-fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|Fragment adresy URL.|
+
+### <a name="submit-to-controller-example"></a>Odeslat příkladu kontroleru
+
+Následující kód odešle formulář `Index` akce `HomeController` vybrání vstup nebo tlačítka:
+
+```cshtml
+<form method="post">
+    <button asp-controller="Home" asp-action="Index">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" asp-controller="Home" 
+                                asp-action="Index" />
+</form>
+```
+
+Předchozí kód generuje následující HTML:
+
+```html
+<form method="post">
+    <button formaction="/Home">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" formaction="/Home" />
+</form>
+```
+
+### <a name="submit-to-page-example"></a>Odeslat na příkladu stránky
+
+Následující kód odešle formulář `About` stránky Razor:
+
+```cshtml
+<form method="post">
+    <button asp-page="About">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" asp-page="About" />
+</form>
+```
+
+Předchozí kód generuje následující HTML:
+
+```html
+<form method="post">
+    <button formaction="/About">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" formaction="/About" />
+</form>
+```
+
+### <a name="submit-to-route-example"></a>Odeslání do Příklad směrování
+
+Vezměte v úvahu `/Home/Test` koncový bod:
+
+```csharp
+public class HomeController : Controller
+{
+    [Route("/Home/Test", Name = "Custom")]
+    public string Test()
+    {
+        return "This is the test page";
+    }
+}
+```
+
+Následující kód odešle formulář `/Home/Test` koncového bodu.
+
+```cshtml
+<form method="post">
+    <button asp-route="Custom">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" asp-route="Custom" />
+</form>
+```
+
+Předchozí kód generuje následující HTML:
+
+```html
+<form method="post">
+    <button formaction="/Home/Test">Click Me</button>
+    <input type="image" src="..." alt="Or Click Me" formaction="/Home/Test" />
+</form>
+```
+
 ## <a name="the-input-tag-helper"></a>Pomocná rutina vstupní značky
 
 Sváže vstupní pomocné rutiny značky HTML [ \<vstupní >](https://www.w3.org/wiki/HTML/Elements/input) element modelu výrazu v zobrazení syntaxe razor.
@@ -106,9 +198,9 @@ Type expected
 
 |Typ formátu .NET|Typ vstupu|
 |---|---|
-|BOOL|typ = "zaškrtávací políčko"|
-|String|typ = "text"|
-|DateTime|typ =["místní data a času"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
+|Bool|type="checkbox"|
+|String|type="text"|
+|DateTime|type=["datetime-local"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
 |Byte|typ = "cislo"|
 |Int|typ = "cislo"|
 |Jednoduché, Double|typ = "cislo"|
@@ -119,13 +211,13 @@ V následující tabulce jsou uvedeny některé běžné [anotacemi dat](/dotnet
 
 |Atribut|Typ vstupu|
 |---|---|
-|[EmailAddress]|typ = "e-mail"|
-|[Url]|typ = "url"|
+|[EmailAddress]|type="email"|
+|[Url]|type="url"|
 |[HiddenInput]|typ = "skrytá"|
-|[Phone]|typ = "tel"|
-|[DataType(DataType.Password)]| typ = "password"|
-|[DataType(DataType.Date)]| typ = "datum"|
-|[DataType(DataType.Time)]| typ = "čas"|
+|[Phone]|type="tel"|
+|[DataType(DataType.Password)]| type="password"|
+|[DataType(DataType.Date)]| type="date"|
+|[DataType(DataType.Time)]| type="time"|
 
 
 Ukázka:
@@ -360,7 +452,7 @@ Pokud dojde k chybě ověření na straně serveru, (například když máte vla
 
 `Validation Summary Tag Helper` Slouží k zobrazení shrnutí ověřovacích zpráv. `asp-validation-summary` Hodnota atributu může být cokoli z následujícího:
 
-|Souhrn ověření ASP|Zobrazí ověřovacích zpráv|
+|asp-validation-summary|Zobrazí ověřovacích zpráv|
 |--- |--- |
 |ValidationSummary.All|Vlastnost a model úroveň|
 |ValidationSummary.ModelOnly|Model|

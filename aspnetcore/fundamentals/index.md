@@ -4,7 +4,7 @@ author: rick-anderson
 description: Seznamte se se základními koncepty pro vytváření aplikací ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/14/2019
+ms.date: 03/02/2019
 uid: fundamentals/index
 ---
 # <a name="aspnet-core-fundamentals"></a>Základy ASP.NET Core
@@ -83,7 +83,7 @@ Kód pro vytvoření hostitele je v `Program.Main` a řídí [Tvůrce modelu](ht
 
 ::: moniker range="<= aspnetcore-2.2"
 
-ASP.NET Core 2.x používá webového hostitele ( `WebHost` třída) pro webové aplikace. Poskytuje rozhraní `CreateDefaultBuilder` rozšiřující metody, které nastavení hostitele se běžně používá možnosti, jako je následující:
+ASP.NET Core 2.x používá webového hostitele ( `WebHost` třída) pro webové aplikace. Poskytuje rozhraní `CreateDefaultBuilder` do hostitele se běžně používá možnosti, jako je následující:
 
 * Použití [Kestrel](#servers) jako webového serveru a povolení integrace služby IIS.
 * Načtení konfigurace z *appsettings.json*, proměnné, argumenty příkazového řádku a dalších zdrojů.
@@ -105,13 +105,13 @@ Další informace najdete v tématu [webového hostitele](xref:fundamentals/host
 
 V ASP.NET Core 3.0 webového hostitele (`WebHost` třídy) nebo obecný hostitele (`Host` třídy) je možné ve webové aplikaci. Obecný hostitele se doporučuje a webového hostitele je k dispozici pro zpětnou kompatibilitu.
 
-Poskytuje rozhraní `CreateDefaultBuilder` a `ConfigureWebHostDefaults` rozšiřující metody, které nastavení hostitele se běžně používá možnosti, jako je následující:
+Poskytuje rozhraní `CreateDefaultBuilder` a `ConfigureWebHostDefaults` metody k nastavení hostitele, který má běžně používají možnosti, jako je následující:
 
 * Použití [Kestrel](#servers) jako webového serveru a povolení integrace služby IIS.
 * Načtení konfigurace z *appsettings.json*, *appsettings. [ EnvironmentName] .json*, proměnné a argumenty příkazového řádku.
 * Odeslání výstupu protokolování do konzoly a ladění zprostředkovatelů.
 
-Tady je ukázkový kód, který vytváří hostitele. Rozšiřující metody, které hostitele s běžně používané možnosti jsou zvýrazněné.
+Tady je ukázkový kód, který vytváří hostitele. Metody, které hostitele s běžně používané možnosti jsou zvýrazněné.
 
 [!code-csharp[](index/snapshots/3.x/Program1.cs?highlight=9-10)]
 

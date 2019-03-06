@@ -2,15 +2,15 @@
 title: Ověření cloudu s Azure Active Directory B2C v ASP.NET Core
 author: camsoper
 description: Zjistěte, jak nastavit ověřování Azure Active Directory B2C s ASP.NET Core.
-ms.date: 01/25/2018
+ms.date: 02/27/2019
 ms.custom: mvc
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: 2c544475ccd3eb76f2737fec1cf269ac86add372
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 86be999e02cfe34193bd594dcf89e8872590cca5
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098984"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346499"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Ověření cloudu s Azure Active Directory B2C v ASP.NET Core
 
@@ -104,6 +104,30 @@ Použijte postup v dokumentaci k Azure AD B2C do [vytvořit zásadu registrace n
 
 > [!WARNING]
 > Zkontrolujte názvy zásad jsou přesně tak, jak popisuje dokumentace, jak tyto zásady, které byly používány v **změna ověřování** dialogového okna v sadě Visual Studio. Názvy zásad se dá ověřit v *appsettings.json*.
+
+## <a name="configure-the-underlying-openidconnectoptionsjwtbearercookie-options"></a>Nakonfigurujte základní možnosti OpenIdConnectOptions/JwtBearer/souborů Cookie
+
+Základní možnosti konfigurace přímo, použijte konstantu odpovídající schéma v `Startup.ConfigureServices`:
+
+```csharp
+services.Configure<OpenIdConnectOptions>(
+    AzureAD[B2C]Defaults.OpenIdScheme, options => 
+    {
+        // Omitted for brevity
+    });
+
+services.Configure<CookieAuthenticationOptions>(
+    AzureAD[B2C]Defaults.CookieScheme, options => 
+    {
+        // Omitted for brevity
+    });
+
+services.Configure<JwtBearerOptions>(
+    AzureAD[B2C]Defaults.JwtBearerAuthenticationScheme, options => 
+    {
+        // Omitted for brevity
+    });
+```
 
 ## <a name="run-the-app"></a>Spuštění aplikace
 

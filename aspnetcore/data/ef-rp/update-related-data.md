@@ -5,12 +5,12 @@ description: V tomto kurzu budete aktualizovat souvisejících dat prostřednict
 ms.author: riande
 ms.date: 11/15/2017
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: 4306118240c052585a5c2eeb2053ce03534b547c
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: c3dbfe57a832ba63c5da2f89c0d29e443a1277a7
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207540"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345759"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – aktualizace souvisejících dat – 7 8
 
@@ -224,6 +224,11 @@ Předchozí kód provede následující změny:
 * Používá předběžné načítání pro `CourseAssignments` navigační vlastnost. `CourseAssignments` musí být zahrnut nebo se neodstranily při odstranění instruktorem. Abyste nemuseli přečtěte si je, nakonfigurujte kaskádové odstranění v databázi.
 
 * Pokud instruktorem, která se má odstranit je přiřazen jako správce z jakékoli oddělení, odebere z těchto oddělení přiřazení instruktorem.
+
+## <a name="additional-resources"></a>Další zdroje
+
+* [YouTube verzi tohoto kurzu (část 1)](https://www.youtube.com/watch?v=Csh6gkmwc9E)
+* [YouTube verzi tohoto kurzu (část 2)](https://www.youtube.com/watch?v=mOAankB_Zgc)
 
 > [!div class="step-by-step"]
 > [Předchozí](xref:data/ef-rp/read-related-data)

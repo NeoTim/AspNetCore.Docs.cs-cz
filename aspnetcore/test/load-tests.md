@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/04/2019
 uid: test/loadtests
-ms.openlocfilehash: d989bc841a372bed7ebf2c84c6abe1a57762ad04
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: 587df6e216943d3eeec779df4d0554dd0fc2fda0
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207353"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345425"
 ---
 # <a name="load-and-stress-testing-aspnet-core"></a>Zátěžové testování ASP.NET Core
 
@@ -26,7 +26,11 @@ Zátěžové testování a zátěžové testování je důležité zajistit, že
 
 Pod zátěží můžete aplikaci obnovení po selhání a elegantně vrátí k očekávané chování? Pod zátěží, aplikace je *není* spustit za normálních podmínek.
 
-## <a name="visual-studio-tools"></a>Nástroje sady Visual Studio
+Visual Studio 2019 bude poslední verzí, která obsahuje funkce zátěžového testu. Zákazníkům, kteří vyžadují nástroje pro zátěžové testování, doporučujeme použít alternativní nástroje pro tyto testy, jako jsou Apache JMeter, Akamai CloudTest nebo Blazemeter. Další informace najdete v tématu [Visual Studio. 2019 ve verzi Preview – poznámky k](/visualstudio/releases/2019/release-notes-preview#test-tools).
+
+Zátěžového testování v Azure DevOps skončí platnost během 2020. Další informace najdete v části [cloudového zátěžového testování služby konci životnosti](https://devblogs.microsoft.com/devops/cloud-based-load-testing-service-eol/).
+
+## <a name="visual-studio-tools"></a>Visual Studio Tools
 
 Visual Studio umožňuje uživatelům vytvářet, vyvíjet a ladit testy webového výkonu a zatížení. Možnost je k dispozici pro vytvoření testů pomocí zaznamenávání akcí ve webovém prohlížeči.
 
@@ -72,7 +76,7 @@ Následující seznam obsahuje nástroje výkonnosti webu třetích stran s růz
 - [Apache JMeter](https://jmeter.apache.org/) : Kompletní vybranou sadu nástrojů pro testování zatížení. Vázané na vlákno: potřebujete jedno vlákno na jeden uživatel.
 - [AB – Apache HTTP server, nástroj pro srovnávací testy](https://httpd.apache.org/docs/2.4/programs/ab.html)
 - [Gatling](https://gatling.io/) : Klasické pracovní plochy nástroje s grafickým uživatelským rozhraním a testování zapisovače. Výkonnější než JMeter.
-- [Locust.IO](https://locust.io/) : Není ohraničené vlákna.
+- [Locust.io](https://locust.io/) : Není ohraničené vlákna.
 
 <a name="add"></a>
 ## <a name="additional-resources"></a>Další prostředky

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 3dbb2d358ec9e3dcdd96c3771576911d906d796f
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 622f28f3b4348820c8781e0ba14ae5137136e797
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248430"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346564"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -583,7 +583,7 @@ Následující tabulka ukazuje příklad šablony trasy a jejich chování.
 | `{Page=Home}`                            | `/Contact`              | Odpovídá a nastaví `Page` k `Contact`.                                      |
 | `{controller}/{action}/{id?}`            | `/Products/List`        | Mapuje `Products` kontroleru a `List` akce.                       |
 | `{controller}/{action}/{id?}`            | `/Products/Details/123` | Mapuje `Products` kontroleru a `Details` akce (`id` hodnotu 123). |
-| `{controller=Home}/{action=Index}/{id?`} | `/`                     | Mapuje `Home` kontroleru a `Index` – metoda (`id` ignorováno).        |
+| `{controller=Home}/{action=Index}/{id?}` | `/`                     | Mapuje `Home` kontroleru a `Index` – metoda (`id` ignorováno).        |
 
 Pomocí šablony je obecně nejjednodušším přístupem při směrování. Omezení a výchozí hodnoty lze také zadat mimo šablonu trasy.
 

@@ -5,14 +5,14 @@ description: Přidáte protokol MessagePack rozbočovače SignalR technologie AS
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 06/04/2018
+ms.date: 02/27/2019
 uid: signalr/messagepackhubprotocol
-ms.openlocfilehash: da6eeeb51f5d0fc2ad69978688ad1c4ca4d63dab
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: 7742f6f8bb53fb3c299ff98ae52a0da519ff396c
+ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854338"
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57400668"
 ---
 # <a name="use-messagepack-hub-protocol-in-signalr-for-aspnet-core"></a>Protokol MessagePack rozbočovače signalr pro ASP.NET Core
 
@@ -98,6 +98,74 @@ const connection = new signalR.HubConnectionBuilder()
 
 > [!NOTE]
 > V tuto chvíli nejsou k dispozici žádné možnosti konfigurace pro protokol MessagePack na klientovi JavaScript.
+
+## <a name="messagepack-quirks"></a>Adaptivní MessagePack
+
+Existuje několik problémů, je potřeba vědět při použití protokolu MessagePack rozbočovače.
+
+### <a name="messagepack-is-case-sensitive"></a>MessagePack je malá a velká písmena
+
+Protokol MessagePack rozlišuje velká a malá písmena. Představte si třeba následující C# třídy:
+
+```csharp
+public class ChatMessage
+{
+    public string Sender { get; }
+    public string Message { get; }
+}
+```
+
+Při odesílání z Javascriptového klienta, je nutné použít `PascalCased` názvy vlastností, protože se musí shodovat velká a malá písmena C# přesně třídy. Příklad:
+
+```javascript
+connection.invoke("SomeMethod", { Sender: "Sally", Message: "Hello!" });
+```
+
+Pomocí `camelCased` názvy nebudou správně vázat na C# třídy. Můžete alternativně vyřešit to s využitím `Key` atribut zadejte jiný název pro vlastnost MessagePack. Další informace najdete v tématu [dokumentaci MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp#object-serialization).
+
+### <a name="datetimekind-is-not-preserved-when-serializingdeserializing"></a>DateTime.Kind se nezachová při serializaci/deserializaci
+
+MessagePack protokol neposkytuje způsob, jak kódovat `Kind` hodnotu `DateTime`. V důsledku toho při deserializaci datum, MessagePack centra protokol se předpokládá, že příchozí datum je ve formátu UTC. Pokud pracujete s `DateTime` hodnoty v místním čase, doporučujeme převod na standard UTC před jejich odesláním. Převod je od času UTC na místní čas při jejich obdržení.
+
+Další informace o tomto omezení, najdete na Githubu problém [aspnet/SignalR #2632](https://github.com/aspnet/SignalR/issues/2632).
+
+### <a name="datetimeminvalue-is-not-supported-by-messagepack-in-javascript"></a>DateTime.MinValue nepodporuje MessagePack v jazyce JavaScript
+
+[Msgpack5](https://github.com/mcollina/msgpack5) používaných klientem SignalR JavaScript library nepodporuje `timestamp96` zadejte MessagePack. Tento typ se používá ke kódování velmi velké datové hodnoty (buď velmi brzy v minulosti nebo velmi úplně v budoucnosti). Hodnota `DateTime.MinValue` je `January 1, 0001` musí být kódovány ve `timestamp96` hodnotu. Z důvodu této, odesílání `DateTime.MinValue` pro JavaScript klienta nepodporuje. Když `DateTime.MinValue` přijetí klientem jazyka JavaScript, je vyvolána následující chybu:
+
+```
+Uncaught Error: unable to find ext type 255 at decoder.js:427
+```
+
+Obvykle `DateTime.MinValue` slouží ke kódování "nebyl nalezen" nebo `null` hodnotu. Pokud je potřeba tuto hodnotu v MessagePack kódování, použijte s povolenou hodnotou Null `DateTime` hodnotu (`DateTime?`) nebo kódování samostatné `bool` hodnotu, která pokud je k dispozici data.
+
+Další informace o tomto omezení, najdete na Githubu problém [aspnet/SignalR #2228](https://github.com/aspnet/SignalR/issues/2228).
+
+### <a name="messagepack-support-in-ahead-of-time-compilation-environment"></a>Podpora MessagePack v prostředí "ahead-of-time" kompilace
+
+[MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp) knihovny používá klient .NET a server používá k optimalizaci serializace generování kódu. V důsledku toho se nepodporuje ve výchozím nastavení v prostředí, které používá "ahead-of-time" kompilace (jako je Unity nebo Xamarin pro iOS). Je možné použít MessagePack vygenerováním"před" serializátor/deserializátor kód v těchto prostředích. Další informace najdete v tématu [dokumentaci MessagePack-CSharp](https://github.com/neuecc/MessagePack-CSharp#pre-code-generationunityxamarin-supports). Po vygenerování serializátory předem, můžete zaregistrovat pomocí konfigurace delegát předaný `AddMessagePackProtocol`:
+
+```csharp
+services.AddSignalR()
+    .AddMessagePackProtocol(options =>
+    {
+        options.FormatterResolvers = new List<MessagePack.IFormatterResolver>()
+        {
+            MessagePack.Resolvers.GeneratedResolver.Instance,
+            MessagePack.Resolvers.StandardResolver.Instance
+        };
+    });
+```
+
+### <a name="type-checks-are-more-strict-in-messagepack"></a>Typ kontroly jsou přísnější v MessagePack
+
+JSON centra protokol provede převody typů během deserializace. Například pokud má hodnotu vlastnosti příchozí objekt, který je číslo (`{ foo: 42 }`), ale vlastnost ve třídě .NET je typu `string`, převede se hodnota. MessagePack však nebude vykoná tento převod a vyvolá výjimku, která můžete zobrazit v protokolech na straně serveru (a v konzole):
+
+```
+InvalidDataException: Error binding arguments. Make sure that the types of the provided values match the types of the hub method being invoked.
+```
+
+Další informace o tomto omezení, najdete na Githubu problém [aspnet/SignalR #2937](https://github.com/aspnet/SignalR/issues/2937).
 
 ## <a name="related-resources"></a>Související prostředky
 
