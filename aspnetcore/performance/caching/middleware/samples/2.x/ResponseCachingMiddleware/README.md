@@ -1,7 +1,7 @@
-# <a name="aspnet-core-response-caching-sample"></a>Ukázka ukládání do mezipaměti ASP.NET Core odpovědi
+# <a name="aspnet-core-response-caching-sample"></a>Ukázka ukládání odpovědi ASP.NET Core do mezipaměti
 
-Tento příklad ukazuje použití ASP.NET Core [Middleware ukládání do mezipaměti odpovědi](https://docs.microsoft.com/aspnet/core/performance/caching/middleware).
+Tento příklad ukazuje použití ASP.NET Core [middleware pro ukládání odpovědi do mezipaměti](https://docs.microsoft.com/aspnet/core/performance/caching/middleware).
 
-Aplikace odpoví indexovou stránku, včetně `Cache-Control` záhlaví nakonfigurovat chování ukládání do mezipaměti. Aplikace také nastaví `Vary` záhlaví konfigurace mezipaměti, aby sloužit pouze pokud odpověď `Accept-Encoding` odpovídá záhlaví následné žádosti z původního požadavku.
+Aplikace odpoví stránkou Index, včetně hlavičky `Cache-Control`, která konfiguruje chování ukládání do mezipaměti. Aplikace také pošle hlavičku `Vary` a nastaví tím mezipaměť tak, aby poslala odpověď pouze v případě, že hlavička `Accept-Encoding` následujících požadavků je stejná jako hlavička původního požadavku.
 
-Při spuštění ukázky, indexovou stránku pochází z mezipaměti při ukládání a uložená v mezipaměti pro až 10 sekund.
+Při spuštění ukázky pochází stránka Index z mezipaměti, kde je uložena až po dobu 10 sekund.
