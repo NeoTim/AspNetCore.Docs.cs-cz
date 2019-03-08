@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/29/2018
 uid: security/gdpr
-ms.openlocfilehash: 5f5ed96354b0b71961c122506602e60b95b809fa
-ms.sourcegitcommit: d5223cf6a2cf80b4f5dc54169b0e376d493d2d3a
+ms.openlocfilehash: bbb3b8e091b5a0be8e852d70ba1a5d7100782ba3
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54889740"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665373"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>Podpora EU obecného Regulation (GDPR) v ASP.NET Core
 
@@ -75,7 +75,9 @@ Pokud neudělil souhlas jenom soubory cookie označené základní odešlou do p
 
 [!code-csharp[Main](gdpr/sample/RP/Startup.cs?name=snippet1)]
 
-[Stav relace](xref:fundamentals/app-state) soubory cookie nejsou nezbytně nutné. Stav relace není funkční, při sledování je vypnuté.
+[Stav relace](xref:fundamentals/app-state) soubory cookie nejsou nezbytně nutné. Stav relace není funkční, při sledování je vypnuté. Následující kód provede nezbytné soubory cookie relace:
+
+[!code-csharp[](gdpr/sample/RP/Startup.cs?name=snippet2)]
 
 <a name="pd"></a>
 

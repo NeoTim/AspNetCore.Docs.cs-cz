@@ -5,14 +5,14 @@ description: Zjistěte, jak začít pracovat s ASP.NET Core jedné stránky apli
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 03/07/2019
 uid: spa/react
-ms.openlocfilehash: 3b2b2e67b5d577872bafefef5624a13ca1a22449
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 7b07f696ae071531c88c9f8cf528fc6f0bf97b46
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899174"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665558"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>Šablona projektu React pomocí ASP.NET Core
 
@@ -105,3 +105,7 @@ Při spuštění aplikace ASP.NET Core se nespustí CRA serveru. Místo toho se 
 
 > [!IMPORTANT]
 > "Vykreslování na straně serveru" není podporovanou funkcí této šablony. Naším cílem při vytváření této šablony je pro splnění se "Vytvoření react-app". V důsledku toho scénáře a funkce není součástí projektu "Vytvoření react-app" (například SSR) nejsou podporovány a jsou ponechané jako cvičení pro daného uživatele.
+
+## <a name="additional-resources"></a>Další zdroje
+
+* <xref:security/authentication/identity/spa>

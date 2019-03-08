@@ -5,16 +5,16 @@ description: Zjistěte, jak ASP.NET Core nabízí služby a middleware pro lokal
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: af11906f86fe4ea91ed520584daedc094ab2dc0b
-ms.sourcegitcommit: edb9d2d78c9a4d68b397e74ae2aff088b325a143
+ms.openlocfilehash: 70de86f2e8c4a5577b8a4b50c53d66eb3b205c09
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2018
-ms.locfileid: "51505827"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665534"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Damien překážka](https://twitter.com/damien_bod), [ADAM Calixto](https://twitter.com/bartmax), [Nadeem Afana](https://twitter.com/NadeemAfana), a [Ateya Hisham Bin](https://twitter.com/hishambinateya)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Damien překážka](https://twitter.com/damien_bod), [ADAM Calixto](https://twitter.com/bartmax), [Nadeem Afana](https://afana.me/), a [Ateya Hisham Bin](https://twitter.com/hishambinateya)
 
 Vytvoření vícejazyčné web pomocí ASP.NET Core, vám umožní oslovit větší cílovou skupinu webu. ASP.NET Core poskytuje služby a middleware pro lokalizaci do různých jazyků a kultur.
 
@@ -44,7 +44,7 @@ Použití `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kó
 
 [!code-csharp[](../fundamentals/localization/sample/Localization/Controllers/BookController.cs?highlight=3,5,20&start=1&end=24)]
 
-**Poznámka:** obvykle chcete lokalizovat pouze text nebo HTML není.
+**Poznámka:** Obvykle budete chtít pouze lokalizovat text nebo HTML není.
 
 Na nejnižší úrovni, můžete získat `IStringLocalizerFactory` z celkového počtu [injektáž závislostí](dependency-injection.md):
 
@@ -80,7 +80,7 @@ Francouzské zdrojového souboru může obsahovat následující:
 
 Vykreslené zobrazení bude obsahovat značky HTML ze souboru prostředků.
 
-**Poznámka:** obvykle chcete lokalizovat pouze text nebo HTML není.
+**Poznámka:** Obvykle budete chtít pouze lokalizovat text nebo HTML není.
 
 Použít soubor sdíleného prostředku v zobrazení, Vložit `IHtmlLocalizer<T>`:
 
@@ -127,7 +127,7 @@ Soubor prostředků je užitečné mechanismus pro rozdělení zdrojů lokalizov
 
 1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na složku, která bude obsahovat soubor prostředků > **přidat** > **nová položka**.
 
-    ![Vnořené místní nabídku: V Průzkumníku řešení kontextové nabídky je otevřen pro prostředky. Druhá místní nabídku je otevřen pro přidání zobrazení nová položka příkazu zvýrazní.](localization/_static/newi.png)
+    ![Vnořené kontextové nabídky: V Průzkumníku řešení je otevřen pro prostředky kontextové nabídky. Druhá místní nabídku je otevřen pro přidání zobrazení nová položka příkazu zvýrazní.](localization/_static/newi.png)
 
 2. V **Hledat v nainstalovaných šablonách** zadejte "prostředek" a název souboru.
 
@@ -334,9 +334,9 @@ Podmínky:
 * Lokalizace (L10N): Proces přizpůsobení aplikace pro daný jazyk a oblast.
 * Internacionalizace (I18N): Popisuje globalizace a lokalizace.
 * Jazyková verze: Je jazyk a volitelně oblast.
-* Neutrální jazykové verze: jazyková verze, která má zadaný jazyk, ale ne v oblasti. (například "en", "es")
-* Konkrétní jazykové verze: jazyková verze, který má zadaný jazyk a oblast. (například "en US", "en-GB", "es-CL")
-* Nadřazená jazykové verze: neutrální jazykovou verzi, která obsahuje konkrétní jazykovou verzi. (například "en" je nadřazenou jazykovou verzi "en US" a "en-GB")
+* Neutrální jazykové verze: Jazyková verze, který má zadaný jazyk, ale ne v oblasti. (například "en", "es")
+* Konkrétní jazykovou verzi: Jazyková verze, který má zadaný jazyk a oblast. (například "en US", "en-GB", "es-CL")
+* Nadřazená jazykové verze: Neutrální jazykovou verzi, která obsahuje konkrétní jazykovou verzi. (například "en" je nadřazenou jazykovou verzi "en US" a "en-GB")
 * Národní prostředí: Národní prostředí je stejný jako jazykovou verzi.
 
 [!INCLUDE[](~/includes/currency.md)]

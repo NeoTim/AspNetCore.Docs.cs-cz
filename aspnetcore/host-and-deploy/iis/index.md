@@ -286,7 +286,7 @@ Chcete-li získat starší verzi instalačního programu:
 1. Stáhněte si instalační program s použitím **Runtime & hostování svazek** odkaz.
 
 > [!WARNING]
-> Některé instalační programy obsahují verze, které bylo dosaženo jejich konci životnosti (konce řádku) a již nejsou podporovány společností Microsoft. Další informace najdete v tématu [zásady podpory](https://www.microsoft.com/net/download/dotnet-core/2.0).
+> Některé instalační programy obsahují verze, které bylo dosaženo jejich konci životnosti (konce řádku) a již nejsou podporovány společností Microsoft. Další informace najdete v tématu [zásady podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
 
 ### <a name="install-the-hosting-bundle"></a>Instalaci sady hostování
 

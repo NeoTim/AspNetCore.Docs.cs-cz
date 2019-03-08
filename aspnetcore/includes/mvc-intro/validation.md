@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 2dc43dc07d7aecfd6195ea69773ebc4818360f0d
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665435"
+---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>Přidání ověřování do aplikace ASP.NET Core MVC
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
@@ -46,7 +54,7 @@ Všimněte si, jak formulář automaticky vykreslí příslušné ověřovací c
 
 Významné výhodou je, že nemusíte změnit jediný řádek kódu v `MoviesController` třídy nebo *Create.cshtml* zobrazení, chcete-li povolit toto ověření uživatelského rozhraní. Kontroler a zobrazení, které jste vytvořili dříve v tomto kurzu automaticky vybere nahoru ověřovací pravidla, které jste zadali pomocí atributů ověření na vlastnosti `Movie` třída modelu. Test ověření pomocí `Edit` je použít metody akce a stejné ověřování.
 
-Data formuláře neodešle na server, dokud nedojde k žádným chybám ověření na straně klienta. Můžete to ověřit tak, že vložíte přerušení `HTTP Post` metodu, pomocí [nástroj Fiddler](http://www.telerik.com/fiddler) , nebo [nástroje pro vývojáře F12](https://developer.microsoft.com/microsoft-edge/platform/documentation/f12-devtools-guide/).
+Data formuláře neodešle na server, dokud nedojde k žádným chybám ověření na straně klienta. Můžete to ověřit tak, že vložíte přerušení `HTTP Post` metodu, pomocí [nástroj Fiddler](http://www.telerik.com/fiddler) , nebo [nástroje pro vývojáře F12](/microsoft-edge/devtools-guide).
 
 ## <a name="how-validation-works"></a>Jak funguje ověřování
 

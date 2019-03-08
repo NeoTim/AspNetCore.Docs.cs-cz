@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 01/31/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 5e146261fdc8354fc9f4295a8af317e5cc36332f
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 91d8be6cd9160eefe56731d23d5dc7ba18eb6a8f
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667333"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665454"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
@@ -144,7 +144,7 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
 1. Přejděte na **souboru** > **nové** > **projektu**.
 1. Vyberte **webové aplikace ASP.NET Core**, pojmenujte projekt *BooksApi*a klikněte na tlačítko **OK**.
-1. Vyberte **.NET Core** Cílová architektura a **ASP.NET Core 2.1**. Vyberte **API** šablony projektu a klikněte na tlačítko **OK**:
+1. Vyberte **.NET Core** Cílová architektura a **2.2 technologie ASP.NET Core**. Vyberte **API** šablony projektu a klikněte na tlačítko **OK**:
 1. Přejděte [Galerie NuGet: MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver/) určit nejnovější stabilní verze ovladače .NET pro MongoDB. V **Konzola správce balíčků** okno, přejděte do kořenového adresáře projektu. Spusťte následující příkaz k instalaci ovladače .NET pro MongoDB:
 
     ```powershell

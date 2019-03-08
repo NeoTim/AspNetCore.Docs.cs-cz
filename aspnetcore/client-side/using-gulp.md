@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 10/04/2018
 uid: client-side/using-gulp
-ms.openlocfilehash: e280eabecbd427f3e1418b3d7a60e0ea3df46a5a
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: 43277dc5910971374187f49031e74769c9e29e1f
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450603"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665623"
 ---
 # <a name="use-gulp-in-aspnet-core"></a>Použití nástroje Gulp v ASP.NET Core
 
@@ -24,7 +24,7 @@ V typické moderní webové aplikace může proces sestavení:
 * Kompilace méně nebo SASS soubory šablon stylů CSS.
 * Kompilovat soubory CoffeeScript nebo TypeScript pro JavaScript.
 
-A *Spouštěč úloh* je nástroj, který automatizuje tyto běžné vývojářské úlohy a další. Visual Studio obsahuje integrovanou podporu pro dva spouštěčů oblíbených úloh založené na jazyce JavaScript: [Gulp](https://gulpjs.com/) a [Grunt](using-grunt.md).
+A *Spouštěč úloh* je nástroj, který automatizuje tyto běžné vývojářské úlohy a další. Visual Studio poskytuje integrovanou podporu pro dva spouštěčů oblíbených úloh založené na jazyce JavaScript: [Gulp](https://gulpjs.com/) a [Grunt](using-grunt.md).
 
 ## <a name="gulp"></a>Gulp
 
@@ -61,7 +61,7 @@ Ve výše uvedeném kódu určuje, které moduly uzlu se vyžadují. `require` F
 | Gulp        | Streamování Gulp sestavovací systém. Další informace najdete v tématu [gulp](https://www.npmjs.com/package/gulp). |
 | rimraf      | Modul odstranění uzlu. Další informace najdete v tématu [rimraf](https://www.npmjs.com/package/rimraf). |
 | gulp concat | Modul, který zřetězí soubory podle operačního systému znak nového řádku. Další informace najdete v tématu [gulp concat](https://www.npmjs.com/package/gulp-concat). |
-| gulp cssmin | Modul, který minifikuje soubory šablon stylů CSS. Další informace najdete v tématu [gulp cssmin](https://www.npmjs.com/package/gulp-cssmin). |
+| gulp-cssmin | Modul, který minifikuje soubory šablon stylů CSS. Další informace najdete v tématu [gulp cssmin](https://www.npmjs.com/package/gulp-cssmin). |
 | gulp uglify | Modul, který minifikuje *js* soubory. Další informace najdete v tématu [gulp uglify](https://www.npmjs.com/package/gulp-uglify). |
 
 Jakmile požadované moduly importují, je možné zadat úkoly. Zde jsou šesti úkolů zaregistrovaný, reprezentovaný následující kód:
@@ -98,10 +98,10 @@ Následující tabulka obsahuje vysvětlení úlohy určené ve výše uvedeném
 |Název úlohy|Popis|
 |--- |--- |
 |vyčištění: js|Úloha, která používá modul odstranění uzlu rimraf minifikovaný verzi souboru site.js odebrat.|
-|vyčištění: šablony stylů css|Úloha, která používá modul odstranění uzlu rimraf minifikovaný verzi souboru site.css odebrat.|
+|clean:css|Úloha, která používá modul odstranění uzlu rimraf minifikovaný verzi souboru site.css odebrat.|
 |Vyčistit|Úloha, která volá `clean:js` úkolu, za nímž následuje `clean:css` úloh.|
 |min:js|Úloha, která minifikuje a zřetězí všechny soubory JS v rámci složky js. . Min.js soubory jsou vyloučeny.|
-|min:CSS|Úloha, která minifikuje a zřetězí všechny soubory CSS ve složce šablon stylů css. . Min.css soubory jsou vyloučeny.|
+|min:css|Úloha, která minifikuje a zřetězí všechny soubory CSS ve složce šablon stylů css. . Min.css soubory jsou vyloučeny.|
 |min|Úloha, která volá `min:js` úkolu, za nímž následuje `min:css` úloh.|
 
 ## <a name="running-default-tasks"></a>Spuštění úlohy výchozí
@@ -335,9 +335,9 @@ Další informace týkající se prostředí v ASP.NET Core najdete v tématu [p
 |– úloha  |`gulp.task(name[, deps], fn) { }`|`task` Funkce vytvoří úkol. `name` Parametr definuje název úkolu. `deps` Parametr obsahuje celou řadu úloh dokončit dříve, než se tato úloha spuštěna. `fn` Parametr představuje funkci zpětného volání, které provádí operace úlohy.|
 |Sledování |`gulp.watch(glob [, opts], tasks) { }`|`watch` Funkce monitoruje soubory a spuštění úlohy, když dojde ke změně souboru. `glob` Parametr je `string` nebo `array` , který určuje, které soubory Pokud chcete sledovat. `opts` Parametr poskytuje další možnosti sledování souboru.|
 |src   |`gulp.src(globs[, options]) { }`|`src` Soubory, které odpovídají glob hodnoty, které poskytuje funkce. `glob` Parametr je `string` nebo `array` , který určuje, které soubory číst. `options` Parametr poskytuje možnosti pro další soubor.|
-|cíl  |`gulp.dest(path[, options]) { }`|`dest` Funkce definuje umístění, ke kterému lze zapisovat soubory. `path` Parametr je řetězec nebo funkci, která určuje cílovou složku. `options` Parametru je objekt, který určuje možnosti výstupní složky.|
+|dest  |`gulp.dest(path[, options]) { }`|`dest` Funkce definuje umístění, ke kterému lze zapisovat soubory. `path` Parametr je řetězec nebo funkci, která určuje cílovou složku. `options` Parametru je objekt, který určuje možnosti výstupní složky.|
 
-Další referenční informace Gulp rozhraní API najdete v tématu [Gulp dokumentace API](https://github.com/gulpjs/gulp/blob/master/docs/API.md).
+Další referenční informace Gulp rozhraní API najdete v tématu [Gulp dokumentace API](https://gulpjs.org/API.html).
 
 ## <a name="gulp-recipes"></a>Recepty gulp
 

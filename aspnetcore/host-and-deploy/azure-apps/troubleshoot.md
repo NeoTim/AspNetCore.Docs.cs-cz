@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak diagnostikovat problémy s nasazením služby ASP.NET Core Azure App Service.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/11/2019
+ms.date: 03/05/2019
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: 65a5e355bc15db6de9060331395c441160c8b62d
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.openlocfilehash: c3732bfab362ec034248eb3912d4b1337c94216e
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341638"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665425"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>Řešení potíží s ASP.NET Core ve službě Azure App Service
 
@@ -71,11 +71,56 @@ Mnoho chyb při spuštění nevytvářejí užitečné informace v protokolu ud�
 
 1. Otevřít **Rozšířené nástroje** v **nástroje pro vývoj** oblasti. Vyberte **Přejít&rarr;**  tlačítko. Otevře se konzola Kudu v nové záložce prohlížeče nebo v okně.
 1. V navigačním panelu v horní části stránky otevřete **konzolou pro ladění** a vyberte **CMD**.
-1. Otevření složky a cesta **lokality** > **wwwroot**.
-1. V konzole spusťte aplikaci spuštěním sestavení aplikace.
-   * Pokud je aplikace [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd), spusťte sestavení aplikace s *dotnet.exe*. V následujícím příkazu nahraďte název sestavení aplikace pro `<assembly_name>`: `dotnet .\<assembly_name>.dll`
-   * Pokud je aplikace [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd)spuštěním spustitelného souboru aplikace. V následujícím příkazu nahraďte název sestavení aplikace pro `<assembly_name>`: `<assembly_name>.exe`
-1. Výstup z aplikace zobrazuje všechny chyby konzoly je přesměrovaná do konzoly Kudu.
+
+#### <a name="test-a-32-bit-x86-app"></a>Testování aplikací pro 32bitovou (x 86)
+
+##### <a name="current-release"></a>Aktuální verze
+
+1. `cd d:\home\site\wwwroot`
+1. Spuštění aplikace:
+   * Pokud je aplikace [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd):
+
+     ```console
+     dotnet .\{ASSEMBLY NAME}.dll
+     ```
+   * Pokud je aplikace [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd):
+
+     ```console
+     {ASSEMBLY NAME}.exe
+     ```
+   
+Výstup z aplikace zobrazuje všechny chyby konzoly je přesměrovaná do konzoly Kudu.
+   
+##### <a name="framework-depdendent-deployment-running-on-a-preview-release"></a>Nasazení rozhraní Framework depdendent běží na verzi preview
+
+*Vyžaduje instalaci ASP.NET Core {VERSION} (x86) lokality rozšíření modulu Runtime.*
+
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x32` (`{X.Y}` je verze modulu runtime)
+1. Spuštění aplikace: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
+
+Výstup z aplikace zobrazuje všechny chyby konzoly je přesměrovaná do konzoly Kudu.
+
+#### <a name="test-a-64-bit-x64-app"></a>Testování aplikace s 64bitovou (x 64)
+
+##### <a name="current-release"></a>Aktuální verze
+
+* Pokud aplikace je 64bitová verze (x64) [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd):
+  1. `cd D:\Program Files\dotnet`
+  1. Spuštění aplikace: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
+* Pokud je aplikace [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd):
+  1. `cd D:\home\site\wwwroot`
+  1. Spuštění aplikace: `{ASSEMBLY NAME}.exe`
+
+Výstup z aplikace zobrazuje všechny chyby konzoly je přesměrovaná do konzoly Kudu.
+
+##### <a name="framework-depdendent-deployment-running-on-a-preview-release"></a>Nasazení rozhraní Framework depdendent běží na verzi preview
+
+*Vyžaduje instalaci ASP.NET Core {VERSION} (x64) lokality rozšíření modulu Runtime.*
+
+1. `cd D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64` (`{X.Y}` je verze modulu runtime)
+1. Spuštění aplikace: `dotnet \home\site\wwwroot\{ASSEMBLY NAME}.dll`
+
+Výstup z aplikace zobrazuje všechny chyby konzoly je přesměrovaná do konzoly Kudu.
 
 ### <a name="aspnet-core-module-stdout-log"></a>ASP.NET Core modulu stdout protokolu
 

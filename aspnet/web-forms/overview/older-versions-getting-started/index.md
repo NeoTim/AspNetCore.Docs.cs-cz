@@ -2,34 +2,28 @@
 uid: web-forms/overview/older-versions-getting-started/index
 title: Starší verze – Začínáme webových formulářů | Dokumentace Microsoftu
 author: rick-anderson
-description: Dokumentaci k ASP.NET Web Forms 4 a dřívějších verzích.
+description: Kurz k ASP.NET Web Forms 4 a dřívějších verzích.
 ms.author: riande
 ms.date: 10/18/2014
 ms.assetid: e03585c2-80bf-4083-99ba-9fcbc883ccd8
 msc.legacyurl: /web-forms/overview/older-versions-getting-started
 msc.type: chapter
-ms.openlocfilehash: 93eed9c2560b8e5106b224114eb1109d3da95daf
-ms.sourcegitcommit: 45ac74e400f9f2b7dbded66297730f6f14a4eb25
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41753325"
 ---
 <a name="older-versions---web-forms-getting-started"></a>Starší verze – Začínáme webových formulářů
 ====================
-> Dokumentaci k ASP.NET Web Forms 4 a dřívějších verzích.
+> Kurz k ASP.NET Web Forms 4 a dřívějších verzích.
 
 
 - [ASP.NET 4 – Tailspin Spyworks](tailspin-spyworks/index.md)
 
-    - [1. část: Soubor > Nový projekt](tailspin-spyworks/tailspin-spyworks-part-1.md)
-    - [2. část: Vrstva přístupu k datům](tailspin-spyworks/tailspin-spyworks-part-2.md)
-    - [3. část: Nabídka Rozložení a Kategorie](tailspin-spyworks/tailspin-spyworks-part-3.md)
+    - [Část 1: Soubor -> Nový projekt](tailspin-spyworks/tailspin-spyworks-part-1.md)
+    - [Část 2: Vrstva přístupu k datům](tailspin-spyworks/tailspin-spyworks-part-2.md)
+    - [3. část: Nabídka rozložení a kategorie](tailspin-spyworks/tailspin-spyworks-part-3.md)
     - [4. část: Seznam produktů](tailspin-spyworks/tailspin-spyworks-part-4.md)
     - [5. část: Obchodní logika](tailspin-spyworks/tailspin-spyworks-part-5.md)
-    - [6. část: Členství v ASP.NET](tailspin-spyworks/tailspin-spyworks-part-6.md)
-    - [7. část: Přidání funkcí](tailspin-spyworks/tailspin-spyworks-part-7.md)
-    - [8. část: Závěrečné stránky, zpracování výjimek a závěr](tailspin-spyworks/tailspin-spyworks-part-8.md)
+    - [6. část: Členství technologie ASP.NET](tailspin-spyworks/tailspin-spyworks-part-6.md)
+    - [Část 7: Přidání funkce](tailspin-spyworks/tailspin-spyworks-part-7.md)
+    - [Část 8: Závěrečné stránky, zpracování výjimek a závěr](tailspin-spyworks/tailspin-spyworks-part-8.md)
 - [ASP.NET 4 – Začínáme se sadou Entity Framework 4 a webovými formuláři](getting-started-with-ef/index.md)
 
     - [Začínáme s Entity Framework 4.0 Database First](getting-started-with-ef/the-entity-framework-and-aspnet-getting-started-part-1.md)
@@ -42,7 +36,7 @@ ms.locfileid: "41753325"
     - [Začínáme s Entity Framework 4.0 Database First – 8. část](getting-started-with-ef/the-entity-framework-and-aspnet-getting-started-part-8.md)
 - [ASP.NET 4 – Pokračujeme se sadou Entity Framework 4 a webovými formuláři](continuing-with-ef/index.md)
 
-    - [Entity Framework 4.0 a ovládací prvek ObjectDataSource, 1. část: Začínáme](continuing-with-ef/using-the-entity-framework-and-the-objectdatasource-control-part-1-getting-started.md)
+    - [Entity Framework 4.0 a ovládací prvek ObjectDataSource, 1. část: Začínáme se službou](continuing-with-ef/using-the-entity-framework-and-the-objectdatasource-control-part-1-getting-started.md)
     - [Entity Framework 4.0 a ovládací prvek ObjectDataSource, 2. část: Přidání vrstvy obchodní logiky a testy jednotek](continuing-with-ef/using-the-entity-framework-and-the-objectdatasource-control-part-2-adding-a-business-logic-layer-and-unit-tests.md)
     - [Entity Framework 4.0 a ovládací prvek ObjectDataSource, 3. část: Řazení a filtrování](continuing-with-ef/using-the-entity-framework-and-the-objectdatasource-control-part-3-sorting-and-filtering.md)
     - [Ošetření souběžnosti se sadou Entity Framework 4.0 v ASP.NET 4](continuing-with-ef/handling-concurrency-with-the-entity-framework-in-an-asp-net-web-application.md)

@@ -5,14 +5,14 @@ description: Objevte, jak zpracovávat chyby v aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/01/2019
+ms.date: 03/05/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: a2ae2cb25c8cc5048b189b4035abbfc32a29aaff
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: d809c70b3fae6b2d21d5ec0871298d905b873d5d
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345488"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665360"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
@@ -24,9 +24,9 @@ Tento článek se věnuje běžné přístupy k zpracování chyb v aplikacích 
 
 ## <a name="developer-exception-page"></a>Stránce výjimek pro vývojáře
 
-Chcete-li nakonfigurovat aplikaci, která zobrazí stránka, která jsou uvedeny podrobné informace o výjimkách, použijte *stránku výjimek pro vývojáře*. Na stránce je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Přidejte řádek, který `Startup.Configure` metody:
+Chcete-li nakonfigurovat aplikaci, která zobrazí stránka, která jsou uvedeny podrobné informace o žádosti o výjimkách, použijte *stránku výjimek pro vývojáře*. Na stránce je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Přidejte řádek, který `Startup.Configure` metodu, když aplikace běží při vývoji [prostředí](xref:fundamentals/environments):
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevExceptionPage&highlight=5)]
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseDeveloperExceptionPage)]
 
 Umístěte volání <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> před veškerý middleware, ve které chcete zaznamenat tak výjimky.
 
@@ -50,7 +50,7 @@ Pokud není aplikace spuštěna ve vývojovém prostředí, zavolejte <xref:Micr
 
 V následujícím příkladu z ukázkové aplikace <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> přidá Middleware zpracování výjimek v jiných vývojových prostředích. Určuje metodu rozšíření chybové stránky nebo ovladač na `/Error` koncový bod pro znovu spustit požadavky po výjimky jsou zachyceny a přihlášení:
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevExceptionPage&highlight=9)]
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseExceptionHandler1)]
 
 Šablona aplikace Razor Pages poskytuje chybovou stránku (*.cshtml*) a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> třídy (`ErrorModel`) ve složce stránky.
 
@@ -66,6 +66,36 @@ public IActionResult Error()
 ```
 
 Není uspořádání metody akce obslužná rutina chyby s atributy metody HTTP, jako například `HttpGet`. Explicitní příkazy zabránit v dosažení metodu některé požadavky. Povolit anonymní přístup k metodě tak, aby se neověřené uživatele dostávají zobrazení chyb.
+
+## <a name="access-the-exception"></a>Přístup k výjimce
+
+Použití <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> pro přístup k výjimce nebo původní cestu požadavku v kontroleru nebo stránky:
+
+* Cesta je k dispozici <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature.Path> vlastnost.
+* Přečtěte si <xref:System.Exception?displayProperty=fullName> z zděděnou [IExceptionHandlerFeature.Error](xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature.Error) vlastnost.
+
+```csharp
+// using Microsoft.AspNetCore.Diagnostics;
+
+var exceptionHandlerPathFeature = 
+    HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+var path = exceptionHandlerPathFeature?.Path;
+var error = exceptionHandlerPathFeature?.Error;
+```
+
+> [!WARNING]
+> Proveďte **není** poskytovat informace o chybě citlivé z <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> nebo <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientům. Obsluhuje chyby představuje bezpečnostní riziko.
+
+## <a name="configure-custom-exception-handling-code"></a>Konfigurace vlastního kódu pro zpracování výjimek
+
+Alternativu se, že koncový bod pro chyby pomocí [vlastní výjimky zpracování stránky](#configure-a-custom-exception-handling-page) je poskytnout lambda <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>. Použití výrazu lambda s <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> umožňuje přístup k chybě před vrácením odpovědi.
+
+Ukázková aplikace předvádí vlastní kód ve zpracování výjimek `Startup.Configure`. Aktivuje výjimku **vyvolat výjimky** odkaz na indexovou stránku. Následující výraz lambda spustí:
+
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseExceptionHandler2)]
+
+> [!WARNING]
+> Proveďte **není** poskytovat informace o chybě citlivé z <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> nebo <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientům. Obsluhuje chyby představuje bezpečnostní riziko.
 
 ## <a name="configure-status-code-pages"></a>Konfigurace stavu znakové stránky
 
@@ -265,7 +295,7 @@ Také, mějte na paměti, jakmile jsou odeslány hlavičky odpovědi:
 
 ## <a name="server-exception-handling"></a>Zpracování výjimek serveru
 
-Kromě ve vaší aplikaci logiky zpracování výjimek [implementaci serveru](xref:fundamentals/servers/index) dokáže zpracovat některé výjimky. Pokud server zachytí výjimku, před odesláním hlavičky odpovědi, odešle server *500 – Interní chyba serveru* odpovědi bez těla odpovědi. Pokud server zachytí výjimku po odeslání hlaviček odpovědí, server ukončí připojení. Požadavky, které nejsou zpracovány aplikací jsou zpracovány serverem. Všechny vyvolané výjimky jsou zpracována výjimka serveru zpracování. Žádné nakonfigurované vlastní chybové stránky nebo zpracování výjimek middleware nebo filtry nemají vliv na toto chování.
+Kromě ve vaší aplikaci logiky zpracování výjimek [implementaci serveru](xref:fundamentals/servers/index) dokáže zpracovat některé výjimky. Pokud server zachytí výjimku, před odesláním hlavičky odpovědi, odešle server *500 – Interní chyba serveru* odpovědi bez těla odpovědi. Pokud server zachytí výjimku po odeslání hlaviček odpovědí, server ukončí připojení. Požadavky, které nejsou zpracovány aplikací jsou zpracovány serverem. Jakoukoliv výjimku, která vyvolá se v případě, že server zpracovává žádost je zpracována výjimka serveru zpracování. Aplikace vlastní chybové stránky, zpracování middleware a filtry výjimek nemají vliv na toto chování.
 
 ## <a name="startup-exception-handling"></a>Zpracování výjimek při spuštění
 
@@ -285,10 +315,10 @@ Při spuštění na [IIS](/iis) nebo [služby IIS Express](/iis/extensions/intro
 
 ### <a name="exception-filters"></a>Filtry výjimek
 
-Filtry výjimek se dá nakonfigurovat globálně nebo na základě na kontroler nebo akcích v aplikaci MVC. Tyto filtry zpracování neošetřené výjimky, která během provádění akce kontroleru nebo jiný filtr. Tyto filtry nejsou volány jinak. Další informace najdete v tématu <xref:mvc/controllers/filters>.
+Filtry výjimek se dá nakonfigurovat globálně nebo na základě na kontroler nebo akcích v aplikaci MVC. Tyto filtry zpracování neošetřené výjimky, která během provádění akce kontroleru nebo jiný filtr. Tyto filtry nejsou volány jinak. Další informace naleznete v tématu <xref:mvc/controllers/filters#exception-filters>.
 
 > [!TIP]
-> Filtry výjimek jsou užitečné pro soutisku výjimky, ke kterým dochází v rámci akce MVC, ale nejsou tak flexibilní jako middleware pro zpracování chyb. Doporučujeme používat middleware. Použití filtrů jenom tam, kde potřebujete provádět zpracování chyb *jinak* závislosti na zvolené akci, která MVC.
+> Filtry výjimek jsou užitečné pro soutisku výjimky, ke kterým dochází v rámci akce MVC, ale nejsou tak flexibilní jako Middleware zpracování výjimek. Doporučujeme používat middleware. Použití filtrů jenom tam, kde potřebujete provádět zpracování chyb *jinak* závislosti na zvolené akci, která MVC.
 
 ### <a name="handle-model-state-errors"></a>Zpracování chyby stavu modelu
 

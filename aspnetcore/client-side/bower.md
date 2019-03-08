@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 08/09/2018
 uid: client-side/bower
-ms.openlocfilehash: 06edf7ee791aac0984ff71c2f243f61093f0d503
-ms.sourcegitcommit: 408921a932448f66cb46fd53c307a864f5323fe5
+ms.openlocfilehash: 08e6daa537c6c6f92a1cf80d70745e8ef606f580
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2018
-ms.locfileid: "51570019"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665610"
 ---
 # <a name="manage-client-side-packages-with-bower-in-aspnet-core"></a>Správa balíčků na straně klienta nástrojem Bower v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Noel rýže](https://blog.falafel.com/falafel-software-recognized-sitefinity-website-year/), a [Scott Addie](https://scottaddie.com)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Noel rýže](https://twitter.com/noelrice1), a [Scott Addie](https://scottaddie.com)
 
 > [!IMPORTANT]
 > Zatímco Bower byla zachována jeho programu doporučujeme používat jiné řešení. [Správce knihovny](https://blogs.msdn.microsoft.com/webdev/2018/04/18/what-happened-to-bower/) (LibMan zkráceně) je nástroj pro získání nové knihoven na straně klienta ze sady Visual Studio (Visual Studio 15,8 nebo novější). Další informace naleznete v tématu <xref:client-side/libman/index>. Bower je podporováno v sadě Visual Studio přes verzi 15.5.
@@ -101,7 +101,7 @@ Jakmile se seznam balíčků v *bower.json* souboru, Visual Studio stáhne. Nás
 
   Ověřte, projekt obsahuje *bootstrap* a *jQuery* adresáře v *wwwroot/lib*. Používá pro bower *.bowerrc* sloužící k instalaci prostředky v *wwwroot/lib*.
 
-  Poznámka: "Spravovat balíčky Bower" uživatelské rozhraní poskytuje alternativu k ruční soubor úpravy.
+  Poznámka: Uživatelské rozhraní "Spravovat balíčky Bower" poskytuje alternativu k úpravě ručních souboru.
 
 ### <a name="enable-static-files"></a>Povolte statické soubory
 

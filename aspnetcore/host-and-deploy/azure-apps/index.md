@@ -120,7 +120,7 @@ Použijte jeden z následujících přístupů:
 
 ### <a name="install-the-preview-site-extension"></a>Instalace rozšíření webu ve verzi preview
 
-Pokud dojde k potížím s pomocí rozšíření webu ve verzi preview, otevřete problém na [Githubu](https://github.com/aspnet/azureintegration/issues/new).
+Pokud dojde k potížím s pomocí rozšíření webu ve verzi preview, otevřete [aspnet/AspNetCore problém](https://github.com/aspnet/AspNetCore/issues).
 
 1. Na webu Azure Portal přejděte do služby App Service.
 1. Vyberte webovou aplikaci.

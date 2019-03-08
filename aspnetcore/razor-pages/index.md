@@ -1,17 +1,11 @@
 ---
 title: Úvod do služby v ASP.NET Core Razor Pages
 author: Rick-Anderson
-description: Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zaměřená na stránce scénáře jednodušší a produktivnější než pomocí MVC.
+description: 'Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zaměřená na stránce scénáře jednodušší a produktivnější než pomocí MVC.'
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 05/12/2018
 uid: razor-pages/index
-ms.openlocfilehash: cc881ff42d57ab1654f492a70006a995939e4844
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/20/2018
-ms.locfileid: "53709551"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do služby v ASP.NET Core Razor Pages
 
@@ -35,7 +29,7 @@ Tento dokument obsahuje úvod do stránky Razor. Není podrobný kurz. Pokud ně
 
 Zobrazit [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) podrobné pokyny o tom, jak vytvořit projekt stránky Razor.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -173,7 +167,7 @@ Přidružené `PageModel` třídy (*Index.cshtml.cs*):
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-[Ukotvení pomocné rutiny značky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) použít `asp-route-{value}` atribut pro vygenerování odkazu na stránku pro úpravy. Odkaz obsahuje data trasy s kontaktu ID. Například, `http://localhost:5000/Edit/1`.
+[Ukotvení pomocné rutiny značky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) použít `asp-route-{value}` atribut pro vygenerování odkazu na stránku pro úpravy. Odkaz obsahuje data trasy s kontaktu ID. Například, `http://localhost:5000/Edit/1`. Použití `asp-area` atribut oblast. Další informace naleznete v tématu <xref:mvc/controllers/areas>.
 
 *Pages/Edit.cshtml* souboru:
 
@@ -401,6 +395,14 @@ Relativní název propojení je užitečné, když vytváření webů s komplexn
 
 ::: moniker range=">= aspnetcore-2.1"
 
+Přesměrování na stránku jinou [oblasti](xref:mvc/controllers/areas), určete oblast:
+
+```csharp
+RedirectToPage("/Index", new { area = "Services" });
+```
+
+Další informace naleznete v tématu <xref:mvc/controllers/areas>.
+
 ## <a name="viewdata-attribute"></a>Atribut viewData
 
 Data mohou být předána na stránku s [ViewDataAttribute](/dotnet/api/microsoft.aspnetcore.mvc.viewdataattribute). Upravené vlastnosti v kontrolerech a modelech stránky Razor pomocí `[ViewData]` hodnoty uložené a načíst z [objektu ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary).
@@ -547,6 +549,7 @@ services.AddMvc()
 
 * <xref:index>
 * <xref:mvc/views/razor>
+* <xref:mvc/controllers/areas>
 * <xref:tutorials/razor-pages/razor-pages-start>
 * <xref:security/authorization/razor-pages-authorization>
 * <xref:razor-pages/razor-pages-conventions>
