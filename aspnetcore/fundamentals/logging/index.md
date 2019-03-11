@@ -866,6 +866,7 @@ Sada SDK služby Application Insights můžete shromažďovat a sestavy protokol
 * [Application Insights overview](/azure/application-insights/app-insights-overview)
 * [Application Insights pro ASP.NET Core](/azure/application-insights/app-insights-asp-net-core)
 * [Protokolování adaptéry Application Insights](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md).
+* [Application Insights ILogger implementace ukázky](/azure/azure-monitor/app/ilogger)
 
 ::: moniker-end
 
