@@ -4,14 +4,14 @@ author: guardrex
 description: Další informace o Kestrel, napříč platformami webový server pro ASP.NET Core.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 03/04/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: dcf027c2c495cbecd8464e43749b9154a4360e36
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 5fc6c78f3eb76fcf3dd663c8d878250f0051f153
+ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248404"
+ms.lasthandoff: 03/08/2019
+ms.locfileid: "57665636"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace serveru webové kestrel v ASP.NET Core
 
@@ -417,6 +417,17 @@ Ve výchozím nastavení ASP.NET Core váže na:
 * `http://localhost:5000`
 * `https://localhost:5001` (Pokud je místní vývojový certifikát k dispozici)
 
+Určení adres URL pomocí:
+
+* `ASPNETCORE_URLS` proměnné prostředí.
+* `--urls` argument příkazového řádku.
+* `urls` Konfigurační klíč hostitele.
+* `UseUrls` metody rozšíření.
+
+Hodnota zadaná pomocí těchto přístupů může být jeden nebo více HTTP a HTTPS koncové body (HTTPS Pokud je k dispozici výchozí cert). Nakonfigurujte tuto hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000; http://localhost:8001"`).
+
+Další informace o těchto přístupů najdete v tématu [adresy URL serveru](xref:fundamentals/host/web-host#server-urls) a [konfigurace přepisování](xref:fundamentals/host/web-host#override-configuration).
+
 Certifikát pro vývoj se vytvoří:
 
 * Když [.NET Core SDK](/dotnet/core/sdk) je nainstalována.
@@ -430,7 +441,7 @@ Volání <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Lis
 
 `UseUrls`, `--urls` argument příkazového řádku, `urls` konfigurační klíč hostitele a `ASPNETCORE_URLS` proměnnou prostředí také pracovní ale mají omezení, později uvedené v této části (výchozí certifikát musí být k dispozici pro koncový bod HTTPS Konfigurace).
 
-ASP.NET Core 2.1 `KestrelServerOptions` konfigurace:
+ASP.NET Core 2.1 nebo novější `KestrelServerOptions` konfigurace:
 
 ### <a name="configureendpointdefaultsactionltlistenoptionsgt"></a>ConfigureEndpointDefaults (akce&lt;ListenOptions&gt;)
 
@@ -484,17 +495,6 @@ Podporované konfigurace je popsáno dále:
 *Žádná konfigurace*
 
 Naslouchá kestrel `http://localhost:5000` a `https://localhost:5001` (Pokud je k dispozici výchozí cert).
-
-Určení adres URL pomocí:
-
-* `ASPNETCORE_URLS` proměnné prostředí.
-* `--urls` argument příkazového řádku.
-* `urls` Konfigurační klíč hostitele.
-* `UseUrls` metody rozšíření.
-
-Další informace najdete v tématu [adresy URL serveru](xref:fundamentals/host/web-host#server-urls) a [konfigurace přepisování](xref:fundamentals/host/web-host#override-configuration).
-
-Hodnota zadaná pomocí těchto přístupů může být jeden nebo více HTTP a HTTPS koncové body (HTTPS Pokud je k dispozici výchozí cert). Nakonfigurujte tuto hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000; http://localhost:8001"`).
 
 *Nahraďte výchozí certifikát z konfigurace*
 
