@@ -8,7 +8,7 @@ items:
   - uid: fundamentals/choose-between-aspnet-and-aspnetcore
     name: Porovnání ASP.NET Core a ASP.NET
   - name: Porovnání .NET Core a .NET Framework
-    href: /dotnet/standard/choosing-core-framework-server
+    href: /dotnet/standard/choosing-core-framework-server?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
 - uid: getting-started
   name: Začínáme
 - name: Co je nového
@@ -36,12 +36,52 @@ items:
       displayName: tutorial
   - name: Webové aplikace
     items:
-    - uid: tutorials/razor-pages/index
-      name: Razor Pages
+    - name: Razor Pages
       displayName: tutorial
-    - uid: tutorials/first-mvc-app/index
-      name: MVC
+      items:
+      - uid: tutorials/razor-pages/index
+        name: Přehled
+      - uid: tutorials/razor-pages/razor-pages-start
+        name: Začínáme
+      - uid: tutorials/razor-pages/model
+        name: Přidání modelu
+      - uid: tutorials/razor-pages/page
+        name: Generování uživatelského rozhraní
+      - uid: tutorials/razor-pages/sql
+        name: Práce s databází
+      - uid: tutorials/razor-pages/da1
+        name: Aktualizace stránek
+      - uid: tutorials/razor-pages/search
+        name: Přidání vyhledávání
+      - uid: tutorials/razor-pages/new-field
+        name: Přidání nového pole
+      - uid: tutorials/razor-pages/validation
+        name: Přidání ověřování
+    - name: MVC
       displayName: tutorial
+      items:
+      - uid: tutorials/first-mvc-app/index
+        name: Přehled
+      - uid: tutorials/first-mvc-app/start-mvc
+        name: Začínáme
+      - uid: tutorials/first-mvc-app/adding-controller
+        name: Přidání kontroleru
+      - uid: tutorials/first-mvc-app/adding-view
+        name: Přidání zobrazení
+      - uid: tutorials/first-mvc-app/adding-model
+        name: Přidání modelu
+      - uid: tutorials/first-mvc-app/working-with-sql
+        name: Práce s databází
+      - uid: tutorials/first-mvc-app/controller-methods-views
+        name: Akce a zobrazení kontroleru
+      - uid: tutorials/first-mvc-app/search
+        name: Přidání vyhledávání
+      - uid: tutorials/first-mvc-app/new-field
+        name: Přidání nového pole
+      - uid: tutorials/first-mvc-app/validation
+        name: Přidání ověřování
+      - uid: tutorials/first-mvc-app/details
+        name: Zkoumání metod Details a Delete
   - name: Webové aplikace v reálném čase
     items:
     - uid: tutorials/signalr
@@ -52,17 +92,57 @@ items:
       displayName: tutorial
   - name: Přístup k datům
     items:
-    - uid: data/ef-rp/index
-      name: EF Core s Razor Pages
+    - name: EF Core s Razor Pages
       displayName: tutorial
+      items:
+      - uid: data/ef-rp/index
+        name: Přehled
+      - uid: data/ef-rp/intro
+        name: Začínáme
+      - uid: data/ef-rp/crud
+        name: Vytváření, čtení, aktualizace a odstranění
+      - uid: data/ef-rp/sort-filter-page
+        name: Řazení, filtrování, stránkování a seskupování
+      - uid: data/ef-rp/migrations
+        name: Migrace
+      - uid: data/ef-rp/complex-data-model
+        name: Vytvoření složitého datového modelu
+      - uid: data/ef-rp/read-related-data
+        name: Čtení souvisejících dat
+      - uid: data/ef-rp/update-related-data
+        name: Aktualizace souvisejících dat
+      - uid: data/ef-rp/concurrency
+        name: Zpracování konfliktů souběžnosti
     - name: EF Core s MVC, existující databáze
       displayName: tutorial
-      href: /ef/core/get-started/aspnetcore/existing-db
+      href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: EF Core s MVC, nová databáze
       displayName: tutorial
-      href: /ef/core/get-started/aspnetcore/new-db
-    - uid: data/ef-mvc/index
-      name: EF Core s MVC, rozšířený kurz
+      href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+    - name: EF Core s MVC, 10 kurzů
+      items:
+      - uid: data/ef-mvc/index
+        name: Přehled
+      - uid: data/ef-mvc/intro
+        name: Začínáme
+      - uid: data/ef-mvc/crud
+        name: Vytváření, čtení, aktualizace a odstranění
+      - uid: data/ef-mvc/sort-filter-page
+        name: Řazení, filtrování, stránkování a seskupování
+      - uid: data/ef-mvc/migrations
+        name: Migrace
+      - uid: data/ef-mvc/complex-data-model
+        name: Vytvoření složitého datového modelu
+      - uid: data/ef-mvc/read-related-data
+        name: Čtení souvisejících dat
+      - uid: data/ef-mvc/update-related-data
+        name: Aktualizace souvisejících dat
+      - uid: data/ef-mvc/concurrency
+        name: Zpracování konfliktů souběžnosti
+      - uid: data/ef-mvc/inheritance
+        name: Dědičnost
+      - uid: data/ef-mvc/advanced
+        name: Pokročilá témata
 - name: Základy
   items:
   - uid: fundamentals/index
@@ -115,7 +195,7 @@ items:
       - uid: tutorials/razor-pages/page
         name: Generování uživatelského rozhraní
       - uid: tutorials/razor-pages/sql
-        name: Práce s databázemi
+        name: Práce s databází
       - uid: tutorials/razor-pages/da1
         name: Aktualizace stránek
       - uid: tutorials/razor-pages/search
@@ -150,7 +230,7 @@ items:
       - uid: tutorials/first-mvc-app/adding-model
         name: Přidání modelu
       - uid: tutorials/first-mvc-app/working-with-sql
-        name: Práce s databázemi
+        name: Práce s databází
       - uid: tutorials/first-mvc-app/controller-methods-views
         name: Akce a zobrazení kontroleru
       - uid: tutorials/first-mvc-app/search
@@ -337,7 +417,7 @@ items:
       displayName: signalr
     - name: Služba Azure SignalR
       displayName: signalr
-      href: /azure/azure-signalr/signalr-overview
+      href: /azure/azure-signalr/signalr-overview?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - uid: signalr/redis-backplane
       name: Propojovací rozhraní Redis
       displayName: signalr
@@ -370,7 +450,7 @@ items:
 - name: Testování, ladění a odstraňování potíží
   items:
   - name: Testování jednotek
-    href: /dotnet/core/testing/unit-testing-with-dotnet-test
+    href: /dotnet/core/testing/unit-testing-with-dotnet-test?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
   - uid: test/razor-pages-tests
     name: Testy jednotek stránek Razor
   - uid: mvc/controllers/testing
@@ -378,7 +458,7 @@ items:
   - name: Vzdálené ladění
     href: /visualstudio/debugger/remote-debugging-azure
   - name: Ladění snímků
-    href: /azure/application-insights/app-insights-snapshot-debugger
+    href: /azure/azure-monitor/app/snapshot-debugger?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
   - name: Ladění snímků v sadě Visual Studio
     href: /visualstudio/debugger/debug-live-azure-applications
   - uid: test/integration-tests
@@ -414,10 +494,10 @@ items:
       - uid: data/ef-rp/concurrency
         name: Zpracování konfliktů souběžnosti
     - name: EF Core s MVC, nová databáze
-      href: /ef/core/get-started/aspnetcore/new-db
+      href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: EF Core s MVC, existující databáze
-      href: /ef/core/get-started/aspnetcore/existing-db
-    - name: EF Core s MVC, rozšířený kurz
+      href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+    - name: EF Core s MVC, 10 kurzů
       items:
       - uid: data/ef-mvc/index
         name: Přehled
@@ -446,13 +526,13 @@ items:
   - name: Azure Storage se sadou Visual Studio
     items:
     - name: Připojené služby
-      href: /azure/vs-azure-tools-connected-services-storage
+      href: /visualstudio/azure/vs-azure-tools-connected-services-storage
     - name: Blob Storage
-      href: /azure/vs-storage-aspnet5-getting-started-blobs/
+      href: /azure/visual-studio/vs-storage-aspnet5-getting-started-blobs?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Queue Storage
-      href: /azure/vs-storage-aspnet5-getting-started-queues/
+      href: /azure/visual-studio/vs-storage-aspnet5-getting-started-queues?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Table Storage
-      href: /azure/vs-storage-aspnet5-getting-started-tables/
+      href: /azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
 - name: Vývoj klientské strany
   items:
   - name: Komponenty Razor
@@ -562,10 +642,10 @@ items:
       displayName: azure, deploy, publish
     - name: Publikování pomocí sady Visual Studio pro Mac
       displayName: azure, deploy, publish
-      href: /visualstudio/mac/publish-app-svc
+      href: /visualstudio/mac/publish-app-svc?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Publikování pomocí nástrojů CLI
       displayName: azure, deploy, publish
-      href: /azure/app-service/app-service-web-tutorial-dotnetcore-sqldb
+      href: /azure/app-service/app-service-web-tutorial-dotnetcore-sqldb?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - uid: host-and-deploy/azure-apps/azure-continuous-deployment
       name: Publikování pomocí sady Visual Studio a Gitu
       displayName: azure, deploy, publish
@@ -654,7 +734,7 @@ items:
       displayName: deploy, publish, docker
     - name: Publikování do image Dockeru
       displayName: deploy, publish, docker
-      href: /azure/vs-azure-tools-docker-hosting-web-apps-in-docker
+      href: /visualstudio/containers/vs-azure-tools-docker-hosting-web-apps-in-docker
     - name: Ukázkové image Dockeru
       displayName: deploy, publish, docker
       href: https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md
@@ -669,7 +749,7 @@ items:
     displayName: deploy, publish
   - name: Publikování do složky v sadě Visual Studio pro Mac
     displayName: deploy, publish
-    href: /visualstudio/mac/publish-folder
+    href: /visualstudio/mac/publish-folder?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
   - uid: host-and-deploy/directory-structure
     name: Adresářová struktura
     displayName: deploy, publish
@@ -754,7 +834,7 @@ items:
     - name: Zabezpečení aplikací ASP.NET serverem IdentityServer4
       href: https://identityserver4.readthedocs.io/
     - name: Zabezpečení aplikací ASP.NET Core ověřováním služby Azure App Service (Easy Auth)
-      href: /azure/app-service/app-service-authentication-overview
+      href: /azure/app-service/overview-authentication-authorization?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - uid: security/authentication/individual
       name: Individuální uživatelské účty
   - name: Autorizace
@@ -980,9 +1060,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 755ddaf4262956deb285b48c6c1d0205c25f4ced
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 1430ab85bd40bb3090b5e6a2e313a690bc280f1e
+ms.sourcegitcommit: 32bc00435767189fa3ae5fb8a91a307bf889de9d
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665467"
+ms.lasthandoff: 03/11/2019
+ms.locfileid: "57733526"
