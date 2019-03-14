@@ -3,14 +3,14 @@ title: Potvrzení účtu a obnovení hesla v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak vytvořit aplikaci ASP.NET Core s e-mailové potvrzení a resetováním hesla.
 ms.author: riande
-ms.date: 2/11/2019
+ms.date: 3/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 77d7b209d57f9ee44f158798ff780ce85c87aaf2
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 05efb75d26558702c88e87d191a780371034282c
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/13/2019
-ms.locfileid: "56159405"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841472"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -22,7 +22,7 @@ Zobrazit [tento soubor PDF](https://webpifeed.blob.core.windows.net/webpifeed/Pa
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Joe Audette](https://twitter.com/joeaudette)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Ponant](https://github.com/Ponant), a [Joe Audette](https://twitter.com/joeaudette)
 
 Tento kurz ukazuje, jak vytvářet aplikace v ASP.NET Core s e-mailové potvrzení a resetováním hesla. Tento kurz je **není** začátku tématu. Měli byste se seznámit s:
 
@@ -34,45 +34,23 @@ Tento kurz ukazuje, jak vytvářet aplikace v ASP.NET Core s e-mailové potvrzen
 
 ## <a name="prerequisites"></a>Požadavky
 
-[!INCLUDE [](~/includes/2.1-SDK.md)]
+[Sady SDK .NET core 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
 
 ## <a name="create-a-web--app-and-scaffold-identity"></a>Vytvoření webové aplikace a generování uživatelského rozhraní Identity
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
-
-* V sadě Visual Studio vytvořte nový **webovou aplikaci** projekt s názvem **WebPWrecover**.
-* Vyberte **ASP.NET Core 2.1**.
-* Ponechte výchozí **ověřování** nastavena na **bez ověřování**. V dalším kroku se přidá ověřování.
-
-V dalším kroku:
-
-* Nastavení stránky rozložení *~/Pages/Shared/_Layout.cshtml*
-* Vyberte *účtu/registrace*
-* Vytvořte nový **třída kontextu dat**
-
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+Spusťte následující příkazy k vytvoření webové aplikace s ověřováním.
 
 ```console
-dotnet new webapp -o WebPWrecover
+dotnet new webapp -au Individual -uld -o WebPWrecover
 cd WebPWrecover
-dotnet tool install -g dotnet-aspnet-codegenerator
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
-dotnet aspnet-codegenerator identity -fi Account.Register -dc WebPWrecover.Models.WebPWrecoverContext
-dotnet ef migrations add CreateIdentitySchema
+dotnet aspnet-codegenerator identity -dc WebPWrecover.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout;Account.ConfirmEmail
 dotnet ef database drop -f
 dotnet ef database update
-dotnet build
+dotnet run
+
 ```
-
-Spustit `dotnet aspnet-codegenerator identity --help` můžete zobrazit nápovědu pro nástroj pro generování uživatelského rozhraní.
-
-------
-
-Postupujte podle pokynů v [povolení ověřování](xref:security/authentication/scaffold-identity#useauthentication):
-
-* Přidat `app.UseAuthentication();` do `Startup.Configure`
-* Přidat `<partial name="_LoginPartial" />` do rozložení souboru.
 
 ## <a name="test-new-user-registration"></a>Otestovat nové registrace uživatele
 
@@ -91,9 +69,9 @@ Je osvědčeným postupem je potvrďte e-mailu nové registrace uživatele. E-ma
 
 Obvykle chcete novým uživatelům zabránit v účtování všechna data na webový server dříve, než potvrzeno e-mailu.
 
-Aktualizace *Areas/Identity/IdentityHostingStartup.cs* tak, aby vyžadovala potvrzeno e-mailu:
+Aktualizace `Startup.ConfigureServices` tak, aby vyžadovala potvrzeno e-mailu:
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Areas/Identity/IdentityHostingStartup.cs?name=snippet1&highlight=10-13)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=8-11)]
 
 `config.SignIn.RequireConfirmedEmail = true;` zabraňuje registrovaných uživatelů přihlásit, dokud není potvrzené e-mailu.
 
@@ -103,13 +81,9 @@ V tomto kurzu [SendGrid](https://sendgrid.com) se používá k odesílání e-ma
 
 Vytvoření třídy k načtení klíče zabezpečeného e-mailu. V tomto příkladu vytvoření *Services/AuthMessageSenderOptions.cs*:
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Services/AuthMessageSenderOptions.cs?name=snippet1)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Services/AuthMessageSenderOptions.cs?name=snippet1)]
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace služby SendGrid tajných klíčů uživatelů
-
-Přidat jedinečný `<UserSecretsId>` hodnota, která se `<PropertyGroup>` prvek souboru projektu:
-
-[!code-xml[](accconfirm/sample/WebPWrecover21/WebPWrecover.csproj?highlight=5)]
 
 Nastavte `SendGridUser` a `SendGridKey` s [manažera tajných nástroj](xref:security/app-secrets). Příklad:
 
@@ -120,7 +94,7 @@ info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 
 Na Windows, manažera tajných ukládá dvojice klíčů/hodnota v *secrets.json* soubor `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáře.
 
-Obsah *secrets.json* souboru nejsou šifrovány. *Secrets.json* souboru je uveden níže ( `SendGridKey` hodnota byla odebrána.)
+Obsah *secrets.json* souboru nejsou šifrovány. Následující kód ukazuje *secrets.json* souboru. `SendGridKey` Hodnota byla odebrána.
 
  ```json
   {
@@ -137,7 +111,7 @@ Tento kurz ukazuje, jak přidat e-mailová oznámení prostřednictvím [SendGri
 
 Nainstalujte `SendGrid` balíček NuGet:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V konzole Správce balíčků zadejte následující příkaz:
 
@@ -160,7 +134,7 @@ Naleznete v tématu [začít pomocí Sendgridu zdarma](https://sendgrid.com/free
 
 Implementovat `IEmailSender`, vytvořit *Services/EmailSender.cs* podobně jako následujícím kódem:
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Services/EmailSender.cs)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Services/EmailSender.cs)]
 
 ### <a name="configure-startup-to-support-email"></a>Konfigurace spuštění pro podporu e-mailu
 
@@ -169,13 +143,13 @@ Přidejte následující kód, který `ConfigureServices` metoda ve *Startup.cs*
 * Přidat `EmailSender` jako přechodné služby.
 * Zaregistrujte `AuthMessageSenderOptions` instance konfigurace.
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Startup.cs?name=snippet2&highlight=12-99)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=15-99)]
 
 ## <a name="enable-account-confirmation-and-password-recovery"></a>Povolit obnovení hesla a potvrzení účtu
 
 Šablona má kód pro obnovení potvrzení a heslo účtu. Najít `OnPostAsync` metoda *Areas/Identity/Pages/Account/Register.cshtml.cs*.
 
-Nově zaregistrovaný uživatelům zabránit v automaticky přihlášeni tak následující řádek:
+Nově zaregistrovaný uživatelům zabránit v probíhá automaticky přihlašování tak následující řádek:
 
 ```csharp
 await _signInManager.SignInAsync(user, isPersistent: false);
@@ -183,16 +157,13 @@ await _signInManager.SignInAsync(user, isPersistent: false);
 
 Úplná metoda se zobrazí s změněný řádek zvýrazněný:
 
-[!code-csharp[](accconfirm/sample/WebPWrecover21/Areas/Identity/Pages/Account/Register.cshtml.cs?highlight=22&name=snippet_Register)]
+[!code-csharp[](accconfirm/sample/WebPWrecover22/Areas/Identity/Pages/Account/Register.cshtml.cs?highlight=22&name=snippet_Register)]
 
 ## <a name="register-confirm-email-and-reset-password"></a>Zaregistrovat a potvrďte e-mailu a resetování hesla
 
 Spuštění webové aplikace a testů potvrzení účtu a heslo pro obnovení toku.
 
 * Spusťte aplikaci a zaregistrovat nový uživatel
-
-  ![Zobrazení účtu zaregistrovat webové aplikace](accconfirm/_static/loginaccconfirm1.png)
-
 * Zkontrolujte svého e-mailu na odkaz pro potvrzení účtu. Zobrazit [ladění e-mailu](#debug) Pokud neobdržíte e-mailu.
 * Klikněte na odkaz pro potvrzení e-mailu.
 * Přihlaste se pomocí e-mailu a hesla.
@@ -201,10 +172,6 @@ Spuštění webové aplikace a testů potvrzení účtu a heslo pro obnovení to
 ### <a name="view-the-manage-page"></a>Zobrazení stránky Správa
 
 Vyberte své uživatelské jméno v prohlížeči: ![okna prohlížeče s uživatelským jménem](accconfirm/_static/un.png)
-
-Potřebujete rozšířit na navigačním panelu zobrazíte uživatelské jméno.
-
-![navbar](accconfirm/_static/x.png)
 
 Zobrazí se stránka Správa s **profilu** vybraná karta. **E-mailu** zobrazí zaškrtávací políčko označující e-mailu byl potvrzen.
 
@@ -215,8 +182,37 @@ Zobrazí se stránka Správa s **profilu** vybraná karta. **E-mailu** zobrazí 
 * Zadejte e-mail, který jste použili k registraci účtu.
 * Odešle e-mail s odkazem k resetování hesla. Zkontrolujte e-mailu a klikněte na odkaz pro resetování hesla. Po úspěšném resetování vašeho hesla se můžete přihlásit pomocí své e-mailu a nové heslo.
 
-<a name="debug"></a>
+## <a name="change-email-and-activity-timeout"></a>Časový limit změny e-mailu a aktivita
 
+Výchozí hodnota časového limitu nečinnosti je 14 dní. Následující kód nastaví časový limit neaktivity na 5 dní:
+
+[!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAppCookie.cs?name=snippet1)]
+
+### <a name="change-all-data-protection-token-lifespans"></a>Změnit všechny lifespans token ochrany dat
+
+Následující kód změní všechny data protection tokeny časový limit na 3 hodiny:
+
+[!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAllTokens.cs?name=snippet1&highlight=15-16)]
+
+Integrovaná v tokenech identitu uživatele (naleznete v tématu [AspNetCore/src/Identity/Extensions.Core/src/TokenOptions.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) mít [vypršení časového limitu jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs).
+
+### <a name="change-the-email-token-lifespan"></a>Změnit životnost tokenu e-mailu
+
+Výchozí token životnosti [tokeny Identity uživatele](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) je [jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs). Tato část ukazuje, jak změnit životnost tokenu e-mailu.
+
+Přidat vlastní [DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1) a <xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>:
+
+[!code-csharp[](accconfirm/sample/WebPWrecover22/TokenProviders/CustomTokenProvider.cs?name=snippet1)]
+
+Přidáte vlastního zprostředkovatele do služby kontejneru:
+
+[!code-csharp[](accconfirm/sample/WebPWrecover22/StartupEmail.cs?name=snippet1&highlight=10-13)]
+
+### <a name="resend-email-confirmation"></a>Znovu poslat e-mailové potvrzení
+
+Zobrazit [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/5410).
+
+<a name="debug"></a>
 ### <a name="debug-email"></a>Ladění e-mailu
 
 Pokud nelze získat pracovní e-mailu:
