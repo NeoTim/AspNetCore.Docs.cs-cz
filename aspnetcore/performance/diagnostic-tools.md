@@ -39,13 +39,13 @@ Azure Application Insights poskytuje informace z monitorovaných aplikací něko
   - Umožňuje přechod do konkrétní operace a kontrolu všech částí/závislostí, které přispívají k dlouhé době jejího trvání.
   - Z tohoto místa může být vyvolán i Profiler a na vyžádání shromažďovat trasovací informace výkonu.
 
-- [Azure Application Insights Profiler](/azure/azure-monitor/app/profiler) umožňuje profilovat aplikace .NET pravidelně i na vyžádání. Portál Azure zobrazuje záznamy trasování výkonu se zásobníky volání a kritické cesty. Trasovací soubory si můžete také stáhnout pro hlubší analýzu pomocí nástroje PerfView.
+- [Azure Application Insights Profiler](/azure/azure-monitor/app/profiler) umožňuje profilovat aplikace .NET pravidelně i na vyžádání.  Portál Azure zobrazuje záznamy trasování výkonu se zásobníky volání a kritické cesty. Trasovací soubory si můžete také stáhnout pro hlubší analýzu pomocí nástroje PerfView.
 
 Application Insights můžete použít v různých prostředích:
 
-- Optimalizovaná pro práci v Azure.
-- Lze použít v produkčním, vývojovém i přípravném prostředí.
-- Funguje lokálně ze [sady Visual Studio](/azure/application-insights/app-insights-visual-studio) nebo v jiných hostitelských prostředích.
+* Optimalizovaná pro práci v Azure.
+* Lze použít v produkčním, vývojovém i přípravném prostředí.
+* Funguje lokálně ze [sady Visual Studio](/azure/application-insights/app-insights-visual-studio) nebo v jiných hostitelských prostředích.
 
 Další informace najdete v tématu [Application Insights pro ASP.NET Core](/azure/application-insights/app-insights-asp-net-core).
 
@@ -65,11 +65,11 @@ Přestože je PerfView užitečným nástrojem pro analýzu výkonu pro scéná�
 
 [PerfCollect](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md) je bash skript, který používá nativní linuxové nástroje pro profilaci ([Perf](https://perf.wiki.kernel.org/index.php/Main_Page) a [LTTng](https://lttng.org/)) a sběr trasovacích informací, jež mohou být analyzovány pomocí nástroje PerfView. PerfCollect je užitečný, když se projeví problémy s výkonem v prostředí Linuxu, kde nejde použít přímo PerfView. Místo toho můžete shromažďovat trasování z aplikace .NET Core prostřednictvím PerfCollect a potom je analyzovat na počítači s Windows pomocí nástroje PerfView.
 
-Další informace o tom, jak nainstalovat a začít s PerfCollect je k dispozici [na GitHubu](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md).
+Další informace o tom, jak nainstalovat a začít s PerfCollect, jsou k dispozici [na Githubu](https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/linux-performance-tracing.md).
 
-## <a name="other-third-party-performance-tools"></a>Další nástroje třetích stran
+## <a name="other-third-party-performance-tools"></a>Další nástroje třetích stran pro měření výkonu
 
-V následujícím seznamu jsou uvedeny některé nástroje výkonu třetích stran, které jsou užitečné při prošetřování výkonu aplikací .NET Core.
+V následujícím seznamu jsou uvedeny některé nástroje třetích stran pro měření výkonu, které jsou užitečné při prošetřování výkonu aplikací .NET Core.
 
 - [MiniProfiler](https://miniprofiler.com/)
 - dotTrace a dotMemory od JetBrains
