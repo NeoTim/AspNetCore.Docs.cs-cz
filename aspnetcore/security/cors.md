@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/27/2019
 uid: security/cors
-ms.openlocfilehash: eb8dd3b1c96d9060b0164dcd4d0fbe004ed4af84
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 6be8b4da1642a9eff021371c229a17071d6e9bfb
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346369"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978468"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolení žádostí napříč zdroji (CORS) v ASP.NET Core
 
@@ -446,11 +446,11 @@ Test CORS:
 
   * Pomocí Microsoft Edge:
 
-    **SEC7120: [CORS] původ "https://localhost:44375"nebyl nalezen"https://localhost:44375"v hlavička odpovědi Access-Control-Allow-Origin pro prostředek cross-origin na"https://webapi.azurewebsites.net/api/values/1".**
+    **SEC7120: [CORS] původ `https://localhost:44375` nenalezl `https://localhost:44375` v hlavička odpovědi Access-Control-Allow-Origin pro prostředek nepůvodního zdroje `https://webapi.azurewebsites.net/api/values/1`**
 
   * Použití Chrome:
 
-    **Přístup k XMLHttpRequest na "https://webapi.azurewebsites.net/api/values/1"z počátku"https://localhost:44375" nezablokoval zásada CORS: Žádné záhlaví 'Přístup-Control-Allow-Origin' je k dispozici u požadovaného prostředku.**
+    **Přístup k XMLHttpRequest na `https://webapi.azurewebsites.net/api/values/1` z počátku `https://localhost:44375` nezablokoval zásada CORS: Žádné záhlaví 'Přístup-Control-Allow-Origin' je k dispozici u požadovaného prostředku.**
 
 ## <a name="additional-resources"></a>Další zdroje
 

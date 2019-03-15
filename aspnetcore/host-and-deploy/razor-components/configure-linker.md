@@ -5,14 +5,14 @@ description: Zjistěte, jak řídit Linkeru Intermediate Language (IL) při vytv
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/20/2019
+ms.date: 03/11/2019
 uid: host-and-deploy/razor-components/configure-linker
-ms.openlocfilehash: 7c53e7912ec3b0ae471ea38777f874f55a32487d
-ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
+ms.openlocfilehash: 6f2c07eec6b98afbaaf21d2c1d172a1a54e6e808
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56647938"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978368"
 ---
 # <a name="configure-the-linker-for-blazor"></a>Konfigurace Linkeru pro Blazor
 
@@ -20,14 +20,14 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
-Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) propojení během každé sestavení pro vydání režimu odebrat nepotřebné IL z výstupního sestavení.
+Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) propojení během každé sestavení pro vydání režimu z aplikace odebrat nepotřebné IL výstupního sestavení.
 
-Můžete řídit sestavení propojení s jedním z následujících postupů:
+Sestavení ovládacího prvku propojení některou z následujících postupů:
 
-* Zakážete globálně propojení s vlastností MSBuild.
-* Ovládací prvek propojení na základě na sestavení s konfiguračním souborem.
+* Zakázat globálně propojení s [vlastnost MSBuild](#disable-linking-with-a-msBuild-property).
+* Ovládací prvek propojení na základě na sestavení s [konfigurační soubor](#control-linking-with-a-configuration-file).
 
-## <a name="disable-linking-with-an-msbuild-property"></a>Zakázat propojení s vlastností MSBuild
+## <a name="disable-linking-with-a-msbuild-property"></a>Zakázat propojení s vlastností MSBuild
 
 Propojení je povolené ve výchozím nastavení v režimu vydání, při vytváření aplikace, která zahrnuje publikování. Chcete-li zakázat propojení pro všechna sestavení, nastavte `<BlazorLinkOnBuild>` vlastnost MSBuild `false` v souboru projektu:
 
@@ -39,9 +39,15 @@ Propojení je povolené ve výchozím nastavení v režimu vydání, při vytvá
 
 ## <a name="control-linking-with-a-configuration-file"></a>Ovládací prvek propojení s konfiguračním souborem
 
-Propojení je možné řídit na základě za sestavení poskytováním konfigurační soubor XML a zadáte soubor jako položky nástroje MSBuild v souboru projektu.
+Ovládací prvek propojení na základě za sestavení tak, že poskytuje konfigurační soubor XML a zadání souboru jako položky nástroje MSBuild v souboru projektu:
 
-Následující příklad je konfigurační soubor (*Linker.xml*):
+```xml
+<ItemGroup>
+  <BlazorLinkerDescriptor Include="Linker.xml" />
+</ItemGroup>
+```
+
+*Linker.xml*:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -73,12 +79,4 @@ Následující příklad je konfigurační soubor (*Linker.xml*):
 </linker>
 ```
 
-Další informace o formátu souborů pro konfigurační soubor, naleznete v tématu [IL Linkeru: Syntaxe xml popisovače](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).
-
-Zadejte konfigurační soubor v souboru projektu `BlazorLinkerDescriptor` položky:
-
-```xml
-<ItemGroup>
-  <BlazorLinkerDescriptor Include="Linker.xml" />
-</ItemGroup>
-```
+Další informace najdete v tématu [IL Linkeru: Syntaxe xml popisovače](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).

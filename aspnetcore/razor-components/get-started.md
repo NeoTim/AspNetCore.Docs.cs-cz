@@ -5,14 +5,14 @@ description: Zjistěte, jak začít pracovat s komponentami Razor vytvořením a
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/03/2019
+ms.date: 03/13/2019
 uid: razor-components/get-started
-ms.openlocfilehash: a9ada603e5ed4e0e75c4aebc5105c331118666e6
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 86427f9d8a6bc70a65f58ff1b9f8f37c536a97a6
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159321"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978333"
 ---
 # <a name="get-started-with-razor-components"></a>Začínáme s Razor komponenty
 
@@ -29,9 +29,6 @@ Chcete-li vytvořit svůj první projekt Razor komponenty v sadě Visual Studio:
 1. Vyberte **souboru** > **nový projekt** > **webové** > **webová aplikace ASP.NET Core**.
 1. Ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány v horní části.
 1. Zvolte **Razor komponenty** šablony a vyberte **OK**.
-
-   ![Dialogové okno nové aplikace](https://msdnshared.blob.core.windows.net/media/2019/01/razor-components-template.png)
-
 1. Stisknutím klávesy **F5** ke spuštění aplikace.
 
 Blahopřejeme! Právě jste spustili svou první aplikaci Razor součásti!
@@ -113,12 +110,14 @@ Blahopřejeme! Právě jste spustili svou první aplikaci Razor součásti!
 
 ## <a name="razor-components-project"></a>Projekt součásti syntaxe Razor
 
-Vytvořený pomocí šablony Razor komponenty řešení obsahuje dva projekty:
+Razor součásti jsou vytvořeny pomocí syntaxe Razor, ale jsou zkompilovány jinak než zobrazení Razor Pages a MVC. *.Razor* přípona souboru se používá k určení komponentu Razor. Stránky Razor a MVC zobrazení dál používat *.cshtml* příponu souboru.
 
-* *WebApplication1.Server* &ndash; serverový projekt je projekt ASP.NET Core nastavení pro hostování aplikace součásti syntaxe Razor.
-* *WebApplication1.App* &ndash; na straně klienta webového projektu uživatelského rozhraní, která používá součásti syntaxe Razor.
-
-Logika uživatelského rozhraní *WebApplication1.App* projektu je oddělené od zbytku aplikace kvůli technická omezení v ASP.NET Core 3.0 ve verzi Preview 2. Přípona souboru Razor (*.cshtml*) použít pro Razor komponenty se také používá pro zobrazení Razor Pages a MVC. V současné době Razor součásti a Razor Pages/MVC mají různé kompilace modely, tak soubory Razor Razor komponenty jsou udržovány odděleně. V budoucí verzi preview, plánujeme zavést novou příponu souboru pro Razor součásti (*.razor*). Součásti, stránky a zobrazení se hostovat *ve stejném projektu*.
+> [!NOTE]
+> Dají se vytvářet komponenty Razor pomocí *.cshtml* příponu souboru, tak dlouho, dokud tyto soubory jsou označeny jako soubory součástí Razor pomocí `_RazorComponentInclude` vlastnosti Msbuildu. Například aplikace vytvořená pomocí šablony Razor komponenty Určuje, že všechny *.cshtml* soubory pod *součásti* složky mají být považována za Razor komponenty:
+>
+> ```xml
+> <_RazorComponentInclude>Components\**\*.cshtml</_RazorComponentInclude>
+> ```
 
 Při spuštění aplikace jsou k dispozici z karty na bočním panelu více stránek:
 
@@ -128,9 +127,9 @@ Při spuštění aplikace jsou k dispozici z karty na bočním panelu více str�
 
 Na stránce čítače, vyberte **klikněte na mě** tlačítka se zvýší čítač bez aktualizace stránky. Zvyšování hodnoty čítače na webové stránce obvykle vyžaduje zadání jazyka JavaScript, ale součásti Razor poskytuje lepší přístup pomocí C#.
 
-*WebApplication1.App/Pages/Counter.cshtml*:
+*WebApplication1/Components/Pages/Counter.razor*:
 
-[!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.cshtml)]
+[!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor)]
 
 Žádost o `/counter` v prohlížeči, jak jsou určené `@page` – direktiva v horní části stránky, způsobí, že součást čítače pro vykreslení jeho obsah. Komponenty vykreslování do reprezentaci v paměti, který lze použít k aktualizaci uživatelského rozhraní v flexibilní a efektivní způsob vykreslení stromu.
 
@@ -145,9 +144,9 @@ Modul runtime porovnává nový obsah na předchozí obsah a platí pouze změn�
 
 Přidáte součást do jiné součásti pomocí syntaxe HTML. Komponenta parametry jsou určeny pomocí atributů nebo podřízený obsah. Například můžete přidat součást čítače na domovskou stránku aplikace tak, že přidáte `<Counter />` – element pro součást indexu.
 
-*WebApplication1.App/Pages/Index.cshtml*:
+*WebApplication1/Components/Pages/Index.razor*:
 
-[!code-cshtml[](get-started/samples_snapshot/3.x/Index1.cshtml?highlight=7)]
+[!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
 Spusťte aplikaci. Na domovskou stránku má svůj vlastní čítače.
 
@@ -156,15 +155,15 @@ Přidání parametru do komponenty čítače, aktualizovat součásti `@function
 * Přidání vlastnosti pro `IncrementAmount` dekorován `[Parameter]` atribut.
 * Změnit `IncrementCount` metoda se má použít `IncrementAmount` při zvýšit hodnotu `currentCount`.
 
-*WebApplication1.App/Pages/Counter.cshtml*:
+*WebApplication1/Components/Pages/Counter.razor*:
 
-[!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.cshtml?highlight=4,8)]
+[!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=4,8)]
 
 Zadejte `IncrementAmount` parametr v komponentě domovské `<Counter>` pomocí atributu element.
 
-*WebApplication1.App/Pages/Index.cshtml*:
+*WebApplication1/Components/Pages/Index.razor*:
 
-[!code-cshtml[](get-started/samples_snapshot/3.x/Index2.cshtml)]
+[!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor)]
 
 Spusťte aplikaci. Na domovskou stránku má svůj vlastní čítač, který zvýší o 10 pokaždé, když **klikněte na mě** výběru tlačítka.
 

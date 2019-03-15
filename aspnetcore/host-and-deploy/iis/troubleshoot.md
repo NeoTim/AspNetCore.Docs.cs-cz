@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak diagnostikovat problémy s nasazením aplikací ASP.NET Core Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 03/06/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 68fcd578c051ae9ba6234cad0465a7ef42f1ed14
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 2f36ae2bda8537e91a3bc925505986bdd6a22a47
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637687"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841550"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>Řešení potíží s ASP.NET Core ve službě IIS
 
@@ -236,13 +236,51 @@ Viz <xref:host-and-deploy/azure-iis-errors-reference>. Většina běžných prob
 
 Pokud aplikace je schopná reagovat na požadavky, získáte žádost o připojení a další data z aplikace pomocí terminálu vložené middlewaru. Další informace a ukázky kódu najdete v tématu <xref:test/troubleshoot#obtain-data-from-an-app>.
 
-## <a name="slow-or-hanging-app"></a>Pomalá nebo Změ aplikace
+## <a name="create-a-dump"></a>Vytvoření výpisu
 
-Když aplikace reaguje pomalu nebo přestane reagovat na vyžádání, získání a analyzovat [soubor s výpisem paměti](/visualstudio/debugger/using-dump-files). Soubory s výpisem paměti se dají získat pomocí kteréhokoli z následujících nástrojů:
+A *s výpisem paměti* snímek paměti v systému a vám může pomoct zjistit příčinu selhání aplikace, spuštění selhání nebo pomalé aplikace.
 
-* [ProcDump](/sysinternals/downloads/procdump)
-* [DebugDiag](https://www.microsoft.com/download/details.aspx?id=49924)
-* WinDbg: [Stáhněte si nástroje pro ladění pro Windows](https://developer.microsoft.com/windows/hardware/download-windbg), [ladění pomocí WinDbg](/windows-hardware/drivers/debugger/debugging-using-windbg)
+### <a name="app-crashes-or-encounters-an-exception"></a>Aplikace dojde k chybě nebo dojde k výjimce
+
+Získání a analýza výpisu paměti z [hlášení chyb Windows (zasílání)](/windows/desktop/wer/windows-error-reporting):
+
+1. Vytvořte složku pro uložení souborů se stavem systému na `c:\dumps`. Fond aplikací musí mít oprávnění k zápisu do složky.
+1. Spustit [EnableDumps Powershellový skript](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/troubleshoot/scripts/EnableDumps.ps1):
+   * Pokud aplikace využívá [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model), spusťte skript pro *w3wp.exe*:
+
+     ```console
+     .\EnableDumps w3wp.exe c:\dumps
+     ```
+   * Pokud aplikace využívá [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), spusťte skript pro *dotnet.exe*:
+
+     ```console
+     .\EnableDumps dotnet.exe c:\dumps
+     ```
+1. Spusťte aplikaci v rámci podmínky, které způsobily selhání dojde k.
+1. Po došlo k selhání, spusťte [DisableDumps Powershellový skript](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/troubleshoot/scripts/DisableDumps.ps1):
+   * Pokud aplikace využívá [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model), spusťte skript pro *w3wp.exe*:
+
+     ```console
+     .\DisableDumps w3wp.exe
+     ```
+   * Pokud aplikace využívá [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), spusťte skript pro *dotnet.exe*:
+
+     ```console
+     .\DisableDumps dotnet.exe
+     ```
+
+Po dokončení shromažďování výpisu stavu systému dojde k chybě aplikace a aplikace je povoleno jej měla ukončit normálně. Skript Powershellu nakonfiguruje zasílání shromažďovat až o pěti výpisů paměti na aplikaci.
+
+> [!WARNING]
+> Výpisy stavu systému může trvat až velké množství místa na disku (až několik gigabajtů každý).
+
+### <a name="app-hangs-fails-during-startup-or-runs-normally"></a>Aplikace přestane reagovat, při spuštění selže nebo běží normálně
+
+Když aplikaci *přestane reagovat* (přestane reagovat, ale nedojde k chybě), selže při spuštění nebo spuštění za normálních okolností viz [soubory výpisu paměti uživatelského režimu: Výběr vždycky ten nejlepší nástroj](/windows-hardware/drivers/debugger/user-mode-dump-files#choosing-the-best-tool) vybrat vhodného nástroje k vytvoření výpisu paměti.
+
+### <a name="analyze-the-dump"></a>Analýza výpisu paměti
+
+Výpis paměti mohou být analyzovány pomocí několik přístupů. Další informace najdete v tématu [analýzy souboru výpisu paměti uživatelského režimu](/windows-hardware/drivers/debugger/analyzing-a-user-mode-dump-file).
 
 ## <a name="remote-debugging"></a>Vzdálené ladění
 

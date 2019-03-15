@@ -5,65 +5,87 @@ description: Zjistěte, jak komponenty mohou být součástí aplikace Razor kom
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/09/2019
+ms.date: 03/14/2019
 uid: razor-components/class-libraries
-ms.openlocfilehash: 0e644627178bae2b8880760335860b3e0ebef156
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 1064ad60d90af15af483ba9bca5ed85fb63c2924
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159231"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978311"
 ---
 # <a name="razor-components-class-libraries"></a>Knihovny tříd Razor komponenty
 
 Podle [Simon Timms](https://github.com/stimms)
 
-> [!NOTE]
-> Sada .NET Core 3.0 ve verzi Preview 2 SDK neobsahuje šablona projektu pro knihovny tříd Razor součásti, ale chceme přidat šablonu v budoucí verzi preview. Mezitím můžete použít šablony knihovna tříd komponenty Blazor vysvětlované v tomto tématu.
-
-Součástí je sdílet v knihovnách komponenty ve všech projektech. Je možné zahrnout z komponenty:
+Součásti můžete sdílet v knihovnách tříd Razor ve všech projektech. Je možné zahrnout z komponenty:
 
 * Jiný projekt v řešení.
 * Balíček NuGet.
 * Odkazované knihovny .NET.
 
-Stejně, jako jsou komponenty regulární typy .NET, jsou součástí knihovny normální sestavení .NET.
+Stejně jako regulární typy .NET jsou komponenty, jsou součástí knihovny tříd Razor normální sestavení .NET.
 
-K vytvoření nové komponenty knihovny, použijte `blazorlib` šablonu s [dotnet nové](/dotnet/core/tools/dotnet-new) příkazu. Šablona je součástí šablony nainstalované při [nastavení komponent Razor](xref:razor-components/get-started).
+Použití `razorclasslib` šablony (knihovny tříd Razor) se [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz:
 
 ```console
-dotnet new blazorlib -o MyComponentLib1
+dotnet new razorclasslib -o MyComponentLib1
 ```
 
+Přidat soubory Razor komponent (*.razor*) do knihovny tříd Razor.
+
 Chcete-li přidat knihovnu do existujícího projektu, použijte [dotnet sln](/dotnet/core/tools/dotnet-sln) příkaz:
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ```console
 dotnet sln add .\MyComponentLib1
 ```
 
-Komponenta knihovny mohou obsahovat statické soubory, jako jsou obrázky, JavaScript a šablony stylů. V okamžiku sestavení, statické soubory jsou vloženy do souborů sestavení (*.dll*), která umožňuje využití komponent bez nutnosti starat o tom, jak zahrnout svoje prostředky. Všechny soubory zahrnuté v `content` adresáře jsou označeny jako vložený prostředek. 
+# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+
+```console
+dotnet add WebApplication1 reference MyComponentLib1
+```
+
+---
+
+> [!NOTE]
+> Knihovny tříd Razor nejsou kompatibilní s Blazor aplikace v ASP.NET Core ve verzi Preview 3.
+>
+> Vytváření komponent v knihovně, kterou můžete sdílet s Blazor a Razor součásti aplikace, použijte knihovnu tříd Blazor vytvořené `blazorlib` šablony.
+>
+> Knihovny tříd Razor nepodporují statické prostředky v ASP.NET Core ve verzi Preview 3. Pomocí knihovny součástí `blazorlib` šablona může obsahovat statické soubory, jako jsou obrázky, JavaScript a šablony stylů. V okamžiku sestavení, statické soubory jsou vloženy do souborů sestavení (*.dll*), která umožňuje využití komponent bez nutnosti starat o tom, jak zahrnout svoje prostředky. Všechny soubory zahrnuté v `content` adresáře jsou označeny jako vložený prostředek.
 
 ## <a name="consume-a-library-component"></a>Využívat komponentu knihovny
 
-Aby bylo možné využívat součásti definované v knihovně v jiném projektu [ @addTagHelper ](/aspnet/core/mvc/views/tag-helpers/intro#add-helper-label) musí se použít direktiva. Jednotlivé komponenty se můžou přidávat podle názvu. Například následující direktivy přidává `Component1` z `MyComponentLib1`:
+Aby bylo možné využívat součásti definované v knihovně v jiném projektu [ @addTagHelper ](xref:mvc/views/tag-helpers/intro#add-helper-label) musí se použít direktiva. Jednotlivé komponenty se můžou přidávat podle názvu.
+
+Obecný formát direktivy je:
+
+```cshtml
+@addTagHelper MyComponentLib1.Component1, MyComponentLib1
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<Component1 />
+```
+
+Například následující direktivy přidává `Component1` z `MyComponentLib1`:
 
 ```cshtml
 @addTagHelper MyComponentLib1.Component1, MyComponentLib1
 ```
 
-Obecný formát direktivy je:
-
-```cshtml
-@addTagHelper <namespaced component name>, <assembly name>
-```
-
-Je však společné pro všechny součásti ze sestavení pomocí zástupného znaku patří:
+Je však společné pro všechny součásti ze sestavení pomocí zástupného znaku zahrnují (`*`):
 
 ```cshtml
 @addTagHelper *, MyComponentLib1
 ```
 
-`@addTagHelper` Směrnice můžou být součástí *_ViewImport.cshtml* k vytvoření součásti k dispozici pro celý projekt nebo použité na jednu stránku nebo sadu stránek ve složce. S `@addTagHelper` direktiv v místě, součástí knihovny součástí mohou být spotřebovány jako kdyby byly ve stejném sestavení jako aplikace. 
+`@addTagHelper` Směrnice můžou být součástí *_ViewImport.cshtml* k vytvoření součásti k dispozici pro celý projekt nebo použité na jednu stránku nebo sadu stránek ve složce. S `@addTagHelper` direktiv v místě, součástí knihovny součástí mohou být spotřebovány jako kdyby byly ve stejném sestavení jako aplikace.
 
 ## <a name="build-pack-and-ship-to-nuget"></a>Sestavení, aktualizací Service pack a příjemce pro NuGet
 
@@ -79,4 +101,4 @@ Nahrání balíčku NuGet pomocí [dotnet nuget publikovat](/dotnet/core/tools/d
 dotnet nuget publish
 ```
 
-Žádné zahrnuté statické prostředky jsou obsažené v balíčku NuGet. Příjemci knihovny automaticky obdrží skripty a šablony stylů, takže příjemci nejsou potřeba ručně instalovat prostředky.
+Při použití `blazorlib` šablonu, statických prostředků jsou obsažené v balíčku NuGet. Příjemci knihovny automaticky obdrží skripty a šablony stylů, takže příjemci nejsou potřeba ručně instalovat prostředky.

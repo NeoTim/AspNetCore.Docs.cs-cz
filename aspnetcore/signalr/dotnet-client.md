@@ -5,14 +5,14 @@ description: Informace o .NET klienta SignalR technologie ASP.NET Core
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 09/10/2018
+ms.date: 03/14/2019
 uid: signalr/dotnet-client
-ms.openlocfilehash: 25b618f7a424b217c0fb55417754ea358280b95a
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: a03abef53aa44f0a1016b8f72d8e3a7af2f9bed1
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836303"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978301"
 ---
 # <a name="aspnet-core-signalr-net-client"></a>Klient .NET funkce SignalR technologie ASP.NET Core
 
@@ -64,6 +64,9 @@ V `Closed` obslužná rutina, která restartuje připojení, vezměte v úvahu �
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
 
+> [!NOTE]
+> Pokud používáte služby Azure SignalR v *bez serveru režimu*, nelze volat metody rozbočovače klienta. Další informace najdete v tématu [dokumentace ke službě SignalR](/azure/azure-signalr/signalr-concept-serverless-development-config).
+
 ## <a name="call-client-methods-from-hub"></a>Volání metody klienta od rozbočovače
 
 Definovat metody rozbočovače volá pomocí `connection.On` po sestavení, ale před spuštěním připojení.
@@ -85,3 +88,4 @@ Zpracování chyb pomocí příkazu try-catch. Zkontrolujte `Exception` objektu 
 * [Centra](xref:signalr/hubs)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
+* [Dokumentace Azure bez serveru služby SignalR](/azure/azure-signalr/signalr-concept-serverless-development-config)

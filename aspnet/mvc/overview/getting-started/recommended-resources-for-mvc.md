@@ -8,12 +8,12 @@ ms.date: 04/10/2014
 ms.assetid: 7958d725-e958-4566-a85b-535eeb985f94
 msc.legacyurl: /mvc/overview/getting-started/recommended-resources-for-mvc
 msc.type: authoredcontent
-ms.openlocfilehash: cbd72233fb5688c27d3675e2621eab58a64db80c
-ms.sourcegitcommit: 7b4e3936feacb1a8fcea7802aab3e2ea9c8af5b4
+ms.openlocfilehash: 9adfba8260aa75751bb18ea612ae07c8809e7d00
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48578172"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978535"
 ---
 <a name="mvc-recommended-resources"></a>MVC – doporučené prostředky
 ====================
@@ -31,8 +31,8 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 - [Principy Model View Controller v architektuře Asp.Net MVC](http://www.dotnet-tricks.com/Tutorial/mvc/DIYG060113-Understanding-Model-View-Controller-in-Asp.Net-MVC.html) (krátký blogu úvod).
 - [ASP.NET MVC – přehled](../older-versions-1/overview/asp-net-mvc-overview.md)
 - [Bezplatný online kurz 6 hodin – vývoj ASP.NET MVC 4 webové aplikace Jump Start](https://weblogs.asp.net/jgalloway/archive/2013/10/09/free-6-hour-online-course-developing-asp-net-mvc-4-web-applications-jump-start.aspx)
-- [Learning MVC – část 1: Úvod do architektury MVC a oddělení oblastí zájmu](http://www.codeproject.com/Articles/620195/Learning-MVC-Part-1-Introduction-to-MVC-Architectu)
-- Plakát: [životní cyklus aplikace ASP.NET MVC 5](lifecycle-of-an-aspnet-mvc-5-application.md)
+- [Učení MVC – část 1: Úvod do architektury MVC a oddělení oblastí zájmu](http://www.codeproject.com/Articles/620195/Learning-MVC-Part-1-Introduction-to-MVC-Architectu)
+- Plakát rozhraní: [Životní cyklus aplikace ASP.NET MVC 5](lifecycle-of-an-aspnet-mvc-5-application.md)
 
 <a id="newfeatured"></a>
 
@@ -56,14 +56,14 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
     - [Podrobné informace o skryté Gems, tipy a triky pro webové stránky Azure ve David Ebbo](https://channel9.msdn.com/Events/Build/2014/3-624)
     - [Co je nového v ASP.NET a Web ve službě Visual Studio 2013 Update 2 i mimo ně](https://channel9.msdn.com/Events/Build/2014/3-602) představil Scott Hanselman, Scottem Hunterem
-    - [Zamezení selhání cloudu: Učit se z chyby Azure s využitím Mark Russinovich](https://channel9.msdn.com/Events/Build/2014/3-615)
-    - [Podrobné informace o: Zvýšení výkonu v aplikaci ASP.NET pomocí Levi Broderick](https://channel9.msdn.com/Events/Build/2014/3-605)
+    - [Zamezení selhání cloudu: Učení proti chybám Azure s využitím Mark Russinovich](https://channel9.msdn.com/Events/Build/2014/3-615)
+    - [Podrobné informace: Vylepšení výkonu v aplikaci ASP.NET pomocí Levi Broderick](https://channel9.msdn.com/Events/Build/2014/3-605)
     - [Co je nového pro vývojáře v Azure v sadě Visual Studio a Azure SDK Dan Fernandez Paulem Yuknewiczem (MSFT)](https://channel9.msdn.com/Events/Build/2014/2-585)
     - [Microsoft Azure Storage – co je nového, osvědčené postupy a vzory Jai Haridas Serdar Ozler](https://channel9.msdn.com/Events/Build/2014/3-628)
     - [Tipy a triky v sadě Visual Studio 2013](https://channel9.msdn.com/Events/Build/2014/2-582) podle Cathy Sullivanovou
     - [Automatizace Everywhere pomocí nové sady SDK, nástroje a služby v Azure](https://channel9.msdn.com/Events/Build/2014/3-621) podle Brady Gaster, Joe dávky
     - [Co je nového v Azure Web Sites Chris Compy, Mashkowski nir a jsem](https://channel9.msdn.com/Events/Build/2014/3-625)
-    - [Sestavování velkých objemů: Získané od zákazníků Azure](https://channel9.msdn.com/Events/Build/2014/3-633) podle Chris Clayton, Mark Simms   
+    - [Vytváření velké objemy: Získané od zákazníků Azure](https://channel9.msdn.com/Events/Build/2014/3-633) podle Chris Clayton, Mark Simms   
         [Sestavení jednostránkové aplikace s ASP.NET a AngularJS](https://channel9.msdn.com/Events/Build/2014/3-644) podle Davida Catuhe, Jon Galloway
     - [Navrhování a implementace hybridní Cloudová řešení pro architekty](https://channel9.msdn.com/Events/Build/2014/3-632)
     - [Skupina prostředků Azure modelu: Moderní Správa pro moderní cloudové](https://channel9.msdn.com/Events/Build/2014/2-607) podle Gautam Thapar, Nathan Totten
@@ -85,17 +85,17 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 - [Vytvoření aplikace ASP.NET MVC 5 pomocí Facebooku a Google OAuth2 přihlašování](../security/create-an-aspnet-mvc-5-app-with-facebook-and-google-oauth2-and-openid-sign-on.md)
 - [Co nedělat v ASP.NET a jak to udělat správně](../../../aspnet/overview/web-development-best-practices/what-not-to-do-in-aspnet-and-what-to-do-instead.md)
 - [Sestavení (a ne k sestavení) zabezpečené funkce "pamatovat si mě"](http://www.troyhunt.com/2013/07/how-to-build-and-how-not-to-build.html) podle Hunt od
-- Video: [nový Model ověřování pro webové, mobilní a cloudové aplikace pomocí Lucasi Adams, po kliknutí Stuart](https://channel9.msdn.com/Events/Build/2014/2-601)
-- [Video: Sestavování podnikových a webových aplikací SaaS a webovým rozhraním API pomocí Azure Active Directory pro Sign In autorem je Vittorio Bertocci](https://channel9.msdn.com/Events/Build/2014/3-599)
+- Video: [Nový Model ověřování pro webové, mobilní a cloudové aplikace pomocí Lucasi Adams, po kliknutí Stuart](https://channel9.msdn.com/Events/Build/2014/2-601)
+- [Video: Vývoj podnikových a webových aplikací SaaS a webovým rozhraním API pomocí Azure Active Directory pro Sign In autorem je Vittorio Bertocci](https://channel9.msdn.com/Events/Build/2014/3-599)
 - [ASP.NET Identity 2.0.0](https://blogs.msdn.com/b/webdev/archive/2014/03/20/test-announcing-rtm-of-asp-net-identity-2-0-0.aspx)
 - [Atributy a filtry Principy ASP.NET MVC](http://www.dotnet-tricks.com/Tutorial/mvc/b11a280114-Understanding-ASP.NET-MVC-Filters-and-Attributes.html)
-- [ASP.NET MVC 5 identita: Rozšíření a úprava rolí](http://typecastexception.com/post/2014/02/13/ASPNET-MVC-5-Identity-Extending-and-Modifying-Roles.aspx)
+- [ASP.NET MVC 5 Identity: Rozšíření a upravit role](http://typecastexception.com/post/2014/02/13/ASPNET-MVC-5-Identity-Extending-and-Modifying-Roles.aspx)
 - [Tokeny proti zfalšování pomocí MVC, webové rozhraní API a AngularJS](http://www.novanet.no/blog/olav-nybo/dates/2013/12/anti-forgery-tokens-using-mvc-web-api-and-angularjs/)
 - [Práce s IAuthenticationFilter v architektuře ASP.NET MVC 5](http://jameschambers.com/2013/11/working-with-iauthenticationfilter-in-the-mvc-5-framework/)
 - [vlákna stackoverflow týkající se zabezpečení](http://stackoverflow.com/users/59641/levi?tab=answers&amp;sort=newest) podle Levi
 - [KnockoutJS a architektura ASP.NET MVC – alternativní postupy a pomocí tokenů proti padělání Anti](http://www.dotnetcurry.com/ShowArticle.aspx?ID=940)
 - [Filtry ověřování ASP.NET MVC 5](http://www.dotnetcurry.com/showarticle.aspx?ID=957)
-- [Rozpis ověřování ASP.NET MVC 5](http://www.khalidabuhakmeh.com/asp-net-mvc-5-authentication-breakdown-part-deux)
+- [ASP.NET MVC 5 Authentication Breakdown](http://www.khalidabuhakmeh.com/asp-net-mvc-5-authentication-breakdown-part-deux)
 - [Zabezpečení v architektuře ASP.NET MVC](http://www.codeproject.com/Articles/654846/Security-In-ASP-NET-MVC)
 - [Zabezpečení aplikace ASP.NET MVC 4](https://blogs.msdn.com/b/rickandy/archive/2012/03/23/securing-your-asp-net-mvc-4-app-and-the-new-allowanonymous-attribute.aspx)
 - [Školicí video s přehledem postupy zabezpečení](http://www.pluralsight-training.net/microsoft/players/PSODPlayer?author=scott-allen&amp;name=mvc3-building-security&amp;mode=live&amp;clip=0&amp;course=aspdotnet-mvc3-intro)
@@ -107,7 +107,7 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 - [Prevence útoků na otevřeném přesměrování](../security/preventing-open-redirection-attacks.md)
 - [Jak vytvořit intranetový server pomocí technologie ASP.NET MVC](https://msdn.microsoft.com/library/gg703322(v=vs.98).aspx)
 - [ASP.NET MVC zprostředkovatele hodnoty pro řetězec dotazu šifrované](http://www.dotnetexpertguide.com/2013/01/aspnet-mvc-value-provider-for-encrypted-query-string.html?utm_source=dlvr.it&amp;utm_medium=twitter&amp;utm_campaign=Feed:_Dotnetexpertguide)
-- [Zobrazit HaaHa: Zabezpečení Microsoft ASP.NET MVC pomocí Haack a Hanselman](https://channel9.msdn.com/Events/MIX/MIX10/FT05) (video)
+- [Zobrazit HaaHa: Microsoft ASP.NET MVC zabezpečení s Haack a Hanselman](https://channel9.msdn.com/Events/MIX/MIX10/FT05) (video)
 - [Identita s deklaracemi identity uživatele v ASP.NET](http://brockallen.com/2013/01/26/replacing-forms-authentication-with-wifs-session-authentication-module-sam-to-enable-claims-aware-identity/)
 - [Přidání vlastních rolí pro role systému windows v ASP.NET](http://brockallen.com/2013/01/17/adding-custom-roles-to-windows-roles-in-asp-net-using-claims/)
 - [Vytvoření vlastního omezení trasy](../older-versions-1/controllers-and-routing/creating-a-custom-route-constraint-cs.md)
@@ -157,13 +157,13 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
 ## <a name="performance"></a>Výkon
 
-- Video: [podrobně: zvýšení výkonu v aplikaci ASP.NET](https://channel9.msdn.com/Events/Build/2014/3-605) podle Levi Broderick
-- Video: [používání cloudového zátěžového testování služby a služby Application Insights k nalezení škálování a výkon Charles sterling](https://channel9.msdn.com/Events/Build/2014/3-595)
+- Video: [Podrobné informace: Zlepšení výkonu aplikací ASP.NET](https://channel9.msdn.com/Events/Build/2014/3-605) podle Levi Broderick
+- Video: [Využijte škálování a výkon Charles sterling pomocí cloudového zátěžového testování služby a služby Application Insights](https://channel9.msdn.com/Events/Build/2014/3-595)
 - [Použití asynchronních metod v ASP.NET MVC 4](../performance/using-asynchronous-methods-in-aspnet-mvc-4.md)
 - [Sdružování připravenost k Minifikaci a optimalizace](../performance/bundling-and-minification.md)
 - [Použití sítě CDN a zajistí vypršení platnosti ke zlepšení výkonu webu](https://blogs.msdn.com/b/rickandy/archive/2011/05/21/using-cdns-to-improve-web-site-performance.aspx)
 - [Nahrání souborů asynchronní v aplikaci MVC](https://weblogs.asp.net/bryansampica/archive/2013/01/15/AsyncMVCFileUpload.aspx)
-- [Video: Vysoce výkonné webové platformy: skutečné problémy a řešení podle Tobin Titus](https://channel9.msdn.com/Events/Build/2014/4-556)
+- [Video: Vysoce výkonná webová platforma: Skutečné problémy a řešení podle Tobin Titus](https://channel9.msdn.com/Events/Build/2014/4-556)
 - [Video: Získat včasné varování před problémy s výkonem a selhání a přesně určit příčinu s aplikací pomocí Bret Grinslade, Vlad Joanovic](https://channel9.msdn.com/Events/Build/2014/3-597)
 - [Prstencový ukládání do mezipaměti a prstencový Hole ukládání do mezipaměti s architekturou Asp.Net MVC 4](http://www.dotnet-tricks.com/Tutorial/mvc/ODJa210113-Donut-Caching-and-Donut-Hole-Caching-with-Asp.Net-MVC-4.html)
 - [Principy ukládání do mezipaměti v architektuře Asp.Net MVC s ukázkou](http://www.dotnet-tricks.com/Tutorial/mvc/4R5c050113-Understanding-Caching-in-Asp.Net-MVC-with-example.html)
@@ -174,11 +174,11 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 - [Ladění a výkonu pomocí balíčku Glimpse](http://www.hanselman.com/blog/NuGetPackageOfTheWeek5DebuggingASPNETMVCApplicationsWithGlimpse.aspx)
 - [Zvýšit dosahovaný výkon webů ASP.NET MVC s asynchronní částečné zobrazení](http://blog.michaelckennedy.net/2012/11/13/improve-perceived-performance-of-asp-net-mvc-websites-with-async-partialviews/)
 - [Volání asynchronní databáze s úkolově orientovanou asynchronní programovací Model (TAP) v architektuře ASP.NET MVC 4](http://www.tugberkugurlu.com/archive/asynchronous-database-calls-with-task-based-asynchronous-programming-model-tap-in-asp-net-mvc-4)
-- [ASP.NET 4.5 &amp; MVC 4: přehodnocení IBundleTransform](http://www.dotnetexpertguide.com/2012/10/aspnet-45-mvc-4-revisiting-IBundleTransform-in-bundling.html)
+- [ASP.NET 4.5 &amp; MVC 4: Přehodnocení IBundleTransform](http://www.dotnetexpertguide.com/2012/10/aspnet-45-mvc-4-revisiting-IBundleTransform-in-bundling.html)
 - [ASP.NET MVC 4: Bez souborů cookie domény pro vytváření prostředků a statické prostředky](http://www.dotnetexpertguide.com/2012/10/aspnet-mvc-4-cookieless-domain-for-bundling-and-static-resources.html)
 - [Rozšířené možnosti ASP.NET sdružování a Minifikace](https://weblogs.asp.net/imranbaloch/archive/2012/09/30/hidden-options-of-asp-net-bundling-and-minification.aspx)
 - [Nepříznivých připomenutí o důležitosti debug = "false"](http://encosia.com/a-harsh-reminder-about-the-importance-of-debug-false/)
-- [ELMAH a MiniProfiler v architektuře ASP.NET MVC 4](http://odetocode.com/Blogs/scott/archive/2012/09/11/elmah-and-miniprofiler-in-asp-net-mvc-4.aspx)
+- [ELMAH and MiniProfiler In ASP.NET MVC 4](http://odetocode.com/Blogs/scott/archive/2012/09/11/elmah-and-miniprofiler-in-asp-net-mvc-4.aspx)
 - [ASP.NET sdružování a Minifikace a vložené prostředky](http://dotnet.dzone.com/articles/aspnet-bundlingminification)
 - [Použití sítě CDN a zajistí vypršení platnosti ke zlepšení výkonu webu](https://blogs.msdn.com/b/rickandy/archive/2011/05/21/using-cdns-to-improve-web-site-performance.aspx)
 - [Sdružování a Minifikace vložených šablon stylů CSS a JavaScript](https://weblogs.asp.net/imranbaloch/archive/2012/07/25/bundling-and-minifying-inline-css-and-js.aspx)
@@ -204,12 +204,12 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
 <a id="jQueryAjaxJSON"></a>
 
-## <a name="jquery-ajax-json-javascript"></a>jQuery JavaScript Ajax, JSON,
+## <a name="jquery-ajax-json-javascript"></a>jQuery, Ajax, JSON, JavaScript
 
 - [Vytvoření JavascriptResult pro architekturu ASP.NET MVC](http://tostring.it/2014/01/14/create-a-javascriptresult-for-asp-net-mvc/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed%3A+override%2Ftostring%2Fit+%28override.tostring.it%29)
 - [Předávání dat rozhraní .NET na straně serveru pro jazyk JavaScript](http://blog.mariusschulz.com/2014/02/05/passing-net-server-side-data-to-javascript) podle Marius Schulz
 - [Generování souborů externí jazyka JavaScript pomocí zobrazení částečné Razor](http://blog.mariusschulz.com/2013/07/07/generating-external-javascript-files-using-partial-razor-views) podle Marius Schulz
-- [ASP.NET MVC: Indikátor zaneprázdnění zobrazit na odeslání formuláře pomocí knihovny JQuery a Ajax](http://typecastexception.com/post/2013/12/22/ASPNET-MVC-Show-Busy-Indicator-on-Form-Submit-using-JQuery-and-Ajax.aspx)
+- [ASP.NET MVC: Zobrazit indikátor zaneprázdnění na odeslání formuláře pomocí knihovny JQuery a Ajax](http://typecastexception.com/post/2013/12/22/ASPNET-MVC-Show-Busy-Indicator-on-Form-Submit-using-JQuery-and-Ajax.aspx)
 - [Pomocí vlastních dat atributů Store Data JSON v architektuře ASP.NET MVC](http://www.binaryintellect.net/articles/8b993a74-a84a-42bd-9127-e701a03f5885.aspx)
 - MVC 4 odkazy stále relevantní pro MVC 5
 - [Odesílání JSON pro metodu akce](http://haacked.com/archive/2010/04/15/sending-json-to-an-asp-net-mvc-action-method-argument.aspx)
@@ -244,18 +244,18 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 - [Směrování atributů v architektuře ASP.NET MVC 5](https://blogs.msdn.com/b/webdev/archive/2013/10/17/attribute-routing-in-asp-net-mvc-5.aspx)
 - [Životní cyklus aplikace ASP.NET MVC 5](lifecycle-of-an-aspnet-mvc-5-application.md) (PDF)
 - [Použití omezení k lepšímu směrování v aplikaci MVC](http://blog.greatrexpectations.com/2012/08/03/using-constraints-for-better-routing-in-mvc/)
-- [Do hloubky: The kanálu ASP.NET MVC](http://blog.stevensanderson.com/2007/11/20/aspnet-mvc-pipeline-lifecycle/)
-- [ASP.NET MVC směrovací](http://evolpin.wordpress.com/2011/03/27/asp-net-mvc-routing/)
+- [Do hloubky: Profilace ASP.NET MVC](http://blog.stevensanderson.com/2007/11/20/aspnet-mvc-pipeline-lifecycle/)
+- [ASP.NET MVC Routing](http://evolpin.wordpress.com/2011/03/27/asp-net-mvc-routing/)
 - [Rozšíření směrování ASP.NET MVC](http://www.simple-talk.com/dotnet/.net-framework/asp.net-mvc-routing-extensibility/)
 - [Úvod do rozšíření ASP.NET MVC](http://www.simple-talk.com/content/article.aspx?article=1358)
-- [ASP.NET MVC směrovací](http://evolpin.wordpress.com/2011/03/27/asp-net-mvc-routing/)
+- [ASP.NET MVC Routing](http://evolpin.wordpress.com/2011/03/27/asp-net-mvc-routing/)
 - [Silného typu směrování pro MVC 4](http://dysphoria.net/2013/03/14/strongly-typed-action-references-in-microsoft-mvc4/)
 
 <a id="global"></a>
 
 ## <a name="globalization-internationalization-and-localization"></a>Globalizace, mezinárodní prostředí a lokalizace
 
-- [Mezinárodní prostředí ASP.NET MVC 5](http://afana.me/post/aspnet-mvc-internationalization.aspx)
+- [ASP.NET MVC 5 Internationalization](http://afana.me/post/aspnet-mvc-internationalization.aspx)
 - [Výběrem kultury pro lokalizaci v ASP.NET](http://weblog.west-wind.com/posts/2014/Mar/27/Auto-Selecting-Cultures-for-Localization-in-ASPNET)
 - [ASP.NET MVC 5 internacionalizace. Datum a čas](http://afana.me/post/aspnet-mvc-internationalization-date-time.aspx) podle Nadeem Afana
 - [ASP.NET MVC 5 internacionalizace. Jak Store řetězce v databázi nebo Xml](http://afana.me/post/aspnet-mvc-internationalization-store-strings-in-database-or-xml.aspx)
@@ -268,7 +268,7 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 ## <a name="azure-and-aspnet-mvc"></a>Azure a architektura ASP.NET MVC
 
 - [Vícevrstvá aplikace používá úložiště tabulky, fronty a Bloby](https://code.msdn.microsoft.com/Windows-Azure-Multi-Tier-eadceb36)
-- [Webů Azure Windows: Rychlé a snadné hostování jako služba](https://msdn.microsoft.com/magazine/jj883953.aspx)
+- [Windows Azure Web Sites: Rychlé a snadné hostování jako služba](https://msdn.microsoft.com/magazine/jj883953.aspx)
 - [Tipy pro konfiguraci pro architekturu ASP.NET MVC 4 na webu Azure](http://odetocode.com/Blogs/scott/archive/2012/08/07/configuration-tips-for-asp-net-mvc-4-on-a-windows.aspx)
 - [Epizodě 85 – Azure, Windows 8 a MVC 4 ukázky](https://channel9.msdn.com/Shows/Cloud+Cover/Episode-85-Windows-Azure-Sample-Content-Review) (video)
 - [Nasazení webu ASP.NET na Azure v sadě Visual Studio 2012 z úložiště Git přímo](http://www.dotnetcurry.com/ShowArticle.aspx?ID=881)
@@ -288,7 +288,7 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 - [Hybridní vývoj nativních a mobilní webové aplikace](https://msdn.microsoft.com/magazine/hh852592.aspx)
 - [Provádění ukládání v desktopové i mobilní web s ASP.NET MVC 4 a platformy jQuery Mobile](http://www.hanselman.com/blog/MakingASwitchableDesktopAndMobileSiteWithASPNETMVC4AndJQueryMobile.aspx)
 - [MVC 4 mobilní popisný webových aplikací](http://www.codeproject.com/Articles/455627/MVC4-Mobile-Friendly-Web-Applications)
-- [Mobilní technologie ASP.NET MVC 4](https://channel9.msdn.com/Events/aspConf/aspConf/ASP-NET-MVC-4-Mobile)
+- [ASP.NET MVC 4 Mobile](https://channel9.msdn.com/Events/aspConf/aspConf/ASP-NET-MVC-4-Mobile)
 
 <a id="spa"></a>
 
@@ -319,7 +319,7 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 - [Dubu: Zajištění dynamických ještě lepší a bezproblémový vývoj pro ASP.NET MVC](http://amirrajan.github.com/Oak/)
 - [Vývoj aplikace ASP.NET MVC 4 pro xUnit a Moq TDD](http://www.dotnetcurry.com/ShowArticle.aspx?ID=836)
 - [Testování zobrazení ASP.NET MVC, z nového projektu k serveru sestavení](https://channel9.msdn.com/Events/aspConf/aspConf/Testing-ASP-NET-MVC-Views-from-New-Project-to-the-Build-Server) (video)
-- [Rychlý Start: Testovací Driven Development](https://channel9.msdn.com/Events/aspConf/aspConf/Quick-Start-Test-Driven-Development)(video)
+- [Rychlý Start: Vývoj řízené](https://channel9.msdn.com/Events/aspConf/aspConf/Quick-Start-Test-Driven-Development)(video)
 - [Testovací jízdu ASP.NET MVC](https://channel9.msdn.com/Events/aspConf/aspConf/Test-Driving-ASP-NET-MVC) (video)
 - [Testování integrace s SpecsFor.Mvc – ASP.NET MVC testování na Steroids!](https://channel9.msdn.com/Events/aspConf/aspConf/Integration-Testing-With-SpecsFor-Mvc-ASP-NET-MVC-Testing-on-Steroids) (video)
 - [Vytváření aplikací s možností intenzivního testování částí v architektuře ASP.NET MVC – kurz pro začátečníky](http://www.codeproject.com/Articles/579035/Creating-Unit-Testable-Applications-in-ASP-NET-MVC)
@@ -332,7 +332,7 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 
 - [Co nedělat v ASP.NET a jak to udělat správně](../../../aspnet/overview/web-development-best-practices/what-not-to-do-in-aspnet-and-what-to-do-instead.md)
 - [Kontrolní seznam web pro vývojáře](http://webdevchecklist.com/aspnet)
-- [Video: Není udělat, proveďte to!](http://vimeo.com/68390507)
+- [Video: Není to udělat, proveďte to!](http://vimeo.com/68390507)
 - [Osvědčené postupy řešení technologie ASP.NET MVC](https://channel9.msdn.com/Events/aspConf/aspConf/ASP-NET-MVC-Solution-Best-Practices) (video)
 - [Funkce SignalR, MVC, webové rozhraní API](https://channel9.msdn.com/Events/aspConf/aspConf/Ask-The-Experts) (video)
 - [Osvědčené postupy pro architekturu ASP.NET MVC](https://blogs.msdn.com/b/aspnetue/archive/2010/09/17/second_2d00_post.aspx)
@@ -398,7 +398,7 @@ Podle [Rick Anderson]((https://twitter.com/RickAndMSFT))
 - [Proč používá výrazy lambda jako parametry metody pomocné rutiny HTML pro technologii ASP.NET MVC](http://odetocode.com/blogs/scott/archive/2012/11/26/why-all-the-lambdas.aspx)
 - [Pro vývojáře webů pohled na kanál žádosti MVC4](http://jameschambers.com/2012/10/a-web-developer-s-look-at-the-mvc4-request-pipeline/)
 - [Principy kódování textu v architektuře ASP.NET MVC](http://blog.michaelckennedy.net/2012/10/15/understanding-text-encoding-in-asp-net-mvc/)
-- [Upgrade MVC4 řešení sady Visual Studio 2010 na Visual Studio 2012 a .net 4.5 a EF 5](http://www.kevinlabranche.com/blog/UpgradingAnMVC4VisualStudio2010SolutionToVisualStudio2012AndNet45AndEF5.aspx)
+- [Upgrade MVC4 řešení sady Visual Studio 2010 na Visual Studio 2012 a .NET 4.5 a EF 5](http://www.kevinlabranche.com/blog/UpgradingAnMVC4VisualStudio2010SolutionToVisualStudio2012AndNet45AndEF5.aspx)
 - [ASP.NET MVC DisplayTemplate a EditorTemplates pro Entity Framework DbGeography prostorové typy](http://www.hanselman.com/blog/ASPNETMVCDisplayTemplateAndEditorTemplatesForEntityFrameworkDbGeographySpatialTypes.aspx)
 - [ASP.NET MVC – zvýraznění aktuálního odkazu](http://odetocode.com/Blogs/scott/archive/2012/08/25/asp-net-mvc-highlight-current-link.aspx)
 - [ASP.NET MVC: Zpracování výjimek a chyb 404](http://www.devcurry.com/2012/06/aspnet-mvc-handling-exceptions-and-404.html)

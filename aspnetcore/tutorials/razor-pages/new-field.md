@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: f8661a48ddd6fc616c141435edc603117b4925fb
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 3799b072da04e32948b5fc78032f0575e760aa1d
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345885"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841443"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole do stránky v ASP.NET Core Razor
 
@@ -116,37 +116,15 @@ Další možností je odstranit databázi a znovu vytvořit databázi pomocí mi
 <!-- Code -------------------------->
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-<!-- copy/paste this tab to the next. Not worth an include  -->
+### <a name="drop-and-re-create-the-database"></a>Vyřadit a znovu vytvořit databázi
 
-Spuštěním následujících příkazů rozhraní příkazového řádku .NET Core:
+[!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-```console
-dotnet ef migrations add Rating
-dotnet ef database update
-```
-
-`ef migrations add` Příkaz říká rozhraní framework:
-
-* Porovnání `Movie` modelů s `Movie` schématu databáze.
-* Vytvoření kódu pro migraci schématu databáze na nový model.
-
-Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace. Je vhodné použít smysluplný název souboru migrace.
-
-`ef database update` Příkaz říká rozhraní framework k použití změn schématu do databáze.
-
-Při odstranění všech záznamů v databázi, bude inicializátoru naplnit databáze a zahrnout `Rating` pole. Můžete to provést s odstranit odkazy v prohlížeči nebo pomocí nástroje SQLite.
-
-Další možností je odstranit databázi a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*). Spusťte `ef database update` příkaz: 
+Odstranění databáze a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*). Spusťte `ef database update` příkaz: 
 
 ```console
 dotnet ef database update
 ```
-
-> [!NOTE]
-> EF Core SQLite zprostředkovatel nepodporuje mnoho operací změny schématu. Například přidáním sloupce se podporuje, ale odebráním sloupce se nepodporuje. Pokud chcete přidat migrace odebrat sloupce, `ef migrations add` úspěšný příkaz ale `ef database update` příkaz selže. Ručně napsáním kódu migrace provést znovu vytvořit tabulku, můžete alternativně vyřešit některá omezení. Tabulka opětovné sestavení zahrnuje přejmenování existující tabulky, vytvářet nové tabulky, kopírování dat do nové tabulky a vyřazení staré tabulky. Další informace naleznete v následujících materiálech:
-> * [Omezení poskytovatele pro databázi SQLite EF Core](/ef/core/providers/sqlite/limitations)
-> * [Přizpůsobení migrace kódu](/ef/core/managing-schemas/migrations/#customize-migration-code)
-> * [Předvyplnění dat](/ef/core/modeling/data-seeding)
 
 ---  
 <!-- End of VS tabs -->

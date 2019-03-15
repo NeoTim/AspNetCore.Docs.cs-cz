@@ -5,12 +5,12 @@ description: Zjistěte, jak začít pracovat s ASP.NET Core MVC.
 ms.author: riande
 ms.date: 12/12/2018
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: c09c06f55c4179e9e2174f0063ab7387b7e4c31b
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 1bc5da7dcab5a5070260ca464a82b650cc4838bf
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899226"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978455"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
@@ -50,7 +50,7 @@ Dokončení **nový projekt** dialogové okno:
 * Pojmenujte projekt "MvcMovie" (je třeba název projektu "MvcMovie", takže při kopírování kódu bude odpovídat oboru názvů.)
 * Vyberte **OK**
 
-![Dialogové okno Nový projekt, .net core v levém podokně, web ASP.NET Core ](start-mvc/_static/new_project2-21.png)
+![Dialogové okno Nový projekt, .NET Core v levém podokně, web ASP.NET Core ](start-mvc/_static/new_project2-21.png)
 
 Dokončení **nové základní webové aplikace ASP.NET (.NET Core) – MvcMovie** dialogové okno:
 
@@ -58,7 +58,7 @@ Dokončení **nové základní webové aplikace ASP.NET (.NET Core) – MvcMovie
 * Vyberte **webová aplikace (Model-View-Controller)**
 * Vyberte **OK**.
 
-![Dialogové okno Nový projekt, .net core v levém podokně, web ASP.NET Core ](start-mvc/_static/new_project22-21.png)
+![Dialogové okno Nový projekt, .NET Core v levém podokně, web ASP.NET Core ](start-mvc/_static/new_project22-21.png)
 
 Visual Studio používá výchozí šablonu pro projekt MVC, který jste právě vytvořili. Zadáním názvu projektu a výběr několika možností Teď máte funkční aplikaci. Toto je základní počáteční projekt a je dobrým začátkem.
 

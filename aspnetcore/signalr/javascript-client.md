@@ -5,14 +5,14 @@ description: Přehled ASP.NET Core SignalR JavaScript klienta.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/14/2018
+ms.date: 03/14/2019
 uid: signalr/javascript-client
-ms.openlocfilehash: db9a8bbc8f111728f0827e3639e40785149bf79e
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: a0980dca2eb8d483a9d9f1c5667fb74ee06364f0
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899213"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978339"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript klienta
 
@@ -63,6 +63,9 @@ Klientům JavaScript volat veřejné metody rozbočovače prostřednictvím [vyv
 * Všechny argumenty podle metody rozbočovače. V následujícím příkladu je název argumentu `message`. Příklad kódu používá syntaxe funkce šipku, která je podporována v aktuálních verzích všechny hlavní prohlížeče s výjimkou aplikace Internet Explorer.
 
   [!code-javascript[Call hub methods](javascript-client/sample/wwwroot/js/chat.js?range=24)]
+
+> [!NOTE]
+> Pokud používáte služby Azure SignalR v *bez serveru režimu*, nelze volat metody rozbočovače klienta. Další informace najdete v tématu [dokumentace ke službě SignalR](/azure/azure-signalr/signalr-concept-serverless-development-config).
 
 ## <a name="call-client-methods-from-hub"></a>Volání metody klienta od rozbočovače
 
@@ -119,3 +122,4 @@ Skutečná implementace by použít exponenciální regrese nebo opakování zad
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
 * [Požadavky mezi zdroji (CORS)](xref:security/cors)
+* [Dokumentace Azure bez serveru služby SignalR](/azure/azure-signalr/signalr-concept-serverless-development-config)

@@ -5,14 +5,14 @@ description: Vytvoření podrobné Razor komponent aplikace a seznamte se zákla
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/11/2019
+ms.date: 03/14/2019
 uid: tutorials/first-razor-components-app
-ms.openlocfilehash: 0c3dd2366581d73bad44e2911602e13c6c0daf9a
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: c0f7b27fdfc770f8001625ecb3bf8d50af517b99
+ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56159340"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57978420"
 ---
 # <a name="build-your-first-razor-components-app"></a>Vytvořte svoji první aplikaci součásti syntaxe Razor
 
@@ -26,27 +26,25 @@ Pro prostředí pomocí technologie ASP.NET Core Razor součásti (*doporučuje*
 
 * Postupujte podle pokynů v <xref:razor-components/get-started> k vytvoření projektu založeného na součásti syntaxe Razor.
 * Pojmenujte projekt `RazorComponents`.
-* Řešení pro více projektů je vytvořen z šablony Razor komponenty. Projekt součásti Razor je generován jako *RazorComponents.App*.
 
 Pro prostředí pomocí Blazor:
 
 * Postupujte podle pokynů v <xref:spa/blazor/get-started> k vytvoření projektu založeného na Blazor.
 * Pojmenujte projekt `Blazor`.
-* Řešení jednoho projektu je vytvořen z šablony Blazor.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/build-your-first-razor-components-app/samples/) ([stažení](xref:index#how-to-download-a-sample)). Naleznete v následujících tématech pro požadavky:
 
 ## <a name="build-components"></a>Sestavení komponent
 
-1. Přejděte do všech tří stránek vaší aplikace: Domů čítač a načíst data. Tyto stránky jsou implementovány v souborech Razor v *stránky* složky: *Index.cshtml*, *Counter.cshtml*, a *FetchData.cshtml*.
+1. Přejděte do všech tří stránek vaší aplikace v *součásti/stránky* složky (*stránky* v Blazor): Domů čítač a načíst data. Tyto stránky jsou implementovány v souborech Razor komponenty: *Index.Razor*, *Counter.razor*, a *FetchData.razor*. (Blazor dál používat *.cshtml* příponu souboru: *Index.cshtml*, *Counter.cshtml*, a *FetchData.cshtml*.)
 
 1. Na stránce čítače, vyberte **klikněte na mě** tlačítka se zvýší čítač bez aktualizace stránky. Zvyšování hodnoty čítače na webové stránce obvykle vyžaduje zadání jazyka JavaScript, ale součásti Razor poskytuje lepší přístup pomocí C#.
 
-1. Vyzkoušení implementace čítač součástí *Counter.cshtml* souboru.
+1. Vyzkoušení implementace čítač součástí *Counter.razor* souboru.
 
-   *Pages/Counter.cshtml*:
+   *Components/Pages/Counter.razor* (*Pages/Counter.cshtml* v Blazor):
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/Counter1.cshtml)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/Counter1.razor)]
 
    Uživatelské rozhraní komponenty čítač je definován v jazyce HTML. Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor). Značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty v okamžiku sestavení. Název generované třídy .NET odpovídá názvu souboru.
 
@@ -61,7 +59,7 @@ Pro prostředí pomocí Blazor:
 
 1. Upravit C# logiky součást čítače aby přírůstek počtu dvou místo jednoho.
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/Counter2.cshtml?highlight=14)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
 
 1. Znovu sestavte a spusťte aplikaci, aby se změny projevily. Vyberte **klikněte na mě** tlačítko a zvýší čítač ve dvou.
 
@@ -73,9 +71,9 @@ Zahrnout součásti do jiné součásti pomocí syntaxe HTML.
 
    Pokud používáte Blazor pro toto prostředí, průzkum výzvy součásti (`<SurveyPrompt>` element) je v komponentě indexu. Nahraďte `<SurveyPrompt>` křížkem `<Counter>` elementu.
 
-   *Pages/Index.cshtml*:
+   *Components/Pages/Index.razor* (*Pages/Index.cshtml* v Blazor):
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/Index.cshtml?highlight=7)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/Index.razor?highlight=7)]
 
 1. Znovu sestavte a spusťte aplikaci. Domovská stránka obsahuje vlastní čítače.
 
@@ -88,9 +86,9 @@ Součástí mohou mít také parametry. Parametry komponenty jsou definovány po
    * Přidat `IncrementAmount` vlastnost upravené pomocí `[Parameter]` atribut.
    * Změnit `IncrementCount` metoda se má použít `IncrementAmount` při zvýšit hodnotu `currentCount`.
 
-   *Pages/Counter.cshtml*:
+   *Components/Pages/Counter.razor* (*Pages/Counter.cshtml* v Blazor):
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/RazorComponents.App/Pages/Counter.cshtml?highlight=12,16)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/Components/Pages/Counter.razor?highlight=12,16)]
 
 <!-- Add back when supported.
    > [!NOTE]
@@ -99,39 +97,41 @@ Součástí mohou mít také parametry. Parametry komponenty jsou definovány po
 
 1. Zadejte `IncrementAmount` parametr v komponentě domovské `<Counter>` pomocí atributu element. Nastavte hodnotu čítače přírůstku deset.
 
-   *Pages/Index.cshtml*:
+   *Components/Pages/Index.razor* (*Pages/Index.cshtml* v Blazor):
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/RazorComponents.App/Pages/Index.cshtml?highlight=7)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/Components/Pages/Index.razor?highlight=7)]
 
 1. Načtěte tuto stránku. Domovská stránka čítače se zvýší o hodnotu deset pokaždé, když **klikněte na mě** výběru tlačítka. Čítače na *čítač* stránce zvýší o jedna.
 
 ## <a name="route-to-components"></a>Směrovat do komponenty
 
-`@page` Direktiv v horní části *Counter.cshtml* soubor Určuje, že tato součást je koncový bod směrování. Součást čítače zpracovává požadavky odeslané na `/Counter`. Bez `@page` direktiv, komponenta nebude zpracovávat směrování žádostí, ale součást je stále možné ostatními komponentami.
+`@page` Direktiv v horní části *Counter.razor* soubor Určuje, že tato součást je koncový bod směrování. Součást čítače zpracovává požadavky odeslané na `/Counter`. Bez `@page` direktiv, komponenta nebude zpracovávat směrování žádostí, ale součást je stále možné ostatními komponentami.
 
 ## <a name="dependency-injection"></a>Injektáž závislostí
 
 Služby zaregistrované v kontejneru aplikace služby jsou k dispozici na komponenty prostřednictvím [injektáž závislostí (DI)](xref:fundamentals/dependency-injection). Vložit do součástí s použitím služby `@inject` směrnice.
 
-Prozkoumat direktivy FetchData součásti (*Pages/FetchData.cshtml*). `@inject` Směrnice slouží k vložení instance `WeatherForecastService` služby do komponenty:
+Prozkoumejte direktivy FetchData komponenty. `@inject` Směrnice slouží k vložení instance `WeatherForecastService` služby do komponenty:
 
-[!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData1.cshtml?highlight=3)]
+*Components/Pages/FetchData.razor* (*Pages/FetchData.cshtml* v Blazor):
+
+[!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
 
 `WeatherForecastService` Není registrován jako [singleton](xref:fundamentals/dependency-injection#service-lifetimes), takže jedna instance služby je k dispozici v rámci aplikace.
 
 Komponenta FetchData používá vložený služby jako `ForecastService`, k načtení pole `WeatherForecast` objekty:
 
-[!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData2.cshtml?highlight=6)]
+[!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
 A [ @foreach ](/dotnet/csharp/language-reference/keywords/foreach-in) smyčky se použije k vykreslení každou prognózy instanci jako řadu data o počasí v tabulce:
 
-[!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData3.cshtml?highlight=11-19)]
+[!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 
 ## <a name="build-a-todo-list"></a>Vytvoření seznamu úkolů
 
 Přidejte novou stránku do aplikace, která implementuje seznam úkolů.
 
-1. Přidat prázdný soubor *stránky* složku s názvem *Todo.cshtml*.
+1. Přidat prázdný soubor *součásti/stránky* složky (*stránky* složky Blazor) s názvem *Todo.razor*.
 
 1. Na stránce zadejte počáteční značky:
 
@@ -143,9 +143,9 @@ Přidejte novou stránku do aplikace, která implementuje seznam úkolů.
 
 1. Přidáte stránku Todo do navigačního panelu.
 
-   Komponenta NavMenu (*Shared/NavMenu.csthml*) se používá v rozložení aplikace. Rozložení jsou komponenty, které umožňují, aby se zabránilo duplicitě obsahu v aplikaci. Další informace naleznete v tématu <xref:razor-components/layouts>.
+   Komponenta NavMenu (*Components/Shared/NavMenu.razor* nebo *Shared/NavMenu.cshtml* v Blazor) se používá v rozložení aplikace. Rozložení jsou komponenty, které umožňují, aby se zabránilo duplicitě obsahu v aplikaci. Další informace naleznete v tématu <xref:razor-components/layouts>.
 
-   Přidat `<NavLink>` Todo stránky tak, že přidáte následující značky položky seznamu níže existující položky seznamu v *Shared/NavMenu.csthml* souboru:
+   Přidat `<NavLink>` Todo stránky tak, že přidáte následující značky položky seznamu níže existující položky seznamu v *Components/Shared/NavMenu.razor* (*Shared/NavMenu.cshtml* v Blazor) souboru:
 
    ```cshtml
    <li class="nav-item px-3">
@@ -159,30 +159,30 @@ Přidejte novou stránku do aplikace, která implementuje seznam úkolů.
 
 1. Přidat *TodoItem.cs* souboru do kořenového adresáře projektu k uložení třídu, která představuje položku seznamu úkolů. Pomocí následujících C# kód `TodoItem` třídy:
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/RazorComponents.App/TodoItem.cs)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/TodoItem.cs)]
 
-1. Vraťte se do komponenty Todo (*Todo.cshtml*):
+1. Vraťte se do komponenty Todo (*Components/Pages/Todo.razor* nebo *Pages/Todo.cshtml* v Blazor):
 
    * Přidání pole pro úloh, ať už v `@functions` bloku. Todo součásti používá toto pole pro uchování stavu pro seznam úkolů.
    * Přidat neuspořádaný seznam značek a `foreach` smyčky k vykreslení každé položky todo jako položku seznamu.
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData4.cshtml?highlight=5-10,12-14)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
 
 1. Aplikace vyžaduje pro přidání do seznamu úloh, ať už prvky uživatelského rozhraní. Přidání textového zadání a tlačítka v seznamu níže:
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData5.cshtml?highlight=12-13)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
 1. Znovu sestavte a spusťte aplikaci. Když **přidat todo** se vybere tlačítko, nic se nestane, protože obslužná rutina události není svázanou tlačítka.
 
 1. Přidat `AddTodo` metodu pro součást Todo a zaregistrujte ho pro tlačítko klikne pomocí `onclick` atribut:
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData6.cshtml?highlight=2,7-10)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/ToDo6.razor?highlight=2,7-10)]
 
    `AddTodo` C# Metoda je volána při výběru tlačítka.
 
 1. Pokud chcete získat název nové položky seznamu úkolů, přidejte `newTodo` řetězec pole a navázat jej na hodnotu text input pomocí `bind` atribut:
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData7.cshtml?highlight=2)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
 
    ```cshtml
    <input placeholder="Something todo" bind="@newTodo" />
@@ -190,13 +190,13 @@ Přidejte novou stránku do aplikace, která implementuje seznam úkolů.
 
 1. Aktualizace `AddTodo` způsob, jak přidat `TodoItem` se zadaným názvem do seznamu. Smazat hodnotu textového zadání tak, že nastavíte `newTodo` na prázdný řetězec:
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData8.cshtml?highlight=19-26)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
 1. Znovu sestavte a spusťte aplikaci. Přidání některých úloh, ať už do seznamu k testování nového kódu.
 
 1. Text nadpisu pro každou položku seznamu úkolů lze upravovat a zaškrtávací políčko může pomoci udržovat přehled o dokončené položky uživatele. Přidat vstup zaškrtněte políčko u každé položky todo a její hodnotu na vytvoření vazby `IsDone` vlastnost. Změna `@todo.Title` do `<input>` prvek vázán na `@todo.Title`:
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData9.cshtml?highlight=5-6)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/ToDo9.razor?highlight=5-6)]
 
 1. Chcete-li ověřit, že tyto hodnoty jsou vázány, aktualizujte `<h1>` záhlaví zobrazíte počet nesplněné položky seznamu úkolů nejsou kompletní (`IsDone` je `false`).
 
@@ -204,9 +204,9 @@ Přidejte novou stránku do aplikace, která implementuje seznam úkolů.
    <h1>Todo (@todos.Count(todo => !todo.IsDone))</h1>
    ```
 
-1. Dokončené komponenty Todo (*Todo.cshtml*):
+1. Dokončené komponenty Todo (*Components/Pages/Todo.razor* nebo *Pages/Todo.cshtml* v Blazor):
 
-   [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/RazorComponents.App/Pages/Todo.cshtml)]
+   [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/Components/Pages/Todo.razor)]
 
 1. Znovu sestavte a spusťte aplikaci. Přidání položky seznamu úkolů k testování nového kódu.
 

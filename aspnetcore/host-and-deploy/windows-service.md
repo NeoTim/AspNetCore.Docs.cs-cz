@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core ve službě Windows.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 03/08/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 081a631c9c3e74c01e15f4b0b272d650c162bd20
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: ecc7f3a8cd813c2803d03294e38d726905eeb1b8
+ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248248"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57841420"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Hostitele ASP.NET Core ve službě Windows
 
@@ -21,6 +21,10 @@ Podle [Luke Latham](https://github.com/guardrex) a [Petr Dykstra](https://github
 Na Windows, jako je možné hostovat aplikace ASP.NET Core [Windows Service](/dotnet/framework/windows-services/introduction-to-windows-service-applications) bez použití služby IIS. Pokud hostovaný jako služba Windows, aplikace se automaticky spustí po restartování počítače.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([stažení](xref:index#how-to-download-a-sample))
+
+## <a name="prerequisites"></a>Požadavky
+
+* [PowerShell 6](https://github.com/PowerShell/PowerShell)
 
 ## <a name="deployment-type"></a>Typ nasazení
 
@@ -121,13 +125,13 @@ Proveďte následující změny v `Program.Main`:
 
 [!code-csharp[](windows-service/samples/2.x/AspNetCoreService/Program.cs?name=snippet_Program)]
 
-### <a name="publish-the-app"></a>Publikování aplikace
+## <a name="publish-the-app"></a>Publikování aplikace
 
 Publikování aplikace pomocí [dotnet publikovat](/dotnet/articles/core/tools/dotnet-publish), [profil publikování pro Visual Studio](xref:host-and-deploy/visual-studio-publish-profiles), nebo Visual Studio Code. Když pomocí sady Visual Studio, vyberte **FolderProfile** a nakonfigurovat **cílové umístění** před výběrem **publikovat** tlačítko.
 
 Chcete-li publikovat ukázkovou aplikaci pomocí nástrojů rozhraní příkazového řádku (CLI), spusťte [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkazu na příkazovém řádku ve složce projektu s předat konfiguraci vydané verze [- c |--konfigurace](/dotnet/core/tools/dotnet-publish#options)možnost. Použití [-o |--výstup](/dotnet/core/tools/dotnet-publish#options) možnost s cestou k publikování do složky mimo aplikaci.
 
-#### <a name="publish-a-framework-dependent-deployment-fdd"></a>Publikování nasazení závisí na architektuře (chyba)
+### <a name="publish-a-framework-dependent-deployment-fdd"></a>Publikování nasazení závisí na architektuře (chyba)
 
 V následujícím příkladu je aplikace publikována na *c:\\svc* složky:
 
@@ -135,7 +139,7 @@ V následujícím příkladu je aplikace publikována na *c:\\svc* složky:
 dotnet publish --configuration Release --output c:\svc
 ```
 
-#### <a name="publish-a-self-contained-deployment-scd"></a>Publikování samostatná nasazení (SCD)
+### <a name="publish-a-self-contained-deployment-scd"></a>Publikování samostatná nasazení (SCD)
 
 V musí být zadán identifikátor RID `<RuntimeIdenfifier>` (nebo `<RuntimeIdentifiers>`) vlastnost souboru projektu. Zadejte modul runtime [- r |--runtime](/dotnet/core/tools/dotnet-publish#options) možnost `dotnet publish` příkazu.
 
@@ -145,11 +149,11 @@ V následujícím příkladu je aplikace publikována pro `win7-x64` modulu runt
 dotnet publish --configuration Release --runtime win7-x64 --output c:\svc
 ```
 
-### <a name="create-a-user-account"></a>Vytvoření uživatelského účtu
+## <a name="create-a-user-account"></a>Vytvoření uživatelského účtu
 
-Vytvoření uživatelského účtu pro službu pomocí `net user` příkaz správu příkazové prostředí:
+Vytvoření uživatelského účtu pro službu pomocí `net user` příkaz správu příkazové okno Powershellu 6:
 
-```console
+```powershell
 net user {USER ACCOUNT} {PASSWORD} /add
 ```
 
@@ -157,13 +161,13 @@ Vypršení platnosti hesla výchozí je šest týdnů.
 
 Pro ukázkovou aplikaci, vytvořte uživatelský účet s názvem `ServiceUser` a heslo. V následujícím příkazu nahraďte `{PASSWORD}` s [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements).
 
-```console
+```powershell
 net user ServiceUser {PASSWORD} /add
 ```
 
 Pokud potřebujete přidat uživatele do skupiny, použijte `net localgroup` příkaz, kde `{GROUP}` je název skupiny:
 
-```console
+```powershell
 net localgroup {GROUP} {USER ACCOUNT} /add
 ```
 
@@ -171,13 +175,11 @@ Další informace najdete v tématu [uživatelské účty služby](/windows/desk
 
 Alternativní způsob správy uživatelů při používání služby Active Directory je použití účtů spravované služby. Další informace najdete v tématu [přehled účtů spravované služby skupiny](/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview).
 
-### <a name="set-permissions"></a>Nastavení oprávnění
+## <a name="set-permission-log-on-as-a-service"></a>Nastavte oprávnění: Přihlaste se jako služba
 
-#### <a name="access-to-the-app-folder"></a>Přístup ke složce aplikace
+Udělit přístup, zápis a čtení a spouštění do složky aplikace pomocí [icacls](/windows-server/administration/windows-commands/icacls) příkaz:
 
-Udělit přístup, zápis a čtení a spouštění do složky aplikace pomocí [icacls](/windows-server/administration/windows-commands/icacls) příkaz správu příkazové prostředí:
-
-```console
+```powershell
 icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
 ```
 
@@ -195,82 +197,69 @@ icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
 
 Pro publikování ukázkové aplikace *c:\\svc* složky a `ServiceUser` účet s oprávněními pro zápis a čtení a spouštění, použijte následující příkaz:
 
-```console
+```powershell
 icacls "c:\svc" /grant ServiceUser:(OI)(CI)WRX /t
 ```
 
 Další informace najdete v tématu [icacls](/windows-server/administration/windows-commands/icacls).
 
-#### <a name="log-on-as-a-service"></a>Přihlaste se jako služba
+## <a name="create-the-service"></a>Vytvoření služby
 
-Udělit [přihlásit jako službu](/windows/security/threat-protection/security-policy-settings/log-on-as-a-service) oprávnění pro uživatelský účet:
+Použití [RegisterService.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) skript Powershellu pro registraci služby. Z příkazového řádku pro správu Powershellu 6 spustíte následující příkaz:
 
-1. Vyhledejte **přiřazení uživatelských práv** zásad v konzole místní zásady zabezpečení nebo konzolu Editor místních zásad skupiny. Pokyny najdete v tématu: [Konfigurovat nastavení zásad zabezpečení](/windows/security/threat-protection/security-policy-settings/how-to-configure-security-policy-settings).
-1. Vyhledejte `Log on as a service` zásad. Dvakrát klikněte na zásady tak, aby ho otevřete.
-1. Vyberte **přidat uživatele nebo skupinu**.
-1. Vyberte **Upřesnit** a vyberte **najít**.
-1. Vyberte uživatelský účet vytvořený v [vytvoření uživatelského účtu](#create-a-user-account) výše v části. Vyberte **OK** potvrďte výběr.
-1. Vyberte **OK** po potvrzení, že je správný název objektu.
-1. Vyberte **Použít**. Vyberte **OK** zavřete okno zásady.
-
-## <a name="manage-the-service"></a>Spravovat službu
-
-### <a name="create-the-service"></a>Vytvoření služby
-
-Použití [sc.exe](https://technet.microsoft.com/library/bb490995) vytvoříte službu z správu příkazové okno nástroje příkazového řádku. `binPath` Hodnota je cesta ke spustitelnému souboru aplikace, která zahrnuje název spustitelného souboru. **Mezera mezi znaménko rovná se a znak pro uvození každého parametru a hodnota je povinný.**
-
-```console
-sc create {SERVICE NAME} binPath= "{PATH}" obj= "{DOMAIN}\{USER ACCOUNT}" password= "{PASSWORD}"
+```powershell
+.\RegisterService.ps1 
+    -Name {NAME} 
+    -DisplayName "{DISPLAY NAME}" 
+    -Description "{DESCRIPTION}" 
+    -Path "{PATH}" 
+    -Exe {ASSEMBLY}.exe 
+    -User {DOMAIN\USER}
 ```
-
-* `{SERVICE NAME}` &ndash; Název, který chcete přiřadit ke službě v [správce řízení služeb](/windows/desktop/services/service-control-manager).
-* `{PATH}` &ndash; Cesta ke spustitelnému souboru služby.
-* `{DOMAIN}` &ndash; Doména počítače připojené k doméně. Pokud počítač není připojený k doméně, použijte název místního počítače.
-* `{USER ACCOUNT}` &ndash; Uživatelský účet, pod kterým je služba spuštěna.
-* `{PASSWORD}` &ndash; Heslo k uživatelskému účtu.
-
-> [!WARNING]
-> Proveďte **není** vynechat, nechte `obj` parametru. Výchozí hodnota pro `obj` je [účet LocalSystem](/windows/desktop/services/localsystem-account) účtu. Spuštěná služba v rámci `LocalSystem` účet představuje významné bezpečnostní riziko. Vždy spuštění služby pomocí uživatelského účtu, který má omezená oprávnění.
 
 V následujícím příkladu pro ukázkovou aplikaci:
 
 * Služba má název **Moje_služba**.
-* Publikované služba se nachází v *c:\\svc* složky. Je název spustitelné aplikace *SampleApp.exe*. Uzavřete `binPath` hodnotu do dvojitých uvozovek (").
-* Je služba spuštěna pod `ServiceUser` účtu. Nahraďte `{DOMAIN}` s účtem uživatele domény nebo názvu místního počítače. Uzavřete `obj` hodnotu do dvojitých uvozovek ("). Příklad: Pokud je hostující systém místní počítač s názvem `MairaPC`, nastavte `obj` k `"MairaPC\ServiceUser"`.
-* Nahraďte `{PASSWORD}` s heslem uživatelského účtu. Uzavřete `password` hodnotu do dvojitých uvozovek (").
+* Publikované služba se nachází v *c:\\svc* složky. Je název spustitelné aplikace *SampleApp.exe*.
+* Je služba spuštěna pod `ServiceUser` účtu. V následujícím příkladu je název místního počítače `Desktop-PC`.
 
-```console
-sc create MyService binPath= "c:\svc\sampleapp.exe" obj= "{DOMAIN}\ServiceUser" password= "{PASSWORD}"
+```powershell
+.\RegisterService.ps1 
+    -Name MyService 
+    -DisplayName "My Cool Service" 
+    -Description "This is the Sample App service." 
+    -Path "c:\svc" 
+    -Exe SampleApp.exe 
+    -User Desktop-PC\ServiceUser
 ```
 
-> [!IMPORTANT]
-> Ujistěte se, že mezery mezi symboly rovná parametrů a hodnot parametrů jsou k dispozici.
+## <a name="manage-the-service"></a>Spravovat službu
 
 ### <a name="start-the-service"></a>Spustit službu
 
-Spusťte službu pomocí `sc start {SERVICE NAME}` příkazu.
+Spusťte službu pomocí `Start-Service -Name {NAME}` příkazu Powershellu 6.
 
 Spustit službu ukázkové aplikace, použijte následující příkaz:
 
-```console
-sc start MyService
+```powershell
+Start-Service -Name MyService
 ```
 
 Příkaz trvá několik sekund se spustit službu.
 
 ### <a name="determine-the-service-status"></a>Zjistit stav služby
 
-Chcete-li zkontrolovat stav služby, použijte `sc query {SERVICE NAME}` příkazu. Stav je uveden jako jeden z následujících hodnot:
+Chcete-li zkontrolovat stav služby, použijte `Get-Service -Name {NAME}` příkazu Powershellu 6. Stav je uveden jako jeden z následujících hodnot:
 
-* `START_PENDING`
-* `RUNNING`
-* `STOP_PENDING`
-* `STOPPED`
+* `Starting`
+* `Running`
+* `Stopping`
+* `Stopped`
 
 Použijte následující příkaz a zkontrolujte stav služby app service vzorku:
 
-```console
-sc query MyService
+```powershell
+Get-Service -Name MyService
 ```
 
 ### <a name="browse-a-web-app-service"></a>Procházet služba webové aplikace
@@ -281,28 +270,22 @@ Aplikační služba ukázkového procházet aplikace na adrese `http://localhost
 
 ### <a name="stop-the-service"></a>Zastavit službu
 
-Zastavit službu s `sc stop {SERVICE NAME}` příkazu.
+Zastavit službu s `Stop-Service -Name {NAME}` příkazu Powershellu 6.
 
 Následující příkaz zastaví aplikační služba ukázkového:
 
-```console
-sc stop MyService
+```powershell
+Stop-Service -Name MyService
 ```
 
-### <a name="delete-the-service"></a>Odstranit službu
+### <a name="remove-the-service"></a>Odebrat službu
 
-Po krátké prodlevě zastavit službu, odinstalujte službu s `sc delete {SERVICE NAME}` příkazu.
+Po krátké prodlevě zastavit službu, službu s odebrat `Remove-Service -Name {NAME}` příkazu Powershellu 6.
 
 Postup kontroly stavu aplikační služba ukázkového:
 
-```console
-sc query MyService
-```
-
-Pokud je aplikační služba ukázkového v `STOPPED` stavu, použijte následující příkaz pro odinstalaci aplikační služba ukázkového:
-
-```console
-sc delete MyService
+```powershell
+Remove-Service -Name MyService
 ```
 
 ## <a name="handle-starting-and-stopping-events"></a>Zpracování spuštění a zastavení událostí
