@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 5ae96b213a19464045e1d0b1a76f8eb81089dc5b
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 64be4984779724eb60af3b70d4f52b22eae32213
+ms.sourcegitcommit: a467828b5e4eaae291d961ffe2279a571900de23
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236338"
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58142305"
 ---
 # <a name="use-web-api-conventions"></a>Řiďte se vytváření webového rozhraní API
 
@@ -25,7 +25,7 @@ Konvence umožňuje:
 * Definujte nejběžnější návratové typy a stavové kódy vrácená z konkrétní typ akce.
 * Určete akce, které se liší od standardu definované.
 
-ASP.NET Core MVC 2.2 a novější obsahuje sadu výchozích konvencí v `Microsoft.AspNetCore.Mvc.DefaultApiConventions`. Konvence jsou založeny na kontroler (*ValuesController.cs*) k dispozici v ASP.NET Core **API** šablony projektu. Pokud vaše akce provést tyto vzory se dají v šabloně, měli byste být úspěšného používání výchozích konvencí. Pokud výchozí konvence nevyhovují vašim potřebám, přečtěte si téma [vytvoření webového rozhraní API konvence](#create-web-api-conventions).
+ASP.NET Core MVC 2.2 a novější obsahuje sadu výchozích konvencí v <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName>. Konvence jsou založeny na kontroler (*ValuesController.cs*) k dispozici v ASP.NET Core **API** šablony projektu. Pokud vaše akce provést tyto vzory se dají v šabloně, měli byste být úspěšného používání výchozích konvencí. Pokud výchozí konvence nevyhovují vašim potřebám, přečtěte si téma [vytvoření webového rozhraní API konvence](#create-web-api-conventions).
 
 V době běhu <xref:Microsoft.AspNetCore.Mvc.ApiExplorer> rozumí konvence. `ApiExplorer` je abstraktní MVC ke komunikaci s [OpenAPI](https://www.openapis.org/) (také označované jako Swagger) dokumentu generátorů. Atributy použité konvence jsou spojeny s akcí a jsou zahrnuty v dokumentaci k OpenAPI akce. [Rozhraní API analyzátorů](xref:web-api/advanced/analyzers) srozuměni konvence. Pokud je vaše akce neobvyklé (například vrátí stavový kód, který nebyl zdokumentován použité konvence), upozornění doporučuje dokumentu stavový kód.
 
