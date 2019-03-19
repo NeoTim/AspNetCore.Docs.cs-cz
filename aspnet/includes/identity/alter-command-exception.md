@@ -1,5 +1,0 @@
-> <span data-ttu-id="f0944-101">Některé příkazy nejsou podporovány, pokud aplikace používá jako své úložiště dat Identity SQLite.</span><span class="sxs-lookup"><span data-stu-id="f0944-101">Some commands aren't supported if the app uses SQLite as its Identity data store.</span></span> <span data-ttu-id="f0944-102">Vzhledem k omezením v databázovém stroji `Alter` příkazy vyvolání následující výjimky:</span><span class="sxs-lookup"><span data-stu-id="f0944-102">Due to limitations in the database engine, `Alter` commands throw the following exception:</span></span>
->
-> <span data-ttu-id="f0944-103">"System.NotSupportedException: SQLite této migrace operaci nepodporuje."</span><span class="sxs-lookup"><span data-stu-id="f0944-103">"System.NotSupportedException: SQLite does not support this migration operation."</span></span> 
->
-> <span data-ttu-id="f0944-104">Jako alternativní řešení spusťte migrace Code First v databázi, a změnit v tabulkách.</span><span class="sxs-lookup"><span data-stu-id="f0944-104">As a work around, run Code First migrations on the database to change the tables.</span></span>
