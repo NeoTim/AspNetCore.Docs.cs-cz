@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak diagnostikovat problémy s nasazením aplikací ASP.NET Core Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/06/2019
+ms.date: 03/14/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: 2f36ae2bda8537e91a3bc925505986bdd6a22a47
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 1fa90737aadebe3f714c702fbce649629d79dcd4
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841550"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264557"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>Řešení potíží s ASP.NET Core ve službě IIS
 
@@ -33,17 +33,13 @@ V sadě Visual Studio projekt ASP.NET Core výchozí hodnota je [služby IIS Exp
 
 Další témata pro řešení potíží:
 
-<xref:host-and-deploy/azure-apps/troubleshoot>  
-I když služba App Service používá [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a služby IIS pro hostování aplikací, v tématu vyhrazené pro pokyny, které jsou specifické pro App Service.
+<xref:host-and-deploy/azure-apps/troubleshoot> I když služba App Service používá [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a služby IIS pro hostování aplikací, v tématu vyhrazené pro pokyny, které jsou specifické pro App Service.
 
-<xref:fundamentals/error-handling>  
-Objevte, jak zpracovávat chyby v aplikacích ASP.NET Core během vývoje v místním systému.
+<xref:fundamentals/error-handling> Objevte, jak zpracovávat chyby v aplikacích ASP.NET Core během vývoje v místním systému.
 
-[Další informace k ladění pomocí sady Visual Studio](/visualstudio/debugger/getting-started-with-the-debugger)  
-Toto téma popisuje funkce ladicího programu sady Visual Studio.
+[Zjistěte, jak ladit pomocí sady Visual Studio](/visualstudio/debugger/getting-started-with-the-debugger) Toto téma popisuje funkce ladicího programu sady Visual Studio.
 
-[Ladění ve Visual Studiu Code](https://code.visualstudio.com/docs/editor/debugging)  
-Další informace o podporu ladění, které jsou součástí Visual Studio Code.
+[Ladění pomocí Visual Studio Code](https://code.visualstudio.com/docs/editor/debugging) přečtěte si víc o podporu ladění, které jsou součástí Visual Studio Code.
 
 ## <a name="app-startup-errors"></a>Chyby při spuštění aplikace
 
@@ -51,7 +47,7 @@ Další informace o podporu ladění, které jsou součástí Visual Studio Code
 
 Pracovní proces se nezdaří. Aplikace se nespustí.
 
-Modul ASP.NET Core se pokusí spustit proces dotnet back-endu, ale že ji nebude možné spustit. Příčinu selhání spuštění procesu lze určit obvykle položky [protokolu událostí aplikace](#application-event-log) a [protokolů stdout modul ASP.NET Core](#aspnet-core-module-stdout-log). 
+Modul ASP.NET Core se pokusí spustit proces dotnet back-endu, ale že ji nebude možné spustit. Příčinu selhání spuštění procesu lze určit obvykle položky [protokolu událostí aplikace](#application-event-log) a [protokolů stdout modul ASP.NET Core](#aspnet-core-module-stdout-log).
 
 Běžné chyby je, že aplikace je špatně nakonfigurovaný. kvůli cílení na určitou verzi rozhraní framework sdílené ASP.NET Core, který není k dispozici. Zkontrolujte, jaké verze rozhraní framework ASP.NET Core sdílené jsou nainstalovány v cílovém počítači.
 
@@ -65,7 +61,7 @@ Běžné chyby je, že aplikace je špatně nakonfigurovaný. kvůli cílení na
 
 Pracovní proces se nezdaří. Aplikace se nespustí.
 
-Modul ASP.NET Core se pokusí spustit .NET Core CLR v procesu, ale že ji nebude možné spustit. Příčinu selhání spuštění procesu lze určit obvykle položky [protokolu událostí aplikace](#application-event-log) a [protokolů stdout modul ASP.NET Core](#aspnet-core-module-stdout-log). 
+Modul ASP.NET Core se pokusí spustit .NET Core CLR v procesu, ale že ji nebude možné spustit. Příčinu selhání spuštění procesu lze určit obvykle položky [protokolu událostí aplikace](#application-event-log) a [protokolů stdout modul ASP.NET Core](#aspnet-core-module-stdout-log).
 
 Běžné chyby je, že aplikace je špatně nakonfigurovaný. kvůli cílení na určitou verzi rozhraní framework sdílené ASP.NET Core, který není k dispozici. Zkontrolujte, jaké verze rozhraní framework ASP.NET Core sdílené jsou nainstalovány v cílovém počítači.
 
@@ -82,7 +78,7 @@ Modul ASP.NET Core se nepodařilo najít .NET Core CLR a najít obslužnou rutin
 
 Pracovní proces se nezdaří. Aplikace se nespustí.
 
-Modul ASP.NET Core nenajde žádné obslužné rutiny hostování požadavku na více instancí procesu. Ujistěte se, *aspnetcorev2_outofprocess.dll* je k dispozici v podsložce vedle *aspnetcorev2.dll*. 
+Modul ASP.NET Core nenajde žádné obslužné rutiny hostování požadavku na více instancí procesu. Ujistěte se, *aspnetcorev2_outofprocess.dll* je k dispozici v podsložce vedle *aspnetcorev2.dll*.
 
 ::: moniker-end
 
@@ -172,7 +168,7 @@ Povolení a zobrazení protokolů stdout:
 
 1. Přejděte do složky pro nasazení webu v hostitelském systému.
 1. Pokud *protokoly* složka není k dispozici, vytvořte složku. Pokyny o tom, jak povolit MSBuild k vytvoření *protokoly* složky v nasazení automaticky, zobrazí [adresářovou strukturu](xref:host-and-deploy/directory-structure) tématu.
-1. Upravit *web.config* souboru. Nastavte **stdoutLogEnabled** k `true` a změnit **stdoutLogFile** tak, aby odkazoval na cestu *protokoly* složky (například `.\logs\stdout`). `stdout` v cestě je předpona názvu souboru protokolu. Časové razítko, id procesu a příponu souboru jsou přidány automaticky při vytvoření protokolu. Pomocí `stdout` jako předpona názvu souboru, má název souboru typické protokolu *stdout_20180205184032_5412.log*. 
+1. Upravit *web.config* souboru. Nastavte **stdoutLogEnabled** k `true` a změnit **stdoutLogFile** tak, aby odkazoval na cestu *protokoly* složky (například `.\logs\stdout`). `stdout` v cestě je předpona názvu souboru protokolu. Časové razítko, id procesu a příponu souboru jsou přidány automaticky při vytvoření protokolu. Pomocí `stdout` jako předpona názvu souboru, má název souboru typické protokolu *stdout_20180205184032_5412.log*.
 1. Ověřte identitu fondu aplikací má oprávnění k zápisu *protokoly* složky.
 1. Uložte aktualizovaný *web.config* souboru.
 1. Vytvořte žádost do aplikace.
@@ -245,24 +241,27 @@ A *s výpisem paměti* snímek paměti v systému a vám může pomoct zjistit p
 Získání a analýza výpisu paměti z [hlášení chyb Windows (zasílání)](/windows/desktop/wer/windows-error-reporting):
 
 1. Vytvořte složku pro uložení souborů se stavem systému na `c:\dumps`. Fond aplikací musí mít oprávnění k zápisu do složky.
-1. Spustit [EnableDumps Powershellový skript](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/troubleshoot/scripts/EnableDumps.ps1):
+1. Spustit [EnableDumps Powershellový skript](https://github.com/aspnet/Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/EnableDumps.ps1):
    * Pokud aplikace využívá [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model), spusťte skript pro *w3wp.exe*:
 
      ```console
      .\EnableDumps w3wp.exe c:\dumps
      ```
+
    * Pokud aplikace využívá [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), spusťte skript pro *dotnet.exe*:
 
      ```console
      .\EnableDumps dotnet.exe c:\dumps
      ```
+
 1. Spusťte aplikaci v rámci podmínky, které způsobily selhání dojde k.
-1. Po došlo k selhání, spusťte [DisableDumps Powershellový skript](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/troubleshoot/scripts/DisableDumps.ps1):
+1. Po došlo k selhání, spusťte [DisableDumps Powershellový skript](https://github.com/aspnet/Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/DisableDumps.ps1):
    * Pokud aplikace využívá [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model), spusťte skript pro *w3wp.exe*:
 
      ```console
      .\DisableDumps w3wp.exe
      ```
+
    * Pokud aplikace využívá [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), spusťte skript pro *dotnet.exe*:
 
      ```console

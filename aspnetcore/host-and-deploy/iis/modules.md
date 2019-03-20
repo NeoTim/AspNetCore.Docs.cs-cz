@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/28/2019
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: e5bb1a86453bb945789cc1f4b56616551e316615
-ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
+ms.openlocfilehash: de740775e124298f7c3d3be0c6f5a7311174116d
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57400681"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265484"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>Moduly IIS s ASP.NET Core
 
@@ -123,7 +123,7 @@ Pokud se vyžadují pro odebrání modulu s nastavením v *web.config*odemknout 
     </system.webServer>
    </configuration>
    ```
-   
+
 Pokud chcete přidat nebo odebrat moduly pro služby IIS Express pomocí *web.config*, upravte *applicationHost.config* k odemknutí `<modules>` části:
 
 1. Otevřít *{kořenový adresář aplikace}\\.vs\config\applicationhost.config*.
@@ -131,17 +131,17 @@ Pokud chcete přidat nebo odebrat moduly pro služby IIS Express pomocí *web.co
 1. Vyhledejte `<section>` – element pro moduly služby IIS a změnit `overrideModeDefault` z `Deny` k `Allow`:
 
    ```xml
-   <section name="modules" 
-            allowDefinition="MachineToApplication" 
+   <section name="modules"
+            allowDefinition="MachineToApplication"
             overrideModeDefault="Allow" />
    ```
-   
+
 1. Vyhledejte `<location path="" overrideMode="Allow"><system.webServer><modules>` oddílu. Pro všechny moduly, které chcete odebrat, nastavte `lockItem` z `true` k `false`. V následujícím příkladu je odemknuté modulu CGI:
 
    ```xml
    <add name="CgiModule" lockItem="false" />
    ```
-   
+
 1. Po `<modules>` oddílu a jednotlivé moduly jsou odemknutí, budete moci přidat nebo odebrat moduly služby IIS pomocí aplikace *web.config* souboru ke spuštění aplikace ve službě IIS Express.
 
 Modul služby IIS může být odebrán také s *Appcmd.exe*. Zadejte `MODULE_NAME` a `APPLICATION_NAME` v příkazu:

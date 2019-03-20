@@ -61,7 +61,7 @@ Ve výstupu předchozího příkazu se zobrazí následující zpráva:
 
 *Byla vyžádána důvěřující vývojářský certifikát HTTPS. Pokud certifikát není důvěryhodný jsme se spusťte následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`
 
-Tento příkaz příkaz vás může vyzvat k zadání hesla k instalaci certifikátu v řetězci klíčů systému. Zadejte svoje heslo, pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
+Tento příkaz vás může vyzvat k zadání hesla k instalaci certifikátu v řetězci klíčů systému. Zadejte svoje heslo, pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 

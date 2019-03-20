@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 10/14/2016
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 819bf1b49b56e953a9a4398e82866ba0b01ab4db
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: b0fce0632fd2d885cb8e9a056923ec365d2f327d
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207105"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209983"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v rozhraní Web API ASP.NET Core
 
@@ -129,13 +129,13 @@ services.AddMvc(options =>
 
 Po přidání podpory pro formát XML, by měl vrátit svoje metody kontroleru vhodný formát na základě daného požadavku `Accept` záhlaví jako Fiddler, tento příklad ukazuje:
 
-![Fiddler konzoly: The nezpracovaná kartě pro žádost se zobrazí hodnota hlavičky Accept je application/xml. Na kartě nezpracovaná pro odpověď zobrazena hodnota hlavičky Content-Type application/XML.](formatting/_static/xml-response.png)
+![Fiddler konzoly: Nezpracovaná karta pro požadavek zobrazuje, že je hodnota hlavičky Accept application/xml. Na kartě nezpracovaná pro odpověď zobrazena hodnota hlavičky Content-Type application/XML.](formatting/_static/xml-response.png)
 
 Se zobrazí v kartě kontroly, která byla vytvořena žádost o získání nezpracovaných se `Accept: application/xml` hlavička set. Zobrazí se podokno odpovědi `Content-Type: application/xml` záhlaví a `Author` objekt má byl serializován do formátu XML.
 
 Použijte kartu Composer upravit požadavku k určení `application/json` v `Accept` záhlaví. Provedení požadavku a odpovědi naformátovaný jako JSON:
 
-![Fiddler konzoly: The nezpracovaná kartě pro žádost se zobrazí hodnota hlavičky Accept je application/json. Na kartě nezpracovaná pro odpověď zobrazena hodnota záhlaví Content-Type application/json.](formatting/_static/json-response-fiddler.png)
+![Fiddler konzoly: Nezpracovaná karta pro požadavek zobrazuje, že je hodnota hlavičky Accept application/json. Na kartě nezpracovaná pro odpověď zobrazena hodnota záhlaví Content-Type application/json.](formatting/_static/json-response-fiddler.png)
 
 Na tomto snímku obrazovky vidíte požadavek nastaví hlavičku z `Accept: application/json` a odpovědi určuje stejný jako jeho `Content-Type`. `Author` Objektu se zobrazí v těle odpovědi ve formátu JSON.
 
@@ -180,10 +180,8 @@ public class ProductsController
 
 Tato trasa by umožnilo požadovaný formát zadaný jako volitelný soubor rozšíření. `[FormatFilter]` Atribut zkontroluje existenci hodnoty formátu `RouteData` a bude mapovat formát odpovědi na odpovídající formátovací modul, když je vytvořen odpověď.
 
-
 |           trasy            |             Formátovací modul              |
 |----------------------------|------------------------------------|
 |   `/products/GetById/5`    |    Výchozí formátování výstupu    |
 | `/products/GetById/5.json` | Formátování JSON (je-li konfigurováno) |
 | `/products/GetById/5.xml`  | Formátovací modul XML (Pokud je nakonfigurovaná)  |
-

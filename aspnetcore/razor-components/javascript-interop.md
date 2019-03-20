@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: razor-components/javascript-interop
-ms.openlocfilehash: 9844bd5a63f1144867360ac4f31645d36710989c
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: ac772b052a8f61937350b0d999013b7ba06dfd74
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978497"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265005"
 ---
 # <a name="razor-components-javascript-interop"></a>Razor JavaScript součásti zprostředkovatel komunikace s objekty
 
@@ -115,13 +115,14 @@ Použít `IJSRuntime` abstrakce, použijte některý z následujících postupů
           StocksService.OnStockTickerUpdated += stockUpdate =>
           {
               JSRuntime.InvokeAsync<object>(
-                  "handleTickerChanged", 
-                  stockUpdate.symbol, 
+                  "handleTickerChanged",
+                  stockUpdate.symbol,
                   stockUpdate.price);
           };
       }
   }
   ```
+
 * Vložit `IJSRuntime` abstrakce do třídy (*.cs*):
 
   ```csharp
@@ -136,7 +137,7 @@ Použít `IJSRuntime` abstrakce, použijte některý z následujících postupů
 
       public Task<string> DoSomething(string data)
       {
-          // The doSomething JavaScript method is implemented 
+          // The doSomething JavaScript method is implemented
           // in a JavaScript file, such as 'wwwroot/MyJsInterop.js'.
           return _jsRuntime.InvokeAsync<string>(
               "myJsFunctions.doSomething",
@@ -144,6 +145,7 @@ Použít `IJSRuntime` abstrakce, použijte některý z následujících postupů
       }
   }
   ```
+
 * Pro dynamické generování obsahu s `BuildRenderTree`, použijte `[Inject]` atribut:
 
   ```csharp

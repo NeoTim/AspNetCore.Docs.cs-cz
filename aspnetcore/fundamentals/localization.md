@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core nabízí služby a middleware pro lokal
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 70de86f2e8c4a5577b8a4b50c53d66eb3b205c09
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 0eda297b7df97a5d20fea035983f426eafa03775
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665534"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264647"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -98,6 +98,7 @@ DataAnnotations chybové zprávy jsou lokalizovány pomocí `IStringLocalizer<T>
 V ASP.NET Core MVC 1.1.0 a vyšší, než ověření atributy jsou lokalizovány. ASP.NET Core MVC 1,0 nemá **není** vyhledávání lokalizovaných řetězců pro atributy bez ověření.
 
 <a name="one-resource-string-multiple-classes"></a>
+
 ### <a name="using-one-resource-string-for-multiple-classes"></a>Porovnáním jednoho řetězce prostředků pro více tříd
 
 Následující kód ukazuje, jak používat jeden řetězec prostředku pro ověření atributů s více třídami:
@@ -113,7 +114,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-V kódu, který předchází `SharedResource` je třída odpovídající resx, kde jsou uloženy ověřovacích zpráv. S tímto přístupem budete používat pouze DataAnnotations `SharedResource`, namísto prostředků pro každou třídu.
+V předchozím kódu `SharedResource` je třída odpovídající resx, kde jsou uloženy ověřovacích zpráv. S tímto přístupem budete používat pouze DataAnnotations `SharedResource`, namísto prostředků pro každou třídu.
 
 ## <a name="provide-localized-resources-for-the-languages-and-cultures-you-support"></a>Zadejte lokalizované prostředky pro jazyky a jazykové verze, kterou podporujete
 
@@ -304,7 +305,6 @@ Použití `RequestLocalizationOptions` přidat nebo odebrat zprostředkovatele l
 ### <a name="set-the-culture-programmatically"></a>Nastavit jazykovou verzi prostřednictvím kódu programu
 
 Tato ukázka **Localization.StarterWeb** projekt [Githubu](https://github.com/aspnet/entropy) obsahuje uživatelského rozhraní pro nastavení `Culture`. *Views/Shared/_SelectLanguagePartial.cshtml* souboru můžete vybrat ze seznamu podporovaných jazykových verzí jazykovou verzi:
-
 
 [!code-cshtml[](localization/sample/Localization/Views/Shared/_SelectLanguagePartial.cshtml)]
 

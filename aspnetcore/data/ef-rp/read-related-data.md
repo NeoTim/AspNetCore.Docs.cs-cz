@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 140f482e136acf4daba1248fecc87e06db6866f3
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: a264cdaf0f577be6ea2043935b485f4fd16e0229
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345886"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264946"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – čtení souvisejících dat – 6 8
 
@@ -65,9 +65,10 @@ Chcete-li zobrazit název přiřazený oddělení v seznamu kurzů:
 * Získejte `Name` vlastnost z `Department` entity.
 * `Department` Entity pocházejí z `Course.Department` navigační vlastnost.
 
-![ourse. Oddělení](read-related-data/_static/dep-crs.png)
+![Course.Department](read-related-data/_static/dep-crs.png)
 
 <a name="scaffold"></a>
+
 ### <a name="scaffold-the-course-model"></a>Vygenerované uživatelské rozhraní modelu kurzu
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
@@ -115,6 +116,7 @@ Spusťte aplikaci a vyberte **kurzy** kartu pro zobrazení seznamu s názvy odd�
 ![Kurzy indexová stránka](read-related-data/_static/courses-index.png)
 
 <a name="select"></a>
+
 ### <a name="loading-related-data-with-select"></a>Načítají se související data s vybranými
 
 `OnGetAsync` Metoda načte související data se `Include` metody:
@@ -187,7 +189,6 @@ Dotaz má dvě zahrnuje:
 * `OfficeAssignment`: Zobrazí v [Instruktoři zobrazení](#IP).
 * `CourseAssignments`: Což přináší výukové kurzy.
 
-
 ### <a name="update-the-instructors-index-page"></a>Aktualizace Instruktoři indexovou stránku
 
 Aktualizace *Pages/Instructors/Index.cshtml* následujícím kódem:
@@ -198,11 +199,11 @@ Předchozí kód provede následující změny:
 
 * Aktualizace `page` direktiv z `@page` k `@page "{id:int?}"`. `"{id:int?}"` je šablonu trasy. Šablona trasy změny celé číslo řetězce dotazu v adrese URL data trasy. Například, že kliknete na **vyberte** instruktorem s pouze odkaz `@page` – direktiva vytvoří adresu URL podobnou následující:
 
-    `http://localhost:1234/Instructors?id=2`
+  `http://localhost:1234/Instructors?id=2`
 
-    Po direktivě stránky `@page "{id:int?}"`, předchozí adresa URL je:
+  Po direktivě stránky `@page "{id:int?}"`, předchozí adresa URL je:
 
-    `http://localhost:1234/Instructors/2`
+  `http://localhost:1234/Instructors/2`
 
 * Je název stránky **Instruktoři**.
 * Přidá **Office** sloupec, který zobrazuje `item.OfficeAssignment.Location` pouze tehdy, pokud `item.OfficeAssignment` není null. Protože je to vztah jeden: nula nebo 1, nemusí být související entita OfficeAssignment.

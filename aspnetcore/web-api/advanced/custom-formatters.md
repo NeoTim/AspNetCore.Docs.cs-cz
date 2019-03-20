@@ -5,12 +5,12 @@ description: Zjistěte, jak vytvořit a použít vlastní formátovací moduly p
 ms.author: tdykstra
 ms.date: 02/08/2017
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: 2861a15a80725dcc237d33313a24822cf8aa9c7e
-ms.sourcegitcommit: e1cc4c1ef6c9e07918a609d5ad7fadcb6abe3e12
+ms.openlocfilehash: 611840defd1da3b57b365c99deaf1c67f1568227
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/03/2019
-ms.locfileid: "53997289"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264635"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>Vlastní formátování v rozhraní Web API ASP.NET Core
 
@@ -85,6 +85,7 @@ V některých scénářích je nutné přepsat `CanWriteResult` místo `CanWrite
 Předpokládejme například, vrátí podpis metody akce `Person` typu, ale může vrátit `Student` nebo `Instructor` typ, který je odvozen od `Person`. Pokud chcete, aby vaše formátovací modul pro zpracování pouze `Student` objekty, zkontrolujte typ [objekt](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object) v objektu kontextu k dispozici na `CanWriteResult` metody. Všimněte si, že není nutné používat `CanWriteResult` při vrácení metody akce `IActionResult`; v takovém případě `CanWriteType` metoda přijímá typ modulu runtime.
 
 <a id="read-write"></a>
+
 ### <a name="override-readrequestbodyasyncwriteresponsebodyasync"></a>Override ReadRequestBodyAsync/WriteResponseBodyAsync
 
 Vykonávají samotnou práci rušení serializace nebo serializace v `ReadRequestBodyAsync` nebo `WriteResponseBodyAsync`. Zvýrazněné řádky v následujícím příkladu ukazují, jak získat služby z kontejneru pro vkládání závislosti (je již nelze získat z parametrů konstruktoru).

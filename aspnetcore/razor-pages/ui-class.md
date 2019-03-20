@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/07/2018
 ms.custom: seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: e5f329dcc423a7b7d6c247d0d359d35d95283de4
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
+ms.openlocfilehash: dc7db9483f2d75fe79ed9a9806f944e4f2a05a9b
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121489"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265349"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelné uživatelské rozhraní v ASP.NET Core pomocí projektu knihovny tříd Razor
 
@@ -48,7 +48,8 @@ dotnet new razorclasslib -o RazorUIClassLib
 
 Další informace najdete v tématu [dotnet nové](/dotnet/core/tools/dotnet-new). Aby se zabránilo kolize názvů souborů s knihovnou generované zobrazení, ujistěte se ale nekončí název knihovny v `.Views`.
 
-------
+---
+
 Přidáte soubory Razor RCL.
 
 Šablony ASP.NET Core předpokládat RCL obsah je *oblasti* složky. V tématu [rozložení stránek RCL](#afs) k vytvoření obsahu v RCL, který zpřístupňuje `~/Pages` spíše než `~/Areas/Pages`.
@@ -60,7 +61,7 @@ RCL lze odkazovat pomocí:
 * Balíček NuGet. V tématu [balíčky NuGet vytváření](/nuget/create-packages/creating-a-package) a [se příkaz dotnet add package](/dotnet/core/tools/dotnet-add-package) a [vytvoření a publikování balíčku NuGet](/nuget/quickstart/create-and-publish-a-package-using-visual-studio).
 * *{ProjectName} .csproj*. Zobrazit [dotnet-přidat odkaz na](/dotnet/core/tools/dotnet-add-reference).
 
-## <a name="walkthrough-create-a-razor-class-library-project-and-use-from-a-razor-pages-project"></a>Návod: Vytvoření projektu knihovny tříd Razor a používat z projektu pro stránky Razor
+## <a name="walkthrough-create-a-razor-class-library-project-and-use-from-a-razor-pages-project"></a>Návod: Vytvořte projekt knihovny tříd Razor a používat z projektu pro stránky Razor
 
 Můžete stáhnout [dokončený projekt](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) a otestovat ho namísto jeho vytvoření. Vzorku ke stažení obsahuje další kódu a odkazy, které usnadňuje testování projektu. Zanecháte zpětnou vazbu v [tento problém Githubu](https://github.com/aspnet/Docs/issues/6098) s komentáře na stažení ukázky a podrobné pokyny.
 
@@ -86,7 +87,7 @@ Přesunout *WebApp1* adresáře a spusťte aplikaci:
 dotnet run
 ```
 
-------
+---
 
 Postupujte podle pokynů v [WebApp1 testu](#test)
 
@@ -123,7 +124,7 @@ Předchozí příkazy:
 
 *Soubor _ViewStart.cshtml* soubor je vyžadován pro rozložení stránky Razor projektu (která se přidá v další části).
 
-------
+---
 
 ### <a name="add-razor-files-and-folders-to-the-project"></a>Přidání Razor souborů a složek do projektu
 
@@ -218,7 +219,7 @@ K odkazu RCL obsah, jako by šlo součást webové aplikace *stránky* složku, 
 * *RazorUIClassLib/stránek/Shared*
 
 Předpokládejme, že *RazorUIClassLib/stránek/Shared* obsahuje dva soubory částečné: *_Header.cshtml* a *_Footer.cshtml*. `<partial>` Značky může být přidán do *_Layout.cshtml* souboru:
-  
+
 ```cshtml
 <body>
   <partial name="_Header">

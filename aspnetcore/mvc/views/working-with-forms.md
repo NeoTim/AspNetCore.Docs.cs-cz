@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/27/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: a0fbeac51bd1bfbc50c4d369a479ce5f3091358b
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 2d5168ed4b1e14e507262361de9fa959924b82f6
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346252"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209554"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Pomocných rutin značek ve formulářích v ASP.NET Core
 
@@ -205,9 +205,7 @@ Type expected
 |Int|typ = "cislo"|
 |Jednoduché, Double|typ = "cislo"|
 
-
 V následující tabulce jsou uvedeny některé běžné [anotacemi dat](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) atributy, které pomocné rutiny vstupní značky se mapují na konkrétní typy vstupu (ne každý atribut ověření je uvedená):
-
 
 |Atribut|Typ vstupu|
 |---|---|
@@ -215,10 +213,9 @@ V následující tabulce jsou uvedeny některé běžné [anotacemi dat](/dotnet
 |[Url]|type="url"|
 |[HiddenInput]|typ = "skrytá"|
 |[Phone]|type="tel"|
-|[DataType(DataType.Password)]| type="password"|
-|[DataType(DataType.Date)]| type="date"|
-|[DataType(DataType.Time)]| type="time"|
-
+|[DataType(DataType.Password)]|type="password"|
+|[DataType(DataType.Date)]|type="date"|
+|[DataType(DataType.Time)]|type="time"|
 
 Ukázka:
 
@@ -378,7 +375,7 @@ Následující kód HTML je vygenerována:
 
 ## <a name="the-label-tag-helper"></a>Pomocná rutina značky popisek
 
-* Generuje titulek popisek a `for` atribut na [ <label> ](https://www.w3.org/wiki/HTML/Elements/label) – element pro název výrazu
+* Generuje titulek popisek a `for` atribut na [ \<popisek >](https://www.w3.org/wiki/HTML/Elements/label) – element pro název výrazu
 
 * Pomocné rutiny HTML alternativní: `Html.LabelFor`.
 

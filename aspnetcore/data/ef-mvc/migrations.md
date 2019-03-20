@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: ac924e7d6bee2f02ab11281a5c27f2c94a7183b3
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 6d4ed0e95499c30417e1cfd07f57de824a8a62ed
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102991"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265522"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>Kurz: Pomocí funkce migrace – ASP.NET MVC s EF Core
 
@@ -28,7 +28,6 @@ V tomto kurzu se naučíte:
 > * Prozkoumejte nahoru a dolů metody
 > * Další informace o modelu snímků dat
 > * Použití migrace
-
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -60,6 +59,7 @@ Tato změna nastaví projekt tak, aby první migrací vytvoří novou databázi.
 
 > [!NOTE]
 > Jako alternativu k změně názvu databáze je odstranit databázi. Použití **Průzkumník objektů systému SQL Server** (SSOX) nebo `database drop` příkazu rozhraní příkazového řádku:
+>
 > ```console
 > dotnet ef database drop
 > ```

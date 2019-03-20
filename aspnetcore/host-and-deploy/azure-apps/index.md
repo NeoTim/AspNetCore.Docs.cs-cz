@@ -141,6 +141,7 @@ Po dokončení operace, je nainstalovaná nejnovější verze preview .NET Core.
    ```powershell
    Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.{PLATFORM}\
    ```
+
    Příkaz vrátí `True` při x64 je nainstalován modul runtime ve verzi preview.
 
 > [!NOTE]
@@ -194,11 +195,13 @@ Při nasazování samostatnou aplikaci:
      <RuntimeIdentifier>win-x86</RuntimeIdentifier>
    </PropertyGroup>
    ```
+
 1. Z příkazového prostředí, publikujte aplikaci v rámci konfigurace verze modulu runtime hostitele s [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkazu. V následujícím příkladu je aplikace publikována pro `win-x86` identifikátorů RID. Identifikátor RID zadaný pro `--runtime` ve musí být Zadaná možnost `<RuntimeIdentifier>` (nebo `<RuntimeIdentifiers>`) vlastnost v souboru projektu.
 
    ```console
    dotnet publish --configuration Release --runtime win-x86
    ```
+
 1. Přesunout obsah *bin/Release / {TARGET FRAMEWORK} / {IDENTIFIKÁTOR modulu RUNTIME} / publish* adresář k webu ve službě App Service.
 
 ### <a name="use-docker-with-web-apps-for-containers"></a>Použití Docker pro kontejnery s Web Apps

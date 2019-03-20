@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
-ms.openlocfilehash: 51982c7ebc4f66c2b0b73bf425d9ecbd0bf37826
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: de8548fe2396102fe44a8e6a000b44d4eea63285
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637791"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209924"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřete Web Interface pro .NET (OWIN) s ASP.NET Core
 
@@ -243,45 +243,42 @@ OWIN závisí `IDictionary<string,object>` objekt ke sdělování informací v c
 | owin.RequestQueryString  | `String` | |    
 | owin.RequestProtocol  | `String` | |    
 | owin. RequestHeaders | `IDictionary<string,string[]>`  | |
-| owin. Includesearchresults: true | `Stream`  | |
+| owin.RequestBody | `Stream`  | |
 
 ### <a name="request-data-owin-v110"></a>Data žádosti (OWIN v1.1.0)
 
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| owin. ID žádosti | `String` | volitelná, |
+| owin.RequestId | `String` | volitelná, |
 
 ### <a name="response-data-owin-v100"></a>Data odpovědi (OWIN v1.0.0)
 
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| owin. ResponseStatusCode | `int` | volitelná, |
-| owin. ResponseReasonPhrase | `String` | volitelná, |
-| owin. ResponseHeaders | `IDictionary<string,string[]>`  | |
-| owin. ResponseBody | `Stream`  | |
-
+| owin.ResponseStatusCode | `int` | volitelná, |
+| owin.ResponseReasonPhrase | `String` | volitelná, |
+| owin.ResponseHeaders | `IDictionary<string,string[]>`  | |
+| owin.ResponseBody | `Stream`  | |
 
 ### <a name="other-data-owin-v100"></a>Další data (OWIN v1.0.0)
 
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| owin. CallCancelled | `CancellationToken` |  |
-| owin. Verze  | `String` | |   
-
+| owin.CallCancelled | `CancellationToken` |  |
+| owin.Version  | `String` | |   
 
 ### <a name="common-keys"></a>Společné klíče
 
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| protokol SSL. ClientCertificate | `X509Certificate` |  |
+| ssl.ClientCertificate | `X509Certificate` |  |
 | ssl.LoadClientCertAsync  | `Func<Task>` | |    
-| Server. Vzdálená_adresa_ip  | `String` | |    
-| Server. Vzdálený port | `String` | |     
+| server.RemoteIpAddress  | `String` | |    
+| server.RemotePort | `String` | |     
 | server.LocalIpAddress  | `String` | |    
 | server.LocalPort  | `String` | |    
 | server.IsLocal  | `bool` | |    
 | server.OnSendingHeaders  | `Action<Action<object>,object>` | |
-
 
 ### <a name="sendfiles-v030"></a>SendFiles v0.3.0
 
@@ -289,31 +286,29 @@ OWIN závisí `IDictionary<string,object>` objekt ke sdělování informací v c
 | ----------------- | ------------ | ----------- |
 | sendfile.SendAsync | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) | Každý požadavek |
 
-
 ### <a name="opaque-v030"></a>Neprůhledný v0.3.0
 
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
 | opaque.Version | `String` |  |
-| neprůhledný. Upgrade | `OpaqueUpgrade` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
+| opaque.Upgrade | `OpaqueUpgrade` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
 | opaque.Stream | `Stream` |  |
-| neprůhledný. CallCancelled | `CancellationToken` |  |
+| opaque.CallCancelled | `CancellationToken` |  |
 
-
-### <a name="websocket-v030"></a>Protokol WebSocket v0.3.0
+### <a name="websocket-v030"></a>WebSocket v0.3.0
 
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| objekt websocket. Verze | `String` |  |
+| websocket.Version | `String` |  |
 | objekt websocket. Přijmout | `WebSocketAccept` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
-| objekt websocket. AcceptAlt |  | Bez specifikace |
+| websocket.AcceptAlt |  | Bez specifikace |
 | objekt websocket. Dílčí protokol | `String` | Zobrazit [RFC6455 části 4.2.2](https://tools.ietf.org/html/rfc6455#section-4.2.2) krok 5.5 |
-| objekt websocket. SendAsync | `WebSocketSendAsync` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
+| websocket.SendAsync | `WebSocketSendAsync` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
 | websocket.ReceiveAsync | `WebSocketReceiveAsync` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
-| objekt websocket. CloseAsync | `WebSocketCloseAsync` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
+| websocket.CloseAsync | `WebSocketCloseAsync` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
 | objekt websocket. CallCancelled | `CancellationToken` |  |
-| objekt websocket. ClientCloseStatus | `int` | volitelná, |
-| objekt websocket. ClientCloseDescription | `String` | volitelná, |
+| websocket.ClientCloseStatus | `int` | volitelná, |
+| websocket.ClientCloseDescription | `String` | volitelná, |
 
 ## <a name="additional-resources"></a>Další zdroje
 

@@ -5,12 +5,12 @@ description: Vysvětluje stránky Razor generovaných generování uživatelské
 ms.author: riande
 ms.date: 12/4/2018
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 07ad142b369fab92589f63479533a769136a087b
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: c4d0e5c7b7365edc0df5428c250037db7ef3da2a
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346447"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265266"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>Vygenerované stránky Razor v ASP.NET Core
 
@@ -51,6 +51,7 @@ Prozkoumejte výrazu lambda použít v následujících pomocné rutiny HTML:
 `DisplayNameFor` Zkontroluje pomocné rutiny HTML `Title` vlastnost se odkazuje ve výrazu lambda lze zjistit název zobrazení. Výraz lambda je zkontroloval spíše než vyhodnocen. To znamená, že neexistuje žádná narušení přístupu při `model`, `model.Movie`, nebo `model.Movie[0]` jsou `null` nebo je prázdný. Při vyhodnocování výrazu lambda (třeba index Mei `@Html.DisplayFor(modelItem => item.Title)`), jsou vyhodnocovány hodnoty vlastností modelu.
 
 <a name="md"></a>
+
 ### <a name="the-model-directive"></a>@model – Direktiva
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
@@ -64,6 +65,7 @@ Vyberte nabídky odkazy (**RazorPagesMovie**, **Domů**, a **ochrany osobních �
 [Rozložení](xref:mvc/views/layout) šablony umožňují zadat kontejner rozložení HTML vašeho webu na jednom místě a použijte ji na několika stránkách ve vaší lokalitě. Najít `@RenderBody()` řádku. `RenderBody` je zástupný symbol, kde všechny specifický pro stránku zobrazení, se kterými create, show *zabalené* stránce rozložení. Například, pokud jste vybrali **ochrany osobních údajů** odkaz, **Pages/Privacy.cshtml** je zobrazení vykresleno uvnitř `RenderBody` metody.
 
 <a name="vd"></a>
+
 ### <a name="viewdata-and-layout"></a>ViewData a rozložení
 
 Vezměte v úvahu následující kód z *Pages/Movies/Index.cshtml* souboru:
@@ -72,12 +74,12 @@ Vezměte v úvahu následující kód z *Pages/Movies/Index.cshtml* souboru:
 
 Předchozí zvýrazněný kód je příkladem Razor převádějí do jazyka C#. `{` a `}` znaky, uzavřete blok kódu jazyka C#.
 
-`PageModel` Má základní třída `ViewData` slovník vlastností, který slouží k přidání dat, které chcete předat do zobrazení. Přidání objektů do `ViewData` slovník pomocí vzoru klíč/hodnota. V předchozím příkladu je přidána vlastnost "Title" `ViewData` slovníku. 
+`PageModel` Má základní třída `ViewData` slovník vlastností, který slouží k přidání dat, které chcete předat do zobrazení. Přidání objektů do `ViewData` slovník pomocí vzoru klíč/hodnota. V předchozím příkladu je přidána vlastnost "Title" `ViewData` slovníku.
 
 Vlastnost "Title" se používá v *Pages/Shared/_Layout.cshtml* souboru. Následující kód ukazuje několik prvních řádků tohoto *_Layout.cshtml* souboru.
 
 <!-- we need a snapshot copy of layout because we are
-changing in in the next step. 
+changing in in the next step.
 -->
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/NU/_Layout.cshtml?highlight=6-99)]
 
@@ -88,7 +90,6 @@ Na řádku `@*Markup removed for brevity.*@` je komentáře syntaxe Razor, kter�
 Změnit `<title>` element v *Pages/Shared/_Layout.cshtml* soubor zobrazení **film** spíše než **RazorPagesMovie**.
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
-
 
 Vyhledejte následující element anchor v *Pages/Shared/_Layout.cshtml* souboru.
 
@@ -141,24 +142,21 @@ Zkontrolujte *Pages/Movies/Create.cshtml* Razor stránkovacího souboru:
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Create.cshtml)]
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Visual Studio zobrazí `<form method="post">` značku rozlišovací tučné písmo použité pro pomocné rutiny značek:
 
 ![VS17 zobrazení Create.cshtml stránky](page/_static/th.png)
-<!-- Code -------------------------->
+
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Další informace o pomocných rutin značek, jako `<form method="post">`, naleznete v tématu [pomocných rutin značek v ASP.NET Core](xref:mvc/views/tag-helpers/intro).
 
-<!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Visual Studio pro Mac zobrazí `<form method="post">` značku rozlišovací tučné písmo použité pro pomocné rutiny značek.
 
----  
-<!-- End of VS tabs -->
+---
 
 `<form method="post">` Prvek je [pomocné rutiny značky formuláře](xref:mvc/views/working-with-forms#the-form-tag-helper). Pomocná rutina značky formuláře se automaticky zahrne [antiforgery token](xref:security/anti-request-forgery).
 
@@ -175,7 +173,6 @@ Modul generování uživatelského rozhraní vytvoří kód Razor pro každé po
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Verzi tohoto kurzu na webu YouTube](https://youtu.be/zxgKjPYnOMM)
-
 
 > [!div class="step-by-step"]
 > [Předchozí: Přidání modelu](xref:tutorials/razor-pages/model)

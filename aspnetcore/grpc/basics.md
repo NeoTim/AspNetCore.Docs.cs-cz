@@ -1,19 +1,19 @@
 ---
-title: gRPC službyC#
+title: Služby gRPC s jazykem C#
 author: juntaoluo
 description: Informace o základních konceptech při zápisu gRPC služby s C#.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/08/2019
 uid: grpc/basics
-ms.openlocfilehash: d2ef9316c9bd8c551889c817403f7eb31f48eec6
-ms.sourcegitcommit: a467828b5e4eaae291d961ffe2279a571900de23
+ms.openlocfilehash: 936561a3ad04183aff4c3ba1c9b0e8ab20dcbe12
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58142612"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264774"
 ---
-# <a name="grpc-services-with-c"></a>gRPC službyC#
+# <a name="grpc-services-with-c"></a>gRPC služby pomocí jazyka C\#
 
 Tento dokument popisuje základní koncepty jsou potřeba k zápisu [gRPC](https://grpc.io/docs/guides/) aplikací v C#. Tady probíraná témata platit pro oboje [C – jádro](https://grpc.io/blog/grpc-stacks) podle a gRPC aplikace ASP.NET Core.
 

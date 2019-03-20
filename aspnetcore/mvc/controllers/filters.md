@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: a9081a9938d56b7612bba13937eba384ff02455b
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: 4fe04cde2a234302845b2cbded106f1e809842bc
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833732"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209291"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -19,11 +19,11 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Petr Dykstra](https://g
 
 *Filtry* v ASP.NET Core MVC umožňuje spuštění kódu před nebo po určitým fázím v kanálu zpracování požadavků.
 
- Integrované filtry naložit s úkoly, jako:
+Integrované filtry naložit s úkoly, jako:
 
- * Autorizace (zabránění přístupu k prostředkům, které uživatel nemá oprávnění pro).
- * Zajištění, že všechny požadavky na použití protokolu HTTPS.
- * Odpověď do mezipaměti (krátký cyklus kanál požadavku na vrátí odpověď uložená v mezipaměti). 
+* Autorizace (zabránění přístupu k prostředkům, které uživatel nemá oprávnění pro).
+* Zajištění, že všechny požadavky na použití protokolu HTTPS.
+* Odpověď do mezipaměti (krátký cyklus kanál požadavku na vrátí odpověď uložená v mezipaměti). 
 
 Vlastní filtry lze vytvořit pro zpracování vyskytující aspekty. Filtry můžete předejít duplikování kódu napříč akce. Zpracování filtru výjimek chyby může například konsolidovat zpracování chyb.
 
@@ -373,7 +373,7 @@ Když `OnResultExecuted` metoda pracuje, odpověď se pravděpodobně poslal kli
 
 `ResultExecutedContext.Exception` Nastaví se hodnota jiná než null Pokud výsledek akce nebo filtr následné výsledků došlo k výjimce. Nastavení `Exception` na null efektivně zpracovává výjimku a brání výjimka z právě znovu MVC dále v kanálu. Když při zpracování výjimky ve výsledku filtru, nemusí být schopni zapisovat data do odpovědi. Pokud výsledek akce vyvolá partway prostřednictvím jeho spuštění, a mít již byla vyprázdněna hlavičky klientovi, neexistuje žádný spolehlivý mechanismus poslat kód selhání.
 
-Pro `IAsyncResultFilter` volání `await next` na `ResultExecutionDelegate` spustí všechny následné výsledek filtry a výsledku akce. Zkrácenou, nastavte `ResultExecutingContext.Cancel` na hodnotu true a nemůžete volat `ResultExectionDelegate`.
+Pro `IAsyncResultFilter` volání `await next` na `ResultExecutionDelegate` spustí všechny následné výsledek filtry a výsledku akce. Zkrácenou, nastavte `ResultExecutingContext.Cancel` na hodnotu true a nemůžete volat `ResultExecutionDelegate`.
 
 Rozhraní poskytuje abstraktní `ResultFilterAttribute` , ke kterým můžete podtřídy. [AddHeaderAttribute](#add-header-attribute) třídy je uvedeno výše je příkladem atribut filtru výsledků.
 

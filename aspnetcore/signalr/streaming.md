@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/14/2018
 uid: signalr/streaming
-ms.openlocfilehash: fb7183f7189d62c181f69ffdb170e3da25612919
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 7c176e3f21ffca7b97d9d3c2e8861032f22587b8
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345584"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264309"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>Použití datových proudů v knihovně SignalR technologie ASP.NET Core
 
@@ -139,12 +139,14 @@ Chcete-li ukončit stream z klienta, zavolejte `dispose` metodu na `ISubscriptio
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
+
 ## <a name="java-client"></a>Klient Java
+
 Používá klientskou sadou SignalR Java `stream` metoda k vyvolání metody streaming. Přijímá tři nebo více argumentů:
 
-* Očekávaný typ datového proudu položky 
+* Očekávaný typ datového proudu položky
 * Název metody rozbočovače.
-* Argumenty podle metody rozbočovače. 
+* Argumenty podle metody rozbočovače.
 
 ```java
 hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
@@ -153,6 +155,7 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
         (error) -> {/* Define your onError handler here. */},
         () -> {/* Define your onCompleted handler here. */});
 ```
+
 `stream` Metodu na `HubConnection` vrátí existuje zjištěný typ položky datového proudu. Pozorovatelné typ `subscribe` metoda je tady můžete definovat vaše `onNext`, `onError` a `onCompleted` obslužné rutiny.
 
 ::: moniker-end

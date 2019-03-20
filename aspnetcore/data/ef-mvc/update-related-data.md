@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/05/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: ac94f2e2876c2d8d571a451e4641787ffe37b3d2
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 1606b872df2df839266ef17efee1948065c4efae
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103030"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209411"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Aktualizace souvisejících dat – ASP.NET MVC s EF Core
 
@@ -131,11 +131,11 @@ Nahraďte HttpPost `Edit` metody následující kód pro zpracování aktualizac
 
 Kód provede následující akce:
 
--  Změní název metody k `EditPost` protože podpis je teď stejně jako třídy MetadataExchangeClientMode `Edit` – metoda ( `ActionName` atribut určuje, že `/Edit/` adresa URL se stále používá).
+* Změní název metody k `EditPost` protože podpis je teď stejně jako třídy MetadataExchangeClientMode `Edit` – metoda ( `ActionName` atribut určuje, že `/Edit/` adresa URL se stále používá).
 
--  Získá aktuální kurzů vedených entit z databáze pomocí nemůžou dočkat, až načítání pro `OfficeAssignment` navigační vlastnost. To je stejný jako u třídy MetadataExchangeClientMode `Edit` metody.
+* Získá aktuální kurzů vedených entit z databáze pomocí nemůžou dočkat, až načítání pro `OfficeAssignment` navigační vlastnost. To je stejný jako u třídy MetadataExchangeClientMode `Edit` metody.
 
--  Načtená entita kurzů vedených aktualizuje s hodnotami z vazače modelu. `TryUpdateModel` Přetížení vám umožní přidat na seznam povolených vlastnosti, které chcete zahrnout. To zabraňuje typu over-pass-the účtování, jak je vysvětleno v [druhé části kurzu](crud.md).
+* Načtená entita kurzů vedených aktualizuje s hodnotami z vazače modelu. `TryUpdateModel` Přetížení vám umožní přidat na seznam povolených vlastnosti, které chcete zahrnout. To zabraňuje typu over-pass-the účtování, jak je vysvětleno v [druhé části kurzu](crud.md).
 
     <!-- Snippets don't play well with <ul> [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?range=241-244)] -->
 
@@ -146,7 +146,7 @@ Kód provede následující akce:
         i => i.FirstMidName, i => i.LastName, i => i.HireDate, i => i.OfficeAssignment))
     ```
 
--   Pokud office umístění je prázdné, nastaví vlastnost Instructor.OfficeAssignment na hodnotu null, tak, aby související řádek v tabulce OfficeAssignment se odstraní.
+* Pokud office umístění je prázdné, nastaví vlastnost Instructor.OfficeAssignment na hodnotu null, tak, aby související řádek v tabulce OfficeAssignment se odstraní.
 
     <!-- Snippets don't play well with <ul>  "intro/samples/cu/Controllers/InstructorsController.cs"} -->
 
@@ -157,7 +157,7 @@ Kód provede následující akce:
     }
     ```
 
-- Uloží změny do databáze.
+* Uloží změny do databáze.
 
 ### <a name="update-the-instructor-edit-view"></a>Aktualizace kurzů vedených upravit zobrazení
 
@@ -225,7 +225,7 @@ V *Views/Instructors/Edit.cshtml*, přidat **kurzy** pole s polem zaškrtávací
 
 <a id="notepad"></a>
 > [!NOTE]
-> Při vkládání kódu v sadě Visual Studio konce řádků se změní tak, aby kód přestane fungovat.  Stisknutím klávesy Ctrl + Z jednou vrátit zpět, automatického formátování.  To tak, aby vypadají se zobrazí zde opraví konce řádků. Odsazení nemusí být dokonalý, ale `@</tr><tr>`, `@:<td>`, `@:</td>`, a `@:</tr>` řádky musí být na jednom řádku znázorněno nebo zobrazí se chyba za běhu. Blok vybrali nový kód a stisknutím klávesy Tab třikrát na řádek nahoru nový kód existující kód. Stav tohoto problému zjistíte [tady](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html).
+> Při vkládání kódu v sadě Visual Studio konce řádků se změní tak, aby kód přestane fungovat. Stisknutím klávesy Ctrl + Z jednou vrátit zpět, automatického formátování. To tak, aby vypadají se zobrazí zde opraví konce řádků. Odsazení nemusí být dokonalý, ale `@</tr><tr>`, `@:<td>`, `@:</td>`, a `@:</tr>` řádky musí být na jednom řádku znázorněno nebo zobrazí se chyba za běhu. Blok vybrali nový kód a stisknutím klávesy Tab třikrát na řádek nahoru nový kód existující kód. Stav tohoto problému zjistíte [tady](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html).
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=35-61)]
 
@@ -250,7 +250,7 @@ V *InstructorsController.cs*, odstranit `DeleteConfirmed` metoda a vložte násl
 
 Tento kód provede následující změny:
 
-* Fakturuje se u eager načítání pro `CourseAssignments` navigační vlastnost.  Je nutné zahrnout to nebo EF nebude vědět o související `CourseAssignment` entity a nedojde k jejich odstranění.  Abyste nemuseli přečtěte si je tady můžete nakonfigurovat kaskádové odstranění v databázi.
+* Fakturuje se u eager načítání pro `CourseAssignments` navigační vlastnost. Je nutné zahrnout to nebo EF nebude vědět o související `CourseAssignment` entity a nedojde k jejich odstranění. Abyste nemuseli přečtěte si je tady můžete nakonfigurovat kaskádové odstranění v databázi.
 
 * Pokud instruktorem, která se má odstranit je přiřazen jako správce z jakékoli oddělení, odebere z těchto oddělení přiřazení instruktorem.
 

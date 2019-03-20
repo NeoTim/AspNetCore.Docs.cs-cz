@@ -5,12 +5,12 @@ description: Zjistěte, jak komponenty zobrazení se používají v ASP.NET Core
 ms.author: riande
 ms.date: 1/30/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: d979c9480f7bffff993f0ea526bdc231b940baa2
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: b18473c6a76c4dc9030f0a032db1aff733f5acb7
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410479"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264784"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazení komponenty v ASP.NET Core
 
@@ -142,7 +142,7 @@ V tomto příkladu je součásti zobrazení volání přímo z kontroleru:
 
 [!code-csharp[](view-components/sample/ViewCompFinal/Controllers/ToDoController.cs?name=snippet_IndexVC)]
 
-## <a name="walkthrough-creating-a-simple-view-component"></a>Průvodce: Vytvoření jednoduché zobrazení komponenty
+## <a name="walkthrough-creating-a-simple-view-component"></a>Návod: Vytvoření jednoduché zobrazení komponenty
 
 [Stáhněte si](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a testování počátečního kódu. Je to Jednoduchý projekt s `ToDo` kontroler, který zobrazí seznam *ToDo* položky.
 
@@ -316,6 +316,7 @@ Použití zobrazení komponenty pomocné rutiny značky v souboru kódu Razor:
 <vc:priority-list max-priority="999" is-done="false">
 </vc:priority-list>
 ```
+
 ::: moniker-end
 
 Označení metody `PriorityList.Invoke` je synchronní, ale Razor najde a volá metodu s `Component.InvokeAsync` v souboru označení.

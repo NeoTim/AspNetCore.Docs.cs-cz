@@ -1,4 +1,13 @@
+---
+ms.openlocfilehash: 4a569a3f7f804919b7fd6e481c2ec5a3acdfbbe8
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265529"
+---
 <a name="cli"></a>
+
 ## <a name="perform-initial-migration"></a>Provést počáteční migraci
 
 Z příkazového řádku spusťte následující příkazy rozhraní příkazového řádku .NET Core:

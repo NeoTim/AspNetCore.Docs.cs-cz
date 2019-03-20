@@ -1,8 +1,16 @@
+---
+ms.openlocfilehash: 927f9528eb6ca4fac10ccee47aa255d848b7daaa
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265002"
+---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>Vygenerované stránky Razor v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Tento kurz zkoumá stránky Razor vytvořené generování uživatelského rozhraní v předchozím kurzu. 
+Tento kurz zkoumá stránky Razor vytvořené generování uživatelského rozhraní v předchozím kurzu.
 
 [Zobrazení nebo stažení](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie21) vzorku.
 
@@ -47,6 +55,7 @@ Prozkoumejte výrazu lambda použít v následujících pomocné rutiny HTML:
 `DisplayNameFor` Zkontroluje pomocné rutiny HTML `Title` vlastnost se odkazuje ve výrazu lambda lze zjistit název zobrazení. Výraz lambda je zkontroloval spíše než vyhodnocen. To znamená, že neexistuje žádná narušení přístupu při `model`, `model.Movie`, nebo `model.Movie[0]` jsou `null` nebo je prázdný. Při vyhodnocování výrazu lambda (třeba index Mei `@Html.DisplayFor(modelItem => item.Title)`), jsou vyhodnocovány hodnoty vlastností modelu.
 
 <a name="md"></a>
+
 ### <a name="the-model-directive"></a>@model – Direktiva
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
@@ -58,7 +67,8 @@ Prozkoumejte výrazu lambda použít v následujících pomocné rutiny HTML:
 -->
 
 <a name="vd"></a>
-### ViewData a rozložení
+
+### <a name="viewdata-and-layout"></a>ViewData a rozložení
 
 Vezměte v úvahu následující kód:
 
@@ -66,7 +76,7 @@ Vezměte v úvahu následující kód:
 
 Předchozí zvýrazněný kód je příkladem Razor převádějí do jazyka C#. `{` a `}` znaky, uzavřete blok kódu jazyka C#.
 
-`PageModel` Má základní třída `ViewData` slovník vlastností, který slouží k přidání dat, které chcete předat do zobrazení. Přidání objektů do `ViewData` slovník pomocí vzoru klíč/hodnota. V předchozím příkladu je přidána vlastnost "Title" `ViewData` slovníku. 
+`PageModel` Má základní třída `ViewData` slovník vlastností, který slouží k přidání dat, které chcete předat do zobrazení. Přidání objektů do `ViewData` slovník pomocí vzoru klíč/hodnota. V předchozím příkladu je přidána vlastnost "Title" `ViewData` slovníku.
 
 ::: moniker range="= aspnetcore-2.0"
 
@@ -106,6 +116,7 @@ Vyhledejte následující element anchor v *Pages/Shared/_Layout.cshtml* souboru
 ```cshtml
 <a asp-page="/Index" class="navbar-brand">RazorPagesMovie</a>
 ```
+
 Nahraďte následující značky předchozí prvek.
 
 ```cshtml
@@ -132,7 +143,6 @@ Zkontrolujte *Pages/Movies/Create.cshtml.cs* model stránky:
 
 ::: moniker-end
 
-
 `OnGet` Metoda inicializuje některému ze stavů potřebné pro stránku. Stránka pro vytvoření nemá žádné stavu inicializace, tak `Page` je vrácena. Později v tomto kurzu uvidíte `OnGet` metodu inicializace stavu. `Page` Metoda vytvoří `PageResult` objekt, který vykreslí *Create.cshtml* stránky.
 
 `Movie` Používá vlastnost `[BindProperty]` atribut pro přihlášení k [vazby modelu](xref:mvc/models/model-binding). Kdy vytvořit formulář pošle příspěvek s hodnot formuláře, modul runtime ASP.NET Core váže odeslaných hodnoty, které mají `Movie` modelu.
@@ -153,7 +163,6 @@ Zkontrolujte *Pages/Movies/Create.cshtml* Razor stránkovacího souboru:
 
 <!--
 Visual Studio displays the `<form method="post">` tag in a distinctive font used for Tag Helpers. The `<form method="post">` element is a [Form Tag Helper](xref:mvc/views/working-with-forms#the-form-tag-helper). The Form Tag Helper automatically includes an [antiforgery token](xref:security/anti-request-forgery).
-
 
 ![VS17 view of Create.cshtml page](page/_static/th.png)
 -->

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/13/2019
 uid: razor-components/get-started
-ms.openlocfilehash: 86427f9d8a6bc70a65f58ff1b9f8f37c536a97a6
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 026bc5b3222a8ffa35a064bef8bbf64834b67a90
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978333"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209696"
 ---
 # <a name="get-started-with-razor-components"></a>Začínáme s Razor komponenty
 
@@ -72,7 +72,6 @@ Congratulations! You just ran your first Razor Components app!
 .NET Core 3.0 will be supported with Visual Studio for Mac version 8.0 or later. Visual Studio for Mac version 8.0 Preview isn't available at this time.
 
 Use the [.NET Core CLI version of this topic](xref:razor-components/get-started?tabs=netcore-cli) on macOS.
-
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 

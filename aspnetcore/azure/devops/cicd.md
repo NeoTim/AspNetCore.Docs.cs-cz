@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.date: 10/24/2018
 ms.custom: seodec18
 uid: azure/devops/cicd
-ms.openlocfilehash: 906aae3fd4b4abd0becc8847b0f54c372bda300a
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 676620b5dd151c9cd009d7cb278ed2c2b122c83f
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346304"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264874"
 ---
 # <a name="continuous-integration-and-deployment"></a>Průběžná integrace a nasazování
 
@@ -39,17 +39,23 @@ V této části budete provádět následující úlohy:
 1. Klikněte na tlačítko **vytvoření úložiště** tlačítko.
 1. Otevřete příkazové okno místního počítače. Přejděte do adresáře, ve kterém *jednoduchý kanálu čtečky* uložená v úložišti Git.
 1. Přejmenovat stávající *původu* do vzdáleného úložiště *nadřazeného*. Spusťte následující příkaz:
+
     ```console
     git remote rename origin upstream
     ```
+
 1. Přidat nový *původu* vzdálené odkazuje na kopii úložišti na Githubu. Spusťte následující příkaz:
+
     ```console
     git remote add origin https://github.com/<GitHub_username>/simple-feed-reader/
     ```
+
 1. Publikování místního úložiště Git do nově vytvořené úložiště GitHub. Spusťte následující příkaz:
+
     ```console
     git push -u origin master
     ```
+
 1. Otevřete okno prohlížeče a přejděte do `https://github.com/<GitHub_username>/simple-feed-reader/`. Ověřte, že váš kód se zobrazí v úložišti GitHub.
 
 ## <a name="disconnect-local-git-deployment"></a>Odpojit místní nasazení přes Git
@@ -192,6 +198,7 @@ Existují tři samostatné kroky k dokončení. Dokončením kroků v následuj�
     ```console
     git commit -a -m "upgraded to V4"
     ```
+
 1. Nahrát změnu *hlavní* větvit do *původu* vzdálené úložiště GitHub:
 
     ```console

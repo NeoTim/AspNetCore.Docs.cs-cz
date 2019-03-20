@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/22/2018
 ms.custom: seodec18
 uid: security/authentication/2fa
-ms.openlocfilehash: 48bfc50378fc0ec212f5b9d4e7ce05bb4fc97b9d
-ms.sourcegitcommit: 97d7a00bd39c83a8f6bccb9daa44130a509f75ce
+ms.openlocfilehash: 116249a7cd4faebd0c899e383d86f5c5c3c7146a
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/08/2019
-ms.locfileid: "54098884"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265238"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>Dvoufaktorové ověřování přes SMS v ASP.NET Core
 
@@ -35,9 +35,13 @@ Vytvoření účtu služby SMS, například [twilio](https://www.twilio.com/) ne
 
 #### <a name="figuring-out-sms-provider-credentials"></a>Zjištění přihlašovací údaje poskytovatele serveru SMS
 
-**Twilio:** Z karty řídicí panel svého účtu Twilio, zkopírujte **SID účtu** a **ověřovací token**.
+**Twilio:**
 
-**ASPSMS:** V nastavení účtu, přejděte na **vlastnosti userkey jedná** a zkopírujte ho spolu s vaší **heslo**.
+Z karty řídicí panel svého účtu Twilio, zkopírujte **SID účtu** a **ověřovací token**.
+
+**ASPSMS:**
+
+V nastavení účtu, přejděte na **vlastnosti userkey jedná** a zkopírujte ho spolu s vaší **heslo**.
 
 Později jsme uloží tyto hodnoty se pomocí nástroje Správce tajný klíč v rámci klíče `SMSAccountIdentification` a `SMSAccountPassword`.
 
@@ -49,12 +53,11 @@ Později jsme uloží tyto hodnoty se pomocí nástroje Správce tajný klíč v
 
 Dále jsme uloží tuto hodnotu pomocí nástroje Správce tajný klíč v klíči `SMSAccountFrom`.
 
-
 ### <a name="provide-credentials-for-the-sms-service"></a>Zadejte přihlašovací údaje služby SMS
 
 Použijeme [možnosti vzor](xref:fundamentals/configuration/options) pro přístup k účtu a klíč nastavení.
 
-   * Vytvoření třídy k načtení zabezpečený klíč serveru SMS. V tomto příkladu `SMSoptions` třída se vytvoří v *Services/SMSoptions.cs* souboru.
+* Vytvoření třídy k načtení zabezpečený klíč serveru SMS. V tomto příkladu `SMSoptions` třída se vytvoří v *Services/SMSoptions.cs* souboru.
 
 [!code-csharp[](2fa/sample/Web2FA/Services/SMSoptions.cs)]
 
@@ -64,17 +67,18 @@ Nastavte `SMSAccountIdentification`, `SMSAccountPassword` a `SMSAccountFrom` s [
 C:/Web2FA/src/WebApp1>dotnet user-secrets set SMSAccountIdentification 12345
 info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 ```
+
 * Přidání balíčku NuGet pro poskytovatele serveru SMS. Z balíčku správce konzoly (konzolu PMC) spusťte:
 
 **Twilio:**
+
 `Install-Package Twilio`
 
 **ASPSMS:**
+
 `Install-Package ASPSMS`
 
-
 * Přidejte kód *Services/MessageServices.cs* soubor serveru SMS. Použijte Twilio nebo ASPSMS části:
-
 
 **Twilio:** [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
 
@@ -88,7 +92,7 @@ Přidat `SMSoptions` ke kontejneru služby v `ConfigureServices` metodu *Startup
 
 ### <a name="enable-two-factor-authentication"></a>Povolení dvoufaktorového ověřování
 
-Otevřít *Views/Manage/Index.cshtml* soubor zobrazení Razor a odeberte znaky komentáře (takže žádné značky je odkomentovaný).
+Otevřít *Views/Manage/Index.cshtml* soubor zobrazení Razor a odeberte znaky komentáře (abyste je zakomentovaný, žádné značky).
 
 ## <a name="log-in-with-two-factor-authentication"></a>Přihlaste se pomocí dvojúrovňového ověřování
 

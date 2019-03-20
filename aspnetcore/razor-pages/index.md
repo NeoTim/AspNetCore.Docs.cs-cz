@@ -140,12 +140,12 @@ Základní tok `OnPostAsync`:
 
 Zkontrolován výskyt chyb ověření.
 
-*  Pokud nejsou žádné chyby, uložit data a přesměrování.
-*  Pokud chyby existují, zobrazit stránku znovu pomocí ověřovacích zpráv. Ověřování na straně klienta se shoduje s tradiční aplikace ASP.NET Core MVC. V mnoha případech se chyby ověření by být zjištěn v klientském počítači a nikdy odeslána na server.
+* Pokud nejsou žádné chyby, uložit data a přesměrování.
+* Pokud chyby existují, zobrazit stránku znovu pomocí ověřovacích zpráv. Ověřování na straně klienta se shoduje s tradiční aplikace ASP.NET Core MVC. V mnoha případech se chyby ověření by být zjištěn v klientském počítači a nikdy odeslána na server.
 
 Při zadání dat se úspěšně, `OnPostAsync` volání metody obslužné rutiny `RedirectToPage` Pomocná metoda vrátit instanci `RedirectToPageResult`. `RedirectToPage` je nový výsledek akce, podobně jako `RedirectToAction` nebo `RedirectToRoute`, ale přizpůsobené pro stránky. V předchozím příkladu, je přesměrován na indexovou stránku kořenové (`/Index`). `RedirectToPage` podrobně popisuje [generování adresy URL pro stránky](#url_gen) oddílu.
 
-Když odeslané formuláře došlo k chybám ověřování, (, které se předá serveru),`OnPostAsync` volání metody obslužné rutiny `Page` Pomocná metoda. `Page` Vrátí instanci `PageResult`. Vrací `Page` je podobný jak vrátit akce v řadiče `View`. `PageResult` Výchozí hodnota je <!-- Review  --> návratový typ pro metodu obslužné rutiny. Metoda obslužné rutiny, která vrací `void` vykreslující danou stránku.
+Když odeslané formuláře došlo k chybám ověřování, (, které se předá serveru),`OnPostAsync` volání metody obslužné rutiny `Page` Pomocná metoda. `Page` Vrátí instanci `PageResult`. Vrací `Page` je podobný jak vrátit akce v řadiče `View`. `PageResult` je výchozí nastavení <!-- Review  --> Návratový typ pro metodu obslužné rutiny. Metoda obslužné rutiny, která vrací `void` vykreslující danou stránku.
 
 `Customer` Používá vlastnost `[BindProperty]` atribut můžete vyjádřit výslovný souhlas vazby modelu.
 
@@ -264,6 +264,7 @@ services.AddMvc()
 Nemusíte psát kód pro [antiforgery ověření](xref:security/anti-request-forgery). Antiforgery generování tokenů a ověření jsou automaticky součástí stránky Razor.
 
 <a name="layout"></a>
+
 ## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>Pomocí rozložení, částečných zobrazení, šablon a pomocných rutin značek se stránkami Razor
 
 Stránky fungovat se všemi funkcemi zobrazovací modul Razor. Rozložení, částečných zobrazení, šablony, pomocných rutin značek *soubor _ViewStart.cshtml*, *_ViewImports.cshtml* pracovat stejným způsobem, jako je tomu u konvenční zobrazení syntaxe Razor.
@@ -389,7 +390,7 @@ Generování adresy URL pro stránky podporuje relativních názvů. V následuj
 | RedirectToPage(".. / Index") | *Stránky/indexu* |
 | RedirectToPage("Index")  | *Stránky/zákazníci/indexu* |
 
-`RedirectToPage("Index")`, `RedirectToPage("./Index")`, a `RedirectToPage("../Index")` jsou <em>relativní názvy</em>. `RedirectToPage` Parametr <em>kombinovat</em> s cestou k aktuální stránky pro výpočet název cílové stránky.  <!-- Review: Original had The provided string is combined with the page name of the current page to compute the name of the destination page.  page name, not page path -->
+`RedirectToPage("Index")`, `RedirectToPage("./Index")`, a `RedirectToPage("../Index")` jsou *relativní názvy*. `RedirectToPage` Parametr *kombinovat* s cestou k aktuální stránky pro výpočet název cílové stránky.  <!-- Review: Original had The provided string is combined with the page name of the current page to compute the name of the destination page.  page name, not page path -->
 
 Relativní název propojení je užitečné, když vytváření webů s komplexní strukturou. Pokud používáte relativní názvy propojení mezi stránkami ve složce, můžete přejmenovat tuto složku. Všechny odkazy i nadále fungovat (vzhledem k tomu patří mezi ně neměli název složky).
 
@@ -465,6 +466,7 @@ public string Message { get; set; }
 Další informace najdete v tématu [TempData](xref:fundamentals/app-state#tempdata) .
 
 <a name="mhpp"></a>
+
 ## <a name="multiple-handlers-per-page"></a>Na stránce více obslužných rutin
 
 Na následující stránce generuje kód pro dvě stránky obslužné rutiny `asp-page-handler` pomocné rutiny značky:

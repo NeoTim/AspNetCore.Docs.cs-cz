@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/05/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: c08fd6ff7c19c63161135b4c87609f6edd3edb80
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 5ab893dd77ff2cc9a735702eb3a547ed8bcb2197
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103121"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264864"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>Kurz: Vytvoření složitého datového modelu – ASP.NET MVC s EF Core
 
@@ -287,7 +287,6 @@ public ICollection<CourseAssignment> CourseAssignments { get; set; }
 
 ![Oddělení entity](complex-data-model/_static/department-entity.png)
 
-
 Vytvoření *Models/Department.cs* následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Models/Department.cs?name=snippet_Begin)]
@@ -322,6 +321,7 @@ public ICollection<Course> Courses { get; set; }
 
 > [!NOTE]
 > Podle konvence rozhraní Entity Framework umožňuje kaskádové odstranění pro Null cizí klíče a vztahy many-to-many. To může způsobit Cyklické kaskádové odstranění pravidla, která způsobí výjimku při pokusu o přidání migrace. Například pokud definujete neměli vlastnost Department.InstructorID jako s možnou hodnotou Null, EF by nakonfigurovat pravidlo cascade delete můžete odstranit instruktorem, když odstraníte oddělení, který není co byste chtěli se stane. V případě potřeby obchodních pravidel `InstructorID` vlastnosti být null, je třeba použít následující příkaz rozhraní API fluent zakázat kaskádové odstranění v relaci:
+>
 > ```csharp
 > modelBuilder.Entity<Department>()
 >    .HasOne(d => d.Administrator)
@@ -482,6 +482,7 @@ Uložit změny do *appsettings.json*.
 
 > [!NOTE]
 > Jako alternativu k změně názvu databáze je odstranit databázi. Použití **Průzkumník objektů systému SQL Server** (SSOX) nebo `database drop` příkazu rozhraní příkazového řádku:
+>
 > ```console
 > dotnet ef database drop
 > ```

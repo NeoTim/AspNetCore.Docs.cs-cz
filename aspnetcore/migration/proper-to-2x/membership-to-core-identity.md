@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/10/2019
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: 0b7001a311eeaaa78e3d52e2ec66d33ad057c381
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: 3b708da13ff9f2887eee87ea17844312a4fe1b8d
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207405"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264720"
 ---
 # <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-identity"></a>Migrace z ověřování členství technologie ASP.NET do ASP.NET Core 2.0 Identity
 
@@ -54,6 +54,7 @@ Nejrychlejší způsob, jak zobrazit schéma pro ASP.NET Core 2.0 Identity je vy
       }
     }
     ```
+
 1. Vyberte **zobrazení** > **Průzkumník objektů systému SQL Server**. Rozbalte uzel odpovídající zadaný v názvu databáze `ConnectionStrings:DefaultConnection` vlastnost *appsettings.json*.
 
     `Update-Database` Příkaz vytvořil databázi se schématem a jakékoli data potřebná pro inicializaci aplikace. Následující obrázek znázorňuje strukturu tabulky, který je vytvořen v předchozích krocích.
@@ -66,7 +67,7 @@ Jsou drobné rozdíly ve strukturách tabulky a pole pro členství a ASP.NET Co
 
 ### <a name="users"></a>Uživatelé
 
-|*Identita<br>(dbo. AspNetUsers)*        ||*Členství<br>(dbo.aspnet_Users / dbo.aspnet_Membership)*||
+|*Identity<br>(dbo.AspNetUsers)*        ||*Členství<br>(dbo.aspnet_Users / dbo.aspnet_Membership)*||
 |----------------------------------------|-----------------------------------------------------------|
 |**Název pole**                 |**Typ**|**Název pole**                                    |**Typ**|
 |`Id`                           |odkazy řetězců  |`aspnet_Users.UserId`                             |odkazy řetězců  |
@@ -82,7 +83,7 @@ Jsou drobné rozdíly ve strukturách tabulky a pole pro členství a ASP.NET Co
 
 ### <a name="roles"></a>Role
 
-|*Identita<br>(dbo. AspNetRoles)*        ||*Členství<br>(dbo.aspnet_Roles)*||
+|*Identita<br>(dbo. AspNetRoles)*        ||*Membership<br>(dbo.aspnet_Roles)*||
 |----------------------------------------|-----------------------------------|
 |**Název pole**                 |**Typ**|**Název pole**   |**Typ**         |
 |`Id`                           |odkazy řetězců  |`RoleId`         | odkazy řetězců          |
@@ -91,7 +92,7 @@ Jsou drobné rozdíly ve strukturách tabulky a pole pro členství a ASP.NET Co
 
 ### <a name="user-roles"></a>Role uživatele
 
-|*Identita<br>(dbo. AspNetUserRoles)*||*Členství<br>(dbo.aspnet_UsersInRoles)*||
+|*Identity<br>(dbo.AspNetUserRoles)*||*Membership<br>(dbo.aspnet_UsersInRoles)*||
 |------------------------------------|------------------------------------------|
 |**Název pole**           |**Typ**  |**Název pole**|**Typ**                   |
 |`RoleId`                 |odkazy řetězců    |`RoleId`      |odkazy řetězců                     |
@@ -127,7 +128,7 @@ SELECT aspnet_Users.UserId,
        -- Creates an empty password since passwords don't map between the 2 schemas
        '',
        /*
-        The SecurityStamp token is used to verify the state of an account and 
+        The SecurityStamp token is used to verify the state of an account and
         is subject to change at any time. It should be initialized as a new ID.
        */
        NewID(),

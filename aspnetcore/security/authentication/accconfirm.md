@@ -5,12 +5,12 @@ description: Zjistěte, jak vytvořit aplikaci ASP.NET Core s e-mailové potvrze
 ms.author: riande
 ms.date: 3/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: d102ed0a4a75f6273fcda0a8cc7e9d091ff94b50
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 3bfc2ce46cfbc2ee308940f9e04eb2ffeec09073
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209916"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265500"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -45,6 +45,7 @@ dotnet new webapp -au Individual -uld -o WebPWrecover
 cd WebPWrecover
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
+dotnet tool install -g dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator identity -dc WebPWrecover.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout;Account.ConfirmEmail"
 dotnet ef database drop -f
 dotnet ef database update
@@ -63,6 +64,7 @@ Poznámka: v tabulce `EmailConfirmed` pole je `False`.
 Můžete chtít tento e-mail znovu použít v dalším kroku při ní odešle e-mail s potvrzením. Klikněte pravým tlačítkem na řádek a vyberte **odstranit**. Odstraňuje se e-mailový alias usnadňuje v následujících krocích.
 
 <a name="prevent-login-at-registration"></a>
+
 ## <a name="require-email-confirmation"></a>Vyžádání potvrzení e-mailu
 
 Je osvědčeným postupem je potvrďte e-mailu nové registrace uživatele. E-mailu pomáhá potvrzení ověření někdo jiný, nejsou zosobnění (to znamená, že se ještě nezaregistrovali někoho jiného e-mailu). Předpokládejme, že jste měli diskusní fórum, a chtěli byste zabránit "yli@example.com"registroval jako"nolivetto@contoso.com". Bez potvrzení e-mailu "nolivetto@contoso.com" mohli dostávat nežádoucí e-mailu z vaší aplikace. Předpokládejme, že uživatel zaregistrován nechtěně jako "ylo@example.com" a kdyby si všimli chyba "yli". Se nebude moci použít obnovení hesla, protože aplikace nemá správnou e-mailu. Potvrzení e-mailu zajišťuje omezenou ochranu před roboty. Potvrzení e-mailu neposkytuje ochranu z uživateli se zlými úmysly s mnoha e-mailové účty.
@@ -96,13 +98,13 @@ Na Windows, manažera tajných ukládá dvojice klíčů/hodnota v *secrets.json
 
 Obsah *secrets.json* souboru nejsou šifrovány. Následující kód ukazuje *secrets.json* souboru. `SendGridKey` Hodnota byla odebrána.
 
- ```json
-  {
-    "SendGridUser": "RickAndMSFT",
-    "SendGridKey": "<key removed>"
-  }
-  ```
- 
+```json
+{
+  "SendGridUser": "RickAndMSFT",
+  "SendGridKey": "<key removed>"
+}
+```
+
 Další informace najdete v tématu [možnosti vzor](xref:fundamentals/configuration/options) a [konfigurace](xref:fundamentals/configuration/index).
 
 ### <a name="install-sendgrid"></a>Instalace služby SendGrid
@@ -130,6 +132,7 @@ dotnet add package SendGrid
 ------
 
 Naleznete v tématu [začít pomocí Sendgridu zdarma](https://sendgrid.com/free/) k registraci bezplatného účtu SendGrid.
+
 ### <a name="implement-iemailsender"></a>Implementace IEmailSender
 
 Implementovat `IEmailSender`, vytvořit *Services/EmailSender.cs* podobně jako následujícím kódem:
@@ -213,6 +216,7 @@ Přidáte vlastního zprostředkovatele do služby kontejneru:
 Zobrazit [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/5410).
 
 <a name="debug"></a>
+
 ### <a name="debug-email"></a>Ladění e-mailu
 
 Pokud nelze získat pracovní e-mailu:

@@ -5,12 +5,12 @@ description: Přidání zobrazení pro jednoduchou aplikaci ASP.NET Core MVC
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 32eddb233a8a6b9b8f480926673d15d568ce6ede
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 6ff706012dabbf9500a805708c1f058b59ebc610
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236429"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265555"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do aplikace ASP.NET Core MVC
 
@@ -28,7 +28,6 @@ Předchozí kód volá kontroleru <xref:Microsoft.AspNetCore.Mvc.Controller.View
 
 ## <a name="add-a-view"></a>Přidání zobrazení
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Klikněte pravým tlačítkem na *zobrazení* složky a potom **Přidat > Nová složka** a pojmenujte složku *HelloWorld*.
@@ -47,7 +46,6 @@ Předchozí kód volá kontroleru <xref:Microsoft.AspNetCore.Mvc.Controller.View
 
 ![Přidat novou položku – dialogové okno](adding-view/_static/add_view.png)
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Přidat `Index` zobrazit `HelloWorldController`.
@@ -55,7 +53,6 @@ Přidat `Index` zobrazit `HelloWorldController`.
 * Přidat novou složku s názvem *zobrazení/HelloWorld*.
 * Přidat nový soubor, který *zobrazení/HelloWorld* název složky *Index.cshtml*.
 
-<!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na *zobrazení* složky a potom **Přidat > Nová složka** a pojmenujte složku *HelloWorld*.
@@ -69,8 +66,7 @@ Přidat `Index` zobrazit `HelloWorldController`.
 
 ![Přidat novou položku – dialogové okno](adding-view/_static/add_view.png)
 
----  
-<!-- End of VS tabs -->
+---
 
 Nahraďte obsah *Views/HelloWorld/Index.cshtml* Razor zobrazení souboru následujícím kódem:
 
@@ -152,7 +148,7 @@ V *HelloWorldController.cs*, změnit `Welcome` metoda pro přidání `Message` a
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_5)]
 
-`ViewData` Objekt dictionary, obsahuje data, která bude předána do zobrazení. 
+`ViewData` Objekt dictionary, obsahuje data, která bude předána do zobrazení.
 
 Vytvoření šablony úvodní zobrazení s názvem *Views/HelloWorld/Welcome.cshtml*.
 
@@ -168,7 +164,7 @@ Data přijatá z adresy URL a předat pomocí řadiče [vazač modelu MVC](xref:
 
 ![Ochrana osobních údajů zobrazení úvodní popisek a frází Hello Rick zobrazí čtyřikrát](~/tutorials/first-mvc-app/adding-view/_static/rick2.png)
 
-V příkladu výše `ViewData` slovník byla použita k předání dat z kontroleru zobrazení. Později v tomto kurzu se používá model zobrazení k předání dat z kontroleru zobrazení. Přístup modelu zobrazení k předávání dat je obvykle mnohem upřednostňované nad `ViewData` slovníku přístup. Zobrazit [použití položek ViewBag, ViewData a TempData ](http://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) Další informace.
+V příkladu výše `ViewData` slovník byla použita k předání dat z kontroleru zobrazení. Později v tomto kurzu se používá model zobrazení k předání dat z kontroleru zobrazení. Přístup modelu zobrazení k předávání dat je obvykle mnohem upřednostňované nad `ViewData` slovníku přístup. Zobrazit [použití položek ViewBag, ViewData a TempData](http://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) Další informace.
 
 V dalším kurzu se vytvoří databáze filmů.
 

@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/05/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: f02aa1d6d8e431e7e2613835b3216786aed4ecd4
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: c4804bd6614c7d5a2a30c8f59a645f603929ad52
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103095"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264585"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: Další informace o pokročilých scénářích – ASP.NET MVC s EF Core
 
@@ -81,7 +81,7 @@ Předpokládejme, že správce společnosti Contoso University chcete provést g
 
 ![Stránka pro aktualizaci kurzu kredity](advanced/_static/update-credits.png)
 
-V *CoursesContoller.cs*, přidejte UpdateCourseCredits metody třídy MetadataExchangeClientMode a HttpPost:
+V *CoursesController.cs*, přidejte UpdateCourseCredits metody třídy MetadataExchangeClientMode a HttpPost:
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_UpdateGet)]
 
@@ -202,6 +202,7 @@ Chcete-li provést zpětnou analýzu datový model, včetně tříd entit z exis
 Petr Dykstra a Rick Anderson (twitter @RickAndMSFT) napsal v tomto kurzu. Rowan Miller, Diegu Vega a ostatní členové týmu, Entity Framework s asistencí s revizemi kódu a pomohl ladění problémů, které vznikly, když jsme se pro kurzy psaní kódu. Jan Parente a Paul Goldman pracovali na aktualizaci kurz pro ASP.NET Core 2.2.
 
 <a id="common-errors"></a>
+
 ## <a name="troubleshoot-common-errors"></a>Řešení běžných chyb
 
 ### <a name="contosouniversitydll-used-by-another-process"></a>ContosoUniversity.dll používá jiný proces

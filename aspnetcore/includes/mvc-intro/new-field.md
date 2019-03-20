@@ -1,11 +1,20 @@
-<!-- This include not used by windows version -->
+---
+ms.openlocfilehash: 088f347cee73e745882455e6882d24a1e949f095
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265067"
+---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>Přidání nového pole do aplikace ASP.NET Core MVC
+
+<!-- This include not used by windows version -->
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V tomto kurzu přidáte nové pole do `Movies` tabulky. Vytvoříme vyřaďte databázi a vytvořte novou, když se změní schéma (přidání nového pole). Tento pracovní postup funguje dobře již v rané fázi při vývoji, když nemáme žádná data produkční opraveny.
+V tomto kurzu přidáte nové pole do `Movies` tabulky. Vytvoříme vyřaďte databázi a vytvořte novou, když se změní schéma (přidání nového pole). Tento pracovní postup funguje dobře již v rané fázi při vývoji, když nemáme žádné produkční data a zachovat.
 
-Jakmile je aplikace nasazená a máte data, která je potřeba opraveny, nelze vyřadit vaší databáze, pokud je třeba změnit schéma. Entity Framework [migrace Code First](/ef/core/get-started/aspnetcore/new-db) vám umožní aktualizovat schéma a migrovat databáze beze ztráty dat. Migrace je oblíbené funkce při použití SQL serveru, ale SQLlite nepodporuje mnoho operací migrace schématu, tak jenom velmi jednoduše migrace jsou možné. Zobrazit [omezení SQLite](/ef/core/providers/sqlite/limitations) Další informace.
+Jakmile je aplikace nasazená a máte data, která je potřeba zachovat, nelze vyřadit vaší databáze, pokud je třeba změnit schéma. Entity Framework [migrace Code First](/ef/core/get-started/aspnetcore/new-db) vám umožní aktualizovat schéma a migrovat databáze beze ztráty dat. Migrace je oblíbené funkce při použití SQL serveru, ale SQLite nepodporuje mnoho operací migrace schématu, tak jenom velmi jednoduše migrace jsou možné. Zobrazit [omezení SQLite](/ef/core/providers/sqlite/limitations) Další informace.
 
 ## <a name="adding-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti do hodnocení filmů modelu
 

@@ -5,12 +5,12 @@ description: Přidání modelu pro jednoduchou aplikaci ASP.NET Core.
 ms.author: riande
 ms.date: 02/25/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: ccdb7b920517c94b9154fe73b4ef1633f4ad0157
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: ed83ab92c70ea87f3c805787303e24c9ecfc4e12
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833550"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265540"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu pro aplikace ASP.NET Core MVC
 
@@ -26,14 +26,12 @@ V tomto kurzu nejprve napsat tříd modelu a EF Core vytvoří databázi. Altern
 
 ## <a name="add-a-data-model-class"></a>Přidejte třídu modelu dat
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Klikněte pravým tlačítkem myši *modely* složky > **přidat** > **třídy**. Název třídy **filmu**.
 
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 
-<!-- Code -------------------------->
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * Přidat třídu *modely* složku s názvem *Movie.cs*.
@@ -41,14 +39,12 @@ Klikněte pravým tlačítkem myši *modely* složky > **přidat** > **třídy**
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 [!INCLUDE [model 2](~/includes/mvc-intro/model2.md)]
 
----  
-<!-- End of VS tabs -->
+---
 
 ## <a name="scaffold-the-movie-model"></a>Vygenerované uživatelské rozhraní Video modelu
 
 V této části je automaticky generovaný model video. To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V **Průzkumníka řešení**, klikněte pravým tlačítkem myši *řadiče* složky **> Přidat > novou vygenerovanou položku**.
@@ -76,11 +72,10 @@ Visual Studio vytvoří:
 
 * Entity Framework Core [třídy kontextu databáze](xref:data/ef-mvc/intro#create-the-database-context) (*Data/MvcMovieContext.cs*)
 * Kontroler filmy (*Controllers/MoviesController.cs*)
-* Zobrazení Razor soubory vytvořit, odstranit, podrobností, úpravy a Index stránky (<em>zobrazení/filmy/&ast;.cshtml</em>)
+* Zobrazení Razor soubory vytvořit, odstranit, podrobností, úpravy a Index stránky (*zobrazení/filmy/\*.cshtml*)
 
 Automatické vytváření kontext databáze a [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (vytvoření, čtení, aktualizace a odstranění) metody akce a zobrazení se označuje jako *generování uživatelského rozhraní*.
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
@@ -313,4 +308,4 @@ Protože `Model` objektu je silně typováno (jako `IEnumerable<Movie>` objektu)
 
 > [!div class="step-by-step"]
 > [Předchozím přidávání zobrazení](adding-view.md)
-> [další práce s SQL](working-with-sql.md)  
+> [další práce s SQL](working-with-sql.md)

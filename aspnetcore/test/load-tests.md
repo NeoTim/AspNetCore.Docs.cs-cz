@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/04/2019
 uid: test/loadtests
-ms.openlocfilehash: 587df6e216943d3eeec779df4d0554dd0fc2fda0
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 39632af2c92dac548c03e24d35a5e8a03e00890d
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345425"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209830"
 ---
 # <a name="load-and-stress-testing-aspnet-core"></a>Zátěžové testování ASP.NET Core
 
@@ -22,7 +22,7 @@ Zátěžové testování a zátěžové testování je důležité zajistit, že
 **Zátěžové testy**: Testy aplikace stability při spuštění v extrémní podmínky a často dlouhou dobu:
 
 * Vysokého uživatelského zatížení – špičky nebo postupně zvyšuje.
-* Omezené výpočetních prostředků.  
+* Omezené výpočetních prostředků.
 
 Pod zátěží můžete aplikaci obnovení po selhání a elegantně vrátí k očekávané chování? Pod zátěží, aplikace je *není* spustit za normálních podmínek.
 
@@ -44,41 +44,42 @@ Zátěžové testy lze spustit v místní nebo v cloudu s využitím Azure DevOp
 
 Spuštění zátěžového testu můžete začít používat [testovací plány Azure DevOps](/azure/devops/test/load-test/index?view=vsts) služby.
 
-![](./load-tests/_static/azure-devops-load-test.png)
+![Azure DevOps zátěžového testování cílová stránka](./load-tests/_static/azure-devops-load-test.png)
 
 Služba podporuje následující typy formát testů:
 
-- Visual Studio test – webového testu vytvořené v sadě Visual Studio.
-- Během testování je znovu přehrát testů založené na protokolu HTTP archivu – zachycená data protokolu HTTP v archivu.
-- [Na základě adresy URL testu](/azure/devops/test/load-test/get-started-simple-cloud-load-test?view=vsts) – umožňuje zadat adresy URL načíst test, typy požadavků, hlaviček a řetězce dotazu. Vzor zatížení, počet uživatelů atd., můžete nakonfigurovat nastavení parametrů, jako je například doba trvání spuštění.
-- [Apache JMeter](https://jmeter.apache.org/) testování.
+* Visual Studio test – webového testu vytvořené v sadě Visual Studio.
+* Během testování je znovu přehrát testů založené na protokolu HTTP archivu – zachycená data protokolu HTTP v archivu.
+* [Na základě adresy URL testu](/azure/devops/test/load-test/get-started-simple-cloud-load-test?view=vsts) – umožňuje zadat adresy URL načíst test, typy požadavků, hlaviček a řetězce dotazu. Vzor zatížení, počet uživatelů atd., můžete nakonfigurovat nastavení parametrů, jako je například doba trvání spuštění.
+* [Apache JMeter](https://jmeter.apache.org/) testování.
 
 ## <a name="azure-portal"></a>portál Azure
 
 [Azure portal umožňuje nastavení a spuštění zátěžového testování webových aplikací,](/azure/devops/test/load-test/app-service-web-app-performance-test?view=vsts) přímo z karty výkonu služby App Service na webu Azure portal.
 
-![](./load-tests/_static/azure-appservice-perf-test.png)
+![Azure App Service na webu Azure Portal](./load-tests/_static/azure-appservice-perf-test.png)
 
 Test může být manuálního testu se zadanou adresu URL nebo soubor webový Test Visual Studio, které můžete testovat více adres URL.
 
-![](./load-tests/_static/azure-appservice-perf-test-config.png)
+![Nový Test výkonnosti stránky na webu Azure Portal](./load-tests/_static/azure-appservice-perf-test-config.png)
 
 Na konci testu jsou generovány sestavy zobrazíte charakteristiky výkonu aplikace. Příklad statistiky patří:
 
-- Průměrná doba odezvy
-- Maximální propustnost: počet požadavků za sekundu
-- Procento selhání
+* Průměrná doba odezvy
+* Maximální propustnost: počet požadavků za sekundu
+* Procento selhání
 
 ## <a name="third-party-tools"></a>Nástroje třetích stran
 
 Následující seznam obsahuje nástroje výkonnosti webu třetích stran s různými sadami funkcí:
 
-- [Apache JMeter](https://jmeter.apache.org/) : Kompletní vybranou sadu nástrojů pro testování zatížení. Vázané na vlákno: potřebujete jedno vlákno na jeden uživatel.
-- [AB – Apache HTTP server, nástroj pro srovnávací testy](https://httpd.apache.org/docs/2.4/programs/ab.html)
-- [Gatling](https://gatling.io/) : Klasické pracovní plochy nástroje s grafickým uživatelským rozhraním a testování zapisovače. Výkonnější než JMeter.
-- [Locust.io](https://locust.io/) : Není ohraničené vlákna.
+* [Apache JMeter](https://jmeter.apache.org/) : Kompletní vybranou sadu nástrojů pro testování zatížení. Vázané na vlákno: potřebujete jedno vlákno na jeden uživatel.
+* [AB – Apache HTTP server, nástroj pro srovnávací testy](https://httpd.apache.org/docs/2.4/programs/ab.html)
+* [Gatling](https://gatling.io/) : Klasické pracovní plochy nástroje s grafickým uživatelským rozhraním a testování zapisovače. Výkonnější než JMeter.
+* [Locust.io](https://locust.io/) : Není ohraničené vlákna.
 
 <a name="add"></a>
+
 ## <a name="additional-resources"></a>Další prostředky
 
 [Načíst Test blogovou sérii](https://blogs.msdn.microsoft.com/charles_sterling/2015/06/01/load-test-series-part-i-creating-web-performance-tests-for-a-load-test/) Charles sterling. S datem, ale většina témata jsou stále relevantní.

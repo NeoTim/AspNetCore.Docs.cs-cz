@@ -5,12 +5,12 @@ description: Objevte, jak přidat třídy pro správu filmy v databázi pomocí 
 ms.author: riande
 ms.date: 02/12/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 0ba00750dee1ccbef5d91d8c66f2de0db401c5c1
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: b4f14241d50383ad4d1c1d8c9d00ca439f371b7d
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346356"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265022"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -26,8 +26,6 @@ Modelu třídy jsou označovány jako POCO třídy (od "prostý staré CLR objek
 
 ## <a name="add-a-data-model"></a>Přidání datového modelu
 
-<!-- VS -------------------------->
-
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Klikněte pravým tlačítkem myši **RazorPagesMovie** Projekt > **přidat** > **novou složku**. Název složky *modely*.
@@ -35,8 +33,6 @@ Klikněte pravým tlačítkem myši **RazorPagesMovie** Projekt > **přidat** > 
 Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **třídy**. Název třídy **filmu**.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
-
-<!-- Code -------------------------->
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -47,7 +43,6 @@ Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **t�
 
 [!INCLUDE [model 2](~/includes/RP/model2.md)]
 
-<!-- Mac -------------------------->
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * V Průzkumníku řešení klikněte pravým tlačítkem myši **RazorPagesMovie** projektu a pak vyberte **přidat** > **novou složku**. Název složky *modely*.
@@ -62,8 +57,6 @@ Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **t�
 
 [!INCLUDE [model 2](~/includes/RP/model2.md)]
 
-<!-- End of VS tabs -->
-
 ---
 
 Sestavte projekt a ověřte, že nejsou žádné chyby během kompilace.
@@ -71,8 +64,6 @@ Sestavte projekt a ověřte, že nejsou žádné chyby během kompilace.
 ## <a name="scaffold-the-movie-model"></a>Vygenerované uživatelské rozhraní Video modelu
 
 V této části je automaticky generovaný model video. To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.
-
-<!-- VS -------------------------->
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -98,8 +89,6 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 ![Image z předchozích kroků.](model/_static/arp.png)
 
 *Appsettings.json* souboru aktualizovali připojovací řetězec použitý pro připojení k místní databázi.
-
-<!-- Code -------------------------->
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -127,8 +116,6 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 
 [!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
 
-<!-- Mac -------------------------->
-
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
@@ -137,6 +124,7 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
   ```console
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
+
 * Spusťte následující příkaz:
 
   ```console
@@ -164,11 +152,7 @@ Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
 
 ## <a name="initial-migration"></a>Počáteční migraci
 
-<!-- VS -------------------------->
-
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-<!-- VS -------------------------->
 
 V této části konzoly Správce balíčků (PMC) umožňuje:
 
@@ -186,11 +170,7 @@ Add-Migration Initial
 Update-Database
 ```
 
-<!-- Code -------------------------->
-
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-
-<!-- Mac -------------------------->
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
@@ -198,8 +178,7 @@ Update-Database
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
----  
-<!-- End of VS tabs -->
+---
 
 Předchozí příkazy Generovat následující upozornění: "Pro desetinných sloupec"Price"na typ entity"Video"nebyl zadán žádný typ. To způsobí, že hodnoty bylo tiché zkrácení, pokud to není ve výchozí přesnost a měřítko. Explicitně zadat typ sloupce serveru SQL, který zvládne všech hodnot pomocí "HasColumnType()"."
 
@@ -208,8 +187,6 @@ Můžete tuto upozornění ignorovat, opravíme v pozdějších kurzech.
 `ef migrations add InitialCreate` Příkaz vygeneruje kód pro vytvoření schématu počáteční databáze. Schéma je založen na zadaném v modelu `DbContext` (v *RazorPagesMovieContext.cs* souboru). `InitialCreate` Argument se používá k pojmenování migrace. Můžete použít libovolný název, ale podle konvence vybraný název, který popisuje migraci.
 
 `ef database update` Příkaz spustí `Up` metoda ve *migrace /\<časové razítko > _InitialCreate.cs* souboru. `Up` Metoda vytvoří databázi.
-
-<!-- VS -------------------------->
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -230,15 +207,10 @@ Zkontrolujte `Startup.ConfigureServices` metody. Zvýrazněný řádek byl přid
 Předchozí kód vytvoří [ `DbSet<Movie>` ](/dotnet/api/microsoft.entityframeworkcore.dbset-1) vlastnost sady entit. Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky. Entita odpovídající řádek v tabulce.
 
 Název připojovacího řetězce je předán v rámci voláním metody na [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) objektu. Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) načte připojovací řetězec z *appsettings.json* souboru.
-<!-- Code -------------------------->
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-<!-- Mac -------------------------->
-
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
-
-<!-- End of VS tabs -->
 
 ---
 
@@ -264,7 +236,7 @@ Je provedena [kroku migrace](#pmc).
 * Test **vytvořit** odkaz.
 
   ![Vytvoření stránky](model/_static/conan.png)
-  
+
   > [!NOTE]
   > Není možné zadat desetinné čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") desetinné čárky a USA retweetovat neanglické formáty kalendářního data, aplikace musí být globalizována. Globalizace pokyny najdete v tématu [tento problém Githubu](https://github.com/aspnet/Docs/issues/4076#issuecomment-326590420).
 

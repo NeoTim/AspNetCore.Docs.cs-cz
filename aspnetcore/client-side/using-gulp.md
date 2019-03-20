@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 10/04/2018
 uid: client-side/using-gulp
-ms.openlocfilehash: 43277dc5910971374187f49031e74769c9e29e1f
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 9f6d03a1e8a81bceca15cb1e1aa664c22c31e1d3
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665623"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209869"
 ---
 # <a name="use-gulp-in-aspnet-core"></a>Použití nástroje Gulp v ASP.NET Core
 
@@ -86,7 +86,7 @@ gulp.task("min:css", () => {
 });
 
 gulp.task("min", gulp.series(["min:js", "min:css"]));
-    
+
 // A 'default' task is required by Gulp v4
 gulp.task("default", gulp.series(["min"]));
 ```
@@ -108,7 +108,7 @@ Následující tabulka obsahuje vysvětlení úlohy určené ve výše uvedeném
 
 Pokud jste ještě nevytvořili novou webovou aplikaci, vytvořte nový projekt webové aplikace ASP.NET v sadě Visual Studio.
 
-1.  Otevřít *package.json* souboru (Přidat ověřte, zda existuje) a přidejte následující.
+1. Otevřít *package.json* souboru (Přidat ověřte, zda existuje) a přidejte následující.
 
     ```json
     {
@@ -122,71 +122,71 @@ Pokud jste ještě nevytvořili novou webovou aplikaci, vytvořte nový projekt 
     }
     ```
 
-2.  Přidejte nový soubor JavaScript do vašeho projektu a pojmenujte ho *gulpfile.js*, zkopírujte následující kód.
+2. Přidejte nový soubor JavaScript do vašeho projektu a pojmenujte ho *gulpfile.js*, zkopírujte následující kód.
 
     ```javascript
     /// <binding Clean='clean' />
     "use strict";
-    
+
     const gulp = require("gulp"),
           rimraf = require("rimraf"),
           concat = require("gulp-concat"),
           cssmin = require("gulp-cssmin"),
           uglify = require("gulp-uglify");
-    
+
     const paths = {
       webroot: "./wwwroot/"
     };
-    
+
     paths.js = paths.webroot + "js/**/*.js";
     paths.minJs = paths.webroot + "js/**/*.min.js";
     paths.css = paths.webroot + "css/**/*.css";
     paths.minCss = paths.webroot + "css/**/*.min.css";
     paths.concatJsDest = paths.webroot + "js/site.min.js";
     paths.concatCssDest = paths.webroot + "css/site.min.css";
-    
+
     gulp.task("clean:js", done => rimraf(paths.concatJsDest, done));
     gulp.task("clean:css", done => rimraf(paths.concatCssDest, done));
     gulp.task("clean", gulp.series(["clean:js", "clean:css"]));
 
     gulp.task("min:js", () => {
       return gulp.src([paths.js, "!" + paths.minJs], { base: "." })
-        .pipe(concat(paths.concatJsDest))
-        .pipe(uglify())
-        .pipe(gulp.dest("."));
+      .pipe(concat(paths.concatJsDest))
+      .pipe(uglify())
+      .pipe(gulp.dest("."));
     });
 
     gulp.task("min:css", () => {
       return gulp.src([paths.css, "!" + paths.minCss])
-        .pipe(concat(paths.concatCssDest))
-        .pipe(cssmin())
-        .pipe(gulp.dest("."));
+      .pipe(concat(paths.concatCssDest))
+      .pipe(cssmin())
+      .pipe(gulp.dest("."));
     });
 
     gulp.task("min", gulp.series(["min:js", "min:css"]));
-    
+
     // A 'default' task is required by Gulp v4
     gulp.task("default", gulp.series(["min"]));
     ```
 
-3.  V **Průzkumníka řešení**, klikněte pravým tlačítkem na *gulpfile.js*a vyberte **Task Runner Explorer**.
-    
+3. V **Průzkumníka řešení**, klikněte pravým tlačítkem na *gulpfile.js*a vyberte **Task Runner Explorer**.
+
     ![V Průzkumníku řešení otevřete Průzkumník Spouštěče úloh](using-gulp/_static/02-SolutionExplorer-TaskRunnerExplorer.png)
-    
+
     **Task Runner Explorer** zobrazuje seznam Gulp úlohy. (Možná budete muset kliknout **aktualizovat** tlačítko, které se zobrazí nalevo od názvu projektu.)
-    
+
     ![Task Runner Explorer](using-gulp/_static/03-TaskRunnerExplorer.png)
-    
+
     > [!IMPORTANT]
     > **Task Runner Explorer** položka kontextové nabídky se zobrazí pouze v případě *gulpfile.js* je v kořenovém adresáři projektu.
 
-4.  Pod tím **úlohy** v **Task Runner Explorer**, klikněte pravým tlačítkem na **čisté**a vyberte **spustit** v místní nabídce.
+4. Pod tím **úlohy** v **Task Runner Explorer**, klikněte pravým tlačítkem na **čisté**a vyberte **spustit** v místní nabídce.
 
     ![Úkolu vyčisti Průzkumník Spouštěče úloh](using-gulp/_static/04-TaskRunner-clean.png)
 
     **Task Runner Explorer** se vytvoří nová karta s názvem **čisté** a provedení čisté úkolu, jak jsou definovány v *gulpfile.js*.
 
-5.  Klikněte pravým tlačítkem myši **čisté** úloh a pak vyberte **vazby** > **před sestavení**.
+5. Klikněte pravým tlačítkem myši **čisté** úloh a pak vyberte **vazby** > **před sestavení**.
 
     ![Task Runner Explorer vazby BeforeBuild](using-gulp/_static/05-TaskRunner-BeforeBuild.png)
 
@@ -206,7 +206,7 @@ Nyní úkolu vyčisti se spustí při spuštění projektu v sadě Visual Studio
 
 Chcete-li definovat nové úlohy Gulp, upravte *gulpfile.js*.
 
-1.  Následující jazyka JavaScript přidejte na konec *gulpfile.js*:
+1. Následující jazyka JavaScript přidejte na konec *gulpfile.js*:
 
     ```javascript
     gulp.task('first', done => {
@@ -217,11 +217,11 @@ Chcete-li definovat nové úlohy Gulp, upravte *gulpfile.js*.
 
     Tento úkol má název `first`, a jednoduše zobrazí řetězec.
 
-2.  Uložit *gulpfile.js*.
+2. Uložit *gulpfile.js*.
 
-3.  V **Průzkumníka řešení**, klikněte pravým tlačítkem na *gulpfile.js*a vyberte *Task Runner Explorer*.
+3. V **Průzkumníka řešení**, klikněte pravým tlačítkem na *gulpfile.js*a vyberte *Task Runner Explorer*.
 
-4.  V **Task Runner Explorer**, klikněte pravým tlačítkem na **první**a vyberte **spustit**.
+4. V **Task Runner Explorer**, klikněte pravým tlačítkem na **první**a vyberte **spustit**.
 
     ![Task Runner Explorer spusťte první úlohu](using-gulp/_static/06-TaskRunner-First.png)
 
@@ -231,7 +231,7 @@ Chcete-li definovat nové úlohy Gulp, upravte *gulpfile.js*.
 
 Při spuštění více úloh, úkolů současně ve výchozím nastavení spouští. Ale pokud potřebujete ke spouštění úloh v určitém pořadí, musíte zadat každý úkol po dokončení, stejně jako úkoly, které závisí na dokončení jiného úkolu.
 
-1.  Chcete-li definovat řadu úkolů ke spuštění v pořadí, nahraďte `first` úkol, který jste přidali výše v *gulpfile.js* následujícím kódem:
+1. Chcete-li definovat řadu úkolů ke spuštění v pořadí, nahraďte `first` úkol, který jste přidali výše v *gulpfile.js* následujícím kódem:
 
     ```javascript
     gulp.task('series:first', done => {
@@ -240,22 +240,22 @@ Při spuštění více úloh, úkolů současně ve výchozím nastavení spouš
     });
     gulp.task('series:second', done => {
       console.log('second task! <-----');
-      done(); // signal completion
+        done(); // signal completion
     });
 
     gulp.task('series', gulp.series(['series:first', 'series:second']), () => { });
 
     // A 'default' task is required by Gulp v4
-    gulp.task('default', gulp.series('series'));
+      gulp.task('default', gulp.series('series'));
     ```
- 
+
     Teď máte tři úkoly: `series:first`, `series:second`, a `series`. `series:second` Úkol obsahuje druhý parametr, který určuje pole úkolů ke spuštění a dokončení před `series:second` bude úloha spuštěna. Jak je uvedeno v kódu výše, pouze `series:first` úkolu musí splnit, aby `series:second` bude úloha spuštěna.
 
-2.  Uložit *gulpfile.js*.
+2. Uložit *gulpfile.js*.
 
-3.  V **Průzkumníka řešení**, klikněte pravým tlačítkem na *gulpfile.js* a vyberte **Task Runner Explorer** Pokud ještě není otevřeno.
+3. V **Průzkumníka řešení**, klikněte pravým tlačítkem na *gulpfile.js* a vyberte **Task Runner Explorer** Pokud ještě není otevřeno.
 
-4.  V **Task Runner Explorer**, klikněte pravým tlačítkem na **řady** a vyberte **spustit**.
+4. V **Task Runner Explorer**, klikněte pravým tlačítkem na **řady** a vyberte **spustit**.
 
     ![Task Runner Explorer spusťte úlohu řady](using-gulp/_static/07-TaskRunner-Series.png)
 
@@ -298,27 +298,27 @@ Při použití nástroje Gulp optimalizovat soubory na straně klienta pro praco
 
 Chcete-li přepnout mezi kompilace pro různá prostředí, upravte **ASPNETCORE_ENVIRONMENT** hodnoty proměnné prostředí.
 
-1.  V **Task Runner Explorer**, ověřte, že **min** úloha byla nastavena pro spuštění **před sestavení**.
+1. V **Task Runner Explorer**, ověřte, že **min** úloha byla nastavena pro spuštění **před sestavení**.
 
-2.  V **Průzkumníka řešení**, klikněte pravým tlačítkem na název projektu a vyberte **vlastnosti**.
+2. V **Průzkumníka řešení**, klikněte pravým tlačítkem na název projektu a vyberte **vlastnosti**.
 
     Zobrazí se seznam vlastností pro webové aplikace.
 
-3.  Klikněte na tlačítko **ladění** kartu.
+3. Klikněte na tlačítko **ladění** kartu.
 
-4.  Nastavte hodnotu **Hosting: prostředí** proměnnou prostředí, aby `Production`.
+4. Nastavte hodnotu **Hosting: prostředí** proměnnou prostředí, aby `Production`.
 
-5.  Stisknutím klávesy **F5** ke spuštění aplikace v prohlížeči.
+5. Stisknutím klávesy **F5** ke spuštění aplikace v prohlížeči.
 
-6.  V okně prohlížeče, klikněte pravým tlačítkem na stránku a vybrat **zobrazit zdroj** Chcete-li zobrazit kód HTML stránky.
+6. V okně prohlížeče, klikněte pravým tlačítkem na stránku a vybrat **zobrazit zdroj** Chcete-li zobrazit kód HTML stránky.
 
     Všimněte si, že šablona stylů odkazy odkazují na minifikovaný soubory šablon stylů CSS.
 
-7.  Zavřete prohlížeč a zastavte tak webové aplikace.
+7. Zavřete prohlížeč a zastavte tak webové aplikace.
 
-8.  V sadě Visual Studio, vraťte se do seznamu vlastností pro webové aplikace a změňte **Hosting: prostředí** proměnnou prostředí zpět do `Development`.
+8. V sadě Visual Studio, vraťte se do seznamu vlastností pro webové aplikace a změňte **Hosting: prostředí** proměnnou prostředí zpět do `Development`.
 
-9.  Stisknutím klávesy **F5** a znovu spusťte aplikaci v prohlížeči.
+9. Stisknutím klávesy **F5** a znovu spusťte aplikaci v prohlížeči.
 
 10. V okně prohlížeče, klikněte pravým tlačítkem na stránku a vybrat **zobrazit zdroj** zobrazíte kód HTML stránky.
 

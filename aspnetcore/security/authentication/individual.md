@@ -5,12 +5,12 @@ description: Vyhledat články založené na projekty ASP.NET Core, které jsou 
 ms.author: riande
 ms.date: 11/30/2017
 uid: security/authentication/individual
-ms.openlocfilehash: c73365eafaf2c38ef02c3c83ccf5ced4264f7dc0
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: f9c1be16386da935382275815bb5fd5c72894b1c
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743771"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265425"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>Články podle projekty ASP.NET Core, které jsou vytvořené pomocí jednotlivých uživatelských účtů
 
@@ -39,6 +39,7 @@ dotnet new razor -au Individual
 Zobrazit [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/5833) pro ověřování webové rozhraní API.
 
 <a name="no"></a>
+
 ## <a name="no-authentication"></a>Bez ověřování
 
 Ověřování je zadaný v rozhraní příkazového řádku .NET Core s `-au` možnost. V sadě Visual Studio **změna ověřování** dialogové okno je k dispozici pro nové webové aplikace. Výchozí pro nové webové aplikace v sadě Visual Studio je **bez ověřování**.
@@ -49,6 +50,7 @@ Projekty vytvořené bez ověřování:
 * Neobsahují ověřovacího kódu.
 
 <a name="win"></a>
+
 ## <a name="windows-authentication"></a>Ověřování systému Windows
 
 Ověřování Windows je určená pro nové webové aplikace v rozhraní příkazového řádku .NET Core s `-au Windows` možnost. V sadě Visual Studio **změna ověřování** dialogové okno obsahuje **ověřování Windows** možnosti.

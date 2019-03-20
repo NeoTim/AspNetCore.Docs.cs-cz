@@ -5,12 +5,12 @@ description: Zjistěte, jak přidat řadič jednoduchou aplikaci ASP.NET Core MV
 ms.author: riande
 ms.date: 02/28/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: bbb7b06e2c9c63f44cb7f7a8ee63bffa1e316b3e
-ms.sourcegitcommit: 4e87712029de2aceb1cf2c52e9e3dda8195a5b8e
+ms.openlocfilehash: dad9262e544fc216ddc694b11b0dfb88b58db9cd
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53381865"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265015"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>Přidání kontroleru aplikace ASP.NET Core MVC
 
@@ -30,7 +30,6 @@ Zahrnují tyto koncepty v této sérii kurzů jsme ukazují, jak se dají použ�
 
 ## <a name="add-a-controller"></a>Přidání kontroleru
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V **Průzkumníka řešení**, klikněte pravým tlačítkem na **řadiče > Přidat > kontroler**
@@ -42,15 +41,13 @@ Zahrnují tyto koncepty v této sérii kurzů jsme ukazují, jak se dají použ�
 
 * V **dialogové okno Přidat prázdný kontroler MVC**, zadejte **HelloWorldController** a vyberte **přidat**.
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Vyberte **EXPLORER** ikonu a pak kliknutí s klávesou control (klikněte pravým tlačítkem) **řadiče > Nový soubor** a pojmenujte nový soubor *HelloWorldController.cs*.
 
   ![Kontextové nabídky](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
-<!-- Mac -------------------------->
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 V **Průzkumníka řešení**, klikněte pravým tlačítkem na **řadiče > Přidat > Nový soubor**.
 ![Kontextové nabídky](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
@@ -62,7 +59,6 @@ Název kontroleru **HelloWorldController**.
 ![Přidat kontroler MVC s názvem](~/tutorials/first-mvc-app-mac/adding-controller/_static/ac.png)
 
 ---
-<!-- End of VS tabs -->
 
 Nahraďte obsah *Controllers/HelloWorldController.cs* následujícím kódem:
 
@@ -130,7 +126,6 @@ Tentokrát třetí segment adresy URL odpovídající parametr trasa `id`. `Welc
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?name=snippet_1&highlight=5)]
 
 V těchto příkladech kontroleru je to "VC" část MVC – to znamená, zobrazení a kontroler fungovat. Kontroler přímo vrací HTML. Obecně nechcete řadiče vrácení HTML přímo, protože, který se stane velmi náročný kód a udržovat. Místo toho budete obvykle používat samostatný soubor šablony zobrazení Razor ke generování odpovědi HTML. Můžete to udělat v dalším kurzu.
-
 
 > [!div class="step-by-step"]
 > [Předchozí](start-mvc.md)

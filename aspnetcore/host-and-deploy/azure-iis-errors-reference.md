@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/28/2019
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 1c8cb31b306b38ec17596af0a84f22ca0e3d911c
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 053dcce7f8c59b7afe7e52d2f704c992afce0b67
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346223"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265178"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
 
@@ -61,7 +61,7 @@ Bez operačního systému souborů v **C:\Windows\SysWOW64\inetsrv** directory n
 
 *Platí pro aplikace hostované v Azure App Service.*
 
-* **Prohlížeč:** Chyba protokolu HTTP 500.0 - ANCM v procesu selhání načtení obslužné rutiny 
+* **Prohlížeč:** Chyba protokolu HTTP 500.0 - ANCM v procesu selhání načtení obslužné rutiny
 
 * **Protokol aplikace:** Vyvolání hostfxr najít obslužné rutiny inprocess požadavku se nezdařilo bez hledání všechny nativní závislosti. Nelze najít inprocess žádost o obslužnou rutinu. Vyvolání hostfxr zachycené výstup: Nebylo možné najít žádné architektura kompatibilní verzi. Zadané rozhraní "Microsoft.AspNetCore.App", verze: {VERSION} - preview –\*' nebyl nalezen. Nepovedlo se spustit aplikaci "/ LM/W3SVC/1416782824/ROOT", '0x8000ffff' kód chyby.
 
@@ -80,7 +80,7 @@ Bez operačního systému souborů v **C:\Windows\SysWOW64\inetsrv** directory n
   * ASP.NET Core {RUNTIME VERSION} (x86) Runtime
   * ASP.NET Core {RUNTIME VERSION} (x64) Runtime
 
-  Restartujte aplikaci. Počkejte několik sekund pro aplikaci restartovat. 
+  Restartujte aplikaci. Počkejte několik sekund pro aplikaci restartovat.
 
 * Pokud aplikace běží na modulu runtime ve verzi preview a (x86) 32bitové i 64bitové (x64) [rozšířením webu](xref:host-and-deploy/azure-apps/index#install-the-preview-site-extension) jsou nainstalovány, odinstalujte rozšíření webu, který neodpovídá počtu bitů aplikace. Po odebrání rozšíření webu, restartujte aplikaci. Počkejte několik sekund pro aplikaci restartovat.
 
@@ -201,8 +201,8 @@ Zkontrolujte web služby IIS **základní nastavení** a složky fyzické aplika
   ```xml
   <section name="aspNetCore" overrideModeDefault="Allow" />
   ```
-  
-  Můžete také nainstalujte nejnovější verzi sady hostování technologie ASP.NET Core. Nejnovější verze je zpětně kompatibilní s aplikací ASP.NET Core s podporou.
+
+  Můžete také nainstalujte nejnovější verzi sady hostování, ASP.NET Core. Nejnovější verze je zpětně kompatibilní s aplikací ASP.NET Core s podporou.
 
 ## <a name="incorrect-processpath-missing-path-variable-hosting-bundle-not-installed-systemiis-not-restarted-vc-redistributable-not-installed-or-dotnetexe-access-violation"></a>Nesprávné processPath, chybějící proměnné PATH, hostování sady není nainstalovaný, není restartování systému/IIS, VC ++ Redistributable není nainstalovaný nebo dotnet.exe narušení přístupu
 

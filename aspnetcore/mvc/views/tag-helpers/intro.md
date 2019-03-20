@@ -4,20 +4,20 @@ author: rick-anderson
 description: Zjistěte, jaké jsou pomocné rutiny značek a jejich použití v ASP.NET Core.
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 2/14/2018
+ms.date: 03/18/2019
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 4b9bceb3ce0153af2d9a30c402febe09707145b7
-ms.sourcegitcommit: f5d403004f3550e8c46585fdbb16c49e75f495f3
+ms.openlocfilehash: 7768dd45bdbe40c16176d57a76823cbb9dd0b91b
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/20/2018
-ms.locfileid: "49477303"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264621"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>Pomocné rutiny značek v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-## <a name="what-are-tag-helpers"></a>Co jsou pomocné rutiny značek?
+## <a name="what-are-tag-helpers"></a>Co jsou pomocné rutiny značek
 
 Pomocné rutiny značek povolit kód na straně serveru k účasti na vytváření a vykreslování prvků HTML v souborech Razor. Například předdefinované `ImageTagHelper` číslo verze můžete připojit k názvu image. Pokaždé, když se změní na obrázku, server vygeneruje nové jedinečné verze pro bitovou kopii, proto je zaručeno, že klienti získat aktuální image (namísto zastaralých bitové kopie v mezipaměti). Existuje mnoho integrovaných pomocných rutin značek pro běžné úlohy – například vytváření formulářů, odkazy, načítání prostředků a další – a ještě větší počet je dostupný ve veřejných úložištích GitHub a jako NuGet balíčky. Pomocné rutiny značek jsou vytvořené v jazyce C# a cílí na základě název elementu, atributu nebo nadřazené značky elementů HTML. Například předdefinované `LabelTagHelper` HTML můžete cílit na `<label>` element při `LabelTagHelper` atributy jsou použity. Pokud jste obeznámeni s [pomocných rutin HTML](http://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers), pomocných rutin značek snížit explicitní přechody mezi HTML a C# v zobrazení syntaxe Razor. V mnoha případech pomocných rutin HTML poskytnout alternativní způsob konkrétní pomocné rutiny značky, ale je důležité uvědomit si, že pomocné rutiny značek nemáte nahradit pomocné rutiny HTML a není k dispozici pomocné rutiny značky pro každý pomocné rutiny HTML. [Ve srovnání s pomocných rutin HTML pomocné rutiny značky](#tag-helpers-compared-to-html-helpers) vysvětluje rozdíly mezi více podrobností.
 
@@ -122,6 +122,7 @@ Musíte použít znak odhlásit pomocné rutiny značky pro počáteční a konc
 ```cshtml
 @tagHelperPrefix th:
 ```
+
 Na následujícím obrázku kód předpony pomocné rutiny značky nastavena na `th:`, takže pouze elementy pomocí předpony `th:` podporují pomocné rutiny značek (pomocné rutiny značky povolena elementy mají zvláštní písma). `<label>` a `<input>` elementy mají předponu pomocné rutiny značky a povolenými pomocné rutiny značky při `<span>` není element.
 
 ![obrázek](intro/_static/thp.png)
@@ -186,37 +187,21 @@ Na (`@`) symbol říká Razor, je toto začátek kódu. Následující dva param
 new {@class="caption"}
 ```
 
-Je anonymní objekt používá k reprezentování atributy. Protože <strong>třídy</strong> je vyhrazené klíčové slovo v jazyce C#, můžete použít `@` symbolů pro vynucení jazyka C# pro interpretaci "@class=" jako symbol (název vlastnosti). Pro front-endu návrháře (někdo zkušenosti s HTML/CSS a JavaScript a dalších technologií klienta, ale nejsou obeznámeni s C# a Razor), většina řádku je cizí. Celý řádek musí být vytvořen žádný pomocí technologie IntelliSense.
+Je anonymní objekt používá k reprezentování atributy. Protože `class` je vyhrazené klíčové slovo v C#, můžete použít `@` symbolů pro vynucení C# interpretovat `@class=` jako symbol (název vlastnosti). Pro front-endu návrháře (někdo zkušenosti s HTML/CSS a JavaScript a dalších technologií klienta, ale nejsou obeznámeni s C# a Razor), většina řádku je cizí. Celý řádek musí být vytvořen žádný pomocí technologie IntelliSense.
 
 Použití `LabelTagHelper`, stejné značky lze zapsat jako:
 
-![obrázek](intro/_static/label2.png)
+```cshtml
+<label class="caption" asp-for="FirstName"></label>
+```
 
 Pomocná rutina značky verzi, jakmile zadáte `<l` IntelliSense v editoru sady Visual Studio zobrazí odpovídající prvky:
 
 ![obrázek](intro/_static/label.png)
 
-Technologie IntelliSense umožňuje napsat celý řádek. `LabelTagHelper` Také výchozí hodnoty pro nastavení obsah `asp-for` atribut hodnotu ("FirstName") "Jméno"; Převede-ve formátu camelCase vlastnosti větu skládá z názvu vlastnosti s místem, kde dochází k každý nový velké písmeno. V následujícím kódu:
+Technologie IntelliSense umožňuje napsat celý řádek.
 
-![obrázek](intro/_static/label2.png)
-
-vygeneruje:
-
-```cshtml
-<label class="caption" for="FirstName">First Name</label>
-```
-
--Ve formátu camelCase na obsah věty malými a velkými písmeny se nepoužívá, pokud chcete přidat obsah tak, aby `<label>`. Příklad:
-
-![obrázek](intro/_static/1stName.png)
-
-vygeneruje:
-
-```cshtml
-<label class="caption" for="FirstName">Name First</label>
-```
-
-Následující kód obrázek ukazuje část formuláře *Views/Account/Register.cshtml* zobrazení Razor vygenerované ze starší verze šablony 4.5.x MVC ASP.NET, kde je součástí sady Visual Studio 2015.
+Následující kód obrázek ukazuje část formuláře *Views/Account/Register.cshtml* zobrazení Razor vygenerovaná z této šablony MVC ASP.NET 4.5.x součástí sady Visual Studio.
 
 ![obrázek](intro/_static/regCS.png)
 
@@ -267,5 +252,5 @@ Můžete přizpůsobit písma a barevné zvýraznění z **nástroje** > **možn
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Autor pomocných rutin značek](xref:mvc/views/tag-helpers/authoring)
-* [Práce s formuláři ](xref:mvc/views/working-with-forms)
+* [Práce s formuláři](xref:mvc/views/working-with-forms)
 * [TagHelperSamples na Githubu](https://github.com/dpaquette/TagHelperSamples) obsahuje pomocné rutiny značky ukázky pro práci s [Bootstrap](http://getbootstrap.com/).

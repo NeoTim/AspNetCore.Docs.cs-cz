@@ -1,4 +1,12 @@
-# <a name="contribute-to-the-aspnet-documentation"></a>Přispívání do dokumentace k ASP.NET
+---
+ms.openlocfilehash: f5002ae2d8317b2455298b9c5474d9bff52fa497
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264999"
+---
+# <a name="contribute-to-the-aspnet-core-documentation"></a>Přispívání do dokumentace k ASP.NET Core
 
 Tento dokument popisuje proces pro přispívání do článků a ukázky kódu, které jsou hostované na [webu Dokumentace k ASP.NET](https://docs.microsoft.com/aspnet/). Máte překlep opravy a nové články jsou Vítá příspěvky.
 
@@ -18,7 +26,7 @@ Potřebujete základní znalosti o [Git a webu GitHub.com](https://guides.github
 
 Příklad, ve kterém tento proces vedl k publikování nových článků, naleznete v tématu [problém &num;67](https://github.com/dotnet/docs/issues/67) a [žádostí o přijetí změn &num;798](https://github.com/dotnet/docs/pull/798) v úložišti dokumentace rozhraní .NET. Je nový článek [dokumentace kódu](https://docs.microsoft.com/dotnet/articles/csharp/codedoc).
 
-## <a name="docs-authoring-pack-extension-in-visual-studio-code"></a>Rozšíření Docs Authoring Pack ve Visual Studio Code 
+## <a name="docs-authoring-pack-extension-in-visual-studio-code"></a>Rozšíření Docs Authoring Pack ve Visual Studio Code
 
 Pokud používáte Visual Studio Code pro přispívání do dokumentace technologie ASP.NET, může zvýšit produktivitu pomocí instalace [Docs Authoring Pack](https://marketplace.visualstudio.com/items?itemName=docsmsft.docs-authoring-pack) rozšíření. Toto rozšíření poskytuje celou řadu nástrojů, která pomáhá s Markdownu linting, kontrolu pravopisu kódu a šablon článků.
 
@@ -119,6 +127,7 @@ DocFX vyžaduje:
   ```console
   docfx --serve
   ```
+
 * V prohlížeči přejděte na `http://localhost:8080/group1-dest/`.
 
 ### <a name="mono-instructions"></a>Pokyny k mono
@@ -128,6 +137,7 @@ DocFX vyžaduje:
   ```console
   brew install mono
   ```
+
 * Stáhněte si [nejnovější verzi DocFX](https://github.com/dotnet/docfx/releases).
 * Extrahovat archiv do *$HOME/bin/docfx*.
 * Vytvoření páru aliasy pro **docfx** v prostředí bash. První alias sloužící k sestavení v dokumentaci. Druhý alias umožňuje sestavovat a dodávat v dokumentaci.
@@ -136,11 +146,13 @@ DocFX vyžaduje:
   alias docfx='mono $HOME/bin/docfx/docfx.exe'
   alias docfx-serve='mono $HOME/bin/docfx/docfx.exe --serve'
   ```
+
 * V příkazovém řádku přejděte do složky, která obsahuje *docfx.json* souboru (*aspnet* obsahu ASP.NET nebo *aspnetcore* obsahu ASP.NET Core) a spusťte Následující příkaz, který sestavovat a dodávat dokumentace prostřednictvím jeho alias:
 
   ```console
   docfx-serve
   ```
+
 * V prohlížeči přejděte na `http://localhost:8080/group1-dest/`.
 
 ## <a name="voice-and-tone"></a>Pro hlasové hovory a tón

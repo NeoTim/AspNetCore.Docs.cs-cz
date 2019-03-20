@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 03/10/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: 6111ae77369608e828eebf6229b5702630bc63f8
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 25564ecebf48f65a209ac48e77856ef36d897959
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841459"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264986"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>Použití hostování při spuštění sestavení v ASP.NET Core
 
@@ -351,6 +351,7 @@ Ke spuštění ukázky:
      <RestoreSources>$(RestoreSources);https://api.nuget.org/v3/index.json;../HostingStartupPackage/bin/Debug</RestoreSources>
    </PropertyGroup>
    ```
+
 1. Podívejte se, že hodnoty klíče konfigurace služby vykreslen metodou indexovou stránku shodovat s hodnotami nastavenými balíček `ServiceKeyInjection.Configure` metody.
 
 Pokud provedete změny *HostingStartupPackage* projektu a ji znovu zkompilovat, zrušte zaškrtnutí políčka místní mezipaměti balíčku NuGet a zkontrolujte, že *HostingStartupApp* obdrží aktualizovaný balíček a nejsou zastaralé balíček z místní mezipaměti. Pokud chcete vymazat místní mezipaměť NuGet, spusťte následující [dotnet nuget locals](/dotnet/core/tools/dotnet-nuget-locals) příkaz:
@@ -374,6 +375,7 @@ dotnet nuget locals all --clear
      </Reference>
    </ItemGroup>
    ```
+
 1. Podívejte se, že hodnoty klíče konfigurace služby vykreslen metodou indexovou stránku odpovídat hodnoty nastavené v knihovně tříd `ServiceKeyInjection.Configure` metody.
 
 **Aktivace z úložiště nasazení sestavení modulu runtime**
@@ -387,6 +389,7 @@ dotnet nuget locals all --clear
    ```console
    dotnet store --manifest StartupDiagnostics.csproj --runtime <RID>
    ```
+
    Pro Windows, tento příkaz používá `win7-x64` [identifikátor modulu runtime (RID)](/dotnet/core/rid-catalog). Při poskytování hostitelských po spuštění pro jiný modul runtime, nahraďte správné identifikátorů RID.
 1. Nastavte proměnné prostředí:
    * Přidat název sestavení *StartupDiagnostics* k `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` proměnné prostředí.

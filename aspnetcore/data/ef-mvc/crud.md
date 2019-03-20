@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 368b1774ba977ec8020a02d48705200fd54c3bbd
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 83f5d4bdc3d5872109649818b61a6dbb656fd8be
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102978"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264835"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: Implementace funkcí CRUD – ASP.NET MVC s EF Core
 
@@ -123,6 +123,7 @@ Jiné než `Bind` atribut, bloku try-catch je pouze změny provedené na automat
 `ValidateAntiForgeryToken` Atribut lze zabránit útokům padělání (CSRF) podvržení žádosti. Token, který se automaticky vloží do zobrazení podle [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) a je dostupná při odeslání formuláře uživatelem. Token, který je ověřen `ValidateAntiForgeryToken` atribut. Další informace o CSRF najdete v tématu [ochrana proti padělání požadavků](../../security/anti-request-forgery.md).
 
 <a id="overpost"></a>
+
 ### <a name="security-note-about-overposting"></a>Poznámka k zabezpečení o overposting
 
 `Bind` Atribut, který obsahuje automaticky generovaný kód na `Create` metoda je jedním ze způsobů pro ochranu před overposting v vytvářet scénáře. Předpokládejme například, že obsahuje entity studentů `Secret` vlastnost, která nechcete tuto webovou stránku nastavení.

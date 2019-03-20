@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 4616e93e0cfc25f3ad66721856a4e48910f2fcf5
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 162586059e3115bc15efaa63a9a0652e09872f1b
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345956"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209962"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – řazení, filtrování, stránkování – 3 z 8
 
@@ -128,7 +128,7 @@ Například rozhraní .NET Framework provádění `Contains` ve výchozím nasta
 
 `Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
 
-Předchozí kód zajistí, že výsledky jsou malá a velká písmena Pokud se změní kód určený `IEnumerable`. Když `Contains` je volán na `IEnumerable` kolekce, .NET Core, který se použije implementace. Když `Contains` je volán na `IQueryable` objektu se použije implementace databáze. Vrácení `IEnumerable` z úložiště může mít penality výkonu:
+Předchozí kód zajistí, že výsledky jsou malá a velká písmena Pokud se změní kód určený `IEnumerable`. Když `Contains` je volán na `IEnumerable` kolekce, .NET Core, který se použije implementace. Když `Contains` je volán na `IQueryable` objektu se použije implementace databáze. Vrácení `IEnumerable` z úložiště může mít penalizace výkonu:
 
 1. Všechny řádky jsou vráceny z Databázového serveru.
 1. Filtr platí pro všechny řádky vrácené v aplikaci.

@@ -5,12 +5,12 @@ description: ''
 ms.author: tdykstra
 ms.date: 12/07/2016
 uid: migration/http-modules
-ms.openlocfilehash: 601b93fb12ab5b37b7d8ad8fd9825accc6e314cd
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 516230a66ee3edba986c91d79684256aa8e4c994
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743852"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209843"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>Migrace moduly a obslužné rutiny HTTP do middlewaru ASP.NET Core
 
@@ -26,29 +26,29 @@ Než budete pokračovat s middlewarem ASP.NET Core, Pojďme nejdříve rekapitul
 
 **Obslužné rutiny jsou:**
 
-   * Třídy, které implementují [IHttpHandler](/dotnet/api/system.web.ihttphandler)
+* Třídy, které implementují [IHttpHandler](/dotnet/api/system.web.ihttphandler)
 
-   * Používá ke zpracování požadavků pomocí daného názvu souboru nebo příponu, například *.report*
+* Používá ke zpracování požadavků pomocí daného názvu souboru nebo příponu, například *.report*
 
-   * [Nakonfigurované](/iis/configuration/system.webserver/handlers/) v *Web.config*
+* [Nakonfigurované](/iis/configuration/system.webserver/handlers/) v *Web.config*
 
 **Moduly jsou:**
 
-   * Třídy, které implementují [IHttpModule](/dotnet/api/system.web.ihttpmodule)
+* Třídy, které implementují [IHttpModule](/dotnet/api/system.web.ihttpmodule)
 
-   * Vyvolat pro každý požadavek
+* Vyvolat pro každý požadavek
 
-   * Možnost zkrácenou (zastaví další zpracování požadavku)
+* Možnost zkrácenou (zastaví další zpracování požadavku)
 
-   * Možnost přidat do odpovědi HTTP, nebo vytvořte svoje vlastní
+* Možnost přidat do odpovědi HTTP, nebo vytvořte svoje vlastní
 
-   * [Nakonfigurované](/iis/configuration/system.webserver/modules/) v *Web.config*
+* [Nakonfigurované](/iis/configuration/system.webserver/modules/) v *Web.config*
 
 **Pořadí modulů zpracovat příchozí žádosti, ve které je určeno:**
 
-   1. [Životního cyklu aplikace](https://msdn.microsoft.com/library/ms227673.aspx), což je řada události vyvolané ASP.NET: [BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest), [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)atd. Každý modul vytvořit obslužnou rutinu pro jeden nebo více událostí.
+1. [Životního cyklu aplikace](https://msdn.microsoft.com/library/ms227673.aspx), což je řada události vyvolané ASP.NET: [BeginRequest](/dotnet/api/system.web.httpapplication.beginrequest), [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)atd. Každý modul vytvořit obslužnou rutinu pro jeden nebo více událostí.
 
-   2. Pro stejnou událost, pořadí, ve kterém jsou nakonfigurované v *Web.config*.
+2. Pro stejnou událost, pořadí, ve kterém jsou nakonfigurované v *Web.config*.
 
 Kromě modulů, můžete přidat obslužné rutiny pro události životního cyklu, které mají vaše *Global.asax.cs* souboru. Tyto rutiny spustit po obslužných rutin v nakonfigurovaných moduly.
 
@@ -56,29 +56,29 @@ Kromě modulů, můžete přidat obslužné rutiny pro události životního cyk
 
 **Middleware je jednodušší než HTTP moduly a obslužné rutiny:**
 
-   * Moduly, obslužné rutiny, *Global.asax.cs*, *Web.config* (s výjimkou konfigurace služby IIS) a životního cyklu aplikace jsou pryč
+* Moduly, obslužné rutiny, *Global.asax.cs*, *Web.config* (s výjimkou konfigurace služby IIS) a životního cyklu aplikace jsou pryč
 
-   * Role moduly a obslužné rutiny byly převzaty middlewaru
+* Role moduly a obslužné rutiny byly převzaty middlewaru
 
-   * Middleware budou nakonfigurováni s použitím kódu spíše než v *Web.config*
+* Middleware budou nakonfigurováni s použitím kódu spíše než v *Web.config*
 
-   * [Větvení v kanálu](xref:fundamentals/middleware/index#use-run-and-map) umožňuje odesílat požadavky pro konkrétní middleware, na základě nejenom adresy URL ale také na hlavičky žádosti, řetězce dotazů, atd.
+* [Větvení v kanálu](xref:fundamentals/middleware/index#use-run-and-map) umožňuje odesílat požadavky pro konkrétní middleware, na základě nejenom adresy URL ale také na hlavičky žádosti, řetězce dotazů, atd.
 
 **Middleware jsou velmi podobné moduly:**
 
-   * Vyvolá se v zásadě pro každý požadavek
+* Vyvolá se v zásadě pro každý požadavek
 
-   * Možnost zkrácenou žádost, pomocí [není předání požadavku do dalšího middlewaru](#http-modules-shortcircuiting-middleware)
+* Možnost zkrácenou žádost, pomocí [není předání požadavku do dalšího middlewaru](#http-modules-shortcircuiting-middleware)
 
-   * Možnost vytvářet své vlastní odpovědi HTTP
+* Možnost vytvářet své vlastní odpovědi HTTP
 
 **Middleware a moduly jsou zpracovány v jiném pořadí:**
 
-   * Pořadí middlewaru je založena na pořadí, ve kterém jste vložili do kanálu požadavku, zatímco je především podle pořadí modulů [životního cyklu aplikace](https://msdn.microsoft.com/library/ms227673.aspx) události
+* Pořadí middlewaru je založena na pořadí, ve kterém jste vložili do kanálu požadavku, zatímco je především podle pořadí modulů [životního cyklu aplikace](https://msdn.microsoft.com/library/ms227673.aspx) události
 
-   * Middlewaru odpovědi probíhá v pořadí reverzní od požadavkům, přestože pořadí modulů je stejný pro požadavky a odpovědi
+* Middlewaru odpovědi probíhá v pořadí reverzní od požadavkům, přestože pořadí modulů je stejný pro požadavky a odpovědi
 
-   * Zobrazit [vytvoření kanálu middlewaru s IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)
+* Zobrazit [vytvoření kanálu middlewaru s IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder)
 
 ![Middleware](http-modules/_static/middleware.png)
 

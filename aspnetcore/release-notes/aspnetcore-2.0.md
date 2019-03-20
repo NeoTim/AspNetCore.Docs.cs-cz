@@ -5,24 +5,24 @@ description: Informace o nových funkcích v ASP.NET Core 2.0.
 ms.author: riande
 ms.date: 07/10/2017
 uid: aspnetcore-2.0
-ms.openlocfilehash: a6d3179c84bfef0b15c2772e696466b88d228de5
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 60e44e64bd1cfada0143e374f6f51dec0e4e84f8
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207118"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209882"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2.0
 
 Tento článek se soustředí na nejdůležitější změny provedené v ASP.NET Core 2.0, odkazy na relevantní dokumentaci.
 
-## <a name="razor-pages"></a>Stránky Razor
+## <a name="razor-pages"></a>Razor Pages
 
 Stránky Razor je nová funkce služby ASP.NET Core MVC, která provádí kódování zaměřené na stránce scénáře jednodušší a produktivnější.
 
 Další informace najdete v tématu Úvod a kurzu:
 
-* [Úvod do stránky Razor](xref:razor-pages/index)
+* [Úvod do Razor Pages](xref:razor-pages/index)
 * [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start)
 
 ## <a name="aspnet-core-metapackage"></a>ASP.NET Core Microsoft.aspnetcore.all
@@ -37,7 +37,7 @@ Aplikace, které používají `Microsoft.AspNetCore.All` Microsoft.aspnetcore.al
 
 Další informace najdete v tématu [úložiště modulu Runtime](/dotnet/core/deploying/runtime-store)
 
-## <a name="net-standard-20"></a>.NET standard 2.0
+## <a name="net-standard-20"></a>.NET Standard 2.0
 
 ASP.NET Core 2.0 balíčky cílit na .NET Standard 2.0. Balíčky mohou odkazovat další knihovny .NET Standard 2.0, a můžete spustit na .NET Standard 2.0 vyhovující implementace .NET, včetně .NET Core 2.0 a .NET Framework 4.6.1. 
 
@@ -81,9 +81,9 @@ Jeden šablony projektu stránka aplikace (SPA) pro Angular, Aurelia, knihovnou 
 
 Webový server Kestrel má nové funkce, které usnadňují vhodnější jako server přístupem k Internetu. Počet možnosti konfigurace serveru omezení přidány `KestrelServerOptions` vaší třídy nový `Limits` vlastnost. Přidáte omezení pro následující:
 
-- Maximální počet klientských připojení
-- Velikost textu maximální požadavku
-- Minimální požadavek tělo přenosová rychlost
+* Maximální počet klientských připojení
+* Velikost textu maximální požadavku
+* Minimální požadavek tělo přenosová rychlost
 
 Další informace najdete v tématu [Kestrel webového serveru provedení v ASP.NET Core](xref:fundamentals/servers/kestrel).
 

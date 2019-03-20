@@ -5,12 +5,12 @@ description: Zjistěte, jak oblasti jsou používány pro organizaci souvisejíc
 ms.author: riande
 ms.date: 02/14/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: 8904d217a18fff65113ae3469efe60258d20d5f0
-ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
+ms.openlocfilehash: 79bc023a7bd00a9d4de375e3cddaafd148251469
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57400642"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264759"
 ---
 # <a name="areas-in-aspnet-core"></a>Oblasti v ASP.NET Core
 
@@ -38,6 +38,7 @@ Typické webové aplikace ASP.NET Core pomocí oblastí, kontrolerů a zobrazen�
 * [Oblasti trasa přidaná do spuštění](#add-area-route): [!code-csharp[](areas/samples/MVCareas/Startup.cs?name=snippet2&highlight=3-6)]
 
 ### <a name="area-folder-structure"></a>Struktura složek oblasti
+
 Vezměte v úvahu aplikaci, která má dvě logické skupiny, *produkty* a *služby*. Používat, bude podobný následujícímu strukturu složek:
 
 * Název projektu
@@ -172,7 +173,7 @@ Vezměte v úvahu *služby* oblasti ukázek kódu, který neobsahuje *_ViewImpor
 V předchozím kódu:
 
 * K určení modelu musí použít plně kvalifikovaný název domény (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`).
-* [Pomocné rutiny značky]() ve jsou povolené `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
+* [Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) ve jsou povolené `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
 Oblasti produktů ve vzorku ke stažení obsahuje následující *_ViewImports* souboru:
 

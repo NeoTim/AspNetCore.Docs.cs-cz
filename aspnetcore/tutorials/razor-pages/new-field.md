@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 3799b072da04e32948b5fc78032f0575e760aa1d
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: f471e4bd12510b1de78f3281dcb21d73975d0cb8
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841443"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264742"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole do stránky v ASP.NET Core Razor
 
@@ -73,7 +73,6 @@ Zobrazit [dokončit soubor SeedData.cs](https://github.com/aspnet/Docs/blob/mast
 
 Sestavte řešení.
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 <a name="pmc"></a>
@@ -113,21 +112,19 @@ Další možností je odstranit databázi a znovu vytvořit databázi pomocí mi
   Update-Database
   ```
 
-<!-- Code -------------------------->
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 ### <a name="drop-and-re-create-the-database"></a>Vyřadit a znovu vytvořit databázi
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-Odstranění databáze a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*). Spusťte `ef database update` příkaz: 
+Odstranění databáze a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*). Spusťte `ef database update` příkaz:
 
 ```console
 dotnet ef database update
 ```
 
----  
-<!-- End of VS tabs -->
+---
 
 Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole. Pokud databáze není nasazený, nastavte zarážky `SeedData.Initialize` metody.
 

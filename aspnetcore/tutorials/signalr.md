@@ -6,12 +6,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/30/2018
 uid: tutorials/signalr
-ms.openlocfilehash: 53ec924c2d7b4fac227be0c0bf24d93476528167
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: ba36f75dfa40012df3140cdcbf8a7732fb0709fe
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836555"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264537"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s knihovnou SignalR technologie ASP.NET Core
 
@@ -79,7 +79,7 @@ Je součástí serveru knihovny SignalR `Microsoft.AspNetCore.App` Microsoft.asp
 
 * V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt a vyberte **přidat** > **knihoven na straně klienta**.
 
-* V **přidat knihovnu na straně klienta** dialogovém okně pro **poskytovatele** vyberte **unpkg**. 
+* V **přidat knihovnu na straně klienta** dialogovém okně pro **poskytovatele** vyberte **unpkg**.
 
 * Pro **knihovny**, zadejte `@aspnet/signalr@1`a vyberte nejnovější verzi, která není ve verzi preview.
 
@@ -210,7 +210,7 @@ Na serveru funkce SignalR nastavené předat požadavky SignalR SignalR.
   ```console
   dotnet run -p SignalRChat.csproj
   ```
-  
+
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V nabídce vyberte **spuštění > Spustit bez ladění**.

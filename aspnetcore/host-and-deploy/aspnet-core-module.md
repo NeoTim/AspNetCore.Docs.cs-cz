@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/26/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 302cfb00127c223aeb5e51e4d0a9ef3cb69b10eb
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: ead3732d2c272f0868e823726ffd415a6c74f444
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899369"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265451"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -72,7 +72,7 @@ Při hostování v procesu platí následující vlastnosti:
 * V ASP.NET Core 2.2.1 nebo starší, <xref:System.IO.Directory.GetCurrentDirectory*> vrátí adresáři pracovního procesu tím, že služba IIS spíše než adresáře aplikace (například *C:\Windows\System32\inetsrv* pro *w3wp.exe*) .
 
   Ukázkový kód, který nastaví aktuální adresář aplikace, najdete v článku [CurrentDirectoryHelpers třídy](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/aspnet-core-module/samples_snapshot/2.x/CurrentDirectoryHelpers.cs). Volání `SetCurrentDirectory` metody. Následující volání <xref:System.IO.Directory.GetCurrentDirectory*> poskytují adresáře aplikace.
-  
+
 * Při hostování v procesu, <xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*> nevolá interně k inicializaci uživatele. Proto <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> implementace používaném k transformaci deklarací identity po každém ověření není ve výchozím nastavení. Při transformaci deklarací identity s <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> implementace, volání <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> přidat ověřovací služby:
 
   ```csharp
@@ -81,7 +81,7 @@ Při hostování v procesu platí následující vlastnosti:
       services.AddTransient<IClaimsTransformation, ClaimsTransformer>();
       services.AddAuthentication(IISServerDefaults.AuthenticationScheme);
   }
-  
+
   public void Configure(IApplicationBuilder app)
   {
       app.UseAuthentication();
@@ -173,10 +173,10 @@ Následující *web.config* soubor je publikován pro [nasazení závisí na arc
       <handlers>
         <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Unspecified" />
       </handlers>
-      <aspNetCore processPath="dotnet" 
-                  arguments=".\MyApp.dll" 
-                  stdoutLogEnabled="false" 
-                  stdoutLogFile=".\logs\stdout" 
+      <aspNetCore processPath="dotnet"
+                  arguments=".\MyApp.dll"
+                  stdoutLogEnabled="false"
+                  stdoutLogFile=".\logs\stdout"
                   hostingModel="InProcess" />
     </system.webServer>
   </location>
@@ -194,9 +194,9 @@ Následující *web.config* soubor je publikován pro [nasazení závisí na arc
     <handlers>
       <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModule" resourceType="Unspecified" />
     </handlers>
-    <aspNetCore processPath="dotnet" 
-                arguments=".\MyApp.dll" 
-                stdoutLogEnabled="false" 
+    <aspNetCore processPath="dotnet"
+                arguments=".\MyApp.dll"
+                stdoutLogEnabled="false"
                 stdoutLogFile=".\logs\stdout" />
   </system.webServer>
 </configuration>
@@ -216,9 +216,9 @@ Následující *web.config* je publikována pro [samostatná nasazení](/dotnet/
       <handlers>
         <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Unspecified" />
       </handlers>
-      <aspNetCore processPath=".\MyApp.exe" 
-                  stdoutLogEnabled="false" 
-                  stdoutLogFile=".\logs\stdout" 
+      <aspNetCore processPath=".\MyApp.exe"
+                  stdoutLogEnabled="false"
+                  stdoutLogFile=".\logs\stdout"
                   hostingModel="InProcess" />
     </system.webServer>
   </location>
@@ -238,8 +238,8 @@ Následující *web.config* je publikována pro [samostatná nasazení](/dotnet/
     <handlers>
       <add name="aspNetCore" path="*" verb="*" modules="AspNetCoreModule" resourceType="Unspecified" />
     </handlers>
-    <aspNetCore processPath=".\MyApp.exe" 
-                stdoutLogEnabled="false" 
+    <aspNetCore processPath=".\MyApp.exe"
+                stdoutLogEnabled="false"
                 stdoutLogFile=".\logs\stdout" />
   </system.webServer>
 </configuration>
@@ -588,29 +588,29 @@ Instalační protokoly hostování sady prostředků modulu se nacházejí v *C:
 
 **IIS (x86/amd64):**
 
-   * %windir%\System32\inetsrv\aspnetcore.dll
+* %windir%\System32\inetsrv\aspnetcore.dll
 
-   * %windir%\SysWOW64\inetsrv\aspnetcore.dll
+* %windir%\SysWOW64\inetsrv\aspnetcore.dll
 
 ::: moniker range=">= aspnetcore-2.2"
 
-   * %ProgramFiles%\IIS\Asp.NET core Module\V2\aspnetcorev2.dll
+* %ProgramFiles%\IIS\Asp.NET core Module\V2\aspnetcorev2.dll
 
-   * % ProgramFiles (x86) %\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll
+* % ProgramFiles (x86) %\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll
 
 ::: moniker-end
 
 **Služba IIS Express (x86/amd64):**
 
-   * %ProgramFiles%\IIS Express\aspnetcore.dll
+* %ProgramFiles%\IIS Express\aspnetcore.dll
 
-   * %ProgramFiles(x86)%\IIS Express\aspnetcore.dll
+* %ProgramFiles(x86)%\IIS Express\aspnetcore.dll
 
 ::: moniker range=">= aspnetcore-2.2"
 
-   * %ProgramFiles%\IIS Express\Asp.Net Core Module\V2\aspnetcorev2.dll
+* %ProgramFiles%\IIS Express\Asp.Net Core Module\V2\aspnetcorev2.dll
 
-   * % ProgramFiles (x86) %\IIS Express\Asp.Net Core Module\V2\aspnetcorev2.dll
+* % ProgramFiles (x86) %\IIS Express\Asp.Net Core Module\V2\aspnetcorev2.dll
 
 ::: moniker-end
 
@@ -618,20 +618,21 @@ Instalační protokoly hostování sady prostředků modulu se nacházejí v *C:
 
 **SLUŽBA IIS**
 
-   * %windir%\System32\inetsrv\config\schema\aspnetcore_schema.xml
+* %windir%\System32\inetsrv\config\schema\aspnetcore_schema.xml
 
 ::: moniker range=">= aspnetcore-2.2"
 
-   * %windir%\System32\inetsrv\config\schema\aspnetcore_schema_v2.XML
+* %windir%\System32\inetsrv\config\schema\aspnetcore_schema_v2.XML
 
 ::: moniker-end
+
 **Služba IIS Express**
 
-   * %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema.xml
+* %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema.xml
 
 ::: moniker range=">= aspnetcore-2.2"
 
-   * %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema_v2.xml
+* %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema_v2.xml
 
 ::: moniker-end
 
@@ -639,13 +640,13 @@ Instalační protokoly hostování sady prostředků modulu se nacházejí v *C:
 
 **SLUŽBA IIS**
 
-   * %windir%\System32\inetsrv\config\applicationHost.config
+* %windir%\System32\inetsrv\config\applicationHost.config
 
 **Služba IIS Express**
 
-   * Visual Studio: {Kořenový adresář aplikace}\\.vs\config\applicationHost.config
-   
-   * *iisexpress.exe* CLI: %USERPROFILE%\Documents\IISExpress\config\applicationhost.config
+* Visual Studio: {Kořenový adresář aplikace}\\.vs\config\applicationHost.config
+
+* *iisexpress.exe* CLI: %USERPROFILE%\Documents\IISExpress\config\applicationhost.config
 
 Soubory můžete najít tak, že *aspnetcore* v *applicationHost.config* souboru.
 

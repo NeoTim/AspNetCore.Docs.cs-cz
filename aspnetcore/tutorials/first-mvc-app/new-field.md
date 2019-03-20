@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: f352a9c3573119028d1bc42fd622919ce0560e7c
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 44487b91c8bbd353157a5f5f1b834187e47e2f3e
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841498"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264656"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>Přidání nového pole do aplikace ASP.NET Core MVC
 
@@ -49,18 +49,17 @@ Upravit */Views/Movies/Index.cshtml* a přidejte `Rating` pole:
 
 Aktualizace */Views/Movies/Create.cshtml* s `Rating` pole.
 
-<!-- VS -------------------------->
 # <a name="visual-studio--visual-studio-for-mactabvisual-studiovisual-studio-mac"></a>[Visual Studio / Visual Studio for Mac](#tab/visual-studio+visual-studio-mac)
 
 Můžete kopírovat/vložit předchozí "formuláře skupinu" a aktualizujte pole pomohou technologie intelliSense. Technologie IntelliSense funguje s [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).
 
 ![Vývojář napsal písmeno R pro hodnotu atributu ASP-pro druhý popisek prvku zobrazení. Jeho ikona místní nabídku technologie Intellisense zobrazí dostupná pole, včetně hodnocení, který je zvýrazněn v seznamu automaticky. Když vývojář klikne pole nebo stiskne klávesu Enter na klávesnici, hodnota se nastaví na hodnocení.](new-field/_static/cr.png)
 
-<!-- Code -------------------------->
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
 <!-- This tab intentionally left blank. -->
----  
-<!-- End of VS tabs -->
+
+---
 
 Aktualizace `SeedData` třídy tak, že poskytuje hodnoty pro nový sloupec. Ukázka změnu je uveden níže, ale budete chtít tuto změnu pro každou `new Movie`.
 
@@ -82,7 +81,6 @@ K této chybě dochází, protože se liší od schématu tabulky Movie existuj�
 
 V tomto kurzu se používá migrace Code First.
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet > Konzola správce balíčků**.
@@ -106,17 +104,17 @@ Pokud se odstraní všechny záznamy z databáze, Metoda initialize bude počát
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-Odstranění databáze a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*). Spusťte `ef database update` příkaz: 
+Odstranění databáze a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*). Spusťte `ef database update` příkaz:
 
 ```console
 dotnet ef database update
 ```
 
----  
+---
 <!-- End of VS tabs -->
 
 Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole. Měli byste přidat `Rating` pole `Edit`, `Details`, a `Delete` zobrazení šablon.
 
 > [!div class="step-by-step"]
 > [Předchozí](search.md)
-> [další](validation.md)  
+> [další](validation.md)

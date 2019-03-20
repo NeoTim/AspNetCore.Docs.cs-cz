@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/25/2019
 uid: test/integration-tests
-ms.openlocfilehash: 053713e148df70b0be6bb567b55b2381a78d6c3e
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: 50cb6b26be187c7f36f189e77fd29b4559221f2c
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833576"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209236"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -91,7 +91,7 @@ Součásti infrastruktury, jako je například hostitel webového testu a testu 
 [Testování částí](/dotnet/articles/core/testing/unit-testing-with-dotnet-test) dokumentace popisuje, jak nastavit službu projektu a testovacímu spuštění testu, spolu s podrobné pokyny o tom, jak spouštět testy a doporučení, jak pro název testů a testovací třídy.
 
 > [!NOTE]
-> Při vytváření testovacího projektu pro aplikaci, oddělte z testů integrace do různých projektů testů jednotek. To pomáhá zajistit, že testování komponent infrastruktury nejsou neúmyslně zahrnuty při testech jednotek. Oddělení testů jednotek a integrace také umožňuje řídit, přes které sadu testů pro spuštění.
+> Při vytváření testovacího projektu pro aplikaci, oddělte z testů integrace do různých projektů testů jednotek. Toto pomáhá tak zajistit, že testování komponent infrastruktury nejsou omylem zahrnuté do jednotkové testy. Oddělení testů jednotek a integrace také umožňuje řídit, přes které sadu testů pro spuštění.
 
 Není k dispozici téměř žádný rozdíl mezi konfigurace pro testy aplikace Razor Pages a aplikace MVC. Jediný rozdíl je v tom, jak jsou testy s názvem. V aplikaci pro stránky Razor, testy stránky koncových bodů obvykle pojmenován podle třídy modelu stránky (například `IndexPageTests` testování součástí integrace pro indexovou stránku). V aplikaci MVC, testy se obvykle uspořádané podle třídy kontroleru a pojmenované po řadiče testují (například `HomeControllerTests` testování integrace komponenty pro kontroler Home).
 

@@ -1,18 +1,12 @@
 ---
 title: Hostitelství a nasazení součásti syntaxe Razor
 author: guardrex
-description: Objevte, jak hostovat a nasadit komponenty Razor a Blazor aplikace pomocí ASP.NET Core, Content Delivery Network (CDN), souborové servery a stránkách Githubu.
+description: 'Objevte, jak hostovat a nasadit komponenty Razor a Blazor aplikace pomocí ASP.NET Core, Content Delivery Network (CDN), souborové servery a stránkách Githubu.'
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/29/2019
 uid: host-and-deploy/razor-components/index
-ms.openlocfilehash: 9debd75128ceecb805fc673a8182a785fc9f7942
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55668120"
 ---
 # <a name="host-and-deploy-razor-components"></a>Hostitelství a nasazení součásti syntaxe Razor
 
@@ -115,7 +109,7 @@ S [model hostingu na straně klienta](xref:razor-components/hosting-models#clien
 * Aplikace je proveden přímo v prohlížeči vlákno uživatelského rozhraní. Je podporován některý z následujících strategií:
   * Aplikace Blazor obsluhují aplikace ASP.NET Core. Do [Client-side Blazor hostované nasazení pomocí technologie ASP.NET Core](#client-side-blazor-hosted-deployment-with-aspnet-core) oddílu.
   * Blazor aplikace je umístěn na statické hostování webového serveru nebo službě, kde není .NET používají k předávání Blazor aplikace. Do [Client-side Blazor samostatné nasazení](#client-side-blazor-standalone-deployment) oddílu.
-  
+
 ### <a name="configure-the-linker"></a>Konfigurace Linkeru
 
 Blazor provádí Intermediate Language (IL) propojení na každé sestavení odebrat nepotřebné IL z výstupního sestavení. Můžete řídit propojení při sestavování sestavení. Další informace naleznete v tématu <xref:host-and-deploy/razor-components/configure-linker>.
@@ -197,7 +191,8 @@ Další informace o nasazení a hostování aplikací ASP.NET Core najdete v té
 
 Informace o nasazení do služby Azure App Service najdete v následujících tématech:
 
-<xref:tutorials/publish-to-azure-webapp-using-vs>  
+<xref:tutorials/publish-to-azure-webapp-using-vs>
+
 Zjistěte, jak publikovat aplikace ASP.NET Core do služby Azure App Service pomocí sady Visual Studio.
 
 ### <a name="client-side-blazor-standalone-deployment"></a>Nasazení samostatného Blazor na straně klienta
@@ -273,7 +268,7 @@ K hostování Blazor v Dockeru pomocí serveru Nginx, instalační program soubo
 
 Přidejte jeden řádek do souboru Dockerfile, jak je znázorněno v následujícím příkladu:
 
-```
+```Dockerfile
 FROM nginx:alpine
 COPY ./bin/Release/netstandard2.0/publish /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -305,5 +300,6 @@ Při publikování aplikace ASP.NET Core Razor komponenty aplikace je součást�
 
 Informace o nasazení do služby Azure App Service najdete v následujících tématech:
 
-<xref:tutorials/publish-to-azure-webapp-using-vs>  
+<xref:tutorials/publish-to-azure-webapp-using-vs>
+
 Zjistěte, jak publikovat aplikace ASP.NET Core do služby Azure App Service pomocí sady Visual Studio.

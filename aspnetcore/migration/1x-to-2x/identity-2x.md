@@ -5,12 +5,12 @@ description: Tento článek popisuje nejběžnější postup pro migraci ASP.NET
 ms.author: scaddie
 ms.date: 12/18/2018
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: d28b4af483c7ec9d6cff6db3e2f1693e765d4202
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: d11d41c82236436096660a24df81a3df4da0fb8e
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637609"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265360"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>Ověřování a identitu migrovat do ASP.NET Core 2.0
 
@@ -21,6 +21,7 @@ ASP.NET Core 2.0 je nový model pro ověřování a [Identity](xref:security/aut
 <a name="auth-middleware"></a>
 
 ## <a name="authentication-middleware-and-services"></a>Ověřovací Middleware a služby
+
 V projektech 1.x je nakonfigurované ověřování prostřednictvím middlewaru. Middleware metoda je volána pro každé schéma ověřování, které chcete podporovat.
 
 V následujícím příkladu 1.x konfiguruje s identitou v ověřování přes síť Facebook *Startup.cs*:
@@ -35,11 +36,11 @@ public void ConfigureServices(IServiceCollection services)
 public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory)
 {
     app.UseIdentity();
-    app.UseFacebookAuthentication(new FacebookOptions { 
+    app.UseFacebookAuthentication(new FacebookOptions {
         AppId = Configuration["auth:facebook:appid"],
         AppSecret = Configuration["auth:facebook:appsecret"]
     });
-} 
+}
 ```
 
 V projektech, 2.0 je nakonfigurované ověřování prostřednictvím služby. Každé schéma ověřování je registrován v `ConfigureServices` metoda *Startup.cs*. `UseIdentity` Metoda je nahrazen `UseAuthentication`.
@@ -55,7 +56,7 @@ public void ConfigureServices(IServiceCollection services)
     // If you want to tweak Identity cookies, they're no longer part of IdentityOptions.
     services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
     services.AddAuthentication()
-            .AddFacebook(options => 
+            .AddFacebook(options =>
             {
                 options.AppId = Configuration["auth:facebook:appid"];
                 options.AppSecret = Configuration["auth:facebook:appsecret"];
@@ -72,6 +73,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 Níže jsou uvedeny pokyny k migraci 2.0 pro každé schéma hlavní ověřování.
 
 ### <a name="cookie-based-authentication"></a>Ověřování na základě souborů cookie
+
 Vyberte jednu z následujících dvou možností a proveďte potřebné změny v *Startup.cs*:
 
 1. Použít soubory cookie s využitím Identity
@@ -88,24 +90,24 @@ Vyberte jednu z následujících dvou možností a proveďte potřebné změny v
         services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-    
+
         services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
         ```
 
 2. Použít soubory cookie bez systému Identity
     - Nahradit `UseCookieAuthentication` volání metody `Configure` metodu s `UseAuthentication`:
-  
+
         ```csharp
         app.UseAuthentication();
         ```
- 
+
     - Vyvolat `AddAuthentication` a `AddCookie` metody v `ConfigureServices` metody:
 
         ```csharp
-        // If you don't want the cookie to be automatically authenticated and assigned to HttpContext.User, 
+        // If you don't want the cookie to be automatically authenticated and assigned to HttpContext.User,
         // remove the CookieAuthenticationDefaults.AuthenticationScheme parameter passed to AddAuthentication.
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options => 
+                .AddCookie(options =>
                 {
                     options.LoginPath = "/Account/LogIn";
                     options.LogoutPath = "/Account/LogOff";
@@ -113,9 +115,10 @@ Vyberte jednu z následujících dvou možností a proveďte potřebné změny v
         ```
 
 ### <a name="jwt-bearer-authentication"></a>Ověřování nosného tokenu JWT
+
 Proveďte následující změny v *Startup.cs*:
 - Nahradit `UseJwtBearerAuthentication` volání metody `Configure` metodu s `UseAuthentication`:
- 
+
     ```csharp
     app.UseAuthentication();
     ```
@@ -124,7 +127,7 @@ Proveďte následující změny v *Startup.cs*:
 
     ```csharp
     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options => 
+            .AddJwtBearer(options =>
             {
                 options.Audience = "http://localhost:5001/";
                 options.Authority = "http://localhost:5000/";
@@ -134,6 +137,7 @@ Proveďte následující změny v *Startup.cs*:
     Tento fragment kódu nepoužívá identitu, abyste výchozí schéma by měl nastavit předáním `JwtBearerDefaults.AuthenticationScheme` k `AddAuthentication` metody.
 
 ### <a name="openid-connect-oidc-authentication"></a>Ověřování OpenID Connect (OIDC)
+
 Proveďte následující změny v *Startup.cs*:
 
 - Nahradit `UseOpenIdConnectAuthentication` volání metody `Configure` metodu s `UseAuthentication`:
@@ -145,42 +149,44 @@ Proveďte následující změny v *Startup.cs*:
 - Vyvolat `AddOpenIdConnect` metoda ve `ConfigureServices` metody:
 
     ```csharp
-    services.AddAuthentication(options => 
+    services.AddAuthentication(options =>
     {
         options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
     })
     .AddCookie()
-    .AddOpenIdConnect(options => 
+    .AddOpenIdConnect(options =>
     {
         options.Authority = Configuration["auth:oidc:authority"];
         options.ClientId = Configuration["auth:oidc:clientid"];
     });
     ```
 
-### <a name="facebook-authentication"></a>ověřování facebooku
+### <a name="facebook-authentication"></a>Ověřování Facebooku
+
 Proveďte následující změny v *Startup.cs*:
 - Nahradit `UseFacebookAuthentication` volání metody `Configure` metodu s `UseAuthentication`:
- 
+
     ```csharp
     app.UseAuthentication();
     ```
 
 - Vyvolat `AddFacebook` metoda ve `ConfigureServices` metody:
-    
+
     ```csharp
     services.AddAuthentication()
-            .AddFacebook(options => 
+            .AddFacebook(options =>
             {
                 options.AppId = Configuration["auth:facebook:appid"];
                 options.AppSecret = Configuration["auth:facebook:appsecret"];
             });
     ```
 
-### <a name="google-authentication"></a>Ověřování Google
+### <a name="google-authentication"></a>Ověřování Googlu
+
 Proveďte následující změny v *Startup.cs*:
 - Nahradit `UseGoogleAuthentication` volání metody `Configure` metodu s `UseAuthentication`:
- 
+
     ```csharp
     app.UseAuthentication();
     ```
@@ -189,14 +195,15 @@ Proveďte následující změny v *Startup.cs*:
 
     ```csharp
     services.AddAuthentication()
-            .AddGoogle(options => 
+            .AddGoogle(options =>
             {
                 options.ClientId = Configuration["auth:google:clientid"];
                 options.ClientSecret = Configuration["auth:google:clientsecret"];
-            });    
+            });
     ```
 
 ### <a name="microsoft-account-authentication"></a>Ověřování pomocí Account Microsoft
+
 Proveďte následující změny v *Startup.cs*:
 - Nahradit `UseMicrosoftAccountAuthentication` volání metody `Configure` metodu s `UseAuthentication`:
 
@@ -208,17 +215,18 @@ Proveďte následující změny v *Startup.cs*:
 
     ```csharp
     services.AddAuthentication()
-            .AddMicrosoftAccount(options => 
+            .AddMicrosoftAccount(options =>
             {
                 options.ClientId = Configuration["auth:microsoft:clientid"];
                 options.ClientSecret = Configuration["auth:microsoft:clientsecret"];
             });
-    ``` 
+    ```
 
-### <a name="twitter-authentication"></a>Ověřování pomocí twitteru
+### <a name="twitter-authentication"></a>Ověřování Twitteru
+
 Proveďte následující změny v *Startup.cs*:
 - Nahradit `UseTwitterAuthentication` volání metody `Configure` metodu s `UseAuthentication`:
- 
+
     ```csharp
     app.UseAuthentication();
     ```
@@ -227,7 +235,7 @@ Proveďte následující změny v *Startup.cs*:
 
     ```csharp
     services.AddAuthentication()
-            .AddTwitter(options => 
+            .AddTwitter(options =>
             {
                 options.ConsumerKey = Configuration["auth:twitter:consumerkey"];
                 options.ConsumerSecret = Configuration["auth:twitter:consumersecret"];
@@ -235,6 +243,7 @@ Proveďte následující změny v *Startup.cs*:
     ```
 
 ### <a name="setting-default-authentication-schemes"></a>Nastavení výchozích schémat ověřování
+
 V 1.x `AutomaticAuthenticate` a `AutomaticChallenge` vlastnosti [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1) základní třídy byly v úmyslu nastavit na jedno schéma ověřování. Neexistoval dobrý způsob, jak to chcete vynutit.
 
 Ve verzi 2.0, se odebraly tyto dvě vlastnosti jako vlastnosti na jednotlivých `AuthenticationOptions` instance. Se dají konfigurovat v `AddAuthentication` volání metody v rámci `ConfigureServices` metoda *Startup.cs*:
@@ -248,7 +257,7 @@ V předchozím fragmentu kódu, výchozí schéma je nastavený na `CookieAuthen
 Alternativně použijte přetížené verze `AddAuthentication` metoda nastavit více než jednu vlastnost. V následujícím příkladu přetěžované metody, nebo výchozí schéma je nastaveno na `CookieAuthenticationDefaults.AuthenticationScheme`. Případně lze zadat schéma ověřování v rámci svůj individuální `[Authorize]` atributy nebo zásad autorizace.
 
 ```csharp
-services.AddAuthentication(options => 
+services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
@@ -264,6 +273,7 @@ Výjimkou z tohoto pravidla je `AddIdentity` metody. Tato metoda přidá soubory
 <a name="obsolete-interface"></a>
 
 ## <a name="use-httpcontext-authentication-extensions"></a>Použití rozšíření ověřování HttpContext
+
 `IAuthenticationManager` Rozhraní je hlavní vstupní bod do 1.x ověřovacího systému. Nahradili jsme ho s novou sadu `HttpContext` rozšiřující metody v `Microsoft.AspNetCore.Authentication` oboru názvů.
 
 Například 1.x projekty referenční dokumentace `Authentication` vlastnost:
@@ -276,7 +286,8 @@ V projektech, 2.0, import `Microsoft.AspNetCore.Authentication` obor názvů a o
 
 <a name="windows-auth-changes"></a>
 
-## <a name="windows-authentication-httpsys--iisintegration"></a>Ověřování Windows (http / IISIntegration)
+## <a name="windows-authentication-httpsys--iisintegration"></a>Windows Authentication (HTTP.sys / IISIntegration)
+
 Existují dvě varianty ověřování Windows:
 1. Hostitel umožňuje pouze ověřeným uživatelům
 2. Oba hostitele umožňuje anonymní a ověření uživatelé
@@ -293,7 +304,8 @@ Nepodařilo se nastavit výchozí schéma odpovídajícím způsobem brání vyb
 
 <a name="identity-cookie-options"></a>
 
-## <a name="identitycookieoptions-instances"></a>Instance IdentityCookieOptions
+## <a name="identitycookieoptions-instances"></a>IdentityCookieOptions instances
+
 Vedlejším účinkem 2.0 změny se přepnout na používání s názvem možnosti namísto souboru cookie možnosti instance. Odebere se možnost přizpůsobit si názvy schémat souboru cookie Identity.
 
 Například 1.x projekty použití [konstruktor vkládání](xref:mvc/controllers/dependency-injection#constructor-injection) předat `IdentityCookieOptions` parametr do *AccountController.cs*. Schéma externí soubor cookie ověřování přistupuje z zadanou instanci:
@@ -311,6 +323,7 @@ Vkládání výše uvedené konstruktor stane zbytečné v projektech pro 2.0 a 
 <a name="navigation-properties"></a>
 
 ## <a name="add-identityuser-poco-navigation-properties"></a>Přidat IdentityUser objektů POCO navigační vlastnosti
+
 Navigační vlastnosti Entity Framework (EF) Core základní třídy `IdentityUser` odebrané POCO (prostý staré CLR objekt). Pokud váš projekt 1.x tyto vlastnosti, ručně přidáte do projektu 2.0:
 
 ```csharp
@@ -366,6 +379,7 @@ protected override void OnModelCreating(ModelBuilder builder)
 <a name="synchronous-method-removal"></a>
 
 ## <a name="replace-getexternalauthenticationschemes"></a>Nahraďte GetExternalAuthenticationSchemes
+
 Synchronní metoda `GetExternalAuthenticationSchemes` byla odebrána a místo toho použití asynchronní verze. projekty 1.x mají následující kód *ManageController.cs*:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemes)]
@@ -385,6 +399,7 @@ V *Login.cshtml*, `AuthenticationScheme` přistupuje ve vlastnosti `foreach` smy
 <a name="property-change"></a>
 
 ## <a name="manageloginsviewmodel-property-change"></a>Změna vlastnosti ManageLoginsViewModel
+
 A `ManageLoginsViewModel` objekt se používá v `ManageLogins` akce *ManageController.cs*. V 1.x projekty, objekt společnosti `OtherLogins` vlastnosti je návratový typ `IList<AuthenticationDescription>`. Tento návratový typ vyžaduje importu `Microsoft.AspNetCore.Http.Authentication`:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Models/ManageViewModels/ManageLoginsViewModel.cs?name=snippet_ManageLoginsViewModel&highlight=2,11)]
@@ -396,4 +411,5 @@ V projektech, 2.0, návratový typ se změní na `IList<AuthenticationScheme>`. 
 <a name="additional-resources"></a>
 
 ## <a name="additional-resources"></a>Další zdroje
+
 Další podrobnosti a diskusi najdete v tématu [diskuse Auth 2.0](https://github.com/aspnet/Security/issues/1338) problém na Githubu.

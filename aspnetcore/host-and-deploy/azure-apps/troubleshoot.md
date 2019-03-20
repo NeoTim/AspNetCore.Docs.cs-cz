@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/06/2019
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: 326f66070d51c04298abbf6292d2d350414311de
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 36c2bdfa585a0fd54ca93bf4c0edb4cf6f7d934a
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841395"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265450"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>Řešení potíží s ASP.NET Core ve službě Azure App Service
 
@@ -23,8 +23,7 @@ Tento článek obsahuje pokyny o tom, jak Diagnostika ASP.NET Core problém při
 
 ## <a name="app-startup-errors"></a>Chyby při spuštění aplikace
 
-**502.5 zpracovat selhání**  
-Pracovní proces se nezdaří. Aplikace se nespustí.
+**502.5 zpracovat selhání** pracovní proces se nezdaří. Aplikace se nespustí.
 
 [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) pokusy o spuštění pracovního procesu, ale nepovede spustit. Zkoumání v protokolu událostí aplikace často pomáhá při řešení tohoto typu problému. Přístup k protokolu je podrobně [protokolu událostí aplikace](#application-event-log) oddílu.
 
@@ -32,7 +31,8 @@ Pracovní proces se nezdaří. Aplikace se nespustí.
 
 ![Okno prohlížeče zobrazující stránku 502.5 selhání procesu](troubleshoot/_static/process-failure-page.png)
 
-**Chyba 500 interní Server**  
+**Chyba 500 interní Server**
+
 Spuštění aplikace, ale chybu brání splnění žádosti. na serveru.
 
 Při spuštění nebo při vytváření odpovědi, k této chybě dochází v kódu aplikace. Odpověď může obsahovat žádný obsah nebo se může zobrazit odpovědi *500 – Interní chyba serveru* v prohlížeči. V protokolu událostí aplikace obvykle hlásí, že aplikace se normálně spustit. Z pohledu serveru, který je správný. Aplikace začal, ale nemůže generovat platnou odpověď. [Spusťte aplikaci v konzole Kudu](#run-the-app-in-the-kudu-console) nebo [povolit protokol stdout modul ASP.NET Core](#aspnet-core-module-stdout-log) k vyřešení tohoto problému.
@@ -83,15 +83,16 @@ Mnoho chyb při spuštění nevytvářejí užitečné informace v protokolu ud�
      ```console
      dotnet .\{ASSEMBLY NAME}.dll
      ```
+
    * Pokud je aplikace [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd):
 
      ```console
      {ASSEMBLY NAME}.exe
      ```
-   
+
 Výstup z aplikace zobrazuje všechny chyby konzoly je přesměrovaná do konzoly Kudu.
-   
-##### <a name="framework-depdendent-deployment-running-on-a-preview-release"></a>Nasazení rozhraní Framework depdendent běží na verzi preview
+
+##### <a name="framework-dependent-deployment-running-on-a-preview-release"></a>Nasazení závisí na architektuře, které běží na verzi preview
 
 *Vyžaduje instalaci ASP.NET Core {VERSION} (x86) lokality rozšíření modulu Runtime.*
 
@@ -113,7 +114,7 @@ Výstup z aplikace zobrazuje všechny chyby konzoly je přesměrovaná do konzol
 
 Výstup z aplikace zobrazuje všechny chyby konzoly je přesměrovaná do konzoly Kudu.
 
-##### <a name="framework-depdendent-deployment-running-on-a-preview-release"></a>Nasazení rozhraní Framework depdendent běží na verzi preview
+##### <a name="framework-dependent-deployment-running-on-a-preview-release"></a>Nasazení závisí na architektuře, které běží na verzi preview
 
 *Vyžaduje instalaci ASP.NET Core {VERSION} (x64) lokality rozšíření modulu Runtime.*
 
@@ -170,7 +171,7 @@ Protokol ladění modul ASP.NET Core nabízí další, podrobnější protokolov
 
 Zakážete protokolování ladění po dokončení odstraňování potíží:
 
-1. Postup při zakázání protokolu vylepšené ladění, provést jednu z těchto:
+1. Zakázat protokol vylepšené ladění, proveďte některý z následujících akcí:
    * Odeberte `<handlerSettings>` z *web.config* soubor místně a aplikaci znovu nasaďte.
    * Upravit pomocí konzoly Kudu *web.config* souboru a odebrat `<handlerSettings>` oddílu. Uložte soubor.
 
@@ -230,7 +231,7 @@ Přejděte k aktivaci protokolování diagnostiky:
 
 1. Na webu Azure Portal, vyberte **diagnostické protokoly** okno.
 1. Vyberte **na** přepnout **protokolování aplikace (systém souborů)** a **podrobné chybové zprávy**. Vyberte **Uložit** tlačítko v horní části okna.
-1. Chcete-li zahrnout trasování chybných požadavků, označované také jako protokolování se nezdařil požadavek událostí do vyrovnávací paměti (FREB), vyberte **na** přepínače **chybných požadavků**. 
+1. Chcete-li zahrnout trasování chybných požadavků, označované také jako protokolování se nezdařil požadavek událostí do vyrovnávací paměti (FREB), vyberte **na** přepínače **chybných požadavků**.
 1. Vyberte **stream protokolů** okno, ve kterém je okamžitě uvedený v části **diagnostické protokoly** okno na portálu.
 1. Vytvořte žádost do aplikace.
 1. V rámci datového proudu dat protokolu je označeno příčinu chyby.

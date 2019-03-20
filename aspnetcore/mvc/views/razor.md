@@ -5,12 +5,12 @@ description: Další informace o syntaxi Razor kód pro vložení do webových s
 ms.author: riande
 ms.date: 10/26/2018
 uid: mvc/views/razor
-ms.openlocfilehash: 8e9ec3c5040e5a24cd5f773b1232897338741c0c
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 254c85ee9e74dc72170b19d27fbc5f1ae7ccd3dc
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396256"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264746"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -69,9 +69,9 @@ Implicitní výrazy **nelze** obsahovat C# obecných typů, jako znaky uvnitř h
 
 Předcházející kód vygeneruje chybu kompilátoru podobně jako na jednu z následujících akcí:
 
- * Prvek "int" není uzavřený. Všechny elementy musí být buď samouzavírací nebo koncová značka.
- *  Nelze převést skupinu metod 'GenericMethod' na nedelegující typ 'object'. Chtěli jste vyvolat metodu? " 
- 
+* Prvek "int" není uzavřený. Všechny elementy musí být buď samouzavírací nebo koncová značka.
+* Nelze převést skupinu metod 'GenericMethod' na nedelegující typ 'object'. Chtěli jste vyvolat metodu? "
+
 Volání obecné metody musí být uzavřen do [explicitní výraz Razor](#explicit-razor-expressions) nebo [blok kódu Razor](#razor-code-blocks).
 
 ## <a name="explicit-razor-expressions"></a>Explicitní výrazy Razor
@@ -199,7 +199,7 @@ Tuto metodu použijte k vykreslení HTML, který není obklopený značky jazyka
 
 **\<Text >** značka je vhodné pro řízení prázdné znaky, při vykreslování obsahu:
 
-* Pouze obsah mezi  **\<text >** je vykreslen. 
+* Pouze obsah mezi  **\<text >** je vykreslen.
 * Žádné prázdné znaky před nebo po  **\<text >** značky se zobrazí ve výstupu protokolu HTML.
 
 ### <a name="explicit-line-transition-with-"></a>Explicitní řádek přechodu se @:
@@ -337,7 +337,6 @@ Podporují se následující příkazy opakování:
 
 V C#, `using` prohlášení se používá k zajištění uvolněn objekt. V prostředí Razor stejný mechanismus slouží k vytvoření pomocné rutiny HTML, které obsahují další obsah. V následujícím kódu pomocných rutin HTML, vykreslení značky formuláře s `@using` – příkaz:
 
-
 ```cshtml
 @using (Html.BeginForm())
 {
@@ -425,6 +424,7 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 Dále v tomto článku v části [Zkontrolujte syntaxi Razor C# třída vygenerovaná pro zobrazení](#inspect-the-razor-c-class-generated-for-a-view) vysvětluje, jak zobrazit tento generované třídy.
 
 <a name="using"></a>
+
 ### <a name="using"></a>@using
 
 `@using` Direktivy přidává C# `using` direktiv generované zobrazení:
@@ -579,7 +579,7 @@ Vykresleného výstupu:
 @using Microsoft.AspNetCore.Html
 
 @functions {
-    public static IHtmlContent Repeat(IEnumerable<dynamic> items, int times, 
+    public static IHtmlContent Repeat(IEnumerable<dynamic> items, int times,
         Func<dynamic, IHtmlContent> template)
     {
         var html = new HtmlContentBuilder();

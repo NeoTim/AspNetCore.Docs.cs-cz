@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 740573c3c6e23e6c9e48354d5b5a4a3c0a94a766
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265279"
+---
 # <a name="work-with-sqlite-in-an-aspnet-core-razor-pages-app"></a>Práce s SQLite v ASP.NET Core Razor Pages aplikace
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
@@ -34,6 +42,7 @@ if (context.Movie.Any())
 ```
 
 <a name="si"></a>
+
 ### <a name="add-the-seed-initializer"></a>Přidat inicializační výraz počáteční hodnoty
 
 Přidat inicializační výraz počáteční hodnoty `Main` metodu *Program.cs* souboru:

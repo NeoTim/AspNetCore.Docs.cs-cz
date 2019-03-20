@@ -5,12 +5,12 @@ description: Další informace o použití SQL Server LocalDB nebo SQLite v apli
 ms.author: riande
 ms.date: 03/07/2017
 uid: tutorials/first-mvc-app/working-with-sql
-ms.openlocfilehash: a6b2026a43bda94a84a05749e9ea395308dec231
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 983742276f3519b540cd62e4ada6eb5189650aa8
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841433"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265218"
 ---
 # <a name="work-with-sql-in-aspnet-core"></a>Práce s SQL v ASP.NET Core
 
@@ -18,7 +18,6 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 `MvcMovieContext` Objekt zpracovává úlohu s připojením k databázi a mapování `Movie` objekty se záznamy v databázi. Kontext databáze je zaregistrován [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru v `ConfigureServices` metoda ve *Startup.cs* souboru:
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=13-99)]
@@ -27,7 +26,6 @@ ASP.NET Core [konfigurace](xref:fundamentals/configuration/index) systému čten
 
 [!code-json[](start-mvc/sample/MvcMovie/appsettings.json?highlight=2&range=8-10)]
 
-<!-- Code -------------------------->
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
@@ -36,12 +34,10 @@ ASP.NET Core [konfigurace](xref:fundamentals/configuration/index) systému čten
 
 [!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/appsettingsSQLite.json?highlight=2&range=8-10)]
 
----  
-<!-- End of VS tabs -->
+---
 
 Když nasadíte aplikaci na testovacím nebo produkčním serveru, můžete použít proměnné prostředí nebo jiné přístup se nastavit připojovací řetězec na skutečný SQL Server. Zobrazit [konfigurace](xref:fundamentals/configuration/index) Další informace.
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
@@ -71,7 +67,7 @@ Poznámka: na ikonu klíče vedle `ID`. Ve výchozím nastavení, budou EF vlast
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
----  
+---
 <!-- End of VS tabs -->
 
 ## <a name="seed-the-database"></a>Přidání dat do databáze
@@ -90,6 +86,7 @@ if (context.Movie.Any())
 ```
 
 <a name="si"></a>
+
 ### <a name="add-the-seed-initializer"></a>Přidat inicializační výraz počáteční hodnoty
 
 Nahraďte obsah *Program.cs* následujícím kódem:
@@ -98,7 +95,6 @@ Nahraďte obsah *Program.cs* následujícím kódem:
 
 Testování aplikace
 
-<!-- VS -------------------------->
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Odstraníte všechny záznamy z databáze. Můžete to provést s odstranit odkazy v prohlížeči nebo z SSOX.
@@ -113,13 +109,11 @@ Testování aplikace
     * Pokud VS byly spuštěny v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění
     * Pokud jste používali VS v režimu ladění zastavení ladicího programu a stisknutím klávesy F5
 
-<!-- Code -------------------------->
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota). Zastavení a spuštění aplikace k přidání dat do databáze.
 
----  
-<!-- End of VS tabs -->
+---
 
 Aplikace zobrazí dosazená data.
 
@@ -127,4 +121,4 @@ Aplikace zobrazí dosazená data.
 
 > [!div class="step-by-step"]
 > [Předchozí](adding-model.md)
-> [další](controller-methods-views.md)  
+> [další](controller-methods-views.md)
