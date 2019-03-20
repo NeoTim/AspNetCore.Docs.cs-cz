@@ -1,28 +1,36 @@
-# <a name="work-with-sqlite-in-an-aspnet-core-mvc-app"></a><span data-ttu-id="2f51d-101">Práce s SQLite v ASP.NET Core MVC aplikace</span><span class="sxs-lookup"><span data-stu-id="2f51d-101">Work with SQLite in an ASP.NET Core MVC app</span></span>
+---
+ms.openlocfilehash: 655279f0f744e96f1cf590b52e199ed2be3fa106
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264277"
+---
+# <a name="work-with-sqlite-in-an-aspnet-core-mvc-app"></a><span data-ttu-id="4a7e2-101">Práce s SQLite v ASP.NET Core MVC aplikace</span><span class="sxs-lookup"><span data-stu-id="4a7e2-101">Work with SQLite in an ASP.NET Core MVC app</span></span>
 
-<span data-ttu-id="2f51d-102">Podle [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="2f51d-102">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="4a7e2-102">Podle [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="4a7e2-102">By [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
-<span data-ttu-id="2f51d-103">`MvcMovieContext` Objekt zpracovává úlohu s připojením k databázi a mapování `Movie` objekty se záznamy v databázi.</span><span class="sxs-lookup"><span data-stu-id="2f51d-103">The `MvcMovieContext` object handles the task of connecting to the database and mapping `Movie` objects to database records.</span></span> <span data-ttu-id="2f51d-104">Kontext databáze je zaregistrován [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru v `ConfigureServices` metoda ve *Startup.cs* souboru:</span><span class="sxs-lookup"><span data-stu-id="2f51d-104">The database context is registered with the [Dependency Injection](xref:fundamentals/dependency-injection) container in the `ConfigureServices` method in the *Startup.cs* file:</span></span>
+<span data-ttu-id="4a7e2-103">`MvcMovieContext` Objekt zpracovává úlohu s připojením k databázi a mapování `Movie` objekty se záznamy v databázi.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-103">The `MvcMovieContext` object handles the task of connecting to the database and mapping `Movie` objects to database records.</span></span> <span data-ttu-id="4a7e2-104">Kontext databáze je zaregistrován [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru v `ConfigureServices` metoda ve *Startup.cs* souboru:</span><span class="sxs-lookup"><span data-stu-id="4a7e2-104">The database context is registered with the [Dependency Injection](xref:fundamentals/dependency-injection) container in the `ConfigureServices` method in the *Startup.cs* file:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app-xplat/start-mvc/sample/MvcMovie/Startup.cs?name=snippet2&highlight=6-8)]
 
-## <a name="sqlite"></a><span data-ttu-id="2f51d-105">SQLite</span><span class="sxs-lookup"><span data-stu-id="2f51d-105">SQLite</span></span>
+## <a name="sqlite"></a><span data-ttu-id="4a7e2-105">SQLite</span><span class="sxs-lookup"><span data-stu-id="4a7e2-105">SQLite</span></span>
 
-<span data-ttu-id="2f51d-106">[SQLite](https://www.sqlite.org/) webu stavy:</span><span class="sxs-lookup"><span data-stu-id="2f51d-106">The [SQLite](https://www.sqlite.org/) website states:</span></span>
+<span data-ttu-id="4a7e2-106">[SQLite](https://www.sqlite.org/) webu stavy:</span><span class="sxs-lookup"><span data-stu-id="4a7e2-106">The [SQLite](https://www.sqlite.org/) website states:</span></span>
 
-> <span data-ttu-id="2f51d-107">SQLite je samostatná, vysokou spolehlivost, embedded, plně vybavené, veřejné domény, databázový stroj SQL.</span><span class="sxs-lookup"><span data-stu-id="2f51d-107">SQLite is a self-contained, high-reliability, embedded, full-featured, public-domain, SQL database engine.</span></span> <span data-ttu-id="2f51d-108">SQLite je nejpoužívanější databázového stroje na světě.</span><span class="sxs-lookup"><span data-stu-id="2f51d-108">SQLite is the most used database engine in the world.</span></span>
+> <span data-ttu-id="4a7e2-107">SQLite je samostatná, vysokou spolehlivost, embedded, plně vybavené, veřejné domény, databázový stroj SQL.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-107">SQLite is a self-contained, high-reliability, embedded, full-featured, public-domain, SQL database engine.</span></span> <span data-ttu-id="4a7e2-108">SQLite je nejpoužívanější databázového stroje na světě.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-108">SQLite is the most used database engine in the world.</span></span>
 
-<span data-ttu-id="2f51d-109">Celá řada nástrojů třetích stran, které si můžete stáhnout, spravovat a zobrazovat databázi SQLite.</span><span class="sxs-lookup"><span data-stu-id="2f51d-109">There are many third party tools you can download to manage and view a SQLite database.</span></span> <span data-ttu-id="2f51d-110">Následující obrázek je z [DB prohlížeč pro SQLite](http://sqlitebrowser.org/).</span><span class="sxs-lookup"><span data-stu-id="2f51d-110">The image below is from [DB Browser for SQLite](http://sqlitebrowser.org/).</span></span> <span data-ttu-id="2f51d-111">Pokud máte oblíbený nástroj SQLite, na co se vám líbí o něm komentář.</span><span class="sxs-lookup"><span data-stu-id="2f51d-111">If you have a favorite SQLite tool, leave a comment on what you like about it.</span></span>
+<span data-ttu-id="4a7e2-109">Celá řada nástrojů třetích stran, které si můžete stáhnout, spravovat a zobrazovat databázi SQLite.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-109">There are many third party tools you can download to manage and view a SQLite database.</span></span> <span data-ttu-id="4a7e2-110">Následující obrázek je z [DB prohlížeč pro SQLite](http://sqlitebrowser.org/).</span><span class="sxs-lookup"><span data-stu-id="4a7e2-110">The image below is from [DB Browser for SQLite](http://sqlitebrowser.org/).</span></span> <span data-ttu-id="4a7e2-111">Pokud máte oblíbený nástroj SQLite, na co se vám líbí o něm komentář.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-111">If you have a favorite SQLite tool, leave a comment on what you like about it.</span></span>
 
 ![Prohlížeč DB pro SQLite zobrazující film db](~/tutorials/first-mvc-app-xplat/working-with-sql/_static/dbb.png)
 
-## <a name="seed-the-database"></a><span data-ttu-id="2f51d-113">Přidání dat do databáze</span><span class="sxs-lookup"><span data-stu-id="2f51d-113">Seed the database</span></span>
+## <a name="seed-the-database"></a><span data-ttu-id="4a7e2-113">Přidání dat do databáze</span><span class="sxs-lookup"><span data-stu-id="4a7e2-113">Seed the database</span></span>
 
-<span data-ttu-id="2f51d-114">Vytvořte novou třídu s názvem `SeedData` v *modely* složky.</span><span class="sxs-lookup"><span data-stu-id="2f51d-114">Create a new class named `SeedData` in the *Models* folder.</span></span> <span data-ttu-id="2f51d-115">Generovaného kódu nahraďte následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="2f51d-115">Replace the generated code with the following:</span></span>
+<span data-ttu-id="4a7e2-114">Vytvořte novou třídu s názvem `SeedData` v *modely* složky.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-114">Create a new class named `SeedData` in the *Models* folder.</span></span> <span data-ttu-id="4a7e2-115">Generovaného kódu nahraďte následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="4a7e2-115">Replace the generated code with the following:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Models/SeedData.cs?name=snippet_1)]
 
-<span data-ttu-id="2f51d-116">Pokud jsou všechny filmy v databázi, vrátí inicializátoru pro dosazení hodnot.</span><span class="sxs-lookup"><span data-stu-id="2f51d-116">If there are any movies in the DB, the seed initializer returns.</span></span>
+<span data-ttu-id="4a7e2-116">Pokud jsou všechny filmy v databázi, vrátí inicializátoru pro dosazení hodnot.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-116">If there are any movies in the DB, the seed initializer returns.</span></span>
 
 ```csharp
 if (context.Movie.Any())
@@ -32,9 +40,10 @@ if (context.Movie.Any())
 ```
 
 <a name="si"></a>
-### <a name="add-the-seed-initializer"></a><span data-ttu-id="2f51d-117">Přidat inicializační výraz počáteční hodnoty</span><span class="sxs-lookup"><span data-stu-id="2f51d-117">Add the seed initializer</span></span>
 
-<span data-ttu-id="2f51d-118">Přidat inicializační výraz počáteční hodnoty `Main` metodu *Program.cs* souboru:</span><span class="sxs-lookup"><span data-stu-id="2f51d-118">Add the seed initializer to the `Main` method in the *Program.cs* file:</span></span>
+### <a name="add-the-seed-initializer"></a><span data-ttu-id="4a7e2-117">Přidat inicializační výraz počáteční hodnoty</span><span class="sxs-lookup"><span data-stu-id="4a7e2-117">Add the seed initializer</span></span>
+
+<span data-ttu-id="4a7e2-118">Přidat inicializační výraz počáteční hodnoty `Main` metodu *Program.cs* souboru:</span><span class="sxs-lookup"><span data-stu-id="4a7e2-118">Add the seed initializer to the `Main` method in the *Program.cs* file:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -48,10 +57,10 @@ if (context.Movie.Any())
 
 ::: moniker-end
 
-### <a name="test-the-app"></a><span data-ttu-id="2f51d-119">Testování aplikace</span><span class="sxs-lookup"><span data-stu-id="2f51d-119">Test the app</span></span>
+### <a name="test-the-app"></a><span data-ttu-id="4a7e2-119">Testování aplikace</span><span class="sxs-lookup"><span data-stu-id="4a7e2-119">Test the app</span></span>
 
-<span data-ttu-id="2f51d-120">Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota).</span><span class="sxs-lookup"><span data-stu-id="2f51d-120">Delete all the records in the DB (So the seed method will run).</span></span> <span data-ttu-id="2f51d-121">Zastavení a spuštění aplikace k přidání dat do databáze.</span><span class="sxs-lookup"><span data-stu-id="2f51d-121">Stop and start the app to seed the database.</span></span>
+<span data-ttu-id="4a7e2-120">Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota).</span><span class="sxs-lookup"><span data-stu-id="4a7e2-120">Delete all the records in the DB (So the seed method will run).</span></span> <span data-ttu-id="4a7e2-121">Zastavení a spuštění aplikace k přidání dat do databáze.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-121">Stop and start the app to seed the database.</span></span>
    
-<span data-ttu-id="2f51d-122">Aplikace zobrazí dosazená data.</span><span class="sxs-lookup"><span data-stu-id="2f51d-122">The app shows the seeded data.</span></span>
+<span data-ttu-id="4a7e2-122">Aplikace zobrazí dosazená data.</span><span class="sxs-lookup"><span data-stu-id="4a7e2-122">The app shows the seeded data.</span></span>
 
 ![MVC Movie aplikaci otevřít prohlížeč zobrazující data o filmech](~/tutorials/first-mvc-app/working-with-sql/_static/m55.png)

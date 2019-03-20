@@ -1,13 +1,22 @@
+---
+ms.openlocfilehash: 4a569a3f7f804919b7fd6e481c2ec5a3acdfbbe8
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265529"
+---
 <a name="cli"></a>
-## <a name="perform-initial-migration"></a><span data-ttu-id="6ff72-101">Provést počáteční migraci</span><span class="sxs-lookup"><span data-stu-id="6ff72-101">Perform initial migration</span></span>
 
-<span data-ttu-id="6ff72-102">Z příkazového řádku spusťte následující příkazy rozhraní příkazového řádku .NET Core:</span><span class="sxs-lookup"><span data-stu-id="6ff72-102">From the command line, run the following .NET Core CLI commands:</span></span>
+## <a name="perform-initial-migration"></a><span data-ttu-id="3d4e7-101">Provést počáteční migraci</span><span class="sxs-lookup"><span data-stu-id="3d4e7-101">Perform initial migration</span></span>
+
+<span data-ttu-id="3d4e7-102">Z příkazového řádku spusťte následující příkazy rozhraní příkazového řádku .NET Core:</span><span class="sxs-lookup"><span data-stu-id="3d4e7-102">From the command line, run the following .NET Core CLI commands:</span></span>
 
 ```console
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-<span data-ttu-id="6ff72-103">`dotnet ef migrations add InitialCreate` Příkaz vygeneruje kód pro vytvoření schématu počáteční databáze.</span><span class="sxs-lookup"><span data-stu-id="6ff72-103">The `dotnet ef migrations add InitialCreate` command generates code to create the initial database schema.</span></span> <span data-ttu-id="6ff72-104">Schéma je založen na zadaném v modelu `DbContext` (v *Models/MvcMovieContext.cs* souboru).</span><span class="sxs-lookup"><span data-stu-id="6ff72-104">The schema is based on the model specified in the `DbContext` (In the *Models/MvcMovieContext.cs* file).</span></span> <span data-ttu-id="6ff72-105">`Initial` Argument se používá k pojmenování migrace.</span><span class="sxs-lookup"><span data-stu-id="6ff72-105">The `Initial` argument is used to name the migrations.</span></span> <span data-ttu-id="6ff72-106">Můžete použít libovolný název, ale podle konvence zvolte název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="6ff72-106">You can use any name, but by convention you choose a name that describes the migration.</span></span> <span data-ttu-id="6ff72-107">Zobrazit [Úvod do migrace](xref:data/ef-mvc/migrations#introduction-to-migrations) Další informace.</span><span class="sxs-lookup"><span data-stu-id="6ff72-107">See [Introduction to migrations](xref:data/ef-mvc/migrations#introduction-to-migrations) for more information.</span></span>
+<span data-ttu-id="3d4e7-103">`dotnet ef migrations add InitialCreate` Příkaz vygeneruje kód pro vytvoření schématu počáteční databáze.</span><span class="sxs-lookup"><span data-stu-id="3d4e7-103">The `dotnet ef migrations add InitialCreate` command generates code to create the initial database schema.</span></span> <span data-ttu-id="3d4e7-104">Schéma je založen na zadaném v modelu `DbContext` (v *Models/MvcMovieContext.cs* souboru).</span><span class="sxs-lookup"><span data-stu-id="3d4e7-104">The schema is based on the model specified in the `DbContext` (In the *Models/MvcMovieContext.cs* file).</span></span> <span data-ttu-id="3d4e7-105">`Initial` Argument se používá k pojmenování migrace.</span><span class="sxs-lookup"><span data-stu-id="3d4e7-105">The `Initial` argument is used to name the migrations.</span></span> <span data-ttu-id="3d4e7-106">Můžete použít libovolný název, ale podle konvence zvolte název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="3d4e7-106">You can use any name, but by convention you choose a name that describes the migration.</span></span> <span data-ttu-id="3d4e7-107">Zobrazit [Úvod do migrace](xref:data/ef-mvc/migrations#introduction-to-migrations) Další informace.</span><span class="sxs-lookup"><span data-stu-id="3d4e7-107">See [Introduction to migrations](xref:data/ef-mvc/migrations#introduction-to-migrations) for more information.</span></span>
 
-<span data-ttu-id="6ff72-108">`dotnet ef database update` Příkaz spustí `Up` metodu *migrace /\<časové razítko > _InitialCreate.cs* soubor, který vytvoří databázi.</span><span class="sxs-lookup"><span data-stu-id="6ff72-108">The `dotnet ef database update` command runs the `Up` method in the *Migrations/\<time-stamp>_InitialCreate.cs* file, which creates the database.</span></span>
+<span data-ttu-id="3d4e7-108">`dotnet ef database update` Příkaz spustí `Up` metodu *migrace /\<časové razítko > _InitialCreate.cs* soubor, který vytvoří databázi.</span><span class="sxs-lookup"><span data-stu-id="3d4e7-108">The `dotnet ef database update` command runs the `Up` method in the *Migrations/\<time-stamp>_InitialCreate.cs* file, which creates the database.</span></span>
