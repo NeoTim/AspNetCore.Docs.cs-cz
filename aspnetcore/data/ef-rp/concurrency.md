@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/07/2018
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: a6c264e460855c9f1d6f5a363eb7ee2cf69619ee
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 3fb8ebe415d0619d33302a08e97da78db0ad1d1e
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346291"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58265512"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - souběžnosti - 8 8
 
@@ -95,9 +95,9 @@ K detekci konfliktů souběžnosti [rowversion](/sql/t-sql/data-types/rowversion
 
 Databáze generuje sekvenční `rowversion` aktualizovat číslo, které se zvýší pokaždé, když na řádek. V `Update` nebo `Delete` příkazu `Where` klauzule obsahuje hodnotu načtených `rowversion`. Pokud došlo ke změně aktualizuje řádek:
 
- * `rowversion` neodpovídá hodnotě načtených.
- * `Update` Nebo `Delete` příkazů nelze nalézt řádek, protože `Where` klauzule obsahuje načetly `rowversion`.
- * A `DbUpdateConcurrencyException` je vyvolána výjimka.
+* `rowversion` neodpovídá hodnotě načtených.
+* `Update` Nebo `Delete` příkazů nelze nalézt řádek, protože `Where` klauzule obsahuje načetly `rowversion`.
+* A `DbUpdateConcurrencyException` je vyvolána výjimka.
 
 V EF Core, když nebyly aktualizovány žádné řádky pomocí `Update` nebo `Delete` příkaz, je vyvolána výjimka souběžnosti.
 
@@ -152,6 +152,7 @@ Předchozí příkazy:
 * Spuštění migrace k aktualizaci databáze.
 
 <a name="scaffold"></a>
+
 ## <a name="scaffold-the-departments-model"></a>Vygenerované uživatelské rozhraní modelu oddělení
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
@@ -272,7 +273,6 @@ Na stránce odstranit rozpozná konfliktů souběžnosti, pokud entita změněna
 Aktualizace *Pages/Departments/Delete.cshtml* následujícím kódem:
 
 [!code-html[](intro/samples/cu/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
-
 
 Předchozí kód provede následující změny:
 

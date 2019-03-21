@@ -5,12 +5,12 @@ description: V tomto kurzu budete aktualizovat souvisejících dat prostřednict
 ms.author: riande
 ms.date: 11/15/2017
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: c3dbfe57a832ba63c5da2f89c0d29e443a1277a7
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: e1407048157fccdbfdd854071a6fbf9785356026
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345759"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208606"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – aktualizace souvisejících dat – 7 8
 
@@ -136,9 +136,9 @@ Aktualizace modelu Instruktoři upravit stránku s následujícím kódem:
 
 Předchozí kód:
 
-- Získá aktuální `Instructor` entit z databáze pomocí předběžné načítání pro `OfficeAssignment` navigační vlastnost.
-- Aktualizuje načtený `Instructor` entity s hodnotami z vazače modelu. `TryUpdateModel` zabraňuje [overposting](xref:data/ef-rp/crud#overposting).
-- Pokud office umístění je prázdné, nastaví `Instructor.OfficeAssignment` na hodnotu null. Když `Instructor.OfficeAssignment` je null, použije příslušného řádku v `OfficeAssignment` tabulce se odstraní.
+* Získá aktuální `Instructor` entit z databáze pomocí předběžné načítání pro `OfficeAssignment` navigační vlastnost.
+* Aktualizuje načtený `Instructor` entity s hodnotami z vazače modelu. `TryUpdateModel` zabraňuje [overposting](xref:data/ef-rp/crud#overposting).
+* Pokud office umístění je prázdné, nastaví `Instructor.OfficeAssignment` na hodnotu null. Když `Instructor.OfficeAssignment` je null, použije příslušného řádku v `OfficeAssignment` tabulce se odstraní.
 
 ### <a name="update-the-instructor-edit-page"></a>Aktualizace stránky pro úpravu instruktorem
 

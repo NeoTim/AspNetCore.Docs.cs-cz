@@ -5,12 +5,12 @@ description: Zjistěte, jak číst a manipulace s modelem aplikace k úpravě ch
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/controllers/application-model
-ms.openlocfilehash: f3e0aafa3e6a352c632e4abbf3943be61f11ea81
-ms.sourcegitcommit: fc7eb4243188950ae1f1b52669edc007e9d0798d
+ms.openlocfilehash: 6b0591a877c0d82e0ee6ab002eb6a6650753677b
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2018
-ms.locfileid: "51225496"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208593"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>Práce s modelem aplikace v ASP.NET Core
 
@@ -25,9 +25,9 @@ Model aplikace ASP.NET Core MVC obsahovat abstraktní rozhraní a třídy konkr�
 Model aplikace ASP.NET Core MVC zahrnuje následující strukturu:
 
 * ApplicationModel
-    * Kontrolery (ControllerModel)
-        * Akce (ActionModel)
-            * Parametry (ParameterModel)
+  * Kontrolery (ControllerModel)
+    * Akce (ActionModel)
+      * Parametry (ParameterModel)
 
 Každou úroveň modelu má přístup do společného `Properties` kolekce a nižších úrovních můžete používat a přepsat hodnoty vlastností nastavené ve vyšší úrovně v hierarchii. Vlastnosti jsou zachované `ActionDescriptor.Properties` při vytváření akce. Potom při zpracování požadavku, všechny vlastnosti konvence přidá nebo upraví přístupné prostřednictvím `ActionContext.ActionDescriptor.Properties`. Pomocí vlastností je skvělý způsob, jak nakonfigurovat na základě akcích filtry, vazače modelů a podobně.
 
@@ -82,7 +82,7 @@ K dispozici jsou následující konvence:
 
 Konvence aplikují jejich přidáním do možnosti MVC nebo implementací `Attribute`s a jejich použití kontrolerů, akce nebo parametry akce (podobně jako [ `Filters` ](xref:mvc/controllers/filters)). Na rozdíl od filtry provádějí pouze konvence při spuštění aplikace, nikoli jako součást každého požadavku.
 
-### <a name="sample-modifying-the-applicationmodel"></a>Ukázka: Změna ApplicationModel
+### <a name="sample-modifying-the-applicationmodel"></a>Ukázka: Úpravy ApplicationModel
 
 Tato konvence slouží k přidání vlastnosti do aplikačního modelu. 
 
@@ -96,7 +96,7 @@ Vlastnosti jsou přístupné `ActionDescriptor` kolekci vlastností v rámci akc
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/AppModelController.cs?name=AppModelController)]
 
-### <a name="sample-modifying-the-controllermodel-description"></a>Ukázka: Úprava ControllerModel popis
+### <a name="sample-modifying-the-controllermodel-description"></a>Ukázka: Úprava popisu ControllerModel
 
 Stejně jako v předchozím příkladu je model řadič také upravit zahrnout vlastní vlastnosti. Toto přepíše existující vlastnosti se stejným názvem zadáno v modelu aplikací. Následující atribut konvence přidá popis na úrovni kontroleru:
 
@@ -108,7 +108,7 @@ Tato konvence je použitý jako atribut na kontroleru.
 
 Vlastnost "description" pracuje stejným způsobem jako v předchozích příkladech.
 
-### <a name="sample-modifying-the-actionmodel-description"></a>Ukázka: Úprava ActionModel popis
+### <a name="sample-modifying-the-actionmodel-description"></a>Ukázka: Úprava popisu ActionModel
 
 Konvence samostatný atribut lze použít pro jednotlivé akce přepsání nastavení už používá na úrovni aplikace nebo kontroleru.
 
@@ -118,7 +118,7 @@ Použití na akci v rámci kontroleru předchozí příklad ukazuje, jak přepí
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/DescriptionAttributesController.cs?name=DescriptionAttributesController&highlight=9)]
 
-### <a name="sample-modifying-the-parametermodel"></a>Ukázka: Změna ParameterModel
+### <a name="sample-modifying-the-parametermodel"></a>Ukázka: Úpravy ParameterModel
 
 Tato konvence můžete použít pro parametry akce k úpravě svých `BindingInfo`. Tato konvence vyžaduje, aby parametr trasa parameter; Další možné zdroje vazby (například hodnoty řetězce dotazu) jsou ignorovány.
 
@@ -143,7 +143,7 @@ I když je název metody `SomeName`, atribut přepíše konvenci MVC pomocí ná
 > [!NOTE]
 > V tomto příkladu je v podstatě totéž jako použití integrovaného [ActionName](/dotnet/api/microsoft.aspnetcore.mvc.actionnameattribute) atribut.
 
-### <a name="sample-custom-routing-convention"></a>Vzorku: Konvence vlastní směrování
+### <a name="sample-custom-routing-convention"></a>Ukázka: Vlastní konvenci směrování
 
 Můžete použít `IApplicationModelConvention` přizpůsobit způsob směrování funguje. Například následující konvence bude obsahovat řadiče obory názvů do jejich trasy nahrazení `.` v oboru názvů s `/` v postupu:
 

@@ -69,7 +69,7 @@ Další informace najdete v tématu [Middleware](xref:fundamentals/middleware/in
 
 ## <a name="the-host"></a>Hostitel
 
-Sestavení aplikace ASP.NET Core *hostitele* při spuštění. Hostitel je objekt, který zapouzdřuje všechny prostředky aplikace, jako například:
+Sestavení aplikace ASP.NET Core *hostitele* při spuštění. Hostitel je objekt, který zapouzdřuje všechny prostředky aplikaci, jako například:
 
 * Implementaci serveru HTTP
 * Middlewarových komponent

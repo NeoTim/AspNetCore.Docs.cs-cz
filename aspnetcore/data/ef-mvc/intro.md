@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: f7b557c8e560393ae886c46fad95c48ccbcc65b4
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 31fca1b32942f9246e099c01669f77824edf521e
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102965"
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264852"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
 
@@ -316,7 +316,7 @@ Klikněte pravým tlačítkem na **Student** tabulky a klikněte na tlačítko *
 
 ![Tabulka Student v SSOX](intro/_static/ssox-student-table.png)
 
-<em>.Mdf</em> a <em>.ldf</em> databázové soubory jsou v <em>C:\Users\\ <yourusername> </em> složky.
+*.Mdf* a *.ldf* databázové soubory jsou v *C:\Users\\\<uživatelské_jméno >* složky.
 
 Protože voláte `EnsureCreated` v inicializační metoda, která se spustí při spuštění aplikace, může teď provedete změnu `Student` třídy, odstraňte databázi, spusťte aplikaci znovu spustit a databáze bude automaticky znovu vytvořit tak, aby odpovídaly změny. Například, pokud chcete přidat `EmailAddress` vlastnost `Student` třídy, zobrazí se vám nový `EmailAddress` sloupec v tabulce znovu vytvořit.
 
@@ -330,7 +330,7 @@ Protože se používá konvence nebo předpokladů, které díky rozhraní Entit
 
 * Vlastnosti entity, které jsou pojmenovány ID nebo classnameID jsou rozpoznány jako vlastnosti primárního klíče.
 
-* Vlastnost je interpretován jako vlastnost cizího klíče, pokud je název *<navigation property name> <primary key property name>* (například `StudentID` pro `Student` navigační vlastnost, protože `Student` je primární klíč entity `ID`). Vlastnosti cizího klíče může nazývat také jednoduše *<primary key property name>* (například `EnrollmentID` od `Enrollment` je primární klíč entity `EnrollmentID`).
+* Vlastnost je interpretován jako vlastnost cizího klíče, pokud je název  *\<název navigační vlastnosti >\<vlastnost primárního klíče name >* (například `StudentID` pro `Student` navigace Vlastnost od `Student` je primární klíč entity `ID`). Vlastnosti cizího klíče může nazývat také jednoduše  *\<vlastnost primárního klíče název >* (například `EnrollmentID` od `Enrollment` je primární klíč entity `EnrollmentID`).
 
 Konvenční chování můžete přepsat. Například můžete explicitně určit názvy tabulek, protože jste viděli dříve v tomto kurzu. A můžete nastavit názvy sloupců a nastavte libovolnou vlastnost jako primární klíč, cizí klíč, nebo jak uvidíte v [pozdějších kurzech](complex-data-model.md) této série.
 

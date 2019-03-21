@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 961b41a63a5dd066a51468239bd855b7f723a3ae
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: e9214139c0e6e958445feb13b6350bad376a0152
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346038"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208236"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování do stránky ASP.NET Core Razor
 
@@ -104,7 +104,6 @@ Zkontrolujte `Movie` třídy. `System.ComponentModel.DataAnnotations` Obor názv
 `DataType` Výčet poskytuje pro mnoho typů dat, jako je například datum, čas, telefonní číslo, Měna, EmailAddress a další. `DataType` Atribut můžete také povolit aplikace a zajistit tak automaticky specifické pro typ funkce. Například `mailto:` propojení lze vytvořit pro `DataType.EmailAddress`. Výběr data lze zadat pro `DataType.Date` v prohlížečích podporujících HTML5. `DataType` Atributy vysílá HTML 5 `data-` (čteno data dash) atributy, které využívají prohlížeče HTML 5. `DataType` Proveďte atributy **není** žádné ověřování.
 
 `DataType.Date` neurčuje formátu, který se zobrazí datum. Ve výchozím nastavení, zobrazí se pole data podle výchozí formát založený na serveru `CultureInfo`.
-
 
 `[Column(TypeName = "decimal(18, 2)")]` Anotace dat se vyžaduje, aby správně můžete mapovat Entity Framework Core `Price` měnu v databázi. Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).
 

@@ -5,12 +5,12 @@ description: ''
 ms.author: riande
 ms.date: 07/03/2017
 uid: mvc/controllers/actions
-ms.openlocfilehash: 8289424b3cd3678bea18a25c7850e409795d1577
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 952e4dbb2c4343ca87ace1535e4a5968faf088cf
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410430"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209012"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>Zpracování žádosti se řadiče v ASP.NET Core MVC
 
@@ -98,7 +98,7 @@ Aplikace obvykle sdílet části jejich pracovního postupu. Mezi příklady pat
 Nejvíce atributy, jako například filtru `[Authorize]`, je možné použít na úroveň kontroler nebo akce v závislosti na požadované úrovni členitosti.
 
 Zpracování chyb a ukládání odpovědí do mezipaměti jsou často vyskytující aspekty:
-   * [Ošetření chyb](xref:mvc/controllers/filters#exception-filters)
-   * [Ukládání odpovědí do mezipaměti](xref:performance/caching/response)
+* [Ošetření chyb](xref:mvc/controllers/filters#exception-filters)
+* [Ukládání odpovědí do mezipaměti](xref:performance/caching/response)
 
 Mnoho vyskytující aspekty možné je zpracovávat pomocí filtrů nebo vlastní [middleware](xref:fundamentals/middleware/index).

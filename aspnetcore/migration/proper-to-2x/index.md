@@ -5,12 +5,6 @@ description: Získat pokyny pro migraci stávajících rozhraní ASP.NET MVC neb
 ms.author: scaddie
 ms.date: 12/11/2018
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: a9eef832a68afa1a73e3c7c545378da190602ce2
-ms.sourcegitcommit: b34b25da2ab68e6495b2460ff570468f16a9bf0d
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/12/2018
-ms.locfileid: "53284393"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET do ASP.NET Core
 
@@ -46,7 +40,7 @@ Při použití Microsoft.aspnetcore.all žádné balíčky odkazuje Microsoft.as
 - Neexistují žádné na základě identifikátoru GUID odkazy na jiné projekty, což zlepšuje čitelnost souboru.
 - Tento soubor lze upravovat bez uvolnění v sadě Visual Studio:
 
-    ![Upravit CSPROJ možnost místní nabídky v sadě Visual Studio 2017](_static/EditProjectVs2017.png)
+    ![Edit CSPROJ context menu option in Visual Studio 2017](_static/EditProjectVs2017.png)
 
 ## <a name="globalasax-file-replacement"></a>Nahrazení souboru Global.asax
 
@@ -66,10 +60,10 @@ ASP.NET Core používá podobný přístup, ale nemusí spoléhat na OWIN pro zp
 
 `Startup` musí obsahovat `Configure` metoda. V `Configure`, přidat nezbytné middleware do kanálu. V následujícím příkladu (z výchozí šablony webové stránky) konfiguraci metody rozšíření kanálu s podporou:
 
-* Chybové stránky
-* Zabezpečení striktní přenosu HTTP
-* Přesměrování protokolu HTTP na HTTPS
-* ASP.NET Core MVC
+- Chybové stránky
+- Zabezpečení striktní přenosu HTTP
+- Přesměrování protokolu HTTP na HTTPS
+- ASP.NET Core MVC
 
 [!code-csharp[](samples/startup.cs)]
 
@@ -118,15 +112,15 @@ V aplikacích technologie ASP.NET vývojáři spoléhají na knihovny třetích 
 
 Příklad nastavení injektáž závislostí v Unity je implementace `IDependencyResolver` , která zabalí `UnityContainer`:
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample8.cs)]
+[!code-csharp[](samples/sample8.cs)]
 
 Vytvoření instance vaší `UnityContainer`, zaregistrujte vaši službu a nastavit překladač závislostí `HttpConfiguration` nové instance `UnityResolver` kontejneru:
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample9.cs)]
+[!code-csharp[](samples/sample9.cs)]
 
 Vložit `IProductRepository` místech:
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample5.cs)]
+[!code-csharp[](samples/sample5.cs)]
 
 Protože injektáž závislostí je součástí ASP.NET Core, můžete přidat služby v `ConfigureServices` metoda *Startup.cs*:
 

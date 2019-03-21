@@ -1,53 +1,53 @@
 ---
 title: Rozšiřitelnost základní kryptografie v ASP.NET Core
 author: rick-anderson
-description: Další informace o IAuthenticatedEncryptor, IAuthenticatedEncryptorDescriptor, IAuthenticatedEncryptorDescriptorDeserializer a objektu pro vytváření nejvyšší úrovně.
+description: Další informace o IAuthenticatedEncryptor, IAuthenticatedEncryptorDescriptor, IAuthenticatedEncryptorDescriptorDeserializer a objekt pro vytváření nejvyšší úrovně.
 ms.author: riande
 ms.date: 8/11/2017
 uid: security/data-protection/extensibility/core-crypto
-ms.openlocfilehash: 47432cfefe0a52c9f815d717f7269ec68fdb6af3
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.openlocfilehash: cf4a142992efe5b00a75285ef9ad9735fe7be411
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36272893"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209067"
 ---
 # <a name="core-cryptography-extensibility-in-aspnet-core"></a>Rozšiřitelnost základní kryptografie v ASP.NET Core
 
 <a name="data-protection-extensibility-core-crypto"></a>
 
 >[!WARNING]
-> Typy, které implementují některá z následujících rozhraní by měly být vláken pro více volající.
+> Typy, které implementují některý z následujících rozhraní by měly být bezpečné pro vlákna pro více volání.
 
 <a name="data-protection-extensibility-core-crypto-iauthenticatedencryptor"></a>
 
 ## <a name="iauthenticatedencryptor"></a>IAuthenticatedEncryptor
 
-**IAuthenticatedEncryptor** rozhraní je základním stavebním blokem šifrovací subsystém. Je obecně jeden IAuthenticatedEncryptor na klíč, a IAuthenticatedEncryptor instance zabalí všechny kryptografické materiál klíče a algoritmické informace potřebné k provedení kryptografické operace.
+**IAuthenticatedEncryptor** rozhraní je základním stavebním blokem šifrovací subsystém. Obecně je jeden IAuthenticatedEncryptor za klíč a IAuthenticatedEncryptor instance zabalí všechny kryptografické klíče a vylepšením informace potřebné k provedení kryptografických operací.
 
-Jak naznačuje název, typ zodpovídá za poskytování ověřené šifrovacích a dešifrovacích služeb. Zpřístupňuje následující dvě rozhraní API.
+Jak název napovídá, typ je odpovědný za poskytnutí ověřeného šifrovacích a dešifrovacích služeb. Poskytuje následující dvě rozhraní API.
 
-* Dešifrování (ArraySegment<byte> ciphertext ArraySegment<byte> additionalAuthenticatedData): byte]
+* `Decrypt(ArraySegment<byte> ciphertext, ArraySegment<byte> additionalAuthenticatedData) : byte[]`
 
-* Šifrování (ArraySegment<byte> ve formátu prostého textu, ArraySegment<byte> additionalAuthenticatedData): byte]
+* `Encrypt(ArraySegment<byte> plaintext, ArraySegment<byte> additionalAuthenticatedData) : byte[]`
 
-Metoda šifrování vrátí objekt blob, který zahrnuje enciphered jako prostý text a značku ověřování. Ověřovací značky musí zahrnovat další ověřených dat (AAD), i když AAD samotné nemusí být použitelná pro obnovení z poslední datová část. Metoda dešifrování ověří značce ověřování a vrátí deciphered datové části. Všechny chyby (s výjimkou ArgumentNullException a podobné) musí být homogenizovány k cryptographicexception –.
+Vrátí metoda šifrování objektů blob, který zahrnuje enciphered ve formátu prostého textu a ověřovací značka. Ověřovací značka musí zahrnovat další ověřených dat (AAD), i když AAD, samotný nemusí být obnovitelné z poslední datové části. Metoda dešifrovat ověří ověřovací značka a vrátí deciphered datové části. K cryptographicexception – musí být homogenizovány všechny chyby (s výjimkou ArgumentNullException a podobně).
 
 > [!NOTE]
-> Samotná instance IAuthenticatedEncryptor nemusí ve skutečnosti obsahovat materiál klíče. Implementace může například delegovat na modulu hardwarového zabezpečení pro všechny operace.
+> Samotné instanci IAuthenticatedEncryptor ve skutečnosti nemusí obsahovat materiál klíče. Například může delegovat implementace modulu hardwarového zabezpečení pro všechny operace.
 
 <a name="data-protection-extensibility-core-crypto-iauthenticatedencryptorfactory"></a>
 <a name="data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptor"></a>
 
-## <a name="how-to-create-an-iauthenticatedencryptor"></a>Postup vytvoření IAuthenticatedEncryptor
+## <a name="how-to-create-an-iauthenticatedencryptor"></a>Vytvoření IAuthenticatedEncryptor
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET základní 2.x](#tab/aspnetcore2x)
+# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
 
-**IAuthenticatedEncryptorFactory** rozhraní představuje typ, který umí vytvořit [IAuthenticatedEncryptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptor) instance. Jejího rozhraní API je následující.
+**IAuthenticatedEncryptorFactory** rozhraní představuje typ, který se ví, jak vytvořit [IAuthenticatedEncryptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptor) instance. Své rozhraní API je následujícím způsobem.
 
-* CreateEncryptorInstance (IKey klíč): IAuthenticatedEncryptor
+* CreateEncryptorInstance (klíč Instrumentační klíč): IAuthenticatedEncryptor
 
-Pro všechny instance daného IKey všechny ověřené encryptors vytvářené metodou jeho CreateEncryptorInstance by měl být považovány za ekvivalentní, jako v následující ukázka kódu.
+Pro jakoukoli danou instanci Instrumentační klíč, všechny ověřené encryptors vytvářené metodou jeho CreateEncryptorInstance by měl být ekvivalentní, stejně jako následující vzorový kód.
 
 ```csharp
 // we have an IAuthenticatedEncryptorFactory instance and an IKey instance
@@ -70,13 +70,13 @@ byte[] roundTripped = encryptor2.Decrypt(new ArraySegment<byte>(ciphertext), aad
 
 # <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
 
-**IAuthenticatedEncryptorDescriptor** rozhraní představuje typ, který umí vytvořit [IAuthenticatedEncryptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptor) instance. Jejího rozhraní API je následující.
+**IAuthenticatedEncryptorDescriptor** rozhraní představuje typ, který se ví, jak vytvořit [IAuthenticatedEncryptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptor) instance. Své rozhraní API je následujícím způsobem.
 
-* CreateEncryptorInstance(): IAuthenticatedEncryptor
+* CreateEncryptorInstance() : IAuthenticatedEncryptor
 
-* ExportToXml(): XmlSerializedDescriptorInfo
+* ExportToXml() : XmlSerializedDescriptorInfo
 
-Jako IAuthenticatedEncryptor je za instance IAuthenticatedEncryptorDescriptor zabalení jeden konkrétní klíč. To znamená, že pro všechny instance daného IAuthenticatedEncryptorDescriptor všechny ověřené encryptors vytvářené metodou jeho CreateEncryptorInstance by měl být považovány za ekvivalentní, jako v následující ukázka kódu.
+Stejně jako IAuthenticatedEncryptor instance IAuthenticatedEncryptorDescriptor je považován za zabalení jeden konkrétní klíč. To znamená, že pro všechny instance daného IAuthenticatedEncryptorDescriptor všechny ověřené encryptors vytvářené metodou jeho CreateEncryptorInstance by měl být považovány za ekvivalentní, stejně jako v následující vzorový kód.
 
 ```csharp
 // we have an IAuthenticatedEncryptorDescriptor instance
@@ -100,13 +100,13 @@ byte[] roundTripped = encryptor2.Decrypt(new ArraySegment<byte>(ciphertext), aad
 
 <a name="data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptor"></a>
 
-## <a name="iauthenticatedencryptordescriptor-aspnet-core-2x-only"></a>IAuthenticatedEncryptorDescriptor (2.x pouze pro základní technologie ASP.NET)
+## <a name="iauthenticatedencryptordescriptor-aspnet-core-2x-only"></a>IAuthenticatedEncryptorDescriptor (ASP.NET Core 2.x jenom)
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET základní 2.x](#tab/aspnetcore2x)
+# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
 
-**IAuthenticatedEncryptorDescriptor** rozhraní představuje typ, který umí samotné exportovat do formátu XML. Jejího rozhraní API je následující.
+**IAuthenticatedEncryptorDescriptor** rozhraní představuje typ, který umí samotné exportovat do formátu XML. Své rozhraní API je následujícím způsobem.
 
-* ExportToXml(): XmlSerializedDescriptorInfo
+* ExportToXml() : XmlSerializedDescriptorInfo
 
 # <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
 
@@ -114,30 +114,30 @@ byte[] roundTripped = encryptor2.Decrypt(new ArraySegment<byte>(ciphertext), aad
 
 ## <a name="xml-serialization"></a>Serializace XML
 
-Hlavní rozdíl mezi IAuthenticatedEncryptor a IAuthenticatedEncryptorDescriptor je, že popisovač umí vytvořit modulu pro šifrování a poskytne mu platnými argumenty. Vezměte v úvahu IAuthenticatedEncryptor, jejichž provádění spoléhá na SymmetricAlgorithm a KeyedHashAlgorithm. Modulu pro šifrování je úloha je používat tyto typy, ale jeho nemusí nutně vědět, kde tyto typy pochází, takže ji nelze vypsat skutečně správné popis toho, jak znovu sám sebe, pokud se aplikace restartuje. Popisovač funguje jako vyšší úroveň nad to. Vzhledem k tomu, že popisovač umí vytvořit instanci modulu pro šifrování (například ho umí vytvořit požadované algoritmy), tak, aby po resetování aplikace nelze vytvořit instanci modulu pro šifrování se může serializovat dané znalosti ve formátu XML.
+Hlavní rozdíl mezi IAuthenticatedEncryptor a IAuthenticatedEncryptorDescriptor je, že popisovač ví, jak vytvořit šifrování a poskytne mu platné argumenty. Vezměte v úvahu IAuthenticatedEncryptor, jehož implementace využívá SymmetricAlgorithm a KeyedHashAlgorithm. Úloha šifrování je používat tyto typy, ale nemá specifické znalosti nutně těchto typů, odkud, takže ho nejde vypsat skutečně správné popis toho, jak vytvořit samotné znovu, pokud se aplikace restartuje. Popisovač funguje jako vyšší úroveň nad to. Vzhledem k tomu, že popisovač ví, jak vytvořit instanci šifrování (například ví, jak vytvořit požadované algoritmy), tak, aby modul instance může být znovu vytvořena po obnovení aplikace ji může serializovat dané znalosti v podobě XML.
 
 <a name="data-protection-extensibility-core-crypto-exporttoxml"></a>
 
-Popisovač lze serializovat přes její rutiny ExportToXml. Tato rutina vrátí XmlSerializedDescriptorInfo, který obsahuje dvě vlastnosti: reprezentace XElement popisovač a typ, který představuje [IAuthenticatedEncryptorDescriptorDeserializer](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptordeserializer) může být použít tento popisovač zadaný odpovídající XElement resurrect.
+Popisovač lze serializovat pomocí jeho ExportToXml rutiny. Tato rutina vrátí XmlSerializedDescriptorInfo, která obsahuje dvě vlastnosti: XElement reprezentace popisovač a typ, který představuje [IAuthenticatedEncryptorDescriptorDeserializer](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptordeserializer) může být použít resurrect tento popisovač zadaný odpovídající XElement.
 
-Serializované popisovače mohou obsahovat citlivé informace, jako je například materiál kryptografické klíče. Systém ochrany dat má integrovanou podporu pro šifrování informací před obsahuje trvalé do úložiště. Abyste mohli využívat tohoto, popisovač měli označit element, který obsahuje citlivé informace s názvem "requiresEncryption atribut" (xmlns "<http://schemas.asp.net/2015/03/dataProtection>"), hodnotu "true".
+Serializovaná popisovače mohou obsahovat citlivé informace, jako je například kryptografické klíče. Systém ochrany dat obsahuje integrovanou podporu pro šifrování informací, než se trvale uložena do úložiště. Umožní využít této popisovač by měl označit element, který obsahuje citlivé informace pomocí atributu name "requiresEncryption" (xmlns "<http://schemas.asp.net/2015/03/dataProtection>"), hodnota "true".
 
 >[!TIP]
-> Pro nastavení tohoto atributu je pomocná rozhraní API. Volání metody rozšíření, které XElement.MarkAsRequiresEncryption() nachází v oboru názvů Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.
+> Nastavení tohoto atributu je pomocná rozhraní API. Volání metody rozšíření, které XElement.MarkAsRequiresEncryption() nachází v oboru názvů Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.
 
-Také může být případy, kdy serializované popisovače neobsahuje citlivé informace. Zvažte znovu případ kryptografického klíče uložené v modulu hardwarového zabezpečení. Popisovač nelze vypsat materiál klíče při serializaci samotné vzhledem k tomu, že modul hardwarového zabezpečení nebude vystavit materiály v podobě prostého textu. Místo toho může zapsat popisovač zabalené klíč verze klíč (Pokud je modul hardwarového zabezpečení umožňuje export tímto způsobem) nebo HSM pro vlastní jedinečný identifikátor pro klíč.
+Může existovat také případy, kdy serializovaná popisovač neobsahuje citlivé informace. Podívejte se znovu na kryptografického klíče uložené v modulu hardwarového zabezpečení. Popisovač nelze vypsat materiál klíče při serializaci samotné, protože modul hardwarového zabezpečení nebude vystavit materiál v podobě prostého textu. Místo toho může být popisovač vypsat klíč zabalené verze klíče (Pokud modul hardwarového zabezpečení umožňuje export tímto způsobem) nebo hardwarového zabezpečení pro vlastní jedinečný identifikátor pro klíč.
 
 <a name="data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptordeserializer"></a>
 
 ## <a name="iauthenticatedencryptordescriptordeserializer"></a>IAuthenticatedEncryptorDescriptorDeserializer
 
-**IAuthenticatedEncryptorDescriptorDeserializer** rozhraní představuje typ, který umí k deserializaci instance IAuthenticatedEncryptorDescriptor z XElement. Zpřístupňuje jedné metody:
+**IAuthenticatedEncryptorDescriptorDeserializer** rozhraní představuje typ, který se ví, jak provést deserializaci instance IAuthenticatedEncryptorDescriptor z XElement. Poskytuje jedinou metodu:
 
 * ImportFromXml (XElement element): IAuthenticatedEncryptorDescriptor
 
-Metoda ImportFromXml přijímá XElement, který vrátila [IAuthenticatedEncryptorDescriptor.ExportToXml](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-exporttoxml) a vytvoří ekvivalentní původní IAuthenticatedEncryptorDescriptor.
+Metoda ImportFromXml přebírá XElement, který byl vrácen [IAuthenticatedEncryptorDescriptor.ExportToXml](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-exporttoxml) a vytvoří ekvivalent původní IAuthenticatedEncryptorDescriptor.
 
-Typy, které implementují třídu IAuthenticatedEncryptorDescriptorDeserializer musí mít jednu z následujících dvou veřejné konstruktory:
+Typy, které implementují IAuthenticatedEncryptorDescriptorDeserializer musí mít jednu z následujících dvou veřejných konstruktorů:
 
 * .ctor(IServiceProvider)
 
@@ -146,30 +146,30 @@ Typy, které implementují třídu IAuthenticatedEncryptorDescriptorDeserializer
 > [!NOTE]
 > IServiceProvider předaný konstruktoru může mít hodnotu null.
 
-## <a name="the-top-level-factory"></a>Objekt factory nejvyšší úrovně
+## <a name="the-top-level-factory"></a>Objekt pro vytváření nejvyšší úrovně
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET základní 2.x](#tab/aspnetcore2x)
+# <a name="aspnet-core-2xtabaspnetcore2x"></a>[ASP.NET Core 2.x](#tab/aspnetcore2x)
 
-**AlgorithmConfiguration** třída reprezentuje typ, který umí vytvořit [IAuthenticatedEncryptorDescriptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptor) instance. Zpřístupňuje jediného rozhraní API.
+**AlgorithmConfiguration** třída představuje typ, který umí vytvořit [IAuthenticatedEncryptorDescriptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptor) instancí. Poskytuje jediné rozhraní API.
 
-* CreateNewDescriptor(): IAuthenticatedEncryptorDescriptor
+* CreateNewDescriptor() : IAuthenticatedEncryptorDescriptor
 
-AlgorithmConfiguration si můžete představit jako objekt pro vytváření nejvyšší úrovně. Konfigurace slouží jako šablona. Ho zabalí algoritmické informace (například tuto konfiguraci vytváří popisovače s klíčem standardu AES-128-GCM hlavní), ale ještě nebyla je spojen s konkrétní klíč.
+AlgorithmConfiguration můžete představit jako objekt pro vytváření nejvyšší úrovně. Konfigurace slouží jako šablona. Zabalí vylepšením informace (například tato konfigurace vytvoří popisovače pomocí hlavního klíče AES-128-GCM), ale je ještě není přidružená určitého klíče.
 
-Když je volána CreateNewDescriptor, výhradně pro toto volání se vytvoří nový materiál klíče a vytváří nové IAuthenticatedEncryptorDescriptor který zabalí tuto materiál klíče a algoritmické informace požadované pro využívat materiál. Materiál klíče může vytvořit v softwaru (a uchovávat v paměti), může být vytvořen a uchovávat v modulu hardwarového zabezpečení a tak dále. Je velmi důležitý bod je, že jakékoli dvě volání CreateNewDescriptor by nikdy vytvořit ekvivalentní IAuthenticatedEncryptorDescriptor instance.
+Když je zavolána CreateNewDescriptor, výhradně pro toto volání se vytvoří nový materiál klíče a je vytvořen nový IAuthenticatedEncryptorDescriptor který zabalí tento materiál klíče a vylepšením informace požadované pro využívání materiálu. Materiál klíče může vytvořit v softwaru (a uložené v paměti), může být vytvořen a uložených v HSM a tak dále. Velmi důležitý bod je, že dvě volání CreateNewDescriptor nikdy vytvořit ekvivalentní IAuthenticatedEncryptorDescriptor instancí.
 
-Typ AlgorithmConfiguration slouží jako vstupní bod pro vytvoření klíče rutiny jako [automatické klíč vrácení](xref:security/data-protection/implementation/key-management#key-expiration-and-rolling). Chcete-li změnit implementaci pro všechny budoucí klíče, nastavte vlastnost AuthenticatedEncryptorConfiguration v KeyManagementOptions.
+Typ AlgorithmConfiguration slouží jako vstupní bod pro vytvoření klíče rutin, jako [automatické klíč se zajištěním provozu](xref:security/data-protection/implementation/key-management#key-expiration-and-rolling). Chcete-li změnit implementace pro všechny budoucí klíče, nastavte vlastnost AuthenticatedEncryptorConfiguration v KeyManagementOptions.
 
 # <a name="aspnet-core-1xtabaspnetcore1x"></a>[ASP.NET Core 1.x](#tab/aspnetcore1x)
 
-**IAuthenticatedEncryptorConfiguration** rozhraní představuje typ, který umí vytvořit [IAuthenticatedEncryptorDescriptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptor) instance. Zpřístupňuje jediného rozhraní API.
+**IAuthenticatedEncryptorConfiguration** rozhraní představuje typ, který umí vytvořit [IAuthenticatedEncryptorDescriptor](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptor) instancí. Poskytuje jediné rozhraní API.
 
-* CreateNewDescriptor(): IAuthenticatedEncryptorDescriptor
+* CreateNewDescriptor() : IAuthenticatedEncryptorDescriptor
 
-IAuthenticatedEncryptorConfiguration si můžete představit jako objekt pro vytváření nejvyšší úrovně. Konfigurace slouží jako šablona. Ho zabalí algoritmické informace (například tuto konfiguraci vytváří popisovače s klíčem standardu AES-128-GCM hlavní), ale ještě nebyla je spojen s konkrétní klíč.
+IAuthenticatedEncryptorConfiguration můžete představit jako objekt pro vytváření nejvyšší úrovně. Konfigurace slouží jako šablona. Zabalí vylepšením informace (například tato konfigurace vytvoří popisovače pomocí hlavního klíče AES-128-GCM), ale je ještě není přidružená určitého klíče.
 
-Když je volána CreateNewDescriptor, výhradně pro toto volání se vytvoří nový materiál klíče a vytváří nové IAuthenticatedEncryptorDescriptor který zabalí tuto materiál klíče a algoritmické informace požadované pro využívat materiál. Materiál klíče může vytvořit v softwaru (a uchovávat v paměti), může být vytvořen a uchovávat v modulu hardwarového zabezpečení a tak dále. Je velmi důležitý bod je, že jakékoli dvě volání CreateNewDescriptor by nikdy vytvořit ekvivalentní IAuthenticatedEncryptorDescriptor instance.
+Když je zavolána CreateNewDescriptor, výhradně pro toto volání se vytvoří nový materiál klíče a je vytvořen nový IAuthenticatedEncryptorDescriptor který zabalí tento materiál klíče a vylepšením informace požadované pro využívání materiálu. Materiál klíče může vytvořit v softwaru (a uložené v paměti), může být vytvořen a uložených v HSM a tak dále. Velmi důležitý bod je, že dvě volání CreateNewDescriptor nikdy vytvořit ekvivalentní IAuthenticatedEncryptorDescriptor instancí.
 
-Typ IAuthenticatedEncryptorConfiguration slouží jako vstupní bod pro vytvoření klíče rutiny jako [automatické klíč vrácení](xref:security/data-protection/implementation/key-management#key-expiration-and-rolling). Chcete-li změnit implementaci pro všechny budoucí klíče, zaregistrujte typu singleton IAuthenticatedEncryptorConfiguration v kontejneru služby.
+Typ IAuthenticatedEncryptorConfiguration slouží jako vstupní bod pro vytvoření klíče rutin, jako [automatické klíč se zajištěním provozu](xref:security/data-protection/implementation/key-management#key-expiration-and-rolling). Chcete-li změnit implementace pro všechny budoucí klíče, zaregistrujte IAuthenticatedEncryptorConfiguration jednotlivý prvek v kontejneru služby.
 
 ---

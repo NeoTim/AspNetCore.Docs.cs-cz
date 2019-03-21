@@ -1,9 +1,16 @@
+---
+ms.openlocfilehash: 82c0f3076e846045ca85697e150ff0ab9be75dba
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58214240"
+---
 <a name="dc"></a>
 
 Přidejte následující `MvcMovieContext` třídu *modely* složky:  
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Data/MvcMovieContext.cs)]
-
 
 Předchozí kód vytvoří `DbSet` vlastnost sady entit. V terminologii Entity Framework obvykle sadu entit odpovídá databázové tabulky a entity odpovídající řádek v tabulce.
 

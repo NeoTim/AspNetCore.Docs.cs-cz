@@ -5,12 +5,12 @@ description: Přečtěte si podrobnosti implementace formát ukládání klíč�
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/key-storage-format
-ms.openlocfilehash: bca19ad001dd20b5d02ae5470f7d928082496037
-ms.sourcegitcommit: 8f8924ce4eb9effeaf489f177fb01b66867da16f
+ms.openlocfilehash: 81df124f3dd0cadf8fd895ab55f66eec6415705f
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2018
-ms.locfileid: "39219274"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208015"
 ---
 # <a name="key-storage-format-in-aspnet-core"></a>Formát ukládání klíčů v ASP.NET Core
 
@@ -65,7 +65,7 @@ Konkrétní formát \<popisovač > element závisí na implementaci ověřeného
 
 **&lt;EncryptedSecret&gt;** element, který obsahuje zašifrované formě tajného klíče může být k dispozici Pokud [je povolené šifrování tajných klíčů v klidovém stavu](xref:security/data-protection/implementation/key-encryption-at-rest). Atribut `decryptorType` je název kvalifikovaný pro sestavení typu, který implementuje [IXmlDecryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmldecryptor). Tento typ je zodpovědný za čtení vnitřní **&lt;encryptedKey&gt;** elementu a dešifruje je obnovit původní ve formátu prostého textu.
 
-Stejně jako u \<popisovač >, konkrétní formát <encryptedSecret> element závisí mechanismus šifrování v klidovém stavu používá. Ve výše uvedeném příkladu se hlavní klíč šifrují pomocí rozhraní Windows DPAPI za komentář.
+Stejně jako u `<descriptor>`, konkrétní formát `<encryptedSecret>` element závisí mechanismus šifrování v klidovém stavu používá. Ve výše uvedeném příkladu se hlavní klíč šifrují pomocí rozhraní Windows DPAPI za komentář.
 
 ## <a name="the-revocation-element"></a>\<Odvolání > – element
 

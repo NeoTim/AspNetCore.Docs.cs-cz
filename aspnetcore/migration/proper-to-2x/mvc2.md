@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/mvc2
-ms.openlocfilehash: 9960932bd288ea12e346272f1838026778f1d355
-ms.sourcegitcommit: 54655f1e1abf0b64d19506334d94cfdb0caf55f6
+ms.openlocfilehash: 7f048f2f95f1a51a0b6ce3d36665420ff28ec26f
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/26/2018
-ms.locfileid: "50148860"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208470"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core-20"></a>Migrace z ASP.NET do ASP.NET Core 2.0
 
@@ -23,7 +23,7 @@ Tento článek slouží jako referenční příručka pro migraci aplikací tech
 
 Nainstalujte **jeden** z těchto věcí [.NET soubory ke stažení: Windows](https://www.microsoft.com/net/download/windows):
 
-* .NET core SDK
+* .NET Core SDK
 * Visual Studio pro Windows
   * **Vývoj pro ASP.NET a web** pracovního vytížení
   * **Vývoj pro různé platformy .NET core** pracovního vytížení
@@ -52,7 +52,7 @@ Při použití Microsoft.aspnetcore.all žádné balíčky odkazuje Microsoft.as
 * Neexistují žádné na základě identifikátoru GUID odkazy na jiné projekty, což zlepšuje čitelnost souboru.
 * Tento soubor lze upravovat bez uvolnění v sadě Visual Studio:
 
-  ![Upravit CSPROJ možnost místní nabídky v sadě Visual Studio 2017](_static/EditProjectVs2017.png)
+  ![Edit CSPROJ context menu option in Visual Studio 2017](_static/EditProjectVs2017.png)
 
 ## <a name="globalasax-file-replacement"></a>Nahrazení souboru Global.asax
 
@@ -113,7 +113,7 @@ Rozšíření tohoto přístupu, aby proces robustnější, jako je třeba použ
 services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
 ````
 
-**Poznámka:** najdete podrobnější referenční dokumentace ke konfiguraci ASP.NET Core, najdete v části <xref:fundamentals/configuration/index>.
+**Poznámka:** Podrobnější odkazu ke konfiguraci ASP.NET Core, najdete v části <xref:fundamentals/configuration/index>.
 
 ## <a name="native-dependency-injection"></a>Injektáž závislostí nativní
 
@@ -123,15 +123,15 @@ V aplikacích ASP.NET vývojáři spoléhají na knihovny třetích stran k impl
 
 Příklad nastavení injektáž závislostí v Unity je implementace `IDependencyResolver` , která zabalí `UnityContainer`:
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample8.cs)]
+[!code-csharp[](samples/sample8.cs)]
 
 Vytvoření instance vaší `UnityContainer`, zaregistrujte vaši službu a nastavit překladač závislostí `HttpConfiguration` nové instance `UnityResolver` kontejneru:
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample9.cs)]
+[!code-csharp[](samples/sample9.cs)]
 
 Vložit `IProductRepository` místech:
 
-[!code-csharp[](../../../aspnet/web-api/overview/advanced/dependency-injection/samples/sample5.cs)]
+[!code-csharp[](samples/sample5.cs)]
 
 Protože injektáž závislostí je součástí ASP.NET Core, můžete přidat služby v `Startup.ConfigureServices`:
 
@@ -151,11 +151,11 @@ V ASP.NET Core, statické soubory se ukládají do "kořenový adresář webové
 
 [!code-csharp[](../../fundamentals/static-files/samples/1x/StartupStaticFiles.cs?highlight=3&name=snippet_ConfigureMethod)]
 
-**Poznámka:** cílení rozhraní .NET Framework, nainstalujte balíček NuGet `Microsoft.AspNetCore.StaticFiles`.
+**Poznámka:** Pokud se zaměřujete na rozhraní .NET Framework, nainstalujte balíček NuGet `Microsoft.AspNetCore.StaticFiles`.
 
 Například prostředek obrázku v *wwwroot/imagí* , jako je přístupná v prohlížeči v umístění složka `http://<app>/images/<imageFileName>`.
 
-**Poznámka:** podrobnější odkaz na zpracování statických souborů v ASP.NET Core, najdete v části <xref:fundamentals/static-files>.
+**Poznámka:** Podrobnější odkaz na zpracování statických souborů v ASP.NET Core, najdete v části <xref:fundamentals/static-files>.
 
 ## <a name="additional-resources"></a>Další zdroje
 

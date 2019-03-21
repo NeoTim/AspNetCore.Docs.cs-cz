@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 02/21/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: abb426b1a41226e52d9b9b5c00c41ff816890d36
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 6ec9b7bf3da0015b8ac3918a4d47644fffc14cdb
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56744128"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209171"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace serveru HTTP.sys web v ASP.NET Core
 
@@ -148,7 +148,7 @@ Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování pro
 1. Pokud je aplikace [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte .NET Core a .NET Framework (Pokud aplikace cílí na rozhraní .NET Framework aplikace .NET Core).
 
    * **.NET core** &ndash; Pokud aplikace vyžaduje .NET Core, získání a spuštění **.NET Core Runtime** instalačního programu z [soubory ke stažení rozhraní .NET Core](https://dotnet.microsoft.com/download). Neinstalujte úplnou sadu SDK na serveru.
-   * **Rozhraní .NET framework** &ndash; Pokud aplikace vyžaduje rozhraní .NET Framework, přečtěte si článek [Průvodce instalací rozhraní .NET Framework](/dotnet/framework/install/). Instalace vyžaduje rozhraní .NET Framework. Instalační program pro nejnovější rozhraní .NET Framework je k dispozici z [soubory ke stažení rozhraní .NET Core](https://dotnet.microsoft.com/download) stránky.
+   * **Rozhraní .NET framework** &ndash; Pokud aplikace vyžaduje rozhraní .NET Framework, přečtěte si článek [Průvodce instalací rozhraní .NET Framework](/dotnet/framework/install/). Instalace vyžaduje rozhraní .NET Framework. Instalační program pro nejnovější rozhraní .NET Framework je k dispozici [soubory ke stažení rozhraní .NET Core](https://dotnet.microsoft.com/download) stránky.
 
    Pokud je aplikace [samostatná nasazení](/dotnet/core/deploying/#framework-dependent-deployments-scd), tato aplikace obsahuje modul runtime v jeho nasazení. Na serveru není nutné instalovat rozhraní framework.
 

@@ -5,12 +5,12 @@ description: Zjistěte, jak řídit chování aplikace napříč několika prost
 ms.author: riande
 ms.date: 01/22/2019
 uid: fundamentals/environments
-ms.openlocfilehash: 4120453c36d1fc2a2303c2175df30ef9777bc54f
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 5982f3e51a68dfa29af482067156c42006f50c0c
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345947"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208448"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>Používání více prostředí v ASP.NET Core
 
@@ -31,9 +31,9 @@ Předchozí kód:
 * Volání [UseDeveloperExceptionPage](/dotnet/api/microsoft.aspnetcore.builder.developerexceptionpageextensions.usedeveloperexceptionpage) při `ASPNETCORE_ENVIRONMENT` je nastavena na `Development`.
 * Volání [UseExceptionHandler](/dotnet/api/microsoft.aspnetcore.builder.exceptionhandlerextensions.useexceptionhandler) při hodnotu `ASPNETCORE_ENVIRONMENT` nastavený jeden z následujících akcí:
 
-    * `Staging`
-    * `Production`
-    * `Staging_2`
+  * `Staging`
+  * `Production`
+  * `Staging_2`
 
 [Pomocná rutina značky prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) používá hodnotu `IHostingEnvironment.EnvironmentName` pro zahrnutí nebo vyloučení značek v elementu:
 
@@ -290,7 +290,7 @@ Pro distribuce Linuxu, použijte `export` příkazu na příkazovém řádku pro
 
 Načtení konfigurace podle prostředí, doporučujeme:
 
-* *appsettings* files (*appsettings.&lt;<Environment>&gt;.json). Zobrazit [konfigurace: Zprostředkovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider).
+* *appsettings* files (*appsettings.\<Environment>.json*). Zobrazit [konfigurace: Zprostředkovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider).
 * proměnné prostředí (nastavený v každém systému je hostitelem aplikace). Zobrazit [konfigurace: Zprostředkovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) a [bezpečné ukládání tajných kódů aplikace při vývoji: Proměnné prostředí](xref:security/app-secrets#environment-variables).
 * Tajný klíč správce (ve vývojovém prostředí pouze). Viz <xref:security/app-secrets>.
 

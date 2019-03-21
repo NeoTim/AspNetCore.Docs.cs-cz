@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2018
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: e71cb8badbbc852685c845e6bbb0bbb12ab5499f
-ms.sourcegitcommit: 68a3081dd175d6518d1bfa31b4712bd8a2dd3864
+ms.openlocfilehash: b2b5a155d0dff28e471af449731da787f19d1faf
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/18/2018
-ms.locfileid: "53577809"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208354"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
 
@@ -127,7 +127,7 @@ Vrátí sady Visual Studio **vytvořit službu App Service** dialogového okna.
 
 ![Konfigurace SQL Database dialogového okna](publish-to-azure-webapp-using-vs/_static/conf_final.png)
 
-Visual Studio vytvoří webovou aplikaci a SQL Server v Azure. Tento krok může trvat několik minut. Informace o prostředky vytvořené v tématu [další prostředky](#additonal-resources).
+Visual Studio vytvoří webovou aplikaci a SQL Server v Azure. Tento krok může trvat několik minut. Informace o prostředky vytvořené v tématu [další prostředky](#additional-resources).
 
 Po dokončení nasazení vyberte **nastavení**:
 
@@ -135,8 +135,8 @@ Po dokončení nasazení vyberte **nastavení**:
 
 Na **nastavení** stránku **publikovat** dialogové okno:
 
-  * Rozbalte **databází** a zkontrolujte **použít tento připojovací řetězec za běhu**.
-  * Rozbalte **migrace rozhraní Entity Framework** a zkontrolujte **použít tuto migraci na publikování**.
+* Rozbalte **databází** a zkontrolujte **použít tento připojovací řetězec za běhu**.
+* Rozbalte **migrace rozhraní Entity Framework** a zkontrolujte **použít tuto migraci na publikování**.
 
 * Vyberte **Uložit**. Vrátí sady Visual Studio **publikovat** dialogového okna. 
 
@@ -184,7 +184,7 @@ Po dokončení testování aplikace, přejděte [webu Azure portal](https://port
 
 * <xref:host-and-deploy/azure-apps/azure-continuous-deployment>
 
-## <a name="additonal-resources"></a>Další prostředky
+## <a name="additional-resources"></a>Další zdroje
 
 * [Azure App Service](/azure/app-service/app-service-web-overview)
 * [Skupiny prostředků Azure](/azure/azure-resource-manager/resource-group-overview#resource-groups)

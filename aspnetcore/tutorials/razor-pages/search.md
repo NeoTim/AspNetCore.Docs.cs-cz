@@ -5,12 +5,12 @@ description: Ukazuje, jak přidat vyhledávací technologie ASP.NET Core Razor P
 ms.author: riande
 ms.date: 12/3/2018
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 8a8e51632a75efd6411bae46b9a7f9e4f16b480f
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: d0ce13e87c3f5e66008f308f6258403ea37b8847
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346197"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208223"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>Přidání vyhledávání do ASP.NET Core Razor Pages
 
@@ -109,7 +109,6 @@ Otestujte aplikaci tak, že žánr, název filmu a obě.
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Verzi tohoto kurzu na webu YouTube](https://youtu.be/4B6pHtdyo08)
-
 
 > [!div class="step-by-step"]
 > [Předchozí: Aktualizace stránek](xref:tutorials/razor-pages/da1)

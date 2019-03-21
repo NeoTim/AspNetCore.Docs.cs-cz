@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/08/2019
 uid: grpc/migration
-ms.openlocfilehash: 520318cfe87708cf5c453c88a5eb54027350db4b
-ms.sourcegitcommit: a467828b5e4eaae291d961ffe2279a571900de23
+ms.openlocfilehash: 3c6e04694a33e953f6e1575f5ee9b0699cf1cdd3
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58142596"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58207955"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>Migrace služeb gRPC z C jádra ASP.NET Core
 
@@ -89,7 +89,7 @@ Na základě aplikací C – core konfigurace HTTPS prostřednictvím [ `Server.
 
 ## <a name="interceptors-and-middlewares"></a>Sběrače a Middlewares
 
-ASP.NET Core [middlewares](xref:fundamentals/middleware/index) gRPC aplikací založených na nabízí podobné funkce ve srovnání s zachycovacích dotazů v C core. Middlewares a sběrače jsou koncepčně stejné jako obojí se používají k vytvoření pipleline, který zpracovává požadavek gRPC. Oba umožňují práci prováděnou před nebo po další komponenta v kanálu. Ale middlewares ASP.NET Core pracovat s základní zprávy HTTP/2, zatímco sběrače provádět gRPC vrstva abstrakce pomocí [ `ServerCallContext` ](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html).
+ASP.NET Core [middlewares](xref:fundamentals/middleware/index) gRPC aplikací založených na nabízí podobné funkce ve srovnání s zachycovacích dotazů v C core. Middlewares a sběrače jsou koncepčně stejné jako se používá k vytvoření kanálu, který zpracovává požadavek gRPC. Oba umožňují práci prováděnou před nebo po další komponenta v kanálu. Ale middlewares ASP.NET Core pracovat s základní zprávy HTTP/2, zatímco sběrače provádět gRPC vrstva abstrakce pomocí [ `ServerCallContext` ](https://grpc.io/grpc/csharp/api/Grpc.Core.ServerCallContext.html).
 
 ## <a name="additional-resources"></a>Další zdroje
 

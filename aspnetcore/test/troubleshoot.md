@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/26/2019
 uid: test/troubleshoot
-ms.openlocfilehash: c8b34f51fd329eb9a7c34f7be93bd7f2aa054283
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 1f53375a6aa504c989920a0bff83b400b7bd83ec
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899282"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208840"
 ---
 # <a name="troubleshoot-aspnet-core-projects"></a>Řešení potíží s projekty ASP.NET Core
 
@@ -53,7 +53,7 @@ V **nový projekt** dialogové okno pro ASP.NET Core, může zobrazit následuj�
 
 Pokud máte alespoň jedna instalace sady .NET Core SDK do adresáře mimo se zobrazí tato zpráva *C:\\Program Files\\dotnet\\sdk\\*. K tomu obvykle dochází při .NET Core SDK je nasazený na počítači místo kopírovat/vložit instalační službu MSI.
 
-Odinstalujte 32-bit .NET Core SDK, aby se zabránilo toto upozornění. Odinstalovat z **ovládací panely** > **programy a funkce** > **odinstalovat nebo změnit program**. Pokud budete rozumět tomu, proč dojde k upozornění a jeho dopady, můžete upozornění ignorovat.
+Odinstalujte všechny 32bitové .NET Core SDK a moduly runtime zabránit toto upozornění. Odinstalovat z **ovládací panely** > **programy a funkce** > **odinstalovat nebo změnit program**. Pokud budete rozumět tomu, proč dojde k upozornění a jeho dopady, můžete upozornění ignorovat.
 
 ### <a name="no-net-core-sdks-were-detected"></a>Nezjistily se žádné sady SDK .NET Core
 

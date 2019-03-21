@@ -5,12 +5,12 @@ description: Tento článek představuje souborů Portable Object a popisuje kro
 ms.author: scaddie
 ms.date: 09/26/2017
 uid: fundamentals/portable-object-localization
-ms.openlocfilehash: c9f892f5a886d7167b4705595ed2277279495201
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: 466759b30e756a7cac8abab7352025df0462bb6f
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207625"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58210090"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>Konfigurace lokalizace přenosné objektu v ASP.NET Core
 
@@ -91,7 +91,7 @@ Přidejte následující kód do zobrazení Razor podle výběru. *About.cshtml*
 
 ### <a name="creating-a-po-file"></a>Vytváří se soubor PO
 
-Vytvořte soubor s názvem  *<culture code>a* v kořenové složce aplikace. V tomto příkladu je název souboru *fr.po* vzhledem k tomu, že se používá francouzštině:
+Vytvořte soubor s názvem  *\<jazykovou verzi kódu > a* v kořenové složce aplikace. V tomto příkladu je název souboru *fr.po* vzhledem k tomu, že se používá francouzštině:
 
 [!code-text[](localization/sample/POLocalization/fr.po)]
 
@@ -153,7 +153,7 @@ Upravit *Views/Home/About.cshtml* souboru k vykreslení lokalizované, plural ř
 <p>@Localizer.Plural(5, "There is one item.", "There are {0} items.")</p>
 ```
 
-**Poznámka:** v reálném scénáři by použít proměnnou představující počet. Jsme zde, opakujte stejný kód s tři různé hodnoty k vystavení velmi zvláštní případ.
+**Poznámka:** V reálném scénáři by použít proměnnou představující počet. Jsme zde, opakujte stejný kód s tři různé hodnoty k vystavení velmi zvláštní případ.
 
 Při přepínání jazykových verzí, naleznete v následujících tématech:
 

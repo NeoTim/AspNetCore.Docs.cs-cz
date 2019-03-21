@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/11/2019
 uid: host-and-deploy/razor-components/configure-linker
-ms.openlocfilehash: 6f2c07eec6b98afbaaf21d2c1d172a1a54e6e808
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: c73c972e22a51842c5d8dd209b7e1ed987f9090d
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978368"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58207928"
 ---
 # <a name="configure-the-linker-for-blazor"></a>Konfigurace Linkeru pro Blazor
 
@@ -24,7 +24,7 @@ Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#inte
 
 Sestavení ovládacího prvku propojení některou z následujících postupů:
 
-* Zakázat globálně propojení s [vlastnost MSBuild](#disable-linking-with-a-msBuild-property).
+* Zakázat globálně propojení s [vlastnost MSBuild](#disable-linking-with-a-msbuild-property).
 * Ovládací prvek propojení na základě na sestavení s [konfigurační soubor](#control-linking-with-a-configuration-file).
 
 ## <a name="disable-linking-with-a-msbuild-property"></a>Zakázat propojení s vlastností MSBuild

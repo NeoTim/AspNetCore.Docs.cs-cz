@@ -5,12 +5,12 @@ description: Tato série kurzů ukazuje, jak používat v ASP.NET Core Razor Pag
 ms.author: riande
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 29d9369cfa6a4c76f015b5a819a27dfa280d4075
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 88449a0064dad42d8d2bf9fbdd67078e4c2ba8de
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346408"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58210051"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se stránkami Razor v ASP.NET Core
 
@@ -146,7 +146,6 @@ Obsahuje Razor pages a podpůrné soubory. Každá stránka Razor je pár soubor
 * A *. cshtml.cs* soubor, který obsahuje C# kód, který zpracovává události stránky.
 
 Podpůrné soubory mají názvy, které začínají znakem podtržítka. Například *_Layout.cshtml* soubor nastaví prvky uživatelského rozhraní, které jsou společné pro všechny stránky. Tento soubor nastaví navigační nabídce v horní části stránky a o autorských právech v dolní části stránky. Další informace naleznete v tématu <xref:mvc/views/layout>.
-
 
 ### <a name="wwwroot-folder"></a>složku Wwwroot
 

@@ -531,8 +531,6 @@ Přetížení povolit zadáním:
 * Určuje, zda konfigurace opětovném načtení nástroje Pokud se soubor změní.
 * <xref:Microsoft.Extensions.FileProviders.IFileProvider> Používá pro přístup k souboru.
 
-
-
 `AddJsonFile` je automaticky volána dvakrát při inicializaci nové <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> s <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>. Načtení konfigurace z volání metody:
 
 * *appSettings.JSON* &ndash; tento soubor je nejprve pro čtení. Prostředí verze souboru mohou přepsat hodnoty poskytnuté *appsettings.json* souboru.

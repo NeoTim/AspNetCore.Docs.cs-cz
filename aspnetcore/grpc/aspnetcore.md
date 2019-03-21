@@ -1,19 +1,19 @@
 ---
-title: gRPC služeb pomocí ASP.NET Core
+title: Služby gRPC s ASP.NET Core
 author: juntaoluo
 description: Informace o základních konceptech při zápisu gRPC služby pomocí ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/08/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 92327a5feb3279ac33532b595efa69b4aef8e7ca
-ms.sourcegitcommit: a467828b5e4eaae291d961ffe2279a571900de23
+ms.openlocfilehash: 387c3134efc04bec740fc66a5ca4b84715264d35
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58142591"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209022"
 ---
-# <a name="grpc-services-with-aspnet-core"></a>gRPC služeb pomocí ASP.NET Core
+# <a name="grpc-services-with-aspnet-core"></a>Služby gRPC s ASP.NET Core
 
 Tento dokument ukazuje, jak začít pracovat s gRPC služby pomocí ASP.NET Core.
 
@@ -40,7 +40,6 @@ gRPC vyžaduje následující balíčky:
 * [Grpc.AspNetCore.Server](https://www.nuget.org/packages/Grpc.AspNetCore.Server)
 * [Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/) protobuf zpráva rozhraní API.
 * [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/)
-
 
 ### <a name="configure-grpc"></a>Konfigurace gRPC
 

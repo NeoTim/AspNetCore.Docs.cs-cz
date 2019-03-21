@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/11/2019
 uid: performance/caching/memory
-ms.openlocfilehash: 9a7727ad41a05f39d74877af3c8f2e3f7a620c7d
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: c115e43b9dd4f838ab9600c2e105d86732d857ad
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103069"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208265"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť in-memory v ASP.NET Core
 
@@ -111,10 +111,10 @@ Následující kód volá [získat](/dotnet/api/microsoft.extensions.caching.mem
 
 Následující ukázka:
 
-- Nastaví čas, absolutní vypršení platnosti. Toto je maximální doba, kterou položka mezipaměti a zabrání přílišnému zastarávání při průběžně obnovení klouzavé vypršení platnosti položky.
-- Nastaví klouzavou dobu vypršení platnosti. Požadavky, které přístup k této položce v mezipaměti se resetuje klouzavé vypršení platnosti hodiny.
-- Nastaví prioritu mezipaměti `CacheItemPriority.NeverRemove`.
-- Nastaví [PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate) , která bude volána po provedení položky dojde k jeho vyřazení z mezipaměti. Zpětné volání je spuštěn na jiném podprocesu než kód, který odebere položku z mezipaměti.
+* Nastaví čas, absolutní vypršení platnosti. Toto je maximální doba, kterou položka mezipaměti a zabrání přílišnému zastarávání při průběžně obnovení klouzavé vypršení platnosti položky.
+* Nastaví klouzavou dobu vypršení platnosti. Požadavky, které přístup k této položce v mezipaměti se resetuje klouzavé vypršení platnosti hodiny.
+* Nastaví prioritu mezipaměti `CacheItemPriority.NeverRemove`.
+* Nastaví [PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate) , která bude volána po provedení položky dojde k jeho vyřazení z mezipaměti. Zpětné volání je spuštěn na jiném podprocesu než kód, který odebere položku z mezipaměti.
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_et&highlight=14-21)]
 
@@ -161,14 +161,14 @@ Použití `CancellationTokenSource` umožňuje více položek mezipaměti vyřaz
 
 ## <a name="additional-notes"></a>Další poznámky
 
-- Při použití zpětné volání k znovu vytvořit položku mezipaměti:
+* Při použití zpětné volání k znovu vytvořit položku mezipaměti:
 
-  - Více požadavků můžete najít hodnotu uloženou v mezipaměti klíče prázdný protože zpětného volání nebyl dokončen.
-  - Výsledkem může být několik vláken opětovného vyplnění položku z mezipaměti.
+  * Více požadavků můžete najít hodnotu uloženou v mezipaměti klíče prázdný protože zpětného volání nebyl dokončen.
+  * Výsledkem může být několik vláken opětovného vyplnění položku z mezipaměti.
 
-- Při použití jedné položky cache a vytvořte další podřízené zkopíruje nastavení podle času vypršení platnosti a vypršení platnosti tokenů nadřazená položka. Podřízené není ruční odebrání vypršela platnost, nebo aktualizace nadřazené položky.
+* Při použití jedné položky cache a vytvořte další podřízené zkopíruje nastavení podle času vypršení platnosti a vypršení platnosti tokenů nadřazená položka. Podřízené není ruční odebrání vypršela platnost, nebo aktualizace nadřazené položky.
 
-- Použití [PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks) nastavit zpětná volání, které aktivuje po položka mezipaměti je odstraněn z mezipaměti.
+* Použití [PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks) nastavit zpětná volání, které aktivuje po položka mezipaměti je odstraněn z mezipaměti.
 
 ## <a name="additional-resources"></a>Další zdroje
 

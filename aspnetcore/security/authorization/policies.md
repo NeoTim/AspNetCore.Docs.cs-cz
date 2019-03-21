@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/21/2017
 uid: security/authorization/policies
-ms.openlocfilehash: c2bc626b2dd341dda878a151def6b405884357d7
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: e72f15c28fb7b62c671dd6475cc323cacce42de6
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665399"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208318"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>Autorizace na základě zásad v ASP.NET Core
 
@@ -19,13 +19,25 @@ Na pozadí [autorizace na základě rolí](xref:security/authorization/roles) a 
 
 Zásady autorizace se skládá z jednoho nebo více požadavků. Je registrován jako součást konfigurace služby ověřování v `Startup.ConfigureServices` metody:
 
-[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=40-41,50-55,63,72)]
+[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,66)]
 
 V předchozím příkladu se vytvoří zásadu "AtLeast21". Má jeden požadavek&mdash;s minimálním stářím, který je poskytnut jako parametr s požadavkem.
 
-Zásady se použijí s použitím `[Authorize]` atribut s názvem zásady. Příklad:
+## <a name="applying-policies-to-mvc-controllers"></a>Přiřazení zásad pro kontrolery MVC
+
+Pokud používáte pro stránky Razor, přečtěte si téma [přiřazení zásad pro stránky Razor](#applying-policies-to-razor-pages) v tomto dokumentu.
+
+Zásady se použijí k řadičům pomocí `[Authorize]` atribut s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
+
+## <a name="applying-policies-to-razor-pages"></a>Přiřazení zásad pro stránky Razor
+
+Zásady se použijí pro stránky Razor pomocí `[Authorize]` atribut s názvem zásady. Příklad:
+
+[!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
+
+Zásady můžete použít také pro stránky Razor pomocí [autorizace konvence](xref:security/authorization/razor-pages-authorization).
 
 ## <a name="requirements"></a>Požadavky
 
@@ -70,7 +82,7 @@ Předchozí kód projde [PendingRequirements](/dotnet/api/microsoft.aspnetcore.a
 
 Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Příklad:
 
-[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=40-41,50-55,63-65,72)]
+[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 
 Předchozí kód registruje `MinimumAgeHandler` jako singleton vyvoláním `services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();`. Obslužné rutiny lze registrovat pomocí některé z integrovaného [služby životnosti](xref:fundamentals/dependency-injection#service-lifetimes).
 
@@ -112,7 +124,7 @@ Může nastat situace, ve které splňující zásady je jednoduchý vyjádřit 
 
 Například předchozí `BadgeEntryHandler` měl by být přepsán následujícím způsobem:
 
-[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=52-53,57-63)]
+[!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=50-51,55-61)]
 
 ## <a name="accessing-mvc-request-context-in-handlers"></a>Přístup k kontext požadavku MVC v obslužné rutině
 

@@ -193,7 +193,6 @@ Protokoly předchozích nevygenerovaly se tím, že požadavek HTTP Get na ukáz
 
 Tady je příklad stejného protokolů, jak se objeví v okně ladění, když spustíte ukázkovou aplikaci v sadě Visual Studio:
 
-
 ```console
 Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request starting HTTP/1.1 GET http://localhost:53104/api/todo/0  
 Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Executing action method TodoApi.Controllers.TodoController.GetById (TodoApi) with arguments (0) - ModelState is Valid
@@ -214,7 +213,7 @@ Zbývající část tohoto článku popisuje některé podrobnosti a možností 
 
 ## <a name="log-category"></a>Kategorie protokolu
 
-Když `ILogger` je vytvořen objekt, *kategorie* je pro ni zadán. Kategorie je součástí každé zprávě protokolu vytvořené z této instance `Ilogger`. Kategorie může být libovolný řetězec, ale tato konvence je použití názvu třídy, jako je například "TodoApi.Controllers.TodoController".
+Když `ILogger` je vytvořen objekt, *kategorie* je pro ni zadán. Kategorie je součástí každé zprávě protokolu vytvořené z této instance `ILogger`. Kategorie může být libovolný řetězec, ale tato konvence je použití názvu třídy, jako je například "TodoApi.Controllers.TodoController".
 
 Použití `ILogger<T>` zobrazíte `ILogger` instanci, která používá plně kvalifikovaný typ název `T` jako kategorie:
 

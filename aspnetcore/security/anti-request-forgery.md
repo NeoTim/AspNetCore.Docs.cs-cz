@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/11/2018
 uid: security/anti-request-forgery
-ms.openlocfilehash: 6e140717834b901e12ef7863fd07b983b0c55107
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: 88a2d127407378b9e83df7f48b1938ed081f9bb2
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667658"
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58208525"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>Útokům zabránilo webů žádosti padělání (XSRF/CSRF) v ASP.NET Core
 
@@ -102,12 +102,12 @@ V technologii ASP.NET Core 2.0 nebo novější [FormTagHelper](xref:mvc/views/wo
 </form>
 ```
 
-Wijsova, [IHtmlHelper.BeginForm](/dotnet/api/microsoft.aspnetcore.mvc.rendering.ihtmlhelper.beginform) generuje antiforgery tokeny ve výchozím nastavení, pokud není formuláře metoda GET.
+Obdobně [IHtmlHelper.BeginForm](/dotnet/api/microsoft.aspnetcore.mvc.rendering.ihtmlhelper.beginform) generuje antiforgery tokeny ve výchozím nastavení, pokud není formuláře metoda GET.
 
 Automatické generování tokenů antiforgery elementů formuláře HTML se stane, když `<form>` značka obsahuje `method="post"` platí atribut a jednu z následujících:
 
-  * Atribut akce je prázdná (`action=""`).
-  * Není zadán atribut akce (`<form method="post">`).
+* Atribut akce je prázdná (`action=""`).
+* Není zadán atribut akce (`<form method="post">`).
 
 Automatické generování tokenů antiforgery elementů formuláře HTML se dají zakázat:
 
