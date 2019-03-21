@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core nabízí služby a middleware pro lokal
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 0eda297b7df97a5d20fea035983f426eafa03775
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 4e87423a02a275eae7e2f6054e7a3b6c22cd7cee
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264647"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320213"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -76,7 +76,7 @@ Francouzské zdrojového souboru může obsahovat následující:
 
 | Key | Hodnota |
 | ----- | ------ |
-| `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b> ` |
+| `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
 Vykreslené zobrazení bude obsahovat značky HTML ze souboru prostředků.
 
@@ -173,7 +173,7 @@ Pokud kořenový obor názvů sestavení se liší od názvu sestavení:
 
 Pokud `RootNamespace` se liší od `AssemblyName`, vložte následující *AssemblyInfo.cs* (s hodnotami parametrů nahradit skutečnými hodnotami):
 
-```Csharp
+```csharp
 using System.Reflection;
 using Microsoft.Extensions.Localization;
 

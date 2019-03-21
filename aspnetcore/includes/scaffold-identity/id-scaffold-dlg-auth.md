@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 53774177030adf8a61606a696af85cd1f57d6ab9
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320289"
+---
 Spusťte generátor Identity:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
@@ -21,35 +29,35 @@ Poznámka: Pokud vytváříte nový kontext uživatele, není nutné vybrat soub
 
 Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 
-```cli
+```console
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 Přidat odkaz na balíček pro [Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do projektu (\*.csproj) souboru. Spusťte následující příkaz v adresáři projektu:
 
-```cli
+```console
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
 Spusťte následující příkaz k výpisu možností generátor Identity:
 
-```cli
+```console
 dotnet aspnet-codegenerator identity -h
 ```
 
 Ve složce projektu spusťte s možnostmi, které chcete generátor Identity. Například nastavit identitu pomocí výchozího uživatelského rozhraní a minimální počet souborů, spusťte následující příkaz. Použijte správný plně kvalifikovaný název pro váš kontext databáze:
 
-```cli
+```console
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files Account.Register
 ```
 
-PowerShell používá jako oddělovač příkazu středník. Při použití prostředí powershell, řídicí středníky v seznamu souborů nebo vložit seznam souborů v dvojitých uvozovkách. Příklad:
+PowerShell používá jako oddělovač příkazu středník. Při použití prostředí PowerShell, řídicí středníky v seznamu souborů nebo vložit seznam souborů v dvojitých uvozovkách. Příklad:
 
-```cli
+```console
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout"
 ```
 
 Pokud spustíte bez zadání generátor Identity `--files` příznak nebo `--useDefaultUI` příznak, všechny stránky k dispozici identita uživatelského rozhraní se vytvoří ve vašem projektu.
 
--------------
+---

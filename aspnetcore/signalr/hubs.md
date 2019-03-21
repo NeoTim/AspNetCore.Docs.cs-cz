@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/20/2018
 uid: signalr/hubs
-ms.openlocfilehash: 9bc74079235338c75c47e06bde2b78dc1c466bd6
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 244ddc40e647bfcc3ca8cda2797c51bc49174822
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836685"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320144"
 ---
 # <a name="use-hubs-in-signalr-for-aspnet-core"></a>Použití rozbočovače signalr pro ASP.NET Core
 
@@ -52,6 +52,7 @@ Můžete určit návratový typ a parametry, včetně komplexní typy a pole, st
 
 > [!NOTE]
 > Centra jsou přechodné:
+>
 > * Neukládejte stav do vlastnosti u třídy rozbočovače. Každé volání metody rozbočovače, je proveden v nové instanci rozbočovače.  
 > * Použití `await` při volání asynchronní metody, které jsou závislé na rozbočovači zůstává aktivní. Například metoda jako `Clients.All.SendAsync(...)` může selhat, pokud je volána bez `await` a metody rozbočovače nedokončí, před `SendAsync` dokončí.
 
@@ -153,7 +154,7 @@ Přepsat `OnDisconnectedAsync` virtuální metody pro provádění akcí po odpo
 
 [!code-csharp[Handle disconnection](hubs/sample/hubs/chathub.cs?name=OnDisconnectedAsync)]
 
-## <a name="handle-errors"></a>Zpracování chyb
+## <a name="handle-errors"></a>Ošetření chyb
 
 Výjimky vzniklé v metodách vašeho centra se posílají klientovi, který volal metodu. Na klientovi JavaScript `invoke` metoda vrátí hodnotu [JavaScript Promise](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises). Když klient obdrží chybu s obslužnou rutinou k němu připojit pomocí promise `catch`, ji má a předají jako JavaScript `Error` objektu.
 

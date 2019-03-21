@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: ff395f0471bdb71b21a105a249af7366b8952578
-ms.sourcegitcommit: af8a6eb5375ef547a52ffae22465e265837aa82b
+ms.openlocfilehash: 3fd4585f499fa4e377c10da3b3594d4dac09ab79
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/13/2019
-ms.locfileid: "51021804"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320258"
 ---
 ### <a name="view-the-identity-database"></a>Zobrazení databáze identit
 
@@ -19,4 +19,4 @@ ms.locfileid: "51021804"
 
 Celá řada nástrojů třetích stran, které si můžete stáhnout, spravovat a zobrazovat databázi SQLite, například [DB prohlížeč pro SQLite](http://sqlitebrowser.org/).
 
-------
+---

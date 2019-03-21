@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: 7b048c8543f51a158530b8c7952b5aec7b753b42
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 7723f7ca6c5f9a21b2628933c6e7dabde20c3af6
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264701"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320196"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -37,7 +37,7 @@ Ukázková aplikace je webovou stránku pro fiktivní společnosti Contoso Unive
 
 [!INCLUDE [](~/includes/2.1-SDK.md)]
 
-------
+---
 
 Znalost [stránky Razor](xref:razor-pages/index). By se měla dokončit programátory [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) před zahájením této řady.
 
@@ -76,7 +76,7 @@ cd ContosoUniversity
 dotnet run
 ```
 
-------
+---
 
 ## <a name="set-up-the-site-style"></a>Nastavit styl lokality
 
@@ -181,7 +181,7 @@ dotnet tool install --global dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator razorpage -m Student -dc ContosoUniversity.Models.SchoolContext -udl -outDir Pages/Students --referenceScriptLibraries
 ```
 
-------
+---
 
 Proces vygenerované uživatelské rozhraní vytvořit a změnit následující soubory:
 

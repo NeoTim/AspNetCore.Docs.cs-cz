@@ -1,10 +1,10 @@
 ---
-ms.openlocfilehash: f5002ae2d8317b2455298b9c5474d9bff52fa497
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 98a03118954baa85b093a0514e1ac6f0fb6353e8
+ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264999"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58320105"
 ---
 # <a name="contribute-to-the-aspnet-core-documentation"></a>Přispívání do dokumentace k ASP.NET Core
 
@@ -38,7 +38,7 @@ Pokud používáte Visual Studio Code pro přispívání do dokumentace technolo
 
 Pro každý soubor Markdownu může existovat složka pro bitové kopie a složku pro ukázkový kód. Pokud je v článku [fundamentals/configuration/index.md](https://github.com/aspnet/Docs/blob/master/aspnetcore/fundamentals/configuration/index.md), jsou obrázky v [základy/configuration/indexu/\_statické](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/_static) a soubory projektu ukázkové aplikace jsou v [ Základy/configuration/indexu/ukázkové](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/sample). Obrázek v *fundamentals/configuration/index.md* souboru je vykreslen metodou následující Markdown:
 
-```
+```md
 ![description of image for alt attribute](configuration/index/_static/imagename.png)
 ```
 
@@ -50,13 +50,13 @@ Používat malá písmena pro názvy souborů Markdown a názvy obrázkových so
 
 Vnitřní propojení používejte `uid` článku cíl s odkazem pro odkazy xref (text odkazu je nastavena na název propojeného obsahu):
 
-```
+```md
 <xref:uid_of_the_topic>
 ```
 
 Pokud název článku je vhodná pro text odkazu (například slova nebo fráze ve větě je text odkazu), zadejte odkazy xref odkaz a text odkazu s následujícími možnostmi:
 
-```
+```md
 [link text](xref:uid_of_the_topic)
 ```
 
@@ -81,13 +81,13 @@ Následující příklady znázorňují [syntaxe fragment kódu DFM](https://dot
 
 Soubor celý kód vykreslení jako fragment kódu:
 
-```
+```md
 [!code-csharp[](configuration/index/sample/Program.cs)]
 ```
 
 Vykreslení část souboru jako fragment kódu s použitím čísla řádků:
 
-```
+```md
 [!code-csharp[](configuration/index/sample/Program.cs?range=1-10,20,30,40-50]
 [!code-html[](configuration/index/sample/Views/Home/Index.cshtml?range=1-10,20,30,40-50]
 ```
@@ -96,13 +96,13 @@ Pro C# fragmenty kódu, odkaz [ C# oblasti](https://docs.microsoft.com/dotnet/cs
 
 K vykreslení C# oblast s názvem "snippet_Example":
 
-```
+```md
 [!code-csharp[](configuration/index/sample/Program.cs?name=snippet_Example)]
 ```
 
 Zvýraznění vybraných řádků v vykreslené fragmentu kódu (obvykle zobrazí jako barva žlutým pozadím):
 
-```
+```md
 [!code-csharp[](configuration/index/sample/Program.cs?name=snippet_Example&highlight=1-3,10,20-25)]
 [!code-csharp[](configuration/index/sample/Program.cs?range=10-20&highlight=1-3]
 [!code-html[](configuration/index/sample/Views/Home/Index.cshtml?range=10-20&highlight=1-3]
