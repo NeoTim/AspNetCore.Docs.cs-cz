@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: 5278527c86d5e2c895496663401964b6b9914c46
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327398"
+---
 Zvýrazněný kód výše znázorňuje kontext databáze filmů přidávaný do [injektáž závislostí](xref:fundamentals/dependency-injection) kontejner (v *Startup.cs* souboru). `services.AddDbContext<MvcMovieContext>(options =>` Určuje databázi, do použití a připojovací řetězec. `=>` je [operátor lambda](/dotnet/articles/csharp/language-reference/operators/lambda-operator).
 
 Otevřít *Controllers/MoviesController.cs* souboru a prozkoumání konstruktoru:
@@ -6,7 +14,7 @@ Otevřít *Controllers/MoviesController.cs* souboru a prozkoumání konstruktoru
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)] 
 
-Konstruktor používá [injektáž závislostí](xref:fundamentals/dependency-injection) vkládat kontext databáze (`MvcMovieContext `) do kontroleru. Kontext databáze se používá ve všech [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) metody v kontroleru.
+Konstruktor používá [injektáž závislostí](xref:fundamentals/dependency-injection) vkládat kontext databáze (`MvcMovieContext`) do kontroleru. Kontext databáze se používá ve všech [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) metody v kontroleru.
 
 <a name="strongly-typed-models-keyword-label"></a>
 <a name="strongly-typed-models-and-the--keyword"></a>

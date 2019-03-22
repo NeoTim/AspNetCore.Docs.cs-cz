@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/11/2018
 uid: mvc/views/partial
-ms.openlocfilehash: ff4b99580990edbd768128d77214e664a1e29e56
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: b7c1545007086053e879bce6781802959da77901
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207222"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327375"
 ---
 # <a name="partial-views-in-aspnet-core"></a>Částečná zobrazení v ASP.NET Core
 
@@ -75,7 +75,7 @@ Názvy souborů částečné zobrazení často začínají podtržítkem (`_`). 
 V souboru kódu existuje několik způsobů, jak odkazovat na částečné zobrazení. Doporučujeme vám, že aplikace použijte jednu z následujících dvou přístupů asynchronní vykreslování:
 
 * [Pomocná rutina částečné značky](#partial-tag-helper)
-* [Asynchronní pomocné rutiny HTML](#asynchronous-html-helper)
+* [Asynchronous HTML Helper](#asynchronous-html-helper)
 
 ::: moniker-end
 
@@ -83,7 +83,7 @@ V souboru kódu existuje několik způsobů, jak odkazovat na částečné zobra
 
 V souboru kódu existují dva způsoby, jak odkazovat na částečné zobrazení:
 
-* [Asynchronní pomocné rutiny HTML](#asynchronous-html-helper)
+* [Asynchronous HTML Helper](#asynchronous-html-helper)
 * [Synchronní pomocné rutiny HTML](#synchronous-html-helper)
 
 Doporučujeme používat aplikace [asynchronní pomocné rutiny HTML](#asynchronous-html-helper).
@@ -134,9 +134,9 @@ Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/pa
 
 ::: moniker-end
 
-### <a name="asynchronous-html-helper"></a>Asynchronní pomocné rutiny HTML
+### <a name="asynchronous-html-helper"></a>Asynchronous HTML Helper
 
-Při použití pomocné rutiny HTML, nejlepším postupem je použití <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>. `PartialAsync` Vrátí <xref:Microsoft.AspNetCore.Html.IHtmlContent> typ zabalené v <xref:System.Threading.Tasks.Task`1>. Metoda odkazuje jsou očekávané volání s `@` znak:
+Při použití pomocné rutiny HTML, nejlepším postupem je použití <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>. `PartialAsync` Vrátí <xref:Microsoft.AspNetCore.Html.IHtmlContent> typ zabalené v <xref:System.Threading.Tasks.Task%601>. Metoda odkazuje jsou očekávané volání s `@` znak:
 
 ```cshtml
 @await Html.PartialAsync("_PartialName")
@@ -298,15 +298,15 @@ Za běhu, jsou vykreslovány částečné do souboru kódu nadřazené vykreslen
 
 Druhý částečné zobrazení vykreslí části článku:
 
-> Části jeden Index: 0
+> Jeden Index části: 0
 >
 > Čtyři skóre a sedm let před...
 >
-> Index oddílu dvou: 1
+> Index oddílu dvě: 1
 >
 > Nyní jsme se zabývají skvělé občanské války, testování...
 >
-> Index oddílu 3: 2
+> Index oddílu tři: 2
 >
 > Ale ve větší smysl, jsme nelze vyhradit...
 

@@ -5,12 +5,12 @@ description: Tento článek popisuje, jak přizpůsobit základní datový model
 ms.author: avickers
 ms.date: 09/24/2018
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 55346c571f180fa17a1108a622d991d15f365bae
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 0aa7448ac37a97a4d09a04caf365f641f22f5997
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209459"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327298"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>Přizpůsobení modelu identity v ASP.NET Core
 
@@ -253,7 +253,7 @@ public abstract class IdentityDbContext<
          where TUserToken : IdentityUserToken<TKey>
 ```
 
-Je také možné použít Identity bez role (jenom deklarace identity), v takovém případě <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext`1> třída by měla být použita:
+Je také možné použít Identity bez role (jenom deklarace identity), v takovém případě <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext%601> třída by měla být použita:
 
 ```csharp
 // Uses the built-in non-role Identity types except with a custom User type
@@ -368,7 +368,7 @@ Použijte následující postup změna typu PK:
 
 1. Pokud byla vytvořena databáze před změnou PK spustit `Drop-Database` (PMC) nebo `dotnet ef database drop` (.NET Core CLI) k jeho odstranění.
 2. Po potvrzení databáze, odebrat úvodní migrace s `Remove-Migration` (PMC) nebo `dotnet ef migrations remove` (.NET Core CLI).
-3. Aktualizace `ApplicationDbContext` třídy odvozovat z <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext`3>. Zadejte nový typ klíče pro `TKey`. Například pro použití `Guid` typ klíče:
+3. Aktualizace `ApplicationDbContext` třídy odvozovat z <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext%603>. Zadejte nový typ klíče pro `TKey`. Například pro použití `Guid` typ klíče:
 
     ```csharp
     public class ApplicationDbContext
@@ -383,13 +383,13 @@ Použijte následující postup změna typu PK:
 
     ::: moniker range=">= aspnetcore-2.0"
 
-    V předchozím kódu, obecné třídy <xref:Microsoft.AspNetCore.Identity.IdentityUser`1> a <xref:Microsoft.AspNetCore.Identity.IdentityRole`1> použít nový typ klíče musí být zadán.
+    V předchozím kódu, obecné třídy <xref:Microsoft.AspNetCore.Identity.IdentityUser%601> a <xref:Microsoft.AspNetCore.Identity.IdentityRole%601> použít nový typ klíče musí být zadán.
 
     ::: moniker-end
 
     ::: moniker range="<= aspnetcore-1.1"
 
-    V předchozím kódu, obecné třídy <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser`1> a <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole`1> použít nový typ klíče musí být zadán.
+    V předchozím kódu, obecné třídy <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser%601> a <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole%601> použít nový typ klíče musí být zadán.
 
     ::: moniker-end
 

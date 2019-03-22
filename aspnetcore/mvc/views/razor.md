@@ -5,12 +5,12 @@ description: Další informace o syntaxi Razor kód pro vložení do webových s
 ms.author: riande
 ms.date: 10/26/2018
 uid: mvc/views/razor
-ms.openlocfilehash: 254c85ee9e74dc72170b19d27fbc5f1ae7ccd3dc
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 53d4dc608fbfd45bcc015a3af83f5d87f86c7f15
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264746"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327362"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -534,7 +534,7 @@ Následující kód je vygenerovaný Razor C# třídy:
 @<tag>...</tag>
 ```
 
-Následující příklad ukazuje, jak zadat bez vizuálního vzhledu Razor delegáta jako <xref:System.Func`2>. [Dynamického typu](/dotnet/csharp/programming-guide/types/using-type-dynamic) je zadaná pro parametr metody, která zapouzdřuje delegáta. [Typ objektu](/dotnet/csharp/language-reference/keywords/object) je zadán jako návratový typ delegáta. Šablona se používá s <xref:System.Collections.Generic.List`1> z `Pet` , který má `Name` vlastnost.
+Následující příklad ukazuje, jak zadat bez vizuálního vzhledu Razor delegáta jako <xref:System.Func%602>. [Dynamického typu](/dotnet/csharp/programming-guide/types/using-type-dynamic) je zadaná pro parametr metody, která zapouzdřuje delegáta. [Typ objektu](/dotnet/csharp/language-reference/keywords/object) je zadán jako návratový typ delegáta. Šablona se používá s <xref:System.Collections.Generic.List%601> z `Pet` , který má `Name` vlastnost.
 
 ```csharp
 public class Pet
@@ -599,7 +599,7 @@ Vykresleného výstupu:
 
 Pomocí seznam mazlíčků z předchozího příkladu `Repeat` metoda je volána pomocí:
 
-* <xref:System.Collections.Generic.List`1> z `Pet`.
+* <xref:System.Collections.Generic.List%601> z `Pet`.
 * Počet opakování každou mazlíčků.
 * Vložená šablona použitá pro položky seznamu neuspořádaný seznam.
 

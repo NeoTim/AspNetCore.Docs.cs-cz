@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/11/2018
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 9a24ac138950ef2bedac48f506655d06520137cf
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: 49c323fab64bd4ea52dd1d8cf2e43a79d4d0d0dc
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708358"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327349"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>Zachování další deklarace identity a tokeny od externích poskytovatelů v ASP.NET Core
 
@@ -45,12 +45,12 @@ Ukázková aplikace nakonfiguruje zprostředkovatele ověřování Google s ID k
 
 Zadejte seznam oprávnění k načtení z poskytovatele tak, že zadáte <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>. V následující tabulce se zobrazí obory ověřování pro běžné externího poskytovatele.
 
-| Zprostředkovatel  | Rozsah                                                            |
+| Poskytovatel  | Rozsah                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/plus.login`                     |
 | Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
-| Na twitteru   | `https://api.twitter.com/oauth/authenticate`                     |
+| Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
 Ukázková aplikace přidá ke službě Google `plus.login` oboru požadavku Google + přihlášení oprávnění:
 
@@ -64,7 +64,7 @@ Vytvoří ukázkovou aplikaci <xref:System.Security.Claims.ClaimTypes.Gender> de
 
 [!code-csharp[](additional-claims/samples/2.x/AdditionalClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=8)]
 
-V <xref:Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync*>, <xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) je přihlášený k aplikaci s <xref:Microsoft.AspNetCore.Identity.SignInManager`1.SignInAsync*>. Během procesu, přihlašování <xref:Microsoft.AspNetCore.Identity.UserManager`1> můžete ukládat `ApplicationUser` deklarací identity pro uživatele nejsou k dispozici data <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>.
+V <xref:Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync*>, <xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) je přihlášený k aplikaci s <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>. Během procesu, přihlašování <xref:Microsoft.AspNetCore.Identity.UserManager%601> můžete ukládat `ApplicationUser` deklarací identity pro uživatele nejsou k dispozici data <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>.
 
 V ukázkové aplikaci `OnPostConfirmationAsync` (*Account/ExternalLogin.cshtml.cs*) vytváří <xref:System.Security.Claims.ClaimTypes.Gender> deklarací identity pro podepsané v `ApplicationUser`:
 

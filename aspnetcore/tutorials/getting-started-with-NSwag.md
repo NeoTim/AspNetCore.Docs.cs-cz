@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/30/2018
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 43f0f04ae63f4e74d8de6001a4a7518e4eb23d77
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 83a088a4cc3f1fc0ae94907c292fce2b3da4644f
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209138"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327323"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme se službou NSwag a ASP.NET Core
 
@@ -202,9 +202,9 @@ Uživatelské rozhraní Swagger zobrazí informace na verzi:
 
 ### <a name="xml-comments"></a>XML – komentáře
 
- Povolit komentáře XML, proveďte následující kroky:
+Povolit komentáře XML, proveďte následující kroky:
 
-# <a name="visual-studiotabvisual-studio-xml"></a>[Visual Studio](#tab/visual-studio-xml/)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -222,7 +222,7 @@ Uživatelské rozhraní Swagger zobrazí informace na verzi:
 
 ::: moniker-end
 
-# <a name="visual-studio-for-mactabvisual-studio-mac-xml"></a>[Visual Studio pro Mac](#tab/visual-studio-mac-xml/)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -240,7 +240,7 @@ Uživatelské rozhraní Swagger zobrazí informace na verzi:
 
 ::: moniker-end
 
-# <a name="visual-studio-codetabvisual-studio-code-xml"></a>[Visual Studio Code](#tab/visual-studio-code-xml/)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 
@@ -276,7 +276,7 @@ Vrátí předchozí akce `IActionResult`, ale uvnitř akce vrací buď [CreatedA
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Vzhledem k tomu používá službou NSwag [reflexe](/dotnet/csharp/programming-guide/concepts/reflection), a doporučené návratový typ pro akce webové rozhraní API je [ActionResult\<T >](xref:Microsoft.AspNetCore.Mvc.ActionResult`1), ji pouze odvodit návratový typ určené `T`. Nelze automaticky odvodit další možné návratové typy.
+ Vzhledem k tomu používá službou NSwag [reflexe](/dotnet/csharp/programming-guide/concepts/reflection), a doporučené návratový typ pro akce webové rozhraní API je [ActionResult\<T >](xref:Microsoft.AspNetCore.Mvc.ActionResult%601), ji pouze odvodit návratový typ určené `T`. Nelze automaticky odvodit další možné návratové typy. 
 
 Vezměte v úvahu v následujícím příkladu:
 

@@ -4,7 +4,7 @@ author: guardrex
 description: 'Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/19/2019
+ms.date: 03/21/2019
 uid: host-and-deploy/iis/index
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
@@ -297,9 +297,7 @@ Chcete-li získat starší verzi instalačního programu:
    * `OPT_NO_SHAREDFX=1` &ndash; Přeskočit instalaci rozhraní ASP.NET sdílené (modul runtime technologie ASP.NET).
    * `OPT_NO_X86=1` &ndash; X86 instalace přeskočit runtimes. Tento parametr použijte, když víte, že vám nebude hosting 32bitové aplikace. Pokud je pravděpodobné, že budete hostovat 32bitové a 64bitové aplikace v budoucnu, není tento parametr použijte a nainstalujte oba moduly runtime.
    * `OPT_NO_SHARED_CONFIG_CHECK=1` &ndash; Zakázat kontrolu pro použití sdílené konfigurace služby IIS při sdílenou konfiguraci (*applicationHost.config*) je ve stejném počítači jako instalace služby IIS. *K dispozici je pouze pro ASP.NET Core 2.2 nebo vyšší hostování například položky Bundler instalační programy.* Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>.
-1. Restartování systému nebo spuštění **net stop byla /y** následovaný **net start w3svc** z příkazové okno. Restartování služby IIS příjmem změnu systému provedené CESTU, která je proměnná prostředí, instalační služby.
-
-Pokud instalační služby systému Windows, který je hostitelem svazku zjistí, že služba IIS dokončení instalace vyžaduje obnovení, obnoví instalační program služby IIS. Pokud instalační program spustí resetování služby IIS, se restartují všechny fondy aplikací IIS a websites.
+1. Restartování systému nebo spuštění **net stop byla /y**následovaný **net start w3svc** z příkazové okno. Restartování služby IIS příjmem změnu systému provedené CESTU, která je proměnná prostředí, instalační služby.
 
 > [!NOTE]
 > Informace o sdílenou konfiguraci aplikaci IIS najdete v tématu [modul ASP.NET Core s sdílenou konfiguraci aplikaci IIS](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration).

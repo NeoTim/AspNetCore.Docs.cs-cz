@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2018
 uid: mvc/controllers/testing
-ms.openlocfilehash: c8a374f3e3ecfdef1a02e685aecc4e2fcbfcbf48
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 429af1fb6d0388a5c57894851832969e1ef629e2
+ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410359"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58327430"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>Testovací kontroler logiku v ASP.NET Core
 
@@ -126,7 +126,7 @@ Třetí `Create` otestovat, `Create_ReturnsNewlyCreatedIdeaForSession`, ověřuj
 
 ## <a name="test-actionresultlttgt"></a>Testování ActionResult&lt;T&gt;
 
-V ASP.NET Core 2.1 nebo novější [ActionResult&lt;T&gt; ](xref:web-api/action-return-types#actionresultt-type) (<xref:Microsoft.AspNetCore.Mvc.ActionResult`1>) umožňuje návratový typ odvozený od `ActionResult` nebo vrácení specifického typu.
+V ASP.NET Core 2.1 nebo novější [ActionResult&lt;T&gt; ](xref:web-api/action-return-types#actionresultt-type) (<xref:Microsoft.AspNetCore.Mvc.ActionResult%601>) umožňuje návratový typ odvozený od `ActionResult` nebo vrácení specifického typu.
 
 Ukázková aplikace obsahuje metodu, která vrací `List<IdeaDTO>` pro dané relace `id`. Pokud relace `id` neexistuje, vrátí řadič <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>:
 
@@ -144,7 +144,7 @@ První test potvrdí, že kontroler vrací `ActionResult` , ale ne neexistujíc�
 Pro relaci platný `id`, druhý test potvrdí, že metoda vrací:
 
 * `ActionResult` s `List<IdeaDTO>` typu.
-* [ActionResult&lt;T&gt;. Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Value*) je `List<IdeaDTO>` typu.
+* [ActionResult&lt;T&gt;. Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) je `List<IdeaDTO>` typu.
 * První položka v seznamu je platný odpovídající nápad uložené v mock relace (získán voláním `GetTestSession`).
 
 [!code-csharp[](testing/sample/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ForSessionActionResult_ReturnsIdeasForSession&highlight=7-8,15-18)]
@@ -170,8 +170,8 @@ Druhý test kontroluje, zda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFou
 Pro relaci platný `id`, finální testování potvrdí, že:
 
 * Metoda vrátí `ActionResult` s `BrainstormSession` typu.
-* [ActionResult&lt;T&gt;. Výsledek](xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Result*) je <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult>. `CreatedAtActionResult` je obdobou *201 – vytvořeno* odpověď `Location` záhlaví.
-* [ActionResult&lt;T&gt;. Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Value*) je `BrainstormSession` typu.
+* [ActionResult&lt;T&gt;. Výsledek](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Result*) je <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult>. `CreatedAtActionResult` je obdobou *201 – vytvořeno* odpověď `Location` záhlaví.
+* [ActionResult&lt;T&gt;. Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) je `BrainstormSession` typu.
 * Aktualizujte relaci, mock voláním `UpdateAsync(testSession)`, byla vyvolána. `Verifiable` Volání metody je zaškrtnuté políčko spuštěním `mockRepo.Verify()` v kontrolní výrazy.
 * Dvě `Idea` objektů pro relaci.
 * Poslední položky ( `Idea` přidal mock volání `UpdateAsync`) odpovídá `newIdea` přidat do relace v testu.

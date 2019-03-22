@@ -56,7 +56,7 @@ Další informace o [vestavěné protokolování poskytovatelé](#built-in-loggi
 
 ## <a name="create-logs"></a>Vytvořit protokoly
 
-Získat <xref:Microsoft.Extensions.Logging.ILogger`1> objekt z DI.
+Získat <xref:Microsoft.Extensions.Logging.ILogger%601> objekt z DI.
 
 ::: moniker range=">= aspnetcore-2.0"
 
