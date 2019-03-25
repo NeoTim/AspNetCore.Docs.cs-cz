@@ -5,14 +5,14 @@ description: Vytvoření podrobné Razor komponent aplikace a seznamte se zákla
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/14/2019
+ms.date: 03/24/2019
 uid: tutorials/first-razor-components-app
-ms.openlocfilehash: c0f7b27fdfc770f8001625ecb3bf8d50af517b99
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 2a987b3f2e687cd9d4dffa2c573c938e68ea3cc8
+ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978420"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419362"
 ---
 # <a name="build-your-first-razor-components-app"></a>Vytvořte svoji první aplikaci součásti syntaxe Razor
 
@@ -67,7 +67,7 @@ Pro prostředí pomocí Blazor:
 
 Zahrnout součásti do jiné součásti pomocí syntaxe HTML.
 
-1. Přidat součást čítače pro součást aplikace indexu (Domovská stránka) tak, že přidáte `<Counter />` – element pro součást indexu.
+1. Přidat součást čítače pro součást aplikace indexu (domů) tak, že přidáte `<Counter />` – element pro součást indexu.
 
    Pokud používáte Blazor pro toto prostředí, průzkum výzvy součásti (`<SurveyPrompt>` element) je v komponentě indexu. Nahraďte `<SurveyPrompt>` křížkem `<Counter>` elementu.
 
@@ -101,7 +101,7 @@ Součástí mohou mít také parametry. Parametry komponenty jsou definovány po
 
    [!code-cshtml[](build-your-first-razor-components-app/samples/3.x/RazorComponents/Components/Pages/Index.razor?highlight=7)]
 
-1. Načtěte tuto stránku. Domovská stránka čítače se zvýší o hodnotu deset pokaždé, když **klikněte na mě** výběru tlačítka. Čítače na *čítač* stránce zvýší o jedna.
+1. Znovu načte na domovské stránce. Hodnota čítače se zvýší o hodnotu deset pokaždé, když **klikněte na mě** výběru tlačítka. Čítače na stránku zvýší čítač jednou.
 
 ## <a name="route-to-components"></a>Směrovat do komponenty
 
@@ -111,29 +111,38 @@ Součástí mohou mít také parametry. Parametry komponenty jsou definovány po
 
 Služby zaregistrované v kontejneru aplikace služby jsou k dispozici na komponenty prostřednictvím [injektáž závislostí (DI)](xref:fundamentals/dependency-injection). Vložit do součástí s použitím služby `@inject` směrnice.
 
-Prozkoumejte direktivy FetchData komponenty. `@inject` Směrnice slouží k vložení instance `WeatherForecastService` služby do komponenty:
+Prozkoumejte direktivy FetchData součásti v ukázkové aplikaci.
 
-*Components/Pages/FetchData.razor* (*Pages/FetchData.cshtml* v Blazor):
+V ukázkové aplikaci Razor komponenty `WeatherForecastService` není registrován jako [singleton](xref:fundamentals/dependency-injection#service-lifetimes), takže jedna instance služby je k dispozici v rámci aplikace. `@inject` Směrnice slouží k vložení instance `WeatherForecastService` služby do komponenty.
+
+*Components/Pages/FetchData.razor*:
 
 [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
-
-`WeatherForecastService` Není registrován jako [singleton](xref:fundamentals/dependency-injection#service-lifetimes), takže jedna instance služby je k dispozici v rámci aplikace.
 
 Komponenta FetchData používá vložený služby jako `ForecastService`, k načtení pole `WeatherForecast` objekty:
 
 [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-A [ @foreach ](/dotnet/csharp/language-reference/keywords/foreach-in) smyčky se použije k vykreslení každou prognózy instanci jako řadu data o počasí v tabulce:
+Ve verzi Blazor ukázkové aplikace `HttpClient` se vloží získávat data předpovědi počasí z *weather.json* soubor *wwwroot/ukázková data* složky:
+
+*Pages/FetchData.cshtml*:
+
+[!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData1.cshtml?highlight=7)]
+
+V obou ukázkové aplikace [ @foreach ](/dotnet/csharp/language-reference/keywords/foreach-in) smyčky se použije k vykreslení každou prognózy instanci jako řadu data o počasí v tabulce:
 
 [!code-cshtml[](build-your-first-razor-components-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 
 ## <a name="build-a-todo-list"></a>Vytvoření seznamu úkolů
 
-Přidejte novou stránku do aplikace, která implementuje seznam úkolů.
+Přidáte novou součást aplikaci, která implementuje seznam úkolů.
 
-1. Přidat prázdný soubor *součásti/stránky* složky (*stránky* složky Blazor) s názvem *Todo.razor*.
+1. Přidáte prázdný soubor na ukázkovou aplikaci:
 
-1. Na stránce zadejte počáteční značky:
+   * Pro prostředí Razor součásti přidat *Todo.razor* do souboru *součásti/stránky* složky.
+   * Prostředí Blazor přidat *Todo.cshtml* do souboru *stránky* složky.
+
+1. Zadejte počáteční značka pro komponentu:
 
    ```cshtml
    @page "/todo"
@@ -141,11 +150,11 @@ Přidejte novou stránku do aplikace, která implementuje seznam úkolů.
    <h1>Todo</h1>
    ```
 
-1. Přidáte stránku Todo do navigačního panelu.
+1. Přidáte součást Todo do navigačního panelu.
 
    Komponenta NavMenu (*Components/Shared/NavMenu.razor* nebo *Shared/NavMenu.cshtml* v Blazor) se používá v rozložení aplikace. Rozložení jsou komponenty, které umožňují, aby se zabránilo duplicitě obsahu v aplikaci. Další informace naleznete v tématu <xref:razor-components/layouts>.
 
-   Přidat `<NavLink>` Todo stránky tak, že přidáte následující značky položky seznamu níže existující položky seznamu v *Components/Shared/NavMenu.razor* (*Shared/NavMenu.cshtml* v Blazor) souboru:
+   Přidat `<NavLink>` pro komponentu Todo tak, že přidáte následující značky položky seznamu níže existující položky seznamu v *Components/Shared/NavMenu.razor* (*Shared/NavMenu.cshtml* v Blazor) souboru:
 
    ```cshtml
    <li class="nav-item px-3">
@@ -155,7 +164,7 @@ Přidejte novou stránku do aplikace, která implementuje seznam úkolů.
    </li>
    ```
 
-1. Znovu sestavte a spusťte aplikaci. Na stránce Nový Todo potvrďte, že odkaz na stránku Todo funguje.
+1. Znovu sestavte a spusťte aplikaci. Na stránce Nový Todo potvrďte, že odkaz na komponentu Todo funguje.
 
 1. Přidat *TodoItem.cs* souboru do kořenového adresáře projektu k uložení třídu, která představuje položku seznamu úkolů. Pomocí následujících C# kód `TodoItem` třídy:
 

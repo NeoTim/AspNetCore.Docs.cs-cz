@@ -5,7 +5,7 @@ description: 'Objevte, jak hostovat a nasadit komponenty Razor a Blazor aplikace
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 03/22/2019
 uid: host-and-deploy/razor-components/index
 ---
 # <a name="host-and-deploy-razor-components"></a>Hostitelství a nasazení součásti syntaxe Razor
@@ -284,7 +284,7 @@ Když použijete web projektu namísto serveru organizace, přidat nebo aktualiz
 
 S [model hostingu na straně serveru](xref:razor-components/hosting-models#server-side-hosting-model), Razor komponent je provedeno na serveru z v rámci aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání jazyka JavaScript jsou zpracovány prostřednictvím připojení SignalR.
 
-Aplikace je součástí aplikace ASP.NET Core v publikované výstup tak, aby dvě aplikace se nasazují společně. Webový server, který dokáže hostovat aplikace ASP.NET Core je povinný. Pro nasazení na straně serveru, Visual Studio obsahuje **Blazor (serverové v ASP.NET Core)** šablonu projektu (`blazorserver` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz).
+Aplikace je součástí aplikace ASP.NET Core v publikované výstup tak, aby dvě aplikace se nasazují společně. Webový server, který dokáže hostovat aplikace ASP.NET Core je povinný. Pro nasazení na straně serveru, Visual Studio obsahuje **Razor komponenty** šablonu projektu (`razorcomponents` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz).
 
 <!--
 

@@ -5,7 +5,7 @@ description: Tento článek obsahuje odkazy na hostiteli Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/26/2019
+ms.date: 03/23/2019
 uid: host-and-deploy/azure-apps/index
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
@@ -78,7 +78,17 @@ Middleware pro integraci služby IIS, který nakonfiguruje předané Middleware 
 
 ## <a name="monitoring-and-logging"></a>Monitorování a protokolování
 
-Aplikace ASP.NET Core nasadily do App Service automaticky přijímat rozšíření služby App Service, **ASP.NET Core protokolování rozšíření**. Toto rozšíření aktivuje Azure protokolování.
+::: moniker range=">= aspnetcore-3.0"
+
+Aplikace ASP.NET Core nasadily do App Service automaticky přijímat rozšíření služby App Service, **protokolování integrace aplikace ASP.NET Core**. Toto rozšíření aktivuje protokolování integrace pro aplikace ASP.NET Core ve službě Azure App Service.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Aplikace ASP.NET Core nasadily do App Service automaticky přijímat rozšíření služby App Service, **ASP.NET Core protokolování rozšíření**. Toto rozšíření aktivuje protokolování integrace pro aplikace ASP.NET Core ve službě Azure App Service.
+
+::: moniker-end
 
 Sledování, protokolování a informace o odstraňování potíží najdete v následujících článcích:
 

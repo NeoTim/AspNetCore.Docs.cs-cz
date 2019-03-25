@@ -5,12 +5,12 @@ description: V tomto kurzu začnete používat funkci migrace EF Core ke správ�
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 5848e5e1e45708c3ab5c2a79614111662701aa77
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 1803c6d3956121e4e7091f4f951917425e87c335
+ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320157"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419469"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – migrace - 4 z 8
 
@@ -133,7 +133,7 @@ Pro vývoj v rané fázi `EnsureCreated` byl použit. V tomto kurzu se používa
 * Můžete *není* použít s migrací.
 * Je určená pro testování nebo rychlé vytváření prototypů ve kterém je databáze vyřadit a znovu vytvořit často.
 
-Odebrat následující řádek ze `DbInitializer`:
+Odebrat `EnsureCreated`:
 
 ```csharp
 context.Database.EnsureCreated();

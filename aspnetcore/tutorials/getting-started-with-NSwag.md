@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/30/2018
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 83a088a4cc3f1fc0ae94907c292fce2b3da4644f
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: af07ad771c582cfad80f297748c3c1049ff4a7d6
+ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327323"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419404"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme se službou NSwag a ASP.NET Core
 
@@ -47,7 +47,7 @@ Použít [službou NSwag](https://github.com/RSuter/NSwag) middleware ASP.NET Co
 
 Použijte jednu z následujících dvou přístupů k instalaci balíčku NuGet službou NSwag:
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **Konzola správce balíčků** okno:
   * Přejděte na **zobrazení** > **jiných Windows** > **Konzola správce balíčků**
@@ -64,14 +64,14 @@ Použijte jednu z následujících dvou přístupů k instalaci balíčku NuGet 
   * Do vyhledávacího pole zadejte "NSwag.AspNetCore"
   * Vyberte balíček "NSwag.AspNetCore" z **Procházet** kartě a klikněte na tlačítko **instalace**
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem myši *balíčky* složky v **oblasti řešení** > **přidat balíčky...**
 * Nastavte **přidat balíčky** okna **zdroj** rozevíracího seznamu "nuget.org"
 * Do vyhledávacího pole zadejte "NSwag.AspNetCore"
 * Vyberte v podokně výsledků "NSwag.AspNetCore" balíček a klikněte na tlačítko **přidat balíček**
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Spuštěním následujícího příkazu z **integrovaný terminál**:
 
@@ -79,7 +79,7 @@ Spuštěním následujícího příkazu z **integrovaný terminál**:
 dotnet add TodoApi.csproj package NSwag.AspNetCore
 ```
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Spusťte následující příkaz:
 
@@ -240,7 +240,7 @@ Povolit komentáře XML, proveďte následující kroky:
 
 ::: moniker-end
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code / .NET Core CLI](#tab/visual-studio-code+netcore-cli)
 
 Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 

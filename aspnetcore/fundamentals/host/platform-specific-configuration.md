@@ -5,14 +5,14 @@ description: Zjistěte, jak rozšířit aplikace ASP.NET Core z externího sesta
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 03/10/2019
+ms.date: 03/23/2019
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: 25564ecebf48f65a209ac48e77856ef36d897959
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: c174d658c84ada88eef17528c663735a91347ba7
+ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264986"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419443"
 ---
 # <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>Použití hostování při spuštění sestavení v ASP.NET Core
 
@@ -381,18 +381,7 @@ dotnet nuget locals all --clear
 **Aktivace z úložiště nasazení sestavení modulu runtime**
 
 1. *StartupDiagnostics* používá projekt [PowerShell](/powershell/scripting/powershell-scripting) k úpravě jeho *StartupDiagnostics.deps.json* souboru. Prostředí PowerShell se instaluje standardně na Windows od verze Windows 7 SP1 a Windows Server 2008 R2 SP1. Získat PowerShell na jiných platformách, naleznete v tématu [instalace prostředí Windows PowerShell](/powershell/scripting/setup/installing-powershell#powershell-core).
-1. Sestavení *StartupDiagnostics* projektu. Po projekt je sestaven, cíl sestavení v souboru projektu automaticky:
-   * Spustí skript prostředí PowerShell k úpravě *StartupDiagnostics.deps.json* souboru.
-   * Přesune *StartupDiagnostics.deps.json* souboru do profilu uživatele *additionalDeps* složky.
-1. Spustit `dotnet store` příkaz command prompt v hostitelských spouštěcí adresář k uložení sestavení a jeho závislosti v úložišti profilu uživatele modulu runtime:
-
-   ```console
-   dotnet store --manifest StartupDiagnostics.csproj --runtime <RID>
-   ```
-
-   Pro Windows, tento příkaz používá `win7-x64` [identifikátor modulu runtime (RID)](/dotnet/core/rid-catalog). Při poskytování hostitelských po spuštění pro jiný modul runtime, nahraďte správné identifikátorů RID.
-1. Nastavte proměnné prostředí:
-   * Přidat název sestavení *StartupDiagnostics* k `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` proměnné prostředí.
-   * Na Windows, nastavte `DOTNET_ADDITIONAL_DEPS` proměnnou prostředí, aby `%UserProfile%\.dotnet\x64\additionalDeps\StartupDiagnostics\`. V systému macOS nebo Linuxu, nastavte `DOTNET_ADDITIONAL_DEPS` proměnnou prostředí, aby `/Users/<USER>/.dotnet/x64/additionalDeps/StartupDiagnostics/`, kde `<USER>` tedy profil, který uživatel, který obsahuje spuštění hostování.
+1. Spustit *build.ps1* skript v *RuntimeStore* složky. `dotnet store` Používá příkaz ve skriptu `win7-x64` [identifikátor modulu runtime (RID)](/dotnet/core/rid-catalog) pro hostování spuštění nasazené do Windows. Při poskytování hostitelských po spuštění pro jiný modul runtime, nahraďte správné identifikátorů RID.
+1. Spustit *deploy.ps1* skript v *nasazení* složky.
 1. Spuštění ukázkové aplikace.
 1. Žádosti `/services` koncový bod můžete zobrazit aplikace registrované služby. Žádosti `/diag` koncový bod můžete zobrazit diagnostické informace.
