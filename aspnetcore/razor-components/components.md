@@ -5,33 +5,41 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 03/26/2019
 uid: razor-components/components
-ms.openlocfilehash: c93ea62c7540aca8981294fe90855ff9d4d844dc
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 59c8540ea297f8396d6aac9b3246639667ad0cd7
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978509"
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488680"
 ---
-# <a name="create-and-use-razor-components"></a><span data-ttu-id="8c831-103">Vytváření a používání komponent Razor</span><span class="sxs-lookup"><span data-stu-id="8c831-103">Create and use Razor Components</span></span>
+# <a name="create-and-use-razor-components"></a><span data-ttu-id="3c07e-103">Vytváření a používání komponent Razor</span><span class="sxs-lookup"><span data-stu-id="3c07e-103">Create and use Razor Components</span></span>
 
-<span data-ttu-id="8c831-104">Podle [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27), a [Morné Zaayman](https://github.com/MorneZaayman)</span><span class="sxs-lookup"><span data-stu-id="8c831-104">By [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27), and [Morné Zaayman](https://github.com/MorneZaayman)</span></span>
+<span data-ttu-id="3c07e-104">Podle [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27), a [Morné Zaayman](https://github.com/MorneZaayman)</span><span class="sxs-lookup"><span data-stu-id="3c07e-104">By [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27), and [Morné Zaayman](https://github.com/MorneZaayman)</span></span>
 
-<span data-ttu-id="8c831-105">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ([stažení](xref:index#how-to-download-a-sample)).</span><span class="sxs-lookup"><span data-stu-id="8c831-105">[View or download sample code](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ([how to download](xref:index#how-to-download-a-sample)).</span></span> <span data-ttu-id="8c831-106">Najdete v článku [Začínáme](xref:razor-components/get-started) tématu pro požadavky.</span><span class="sxs-lookup"><span data-stu-id="8c831-106">See the [Get started](xref:razor-components/get-started) topic for prerequisites.</span></span>
+<span data-ttu-id="3c07e-105">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ([stažení](xref:index#how-to-download-a-sample)).</span><span class="sxs-lookup"><span data-stu-id="3c07e-105">[View or download sample code](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ([how to download](xref:index#how-to-download-a-sample)).</span></span> <span data-ttu-id="3c07e-106">Najdete v článku [Začínáme](xref:razor-components/get-started) tématu pro požadavky.</span><span class="sxs-lookup"><span data-stu-id="3c07e-106">See the [Get started](xref:razor-components/get-started) topic for prerequisites.</span></span>
 
-<span data-ttu-id="8c831-107">Razor komponenty aplikace jsou sestaveny na základě *komponenty*.</span><span class="sxs-lookup"><span data-stu-id="8c831-107">Razor Components apps are built using *components*.</span></span> <span data-ttu-id="8c831-108">Komponenta je samostatná blok uživatelského rozhraní (UI), například stránky, dialogové okno nebo formuláře.</span><span class="sxs-lookup"><span data-stu-id="8c831-108">A component is a self-contained chunk of user interface (UI), such as a page, dialog, or form.</span></span> <span data-ttu-id="8c831-109">Komponenta obsahuje kód HTML a zpracování logiku potřebnou k vložení dat nebo v reakci na události uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="8c831-109">A component includes HTML markup and the processing logic required to inject data or respond to UI events.</span></span> <span data-ttu-id="8c831-110">Součásti jsou flexibilní a jednoduchý.</span><span class="sxs-lookup"><span data-stu-id="8c831-110">Components are flexible and lightweight.</span></span> <span data-ttu-id="8c831-111">Mohou být vnořené, znovu použít a sdílet mezi projekty.</span><span class="sxs-lookup"><span data-stu-id="8c831-111">They can be nested, reused, and shared among projects.</span></span>
+<span data-ttu-id="3c07e-107">Razor komponenty aplikace jsou sestaveny na základě *komponenty*.</span><span class="sxs-lookup"><span data-stu-id="3c07e-107">Razor Components apps are built using *components*.</span></span> <span data-ttu-id="3c07e-108">Komponenta je samostatná blok uživatelského rozhraní (UI), například stránky, dialogové okno nebo formuláře.</span><span class="sxs-lookup"><span data-stu-id="3c07e-108">A component is a self-contained chunk of user interface (UI), such as a page, dialog, or form.</span></span> <span data-ttu-id="3c07e-109">Komponenta obsahuje kód HTML a zpracování logiku potřebnou k vložení dat nebo v reakci na události uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="3c07e-109">A component includes HTML markup and the processing logic required to inject data or respond to UI events.</span></span> <span data-ttu-id="3c07e-110">Součásti jsou flexibilní a jednoduchý.</span><span class="sxs-lookup"><span data-stu-id="3c07e-110">Components are flexible and lightweight.</span></span> <span data-ttu-id="3c07e-111">Mohou být vnořené, znovu použít a sdílet mezi projekty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-111">They can be nested, reused, and shared among projects.</span></span>
 
-## <a name="component-classes"></a><span data-ttu-id="8c831-112">Třídy součásti</span><span class="sxs-lookup"><span data-stu-id="8c831-112">Component classes</span></span>
+## <a name="component-classes"></a><span data-ttu-id="3c07e-112">Třídy součásti</span><span class="sxs-lookup"><span data-stu-id="3c07e-112">Component classes</span></span>
 
-<span data-ttu-id="8c831-113">Součásti jsou obvykle implementována v souborech Razor součásti (*.razor*) pomocí kombinace C# a značka jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="8c831-113">Components are typically implemented in Razor Component files (*.razor*) using a combination of C# and HTML markup.</span></span> <span data-ttu-id="8c831-114">Uživatelské rozhraní pro součást je definován v jazyce HTML.</span><span class="sxs-lookup"><span data-stu-id="8c831-114">The UI for a component is defined using HTML.</span></span> <span data-ttu-id="8c831-115">Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor).</span><span class="sxs-lookup"><span data-stu-id="8c831-115">Dynamic rendering logic (for example, loops, conditionals, expressions) is added using an embedded C# syntax called [Razor](xref:mvc/views/razor).</span></span> <span data-ttu-id="8c831-116">Když je kompilován Razor součásti aplikace, bude značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-116">When a Razor Components app is compiled, the HTML markup and C# rendering logic are converted into a component class.</span></span> <span data-ttu-id="8c831-117">Název generované třídy odpovídá názvu souboru.</span><span class="sxs-lookup"><span data-stu-id="8c831-117">The name of the generated class matches the name of the file.</span></span>
+<span data-ttu-id="3c07e-113">Součásti jsou obvykle implementována v souborech Razor součásti (*.razor*) pomocí kombinace C# a značky HTML (*.cshtml* soubory se používají v aplikacích Blazor).</span><span class="sxs-lookup"><span data-stu-id="3c07e-113">Components are typically implemented in Razor Component files (*.razor*) using a combination of C# and HTML markup (*.cshtml* files are used in Blazor apps).</span></span>
 
-<span data-ttu-id="8c831-118">Členy třídy komponenty jsou definovány v `@functions` blok (více než jeden `@functions` blok je povolený).</span><span class="sxs-lookup"><span data-stu-id="8c831-118">Members of the component class are defined in a `@functions` block (more than one `@functions` block is permissible).</span></span> <span data-ttu-id="8c831-119">V `@functions` bloku, stav komponent (vlastnosti, pole) je zadaný společně s metody pro zpracování událostí nebo definování dalších součástí logiky.</span><span class="sxs-lookup"><span data-stu-id="8c831-119">In the `@functions` block, component state (properties, fields) is specified along with methods for event handling or for defining other component logic.</span></span>
+<span data-ttu-id="3c07e-114">Dají se vytvářet komponenty ve Razor součásti aplikace pomocí *.cshtml* příponu souboru, tak dlouho, dokud soubory jsou označeny jako soubory součástí Razor pomocí `_RazorComponentInclude` vlastnosti Msbuildu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-114">Components can be authored in Razor Components apps using the *.cshtml* file extension as long as the files are identified as Razor Component files using the `_RazorComponentInclude` MSBuild property.</span></span> <span data-ttu-id="3c07e-115">Například aplikace vytvořená pomocí šablony Razor komponenty Určuje, že všechny *.cshtml* soubory pod *součásti* složky mají být považována za soubory součástí Razor:</span><span class="sxs-lookup"><span data-stu-id="3c07e-115">For example, an app created using the Razor Component template specifies that all *.cshtml* files under the *Components* folder should be treated as Razor Components files:</span></span>
 
-<span data-ttu-id="8c831-120">Komponenta členy můžete poté použita jako tato součást je vykreslování pomocí logiky C# výrazy, které začínají `@`.</span><span class="sxs-lookup"><span data-stu-id="8c831-120">Component members can then be used as part of the component's rendering logic using C# expressions that start with `@`.</span></span> <span data-ttu-id="8c831-121">Například C# pole se vykreslí vložením prefixu `@` na název pole.</span><span class="sxs-lookup"><span data-stu-id="8c831-121">For example, a C# field is rendered by prefixing `@` to the field name.</span></span> <span data-ttu-id="8c831-122">Následující příklad vyhodnotí a vykreslí:</span><span class="sxs-lookup"><span data-stu-id="8c831-122">The following example evaluates and renders:</span></span>
+```xml
+<_RazorComponentInclude>Components\**\*.cshtml</_RazorComponentInclude>
+```
 
-* <span data-ttu-id="8c831-123">`_headingFontStyle` Hodnota vlastnosti šablon stylů CSS pro `font-style`.</span><span class="sxs-lookup"><span data-stu-id="8c831-123">`_headingFontStyle` to the CSS property value for `font-style`.</span></span>
-* <span data-ttu-id="8c831-124">`_headingText` k obsahu `<h1>` elementu.</span><span class="sxs-lookup"><span data-stu-id="8c831-124">`_headingText` to the content of the `<h1>` element.</span></span>
+<span data-ttu-id="3c07e-116">Uživatelské rozhraní pro součást je definován v jazyce HTML.</span><span class="sxs-lookup"><span data-stu-id="3c07e-116">The UI for a component is defined using HTML.</span></span> <span data-ttu-id="3c07e-117">Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor).</span><span class="sxs-lookup"><span data-stu-id="3c07e-117">Dynamic rendering logic (for example, loops, conditionals, expressions) is added using an embedded C# syntax called [Razor](xref:mvc/views/razor).</span></span> <span data-ttu-id="3c07e-118">Když je kompilován Razor součásti aplikace, bude značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-118">When a Razor Components app is compiled, the HTML markup and C# rendering logic are converted into a component class.</span></span> <span data-ttu-id="3c07e-119">Název generované třídy odpovídá názvu souboru.</span><span class="sxs-lookup"><span data-stu-id="3c07e-119">The name of the generated class matches the name of the file.</span></span>
+
+<span data-ttu-id="3c07e-120">Členy třídy komponenty jsou definovány v `@functions` blok (více než jeden `@functions` blok je povolený).</span><span class="sxs-lookup"><span data-stu-id="3c07e-120">Members of the component class are defined in a `@functions` block (more than one `@functions` block is permissible).</span></span> <span data-ttu-id="3c07e-121">V `@functions` bloku, stav komponent (vlastnosti, pole) je zadaný společně s metody pro zpracování událostí nebo definování dalších součástí logiky.</span><span class="sxs-lookup"><span data-stu-id="3c07e-121">In the `@functions` block, component state (properties, fields) is specified along with methods for event handling or for defining other component logic.</span></span>
+
+<span data-ttu-id="3c07e-122">Komponenta členy můžete poté použita jako tato součást je vykreslování pomocí logiky C# výrazy, které začínají `@`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-122">Component members can then be used as part of the component's rendering logic using C# expressions that start with `@`.</span></span> <span data-ttu-id="3c07e-123">Například C# pole se vykreslí vložením prefixu `@` na název pole.</span><span class="sxs-lookup"><span data-stu-id="3c07e-123">For example, a C# field is rendered by prefixing `@` to the field name.</span></span> <span data-ttu-id="3c07e-124">Následující příklad vyhodnotí a vykreslí:</span><span class="sxs-lookup"><span data-stu-id="3c07e-124">The following example evaluates and renders:</span></span>
+
+* <span data-ttu-id="3c07e-125">`_headingFontStyle` Hodnota vlastnosti šablon stylů CSS pro `font-style`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-125">`_headingFontStyle` to the CSS property value for `font-style`.</span></span>
+* <span data-ttu-id="3c07e-126">`_headingText` k obsahu `<h1>` elementu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-126">`_headingText` to the content of the `<h1>` element.</span></span>
 
 ```cshtml
 <h1 style="font-style:@_headingFontStyle">@_headingText</h1>
@@ -42,80 +50,80 @@ ms.locfileid: "57978509"
 }
 ```
 
-<span data-ttu-id="8c831-125">Po se zpočátku zobrazí komponentu obnoví komponenty jeho vykreslení stromu v reakci na události.</span><span class="sxs-lookup"><span data-stu-id="8c831-125">After the component is initially rendered, the component regenerates its render tree in response to events.</span></span> <span data-ttu-id="8c831-126">Součásti Razor poté porovnává větve vykreslení oproti předchozímu a platí všechny změny do prohlížeče Document Object Model (DOM).</span><span class="sxs-lookup"><span data-stu-id="8c831-126">Razor Components then compares the new render tree against the previous one and applies any modifications to the browser's Document Object Model (DOM).</span></span>
+<span data-ttu-id="3c07e-127">Po se zpočátku zobrazí komponentu obnoví komponenty jeho vykreslení stromu v reakci na události.</span><span class="sxs-lookup"><span data-stu-id="3c07e-127">After the component is initially rendered, the component regenerates its render tree in response to events.</span></span> <span data-ttu-id="3c07e-128">Součásti Razor poté porovnává větve vykreslení oproti předchozímu a platí všechny změny do prohlížeče Document Object Model (DOM).</span><span class="sxs-lookup"><span data-stu-id="3c07e-128">Razor Components then compares the new render tree against the previous one and applies any modifications to the browser's Document Object Model (DOM).</span></span>
 
-## <a name="using-components"></a><span data-ttu-id="8c831-127">Pomocí komponent</span><span class="sxs-lookup"><span data-stu-id="8c831-127">Using components</span></span>
+## <a name="using-components"></a><span data-ttu-id="3c07e-129">Pomocí komponent</span><span class="sxs-lookup"><span data-stu-id="3c07e-129">Using components</span></span>
 
-<span data-ttu-id="8c831-128">Součásti můžete zahrnout další součásti je deklarací pomocí syntaxe elementu HTML.</span><span class="sxs-lookup"><span data-stu-id="8c831-128">Components can include other components by declaring them using HTML element syntax.</span></span> <span data-ttu-id="8c831-129">Kód pro použití komponenty vypadá jako značku jazyka HTML, kde název značky je typ součásti.</span><span class="sxs-lookup"><span data-stu-id="8c831-129">The markup for using a component looks like an HTML tag where the name of the tag is the component type.</span></span>
+<span data-ttu-id="3c07e-130">Součásti můžete zahrnout další součásti je deklarací pomocí syntaxe elementu HTML.</span><span class="sxs-lookup"><span data-stu-id="3c07e-130">Components can include other components by declaring them using HTML element syntax.</span></span> <span data-ttu-id="3c07e-131">Kód pro použití komponenty vypadá jako značku jazyka HTML, kde název značky je typ součásti.</span><span class="sxs-lookup"><span data-stu-id="3c07e-131">The markup for using a component looks like an HTML tag where the name of the tag is the component type.</span></span>
 
-<span data-ttu-id="8c831-130">Následující kód vykreslí `HeadingComponent` (*HeadingComponent.cshtml*) instance:</span><span class="sxs-lookup"><span data-stu-id="8c831-130">The following markup renders a `HeadingComponent` (*HeadingComponent.cshtml*) instance:</span></span>
+<span data-ttu-id="3c07e-132">Následující kód vykreslí `HeadingComponent` (*HeadingComponent.cshtml*) instance:</span><span class="sxs-lookup"><span data-stu-id="3c07e-132">The following markup renders a `HeadingComponent` (*HeadingComponent.cshtml*) instance:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.cshtml?name=snippet_HeadingComponent)]
 
-## <a name="component-parameters"></a><span data-ttu-id="8c831-131">Parametry komponenty</span><span class="sxs-lookup"><span data-stu-id="8c831-131">Component parameters</span></span>
+## <a name="component-parameters"></a><span data-ttu-id="3c07e-133">Parametry komponenty</span><span class="sxs-lookup"><span data-stu-id="3c07e-133">Component parameters</span></span>
 
-<span data-ttu-id="8c831-132">Může mít komponenty *parametry komponenty*, které jsou definovány pomocí *neveřejné* vlastnosti komponentní třída upravené pomocí `[Parameter]`.</span><span class="sxs-lookup"><span data-stu-id="8c831-132">Components can have *component parameters*, which are defined using *non-public* properties on the component class decorated with `[Parameter]`.</span></span> <span data-ttu-id="8c831-133">Atributy můžete zadat argumenty pro komponentu v kódu.</span><span class="sxs-lookup"><span data-stu-id="8c831-133">Use attributes to specify arguments for a component in markup.</span></span>
+<span data-ttu-id="3c07e-134">Může mít komponenty *parametry komponenty*, které jsou definovány pomocí *neveřejné* vlastnosti komponentní třída upravené pomocí `[Parameter]`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-134">Components can have *component parameters*, which are defined using *non-public* properties on the component class decorated with `[Parameter]`.</span></span> <span data-ttu-id="3c07e-135">Atributy můžete zadat argumenty pro komponentu v kódu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-135">Use attributes to specify arguments for a component in markup.</span></span>
 
-<span data-ttu-id="8c831-134">V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Title` vlastnost `ChildComponent`:</span><span class="sxs-lookup"><span data-stu-id="8c831-134">In the following example, the `ParentComponent` sets the value of the `Title` property of the `ChildComponent`:</span></span>
+<span data-ttu-id="3c07e-136">V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Title` vlastnost `ChildComponent`:</span><span class="sxs-lookup"><span data-stu-id="3c07e-136">In the following example, the `ParentComponent` sets the value of the `Title` property of the `ChildComponent`:</span></span>
 
-<span data-ttu-id="8c831-135">*ParentComponent.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-135">*ParentComponent.cshtml*:</span></span>
+<span data-ttu-id="3c07e-137">*ParentComponent.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-137">*ParentComponent.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?name=snippet_ParentComponent&highlight=5)]
 
-<span data-ttu-id="8c831-136">*ChildComponent.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-136">*ChildComponent.cshtml*:</span></span>
+<span data-ttu-id="3c07e-138">*ChildComponent.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-138">*ChildComponent.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.cshtml?highlight=7-8)]
 
-## <a name="child-content"></a><span data-ttu-id="8c831-137">Podřízený obsah</span><span class="sxs-lookup"><span data-stu-id="8c831-137">Child content</span></span>
+## <a name="child-content"></a><span data-ttu-id="3c07e-139">Podřízený obsah</span><span class="sxs-lookup"><span data-stu-id="3c07e-139">Child content</span></span>
 
-<span data-ttu-id="8c831-138">Součásti můžete nastavit obsah jiné součásti.</span><span class="sxs-lookup"><span data-stu-id="8c831-138">Components can set the content of another component.</span></span> <span data-ttu-id="8c831-139">Přiřazení součásti najdete zde obsah mezi značky, které určují přijímající komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-139">The assigning component provides the content between the tags that specify the receiving component.</span></span> <span data-ttu-id="8c831-140">Například `ParentComponent` můžete zadat obsah pro vykreslování podle podřízené součásti tak, že je obsah uvnitř `<ChildComponent>` značky.</span><span class="sxs-lookup"><span data-stu-id="8c831-140">For example, a `ParentComponent` can provide content for rendering by a Child component by placing the content inside `<ChildComponent>` tags.</span></span>
+<span data-ttu-id="3c07e-140">Součásti můžete nastavit obsah jiné součásti.</span><span class="sxs-lookup"><span data-stu-id="3c07e-140">Components can set the content of another component.</span></span> <span data-ttu-id="3c07e-141">Přiřazení součásti najdete zde obsah mezi značky, které určují přijímající komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-141">The assigning component provides the content between the tags that specify the receiving component.</span></span> <span data-ttu-id="3c07e-142">Například `ParentComponent` můžete zadat obsah pro vykreslování podle podřízené součásti tak, že je obsah uvnitř `<ChildComponent>` značky.</span><span class="sxs-lookup"><span data-stu-id="3c07e-142">For example, a `ParentComponent` can provide content for rendering by a Child component by placing the content inside `<ChildComponent>` tags.</span></span>
 
-<span data-ttu-id="8c831-141">*ParentComponent.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-141">*ParentComponent.cshtml*:</span></span>
+<span data-ttu-id="3c07e-143">*ParentComponent.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-143">*ParentComponent.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?name=snippet_ParentComponent&highlight=6-7)]
 
-<span data-ttu-id="8c831-142">Obsahuje podřízené součásti `ChildContent` vlastnost, která představuje `RenderFragment`.</span><span class="sxs-lookup"><span data-stu-id="8c831-142">The Child component has a `ChildContent` property that represents a `RenderFragment`.</span></span> <span data-ttu-id="8c831-143">Hodnota `ChildContent` je umístěn ve značkách podřízené součásti, kde má být vykreslen obsah.</span><span class="sxs-lookup"><span data-stu-id="8c831-143">The value of `ChildContent` is positioned in the child component's markup where the content should be rendered.</span></span> <span data-ttu-id="8c831-144">V následujícím příkladu, hodnota `ChildContent` přijme od nadřazené komponenty a vykreslit v rámci panelu Bootstrap `panel-body`.</span><span class="sxs-lookup"><span data-stu-id="8c831-144">In the following example, the value of `ChildContent` is received from the parent component and rendered inside the Bootstrap panel's `panel-body`.</span></span>
+<span data-ttu-id="3c07e-144">Obsahuje podřízené součásti `ChildContent` vlastnost, která představuje `RenderFragment`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-144">The Child component has a `ChildContent` property that represents a `RenderFragment`.</span></span> <span data-ttu-id="3c07e-145">Hodnota `ChildContent` je umístěn ve značkách podřízené součásti, kde má být vykreslen obsah.</span><span class="sxs-lookup"><span data-stu-id="3c07e-145">The value of `ChildContent` is positioned in the child component's markup where the content should be rendered.</span></span> <span data-ttu-id="3c07e-146">V následujícím příkladu, hodnota `ChildContent` přijme od nadřazené komponenty a vykreslit v rámci panelu Bootstrap `panel-body`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-146">In the following example, the value of `ChildContent` is received from the parent component and rendered inside the Bootstrap panel's `panel-body`.</span></span>
 
-<span data-ttu-id="8c831-145">*ChildComponent.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-145">*ChildComponent.cshtml*:</span></span>
+<span data-ttu-id="3c07e-147">*ChildComponent.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-147">*ChildComponent.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.cshtml?highlight=3,10-11)]
 
 > [!NOTE]
-> <span data-ttu-id="8c831-146">Vlastnost příjmu `RenderFragment` obsahu musí mít název `ChildContent` konvencí.</span><span class="sxs-lookup"><span data-stu-id="8c831-146">The property receiving the `RenderFragment` content must be named `ChildContent` by convention.</span></span>
+> <span data-ttu-id="3c07e-148">Vlastnost příjmu `RenderFragment` obsahu musí mít název `ChildContent` konvencí.</span><span class="sxs-lookup"><span data-stu-id="3c07e-148">The property receiving the `RenderFragment` content must be named `ChildContent` by convention.</span></span>
 
-## <a name="data-binding"></a><span data-ttu-id="8c831-147">Vytváření datových vazeb</span><span class="sxs-lookup"><span data-stu-id="8c831-147">Data binding</span></span>
+## <a name="data-binding"></a><span data-ttu-id="3c07e-149">Vytváření datových vazeb</span><span class="sxs-lookup"><span data-stu-id="3c07e-149">Data binding</span></span>
 
-<span data-ttu-id="8c831-148">Vazba dat na komponent a prvky modelu DOM se dosahuje pomocí `bind` atribut.</span><span class="sxs-lookup"><span data-stu-id="8c831-148">Data binding to both components and DOM elements is accomplished with the `bind` attribute.</span></span> <span data-ttu-id="8c831-149">Následující příklad vytvoří vazbu `ItalicsCheck` vlastnost na zaškrtávací políčko zaškrtnuto, stav:</span><span class="sxs-lookup"><span data-stu-id="8c831-149">The following example binds the `ItalicsCheck` property to the check box's checked state:</span></span>
+<span data-ttu-id="3c07e-150">Vazba dat na komponent a prvky modelu DOM se dosahuje pomocí `bind` atribut.</span><span class="sxs-lookup"><span data-stu-id="3c07e-150">Data binding to both components and DOM elements is accomplished with the `bind` attribute.</span></span> <span data-ttu-id="3c07e-151">Následující příklad vytvoří vazbu `ItalicsCheck` vlastnost na zaškrtávací políčko zaškrtnuto, stav:</span><span class="sxs-lookup"><span data-stu-id="3c07e-151">The following example binds the `ItalicsCheck` property to the check box's checked state:</span></span>
 
 ```cshtml
 <input type="checkbox" class="form-check-input" id="italicsCheck" 
     bind="@_italicsCheck" />
 ```
 
-<span data-ttu-id="8c831-150">Při zaškrtnutí políčka je a zrušte zaškrtnutí, hodnota vlastnosti je aktualizována na `true` a `false`v uvedeném pořadí.</span><span class="sxs-lookup"><span data-stu-id="8c831-150">When the check box is selected and cleared, the property's value is updated to `true` and `false`, respectively.</span></span>
+<span data-ttu-id="3c07e-152">Při zaškrtnutí políčka je a zrušte zaškrtnutí, hodnota vlastnosti je aktualizována na `true` a `false`v uvedeném pořadí.</span><span class="sxs-lookup"><span data-stu-id="3c07e-152">When the check box is selected and cleared, the property's value is updated to `true` and `false`, respectively.</span></span>
 
-<span data-ttu-id="8c831-151">Zaškrtávací políčko se aktualizuje v uživatelském rozhraní, pouze v případě, že součást je vykresleno, ne v reakci na měnící se hodnota vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="8c831-151">The check box is updated in the UI only when the component is rendered, not in response to changing the property's value.</span></span> <span data-ttu-id="8c831-152">Protože komponenty vykreslování sami po spuštění kódu obslužné rutiny události, aktualizace vlastností se obvykle projeví v uživatelském rozhraní ihned.</span><span class="sxs-lookup"><span data-stu-id="8c831-152">Since components render themselves after event handler code executes, property updates are usually reflected in the UI immediately.</span></span>
+<span data-ttu-id="3c07e-153">Zaškrtávací políčko se aktualizuje v uživatelském rozhraní, pouze v případě, že součást je vykresleno, ne v reakci na měnící se hodnota vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="3c07e-153">The check box is updated in the UI only when the component is rendered, not in response to changing the property's value.</span></span> <span data-ttu-id="3c07e-154">Protože komponenty vykreslování sami po spuštění kódu obslužné rutiny události, aktualizace vlastností se obvykle projeví v uživatelském rozhraní ihned.</span><span class="sxs-lookup"><span data-stu-id="3c07e-154">Since components render themselves after event handler code executes, property updates are usually reflected in the UI immediately.</span></span>
 
-<span data-ttu-id="8c831-153">Pomocí `bind` s `CurrentValue` vlastnosti (`<input bind="@CurrentValue" />`) je v podstatě ekvivalentní následujícímu:</span><span class="sxs-lookup"><span data-stu-id="8c831-153">Using `bind` with a `CurrentValue` property (`<input bind="@CurrentValue" />`) is essentially equivalent to the following:</span></span>
+<span data-ttu-id="3c07e-155">Pomocí `bind` s `CurrentValue` vlastnosti (`<input bind="@CurrentValue" />`) je v podstatě ekvivalentní následujícímu:</span><span class="sxs-lookup"><span data-stu-id="3c07e-155">Using `bind` with a `CurrentValue` property (`<input bind="@CurrentValue" />`) is essentially equivalent to the following:</span></span>
 
 ```cshtml
 <input value="@CurrentValue" 
     onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)" />
 ```
 
-<span data-ttu-id="8c831-154">Při vykreslování komponentu `value` elementu input pochází z `CurrentValue` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="8c831-154">When the component is rendered, the `value` of the input element comes from the `CurrentValue` property.</span></span> <span data-ttu-id="8c831-155">Když uživatel zadá v textovém poli `onchange` událost se aktivuje a `CurrentValue` je nastavena na hodnotu změněné.</span><span class="sxs-lookup"><span data-stu-id="8c831-155">When the user types in the text box, the `onchange` event is fired and the `CurrentValue` property is set to the changed value.</span></span> <span data-ttu-id="8c831-156">Ve skutečnosti je generování kódu poněkud složitější, protože `bind` zpracovává několik případů, kdy jsou provedeny převody typu.</span><span class="sxs-lookup"><span data-stu-id="8c831-156">In reality, the code generation is a little more complex because `bind` handles a few cases where type conversions are performed.</span></span> <span data-ttu-id="8c831-157">V zásadě `bind` přidruží aktuální hodnotu výrazu s `value` obslužné rutiny a atributu změny pomocí zaregistrovaná obslužná rutina.</span><span class="sxs-lookup"><span data-stu-id="8c831-157">In principle, `bind` associates the current value of an expression with a `value` attribute and handles changes using the registered handler.</span></span>
+<span data-ttu-id="3c07e-156">Při vykreslování komponentu `value` elementu input pochází z `CurrentValue` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="3c07e-156">When the component is rendered, the `value` of the input element comes from the `CurrentValue` property.</span></span> <span data-ttu-id="3c07e-157">Když uživatel zadá v textovém poli `onchange` událost se aktivuje a `CurrentValue` je nastavena na hodnotu změněné.</span><span class="sxs-lookup"><span data-stu-id="3c07e-157">When the user types in the text box, the `onchange` event is fired and the `CurrentValue` property is set to the changed value.</span></span> <span data-ttu-id="3c07e-158">Ve skutečnosti je generování kódu poněkud složitější, protože `bind` zpracovává několik případů, kdy jsou provedeny převody typu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-158">In reality, the code generation is a little more complex because `bind` handles a few cases where type conversions are performed.</span></span> <span data-ttu-id="3c07e-159">V zásadě `bind` přidruží aktuální hodnotu výrazu s `value` obslužné rutiny a atributu změny pomocí zaregistrovaná obslužná rutina.</span><span class="sxs-lookup"><span data-stu-id="3c07e-159">In principle, `bind` associates the current value of an expression with a `value` attribute and handles changes using the registered handler.</span></span>
 
-<span data-ttu-id="8c831-158">Kromě `onchange`, vlastnost může být vázána pomocí jiné události, jako jsou `oninput` tím, že je explicitní více o tom, co k vytvoření vazby:</span><span class="sxs-lookup"><span data-stu-id="8c831-158">In addition to `onchange`, the property can be bound using other events like `oninput` by being more explicit about what to bind to:</span></span>
+<span data-ttu-id="3c07e-160">Kromě `onchange`, vlastnost může být vázána pomocí jiné události, jako jsou `oninput` tím, že je explicitní více o tom, co k vytvoření vazby:</span><span class="sxs-lookup"><span data-stu-id="3c07e-160">In addition to `onchange`, the property can be bound using other events like `oninput` by being more explicit about what to bind to:</span></span>
 
 ```cshtml
 <input type="text" bind-value-oninput="@CurrentValue" />
 ```
 
-<span data-ttu-id="8c831-159">Na rozdíl od `onchange`, `oninput` aktivována pro každý znak, který je vstup do textového pole.</span><span class="sxs-lookup"><span data-stu-id="8c831-159">Unlike `onchange`, `oninput` fires for every character that is input into the text box.</span></span>
+<span data-ttu-id="3c07e-161">Na rozdíl od `onchange`, `oninput` aktivována pro každý znak, který je vstup do textového pole.</span><span class="sxs-lookup"><span data-stu-id="3c07e-161">Unlike `onchange`, `oninput` fires for every character that is input into the text box.</span></span>
 
-<span data-ttu-id="8c831-160">**Formátovací řetězce**</span><span class="sxs-lookup"><span data-stu-id="8c831-160">**Format strings**</span></span>
+<span data-ttu-id="3c07e-162">**Formátovací řetězce**</span><span class="sxs-lookup"><span data-stu-id="3c07e-162">**Format strings**</span></span>
 
-<span data-ttu-id="8c831-161">Vytváření datových vazeb funguje s <xref:System.DateTime> řetězce formátu.</span><span class="sxs-lookup"><span data-stu-id="8c831-161">Data binding works with <xref:System.DateTime> format strings.</span></span> <span data-ttu-id="8c831-162">V tuto chvíli nejsou k dispozici jiných výrazech formátu, například měny nebo číselných formátů.</span><span class="sxs-lookup"><span data-stu-id="8c831-162">Other format expressions, such as currency or number formats, aren't available at this time.</span></span>
+<span data-ttu-id="3c07e-163">Vytváření datových vazeb funguje s <xref:System.DateTime> řetězce formátu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-163">Data binding works with <xref:System.DateTime> format strings.</span></span> <span data-ttu-id="3c07e-164">V tuto chvíli nejsou k dispozici jiných výrazech formátu, například měny nebo číselných formátů.</span><span class="sxs-lookup"><span data-stu-id="3c07e-164">Other format expressions, such as currency or number formats, aren't available at this time.</span></span>
 
 ```cshtml
 <input bind="@StartDate" format-value="yyyy-MM-dd" />
@@ -126,15 +134,15 @@ ms.locfileid: "57978509"
 }
 ```
 
-<span data-ttu-id="8c831-163">`format-value` Atribut specifikuje formát data použít `value` z `input` elementu.</span><span class="sxs-lookup"><span data-stu-id="8c831-163">The `format-value` attribute specifies the date format to apply to the `value` of the `input` element.</span></span> <span data-ttu-id="8c831-164">Formát slouží také k analýze hodnotu při `onchange` dojde k události.</span><span class="sxs-lookup"><span data-stu-id="8c831-164">The format is also used to parse the value when an `onchange` event occurs.</span></span>
+<span data-ttu-id="3c07e-165">`format-value` Atribut specifikuje formát data použít `value` z `input` elementu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-165">The `format-value` attribute specifies the date format to apply to the `value` of the `input` element.</span></span> <span data-ttu-id="3c07e-166">Formát slouží také k analýze hodnotu při `onchange` dojde k události.</span><span class="sxs-lookup"><span data-stu-id="3c07e-166">The format is also used to parse the value when an `onchange` event occurs.</span></span>
 
-<span data-ttu-id="8c831-165">**Parametry komponenty**</span><span class="sxs-lookup"><span data-stu-id="8c831-165">**Component parameters**</span></span>
+<span data-ttu-id="3c07e-167">**Parametry komponenty**</span><span class="sxs-lookup"><span data-stu-id="3c07e-167">**Component parameters**</span></span>
 
-<span data-ttu-id="8c831-166">Vazba také rozpozná parametry komponenty, kde `bind-{property}` mohl vytvořit vazbu vlastnosti komponentami.</span><span class="sxs-lookup"><span data-stu-id="8c831-166">Binding also recognizes component parameters, where `bind-{property}` can bind a property value across components.</span></span>
+<span data-ttu-id="3c07e-168">Vazba také rozpozná parametry komponenty, kde `bind-{property}` mohl vytvořit vazbu vlastnosti komponentami.</span><span class="sxs-lookup"><span data-stu-id="3c07e-168">Binding also recognizes component parameters, where `bind-{property}` can bind a property value across components.</span></span>
 
-<span data-ttu-id="8c831-167">Používá následující komponenty `ChildComponent` a vytvoří vazbu `ParentYear` parametr z nadřazeného `Year` parametru u podřízené součásti:</span><span class="sxs-lookup"><span data-stu-id="8c831-167">The following component uses `ChildComponent` and binds the `ParentYear` parameter from the parent to the `Year` parameter on the child component:</span></span>
+<span data-ttu-id="3c07e-169">Používá následující komponenty `ChildComponent` a vytvoří vazbu `ParentYear` parametr z nadřazeného `Year` parametru u podřízené součásti:</span><span class="sxs-lookup"><span data-stu-id="3c07e-169">The following component uses `ChildComponent` and binds the `ParentYear` parameter from the parent to the `Year` parameter on the child component:</span></span>
 
-<span data-ttu-id="8c831-168">Nadřazené komponenty:</span><span class="sxs-lookup"><span data-stu-id="8c831-168">Parent component:</span></span>
+<span data-ttu-id="3c07e-170">Nadřazené komponenty:</span><span class="sxs-lookup"><span data-stu-id="3c07e-170">Parent component:</span></span>
 
 ```cshtml
 @page "/ParentComponent"
@@ -160,7 +168,7 @@ ms.locfileid: "57978509"
 }
 ```
 
-<span data-ttu-id="8c831-169">Podřízené součásti:</span><span class="sxs-lookup"><span data-stu-id="8c831-169">Child component:</span></span>
+<span data-ttu-id="3c07e-171">Podřízené součásti:</span><span class="sxs-lookup"><span data-stu-id="3c07e-171">Child component:</span></span>
 
 ```cshtml
 <h2>Child Component</h2>
@@ -176,7 +184,7 @@ ms.locfileid: "57978509"
 }
 ```
 
-<span data-ttu-id="8c831-170">Načítají `ParentComponent` vytváří následující značky:</span><span class="sxs-lookup"><span data-stu-id="8c831-170">Loading the `ParentComponent` produces the following markup:</span></span>
+<span data-ttu-id="3c07e-172">Načítají `ParentComponent` vytváří následující značky:</span><span class="sxs-lookup"><span data-stu-id="3c07e-172">Loading the `ParentComponent` produces the following markup:</span></span>
 
 ```html
 <h1>Parent Component</h1>
@@ -188,7 +196,7 @@ ms.locfileid: "57978509"
 <p>Year: 1978</p>
 ```
 
-<span data-ttu-id="8c831-171">Pokud hodnota `ParentYear` vlastnost se změní tak, že vyberete tlačítko v `ParentComponent`, `Year` vlastnost `ChildComponent` se aktualizuje.</span><span class="sxs-lookup"><span data-stu-id="8c831-171">If the value of the `ParentYear` property is changed by selecting the button in the `ParentComponent`, the `Year` property of the `ChildComponent` is updated.</span></span> <span data-ttu-id="8c831-172">Nová hodnota `Year` se vykreslí v uživatelském rozhraní při `ParentComponent` je rerendered:</span><span class="sxs-lookup"><span data-stu-id="8c831-172">The new value of `Year` is rendered in the UI when the `ParentComponent` is rerendered:</span></span>
+<span data-ttu-id="3c07e-173">Pokud hodnota `ParentYear` vlastnost se změní tak, že vyberete tlačítko v `ParentComponent`, `Year` vlastnost `ChildComponent` se aktualizuje.</span><span class="sxs-lookup"><span data-stu-id="3c07e-173">If the value of the `ParentYear` property is changed by selecting the button in the `ParentComponent`, the `Year` property of the `ChildComponent` is updated.</span></span> <span data-ttu-id="3c07e-174">Nová hodnota `Year` se vykreslí v uživatelském rozhraní při `ParentComponent` je rerendered:</span><span class="sxs-lookup"><span data-stu-id="3c07e-174">The new value of `Year` is rendered in the UI when the `ParentComponent` is rerendered:</span></span>
 
 ```html
 <h1>Parent Component</h1>
@@ -200,21 +208,21 @@ ms.locfileid: "57978509"
 <p>Year: 1986</p>
 ```
 
-<span data-ttu-id="8c831-173">`Year` Parametr je s možností vazby, protože má doprovodná `YearChanged` událost, která odpovídá typu používaného `Year` parametru.</span><span class="sxs-lookup"><span data-stu-id="8c831-173">The `Year` parameter is bindable because it has a companion `YearChanged` event that matches the type of the `Year` parameter.</span></span>
+<span data-ttu-id="3c07e-175">`Year` Parametr je s možností vazby, protože má doprovodná `YearChanged` událost, která odpovídá typu používaného `Year` parametru.</span><span class="sxs-lookup"><span data-stu-id="3c07e-175">The `Year` parameter is bindable because it has a companion `YearChanged` event that matches the type of the `Year` parameter.</span></span>
 
-<span data-ttu-id="8c831-174">Podle konvence `<ChildComponent bind-Year="@ParentYear" />` je v podstatě ekvivalentní zápisu</span><span class="sxs-lookup"><span data-stu-id="8c831-174">By convention, `<ChildComponent bind-Year="@ParentYear" />` is essentially equivalent to writing,</span></span>
+<span data-ttu-id="3c07e-176">Podle konvence `<ChildComponent bind-Year="@ParentYear" />` je v podstatě ekvivalentní zápisu</span><span class="sxs-lookup"><span data-stu-id="3c07e-176">By convention, `<ChildComponent bind-Year="@ParentYear" />` is essentially equivalent to writing,</span></span>
 
 ```cshtml
     <ChildComponent bind-Year-YearChanged="@ParentYear" />
 ```
 
-<span data-ttu-id="8c831-175">Obecně platí, vlastnost může být vázána na odpovídající obslužná rutina události pomocí `bind-property-event` atribut.</span><span class="sxs-lookup"><span data-stu-id="8c831-175">In general, a property can be bound to a corresponding event handler using `bind-property-event` attribute.</span></span>
+<span data-ttu-id="3c07e-177">Obecně platí, vlastnost může být vázána na odpovídající obslužná rutina události pomocí `bind-property-event` atribut.</span><span class="sxs-lookup"><span data-stu-id="3c07e-177">In general, a property can be bound to a corresponding event handler using `bind-property-event` attribute.</span></span>
 
-## <a name="event-handling"></a><span data-ttu-id="8c831-176">Zpracování událostí</span><span class="sxs-lookup"><span data-stu-id="8c831-176">Event handling</span></span>
+## <a name="event-handling"></a><span data-ttu-id="3c07e-178">Zpracování událostí</span><span class="sxs-lookup"><span data-stu-id="3c07e-178">Event handling</span></span>
 
-<span data-ttu-id="8c831-177">Součásti syntaxe Razor poskytují funkce zpracování událostí.</span><span class="sxs-lookup"><span data-stu-id="8c831-177">Razor Components provide event handling features.</span></span> <span data-ttu-id="8c831-178">Atribut HTML elementu s názvem `on<event>` (například `onclick`, `onsubmit`) s hodnotou typu delegáta Razor součásti považuje za hodnotu atributu obslužné rutiny události.</span><span class="sxs-lookup"><span data-stu-id="8c831-178">For an HTML element attribute named `on<event>` (for example, `onclick`, `onsubmit`) with a delegate-typed value, Razor Components treats the attribute's value as an event handler.</span></span> <span data-ttu-id="8c831-179">Název atributu vždy začíná `on`.</span><span class="sxs-lookup"><span data-stu-id="8c831-179">The attribute's name always starts with `on`.</span></span>
+<span data-ttu-id="3c07e-179">Součásti syntaxe Razor poskytují funkce zpracování událostí.</span><span class="sxs-lookup"><span data-stu-id="3c07e-179">Razor Components provide event handling features.</span></span> <span data-ttu-id="3c07e-180">Atribut HTML elementu s názvem `on<event>` (například `onclick`, `onsubmit`) s hodnotou typu delegáta Razor součásti považuje za hodnotu atributu obslužné rutiny události.</span><span class="sxs-lookup"><span data-stu-id="3c07e-180">For an HTML element attribute named `on<event>` (for example, `onclick`, `onsubmit`) with a delegate-typed value, Razor Components treats the attribute's value as an event handler.</span></span> <span data-ttu-id="3c07e-181">Název atributu vždy začíná `on`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-181">The attribute's name always starts with `on`.</span></span>
 
-<span data-ttu-id="8c831-180">Následující kód volá `UpdateHeading` metodu po výběru tlačítka v uživatelském rozhraní:</span><span class="sxs-lookup"><span data-stu-id="8c831-180">The following code calls the `UpdateHeading` method when the button is selected in the UI:</span></span>
+<span data-ttu-id="3c07e-182">Následující kód volá `UpdateHeading` metodu po výběru tlačítka v uživatelském rozhraní:</span><span class="sxs-lookup"><span data-stu-id="3c07e-182">The following code calls the `UpdateHeading` method when the button is selected in the UI:</span></span>
 
 ```cshtml
 <button class="btn btn-primary" onclick="@UpdateHeading">
@@ -229,7 +237,7 @@ ms.locfileid: "57978509"
 }
 ```
 
-<span data-ttu-id="8c831-181">Následující kód volá `CheckboxChanged` metoda při změně zaškrtávacího políčka v uživatelském rozhraní:</span><span class="sxs-lookup"><span data-stu-id="8c831-181">The following code calls the `CheckboxChanged` method when the check box is changed in the UI:</span></span>
+<span data-ttu-id="3c07e-183">Následující kód volá `CheckboxChanged` metoda při změně zaškrtávacího políčka v uživatelském rozhraní:</span><span class="sxs-lookup"><span data-stu-id="3c07e-183">The following code calls the `CheckboxChanged` method when the check box is changed in the UI:</span></span>
 
 ```cshtml
 <input type="checkbox" class="form-check-input" onchange="@CheckboxChanged" />
@@ -242,7 +250,7 @@ ms.locfileid: "57978509"
 }
 ```
 
-<span data-ttu-id="8c831-182">Obslužné rutiny událostí může být také asynchronní a zpět <xref:System.Threading.Tasks.Task>.</span><span class="sxs-lookup"><span data-stu-id="8c831-182">Event handlers can also be asynchronous and return a <xref:System.Threading.Tasks.Task>.</span></span> <span data-ttu-id="8c831-183">Není nutné ručně volat `StateHasChanged()`.</span><span class="sxs-lookup"><span data-stu-id="8c831-183">There's no need to manually call `StateHasChanged()`.</span></span> <span data-ttu-id="8c831-184">Výjimky se protokolují, když k nim dojde.</span><span class="sxs-lookup"><span data-stu-id="8c831-184">Exceptions are logged when they occur.</span></span>
+<span data-ttu-id="3c07e-184">Obslužné rutiny událostí může být také asynchronní a zpět <xref:System.Threading.Tasks.Task>.</span><span class="sxs-lookup"><span data-stu-id="3c07e-184">Event handlers can also be asynchronous and return a <xref:System.Threading.Tasks.Task>.</span></span> <span data-ttu-id="3c07e-185">Není nutné ručně volat `StateHasChanged()`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-185">There's no need to manually call `StateHasChanged()`.</span></span> <span data-ttu-id="3c07e-186">Výjimky se protokolují, když k nim dojde.</span><span class="sxs-lookup"><span data-stu-id="3c07e-186">Exceptions are logged when they occur.</span></span>
 
 ```cshtml
 <button class="btn btn-primary" onclick="@UpdateHeading">
@@ -257,22 +265,22 @@ ms.locfileid: "57978509"
 }
 ```
 
-<span data-ttu-id="8c831-185">Pro některé události nejsou povoleny typy argumentů události specifické pro události.</span><span class="sxs-lookup"><span data-stu-id="8c831-185">For some events, event-specific event argument types are permitted.</span></span> <span data-ttu-id="8c831-186">Pokud přístup k jednomu z těchto typů událostí není nezbytné, není potřeba ve volání metody.</span><span class="sxs-lookup"><span data-stu-id="8c831-186">If access to one of these event types isn't necessary, it isn't required in the method call.</span></span>
+<span data-ttu-id="3c07e-187">Pro některé události nejsou povoleny typy argumentů události specifické pro události.</span><span class="sxs-lookup"><span data-stu-id="3c07e-187">For some events, event-specific event argument types are permitted.</span></span> <span data-ttu-id="3c07e-188">Pokud přístup k jednomu z těchto typů událostí není nezbytné, není potřeba ve volání metody.</span><span class="sxs-lookup"><span data-stu-id="3c07e-188">If access to one of these event types isn't necessary, it isn't required in the method call.</span></span>
 
-<span data-ttu-id="8c831-187">Seznam podporovaných událostí argumentů je:</span><span class="sxs-lookup"><span data-stu-id="8c831-187">The list of supported event arguments is:</span></span>
+<span data-ttu-id="3c07e-189">Seznam podporovaných událostí argumentů je:</span><span class="sxs-lookup"><span data-stu-id="3c07e-189">The list of supported event arguments is:</span></span>
 
-* <span data-ttu-id="8c831-188">UIEventArgs</span><span class="sxs-lookup"><span data-stu-id="8c831-188">UIEventArgs</span></span>
-* <span data-ttu-id="8c831-189">UIChangeEventArgs</span><span class="sxs-lookup"><span data-stu-id="8c831-189">UIChangeEventArgs</span></span>
-* <span data-ttu-id="8c831-190">UIKeyboardEventArgs</span><span class="sxs-lookup"><span data-stu-id="8c831-190">UIKeyboardEventArgs</span></span>
-* <span data-ttu-id="8c831-191">UIMouseEventArgs</span><span class="sxs-lookup"><span data-stu-id="8c831-191">UIMouseEventArgs</span></span>
+* <span data-ttu-id="3c07e-190">UIEventArgs</span><span class="sxs-lookup"><span data-stu-id="3c07e-190">UIEventArgs</span></span>
+* <span data-ttu-id="3c07e-191">UIChangeEventArgs</span><span class="sxs-lookup"><span data-stu-id="3c07e-191">UIChangeEventArgs</span></span>
+* <span data-ttu-id="3c07e-192">UIKeyboardEventArgs</span><span class="sxs-lookup"><span data-stu-id="3c07e-192">UIKeyboardEventArgs</span></span>
+* <span data-ttu-id="3c07e-193">UIMouseEventArgs</span><span class="sxs-lookup"><span data-stu-id="3c07e-193">UIMouseEventArgs</span></span>
 
-<span data-ttu-id="8c831-192">Výrazy lambda lze také použít:</span><span class="sxs-lookup"><span data-stu-id="8c831-192">Lambda expressions can also be used:</span></span>
+<span data-ttu-id="3c07e-194">Výrazy lambda lze také použít:</span><span class="sxs-lookup"><span data-stu-id="3c07e-194">Lambda expressions can also be used:</span></span>
 
 ```cshtml
 <button onclick="@(e => Console.WriteLine("Hello, world!"))">Say hello</button>
 ```
 
-<span data-ttu-id="8c831-193">Často je vhodné zavřít další hodnoty, například během iterace přes sadu elementů.</span><span class="sxs-lookup"><span data-stu-id="8c831-193">It's often convenient to close over additional values, such as when iterating over a set of elements.</span></span> <span data-ttu-id="8c831-194">Následující příklad vytvoří tři tlačítka, každý z který volá `UpdateHeading` předání argumentu události (`UIMouseEventArgs`) a tlačítko (`buttonNumber`) při výběru v uživatelském rozhraní:</span><span class="sxs-lookup"><span data-stu-id="8c831-194">The following example creates three buttons, each of which calls `UpdateHeading` passing an event argument (`UIMouseEventArgs`) and its button number (`buttonNumber`) when selected in the UI:</span></span>
+<span data-ttu-id="3c07e-195">Často je vhodné zavřít další hodnoty, například během iterace přes sadu elementů.</span><span class="sxs-lookup"><span data-stu-id="3c07e-195">It's often convenient to close over additional values, such as when iterating over a set of elements.</span></span> <span data-ttu-id="3c07e-196">Následující příklad vytvoří tři tlačítka, každý z který volá `UpdateHeading` předání argumentu události (`UIMouseEventArgs`) a tlačítko (`buttonNumber`) při výběru v uživatelském rozhraní:</span><span class="sxs-lookup"><span data-stu-id="3c07e-196">The following example creates three buttons, each of which calls `UpdateHeading` passing an event argument (`UIMouseEventArgs`) and its button number (`buttonNumber`) when selected in the UI:</span></span>
 
 ```cshtml
 <h2>@message</h2>
@@ -299,11 +307,11 @@ ms.locfileid: "57978509"
 ```
 
 > [!NOTE]
-> <span data-ttu-id="8c831-195">Proveďte **není** použít proměnnou smyčky (`i`) v `for` smyčky přímo ve výrazu lambda.</span><span class="sxs-lookup"><span data-stu-id="8c831-195">Do **not** use the loop variable (`i`) in a `for` loop directly in a lambda expression.</span></span> <span data-ttu-id="8c831-196">V opačném případě se používá stejnou proměnnou všechny výrazy lambda způsobí `i`hodnotu být stejné ve všech výrazů lambda.</span><span class="sxs-lookup"><span data-stu-id="8c831-196">Otherwise the same variable is used by all lambda expressions causing `i`'s value to be the same in all lambdas.</span></span> <span data-ttu-id="8c831-197">Zachytit její hodnotu v místní proměnné (`buttonNumber` v předchozím příkladu) a pak přes ni.</span><span class="sxs-lookup"><span data-stu-id="8c831-197">Always capture its value in a local variable (`buttonNumber` in the preceding example) and then use it.</span></span>
+> <span data-ttu-id="3c07e-197">Proveďte **není** použít proměnnou smyčky (`i`) v `for` smyčky přímo ve výrazu lambda.</span><span class="sxs-lookup"><span data-stu-id="3c07e-197">Do **not** use the loop variable (`i`) in a `for` loop directly in a lambda expression.</span></span> <span data-ttu-id="3c07e-198">V opačném případě se používá stejnou proměnnou všechny výrazy lambda způsobí `i`hodnotu být stejné ve všech výrazů lambda.</span><span class="sxs-lookup"><span data-stu-id="3c07e-198">Otherwise the same variable is used by all lambda expressions causing `i`'s value to be the same in all lambdas.</span></span> <span data-ttu-id="3c07e-199">Zachytit její hodnotu v místní proměnné (`buttonNumber` v předchozím příkladu) a pak přes ni.</span><span class="sxs-lookup"><span data-stu-id="3c07e-199">Always capture its value in a local variable (`buttonNumber` in the preceding example) and then use it.</span></span>
 
-## <a name="capture-references-to-components"></a><span data-ttu-id="8c831-198">Zachycení odkazy na komponenty</span><span class="sxs-lookup"><span data-stu-id="8c831-198">Capture references to components</span></span>
+## <a name="capture-references-to-components"></a><span data-ttu-id="3c07e-200">Zachycení odkazy na komponenty</span><span class="sxs-lookup"><span data-stu-id="3c07e-200">Capture references to components</span></span>
 
-<span data-ttu-id="8c831-199">Komponenta odkazy poskytují způsob, jak získat odkaz na instanci komponenty tak, aby příkazy do této instance, můžete vydat, jako `Show` nebo `Reset`.</span><span class="sxs-lookup"><span data-stu-id="8c831-199">Component references provide a way get a reference to a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.</span></span> <span data-ttu-id="8c831-200">Chcete-li zachytit odkazem komponenty, přidejte `ref` atribut podřízené součásti a pak definovat pole se stejným názvem a stejného typu jako podřízené součásti.</span><span class="sxs-lookup"><span data-stu-id="8c831-200">To capture a component reference, add a `ref` attribute to the child component and then define a field with the same name and the same type as the child component.</span></span>
+<span data-ttu-id="3c07e-201">Komponenta odkazy poskytují způsob, jak získat odkaz na instanci komponenty tak, aby příkazy do této instance, můžete vydat, jako `Show` nebo `Reset`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-201">Component references provide a way get a reference to a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.</span></span> <span data-ttu-id="3c07e-202">Chcete-li zachytit odkazem komponenty, přidejte `ref` atribut podřízené součásti a pak definovat pole se stejným názvem a stejného typu jako podřízené součásti.</span><span class="sxs-lookup"><span data-stu-id="3c07e-202">To capture a component reference, add a `ref` attribute to the child component and then define a field with the same name and the same type as the child component.</span></span>
 
 ```cshtml
 <MyLoginDialog ref="loginDialog" ... />
@@ -318,19 +326,19 @@ ms.locfileid: "57978509"
 }
 ```
 
-<span data-ttu-id="8c831-201">Při vykreslování komponentu `loginDialog` pole se vyplní `MyLoginDialog` podřízené instance komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-201">When the component is rendered, the `loginDialog` field is populated with the `MyLoginDialog` child component instance.</span></span> <span data-ttu-id="8c831-202">Potom můžete vyvolat metody rozhraní .NET na instanci komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-202">You can then invoke .NET methods on the component instance.</span></span>
+<span data-ttu-id="3c07e-203">Při vykreslování komponentu `loginDialog` pole se vyplní `MyLoginDialog` podřízené instance komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-203">When the component is rendered, the `loginDialog` field is populated with the `MyLoginDialog` child component instance.</span></span> <span data-ttu-id="3c07e-204">Potom můžete vyvolat metody rozhraní .NET na instanci komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-204">You can then invoke .NET methods on the component instance.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="8c831-203">`loginDialog` Proměnná je vyplněný pouze poté, co se vykreslí komponentu a zahrnuje její výstup `MyLoginDialog` elementu.</span><span class="sxs-lookup"><span data-stu-id="8c831-203">The `loginDialog` variable is only populated after the component is rendered and its output includes the `MyLoginDialog` element.</span></span> <span data-ttu-id="8c831-204">Až do bodu není nutné nic odkazovat.</span><span class="sxs-lookup"><span data-stu-id="8c831-204">Until that point, there's nothing to reference.</span></span> <span data-ttu-id="8c831-205">K manipulaci s odkazy na součásti po dokončení vykreslení komponentu, použijte `OnAfterRenderAsync` nebo `OnAfterRender` metody.</span><span class="sxs-lookup"><span data-stu-id="8c831-205">To manipulate components references after the component has finished rendering, use the `OnAfterRenderAsync` or `OnAfterRender` methods.</span></span>
+> <span data-ttu-id="3c07e-205">`loginDialog` Proměnná je vyplněný pouze poté, co se vykreslí komponentu a zahrnuje její výstup `MyLoginDialog` elementu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-205">The `loginDialog` variable is only populated after the component is rendered and its output includes the `MyLoginDialog` element.</span></span> <span data-ttu-id="3c07e-206">Až do bodu není nutné nic odkazovat.</span><span class="sxs-lookup"><span data-stu-id="3c07e-206">Until that point, there's nothing to reference.</span></span> <span data-ttu-id="3c07e-207">K manipulaci s odkazy na součásti po dokončení vykreslení komponentu, použijte `OnAfterRenderAsync` nebo `OnAfterRender` metody.</span><span class="sxs-lookup"><span data-stu-id="3c07e-207">To manipulate components references after the component has finished rendering, use the `OnAfterRenderAsync` or `OnAfterRender` methods.</span></span>
 
-<span data-ttu-id="8c831-206">Při zachytávání odkazů na komponenty používá podobné syntaxi k [zachytávání odkazy na prvky](xref:razor-components/javascript-interop#capture-references-to-elements), není [zprostředkovatele komunikace s objekty jazyka JavaScript](xref:razor-components/javascript-interop) funkce.</span><span class="sxs-lookup"><span data-stu-id="8c831-206">While capturing component references uses a similar syntax to [capturing element references](xref:razor-components/javascript-interop#capture-references-to-elements), it isn't a [JavaScript interop](xref:razor-components/javascript-interop) feature.</span></span> <span data-ttu-id="8c831-207">Nejsou součástí odkazy předané do kódu jazyka JavaScript; se používá pouze v kódu .NET.</span><span class="sxs-lookup"><span data-stu-id="8c831-207">Component references aren't passed to JavaScript code; they're only used in .NET code.</span></span>
+<span data-ttu-id="3c07e-208">Při zachytávání odkazů na komponenty používá podobné syntaxi k [zachytávání odkazy na prvky](xref:razor-components/javascript-interop#capture-references-to-elements), není [zprostředkovatele komunikace s objekty jazyka JavaScript](xref:razor-components/javascript-interop) funkce.</span><span class="sxs-lookup"><span data-stu-id="3c07e-208">While capturing component references uses a similar syntax to [capturing element references](xref:razor-components/javascript-interop#capture-references-to-elements), it isn't a [JavaScript interop](xref:razor-components/javascript-interop) feature.</span></span> <span data-ttu-id="3c07e-209">Nejsou součástí odkazy předané do kódu jazyka JavaScript; se používá pouze v kódu .NET.</span><span class="sxs-lookup"><span data-stu-id="3c07e-209">Component references aren't passed to JavaScript code; they're only used in .NET code.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="8c831-208">Proveďte **není** mutovat stavu podřízenými komponentami pomocí odkazů na komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-208">Do **not** use component references to mutate the state of child components.</span></span> <span data-ttu-id="8c831-209">Místo toho použijte normální deklarované parametry k předání dat podřízenými komponentami.</span><span class="sxs-lookup"><span data-stu-id="8c831-209">Instead, use normal declarative parameters to pass data to child components.</span></span> <span data-ttu-id="8c831-210">To způsobí, že podřízené součásti rerender ve správném čase automaticky.</span><span class="sxs-lookup"><span data-stu-id="8c831-210">This causes child components to rerender at the correct times automatically.</span></span>
+> <span data-ttu-id="3c07e-210">Proveďte **není** mutovat stavu podřízenými komponentami pomocí odkazů na komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-210">Do **not** use component references to mutate the state of child components.</span></span> <span data-ttu-id="3c07e-211">Místo toho použijte normální deklarované parametry k předání dat podřízenými komponentami.</span><span class="sxs-lookup"><span data-stu-id="3c07e-211">Instead, use normal declarative parameters to pass data to child components.</span></span> <span data-ttu-id="3c07e-212">To způsobí, že podřízené součásti rerender ve správném čase automaticky.</span><span class="sxs-lookup"><span data-stu-id="3c07e-212">This causes child components to rerender at the correct times automatically.</span></span>
 
-## <a name="lifecycle-methods"></a><span data-ttu-id="8c831-211">Životní cyklus metody</span><span class="sxs-lookup"><span data-stu-id="8c831-211">Lifecycle methods</span></span>
+## <a name="lifecycle-methods"></a><span data-ttu-id="3c07e-213">Životní cyklus metody</span><span class="sxs-lookup"><span data-stu-id="3c07e-213">Lifecycle methods</span></span>
 
-<span data-ttu-id="8c831-212">`OnInitAsync` a `OnInit` spouštění kódu se inicializovat komponentu.</span><span class="sxs-lookup"><span data-stu-id="8c831-212">`OnInitAsync` and `OnInit` execute code to initialize the component.</span></span> <span data-ttu-id="8c831-213">Chcete-li provádění asynchronní operace, použijte `OnInitAsync` a `await` – klíčové slovo v operaci:</span><span class="sxs-lookup"><span data-stu-id="8c831-213">To perform an asynchronous operation, use `OnInitAsync` and the `await` keyword on the operation:</span></span>
+<span data-ttu-id="3c07e-214">`OnInitAsync` a `OnInit` spouštění kódu se inicializovat komponentu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-214">`OnInitAsync` and `OnInit` execute code to initialize the component.</span></span> <span data-ttu-id="3c07e-215">Chcete-li provádění asynchronní operace, použijte `OnInitAsync` a `await` – klíčové slovo v operaci:</span><span class="sxs-lookup"><span data-stu-id="3c07e-215">To perform an asynchronous operation, use `OnInitAsync` and the `await` keyword on the operation:</span></span>
 
 ```csharp
 protected override async Task OnInitAsync()
@@ -339,7 +347,7 @@ protected override async Task OnInitAsync()
 }
 ```
 
-<span data-ttu-id="8c831-214">Synchronní operace, použijte `OnInit`:</span><span class="sxs-lookup"><span data-stu-id="8c831-214">For a synchronous operation, use `OnInit`:</span></span>
+<span data-ttu-id="3c07e-216">Synchronní operace, použijte `OnInit`:</span><span class="sxs-lookup"><span data-stu-id="3c07e-216">For a synchronous operation, use `OnInit`:</span></span>
 
 ```csharp
 protected override void OnInit()
@@ -348,7 +356,7 @@ protected override void OnInit()
 }
 ```
 
-<span data-ttu-id="8c831-215">`OnParametersSetAsync` a `OnParametersSet` se volá, když součást přijme parametry ze svého nadřazeného objektu a hodnoty jsou přiřazeny k vlastnostem.</span><span class="sxs-lookup"><span data-stu-id="8c831-215">`OnParametersSetAsync` and `OnParametersSet` are called when a component has received parameters from its parent and the values are assigned to properties.</span></span> <span data-ttu-id="8c831-216">Tyto metody jsou provedeny po inicializaci součásti a poté je vykreslen komponentu pokaždé, když:</span><span class="sxs-lookup"><span data-stu-id="8c831-216">These methods are executed after component initialization and then each time the component is rendered:</span></span>
+<span data-ttu-id="3c07e-217">`OnParametersSetAsync` a `OnParametersSet` se volá, když součást přijme parametry ze svého nadřazeného objektu a hodnoty jsou přiřazeny k vlastnostem.</span><span class="sxs-lookup"><span data-stu-id="3c07e-217">`OnParametersSetAsync` and `OnParametersSet` are called when a component has received parameters from its parent and the values are assigned to properties.</span></span> <span data-ttu-id="3c07e-218">Tyto metody jsou provedeny po inicializaci součásti a poté je vykreslen komponentu pokaždé, když:</span><span class="sxs-lookup"><span data-stu-id="3c07e-218">These methods are executed after component initialization and then each time the component is rendered:</span></span>
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -364,7 +372,7 @@ protected override void OnParametersSet()
 }
 ```
 
-<span data-ttu-id="8c831-217">`OnAfterRenderAsync` a `OnAfterRender` se volá se po vykreslení komponentu.</span><span class="sxs-lookup"><span data-stu-id="8c831-217">`OnAfterRenderAsync` and `OnAfterRender` are called after a component has finished rendering.</span></span> <span data-ttu-id="8c831-218">V tomto okamžiku se vyplní elementu a součást odkazy.</span><span class="sxs-lookup"><span data-stu-id="8c831-218">Element and component references are populated at this point.</span></span> <span data-ttu-id="8c831-219">Pomocí této fázi můžete provést další inicializaci postup pomocí vykreslovaný obsah, jako je aktivace JavaScript knihovny třetích stran, které pracují s vykreslené elementy modelu DOM.</span><span class="sxs-lookup"><span data-stu-id="8c831-219">Use this stage to perform additional initialization steps using the rendered content, such as activating third-party JavaScript libraries that operate on the rendered DOM elements.</span></span>
+<span data-ttu-id="3c07e-219">`OnAfterRenderAsync` a `OnAfterRender` se volá se po vykreslení komponentu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-219">`OnAfterRenderAsync` and `OnAfterRender` are called after a component has finished rendering.</span></span> <span data-ttu-id="3c07e-220">V tomto okamžiku se vyplní elementu a součást odkazy.</span><span class="sxs-lookup"><span data-stu-id="3c07e-220">Element and component references are populated at this point.</span></span> <span data-ttu-id="3c07e-221">Pomocí této fázi můžete provést další inicializaci postup pomocí vykreslovaný obsah, jako je aktivace JavaScript knihovny třetích stran, které pracují s vykreslené elementy modelu DOM.</span><span class="sxs-lookup"><span data-stu-id="3c07e-221">Use this stage to perform additional initialization steps using the rendered content, such as activating third-party JavaScript libraries that operate on the rendered DOM elements.</span></span>
 
 ```csharp
 protected override async Task OnAfterRenderAsync()
@@ -380,7 +388,7 @@ protected override void OnAfterRender()
 }
 ```
 
-<span data-ttu-id="8c831-220">`SetParameters` může být potlačena za účelem spouštění kódu předtím, než jsou nastavené parametry:</span><span class="sxs-lookup"><span data-stu-id="8c831-220">`SetParameters` can be overridden to execute code before parameters are set:</span></span>
+<span data-ttu-id="3c07e-222">`SetParameters` může být potlačena za účelem spouštění kódu předtím, než jsou nastavené parametry:</span><span class="sxs-lookup"><span data-stu-id="3c07e-222">`SetParameters` can be overridden to execute code before parameters are set:</span></span>
 
 ```csharp
 public override void SetParameters(ParameterCollection parameters)
@@ -391,9 +399,9 @@ public override void SetParameters(ParameterCollection parameters)
 }
 ```
 
-<span data-ttu-id="8c831-221">Pokud `base.SetParameters` není vyvolána, můžete vlastní kód interpretaci příchozí hodnoty parametrů v jakékoli požadované stejně, jako.</span><span class="sxs-lookup"><span data-stu-id="8c831-221">If `base.SetParameters` isn't invoked, the custom code can interpret the incoming parameters value in any way required.</span></span> <span data-ttu-id="8c831-222">Například příchozí parametry nejsou potřeba přiřadit k vlastnosti ve třídě.</span><span class="sxs-lookup"><span data-stu-id="8c831-222">For example, the incoming parameters aren't required to be assigned to the properties on the class.</span></span>
+<span data-ttu-id="3c07e-223">Pokud `base.SetParameters` není vyvolána, můžete vlastní kód interpretaci příchozí hodnoty parametrů v jakékoli požadované stejně, jako.</span><span class="sxs-lookup"><span data-stu-id="3c07e-223">If `base.SetParameters` isn't invoked, the custom code can interpret the incoming parameters value in any way required.</span></span> <span data-ttu-id="3c07e-224">Například příchozí parametry nejsou potřeba přiřadit k vlastnosti ve třídě.</span><span class="sxs-lookup"><span data-stu-id="3c07e-224">For example, the incoming parameters aren't required to be assigned to the properties on the class.</span></span>
 
-<span data-ttu-id="8c831-223">`ShouldRender` může být potlačena za účelem potlačit aktualizaci uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="8c831-223">`ShouldRender` can be overridden to suppress refreshing of the UI.</span></span> <span data-ttu-id="8c831-224">Implementace vrátí-li `true`, aktualizaci uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="8c831-224">If the implementation returns `true`, the UI is refreshed.</span></span> <span data-ttu-id="8c831-225">I když `ShouldRender` je přepsána, komponenta je vždy Počáteční vykreslení.</span><span class="sxs-lookup"><span data-stu-id="8c831-225">Even if `ShouldRender` is overridden, the component is always initially rendered.</span></span>
+<span data-ttu-id="3c07e-225">`ShouldRender` může být potlačena za účelem potlačit aktualizaci uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="3c07e-225">`ShouldRender` can be overridden to suppress refreshing of the UI.</span></span> <span data-ttu-id="3c07e-226">Implementace vrátí-li `true`, aktualizaci uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="3c07e-226">If the implementation returns `true`, the UI is refreshed.</span></span> <span data-ttu-id="3c07e-227">I když `ShouldRender` je přepsána, komponenta je vždy Počáteční vykreslení.</span><span class="sxs-lookup"><span data-stu-id="3c07e-227">Even if `ShouldRender` is overridden, the component is always initially rendered.</span></span>
 
 ```csharp
 protected override bool ShouldRender()
@@ -404,9 +412,9 @@ protected override bool ShouldRender()
 }
 ```
 
-## <a name="component-disposal-with-idisposable"></a><span data-ttu-id="8c831-226">Vyřazení komponenty pomocí rozhraní IDisposable</span><span class="sxs-lookup"><span data-stu-id="8c831-226">Component disposal with IDisposable</span></span>
+## <a name="component-disposal-with-idisposable"></a><span data-ttu-id="3c07e-228">Vyřazení komponenty pomocí rozhraní IDisposable</span><span class="sxs-lookup"><span data-stu-id="3c07e-228">Component disposal with IDisposable</span></span>
 
-<span data-ttu-id="8c831-227">Pokud komponenta implementuje <xref:System.IDisposable>, [metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) se volá, když je součást z uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="8c831-227">If a component implements <xref:System.IDisposable>, the [Dispose method](/dotnet/standard/garbage-collection/implementing-dispose) is called when the component is removed from the UI.</span></span> <span data-ttu-id="8c831-228">Používá následující komponenty `@implements IDisposable` a `Dispose` metody:</span><span class="sxs-lookup"><span data-stu-id="8c831-228">The following component uses `@implements IDisposable` and the `Dispose` method:</span></span>
+<span data-ttu-id="3c07e-229">Pokud komponenta implementuje <xref:System.IDisposable>, [metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) se volá, když je součást z uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="3c07e-229">If a component implements <xref:System.IDisposable>, the [Dispose method](/dotnet/standard/garbage-collection/implementing-dispose) is called when the component is removed from the UI.</span></span> <span data-ttu-id="3c07e-230">Používá následující komponenty `@implements IDisposable` a `Dispose` metody:</span><span class="sxs-lookup"><span data-stu-id="3c07e-230">The following component uses `@implements IDisposable` and the `Dispose` method:</span></span>
 
 ```csharp
 @using System
@@ -422,64 +430,64 @@ protected override bool ShouldRender()
 }
 ```
 
-## <a name="routing"></a><span data-ttu-id="8c831-229">Směrování</span><span class="sxs-lookup"><span data-stu-id="8c831-229">Routing</span></span>
+## <a name="routing"></a><span data-ttu-id="3c07e-231">Směrování</span><span class="sxs-lookup"><span data-stu-id="3c07e-231">Routing</span></span>
 
-<span data-ttu-id="8c831-230">Směrování v součástech Razor se dosahuje tím, že poskytuje šablona trasy pro jednotlivé dostupné komponenty v aplikaci.</span><span class="sxs-lookup"><span data-stu-id="8c831-230">Routing in Razor Components is achieved by providing a route template to each accessible component in the app.</span></span>
+<span data-ttu-id="3c07e-232">Směrování v součástech Razor se dosahuje tím, že poskytuje šablona trasy pro jednotlivé dostupné komponenty v aplikaci.</span><span class="sxs-lookup"><span data-stu-id="3c07e-232">Routing in Razor Components is achieved by providing a route template to each accessible component in the app.</span></span>
 
-<span data-ttu-id="8c831-231">Při *.cshtml* soubor s `@page` – direktiva je zkompilován, dostane generované třídy <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadání šablonu trasy.</span><span class="sxs-lookup"><span data-stu-id="8c831-231">When a *.cshtml* file with an `@page` directive is compiled, the generated class is given a <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> specifying the route template.</span></span> <span data-ttu-id="8c831-232">Za běhu, směrovač hledá komponentní třídy s `RouteAttribute` a vykreslí podle toho, která komponenta má šablona trasy, která odpovídá požadovanou adresu URL.</span><span class="sxs-lookup"><span data-stu-id="8c831-232">At runtime, the router looks for component classes with a `RouteAttribute` and renders whichever component has a route template that matches the requested URL.</span></span>
+<span data-ttu-id="3c07e-233">Při *.cshtml* soubor s `@page` – direktiva je zkompilován, dostane generované třídy <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadání šablonu trasy.</span><span class="sxs-lookup"><span data-stu-id="3c07e-233">When a *.cshtml* file with an `@page` directive is compiled, the generated class is given a <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> specifying the route template.</span></span> <span data-ttu-id="3c07e-234">Za běhu, směrovač hledá komponentní třídy s `RouteAttribute` a vykreslí podle toho, která komponenta má šablona trasy, která odpovídá požadovanou adresu URL.</span><span class="sxs-lookup"><span data-stu-id="3c07e-234">At runtime, the router looks for component classes with a `RouteAttribute` and renders whichever component has a route template that matches the requested URL.</span></span>
 
-<span data-ttu-id="8c831-233">Více šablon trasy můžete použít pro komponentu.</span><span class="sxs-lookup"><span data-stu-id="8c831-233">Multiple route templates can be applied to a component.</span></span> <span data-ttu-id="8c831-234">Následující komponenty jsou reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute`:</span><span class="sxs-lookup"><span data-stu-id="8c831-234">The following component responds to requests for `/BlazorRoute` and `/DifferentBlazorRoute`:</span></span>
+<span data-ttu-id="3c07e-235">Více šablon trasy můžete použít pro komponentu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-235">Multiple route templates can be applied to a component.</span></span> <span data-ttu-id="3c07e-236">Následující komponenty jsou reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute`:</span><span class="sxs-lookup"><span data-stu-id="3c07e-236">The following component responds to requests for `/BlazorRoute` and `/DifferentBlazorRoute`:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.cshtml?name=snippet_BlazorRoute)]
 
-## <a name="route-parameters"></a><span data-ttu-id="8c831-235">Parametry trasy</span><span class="sxs-lookup"><span data-stu-id="8c831-235">Route parameters</span></span>
+## <a name="route-parameters"></a><span data-ttu-id="3c07e-237">Parametry trasy</span><span class="sxs-lookup"><span data-stu-id="3c07e-237">Route parameters</span></span>
 
-<span data-ttu-id="8c831-236">Součásti mohou přijímat parametry trasy z šablonu trasy, které jsou součástí `@page` směrnice.</span><span class="sxs-lookup"><span data-stu-id="8c831-236">Components can receive route parameters from the route template provided in the `@page` directive.</span></span> <span data-ttu-id="8c831-237">Směrovač používá parametry trasy k naplnění odpovídající komponenta parametry.</span><span class="sxs-lookup"><span data-stu-id="8c831-237">The router uses route parameters to populate the corresponding component parameters.</span></span>
+<span data-ttu-id="3c07e-238">Součásti mohou přijímat parametry trasy z šablonu trasy, které jsou součástí `@page` směrnice.</span><span class="sxs-lookup"><span data-stu-id="3c07e-238">Components can receive route parameters from the route template provided in the `@page` directive.</span></span> <span data-ttu-id="3c07e-239">Směrovač používá parametry trasy k naplnění odpovídající komponenta parametry.</span><span class="sxs-lookup"><span data-stu-id="3c07e-239">The router uses route parameters to populate the corresponding component parameters.</span></span>
 
-<span data-ttu-id="8c831-238">*RouteParameter.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-238">*RouteParameter.cshtml*:</span></span>
+<span data-ttu-id="3c07e-240">*RouteParameter.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-240">*RouteParameter.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.cshtml?name=snippet_RouteParameter)]
 
-<span data-ttu-id="8c831-239">Volitelné parametry nejsou podporovány, tedy dvě `@page` direktivy se použijí v předchozím příkladu.</span><span class="sxs-lookup"><span data-stu-id="8c831-239">Optional parameters aren't supported, so two `@page` directives are applied in the example above.</span></span> <span data-ttu-id="8c831-240">První umožňuje přechod na komponenty bez parametrů.</span><span class="sxs-lookup"><span data-stu-id="8c831-240">The first permits navigation to the component without a parameter.</span></span> <span data-ttu-id="8c831-241">Druhá `@page` trvá – direktiva `{text}` parametr trasa a přiřadí hodnotu do proměnné `Text` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="8c831-241">The second `@page` directive takes the `{text}` route parameter and assigns the value to the `Text` property.</span></span>
+<span data-ttu-id="3c07e-241">Volitelné parametry nejsou podporovány, tedy dvě `@page` direktivy se použijí v předchozím příkladu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-241">Optional parameters aren't supported, so two `@page` directives are applied in the example above.</span></span> <span data-ttu-id="3c07e-242">První umožňuje přechod na komponenty bez parametrů.</span><span class="sxs-lookup"><span data-stu-id="3c07e-242">The first permits navigation to the component without a parameter.</span></span> <span data-ttu-id="3c07e-243">Druhá `@page` trvá – direktiva `{text}` parametr trasa a přiřadí hodnotu do proměnné `Text` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="3c07e-243">The second `@page` directive takes the `{text}` route parameter and assigns the value to the `Text` property.</span></span>
 
-## <a name="base-class-inheritance-for-a-code-behind-experience"></a><span data-ttu-id="8c831-242">Základní třída dědičnosti "použití modelu code-behind" prostředí</span><span class="sxs-lookup"><span data-stu-id="8c831-242">Base class inheritance for a "code-behind" experience</span></span>
+## <a name="base-class-inheritance-for-a-code-behind-experience"></a><span data-ttu-id="3c07e-244">Základní třída dědičnosti "použití modelu code-behind" prostředí</span><span class="sxs-lookup"><span data-stu-id="3c07e-244">Base class inheritance for a "code-behind" experience</span></span>
 
-<span data-ttu-id="8c831-243">Soubory komponent (*.cshtml*) kombinovat kód HTML a C# zpracování kódu ve stejném souboru.</span><span class="sxs-lookup"><span data-stu-id="8c831-243">Component files (*.cshtml*) mix HTML markup and C# processing code in the same file.</span></span> <span data-ttu-id="8c831-244">`@inherits` – Direktiva je možné poskytovat prostředí "použití modelu code-behind", který odděluje komponenty značek z zpracování kódu Razor součásti aplikace.</span><span class="sxs-lookup"><span data-stu-id="8c831-244">The `@inherits` directive can be used to provide Razor Components apps with a "code-behind" experience that separates component markup from processing code.</span></span>
+<span data-ttu-id="3c07e-245">Soubory komponent (*.cshtml*) kombinovat kód HTML a C# zpracování kódu ve stejném souboru.</span><span class="sxs-lookup"><span data-stu-id="3c07e-245">Component files (*.cshtml*) mix HTML markup and C# processing code in the same file.</span></span> <span data-ttu-id="3c07e-246">`@inherits` – Direktiva je možné poskytovat prostředí "použití modelu code-behind", který odděluje komponenty značek z zpracování kódu Razor součásti aplikace.</span><span class="sxs-lookup"><span data-stu-id="3c07e-246">The `@inherits` directive can be used to provide Razor Components apps with a "code-behind" experience that separates component markup from processing code.</span></span>
 
-<span data-ttu-id="8c831-245">[Ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ukazuje, jak komponenty může dědit základní třídy `BlazorRocksBase`, aby vznikl komponenty vlastnosti a metody.</span><span class="sxs-lookup"><span data-stu-id="8c831-245">The [sample app](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) shows how a component can inherit a base class, `BlazorRocksBase`, to provide the component's properties and methods.</span></span>
+<span data-ttu-id="3c07e-247">[Ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) ukazuje, jak komponenty může dědit základní třídy `BlazorRocksBase`, aby vznikl komponenty vlastnosti a metody.</span><span class="sxs-lookup"><span data-stu-id="3c07e-247">The [sample app](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-components/common/samples/) shows how a component can inherit a base class, `BlazorRocksBase`, to provide the component's properties and methods.</span></span>
 
-<span data-ttu-id="8c831-246">*BlazorRocks.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-246">*BlazorRocks.cshtml*:</span></span>
+<span data-ttu-id="3c07e-248">*BlazorRocks.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-248">*BlazorRocks.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRocks.cshtml?name=snippet_BlazorRocks)]
 
-<span data-ttu-id="8c831-247">*BlazorRocksBase.cs*:</span><span class="sxs-lookup"><span data-stu-id="8c831-247">*BlazorRocksBase.cs*:</span></span>
+<span data-ttu-id="3c07e-249">*BlazorRocksBase.cs*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-249">*BlazorRocksBase.cs*:</span></span>
 
 [!code-csharp[](common/samples/3.x/BlazorSample/Pages/BlazorRocksBase.cs)]
 
-<span data-ttu-id="8c831-248">Základní třída musí být odvozený z: `BlazorComponent`.</span><span class="sxs-lookup"><span data-stu-id="8c831-248">The base class should derive from `BlazorComponent`.</span></span>
+<span data-ttu-id="3c07e-250">Základní třída musí být odvozený z: `BlazorComponent`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-250">The base class should derive from `BlazorComponent`.</span></span>
 
-## <a name="razor-support"></a><span data-ttu-id="8c831-249">Podpora Razor</span><span class="sxs-lookup"><span data-stu-id="8c831-249">Razor support</span></span>
+## <a name="razor-support"></a><span data-ttu-id="3c07e-251">Podpora Razor</span><span class="sxs-lookup"><span data-stu-id="3c07e-251">Razor support</span></span>
 
-<span data-ttu-id="8c831-250">**Direktivy Razor**</span><span class="sxs-lookup"><span data-stu-id="8c831-250">**Razor directives**</span></span>
+<span data-ttu-id="3c07e-252">**Direktivy Razor**</span><span class="sxs-lookup"><span data-stu-id="3c07e-252">**Razor directives**</span></span>
 
-<span data-ttu-id="8c831-251">V následující tabulce jsou uvedeny direktivy Razor.</span><span class="sxs-lookup"><span data-stu-id="8c831-251">Razor directives are shown in the following table.</span></span>
+<span data-ttu-id="3c07e-253">V následující tabulce jsou uvedeny direktivy Razor.</span><span class="sxs-lookup"><span data-stu-id="3c07e-253">Razor directives are shown in the following table.</span></span>
 
-| <span data-ttu-id="8c831-252">– Direktiva</span><span class="sxs-lookup"><span data-stu-id="8c831-252">Directive</span></span> | <span data-ttu-id="8c831-253">Popis</span><span class="sxs-lookup"><span data-stu-id="8c831-253">Description</span></span> |
+| <span data-ttu-id="3c07e-254">– Direktiva</span><span class="sxs-lookup"><span data-stu-id="3c07e-254">Directive</span></span> | <span data-ttu-id="3c07e-255">Popis</span><span class="sxs-lookup"><span data-stu-id="3c07e-255">Description</span></span> |
 | --------- | ----------- |
-| [<span data-ttu-id="8c831-254">\@Funkce</span><span class="sxs-lookup"><span data-stu-id="8c831-254">\@functions</span></span>](xref:mvc/views/razor#section-5) | <span data-ttu-id="8c831-255">Přidá C# blok kódu na komponentu.</span><span class="sxs-lookup"><span data-stu-id="8c831-255">Adds a C# code block to a component.</span></span> |
-| `@implements` | <span data-ttu-id="8c831-256">Implementuje rozhraní pro třídu vygenerované komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-256">Implements an interface for the generated component class.</span></span> |
-| [<span data-ttu-id="8c831-257">\@inherits</span><span class="sxs-lookup"><span data-stu-id="8c831-257">\@inherits</span></span>](xref:mvc/views/razor#section-3) | <span data-ttu-id="8c831-258">Poskytuje plnou kontrolu nad třídu, která dědí komponentu.</span><span class="sxs-lookup"><span data-stu-id="8c831-258">Provides full control of the class that the component inherits.</span></span> |
-| [<span data-ttu-id="8c831-259">\@Vložení</span><span class="sxs-lookup"><span data-stu-id="8c831-259">\@inject</span></span>](xref:mvc/views/razor#section-4) | <span data-ttu-id="8c831-260">Vkládání ze služby umožňuje [kontejneru služby](xref:fundamentals/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="8c831-260">Enables service injection from the [service container](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="8c831-261">Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="8c831-261">For more information, see [Dependency injection into views](xref:mvc/views/dependency-injection).</span></span> |
-| `@layout` | <span data-ttu-id="8c831-262">Určuje komponentu rozložení.</span><span class="sxs-lookup"><span data-stu-id="8c831-262">Specifies a layout component.</span></span> <span data-ttu-id="8c831-263">Rozložení komponenty umožňují zabránit zdvojení kódu a nekonzistence.</span><span class="sxs-lookup"><span data-stu-id="8c831-263">Layout components are used to avoid code duplication and inconsistency.</span></span> |
-| [<span data-ttu-id="8c831-264">\@Stránka</span><span class="sxs-lookup"><span data-stu-id="8c831-264">\@page</span></span>](xref:razor-pages/index#razor-pages) | <span data-ttu-id="8c831-265">Určuje, že by měla komponenta zpracování požadavků přímo.</span><span class="sxs-lookup"><span data-stu-id="8c831-265">Specifies that the component should handle requests directly.</span></span> <span data-ttu-id="8c831-266">`@page` – Direktiva je možné zadat při trasy a volitelné parametry.</span><span class="sxs-lookup"><span data-stu-id="8c831-266">The `@page` directive can be specified with a route and optional parameters.</span></span> <span data-ttu-id="8c831-267">Na rozdíl od Razor Pages `@page` – direktiva nemusí být první – direktiva v horní části souboru.</span><span class="sxs-lookup"><span data-stu-id="8c831-267">Unlike Razor Pages, the `@page` directive doesn't need to be the first directive at the top of the file.</span></span> <span data-ttu-id="8c831-268">Další informace najdete v tématu [směrování](xref:razor-components/routing).</span><span class="sxs-lookup"><span data-stu-id="8c831-268">For more information, see [Routing](xref:razor-components/routing).</span></span> |
-| [<span data-ttu-id="8c831-269">\@použití</span><span class="sxs-lookup"><span data-stu-id="8c831-269">\@using</span></span>](xref:mvc/views/razor#using) | <span data-ttu-id="8c831-270">Přidá C# `using` směrnice do třídy vygenerované komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-270">Adds the C# `using` directive to the generated component class.</span></span> |
-| [<span data-ttu-id="8c831-271">\@addTagHelper</span><span class="sxs-lookup"><span data-stu-id="8c831-271">\@addTagHelper</span></span>](xref:mvc/views/razor#tag-helpers) | <span data-ttu-id="8c831-272">Použít `@addTagHelper` použít komponentu v jiném sestavení než sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="8c831-272">Use `@addTagHelper` to use a component in a different assembly than the app's assembly.</span></span> |
+| [<span data-ttu-id="3c07e-256">\@Funkce</span><span class="sxs-lookup"><span data-stu-id="3c07e-256">\@functions</span></span>](xref:mvc/views/razor#section-5) | <span data-ttu-id="3c07e-257">Přidá C# blok kódu na komponentu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-257">Adds a C# code block to a component.</span></span> |
+| `@implements` | <span data-ttu-id="3c07e-258">Implementuje rozhraní pro třídu vygenerované komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-258">Implements an interface for the generated component class.</span></span> |
+| [<span data-ttu-id="3c07e-259">\@inherits</span><span class="sxs-lookup"><span data-stu-id="3c07e-259">\@inherits</span></span>](xref:mvc/views/razor#section-3) | <span data-ttu-id="3c07e-260">Poskytuje plnou kontrolu nad třídu, která dědí komponentu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-260">Provides full control of the class that the component inherits.</span></span> |
+| [<span data-ttu-id="3c07e-261">\@Vložení</span><span class="sxs-lookup"><span data-stu-id="3c07e-261">\@inject</span></span>](xref:mvc/views/razor#section-4) | <span data-ttu-id="3c07e-262">Vkládání ze služby umožňuje [kontejneru služby](xref:fundamentals/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="3c07e-262">Enables service injection from the [service container](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="3c07e-263">Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="3c07e-263">For more information, see [Dependency injection into views](xref:mvc/views/dependency-injection).</span></span> |
+| `@layout` | <span data-ttu-id="3c07e-264">Určuje komponentu rozložení.</span><span class="sxs-lookup"><span data-stu-id="3c07e-264">Specifies a layout component.</span></span> <span data-ttu-id="3c07e-265">Rozložení komponenty umožňují zabránit zdvojení kódu a nekonzistence.</span><span class="sxs-lookup"><span data-stu-id="3c07e-265">Layout components are used to avoid code duplication and inconsistency.</span></span> |
+| [<span data-ttu-id="3c07e-266">\@Stránka</span><span class="sxs-lookup"><span data-stu-id="3c07e-266">\@page</span></span>](xref:razor-pages/index#razor-pages) | <span data-ttu-id="3c07e-267">Určuje, že by měla komponenta zpracování požadavků přímo.</span><span class="sxs-lookup"><span data-stu-id="3c07e-267">Specifies that the component should handle requests directly.</span></span> <span data-ttu-id="3c07e-268">`@page` – Direktiva je možné zadat při trasy a volitelné parametry.</span><span class="sxs-lookup"><span data-stu-id="3c07e-268">The `@page` directive can be specified with a route and optional parameters.</span></span> <span data-ttu-id="3c07e-269">Na rozdíl od Razor Pages `@page` – direktiva nemusí být první – direktiva v horní části souboru.</span><span class="sxs-lookup"><span data-stu-id="3c07e-269">Unlike Razor Pages, the `@page` directive doesn't need to be the first directive at the top of the file.</span></span> <span data-ttu-id="3c07e-270">Další informace najdete v tématu [směrování](xref:razor-components/routing).</span><span class="sxs-lookup"><span data-stu-id="3c07e-270">For more information, see [Routing](xref:razor-components/routing).</span></span> |
+| [<span data-ttu-id="3c07e-271">\@použití</span><span class="sxs-lookup"><span data-stu-id="3c07e-271">\@using</span></span>](xref:mvc/views/razor#using) | <span data-ttu-id="3c07e-272">Přidá C# `using` směrnice do třídy vygenerované komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-272">Adds the C# `using` directive to the generated component class.</span></span> |
+| [<span data-ttu-id="3c07e-273">\@addTagHelper</span><span class="sxs-lookup"><span data-stu-id="3c07e-273">\@addTagHelper</span></span>](xref:mvc/views/razor#tag-helpers) | <span data-ttu-id="3c07e-274">Použít `@addTagHelper` použít komponentu v jiném sestavení než sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="3c07e-274">Use `@addTagHelper` to use a component in a different assembly than the app's assembly.</span></span> |
 
-<span data-ttu-id="8c831-273">**Podmíněné atributy**</span><span class="sxs-lookup"><span data-stu-id="8c831-273">**Conditional attributes**</span></span>
+<span data-ttu-id="3c07e-275">**Podmíněné atributy**</span><span class="sxs-lookup"><span data-stu-id="3c07e-275">**Conditional attributes**</span></span>
 
-<span data-ttu-id="8c831-274">Atributy jsou vykreslovány podmíněně na základě hodnoty .NET.</span><span class="sxs-lookup"><span data-stu-id="8c831-274">Attributes are conditionally rendered based on the .NET value.</span></span> <span data-ttu-id="8c831-275">Pokud je hodnota `false` nebo `null`, atribut není vykreslen.</span><span class="sxs-lookup"><span data-stu-id="8c831-275">If the value is `false` or `null`,  the attribute isn't rendered.</span></span> <span data-ttu-id="8c831-276">Pokud je hodnota `true`, atribut je vykreslen minimalizovaný.</span><span class="sxs-lookup"><span data-stu-id="8c831-276">If the value is `true`, the attribute is rendered minimized.</span></span>
+<span data-ttu-id="3c07e-276">Atributy jsou vykreslovány podmíněně na základě hodnoty .NET.</span><span class="sxs-lookup"><span data-stu-id="3c07e-276">Attributes are conditionally rendered based on the .NET value.</span></span> <span data-ttu-id="3c07e-277">Pokud je hodnota `false` nebo `null`, atribut není vykreslen.</span><span class="sxs-lookup"><span data-stu-id="3c07e-277">If the value is `false` or `null`,  the attribute isn't rendered.</span></span> <span data-ttu-id="3c07e-278">Pokud je hodnota `true`, atribut je vykreslen minimalizovaný.</span><span class="sxs-lookup"><span data-stu-id="3c07e-278">If the value is `true`, the attribute is rendered minimized.</span></span>
 
-<span data-ttu-id="8c831-277">V následujícím příkladu `IsCompleted` Určuje, zda `checked` se vykreslí v značky ovládacího prvku:</span><span class="sxs-lookup"><span data-stu-id="8c831-277">In the following example, `IsCompleted` determines if `checked` is rendered in the control's markup:</span></span>
+<span data-ttu-id="3c07e-279">V následujícím příkladu `IsCompleted` Určuje, zda `checked` se vykreslí v značky ovládacího prvku:</span><span class="sxs-lookup"><span data-stu-id="3c07e-279">In the following example, `IsCompleted` determines if `checked` is rendered in the control's markup:</span></span>
 
 ```cshtml
 <input type="checkbox" checked="@IsCompleted" />
@@ -490,30 +498,30 @@ protected override bool ShouldRender()
 }
 ```
 
-<span data-ttu-id="8c831-278">Pokud `IsCompleted` je `true`, zaškrtněte políčko se vykreslí jako:</span><span class="sxs-lookup"><span data-stu-id="8c831-278">If `IsCompleted` is `true`, the check box is rendered as:</span></span>
+<span data-ttu-id="3c07e-280">Pokud `IsCompleted` je `true`, zaškrtněte políčko se vykreslí jako:</span><span class="sxs-lookup"><span data-stu-id="3c07e-280">If `IsCompleted` is `true`, the check box is rendered as:</span></span>
 
 ```html
 <input type="checkbox" checked />
 ```
 
-<span data-ttu-id="8c831-279">Pokud `IsCompleted` je `false`, zaškrtněte políčko se vykreslí jako:</span><span class="sxs-lookup"><span data-stu-id="8c831-279">If `IsCompleted` is `false`, the check box is rendered as:</span></span>
+<span data-ttu-id="3c07e-281">Pokud `IsCompleted` je `false`, zaškrtněte políčko se vykreslí jako:</span><span class="sxs-lookup"><span data-stu-id="3c07e-281">If `IsCompleted` is `false`, the check box is rendered as:</span></span>
 
 ```html
 <input type="checkbox" />
 ```
 
-<span data-ttu-id="8c831-280">**Další informace o syntaxi Razor**</span><span class="sxs-lookup"><span data-stu-id="8c831-280">**Additional information on Razor**</span></span>
+<span data-ttu-id="3c07e-282">**Další informace o syntaxi Razor**</span><span class="sxs-lookup"><span data-stu-id="3c07e-282">**Additional information on Razor**</span></span>
 
-<span data-ttu-id="8c831-281">Další informace o syntaxi Razor, najdete v článku [referenční příručka syntaxe Razor](xref:mvc/views/razor).</span><span class="sxs-lookup"><span data-stu-id="8c831-281">For more information on Razor, see the [Razor syntax reference](xref:mvc/views/razor).</span></span>
+<span data-ttu-id="3c07e-283">Další informace o syntaxi Razor, najdete v článku [referenční příručka syntaxe Razor](xref:mvc/views/razor).</span><span class="sxs-lookup"><span data-stu-id="3c07e-283">For more information on Razor, see the [Razor syntax reference](xref:mvc/views/razor).</span></span>
 
-## <a name="raw-html"></a><span data-ttu-id="8c831-282">Raw HTML</span><span class="sxs-lookup"><span data-stu-id="8c831-282">Raw HTML</span></span>
+## <a name="raw-html"></a><span data-ttu-id="3c07e-284">Raw HTML</span><span class="sxs-lookup"><span data-stu-id="3c07e-284">Raw HTML</span></span>
 
-<span data-ttu-id="8c831-283">Řetězce jsou obvykle vykreslen pomocí modelu DOM textové uzly, což znamená, že všechny značky, které mohou obsahovat je ignorována a považována jako prostý text.</span><span class="sxs-lookup"><span data-stu-id="8c831-283">Strings are normally rendered using DOM text nodes, which means that any markup they may contain is ignored and treated as literal text.</span></span> <span data-ttu-id="8c831-284">Pokud chcete zobrazit nezpracovaný kód HTML, zabalit obsah HTML v `MarkupString` hodnotu.</span><span class="sxs-lookup"><span data-stu-id="8c831-284">To render raw HTML, wrap the HTML content in a `MarkupString` value.</span></span> <span data-ttu-id="8c831-285">Hodnota je analyzovat ve formátu HTML nebo SVG a vložit do modelu DOM.</span><span class="sxs-lookup"><span data-stu-id="8c831-285">The value is parsed as HTML or SVG and inserted into the DOM.</span></span>
+<span data-ttu-id="3c07e-285">Řetězce jsou obvykle vykreslen pomocí modelu DOM textové uzly, což znamená, že všechny značky, které mohou obsahovat je ignorována a považována jako prostý text.</span><span class="sxs-lookup"><span data-stu-id="3c07e-285">Strings are normally rendered using DOM text nodes, which means that any markup they may contain is ignored and treated as literal text.</span></span> <span data-ttu-id="3c07e-286">Pokud chcete zobrazit nezpracovaný kód HTML, zabalit obsah HTML v `MarkupString` hodnotu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-286">To render raw HTML, wrap the HTML content in a `MarkupString` value.</span></span> <span data-ttu-id="3c07e-287">Hodnota je analyzovat ve formátu HTML nebo SVG a vložit do modelu DOM.</span><span class="sxs-lookup"><span data-stu-id="3c07e-287">The value is parsed as HTML or SVG and inserted into the DOM.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="8c831-286">Vykreslování nezpracovaný kód HTML vytvořený z libovolného nedůvěryhodný zdroj je **bezpečnostní riziko** a mělo by se vyhnout!</span><span class="sxs-lookup"><span data-stu-id="8c831-286">Rendering raw HTML constructed from any untrusted source is a **security risk** and should be avoided!</span></span>
+> <span data-ttu-id="3c07e-288">Vykreslování nezpracovaný kód HTML vytvořený z libovolného nedůvěryhodný zdroj je **bezpečnostní riziko** a mělo by se vyhnout!</span><span class="sxs-lookup"><span data-stu-id="3c07e-288">Rendering raw HTML constructed from any untrusted source is a **security risk** and should be avoided!</span></span>
 
-<span data-ttu-id="8c831-287">Následující příklad ukazuje použití `MarkupString` typu přidáte blok statického obsahu HTML vykresleného výstupu součásti:</span><span class="sxs-lookup"><span data-stu-id="8c831-287">The following example shows using the `MarkupString` type to add a block of static HTML content to the rendered output of a component:</span></span>
+<span data-ttu-id="3c07e-289">Následující příklad ukazuje použití `MarkupString` typu přidáte blok statického obsahu HTML vykresleného výstupu součásti:</span><span class="sxs-lookup"><span data-stu-id="3c07e-289">The following example shows using the `MarkupString` type to add a block of static HTML content to the rendered output of a component:</span></span>
 
 ```html
 @((MarkupString)myMarkup)
@@ -523,22 +531,22 @@ protected override bool ShouldRender()
 }
 ```
 
-## <a name="templated-components"></a><span data-ttu-id="8c831-288">Bez vizuálního vzhledu součásti</span><span class="sxs-lookup"><span data-stu-id="8c831-288">Templated components</span></span>
+## <a name="templated-components"></a><span data-ttu-id="3c07e-290">Bez vizuálního vzhledu součásti</span><span class="sxs-lookup"><span data-stu-id="3c07e-290">Templated components</span></span>
 
-<span data-ttu-id="8c831-289">Bez vizuálního vzhledu komponenty jsou součástí, které přijímají jeden nebo více šablon uživatelského rozhraní jako parametry, které lze použít jako součást logiky komponenty vykreslování.</span><span class="sxs-lookup"><span data-stu-id="8c831-289">Templated components are components that accept one or more UI templates as parameters, which can then be used as part of the component's rendering logic.</span></span> <span data-ttu-id="8c831-290">Bez vizuálního vzhledu komponenty umožňují vytvářet vyšší úrovně součásti, které jsou více než regulární komponenty opakovaně použitelné.</span><span class="sxs-lookup"><span data-stu-id="8c831-290">Templated components allow you to author higher-level components that are more reusable than regular components.</span></span> <span data-ttu-id="8c831-291">Zahrnují několik příkladů:</span><span class="sxs-lookup"><span data-stu-id="8c831-291">A couple of examples include:</span></span>
+<span data-ttu-id="3c07e-291">Bez vizuálního vzhledu komponenty jsou součástí, které přijímají jeden nebo více šablon uživatelského rozhraní jako parametry, které lze použít jako součást logiky komponenty vykreslování.</span><span class="sxs-lookup"><span data-stu-id="3c07e-291">Templated components are components that accept one or more UI templates as parameters, which can then be used as part of the component's rendering logic.</span></span> <span data-ttu-id="3c07e-292">Bez vizuálního vzhledu komponenty umožňují vytvářet vyšší úrovně součásti, které jsou více než regulární komponenty opakovaně použitelné.</span><span class="sxs-lookup"><span data-stu-id="3c07e-292">Templated components allow you to author higher-level components that are more reusable than regular components.</span></span> <span data-ttu-id="3c07e-293">Zahrnují několik příkladů:</span><span class="sxs-lookup"><span data-stu-id="3c07e-293">A couple of examples include:</span></span>
 
-* <span data-ttu-id="8c831-292">Komponenta tabulky, která umožňuje uživateli zadat šablony pro záhlaví tabulky, řádky a zápatí.</span><span class="sxs-lookup"><span data-stu-id="8c831-292">A table component that allows a user to specify templates for the table's header, rows, and footer.</span></span>
-* <span data-ttu-id="8c831-293">Seznam součástí, která umožňuje uživateli zadat šablonu pro vykreslování položky v seznamu.</span><span class="sxs-lookup"><span data-stu-id="8c831-293">A list component that allows a user to specify a template for rendering items in a list.</span></span>
+* <span data-ttu-id="3c07e-294">Komponenta tabulky, která umožňuje uživateli zadat šablony pro záhlaví tabulky, řádky a zápatí.</span><span class="sxs-lookup"><span data-stu-id="3c07e-294">A table component that allows a user to specify templates for the table's header, rows, and footer.</span></span>
+* <span data-ttu-id="3c07e-295">Seznam součástí, která umožňuje uživateli zadat šablonu pro vykreslování položky v seznamu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-295">A list component that allows a user to specify a template for rendering items in a list.</span></span>
 
-### <a name="template-parameters"></a><span data-ttu-id="8c831-294">Parametry šablony</span><span class="sxs-lookup"><span data-stu-id="8c831-294">Template parameters</span></span>
+### <a name="template-parameters"></a><span data-ttu-id="3c07e-296">Parametry šablony</span><span class="sxs-lookup"><span data-stu-id="3c07e-296">Template parameters</span></span>
 
-<span data-ttu-id="8c831-295">Bez vizuálního vzhledu součásti je definován tak, že zadáte jeden nebo více parametrů součást typu `RenderFragment` nebo `RenderFragment<T>`.</span><span class="sxs-lookup"><span data-stu-id="8c831-295">A templated component is defined by specifying one or more component parameters of type `RenderFragment` or `RenderFragment<T>`.</span></span> <span data-ttu-id="8c831-296">Vykreslení fragment reprezentuje segment, který uživatelského rozhraní, které je vykresleno komponentou.</span><span class="sxs-lookup"><span data-stu-id="8c831-296">A render fragment represents a segment of UI that is rendered by the component.</span></span> <span data-ttu-id="8c831-297">Vykreslení fragment volitelně přebírá parametr, který lze zadat, pokud je vyvolána fragment vykreslení.</span><span class="sxs-lookup"><span data-stu-id="8c831-297">A render fragment optionally takes a parameter that can be specified when the render fragment is invoked.</span></span>
+<span data-ttu-id="3c07e-297">Bez vizuálního vzhledu součásti je definován tak, že zadáte jeden nebo více parametrů součást typu `RenderFragment` nebo `RenderFragment<T>`.</span><span class="sxs-lookup"><span data-stu-id="3c07e-297">A templated component is defined by specifying one or more component parameters of type `RenderFragment` or `RenderFragment<T>`.</span></span> <span data-ttu-id="3c07e-298">Vykreslení fragment reprezentuje segment, který uživatelského rozhraní, které je vykresleno komponentou.</span><span class="sxs-lookup"><span data-stu-id="3c07e-298">A render fragment represents a segment of UI that is rendered by the component.</span></span> <span data-ttu-id="3c07e-299">Vykreslení fragment volitelně přebírá parametr, který lze zadat, pokud je vyvolána fragment vykreslení.</span><span class="sxs-lookup"><span data-stu-id="3c07e-299">A render fragment optionally takes a parameter that can be specified when the render fragment is invoked.</span></span>
 
-<span data-ttu-id="8c831-298">*Components/TableTemplate.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-298">*Components/TableTemplate.cshtml*:</span></span>
+<span data-ttu-id="3c07e-300">*Components/TableTemplate.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-300">*Components/TableTemplate.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/TableTemplate.cshtml)]
 
-<span data-ttu-id="8c831-299">Při použití komponenty bez vizuálního vzhledu, parametry šablony lze pomocí podřízené prvky, které odpovídají názvům parametry (`TableHeader` a `RowTemplate` v následujícím příkladu):</span><span class="sxs-lookup"><span data-stu-id="8c831-299">When using a templated component, the template parameters can be specified using child elements that match the names of the parameters (`TableHeader` and `RowTemplate` in the following example):</span></span>
+<span data-ttu-id="3c07e-301">Při použití komponenty bez vizuálního vzhledu, parametry šablony lze pomocí podřízené prvky, které odpovídají názvům parametry (`TableHeader` a `RowTemplate` v následujícím příkladu):</span><span class="sxs-lookup"><span data-stu-id="3c07e-301">When using a templated component, the template parameters can be specified using child elements that match the names of the parameters (`TableHeader` and `RowTemplate` in the following example):</span></span>
 
 ```cshtml
 <TableTemplate Items="@pets">
@@ -553,9 +561,9 @@ protected override bool ShouldRender()
 </TableTemplate>
 ```
 
-### <a name="template-context-parameters"></a><span data-ttu-id="8c831-300">Kontextové parametry šablony</span><span class="sxs-lookup"><span data-stu-id="8c831-300">Template context parameters</span></span>
+### <a name="template-context-parameters"></a><span data-ttu-id="3c07e-302">Kontextové parametry šablony</span><span class="sxs-lookup"><span data-stu-id="3c07e-302">Template context parameters</span></span>
 
-<span data-ttu-id="8c831-301">Komponenta argumenty typu `RenderFragment<T>` předaný jako elementy mají implicitní parametr s názvem `context` (například z předchozí příklad kódu `@context.PetId`), ale můžete změnit pomocí parametru název `Context` atribut na podřízené element.</span><span class="sxs-lookup"><span data-stu-id="8c831-301">Component arguments of type `RenderFragment<T>` passed as elements have an implicit parameter named `context` (for example from the preceding code sample, `@context.PetId`), but you can change the parameter name using the `Context` attribute on the child element.</span></span> <span data-ttu-id="8c831-302">V následujícím příkladu `RowTemplate` elementu `Context` Určuje atribut `pet` parametr:</span><span class="sxs-lookup"><span data-stu-id="8c831-302">In the following example, the `RowTemplate` element's `Context` attribute specifies the `pet` parameter:</span></span>
+<span data-ttu-id="3c07e-303">Komponenta argumenty typu `RenderFragment<T>` předaný jako elementy mají implicitní parametr s názvem `context` (například z předchozí příklad kódu `@context.PetId`), ale můžete změnit pomocí parametru název `Context` atribut na podřízené element.</span><span class="sxs-lookup"><span data-stu-id="3c07e-303">Component arguments of type `RenderFragment<T>` passed as elements have an implicit parameter named `context` (for example from the preceding code sample, `@context.PetId`), but you can change the parameter name using the `Context` attribute on the child element.</span></span> <span data-ttu-id="3c07e-304">V následujícím příkladu `RowTemplate` elementu `Context` Určuje atribut `pet` parametr:</span><span class="sxs-lookup"><span data-stu-id="3c07e-304">In the following example, the `RowTemplate` element's `Context` attribute specifies the `pet` parameter:</span></span>
 
 ```cshtml
 <TableTemplate Items="@pets">
@@ -570,7 +578,7 @@ protected override bool ShouldRender()
 </TableTemplate>
 ```
 
-<span data-ttu-id="8c831-303">Alternativně můžete zadat `Context` atribut na prvek součásti.</span><span class="sxs-lookup"><span data-stu-id="8c831-303">Alternatively, you can specify the `Context` attribute on the component element.</span></span> <span data-ttu-id="8c831-304">Zadaný `Context` atributu platí pro všechny parametry určené šablony.</span><span class="sxs-lookup"><span data-stu-id="8c831-304">The specified `Context` attribute applies to all specified template parameters.</span></span> <span data-ttu-id="8c831-305">To může být užitečné, pokud chcete zadat název obsahu parametru pro implicitní podřízený obsah (bez jakékoli zabalení podřízený element).</span><span class="sxs-lookup"><span data-stu-id="8c831-305">This can be useful when you want to specify the content parameter name for implicit child content (without any wrapping child element).</span></span> <span data-ttu-id="8c831-306">V následujícím příkladu `Context` atributu se zobrazí na `TableTemplate` elementu a platí pro všechny parametry šablony:</span><span class="sxs-lookup"><span data-stu-id="8c831-306">In the following example, the `Context` attribute appears on the `TableTemplate` element and applies to all template parameters:</span></span>
+<span data-ttu-id="3c07e-305">Alternativně můžete zadat `Context` atribut na prvek součásti.</span><span class="sxs-lookup"><span data-stu-id="3c07e-305">Alternatively, you can specify the `Context` attribute on the component element.</span></span> <span data-ttu-id="3c07e-306">Zadaný `Context` atributu platí pro všechny parametry určené šablony.</span><span class="sxs-lookup"><span data-stu-id="3c07e-306">The specified `Context` attribute applies to all specified template parameters.</span></span> <span data-ttu-id="3c07e-307">To může být užitečné, pokud chcete zadat název obsahu parametru pro implicitní podřízený obsah (bez jakékoli zabalení podřízený element).</span><span class="sxs-lookup"><span data-stu-id="3c07e-307">This can be useful when you want to specify the content parameter name for implicit child content (without any wrapping child element).</span></span> <span data-ttu-id="3c07e-308">V následujícím příkladu `Context` atributu se zobrazí na `TableTemplate` elementu a platí pro všechny parametry šablony:</span><span class="sxs-lookup"><span data-stu-id="3c07e-308">In the following example, the `Context` attribute appears on the `TableTemplate` element and applies to all template parameters:</span></span>
 
 ```cshtml
 <TableTemplate Items="@pets" Context="pet">
@@ -585,15 +593,15 @@ protected override bool ShouldRender()
 </TableTemplate>
 ```
 
-### <a name="generic-typed-components"></a><span data-ttu-id="8c831-307">Obecné typy komponenty</span><span class="sxs-lookup"><span data-stu-id="8c831-307">Generic-typed components</span></span>
+### <a name="generic-typed-components"></a><span data-ttu-id="3c07e-309">Obecné typy komponenty</span><span class="sxs-lookup"><span data-stu-id="3c07e-309">Generic-typed components</span></span>
 
-<span data-ttu-id="8c831-308">Bez vizuálního vzhledu součásti jsou často obecně typu.</span><span class="sxs-lookup"><span data-stu-id="8c831-308">Templated components are often generically typed.</span></span> <span data-ttu-id="8c831-309">Například komponentu obecného seznamu zobrazit šablonu můžete použít k vykreslení `IEnumerable<T>` hodnoty.</span><span class="sxs-lookup"><span data-stu-id="8c831-309">For example, a generic List View Template component can be used to render `IEnumerable<T>` values.</span></span> <span data-ttu-id="8c831-310">K definování obecné součásti, použijte `@typeparam` směrnice a určete parametry typu.</span><span class="sxs-lookup"><span data-stu-id="8c831-310">To define a generic component, use the `@typeparam` directive to specify type parameters.</span></span>
+<span data-ttu-id="3c07e-310">Bez vizuálního vzhledu součásti jsou často obecně typu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-310">Templated components are often generically typed.</span></span> <span data-ttu-id="3c07e-311">Například komponentu obecného seznamu zobrazit šablonu můžete použít k vykreslení `IEnumerable<T>` hodnoty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-311">For example, a generic List View Template component can be used to render `IEnumerable<T>` values.</span></span> <span data-ttu-id="3c07e-312">K definování obecné součásti, použijte `@typeparam` směrnice a určete parametry typu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-312">To define a generic component, use the `@typeparam` directive to specify type parameters.</span></span>
 
-<span data-ttu-id="8c831-311">*Components/ListViewTemplate.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-311">*Components/ListViewTemplate.cshtml*:</span></span>
+<span data-ttu-id="3c07e-313">*Components/ListViewTemplate.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-313">*Components/ListViewTemplate.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.cshtml?highlight=1)]
 
-<span data-ttu-id="8c831-312">Při použití komponenty obecného typu, parametr typu je odvozený Pokud je to možné:</span><span class="sxs-lookup"><span data-stu-id="8c831-312">When using generic-typed components, the type parameter is inferred if possible:</span></span>
+<span data-ttu-id="3c07e-314">Při použití komponenty obecného typu, parametr typu je odvozený Pokud je to možné:</span><span class="sxs-lookup"><span data-stu-id="3c07e-314">When using generic-typed components, the type parameter is inferred if possible:</span></span>
 
 ```cshtml
 <ListViewTemplate Items="@pets">
@@ -603,7 +611,7 @@ protected override bool ShouldRender()
 </ListViewTemplate>
 ```
 
-<span data-ttu-id="8c831-313">V opačném případě parametr typu musí být explicitně zadán pomocí atributu, který odpovídá názvu parametru typu.</span><span class="sxs-lookup"><span data-stu-id="8c831-313">Otherwise, the type parameter must be explicitly specified using an attribute that matches the name of the type parameter.</span></span> <span data-ttu-id="8c831-314">V následujícím příkladu `TItem="Pet"` Určuje typ:</span><span class="sxs-lookup"><span data-stu-id="8c831-314">In the following example, `TItem="Pet"` specifies the type:</span></span>
+<span data-ttu-id="3c07e-315">V opačném případě parametr typu musí být explicitně zadán pomocí atributu, který odpovídá názvu parametru typu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-315">Otherwise, the type parameter must be explicitly specified using an attribute that matches the name of the type parameter.</span></span> <span data-ttu-id="3c07e-316">V následujícím příkladu `TItem="Pet"` Určuje typ:</span><span class="sxs-lookup"><span data-stu-id="3c07e-316">In the following example, `TItem="Pet"` specifies the type:</span></span>
 
 ```cshtml
 <ListViewTemplate Items="@pets" TItem="Pet">
@@ -613,15 +621,15 @@ protected override bool ShouldRender()
 </ListViewTemplate>
 ```
 
-## <a name="cascading-values-and-parameters"></a><span data-ttu-id="8c831-315">Kaskádové hodnoty a parametry</span><span class="sxs-lookup"><span data-stu-id="8c831-315">Cascading values and parameters</span></span>
+## <a name="cascading-values-and-parameters"></a><span data-ttu-id="3c07e-317">Kaskádové hodnoty a parametry</span><span class="sxs-lookup"><span data-stu-id="3c07e-317">Cascading values and parameters</span></span>
 
-<span data-ttu-id="8c831-316">V některých případech je nevhodné toku dat z jako součást nadřazené komponenty potomka pomocí [parametry komponenty](#component-parameters), zvlášť pokud máte několik vrstev komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-316">In some scenarios, it's inconvenient to flow data from an ancestor component to a descendent component using [component parameters](#component-parameters), especially when there are several component layers.</span></span> <span data-ttu-id="8c831-317">Kaskádové hodnoty a parametry tento problém vyřešit tím, že poskytuje pohodlný způsob pro komponentu předchůdce k zadání hodnoty pro všechny jeho podřízené součásti.</span><span class="sxs-lookup"><span data-stu-id="8c831-317">Cascading values and parameters solve this problem by providing a convenient way for an ancestor component to provide a value to all of its descendent components.</span></span> <span data-ttu-id="8c831-318">Kaskádové hodnoty a parametry také poskytnout přístup pro součásti pro koordinaci.</span><span class="sxs-lookup"><span data-stu-id="8c831-318">Cascading values and parameters also provide an approach for components to coordinate.</span></span>
+<span data-ttu-id="3c07e-318">V některých případech je nevhodné toku dat z jako součást nadřazené komponenty potomka pomocí [parametry komponenty](#component-parameters), zvlášť pokud máte několik vrstev komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-318">In some scenarios, it's inconvenient to flow data from an ancestor component to a descendent component using [component parameters](#component-parameters), especially when there are several component layers.</span></span> <span data-ttu-id="3c07e-319">Kaskádové hodnoty a parametry tento problém vyřešit tím, že poskytuje pohodlný způsob pro komponentu předchůdce k zadání hodnoty pro všechny jeho podřízené součásti.</span><span class="sxs-lookup"><span data-stu-id="3c07e-319">Cascading values and parameters solve this problem by providing a convenient way for an ancestor component to provide a value to all of its descendent components.</span></span> <span data-ttu-id="3c07e-320">Kaskádové hodnoty a parametry také poskytnout přístup pro součásti pro koordinaci.</span><span class="sxs-lookup"><span data-stu-id="3c07e-320">Cascading values and parameters also provide an approach for components to coordinate.</span></span>
 
-### <a name="theme-example"></a><span data-ttu-id="8c831-319">Příklad motiv</span><span class="sxs-lookup"><span data-stu-id="8c831-319">Theme example</span></span>
+### <a name="theme-example"></a><span data-ttu-id="3c07e-321">Příklad motiv</span><span class="sxs-lookup"><span data-stu-id="3c07e-321">Theme example</span></span>
 
-<span data-ttu-id="8c831-320">V následujícím *motiv* příklad z ukázkové aplikace `ThemeInfo` třída určuje informace o motivech tok součástí hierarchií směrem dolů, aby všechna tlačítka v rámci dané části aplikace sdílet stejný styl.</span><span class="sxs-lookup"><span data-stu-id="8c831-320">In the following *Theme* example from the sample app, the `ThemeInfo` class specifies the theme information to flow down the component hierarchy so that all of the buttons within a given part of the app share the same style.</span></span>
+<span data-ttu-id="3c07e-322">V následujícím *motiv* příklad z ukázkové aplikace `ThemeInfo` třída určuje informace o motivech tok součástí hierarchií směrem dolů, aby všechna tlačítka v rámci dané části aplikace sdílet stejný styl.</span><span class="sxs-lookup"><span data-stu-id="3c07e-322">In the following *Theme* example from the sample app, the `ThemeInfo` class specifies the theme information to flow down the component hierarchy so that all of the buttons within a given part of the app share the same style.</span></span>
 
-<span data-ttu-id="8c831-321">*UIThemeClasses/ThemeInfo.cs*:</span><span class="sxs-lookup"><span data-stu-id="8c831-321">*UIThemeClasses/ThemeInfo.cs*:</span></span>
+<span data-ttu-id="3c07e-323">*UIThemeClasses/ThemeInfo.cs*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-323">*UIThemeClasses/ThemeInfo.cs*:</span></span>
 
 ```csharp
 public class ThemeInfo
@@ -630,11 +638,11 @@ public class ThemeInfo
 }
 ```
 
-<span data-ttu-id="8c831-322">Jako součást předchůdce může poskytnout kaskádové hodnotu pomocí komponenty kaskádové hodnotu.</span><span class="sxs-lookup"><span data-stu-id="8c831-322">An ancestor component can provide a cascading value using the Cascading Value component.</span></span> <span data-ttu-id="8c831-323">Součást CSS hodnoty zabalí podstrom součástí hierarchie a poskytuje jednu hodnotu pro všechny komponenty v rámci této podstrom.</span><span class="sxs-lookup"><span data-stu-id="8c831-323">The Cascading Value component wraps a subtree of the component hierarchy and supplies a single value to all components within that subtree.</span></span>
+<span data-ttu-id="3c07e-324">Jako součást předchůdce může poskytnout kaskádové hodnotu pomocí komponenty kaskádové hodnotu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-324">An ancestor component can provide a cascading value using the Cascading Value component.</span></span> <span data-ttu-id="3c07e-325">Součást CSS hodnoty zabalí podstrom součástí hierarchie a poskytuje jednu hodnotu pro všechny komponenty v rámci této podstrom.</span><span class="sxs-lookup"><span data-stu-id="3c07e-325">The Cascading Value component wraps a subtree of the component hierarchy and supplies a single value to all components within that subtree.</span></span>
 
-<span data-ttu-id="8c831-324">Například ukázkové aplikace určuje informace o motivech (`ThemeInfo`) v jednom z rozložení aplikace jako parametr šablony pro všechny součásti, které tvoří rozložení textu `@Body` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="8c831-324">For example, the sample app specifies theme information (`ThemeInfo`) in one of the app's layouts as a cascading parameter for all components that make up the layout body of the `@Body` property.</span></span> <span data-ttu-id="8c831-325">`ButtonClass` je přiřazena hodnota `btn-success` v komponentě rozložení.</span><span class="sxs-lookup"><span data-stu-id="8c831-325">`ButtonClass` is assigned a value of `btn-success` in the layout component.</span></span> <span data-ttu-id="8c831-326">Všechny podřízené součásti mohou využívat tuto vlastnost prostřednictvím `ThemeInfo` šablony objektu.</span><span class="sxs-lookup"><span data-stu-id="8c831-326">Any descendent component can consume this property through the `ThemeInfo` cascading object.</span></span>
+<span data-ttu-id="3c07e-326">Například ukázkové aplikace určuje informace o motivech (`ThemeInfo`) v jednom z rozložení aplikace jako parametr šablony pro všechny součásti, které tvoří rozložení textu `@Body` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="3c07e-326">For example, the sample app specifies theme information (`ThemeInfo`) in one of the app's layouts as a cascading parameter for all components that make up the layout body of the `@Body` property.</span></span> <span data-ttu-id="3c07e-327">`ButtonClass` je přiřazena hodnota `btn-success` v komponentě rozložení.</span><span class="sxs-lookup"><span data-stu-id="3c07e-327">`ButtonClass` is assigned a value of `btn-success` in the layout component.</span></span> <span data-ttu-id="3c07e-328">Všechny podřízené součásti mohou využívat tuto vlastnost prostřednictvím `ThemeInfo` šablony objektu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-328">Any descendent component can consume this property through the `ThemeInfo` cascading object.</span></span>
 
-<span data-ttu-id="8c831-327">*Shared/CascadingValuesParametersLayout.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-327">*Shared/CascadingValuesParametersLayout.cshtml*:</span></span>
+<span data-ttu-id="3c07e-329">*Shared/CascadingValuesParametersLayout.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-329">*Shared/CascadingValuesParametersLayout.cshtml*:</span></span>
 
 ```cshtml
 @inherits LayoutComponentBase
@@ -660,7 +668,7 @@ public class ThemeInfo
 }
 ```
 
-<span data-ttu-id="8c831-328">Chcete-li pomocí kaskádových hodnot, komponenty deklarovat kaskádové parametry s využitím `[CascadingParameter]` atribut nebo na základě hodnoty názvu řetězec:</span><span class="sxs-lookup"><span data-stu-id="8c831-328">To make use of cascading values, components declare cascading parameters using the `[CascadingParameter]` attribute or based on a string name value:</span></span>
+<span data-ttu-id="3c07e-330">Chcete-li pomocí kaskádových hodnot, komponenty deklarovat kaskádové parametry s využitím `[CascadingParameter]` atribut nebo na základě hodnoty názvu řetězec:</span><span class="sxs-lookup"><span data-stu-id="3c07e-330">To make use of cascading values, components declare cascading parameters using the `[CascadingParameter]` attribute or based on a string name value:</span></span>
 
 ```cshtml
 <CascadingValue Value=@PermInfo Name="UserPermissions">...</CascadingValue>
@@ -668,13 +676,13 @@ public class ThemeInfo
 [CascadingParameter(Name = "UserPermissions")] PermInfo Permissions { get; set; }
 ```
 
-<span data-ttu-id="8c831-329">Vazba s hodnotou řetězce názvu platí, pokud máte více kaskádových hodnot stejného typu a pro jejich odlišení v rámci stejné podstrom.</span><span class="sxs-lookup"><span data-stu-id="8c831-329">Binding with a string name value is relevant if you have multiple cascading values of the same type and need to differentiate them within the same subtree.</span></span>
+<span data-ttu-id="3c07e-331">Vazba s hodnotou řetězce názvu platí, pokud máte více kaskádových hodnot stejného typu a pro jejich odlišení v rámci stejné podstrom.</span><span class="sxs-lookup"><span data-stu-id="3c07e-331">Binding with a string name value is relevant if you have multiple cascading values of the same type and need to differentiate them within the same subtree.</span></span>
 
-<span data-ttu-id="8c831-330">Kaskádové hodnoty se váží k parametrům šablony podle typu.</span><span class="sxs-lookup"><span data-stu-id="8c831-330">Cascading values are bound to cascading parameters by type.</span></span>
+<span data-ttu-id="3c07e-332">Kaskádové hodnoty se váží k parametrům šablony podle typu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-332">Cascading values are bound to cascading parameters by type.</span></span>
 
-<span data-ttu-id="8c831-331">V ukázkové aplikaci, komponentě CSS motiv hodnoty parametrů vytvoří vazbu `ThemeInfo` kaskádové hodnotu pro parametr šablony.</span><span class="sxs-lookup"><span data-stu-id="8c831-331">In the sample app, the Cascading Values Parameters Theme component binds to the `ThemeInfo` cascading value to a cascading parameter.</span></span> <span data-ttu-id="8c831-332">Tento parametr se používá nastavení třídy šablony stylů CSS pro jedno z tlačítek zobrazí komponentou.</span><span class="sxs-lookup"><span data-stu-id="8c831-332">The parameter is used to set the CSS class for one of the buttons displayed by the component.</span></span>
+<span data-ttu-id="3c07e-333">V ukázkové aplikaci, komponentě CSS motiv hodnoty parametrů vytvoří vazbu `ThemeInfo` kaskádové hodnotu pro parametr šablony.</span><span class="sxs-lookup"><span data-stu-id="3c07e-333">In the sample app, the Cascading Values Parameters Theme component binds to the `ThemeInfo` cascading value to a cascading parameter.</span></span> <span data-ttu-id="3c07e-334">Tento parametr se používá nastavení třídy šablony stylů CSS pro jedno z tlačítek zobrazí komponentou.</span><span class="sxs-lookup"><span data-stu-id="3c07e-334">The parameter is used to set the CSS class for one of the buttons displayed by the component.</span></span>
 
-<span data-ttu-id="8c831-333">*Pages/CascadingValuesParametersTheme.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-333">*Pages/CascadingValuesParametersTheme.cshtml*:</span></span>
+<span data-ttu-id="3c07e-335">*Pages/CascadingValuesParametersTheme.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-335">*Pages/CascadingValuesParametersTheme.cshtml*:</span></span>
 
 ```cshtml
 @page "/cascadingvaluesparameterstheme"
@@ -709,41 +717,41 @@ public class ThemeInfo
 }
 ```
 
-### <a name="tabset-example"></a><span data-ttu-id="8c831-334">Příklad TabSet</span><span class="sxs-lookup"><span data-stu-id="8c831-334">TabSet example</span></span>
+### <a name="tabset-example"></a><span data-ttu-id="3c07e-336">Příklad TabSet</span><span class="sxs-lookup"><span data-stu-id="3c07e-336">TabSet example</span></span>
 
-<span data-ttu-id="8c831-335">Parametry šablony také povolit součásti spolupracovat napříč hierarchií komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-335">Cascading parameters also enable components to collaborate across the component hierarchy.</span></span> <span data-ttu-id="8c831-336">Představte si třeba následující *TabSet* příklad v ukázkové aplikaci.</span><span class="sxs-lookup"><span data-stu-id="8c831-336">For example, consider the following *TabSet* example in the sample app.</span></span>
+<span data-ttu-id="3c07e-337">Parametry šablony také povolit součásti spolupracovat napříč hierarchií komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-337">Cascading parameters also enable components to collaborate across the component hierarchy.</span></span> <span data-ttu-id="3c07e-338">Představte si třeba následující *TabSet* příklad v ukázkové aplikaci.</span><span class="sxs-lookup"><span data-stu-id="3c07e-338">For example, consider the following *TabSet* example in the sample app.</span></span>
 
-<span data-ttu-id="8c831-337">Ukázková aplikace má `ITab` rozhraní, které karty implementace:</span><span class="sxs-lookup"><span data-stu-id="8c831-337">The sample app has an `ITab` interface that tabs implement:</span></span>
+<span data-ttu-id="3c07e-339">Ukázková aplikace má `ITab` rozhraní, které karty implementace:</span><span class="sxs-lookup"><span data-stu-id="3c07e-339">The sample app has an `ITab` interface that tabs implement:</span></span>
 
 [!code-cs[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
 
-<span data-ttu-id="8c831-338">Komponenta CSS hodnoty parametrů TabSet používá součásti záložku, která obsahuje několik komponent kartu:</span><span class="sxs-lookup"><span data-stu-id="8c831-338">The Cascading Values Parameters TabSet component uses the Tab Set component, which contains several Tab components:</span></span>
+<span data-ttu-id="3c07e-340">Komponenta CSS hodnoty parametrů TabSet používá součásti záložku, která obsahuje několik komponent kartu:</span><span class="sxs-lookup"><span data-stu-id="3c07e-340">The Cascading Values Parameters TabSet component uses the Tab Set component, which contains several Tab components:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.cshtml?name=snippet_TabSet)]
 
-<span data-ttu-id="8c831-339">Podřízené kartu komponenty nejsou explicitně předány jako parametry na kartě nastavení.</span><span class="sxs-lookup"><span data-stu-id="8c831-339">The child Tab components aren't explicitly passed as parameters to the Tab Set.</span></span> <span data-ttu-id="8c831-340">Místo toho podřízené kartu komponenty jsou součástí podřízenému obsahu ovládacího prvku na kartě nastavení.</span><span class="sxs-lookup"><span data-stu-id="8c831-340">Instead, the child Tab components are part of the child content of the Tab Set.</span></span> <span data-ttu-id="8c831-341">Však nastavení kartu stále potřebuje vědět o jednotlivých součástech kartu tak, aby ho může mít za následek záhlaví a na aktivní kartě. Povolit koordinace bez potřeby dalšího kódu, nastavte kartu komponenty *samotný můžete zadat jako hodnotu kaskádové* , který se potom vybere potomka kartu komponenty.</span><span class="sxs-lookup"><span data-stu-id="8c831-341">However, the Tab Set still needs to know about each Tab component so that it can render the headers and the active tab. To enable this coordination without requiring additional code, the Tab Set component *can provide itself as a cascading value* that is then picked up by the descendent Tab components.</span></span>
+<span data-ttu-id="3c07e-341">Podřízené kartu komponenty nejsou explicitně předány jako parametry na kartě nastavení.</span><span class="sxs-lookup"><span data-stu-id="3c07e-341">The child Tab components aren't explicitly passed as parameters to the Tab Set.</span></span> <span data-ttu-id="3c07e-342">Místo toho podřízené kartu komponenty jsou součástí podřízenému obsahu ovládacího prvku na kartě nastavení.</span><span class="sxs-lookup"><span data-stu-id="3c07e-342">Instead, the child Tab components are part of the child content of the Tab Set.</span></span> <span data-ttu-id="3c07e-343">Však nastavení kartu stále potřebuje vědět o jednotlivých součástech kartu tak, aby ho může mít za následek záhlaví a na aktivní kartě. Povolit koordinace bez potřeby dalšího kódu, nastavte kartu komponenty *samotný můžete zadat jako hodnotu kaskádové* , který se potom vybere potomka kartu komponenty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-343">However, the Tab Set still needs to know about each Tab component so that it can render the headers and the active tab. To enable this coordination without requiring additional code, the Tab Set component *can provide itself as a cascading value* that is then picked up by the descendent Tab components.</span></span>
 
-<span data-ttu-id="8c831-342">*Components/TabSet.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-342">*Components/TabSet.cshtml*:</span></span>
+<span data-ttu-id="3c07e-344">*Components/TabSet.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-344">*Components/TabSet.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/TabSet.cshtml)]
 
-<span data-ttu-id="8c831-343">Podřízené součásti zachycení kartu obsahující kartu nastavit jako parametr šablony, karta součásti přidaly na kartu Nastavení a souřadnice na které kartě je aktivní.</span><span class="sxs-lookup"><span data-stu-id="8c831-343">The descendent Tab components capture the containing Tab Set as a cascading parameter, so the Tab components add themselves to the Tab Set and coordinate on which tab is active.</span></span>
+<span data-ttu-id="3c07e-345">Podřízené součásti zachycení kartu obsahující kartu nastavit jako parametr šablony, karta součásti přidaly na kartu Nastavení a souřadnice na které kartě je aktivní.</span><span class="sxs-lookup"><span data-stu-id="3c07e-345">The descendent Tab components capture the containing Tab Set as a cascading parameter, so the Tab components add themselves to the Tab Set and coordinate on which tab is active.</span></span>
 
-<span data-ttu-id="8c831-344">*Components/Tab.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-344">*Components/Tab.cshtml*:</span></span>
+<span data-ttu-id="3c07e-346">*Components/Tab.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-346">*Components/Tab.cshtml*:</span></span>
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/Tab.cshtml)]
 
-## <a name="razor-templates"></a><span data-ttu-id="8c831-345">Šablony Razor</span><span class="sxs-lookup"><span data-stu-id="8c831-345">Razor templates</span></span>
+## <a name="razor-templates"></a><span data-ttu-id="3c07e-347">Šablony Razor</span><span class="sxs-lookup"><span data-stu-id="3c07e-347">Razor templates</span></span>
 
-<span data-ttu-id="8c831-346">Vykreslení fragmenty lze definovat pomocí syntaxe šablon Razor.</span><span class="sxs-lookup"><span data-stu-id="8c831-346">Render fragments can be defined using Razor template syntax.</span></span> <span data-ttu-id="8c831-347">Šablony Razor představují způsob, jak definovat fragment kódu uživatelského rozhraní a předpokládají následující formát:</span><span class="sxs-lookup"><span data-stu-id="8c831-347">Razor templates are a way to define a UI snippet and assume the following format:</span></span>
+<span data-ttu-id="3c07e-348">Vykreslení fragmenty lze definovat pomocí syntaxe šablon Razor.</span><span class="sxs-lookup"><span data-stu-id="3c07e-348">Render fragments can be defined using Razor template syntax.</span></span> <span data-ttu-id="3c07e-349">Šablony Razor představují způsob, jak definovat fragment kódu uživatelského rozhraní a předpokládají následující formát:</span><span class="sxs-lookup"><span data-stu-id="3c07e-349">Razor templates are a way to define a UI snippet and assume the following format:</span></span>
 
 ```cshtml
 @<tag>...</tag>
 ```
 
-<span data-ttu-id="8c831-348">Následující příklad ukazuje, jak určit `RenderFragment` a `RenderFragment<T>` hodnoty.</span><span class="sxs-lookup"><span data-stu-id="8c831-348">The following example illustrates how to specify `RenderFragment` and `RenderFragment<T>` values.</span></span>
+<span data-ttu-id="3c07e-350">Následující příklad ukazuje, jak určit `RenderFragment` a `RenderFragment<T>` hodnoty.</span><span class="sxs-lookup"><span data-stu-id="3c07e-350">The following example illustrates how to specify `RenderFragment` and `RenderFragment<T>` values.</span></span>
 
-<span data-ttu-id="8c831-349">*RazorTemplates.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="8c831-349">*RazorTemplates.cshtml*:</span></span>
+<span data-ttu-id="3c07e-351">*RazorTemplates.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="3c07e-351">*RazorTemplates.cshtml*:</span></span>
 
 ```cshtml
 @{
@@ -752,7 +760,7 @@ public class ThemeInfo
 }
 ```
 
-<span data-ttu-id="8c831-350">Vykreslení fragmenty definované pomocí syntaxe Razor šablony mohou být předány jako argumenty bez vizuálního vzhledu součásti nebo vykresluje přímo.</span><span class="sxs-lookup"><span data-stu-id="8c831-350">Render fragments defined using Razor templates can be passed as arguments to templated components or rendered directly.</span></span> <span data-ttu-id="8c831-351">Předchozí šablony jsou přímo vykreslí následujícím kódem Razor:</span><span class="sxs-lookup"><span data-stu-id="8c831-351">For example, the previous templates are directly rendered with the following Razor markup:</span></span>
+<span data-ttu-id="3c07e-352">Vykreslení fragmenty definované pomocí syntaxe Razor šablony mohou být předány jako argumenty bez vizuálního vzhledu součásti nebo vykresluje přímo.</span><span class="sxs-lookup"><span data-stu-id="3c07e-352">Render fragments defined using Razor templates can be passed as arguments to templated components or rendered directly.</span></span> <span data-ttu-id="3c07e-353">Předchozí šablony jsou přímo vykreslí následujícím kódem Razor:</span><span class="sxs-lookup"><span data-stu-id="3c07e-353">For example, the previous templates are directly rendered with the following Razor markup:</span></span>
 
 ```cshtml
 @template
@@ -760,10 +768,66 @@ public class ThemeInfo
 @petTemplate(new Pet { Name = "Rex" })
 ```
 
-<span data-ttu-id="8c831-352">Vykresleného výstupu:</span><span class="sxs-lookup"><span data-stu-id="8c831-352">Rendered output:</span></span>
+<span data-ttu-id="3c07e-354">Vykresleného výstupu:</span><span class="sxs-lookup"><span data-stu-id="3c07e-354">Rendered output:</span></span>
 
 ```
 The time is 10/04/2018 01:26:52.
 
 Your pet's name is Rex.
+```
+
+## <a name="manual-rendertreebuilder-logic"></a><span data-ttu-id="3c07e-355">Ruční RenderTreeBuilder logiky</span><span class="sxs-lookup"><span data-stu-id="3c07e-355">Manual RenderTreeBuilder logic</span></span>
+
+<span data-ttu-id="3c07e-356">`Microsoft.AspNetCore.Components.RenderTree` poskytuje metody pro manipulaci s komponentami a prvky, včetně sestavení součástí ručně v C# kódu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-356">`Microsoft.AspNetCore.Components.RenderTree` provides methods for manipulating components and elements, including building components manually in C# code.</span></span>
+
+> [!NOTE]
+> <span data-ttu-id="3c07e-357">Použití `RenderTreeBuilder` vytváření komponent je pokročilý scénář.</span><span class="sxs-lookup"><span data-stu-id="3c07e-357">Use of `RenderTreeBuilder` to create components is an advanced scenario.</span></span> <span data-ttu-id="3c07e-358">Poškozená součásti (například značku neuzavřený značek) může způsobit nedefinované chování.</span><span class="sxs-lookup"><span data-stu-id="3c07e-358">A malformed component (for example, an unclosed markup tag) can result in undefined behavior.</span></span>
+
+<span data-ttu-id="3c07e-359">Vezměte v úvahu následující komponenty domácí mazlíček podrobnosti (*PetDetails.razor* součástí Razor; *PetDetails.cshtml* v Blazor), které ručně se dají do jiné součásti:</span><span class="sxs-lookup"><span data-stu-id="3c07e-359">Consider the following Pet Details component (*PetDetails.razor* in Razor Components; *PetDetails.cshtml* in Blazor), which can be manually built into another component:</span></span>
+
+```cshtml
+<h2>Pet Details Component</h2>
+
+<p>@PetDetailsQuote<p>
+
+@functions
+{
+    [Parameter]
+    string PetDetailsQuote { get; set; }
+}
+```
+
+<span data-ttu-id="3c07e-360">V následujícím příkladu, smyčky v `CreateComponent` metoda generuje tři komponenty domácí mazlíček podrobnosti.</span><span class="sxs-lookup"><span data-stu-id="3c07e-360">In the following example, the loop in the `CreateComponent` method generates three Pet Details components.</span></span> <span data-ttu-id="3c07e-361">Při volání metody `RenderTreeBuilder` metody vytvoření součásti (`OpenComponent` a `AddAttribute`), pořadová čísla jsou čísla řádků zdrojového kódu.</span><span class="sxs-lookup"><span data-stu-id="3c07e-361">When calling `RenderTreeBuilder` methods to create the components (`OpenComponent` and `AddAttribute`), sequence numbers are source code line numbers.</span></span> <span data-ttu-id="3c07e-362">Razor komponenty, které algoritmus rozdíl spoléhá na pořadová čísla odpovídající na různé řádky kódu, nikoli odlišné volání volání.</span><span class="sxs-lookup"><span data-stu-id="3c07e-362">The Razor Components difference algorithm relies on the sequence numbers corresponding to distinct lines of code, not distinct call invocations.</span></span> <span data-ttu-id="3c07e-363">Při vytváření komponent pomocí `RenderTreeBuilder` metody, pevně argumenty pořadová čísla.</span><span class="sxs-lookup"><span data-stu-id="3c07e-363">When creating a component with `RenderTreeBuilder` methods, hardcode the arguments for sequence numbers.</span></span> <span data-ttu-id="3c07e-364">**Použití výpočtu nebo čítače k vygenerování pořadové číslo může vést ke špatnému výkonu.**</span><span class="sxs-lookup"><span data-stu-id="3c07e-364">**Using a calculation or counter to generate the sequence number can lead to poor performance.**</span></span>
+
+<span data-ttu-id="3c07e-365">Integrované komponenty (*BuiltContent.razor* součástí Razor; *BuiltContent.cshtml* v Blazor):</span><span class="sxs-lookup"><span data-stu-id="3c07e-365">Built component (*BuiltContent.razor* in Razor Components; *BuiltContent.cshtml* in Blazor):</span></span>
+
+```cshtml
+@page "/BuiltContent"
+
+<h1>Build a component</h1>
+
+@CustomRender
+
+<button type="button" onclick="@RenderComponent">
+    Create three Pet Details components
+</button>
+
+@functions {
+    RenderFragment CustomRender { get; set; }
+    
+    RenderFragment CreateComponent() => builder =>
+    {
+        for (var i = 0; i < 3; i++) 
+        {
+            builder.OpenComponent(0, typeof(PetDetails));
+            builder.AddAttribute(1, "PetDetailsQuote", "Someone's best friend!");
+            builder.CloseComponent();
+        }
+    };    
+    
+    void RenderComponent()
+    {
+        CustomRender = CreateComponent();
+    }
+}
 ```
