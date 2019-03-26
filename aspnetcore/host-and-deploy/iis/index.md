@@ -4,7 +4,7 @@ author: guardrex
 description: 'Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/21/2019
+ms.date: 03/23/2019
 uid: host-and-deploy/iis/index
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
@@ -269,6 +269,8 @@ Nainstalujte *sady hostování rozhraní .NET Core* v hostitelském systému. Na
 
 > [!IMPORTANT]
 > Pokud před službou IIS instalovanou sadou hostování, je nutné opravit instalaci sady. Spusťte instalační program sady hostování znovu po instalaci služby IIS.
+>
+> Pokud po instalaci 64bitovou (x 64) verzi .NET Core instalovanou sadou hostování, sady SDK se může zdát chybí ([nebyly zjištěny žádné .NET Core SDK](xref:test/troubleshoot#no-net-core-sdks-were-detected)). Chcete-li vyřešit tento problém, naleznete v tématu <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>.
 
 ### <a name="direct-download-current-version"></a>Přímé stažení (aktuální verze)
 

@@ -3,14 +3,14 @@ title: Úvod do Identity v ASP.NET Core
 author: rick-anderson
 description: Pomocí Identity aplikace v ASP.NET Core. Zjistěte, jak nastavit požadavky na heslo (RequireDigit RequiredLength, RequiredUniqueChars a další).
 ms.author: riande
-ms.date: 08/08/2018
+ms.date: 03/26/2019
 uid: security/authentication/identity
-ms.openlocfilehash: 355c53e0c957944cb35c37c6b01e724af5f93f44
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: efe8119c2d18db50dce3df57fa0e300d0d0df2cd
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265474"
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488670"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>Úvod do Identity v ASP.NET Core
 
@@ -64,6 +64,24 @@ Generovaný projekt poskytuje [ASP.NET Core Identity](xref:security/authenticati
 * / Identity / / přihlášení k účtu
 * / Identity/účet a odhlášení
 * / Identity/účet a spravovat
+
+### <a name="apply-migrations"></a>Použití migrace
+
+Použití migrace inicializovat databázi.
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+Spuštěním následujícího příkazu v konzole Správce balíčků (PMC):
+
+```PM> Update-Database```
+
+# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+
+```cli
+dotnet ef database update
+```
+
+---
 
 ### <a name="test-register-and-login"></a>Test registrace a přihlášení
 

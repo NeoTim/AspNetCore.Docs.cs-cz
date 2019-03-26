@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: Pochopení a odstraňování potíží upozornění a chyby s projekty ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/26/2019
+ms.date: 03/13/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 1f53375a6aa504c989920a0bff83b400b7bd83ec
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 3d755b2f0c509d65dea86bbe719e42935d87d546
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208840"
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488738"
 ---
 # <a name="troubleshoot-aspnet-core-projects"></a>Řešení potíží s projekty ASP.NET Core
 
@@ -33,8 +33,6 @@ V **nový projekt** dialogové okno pro ASP.NET Core, může zobrazit následuj�
 
 > 32bitová i 64bitová verze sady .NET Core SDK jsou nainstalovány. Pouze šablony z 64bitové verze nainstalované na "C:\\Program Files\\dotnet\\sdk\\" se zobrazí.
 
-![Snímek obrazovky dialogového okna OneASP.NET zprávou upozornění](troubleshoot/_static/both32and64bit.png)
-
 Toto upozornění se zobrazí, když (x86) 32bitové i 64bitovou (x 64) verze [.NET Core SDK](https://www.microsoft.com/net/download/all) jsou nainstalovány. Běžné důvody, které mohou být nainstalovány obě verze zahrnují:
 
 * Původně stáhnout instalační program sady SDK .NET Core s použitím 32bitový počítač, ale potom zkopírování napříč a nainstalována na 64bitovém počítači.
@@ -49,24 +47,28 @@ V **nový projekt** dialogové okno pro ASP.NET Core, může zobrazit následuj�
 
 > .NET Core SDK je nainstalována na více místech. Pouze šablony ze sad SDK nainstalovaných v ' C:\\Program Files\\dotnet\\sdk\\"se zobrazí.
 
-![Snímek obrazovky dialogového okna OneASP.NET zprávou upozornění](troubleshoot/_static/multiplelocations.png)
-
 Pokud máte alespoň jedna instalace sady .NET Core SDK do adresáře mimo se zobrazí tato zpráva *C:\\Program Files\\dotnet\\sdk\\*. K tomu obvykle dochází při .NET Core SDK je nasazený na počítači místo kopírovat/vložit instalační službu MSI.
 
 Odinstalujte všechny 32bitové .NET Core SDK a moduly runtime zabránit toto upozornění. Odinstalovat z **ovládací panely** > **programy a funkce** > **odinstalovat nebo změnit program**. Pokud budete rozumět tomu, proč dojde k upozornění a jeho dopady, můžete upozornění ignorovat.
 
 ### <a name="no-net-core-sdks-were-detected"></a>Nezjistily se žádné sady SDK .NET Core
 
-V **nový projekt** dialogové okno pro ASP.NET Core, může zobrazit následující upozornění:
+* V sadě Visual Studio **nový projekt** dialogové okno pro ASP.NET Core, může zobrazit následující upozornění:
 
-> Nezjistily se žádné sady .NET Core SDK, ujistěte se, že jsou součástí proměnné prostředí 'PATH'.
+  > Nezjistily se žádné sady .NET Core SDK, ujistěte se, jsou zahrnuté v proměnné prostředí `PATH`.
 
-![Snímek obrazovky dialogového okna OneASP.NET zprávou upozornění](troubleshoot/_static/NoNetCore.png)
+* Při provádění `dotnet` příkazu, ale upozornění se zobrazí jako:
 
-Toto upozornění se zobrazí, když je proměnná prostředí `PATH` neodkazuje na žádné .NET Core SDK na počítači (například `C:\Program Files\dotnet\` a `C:\Program Files (x86)\dotnet\`). Chcete-li tento problém vyřešit:
+  > Nebylo možné najít žádné nainstalované dotnet sady SDK.
 
-* Nainstalujte nebo ověřte, že je nainstalovaná sada .NET Core SDK. Získat nejnovější verzi Instalační služby z [.NET stáhne](https://dotnet.microsoft.com/download). 
-* Ověřte, že `PATH` proměnnou prostředí odkazuje na umístění, kde je nainstalován sady SDK. Instalační program obvykle nastavuje `PATH`.
+Tato upozornění se zobrazí, když je proměnná prostředí `PATH` neodkazuje na žádné .NET Core SDK na počítači. Chcete-li tento problém vyřešit:
+
+* Nainstalujte sadu .NET Core SDK. Získat nejnovější verzi Instalační služby z [.NET stáhne](https://dotnet.microsoft.com/download).
+* Ověřte, že `PATH` proměnnou prostředí odkazuje na umístění, ve kterém je nainstalována sada SDK (`C:\Program Files\dotnet\` pro 64-bit/x64 nebo `C:\Program Files (x86)\dotnet\` pro 32-bit/x86). Instalační program sady SDK se obvykle nastavuje `PATH`. Vždy instalovat stejné bitové verze sady SDK a moduly runtime ve stejném počítači.
+
+### <a name="missing-sdk-after-installing-the-net-core-hosting-bundle"></a>Chybí SDK po instalaci sady hostování rozhraní .NET Core
+
+Instalace [sady hostování rozhraní .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle) změní `PATH` po instalaci modulu runtime .NET Core tak, aby odkazoval na 32bitový (x 86) verzi .NET Core (`C:\Program Files (x86)\dotnet\`). To může způsobit chybějící sady SDK při .NET Core 32bitový (x 86) `dotnet` pomocí příkazu ([nebyly zjištěny žádné .NET Core SDK](#no-net-core-sdks-were-detected)). Chcete-li vyřešit tento problém, přesuňte `C:\Program Files\dotnet\` do polohy před `C:\Program Files (x86)\dotnet\` na `PATH`.
 
 ## <a name="obtain-data-from-an-app"></a>Získání dat z aplikace
 

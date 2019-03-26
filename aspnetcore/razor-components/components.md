@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 03/26/2019
 uid: razor-components/components
-ms.openlocfilehash: c93ea62c7540aca8981294fe90855ff9d4d844dc
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 59c8540ea297f8396d6aac9b3246639667ad0cd7
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978509"
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488680"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -24,7 +24,15 @@ Razor komponenty aplikace jsou sestaveny na základě *komponenty*. Komponenta j
 
 ## <a name="component-classes"></a>Třídy součásti
 
-Součásti jsou obvykle implementována v souborech Razor součásti (*.razor*) pomocí kombinace C# a značka jazyka HTML. Uživatelské rozhraní pro součást je definován v jazyce HTML. Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor). Když je kompilován Razor součásti aplikace, bude značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty. Název generované třídy odpovídá názvu souboru.
+Součásti jsou obvykle implementována v souborech Razor součásti (*.razor*) pomocí kombinace C# a značky HTML (*.cshtml* soubory se používají v aplikacích Blazor).
+
+Dají se vytvářet komponenty ve Razor součásti aplikace pomocí *.cshtml* příponu souboru, tak dlouho, dokud soubory jsou označeny jako soubory součástí Razor pomocí `_RazorComponentInclude` vlastnosti Msbuildu. Například aplikace vytvořená pomocí šablony Razor komponenty Určuje, že všechny *.cshtml* soubory pod *součásti* složky mají být považována za soubory součástí Razor:
+
+```xml
+<_RazorComponentInclude>Components\**\*.cshtml</_RazorComponentInclude>
+```
+
+Uživatelské rozhraní pro součást je definován v jazyce HTML. Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor). Když je kompilován Razor součásti aplikace, bude značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty. Název generované třídy odpovídá názvu souboru.
 
 Členy třídy komponenty jsou definovány v `@functions` blok (více než jeden `@functions` blok je povolený). V `@functions` bloku, stav komponent (vlastnosti, pole) je zadaný společně s metody pro zpracování událostí nebo definování dalších součástí logiky.
 
@@ -766,4 +774,60 @@ Vykresleného výstupu:
 The time is 10/04/2018 01:26:52.
 
 Your pet's name is Rex.
+```
+
+## <a name="manual-rendertreebuilder-logic"></a>Ruční RenderTreeBuilder logiky
+
+`Microsoft.AspNetCore.Components.RenderTree` poskytuje metody pro manipulaci s komponentami a prvky, včetně sestavení součástí ručně v C# kódu.
+
+> [!NOTE]
+> Použití `RenderTreeBuilder` vytváření komponent je pokročilý scénář. Poškozená součásti (například značku neuzavřený značek) může způsobit nedefinované chování.
+
+Vezměte v úvahu následující komponenty domácí mazlíček podrobnosti (*PetDetails.razor* součástí Razor; *PetDetails.cshtml* v Blazor), které ručně se dají do jiné součásti:
+
+```cshtml
+<h2>Pet Details Component</h2>
+
+<p>@PetDetailsQuote<p>
+
+@functions
+{
+    [Parameter]
+    string PetDetailsQuote { get; set; }
+}
+```
+
+V následujícím příkladu, smyčky v `CreateComponent` metoda generuje tři komponenty domácí mazlíček podrobnosti. Při volání metody `RenderTreeBuilder` metody vytvoření součásti (`OpenComponent` a `AddAttribute`), pořadová čísla jsou čísla řádků zdrojového kódu. Razor komponenty, které algoritmus rozdíl spoléhá na pořadová čísla odpovídající na různé řádky kódu, nikoli odlišné volání volání. Při vytváření komponent pomocí `RenderTreeBuilder` metody, pevně argumenty pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadové číslo může vést ke špatnému výkonu.**
+
+Integrované komponenty (*BuiltContent.razor* součástí Razor; *BuiltContent.cshtml* v Blazor):
+
+```cshtml
+@page "/BuiltContent"
+
+<h1>Build a component</h1>
+
+@CustomRender
+
+<button type="button" onclick="@RenderComponent">
+    Create three Pet Details components
+</button>
+
+@functions {
+    RenderFragment CustomRender { get; set; }
+    
+    RenderFragment CreateComponent() => builder =>
+    {
+        for (var i = 0; i < 3; i++) 
+        {
+            builder.OpenComponent(0, typeof(PetDetails));
+            builder.AddAttribute(1, "PetDetailsQuote", "Someone's best friend!");
+            builder.CloseComponent();
+        }
+    };    
+    
+    void RenderComponent()
+    {
+        CustomRender = CreateComponent();
+    }
+}
 ```

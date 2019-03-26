@@ -4,14 +4,14 @@ author: mjrousos
 description: Zjistěte, jak opustit ClaimsPrincipal.Current a získejte aktuálně ověřeného uživatele identity a deklarací identity v ASP.NET Core.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 05/04/2018
+ms.date: 03/26/2019
 uid: migration/claimsprincipal-current
-ms.openlocfilehash: 35c3389798041e141c45bf0a76fa9d7285212768
-ms.sourcegitcommit: d53e0cc71542b92de867bcce51575b054886f529
+ms.openlocfilehash: 526cc3cf3a58a656e2a1b162cfaccacc7694dc51
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41754390"
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488639"
 ---
 # <a name="migrate-from-claimsprincipalcurrent"></a>Migrace z ClaimsPrincipal.Current
 
@@ -56,4 +56,4 @@ Existuje několik možností pro načtení aktuálně ověřeného uživatele `C
   * Získat instanci `IHttpContextAccessor` během spouštění a uložte ho do statické proměnné. Instance je k dispozici pro kód, který byl dříve načítání aktuálního uživatele z statickou vlastnost.
   * Načíst aktuální uživatel `ClaimsPrincipal` pomocí `HttpContextAccessor.HttpContext?.User`. Pokud se tento kód používá mimo kontext požadavku protokolu HTTP `HttpContext` má hodnotu null.
 
-Poslední možnost, pomocí `IHttpContextAccessor`, bylo v rozporu s ASP.NET Core zásad (statické závislostí preferují vloženého závislosti). Chcete nakonec odebrat závislost na statické `IHttpContextAccessor` pomocné rutiny. Může být užitečné most, ale při migraci velké existujících aplikací ASP.NET, které dřív používali `ClaimsPrincipal.Current`.
+Poslední možnost, pomocí `IHttpContextAccessor` instance uložená v statická proměnná, je v rozporu s ASP.NET Core zásad (statické závislostí preferují vloženého závislosti). Plán se nakonec načíst `IHttpContextAccessor` instance místo toho od vkládání závislostí. Statické pomocné rutiny můžete používat užitečné most, při migraci velké existujících aplikací ASP.NET, které dřív používali `ClaimsPrincipal.Current`.

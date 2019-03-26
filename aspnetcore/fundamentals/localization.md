@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core nabízí služby a middleware pro lokal
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 4e87423a02a275eae7e2f6054e7a3b6c22cd7cee
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 3192ad150b914c00b315f38bd9fe077ebf402b37
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320213"
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488699"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -343,6 +343,7 @@ Podmínky:
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [Projekt Localization.StarterWeb](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) použité v tomto článku.
 * [Globalizace a lokalizace aplikací .NET](/dotnet/standard/globalization-localization/index)
 * [Prostředky v souborech .resx](/dotnet/framework/resources/working-with-resx-files-programmatically)
