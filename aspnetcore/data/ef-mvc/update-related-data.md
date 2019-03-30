@@ -4,15 +4,15 @@ description: V tomto kurzu budete aktualizovat souvisejících dat prostřednict
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 1606b872df2df839266ef17efee1948065c4efae
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 6add725430380f0855fe660a70b90a4546ef0637
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209411"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750915"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Aktualizace souvisejících dat – ASP.NET MVC s EF Core
 
@@ -35,7 +35,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Čtení souvisejících dat s EF Core pro webovou aplikaci ASP.NET Core MVC](read-related-data.md)
+* [Čtení souvisejících dat](read-related-data.md)
 
 ## <a name="customize-courses-pages"></a>Přizpůsobení stránek kurzy
 
@@ -123,7 +123,7 @@ Při úpravě záznamu instruktorem, budete chtít být schopen aktualizovat př
 
 V *InstructorsController.cs*, změňte kód třídy MetadataExchangeClientMode `Edit` metodu tak, že načte entity kurzů vedených `OfficeAssignment` navigační vlastnost a volání `AsNoTracking`:
 
-[!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=9,10&name=snippet_EditGetOA)]
+[!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=8-11&name=snippet_EditGetOA)]
 
 Nahraďte HttpPost `Edit` metody následující kód pro zpracování aktualizací přiřazení sady office:
 
@@ -225,7 +225,7 @@ V *Views/Instructors/Edit.cshtml*, přidat **kurzy** pole s polem zaškrtávací
 
 <a id="notepad"></a>
 > [!NOTE]
-> Při vkládání kódu v sadě Visual Studio konce řádků se změní tak, aby kód přestane fungovat. Stisknutím klávesy Ctrl + Z jednou vrátit zpět, automatického formátování. To tak, aby vypadají se zobrazí zde opraví konce řádků. Odsazení nemusí být dokonalý, ale `@</tr><tr>`, `@:<td>`, `@:</td>`, a `@:</tr>` řádky musí být na jednom řádku znázorněno nebo zobrazí se chyba za běhu. Blok vybrali nový kód a stisknutím klávesy Tab třikrát na řádek nahoru nový kód existující kód. Stav tohoto problému zjistíte [tady](https://developercommunity.visualstudio.com/content/problem/147795/razor-editor-malforms-pasted-markup-and-creates-in.html).
+> Při vkládání kódu v sadě Visual Studio konce řádků může být změněn tak, aby kód přestane fungovat. Pokud po vložení vypadá jinak kód, stiskněte Ctrl + Z jednou k vrácení zpět, automatického formátování. To tak, aby vypadají se zobrazí zde opraví konce řádků. Odsazení nemusí být dokonalý, ale `@</tr><tr>`, `@:<td>`, `@:</td>`, a `@:</tr>` řádky musí být na jednom řádku znázorněno nebo zobrazí se chyba za běhu. Blok vybrali nový kód a stisknutím klávesy Tab třikrát na řádek nahoru nový kód existující kód. Tento problém je vyřešen ve Visual Studio 2019.
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=35-61)]
 
@@ -314,6 +314,7 @@ V tomto kurzu se naučíte:
 > * Aktualizovaná stránka Delete
 > * Přidání pobočky a kurzy, které stránka pro vytvoření
 
-Přejděte k dalším článku se naučíte, jak zpracování konfliktů souběžnosti.
+Přejděte k dalšímu kurzu se naučíte zpracování konfliktů souběžnosti.
+
 > [!div class="nextstepaction"]
 > [Zpracování konfliktů souběžnosti](concurrency.md)

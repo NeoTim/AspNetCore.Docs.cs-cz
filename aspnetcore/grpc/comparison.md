@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 03/26/2019
 uid: grpc/comparison
-ms.openlocfilehash: fbe1647ab6f5e890700eccf43f920e0ef2b37ce7
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: 280d0c2be2a83e5d80cedeaa472e33c28ac983f9
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58489007"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750496"
 ---
 # <a name="comparing-grpc-and-http-apis"></a>Porovnání gRPC a rozhraní API HTTP
 
@@ -40,7 +40,7 @@ gRPC zprávy se serializují pomocí [Protobuf](https://developers.google.com/pr
 
 gRPC je navržená pro HTTP/2, hlavní revize protokolu HTTP, která poskytuje výhody výkonu přes protokol HTTP 1.x:
 
-* Binární rámce a provádí kompresi. Protokol HTTP/2 je kompaktního a efektivního odesílání a příjem.
+* Binární rámce a provádí kompresi. Protokol HTTP/2 je kompaktního a efektivního v odesílání a příjem.
 * Multiplexing přes jedno připojení TCP více volání HTTP/2. Multiplexing eliminuje [head řádku blokování](https://en.wikipedia.org/wiki/Head-of-line_blocking).
 
 ### <a name="code-generation"></a>Vytvoření kódu
@@ -93,7 +93,9 @@ Ne všechny funkce gRPC jsou podporovány gRPC – Web. Klient a obousměrné st
 
 Žádosti protokolu HTTP rozhraní API se odesílají jako text a může číst a je vytvořen člověku.
 
-gRPC zprávy jsou zakódovány Protobuf ve výchozím nastavení. Protobuf je efektivní odesílat a přijímat, jeho binárním formátu není lidské čitelné. Popis rozhraní zprávy podle vyžaduje Protobuf `*.proto` soubor správně deserializovat. Chcete-li vyřešit tento problém Protobuf zprávy [podporu převodu do a z JSON](https://developers.google.com/protocol-buffers/docs/proto3#json). Tato funkce umožňuje odesílání zpráv v lidsky čitelném během vývoje, pak přepnutí do efektivní binární zprávy v produkčním prostředí.
+gRPC zprávy jsou zakódovány Protobuf ve výchozím nastavení. Protobuf je efektivní odesílat a přijímat, jeho binárním formátu není lidské čitelné. Popis rozhraní zprávy podle vyžaduje Protobuf `*.proto` soubor správně deserializovat. Další nástroje musí být používán k analýze datové části Protobuf na lince a k vytvoření žádosti o ručně.
+Funkce, jako jsou [server reflexe](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) a [nástroj příkazového řádku gRPC](https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md) slouží k získání vyhnout uvedeným potížím.
+Navíc Protobuf zprávy podporu [převodu do a z JSON](https://developers.google.com/protocol-buffers/docs/proto3#json). Předdefinovaný převod JSON poskytuje vhodný způsob, jak převést protobuf zprávy v podobě čitelné člověkem při ladění.
 
 ## <a name="alternative-framework-scenarios"></a>Alternativní Framework scénáře
 

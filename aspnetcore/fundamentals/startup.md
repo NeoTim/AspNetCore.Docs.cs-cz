@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
-ms.openlocfilehash: d629c2f02f9021454d8f8539018f3e2ca4703a00
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 9556ec076fce3500115cf0e934202f11b175ccd3
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346395"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750787"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
@@ -95,7 +95,7 @@ Další informace o tom, jak používat `IApplicationBuilder` a pořadí zpracov
 
 Ke konfiguraci služeb a kanál pro zpracování požadavku bez použití `Startup` třídy, zavolejte `ConfigureServices` a `Configure` pohodlí metody Tvůrce hostitele. Při vícenásobném volání metody `ConfigureServices` se přidají služby ze všech volání. Pokud je položek víc `Configure` volání metody existují, poslední `Configure` použité volání.
 
-[!code-csharp[](startup/sample_snapshot/Program1.cs?highlight=18,22)]
+[!code-csharp[](startup/sample_snapshot/Program1.cs?highlight=16,20)]
 
 ## <a name="extend-startup-with-startup-filters"></a>Rozšířit filtry při spuštění po spuštění
 

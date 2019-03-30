@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/11/2018
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 4909a0084994654777ad7a6ebda866ac727f0528
-ms.sourcegitcommit: 3e94d192b2ed9409fe72e3735e158b333354964c
+ms.openlocfilehash: 1733d049d6752c24d7749b5b5ae2a4b866492358
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/21/2018
-ms.locfileid: "53735749"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750995"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Nastavení Microsoft Account externí přihlášení pomocí ASP.NET Core
 
@@ -65,6 +65,8 @@ Pokud ještě nemáte účet Microsoft, klepněte na  **[vytvořte si ho!](https
 ![Dialogové okno Nový vygenerované heslo](index/_static/MicrosoftDevPassword.png)
 
 Propojit citlivá nastavení, jako je Microsoft `Application ID` a `Password` pomocí konfigurace aplikace [manažera tajných](xref:security/app-secrets). Pro účely tohoto kurzu se název tokeny `Authentication:Microsoft:ApplicationId` a `Authentication:Microsoft:Password`.
+
+[!INCLUDE[](~/includes/environmentVarableColon.md)]
 
 ## <a name="configure-microsoft-account-authentication"></a>Konfigurace ověřování pomocí účtu Microsoft
 

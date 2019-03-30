@@ -5,7 +5,7 @@ description: Tento článek obsahuje odkazy na hostiteli Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/23/2019
+ms.date: 03/30/2019
 uid: host-and-deploy/azure-apps/index
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
@@ -14,7 +14,7 @@ uid: host-and-deploy/azure-apps/index
 
 ## <a name="useful-resources"></a>Užitečné zdroje
 
-Azure [dokumentace k Web Apps](/azure/app-service/) je domovská stránka pro aplikace Azure dokumentace, kurzy, ukázky, návody a další prostředky. Jsou dva důležité kurzy, které se vztahují k hostování aplikací ASP.NET Core:
+[Dokumentace ke službě App Service](/azure/app-service/) je domovská stránka pro aplikace Azure dokumentace, kurzy, ukázky, návody a další prostředky. Jsou dva důležité kurzy, které se vztahují k hostování aplikací ASP.NET Core:
 
 [Vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet)  
 Vytvoření a nasazení webové aplikace ASP.NET Core do služby Azure App Service ve Windows pomocí sady Visual Studio.
@@ -30,7 +30,7 @@ Zjistěte, jak publikovat aplikace ASP.NET Core do služby Azure App Service pom
 <xref:host-and-deploy/azure-apps/azure-continuous-deployment>  
 Zjistěte, jak vytvořit webovou aplikaci ASP.NET Core pomocí sady Visual Studio a nasaďte ji do služby Azure App Service pro průběžné nasazování pomocí Gitu.
 
-[Vytvořit svůj první kanál s kanály Azure](/azure/devops/pipelines/get-started-yaml)  
+[Vytvořte svůj první kanál](/azure/devops/pipelines/get-started-yaml)  
 Nastavení sestavení CI pro aplikace ASP.NET Core a potom vytvořte vydání průběžné nasazování do služby Azure App Service.
 
 [Azure sandboxu webové aplikace](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)  
@@ -92,10 +92,10 @@ Aplikace ASP.NET Core nasadily do App Service automaticky přijímat rozšířen
 
 Sledování, protokolování a informace o odstraňování potíží najdete v následujících článcích:
 
-[Postupy: Monitorování aplikací ve službě Azure App Service](/azure/app-service/web-sites-monitor)  
+[Monitorování aplikací ve službě Azure App Service](/azure/app-service/web-sites-monitor)  
 Zjistěte, jak kontrolovat kvóty a metriky pro aplikace a plány služby App Service.
 
-[Povolení protokolování diagnostiky pro webové aplikace ve službě Azure App Service](/azure/app-service/web-sites-enable-diagnostic-log)  
+[Povolit protokolování diagnostiky aplikací ve službě Azure App Service](/azure/app-service/web-sites-enable-diagnostic-log)  
 Zjistěte, jak povolit a přístup k protokolování diagnostiky pro stavové kódy HTTP, neúspěšných požadavků a aktivity webového serveru.
 
 <xref:fundamentals/error-handling>  
@@ -220,7 +220,7 @@ Při nasazování samostatnou aplikaci:
 
 ## <a name="protocol-settings-https"></a>Nastavení protokolu (HTTPS)
 
-Zabezpečený protokol vazby umožňují že zadat certifikát má použít při reakci na požadavky přes protokol HTTPS. Vazba vyžaduje platný privátní certifikát (*.pfx*) vydaný pro konkrétní název hostitele. Další informace najdete v tématu [kurzu: Vytvoření vazby existujícího vlastního certifikátu SSL k Azure Web Apps](/azure/app-service/app-service-web-tutorial-custom-ssl).
+Zabezpečený protokol vazby umožňují že zadat certifikát má použít při reakci na požadavky přes protokol HTTPS. Vazba vyžaduje platný privátní certifikát (*.pfx*) vydaný pro konkrétní název hostitele. Další informace najdete v tématu [kurzu: Vytvoření vazby existujícího vlastního certifikátu SSL do služby Azure App Service](/azure/app-service/app-service-web-tutorial-custom-ssl).
 
 ## <a name="transform-webconfig"></a>Transformace souboru web.config
 
@@ -228,7 +228,7 @@ Pokud potřebujete transformovat *web.config* při publikování (třeba nastavi
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Přehled Web Apps (5minutové video s přehledem)](/azure/app-service/app-service-web-overview)
+* [Přehled služby App Service](/azure/app-service/app-service-web-overview)
 * [Azure App Service: Nejlepší umístit do hostitele aplikací .NET (55 minutu video s přehledem)](https://channel9.msdn.com/events/dotnetConf/2017/T222)
 * [Azure Friday: Azure App Service diagnostiku a řešení potíží s prostředí (12 pětiminutové video)](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 * [Přehled diagnostiky služby Azure App Service](/azure/app-service/app-service-diagnostics)
@@ -239,4 +239,4 @@ Služba Azure App Service v systému Windows Server používá [Internetové inf
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
-* [V knihovně Microsoft TechNet: Windows Server](/windows-server/windows-server-versions)
+* [Windows Server – IT správce obsahu pro aktuální a předchozí verze](/windows-server/windows-server-versions)

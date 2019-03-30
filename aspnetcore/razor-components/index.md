@@ -5,7 +5,7 @@ description: 'Prozkoumejte službu ASP.NET Core Razor komponenty, způsob, jak v
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 03/27/2019
 uid: razor-components/index
 ---
 # <a name="introduction-to-razor-components"></a>Úvod do komponent Razor
@@ -42,7 +42,7 @@ Připojení používané komponenty Razor ke komunikaci s prohlížeči slouží
 
 Další informace naleznete v tématu <xref:razor-components/hosting-models#server-side-hosting-model>.
 
-*Blazor* je experimentální model hostingu na straně klienta součástí syntaxe Razor. Blazor běží na rozhraní .NET v prohlížeči pomocí otevřených webových standardů bez kódu nebo moduly plug-in transpilation. Další informace naleznete v tématu <xref:razor-components/hosting-models#client-side-hosting-model>.
+*Blazor* je experimentální model hostingu na straně klienta součástí syntaxe Razor. Blazor běží na rozhraní .NET v prohlížeči pomocí otevřených webových standardů bez kódu nebo moduly plug-in transpilation. Další informace naleznete v tématu <xref:spa/blazor/index> a <xref:razor-components/hosting-models#client-side-hosting-model>.
 
 ## <a name="components"></a>Komponenty
 

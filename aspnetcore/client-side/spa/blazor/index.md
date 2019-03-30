@@ -1,18 +1,12 @@
 ---
 title: Úvod do Blazor
 author: guardrex
-description: Prozkoumejte Blazor ASP.NET Core, nový způsob, jak vytvářet interaktivní aplikace na straně klienta s .NET, na kterých běží v prohlížeči s WebAssembly.
+description: 'Prozkoumejte Blazor ASP.NET Core, nový způsob, jak vytvářet interaktivní aplikace na straně klienta s .NET, na kterých běží v prohlížeči s WebAssembly.'
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/11/2019
+ms.date: 03/27/2019
 uid: spa/blazor/index
-ms.openlocfilehash: a83863fa82595a875b73e04604167c7d00d39a81
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410255"
 ---
 # <a name="introduction-to-blazor"></a>Úvod do Blazor
 
@@ -56,7 +50,7 @@ Blazor podporuje zařízení core vyžaduje většina aplikací, včetně:
 
 Ke snížení objemu stažených aplikací nepoužitý kód odebrána z aplikace když se publikuje [Intermediate Language (IL) Linkeru](xref:host-and-deploy/razor-components/configure-linker).
 
-Blazor je model hostingu na straně klienta pro součásti syntaxe Razor. Protože komponenty Razor oddělit komponenty vykreslování logiku z použití aktualizace uživatelského rozhraní, existuje určitá flexibilita v jak se dají hostovat součásti syntaxe Razor. Pomocí ASP.NET Core Razor součásti k hostiteli Razor komponent na serveru v aplikaci ASP.NET Core ve kterém se zpracovávají aktualizace uživatelského rozhraní pomocí připojení SignalR. Další informace naleznete v tématu <xref:razor-components/hosting-models#server-side-hosting-model>. 
+Blazor je model hostingu na straně klienta pro součásti syntaxe Razor. Protože komponenty Razor oddělit komponenty vykreslování logiku z použití aktualizace uživatelského rozhraní, existuje určitá flexibilita v jak se dají hostovat součásti syntaxe Razor. Pomocí ASP.NET Core Razor součásti k hostiteli Razor komponent na serveru v aplikaci ASP.NET Core ve kterém se zpracovávají aktualizace uživatelského rozhraní pomocí připojení SignalR. Další informace naleznete v tématu <xref:razor-components/index> a <xref:razor-components/hosting-models#server-side-hosting-model>. 
 
 ## <a name="components"></a>Komponenty
 

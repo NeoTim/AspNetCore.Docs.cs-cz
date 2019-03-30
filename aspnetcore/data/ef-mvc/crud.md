@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 83f5d4bdc3d5872109649818b61a6dbb656fd8be
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: cee521eec3172c04b4d9d93c12076c42c9adff18
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264835"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750623"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: Implementace funkcí CRUD – ASP.NET MVC s EF Core
 
@@ -32,7 +32,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Začínáme s EF Core ve webové aplikaci ASP.NET Core MVC](intro.md)
+* [Začínáme s EF Core a ASP.NET Core MVC](intro.md)
 
 ## <a name="customize-the-details-page"></a>Přizpůsobení stránky podrobností
 
@@ -243,7 +243,7 @@ Tento kód je možné zadat volitelný parametr, který označuje, zda byla vol�
 
 Nahraďte HttpPost `Delete` metody akce (s názvem `DeleteConfirmed`) následujícím kódem, který provádí operace odstranění skutečné a zachytí všechny chyby aktualizace databáze.
 
-[!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_DeleteWithReadFirst&highlight=6,8-11,13-14,18-23)]
+[!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_DeleteWithReadFirst&highlight=6-9,11-12,16-21)]
 
 Tento kód načte vybranou entitu, zavolá `Remove` metodu pro nastavení stavu entity `Deleted`. Když `SaveChanges` nazývá SQL odstranit vygenerované příkaz.
 
@@ -306,6 +306,7 @@ V tomto kurzu se naučíte:
 > * Aktualizovat stránku Delete
 > * Připojení uzavřeno databáze
 
-Pokračujte k dalším článku se naučíte, jak rozšířit funkce **Index** stránky tak, že přidáte řazení, filtrování a stránkování.
+Pokračujte k dalšímu kurzu, kde se naučíte, jak rozšířit funkce **Index** stránky tak, že přidáte řazení, filtrování a stránkování.
+
 > [!div class="nextstepaction"]
-> [Řazení, filtrování a stránkování](sort-filter-page.md)
+> [Další: Řazení, filtrování a stránkování](sort-filter-page.md)

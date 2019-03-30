@@ -4,15 +4,15 @@ description: Tento kurz ukazuje, jak řešit konflikty při více uživatelů ak
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 7b18927d5d528ec2951087502e26b2b30214f389
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: 668cdafc078091b65035ecad854d2ecc62555721
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103017"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750855"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: Zpracování souběžnosti – ASP.NET MVC s EF Core
 
@@ -39,7 +39,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Aktualizace souvisejících dat ve webové aplikaci ASP.NET Core MVC s EF Core](update-related-data.md)
+* [Aktualizace souvisejících dat](update-related-data.md)
 
 ## <a name="concurrency-conflicts"></a>Konflikty souběžnosti
 
@@ -148,7 +148,7 @@ To se změní na záhlaví "Oddělení", odstraní sloupec RowVersion a zobrazí
 
 V obou třídy MetadataExchangeClientMode `Edit` metoda a `Details` metodu, přidejte `AsNoTracking`. V třídy MetadataExchangeClientMode `Edit` metodu, přidejte předběžné načítání pro správce.
 
-[!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EagerLoading&highlight=2,3)]
+[!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EagerLoading)]
 
 Nahraďte stávající kód httppost `Edit` metodu s následujícím kódem:
 
@@ -309,6 +309,7 @@ V tomto kurzu se naučíte:
 > * Aktualizovat stránku Delete
 > * Aktualizovat podrobnosti a vytvořit zobrazení
 
-Přejděte k dalším článku se dozvíte, jak implementovat tabulky na hierarchii dědičnosti pro entity instruktorem a studentů.
+Přejděte k dalšímu kurzu, kde se naučíte, jak implementovat tabulky na hierarchii dědičnosti pro entity instruktorem a studentů.
+
 > [!div class="nextstepaction"]
-> [Implementace tabulky za hierarchie dědičnosti](inheritance.md)
+> [Další: Implementace tabulky za hierarchie dědičnosti](inheritance.md)

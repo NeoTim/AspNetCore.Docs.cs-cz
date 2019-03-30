@@ -4,15 +4,15 @@ description: V tomto kurzu se seznámíte implementace dědičnosti v datovém m
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 0a5eb1aba43bc2adf746202772c7f98eff49b4ff
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: ba688b259206f21045376b6a38a266ad7528aec1
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103004"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750764"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>Kurz: Implementace dědičnosti – ASP.NET MVC s EF Core
 
@@ -32,7 +32,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Popisovač souběžnosti s EF Core ve webové aplikaci ASP.NET Core MVC](concurrency.md)
+* [Popisovač souběžnosti](concurrency.md)
 
 ## <a name="map-inheritance-to-database"></a>Mapovat dědičnosti do databáze
 
@@ -168,6 +168,7 @@ V tomto kurzu se naučíte:
 > * Vytvoření a aktualizaci migrace
 > * Testování implementace
 
-Přejděte k dalším článku se dozvíte, jak zpracovat širokou škálu relativně pokročilé scénáře rozhraní Entity Framework.
+Přejděte k dalšímu kurzu, kde se naučíte, jak zpracovat širokou škálu relativně pokročilé scénáře rozhraní Entity Framework.
+
 > [!div class="nextstepaction"]
-> [Pokročilá témata](advanced.md)
+> [Další: Pokročilá témata](advanced.md)

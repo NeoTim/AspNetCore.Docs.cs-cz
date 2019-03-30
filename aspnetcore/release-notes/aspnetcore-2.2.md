@@ -6,30 +6,30 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: 6dcdf71ec5271690718dd1fe750a9a74d498a0f8
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: cdc761b645b91777bdf6084c3ad4659fcea55039
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410333"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750943"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2.2
 
 Tento článek se soustředí na nejdůležitější změny provedené v 2.2 technologie ASP.NET Core, odkazy na relevantní dokumentaci.
 
-## <a name="open-api-analyzers--conventions"></a>Otevřené rozhraní API analyzátorů a konvence
+## <a name="openapi-analyzers--conventions"></a>Analyzátory OpenAPI a konvence
 
-Otevřené rozhraní API (také označované jako Swagger) je specifikace bez ohledu na jazyk pro popis rozhraní REST API. Ekosystém Open API má nástroje, které umožňují vyhledávání, testování a produkci pomocí specifikace kód klienta. Podpora pro generování a vizualizaci dokumenty otevřené rozhraní API v ASP.NET Core MVC se poskytuje prostřednictvím projektů, jako vyvinutý komunitou [službou NSwag](https://github.com/RSuter/NSwag), a [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore). ASP.NET Core 2.2 poskytuje vylepšené nástroje a modul runtime prostředí pro vytváření dokumentů Open API.
+OpenAPI (dříve označované jako Swagger) je specifikace bez ohledu na jazyk pro popis rozhraní REST API. Ekosystém OpenAPI obsahuje nástroje, které umožňují vyhledávání, testování a produkci pomocí specifikace kód klienta. Podpora pro generování a vizualizaci OpenAPI dokumenty v ASP.NET Core MVC se poskytuje prostřednictvím projektů, jako vyvinutý komunitou [službou NSwag](https://github.com/RSuter/NSwag), a [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore). ASP.NET Core 2.2 poskytuje vylepšené nástroje a modul runtime prostředí pro vytváření dokumentů OpenAPI.
 
 Další informace naleznete v následujících materiálech:
 
 * <xref:web-api/advanced/analyzers>
 * <xref:web-api/advanced/conventions>
-* [ASP.NET Core 2.2.0-preview1: Otevřené rozhraní API analyzátorů a konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
+* [ASP.NET Core 2.2.0-preview1: Analyzátory OpenAPI a konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
 
 ## <a name="problem-details-support"></a>Podrobnosti o problému podpory
 
-ASP.NET Core 2.1 zavedené `ProblemDetails`na základě [RFC 7807](https://tools.ietf.org/html/rfc7807) specifikace pro provádění podrobnosti o chybě se odpověď HTTP. 2.2 `ProblemDetails` je standardní odpověď pro klienta kódy chyb v řadiče s `ApiControllerAttribute`. `IActionResult` Vrátí chyba stavový kód (4xx) nyní vrátí klientovi `ProblemDetails` textu. Výsledek bude obsahovat také Identifikátor korelace, který lze použít ke korelaci chyb pomocí protokolů z požadavku. Chyby klienta `ProducesResponseType` výchozí hodnota je pomocí `ProblemDetails` jako typ odpovědi. To je popsána v Open API / Swagger výstupní vygenerované pomocí službou NSwag nebo Swashbuckle.AspNetCore.
+ASP.NET Core 2.1 zavedené `ProblemDetails`na základě [RFC 7807](https://tools.ietf.org/html/rfc7807) specifikace pro provádění podrobnosti o chybě se odpověď HTTP. 2.2 `ProblemDetails` je standardní odpověď pro klienta kódy chyb v řadiče s `ApiControllerAttribute`. `IActionResult` Vrátí chyba stavový kód (4xx) nyní vrátí klientovi `ProblemDetails` textu. Výsledek bude obsahovat také Identifikátor korelace, který lze použít ke korelaci chyb pomocí protokolů z požadavku. Chyby klienta `ProducesResponseType` výchozí hodnota je pomocí `ProblemDetails` jako typ odpovědi. To je popsána v OpenAPI / Swagger výstupní vygenerované pomocí službou NSwag nebo Swashbuckle.AspNetCore.
 
 ## <a name="endpoint-routing"></a>Koncový bod směrování
 

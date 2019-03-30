@@ -3,15 +3,15 @@ title: 'Kurz: Přidat řazení, filtrování a stránkování – ASP.NET MVC s 
 description: V tomto kurzu přidáte řazení, filtrování a stránkování funkce pro studenty indexovou stránku. Také vytvoříte stránky, která provádí jednoduché seskupení.
 author: rick-anderson
 ms.author: tdykstra
-ms.date: 02/04/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: 51b6b08d2410652f93427371aec299eb4c8789f1
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: dff5a5b1ba3c8ed07ccc8d134f8cfeb25b9f6689
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103056"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58751040"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>Kurz: Přidat řazení, filtrování a stránkování – ASP.NET MVC s EF Core
 
@@ -33,7 +33,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Implementace funkcí CRUD s EF Core ve webové aplikaci ASP.NET Core MVC](crud.md)
+* [Implementace funkcí CRUD](crud.md)
 
 ## <a name="add-column-sort-links"></a>Přidat sloupec řazení odkazy
 
@@ -144,7 +144,7 @@ public async Task<IActionResult> Index(
     string sortOrder,
     string currentFilter,
     string searchString,
-    int? page)
+    int? pageNumber)
 ```
 
 První stránka se zobrazí, nebo pokud uživatel nebyl kliknul stránkování a řazení odkaz, všechny parametry budou mít hodnotu null.  Pokud dojde ke kliknutí na odkaz stránkování, proměnnou stránky bude obsahovat číslo stránky k zobrazení.
@@ -158,7 +158,7 @@ Pokud hledaný řetězec se změní při stránkování, stránky se musí reset
 ```csharp
 if (searchString != null)
 {
-    page = 1;
+    pageNumber = 1;
 }
 else
 {
@@ -169,10 +169,10 @@ else
 Na konci `Index` metody, `PaginatedList.CreateAsync` metoda převede student dotazu na jednu stránku studentů v typu kolekce, který podporuje stránkování. Této stránce studentů je pak předán zobrazení.
 
 ```csharp
-return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), page ?? 1, pageSize));
+return View(await PaginatedList<Student>.CreateAsync(students.AsNoTracking(), pageNumber ?? 1, pageSize));
 ```
 
-`PaginatedList.CreateAsync` Metoda má číslo stránky. Dvě otazníky představují operátoru nulového sjednocení. Definuje výchozí hodnotu pro typ s možnou hodnotou Null; operátoru nulového sjednocení výraz `(page ?? 1)` znamená, že návratová hodnota z `page` Pokud má hodnotu, nebo vrátí 1, pokud `page` má hodnotu null.
+`PaginatedList.CreateAsync` Metoda má číslo stránky. Dvě otazníky představují operátoru nulového sjednocení. Definuje výchozí hodnotu pro typ s možnou hodnotou Null; operátoru nulového sjednocení výraz `(pageNumber ?? 1)` znamená, že návratová hodnota z `pageNumber` Pokud má hodnotu, nebo vrátí 1, pokud `pageNumber` má hodnotu null.
 
 ## <a name="add-paging-links"></a>Přidat odkazy stránkování
 
@@ -193,7 +193,7 @@ Mají tlačítka stránkování podle pomocných rutin značek:
 ```html
 <a asp-action="Index"
    asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-page="@(Model.PageIndex - 1)"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
    asp-route-currentFilter="@ViewData["CurrentFilter"]"
    class="btn btn-default @prevDisabled">
    Previous
@@ -234,7 +234,7 @@ Přidat proměnnou třídy kontextu databáze ihned po otevření složené záv
 
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_AddContext&highlight=3,5,7)]
 
-Nahradit `About` metodu s následujícím kódem:
+Přidat `About` metodu s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_UseDbSet)]
 
@@ -244,7 +244,7 @@ Příkaz LINQ skupiny studentů entity podle data registrace, vypočítá počet
 
 ### <a name="modify-the-about-view"></a>Změnit zobrazení
 
-Nahraďte kód v *Views/Home/About.cshtml* souboru následujícím kódem:
+Přidat *Views/Home/About.cshtml* souboru následujícím kódem:
 
 [!code-html[](intro/samples/cu/Views/Home/About.cshtml)]
 
@@ -266,6 +266,7 @@ V tomto kurzu se naučíte:
 > * Přidání odkazů stránkování
 > * Vytvoří stránku o
 
-Přejděte k dalším článku se dozvíte, jak zpracovat změny datového modelu s použitím migrace.
+Přejděte k dalšímu kurzu se naučíte zpracování změn datového modelu s použitím migrace.
+
 > [!div class="nextstepaction"]
-> [Zpracování změn datových modelů](migrations.md)
+> [Další: Zpracování změn datových modelů](migrations.md)

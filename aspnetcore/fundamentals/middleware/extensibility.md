@@ -5,14 +5,14 @@ description: Další informace o použití middlewaru silného typu pomocí impl
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2018
+ms.date: 03/27/2019
 uid: fundamentals/middleware/extensibility
-ms.openlocfilehash: 566a5c5f642a3f55e72a8e070c69d2bfddaee3a1
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: d29c4d3d72ddd8ec3c2a726ee35ae1dc82774537
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207196"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750527"
 ---
 # <a name="factory-based-middleware-activation-in-aspnet-core"></a>Middleware založený na objekt pro vytváření technologie aktivace v ASP.NET Core
 
@@ -24,10 +24,10 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 Výhody:
 
-* Aktivace každý požadavek (vkládání vymezené služby)
+* Aktivace každý požadavek klienta (vkládání vymezené služby)
 * Silné typování middlewaru
 
-`IMiddleware` Každý požadavek, je aktivovaná, takže vymezené služby můžete být vloženy do konstruktor middlewaru.
+`IMiddleware` je aktivovaná, každý požadavek klienta (připojení), takže vymezené služby můžete vloženy do konstruktoru middlewaru.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/sample) ([stažení](xref:index#how-to-download-a-sample))
 

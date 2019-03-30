@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 10/25/2018
 uid: razor-pages/sdk
-ms.openlocfilehash: 0e6cfeb1863ed14ffe670cf082e99f28b26718dd
-ms.sourcegitcommit: ca5f03210bedc61c6639a734ae5674bfe095dee8
+ms.openlocfilehash: de51c9443e639cd64c234b6975cf7252bb7a2b9a
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/26/2019
-ms.locfileid: "55073098"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58751033"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
@@ -45,6 +45,7 @@ Použití sady SDK Razor k vytvoření knihovny tříd obsahující zobrazení s
 
   * `Microsoft.AspNetCore.Razor.Design` 
   * `Microsoft.AspNetCore.Mvc.Razor.Extensions`
+  * `Microsoft.AspNetCore.Mvc.Razor`
     
   `Microsoft.AspNetCore.Razor.Design` Balíček poskytuje Razor kompilace úlohy a cíle projektu.
 
