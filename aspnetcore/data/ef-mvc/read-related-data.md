@@ -3,15 +3,15 @@ title: 'Kurz: Čtení souvisejících dat – ASP.NET MVC s EF Core'
 description: V tomto kurzu budete čtení a zobrazení souvisejících dat – to znamená, že data, která načte Entity Framework do navigační vlastnosti.
 author: rick-anderson
 ms.author: tdykstra
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 73e225c2cd6d9f88079c54115cccad48f43d7d0c
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: a2ae878fd861b68a17de19af1b33b6ffbf5a268c
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56103043"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58751082"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Čtení souvisejících dat – ASP.NET MVC s EF Core
 
@@ -33,7 +33,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Vytvoření složitějšího datového modelu pro webovou aplikaci ASP.NET Core MVC s EF Core](complex-data-model.md)
+* [Vytvoření složitého datového modelu](complex-data-model.md)
 
 ## <a name="learn-how-to-load-related-data"></a>Zjistěte, jak načíst související data
 
@@ -257,6 +257,7 @@ V tomto kurzu se naučíte:
 > * Vytvoří stránku Instruktoři
 > * Dozvěděli jste se o explicitní načtení
 
-Přejděte k dalším článku se naučíte, jak aktualizovat související data.
+Přejděte k dalšímu kurzu, přečtěte si, jak aktualizovat související data.
+
 > [!div class="nextstepaction"]
 > [Aktualizace souvisejících dat](update-related-data.md)

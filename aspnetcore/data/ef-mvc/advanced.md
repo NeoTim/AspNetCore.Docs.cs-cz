@@ -4,15 +4,15 @@ description: Tento kurz představuje užitečné tématech překračují základ
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: c4804bd6614c7d5a2a30c8f59a645f603929ad52
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: c6255e2b4fc67c6174bab4458ec82035b1886002
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264585"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750619"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: Další informace o pokročilých scénářích – ASP.NET MVC s EF Core
 
@@ -33,7 +33,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Implementace dědičnosti s EF Core ve webové aplikaci ASP.NET Core MVC](inheritance.md)
+* [Implementace dědičnosti](inheritance.md)
 
 ## <a name="perform-raw-sql-queries"></a>Spouštějte nezpracované dotazy SQL
 
@@ -53,7 +53,7 @@ Jak platí vždy při spuštění příkazů SQL ve webové aplikaci, je nutné 
 
 V *DepartmentsController.cs*v `Details` metoda, nahraďte kód, který načte oddělení s `FromSql` volání metody, jak je znázorněno v následující zvýrazněný kód:
 
-[!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10,13)]
+[!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10)]
 
 Chcete-li ověřit, že nový kód funguje správně, vyberte **oddělení** kartu a potom **podrobnosti** pro jeden z jako vodítko použijte oddělení.
 
@@ -276,6 +276,7 @@ V tomto kurzu se naučíte:
 > * Dozvěděli jste se o EF Core zdrojového kódu a vývoj plány
 > * Zjistili jste, jak používat dynamické LINQ pro zjednodušení kódu
 
-Dokončení tohoto postupu Tato série kurzů týkající se použití Entity Framework Core v aplikaci ASP.NET Core MVC. Pokud chcete další informace o použití EF 6 pomocí ASP.NET Core, najdete v následujícím článku.
+Dokončení tohoto postupu Tato série kurzů týkající se použití Entity Framework Core v aplikaci ASP.NET Core MVC. Tato série ve spolupráci s novou databázi. Další možností je provést zpětnou analýzu modelu z existující databáze.
+
 > [!div class="nextstepaction"]
-> [EF 6 s ASP.NET Core](../entity-framework-6.md)
+> [Kurz: EF Core s architekturou MVC, existující databáze](/ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json)

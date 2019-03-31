@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 01/31/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 91d8be6cd9160eefe56731d23d5dc7ba18eb6a8f
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 5b8a0c963940d65545579b7120edac3571e4ad2a
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665454"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750693"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
@@ -242,6 +242,7 @@ Další vlastnosti ve třídě, je opatřen poznámkou `[BsonElement]` atribut. 
 
     * Používá `BookService` pro provádění operací CRUD.
     * Obsahuje metody akce, který podporuje požadavky GET, POST, PUT a DELETE HTTP.
+    * <xref:System.Web.Http.ApiController.CreatedAtRoute*> Metoda vrátí odezvě 201, což je standardní odpověď pro metodu POST protokolu HTTP, která vytvoří nový prostředek na serveru. `CreatedAtRoute` také přidá do odpovědi hlavičku umístění. Hlavička umístění Určuje identifikátor URI nově vytvořeného úkolu položky. Zobrazit [10.2.2 201 vytvořili](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
 1. Sestavte a spusťte aplikaci.
 1. Přejděte na `http://localhost:<port>/api/books` v prohlížeči. Zobrazí se následující odpověď JSON:
 
