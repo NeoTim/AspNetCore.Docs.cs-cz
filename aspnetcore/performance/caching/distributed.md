@@ -5,14 +5,14 @@ description: Další informace o použití ASP.NET Core distribuované mezipamě
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/02/2019
+ms.date: 03/30/2019
 uid: performance/caching/distributed
-ms.openlocfilehash: a7850e317dfa3b54f1980902b3dcd6b096effa15
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: c3774c26116a4cb70386d0060f2244d224fec8e1
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346116"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750990"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>Distribuované ukládání do mezipaměti v ASP.NET Core
 
@@ -116,7 +116,7 @@ Implementuje ukázkové aplikace <xref:Microsoft.Extensions.Caching.SqlServer.Sq
 
 ::: moniker range=">= aspnetcore-2.2"
 
-Aplikace nastaví implementaci mezipaměti pomocí `RedisCache` instance (`AddStackExchangeRedisCache`) v prostředí pro vývoj v `Startup.ConfigureServices`:
+Aplikace nastaví implementaci mezipaměti pomocí <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> instance (<xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*>) v prostředí pro vývoj v `Startup.ConfigureServices`:
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddStackExchangeRedisCache)]
 
@@ -151,7 +151,7 @@ Při spuštění aplikace <xref:Microsoft.Extensions.Caching.Distributed.IDistri
 
 Vloží ukázková aplikace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> do `IndexModel` používají indexovou stránku.
 
-Pokaždé, když je načten indexovou stránku, do mezipaměti se kontroluje u mezipaměti čas v `OnGetAsync`. Pokud v mezipaměti Doba nevypršela, zobrazí se čas. Pokud 20 sekund uplynuly od posledního času v mezipaměti se použila (poslední čas na této stránce byl načten), na stránce se zobrazí *uložené v mezipaměti časový limit vypršel*.
+Pokaždé, když je načten indexovou stránku, do mezipaměti se kontroluje u mezipaměti čas v `OnGetAsync`. Pokud v mezipaměti Doba nevypršela, zobrazí se čas. Pokud 20 sekund uplynuly od posledního času v mezipaměti se použila (poslední čas na této stránce byl načten), na stránce se zobrazí *uložené v mezipaměti časový limit vypršel.*.
 
 Okamžitě aktualizovat uložené v mezipaměti Doba na aktuální čas tak, že vyberete **obnovit uložený v mezipaměti Doba** tlačítko. Aktivacemi tlačítek `OnPostResetCachedTime` metodu obslužné rutiny.
 
