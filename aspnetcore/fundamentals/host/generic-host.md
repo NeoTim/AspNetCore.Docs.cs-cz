@@ -5,20 +5,37 @@ description: Další informace o obecných hostitele ASP.NET Core, který je zod
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/28/2018
+ms.date: 03/31/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 817b7b3b420520992f18f1f207b412bc4555bdfa
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: bb6afe59fcad685d18cdc9c8d90cfcc7b3a6541d
+ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327388"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58809191"
 ---
 # <a name="net-generic-host"></a>.NET Generic Host
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+Aplikace ASP.NET Core, konfigurace a spouštění hostitele. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.
+
+Tento článek popisuje obecný hostitele .NET Core (<xref:Microsoft.Extensions.Hosting.HostBuilder>).
+
+Obecný hostitele se liší od webového hostitele v tom, že odděluje kanálu HTTP z hostitele webového rozhraní API umožňující širší škálu scénářů hostitele. Zasílání zpráv, úlohy na pozadí a další úlohy jiným protokolem než HTTP lze použít obecný hostitele a využívat společné funkce, jako jsou konfigurace, injektáž závislostí (DI) a protokolování.
+
+Od verze ASP.NET Core 3.0, obecný hostitele se doporučuje pro úlohy jiným protokolem než HTTP a protokolu HTTP. Implementaci serveru HTTP, pokud je zahrnuto, běží jako implementace <xref:Microsoft.Extensions.Hosting.IHostedService>. <xref:Microsoft.Extensions.Hosting.IHostedService> je rozhraní, které lze použít pro jiné procesy.
+
+Webového hostitele už se nedoporučuje pro webové aplikace, ale zůstává k dispozici z důvodu zpětné kompatibility.
+
+> [!NOTE]
+> Tato zbývající část tohoto článku ještě není aktualizovaný 3.0.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 Aplikace ASP.NET Core, konfigurace a spouštění hostitele. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.
 
@@ -27,23 +44,6 @@ Tento článek popisuje obecný hostitele ASP.NET Core (<xref:Microsoft.Extensio
 Účelem obecný hostitele je oddělit kanálu HTTP z hostitele webového rozhraní API umožňující širší škálu scénářů hostitele. Zasílání zpráv, úlohy na pozadí a další úlohy jiným protokolem než HTTP podle obecného hostitele je výhodné společné funkce, jako jsou konfigurace, injektáž závislostí (DI) a protokolování.
 
 Obecný hostitele je nového v ASP.NET Core 2.1 a není vhodné pro scénáře hostování webů. Pro web scénářích hostování, použijte [webového hostitele](xref:fundamentals/host/web-host). Obecný hostitele, nahradí webového hostitele v budoucí verzi a fungovat jako primární hostitele rozhraní API scénáře jiným protokolem než HTTP a protokolu HTTP.
-
-::: moniker-end
-
-::: moniker range="> aspnetcore-2.2"
-
-Aplikace ASP.NET Core, konfigurace a spouštění hostitele. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.
-
-Tento článek popisuje obecný hostitele .NET Core (<xref:Microsoft.Extensions.Hosting.HostBuilder>).
-
-Obecný hostitele se liší od webového hostitele v tom, že odděluje kanálu HTTP z hostitele webového rozhraní API umožňující širší škálu scénářů hostitele. Zasílání zpráv, úlohy na pozadí a další úlohy jiným protokolem než HTTP lze použít obecný hostitele a využívat společné funkce, jako jsou konfigurace, injektáž závislostí (DI) a protokolování.
-
-Od verze ASP.NET Core 3.0, obecný hostitele se doporučuje pro úlohy jiným protokolem než HTTP a protokolu HTTP. Implementaci serveru HTTP, pokud je zahrnuto, běží jako implementace <xref:Microsoft.Extensions.Hosting.IHostedService>. `IHostedService` je rozhraní, které lze použít pro jiné procesy.
-
-Webového hostitele už se nedoporučuje pro webové aplikace, ale zůstává k dispozici z důvodu zpětné kompatibility.
-
-> [!NOTE]
-> Tato zbývající část tohoto článku se ještě neaktualizoval 3.0.
 
 ::: moniker-end
 
@@ -60,7 +60,7 @@ Nastavení konzoly ve Visual Studio Code:
 
 Je k dispozici v knihovně obecný hostitele <xref:Microsoft.Extensions.Hosting> obor názvů a poskytuje [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting/) balíčku. `Microsoft.Extensions.Hosting` Je součástí balíčku [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) (ASP.NET Core 2.1 nebo novější).
 
-<xref:Microsoft.Extensions.Hosting.IHostedService> je vstupním bodem k provádění kódu. Každý `IHostedService` implementace provádí v pořadí podle [službu registrace v ConfigureServices](#configureservices). <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*> je volána v každé `IHostedService` při spuštění hostitele a <xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*> je volána v pořadí reverzní registrace při řádné vypnutí hostitele.
+<xref:Microsoft.Extensions.Hosting.IHostedService> je vstupním bodem k provádění kódu. Každý <xref:Microsoft.Extensions.Hosting.IHostedService> implementace provádí v pořadí podle [službu registrace v ConfigureServices](#configureservices). <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*> je volána v každé <xref:Microsoft.Extensions.Hosting.IHostedService> při spuštění hostitele a <xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*> je volána v pořadí reverzní registrace při řádné vypnutí hostitele.
 
 ## <a name="set-up-a-host"></a>Nastavení hostitele
 
@@ -152,13 +152,13 @@ Prostředí můžete nastavit na libovolnou hodnotu. Hodnoty definované v rámc
 
 ### <a name="configurehostconfiguration"></a>ConfigureHostConfiguration
 
-`ConfigureHostConfiguration` používá <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> k vytvoření <xref:Microsoft.Extensions.Configuration.IConfiguration> pro hostitele. Konfigurace hostitele slouží k inicializaci <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> pro použití v procesu sestavení aplikace.
+<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> používá <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> k vytvoření <xref:Microsoft.Extensions.Configuration.IConfiguration> pro hostitele. Konfigurace hostitele slouží k inicializaci <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> pro použití v procesu sestavení aplikace.
 
-`ConfigureHostConfiguration` můžete volat vícekrát s přičítáním výsledky. Hostitel používá hodnotu kterékoli z těchto možností poslední nastaví pro daný klíč.
+<xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> můžete volat vícekrát s přičítáním výsledky. Hostitel používá hodnotu kterékoli z těchto možností poslední nastaví pro daný klíč.
 
 Konfigurace hostitele automaticky toky pro konfiguraci aplikací ([ConfigureAppConfiguration](#configureappconfiguration) a zbývající části aplikace).
 
-Žádní poskytovatelé jsou zahrnuté ve výchozím nastavení. Je nutné explicitně zadat jakýkoli poskytovatelé konfigurace aplikace vyžaduje v `ConfigureHostConfiguration`, včetně:
+Žádní poskytovatelé jsou zahrnuté ve výchozím nastavení. Je nutné explicitně zadat jakýkoli poskytovatelé konfigurace aplikace vyžaduje v <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>, včetně:
 
 * Konfigurace rozhraní File (např. z *hostsettings.json* souboru).
 * Konfigurace proměnných prostředí.
@@ -179,17 +179,17 @@ Během vývoje. při použití [sady Visual Studio](https://www.visualstudio.com
 
 Je možné poskytnout další konfigurace [applicationName](#application-key-name) a [contentRoot](#content-root) klíče.
 
-Příklad `HostBuilder` konfiguraci pomocí `ConfigureHostConfiguration`:
+Příklad `HostBuilder` konfiguraci pomocí <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*>:
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureHostConfiguration)]
 
 ## <a name="configureappconfiguration"></a>ConfigureAppConfiguration
 
-Konfigurace aplikace je vytvořen zavoláním <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> na <xref:Microsoft.Extensions.Hosting.IHostBuilder> implementace. `ConfigureAppConfiguration` používá <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> k vytvoření <xref:Microsoft.Extensions.Configuration.IConfiguration> pro aplikaci. `ConfigureAppConfiguration` můžete volat vícekrát s přičítáním výsledky. Aplikace používá hodnotu kterékoli z těchto možností poslední nastaví pro daný klíč. Konfigurace vytvořil `ConfigureAppConfiguration` je k dispozici na [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) pro následné operace a v <xref:Microsoft.Extensions.Hosting.IHost.Services*>.
+Konfigurace aplikace je vytvořen zavoláním <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> na <xref:Microsoft.Extensions.Hosting.IHostBuilder> implementace. <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> používá <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> k vytvoření <xref:Microsoft.Extensions.Configuration.IConfiguration> pro aplikaci. <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> můžete volat vícekrát s přičítáním výsledky. Aplikace používá hodnotu kterékoli z těchto možností poslední nastaví pro daný klíč. Konfigurace vytvořil <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> je k dispozici na [HostBuilderContext.Configuration](xref:Microsoft.Extensions.Hosting.HostBuilderContext.Configuration*) pro následné operace a v <xref:Microsoft.Extensions.Hosting.IHost.Services*>.
 
 Konfigurace aplikace automaticky obdrží konfigurace hostitele poskytované [ConfigureHostConfiguration](#configurehostconfiguration).
 
-Příklad aplikace konfigurace pomocí `ConfigureAppConfiguration`:
+Příklad aplikace konfigurace pomocí <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>:
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureAppConfiguration)]
 
@@ -209,13 +209,14 @@ Přesunutí souborů nastavení do výstupního adresáře, zadejte soubory nast
 
 ```xml
 <ItemGroup>
-  <Content Include="**\*.json" Exclude="bin\**\*;obj\**\*" CopyToOutputDirectory="PreserveNewest" />
+  <Content Include="**\*.json" Exclude="bin\**\*;obj\**\*" 
+      CopyToOutputDirectory="PreserveNewest" />
 </ItemGroup>
 ```
 
 ## <a name="configureservices"></a>ConfigureServices
 
-<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> Přidá do aplikace služeb [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru. `ConfigureServices` můžete volat vícekrát s přičítáním výsledky.
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> Přidá do aplikace služeb [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru. <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureServices*> můžete volat vícekrát s přičítáním výsledky.
 
 Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. Další informace naleznete v tématu <xref:fundamentals/host/hosted-services>.
 
@@ -225,13 +226,13 @@ Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhran
 
 ## <a name="configurelogging"></a>ConfigureLogging
 
-<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> přidá delegáta pro konfiguraci zadaných <xref:Microsoft.Extensions.Logging.ILoggingBuilder>. `ConfigureLogging` může být volána více než jednou s přičítáním výsledky.
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> přidá delegáta pro konfiguraci zadaných <xref:Microsoft.Extensions.Logging.ILoggingBuilder>. <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.ConfigureLogging*> může být volána více než jednou s přičítáním výsledky.
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureLogging)]
 
 ### <a name="useconsolelifetime"></a>UseConsoleLifetime
 
-<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> čeká na `Ctrl+C`/SIGINT nebo SIGTERM a volání <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> zahájíte proces vypnutí. `UseConsoleLifetime` odblokuje rozšíření, jako [RunAsync](#runasync) a [WaitForShutdownAsync](#waitforshutdownasync). <xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime> je zaregistrované předem. jako výchozí implementace životnost. Poslední doba života zaregistrovaný se používá.
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> čeká na kombinaci kláves Ctrl + C/SIGINT nebo SIGTERM a volání <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> zahájíte proces vypnutí. <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseConsoleLifetime*> odblokuje rozšíření, jako [RunAsync](#runasync) a [WaitForShutdownAsync](#waitforshutdownasync). <xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime> je zaregistrované předem. jako výchozí implementace životnost. Poslední doba života zaregistrovaný se používá.
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_UseConsoleLifetime)]
 
@@ -239,7 +240,7 @@ Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhran
 
 Pro podporu připojení v ostatních kontejnerech, může přijmout hostitele <xref:Microsoft.Extensions.DependencyInjection.IServiceProviderFactory%601>. Poskytuje objekt pro vytváření, které nejsou součástí registrace kontejnerů DI, ale místo toho je vnitřní hostitel používá k vytvoření kontejneru pro konkrétní DI. [UseServiceProviderFactory (IServiceProviderFactory&lt;TContainerBuilder&gt;)](xref:Microsoft.Extensions.Hosting.HostBuilder.UseServiceProviderFactory*) přepisuje výchozí objekt pro vytváření použitý k vytvoření poskytovatele služby app service.
 
-Konfigurace vlastního kontejneru je spravován <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> metody. `ConfigureContainer` poskytuje možnosti silného typu pro konfiguraci kontejneru nad základního hostitele rozhraní API. `ConfigureContainer` můžete volat vícekrát s přičítáním výsledky.
+Konfigurace vlastního kontejneru je spravován <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> metody. <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> poskytuje možnosti silného typu pro konfiguraci kontejneru nad základního hostitele rozhraní API. <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureContainer*> můžete volat vícekrát s přičítáním výsledky.
 
 Vytvoření služby kontejneru pro aplikace:
 
@@ -255,7 +256,7 @@ Použijte objekt pro vytváření a konfigurace kontejneru vlastní služby pro 
 
 ## <a name="extensibility"></a>Rozšiřitelnost
 
-Rozšiřitelnost hostitele se provádí pomocí metody rozšíření na `IHostBuilder`. Následující příklad ukazuje, jak rozšiřující metoda rozšiřuje `IHostBuilder` implementaci [TimedHostedService](xref:fundamentals/host/hosted-services#timed-background-tasks) příklad jsme vám ukázali v <xref:fundamentals/host/hosted-services>.
+Rozšiřitelnost hostitele se provádí pomocí metody rozšíření na <xref:Microsoft.Extensions.Hosting.IHostBuilder>. Následující příklad ukazuje, jak rozšiřující metoda rozšiřuje <xref:Microsoft.Extensions.Hosting.IHostBuilder> implementaci [TimedHostedService](xref:fundamentals/host/hosted-services#timed-background-tasks) příklad jsme vám ukázali v <xref:fundamentals/host/hosted-services>.
 
 ```csharp
 var host = new HostBuilder()
@@ -285,7 +286,7 @@ public static class Extensions
 
 ## <a name="manage-the-host"></a>Spravovat hostitele
 
-<xref:Microsoft.Extensions.Hosting.IHost> Implementace je zodpovědný za spouštění a zastavování `IHostedService` implementace, které jsou registrovány v kontejneru služby.
+<xref:Microsoft.Extensions.Hosting.IHost> Implementace je zodpovědný za spouštění a zastavování <xref:Microsoft.Extensions.Hosting.IHostedService> implementace, které jsou registrovány v kontejneru služby.
 
 ### <a name="run"></a>Spustit
 
@@ -306,7 +307,7 @@ public class Program
 
 ### <a name="runasync"></a>RunAsync
 
-<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> spuštění aplikace a vrátí `Task` , která se dokončí, když se aktivuje token zrušení nebo vypnutí:
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync*> spuštění aplikace a vrátí <xref:System.Threading.Tasks.Task> , která se dokončí, když se aktivuje token zrušení nebo vypnutí:
 
 ```csharp
 public class Program
@@ -323,7 +324,7 @@ public class Program
 
 ### <a name="runconsoleasync"></a>RunConsoleAsync
 
-<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> umožňuje podporu konzoly, sestaví a spustí hostitele a čeká na `Ctrl+C`/SIGINT nebo SIGTERM vypnout.
+<xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.RunConsoleAsync*> umožňuje podporu konzoly, sestaví a spustí hostitele a čeká na kombinaci kláves Ctrl + C/SIGINT nebo SIGTERM vypnout.
 
 ```csharp
 public class Program
@@ -387,7 +388,7 @@ public class Program
 
 ### <a name="waitforshutdown"></a>WaitForShutdown
 
-<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> se spouští přes <xref:Microsoft.Extensions.Hosting.IHostLifetime>, jako například <xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime> (čeká na `Ctrl+C`/SIGINT nebo SIGTERM). `WaitForShutdown` volání <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> se spouští přes <xref:Microsoft.Extensions.Hosting.IHostLifetime>, jako například <xref:Microsoft.Extensions.Hosting.Internal.ConsoleLifetime> (čeká na kombinaci kláves Ctrl + C/SIGINT nebo SIGTERM). <xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdown*> volání <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.
 
 ```csharp
 public class Program
@@ -409,7 +410,7 @@ public class Program
 
 ### <a name="waitforshutdownasync"></a>WaitForShutdownAsync
 
-<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> Vrátí `Task` , která se dokončí při vypnutí se spouští přes daný token a volání <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.
+<xref:Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.WaitForShutdownAsync*> Vrátí <xref:System.Threading.Tasks.Task> , která se dokončí při vypnutí se spouští přes daný token a volání <xref:Microsoft.Extensions.Hosting.IHost.StopAsync*>.
 
 ```csharp
 public class Program
@@ -464,7 +465,7 @@ public class Program
 
 ## <a name="ihostingenvironment-interface"></a>IHostingEnvironment rozhraní
 
-<xref:Microsoft.Extensions.Hosting.IHostingEnvironment> poskytuje informace o aplikaci prvku hostitelské prostředí. Použít [konstruktor vkládání](xref:fundamentals/dependency-injection) získat `IHostingEnvironment` Chcete-li použít její vlastnosti a metody rozšíření:
+<xref:Microsoft.Extensions.Hosting.IHostingEnvironment> poskytuje informace o aplikaci prvku hostitelské prostředí. Použít [konstruktor vkládání](xref:fundamentals/dependency-injection) získat <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> Chcete-li použít její vlastnosti a metody rozšíření:
 
 ```csharp
 public class MyClass
@@ -487,7 +488,7 @@ Další informace naleznete v tématu <xref:fundamentals/environments>.
 
 ## <a name="iapplicationlifetime-interface"></a>IApplicationLifetime rozhraní
 
-<xref:Microsoft.Extensions.Hosting.IApplicationLifetime> umožňuje po spuštění a vypnutí aktivity, včetně žádostí o řádné vypnutí. Tři vlastnosti v rozhraní jsou tokeny zrušení použije k registraci `Action` metody, které definují události spuštění a vypnutí.
+<xref:Microsoft.Extensions.Hosting.IApplicationLifetime> umožňuje po spuštění a vypnutí aktivity, včetně žádostí o řádné vypnutí. Tři vlastnosti v rozhraní jsou tokeny zrušení použije k registraci <xref:System.Action> metody, které definují události spuštění a vypnutí.
 
 | Token zrušení | Při aktivaci&#8230; |
 | ------------------ | --------------------- |
@@ -495,13 +496,13 @@ Další informace naleznete v tématu <xref:fundamentals/environments>.
 | <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopped*> | Hostitel se dokončuje řádné vypnutí. By měl zpracovat všechny požadavky. Vypnutí blokuje, dokud se tato událost se dokončí. |
 | <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.ApplicationStopping*> | Hostitel provádí řádné vypnutí. Žádosti se možná ještě zpracovávají. Vypnutí blokuje, dokud se tato událost se dokončí. |
 
-Vložit konstruktoru `IApplicationLifetime` service do libovolné třídy. [Ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) používá konstruktor injektáž do `LifetimeEventsHostedService` třídy ( `IHostedService` implementace) k registraci události.
+Vložit konstruktoru <xref:Microsoft.Extensions.Hosting.IApplicationLifetime> service do libovolné třídy. [Ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) používá konstruktor injektáž do `LifetimeEventsHostedService` třídy ( <xref:Microsoft.Extensions.Hosting.IHostedService> implementace) k registraci události.
 
 *LifetimeEventsHostedService.cs*:
 
 [!code-csharp[](generic-host/samples/2.x/GenericHostSample/LifetimeEventsHostedService.cs?name=snippet1)]
 
-<xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> požádá o ukončení aplikace. Následující třídy používá `StopApplication` řádně vypnout aplikaci při třídy `Shutdown` volání metody:
+<xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> požádá o ukončení aplikace. Následující třídy používá <xref:Microsoft.Extensions.Hosting.IApplicationLifetime.StopApplication*> řádně vypnout aplikaci při třídy `Shutdown` volání metody:
 
 ```csharp
 public class MyClass
@@ -523,4 +524,3 @@ public class MyClass
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/host/hosted-services>
-* [Hostování úložiště ukázek na Githubu](https://github.com/aspnet/Hosting/tree/release/2.1/samples)

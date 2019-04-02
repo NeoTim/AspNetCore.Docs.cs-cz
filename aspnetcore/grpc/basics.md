@@ -4,18 +4,18 @@ author: juntaoluo
 description: Informace o základních konceptech při zápisu gRPC služby s C#.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 03/08/2019
+ms.date: 03/31/2019
 uid: grpc/basics
-ms.openlocfilehash: 936561a3ad04183aff4c3ba1c9b0e8ab20dcbe12
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: ce2682848dc6a81293545c27f0be779e12a3a600
+ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264774"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58809173"
 ---
 # <a name="grpc-services-with-c"></a>gRPC služby pomocí jazyka C\#
 
-Tento dokument popisuje základní koncepty jsou potřeba k zápisu [gRPC](https://grpc.io/docs/guides/) aplikací v C#. Tady probíraná témata platit pro oboje [C – jádro](https://grpc.io/blog/grpc-stacks) podle a gRPC aplikace ASP.NET Core.
+Tento dokument popisuje koncepty jsou potřeba k zápisu [gRPC](https://grpc.io/docs/guides/) aplikací v C#. Tady probíraná témata platit pro oboje [C core](https://grpc.io/blog/grpc-stacks)– aplikace založené na síť a ASP.NET Core gRPC.
 
 ## <a name="proto-file"></a>proto soubor
 
@@ -34,7 +34,7 @@ Představme si třeba, *greet.proto* souboru použitého v [začít používat g
 
 [!code-proto[](~/tutorials/grpc/grpc-start/samples/GrpcStart/Protos/greet.proto)]
 
-## <a name="add-a-proto-file-to-a-c-app"></a>Přidat soubor .proto C# aplikace
+## <a name="add-a-proto-file-to-a-c-app"></a>Přidání souboru .proto C\# aplikace
 
 *.Proto* soubor zahrnut v projektu tak, že ji přidáte `<Protobuf>` skupiny položek:
 
@@ -52,19 +52,19 @@ Tento balíček je vyžadován server i klient projekty. `Grpc.Tools` lze přida
 
 [!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/GrpcGreeter.Server.csproj?highlight=1&range=16)]
 
-Balíček nástroje není vyžadováno za běhu, proto by měly být označené závislost `PrivateAssets="All"`.
+Balíček nástroje není nutné za běhu, takže závislost je označená pomocí `PrivateAssets="All"`.
 
 ## <a name="generated-c-assets"></a>Vygeneruje C# prostředky
 
-Bude generovat balíček nástroje C# typy představující zpráv definovaný v zahrnutou *.proto* soubory.
+Vytvoří balíček nástroje C# typy představující zpráv definovaný v zahrnutou *.proto* soubory.
 
-Pro prostředky na straně serveru je vygenerována základního typu abstraktní služby. Základní typ obsahuje definice všech součástí gRPC volání *.proto* souboru. Pak vytvoříte konkrétní implementace služby je odvozena z tohoto základního typu a implementuje logiku pro gRPC volání. Pro `greet.proto` příklad je popsáno výše, abstraktní `GreeterBase` typ, který obsahuje virtuální `SayHello` generované metody. Konkrétní implementaci `GreeterService` přepisuje metodu a implementuje logiku zpracování gRPC volání.
+Pro prostředky na straně serveru je vygenerována základního typu abstraktní služby. Základní typ obsahuje definice všech součástí gRPC volání *.proto* souboru. Vytvoření implementace konkrétní služby, který je odvozen z tohoto základního typu a implementuje logiku pro volání gRPC. Pro `greet.proto`, v příkladu je popsáno výše, abstraktní `GreeterBase` typ, který obsahuje virtuální `SayHello` generované metody. Konkrétní implementaci `GreeterService` přepisuje metodu a implementuje logiku zpracování gRPC volání.
 
-[!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/Services/GreeterService.cs?name=snippet)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/Services/GreeterService.cs?name=snippet)]
 
-Pro prostředky na straně klienta je vygenerována typ konkrétní klienta. GRPC zavolá v *.proto* souboru jsou přeloženy na metody na konkrétní typ, který může být volána. Pro `greet.proto` příklad je popsáno výše, konkrétní `GreeterClient` typ generován. `GreeterClient` Obsahuje typ `SayHello` metodu, která lze volat pro zahájení gRPC volání serveru.
+Pro prostředky na straně klienta je vygenerována typ konkrétní klienta. GRPC zavolá v *.proto* souboru jsou přeloženy do metod na konkrétní typ, který může být volána. Pro `greet.proto`, v příkladu je popsáno výše, konkrétní `GreeterClient` typ generován. Volání `GreeterClient.SayHello` k zahájení gRPC volání serveru.
 
-[!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Client/Program.cs?highlight=9-11&name=snippet)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Client/Program.cs?highlight=9-11&name=snippet)]
 
 Ve výchozím nastavení, prostředky serveru a klienta jsou generovány pro každou *.proto* zahrnuté v souboru `<Protobuf>` skupiny položek. Aby se serverové prostředky jsou generovány v projektu serveru, `GrpcServices` atribut je nastaven na `Server`.
 

@@ -5,12 +5,12 @@ description: Vysvětluje stránky Razor generovaných generování uživatelské
 ms.author: riande
 ms.date: 12/4/2018
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 9acb30bbed6aaed893b8a6373a210ef18e5ee60b
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: b654138231440a0c63492cae70f794da0151890d
+ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320131"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58809299"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>Vygenerované stránky Razor v ASP.NET Core
 
@@ -87,7 +87,7 @@ Na řádku `@*Markup removed for brevity.*@` je komentáře syntaxe Razor, kter�
 
 ### <a name="update-the-layout"></a>Aktualizace rozložení
 
-Změnit `<title>` element v *Pages/Shared/_Layout.cshtml* soubor zobrazení **film** spíše než **RazorPagesMovie**.
+Změnit `<title>` element v *Pages/Shared/_Layout.cshtml* soubor k zobrazení **film** spíše než **RazorPagesMovie**.
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
 
