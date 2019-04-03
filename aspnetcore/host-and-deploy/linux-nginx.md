@@ -1,18 +1,18 @@
 ---
 title: Hostitele ASP.NET Core v Linuxu se serverem Nginx
-author: rick-anderson
+author: guardrex
 description: Další informace o nastavení serveru Nginx jako reverzní proxy server na Ubuntu 16.04 směrovat provoz protokolu HTTP k webové aplikaci ASP.NET Core spuštěnou v prostředí Kestrel.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/28/2019
+ms.date: 03/31/2019
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: e5189ff31607f99a35454177e3cee0c800fbffc0
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
-ms.translationtype: HT
+ms.openlocfilehash: 1a299cbd5fb9d971176d7d440efdad68e3780231
+ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750660"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58809338"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostitele ASP.NET Core v Linuxu se serverem Nginx
 
@@ -204,7 +204,7 @@ WantedBy=multi-user.target
 
 Pokud uživatel *www-data* nepoužívá konfigurace, musí nejprve vytvořit uživatelem definované tady a pro soubory zadané správné vlastnictví.
 
-Použití `TimeoutStopSec` nakonfigurovat doba čekání na aplikaci pro vypnutí po přijetí počáteční přerušení signálu. Pokud aplikace není v tomto období vypnout, objeví se SIGKILL ukončit aplikaci. Zadejte hodnotu unitless sekund (například `150`), časový interval hodnotu (například `2min 30s`), nebo `infinity` zakázat časový limit. `TimeoutStopSec` Výchozí hodnota je hodnota `DefaultTimeoutStopSec` v konfiguračním souboru správce (*systemd system.conf*, *system.conf.d*, *systemd user.conf*, * User.conf.d*). Výchozí hodnota časového limitu pro většinu distribuce je 90 sekund.
+Použití `TimeoutStopSec` nakonfigurovat doba čekání na aplikaci pro vypnutí po přijetí počáteční přerušení signálu. Pokud aplikace není v tomto období vypnout, objeví se SIGKILL ukončit aplikaci. Zadejte hodnotu unitless sekund (například `150`), časový interval hodnotu (například `2min 30s`), nebo `infinity` zakázat časový limit. `TimeoutStopSec` Výchozí hodnota je hodnota `DefaultTimeoutStopSec` v konfiguračním souboru správce (*systemd system.conf*, *system.conf.d*, *systemd user.conf*,  *User.conf.d*). Výchozí hodnota časového limitu pro většinu distribuce je 90 sekund.
 
 ```
 # The default value is 90 seconds for most distributions.
@@ -217,6 +217,12 @@ Některé hodnoty (například připojovací řetězce SQL) musí být uvozena p
 
 ```console
 systemd-escape "<value-to-escape>"
+```
+
+Dvojtečka (`:`) oddělovače nejsou podporovány v názvech proměnných prostředí. Použít dvojitým podtržítkem (`__`) místo dvojtečkou. [Poskytovatele konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider) double podtržítka převede na použití dvojteček, když jsou proměnné prostředí načteny do konfigurace. V následujícím příkladu, klíč připojovacího řetězce `ConnectionStrings:DefaultConnection` nastavena do definičního souboru služby jako `ConnectionStrings__DefaultConnection`:
+
+```
+Environment=ConnectionStrings__DefaultConnection={Connection String}
 ```
 
 Uložte soubor a povolení služby.
@@ -335,7 +341,7 @@ Konfigurace serveru s další požadované moduly. Zvažte použití brány fire
 
 **Konfigurace aplikace pro zabezpečené místní připojení (HTTPS)**
 
-[Dotnet spustit](/dotnet/core/tools/dotnet-run) příkaz používá aplikace *Properties/launchSettings.json* soubor, který konfiguruje aplikaci, aby naslouchala na adresy URL poskytnuté `applicationUrl` vlastnosti (například `https://localhost:5001;http://localhost:5000`) .
+[Dotnet spustit](/dotnet/core/tools/dotnet-run) příkaz používá aplikace *Properties/launchSettings.json* soubor, který konfiguruje aplikaci, aby naslouchala na adresy URL poskytnuté `applicationUrl` vlastnosti (například `https://localhost:5001; http://localhost:5000`) .
 
 Konfigurace aplikace pro použití při vývoji pro certifikátu `dotnet run` příkaz nebo vývojové prostředí (F5 nebo Ctrl + F5 ve Visual Studio Code) pomocí jedné z následujících přístupů:
 
