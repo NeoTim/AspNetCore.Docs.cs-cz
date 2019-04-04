@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 8a14ada241330ca33811b7cce70daf26ff8fc13a
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 3d2ae12bf8eda4f7997008758d4d29434a8371a7
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750636"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012601"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>Kurz: Pomocí funkce migrace – ASP.NET MVC s EF Core
 
@@ -54,6 +54,7 @@ Tato změna nastaví projekt tak, aby první migrací vytvoří novou databázi.
 > ```console
 > dotnet ef database drop
 > ```
+>
 > Následující část vysvětluje, jak spouštět příkazy rozhraní příkazového řádku.
 
 ## <a name="create-an-initial-migration"></a>Vytvoření počáteční migraci

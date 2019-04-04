@@ -1,12 +1,18 @@
 ---
 title: Konfigurace v ASP.NET Core
 author: guardrex
-description: 'Zjistěte, jak použít rozhraní API pro konfiguraci ke konfiguraci aplikace ASP.NET Core.'
+description: Zjistěte, jak použít rozhraní API pro konfiguraci ke konfiguraci aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/11/2019
 uid: fundamentals/configuration/index
+ms.openlocfilehash: 52450460af59a8da4fc6b24e3aa83d55385e8c77
+ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58750963"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 

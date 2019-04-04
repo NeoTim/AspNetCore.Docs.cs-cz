@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat aplikaci pomocí dvojice název hodno
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/22/2019
+ms.date: 02/25/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 2188929d6f380327465e8ce0fd8ad659188416d3
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 8fd1cca1803d3f1d44d80ec63c5cfc259cbdaf55
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743982"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012692"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace služby Azure Key Vault v ASP.NET Core
 
@@ -34,13 +34,13 @@ Použití zprostředkovatele konfigurace trezoru klíčů Azure, přidejte odkaz
 Přijmout [spravovaných identit pro prostředky Azure](/azure/active-directory/managed-identities-azure-resources/overview) scénář, přidejte odkaz na balíček [Microsoft.Azure.Services.appauthentication přistupovat](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/) balíčku.
 
 > [!NOTE]
-> V době psaní, nejnovější stabilní verzi `Microsoft.Azure.Services.AppAuthentication`, verze `1.0.3`, poskytuje podporu pro [systém přiřadil spravovaných identit](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-worka-namehow-does-it-worka). Podpora pro *uživatelsky přiřazené identity spravované* je k dispozici v `1.0.2-preview` balíčku. Toto téma popisuje použití identit spravovaných systému a připravená ukázková aplikace používá verzi `1.0.3` z `Microsoft.Azure.Services.AppAuthentication` balíčku.
+> V době psaní, nejnovější stabilní verzi `Microsoft.Azure.Services.AppAuthentication`, verze `1.0.3`, poskytuje podporu pro [systém přiřadil spravovaných identit](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-worka-namehow-does-it-worka). Podpora pro *uživatelsky přiřazené identity spravované* je k dispozici v `1.2.0-preview2` balíčku. Toto téma popisuje použití identit spravovaných systému a připravená ukázková aplikace používá verzi `1.0.3` z `Microsoft.Azure.Services.AppAuthentication` balíčku.
 
 ## <a name="sample-app"></a>Ukázková aplikace
 
 Ukázková aplikace spouští v jednom ze dvou režimů, které jsou určeny `#define` příkazu v horní části *Program.cs* souboru:
 
-* `Basic` &ndash; Ukazuje použití ID aplikace klíč trezoru Azure a heslo (tajný klíč klienta), pro přístup k tajnými kódy uloženými v trezoru klíčů. Nasazení `Basic` verzi ukázky na libovolného hostitele, která je schopná obsluhovat aplikace ASP.NET Core. Postupujte podle pokynů v [pomocí ID aplikace a tajný kód klienta pro aplikace bez Azure hostované](#use-application-id-and-client-secret-for-non-azure-hosted-apps) oddílu.
+* `Certificate` &ndash; Ukazuje použití certifikát ID klienta aplikace Azure Key Vault a X.509 pro přístup k tajnými kódy uloženými v Azure Key Vault. Tuto verzi vzorku můžete spustit z libovolného místa a nasadit do Azure App Service nebo libovolného hostitele, která je schopná obsluhovat aplikace ASP.NET Core.
 * `Managed` &ndash; Ukazuje, jak používat [spravovaných identit pro prostředky Azure](/azure/active-directory/managed-identities-azure-resources/overview) k ověření aplikace do služby Azure Key Vault pomocí ověřování Azure AD bez přihlašovací údaje uložené v kódu nebo konfigurace aplikace. Při použití spravované identity k ověření, ID aplikace Azure AD a heslo (tajný klíč klienta) se nevyžadují. `Managed` Verzi vzorku se musí nasadit do Azure. Postupujte podle pokynů v [pomocí spravované identity pro prostředky Azure](#use-managed-identities-for-azure-resources) oddílu.
 
 Další informace o tom, jak nakonfigurovat ukázkovou aplikaci pomocí direktivy preprocesoru (`#define`), najdete v článku <xref:index#preprocessor-directives-in-sample-code>.
@@ -113,15 +113,19 @@ Podle pokynů uvedených [rychlý start: Nastavení a načtení tajného klíče
 
 ## <a name="use-application-id-and-client-secret-for-non-azure-hosted-apps"></a>Pomocí ID aplikace a tajný kód klienta pro jiné Azure hostované aplikace
 
-Konfigurace služby Azure AD, Azure Key Vault a aplikace použít ID aplikace a heslo (tajný klíč klienta) k ověření do služby key vault **když je aplikace hostovaná mimo Azure**.
+Konfigurace služby Azure AD, Azure Key Vault a aplikace použít Azure Active Directory ID aplikace a X.509 certifikátu ověřování do služby key vault **když je aplikace hostovaná mimo Azure**. Další informace najdete v tématu [informace o klíčích, tajných kódů a certifikátů](/azure/key-vault/about-keys-secrets-and-certificates).
 
 > [!NOTE]
-> Ačkoli použití ID aplikace a heslo (tajný klíč klienta) se nepodporují pro aplikace hostované v Azure, doporučujeme používat [spravovaných identit pro prostředky Azure](#use-managed-identities-for-azure-resources) při hostování aplikace v Azure. Spravované identity nevyžaduje, aby ukládání přihlašovacích údajů do aplikace ani její konfiguraci, tak se považuje obecně bezpečnější.
+> I když se pomocí ID aplikace a X.509 certifikátu se nepodporují pro aplikace hostované v Azure, doporučujeme používat [spravovaných identit pro prostředky Azure](#use-managed-identities-for-azure-resources) při hostování aplikace v Azure. Spravované identity nevyžadují ukládání certifikátu v aplikaci nebo ve vývojovém prostředí.
 
-Ukázková aplikace používá při aplikace ID a heslo (tajný klíč klienta) `#define` příkazu v horní části *Program.cs* souboru má nastavenou `Basic`.
+Tato ukázková aplikace používá ID aplikace a služby X.509 certifikátu při `#define` příkazu v horní části *Program.cs* souboru má nastavenou `Certificate`.
 
-1. Registrace aplikace v Azure AD a vytvořit heslo pro identitu aplikace (tajný klíč klienta).
-1. Název trezoru klíčů, ID aplikace a tajný kód hesla/klienta Store aplikace *appsettings.json* souboru.
+1. Registrace aplikace v Azure AD (**registrace aplikací**).
+1. Odešlete veřejný klíč:
+   1. Vyberte aplikaci ve službě Azure AD.
+   1. Přejděte do **nastavení** > **klíče**.
+   1. Vyberte **nahrát veřejný klíč** se nahrát certifikát, který obsahuje veřejný klíč. Kromě použití *.cer*, *.pem*, nebo *.crt* certifikát, *.pfx* certifikát jde nahrát.
+1. Store název trezoru klíčů a ID aplikace v aplikaci prvku *appsettings.json* souboru. Certifikát umístěte do kořenové aplikace nebo aplikace do úložiště certifikátů&dagger;.
 1. Přejděte do **trezory klíčů** na webu Azure Portal.
 1. Vyberte trezor klíčů, které jste vytvořili [úložiště tajných kódů v produkčním prostředí pomocí služby Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) oddílu.
 1. Vyberte **zásady přístupu**.
@@ -132,7 +136,9 @@ Ukázková aplikace používá při aplikace ID a heslo (tajný klíč klienta) 
 1. Vyberte **Uložit**.
 1. Nasazení aplikace.
 
-`Basic` Ukázkové aplikace získá jeho hodnoty konfigurace z `IConfigurationRoot` se stejným názvem jako název tajného kódu:
+&dagger;V ukázkové aplikaci, certifikát se spotřebovává přímo z fyzického souboru v kořenovém adresáři aplikace tak, že vytvoříte nový `X509Certificate2` při volání metody `AddAzureKeyVault`. Alternativním přístupem je umožnit operačního systému pro správu certifikát. Další informace najdete v tématu [povolit operačního systému pro správu certifikát X.509](#allow-the-os-to-manage-the-x509-certificate) oddílu.
+
+`Certificate` Ukázkové aplikace získá jeho hodnoty konfigurace z `IConfigurationRoot` se stejným názvem jako název tajného kódu:
 
 * Hierarchické bez hodnoty: Hodnota pro `SecretName` se získá pomocí `config["SecretName"]`.
 * Hierarchické hodnoty (oddílů): Použití `:` zápis (dvojtečka) nebo `GetSection` – metoda rozšíření. Použijte některou z těchto přístupů k získání hodnoty konfigurace:
@@ -141,13 +147,12 @@ Ukázková aplikace používá při aplikace ID a heslo (tajný klíč klienta) 
 
 Volání aplikace `AddAzureKeyVault` hodnotami poskytnutých *appsettings.json* souboru:
 
-[!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet1&highlight=11-14)]
+[!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet1&highlight=12-15)]
 
 Ukázkové hodnoty:
 
 * Název trezoru klíčů: `contosovault`
 * ID aplikace: `627e911e-43cc-61d4-992e-12db9c81b413`
-* Password: `g58K3dtg59o1Pa+e59v2Tx829w6VxTB2yv9sv/101di=`
 
 *appsettings.json*:
 
@@ -208,7 +213,7 @@ Ukázkové hodnoty:
 
 * Název trezoru klíčů: `contosovault`
 * ID aplikace: `627e911e-43cc-61d4-992e-12db9c81b413`
-* Password: `g58K3dtg59o1Pa+e59v2Tx829w6VxTB2yv9sv/101di=`
+* Heslo: `g58K3dtg59o1Pa+e59v2Tx829w6VxTB2yv9sv/101di=`
 
 `IKeyVaultSecretManager` Implementace jsou reaguje na verze předpony tajných kódů k načtení správné tajného klíče do konfigurace:
 
@@ -257,27 +262,43 @@ Když je tento přístup implementovat:
 > [!NOTE]
 > Můžete taky zadat vlastní `KeyVaultClient` implementaci `AddAzureKeyVault`. Vlastního klienta umožňuje sdílení jedné instance klienta aplikace.
 
-## <a name="authenticate-to-azure-key-vault-with-an-x509-certificate"></a>Ověřování pomocí certifikátu X.509 do služby Azure Key Vault
+## <a name="allow-the-os-to-manage-the-x509-certificate"></a>Povolit operačního systému pro správu certifikátů X.509
 
-Při vývoji aplikace rozhraní .NET Framework v prostředí, které podporuje certifikáty, můžete ověřovat do služby Azure Key Vault pomocí certifikátu X.509. Privátní klíč certifikátu X.509 se spravuje přes operační systém. Další informace najdete v tématu [ověřování pomocí certifikátu místo tajného klíče klienta](/azure/key-vault/key-vault-use-from-web-application#authenticate-with-a-certificate-instead-of-a-client-secret). Použití `AddAzureKeyVault` přetížení přijímající `X509Certificate2` (`_env` v následujícím příkladu:
+Certifikát X.509 je možné spravovat podle operačního systému. V následujícím příkladu `AddAzureKeyVault` přetížení přijímající `X509Certificate2` z úložiště certifikátů aktuálního uživatele počítači a kryptografický otisk certifikátu zadaný v konfiguraci:
 
 ```csharp
-var builtConfig = config.Build();
+// using System.Linq;
+// using System.Security.Cryptography.X509Certificates;
+// using Microsoft.Extensions.Configuration;
 
-var store = new X509Store(StoreLocation.CurrentUser);
-store.Open(OpenFlags.ReadOnly);
-var cert = store.Certificates
-    .Find(X509FindType.FindByThumbprint, 
-        config["CertificateThumbprint"], false);
+WebHost.CreateDefaultBuilder(args)
+    .ConfigureAppConfiguration((context, config) =>
+    {
+        if (context.HostingEnvironment.IsProduction())
+        {
+            var builtConfig = config.Build();
 
-config.AddAzureKeyVault(
-    builtConfig["KeyVaultName"],
-    builtConfig["AzureADApplicationId"],
-    cert.OfType<X509Certificate2>().Single(),
-    new EnvironmentSecretManager(context.HostingEnvironment.ApplicationName));
+            using (var store = new X509Store(StoreName.My, 
+                StoreLocation.CurrentUser))
+            {
+                store.Open(OpenFlags.ReadOnly);
+                var certs = store.Certificates
+                    .Find(X509FindType.FindByThumbprint, 
+                        builtConfig["CertificateThumbprint"], false);
 
-store.Close();
+                config.AddAzureKeyVault(
+                    builtConfig["KeyVaultName"], 
+                    builtConfig["AzureADApplicationId"], 
+                    certs.OfType<X509Certificate2>().Single());
+
+                store.Close();
+            }
+        }
+    })
+    .UseStartup<Startup>();
 ```
+
+Další informace najdete v tématu [ověřování pomocí certifikátu místo tajného klíče klienta](/azure/key-vault/key-vault-use-from-web-application#authenticate-with-a-certificate-instead-of-a-client-secret).
 
 ## <a name="bind-an-array-to-a-class"></a>Svázat pole třídy
 
@@ -285,7 +306,7 @@ Zprostředkovatel je schopný načíst konfigurační hodnoty do pole pro vazbu 
 
 Při čtení ze zdroje konfigurace, která umožňuje klíče obsahovat dvojtečku (`:`) oddělovače, číselné klíčové segment, který se používá k rozlišení klíčů, které tvoří pole (`:0:`, `:1:`;... `:{n}:`). Další informace najdete v tématu [konfigurace: Svázat pole třídy](xref:fundamentals/configuration/index#bind-an-array-to-a-class).
 
-Azure Key Vault klíče nelze použít dvojtečku jako oddělovač. Postupu popsaného v tomto tématu používá dvojité pomlčky (`--`) jako oddělovač pro hierarchické hodnoty (oddíly). Pole klíče jsou uložené ve službě Azure Key Vault s double pomlčky a číselné klíčových segmentů (`--0--`, `--1--`;... `--{n}--`).
+Azure Key Vault klíče nelze použít dvojtečku jako oddělovač. Postupu popsaného v tomto tématu používá dvojité pomlčky (`--`) jako oddělovač pro hierarchické hodnoty (oddíly). Pole klíče jsou uložené ve službě Azure Key Vault s double pomlčky a číselné klíčových segmentů (`--0--`, `--1--`, &hellip; `--{n}--`).
 
 Zkontrolujte následující [Serilog](https://serilog.net/) protokolování konfigurace poskytovatele poskytovaný souborem JSON. Existují dva literály definované v objektu `WriteTo` pole, které zahrnují dva Serilog *jímky*, které popisují cíle pro výstup protokolování:
 
@@ -312,7 +333,7 @@ Zkontrolujte následující [Serilog](https://serilog.net/) protokolování konf
 
 Konfigurace je znázorněno v předchozím soubor JSON je uložená ve službě Azure Key Vault pomocí dvojitá čárka (`--`) zápisem a číselné segmenty:
 
-| Key | Hodnota |
+| Key | Value |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -349,7 +370,9 @@ Když aplikaci se pak nepodaří načíst konfiguraci pomocí zprostředkovatele
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/configuration/index>
-* [Microsoft Azure: Trezor klíčů](https://azure.microsoft.com/services/key-vault/)
+* [Microsoft Azure: Key Vault](https://azure.microsoft.com/services/key-vault/)
 * [Microsoft Azure: Dokumentace ke službě Key Vault](/azure/key-vault/)
 * [Postup generování a přenos chráněných pomocí HSM klíčů pro Azure Key Vault](/azure/key-vault/key-vault-hsm-protected-keys)
 * [Třída KeyVaultClient](/dotnet/api/microsoft.azure.keyvault.keyvaultclient)
+* [Rychlý start: Nastavení a načtení tajného klíče ze služby Azure Key Vault pomocí webové aplikace .NET](/azure/key-vault/quick-create-net)
+* [Kurz: Jak používat Azure Key Vault s Windows virtuální počítač Azure v .NET](/azure/key-vault/tutorial-net-windows-virtual-machine)

@@ -5,12 +5,12 @@ description: Další informace o metodě kontroleru podrobnosti a zobrazit v zá
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: f674ca1761f85ce127121603286c97d5936f6716
-ms.sourcegitcommit: c47d7c131eebbcd8811e31edda210d64cf4b9d6b
+ms.openlocfilehash: 056017ea4f4073fa0b1cd747d06775b2a33616cf
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/30/2019
-ms.locfileid: "55236325"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012666"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>Zkontrolujte podrobnosti a odstranit metody aplikace ASP.NET Core
 
@@ -46,6 +46,7 @@ Další běžné alternativní pro metody, které mají stejné názvy a podpisy
 
 ```csharp
 // POST: Movies/Delete/6
+[HttpPost]
 [ValidateAntiForgeryToken]
 public async Task<IActionResult> Delete(int id, bool notUsed)
 ```

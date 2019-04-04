@@ -1,10 +1,16 @@
 ---
 title: 'Kurz: Vytvoření webové aplikace stránky Razor pomocí ASP.NET Core'
 author: rick-anderson
-description: 'Vytvoření webové aplikace stránky Razor ve Windows pomocí sady Visual Studio, ASP.NET Core a EF Core.'
+description: Vytvoření webové aplikace stránky Razor ve Windows pomocí sady Visual Studio, ASP.NET Core a EF Core.
 ms.author: riande
 ms.date: 09/08/2017
 uid: tutorials/razor-pages/index
+ms.openlocfilehash: c3dcc18844f2a12a2a116b11cb007cb833203dc3
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57345597"
 ---
 # <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>Kurz: Vytvoření webové aplikace stránky Razor pomocí ASP.NET Core
 

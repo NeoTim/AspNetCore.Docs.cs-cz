@@ -1,13 +1,18 @@
 ---
 title: ASP.NET Core integrované pomocné rutiny značek
 author: pkellner
-description: 'Zjistěte, jak ASP.NET Core integrovaných pomocných rutin značek zvýší vaši produktivitu.'
+description: Zjistěte, jak ASP.NET Core integrovaných pomocných rutin značek zvýší vaši produktivitu.
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/Index
+ms.openlocfilehash: 9cca912f43159e778a4c9419e6171f06b4037b8b
+ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/05/2019
+ms.locfileid: "57346008"
 ---
-
 # <a name="aspnet-core-built-in-tag-helpers"></a>ASP.NET Core integrované pomocné rutiny značek
 
 Podle [Peter Kellner](http://peterkellner.net)

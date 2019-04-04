@@ -1,11 +1,17 @@
 ---
 title: Úvod do ASP.NET Core
 author: rick-anderson
-description: 'Nechte si představit ASP.NET Core, což je platformově univerzální, vysoce výkonná architektura typu open-source, která slouží k vytváření moderních cloudových aplikací připojených k internetu.'
+description: Nechte si představit ASP.NET Core, což je platformově univerzální, vysoce výkonná architektura typu open-source, která slouží k vytváření moderních cloudových aplikací připojených k internetu.
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/14/2019
 uid: index
+ms.openlocfilehash: fa1c9d3ee095b3affe5b152a96fd51c58a14089d
+ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.translationtype: HT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 02/23/2019
+ms.locfileid: "56743797"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 

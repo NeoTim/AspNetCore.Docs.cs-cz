@@ -1,18 +1,24 @@
 ---
-title: Úvod do komponent Razor
+title: Úvod do komponent Razor v ASP.NET Core
 author: guardrex
-description: 'Prozkoumejte službu ASP.NET Core Razor komponenty, způsob, jak vytvářet interaktivní webové na straně klienta uživatelské rozhraní s využitím .NET v aplikaci ASP.NET Core.'
+description: Prozkoumejte službu ASP.NET Core Razor komponenty, způsob, jak vytvářet interaktivní webové na straně klienta uživatelské rozhraní s využitím .NET v aplikaci ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
-ms.custom: mvc
+ms.custom: seoapril2019
 ms.date: 03/27/2019
 uid: razor-components/index
+ms.openlocfilehash: 43d5cf1d752b66a531c8d974deeb5a5fc8e94b43
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012653"
 ---
 # <a name="introduction-to-razor-components"></a>Úvod do komponent Razor
 
 Podle [Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
-*Součásti Razor* je způsob, jak vytvářet interaktivní webové uživatelské rozhraní s .NET na straně klienta:
+*Součásti Razor*, zavedené v ASP.NET Core 3.0 (Preview), je způsob, jak vytvářet interaktivní webové uživatelské rozhraní s .NET na straně klienta:
 
 * Vytvářet bohaté interaktivní uživatelských rozhraní pomocí C# místo JavaScriptu.
 * Sdílet logiku na straně serveru a na straně klienta aplikací napsaných pomocí rozhraní .NET.

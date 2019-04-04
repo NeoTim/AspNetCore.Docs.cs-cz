@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/05/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: d809c70b3fae6b2d21d5ec0871298d905b873d5d
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: ae0b80baed814cd4c7c1dddce2f26a6facfdbaad
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665360"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012705"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
@@ -103,7 +103,9 @@ Ve výchozím nastavení, aplikace ASP.NET Core neposkytuje znakovou stránku St
 
 Middleware je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
-Přidejte řádek, který `Startup.Configure` metody:
+### <a name="usestatuscodepages"></a>UseStatusCodePages
+
+Pokud chcete povolit výchozích prostého textu obslužných rutin pro běžné kódy chyb stavu, přidejte následující kód, který `Startup.Configure` metody:
 
 ```csharp
 app.UseStatusCodePages();
@@ -111,7 +113,7 @@ app.UseStatusCodePages();
 
 Volání <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> metoda před požadavkem zpracování middleware (například Middleware statické soubory a Middlewarem MVC).
 
-Ve výchozím nastavení, Middleware stránky stavový kód přidá prostého textu obslužné rutiny pro běžné stavové kódy, jako například *404 - Nenalezeno*:
+Tady je příklad text, zobrazený výchozích obslužných rutin:
 
 ```
 Status Code: 404; Not Found
@@ -119,9 +121,13 @@ Status Code: 404; Not Found
 
 Middleware podporuje několik metod rozšíření, které umožňují přizpůsobit chování aplikace.
 
+### <a name="usestatuscodepages-with-lambda"></a>UseStatusCodePages pomocí výrazu lambda
+
 Přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> používá výraz lambda, který můžete použít ke zpracování vlastní logiku zpracování chyb a ručně zápisu odpovědi:
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePages)]
+
+### <a name="usestatuscodepages-with-format-string"></a>UseStatusCodePages řetězcem formátu
 
 Přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> obsahu typ a formát řetězce, který můžete použít pro přizpůsobení obsahu textu, typ a odpovědi:
 
@@ -129,7 +135,7 @@ Přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseSt
 app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
 ```
 
-### <a name="redirect-and-re-execute-extension-methods"></a>Přesměrování a znovu spusťte rozšiřující metody
+### <a name="usestatuscodepageswithredirects"></a>UseStatusCodePagesWithRedirects
 
 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*>:
 
@@ -142,6 +148,8 @@ app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
 
 * Klient by se měla přesměrovat na jiný koncový bod, obvykle v případech, kde různé aplikace zpracovává chyby. Pro web apps odráží adresního řádku prohlížeče klienta přesměrovaného koncový bod.
 * Neměli zachovat a vrátí původní stavový kód odpovědi počáteční přesměrování.
+
+### <a name="usestatuscodepageswithreexecute"></a>UseStatusCodePagesWithReExecute
 
 <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*>:
 
@@ -163,6 +171,17 @@ app.UseStatusCodePagesWithReExecute("/Error/{0}");
 @page "{code?}"
 ```
 
+Koncový bod, který zpracovává chybu můžete získat původní adresu URL, který vytvořil chybu, jak je znázorněno v následujícím příkladu:
+
+```csharp
+var statusCodeReExecuteFeature = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+var originalPathBase = statusCodeReExecuteFeature?.OriginalPathBase;
+var originalPath = statusCodeReExecuteFeature?.OriginalPath;
+var originalQueryString = statusCodeReExecuteFeature?.OriginalQueryString;
+```
+
+### <a name="disable-status-code-pages"></a>Zakázat stav znakové stránky
+
 Stav znakové stránky je možné zakázat pro konkrétní požadavky v metodě obslužné rutiny pro stránky Razor nebo kontroler MVC. Zakázat stav znakových stránek, pokus o načtení <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature> z identifikátoru požadavku [HttpContext.Features](xref:Microsoft.AspNetCore.Http.HttpContext.Features) kolekce a zakažte funkci, pokud je k dispozici:
 
 ```csharp
@@ -173,6 +192,8 @@ if (statusCodePagesFeature != null)
     statusCodePagesFeature.Enabled = false;
 }
 ```
+
+### <a name="status-code-page-endpoints"></a>Stavový kód stránku koncové body
 
 Použití <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> přetížení body do koncového bodu v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Například šablona aplikace Razor Pages vytváří následující stránky a modelu třídy stránky:
 

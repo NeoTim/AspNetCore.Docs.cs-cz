@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: 7723f7ca6c5f9a21b2628933c6e7dabde20c3af6
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: aff62d760cf0899983cf841f6715f2658b113f82
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320196"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012679"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -29,11 +29,11 @@ Ukázková aplikace je webovou stránku pro fiktivní společnosti Contoso Unive
 
 ## <a name="prerequisites"></a>Požadavky
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 [!INCLUDE [](~/includes/net-core-prereqs-windows.md)]
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 [!INCLUDE [](~/includes/2.1-SDK.md)]
 
@@ -59,7 +59,7 @@ Styl uživatelského rozhraní tohoto webu se blíží co je generována pomocí
 
 ## <a name="create-the-contosouniversity-razor-pages-web-app"></a>Vytvoření webové aplikace stránky Razor ContosoUniversity
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 * Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**.
 * Vytvořte novou webovou aplikaci ASP.NET Core. Pojmenujte projekt **ContosoUniversity**. Je důležité projekt pojmenujte *ContosoUniversity* tak obory názvů případy, kdy kód je zkopírované a vložené.
@@ -68,7 +68,7 @@ Styl uživatelského rozhraní tohoto webu se blíží co je generována pomocí
 Obrázky v předchozích krocích, naleznete v tématu [vytvořit webová aplikace Razor](xref:tutorials/razor-pages/razor-pages-start#create-a-razor-pages-web-app).
 Spusťte aplikaci.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 ```CLI
 dotnet new webapp -o ContosoUniversity
@@ -155,7 +155,7 @@ V této části je automaticky generovaný model studentů. To znamená vytvoř�
 * Sestavte projekt.
 * Vytvořte *stránek/studenty* složky.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 * V **Průzkumníka řešení**, klikněte pravým tlačítkem na *stránek/studenty* složky > **přidat** > **novou vygenerovanou položku**.
 * V **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **stránky Razor pomocí Entity Frameworku (CRUD)** > **přidat**.
@@ -171,7 +171,7 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 
 Zobrazit [generování uživatelského rozhraní modelu film](xref:tutorials/razor-pages/model#scaffold-the-movie-model) Pokud máte potíže s předchozím kroku.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 Spusťte následující příkazy k modelu studentů.
 
@@ -278,8 +278,9 @@ Odstranit záznamy, které studenty a restartujte aplikaci. Pokud databáze nen�
 
 ## <a name="view-the-db"></a>Zobrazení databáze
 
+Název databáze je vygenerován ze název kontextu, které jste zadali dříve plus spojovníkem a identifikátor GUID. Díky tomu se název databáze bude "SchoolContext-{GUID}". Identifikátor GUID se liší pro jednotlivé uživatele.
 Otevřít **Průzkumník objektů systému SQL Server** (SSOX) z **zobrazení** nabídky v sadě Visual Studio.
-V SSOX, klikněte na tlačítko **\MSSQLLocalDB (localdb) > databáze > ContosoUniversity1**.
+V SSOX, klikněte na tlačítko **\MSSQLLocalDB (localdb) > databáze > SchoolContext-{GUID}**.
 
 Rozbalte **tabulky** uzlu.
 

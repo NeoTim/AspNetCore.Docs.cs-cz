@@ -1,11 +1,17 @@
 ---
 title: Hostitele ASP.NET Core ve Windows se službou IIS
 author: guardrex
-description: 'Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).'
+description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/23/2019
 uid: host-and-deploy/iis/index
+ms.openlocfilehash: 477568dd64fb1442011abb4229299e7dece40da9
+ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/26/2019
+ms.locfileid: "58488751"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 

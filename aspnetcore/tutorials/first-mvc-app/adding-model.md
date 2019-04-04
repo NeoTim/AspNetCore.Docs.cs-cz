@@ -5,12 +5,12 @@ description: Přidání modelu pro jednoduchou aplikaci ASP.NET Core.
 ms.author: riande
 ms.date: 02/25/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 224b8d7622b691df65e217fc9b963c0ba64c8baf
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 08d8e9679bfee11f03e61cb4b9ae9b5b36186049
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320079"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012822"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu pro aplikace ASP.NET Core MVC
 
@@ -26,13 +26,13 @@ V tomto kurzu nejprve napsat tříd modelu a EF Core vytvoří databázi. Altern
 
 ## <a name="add-a-data-model-class"></a>Přidejte třídu modelu dat
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 Klikněte pravým tlačítkem myši *modely* složky > **přidat** > **třídy**. Název třídy **filmu**.
 
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# [<a name="visual-studio-code--visual-studio-for-mac"></a>Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * Přidat třídu *modely* složku s názvem *Movie.cs*.
 
@@ -45,7 +45,7 @@ Klikněte pravým tlačítkem myši *modely* složky > **přidat** > **třídy**
 
 V této části je automaticky generovaný model video. To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 V **Průzkumníka řešení**, klikněte pravým tlačítkem myši *řadiče* složky **> Přidat > novou vygenerovanou položku**.
 
@@ -76,7 +76,7 @@ Visual Studio vytvoří:
 
 Automatické vytváření kontext databáze a [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (vytvoření, čtení, aktualizace a odstranění) metody akce a zobrazení se označuje jako *generování uživatelského rozhraní*.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
@@ -98,7 +98,7 @@ Automatické vytváření kontext databáze a [CRUD](https://wikipedia.org/wiki/
 
 <!-- Mac -------------------------->
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
@@ -141,7 +141,7 @@ V této části jsou prováděny následující úlohy:
 * Přidáte počáteční migraci.
 * Aktualizujte počáteční migraci databáze.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 1. Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet** > **Konzola správce balíčků** (PMC).
 
@@ -160,7 +160,7 @@ V této části jsou prováděny následující úlohy:
 
    `Update-Database` Příkaz spustí `Up` metodu *migrace / {časové razítko} _InitialCreate.cs* soubor, který vytvoří databázi.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# [<a name="visual-studio-code--visual-studio-for-mac"></a>Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
@@ -174,7 +174,7 @@ Schéma databáze je založeno na zadaném v modelu `MvcMovieContext` třídy (v
 
 ASP.NET Core využívá rozhraní [injektáž závislostí (DI)](xref:fundamentals/dependency-injection). Služby (například kontext EF Core databáze) jsou registrovány DI během spuštění aplikace. Komponenty, které vyžadují tyto služby (například stránky Razor) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru. Později v tomto kurzu se zobrazí kód konstruktor, který získá instanci kontext databáze.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 Nástroj pro generování uživatelského rozhraní automaticky vytvořen kontext databáze a kontejnerů DI zaregistrován.
 
@@ -190,7 +190,7 @@ Předchozí kód vytvoří [DbSet\<video >](/dotnet/api/microsoft.entityframewor
 
 Název připojovacího řetězce je předán v rámci voláním metody na [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) objektu. Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) načte připojovací řetězec z *appsettings.json* souboru.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# [<a name="visual-studio-code--visual-studio-for-mac"></a>Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 Vytvoří kontext databáze a kontejnerů DI zaregistrován.
 
@@ -211,7 +211,7 @@ Login failed for user 'User-name'.
 
 Je provedena [kroku migrace](#pmc).
 
-* Test **vytvořit** odkaz.
+* Test **vytvořit** odkaz. Zadejte a odesílat data.
 
   > [!NOTE]
   > Není možné zadat desetinné čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") desetinné čárky a USA retweetovat neanglické formáty kalendářního data, aplikace musí být globalizována. Globalizace pokyny najdete v tématu [tento problém Githubu](https://github.com/aspnet/Docs/issues/4076#issuecomment-326590420).

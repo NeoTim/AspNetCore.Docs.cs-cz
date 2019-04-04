@@ -3,14 +3,14 @@ title: Zobrazení v ASP.NET Core MVC
 author: ardalis
 description: Zjistěte, jak zpracovat zobrazení prezentace dat aplikace a interakce uživatelů v ASP.NET Core MVC.
 ms.author: riande
-ms.date: 12/12/2017
+ms.date: 04/03/2019
 uid: mvc/views/overview
-ms.openlocfilehash: 0ee1fef9e9da15d91427a2eb5b5f530a0b77ce33
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 766996645bc6ef2b6be42d729baf5d57f55b6ddd
+ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265393"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "59012796"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>Zobrazení v ASP.NET Core MVC
 
@@ -202,7 +202,7 @@ Kromě zobrazení se silnými typy, zobrazení je k dispozici přístup k *slab�
 | Zobrazení a [rozložení zobrazení](xref:mvc/views/layout)   | Nastavení  **\<title >** obsahu elementu v zobrazení rozložení ze zobrazení souboru.  |
 | [Částečné zobrazení](xref:mvc/views/partial) a zobrazení | Widget, který zobrazuje data založená na webové stránce, která uživatel si vyžádal.      |
 
-Tato kolekce může být odkazováno prostřednictvím buď `ViewData` nebo `ViewBag` vlastnosti kontrolerů a zobrazení. `ViewData` Vlastnost je slovník slabě typované objekty. `ViewBag` Vlastnost představuje obálku kolem `ViewData` poskytující dynamické vlastnosti pro základní `ViewData` kolekce.
+Tato kolekce může být odkazováno prostřednictvím buď `ViewData` nebo `ViewBag` vlastnosti kontrolerů a zobrazení. `ViewData` Vlastnost je slovník slabě typované objekty. `ViewBag` Vlastnost představuje obálku kolem `ViewData` poskytující dynamické vlastnosti pro základní `ViewData` kolekce. Poznámka: Klíč hledání rozlišují velikost písmen u obou `ViewData` a `ViewBag`.
 
 `ViewData` a `ViewBag` jsou vyřešeny dynamicky za běhu. Protože nenabízejí kontrolu typu za kompilace, obě jsou obecně více náchylné než při použití viewmodel. Z tohoto důvodu někteří vývojáři dáváte přednost minimálně nebo vůbec `ViewData` a `ViewBag`.
 
