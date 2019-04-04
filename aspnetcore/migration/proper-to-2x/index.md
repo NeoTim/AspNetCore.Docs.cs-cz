@@ -5,6 +5,12 @@ description: Získat pokyny pro migraci stávajících rozhraní ASP.NET MVC neb
 ms.author: scaddie
 ms.date: 12/11/2018
 uid: migration/proper-to-2x/index
+ms.openlocfilehash: 7b6aec621efa5e1400fcfd4396a2322733113ec1
+ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/19/2019
+ms.locfileid: "58209133"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a><span data-ttu-id="6aa2f-103">Migrace z ASP.NET do ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="6aa2f-103">Migrate from ASP.NET to ASP.NET Core</span></span>
 

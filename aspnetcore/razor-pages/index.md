@@ -1,11 +1,17 @@
 ---
 title: Úvod do služby v ASP.NET Core Razor Pages
 author: Rick-Anderson
-description: 'Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zaměřená na stránce scénáře jednodušší a produktivnější než pomocí MVC.'
+description: Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zaměřená na stránce scénáře jednodušší a produktivnější než pomocí MVC.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 05/12/2018
 uid: razor-pages/index
+ms.openlocfilehash: afdaa11c55b66366badf8facde62e3f215b6deb2
+ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 03/20/2019
+ms.locfileid: "58264807"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a><span data-ttu-id="a1215-103">Úvod do služby v ASP.NET Core Razor Pages</span><span class="sxs-lookup"><span data-stu-id="a1215-103">Introduction to Razor Pages in ASP.NET Core</span></span>
 
