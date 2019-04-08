@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvářet rozložení opakovaně použitelné kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 04/07/2019
 uid: razor-components/layouts
-ms.openlocfilehash: ae2fe0208de1439958cf1e5ef1897a3a0c2dfb3f
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 31ed940ce40e3ae6e3744418cf241d396308f4fe
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978295"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068110"
 ---
 # <a name="razor-components-layouts"></a>Rozložení Razor komponenty
 
@@ -29,7 +29,7 @@ Zapnout dva další aspekty *komponenty* do *rozložení*
 
 Následující příklad kódu ukazuje šablona Razor součásti rozložení. Všimněte si použití `LayoutComponentBase` a `@Body`:
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.cshtml?highlight=1,13)]
+[!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.cshtml)]
 
 ## <a name="use-a-layout-in-a-component"></a>Použít rozložení v komponentě
 

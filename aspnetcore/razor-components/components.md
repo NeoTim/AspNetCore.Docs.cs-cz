@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2019
+ms.date: 04/07/2019
 uid: razor-components/components
-ms.openlocfilehash: 59c8540ea297f8396d6aac9b3246639667ad0cd7
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: 00e07d496f4471f56d4184d1cb7c07c0715bea3f
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488680"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068356"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -34,7 +34,7 @@ Dají se vytvářet komponenty ve Razor součásti aplikace pomocí *.cshtml* p�
 
 Uživatelské rozhraní pro součást je definován v jazyce HTML. Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor). Když je kompilován Razor součásti aplikace, bude značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty. Název generované třídy odpovídá názvu souboru.
 
-Členy třídy komponenty jsou definovány v `@functions` blok (více než jeden `@functions` blok je povolený). V `@functions` bloku, stav komponent (vlastnosti, pole) je zadaný společně s metody pro zpracování událostí nebo definování dalších součástí logiky.
+Členy třídy komponenty jsou definovány v `@functions` blok (více než jeden `@functions` blok je povolený). V `@functions` bloku, stav komponent (vlastnosti, pole) zadán s parametrem metody pro zpracování událostí nebo definování dalších součástí logiky.
 
 Komponenta členy můžete poté použita jako tato součást je vykreslování pomocí logiky C# výrazy, které začínají `@`. Například C# pole se vykreslí vložením prefixu `@` na název pole. Následující příklad vyhodnotí a vykreslí:
 
@@ -51,6 +51,25 @@ Komponenta členy můžete poté použita jako tato součást je vykreslování 
 ```
 
 Po se zpočátku zobrazí komponentu obnoví komponenty jeho vykreslení stromu v reakci na události. Součásti Razor poté porovnává větve vykreslení oproti předchozímu a platí všechny změny do prohlížeče Document Object Model (DOM).
+
+## <a name="integrate-components-into-razor-pages-and-mvc-apps"></a>Integrovat komponenty do aplikace Razor Pages a MVC
+
+Komponenty pomocí stávající aplikace Razor Pages a MVC. Není nutné pro přepsání existujících stránek nebo zobrazení Razor komponent. Při zobrazení stránky nebo zobrazení se komponenty jsou předkreslených&dagger; ve stejnou dobu. 
+
+> [!NOTE]
+> &dagger;Dokončení fáze před vykreslením na straně serveru je ve výchozím nastavení povoleno pro Razor součásti aplikace. Aplikace na straně klienta Blazor bude podporovat dokončení fáze před vykreslením v nadcházející verzi Preview 4. Další informace najdete v tématu [aktualizace šablony/middlewaru, který má použít MapFallbackToPage/soubor](https://github.com/aspnet/AspNetCore/issues/8852).
+
+K vykreslení komponenty z stránku nebo zobrazení, použijte `RenderComponentAsync<TComponent>` metodu helper HTML:
+
+```cshtml
+<div id="Counter">
+    @(await Html.RenderComponentAsync<Counter>(new { IncrementAmount = 10 }))
+</div>
+```
+
+Zatím nejsou interaktivní ve verzi Preview 3 součástí vykreslí ze stránky a zobrazení. Například výběrem tlačítka neaktivuje volání metody. Budoucí verze preview se adresy toto omezení a přidat podporu pro vykreslení součásti pomocí běžné syntaxe prvků a atributů.
+
+Při zobrazení stránky a můžou používat komponenty, neplatí první. Součásti nelze použít zobrazení a stránky konkrétní scénáře, jako je částečná zobrazení a oddíly. Chcete-li použít logiku z částečného zobrazení v komponentě, faktor si logiky částečného zobrazení do komponenty.
 
 ## <a name="using-components"></a>Pomocí komponent
 
@@ -464,7 +483,7 @@ Soubory komponent (*.cshtml*) kombinovat kód HTML a C# zpracování kódu ve st
 
 [!code-csharp[](common/samples/3.x/BlazorSample/Pages/BlazorRocksBase.cs)]
 
-Základní třída musí být odvozený z: `BlazorComponent`.
+Základní třída musí být odvozený z: `ComponentBase`.
 
 ## <a name="razor-support"></a>Podpora Razor
 
@@ -476,7 +495,7 @@ V následující tabulce jsou uvedeny direktivy Razor.
 | --------- | ----------- |
 | [\@Funkce](xref:mvc/views/razor#section-5) | Přidá C# blok kódu na komponentu. |
 | `@implements` | Implementuje rozhraní pro třídu vygenerované komponenty. |
-| [\@inherits](xref:mvc/views/razor#section-3) | Poskytuje plnou kontrolu nad třídu, která dědí komponentu. |
+| [\@Dědí](xref:mvc/views/razor#section-3) | Poskytuje plnou kontrolu nad třídu, která dědí komponentu. |
 | [\@Vložení](xref:mvc/views/razor#section-4) | Vkládání ze služby umožňuje [kontejneru služby](xref:fundamentals/dependency-injection). Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection). |
 | `@layout` | Určuje komponentu rozložení. Rozložení komponenty umožňují zabránit zdvojení kódu a nekonzistence. |
 | [\@Stránka](xref:razor-pages/index#razor-pages) | Určuje, že by měla komponenta zpracování požadavků přímo. `@page` – Direktiva je možné zadat při trasy a volitelné parametry. Na rozdíl od Razor Pages `@page` – direktiva nemusí být první – direktiva v horní části souboru. Další informace najdete v tématu [směrování](xref:razor-components/routing). |
@@ -599,7 +618,7 @@ Bez vizuálního vzhledu součásti jsou často obecně typu. Například kompon
 
 *Components/ListViewTemplate.cshtml*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.cshtml?highlight=1)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.cshtml)]
 
 Při použití komponenty obecného typu, parametr typu je odvozený Pokud je to možné:
 

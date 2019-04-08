@@ -5,12 +5,12 @@ description: Tento kurz ukazuje, jak nainstalovat a používat nástroje pro .NE
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: f1e0d91b27df4af7cbfb6f2547c94c0370c65d0d
-ms.sourcegitcommit: cec77d5ad8a0cedb1ecbec32834111492afd0cd2
+ms.openlocfilehash: 40ecca1c6f9d519b24649d0c28946d95b820c07c
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/10/2019
-ms.locfileid: "54207499"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068193"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>Vyvíjejte aplikace ASP.NET Core s využitím sledovací proces souborů
 
@@ -27,6 +27,9 @@ V příkazovém řádku přejděte *WebApp* složky. Spusťte následující př
 ```console
 dotnet run
 ```
+
+> [!NOTE]
+> Můžete použít `dotnet run --project <PROJECT>` k určení projektu pro spuštění. Například systém `dotnet run --project WebApp` z kořenového adresáře vzorku aplikace spustí se taky *WebApp* projektu.
 
 Výstup konzoly zobrazí podobná následující zprávy (což znamená, že je aplikace spuštěná a čeká na požadavky):
 
@@ -77,6 +80,9 @@ Přejděte do produktu API (`http://localhost:<port number>/api/math/product?a=4
 
 Spustit `dotnet watch run` v *WebApp* složky. Určuje výstup konzoly `watch` byla spuštěna.
 
+> [!NOTE]
+> Můžete použít `dotnet watch --project <PROJECT>` zadat projekt, který chcete sledovat. Například systém `dotnet watch --project WebApp run` z kořenového adresáře ukázky aplikací také spustí a podívejte se *WebApp* projektu.
+
 ## <a name="make-changes-with-dotnet-watch"></a>Změny pomocí `dotnet watch`
 
 Ujistěte se, že `dotnet watch` běží.
@@ -86,7 +92,7 @@ Oprava chyby v `Product` metoda *MathController.cs* tak, aby vracel produktu a n
 ```csharp
 public static int Product(int a, int b)
 {
-  return a * b;
+    return a * b;
 }
 ```
 
@@ -148,7 +154,7 @@ Další položky lze přidat do seznamu sledovaných úpravou *.csproj* souboru.
 
 `dotnet-watch` není omezena na projekty jazyka C#. Vlastní sledování projekty mohou být vytvořeny pro zpracování různých scénářů. Vezměte v úvahu následující rozložení projektu:
 
-* **Test /**
+* **test/**
   * *UnitTests/UnitTests.csproj*
   * *IntegrationTests/IntegrationTests.csproj*
 

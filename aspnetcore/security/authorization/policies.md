@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak vytvořit a použít rutiny zásad autorizace pro vynucují požadavky pro autorizaci v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2017
+ms.date: 04/05/2019
 uid: security/authorization/policies
-ms.openlocfilehash: e72f15c28fb7b62c671dd6475cc323cacce42de6
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: ea9d687d3810c104d5b3fa39033849c21569709b
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208318"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068167"
 ---
 # <a name="policy-based-authorization-in-aspnet-core"></a>Autorizace na základě zásad v ASP.NET Core
 
@@ -96,7 +96,10 @@ Všimněte si, že `Handle` metodu [příklad obslužná rutina](#security-autho
 
 * Chcete-li zaručit selhání, i v případě ostatních obslužných rutin požadavek úspěšný, zavolejte `context.Fail`.
 
-Pokud je nastavena na `false`, [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) vlastnosti (k dispozici v ASP.NET Core 1.1 nebo novější) zkratům provádění obslužné rutiny při `context.Fail` je volána. `InvokeHandlersAfterFailure` Výchozí hodnota je `true`, v takovém případě se nazývají všechny obslužné rutiny. To umožňuje požadavek na vytvoření vedlejší účinky, jako je například protokolování, které vždycky provedou i v případě `context.Fail` byla volána v jiné rutině.
+Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail`, stále se nazývají všechny ostatní obslužné rutiny. To umožňuje požadavek na vytvoření vedlejší účinky, jako je například protokolování, které dojde i v případě, že má jinou obslužnou rutinu úspěšně ověřen nebo požadavku se nezdařilo. Pokud je nastavena na `false`, [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) vlastnosti (k dispozici v ASP.NET Core 1.1 nebo novější) zkratům provádění obslužné rutiny při `context.Fail` je volána. `InvokeHandlersAfterFailure` Výchozí hodnota je `true`, v takovém případě se nazývají všechny obslužné rutiny.
+
+> [!NOTE]
+> I když se ověřování nezdaří, jsou volány obslužné rutiny autorizace.
 
 <a name="security-authorization-policies-based-multiple-handlers"></a>
 

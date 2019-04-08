@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core ve službě Windows.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/08/2019
+ms.date: 04/04/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: ecc7f3a8cd813c2803d03294e38d726905eeb1b8
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 544eefa87898e82ec2bf8f9f61ce4e26dd554bb7
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57841420"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068333"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Hostitele ASP.NET Core ve službě Windows
 
@@ -20,11 +20,19 @@ Podle [Luke Latham](https://github.com/guardrex) a [Petr Dykstra](https://github
 
 Na Windows, jako je možné hostovat aplikace ASP.NET Core [Windows Service](/dotnet/framework/windows-services/introduction-to-windows-service-applications) bez použití služby IIS. Pokud hostovaný jako služba Windows, aplikace se automaticky spustí po restartování počítače.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [PowerShell 6](https://github.com/PowerShell/PowerShell)
+* [Prostředí PowerShell 6.2 nebo novější](https://github.com/PowerShell/PowerShell)
+
+> [!NOTE]
+> Pro operační systém Windows starších než Windows 10. října 2018 Update (verze 1809/sestavení 10.0.17763), [Microsoft.PowerShell.LocalAccounts](/powershell/module/microsoft.powershell.localaccounts) modulu musí být importovány pomocí [WindowsCompatibility modulu](https://github.com/PowerShell/WindowsCompatibility)k získání přístupu k [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) rutiny používané [vytvoření uživatelského účtu](#create-a-user-account) části:
+>
+> ```powershell
+> Install-Module WindowsCompatibility -Scope CurrentUser
+> Import-WinModule Microsoft.PowerShell.LocalAccounts
+> ```
 
 ## <a name="deployment-type"></a>Typ nasazení
 
@@ -129,7 +137,7 @@ Proveďte následující změny v `Program.Main`:
 
 Publikování aplikace pomocí [dotnet publikovat](/dotnet/articles/core/tools/dotnet-publish), [profil publikování pro Visual Studio](xref:host-and-deploy/visual-studio-publish-profiles), nebo Visual Studio Code. Když pomocí sady Visual Studio, vyberte **FolderProfile** a nakonfigurovat **cílové umístění** před výběrem **publikovat** tlačítko.
 
-Chcete-li publikovat ukázkovou aplikaci pomocí nástrojů rozhraní příkazového řádku (CLI), spusťte [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkazu na příkazovém řádku ve složce projektu s předat konfiguraci vydané verze [- c |--konfigurace](/dotnet/core/tools/dotnet-publish#options)možnost. Použití [-o |--výstup](/dotnet/core/tools/dotnet-publish#options) možnost s cestou k publikování do složky mimo aplikaci.
+Publikování ukázkové aplikace pomocí nástrojů rozhraní příkazového řádku (CLI), spusťte [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkazu v příkazovém řádku ve složce projektu s předat konfiguraci vydané verze Windows [- c |--konfigurace ](/dotnet/core/tools/dotnet-publish#options) možnost. Použití [-o |--výstup](/dotnet/core/tools/dotnet-publish#options) možnost s cestou k publikování do složky mimo aplikaci.
 
 ### <a name="publish-a-framework-dependent-deployment-fdd"></a>Publikování nasazení závisí na architektuře (chyba)
 
@@ -151,36 +159,32 @@ dotnet publish --configuration Release --runtime win7-x64 --output c:\svc
 
 ## <a name="create-a-user-account"></a>Vytvoření uživatelského účtu
 
-Vytvoření uživatelského účtu pro službu pomocí `net user` příkaz správu příkazové okno Powershellu 6:
+Vytvořte účet uživatele pro používání služby [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) rutiny z správu příkazové okno prostředí PowerShell 6:
 
 ```powershell
-net user {USER ACCOUNT} {PASSWORD} /add
+New-LocalUser -Name {NAME}
 ```
 
-Vypršení platnosti hesla výchozí je šest týdnů.
+Zadejte [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements) po zobrazení výzvy.
 
-Pro ukázkovou aplikaci, vytvořte uživatelský účet s názvem `ServiceUser` a heslo. V následujícím příkazu nahraďte `{PASSWORD}` s [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements).
+Pro ukázkovou aplikaci, vytvořte uživatelský účet s názvem `ServiceUser`.
 
 ```powershell
-net user ServiceUser {PASSWORD} /add
+New-LocalUser -Name ServiceUser
 ```
 
-Pokud potřebujete přidat uživatele do skupiny, použijte `net localgroup` příkaz, kde `{GROUP}` je název skupiny:
+Pokud `-AccountExpires` parametr zadaný [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) rutinu s vypršení <xref:System.DateTime>, účet platnost pasu nevyprší.
 
-```powershell
-net localgroup {GROUP} {USER ACCOUNT} /add
-```
-
-Další informace najdete v tématu [uživatelské účty služby](/windows/desktop/services/service-user-accounts).
+Další informace najdete v tématu [Microsoft.PowerShell.LocalAccounts](/powershell/module/microsoft.powershell.localaccounts/) a [uživatelské účty služby](/windows/desktop/services/service-user-accounts).
 
 Alternativní způsob správy uživatelů při používání služby Active Directory je použití účtů spravované služby. Další informace najdete v tématu [přehled účtů spravované služby skupiny](/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview).
 
 ## <a name="set-permission-log-on-as-a-service"></a>Nastavte oprávnění: Přihlaste se jako služba
 
-Udělit přístup, zápis a čtení a spouštění do složky aplikace pomocí [icacls](/windows-server/administration/windows-commands/icacls) příkaz:
+Udělit přístup, zápis a čtení a spouštění do složky aplikace pomocí [icacls](/windows-server/administration/windows-commands/icacls) příkazů pro správu příkazové okno Powershellu 6.
 
 ```powershell
-icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
+icacls "{PATH}" /grant "{USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS}" /t
 ```
 
 * `{PATH}` &ndash; Cesta ke složce aplikace.
@@ -195,25 +199,24 @@ icacls "{PATH}" /grant {USER ACCOUNT}:(OI)(CI){PERMISSION FLAGS} /t
   * Upravit (`M`)
 * `/t` &ndash; Rekurzivně se vztahují na existující podřízené složky a soubory.
 
-Pro publikování ukázkové aplikace *c:\\svc* složky a `ServiceUser` účet s oprávněními pro zápis a čtení a spouštění, použijte následující příkaz:
+Pro publikování ukázkové aplikace *c:\\svc* složky a `ServiceUser` účet s oprávněními pro zápis a čtení a spouštění, použijte následující příkaz pro správu příkazové okno Powershellu 6.
 
 ```powershell
-icacls "c:\svc" /grant ServiceUser:(OI)(CI)WRX /t
+icacls "c:\svc" /grant "ServiceUser:(OI)(CI)WRX" /t
 ```
 
 Další informace najdete v tématu [icacls](/windows-server/administration/windows-commands/icacls).
 
 ## <a name="create-the-service"></a>Vytvoření služby
 
-Použití [RegisterService.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) skript Powershellu pro registraci služby. Z příkazového řádku pro správu Powershellu 6 spustíte následující příkaz:
+Použití [RegisterService.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) skript Powershellu pro registraci služby. Z pro správu příkazové okno Powershellu 6 spusťte tento skript pomocí následujícího příkazu:
 
 ```powershell
 .\RegisterService.ps1 
     -Name {NAME} 
     -DisplayName "{DISPLAY NAME}" 
     -Description "{DESCRIPTION}" 
-    -Path "{PATH}" 
-    -Exe {ASSEMBLY}.exe 
+    -Exe "{PATH TO EXE}\{ASSEMBLY NAME}.exe" 
     -User {DOMAIN\USER}
 ```
 
@@ -221,15 +224,14 @@ V následujícím příkladu pro ukázkovou aplikaci:
 
 * Služba má název **Moje_služba**.
 * Publikované služba se nachází v *c:\\svc* složky. Je název spustitelné aplikace *SampleApp.exe*.
-* Je služba spuštěna pod `ServiceUser` účtu. V následujícím příkladu je název místního počítače `Desktop-PC`.
+* Je služba spuštěna pod `ServiceUser` účtu. V následujícím ukázkovém příkazu, je název místního počítače `Desktop-PC`. Nahraďte `Desktop-PC` pomocí názvu počítače nebo domény pro váš systém.
 
 ```powershell
 .\RegisterService.ps1 
     -Name MyService 
     -DisplayName "My Cool Service" 
     -Description "This is the Sample App service." 
-    -Path "c:\svc" 
-    -Exe SampleApp.exe 
+    -Exe "c:\svc\SampleApp.exe" 
     -User Desktop-PC\ServiceUser
 ```
 

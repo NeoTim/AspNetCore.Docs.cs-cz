@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 05/12/2018
 uid: razor-pages/index
-ms.openlocfilehash: afdaa11c55b66366badf8facde62e3f215b6deb2
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 50db8cd9b0523239acb1d439b472ea5d3cb6cb7c
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264807"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068375"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do služby v ASP.NET Core Razor Pages
 
@@ -31,11 +31,11 @@ Tento dokument obsahuje úvod do stránky Razor. Není podrobný kurz. Pokud ně
 
 ## <a name="create-a-razor-pages-project"></a>Vytvoření projektu pro stránky Razor
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 Zobrazit [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) podrobné pokyny o tom, jak vytvořit projekt stránky Razor.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -51,7 +51,7 @@ Spustit `dotnet new razor` z příkazového řádku.
 
 Otevřete vygenerovaný *.csproj* souboru ze sady Visual Studio pro Mac.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -77,7 +77,7 @@ Vezměte v úvahu základní stránka: <a name="OnGet"></a>
 
 [!code-cshtml[](index/sample/RazorPagesIntro/Pages/Index.cshtml)]
 
-Předchozí kód je hodně jako soubor zobrazení syntaxe Razor. Co vlastně rozdíl je `@page` směrnice. `@page` Akce MVC – to znamená, že zpracovává požadavky přímo, bez nutnosti kontaktovat řadič vytvoří soubor. `@page` musí být první direktivy Razor na stránce. `@page` má vliv na chování jiných objektů, které Razor.
+Předcházejícího kódu vypadá mnohem [soubor zobrazení Razor](xref:tutorials/first-mvc-app/adding-view) používané v aplikaci ASP.NET Core s kontrolerů a zobrazení. Co vlastně rozdíl je `@page` směrnice. `@page` Akce MVC – to znamená, že zpracovává požadavky přímo, bez nutnosti kontaktovat řadič vytvoří soubor. `@page` musí být první direktivy Razor na stránce. `@page` má vliv na chování jiných objektů, které Razor.
 
 Podobná stránka, pomocí `PageModel` třídy, se zobrazí v následujících dvou souborech. *Pages/Index2.cshtml* souboru:
 
@@ -93,10 +93,10 @@ Přidružení cesty adresy URL na stránky jsou určeny na stránce umístění 
 
 | Název souboru a cestu               | odpovídající adresy URL |
 | ----------------- | ------------ |
-| */Pages/Index.cshtml* | `/` Nebo `/Index` |
+| */Pages/Index.cshtml* | `/` or `/Index` |
 | */Pages/Contact.cshtml* | `/Contact` |
 | */Pages/Store/Contact.cshtml* | `/Store/Contact` |
-| */Pages/Store/Index.cshtml* | `/Store` Nebo `/Store/Index` |
+| */Pages/Store/Index.cshtml* | `/Store` or `/Store/Index` |
 
 Poznámky:
 

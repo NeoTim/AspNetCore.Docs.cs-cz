@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat ověřování Windows v ASP.NET Core 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 02/25/2019
+ms.date: 04/03/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 15fc41efba77f88fc8129f875b85836ac1b5f886
-ms.sourcegitcommit: 2c7ffe349eabdccf2ed748dd303ffd0ba6e1cfe3
+ms.openlocfilehash: 9b53f523cf579aeb0e7dd37ccf5f161269a54913
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/26/2019
-ms.locfileid: "56833693"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068258"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>Konfigurace ověřování Windows v ASP.NET Core
 
@@ -26,15 +26,19 @@ Ověřování Windows závisí na operačním systému k ověření uživatelů 
 
 **Webovou aplikaci** šablony, které jsou k dispozici prostřednictvím sady Visual Studio nebo rozhraní příkazového řádku .NET Core může být nakonfigurované pro podporu ověřování Windows.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 ### <a name="use-the-windows-authentication-app-template-for-a-new-project"></a>Použití šablony aplikace ověřování Windows pro nový projekt
 
 V sadě Visual Studio:
 
-1. Vytvořte nový **webové aplikace ASP.NET Core**.
-1. Vyberte **webovou aplikaci** ze seznamu šablon.
-1. Vyberte **změna ověřování** tlačítko a vyberte **ověřování Windows**.
+1. Vytvořte nový projekt.
+1. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+1. Zadejte název **název projektu** pole. Potvrďte **umístění** položka je správný, a zadejte umístění pro projekt. Vyberte **Vytvořit**.
+1. Vyberte **změnu** pod **ověřování**.
+1. V **změna ověřování** okně **ověřování Windows**. Vyberte **OK**.
+1. Vyberte **webovou aplikaci**.
+1. Vyberte **Vytvořit**.
 
 Spusťte aplikaci. Uživatelské jméno se zobrazí v uživatelském rozhraní vygenerované aplikace.
 
@@ -51,7 +55,7 @@ Alternativně se dá nakonfigurovat vlastnosti v `iisSettings` uzlu *launchSetti
 
 [!code-json[](windowsauth/sample_snapshot/launchSettings.json?highlight=2-3)]
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 Použití **ověřování Windows** šablony aplikace.
 
@@ -129,7 +133,7 @@ Pomocí sady Visual Studio nebo rozhraní příkazového řádku .NET Core, publ
 
 Další informace o hostování se službou IIS publikování a nasazení, najdete v následujících tématech:
 
-* [dotnet publish](/dotnet/core/tools/dotnet-publish)
+* [publikování DotNet](/dotnet/core/tools/dotnet-publish)
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/visual-studio-publish-profiles>

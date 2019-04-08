@@ -5,20 +5,20 @@ description: Zjistěte, jak začít pracovat s komponentami Razor vytvořením a
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 04/07/2019
 uid: razor-components/get-started
-ms.openlocfilehash: 026bc5b3222a8ffa35a064bef8bbf64834b67a90
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 151e58497b0f22fa7c5a9bde1f665eeb73fd5dc3
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209696"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068148"
 ---
 # <a name="get-started-with-razor-components"></a>Začínáme s Razor komponenty
 
 Podle [Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 Požadavky:
 
@@ -26,9 +26,16 @@ Požadavky:
 
 Chcete-li vytvořit svůj první projekt Razor komponenty v sadě Visual Studio:
 
-1. Vyberte **souboru** > **nový projekt** > **webové** > **webová aplikace ASP.NET Core**.
+1. Nainstalujte nejnovější [.NET Core 3.0 ve verzi Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.
+1. Umožní sadě Visual Studio pomocí sady SDK ve verzi preview:
+   1. Otevřít **nástroje** > **možnosti** v panelu nabídek.
+   1. Otevřít **projekty a řešení** uzlu. Otevřít **.NET Core** kartu.
+   1. Zaškrtněte políčko u **pomocí verze Preview sady .NET Core SDK**. Vyberte **OK**.
+1. Vytvořte nový projekt.
+1. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+1. Zadejte název **název projektu** pole. Potvrďte **umístění** položka je správný, a zadejte umístění pro projekt. Vyberte **Vytvořit**.
 1. Ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány v horní části.
-1. Zvolte **Razor komponenty** šablony a vyberte **OK**.
+1. Zvolte **Razor komponenty** šablony a vyberte **vytvořit**.
 1. Stisknutím klávesy **F5** ke spuštění aplikace.
 
 Blahopřejeme! Právě jste spustili svou první aplikaci Razor součásti!
@@ -87,11 +94,11 @@ To create your first project Razor Components project in Visual Studio for Mac:
 Congratulations! You just ran your first Razor Components app!
 -->
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli/)
 
 Požadavky:
 
-* [.NET core SDK 3.0 ve verzi Preview](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+* [.NET Core SDK 3.0 Preview](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
 1. Chcete vytvořit svůj první projekt Razor součásti z příkazové prostředí:
 

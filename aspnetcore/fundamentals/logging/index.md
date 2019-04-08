@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/02/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: c6543ec1f2295c21c6a693ac8bd16ee07ec11381
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: 065b2016d3a2dcc2243ec6869e027c5fabe4dad8
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327404"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068401"
 ---
 # <a name="logging-in-aspnet-core"></a>Protokolování v ASP.NET Core
 
@@ -110,7 +110,7 @@ Zápis protokolů `Program` třídy, získat `ILogger` instanci z DI:
 
 ### <a name="no-asynchronous-logger-methods"></a>Žádné metody na asynchronní protokolovací nástroj
 
-Protokolování by měl být tak rychle, že se vyplatí výkon asynchronního kódu. Pokud vaše úložiště dat protokolování je pomalá, nemáte přímý zápis. Vezměte v úvahu zpočátku zápis zpráv protokolu do rychlého úložiště a pak později přesunout k úložišti pomalé. Protokolujte například, do fronty zpráv, která má číst a trvale uložena do úložiště pomalé jiným procesem.
+Protokolování by měl být tak rychle, že se vyplatí výkon asynchronního kódu. Pokud vaše úložiště dat protokolování je pomalá, nemáte přímý zápis. Vezměte v úvahu zpočátku zápis zpráv protokolu do rychlého úložiště a pak později přesunout k úložišti pomalé. Například pokud jste protokolování na SQL Server, nechcete provést přímo v `Log` metody, protože `Log` metody jsou synchronní. Místo toho synchronně přidání protokolu zpráv do fronty v paměti a mají pracovní proces na pozadí zpráv z fronty pro asynchronní práci z odesílání dat do SQL serveru.
 
 ## <a name="configuration"></a>Konfigurace
 
@@ -610,8 +610,8 @@ warn: TodoApi.Controllers.TodoController[4000]
 
 ASP.NET Core se celá dodává následující zprostředkovatele:
 
-* [Console](#console-provider)
-* [Ladění](#debug-provider)
+* [Konzola](#console-provider)
+* [Ladit](#debug-provider)
 * [EventSource](#eventsource-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
@@ -868,7 +868,7 @@ Přejděte **streamování protokolů** stránku, abyste zobrazili zprávy aplik
 
 Sada SDK služby Application Insights můžete shromažďovat a sestavy protokoly generované protokolování infrastruktury ASP.NET Core. Další informace naleznete v následujících materiálech:
 
-* [Application Insights overview](/azure/application-insights/app-insights-overview)
+* [Přehled služby Application Insights](/azure/application-insights/app-insights-overview)
 * [Application Insights pro ASP.NET Core](/azure/application-insights/app-insights-asp-net-core)
 * [Protokolování adaptéry Application Insights](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md).
 * [Application Insights ILogger implementace ukázky](/azure/azure-monitor/app/ilogger)

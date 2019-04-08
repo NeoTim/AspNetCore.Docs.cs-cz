@@ -5,14 +5,14 @@ description: Zjistěte, jak volat funkce jazyka JavaScript od .NET a .NET metody
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2019
+ms.date: 03/26/2019
 uid: razor-components/javascript-interop
-ms.openlocfilehash: ac772b052a8f61937350b0d999013b7ba06dfd74
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: c45c04d849ba4b3b017a65e79aa758effd5ba8eb
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265005"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068119"
 ---
 # <a name="razor-components-javascript-interop"></a>Razor JavaScript součásti zprostředkovatel komunikace s objekty
 
@@ -104,7 +104,7 @@ Následující komponenty:
 
 Použít `IJSRuntime` abstrakce, použijte některý z následujících postupů:
 
-* Vložit `IJSRuntime` abstrakce do souboru Razor (*.cshtml*):
+* Vložit `IJSRuntime` abstrakce do souboru Razor (*.razor*, *.cshtml*):
 
   ```cshtml
   @inject IJSRuntime JSRuntime
@@ -126,22 +126,23 @@ Použít `IJSRuntime` abstrakce, použijte některý z následujících postupů
 * Vložit `IJSRuntime` abstrakce do třídy (*.cs*):
 
   ```csharp
-  public class MyJsInterop
+  public class JsInteropClasses
   {
       private readonly IJSRuntime _jsRuntime;
 
-      public MyJsInterop(IJSRuntime jsRuntime)
+      public JsInteropClasses(IJSRuntime jsRuntime)
       {
           _jsRuntime = jsRuntime;
       }
 
-      public Task<string> DoSomething(string data)
+      public Task<string> TickerChanged(string data)
       {
-          // The doSomething JavaScript method is implemented
-          // in a JavaScript file, such as 'wwwroot/MyJsInterop.js'.
-          return _jsRuntime.InvokeAsync<string>(
-              "myJsFunctions.doSomething",
-              data);
+          // The handleTickerChanged JavaScript method is implemented
+          // in a JavaScript file, such as 'wwwroot/tickerJsInterop.js'.
+          return _jsRuntime.InvokeAsync<object>(
+              "handleTickerChanged",
+              stockUpdate.symbol,
+              stockUpdate.price);
       }
   }
   ```
@@ -169,12 +170,6 @@ Neukládejte `<script>` značky v souboru součásti, protože `<script>` značk
 
 Funkce .NET metody spolupráce pomocí jazyka JavaScript v *exampleJsInterop.js* souboru voláním `IJSRuntime.InvokeAsync<T>`.
 
-Ukázková aplikace používá dvojici C# metody, `Prompt` a `Display`, který má být vyvolán `showPrompt` a `displayWelcome` funkce jazyka JavaScript:
-
-*JsInteropClasses/ExampleJsInterop.cs*:
-
-[!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=13-15,21-23)]
-
 `IJSRuntime` Abstrakcí je asynchronní umožní použít scénáře na straně serveru. Pokud aplikace běží na straně klienta a vy chcete volat funkce jazyka JavaScript synchronně, přetypovat dolů na `IJSInProcessRuntime` a volat `Invoke<T>` místo. Doporučujeme většinu spolupráce knihoven jazyka JavaScript použít asynchronní rozhraní API k zajištění, že tyto knihovny jsou k dispozici ve všech scénářích, na straně klienta nebo na straně serveru.
 
 Ukázková aplikace obsahuje komponentu k předvedení zprostředkovatele komunikace s objekty jazyka JavaScript. Komponenty:
@@ -185,13 +180,11 @@ Ukázková aplikace obsahuje komponentu k předvedení zprostředkovatele komuni
 
 *Pages/JSInterop.cshtml*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.cshtml?start=1&end=21)]
+[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.cshtml?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
 
-1. Při `TriggerJsPrompt` provádí výběrem komponenty **aktivační událost jazyka JavaScript výzvy** tlačítko, `ExampleJsInterop.Prompt` metoda C# kód je volán.
-1. `Prompt` Metoda spustí JavaScript `showPrompt` funkce součástí *wwwroot/exampleJsInterop.js* souboru.
-1. `showPrompt` Funkce přijímá vstup uživatele (uživatelské jméno), což je kódovaný jazykem HTML a vráceno `Prompt` metoda a nakonec zpět do komponenty. Součást uloží uživatelské jméno v místní proměnné, `name`.
-1. Je řetězec uložen ve `name` je zahrnut do zobrazení uvítací zprávy, která se předá do sekundy C# metody `ExampleJsInterop.Display`.
-1. `Display` zavolá funkci v jazyce JavaScript `displayWelcome`, který vykreslí zobrazení uvítací zprávy do záhlaví značky.
+1. Při `TriggerJsPrompt` provádí výběrem komponenty **aktivační událost jazyka JavaScript výzvy** tlačítko, JavaScript `showPrompt` funkce součástí *wwwroot/exampleJsInterop.js* soubor volá se.
+1. `showPrompt` Funkce přijímá vstup uživatele (uživatelské jméno), což je kódovaný jazykem HTML a vrácené na komponentu. Součást uloží uživatelské jméno v místní proměnné, `name`.
+1. Je řetězec uložen ve `name` je zahrnut do zobrazení uvítací zprávy, která se předá do funkce JavaScriptu, `displayWelcome`, který vykreslí zobrazení uvítací zprávy do záhlaví značky.
 
 ## <a name="capture-references-to-elements"></a>Zachycení odkazy na elementy
 
@@ -216,60 +209,33 @@ Co se týče kódu .NET, `ElementRef` je neprůhledný popisovač. *Pouze* věc,
 
 Například následující kód definuje metodu rozšíření .NET, která umožňuje nastavení fokusu na element:
 
-*mylib.js*:
+*exampleJsInterop.js*:
 
 ```javascript
-window.myLib = {
+window.exampleJsFunctions = {
   focusElement : function (element) {
     element.focus();
   }
 }
 ```
 
-*ElementRefExtensions.cs*:
+Použití `IJSRuntime.InvokeAsync<T>` a volat `exampleJsFunctions.focusElement` s `ElementRef` zaměřit element:
+
+[!code-cshtml[](javascript-interop/samples_snapshot/component1.cshtml?highlight=1,3,7,11-12)]
+
+Pokud chcete použít rozšiřující metodu zaměřit elementu, vytvořte rozšíření statická metoda, která přijímá `IJSRuntime` instance:
 
 ```csharp
-using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-using System.Threading.Tasks;
-
-namespace MyLib
+public static Task Focus(this ElementRef elementRef, IJSRuntime jsRuntime)
 {
-    public static class MyLibElementRefExtensions
-    {
-        private readonly IJSRuntime _jsRuntime;
-
-        public MyJsInterop(IJSRuntime jsRuntime)
-        {
-            _jsRuntime = jsRuntime;
-        }
-
-        public static Task Focus(this ElementRef elementRef)
-        {
-            return _jsRuntime.InvokeAsync<object>(
-                "myLib.focusElement", elementRef);
-        }
-    }
+    return jsRuntime.InvokeAsync<object>(
+        "exampleJsFunctions.focusElement", elementRef);
 }
 ```
 
-Použití `MyLib` a volat `Focus` na `ElementRef` na vstupy fokus v libovolné součásti:
+Metoda je volána přímo v objektu. Následující příklad předpokládá, že statické `Focus` metoda je k dispozici `JsInteropClasses` obor názvů:
 
-```cshtml
-@using MyLib
-
-<input ref="username" />
-<button onclick="@SetFocus">Set focus</button>
-
-@functions {
-    ElementRef username;
-
-    void SetFocus()
-    {
-        username.Focus();
-    }
-}
-```
+[!code-cshtml[](javascript-interop/samples_snapshot/component2.cshtml?highlight=1,4,8,12)]
 
 > [!IMPORTANT]
 > `username` Proměnná je vyplněný pouze po komponentu vykreslí a zahrnuje její výstup `<input>` elementu. Pokud se pokusíte předat unpopulated `ElementRef` do kódu jazyka JavaScript, kód jazyka JavaScript obdrží `null`. K manipulaci s odkazy na prvky po vykreslení (Chcete-li nastavit počáteční fokus na prvek) použijte komponentu `OnAfterRenderAsync` nebo `OnAfterRender` [součástí životního cyklu metody](xref:razor-components/components#lifecycle-methods).
@@ -284,13 +250,13 @@ Obsahuje ukázkovou aplikaci C# metoda vrátí pole `int`s. Metoda je doplněn `
 
 *Pages/JsInterop.cshtml*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.cshtml?start=48&end=59&highlight=7-11)]
+[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.cshtml?name=snippet_JSInterop2&highlight=7-11)]
 
 Obsluhuje klientovi JavaScript vyvolá C# metoda .NET.
 
 *wwwroot/exampleJsInterop.js*:
 
-[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=8-12)]
+[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
 Když **aktivační událost .NET statickou metodu ReturnArrayAsync** vybere tlačítko, prohlédněte si výstup konzoly v prohlížeči webové nástroje pro vývojáře.
 
@@ -313,17 +279,17 @@ Když **metodu instance aktivační událost .NET HelloHelper.SayHello** výběr
 
 *Pages/JsInterop.cshtml*:
 
-[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.cshtml?start=61&end=71&highlight=8-9)]
+[!code-cshtml[](./common/samples/3.x/BlazorSample/Pages/JsInterop.cshtml?name=snippet_JSInterop3&highlight=8-9)]
 
 `CallHelloHelperSayHello` funkce jazyka JavaScript vyvolá `sayHello` s novou instanci třídy `HelloHelper`.
 
 *JsInteropClasses/ExampleJsInterop.cs*:
 
-[!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=26-32)]
+[!code-csharp[](./common/samples/3.x/BlazorSample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=10-16)]
 
 *wwwroot/exampleJsInterop.js*:
 
-[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=15-17)]
+[!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
 Název je předán `HelloHelper`pro konstruktor, který nastaví `HelloHelper.Name` vlastnost. Když funkce JavaScript, která `sayHello` provádí, `HelloHelper.SayHello` vrátí `Hello, {Name}!` zprávy, která zapisuje do konzoly pro funkce jazyka JavaScript.
 

@@ -5,14 +5,14 @@ description: Prozkoumejte Blazor ASP.NET Core, nový způsob, jak vytvářet int
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/27/2019
+ms.date: 03/28/2019
 uid: spa/blazor/index
-ms.openlocfilehash: c42363b0ce70a1a8edc19b1c428ee802a6eff3dd
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 87e294a975e4168add046166a95e02e485db131d
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750492"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068245"
 ---
 # <a name="introduction-to-blazor"></a>Úvod do Blazor
 
@@ -54,7 +54,7 @@ Blazor podporuje zařízení core vyžaduje většina aplikací, včetně:
 * Šablon
 * Kaskádové hodnoty
 
-Ke snížení objemu stažených aplikací nepoužitý kód odebrána z aplikace když se publikuje [Intermediate Language (IL) Linkeru](xref:host-and-deploy/razor-components/configure-linker).
+Ke snížení objemu stažených aplikací, nepoužitý kód je odebrána z aplikace když se publikuje [Intermediate Language (IL) Linkeru](xref:host-and-deploy/razor-components-blazor/configure-linker).
 
 Blazor je model hostingu na straně klienta pro součásti syntaxe Razor. Protože komponenty Razor oddělit komponenty vykreslování logiku z použití aktualizace uživatelského rozhraní, existuje určitá flexibilita v jak se dají hostovat součásti syntaxe Razor. Pomocí ASP.NET Core Razor součásti k hostiteli Razor komponent na serveru v aplikaci ASP.NET Core ve kterém se zpracovávají aktualizace uživatelského rozhraní pomocí připojení SignalR. Další informace naleznete v tématu <xref:razor-components/index> a <xref:razor-components/hosting-models#server-side-hosting-model>. 
 
@@ -92,7 +92,7 @@ U aplikací, které vyžadují knihovny třetích stran jazyka JavaScript a proh
 
 ## <a name="code-sharing-and-net-standard"></a>Sdílení kódu a .NET Standard
 
-Aplikace můžete odkazovat a využívat stávající [.NET Standard](/dotnet/standard/net-standard) knihovny. .NET standard je formální specifikaci rozhraní API pro .NET, které jsou společné pro implementace .NET. Se podporuje .NET standard 2.0 nebo vyšší. Rozhraní API, které nejsou použitelné ve webovém prohlížeči (například přístup k systému souborů, otevřeme soket, dělení na vlákna a další funkce) throw <xref:System.PlatformNotSupportedException>. Knihovny tříd .NET standard je možné sdílet napříč kódu serveru a v aplikacích založených na prohlížeči.
+Aplikace můžete odkazovat a využívat stávající [.NET Standard](/dotnet/standard/net-standard) knihovny. .NET standard je formální specifikaci rozhraní API pro .NET, které jsou společné pro implementace .NET. Blazor implementuje rozhraní .NET Standard 2.0. Rozhraní API, které nejsou použitelné ve webovém prohlížeči (například přístup k systému souborů, otevřeme soket, dělení na vlákna a další funkce) throw <xref:System.PlatformNotSupportedException>. Knihovny tříd .NET standard můžete sdílet na různých platformách .NET, jako jsou Blazor, rozhraní .NET Framework, .NET Core, Xamarin, Mono a Unity.
 
 ## <a name="optimization"></a>Optimalizace
 

@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak sdílet soubory cookie pro ověřování mezi ASP.NET 4.x a ASP.NET Core aplikace.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/19/2017
+ms.date: 04/06/2019
 uid: security/cookie-sharing
-ms.openlocfilehash: 504d3369c908aabddeaa2fc3d1ef16a42b5cb771
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 7a049ed8787808e228859afc051b8697a6261c21
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208512"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068307"
 ---
 # <a name="share-cookies-among-apps-with-aspnet-and-aspnet-core"></a>Sdílení souborů cookie mezi aplikacemi s technologií ASP.NET a ASP.NET Core
 

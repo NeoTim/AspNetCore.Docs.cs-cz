@@ -4,14 +4,14 @@ author: zuckerthoben
 description: Zjistěte, jak přidat do projektu ASP.NET Core webové rozhraní API integrovat uživatelské rozhraní Swagger Swashbuckle.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 02/06/2019
+ms.date: 04/04/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 9239a46889691135dce5c99f8fc9b8c7b38ab457
-ms.sourcegitcommit: 3c2ba9a0d833d2a096d9d800ba67a1a7f9491af0
+ms.openlocfilehash: 31d45eaa684118ab78d1b3ecac594e95712f631f
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/07/2019
-ms.locfileid: "55854416"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068346"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s Swashbuckle a ASP.NET Core
 
@@ -31,7 +31,7 @@ Existují tři hlavní komponenty pro Swashbuckle:
 
 Swashbuckle lze přidat pomocí následujících postupů:
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 * Z **Konzola správce balíčků** okno:
   * Přejděte na **zobrazení** > **jiných Windows** > **Konzola správce balíčků**
@@ -48,14 +48,14 @@ Swashbuckle lze přidat pomocí následujících postupů:
   * Do vyhledávacího pole zadejte "Swashbuckle.AspNetCore"
   * Vyberte balíček "Swashbuckle.AspNetCore" z **Procházet** kartě a klikněte na tlačítko **instalace**
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+### [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem myši *balíčky* složky v **oblasti řešení** > **přidat balíčky...**
 * Nastavte **přidat balíčky** okna **zdroj** rozevíracího seznamu "nuget.org"
 * Do vyhledávacího pole zadejte "Swashbuckle.AspNetCore"
 * Vyberte v podokně výsledků "Swashbuckle.AspNetCore" balíček a klikněte na tlačítko **přidat balíček**
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+### [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
 
 Spuštěním následujícího příkazu z **integrovaný terminál**:
 
@@ -63,7 +63,7 @@ Spuštěním následujícího příkazu z **integrovaný terminál**:
 dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
 ```
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+### [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 Spusťte následující příkaz:
 
@@ -128,7 +128,7 @@ Uživatelské rozhraní Swagger zobrazí informace na verzi:
 
 Komentáře XML se dá nastavit pomocí následujících postupů:
 
-#### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+#### [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -146,7 +146,7 @@ Komentáře XML se dá nastavit pomocí následujících postupů:
 
 ::: moniker-end
 
-#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+#### [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -164,7 +164,7 @@ Komentáře XML se dá nastavit pomocí následujících postupů:
 
 ::: moniker-end
 
-#### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+#### [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
 
 Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 
@@ -180,7 +180,7 @@ Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 
 ::: moniker-end
 
-#### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+#### [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
 
 Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 
@@ -238,7 +238,7 @@ namespace TodoApi
 }
 ```
 
-Nakonfigurujte Swagger pro použití generovaného souboru XML. Pro operační systémy než Windows nebo Linuxem názvů a cest souborů lze malá a velká písmena. Například *TodoApi.XML* souboru je platný pro Windows, ale ne CentOS.
+Nakonfigurujte Swagger do souboru XML, který je generován pomocí podle předchozích pokynů. Pro operační systémy než Windows nebo Linuxem názvů a cest souborů lze malá a velká písmena. Například *TodoApi.XML* souboru je platný pro Windows, ale ne CentOS.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -258,7 +258,7 @@ Nakonfigurujte Swagger pro použití generovaného souboru XML. Pro operační s
 
 ::: moniker-end
 
-V předchozím kódu [reflexe](/dotnet/csharp/programming-guide/concepts/reflection) sloužící k sestavení, který projektu webového rozhraní API odpovídající název souboru XML. [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*) vlastnost se používá ke konstrukci cestu k souboru XML.
+V předchozím kódu [reflexe](/dotnet/csharp/programming-guide/concepts/reflection) sloužící k sestavení, který projektu webového rozhraní API odpovídající název souboru XML. [AppContext.BaseDirectory](xref:System.AppContext.BaseDirectory*) vlastnost se používá ke konstrukci cestu k souboru XML. Některé funkce Swaggeru (například schémat vstupní parametry nebo metod HTTP a kódy odpovědí z příslušných atributů) fungovat bez použití souborů dokumentace XML. Většina funkcí, a to metoda souhrny a popisy parametrů a kódy odpovědí, využívání souboru XML je povinný.
 
 Přidávání komentářů třemi lomítky akci rozšiřuje uživatelské rozhraní Swagger tak, že přidáte popis hlavičku oddílu. Přidat [ \<summary >](/dotnet/csharp/programming-guide/xmldoc/summary) element výše `Delete` akce:
 

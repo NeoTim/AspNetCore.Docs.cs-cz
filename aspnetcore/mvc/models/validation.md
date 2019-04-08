@@ -5,13 +5,14 @@ description: Další informace o ověření modelu v ASP.NET Core MVC a stránky
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/01/2019
+monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: 621c379521bb711728b00c412bf63f90ff6d9ef4
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.openlocfilehash: 8d3d19791861b09d87eb3c85e8da0a8db061d4e9
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/04/2019
-ms.locfileid: "59012809"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068362"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu v ASP.NET Core MVC a stránky Razor
 
@@ -23,23 +24,11 @@ Tento článek vysvětluje, jak ověřit vstup uživatele v aplikaci ASP.NET Cor
 
 Stav modelu reprezentuje chyby, které pocházejí z dvou subsystémů: vazby modelu a ověření modelu. Chyby, které pocházejí z [vazby modelu](model-binding.md) jsou obecně chyby převodu dat (například "x" je zadáno v poli, která očekává celé číslo). Ověření modelu dojde poté, co vazby modelu a sestavy chyb, pokud data neodpovídají obchodní pravidla (například 0 je zadáno v poli, která očekává hodnocení 1 až 5).
 
-::: moniker range=">= aspnetcore-2.1"
-
-Vazby modelu a ověření dojít před spuštěním akce kontroleru nebo metodu obslužné rutiny pro stránky Razor. Je zodpovědností aplikace ke kontrole `ModelState.IsValid` a reagují odpovídajícím způsobem. Webové aplikace obvykle opětovné zobrazení na stránce s chybovou zprávou:
-
-[!code-csharp[](validation/sample_snapshot/Create.cshtml.cs?name=snippet&highlight=3-6)]
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
 Vazby modelu a ověření dojít před spuštěním akce kontroleru nebo metodu obslužné rutiny pro stránky Razor. Pro web apps, zodpovídá aplikace ke kontrole `ModelState.IsValid` a reagují odpovídajícím způsobem. Webové aplikace obvykle opětovné zobrazení na stránce s chybovou zprávou:
 
 [!code-csharp[](validation/sample_snapshot/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
 Kontrolerů webového rozhraní API není potřeba zkontrolovat `ModelState.IsValid` případě, že mají `[ApiController]` atribut. Automatické HTTP 400 odpověď obsahující podrobnosti o problému v takovém případě je vrácena, když neplatí stavu modelu. Další informace najdete v tématu [odpovědi HTTP 400 automatické](xref:web-api/index#automatic-http-400-responses).
-
-::: moniker-end
 
 ## <a name="rerun-validation"></a>Znovu spustit ověření
 
@@ -180,8 +169,6 @@ Předchozí příklad pracuje pouze s `Movie` typy. Další možností pro ově�
 
 [!code-csharp[](validation/sample/Models/MovieIValidatable.cs?name=snippet&highlight=1,26-34)]
 
-::: moniker range=">= aspnetcore-2.1"
-
 ## <a name="top-level-node-validation"></a>Uzel nejvyšší úrovně ověření
 
 Uzly nejvyšší úrovně patří:
@@ -209,15 +196,11 @@ Při spuštění s `CompatibilityVersion.Version_2_1` nebo novější, je ve vý
 
 [!code-csharp[](validation/sample_snapshot/Startup.cs?name=snippet_AddMvc&highlight=4)]
 
-::: moniker-end
-
 ## <a name="maximum-errors"></a>Maximální počet chyb
 
 Ověření zastaví, když je dosaženo maximálního počtu chyb (200 ve výchozím nastavení). Toto číslo můžete nakonfigurovat pomocí následujícího kódu v `Startup.ConfigureServices`:
 
 [!code-csharp[](validation/sample/Startup.cs?name=snippet_MaxModelValidationErrors&highlight=3)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 ## <a name="maximum-recursion"></a>Maximální povolený počet rekurzí
 
@@ -226,8 +209,6 @@ Ověření zastaví, když je dosaženo maximálního počtu chyb (200 ve výcho
 ## <a name="automatic-short-circuit"></a>Automatické zkrácenou
 
 Ověření se automaticky zkratována (vynechaný) Pokud graf modelu nevyžaduje ověření. Objekty, které modul runtime přeskočí ověřování zahrnout kolekce primitivních elementů (například `byte[]`, `string[]`, `Dictionary<string, string>`) a komplexní objekt, grafy, které nemají žádné validátory.
-
-::: moniker-end
 
 ## <a name="disable-validation"></a>Zakázat ověřování
 

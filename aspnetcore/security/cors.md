@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak CORS jako standard pro povolení nebo odmítnutí žádostí nepůvodního v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/27/2019
+ms.date: 04/07/2019
 uid: security/cors
-ms.openlocfilehash: 2cad26d0f61519f63888a2bc399bb7e8a0f1ee04
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: fe5b750c44e5fad9ba80efb2cc8116d0a64b1a17
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58210129"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068294"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolení žádostí napříč zdroji (CORS) v ASP.NET Core
 
@@ -57,7 +57,7 @@ CORS Middleware zpracovává požadavky cross-origin. Následující kód umož�
 Předchozí kód:
 
 * Nastaví název zásady "\_myAllowSpecificOrigins". Název zásad je volitelný.
-* Volání <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> rozšiřující metoda, která umožňuje jader.
+* Volání <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> metodu rozšíření, která umožňuje použití CORS.
 * Volání <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*> s [výraz lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Používá výraz lambda <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> objektu. [Možnosti konfigurace](#cors-policy-options), jako například `WithOrigins`, jsou popsány dále v tomto článku.
 
 <xref:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors*> Volání metody přidá CORS služby do aplikace služby kontejneru:
@@ -170,7 +170,7 @@ to
 to remove the ambiguous **This**.
 -->
 
-`AllowAnyOrigin` ovlivňuje časový limit předběžné požadavky a `Access-Control-Allow-Origin` záhlaví. Další informace najdete v tématu [časový limit předběžné požadavky](#preflight-requests) oddílu.
+`AllowAnyOrigin` Ovlivňuje časový limit předběžné požadavky a `Access-Control-Allow-Origin` záhlaví. Další informace najdete v tématu [časový limit předběžné požadavky](#preflight-requests) oddílu.
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -454,4 +454,4 @@ Test CORS:
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Prostředků mezi zdroji (CORS) pro sdílení obsahu](https://developer.mozilla.org/docs/Web/HTTP/CORS)
+* [Sdílení prostředků mezi zdroji (CORS)](https://developer.mozilla.org/docs/Web/HTTP/CORS)

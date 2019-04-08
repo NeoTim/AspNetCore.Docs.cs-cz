@@ -5,14 +5,14 @@ description: Zjistěte, jak začít pracovat s Blazor vytvořením a úpravou Bl
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2019
+ms.date: 04/07/2019
 uid: spa/blazor/get-started
-ms.openlocfilehash: f46bd9af0f0762e794349d4e98de5c086a690d72
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: b3928c2812be6f34cdf2f17295a1251106f651e5
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327226"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068232"
 ---
 # <a name="get-started-with-blazor"></a>Začínáme s Blazor
 
@@ -20,7 +20,7 @@ Podle [Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github
 
 [!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 Požadavky:
 
@@ -28,16 +28,22 @@ Požadavky:
 
 Chcete-li vytvořit svůj první projekt Blazor v sadě Visual Studio:
 
+1. Nainstalujte nejnovější [.NET Core 3.0 ve verzi Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.
+1. Umožní sadě Visual Studio pomocí sady SDK ve verzi preview:
+   1. Otevřít **nástroje** > **možnosti** v panelu nabídek.
+   1. Otevřít **projekty a řešení** uzlu. Otevřít **.NET Core** kartu.
+   1. Zaškrtněte políčko u **pomocí verze Preview sady .NET Core SDK**. Vyberte **OK**.
 1. Nainstalujte nejnovější [Blazor rozšíření](https://go.microsoft.com/fwlink/?linkid=870389) z webu Visual Studio Marketplace. Tento krok zpřístupní Blazor šablony sady Visual Studio.
 1. Šablony Blazor zpřístupníte pro použití s .NET Core CLI spuštěním následujícího příkazu v příkazovém řádku:
 
    ```console
    dotnet new -i Microsoft.AspNetCore.Blazor.Templates::0.9.0-preview3-19154-02
    ```
-
-1. Vyberte **souboru** > **nový projekt** > **webové** > **webová aplikace ASP.NET Core**.
+1. Vytvořte nový projekt.
+1. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+1. Zadejte název **název projektu** pole. Potvrďte **umístění** položka je správný, a zadejte umístění pro projekt. Vyberte **Vytvořit**.
 1. Ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány v horní části.
-1. Zvolte **Blazor** šablony a vyberte **OK**.
+1. Vyberte **Blazor** šablony a vyberte **vytvořit**.
 1. Stisknutím klávesy **F5** ke spuštění aplikace.
 
 Blahopřejeme! Právě jste spustili svou první aplikaci Blazor!
@@ -88,11 +94,11 @@ To create your first project Blazor project in Visual Studio for Mac:
 Congratulations! You just ran your first Blazor app!
 -->
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli/)
 
 Požadavky:
 
-* [.NET core SDK 3.0 ve verzi Preview](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+* [.NET Core SDK 3.0 Preview](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
 1. Přidejte do ní šablony Blazor spuštěním následujícího příkazu v příkazovém řádku:
 

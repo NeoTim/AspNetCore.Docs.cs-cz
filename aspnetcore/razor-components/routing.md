@@ -5,14 +5,14 @@ description: Zjistěte, jak směrovat požadavky v aplikacích a o NavLink kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/14/2019
+ms.date: 04/07/2019
 uid: razor-components/routing
-ms.openlocfilehash: 39039c306a0ac0d9838e3c98815a6b1aade8863b
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 8f917c94300bd21dde92d4533bee856adee98478
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978362"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068107"
 ---
 # <a name="razor-components-routing"></a>Směrování součásti syntaxe Razor
 
@@ -44,7 +44,7 @@ Při *.razor* nebo *.cshtml* soubor s `@page` – direktiva je zkompilován, dos
 
 Více šablon trasy můžete použít pro komponentu. Následující komponenty jsou reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.cshtml?name=snippet_BlazorRoute&highlight=1-2)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.cshtml?name=snippet_BlazorRoute)]
 
 `<Router>` podporuje nastavení záložního součásti pro vykreslení při požadované trase není vyřešený. Povolit tento scénář vyjádřit výslovný souhlas tím, že nastavíte `FallbackComponent` parametru na typ třídy záložní komponenty.
 
@@ -55,7 +55,7 @@ Následující příklad nastaví komponentu podle *Pages/MyFallbackRazorCompone
 ```
 
 > [!IMPORTANT]
-> Ke generování tras správně, musí aplikace obsahovat `<base>` označení na jeho *wwwroot/index.html* soubor s základní cesty aplikace určené `href` atribut (`<base href="/" />`). Další informace naleznete v tématu <xref:host-and-deploy/razor-components/index#app-base-path>.
+> Ke generování tras správně, musí aplikace obsahovat `<base>` označení na jeho *wwwroot/index.html* soubor s základní cesty aplikace určené `href` atribut (`<base href="/" />`). Další informace naleznete v tématu <xref:host-and-deploy/razor-components-blazor/blazor#app-base-path>.
 
 ## <a name="route-parameters"></a>Parametry trasy
 
@@ -80,14 +80,14 @@ Omezení trasy, které jsou uvedeny v následující tabulce jsou k dispozici. O
 
 | Omezení | Příklad           | Příklad shody                                                                  | Invariantní<br>jazyková verze<br>shoda |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Ne                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano                              |
-| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Ano                              |
-| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Ano                              |
-| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Ano                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ne                               |
-| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Ano                              |
-| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Ano                              |
+| `bool`     | `{active:bool}`   | `true`,  `FALSE`                                                                  | Ne                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`,  `2016-12-31 7:32pm`                                                | Ano                              |
+| `decimal`  | `{price:decimal}` | `49.99`,  `-1,000.01`                                                             | Ano                              |
+| `double`   | `{weight:double}` | `1.234`,  `-1,001.01e8`                                                           | Ano                              |
+| `float`    | `{weight:float}`  | `1.234`,  `-1,001.01e8`                                                           | Ano                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`,  `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ne                               |
+| `int`      | `{id:int}`        | `123456789`,  `-123456789`                                                        | Ano                              |
+| `long`     | `{ticks:long}`    | `123456789`,  `-123456789`                                                        | Ano                              |
 
 > [!WARNING]
 > Směrovat omezení, která Ověřte adresu URL a jsou převedeny na typ CLR (například `int` nebo `DateTime`) vždy používejte neutrální jazykovou verzi. Tato omezení předpokládá, že adresa URL je nepřekládá.
