@@ -561,10 +561,14 @@ items:
       name: Přehled
     - uid: razor-components/get-started
       name: Začínáme
+    - uid: razor-components/hosting-models
+      name: Modely hostingu
     - uid: tutorials/first-razor-components-app
       name: Sestavení první aplikace
     - uid: razor-components/components
       name: Komponenty
+    - uid: razor-components/forms-validation
+      name: Formuláře a ověřování
     - uid: razor-components/class-libraries
       name: Knihovny komponent
     - uid: razor-components/layouts
@@ -577,14 +581,12 @@ items:
       name: Interoperabilita JavaScriptu
     - uid: razor-components/debug
       name: Ladit
-    - uid: razor-components/hosting-models
-      name: Modely hostingu
     - name: Hostování a nasazení
       items:
-      - uid: host-and-deploy/razor-components/index
+      - uid: host-and-deploy/razor-components-blazor/index
         name: Přehled
-      - uid: host-and-deploy/razor-components/configure-linker
-        name: Konfigurace Linkeru
+      - uid: host-and-deploy/razor-components-blazor/razor-components
+        name: Komponenty Razor
   - name: Jednostránkové aplikace
     items:
     - name: Blazor
@@ -593,10 +595,14 @@ items:
         name: Přehled
       - uid: spa/blazor/get-started
         name: Začínáme
+      - uid: razor-components/hosting-models
+        name: Modely hostingu
       - uid: tutorials/first-razor-components-app
         name: Sestavení první aplikace
       - uid: razor-components/components
         name: Komponenty
+      - uid: razor-components/forms-validation
+        name: Formuláře a ověřování
       - uid: razor-components/class-libraries
         name: Knihovny komponent
       - uid: razor-components/layouts
@@ -609,13 +615,13 @@ items:
         name: Interoperabilita JavaScriptu
       - uid: razor-components/debug
         name: Ladit
-      - uid: razor-components/hosting-models
-        name: Modely hostingu
       - name: Hostování a nasazení
         items:
-        - uid: host-and-deploy/razor-components/index
+        - uid: host-and-deploy/razor-components-blazor/index
           name: Přehled
-        - uid: host-and-deploy/razor-components/configure-linker
+        - uid: host-and-deploy/razor-components-blazor/blazor
+          name: Blazor
+        - uid: host-and-deploy/razor-components-blazor/configure-linker
           name: Konfigurace Linkeru
     - uid: spa/angular
       name: Angular
@@ -774,11 +780,15 @@ items:
   - uid: host-and-deploy/health-checks
     name: Kontroly stavu
     displayName: deploy, publish
-  - name: Komponenty Razor
+  - name: Komponenty Razor / Blazor
     items:
-    - uid: host-and-deploy/razor-components/index
+    - uid: host-and-deploy/razor-components-blazor/index
       name: Přehled
-    - uid: host-and-deploy/razor-components/configure-linker
+    - uid: host-and-deploy/razor-components-blazor/blazor
+      name: Blazor
+    - uid: host-and-deploy/razor-components-blazor/razor-components
+      name: Komponenty Razor
+    - uid: host-and-deploy/razor-components-blazor/configure-linker
       name: Konfigurace Linkeru
 - name: Zabezpečení a identita
   displayName: authentication, authorization
@@ -1083,9 +1093,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: d9ab9beacab19a0e004878d2645b1106bf5dc0d6
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 0065707eeaf77327e553b3c43b65e11063edd7e0
+ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58751110"
+ms.lasthandoff: 04/08/2019
+ms.locfileid: "59068388"
