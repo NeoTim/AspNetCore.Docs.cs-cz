@@ -1,19 +1,29 @@
 ---
-ms.openlocfilehash: 33772d3ad8bbb1ffc54792f8c31834849d0f9567
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 2ec079606cb48670dbc3852482fd8d401e7db44b
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57964107"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59472322"
 ---
-<span data-ttu-id="25a41-101">Visual Studio pro Mac se zobrazí dialogové okno s následující zprávou:</span><span class="sxs-lookup"><span data-stu-id="25a41-101">Visual Studio for Mac displays a dialog with the following message:</span></span>
+* <span data-ttu-id="e8916-101">Důvěřujete certifikátu vývoj HTTPS spuštěním následujícího příkazu:</span><span class="sxs-lookup"><span data-stu-id="e8916-101">Trust the HTTPS development certificate by running the following command:</span></span>
 
-<span data-ttu-id="25a41-102">*Tento projekt je nakonfigurován na používání protokolu SSL. Chcete-li zabránit zobrazování upozornění protokolu SSL v prohlížeči můžete důvěřovat certifikátu podepsaného svým držitelem. Chcete důvěřovat certifikátu SSL služby IIS Express?*</span><span class="sxs-lookup"><span data-stu-id="25a41-102">*This project is configured to use SSL. To avoid SSL warnings in the browser you can choose to trust the self-signed certificate. Would you like to trust the IIS Express SSL certificate?*</span></span>
+    ```console
+    dotnet dev-certs https --trust
+    ```
 
-<span data-ttu-id="25a41-103">Vyberte **Ano** a zobrazí se následující dialogové okno:</span><span class="sxs-lookup"><span data-stu-id="25a41-103">Select **Yes** and the following dialog is displayed:</span></span>
+* <span data-ttu-id="e8916-102">Ve výstupu předchozího příkazu se zobrazí následující výstup:</span><span class="sxs-lookup"><span data-stu-id="e8916-102">The preceding command displays the following output:</span></span>
 
-![Dialogové okno upozornění zabezpečení](~/getting-started/_static/cert.png)
+    ```console
+    Trusting the HTTPS development certificate was requested. If the certificate 
+    is not already trusted we will run the following command:
+    'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain 
+    <<certificate>>'
+    This command might prompt you for your password to install the certificate on the 
+    system keychain.
+    The HTTPS developer certificate was generated successfully.
+    ```
 
-<span data-ttu-id="25a41-105">Vyberte **Ano** Pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.</span><span class="sxs-lookup"><span data-stu-id="25a41-105">Select **Yes** if you agree to trust the development certificate.</span></span>
+* <span data-ttu-id="e8916-103">Pokud se zobrazí výzva, zadejte uživatelské jméno admin a heslo.</span><span class="sxs-lookup"><span data-stu-id="e8916-103">Enter the admin username and password if prompted.</span></span>  <span data-ttu-id="e8916-104">Certifikát se teď nainstalovaný a důvěryhodné.</span><span class="sxs-lookup"><span data-stu-id="e8916-104">The certificate will now be installed and trusted.</span></span>
 
-<span data-ttu-id="25a41-106">Zobrazit [důvěřovat certifikátu vývoj pro ASP.NET Core HTTPS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) Další informace.</span><span class="sxs-lookup"><span data-stu-id="25a41-106">See [Trust the ASP.NET Core HTTPS development certificate](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) for more information.</span></span>
+    <span data-ttu-id="e8916-105">Zobrazit [důvěřovat certifikátu vývoj pro ASP.NET Core HTTPS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) Další informace.</span><span class="sxs-lookup"><span data-stu-id="e8916-105">See [Trust the ASP.NET Core HTTPS development certificate](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) for more information.</span></span>
