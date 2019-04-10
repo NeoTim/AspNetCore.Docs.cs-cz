@@ -1,19 +1,29 @@
 ---
-ms.openlocfilehash: 33772d3ad8bbb1ffc54792f8c31834849d0f9567
-ms.sourcegitcommit: 34bf9fc6ea814c039401fca174642f0acb14be3c
+ms.openlocfilehash: 2ec079606cb48670dbc3852482fd8d401e7db44b
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57964107"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59472322"
 ---
-Visual Studio pro Mac se zobrazí dialogové okno s následující zprávou:
+* Důvěřujete certifikátu vývoj HTTPS spuštěním následujícího příkazu:
 
-*Tento projekt je nakonfigurován na používání protokolu SSL. Chcete-li zabránit zobrazování upozornění protokolu SSL v prohlížeči můžete důvěřovat certifikátu podepsaného svým držitelem. Chcete důvěřovat certifikátu SSL služby IIS Express?*
+    ```console
+    dotnet dev-certs https --trust
+    ```
 
-Vyberte **Ano** a zobrazí se následující dialogové okno:
+* Ve výstupu předchozího příkazu se zobrazí následující výstup:
 
-![Dialogové okno upozornění zabezpečení](~/getting-started/_static/cert.png)
+    ```console
+    Trusting the HTTPS development certificate was requested. If the certificate 
+    is not already trusted we will run the following command:
+    'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain 
+    <<certificate>>'
+    This command might prompt you for your password to install the certificate on the 
+    system keychain.
+    The HTTPS developer certificate was generated successfully.
+    ```
 
-Vyberte **Ano** Pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
+* Pokud se zobrazí výzva, zadejte uživatelské jméno admin a heslo.  Certifikát se teď nainstalovaný a důvěryhodné.
 
-Zobrazit [důvěřovat certifikátu vývoj pro ASP.NET Core HTTPS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) Další informace.
+    Zobrazit [důvěřovat certifikátu vývoj pro ASP.NET Core HTTPS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) Další informace.

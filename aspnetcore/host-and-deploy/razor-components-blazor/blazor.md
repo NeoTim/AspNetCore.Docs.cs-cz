@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/28/2019
 uid: host-and-deploy/razor-components-blazor/blazor
-ms.openlocfilehash: bffdad8816e3d9cfb849d0710e2b370af13b4d15
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: 1bf929ed37713f62511447524c8c47be6177f4c9
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59069780"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468760"
 ---
 # <a name="host-and-deploy-blazor"></a>Hostitelství a nasazení Blazor
 
@@ -51,7 +51,7 @@ Blazor aplikací, které používají [model hostingu na straně klienta](xref:r
 `--pathbase` Argument nastaví základní cesty aplikace pro aplikaci pro místní spuštění s virtuální cestou nekořenovými ( `<base>` značky `href` nastavený na cestu jiné než `/` pro pracovní a provozní). V následujících příkladech `/virtual-path` je základní cesty aplikace. Další informace najdete v tématu [základní cesty aplikace](#app-base-path) oddílu.
 
 > [!IMPORTANT]
-> Na rozdíl od zadaná cesta k `href` z `<base>` značku, nemusíte zahrnovat koncové lomítko (`/`) při předávání `--pathbase` hodnota argumentu. Pokud je základní cesta aplikace součástí `<base>` označit jako `<base href="/CoolApp/" />` (včetně koncového lomítka), předejte hodnotu argument příkazového řádku jako `--pathbase=/CoolApp` (žádného koncového lomítka).
+> Na rozdíl od zadaná cesta k `href` z `<base>` značku, nemusíte zahrnovat koncové lomítko (`/`) při předávání `--pathbase` hodnota argumentu. Pokud je základní cesta aplikace součástí `<base>` označit jako `<base href="/CoolApp/">` (včetně koncového lomítka), předejte hodnotu argument příkazového řádku jako `--pathbase=/CoolApp` (žádného koncového lomítka).
 
 * Předejte argument při spuštění aplikace místně na příkazovém řádku. Z adresáře aplikace spusťte:
 
@@ -130,9 +130,9 @@ Protože prohlížeče zasílat požadavky do Internetu na hostitele pro stránk
 
 *Základní cesty aplikace* je kořenová cesta virtuální aplikace na serveru. Například aplikace, které se nacházejí na serveru Contoso ve virtuální složce na `/CoolApp/` je dosažena `https://www.contoso.com/CoolApp` a má virtuální základní cesta `/CoolApp/`. Nastavením základní cesta aplikace na `CoolApp/`, aplikace se provádí vědět, kde se prakticky nachází na serveru. Aplikace můžete použít základní cesta aplikace k vytvoření adresy URL kořeni aplikace z komponenty, která není v kořenovém adresáři. To umožňuje součásti, které existují na různých úrovních adresářovou strukturu vytvářet odkazy na další zdroje v umístěních v celé aplikaci. Základní cesta aplikace se také používá k zachycení hypertextový odkaz klikne, kde `href` cíl odkazu je v rámci základní cesty aplikace místo identifikátoru URI&mdash;směrovače Blazor zpracovává vnitřní navigační.
 
-V mnoha scénářích hostování serveru virtuální cesta k aplikaci je kořenový adresář aplikace. V těchto případech je základní cesty aplikace lomítkem (`<base href="/" />`), což je výchozí konfigurace pro aplikaci. V jiných scénářích hostování, jako jsou virtuální adresáře stránkách Githubu a služby IIS nebo dílčí aplikace základní cesty aplikace nastavte na serveru virtuální cesta k aplikaci. Nastavení základní cesty aplikace, přidat nebo aktualizovat `<base>` značku *index.html* najdete v `<head>` značky elementů. Nastavte `href` atribut hodnotu `virtual-path/` (vyžaduje se do adresy koncové lomítko), kde `virtual-path/` je kořenová cesta úplnou virtuální aplikace na serveru pro aplikaci. V předchozím příkladu je nastavena virtuální cesta `CoolApp/`: `<base href="CoolApp/" />`.
+V mnoha scénářích hostování serveru virtuální cesta k aplikaci je kořenový adresář aplikace. V těchto případech je základní cesty aplikace lomítkem (`<base href="/" />`), což je výchozí konfigurace pro aplikaci. V jiných scénářích hostování, jako jsou virtuální adresáře stránkách Githubu a služby IIS nebo dílčí aplikace základní cesty aplikace nastavte na serveru virtuální cesta k aplikaci. Nastavení základní cesty aplikace, přidat nebo aktualizovat `<base>` značku *index.html* najdete v `<head>` značky elementů. Nastavte `href` atribut hodnotu `virtual-path/` (vyžaduje se do adresy koncové lomítko), kde `virtual-path/` je kořenová cesta úplnou virtuální aplikace na serveru pro aplikaci. V předchozím příkladu je nastavena virtuální cesta `CoolApp/`: `<base href="CoolApp/">`.
 
-Pro aplikace s virtuální cestou nekořenovými nakonfigurovali (například `<base href="CoolApp/" />`), aplikace nenajde žádné její prostředky *při spuštění místně*. Chcete-li tento problém vyřešit během místní vývoj a testování, můžete zadat *základ cesty* argument, který odpovídá `href` hodnotu `<base>` značky v době běhu.
+Pro aplikace s virtuální cestou nekořenovými nakonfigurovali (například `<base href="CoolApp/">`), aplikace nenajde žádné její prostředky *při spuštění místně*. Chcete-li tento problém vyřešit během místní vývoj a testování, můžete zadat *základ cesty* argument, který odpovídá `href` hodnotu `<base>` značky v době běhu.
 
 Předat argument základní cesty s kořenovou cestou (`/`) při místním spuštění aplikace, spusťte následující příkaz z adresáře aplikace:
 

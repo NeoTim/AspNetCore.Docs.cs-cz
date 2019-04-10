@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 9556ec076fce3500115cf0e934202f11b175ccd3
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 362186be6feeeefeca3c56688ee6420de5fb9659
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750787"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468621"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
@@ -63,18 +63,20 @@ Hostitel může nakonfigurovat některé služby před `Startup` metody jsou vol
 
 Funkce, které vyžadují značné instalační program, existují `Add{Service}` rozšiřující metody na <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>. Typická aplikace ASP.NET Core zaregistruje služby pro Entity Framework, Identity a MVC:
 
-[!code-csharp[](startup/sample_snapshot/Startup3.cs?highlight=4,7,11)]
+[!code-csharp[](startup/sample_snapshot/Startup3.cs)]
 
 Po přidání služeb do kontejneru jsou tyto služby k dispozici v celé aplikaci a v rámci metody `Configure`. Služby jsou vyřešeny prostřednictvím [injektáž závislostí](xref:fundamentals/dependency-injection) nebo z <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.
 
+Zobrazit [SetCompatibilityVersion](xref:mvc/compatibility-version) Další informace o `SetCompatibilityVersion`.
+
 ## <a name="the-configure-method"></a>Metoda Configure
 
-<xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> Metoda se používá k určení, jak aplikace reaguje na požadavky HTTP. Kanál žádosti je nakonfigurovaný tak, že přidáte [middleware](xref:fundamentals/middleware/index) součástí <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> instance. `IApplicationBuilder` je dostupný metodě `Configure`, není však registrován v kontejneru služeb. Hosting vytváří `IApplicationBuilder` a předává jej přímo metodě `Configure`
+<xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> Metoda se používá k určení, jak aplikace reaguje na požadavky HTTP. Kanál žádosti je nakonfigurovaný tak, že přidáte [middleware](xref:fundamentals/middleware/index) součástí <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> instance. `IApplicationBuilder` je k dispozici na `Configure` metody, ale není registrován v kontejneru služby. Hosting vytváří `IApplicationBuilder` a předává jej přímo metodě `Configure`
 
 [Šablony ASP.NET Core](/dotnet/core/tools/dotnet-new) konfiguraci kanálu s podporou:
 
 * [Stránce výjimek pro vývojáře](xref:fundamentals/error-handling#developer-exception-page)
-* [Obslužná rutina výjimky](xref:fundamentals/error-handling#configure-a-custom-exception-handling-page)
+* [Obslužná rutina výjimky](xref:fundamentals/error-handling#exception-handler-page)
 * [Zabezpečení striktní přenosu HTTP (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
 * [Přesměrování protokolu HTTPS](xref:security/enforcing-ssl)
 * [Statické soubory](xref:fundamentals/static-files)
@@ -99,7 +101,7 @@ Ke konfiguraci služeb a kanál pro zpracování požadavku bez použití `Start
 
 ## <a name="extend-startup-with-startup-filters"></a>Rozšířit filtry při spuštění po spuštění
 
-Použití <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> pro konfiguraci middlewaru na začátku nebo na konci vaší aplikace [konfigurovat](#the-configure-method) middleware kanálu. `IStartupFilter` je užitečný k zajištění toho, aby byl daný middleware spuštěn před nebo po spuštění middlewarů přidaných knihovnami na začátku nebo konci kanálu zpracování požadavků aplikace.
+Použití <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> pro konfiguraci middlewaru na začátku nebo na konci vaší aplikace [konfigurovat](#the-configure-method) middleware kanálu. `IStartupFilter` je užitečný k zajištění toho, že middleware běží před nebo po middleware přidal knihovny na začátku nebo konci kanál pro zpracování požadavku aplikace.
 
 `IStartupFilter` implementuje jedinou metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>, která přijímá a vrací `Action<IApplicationBuilder>`. <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> Definuje třídu ke konfiguraci kanálu požadavku vaší aplikace. Další informace naleznete v tématu [Vytvoření kanálu middlewaru s IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder).
 

@@ -4,15 +4,15 @@ author: tdykstra
 description: Další informace o ověření modelu v ASP.NET Core MVC a stránky Razor.
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/01/2019
+ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: 8d3d19791861b09d87eb3c85e8da0a8db061d4e9
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: 1ae3c20478b02d6f654e65fdf34c88e1ffb837f8
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068362"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468734"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu v ASP.NET Core MVC a stránky Razor
 
@@ -250,7 +250,7 @@ Předchozí pomocných rutin značek vykreslení následující kód HTML.
             <div class="col-md-10">
                 <input class="form-control" type="datetime"
                 data-val="true" data-val-required="The ReleaseDate field is required."
-                id="ReleaseDate" name="ReleaseDate" value="" />
+                id="ReleaseDate" name="ReleaseDate" value="">
                 <span class="text-danger field-validation-valid"
                 data-valmsg-for="ReleaseDate" data-valmsg-replace="true"></span>
             </div>
@@ -288,7 +288,7 @@ $.get({
 
 ### <a name="add-validation-to-dynamic-controls"></a>Přidání ověřování pro dynamické ovládací prvky
 
-`$.validator.unobtrusive.parse()` Metoda se dá použít na celý formulář, nikoli na jednotlivé dynamicky generované ovládací prvky, jako například `<input/>` a `<select/>`. Chcete-li rozboru formuláře, odeberte ověřovací data, která se přidal, když formulář byl analyzován dříve, jak je znázorněno v následujícím příkladu:
+`$.validator.unobtrusive.parse()` Metoda se dá použít na celý formulář, nikoli na jednotlivé dynamicky generované ovládací prvky, jako například `<input>` a `<select/>`. Chcete-li rozboru formuláře, odeberte ověřovací data, která se přidal, když formulář byl analyzován dříve, jak je znázorněno v následujícím příkladu:
 
 ```js
 $.get({
@@ -329,7 +329,7 @@ Následující příklad ukazuje `data-` atributy pro ukázkovou aplikaci `Class
     data-val-classicmovie1="Classic movies must have a release year earlier than 1960."
     data-val-classicmovie1-year="1960"
     data-val-required="The ReleaseDate field is required."
-    id="ReleaseDate" name="ReleaseDate" value="" />
+    id="ReleaseDate" name="ReleaseDate" value="">
 ```
 
 Jak bylo uvedeno dříve, [pomocných rutin značek](xref:mvc/views/tag-helpers/intro) a [pomocných rutin HTML](xref:mvc/views/overview) pomocí informací z atributů ověření pro vykreslení `data-` atributy. Existují dvě možnosti pro psaní kódu, který má za následek vytvoření vlastní `data-` atributy HTML:

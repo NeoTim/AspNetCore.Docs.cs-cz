@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/07/2019
+ms.date: 04/08/2019
 uid: razor-components/components
-ms.openlocfilehash: 00e07d496f4471f56d4184d1cb7c07c0715bea3f
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: f8ac7f3844b94a162e8d1c45f80ae153d89536ee
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068356"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468809"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -116,18 +116,18 @@ Vazba dat na komponent a prvky modelu DOM se dosahuje pomocí `bind` atribut. N�
 
 ```cshtml
 <input type="checkbox" class="form-check-input" id="italicsCheck" 
-    bind="@_italicsCheck" />
+    bind="@_italicsCheck">
 ```
 
 Při zaškrtnutí políčka je a zrušte zaškrtnutí, hodnota vlastnosti je aktualizována na `true` a `false`v uvedeném pořadí.
 
 Zaškrtávací políčko se aktualizuje v uživatelském rozhraní, pouze v případě, že součást je vykresleno, ne v reakci na měnící se hodnota vlastnosti. Protože komponenty vykreslování sami po spuštění kódu obslužné rutiny události, aktualizace vlastností se obvykle projeví v uživatelském rozhraní ihned.
 
-Pomocí `bind` s `CurrentValue` vlastnosti (`<input bind="@CurrentValue" />`) je v podstatě ekvivalentní následujícímu:
+Pomocí `bind` s `CurrentValue` vlastnosti (`<input bind="@CurrentValue">`) je v podstatě ekvivalentní následujícímu:
 
 ```cshtml
 <input value="@CurrentValue" 
-    onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)" />
+    onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)">
 ```
 
 Při vykreslování komponentu `value` elementu input pochází z `CurrentValue` vlastnost. Když uživatel zadá v textovém poli `onchange` událost se aktivuje a `CurrentValue` je nastavena na hodnotu změněné. Ve skutečnosti je generování kódu poněkud složitější, protože `bind` zpracovává několik případů, kdy jsou provedeny převody typu. V zásadě `bind` přidruží aktuální hodnotu výrazu s `value` obslužné rutiny a atributu změny pomocí zaregistrovaná obslužná rutina.
@@ -135,7 +135,7 @@ Při vykreslování komponentu `value` elementu input pochází z `CurrentValue`
 Kromě `onchange`, vlastnost může být vázána pomocí jiné události, jako jsou `oninput` tím, že je explicitní více o tom, co k vytvoření vazby:
 
 ```cshtml
-<input type="text" bind-value-oninput="@CurrentValue" />
+<input type="text" bind-value-oninput="@CurrentValue">
 ```
 
 Na rozdíl od `onchange`, `oninput` aktivována pro každý znak, který je vstup do textového pole.
@@ -145,7 +145,7 @@ Na rozdíl od `onchange`, `oninput` aktivována pro každý znak, který je vstu
 Vytváření datových vazeb funguje s <xref:System.DateTime> řetězce formátu. V tuto chvíli nejsou k dispozici jiných výrazech formátu, například měny nebo číselných formátů.
 
 ```cshtml
-<input bind="@StartDate" format-value="yyyy-MM-dd" />
+<input bind="@StartDate" format-value="yyyy-MM-dd">
 
 @functions {
     [Parameter]
@@ -180,7 +180,7 @@ Nadřazené komponenty:
     [Parameter]
     private int ParentYear { get; set; } = 1978;
 
-    void ChangeTheYear()
+    private void ChangeTheYear()
     {
         ParentYear = 1986;
     }
@@ -249,7 +249,7 @@ Následující kód volá `UpdateHeading` metodu po výběru tlačítka v uživa
 </button>
 
 @functions {
-    void UpdateHeading(UIMouseEventArgs e)
+    private void UpdateHeading(UIMouseEventArgs e)
     {
         ...
     }
@@ -259,10 +259,10 @@ Následující kód volá `UpdateHeading` metodu po výběru tlačítka v uživa
 Následující kód volá `CheckboxChanged` metoda při změně zaškrtávacího políčka v uživatelském rozhraní:
 
 ```cshtml
-<input type="checkbox" class="form-check-input" onchange="@CheckboxChanged" />
+<input type="checkbox" class="form-check-input" onchange="@CheckboxChanged">
 
 @functions {
-    void CheckboxChanged()
+    private void CheckboxChanged()
     {
         ...
     }
@@ -277,7 +277,7 @@ Obslužné rutiny událostí může být také asynchronní a zpět <xref:System
 </button>
 
 @functions {
-    async Task UpdateHeading(UIMouseEventArgs e)
+    private async Task UpdateHeading(UIMouseEventArgs e)
     {
         ...
     }
@@ -315,9 +315,9 @@ Výrazy lambda lze také použít:
 }
 
 @functions {
-    string message = "Select a button to learn its position.";
+    private string message = "Select a button to learn its position.";
 
-    void UpdateHeading(UIMouseEventArgs e, int buttonNumber)
+    private void UpdateHeading(UIMouseEventArgs e, int buttonNumber)
     {
         message = $"You selected Button #{buttonNumber} at " +
             "mouse position: {e.ClientX} X {e.ClientY}.";
@@ -336,9 +336,9 @@ Komponenta odkazy poskytují způsob, jak získat odkaz na instanci komponenty t
 <MyLoginDialog ref="loginDialog" ... />
 
 @functions {
-    MyLoginDialog loginDialog;
+    private MyLoginDialog loginDialog;
 
-    void OnSomething()
+    private void OnSomething()
     {
         loginDialog.Show();
     }
@@ -509,7 +509,7 @@ Atributy jsou vykreslovány podmíněně na základě hodnoty .NET. Pokud je hod
 V následujícím příkladu `IsCompleted` Určuje, zda `checked` se vykreslí v značky ovládacího prvku:
 
 ```cshtml
-<input type="checkbox" checked="@IsCompleted" />
+<input type="checkbox" checked="@IsCompleted">
 
 @functions {
     [Parameter]
@@ -520,13 +520,13 @@ V následujícím příkladu `IsCompleted` Určuje, zda `checked` se vykreslí v
 Pokud `IsCompleted` je `true`, zaškrtněte políčko se vykreslí jako:
 
 ```html
-<input type="checkbox" checked />
+<input type="checkbox" checked>
 ```
 
 Pokud `IsCompleted` je `false`, zaškrtněte políčko se vykreslí jako:
 
 ```html
-<input type="checkbox" />
+<input type="checkbox">
 ```
 
 **Další informace o syntaxi Razor**
@@ -546,7 +546,8 @@ Následující příklad ukazuje použití `MarkupString` typu přidáte blok st
 @((MarkupString)myMarkup)
 
 @functions {
-    string myMarkup = "<p class='markup'>This is a <em>markup string</em>.</p>";
+    private string myMarkup = 
+        "<p class='markup'>This is a <em>markup string</em>.</p>";
 }
 ```
 
@@ -683,7 +684,7 @@ Například ukázkové aplikace určuje informace o motivech (`ThemeInfo`) v jed
 </div>
 
 @functions {
-    ThemeInfo theme = new ThemeInfo { ButtonClass = "btn-success" };
+    private ThemeInfo theme = new ThemeInfo { ButtonClass = "btn-success" };
 }
 ```
 
@@ -692,7 +693,8 @@ Chcete-li pomocí kaskádových hodnot, komponenty deklarovat kaskádové parame
 ```cshtml
 <CascadingValue Value=@PermInfo Name="UserPermissions">...</CascadingValue>
 
-[CascadingParameter(Name = "UserPermissions")] PermInfo Permissions { get; set; }
+[CascadingParameter(Name = "UserPermissions")]
+private PermInfo Permissions { get; set; }
 ```
 
 Vazba s hodnotou řetězce názvu platí, pokud máte více kaskádových hodnot stejného typu a pro jejich odlišení v rámci stejné podstrom.
@@ -725,11 +727,11 @@ V ukázkové aplikaci, komponentě CSS motiv hodnoty parametrů vytvoří vazbu 
 </p>
 
 @functions {
-    int currentCount = 0;
+    private int currentCount = 0;
 
     [CascadingParameter] protected ThemeInfo ThemeInfo { get; set; }
 
-    void IncrementCount()
+    private void IncrementCount()
     {
         currentCount++;
     }
@@ -832,9 +834,9 @@ Integrované komponenty (*BuiltContent.razor* součástí Razor; *BuiltContent.c
 </button>
 
 @functions {
-    RenderFragment CustomRender { get; set; }
+    private RenderFragment CustomRender { get; set; }
     
-    RenderFragment CreateComponent() => builder =>
+    private RenderFragment CreateComponent() => builder =>
     {
         for (var i = 0; i < 3; i++) 
         {
@@ -844,7 +846,7 @@ Integrované komponenty (*BuiltContent.razor* součástí Razor; *BuiltContent.c
         }
     };    
     
-    void RenderComponent()
+    private void RenderComponent()
     {
         CustomRender = CreateComponent();
     }

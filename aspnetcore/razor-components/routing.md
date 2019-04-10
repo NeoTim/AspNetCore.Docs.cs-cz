@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: razor-components/routing
-ms.openlocfilehash: 8f917c94300bd21dde92d4533bee856adee98478
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: ef82fa7e0d571979a43fd8ce712bf4f22c06f9a7
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068107"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468825"
 ---
 # <a name="razor-components-routing"></a>Směrování součásti syntaxe Razor
 
@@ -55,7 +55,7 @@ Následující příklad nastaví komponentu podle *Pages/MyFallbackRazorCompone
 ```
 
 > [!IMPORTANT]
-> Ke generování tras správně, musí aplikace obsahovat `<base>` označení na jeho *wwwroot/index.html* soubor s základní cesty aplikace určené `href` atribut (`<base href="/" />`). Další informace naleznete v tématu <xref:host-and-deploy/razor-components-blazor/blazor#app-base-path>.
+> Ke generování tras správně, musí aplikace obsahovat `<base>` označení na jeho *wwwroot/index.html* soubor s základní cesty aplikace určené `href` atribut (`<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/razor-components-blazor/blazor#app-base-path>.
 
 ## <a name="route-parameters"></a>Parametry trasy
 

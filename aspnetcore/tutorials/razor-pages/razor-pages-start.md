@@ -5,12 +5,12 @@ description: Tato série kurzů ukazuje, jak používat v ASP.NET Core Razor Pag
 ms.author: riande
 ms.date: 12/5/2018
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 88449a0064dad42d8d2bf9fbdd67078e4c2ba8de
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 1d264ca4a605d8291e273a8f054c92e7eefa5548
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58210051"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468844"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se stránkami Razor v ASP.NET Core
 
@@ -39,7 +39,7 @@ Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na 
 
 ## <a name="create-a-razor-pages-web-app"></a>Vytvoření webové aplikace stránky Razor
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 * Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**.
 
@@ -55,7 +55,7 @@ Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na 
 
   ![Průzkumník řešení](razor-pages-start/_static/se2.2.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
 
 * Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
@@ -75,15 +75,14 @@ Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na 
 
 * Vyberte **Ano**
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
 
-Z terminálu spusťte následující příkazy:
+Z terminálu spusťte následující příkaz:
 
 <!-- TODO: update these instruction once mac support 2.2 projects -->
 
 ```console
 dotnet new webapp -o RazorPagesMovie
-cd RazorPagesMovie
 ```
 
 Předchozí příkazy použití [rozhraní příkazového řádku .NET Core](/dotnet/core/tools/dotnet) vytvoření projektu pro stránky Razor.
@@ -98,31 +97,13 @@ Ze sady Visual Studio, vyberte **soubor > Otevřít**a pak vyberte *RazorPagesMo
 
 ## <a name="run-the-app"></a>Spuštění aplikace
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
 
 * Stisknutím kláves Ctrl + F5 ke spuštění bez ladicího programu.
 
   [!INCLUDE[](~/includes/trustCertVS.md)]
 
   Visual Studio spustí [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Zobrazí se panel Adresa `localhost:port#` a nemít něco podobného `example.com`. Důvodem je, že `localhost` je standardní název hostitele místního počítače. Localhost slouží pouze webové požadavky z místního počítače. Když Visual Studio vytvoří webový projekt, náhodný port se používá pro webový server.
-  
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-
-* Stisknutím klávesy **Ctrl-F5** spustit bez ladicího programu.
-
-  [!INCLUDE[](~/includes/trustCertVSC.md)]
-
-  Spustí Visual Studio Code [Kestrel](xref:fundamentals/servers/kestrel), spustí se prohlížeč a přejde na `http://localhost:5001`. Zobrazí se panel Adresa `localhost:port#` a nemít něco podobného `example.com`. Důvodem je, že `localhost` je standardní název hostitele místního počítače. Localhost slouží pouze webové požadavky z místního počítače.
-  
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
-
-Vyberte **spuštění > Spustit bez ladění** aplikaci spustit. Visual Studio spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí se prohlížeč a přejde na `http://localhost:5001`.
-
-[!INCLUDE[](~/includes/trustCertMac.md)]
-
-<!-- End of VS tabs -->
-
----
 
 * Na domovské stránce aplikace vyberte **přijmout** souhlas sledování.
 
@@ -133,6 +114,46 @@ Vyberte **spuštění > Spustit bez ladění** aplikaci spustit. Visual Studio s
   Následující obrázek znázorňuje aplikaci po udělení souhlasu doplňku sledování:
 
   ![Index nebo Domovská stránka](razor-pages-start/_static/home2.2.png)
+  
+# [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+
+  [!INCLUDE[](~/includes/trustCertVSC.md)]
+
+* Stisknutím klávesy **Ctrl-F5** spustit bez ladicího programu.
+
+  Spustí Visual Studio Code [Kestrel](xref:fundamentals/servers/kestrel), spustí se prohlížeč a přejde na `http://localhost:5001`. Zobrazí se panel Adresa `localhost:port#` a nemít něco podobného `example.com`. Důvodem je, že `localhost` je standardní název hostitele místního počítače. Localhost slouží pouze webové požadavky z místního počítače.
+
+* Na domovské stránce aplikace vyberte **přijmout** souhlas sledování.
+
+  Tato aplikace nesleduje osobní údaje, ale šablona projektu zahrnuje funkci pro vyjádření souhlasu v případě, že potřebujete v souladu s Evropské unie [obecného Regulation (GDPR)](xref:security/gdpr).
+
+  ![Index nebo Domovská stránka](razor-pages-start/_static/homeGDPR2.2.png)
+
+  Následující obrázek znázorňuje aplikaci po udělení souhlasu doplňku sledování:
+
+  ![Index nebo Domovská stránka](razor-pages-start/_static/home2.2.png)
+  
+# [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+
+  [!INCLUDE[](~/includes/trustCertMac.md)]
+
+* Stisknutím klávesy **Cmd optimalizované F5** spustit bez ladicího programu.
+
+  Visual Studio spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí se prohlížeč a přejde na `http://localhost:5001`.
+
+* Na domovské stránce aplikace vyberte **přijmout** souhlas sledování.
+
+  Tato aplikace nesleduje osobní údaje, ale šablona projektu zahrnuje funkci pro vyjádření souhlasu v případě, že potřebujete v souladu s Evropské unie [obecného Regulation (GDPR)](xref:security/gdpr).
+
+  ![Index nebo Domovská stránka](razor-pages-start/_static/homeGDPR2.2_safari.png)
+
+  Následující obrázek znázorňuje aplikaci po udělení souhlasu doplňku sledování:
+
+  ![Index nebo Domovská stránka](razor-pages-start/_static/home2.2_safari.png)
+
+<!-- End of VS tabs -->
+
+---
 
 ## <a name="examine-the-project-files"></a>Zkontrolujte soubory projektu
 

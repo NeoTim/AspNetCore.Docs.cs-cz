@@ -5,12 +5,12 @@ description: Objevte, jak nahradit machineKey v technologii ASP.NET k povolení 
 ms.author: riande
 ms.date: 04/06/2019
 uid: security/data-protection/compatibility/replacing-machinekey
-ms.openlocfilehash: ff36382d22a218a228b42a31ae4f8ad2eb2d5b5f
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: 2317cb50cfe63226baf336ebfc5d681d1cebe5c6
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068281"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468563"
 ---
 # <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>Nahraďte machineKey ASP.NET do ASP.NET Core
 
@@ -35,7 +35,7 @@ Při instalaci balíčku vloží řádek do *Web.config* , které sděluje, ASP.
 > Poznáte, jestli je nový systém ochrany dat zkontrolováním pole, jako jsou aktivní `__VIEWSTATE`, který by měl začínat "CfDJ8" jako v následujícím příkladu. "CfDJ8" je reprezentace base64 hlavičky magic "09 F0 C9 F0", který identifikuje datové části je chráněn systémem ochrany dat.
 
 ```html
-<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="CfDJ8AWPr2EQPTBGs3L2GCZOpk..." />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="CfDJ8AWPr2EQPTBGs3L2GCZOpk...">
 ```
 
 ## <a name="package-configuration"></a>Konfigurace balíčku
