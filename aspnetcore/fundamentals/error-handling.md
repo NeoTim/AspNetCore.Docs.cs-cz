@@ -5,56 +5,55 @@ description: Objevte, jak zpracovávat chyby v aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/05/2019
+ms.date: 04/07/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: ae0b80baed814cd4c7c1dddce2f26a6facfdbaad
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.openlocfilehash: cbb9462a3c6010e074dc391aa128ac2cbb901456
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/04/2019
-ms.locfileid: "59012705"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468747"
 ---
-# <a name="handle-errors-in-aspnet-core"></a><span data-ttu-id="a5956-103">Zpracování chyb v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="a5956-103">Handle errors in ASP.NET Core</span></span>
+# <a name="handle-errors-in-aspnet-core"></a><span data-ttu-id="f8c46-103">Zpracování chyb v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="f8c46-103">Handle errors in ASP.NET Core</span></span>
 
-<span data-ttu-id="a5956-104">Podle [Petr Dykstra](https://github.com/tdykstra/), [Luke Latham](https://github.com/guardrex), a [Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="a5956-104">By [Tom Dykstra](https://github.com/tdykstra/), [Luke Latham](https://github.com/guardrex), and [Steve Smith](https://ardalis.com/)</span></span>
+<span data-ttu-id="f8c46-104">Podle [Petr Dykstra](https://github.com/tdykstra/), [Luke Latham](https://github.com/guardrex), a [Steve Smith](https://ardalis.com/)</span><span class="sxs-lookup"><span data-stu-id="f8c46-104">By [Tom Dykstra](https://github.com/tdykstra/), [Luke Latham](https://github.com/guardrex), and [Steve Smith](https://ardalis.com/)</span></span>
 
-<span data-ttu-id="a5956-105">Tento článek se věnuje běžné přístupy k zpracování chyb v aplikacích ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="a5956-105">This article covers common approaches to handling errors in ASP.NET Core apps.</span></span>
+<span data-ttu-id="f8c46-105">Tento článek se věnuje běžné přístupy k zpracování chyb v aplikacích ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="f8c46-105">This article covers common approaches to handling errors in ASP.NET Core apps.</span></span>
 
-<span data-ttu-id="a5956-106">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x) ([stažení](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="a5956-106">[View or download sample code](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="f8c46-106">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span><span class="sxs-lookup"><span data-stu-id="f8c46-106">[View or download sample code](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span> <span data-ttu-id="f8c46-107">([Stažení](xref:index#how-to-download-a-sample).) Tento článek obsahuje pokyny ohledně toho, jak nastavit direktivy preprocesoru (`#if`, `#endif`, `#define`) v ukázkové aplikaci povolit různé scénáře.</span><span class="sxs-lookup"><span data-stu-id="f8c46-107">([How to download](xref:index#how-to-download-a-sample).) The article includes instructions about how to set preprocessor directives (`#if`, `#endif`, `#define`) in the sample app to enable different scenarios.</span></span>
 
-## <a name="developer-exception-page"></a><span data-ttu-id="a5956-107">Stránce výjimek pro vývojáře</span><span class="sxs-lookup"><span data-stu-id="a5956-107">Developer Exception Page</span></span>
+## <a name="developer-exception-page"></a><span data-ttu-id="f8c46-108">Stránce výjimek pro vývojáře</span><span class="sxs-lookup"><span data-stu-id="f8c46-108">Developer Exception Page</span></span>
 
-<span data-ttu-id="a5956-108">Chcete-li nakonfigurovat aplikaci, která zobrazí stránka, která jsou uvedeny podrobné informace o žádosti o výjimkách, použijte *stránku výjimek pro vývojáře*.</span><span class="sxs-lookup"><span data-stu-id="a5956-108">To configure an app to display a page that shows detailed information about request exceptions, use the *Developer Exception Page*.</span></span> <span data-ttu-id="a5956-109">Na stránce je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).</span><span class="sxs-lookup"><span data-stu-id="a5956-109">The page is made available by the [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) package, which is available in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="a5956-110">Přidejte řádek, který `Startup.Configure` metodu, když aplikace běží při vývoji [prostředí](xref:fundamentals/environments):</span><span class="sxs-lookup"><span data-stu-id="a5956-110">Add a line to the `Startup.Configure` method when the app is running in the Development [environment](xref:fundamentals/environments):</span></span>
+<span data-ttu-id="f8c46-109">*Stránku výjimek pro vývojáře* zobrazí podrobné informace o žádosti o výjimkách.</span><span class="sxs-lookup"><span data-stu-id="f8c46-109">The *Developer Exception Page* displays detailed information about request exceptions.</span></span> <span data-ttu-id="f8c46-110">Na stránce je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).</span><span class="sxs-lookup"><span data-stu-id="f8c46-110">The page is made available by the [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span> <span data-ttu-id="f8c46-111">Přidejte kód, který `Startup.Configure` metoda povolit na stránce, když aplikace běží při vývoji [prostředí](xref:fundamentals/environments):</span><span class="sxs-lookup"><span data-stu-id="f8c46-111">Add code to the `Startup.Configure` method to enable the page when the app is running in the Development [environment](xref:fundamentals/environments):</span></span>
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseDeveloperExceptionPage)]
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=1-4)]
 
-<span data-ttu-id="a5956-111">Umístěte volání <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> před veškerý middleware, ve které chcete zaznamenat tak výjimky.</span><span class="sxs-lookup"><span data-stu-id="a5956-111">Place the call to <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> in front of any middleware where you want to catch exceptions.</span></span>
+<span data-ttu-id="f8c46-112">Umístěte volání <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> před veškerý middleware, který chcete zaznamenat tak výjimky.</span><span class="sxs-lookup"><span data-stu-id="f8c46-112">Place the call to <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> before any middleware that you want to catch exceptions.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="a5956-112">Povolit na stránce výjimek pro vývojáře **pouze, když je aplikace spuštěna ve vývojovém prostředí**.</span><span class="sxs-lookup"><span data-stu-id="a5956-112">Enable the Developer Exception Page **only when the app is running in the Development environment**.</span></span> <span data-ttu-id="a5956-113">Nechcete veřejně sdílet podrobné informace o výjimce při spuštění aplikace v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="a5956-113">You don't want to share detailed exception information publicly when the app runs in production.</span></span> <span data-ttu-id="a5956-114">Další informace o konfiguraci prostředí najdete v tématu <xref:fundamentals/environments>.</span><span class="sxs-lookup"><span data-stu-id="a5956-114">For more information on configuring environments, see <xref:fundamentals/environments>.</span></span>
+> <span data-ttu-id="f8c46-113">Povolit na stránce výjimek pro vývojáře **pouze, když je aplikace spuštěna ve vývojovém prostředí**.</span><span class="sxs-lookup"><span data-stu-id="f8c46-113">Enable the Developer Exception Page **only when the app is running in the Development environment**.</span></span> <span data-ttu-id="f8c46-114">Nechcete veřejně sdílet podrobné informace o výjimce při spuštění aplikace v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="f8c46-114">You don't want to share detailed exception information publicly when the app runs in production.</span></span> <span data-ttu-id="f8c46-115">Další informace o konfiguraci prostředí najdete v tématu <xref:fundamentals/environments>.</span><span class="sxs-lookup"><span data-stu-id="f8c46-115">For more information on configuring environments, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="a5956-115">Stránce výjimek pro vývojáře najdete spuštění ukázkové aplikace s prostředím nastavena na `Development` a přidejte `?throw=true` k základní adrese URL aplikace.</span><span class="sxs-lookup"><span data-stu-id="a5956-115">To see the Developer Exception Page, run the sample app with the environment set to `Development` and add `?throw=true` to the base URL of the app.</span></span> <span data-ttu-id="a5956-116">Stránka obsahuje následující informace o výjimku a požadavek:</span><span class="sxs-lookup"><span data-stu-id="a5956-116">The page includes the following information about the exception and the request:</span></span>
+<span data-ttu-id="f8c46-116">Stránka obsahuje následující informace o výjimku a požadavek:</span><span class="sxs-lookup"><span data-stu-id="f8c46-116">The page includes the following information about the exception and the request:</span></span>
 
-* <span data-ttu-id="a5956-117">Trasování zásobníku</span><span class="sxs-lookup"><span data-stu-id="a5956-117">Stack trace</span></span>
-* <span data-ttu-id="a5956-118">Parametry řetězce dotazu (pokud existuje)</span><span class="sxs-lookup"><span data-stu-id="a5956-118">Query string parameters (if any)</span></span>
-* <span data-ttu-id="a5956-119">Soubory cookie (pokud existuje)</span><span class="sxs-lookup"><span data-stu-id="a5956-119">Cookies (if any)</span></span>
-* <span data-ttu-id="a5956-120">Záhlaví</span><span class="sxs-lookup"><span data-stu-id="a5956-120">Headers</span></span>
+* <span data-ttu-id="f8c46-117">Trasování zásobníku</span><span class="sxs-lookup"><span data-stu-id="f8c46-117">Stack trace</span></span>
+* <span data-ttu-id="f8c46-118">Parametry řetězce dotazu (pokud existuje)</span><span class="sxs-lookup"><span data-stu-id="f8c46-118">Query string parameters (if any)</span></span>
+* <span data-ttu-id="f8c46-119">Soubory cookie (pokud existuje)</span><span class="sxs-lookup"><span data-stu-id="f8c46-119">Cookies (if any)</span></span>
+* <span data-ttu-id="f8c46-120">Záhlaví</span><span class="sxs-lookup"><span data-stu-id="f8c46-120">Headers</span></span>
 
-## <a name="configure-a-custom-exception-handling-page"></a><span data-ttu-id="a5956-121">Konfigurace vlastní výjimky zpracování stránky</span><span class="sxs-lookup"><span data-stu-id="a5956-121">Configure a custom exception handling page</span></span>
+<span data-ttu-id="f8c46-121">Zobrazíte na stránce výjimek pro vývojáře v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `DevEnvironment` preprocesor směrnice a vyberte **spuštění výjimky** na domovské stránce.</span><span class="sxs-lookup"><span data-stu-id="f8c46-121">To see the Developer Exception Page in the [sample app](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use the `DevEnvironment` preprocessor directive and select **Trigger an exception** on the home page.</span></span>
 
-<span data-ttu-id="a5956-122">Pokud není aplikace spuštěna ve vývojovém prostředí, zavolejte <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> metodu rozšíření k přidání Middleware zpracování výjimek.</span><span class="sxs-lookup"><span data-stu-id="a5956-122">When the app isn't running in the Development environment, call the <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> extension method to add Exception Handling Middleware.</span></span> <span data-ttu-id="a5956-123">Middleware:</span><span class="sxs-lookup"><span data-stu-id="a5956-123">The middleware:</span></span>
+## <a name="exception-handler-page"></a><span data-ttu-id="f8c46-122">Stránka obslužné rutiny výjimek</span><span class="sxs-lookup"><span data-stu-id="f8c46-122">Exception handler page</span></span>
 
-* <span data-ttu-id="a5956-124">Zachytává výjimky.</span><span class="sxs-lookup"><span data-stu-id="a5956-124">Catches exceptions.</span></span>
-* <span data-ttu-id="a5956-125">Protokoly výjimky.</span><span class="sxs-lookup"><span data-stu-id="a5956-125">Logs exceptions.</span></span>
-* <span data-ttu-id="a5956-126">Znovu provede požadavek na alternativní kanálu pro stránku nebo řadič uvedené.</span><span class="sxs-lookup"><span data-stu-id="a5956-126">Re-executes the request in an alternate pipeline for the page or controller indicated.</span></span> <span data-ttu-id="a5956-127">Daný požadavek není znovu spustit, pokud odpověď byla spuštěna.</span><span class="sxs-lookup"><span data-stu-id="a5956-127">The request isn't re-executed if the response has started.</span></span>
+<span data-ttu-id="f8c46-123">Pokud chcete nakonfigurovat vlastní chybové stránky pro produkční prostředí zpracování, použijte Middleware zpracování výjimek.</span><span class="sxs-lookup"><span data-stu-id="f8c46-123">To configure a custom error handling page for the Production environment, use the Exception Handling Middleware.</span></span> <span data-ttu-id="f8c46-124">Middleware:</span><span class="sxs-lookup"><span data-stu-id="f8c46-124">The middleware:</span></span>
 
-<span data-ttu-id="a5956-128">V následujícím příkladu z ukázkové aplikace <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> přidá Middleware zpracování výjimek v jiných vývojových prostředích.</span><span class="sxs-lookup"><span data-stu-id="a5956-128">In the following example from the sample app, <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> adds the Exception Handling Middleware in non-Development environments.</span></span> <span data-ttu-id="a5956-129">Určuje metodu rozšíření chybové stránky nebo ovladač na `/Error` koncový bod pro znovu spustit požadavky po výjimky jsou zachyceny a přihlášení:</span><span class="sxs-lookup"><span data-stu-id="a5956-129">The extension method specifies an error page or controller at the `/Error` endpoint for re-executed requests after exceptions are caught and logged:</span></span>
+* <span data-ttu-id="f8c46-125">Zachytí a protokolů výjimek.</span><span class="sxs-lookup"><span data-stu-id="f8c46-125">Catches and logs exceptions.</span></span>
+* <span data-ttu-id="f8c46-126">Znovu provede požadavek na alternativní kanálu pro stránku nebo řadič uvedené.</span><span class="sxs-lookup"><span data-stu-id="f8c46-126">Re-executes the request in an alternate pipeline for the page or controller indicated.</span></span> <span data-ttu-id="f8c46-127">Daný požadavek není znovu spustit, pokud odpověď byla spuštěna.</span><span class="sxs-lookup"><span data-stu-id="f8c46-127">The request isn't re-executed if the response has started.</span></span>
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseExceptionHandler1)]
+<span data-ttu-id="f8c46-128">V následujícím příkladu <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> přidá Middleware zpracování výjimek v jiných vývojových prostředích:</span><span class="sxs-lookup"><span data-stu-id="f8c46-128">In the following example, <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> adds the Exception Handling Middleware in non-Development environments:</span></span>
 
-<span data-ttu-id="a5956-130">Šablona aplikace Razor Pages poskytuje chybovou stránku (*.cshtml*) a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> třídy (`ErrorModel`) ve složce stránky.</span><span class="sxs-lookup"><span data-stu-id="a5956-130">The Razor Pages app template provides an Error page (*.cshtml*) and <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> class (`ErrorModel`) in the Pages folder.</span></span>
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=5-9)]
 
-<span data-ttu-id="a5956-131">V aplikaci MVC následující metody obslužné rutiny chyb je součástí šablony aplikace MVC a zobrazí se v kontroler Home:</span><span class="sxs-lookup"><span data-stu-id="a5956-131">In an MVC app, the following error handler method is included in the MVC app template and appears in the Home controller:</span></span>
+<span data-ttu-id="f8c46-129">Šablona aplikace Razor Pages poskytuje chybovou stránku (*.cshtml*) a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> třídy (`ErrorModel`) v *stránky* složky.</span><span class="sxs-lookup"><span data-stu-id="f8c46-129">The Razor Pages app template provides an Error page (*.cshtml*) and <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> class (`ErrorModel`) in the *Pages* folder.</span></span> <span data-ttu-id="f8c46-130">Šablona projektu pro aplikace MVC, obsahuje metodu akce chyba a zobrazení chyb.</span><span class="sxs-lookup"><span data-stu-id="f8c46-130">For an MVC app, the project template includes an Error action method and an Error view.</span></span> <span data-ttu-id="f8c46-131">Tady je metoda akce:</span><span class="sxs-lookup"><span data-stu-id="f8c46-131">Here's the action method:</span></span>
 
 ```csharp
 [AllowAnonymous]
@@ -65,124 +64,109 @@ public IActionResult Error()
 }
 ```
 
-<span data-ttu-id="a5956-132">Není uspořádání metody akce obslužná rutina chyby s atributy metody HTTP, jako například `HttpGet`.</span><span class="sxs-lookup"><span data-stu-id="a5956-132">Don't decorate the error handler action method with HTTP method attributes, such as `HttpGet`.</span></span> <span data-ttu-id="a5956-133">Explicitní příkazy zabránit v dosažení metodu některé požadavky.</span><span class="sxs-lookup"><span data-stu-id="a5956-133">Explicit verbs prevent some requests from reaching the method.</span></span> <span data-ttu-id="a5956-134">Povolit anonymní přístup k metodě tak, aby se neověřené uživatele dostávají zobrazení chyb.</span><span class="sxs-lookup"><span data-stu-id="a5956-134">Allow anonymous access to the method so that unauthenticated users are able to receive the error view.</span></span>
+<span data-ttu-id="f8c46-132">Není uspořádání metody akce obslužná rutina chyby s atributy metody HTTP, jako například `HttpGet`.</span><span class="sxs-lookup"><span data-stu-id="f8c46-132">Don't decorate the error handler action method with HTTP method attributes, such as `HttpGet`.</span></span> <span data-ttu-id="f8c46-133">Explicitní příkazy zabránit v dosažení metodu některé požadavky.</span><span class="sxs-lookup"><span data-stu-id="f8c46-133">Explicit verbs prevent some requests from reaching the method.</span></span> <span data-ttu-id="f8c46-134">Povolit anonymní přístup k metodě tak, aby se neověřené uživatele dostávají zobrazení chyb.</span><span class="sxs-lookup"><span data-stu-id="f8c46-134">Allow anonymous access to the method so that unauthenticated users are able to receive the error view.</span></span>
 
-## <a name="access-the-exception"></a><span data-ttu-id="a5956-135">Přístup k výjimce</span><span class="sxs-lookup"><span data-stu-id="a5956-135">Access the exception</span></span>
+### <a name="access-the-exception"></a><span data-ttu-id="f8c46-135">Přístup k výjimce</span><span class="sxs-lookup"><span data-stu-id="f8c46-135">Access the exception</span></span>
 
-<span data-ttu-id="a5956-136">Použití <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> pro přístup k výjimce nebo původní cestu požadavku v kontroleru nebo stránky:</span><span class="sxs-lookup"><span data-stu-id="a5956-136">Use <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to access the exception or the original request path in a controller or page:</span></span>
+<span data-ttu-id="f8c46-136">Použití <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> pro přístup k výjimce a původní cestu požadavku v kontroleru obslužná rutina chyby nebo stránky:</span><span class="sxs-lookup"><span data-stu-id="f8c46-136">Use <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to access the exception and the original request path in an error handler controller or page:</span></span>
 
-* <span data-ttu-id="a5956-137">Cesta je k dispozici <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature.Path> vlastnost.</span><span class="sxs-lookup"><span data-stu-id="a5956-137">The path is available from the <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature.Path> property.</span></span>
-* <span data-ttu-id="a5956-138">Přečtěte si <xref:System.Exception?displayProperty=fullName> z zděděnou [IExceptionHandlerFeature.Error](xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature.Error) vlastnost.</span><span class="sxs-lookup"><span data-stu-id="a5956-138">Read the <xref:System.Exception?displayProperty=fullName> from the inherited [IExceptionHandlerFeature.Error](xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature.Error) property.</span></span>
-
-```csharp
-// using Microsoft.AspNetCore.Diagnostics;
-
-var exceptionHandlerPathFeature = 
-    HttpContext.Features.Get<IExceptionHandlerPathFeature>();
-var path = exceptionHandlerPathFeature?.Path;
-var error = exceptionHandlerPathFeature?.Error;
-```
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/Error.cshtml.cs?name=snippet_ExceptionHandlerPathFeature&3,7)]
 
 > [!WARNING]
-> <span data-ttu-id="a5956-139">Proveďte **není** poskytovat informace o chybě citlivé z <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> nebo <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientům.</span><span class="sxs-lookup"><span data-stu-id="a5956-139">Do **not** serve sensitive error information from <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> or <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to clients.</span></span> <span data-ttu-id="a5956-140">Obsluhuje chyby představuje bezpečnostní riziko.</span><span class="sxs-lookup"><span data-stu-id="a5956-140">Serving errors is a security risk.</span></span>
+> <span data-ttu-id="f8c46-137">Proveďte **není** poskytovat informace o chybě citlivé klientům.</span><span class="sxs-lookup"><span data-stu-id="f8c46-137">Do **not** serve sensitive error information to clients.</span></span> <span data-ttu-id="f8c46-138">Obsluhuje chyby představuje bezpečnostní riziko.</span><span class="sxs-lookup"><span data-stu-id="f8c46-138">Serving errors is a security risk.</span></span>
 
-## <a name="configure-custom-exception-handling-code"></a><span data-ttu-id="a5956-141">Konfigurace vlastního kódu pro zpracování výjimek</span><span class="sxs-lookup"><span data-stu-id="a5956-141">Configure custom exception handling code</span></span>
+<span data-ttu-id="f8c46-139">Chcete zobrazit stránku zpracování výjimek v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `ProdEnvironment` a `ErrorHandlerPage` direktivy preprocesoru a vyberte **spuštění výjimky** na domovské stránce.</span><span class="sxs-lookup"><span data-stu-id="f8c46-139">To see the exception handling page in the [sample app](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use the `ProdEnvironment` and `ErrorHandlerPage` preprocessor directives, and select **Trigger an exception** on the home page.</span></span>
 
-<span data-ttu-id="a5956-142">Alternativu se, že koncový bod pro chyby pomocí [vlastní výjimky zpracování stránky](#configure-a-custom-exception-handling-page) je poskytnout lambda <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>.</span><span class="sxs-lookup"><span data-stu-id="a5956-142">An alternative to serving an endpoint for errors with a [custom exception handling page](#configure-a-custom-exception-handling-page) is to provide a lambda to <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>.</span></span> <span data-ttu-id="a5956-143">Použití výrazu lambda s <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> umožňuje přístup k chybě před vrácením odpovědi.</span><span class="sxs-lookup"><span data-stu-id="a5956-143">Using a lambda with <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> allows access to the error before returning the response.</span></span>
+## <a name="exception-handler-lambda"></a><span data-ttu-id="f8c46-140">Lambda obslužné rutiny výjimek</span><span class="sxs-lookup"><span data-stu-id="f8c46-140">Exception handler lambda</span></span>
 
-<span data-ttu-id="a5956-144">Ukázková aplikace předvádí vlastní kód ve zpracování výjimek `Startup.Configure`.</span><span class="sxs-lookup"><span data-stu-id="a5956-144">The sample app demonstrates custom exception handling code in `Startup.Configure`.</span></span> <span data-ttu-id="a5956-145">Aktivuje výjimku **vyvolat výjimky** odkaz na indexovou stránku.</span><span class="sxs-lookup"><span data-stu-id="a5956-145">Trigger an exception with the **Throw Exception** link on the Index page.</span></span> <span data-ttu-id="a5956-146">Následující výraz lambda spustí:</span><span class="sxs-lookup"><span data-stu-id="a5956-146">The following lambda runs:</span></span>
+<span data-ttu-id="f8c46-141">Alternativa k [stránku obslužné rutiny vlastních výjimek](#exception-handler-page) je poskytnout lambda <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>.</span><span class="sxs-lookup"><span data-stu-id="f8c46-141">An alternative to a [custom exception handler page](#exception-handler-page) is to provide a lambda to <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>.</span></span> <span data-ttu-id="f8c46-142">Použití výrazu lambda umožňuje přístup k chybě před vrácením odpovědi.</span><span class="sxs-lookup"><span data-stu-id="f8c46-142">Using a lambda allows access to the error before returning the response.</span></span>
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_UseExceptionHandler2)]
+<span data-ttu-id="f8c46-143">Tady je příklad použití výrazu lambda pro zpracování výjimek:</span><span class="sxs-lookup"><span data-stu-id="f8c46-143">Here's an example of using a lambda for exception handling:</span></span>
+
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_HandlerPageLambda)]
 
 > [!WARNING]
-> <span data-ttu-id="a5956-147">Proveďte **není** poskytovat informace o chybě citlivé z <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> nebo <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientům.</span><span class="sxs-lookup"><span data-stu-id="a5956-147">Do **not** serve sensitive error information from <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> or <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to clients.</span></span> <span data-ttu-id="a5956-148">Obsluhuje chyby představuje bezpečnostní riziko.</span><span class="sxs-lookup"><span data-stu-id="a5956-148">Serving errors is a security risk.</span></span>
+> <span data-ttu-id="f8c46-144">Proveďte **není** poskytovat informace o chybě citlivé z <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> nebo <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientům.</span><span class="sxs-lookup"><span data-stu-id="f8c46-144">Do **not** serve sensitive error information from <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> or <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> to clients.</span></span> <span data-ttu-id="f8c46-145">Obsluhuje chyby představuje bezpečnostní riziko.</span><span class="sxs-lookup"><span data-stu-id="f8c46-145">Serving errors is a security risk.</span></span>
 
-## <a name="configure-status-code-pages"></a><span data-ttu-id="a5956-149">Konfigurace stavu znakové stránky</span><span class="sxs-lookup"><span data-stu-id="a5956-149">Configure status code pages</span></span>
+<span data-ttu-id="f8c46-146">Chcete-li zobrazit výsledek tohoto výrazu lambda zpracování výjimek v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `ProdEnvironment` a `ErrorHandlerLambda` direktivy preprocesoru a vyberte **spuštění výjimky** na domovské stránce.</span><span class="sxs-lookup"><span data-stu-id="f8c46-146">To see the result of the exception handling lambda in the [sample app](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use the `ProdEnvironment` and `ErrorHandlerLambda` preprocessor directives, and select **Trigger an exception** on the home page.</span></span>
 
-<span data-ttu-id="a5956-150">Ve výchozím nastavení, aplikace ASP.NET Core neposkytuje znakovou stránku Stav pro stavové kódy HTTP, jako například *404 - Nenalezeno*.</span><span class="sxs-lookup"><span data-stu-id="a5956-150">By default, an ASP.NET Core app doesn't provide a status code page for HTTP status codes, such as *404 - Not Found*.</span></span> <span data-ttu-id="a5956-151">Aplikace se vrátí stavový kód a prázdné tělo odpovědi.</span><span class="sxs-lookup"><span data-stu-id="a5956-151">The app returns a status code and an empty response body.</span></span> <span data-ttu-id="a5956-152">Pokud chcete poskytnout stav znakové stránky, použijte Middleware stránky stavový kód.</span><span class="sxs-lookup"><span data-stu-id="a5956-152">To provide status code pages, use Status Code Pages Middleware.</span></span>
+## <a name="usestatuscodepages"></a><span data-ttu-id="f8c46-147">UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="f8c46-147">UseStatusCodePages</span></span>
 
-<span data-ttu-id="a5956-153">Middleware je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je k dispozici v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).</span><span class="sxs-lookup"><span data-stu-id="a5956-153">The middleware is made available by the [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) package, which is available in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="f8c46-148">Ve výchozím nastavení, aplikace ASP.NET Core neposkytuje znakovou stránku Stav pro stavové kódy HTTP, jako například *404 - Nenalezeno*.</span><span class="sxs-lookup"><span data-stu-id="f8c46-148">By default, an ASP.NET Core app doesn't provide a status code page for HTTP status codes, such as *404 - Not Found*.</span></span> <span data-ttu-id="f8c46-149">Aplikace se vrátí stavový kód a prázdné tělo odpovědi.</span><span class="sxs-lookup"><span data-stu-id="f8c46-149">The app returns a status code and an empty response body.</span></span> <span data-ttu-id="f8c46-150">Pokud chcete poskytnout stav znakové stránky, použijte middleware stav znakové stránky.</span><span class="sxs-lookup"><span data-stu-id="f8c46-150">To provide status code pages, use Status Code Pages middleware.</span></span>
 
-### <a name="usestatuscodepages"></a><span data-ttu-id="a5956-154">UseStatusCodePages</span><span class="sxs-lookup"><span data-stu-id="a5956-154">UseStatusCodePages</span></span>
+<span data-ttu-id="f8c46-151">Middleware je k dispozici ve [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) balíček, který je v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).</span><span class="sxs-lookup"><span data-stu-id="f8c46-151">The middleware is made available by the [Microsoft.AspNetCore.Diagnostics](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics/) package, which is in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="a5956-155">Pokud chcete povolit výchozích prostého textu obslužných rutin pro běžné kódy chyb stavu, přidejte následující kód, který `Startup.Configure` metody:</span><span class="sxs-lookup"><span data-stu-id="a5956-155">To enable default text-only handlers for common error status codes, add the following code to the `Startup.Configure` method:</span></span>
+<span data-ttu-id="f8c46-152">Chcete-li povolit výchozích prostého textu obslužných rutin pro běžné kódy chyb stav, zavolejte <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> v `Startup.Configure` metody:</span><span class="sxs-lookup"><span data-stu-id="f8c46-152">To enable default text-only handlers for common error status codes, call <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> in the `Startup.Configure` method:</span></span>
 
-```csharp
-app.UseStatusCodePages();
-```
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePages)]
 
-<span data-ttu-id="a5956-156">Volání <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> metoda před požadavkem zpracování middleware (například Middleware statické soubory a Middlewarem MVC).</span><span class="sxs-lookup"><span data-stu-id="a5956-156">Call the <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> method before request handling middleware (for example, Static File Middleware and MVC Middleware).</span></span>
+<span data-ttu-id="f8c46-153">Volání `UseStatusCodePages` před požadavkem zpracování middleware (například Middleware statické soubory a Middlewarem MVC).</span><span class="sxs-lookup"><span data-stu-id="f8c46-153">Call `UseStatusCodePages` before request handling middleware (for example, Static File Middleware and MVC Middleware).</span></span>
 
-<span data-ttu-id="a5956-157">Tady je příklad text, zobrazený výchozích obslužných rutin:</span><span class="sxs-lookup"><span data-stu-id="a5956-157">Here's an example of text displayed by the default handlers:</span></span>
+<span data-ttu-id="f8c46-154">Tady je příklad text, zobrazený výchozích obslužných rutin:</span><span class="sxs-lookup"><span data-stu-id="f8c46-154">Here's an example of text displayed by the default handlers:</span></span>
 
 ```
 Status Code: 404; Not Found
 ```
 
-<span data-ttu-id="a5956-158">Middleware podporuje několik metod rozšíření, které umožňují přizpůsobit chování aplikace.</span><span class="sxs-lookup"><span data-stu-id="a5956-158">The middleware supports several extension methods that allow you to customize its behavior.</span></span>
+<span data-ttu-id="f8c46-155">Chcete-li zobrazit jeden z různých formátů stránky kód stavu v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte jednu z direktivy preprocesoru, které začínají `StatusCodePages`a vyberte **aktivační události a 404** na domovské stránce.</span><span class="sxs-lookup"><span data-stu-id="f8c46-155">To see one of the various status code page formats in the [sample app](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), use one of the preprocessor directives that begin with `StatusCodePages`, and select **Trigger a 404** on the home page.</span></span>
 
-### <a name="usestatuscodepages-with-lambda"></a><span data-ttu-id="a5956-159">UseStatusCodePages pomocí výrazu lambda</span><span class="sxs-lookup"><span data-stu-id="a5956-159">UseStatusCodePages with lambda</span></span>
+## <a name="usestatuscodepages-with-format-string"></a><span data-ttu-id="f8c46-156">UseStatusCodePages řetězcem formátu</span><span class="sxs-lookup"><span data-stu-id="f8c46-156">UseStatusCodePages with format string</span></span>
 
-<span data-ttu-id="a5956-160">Přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> používá výraz lambda, který můžete použít ke zpracování vlastní logiku zpracování chyb a ručně zápisu odpovědi:</span><span class="sxs-lookup"><span data-stu-id="a5956-160">An overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> takes a lambda expression, which you can use to process custom error-handling logic and manually write the response:</span></span>
+<span data-ttu-id="f8c46-157">Chcete-li přizpůsobit typ obsahu odpovědi a text, použijte přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> , která přebírá typ a formát řetězec obsahu:</span><span class="sxs-lookup"><span data-stu-id="f8c46-157">To customize the response content type and text, use the overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> that takes a content type and format string:</span></span>
 
-[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePages)]
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesFormatString)]
 
-### <a name="usestatuscodepages-with-format-string"></a><span data-ttu-id="a5956-161">UseStatusCodePages řetězcem formátu</span><span class="sxs-lookup"><span data-stu-id="a5956-161">UseStatusCodePages with format string</span></span>
+## <a name="usestatuscodepages-with-lambda"></a><span data-ttu-id="f8c46-158">UseStatusCodePages pomocí výrazu lambda</span><span class="sxs-lookup"><span data-stu-id="f8c46-158">UseStatusCodePages with lambda</span></span>
 
-<span data-ttu-id="a5956-162">Přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> obsahu typ a formát řetězce, který můžete použít pro přizpůsobení obsahu textu, typ a odpovědi:</span><span class="sxs-lookup"><span data-stu-id="a5956-162">An overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> takes a content type and format string, which you can use to customize the content type and response text:</span></span>
+<span data-ttu-id="f8c46-159">Zadat vlastní zpracování chyb a odezvy psaní kódu, použijte přetížení <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> , který přijímá výrazy lambda:</span><span class="sxs-lookup"><span data-stu-id="f8c46-159">To specify custom error-handling and response-writing code, use the overload of <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> that takes a lambda expression:</span></span>
 
-```csharp
-app.UseStatusCodePages("text/plain", "Status code page, status code: {0}");
-```
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesLambda)]
 
-### <a name="usestatuscodepageswithredirects"></a><span data-ttu-id="a5956-163">UseStatusCodePagesWithRedirects</span><span class="sxs-lookup"><span data-stu-id="a5956-163">UseStatusCodePagesWithRedirects</span></span>
+## <a name="usestatuscodepageswithredirect"></a><span data-ttu-id="f8c46-160">UseStatusCodePagesWithRedirect</span><span class="sxs-lookup"><span data-stu-id="f8c46-160">UseStatusCodePagesWithRedirect</span></span>
 
-<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*><span data-ttu-id="a5956-164">:</span><span class="sxs-lookup"><span data-stu-id="a5956-164">:</span></span>
+<span data-ttu-id="f8c46-161"><xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*> – Metoda rozšíření:</span><span class="sxs-lookup"><span data-stu-id="f8c46-161">The <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*> extension method:</span></span>
 
-* <span data-ttu-id="a5956-165">Odešle *302 - nalezen* stavový kód na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="a5956-165">Sends a *302 - Found* status code to the client.</span></span>
-* <span data-ttu-id="a5956-166">Přesměruje klienta do umístění, které jsou součástí adresy URL šablony.</span><span class="sxs-lookup"><span data-stu-id="a5956-166">Redirects the client to the location provided in the URL template.</span></span>
+* <span data-ttu-id="f8c46-162">Odešle *302 - nalezen* stavový kód na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="f8c46-162">Sends a *302 - Found* status code to the client.</span></span>
+* <span data-ttu-id="f8c46-163">Přesměruje klienta do umístění, které jsou součástí adresy URL šablony.</span><span class="sxs-lookup"><span data-stu-id="f8c46-163">Redirects the client to the location provided in the URL template.</span></span>
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithRedirect)]
 
-<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithRedirects*> <span data-ttu-id="a5956-167">se obvykle používá, když aplikace:</span><span class="sxs-lookup"><span data-stu-id="a5956-167">is commonly used when the app:</span></span>
+<span data-ttu-id="f8c46-164">Šablona adresy URL může obsahovat `{0}` zástupný symbol pro kód stavu, jak je znázorněno v příkladu.</span><span class="sxs-lookup"><span data-stu-id="f8c46-164">The URL template can include a `{0}` placeholder for the status code, as shown in the example.</span></span> <span data-ttu-id="f8c46-165">Pokud šablona adresa URL začíná tildou (~), aplikace nahrazuje tilda `PathBase`.</span><span class="sxs-lookup"><span data-stu-id="f8c46-165">If the URL template starts with a tilde (~), the tilde is replaced by the app's `PathBase`.</span></span> <span data-ttu-id="f8c46-166">Pokud přejdete na koncový bod v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod.</span><span class="sxs-lookup"><span data-stu-id="f8c46-166">If you point to an endpoint within the app, create an MVC view or Razor page for the endpoint.</span></span> <span data-ttu-id="f8c46-167">Příklad stránky Razor, naleznete v tématu [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml) v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span><span class="sxs-lookup"><span data-stu-id="f8c46-167">For a Razor Pages example, see [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml) in the [sample app](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span>
 
-* <span data-ttu-id="a5956-168">Klient by se měla přesměrovat na jiný koncový bod, obvykle v případech, kde různé aplikace zpracovává chyby.</span><span class="sxs-lookup"><span data-stu-id="a5956-168">Should redirect the client to a different endpoint, usually in cases where a different app processes the error.</span></span> <span data-ttu-id="a5956-169">Pro web apps odráží adresního řádku prohlížeče klienta přesměrovaného koncový bod.</span><span class="sxs-lookup"><span data-stu-id="a5956-169">For web apps, the client's browser address bar reflects the redirected endpoint.</span></span>
-* <span data-ttu-id="a5956-170">Neměli zachovat a vrátí původní stavový kód odpovědi počáteční přesměrování.</span><span class="sxs-lookup"><span data-stu-id="a5956-170">Shouldn't preserve and return the original status code with the initial redirect response.</span></span>
+<span data-ttu-id="f8c46-168">Tato metoda se obvykle nepoužívá, pokud aplikace:</span><span class="sxs-lookup"><span data-stu-id="f8c46-168">This method is commonly used when the app:</span></span>
 
-### <a name="usestatuscodepageswithreexecute"></a><span data-ttu-id="a5956-171">UseStatusCodePagesWithReExecute</span><span class="sxs-lookup"><span data-stu-id="a5956-171">UseStatusCodePagesWithReExecute</span></span>
+* <span data-ttu-id="f8c46-169">Klient by se měla přesměrovat na jiný koncový bod, obvykle v případech, kde různé aplikace zpracovává chyby.</span><span class="sxs-lookup"><span data-stu-id="f8c46-169">Should redirect the client to a different endpoint, usually in cases where a different app processes the error.</span></span> <span data-ttu-id="f8c46-170">Pro web apps odráží adresního řádku prohlížeče klienta přesměrovaného koncový bod.</span><span class="sxs-lookup"><span data-stu-id="f8c46-170">For web apps, the client's browser address bar reflects the redirected endpoint.</span></span>
+* <span data-ttu-id="f8c46-171">Neměli zachovat a vrátí původní stavový kód odpovědi počáteční přesměrování.</span><span class="sxs-lookup"><span data-stu-id="f8c46-171">Shouldn't preserve and return the original status code with the initial redirect response.</span></span>
 
-<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*><span data-ttu-id="a5956-172">:</span><span class="sxs-lookup"><span data-stu-id="a5956-172">:</span></span>
+## <a name="usestatuscodepageswithreexecute"></a><span data-ttu-id="f8c46-172">UseStatusCodePagesWithReExecute</span><span class="sxs-lookup"><span data-stu-id="f8c46-172">UseStatusCodePagesWithReExecute</span></span>
 
-* <span data-ttu-id="a5956-173">Vrátí původní stavový kód do klienta.</span><span class="sxs-lookup"><span data-stu-id="a5956-173">Returns the original status code to the client.</span></span>
-* <span data-ttu-id="a5956-174">Generuje text odpovědi znovu spuštěním kanálu požadavku pomocí alternativní cesty.</span><span class="sxs-lookup"><span data-stu-id="a5956-174">Generates the response body by re-executing the request pipeline using an alternate path.</span></span>
+<span data-ttu-id="f8c46-173"><xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*> – Metoda rozšíření:</span><span class="sxs-lookup"><span data-stu-id="f8c46-173">The <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*> extension method:</span></span>
 
-```csharp
-app.UseStatusCodePagesWithReExecute("/Error/{0}");
-```
+* <span data-ttu-id="f8c46-174">Vrátí původní stavový kód do klienta.</span><span class="sxs-lookup"><span data-stu-id="f8c46-174">Returns the original status code to the client.</span></span>
+* <span data-ttu-id="f8c46-175">Generuje text odpovědi znovu spuštěním kanálu požadavku pomocí alternativní cesty.</span><span class="sxs-lookup"><span data-stu-id="f8c46-175">Generates the response body by re-executing the request pipeline using an alternate path.</span></span>
 
-<xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePagesWithReExecute*> <span data-ttu-id="a5956-175">se obvykle používá při aplikace:</span><span class="sxs-lookup"><span data-stu-id="a5956-175">is commonly used when the app should:</span></span>
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithReExecute)]
 
-* <span data-ttu-id="a5956-176">Zpracování žádosti bez přesměrování na jiný koncový bod.</span><span class="sxs-lookup"><span data-stu-id="a5956-176">Process the request without redirecting to a different endpoint.</span></span> <span data-ttu-id="a5956-177">Pro web apps odráží adresního řádku prohlížeče klienta na původně požadovanou koncový bod.</span><span class="sxs-lookup"><span data-stu-id="a5956-177">For web apps, the client's browser address bar reflects the originally requested endpoint.</span></span>
-* <span data-ttu-id="a5956-178">Zachovat a vrátí původní kód stavu odpovědi.</span><span class="sxs-lookup"><span data-stu-id="a5956-178">Preserve and return the original status code with the response.</span></span>
+<span data-ttu-id="f8c46-176">Pokud přejdete na koncový bod v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod.</span><span class="sxs-lookup"><span data-stu-id="f8c46-176">If you point to an endpoint within the app, create an MVC view or Razor page for the endpoint.</span></span> <span data-ttu-id="f8c46-177">Příklad stránky Razor, naleznete v tématu [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml) v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span><span class="sxs-lookup"><span data-stu-id="f8c46-177">For a Razor Pages example, see [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml) in the [sample app](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).</span></span>
 
-<span data-ttu-id="a5956-179">Šablony mohou zahrnovat zástupný symbol (`{0}`) pro stavový kód.</span><span class="sxs-lookup"><span data-stu-id="a5956-179">Templates may include a placeholder (`{0}`) for the status code.</span></span> <span data-ttu-id="a5956-180">Šablona musí začínat lomítkem (`/`).</span><span class="sxs-lookup"><span data-stu-id="a5956-180">The template must start with a forward slash (`/`).</span></span> <span data-ttu-id="a5956-181">Při použití zástupného symbolu, potvrďte, že koncový bod (stránka nebo řadič) může zpracovat segmentu cesty.</span><span class="sxs-lookup"><span data-stu-id="a5956-181">When using a placeholder, confirm that the endpoint (page or controller) can process the path segment.</span></span> <span data-ttu-id="a5956-182">Například stránky Razor pro chyby by měl přijmout hodnotu volitelná cesta segmentu se `@page` – direktiva:</span><span class="sxs-lookup"><span data-stu-id="a5956-182">For example, a Razor Page for errors should accept the optional path segment value with the `@page` directive:</span></span>
+<span data-ttu-id="f8c46-178">Tato metoda se obvykle používá při aplikace:</span><span class="sxs-lookup"><span data-stu-id="f8c46-178">This method is commonly used when the app should:</span></span>
+
+* <span data-ttu-id="f8c46-179">Zpracování žádosti bez přesměrování na jiný koncový bod.</span><span class="sxs-lookup"><span data-stu-id="f8c46-179">Process the request without redirecting to a different endpoint.</span></span> <span data-ttu-id="f8c46-180">Pro web apps odráží adresního řádku prohlížeče klienta na původně požadovanou koncový bod.</span><span class="sxs-lookup"><span data-stu-id="f8c46-180">For web apps, the client's browser address bar reflects the originally requested endpoint.</span></span>
+* <span data-ttu-id="f8c46-181">Zachovat a vrátí původní kód stavu odpovědi.</span><span class="sxs-lookup"><span data-stu-id="f8c46-181">Preserve and return the original status code with the response.</span></span>
+
+<span data-ttu-id="f8c46-182">Adresa URL a šablon řetězců se mohou zahrnovat zástupný text dotazu (`{0}`) pro stavový kód.</span><span class="sxs-lookup"><span data-stu-id="f8c46-182">The URL and query string templates may include a placeholder (`{0}`) for the status code.</span></span> <span data-ttu-id="f8c46-183">Šablona adresy URL musí začínat lomítkem (`/`).</span><span class="sxs-lookup"><span data-stu-id="f8c46-183">The URL template must start with a slash (`/`).</span></span> <span data-ttu-id="f8c46-184">Pokud používáte zástupný symbol v cestě, potvrďte, že koncový bod (stránka nebo řadič) může zpracovat segmentu cesty.</span><span class="sxs-lookup"><span data-stu-id="f8c46-184">When using a placeholder in the path, confirm that the endpoint (page or controller) can process the path segment.</span></span> <span data-ttu-id="f8c46-185">Například stránky Razor pro chyby by měl přijmout hodnotu volitelná cesta segmentu se `@page` – direktiva:</span><span class="sxs-lookup"><span data-stu-id="f8c46-185">For example, a Razor Page for errors should accept the optional path segment value with the `@page` directive:</span></span>
 
 ```cshtml
 @page "{code?}"
 ```
 
-<span data-ttu-id="a5956-183">Koncový bod, který zpracovává chybu můžete získat původní adresu URL, který vytvořil chybu, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="a5956-183">The endpoint that processes the error can get the original URL that generated the error, as shown in the following example:</span></span>
+<span data-ttu-id="f8c46-186">Koncový bod, který zpracovává chybu můžete získat původní adresu URL, který vytvořil chybu, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="f8c46-186">The endpoint that processes the error can get the original URL that generated the error, as shown in the following example:</span></span>
 
-```csharp
-var statusCodeReExecuteFeature = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
-var originalPathBase = statusCodeReExecuteFeature?.OriginalPathBase;
-var originalPath = statusCodeReExecuteFeature?.OriginalPath;
-var originalQueryString = statusCodeReExecuteFeature?.OriginalQueryString;
-```
+[!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/StatusCode.cshtml.cs?name=snippet_StatusCodeReExecute)]
 
-### <a name="disable-status-code-pages"></a><span data-ttu-id="a5956-184">Zakázat stav znakové stránky</span><span class="sxs-lookup"><span data-stu-id="a5956-184">Disable status code pages</span></span>
+## <a name="disable-status-code-pages"></a><span data-ttu-id="f8c46-187">Zakázat stav znakové stránky</span><span class="sxs-lookup"><span data-stu-id="f8c46-187">Disable status code pages</span></span>
 
-<span data-ttu-id="a5956-185">Stav znakové stránky je možné zakázat pro konkrétní požadavky v metodě obslužné rutiny pro stránky Razor nebo kontroler MVC.</span><span class="sxs-lookup"><span data-stu-id="a5956-185">Status code pages can be disabled for specific requests in a Razor Pages handler method or in an MVC controller.</span></span> <span data-ttu-id="a5956-186">Zakázat stav znakových stránek, pokus o načtení <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature> z identifikátoru požadavku [HttpContext.Features](xref:Microsoft.AspNetCore.Http.HttpContext.Features) kolekce a zakažte funkci, pokud je k dispozici:</span><span class="sxs-lookup"><span data-stu-id="a5956-186">To disable status code pages, attempt to retrieve the <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature> from the request's [HttpContext.Features](xref:Microsoft.AspNetCore.Http.HttpContext.Features) collection and disable the feature if it's available:</span></span>
+<span data-ttu-id="f8c46-188">Stav znakové stránky je možné zakázat pro konkrétní požadavky v metodě obslužné rutiny pro stránky Razor nebo kontroler MVC.</span><span class="sxs-lookup"><span data-stu-id="f8c46-188">Status code pages can be disabled for specific requests in a Razor Pages handler method or in an MVC controller.</span></span> <span data-ttu-id="f8c46-189">Chcete-li zakázat stav znakové stránky, použijte <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>:</span><span class="sxs-lookup"><span data-stu-id="f8c46-189">To disable status code pages, use the <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>:</span></span>
 
 ```csharp
 var statusCodePagesFeature = HttpContext.Features.Get<IStatusCodePagesFeature>();
@@ -193,161 +177,56 @@ if (statusCodePagesFeature != null)
 }
 ```
 
-### <a name="status-code-page-endpoints"></a><span data-ttu-id="a5956-187">Stavový kód stránku koncové body</span><span class="sxs-lookup"><span data-stu-id="a5956-187">Status code page endpoints</span></span>
+## <a name="exception-handling-code"></a><span data-ttu-id="f8c46-190">Kód zpracování výjimek</span><span class="sxs-lookup"><span data-stu-id="f8c46-190">Exception-handling code</span></span>
 
-<span data-ttu-id="a5956-188">Použití <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> přetížení body do koncového bodu v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod.</span><span class="sxs-lookup"><span data-stu-id="a5956-188">To use a <xref:Microsoft.AspNetCore.Builder.StatusCodePagesExtensions.UseStatusCodePages*> overload that points to an endpoint within the app, create an MVC view or Razor Page for the endpoint.</span></span> <span data-ttu-id="a5956-189">Například šablona aplikace Razor Pages vytváří následující stránky a modelu třídy stránky:</span><span class="sxs-lookup"><span data-stu-id="a5956-189">For example, the Razor Pages app template produces the following page and page model class:</span></span>
+<span data-ttu-id="f8c46-191">Kód výjimky zpracování stránky může vyvolat výjimky.</span><span class="sxs-lookup"><span data-stu-id="f8c46-191">Code in exception handling pages can throw exceptions.</span></span> <span data-ttu-id="f8c46-192">Často je vhodné pro produkční chybové stránky, které se skládají z čistě statický obsah.</span><span class="sxs-lookup"><span data-stu-id="f8c46-192">It's often a good idea for production error pages to consist of purely static content.</span></span>
 
-<span data-ttu-id="a5956-190">*Error.cshtml*:</span><span class="sxs-lookup"><span data-stu-id="a5956-190">*Error.cshtml*:</span></span>
+### <a name="response-headers"></a><span data-ttu-id="f8c46-193">Hlavičky odpovědi</span><span class="sxs-lookup"><span data-stu-id="f8c46-193">Response headers</span></span>
 
-::: moniker range=">= aspnetcore-2.2"
+<span data-ttu-id="f8c46-194">Jakmile jsou odeslány hlavičky odpovědi:</span><span class="sxs-lookup"><span data-stu-id="f8c46-194">Once the headers for a response are sent:</span></span>
 
-```cshtml
-@page
-@model ErrorModel
-@{
-    ViewData["Title"] = "Error";
-}
+* <span data-ttu-id="f8c46-195">Aplikaci nelze změnit stavový kód odpovědi.</span><span class="sxs-lookup"><span data-stu-id="f8c46-195">The app can't change the response's status code.</span></span>
+* <span data-ttu-id="f8c46-196">Žádné výjimce stránky nebo obslužné rutiny nelze spustit.</span><span class="sxs-lookup"><span data-stu-id="f8c46-196">Any exception pages or handlers can't run.</span></span> <span data-ttu-id="f8c46-197">Odpovědi musí dokončit, nebo bylo připojení přerušeno.</span><span class="sxs-lookup"><span data-stu-id="f8c46-197">The response must be completed or the connection aborted.</span></span>
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+## <a name="server-exception-handling"></a><span data-ttu-id="f8c46-198">Zpracování výjimek serveru</span><span class="sxs-lookup"><span data-stu-id="f8c46-198">Server exception handling</span></span>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
+<span data-ttu-id="f8c46-199">Kromě ve vaší aplikaci logiky zpracování výjimek [implementaci serveru HTTP](xref:fundamentals/servers/index) dokáže zpracovat některé výjimky.</span><span class="sxs-lookup"><span data-stu-id="f8c46-199">In addition to the exception handling logic in your app, the [HTTP server implementation](xref:fundamentals/servers/index) can handle some exceptions.</span></span> <span data-ttu-id="f8c46-200">Pokud server zachytí výjimku, před odesláním hlavičky odpovědi, odešle server *500 – Interní chyba serveru* odpovědi bez těla odpovědi.</span><span class="sxs-lookup"><span data-stu-id="f8c46-200">If the server catches an exception before response headers are sent, the server sends a *500 - Internal Server Error* response without a response body.</span></span> <span data-ttu-id="f8c46-201">Pokud server zachytí výjimku po odeslání hlaviček odpovědí, server ukončí připojení.</span><span class="sxs-lookup"><span data-stu-id="f8c46-201">If the server catches an exception after response headers are sent, the server closes the connection.</span></span> <span data-ttu-id="f8c46-202">Požadavky, které nejsou zpracovány aplikací jsou zpracovány serverem.</span><span class="sxs-lookup"><span data-stu-id="f8c46-202">Requests that aren't handled by your app are handled by the server.</span></span> <span data-ttu-id="f8c46-203">Jakoukoliv výjimku, která vyvolá se v případě, že server zpracovává žádost je zpracována výjimka serveru zpracování.</span><span class="sxs-lookup"><span data-stu-id="f8c46-203">Any exception that occurs when the server is handling the request is handled by the server's exception handling.</span></span> <span data-ttu-id="f8c46-204">Aplikace vlastní chybové stránky, zpracování middleware a filtry výjimek nemají vliv na toto chování.</span><span class="sxs-lookup"><span data-stu-id="f8c46-204">The app's custom error pages, exception handling middleware, and filters don't affect this behavior.</span></span>
 
-<h3>Development Mode</h3>
-<p>
-    Swapping to the <strong>Development</strong> environment displays 
-    detailed information about the error that occurred.
-</p>
-<p>
-    <strong>The Development environment shouldn't be enabled for deployed 
-    applications.</strong> It can result in displaying sensitive information 
-    from exceptions to end users. For local debugging, enable the 
-    <strong>Development</strong> environment by setting the 
-    <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to 
-    <strong>Development</strong> and restarting the app.
-</p>
-```
+## <a name="startup-exception-handling"></a><span data-ttu-id="f8c46-205">Zpracování výjimek při spuštění</span><span class="sxs-lookup"><span data-stu-id="f8c46-205">Startup exception handling</span></span>
 
-<span data-ttu-id="a5956-191">*Error.cshtml.cs*:</span><span class="sxs-lookup"><span data-stu-id="a5956-191">*Error.cshtml.cs*:</span></span>
+<span data-ttu-id="f8c46-206">Pouze hostování vrstvy dokáže zpracovat výjimky, které se provedou při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="f8c46-206">Only the hosting layer can handle exceptions that take place during app startup.</span></span> <span data-ttu-id="f8c46-207">Hostitele lze nakonfigurovat pro [zachycení chyb při spuštění](xref:fundamentals/host/web-host#capture-startup-errors) a [zachytit podrobné chyby](xref:fundamentals/host/web-host#detailed-errors).</span><span class="sxs-lookup"><span data-stu-id="f8c46-207">The host can be configured to [capture startup errors](xref:fundamentals/host/web-host#capture-startup-errors) and [capture detailed errors](xref:fundamentals/host/web-host#detailed-errors).</span></span>
+
+<span data-ttu-id="f8c46-208">Hostování vrstvy můžete zobrazit chybovou stránku pro chyby zaznamenané při spouštění jenom v případě, že po adresa/port hostitele vazby, dojde k chybě.</span><span class="sxs-lookup"><span data-stu-id="f8c46-208">The hosting layer can show an error page for a captured startup error only if the error occurs after host address/port binding.</span></span> <span data-ttu-id="f8c46-209">Pokud se nezdaří vazby:</span><span class="sxs-lookup"><span data-stu-id="f8c46-209">If binding fails:</span></span>
+
+* <span data-ttu-id="f8c46-210">Hostování vrstvy zaznamená kritické výjimky.</span><span class="sxs-lookup"><span data-stu-id="f8c46-210">The hosting layer logs a critical exception.</span></span>
+* <span data-ttu-id="f8c46-211">Dotnet procesu dojde k chybě.</span><span class="sxs-lookup"><span data-stu-id="f8c46-211">The dotnet process crashes.</span></span>
+* <span data-ttu-id="f8c46-212">Žádná chybová stránka se zobrazí, když je HTTP server [Kestrel](xref:fundamentals/servers/kestrel).</span><span class="sxs-lookup"><span data-stu-id="f8c46-212">No error page is displayed when the HTTP server is [Kestrel](xref:fundamentals/servers/kestrel).</span></span>
+
+<span data-ttu-id="f8c46-213">Při spuštění na [IIS](/iis) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), *502.5 – selhání procesu* vrátí [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) Pokud proces nelze spustit. .</span><span class="sxs-lookup"><span data-stu-id="f8c46-213">When running on [IIS](/iis) or [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), a *502.5 - Process Failure* is returned by the [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) if the process can't start.</span></span> <span data-ttu-id="f8c46-214">Další informace naleznete v tématu <xref:host-and-deploy/iis/troubleshoot>.</span><span class="sxs-lookup"><span data-stu-id="f8c46-214">For more information, see <xref:host-and-deploy/iis/troubleshoot>.</span></span> <span data-ttu-id="f8c46-215">Informace o řešení problémů se spouštěním pomocí služby Azure App Service najdete v tématu <xref:host-and-deploy/azure-apps/troubleshoot>.</span><span class="sxs-lookup"><span data-stu-id="f8c46-215">For information on troubleshooting startup issues with Azure App Service, see <xref:host-and-deploy/azure-apps/troubleshoot>.</span></span>
+
+## <a name="database-error-page"></a><span data-ttu-id="f8c46-216">Databáze chybovou stránku</span><span class="sxs-lookup"><span data-stu-id="f8c46-216">Database error page</span></span>
+
+<span data-ttu-id="f8c46-217">[Databáze chybovou stránku](<xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage*>) middleware zachycuje vztahující se k databázi výjimky, které se dají vyřešit pomocí migrace Entity Framework.</span><span class="sxs-lookup"><span data-stu-id="f8c46-217">The [Database Error Page](<xref:Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage*>) middleware captures database-related exceptions that can be resolved by using Entity Framework migrations.</span></span> <span data-ttu-id="f8c46-218">Pokud dojde k tyto výjimky, je generována odpověď jazyka HTML s podrobnostmi o možných akcí k problému.</span><span class="sxs-lookup"><span data-stu-id="f8c46-218">When these exceptions occur, an HTML response with details of possible actions to resolve the issue is generated.</span></span> <span data-ttu-id="f8c46-219">Na této stránce musí být povolené pouze ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f8c46-219">This page should be enabled only in the Development environment.</span></span> <span data-ttu-id="f8c46-220">Povolit na stránce přidáním kódu k `Startup.Configure`:</span><span class="sxs-lookup"><span data-stu-id="f8c46-220">Enable the page by adding code to `Startup.Configure`:</span></span>
 
 ```csharp
-[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-public class ErrorModel : PageModel
+if (env.IsDevelopment())
 {
-    public string RequestId { get; set; }
-
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
-    public void OnGet()
-    {
-        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-    }
+    app.UseDatabaseErrorPage();
 }
 ```
 
-::: moniker-end
+## <a name="exception-filters"></a><span data-ttu-id="f8c46-221">Filtry výjimek</span><span class="sxs-lookup"><span data-stu-id="f8c46-221">Exception filters</span></span>
 
-::: moniker range="< aspnetcore-2.2"
-
-```cshtml
-@page
-@model ErrorModel
-@{
-    ViewData["Title"] = "Error";
-}
-
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
-
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
-
-<h3>Development Mode</h3>
-<p>
-    Swapping to <strong>Development</strong> environment will display more detailed 
-    information about the error that occurred.
-</p>
-<p>
-    <strong>Development environment should not be enabled in deployed applications
-    </strong>, as it can result in sensitive information from exceptions being 
-    displayed to end users. For local debugging, development environment can be 
-    enabled by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment 
-    variable to <strong>Development</strong>, and restarting the application.
-</p>
-```
-
-<span data-ttu-id="a5956-192">*Error.cshtml.cs*:</span><span class="sxs-lookup"><span data-stu-id="a5956-192">*Error.cshtml.cs*:</span></span>
-
-```csharp
-public class ErrorModel : PageModel
-{
-    public string RequestId { get; set; }
-
-    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, 
-        NoStore = true)]
-    public void OnGet()
-    {
-        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-    }
-}
-```
-
-::: moniker-end
-
-## <a name="exception-handling-code"></a><span data-ttu-id="a5956-193">Kód zpracování výjimek</span><span class="sxs-lookup"><span data-stu-id="a5956-193">Exception-handling code</span></span>
-
-<span data-ttu-id="a5956-194">Kód výjimky zpracování stránky může vyvolat výjimky.</span><span class="sxs-lookup"><span data-stu-id="a5956-194">Code in exception handling pages can throw exceptions.</span></span> <span data-ttu-id="a5956-195">Často je vhodné pro produkční chybové stránky, které se skládají z čistě statický obsah.</span><span class="sxs-lookup"><span data-stu-id="a5956-195">It's often a good idea for production error pages to consist of purely static content.</span></span>
-
-<span data-ttu-id="a5956-196">Také, mějte na paměti, jakmile jsou odeslány hlavičky odpovědi:</span><span class="sxs-lookup"><span data-stu-id="a5956-196">Also, be aware that once the headers for a response are sent:</span></span>
-
-* <span data-ttu-id="a5956-197">Aplikaci nelze změnit stavový kód odpovědi.</span><span class="sxs-lookup"><span data-stu-id="a5956-197">The app can't change the response's status code.</span></span>
-* <span data-ttu-id="a5956-198">Žádné výjimce stránky nebo obslužné rutiny nelze spustit.</span><span class="sxs-lookup"><span data-stu-id="a5956-198">Any exception pages or handlers can't run.</span></span> <span data-ttu-id="a5956-199">Odpovědi musí dokončit, nebo bylo připojení přerušeno.</span><span class="sxs-lookup"><span data-stu-id="a5956-199">The response must be completed or the connection aborted.</span></span>
-
-## <a name="server-exception-handling"></a><span data-ttu-id="a5956-200">Zpracování výjimek serveru</span><span class="sxs-lookup"><span data-stu-id="a5956-200">Server exception handling</span></span>
-
-<span data-ttu-id="a5956-201">Kromě ve vaší aplikaci logiky zpracování výjimek [implementaci serveru](xref:fundamentals/servers/index) dokáže zpracovat některé výjimky.</span><span class="sxs-lookup"><span data-stu-id="a5956-201">In addition to the exception handling logic in your app, the [server implementation](xref:fundamentals/servers/index) can handle some exceptions.</span></span> <span data-ttu-id="a5956-202">Pokud server zachytí výjimku, před odesláním hlavičky odpovědi, odešle server *500 – Interní chyba serveru* odpovědi bez těla odpovědi.</span><span class="sxs-lookup"><span data-stu-id="a5956-202">If the server catches an exception before response headers are sent, the server sends a *500 - Internal Server Error* response without a response body.</span></span> <span data-ttu-id="a5956-203">Pokud server zachytí výjimku po odeslání hlaviček odpovědí, server ukončí připojení.</span><span class="sxs-lookup"><span data-stu-id="a5956-203">If the server catches an exception after response headers are sent, the server closes the connection.</span></span> <span data-ttu-id="a5956-204">Požadavky, které nejsou zpracovány aplikací jsou zpracovány serverem.</span><span class="sxs-lookup"><span data-stu-id="a5956-204">Requests that aren't handled by your app are handled by the server.</span></span> <span data-ttu-id="a5956-205">Jakoukoliv výjimku, která vyvolá se v případě, že server zpracovává žádost je zpracována výjimka serveru zpracování.</span><span class="sxs-lookup"><span data-stu-id="a5956-205">Any exception that occurs when the server is handling the request is handled by the server's exception handling.</span></span> <span data-ttu-id="a5956-206">Aplikace vlastní chybové stránky, zpracování middleware a filtry výjimek nemají vliv na toto chování.</span><span class="sxs-lookup"><span data-stu-id="a5956-206">The app's custom error pages, exception handling middleware, and filters don't affect this behavior.</span></span>
-
-## <a name="startup-exception-handling"></a><span data-ttu-id="a5956-207">Zpracování výjimek při spuštění</span><span class="sxs-lookup"><span data-stu-id="a5956-207">Startup exception handling</span></span>
-
-<span data-ttu-id="a5956-208">Pouze hostování vrstvy dokáže zpracovat výjimky, které se provedou při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="a5956-208">Only the hosting layer can handle exceptions that take place during app startup.</span></span> <span data-ttu-id="a5956-209">Pomocí [webového hostitele](xref:fundamentals/host/web-host), můžete [konfigurace hostitele chování v reakci na chyby při spuštění](xref:fundamentals/host/web-host#detailed-errors) s `captureStartupErrors` a `detailedErrors` klíče.</span><span class="sxs-lookup"><span data-stu-id="a5956-209">Using [Web Host](xref:fundamentals/host/web-host), you can [configure how the host behaves in response to errors during startup](xref:fundamentals/host/web-host#detailed-errors) with the `captureStartupErrors` and `detailedErrors` keys.</span></span>
-
-<span data-ttu-id="a5956-210">Hostování můžete jenom zobrazit chybovou stránku pro chyby zaznamenané při spouštění, pokud dojde k chybě po adresa/port hostitele vazby.</span><span class="sxs-lookup"><span data-stu-id="a5956-210">Hosting can only show an error page for a captured startup error if the error occurs after host address/port binding.</span></span> <span data-ttu-id="a5956-211">Pokud z nějakého důvodu selže všechny vazby:</span><span class="sxs-lookup"><span data-stu-id="a5956-211">If any binding fails for any reason:</span></span>
-
-* <span data-ttu-id="a5956-212">Hostování vrstvy zaznamená kritické výjimky.</span><span class="sxs-lookup"><span data-stu-id="a5956-212">The hosting layer logs a critical exception.</span></span>
-* <span data-ttu-id="a5956-213">Dotnet procesu dojde k chybě.</span><span class="sxs-lookup"><span data-stu-id="a5956-213">The dotnet process crashes.</span></span>
-* <span data-ttu-id="a5956-214">Žádná chybová stránka se zobrazí, když je aplikace spuštěná na [Kestrel](xref:fundamentals/servers/kestrel) serveru.</span><span class="sxs-lookup"><span data-stu-id="a5956-214">No error page is displayed when the app is running on the [Kestrel](xref:fundamentals/servers/kestrel) server.</span></span>
-
-<span data-ttu-id="a5956-215">Při spuštění na [IIS](/iis) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), *502.5 – selhání procesu* vrátí [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) Pokud proces nelze spustit. .</span><span class="sxs-lookup"><span data-stu-id="a5956-215">When running on [IIS](/iis) or [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), a *502.5 - Process Failure* is returned by the [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module) if the process can't start.</span></span> <span data-ttu-id="a5956-216">Další informace naleznete v tématu <xref:host-and-deploy/iis/troubleshoot>.</span><span class="sxs-lookup"><span data-stu-id="a5956-216">For more information, see <xref:host-and-deploy/iis/troubleshoot>.</span></span> <span data-ttu-id="a5956-217">Informace o řešení problémů se spouštěním pomocí služby Azure App Service najdete v tématu <xref:host-and-deploy/azure-apps/troubleshoot>.</span><span class="sxs-lookup"><span data-stu-id="a5956-217">For information on troubleshooting startup issues with Azure App Service, see <xref:host-and-deploy/azure-apps/troubleshoot>.</span></span>
-
-## <a name="aspnet-core-mvc-error-handling"></a><span data-ttu-id="a5956-218">Zpracování chyb technologie ASP.NET Core MVC</span><span class="sxs-lookup"><span data-stu-id="a5956-218">ASP.NET Core MVC error handling</span></span>
-
-<span data-ttu-id="a5956-219">[MVC](xref:mvc/overview) aplikace mají některé další možnosti pro zpracování chyb, jako je například konfigurace filtry výjimek a provedení ověření modelu.</span><span class="sxs-lookup"><span data-stu-id="a5956-219">[MVC](xref:mvc/overview) apps have some additional options for handling errors, such as configuring exception filters and performing model validation.</span></span>
-
-### <a name="exception-filters"></a><span data-ttu-id="a5956-220">Filtry výjimek</span><span class="sxs-lookup"><span data-stu-id="a5956-220">Exception filters</span></span>
-
-<span data-ttu-id="a5956-221">Filtry výjimek se dá nakonfigurovat globálně nebo na základě na kontroler nebo akcích v aplikaci MVC.</span><span class="sxs-lookup"><span data-stu-id="a5956-221">Exception filters can be configured globally or on a per-controller or per-action basis in an MVC app.</span></span> <span data-ttu-id="a5956-222">Tyto filtry zpracování neošetřené výjimky, která během provádění akce kontroleru nebo jiný filtr.</span><span class="sxs-lookup"><span data-stu-id="a5956-222">These filters handle any unhandled exception that occurs during the execution of a controller action or another filter.</span></span> <span data-ttu-id="a5956-223">Tyto filtry nejsou volány jinak.</span><span class="sxs-lookup"><span data-stu-id="a5956-223">These filters aren't called otherwise.</span></span> <span data-ttu-id="a5956-224">Další informace naleznete v tématu <xref:mvc/controllers/filters#exception-filters>.</span><span class="sxs-lookup"><span data-stu-id="a5956-224">For more information, see <xref:mvc/controllers/filters#exception-filters>.</span></span>
+<span data-ttu-id="f8c46-222">V aplikacích MVC filtry výjimek lze nastavit, globálně nebo na základě na kontroler nebo jednotlivé akce.</span><span class="sxs-lookup"><span data-stu-id="f8c46-222">In MVC apps, exception filters can be configured globally or on a per-controller or per-action basis.</span></span> <span data-ttu-id="f8c46-223">V aplikacích pro stránky Razor se dají Konfigurovat globálně nebo na stránce modelu.</span><span class="sxs-lookup"><span data-stu-id="f8c46-223">In Razor Pages apps, they can be configured globally or per page model.</span></span> <span data-ttu-id="f8c46-224">Tyto filtry zpracování neošetřené výjimky, která během provádění akce kontroleru nebo jiný filtr.</span><span class="sxs-lookup"><span data-stu-id="f8c46-224">These filters handle any unhandled exception that occurs during the execution of a controller action or another filter.</span></span> <span data-ttu-id="f8c46-225">Další informace naleznete v tématu <xref:mvc/controllers/filters#exception-filters>.</span><span class="sxs-lookup"><span data-stu-id="f8c46-225">For more information, see <xref:mvc/controllers/filters#exception-filters>.</span></span>
 
 > [!TIP]
-> <span data-ttu-id="a5956-225">Filtry výjimek jsou užitečné pro soutisku výjimky, ke kterým dochází v rámci akce MVC, ale nejsou tak flexibilní jako Middleware zpracování výjimek.</span><span class="sxs-lookup"><span data-stu-id="a5956-225">Exception filters are useful for trapping exceptions that occur within MVC actions, but they're not as flexible as the Exception Handling Middleware.</span></span> <span data-ttu-id="a5956-226">Doporučujeme používat middleware.</span><span class="sxs-lookup"><span data-stu-id="a5956-226">We recommend using the middleware.</span></span> <span data-ttu-id="a5956-227">Použití filtrů jenom tam, kde potřebujete provádět zpracování chyb *jinak* závislosti na zvolené akci, která MVC.</span><span class="sxs-lookup"><span data-stu-id="a5956-227">Use filters only where you need to perform error handling *differently* based on which MVC action is chosen.</span></span>
+> <span data-ttu-id="f8c46-226">Filtry výjimek jsou užitečné pro soutisku výjimky, ke kterým dochází v rámci akce MVC, ale nejsou tak flexibilní jako Middleware zpracování výjimek.</span><span class="sxs-lookup"><span data-stu-id="f8c46-226">Exception filters are useful for trapping exceptions that occur within MVC actions, but they're not as flexible as the Exception Handling Middleware.</span></span> <span data-ttu-id="f8c46-227">Doporučujeme používat middleware.</span><span class="sxs-lookup"><span data-stu-id="f8c46-227">We recommend using the middleware.</span></span> <span data-ttu-id="f8c46-228">Použití filtrů jenom tam, kde potřebujete provádět zpracování chyb různě v závislosti na zvolené akci, která MVC.</span><span class="sxs-lookup"><span data-stu-id="f8c46-228">Use filters only where you need to perform error handling differently based on which MVC action is chosen.</span></span>
 
-### <a name="handle-model-state-errors"></a><span data-ttu-id="a5956-228">Zpracování chyby stavu modelu</span><span class="sxs-lookup"><span data-stu-id="a5956-228">Handle model state errors</span></span>
+## <a name="model-state-errors"></a><span data-ttu-id="f8c46-229">Chyby stavu modelu</span><span class="sxs-lookup"><span data-stu-id="f8c46-229">Model state errors</span></span>
 
-<span data-ttu-id="a5956-229">[Ověření modelu](xref:mvc/models/validation) vyvolá se před vyvoláním každé akce kontroleru a zodpovídá za metodu akce ke kontrole [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) a reagují odpovídajícím způsobem.</span><span class="sxs-lookup"><span data-stu-id="a5956-229">[Model validation](xref:mvc/models/validation) occurs prior to invoking each controller action, and it's the action method's responsibility to inspect [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) and react appropriately.</span></span>
+<span data-ttu-id="f8c46-230">Informace o tom, jak zpracovávat chyby stavu modelu, naleznete v tématu [vazby modelu](xref:mvc/models/model-binding) a [ověření modelu](xref:mvc/models/validation).</span><span class="sxs-lookup"><span data-stu-id="f8c46-230">For information about how to handle model state errors, see [Model binding](xref:mvc/models/model-binding) and [Model validation](xref:mvc/models/validation).</span></span>
 
-<span data-ttu-id="a5956-230">Některé aplikace zvolte dodržovat standardní zásady pro nakládání s [ověření modelu](xref:mvc/models/validation) chyby, v takovém případě [filtr](xref:mvc/controllers/filters) může být vhodné místo pro implementaci tuto zásadu.</span><span class="sxs-lookup"><span data-stu-id="a5956-230">Some apps choose to follow a standard convention for dealing with [model validation](xref:mvc/models/validation) errors, in which case a [filter](xref:mvc/controllers/filters) may be an appropriate place to implement such a policy.</span></span> <span data-ttu-id="a5956-231">Měli byste otestovat chování vaše akce se stavy modelu je neplatný.</span><span class="sxs-lookup"><span data-stu-id="a5956-231">You should test how your actions behave with invalid model states.</span></span> <span data-ttu-id="a5956-232">Další informace naleznete v tématu <xref:mvc/controllers/testing>.</span><span class="sxs-lookup"><span data-stu-id="a5956-232">For more information, see <xref:mvc/controllers/testing>.</span></span>
-
-## <a name="additional-resources"></a><span data-ttu-id="a5956-233">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="a5956-233">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="f8c46-231">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="f8c46-231">Additional resources</span></span>
 
 * <xref:host-and-deploy/azure-iis-errors-reference>
 * <xref:host-and-deploy/iis/troubleshoot>
