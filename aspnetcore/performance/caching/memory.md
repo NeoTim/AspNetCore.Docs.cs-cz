@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak data v paměti v ASP.NET Core do mezipaměti.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/11/2019
+ms.date: 04/11/2019
 uid: performance/caching/memory
-ms.openlocfilehash: c115e43b9dd4f838ab9600c2e105d86732d857ad
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 6433df36023b79bc679186bee8b0a92371661dbe
+ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208265"
+ms.lasthandoff: 04/09/2019
+ms.locfileid: "59425046"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť in-memory v ASP.NET Core
 
@@ -21,7 +21,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Jan Luo](https://github
 
 ## <a name="caching-basics"></a>Základní informace o ukládání do mezipaměti
 
-Ukládání do mezipaměti může výrazně zlepšit výkon a škálovatelnost aplikace tím, že snižuje práci potřebnou k generování obsahu. Ukládání do mezipaměti funguje nejlépe s daty, která se mění jen zřídka. Ukládání do mezipaměti ke zkopírování dat, které mohou být vráceny mnohem rychlejší než z původního zdroje. By měl zapsat a otestovat aplikaci tak, aby nikdy závisí na data uložená v mezipaměti.
+Ukládání do mezipaměti může výrazně zlepšit výkon a škálovatelnost aplikace tím, že snižuje práci potřebnou k generování obsahu. Ukládání do mezipaměti funguje nejlépe s daty, která se mění jen zřídka. Ukládání do mezipaměti ke zkopírování dat, které mohou být vráceny mnohem rychlejší než z původního zdroje. Aplikace by měla bude sepsána a otestovaný na **nikdy** závisí na data uložená v mezipaměti.
 
 ASP.NET Core podporuje několik různé mezipaměti. Nejjednodušší cache je založená na [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache), která představuje mezipaměti uloženy v paměti na webovém serveru. Aplikace, které běží na serverové farmě několika serverů by měly zajistit relace jsou vždy navrchu, při použití mezipaměti umístěné v paměti. Rychlé relace Ujistěte se, že následné žádosti z klienta všech přejít na stejném serveru. Například Azure Web apps pomocí [směrování žádostí na aplikace](https://www.iis.net/learn/extensions/planning-for-arr) (směrování žádostí na aplikace) směrovat všechny následné požadavky na stejný server.
 
@@ -43,7 +43,7 @@ Mezipaměť v paměti můžete uložit libovolný objekt; rozhraní distribuovan
 * Žádné [implementace .NET](/dotnet/standard/net-standard#net-implementation-support) , který cílí na .NET Standard 2.0 nebo novější. Například, ASP.NET Core 2.0 nebo novější.
 * Rozhraní .NET framework 4.5 nebo novější.
 
-[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` (popsané v tomto tématu) se doporučuje namísto používat `System.Runtime.Caching` / `MemoryCache` lépe integrovaná do ASP.NET Core. Například `IMemoryCache` nativně funguje s ASP.NET Core [injektáž závislostí](xref:fundamentals/dependency-injection).
+[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` (popsané v tomto článku) se doporučuje namísto používat `System.Runtime.Caching` / `MemoryCache` lépe integrovaná do ASP.NET Core. Například `IMemoryCache` nativně funguje s ASP.NET Core [injektáž závislostí](xref:fundamentals/dependency-injection).
 
 Použití `System.Runtime.Caching` / `MemoryCache` jako most kompatibility během portování kódu z ASP.NET 4.x ASP.NET Core.
 
@@ -53,7 +53,7 @@ Použití `System.Runtime.Caching` / `MemoryCache` jako most kompatibility běhe
 * Mezipaměť používá omezených zdrojů paměti. Omezit růst mezipaměti:
   * Proveďte **není** použít externí vstup jako klíče mezipaměti.
   * Chcete-li omezit růst mezipaměti pomocí vypršení platnosti.
-  * [Použití SetSize, velikost a hodnota parametru SizeLimit omezení velikosti mezipaměti](#use-setsize-size-and-sizelimit-to-limit-cache-size)
+  * [Můžete omezit velikost mezipaměti SetSize, velikost a hodnota parametru SizeLimit](#use-setsize-size-and-sizelimit-to-limit-cache-size). Modul runtime ASP.NET Core neomezuje velikost mezipaměti podle tlaku na paměť. Záleží jen na vývojářské omezení velikosti mezipaměti.
 
 ## <a name="using-imemorycache"></a>Pomocí IMemoryCache
 
@@ -93,7 +93,7 @@ Aktuální čas a čas v mezipaměti se zobrazí:
 
 [!code-cshtml[](memory/sample/WebCache/Views/Home/Cache.cshtml)]
 
-V mezipaměti `DateTime` hodnota zůstává v mezipaměti, i když existují požadavky v rámci časového limitu (a žádný vyřazení z důvodu přetížení paměti). Následující obrázek ukazuje aktuální čas a starší čas načtení z mezipaměti:
+V mezipaměti `DateTime` hodnota zůstává v mezipaměti, i když existují požadavky v rámci časového limitu. Následující obrázek ukazuje aktuální čas a starší čas načtení z mezipaměti:
 
 ![Index zobrazení se zobrazí dva různé časy.](memory/_static/time.png)
 
@@ -122,7 +122,7 @@ Následující ukázka:
 
 ## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>Použití SetSize, velikost a hodnota parametru SizeLimit omezení velikosti mezipaměti
 
-A `MemoryCache` instance může volitelně zadat a vynutit omezení velikosti. Omezení velikosti paměti nemá definovanou jednotka měření vzhledem k tomu, že mezipaměť nemá žádný mechanismus pro měření velikosti položky. Pokud je nastaven limit velikosti mezipaměti, musíte zadat všechny položky velikosti. Zadaná velikost je v jednotkách, které vývojář klikne.
+A `MemoryCache` instance může volitelně zadat a vynutit omezení velikosti. Omezení velikosti paměti nemá definovanou jednotka měření vzhledem k tomu, že mezipaměť nemá žádný mechanismus pro měření velikosti položky. Pokud je nastaven limit velikosti mezipaměti, musíte zadat všechny položky velikosti. Modul runtime ASP.NET Core neomezuje velikost mezipaměti podle tlaku na paměť. Záleží jen na vývojářské omezení velikosti mezipaměti. Zadaná velikost je v jednotkách, které vývojář klikne.
 
 Příklad:
 

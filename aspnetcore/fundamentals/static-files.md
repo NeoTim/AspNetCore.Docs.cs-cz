@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak poskytovat zabezpečení statické soubory a konfigurace statického souboru hostování chování middlewaru ve webové aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 04/08/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: 114fee0795977043f3a74a81a15923a8bf5faf6b
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 12c7b39bee462ff83188a5a0f10b133ca273863b
+ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208632"
+ms.lasthandoff: 04/09/2019
+ms.locfileid: "59425059"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -47,7 +47,7 @@ Statické soubory jsou přístupné přes cestu relativní vzhledem k kořenový
 
 * **wwwroot**
   * **css**
-  * **Bitové kopie**
+  * **obrázky**
   * **js**
 
 Formát identifikátoru URI pro přístup k souboru v *image* je podsložka *http://\<server_address > /images/\<image_file_name >*. Například *http://localhost:9189/images/banner3.svg*.
@@ -90,10 +90,10 @@ Vezměte v úvahu hierarchii adresářů, ve kterém se obsluhovat statické sou
 
 * **wwwroot**
   * **css**
-  * **Bitové kopie**
+  * **obrázky**
   * **js**
 * **MyStaticFiles**
-  * **Bitové kopie**
+  * **obrázky**
     * *banner1.svg*
 
 Žádost o přístup *banner1.svg* souboru nakonfigurováním Middleware statické soubory:
@@ -189,10 +189,10 @@ Vezměte v úvahu následující hierarchii adresářů:
 
 * **wwwroot**
   * **css**
-  * **Bitové kopie**
+  * **obrázky**
   * **js**
 * **MyStaticFiles**
-  * **Bitové kopie**
+  * **obrázky**
     * *banner1.svg*
   * *default.html*
 
@@ -216,7 +216,7 @@ Pokud neexistuje žádný soubor s názvem výchozí v *MyStaticFiles* adresář
 ![Seznam statické soubory](static-files/_static/db2.png)
 
 > [!NOTE]
-> `UseDefaultFiles` a `UseDirectoryBrowser` použijte adresu URL *http://\<server_address > / StaticFiles* bez do adresy koncové lomítko k aktivaci na straně klienta přesměrovat na *http://\<server_address > / StaticFiles /*. Všimněte si, že přidání do adresy koncové lomítko. Relativní adresy URL v rámci dokumenty jsou považovány za neplatné bez koncové lomítko.
+> <xref:Microsoft.AspNetCore.Builder.DefaultFilesExtensions.UseDefaultFiles*> a <xref:Microsoft.AspNetCore.Builder.DirectoryBrowserExtensions.UseDirectoryBrowser*> provést přesměrování na straně klienta z `http://{SERVER ADDRESS}/StaticFiles` (bez koncové lomítko) na `http://{SERVER ADDRESS}/StaticFiles/` (s koncovým lomítkem). Relativní adresy URL v rámci *StaticFiles* adresáře jsou neplatné bez koncové lomítko.
 
 ## <a name="fileextensioncontenttypeprovider"></a>FileExtensionContentTypeProvider
 

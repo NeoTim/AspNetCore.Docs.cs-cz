@@ -3,15 +3,15 @@ title: Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 author: rick-anderson
 description: Kurz s příklady kódu pro demonstraci integrace ověřování pomocí účtu uživatele Facebooku do stávající aplikace ASP.NET Core.
 ms.author: riande
-ms.custom: mvc, seodec18
+ms.custom: seoapril2019, mvc, seodec18
 ms.date: 03/04/2019
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: b69a6f3955d59aaff273a965d8820862e187cd51
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: 84b891f6cee71a26726d49a9d42ae45007d2b429
+ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068206"
+ms.lasthandoff: 04/09/2019
+ms.locfileid: "59425033"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 

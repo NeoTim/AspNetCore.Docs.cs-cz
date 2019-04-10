@@ -1,37 +1,36 @@
 ---
 title: Podpora služby IIS při vývoji v sadě Visual Studio pro ASP.NET Core
-author: shirhatti
-description: Podívejte se na podporu pro ladění aplikací ASP.NET Core, když za služby IIS a systémem Windows Server.
+author: guardrex
+description: Podívejte se na podporu pro ladění aplikací ASP.NET Core, když se službou IIS a systémem Windows Server.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 04/08/2019
 uid: host-and-deploy/iis/development-time-iis-support
-ms.openlocfilehash: 44570bb28451ce4c5fde12ec77e3856fb5bd3062
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 6f555858239b4432d252f8b3ac7add5c3e8bfe62
+ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637661"
+ms.lasthandoff: 04/09/2019
+ms.locfileid: "59425098"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Podpora služby IIS při vývoji v sadě Visual Studio pro ASP.NET Core
 
 Podle [Sourabh Shirhatti](https://twitter.com/sshirhatti) a [Luke Latham](https://github.com/guardrex)
 
-Tento článek popisuje [sady Visual Studio](https://www.visualstudio.com/vs/) podporuje ladění aplikací ASP.NET Core spuštěné za nástrojem služby IIS v systému Windows Server. Toto téma vás provede povolením této funkce a nastavení projektu.
+Tento článek popisuje [sady Visual Studio](https://www.visualstudio.com/vs/) podporuje ladění aplikací ASP.NET Core se službou IIS a systémem Windows Server. Toto téma vás provede povolením tento scénář a nastavení projektu.
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Visual Studio pro Windows](https://www.microsoft.com/net/download/windows)
+* [Visual Studio pro Windows](https://visualstudio.microsoft.com/downloads/)
 * **Vývoj pro ASP.NET a web** pracovního vytížení
 * **Vývoj pro různé platformy .NET core** pracovního vytížení
-* Bezpečnostní certifikát X.509
+* Certifikát X.509 zabezpečení (pro podporu protokolu HTTPS)
 
 ## <a name="enable-iis"></a>Povolte službu IIS
 
-1. Přejděte do **ovládací panely** > **programy** > **programy a funkce** > **zapnout Windows funkce na nebo vypnout** (levé straně obrazovky).
-1. Vyberte **Internetová informační služba** zaškrtávací políčko.
-
-![Funkce Windows zobrazující Internetová informační služba zaškrtávací políčko zaškrtnuto jako černá čtverec (ne zaškrtnutí) označující, že jsou povolené některé z funkcí služby IIS](development-time-iis-support/_static/enable_iis.png)
+1. Ve Windows, přejděte na **ovládací panely** > **programy** > **programy a funkce** > **zapnout Windows zapnout nebo vypnout funkce** (levé straně obrazovky).
+1. Vyberte **Internetová informační služba** zaškrtávací políčko. Vyberte **OK**.
 
 Instalace služby IIS může vyžadovat restartování systému.
 
@@ -39,70 +38,77 @@ Instalace služby IIS může vyžadovat restartování systému.
 
 Služba IIS musí mít web nakonfigurované tyto parametry:
 
-* Název hostitele, který odpovídá název hostitele adresy URL profilu spuštění aplikace.
-* Vazby portu 443 s certifikátem přiřazené.
-
-Například **název hostitele** pro přidání webu je nastaven na hodnotu "localhost" (profil spuštění také používat "localhost" dále v tomto tématu). Port je nastavena na hodnotu "443" (HTTPS). **Služby IIS Express vývojářský certifikát, kterým** je přiřazen k webu, ale libovolný platný certifikát funguje:
-
-![Přidáte okno webu ve službě IIS, zobrazuje se sada vazby pro místního hostitele na portu 443 s certifikátem přiřazené.](development-time-iis-support/_static/add-website-window.png)
-
-Pokud má již instalace služby IIS **výchozí webový server** s názvem hostitele, který odpovídá název hostitele adresy URL profilu spuštění aplikace:
-
-* Přidáte vazbu na port pro port 443 (HTTPS).
-* Přiřaďte platného certifikátu k webu.
+* **Název hostitele** &ndash; obvykle **výchozí webový server** se používá s **název hostitele** z `localhost`. Libovolný platný web služby IIS s názvem hostitele však funguje.
+* **Vazby webu**
+  * Pro aplikace, které vyžadují protokol HTTPS vytvořte vazbu na port 443 pomocí certifikátu. Obvykle **služby IIS Express vývojářský certifikát, kterým** se používá, ale libovolný platný certifikát funguje.
+  * Pro aplikace, které používají protokol HTTP, zkontrolujte existenci vazbu na příspěvek 80 nebo vytvořit vazbu na port 80 pro nový web.
+  * Použití jedné vazby pro protokol HTTP nebo HTTPS. **Vytvoření vazby na portech HTTP a HTTPS současně není podporováno.**
 
 ## <a name="enable-development-time-iis-support-in-visual-studio"></a>Povolit podporu služby IIS dobu vývoje v sadě Visual Studio
 
 1. Spusťte instalační program sady Visual Studio.
-1. Vyberte **dobu vývoje podpora služby IIS** komponenty. Součást je uveden jako volitelný v **Souhrn** panelu **vývoj pro ASP.NET a web** pracovního vytížení. Nainstaluje komponenty [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module), což je nativní modul IIS potřebné ke spuštění aplikace ASP.NET Core se službou IIS.
+1. Vyberte **změnit** pro instalaci sady Visual Studio, který chcete použít pro podporu vývoje služby IIS.
+1. Pro **vývoj pro ASP.NET a web** pracovního vytížení, vyhledejte a nainstalujte **dobu vývoje podpora služby IIS** komponenty.
 
-![Úpravy funkce aplikace Visual Studio: Je vybraná karta úlohy. V části Web a Cloud je vybraná panelu vývoj pro ASP.NET a web. Na pravé straně v oblasti volitelné panel souhrnu je zaškrtávací políčko pro při vývoji podpora služby IIS.](development-time-iis-support/_static/development_time_support.png)
+   Součást je uveden v **volitelné** části **dobu vývoje podpora služby IIS** v **podrobné informace o instalaci** panelu napravo od úlohy. Nainstaluje komponenty [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module), což je nativní modul IIS potřebné ke spuštění aplikace ASP.NET Core se službou IIS.
 
 ## <a name="configure-the-project"></a>Konfigurace projektu
 
 ### <a name="https-redirection"></a>Přesměrování protokolu HTTPS
 
-Nový projekt, zaškrtněte políčko pro **konfigurace pro protokol HTTPS** v **nová webová aplikace ASP.NET Core** okno:
+Nový projekt, který vyžaduje protokol HTTPS, zaškrtněte políčko pro **konfigurace pro protokol HTTPS** v **vytvořit novou webovou aplikaci ASP.NET Core** okna. Zaškrtnutím políčka přidá [přesměrování protokolu HTTPS a Middlewarem HSTS](xref:security/enforcing-ssl) do aplikace při jeho vytvoření.
 
-![Nové okno webové aplikace ASP.NET Core s konfigurací pro zaškrtnutým políčkem HTTPS.](development-time-iis-support/_static/new-app.png)
+Pro existující projekt, který vyžaduje protokol HTTPS, použijte přesměrování protokolu HTTPS a HSTS middlewaru v `Startup.Configure`. Další informace naleznete v tématu <xref:security/enforcing-ssl>.
 
-V existujícím projektu, použijte protokol HTTPS přesměrování middlewaru v `Startup.Configure` voláním [UseHttpsRedirection](/dotnet/api/microsoft.aspnetcore.builder.httpspolicybuilderextensions.usehttpsredirection) – metoda rozšíření:
-
-```csharp
-public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-{
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-    }
-    else
-    {
-        app.UseExceptionHandler("/Error");
-        app.UseHsts();
-    }
-
-    app.UseHttpsRedirection();
-    app.UseStaticFiles();
-    app.UseCookiePolicy();
-
-    app.UseMvc();
-}
-```
+V projektu, který používá protokol HTTP [přesměrování protokolu HTTPS a Middlewarem HSTS](xref:security/enforcing-ssl) nejsou přidány do aplikace. Není nutná žádná konfigurace aplikace.
 
 ### <a name="iis-launch-profile"></a>Profil spuštění služby IIS
 
 Vytvoření nového profilu spuštění přidává dobu vývoje služby IIS:
 
+::: moniker range=">= aspnetcore-3.0"
+
+1. Klikněte pravým tlačítkem na projekt v **Průzkumníka řešení**. Vyberte **vlastnosti**. Otevřít **ladění** kartu.
 1. Pro **profilu**, vyberte **nový** tlačítko. Název profilu "IIS" v automaticky otevíraném okně. Vyberte **OK** vytvořte profil.
 1. Pro **spuštění** vyberte **IIS** ze seznamu.
-1. Zaškrtněte políčko pro **spuštění prohlížeče** a zadejte adresu URL koncového bodu. Použijte protokol HTTPS. Tento příklad používá `https://localhost/WebApplication1`.
-1. V **proměnné prostředí** vyberte **přidat** tlačítko. Zadejte proměnnou prostředí s klíčem `ASPNETCORE_ENVIRONMENT` a hodnotu `Development`.
-1. V **nastavení webového serveru** nastavení oblasti **adresa URL aplikace**. Tento příklad používá `https://localhost/WebApplication1`.
+1. Zaškrtněte políčko pro **spuštění prohlížeče** a zadejte adresu URL koncového bodu.
+
+   Pokud aplikace vyžaduje protokol HTTPS, použijte koncový bod HTTPS (`https://`). Pro protokol HTTP, používat HTTP (`http://`) koncového bodu.
+
+   Zadejte stejný název hostitele a portu, jako [zadána konfigurace služby IIS používá starší](#configure-iis), obvykle `localhost`.
+
+   Zadejte název aplikace na konci adresy URL.
+
+   Například `https://localhost/WebApplication1` (HTTPS) nebo `http://localhost/WebApplication1` (HTTP) jsou platný koncový bod adresy URL.
+1. V **proměnné prostředí** vyberte **přidat** tlačítko. Zadat proměnné prostředí s **název** z `ASPNETCORE_ENVIRONMENT` a **hodnotu** z `Development`.
+1. V **nastavení webového serveru** nastavení oblasti **adresa URL aplikace** na stejnou hodnotu pro **spuštění prohlížeče** adresu URL koncového bodu.
+1. Pro **Model hostování** nastavení v aplikaci Visual Studio 2019 nebo novější, vyberte **výchozí** používat model hostingu používané v projektu. Pokud je projekt nastaví `<AspNetCoreHostingModel>` vlastnost v souboru projektu, hodnota vlastnosti (`InProcess` nebo `OutOfProcess`) se používá. Pokud vlastnost není k dispozici, použije se výchozí hostování modelu aplikace, což je v procesu. Pokud aplikace vyžaduje explicitní model hostingu nastavení liší od normální model hostingu aplikace, nastavte **Model hostování** buď `In Process` nebo `Out Of Process` podle potřeby.
 1. Uložte profil.
 
-![V okně vlastností projektu s vybranou kartou ladění. Nastavení profilu a spuštění se nastaví do služby IIS. Funkce spuštění prohlížeče je povolená s adresou https://localhost/WebApplication1. Poskytujeme také stejnou adresu do pole Adresa URL aplikace v oblasti nastavení webového serveru.](development-time-iis-support/_static/project_properties.png)
+::: moniker-end
 
-Můžete také ručně přidat profil spuštění, který [launchSettings.json](http://json.schemastore.org/launchsettings) souboru v aplikaci:
+::: moniker range="< aspnetcore-3.0"
+
+1. Klikněte pravým tlačítkem na projekt v **Průzkumníka řešení**. Vyberte **vlastnosti**. Otevřít **ladění** kartu.
+1. Pro **profilu**, vyberte **nový** tlačítko. Název profilu "IIS" v automaticky otevíraném okně. Vyberte **OK** vytvořte profil.
+1. Pro **spuštění** vyberte **IIS** ze seznamu.
+1. Zaškrtněte políčko pro **spuštění prohlížeče** a zadejte adresu URL koncového bodu.
+
+   Pokud aplikace vyžaduje protokol HTTPS, použijte koncový bod HTTPS (`https://`). Pro protokol HTTP, používat HTTP (`http://`) koncového bodu.
+
+   Zadejte stejný název hostitele a portu, jako [zadána konfigurace služby IIS používá starší](#configure-iis), obvykle `localhost`.
+
+   Zadejte název aplikace na konci adresy URL.
+
+   Například `https://localhost/WebApplication1` (HTTPS) nebo `http://localhost/WebApplication1` (HTTP) jsou platný koncový bod adresy URL.
+1. V **proměnné prostředí** vyberte **přidat** tlačítko. Zadat proměnné prostředí s **název** z `ASPNETCORE_ENVIRONMENT` a **hodnotu** z `Development`.
+1. V **nastavení webového serveru** nastavení oblasti **adresa URL aplikace** na stejnou hodnotu pro **spuštění prohlížeče** adresu URL koncového bodu.
+1. Pro **Model hostování** nastavení v aplikaci Visual Studio 2019 nebo novější, vyberte **výchozí** používat model hostingu používané v projektu. Pokud je projekt nastaví `<AspNetCoreHostingModel>` vlastnost v souboru projektu, hodnota vlastnosti (`InProcess` nebo `OutOfProcess`) se používá. Pokud vlastnost není k dispozici, použije se výchozí hostování modelu aplikace, což je mimo proces. Pokud aplikace vyžaduje explicitní model hostingu nastavení liší od normální model hostingu aplikace, nastavte **Model hostování** buď `In Process` nebo `Out Of Process` podle potřeby.
+1. Uložte profil.
+
+::: moniker-end
+
+Pokud není pomocí sady Visual Studio, ručně přidat profil spuštění, který [launchSettings.json](http://json.schemastore.org/launchsettings) ve *vlastnosti* složky. Následující příklad nastaví profil, který chcete používat protokol HTTPS:
 
 ```json
 {
@@ -127,14 +133,14 @@ Můžete také ručně přidat profil spuštění, který [launchSettings.json](
 }
 ```
 
+Ujistěte se, že `applicationUrl` a `launchUrl` koncové body odpovídat a používají stejný protokol jako konfigurace vazby služby IIS, HTTP nebo HTTPS.
+
 ## <a name="run-the-project"></a>Spusťte projekt
 
-V sadě Visual Studio:
+Spuštění sady Visual Studio jako správce:
 
 * Potvrďte, že je nastavena rozevíracím seznamu konfigurací sestavení **ladění**.
 * Nastavte na tlačítko Spustit **IIS** profilu a klikněte na tlačítko a spusťte aplikaci.
-
-![Tlačítko spustit na panelu nástrojů VS je nastavena na profilaci služby IIS s rozevíracím seznamu konfigurací sestavení nastavená na vydání.](development-time-iis-support/_static/toolbar.png)
 
 Visual Studio může výzvu restartování v případě není spuštěn jako správce. Pokud se zobrazí výzva, restartujte aplikaci Visual Studio.
 
@@ -145,7 +151,8 @@ Pokud se používá nedůvěryhodný vývojářský certifikát, prohlížeče m
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* [Začínáme se službou Správce služby IIS ve službě IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
 * [Hostitele ASP.NET Core ve Windows se službou IIS](xref:host-and-deploy/iis/index)
 * [Úvod k modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
-* [Referenční dokumentace k modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
+* [Referenční informace o ASP.NET Core modulu Konfigurace](xref:host-and-deploy/aspnet-core-module)
 * [Vynucení protokolu HTTPS](xref:security/enforcing-ssl)
