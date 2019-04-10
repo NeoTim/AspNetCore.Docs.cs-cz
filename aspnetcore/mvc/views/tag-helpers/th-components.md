@@ -4,14 +4,14 @@ author: scottaddie
 description: Zjistěte, jaké jsou součásti pomocné rutiny značek a jejich použití v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
-ms.date: 09/18/2018
+ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: 3d21e12650d844f05bdfdf5b3451ab6219e3c3b7
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: fdad4ae367245cd3beabaf90587c1fe5e9162afe
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206871"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468592"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>Součásti pomocné rutiny značky v ASP.NET Core
 
@@ -40,7 +40,7 @@ V kódu HTML `<head>` elementu, soubory šablon stylů CSS se obvykle importují
 
 V předchozím kódu:
 
-* `AddressStyleTagHelperComponent` implementuje <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent>. Abstrakce:
+* `AddressStyleTagHelperComponent` Implementuje <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent>. Abstrakce:
   * Umožňuje inicializaci třídy s vlastností <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext>.
   * Umožňuje použití komponent pomocné rutiny značky přidat nebo upravit prvky jazyka HTML.
 * <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.Order*> Vlastnost definuje pořadí, ve kterém jsou generovány komponenty. `Order` je potřeba, pokud existuje více použití komponent pomocné rutiny značky v aplikaci.
@@ -112,7 +112,7 @@ Chcete-li vytvořit komponentu vlastní pomocné rutiny značky:
 
 * Vytvořit veřejnou třídu odvozenou z <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentTagHelper>.
 * Použití [[HtmlTargetElement]](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) atribut třídy. Zadejte název cílového elementu HTML.
-* *Volitelné*: použít [[EditorBrowsable(EditorBrowsableState.Never)]](xref:System.ComponentModel.EditorBrowsableAttribute) atribut třídy pro potlačení tohoto typu zobrazení v IntelliSense.
+* *Volitelné*: Použití [[EditorBrowsable(EditorBrowsableState.Never)]](xref:System.ComponentModel.EditorBrowsableAttribute) atribut třídy pro potlačení tohoto typu zobrazení v IntelliSense.
 
 Následující kód vytvoří komponentu vlastní pomocné rutiny značky, který cílí `<address>` prvek HTML:
 

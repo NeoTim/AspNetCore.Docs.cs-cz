@@ -5,14 +5,14 @@ description: Zjistěte, jak volat funkce jazyka JavaScript od .NET a .NET metody
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2019
+ms.date: 04/08/2019
 uid: razor-components/javascript-interop
-ms.openlocfilehash: c45c04d849ba4b3b017a65e79aa758effd5ba8eb
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: f2588f4ed1ec2f01218283625fae4632d0a8ae58
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068119"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468673"
 ---
 # <a name="razor-components-javascript-interop"></a>Razor JavaScript součásti zprostředkovatel komunikace s objekty
 
@@ -90,7 +90,7 @@ Následující komponenty:
             105, 118, 101, 114, 115, 101, 10, 10,
         };
 
-    async void ConvertArray()
+    private async void ConvertArray()
     {
         var text =
             await JsRuntime.InvokeAsync<string>("ConvertArray", QuoteArray);
@@ -195,7 +195,7 @@ Odkazy na elementy HTML v komponentě můžete zachytit tak, že přidáte `ref`
 Následující příklad ukazuje, zachycení odkazu na element input uživatelské jméno:
 
 ```cshtml
-<input ref="username" ... />
+<input ref="username" ...>
 
 @functions {
     ElementRef username;
@@ -238,7 +238,7 @@ Metoda je volána přímo v objektu. Následující příklad předpokládá, ž
 [!code-cshtml[](javascript-interop/samples_snapshot/component2.cshtml?highlight=1,4,8,12)]
 
 > [!IMPORTANT]
-> `username` Proměnná je vyplněný pouze po komponentu vykreslí a zahrnuje její výstup `<input>` elementu. Pokud se pokusíte předat unpopulated `ElementRef` do kódu jazyka JavaScript, kód jazyka JavaScript obdrží `null`. K manipulaci s odkazy na prvky po vykreslení (Chcete-li nastavit počáteční fokus na prvek) použijte komponentu `OnAfterRenderAsync` nebo `OnAfterRender` [součástí životního cyklu metody](xref:razor-components/components#lifecycle-methods).
+> `username` Proměnná je vyplněný pouze po komponentu vykreslí a zahrnuje její výstup `>` elementu. Pokud se pokusíte předat unpopulated `ElementRef` do kódu jazyka JavaScript, kód jazyka JavaScript obdrží `null`. K manipulaci s odkazy na prvky po vykreslení (Chcete-li nastavit počáteční fokus na prvek) použijte komponentu `OnAfterRenderAsync` nebo `OnAfterRender` [součástí životního cyklu metody](xref:razor-components/components#lifecycle-methods).
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>Vyvolání metod rozhraní .NET z funkce jazyka JavaScript
 

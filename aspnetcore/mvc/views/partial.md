@@ -4,14 +4,14 @@ author: ardalis
 description: Objevte, jak použít částečné zobrazení k rozdělení souborů velké značek a omezili dvojí společné značky na webových stránkách v aplikacích ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/11/2018
+ms.date: 04/06/2019
 uid: mvc/views/partial
-ms.openlocfilehash: b7c1545007086053e879bce6781802959da77901
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: 65da78d6df3f179df9bdfa3a32af8736b71bbac5
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327375"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468705"
 ---
 # <a name="partial-views-in-aspnet-core"></a>Částečná zobrazení v ASP.NET Core
 
@@ -110,7 +110,7 @@ Pokud přípona souboru je k dispozici, odkazuje na pomocné rutiny značky čá
 
 Následující příklad odkazuje částečné zobrazení z kořenového adresáře aplikace. Cesty, které začínají lomítkem tilda (`~/`) nebo lomítko (`/`) najdete v kořenovém adresáři aplikace:
 
-**Stránky Razor**
+**Razor Pages**
 
 ```cshtml
 <partial name="~/Pages/Folder/_PartialName.cshtml" />
@@ -152,7 +152,7 @@ Následující příklad odkazuje částečné zobrazení z kořenového adresá
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Stránky Razor**
+**Razor Pages**
 
 ```cshtml
 @await Html.PartialAsync("~/Pages/Folder/_PartialName.cshtml")
@@ -203,7 +203,7 @@ Když částečné zobrazení se odkazuje jeho názvem bez přípony souboru, n�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Stránky Razor**
+**Razor Pages**
 
 1. Právě probíhá na stránce složky
 1. Directory graphu nahoře na stránce složky
@@ -259,7 +259,7 @@ Model lze předat do částečné zobrazení. Vlastní objekt může být tento 
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Stránky Razor**
+**Razor Pages**
 
 Následující kód v ukázkové aplikaci je z *Pages/ArticlesRP/ReadRP.cshtml* stránky. Tato stránka obsahuje dvě částečné zobrazení. Druhý částečné zobrazení předává do modelu a `ViewData` částečného zobrazení. `ViewDataDictionary` Přetížení konstruktoru slouží k předání nového `ViewData` slovníku při zachování stávajících `ViewData` slovníku.
 

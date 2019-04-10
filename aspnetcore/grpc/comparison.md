@@ -6,18 +6,18 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 03/31/2019
 uid: grpc/comparison
-ms.openlocfilehash: 05bd0357ada2d9a2c876469c533605ee7cbab5b3
-ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
+ms.openlocfilehash: 0e9ef0e7ca8fb6d847b45f6dd7bd0aaa35fd149f
+ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "58809228"
+ms.lasthandoff: 04/10/2019
+ms.locfileid: "59468602"
 ---
 # <a name="comparing-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
 Podle [James Newton – King](https://twitter.com/jamesnk)
 
-Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) porovnání k rozhraní API HTTP. Technologie používaná k poskytují rozhraní API pro vaše aplikace je důležité volbou a gRPC nabízí jedinečné výhody ve srovnání s rozhraní HTTP API. Tento článek popisuje silné a slabé stránky gRPC a doporučuje scénáře použití gRPC přes jiné technologie.
+Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) porovnání rozhraní HTTP API (včetně ASP.NET Core [webová rozhraní API](xref: web-api/index)). Technologie používaná k poskytují rozhraní API pro vaše aplikace je důležité volbou a gRPC nabízí jedinečné výhody ve srovnání s rozhraní HTTP API. Tento článek popisuje silné a slabé stránky gRPC a doporučuje scénáře použití gRPC přes jiné technologie.
 
 #### <a name="overview"></a>Přehled
 
