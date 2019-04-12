@@ -4,14 +4,14 @@ author: mjrousos
 description: Užitečné nástroje pro diagnostiku problémů s výkonem v aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
-ms.date: 12/07/2018
+ms.date: 04/11/2019
 uid: performance/diagnostic-tools
-ms.openlocfilehash: 0fb9944d1082090f4f58f641a26ee96286920456
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 66676b5a2b95b87bfbbd50022e279e35a12b9793
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209999"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516219"
 ---
 # <a name="performance-diagnostic-tools"></a>Diagnostické nástroje výkonu
 
@@ -32,7 +32,7 @@ Další informace jsou k dispozici v [dokumentaci k sadě Visual Studio](/visual
 Azure Application Insights poskytuje informace z monitorovaných aplikací několika způsoby:
 
 - [Mapa aplikace](/azure/application-insights/app-insights-app-map) pomáhá s hledáním míst způsobujících problémy s výkonem nebo selhání za běhu napříč všemi součástmi distribuované aplikace.
-- [Okno metrik na portálu Application Insights](/azure/application-insights/app-insights-metrics-explorer?toc=/azure/azure-monitor/toc.json) ukazuje naměřené hodnoty a počty událostí.
+- [Průzkumník metrik Azure](/azure/azure-monitor/platform/metrics-getting-started) je součástí sady řešení Microsoft Azure portal, který umožňuje vykreslení grafy, vizuálně korelace trendy, a zkoumání špičky a poklesy hodnot metrik.
 - [Okno výkonu portálu Application Insights](/azure/application-insights/app-insights-tutorial-performance):
 
   - Zobrazí podrobnosti o výkonu pro různé operace v monitorované aplikaci.

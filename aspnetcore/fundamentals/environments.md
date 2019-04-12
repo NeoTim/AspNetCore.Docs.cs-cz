@@ -5,14 +5,14 @@ description: Zjistěte, jak řídit chování aplikace napříč několika prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/30/2019
+ms.date: 04/10/2019
 uid: fundamentals/environments
-ms.openlocfilehash: 4fc43935aa058efc4497d3d9eb607df6c0899443
-ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
+ms.openlocfilehash: f14c29030d96b530ea4af054cfa195d44db43679
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "58809234"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516349"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>Používání více prostředí v ASP.NET Core
 
@@ -234,7 +234,7 @@ Když `ASPNETCORE_ENVIRONMENT` proměnnou prostředí je nastavit globálně, pr
 
 **web.config**
 
-Nastavit `ASPNETCORE_ENVIRONMENT` proměnné prostředí s *web.config*, najdete v článku *nastavení proměnných prostředí* část <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>. Když `ASPNETCORE_ENVIRONMENT` nastavení proměnné prostředí s *web.config*, jeho hodnota se přepíše nastavení na úrovni systému.
+Nastavit `ASPNETCORE_ENVIRONMENT` proměnné prostředí s *web.config*, najdete v článku *nastavení proměnných prostředí* část <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.
 
 ::: moniker range=">= aspnetcore-2.2"
 

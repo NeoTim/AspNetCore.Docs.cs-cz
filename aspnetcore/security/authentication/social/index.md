@@ -4,33 +4,79 @@ author: rick-anderson
 description: Tento kurz ukazuje vytvoření ASP.NET Core 2.x aplikace pomocí externího zprostředkovatele ověřování OAuth 2.0.
 ms.author: riande
 ms.custom: mvc
-ms.date: 1/19/2019
+ms.date: 4/19/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: 48dd8b772234ff18158423a36ed1716102bc2f31
-ms.sourcegitcommit: 184ba5b44d1c393076015510ac842b77bc9d4d93
+ms.openlocfilehash: 61482481358256dc9ddd1a0a894541040a8a452f
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2019
-ms.locfileid: "54396139"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516323"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook, Google a externí zprostředkovatel ověřování v ASP.NET Core
 
 Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Tento kurz ukazuje, jak vytvořit aplikaci 2.2 technologie ASP.NET Core, která umožňuje uživatelům přihlášení pomocí přihlašovacích údajů z externího zprostředkovatele ověřování OAuth 2.0.
+Tento kurz ukazuje, jak vytvořit aplikaci 2.2 technologie ASP.NET Core, který umožňuje uživatelům přihlášení pomocí přihlašovacích údajů z externího zprostředkovatele ověřování OAuth 2.0.
 
 [Facebook](xref:security/authentication/facebook-logins), [Twitter](xref:security/authentication/twitter-logins), [Google](xref:security/authentication/google-logins), a [Microsoft](xref:security/authentication/microsoft-logins) poskytovatelé jsou popsané v následujících částech. Ostatní zprostředkovatelé jsou k dispozici v balíčky třetích stran, jako [AspNet.Security.OAuth.Providers](https://github.com/aspnet-contrib/AspNet.Security.OAuth.Providers) a [AspNet.Security.OpenId.Providers](https://github.com/aspnet-contrib/AspNet.Security.OpenId.Providers).
 
 ![Ikony sociálních médií pro Facebook, Twitter, Google, plus a Windows](index/_static/social.png)
 
-Umožňuje uživatelům přihlašovat se pomocí existujících přihlašovacích údajů je pro uživatele pohodlný a posune mnoho složitých úkolů při správě procesu přihlašování do jiného výrobce. Příklady, jak sociální přihlášení můžete jednotka provoz a zákazníka převody, naleznete v tématu případové studie podle [Facebook](https://www.facebook.com/unsupportedbrowser) a [Twitter](https://dev.twitter.com/resources/case-studies).
+Umožňuje uživatelům přihlašovat se pomocí existujících přihlašovacích údajů:
+* Je vhodné pro uživatele.
+* Posune mnoho složitých úkolů při správě procesu přihlašování do jiného výrobce. 
+
+Příklady, jak sociální přihlášení můžete jednotka provoz a zákazníka převody, naleznete v tématu případové studie podle [Facebook](https://www.facebook.com/unsupportedbrowser) a [Twitter](https://dev.twitter.com/resources/case-studies).
 
 ## <a name="create-a-new-aspnet-core-project"></a>Vytvořte nový projekt ASP.NET Core
 
-* V sadě Visual Studio 2017, vytvořte nový projekt z úvodní stránky, nebo prostřednictvím **souboru** > **nový** > **projektu**.
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Vyberte **webové aplikace ASP.NET Core** šablony, které jsou k dispozici v **Visual C#**   >  **.NET Core** kategorie:
+* Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**.
+* Vytvořte novou webovou aplikaci ASP.NET Core.
+* Vyberte **2.2 technologie ASP.NET Core** v rozevíracím seznamu a pak vyberte **webovou aplikaci**.
 * Vyberte **změna ověřování** a ověřování sady **jednotlivé uživatelské účty**.
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+* Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
+
+* Změňte adresář (`cd`) do složky, která bude obsahovat projektu.
+
+* Spusťte následující příkazy:
+
+  ```console
+  dotnet new webapp -o WebApp1
+  code -r WebApp1
+  ```
+
+  * `dotnet new` Příkaz vytvoří nový projekt v Razor Pages *WebApp1* složky.
+  * `code` Příkaz otevře *WebApp1* složky v nové instanci sady Visual Studio Code.
+
+  Zobrazí se dialogové okno s **'WebApp1' chybí požadované prostředky pro sestavení a ladění. Přidat?**
+
+* Vyberte **Ano**
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+Z terminálu spusťte následující příkaz:
+
+<!-- TODO: update these instruction once mac support 2.2 projects -->
+
+```console
+dotnet new webapp -o WebApp1
+```
+
+Předchozí příkazy použití [rozhraní příkazového řádku .NET Core](/dotnet/core/tools/dotnet) vytvoření projektu pro stránky Razor.
+
+## <a name="open-the-project"></a>Otevřete projekt
+
+Ze sady Visual Studio, vyberte **soubor > Otevřít**a pak vyberte *WebApp1.csproj* souboru.
+
+<!-- End of VS tabs -->
+
+---
 
 ## <a name="apply-migrations"></a>Použití migrace
 
@@ -67,7 +113,7 @@ Při registraci se externího zprostředkovatele přihlášení, není nutné he
 
 Chcete-li vytvořit heslo a přihlaste se pomocí e-mailu, kterou jste nastavili během procesu přihlašování s externí zprostředkovatele:
 
-* Vyberte **Hello &lt;e-mailový alias&gt;**  v pravém horním rohu přejít na odkaz **spravovat** zobrazení.
+* Vyberte **Hello &lt;e-mailový alias&gt;**  v pravém horním rohu, přejděte na odkaz **spravovat** zobrazení.
 
 ![Zobrazení Správa webové aplikace](index/_static/pass1a.png)
 

@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 2/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 5f7a2f6b57804b3295b23c322dcbac553b05528b
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 84c98ed341adc48d4ecbeda4305100c492ffb5e1
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320053"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516232"
 ---
 # <a name="tutorial-get-started-with-grpc-service-in-aspnet-core"></a>Kurz: Začínáme se službou gRPC v ASP.NET Core
 
@@ -93,7 +93,7 @@ Ze sady Visual Studio, vyberte **soubor > Otevřít**a pak vyberte *GrpcGreeter.
 
   ![Nová webová aplikace ASP.NET Core](grpc-start/_static/server_start.png)
 
-* Jakmile je služba spuštěná, nastavte **GrpcGreeter.Client** je nastavit jako spouštěný projekt a stisknutím kláves Ctrl + F5 a spusťte tak klienta bez ladicího programu.
+* Jakmile je služba spuštěná, nastavte **GrpcGreeter.Client** jako projekt po spuštění a stisknete klávesu Ctrl + F5 a spusťte tak klienta bez ladicího programu.
 
   Klient odešle pozdrav ke službě a zobrazí se zpráva obsahující jeho jméno "GreeterClient". Služba se poslat zprávu "Hello GreeterClient" jako odpověď, která se zobrazí v okně příkazového řádku.
 

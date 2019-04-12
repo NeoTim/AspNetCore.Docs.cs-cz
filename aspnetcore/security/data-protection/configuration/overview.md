@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak nakonfigurovat ochranu dat v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/08/2019
+ms.date: 04/11/2019
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: 36a06246513215ec29891df02688d113db11f914
-ms.sourcegitcommit: 32bc00435767189fa3ae5fb8a91a307bf889de9d
+ms.openlocfilehash: ee43427fa1e82a365d49df50567b4ca7afb5a5d3
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/11/2019
-ms.locfileid: "57733491"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516245"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany dat ASP.NET Core
 
@@ -44,7 +44,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Nastavte umístění úložiště klíč prstenec (například [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)). Umístění musí nastavit, protože volání `ProtectKeysWithAzureKeyVault` implementuje [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) , která zakáže nastavení ochrany dat, včetně umístění úložiště klíč kanál. V předchozím příkladu používá úložiště objektů Blob v Azure k uchování aktualizační kanál, který klíč. Další informace najdete v tématu [zprostředkovateli úložiště klíčů: Azure a Redis](xref:security/data-protection/implementation/key-storage-providers#azure-and-redis). Můžete také zachovat aktualizační kanál, který klíč místně s [PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system).
 
-`keyIdentifier` Je identifikátor klíče služby key vault používá pro šifrování s klíčem (například `https://contosokeyvault.vault.azure.net/keys/dataprotection/`).
+`keyIdentifier` Je identifikátor klíče služby key vault používá pro šifrování s klíčem. Například klíče vytvořeného ve službě key vault s názvem `dataprotection` v `contosokeyvault` má identifikátor klíče `https://contosokeyvault.vault.azure.net/keys/dataprotection/`. Poskytují aplikace s **rozbalení klíče** a **zabalit klíč** oprávnění k trezoru klíčů.
 
 `ProtectKeysWithAzureKeyVault` přetížení:
 
@@ -154,7 +154,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="disableautomatickeygeneration"></a>DisableAutomaticKeyGeneration
 
-Můžete mít scénář, kde nechcete, aby aplikace pro automatickou změnu klíče (vytvářet nové klíče), protože přístup vypršení platnosti. Jedním z příkladů může být aplikace nastavit ve primárního a sekundárního relaci, kde jenom primární aplikace zodpovídá za správu klíčů připomínky a sekundární aplikace jednoduše mají přehled aktualizační kanál, který klíč jen pro čtení. Sekundární aplikace je možné nakonfigurovat přistupovat ke všem aktualizační kanál, který klíč jen pro čtení v systému s konfigurací [DisableAutomaticKeyGeneration](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.disableautomatickeygeneration):
+Můžete mít scénář, kde nechcete, aby aplikace pro automatickou změnu klíče (vytvářet nové klíče), protože přístup vypršení platnosti. Jedním z příkladů může být aplikace nastavit ve primárního a sekundárního relaci, kde jenom primární aplikace zodpovídá za správu klíčů připomínky a sekundární aplikace jednoduše mají přehled aktualizační kanál, který klíč jen pro čtení. Sekundární aplikace je možné nakonfigurovat přistupovat ke všem aktualizační kanál, který klíč jen pro čtení v systému s konfigurací <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.DisableAutomaticKeyGeneration*>:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -166,15 +166,14 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="per-application-isolation"></a>Izolace podle aplikací
 
-Když ochrana dat systému pochází od hostitele služby ASP.NET Core, je aplikace od sebe, automaticky izoluje, i v případě, že na aplikace, které jsou spuštěny pod stejným účtem pracovního procesu a používá stejný materiál hlavního klíče. Toto je poněkud podobně jako modifikátor IsolateApps z prostředí System.Web společnosti  **\<machineKey >** elementu.
+Když ochrana dat systému pochází od hostitele služby ASP.NET Core, je aplikace od sebe, automaticky izoluje, i v případě, že na aplikace, které jsou spuštěny pod stejným účtem pracovního procesu a používá stejný materiál hlavního klíče. Toto je poněkud podobně jako modifikátor IsolateApps z prostředí System.Web společnosti `<machineKey>` elementu.
 
-Mechanismus izolace funguje tak, že vzhledem k tomu každou aplikaci na místním počítači jako jedinečný tenanta, proto [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) root pro aplikace automaticky zahrnuje ID aplikace jako diskriminátor. Jedinečné ID aplikace pochází z jednoho z následujících dvou míst:
+Mechanismus izolace funguje tak, že vzhledem k tomu každou aplikaci na místním počítači jako jedinečný tenanta, proto <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> root pro aplikace automaticky zahrnuje ID aplikace jako diskriminátor. Jedinečné ID aplikace je fyzická cesta aplikace:
 
-1. Pokud je aplikace hostovaná ve službě IIS, je jedinečný identifikátor aplikace konfigurační cesty. Pokud je aplikace nasazená v prostředí webové farmy, tato hodnota by měla být stabilní, za předpokladu, že služba IIS prostředí jsou nakonfigurované podobně jako ve všech počítačích ve webové farmě.
+* Pro aplikace hostované v [IIS](xref:fundamentals/servers/index#iis-http-server), jedinečné ID je fyzická cesta služby IIS aplikace. Pokud je aplikace nasazená v prostředí webové farmy, tato hodnota je stabilní, za předpokladu, že služba IIS prostředí jsou nakonfigurované podobně jako ve všech počítačích ve webové farmě.
+* V místním prostředí aplikací a systémem [Kestrel server](xref:fundamentals/servers/index#kestrel), jedinečné ID je fyzická cesta k aplikaci na disku.
 
-2. Pokud aplikace není hostována ve službě IIS, je jedinečný identifikátor fyzická cesta aplikace.
-
-Jedinečný identifikátor slouží k překonání resetování &mdash; jednotlivých aplikací a celý počítač.
+Jedinečný identifikátor slouží k překonání resetování&mdash;jednotlivých aplikací a celý počítač.
 
 Tento mechanismus izolace předpokládá, že nejsou škodlivých aplikací. Škodlivé aplikace může ovlivnit vždy jakoukoli jinou aplikaci běžící pod stejný účet pracovního procesu. Ve sdíleném hostování prostředí kdy jsou vzájemně nedůvěryhodných aplikace poskytovatel hostingu by měl zajistit OS úrovně izolace mezi aplikacemi, včetně oddělení aplikací základní klíče úložiště.
 

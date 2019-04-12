@@ -2,17 +2,16 @@
 title: Přidat, stažení a odstranění dat uživatele na identitu v projektu aplikace ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak přidat vlastní uživatelská data na identitu v projektu aplikace ASP.NET Core. Odstraníte data podle nařízení GDPR.
-monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 6/16/2018
 ms.custom: seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: 529aa0bf369f8a635bd8d39948585cf2a530e2d9
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 8c0413a16d92b717619387748ee78f0d14d6c852
+ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208483"
+ms.lasthandoff: 04/12/2019
+ms.locfileid: "59516206"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>Přidání, stáhněte si a odstranit vlastní uživatelská data na identitu v projektu aplikace ASP.NET Core
 
@@ -25,11 +24,11 @@ Tento článek popisuje, jak:
 
 Ukázkový projekt je vytvořený z webová aplikace Razor Pages, ale pokyny jsou podobné pro webovou aplikaci ASP.NET Core MVC.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/authentication/add-user-data/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/authentication/add-user-data) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
-[!INCLUDE [](~/includes/2.1-SDK.md)]
+[!INCLUDE [](~/includes/2.2-SDK.md)]
 
 ## <a name="create-a-razor-web-app"></a>Vytvoření webové aplikace Razor
 
@@ -37,7 +36,7 @@ Ukázkový projekt je vytvořený z webová aplikace Razor Pages, ale pokyny jso
 
 * Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**. Pojmenujte projekt **WebApp1** Pokud budete chtít odpovídat oboru názvů [stáhněte si ukázky](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/authentication/add-user-data/sample) kódu.
 * Vyberte **webová aplikace ASP.NET Core** > **OK**
-* Vyberte **ASP.NET Core 2.1** v rozevírací nabídce
+* Vyberte **2.2 technologie ASP.NET Core** v rozevírací nabídce
 * Vyberte **webovou aplikaci**  > **OK**
 * Sestavte a spusťte projekt.
 
@@ -109,7 +108,7 @@ Postupujte podle pokynů v [migrace, UseAuthentication a rozložení](xref:secur
 
 Aktualizace `IdentityUser` odvozené třídy s vlastními vlastnostmi. Pokud jste projekt WebApp1, má název souboru *Areas/Identity/Data/WebApp1User.cs*. Aktualizace souboru následujícím kódem:
 
-[!code-csharp[Main](add-user-data/sample/Areas/Identity/Data/WebApp1User.cs)]
+[!code-csharp[Main](add-user-data/sample-2.2/Areas/Identity/Data/WebApp1User.cs)]
 
 Upravené vlastnosti pomocí [PersonalData](/dotnet/api/microsoft.aspnetcore.identity.personaldataattribute?view=aspnetcore-2.1) atributu:
 
@@ -120,21 +119,21 @@ Upravené vlastnosti pomocí [PersonalData](/dotnet/api/microsoft.aspnetcore.ide
 
 Aktualizace `InputModel` v *Areas/Identity/Pages/Account/Manage/Index.cshtml.cs* s následující zvýrazněný kód:
 
-[!code-csharp[Main](add-user-data/sample/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs?name=snippet&highlight=28-36,63-64,87-95,120)]
+[!code-csharp[Main](add-user-data/sample-2.2/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs?name=snippet&highlight=28-36,63-64,98-106,119)]
 
 Aktualizace *Areas/Identity/Pages/Account/Manage/Index.cshtml* s následující zvýrazněný kód:
 
-[!code-html[Main](add-user-data/sample/Areas/Identity/Pages/Account/Manage/Index.cshtml?highlight=34-41)]
+[!code-html[Main](add-user-data/sample-2.2/Areas/Identity/Pages/Account/Manage/Index.cshtml?highlight=35-42)]
 
 ### <a name="update-the-accountregistercshtml-page"></a>Aktualizovat stránku Account/Register.cshtml
 
 Aktualizace `InputModel` v *Areas/Identity/Pages/Account/Register.cshtml.cs* s následující zvýrazněný kód:
 
-[!code-csharp[Main](add-user-data/sample/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=8-16,43,44)]
+[!code-csharp[Main](add-user-data/sample-2.2/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=28-36,67,66)]
 
 Aktualizace *Areas/Identity/Pages/Account/Register.cshtml* s následující zvýrazněný kód:
 
-[!code-html[Main](add-user-data/sample/Areas/Identity/Pages/Account/Register.cshtml?highlight=16-25)]
+[!code-html[Main](add-user-data/sample-2.2/Areas/Identity/Pages/Account/Register.cshtml?highlight=16-25)]
 
 Sestavte projekt.
 
