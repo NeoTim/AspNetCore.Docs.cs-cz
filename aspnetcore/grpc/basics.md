@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/31/2019
 uid: grpc/basics
-ms.openlocfilehash: ce2682848dc6a81293545c27f0be779e12a3a600
-ms.sourcegitcommit: 5995f44e9e13d7e7aa8d193e2825381c42184e47
+ms.openlocfilehash: 7c5ecf21124414b21f5c36b76e90bde67ac1f958
+ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "58809173"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59672668"
 ---
 # <a name="grpc-services-with-c"></a>gRPC služby pomocí jazyka C\#
 
@@ -32,13 +32,13 @@ Představme si třeba, *greet.proto* souboru použitého v [začít používat g
 * `Greeter` Služba definuje `SayHello` volání.
 * `SayHello` odešle `HelloRequest` zprávy a přijímá `HelloResponse` zpráva:
 
-[!code-proto[](~/tutorials/grpc/grpc-start/samples/GrpcStart/Protos/greet.proto)]
+[!code-proto[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Protos/greet.proto)]
 
 ## <a name="add-a-proto-file-to-a-c-app"></a>Přidání souboru .proto C\# aplikace
 
 *.Proto* soubor zahrnut v projektu tak, že ji přidáte `<Protobuf>` skupiny položek:
 
-[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/GrpcGreeter.Server.csproj?highlight=2&range=7-10)]
+[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-11)]
 
 ## <a name="c-tooling-support-for-proto-files"></a>C#Podpora nástrojů pro soubory .proto
 
@@ -50,7 +50,7 @@ Balíček nástroje [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) vy�
 
 Tento balíček je vyžadován server i klient projekty. `Grpc.Tools` lze přidat pomocí Správce balíčků v sadě Visual Studio nebo přidáním `<PackageReference>` do souboru projektu:
 
-[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/GrpcGreeter.Server.csproj?highlight=1&range=16)]
+[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=17)]
 
 Balíček nástroje není nutné za běhu, takže závislost je označená pomocí `PrivateAssets="All"`.
 
@@ -60,15 +60,15 @@ Vytvoří balíček nástroje C# typy představující zpráv definovaný v zahr
 
 Pro prostředky na straně serveru je vygenerována základního typu abstraktní služby. Základní typ obsahuje definice všech součástí gRPC volání *.proto* souboru. Vytvoření implementace konkrétní služby, který je odvozen z tohoto základního typu a implementuje logiku pro volání gRPC. Pro `greet.proto`, v příkladu je popsáno výše, abstraktní `GreeterBase` typ, který obsahuje virtuální `SayHello` generované metody. Konkrétní implementaci `GreeterService` přepisuje metodu a implementuje logiku zpracování gRPC volání.
 
-[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/Services/GreeterService.cs?name=snippet)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Services/GreeterService.cs?name=snippet)]
 
 Pro prostředky na straně klienta je vygenerována typ konkrétní klienta. GRPC zavolá v *.proto* souboru jsou přeloženy do metod na konkrétní typ, který může být volána. Pro `greet.proto`, v příkladu je popsáno výše, konkrétní `GreeterClient` typ generován. Volání `GreeterClient.SayHello` k zahájení gRPC volání serveru.
 
-[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Client/Program.cs?highlight=9-11&name=snippet)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/samples/GrpcGreeterClient/Program.cs?highlight=5-8&name=snippet)]
 
 Ve výchozím nastavení, prostředky serveru a klienta jsou generovány pro každou *.proto* zahrnuté v souboru `<Protobuf>` skupiny položek. Aby se serverové prostředky jsou generovány v projektu serveru, `GrpcServices` atribut je nastaven na `Server`.
 
-[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcStart/GrpcGreeter.Server/GrpcGreeter.Server.csproj?highlight=2&range=7-10)]
+[!code-xml[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-11)]
 
 Podobně platí, atribut je nastaven na `Client` v klientské projekty.
 

@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/23/2019
+ms.date: 04/16/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 477568dd64fb1442011abb4229299e7dece40da9
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: 65721a734cb35a2b20fd283ad54237eb896083a9
+ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488751"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59672642"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -588,7 +588,7 @@ Další informace najdete v tématu [icacls](/windows-server/administration/wind
 
 V procesu nasazení po vytvoření připojení k protokolu HTTP/2 [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) sestavy `HTTP/2`. Mimo proces nasazení po vytvoření připojení k protokolu HTTP/2 [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) sestavy `HTTP/1.1`.
 
-Další informace o modelech hostování a mimo proces, najdete v článku <xref:host-and-deploy/aspnet-core-module> tématu a <xref:host-and-deploy/aspnet-core-module>.
+Další informace o modelech hostování a mimo proces, naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
 ::: moniker-end
 

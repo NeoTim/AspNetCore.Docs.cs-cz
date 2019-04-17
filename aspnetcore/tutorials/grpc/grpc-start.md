@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 2/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 84c98ed341adc48d4ecbeda4305100c492ffb5e1
-ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
+ms.openlocfilehash: a67050331cc8563b1baf5312b92910c1bbdfbd69
+ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/12/2019
-ms.locfileid: "59516232"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59672564"
 ---
 # <a name="tutorial-get-started-with-grpc-service-in-aspnet-core"></a>Kurz: Začínáme se službou gRPC v ASP.NET Core
 
@@ -27,7 +27,7 @@ V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
 > * Vytvoření služby gRPC.
-> * Spuštění služby.
+> * GRPC službu spusťte.
 > * Zkontrolujte soubory projektu.
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-3.0.md)]
@@ -83,31 +83,23 @@ Ze sady Visual Studio, vyberte **soubor > Otevřít**a pak vyberte *GrpcGreeter.
 
 ---
 
-### <a name="test-the-service"></a>Testování služby
+### <a name="run-the-service"></a>Spuštění služby
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Zkontrolujte, **GrpcGreeter.Server** je nastavit jako spouštěný projekt a stisknutím kláves Ctrl + F5 ke spuštění služby gRPC bez ladicího programu.
+* Stisknutím kláves Ctrl + F5 ke spuštění služby gRPC bez ladicího programu.
 
   Visual Studio spustí službu v příkazovém řádku. V protokolech zobrazuje, že služba spustilo se naslouchání v `http://localhost:50051`.
 
   ![Nová webová aplikace ASP.NET Core](grpc-start/_static/server_start.png)
 
-* Jakmile je služba spuštěná, nastavte **GrpcGreeter.Client** jako projekt po spuštění a stisknete klávesu Ctrl + F5 a spusťte tak klienta bez ladicího programu.
-
-  Klient odešle pozdrav ke službě a zobrazí se zpráva obsahující jeho jméno "GreeterClient". Služba se poslat zprávu "Hello GreeterClient" jako odpověď, která se zobrazí v okně příkazového řádku.
-
-  ![Nová webová aplikace ASP.NET Core](grpc-start/_static/client.png)
-
-  Služba zaznamenával podrobnosti o úspěšném volání v protokolech zapsána do příkazového řádku.
-
-  ![Nová webová aplikace ASP.NET Core](grpc-start/_static/server_complete.png)
-
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* Pomocí příkazového řádku, spusťte projekt serveru GrpcGreeter.Server `dotnet run`. V protokolech zobrazuje, že služba spustilo se naslouchání v `http://localhost:50051`.
+* Pomocí příkazového řádku, spusťte projekt Greeter gRPC GrpcGreeter `dotnet run`. V protokolech zobrazuje, že služba spustilo se naslouchání v `http://localhost:50051`.
 
 ```console
+dbug: Grpc.AspNetCore.Server.Internal.GrpcServiceBinder[1]
+      Added gRPC method 'SayHello' to service 'Greet.Greeter'. Method type: 'Unary', route pattern: '/Greet.Greeter/SayHello'.
 info: Microsoft.Hosting.Lifetime[0]
       Now listening on: http://localhost:50051
 info: Microsoft.Hosting.Lifetime[0]
@@ -115,58 +107,35 @@ info: Microsoft.Hosting.Lifetime[0]
 info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 info: Microsoft.Hosting.Lifetime[0]
-      Content root path: C:\example\GrpcGreeter\GrpcGreeter.Server
-```
-
-* Pomocí samostatných příkazového řádku, spusťte klientský projekt GrpcGreeter.Client `dotnet run`.
-
-Klient odešle pozdrav ke službě a zobrazí se zpráva obsahující jeho jméno "GreeterClient". Služba se poslat zprávu "Hello GreeterClient" jako odpověď, která se zobrazí v okně příkazového řádku.
-
-```console
-Greeting: Hello GreeterClient
-Press any key to exit...
-```
-
-Služba zaznamenával podrobnosti o úspěšném volání v protokolech zapsána do příkazového řádku.
-
-```console
-info: Microsoft.Hosting.Lifetime[0]
-      Now listening on: http://localhost:50051
-info: Microsoft.Hosting.Lifetime[0]
-      Application started. Press Ctrl+C to shut down.
-info: Microsoft.Hosting.Lifetime[0]
-      Hosting environment: Development
-info: Microsoft.Hosting.Lifetime[0]
-      Content root path: C:\gh\tp\GrpcGreeter\GrpcGreeter.Server
-info: Microsoft.AspNetCore.Hosting.Internal.GenericWebHostService[1]
-      Request starting HTTP/2 POST http://localhost:50051/Greet.Greeter/SayHello application/grpc
-info: Microsoft.AspNetCore.Hosting.Internal.GenericWebHostService[2]
-      Request finished in 107.46730000000001ms 200 application/grpc
+      Content root path: C:\gh\Docs\aspnetcore\tutorials\grpc\grpc-start\samples\GrpcGreeter
 ```
 
 <!-- End of combined VS/Mac tabs -->
 
 ---
 
+Další kurz vám ukáže jak sestavit gRPC klienta, který je nutný k otestování služby Greeter.
+
 ### <a name="examine-the-project-files-of-the-grpc-project"></a>Zkontrolujte soubory projektu gRPC projektu
 
-GrpcGreeter.Server soubory:
+GrpcGreeter soubory:
 
 * greet.proto: *Protos/greet.proto* soubor definuje `Greeter` gRPC a slouží ke generování gRPC serverovými prostředky. Další informace naleznete v tématu <xref:grpc/index>.
 * *Služby* složky: Obsahuje implementaci `Greeter` služby.
 * *appSettings.json*: obsahuje konfigurační data, třeba protokol používá Kestrel. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 * *Program.cs*: Vstupní bod pro službu gRPC obsahuje. Další informace naleznete v tématu <xref:fundamentals/host/web-host>.
-* Startup.cs
+* Startup.cs: Obsahuje kód, který nakonfiguruje chování aplikace. Další informace naleznete v tématu <xref:fundamentals/startup>.
 
-Obsahuje kód, který nakonfiguruje chování aplikace. Další informace naleznete v tématu <xref:fundamentals/startup>.
+### <a name="test-the-service"></a>Testování služby
 
-soubor GrpcGreeter.Client gRPC klienta:
-
-*Soubor program.cs* obsahuje vstupní bod a logiku pro gRPC klienta.
+## <a name="additional-resources"></a>Další zdroje
 
 V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
 > * GRPC službu vytvořili.
-> * Spustil službu a klienta k otestování služby.
+> * Spuštění služby gRPC.
 > * Prozkoumat soubory projektu.
+
+> [!div class="step-by-step"]
+> [Další: Vytvoření klienta gRPC .NET Core](xref:tutorials/grpc/grpc-client)
