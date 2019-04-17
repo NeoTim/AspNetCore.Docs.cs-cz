@@ -261,10 +261,82 @@ items:
       name: Injektáž závislostí – zobrazení
     - uid: mvc/controllers/testing
       name: Test jednotek
-  - uid: razor-components/index
-    name: Komponenty Razor
+  - name: Blazor
+    items:
+    - uid: blazor/index
+      name: Přehled
+    - uid: blazor/get-started
+      name: Začínáme
+    - uid: blazor/hosting-models
+      name: Modely hostingu
+    - uid: tutorials/first-blazor-app
+      name: Sestavení první aplikace
+    - uid: blazor/components
+      name: Komponenty
+    - uid: blazor/forms-validation
+      name: Formuláře a ověřování
+    - uid: blazor/class-libraries
+      name: Knihovny komponent
+    - uid: blazor/layouts
+      name: Rozložení
+    - uid: blazor/dependency-injection
+      name: Injektáž závislostí
+    - uid: blazor/routing
+      name: Směrování
+    - uid: blazor/javascript-interop
+      name: Interoperabilita JavaScriptu
+    - uid: blazor/debug
+      name: Ladit
+    - name: Hostování a nasazení
+      items:
+      - uid: host-and-deploy/blazor/index
+        name: Přehled
+      - uid: host-and-deploy/blazor/client-side
+        name: Na straně klienta
+      - uid: host-and-deploy/blazor/server-side
+        name: Na straně serveru
+      - uid: host-and-deploy/blazor/configure-linker
+        name: Konfigurace Linkeru
+  - name: Vývoj klientské strany
+    items:
+    - name: Jednostránkové aplikace
+      items:
+      - uid: spa/angular
+        name: Angular
+      - uid: spa/react
+        name: React
+      - uid: spa/react-with-redux
+        name: React with Redux
+      - uid: client-side/spa-services
+        name: JavaScriptServices
+    - name: LibMan
+      items:
+      - uid: client-side/libman/index
+        name: Přehled
+      - uid: client-side/libman/libman-cli
+        name: CLI
+      - uid: client-side/libman/libman-vs
+        name: Visual Studio
+    - uid: client-side/using-gulp
+      name: Gulp
+    - uid: client-side/using-grunt
+      name: Grunt
+    - uid: client-side/bower
+      name: Bower
+    - uid: client-side/bundling-and-minification
+      name: Vytvoření balíčku a minifikace
+    - uid: client-side/using-browserlink
+      name: Browser Link
   - uid: fundamentals/app-state
     name: Stav relace a aplikace
+  - uid: mvc/views/layout
+    name: Rozložení
+  - uid: mvc/models/model-binding
+    name: Vazby modelu
+  - uid: mvc/models/validation
+    name: Ověření modelu
+  - uid: mvc/views/razor
+    name: Syntaxe Razor
   - name: Pomocné rutiny značek
     items:
     - uid: mvc/views/tag-helpers/intro
@@ -303,14 +375,6 @@ items:
         href: mvc/views/working-with-forms.md#the-validation-message-tag-helper
       - name: Souhrn ověření
         href: mvc/views/working-with-forms.md#the-validation-summary-tag-helper
-  - uid: mvc/views/layout
-    name: Rozložení
-  - uid: mvc/models/model-binding
-    name: Vazby modelu
-  - uid: mvc/models/validation
-    name: Ověření modelu
-  - uid: mvc/views/razor
-    name: Syntaxe Razor
   - name: Upřesnit
     items:
     - uid: mvc/views/view-components
@@ -553,102 +617,6 @@ items:
       href: /azure/visual-studio/vs-storage-aspnet5-getting-started-queues?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Table Storage
       href: /azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-- name: Vývoj klientské strany
-  items:
-  - name: Komponenty Razor
-    items:
-    - uid: razor-components/index
-      name: Přehled
-    - uid: razor-components/get-started
-      name: Začínáme
-    - uid: razor-components/hosting-models
-      name: Modely hostingu
-    - uid: tutorials/first-razor-components-app
-      name: Sestavení první aplikace
-    - uid: razor-components/components
-      name: Komponenty
-    - uid: razor-components/forms-validation
-      name: Formuláře a ověřování
-    - uid: razor-components/class-libraries
-      name: Knihovny komponent
-    - uid: razor-components/layouts
-      name: Rozložení
-    - uid: razor-components/dependency-injection
-      name: Injektáž závislostí
-    - uid: razor-components/routing
-      name: Směrování
-    - uid: razor-components/javascript-interop
-      name: Interoperabilita JavaScriptu
-    - uid: razor-components/debug
-      name: Ladit
-    - name: Hostování a nasazení
-      items:
-      - uid: host-and-deploy/razor-components-blazor/index
-        name: Přehled
-      - uid: host-and-deploy/razor-components-blazor/razor-components
-        name: Komponenty Razor
-  - name: Jednostránkové aplikace
-    items:
-    - name: Blazor
-      items:
-      - uid: spa/blazor/index
-        name: Přehled
-      - uid: spa/blazor/get-started
-        name: Začínáme
-      - uid: razor-components/hosting-models
-        name: Modely hostingu
-      - uid: tutorials/first-razor-components-app
-        name: Sestavení první aplikace
-      - uid: razor-components/components
-        name: Komponenty
-      - uid: razor-components/forms-validation
-        name: Formuláře a ověřování
-      - uid: razor-components/class-libraries
-        name: Knihovny komponent
-      - uid: razor-components/layouts
-        name: Rozložení
-      - uid: razor-components/dependency-injection
-        name: Injektáž závislostí
-      - uid: razor-components/routing
-        name: Směrování
-      - uid: razor-components/javascript-interop
-        name: Interoperabilita JavaScriptu
-      - uid: razor-components/debug
-        name: Ladit
-      - name: Hostování a nasazení
-        items:
-        - uid: host-and-deploy/razor-components-blazor/index
-          name: Přehled
-        - uid: host-and-deploy/razor-components-blazor/blazor
-          name: Blazor
-        - uid: host-and-deploy/razor-components-blazor/configure-linker
-          name: Konfigurace Linkeru
-    - uid: spa/angular
-      name: Angular
-    - uid: spa/react
-      name: React
-    - uid: spa/react-with-redux
-      name: React with Redux
-    - uid: client-side/spa-services
-      name: JavaScriptServices
-  - name: LibMan
-    items:
-    - uid: client-side/libman/index
-      name: Přehled
-    - uid: client-side/libman/libman-cli
-      name: CLI
-    - uid: client-side/libman/libman-vs
-      name: Visual Studio
-  - uid: client-side/using-gulp
-    name: Gulp
-  - uid: client-side/using-grunt
-    name: Grunt
-  - uid: client-side/bower
-    name: Bower
-  - uid: client-side/bundling-and-minification
-    name: Vytvoření balíčku a minifikace
-  - uid: client-side/using-browserlink
-    name: Browser Link
 - name: Hostování a nasazení
   displayName: publish
   items:
@@ -777,15 +745,15 @@ items:
   - uid: host-and-deploy/health-checks
     name: Kontroly stavu
     displayName: deploy, publish
-  - name: Komponenty Razor / Blazor
+  - name: Blazor
     items:
-    - uid: host-and-deploy/razor-components-blazor/index
+    - uid: host-and-deploy/blazor/index
       name: Přehled
-    - uid: host-and-deploy/razor-components-blazor/blazor
-      name: Blazor
-    - uid: host-and-deploy/razor-components-blazor/razor-components
-      name: Komponenty Razor
-    - uid: host-and-deploy/razor-components-blazor/configure-linker
+    - uid: host-and-deploy/blazor/client-side
+      name: Na straně klienta
+    - uid: host-and-deploy/blazor/server-side
+      name: Na straně serveru
+    - uid: host-and-deploy/blazor/configure-linker
       name: Konfigurace Linkeru
 - name: Zabezpečení a identita
   displayName: authentication, authorization
@@ -1090,9 +1058,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: e788460a2de31aa570907b4561d30ad0da2ca854
-ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
+ms.openlocfilehash: 1863125cec772262c41884af343f66ec8fcb53ad
+ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/12/2019
-ms.locfileid: "59516271"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59614295"
