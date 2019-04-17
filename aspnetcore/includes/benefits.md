@@ -1,3 +1,11 @@
+---
+ms.openlocfilehash: d794058f533c4b617f641fa3cb3e6d63fd807c2d
+ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59615375"
+---
 ASP.NET Core nabízí následující výhody:
 
 * Jednotné prostředí pro vytváření webového uživatelského rozhraní a webových rozhraní API.
@@ -5,7 +13,7 @@ ASP.NET Core nabízí následující výhody:
 * [Stránky Razor](xref:razor-pages/index) Díky kódování zaměřené na stránce scénáře jednodušší a produktivnější.
 * Možnost vyvíjet a spouštět ve Windows, macOS a Linuxu.
 * Architektura zaměřená na open-source a [komunitu](https://live.asp.net/)
-* Integrace [moderní architektury klienta](xref:razor-components/index) a vývojových pracovních postupů
+* Integrace [moderní architektury klienta](xref:blazor/index) a vývojových pracovních postupů
 * [Konfigurační systém](xref:fundamentals/configuration/index) založený na prostředí, který je připravený pro cloud.
 * Integrovaná [injektáž závislostí](xref:fundamentals/dependency-injection).
 * Odlehčený, [vysoce výkonný](https://github.com/aspnet/benchmarks), modulární kanál požadavků HTTP

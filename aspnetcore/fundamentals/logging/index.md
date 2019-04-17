@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/02/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 065b2016d3a2dcc2243ec6869e027c5fabe4dad8
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.openlocfilehash: f0e4dbb6fda4f676ad8e769c71cc9548a4d61d66
+ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
-ms.locfileid: "59068401"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59614432"
 ---
 # <a name="logging-in-aspnet-core"></a>Protokolování v ASP.NET Core
 
@@ -497,7 +497,8 @@ Každý poskytovatel definuje *alias* , který lze použít v konfiguraci místo
 * Konzola
 * Ladit
 * EventLog
-* AzureAppServices
+* AzureAppServicesFile
+* AzureAppServicesBlob
 * TraceSource
 * EventSource
 
@@ -610,8 +611,8 @@ warn: TodoApi.Controllers.TodoController[4000]
 
 ASP.NET Core se celá dodává následující zprostředkovatele:
 
-* [Konzola](#console-provider)
-* [Ladit](#debug-provider)
+* [Console](#console-provider)
+* [Ladění](#debug-provider)
 * [EventSource](#eventsource-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
@@ -868,7 +869,7 @@ Přejděte **streamování protokolů** stránku, abyste zobrazili zprávy aplik
 
 Sada SDK služby Application Insights můžete shromažďovat a sestavy protokoly generované protokolování infrastruktury ASP.NET Core. Další informace naleznete v následujících materiálech:
 
-* [Přehled služby Application Insights](/azure/application-insights/app-insights-overview)
+* [Application Insights overview](/azure/application-insights/app-insights-overview)
 * [Application Insights pro ASP.NET Core](/azure/application-insights/app-insights-asp-net-core)
 * [Protokolování adaptéry Application Insights](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md).
 * [Application Insights ILogger implementace ukázky](/azure/azure-monitor/app/ilogger)

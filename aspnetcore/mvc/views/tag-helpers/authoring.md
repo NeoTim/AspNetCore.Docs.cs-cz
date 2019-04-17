@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak vytvářet pomocných rutin značek v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 04/12/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: ddfd7cb8c67e28709b8ce75d5a4d0a8c0c0cc43c
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 19b7df1abc8765cb9a77487e39c4365fdacf2b65
+ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58210077"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59614419"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>Autor pomocných rutin značek v ASP.NET Core
 
@@ -65,7 +65,9 @@ To znamená značku ukotvení díky tomu se tento odkaz na e-mailu. Můžete to 
    public class Email : TagHelper
    ```
 
-1. Chcete-li `EmailTagHelper` , do třídy k dispozici pro všechny naše zobrazeními Razor `addTagHelper` direktivu *Views/_ViewImports.cshtml* souboru: [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
+1. Chcete-li `EmailTagHelper` , do třídy k dispozici pro všechny naše zobrazeními Razor `addTagHelper` direktivu *Views/_ViewImports.cshtml* souboru:
+
+   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
 
    Výše uvedený kód pomocí syntaxe zástupných znaků určuje, že všechny pomocných rutin značek v našich sestavení bude k dispozici. První řetězec, který po `@addTagHelper` určuje pomocné rutiny značky k načtení (použijte "*" pro všechny pomocných rutin značek), a druhý řetězec "AuthoringTagHelpers" Určuje sestavení, je pomocná rutina značek v. Všimněte si také, že druhý řádek přináší pomocných rutin značek ASP.NET Core MVC pomocí syntaxe zástupných znaků (tyto pomocné rutiny jsou popsány v [Úvod do pomocné rutiny značek](intro.md).) Je `@addTagHelper` direktiva, která zpřístupní pomocné rutiny značky do zobrazení Razor. Alternativně je můžete zadat plně kvalifikovaný název (FQN) pomocné rutiny značky jak je znázorněno níže:
 
