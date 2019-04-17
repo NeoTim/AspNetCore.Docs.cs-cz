@@ -57,20 +57,7 @@
         "ASP.NET Core"
       ]
     },
-    "fileMetadata": {
-      "open_to_public_contributors": {
-        "azure/**/**.md": false,
-        "client-side/**/**.md": false,
-        "grpc/**/**.md": false,
-        "migration/**/**.md": false,
-        "performance/**/**.md": false,
-        "razor-components/**/**.md": false,
-        "razor-pages/**/**.md": false,
-        "release-notes/**/**.md": false,
-        "ecurity/**/**.md": false,
-        "signalr/**/**.md": false,
-        "test/**/**.md": false
-      },
+      "fileMetadata": {},
       "ms.technology": {
         "azure/**/**.md": "aspnetcore-azure",
         "client-side/**/**.md": "aspnetcore-clientside",
