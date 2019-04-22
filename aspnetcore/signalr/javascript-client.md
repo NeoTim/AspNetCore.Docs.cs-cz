@@ -5,14 +5,14 @@ description: Přehled ASP.NET Core SignalR JavaScript klienta.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 03/14/2019
+ms.date: 04/17/2019
 uid: signalr/javascript-client
-ms.openlocfilehash: a0980dca2eb8d483a9d9f1c5667fb74ee06364f0
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: e58015221497a9f962edf9f9fdba7ea3025d7694
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978339"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59705601"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript klienta
 
@@ -104,7 +104,140 @@ Použití [configureLogging](/javascript/api/%40aspnet/signalr/hubconnectionbuil
 
 ## <a name="reconnect-clients"></a>Opětovné připojení klientů
 
-JavaScript klienta pro funkci SignalR nebude automaticky znovu připojit. Musíte napsat kód, který se znovu připojit klientu ručně. Následující kód ukazuje typické nastavitelnou přístup:
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="automatically-reconnect"></a>Automaticky znovu připojila
+
+JavaScript klienta pro funkci SignalR může být nakonfigurován k automaticky znovu připojila, pomocí `withAutomaticReconnect` metoda [HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder). Připojení nebude automaticky ve výchozím nastavení.
+
+```javascript
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chatHub")
+    .withAutomaticReconnect()
+    .build();
+```
+
+Bez parametrů `withAutomaticReconnect()` nakonfiguruje klienta na 0, 2, 10 a 30 sekund, resp. před pokusem o každý pokus o volání metody reconnect, zastavování po čtyři neúspěšných pokusech o čekání.
+
+Před zahájením jakékoli pokusy o volání metody reconnect `HubConnection` se přechod na `HubConnectionState.Reconnecting` stav a vyvolat jeho `onreconnecting` zpětná volání místo přechodu do `Disconnected` stavu a aktivuje se jeho `onclose` zpětná volání, jako jsou `HubConnection`bez opětovné připojení automaticky nakonfigurované. To představuje příležitost a upozornit uživatele, že připojení bylo ztraceno zakážete prvky uživatelského rozhraní.
+
+```javascript
+connection.onreconnecting((error) => {
+  console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
+
+  document.getElementById("messageInput").disabled = true;
+
+  const li = document.createElement("li");
+  li.textContent = `Connection lost due to error "${error}". Reconnecting.`;
+  document.getElementById("messagesList").appendChild(li);
+});
+```
+
+Pokud klient úspěšně obnoví v rámci své první čtyři pokusy `HubConnection` přejde zpět `Connected` stav a vyvolat jeho `onreconnected` zpětná volání. To představuje příležitost k informování uživatelů, které byly znovu navázat připojení.
+
+Vzhledem k tomu, že připojení ověří zcela nový server, nový `connectionId` vám poskytneme `onreconnected` zpětného volání.
+
+> [!WARNING]
+> `onreconnected` Zpětného volání `connectionId` parametr bude definováno, pokud `HubConnection` nastavený tak, aby [přeskočit vyjednávání](xref:signalr/configuration#configure-client-options).
+
+```javascript
+connection.onreconnected((connectionId) => {
+  console.assert(connection.state === signalR.HubConnectionState.Connected);
+
+  document.getElementById("messageInput").disabled = false;
+
+  const li = document.createElement("li");
+  li.textContent = `Connection reestablished. Connected with connectionId "${connectionId}".`;
+  document.getElementById("messagesList").appendChild(li);
+});
+```
+
+`withAutomaticReconnect()` nenakonfiguruje `HubConnection` pokus o selhání prvního spuštění, budou muset ručně zpracovat selhání spuštění:
+
+```javascript
+async function start() {
+    try {
+        await connection.start();
+        console.assert(connection.state === signalR.HubConnectionState.Connected);
+        console.log("connected");
+    } catch (err) {
+        console.assert(connection.state === signalR.HubConnectionState.Disconnected);
+        console.log(err);
+        setTimeout(() => start(), 5000);
+    }
+};
+```
+
+Pokud klient nebude znovu připojit úspěšně v rámci své první čtyři pokusy `HubConnection` se přechod na `Disconnected` stavu a aktivuje její [při zavření](/javascript/api/%40aspnet/signalr/hubconnection#onclose) zpětná volání. To představuje příležitost k informování uživatelů se trvale ztratil připojení a doporučujeme aktualizovat stránku:
+
+```javascript
+connection.onclose((error) => {
+  console.assert(connection.state === signalR.HubConnectionState.Disconnected);
+
+  document.getElementById("messageInput").disabled = true;
+
+  const li = document.createElement("li");
+  li.textContent = `Connection closed due to error "${error}". Try refreshing this page to restart the connection.`;
+  document.getElementById("messagesList").appendChild(li);
+})
+```
+
+Pokud chcete nakonfigurovat vlastní počet pokusů o nové připojení před odpojením nebo změnit časování volání metody reconnect `withAutomaticReconnect` přijímá pole čísel představující zpoždění v milisekundách pro čekání před zahájením každý pokus o volání metody reconnect.
+
+```javascript
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chatHub")
+    .withAutomaticReconnect([0, 0, 10000])
+    .build();
+
+    // .withAutomaticReconnect([0, 2000, 10000, 30000]) yields the default behavior
+```
+
+Předchozí příklad nakonfiguruje `HubConnection` spustit okamžitě, jakmile dojde ke ztrátě připojení k pokusu o připojování. To platí také pro výchozí konfiguraci.
+
+Pokud první pokus o volání metody reconnect se nezdaří, druhý pokus o volání metody reconnect také začne okamžitě nečekáte, než 2 sekundy, jako by tomu bylo ve výchozí konfiguraci.
+
+Pokud se druhý pokus o volání metody reconnect se nezdaří, třetí pokus o volání metody reconnect se spustí za 10 sekund, což je znovu jako výchozí konfiguraci.
+
+Vlastní chování pak diverges znovu výchozí chování zastavením po třetí volání metody reconnect pokusu spadne, místo aby zkusit jednu více znovu připojit pokus o jiné 30 sekund, jako by tomu bylo ve výchozí konfiguraci.
+
+Pokud chcete, aby ještě větší kontrolu nad načasování a počet automaticky pokusů `withAutomaticReconnect` přijímá implementaci objektu `IReconnectPolicy` rozhraní, které obsahuje jedinou metodu s názvem `nextRetryDelayInMilliseconds`.
+
+`nextRetryDelayInMilliseconds` přebírá dva argumenty, `previousRetryCount` a `elapsedMilliseconds`, které jsou obě čísla. Před první pokus o volání metody reconnect obě `previousRetryCount` a `elapsedMilliseconds` bude nula. Po každý pokus o opakování neúspěšných `previousRetryCount` se zvýší o jedna a `elapsedMilliseconds` bude aktualizován tak, aby odrážely množství času stráveného opětovné připojení, pokud v milisekundách.
+
+`nextRetryDelayInMilliseconds` musí vrátit buď číslo představující počet milisekund čekání před dalším pokusem volání metody reconnect nebo `null` Pokud `HubConnection` by se měla zastavit, opětovné připojení.
+
+```javascript
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chatHub")
+    .withAutomaticReconnect({
+        nextRetryDelayInMilliseconds: (previousRetryCount, elapsedMilliseconds) => {
+          if (elapsedMilliseconds < 60000) {
+            // If we've been reconnecting for less than 60 seconds so far,
+            // wait between 0 and 10 seconds before the next reconnect attempt.
+            return Math.random() * 10000;
+          } else {
+            // If we've been reconnecting for more than 60 seconds so far, stop reconnecting.
+            return null;
+          }
+        })
+    .build();
+```
+
+Alternativně můžete napsat kód, který se znovu připojit klientu ručně, jak je ukázáno v [ručně připojit](#manually-reconnect).
+
+::: moniker-end
+
+### <a name="manually-reconnect"></a>Ručně připojit
+
+::: moniker range="< aspnetcore-3.0"
+
+> [!WARNING]
+> Než 3.0 JavaScript klienta pro funkci SignalR nebude automaticky znovu připojit. Musíte napsat kód, který se znovu připojit klientu ručně.
+
+::: moniker-end
+
+Následující kód ukazuje typický ručního nastavitelnou přístup:
 
 1. Funkce (v tomto případě `start` funkce) se vytvoří připojení spustíte.
 1. Volání `start` funkce v rámci připojení `onclose` obslužné rutiny události.

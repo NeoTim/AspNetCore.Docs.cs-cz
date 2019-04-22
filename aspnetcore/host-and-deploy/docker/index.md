@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 01/08/2018
 uid: host-and-deploy/docker/index
 ms.openlocfilehash: e56f90ec7272ce0411651ee6f8e7c754ae44b78d
-ms.sourcegitcommit: 9b7fcb4ce00a3a32e153a080ebfaae4ef417aafa
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/12/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59516258"
 ---
 # <a name="host-aspnet-core-in-docker-containers"></a>Hostitele ASP.NET Core v kontejnerech Dockeru

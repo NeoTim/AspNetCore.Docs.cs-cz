@@ -8,10 +8,10 @@ ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
 ms.openlocfilehash: 1ae3c20478b02d6f654e65fdf34c88e1ffb837f8
-ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/10/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59468734"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu v ASP.NET Core MVC a stránky Razor
@@ -371,5 +371,5 @@ Tento postup funguje pouze v zobrazení MVC, není v stránky Razor. Další mo�
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [System.ComponentModel.DataAnnotations namespace](xref:System.ComponentModel.DataAnnotations)
+* [Obor názvů System.ComponentModel.DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazby modelu](model-binding.md)

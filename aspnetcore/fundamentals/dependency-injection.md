@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 04/07/2019
 uid: fundamentals/dependency-injection
 ms.openlocfilehash: da6ddf1f0efd164a58f017ff55ce216bbefa7cc6
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59068320"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
@@ -80,9 +80,9 @@ Toto rozhraní je implementováno konkrétním typem `MyDependency`:
 
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
 
-`MyDependency` Požadavky [ILogger&lt;TCategoryName&gt; ](/dotnet/api/microsoft.extensions.logging.ilogger-1) 've svém konstruktoru. Není neobvyklé používat zřetězené vkládání závislostí. Každá požadovaná závislost může v zápětí požadovat své vlastní závislosti. Kontejner řeší závislosti v grafu a vrací plně vyřešené služby. Množina závislostí, které musí být rozhodnuty, se obvykle označuje jako *strom závislostí*, *graf závislostí*, nebo *graf objektů*.
+Třída `MyDependency` požaduje [ILogger&lt;TCategoryName&gt; ](/dotnet/api/microsoft.extensions.logging.ilogger-1) ve svém konstruktoru. Není neobvyklé používat zřetězené vkládání závislostí. Každá požadovaná závislost může v zápětí požadovat své vlastní závislosti. Kontejner řeší závislosti v grafu a vrací plně vyřešené služby. Množina závislostí, které musí být rozhodnuty, se obvykle označuje jako *strom závislostí*, *graf závislostí*, nebo *graf objektů*.
 
-`IMyDependency` a `ILogger<TCategoryName>` musí být zaregistrovaný v kontejneru služby. `IMyDependency` je zaregistrovaný v `Startup.ConfigureServices`. `ILogger<TCategoryName>` registraci protokolování abstrakce infrastrukturu, takže má [služby poskytované rozhraním](#framework-provided-services) registrován ve výchozím nastavení v rámci rozhraní.
+`IMyDependency` a `ILogger<TCategoryName>` musí být zaregistrovány v kontejneru služeb. `IMyDependency` je zaregistrovaný v `Startup.ConfigureServices`. `ILogger<TCategoryName>` je registrován infrastrukturou pro abstrakci protokolování, takže je [službou poskytovanou frameworkem](#framework-provided-services) registrovanou ve výchozím nastavení frameworkem.
 
 Odstraňuje kontejner `ILogger<TCategoryName>` s využitím [(Obecné) otevřete typy](/dotnet/csharp/language-reference/language-specification/types#open-and-closed-types), tím eliminuje nutnost zaregistrovat každý [(Obecné) konstruovaný typ.](/dotnet/csharp/language-reference/language-specification/types#constructed-types):
 
@@ -162,11 +162,11 @@ Další informace naleznete v tématu [Třída ServiceCollection](/dotnet/api/mi
 
 Zvolte odpovídající životnost pro každou registrovanou službu. Služby ASP.NET Core můžete nakonfigurovat s následujícími životnostmi:
 
-**Přechodná**
+**Transient (přechodná)**
 
 Pokaždé, když jste vyžádaný z kontejneru služby jsou vytvořeny přechodné životnosti služby. Tato životnost je vhodná pro jednoduché, bezstavové služby.
 
-**Obor**
+**Scoped (vymezená)**
 
 S vymezeným oborem životnost služby se vytvoří jednou za žádost klienta (připojení).
 
@@ -185,7 +185,7 @@ Služby se životností typu singleton se vytvoří při prvním vyžádání sl
 Služby mohou být řešeny pomocí dvou mechanismů:
 
 * `IServiceProvider`
-* [ActivatorUtilities](/dotnet/api/microsoft.extensions.dependencyinjection.activatorutilities) &ndash; umožňuje vytvoření objektu bez registrace služby v kontejneru pro vkládání závislostí. `ActivatorUtilities` se používá s přístupných abstrakce, jako je například pomocných rutin značek, kontrolery MVC a vazače modelů.
+* [ActivatorUtilities](/dotnet/api/microsoft.extensions.dependencyinjection.activatorutilities) &ndash; umožňuje vytvoření objektu bez registrace služby v kontejneru pro vkládání závislostí. `ActivatorUtilities` se používá s uživatelsky orientovanými abstrakcemi, jako jsou například Tag Helpery, kontrolery MVC a bindery modelů.
 
 Konstruktory mohou přijímat argumenty, které nejsou poskytovány v rámci vkládání závislostí, ale takové argumenty musí mít přiřazené výchozí hodnoty.
 
@@ -209,7 +209,7 @@ Rozhraní jsou implementovány ve třídě `Operation`. Konstruktor `Operation` 
 
 Služba `OperationService` je zaregistrována tak, aby závisela na jednotlivých typech tříd `Operation`. Když je `OperationService` vyžádána pomocí vkládání závislostí, obdrží buď novou nebo stávající instanci třídy jednotlivých služeb v závislosti na životnosti závislých služeb.
 
-* Při vytváření přechodné služby na požádání v kontejneru `OperationId` z `IOperationTransient` služby se liší od `OperationId` z `OperationService`. `OperationService` obdrží novou instanci třídy `IOperationTransient` třídy. Nová instance implikuje rozdílné `OperationId`.
+* Při vytváření přechodné služby na požádání v kontejneru `OperationId` z `IOperationTransient` služby se liší od `OperationId` z `OperationService`. `OperationService` obdrží novou instanci třídy `IOperationTransient`. Nová instance implikuje rozdílné `OperationId`.
 * Při vytváření služby s vymezeným oborem každý požadavek klienta `OperationId` z `IOperationScoped` služba je stejné jako u `OperationService` v požadavku klienta. Mezi požadavky klientů, obě služby sdílené složky jiný `OperationId` hodnotu.
 * Když jsou služby typu singleton a instanci typu singleton vytvořit jednou a použít v rámci všech požadavků klientů a všemi službami, `OperationId` je konstantní napříč všemi požadavky služby.
 
@@ -236,14 +236,14 @@ Nastavit rozsah: 5d997e2d-55f5-4a64-8388-51c4e3a1ad19
 Jednotlivý prvek: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
 Instance: 00000000-0000-0000-0000-000000000000
 
-`OperationService` operace:
+Operace `OperationService`:
 
 Transient: c6b049eb-1318-4e31-90f1-eb2dd849ff64  
 Nastavit rozsah: 5d997e2d-55f5-4a64-8388-51c4e3a1ad19  
 Jednotlivý prvek: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
 Instance: 00000000-0000-0000-0000-000000000000
 
-**Druhou žádost:**
+**Druhý požadavek:**
 
 Operace kontroleru:
 
@@ -252,7 +252,7 @@ Nastavit rozsah: 31e820c5-4834-4d22-83fc-a60118acb9f4
 Jednotlivý prvek: 01271bc1-9e31-48e7-8f7c-7261b040ded9  
 Instance: 00000000-0000-0000-0000-000000000000
 
-`OperationService` operace:
+Operace `OperationService`:
 
 Transient: c4cbacb8-36a2-436d-81c8-8c1b78808aaf  
 Nastavit rozsah: 31e820c5-4834-4d22-83fc-a60118acb9f4  
@@ -364,7 +364,7 @@ Integrovaný kontejner služeb je primárně určen pro naplnění potřeb frame
 * Vkládání podle názvu
 * Vnořené kontejnery
 * Vlastní správa životnosti
-* `Func<T>` Podpora pro opožděná inicializace
+* Podpora `Func<T>` pro línou inicializaci
 
 Pro seznam některých kontejnerů podporujících adaptéry, vizte [Soubor readme.md ke Vkládání závislostí](https://github.com/aspnet/Extensions/tree/master/src/DependencyInjection).
 
@@ -470,7 +470,7 @@ DI je *alternativní* na vzorech přístupu statická/globální objekt. Nebudet
 * <xref:security/authorization/dependencyinjection>
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/extensibility>
-* [Zápis čistý kód v ASP.NET Core s injektáž závislostí (MSDN)](https://msdn.microsoft.com/magazine/mt703433.aspx)
-* [Princip explicitní závislosti.](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)
-* [Inverze – kontejnery ovládacích prvků a vzor injektáž závislostí (Martina Fowlera)](https://www.martinfowler.com/articles/injection.html)
-* [Postup při registraci služby s více rozhraními v ASP.NET Core DI](https://andrewlock.net/how-to-register-a-service-with-multiple-interfaces-for-in-asp-net-core-di/)
+* [Psaní čistého kódu v ASP.NET Core pomocí vkládání závislostí (MSDN)](https://msdn.microsoft.com/magazine/mt703433.aspx)
+* [Princip explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)
+* [Kontejner inverze závislostí a vzor vkládání závislostí (Martin Fowler)](https://www.martinfowler.com/articles/injection.html)
+* [Postup pro registraci služeb s více rozhraními v ASP.NET Core DI](https://andrewlock.net/how-to-register-a-service-with-multiple-interfaces-for-in-asp-net-core-di/)

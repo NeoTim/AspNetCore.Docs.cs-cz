@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 02/25/2019
 uid: security/key-vault-configuration
 ms.openlocfilehash: 8fd1cca1803d3f1d44d80ec63c5cfc259cbdaf55
-ms.sourcegitcommit: 1a7000630e55da90da19b284e1b2f2f13a393d74
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/04/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59012692"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace služby Azure Key Vault v ASP.NET Core
@@ -213,7 +213,7 @@ Ukázkové hodnoty:
 
 * Název trezoru klíčů: `contosovault`
 * ID aplikace: `627e911e-43cc-61d4-992e-12db9c81b413`
-* Heslo: `g58K3dtg59o1Pa+e59v2Tx829w6VxTB2yv9sv/101di=`
+* Password: `g58K3dtg59o1Pa+e59v2Tx829w6VxTB2yv9sv/101di=`
 
 `IKeyVaultSecretManager` Implementace jsou reaguje na verze předpony tajných kódů k načtení správné tajného klíče do konfigurace:
 
@@ -370,7 +370,7 @@ Když aplikaci se pak nepodaří načíst konfiguraci pomocí zprostředkovatele
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/configuration/index>
-* [Microsoft Azure: Key Vault](https://azure.microsoft.com/services/key-vault/)
+* [Microsoft Azure: Trezor klíčů](https://azure.microsoft.com/services/key-vault/)
 * [Microsoft Azure: Dokumentace ke službě Key Vault](/azure/key-vault/)
 * [Postup generování a přenos chráněných pomocí HSM klíčů pro Azure Key Vault](/azure/key-vault/key-vault-hsm-protected-keys)
 * [Třída KeyVaultClient](/dotnet/api/microsoft.azure.keyvault.keyvaultclient)

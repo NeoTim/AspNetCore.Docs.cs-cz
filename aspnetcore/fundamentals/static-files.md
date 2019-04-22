@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 04/08/2019
 uid: fundamentals/static-files
 ms.openlocfilehash: 12c7b39bee462ff83188a5a0f10b133ca273863b
-ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/09/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59425059"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
@@ -47,7 +47,7 @@ Statické soubory jsou přístupné přes cestu relativní vzhledem k kořenový
 
 * **wwwroot**
   * **css**
-  * **obrázky**
+  * **Bitové kopie**
   * **js**
 
 Formát identifikátoru URI pro přístup k souboru v *image* je podsložka *http://\<server_address > /images/\<image_file_name >*. Například *http://localhost:9189/images/banner3.svg*.
@@ -90,10 +90,10 @@ Vezměte v úvahu hierarchii adresářů, ve kterém se obsluhovat statické sou
 
 * **wwwroot**
   * **css**
-  * **obrázky**
+  * **Bitové kopie**
   * **js**
 * **MyStaticFiles**
-  * **obrázky**
+  * **Bitové kopie**
     * *banner1.svg*
 
 Žádost o přístup *banner1.svg* souboru nakonfigurováním Middleware statické soubory:
@@ -189,10 +189,10 @@ Vezměte v úvahu následující hierarchii adresářů:
 
 * **wwwroot**
   * **css**
-  * **obrázky**
+  * **Bitové kopie**
   * **js**
 * **MyStaticFiles**
-  * **obrázky**
+  * **Bitové kopie**
     * *banner1.svg*
   * *default.html*
 

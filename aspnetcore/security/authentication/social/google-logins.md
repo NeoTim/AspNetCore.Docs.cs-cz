@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 1/11/2019
 uid: security/authentication/google-logins
-ms.openlocfilehash: 1328bcbce3e6e4786f9d410d1f28f309dc9d2722
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 44c79b3279db7946b6d89a726bd3f5acfb5f51af
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750548"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59705588"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>Nastavení Google externí přihlášení v technologii ASP.NET Core
 
 Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V lednu 2019 Google začali [vypnout](https://developers.google.com/+/api-shutdown) Google +. Přihlaste se a vývojáři musí přesunout na znaménko Google nová v systému podle dne. ASP.NET Core 2.1 a 2,2 balíčky pro ověřování Google se aktualizují v únoru s ohledem změny. Další informace a dočasné opatření pro ASP.NET Core najdete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/6486). V tomto kurzu má aktualizované a přinášejí nové procesu instalace.
+[Starší verze rozhraní Google + API byla ukončena od 7. března 2019](https://developers.google.com/+/api-shutdown). Google +. Přihlaste se a vývojáři musí přesunout na znaménko Google nová v systému. ASP.NET Core 2.1, tak i 2.2 balíčky pro ověřování Google byly aktualizovány s ohledem změny. Další informace a dočasné opatření pro ASP.NET Core najdete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/6486). V tomto kurzu má aktualizované a přinášejí nové procesu instalace.
 
 V tomto kurzu se dozvíte, jak povolit uživatelům přihlásit se přes jejich účet Google pomocí ASP.NET Core 2.2 projektu vytvořeného na [předchozí stránce](xref:security/authentication/social/index).
 

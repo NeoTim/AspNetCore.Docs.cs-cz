@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 04/17/2019
 uid: blazor/components
-ms.openlocfilehash: f657b4ad82028881d04292b8ba54b8be0b1fa419
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 610572c232f41210c60afcae0a660cbb808be65e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614807"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59705625"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -527,6 +527,40 @@ Soubory součástí kombinovat kód HTML a C# zpracování kódu ve stejném sou
 
 Základní třída musí být odvozený z: `ComponentBase`.
 
+## <a name="import-components"></a>Importovat komponenty
+
+Obor názvů součásti zleva doprava Razor podle:
+
+* V projektu `RootNamespace`.
+* Cesta z kořenového adresáře projektu do komponenty. Například `ComponentsSample/Pages/Index.razor` je v oboru názvů `ComponentsSample.Pages`. Postupujte podle součásti C# název pravidel vazby. V případě třídy *Index.razor*, všechny součásti ve stejné složce *stránky*a nadřazené složky *ComponentsSample*, jsou v oboru.
+
+Součásti definované v jiný obor názvů může být přenesena do rozsahu pomocí syntaxe Razor pro [ \@pomocí](xref:mvc/views/razor#using) směrnice.
+
+Pokud jiná komponenta, `NavMenu.razor`, existuje ve složce `ComponentsSample/Shared/`, součást je možné v `Index.razor` následujícím `@using` – příkaz:
+
+```cshtml
+@using ComponentsSample.Shared
+
+This is the Index page.
+
+<NavMenu></NavMenu>
+```
+
+Součásti lze také odkazovat pomocí jejich plně kvalifikovaných názvů, která eliminuje potřebu [ \@pomocí](xref:mvc/views/razor#using) – direktiva:
+
+```cshtml
+This is the Index page.
+
+<ComponentsSample.Shared.NavMenu></ComponentsSample.Shared.NavMenu>
+```
+
+> [!NOTE]
+> `global::` Kvalifikace se nepodporuje.
+>
+> Import součásti s aliasem `using` příkazy (například `@using Foo = Bar`) se nepodporuje.
+>
+> Částečně kvalifikované názvy nejsou podporovány. Například přidáním `@using ComponentsSample` a odkazování na ně `NavMenu.razor` s `<Shared.NavMenu></Shared.NavMenu>` se nepodporuje.
+
 ## <a name="razor-support"></a>Podpora Razor
 
 **Direktivy Razor**
@@ -541,8 +575,7 @@ V následující tabulce jsou uvedeny direktivy Razor.
 | [\@Vložení](xref:mvc/views/razor#section-4) | Vkládání ze služby umožňuje [kontejneru služby](xref:fundamentals/dependency-injection). Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection). |
 | `@layout` | Určuje komponentu rozložení. Rozložení komponenty umožňují zabránit zdvojení kódu a nekonzistence. |
 | [\@Stránka](xref:razor-pages/index#razor-pages) | Určuje, že by měla komponenta zpracování požadavků přímo. `@page` – Direktiva je možné zadat při trasy a volitelné parametry. Na rozdíl od Razor Pages `@page` – direktiva nemusí být první – direktiva v horní části souboru. Další informace najdete v tématu [směrování](xref:blazor/routing). |
-| [\@použití](xref:mvc/views/razor#using) | Přidá C# `using` směrnice do třídy vygenerované komponenty. |
-| [\@addTagHelper](xref:mvc/views/razor#tag-helpers) | Použít `@addTagHelper` použít komponentu v jiném sestavení než sestavení aplikace. |
+| [\@použití](xref:mvc/views/razor#using) | Přidá C# `using` směrnice do třídy vygenerované komponenty. To přináší také všechny součásti, které jsou definované v tomto oboru názvů do oboru. |
 
 **Podmíněné atributy**
 

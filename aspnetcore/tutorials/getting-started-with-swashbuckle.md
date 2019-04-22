@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 04/04/2019
 uid: tutorials/get-started-with-swashbuckle
 ms.openlocfilehash: 31d45eaa684118ab78d1b3ecac594e95712f631f
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59068346"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s Swashbuckle a ASP.NET Core
@@ -31,7 +31,7 @@ Existují tři hlavní komponenty pro Swashbuckle:
 
 Swashbuckle lze přidat pomocí následujících postupů:
 
-### [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **Konzola správce balíčků** okno:
   * Přejděte na **zobrazení** > **jiných Windows** > **Konzola správce balíčků**
@@ -48,14 +48,14 @@ Swashbuckle lze přidat pomocí následujících postupů:
   * Do vyhledávacího pole zadejte "Swashbuckle.AspNetCore"
   * Vyberte balíček "Swashbuckle.AspNetCore" z **Procházet** kartě a klikněte na tlačítko **instalace**
 
-### [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem myši *balíčky* složky v **oblasti řešení** > **přidat balíčky...**
 * Nastavte **přidat balíčky** okna **zdroj** rozevíracího seznamu "nuget.org"
 * Do vyhledávacího pole zadejte "Swashbuckle.AspNetCore"
 * Vyberte v podokně výsledků "Swashbuckle.AspNetCore" balíček a klikněte na tlačítko **přidat balíček**
 
-### [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Spuštěním následujícího příkazu z **integrovaný terminál**:
 
@@ -63,7 +63,7 @@ Spuštěním následujícího příkazu z **integrovaný terminál**:
 dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
 ```
 
-### [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Spusťte následující příkaz:
 
@@ -128,7 +128,7 @@ Uživatelské rozhraní Swagger zobrazí informace na verzi:
 
 Komentáře XML se dá nastavit pomocí následujících postupů:
 
-#### [<a name="visual-studio"></a>Visual Studio](#tab/visual-studio)
+#### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -146,7 +146,7 @@ Komentáře XML se dá nastavit pomocí následujících postupů:
 
 ::: moniker-end
 
-#### [<a name="visual-studio-for-mac"></a>Visual Studio for Mac](#tab/visual-studio-mac)
+#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -164,7 +164,7 @@ Komentáře XML se dá nastavit pomocí následujících postupů:
 
 ::: moniker-end
 
-#### [<a name="visual-studio-code"></a>Visual Studio Code](#tab/visual-studio-code)
+#### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 
@@ -180,7 +180,7 @@ Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 
 ::: moniker-end
 
-#### [<a name="net-core-cli"></a>.NET Core CLI](#tab/netcore-cli)
+#### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Ručně přidejte zvýrazněné řádky a *.csproj* souboru:
 

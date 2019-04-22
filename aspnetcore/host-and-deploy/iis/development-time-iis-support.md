@@ -8,10 +8,10 @@ ms.custom: mvc
 ms.date: 04/08/2019
 uid: host-and-deploy/iis/development-time-iis-support
 ms.openlocfilehash: 6f555858239b4432d252f8b3ac7add5c3e8bfe62
-ms.sourcegitcommit: 258a97159da206f9009f23fdf6f8fa32f178e50b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/09/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59425098"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Podpora služby IIS při vývoji v sadě Visual Studio pro ASP.NET Core
@@ -22,7 +22,7 @@ Tento článek popisuje [sady Visual Studio](https://www.visualstudio.com/vs/) p
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Visual Studio pro Windows](https://visualstudio.microsoft.com/downloads/)
+* [Visual Studio for Windows](https://visualstudio.microsoft.com/downloads/)
 * **Vývoj pro ASP.NET a web** pracovního vytížení
 * **Vývoj pro různé platformy .NET core** pracovního vytížení
 * Certifikát X.509 zabezpečení (pro podporu protokolu HTTPS)
@@ -154,5 +154,5 @@ Pokud se používá nedůvěryhodný vývojářský certifikát, prohlížeče m
 * [Začínáme se službou Správce služby IIS ve službě IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
 * [Hostitele ASP.NET Core ve Windows se službou IIS](xref:host-and-deploy/iis/index)
 * [Úvod k modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
-* [Referenční informace o ASP.NET Core modulu Konfigurace](xref:host-and-deploy/aspnet-core-module)
+* [Referenční dokumentace k modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
 * [Vynucení protokolu HTTPS](xref:security/enforcing-ssl)

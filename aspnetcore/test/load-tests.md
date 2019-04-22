@@ -7,10 +7,10 @@ ms.custom: mvc
 ms.date: 04/05/2019
 uid: test/loadtests
 ms.openlocfilehash: 0a8449ea2c9df0f2ac93058f03af0a1a2aa66508
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59068180"
 ---
 # <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core zatížení a zátěžové testování
@@ -71,7 +71,7 @@ Následující seznam obsahuje nástroje výkonnosti webu třetích stran s růz
 * [Apache JMeter](https://jmeter.apache.org/)
 * [ApacheBench (ab)](https://httpd.apache.org/docs/2.4/programs/ab.html)
 * [Gatling](https://gatling.io/)
-* [Svatojánského](https://locust.io/)
+* [Locust](https://locust.io/)
 * [WebSurge větru – západ](http://websurge.west-wind.com/)
 * [Netling](https://github.com/hallatore/Netling)
 

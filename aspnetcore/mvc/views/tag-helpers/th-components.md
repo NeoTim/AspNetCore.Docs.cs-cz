@@ -7,10 +7,10 @@ ms.author: scaddie
 ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/th-components
 ms.openlocfilehash: fdad4ae367245cd3beabaf90587c1fe5e9162afe
-ms.sourcegitcommit: 948e533e02c2a7cb6175ada20b2c9cabb7786d0b
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/10/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59468592"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>Součásti pomocné rutiny značky v ASP.NET Core
@@ -40,7 +40,7 @@ V kódu HTML `<head>` elementu, soubory šablon stylů CSS se obvykle importují
 
 V předchozím kódu:
 
-* `AddressStyleTagHelperComponent` Implementuje <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent>. Abstrakce:
+* `AddressStyleTagHelperComponent` implementuje <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent>. Abstrakce:
   * Umožňuje inicializaci třídy s vlastností <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext>.
   * Umožňuje použití komponent pomocné rutiny značky přidat nebo upravit prvky jazyka HTML.
 * <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.Order*> Vlastnost definuje pořadí, ve kterém jsou generovány komponenty. `Order` je potřeba, pokud existuje více použití komponent pomocné rutiny značky v aplikaci.
