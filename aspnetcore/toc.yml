@@ -529,8 +529,12 @@ items:
     name: Porovnání služeb gRPC pomocí rozhraní HTTP API
   - name: Kurzy
     items:
-    - uid: tutorials/grpc/grpc-start
+    - uid: tutorials/grpc/index
       name: Začínáme se službou gRPC v ASP.NET Core
+    - uid: tutorials/grpc/grpc-start
+      name: Vytvoření služby ASP.NET Core gRPC Greeter
+    - uid: tutorials/grpc/grpc-client
+      name: Vytvoření klienta .NET Core gRPC
 - name: Testování, ladění a odstraňování potíží
   items:
   - name: Testování jednotek
@@ -1058,9 +1062,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 1863125cec772262c41884af343f66ec8fcb53ad
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 3df2e1461f644e0efd6e3e0b5457671cfc28d65f
+ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614295"
+ms.lasthandoff: 04/17/2019
+ms.locfileid: "59672590"

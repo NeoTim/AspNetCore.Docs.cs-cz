@@ -8,44 +8,44 @@ ms.custom: mvc
 ms.date: 04/06/2019
 uid: signalr/supported-platforms
 ms.openlocfilehash: fefaaf97de3f1fabf8f3154bf5b4ccb37195ccff
-ms.sourcegitcommit: 6bde1fdf686326c080a7518a6725e56e56d8886e
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2019
+ms.lasthandoff: 04/17/2019
 ms.locfileid: "59068219"
 ---
-# <a name="aspnet-core-signalr-supported-platforms"></a><span data-ttu-id="43913-103">Funkce SignalR technologie ASP.NET Core podporované platformy</span><span class="sxs-lookup"><span data-stu-id="43913-103">ASP.NET Core SignalR supported platforms</span></span>
+# <a name="aspnet-core-signalr-supported-platforms"></a><span data-ttu-id="9780a-103">Funkce SignalR technologie ASP.NET Core podporované platformy</span><span class="sxs-lookup"><span data-stu-id="9780a-103">ASP.NET Core SignalR supported platforms</span></span>
 
-## <a name="server-system-requirements"></a><span data-ttu-id="43913-104">Požadavky na systém Server</span><span class="sxs-lookup"><span data-stu-id="43913-104">Server system requirements</span></span>
+## <a name="server-system-requirements"></a><span data-ttu-id="9780a-104">Požadavky na systém Server</span><span class="sxs-lookup"><span data-stu-id="9780a-104">Server system requirements</span></span>
 
-<span data-ttu-id="43913-105">Funkce SignalR technologie ASP.NET Core podporuje serverová platforma, která podporuje ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="43913-105">SignalR for ASP.NET Core supports any server platform that ASP.NET Core supports.</span></span>
+<span data-ttu-id="9780a-105">Funkce SignalR technologie ASP.NET Core podporuje serverová platforma, která podporuje ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="9780a-105">SignalR for ASP.NET Core supports any server platform that ASP.NET Core supports.</span></span>
 
-## <a name="javascript-client"></a><span data-ttu-id="43913-106">Klient JavaScriptu</span><span class="sxs-lookup"><span data-stu-id="43913-106">JavaScript client</span></span>
+## <a name="javascript-client"></a><span data-ttu-id="9780a-106">Klient JavaScriptu</span><span class="sxs-lookup"><span data-stu-id="9780a-106">JavaScript client</span></span>
 
-<span data-ttu-id="43913-107">[Javascriptový klient](https://www.npmjs.com/package/@aspnet/signalr) běží v prostředí NodeJS 8 a novějších verzí a následujících prohlížečů:</span><span class="sxs-lookup"><span data-stu-id="43913-107">The [JavaScript client](https://www.npmjs.com/package/@aspnet/signalr) runs on NodeJS 8 and later versions and the following browsers:</span></span>
+<span data-ttu-id="9780a-107">[Javascriptový klient](https://www.npmjs.com/package/@aspnet/signalr) běží v prostředí NodeJS 8 a novějších verzí a následujících prohlížečů:</span><span class="sxs-lookup"><span data-stu-id="9780a-107">The [JavaScript client](https://www.npmjs.com/package/@aspnet/signalr) runs on NodeJS 8 and later versions and the following browsers:</span></span>
 
-| <span data-ttu-id="43913-108">Prohlížeč</span><span class="sxs-lookup"><span data-stu-id="43913-108">Browser</span></span>                         | <span data-ttu-id="43913-109">Version</span><span class="sxs-lookup"><span data-stu-id="43913-109">Version</span></span> |
+| <span data-ttu-id="9780a-108">Prohlížeč</span><span class="sxs-lookup"><span data-stu-id="9780a-108">Browser</span></span>                         | <span data-ttu-id="9780a-109">Version</span><span class="sxs-lookup"><span data-stu-id="9780a-109">Version</span></span> |
 | ------------------------------- | ------- |
-| <span data-ttu-id="43913-110">Microsoft Edge</span><span class="sxs-lookup"><span data-stu-id="43913-110">Microsoft Edge</span></span>                  | <span data-ttu-id="43913-111">aktuální</span><span class="sxs-lookup"><span data-stu-id="43913-111">current</span></span> |
-| <span data-ttu-id="43913-112">Mozilla Firefox</span><span class="sxs-lookup"><span data-stu-id="43913-112">Mozilla Firefox</span></span>                 | <span data-ttu-id="43913-113">aktuální</span><span class="sxs-lookup"><span data-stu-id="43913-113">current</span></span> |
-| <span data-ttu-id="43913-114">Google Chrome; zahrnuje Android</span><span class="sxs-lookup"><span data-stu-id="43913-114">Google Chrome; includes Android</span></span> | <span data-ttu-id="43913-115">aktuální</span><span class="sxs-lookup"><span data-stu-id="43913-115">current</span></span> |
-| <span data-ttu-id="43913-116">Safari; zahrnuje iOS</span><span class="sxs-lookup"><span data-stu-id="43913-116">Safari; includes iOS</span></span>            | <span data-ttu-id="43913-117">aktuální</span><span class="sxs-lookup"><span data-stu-id="43913-117">current</span></span> |
-| <span data-ttu-id="43913-118">Microsoft Internet Explorer</span><span class="sxs-lookup"><span data-stu-id="43913-118">Microsoft Internet Explorer</span></span>     | <span data-ttu-id="43913-119">11</span><span class="sxs-lookup"><span data-stu-id="43913-119">11</span></span>      |
+| <span data-ttu-id="9780a-110">Microsoft Edge</span><span class="sxs-lookup"><span data-stu-id="9780a-110">Microsoft Edge</span></span>                  | <span data-ttu-id="9780a-111">aktuální</span><span class="sxs-lookup"><span data-stu-id="9780a-111">current</span></span> |
+| <span data-ttu-id="9780a-112">Mozilla Firefox</span><span class="sxs-lookup"><span data-stu-id="9780a-112">Mozilla Firefox</span></span>                 | <span data-ttu-id="9780a-113">aktuální</span><span class="sxs-lookup"><span data-stu-id="9780a-113">current</span></span> |
+| <span data-ttu-id="9780a-114">Google Chrome; zahrnuje Android</span><span class="sxs-lookup"><span data-stu-id="9780a-114">Google Chrome; includes Android</span></span> | <span data-ttu-id="9780a-115">aktuální</span><span class="sxs-lookup"><span data-stu-id="9780a-115">current</span></span> |
+| <span data-ttu-id="9780a-116">Safari; zahrnuje iOS</span><span class="sxs-lookup"><span data-stu-id="9780a-116">Safari; includes iOS</span></span>            | <span data-ttu-id="9780a-117">aktuální</span><span class="sxs-lookup"><span data-stu-id="9780a-117">current</span></span> |
+| <span data-ttu-id="9780a-118">Microsoft Internet Explorer</span><span class="sxs-lookup"><span data-stu-id="9780a-118">Microsoft Internet Explorer</span></span>     | <span data-ttu-id="9780a-119">11</span><span class="sxs-lookup"><span data-stu-id="9780a-119">11</span></span>      |
  
-## <a name="net-client"></a><span data-ttu-id="43913-120">Klient .NET</span><span class="sxs-lookup"><span data-stu-id="43913-120">.NET client</span></span>
+## <a name="net-client"></a><span data-ttu-id="9780a-120">Klient .NET</span><span class="sxs-lookup"><span data-stu-id="9780a-120">.NET client</span></span>
 
-<span data-ttu-id="43913-121">[Klienta .NET](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) běží na žádnou platformu podporovanou nástrojem ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="43913-121">The [.NET client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) runs on any platform supported by ASP.NET Core.</span></span> <span data-ttu-id="43913-122">Například [Xamarin mohou vývojáři SignalR](https://github.com/aspnet/Announcements/issues/305) pro vytváření aplikací pro Android pomocí Xamarin.Android 8.4.0.1 a později a aplikace pro iOS pomocí Xamarin.iOS 11.14.0.4 a novější.</span><span class="sxs-lookup"><span data-stu-id="43913-122">For example, [Xamarin developers can use SignalR](https://github.com/aspnet/Announcements/issues/305) for building Android apps using Xamarin.Android 8.4.0.1 and later and iOS apps using Xamarin.iOS 11.14.0.4 and later.</span></span>
+<span data-ttu-id="9780a-121">[Klienta .NET](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) běží na žádnou platformu podporovanou nástrojem ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="9780a-121">The [.NET client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) runs on any platform supported by ASP.NET Core.</span></span> <span data-ttu-id="9780a-122">Například [Xamarin mohou vývojáři SignalR](https://github.com/aspnet/Announcements/issues/305) pro vytváření aplikací pro Android pomocí Xamarin.Android 8.4.0.1 a později a aplikace pro iOS pomocí Xamarin.iOS 11.14.0.4 a novější.</span><span class="sxs-lookup"><span data-stu-id="9780a-122">For example, [Xamarin developers can use SignalR](https://github.com/aspnet/Announcements/issues/305) for building Android apps using Xamarin.Android 8.4.0.1 and later and iOS apps using Xamarin.iOS 11.14.0.4 and later.</span></span>
 
-<span data-ttu-id="43913-123">Pokud na serveru běží služby IIS, vyžaduje přenos objekty Websocket služby IIS 8.0 nebo novější na systému Windows Server 2012 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="43913-123">If the server runs IIS, the WebSockets transport requires IIS 8.0 or later on Windows Server 2012 or later.</span></span> <span data-ttu-id="43913-124">Jiné přenosy jsou podporované na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="43913-124">Other transports are supported on all platforms.</span></span>
+<span data-ttu-id="9780a-123">Pokud na serveru běží služby IIS, vyžaduje přenos objekty Websocket služby IIS 8.0 nebo novější na systému Windows Server 2012 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="9780a-123">If the server runs IIS, the WebSockets transport requires IIS 8.0 or later on Windows Server 2012 or later.</span></span> <span data-ttu-id="9780a-124">Jiné přenosy jsou podporované na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="9780a-124">Other transports are supported on all platforms.</span></span>
 
-## <a name="java-client"></a><span data-ttu-id="43913-125">Klient Java</span><span class="sxs-lookup"><span data-stu-id="43913-125">Java client</span></span>
+## <a name="java-client"></a><span data-ttu-id="9780a-125">Klient Java</span><span class="sxs-lookup"><span data-stu-id="9780a-125">Java client</span></span>
 
-<span data-ttu-id="43913-126">[Klientskou sadou Java](https://search.maven.org/artifact/com.microsoft.aspnet/signalr) podporuje Javou 8 a novější verze.</span><span class="sxs-lookup"><span data-stu-id="43913-126">The [Java client](https://search.maven.org/artifact/com.microsoft.aspnet/signalr) supports Java 8 and later versions.</span></span>
+<span data-ttu-id="9780a-126">[Klientskou sadou Java](https://search.maven.org/artifact/com.microsoft.aspnet/signalr) podporuje Javou 8 a novější verze.</span><span class="sxs-lookup"><span data-stu-id="9780a-126">The [Java client](https://search.maven.org/artifact/com.microsoft.aspnet/signalr) supports Java 8 and later versions.</span></span>
 
-## <a name="unsupported-clients"></a><span data-ttu-id="43913-127">Nepodporovaná klientů</span><span class="sxs-lookup"><span data-stu-id="43913-127">Unsupported clients</span></span>
+## <a name="unsupported-clients"></a><span data-ttu-id="9780a-127">Nepodporovaná klientů</span><span class="sxs-lookup"><span data-stu-id="9780a-127">Unsupported clients</span></span>
 
-<span data-ttu-id="43913-128">Následující klienti jsou k dispozici, ale jsou experimentální nebo neoficiální.</span><span class="sxs-lookup"><span data-stu-id="43913-128">The following clients are available but are experimental or unofficial.</span></span> <span data-ttu-id="43913-129">Tyto nejsou aktuálně podporovány a mohou být nikdy.</span><span class="sxs-lookup"><span data-stu-id="43913-129">They aren't currently supported and may never be.</span></span>
+<span data-ttu-id="9780a-128">Následující klienti jsou k dispozici, ale jsou experimentální nebo neoficiální.</span><span class="sxs-lookup"><span data-stu-id="9780a-128">The following clients are available but are experimental or unofficial.</span></span> <span data-ttu-id="9780a-129">Tyto nejsou aktuálně podporovány a mohou být nikdy.</span><span class="sxs-lookup"><span data-stu-id="9780a-129">They aren't currently supported and may never be.</span></span>
 
-* [<span data-ttu-id="43913-130">Kódu klienta jazyka C++</span><span class="sxs-lookup"><span data-stu-id="43913-130">C++ client</span></span>](https://github.com/aspnet/SignalR/tree/master/clients/cpp)
+* [<span data-ttu-id="9780a-130">Kódu klienta jazyka C++</span><span class="sxs-lookup"><span data-stu-id="9780a-130">C++ client</span></span>](https://github.com/aspnet/SignalR/tree/master/clients/cpp)
 
-* [<span data-ttu-id="43913-131">SWIFT klienta</span><span class="sxs-lookup"><span data-stu-id="43913-131">Swift client</span></span>](https://github.com/moozzyk/SignalR-Client-Swift)
+* [<span data-ttu-id="9780a-131">SWIFT klienta</span><span class="sxs-lookup"><span data-stu-id="9780a-131">Swift client</span></span>](https://github.com/moozzyk/SignalR-Client-Swift)
