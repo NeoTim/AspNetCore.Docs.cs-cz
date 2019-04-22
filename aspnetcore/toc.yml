@@ -934,12 +934,12 @@ items:
   - uid: security/app-secrets
     name: Ochrana tajných kódů při vývoji
     displayName: password
+  - uid: security/key-vault-configuration
+    name: Zprostředkovatel konfigurace služby Azure Key Vault
   - uid: security/enforcing-ssl
     name: Vynucení protokolu HTTPS
   - uid: security/gdpr
     name: Podpora obecného nařízení EU o ochraně osobních údajů (GDPR)
-  - uid: security/key-vault-configuration
-    name: Zprostředkovatel konfigurace služby Azure Key Vault
   - uid: security/anti-request-forgery
     name: Ochrana proti padělání požadavků
   - uid: security/preventing-open-redirects
@@ -1062,9 +1062,9 @@ items:
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 3df2e1461f644e0efd6e3e0b5457671cfc28d65f
-ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
+ms.openlocfilehash: 721fb2d1042307c23e0858a7a1bf71a0b24d57ab
+ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 04/17/2019
-ms.locfileid: "59672590"
+ms.locfileid: "59705559"
