@@ -5,31 +5,29 @@ description: Zjistěte, jak řídit Linkeru Intermediate Language (IL) při vytv
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 04/18/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 01e18498a16e86392755b02b92ffda929669cb7d
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 77016b6b1542becb2ccd49f0c0c5ba63da434a6c
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614776"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982611"
 ---
-# <a name="configure-the-linker-for-blazor"></a><span data-ttu-id="cd7b5-103">Konfigurace Linkeru pro Blazor</span><span class="sxs-lookup"><span data-stu-id="cd7b5-103">Configure the Linker for Blazor</span></span>
+# <a name="configure-the-linker-for-blazor"></a><span data-ttu-id="c5b65-103">Konfigurace Linkeru pro Blazor</span><span class="sxs-lookup"><span data-stu-id="c5b65-103">Configure the Linker for Blazor</span></span>
 
-<span data-ttu-id="cd7b5-104">Podle [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="cd7b5-104">By [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="c5b65-104">Podle [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="c5b65-104">By [Luke Latham](https://github.com/guardrex)</span></span>
 
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
+<span data-ttu-id="c5b65-105">Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) propojení během každé sestavení pro vydání režimu z aplikace odebrat nepotřebné IL výstupního sestavení.</span><span class="sxs-lookup"><span data-stu-id="c5b65-105">Blazor performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during each Release mode build to remove unnecessary IL from the app's output assemblies.</span></span>
 
-<span data-ttu-id="cd7b5-105">Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) propojení během každé sestavení pro vydání režimu z aplikace odebrat nepotřebné IL výstupního sestavení.</span><span class="sxs-lookup"><span data-stu-id="cd7b5-105">Blazor performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during each Release mode build to remove unnecessary IL from the app's output assemblies.</span></span>
+<span data-ttu-id="c5b65-106">Sestavení ovládacího prvku propojení některou z následujících postupů:</span><span class="sxs-lookup"><span data-stu-id="c5b65-106">Control assembly linking using either of the following approaches:</span></span>
 
-<span data-ttu-id="cd7b5-106">Sestavení ovládacího prvku propojení některou z následujících postupů:</span><span class="sxs-lookup"><span data-stu-id="cd7b5-106">Control assembly linking using either of the following approaches:</span></span>
+* <span data-ttu-id="c5b65-107">Zakázat globálně propojení s [vlastnost MSBuild](#disable-linking-with-a-msbuild-property).</span><span class="sxs-lookup"><span data-stu-id="c5b65-107">Disable linking globally with a [MSBuild property](#disable-linking-with-a-msbuild-property).</span></span>
+* <span data-ttu-id="c5b65-108">Ovládací prvek propojení na základě na sestavení s [konfigurační soubor](#control-linking-with-a-configuration-file).</span><span class="sxs-lookup"><span data-stu-id="c5b65-108">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
 
-* <span data-ttu-id="cd7b5-107">Zakázat globálně propojení s [vlastnost MSBuild](#disable-linking-with-a-msbuild-property).</span><span class="sxs-lookup"><span data-stu-id="cd7b5-107">Disable linking globally with a [MSBuild property](#disable-linking-with-a-msbuild-property).</span></span>
-* <span data-ttu-id="cd7b5-108">Ovládací prvek propojení na základě na sestavení s [konfigurační soubor](#control-linking-with-a-configuration-file).</span><span class="sxs-lookup"><span data-stu-id="cd7b5-108">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
+## <a name="disable-linking-with-a-msbuild-property"></a><span data-ttu-id="c5b65-109">Zakázat propojení s vlastností MSBuild</span><span class="sxs-lookup"><span data-stu-id="c5b65-109">Disable linking with a MSBuild property</span></span>
 
-## <a name="disable-linking-with-a-msbuild-property"></a><span data-ttu-id="cd7b5-109">Zakázat propojení s vlastností MSBuild</span><span class="sxs-lookup"><span data-stu-id="cd7b5-109">Disable linking with a MSBuild property</span></span>
-
-<span data-ttu-id="cd7b5-110">Propojení je povolené ve výchozím nastavení v režimu vydání, při vytváření aplikace, která zahrnuje publikování.</span><span class="sxs-lookup"><span data-stu-id="cd7b5-110">Linking is enabled by default in Release mode when an app is built, which includes publishing.</span></span> <span data-ttu-id="cd7b5-111">Chcete-li zakázat propojení pro všechna sestavení, nastavte `<BlazorLinkOnBuild>` vlastnost MSBuild `false` v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="cd7b5-111">To disable linking for all assemblies, set the `<BlazorLinkOnBuild>` MSBuild property to `false` in the project file:</span></span>
+<span data-ttu-id="c5b65-110">Propojení je povolené ve výchozím nastavení v režimu vydání, při vytváření aplikace, která zahrnuje publikování.</span><span class="sxs-lookup"><span data-stu-id="c5b65-110">Linking is enabled by default in Release mode when an app is built, which includes publishing.</span></span> <span data-ttu-id="c5b65-111">Chcete-li zakázat propojení pro všechna sestavení, nastavte `<BlazorLinkOnBuild>` vlastnost MSBuild `false` v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="c5b65-111">To disable linking for all assemblies, set the `<BlazorLinkOnBuild>` MSBuild property to `false` in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -37,9 +35,9 @@ ms.locfileid: "59614776"
 </PropertyGroup>
 ```
 
-## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="cd7b5-112">Ovládací prvek propojení s konfiguračním souborem</span><span class="sxs-lookup"><span data-stu-id="cd7b5-112">Control linking with a configuration file</span></span>
+## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="c5b65-112">Ovládací prvek propojení s konfiguračním souborem</span><span class="sxs-lookup"><span data-stu-id="c5b65-112">Control linking with a configuration file</span></span>
 
-<span data-ttu-id="cd7b5-113">Ovládací prvek propojení na základě za sestavení tak, že poskytuje konfigurační soubor XML a zadání souboru jako položky nástroje MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="cd7b5-113">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
+<span data-ttu-id="c5b65-113">Ovládací prvek propojení na základě za sestavení tak, že poskytuje konfigurační soubor XML a zadání souboru jako položky nástroje MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="c5b65-113">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
 
 ```xml
 <ItemGroup>
@@ -47,7 +45,7 @@ ms.locfileid: "59614776"
 </ItemGroup>
 ```
 
-<span data-ttu-id="cd7b5-114">*Linker.xml*:</span><span class="sxs-lookup"><span data-stu-id="cd7b5-114">*Linker.xml*:</span></span>
+<span data-ttu-id="c5b65-114">*Linker.xml*:</span><span class="sxs-lookup"><span data-stu-id="c5b65-114">*Linker.xml*:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -79,4 +77,4 @@ ms.locfileid: "59614776"
 </linker>
 ```
 
-<span data-ttu-id="cd7b5-115">Další informace najdete v tématu [IL Linkeru: Syntaxe xml popisovače](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span><span class="sxs-lookup"><span data-stu-id="cd7b5-115">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
+<span data-ttu-id="c5b65-115">Další informace najdete v tématu [IL Linkeru: Syntaxe xml popisovače](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span><span class="sxs-lookup"><span data-stu-id="c5b65-115">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
