@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: 1ae3c20478b02d6f654e65fdf34c88e1ffb837f8
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: bd6585c9eec4412fe70c17b5ca94269027803733
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59468734"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982769"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu v ASP.NET Core MVC a stránky Razor
 
@@ -367,7 +367,11 @@ Následující kód zakazuje ověření klienta v zobrazení MVC:
 
 [!code-csharp[](validation/sample_snapshot/Startup2.cs?name=snippet_DisableClientValidation)]
 
-Tento postup funguje pouze v zobrazení MVC, není v stránky Razor. Další možností pro zakázání ověřování na straně klienta je odkaz na komentář `_ValidationScriptsPartial` ve vašich *.cshtml* souboru.
+A v stránky Razor:
+
+[!code-csharp[](validation/sample_snapshot/Startup3.cs?name=snippet_DisableClientValidation)]
+
+Další možností pro zakázání ověřování na straně klienta je odkaz na komentář `_ValidationScriptsPartial` ve vašich *.cshtml* souboru.
 
 ## <a name="additional-resources"></a>Další zdroje
 

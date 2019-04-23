@@ -5,14 +5,14 @@ description: Zjistěte, jak směrovat požadavky v aplikacích a o NavLink kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 04/18/2019
 uid: blazor/routing
-ms.openlocfilehash: bf2a2f6218b0fb4637d60565711c08aa31cebeef
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: d3356ceccd5a6ed3375b7eada9cac295ef7ad53b
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614817"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982866"
 ---
 # <a name="blazor-routing"></a>Blazor směrování
 
@@ -22,33 +22,43 @@ Zjistěte, jak směrovat požadavky v aplikacích a o NavLink komponentě.
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>Integrace směrování koncových bodů ASP.NET Core
 
-Je součástí Blazor [směrování ASP.NET Core](xref:fundamentals/routing). Aplikace ASP.NET Core je nakonfigurovaný tak, aby přijímal příchozí připojení pro interaktivní součásti s `MapComponentHub<TComponent>` v `Startup.Configure`. `MapComponentHub` Určuje, že kořenová součást `App` má být vykreslen v rámci modelu DOM element odpovídající modulu pro výběr `app`:
+Blazor na straně serveru je integrovaná do [směrování ASP.NET Core koncový bod](xref:fundamentals/routing). Aplikace ASP.NET Core je nakonfigurovaný tak, aby přijímal příchozí připojení pro interaktivní součásti s `MapBlazorHub` v `Startup.Configure`:
 
 ```csharp
-app.UseRouting(routes =>
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
 {
-    routes.MapRazorPages();
-    routes.MapComponentHub<App>("app");
+    endpoints.MapBlazorHub();
+    endpoints.MapFallbackToPage("/_Host");
 });
 ```
 
 ## <a name="route-templates"></a>Šablony trasy
 
-`<Router>` Součást umožňuje směrování a je k dispozici šablona trasy pro jednotlivé dostupné komponenty. `<Router>` Součást se zobrazí v *Components/App.razor* souboru:
+`<Router>` Součást umožňuje směrování a je k dispozici šablona trasy pro jednotlivé dostupné komponenty. `<Router>` Součást se zobrazí v *App.razor* souboru:
+
+Blazor serverové aplikace:
+
+```cshtml
+<Router AppAssembly="typeof(Startup).Assembly" />
+```
+
+Pro aplikaci na straně klienta Blazor:
 
 ```cshtml
 <Router AppAssembly="typeof(Program).Assembly" />
 ```
 
-Při *.razor* nebo *.cshtml* soubor s `@page` – direktiva je zkompilován, dostane generované třídy <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadání šablonu trasy. Za běhu, směrovač hledá komponentní třídy s `RouteAttribute` a vykreslí podle toho, která komponenta má šablona trasy, která odpovídá požadovanou adresu URL.
+Při *.razor* soubor s `@page` – direktiva je zkompilován, dostane generované třídy <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadání šablonu trasy. Za běhu, směrovač hledá komponentní třídy s `RouteAttribute` a vykreslí podle toho, která komponenta má šablona trasy, která odpovídá požadovanou adresu URL.
 
 Více šablon trasy můžete použít pro komponentu. Následující komponenty jsou reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.cshtml?name=snippet_BlazorRoute)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 `<Router>` podporuje nastavení záložního součásti pro vykreslení při požadované trase není vyřešený. Povolit tento scénář vyjádřit výslovný souhlas tím, že nastavíte `FallbackComponent` parametru na typ třídy záložní komponenty.
 
-Následující příklad nastaví komponentu podle *Pages/MyFallbackRazorComponent.cshtml* záložní součástí `<Router>`:
+Následující příklad nastaví komponentu podle *Pages/MyFallbackRazorComponent.razor* záložní součástí `<Router>`:
 
 ```cshtml
 <Router ... FallbackComponent="typeof(Pages.MyFallbackRazorComponent)" />
@@ -61,7 +71,7 @@ Následující příklad nastaví komponentu podle *Pages/MyFallbackRazorCompone
 
 Směrovač používá parametry trasy k naplnění odpovídajících parametrů součásti se stejným názvem (malých písmen):
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.cshtml?name=snippet_RouteParameter&highlight=2,7-8)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
 
 Volitelné parametry nejsou podporovány, tedy dvě `@page` direktivy se použijí v předchozím příkladu. První umožňuje přechod na komponenty bez parametrů. Druhá `@page` trvá – direktiva `{text}` parametr trasa a přiřadí hodnotu do proměnné `Text` vlastnost.
 
@@ -74,7 +84,7 @@ V následujícím příkladu trasy, která má součásti uživatelé pouze odpo
 * `Id` Segment směrování je k dispozici na adrese URL požadavku.
 * `Id` Segmentu je celé číslo (`int`).
 
-[!code-cshtml[](routing/samples_snapshot/3.x/Constraint.cshtml?highlight=1)]
+[!code-cshtml[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
 
 Omezení trasy, které jsou uvedeny v následující tabulce jsou k dispozici. Omezení trasy, které odpovídají neutrální jazykové verzi najdete v upozornění níže uvedená tabulka pro další informace.
 
@@ -98,7 +108,7 @@ Použít komponentu NavLink namísto HTML `<a>` prvky při vytváření navigač
 
 Vytvoří následující komponenty NavMenu [Bootstrap](https://getbootstrap.com/docs/) navigační panel, který ukazuje, jak používat NavLink komponenty:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Shared/NavMenu.cshtml?name=snippet_NavLinks&highlight=4-6,9-11)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Shared/NavMenu.razor?name=snippet_NavLinks&highlight=4-6,9-11)]
 
 Existují dva `NavLinkMatch` možnosti:
 

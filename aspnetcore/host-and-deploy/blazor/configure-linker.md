@@ -5,20 +5,18 @@ description: Zjistěte, jak řídit Linkeru Intermediate Language (IL) při vytv
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 04/18/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 01e18498a16e86392755b02b92ffda929669cb7d
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 77016b6b1542becb2ccd49f0c0c5ba63da434a6c
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614776"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982611"
 ---
 # <a name="configure-the-linker-for-blazor"></a>Konfigurace Linkeru pro Blazor
 
 Podle [Luke Latham](https://github.com/guardrex)
-
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
 Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) propojení během každé sestavení pro vydání režimu z aplikace odebrat nepotřebné IL výstupního sestavení.
 

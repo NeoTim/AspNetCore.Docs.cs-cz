@@ -7,12 +7,12 @@ ms.author: pranavkm
 ms.custom: mvc
 ms.date: 12/14/2018
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 7558552586d3056c43d8bfd9ef74cbcb3396726f
-ms.sourcegitcommit: 6548c19f345850ee22b50f7ef9fca732895d9e08
+ms.openlocfilehash: 5bfda6f19e4739c52a4b7c9d6e751634a4af438a
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/14/2018
-ms.locfileid: "53425091"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982917"
 ---
 # <a name="use-web-api-analyzers"></a>Použití webového rozhraní API analyzátorů
 
@@ -39,7 +39,7 @@ ASP.NET Core 2.2 a novější obsahuje [Microsoft.AspNetCore.Mvc.Api.Analyzers](
   * Do vyhledávacího pole zadejte "Microsoft.AspNetCore.Mvc.Api.Analyzers".
   * Vyberte balíček "Microsoft.AspNetCore.Mvc.Api.Analyzers" z **Procházet** kartě a klikněte na tlačítko **nainstalovat**.
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem myši *balíčky* složky v **oblasti řešení** > **přidat balíčky...** .
 * Nastavte **přidat balíčky** okna **zdroj** rozevíracího seznamu "nuget.org".
@@ -73,6 +73,8 @@ Jeden z analyzátory v balíčku zkontroluje řadiče opatřen poznámkou <xref:
 [!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=9)]
 
 Předchozí akci dokumenty HTTP 200 úspěch návratový typ, ale ne dokumentu stavový kód chyby HTTP 404. Analyzátor ohlásí chybí dokumentaci stavový kód HTTP 404, jako varování. Je k dispozici možnost tento problém vyřešit.
+
+![Analyzátor reporting upozornění](conventions/_static/Analyzer.gif)
 
 ## <a name="additional-resources"></a>Další zdroje
 

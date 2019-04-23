@@ -3,14 +3,14 @@ title: Přizpůsobení modelu identity v ASP.NET Core
 author: ajcvickers
 description: Tento článek popisuje, jak přizpůsobit základní datový model Entity Framework Core pro ASP.NET Core Identity.
 ms.author: avickers
-ms.date: 09/24/2018
+ms.date: 04/24/2019
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 0aa7448ac37a97a4d09a04caf365f641f22f5997
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: ae5f4567a8921ce277cd6153f37a5558bcf4e261
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327298"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982782"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>Přizpůsobení modelu identity v ASP.NET Core
 
@@ -34,7 +34,7 @@ Přidat a použití migrace, použijte jednu z následujících postupů:
 * .NET Core CLI Pokud pomocí příkazového řádku. Další informace najdete v tématu [nástroje příkazového řádku EF Core .NET](/ef/core/miscellaneous/cli/dotnet).
 * Kliknutím **migrace použít** tlačítko na chybovou stránku při spuštění aplikace.
 
-ASP.NET Core má dobu vývoje chybová stránka. Obslužná rutina provést migrace při spuštění aplikace. Pro produkční aplikace, často je vhodné generovat SQL skripty z migrace a nasazení změn databází jako součást řízené nasazení aplikace a databáze.
+ASP.NET Core má dobu vývoje chybová stránka. Obslužná rutina provést migrace při spuštění aplikace. Produkční aplikace obvykle generovat SQL skripty z migrace a nasazení změn databází v rámci řízeného aplikace a nasazení databáze.
 
 Když se vytvoří nová aplikace využívající identitu, kroky 1 a 2 výše již dokončena. To znamená že původního datového modelu již existuje, a počáteční migraci se přidal do projektu. Počáteční migraci stále musí být použita pro databázi. Počáteční migraci můžete použít některou z následujících postupů:
 
@@ -300,6 +300,16 @@ Při přepisování `OnModelCreating`, `base.OnModelCreating` by měla být vol�
 
 ### <a name="custom-user-data"></a>Vlastní uživatelská data
 
+<!--
+set projNam=WebApp1
+dotnet new webapp -o %projNam%
+cd %projNam%
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design 
+dotnet aspnet-codegenerator identity  -dc ApplicationDbContext --useDefaultUI 
+dotnet ef migrations add CreateIdentitySchema
+dotnet ef database update
+ -->
+
 [Vlastní uživatelská data](xref:security/authentication/add-user-data) podporuje dědění z `IdentityUser`. Je to obvyklé název tohoto typu `ApplicationUser`:
 
 ```csharp
@@ -318,14 +328,26 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
         : base(options)
     {
     }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+    }
 }
 ```
 
 Není nutné přepsat `OnModelCreating` v `ApplicationDbContext` třídy. EF Core mapuje `CustomTag` vlastnost konvencí. Ale potřeba aktualizovat k vytvoření nové databáze `CustomTag` sloupce. Chcete-li vytvořit sloupec, přidejte migraci a pak aktualizujte databázi, jak je popsáno v [Identity a migrace EF Core](#identity-and-ef-core-migrations).
 
-Aktualizace `Startup.ConfigureServices` použití nového `ApplicationUser` třídy:
+Aktualizace *Pages/Shared/_LoginPartial.cshtml* a nahraďte `IdentityUser` s `ApplicationUser`:
 
-::: moniker range=">= aspnetcore-2.1"
+```
+@using Microsoft.AspNetCore.Identity
+@using WebApp1.Areas.Identity.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+```
+
+Aktualizace *Areas/Identity/IdentityHostingStartup.cs* nebo `Startup.ConfigureServices` a nahraďte `IdentityUser` s `ApplicationUser`.
 
 ```csharp
 services.AddDefaultIdentity<ApplicationUser>()
@@ -337,28 +359,6 @@ V ASP.NET Core 2.1 nebo novější je identita ve formě knihovny tříd Razor. 
 
 * [Vygenerování identity](xref:security/authentication/scaffold-identity)
 * [Přidat, stáhněte si a odstranit vlastní uživatelská data na identitu](xref:security/authentication/add-user-data)
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-```csharp
-services.AddIdentity<ApplicationUser, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext>()
-        .AddDefaultTokenProviders();
-```
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-1.1"
-
-```csharp
-services.AddIdentity<ApplicationUser, IdentityRole>()
-        .AddEntityFrameworkStores<ApplicationDbContext, Guid>()
-        .AddDefaultTokenProviders();
-```
-
-::: moniker-end
 
 ### <a name="change-the-primary-key-type"></a>Změnit typ primárního klíče
 

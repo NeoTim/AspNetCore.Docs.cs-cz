@@ -5,31 +5,31 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/17/2019
+ms.date: 04/18/2019
 uid: blazor/components
-ms.openlocfilehash: 610572c232f41210c60afcae0a660cbb808be65e
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: e318d262063c83fc17068ef65018174e2a4c953c
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59705625"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59983033"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
 Podle [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27), a [Morné Zaayman](https://github.com/MorneZaayman)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample)). Najdete v článku [Začínáme](xref:blazor/get-started) tématu pro požadavky.
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 Blazor aplikace se vytvářejí pomocí *komponenty*. Komponenta je samostatná blok uživatelského rozhraní (UI), například stránky, dialogové okno nebo formuláře. Komponenta obsahuje kód HTML a zpracování logiku potřebnou k vložení dat nebo v reakci na události uživatelského rozhraní. Součásti jsou flexibilní a jednoduchý. Mohou být vnořené, znovu použít a sdílet mezi projekty.
 
 ## <a name="component-classes"></a>Třídy součásti
 
-Součásti jsou obvykle implementována v souborech Razor součásti (*.razor*) pomocí kombinace C# a značky HTML (*.cshtml* soubory se používají v aplikacích Blazor).
+Součásti jsou implementovány v souborech Razor součásti (*.razor*) pomocí kombinace C# a značka jazyka HTML.
 
-Dají se vytvářet komponenty ve Blazor aplikace s využitím *.cshtml* příponu souboru, tak dlouho, dokud soubory jsou označeny jako soubory součástí Razor pomocí `_RazorComponentInclude` vlastnosti Msbuildu. Například aplikace vytvořená pomocí šablony Razor komponenty Určuje, že všechny *.cshtml* soubory pod *součásti* složky mají být považována za soubory součástí Razor:
+Dají se vytvářet komponenty pomocí *.cshtml* příponu souboru, tak dlouho, dokud soubory jsou označeny jako soubory součástí Razor pomocí `_RazorComponentInclude` vlastnost MSBuild. Například aplikace vytvořené pomocí komponenty šablona Razor Určuje, že všechny *.cshtml* soubory pod *stránky* složky mají být považována za soubory součástí Razor:
 
 ```xml
-<_RazorComponentInclude>Components\**\*.cshtml</_RazorComponentInclude>
+<_RazorComponentInclude>Pages\**\*.cshtml</_RazorComponentInclude>
 ```
 
 Uživatelské rozhraní pro součást je definován v jazyce HTML. Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor). Při kompilaci aplikace, bude značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty. Název generované třídy odpovídá názvu souboru.
@@ -57,7 +57,7 @@ Po se zpočátku zobrazí komponentu obnoví komponenty jeho vykreslení stromu 
 Komponenty pomocí stávající aplikace Razor Pages a MVC. Není nutné pro přepsání existujících stránek nebo zobrazení Razor komponent. Při zobrazení stránky nebo zobrazení se komponenty jsou předkreslených&dagger; ve stejnou dobu. 
 
 > [!NOTE]
-> &dagger;Dokončení fáze před vykreslením na straně serveru je zapnutá pro aplikace na straně serveru Blazor ve výchozím nastavení. Aplikace na straně klienta Blazor bude podporovat dokončení fáze před vykreslením v nadcházející verzi Preview 4. Další informace najdete v tématu [aktualizace šablony/middlewaru, který má použít MapFallbackToPage/soubor](https://github.com/aspnet/AspNetCore/issues/8852).
+> &dagger;Dokončení fáze před vykreslením na straně serveru je zapnutá pro aplikace na straně serveru Blazor ve výchozím nastavení. Aplikace na straně klienta Blazor bude podporovat dokončení fáze před vykreslením v nadcházející verzi Preview 5. Další informace najdete v tématu [aktualizace šablony/middlewaru, který má použít MapFallbackToPage/soubor](https://github.com/aspnet/AspNetCore/issues/8852).
 
 K vykreslení komponenty z stránku nebo zobrazení, použijte `RenderComponentAsync<TComponent>` metodu helper HTML:
 
@@ -67,9 +67,9 @@ K vykreslení komponenty z stránku nebo zobrazení, použijte `RenderComponentA
 </div>
 ```
 
-Zatím nejsou interaktivní ve verzi Preview 3 součástí vykreslí ze stránky a zobrazení. Například výběrem tlačítka neaktivuje volání metody. Budoucí verze preview se adresy toto omezení a přidat podporu pro vykreslení součásti pomocí běžné syntaxe prvků a atributů.
-
 Při zobrazení stránky a můžou používat komponenty, neplatí první. Součásti nelze použít zobrazení a stránky konkrétní scénáře, jako je částečná zobrazení a oddíly. Chcete-li použít logiku z částečného zobrazení v komponentě, faktor si logiky částečného zobrazení do komponenty.
+
+Další informace o způsobu vykreslené a komponenty stav součásti je spravováno v Blazor serverové aplikace, najdete v článku <xref:blazor/hosting-models> článku.
 
 ## <a name="using-components"></a>Pomocí komponent
 
@@ -77,7 +77,7 @@ Součásti můžete zahrnout další součásti je deklarací pomocí syntaxe el
 
 Následující kód vykreslí `HeadingComponent` instance:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.cshtml?name=snippet_HeadingComponent)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.razor?name=snippet_HeadingComponent)]
 
 ## <a name="component-parameters"></a>Parametry komponenty
 
@@ -87,11 +87,11 @@ V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Titl
 
 *Nadřazené komponenty*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?name=snippet_ParentComponent&highlight=5-6)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
 
 *Podřízené součásti*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.cshtml?highlight=11-12)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.razor?highlight=11-12)]
 
 ## <a name="child-content"></a>Podřízený obsah
 
@@ -99,13 +99,13 @@ Součásti můžete nastavit obsah jiné součásti. Přiřazení součásti naj
 
 *Nadřazené komponenty*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?name=snippet_ParentComponent&highlight=7-8)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
 
 Obsahuje podřízené součásti `ChildContent` vlastnost, která představuje `RenderFragment`. Hodnota `ChildContent` je umístěn ve značkách podřízené součásti, kde má být vykreslen obsah. V následujícím příkladu, hodnota `ChildContent` přijme od nadřazené komponenty a vykreslit v rámci panelu Bootstrap `panel-body`.
 
 *Podřízené součásti*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.cshtml?highlight=3,14-15)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
 > Vlastnost příjmu `RenderFragment` obsahu musí mít název `ChildContent` konvencí.
@@ -334,11 +334,11 @@ Je běžným scénářem vnořených součástí chce spouštět nadřazenou met
 
 Podřízené součásti v ukázkové aplikaci ukazuje, jak tlačítka `onclick` přijímat je nastavena obslužná rutina `EventCallback` delegovat z tohoto příkladu nadřazené komponenty. `EventCallback` Je zadán s `UIMouseEventArgs`, což je vhodné pro `onclick` událost z periferní zařízení:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.cshtml?highlight=5-7,17-18)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.razor?highlight=5-7,17-18)]
 
 Nadřazené komponenty nastaví dítěte `EventCallback<T>` k jeho `ShowMessage` metody:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.cshtml?name=snippet_ParentComponent&highlight=6,16-19)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
 
 Při výběru tlačítka v podřízené součásti:
 
@@ -499,7 +499,7 @@ Když soubor Razor s `@page` – direktiva je zkompilován, dostane generované 
 
 Více šablon trasy můžete použít pro komponentu. Následující komponenty jsou reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.cshtml?name=snippet_BlazorRoute)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 ## <a name="route-parameters"></a>Parametry trasy
 
@@ -507,7 +507,7 @@ Součásti mohou přijímat parametry trasy z šablonu trasy, které jsou souč�
 
 *Komponenta parametr trasa*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.cshtml?name=snippet_RouteParameter)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
 
 Volitelné parametry nejsou podporovány, tedy dvě `@page` direktivy se použijí v předchozím příkladu. První umožňuje přechod na komponenty bez parametrů. Druhá `@page` trvá – direktiva `{text}` parametr trasa a přiřadí hodnotu do proměnné `Text` vlastnost.
 
@@ -519,7 +519,7 @@ Soubory součástí kombinovat kód HTML a C# zpracování kódu ve stejném sou
 
 *Komponenta Blazor Rocks*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRocks.cshtml?name=snippet_BlazorRocks)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRocks.razor?name=snippet_BlazorRocks)]
 
 *BlazorRocksBase.cs*:
 
@@ -639,7 +639,7 @@ Bez vizuálního vzhledu součásti je definován tak, že zadáte jeden nebo v�
 
 *Tabulka součásti šablony*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TableTemplate.cshtml)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TableTemplate.razor)]
 
 Při použití komponenty bez vizuálního vzhledu, parametry šablony lze pomocí podřízené prvky, které odpovídají názvům parametry (`TableHeader` a `RowTemplate` v následujícím příkladu):
 
@@ -694,7 +694,7 @@ Bez vizuálního vzhledu součásti jsou často obecně typu. Například kompon
 
 *Součásti šablony ListView*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.cshtml)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.razor)]
 
 Při použití komponenty obecného typu, parametr typu je odvozený Pokud je to možné:
 
@@ -823,19 +823,19 @@ Ukázková aplikace má `ITab` rozhraní, které karty implementace:
 
 Komponenta CSS hodnoty parametrů TabSet používá součásti záložku, která obsahuje několik komponent kartu:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.cshtml?name=snippet_TabSet)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
 Podřízené kartu komponenty nejsou explicitně předány jako parametry na kartě nastavení. Místo toho podřízené kartu komponenty jsou součástí podřízenému obsahu ovládacího prvku na kartě nastavení. Však nastavení kartu stále potřebuje vědět o jednotlivých součástech kartu tak, aby ho může mít za následek záhlaví a na aktivní kartě. Povolit koordinace bez potřeby dalšího kódu, nastavte kartu komponenty *samotný můžete zadat jako hodnotu kaskádové* , který se potom vybere potomka kartu komponenty.
 
 *Komponenta TabSet*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TabSet.cshtml)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TabSet.razor)]
 
 Podřízené součásti zachycení kartu obsahující kartu nastavit jako parametr šablony, karta součásti přidaly na kartu Nastavení a souřadnice na které kartě je aktivní.
 
 *Karta komponenty*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/Tab.cshtml)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/Tab.razor)]
 
 ## <a name="razor-templates"></a>Šablony Razor
 

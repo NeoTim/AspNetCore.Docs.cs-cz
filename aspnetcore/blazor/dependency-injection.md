@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/15/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: f0bc7d3a948763827ae859475410fcf6d6ee4edb
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 9e19596dec5582e11212d95a9fea72862baa2046
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614791"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59983004"
 ---
 # <a name="blazor-dependency-injection"></a>Injektáž závislostí Blazor
 
@@ -73,7 +73,7 @@ Je možné použít vlastní poskytovatele namísto výchozího poskytovatele sl
 
 ## <a name="request-a-service-in-a-component"></a>Žádosti o službu v komponentě
 
-Po přidání služby do kolekce služeb, vložit do šablony Razor komponenty pomocí služeb [ @inject ](xref:mvc/views/razor#section-4) direktivu Razor. `@inject` má dva parametry:
+Po přidání služby do kolekce služeb, vložit do šablony Razor komponenty pomocí služeb [ \@vložit](xref:mvc/views/razor#section-4) direktivu Razor. `@inject` má dva parametry:
 
 * Název typu: Typ služby k vložení.
 * Název vlastnosti: Název vlastnosti příjem service vložené aplikace. Všimněte si, že vlastnost nevyžaduje ruční vytvoření. Kompilátor vytvoří vlastnost.
@@ -84,7 +84,7 @@ Použití více `@inject` příkazy vkládat různé služby.
 
 Následující příklad ukazuje, jak používat `@inject`. Implementace služby `Services.IDataAccess` se vloží do komponenty vlastnosti `DataRepository`. Všimněte si, jak kód využívá jenom `IDataAccess` abstrakce:
 
-[!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.cshtml?highlight=2-3,23)]
+[!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
 Interně jsou vygenerované vlastnosti (`DataRepository`) je upravená pomocí `InjectAttribute` atribut. Tento atribut se obvykle nepoužívá přímo. Pokud základní třída je povinné pro součásti a vloženého vlastnosti se rovněž vyžadují pro základní třídu `InjectAttribute` můžete ručně přidat:
 

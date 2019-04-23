@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 311f72699b6291996a43d56247bd3d2bfab596e6
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 9f22841a55fd2c2db76e36a5f5389c220a8d2acd
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320245"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982888"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – Model dat – 5 z 8
 
@@ -385,19 +385,18 @@ public ICollection<Course> Courses { get; set; }
 
 Poznámka: Podle konvence EF Core umožňuje kaskádové odstranění pro Null FKs a vztahy many-to-many. Kaskádové odstranění může způsobit Cyklické kaskádové odstranění pravidla. Kruhový Kaskádové odstraňování pravidel způsobí, že při migraci se přidá výjimku.
 
-Například pokud `Department.InstructorID` vlastnost nebyl definován jako s možnou hodnotou NULL:
+Například pokud `Department.InstructorID` vlastnost byla definována jako Null:
 
-* EF Core nakonfiguruje kaskádové odstranění pravidla můžete odstranit instruktorem, když je odstraněn z oddělení.
-* Odstraňuje kurzů vedených při odstranění tohoto oddělení není zamýšlené chování.
+* EF Core nakonfiguruje kaskádové odstranění pravidlo můžete odstranit oddělení, když se kurzů vedených odstraní.
+* Odstranění oddělení při odstranění kurzů vedených není zamýšlené chování.
+* Následující rozhraní API fluent by nastavit pravidlo omezit, místo na sebe.
 
-V případě potřeby obchodních pravidel `InstructorID` vlastnosti být null, použijte následující příkaz rozhraní API fluent:
-
- ```csharp
- modelBuilder.Entity<Department>()
-    .HasOne(d => d.Administrator)
-    .WithMany()
-    .OnDelete(DeleteBehavior.Restrict)
- ```
+   ```csharp
+   modelBuilder.Entity<Department>()
+      .HasOne(d => d.Administrator)
+      .WithMany()
+      .OnDelete(DeleteBehavior.Restrict)
+  ```
 
 Předchozí kód zakáže kaskádové odstranění relace oddělení instruktorem.
 
@@ -577,7 +576,7 @@ database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 Teď, když máte existující databázi, musíte přemýšlet o tom, jak na ně vztahují budoucí změny. Tento kurz ukazuje dva přístupy:
 
 * [Vyřadit a znovu vytvořit databázi](#drop)
-* [Použití migrace k existující databázi](#applyexisting). Tato metoda je složité a časově náročné, je upřednostňovaný způsob pro každodenní praxe produkční prostředí. **Poznámka:**: Toto je volitelné části tohoto kurzu. Můžete provést rozevírací a znovu vytvořit kroky a tuto část přeskočit. Pokud chcete postupovat podle kroků v této části, nemáte proveďte rozevírací nabídku a znovu vytvořit kroky. 
+* [Použití migrace k existující databázi](#applyexisting). Tato metoda je složité a časově náročné, je upřednostňovaný způsob pro každodenní praxe produkční prostředí. **Poznámka:** Toto je volitelné části tohoto kurzu. Můžete provést rozevírací a znovu vytvořit kroky a tuto část přeskočit. Pokud chcete postupovat podle kroků v této části, nemáte proveďte rozevírací nabídku a znovu vytvořit kroky. 
 
 <a name="drop"></a>
 

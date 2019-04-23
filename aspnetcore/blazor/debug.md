@@ -7,18 +7,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/15/2019
 uid: blazor/debug
-ms.openlocfilehash: 9d5924fbca300f0423fc3130ef749ae5a6639b4f
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 40457b942061fb910a6311af78ff29ac3a1699de
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614778"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982792"
 ---
 # <a name="debug-blazor"></a>Ladění Blazor
 
 [Daniel Roth](https://github.com/danroth27)
-
-[!INCLUDE[](~/includes/razor-components-preview-notice.md)]
 
 *Časná* podpora je dostupná pro ladění na straně klienta Blazor aplikace běžící na WebAssembly v prohlížeči Chrome.
 
@@ -56,7 +54,7 @@ Pokud je vzdálené ladění je zakázané, **nelze nalézt kartu prohlížeče 
 
 ## <a name="debug-the-app"></a>Ladění aplikace
 
-Po spuštění Chrome s povoleným laděním vzdáleného ladění stiskněte kombinaci kláves otevře novou kartu ladicího programu. Za okamžik **zdroje** karta zobrazuje seznam sestavení .NET v aplikaci. Rozbalte každého sestavení a vyhledejte *.cs*/*.cshtml* zdrojové soubory pro ladění k dispozici. Nastavit zarážky, přejděte zpět na kartě aplikace a zarážky jsou přístupů, když kód spustí. Po zarážku přístupů, krokování (`F10`) prostřednictvím kódu nebo pokračovat (`F8`) obvykle spuštění kódu.
+Po spuštění Chrome s povoleným laděním vzdáleného ladění stiskněte kombinaci kláves otevře novou kartu ladicího programu. Za okamžik **zdroje** karta zobrazuje seznam sestavení .NET v aplikaci. Rozbalte každého sestavení a vyhledejte *.cs*/*.razor* zdrojové soubory pro ladění k dispozici. Nastavit zarážky, přejděte zpět na kartě aplikace a zarážky jsou přístupů, když kód spustí. Po zarážku přístupů, krokování (`F10`) prostřednictvím kódu nebo pokračovat (`F8`) obvykle spuštění kódu.
 
 Blazor poskytuje ladicí proxy server tohoto implementuje [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) a argumentech protokolu. Informace specifické pro sítě. Při stisknutí klávesové zkratky ladění ukazuje Blazor Chrome DevTools na proxy serveru. Proxy server připojí do okna prohlížeče se snaží ladění (tedy potřeba povolit vzdálené ladění).
 

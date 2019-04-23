@@ -4,15 +4,15 @@ description: V tomto kurzu přidat další entity a relace a přizpůsobte si da
 author: rick-anderson
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/05/2019
+ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 5ab893dd77ff2cc9a735702eb3a547ed8bcb2197
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 2f1acb8d0d665b0ae809e596891b2487fd17e63e
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264864"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59983039"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>Kurz: Vytvoření složitého datového modelu – ASP.NET MVC s EF Core
 
@@ -40,7 +40,7 @@ V tomto kurzu se naučíte:
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Použití funkce migrace EF Core pro ASP.NET Core ve webové aplikaci MVC](migrations.md)
+* [Pomocí migrace EF Core](migrations.md)
 
 ## <a name="customize-the-data-model"></a>Přizpůsobte si datový model
 
@@ -320,7 +320,7 @@ public ICollection<Course> Courses { get; set; }
 ```
 
 > [!NOTE]
-> Podle konvence rozhraní Entity Framework umožňuje kaskádové odstranění pro Null cizí klíče a vztahy many-to-many. To může způsobit Cyklické kaskádové odstranění pravidla, která způsobí výjimku při pokusu o přidání migrace. Například pokud definujete neměli vlastnost Department.InstructorID jako s možnou hodnotou Null, EF by nakonfigurovat pravidlo cascade delete můžete odstranit instruktorem, když odstraníte oddělení, který není co byste chtěli se stane. V případě potřeby obchodních pravidel `InstructorID` vlastnosti být null, je třeba použít následující příkaz rozhraní API fluent zakázat kaskádové odstranění v relaci:
+> Podle konvence rozhraní Entity Framework umožňuje kaskádové odstranění pro Null cizí klíče a vztahy many-to-many. To může způsobit Cyklické kaskádové odstranění pravidla, která způsobí výjimku při pokusu o přidání migrace. Například pokud definujete neměli vlastnost Department.InstructorID jako s možnou hodnotou Null, EF by nakonfigurovat pravidlo cascade delete můžete odstranit oddělení, když odstraníte instruktorem, které se mají se stane. V případě potřeby obchodních pravidel `InstructorID` vlastnosti být null, je třeba použít následující příkaz rozhraní API fluent zakázat kaskádové odstranění v relaci:
 >
 > ```csharp
 > modelBuilder.Entity<Department>()
@@ -529,6 +529,7 @@ V tomto kurzu se naučíte:
 > * Změnit připojovací řetězec
 > * Aktualizovat databázi
 
-Přejděte k dalším článku se dozvíte více o tom, jak přistupovat k související data.
+Přejděte k dalšímu kurzu, kde Další informace o tom, jak přistupovat k související data.
+
 > [!div class="nextstepaction"]
-> [Přístup k související data](read-related-data.md)
+> [Další: Přístup k související data](read-related-data.md)

@@ -5,14 +5,14 @@ description: Informace o .NET klienta SignalR technologie ASP.NET Core
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 03/14/2019
+ms.date: 04/17/2019
 uid: signalr/dotnet-client
-ms.openlocfilehash: a03abef53aa44f0a1016b8f72d8e3a7af2f9bed1
-ms.sourcegitcommit: d913bca90373c07f89b1d1df01af5fc01fc908ef
+ms.openlocfilehash: 640d75157e42ffa6d78235c5be03e4846e8dcde9
+ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57978301"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59982943"
 ---
 # <a name="aspnet-core-signalr-net-client"></a>Klient .NET funkce SignalR technologie ASP.NET Core
 
@@ -63,6 +63,10 @@ V `Closed` obslužná rutina, která restartuje připojení, vezměte v úvahu �
 `InvokeAsync` volání metody rozbočovače. Předat název metody rozbočovače a argumentů podle metody rozbočovače na `InvokeAsync`. SignalR je asynchronní, proto `async` a `await` při volání.
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
+
+`InvokeAsync` Metoda vrátí hodnotu `Task` která se dokončí po návratu metody serveru. Návratovou hodnotu, pokud existuje, se poskytuje jako výsledek `Task`. Jakékoli výjimky vyvolané metodou na serveru vytvoří chybovém `Task`. Použití `await` syntaxe čekat metody serveru k dokončení a `try...catch` syntaxe zpracování chyb.
+
+`SendAsync` Metoda vrátí hodnotu `Task` která se dokončí, když zpráva byla odeslána na server. Není zadána žádná návratová hodnota od to `Task` nečeká metoda server dokončí. Vytvoření jakýchkoli výjimek na straně klienta při odesílání zprávy chybovém `Task`. Použití `await` a `try...catch` odeslání syntaxe pro zpracování chyb.
 
 > [!NOTE]
 > Pokud používáte služby Azure SignalR v *bez serveru režimu*, nelze volat metody rozbočovače klienta. Další informace najdete v tématu [dokumentace ke službě SignalR](/azure/azure-signalr/signalr-concept-serverless-development-config).
