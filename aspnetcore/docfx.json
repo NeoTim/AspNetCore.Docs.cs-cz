@@ -48,7 +48,7 @@
       "_navPath": "/foo",
       "_navRel": "/foo",
       "breadcrumb_path": "/aspnet/breadcrumb/toc.json",
-      "feedback_github_repo": "aspnet/docs.cs-cz",
+      "feedback_github_repo": "aspnet/AspNetDocs.cs-cz",
       "feedback_product_url": "https://github.com/aspnet/Home/blob/master/CONTRIBUTING.md",
       "feedback_system": "GitHub",
       "ms.prod": "aspnet-core",
@@ -56,7 +56,20 @@
         "ASP.NET Core"
       ]
     },
-    "fileMetadata": {      
+    "fileMetadata": {
+      "open_to_public_contributors": {
+        "azure/**/**.md": false,
+        "client-side/**/**.md": false,
+        "grpc/**/**.md": false,
+        "migration/**/**.md": false,
+        "performance/**/**.md": false,
+        "razor-components/**/**.md": false,
+        "razor-pages/**/**.md": false,
+        "release-notes/**/**.md": false,
+        "ecurity/**/**.md": false,
+        "signalr/**/**.md": false,
+        "test/**/**.md": false
+      },
       "ms.technology": {
         "azure/**/**.md": "aspnetcore-azure",
         "client-side/**/**.md": "aspnetcore-clientside",
