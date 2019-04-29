@@ -5,14 +5,14 @@ description: Zjistěte, jak k nahrání souborů do stránky Razor v ASP.NET Cor
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 11/10/2018
-ms.custom: seodec18
+ms.custom: mvc, seodec18
 uid: razor-pages/upload-files
-ms.openlocfilehash: 80929c6c1a95b46b942958def1540ac8ed5abc81
-ms.sourcegitcommit: 49faca2644590fc081d86db46ea5e29edfc28b7b
-ms.translationtype: MT
+ms.openlocfilehash: a12653e5dc99ad731de63e151af6dbdbe38ffefc
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2018
-ms.locfileid: "53121398"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165219"
 ---
 # <a name="upload-files-to-a-razor-page-in-aspnet-core"></a>Nahrání souborů do stránky v ASP.NET Core Razor
 
@@ -159,7 +159,7 @@ Zadejte `DbSet` v `MovieContext` (*Models/MovieContext.cs*) pro plány:
 
 ## <a name="add-the-schedule-table-to-the-database"></a>Přidat plán tabulku do databáze
 
-Otevřete konzoly Správce balíčků (PMC): **nástroje** > **Správce balíčků NuGet** > **Konzola správce balíčků**.
+Otevřete konzoly Správce balíčků (PMC): **Nástroje** > **Správce balíčků NuGet** > **Konzola správce balíčků**.
 
 ![PMC nabídky](upload-files/_static/pmc.png)
 
@@ -345,4 +345,4 @@ Uživatel může kliknout **odstranit** odkaz z něj k dosažení zobrazení pot
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 
-Pro poradce při potížích s informací `IFormFile` nahrávání, viz [odesílání souborů ASP.NET jádra: Poradce při potížích s](xref:mvc/models/file-uploads#troubleshooting).
+Informace o odstraňování potíží `IFormFile` nahrát, najdete v článku [nahrání souborů v ASP.NET Core: Řešení potíží s](xref:mvc/models/file-uploads#troubleshooting).

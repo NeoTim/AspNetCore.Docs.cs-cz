@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/18/2019
 uid: blazor/layouts
-ms.openlocfilehash: 4a412b86d72cf4489dc2244a23c8b5c334f31e62
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
-ms.translationtype: MT
+ms.openlocfilehash: 2b898110052420b43ef3ee1f4f80909ec5d71a10
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982647"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165090"
 ---
 # <a name="blazor-layouts"></a>Blazor rozložení
 
@@ -56,7 +56,7 @@ Například následující *_Imports.razor* souboru importu:
  
 ```cshtml
 @layout MainLayout
-@using Microsoft.AspNetCore.Components.
+@using Microsoft.AspNetCore.Components
 @using BlazorApp1.Data
 ```
 

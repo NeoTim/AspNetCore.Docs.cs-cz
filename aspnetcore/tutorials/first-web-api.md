@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/4/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 24c87f2ad0446aef51f9d648fd20c181cbeaed2e
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
-ms.translationtype: MT
+ms.openlocfilehash: a5c0140b70a30acd05b532d32525f6df92619075
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346463"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165287"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
 
@@ -216,7 +216,7 @@ Předchozí kód:
 Předchozí kód:
 
 * Definuje třídu kontroleru rozhraní API bez metody.
-* Třída se upraví [ `[ApiController]` ](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) atribut. Tento atribut označuje, že kontroler reaguje na požadavky webové rozhraní API. Informace o konkrétní chování, které umožňuje atribut najdete v tématu [Poznámka atributem objektu ApiController](xref:web-api/index#annotation-with-apicontroller-attribute).
+* Třída se upraví [[objektu ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) atribut. Tento atribut označuje, že kontroler reaguje na požadavky webové rozhraní API. Informace o konkrétní chování, které umožňuje atribut najdete v tématu <xref:web-api/index>.
 * Vložit kontext databáze používá DI (`TodoContext`) do kontroleru. Kontext databáze se používá ve všech [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) metody v kontroleru.
 * Přidá položku s názvem `Item1` k databázi, pokud databáze je prázdný. Tento kód je v konstruktoru, proto se spustí pokaždé, když se nový požadavek HTTP. Pokud odstraníte všechny položky, vytvoří konstruktor `Item1` znovu při příštím volání metody rozhraní API. Proto může účet vypadat třeba odstranění akce nebyla úspěšná, když se ve skutečnosti fungovalo.
 

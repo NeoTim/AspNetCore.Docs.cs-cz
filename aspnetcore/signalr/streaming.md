@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/12/2019
 uid: signalr/streaming
-ms.openlocfilehash: 83bbb231482d9c1606be3c5bbbeb1cc3b8efcf7d
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
-ms.translationtype: MT
+ms.openlocfilehash: d185056d3bdda089eaa46ae9b8e13ab7a4354f93
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982653"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165073"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>Použití datových proudů v knihovně SignalR technologie ASP.NET Core
 
@@ -36,13 +36,13 @@ Funkce SignalR technologie ASP.NET Core podporuje streamování návratové hodn
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Metodu rozbočovače na automaticky stane streamování metody rozbočovače, je po návratu <xref:System.Threading.Channels.ChannelReader`1>, `IAsyncEnumerable<T>`, `Task<ChannelReader<T>>`, nebo `Task<IAsyncEnumerable<T>>`.
+Metodu rozbočovače na automaticky stane streamování metody rozbočovače, je po návratu <xref:System.Threading.Channels.ChannelReader%601>, `IAsyncEnumerable<T>`, `Task<ChannelReader<T>>`, nebo `Task<IAsyncEnumerable<T>>`.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Metodu rozbočovače na automaticky stane streamování metody rozbočovače, je po návratu <xref:System.Threading.Channels.ChannelReader`1> nebo `Task<ChannelReader<T>>`.
+Metodu rozbočovače na automaticky stane streamování metody rozbočovače, je po návratu <xref:System.Threading.Channels.ChannelReader%601> nebo `Task<ChannelReader<T>>`.
 
 ::: moniker-end
 
@@ -58,7 +58,7 @@ Streamování metod rozbočovače na může vrátit `IAsyncEnumerable<T>` kromě
 
 ::: moniker-end
 
-Následující příklad ukazuje základy streamovaných dat na klientovi pomocí kanálů. Vždy, když je objekt zapsána do <xref:System.Threading.Channels.ChannelWriter`1>, objekt je okamžitě se odešlou do klienta. Na konci `ChannelWriter` je dokončit, aby se dali pokyn klientovi, datový proud je uzavřen.
+Následující příklad ukazuje základy streamovaných dat na klientovi pomocí kanálů. Vždy, když je objekt zapsána do <xref:System.Threading.Channels.ChannelWriter%601>, objekt je okamžitě se odešlou do klienta. Na konci `ChannelWriter` je dokončit, aby se dali pokyn klientovi, datový proud je uzavřen.
 
 > [!NOTE]
 > Zápis do `ChannelWriter<T>` na vlákně na pozadí a vraťte se `ChannelReader` co nejdříve. Další volání rozbočovače je zablokovaná do `ChannelReader` je vrácena.

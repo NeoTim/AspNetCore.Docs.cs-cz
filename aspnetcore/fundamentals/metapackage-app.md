@@ -4,18 +4,18 @@ author: Rick-Anderson
 description: Microsoft.aspnetcore.All Microsoft.AspNetCore.App zahrnuje všechny podporované balíčky ASP.NET Core a Entity Framework Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 09/20/2017
+ms.date: 04/21/2019
 uid: fundamentals/metapackage-app
-ms.openlocfilehash: 68b5aca60273a8c6ef03c0a29842e6a5305adeb3
-ms.sourcegitcommit: 517bb1366da2a28b0014e384fa379755c21b47d8
-ms.translationtype: MT
+ms.openlocfilehash: 04cd628e2a2e4650fb4396b352aef008b430550e
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/26/2018
-ms.locfileid: "47230162"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165206"
 ---
-# <a name="microsoftaspnetcoreapp-metapackage-for-aspnet-core-21"></a>Microsoft.AspNetCore.App Microsoft.aspnetcore.all pro ASP.NET Core 2.1
+# <a name="microsoftaspnetcoreapp-metapackage-for-aspnet-core-21-or-later"></a>Microsoft.AspNetCore.App Microsoft.aspnetcore.all pro ASP.NET Core 2.1 nebo novější
 
-Tato funkce vyžaduje ASP.NET Core 2.1 a vyšší, cílení na .NET Core 2.1 nebo novější.
+Tato funkce vyžaduje ASP.NET Core 2.1 nebo novější, cílení na .NET Core 2.1 nebo novější.
 
 [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Microsoft.AspNetCore.App) [Microsoft.aspnetcore.all](/dotnet/core/packages#metapackages) pro ASP.NET Core:
 
@@ -57,12 +57,17 @@ Implicitní verze je nastaveno na `major.minor.0` pro přenosné aplikace. Mecha
 
 Určení číslo verze na `Microsoft.AspNetCore.App` nemá odkaz **není** zaručit, že tato verze sdíleného vybere se rozhraní framework. Předpokládejme například, ale není určená verze "2.1.1", ale je nainstalovaná "2.1.3". V takovém případě bude aplikace používat "2.1.3". Však není doporučena, můžete zakázat Posunutí vpřed (opravy a/nebo menší). Další informace týkající se příkaz dotnet hostitele vpřed a jak nakonfigurovat své chování najdete v tématu [dotnet hostitele dopředné posunutí](https://github.com/dotnet/core-setup/blob/master/Documentation/design-docs/roll-forward-on-no-candidate-fx.md).
 
-`<Project Sdk` musí být nastaveno na `Microsoft.NET.Sdk.Web` použít implicitní verze `Microsoft.AspNetCore.App`.  Když `<Project Sdk="Microsoft.NET.Sdk">` (bez koncových `.Web`) se používá:
+::: moniker range="= aspnetcore-2.1"
+
+`<Project Sdk` musí být nastaveno na `Microsoft.NET.Sdk.Web` použít implicitní verze `Microsoft.AspNetCore.App`. Když `<Project Sdk="Microsoft.NET.Sdk">` (bez koncových `.Web`) se používá:
 
 * Generují se následující upozornění:
 
-     *NU1604 upozornění: Závislost projektu Microsoft.AspNetCore.App neobsahuje inkluzivní dolní mez. Dolní mez zahrňte do verze závislosti zajistit výsledky obnovení budou konzistentní.*
-* Jedná se o známý problém s .NET Core 2.1 SDK a bude opravený v .NET Core 2.2 SDK.
+  *Upozornění NU1604: Závislosti projektu Microsoft.AspNetCore.App neobsahuje inkluzivní dolní mez. Dolní mez zahrňte do verze závislosti zajistit výsledky obnovení budou konzistentní.*
+
+* Jde o známý problém s .NET Core 2.1 SDK.
+
+::: moniker-end
 
 <a name="update"></a>
 

@@ -7,12 +7,12 @@ ms.author: pranavkm
 ms.custom: mvc
 ms.date: 12/14/2018
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 5bfda6f19e4739c52a4b7c9d6e751634a4af438a
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
-ms.translationtype: MT
+ms.openlocfilehash: bcc89f856e0aeef80c46a44f76f86b4c09ac6746
+ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982917"
+ms.lasthandoff: 04/23/2019
+ms.locfileid: "60165116"
 ---
 # <a name="use-web-api-analyzers"></a>Použití webového rozhraní API analyzátorů
 
@@ -80,4 +80,4 @@ Předchozí akci dokumenty HTTP 200 úspěch návratový typ, ale ne dokumentu s
 
 * <xref:web-api/advanced/conventions>
 * <xref:tutorials/web-api-help-pages-using-swagger>
-* [Poznámka atributem objektu ApiController](xref:web-api/index#annotation-with-apicontroller-attribute)
+* <xref:web-api/index>

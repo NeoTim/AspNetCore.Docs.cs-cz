@@ -1,1070 +1,1079 @@
-items:
 - name: Dokumentace k ASP.NET Core
-  href: /aspnet/#pivot=core
+  href: '/aspnet/#pivot=core'
 - name: Přehled
   items:
-  - uid: index
-    name: Informace o ASP.NET Core
-  - uid: fundamentals/choose-between-aspnet-and-aspnetcore
-    name: Porovnání ASP.NET Core a ASP.NET
-  - name: Porovnání .NET Core a .NET Framework
-    href: /dotnet/standard/choosing-core-framework-server?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-- uid: getting-started
-  name: Začínáme
+    - name: Informace o ASP.NET Core
+      uid: index
+    - name: Porovnání ASP.NET Core a ASP.NET
+      uid: fundamentals/choose-between-aspnet-and-aspnetcore
+    - name: Porovnání .NET Core a .NET Framework
+      href: /dotnet/standard/choosing-core-framework-server?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+- name: Začínáme
+  uid: getting-started
 - name: Co je nového
   items:
-  - uid: aspnetcore-2.2
-    name: Novinky ve verzi 2.2
-  - uid: aspnetcore-2.1
-    name: Novinky ve verzi 2.1
-  - uid: aspnetcore-2.0
-    name: Novinky ve verzi 2.0
-  - uid: aspnetcore-1.1
-    name: Novinky ve verzi 1.1
+    - name: Novinky ve verzi 2.2
+      uid: aspnetcore-2.2
+    - name: Novinky ve verzi 2.1
+      uid: aspnetcore-2.1
+    - name: Novinky ve verzi 2.0
+      uid: aspnetcore-2.0
+    - name: Novinky ve verzi 1.1
+      uid: aspnetcore-1.1
 - name: Kurzy
   items:
-  - name: Webové aplikace
-    items:
-    - name: Razor Pages
-      displayName: tutorial
+    - name: Webové aplikace
       items:
-      - uid: tutorials/razor-pages/index
-        name: Přehled
-      - uid: tutorials/razor-pages/razor-pages-start
-        name: Začínáme
-      - uid: tutorials/razor-pages/model
-        name: Přidání modelu
-      - uid: tutorials/razor-pages/page
-        name: Generování uživatelského rozhraní
-      - uid: tutorials/razor-pages/sql
-        name: Práce s databází
-      - uid: tutorials/razor-pages/da1
-        name: Aktualizace stránek
-      - uid: tutorials/razor-pages/search
-        name: Přidání vyhledávání
-      - uid: tutorials/razor-pages/new-field
-        name: Přidání nového pole
-      - uid: tutorials/razor-pages/validation
-        name: Přidání ověřování
-    - name: MVC
-      displayName: tutorial
+        - name: Razor Pages
+          displayName: tutorial
+          items:
+            - name: Přehled
+              uid: tutorials/razor-pages/index
+            - name: Začínáme
+              uid: tutorials/razor-pages/razor-pages-start
+            - name: Přidání modelu
+              uid: tutorials/razor-pages/model
+            - name: Generování uživatelského rozhraní
+              uid: tutorials/razor-pages/page
+            - name: Práce s databází
+              uid: tutorials/razor-pages/sql
+            - name: Aktualizace stránek
+              uid: tutorials/razor-pages/da1
+            - name: Přidání vyhledávání
+              uid: tutorials/razor-pages/search
+            - name: Přidání nového pole
+              uid: tutorials/razor-pages/new-field
+            - name: Přidání ověřování
+              uid: tutorials/razor-pages/validation
+        - name: MVC
+          displayName: tutorial
+          items:
+            - name: Přehled
+              uid: tutorials/first-mvc-app/index
+            - name: Začínáme
+              uid: tutorials/first-mvc-app/start-mvc
+            - name: Přidání kontroleru
+              uid: tutorials/first-mvc-app/adding-controller
+            - name: Přidání zobrazení
+              uid: tutorials/first-mvc-app/adding-view
+            - name: Přidání modelu
+              uid: tutorials/first-mvc-app/adding-model
+            - name: Práce s databází
+              uid: tutorials/first-mvc-app/working-with-sql
+            - name: Akce a zobrazení kontroleru
+              uid: tutorials/first-mvc-app/controller-methods-views
+            - name: Přidání vyhledávání
+              uid: tutorials/first-mvc-app/search
+            - name: Přidání nového pole
+              uid: tutorials/first-mvc-app/new-field
+            - name: Přidání ověřování
+              uid: tutorials/first-mvc-app/validation
+            - name: Zkoumání metod Details a Delete
+              uid: tutorials/first-mvc-app/details
+    - name: Aplikace Web API
       items:
-      - uid: tutorials/first-mvc-app/index
-        name: Přehled
-      - uid: tutorials/first-mvc-app/start-mvc
-        name: Začínáme
-      - uid: tutorials/first-mvc-app/adding-controller
-        name: Přidání kontroleru
-      - uid: tutorials/first-mvc-app/adding-view
-        name: Přidání zobrazení
-      - uid: tutorials/first-mvc-app/adding-model
-        name: Přidání modelu
-      - uid: tutorials/first-mvc-app/working-with-sql
-        name: Práce s databází
-      - uid: tutorials/first-mvc-app/controller-methods-views
-        name: Akce a zobrazení kontroleru
-      - uid: tutorials/first-mvc-app/search
-        name: Přidání vyhledávání
-      - uid: tutorials/first-mvc-app/new-field
-        name: Přidání nového pole
-      - uid: tutorials/first-mvc-app/validation
-        name: Přidání ověřování
-      - uid: tutorials/first-mvc-app/details
-        name: Zkoumání metod Details a Delete
-  - name: Aplikace Web API
-    items:
-    - uid: tutorials/first-web-api
-      name: Vytvoření webového rozhraní API
-      displayName: tutorial
-    - uid: tutorials/first-mongo-app
-      name: Web API s MongoDB
-      displayName: tutorial
-    - uid: mobile/native-mobile-backend
-      name: Back-end pro mobilní zařízení
-      displayName: tutorial
-  - name: Webové aplikace v reálném čase
-    items:
-    - uid: tutorials/signalr
-      name: SignalR s JavaScriptem
-      displayName: tutorial
-    - uid: tutorials/signalr-typescript-webpack
-      name: SignalR s TypeScriptem
-      displayName: tutorial
-  - name: Aplikace využívající vzdálené volání procedur
-    items:
-    - uid: tutorials/grpc/grpc-start
-      name: Začínáme se službou gRPC v ASP.NET Core
-  - name: Přístup k datům
-    items:
-    - name: EF Core s Razor Pages
-      displayName: tutorial
+        - name: Vytvoření webového rozhraní API
+          displayName: tutorial
+          uid: tutorials/first-web-api
+        - name: Web API s MongoDB
+          displayName: tutorial
+          uid: tutorials/first-mongo-app
+        - name: Back-end pro mobilní zařízení
+          displayName: tutorial
+          uid: mobile/native-mobile-backend
+    - name: Webové aplikace v reálném čase
       items:
-      - uid: data/ef-rp/index
-        name: Přehled
-      - uid: data/ef-rp/intro
-        name: Začínáme
-      - uid: data/ef-rp/crud
-        name: Vytváření, čtení, aktualizace a odstranění
-      - uid: data/ef-rp/sort-filter-page
-        name: Řazení, filtrování, stránkování a seskupování
-      - uid: data/ef-rp/migrations
-        name: Migrace
-      - uid: data/ef-rp/complex-data-model
-        name: Vytvoření složitého datového modelu
-      - uid: data/ef-rp/read-related-data
-        name: Čtení souvisejících dat
-      - uid: data/ef-rp/update-related-data
-        name: Aktualizace souvisejících dat
-      - uid: data/ef-rp/concurrency
-        name: Zpracování konfliktů souběžnosti
-    - name: EF Core s MVC, existující databáze
-      displayName: tutorial
-      href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - name: EF Core s MVC, nová databáze
-      displayName: tutorial
-      href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - name: EF Core s MVC, 10 kurzů
+        - name: SignalR s JavaScriptem
+          displayName: tutorial
+          uid: tutorials/signalr
+        - name: SignalR s TypeScriptem
+          displayName: tutorial
+          uid: tutorials/signalr-typescript-webpack
+    - name: Aplikace využívající vzdálené volání procedur
       items:
-      - uid: data/ef-mvc/index
-        name: Přehled
-      - uid: data/ef-mvc/intro
-        name: Začínáme
-      - uid: data/ef-mvc/crud
-        name: Vytváření, čtení, aktualizace a odstranění
-      - uid: data/ef-mvc/sort-filter-page
-        name: Řazení, filtrování, stránkování a seskupování
-      - uid: data/ef-mvc/migrations
-        name: Migrace
-      - uid: data/ef-mvc/complex-data-model
-        name: Vytvoření složitého datového modelu
-      - uid: data/ef-mvc/read-related-data
-        name: Čtení souvisejících dat
-      - uid: data/ef-mvc/update-related-data
-        name: Aktualizace souvisejících dat
-      - uid: data/ef-mvc/concurrency
-        name: Zpracování konfliktů souběžnosti
-      - uid: data/ef-mvc/inheritance
-        name: Dědičnost
-      - uid: data/ef-mvc/advanced
-        name: Pokročilá témata
+        - name: Začínáme se službou gRPC v ASP.NET Core
+          uid: tutorials/grpc/grpc-start
+    - name: "Přístup k\_datům"
+      items:
+        - name: EF Core s Razor Pages
+          displayName: tutorial
+          items:
+            - name: Přehled
+              uid: data/ef-rp/index
+            - name: Začínáme
+              uid: data/ef-rp/intro
+            - name: 'Vytváření, čtení, aktualizace a odstranění'
+              uid: data/ef-rp/crud
+            - name: 'Řazení, filtrování, stránkování a seskupování'
+              uid: data/ef-rp/sort-filter-page
+            - name: Migrace
+              uid: data/ef-rp/migrations
+            - name: Vytvoření složitého datového modelu
+              uid: data/ef-rp/complex-data-model
+            - name: Čtení souvisejících dat
+              uid: data/ef-rp/read-related-data
+            - name: Aktualizace souvisejících dat
+              uid: data/ef-rp/update-related-data
+            - name: Zpracování konfliktů souběžnosti
+              uid: data/ef-rp/concurrency
+        - name: 'EF Core s MVC, existující databáze'
+          displayName: tutorial
+          href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: 'EF Core s MVC, nová databáze'
+          displayName: tutorial
+          href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: 'EF Core s MVC, 10 kurzů'
+          items:
+            - name: Přehled
+              uid: data/ef-mvc/index
+            - name: Začínáme
+              uid: data/ef-mvc/intro
+            - name: 'Vytváření, čtení, aktualizace a odstranění'
+              uid: data/ef-mvc/crud
+            - name: 'Řazení, filtrování, stránkování a seskupování'
+              uid: data/ef-mvc/sort-filter-page
+            - name: Migrace
+              uid: data/ef-mvc/migrations
+            - name: Vytvoření složitého datového modelu
+              uid: data/ef-mvc/complex-data-model
+            - name: Čtení souvisejících dat
+              uid: data/ef-mvc/read-related-data
+            - name: Aktualizace souvisejících dat
+              uid: data/ef-mvc/update-related-data
+            - name: Zpracování konfliktů souběžnosti
+              uid: data/ef-mvc/concurrency
+            - name: Dědičnost
+              uid: data/ef-mvc/inheritance
+            - name: Pokročilá témata
+              uid: data/ef-mvc/advanced
+- name: Kurzy (Microsoft Learn)
+  displayName: tutorial
+  items:
+    - name: Aplikace Web API
+      href: /learn/modules/build-web-api-net-core/
+    - name: "Přístup k\_datům"
+      displayName: 'tutorial, ef, entity framework'
+      href: /learn/modules/persist-data-ef-core/
 - name: Základy
   items:
-  - uid: fundamentals/index
-    name: Přehled
-  - uid: fundamentals/startup
-    name: Spouštěcí třída
-  - uid: fundamentals/dependency-injection
-    name: Injektáž závislostí (služby)
-  - uid: fundamentals/middleware/index
-    name: Middleware
-  - name: Hostitel
-    items:
-    - uid: fundamentals/host/web-host
-      name: Webový hostitel
-    - uid: fundamentals/host/generic-host
-      name: Obecný hostitel
-  - uid: fundamentals/servers/index
-    name: Servery
-  - uid: fundamentals/configuration/index
-    name: Konfigurace
-  - uid: fundamentals/configuration/options
-    name: Možnosti
-  - uid: fundamentals/environments
-    name: Prostředí (vývojové, pracovní, produkční)
-  - uid: fundamentals/logging/index
-    name: protokolování
-  - uid: fundamentals/routing
-    name: Směrování
-  - uid: fundamentals/error-handling
-    name: Ošetření chyb
-  - uid: fundamentals/http-requests
-    name: Vytváření požadavků HTTP
-    displayName: httpclient, httpclientfactory
-  - uid: fundamentals/static-files
-    name: Statické soubory
+    - name: Přehled
+      uid: fundamentals/index
+    - name: Spouštěcí třída
+      uid: fundamentals/startup
+    - name: Injektáž závislostí (služby)
+      uid: fundamentals/dependency-injection
+    - name: Middleware
+      uid: fundamentals/middleware/index
+    - name: Hostitel
+      items:
+        - name: Webový hostitel
+          uid: fundamentals/host/web-host
+        - name: Obecný hostitel
+          uid: fundamentals/host/generic-host
+    - name: Servery
+      uid: fundamentals/servers/index
+    - name: Konfigurace
+      uid: fundamentals/configuration/index
+    - name: Možnosti
+      uid: fundamentals/configuration/options
+    - name: 'Prostředí (vývojové, pracovní, produkční)'
+      uid: fundamentals/environments
+    - name: protokolování
+      uid: fundamentals/logging/index
+    - name: Směrování
+      uid: fundamentals/routing
+    - name: Ošetření chyb
+      uid: fundamentals/error-handling
+    - name: Vytváření požadavků HTTP
+      displayName: 'httpclient, httpclientfactory'
+      uid: fundamentals/http-requests
+    - name: Statické soubory
+      uid: fundamentals/static-files
 - name: Webové aplikace
   items:
-  - name: Razor Pages
-    items:
-    - uid: razor-pages/index
-      name: Úvod
-    - name: Tutoriál
+    - name: Razor Pages
       items:
-      - uid: tutorials/razor-pages/index
-        name: Přehled
-      - uid: tutorials/razor-pages/razor-pages-start
-        name: Začínáme
-      - uid: tutorials/razor-pages/model
-        name: Přidání modelu
-      - uid: tutorials/razor-pages/page
-        name: Generování uživatelského rozhraní
-      - uid: tutorials/razor-pages/sql
-        name: Práce s databází
-      - uid: tutorials/razor-pages/da1
-        name: Aktualizace stránek
-      - uid: tutorials/razor-pages/search
-        name: Přidání vyhledávání
-      - uid: tutorials/razor-pages/new-field
-        name: Přidání nového pole
-      - uid: tutorials/razor-pages/validation
-        name: Přidání ověřování
-    - uid: razor-pages/filter
-      name: Filtry
-    - uid: razor-pages/ui-class
-      name: Knihovny RCL (Razor Class Library)
-    - uid: razor-pages/razor-pages-conventions
-      name: Směrování a aplikační konvence
-    - uid: razor-pages/upload-files
-      name: Nahrání souborů
-    - uid: razor-pages/sdk
-      name: Sada Razor SDK
-  - name: MVC
-    items:
-    - uid: mvc/overview
-      name: Přehled
-    - uid: tutorials/first-mvc-app/index
-      name: Tutoriál
+        - name: Úvod
+          uid: razor-pages/index
+        - name: Tutoriál
+          items:
+            - name: Přehled
+              uid: tutorials/razor-pages/index
+            - name: Začínáme
+              uid: tutorials/razor-pages/razor-pages-start
+            - name: Přidání modelu
+              uid: tutorials/razor-pages/model
+            - name: Generování uživatelského rozhraní
+              uid: tutorials/razor-pages/page
+            - name: Práce s databází
+              uid: tutorials/razor-pages/sql
+            - name: Aktualizace stránek
+              uid: tutorials/razor-pages/da1
+            - name: Přidání vyhledávání
+              uid: tutorials/razor-pages/search
+            - name: Přidání nového pole
+              uid: tutorials/razor-pages/new-field
+            - name: Přidání ověřování
+              uid: tutorials/razor-pages/validation
+        - name: Filtry
+          uid: razor-pages/filter
+        - name: Knihovny RCL (Razor Class Library)
+          uid: razor-pages/ui-class
+        - name: Směrování a aplikační konvence
+          uid: razor-pages/razor-pages-conventions
+        - name: Nahrání souborů
+          uid: razor-pages/upload-files
+        - name: Sada Razor SDK
+          uid: razor-pages/sdk
+    - name: MVC
       items:
-      - uid: tutorials/first-mvc-app/start-mvc
-        name: Začínáme
-      - uid: tutorials/first-mvc-app/adding-controller
-        name: Přidání kontroleru
-      - uid: tutorials/first-mvc-app/adding-view
-        name: Přidání zobrazení
-      - uid: tutorials/first-mvc-app/adding-model
-        name: Přidání modelu
-      - uid: tutorials/first-mvc-app/working-with-sql
-        name: Práce s databází
-      - uid: tutorials/first-mvc-app/controller-methods-views
-        name: Akce a zobrazení kontroleru
-      - uid: tutorials/first-mvc-app/search
-        name: Přidání vyhledávání
-      - uid: tutorials/first-mvc-app/new-field
-        name: Přidání nového pole
-      - uid: tutorials/first-mvc-app/validation
-        name: Přidání ověřování
-      - uid: tutorials/first-mvc-app/details
-        name: Zkoumání metod Details a Delete
-    - uid: mvc/views/overview
-      name: Zobrazení
-    - uid: mvc/views/partial
-      name: Částečná zobrazení
-    - uid: mvc/controllers/actions
-      name: Kontrolery
-    - uid: mvc/controllers/routing
-      name: Směrování
-    - uid: mvc/models/file-uploads
-      name: Nahrání souborů
-    - uid: mvc/controllers/dependency-injection
-      name: Injektáž závislostí – kontrolery
-    - uid: mvc/views/dependency-injection
-      name: Injektáž závislostí – zobrazení
-    - uid: mvc/controllers/testing
-      name: Test jednotek
-  - name: Blazor
-    items:
-    - uid: blazor/index
-      name: Přehled
-    - uid: blazor/get-started
-      name: Začínáme
-    - uid: blazor/hosting-models
-      name: Modely hostingu
-    - uid: tutorials/first-blazor-app
-      name: Sestavení první aplikace
-    - uid: blazor/components
-      name: Komponenty
-    - uid: blazor/forms-validation
-      name: Formuláře a ověřování
-    - uid: blazor/class-libraries
-      name: Knihovny komponent
-    - uid: blazor/layouts
-      name: Rozložení
-    - uid: blazor/dependency-injection
-      name: Injektáž závislostí
-    - uid: blazor/routing
-      name: Směrování
-    - uid: blazor/javascript-interop
-      name: Interoperabilita JavaScriptu
-    - uid: blazor/debug
-      name: Ladit
-    - name: Hostování a nasazení
+        - name: Přehled
+          uid: mvc/overview
+        - name: Tutoriál
+          uid: tutorials/first-mvc-app/index
+          items:
+            - name: Začínáme
+              uid: tutorials/first-mvc-app/start-mvc
+            - name: Přidání kontroleru
+              uid: tutorials/first-mvc-app/adding-controller
+            - name: Přidání zobrazení
+              uid: tutorials/first-mvc-app/adding-view
+            - name: Přidání modelu
+              uid: tutorials/first-mvc-app/adding-model
+            - name: Práce s databází
+              uid: tutorials/first-mvc-app/working-with-sql
+            - name: Akce a zobrazení kontroleru
+              uid: tutorials/first-mvc-app/controller-methods-views
+            - name: Přidání vyhledávání
+              uid: tutorials/first-mvc-app/search
+            - name: Přidání nového pole
+              uid: tutorials/first-mvc-app/new-field
+            - name: Přidání ověřování
+              uid: tutorials/first-mvc-app/validation
+            - name: Zkoumání metod Details a Delete
+              uid: tutorials/first-mvc-app/details
+        - name: Zobrazení
+          uid: mvc/views/overview
+        - name: Částečná zobrazení
+          uid: mvc/views/partial
+        - name: Kontrolery
+          uid: mvc/controllers/actions
+        - name: Směrování
+          uid: mvc/controllers/routing
+        - name: Nahrání souborů
+          uid: mvc/models/file-uploads
+        - name: Injektáž závislostí – kontrolery
+          uid: mvc/controllers/dependency-injection
+        - name: Injektáž závislostí – zobrazení
+          uid: mvc/views/dependency-injection
+        - name: Test jednotek
+          uid: mvc/controllers/testing
+    - name: Blazor
       items:
-      - uid: host-and-deploy/blazor/index
-        name: Přehled
-      - uid: host-and-deploy/blazor/client-side
-        name: Na straně klienta
-      - uid: host-and-deploy/blazor/server-side
-        name: Na straně serveru
-      - uid: host-and-deploy/blazor/configure-linker
-        name: Konfigurace Linkeru
-  - name: Vývoj klientské strany
-    items:
-    - name: Jednostránkové aplikace
+        - name: Přehled
+          uid: blazor/index
+        - name: Začínáme
+          uid: blazor/get-started
+        - name: Modely hostingu
+          uid: blazor/hosting-models
+        - name: Sestavení první aplikace
+          uid: tutorials/first-blazor-app
+        - name: Komponenty
+          uid: blazor/components
+        - name: Formuláře a ověřování
+          uid: blazor/forms-validation
+        - name: Knihovny komponent
+          uid: blazor/class-libraries
+        - name: Rozložení
+          uid: blazor/layouts
+        - name: Injektáž závislostí
+          uid: blazor/dependency-injection
+        - name: Směrování
+          uid: blazor/routing
+        - name: Interoperabilita JavaScriptu
+          uid: blazor/javascript-interop
+        - name: Ladit
+          uid: blazor/debug
+        - name: Hostování a nasazení
+          items:
+            - name: Přehled
+              uid: host-and-deploy/blazor/index
+            - name: Na straně klienta
+              uid: host-and-deploy/blazor/client-side
+            - name: Na straně serveru
+              uid: host-and-deploy/blazor/server-side
+            - name: Konfigurace Linkeru
+              uid: host-and-deploy/blazor/configure-linker
+    - name: Vývoj klientské strany
       items:
-      - uid: spa/angular
-        name: Angular
-      - uid: spa/react
-        name: React
-      - uid: spa/react-with-redux
-        name: React with Redux
-      - uid: client-side/spa-services
-        name: JavaScriptServices
-    - name: LibMan
+        - name: Jednostránkové aplikace
+          items:
+            - name: Angular
+              uid: spa/angular
+            - name: React
+              uid: spa/react
+            - name: React with Redux
+              uid: spa/react-with-redux
+            - name: JavaScriptServices
+              uid: client-side/spa-services
+        - name: LibMan
+          items:
+            - name: Přehled
+              uid: client-side/libman/index
+            - name: CLI
+              uid: client-side/libman/libman-cli
+            - name: Visual Studio
+              uid: client-side/libman/libman-vs
+        - name: Gulp
+          uid: client-side/using-gulp
+        - name: Grunt
+          uid: client-side/using-grunt
+        - name: Bower
+          uid: client-side/bower
+        - name: Vytvoření balíčku a minifikace
+          uid: client-side/bundling-and-minification
+        - name: Browser Link
+          uid: client-side/using-browserlink
+    - name: Stav relace a aplikace
+      uid: fundamentals/app-state
+    - name: Rozložení
+      uid: mvc/views/layout
+    - name: Vazby modelu
+      uid: mvc/models/model-binding
+    - name: Ověření modelu
+      uid: mvc/models/validation
+    - name: Syntaxe Razor
+      uid: mvc/views/razor
+    - name: Pomocné rutiny značek
       items:
-      - uid: client-side/libman/index
-        name: Přehled
-      - uid: client-side/libman/libman-cli
-        name: CLI
-      - uid: client-side/libman/libman-vs
-        name: Visual Studio
-    - uid: client-side/using-gulp
-      name: Gulp
-    - uid: client-side/using-grunt
-      name: Grunt
-    - uid: client-side/bower
-      name: Bower
-    - uid: client-side/bundling-and-minification
-      name: Vytvoření balíčku a minifikace
-    - uid: client-side/using-browserlink
-      name: Browser Link
-  - uid: fundamentals/app-state
-    name: Stav relace a aplikace
-  - uid: mvc/views/layout
-    name: Rozložení
-  - uid: mvc/models/model-binding
-    name: Vazby modelu
-  - uid: mvc/models/validation
-    name: Ověření modelu
-  - uid: mvc/views/razor
-    name: Syntaxe Razor
-  - name: Pomocné rutiny značek
-    items:
-    - uid: mvc/views/tag-helpers/intro
-      name: Přehled
-    - uid: mvc/views/tag-helpers/authoring
-      name: Vytváření pomocných rutin značek
-    - uid: mvc/views/working-with-forms
-      name: Použití pomocných rutin značek ve formulářích
-    - uid: mvc/views/tag-helpers/th-components
-      name: Komponenty pomocné rutiny značky
-    - name: Integrované pomocné rutiny značek
+        - name: Přehled
+          uid: mvc/views/tag-helpers/intro
+        - name: Vytváření pomocných rutin značek
+          uid: mvc/views/tag-helpers/authoring
+        - name: Použití pomocných rutin značek ve formulářích
+          uid: mvc/views/working-with-forms
+        - name: Komponenty pomocné rutiny značky
+          uid: mvc/views/tag-helpers/th-components
+        - name: Integrované pomocné rutiny značek
+          items:
+            - name: Ukotvení
+              uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
+            - name: Mezipaměť
+              uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
+            - name: Distribuovaná mezipaměť
+              uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
+            - name: Prostředí
+              uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
+            - name: Formulář
+              href: 'mvc/views/working-with-forms.md#the-form-tag-helper'
+            - name: Image
+              uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
+            - name: Vstup
+              href: 'mvc/views/working-with-forms.md#the-input-tag-helper'
+            - name: Popisek
+              href: 'mvc/views/working-with-forms.md#the-label-tag-helper'
+            - name: Částečné
+              uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
+            - name: Vyberte
+              href: 'mvc/views/working-with-forms.md#the-select-tag-helper'
+            - name: Textové pole
+              href: 'mvc/views/working-with-forms.md#the-textarea-tag-helper'
+            - name: Ověřovací zpráva
+              href: 'mvc/views/working-with-forms.md#the-validation-message-tag-helper'
+            - name: Souhrn ověření
+              href: 'mvc/views/working-with-forms.md#the-validation-summary-tag-helper'
+    - name: Upřesnit
       items:
-      - uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-        name: Ukotvení
-      - uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-        name: Mezipaměť
-      - uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
-        name: Distribuovaná mezipaměť
-      - uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
-        name: Prostředí
-      - name: Formulář
-        href: mvc/views/working-with-forms.md#the-form-tag-helper
-      - uid: mvc/views/tag-helpers/builtin-th/image-tag-helper
-        name: Image
-      - name: Vstup
-        href: mvc/views/working-with-forms.md#the-input-tag-helper
-      - name: Popisek
-        href: mvc/views/working-with-forms.md#the-label-tag-helper
-      - uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-        name: Částečné
-      - name: Vyberte
-        href: mvc/views/working-with-forms.md#the-select-tag-helper
-      - name: Textové pole
-        href: mvc/views/working-with-forms.md#the-textarea-tag-helper
-      - name: Ověřovací zpráva
-        href: mvc/views/working-with-forms.md#the-validation-message-tag-helper
-      - name: Souhrn ověření
-        href: mvc/views/working-with-forms.md#the-validation-summary-tag-helper
-  - name: Upřesnit
-    items:
-    - uid: mvc/views/view-components
-      name: Komponenty zobrazení
-    - uid: mvc/views/view-compilation
-      name: Kompilace zobrazení
-    - uid: mvc/controllers/application-model
-      name: Model aplikace
-    - uid: mvc/controllers/filters
-      name: Filtry
-    - uid: mvc/controllers/areas
-      name: Oblasti
-    - uid: mvc/extensibility/app-parts
-      name: Součásti aplikace
-    - uid: mvc/advanced/custom-model-binding
-      name: Vlastní vazba modelu
-    - uid: mvc/compatibility-version
-      name: Kompatibilita – verze
+        - name: Komponenty zobrazení
+          uid: mvc/views/view-components
+        - name: Kompilace zobrazení
+          uid: mvc/views/view-compilation
+        - name: Model aplikace
+          uid: mvc/controllers/application-model
+        - name: Filtry
+          uid: mvc/controllers/filters
+        - name: Oblasti
+          uid: mvc/controllers/areas
+        - name: Součásti aplikace
+          uid: mvc/extensibility/app-parts
+        - name: Vlastní vazba modelu
+          uid: mvc/advanced/custom-model-binding
+        - name: Kompatibilita – verze
+          uid: mvc/compatibility-version
 - name: Aplikace Web API
   items:
-  - uid: web-api/index
-    name: Přehled
-  - name: Kurzy
-    items:
-    - uid: tutorials/first-web-api
-      name: Vytvoření webového rozhraní API
-    - uid: tutorials/first-mongo-app
-      name: Web API s MongoDB
-  - name: Swagger / OpenAPI
-    items:
-    - uid: tutorials/web-api-help-pages-using-swagger
-      name: Přehled
-    - uid: tutorials/get-started-with-swashbuckle
-      name: Začínáme se službou Swashbuckle
-    - uid: tutorials/get-started-with-nswag
-      name: Začínáme se službou NSwag
-  - uid: web-api/action-return-types
-    name: Návratové typy akcí
-  - uid: web-api/advanced/formatting
-    name: Formátování dat odpovědi
-  - uid: web-api/advanced/custom-formatters
-    name: Vlastní formátovací moduly
-  - uid: web-api/advanced/analyzers
-    name: Analyzátory
-  - uid: web-api/advanced/conventions
-    name: Konvence
+    - name: Přehled
+      uid: web-api/index
+    - name: Kurzy
+      items:
+        - name: Vytvoření webového rozhraní API
+          uid: tutorials/first-web-api
+        - name: Web API s MongoDB
+          uid: tutorials/first-mongo-app
+    - name: Swagger / OpenAPI
+      items:
+        - name: Přehled
+          uid: tutorials/web-api-help-pages-using-swagger
+        - name: Začínáme se službou Swashbuckle
+          uid: tutorials/get-started-with-swashbuckle
+        - name: Začínáme se službou NSwag
+          uid: tutorials/get-started-with-nswag
+    - name: Návratové typy akcí
+      uid: web-api/action-return-types
+    - name: Formátování dat odpovědi
+      uid: web-api/advanced/formatting
+    - name: Vlastní formátovací moduly
+      uid: web-api/advanced/custom-formatters
+    - name: Analyzátory
+      uid: web-api/advanced/analyzers
+    - name: Konvence
+      uid: web-api/advanced/conventions
 - name: Aplikace v reálném čase
   displayName: signalr
   items:
-  - uid: signalr/introduction
-    name: Přehled služby SignalR
-  - uid: signalr/supported-platforms
-    name: Podporované platformy
-    displayName: signalr
-  - name: Kurzy
-    items:
-    - uid: tutorials/signalr
-      name: SignalR s JavaScriptem
-    - uid: tutorials/signalr-typescript-webpack
-      name: SignalR s TypeScriptem
-  - name: Ukázky
-    displayName: signalr
-    href: https://github.com/aspnet/SignalR-samples
-  - name: Serverové koncepty
-    displayName: signalr
-    items:
-    - uid: signalr/hubs
-      name: Centra
+    - name: Přehled služby SignalR
+      uid: signalr/introduction
+    - name: Podporované platformy
+      uid: signalr/supported-platforms
       displayName: signalr
-    - uid: signalr/hubcontext
-      name: Odesílání z oblasti mimo centrum
+    - name: Kurzy
+      items:
+        - name: SignalR s JavaScriptem
+          uid: tutorials/signalr
+        - name: SignalR s TypeScriptem
+          uid: tutorials/signalr-typescript-webpack
+    - name: Ukázky
+      href: 'https://github.com/aspnet/SignalR-samples'
       displayName: signalr
-    - uid: signalr/groups
-      name: Uživatelé a skupiny
+    - name: Serverové koncepty
       displayName: signalr
-    - uid: signalr/publish-to-azure-web-app
-      name: Publikování do Azure
+      items:
+        - name: Centra
+          uid: signalr/hubs
+          displayName: signalr
+        - name: Odesílání z oblasti mimo centrum
+          uid: signalr/hubcontext
+          displayName: signalr
+        - name: Uživatelé a skupiny
+          uid: signalr/groups
+          displayName: signalr
+        - name: Publikování do Azure
+          uid: signalr/publish-to-azure-web-app
+          displayName: signalr
+        - name: Aspekty návrhu rozhraní API
+          uid: signalr/api-design
+          displayName: signalr
+    - name: Klienti
       displayName: signalr
-    - uid: signalr/api-design
-      name: Aspekty návrhu rozhraní API
+      items:
+        - name: Klient .NET
+          uid: signalr/dotnet-client
+          displayName: signalr
+        - name: Referenční dokumentace k rozhraní .NET API
+          href: /dotnet/api/microsoft.aspnetcore.signalr.client
+          displayName: signalr
+        - name: Klient Java
+          uid: signalr/java-client
+          displayName: signalr
+        - name: "Referenční dokumentace k\_rozhraní API v Javě"
+          href: /java/api/com.microsoft.signalr?view=aspnet-signalr-java
+          displayName: signalr
+        - name: Klient JavaScriptu
+          uid: signalr/javascript-client
+          displayName: signalr
+        - name: "Referenční dokumentace k\_rozhraní API v JavaScriptu"
+          href: /javascript/api/?view=signalr-js-latest
+          displayName: signalr
+    - name: Hostování a škálování
       displayName: signalr
-  - name: Klienti
-    displayName: signalr
-    items:
-    - uid: signalr/dotnet-client
-      name: Klient .NET
+      items:
+        - name: Přehled
+          displayName: signalr
+          uid: signalr/scale
+        - name: Služba Azure SignalR
+          displayName: signalr
+          href: /azure/azure-signalr/signalr-overview?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: Propojovací rozhraní Redis
+          displayName: signalr
+          uid: signalr/redis-backplane
+        - name: SignalR se službami na pozadí
+          uid: signalr/background-services
+    - name: Konfigurace
+      uid: signalr/configuration
       displayName: signalr
-    - name: Referenční dokumentace k rozhraní .NET API
+    - name: Ověřování a autorizace
+      uid: signalr/authn-and-authz
       displayName: signalr
-      href: /dotnet/api/microsoft.aspnetcore.signalr.client
-    - uid: signalr/java-client
-      name: Klient Java
+    - name: Důležité informace o zabezpečení
+      uid: signalr/security
       displayName: signalr
-    - name: Referenční dokumentace k rozhraní API v Javě
+    - name: Protokol centra MessagePack
+      uid: signalr/messagepackhubprotocol
       displayName: signalr
-      href: /java/api/com.microsoft.signalr?view=aspnet-signalr-java
-    - uid: signalr/javascript-client
-      name: Klient JavaScriptu
+    - name: Streamování
+      uid: signalr/streaming
       displayName: signalr
-    - name: Referenční dokumentace k rozhraní API v JavaScriptu
+    - name: Porovnání SignalR a SignalR Core
+      uid: signalr/version-differences
       displayName: signalr
-      href: /javascript/api/?view=signalr-js-latest
-  - name: Hostování a škálování
-    displayName: signalr
-    items:
-    - uid: signalr/scale
-      name: Přehled
+    - name: WebSockets bez SignalR
       displayName: signalr
-    - name: Služba Azure SignalR
+      uid: fundamentals/websockets
+    - name: Protokolování a diagnostika
       displayName: signalr
-      href: /azure/azure-signalr/signalr-overview?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - uid: signalr/redis-backplane
-      name: Propojovací rozhraní Redis
-      displayName: signalr
-    - uid: signalr/background-services
-      name: SignalR se službami na pozadí
-  - uid: signalr/configuration
-    name: Konfigurace
-    displayName: signalr
-  - uid: signalr/authn-and-authz
-    name: Ověřování a autorizace
-    displayName: signalr
-  - uid: signalr/security
-    name: Důležité informace o zabezpečení
-    displayName: signalr
-  - uid: signalr/messagepackhubprotocol
-    name: Protokol centra MessagePack
-    displayName: signalr
-  - uid: signalr/streaming
-    name: Streamování
-    displayName: signalr
-  - uid: signalr/version-differences
-    name: Porovnání SignalR a SignalR Core
-    displayName: signalr
-  - uid: fundamentals/websockets
-    name: WebSockets bez SignalR
-    displayName: signalr
-  - uid: signalr/diagnostics
-    name: Protokolování a diagnostika
-    displayName: signalr
+      uid: signalr/diagnostics
 - name: Aplikace využívající vzdálené volání procedur
   items:
-  - uid: grpc/index
-    name: Úvod ke službě gRPC
-  - uid: grpc/basics
-    name: Služby gRPC s jazykem C#
-  - uid: grpc/aspnetcore
-    name: Služby gRPC s ASP.NET Core
-  - uid: grpc/migration
-    name: Migrace služeb gRPC z C Core na ASP.NET Core
-  - uid: grpc/comparison
-    name: Porovnání služeb gRPC pomocí rozhraní HTTP API
-  - name: Kurzy
-    items:
-    - uid: tutorials/grpc/index
-      name: Začínáme se službou gRPC v ASP.NET Core
-    - uid: tutorials/grpc/grpc-start
-      name: Vytvoření služby ASP.NET Core gRPC Greeter
-    - uid: tutorials/grpc/grpc-client
-      name: Vytvoření klienta .NET Core gRPC
-- name: Testování, ladění a odstraňování potíží
-  items:
-  - name: Testování jednotek
-    href: /dotnet/core/testing/unit-testing-with-dotnet-test?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-  - uid: test/razor-pages-tests
-    name: Testy jednotek stránek Razor
-  - uid: mvc/controllers/testing
-    name: Testovací kontrolery
-  - name: Vzdálené ladění
-    href: /visualstudio/debugger/remote-debugging-azure
-  - name: Ladění snímků
-    href: /azure/azure-monitor/app/snapshot-debugger?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-  - name: Ladění snímků v sadě Visual Studio
-    href: /visualstudio/debugger/debug-live-azure-applications
-  - uid: test/integration-tests
-    name: Integrační testy
-  - uid: test/loadtests
-    name: Zátěžové testování
-  - uid: test/troubleshoot
-    name: Řešení potíží
-  - uid: fundamentals/logging/index
-    name: protokolování
-- name: Přístup k datům
-  items:
-  - name: Kurzy
-    items:
-    - name: EF Core s Razor Pages
+    - name: Úvod ke službě gRPC
+      uid: grpc/index
+    - name: 'Služby gRPC s jazykem C#'
+      uid: grpc/basics
+    - name: Služby gRPC s ASP.NET Core
+      uid: grpc/aspnetcore
+    - name: Konfigurace
+      uid: grpc/configuration
+    - name: Migrace služeb gRPC z C Core na ASP.NET Core
+      uid: grpc/migration
+    - name: Porovnání služeb gRPC pomocí rozhraní HTTP API
+      uid: grpc/comparison
+    - name: Kurzy
       items:
-      - uid: data/ef-rp/index
-        name: Přehled
-      - uid: data/ef-rp/intro
-        name: Začínáme
-      - uid: data/ef-rp/crud
-        name: Vytváření, čtení, aktualizace a odstranění
-      - uid: data/ef-rp/sort-filter-page
-        name: Řazení, filtrování, stránkování a seskupování
-      - uid: data/ef-rp/migrations
-        name: Migrace
-      - uid: data/ef-rp/complex-data-model
-        name: Vytvoření složitého datového modelu
-      - uid: data/ef-rp/read-related-data
-        name: Čtení souvisejících dat
-      - uid: data/ef-rp/update-related-data
-        name: Aktualizace souvisejících dat
-      - uid: data/ef-rp/concurrency
-        name: Zpracování konfliktů souběžnosti
-    - name: EF Core s MVC, nová databáze
-      href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - name: EF Core s MVC, existující databáze
-      href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - name: EF Core s MVC, 10 kurzů
+        - name: Začínáme se službou gRPC v ASP.NET Core
+          uid: tutorials/grpc/index
+        - name: Vytvoření služby ASP.NET Core gRPC Greeter
+          uid: tutorials/grpc/grpc-start
+        - name: Vytvoření klienta .NET Core gRPC
+          uid: tutorials/grpc/grpc-client
+- name: 'Testování, ladění a odstraňování potíží'
+  items:
+    - name: Testování jednotek
+      href: /dotnet/core/testing/unit-testing-with-dotnet-test?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+    - name: Testy jednotek stránek Razor
+      uid: test/razor-pages-tests
+    - name: Testovací kontrolery
+      uid: mvc/controllers/testing
+    - name: Vzdálené ladění
+      href: /visualstudio/debugger/remote-debugging-azure
+    - name: Ladění snímků
+      href: /azure/azure-monitor/app/snapshot-debugger?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+    - name: "Ladění snímků v\_sadě Visual Studio"
+      href: /visualstudio/debugger/debug-live-azure-applications
+    - name: Integrační testy
+      uid: test/integration-tests
+    - name: Zátěžové testování
+      uid: test/loadtests
+    - name: Řešení potíží
+      uid: test/troubleshoot
+    - name: protokolování
+      uid: fundamentals/logging/index
+- name: "Přístup k\_datům"
+  items:
+    - name: Kurzy
       items:
-      - uid: data/ef-mvc/index
-        name: Přehled
-      - uid: data/ef-mvc/intro
-        name: Začínáme
-      - uid: data/ef-mvc/crud
-        name: Vytváření, čtení, aktualizace a odstranění
-      - uid: data/ef-mvc/sort-filter-page
-        name: Řazení, filtrování, stránkování a seskupování
-      - uid: data/ef-mvc/migrations
-        name: Migrace
-      - uid: data/ef-mvc/complex-data-model
-        name: Vytvoření složitého datového modelu
-      - uid: data/ef-mvc/read-related-data
-        name: Čtení souvisejících dat
-      - uid: data/ef-mvc/update-related-data
-        name: Aktualizace souvisejících dat
-      - uid: data/ef-mvc/concurrency
-        name: Zpracování konfliktů souběžnosti
-      - uid: data/ef-mvc/inheritance
-        name: Dědičnost
-      - uid: data/ef-mvc/advanced
-        name: Pokročilá témata
-  - uid: data/entity-framework-6
-    name: EF 6 s ASP.NET Core
-  - name: Azure Storage se sadou Visual Studio
-    items:
-    - name: Připojené služby
-      href: /visualstudio/azure/vs-azure-tools-connected-services-storage
-    - name: Blob Storage
-      href: /azure/visual-studio/vs-storage-aspnet5-getting-started-blobs?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - name: Queue Storage
-      href: /azure/visual-studio/vs-storage-aspnet5-getting-started-queues?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - name: Table Storage
-      href: /azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: EF Core s Razor Pages
+          items:
+            - name: Přehled
+              uid: data/ef-rp/index
+            - name: Začínáme
+              uid: data/ef-rp/intro
+            - name: 'Vytváření, čtení, aktualizace a odstranění'
+              uid: data/ef-rp/crud
+            - name: 'Řazení, filtrování, stránkování a seskupování'
+              uid: data/ef-rp/sort-filter-page
+            - name: Migrace
+              uid: data/ef-rp/migrations
+            - name: Vytvoření složitého datového modelu
+              uid: data/ef-rp/complex-data-model
+            - name: Čtení souvisejících dat
+              uid: data/ef-rp/read-related-data
+            - name: Aktualizace souvisejících dat
+              uid: data/ef-rp/update-related-data
+            - name: Zpracování konfliktů souběžnosti
+              uid: data/ef-rp/concurrency
+        - name: 'EF Core s MVC, nová databáze'
+          href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: 'EF Core s MVC, existující databáze'
+          href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: 'EF Core s MVC, 10 kurzů'
+          items:
+            - name: Přehled
+              uid: data/ef-mvc/index
+            - name: Začínáme
+              uid: data/ef-mvc/intro
+            - name: 'Vytváření, čtení, aktualizace a odstranění'
+              uid: data/ef-mvc/crud
+            - name: 'Řazení, filtrování, stránkování a seskupování'
+              uid: data/ef-mvc/sort-filter-page
+            - name: Migrace
+              uid: data/ef-mvc/migrations
+            - name: Vytvoření složitého datového modelu
+              uid: data/ef-mvc/complex-data-model
+            - name: Čtení souvisejících dat
+              uid: data/ef-mvc/read-related-data
+            - name: Aktualizace souvisejících dat
+              uid: data/ef-mvc/update-related-data
+            - name: Zpracování konfliktů souběžnosti
+              uid: data/ef-mvc/concurrency
+            - name: Dědičnost
+              uid: data/ef-mvc/inheritance
+            - name: Pokročilá témata
+              uid: data/ef-mvc/advanced
+    - name: EF 6 s ASP.NET Core
+      uid: data/entity-framework-6
+    - name: Azure Storage se sadou Visual Studio
+      items:
+        - name: Připojené služby
+          href: /visualstudio/azure/vs-azure-tools-connected-services-storage
+        - name: Blob Storage
+          href: /azure/visual-studio/vs-storage-aspnet5-getting-started-blobs?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: Queue Storage
+          href: /azure/visual-studio/vs-storage-aspnet5-getting-started-queues?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: Table Storage
+          href: /azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
 - name: Hostování a nasazení
   displayName: publish
   items:
-  - uid: host-and-deploy/index
-    name: Přehled
-    displayName: azure, deploy, publish
-  - name: Hostování v Azure App Service
-    displayName: deploy, publish
-    items:
-    - uid: host-and-deploy/azure-apps/index
-      name: Přehled
-      displayName: azure, deploy, publish
-    - uid: tutorials/publish-to-azure-webapp-using-vs
-      name: Publikování pomocí sady Visual Studio
-      displayName: azure, deploy, publish
-    - name: Publikování pomocí sady Visual Studio pro Mac
-      displayName: azure, deploy, publish
-      href: /visualstudio/mac/publish-app-svc?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - name: Publikování pomocí nástrojů CLI
-      displayName: azure, deploy, publish
-      href: /azure/app-service/app-service-web-tutorial-dotnetcore-sqldb?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - uid: host-and-deploy/azure-apps/azure-continuous-deployment
-      name: Publikování pomocí sady Visual Studio a Gitu
-      displayName: azure, deploy, publish
-    - name: Průběžné nasazování pomocí Azure Pipelines
-      displayName: azure, deploy, publish
-      href: /azure/devops/pipelines/get-started-yaml
-    - uid: host-and-deploy/aspnet-core-module
-      name: Modul ASP.NET Core
-      displayName: azure, deploy, publish
-    - uid: host-and-deploy/azure-apps/troubleshoot
-      name: Řešení potíží
-      displayName: azure, deploy, publish
-    - uid: host-and-deploy/azure-iis-errors-reference
-      name: Referenční informace o chybách
-      displayName: azure, deploy, publish
-  - name: DevOps
-    items:
-    - uid: azure/devops/index
-      name: Přehled
-      displayName: azure, deploy, publish
-    - uid: azure/devops/tools-and-downloads
-      name: Nástroje a soubory ke stažení
-      displayName: azure, deploy, publish
-    - uid: azure/devops/deploy-to-app-service
-      name: Nasazení do App Service
-      displayName: azure, deploy, publish
-    - uid: azure/devops/cicd
-      name: Průběžná integrace a nasazování
-      displayName: azure, deploy, publish
-    - uid: azure/devops/monitor
-      name: Monitorování a odstraňování potíží
-      displayName: azure, deploy, publish
-    - uid: azure/devops/next-steps
-      name: Další kroky
-      displayName: azure, deploy, publish
-  - name: Hostování ve Windows se službou IIS
-    displayName: deploy, publish
-    items:
-    - uid: host-and-deploy/iis/index
-      name: Přehled
-      displayName: deploy, publish
-    - uid: host-and-deploy/aspnet-core-module
-      name: Modul ASP.NET Core
-      displayName: deploy, publish
-    - uid: host-and-deploy/iis/development-time-iis-support
-      name: Podpora služby IIS v sadě Visual Studio
-      displayName: deploy, publish
-    - uid: host-and-deploy/iis/modules
-      name: Moduly služby IIS
-      displayName: deploy, publish
-    - uid: host-and-deploy/iis/troubleshoot
-      name: Řešení potíží
-      displayName: deploy, publish
-    - uid: host-and-deploy/azure-iis-errors-reference
-      name: Referenční informace o chybách
-      displayName: deploy, publish
-    - uid: host-and-deploy/iis/transform-webconfig
-      name: Transformace souboru web.config
-      displayName: deploy, publish
-  - uid: fundamentals/servers/kestrel
-    name: Kestrel
-    displayName: deploy, publish, server
-  - uid: fundamentals/servers/httpsys
-    name: HTTP.sys
-    displayName: deploy, publish, server
-  - uid: host-and-deploy/windows-service
-    name: Hostování ve službě pro Windows
-    displayName: deploy, publish
-  - uid: host-and-deploy/linux-nginx
-    name: Hostování v Linuxu na serveru Nginx
-    displayName: deploy, publish
-  - uid: host-and-deploy/linux-apache
-    name: Hostování v Linuxu na serveru Apache
-    displayName: deploy, publish
-  - name: Hostování v Dockeru
-    displayName: deploy, publish
-    items:
-    - uid: host-and-deploy/docker/index
-      name: Přehled
-      displayName: deploy, publish, docker
-    - uid: host-and-deploy/docker/visual-studio-tools-for-docker
-      name: Visual Studio Tools
-      displayName: deploy, publish, docker
-    - name: Publikování do image Dockeru
-      displayName: deploy, publish, docker
-      href: /visualstudio/containers/vs-azure-tools-docker-hosting-web-apps-in-docker
-    - name: Ukázkové image Dockeru
-      displayName: deploy, publish, docker
-      href: https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md
-  - uid: host-and-deploy/proxy-load-balancer
-    name: Konfigurace proxy a nástroje pro vyrovnávání zatížení
-    displayName: deploy, publish
-  - uid: host-and-deploy/web-farm
-    name: Hostování ve webové farmě
-    displayName: deploy, publish
-  - uid: host-and-deploy/visual-studio-publish-profiles
-    name: Publikační profily v sadě Visual Studio
-    displayName: deploy, publish
-  - name: Publikování do složky v sadě Visual Studio pro Mac
-    displayName: deploy, publish
-    href: /visualstudio/mac/publish-folder?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-  - uid: host-and-deploy/directory-structure
-    name: Adresářová struktura
-    displayName: deploy, publish
-  - uid: host-and-deploy/health-checks
-    name: Kontroly stavu
-    displayName: deploy, publish
-  - name: Blazor
-    items:
-    - uid: host-and-deploy/blazor/index
-      name: Přehled
-    - uid: host-and-deploy/blazor/client-side
-      name: Na straně klienta
-    - uid: host-and-deploy/blazor/server-side
-      name: Na straně serveru
-    - uid: host-and-deploy/blazor/configure-linker
-      name: Konfigurace Linkeru
+    - name: Přehled
+      displayName: 'azure, deploy, publish'
+      uid: host-and-deploy/index
+    - name: Hostování v Azure App Service
+      displayName: 'deploy, publish'
+      items:
+        - name: Přehled
+          displayName: 'azure, deploy, publish'
+          uid: host-and-deploy/azure-apps/index
+        - name: Publikování pomocí sady Visual Studio
+          displayName: 'azure, deploy, publish'
+          uid: tutorials/publish-to-azure-webapp-using-vs
+        - name: Publikování pomocí sady Visual Studio pro Mac
+          displayName: 'azure, deploy, publish'
+          href: /visualstudio/mac/publish-app-svc?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: Publikování pomocí nástrojů CLI
+          displayName: 'azure, deploy, publish'
+          href: /azure/app-service/app-service-web-tutorial-dotnetcore-sqldb?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: Publikování pomocí sady Visual Studio a Gitu
+          displayName: 'azure, deploy, publish'
+          uid: host-and-deploy/azure-apps/azure-continuous-deployment
+        - name: Průběžné nasazování pomocí Azure Pipelines
+          displayName: 'azure, deploy, publish'
+          href: /azure/devops/pipelines/get-started-yaml
+        - name: Modul ASP.NET Core
+          displayName: 'azure, deploy, publish'
+          uid: host-and-deploy/aspnet-core-module
+        - name: Řešení potíží
+          displayName: 'azure, deploy, publish'
+          uid: host-and-deploy/azure-apps/troubleshoot
+        - name: Referenční informace o chybách
+          displayName: 'azure, deploy, publish'
+          uid: host-and-deploy/azure-iis-errors-reference
+    - name: DevOps
+      items:
+        - name: Přehled
+          displayName: 'azure, deploy, publish'
+          uid: azure/devops/index
+        - name: Nástroje a soubory ke stažení
+          displayName: 'azure, deploy, publish'
+          uid: azure/devops/tools-and-downloads
+        - name: Nasazení do App Service
+          displayName: 'azure, deploy, publish'
+          uid: azure/devops/deploy-to-app-service
+        - name: Průběžná integrace a nasazování
+          displayName: 'azure, deploy, publish'
+          uid: azure/devops/cicd
+        - name: Monitorování a odstraňování potíží
+          displayName: 'azure, deploy, publish'
+          uid: azure/devops/monitor
+        - name: Další kroky
+          displayName: 'azure, deploy, publish'
+          uid: azure/devops/next-steps
+    - name: Hostování ve Windows se službou IIS
+      displayName: 'deploy, publish'
+      items:
+        - name: Přehled
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/index
+        - name: Modul ASP.NET Core
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/aspnet-core-module
+        - name: Podpora služby IIS v sadě Visual Studio
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/development-time-iis-support
+        - name: Moduly služby IIS
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/modules
+        - name: Řešení potíží
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/troubleshoot
+        - name: Referenční informace o chybách
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/azure-iis-errors-reference
+        - name: Transformace souboru web.config
+          displayName: 'deploy, publish'
+          uid: host-and-deploy/iis/transform-webconfig
+    - name: Kestrel
+      uid: fundamentals/servers/kestrel
+      displayName: 'deploy, publish, server'
+    - name: HTTP.sys
+      displayName: 'deploy, publish, server'
+      uid: fundamentals/servers/httpsys
+    - name: Hostování ve službě pro Windows
+      displayName: 'deploy, publish'
+      uid: host-and-deploy/windows-service
+    - name: Hostování v Linuxu na serveru Nginx
+      displayName: 'deploy, publish'
+      uid: host-and-deploy/linux-nginx
+    - name: Hostování v Linuxu na serveru Apache
+      displayName: 'deploy, publish'
+      uid: host-and-deploy/linux-apache
+    - name: Hostování v Dockeru
+      displayName: 'deploy, publish'
+      items:
+        - name: Přehled
+          displayName: 'deploy, publish, docker'
+          uid: host-and-deploy/docker/index
+        - name: Vytváření imagí Dockeru
+          displayName: 'deploy, publish, docker'
+          uid: host-and-deploy/docker/building-net-docker-images
+        - name: Visual Studio Tools
+          displayName: 'deploy, publish, docker'
+          uid: host-and-deploy/docker/visual-studio-tools-for-docker
+        - name: Publikování do image Dockeru
+          displayName: 'deploy, publish, docker'
+          href: /visualstudio/containers/vs-azure-tools-docker-hosting-web-apps-in-docker
+        - name: Ukázkové image Dockeru
+          displayName: 'deploy, publish, docker'
+          href: 'https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md'
+    - name: Konfigurace proxy a nástroje pro vyrovnávání zatížení
+      displayName: 'deploy, publish'
+      uid: host-and-deploy/proxy-load-balancer
+    - name: Hostování ve webové farmě
+      displayName: 'deploy, publish'
+      uid: host-and-deploy/web-farm
+    - name: Publikační profily v sadě Visual Studio
+      displayName: 'deploy, publish'
+      uid: host-and-deploy/visual-studio-publish-profiles
+    - name: Publikování do složky v sadě Visual Studio pro Mac
+      displayName: 'deploy, publish'
+      href: /visualstudio/mac/publish-folder?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+    - name: Adresářová struktura
+      displayName: 'deploy, publish'
+      uid: host-and-deploy/directory-structure
+    - name: Kontroly stavu
+      uid: host-and-deploy/health-checks
+      displayName: 'deploy, publish'
+    - name: Blazor
+      items:
+        - name: Přehled
+          uid: host-and-deploy/blazor/index
+        - name: Na straně klienta
+          uid: host-and-deploy/blazor/client-side
+        - name: Na straně serveru
+          uid: host-and-deploy/blazor/server-side
+        - name: Konfigurace Linkeru
+          uid: host-and-deploy/blazor/configure-linker
 - name: Zabezpečení a identita
-  displayName: authentication, authorization
+  displayName: 'authentication, authorization'
   items:
-  - uid: security/index
-    name: Přehled
-  - name: Ověřování
-    items:
-    - uid: security/authentication/identity
-      name: Úvod do systému Identity
-    - uid: security/authentication/identity/spa
-      name: Identity s jednostránkovými aplikacemi (SPA)
-    - uid: security/authentication/scaffold-identity
-      name: Vygenerování identity
-    - uid: security/authentication/add-user-data
-      name: Přidání vlastních uživatelských dat do Identity
-    - uid: security/authentication/samples
-      name: Ukázky ověřování
-    - uid: security/authentication/customize_identity_model
-      name: Přizpůsobení modelu Identity
-    - uid: security/authentication/community
-      name: Možnosti ověřování z komunity OSS
-    - uid: security/authentication/identity-configuration
-      name: Konfigurace systému Identity
-    - uid: security/authentication/windowsauth
-      name: Konfigurace ověřování systému Windows
-    - uid: security/authentication/identity-custom-storage-providers
-      name: Poskytovatelé vlastního úložiště pro systém Identity
-    - name: Google, Facebook...
+    - name: Přehled
+      uid: security/index
+    - name: Ověřování
       items:
-      - uid: security/authentication/social/index
-        name: Přehled
-      - uid: security/authentication/google-logins
-        name: Ověřování Googlu
-      - uid: security/authentication/facebook-logins
-        name: Ověřování Facebooku
-      - uid: security/authentication/microsoft-logins
-        name: Ověřování Microsoftu
-      - uid: security/authentication/twitter-logins
-        name: Ověřování Twitteru
-      - uid: security/authentication/otherlogins
-        name: Další zprostředkovatelé
-      - uid: security/authentication/social/additional-claims
-        name: Další deklarace identity
-    - uid: security/authentication/policyschemes
-      name: Schémata zásad
-    - uid: security/authentication/ws-federation
-      name: Ověřování WS-Federation
-    - uid: security/authentication/accconfirm
-      name: Potvrzení účtu a obnovení hesla
-    - uid: security/authentication/identity-enable-qrcodes
-      name: Zapnutí generování kódu QR v systému Identity
-    - uid: security/authentication/2fa
-      name: Dvoufaktorové ověřování přes SMS
-    - uid: security/authentication/cookie
-      name: Ověřování souborem cookie bez systému Identity
-    - name: Azure Active Directory
+        - name: Úvod do systému Identity
+          uid: security/authentication/identity
+        - name: Identity s jednostránkovými aplikacemi (SPA)
+          uid: security/authentication/identity/spa
+        - name: Vygenerování identity
+          uid: security/authentication/scaffold-identity
+        - name: Přidání vlastních uživatelských dat do Identity
+          uid: security/authentication/add-user-data
+        - name: Ukázky ověřování
+          uid: security/authentication/samples
+        - name: Přizpůsobení modelu Identity
+          uid: security/authentication/customize_identity_model
+        - name: Možnosti ověřování z komunity OSS
+          uid: security/authentication/community
+        - name: Konfigurace systému Identity
+          uid: security/authentication/identity-configuration
+        - name: Konfigurace ověřování systému Windows
+          uid: security/authentication/windowsauth
+        - name: Poskytovatelé vlastního úložiště pro systém Identity
+          uid: security/authentication/identity-custom-storage-providers
+        - name: 'Google, Facebook...'
+          items:
+            - name: Přehled
+              uid: security/authentication/social/index
+            - name: Ověřování Googlu
+              uid: security/authentication/google-logins
+            - name: Ověřování Facebooku
+              uid: security/authentication/facebook-logins
+            - name: Ověřování Microsoftu
+              uid: security/authentication/microsoft-logins
+            - name: Ověřování Twitteru
+              uid: security/authentication/twitter-logins
+            - name: Další zprostředkovatelé
+              uid: security/authentication/otherlogins
+            - name: Další deklarace identity
+              uid: security/authentication/social/additional-claims
+        - name: Schémata zásad
+          uid: security/authentication/policyschemes
+        - name: Ověřování WS-Federation
+          uid: security/authentication/ws-federation
+        - name: Potvrzení účtu a obnovení hesla
+          uid: security/authentication/accconfirm
+        - name: Zapnutí generování kódu QR v systému Identity
+          uid: security/authentication/identity-enable-qrcodes
+        - name: Dvoufaktorové ověřování přes SMS
+          uid: security/authentication/2fa
+        - name: Ověřování souborem cookie bez systému Identity
+          uid: security/authentication/cookie
+        - name: Azure Active Directory
+          items:
+            - name: Přehled
+              uid: security/authentication/azure-active-directory/index
+            - name: Integrace Azure AD do webové aplikace
+              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/'
+            - name: Integrace Azure AD B2C do webové aplikace
+              uid: security/authentication/azure-ad-b2c
+            - name: Integrace Azure AD B2C do webového rozhraní API
+              uid: security/authentication/azure-ad-b2c-webapi
+            - name: Volání webového rozhraní API z grafického subsystému WPF
+              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-native-aspnetcore/'
+            - name: Volání webového rozhraní API ve webové aplikaci pomocí Azure AD
+              href: 'https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/'
+        - name: Zabezpečení aplikací ASP.NET serverem IdentityServer4
+          href: 'https://identityserver4.readthedocs.io/'
+        - name: Zabezpečení aplikací ASP.NET Core ověřováním služby Azure App Service (Easy Auth)
+          href: /azure/app-service/overview-authentication-authorization?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
+        - name: Individuální uživatelské účty
+          uid: security/authentication/individual
+    - name: Autorizace
       items:
-      - uid: security/authentication/azure-active-directory/index
-        name: Přehled
-      - name: Integrace Azure AD do webové aplikace
-        href: https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/
-      - uid: security/authentication/azure-ad-b2c
-        name: Integrace Azure AD B2C do webové aplikace
-      - uid: security/authentication/azure-ad-b2c-webapi
-        name: Integrace Azure AD B2C do webového rozhraní API
-      - name: Volání webového rozhraní API z grafického subsystému WPF
-        href: https://azure.microsoft.com/documentation/samples/active-directory-dotnet-native-aspnetcore/
-      - name: Volání webového rozhraní API ve webové aplikaci pomocí Azure AD
-        href: https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/
-    - name: Zabezpečení aplikací ASP.NET serverem IdentityServer4
-      href: https://identityserver4.readthedocs.io/
-    - name: Zabezpečení aplikací ASP.NET Core ověřováním služby Azure App Service (Easy Auth)
-      href: /azure/app-service/overview-authentication-authorization?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-    - uid: security/authentication/individual
-      name: Individuální uživatelské účty
-  - name: Autorizace
-    items:
-    - uid: security/authorization/introduction
-      name: Přehled
-    - uid: security/authorization/secure-data
-      name: Vytvoření webové aplikace s autorizací
-    - uid: security/authorization/razor-pages-authorization
-      name: Konvence autorizace Razor Pages
-    - uid: security/authorization/simple
-      name: Jednoduchá autorizace
-    - uid: security/authorization/roles
-      name: Ověřování založené na rolích
-    - uid: security/authorization/claims
-      name: Autorizace na základě deklarace identity
-    - uid: security/authorization/policies
-      name: Autorizace na základě zásad
-    - uid: security/authorization/iauthorizationpolicyprovider
-      name: Poskytovatelé zásad autorizace
-    - uid: security/authorization/dependencyinjection
-      name: Injektáž závislostí v obslužných rutinách požadavků
-    - uid: security/authorization/resourcebased
-      name: Autorizace na základě prostředků
-    - uid: security/authorization/views
-      name: Autorizace na základě zobrazení
-    - uid: security/authorization/limitingidentitybyscheme
-      name: Omezení identity schématem
-  - name: Ochrana dat
-    displayName: encryption
-    items:
-    - uid: security/data-protection/introduction
-      name: Přehled
-    - uid: security/data-protection/using-data-protection
-      name: Rozhraní API pro ochranu dat
-    - name: Rozhraní API příjemců
+        - name: Přehled
+          uid: security/authorization/introduction
+        - name: Vytvoření webové aplikace s autorizací
+          uid: security/authorization/secure-data
+        - name: Konvence autorizace Razor Pages
+          uid: security/authorization/razor-pages-authorization
+        - name: Jednoduchá autorizace
+          uid: security/authorization/simple
+        - name: Ověřování založené na rolích
+          uid: security/authorization/roles
+        - name: Autorizace na základě deklarace identity
+          uid: security/authorization/claims
+        - name: Autorizace na základě zásad
+          uid: security/authorization/policies
+        - name: Poskytovatelé zásad autorizace
+          uid: security/authorization/iauthorizationpolicyprovider
+        - name: Injektáž závislostí v obslužných rutinách požadavků
+          uid: security/authorization/dependencyinjection
+        - name: Autorizace na základě prostředků
+          uid: security/authorization/resourcebased
+        - name: Autorizace na základě zobrazení
+          uid: security/authorization/views
+        - name: Omezení identity schématem
+          uid: security/authorization/limitingidentitybyscheme
+    - name: Ochrana dat
+      displayName: encryption
       items:
-      - uid: security/data-protection/consumer-apis/overview
-        name: Přehled
-      - uid: security/data-protection/consumer-apis/purpose-strings
-        name: Účelové řetězce
-      - uid: security/data-protection/consumer-apis/purpose-strings-multitenancy
-        name: Hierarchie účelů a víceklientská architektura
-      - uid: security/data-protection/consumer-apis/password-hashing
-        name: Určení hodnoty hash hesel
-      - uid: security/data-protection/consumer-apis/limited-lifetime-payloads
-        name: Omezení životnosti chráněných datových částí
-      - uid: security/data-protection/consumer-apis/dangerous-unprotect
-        name: Zrušení ochrany datových částí s odvolanými klíči
-    - name: Konfigurace
+        - name: Přehled
+          uid: security/data-protection/introduction
+        - name: Rozhraní API pro ochranu dat
+          uid: security/data-protection/using-data-protection
+        - name: Rozhraní API příjemců
+          items:
+            - name: Přehled
+              uid: security/data-protection/consumer-apis/overview
+            - name: Účelové řetězce
+              uid: security/data-protection/consumer-apis/purpose-strings
+            - name: Hierarchie účelů a víceklientská architektura
+              uid: security/data-protection/consumer-apis/purpose-strings-multitenancy
+            - name: Určení hodnoty hash hesel
+              uid: security/data-protection/consumer-apis/password-hashing
+            - name: Omezení životnosti chráněných datových částí
+              uid: security/data-protection/consumer-apis/limited-lifetime-payloads
+            - name: Zrušení ochrany datových částí s odvolanými klíči
+              uid: security/data-protection/consumer-apis/dangerous-unprotect
+        - name: Konfigurace
+          items:
+            - name: Přehled
+              uid: security/data-protection/configuration/index
+            - name: Konfigurace ochrany dat
+              uid: security/data-protection/configuration/overview
+            - name: Výchozí nastavení
+              uid: security/data-protection/configuration/default-settings
+            - name: Zásady pro celý počítač
+              uid: security/data-protection/configuration/machine-wide-policy
+            - name: Scénáře nevyužívající injektáž závislostí
+              uid: security/data-protection/configuration/non-di-scenarios
+        - name: Rozšiřující rozhraní API
+          items:
+            - name: Přehled
+              uid: security/data-protection/extensibility/index
+            - name: Rozšiřitelnost základní kryptografie
+              uid: security/data-protection/extensibility/core-crypto
+            - name: Rozšiřitelnost správy klíčů
+              uid: security/data-protection/extensibility/key-management
+            - name: Ostatní rozhraní API
+              uid: security/data-protection/extensibility/misc-apis
+        - name: Implementace
+          items:
+            - name: Přehled
+              uid: security/data-protection/implementation/index
+            - name: Podrobnosti ověřeného šifrování
+              uid: security/data-protection/implementation/authenticated-encryption-details
+            - name: Odvozování podklíčů a ověřené šifrování
+              uid: security/data-protection/implementation/subkeyderivation
+            - name: Kontextová záhlaví
+              uid: security/data-protection/implementation/context-headers
+            - name: Správa klíčů
+              uid: security/data-protection/implementation/key-management
+            - name: Zprostředkovatelé úložiště klíčů
+              uid: security/data-protection/implementation/key-storage-providers
+            - name: Šifrování klíčů v klidovém stavu
+              uid: security/data-protection/implementation/key-encryption-at-rest
+            - name: Neměnnost klíče a nastavení
+              uid: security/data-protection/implementation/key-immutability
+            - name: Formát ukládání klíčů
+              uid: security/data-protection/implementation/key-storage-format
+            - name: Zprostředkovatelé dočasné ochrany dat
+              uid: security/data-protection/implementation/key-storage-ephemeral
+        - name: Kompatibilita
+          items:
+            - name: Přehled
+              uid: security/data-protection/compatibility/index
+            - name: Nahrazení elementu machineKey v ASP.NET
+              uid: security/data-protection/compatibility/replacing-machinekey
+    - name: Správa tajných kódů
       items:
-      - uid: security/data-protection/configuration/index
-        name: Přehled
-      - uid: security/data-protection/configuration/overview
-        name: Konfigurace ochrany dat
-      - uid: security/data-protection/configuration/default-settings
-        name: Výchozí nastavení
-      - uid: security/data-protection/configuration/machine-wide-policy
-        name: Zásady pro celý počítač
-      - uid: security/data-protection/configuration/non-di-scenarios
-        name: Scénáře nevyužívající injektáž závislostí
-    - name: Rozšiřující rozhraní API
-      items:
-      - uid: security/data-protection/extensibility/index
-        name: Přehled
-      - uid: security/data-protection/extensibility/core-crypto
-        name: Rozšiřitelnost základní kryptografie
-      - uid: security/data-protection/extensibility/key-management
-        name: Rozšiřitelnost správy klíčů
-      - uid: security/data-protection/extensibility/misc-apis
-        name: Ostatní rozhraní API
-    - name: Implementace
-      items:
-      - uid: security/data-protection/implementation/index
-        name: Přehled
-      - uid: security/data-protection/implementation/authenticated-encryption-details
-        name: Podrobnosti ověřeného šifrování
-      - uid: security/data-protection/implementation/subkeyderivation
-        name: Odvozování podklíčů a ověřené šifrování
-      - uid: security/data-protection/implementation/context-headers
-        name: Kontextová záhlaví
-      - uid: security/data-protection/implementation/key-management
-        name: Správa klíčů
-      - uid: security/data-protection/implementation/key-storage-providers
-        name: Zprostředkovatelé úložiště klíčů
-      - uid: security/data-protection/implementation/key-encryption-at-rest
-        name: Šifrování klíčů v klidovém stavu
-      - uid: security/data-protection/implementation/key-immutability
-        name: Neměnnost klíče a nastavení
-      - uid: security/data-protection/implementation/key-storage-format
-        name: Formát ukládání klíčů
-      - uid: security/data-protection/implementation/key-storage-ephemeral
-        name: Zprostředkovatelé dočasné ochrany dat
-    - name: Kompatibilita
-      items:
-      - uid: security/data-protection/compatibility/index
-        name: Přehled
-      - uid: security/data-protection/compatibility/replacing-machinekey
-        name: Nahrazení elementu machineKey v ASP.NET
-  - uid: security/app-secrets
-    name: Ochrana tajných kódů při vývoji
-    displayName: password
-  - uid: security/key-vault-configuration
-    name: Zprostředkovatel konfigurace služby Azure Key Vault
-  - uid: security/enforcing-ssl
-    name: Vynucení protokolu HTTPS
-  - uid: security/gdpr
-    name: Podpora obecného nařízení EU o ochraně osobních údajů (GDPR)
-  - uid: security/anti-request-forgery
-    name: Ochrana proti padělání požadavků
-  - uid: security/preventing-open-redirects
-    name: Prevence útoků založených na otevřeném přesměrování
-  - uid: security/cross-site-scripting
-    name: Obrana proti skriptování mezi weby
-  - uid: security/cors
-    name: Povolení žádostí nepůvodního zdroje (CORS)
-  - uid: security/cookie-sharing
-    name: Sdílení souborů cookie mezi aplikacemi
-  - uid: security/ip-safelist
-    name: Seznam bezpečných IP adres
-  - name: Zabezpečení aplikací – OWASP
-    href: https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/DotNet_Security_Cheat_Sheet.md
+        - name: Ochrana tajných kódů při vývoji
+          displayName: 'password, connection string, API key'
+          uid: security/app-secrets
+        - name: Zprostředkovatel konfigurace služby Azure Key Vault
+          displayName: 'password, connection string, API key, secrets'
+          uid: security/key-vault-configuration
+    - name: Vynucení protokolu HTTPS
+      uid: security/enforcing-ssl
+    - name: Podpora obecného nařízení EU o ochraně osobních údajů (GDPR)
+      uid: security/gdpr
+    - name: Ochrana proti padělání požadavků
+      uid: security/anti-request-forgery
+    - name: Prevence útoků založených na otevřeném přesměrování
+      uid: security/preventing-open-redirects
+    - name: Obrana proti skriptování mezi weby
+      uid: security/cross-site-scripting
+    - name: Povolení žádostí nepůvodního zdroje (CORS)
+      uid: security/cors
+    - name: Sdílení souborů cookie mezi aplikacemi
+      uid: security/cookie-sharing
+    - name: Seznam bezpečných IP adres
+      uid: security/ip-safelist
+    - name: Zabezpečení aplikací – OWASP
+      href: 'https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/DotNet_Security_Cheat_Sheet.md'
 - name: Výkon
   items:
-  - uid: performance/performance-best-practices
-    name: Přehled
-  - name: Ukládání odpovědí do mezipaměti
-    items:
-    - uid: performance/caching/response
-      name: Přehled
-    - uid: performance/caching/memory
-      name: Mezipaměť v paměti
-    - uid: performance/caching/distributed
-      name: Distribuované ukládání do mezipaměti
-    - uid: performance/caching/middleware
-      name: Middleware pro ukládání odpovědí do mezipaměti
-  - uid: performance/response-compression
-    name: Komprese odpovědí
-  - uid: performance/diagnostic-tools
-    name: Diagnostické nástroje
-  - uid: test/loadtests
-    name: Zátěžové testování
+    - name: Přehled
+      uid: performance/performance-best-practices
+    - name: Ukládání odpovědí do mezipaměti
+      items:
+        - name: Přehled
+          uid: performance/caching/response
+        - name: Mezipaměť v paměti
+          uid: performance/caching/memory
+        - name: Distribuované ukládání do mezipaměti
+          uid: performance/caching/distributed
+        - name: Middleware pro ukládání odpovědí do mezipaměti
+          uid: performance/caching/middleware
+    - name: Komprese odpovědí
+      uid: performance/response-compression
+    - name: Diagnostické nástroje
+      uid: performance/diagnostic-tools
+    - name: Zátěžové testování
+      uid: test/loadtests
 - name: Globalizace a lokalizace
   items:
-  - uid: fundamentals/localization
-    name: Přehled
-    displayName: globalization, localization
-  - uid: fundamentals/portable-object-localization
-    name: Lokalizace souborů Portable Object
-  - uid: fundamentals/troubleshoot-aspnet-core-localization
-    name: Řešení potíží
+    - name: Přehled
+      displayName: 'globalization, localization'
+      uid: fundamentals/localization
+    - name: Lokalizace souborů Portable Object
+      uid: fundamentals/portable-object-localization
+    - name: Řešení potíží
+      uid: fundamentals/troubleshoot-aspnet-core-localization
 - name: Upřesnit
   items:
-  - uid: fundamentals/middleware/write
-    name: Psaní middlewaru
-  - uid: fundamentals/middleware/request-response
-    name: Operace žádostí a odpovědí
-    displayName: middleware
-  - uid: fundamentals/url-rewriting
-    name: Přepisování adres URL
-  - uid: fundamentals/file-providers
-    name: Zprostředkovatelé souborů
-  - uid: fundamentals/request-features
-    name: Rozhraní žádost-funkce
-  - uid: fundamentals/httpcontext
-    name: Access HttpContext
-  - uid: fundamentals/change-tokens
-    name: Změna tokenů
-  - uid: fundamentals/owin
-    name: Otevřené webové rozhraní pro .NET (OWIN)
-  - uid: fundamentals/host/hosted-services
-    name: Úlohy na pozadí s hostovanými službami
-  - uid: fundamentals/configuration/platform-specific-configuration
-    name: Hostování spouštěcích sestavení
-  - uid: fundamentals/metapackage-app
-    name: Metabalíček Microsoft.AspNetCore.App
-  - uid: fundamentals/metapackage
-    name: Metabalíček Microsoft.AspNetCore.All
-  - uid: fundamentals/logging/loggermessage
-    name: Protokolování funkcemi třídy LoggerMessage
-  - uid: tutorials/dotnet-watch
-    name: Sledovací proces souboru
-  - uid: fundamentals/middleware/extensibility
-    name: Middleware založený na objektu pro vytváření
-  - uid: fundamentals/middleware/extensibility-third-party-container
-    name: Middleware založený na objektu pro vytváření s kontejnerem jiného výrobce
+    - name: Psaní middlewaru
+      uid: fundamentals/middleware/write
+    - name: Operace žádostí a odpovědí
+      displayName: middleware
+      uid: fundamentals/middleware/request-response
+    - name: Přepisování adres URL
+      uid: fundamentals/url-rewriting
+    - name: Zprostředkovatelé souborů
+      uid: fundamentals/file-providers
+    - name: Rozhraní žádost-funkce
+      uid: fundamentals/request-features
+    - name: Access HttpContext
+      uid: fundamentals/httpcontext
+    - name: Změna tokenů
+      uid: fundamentals/change-tokens
+    - name: Otevřené webové rozhraní pro .NET (OWIN)
+      uid: fundamentals/owin
+    - name: Úlohy na pozadí s hostovanými službami
+      uid: fundamentals/host/hosted-services
+    - name: Hostování spouštěcích sestavení
+      uid: fundamentals/configuration/platform-specific-configuration
+    - name: Metabalíček Microsoft.AspNetCore.App
+      uid: fundamentals/metapackage-app
+    - name: Metabalíček Microsoft.AspNetCore.All
+      uid: fundamentals/metapackage
+    - name: Protokolování funkcemi třídy LoggerMessage
+      uid: fundamentals/logging/loggermessage
+    - name: Sledovací proces souboru
+      uid: tutorials/dotnet-watch
+    - name: Middleware založený na objektu pro vytváření
+      uid: fundamentals/middleware/extensibility
+    - name: Middleware založený na objektu pro vytváření s kontejnerem jiného výrobce
+      uid: fundamentals/middleware/extensibility-third-party-container
 - name: Migrace
   items:
-  - uid: migration/22-to-30
-    name: Z verze 2.2 do verze 3.0
-    displayName: migrate, migration
-  - uid: migration/21-to-22
-    name: Z verze 2.1 do verze 2.2
-    displayName: migrate, migration
-  - uid: migration/20_21
-    name: Z verze 2.0 do verze 2.1
-    displayName: migrate, migration
-  - name: Z verze 1.x do verze 2.0
-    displayName: migrate, migration
-    items:
-    - uid: migration/1x-to-2x/index
-      name: Přehled
-    - uid: migration/1x-to-2x/identity-2x
-      name: Ověřování a identita
-  - name: Z ASP.NET do ASP.NET Core
-    displayName: migrate, migration
-    items:
-    - uid: migration/proper-to-2x/index
-      name: Přehled
-    - uid: migration/mvc
-      name: MVC
-    - uid: migration/webapi
-      name: Webové rozhraní API
-    - uid: migration/configuration
-      name: Konfigurace
-    - uid: migration/identity
-      name: Ověřování a identita
-    - uid: migration/claimsprincipal-current
-      name: ClaimsPrincipal.Current
-    - uid: migration/proper-to-2x/membership-to-core-identity
-      name: Členství v Identity
-    - uid: migration/http-modules
-      name: Z modulů HTTP do middlewaru
-  - uid: migration/logging-nonaspnetcore
-    name: Protokolování (ne u ASP.NET Core)
-    displayName: migrate, migration
-- name: referenční dokumentace k rozhraní API
+    - name: Z verze 2.2 do verze 3.0
+      displayName: 'migrate, migration'
+      uid: migration/22-to-30
+    - name: Z verze 2.1 do verze 2.2
+      displayName: 'migrate, migration'
+      uid: migration/21-to-22
+    - name: Z verze 2.0 do verze 2.1
+      displayName: 'migrate, migration'
+      uid: migration/20_21
+    - name: Z verze 1.x do verze 2.0
+      displayName: 'migrate, migration'
+      items:
+        - name: Přehled
+          uid: migration/1x-to-2x/index
+        - name: Ověřování a identita
+          uid: migration/1x-to-2x/identity-2x
+    - name: Z ASP.NET do ASP.NET Core
+      displayName: 'migrate, migration'
+      items:
+        - name: Přehled
+          uid: migration/proper-to-2x/index
+        - name: MVC
+          uid: migration/mvc
+        - name: Webové rozhraní API
+          uid: migration/webapi
+        - name: Konfigurace
+          uid: migration/configuration
+        - name: Ověřování a identita
+          uid: migration/identity
+        - name: ClaimsPrincipal.Current
+          uid: migration/claimsprincipal-current
+        - name: Členství v Identity
+          uid: migration/proper-to-2x/membership-to-core-identity
+        - name: Z modulů HTTP do middlewaru
+          uid: migration/http-modules
+    - name: Protokolování (ne u ASP.NET Core)
+      displayName: 'migrate, migration'
+      uid: migration/logging-nonaspnetcore
+- name: "referenční dokumentace k\_rozhraní API"
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
-  href: https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md
-ms.openlocfilehash: 721fb2d1042307c23e0858a7a1bf71a0b24d57ab
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
-ms.translationtype: HT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59705559"
+  href: 'https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md'
