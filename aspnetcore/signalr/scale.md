@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 11/28/2018
 uid: signalr/scale
 ms.openlocfilehash: 4ac4509acc89d0091a3757c7cfbc9981614f29ad
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836919"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64901200"
 ---
 # <a name="aspnet-core-signalr-hosting-and-scaling"></a>Hostování v technologii ASP.NET Core SignalR a škálování
 
@@ -66,7 +66,7 @@ Z těchto důvodů doporučujeme, abyste službě Azure SignalR pro všechny fun
 
 Další informace najdete v článku [dokumentace ke službě Azure SignalR](/azure/azure-signalr/signalr-overview).
 
-## <a name="redis-backplane"></a>Redis propojovací rozhraní systému
+## <a name="redis-backplane"></a>Propojovací rozhraní Redis
 
 [Redis](https://redis.io/) je párů klíč hodnota v paměti, podporující systému zasílání zpráv s modelem publikování a přihlášení k odběru. Propojovací rozhraní systému SignalR Redis používá funkci pub/sub pro předávání zpráv na jiné servery. Když se klient připojí, informace o připojení je předán do propojovacího rozhraní. Když chce, aby server pro odeslání zprávy na všechny klienty, odešle do propojovacího rozhraní. Propojovacího rozhraní zná všechny připojené klienty a které servery, které jsou uvedené na. Odešle zprávu pro všechny klienty přes jejich příslušné servery. Tento proces je znázorněn v následujícím diagramu:
 

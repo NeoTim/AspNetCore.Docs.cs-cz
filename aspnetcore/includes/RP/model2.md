@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 86cf1874677dc8b79e3223fb0819eb1881c69a11
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265602"
----
 <a name="dc"></a>
 
 ### <a name="add-a-database-context-class"></a>Přidání třídy kontextu databáze

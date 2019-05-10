@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
-ms.openlocfilehash: de8548fe2396102fe44a8e6a000b44d4eea63285
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 9d6ce79c15fe768c260c6361ac3babecab5f3f9b
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209924"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087304"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřete Web Interface pro .NET (OWIN) s ASP.NET Core
 
@@ -29,7 +29,7 @@ To umožňuje zajistit také jejich hostování nad OWIN kompatibilní serveru/h
 > [!NOTE]
 > Pomocí těchto adaptérů součástí nákladů na výkon. Neměli byste používat aplikace s využitím pouze součásti ASP.NET Core `Microsoft.AspNetCore.Owin` balíčku nebo adaptéry.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/owin/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="running-owin-middleware-in-the-aspnet-core-pipeline"></a>Spuštění OWIN middleware v kanálu ASP.NET Core
 
@@ -214,7 +214,7 @@ public class Startup
 }
 ```
 
-To [ukázka](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/owin/sample) je nakonfigurovaný pomocí stejných `NowinServer` jako předchozí - jediný rozdíl je v konfiguraci aplikace v jeho `Configure` metoda. Test pomocí [jednoduchého objektu websocket na straně klienta](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en) ukazuje aplikace:
+To [ukázka](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) je nakonfigurovaný pomocí stejných `NowinServer` jako předchozí - jediný rozdíl je v konfiguraci aplikace v jeho `Configure` metoda. Test pomocí [jednoduchého objektu websocket na straně klienta](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en) ukazuje aplikace:
 
 ![Testovací klient webových soketů](owin/_static/websocket-test.png)
 

@@ -6,18 +6,14 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 228722ecdc0fb19e024b7154393390fe6d34c5ff
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
-ms.translationtype: HT
+ms.openlocfilehash: 06de728096b91b128c6bc3eb7791609d2161cd9b
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900783"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65517002"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – řazení, filtrování, stránkování – 3 z 8
-
-[!INCLUDE[2.0 version](~/includes/RP-EF/20-pdf.md)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 Podle [Petr Dykstra](https://github.com/tdykstra), [Rick Anderson](https://twitter.com/RickAndMSFT), a [Jan Macek P](https://twitter.com/thereformedprog)
 
@@ -286,7 +282,7 @@ Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace
 
 V dalším kurzu se aplikace používá k aktualizaci modelu dat migrace.
 
-::: moniker-end
+
 
 > [!div class="step-by-step"]
 > [Předchozí](xref:data/ef-rp/crud)

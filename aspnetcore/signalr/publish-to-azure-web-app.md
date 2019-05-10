@@ -7,19 +7,19 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/20/2018
 uid: signalr/publish-to-azure-web-app
-ms.openlocfilehash: 66fa855590c49c4284e4b42cae57f3d4d81dd0fc
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.openlocfilehash: 1c472711a86edae8dc6e207734aa54e48c02d47d
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54837673"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087687"
 ---
 # <a name="publish-an-aspnet-core-signalr-app-to-an-azure-web-app"></a>Publikování ASP.NET Core aplikace SignalR pro webovou aplikaci Azure
 
 [Služba Azure Web Apps](/azure/app-service/app-service-web-overview) je [Microsoft cloud computingu](https://azure.microsoft.com/) služba platformy pro hostování webových aplikací, včetně ASP.NET Core.
 
 > [!NOTE]
-> Tento článek se týká publikování aplikace SignalR technologie ASP.NET Core v sadě Visual Studio. Navštivte [služby SignalR pro Azure](https://azure.microsoft.com/en-gb/services/signalr-service?) Další informace o použití aplikace SignalR v Azure.
+> Tento článek se týká publikování aplikace SignalR technologie ASP.NET Core v sadě Visual Studio. Navštivte [služby SignalR pro Azure](https://azure.microsoft.com/services/signalr-service) Další informace o použití aplikace SignalR v Azure.
 
 ## <a name="publish-the-app"></a>Publikování aplikace
 

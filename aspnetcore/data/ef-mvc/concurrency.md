@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 668cdafc078091b65035ecad854d2ecc62555721
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: d3954800f4f1358565a627768e34465215dc4f6e
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750855"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900510"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: Zpracování souběžnosti – ASP.NET MVC s EF Core
 
@@ -51,7 +51,7 @@ Pokud vaše aplikace potřebuje se tak ztrátě dat ve scénářích souběžnos
 
 Zámky pro správu má nevýhody. Může být složité do programu. Vyžaduje významné databáze správy zdrojů, a to může způsobit problémy s výkonem jako počet uživatelů aplikace zvyšuje. Z těchto důvodů ne všechny systémy správy databáze nepodporují Pesimistická souběžnost. Entity Framework Core obsahuje předdefinovanou podporu pro ni a v tomto kurzu nezobrazí způsobu jeho implementace.
 
-### <a name="optimistic-concurrency"></a>Optimistická souběžnost
+### <a name="optimistic-concurrency"></a>Optimistická metoda souběžného zpracování
 
 Alternativa k Pesimistická souběžnost je Optimistická souběžnost. Povolení konfliktů souběžnosti, která se provede a reaguje správně, pokud tomu znamená, že optimistického řízení souběžnosti. Například Jana navštíví stránku Upravit oddělení a změní hodnotu rozpočtu pro anglickou oddělení z $350,000.00 na 0.00 $.
 
@@ -288,7 +288,7 @@ Nahraďte kód v *Views/Departments/Create.cshtml* vyberte možnost přidat do r
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="additional-resources"></a>Další zdroje
 

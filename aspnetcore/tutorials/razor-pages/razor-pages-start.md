@@ -3,14 +3,14 @@ title: 'Kurz: Začínáme se stránkami Razor v ASP.NET Core'
 author: rick-anderson
 description: Tato série kurzů ukazuje, jak používat v ASP.NET Core Razor Pages. Zjistěte, jak vytvořit model, generování kódu pro stránky Razor, použít pro přístup k datům Entity Framework Core a SQL Server, vyhledávání, přidat ověřování vstupu a použití migrace k aktualizaci modelu.
 ms.author: riande
-ms.date: 12/5/2018
+ms.date: 05/09/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 1d264ca4a605d8291e273a8f054c92e7eefa5548
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
-ms.translationtype: HT
+ms.openlocfilehash: 9307291756baf1bef714d6dae2f8d25d3aa6f922
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903294"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65517116"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se stránkami Razor v ASP.NET Core
 
@@ -59,7 +59,7 @@ Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na 
 
 * Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
-* Změňte adresář (`cd`) do složky, která bude obsahovat projektu.
+* Přejděte do adresáře (`cd`) která bude obsahovat projektu.
 
 * Spusťte následující příkazy:
 
@@ -69,7 +69,7 @@ Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na 
   ```
 
   * `dotnet new` Příkaz vytvoří nový projekt v Razor Pages *RazorPagesMovie* složky.
-  * `code` Příkaz otevře *RazorPagesMovie* složky v nové instanci sady Visual Studio Code.
+  * `code` Příkaz otevře *RazorPagesMovie* složku v aktuální instanci aplikace Visual Studio Code.
 
   Zobrazí se dialogové okno s **'RazorPagesMovie' chybí požadované prostředky pro sestavení a ladění. Přidat?**
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 622f28f3b4348820c8781e0ba14ae5137136e797
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 0c2df3ec63f393b961754f496830cccb26f1cb76
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346564"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64899511"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -70,7 +70,7 @@ services.AddMvc()
 > [!IMPORTANT]
 > Tento dokument popisuje směrování nízké úrovně ASP.NET Core. Informace o směrování ASP.NET Core MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvence směrování ve stránky Razor, naleznete v tématu <xref:razor-pages/razor-pages-conventions>.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základní informace o směrování
 
@@ -734,7 +734,7 @@ Následující příklad ukazuje, jak ke generování odkazu pro trasu zadaný s
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
 
-<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> Vygeneruje na konci předchozí ukázka je `/package/create/123`. Poskytuje slovníku `operation` a `id` hodnot "Sledovat balíček trasy" šablony trasy `package/{operation}/{id}`. Podrobnosti najdete v tématu ukázkový kód v [použití směrování Middleware](#use-routing-middleware) části nebo [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/routing/samples).
+<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> Vygeneruje na konci předchozí ukázka je `/package/create/123`. Poskytuje slovníku `operation` a `id` hodnot "Sledovat balíček trasy" šablony trasy `package/{operation}/{id}`. Podrobnosti najdete v tématu ukázkový kód v [použití směrování Middleware](#use-routing-middleware) části nebo [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
 
 Druhý parametr <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> konstruktor je kolekce *okolí hodnoty*. Ambientní hodnoty jsou vhodné použít, protože omezují počet hodnot, které vývojář musí zadat v rámci kontextu požadavku. Aktuální hodnoty trasy z aktuální požadavek jsou považovány za okolí hodnoty pro generování odkazů. V aplikaci ASP.NET Core MVC `About` akce `HomeController`, není nutné zadat hodnotu trasy kontroleru propojení `Index` akce&mdash;okolí hodnotu `Home` se používá.
 

@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/28/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 8967f87da58e7386bc1dd84e7b3e0f5daaecf9cb
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
-ms.translationtype: HT
+ms.openlocfilehash: b5b05dbd553124cecac2ec7ddb55c939cb91c8ad
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899577"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450989"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace serveru webové kestrel v ASP.NET Core
 
@@ -1132,5 +1132,5 @@ Middleware filtrování hostitele je ve výchozím nastavení zakázána. Chcete
 * <xref:test/troubleshoot>
 * <xref:security/enforcing-ssl>
 * <xref:host-and-deploy/proxy-load-balancer>
-* [Kestrel zdrojového kódu](https://github.com/aspnet/KestrelHttpServer)
+* [Kestrel zdrojového kódu](https://github.com/aspnet/AspNetCore/tree/master/src/Servers/Kestrel)
 * [RFC 7230: Syntaxe a směrování zpráv (oddíl 5.4: Hostitel)](https://tools.ietf.org/html/rfc7230#section-5.4)

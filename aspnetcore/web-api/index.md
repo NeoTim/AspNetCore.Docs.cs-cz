@@ -5,14 +5,14 @@ description: Naučte se základy vytváření webových rozhraní API v ASP.NET 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 04/11/2019
+ms.date: 05/07/2019
 uid: web-api/index
-ms.openlocfilehash: d804a7f1b4f0e89f433a3674116c97804705f7cc
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
-ms.translationtype: HT
+ms.openlocfilehash: 593fd33babc81cddfc4db2150a37e5ec3bc1a0be
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902580"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450834"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -137,6 +137,10 @@ Chcete-li změnit výchozí odpověď <xref:Microsoft.AspNetCore.Mvc.Serializabl
 Chcete-li přizpůsobit odpověď, která je výsledkem chyba ověřování, použijte <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory>. Přidejte následující zvýrazněný kód po `services.AddMvc().SetCompatibilityVersion`:
 
 [!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureBadRequestResponse&highlight=3-20)]
+
+### <a name="log-automatic-400-responses"></a>Protokolovat 400 automatické odpovědi
+
+Zobrazit [protokolování automatické 400 odpovědi na chyby ověření modelu (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).
 
 ### <a name="disable-automatic-400"></a>Zakázat automatické 400
 

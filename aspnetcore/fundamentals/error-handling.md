@@ -5,14 +5,14 @@ description: Objevte, jak zpracovávat chyby v aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 04/07/2019
+ms.date: 05/03/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: cbb9462a3c6010e074dc391aa128ac2cbb901456
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 36cd9fdac0b9159900e82327705a73d561e7ce6b
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59705575"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086962"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Petr Dykstra](https://github.com/tdykstra/), [Luke Latham](https://github
 
 Tento článek se věnuje běžné přístupy k zpracování chyb v aplikacích ASP.NET Core.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples). ([Stažení](xref:index#how-to-download-a-sample).) Tento článek obsahuje pokyny ohledně toho, jak nastavit direktivy preprocesoru (`#if`, `#endif`, `#define`) v ukázkové aplikaci povolit různé scénáře.
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples). ([Stažení](xref:index#how-to-download-a-sample).) Tento článek obsahuje pokyny ohledně toho, jak nastavit direktivy preprocesoru (`#if`, `#endif`, `#define`) v ukázkové aplikaci povolit různé scénáře.
 
 ## <a name="developer-exception-page"></a>Stránce výjimek pro vývojáře
 
@@ -40,7 +40,7 @@ Stránka obsahuje následující informace o výjimku a požadavek:
 * Soubory cookie (pokud existuje)
 * Záhlaví
 
-Zobrazíte na stránce výjimek pro vývojáře v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `DevEnvironment` preprocesor směrnice a vyberte **spuštění výjimky** na domovské stránce.
+Zobrazíte na stránce výjimek pro vývojáře v [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `DevEnvironment` preprocesor směrnice a vyberte **spuštění výjimky** na domovské stránce.
 
 ## <a name="exception-handler-page"></a>Stránka obslužné rutiny výjimek
 
@@ -75,7 +75,7 @@ Použití <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> p
 > [!WARNING]
 > Proveďte **není** poskytovat informace o chybě citlivé klientům. Obsluhuje chyby představuje bezpečnostní riziko.
 
-Chcete zobrazit stránku zpracování výjimek v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `ProdEnvironment` a `ErrorHandlerPage` direktivy preprocesoru a vyberte **spuštění výjimky** na domovské stránce.
+Chcete zobrazit stránku zpracování výjimek v [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `ProdEnvironment` a `ErrorHandlerPage` direktivy preprocesoru a vyberte **spuštění výjimky** na domovské stránce.
 
 ## <a name="exception-handler-lambda"></a>Lambda obslužné rutiny výjimek
 
@@ -88,7 +88,7 @@ Tady je příklad použití výrazu lambda pro zpracování výjimek:
 > [!WARNING]
 > Proveďte **není** poskytovat informace o chybě citlivé z <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> nebo <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientům. Obsluhuje chyby představuje bezpečnostní riziko.
 
-Chcete-li zobrazit výsledek tohoto výrazu lambda zpracování výjimek v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `ProdEnvironment` a `ErrorHandlerLambda` direktivy preprocesoru a vyberte **spuštění výjimky** na domovské stránce.
+Chcete-li zobrazit výsledek tohoto výrazu lambda zpracování výjimek v [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `ProdEnvironment` a `ErrorHandlerLambda` direktivy preprocesoru a vyberte **spuštění výjimky** na domovské stránce.
 
 ## <a name="usestatuscodepages"></a>UseStatusCodePages
 
@@ -108,7 +108,7 @@ Tady je příklad text, zobrazený výchozích obslužných rutin:
 Status Code: 404; Not Found
 ```
 
-Chcete-li zobrazit jeden z různých formátů stránky kód stavu v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte jednu z direktivy preprocesoru, které začínají `StatusCodePages`a vyberte **aktivační události a 404** na domovské stránce.
+Chcete-li zobrazit jeden z různých formátů stránky kód stavu v [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte jednu z direktivy preprocesoru, které začínají `StatusCodePages`a vyberte **aktivační události a 404** na domovské stránce.
 
 ## <a name="usestatuscodepages-with-format-string"></a>UseStatusCodePages řetězcem formátu
 
@@ -131,7 +131,7 @@ Zadat vlastní zpracování chyb a odezvy psaní kódu, použijte přetížení 
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithRedirect)]
 
-Šablona adresy URL může obsahovat `{0}` zástupný symbol pro kód stavu, jak je znázorněno v příkladu. Pokud šablona adresa URL začíná tildou (~), aplikace nahrazuje tilda `PathBase`. Pokud přejdete na koncový bod v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Příklad stránky Razor, naleznete v tématu [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml) v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).
+Šablona adresy URL může obsahovat `{0}` zástupný symbol pro kód stavu, jak je znázorněno v příkladu. Pokud šablona adresa URL začíná tildou (~), aplikace nahrazuje tilda `PathBase`. Pokud přejdete na koncový bod v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Příklad stránky Razor, naleznete v tématu *Pages/StatusCode.cshtml* v [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).
 
 Tato metoda se obvykle nepoužívá, pokud aplikace:
 
@@ -147,7 +147,7 @@ Tato metoda se obvykle nepoužívá, pokud aplikace:
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_StatusCodePagesWithReExecute)]
 
-Pokud přejdete na koncový bod v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Příklad stránky Razor, naleznete v tématu [StatusCode.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples/2.x/Pages/StatusCode.cshtml) v [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).
+Pokud přejdete na koncový bod v rámci aplikace, vytvořte zobrazení MVC nebo stránky Razor pro koncový bod. Příklad stránky Razor, naleznete v tématu *Pages/StatusCode.cshtml* v [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples).
 
 Tato metoda se obvykle používá při aplikace:
 

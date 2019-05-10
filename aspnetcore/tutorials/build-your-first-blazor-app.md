@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/18/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: c52efcb1224e2bbea56fa55c70faf253ef96d433
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: d235fec4e128ad8622a06d301eeac15c4862c159
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982756"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087737"
 ---
 # <a name="build-your-first-blazor-app"></a>Vytvořte svoji první aplikaci Blazor
 
@@ -24,7 +24,7 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku vytvořte projekt 
 
 ## <a name="build-components"></a>Sestavení komponent
 
-1. Přejděte do všech tří stránek vaší aplikace v *stránky* složky: Domů čítač a načíst data. Tyto stránky jsou implementovány v souborech Razor komponenty: *Index.Razor*, *Counter.razor*, a *FetchData.razor*.
+1. Přejděte do všech tří stránek vaší aplikace v *stránky* složky: Domů čítač a načíst data. Tyto stránky jsou implementované soubory součástí Razor *Index.razor*, *Counter.razor*, a *FetchData.razor*.
 
 1. Na stránce čítače, vyberte **klikněte na mě** tlačítka se zvýší čítač bez aktualizace stránky. Zvyšování hodnoty čítače na webové stránce obvykle vyžaduje zadání jazyka JavaScript, ale Blazor poskytuje lepší přístup pomocí C#.
 
@@ -49,21 +49,21 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku vytvořte projekt 
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
 
-1. Znovu sestavte a spusťte aplikaci, aby se změny projevily. Vyberte **klikněte na mě** tlačítko a zvýší čítač ve dvou.
+1. Znovu sestavte a spusťte aplikaci, aby se změny projevily. Vyberte **klikněte na mě** tlačítko. Zvýší čítač ve dvou.
 
 ## <a name="use-components"></a>Použití komponent
 
-Zahrnout součásti do jiné součásti pomocí syntaxe HTML.
+Zahrňte součásti v jiné součásti pomocí syntaxe pro HTML.
 
-1. Přidat součást čítače pro součást aplikace indexu (domů) tak, že přidáte `<Counter />` – element pro součást indexu.
+1. Přidat součást čítače pro součást aplikace indexu tak, že přidáte `<Counter />` – element pro součást indexu (*Index.razor*).
 
-   Pokud používáte Blazor pro toto prostředí, průzkum výzvy součásti (`<SurveyPrompt>` element) je v komponentě indexu. Nahraďte `<SurveyPrompt>` křížkem `<Counter>` elementu.
+   Pokud používáte Blazor na straně klienta pro toto prostředí, průzkum výzvy součásti (`<SurveyPrompt>` element) je v komponentě indexu. Nahraďte `<SurveyPrompt>` křížkem `<Counter>` elementu. Pokud používáte aplikaci na straně serveru Blazor pro toto prostředí, přidejte `<Counter>` – element pro součást indexu:
 
    *Pages/Index.razor*:
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-1. Znovu sestavte a spusťte aplikaci. Domovská stránka obsahuje vlastní čítače.
+1. Znovu sestavte a spusťte aplikaci. Součást indexu má svůj vlastní čítače.
 
 ## <a name="component-parameters"></a>Parametry komponenty
 
@@ -76,24 +76,24 @@ Součástí mohou mít také parametry. Parametry komponenty jsou definovány po
 
    *Pages/Counter.razor*:
 
-   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=12,16)]
+   [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
 
 <!-- Add back when supported.
    > [!NOTE]
    > From Visual Studio, you can quickly add a component parameter by using the `para` snippet. Type `para` and press the `Tab` key twice.
 -->
 
-1. Zadejte `IncrementAmount` parametr v komponentě domovské `<Counter>` pomocí atributu element. Nastavte hodnotu čítače přírůstku deset.
+1. Zadejte `IncrementAmount` parametr v indexu součásti `<Counter>` pomocí atributu element. Nastavte hodnotu čítače přírůstku deset.
 
    *Pages/Index.razor*:
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-1. Znovu načte na domovské stránce. Hodnota čítače se zvýší o hodnotu deset pokaždé, když **klikněte na mě** výběru tlačítka. Čítače na stránku zvýší čítač jednou.
+1. Znovu načte součást indexu. Hodnota čítače se zvýší o hodnotu deset pokaždé, když **klikněte na mě** výběru tlačítka. Čítače v komponentě čítače pořád postupně zvyšuje o jednu.
 
 ## <a name="route-to-components"></a>Směrovat do komponenty
 
-`@page` Direktiv v horní části *Counter.razor* soubor Určuje, že tato součást je koncový bod směrování. Součást čítače zpracovává požadavky odeslané na `/Counter`. Bez `@page` direktiv, komponenta nebude zpracovávat směrování žádostí, ale součást je stále možné ostatními komponentami.
+`@page` Direktiv v horní části *Counter.razor* souboru Určuje, zda součást čítače směrování koncový bod. Součást čítače zpracovává požadavky odeslané na `/counter`. Bez `@page` direktiv, komponenta nebude zpracovávat směrování žádostí, ale komponenta je stále možné ostatními komponentami.
 
 ## <a name="dependency-injection"></a>Injektáž závislostí
 
@@ -115,7 +115,7 @@ Je-li pracovat s aplikací na straně klienta Blazor, `HttpClient` se vloží z�
 
 *Pages/FetchData.razor*:
 
-[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7)]
+[!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
 
 A [ \@foreach](/dotnet/csharp/language-reference/keywords/foreach-in) smyčky se použije k vykreslení každou prognózy instanci jako řadu data o počasí v tabulce:
 
@@ -138,9 +138,9 @@ Přidáte novou součást aplikaci, která implementuje seznam úkolů.
 
 1. Přidáte součást Todo do navigačního panelu.
 
-   Komponenta NavMenu (*Pages/Shared/NavMenu.razor*) se používá v rozložení aplikace. Rozložení jsou komponenty, které umožňují, aby se zabránilo duplicitě obsahu v aplikaci. Další informace naleznete v tématu <xref:blazor/layouts>.
+   Komponenta NavMenu (*Shared/NavMenu.razor*) se používá v rozložení aplikace. Rozložení jsou komponenty, které umožňují, aby se zabránilo duplicitě obsahu v aplikaci. Další informace naleznete v tématu <xref:blazor/layouts>.
 
-   Přidat `<NavLink>` pro komponentu Todo tak, že přidáte následující značky položky seznamu níže existující položky seznamu v *Pages/Shared/NavMenu.razor* souboru:
+   Přidat `<NavLink>` pro komponentu Todo tak, že přidáte následující značky položky seznamu níže existující položky seznamu v *Shared/NavMenu.razor* souboru:
 
    ```cshtml
    <li class="nav-item px-3">
@@ -158,12 +158,12 @@ Přidáte novou součást aplikaci, která implementuje seznam úkolů.
 
 1. Vraťte se do komponenty Todo (*Pages/Todo.razor*):
 
-   * Přidání pole pro úloh, ať už v `@functions` bloku. Todo součásti používá toto pole pro uchování stavu pro seznam úkolů.
+   * Přidání polí pro položky seznamu úkolů `@functions` bloku. Todo součásti používá toto pole pro uchování stavu pro seznam úkolů.
    * Přidat neuspořádaný seznam značek a `foreach` smyčky k vykreslení každé položky todo jako položku seznamu.
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
 
-1. Aplikace vyžaduje pro přidání do seznamu úloh, ať už prvky uživatelského rozhraní. Přidání textového zadání a tlačítka v seznamu níže:
+1. Aplikace vyžaduje prvky uživatelského rozhraní pro přidávání položek todo do seznamu. Přidání textového zadání a tlačítka v seznamu níže:
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
@@ -187,7 +187,7 @@ Přidáte novou součást aplikaci, která implementuje seznam úkolů.
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
-1. Znovu sestavte a spusťte aplikaci. Přidání některých úloh, ať už do seznamu k testování nového kódu.
+1. Znovu sestavte a spusťte aplikaci. Přidejte několik položek todo do seznamu todo k testování nového kódu.
 
 1. Text nadpisu pro každou položku seznamu úkolů lze upravovat a zaškrtávací políčko může pomoci udržovat přehled o dokončené položky uživatele. Přidat vstup zaškrtněte políčko u každé položky todo a její hodnotu na vytvoření vazby `IsDone` vlastnost. Změna `@todo.Title` do `<input>` prvek vázán na `@todo.Title`:
 
