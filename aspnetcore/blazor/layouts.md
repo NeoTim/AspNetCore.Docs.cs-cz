@@ -5,105 +5,72 @@ description: Zjistěte, jak vytvářet rozložení opakovaně použitelné kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/18/2019
+ms.date: 04/24/2019
 uid: blazor/layouts
-ms.openlocfilehash: 2b898110052420b43ef3ee1f4f80909ec5d71a10
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 8641400cd97a74572d1bcd8c6eb6891656903e1b
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165090"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898488"
 ---
-# <a name="blazor-layouts"></a><span data-ttu-id="91cd4-103">Blazor rozložení</span><span class="sxs-lookup"><span data-stu-id="91cd4-103">Blazor layouts</span></span>
+# <a name="blazor-layouts"></a><span data-ttu-id="426cf-103">Blazor rozložení</span><span class="sxs-lookup"><span data-stu-id="426cf-103">Blazor layouts</span></span>
 
-<span data-ttu-id="91cd4-104">Podle [Rainer Stropek](https://www.timecockpit.com)</span><span class="sxs-lookup"><span data-stu-id="91cd4-104">By [Rainer Stropek](https://www.timecockpit.com)</span></span>
+<span data-ttu-id="426cf-104">Podle [Rainer Stropek](https://www.timecockpit.com)</span><span class="sxs-lookup"><span data-stu-id="426cf-104">By [Rainer Stropek](https://www.timecockpit.com)</span></span>
 
-<span data-ttu-id="91cd4-105">Aplikace obvykle obsahují více než jednu součást.</span><span class="sxs-lookup"><span data-stu-id="91cd4-105">Apps typically contain more than one component.</span></span> <span data-ttu-id="91cd4-106">Prvky, rozložení, jako jsou nabídky, zprávy o autorských právech a loga, musí být k dispozici pro všechny komponenty.</span><span class="sxs-lookup"><span data-stu-id="91cd4-106">Layout elements, such as menus, copyright messages, and logos, must be present on all components.</span></span> <span data-ttu-id="91cd4-107">Kopírování kódu z těchto elementů rozložení do všech součástí aplikace není efektivní přístup.</span><span class="sxs-lookup"><span data-stu-id="91cd4-107">Copying the code of these layout elements into all of the components of an app isn't an efficient approach.</span></span> <span data-ttu-id="91cd4-108">Tato duplikace je obtížné udržovat a pravděpodobně povede k nekonzistentní obsah v čase.</span><span class="sxs-lookup"><span data-stu-id="91cd4-108">Such duplication is hard to maintain and probably leads to inconsistent content over time.</span></span> <span data-ttu-id="91cd4-109">*Rozložení* tento problém vyřešit.</span><span class="sxs-lookup"><span data-stu-id="91cd4-109">*Layouts* solve this problem.</span></span>
+<span data-ttu-id="426cf-105">Některé prvky aplikace, jako jsou nabídky, zprávy o autorských právech a loga společnosti, jsou obvykle součástí celkového rozložení vaší aplikace a používat všechny komponenty v aplikaci.</span><span class="sxs-lookup"><span data-stu-id="426cf-105">Some app elements, such as menus, copyright messages, and company logos, are usually part of app's overall layout and used by every component in the app.</span></span> <span data-ttu-id="426cf-106">Kopírování kódu z těchto elementů do všech součástí aplikace není efektivní přístup&mdash;pokaždé, když se jeden z elementů vyžaduje aktualizaci, musí se aktualizovat všechny komponenty.</span><span class="sxs-lookup"><span data-stu-id="426cf-106">Copying the code of these elements into all of the components of an app isn't an efficient approach&mdash;every time one of the elements requires an update, every component must be updated.</span></span> <span data-ttu-id="426cf-107">Je obtížné udržovat a může vést k nekonzistentním obsah v čase.</span><span class="sxs-lookup"><span data-stu-id="426cf-107">Such duplication is difficult to maintain and can lead to inconsistent content over time.</span></span> <span data-ttu-id="426cf-108">*Rozložení* tento problém vyřešit.</span><span class="sxs-lookup"><span data-stu-id="426cf-108">*Layouts* solve this problem.</span></span>
 
-<span data-ttu-id="91cd4-110">Technicky vzato rozložení je jenom další komponenty.</span><span class="sxs-lookup"><span data-stu-id="91cd4-110">Technically, a layout is just another component.</span></span> <span data-ttu-id="91cd4-111">Rozložení je definována šablona Razor nebo v C# kódu a může obsahovat [datové vazby](xref:blazor/components#data-binding), [injektáž závislostí](xref:blazor/dependency-injection)a další běžné funkce součástí.</span><span class="sxs-lookup"><span data-stu-id="91cd4-111">A layout is defined in a Razor template or in C# code and can contain [data binding](xref:blazor/components#data-binding), [dependency injection](xref:blazor/dependency-injection), and other ordinary features of components.</span></span>
+<span data-ttu-id="426cf-109">Technicky vzato rozložení je jenom další komponenty.</span><span class="sxs-lookup"><span data-stu-id="426cf-109">Technically, a layout is just another component.</span></span> <span data-ttu-id="426cf-110">Rozložení je definována šablona Razor nebo v C# kódu a můžete použít [datové vazby](xref:blazor/components#data-binding), [injektáž závislostí](xref:blazor/dependency-injection)a další součásti scénáře.</span><span class="sxs-lookup"><span data-stu-id="426cf-110">A layout is defined in a Razor template or in C# code and can use [data binding](xref:blazor/components#data-binding), [dependency injection](xref:blazor/dependency-injection), and other component scenarios.</span></span>
 
-<span data-ttu-id="91cd4-112">Zapnout dva další aspekty *komponenty* do *rozložení*</span><span class="sxs-lookup"><span data-stu-id="91cd4-112">Two additional aspects turn a *component* into a *layout*</span></span>
+<span data-ttu-id="426cf-111">Chcete-li *komponenty* do *rozložení*, součást:</span><span class="sxs-lookup"><span data-stu-id="426cf-111">To turn a *component* into a *layout*, the component:</span></span>
 
-* <span data-ttu-id="91cd4-113">Komponenta rozložení musí dědit z `LayoutComponentBase`.</span><span class="sxs-lookup"><span data-stu-id="91cd4-113">The layout component must inherit from `LayoutComponentBase`.</span></span> <span data-ttu-id="91cd4-114">`LayoutComponentBase` definuje `Body` vlastnost, která obsahuje obsah, který se vykreslí uvnitř rozložení.</span><span class="sxs-lookup"><span data-stu-id="91cd4-114">`LayoutComponentBase` defines a `Body` property that contains the content to be rendered inside the layout.</span></span>
-* <span data-ttu-id="91cd4-115">Používá součásti rozložení `Body` vlastnosti a určit, kde má být obsah textu vykreslen pomocí syntaxe Razor `@Body`.</span><span class="sxs-lookup"><span data-stu-id="91cd4-115">The layout component uses the `Body` property to specify where the body content should be rendered using the Razor syntax `@Body`.</span></span> <span data-ttu-id="91cd4-116">Při vykreslování, `@Body` nahrazuje obsah rozložení.</span><span class="sxs-lookup"><span data-stu-id="91cd4-116">During rendering, `@Body` is replaced by the content of the layout.</span></span>
+* <span data-ttu-id="426cf-112">Dědí z `LayoutComponentBase`, která definuje `Body` vlastnost, která obsahuje obsah, který se vykreslí uvnitř rozložení.</span><span class="sxs-lookup"><span data-stu-id="426cf-112">Inherits from `LayoutComponentBase`, which defines a `Body` property that contains the content to be rendered inside the layout.</span></span>
+* <span data-ttu-id="426cf-113">Používá syntaxi Razor `@Body` k určení umístění v kódu, kde má být vykreslen obsah.</span><span class="sxs-lookup"><span data-stu-id="426cf-113">Uses the Razor syntax `@Body` to specify the location in the markup where the content should be rendered.</span></span>
 
-<span data-ttu-id="91cd4-117">Následující příklad kódu ukazuje šablona Razor součásti rozložení.</span><span class="sxs-lookup"><span data-stu-id="91cd4-117">The following code sample shows the Razor template of a layout component.</span></span> <span data-ttu-id="91cd4-118">Všimněte si použití `LayoutComponentBase` a `@Body`:</span><span class="sxs-lookup"><span data-stu-id="91cd4-118">Note the use of `LayoutComponentBase` and `@Body`:</span></span>
+<span data-ttu-id="426cf-114">Následující příklad kódu ukazuje šablona Razor rozložení součásti *MainLayout.razor*.</span><span class="sxs-lookup"><span data-stu-id="426cf-114">The following code sample shows the Razor template of a layout component, *MainLayout.razor*.</span></span> <span data-ttu-id="426cf-115">Rozložení dědí `LayoutComponentBase` a nastaví `@Body` mezi na navigačním panelu a v zápatí je uvedené:</span><span class="sxs-lookup"><span data-stu-id="426cf-115">The layout inherits `LayoutComponentBase` and sets the `@Body` between the navigation bar and the footer:</span></span>
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.razor)]
+[!code-cshtml[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
-## <a name="use-a-layout-in-a-component"></a><span data-ttu-id="91cd4-119">Použít rozložení v komponentě</span><span class="sxs-lookup"><span data-stu-id="91cd4-119">Use a layout in a component</span></span>
+## <a name="specify-a-layout-in-a-component"></a><span data-ttu-id="426cf-116">Určete rozložení v komponentě</span><span class="sxs-lookup"><span data-stu-id="426cf-116">Specify a layout in a component</span></span>
 
-<span data-ttu-id="91cd4-120">Pomocí direktivy Razor `@layout` do rozložení můžete použít na komponentu.</span><span class="sxs-lookup"><span data-stu-id="91cd4-120">Use the Razor directive `@layout` to apply a layout to a component.</span></span> <span data-ttu-id="91cd4-121">Kompilátor převede tuto direktivu do `LayoutAttribute`, které platí pro třídu komponenty.</span><span class="sxs-lookup"><span data-stu-id="91cd4-121">The compiler converts this directive into a `LayoutAttribute`, which is applied to the component class.</span></span>
+<span data-ttu-id="426cf-117">Pomocí direktivy Razor `@layout` do rozložení můžete použít na komponentu.</span><span class="sxs-lookup"><span data-stu-id="426cf-117">Use the Razor directive `@layout` to apply a layout to a component.</span></span> <span data-ttu-id="426cf-118">Kompilátor převede `@layout` do `LayoutAttribute`, které platí pro třídu komponenty.</span><span class="sxs-lookup"><span data-stu-id="426cf-118">The compiler converts `@layout` into a `LayoutAttribute`, which is applied to the component class.</span></span>
 
-<span data-ttu-id="91cd4-122">Následující příklad kódu ukazuje koncept.</span><span class="sxs-lookup"><span data-stu-id="91cd4-122">The following code sample demonstrates the concept.</span></span> <span data-ttu-id="91cd4-123">Obsah této součásti je vložen do *MasterLayout* v pozici `@Body`:</span><span class="sxs-lookup"><span data-stu-id="91cd4-123">The content of this component is inserted into the *MasterLayout* at the position of `@Body`:</span></span>
+<span data-ttu-id="426cf-119">Obsah následující komponenty *MasterList.razor*, je vložen do *MainLayout* v pozici `@Body`.</span><span class="sxs-lookup"><span data-stu-id="426cf-119">The content of the following component, *MasterList.razor*, is inserted into the *MainLayout* at the position of `@Body`.</span></span>
 
-```cshtml
-@layout MasterLayout
-@page "/master-list"
+[!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
-<h2>Master Episode List</h2>
-```
+## <a name="centralized-layout-selection"></a><span data-ttu-id="426cf-120">Výběr centralizované rozložení</span><span class="sxs-lookup"><span data-stu-id="426cf-120">Centralized layout selection</span></span>
 
-## <a name="centralized-layout-selection"></a><span data-ttu-id="91cd4-124">Výběr centralizované rozložení</span><span class="sxs-lookup"><span data-stu-id="91cd4-124">Centralized layout selection</span></span>
+<span data-ttu-id="426cf-121">Všechny složky, které aplikace může volitelně obsahovat soubor šablony s názvem *_Imports.razor*.</span><span class="sxs-lookup"><span data-stu-id="426cf-121">Every folder of an app can optionally contain a template file named *_Imports.razor*.</span></span> <span data-ttu-id="426cf-122">Kompilátor obsahuje direktivy zadané v souboru importu ve všech šablon Razor ve stejné složce a rekurzivně ve všech jejích podsložkách.</span><span class="sxs-lookup"><span data-stu-id="426cf-122">The compiler includes the directives specified in the imports file in all of the Razor templates in the same folder and recursively in all of its subfolders.</span></span> <span data-ttu-id="426cf-123">Proto *_Imports.razor* soubor obsahující `@layout MainLayout` zajišťuje, že všechny součásti ve složce pomocí *MainLayout*.</span><span class="sxs-lookup"><span data-stu-id="426cf-123">Therefore, a *_Imports.razor* file containing `@layout MainLayout` ensures that all of the components in a folder use *MainLayout*.</span></span> <span data-ttu-id="426cf-124">Není nutné opakovaně přidat `@layout MainLayout` ke všem *.razor* soubory ve složce a jejích podsložkách.</span><span class="sxs-lookup"><span data-stu-id="426cf-124">There's no need to repeatedly add `@layout MainLayout` to all of the *.razor* files within the folder and subfolders.</span></span> <span data-ttu-id="426cf-125">`@using` direktivy jsou použita také na komponenty stejným způsobem.</span><span class="sxs-lookup"><span data-stu-id="426cf-125">`@using` directives are also applied to components in the same way.</span></span>
 
-<span data-ttu-id="91cd4-125">Všechny složky, které aplikace aplikace může volitelně obsahovat soubor šablony s názvem *_Imports.razor*.</span><span class="sxs-lookup"><span data-stu-id="91cd4-125">Every folder of a an app can optionally contain a template file named *_Imports.razor*.</span></span> <span data-ttu-id="91cd4-126">Kompilátor obsahuje direktivy zadané v souboru importy zobrazení všech šablon Razor ve stejné složce a rekurzivně ve všech jejích podsložkách.</span><span class="sxs-lookup"><span data-stu-id="91cd4-126">The compiler includes the directives specified in the view imports file in all of the Razor templates in the same folder and recursively in all of its subfolders.</span></span> <span data-ttu-id="91cd4-127">Proto *_Imports.razor* soubor obsahující `@layout MainLayout` zajišťuje, že všechny součásti ve složce použití *MainLayout* rozložení.</span><span class="sxs-lookup"><span data-stu-id="91cd4-127">Therefore, a *_Imports.razor* file containing `@layout MainLayout` ensures that all of the components in a folder use the *MainLayout* layout.</span></span> <span data-ttu-id="91cd4-128">Není nutné opakovaně přidat `@layout` ke všem *.razor* soubory.</span><span class="sxs-lookup"><span data-stu-id="91cd4-128">There's no need to repeatedly add `@layout` to all of the *.razor* files.</span></span> <span data-ttu-id="91cd4-129">`@using` direktivy jsou použita také na komponenty ve stejné složce nebo některou ze složek sub.</span><span class="sxs-lookup"><span data-stu-id="91cd4-129">`@using` directives are also applied to components in the same folder or any sub folders.</span></span>
+<span data-ttu-id="426cf-126">Následující *_Imports.razor* souboru importu:</span><span class="sxs-lookup"><span data-stu-id="426cf-126">The following *_Imports.razor* file imports:</span></span>
 
-<span data-ttu-id="91cd4-130">Například následující *_Imports.razor* souboru importu:</span><span class="sxs-lookup"><span data-stu-id="91cd4-130">For example, the following *_Imports.razor* file imports:</span></span>
-
-* <span data-ttu-id="91cd4-131">`MainLayout`.</span><span class="sxs-lookup"><span data-stu-id="91cd4-131">`MainLayout`.</span></span>
-* <span data-ttu-id="91cd4-132">Všechny součásti Razor ve stejné složky a všechny podsložky.</span><span class="sxs-lookup"><span data-stu-id="91cd4-132">All Razor components in a the same folder and any sub folders.</span></span>
-* <span data-ttu-id="91cd4-133">`BlazorApp1.Data` Oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="91cd4-133">The `BlazorApp1.Data` namespace.</span></span>
+* <span data-ttu-id="426cf-127">`MainLayout`.</span><span class="sxs-lookup"><span data-stu-id="426cf-127">`MainLayout`.</span></span>
+* <span data-ttu-id="426cf-128">Všechny součásti Razor ve stejné složky a všechny její podsložky.</span><span class="sxs-lookup"><span data-stu-id="426cf-128">All Razor components in a the same folder and any subfolders.</span></span>
+* <span data-ttu-id="426cf-129">`BlazorApp1.Data` Oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="426cf-129">The `BlazorApp1.Data` namespace.</span></span>
  
-```cshtml
-@layout MainLayout
-@using Microsoft.AspNetCore.Components
-@using BlazorApp1.Data
-```
+[!code-cshtml[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
-<span data-ttu-id="91cd4-134">Použití *_Imports.razor* souboru se podobá použití *_ViewImports.cshtml* se zobrazeními Razor a stránek, ale použijí konkrétně pro soubory součástí syntaxe Razor.</span><span class="sxs-lookup"><span data-stu-id="91cd4-134">Use of the *_Imports.razor* file is similar to how you can use *_ViewImports.cshtml* with Razor views and pages, but applied specifically to Razor component files.</span></span>
+<span data-ttu-id="426cf-130">*_Imports.razor* soubor je podobný [_ViewImports.cshtml souboru pro zobrazení syntaxe Razor a stránky](xref:mvc/views/layout#importing-shared-directives) ale platí konkrétně pro soubory součástí syntaxe Razor.</span><span class="sxs-lookup"><span data-stu-id="426cf-130">The *_Imports.razor* file is similar to the [_ViewImports.cshtml file for Razor views and pages](xref:mvc/views/layout#importing-shared-directives) but applied specifically to Razor component files.</span></span>
 
-<span data-ttu-id="91cd4-135">Všimněte si, že používá výchozí šablonu *_Imports.razor* mechanismus pro výběr rozložení.</span><span class="sxs-lookup"><span data-stu-id="91cd4-135">Note that the default template uses the *_Imports.razor* mechanism for layout selection.</span></span> <span data-ttu-id="91cd4-136">Nově vytvořenou aplikaci, která obsahuje *_Imports.razor* soubor *stránky* složky.</span><span class="sxs-lookup"><span data-stu-id="91cd4-136">A newly created app contains the *_Imports.razor* file in the *Pages* folder.</span></span>
+<span data-ttu-id="426cf-131">Použití šablon Blazor *_Imports.razor* souborů pro výběr rozložení.</span><span class="sxs-lookup"><span data-stu-id="426cf-131">The Blazor templates use *_Imports.razor* files for layout selection.</span></span> <span data-ttu-id="426cf-132">Obsahuje aplikaci vytvořené ze šablony Blazor *_Imports.razor* v kořenovém adresáři projektu a v souboru *stránky* složky.</span><span class="sxs-lookup"><span data-stu-id="426cf-132">An app created from a Blazor template contains the *_Imports.razor* file in the root of the project and in the *Pages* folder.</span></span>
 
-## <a name="nested-layouts"></a><span data-ttu-id="91cd4-137">Vnořené rozložení</span><span class="sxs-lookup"><span data-stu-id="91cd4-137">Nested layouts</span></span>
+## <a name="nested-layouts"></a><span data-ttu-id="426cf-133">Vnořené rozložení</span><span class="sxs-lookup"><span data-stu-id="426cf-133">Nested layouts</span></span>
 
-<span data-ttu-id="91cd4-138">Aplikace můžou zahrnovat vnořené rozložení.</span><span class="sxs-lookup"><span data-stu-id="91cd4-138">Apps can consist of nested layouts.</span></span> <span data-ttu-id="91cd4-139">Komponenta může odkazovat na rozložení, které zase odkazuje na jiné rozložení.</span><span class="sxs-lookup"><span data-stu-id="91cd4-139">A component can reference a layout which in turn references another layout.</span></span> <span data-ttu-id="91cd4-140">Například je možné vnoření rozložení tak, aby odrážely struktura víceúrovňových nabídky.</span><span class="sxs-lookup"><span data-stu-id="91cd4-140">For example, nesting layouts can be used to reflect a multi-level menu structure.</span></span>
+<span data-ttu-id="426cf-134">Aplikace můžou zahrnovat vnořené rozložení.</span><span class="sxs-lookup"><span data-stu-id="426cf-134">Apps can consist of nested layouts.</span></span> <span data-ttu-id="426cf-135">Komponenta může odkazovat na rozložení, které zase odkazuje na jiné rozložení.</span><span class="sxs-lookup"><span data-stu-id="426cf-135">A component can reference a layout which in turn references another layout.</span></span> <span data-ttu-id="426cf-136">Například vnoření rozložení slouží k vytvoření víceúrovňových nabídky struktury.</span><span class="sxs-lookup"><span data-stu-id="426cf-136">For example, nesting layouts can be used to create a multi-level menu structure.</span></span>
 
-<span data-ttu-id="91cd4-141">Následující ukázky kódu ukazují, jak používat vnořené rozložení.</span><span class="sxs-lookup"><span data-stu-id="91cd4-141">The following code samples show how to use nested layouts.</span></span> <span data-ttu-id="91cd4-142">*EpisodesComponent.razor* souboru je komponenta zobrazit.</span><span class="sxs-lookup"><span data-stu-id="91cd4-142">The *EpisodesComponent.razor* file is the component to display.</span></span> <span data-ttu-id="91cd4-143">Všimněte si, že součást odkazuje rozložení `MasterListLayout`.</span><span class="sxs-lookup"><span data-stu-id="91cd4-143">Note that the component references the layout `MasterListLayout`.</span></span>
+<span data-ttu-id="426cf-137">Následující příklad ukazuje, jak používat vnořené rozložení.</span><span class="sxs-lookup"><span data-stu-id="426cf-137">The following example shows how to use nested layouts.</span></span> <span data-ttu-id="426cf-138">*EpisodesComponent.razor* souboru je komponenta zobrazit.</span><span class="sxs-lookup"><span data-stu-id="426cf-138">The *EpisodesComponent.razor* file is the component to display.</span></span> <span data-ttu-id="426cf-139">Odkazy na součásti `MasterListLayout`:</span><span class="sxs-lookup"><span data-stu-id="426cf-139">The component references the `MasterListLayout`:</span></span>
 
-<span data-ttu-id="91cd4-144">*EpisodesComponent.razor*:</span><span class="sxs-lookup"><span data-stu-id="91cd4-144">*EpisodesComponent.razor*:</span></span>
+[!code-cshtml[](layouts/sample_snapshot/3.x/EpisodesComponent.razor?highlight=1)]
 
-```cshtml
-@layout MasterListLayout
-@page "/master-list/episodes"
+<span data-ttu-id="426cf-140">*MasterListLayout.razor* poskytuje soubor `MasterListLayout`.</span><span class="sxs-lookup"><span data-stu-id="426cf-140">The *MasterListLayout.razor* file provides the `MasterListLayout`.</span></span> <span data-ttu-id="426cf-141">Rozložení odkazuje na jiné rozložení, `MasterLayout`, kde se vykreslí.</span><span class="sxs-lookup"><span data-stu-id="426cf-141">The layout references another layout, `MasterLayout`, where it's rendered.</span></span> <span data-ttu-id="426cf-142">`EpisodesComponent` kde je vykreslen `@Body` se zobrazí:</span><span class="sxs-lookup"><span data-stu-id="426cf-142">`EpisodesComponent` is rendered where `@Body` appears:</span></span>
 
-<h1>Episodes</h1>
-```
+[!code-cshtml[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
-<span data-ttu-id="91cd4-145">*MasterListLayout.razor* poskytuje soubor `MasterListLayout`.</span><span class="sxs-lookup"><span data-stu-id="91cd4-145">The *MasterListLayout.razor* file provides the `MasterListLayout`.</span></span> <span data-ttu-id="91cd4-146">Rozložení odkazuje na jiné rozložení, `MasterLayout`, ve kterém se bude vložen.</span><span class="sxs-lookup"><span data-stu-id="91cd4-146">The layout references another layout, `MasterLayout`, where it's going to be embedded.</span></span>
+<span data-ttu-id="426cf-143">Nakonec `MasterLayout` v *MasterLayout.razor* obsahuje prvky rozložení nejvyšší úrovně, jako je například záhlaví, hlavní nabídky a zápatí.</span><span class="sxs-lookup"><span data-stu-id="426cf-143">Finally, `MasterLayout` in *MasterLayout.razor* contains the top-level layout elements, such as the header, main menu, and footer.</span></span> <span data-ttu-id="426cf-144">*MasterListLayout* s *EpisodesComponent* vykresleny kde `@Body` se zobrazí:</span><span class="sxs-lookup"><span data-stu-id="426cf-144">*MasterListLayout* with *EpisodesComponent* are rendered where `@Body` appears:</span></span>
 
-<span data-ttu-id="91cd4-147">*MasterListLayout.razor*:</span><span class="sxs-lookup"><span data-stu-id="91cd4-147">*MasterListLayout.razor*:</span></span>
+[!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
-```cshtml
-@layout MasterLayout
-@inherits LayoutComponentBase
+## <a name="additional-resources"></a><span data-ttu-id="426cf-145">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="426cf-145">Additional resources</span></span>
 
-<nav>
-    <!-- Menu structure of master list -->
-    ...
-</nav>
-
-@Body
-```
-
-<span data-ttu-id="91cd4-148">Nakonec `MasterLayout` obsahuje prvky rozložení nejvyšší úrovně, jako je například záhlaví, zápatí a hlavní nabídky.</span><span class="sxs-lookup"><span data-stu-id="91cd4-148">Finally, `MasterLayout` contains the top-level layout elements, such as the header, footer, and main menu.</span></span>
-
-<span data-ttu-id="91cd4-149">*MasterLayout.razor*:</span><span class="sxs-lookup"><span data-stu-id="91cd4-149">*MasterLayout.razor*:</span></span>
-
-```cshtml
-@inherits LayoutComponentBase
-
-<header>...</header>
-<nav>...</nav>
-
-@Body
-```
+* <xref:mvc/views/layout>

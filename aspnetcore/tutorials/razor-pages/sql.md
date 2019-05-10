@@ -6,101 +6,101 @@ ms.author: riande
 ms.date: 12/07/2017
 uid: tutorials/razor-pages/sql
 ms.openlocfilehash: 6cef55382d8c77e95280ea4eea2dbc2af1c81987
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265568"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64899820"
 ---
-# <a name="work-with-a-database-and-aspnet-core"></a><span data-ttu-id="58c46-103">Práce s databází a ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="58c46-103">Work with a database and ASP.NET Core</span></span>
+# <a name="work-with-a-database-and-aspnet-core"></a><span data-ttu-id="7f323-103">Práce s databází a ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="7f323-103">Work with a database and ASP.NET Core</span></span>
 
-<span data-ttu-id="58c46-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Joe Audette](https://twitter.com/joeaudette)</span><span class="sxs-lookup"><span data-stu-id="58c46-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Joe Audette](https://twitter.com/joeaudette)</span></span>
+<span data-ttu-id="7f323-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Joe Audette](https://twitter.com/joeaudette)</span><span class="sxs-lookup"><span data-stu-id="7f323-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Joe Audette](https://twitter.com/joeaudette)</span></span>
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-<span data-ttu-id="58c46-105">`RazorPagesMovieContext` Objekt zpracovává úlohu s připojením k databázi a mapování `Movie` objekty se záznamy v databázi.</span><span class="sxs-lookup"><span data-stu-id="58c46-105">The `RazorPagesMovieContext` object handles the task of connecting to the database and mapping `Movie` objects to database records.</span></span> <span data-ttu-id="58c46-106">Kontext databáze je zaregistrován [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru v `ConfigureServices` metoda ve *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="58c46-106">The database context is registered with the [Dependency Injection](xref:fundamentals/dependency-injection) container in the `ConfigureServices` method in *Startup.cs*:</span></span>
+<span data-ttu-id="7f323-105">`RazorPagesMovieContext` Objekt zpracovává úlohu s připojením k databázi a mapování `Movie` objekty se záznamy v databázi.</span><span class="sxs-lookup"><span data-stu-id="7f323-105">The `RazorPagesMovieContext` object handles the task of connecting to the database and mapping `Movie` objects to database records.</span></span> <span data-ttu-id="7f323-106">Kontext databáze je zaregistrován [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru v `ConfigureServices` metoda ve *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="7f323-106">The database context is registered with the [Dependency Injection](xref:fundamentals/dependency-injection) container in the `ConfigureServices` method in *Startup.cs*:</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="58c46-107">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="58c46-107">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7f323-107">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7f323-107">Visual Studio</span></span>](#tab/visual-studio)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="58c46-108">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="58c46-108">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="7f323-108">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7f323-108">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="58c46-109">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="58c46-109">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="7f323-109">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="7f323-109">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 ---
 
-<span data-ttu-id="58c46-110">Další informace o metodách `ConfigureServices`, naleznete v tématu:</span><span class="sxs-lookup"><span data-stu-id="58c46-110">For more information on the methods used in `ConfigureServices`, see:</span></span>
+<span data-ttu-id="7f323-110">Další informace o metodách `ConfigureServices`, naleznete v tématu:</span><span class="sxs-lookup"><span data-stu-id="7f323-110">For more information on the methods used in `ConfigureServices`, see:</span></span>
 
-* <span data-ttu-id="58c46-111">[Podpora EU obecného Regulation (GDPR) v ASP.NET Core](xref:security/gdpr) pro `CookiePolicyOptions`.</span><span class="sxs-lookup"><span data-stu-id="58c46-111">[EU General Data Protection Regulation (GDPR) support in ASP.NET Core](xref:security/gdpr) for `CookiePolicyOptions`.</span></span>
-* [<span data-ttu-id="58c46-112">SetCompatibilityVersion</span><span class="sxs-lookup"><span data-stu-id="58c46-112">SetCompatibilityVersion</span></span>](xref:mvc/compatibility-version)
+* <span data-ttu-id="7f323-111">[Podpora EU obecného Regulation (GDPR) v ASP.NET Core](xref:security/gdpr) pro `CookiePolicyOptions`.</span><span class="sxs-lookup"><span data-stu-id="7f323-111">[EU General Data Protection Regulation (GDPR) support in ASP.NET Core](xref:security/gdpr) for `CookiePolicyOptions`.</span></span>
+* [<span data-ttu-id="7f323-112">SetCompatibilityVersion</span><span class="sxs-lookup"><span data-stu-id="7f323-112">SetCompatibilityVersion</span></span>](xref:mvc/compatibility-version)
 
-<span data-ttu-id="58c46-113">ASP.NET Core [konfigurace](xref:fundamentals/configuration/index) systému čtení `ConnectionString`.</span><span class="sxs-lookup"><span data-stu-id="58c46-113">The ASP.NET Core [Configuration](xref:fundamentals/configuration/index) system reads the `ConnectionString`.</span></span> <span data-ttu-id="58c46-114">Pro místní vývoj, získá připojovací řetězec z *appsettings.json* souboru.</span><span class="sxs-lookup"><span data-stu-id="58c46-114">For local development, it gets the connection string from the *appsettings.json* file.</span></span>
+<span data-ttu-id="7f323-113">ASP.NET Core [konfigurace](xref:fundamentals/configuration/index) systému čtení `ConnectionString`.</span><span class="sxs-lookup"><span data-stu-id="7f323-113">The ASP.NET Core [Configuration](xref:fundamentals/configuration/index) system reads the `ConnectionString`.</span></span> <span data-ttu-id="7f323-114">Pro místní vývoj, získá připojovací řetězec z *appsettings.json* souboru.</span><span class="sxs-lookup"><span data-stu-id="7f323-114">For local development, it gets the connection string from the *appsettings.json* file.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="58c46-115">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="58c46-115">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7f323-115">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7f323-115">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="58c46-116">Hodnota názvu databáze (`Database={Database name}`) se bude lišit pro vygenerovaný kód.</span><span class="sxs-lookup"><span data-stu-id="58c46-116">The name value for the database (`Database={Database name}`) will be different for your generated code.</span></span> <span data-ttu-id="58c46-117">Hodnota názvu je volitelný.</span><span class="sxs-lookup"><span data-stu-id="58c46-117">The name value is arbitrary.</span></span>
+<span data-ttu-id="7f323-116">Hodnota názvu databáze (`Database={Database name}`) se bude lišit pro vygenerovaný kód.</span><span class="sxs-lookup"><span data-stu-id="7f323-116">The name value for the database (`Database={Database name}`) will be different for your generated code.</span></span> <span data-ttu-id="7f323-117">Hodnota názvu je volitelný.</span><span class="sxs-lookup"><span data-stu-id="7f323-117">The name value is arbitrary.</span></span>
 
 [!code-json[](razor-pages-start/sample/RazorPagesMovie22/appsettings.json)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="58c46-118">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="58c46-118">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="7f323-118">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7f323-118">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="58c46-119">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="58c46-119">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="7f323-119">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="7f323-119">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
 ---
 
-<span data-ttu-id="58c46-120">Po nasazení aplikace na testovacím nebo produkčním serveru, proměnné prostředí je možné nastavit připojovací řetězec na skutečné databázový server.</span><span class="sxs-lookup"><span data-stu-id="58c46-120">When the app is deployed to a test or production server, an environment variable can be used to set the connection string to a real database server.</span></span> <span data-ttu-id="58c46-121">Zobrazit [konfigurace](xref:fundamentals/configuration/index) Další informace.</span><span class="sxs-lookup"><span data-stu-id="58c46-121">See [Configuration](xref:fundamentals/configuration/index) for more information.</span></span>
+<span data-ttu-id="7f323-120">Po nasazení aplikace na testovacím nebo produkčním serveru, proměnné prostředí je možné nastavit připojovací řetězec na skutečné databázový server.</span><span class="sxs-lookup"><span data-stu-id="7f323-120">When the app is deployed to a test or production server, an environment variable can be used to set the connection string to a real database server.</span></span> <span data-ttu-id="7f323-121">Zobrazit [konfigurace](xref:fundamentals/configuration/index) Další informace.</span><span class="sxs-lookup"><span data-stu-id="7f323-121">See [Configuration](xref:fundamentals/configuration/index) for more information.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="58c46-122">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="58c46-122">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7f323-122">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7f323-122">Visual Studio</span></span>](#tab/visual-studio)
 
-## <a name="sql-server-express-localdb"></a><span data-ttu-id="58c46-123">SQL Server Express LocalDB</span><span class="sxs-lookup"><span data-stu-id="58c46-123">SQL Server Express LocalDB</span></span>
+## <a name="sql-server-express-localdb"></a><span data-ttu-id="7f323-123">SQL Server Express LocalDB</span><span class="sxs-lookup"><span data-stu-id="7f323-123">SQL Server Express LocalDB</span></span>
 
-<span data-ttu-id="58c46-124">LocalDB je Odlehčená verze SQL Server Express. databázový stroj, která je určená pro vývoj v programu.</span><span class="sxs-lookup"><span data-stu-id="58c46-124">LocalDB is a lightweight version of the SQL Server Express database engine that's targeted for program development.</span></span> <span data-ttu-id="58c46-125">LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace.</span><span class="sxs-lookup"><span data-stu-id="58c46-125">LocalDB starts on demand and runs in user mode, so there's no complex configuration.</span></span> <span data-ttu-id="58c46-126">Ve výchozím nastavení, vytvoří databázi LocalDB `*.mdf` soubory `C:/Users/<user/>` adresáře.</span><span class="sxs-lookup"><span data-stu-id="58c46-126">By default, LocalDB database creates `*.mdf` files in the `C:/Users/<user/>` directory.</span></span>
+<span data-ttu-id="7f323-124">LocalDB je Odlehčená verze SQL Server Express. databázový stroj, která je určená pro vývoj v programu.</span><span class="sxs-lookup"><span data-stu-id="7f323-124">LocalDB is a lightweight version of the SQL Server Express database engine that's targeted for program development.</span></span> <span data-ttu-id="7f323-125">LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace.</span><span class="sxs-lookup"><span data-stu-id="7f323-125">LocalDB starts on demand and runs in user mode, so there's no complex configuration.</span></span> <span data-ttu-id="7f323-126">Ve výchozím nastavení, vytvoří databázi LocalDB `*.mdf` soubory `C:/Users/<user/>` adresáře.</span><span class="sxs-lookup"><span data-stu-id="7f323-126">By default, LocalDB database creates `*.mdf` files in the `C:/Users/<user/>` directory.</span></span>
 
 <a name="ssox"></a>
-* <span data-ttu-id="58c46-127">Z **zobrazení** nabídce otevřete **Průzkumník objektů systému SQL Server** (SSOX).</span><span class="sxs-lookup"><span data-stu-id="58c46-127">From the **View** menu, open **SQL Server Object Explorer** (SSOX).</span></span>
+* <span data-ttu-id="7f323-127">Z **zobrazení** nabídce otevřete **Průzkumník objektů systému SQL Server** (SSOX).</span><span class="sxs-lookup"><span data-stu-id="7f323-127">From the **View** menu, open **SQL Server Object Explorer** (SSOX).</span></span>
 
   ![Nabídka Zobrazit](sql/_static/ssox.png)
 
-* <span data-ttu-id="58c46-129">Klikněte pravým tlačítkem na `Movie` tabulce a vybrat **Návrhář zobrazení**:</span><span class="sxs-lookup"><span data-stu-id="58c46-129">Right click on the `Movie` table and select **View Designer**:</span></span>
+* <span data-ttu-id="7f323-129">Klikněte pravým tlačítkem na `Movie` tabulce a vybrat **Návrhář zobrazení**:</span><span class="sxs-lookup"><span data-stu-id="7f323-129">Right click on the `Movie` table and select **View Designer**:</span></span>
 
   ![Kontextová nabídka otevřít na tabulky Movie](sql/_static/design.png)
 
   ![Otevřít v Návrháři tabulky Movie](sql/_static/dv.png)
 
-<span data-ttu-id="58c46-132">Poznámka: na ikonu klíče vedle `ID`.</span><span class="sxs-lookup"><span data-stu-id="58c46-132">Note the key icon next to `ID`.</span></span> <span data-ttu-id="58c46-133">Ve výchozím nastavení, EF vytvoří vlastnost s názvem `ID` pro primární klíč.</span><span class="sxs-lookup"><span data-stu-id="58c46-133">By default, EF creates a property named `ID` for the primary key.</span></span>
+<span data-ttu-id="7f323-132">Poznámka: na ikonu klíče vedle `ID`.</span><span class="sxs-lookup"><span data-stu-id="7f323-132">Note the key icon next to `ID`.</span></span> <span data-ttu-id="7f323-133">Ve výchozím nastavení, EF vytvoří vlastnost s názvem `ID` pro primární klíč.</span><span class="sxs-lookup"><span data-stu-id="7f323-133">By default, EF creates a property named `ID` for the primary key.</span></span>
 
-* <span data-ttu-id="58c46-134">Klikněte pravým tlačítkem na `Movie` tabulce a vybrat **Data zobrazení**:</span><span class="sxs-lookup"><span data-stu-id="58c46-134">Right click on the `Movie` table and select **View Data**:</span></span>
+* <span data-ttu-id="7f323-134">Klikněte pravým tlačítkem na `Movie` tabulce a vybrat **Data zobrazení**:</span><span class="sxs-lookup"><span data-stu-id="7f323-134">Right click on the `Movie` table and select **View Data**:</span></span>
 
   ![Otevřít zobrazení tabulky dat tabulky Movie](sql/_static/vd22.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="58c46-136">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="58c46-136">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="7f323-136">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7f323-136">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="58c46-137">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="58c46-137">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="7f323-137">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="7f323-137">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
 ---
 
-## <a name="seed-the-database"></a><span data-ttu-id="58c46-138">Přidání dat do databáze</span><span class="sxs-lookup"><span data-stu-id="58c46-138">Seed the database</span></span>
+## <a name="seed-the-database"></a><span data-ttu-id="7f323-138">Přidání dat do databáze</span><span class="sxs-lookup"><span data-stu-id="7f323-138">Seed the database</span></span>
 
-<span data-ttu-id="58c46-139">Vytvořte novou třídu s názvem `SeedData` v *modely* složka s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="58c46-139">Create a new class named `SeedData` in the *Models* folder with the following code:</span></span>
+<span data-ttu-id="7f323-139">Vytvořte novou třídu s názvem `SeedData` v *modely* složka s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="7f323-139">Create a new class named `SeedData` in the *Models* folder with the following code:</span></span>
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedData.cs?name=snippet_1)]
 
-<span data-ttu-id="58c46-140">Pokud jsou všechny filmy v databázi, vrátí inicializátoru pro dosazení hodnot a jsou přidány žádné video.</span><span class="sxs-lookup"><span data-stu-id="58c46-140">If there are any movies in the DB, the seed initializer returns and no movies are added.</span></span>
+<span data-ttu-id="7f323-140">Pokud jsou všechny filmy v databázi, vrátí inicializátoru pro dosazení hodnot a jsou přidány žádné video.</span><span class="sxs-lookup"><span data-stu-id="7f323-140">If there are any movies in the DB, the seed initializer returns and no movies are added.</span></span>
 
 ```csharp
 if (context.Movie.Any())
@@ -111,64 +111,64 @@ if (context.Movie.Any())
 
 <a name="si"></a>
 
-### <a name="add-the-seed-initializer"></a><span data-ttu-id="58c46-141">Přidat inicializační výraz počáteční hodnoty</span><span class="sxs-lookup"><span data-stu-id="58c46-141">Add the seed initializer</span></span>
+### <a name="add-the-seed-initializer"></a><span data-ttu-id="7f323-141">Přidat inicializační výraz počáteční hodnoty</span><span class="sxs-lookup"><span data-stu-id="7f323-141">Add the seed initializer</span></span>
 
-<span data-ttu-id="58c46-142">V *Program.cs*, změnit `Main` metoda můžete provádět následující:</span><span class="sxs-lookup"><span data-stu-id="58c46-142">In *Program.cs*, modify the `Main` method to do the following:</span></span>
+<span data-ttu-id="7f323-142">V *Program.cs*, změnit `Main` metoda můžete provádět následující:</span><span class="sxs-lookup"><span data-stu-id="7f323-142">In *Program.cs*, modify the `Main` method to do the following:</span></span>
 
-* <span data-ttu-id="58c46-143">Instance kontextu databáze získáte z kontejneru pro vkládání závislostí.</span><span class="sxs-lookup"><span data-stu-id="58c46-143">Get a DB context instance from the dependency injection container.</span></span>
-* <span data-ttu-id="58c46-144">Volejte metodu počáteční hodnoty předání kontextu.</span><span class="sxs-lookup"><span data-stu-id="58c46-144">Call the seed method, passing to it the context.</span></span>
-* <span data-ttu-id="58c46-145">Kontext Dispose po dokončení počáteční hodnoty metody.</span><span class="sxs-lookup"><span data-stu-id="58c46-145">Dispose the context when the seed method completes.</span></span>
+* <span data-ttu-id="7f323-143">Instance kontextu databáze získáte z kontejneru pro vkládání závislostí.</span><span class="sxs-lookup"><span data-stu-id="7f323-143">Get a DB context instance from the dependency injection container.</span></span>
+* <span data-ttu-id="7f323-144">Volejte metodu počáteční hodnoty předání kontextu.</span><span class="sxs-lookup"><span data-stu-id="7f323-144">Call the seed method, passing to it the context.</span></span>
+* <span data-ttu-id="7f323-145">Kontext Dispose po dokončení počáteční hodnoty metody.</span><span class="sxs-lookup"><span data-stu-id="7f323-145">Dispose the context when the seed method completes.</span></span>
 
-<span data-ttu-id="58c46-146">Následující kód ukazuje aktualizovaný *Program.cs* souboru.</span><span class="sxs-lookup"><span data-stu-id="58c46-146">The following code shows the updated *Program.cs* file.</span></span>
+<span data-ttu-id="7f323-146">Následující kód ukazuje aktualizovaný *Program.cs* souboru.</span><span class="sxs-lookup"><span data-stu-id="7f323-146">The following code shows the updated *Program.cs* file.</span></span>
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Program.cs)]
 
-<span data-ttu-id="58c46-147">Produkční aplikace by volat `Database.Migrate`.</span><span class="sxs-lookup"><span data-stu-id="58c46-147">A production app would not call `Database.Migrate`.</span></span> <span data-ttu-id="58c46-148">Přidá se do předchozí kód, aby se zabránilo následující výjimku při `Update-Database` nebyl spuštěn:</span><span class="sxs-lookup"><span data-stu-id="58c46-148">It's added to the preceding code to prevent the following exception when `Update-Database` has not been run:</span></span>
+<span data-ttu-id="7f323-147">Produkční aplikace by volat `Database.Migrate`.</span><span class="sxs-lookup"><span data-stu-id="7f323-147">A production app would not call `Database.Migrate`.</span></span> <span data-ttu-id="7f323-148">Přidá se do předchozí kód, aby se zabránilo následující výjimku při `Update-Database` nebyl spuštěn:</span><span class="sxs-lookup"><span data-stu-id="7f323-148">It's added to the preceding code to prevent the following exception when `Update-Database` has not been run:</span></span>
 
-<span data-ttu-id="58c46-149">SqlException: Databázi "RazorPagesMovieContext 21" požadovaný v přihlášení nelze otevřít.</span><span class="sxs-lookup"><span data-stu-id="58c46-149">SqlException: Cannot open database "RazorPagesMovieContext-21" requested by the login.</span></span> <span data-ttu-id="58c46-150">Přihlášení se nezdařilo.</span><span class="sxs-lookup"><span data-stu-id="58c46-150">The login failed.</span></span>
-<span data-ttu-id="58c46-151">Přihlašovací jméno uživatele 'jméno uživatele' se nezdařilo.</span><span class="sxs-lookup"><span data-stu-id="58c46-151">Login failed for user 'user name'.</span></span>
+<span data-ttu-id="7f323-149">SqlException: Databázi "RazorPagesMovieContext 21" požadovaný v přihlášení nelze otevřít.</span><span class="sxs-lookup"><span data-stu-id="7f323-149">SqlException: Cannot open database "RazorPagesMovieContext-21" requested by the login.</span></span> <span data-ttu-id="7f323-150">Přihlášení se nezdařilo.</span><span class="sxs-lookup"><span data-stu-id="7f323-150">The login failed.</span></span>
+<span data-ttu-id="7f323-151">Přihlašovací jméno uživatele 'jméno uživatele' se nezdařilo.</span><span class="sxs-lookup"><span data-stu-id="7f323-151">Login failed for user 'user name'.</span></span>
 
-### <a name="test-the-app"></a><span data-ttu-id="58c46-152">Testování aplikace</span><span class="sxs-lookup"><span data-stu-id="58c46-152">Test the app</span></span>
+### <a name="test-the-app"></a><span data-ttu-id="7f323-152">Testování aplikace</span><span class="sxs-lookup"><span data-stu-id="7f323-152">Test the app</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="58c46-153">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="58c46-153">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="7f323-153">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="7f323-153">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="58c46-154">Odstraníte všechny záznamy z databáze.</span><span class="sxs-lookup"><span data-stu-id="58c46-154">Delete all the records in the DB.</span></span> <span data-ttu-id="58c46-155">To lze provést pomocí odstranit odkazy v prohlížeči nebo z [SSOX](xref:tutorials/razor-pages/new-field#ssox)</span><span class="sxs-lookup"><span data-stu-id="58c46-155">You can do this with the delete links in the browser or from [SSOX](xref:tutorials/razor-pages/new-field#ssox)</span></span>
-* <span data-ttu-id="58c46-156">Se aplikace inicializuje (volat metody ve `Startup` třídy), spustí seed – metoda.</span><span class="sxs-lookup"><span data-stu-id="58c46-156">Force the app to initialize (call the methods in the `Startup` class) so the seed method runs.</span></span> <span data-ttu-id="58c46-157">Pokud chcete vynutit inicializace, služba IIS Express musí zastavit, restartovat.</span><span class="sxs-lookup"><span data-stu-id="58c46-157">To force initialization, IIS Express must be stopped and restarted.</span></span> <span data-ttu-id="58c46-158">Provést s některou z následujících postupů:</span><span class="sxs-lookup"><span data-stu-id="58c46-158">You can do this with any of the following approaches:</span></span>
+* <span data-ttu-id="7f323-154">Odstraníte všechny záznamy z databáze.</span><span class="sxs-lookup"><span data-stu-id="7f323-154">Delete all the records in the DB.</span></span> <span data-ttu-id="7f323-155">To lze provést pomocí odstranit odkazy v prohlížeči nebo z [SSOX](xref:tutorials/razor-pages/new-field#ssox)</span><span class="sxs-lookup"><span data-stu-id="7f323-155">You can do this with the delete links in the browser or from [SSOX](xref:tutorials/razor-pages/new-field#ssox)</span></span>
+* <span data-ttu-id="7f323-156">Se aplikace inicializuje (volat metody ve `Startup` třídy), spustí seed – metoda.</span><span class="sxs-lookup"><span data-stu-id="7f323-156">Force the app to initialize (call the methods in the `Startup` class) so the seed method runs.</span></span> <span data-ttu-id="7f323-157">Pokud chcete vynutit inicializace, služba IIS Express musí zastavit, restartovat.</span><span class="sxs-lookup"><span data-stu-id="7f323-157">To force initialization, IIS Express must be stopped and restarted.</span></span> <span data-ttu-id="7f323-158">Provést s některou z následujících postupů:</span><span class="sxs-lookup"><span data-stu-id="7f323-158">You can do this with any of the following approaches:</span></span>
 
-  * <span data-ttu-id="58c46-159">Klikněte pravým tlačítkem na službu IIS Express systému na hlavním panelu ikonu v oznamovací oblasti a klepněte na **ukončovací** nebo **zastavení webu**:</span><span class="sxs-lookup"><span data-stu-id="58c46-159">Right click the IIS Express system tray icon in the notification area and tap **Exit** or **Stop Site**:</span></span>
+  * <span data-ttu-id="7f323-159">Klikněte pravým tlačítkem na službu IIS Express systému na hlavním panelu ikonu v oznamovací oblasti a klepněte na **ukončovací** nebo **zastavení webu**:</span><span class="sxs-lookup"><span data-stu-id="7f323-159">Right click the IIS Express system tray icon in the notification area and tap **Exit** or **Stop Site**:</span></span>
 
     ![Služba IIS Express ikonu na hlavním panelu](../first-mvc-app/working-with-sql/_static/iisExIcon.png)
 
     ![Kontextové nabídky](sql/_static/stopIIS.png)
 
-    * <span data-ttu-id="58c46-162">Pokud VS byly spuštěny v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění.</span><span class="sxs-lookup"><span data-stu-id="58c46-162">If you were running VS in non-debug mode, press F5 to run in debug mode.</span></span>
-    * <span data-ttu-id="58c46-163">Pokud jste používali zastavení ladicího programu VS v režimu ladění a stisknutím klávesy F5.</span><span class="sxs-lookup"><span data-stu-id="58c46-163">If you were running VS in debug mode, stop the debugger and press F5.</span></span>
+    * <span data-ttu-id="7f323-162">Pokud VS byly spuštěny v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění.</span><span class="sxs-lookup"><span data-stu-id="7f323-162">If you were running VS in non-debug mode, press F5 to run in debug mode.</span></span>
+    * <span data-ttu-id="7f323-163">Pokud jste používali zastavení ladicího programu VS v režimu ladění a stisknutím klávesy F5.</span><span class="sxs-lookup"><span data-stu-id="7f323-163">If you were running VS in debug mode, stop the debugger and press F5.</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="58c46-164">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="58c46-164">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="7f323-164">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="7f323-164">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="58c46-165">Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota).</span><span class="sxs-lookup"><span data-stu-id="58c46-165">Delete all the records in the DB (So the seed method will run).</span></span> <span data-ttu-id="58c46-166">Zastavení a spuštění aplikace k přidání dat do databáze.</span><span class="sxs-lookup"><span data-stu-id="58c46-166">Stop and start the app to seed the database.</span></span>
+<span data-ttu-id="7f323-165">Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota).</span><span class="sxs-lookup"><span data-stu-id="7f323-165">Delete all the records in the DB (So the seed method will run).</span></span> <span data-ttu-id="7f323-166">Zastavení a spuštění aplikace k přidání dat do databáze.</span><span class="sxs-lookup"><span data-stu-id="7f323-166">Stop and start the app to seed the database.</span></span>
 
-<span data-ttu-id="58c46-167">Aplikace zobrazí dosazená data.</span><span class="sxs-lookup"><span data-stu-id="58c46-167">The app shows the seeded data.</span></span>
+<span data-ttu-id="7f323-167">Aplikace zobrazí dosazená data.</span><span class="sxs-lookup"><span data-stu-id="7f323-167">The app shows the seeded data.</span></span>
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="58c46-168">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="58c46-168">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="7f323-168">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="7f323-168">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="58c46-169">Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota).</span><span class="sxs-lookup"><span data-stu-id="58c46-169">Delete all the records in the DB (So the seed method will run).</span></span> <span data-ttu-id="58c46-170">Zastavení a spuštění aplikace k přidání dat do databáze.</span><span class="sxs-lookup"><span data-stu-id="58c46-170">Stop and start the app to seed the database.</span></span>
+<span data-ttu-id="7f323-169">Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota).</span><span class="sxs-lookup"><span data-stu-id="7f323-169">Delete all the records in the DB (So the seed method will run).</span></span> <span data-ttu-id="7f323-170">Zastavení a spuštění aplikace k přidání dat do databáze.</span><span class="sxs-lookup"><span data-stu-id="7f323-170">Stop and start the app to seed the database.</span></span>
 
-<span data-ttu-id="58c46-171">Aplikace zobrazí dosazená data.</span><span class="sxs-lookup"><span data-stu-id="58c46-171">The app shows the seeded data.</span></span>
+<span data-ttu-id="7f323-171">Aplikace zobrazí dosazená data.</span><span class="sxs-lookup"><span data-stu-id="7f323-171">The app shows the seeded data.</span></span>
 
 ---
 
-<span data-ttu-id="58c46-172">Aplikace bude zobrazovat dosazená data:</span><span class="sxs-lookup"><span data-stu-id="58c46-172">The app shows the seeded data:</span></span>
+<span data-ttu-id="7f323-172">Aplikace bude zobrazovat dosazená data:</span><span class="sxs-lookup"><span data-stu-id="7f323-172">The app shows the seeded data:</span></span>
 
 ![Otevřít v prohlížeči Chrome ukazující data o filmech aplikace Movie](sql/_static/m55.png)
 
-<span data-ttu-id="58c46-174">V dalším kurzu se vyčistit prezentace data.</span><span class="sxs-lookup"><span data-stu-id="58c46-174">The next tutorial will clean up the presentation of the data.</span></span>
+<span data-ttu-id="7f323-174">V dalším kurzu se vyčistit prezentace data.</span><span class="sxs-lookup"><span data-stu-id="7f323-174">The next tutorial will clean up the presentation of the data.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="58c46-175">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="58c46-175">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="7f323-175">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="7f323-175">Additional resources</span></span>
 
-* [<span data-ttu-id="58c46-176">Verzi tohoto kurzu na webu YouTube</span><span class="sxs-lookup"><span data-stu-id="58c46-176">YouTube version of this tutorial</span></span>](https://youtu.be/A_5ff11sDHY)
+* [<span data-ttu-id="7f323-176">Verzi tohoto kurzu na webu YouTube</span><span class="sxs-lookup"><span data-stu-id="7f323-176">YouTube version of this tutorial</span></span>](https://youtu.be/A_5ff11sDHY)
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="58c46-177">[Předchozí: Generované uživatelské rozhraní pro stránky Razor](xref:tutorials/razor-pages/page)
-> [Další: Aktualizace stránek](xref:tutorials/razor-pages/da1)</span><span class="sxs-lookup"><span data-stu-id="58c46-177">[Previous: Scaffolded Razor Pages](xref:tutorials/razor-pages/page)
+> <span data-ttu-id="7f323-177">[Předchozí: Generované uživatelské rozhraní pro stránky Razor](xref:tutorials/razor-pages/page)
+> [Další: Aktualizace stránek](xref:tutorials/razor-pages/da1)</span><span class="sxs-lookup"><span data-stu-id="7f323-177">[Previous: Scaffolded Razor Pages](xref:tutorials/razor-pages/page)
 [Next: Updating the pages](xref:tutorials/razor-pages/da1)</span></span>
