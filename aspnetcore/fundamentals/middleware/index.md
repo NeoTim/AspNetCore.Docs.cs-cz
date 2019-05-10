@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 02/17/2019
 uid: fundamentals/middleware/index
 ms.openlocfilehash: bac121441d6856ca79affe1a3130e5cbc76debd9
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665386"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64901239"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -191,7 +191,7 @@ Konfigurace kanálu HTTP pomocí `Use`, `Run`, a `Map`. `Use` Metoda můžete zk
 
 V následující tabulce jsou uvedeny požadavky a odpovědi z `http://localhost:1234` pomocí předchozího kódu.
 
-| Žádost             | Odpověď                     |
+| Request             | Odpověď                     |
 | ------------------- | ---------------------------- |
 | localhost:1234      | Dobrý den ze bez mapování delegáta. |
 | localhost:1234/map1 | Mapování Test 1                   |
@@ -206,7 +206,7 @@ Když `Map` se používá, segmenty cesty odpovídající jsou odebrány z `Http
 
 V následující tabulce jsou uvedeny požadavky a odpovědi z `http://localhost:1234` pomocí předchozího kódu.
 
-| Žádost                       | Odpověď                     |
+| Request                       | Odpověď                     |
 | ----------------------------- | ---------------------------- |
 | localhost:1234                | Dobrý den ze bez mapování delegáta. |
 | localhost:1234/?branch=master | Větev se použije hlavní =         |

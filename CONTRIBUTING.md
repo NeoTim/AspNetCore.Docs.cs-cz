@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 98a03118954baa85b093a0514e1ac6f0fb6353e8
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320105"
----
 # <a name="contribute-to-the-aspnet-core-documentation"></a>Přispívání do dokumentace k ASP.NET Core
 
 Tento dokument popisuje proces pro přispívání do článků a ukázky kódu, které jsou hostované na [webu Dokumentace k ASP.NET](https://docs.microsoft.com/aspnet/). Máte překlep opravy a nové články jsou Vítá příspěvky.

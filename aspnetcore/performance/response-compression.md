@@ -7,20 +7,20 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: performance/response-compression
-ms.openlocfilehash: e87480ebb81791ed233f3e2308e35e21e081824f
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: e312d43fb62106f6ecb98367c29daa377bb227c9
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248365"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64899637"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Kompresi odpovědí v ASP.NET Core
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/response-compression/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-Šířka pásma sítě je omezená prostředků. Na odezvu aplikace, je obvykle nezmenšit velikost této odpovědi často výrazně zvyšuje. Jedním ze způsobů ke zmenšení velikosti datové části je kompresi odpovědí vaší aplikace.
+Šířka pásma sítě je omezená prostředků. Odezvu aplikace obvykle zlepšuje zmenšení velikosti odpovědi, a to často výrazně. Jedním ze způsobů zmenšení velikosti datové části je komprese odpovědí vaší aplikace.
 
 ## <a name="when-to-use-response-compression-middleware"></a>Kdy použít Middleware pro kompresi odpovědí
 
@@ -89,7 +89,7 @@ Záhlaví účastnící se požaduje, odesílání, ukládání do mezipaměti a
 | `Content-Type`     | Určuje typ MIME obsahu. Každou odpověď by měla určit jeho `Content-Type`. Middleware ověří tuto hodnotu k určení, pokud je nutné zkomprimovat odpovědi. Middleware určuje sadu [výchozí typy MIME](#mime-types) , která můžete kódovat, ale můžete nahradit nebo přidat typy MIME. |
 | `Vary`             | Při odeslání server s hodnotou `Accept-Encoding` pro klienty a proxy servery, `Vary` hlavička označuje klienta nebo proxy server, který by měl mezipaměti (lišit) odpovědi na základě hodnoty z `Accept-Encoding` záhlaví požadavku. Vrací obsah s výsledkem `Vary: Accept-Encoding` záhlaví je, že i komprimované a jsou v odpovědi na nekomprimované samostatně uložené v mezipaměti. |
 
-Seznamte se s funkcemi Middleware pro kompresi odpovědí s [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
+Seznamte se s funkcemi Middleware pro kompresi odpovědí s [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
 
 * Kompresi odpovědí aplikace pomocí Gzip a poskytovatelé vlastní komprese.
 * Jak přidat typ MIME do seznamu výchozích typů MIME pro kompresi.

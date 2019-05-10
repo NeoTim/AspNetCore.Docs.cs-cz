@@ -5,12 +5,12 @@ description: V tomto kurzu budete aktualizovat souvisejících dat prostřednict
 ms.author: riande
 ms.date: 11/15/2017
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: e1407048157fccdbfdd854071a6fbf9785356026
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: b996e7f9c8e422060f6378a6004a53906e2af7c7
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208606"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087086"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – aktualizace souvisejících dat – 7 8
 
@@ -18,7 +18,7 @@ Podle [Petr Dykstra](https://github.com/tdykstra), a [Rick Anderson](https://twi
 
 [!INCLUDE [about the series](../../includes/RP-EF/intro.md)]
 
-Tento kurz ukazuje, aktualizuje se související data. Pokud narazíte na potíže nelze vyřešit, [stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
+Tento kurz ukazuje, aktualizuje se související data. Pokud narazíte na potíže nelze vyřešit, [stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
 Následující ilustrace ukazuje některé dokončených stránek.
 

@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat aplikace SignalR technologie ASP.NET 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 02/07/2019
+ms.date: 04/15/2019
 uid: signalr/configuration
-ms.openlocfilehash: 2c1bb8d5e317813d1fdb8d474b7d7d892e6f67ec
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 703357fd52805e01515e5bac3b1a364ce7fe00f0
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264577"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087655"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>Konfigurace jádra SignalR technologie ASP.NET
 
@@ -167,6 +167,31 @@ let connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
     .build();
 ```
+
+::: moniker range=">= aspnetcore-3.0"
+
+Místo `LogLevel` hodnoty, můžete zadat taky `string` hodnotu představující název úrovně protokolu. To je užitečné při konfiguraci SignalR protokolování v prostředí, ve kterém nemáte přístup k `LogLevel` konstanty.
+
+```javascript
+let connection = new signalR.HubConnectionBuilder()
+    .withUrl("/myhub")
+    .configureLogging("warn")
+    .build();
+```
+
+Následující tabulka uvádí dostupné protokolu úrovně. Hodnota poskytnete `configureLogging` nastaví **minimální** úrovně, která se zaznamenala protokolování. Zprávy zaprotokolované na této úrovni **nebo úrovně uvedených za něj v tabulce**, budou protokolovány.
+
+| odkazy řetězců | LogLevel |
+| - | - |
+| `"trace"` | `LogLevel.Trace` |
+| `"debug"` | `LogLevel.Debug` |
+| `"info"` **Nebo** `"information"` | `LogLevel.Information` |
+| `"warn"` **Nebo** `"warning"` | `LogLevel.Warning` |
+| `"error"` | `LogLevel.Error` |
+| `"critical"` | `LogLevel.Critical` |
+| `"none"` | `LogLevel.None` |
+
+::: moniker-end
 
 > [!NOTE]
 > Chcete-li zakázat protokolování úplně, zadejte `signalR.LogLevel.None` v `configureLogging` metody.

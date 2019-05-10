@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 1f193b440f8317741c6f2a94d36f12596ffd2440
-ms.sourcegitcommit: 9bb58d7c8dad4bbd03419bcc183d027667fefa20
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "58210432"
----
 ## <a name="prerequisites"></a>Požadavky
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)

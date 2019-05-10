@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 11/20/2018
 uid: client-side/bundling-and-minification
 ms.openlocfilehash: 5d5f0aadb7740c9b2b959d12a585cd8c91758ce8
-ms.sourcegitcommit: 4225e2c49a0081e6ac15acff673587201f54b4aa
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/21/2018
-ms.locfileid: "52282134"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900450"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Vytvoření balíčku a minifikace statické prostředky v ASP.NET Core
 
@@ -87,9 +87,9 @@ Možnosti konfigurace patří:
 
 * `outputFileName`: Název souboru svazku do výstupu. Může obsahovat relativní cestu z *bundleconfig.json* souboru. **Vyžaduje**
 * `inputFiles`: Pole souborů, které mají spojit dohromady. Jedná se o relativní cesty ke konfiguračnímu souboru. **volitelné**, * prázdnou hodnotu výsledkem prázdná výstupní soubor. [podpory zástupných znaků](http://www.tldp.org/LDP/abs/html/globbingref.html) vzory jsou podporovány.
-* `minify`Možnosti výstupního typu: připravenost k minifikaci. **volitelné**, *výchozí – `minify: { enabled: true }`*
+* `minify`: Připravenost k minifikaci možnosti pro typ výstupu. **volitelné**, *výchozí – `minify: { enabled: true }`*
   * Možnosti konfigurace jsou k dispozici na typ výstupního souboru.
-    * [Minifier šablon stylů CSS](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
+    * [CSS Minifier](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
     * [Minifier jazyka JavaScript](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
     * [HTML Minifier](https://github.com/madskristensen/BundlerMinifier/wiki)
 * `includeInProject`: Příznak označující, jestli se má přidat generované soubory do souboru projektu. **volitelné**, *výchozí – false*
@@ -218,7 +218,7 @@ K minifikaci *custom.css* a zabalí jej *site.css* do *site.min.css* přidejte r
 >
 > Tento model podpory zástupných znaků vyhledá všechny soubory šablon stylů CSS a vyloučí vzor minifikovaný souboru.
 
-Sestavení aplikace. Otevřít *site.min.css* a Všimněte si, že obsah *custom.css* je připojen na konec souboru.
+Sestavte aplikaci. Otevřít *site.min.css* a Všimněte si, že obsah *custom.css* je připojen na konec souboru.
 
 ## <a name="environment-based-bundling-and-minification"></a>Prostředí založené na sdružování a minifikace
 

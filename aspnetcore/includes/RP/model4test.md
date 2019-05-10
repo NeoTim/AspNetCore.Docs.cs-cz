@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 1e848a6779a0c68754215ead35d27df5b371f8ed
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265380"
----
 <a name="test"></a>
 
 ### <a name="test-the-app"></a>Testování aplikace

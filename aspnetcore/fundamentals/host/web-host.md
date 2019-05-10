@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/host/web-host
-ms.openlocfilehash: 94d7e3436b52646166733e9e7334ac533c72b7b8
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: b391b5e514e750f64f30d33cf4eb91e489242eba
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346464"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64901578"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core Web Host
 
@@ -124,7 +124,7 @@ Konfigurace určené `CreateDefaultBuilder` můžete přepsat a rozšířen o [C
 
 ::: moniker-end
 
-*Obsahu kořenové* Určuje, kde hostitele vyhledává soubory obsahu, jako jsou například soubory zobrazení MVC. Při spuštění aplikace z kořenové složky projektu, kořenové složky projektu slouží jako kořenový adresář obsahu. Toto je výchozí hodnotu použitou v [sady Visual Studio](https://www.visualstudio.com/) a [nové šablony pro dotnet](/dotnet/core/tools/dotnet-new).
+*Obsahu kořenové* Určuje, kde hostitele vyhledává soubory obsahu, jako jsou například soubory zobrazení MVC. Při spuštění aplikace z kořenové složky projektu, kořenové složky projektu slouží jako kořenový adresář obsahu. Toto je výchozí hodnotu použitou v [sady Visual Studio](https://visualstudio.microsoft.com) a [nové šablony pro dotnet](/dotnet/core/tools/dotnet-new).
 
 Další informace o konfiguraci aplikací najdete v tématu <xref:fundamentals/configuration/index>.
 
@@ -219,7 +219,7 @@ Nastaví prostředí aplikace.
 **Sada s použitím**: `UseEnvironment`  
 **Proměnná prostředí**: `ASPNETCORE_ENVIRONMENT`
 
-Prostředí můžete nastavit na libovolnou hodnotu. Hodnoty definované v rámci rozhraní zahrnují `Development`, `Staging`, a `Production`. Hodnoty se velká a malá písmena. Ve výchozím nastavení *prostředí* číst z `ASPNETCORE_ENVIRONMENT` proměnné prostředí. Při použití [sady Visual Studio](https://www.visualstudio.com/), lze nastavit proměnné prostředí *launchSettings.json* souboru. Další informace naleznete v tématu <xref:fundamentals/environments>.
+Prostředí můžete nastavit na libovolnou hodnotu. Hodnoty definované v rámci rozhraní zahrnují `Development`, `Staging`, a `Production`. Hodnoty se velká a malá písmena. Ve výchozím nastavení *prostředí* číst z `ASPNETCORE_ENVIRONMENT` proměnné prostředí. Při použití [sady Visual Studio](https://visualstudio.microsoft.com), lze nastavit proměnné prostředí *launchSettings.json* souboru. Další informace naleznete v tématu <xref:fundamentals/environments>.
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -532,7 +532,7 @@ using (var host = WebHost.Start(router => router
 
 Použijte následující požadavky na prohlížeč s příkladem:
 
-| Žádost                                    | Odpověď                                 |
+| Request                                    | Odpověď                                 |
 | ------------------------------------------ | ---------------------------------------- |
 | `http://localhost:5000/hello/Martin`       | Dobrý den, Martin!                           |
 | `http://localhost:5000/buenosdias/Catrina` | Buenos dias, Catrina!                    |

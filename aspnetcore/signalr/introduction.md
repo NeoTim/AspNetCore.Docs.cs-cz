@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 04/25/2018
 uid: signalr/introduction
 ms.openlocfilehash: 673efafce60dfa46cb99f9537fda2bca42bf9822
-ms.sourcegitcommit: ebf4e5a7ca301af8494edf64f85d4a8deb61d641
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2019
-ms.locfileid: "54836360"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898752"
 ---
 # <a name="introduction-to-aspnet-core-signalr"></a>Úvod do ASP.NET Core SignalR
 
@@ -48,7 +48,7 @@ Funkce SignalR podporuje několik postupů pro zpracování komunikaci v reáln�
 
 Funkce SignalR automaticky vybere nejlepší metody přenosu, který je v rámci funkce serveru a klienta.
 
-## <a name="hubs"></a>Rozbočovače
+## <a name="hubs"></a>Centra
 
 Používá funkci SignalR *rozbočovače* ke komunikaci mezi klienty a servery.
 

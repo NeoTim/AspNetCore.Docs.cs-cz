@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/11/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 52450460af59a8da4fc6b24e3aa83d55385e8c77
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 63a876c09f952537d790f2a5df4b8672df49d015
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750963"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65517024"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -30,7 +30,7 @@ Konfigurace aplikace v ASP.NET Core je založená na páry klíč hodnota stanov
 
 *Možnosti vzor* je rozšířením konfigurace koncepty popsané v tomto tématu. Možnosti třídy používá k reprezentování skupiny související nastavení. Další informace o použití vzoru možnosti najdete v tématu <xref:fundamentals/configuration/options>.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 Tyto tři balíčky jsou součástí [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
 
@@ -98,7 +98,7 @@ Pokud je soubor pro čtení do konfigurace, jedinečné klíče se vytvoří zac
 
 Konfigurace zdroje jsou při spuštění aplikace pro čtení v pořadí, že jsou uvedeny příslušné poskytovatele konfigurace.
 
-Poskytovatelé konfigurace souboru mají možnost znovu načíst konfiguraci je podkladový soubor nastavení se při změně po spuštění aplikace. Zprostředkovatel konfigurace souboru je popsána dále v tomto tématu.
+Poskytovatelé konfigurace, které implementují detekce změn se budou moct znovu načíst konfiguraci základní nastavení se při změně. Například soubor zprostředkovatel konfigurace (popsáno dále v tomto tématu) a [konfigurace zprostředkovatele služby Azure Key Vault](xref:security/key-vault-configuration) implementovat detekce změn.
 
 <xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v aplikaci prvku [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) kontejneru. <xref:Microsoft.Extensions.Configuration.IConfiguration> mohou být vloženy do stránky Razor <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> získat konfiguraci pro třídu:
 
@@ -314,7 +314,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 Po spuštění předchozího příkazu se konfigurace obsahuje hodnoty uvedené v následující tabulce.
 
-| Key               | Hodnota    |
+| Key               | Value    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
@@ -954,7 +954,7 @@ Obsahuje ukázkovou aplikaci `Starship` modelu (*Models/Starship.cs*):
 
 Následující páry klíč hodnota konfigurace jsou vytvořeny:
 
-| Key                   | Hodnota                                             |
+| Key                   | Value                                             |
 | --------------------- | ------------------------------------------------- |
 | starship: name         | USS Enterprise                                    |
 | starship: registru     | NCC-1701                                          |
@@ -1008,7 +1008,7 @@ TvShow = tvShow;
 
 Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tabulce.
 
-| Key             | Hodnota  |
+| Key             | Value  |
 | :-------------: | :----: |
 | pole: položky: 0 | gamma0 |
 | pole: položek: 1 | value1 |

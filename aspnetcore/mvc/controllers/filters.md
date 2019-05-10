@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: 4fe04cde2a234302845b2cbded106f1e809842bc
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: f357df0bbc51e881132e36ccb20f4ffdc3035032
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209291"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898605"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -27,7 +27,7 @@ Integrované filtry naložit s úkoly, jako:
 
 Vlastní filtry lze vytvořit pro zpracování vyskytující aspekty. Filtry můžete předejít duplikování kódu napříč akce. Zpracování filtru výjimek chyby může například konsolidovat zpracování chyb.
 
-[Zobrazit nebo stáhnout ukázky z Githubu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).
+[Zobrazit nebo stáhnout ukázky z Githubu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).
 
 ## <a name="how-filters-work"></a>Jak fungují filtry
 
@@ -425,4 +425,4 @@ Middleware filtry třídí ve stejné fázi kanálu filtr jako prostředek filtr
 ## <a name="next-actions"></a>Další akce
 
 * Zobrazit [metody filtrování pro Razor Pages](xref:razor-pages/filter)
-* Můžete experimentovat s filtry, [stáhnout, otestovat a upravit na Githubu ukázky](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).
+* Můžete experimentovat s filtry, [stáhnout, otestovat a upravit na Githubu ukázky](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: security/cookie-sharing
-ms.openlocfilehash: 7a049ed8787808e228859afc051b8697a6261c21
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 94fafc91012b5a7e0888a6ebf37f517c129af2ac
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59068307"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64899052"
 ---
 # <a name="share-cookies-among-apps-with-aspnet-and-aspnet-core"></a>Sdílení souborů cookie mezi aplikacemi s technologií ASP.NET a ASP.NET Core
 
@@ -19,7 +19,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Luke Latham](https://g
 
 Websites se často skládají z jednotlivých webových aplikací společně fungují. Pokud chcete poskytovat jednotné přihlašování (SSO), musíte webové aplikace v rámci lokality sdílet soubory cookie pro ověřování. Pro podporu tohoto scénáře, zásobník ochrany dat umožňuje sdílení Katana ověřování souborů cookie a lístků pro ověřování souborů cookie pomocí ASP.NET Core.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/cookie-sharing/sample/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cookie-sharing/sample/) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázka ilustruje soubor cookie pro sdílení obsahu napříč tři aplikace, které používala ověřování souborů cookie:
 
@@ -57,7 +57,7 @@ Při hostování aplikací, které sdílení souborů cookie mezi subdomény, za
 options.Cookie.Domain = ".contoso.com";
 ```
 
-Najdete v článku *CookieAuthWithIdentity.Core* projekt [ukázkový kód](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/cookie-sharing/sample/) ([stažení](xref:index#how-to-download-a-sample)).
+Najdete v článku *CookieAuthWithIdentity.Core* projekt [ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cookie-sharing/sample/) ([stažení](xref:index#how-to-download-a-sample)).
 
 ::: moniker-end
 
@@ -105,7 +105,7 @@ Při hostování aplikací, které sdílení souborů cookie mezi subdomény, za
 options.Cookie.Domain = ".contoso.com";
 ```
 
-Najdete v článku *CookieAuth.Core* projekt [ukázkový kód](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/cookie-sharing/sample/) ([stažení](xref:index#how-to-download-a-sample)).
+Najdete v článku *CookieAuth.Core* projekt [ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cookie-sharing/sample/) ([stažení](xref:index#how-to-download-a-sample)).
 
 ::: moniker-end
 
@@ -167,7 +167,7 @@ Sdílet soubory cookie pro ověřování mezi aplikace ASP.NET 4.x a aplikace AS
 
 [!code-csharp[](cookie-sharing/sample/CookieAuthWithIdentity.NETFramework/CookieAuthWithIdentity.NETFramework/App_Start/Startup.Auth.cs?name=snippet1)]
 
-Najdete v článku *CookieAuthWithIdentity.NETFramework* projekt [ukázkový kód](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/cookie-sharing/sample/) ([stažení](xref:index#how-to-download-a-sample)).
+Najdete v článku *CookieAuthWithIdentity.NETFramework* projekt [ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cookie-sharing/sample/) ([stažení](xref:index#how-to-download-a-sample)).
 
 Při generování identitu uživatele, typ ověřování, který musí odpovídat typ definovaný v `AuthenticationType` sadu s `UseCookieAuthentication`.
 

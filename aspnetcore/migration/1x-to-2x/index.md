@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: f5bd2bc9862a7487658125e14837798886efad11
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: fb6157205ab5280eb982a61e834eea5074864830
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090508"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450955"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>Migrace z technologie ASP.NET Core 1.x do 2.0
 
@@ -41,6 +41,8 @@ Projekty cílené na rozhraní .NET Framework by měl používat TFM verze vět�
 
 > [!NOTE]
 > .NET core 2.0 nabízí mnohem větší plochu povrchu než .NET Core 1.x. Pokud na rozhraní .NET Framework pouze z důvodu chybějící rozhraní API v .NET Core 1.x cílí na .NET Core 2.0 je pravděpodobně fungovat.
+
+Pokud soubor projektu obsahuje `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>`, naleznete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/3221#issuecomment-413094268).
 
 <a name="global-json"></a>
 

@@ -6,18 +6,18 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 02/28/2019
 uid: performance/caching/response
-ms.openlocfilehash: efcf443b1487827fe6cf4d43b6dda69adf4d61fb
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 2e247dcff2cbaa3711a9206d7237a061ae351e1d
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345743"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898845"
 ---
 # <a name="response-caching-in-aspnet-core"></a>Ukládání odpovědí do mezipaměti v ASP.NET Core
 
 Podle [Jan Luo](https://github.com/JunTaoLuo), [Rick Anderson](https://twitter.com/RickAndMSFT), [Steve Smith](https://ardalis.com/), a [Luke Latham](https://github.com/guardrex)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/caching/response/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/response/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukládání odpovědí do mezipaměti snižuje počet požadavků, které odešle klient nebo server proxy webový server. Ukládání odpovědí do mezipaměti také snižuje množství práce provádí webového serveru pro generování odpovědi. Ukládání odpovědí do mezipaměti se řídí hlavičky, které určují, jak chcete klienta, serveru proxy a middlewarem do mezipaměti odpovědi.
 
@@ -91,7 +91,7 @@ Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/di
 
 [Middleware pro ukládání do mezipaměti odpovědí](xref:performance/caching/middleware) musí být povoleno nastavení <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> vlastnost. V opačném případě je vyvolána výjimka za běhu. Není k dispozici odpovídající hlavičku protokolu HTTP <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> vlastnost. Vlastnost je zpracována Middleware pro ukládání do mezipaměti odpovědí funkce protokolu HTTP. Pro daný middleware pro obsluhu odpověď uložená v mezipaměti řetězec dotazu a hodnotu řetězce dotazu musí odpovídat předchozí žádosti. Představte si třeba pořadí požadavků a výsledky zobrazené v následující tabulce.
 
-| Žádost                          | Výsledek                    |
+| Request                          | Výsledek                    |
 | -------------------------------- | ------------------------- |
 | `http://example.com?key1=value1` | Vrácená ze serveru. |
 | `http://example.com?key1=value1` | Vrácená z middlewaru. |

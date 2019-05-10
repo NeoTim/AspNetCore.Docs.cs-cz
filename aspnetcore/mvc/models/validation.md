@@ -7,18 +7,18 @@ ms.custom: mvc
 ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: bd6585c9eec4412fe70c17b5ca94269027803733
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: acb0ae989f6e82a5bc80935a8acfc96e51073d2f
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982769"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898395"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu v ASP.NET Core MVC a stránky Razor
 
 Tento článek vysvětluje, jak ověřit vstup uživatele v aplikaci ASP.NET Core MVC nebo stránky Razor.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/models/validation/sample) ([stažení](xref:index#how-to-download-a-sample)).
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) ([stažení](xref:index#how-to-download-a-sample)).
 
 ## <a name="model-state"></a>Stav modelu
 
@@ -38,7 +38,7 @@ Ověření je automatická, ale můžete zopakovat ručně. Například může v
 
 ## <a name="validation-attributes"></a>Ověřování atributů
 
-Ověřování atributů umožňují zadat ověřovacích pravidel pro vlastnosti modelu. Následující příklad z [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/models/validation/sample) ukazuje třídu modelu, která je označena s atributy ověření. `[ClassicMovie]` Atribut vlastního ověřovacího atributu a ostatní jsou integrované. (Není vidět je `[ClassicMovie2]`, který ukazuje alternativní způsob, jak implementovat vlastní atribut.)
+Ověřování atributů umožňují zadat ověřovacích pravidel pro vlastnosti modelu. Následující příklad z [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) ukazuje třídu modelu, která je označena s atributy ověření. `[ClassicMovie]` Atribut vlastního ověřovacího atributu a ostatní jsou integrované. (Není vidět je `[ClassicMovie2]`, který ukazuje alternativní způsob, jak implementovat vlastní atribut.)
 
 [!code-csharp[](validation/sample/Models/Movie.cs?name=snippet_ModelClass)]
 

@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 088f347cee73e745882455e6882d24a1e949f095
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265067"
----
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>Přidání nového pole do aplikace ASP.NET Core MVC
 
 <!-- This include not used by windows version -->

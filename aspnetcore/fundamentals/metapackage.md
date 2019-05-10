@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/25/2018
 uid: fundamentals/metapackage
-ms.openlocfilehash: d95bafd412969bb8db38499bd2ff01af510d872c
-ms.sourcegitcommit: 54655f1e1abf0b64d19506334d94cfdb0caf55f6
+ms.openlocfilehash: 5d49213e6d694f121d8301c94ba71782b2dc45cf
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/26/2018
-ms.locfileid: "50148847"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086936"
 ---
 # <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>Metabalíček Microsoft.aspnetcore.all pro ASP.NET Core 2.0
 
@@ -21,7 +21,9 @@ ms.locfileid: "50148847"
 
 Tato funkce vyžaduje ASP.NET Core 2.x cílení na .NET Core 2.x.
 
-[Metabalíček](https://www.nuget.org/packages/Microsoft.AspNetCore.All) Microsoft.AspNetCore.All pro ASP.NET Core zahrnuje:
+[Metabalíček](https://www.nuget.org/packages/Microsoft.AspNetCore.All) je Microsoft.aspnetcore.all, odkazující na sdílené architektuře. A *sdílené architektuře* je sada sestavení (*.dll* soubory), které nejsou ve složkách aplikace. Sdílené architektuře musí být nainstalována na počítači spusťte aplikaci. Další informace najdete v tématu [sdílené architektuře](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
+
+Sdílené architektuře, která `Microsoft.AspNetCore.All` odkazuje na zahrnuje:
 
 * Všechny podporované balíčky vytvořené týmem ASP.NET Core.
 * Všechny podporované balíčky pomocí Entity Framework Core.
@@ -29,11 +31,7 @@ Tato funkce vyžaduje ASP.NET Core 2.x cílení na .NET Core 2.x.
 
 Všechny funkce aplikace ASP.NET Core 2.x a Entity Framework Core 2.x jsou součástí `Microsoft.AspNetCore.All` balíčku. Tento balíček použít výchozí šablony projektu cílení ASP.NET Core 2.0.
 
-Číslo verze `Microsoft.AspNetCore.All` Microsoft.aspnetcore.all představuje verzi technologie ASP.NET Core a Entity Framework Core verze.
-
-Aplikace, které používají `Microsoft.AspNetCore.All` Microsoft.aspnetcore.all automaticky využijí [.NET Core Runtime Store](/dotnet/core/deploying/runtime-store). Modul Runtime Store obsahuje všechny prostředky modulu runtime potřebné ke spouštění ASP.NET Core 2.x aplikací. Při použití `Microsoft.AspNetCore.All` Microsoft.aspnetcore.all, **žádné** nasazení se aplikace používají prostředky z balíčků odkazovaných ASP.NET Core NuGet &mdash; Store .NET Core Runtime obsahuje tyto prostředky. Prostředky v modulu Runtime Store předkompilovány zlepšit dobu spuštění aplikace.
-
-Proces oříznutí balíčku můžete použít k odebrání balíčků, které nepoužíváte. Oříznutý balíčky jsou vyloučeny ve výstupu publikovanou aplikaci.
+Číslo verze `Microsoft.AspNetCore.All` Microsoft.aspnetcore.all představuje minimální verzi technologie ASP.NET Core a Entity Framework Core verze.
 
 Následující *.csproj* souboru odkazy `Microsoft.AspNetCore.All` Microsoft.aspnetcore.all pro ASP.NET Core:
 
@@ -43,7 +41,7 @@ Následující *.csproj* souboru odkazy `Microsoft.AspNetCore.All` Microsoft.asp
 
 ## <a name="implicit-versioning"></a>Implicitní vytváření verzí
 
-V ASP.NET Core 2.1 nebo novější, můžete zadat `Microsoft.AspNetCore.All` odkaz bez verze balíčku. Pokud není zadána verze, je určen implicitní verze sady SDK (`Microsoft.NET.Sdk.Web`). Doporučujeme, abyste spoléhat na implicitní verze určené sady SDK a nastavení nejsou explicitně číslo verze na odkaz na balíček. Pokud máte dotazy týkající se tento přístup, ponechte v Githubu komentář [diskuse implicitní verze Microsoft.AspNetCore.App](https://github.com/aspnet/Docs/issues/6430).
+V ASP.NET Core 2.1 nebo novější, můžete zadat `Microsoft.AspNetCore.All` odkaz bez verze balíčku. Pokud není zadána verze, je určen implicitní verze sady SDK (`Microsoft.NET.Sdk.Web`). Doporučujeme, abyste spoléhat na implicitní verze určené sady SDK a nastavení nejsou explicitně číslo verze na odkaz na balíček. Pokud máte dotazy týkající se tento přístup, ponechte v Githubu komentář [diskuse implicitní verze Microsoft.AspNetCore.App](https://github.com/aspnet/AspNetCore.Docs/issues/6430).
 
 Implicitní verze je nastaveno na `major.minor.0` pro přenosné aplikace. Mechanismus vpřed sdílené architektuře aplikace spouští nejnovější kompatibilní verzi mezi nainstalovaných sdílené architektury. Chcete-li zaručit, že při vývoji se používá stejnou verzi, testovacím i produkčním prostředí, ujistěte se, že stejná verze modulu sdílené framework je nainstalována ve všech prostředích. Samostatná aplikace, číslo verze implicitní je nastavena na `major.minor.patch` sdílené Framework dodávat v nainstalované sady SDK.
 
@@ -51,7 +49,7 @@ Zadáním čísla verze na `Microsoft.AspNetCore.All` nemá odkaz na balíček *
 
 Sady SDK projektu musí být nastaveno na `Microsoft.NET.Sdk.Web` v souboru projektu použije implicitní verzi `Microsoft.AspNetCore.All`. Když `Microsoft.NET.Sdk` SDK je zadána (`<Project Sdk="Microsoft.NET.Sdk">` v horní části souboru projektu), následující upozornění:
 
-*NU1604 upozornění: Závislost projektu metabalíček neobsahuje inkluzivní dolní mez. Dolní mez zahrňte do verze závislosti zajistit výsledky obnovení budou konzistentní.*
+*Upozornění NU1604: Závislosti projektu metabalíček neobsahuje inkluzivní dolní mez. Dolní mez zahrňte do verze závislosti zajistit výsledky obnovení budou konzistentní.*
 
 Jedná se o známý problém s .NET Core 2.1 SDK a bude opravený v .NET Core 2.2 SDK.
 
@@ -90,6 +88,6 @@ Všechny závislosti z předchozí balíčky, které jinak nejsou závislosti `M
 
 Doporučujeme migrovat na `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all 2.1 nebo novější. Pokud chcete dál používat `Microsoft.AspNetCore.All` Microsoft.aspnetcore.all a ověřte nasazení nejnovější verze opravy:
 
-* Na počítačích vývojářů a buildovací servery: nainstalujte nejnovější [.NET Core SDK](https://www.microsoft.com/net/download).
-* Na serverech nasazení: nainstalujte nejnovější [.NET Core runtime](https://www.microsoft.com/net/download).
+* Na počítačích vývojářů a buildovací servery: Nainstalujte nejnovější [.NET Core SDK](https://www.microsoft.com/net/download).
+* Na serverech nasazení: Nainstalujte nejnovější [.NET Core runtime](https://www.microsoft.com/net/download).
  Vaše aplikace se posunout vpřed byla nejnovější nainstalovaná verze na restartování aplikace.

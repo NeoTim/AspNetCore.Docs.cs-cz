@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core podporuje injektáž závislostí do zo
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: 940e237fd73a864d9fd59f5447fe486f93648f62
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
-ms.translationtype: HT
+ms.openlocfilehash: b411b164bfea81f82c5c9fc1052e0ecfe65f0bc2
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087472"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65517054"
 ---
 # <a name="dependency-injection-into-views-in-aspnet-core"></a>Injektáž závislostí do zobrazení v ASP.NET Core
 
@@ -20,13 +20,38 @@ Podporuje ASP.NET Core [injektáž závislostí](xref:fundamentals/dependency-in
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/dependency-injection/sample) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="a-simple-example"></a>Jednoduchý příklad
+## <a name="configuration-injection"></a>Konfigurace vkládání
 
-Službu můžete vložit do zobrazení pomocí `@inject` směrnice. Můžete si představit `@inject` jako přidání vlastnosti do zobrazení a naplnění danou vlastnost pomocí DI.
+*appSettings.JSON* hodnoty můžete vloží přímo do zobrazení.
+
+Příklad *appsettings.json* souboru:
+
+```json
+{
+   "root": {
+      "parent": {
+         "child": "myvalue"
+      }
+   }
+}
+```
 
 Syntaxe pro `@inject`: `@inject <type> <name>`
 
-Příklad `@inject` v akci:
+Příklad použití `@inject`:
+
+```csharp
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+   string myValue = Configuration["root:parent:child"];
+   ...
+}
+```
+
+## <a name="service-injection"></a>Dokáže vložit službu
+
+Služby můžete být vloženy do zobrazení pomocí `@inject` směrnice. Můžete si představit `@inject` jako přidání vlastnosti do zobrazení a naplnění danou vlastnost pomocí DI.
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/ToDo/Index.cshtml?highlight=4,5,15,16,17)]
 

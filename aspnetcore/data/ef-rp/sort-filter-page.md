@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 162586059e3115bc15efaa63a9a0652e09872f1b
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
-ms.translationtype: MT
+ms.openlocfilehash: 228722ecdc0fb19e024b7154393390fe6d34c5ff
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209962"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900783"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – řazení, filtrování, stránkování – 3 z 8
 
@@ -29,7 +29,7 @@ Následující obrázek ukazuje stránku dokončené. Záhlaví sloupců jsou od
 
 ![Studenti indexová stránka](sort-filter-page/_static/paging.png)
 
-Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
+Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
 
 ## <a name="add-sorting-to-the-index-page"></a>Přidání řazení na indexovou stránku
 
@@ -275,13 +275,13 @@ Nahraďte kód v *Pages/About.cshtml* souboru následujícím kódem:
 
 Spusťte aplikaci a přejděte na stránku o. Počet studentů pro každé datum registrace se zobrazí v tabulce.
 
-Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace pro tuto fázi](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting).
+Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace pro tuto fázi](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting).
 
 ![O stránku](sort-filter-page/_static/about.png)
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Ladění ASP.NET Core 2.x zdroje](https://github.com/aspnet/Docs/issues/4155)
+* [Ladění ASP.NET Core 2.x zdroje](https://github.com/aspnet/AspNetCore.Docs/issues/4155)
 * [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=MDs7PFpoMqI)
 
 V dalším kurzu se aplikace používá k aktualizaci modelu dat migrace.

@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat a nasazení aplikace na straně serveru Bla
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/18/2019
+ms.date: 04/26/2019
 uid: host-and-deploy/blazor/server-side
-ms.openlocfilehash: 39e4f0634d40e8c720fa5a6a76bc0843487a4e3c
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: 8e44be09a4cceba2509f3e86abf3ce5fd2d077bd
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982585"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64901047"
 ---
 # <a name="host-and-deploy-blazor-server-side"></a>Hostitelství a nasazení Blazor na straně serveru
 
@@ -26,7 +26,7 @@ Serverové aplikace, které používají [model hostingu na straně serveru](xre
 
 S [model hostingu na straně serveru](xref:blazor/hosting-models#server-side), Blazor provádí na serveru z v rámci aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání jazyka JavaScript jsou zpracovány prostřednictvím [SignalR](xref:signalr/introduction) připojení.
 
-Aplikace je součástí aplikace ASP.NET Core v publikované výstupní a dvou aplikací se nasazují společně. Webový server, který dokáže hostovat aplikace ASP.NET Core je povinný. Pro nasazení na straně serveru, Visual Studio obsahuje **Blazor (serverové)** šablonu projektu (`blazorserverside` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz).
+Webový server, který dokáže hostovat aplikace ASP.NET Core je povinný. Visual Studio obsahuje **Blazor (serverové)** šablonu projektu (`blazorserverside` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz).
 
 <!--
 
@@ -38,6 +38,9 @@ Aplikace je součástí aplikace ASP.NET Core v publikované výstupní a dvou a
 
 -->
 
-Další informace o nasazení a hostování aplikací ASP.NET Core najdete v tématu <xref:host-and-deploy/index>.
+## <a name="additional-resources"></a>Další zdroje
 
-Informace o nasazení do služby Azure App Service najdete v tématu <xref:tutorials/publish-to-azure-webapp-using-vs>.
+* <xref:signalr/introduction>
+* <xref:host-and-deploy/index>
+* <xref:tutorials/publish-to-azure-webapp-using-vs>
+* [Nasazení ve verzi preview ASP.NET Core do služby Azure App Service](xref:host-and-deploy/azure-apps/index#deploy-aspnet-core-preview-release-to-azure-app-service)

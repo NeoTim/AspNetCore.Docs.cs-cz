@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/02/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 11195f00e922f6817a0fa0988fad9d8082dea30a
-ms.sourcegitcommit: a467828b5e4eaae291d961ffe2279a571900de23
+ms.openlocfilehash: eba9de26e1af8c4df06b846748d8aa9380fc1862
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58142322"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450884"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>Kompilace souboru Razor v ASP.NET Core
 
@@ -133,9 +133,9 @@ Kompilace modulu runtime se aktivuje pomocí `Microsoft.AspNetCore.Mvc.Razor.Run
       .AddRazorRuntimeCompilation()
   ```
 
-Pro kompilaci modulu runtime pro práci při nasazení, musí aplikace upravit kromě jejich soubory projektu, chcete-li nastavit `PreserveCompilationReferences` k `true`.
+Pro kompilaci modulu runtime pro práci při nasazení, musí aplikace upravit jejich soubory projektu, chcete-li nastavit `PreserveCompilationReferences` k `true`:
 
-[!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=3)]
+[!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=4)]
 
 ::: moniker-end
 

@@ -5,20 +5,22 @@ description: Seznamte se s na straně klienta i stranu serveru Blazor hostován�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/19/2019
+ms.date: 04/25/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 7de93e8721b06e545b3125d78d5e9e0e34c04511
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: e5d0d74b6ad3f6b7d53c4fc2cb962daf6566287e
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982988"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898629"
 ---
 # <a name="blazor-hosting-models"></a>Blazor modelech hostování
 
 Podle [Daniel Roth](https://github.com/danroth27)
 
-Blazor je webové rozhraní navržené ke spuštění na straně klienta v prohlížeči na [WebAssembly](http://webassembly.org/)– na základě modulu runtime .NET (*Blazor na straně klienta*) nebo na serveru ASP.NET Core (*Blazor na straně serveru* ). Bez ohledu na modelech hostování modelu, aplikace a komponenty *zůstávají stejné*.
+Blazor je webové rozhraní navržené ke spuštění na straně klienta v prohlížeči na [WebAssembly](http://webassembly.org/)– na základě modulu runtime .NET (*Blazor na straně klienta*) nebo na serveru ASP.NET Core (*Blazor na straně serveru* ). Bez ohledu na modelech hostování modelu, aplikace a komponenty *jsou stejné*.
+
+Vytvoření projektu pro modelech hostování popsané v tomto článku najdete v tématu <xref:blazor/get-started>.
 
 ## <a name="client-side"></a>Na straně klienta
 
@@ -28,7 +30,7 @@ Hlavní model hostingu pro Blazor je spuštěné v prohlížeči na WebAssembly 
 
 Chcete-li vytvořit aplikaci Blazor používá model hostování na straně klienta, použijte jednu z následujících šablon:
 
-* **Blazor** ([nové blazor dotnet](/dotnet/core/tools/dotnet-new)) &ndash; nasazený jako sada statické soubory.
+* **Blazor (na straně klienta)** ([nové blazor dotnet](/dotnet/core/tools/dotnet-new)) &ndash; nasazený jako sada statické soubory.
 * **Blazor (ASP.NET Core v prostředí)** ([nové blazorhosted dotnet](/dotnet/core/tools/dotnet-new)) &ndash; hostované serveru ASP.NET Core. Aplikace ASP.NET Core obsluhuje Blazor aplikaci pro klienty. Aplikace na straně klienta Blazor můžete spolupracovat se serverem přes síť pomocí volání webového rozhraní API nebo [SignalR](xref:signalr/introduction).
 
 Šablony zahrnují *blazor.webassembly.js* skript, který zpracovává:
@@ -69,10 +71,10 @@ Aplikace ASP.NET Core odkazuje aplikaci `Startup` třídy přidejte:
 
 Model hostingu na straně serveru nabízí několik výhod:
 
-* Výrazně menší aplikace velikost než aplikace na straně klienta a načtou mnohem rychleji.
-* Plně využijte serverových funkcí, včetně použití libovolné rozhraní API .NET Core kompatibilní.
-* Spusťte na .NET Core na serveru, takže existující .NET nástrojů, jako je ladění, funguje podle očekávání.
-* Funguje s tencí klienti (například prohlížeče, které nepodporují WebAssembly a prostředků omezené zařízení).
+* Má velikost výrazně menší aplikace, než aplikace na straně klienta a načte mnohem rychleji.
+* Využití výhod funkce serveru, včetně použití libovolné rozhraní API .NET Core kompatibilní.
+* V rozhraní .NET Core běží na serveru, takže existující .NET nástrojů, jako je ladění, funguje podle očekávání.
+* Funguje s tenké klienty. Například funguje v prohlížečích, které nepodporují WebAssembly a prostředků omezené zařízení.
 * .NET /C# základu kódu, včetně kódu komponenty aplikace, není poskytováni, na klienty.
 
 Existují nevýhody hostování na straně serveru:
@@ -86,7 +88,7 @@ Existují nevýhody hostování na straně serveru:
 
 ### <a name="reconnection-to-the-same-server"></a>Opětovné připojení ke stejnému serveru
 
-Blazor serverové aplikace vyžadují aktivní připojení k serveru funkce SignalR. Pokud dojde ke ztrátě připojení, aplikace se pokusí znovu připojit k serveru. Za předpokladu, stav klienta je stále v paměti, bude pokračovat bez ztráty některému ze stavů relace klienta.
+Blazor serverové aplikace vyžadují aktivní připojení k serveru funkce SignalR. Pokud dojde ke ztrátě připojení, aplikace se pokusí znovu připojit k serveru. Za předpokladu, stav klienta je stále v paměti, bude pokračovat bez ztráty stavu relace klienta.
  
 Když klient zjistí, že připojení bylo ztraceno, je výchozí uživatelské rozhraní a klient se pokusí znovu připojit, zobrazit uživateli. Pokud opětovného připojení selže, uživateli se nabídnou možnost opakovat. Chcete-li přizpůsobit uživatelské rozhraní, definujte element s `components-reconnect-modal` jako jeho `id`. Klient aktualizuje tento element s jedním z následujících tříd šablon stylů CSS na základě stavu připojení:
  
@@ -106,7 +108,7 @@ Aplikace na straně serveru Blazor nastavení jsou ve výchozím nastavení prer
 </body>
 ```
  
-Klient znovu připojí k serveru pomocí stejného stavu, který se použil k prerender aplikace. Pokud státu aplikace je stále v paměti, nemusí se stav komponenty rerendered, jakmile se naváže připojení SignalR.
+Klient znovu připojí k serveru pomocí stejného stavu, který se použil k prerender aplikace. Pokud se stav aplikace je stále v paměti, není stav komponenty rerendered po navázání připojení SignalR.
 
 ### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Vykreslení stavové interaktivní součásti ze stránky Razor a zobrazení
  
@@ -141,7 +143,7 @@ V některých případech budete muset nakonfigurovat klienta SignalR používat
 Abyste mohli nakonfigurovat klienta SignalR v *wwwroot/index.htm* souboru:
 
 * Přidat `autostart="false"` atribut `<script>` značky *blazor.server.js* skriptu.
-* Volání `Blazor.start` a předat objekt konfigurace, který určuje SignalR Tvůrce:
+* Volání `Blazor.start` a předat objekt konfigurace, který určuje Tvůrce SignalR.
  
 ```html
 <script src="_framework/blazor.server.js" autostart="false"></script>
@@ -167,7 +169,7 @@ const connection = new signalR.HubConnectionBuilder()
 
 Bez zadání parametrů, `withAutomaticReconnect` nakonfiguruje klienta se znovu připojit, 0, 2, 10 a 30 sekund mezi jednotlivými pokusy o čekání.
 
-Chcete-li nakonfigurovat jiné než výchozí počet pokusů o nové připojení před selháním nebo změnit časování volání metody reconnect `withAutomaticReconnect` přijímá pole čísel představující zpoždění v milisekundách pro čekání před zahájením každý pokus o volání metody reconnect.
+Chcete-li nakonfigurovat jiné než výchozí počet pokusů o nové připojení před selháním nebo změnit časování volání metody reconnect `withAutomaticReconnect` přijímá pole čísel představující zpoždění v milisekundách pro čekání před zahájením každý pokus o volání metody reconnect:
 
 ```csharp
 const connection = new signalR.HubConnectionBuilder()
@@ -178,7 +180,7 @@ const connection = new signalR.HubConnectionBuilder()
 
 ### <a name="improved-disconnect-and-reconnect-handling"></a>Vylepšené odpojit a znovu připojte zpracování
 
-Před zahájením jakékoli pokusy o volání metody reconnect HubConnection přechází do `Reconnecting` stavu a aktivuje její `onreconnecting` zpětného volání. To představuje příležitost k upozornit uživatele, že připojení bylo přerušeno, zakážete prvky uživatelského rozhraní a zmírnit matoucí uživatelské scénáře, které mohou nastat z důvodu odpojeném stavu.
+Před zahájením jakékoli pokusy o volání metody reconnect `HubConnection` přejde do `Reconnecting` stavu a aktivuje se jeho `onreconnecting` zpětného volání. To představuje příležitost k upozornit uživatele, že připojení bylo přerušeno, zakážete prvky uživatelského rozhraní a zmírnit matoucí uživatelské scénáře, které mohou nastat z důvodu odpojeném stavu:
 
 ```javascript
 connection.onreconnecting((error) => {
@@ -192,7 +194,7 @@ connection.onreconnecting((error) => {
 });
 ```
 
-Pokud klient úspěšně obnoví v rámci své první čtyři pokusy `HubConnection`přechody zpět `Connected` stavu a aktivuje se v `onreconnected` zpětná volání. To poskytuje vývojářům příležitost k informování uživatelů o tom, zda je připojení znovu navázáno.
+Pokud klient úspěšně obnoví v rámci své první čtyři pokusy `HubConnection` přechody zpět `Connected` stavu a aktivuje se v `onreconnected` zpětného volání. To představuje příležitost k informování uživatelů o tom, zda je připojení znovu navázáno:
 
 ```javascript
 connection.onreconnected((connectionId) => {
@@ -206,7 +208,7 @@ connection.onreconnected((connectionId) => {
 });
 ```
 
-Pokud klient nebude znovu připojit úspěšně v rámci své první čtyři pokusy `HubConnection` přejde do `Disconnected` stavu a aktivuje její `onclosed` zpětná volání. Jde o vhodnou příležitost k informování uživatelů o tom, že se trvale ztratí připojení a doporučujeme aktualizovat stránku.
+Pokud klient nebude znovu připojit úspěšně v rámci své první čtyři pokusy `HubConnection` přejde do `Disconnected` stavu a aktivuje se jeho `onclosed` zpětného volání. Toto je příležitost k informování uživatelů o tom, že se trvale ztratí připojení a doporučujeme aktualizovat stránku.
 
 ```javascript
 connection.onclose((error) => {
@@ -222,4 +224,5 @@ connection.onclose((error) => {
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* <xref:blazor/get-started>
 * <xref:signalr/introduction>

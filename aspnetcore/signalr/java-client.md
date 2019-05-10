@@ -7,12 +7,12 @@ ms.author: mimengis
 ms.custom: mvc
 ms.date: 03/14/2019
 uid: signalr/java-client
-ms.openlocfilehash: 53055b2642cae7640ae79cb5ae88ad6b2714c689
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: e5a4a2d7df7e5b95f8f814aad5ff2844476c8b3d
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209676"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898809"
 ---
 # <a name="aspnet-core-signalr-java-client"></a>Klientskou sadou Java základní funkce SignalR technologie ASP.NET
 
@@ -22,7 +22,7 @@ Klientskou sadou Java umožňuje připojení k serveru funkce SignalR technologi
 
 Konzolovou aplikaci Java vzorku, který odkazuje tento článek používá klientskou sadou SignalR Java.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/signalr/java-client/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="install-the-signalr-java-client-package"></a>Instalace balíčku pro klienta SignalR Java
 

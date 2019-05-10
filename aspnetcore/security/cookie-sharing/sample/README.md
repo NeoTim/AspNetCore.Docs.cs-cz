@@ -2,7 +2,7 @@
 
 Ukázka ilustruje soubor cookie pro sdílení obsahu napříč tři aplikace, které používala ověřování souborů cookie:
 
-| Projekt                             | Popis |
+| Project                             | Popis |
 | ----------------------------------- | ----------- |
 | CookieAuth.Core                     | Aplikace ASP.NET Core Razor Pages bez použití technologie ASP.NET Core Identity |
 | CookieAuthWithIdentity.Core         | Aplikace ASP.NET Core MVC s ASP.NET Core Identity |

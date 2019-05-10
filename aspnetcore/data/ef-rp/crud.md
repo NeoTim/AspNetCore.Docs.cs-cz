@@ -5,18 +5,14 @@ description: Ukazuje, jak vytvářet, číst, aktualizovat, odstranit pomocí EF
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/crud
-ms.openlocfilehash: c104498a4411ac36672ffbb9660948d4e96bf1ee
-ms.sourcegitcommit: a467828b5e4eaae291d961ffe2279a571900de23
+ms.openlocfilehash: 43d133c61c0387ebcb4bcb2d22c800588d8534c3
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58142382"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65516925"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - CRUD - 2, 8
-
-[!INCLUDE[2.0 version](~/includes/RP-EF/20-pdf.md)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 Podle [Petr Dykstra](https://github.com/tdykstra), [Jan Macek P](https://twitter.com/thereformedprog), a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -161,7 +157,7 @@ Následující kód používá `StudentVM` model zobrazení k vytvoření novéh
 
 [SetValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues.setvalues#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyValues_SetValues_System_Object_) metoda nastaví hodnoty tohoto objektu přečtením hodnoty z jiného [PropertyValues](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyvalues) objektu. `SetValues` používá se shoda názvu vlastnosti. Typ modelu zobrazení nemusí být související s typem modelu, stejně musí mít vlastnosti, které odpovídají.
 
-Pomocí `StudentVM` vyžaduje [CreateVM.cshtml](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21/Pages/Students/CreateVM.cshtml) aktualizují, aby využívaly `StudentVM` spíše než `Student`.
+Pomocí `StudentVM` vyžaduje [CreateVM.cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21/Pages/Students/CreateVM.cshtml) aktualizují, aby využívaly `StudentVM` spíše než `Student`.
 
 V Razor Pages `PageModel` odvozené třídy je model zobrazení.
 
@@ -246,7 +242,7 @@ Ověřte stránky Razor obsahuje správný `@page` směrnice. Například by stu
 
 Musí zahrnovat každou stránku Razor `@page` směrnice.
 
-::: moniker-end
+
 
 ## <a name="additional-resources"></a>Další zdroje
 

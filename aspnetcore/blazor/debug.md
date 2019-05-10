@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 04/15/2019
 uid: blazor/debug
 ms.openlocfilehash: 40457b942061fb910a6311af78ff29ac3a1699de
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982792"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898452"
 ---
 # <a name="debug-blazor"></a>Ladění Blazor
 

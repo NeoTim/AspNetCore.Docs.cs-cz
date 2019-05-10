@@ -5,12 +5,12 @@ description: Informace o nových funkcích v ASP.NET Core 2.0.
 ms.author: riande
 ms.date: 07/10/2017
 uid: aspnetcore-2.0
-ms.openlocfilehash: 60e44e64bd1cfada0143e374f6f51dec0e4e84f8
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 07e490fd844f0f9044afce37651ef680ed0c894d
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209882"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898353"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2.0
 
@@ -47,7 +47,7 @@ ASP.NET Core 2.0 balíčky cílit na .NET Standard 2.0. Balíčky mohou odkazova
 
 `IConfiguration` Instance služby kontejneru přidá ve výchozím nastavení v ASP.NET Core 2.0. `IConfiguration` ve službách kontejneru usnadňuje pro aplikace pro načtení hodnoty konfigurace z kontejneru.
 
-Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/Docs/issues/3387).
+Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/3387).
 
 ## <a name="logging-update"></a>Protokolování aktualizace
 
@@ -61,7 +61,7 @@ Konfigurace ověřování pro aplikaci s využitím DI usnadňuje nový model ov
 
 Nové šablony jsou dostupné pro konfiguraci ověřování pro webové aplikace a webová rozhraní API pomocí služby [Azure AD B2C] (https://azure.microsoft.com/services/active-directory-b2c/).
 
-Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/Docs/issues/3054).
+Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/3054).
 
 ## <a name="identity-update"></a>Aktualizace identity
 
@@ -113,7 +113,7 @@ Hostitelská prostředí lze nyní vložení navíc závislosti a spouštění k
 
 V technologii ASP.NET Core 2.0, tato funkce slouží k automaticky povolit diagnostiku Application Insights při ladění v sadě Visual Studio a (po vyjádření výslovného souhlasu) při spuštění v Azure App Services. V důsledku toho šablony projektu už přidat balíčky Application Insights a kódu ve výchozím nastavení.
 
-Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/Docs/issues/3389).
+Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/3389).
 
 ## <a name="automatic-use-of-anti-forgery-tokens"></a>Automatické použití tokenů proti padělání
 

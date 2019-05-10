@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/27/2017
 uid: test/razor-pages-tests
-ms.openlocfilehash: 5116ec3c3d6c27f9b0e098f82c82dd7b7337b8f6
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: f1526b8803f43ec8cbe77c1d2c100d9daf6cd316
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50207495"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900036"
 ---
 # <a name="razor-pages-unit-tests-in-aspnet-core"></a>Testování částí stránky Razor v ASP.NET Core
 
@@ -26,20 +26,20 @@ ASP.NET Core podporuje testů jednotek aplikací pro stránky Razor. Testy dat p
 
 Toto téma předpokládá, že máte základní znalosti o aplikace Razor Pages a testy jednotek. Pokud nejste obeznámeni s Razor Pages aplikace nebo koncepty testu, naleznete v následujících tématech:
 
-* [Úvod do stránky Razor](xref:razor-pages/index)
+* [Úvod do Razor Pages](xref:razor-pages/index)
 * [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start)
 * [Testování jednotek C# v .NET Core pomocí příkazu dotnet test a xUnit](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/test/razor-pages-tests/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/razor-pages-tests/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázkový projekt se skládá ze dvou aplikací:
 
 | Aplikace         | Složka projektu                        | Popis |
 | ----------- | ------------------------------------- | ----------- |
 | Aplikace zprávy | *src/RazorPagesTestSample*            | Umožňuje uživateli přidat, toku nějaký tok odstranit, odstraňte všechny a analyzovat zprávy. |
-| Test aplikace    | *tests/RazorPagesTestSample.Tests*    | Používá se pro testování částí aplikace zprávu: datové vrstvy (DAL) a model Index stránky. |
+| Test aplikace    | *tests/RazorPagesTestSample.Tests*    | Používá se pro testování částí aplikace zprávu: Vrstva přístupu k datům (DAL) a model Index stránky. |
 
-Testy můžete spustit pomocí integrované testovací funkce integrované vývojové prostředí, například [sady Visual Studio](https://www.visualstudio.com/vs/). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazového řádku, spusťte následující příkaz na příkazovém řádku v *tests/RazorPagesTestSample.Tests* složky:
+Testy můžete spustit pomocí integrované testovací funkce integrované vývojové prostředí, například [sady Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazového řádku, spusťte následující příkaz na příkazovém řádku v *tests/RazorPagesTestSample.Tests* složky:
 
 ```console
 dotnet test
@@ -108,9 +108,9 @@ using (var db = new AppDbContext(Utilities.TestingDbContextOptions()))
 
 Jednotlivých testovacích metod v `DataAccessLayerTest` třídy (*UnitTests/DataAccessLayerTest.cs*) používá podobně jako kontrolní výraz uspořádat Act vzor:
 
-1. Uspořádat: Databáze je nakonfigurovaná pro test a/nebo si očekávaný výsledek je definován.
-1. ACT: Spuštění testu.
-1. Vyhodnocení: Kontrolní výrazy byly k určení, zda je výsledek testu úspěch.
+1. Uspořádání: Databáze je nakonfigurovaná pro test a/nebo si očekávaný výsledek je definován.
+1. Akce: Spuštění testu.
+1. Vyhodnocení: Kontrolní výrazy byly k určení, zda výsledek testu je úspěšné.
 
 Například `DeleteMessageAsync` metoda je zodpovědná za odebrání jedné zprávy identifikován jeho `Id` (*src/RazorPagesTestSample/Data/AppDbContext.cs*):
 
@@ -124,7 +124,7 @@ Nejprve provádí metoda uspořádat krok, kde probíhá příprava na krok Act.
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet1)]
 
-Metoda funguje: `DeleteMessageAsync` provedení metody předáním `recId` z `1`:
+Metoda funguje: `DeleteMessageAsync` Provedení metody předáním `recId` z `1`:
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/DataAccessLayerTest.cs?name=snippet2)]
 
