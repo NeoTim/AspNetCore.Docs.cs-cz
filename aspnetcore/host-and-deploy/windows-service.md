@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core ve službě Windows.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 04/04/2019
+ms.date: 05/04/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 544eefa87898e82ec2bf8f9f61ce4e26dd554bb7
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: ec3a37fd859df7592fa0d6d9cc0109942a570e7a
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59068333"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086988"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Hostitele ASP.NET Core ve službě Windows
 
@@ -20,7 +20,7 @@ Podle [Luke Latham](https://github.com/guardrex) a [Petr Dykstra](https://github
 
 Na Windows, jako je možné hostovat aplikace ASP.NET Core [Windows Service](/dotnet/framework/windows-services/introduction-to-windows-service-applications) bez použití služby IIS. Pokud hostovaný jako služba Windows, aplikace se automaticky spustí po restartování počítače.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -209,7 +209,7 @@ Další informace najdete v tématu [icacls](/windows-server/administration/wind
 
 ## <a name="create-the-service"></a>Vytvoření služby
 
-Použití [RegisterService.ps1](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) skript Powershellu pro registraci služby. Z pro správu příkazové okno Powershellu 6 spusťte tento skript pomocí následujícího příkazu:
+Použití [RegisterService.ps1](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/scripts) skript Powershellu pro registraci služby. Z pro správu příkazové okno Powershellu 6 spusťte tento skript pomocí následujícího příkazu:
 
 ```powershell
 .\RegisterService.ps1 
@@ -284,7 +284,7 @@ Stop-Service -Name MyService
 
 Po krátké prodlevě zastavit službu, službu s odebrat `Remove-Service -Name {NAME}` příkazu Powershellu 6.
 
-Postup kontroly stavu aplikační služba ukázkového:
+Následující příkaz odebere aplikační služba ukázkového:
 
 ```powershell
 Remove-Service -Name MyService

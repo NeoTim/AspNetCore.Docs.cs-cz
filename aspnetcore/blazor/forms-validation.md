@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 04/15/2019
 uid: blazor/forms-validation
 ms.openlocfilehash: ebd2e1294b4fb78f47f505e1aa8e77c7fb035a6e
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614811"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898464"
 ---
 # <a name="blazor-forms-and-validation"></a>Blazor formulářů a ověřování
 

@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: 116fce7af5dc138fbbb0351a4f38f59e88c8f338
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 757c407bbae9c33c5b05a1edc01a37c2ced8dd36
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59468679"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902517"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>Pomocná rutina částečné značky v ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Scott Addie](https://github.com/scottaddie)
 
 Přehled pomocných rutin značek, naleznete v tématu <xref:mvc/views/tag-helpers/intro>.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="overview"></a>Přehled
 

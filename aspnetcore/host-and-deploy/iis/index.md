@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2019
+ms.date: 05/07/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 65721a734cb35a2b20fd283ad54237eb896083a9
-ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
+ms.openlocfilehash: c8e742047230339434b910de9a8a2492bc4da1ff
+ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59672642"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65450981"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -158,6 +158,23 @@ services.Configure<IISServerOptions>(options =>
     options.AutomaticAuthentication = false;
 });
 ```
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+| Možnost                         | Výchozí | Nastavení |
+| ------------------------------ | :-----: | ------- |
+| `AutomaticAuthentication`      | `true`  | Pokud `true`, nastaví Server služby IIS `HttpContext.User` ověřována [ověřování Windows](xref:security/authentication/windowsauth). Pokud `false`, server pouze poskytuje identitu `HttpContext.User` a reaguje na problémy při explicitním požadavku `AuthenticationScheme`. Musí být povoleno ověřování Windows ve službě IIS pro `AutomaticAuthentication` na funkci. Další informace najdete v tématu [ověřování Windows](xref:security/authentication/windowsauth). |
+| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se uživatelům na přihlašovací stránky zobrazí. |
+| `AllowSynchronousIO`           | `false` | Zda je povolen synchronní vstupně-výstupních operací `HttpContext.Request` a `HttpContext.Response`. |
+| `MaxRequestBodySize`           | `30000000`  | Získá nebo nastaví žádost o maximální velikost obsahu pro `HttpRequest`. Všimněte si, že služba IIS má limit `maxAllowedContentLength` zpracuje dříve než `MaxRequestBodySize` nastavit `IISServerOptions`. Změna `MaxRequestBodySize` nebude mít vliv `maxAllowedContentLength`. Pro zvýšení `maxAllowedContentLength`, přidejte záznam v *web.config* nastavit `maxAllowedContentLength` na vyšší hodnotu. Další podrobnosti najdete v tématu [konfigurace](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/#configuration). |
+
+**Model hostingu mimo proces**
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 | Možnost                         | Výchozí | Nastavení |
 | ------------------------------ | :-----: | ------- |

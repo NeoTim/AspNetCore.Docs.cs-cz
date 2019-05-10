@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/data-protection/consumer-apis/dangerous-unprotect
 ms.openlocfilehash: 26061d048dcd9c1e3d8909e9388d8b565376fa2f
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208028"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902907"
 ---
 # <a name="unprotect-payloads-whose-keys-have-been-revoked-in-aspnet-core"></a>Zrušení ochrany datových částí, které byly odvolány klíči v ASP.NET Core
 

@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 04/13/2019
 uid: performance/performance-best-practices
-ms.openlocfilehash: 095db38cf3102f6e18930efdbbaeeb90dffad8af
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 28dc7fb40c1b60f643108dcb44593a08942a1650
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614445"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087489"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core Performance Best Practices
 
@@ -44,7 +44,7 @@ Aplikace ASP.NET Core by měly být navrhovány tak, aby dokázaly zpracovat vel
 * API pro přístup k datům a dlouho běžící operace volejte asynchronně.
 * Ujistěte se, že jsou controllery a Razor akce stránek asynchronní. Celý zásobník volání je asynchronní, aby bylo možné využívat [async/await](/dotnet/csharp/programming-guide/concepts/async/) vzory.
 
-A profileru jako například [PerfView](https://github.com/Microsoft/perfview), lze použít k vyhledání vlákna často přidá do [vlákna fondu](/windows/desktop/procthread/thread-pool). `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` Událost označuje vlákno, přidat do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc  -->
+A profileru jako například [PerfView](https://github.com/Microsoft/perfview), lze použít k vyhledání vlákna často přidá do [vlákna fondu](/windows/desktop/procthread/thread-pools). `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` Událost označuje vlákno, přidat do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc  -->
 
 ## <a name="minimize-large-object-allocations"></a>Minimalizujte velké alokace objektů
 

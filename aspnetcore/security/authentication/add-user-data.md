@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 6/16/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: 1b7cac9206776e9290326511247b6db33f13cb32
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: d704041f73a7d4773c3da9a23f120b07a03d64ac
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165086"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086492"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>Přidání, stáhněte si a odstranit vlastní uživatelská data na identitu v projektu aplikace ASP.NET Core
 
@@ -24,7 +24,7 @@ Tento článek popisuje, jak:
 
 Ukázkový projekt je vytvořený z webová aplikace Razor Pages, ale pokyny jsou podobné pro webovou aplikaci ASP.NET Core MVC.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/authentication/add-user-data) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -34,7 +34,7 @@ Ukázkový projekt je vytvořený z webová aplikace Razor Pages, ale pokyny jso
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**. Pojmenujte projekt **WebApp1** Pokud budete chtít odpovídat oboru názvů [stáhněte si ukázky](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/authentication/add-user-data/sample) kódu.
+* Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**. Pojmenujte projekt **WebApp1** Pokud budete chtít odpovídat oboru názvů [stáhněte si ukázky](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data/sample) kódu.
 * Vyberte **webová aplikace ASP.NET Core** > **OK**
 * Vyberte **2.2 technologie ASP.NET Core** v rozevírací nabídce
 * Vyberte **webovou aplikaci**  > **OK**

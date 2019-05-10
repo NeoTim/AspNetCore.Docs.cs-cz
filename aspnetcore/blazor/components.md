@@ -5,28 +5,28 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/21/2019
+ms.date: 05/02/2019
 uid: blazor/components
-ms.openlocfilehash: 19fdf2b87299ebdaf2c2cac10280192db73c4c7a
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 6c174fc16ecc755c5c43e59a77db7d4ce9e00da3
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165229"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65085618"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
 Podle [Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27), a [Morné Zaayman](https://github.com/MorneZaayman)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 Blazor aplikace se vytvářejí pomocí *komponenty*. Komponenta je samostatná blok uživatelského rozhraní (UI), například stránky, dialogové okno nebo formuláře. Komponenta obsahuje kód HTML a zpracování logiku potřebnou k vložení dat nebo v reakci na události uživatelského rozhraní. Součásti jsou flexibilní a jednoduchý. Mohou být vnořené, znovu použít a sdílet mezi projekty.
 
 ## <a name="component-classes"></a>Třídy součásti
 
-Součásti jsou implementovány v souborech Razor součásti (*.razor*) pomocí kombinace C# a značka jazyka HTML.
+Součásti jsou implementovány v [Razor](xref:mvc/views/razor) soubory součástí (*.razor*) pomocí kombinace C# a značka jazyka HTML.
 
-Dají se vytvářet komponenty pomocí *.cshtml* příponu souboru, tak dlouho, dokud soubory jsou označeny jako soubory součástí Razor pomocí `_RazorComponentInclude` vlastnost MSBuild. Například aplikace vytvořené pomocí komponenty šablona Razor Určuje, že všechny *.cshtml* soubory pod *stránky* složky mají být považována za soubory součástí Razor:
+Dají se vytvářet komponenty pomocí *.cshtml* příponu souboru, tak dlouho, dokud soubory jsou označeny jako soubory součástí Razor pomocí `_RazorComponentInclude` vlastnost MSBuild. Například aplikaci, která určuje, že všechny *.cshtml* soubory pod *stránky* složky mají být považována za soubory součástí Razor:
 
 ```xml
 <_RazorComponentInclude>Pages\**\*.cshtml</_RazorComponentInclude>
@@ -75,13 +75,13 @@ Další informace o způsobu vykreslené a komponenty stav součásti je spravov
 
 Součásti můžete zahrnout další součásti je deklarací pomocí syntaxe elementu HTML. Kód pro použití komponenty vypadá jako značku jazyka HTML, kde název značky je typ součásti.
 
-Následující kód vykreslí `HeadingComponent` instance:
+Následující kód v *Index.razor* vykreslí `HeadingComponent` instanci, která existuje v jiném souboru *HeadingComponent.razor*:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.razor?name=snippet_HeadingComponent)]
 
 ## <a name="component-parameters"></a>Parametry komponenty
 
-Může mít komponenty *parametry komponenty*, které jsou definovány pomocí *neveřejné* vlastnosti komponentní třída upravené pomocí `[Parameter]`. Atributy můžete zadat argumenty pro komponentu v kódu.
+Může mít komponenty *parametry komponenty*, které jsou definovány pomocí *neveřejné* vlastnosti komponentní třída s `[Parameter]` atribut. Atributy můžete zadat argumenty pro komponentu v kódu.
 
 V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Title` vlastnost `ChildComponent`:
 
@@ -112,7 +112,7 @@ Obsahuje podřízené součásti `ChildContent` vlastnost, která představuje `
 
 ## <a name="data-binding"></a>Vytváření datových vazeb
 
-Vazba dat na komponent a prvky modelu DOM se dosahuje pomocí `bind` atribut. Následující příklad vytvoří vazbu `ItalicsCheck` vlastnost na zaškrtávací políčko zaškrtnuto, stav:
+Vazba dat na komponent a prvky modelu DOM se dosahuje pomocí `bind` atribut. Následující příklad vytvoří vazbu `_italicsCheck` pole na zaškrtávací políčko zaškrtnuto, stav:
 
 ```cshtml
 <input type="checkbox" class="form-check-input" id="italicsCheck" 
@@ -199,9 +199,11 @@ Podřízené součásti:
     private int Year { get; set; }
 
     [Parameter]
-    private Action<int> YearChanged { get; set; }
+    private EventCallback<int> YearChanged { get; set; }
 }
 ```
+
+`EventCallback<T>` je podrobně [EventCallback](#eventcallback) oddílu.
 
 Načítají `ParentComponent` vytváří následující značky:
 
@@ -232,7 +234,7 @@ Pokud hodnota `ParentYear` vlastnost se změní tak, že vyberete tlačítko v `
 Podle konvence `<ChildComponent bind-Year="@ParentYear" />` je v podstatě ekvivalentní zápisu
 
 ```cshtml
-    <ChildComponent bind-Year-YearChanged="@ParentYear" />
+<ChildComponent bind-Year-YearChanged="@ParentYear" />
 ```
 
 Obecně platí, vlastnost může být vázána na odpovídající obslužná rutina události pomocí `bind-property-event` atribut.
@@ -347,7 +349,7 @@ Při výběru tlačítka v podřízené součásti:
 
 `EventCallback` a `EventCallback<T>` povolit asynchronních delegátů. `EventCallback<T>` silně typované a vyžaduje konkrétní argument typu. `EventCallback` slabě typované a jakýkoli typ argumentu.
 
-```chstml
+```cshtml
 <p><b>@messageText</b></p>
 
 @{ var message = "Default Text"; }
@@ -356,7 +358,7 @@ Při výběru tlačítka v podřízené součásti:
     OnClick="@(async () => { await Task.Yield(); messageText = "Blaze It!"; }" />
 
 @function {
-    string messageText;
+    private string messageText;
 }
 ```
 
@@ -372,7 +374,7 @@ Preferovat silného typu `EventCallback<T>`, která poskytuje lepší odpověď 
 
 ## <a name="capture-references-to-components"></a>Zachycení odkazy na komponenty
 
-Komponenta odkazy poskytují způsob, jak získat odkaz na instanci komponenty tak, aby příkazy do této instance, můžete vydat, jako `Show` nebo `Reset`. Chcete-li zachytit odkazem komponenty, přidejte `ref` atribut podřízené součásti a pak definovat pole se stejným názvem a stejného typu jako podřízené součásti.
+Komponenta odkazy poskytují způsob, jak odkazovat na instanci komponenty tak, že můžete použít příkazy do této instance, jako například `Show` nebo `Reset`. Chcete-li zachytit odkazem komponenty, přidejte `ref` atribut podřízené součásti a pak definovat pole se stejným názvem a stejného typu jako podřízené součásti.
 
 ```cshtml
 <MyLoginDialog ref="loginDialog" ... />
@@ -392,7 +394,7 @@ Při vykreslování komponentu `loginDialog` pole se vyplní `MyLoginDialog` pod
 > [!IMPORTANT]
 > `loginDialog` Proměnná je vyplněný pouze poté, co se vykreslí komponentu a zahrnuje její výstup `MyLoginDialog` elementu. Až do bodu není nutné nic odkazovat. K manipulaci s odkazy na součásti po dokončení vykreslení komponentu, použijte `OnAfterRenderAsync` nebo `OnAfterRender` metody.
 
-Při zachytávání odkazů na komponenty používá podobné syntaxi k [zachytávání odkazy na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není [zprostředkovatele komunikace s objekty jazyka JavaScript](xref:blazor/javascript-interop) funkce. Nejsou součástí odkazy předané do kódu jazyka JavaScript; se používá pouze v kódu .NET.
+Při zachytávání odkazů na komponenty pomocí syntaxe podobné [zachytávání odkazy na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není [zprostředkovatele komunikace s objekty jazyka JavaScript](xref:blazor/javascript-interop) funkce. Nejsou součástí odkazy předané do kódu jazyka JavaScript&mdash;se použít jenom v kódu .NET.
 
 > [!NOTE]
 > Proveďte **není** mutovat stavu podřízenými komponentami pomocí odkazů na komponenty. Místo toho použijte normální deklarované parametry k předání dat podřízenými komponentami. To způsobí, že podřízené součásti rerender ve správném čase automaticky.
@@ -417,7 +419,7 @@ protected override void OnInit()
 }
 ```
 
-`OnParametersSetAsync` a `OnParametersSet` se volá, když součást přijme parametry ze svého nadřazeného objektu a hodnoty jsou přiřazeny k vlastnostem. Tyto metody jsou provedeny po inicializaci součásti a poté je vykreslen komponentu pokaždé, když:
+`OnParametersSetAsync` a `OnParametersSet` se volá, když součást přijme parametry ze svého nadřazeného objektu a hodnoty jsou přiřazeny k vlastnostem. Tyto metody jsou provedeny po inicializaci součásti a pokaždé, když je vykreslen komponenty:
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -515,7 +517,7 @@ Volitelné parametry nejsou podporovány, tedy dvě `@page` direktivy se použij
 
 Soubory součástí kombinovat kód HTML a C# zpracování kódu ve stejném souboru. `@inherits` – Direktiva je možné poskytnout Blazor aplikace, který odděluje komponenty značek z kódu pro zpracování prostředí "použití modelu code-behind".
 
-[Ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje, jak komponenty může dědit základní třídy `BlazorRocksBase`, aby vznikl komponenty vlastnosti a metody.
+[Ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje, jak komponenty může dědit základní třídy `BlazorRocksBase`, aby vznikl komponenty vlastnosti a metody.
 
 *Komponenta Blazor Rocks*:
 
@@ -776,7 +778,7 @@ Vazba s hodnotou řetězce názvu platí, pokud máte více kaskádových hodnot
 
 Kaskádové hodnoty se váží k parametrům šablony podle typu.
 
-V ukázkové aplikaci, komponentě CSS motiv hodnoty parametrů vytvoří vazbu `ThemeInfo` kaskádové hodnotu pro parametr šablony. Tento parametr se používá nastavení třídy šablony stylů CSS pro jedno z tlačítek zobrazí komponentou.
+V ukázkové aplikaci, komponentě CSS motiv hodnoty parametrů váže `ThemeInfo` kaskádové hodnotu pro parametr šablony. Tento parametr se používá nastavení třídy šablony stylů CSS pro jedno z tlačítek zobrazí komponentou.
 
 *Kaskádové součást hodnoty parametrů motiv*:
 

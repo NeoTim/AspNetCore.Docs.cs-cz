@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 12/14/2018
 uid: web-api/advanced/analyzers
 ms.openlocfilehash: bcc89f856e0aeef80c46a44f76f86b4c09ac6746
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165116"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902916"
 ---
 # <a name="use-web-api-analyzers"></a>Použití webového rozhraní API analyzátorů
 

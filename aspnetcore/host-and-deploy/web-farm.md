@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 11/26/2018
 uid: host-and-deploy/web-farm
 ms.openlocfilehash: 4873665e6174a6acf885e1ebb41fb005d646bd1f
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450668"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64899244"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>Hostitele ASP.NET Core ve webové farmě
 
@@ -61,8 +61,8 @@ Následující scénáře nevyžadují další konfiguraci, ale jsou závislé n
 | -------- | ------------------- |
 | Ověřování | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématu <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. |
 | Identita | Konfigurace ověřování a databáze.<br><br>Další informace naleznete v tématu <xref:security/authentication/identity>. |
-| Relace | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) a ukládání do mezipaměti (naleznete v tématu <xref:performance/caching/distributed>).<br><br>Další informace najdete v tématu [stav relace a aplikace: stav relace](xref:fundamentals/app-state#session-state). |
-| TempData | Ochrana dat (šifrované soubory cookie) (naleznete v tématu <xref:security/data-protection/configuration/overview>) nebo v jiné relaci (naleznete v tématu [stav relace a aplikace: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [stav relace a aplikace: TempData](xref:fundamentals/app-state#tempdata). |
+| Relace | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) a ukládání do mezipaměti (naleznete v tématu <xref:performance/caching/distributed>).<br><br>Další informace najdete v tématu [stav relace a aplikace: Stav relace](xref:fundamentals/app-state#session-state). |
+| TempData | Ochranu dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) nebo v jiné relaci (naleznete v tématu [stav relace a aplikace: Stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [stav relace a aplikace: TempData](xref:fundamentals/app-state#tempdata). |
 | Proti padělání | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématu <xref:security/anti-request-forgery>. |
 
 ## <a name="troubleshoot"></a>Řešení potíží

@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
 ms.openlocfilehash: 41d7494b77edaddbf719cab087142f0132dd3ed6
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
-ms.translationtype: MT
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208379"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087288"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>Přidání vyhledávání do aplikace ASP.NET Core MVC
 
@@ -37,7 +37,7 @@ Pokud `searchString` parametr obsahuje řetězec, dotaz filmy je upravit tak, ab
 
 `s => s.Title.Contains()` Je výše uvedený kód [výraz Lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Výrazy lambda se používají v založených na volání metody [LINQ](/dotnet/standard/using-linq) dotazuje jako argumenty pro standardní metody operátoru dotazu, jako [kde](/dotnet/api/system.linq.enumerable.where) metoda nebo `Contains` (používá se ve výše uvedeném kódu). Dotazy LINQ nejsou provedeny, když máte definovány, nebo data jejich voláním metody `Where`, `Contains`, nebo `OrderBy`. Místo toho provádění dotazu je odloženo.  To znamená, že vyhodnocení výrazu je odloženo jeho očekávané hodnoty ve skutečnosti procházen nebo `ToListAsync` metoda je volána. Další informace o odložený dotaz, naleznete v tématu [provádění dotazu](/dotnet/framework/data/adonet/ef/language-reference/query-execution).
 
-Poznámka: [Obsahuje](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) metoda je spuštěna na databáze, není ve výše uvedeném kódu C#. Rozlišování velikosti písmen u dotazu, závisí na databázi a kolace. Na serveru SQL Server [obsahuje](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) mapuje na [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql), což je malá a velká písmena. V SQLite s výchozí kolace je velká a malá písmena.
+Poznámka: [Obsahuje](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) metoda je spuštěna na databáze, není ve výše uvedeném kódu c#. Rozlišování velikosti písmen u dotazu, závisí na databázi a kolace. Na serveru SQL Server [obsahuje](/dotnet/api/system.data.objects.dataclasses.entitycollection-1.contains) mapuje na [SQL LIKE](/sql/t-sql/language-elements/like-transact-sql), což je malá a velká písmena. V SQLite s výchozí kolace je velká a malá písmena.
 
 Přejděte na adresu `/Movies/Index`. Připojte řetězec dotazu jako `?searchString=Ghost` na adresu URL. Zobrazují se filtrované filmy.
 
@@ -134,7 +134,7 @@ Když uživatel vyhledává položku, se uchovávají hledanou hodnotu do vyhled
 
 Aktualizace `Index.cshtml` následujícím způsobem:
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexFormGenreNoRating.cshtml?highlight=1,15,16,17,28,31,34,37,43)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexFormGenreNoRating.cshtml?highlight=1,15,16,17,19,28,31,34,37,43)]
 
 Prozkoumejte výrazu lambda použít v následujících pomocné rutiny HTML:
 

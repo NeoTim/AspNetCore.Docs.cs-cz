@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/11/2019
 uid: web-api/index
-ms.openlocfilehash: 334e5732269921a62356e7854824deccc051c291
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
+ms.openlocfilehash: d804a7f1b4f0e89f433a3674116c97804705f7cc
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165169"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902580"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Scott Addie](https://github.com/scottaddie) a [Petr Dykstra](https://gith
 
 Podporuje vytváření služby RESTful, označované také jako webová rozhraní API, pomocí ASP.NET Core C#. Webové rozhraní API pro zpracování žádostí, používá řadiče. *Řadiče* ve webovém rozhraní API jsou třídy, které jsou odvozeny z `ControllerBase`. Tento článek ukazuje, jak používat kontrolery pro zpracování požadavků rozhraní API.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
 
 ## <a name="controllerbase-class"></a>Třída ControllerBase
 

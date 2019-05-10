@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 12/11/2018
 uid: host-and-deploy/directory-structure
 ms.openlocfilehash: 4bc5ead8e24c4bb7fe6cd2f52fd2aa622187180c
-ms.sourcegitcommit: 42a8164b8aba21f322ffefacb92301bdfb4d3c2d
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2019
-ms.locfileid: "54341391"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65085499"
 ---
 # <a name="aspnet-core-directory-structure"></a>Struktura adresářů ASP.NET Core
 

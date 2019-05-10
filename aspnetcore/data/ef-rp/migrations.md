@@ -5,12 +5,12 @@ description: V tomto kurzu začnete používat funkci migrace EF Core ke správ�
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 1803c6d3956121e4e7091f4f951917425e87c335
-ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
-ms.translationtype: MT
+ms.openlocfilehash: 5b8228130378059aebe21c9c3ea1eb72e4c6aad9
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419469"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086160"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – migrace - 4 z 8
 
@@ -25,7 +25,7 @@ Podle [Petr Dykstra](https://github.com/tdykstra), [Jan Macek P](https://twitter
 V tomto kurzu se používá funkce migrace EF Core ke správě změn datových modelů.
 
 Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace](
-https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
 
 Když se nová aplikace vyvíjí, model data často změny. Pokaždé, když změny modelu model získá synchronizován s databází. Tento kurz se tím, že konfigurace technologie Entity Framework pro vytvoření databáze, pokud neexistuje. Pokaždé, když datový model změny:
 
@@ -161,7 +161,7 @@ EF Core používá `__MigrationsHistory` tabulky zobrazíte, pokud žádné migr
 ## <a name="troubleshooting"></a>Poradce při potížích
 
 Stáhněte si [dokončené aplikace](
-https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part4-migrations).
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part4-migrations).
 
 Aplikace generuje následující výjimku:
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2018
 uid: mvc/controllers/testing
-ms.openlocfilehash: 429af1fb6d0388a5c57894851832969e1ef629e2
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
+ms.openlocfilehash: 2e58be2c9818a6fb39d4cbcf0e77a51623ca3aef
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327430"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64903213"
 ---
 # <a name="test-controller-logic-in-aspnet-core"></a>Testovací kontroler logiku v ASP.NET Core
 
@@ -19,7 +19,7 @@ Podle [Steve Smith](https://ardalis.com/)
 
 [Kontrolery](xref:mvc/controllers/actions) přehrát hlavní roli ve všech aplikacích technologie ASP.NET Core MVC. V důsledku toho byste měli mít jistotu, které se chovají kontrolerů tak, jak má. Automatizované testy můžete detekovat chyby, před nasazením aplikace do produkčního prostředí.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/testing/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="unit-tests-of-controller-logic"></a>Testy jednotek logice kontroleru
 
@@ -75,7 +75,7 @@ Imitaci volání, které nejsou volány jsou obvykle ignoruje, ale volání `Ver
 > [!NOTE]
 > Díky Moq knihovny používané v tomto příkladu je možné kombinovat mocks ověřitelný nebo "přísné", s neověřitelného mocks (také nazývané "dojde ke ztrátě" mocks nebo zástupné procedury). Další informace o [přizpůsobení chování model s využitím Moq](https://github.com/Moq/moq4/wiki/Quickstart#customizing-mock-behavior).
 
-[SessionController](https://github.com/aspnet/Docs/blob/master/aspnetcore/mvc/controllers/testing/sample/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) v ukázce aplikace se zobrazí informace týkající se konkrétní debaty. Kontroler obsahuje logiku se neplatná `id` hodnoty (jsou k dispozici dva `return` scénáře v následujícím příkladu pro tyto scénáře). Finální `return` příkaz vrátí nový `StormSessionViewModel` k zobrazení (*Controllers/SessionController.cs*):
+[SessionController](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/testing/sample/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) v ukázce aplikace se zobrazí informace týkající se konkrétní debaty. Kontroler obsahuje logiku se neplatná `id` hodnoty (jsou k dispozici dva `return` scénáře v následujícím příkladu pro tyto scénáře). Finální `return` příkaz vrátí nový `StormSessionViewModel` k zobrazení (*Controllers/SessionController.cs*):
 
 [!code-csharp[](testing/sample/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs?name=snippet_SessionController&highlight=12-16,18-22,31)]
 

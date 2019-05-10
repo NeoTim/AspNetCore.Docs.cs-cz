@@ -6,11 +6,11 @@ ms.author: scaddie
 ms.date: 12/11/2018
 uid: migration/proper-to-2x/index
 ms.openlocfilehash: 7b6aec621efa5e1400fcfd4396a2322733113ec1
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209133"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902211"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET do ASP.NET Core
 
@@ -22,7 +22,7 @@ Tento článek slouží jako referenční příručka pro migraci aplikace v ASP
 
 [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download)
 
-## <a name="target-frameworks"></a>Cílové architektury
+## <a name="target-frameworks"></a>Cílová rozhraní
 
 Projekty ASP.NET Core nabízí vývojářům flexibilitu cílí na .NET Core a .NET Framework. Zobrazit [volba mezi .NET Core a .NET Framework pro serverové aplikace](/dotnet/standard/choosing-core-framework-server) k určení, která Cílová architektura je nejvhodnější.
 

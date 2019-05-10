@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: d2dd5e9b7f196bcbd1940f7ef58331dabd2367a1
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 72d5b2e902a95442ccffb7a149b917c50373775b
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637804"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902202"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware v ASP.NET Core přepisování adres URL
 
@@ -38,7 +38,7 @@ Přepisování adres URL je úprava žádosti o adresy URL v závislosti na jede
 > [!NOTE]
 > Přepisování adres URL, může snížit výkon aplikace. Tam, kde je to možné, omezte počet a složitost pravidel.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="url-redirect-and-url-rewrite"></a>Adresa URL pro přesměrování a URL revize
 
@@ -68,7 +68,7 @@ I když se klient může být schopný načíst prostředek na přepsaný adresu
 
 ## <a name="url-rewriting-sample-app"></a>Ukázková aplikace přepis adres URL
 
-Můžete prozkoumat funkce Middleware přepisování adres URL se [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/). Aplikace použije pro přesměrování a přepsání pravidel a zobrazuje přesměrované nebo přepsaný adresu URL pro několik scénářů.
+Můžete prozkoumat funkce Middleware přepisování adres URL se [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/). Aplikace použije pro přesměrování a přepsání pravidel a zobrazuje přesměrované nebo přepsaný adresu URL pro několik scénářů.
 
 ## <a name="when-to-use-url-rewriting-middleware"></a>Kdy použít Middleware pro přepis adres URL
 

@@ -5,14 +5,14 @@ description: Zjistěte, jak směrovat požadavky v aplikacích a o NavLink kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/18/2019
+ms.date: 05/06/2019
 uid: blazor/routing
-ms.openlocfilehash: d3356ceccd5a6ed3375b7eada9cac295ef7ad53b
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: fc61b8998682d519f7b936d95645c6311ffa5c09
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982866"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086136"
 ---
 # <a name="blazor-routing"></a>Blazor směrování
 
@@ -24,33 +24,25 @@ Zjistěte, jak směrovat požadavky v aplikacích a o NavLink komponentě.
 
 Blazor na straně serveru je integrovaná do [směrování ASP.NET Core koncový bod](xref:fundamentals/routing). Aplikace ASP.NET Core je nakonfigurovaný tak, aby přijímal příchozí připojení pro interaktivní součásti s `MapBlazorHub` v `Startup.Configure`:
 
-```csharp
-app.UseRouting();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapBlazorHub();
-    endpoints.MapFallbackToPage("/_Host");
-});
-```
+[!code-cshtml[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
 ## <a name="route-templates"></a>Šablony trasy
 
 `<Router>` Součást umožňuje směrování a je k dispozici šablona trasy pro jednotlivé dostupné komponenty. `<Router>` Součást se zobrazí v *App.razor* souboru:
 
-Blazor serverové aplikace:
+V aplikaci na straně serveru Blazor:
 
 ```cshtml
 <Router AppAssembly="typeof(Startup).Assembly" />
 ```
 
-Pro aplikaci na straně klienta Blazor:
+V aplikaci na straně klienta Blazor:
 
 ```cshtml
 <Router AppAssembly="typeof(Program).Assembly" />
 ```
 
-Při *.razor* soubor s `@page` – direktiva je zkompilován, dostane generované třídy <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadání šablonu trasy. Za běhu, směrovač hledá komponentní třídy s `RouteAttribute` a vykreslí podle toho, která komponenta má šablona trasy, která odpovídá požadovanou adresu URL.
+Při *.razor* soubor s `@page` – direktiva je zkompilován, je k dispozici generované třídy <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadání šablonu trasy. Za běhu, směrovač hledá komponentní třídy s `RouteAttribute` a vykreslí komponentu šablonou trasy, která odpovídá požadovanou adresu URL.
 
 Více šablon trasy můžete použít pro komponentu. Následující komponenty jsou reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute`:
 
@@ -73,7 +65,7 @@ Směrovač používá parametry trasy k naplnění odpovídajících parametrů 
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
 
-Volitelné parametry nejsou podporovány, tedy dvě `@page` direktivy se použijí v předchozím příkladu. První umožňuje přechod na komponenty bez parametrů. Druhá `@page` trvá – direktiva `{text}` parametr trasa a přiřadí hodnotu do proměnné `Text` vlastnost.
+Volitelné parametry nejsou podporovány pro Blazor aplikace v ASP.NET Core 3.0 ve verzi Preview. Dvě `@page` direktivy se použijí v předchozím příkladu. První umožňuje přechod na komponenty bez parametrů. Druhá `@page` trvá – direktiva `{text}` parametr trasa a přiřadí hodnotu do proměnné `Text` vlastnost.
 
 ## <a name="route-constraints"></a>Omezení trasy
 

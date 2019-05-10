@@ -1,6 +1,6 @@
 # <a name="response-compression-sample-application-aspnet-core-1x"></a>Odpověď komprese ukázkovou aplikaci (ASP.NET Core 1.x)
 
-Tento příklad ukazuje použití metody ASP.NET Core 1.x do komprimovaly odpovědi HTTP pro Middleware pro kompresi odpovědí. Vzorek ukazuje Gzip a komprese Vlastní zprostředkovatelé pro textové a obrázkové odpovědi a ukazuje, jak přidat typ MIME pro kompresi. ASP.NET Core 2.x ukázku najdete v tématu [odpovědi komprese ukázkovou aplikaci (ASP.NET Core 2.x)](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/response-compression/samples/2.x).
+Tento příklad ukazuje použití metody ASP.NET Core 1.x do komprimovaly odpovědi HTTP pro Middleware pro kompresi odpovědí. Vzorek ukazuje Gzip a komprese Vlastní zprostředkovatelé pro textové a obrázkové odpovědi a ukazuje, jak přidat typ MIME pro kompresi. ASP.NET Core 2.x ukázku najdete v tématu [odpovědi komprese ukázkovou aplikaci (ASP.NET Core 2.x)](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples/2.x).
 
 ## <a name="examples-in-this-sample"></a>Příklady v této ukázce
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/4/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: a5c0140b70a30acd05b532d32525f6df92619075
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: dce2926e3cb19d6ac8d2af0e9b96c31dee1d92fd
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165287"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087523"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
 
@@ -350,7 +350,7 @@ Přidejte následující `PutTodoItem` metody:
 
 `PutTodoItem` je podobný `PostTodoItem`, s výjimkou používá HTTP PUT. Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html). Podle specifikace HTTP vyžaduje požadavek PUT klientovi umožní odeslat celý aktualizovanou entitu, nikoliv pouze změny. Chcete-li podporovat částečné aktualizace, použijte [HTTP PATCH](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).
 
-Pokud dojde k chybě volání `PutTodoItem`, volání `GET` zajistit, že je položky v databázi.
+Pokud dojde k chybě volání `PutTodoItem`, volání `GET` aby se zajistilo položky v databázi.
 
 ### <a name="test-the-puttodoitem-method"></a>Test PutTodoItem – metoda
 
@@ -443,7 +443,7 @@ Odstranění položky úkolu se provádí tak, že nastavíte `type` při volán
 
 ## <a name="additional-resources"></a>Další zdroje
 
-[Zobrazení nebo stažení ukázkového kódu pro účely tohoto kurzu](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/first-web-api/samples). Zobrazit [stažení](xref:index#how-to-download-a-sample).
+[Zobrazení nebo stažení ukázkového kódu pro účely tohoto kurzu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples). Zobrazit [stažení](xref:index#how-to-download-a-sample).
 
 Další informace naleznete v následujících materiálech:
 

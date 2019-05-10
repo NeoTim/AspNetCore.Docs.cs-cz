@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/15/2018
 uid: security/authorization/resourcebased
-ms.openlocfilehash: 6a163caa26b277fbee6b9d61f8f1d16a60c75b03
-ms.sourcegitcommit: d3392f688cfebc1f25616da7489664d69c6ee330
+ms.openlocfilehash: afc152ea677cab42d57bd642b4821159f125117e
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/16/2018
-ms.locfileid: "51818366"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898341"
 ---
 # <a name="resource-based-authorization-in-aspnet-core"></a>Autorizace na základě prostředků v ASP.NET Core
 
@@ -19,7 +19,7 @@ Strategii autorizace závisí na prostředek, ke kterému přistupujete. Vezmět
 
 Před datové vazby a před spuštěním obslužná rutina stránky nebo akci, která načte dokument dojde k vyhodnocení atribut. Z těchto důvodů, deklarativní autorizace pomocí `[Authorize]` atribut nebude stačit. Místo toho můžete vyvolat vlastní autorizační metoda&mdash;styl říká *imperativní autorizace*.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples) ([stažení](xref:index#how-to-download-a-sample)).
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples) ([stažení](xref:index#how-to-download-a-sample)).
 
 [Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací](xref:security/authorization/secure-data) obsahuje ukázkovou aplikaci, která používá ověřování založené na resource.
 

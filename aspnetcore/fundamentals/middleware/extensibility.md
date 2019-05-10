@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/31/2019
 uid: fundamentals/middleware/extensibility
-ms.openlocfilehash: 9305616ce3f2ef49cf9dfcab719f673c0fb4b51e
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: b4d71c2c7f09acb58b73e84080e8574d77f8b326
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58809163"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65087002"
 ---
 # <a name="factory-based-middleware-activation-in-aspnet-core"></a>Middleware založený na objekt pro vytváření technologie aktivace v ASP.NET Core
 
@@ -29,7 +29,7 @@ Výhody:
 
 <xref:Microsoft.AspNetCore.Http.IMiddleware> je aktivovaná, každý požadavek klienta (připojení), takže vymezené služby můžete vloženy do konstruktoru middlewaru.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="imiddleware"></a>IMiddleware
 

@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core MVC řadiče vyžádat jejich závislos
 ms.author: riande
 ms.date: 02/24/2019
 uid: mvc/controllers/dependency-injection
-ms.openlocfilehash: 898e98f4c5d472ca96c6a8ad07dddd1a4ef54fe9
-ms.sourcegitcommit: b3894b65e313570e97a2ab78b8addd22f427cac8
+ms.openlocfilehash: 6b08c321f4cae1f4efd8ea40300eaf4dfc2f63a1
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/23/2019
-ms.locfileid: "56743826"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64903069"
 ---
 # <a name="dependency-injection-into-controllers-in-aspnet-core"></a>Injektáž závislostí do kontrolerů v ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Shadi Namrouti](https://github.com/shadinamrouti), [Rick Anderson](https:
 
 Kontrolery ASP.NET Core MVC požádat o závislosti explicitně pomocí konstruktorů. Má integrovanou podporu pro ASP.NET Core [injektáž závislostí (DI)](xref:fundamentals/dependency-injection). DI usnadňuje aplikace pro testování a udržovat.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/controllers/dependency-injection/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/dependency-injection/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="constructor-injection"></a>Vkládání konstruktor
 

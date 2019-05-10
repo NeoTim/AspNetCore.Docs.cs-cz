@@ -8,11 +8,11 @@ ms.custom: signalr
 ms.date: 02/27/2019
 uid: signalr/diagnostics
 ms.openlocfilehash: b6bd21314ed183488999bcff3553e53493537a11
-ms.sourcegitcommit: 6ddd8a7675c1c1d997c8ab2d4498538e44954cac
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57400976"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902784"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a Diagnostika v knihovně SignalR technologie ASP.NET Core
 
@@ -168,7 +168,7 @@ Většina nástrojů pro vývojáře prohlížeče mít kartu "Sítě", která u
 
 ### <a name="microsoft-edge-and-internet-explorer"></a>Microsoft Edge a Internet Explorer
 
-(Pokyny jsou stejné pro Edge a Internet Explorer)
+(Pokyny jsou stejné pro Microsoft Edge a Internet Explorer)
 
 1. Stisknutím klávesy F12 otevřete Nástroje pro vývojáře
 2. Klikněte na kartu síť

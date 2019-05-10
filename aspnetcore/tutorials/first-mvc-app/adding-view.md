@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
 ms.openlocfilehash: 6ff706012dabbf9500a805708c1f058b59ebc610
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265555"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64903030"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do aplikace ASP.NET Core MVC
 
@@ -98,7 +98,7 @@ V předchozím kódu `asp-area` [atribut ukotvení pomocné rutiny značky](xref
 > We haven't implemented the `Movies` controller yet, so if you click the `Movie App` link, you get a 404 (Not found) error.
 -->
 
-**Poznámka:**: `Movies` Kontroler není implementovaná. V tomto okamžiku `Movie App` odkaz není funkční.
+**Poznámka:** `Movies` Kontroler není implementovaná. V tomto okamžiku `Movie App` odkaz není funkční.
 
 Uložte změny a vyberte **ochrany osobních údajů** odkaz. Všimněte si, jak se zobrazuje jako nadpis informace o kartě prohlížeče **zásady ochrany osobních údajů – filmová aplikace** místo **zásady ochrany osobních údajů – Mvc Movie**:
 

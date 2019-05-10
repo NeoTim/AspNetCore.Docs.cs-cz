@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/20/2019
 uid: performance/caching/middleware
-ms.openlocfilehash: c7c3dbd0c9cf029fa6921d77450e780768c8aa6e
-ms.sourcegitcommit: 0945078a09c372f17e9b003758ed87e99c2449f4
+ms.openlocfilehash: ddbd547ec0fdd09da1f3e3ce30f8fa35a34870c2
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56647912"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64903018"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>Odpověď do mezipaměti middlewaru v ASP.NET Core
 
 Podle [Luke Latham](https://github.com/guardrex) a [Luo Jan](https://github.com/JunTaoLuo)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/performance/caching/middleware/samples) ([stažení](xref:index#how-to-download-a-sample)).
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/middleware/samples) ([stažení](xref:index#how-to-download-a-sample)).
 
 Tento článek vysvětluje, jak pro konfiguraci middlewaru ukládání do mezipaměti odpovědi v aplikaci ASP.NET Core. Middleware určuje při odpovědi jsou možné ukládat do mezipaměti odpovědi úložišť a slouží odpovědi z mezipaměti. Úvod do protokolu HTTP, ukládání do mezipaměti a `ResponseCache` atributu naleznete v tématu [ukládání odpovědí do mezipaměti](xref:performance/caching/response).
 

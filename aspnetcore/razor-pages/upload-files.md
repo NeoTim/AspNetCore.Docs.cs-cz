@@ -7,24 +7,24 @@ ms.author: riande
 ms.date: 11/10/2018
 ms.custom: mvc, seodec18
 uid: razor-pages/upload-files
-ms.openlocfilehash: a12653e5dc99ad731de63e151af6dbdbe38ffefc
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 07457d57b7d3b444c8cea818149569407f1dd8e8
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165219"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65085719"
 ---
 # <a name="upload-files-to-a-razor-page-in-aspnet-core"></a>Nahrání souborů do stránky v ASP.NET Core Razor
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Toto téma staví na [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample) v <xref:tutorials/razor-pages/razor-pages-start>.
+Toto téma staví na [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample) v <xref:tutorials/razor-pages/razor-pages-start>.
 
 Toto téma ukazuje, jak použít jednoduchý model vazby k nahrání souborů, což funguje dobře pro nahrávání malých souborů. Informace o datových proudů velkých souborů, najdete v části [nahrávání velkých souborů pomocí streamování](xref:mvc/models/file-uploads#uploading-large-files-with-streaming).
 
 V následujících krocích se funkci odesílání souborů plán video přidá do ukázkové aplikace. Plán video představuje `Schedule` třídy. Třída zahrnuje dvě verze plánu. Jedna verze je poskytováno zákazníkům, `PublicSchedule`. Jiné verze se používá pro zaměstnance společnosti `PrivateSchedule`. Každá verze je odeslán jako samostatný soubor. Tento kurz ukazuje, jak provést dvě nahrávání souborů ze stránky s jeden příspěvek na server.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/upload-files/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/upload-files/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="security-considerations"></a>Aspekty zabezpečení
 

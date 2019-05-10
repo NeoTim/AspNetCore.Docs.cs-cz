@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/sort-filter-page
-ms.openlocfilehash: dff5a5b1ba3c8ed07ccc8d134f8cfeb25b9f6689
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 921e27bf56587813f835357c9090c91a155c087b
+ms.sourcegitcommit: b508b115107e0f8d7f62b25cfcc8ad45e1373459
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58751040"
+ms.lasthandoff: 05/07/2019
+ms.locfileid: "65212546"
 ---
 # <a name="tutorial-add-sorting-filtering-and-paging---aspnet-mvc-with-ef-core"></a>Kurz: Přidat řazení, filtrování a stránkování – ASP.NET MVC s EF Core
 
@@ -211,10 +211,8 @@ Kliknutím na odkazy stránkování v jiné pořadí řazení pro Ujistěte se, 
 Pro web společnosti Contoso University **o** stránce bude zobrazovat, kolik studenty zaregistrovali pro každé datum registrace. To vyžaduje seskupování a jednoduché výpočtů na skupinách. K tomu budete postupujte takto:
 
 * Vytvořte třídu modelu zobrazení dat, která je potřeba předat do zobrazení.
-
-* Upravte metodu o v kontroler Home.
-
-* Úprava zobrazení o.
+* Vytvořte metodu o v kontroler Home.
+* Vytvořte zobrazení o.
 
 ### <a name="create-the-view-model"></a>Vytvoření zobrazení modelu
 
@@ -239,10 +237,8 @@ Přidat `About` metodu s následujícím kódem:
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_UseDbSet)]
 
 Příkaz LINQ skupiny studentů entity podle data registrace, vypočítá počet entit v každé skupině a ukládá výsledky v kolekci `EnrollmentDateGroup` zobrazit objekty modelu.
-> [!NOTE]
-> Ve verzi 1.0 Entity Framework Core úplná sada výsledků je vrácen do klienta a seskupení probíhá na straně klienta. V některých případech to může vytvářet problémy s výkonem. Nezapomeňte otestovat výkon s produkčním objemy dat a v případě potřeby pomocí nezpracované SQL provádět seskupení podle serveru. Informace o tom, jak používat nezpracované SQL najdete v tématu [poslední kurz v této sérii](advanced.md).
 
-### <a name="modify-the-about-view"></a>Změnit zobrazení
+### <a name="create-the-about-view"></a>Vytvořit zobrazení
 
 Přidat *Views/Home/About.cshtml* souboru následujícím kódem:
 
@@ -252,7 +248,7 @@ Spusťte aplikaci a přejděte na stránku o. Počet studentů pro každé datum
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>Další kroky
 

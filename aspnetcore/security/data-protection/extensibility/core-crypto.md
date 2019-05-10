@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 8/11/2017
 uid: security/data-protection/extensibility/core-crypto
 ms.openlocfilehash: cf4a142992efe5b00a75285ef9ad9735fe7be411
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209067"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902679"
 ---
 # <a name="core-cryptography-extensibility-in-aspnet-core"></a>Rozšiřitelnost základní kryptografie v ASP.NET Core
 

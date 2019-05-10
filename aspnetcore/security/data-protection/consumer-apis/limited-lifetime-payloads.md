@@ -1,58 +1,58 @@
 ---
-title: Omezení doby trvání chráněné datové části v ASP.NET Core
+title: Omezení životnosti chráněných datových částí v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak omezit životnost chráněné pomocí rozhraní API ASP.NET Core Data Protection datové části.
+description: Zjistěte, jak omezení životnosti chráněných pomocí rozhraní API pro ASP.NET Core Data Protection datovou část.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/consumer-apis/limited-lifetime-payloads
 ms.openlocfilehash: 8dc3b856ec67477ec8ae777749c9bf3107eb4eda
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36278054"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902910"
 ---
-# <a name="limit-the-lifetime-of-protected-payloads-in-aspnet-core"></a>Omezení doby trvání chráněné datové části v ASP.NET Core
+# <a name="limit-the-lifetime-of-protected-payloads-in-aspnet-core"></a>Omezení životnosti chráněných datových částí v ASP.NET Core
 
-Existují scénáře, kdy vývojář aplikace chce vytvořit chráněné datové části, jejíž platnost vyprší po nastaveném časovém období. Například může chráněné datové části představují token pro resetování hesla, která má být platné pouze pro jednu hodinu. To je určitě možné pro vývojáře k vytvoření vlastní datovou část formátu, který obsahuje datum vypršení platnosti embedded a pokročilé vývojáře může Chcete přesto provést, ale pro většinu vývojáři Správa těchto vypršení můžou růst zdlouhavé.
+Existují scénáře, kdy vývojář aplikace chce vytvořit chráněný datovou část, jejíž platnost vyprší po nastaveném časovém období. Například chráněné datové části může představovat token pro resetování hesla, které by měl být platný pouze pro jednu hodinu. Je určitě možné pro vývojáře k vytvoření vlastní datovou část formátu, který obsahuje datum vypršení platnosti embedded, a pokročilé vývojáře staví na přesto provést, ale pro většinu vývojářů Správa těchto vypršení platnosti můžou růst únavné.
 
-Pro zjednodušení pro naše cílová skupina vývojáře balíček [Microsoft.AspNetCore.DataProtection.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) obsahuje nástroj rozhraní API pro vytváření datových částí, které automaticky vyprší po nastaveném časovém období. Tato rozhraní API přečnívat odhlásit z `ITimeLimitedDataProtector` typu.
+Pro lepší pochopení pro naši posluchači pro vývojáře, balíček [Microsoft.AspNetCore.DataProtection.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) obsahuje nástroj pro rozhraní API pro vytváření datových částí, které automaticky vyprší po nastaveném časovém období. Tato rozhraní API zablokování, odhlaste `ITimeLimitedDataProtector` typu.
 
-## <a name="api-usage"></a>Využití rozhraní API
+## <a name="api-usage"></a>Použití rozhraní API
 
-`ITimeLimitedDataProtector` Rozhraní je základní rozhraní pro ochranu a při rušení časově omezené / samoobslužné zneplatněním obsažených datových částí. K vytvoření instance `ITimeLimitedDataProtector`, je nutné nejdříve instanci běžný [IDataProtector](xref:security/data-protection/consumer-apis/overview) sestavený s konkrétním účelem. Jednou `IDataProtector` instance je k dispozici, volejte `IDataProtector.ToTimeLimitedDataProtector` metoda rozšíření a vraťte se zpět ochranného zařízení s možnostmi předdefinované vypršení platnosti.
+`ITimeLimitedDataProtector` Rozhraní je základní rozhraní pro ochranu a zrušení ochrany datových částí časově omezené / samoobslužné, u nichž vyprší platnost. Chcete-li vytvořit instanci `ITimeLimitedDataProtector`, musíte nejdřív instance běžný [IDataProtector](xref:security/data-protection/consumer-apis/overview) vytvořený s konkrétním účelem. Jednou `IDataProtector` instance je k dispozici, zavolejte `IDataProtector.ToTimeLimitedDataProtector` metodu rozšíření k získání zpět ochranného zařízení s možnostmi integrované vypršení platnosti.
 
-`ITimeLimitedDataProtector` poskytuje následující metody rozšíření a prostor pro rozhraní API:
+`ITimeLimitedDataProtector` poskytuje následující metody rozšíření a povrchu API:
 
-* CreateProtector (účel řetězec): ITimeLimitedDataProtector - toto rozhraní API je podobná existující `IDataProtectionProvider.CreateProtector` v tom, že může sloužit k vytvoření [účel řetězy](xref:security/data-protection/consumer-apis/purpose-strings) z ochranného kořenové časově omezené.
+* CreateProtector (účel řetězec): ITimeLimitedDataProtector - toto rozhraní API je podobná stávající `IDataProtectionProvider.CreateProtector` v tom, že je možné vytvořit [účel řetězy](xref:security/data-protection/consumer-apis/purpose-strings) z časově omezené ochranného zařízení root.
 
-* Chránit (byte [] ve formátu prostého textu, vypršení platnosti DateTimeOffset): byte]
+* Ochrana (byte [] ve formátu prostého textu, vypršení platnosti DateTimeOffset): byte]
 
-* Chránit (byte [] ve formátu prostého textu, časový interval životního cyklu): byte]
+* Ochrana (byte [] ve formátu prostého textu, dobu života časový interval): byte]
 
-* Chránit (byte [] ve formátu prostého textu): byte]
+* Ochrana (byte [] ve formátu prostého textu): byte]
 
-* Chránit (řetězec ve formátu prostého textu, vypršení platnosti DateTimeOffset): řetězec
+* Ochrana (řetězec ve formátu prostého textu, vypršení platnosti DateTimeOffset): řetězec
 
-* Chránit (řetězec ve formátu prostého textu, časový interval životního cyklu): řetězec
+* Ochrana (řetězec ve formátu prostého textu, dobu života časový interval): řetězec
 
-* Chránit (prostý text řetězec): řetězec
+* Ochrana (řetězec jako prostý text): řetězec
 
-Kromě základních `Protect` metody, které trvat jenom jako prostý text, existují nové přetížení, které umožňují zadat datum vypršení platnosti datové části. Datum vypršení platnosti lze zadat jako absolutní datum (prostřednictvím `DateTimeOffset`) nebo jako relativní časové (ze systému aktuální čas, prostřednictvím `TimeSpan`). Pokud přetížení, které neberou vypršení platnosti je volána, předpokládá se nikdy do vypršení platnosti datové části.
+Kromě základních `Protect` metody, které trvat pouze jako prostý text, existují nová přetížení, které umožňují určit datum vypršení platnosti datové části. Datum vypršení platnosti se dá nastavit jako absolutní datum (prostřednictvím `DateTimeOffset`) nebo jako relativní časové (z aktuálního systému prostřednictvím čas `TimeSpan`). Pokud přetížení, které nepřijímá vypršení platnosti je volána, datové části se předpokládá, že nikdy vypršení platnosti.
 
-* Odemknout (byte [] protectedData, se vypršení platnosti DateTimeOffset): byte]
+* Odemknout (byte [] protectedData, out vypršení platnosti DateTimeOffset): byte]
 
 * Odemknout (byte [] protectedData): byte]
 
-* Odemknout (se vypršení platnosti DateTimeOffset protectedData řetězec): řetězec
+* Odemknout (out vypršení platnosti DateTimeOffset protectedData řetězec): řetězec
 
 * Odemknout (protectedData řetězec): řetězec
 
-`Unprotect` Metody vrátit původní nechráněný data. Pokud ještě nevypršela platnost datové části, absolutní vypršení platnosti je vrácena jako volitelný vnější parametr spolu s původní nechráněný daty. Pokud vypršela platnost datové části, vyvolá výjimku všechny přetížení metody Unprotect cryptographicexception –.
+`Unprotect` Metody vrátí původní nechráněný data. Pokud dosud nepozbylo platnosti datové části, vrátí se jako volitelný parametr spolu s daty o původní nechráněný out absolutní vypršení platnosti. Pokud se datová část vypršela, vyvolá všechna přetížení metody Unprotect cryptographicexception –.
 
 >[!WARNING]
-> Má není doporučeno používat tato rozhraní API k ochraně datových částí, které vyžadují dlouhodobé nebo neomezené trvalost. "Můžete I dovolit pro chráněné datové části být trvale neopravitelné po měsíci?" může sloužit jako dobré pravidlo; Pokud je odpověď žádné pak vývojáři měli zvážit alternativní rozhraní API.
+> Není doporučuje se použití těchto rozhraní API k ochraně datových částí, které vyžadují dlouhodobé nebo neomezené trvalosti. "Jsem dovolit pro chráněných datových částí bude trvale neopravitelné po měsíci?" může sloužit jako základním pravidlem; Pokud je odpověď žádné pak vývojáři měli zvážit alternativní rozhraní API.
 
-Ukázka níže používá [cesty bez DI kódu](xref:security/data-protection/configuration/non-di-scenarios) pro vytvoření instance dat ochrany systému. Pokud chcete tuto ukázku spustit, ujistěte se, že jste přidali nejprve odkaz na balíček Microsoft.AspNetCore.DataProtection.Extensions.
+Ukázkové níže využívá [cesty kódu bez DI](xref:security/data-protection/configuration/non-di-scenarios) pro vytvoření instance dat ochrany systému. Tuto ukázku spustit, ujistěte se, že jste nejdřív přidali odkaz na balíček Microsoft.AspNetCore.DataProtection.Extensions.
 
 [!code-csharp[](limited-lifetime-payloads/samples/limitedlifetimepayloads.cs)]

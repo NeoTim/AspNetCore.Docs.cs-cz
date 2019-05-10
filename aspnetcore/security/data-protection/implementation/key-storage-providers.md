@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/19/2018
 uid: security/data-protection/implementation/key-storage-providers
 ms.openlocfilehash: d6dabc9e4581e0891d1dd14f73e086d50b45bba4
-ms.sourcegitcommit: 3e94d192b2ed9409fe72e3735e158b333354964c
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/21/2018
-ms.locfileid: "53735736"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64903045"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>Zprostředkovatelé úložiště klíčů v ASP.NET Core
 
@@ -152,7 +152,7 @@ dotnet ef database update --context MyKeysContext
 
 `DataProtectionKeys` Třídy na entitu přijme strukturu je znázorněno v následující tabulce.
 
-| Vlastnost či pole | Typ CLR | Datový typ SQL              |
+| Vlastnost či pole | Typ CLR | SQL Type              |
 | -------------- | -------- | --------------------- |
 | `Id`           | `int`    | `int`, PK, není null   |
 | `FriendlyName` | `string` | `nvarchar(MAX)`, hodnotu null |
