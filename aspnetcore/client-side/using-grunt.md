@@ -3,20 +3,20 @@ title: Použití nástroje Grunt v ASP.NET Core
 author: rick-anderson
 description: ''
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 05/10/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: fc912974fb6ed3c65bb46a7d616d9e531587d946
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 73b7704726db9d93588dddd3f3b05a23fb3425b3
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900813"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65535941"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>Použití nástroje Grunt v ASP.NET Core
 
 Podle [Noel rýže](https://blog.falafel.com/falafel-software-recognized-sitefinity-website-year/)
 
-Grunt je Spouštěče úloh JavaScriptu, který automatizuje skript připravenost k minifikaci, TypeScript kompilace, nástroji "lint" kvality kódu, šablony stylů CSS předběžné procesory a téměř všechny opakované případě vyžadující způsobem pro podporu vývoje klienta. Grunt plně podporované v sadě Visual Studio, i když šablony projektů ASP.NET použití nástroje Gulp ve výchozím nastavení (viz [použít Gulp](using-gulp.md)).
+Grunt je Spouštěče úloh JavaScriptu, který automatizuje skript připravenost k minifikaci, TypeScript kompilace, nástroji "lint" kvality kódu, šablony stylů CSS předběžné procesory a téměř všechny opakované případě vyžadující způsobem pro podporu vývoje klienta. Grunt je plně podporováno v sadě Visual Studio.
 
 Tento příklad používá prázdný projekt ASP.NET Core jako výchozí bod, jak automatizovat proces sestavení klienta od začátku.
 
@@ -286,7 +286,3 @@ Odebrat a znovu načíst projekt. Když projekt znovu načten, spuštění úkol
 ## <a name="summary"></a>Souhrn
 
 Grunt je Spouštěč výkonné úloh, která umožňuje automatizovat většinu úloh sestavení klienta. Grunt využívá NPM doručil příslušné balíčky a funkce nástroje integraci se sadou Visual Studio. Visual Studio Task Runner Explorer zjišťuje změny konfiguračních souborů a poskytuje pohodlné rozhraní pro spouštění úloh, zobrazit spuštěné úlohy a vázat úlohy k události aplikace Visual Studio.
-
-## <a name="additional-resources"></a>Další zdroje
-
-* [Použití nástroje Gulp](using-gulp.md)

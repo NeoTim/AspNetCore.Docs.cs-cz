@@ -4,14 +4,14 @@ author: scottaddie
 description: Zjistěte, jak optimalizovat statické prostředky ve webové aplikaci ASP.NET Core s použitím technik sdružování a minifikace.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/20/2018
+ms.date: 05/10/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 5d5f0aadb7740c9b2b959d12a585cd8c91758ce8
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ba01d365a25dfbd13fed89263d7489b2ce2a8771
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900450"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65535935"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Vytvoření balíčku a minifikace statické prostředky v ASP.NET Core
 
@@ -63,7 +63,7 @@ Prohlížeče jsou poměrně podrobné s ohledem na hlavičky požadavků HTTP. 
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a>Volba strategie sdružování a minifikace
 
-Šablony projektů MVC a stránky Razor poskytují out-of-the-box řešení pro sdružování a minifikace skládající se z konfiguračního souboru JSON. Nástroje třetích stran, jako [Gulp](xref:client-side/using-gulp) a [Grunt](xref:client-side/using-grunt) spouštěčů úloh, provádět stejné úlohy s o něco složitější. Nástroj třetí strany je skvěle hodí, když pracovního postupu vývoje vyžaduje zpracování nad rámec sdružování a minifikace&mdash;jako je optimalizace linting a image. Pomocí sdružování a minifikace návrhu minifikovaný soubory vytvořené před nasazením aplikace. Sdružování a minifikace před nasazením poskytuje výhodu v podobě zatížení serveru. Ale je důležité uvědomit si tohoto návrhu sdružování a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.
+Šablony projektů MVC a stránky Razor poskytují out-of-the-box řešení pro sdružování a minifikace skládající se z konfiguračního souboru JSON. Nástroje třetích stran, jako [Grunt](xref:client-side/using-grunt) úkolů runner, provádět stejné úlohy s o něco složitější. Nástroj třetí strany je skvěle hodí, když pracovního postupu vývoje vyžaduje zpracování nad rámec sdružování a minifikace&mdash;jako je optimalizace linting a image. Pomocí sdružování a minifikace návrhu minifikovaný soubory vytvořené před nasazením aplikace. Sdružování a minifikace před nasazením poskytuje výhodu v podobě zatížení serveru. Ale je důležité uvědomit si tohoto návrhu sdružování a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.
 
 ## <a name="configure-bundling-and-minification"></a>Konfigurace sdružování a minifikace
 
@@ -325,11 +325,9 @@ V tomto příkladu všechny úkoly definované v rámci `MyPreCompileTarget` cí
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
 
-Visual Studio Task Runner Explorer lze také vázat úlohy Gulp k určité události aplikace Visual Studio. Zobrazit [spuštění úlohy výchozí](xref:client-side/using-gulp#running-default-tasks) pokyny týkající se toho.
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Použití nástroje Gulp](xref:client-side/using-gulp)
 * [Použití nástroje Grunt](xref:client-side/using-grunt)
 * [Používání více prostředí](xref:fundamentals/environments)
 * [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)

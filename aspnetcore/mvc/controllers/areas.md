@@ -3,14 +3,14 @@ title: Oblasti v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak oblasti jsou používány pro organizaci související funkce do skupiny jako samostatný obor názvů (pro směrování) a strukturu složek (pro zobrazení) funkce služby technologie ASP.NET MVC.
 ms.author: riande
-ms.date: 05/06/2019
+ms.date: 05/10/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: 35c7682861f7392b0bcda7326e4d7f5ccc356bda
-ms.sourcegitcommit: b508b115107e0f8d7f62b25cfcc8ad45e1373459
+ms.openlocfilehash: f3a75bc307a206e43241b421f448b09011868d08
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/07/2019
-ms.locfileid: "65212586"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65535971"
 ---
 # <a name="areas-in-aspnet-core"></a>Oblasti v ASP.NET Core
 
@@ -169,9 +169,9 @@ Pro předchozí kód:
 
 ### <a name="import-namespace-and-tag-helpers-with-viewimports-file"></a>Import oboru názvů a pomocných rutin značek se souborem _ViewImports
 
-A *_ViewImports* soubor lze přidat do každé oblasti *stránky* složce pro import oboru názvů a pomocných rutin značek na každou stránku Razor ve složce.
+A *_ViewImports.cshtml* soubor lze přidat do každé oblasti *stránky* složce pro import oboru názvů a pomocných rutin značek na každou stránku Razor ve složce.
 
-Vezměte v úvahu *služby* oblasti ukázek kódu, který neobsahuje *_ViewImports* souboru. Následující kód ukazuje */Services/Manage/About* stránky Razor:
+Vezměte v úvahu *služby* oblasti ukázek kódu, který neobsahuje *_ViewImports.cshtml* souboru. Následující kód ukazuje */Services/Manage/About* stránky Razor:
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Services/Pages/Manage/About.cshtml)]
 
@@ -180,7 +180,7 @@ V předchozím kódu:
 * K určení modelu musí použít plně kvalifikovaný název domény (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`).
 * [Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) ve jsou povolené `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
-Oblasti produktů ve vzorku ke stažení obsahuje následující *_ViewImports* souboru:
+Oblasti produktů ve vzorku ke stažení obsahuje následující *_ViewImports.cshtml* souboru:
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Products/Pages/_ViewImports.cshtml)]
 
@@ -198,4 +198,4 @@ Chcete-li sdílet společný rozložení pro celé aplikace, přesuňte *soubor 
 
 ### <a name="publishing-areas"></a>Publikování oblasti
 
-Všechny `*.cshtml` a `wwwroot/**` souborů k publikování do výstupu, kdy `<Project Sdk="Microsoft.NET.Sdk.Web">` je součástí the.csproj* souboru.
+*.Cshtml všechny soubory a soubory v rámci *wwwroot* adresáře se publikují do výstupu, kdy `<Project Sdk="Microsoft.NET.Sdk.Web">` jsou uvedeny v souboru *.csproj.

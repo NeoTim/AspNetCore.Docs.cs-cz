@@ -5,14 +5,14 @@ description: Další informace o použití rozhraní IHttpClientFactory ke sprá
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 03/30/2019
+ms.date: 05/10/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 84cdbca20e7c7aaa1941c78483cc36a9f0b24505
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 540f14ad2b290d276436033a94d4c815888e5a95
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901569"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65536008"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Požadavky HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -27,9 +27,13 @@ Podle [Glenn Condron](https://github.com/glennc), [Ryanem Nowak](https://github.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([stažení](xref:index#how-to-download-a-sample))
 
+::: moniker range="<= aspnetcore-2.2"
+
 ## <a name="prerequisites"></a>Požadavky
 
 Projekty cílené na rozhraní .NET Framework vyžadují instalaci [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) balíček NuGet. Projekty, které cílí na .NET Core a odkaz [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) již patří `Microsoft.Extensions.Http` balíčku.
+
+::: moniker-end
 
 ## <a name="consumption-patterns"></a>Vzory využití
 
@@ -197,11 +201,10 @@ Použijte jednu z následujících dvou přístupů sdílet stav jednotlivých �
 
 `IHttpClientFactory` se integruje s oblíbenými knihovnu třetí strany s názvem [Polly](https://github.com/App-vNext/Polly). Polly je komplexní odolnosti a přechodné zpracování chyb library pro .NET. Umožňuje vývojářům vyjádřit zásady například opakování, jističe, vypršení časového limitu, přepážka izolace a záložních fluent a bezpečným způsobem.
 
-Metody rozšíření jsou k dispozici pro povolení použití zásad Polly nakonfigurované `HttpClient` instancí. Jsou k dispozici v rozšíření Polly [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) balíček NuGet. Není součástí tohoto balíčku [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Abyste použili rozšíření explicitní `<PackageReference />` by měl být zahrnutý v projektu.
+Metody rozšíření jsou k dispozici pro povolení použití zásad Polly nakonfigurované `HttpClient` instancí. Polly rozšíření:
 
-[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/HttpClientFactorySample.csproj?highlight=10)]
-
-Po obnovení tohoto balíčku, rozšiřující metody jsou k dispozici pro podporu přidání obslužné rutiny na základě Polly klientům.
+* Podpora přidání obslužné rutiny na základě Polly klientům.
+* Je možné po instalaci [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) balíček NuGet. Balíček není součástí sdíleného rozhraní ASP.NET Core.
 
 ### <a name="handle-transient-faults"></a>Zpracování přechodných chyb
 
@@ -219,7 +222,7 @@ Další rozšiřující metody existují, které lze přidat na základě Polly 
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet8)]
 
-V předchozím kódu pokud je odchozí požadavek GET, časový limit 10 sekundu se použije. Pro jiné metody HTTP se používá s časovým limitem 30 sekund.
+V předchozím kódu pokud je odchozí požadavek HTTP GET, časový limit 10 sekundu se použije. Pro jiné metody HTTP se používá s časovým limitem 30 sekund.
 
 ### <a name="add-multiple-polly-handlers"></a>Přidávání více obslužných rutin Polly
 

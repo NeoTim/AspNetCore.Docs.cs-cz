@@ -5,14 +5,14 @@ description: Seznamte se s na straně klienta i stranu serveru Blazor hostován�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/25/2019
+ms.date: 05/10/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: e5d0d74b6ad3f6b7d53c4fc2cb962daf6566287e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9bd177e05b9108e82fd76ba78a92710330930bb2
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898629"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65535896"
 ---
 # <a name="blazor-hosting-models"></a>Blazor modelech hostování
 
@@ -84,7 +84,7 @@ Existují nevýhody hostování na straně serveru:
 * Snížení škálovatelnosti: Server musí spravovat připojení více klientů a zpracování stavu klienta.
 * Server služby ASP.NET Core je zapotřebí pro zpracování aplikace. Nasazení bez serveru (například ze sítě CDN) není možné.
 
-&dagger;*Blazor.server.js* do následujícího umístění je publikován skriptu: *bin / {ladění | Verze} / {CÍLOVÁ ARCHITEKTURA} /publish/ {název aplikace}. Aplikace/dist/_architektura*.
+&dagger;*Blazor.server.js* skript pochází z vloženého prostředku v rámci sdílené ASP.NET Core.
 
 ### <a name="reconnection-to-the-same-server"></a>Opětovné připojení ke stejnému serveru
 
