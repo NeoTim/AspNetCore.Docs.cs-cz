@@ -1,27 +1,27 @@
 ---
 title: Začínáme s ASP.NET Core
 author: rick-anderson
-description: Rychlý kurz, který vytvoří a spustí jednoduchou aplikaci Hello World pomocí ASP.NET Core.
+description: Krátký kurz, který vytvoří a spustí základní aplikaci Hello World pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2019
+ms.date: 5/15/2019
 uid: getting-started
-ms.openlocfilehash: 76728c484368a8b63130c259a9663473970846d3
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 9227dcfbc84376d9d73bc6fc0dd76085779acae1
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209473"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610306"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
-Tento návod ukazuje, jak vytvořit webovou aplikaci ASP.NET jádro pomocí rozhraní příkazového řádku .NET Core.
+Tento kurz ukazuje, jak používat rozhraní příkazového řádku .NET Core k vytvoření a spuštění webové aplikace v ASP.NET Core.
 
 Se dozvíte, jak:
 
 > [!div class="checklist"]
 > * Vytvoření projektu webové aplikace.
-> * Povolte místní HTTPS.
+> * Důvěřujete certifikátu vývoje.
 > * Spusťte aplikaci.
 > * Úprava stránky syntaxe Razor.
 
@@ -41,7 +41,7 @@ Otevřete příkazové prostředí a zadejte následující příkaz:
 dotnet new webapp -o aspnetcoreapp
 ```
 
-## <a name="enable-local-https"></a>Povolit místní HTTPS
+### <a name="trust-the-development-certificate"></a>Důvěřovat certifikátu vývoj
 
 Důvěřujete certifikátu vývoj HTTPS:
 
@@ -70,6 +70,8 @@ Ve výstupu předchozího příkazu se zobrazí následující zpráva:
 Tento příkaz vás může vyzvat k zadání hesla k instalaci certifikátu v řetězci klíčů systému. Zadejte svoje heslo, pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
+
+Subsystém Windows pro Linux, najdete v části [certifikátu důvěřovat HTTPS ze subsystému Windows pro Linux](xref:security/enforcing-ssl#wsl).
 
 O tom, jak důvěřovat certifikátu protokolu HTTPS vývoj naleznete v dokumentaci k vaší distribuci Linuxu.
 
@@ -102,7 +104,7 @@ V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
 > * Vytvoření projektu webové aplikace.
-> * Povolte místní HTTPS.
+> * Důvěřujete certifikátu vývoje.
 > * Spusťte projekt.
 > * Proveďte změnu.
 

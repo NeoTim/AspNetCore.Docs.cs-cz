@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/02/2019
+ms.date: 05/10/2019
 uid: blazor/components
-ms.openlocfilehash: 6c174fc16ecc755c5c43e59a77db7d4ce9e00da3
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: e4a9e4a229304fa9d984b035a834c6f3bbb24186
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085618"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610160"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -895,7 +895,7 @@ Vezměte v úvahu následující podrobnosti domácí mazlíček součásti, kte
 }
 ```
 
-V následujícím příkladu, smyčky v `CreateComponent` metoda generuje tři komponenty domácí mazlíček podrobnosti. Při volání metody `RenderTreeBuilder` metody vytvoření součásti (`OpenComponent` a `AddAttribute`), pořadová čísla jsou čísla řádků zdrojového kódu. Algoritmus rozdíl Blazor spoléhá na pořadová čísla odpovídající odlišné řádky kódu, není odlišné volání volání. Při vytváření komponent pomocí `RenderTreeBuilder` metody, pevně argumenty pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadové číslo může vést ke špatnému výkonu.**
+V následujícím příkladu, smyčky v `CreateComponent` metoda generuje tři komponenty domácí mazlíček podrobnosti. Při volání metody `RenderTreeBuilder` metody vytvoření součásti (`OpenComponent` a `AddAttribute`), pořadová čísla jsou čísla řádků zdrojového kódu. Algoritmus rozdíl Blazor spoléhá na pořadová čísla odpovídající odlišné řádky kódu, není odlišné volání volání. Při vytváření komponent pomocí `RenderTreeBuilder` metody, pevně argumenty pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadové číslo může vést ke špatnému výkonu.** Další informace najdete v tématu [pořadová čísla se týkají pořadí čísel a provádění není řádků kódu](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) oddílu.
 
 *Integrované komponenty obsah*:
 
@@ -929,3 +929,90 @@ V následujícím příkladu, smyčky v `CreateComponent` metoda generuje tři k
     }
 }
 ```
+
+### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>Pořadová čísla se týkají pořadí čísel a provádění není řádků kódu
+
+Blazor `.razor` jsou vždycky soubory zkompilovány. Toto je potenciálně skvělé výhody pro `.razor` protože kompilační krok je možné vložit informace, které zvýšit výkon aplikace za běhu.
+
+Klíče příklad tato vylepšení zahrnují *pořadí čísla*. Pořadová čísla oznámení modulu runtime, který výstupy pochází z různých a seřazené řádky kódu, které. Modul runtime používá tyto informace ke generování efektivní stromu rozdíly v lineárním čase, což je mnohem rychleji, než je obvykle možné pro algoritmus diff obecné stromu.
+
+Vezměte v úvahu následující jednoduchý `.razor` souboru:
+
+```cshtml
+@if (someFlag)
+{
+    <text>First</text>
+}
+
+Second
+```
+
+To se kompiluje na přibližně takto:
+
+```csharp
+if (someFlag)
+{
+    builder.AddContent(0, "First");
+}
+
+builder.AddContent(1, "Second");
+```
+
+Když tento kód spustí poprvé, pokud `someFlag` je `true`, obdrží Tvůrce:
+
+| Pořadí | Type      | Data   |
+| :------: | --------- | :----: |
+| 0        | Textový uzel | první  |
+| 1        | Textový uzel | Sekunda |
+
+Nyní Představte si, že `someFlag` stane `false`, a My se pak znovu. Tentokrát, obdrží Tvůrce:
+
+| Pořadí | Type       | Data   |
+| :------: | ---------- | :----: |
+| 1        | Textový uzel  | Sekunda |
+
+Když modul runtime provádí rozdílu, uvidí, která položka na pořadí `0` byla odebrána, takže generuje následující triviální *upravit skript*:
+
+* Odeberte první textový uzel.
+
+#### <a name="what-goes-wrong-if-you-generate-sequence-numbers-programmatically"></a>Co dojde k chybě, když vygenerujete pořadová čísla prostřednictvím kódu programu
+
+Představte si, že jste napsali následující logice rendertree Tvůrce:
+
+```csharp
+var seq = 0;
+
+if (someFlag)
+{
+    builder.AddContent(seq++, "First");
+}
+
+builder.AddContent(seq++, "Second");
+```
+
+Teď by byl první výstup:
+
+| Pořadí | Typ | Data || :------: | --------- | :--- : | | 0 | Textový uzel | První || 1 | Textový uzel | Druhý |
+
+Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. V druhém vykreslování, když `someFlag` je `false`, zobrazí se výstup:
+
+| Pořadí | Type      | Data   |
+| :------: | --------- | ------ |
+| 0        | Textový uzel | Sekunda |
+
+Tentokrát vidí diff algoritmus, který *dvě* změny došlo, a algoritmus generuje následující skript upravit:
+
+* Změňte hodnotu na prvním uzlu text do `Second`.
+* Druhý textový uzel odeberte.
+
+Generování pořadová čísla došlo ke ztrátě všech užitečné informace o tom, kde `if/else` větve a smyčky, se vyskytoval v původní kód. Výsledkem je rozdíl **dvakrát tak dlouho,** stejně jako předtím.
+
+Toto je příklad jednoduchého dotazu. Ve víc odpovídají realitě případů s komplexní a hluboce vnořené struktury a zejména s smyčky je závažnější snížení výkonu. Místo okamžitě identifikaci, které bloky smyčky nebo větve bylo vloženo nebo odebrat, rozdíl algoritmus využívající dlaždice má recurse hluboko do stromové struktury vykreslování a obvykle mnohem delší dobu upravit skripty sestavení, protože je chybné o staré a nové struktury vzhledem k sobě navzájem.
+
+#### <a name="guidance-and-conclusions"></a>Pokyny a z něj závěry
+
+* Výkon aplikace vyskytne-li dynamicky generované čísel.
+* Rozhraní framework nelze vytvořit své vlastní pořadová čísla automaticky za běhu protože potřebné informace neexistuje. Pokud je zachycena v době kompilace.
+* Nezapisujte dlouhé bloky ručně implementované `RenderTreeBuilder` logiku. Preferovat `.razor` soubory a umožňují kompilátoru řešit pořadová čísla. Pokud nejste schopni vyhnout ruční `RenderTreeBuilder` logiku, rozdělte dlouhé bloky kódu do menších, který je obalen `OpenRegion` / `CloseRegion` volání. Každý oblast má svůj vlastní samostatný místo pořadová čísla, takže je možné restartovat od nuly (nebo jakékoli jiné libovolné číslo) v každé oblasti.
+* Pokud pořadová čísla jsou pevně zakódované, algoritmus diff pouze vyžaduje, že pořadová čísla zvýšení hodnoty. Výchozí hodnoty a mezery nejsou relevantní. Jednou z legitimní možností je používat jako pořadové číslo, číslo řádku kódu nebo začátek od nuly a zvýšit případů nebo stovky (nebo libovolný upřednostňované interval). 
+* Blazor používá pořadová čísla, zatímco jiné architektury uživatelského rozhraní stromu rozdílování nepoužívejte. Rozdílování je mnohem rychlejší, když se používají pořadová čísla a Blazor nabízí výhodu v podobě kompilační krok, který se zabývá pořadová čísla automaticky pro vývojáře pro tvorbu `.razor` soubory.

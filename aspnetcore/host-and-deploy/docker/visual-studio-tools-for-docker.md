@@ -6,23 +6,23 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: 3bf3d8d0a627d97090e3ce9fef7e380f03c7626d
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b0d884fe2fe56f267ad70c388a08cd3fe6256364
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901308"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610376"
 ---
 # <a name="visual-studio-tools-for-docker-with-aspnet-core"></a>Visual Studio Tools for Docker s ASP.NET Core
 
-Visual Studio 2017 podporuje vytváření, ladění a spouštění kontejnerizovaných ASP.NET Core aplikace cílí na .NET Core. Jsou podporovány kontejnery Windows i Linuxu.
+Visual Studio 2017 a novější verze podporují vytváření, ladění a spouštění kontejnerizovaných ASP.NET Core aplikace cílí na .NET Core. Jsou podporovány kontejnery Windows i Linuxu.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/docker/visual-studio-tools-for-docker/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
 * [Docker pro Windows](https://docs.docker.com/docker-for-windows/install/)
-* [Visual Studio 2017](https://visualstudio.microsoft.com) s **vývoj pro různé platformy .NET Core** pracovního vytížení
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s **vývoj pro různé platformy .NET Core** pracovního vytížení
 
 ## <a name="installation-and-setup"></a>Instalace a nastavení
 
@@ -112,7 +112,7 @@ Použití souborů určených pro konfigurace přepsání, můžete zadat jinou 
 Kromě základní [požadavky](#prerequisites), [Service Fabric](/azure/service-fabric/) řešení Orchestrace požadavky splněné následující požadavky:
 
 * [Microsoft Azure Service Fabric SDK](https://www.microsoft.com/web/handlers/webpi.ashx?command=getinstallerredirect&appid=MicrosoftAzure-ServiceFabric-CoreSDK) version 2.6 nebo novější
-* Visual Studio 2017 **vývoj pro Azure** pracovního vytížení
+* Visual Studio **vývoj pro Azure** pracovního vytížení
 
 Service Fabric nepodporuje spuštěné kontejnery Linuxu v místním vývojovém clusteru na Windows. Pokud projekt již používá kontejner Linuxu, Visual Studio vyzve k přepnout na kontejnery Windows.
 
@@ -131,7 +131,7 @@ Visual Studio Tools for Docker provádět následující úlohy:
 
 Další informace najdete v tématu [nasazení aplikace .NET v kontejneru Windows do Azure Service Fabric](/azure/service-fabric/service-fabric-host-app-in-a-container).
 
-## <a name="debug"></a>Ladit
+## <a name="debug"></a>Ladění
 
 Vyberte **Docker** z ladění rozevírací seznam v panelu nástrojů a spusťte ladění aplikace. **Docker** zobrazení **výstup** okno zobrazuje probíhají následující akce:
 
