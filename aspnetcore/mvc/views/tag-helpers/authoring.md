@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/29/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 37e39ac93e7b67184dfc238d58e12c2be8d84f91
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: d7a5656131189ffafb60a7b1db0b8d93a3787ae2
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087357"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65621044"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>Autor pomocných rutin značek v ASP.NET Core
 
@@ -313,3 +313,12 @@ Pomocné rutiny značky poskytují několik vlastností k načtení obsahu.
 [!code-csharp[](../../views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinkerCopy.cs?highlight=5,6,10&range=8-21)]
 
 * Více volání `GetChildContentAsync` vrací stejnou hodnotu a nebude znovu spouštět `TagHelper` subjektu, pokud nepředáte v false parametr určující nepoužívat výsledky uložené v mezipaměti.
+
+## <a name="load-minified-partial-view-taghelper"></a>Načtení částečné zobrazení minifikovaný Taghelperu.
+
+V produkčním prostředí výkon lze zvýšit načtením minifikovaný částečné zobrazení. Abyste mohli využívat minifikovaný částečné zobrazení v produkčním prostředí:
+
+* Vytvořit/nastavení před sestavením proces, který minifikuje částečné zobrazení.
+* Pomocí následujícího kódu můžete načíst minifikovaný částečné zobrazení v jiných vývojových prostředích.
+
+[!code-csharp[](authoring/sample/AuthoringTagHelpers/src/MinifiedVersionTagHelper.cs?name=snippet)]

@@ -5,14 +5,14 @@ description: Vytvoření podrobné Blazor aplikace.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/18/2019
+ms.date: 05/14/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: d235fec4e128ad8622a06d301eeac15c4862c159
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: c1b142ebdbd85eb10ddf8c8b70edd9782732a4f1
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087737"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65621102"
 ---
 # <a name="build-your-first-blazor-app"></a>Vytvořte svoji první aplikaci Blazor
 
@@ -151,6 +151,14 @@ Přidáte novou součást aplikaci, která implementuje seznam úkolů.
    ```
 
 1. Znovu sestavte a spusťte aplikaci. Na stránce Nový Todo potvrďte, že odkaz na komponentu Todo funguje.
+
+1. Při vytváření aplikace na straně serveru Blazor, přidat obor názvů aplikace tak, aby  *\_Imports.razor* souboru. Následující `@using` příkaz předpokládá, že je obor názvů aplikace `WebApplication`:
+
+   ```cshtml
+   @using WebApplication
+   ```
+   
+   Aplikace na straně klienta Blazor obsahují obor názvů aplikace ve výchozím nastavení  *\_Imports.razor* souboru.
 
 1. Přidat *TodoItem.cs* souboru do kořenového adresáře projektu k uložení třídu, která představuje položku seznamu úkolů. Pomocí následujících C# kód `TodoItem` třídy:
 

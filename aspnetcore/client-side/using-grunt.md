@@ -3,14 +3,14 @@ title: Použití nástroje Grunt v ASP.NET Core
 author: rick-anderson
 description: Použití nástroje Grunt v ASP.NET Core
 ms.author: riande
-ms.date: 05/10/2019
+ms.date: 05/14/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: 718a1358c0474711b05bb2c90dc86ec9edacbf1e
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: 4d9b6cf6f9a0007e9722bc054f0d9a7608f1473b
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610219"
+ms.locfileid: "65620998"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>Použití nástroje Grunt v ASP.NET Core
 
@@ -113,12 +113,12 @@ V dalším kroku nakonfigurujte NPM pro stažení nástroje grunt a grunt úlohy
 
 4. Uložit *package.json* souboru.
 
-Balíčky pro každou položku devDependencies stáhne společně s všechny soubory, které vyžaduje každý balíček. Můžete najít soubory v balíčku `node_modules` adresáře tím, že **zobrazit všechny soubory** tlačítko v Průzkumníku řešení.
+Balíčky pro každou `devDependencies` položky stáhne společně s všechny soubory, které vyžaduje každý balíček. Můžete najít soubory v balíčku *node_modules* adresáře tím, že **zobrazit všechny soubory** tlačítko **Průzkumníka řešení**.
 
 ![grunt node_modules](using-grunt/_static/node-modules.png)
 
 > [!NOTE]
-> Pokud je potřeba je ručně obnovit závislosti v Průzkumníkovi řešení pravým tlačítkem myši na `Dependencies\NPM` a vyberete **obnovit balíčky** nabídky.
+> Pokud je potřeba, můžete ručně obnovit závislosti v **Průzkumníka řešení** kliknutím pravým tlačítkem na `Dependencies\NPM` a vyberete **obnovit balíčky** nabídky.
 
 ![Obnovení balíčků](using-grunt/_static/restore-packages.png)
 
@@ -126,9 +126,9 @@ Balíčky pro každou položku devDependencies stáhne společně s všechny sou
 
 Grunt je nakonfigurovaný nástrojem manifestu s názvem *soubor Gruntfile.js* , který definuje, načítá a registruje úlohy, které lze spustit ručně nebo konfigurované pro běh automaticky na základě událostí v sadě Visual Studio.
 
-1. Klikněte pravým tlačítkem na projekt a vyberte **Přidat > Nová položka**. Vyberte **Grunt konfigurační soubor** možnost, ponechte výchozí název *soubor Gruntfile.js*a klikněte na tlačítko **přidat** tlačítko.
+1. Klikněte pravým tlačítkem na projekt a vyberte **přidat** > **nová položka**. Vyberte **soubor JavaScript** šablony položky, změňte název na *soubor Gruntfile.js*a klikněte na tlačítko **přidat** tlačítko.
 
-   Počáteční kód obsahuje definici modulu a `grunt.initConfig()` metoda. `initConfig()` Slouží k nastavení možností pro každý balíček a zbytek modulu se načtou a zaregistrovat úlohy.
+1. Přidejte následující kód, který *soubor Gruntfile.js*. `initConfig` Funkce nastaví možnosti pro každý balíček a zbytek modul načítá a zaregistrovat úlohy.
 
    ```javascript
    module.exports = function (grunt) {
@@ -137,7 +137,7 @@ Grunt je nakonfigurovaný nástrojem manifestu s názvem *soubor Gruntfile.js* ,
    };
    ```
 
-2. Uvnitř `initConfig()` metody přidat možnosti pro `clean` úloh, jak je znázorněno v příkladu *soubor Gruntfile.js* níže. Úkolu vyčisti přijímá pole řetězců adresářů. Tento úkol odstraní soubory z wwwroot/lib a odstraní celý/dočasný adresář.
+1. Uvnitř `initConfig` funkci, přidejte možnosti `clean` úloh, jak je znázorněno v příkladu *soubor Gruntfile.js* níže. `clean` Úkol přijímá pole řetězců adresářů. Tento úkol odstraní soubory z *wwwroot/lib* a odstraní celý */temp* adresáře.
 
     ```javascript
     module.exports = function (grunt) {
@@ -147,32 +147,32 @@ Grunt je nakonfigurovaný nástrojem manifestu s názvem *soubor Gruntfile.js* ,
     };
     ```
 
-3. Pod initConfig() metodu, přidejte volání do `grunt.loadNpmTasks()`. To způsobí, že úloha spustitelných ze sady Visual Studio.
+1. Níže `initConfig` funkci, přidejte volání do `grunt.loadNpmTasks`. To způsobí, že úloha spustitelných ze sady Visual Studio.
 
     ```javascript
     grunt.loadNpmTasks("grunt-contrib-clean");
     ```
 
-4. Uložit *soubor Gruntfile.js*. Soubor by měl vypadat přibližně jako na následujícím snímku obrazovky.
+1. Uložit *soubor Gruntfile.js*. Soubor by měl vypadat přibližně jako na následujícím snímku obrazovky.
 
     ![Počáteční gruntfile](using-grunt/_static/gruntfile-js-initial.png)
 
-5. Klikněte pravým tlačítkem na *soubor Gruntfile.js* a vyberte **Task Runner Explorer** v místní nabídce. Otevře se okno Task Runner Explorer.
+1. Klikněte pravým tlačítkem na *soubor Gruntfile.js* a vyberte **Task Runner Explorer** v místní nabídce. **Task Runner Explorer** otevře se okno.
 
     ![Nabídka Průzkumníka Spouštěče úloh](using-grunt/_static/task-runner-explorer-menu.png)
 
-6. Ověřte, že `clean` zobrazí v části **úlohy** v Task Runner Explorer.
+1. Ověřte, že `clean` zobrazí v části **úlohy** v **Task Runner Explorer**.
 
     ![Seznam úkolů Průzkumníka Spouštěče úloh](using-grunt/_static/task-runner-explorer-tasks.png)
 
-7. Klikněte pravým tlačítkem na úkolu vyčisti a vyberte **spustit** v místní nabídce. Příkazové okno zobrazí průběh úlohy.
+1. Klikněte pravým tlačítkem na úkolu vyčisti a vyberte **spustit** v místní nabídce. Příkazové okno zobrazí průběh úlohy.
 
     ![runner explorer spusťte čisté úkol](using-grunt/_static/task-runner-explorer-run-clean.png)
 
     > [!NOTE]
     > Neexistují žádné soubory nebo adresáře zatím vyčistit. Pokud chcete můžete je vytvořit ručně v Průzkumníku řešení a potom spustit úkolu vyčisti jako test.
 
-8. V metodě initConfig() přidat položku pro `concat` pomocí níže uvedeného kódu.
+1. V `initConfig` funkci, přidejte záznam pro `concat` pomocí níže uvedeného kódu.
 
     `src` Pole vlastnosti obsahuje soubory zkombinovat v pořadí, by měly být kombinované. `dest` Vlastnost přiřadí cestu k souboru, který je vytvořen kombinované.
 
@@ -186,11 +186,11 @@ Grunt je nakonfigurovaný nástrojem manifestu s názvem *soubor Gruntfile.js* ,
     ```
 
     > [!NOTE]
-    > `all` Vlastnost ve výše uvedeném kódu je název cíle. Cíle se používají v některých úkolů Grunt umožňuje prostředí s více sestavení. Můžete zobrazit předdefinované cíle pomocí technologie Intellisense nebo přiřadit vlastní.
+    > `all` Vlastnost ve výše uvedeném kódu je název cíle. Cíle se používají v některých úkolů Grunt umožňuje prostředí s více sestavení. Můžete zobrazit předdefinované cíle pomocí technologie IntelliSense nebo přiřadit vlastní.
 
-9. Přidat `jshint` úloh, pomocí níže uvedeného kódu.
+1. Přidat `jshint` úloh, pomocí níže uvedeného kódu.
 
-    Spustí nástroj jshint kvality kódu pro každý soubor JavaScript najde v adresáři temp.
+    Jshint `code-quality` spustí nástroj pro každý soubor jazyka JavaScript v nalezen *temp* adresáře.
 
     ```javascript
     jshint: {
@@ -204,7 +204,7 @@ Grunt je nakonfigurovaný nástrojem manifestu s názvem *soubor Gruntfile.js* ,
     > [!NOTE]
     > Možnost "-W069" chybu vytvořil jshint při párování JavaScript používá syntaxi přiřazení vlastnosti namísto zápisu s tečkou, to znamená `Tastes["Sweet"]` místo `Tastes.Sweet`. Možnost vypne upozornění umožňující zbytek procesu pokračovat.
 
-10. Přidat `uglify` úloh, pomocí níže uvedeného kódu.
+1. Přidat `uglify` úloh, pomocí níže uvedeného kódu.
 
     Minifikuje úlohy *combined.js* soubor najde v adresáři temp a vytvoří soubor s výsledky v wwwroot/lib podle standardní konvence  *\<název_souboru\>. min.js*.
 
@@ -217,7 +217,7 @@ Grunt je nakonfigurovaný nástrojem manifestu s názvem *soubor Gruntfile.js* ,
     },
     ```
 
-11. V části grunt.loadNpmTasks() volání, která načte vyčistit contrib grunt patří stejné volání pro jshint, funkce concat a uglify pomocí níže uvedeného kódu.
+1. V části volání `grunt.loadNpmTasks` , který načte `grunt-contrib-clean`, patří stejné volání pro jshint concat a uglify pomocí níže uvedeného kódu.
 
     ```javascript
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -225,15 +225,15 @@ Grunt je nakonfigurovaný nástrojem manifestu s názvem *soubor Gruntfile.js* ,
     grunt.loadNpmTasks('grunt-contrib-uglify');
     ```
 
-12. Uložit *soubor Gruntfile.js*. Soubor by měl vypadat přibližně jako v příkladu níže.
+1. Uložit *soubor Gruntfile.js*. Soubor by měl vypadat přibližně jako v příkladu níže.
 
     ![Příklad souboru kompletní grunt](using-grunt/_static/gruntfile-js-complete.png)
 
-13. Všimněte si, že se seznamu úkolů Průzkumníka Spouštěče úloh zahrnuje `clean`, `concat`, `jshint` a `uglify` úlohy. Spusťte každý úkol v pořadí a sledujte výsledky v Průzkumníku řešení. Každý úkol by měl spustit bez chyb.
+1. Všimněte si, že **Task Runner Explorer** obsahuje seznam úkolů `clean`, `concat`, `jshint` a `uglify` úlohy. Každý úkol v pořadí a sledujte výsledky v **Průzkumníka řešení**. Každý úkol by měl spustit bez chyb.
 
     ![Průzkumník Spouštěče úloh spouštět každý úkol](using-grunt/_static/task-runner-explorer-run-each-task.png)
 
-    Vytvoří nový úkol concat *combined.js* soubor a umístí ji do dočasného adresáře. Úloha jshint jednoduše spustí a nevytvoří výstup. Vytvoří nový úkol uglify *combined.min.js* soubor a umístí jej do wwwroot/lib. Po dokončení, řešení by mělo vypadat jako na následujícím snímku obrazovky:
+    Vytvoří nový úkol concat *combined.js* soubor a umístí ji do dočasného adresáře. `jshint` Jednoduše spustí a nevytvoří výstup úkolů. `uglify` Vytvoří nový úkol *combined.min.js* soubor a umístí jej do *wwwroot/lib*. Po dokončení, řešení by mělo vypadat jako na následujícím snímku obrazovky:
 
     ![Průzkumník řešení po všech úloh.](using-grunt/_static/solution-explorer-after-all-tasks.png)
 

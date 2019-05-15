@@ -3,14 +3,15 @@ title: Zobrazení komponenty v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak komponenty zobrazení se používají v ASP.NET Core a jejich přidání do aplikací.
 ms.author: riande
-ms.date: 1/30/2019
+ms.custom: mvc
+ms.date: 5/14/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: 2bcf6411933b884c2f96d926827079dfbc25ca74
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 17fd7aa977868d522df9f27e0c23d07b016bfb7c
+ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903378"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65621069"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazení komponenty v ASP.NET Core
 
@@ -40,6 +41,8 @@ Zobrazení komponenty jsou určeny kdekoli, že máte opakovaně použitelný vy
 * Panel přihlášení, který by být vykreslen na každé stránce a zobrazit odkazy na odhlášení nebo se přihlaste, v závislosti na protokolu ve stavu uživatele
 
 Komponenty zobrazení se skládá ze dvou částí: třídy (obvykle odvozen z [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)) a výsledek se vrátí (obvykle zobrazení). Jako jsou řadiče, může být zobrazení komponenty POCO, ale Většina vývojářů budete chtít využívat výhod metod a vlastností, které jsou k dispozici odvozením z `ViewComponent`.
+
+Při zvažování, pokud zobrazení komponenty splňovat požadavky vaší aplikace, zvažte místo toho použití součásti syntaxe Razor. Součásti Razor také kombinovat kód s C# kód k vytvoření opakovaně použitelné uživatelské rozhraní jednotky. Razor komponenty jsou navržené pro produktivitu vývojářů, při zadávání složení a logika uživatelského rozhraní na straně klienta. Další informace naleznete v tématu <xref:blazor/components>.
 
 ## <a name="creating-a-view-component"></a>Vytvoření zobrazení komponenty
 
