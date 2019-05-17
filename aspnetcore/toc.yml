@@ -92,7 +92,11 @@
     - name: Aplikace využívající vzdálené volání procedur
       items:
         - name: Začínáme se službou gRPC v ASP.NET Core
+          uid: tutorials/grpc/index
+        - name: Vytvoření uvítací služby gRPC v ASP.NET Core
           uid: tutorials/grpc/grpc-start
+        - name: Vytvoření klienta .NET Core gRPC
+          uid: tutorials/grpc/grpc-client
     - name: "Přístup k\_datům"
       items:
         - name: EF Core s Razor Pages
@@ -230,8 +234,9 @@
         - name: Přehled
           uid: mvc/overview
         - name: Tutoriál
-          uid: tutorials/first-mvc-app/index
           items:
+            - name: Přehled
+              uid: tutorials/first-mvc-app/index
             - name: Začínáme
               uid: tutorials/first-mvc-app/start-mvc
             - name: Přidání kontroleru
@@ -324,8 +329,6 @@
               uid: client-side/libman/libman-cli
             - name: Visual Studio
               uid: client-side/libman/libman-vs
-        - name: Gulp
-          uid: client-side/using-gulp
         - name: Grunt
           uid: client-side/using-grunt
         - name: Bower
@@ -338,13 +341,10 @@
       uid: fundamentals/app-state
     - name: Rozložení
       uid: mvc/views/layout
-    - name: Vazby modelu
-      uid: mvc/models/model-binding
-    - name: Ověření modelu
-      uid: mvc/models/validation
     - name: Syntaxe Razor
       uid: mvc/views/razor
     - name: Pomocné rutiny značek
+      uid: mvc/views/tag-helpers/builtin-th/Index
       items:
         - name: Přehled
           uid: mvc/views/tag-helpers/intro
@@ -396,10 +396,6 @@
           uid: mvc/controllers/areas
         - name: Součásti aplikace
           uid: mvc/extensibility/app-parts
-        - name: Vlastní vazba modelu
-          uid: mvc/advanced/custom-model-binding
-        - name: Kompatibilita – verze
-          uid: mvc/compatibility-version
 - name: Aplikace Web API
   items:
     - name: Přehled
@@ -1000,6 +996,14 @@
       uid: fundamentals/troubleshoot-aspnet-core-localization
 - name: Upřesnit
   items:
+    - name: Vazby modelu
+      uid: mvc/models/model-binding
+    - name: Vlastní vazba modelu
+      uid: mvc/advanced/custom-model-binding
+    - name: Ověření modelu
+      uid: mvc/models/validation
+    - name: Kompatibilita – verze
+      uid: mvc/compatibility-version
     - name: Psaní middlewaru
       uid: fundamentals/middleware/write
     - name: Operace žádostí a odpovědí
@@ -1076,4 +1080,4 @@
 - name: "referenční dokumentace k\_rozhraní API"
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
-  href: 'https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md'
+  href: 'https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'
