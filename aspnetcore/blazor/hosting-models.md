@@ -5,14 +5,14 @@ description: Seznamte se s na straně klienta i stranu serveru Blazor hostován�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 05/13/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 9bd177e05b9108e82fd76ba78a92710330930bb2
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: 23821757bc541c8d17a2c1d6d75c5443b57a9135
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65535896"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874855"
 ---
 # <a name="blazor-hosting-models"></a>Blazor modelech hostování
 
@@ -140,7 +140,7 @@ Například následující stránky Razor vykreslí součást čítače s počá
  
 V některých případech budete muset nakonfigurovat klienta SignalR používat Blazor aplikace na straně serveru. Například můžete chtít konfigurovat protokolování na straně klienta SignalR pro diagnostiku problému připojení.
  
-Abyste mohli nakonfigurovat klienta SignalR v *wwwroot/index.htm* souboru:
+Abyste mohli nakonfigurovat klienta SignalR v *stránek /\_Host.cshtml* souboru:
 
 * Přidat `autostart="false"` atribut `<script>` značky *blazor.server.js* skriptu.
 * Volání `Blazor.start` a předat objekt konfigurace, který určuje Tvůrce SignalR.

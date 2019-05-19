@@ -5,14 +5,14 @@ description: Zjistěte, jak směrovat požadavky v aplikacích a o NavLink kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/06/2019
+ms.date: 05/13/2019
 uid: blazor/routing
-ms.openlocfilehash: fc61b8998682d519f7b936d95645c6311ffa5c09
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 154e6c4a05059d21bdd0f7819d015f3f6d50eda1
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086136"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874861"
 ---
 # <a name="blazor-routing"></a>Blazor směrování
 
@@ -57,7 +57,7 @@ Následující příklad nastaví komponentu podle *Pages/MyFallbackRazorCompone
 ```
 
 > [!IMPORTANT]
-> Ke generování tras správně, musí aplikace obsahovat `<base>` označení na jeho *wwwroot/index.html* soubor s základní cesty aplikace určené `href` atribut (`<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/client-side#app-base-path>.
+> Ke generování tras správně, musí aplikace obsahovat `<base>` označení na jeho *wwwroot/index.html* souboru (Blazor straně klienta) nebo *stránek /\_Host.cshtml* (Blazor serverové) soubor s Základní cesta aplikace podle `href` atribut (`<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/client-side#app-base-path>.
 
 ## <a name="route-parameters"></a>Parametry trasy
 

@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 03/31/2019
 uid: grpc/comparison
-ms.openlocfilehash: 8f4cefe1dedcf4cfd9650e73e6a1ba30dbbfeffa
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 655c921788deb30f3c0f3b47f4440dc8701c0f59
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087398"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874938"
 ---
 # <a name="comparing-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
@@ -76,7 +76,7 @@ Probíhá šíření termínu a zrušení prostřednictvím gRPC podřízené vo
 
 gRPC se skvěle hodí pro následující scénáře:
 
-* **Mikroslužby** &ndash; gRPC je navržený s nízkou latencí a vysokou propustnost komunikace. gRPC se skvěle hodí pro lightweight mikroslužeb kde efektivita je velmi důležité.
+* **Mikroslužby** &ndash; gRPC je určená pro nízkou latenci a vysokou propustnost komunikace. gRPC se skvěle hodí pro lightweight mikroslužeb kde efektivita je velmi důležité.
 * **Komunikace v reálném čase Point-to-Point** &ndash; gRPC má skvělou podporu pro obousměrné streamování. gRPC služby můžete nabízet zprávy bez dotazování v reálném čase.
 * **Prostředí Polygot** &ndash; gRPC nástrojů podporuje všechny oblíbené vývojářské jazyky, provádění gRPC dobrou volbou pro vícejazyčné prostředí.
 * **Síťové prostředí omezené** &ndash; gRPC zprávy jsou serializovat s příznakem Protobuf, zjednodušené formátu. GRPC zprávy je vždy menší než ekvivalentní zprávy JSON.

@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat a nasazení Blazor aplikace pomocí ASP.NET
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/18/2019
+ms.date: 05/13/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: 0a913dafafc5c17d2ff98e2c0a0319b591e02201
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: ea8ece266809913e32ac212bc55cb3c2499c234f
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59983023"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874978"
 ---
 # <a name="host-and-deploy-blazor-client-side"></a>Hostitelství a nasazení Blazor na straně klienta
 
@@ -126,13 +126,19 @@ Protože prohlížeče zasílat požadavky do Internetu na hostitele pro stránk
 
 ## <a name="app-base-path"></a>Základní cesta aplikace
 
-*Základní cesty aplikace* je kořenová cesta virtuální aplikace na serveru. Například aplikace, které se nacházejí na serveru Contoso ve virtuální složce na `/CoolApp/` je dosažena `https://www.contoso.com/CoolApp` a má virtuální základní cesta `/CoolApp/`. Nastavením základní cesta aplikace na `CoolApp/`, aplikace se provádí vědět, kde se prakticky nachází na serveru. Aplikace můžete použít základní cesta aplikace k vytvoření adresy URL kořeni aplikace z komponenty, která není v kořenovém adresáři. To umožňuje součásti, které existují na různých úrovních adresářovou strukturu vytvářet odkazy na další zdroje v umístěních v celé aplikaci. Základní cesta aplikace se také používá k zachycení hypertextový odkaz klikne, kde `href` cíl odkazu je v rámci základní cesty aplikace místo identifikátoru URI&mdash;směrovače Blazor zpracovává vnitřní navigační.
+*Základní cesty aplikace* je kořenová cesta virtuální aplikace na serveru. Například aplikace, které se nacházejí na serveru Contoso ve virtuální složce na `/CoolApp/` je dosažena `https://www.contoso.com/CoolApp` a má virtuální základní cesta `/CoolApp/`. Nastavení základní cesty aplikace na virtuální cestu (`<base href="/CoolApp/">`), aplikace se provádí vědět, kde se prakticky nachází na serveru. Aplikace můžete použít základní cesta aplikace k vytvoření adresy URL kořeni aplikace z komponenty, která není v kořenovém adresáři. To umožňuje součásti, které existují na různých úrovních adresářovou strukturu vytvářet odkazy na další zdroje v umístěních v celé aplikaci. Základní cesta aplikace se také používá k zachycení hypertextový odkaz klikne, kde `href` cíl odkazu je v rámci základní cesty aplikace místo identifikátoru URI&mdash;směrovače Blazor zpracovává vnitřní navigační.
 
-V mnoha scénářích hostování serveru virtuální cesta k aplikaci je kořenový adresář aplikace. V těchto případech je základní cesty aplikace lomítkem (`<base href="/" />`), což je výchozí konfigurace pro aplikaci. V jiných scénářích hostování, jako jsou virtuální adresáře stránkách Githubu a služby IIS nebo dílčí aplikace základní cesty aplikace nastavte na serveru virtuální cesta k aplikaci. Nastavení základní cesty aplikace, přidat nebo aktualizovat `<base>` značku *index.html* najdete v `<head>` značky elementů. Nastavte `href` atribut hodnotu `virtual-path/` (vyžaduje se do adresy koncové lomítko), kde `virtual-path/` je kořenová cesta úplnou virtuální aplikace na serveru pro aplikaci. V předchozím příkladu je nastavena virtuální cesta `CoolApp/`: `<base href="CoolApp/">`.
+V mnoha scénářích hostování serveru virtuální cesta k aplikaci je kořenový adresář aplikace. V těchto případech je základní cesty aplikace lomítkem (`<base href="/" />`), což je výchozí konfigurace pro aplikaci. V jiných scénářích hostování, jako jsou virtuální adresáře stránkách Githubu a služby IIS nebo dílčí aplikace základní cesty aplikace nastavte na serveru virtuální cesta k aplikaci. Nastavení základní cesty aplikace, aktualizujte `<base>` značky v rámci `<head>` značky elementů *wwwroot/index.html* souboru. Nastavte `href` atribut hodnotu `/virtual-path/` (vyžaduje se do adresy koncové lomítko), kde `/virtual-path/` je kořenová cesta úplnou virtuální aplikace na serveru pro aplikaci. V předchozím příkladu je nastavena virtuální cesta `/CoolApp/`: `<base href="/CoolApp/">`.
 
-Pro aplikace s virtuální cestou nekořenovými nakonfigurovali (například `<base href="CoolApp/">`), aplikace nenajde žádné její prostředky *při spuštění místně*. Chcete-li tento problém vyřešit během místní vývoj a testování, můžete zadat *základ cesty* argument, který odpovídá `href` hodnotu `<base>` značky v době běhu.
+Pro aplikace s virtuální cestou nekořenovými nakonfigurovali (například `<base href="/CoolApp/">`), aplikace nenajde žádné její prostředky *při spuštění místně*. Chcete-li tento problém vyřešit během místní vývoj a testování, můžete zadat *základ cesty* argument, který odpovídá `href` hodnotu `<base>` značky v době běhu.
 
-Předat argument základní cesty s kořenovou cestou (`/`) při místním spuštění aplikace, spusťte následující příkaz z adresáře aplikace:
+Předat argument základní cesty s kořenovou cestou (`/`) při místním spuštění aplikace, spusťte `dotnet run` příkaz z adresáře aplikace se `--pathbase` možnost:
+
+```console
+dotnet run --pathbase=/{Virtual Path (no trailing slash)}
+```
+
+Pro aplikace s virtuální cestou základní `/CoolApp/` (`<base href="/CoolApp/">`), má příkaz tuto podobu:
 
 ```console
 dotnet run --pathbase=/CoolApp

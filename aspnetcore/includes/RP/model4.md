@@ -1,4 +1,4 @@
-Následující tabulka obsahuje podrobnosti o parametry generátor kódu ASP.NET Core:
+<a name="codegenerator"></a> Následující tabulka obsahuje podrobnosti o parametry generátor kódu ASP.NET Core:
 
 | Parametr               | Popis|
 | ----------------- | ------------ |

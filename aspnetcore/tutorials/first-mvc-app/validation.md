@@ -5,12 +5,12 @@ description: Postup přidání ověřování do aplikace ASP.NET Core.
 ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
-ms.openlocfilehash: 49db8d7c1d3e54f416c66685c19b3a2e3b14251c
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 6c59d0188f67872c7dd5599967551d7d390bfdcf
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665441"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65875047"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>Přidání ověřování do aplikace ASP.NET Core MVC
 
@@ -27,25 +27,9 @@ Jedním z principů návrhu MVC je [suchého](https://wikipedia.org/wiki/Don%27t
 
 Podpora ověřování poskytované MVC a Entity Framework Core Code First je dobrým příkladem zásada SUCHÝCH v akci. Ověřovací pravidla můžete zadat pomocí deklarace na jednom místě (ve třídě modelu) a pravidel se vynucují kdekoli v aplikaci.
 
-## <a name="adding-validation-rules-to-the-movie-model"></a>Přidání pravidel ověřování do modelu movie
+[!INCLUDE[](~/includes/RP-MVC/validation.md)]
 
-Otevřít *Movie.cs* souboru. DataAnnotations poskytuje integrovanou sadu atributů ověření, které se vztahují deklarativně třída nebo vlastnost. (Také obsahuje formátování atributů, jako je `DataType` , pomoct při formátování a neposkytují žádné ověřování.)
-
-Aktualizace `Movie` třídy, které chcete využít výhod integrovaného `Required`, `StringLength`, `RegularExpression`, a `Range` atributů ověření.
-
-[!code-csharp[](~/tutorials/first-mvc-app/start-mvc//sample/MvcMovie22/Models/MovieDateRatingDA.cs?name=snippet1)]
-
-Ověření atributy určují chování, které chcete vynutit na vlastnosti projektu, které se použijí:
-
-* `Required` a `MinimumLength` atributy znamená, že vlastnost musí mít hodnotu, ale nic zabraňuje uživateli v zadávání prázdnými znaky až splňovat toto ověření. 
-* `RegularExpression` Atribut se používá k omezení znaků, může být vstupní. Ve výše uvedeném kódu `Genre` a `Rating` musí používat jen písmena (první písmeno velké písmeno, bílý prostor, číslice a speciální znaky nejsou povoleny).
-* `Range` Atribut omezuje hodnotu do zadaného rozsahu. 
-* `StringLength` Atribut umožňuje nastavit maximální délka vlastnosti typu string a volitelně jeho minimální délka. 
-* Typy hodnot (například `decimal`, `int`, `float`, `DateTime`) jsou ze své podstaty povinné a nemusíte `[Required]` atribut.
-
-Ověřovací pravidla automaticky vynucuje sada ASP.NET Core s pomáhá vytvářet aplikace pro více robustní. Také zajistí, že nelze zapomenete něco ověření a neúmyslně nechat chybná data do databáze.
-
-## <a name="validation-error-ui-in-mvc"></a>Chyba ověření uživatelského rozhraní v aplikaci MVC
+## <a name="validation-error-ui"></a>Chyba ověření uživatelského rozhraní
 
 Spusťte aplikaci a přejděte na filmy kontroleru.
 
