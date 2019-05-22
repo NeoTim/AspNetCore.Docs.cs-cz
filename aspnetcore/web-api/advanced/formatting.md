@@ -4,14 +4,14 @@ author: ardalis
 description: Zjistěte, jak k formátování dat odpovědi v rozhraní Web API ASP.NET Core.
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 10/14/2016
+ms.date: 05/21/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 04f5b3c544cf3fc47c8321c8233535400fcf55f4
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bd86015773068b6f75f64a0599d710281f7d4d60
+ms.sourcegitcommit: e67356f5e643a5d43f6d567c5c998ce6002bdeb4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902865"
+ms.lasthandoff: 05/22/2019
+ms.locfileid: "66004955"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v rozhraní Web API ASP.NET Core
 
@@ -101,30 +101,49 @@ services.AddMvc(options =>
 
 Pokud vaše aplikace potřebuje pro podporu dalších formátech nad výchozí hodnotu JSON, můžete přidat balíčky NuGet a nakonfigurovat MVC pro jejich podporu. Existují samostatné formátovací moduly pro vstup a výstup. Vstupní formátovací moduly jsou používány [vazby modelu](xref:mvc/models/model-binding); formátování výstupu se používají k formátování odpovědi. Můžete taky nakonfigurovat [vlastní formátování](xref:web-api/advanced/custom-formatters).
 
-### <a name="adding-xml-format-support"></a>Přidání podpory pro formát XML
+::: moniker range=">= aspnetcore-3.0"
 
-Chcete-li přidat podporu pro formát XML, nainstalujte `Microsoft.AspNetCore.Mvc.Formatters.Xml` balíček NuGet.
+### <a name="configure-systemtextjson-based-formatters"></a>Konfigurace na základě System.Text.Json formátovacích modulů
 
-Přidat XmlSerializerFormatters do konfigurace MVC v *Startup.cs*:
-
-[!code-csharp[](./formatting/sample/Startup.cs?name=snippet1&highlight=2)]
-
-Alternativně můžete přidat jenom formátování výstupu:
+Funkce `System.Text.Json`– na základě formátování lze konfigurovat pomocí `Microsoft.AspNetCore.Mvc.MvcOptions.SerializerOptions`.
 
 ```csharp
 services.AddMvc(options =>
 {
-    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+    options.SerializerOptions.WriterSettings.Indented = true;
 });
 ```
 
-Tyto dvě metody se serializace výsledků pomocí `System.Xml.Serialization.XmlSerializer`. Pokud dáváte přednost, můžete použít `System.Runtime.Serialization.DataContractSerializer` tak, že přidáte jeho přidružené formátovací modul:
+### <a name="add-newtonsoftjson-based-json-format-support"></a>Přidání podpory pro formát JSON založených na Newtonsoft.Json
+
+Před ASP.NET Core 3.0 MVC nastavena na výchozí pomocí formátování JSON, které jsou implementované pomocí `Newtonsoft.Json` balíčku. V ASP.NET Core 3.0 nebo novější, jsou na základě výchozí formátování JSON `System.Text.Json`. Podpora pro `Newtonsoft.Json`– na základě formátování a funkce je k dispozici nainstalováním [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet balíček a jeho v konfiguraci `Startup.ConfigureServices`.
 
 ```csharp
-services.AddMvc(options =>
-{
-    options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-});
+services.AddMvc()
+    .AddNewtonsoftJson();
+```
+
+Některé funkce nemusí fungovat s `System.Text.Json`– na základě formátovacích modulů a vyžadují odkaz na `Newtonsoft.Json`– na základě formátovací moduly pro vydanou verzi ASP.NET Core 3.0. Pokračovat v používání `Newtonsoft.Json`– na základě formátovacích modulů, pokud vaší aplikace ASP.NET Core 3.0 nebo novější:
+
+* Používá `Newtonsoft.Json` atributy (například `[JsonProperty]` nebo `[JsonIgnore]`), umožňuje upravit nastavení serializace nebo spoléhá na funkce, které `Newtonsoft.Json` poskytuje.
+* Nakonfiguruje `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings`. Před ASP.NET Core 3.0 `JsonResult.SerializerSettings` přijímá instanci `JsonSerializerSettings` , která je specifická pro `Newtonsoft.Json`.
+* Generuje [OpenAPI](<xref:tutorials/web-api-help-pages-using-swagger>) dokumentaci.
+
+::: moniker-end
+
+### <a name="add-xml-format-support"></a>Přidání podpory pro formát XML
+
+Chcete-li přidat podporu formátování data XML, nainstalovat [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) balíček NuGet.
+
+Formátovací moduly XML implementované pomocí `System.Xml.Serialization.XmlSerializer` se dá nakonfigurovat v `Startup.ConfigureServices` následujícím způsobem:
+
+[!code-csharp[](./formatting/sample/Startup.cs?name=snippet1&highlight=2)]
+
+Alternativně XML formátování, které jsou implementované pomocí `System.Runtime.Serialization.DataContractSerializer` se dá nakonfigurovat v `Startup.ConfigureServices` následujícím způsobem:
+
+```csharp
+services.AddMvc()
+    .AddXmlDataContractSerializerFormatters();
 ```
 
 Po přidání podpory pro formát XML, by měl vrátit svoje metody kontroleru vhodný formát na základě daného požadavku `Accept` záhlaví jako Fiddler, tento příklad ukazuje:

@@ -277,6 +277,8 @@
       items:
         - name: Přehled
           uid: blazor/index
+        - name: Podporované platformy
+          uid: blazor/supported-platforms
         - name: Začínáme
           uid: blazor/get-started
         - name: Modely hostingu

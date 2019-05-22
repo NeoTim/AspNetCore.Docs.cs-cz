@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: aff4b857394c554e94dd8929dca809eb1a4387f2
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: 6ba4da913ef712ef897a4c8418263e3060ea85ac
+ms.sourcegitcommit: e67356f5e643a5d43f6d567c5c998ce6002bdeb4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65970050"
+ms.lasthandoff: 05/22/2019
+ms.locfileid: "66004970"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -33,11 +33,13 @@ Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-ap
 
 ## <a name="supported-platforms"></a>Podporované platformy
 
-Aplikace publikovaná (x86) 32bitová verze a nasazení 64bitovou (x 64) jsou podporované. Nasazení aplikace 32-bit, není-li aplikace:
+Aplikace publikovaná (x86) 32bitový nebo 64bitový (x 64) nasazení jsou podporované. Nasazení aplikace 32 bitů s 32-bit (x86) .NET Core SDK, pokud aplikace:
 
 * Vyžaduje větší paměť virtuální adresní prostor k dispozici pro 64bitové aplikace.
 * Vyžaduje větší velikost zásobníku služby IIS.
 * Má závislosti nativní 64bitové.
+
+Pomocí sady SDK .NET Core 64bitovou (x 64) k publikování aplikace 64-bit. 64bitový modul runtime musí být k dispozici v hostitelském systému.
 
 ## <a name="application-configuration"></a>Konfigurace aplikace
 
@@ -169,7 +171,7 @@ Pokud *web.config* soubor je k dispozici v projektu, soubor se transformuje se s
 
 *Web.config* soubor může poskytovat další nastavení konfigurace služby IIS, která řídí aktivní moduly služby IIS. Informace o službě IIS modulů, které dokáže zpracovávat požadavky s aplikací ASP.NET Core, najdete v článku [moduly IIS](xref:host-and-deploy/iis/modules) tématu.
 
-Zabránit transformace na sadu Web SDK *web.config* souboru, použijte  **\<IsTransformWebConfigDisabled >** vlastnost v souboru projektu:
+Zabránit transformace na sadu Web SDK *web.config* souboru, použijte **\<IsTransformWebConfigDisabled >** vlastnost v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -183,7 +185,7 @@ Při zakazování Web SDK z transformaci souboru *processPath* a *argumenty* by 
 
 Pokud chcete nastavit [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) správně, *web.config* soubor musí být k dispozici v obsahu kořenové cestě (obvykle aplikace základní cesta) nasazené aplikace. Jedná se o stejné umístění jako fyzická cesta webu služby IIS k dispozici. *Web.config* soubor je vyžadován v kořenovém adresáři aplikace, aby se daly publikovat víc aplikací pomocí nasazení webu.
 
-Citlivé soubory existují na fyzická cesta aplikace, jako například  *\<sestavení >. runtimeconfig.json*,  *\<sestavení > .xml* (komentáře dokumentace XML) a  *\<sestavení >. deps.json*. Když *web.config* soubor je k dispozici a lokality spustí běžným způsobem, služba IIS bariéru tyto citlivé soubory, pokud jste požádali. Pokud *web.config* soubor chybí, nesprávně pojmenované, nebo nelze konfigurovat lokalitu pro normální spuštění, služba IIS může poskytovat citlivé soubory veřejně.
+Citlivé soubory existují na fyzická cesta aplikace, jako například *\<sestavení >. runtimeconfig.json*, *\<sestavení > .xml* (komentáře dokumentace XML) a *\<sestavení >. deps.json*. Když *web.config* soubor je k dispozici a lokality spustí běžným způsobem, služba IIS bariéru tyto citlivé soubory, pokud jste požádali. Pokud *web.config* soubor chybí, nesprávně pojmenované, nebo nelze konfigurovat lokalitu pro normální spuštění, služba IIS může poskytovat citlivé soubory veřejně.
 
 ***Web.config* soubor musí být k dispozici v nasazení za všech okolností, správně s názvem a nakonfigurovat web pro normální spuštění nahoru. Nikdy odebrat *web.config* soubor z produkčního nasazení.**
 

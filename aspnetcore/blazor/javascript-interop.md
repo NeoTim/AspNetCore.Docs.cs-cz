@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/13/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 8711c9ec0dd5d9bf59fc74b44285329165a21ba4
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.openlocfilehash: 2cd0ae66c8d0ee26badbf640a00267acc774feb8
+ms.sourcegitcommit: e67356f5e643a5d43f6d567c5c998ce6002bdeb4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/19/2019
-ms.locfileid: "65874858"
+ms.lasthandoff: 05/22/2019
+ms.locfileid: "66004915"
 ---
 # <a name="blazor-javascript-interop"></a>Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
 
@@ -131,7 +131,7 @@ Následující příklad ukazuje zachycení odkazu na `username` `<input>` eleme
 ```
 
 > [!NOTE]
-> Proveďte **není** používat odkazy zachycené element jako způsob vyplnění modelu DOM. To může být v rozporu s modelem deklarativní vykreslovací.
+> Proveďte **není** používat odkazy zachycené element jako způsob sestavování nebo manipulace s modelu DOM, když Blazor komunikuje s prvky odkazuje. To může být v rozporu s modelem deklarativní vykreslovací.
 
 Co se týče kódu .NET, `ElementRef` je neprůhledný popisovač. *Pouze* věc, kterou vám pomůžou s `ElementRef` je komunikace přes kódu jazyka JavaScript pomocí zprostředkovatele komunikace s objekty jazyka JavaScript. Pokud tak učiníte, obdrží kód JavaScript na straně `HTMLElement` instance, které můžete použít s normální modelu DOM rozhraní API.
 
