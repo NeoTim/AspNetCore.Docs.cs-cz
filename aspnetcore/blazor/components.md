@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/10/2019
 uid: blazor/components
-ms.openlocfilehash: e4a9e4a229304fa9d984b035a834c6f3bbb24186
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: db99ee4460dfa3def4d8b8f5fec26eff3bb73d6b
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610160"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65969867"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -110,7 +110,7 @@ Obsahuje podřízené součásti `ChildContent` vlastnost, která představuje `
 > [!NOTE]
 > Vlastnost příjmu `RenderFragment` obsahu musí mít název `ChildContent` konvencí.
 
-## <a name="data-binding"></a>Vytváření datových vazeb
+## <a name="data-binding"></a>Datová vazba
 
 Vazba dat na komponent a prvky modelu DOM se dosahuje pomocí `bind` atribut. Následující příklad vytvoří vazbu `_italicsCheck` pole na zaškrtávací políčko zaškrtnuto, stav:
 
@@ -355,9 +355,9 @@ Při výběru tlačítka v podřízené součásti:
 @{ var message = "Default Text"; }
 
 <ChildComponent 
-    OnClick="@(async () => { await Task.Yield(); messageText = "Blaze It!"; }" />
+    OnClick="@(async () => { await Task.Yield(); messageText = "Blaze It!"; })" />
 
-@function {
+@functions {
     private string messageText;
 }
 ```
@@ -960,14 +960,14 @@ builder.AddContent(1, "Second");
 
 Když tento kód spustí poprvé, pokud `someFlag` je `true`, obdrží Tvůrce:
 
-| Pořadí | Type      | Data   |
+| Sequence | Type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | první  |
 | 1        | Textový uzel | Sekunda |
 
 Nyní Představte si, že `someFlag` stane `false`, a My se pak znovu. Tentokrát, obdrží Tvůrce:
 
-| Pořadí | Type       | Data   |
+| Sequence | Type       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Textový uzel  | Sekunda |
 
@@ -996,7 +996,7 @@ Teď by byl první výstup:
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. V druhém vykreslování, když `someFlag` je `false`, zobrazí se výstup:
 
-| Pořadí | Type      | Data   |
+| Sequence | Type      | Data   |
 | :------: | --------- | ------ |
 | 0        | Textový uzel | Sekunda |
 

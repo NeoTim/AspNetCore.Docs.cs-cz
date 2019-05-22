@@ -2,16 +2,17 @@
 title: Modul ASP.NET Core
 author: guardrex
 description: Zjistěte, jak nakonfigurovat modul ASP.NET Core pro hostování aplikací ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/26/2019
+ms.date: 05/12/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: a33606bce6c78a19e3d380f7440e5892778806c3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: ff0b4c01f5ac661236b739e89559142d89b3b5dc
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901854"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65970084"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -272,7 +273,7 @@ Informace o konfiguraci dílčí aplikace služby IIS, naleznete v tématu <xref
 
 ::: moniker-end
 
-::: moniker range="= aspnetcore-2.1"
+::: moniker range="< aspnetcore-2.2"
 
 | Atribut | Popis | Výchozí |
 | --------- | ----------- | :-----: |
@@ -285,24 +286,6 @@ Informace o konfiguraci dílčí aplikace služby IIS, naleznete v tématu <xref
 | `requestTimeout` | <p>Atribut volitelný časový interval.</p><p>Určuje dobu, pro kterou modul ASP.NET Core čeká na odpověď z procesu naslouchání na ASPNETCORE_PORT %.</p><p>Ve verzích modul ASP.NET Core dodávané s verzí technologie ASP.NET Core 2.1 nebo novější `requestTimeout` je zadán v hodiny, minuty a sekundy.</p> | Výchozí hodnota: `00:02:00`<br>Min: `00:00:00`<br>Max: `360:00:00` |
 | `shutdownTimeLimit` | <p>Volitelný celočíselný atribut.</p><p>Doba trvání v sekundách, které modul čeká na spustitelný soubor na řádné vypnutí při *app_offline.htm* je detekován soubor.</p> | Výchozí hodnota: `10`<br>Min: `0`<br>Max: `600` |
 | `startupTimeLimit` | <p>Volitelný celočíselný atribut.</p><p>Doba trvání v sekundách, které modul čeká na spustitelný soubor ke spuštění procesu naslouchání na portu. Pokud je překročen časový limit, modul ukončí proces. Modul se pokusí znovu spustit proces, když ji dostane novou žádost a pokusit se restartovat proces na dalších příchozích požadavků, pokud se aplikaci nepodaří spustit **rapidFailsPerMinute** málokdy za posledních minuta se zajištěním provozu.</p><p>Hodnota 0 (nula) je **ne** za neomezený časový limit.</p> | Výchozí hodnota: `120`<br>Min: `0`<br>Max: `3600` |
-| `stdoutLogEnabled` | <p>Volitelný logický atribut.</p><p>Při hodnotě true se **stdout** a **stderr** pro proces určený v **processPath** se přesměrují do souboru zadaného v **stdoutLogFile**.</p> | `false` |
-| `stdoutLogFile` | <p>Volitelný atribut řetězce.</p><p>Určuje relativní nebo absolutní cestu, pro kterou **stdout** a **stderr** z procesu podle **processPath** přihlášeni. Relativní cesty jsou relativní vzhledem k kořen webu. Libovolnou cestu od `.` jsou relativní vzhledem k webu kořenové a všechny ostatní cesty jsou považovány za absolutní cesty. Všechny složky v cestě k dispozici musí existovat v pořadí pro modul pro vytvoření souboru protokolu. Pomocí oddělovače podtržítko, časové razítko, ID procesu a přípona souboru (*.log*) jsou přidány na poslední segment **stdoutLogFile** cestu. Pokud `.\logs\stdout` je zadaný jako hodnota, je uložen protokolu příklad stdout jako *stdout_20180205194132_1934.log* v *protokoly* složky při uložení 5 2. 2018 v 19:41:32 s ID procesu sady 1934.</p> | `aspnetcore-stdout` |
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.0"
-
-| Atribut | Popis | Výchozí |
-| --------- | ----------- | :-----: |
-| `arguments` | <p>Volitelný atribut řetězce.</p><p>Argumenty pro spustitelný soubor určený v **processPath**.</p>| |
-| `disableStartUpErrorPage` | <p>Volitelný logický atribut.</p><p>Při hodnotě true **502.5 – selhání procesu** Potlačené stránky a znakovou stránku 502 stav nakonfigurované v *web.config* má přednost před.</p> | `false` |
-| `forwardWindowsAuthToken` | <p>Volitelný logický atribut.</p><p>Při hodnotě true se token předá podřízený proces naslouchání na ASPNETCORE_PORT % jako záhlaví "MS-ASPNETCORE-WINAUTHTOKEN" každý požadavek. Je odpovědností tento proces pro volání CloseHandle na tento token každý požadavek.</p> | `true` |
-| `processesPerApplication` | <p>Volitelný celočíselný atribut.</p><p>Určuje počet instancí procesu zadaný v **processPath** nastavení, které lze se nespředený nahoru na app.</p><p>Nastavení `processesPerApplication` se nedoporučuje. Tento atribut bude v budoucí verzi odebrána.</p> | Výchozí hodnota: `1`<br>Min: `1`<br>Max: `100` |
-| `processPath` | <p>Požadovaný atribut typu string.</p><p>Cesta ke spustitelnému souboru, který spustí nějaký proces naslouchání požadavků protokolu HTTP. Jsou podporovány relativní cesty. Pokud cestu začíná `.`, cesta se považuje za kořeni webu.</p> | |
-| `rapidFailsPerMinute` | <p>Volitelný celočíselný atribut.</p><p>Určuje, kolikrát podle procesu **processPath** může při selhání za minutu. Pokud je tento limit překročen, modulu zastaví spuštění procesu pro zbytek minuty.</p> | Výchozí hodnota: `10`<br>Min: `0`<br>Max: `100` |
-| `requestTimeout` | <p>Atribut volitelný časový interval.</p><p>Určuje dobu, pro kterou modul ASP.NET Core čeká na odpověď z procesu naslouchání na ASPNETCORE_PORT %.</p><p>Ve verzích modul ASP.NET Core dodávané s verzí technologie ASP.NET Core 2.0 nebo starší `requestTimeout` musí být zadán v celých minutách, v opačném případě výchozí hodnota 2 minuty.</p> | Výchozí hodnota: `00:02:00`<br>Min: `00:00:00`<br>Max: `360:00:00` |
-| `shutdownTimeLimit` | <p>Volitelný celočíselný atribut.</p><p>Doba trvání v sekundách, které modul čeká na spustitelný soubor na řádné vypnutí při *app_offline.htm* je detekován soubor.</p> | Výchozí hodnota: `10`<br>Min: `0`<br>Max: `600` |
-| `startupTimeLimit` | <p>Volitelný celočíselný atribut.</p><p>Doba trvání v sekundách, které modul čeká na spustitelný soubor ke spuštění procesu naslouchání na portu. Pokud je překročen časový limit, modul ukončí proces. Modul se pokusí znovu spustit proces, když ji dostane novou žádost a pokusit se restartovat proces na dalších příchozích požadavků, pokud se aplikaci nepodaří spustit **rapidFailsPerMinute** málokdy za posledních minuta se zajištěním provozu.</p> | Výchozí hodnota: `120`<br>Min: `0`<br>Max: `3600` |
 | `stdoutLogEnabled` | <p>Volitelný logický atribut.</p><p>Při hodnotě true se **stdout** a **stderr** pro proces určený v **processPath** se přesměrují do souboru zadaného v **stdoutLogFile**.</p> | `false` |
 | `stdoutLogFile` | <p>Volitelný atribut řetězce.</p><p>Určuje relativní nebo absolutní cestu, pro kterou **stdout** a **stderr** z procesu podle **processPath** přihlášeni. Relativní cesty jsou relativní vzhledem k kořen webu. Libovolnou cestu od `.` jsou relativní vzhledem k webu kořenové a všechny ostatní cesty jsou považovány za absolutní cesty. Všechny složky v cestě k dispozici musí existovat v pořadí pro modul pro vytvoření souboru protokolu. Pomocí oddělovače podtržítko, časové razítko, ID procesu a přípona souboru (*.log*) jsou přidány na poslední segment **stdoutLogFile** cestu. Pokud `.\logs\stdout` je zadaný jako hodnota, je uložen protokolu příklad stdout jako *stdout_20180205194132_1934.log* v *protokoly* složky při uložení 5 2. 2018 v 19:41:32 s ID procesu sady 1934.</p> | `aspnetcore-stdout` |
 
@@ -542,32 +525,6 @@ Pokud používáte sdílenou konfiguraci IIS, postupujte podle těchto kroků:
 1. Spusťte instalační program.
 1. Export aktualizovaný *applicationHost.config* souboru do sdílené složky.
 1. Znovu povolte sdílenou konfiguraci IIS.
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.2"
-
-## <a name="application-initialization"></a>Inicializace aplikací
-
-[Inicializace aplikací služby IIS](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization) je funkce IIS, který odešle požadavek HTTP do aplikace při spuštění fondu aplikací nebo recykluje. Žádost se aktivuje spuštění aplikace. Inicializace aplikace může využívat i [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model) a [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model) s modul ASP.NET Core verze 2.
-
-Chcete-li povolit inicializaci aplikace:
-
-1. Potvrďte, že funkce inicializace aplikace služby IIS role v povoleno:
-   * Ve Windows 7 nebo novější: Přejděte do **ovládací panely** > **programy** > **programy a funkce** > **zapnout Windows funkce na nebo vypnout** (levé straně obrazovky). Otevřít **Internetová informační služba** > **webové služby** > **funkce pro vývoj aplikací**. Zaškrtněte políčko pro **inicializace aplikace**.
-   * V systému Windows Server 2008 R2 nebo novější, otevřete **Průvodce přidání rolí a funkcí**. Když se dostanete **vybrat služby rolí** panelů, otevřete **vývoj aplikací** uzel a vyberte **inicializace aplikace** zaškrtávací políčko.
-1. Ve Správci služby IIS vyberte **fondy aplikací** v **připojení** panelu.
-1. V seznamu vyberte fond aplikací aplikaci.
-1. Vyberte **Upřesnit nastavení** pod **upravit fond aplikací** v **akce** panelu.
-1. Nastavte **spustit režim** k **AlwaysRunning**.
-1. Otevřít **lokality** uzlu v **připojení** panelu.
-1. Vyberte aplikaci.
-1. Vyberte **Upřesnit nastavení** pod **spravovat web** v **akce** panelu.
-1. Nastavte **předběžné načtení povoleno** k **True**.
-
-Další informace najdete v tématu [inicializace aplikace služby IIS 8.0](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization).
-
-Aplikace, které používají [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model) musíte použít externí služby pravidelně k udržení příkazem ping otestovat aplikaci.
 
 ::: moniker-end
 

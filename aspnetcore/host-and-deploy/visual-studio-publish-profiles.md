@@ -2,26 +2,21 @@
 title: Visual Studio publikačních profilů pro nasazení aplikace ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak vytvořit profily publikování v sadě Visual Studio a jejich použití pro správu nasazení aplikací ASP.NET Core do různých cílů.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/22/2019
+ms.date: 05/12/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: e1e8f99be18d6f395a146bda805f71c46cd0346d
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: be5d1a79b7f4437d04586ae4ce24df94547d8a3c
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901878"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65969979"
 ---
 # <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>Visual Studio publikačních profilů pro nasazení aplikace ASP.NET Core
 
 Podle [Sayed Ibrahim Hashimi](https://github.com/sayedihashimi) a [Rick Anderson](https://twitter.com/RickAndMSFT)
-
-::: moniker range="<= aspnetcore-1.1"
-
-1.1 verzi tohoto tématu, stáhněte si [sady Visual Studio publikačních profilů pro nasazení aplikace ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/VS_Publish_Profiles_1.1.pdf).
-
-::: moniker-end
 
 Tento dokument se zaměřuje na pomocí sady Visual Studio 2017 nebo později k vytvoření a použití publikačních profilů. Profily publikování vytvořené pomocí sady Visual Studio můžete spustit z nástroje MSBuild a sadě Visual Studio. Zobrazit [publikovat webovou aplikaci ASP.NET Core do služby Azure App Service pomocí sady Visual Studio](xref:tutorials/publish-to-azure-webapp-using-vs) pokyny k publikování do Azure.
 
@@ -128,11 +123,11 @@ C:\Webs\Web1>dotnet publish
 Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-  Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp2.0\Web1.dll
-  Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp2.0\publish\
+  Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp{X.Y}\Web1.dll
+  Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp{X.Y}\publish\
 ```
 
-Výchozí nastavení složky pro publikování je `bin\$(Configuration)\netcoreapp<version>\publish`. Výchozí nastavení pro `$(Configuration)` je *ladění*. V předchozím příkladu `<TargetFramework>` je `netcoreapp2.0`.
+Výchozí nastavení složky pro publikování je `bin\$(Configuration)\netcoreapp<version>\publish`. Výchozí nastavení pro `$(Configuration)` je *ladění*. V předchozím příkladu `<TargetFramework>` je `netcoreapp{X.Y}`.
 
 `dotnet publish -h` Zobrazí nápovědu pro publikování.
 

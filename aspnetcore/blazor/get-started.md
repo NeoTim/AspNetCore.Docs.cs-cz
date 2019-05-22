@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/06/2019
 uid: blazor/get-started
-ms.openlocfilehash: 348927e38c686df8f6509ab066342c2002741c72
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 09613f5d8a4d130f7dca53f31bdd33de527fc776
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085840"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65969863"
 ---
 # <a name="get-started-with-blazor"></a>Začínáme s Blazor
 
@@ -32,7 +32,7 @@ Začínáme s Blazor:
 
    # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-   1.&nbsp;nainstalovat verzi preview [Visual Studio 2019](https://visualstudio.com/preview) s **vývoj pro ASP.NET a web** pracovního vytížení.
+   1.&nbsp;nainstalujte nejnovější [ve verzi preview sady Visual Studio](https://visualstudio.com/preview) s **vývoj pro ASP.NET a web** pracovního vytížení.
 
    2.&nbsp;nainstalujte nejnovější [Blazor rozšíření](https://go.microsoft.com/fwlink/?linkid=870389) z webu Visual Studio Marketplace. Tento krok zpřístupní Blazor šablony sady Visual Studio.
 

@@ -2,16 +2,17 @@
 title: Hostitelství a nasazení ASP.NET Core
 author: guardrex
 description: Zjistěte, jak nastavit hostitelská prostředí a nasazení aplikace ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/06/2018
+ms.date: 05/12/2019
 uid: host-and-deploy/index
-ms.openlocfilehash: f443a8ee28a859b5075a8bb03016407af9a3ddb1
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 068c5f357b8010d78493a78a10c353e3317f3867
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899259"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65969889"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>Hostitelství a nasazení ASP.NET Core
 
@@ -46,19 +47,9 @@ Aplikace ASP.NET Core je konzolová aplikace, které musí být spuštěna, kdy�
 
 ## <a name="set-up-a-reverse-proxy"></a>Nastavit reverzní proxy server
 
-::: moniker range=">= aspnetcore-2.0"
-
 Pokud aplikace využívá [Kestrel](xref:fundamentals/servers/kestrel) serveru [Nginx](xref:host-and-deploy/linux-nginx), [Apache](xref:host-and-deploy/linux-apache), nebo [IIS](xref:host-and-deploy/iis/index) může sloužit jako reverzní proxy server. Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel.
 
-Buď konfiguraci&mdash;s nebo bez něj reverzní proxy server&mdash;je hostování podporovanou konfiguraci pro ASP.NET Core 2.0 nebo novější. Další informace najdete v tématu [použití Kestrel s reverzní proxy server](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy).
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-Pokud aplikace využívá [Kestrel](xref:fundamentals/servers/kestrel) server a budou zveřejněny na Internetu, použijte [Nginx](xref:host-and-deploy/linux-nginx), [Apache](xref:host-and-deploy/linux-apache), nebo [IIS](xref:host-and-deploy/iis/index) jako reverzní proxy server. Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel. Hlavním důvodem pro pomocí reverzního proxy je zabezpečení. Další informace najdete v tématu [použití Kestrel s reverzní proxy server](xref:fundamentals/servers/kestrel?tabs=aspnetcore1x#when-to-use-kestrel-with-a-reverse-proxy).
-
-::: moniker-end
+Buď konfiguraci&mdash;s nebo bez něj reverzní proxy server&mdash;je na podporovanou konfiguraci pro hostování. Další informace najdete v tématu [použití Kestrel s reverzní proxy server](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy).
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 

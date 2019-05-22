@@ -2,16 +2,17 @@
 title: Hostitele ASP.NET Core ve Windows se službou IIS
 author: guardrex
 description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru Internetové informační služby (IIS).
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/07/2019
+ms.date: 05/19/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: c8e742047230339434b910de9a8a2492bc4da1ff
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: aff4b857394c554e94dd8929dca809eb1a4387f2
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450981"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65970050"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -42,8 +43,6 @@ Aplikace publikovaná (x86) 32bitová verze a nasazení 64bitovou (x 64) jsou po
 
 ### <a name="enable-the-iisintegration-components"></a>Povolit IISIntegration součásti
 
-::: moniker range=">= aspnetcore-2.1"
-
 Typické *Program.cs* volání <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> zahájíte nastavení hostitele:
 
 ```csharp
@@ -51,20 +50,6 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
     WebHost.CreateDefaultBuilder(args)
         ...
 ```
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-Typické *Program.cs* volání <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> zahájíte nastavení hostitele:
-
-```csharp
-public static IWebHost BuildWebHost(string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-        ...
-```
-
-::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -90,7 +75,7 @@ Další informace o modelech hostování a mimo proces, naleznete v tématu [mod
 
 ::: moniker-end
 
-::: moniker range="= aspnetcore-2.1"
+::: moniker range="< aspnetcore-2.2"
 
 `CreateDefaultBuilder` nakonfiguruje [Kestrel](xref:fundamentals/servers/kestrel) server jako webový server a umožňuje integraci služby IIS tím, že nakonfigurujete základní cesty a port [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module).
 
@@ -101,44 +86,6 @@ Modul ASP.NET Core generuje dynamický port přiřadit k procesu back-endu. `Cre
 * [Konfigurace](xref:fundamentals/configuration/index) (nebo [možnost příkazového řádku--adresy URL](xref:fundamentals/host/web-host#override-configuration))
 
 Volání `UseUrls` nebo jeho Kestrel `Listen` rozhraní API nejsou povinné, když pomocí modulu. Pokud `UseUrls` nebo `Listen` nazývá Kestrel naslouchá na portu zadat jenom při spuštěné aplikaci bez služby IIS.
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-`CreateDefaultBuilder` nakonfiguruje [Kestrel](xref:fundamentals/servers/kestrel) server jako webový server a umožňuje integraci služby IIS tím, že nakonfigurujete základní cesty a port [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module).
-
-Modul ASP.NET Core generuje dynamický port přiřadit k procesu back-endu. `CreateDefaultBuilder` volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> metody. `UseIISIntegration` Nakonfiguruje Kestrel k naslouchání na dynamický port na IP adresu místního hostitele (`localhost`). Pokud dynamický port je 1234, Kestrel naslouchá na `localhost:1234`. Tato konfigurace nahrazuje jiné konfigurace adresy URL poskytnuté:
-
-* `UseUrls`
-* [Rozhraní API od kestrel naslouchání](xref:fundamentals/servers/kestrel#endpoint-configuration)
-* [Konfigurace](xref:fundamentals/configuration/index) (nebo [možnost příkazového řádku--adresy URL](xref:fundamentals/host/web-host#override-configuration))
-
-Volání `UseUrls` nebo jeho Kestrel `Listen` rozhraní API nejsou povinné, když pomocí modulu. Pokud `UseUrls` nebo `Listen` nazývá Kestrel naslouchá na portu zadat jenom při spuštěné aplikaci bez služby IIS.
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-Zahrnout závislost [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/) balíčku v závislosti aplikaci. Používat middleware pro integraci služby IIS tak, že přidáte <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> metodu rozšíření k <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>:
-
-```csharp
-var host = new WebHostBuilder()
-    .UseKestrel()
-    .UseIISIntegration()
-    ...
-```
-
-Obě <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> jsou povinné. Volání kódu `UseIISIntegration` nemá vliv na přenositelnost kódu. Pokud aplikace není spuštěna za služby IIS (například spuštění aplikace přímo na Kestrel), `UseIISIntegration` nepracuje.
-
-Modul ASP.NET Core generuje dynamický port přiřadit k procesu back-endu. `UseIISIntegration` Nakonfiguruje Kestrel k naslouchání na dynamický port na IP adresu místního hostitele (`localhost`). Pokud dynamický port je 1234, Kestrel naslouchá na `localhost:1234`. Tato konfigurace nahrazuje jiné konfigurace adresy URL poskytnuté:
-
-* `UseUrls`
-* [Konfigurace](xref:fundamentals/configuration/index) (nebo [možnost příkazového řádku--adresy URL](xref:fundamentals/host/web-host#override-configuration))
-
-Volání `UseUrls` není povinné, při použití modulu. Pokud `UseUrls` nazývá Kestrel naslouchá na portu zadat jenom při spuštěné aplikaci bez služby IIS.
-
-Pokud `UseUrls` je volána v aplikaci ASP.NET Core 1.0, volání **před** volání `UseIISIntegration` tak, aby port nakonfigurovaný modul není přepsán. Toto pořadí volání není požadován spolu s ASP.NET Core 1.1, protože modul nastavení přepíše `UseUrls`.
 
 ::: moniker-end
 
@@ -174,12 +121,16 @@ services.Configure<IISServerOptions>(options =>
 
 ::: moniker-end
 
-::: moniker range="= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 | Možnost                         | Výchozí | Nastavení |
 | ------------------------------ | :-----: | ------- |
 | `AutomaticAuthentication`      | `true`  | Pokud `true`, nastaví Server služby IIS `HttpContext.User` ověřována [ověřování Windows](xref:security/authentication/windowsauth). Pokud `false`, server pouze poskytuje identitu `HttpContext.User` a reaguje na problémy při explicitním požadavku `AuthenticationScheme`. Musí být povoleno ověřování Windows ve službě IIS pro `AutomaticAuthentication` na funkci. Další informace najdete v tématu [ověřování Windows](xref:security/authentication/windowsauth). |
 | `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se uživatelům na přihlašovací stránky zobrazí. |
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
 
 **Model hostingu mimo proces**
 
@@ -352,7 +303,7 @@ Při nasazování aplikací na servery s [Webdeploy](/iis/publish/using-web-depl
 
    ![Nastavit bez spravovaného kódu pro verze .NET CLR.](index/_static/edit-apppool-ws2016.png)
 
-    ASP.NET Core běží v samostatném procesu a spravuje modulu runtime. ASP.NET Core nemusí spoléhat na načítání desktop CLR. Nastavení **verze .NET CLR** k **bez spravovaného kódu** je volitelný.
+    ASP.NET Core běží v samostatném procesu a spravuje modulu runtime. ASP.NET Core nemusí spoléhat na načítání CLR klasické pracovní plochy (.NET CLR)&mdash;Core Common Language Runtime (CoreCLR) pro .NET Core, který naběhne pro hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** k **bez spravovaného kódu** je volitelné, ale doporučené.
 
 1. *ASP.NET Core 2.2 nebo vyšší*: Pro 64bitové (x64) [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) , která používá [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model), zakažte fond aplikací pro procesy 32bitový (x 86).
 
@@ -505,7 +456,7 @@ Pokud statický prostředek `src` atribut je nastaven na absolutní cestu (např
 
 K hostování aplikace v ASP.NET Core jako podřízeným aplikacím v rámci jiné aplikace ASP.NET Core:
 
-1. Vytvořte fond aplikací pro aplikaci sub. Nastavte **verze .NET CLR** k **žádný spravovaný kód**.
+1. Vytvořte fond aplikací pro aplikaci sub. Nastavte **verze .NET CLR** k **bez spravovaného kódu** protože Core Common Language Runtime (CoreCLR) pro .NET Core, který naběhne pro hostování aplikace v pracovním procesu, ne klasické pracovní plochy CLR (.NET CLR).
 
 1. Přidání kořenového webu s podřízeným aplikacím v rámci kořenového webu ve Správci služby IIS.
 
@@ -629,6 +580,83 @@ HTTP/2 je standardně povolená. Připojení vrátit zpět k protokolu HTTP/1.1,
 *Tato část platí jenom pro aplikace ASP.NET Core, které se zaměřují rozhraní .NET Framework.*
 
 Pro aplikace ASP.NET Core, který cílí .NET Framework, možnosti žádosti se předávají do aplikace ve výchozím nastavení ve službě IIS. Další informace o konfiguraci aplikace služby IIS obslužné rutiny v *web.config* předat požadavky OPTIONS, naleznete v tématu [povolení žádostí nepůvodního v ASP.NET Web API 2: Jak funguje CORS](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works).
+
+::: moniker range=">= aspnetcore-2.2"
+
+## <a name="application-initialization-module-and-idle-timeout"></a>Inicializace modulu aplikace a časový limit nečinnosti
+
+Když jsou hostované ve službě IIS pomocí modul ASP.NET Core verze 2:
+
+* [Inicializace modulu Application](#application-initialization-module) &ndash; hostované aplikace [vnitroprocesové](xref:fundamentals/servers/index#in-process-hosting-model) nebo [mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), lze nastavit na automatické spouštění na serveru nebo restartování pracovního procesu restartování.
+* [Časový limit nečinnosti](#idle-timeout) &ndash; hostované aplikace [vnitroprocesové](xref:fundamentals/servers/index#in-process-hosting-model) může být nakonfigurován tak, aby vypršení časového limitu během období nečinnosti.
+
+### <a name="application-initialization-module"></a>Inicializace modulu aplikace
+
+*Platí pro aplikace hostované v rámci procesu a mimo proces.*
+
+[Inicializace aplikací služby IIS](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization) je funkce IIS, který odešle požadavek HTTP do aplikace při spuštění fondu aplikací nebo recykluje. Žádost se aktivuje spuštění aplikace. Ve výchozím nastavení, služby IIS vydá požadavek kořenová adresa URL aplikace (`/`) k inicializaci aplikace (najdete v článku [další prostředky](#application-initialization-module-and-idle-timeout-additional-resources) podrobné informace o konfiguraci).
+
+Potvrďte, že funkce inicializace aplikace služby IIS role v povoleno:
+
+Na Windows 7 nebo novější desktopových systémů, když místně pomocí služby IIS:
+
+1. Přejděte do **ovládací panely** > **programy** > **programy a funkce** > **zapnout Windows funkce na nebo vypnout** (levé straně obrazovky).
+1. Otevřít **Internetová informační služba** > **webové služby** > **funkce pro vývoj aplikací**.
+1. Zaškrtněte políčko pro **inicializace aplikace**.
+
+V systému Windows Server 2008 R2 nebo novější:
+
+1. Otevřít **funkce Průvodce přidáním rolí a**.
+1. V **vybrat služby rolí** panelů, otevřete **vývoj aplikací** uzlu.
+1. Zaškrtněte políčko pro **inicializace aplikace**.
+
+Použijte některou z následujících dvou přístupů a povolit inicializace modulu aplikace pro web:
+
+* Pomocí Správce služby IIS:
+
+  1. Vyberte **fondy aplikací** v **připojení** panelu.
+  1. Klikněte pravým tlačítkem na fond aplikací aplikaci v seznamu a vyberte **Upřesnit nastavení**.
+  1. Výchozí hodnota **spustit režim** je **OnDemand**. Nastavte **spustit režim** k **AlwaysRunning**. Vyberte **OK**.
+  1. Otevřít **lokality** uzlu v **připojení** panelu.
+  1. Klikněte pravým tlačítkem na aplikaci a vyberte **spravovat web** > **Upřesnit nastavení**.
+  1. Výchozí hodnota **předběžné načtení povoleno** nastavení je **False**. Nastavte **předběžné načtení povoleno** k **True**. Vyberte **OK**.
+
+* Pomocí *web.config*, přidejte `<applicationInitialization>` element s `doAppInitAfterRestart` nastavena na `true` k `<system.webServer>` prvky v aplikaci prvku *web.config* souboru:
+
+  ```xml
+  <?xml version="1.0" encoding="utf-8"?>
+  <configuration>
+    <location path="." inheritInChildApplications="false">
+      <system.webServer>
+        <applicationInitialization doAppInitAfterRestart="true" />
+      </system.webServer>
+    </location>
+  </configuration>
+  ```
+
+### <a name="idle-timeout"></a>Časový limit nečinnosti
+
+*Platí jenom pro aplikace hostované v rámci procesu.*
+
+Abyste zabránili kapacity zrovna aplikace, nastavte fond aplikací časový limit nečinnosti pomocí Správce služby IIS:
+
+1. Vyberte **fondy aplikací** v **připojení** panelu.
+1. Klikněte pravým tlačítkem na fond aplikací aplikaci v seznamu a vyberte **Upřesnit nastavení**.
+1. Výchozí hodnota **časový limit nečinnosti (minuty)** je **20** minut. Nastavte **časový limit nečinnosti (minuty)** k **0** (nula). Vyberte **OK**.
+1. Recyklujte pracovní proces.
+
+Aby se zabránilo aplikací hostovaných [mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model) z vypršení časového limitu, použijte jednu z následujících postupů:
+
+* Aby bylo možné zachovat jeho plynulý odešlete zprávu ping aplikace z externí služby.
+* Pokud aplikace je pouze hostitelem služby na pozadí, vyhněte se hostování IIS a použít [Windows Service pro hostování aplikace ASP.NET Core](xref:host-and-deploy/windows-service).
+
+### <a name="application-initialization-module-and-idle-timeout-additional-resources"></a>Inicializace modulu aplikace a časového limitu nečinnosti další zdroje informací
+
+* [Inicializace služby IIS 8.0 aplikace](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)
+* [Inicializace aplikace \<applicationInitialization >](/iis/configuration/system.webserver/applicationinitialization/).
+* [Nastavení modelu procesu pro fond aplikací \<processModel >](/iis/configuration/system.applicationhost/applicationpools/add/processmodel).
+
+::: moniker-end
 
 ## <a name="deployment-resources-for-iis-administrators"></a>Materiály pro nasazení pro správce služby IIS
 

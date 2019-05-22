@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/13/2019
 uid: blazor/routing
-ms.openlocfilehash: 154e6c4a05059d21bdd0f7819d015f3f6d50eda1
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.openlocfilehash: 8402089dd818d519eeecfdd3c85e309bffd4d20d
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/19/2019
-ms.locfileid: "65874861"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65969861"
 ---
 # <a name="blazor-routing"></a>Blazor směrování
 
@@ -24,7 +24,7 @@ Zjistěte, jak směrovat požadavky v aplikacích a o NavLink komponentě.
 
 Blazor na straně serveru je integrovaná do [směrování ASP.NET Core koncový bod](xref:fundamentals/routing). Aplikace ASP.NET Core je nakonfigurovaný tak, aby přijímal příchozí připojení pro interaktivní součásti s `MapBlazorHub` v `Startup.Configure`:
 
-[!code-cshtml[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
+[!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
 ## <a name="route-templates"></a>Šablony trasy
 
