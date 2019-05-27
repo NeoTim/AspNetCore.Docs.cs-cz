@@ -2,26 +2,21 @@
 title: Implementace serveru webové kestrel v ASP.NET Core
 author: guardrex
 description: Další informace o Kestrel, napříč platformami webový server pro ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/28/2019
+ms.date: 05/17/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: b5b05dbd553124cecac2ec7ddb55c939cb91c8ad
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: 6f9eee1ed46f02232bed977f8f60a3d77db48784
+ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450989"
+ms.lasthandoff: 05/25/2019
+ms.locfileid: "66223146"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace serveru webové kestrel v ASP.NET Core
 
 Podle [Petr Dykstra](https://github.com/tdykstra), [Chris Ross](https://github.com/Tratcher), a [Stephen Halter](https://twitter.com/halter73)
-
-::: moniker range="<= aspnetcore-1.1"
-
-1.1 verzi tohoto tématu, stáhněte si [Kestrel webového serveru provedení v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Kestrel_1.1.pdf).
-
-::: moniker-end
 
 Kestrel je platformově univerzální [webového serveru pro ASP.NET Core](xref:fundamentals/servers/index). Kestrel je webový server, který je obsažen ve výchozím nastavení v šablonách projektů ASP.NET Core.
 
@@ -166,6 +161,32 @@ Webový server Kestrel má omezení možnosti konfigurace, které jsou obzvláš
 
 Nastavit na omezení <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits> vlastnost <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> třídy. `Limits` Vlastnost obsahuje instanci <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits> třídy.
 
+### <a name="keep-alive-timeout"></a>Zachování vypršení časového limitu
+
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.KeepAliveTimeout>
+
+Získá nebo nastaví [keep-alive vypršení časového limitu](https://tools.ietf.org/html/rfc7230#section-6.5). Výchozí hodnota je 2 minuty.
+
+::: moniker range=">= aspnetcore-2.2"
+
+[!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_Limits&highlight=15)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+```csharp
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+        .UseStartup<Startup>()
+        .UseKestrel(options =>
+        {
+            options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(2);
+        });
+```
+
+::: moniker-end
+
 ### <a name="maximum-client-connections"></a>Maximální počet klientských připojení
 
 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentConnections>  
@@ -258,6 +279,8 @@ Můžete přepsat nastavení pro konkrétní žádost a v middlewaru:
 
 Pokud se pokusíte nakonfigurovat limit na vyžádání po spuštění aplikace k přečtení požadavku, je vyvolána výjimka. Je `IsReadOnly` vlastnost, která označuje, zda `MaxRequestBodySize` vlastnost je ve stavu jen pro čtení, což znamená, je příliš pozdě Konfigurace limitu.
 
+Při spuštění aplikace [mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model) za [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module), omezení velikosti textu Kestrel na žádost je zakázaná, protože služba IIS již nastaví limit.
+
 ### <a name="minimum-request-body-data-rate"></a>Minimální požadavek tělo přenosová rychlost
 
 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinRequestBodyDataRate>  
@@ -301,6 +324,32 @@ Omezení pro minimální rychlost žádosti v middlewaru můžete přepsat:
 ::: moniker range=">= aspnetcore-2.2"
 
 Ani jedna kurzu funkce odkazované v předchozí ukázce se nacházejí v `HttpContext.Features` pro požadavky HTTP/2, protože úprava šířku pásma na základě žádosti se nepodporuje pro HTTP/2 z důvodu multiplexing žádost o podporu protokolu. Omezení přenosové rychlosti úrovni serveru, které jsou nakonfigurované přes `KestrelServerOptions.Limits` stále použít k připojení HTTP/1.x a HTTP/2.
+
+::: moniker-end
+
+### <a name="request-headers-timeout"></a>Časový limit žádosti hlavičky
+
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.RequestHeadersTimeout>
+
+Získá nebo nastaví maximální množství času na serveru, kterou zůstane přijímající hlavičky žádosti. Výchozí hodnota je 30 sekund.
+
+::: moniker range=">= aspnetcore-2.2"
+
+[!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_Limits&highlight=16)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+```csharp
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+        .UseStartup<Startup>()
+        .UseKestrel(options =>
+        {
+            options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(1);
+        });
+```
 
 ::: moniker-end
 
