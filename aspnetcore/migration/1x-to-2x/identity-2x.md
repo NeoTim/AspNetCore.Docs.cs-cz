@@ -5,12 +5,12 @@ description: Tento článek popisuje nejběžnější postup pro migraci ASP.NET
 ms.author: scaddie
 ms.date: 12/18/2018
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: d11d41c82236436096660a24df81a3df4da0fb8e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 086deac51af186012315d5b6a1236c92c8980037
+ms.sourcegitcommit: 5d384db2fa9373a93b5d15e985fb34430e49ad7a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898731"
+ms.lasthandoff: 05/23/2019
+ms.locfileid: "66039243"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>Ověřování a identitu migrovat do ASP.NET Core 2.0
 
@@ -162,6 +162,15 @@ Proveďte následující změny v *Startup.cs*:
     });
     ```
 
+- Nahradit `PostLogoutRedirectUri` vlastnost `OpenIdConnectOptions` akce s `SignedOutRedirectUri`:
+
+    ```csharp
+    .AddOpenIdConnect(options =>
+    {
+        options.SignedOutRedirectUri = "https://contoso.com";
+    });
+    ```
+    
 ### <a name="facebook-authentication"></a>Ověřování Facebooku
 
 Proveďte následující změny v *Startup.cs*:

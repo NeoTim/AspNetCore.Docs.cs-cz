@@ -5,14 +5,14 @@ description: Zjistěte, jak volat funkce jazyka JavaScript od .NET a .NET metody
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/13/2019
+ms.date: 05/21/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 2cd0ae66c8d0ee26badbf640a00267acc774feb8
-ms.sourcegitcommit: e67356f5e643a5d43f6d567c5c998ce6002bdeb4
+ms.openlocfilehash: bc9aef78311355cb388a1f573e89a84a5febcbfc
+ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/22/2019
-ms.locfileid: "66004915"
+ms.lasthandoff: 05/25/2019
+ms.locfileid: "66223128"
 ---
 # <a name="blazor-javascript-interop"></a>Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
 
@@ -53,11 +53,11 @@ Následující komponenty:
 
 Použít `IJSRuntime` abstrakce, použijte některý z následujících postupů:
 
-* Vložit `IJSRuntime` abstrakce do komponenty Razor (*.razor*):
+* Vložit `IJSRuntime` abstrakce do komponenty Razor ( *.razor*):
 
   [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-* Vložit `IJSRuntime` abstrakce do třídy (*.cs*):
+* Vložit `IJSRuntime` abstrakce do třídy ( *.cs*):
 
   [!code-csharp[](javascript-interop/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
@@ -123,7 +123,7 @@ Můžete zaznamenat odkazy na elementy HTML v komponentě používá následují
 Následující příklad ukazuje zachycení odkazu na `username` `<input>` element:
 
 ```cshtml
-<input ref="username" ...>
+<input ref="username" ... />
 
 @functions {
     ElementRef username;

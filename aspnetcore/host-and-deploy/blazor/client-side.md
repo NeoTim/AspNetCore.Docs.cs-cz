@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat a nasazení Blazor aplikace pomocí ASP.NET
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/13/2019
+ms.date: 05/21/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: ea8ece266809913e32ac212bc55cb3c2499c234f
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.openlocfilehash: b572067e688d7e7f7c654a7a25703009c1a7e855
+ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/19/2019
-ms.locfileid: "65874978"
+ms.lasthandoff: 05/25/2019
+ms.locfileid: "66223191"
 ---
 # <a name="host-and-deploy-blazor-client-side"></a>Hostitelství a nasazení Blazor na straně klienta
 
@@ -210,8 +210,8 @@ Při publikování projektu Blazor *web.config* soubor se vytvoří s následuj�
   * `application/octet-stream`
   * `application/wasm`
 * Modul přepisování adres URL pravidla jsou vytvořeny:
-  * Poskytovat dílčí adresáře, kde jsou umístěny statických prostředků aplikace (*/dist/ {název sestavení} {cesta k požadované}*).
-  * Vytvoření aplikace SPA záložní směrování tak, aby požadavky pro nesouborové prostředky se přesměrují do aplikace výchozí dokument v její složce statické prostředky (*{sestavení NAME}/dist/index.html*).
+  * Poskytovat dílčí adresáře, kde jsou umístěny statických prostředků aplikace ( */dist/ {název sestavení} {cesta k požadované}* ).
+  * Vytvoření aplikace SPA záložní směrování tak, aby požadavky pro nesouborové prostředky se přesměrují do aplikace výchozí dokument v její složce statické prostředky ( *{sestavení NAME}/dist/index.html*).
 
 #### <a name="install-the-url-rewrite-module"></a>Nainstalovat modul přepisování adres URL
 
@@ -232,6 +232,17 @@ Nastavit na webu **fyzická cesta** do složky aplikace. Složka obsahuje:
 Pokud *500 – Interní chyba serveru* přijetí a Správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci příslušného webu, ověřte, že je nainstalován modul přepisování adres URL. Když není nainstalován modul, *web.config* soubor nejde parsovat službou IIS. To zabrání načítání konfigurace na webu a webu z obsluhy statických souborů pro Blazor Správce služby IIS.
 
 Další informace o řešení potíží s nasazením do služby IIS najdete v tématu <xref:host-and-deploy/iis/troubleshoot>.
+
+### <a name="azure-storage"></a>Azure Storage
+
+Hostování statického souboru v Azure Storage umožňuje hostování bez serveru Blazor aplikací. Vlastní názvy domén, Azure Content Delivery Network (CDN) a protokolu HTTPS se nepodporuje.
+
+Když je povolena služba objektů blob pro hostování statického webu v účtu úložiště:
+
+* Nastavte **název dokumentu indexu** k `index.html`.
+* Nastavte **cesta dokumentu chyby** k `index.html`. Součásti Razor a ostatní koncové body nesouborové není nachází na fyzické cesty v statického obsahu, které jsou uložené ve službě blob. Při přijetí požadavku z jednoho z těchto prostředků je, že by měl zpracovat Blazor směrovače, *404 - Nenalezeno* chyby vygenerované službou blob směruje žádosti **cesta dokumentu chyby**. *Index.html* je vrácen objekt blob a směrovač Blazor načte a zpracuje cestu.
+
+Další informace najdete v tématu [hostoval statický web ve službě Azure Storage](/azure/storage/blobs/storage-blob-static-website).
 
 ### <a name="nginx"></a>Server Nginx
 

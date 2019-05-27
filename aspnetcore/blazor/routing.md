@@ -5,14 +5,14 @@ description: Zjistěte, jak směrovat požadavky v aplikacích a o NavLink kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/13/2019
+ms.date: 05/14/2019
 uid: blazor/routing
-ms.openlocfilehash: 8402089dd818d519eeecfdd3c85e309bffd4d20d
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: b7f040292484f77c3cd12d9a0c07019782597882
+ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65969861"
+ms.lasthandoff: 05/25/2019
+ms.locfileid: "66223124"
 ---
 # <a name="blazor-routing"></a>Blazor směrování
 
@@ -108,3 +108,37 @@ Existují dva `NavLinkMatch` možnosti:
 * `NavLinkMatch.Prefix` &ndash; Určuje, že NavLink musí být v případě, že odpovídá jakoukoli předponu adresy URL aktuální aktivní.
 
 V předchozím příkladu Home NavLink (`href=""`) odpovídá všem adresám URL a vždy přijímá `active` třídu šablony stylů CSS. Druhý NavLink přijímá pouze `active` třídy, když uživatel navštíví komponentu Blazor trasy (`href="BlazorRoute"`).
+
+## <a name="uri-and-navigation-state-helpers"></a>Identifikátor URI a navigační stav pomocné rutiny
+
+Použití `Microsoft.AspNetCore.Components.IUriHelper` pro práci s identifikátory URI a navigace ve C# kódu. `IUriHelper` poskytuje události a metody uvedené v následující tabulce.
+
+| Člen | Popis |
+| ------ | ----------- |
+| `GetAbsoluteUri` | Získá aktuální absolutní identifikátor URI. |
+| `GetBaseUri` | Získá základní identifikátor URI (s koncovým lomítkem), který může být před relativní cesty URI k vytvoření absolutního identifikátoru URI. Obvykle `GetBaseUri` odpovídá `href` atribut v dokumentu `<base>` prvek *wwwroot/index.html* (Blazor straně klienta) nebo *stránek /\_Host.cshtml* (Blazor – na straně serveru). |
+| `NavigateTo` | Přejde na zadaný identifikátor URI. Pokud `forceLoad` je `true`:<ul><li>Směrování na straně klienta se přeskočí.</li><li>Prohlížeč musí načíst nová stránka ze serveru, zda identifikátor URI obvykle zpracovává směrovače na straně klienta.</li></ul> |
+| `OnLocationChanged` | Událost, která je vyvoláno, když se změní umístění navigace. |
+| `ToAbsoluteUri` | Převede relativní identifikátor URI na absolutní adresu URI. |
+| `ToBaseRelativePath` | Zadaný základní identifikátor URI (například identifikátor URI předtím vrátila rutina `GetBaseUri`), převede na identifikátor URI relativní k základní identifikátor URI předponu absolutní identifikátor URI. |
+
+Následující komponenty přejde na součást aplikace čítače, při výběru tlačítka:
+
+```cshtml
+@page "/navigate"
+@using Microsoft.AspNetCore.Components
+@inject IUriHelper UriHelper
+
+<h1>Navigate in Code Example</h1>
+
+<button class="btn btn-primary" onclick="@NavigateToCounterComponent">
+    Navigate to the Counter component
+</button>
+
+@functions {
+    private void NavigateToCounterComponent()
+    {
+        UriHelper.NavigateTo("counter");
+    }
+}
+```

@@ -22,7 +22,7 @@ Tento článek slouží jako referenční příručka pro migraci aplikace v ASP
 
 [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download)
 
-## <a name="target-frameworks"></a>Cílová rozhraní
+## <a name="target-frameworks"></a>Cílové architektury
 
 Projekty ASP.NET Core nabízí vývojářům flexibilitu cílí na .NET Core a .NET Framework. Zobrazit [volba mezi .NET Core a .NET Framework pro serverové aplikace](/dotnet/standard/choosing-core-framework-server) k určení, která Cílová architektura je nejvhodnější.
 

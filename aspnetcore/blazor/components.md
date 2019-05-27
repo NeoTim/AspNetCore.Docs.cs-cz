@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 05/21/2019
 uid: blazor/components
-ms.openlocfilehash: db99ee4460dfa3def4d8b8f5fec26eff3bb73d6b
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: 57f8debb4e13967ceadab96d448e5825b2ef4669
+ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65969867"
+ms.lasthandoff: 05/25/2019
+ms.locfileid: "66223131"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -24,7 +24,7 @@ Blazor aplikace se vytvářejí pomocí *komponenty*. Komponenta je samostatná 
 
 ## <a name="component-classes"></a>Třídy součásti
 
-Součásti jsou implementovány v [Razor](xref:mvc/views/razor) soubory součástí (*.razor*) pomocí kombinace C# a značka jazyka HTML.
+Součásti jsou implementovány v [Razor](xref:mvc/views/razor) soubory součástí ( *.razor*) pomocí kombinace C# a značka jazyka HTML.
 
 Dají se vytvářet komponenty pomocí *.cshtml* příponu souboru, tak dlouho, dokud soubory jsou označeny jako soubory součástí Razor pomocí `_RazorComponentInclude` vlastnost MSBuild. Například aplikaci, která určuje, že všechny *.cshtml* soubory pod *stránky* složky mají být považována za soubory součástí Razor:
 
@@ -116,18 +116,18 @@ Vazba dat na komponent a prvky modelu DOM se dosahuje pomocí `bind` atribut. N�
 
 ```cshtml
 <input type="checkbox" class="form-check-input" id="italicsCheck" 
-    bind="@_italicsCheck">
+    bind="@_italicsCheck" />
 ```
 
 Při zaškrtnutí políčka je a zrušte zaškrtnutí, hodnota vlastnosti je aktualizována na `true` a `false`v uvedeném pořadí.
 
 Zaškrtávací políčko se aktualizuje v uživatelském rozhraní, pouze v případě, že součást je vykresleno, ne v reakci na měnící se hodnota vlastnosti. Protože komponenty vykreslování sami po spuštění kódu obslužné rutiny události, aktualizace vlastností se obvykle projeví v uživatelském rozhraní ihned.
 
-Pomocí `bind` s `CurrentValue` vlastnosti (`<input bind="@CurrentValue">`) je v podstatě ekvivalentní následujícímu:
+Pomocí `bind` s `CurrentValue` vlastnosti (`<input bind="@CurrentValue" />`) je v podstatě ekvivalentní následujícímu:
 
 ```cshtml
 <input value="@CurrentValue" 
-    onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)">
+    onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)" />
 ```
 
 Při vykreslování komponentu `value` elementu input pochází z `CurrentValue` vlastnost. Když uživatel zadá v textovém poli `onchange` událost se aktivuje a `CurrentValue` je nastavena na hodnotu změněné. Ve skutečnosti je generování kódu poněkud složitější, protože `bind` zpracovává několik případů, kdy jsou provedeny převody typu. V zásadě `bind` přidruží aktuální hodnotu výrazu s `value` obslužné rutiny a atributu změny pomocí zaregistrovaná obslužná rutina.
@@ -135,7 +135,7 @@ Při vykreslování komponentu `value` elementu input pochází z `CurrentValue`
 Kromě `onchange`, vlastnost může být vázána pomocí jiné události, jako jsou `oninput` tím, že je explicitní více o tom, co k vytvoření vazby:
 
 ```cshtml
-<input type="text" bind-value-oninput="@CurrentValue">
+<input type="text" bind-value-oninput="@CurrentValue" />
 ```
 
 Na rozdíl od `onchange`, `oninput` aktivována pro každý znak, který je vstup do textového pole.
@@ -145,7 +145,7 @@ Na rozdíl od `onchange`, `oninput` aktivována pro každý znak, který je vstu
 Vytváření datových vazeb funguje s <xref:System.DateTime> řetězce formátu. V tuto chvíli nejsou k dispozici jiných výrazech formátu, například měny nebo číselných formátů.
 
 ```cshtml
-<input bind="@StartDate" format-value="yyyy-MM-dd">
+<input bind="@StartDate" format-value="yyyy-MM-dd" />
 
 @functions {
     [Parameter]
@@ -261,7 +261,7 @@ Následující kód volá `UpdateHeading` metodu po výběru tlačítka v uživa
 Následující kód volá `CheckboxChanged` metoda při změně zaškrtávacího políčka v uživatelském rozhraní:
 
 ```cshtml
-<input type="checkbox" class="form-check-input" onchange="@CheckboxChanged">
+<input type="checkbox" class="form-check-input" onchange="@CheckboxChanged" />
 
 @functions {
     private void CheckboxChanged()
@@ -586,7 +586,7 @@ Atributy jsou vykreslovány podmíněně na základě hodnoty .NET. Pokud je hod
 V následujícím příkladu `IsCompleted` Určuje, zda `checked` se vykreslí v značky ovládacího prvku:
 
 ```cshtml
-<input type="checkbox" checked="@IsCompleted">
+<input type="checkbox" checked="@IsCompleted" />
 
 @functions {
     [Parameter]
@@ -597,13 +597,13 @@ V následujícím příkladu `IsCompleted` Určuje, zda `checked` se vykreslí v
 Pokud `IsCompleted` je `true`, zaškrtněte políčko se vykreslí jako:
 
 ```html
-<input type="checkbox" checked>
+<input type="checkbox" checked />
 ```
 
 Pokud `IsCompleted` je `false`, zaškrtněte políčko se vykreslí jako:
 
 ```html
-<input type="checkbox">
+<input type="checkbox" />
 ```
 
 **Další informace o syntaxi Razor**
