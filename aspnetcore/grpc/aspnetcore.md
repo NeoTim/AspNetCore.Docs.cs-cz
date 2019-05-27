@@ -6,56 +6,56 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/08/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: c99a499fad824c3ac026f6f390c826c0418fc069
-ms.sourcegitcommit: 57a974556acd09363a58f38c26f74dc21e0d4339
+ms.openlocfilehash: 1f019fac23982a95fa37d43099522f4b3e9d107a
+ms.sourcegitcommit: 5d384db2fa9373a93b5d15e985fb34430e49ad7a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58209022"
+ms.lasthandoff: 05/23/2019
+ms.locfileid: "66039274"
 ---
-# <a name="grpc-services-with-aspnet-core"></a><span data-ttu-id="ec75a-103">Služby gRPC s ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="ec75a-103">gRPC services with ASP.NET Core</span></span>
+# <a name="grpc-services-with-aspnet-core"></a><span data-ttu-id="e4a37-103">Služby gRPC s ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="e4a37-103">gRPC services with ASP.NET Core</span></span>
 
-<span data-ttu-id="ec75a-104">Tento dokument ukazuje, jak začít pracovat s gRPC služby pomocí ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="ec75a-104">This document shows how to get started with gRPC services using ASP.NET Core.</span></span>
+<span data-ttu-id="e4a37-104">Tento dokument ukazuje, jak začít pracovat s gRPC služby pomocí ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="e4a37-104">This document shows how to get started with gRPC services using ASP.NET Core.</span></span>
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-3.0.md)]
 
-## <a name="get-started-with-grpc-service-in-aspnet-core"></a><span data-ttu-id="ec75a-105">Začínáme se službou gRPC v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="ec75a-105">Get started with gRPC service in ASP.NET Core</span></span>
+## <a name="get-started-with-grpc-service-in-aspnet-core"></a><span data-ttu-id="e4a37-105">Začínáme se službou gRPC v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="e4a37-105">Get started with gRPC service in ASP.NET Core</span></span>
 
 [!INCLUDE[View or download sample code](~/includes/grpc/download.md)]
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="ec75a-106">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="ec75a-106">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="e4a37-106">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="e4a37-106">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="ec75a-107">Zobrazit [začít pracovat se službami gRPC](xref:tutorials/grpc/grpc-start) podrobné pokyny o tom, jak vytvořit projekt gRPC.</span><span class="sxs-lookup"><span data-stu-id="ec75a-107">See [Get started with gRPC services](xref:tutorials/grpc/grpc-start) for detailed instructions on how to create a gRPC project.</span></span>
+<span data-ttu-id="e4a37-107">Zobrazit [začít pracovat se službami gRPC](xref:tutorials/grpc/grpc-start) podrobné pokyny o tom, jak vytvořit projekt gRPC.</span><span class="sxs-lookup"><span data-stu-id="e4a37-107">See [Get started with gRPC services](xref:tutorials/grpc/grpc-start) for detailed instructions on how to create a gRPC project.</span></span>
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="ec75a-108">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="ec75a-108">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="e4a37-108">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="e4a37-108">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-<span data-ttu-id="ec75a-109">Spustit `dotnet new grpc -o GrpcGreeter` z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="ec75a-109">Run `dotnet new grpc -o GrpcGreeter` from the command line.</span></span>
+<span data-ttu-id="e4a37-109">Spustit `dotnet new grpc -o GrpcGreeter` z příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="e4a37-109">Run `dotnet new grpc -o GrpcGreeter` from the command line.</span></span>
 
 ---
 
-## <a name="add-grpc-services-to-an-aspnet-core-app"></a><span data-ttu-id="ec75a-110">Přidání gRPC služby do aplikace ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="ec75a-110">Add gRPC services to an ASP.NET Core app</span></span>
+## <a name="add-grpc-services-to-an-aspnet-core-app"></a><span data-ttu-id="e4a37-110">Přidání gRPC služby do aplikace ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="e4a37-110">Add gRPC services to an ASP.NET Core app</span></span>
 
-<span data-ttu-id="ec75a-111">gRPC vyžaduje následující balíčky:</span><span class="sxs-lookup"><span data-stu-id="ec75a-111">gRPC requires the following packages:</span></span>
+<span data-ttu-id="e4a37-111">gRPC vyžaduje následující balíčky:</span><span class="sxs-lookup"><span data-stu-id="e4a37-111">gRPC requires the following packages:</span></span>
 
-* [<span data-ttu-id="ec75a-112">Grpc.AspNetCore.Server</span><span class="sxs-lookup"><span data-stu-id="ec75a-112">Grpc.AspNetCore.Server</span></span>](https://www.nuget.org/packages/Grpc.AspNetCore.Server)
-* <span data-ttu-id="ec75a-113">[Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/) protobuf zpráva rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="ec75a-113">[Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/) for protobuf message APIs.</span></span>
-* [<span data-ttu-id="ec75a-114">Grpc.Tools</span><span class="sxs-lookup"><span data-stu-id="ec75a-114">Grpc.Tools</span></span>](https://www.nuget.org/packages/Grpc.Tools/)
+* [<span data-ttu-id="e4a37-112">Grpc.AspNetCore.Server</span><span class="sxs-lookup"><span data-stu-id="e4a37-112">Grpc.AspNetCore.Server</span></span>](https://www.nuget.org/packages/Grpc.AspNetCore.Server)
+* <span data-ttu-id="e4a37-113">[Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/) protobuf zpráva rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="e4a37-113">[Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/) for protobuf message APIs.</span></span>
+* [<span data-ttu-id="e4a37-114">Grpc.Tools</span><span class="sxs-lookup"><span data-stu-id="e4a37-114">Grpc.Tools</span></span>](https://www.nuget.org/packages/Grpc.Tools/)
 
-### <a name="configure-grpc"></a><span data-ttu-id="ec75a-115">Konfigurace gRPC</span><span class="sxs-lookup"><span data-stu-id="ec75a-115">Configure gRPC</span></span>
+### <a name="configure-grpc"></a><span data-ttu-id="e4a37-115">Konfigurace gRPC</span><span class="sxs-lookup"><span data-stu-id="e4a37-115">Configure gRPC</span></span>
 
-<span data-ttu-id="ec75a-116">gRPC je povolená s `AddGrpc` metody:</span><span class="sxs-lookup"><span data-stu-id="ec75a-116">gRPC is enabled with the `AddGrpc` method:</span></span>
+<span data-ttu-id="e4a37-116">gRPC je povolená s `AddGrpc` metody:</span><span class="sxs-lookup"><span data-stu-id="e4a37-116">gRPC is enabled with the `AddGrpc` method:</span></span>
 
 [!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Startup.cs?name=snippet&highlight=5)]
 
-<span data-ttu-id="ec75a-117">Každá služba gRPC se přidá do kanálu směrování prostřednictvím `MapGrpcService` metody:</span><span class="sxs-lookup"><span data-stu-id="ec75a-117">Each gRPC service is added to the routing pipeline through the `MapGrpcService` method:</span></span>
+<span data-ttu-id="e4a37-117">Každá služba gRPC se přidá do kanálu směrování prostřednictvím `MapGrpcService` metody:</span><span class="sxs-lookup"><span data-stu-id="e4a37-117">Each gRPC service is added to the routing pipeline through the `MapGrpcService` method:</span></span>
 
 [!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Startup.cs?name=snippet&highlight=21)]
 
-<span data-ttu-id="ec75a-118">Funkce a ASP.NET Core middlewares sdílet směrování kanálu, proto aplikace může být nakonfigurován tak, aby obslužné rutiny další požadavek.</span><span class="sxs-lookup"><span data-stu-id="ec75a-118">ASP.NET Core middlewares and features share the routing pipeline, therefore an app can be configured to serve additional request handlers.</span></span> <span data-ttu-id="ec75a-119">Obslužné rutiny dalších požadavků, jako jsou řadiče MVC pracovat souběžně s nakonfigurovanou gRPC služby.</span><span class="sxs-lookup"><span data-stu-id="ec75a-119">The additional request handlers, such as MVC controllers, work in parallel with the configured gRPC services.</span></span>
+<span data-ttu-id="e4a37-118">Funkce a ASP.NET Core middlewares sdílet směrování kanálu, proto aplikace může být nakonfigurován tak, aby obslužné rutiny další požadavek.</span><span class="sxs-lookup"><span data-stu-id="e4a37-118">ASP.NET Core middlewares and features share the routing pipeline, therefore an app can be configured to serve additional request handlers.</span></span> <span data-ttu-id="e4a37-119">Obslužné rutiny dalších požadavků, jako jsou řadiče MVC pracovat souběžně s nakonfigurovanou gRPC služby.</span><span class="sxs-lookup"><span data-stu-id="e4a37-119">The additional request handlers, such as MVC controllers, work in parallel with the configured gRPC services.</span></span>
 
-## <a name="integration-with-aspnet-core-apis"></a><span data-ttu-id="ec75a-120">Integrace s rozhraními API pro ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="ec75a-120">Integration with ASP.NET Core APIs</span></span>
+## <a name="integration-with-aspnet-core-apis"></a><span data-ttu-id="e4a37-120">Integrace s rozhraními API pro ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="e4a37-120">Integration with ASP.NET Core APIs</span></span>
 
-<span data-ttu-id="ec75a-121">gRPC služby, jako mají plný přístup k funkcím ASP.NET Core [injektáž závislostí](xref:fundamentals/dependency-injection) (DI) a [protokolování](xref:fundamentals/logging/index).</span><span class="sxs-lookup"><span data-stu-id="ec75a-121">gRPC services have full access to the ASP.NET Core features such as [Dependency Injection](xref:fundamentals/dependency-injection) (DI) and [Logging](xref:fundamentals/logging/index).</span></span> <span data-ttu-id="ec75a-122">Implementace služby například můžete vyřešit služby protokoly z kontejnerů DI prostřednictvím konstruktoru:</span><span class="sxs-lookup"><span data-stu-id="ec75a-122">For example, the service implementation can resolve a logger service from the DI container via the constructor:</span></span>
+<span data-ttu-id="e4a37-121">gRPC služby, jako mají plný přístup k funkcím ASP.NET Core [injektáž závislostí](xref:fundamentals/dependency-injection) (DI) a [protokolování](xref:fundamentals/logging/index).</span><span class="sxs-lookup"><span data-stu-id="e4a37-121">gRPC services have full access to the ASP.NET Core features such as [Dependency Injection](xref:fundamentals/dependency-injection) (DI) and [Logging](xref:fundamentals/logging/index).</span></span> <span data-ttu-id="e4a37-122">Implementace služby například můžete vyřešit služby protokoly z kontejnerů DI prostřednictvím konstruktoru:</span><span class="sxs-lookup"><span data-stu-id="e4a37-122">For example, the service implementation can resolve a logger service from the DI container via the constructor:</span></span>
 
 ```csharp
 public class GreeterService : Greeter.GreeterBase
@@ -66,46 +66,19 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-<span data-ttu-id="ec75a-123">Ve výchozím nastavení lze vyřešit implementace služby gRPC dalším službám DI pomocí jakékoli životnost (Singleton, obor nebo přechodným).</span><span class="sxs-lookup"><span data-stu-id="ec75a-123">By default, the gRPC service implementation can resolve other DI services with any lifetime (Singleton, Scoped, or Transient).</span></span>
+<span data-ttu-id="e4a37-123">Ve výchozím nastavení lze vyřešit implementace služby gRPC dalším službám DI pomocí jakékoli životnost (Singleton, obor nebo přechodným).</span><span class="sxs-lookup"><span data-stu-id="e4a37-123">By default, the gRPC service implementation can resolve other DI services with any lifetime (Singleton, Scoped, or Transient).</span></span>
 
-### <a name="resolve-httpcontext-in-grpc-methods"></a><span data-ttu-id="ec75a-124">Vyřešit HttpContext gRPC metod</span><span class="sxs-lookup"><span data-stu-id="ec75a-124">Resolve HttpContext in gRPC methods</span></span>
+### <a name="resolve-httpcontext-in-grpc-methods"></a><span data-ttu-id="e4a37-124">Vyřešit HttpContext gRPC metod</span><span class="sxs-lookup"><span data-stu-id="e4a37-124">Resolve HttpContext in gRPC methods</span></span>
 
-<span data-ttu-id="ec75a-125">GRPC rozhraní API poskytuje přístup k některým datům zprávy HTTP/2, jako je metoda, hostitele, záhlaví a přípojných.</span><span class="sxs-lookup"><span data-stu-id="ec75a-125">The gRPC API provides access to some HTTP/2 message data, such as the method, host, header, and trailers.</span></span> <span data-ttu-id="ec75a-126">Přístup je prostřednictvím `ServerCallContext` argument předaný metodě každou gRPC:</span><span class="sxs-lookup"><span data-stu-id="ec75a-126">Access is through the `ServerCallContext` argument passed to each gRPC method:</span></span>
+<span data-ttu-id="e4a37-125">GRPC rozhraní API poskytuje přístup k některým datům zprávy HTTP/2, jako je metoda, hostitele, záhlaví a přípojných.</span><span class="sxs-lookup"><span data-stu-id="e4a37-125">The gRPC API provides access to some HTTP/2 message data, such as the method, host, header, and trailers.</span></span> <span data-ttu-id="e4a37-126">Přístup je prostřednictvím `ServerCallContext` argument předaný metodě každou gRPC:</span><span class="sxs-lookup"><span data-stu-id="e4a37-126">Access is through the `ServerCallContext` argument passed to each gRPC method:</span></span>
 
 [!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Services/GreeterService.cs?highlight=3-4&name=snippet)]
 
-<span data-ttu-id="ec75a-127">`ServerCallContext` neposkytuje úplný přístup k `HttpContext` v všechna rozhraní API technologie ASP.NET.</span><span class="sxs-lookup"><span data-stu-id="ec75a-127">`ServerCallContext` does not provide full access to `HttpContext` in all ASP.NET APIs.</span></span> <span data-ttu-id="ec75a-128">`GetHttpContext` – Metoda rozšíření poskytuje úplný přístup ke `HttpContext` představující základní zprávy HTTP/2 v rozhraní API technologie ASP.NET:</span><span class="sxs-lookup"><span data-stu-id="ec75a-128">The `GetHttpContext` extension method provides full access to the `HttpContext` representing the underlying HTTP/2 message in ASP.NET APIs:</span></span>
+<span data-ttu-id="e4a37-127">`ServerCallContext` neposkytuje úplný přístup k `HttpContext` v všechna rozhraní API technologie ASP.NET.</span><span class="sxs-lookup"><span data-stu-id="e4a37-127">`ServerCallContext` does not provide full access to `HttpContext` in all ASP.NET APIs.</span></span> <span data-ttu-id="e4a37-128">`GetHttpContext` – Metoda rozšíření poskytuje úplný přístup ke `HttpContext` představující základní zprávy HTTP/2 v rozhraní API technologie ASP.NET:</span><span class="sxs-lookup"><span data-stu-id="e4a37-128">The `GetHttpContext` extension method provides full access to the `HttpContext` representing the underlying HTTP/2 message in ASP.NET APIs:</span></span>
 
 [!code-cs[](~/tutorials/grpc/grpc-start/samples/GrpcGreeter/Services/GreeterService.cs?name=snippet1)]
 
-### <a name="request-body-data-rate-limit"></a><span data-ttu-id="ec75a-129">Omezení četnosti data těla požadavku</span><span class="sxs-lookup"><span data-stu-id="ec75a-129">Request body data rate limit</span></span>
-
-<span data-ttu-id="ec75a-130">Ve výchozím nastavení, Kestrel server ukládá [minimální požadavek tělo přenosová rychlost](
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinRequestBodyDataRate>).</span><span class="sxs-lookup"><span data-stu-id="ec75a-130">By default, the Kestrel server imposes a [minimum request body data rate](
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinRequestBodyDataRate>).</span></span> <span data-ttu-id="ec75a-131">Pro klienty streamování a streaming volání duplexní režim nemusí být splněny tato sazba a připojení může být vypršení časového limitu. Minimální požadavku limitu přenosové rychlosti dat musí být zakázáno, pokud obsahuje služba gRPC klienta streamování a streaming volání duplexní režim:</span><span class="sxs-lookup"><span data-stu-id="ec75a-131">For client streaming and duplex streaming calls, this rate may not be satisfied and the connection may be timed out. The minimum request body data rate limit must be disabled when the gRPC service includes client streaming and duplex streaming calls:</span></span>
-
-```csharp
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        CreateHostBuilder(args).Build().Run();
-    }
-
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-         Host.CreateDefaultBuilder(args)
-    .ConfigureWebHostDefaults(webBuilder =>
-    {
-        webBuilder.UseStartup<Startup>();
-        webBuilder.ConfigureKestrel((context, options) =>
-        {
-            options.Limits.MinRequestBodyDataRate = null;
-        });
-    });
-}
-```
-
-## <a name="additional-resources"></a><span data-ttu-id="ec75a-132">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="ec75a-132">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="e4a37-129">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="e4a37-129">Additional resources</span></span>
 
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/index>
