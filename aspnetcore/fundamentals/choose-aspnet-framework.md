@@ -4,14 +4,14 @@ author: rick-anderson
 description: Vysvětluje, ASP.NET Core vs. ASP.NET 4.x a jak si vybrat mezi nimi.
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 09/11/2018
+ms.date: 05/02/2019
 uid: fundamentals/choose-between-aspnet-and-aspnetcore
-ms.openlocfilehash: 454f1021520f8f22eb2b0417a958b78690f89cef
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: a51d9946c9e65bd1665c610153f724c6087c9f7f
+ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900624"
+ms.lasthandoff: 05/28/2019
+ms.locfileid: "66251367"
 ---
 # <a name="choose-between-aspnet-4x-and-aspnet-core"></a>Zvolte mezi ASP.NET 4.x a ASP.NET Core
 
@@ -44,7 +44,6 @@ Zobrazit [ASP.NET Core, které cílí na rozhraní .NET Framework](xref:index#ta
 
 ## <a name="aspnet-core-scenarios"></a>Scénáře ASP.NET Core
 
-* [Stránky Razor](xref:razor-pages/index) je doporučený postup pro vytváření webového uživatelského rozhraní k ASP.NET Core 2.x.
 * [Weby](xref:tutorials/first-mvc-app/index)
 * [Rozhraní API](xref:tutorials/first-web-api)
 * [V reálném čase](xref:signalr/index)

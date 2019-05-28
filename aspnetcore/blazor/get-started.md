@@ -5,14 +5,14 @@ description: Začínáme s Blazor vytvořením Blazor aplikace pomocí nástroj�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/06/2019
+ms.date: 05/26/2019
 uid: blazor/get-started
-ms.openlocfilehash: 09613f5d8a4d130f7dca53f31bdd33de527fc776
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: a67f9742184716338bf6235c0b340900b17b19dc
+ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65969863"
+ms.lasthandoff: 05/28/2019
+ms.locfileid: "66251192"
 ---
 # <a name="get-started-with-blazor"></a>Začínáme s Blazor
 
@@ -36,19 +36,17 @@ Začínáme s Blazor:
 
    2.&nbsp;nainstalujte nejnovější [Blazor rozšíření](https://go.microsoft.com/fwlink/?linkid=870389) z webu Visual Studio Marketplace. Tento krok zpřístupní Blazor šablony sady Visual Studio.
 
-   3.&nbsp;Pokud používáte nejnovější stabilní verze sady Visual Studio (nikoli verze preview), povolte sadě Visual Studio pomocí sady SDK ve verzi preview: Otevřít **nástroje** > **možnosti** v panelu nabídek. Otevřít **projekty a řešení** uzlu. Otevřít **.NET Core** kartu. Zaškrtněte políčko u **pomocí verze Preview sady .NET Core SDK**. Vyberte **OK**.
+   3.&nbsp;vytvořte nový projekt.
 
-   4.&nbsp;vytvořte nový projekt.
+   4.&nbsp;vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
 
-   5.&nbsp;vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+   5.&nbsp;zadejte název projektu **název projektu** pole nebo přijměte výchozí název projektu. Potvrďte **umístění** položka je správný, a zadejte umístění pro projekt. Vyberte **Vytvořit**.
 
-   6.&nbsp;zadejte název projektu **název projektu** pole nebo přijměte výchozí název projektu. Potvrďte **umístění** položka je správný, a zadejte umístění pro projekt. Vyberte **Vytvořit**.
+   6.&nbsp;v **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
 
-   7.&nbsp;v **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
+   7.&nbsp;Blazor prostředí na straně klienta, vyberte **Blazor (na straně klienta)** šablony. Blazor prostředí na straně serveru, zvolte **Blazor (serverové)** šablony. Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor a na straně serveru a na straně klienta najdete v tématu <xref:blazor/hosting-models>.
 
-   8.&nbsp;Blazor prostředí na straně klienta, vyberte **Blazor (na straně klienta)** šablony. Blazor prostředí na straně serveru, zvolte **Blazor (serverové)** šablony. Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor a na straně serveru a na straně klienta najdete v tématu <xref:blazor/hosting-models>.
-
-   9.&nbsp;stiskněte **F5** ke spuštění aplikace.
+   8.&nbsp;stiskněte **F5** ke spuštění aplikace.
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
    

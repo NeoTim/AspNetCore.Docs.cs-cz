@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 009ee97d954a21f5fca1713b2b45218cac235e33
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 8ce969739d9d98941d4d7670395c74e0e25c92a7
+ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901164"
+ms.lasthandoff: 05/28/2019
+ms.locfileid: "66251402"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
 
@@ -80,7 +80,7 @@ Pokud aplikace používá [obecný hostitele](xref:fundamentals/host/generic-hos
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 
-Middleware pro integraci služby IIS, který nakonfiguruje předané Middleware záhlaví a že modul ASP.NET Core jsou konfigurovány pro předávání schématu (HTTP/HTTPS) a Vzdálená IP adresa původu žádosti. Další konfigurace může být nezbytný pro aplikací hostovaných za službou další proxy servery a nástroje pro vyrovnávání zatížení. Další informace najdete v tématu [konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+[Middleware pro integraci služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components), které konfiguruje předané záhlaví Middleware, při hostování za nástrojem [mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), a že modul ASP.NET Core je nakonfigurovaný pro předávání schématu (HTTP/HTTPS) a Vzdálená IP adresa původu žádosti. Další konfigurace může být nezbytný pro aplikací hostovaných za službou další proxy servery a nástroje pro vyrovnávání zatížení. Další informace najdete v tématu [konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="monitoring-and-logging"></a>Monitorování a protokolování
 
@@ -191,7 +191,7 @@ Při nasazování samostatnou aplikaci:
 
 #### <a name="publish-from-visual-studio"></a>Publikování z aplikace Visual Studio
 
-1. Vyberte **sestavení** > **{název_aplikace} publikovat** z panelu nástrojů sady Visual Studio.
+1. Vyberte **sestavení** >  **{název_aplikace} publikovat** z panelu nástrojů sady Visual Studio.
 1. V **vyberte cíl publikování** dialogového okna, ujistěte se, že **služby App Service** zaškrtnuto.
 1. Vyberte **Upřesnit**. **Publikovat** otevře se dialogové okno.
 1. V **publikovat** dialogové okno:
@@ -227,7 +227,7 @@ Při nasazování samostatnou aplikaci:
 
 ## <a name="protocol-settings-https"></a>Nastavení protokolu (HTTPS)
 
-Zabezpečený protokol vazby umožňují že zadat certifikát má použít při reakci na požadavky přes protokol HTTPS. Vazba vyžaduje platný privátní certifikát (*.pfx*) vydaný pro konkrétní název hostitele. Další informace najdete v tématu [kurzu: Vytvoření vazby existujícího vlastního certifikátu SSL do služby Azure App Service](/azure/app-service/app-service-web-tutorial-custom-ssl).
+Zabezpečený protokol vazby umožňují že zadat certifikát má použít při reakci na požadavky přes protokol HTTPS. Vazba vyžaduje platný privátní certifikát ( *.pfx*) vydaný pro konkrétní název hostitele. Další informace najdete v tématu [kurzu: Vytvoření vazby existujícího vlastního certifikátu SSL do služby Azure App Service](/azure/app-service/app-service-web-tutorial-custom-ssl).
 
 ## <a name="transform-webconfig"></a>Transformace souboru web.config
 
