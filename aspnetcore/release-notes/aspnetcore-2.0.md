@@ -3,14 +3,15 @@ title: Co je nového v ASP.NET Core 2.0
 author: rick-anderson
 description: Informace o nových funkcích v ASP.NET Core 2.0.
 ms.author: riande
-ms.date: 07/10/2017
+ms.custom: mvc
+ms.date: 05/28/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 07e490fd844f0f9044afce37651ef680ed0c894d
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 5cf7b9aa7ccf86f1a89e6145cfc185c5ef803e66
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898353"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376415"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2.0
 
@@ -75,7 +76,7 @@ Další informace o ověřování změny ve verzi 2.0 naleznete na následujíc�
 
 ## <a name="spa-templates"></a>Šablon SPA
 
-Jeden šablony projektu stránka aplikace (SPA) pro Angular, Aurelia, knihovnou Knockout.js, React.js a React.js s Reduxem jsou k dispozici. Aktualizovali jsme Angular šablony Angular 4. Jsou k dispozici ve výchozím nastavení; šablony Angular a React informace o tom, jak získat další šablony najdete v tématu [vytvořte nový projekt SPA](xref:client-side/spa-services#creating-a-new-project). Informace o tom, jak vytvářet aplikace SPA v ASP.NET Core najdete v tématu [použití služeb JavaScriptServices pro vytváření jednostránkové aplikace](xref:client-side/spa-services).
+Jeden šablony projektu stránka aplikace (SPA) pro Angular, Aurelia, knihovnou Knockout.js, React.js a React.js s Reduxem jsou k dispozici. Aktualizovali jsme Angular šablony Angular 4. Jsou k dispozici ve výchozím nastavení; šablony Angular a React informace o tom, jak získat další šablony najdete v tématu [vytvořte nový projekt SPA](xref:client-side/spa-services#create-a-new-project). Informace o tom, jak vytvářet aplikace SPA v ASP.NET Core najdete v tématu <xref:client-side/spa-services>.
 
 ## <a name="kestrel-improvements"></a>Vylepšení kestrel
 

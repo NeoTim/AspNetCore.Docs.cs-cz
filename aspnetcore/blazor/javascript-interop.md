@@ -5,14 +5,14 @@ description: Zjistěte, jak volat funkce jazyka JavaScript od .NET a .NET metody
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/21/2019
+ms.date: 05/29/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: bc9aef78311355cb388a1f573e89a84a5febcbfc
-ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
+ms.openlocfilehash: ae95cc05d6773813aefbbf4c1f5884dcc09c0a98
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/25/2019
-ms.locfileid: "66223128"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376328"
 ---
 # <a name="blazor-javascript-interop"></a>Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
 
@@ -106,6 +106,10 @@ Ukázková aplikace obsahuje komponentu k předvedení zprostředkovatele komuni
 1. Při `TriggerJsPrompt` provádí výběrem komponenty **aktivační událost jazyka JavaScript výzvy** tlačítko, JavaScript `showPrompt` funkce součástí *wwwroot/exampleJsInterop.js* soubor volá se.
 1. `showPrompt` Funkce přijímá vstup uživatele (uživatelské jméno), což je kódovaný jazykem HTML a vrácené na komponentu. Součást uloží uživatelské jméno v místní proměnné, `name`.
 1. Je řetězec uložen ve `name` je zahrnut do zobrazení uvítací zprávy, která se předá do funkce JavaScriptu, `displayWelcome`, který vykreslí zobrazení uvítací zprávy do záhlaví značky.
+
+## <a name="call-a-void-javascript-function"></a>Volání funkce void jazyka JavaScript
+
+Který vrací funkcí v JavaScriptu [void (0) / void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) nebo [nedefinované](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) jsou volány pomocí `IJSRuntime.InvokeAsync<object>`, která vrací `null`.
 
 ## <a name="detect-when-a-blazor-app-is-prerendering"></a>Rozpoznat, kdy aplikace Blazor se před vykreslením
  

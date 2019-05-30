@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/21/2019
+ms.date: 05/26/2019
 uid: blazor/components
-ms.openlocfilehash: 57f8debb4e13967ceadab96d448e5825b2ef4669
-ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
+ms.openlocfilehash: c048568952c4757bcd5ac3ed0f7e5616409c88b2
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/25/2019
-ms.locfileid: "66223131"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376334"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -1013,6 +1013,6 @@ Toto je příklad jednoduchého dotazu. Ve víc odpovídají realitě případů
 
 * Výkon aplikace vyskytne-li dynamicky generované čísel.
 * Rozhraní framework nelze vytvořit své vlastní pořadová čísla automaticky za běhu protože potřebné informace neexistuje. Pokud je zachycena v době kompilace.
-* Nezapisujte dlouhé bloky ručně implementované `RenderTreeBuilder` logiku. Preferovat `.razor` soubory a umožňují kompilátoru řešit pořadová čísla. Pokud nejste schopni vyhnout ruční `RenderTreeBuilder` logiku, rozdělte dlouhé bloky kódu do menších, který je obalen `OpenRegion` / `CloseRegion` volání. Každý oblast má svůj vlastní samostatný místo pořadová čísla, takže je možné restartovat od nuly (nebo jakékoli jiné libovolné číslo) v každé oblasti.
+* Nezapisujte dlouhé bloky ručně implementované `RenderTreeBuilder` logiku. Preferovat `.razor` soubory a umožňují kompilátoru řešit pořadová čísla.
 * Pokud pořadová čísla jsou pevně zakódované, algoritmus diff pouze vyžaduje, že pořadová čísla zvýšení hodnoty. Výchozí hodnoty a mezery nejsou relevantní. Jednou z legitimní možností je používat jako pořadové číslo, číslo řádku kódu nebo začátek od nuly a zvýšit případů nebo stovky (nebo libovolný upřednostňované interval). 
 * Blazor používá pořadová čísla, zatímco jiné architektury uživatelského rozhraní stromu rozdílování nepoužívejte. Rozdílování je mnohem rychlejší, když se používají pořadová čísla a Blazor nabízí výhodu v podobě kompilační krok, který se zabývá pořadová čísla automaticky pro vývojáře pro tvorbu `.razor` soubory.

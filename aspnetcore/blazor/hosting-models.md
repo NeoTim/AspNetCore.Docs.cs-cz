@@ -5,14 +5,14 @@ description: Seznamte se s na straně klienta i stranu serveru Blazor hostován�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/13/2019
+ms.date: 05/28/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 23821757bc541c8d17a2c1d6d75c5443b57a9135
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.openlocfilehash: d9e430c90d9a01976a8e6222a15504b43f91e2ed
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/19/2019
-ms.locfileid: "65874855"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376331"
 ---
 # <a name="blazor-hosting-models"></a>Blazor modelech hostování
 
@@ -64,8 +64,6 @@ Aplikace ASP.NET Core odkazuje aplikaci `Startup` třídy přidejte:
 
 * Služby na straně serveru.
 * Aplikace na žádost o zpracování kanálu.
-
-[!code-csharp[](hosting-models/samples_snapshot/Startup.cs?highlight=5,27)]
 
 *Blazor.server.js* skript&dagger; naváže připojení klienta. Je zodpovědností aplikace k zachování a obnovení stavu aplikace podle potřeby (například v případě ztráty připojení).
 

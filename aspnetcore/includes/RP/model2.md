@@ -2,7 +2,7 @@
 
 ### <a name="add-a-database-context-class"></a>Přidání třídy kontextu databáze
 
-Přidejte následující `RazorPagesMovieContext` třídu *modely* složky:
+Přidejte následující `RazorPagesMovieContext` třídu *Data* složky:
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 

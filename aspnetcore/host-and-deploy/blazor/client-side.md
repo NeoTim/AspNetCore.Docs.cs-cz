@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/21/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: b572067e688d7e7f7c654a7a25703009c1a7e855
-ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
+ms.openlocfilehash: b50516b4dce28a6b105b2ab8b9386060d5392983
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/25/2019
-ms.locfileid: "66223191"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376394"
 ---
 # <a name="host-and-deploy-blazor-client-side"></a>Hostitelství a nasazení Blazor na straně klienta
 
@@ -188,7 +188,9 @@ Informace o nasazení do služby Azure App Service najdete v tématu <xref:tutor
 
 ## <a name="standalone-deployment"></a>Samostatné nasazení
 
-A *samostatné nasazení* slouží jako sadu statické soubory, které jsou požadovány přímo klienty Blazor aplikace na straně klienta. Webový server se používají k předávání Blazor aplikace.
+A *samostatné nasazení* slouží jako sadu statické soubory, které jsou požadovány přímo klienty Blazor aplikace na straně klienta. Žádné statický souborový server je schopná odesílat Blazor aplikace.
+
+Jsou publikovány v samostatných nasazení prostředků *bin/Release / {TARGET FRAMEWORK} /publish/ {název sestavení} / dist* složky.
 
 ### <a name="iis"></a>IIS
 
