@@ -5,14 +5,14 @@ description: Další informace o souboru HTTP.sys, webový server pro ASP.NET Co
 monikerRange: '>= aspnetcore-2.0'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/21/2019
+ms.date: 05/27/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 7ba27b404cd10752ff9e304cd0a272eff7fa627a
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: d91a0f7b83fb073147978319edfbed0bda9a1c44
+ms.sourcegitcommit: 06c4f2910dd54ded25e1b8750e09c66578748bc9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087047"
+ms.lasthandoff: 05/30/2019
+ms.locfileid: "66395958"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace serveru HTTP.sys web v ASP.NET Core
 
@@ -271,7 +271,7 @@ Pro aplikace hostované souborem HTTP.sys, které pracují s žádostí z Intern
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Povolení ověřování Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#enable-windows-authentication-with-httpsys)
+* [Povolení ověřování Windows pomocí HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Server HTTP rozhraní API](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
 * [úložiště GitHub ASPNET/HttpSysServer (zdrojového kódu)](https://github.com/aspnet/HttpSysServer/)
 * [Hostitel](xref:fundamentals/index#host)

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/17/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 504e5d35f11531a5752b3c8e23d96db3cbe40d1a
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: 11906f34f4aa358fda126772e2147dc805c28e81
+ms.sourcegitcommit: 06c4f2910dd54ded25e1b8750e09c66578748bc9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251436"
+ms.lasthandoff: 05/30/2019
+ms.locfileid: "66395943"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -483,6 +483,26 @@ Obslužná rutina nastavení se dá zadat i prostřednictvím proměnné prostř
 ::: moniker-end
 
 Naleznete v tématu [konfigurace pomocí souboru web.config](#configuration-with-webconfig) příklad `aspNetCore` prvek *web.config* souboru.
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="modify-the-stack-size"></a>Změnit velikost zásobníku
+
+Nakonfigurujte velikost zásobníku spravovaného pomocí `stackSize` nastavení v bajtech. Výchozí velikost je `1048576` bajtů (1 MB).
+
+```xml
+<aspNetCore processPath="dotnet"
+    arguments=".\MyApp.dll"
+    stdoutLogEnabled="false"
+    stdoutLogFile="\\?\%home%\LogFiles\stdout"
+    hostingModel="InProcess">
+  <handlerSettings>
+    <handlerSetting name="stackSize" value="2097152" />
+  </handlerSettings>
+</aspNetCore>
+```
+
+::: moniker-end
 
 ## <a name="proxy-configuration-uses-http-protocol-and-a-pairing-token"></a>Konfigurace proxy serveru používá protokol HTTP a token pro párování
 
