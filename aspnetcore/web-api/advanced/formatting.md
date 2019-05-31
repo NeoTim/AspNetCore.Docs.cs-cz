@@ -4,14 +4,14 @@ author: ardalis
 description: Zjistěte, jak k formátování dat odpovědi v rozhraní Web API ASP.NET Core.
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 05/21/2019
+ms.date: 05/29/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: bd86015773068b6f75f64a0599d710281f7d4d60
-ms.sourcegitcommit: e67356f5e643a5d43f6d567c5c998ce6002bdeb4
+ms.openlocfilehash: 7628565d8646c0a057e28aa54dc9ce9198750c15
+ms.sourcegitcommit: 9ae1fd11f39b0a72b2ae42f0b450345e6e306bc0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/22/2019
-ms.locfileid: "66004955"
+ms.lasthandoff: 05/30/2019
+ms.locfileid: "66415674"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v rozhraní Web API ASP.NET Core
 
@@ -133,13 +133,17 @@ Některé funkce nemusí fungovat s `System.Text.Json`– na základě formátov
 
 ### <a name="add-xml-format-support"></a>Přidání podpory pro formát XML
 
-Chcete-li přidat podporu formátování data XML, nainstalovat [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) balíček NuGet.
+::: moniker range="<= aspnetcore-2.2"
 
-Formátovací moduly XML implementované pomocí `System.Xml.Serialization.XmlSerializer` se dá nakonfigurovat v `Startup.ConfigureServices` následujícím způsobem:
+Chcete-li přidat podporu v ASP.NET Core 2.2 nebo dřívější formátování data XML, nainstalovat [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) balíček NuGet.
+
+::: moniker-end
+
+Formátovací moduly XML implementované pomocí `System.Xml.Serialization.XmlSerializer` se dá nakonfigurovat pomocí volání <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*> v `Startup.ConfigureServices`:
 
 [!code-csharp[](./formatting/sample/Startup.cs?name=snippet1&highlight=2)]
 
-Alternativně XML formátování, které jsou implementované pomocí `System.Runtime.Serialization.DataContractSerializer` se dá nakonfigurovat v `Startup.ConfigureServices` následujícím způsobem:
+Alternativně XML formátování, které jsou implementované pomocí `System.Runtime.Serialization.DataContractSerializer` se dá nakonfigurovat pomocí volání <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlDataContractSerializerFormatters*> v `Startup.ConfigureServices`:
 
 ```csharp
 services.AddMvc()
