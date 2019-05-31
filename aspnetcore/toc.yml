@@ -92,11 +92,7 @@
     - name: Aplikace využívající vzdálené volání procedur
       items:
         - name: Začínáme se službou gRPC v ASP.NET Core
-          uid: tutorials/grpc/index
-        - name: Vytvoření uvítací služby gRPC v ASP.NET Core
           uid: tutorials/grpc/grpc-start
-        - name: Vytvoření klienta .NET Core gRPC
-          uid: tutorials/grpc/grpc-client
     - name: "Přístup k\_datům"
       items:
         - name: EF Core s Razor Pages
@@ -321,7 +317,7 @@
               uid: spa/react
             - name: React with Redux
               uid: spa/react-with-redux
-            - name: JavaScriptServices
+            - name: JavaScript Services
               uid: client-side/spa-services
         - name: LibMan
           items:
@@ -534,14 +530,6 @@
       uid: grpc/migration
     - name: Porovnání služeb gRPC pomocí rozhraní HTTP API
       uid: grpc/comparison
-    - name: Kurzy
-      items:
-        - name: Začínáme se službou gRPC v ASP.NET Core
-          uid: tutorials/grpc/index
-        - name: Vytvoření služby ASP.NET Core gRPC Greeter
-          uid: tutorials/grpc/grpc-start
-        - name: Vytvoření klienta .NET Core gRPC
-          uid: tutorials/grpc/grpc-client
 - name: 'Testování, ladění a odstraňování potíží'
   items:
     - name: Testování jednotek
