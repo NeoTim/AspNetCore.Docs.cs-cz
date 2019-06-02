@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 05/03/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: 36cd9fdac0b9159900e82327705a73d561e7ce6b
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 6b92cb6b68b1c70d67f42284d548729e598f9a8b
+ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086962"
+ms.lasthandoff: 06/02/2019
+ms.locfileid: "66458436"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
@@ -53,7 +53,7 @@ V následujícím příkladu <xref:Microsoft.AspNetCore.Builder.ExceptionHandler
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_DevPageAndHandlerPage&highlight=5-9)]
 
-Šablona aplikace Razor Pages poskytuje chybovou stránku (*.cshtml*) a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> třídy (`ErrorModel`) v *stránky* složky. Šablona projektu pro aplikace MVC, obsahuje metodu akce chyba a zobrazení chyb. Tady je metoda akce:
+Šablona aplikace Razor Pages poskytuje chybovou stránku ( *.cshtml*) a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> třídy (`ErrorModel`) v *stránky* složky. Šablona projektu pro aplikace MVC, obsahuje metodu akce chyba a zobrazení chyb. Tady je metoda akce:
 
 ```csharp
 [AllowAnonymous]
@@ -166,7 +166,9 @@ Koncový bod, který zpracovává chybu můžete získat původní adresu URL, k
 
 ## <a name="disable-status-code-pages"></a>Zakázat stav znakové stránky
 
-Stav znakové stránky je možné zakázat pro konkrétní požadavky v metodě obslužné rutiny pro stránky Razor nebo kontroler MVC. Chcete-li zakázat stav znakové stránky, použijte <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>:
+Chcete-li zakázat stav znakové stránky pro MVC kontroleru nebo metodě akce, použijte [[SkipStatusCodePages]](xref:Microsoft.AspNetCore.Mvc.SkipStatusCodePagesAttribute) atribut.
+
+Chcete-li zakázat stav znakové stránky pro konkrétní požadavky v metodě obslužné rutiny pro stránky Razor nebo kontroler MVC, použijte <xref:Microsoft.AspNetCore.Diagnostics.IStatusCodePagesFeature>:
 
 ```csharp
 var statusCodePagesFeature = HttpContext.Features.Get<IStatusCodePagesFeature>();

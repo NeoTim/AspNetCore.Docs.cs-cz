@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: acb0ae989f6e82a5bc80935a8acfc96e51073d2f
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9737e45729b4e5abd9a33824c4d6610ca21681c0
+ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898395"
+ms.lasthandoff: 06/02/2019
+ms.locfileid: "66458475"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu v ASP.NET Core MVC a stránky Razor
 
@@ -122,7 +122,9 @@ Implementace vzdáleného ověřování:
 1. V třídě modelu poznámky vlastnost s `[Remote]` atribut, který odkazuje na metodu akce ověření, jak je znázorněno v následujícím příkladu:
 
    [!code-csharp[](validation/sample/Models/User.cs?name=snippet_UserEmailProperty)]
-
+ 
+   `[Remote]` Atribut je `Microsoft.AspNetCore.Mvc` oboru názvů. Nainstalujte [Microsoft.AspNetCore.Mvc.ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) balíčku NuGet, pokud nepoužíváte `Microsoft.AspNetCore.App` nebo `Microsoft.AspNetCore.All` Microsoft.aspnetcore.all.
+   
 ### <a name="additional-fields"></a>Další pole
 
 `AdditionalFields` Vlastnost `[Remote]` atribut umožňuje ověření kombinace různých typů polí s daty na serveru. Například pokud `User` měl modelů `FirstName` a `LastName` vlastností, můžete chtít ověřit, že stávající uživatelé už nemají tohoto páru názvy. Následující příklad ukazuje, jak používat `AdditionalFields`:

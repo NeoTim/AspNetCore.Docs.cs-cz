@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/11/2018
 uid: security/anti-request-forgery
-ms.openlocfilehash: 4498bd88e7188ea6c0063aeec054bc20e13ed5f1
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: a32e0e2dbd7fab95562a562cb88767d4c1e8049d
+ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086445"
+ms.lasthandoff: 06/02/2019
+ms.locfileid: "66458496"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>Útokům zabránilo webů žádosti padělání (XSRF/CSRF) v ASP.NET Core
 
 Podle [Steve Smith](https://ardalis.com/), [Fiyaz Hasan](https://twitter.com/FiyazBinHasan), a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Padělání žádosti více webů (označované také jako XSRF nebo CSRF, vyslovováno *viz procházení*) je útok na hostované webové aplikace, které škodlivý webové aplikace mohou mít vliv na interakci mezi klientského prohlížeče a webové aplikace, které důvěřuje, který prohlížeč. Tyto útoky nejsou možné, protože webových prohlížečů odesílat některé typy ověřování tokenů automaticky při každé žádosti na web. Tato forma před zneužitím se taky říká *jedním kliknutím útoku* nebo *relace záleželo* protože využívá výhod platformy útoku uživatele ověřený relace.
+Při útoku proti hostované webové aplikace, které škodlivý webové aplikace mohou mít vliv na interakci mezi klientského prohlížeče a webové aplikace, které důvěřuje tento prohlížeč se proti padělání požadavků mezi weby (označované také jako XSRF nebo CSRF). Tyto útoky nejsou možné, protože webových prohlížečů odesílat některé typy ověřování tokenů automaticky při každé žádosti na web. Tato forma před zneužitím se taky říká *jedním kliknutím útoku* nebo *relace záleželo* protože využívá výhod platformy útoku uživatele ověřený relace.
 
 Příklad útok CSRF:
 
