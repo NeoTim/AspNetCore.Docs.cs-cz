@@ -91,7 +91,7 @@
           uid: tutorials/signalr-typescript-webpack
     - name: Aplikace využívající vzdálené volání procedur
       items:
-        - name: Začínáme se službou gRPC v ASP.NET Core
+        - name: Začínáme se službou gRPC
           uid: tutorials/grpc/grpc-start
     - name: "Přístup k\_datům"
       items:
