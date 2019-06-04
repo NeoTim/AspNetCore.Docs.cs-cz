@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/24/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 12aa1b86e0b9078566f1c64cb4b83c4dddef09f7
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: 41c07b86b50ea50df7420cb81f7b10133d395231
+ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251359"
+ms.lasthandoff: 06/03/2019
+ms.locfileid: "66470389"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -117,7 +117,7 @@ services.Configure<IISServerOptions>(options =>
 | `AutomaticAuthentication`      | `true`  | Pokud `true`, nastaví Server služby IIS `HttpContext.User` ověřována [ověřování Windows](xref:security/authentication/windowsauth). Pokud `false`, server pouze poskytuje identitu `HttpContext.User` a reaguje na problémy při explicitním požadavku `AuthenticationScheme`. Musí být povoleno ověřování Windows ve službě IIS pro `AutomaticAuthentication` na funkci. Další informace najdete v tématu [ověřování Windows](xref:security/authentication/windowsauth). |
 | `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se uživatelům na přihlašovací stránky zobrazí. |
 | `AllowSynchronousIO`           | `false` | Zda je povolen synchronní vstupně-výstupních operací `HttpContext.Request` a `HttpContext.Response`. |
-| `MaxRequestBodySize`           | `30000000`  | Získá nebo nastaví žádost o maximální velikost obsahu pro `HttpRequest`. Všimněte si, že služba IIS má limit `maxAllowedContentLength` zpracuje dříve než `MaxRequestBodySize` nastavit `IISServerOptions`. Změna `MaxRequestBodySize` nebude mít vliv `maxAllowedContentLength`. Pro zvýšení `maxAllowedContentLength`, přidejte záznam v *web.config* nastavit `maxAllowedContentLength` na vyšší hodnotu. Další podrobnosti najdete v tématu [konfigurace](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/#configuration). |
+| `MaxRequestBodySize`           | `30000000`  | Získá nebo nastaví maximální počet žádosti velikost obsahu pro `HttpRequest`. Všimněte si, že služba IIS má limit `maxAllowedContentLength` zpracuje dříve než `MaxRequestBodySize` nastavit `IISServerOptions`. Změna `MaxRequestBodySize` nebude mít vliv `maxAllowedContentLength`. Pro zvýšení `maxAllowedContentLength`, přidejte záznam v *web.config* nastavit `maxAllowedContentLength` na vyšší hodnotu. Další podrobnosti najdete v tématu [konfigurace](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/#configuration). |
 
 **Model hostingu mimo proces**
 
@@ -458,7 +458,7 @@ Pokud statický prostředek `src` atribut je nastaven na absolutní cestu (např
 
 K hostování aplikace v ASP.NET Core jako podřízeným aplikacím v rámci jiné aplikace ASP.NET Core:
 
-1. Vytvořte fond aplikací pro aplikaci sub. Nastavte **verze .NET CLR** k **bez spravovaného kódu** protože Core Common Language Runtime (CoreCLR) pro .NET Core, který naběhne pro hostování aplikace v pracovním procesu, ne klasické pracovní plochy CLR (.NET CLR).
+1. Vytvořte fond aplikací pro aplikaci sub. Nastavte **verze .NET CLR** k **bez spravovaného kódu** protože Core Common Language Runtime (CoreCLR) pro .NET Core, který naběhne pro hostování aplikace v pracovní proces, ne klasické pracovní plochy CLR (.NET CLR).
 
 1. Přidání kořenového webu s podřízeným aplikacím v rámci kořenového webu ve Správci služby IIS.
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/29/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: ae95cc05d6773813aefbbf4c1f5884dcc09c0a98
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: 0e4f6640beb77602edf1abd5d03b27b8badefd0c
+ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376328"
+ms.lasthandoff: 06/03/2019
+ms.locfileid: "66470253"
 ---
 # <a name="blazor-javascript-interop"></a>Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
 

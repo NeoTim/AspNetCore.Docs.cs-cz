@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/04/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: 180d76c2c2e53dbf64b8fcc5cdc6d2b6f4dab6eb
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b89ead55cd46ef62a3bc28b1cfc9077d3ce9aba2
+ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900684"
+ms.lasthandoff: 06/03/2019
+ms.locfileid: "66470408"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>Návratové typy akcí kontroleru v rozhraní Web API ASP.NET Core
 
@@ -106,7 +106,7 @@ Většinu akcí mít návratový typ konkrétní. Neočekávané podmínky můž
 
 Vezměte v úvahu synchronní akce, ve kterém jsou dvě možné návratové typy:
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=8,11)]
+[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=7,10)]
 
 V předchozím kódu je vrátil stavový kód 404 při produktu v databázi neexistuje. Pokud produkt neexistuje, odpovídající `Product` je vrácen objekt. Před ASP.NET Core 2.1 `return product;` řádku by byl `return Ok(product);`.
 

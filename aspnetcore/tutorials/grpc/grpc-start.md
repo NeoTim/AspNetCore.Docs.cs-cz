@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 5/30/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 2b4325d2413e335a3061a7695def88a1b23ee52b
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: a0bb5c087a712ccd890344d2fc52cc58adc914ab
+ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376373"
+ms.lasthandoff: 06/03/2019
+ms.locfileid: "66470417"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření gRPC klientem a serverem v ASP.NET Core
 
@@ -161,7 +161,7 @@ Přidejte do projektu klienta gRPC následující balíčky:
 
 Instalace balíčků pomocí konzoly Správce balíčků (PMC) nebo spravovat balíčky NuGet
 
-####  <a name="pmc-option-to-install-packages"></a>Možnost PMC se mají balíčky nainstalovat
+#### <a name="pmc-option-to-install-packages"></a>Možnost PMC se mají balíčky nainstalovat
 
 * Ze sady Visual Studio, vyberte **nástroje** > **Správce balíčků NuGet** > **Konzola správce balíčků**
 * Z **Konzola správce balíčků** okno, přejděte do adresáře, ve kterém *GrpcGreeterClient.csproj* soubor existuje.
@@ -218,7 +218,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   Klikněte pravým tlačítkem na projekt a vyberte **nástroje > Upravit soubor**.
 
-  ------
+  ---
 
 * Přidat **greet.proto** do souboru `<Protobuf>` skupiny položek GrpcGreeterClient souboru projektu:
 
