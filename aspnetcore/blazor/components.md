@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/26/2019
 uid: blazor/components
-ms.openlocfilehash: c048568952c4757bcd5ac3ed0f7e5616409c88b2
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: f9964dfdc3ae3108b6dbd6d0f5290254e2fc09cd
+ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376334"
+ms.lasthandoff: 06/04/2019
+ms.locfileid: "66491203"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -75,37 +75,41 @@ Další informace o způsobu vykreslené a komponenty stav součásti je spravov
 
 Součásti můžete zahrnout další součásti je deklarací pomocí syntaxe elementu HTML. Kód pro použití komponenty vypadá jako značku jazyka HTML, kde název značky je typ součásti.
 
-Následující kód v *Index.razor* vykreslí `HeadingComponent` instanci, která existuje v jiném souboru *HeadingComponent.razor*:
+Následující kód v *Index.razor* vykreslí `HeadingComponent` instance:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.razor?name=snippet_HeadingComponent)]
+
+*Components/HeadingComponent.razor*:
+
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/HeadingComponent.razor)]
 
 ## <a name="component-parameters"></a>Parametry komponenty
 
 Může mít komponenty *parametry komponenty*, které jsou definovány pomocí *neveřejné* vlastnosti komponentní třída s `[Parameter]` atribut. Atributy můžete zadat argumenty pro komponentu v kódu.
 
-V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Title` vlastnost `ChildComponent`:
+V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Title` vlastnost `ChildComponent`.
 
-*Nadřazené komponenty*:
+*Pages/ParentComponent.razor*:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
 
-*Podřízené součásti*:
+*Components/ChildComponent.razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.razor?highlight=11-12)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=11-12)]
 
 ## <a name="child-content"></a>Podřízený obsah
 
 Součásti můžete nastavit obsah jiné součásti. Přiřazení součásti najdete zde obsah mezi značky, které určují přijímající komponenty. Například `ParentComponent` můžete zadat obsah pro vykreslování podle podřízené součásti tak, že je obsah uvnitř `<ChildComponent>` značky.
 
-*Nadřazené komponenty*:
+*Pages/ParentComponent.razor*:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
 
 Obsahuje podřízené součásti `ChildContent` vlastnost, která představuje `RenderFragment`. Hodnota `ChildContent` je umístěn ve značkách podřízené součásti, kde má být vykreslen obsah. V následujícím příkladu, hodnota `ChildContent` přijme od nadřazené komponenty a vykreslit v rámci panelu Bootstrap `panel-body`.
 
-*Podřízené součásti*:
+*Components/ChildComponent.razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.razor?highlight=3,14-15)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
 > Vlastnost příjmu `RenderFragment` obsahu musí mít název `ChildContent` konvencí.
@@ -336,7 +340,7 @@ Je běžným scénářem vnořených součástí chce spouštět nadřazenou met
 
 Podřízené součásti v ukázkové aplikaci ukazuje, jak tlačítka `onclick` přijímat je nastavena obslužná rutina `EventCallback` delegovat z tohoto příkladu nadřazené komponenty. `EventCallback` Je zadán s `UIMouseEventArgs`, což je vhodné pro `onclick` událost z periferní zařízení:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ChildComponent.razor?highlight=5-7,17-18)]
+[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
 Nadřazené komponenty nastaví dítěte `EventCallback<T>` k jeho `ShowMessage` metody:
 

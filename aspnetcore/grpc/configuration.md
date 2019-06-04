@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat gRPC pro aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
-ms.date: 04/09/2019
+ms.date: 5/30/2019
 uid: grpc/configuration
-ms.openlocfilehash: 851c9ca1f7d62f6f368df66bb38eb4bbaf64bf32
-ms.sourcegitcommit: 5d384db2fa9373a93b5d15e985fb34430e49ad7a
+ms.openlocfilehash: 1f8250dc9aa8b82da384ee28287011baa19dc11f
+ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/23/2019
-ms.locfileid: "66041885"
+ms.lasthandoff: 06/04/2019
+ms.locfileid: "66491242"
 ---
 # <a name="grpc-for-aspnet-core-configuration"></a>gRPC konfigurace ASP.NET Core
 
@@ -24,31 +24,24 @@ Následující tabulka popisuje možnosti pro konfiguraci služby gRPC:
 | ------ | ------------- | ----------- |
 | `SendMaxMessageSize` | `null` | Maximální velikost zprávy v bajtech odeslaných ze serveru. Došlo k pokusu o odeslání zprávy, která překračuje velikost výsledky nakonfigurovanou maximální zprávy výjimek. |
 | `ReceiveMaxMessageSize` | 4 MB | Maximální velikost zprávy v bajtech, které lze přijímat pomocí serveru. Pokud server přijme zprávu, která překračuje tento limit, dojde k výjimce. Zvýšení hodnoty tuto umožňuje serveru pro příjem větší zprávy, ale může mít negativní vliv na využití paměti. |
-| `EnableDetailedErrors` | `false` | Pokud `true`, podrobné zprávy o výjimkách se vrátí ke klientům, když dojde k výjimce v metodě služby. Výchozí hodnota je `false`. Nastavení na `true` může způsobit únik citlivých informací. |
+| `EnableDetailedErrors` | `false` | Pokud `true`, podrobné zprávy o výjimkách se vrátí ke klientům, když dojde k výjimce v metodě služby. Výchozí hodnota je `false`. Nastavení `EnableDetailedErrors` k `true` může způsobit únik citlivých informací. |
 | `CompressionProviders` | gzip | Kolekce zprostředkovatelů komprese používá při komprimaci a dekomprimaci zprávy. Poskytovatelé vlastního komprese můžete vytvořen a přidán do kolekce. Výchozí nastavení nakonfigurován zprostředkovatel podporuje **gzip** komprese. |
-| `ResponseCompressionAlgorithm` | `null` | Komprese algoritmus používaný ke kompresi zpráv odeslaných ze serveru. Algoritmus musí odpovídat komprese zprostředkovatele v `CompressionProviders`. Pro algorthm pro kompresi odpovědí musíte uvést podporuje algoritmus a odeslat ho klienta **grpc přijmout – kódování** záhlaví. |
+| `ResponseCompressionAlgorithm` | `null` | Komprese algoritmus používaný ke kompresi zpráv odeslaných ze serveru. Algoritmus musí odpovídat komprese zprostředkovatele v `CompressionProviders`. Pro algoritmus pro kompresi odpovědí, musíte uvést podporuje algoritmus a odeslat ho klienta **grpc přijmout – kódování** záhlaví. |
 | `ResponseCompressionLevel` | `null` | Úroveň komprese použitý ke kompresi zpráv odeslaných ze serveru. |
 
-Je možné nakonfigurovat možnosti pro všechny služby poskytnutím delegáta možnosti k `AddGrpc` volání v `Startup.ConfigureServices`.
+Je možné nakonfigurovat možnosti pro všechny služby poskytnutím delegáta možnosti k `AddGrpc` volání v `Startup.ConfigureServices`:
 
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddGrpc(options =>
-    {
-        options.EnableDetailedErrors = true;
-    });
-}
-```
+[!code-csharp[](~/grpc/configuration/sample/GrcpService/Startup.cs?name=snippet)]
 
 Možnosti pro jednu službu přepsat globální možnosti uvedené v `AddGrpc` a dá se nakonfigurovat pomocí `AddServiceOptions<TService>`:
 
-```csharp
-services.AddGrpc().AddServiceOptions<MyService>(options =>
-{
-    options.ReceiveMaxMessageSize = 10 * 1024 * 1024; // 10 megabytes
-});
-```
+[!code-csharp[](~/grpc/configuration/sample/GrcpService/Startup2.cs?name=snippet)]
+
+## <a name="configure-client-options"></a>Konfigurovat možnosti klienta
+
+Následující kód nastaví maximální odeslat klienta a přijímat zprávy velikost:
+
+[!code-csharp[](~/grpc/configuration/sample/Program.cs?name=snippet&highlight=3-6)]
 
 ## <a name="additional-resources"></a>Další zdroje
 

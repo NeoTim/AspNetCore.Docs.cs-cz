@@ -3,14 +3,14 @@ title: Začínáme s ASP.NET Core MVC
 author: rick-anderson
 description: Zjistěte, jak začít pracovat s ASP.NET Core MVC.
 ms.author: riande
-ms.date: 12/12/2018
+ms.date: 04/24/2019
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: dbc07558d7d7672e60e8834dc3e4e9d8aab437e3
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: dc3499c89860190b76d6be7b8abeeaef827880d6
+ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265292"
+ms.lasthandoff: 06/04/2019
+ms.locfileid: "66491245"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
@@ -38,24 +38,18 @@ Na konci budete mít aplikaci, která můžete spravovat a zobrazit data o filme
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Ze sady Visual Studio, vyberte **soubor > Nový > projekt**.
+* V sadě Visual Studio vyberte **vytvořte nový projekt**.
 
-![Soubor > Nový > Projekt](start-mvc/_static/alt_new_project.png)
+* Selecct **webové aplikace ASP.NET Core** a pak vyberte **Další**.
 
-Dokončení **nový projekt** dialogové okno:
+![Nová webová aplikace ASP.NET Core](start-mvc/_static/np_2.1.png)
 
-* V levém podokně vyberte **.NET Core**
-* V prostředním podokně vyberte **webová aplikace ASP.NET Core (.NET Core)**
-* Pojmenujte projekt "MvcMovie" (je třeba název projektu "MvcMovie", takže při kopírování kódu bude odpovídat oboru názvů.)
-* Vyberte **OK**
+* Pojmenujte projekt **MvcMovie** a vyberte **vytvořit**. Je důležité projekt pojmenujte **MvcMovie** tak při kopírování kódu budou odpovídat oboru názvů.
 
-![Dialogové okno Nový projekt, .NET Core v levém podokně, web ASP.NET Core ](start-mvc/_static/new_project2-21.png)
+  ![Nová webová aplikace ASP.NET Core](start-mvc/_static/config.png)
 
-Dokončení **nové základní webové aplikace ASP.NET (.NET Core) – MvcMovie** dialogové okno:
 
-* V poli verze selektoru rozevíracího seznamu vyberte **2.2 technologie ASP.NET Core**
-* Vyberte **webová aplikace (Model-View-Controller)**
-* Vyberte **OK**.
+* Vyberte **webové Application(Model-View-Controller)** a pak vyberte **vytvořit**.
 
 ![Dialogové okno Nový projekt, .NET Core v levém podokně, web ASP.NET Core ](start-mvc/_static/new_project22-21.png)
 
@@ -83,13 +77,15 @@ Kurz předpokládá familarity s VS Code. Zobrazit [Začínáme s VS Code](https
 
 * Vyberte **souboru** > **nové řešení**.
 
-  ![macOS nové řešení](~/tutorials/first-web-api-mac/_static/sln.png)
+  ![macOS nové řešení](./start-mvc/_static/new_project_vsmac.png)
 
-* Vyberte **aplikace .NET Core** > **ASP.NET Core** > **webové aplikace ASP.NET Core (MVC)** > **Další**.
+* Vyberte **.NET Core** > **aplikace** > **webová aplikace (Model-View-Controller)**  > **Další**.
 
-  ![macOS dialogové okno nového projektu](~/tutorials/first-mvc-app-mac/start-mvc/1.png)
+  ![macOS dialogové okno nového projektu](./start-mvc/_static/new_project_mvc_vsmac.png)
 
-* V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z **.NET Core 2.2*.
+* V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z **.NET Core 2.2**.
+
+  ![macOS výběr .NET Core 2.2](./start-mvc/_static/new_project_22_vsmac.png)
 
 * Pojmenujte projekt **MvcMovie**a pak vyberte **vytvořit**.
 
@@ -113,6 +109,14 @@ Vyberte **Ctrl-F5** ke spuštění aplikace v režimu bez ladění.
 
   ![Služba IIS Express](start-mvc/_static/iis_express.png)
 
+* Vyberte **přijmout** souhlas sledování. Tato aplikace nesleduje osobní údaje. Tento kód vygenerovanou šablonu obsahuje prostředky, které vám pomohou splnit [obecného Regulation (GDPR)](xref:security/gdpr).
+
+  ![Index nebo Domovská stránka](start-mvc/_static/privacy.png)
+
+  Následující obrázek znázorňuje aplikaci po přijetí sledování:
+
+  ![Index nebo Domovská stránka](start-mvc/_static/home2.2.png)
+
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Stisknutím kláves Ctrl + F5 ke spuštění bez ladicího programu.
@@ -123,6 +127,14 @@ Stisknutím kláves Ctrl + F5 ke spuštění bez ladicího programu.
 
   Spuštění aplikace pomocí kombinace kláves Ctrl + F5 (bez ladění režim) umožňuje provádět změny kódu, uložte soubor, aktualizujte prohlížeč a zobrazení změn kódu. Mnoho vývojářů dávají přednost používání režimu bez ladění a aktualizujte stránku, podívejte se na změny.
 
+* Vyberte **přijmout** souhlas sledování. Tato aplikace nesleduje osobní údaje. Tento kód vygenerovanou šablonu obsahuje prostředky, které vám pomohou splnit [obecného Regulation (GDPR)](xref:security/gdpr).
+
+  ![Index nebo Domovská stránka](start-mvc/_static/privacy.png)
+
+  Následující obrázek znázorňuje aplikaci po přijetí sledování:
+
+  ![Index nebo Domovská stránka](start-mvc/_static/home2.2.png)
+
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Vyberte **spustit** > **spustit bez ladění** aplikaci spustit. Visual Studio pro Mac spustí [Kestrel](xref:fundamentals/servers/index#kestrel) serveru, spustí se prohlížeč a přejde na `http://localhost:port`, kde *port* je číslo portu náhodně vybrané.
@@ -132,15 +144,15 @@ Vyberte **spustit** > **spustit bez ladění** aplikaci spustit. Visual Studio p
 * Zobrazí se panel Adresa `localhost:port#` a nemít něco podobného `example.com`. Důvodem je, že `localhost` je standardní název hostitele místního počítače. Když Visual Studio vytvoří webový projekt, náhodný port se používá pro webový server. Při spuštění aplikace se zobrazí jiné číslo portu.
 * Spustíte ji v ladění nebo v režimu bez ladění z **spustit** nabídky.
 
----
-
 * Vyberte **přijmout** souhlas sledování. Tato aplikace nesleduje osobní údaje. Tento kód vygenerovanou šablonu obsahuje prostředky, které vám pomohou splnit [obecného Regulation (GDPR)](xref:security/gdpr).
 
-  ![Index nebo Domovská stránka](start-mvc/_static/privacy.png)
+  ![Index nebo Domovská stránka](./start-mvc/_static/output_privacy_macos.png)
 
   Následující obrázek znázorňuje aplikaci po přijetí sledování:
 
-  ![Index nebo Domovská stránka](start-mvc/_static/home2.2.png)
+  ![Index nebo Domovská stránka](./start-mvc/_static/output_macos.png)
+
+---
 
 [!INCLUDE[](~/includes/vs-vsc-vsmac-help.md)]
 

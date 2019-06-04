@@ -3,14 +3,14 @@ title: 'Kurz: Začínáme se stránkami Razor v ASP.NET Core'
 author: rick-anderson
 description: Tato série kurzů ukazuje, jak používat v ASP.NET Core Razor Pages. Zjistěte, jak vytvořit model, generování kódu pro stránky Razor, použít pro přístup k datům Entity Framework Core a SQL Server, vyhledávání, přidat ověřování vstupu a použití migrace k aktualizaci modelu.
 ms.author: riande
-ms.date: 05/30/2019
+ms.date: 6/3/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: e9f11f68aa138ab74a0ffbbd0e32067bc984606d
-ms.sourcegitcommit: 9ae1fd11f39b0a72b2ae42f0b450345e6e306bc0
+ms.openlocfilehash: d843e47ccb5180fab34b4c4c4a4b5cbda21289bf
+ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/30/2019
-ms.locfileid: "66415663"
+ms.lasthandoff: 06/04/2019
+ms.locfileid: "66491217"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se stránkami Razor v ASP.NET Core
 
@@ -43,13 +43,17 @@ Na konci tohoto kurzu budete mít funkční webová aplikace Razor Pages, na kte
 
 * Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**.
 
-* Vytvořte novou webovou aplikaci ASP.NET Core. Pojmenujte projekt **RazorPagesMovie**. Je důležité projekt pojmenujte *RazorPagesMovie* tak obory názvů budou porovnávány názvy při zkopírujte a vložte kód.
+* Vytvořit novou webovou aplikaci ASP.NET Core a vyberte **Další**.
 
   ![Nová webová aplikace ASP.NET Core](razor-pages-start/_static/np_2.1.png)
 
-* Vyberte **2.2 technologie ASP.NET Core** v rozevíracím seznamu a pak vyberte **webovou aplikaci**.
+* Pojmenujte projekt **RazorPagesMovie**. Je důležité projekt pojmenujte *RazorPagesMovie* tak obory názvů budou porovnávány názvy při zkopírujte a vložte kód.
 
-  ![Nová webová aplikace ASP.NET Core](razor-pages-start/_static/np_2_2.2.png)
+  ![Nová webová aplikace ASP.NET Core](razor-pages-start/_static/config.png)
+
+* Vyberte **2.2 technologie ASP.NET Core** v rozevírací nabídce, **webovou aplikaci**a pak vyberte **vytvořit**.
+
+![Nová webová aplikace ASP.NET Core](razor-pages-start/_static/np_2_2.2.png)
 
   Následující počáteční projekt je vytvořen:
 
