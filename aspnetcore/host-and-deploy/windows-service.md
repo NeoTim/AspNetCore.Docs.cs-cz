@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core ve službě Windows.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 05/21/2019
+ms.date: 06/03/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: ab36bc1b2827c80bb1e7b9e8cee558b346a991f8
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: 4cfca4b38543ff073bb98dc09b483d96096928ae
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251418"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692570"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Hostitele ASP.NET Core ve službě Windows
 
@@ -26,6 +26,35 @@ Na Windows, jako je možné hostovat aplikace ASP.NET Core [Windows Service](/do
 
 * [ASP.NET Core SDK 2.1 nebo novější](https://dotnet.microsoft.com/download)
 * [Prostředí PowerShell 6.2 nebo novější](https://github.com/PowerShell/PowerShell)
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="worker-service-template"></a>Šablona služby pracovního procesu
+
+Šablony ASP.NET Core pracovního procesu služby poskytuje výchozí bod pro psaní dlouho běžící aplikace služby. Použití šablony jako základ pro aplikace Windows Service:
+
+1. Vytvoření aplikace služby pracovního procesu v šabloně .NET Core.
+1. Postupujte podle pokynů v [konfigurace aplikace](#app-configuration) část aktualizace aplikace služby pracovního procesu, tak, aby mohly běžet jako služba Windows.
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+1. Vytvořte nový projekt.
+1. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+1. Zadejte název projektu **název projektu** pole nebo přijměte výchozí název projektu. Vyberte **Vytvořit**.
+1. V **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
+1. Vyberte **služby pracovního procesu** šablony. Vyberte **Vytvořit**.
+
+# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code / .NET Core CLI](#tab/visual-studio-code+netcore-cli)
+
+Použití služby pracovního procesu (`worker`) šablony s [dotnet nové](/dotnet/core/tools/dotnet-new) z příkazové okno. V následujícím příkladu se vytvoří aplikace služby pracovního procesu pojmenované `ContosoWorkerService`. Složka pro `ContosoWorkerService` aplikace se vytvoří automaticky při spuštění příkazu.
+
+```console
+dotnet new worker -o ContosoWorkerService
+```
+
+---
+
+::: moniker-end
 
 ## <a name="app-configuration"></a>Konfigurace aplikace
 

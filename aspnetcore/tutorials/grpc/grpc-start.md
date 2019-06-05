@@ -4,14 +4,14 @@ author: juntaoluo
 description: Tento kurz ukazuje, jak vytvořit klienta služby a gRPC gRPC v ASP.NET Core. Zjistěte, jak vytvořit projekt gRPC služby, upravte soubor proto a přidat duplexní streamování volání.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 5/30/2019
+ms.date: 06/05/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 2e1768e82f670750621257fec10457c11e9b601b
-ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
+ms.openlocfilehash: 71e3321819eb7169f0896abe3e07849f59ea6fc7
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/04/2019
-ms.locfileid: "66491221"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692527"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření gRPC klientem a serverem v ASP.NET Core
 
@@ -230,7 +230,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
 Sestavení projektu klienta k aktivaci generování C# prostředky klienta.
 
-### <a name="create-the-greater-client"></a>Vytvoření větší klienta
+### <a name="create-the-greeter-client"></a>Vytvoření klienta Greeter
 
 Projekt pro vytvoření typů v sestavení **Greeter** oboru názvů. `Greeter` Typy jsou automaticky generovány procesu sestavení.
 
@@ -240,14 +240,14 @@ Také aktualizovat klienta sady gRPC *Program.cs* souboru následujícím kódem
 
 *Soubor program.cs* obsahuje vstupní bod a logiku pro gRPC klienta.
 
-Větší klient vytvořil:
+Klient Greeter vytvořil:
 
 * Vytvoření instance `Channel` obsahující informace o vytvoření připojení ke službě gRPC.
-* Použití `Channel` k sestavení kompletních větší klienta:
+* Použití `Channel` k sestavení kompletních Greeter klienta:
 
 [!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=4-6)]
 
-Vyvolá asynchronní větší klienta `SayHello` metody. Výsledkem `SayHello` volání se zobrazí:
+Klient Greeter volá asynchronní `SayHello` metody. Výsledkem `SayHello` volání se zobrazí:
 
 [!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=7-9)]
 

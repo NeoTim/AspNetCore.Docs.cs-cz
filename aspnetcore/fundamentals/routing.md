@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 0c2df3ec63f393b961754f496830cccb26f1cb76
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 2a7a942f43de94326e84977f09dc9a2e24dd00f0
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899511"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692574"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -165,7 +165,9 @@ Shoda, která volá <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> tak�
 
 [RouteData.Routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers) je seznam tras, které účastnila úspěšně odpovídající požadavek. Trasy můžete vnořit do mezi sebou. <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> Vlastnost odpovídá cestě prostřednictvím logického stromu tras, z kterých vzniklo shoda. Obecně platí, první položky v <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je kolekce tras a byste měli použít pro generování adresy URL. Poslední položky v <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je obslužná rutina trasy, který odpovídá.
 
-### <a name="url-generation"></a>Generování adresy URL
+<a name="lg"></a>
+
+### <a name="url-generation-with-linkgenerator"></a>Generování adresy URL s LinkGenerator
 
 ::: moniker range=">= aspnetcore-2.2"
 

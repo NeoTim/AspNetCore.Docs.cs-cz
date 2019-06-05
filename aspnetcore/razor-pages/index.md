@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 04/06/2019
 uid: razor-pages/index
-ms.openlocfilehash: 7df57153efc58b6a19ce663eb31d173da11b1005
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 93796fa1edfa316790794d3775342147ea28ae2e
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898632"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692539"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do služby v ASP.NET Core Razor Pages
 
@@ -22,8 +22,6 @@ Stránky Razor je nový aspekt ASP.NET Core MVC, která provádí kódování za
 Pokud hledáte kurz, který používá Model-View-Controller přístup, přečtěte si téma [Začínáme s ASP.NET Core MVC](xref:tutorials/first-mvc-app/start-mvc).
 
 Tento dokument obsahuje úvod do stránky Razor. Není podrobný kurz. Pokud některé části příliš pokročilý najdete v tématu [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start). Přehled ASP.NET Core, najdete v článku [Úvod do ASP.NET Core](xref:index).
-
-## <a name="prerequisites"></a>Požadavky
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
 
