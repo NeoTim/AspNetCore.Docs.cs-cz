@@ -5,14 +5,14 @@ description: Začínáme s Blazor vytvořením Blazor aplikace pomocí nástroj�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/26/2019
+ms.date: 06/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: a67f9742184716338bf6235c0b340900b17b19dc
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: 9df18b25f6d82d655c093a17fe498615c0ff535e
+ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251192"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66716284"
 ---
 # <a name="get-started-with-blazor"></a>Začínáme s Blazor
 
@@ -32,29 +32,29 @@ Začínáme s Blazor:
 
    # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-   1.&nbsp;nainstalujte nejnovější [ve verzi preview sady Visual Studio](https://visualstudio.com/preview) s **vývoj pro ASP.NET a web** pracovního vytížení.
+   1\. Nainstalujte nejnovější [ve verzi preview sady Visual Studio](https://visualstudio.com/preview) s **vývoj pro ASP.NET a web** pracovního vytížení.
 
-   2.&nbsp;nainstalujte nejnovější [Blazor rozšíření](https://go.microsoft.com/fwlink/?linkid=870389) z webu Visual Studio Marketplace. Tento krok zpřístupní Blazor šablony sady Visual Studio.
+   2\. Nainstalujte nejnovější [Blazor rozšíření](https://go.microsoft.com/fwlink/?linkid=870389) z webu Visual Studio Marketplace. Tento krok zpřístupní Blazor šablony sady Visual Studio.
 
-   3.&nbsp;vytvořte nový projekt.
+   3\. Vytvořte nový projekt.
 
-   4.&nbsp;vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+   4\. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
 
-   5.&nbsp;zadejte název projektu **název projektu** pole nebo přijměte výchozí název projektu. Potvrďte **umístění** položka je správný, a zadejte umístění pro projekt. Vyberte **Vytvořit**.
+   5\. Zadejte název projektu **název projektu** pole nebo přijměte výchozí název projektu. Potvrďte **umístění** položka je správný, a zadejte umístění pro projekt. Vyberte **Vytvořit**.
 
-   6.&nbsp;v **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
+   6\. V **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
 
-   7.&nbsp;Blazor prostředí na straně klienta, vyberte **Blazor (na straně klienta)** šablony. Blazor prostředí na straně serveru, zvolte **Blazor (serverové)** šablony. Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor a na straně serveru a na straně klienta najdete v tématu <xref:blazor/hosting-models>.
+   7\. Blazor prostředí na straně klienta, vyberte **Blazor (na straně klienta)** šablony. Blazor prostředí na straně serveru, zvolte **Blazor (serverové)** šablony. Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor a na straně serveru a na straně klienta najdete v tématu <xref:blazor/hosting-models>.
 
-   8.&nbsp;stiskněte **F5** ke spuštění aplikace.
+   8\. Stisknutím klávesy **F5** ke spuštění aplikace.
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
    
-   1.&nbsp;nainstalovat [Visual Studio Code](https://code.visualstudio.com/).
+   1\. Nainstalujte [Visual Studio Code](https://code.visualstudio.com/).
 
-   2.&nbsp;nainstalujte nejnovější [ C# pro Visual Studio Code příponou](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
+   2\. Nainstalujte nejnovější [ C# pro Visual Studio Code příponou](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
 
-   3.&nbsp;Blazor prostředí na straně klienta, spusťte následující příkaz z příkazového prostředí:
+   3\. Blazor prostředí na straně klienta spusťte následující příkaz z příkazového prostředí:
 
       ```console
       dotnet new blazor -o WebApplication1
@@ -68,29 +68,29 @@ Začínáme s Blazor:
 
       Informace o dvou modelech hostování Blazor a na straně serveru a na straně klienta najdete v tématu <xref:blazor/hosting-models>.
 
-   4.&nbsp;otevřít *WebApplication1* složky ve Visual Studio Code.
+   4\. Otevřít *WebApplication1* složky ve Visual Studio Code.
 
-   5.&nbsp;projektu pro Blazor na straně serveru, integrovaného vývojového prostředí požádá, abyste přidali prostředky pro sestavení a ladění projektu. Vyberte **Ano**.
+   5\. Projekt Blazor na straně serveru požádá o integrovaného vývojového prostředí, abyste přidali prostředky pro sestavení a ladění projektu. Vyberte **Ano**.
 
-   6.&nbsp;při použití aplikace na straně serveru Blazor aplikaci spustíme s použitím ladicího programu Visual Studio Code. Pokud používáte aplikaci na straně klienta Blazor, spusťte `dotnet run` ze složky projektu aplikace.
+   6\. Pokud používáte aplikaci na straně serveru Blazor aplikaci spustíme s použitím ladicího programu Visual Studio Code. Pokud používáte aplikaci na straně klienta Blazor, spusťte `dotnet run` ze složky projektu aplikace.
 
    <!--
 
    # [Visual Studio for Mac](#tab/visual-studio-mac)
 
-   1.&nbsp;Install [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/). Switch the [Update channel to Preview](/visualstudio/mac/install-preview).
+   1\. Install [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/). Switch the [Update channel to Preview](/visualstudio/mac/install-preview).
 
-   2.&nbsp;Select **File** > **New Solution** or **New Project**.
+   2\. Select **File** > **New Solution** or **New Project**.
 
-   3.&nbsp;In the sidebar, select **.NET Core** > **App**.
+   3\. In the sidebar, select **.NET Core** > **App**.
 
-   4.&nbsp;For a Blazor server-side experience, select the **ASP.NET Core Blazor (server-side)** template. For a Blazor client-side experience, select the **ASP.NET Core Blazor (client-side)** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
+   4\. For a Blazor server-side experience, select the **ASP.NET Core Blazor (server-side)** template. For a Blazor client-side experience, select the **ASP.NET Core Blazor (client-side)** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
 
-   5.&nbsp;The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
+   5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
 
-   6.&nbsp;In the **Project Name** field, enter `WebApplication1`. Select **Create**.
+   6\. In the **Project Name** field, enter `WebApplication1`. Select **Create**.
 
-   7.&nbsp;Select **Run** > **Run Without Debugging** to run the app *without the debugger*. Running with the debugger isn't supported at this time.
+   7\. Select **Run** > **Run Without Debugging** to run the app *without the debugger*. Running with the debugger isn't supported at this time.
 
    -->
 
@@ -141,7 +141,7 @@ Pokaždé, když **klikněte na mě** výběru tlačítka:
 
 Modul runtime porovnává nový obsah na předchozí obsah a platí pouze změněný obsah do modelu Document Object Model (DOM).
 
-Přidáte součást do jiné součásti pomocí syntaxe pro HTML. Komponenta parametry jsou určeny pomocí atributů nebo podřízený obsah. Například můžete přidat součást čítače na domovskou stránku aplikace tak, že přidáte `<Counter />` – element pro součást indexu.
+Přidáte součást do jiné součásti pomocí syntaxe kódu HTML. Například můžete přidat součást čítače na domovskou stránku aplikace tak, že přidáte `<Counter />` – element pro součást indexu.
 
 *Pages/Index.razor*:
 
@@ -149,7 +149,7 @@ Přidáte součást do jiné součásti pomocí syntaxe pro HTML. Komponenta par
 
 Spusťte aplikaci. Na domovskou stránku má svůj vlastní čítače poskytované součást čítače.
 
-Přidání parametru do komponenty čítače, aktualizovat součásti `@functions` blok:
+Jsou zadány parametry komponenty pomocí atributů nebo [podřízený obsah](xref:blazor/components#child-content), které umožňují nastavit vlastnosti v podřízené součásti. Přidání parametru do komponenty čítače, aktualizovat součásti `@functions` blok:
 
 * Přidání vlastnosti pro `IncrementAmount` s `[Parameter]` atribut.
 * Změnit `IncrementCount` metoda se má použít `IncrementAmount` při zvýšit hodnotu `currentCount`.

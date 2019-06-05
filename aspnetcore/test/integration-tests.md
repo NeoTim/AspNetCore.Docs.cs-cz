@@ -5,14 +5,14 @@ description: Zjistěte, jak zkoušky integrace Ujistěte se, že součásti vaš
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/25/2019
+ms.date: 06/05/2019
 uid: test/integration-tests
-ms.openlocfilehash: 46c3b227ca0b3def5ab7d527a2f6ef2497d55f83
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 3af2a1f7c6a65d7ff42597972ee151a50fc95fb6
+ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898656"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66716377"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -84,7 +84,7 @@ Součásti infrastruktury, jako je například hostitel webového testu a testu 
 
 `Microsoft.AspNetCore.Mvc.Testing` Balíček provádí následující úlohy:
 
-* Zkopíruje soubor závislosti (*\*.deps*) z SUT do testovacího projektu *bin* složky.
+* Zkopíruje soubor závislosti ( *\*.deps*) z SUT do testovacího projektu *bin* adresáře.
 * Nastaví kořenové obsahu do kořenového adresáře projektu SUT aby statické soubory a stránky a zobrazení se našly při spouštění testů.
 * Poskytuje [WebApplicationFactory](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) tříd zjednodušení spuštění SUT s `TestServer`.
 
@@ -127,6 +127,8 @@ Následující testovací třídy, `BasicTests`, používá `WebApplicationFacto
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient` , který automaticky sleduje přesměrování a zpracovává soubory cookie.
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet1)]
+
+Ve výchozím nastavení, které není nezbytné soubory cookie není zachováno napříč požadavky, když [GDPR souhlas zásad](xref:security/gdpr) je povolená. Zachovat soubory cookie které není nezbytné, jako jsou ty používané poskytovatelem TempData, označte je jako důležité pro testy. Pokyny k označení souboru cookie jako nezbytné, naleznete v tématu [základní cookie](xref:security/gdpr#essential-cookies).
 
 ### <a name="test-a-secure-endpoint"></a>Testování zabezpečené koncového bodu
 
@@ -270,7 +272,7 @@ Značky vytvářené při provádění testu odráží text nabídky poskytnutý
 
 ## <a name="how-the-test-infrastructure-infers-the-app-content-root-path"></a>Jak odvodí testovací infrastrukturu obsahu kořenová cesta aplikace
 
-`WebApplicationFactory` Konstruktor odvodí obsahu kořenové cestě aplikace tak, že [WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute) na sestavení obsahující testy integrace s klíčem rovná `TEntryPoint` sestavení `System.Reflection.Assembly.FullName`. V případě, že nebyl nalezen atribut se správným klíčem, `WebApplicationFactory` spadne zpět na hledání souboru řešení (*\*.sln*) a připojí `TEntryPoint` název sestavení k adresáři řešení. Kořenový adresář aplikace (obsahu kořenová cesta) se používá ke zjišťování, zobrazení a soubory obsahu.
+`WebApplicationFactory` Konstruktor odvodí obsahu kořenové cestě aplikace tak, že [WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute) na sestavení obsahující testy integrace s klíčem rovná `TEntryPoint` sestavení `System.Reflection.Assembly.FullName`. V případě, že nebyl nalezen atribut se správným klíčem, `WebApplicationFactory` spadne zpět na hledání souboru řešení ( *\*.sln*) a připojí `TEntryPoint` název sestavení k adresáři řešení. Kořenový adresář aplikace (obsahu kořenová cesta) se používá ke zjišťování, zobrazení a soubory obsahu.
 
 Ve většině případů není nutné explicitně nastavit kořen obsahu aplikace, protože logiky hledání obvykle najde správnou obsahu kořenové za běhu. Ve speciální scénářích, kde nebyl nalezen kořen obsahu pomocí algoritmu integrované hledání obsahu kořenové dá se zadat explicitně nebo pomocí vlastní logiky aplikace. Chcete-li nastavit kořen obsahu aplikace v těchto scénářích, zavolejte `UseSolutionRelativeContentRoot` rozšiřující metoda z [Microsoft.AspNetCore.TestHost](https://www.nuget.org/packages/Microsoft.AspNetCore.TestHost) balíčku. Zadejte relativní cestu řešení a název nebo glob souboru vzor nepovinné řešení (výchozí = `*.sln`).
 
@@ -311,7 +313,7 @@ Volání [UseSolutionRelativeContentRoot](/dotnet/api/microsoft.aspnetcore.testh
 
 ## <a name="disable-shadow-copying"></a>Zakázat stínové kopírování sestavení
 
-Stínové kopírování sestavení způsobí, že testy ke spuštění v jiné složce než výstupní složka. Pro testy fungovalo správně musí se zakázat stínové kopírování sestavení. [Ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování sestavení pro xUnit, včetně *xunit.runner.json* souboru s nastavením správnou konfiguraci. Další informace najdete v tématu [xUnit nakonfigurování JSON](https://xunit.github.io/docs/configuring-with-json.html).
+Stínové kopírování sestavení způsobí, že testy ke spuštění v jiném adresáři než výstupní adresář. Pro testy fungovalo správně musí se zakázat stínové kopírování sestavení. [Ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování sestavení pro xUnit, včetně *xunit.runner.json* souboru s nastavením správnou konfiguraci. Další informace najdete v tématu [xUnit nakonfigurování JSON](https://xunit.github.io/docs/configuring-with-json.html).
 
 Přidat *xunit.runner.json* souboru do kořenového adresáře projektu testování s následujícím obsahem:
 
@@ -329,12 +331,12 @@ Po testech `IClassFixture` implementace jsou spouštěny, [TestServer](/dotnet/a
 
 [Ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Aplikace | Složka projektu | Popis |
-| --- | -------------- | ----------- |
+| Aplikace | Adresář projektu | Popis |
+| --- | ----------------- | ----------- |
 | Zpráva aplikace (SUT) | *src/RazorPagesProject* | Umožňuje uživateli přidat, toku nějaký tok odstranit, odstraňte všechny a analyzovat zprávy. |
 | Test aplikace | *tests/RazorPagesProject.Tests* | Slouží jako test integrace SUT. |
 
-Testy můžete spustit pomocí integrované testovací funkce integrované vývojové prostředí, například [sady Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazového řádku, spusťte následující příkaz na příkazovém řádku v *tests/RazorPagesProject.Tests* složky:
+Testy můžete spustit pomocí integrované testovací funkce integrované vývojové prostředí, například [sady Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazového řádku, spusťte následující příkaz na příkazovém řádku v *tests/RazorPagesProject.Tests* adresáře:
 
 ```console
 dotnet test
@@ -357,10 +359,10 @@ I když se aplikace nepoužívá model úložiště a není efektivní příklad
 
 ### <a name="test-app-organization"></a>Testování aplikace organizace
 
-Aplikace testů je konzolová aplikace uvnitř *tests/RazorPagesProject.Tests* složky.
+Aplikace testů je konzolová aplikace uvnitř *tests/RazorPagesProject.Tests* adresáře.
 
-| Složky aplikace testu | Popis |
-| --------------- | ----------- |
+| Testovací adresář aplikace | Popis |
+| ------------------ | ----------- |
 | *BasicTests* | *BasicTests.cs* obsahuje testovací metody pro směrování, přístup k zabezpečené stránce neověřené uživatelem a získání uživatelského profilu Githubu a kontrolu přihlášení profilu uživatele. |
 | *IntegrationTests* | *IndexPageTests.cs* obsahuje testy integrace pro indexovou stránku pomocí vlastní `WebApplicationFactory` třídy. |
 | *Pomocné rutiny a nástroje* | <ul><li>*Utilities.cs* obsahuje `InitializeDbForTests` metodu použitou k přidání dat do databáze s testovací data.</li><li>*HtmlHelpers.cs* představuje způsob, jak vrátit AngleSharp `IHtmlDocument` používají testovacích metod.</li><li>*HttpClientExtensions.cs* poskytují přetížení pro `SendAsync` pro odesílání požadavků SUT.</li></ul> |

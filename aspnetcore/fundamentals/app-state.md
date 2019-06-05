@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2019
 uid: fundamentals/app-state
-ms.openlocfilehash: cf5a1da78f3918bc4a49209157b9aa4bc7ed8458
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 3d878a389462aa7f3932f374034fb7cf11fd191c
+ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900594"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66716338"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>Stav relace a aplikace v ASP.NET Core
 
@@ -65,7 +65,7 @@ Stav relace je třeba následujícího chování:
 * Aplikace si zachová relace po omezenou dobu od poslední žádosti. Aplikace nastaví časový limit relace nebo výchozí hodnotu 20 minut. Stav relace je ideální pro ukládání uživatelských dat, která je specifická pro konkrétní relace, ale pokud dat nevyžaduje, aby trvalého úložiště napříč relacemi.
 * Odstranit data relace buď pokud [ISession.Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) volána implementace nebo vypršení platnosti relace.
 * Neexistuje žádný výchozí mechanismus k informování kód aplikace, že bylo ukončeno prohlížeče klienta nebo když souboru cookie relace se odstraní nebo vypršení platnosti na straně klienta.
-* ASP.NET Core MVC a šablony Razor pages zahrnují podporu pro obecné nařízení (GDPR). Soubory cookie pro stav relace nejsou označené základní ve výchozím nastavení, proto stav relace není funkční, pokud je povoleno sledování návštěvníkem lokality. Další informace naleznete v tématu <xref:security/gdpr#tempdata-provider-and-session-state-cookies-are-not-essential>.
+* ASP.NET Core MVC a šablony Razor pages zahrnují podporu pro obecné nařízení (GDPR). Soubory cookie pro stav relace nejsou označené základní ve výchozím nastavení, proto stav relace není funkční, pokud je povoleno sledování návštěvníkem lokality. Další informace naleznete v tématu <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>.
 
 > [!WARNING]
 > Citlivá data neukládejte do stavu relace. Uživatel nemusí zavřete prohlížeč a zrušte souboru cookie relace. Některé prohlížeče udržovat platné soubory cookie v prohlížeči windows. Relace nemusí být omezeny na jednoho uživatele&mdash;dalšího uživatele může nadále procházet aplikace pomocí stejného souboru cookie relace.
