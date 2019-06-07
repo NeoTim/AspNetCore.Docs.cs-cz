@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/26/2019
+ms.date: 06/05/2019
 uid: blazor/components
-ms.openlocfilehash: f9964dfdc3ae3108b6dbd6d0f5290254e2fc09cd
-ms.sourcegitcommit: a1364109d11d414121a6337b611bee61d6e489e9
+ms.openlocfilehash: fdd755a245b0ef9697b500c734a44fac8942f068
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/04/2019
-ms.locfileid: "66491203"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750144"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -51,6 +51,12 @@ Komponenta členy můžete poté použita jako tato součást je vykreslování 
 ```
 
 Po se zpočátku zobrazí komponentu obnoví komponenty jeho vykreslení stromu v reakci na události. Blazor poté porovnává větve vykreslení oproti předchozímu a použije všechny změny do prohlížeče Document Object Model (DOM).
+
+Součásti jsou běžné C# třídy a může být umístěna kdekoli v rámci projektu. Součásti, které se obvykle vytvářejí webové stránky se nacházejí v *stránky* složky. Součásti non-page se často umístí do *Shared* nebo vlastní složky přidán do projektu. Pokud chcete použít vlastní složku, buď přidejte vlastní složky oboru názvů na nadřazenou komponentu nebo na aplikaci  *\_Imports.razor* souboru. Například následující obor názvů umožňuje součástí *součásti* složky, které jsou k dispozici, když je aplikace kořenový obor názvů `WebApplication`:
+
+```cshtml
+@using WebApplication.Components
+```
 
 ## <a name="integrate-components-into-razor-pages-and-mvc-apps"></a>Integrovat komponenty do aplikace Razor Pages a MVC
 

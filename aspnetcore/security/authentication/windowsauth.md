@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat ověřování Windows v ASP.NET Core 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 05/29/2019
+ms.date: 06/05/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 9dfff5dcba409ddca7e05c771b864ab121e0ea85
-ms.sourcegitcommit: 06c4f2910dd54ded25e1b8750e09c66578748bc9
+ms.openlocfilehash: 900bbf5f14b1876ad537b2b77e4ba07d7aa168f2
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/30/2019
-ms.locfileid: "66395926"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750168"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>Konfigurace ověřování Windows v ASP.NET Core
 
@@ -22,9 +22,17 @@ Podle [Scott Addie](https://twitter.com/Scott_Addie) a [Luke Latham](https://git
 
 Ověřování Windows závisí na operačním systému k ověření uživatelů z aplikací ASP.NET Core. Ověřování Windows můžete použít, pokud váš server běží v podnikové síti pomocí identity služby Active Directory domény nebo účty Windows k identifikaci uživatelů. Ověřování Windows je nejvhodnější pro prostředí intranetu, kde uživatelé klientských aplikací a webové servery patří do stejné domény Windows.
 
-## <a name="launch-settings-debugger"></a>Spusťte nastavení (ladicí program)
+## <a name="iisiis-express"></a>IIS/IIS Express
 
-Konfigurace nastavení spuštění má vliv pouze *Properties/launchSettings.json* souboru a neprovede konfiguraci serveru služby IIS nebo ovladač HTTP.sys pro ověřování Windows. Konfigurace serveru je podrobně [povolit ověřování služby IIS nebo ovladač HTTP.sys](#authentication-services-for-iis-or-httpsys) oddílu.
+Přidat ověřovací služby vyvoláním <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> (<xref:Microsoft.AspNetCore.Server.IISIntegration?displayProperty=fullName> oboru názvů) v `Startup.ConfigureServices`:
+
+```csharp
+services.AddAuthentication(IISDefaults.AuthenticationScheme);
+```
+
+### <a name="launch-settings-debugger"></a>Spusťte nastavení (ladicí program)
+
+Konfigurace nastavení spuštění má vliv pouze *Properties/launchSettings.json* souboru pro službu IIS Express a nebude konfigurace IIS pro ověřování Windows. Konfigurace serveru je podrobně [IIS](#iis) oddílu.
 
 **Webovou aplikaci** šablony, které jsou k dispozici prostřednictvím sady Visual Studio nebo rozhraní příkazového řádku .NET Core může být nakonfigurované pro podporu ověřování Windows, která aktualizuje *Properties/launchSettings.json* souboru automaticky.
 
@@ -76,17 +84,7 @@ Aktualizace `iisSettings` uzlu *launchSettings.json* souboru:
 
 Při úpravě existujícího projektu, přesvědčte se, že soubor projektu obsahuje odkaz na balíček pro [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) **nebo** [ Microsoft.AspNetCore.Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication/) balíček NuGet.
 
-## <a name="authentication-services-for-iis-or-httpsys"></a>Ověřování služby IIS nebo ovladač HTTP.sys
-
-V závislosti na scénáři hostování, postupujte podle pokynů v **buď** [IIS](#iis) části **nebo** [HTTP.sys](#httpsys) oddílu.
-
 ### <a name="iis"></a>IIS
-
-Přidat ověřovací služby vyvoláním <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> (<xref:Microsoft.AspNetCore.Server.IISIntegration?displayProperty=fullName> oboru názvů) v `Startup.ConfigureServices`:
-
-```csharp
-services.AddAuthentication(IISDefaults.AuthenticationScheme);
-```
 
 Služba IIS použije [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) pro hostování aplikací ASP.NET Core. Ověřování Windows je nakonfigurovaný pro službu IIS prostřednictvím *web.config* souboru. V následujících částech zobrazit postup:
 
@@ -127,9 +125,9 @@ Použití **buď** z následujících postupů:
   * Pomocí Správce služby IIS k resetování nastavení ve *web.config* souboru po souboru se přepíše při nasazení.
   * Přidat *souboru web.config* do aplikace místně s nastavením.
 
-### <a name="httpsys"></a>HTTP.sys
+## <a name="httpsys"></a>HTTP.sys
 
-I když [Kestrel](xref:fundamentals/servers/kestrel) nepodporuje ověřování Windows, můžete použít [HTTP.sys](xref:fundamentals/servers/httpsys) pro zajištění podpory scénářů v místním prostředí ve Windows.
+V místním prostředí scénáře [Kestrel](xref:fundamentals/servers/kestrel) nemá podporu ověřování Windows, ale vy můžete použít [HTTP.sys](xref:fundamentals/servers/httpsys).
 
 Přidat ověřovací služby vyvoláním <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> (<xref:Microsoft.AspNetCore.Server.HttpSys?displayProperty=fullName> oboru názvů) v `Startup.ConfigureServices`:
 

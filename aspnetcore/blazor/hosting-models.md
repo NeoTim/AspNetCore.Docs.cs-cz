@@ -5,14 +5,14 @@ description: Seznamte se s na straně klienta i stranu serveru Blazor hostován�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 06/05/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: d9e430c90d9a01976a8e6222a15504b43f91e2ed
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: 27a0387990d4a268cde854583c76ec03cd50a026
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376331"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750141"
 ---
 # <a name="blazor-hosting-models"></a>Blazor modelech hostování
 
@@ -152,72 +152,6 @@ Abyste mohli nakonfigurovat klienta SignalR v *stránek /\_Host.cshtml* souboru:
     }
   });
 </script>
-```
-
-### <a name="improved-signalr-connection-lifetime-handling"></a>Vylepšené zpracování životnost připojení SignalR
-
-Automatické připojování se dá nastavit pomocí volání `withAutomaticReconnect` metodu na `HubConnectionBuilder`:
-
-```csharp
-const connection = new signalR.HubConnectionBuilder()
-    .withUrl("/chatHub")
-    .withAutomaticReconnect()
-    .build();
-```
-
-Bez zadání parametrů, `withAutomaticReconnect` nakonfiguruje klienta se znovu připojit, 0, 2, 10 a 30 sekund mezi jednotlivými pokusy o čekání.
-
-Chcete-li nakonfigurovat jiné než výchozí počet pokusů o nové připojení před selháním nebo změnit časování volání metody reconnect `withAutomaticReconnect` přijímá pole čísel představující zpoždění v milisekundách pro čekání před zahájením každý pokus o volání metody reconnect:
-
-```csharp
-const connection = new signalR.HubConnectionBuilder()
-    .withUrl("/chatHub")
-    .withAutomaticReconnect([0, 0, 2000, 5000]) // defaults to [0, 2000, 10000, 30000]
-    .build();
-```
-
-### <a name="improved-disconnect-and-reconnect-handling"></a>Vylepšené odpojit a znovu připojte zpracování
-
-Před zahájením jakékoli pokusy o volání metody reconnect `HubConnection` přejde do `Reconnecting` stavu a aktivuje se jeho `onreconnecting` zpětného volání. To představuje příležitost k upozornit uživatele, že připojení bylo přerušeno, zakážete prvky uživatelského rozhraní a zmírnit matoucí uživatelské scénáře, které mohou nastat z důvodu odpojeném stavu:
-
-```javascript
-connection.onreconnecting((error) => {
-  console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
-
-  document.getElementById("messageInput").disabled = true;
-
-  const li = document.createElement("li");
-  li.textContent = `Connection lost due to error "${error}". Reconnecting.`;
-  document.getElementById("messagesList").appendChild(li);
-});
-```
-
-Pokud klient úspěšně obnoví v rámci své první čtyři pokusy `HubConnection` přechody zpět `Connected` stavu a aktivuje se v `onreconnected` zpětného volání. To představuje příležitost k informování uživatelů o tom, zda je připojení znovu navázáno:
-
-```javascript
-connection.onreconnected((connectionId) => {
-  console.assert(connection.state === signalR.HubConnectionState.Connected);
-
-  document.getElementById("messageInput").disabled = false;
-
-  const li = document.createElement("li");
-  li.textContent = `Connection reestablished. Connected with connectionId "${connectionId}".`;
-  document.getElementById("messagesList").appendChild(li);
-});
-```
-
-Pokud klient nebude znovu připojit úspěšně v rámci své první čtyři pokusy `HubConnection` přejde do `Disconnected` stavu a aktivuje se jeho `onclosed` zpětného volání. Toto je příležitost k informování uživatelů o tom, že se trvale ztratí připojení a doporučujeme aktualizovat stránku.
-
-```javascript
-connection.onclose((error) => {
-  console.assert(connection.state === signalR.HubConnectionState.Disconnected);
-
-  document.getElementById("messageInput").disabled = true;
-
-  const li = document.createElement("li");
-  li.textContent = `Connection closed due to error "${error}". Try refreshing this page to restart the connection.`;
-  document.getElementById("messagesList").appendChild(li);
-})
 ```
 
 ## <a name="additional-resources"></a>Další zdroje

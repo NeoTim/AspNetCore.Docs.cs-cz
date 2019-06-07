@@ -5,12 +5,12 @@ description: Ukazuje, jak vytvářet, číst, aktualizovat, odstranit pomocí EF
 ms.author: riande
 ms.date: 6/31/2017
 uid: data/ef-rp/crud
-ms.openlocfilehash: 43d133c61c0387ebcb4bcb2d22c800588d8534c3
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: ec22c82b3b70399017b5b9aa61896440db647062
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65516925"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750018"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - CRUD - 2, 8
 
@@ -123,7 +123,7 @@ V předchozím kódu `TryUpdateModelAsync<Student>` pokusí aktualizovat `emptyS
 V předchozím příkladu:
 
 * Druhý argument (`"student", // Prefix`) je předpona, která se používá pro vyhledávání hodnoty. Není malá a velká písmena.
-* Hodnoty odeslaného formuláře se převedou na typy v `Student` model pomocí [vazby modelu](xref:mvc/models/model-binding#how-model-binding-works).
+* Hodnoty odeslaného formuláře se převedou na typy v `Student` model pomocí [vazby modelu](xref:mvc/models/model-binding).
 
 <a id="overpost"></a>
 
