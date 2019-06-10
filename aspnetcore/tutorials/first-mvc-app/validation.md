@@ -6,10 +6,10 @@ ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
 ms.openlocfilehash: 6c59d0188f67872c7dd5599967551d7d390bfdcf
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/19/2019
+ms.lasthandoff: 06/07/2019
 ms.locfileid: "65875047"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>Přidání ověřování do aplikace ASP.NET Core MVC
