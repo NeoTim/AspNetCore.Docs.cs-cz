@@ -5,14 +5,14 @@ description: Další informace o konfiguraci aplikací hostovaných za službou 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/24/2019
+ms.date: 06/07/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 2423b5bed760ad879d1c47c5e64b0f815b50397e
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: 582664071e8eb3d817cab10ea12c1df7c6d09ea7
+ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251385"
+ms.lasthandoff: 06/10/2019
+ms.locfileid: "66824818"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>Konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení
 
@@ -225,6 +225,38 @@ services.Configure<ForwardedHeadersOptions>(options =>
         IPAddress.Parse("::ffff:10.11.12.1"), 104));
 });
 ```
+
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>Vpřed schéma pro systémy Linux a nevyužívající službu IIS reverzních proxy serverů
+
+.NET core šablony volání <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> a <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*>. Tyto metody lokality umístěte do nekonečnou smyčku, pokud nasadíte do služby Azure Linux App Service, Azure s Linuxem virtuálních počítačů (VM), nebo za všechny ostatní reverzní proxy server kromě služby IIS. Protokol TLS je ukončeno prvkem reverzního proxy serveru a Kestrel není informován o schéma správnou žádost. OAuth a OIDC selhat i v této konfiguraci protože, která generují nesprávné přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> Přidá a nakonfiguruje předané Middleware záhlaví při spuštění za služby IIS, ale neexistuje žádná odpovídající automatické konfigurace pro Linux (integrace Apache nebo Nginx).
+
+Pokud chcete dál schéma z proxy serveru v scénáře nevyužívající službu IIS, přidejte a nakonfigurujte předané Middleware záhlaví. V `Startup.ConfigureServices`, použijte následující kód:
+
+```csharp
+// using Microsoft.AspNetCore.HttpOverrides;
+
+if (string.Equals(
+    Environment.GetEnvironmentVariable("ASPNETCORE_FORWARDEDHEADERS_ENABLED"), 
+    "true", StringComparison.OrdinalIgnoreCase))
+{
+    services.Configure<ForwardedHeadersOptions>(options =>
+    {
+        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | 
+            ForwardedHeaders.XForwardedProto;
+        // Only loopback proxies are allowed by default.
+        // Clear that restriction because forwarders are enabled by explicit 
+        // configuration.
+        options.KnownNetworks.Clear();
+        options.KnownProxies.Clear();
+    });
+}
+```
+
+Dokud se nová Image kontejnerů jsou k dispozici v Azure, musíte vytvořit nastavení aplikace (proměnnou prostředí) pro `ASPNETCORE_FORWARDEDHEADERS_ENABLED` nastavena na `true`. Další informace najdete v tématu [šablony nebudou fungovat v systému Linux Antares z důvodu chybějícího předávání schéma (aspnet/AspNetCore #4135)](https://github.com/aspnet/AspNetCore/issues/4135).
+
+::: moniker-end
 
 ## <a name="troubleshoot"></a>Řešení potíží
 

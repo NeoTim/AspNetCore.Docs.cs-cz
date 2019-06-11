@@ -4,14 +4,14 @@ author: prkhandelwal
 description: Tento kurz ukazuje vytvoření webového rozhraní ASP.NET Core API pomocí databáze MongoDB NoSQL.
 ms.author: scaddie
 ms.custom: mvc, seodec18
-ms.date: 06/04/2019
+ms.date: 06/10/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 6a8c5d75f562b38015101e039a2f5d96a5491595
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 5e3bdb10f0e192ba98df442959ceb68dc7c7adc5
+ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692560"
+ms.lasthandoff: 06/10/2019
+ms.locfileid: "66824781"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
@@ -26,6 +26,7 @@ V tomto kurzu se naučíte:
 > * Vytvoření databáze MongoDB
 > * Definování kolekce MongoDB a schématu
 > * Provádění operací MongoDB CRUD z webového rozhraní API
+> * Vlastní serializace JSON
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/sample) ([stažení](xref:index#how-to-download-a-sample))
 
@@ -187,7 +188,29 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 1. Přidat *modely* adresáře do kořenového adresáře projektu.
 1. Přidat `Book` třídu *modely* adresáře s následujícím kódem:
 
-    [!code-csharp[](first-mongo-app/sample/BooksApi/Models/Book.cs)]
+    ```csharp
+    using MongoDB.Bson;
+    using MongoDB.Bson.Serialization.Attributes;
+    
+    namespace BooksApi.Models
+    {
+        public class Book
+        {
+            [BsonId]
+            [BsonRepresentation(BsonType.ObjectId)]
+            public string Id { get; set; }
+    
+            [BsonElement("Name")]
+            public string BookName { get; set; }
+    
+            public decimal Price { get; set; }
+    
+            public string Category { get; set; }
+    
+            public string Author { get; set; }
+        }
+    }
+    ```
 
     Ve třídě předchozí `Id` vlastnost:
     
@@ -195,7 +218,7 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
     * Je opatřen poznámkou [[BsonId]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) se označí jako primární klíč dokumentu této vlastnosti.
     * Je opatřen poznámkou [[BsonRepresentation(BsonType.ObjectId)]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) povolit předávání parametru jako typ `string` místo [ObjectId](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) struktury. Mongo zpracovává server převod z `string` k `ObjectId`.
     
-    Další vlastnosti ve třídě, je opatřen poznámkou [[BsonElement]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) atribut. Hodnota atributu představuje název vlastnosti v kolekci MongoDB.
+    `BookName` Vlastnost je opatřen poznámkou [[BsonElement]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) atribut. Hodnota atributu `Name` představuje název vlastnosti v kolekci MongoDB.
 
 ## <a name="add-a-configuration-model"></a>Přidat konfigurační model
 
@@ -209,9 +232,9 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
     Předchozí `BookstoreDatabaseSettings` třída se používá k ukládání *appsettings.json* souboru `BookstoreDatabaseSettings` hodnot vlastností. Ve formátu JSON a C# názvy vlastností jsou pojmenované stejně jako k usnadnění procesu mapování.
 
-1. Přidejte následující kód, který `Startup.ConfigureServices`, před voláním `AddMvc`:
+1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices`:
 
-    [!code-csharp[](first-mongo-app/sample/BooksApi/Startup.cs?name=snippet_ConfigureDatabaseSettings)]
+    [!code-csharp[](first-mongo-app/sample_snapshot/BooksApi/Startup.ConfigureServices.AddDbSettings.cs?highlight=3-7)]
 
     V předchozím kódu:
 
@@ -231,9 +254,9 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
     V předchozím kódu `IBookstoreDatabaseSettings` instance je načten z DI prostřednictvím konstruktoru vkládání. Tento postup poskytuje přístup k *appsettings.json* konfigurační hodnoty, které byly přidány [přidat konfigurační model](#add-a-configuration-model) části.
 
-1. V `Startup.ConfigureServices`, zaregistrujte `BookService` třída s atributem DI:
+1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices`:
 
-    [!code-csharp[](first-mongo-app/sample/BooksApi/Startup.cs?name=snippet_ConfigureServices&highlight=9)]
+    [!code-csharp[](first-mongo-app/sample_snapshot/BooksApi/Startup.ConfigureServices.AddSingletonService.cs?highlight=9)]
 
     V předchozím kódu `BookService` třída je registrována s DI pro podporu vkládání konstruktor přijímací třídy. Je nejvhodnější doba platnosti služby typu singleton protože `BookService` převezme přímou závislost `MongoClient`. Za official je přínosné pro [pokyny pro opakované použití klient Mongo](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use), `MongoClient` by měly být zaregistrovány v DI s životností služby typu singleton.
 
@@ -306,6 +329,33 @@ Předchozí kontroler web API:
       "author":"Robert C. Martin"
     }
     ```
+
+## <a name="configure-json-serialization-options"></a>Konfigurovat možnosti serializace JSON
+
+Existují dva podrobnosti změnit o vrácená v odpovědi JSON [testování webového rozhraní API](#test-the-web-api) části:
+
+* Velká a malá písmena názvy vlastností ve formátu camelCase výchozí by měla být změněna tak, aby odpovídaly Pascal malá a velká písmena názvů vlastností objektu CLR.
+* `bookName` Vlastnost by měla být vrácena jako `Name`.
+
+Tím se uspokojí předchozí požadavky, proveďte následující změny:
+
+1. V `Startup.ConfigureServices`, zřetězení následující zvýrazněný kód do `AddMvc` volání metody:
+
+    [!code-csharp[](first-mongo-app/sample/BooksApi/Startup.cs?name=snippet_ConfigureServices&highlight=12)]
+
+    Předchozí změny názvy vlastností ve webovém rozhraní API serializovat shoda odpověď JSON odpovídající názvy vlastností v objektu typu CLR. Například `Book` třídy `Author` vlastnost serializuje jako `Author`.
+
+1. V *Models/Book.cs*, opatřit poznámkami `BookName` vlastnost s tímto [[JsonProperty]](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) atribut:
+
+    [!code-csharp[](first-mongo-app/sample/BooksApi/Models/Book.cs?name=snippet_BookNameProperty&highlight=2)]
+
+    `[JsonProperty]` Hodnotu atributu `Name` představuje název vlastnosti ve webovém rozhraní API serializovat odpověď JSON.
+
+1. Přidejte následující kód k hornímu okraji *Models/Book.cs* přeložit `[JsonProperty]` odkaz na atribut:
+
+    [!code-csharp[](first-mongo-app/sample/BooksApi/Models/Book.cs?name=snippet_NewtonsoftJsonImport)]
+
+1. Opakujte kroky uvedené v [testování webového rozhraní API](#test-the-web-api) oddílu. Všimněte si rozdílu v názvech vlastností JSON.
 
 ## <a name="next-steps"></a>Další kroky
 
