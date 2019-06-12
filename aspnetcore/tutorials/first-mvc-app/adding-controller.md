@@ -5,12 +5,12 @@ description: Zjistěte, jak přidat řadič jednoduchou aplikaci ASP.NET Core MV
 ms.author: riande
 ms.date: 02/28/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: dad9262e544fc216ddc694b11b0dfb88b58db9cd
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9dbfb52109260dbfe0c6c094a7ac4edae47d24e7
+ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900768"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66837342"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>Přidání kontroleru aplikace ASP.NET Core MVC
 
@@ -102,7 +102,7 @@ Upravte kód předat některé informace o parametrech z adresy URL kontroleru. 
 Předchozí kód:
 
 * Volitelný parametr funkce jazyka C# používá k označení, že `numTimes` parametr výchozí hodnotu 1, pokud není pro tento parametr předána žádná hodnota. <!-- remove for simplified -->
-* Používá`HtmlEncoder.Default.Encode` k ochraně aplikace před zlými úmysly vstup (konkrétně JavaScript).
+* Používá `HtmlEncoder.Default.Encode` k ochraně aplikace před zlými úmysly vstup (konkrétně JavaScript).
 * Používá [interpolovaných řetězců](/dotnet/articles/csharp/language-reference/keywords/interpolated-strings) v `$"Hello {name}, NumTimes is: {numTimes}"`. <!-- remove for simplified -->
 
 Spusťte aplikaci a přejděte do:

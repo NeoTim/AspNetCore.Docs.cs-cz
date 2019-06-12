@@ -3,14 +3,14 @@ title: Přehled rozhraní API příjemců pro ASP.NET Core
 author: rick-anderson
 description: Zobrazit stručný přehled různých uživatelů rozhraní API dostupná v rámci knihovny ochrany dat ASP.NET Core.
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 06/11/2019
 uid: security/data-protection/consumer-apis/overview
-ms.openlocfilehash: b0d11d097ee2d448b6781f6fa84445f6400fbc76
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: ff9badb55813cae0aa72d3a95dc53792332f109b
+ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087534"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66837383"
 ---
 # <a name="consumer-apis-overview-for-aspnet-core"></a>Přehled rozhraní API příjemců pro ASP.NET Core
 
@@ -32,7 +32,7 @@ Koncept stejné nebo jiné `IDataProtector` ties zpět na konceptu účel. Pokud
 
 ## <a name="consuming-these-interfaces"></a>Použití těchto rozhraní
 
-Pro komponentu s ohledem na DI zamýšlené použití je, že komponenta využít `IDataProtectionProvider` parametr v konstruktoru a že DI poskytuje tento systém automaticky tato služba při vytváření instance komponenty.
+Pro komponentu s ohledem na DI zamýšlené použití je, že součást má `IDataProtectionProvider` parametr v konstruktoru a že DI poskytuje tento systém automaticky tato služba při vytváření instance komponenty.
 
 > [!NOTE]
 > Některé aplikace (například konzolové aplikace nebo aplikace ASP.NET 4.x) nemusí být DI s ohledem na tak nemůžete použít tento mechanismus je popsáno zde. Pro tyto scénáře najdete [scénáře bez DI](xref:security/data-protection/configuration/non-di-scenarios) dokument pro další informace o získání instance `IDataProtection` poskytovatele bez nutnosti kontaktovat DI.

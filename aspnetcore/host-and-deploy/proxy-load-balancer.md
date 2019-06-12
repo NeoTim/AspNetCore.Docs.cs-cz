@@ -5,14 +5,14 @@ description: Další informace o konfiguraci aplikací hostovaných za službou 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/07/2019
+ms.date: 06/11/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 582664071e8eb3d817cab10ea12c1df7c6d09ea7
-ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
+ms.openlocfilehash: bcafc33b8faf81912d536d3df8941d196685ecad
+ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2019
-ms.locfileid: "66824818"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66837368"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>Konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení
 
@@ -342,6 +342,53 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 > [!IMPORTANT]
 > Povolte jenom důvěryhodným proxy serverů a sítí přeposílat záhlaví. V opačném případě [falšování adresy IP](https://www.iplocation.net/ip-spoofing) útoky jsou možné.
+
+## <a name="certificate-forwarding"></a>Předávání certifikátu 
+
+### <a name="on-azure"></a>V Azure
+
+Zobrazit [dokumentace ke službě Azure](/azure/app-service/app-service-web-configure-tls-mutual-auth) ke konfiguraci Azure Web Apps. Ve vaší aplikaci `Startup.Configure` metodu, přidejte následující kód před voláním `app.UseAuthentication();`:
+
+```csharp
+app.UseCertificateForwarding();
+```
+
+Také budete muset nakonfigurovat certifikát předávání middlewarem k určení názvu záhlaví, která používá Azure. Ve vaší aplikaci `Startup.ConfigureServices` metodu, přidejte následující kód ke konfiguraci záhlaví, ze kterého middleware vytvoří certifikát:
+
+```csharp
+services.AddCertificateForwarding(options =>
+    options.CertificateHeader = "X-ARR-ClientCert");
+```
+
+### <a name="with-other-web-proxies"></a>Pomocí dalších webových proxy serverů
+
+Pokud používáte proxy server, který není služby IIS nebo na Azure Web Apps směrování žádostí na aplikace, nakonfigurujte váš proxy server pro předávání certifikát, který obdržel v hlavičce HTTP. Ve vaší aplikaci `Startup.Configure` metodu, přidejte následující kód před voláním `app.UseAuthentication();`:
+
+```csharp
+app.UseCertificateForwarding();
+```
+
+Také budete muset nakonfigurovat certifikát předávání middlewarem k určení názvu záhlaví. Ve vaší aplikaci `Startup.ConfigureServices` metodu, přidejte následující kód ke konfiguraci záhlaví, ze kterého middleware vytvoří certifikát:
+
+```csharp
+services.AddCertificateForwarding(options =>
+    options.CertificateHeader = "YOUR_CERTIFICATE_HEADER_NAME");
+```
+
+Nakonec pokud proxy server dělá něco jiného než base64 kódování certifikátu (jako je tomu u serveru Nginx), můžete nastavit `HeaderConverter` možnost. Prohlédněte si následující příklad na `Startup.ConfigureServices`:
+
+```csharp
+services.AddCertificateForwarding(options =>
+{
+    options.CertificateHeader = "YOUR_CUSTOM_HEADER_NAME";
+    options.HeaderConverter = (headerValue) => 
+    {
+        var clientCertificate = 
+           /* some conversion logic to create an X509Certificate2 */
+        return clientCertificate;
+    }
+});
+```
 
 ## <a name="additional-resources"></a>Další zdroje
 

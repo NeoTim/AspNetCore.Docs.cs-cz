@@ -6,18 +6,18 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 05/01/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: ee7d4b2ae04b5f6c262acc5da0f86f90ab50585f
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 435f06b85af4a1a5a78a870c2add3e15ff1ffe89
+ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085672"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66837279"
 ---
 # <a name="logging-in-aspnet-core"></a>Protokolování v ASP.NET Core
 
 Podle [Steve Smith](https://ardalis.com/) a [Petr Dykstra](https://github.com/tdykstra)
 
-ASP.NET Core podporuje protokolování rozhraní API, která funguje s různých poskytovatelů třetích stran a vestavěné protokolování. Tento článek ukazuje, jak používat rozhraní API protokolování s předdefinované zprostředkovatele.
+ASP.NET Core podporuje API pro protokolování, které funguje s množstvím zabudovaných poskytovatelů protokolování a poskytovatelů třetích stran. Tento článek ukazuje, jak používat rozhraní API protokolování s předdefinované zprostředkovatele.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
@@ -34,7 +34,7 @@ Chcete-li přidat poskytovatele, zavolejte poskytovatele `Add{provider name}` me
 Volání výchozí projekt šablony <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, který přidá následující zprostředkovatele protokolování:
 
 * Konzola
-* Ladit
+* Ladění
 * EventSource (od verze 2.2 technologie ASP.NET Core)
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
@@ -112,7 +112,7 @@ Zápis protokolů `Program` třídy, získat `ILogger` instanci z DI:
 
 Protokolování by měl být tak rychle, že se vyplatí výkon asynchronního kódu. Pokud vaše úložiště dat protokolování je pomalá, nemáte přímý zápis. Vezměte v úvahu zpočátku zápis zpráv protokolu do rychlého úložiště a pak později přesunout k úložišti pomalé. Například pokud jste protokolování na SQL Server, nechcete provést přímo v `Log` metody, protože `Log` metody jsou synchronní. Místo toho synchronně přidání protokolu zpráv do fronty v paměti a mají pracovní proces na pozadí zpráv z fronty pro asynchronní práci z odesílání dat do SQL serveru.
 
-## <a name="configuration"></a>Konfigurace
+## <a name="configuration"></a>Konfiguraci
 
 Zprostředkovatel konfigurace protokolování poskytuje jeden nebo více poskytovatelů konfigurace:
 
@@ -465,14 +465,14 @@ Konfigurační data a `AddFilter` kód zobrazený v předchozích ukázkách vyt
 
 | Číslo | Poskytovatel      | Kategorie, které začínají...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| 1      | Ladit         | Všechny kategorie                          | Informace o       |
+| 1      | Ladění         | Všechny kategorie                          | Informace o       |
 | 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
-| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
+| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladění             |
 | 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
 | 5      | Konzola       | Všechny kategorie                          | Informace o       |
-| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
-| 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
-| 8      | Ladit         | Microsoft                               | Trasování             |
+| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladění             |
+| 7      | Všichni poskytovatelé | Systém                                  | Ladění             |
+| 8      | Ladění         | Microsoft                               | Trasování             |
 
 Když `ILogger` je vytvořen objekt, `ILoggerFactory` objekt vybere jedno pravidlo na poskytovatele, který chcete použít pro tento protokolovač. Všechny zprávy, autorem `ILogger` instance jsou filtrovány podle vybrané pravidla. Nejspecifičtější pravidla pro každého zprostředkovatele a dvojice kategorie je vybrat z dostupných pravidla.
 
@@ -495,7 +495,7 @@ Výsledná `ILogger` instance odešle protokoly `Trace` úroveň a vyšší k po
 Každý poskytovatel definuje *alias* , který lze použít v konfiguraci místo plně kvalifikovaného názvu.  Pro předdefinované zprostředkovatele použijte následující aliasy:
 
 * Konzola
-* Ladit
+* Ladění
 * EventSource
 * EventLog
 * TraceSource
@@ -823,9 +823,10 @@ Chcete-li nakonfigurovat nastavení poskytovatele, použijte <xref:Microsoft.Ext
 
 ::: moniker-end
 
-Když nasadíte aplikaci služby App Service, aplikace respektuje nastavení v [diagnostické protokoly](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) část **služby App Service** stránky na webu Azure portal. Když tato nastavení jsou aktualizovány, změny se projeví okamžitě bez nutnosti restartování nebo opětovné nasazení aplikace.
+Když nasadíte aplikaci služby App Service, aplikace respektuje nastavení v [protokoly služby App Service](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) část **služby App Service** stránky na webu Azure portal. Když tato nastavení jsou aktualizovány, změny se projeví okamžitě bez nutnosti restartování nebo opětovné nasazení aplikace.
 
-![Nastavení protokolování Azure](index/_static/azure-logging-settings.png)
+* **Protokolování aplikace (systém souborů)**
+* **Protokolování aplikace (Blob)**
 
 Výchozím umístěním pro soubory protokolů je *D:\\domácí\\LogFiles\\aplikace* složky a výchozí název souboru je *diagnostiky yyyymmdd.txt*. Výchozí limit velikosti souboru je 10 MB a výchozí maximální počet souborů, které uchovávají se 2. Výchozí název objektu blob je *{app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt*.
 
@@ -841,14 +842,11 @@ Streamování protokolů Azure umožňuje zobrazit protokol aktivit v reálném 
 
 Postup konfigurace, streamování protokolů Azure:
 
-* Přejděte **diagnostické protokoly** stránky na stránce portálu vaší aplikace.
+* Přejděte **protokoly služby App Service** stránky na stránce portálu vaší aplikace.
 * Nastavte **protokolování aplikace (systém souborů)** k **na**.
+* Vyberte protokol **úroveň**.
 
-![Stránka portálu diagnostické protokoly Azure](index/_static/azure-diagnostic-logs.png)
-
-Přejděte **streamování protokolů** stránku, abyste zobrazili zprávy aplikace. Jsou aplikace prostřednictvím přihlášení `ILogger` rozhraní.
-
-![Streamování protokolů Azure aplikace na portálu.](index/_static/azure-log-streaming.png)
+Přejděte **Stream protokolů** stránku, abyste zobrazili zprávy aplikace. Jsou aplikace prostřednictvím přihlášení `ILogger` rozhraní.
 
 ::: moniker range=">= aspnetcore-1.1"
 
