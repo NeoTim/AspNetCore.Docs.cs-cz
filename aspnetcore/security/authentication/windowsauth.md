@@ -5,22 +5,35 @@ description: Zjistěte, jak nakonfigurovat ověřování Windows v ASP.NET Core 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 06/05/2019
+ms.date: 06/12/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 900bbf5f14b1876ad537b2b77e4ba07d7aa168f2
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: 93f833adff95f25d570947cd1a9035d652f522c2
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750168"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034948"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>Konfigurace ověřování Windows v ASP.NET Core
 
 Podle [Scott Addie](https://twitter.com/Scott_Addie) a [Luke Latham](https://github.com/guardrex)
 
-[Ověřování Windows](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) lze konfigurovat pro aplikace ASP.NET Core s hostitelem [IIS](xref:host-and-deploy/iis/index) nebo [HTTP.sys](xref:fundamentals/servers/httpsys).
+::: moniker range=">= aspnetcore-3.0"
+
+Ověřování Windows (označované také jako ověřování Negotiate, Kerberos nebo NTLM) se dá nakonfigurovat pro aplikace ASP.NET Core s hostitelem [IIS](xref:host-and-deploy/iis/index), [Kestrel](xref:fundamentals/servers/kestrel), nebo [HTTP.sys](xref:fundamentals/servers/httpsys) .
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Ověřování Windows (označované také jako ověřování Negotiate, Kerberos nebo NTLM) se dá nakonfigurovat pro aplikace ASP.NET Core s hostitelem [IIS](xref:host-and-deploy/iis/index) nebo [HTTP.sys](xref:fundamentals/servers/httpsys).
+
+::: moniker-end
 
 Ověřování Windows závisí na operačním systému k ověření uživatelů z aplikací ASP.NET Core. Ověřování Windows můžete použít, pokud váš server běží v podnikové síti pomocí identity služby Active Directory domény nebo účty Windows k identifikaci uživatelů. Ověřování Windows je nejvhodnější pro prostředí intranetu, kde uživatelé klientských aplikací a webové servery patří do stejné domény Windows.
+
+> [!NOTE]
+> HTTP/2 nepodporuje ověřování Windows. Výzev ověřování lze odeslat v odpovědi HTTP/2, ale klient musí před ověřením downgradovat HTTP/1.1.
 
 ## <a name="iisiis-express"></a>IIS/IIS Express
 
@@ -125,9 +138,65 @@ Použití **buď** z následujících postupů:
   * Pomocí Správce služby IIS k resetování nastavení ve *web.config* souboru po souboru se přepíše při nasazení.
   * Přidat *souboru web.config* do aplikace místně s nastavením.
 
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="kestrel"></a>Kestrel
+
+ [Microsoft.AspNetCore.Authentication.Negotiate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) jde použít balíček NuGet s [Kestrel](xref:fundamentals/servers/kestrel) pro podporu ověřování Windows ve Windows, Linuxu a macOS pomocí Negotiate, protokolu Kerberos a NTLM.
+
+> [!WARNING]
+> Přihlašovací údaje můžete nastavit jako trvalý napříč požadavky na připojení. *Vyjednávání ověřování se nesmí používat s proxy servery, pokud proxy server udržuje vztahů 1:1 připojení (trvalé připojení) s Kestrel.* To znamená, že vyjednat ověření se nesmí používat s Kestrel za IIS [ASP.NET Core modulu (ANCM) out-of-process](xref:host-and-deploy/iis/index#out-of-process-hosting-model).
+
+ Přidat ověřovací služby vyvoláním <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> (`Microsoft.AspNetCore.Authentication.Negotiate` oboru názvů) a `AddNegotitate` (`Microsoft.AspNetCore.Authentication.Negotiate` oboru názvů) v `Startup.ConfigureServices`:
+
+ ```csharp
+services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+    .AddNegotiate();
+```
+
+Přidat ověřovací Middleware voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> v `Startup.Configure`:
+
+ ```csharp
+app.UseAuthentication();
+
+app.UseMvc();
+```
+
+Další informace o middlewaru, naleznete v tématu <xref:fundamentals/middleware/index>.
+
+Anonymní žádosti jsou povoleny. Použití [ověřování ASP.NET Core](xref:security/authorization/introduction) vybízí anonymní žádosti o ověření.
+
+### <a name="windows-environment-configuration"></a>Konfigurace prostředí Windows
+
+[Microsoft.AspNetCore.Authentication.Negotiate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) komponenta provede ověřování v režimu uživatele. Hlavní názvy služby (SPN) musí být přidaný do uživatelský účet spouštějící službu, účet počítače. Spustit `setspn -S HTTP/mysrevername.mydomain.com myuser` v správu příkazové okno.
+
+### <a name="linux-and-macos-environment-configuration"></a>Konfigurace prostředí Linux a macOS
+
+Pokyny pro připojení k počítači s Linuxem nebo macOS k doméně Windows jsou k dispozici v [připojení Azure Data Studio k SQL serveru pomocí ověřování Windows - Kerberos](/sql/azure-data-studio/enable-kerberos?view=sql-server-2017#join-your-os-to-the-active-directory-domain-controller) článku. Podle pokynů vytvořte účet počítače pro počítač s Linuxem v doméně. K tomuto účtu počítače je nutné přidat hlavní názvy služby.
+
+> [!NOTE]
+> Podle pokynů v [připojení Azure Data Studio k SQL serveru pomocí ověřování Windows - Kerberos](/sql/azure-data-studio/enable-kerberos?view=sql-server-2017#join-your-os-to-the-active-directory-domain-controller) článek, nahraďte `python-software-properties` s `python3-software-properties` v případě potřeby.
+
+Jakmile počítače s Linuxem nebo macOS je připojen k doméně, je třeba zadat další kroky [soubor keytab souboru](https://blogs.technet.microsoft.com/pie/2018/01/03/all-you-need-to-know-about-keytab-files/) s hlavní názvy služby:
+
+* Na řadiči domény přidejte novou webovou službu SPN pro účet počítače:
+  * `setspn -S HTTP/mywebservice.mydomain.com mymachine`
+  * `setspn -S HTTP/mywebservice@MYDOMAIN.COM mymachine`
+* Použití [příkazový řádek ktpass](/windows-server/administration/windows-commands/ktpass) vygenerovat soubor soubor keytab:
+  * `ktpass -princ HTTP/mywebservice.mydomain.com@MYDOMAIN.COM -pass myKeyTabFilePassword -mapuser MYDOMAIN\mymachine$ -pType KRB5_NT_PRINCIPAL -out c:\temp\mymachine.HTTP.keytab -crypto AES256-SHA1`
+  * Některá pole musí být zadán v velká písmena, jak je uvedeno.
+* Zkopírujte soubor keytab soubor do počítače s Linuxem nebo macOS.
+* Vyberte soubor keytab soubor přes proměnnou prostředí: `export KRB5_KTNAME=/tmp/mymachine.HTTP.keytab`
+* Vyvolání `klist` zobrazíte aktuálně k dispozici pro použití hlavní názvy služby.
+
+> [!NOTE]
+> Soubor keytab soubor obsahuje přihlašovacích údajů pro přístup k doméně a musí být chráněné odpovídajícím způsobem.
+
+::: moniker-end
+
 ## <a name="httpsys"></a>HTTP.sys
 
-V místním prostředí scénáře [Kestrel](xref:fundamentals/servers/kestrel) nemá podporu ověřování Windows, ale vy můžete použít [HTTP.sys](xref:fundamentals/servers/httpsys).
+[Ovladač HTTP.sys](xref:fundamentals/servers/httpsys) podporuje ověřování Windows v režimu jádra pomocí Negotiate, NTLM nebo základní ověřování.
 
 Přidat ověřovací služby vyvoláním <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> (<xref:Microsoft.AspNetCore.Server.HttpSys?displayProperty=fullName> oboru názvů) v `Startup.ConfigureServices`:
 
@@ -177,6 +246,12 @@ ASP.NET Core neimplementuje zosobnění. Aplikace běží s identitou aplikace p
 [!code-csharp[](windowsauth/sample_snapshot/Startup.cs?highlight=10-19)]
 
 `RunImpersonated` nepodporuje asynchronní operace by se neměl používat pro komplexní scénáře. Například obtékání celý požadavky nebo middleware zřetězen není podporován nebo doporučené.
+
+::: moniker range=">= aspnetcore-3.0"
+
+Zatímco [Microsoft.AspNetCore.Authentication.Negotiate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) balíček umožňuje ověřování na Windows, Linux a macOS, zosobnění se podporuje jenom na Windows.
+
+::: moniker-end
 
 ## <a name="claims-transformations"></a>Transformace deklarací identity
 

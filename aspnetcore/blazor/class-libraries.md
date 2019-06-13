@@ -5,14 +5,14 @@ description: Zjistěte, jak komponenty mohou být součástí Blazor aplikací z
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/06/2019
+ms.date: 06/09/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 9ca1d54da584c2957be98708782437e28b619e3b
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 4b0b9150a507eef302a95055ae1485f0f9c2d8cc
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085843"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034709"
 ---
 # <a name="razor-components-class-libraries"></a>Knihovny tříd Razor komponenty
 
@@ -40,7 +40,7 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku ke konfiguraci pro
 1. Přidání knihovny tříd Razor k řešení:
    1. Klikněte pravým tlačítkem na řešení. Vyberte **přidat** > **existující projekt**.
    1. Přejděte k souboru projektu knihovny tříd Razor.
-   1. Vyberte soubor projektu knihovny tříd Razor (*.csproj*).
+   1. Vyberte soubor projektu knihovny tříd Razor ( *.csproj*).
 1. Přidáte odkaz knihovny tříd Razor z aplikace:
    1. Klikněte pravým tlačítkem na projekt aplikace. Vyberte **přidat** > **odkaz**.
    1. Vyberte projekt knihovny tříd Razor. Vyberte **OK**.
@@ -61,7 +61,7 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku ke konfiguraci pro
 
 ---
 
-Přidat soubory součástí Razor (*.razor*) do knihovny tříd Razor.
+Přidat soubory součástí Razor ( *.razor*) do knihovny tříd Razor.
 
 ## <a name="razor-class-libraries-not-supported-for-client-side-apps"></a>Knihovny tříd Razor není podporována pro aplikace na straně klienta
 
@@ -73,7 +73,7 @@ Blazor aplikace na straně klienta, použijte knihovně komponent Blazor vytvoř
 dotnet new blazorlib -o MyComponentLib1
 ```
 
-Pomocí knihovny součástí `blazorlib` šablona může obsahovat statické soubory, jako jsou obrázky, JavaScript a šablony stylů. V okamžiku sestavení, statické soubory jsou vloženy do souborů sestavení (*.dll*), která umožňuje využití komponent bez nutnosti starat o tom, jak zahrnout svoje prostředky. Všechny soubory zahrnuté v `content` adresáře jsou označeny jako vložený prostředek.
+Pomocí knihovny součástí `blazorlib` šablona může obsahovat statické soubory, jako jsou obrázky, JavaScript a šablony stylů. V okamžiku sestavení, statické soubory jsou vloženy do souborů sestavení ( *.dll*), která umožňuje využití komponent bez nutnosti starat o tom, jak zahrnout svoje prostředky. Všechny soubory zahrnuté v `content` adresáře jsou označeny jako vložený prostředek.
 
 ## <a name="static-assets-not-supported-for-server-side-apps"></a>Statické prostředky nejsou podporovány pro aplikace na straně serveru
 
@@ -132,3 +132,28 @@ dotnet nuget publish
 ```
 
 Při použití `blazorlib` šablonu, statických prostředků jsou obsažené v balíčku NuGet. Příjemci knihovny automaticky obdrží skripty a šablony stylů, takže příjemci nejsou potřeba ručně instalovat prostředky. Všimněte si, že [statických prostředků se nepodporují pro aplikace na straně serveru](#static-assets-not-supported-for-server-side-apps), včetně toho, když Blazor knihovny (`blazorlib`) odkazuje na aplikaci na straně serveru.
+
+## <a name="create-a-razor-class-library-with-static-assets"></a>Vytvoření knihovny tříd Razor s statické prostředky
+
+Knihovny tříd Razor (RCL) často vyžadují, aby Průvodce vyhledáváním statické prostředky, které lze odkazovat pomocí náročné aplikace RCL. ASP.NET Core je umožněno vytvoření RCLs, které zahrnují statické prostředky, které jsou k dispozici pro využívání aplikaci.
+
+Pokud chcete zahrnout jako součást knihovny tříd Razor doprovodná prostředky, vytvořte *wwwroot* složku v knihovně tříd a zahrnout všechny požadované soubory v této složce.
+
+Při balení knihovny tříd Razor, všechny doprovodná assety *wwwroot* složky jsou součástí balíčku automaticky a jsou k dispozici pro odkazování na balíček aplikace.
+
+### <a name="consume-content-from-a-referenced-razor-class-library"></a>Využívání obsahu z odkazované knihovny tříd Razor
+
+Soubory součástí *wwwroot* spotřebitelskou aplikaci v rámci předpona, která jsou vystaveny složku knihovny tříd Razor `_content/{LIBRARY NAME}/`. Využívání aplikace odkazuje na tyto prostředky prostřednictvím `<script>`, `<style>`, `<img>`a další značky HTML.
+
+### <a name="multi-project-development-flow"></a>Vývoj pro více projektů toku
+
+Při spuštění aplikace:
+
+* Prostředky zůstanou v jejich původním složek.
+* Všechny změny v knihovně tříd *wwwroot* složky se projeví v aplikaci bez nutnosti opětovného sestavení.
+
+V okamžiku sestavení manifestu vytvořen s všechna místa statický webový prostředek. Manifest je pro čtení v době běhu a umožňuje aplikacím využívat prostředky z odkazovaných projektů a balíčky.
+
+### <a name="publish"></a>Publikování
+
+Při publikování aplikace companion assety z všechny odkazované projekty a balíčky jsou zkopírovány do *wwwroot* složku publikované aplikace v rámci `_content/{LIBRARY NAME}/`.

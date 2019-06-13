@@ -4,14 +4,14 @@ author: scottaddie
 description: Zjistěte, jaké jsou součásti pomocné rutiny značek a jejich použití v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
-ms.date: 04/06/2019
+ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: 777bbcca3d1c2f03f386fa62df2a2e0b00409318
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b5b3abea6492cfaa7d6acd0e54073a8db12eb2a5
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902082"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034763"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>Součásti pomocné rutiny značky v ASP.NET Core
 
@@ -62,9 +62,16 @@ Předchozí kód vytvoří vazbu [Bootstrap popisek widgetu](https://getbootstra
 
 Komponentu pomocné rutiny značky musí být přidán do kolekce součásti pomocné rutiny značky aplikace. Existují tři způsoby, jak přidat do kolekce:
 
-1. [Registrace prostřednictvím služby kontejneru](#registration-via-services-container)
-1. [Registrace prostřednictvím souboru Razor](#registration-via-razor-file)
-1. [Registrace prostřednictvím stránky nebo Model kontroleru](#registration-via-page-model-or-controller)
+* [Součásti pomocné rutiny značky v ASP.NET Core](#tag-helper-components-in-aspnet-core)
+  * [Případy použití](#use-cases)
+    * [Vložit do hlavního elementu HTML](#inject-into-html-head-element)
+    * [Vložení do prvku text HTML](#inject-into-html-body-element)
+  * [Registrují komponentu](#register-a-component)
+    * [Registrace prostřednictvím služby kontejneru](#registration-via-services-container)
+    * [Registrace prostřednictvím souboru Razor](#registration-via-razor-file)
+    * [Registrace prostřednictvím stránky nebo Model kontroleru](#registration-via-page-model-or-controller)
+  * [Vytvoření komponenty](#create-a-component)
+  * [Další zdroje informací](#additional-resources)
 
 ### <a name="registration-via-services-container"></a>Registrace prostřednictvím služby kontejneru
 

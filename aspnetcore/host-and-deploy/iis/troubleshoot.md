@@ -5,14 +5,14 @@ description: Zjistěte, jak diagnostikovat problémy s nasazením aplikací ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/12/2019
+ms.date: 05/28/2019
 uid: host-and-deploy/iis/troubleshoot
-ms.openlocfilehash: e4c93459f2030c7c0a55ea90e0cc8c8d30b76c51
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: cb42a262c89c27fa350e936184f8ddb3a02788f0
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470457"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034742"
 ---
 # <a name="troubleshoot-aspnet-core-on-iis"></a>Řešení potíží s ASP.NET Core ve službě IIS
 
@@ -330,13 +330,13 @@ Získání a analýza výpisu paměti z [hlášení chyb Windows (zasílání)](
 
 1. Vytvořte složku pro uložení souborů se stavem systému na `c:\dumps`. Fond aplikací musí mít oprávnění k zápisu do složky.
 1. Spustit [EnableDumps Powershellový skript](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/EnableDumps.ps1):
-   * Pokud aplikace využívá [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model), spusťte skript pro *w3wp.exe*:
+   * Pokud aplikace využívá [model hostingu v procesu](xref:host-and-deploy/iis/index#in-process-hosting-model), spusťte skript pro *w3wp.exe*:
 
      ```console
      .\EnableDumps w3wp.exe c:\dumps
      ```
 
-   * Pokud aplikace využívá [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), spusťte skript pro *dotnet.exe*:
+   * Pokud aplikace využívá [model hostingu mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model), spusťte skript pro *dotnet.exe*:
 
      ```console
      .\EnableDumps dotnet.exe c:\dumps
@@ -344,13 +344,13 @@ Získání a analýza výpisu paměti z [hlášení chyb Windows (zasílání)](
 
 1. Spusťte aplikaci v rámci podmínky, které způsobily selhání dojde k.
 1. Po došlo k selhání, spusťte [DisableDumps Powershellový skript](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/iis/troubleshoot/scripts/DisableDumps.ps1):
-   * Pokud aplikace využívá [model hostingu v procesu](xref:fundamentals/servers/index#in-process-hosting-model), spusťte skript pro *w3wp.exe*:
+   * Pokud aplikace využívá [model hostingu v procesu](xref:host-and-deploy/iis/index#in-process-hosting-model), spusťte skript pro *w3wp.exe*:
 
      ```console
      .\DisableDumps w3wp.exe
      ```
 
-   * Pokud aplikace využívá [model hostingu mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), spusťte skript pro *dotnet.exe*:
+   * Pokud aplikace využívá [model hostingu mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model), spusťte skript pro *dotnet.exe*:
 
      ```console
      .\DisableDumps dotnet.exe

@@ -5,14 +5,14 @@ description: Naučte se používat v Blazor formuláře a scénáře ověření 
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 06/12/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: ebd2e1294b4fb78f47f505e1aa8e77c7fb035a6e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 52f53cbfbb335a4a0d681a378d383924c901ef57
+ms.sourcegitcommit: 739a3d7ca4fd2908ea0984940eca589a96359482
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898464"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67040695"
 ---
 # <a name="blazor-forms-and-validation"></a>Blazor formulářů a ověřování
 
@@ -43,12 +43,12 @@ Formulář je definován pomocí `<EditForm>` komponenty. Následující formul�
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputText id="name" bind-Value="@exampleModel.Name" />
+    <InputText id="name" @bind-Value="@exampleModel.Name" />
 
     <button type="submit">Submit</button>
 </EditForm>
 
-@functions {
+@code {
     private ExampleModel exampleModel = new ExampleModel();
 
     private void HandleValidSubmit()
@@ -58,7 +58,7 @@ Formulář je definován pomocí `<EditForm>` komponenty. Následující formul�
 }
 ```
 
-* Ověří uživatelský vstup ve formuláři `name` pole pomocí ověřování definované v `ExampleModel` typu. Model je vytvořen v součásti `@functions` blokovat a uchovávat v soukromé pole (`exampleModel`). Poli je přiřazena k `Model` atribut `<EditForm>`.
+* Ověří uživatelský vstup ve formuláři `name` pole pomocí ověřování definované v `ExampleModel` typu. Model je vytvořen v součásti `@code` blokovat a uchovávat v soukromé pole (`exampleModel`). Poli je přiřazena k `Model` atribut `<EditForm>`.
 * Komponenta validátoru anotací dat (`<DataAnnotationsValidator>`) připojí podporu ověřování pomocí datových poznámek.
 * Souhrn ověření součásti (`<ValidationSummary>`) obsahuje souhrn ověřovacích zpráv.
 * `HandleValidSubmit` se aktivuje v případě formulář úspěšného odeslání (předá ověření).
@@ -73,6 +73,8 @@ Sada předdefinovaných vstupní komponent jsou k dispozici pro příjem a ově�
 | `<InputNumber>`   | `<input type="number">`   |
 | `<InputCheckbox>` | `<input type="checkbox">` |
 | `<InputDate>`     | `<input type="date">`     |
+
+Všechny vstupní komponenty, včetně `<EditForm>`, podporují libovolnými atributy. Všechny atributy, které neodpovídá parametru se přidá do vytvořeného `<form>`, `<input>`, `<select>`, nebo `<textarea>` elementu.
 
 Vstupní komponenty poskytují výchozí chování pro ověřování na Upravit a změna jejich třídu šablony stylů CSS tak, aby odrážely stavu pole. Některé součásti zahrnují užitečné analýzy logiku. Například `<InputDate>` a `<InputNumber>` elegantně zpracovat Neanalyzovatelný hodnoty tak, že je zaregistrujete jako chyby ověření. Typy, které může přijmout hodnoty null také podporují možnost použití hodnoty Null z cílového pole (například `int?`).
 
@@ -123,16 +125,16 @@ Následující formulář ověřuje vstup uživatele s použitím ověřování 
 
     <p>
         <label for="identifier">Identifier: </label>
-        <InputText id="identifier" bind-Value="@starship.Identifier" />
+        <InputText id="identifier" @bind-Value="@starship.Identifier" />
     </p>
     <p>
         <label for="description">Description (optional): </label>
-        <InputTextArea Id="description" bind-Value="@starship.Description" />
+        <InputTextArea Id="description" @bind-Value="@starship.Description" />
     </p>
     <p>
         <label for="classification">Primary Classification: </label>
-        <InputSelect id="classification" bind-Value="@starship.Classification">
-            <option value"">Select classification ...</option>
+        <InputSelect id="classification" @bind-Value="@starship.Classification">
+            <option value="">Select classification ...</option>
             <option value="Defense">Defense</option>
             <option value="Exploration">Exploration</option>
             <option value="Diplomacy">Diplomacy</option>
@@ -141,15 +143,15 @@ Následující formulář ověřuje vstup uživatele s použitím ověřování 
     <p>
         <label for="accommodation">Maximum Accommodation: </label>
         <InputNumber id="accommodation" 
-            bind-Value="@starship.MaximumAccommodation" />
+            @bind-Value="@starship.MaximumAccommodation" />
     </p>
     <p>
         <label for="valid">Engineering Approval: </label>
-        <InputCheckbox id="valid" bind-Value="@starship.IsValidatedDesign" />
+        <InputCheckbox id="valid" @bind-Value="@starship.IsValidatedDesign" />
     </p>
     <p>
         <label for="productionDate">Production Date: </label>
-        <InputDate Id="productionDate" bind-Value="@starship.ProductionDate" />
+        <InputDate Id="productionDate" @bind-Value="@starship.ProductionDate" />
     </p>
 
     <button type="submit">Submit</button>
@@ -161,7 +163,7 @@ Následující formulář ověřuje vstup uživatele s použitím ověřování 
     </p>
 </EditForm>
 
-@functions {
+@code {
     private Starship starship = new Starship();
 
     private void HandleValidSubmit()
@@ -183,5 +185,4 @@ Komponenta ověřovací zprávu (`<ValidationMessage>`) zobrazuje zprávy o ově
 <ValidationMessage For="@(() => starship.MaximumAccommodation)" />
 ```
 
-> [!NOTE]
-> Předdefinované vstupní součásti mají omezení, která Očekáváme, že chcete-li vyřešit v budoucích verzích. Například nelze zadat s libovolnými atributy generované `<input>` značky. Vytvořte vlastní podtřídy komponenty pro zpracování scénářů není k dispozici.
+`<ValidationMessage>` a `<ValidationSummary>` komponenty podporují libovolnými atributy. Všechny atributy, které neodpovídá parametru se přidá do vytvořeného `<div>` nebo `<ul>` elementu.

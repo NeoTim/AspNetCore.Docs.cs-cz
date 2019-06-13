@@ -4,14 +4,14 @@ author: juntaoluo
 description: Tento kurz ukazuje, jak vytvořit klienta služby a gRPC gRPC v ASP.NET Core. Zjistěte, jak vytvořit projekt gRPC služby, upravte soubor proto a přidat duplexní streamování volání.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 06/05/2019
+ms.date: 06/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 71e3321819eb7169f0896abe3e07849f59ea6fc7
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 919db3f31310342657c89100a6e25e8293648a9f
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692527"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034803"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření gRPC klientem a serverem v ASP.NET Core
 
@@ -86,13 +86,13 @@ Ze sady Visual Studio, vyberte **soubor > Otevřít**a pak vyberte *GrpcGreeter.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Stisknutím kláves Ctrl + F5 ke spuštění služby gRPC bez ladicího programu.
+* Stisknutím klávesy `Ctrl+F5` ke spuštění služby gRPC bez ladicího programu.
 
   Visual Studio spustí službu v příkazovém řádku.
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* Pomocí příkazového řádku, spusťte projekt Greeter gRPC GrpcGreeter `dotnet run`.
+* Spusťte projekt Greeter gRPC *GrpcGreeter* z příkazového řádku pomocí `dotnet run`.
 
 <!-- End of combined VS/Mac tabs -->
 
@@ -112,7 +112,7 @@ info: Microsoft.Hosting.Lifetime[0]
 
 ### <a name="examine-the-project-files"></a>Zkontrolujte soubory projektu
 
-GrpcGreeter soubory:
+*GrpcGreeter* soubory projektu:
 
 * *greet.proto*: *Protos/greet.proto* soubor definuje `Greeter` gRPC a slouží ke generování gRPC serverovými prostředky. Další informace najdete v tématu [Úvod do gRPC](xref:grpc/index).
 * *Služby* složky: Obsahuje implementaci `Greeter` služby.
@@ -153,13 +153,13 @@ Postupujte podle pokynů [tady](/dotnet/core/tutorials/using-on-mac-vs-full-solu
 
 Přidejte do projektu klienta gRPC následující balíčky:
 
-* [Grpc.Core](https://www.nuget.org/packages/Grpc.Core), které se nachází C# rozhraní API pro C core klienta.
+* [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client), který obsahuje klienta .NET Core.
 * [Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/), který obsahuje protobuf zpráva rozhraní API pro C#.
 * [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/), který obsahuje C# Podpora nástrojů pro soubory protobuf. Balíček nástroje není nutné za běhu, takže závislost je označená pomocí `PrivateAssets="All"`.
 
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Instalace balíčků pomocí konzoly Správce balíčků (PMC) nebo spravovat balíčky NuGet
+Instalace balíčků pomocí konzoly Správce balíčků (PMC) nebo spravovat balíčky NuGet.
 
 #### <a name="pmc-option-to-install-packages"></a>Možnost PMC se mají balíčky nainstalovat
 
@@ -168,7 +168,7 @@ Instalace balíčků pomocí konzoly Správce balíčků (PMC) nebo spravovat ba
 * Spusťte následující příkazy:
 
  ```powershell
-Install-Package Grpc.Core
+Install-Package Grpc.Net.Client
 Install-Package Google.Protobuf
 Install-Package Grpc.Tools
 ```
@@ -186,7 +186,7 @@ Install-Package Grpc.Tools
 Spusťte následující příkazy z **integrovaný terminál**:
 
 ```console
-dotnet add GrpcGreeterClient.csproj package Grpc.Core
+dotnet add GrpcGreeterClient.csproj package Grpc.Net.Client
 dotnet add GrpcGreeterClient.csproj package Google.Protobuf
 dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 ```
@@ -194,8 +194,8 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 ### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem myši **balíčky** složky v **oblasti řešení** > **přidat balíčky**
-* Zadejte **Grpc.Core** do vyhledávacího pole.
-* Vyberte **Grpc.Core** balíček v podokně výsledků a vyberte **přidat balíček**
+* Zadejte **Grpc.Net.Client** do vyhledávacího pole.
+* Vyberte **Grpc.Net.Client** balíček v podokně výsledků a vyberte **přidat balíček**
 * Opakujte pro `Google.Protobuf` a `Grpc.Tools`.
 
 ---
@@ -242,23 +242,21 @@ Také aktualizovat klienta sady gRPC *Program.cs* souboru následujícím kódem
 
 Klient Greeter vytvořil:
 
-* Vytvoření instance `Channel` obsahující informace o vytvoření připojení ke službě gRPC.
-* Použití `Channel` k sestavení kompletních Greeter klienta:
+* Vytvoření instance `HttpClient` obsahující informace o vytvoření připojení ke službě gRPC.
+* Použití `HttpClient` k sestavení kompletních Greeter klienta:
 
-[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=4-6)]
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=3-9)]
 
 Klient Greeter volá asynchronní `SayHello` metody. Výsledkem `SayHello` volání se zobrazí:
 
-[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=7-9)]
-
-Vypněte `Channel` používaných klientem při dokončení operace uvolnit všechny prostředky.
+[!code-cs[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=10-12)]
 
 ## <a name="test-the-grpc-client-with-the-grpc-greeter-service"></a>Testovací klient gRPC s gRPC Greeter služby
 
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Ve službě Greeter stiskněte Ctrl + F5 ke spuštění serveru bez ladicího programu.
-* V projektu GrpcGreeterClient stiskněte Ctrl + F5 ke spuštění serveru bez ladicího programu.
+* Ve službě Greeter stiskněte `Ctrl+F5` spuštění serveru bez ladicího programu.
+* V `GrpcGreeterClient` projekt, stiskněte klávesu `Ctrl+F5` spuštění serveru bez ladicího programu.
 
 ### <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 

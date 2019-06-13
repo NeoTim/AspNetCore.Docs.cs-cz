@@ -4,14 +4,14 @@ author: ardalis
 description: Objevte, jak použít částečné zobrazení k rozdělení souborů velké značek a omezili dvojí společné značky na webových stránkách v aplikacích ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/06/2019
+ms.date: 06/12/2019
 uid: mvc/views/partial
-ms.openlocfilehash: 9564639dcff0cff7f21b123cec39f0c96ebda208
-ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
+ms.openlocfilehash: 901fd52f89969141713e443890781a77308bd901
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2019
-ms.locfileid: "66824844"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034913"
 ---
 # <a name="partial-views-in-aspnet-core"></a>Částečná zobrazení v ASP.NET Core
 
@@ -48,7 +48,7 @@ Není použít částečné zobrazení, ve kterém jsou vyžadována k vykreslen
 
 Částečné zobrazení je *.cshtml* souboru označení udržována v rámci *zobrazení* složky (MVC) nebo *stránky* složky (stránky Razor).
 
-V ASP.NET Core MVC, řadič <xref:Microsoft.AspNetCore.Mvc.ViewResult> je schopen vracet částečné zobrazení nebo zobrazení. V Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> můžete vrátit <xref:Microsoft.AspNetCore.Mvc.PartialViewResult>. Odkazování na a vykreslení částečných zobrazení je popsána v [odkazovat na částečné zobrazení](#reference-a-partial-view) oddílu.
+V ASP.NET Core MVC, řadič <xref:Microsoft.AspNetCore.Mvc.ViewResult> je schopen vracet částečné zobrazení nebo zobrazení. V Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> může vrátit reprezentovaná jako částečné zobrazení <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> objektu. Odkazování na a vykreslení částečných zobrazení je popsána v [odkazovat na částečné zobrazení](#reference-a-partial-view) oddílu.
 
 Na rozdíl od zobrazení MVC nebo vykreslení stránky částečné zobrazení nespustí *soubor _ViewStart.cshtml*. Další informace o *soubor _ViewStart.cshtml*, naleznete v tématu <xref:mvc/views/layout>.
 
@@ -60,7 +60,7 @@ Názvy souborů částečné zobrazení často začínají podtržítkem (`_`). 
 
 Částečné zobrazení je *.cshtml* souboru označení udržována v rámci *zobrazení* složky.
 
-Kontroleru <xref:Microsoft.AspNetCore.Mvc.ViewResult> je schopen vracet částečné zobrazení nebo zobrazení.
+Kontroleru <xref:Microsoft.AspNetCore.Mvc.ViewResult> je schopen vracet částečné zobrazení nebo zobrazení. Odkazování na a vykreslení částečných zobrazení je popsána v [odkazovat na částečné zobrazení](#reference-a-partial-view) oddílu.
 
 Na rozdíl od MVC vykreslení zobrazení, částečná zobrazení nespustí *soubor _ViewStart.cshtml*. Další informace o *soubor _ViewStart.cshtml*, naleznete v tématu <xref:mvc/views/layout>.
 
@@ -69,6 +69,33 @@ Názvy souborů částečné zobrazení často začínají podtržítkem (`_`). 
 ::: moniker-end
 
 ## <a name="reference-a-partial-view"></a>Odkaz na částečné zobrazení
+
+::: moniker range=">= aspnetcore-2.0"
+
+### <a name="use-a-partial-view-in-a-razor-pages-pagemodel"></a>Použít částečné zobrazení v PageModel stránek Razor
+
+V ASP.NET Core 2.0 nebo 2.1, vykreslí metodu obslužné rutiny  *\_AuthorPartialRP.cshtml* částečného zobrazení do odpovědi:
+
+```csharp
+public IActionResult OnGetPartial() =>
+    new PartialViewResult
+    {
+        ViewName = "_AuthorPartialRP",
+        ViewData = ViewData,
+    };
+```
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
+
+V ASP.NET Core 2.2 nebo vyšší, můžete také volat metodu obslužné rutiny <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> metodu za účelem vytvoření `PartialViewResult` objektu:
+
+[!code-csharp[](partial/sample/PartialViewsSample/Pages/DiscoveryRP.cshtml.cs?name=snippet_OnGetPartial)]
+
+::: moniker-end
+
+### <a name="use-a-partial-view-in-a-markup-file"></a>V souboru označení použít částečné zobrazení
 
 ::: moniker range=">= aspnetcore-2.1"
 

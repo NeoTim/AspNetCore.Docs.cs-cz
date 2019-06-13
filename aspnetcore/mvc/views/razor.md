@@ -3,14 +3,14 @@ title: Referenční příručka syntaxe Razor pro ASP.NET Core
 author: rick-anderson
 description: Další informace o syntaxi Razor kód pro vložení do webových stránek kód založený na serveru.
 ms.author: riande
-ms.date: 10/26/2018
+ms.date: 06/12/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 7f97be651c067e94f29eef4956c10d87ec031bed
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 87c5b97a653c139b8b79f4270e0d9d0081815433
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901107"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034936"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -574,9 +574,39 @@ Kód vykreslí následující kód HTML:
 
 ::: moniker-end
 
+### <a name="attribute"></a>@attribute
+
+`@attribute` – Direktiva přidá daný atribut do třídy vygenerované stránky nebo zobrazení. Následující příklad přidá `[Authorize]` atribut:
+
+```cshtml
+@attribute [Authorize]
+```
+
+> [!WARNING]
+> Ve verzi ASP.NET Core 3.0 ve verzi Preview 6 se o známý problém kde `@attribute` direktivy nefungují v  *\_Imports.razor* a  *\_ViewImports.cshtml* soubory. Tato informace bude opravena ve verzi Preview 7.
+
+### <a name="namespace"></a>@namespace
+
+`@namespace` – Direktiva Nastaví obor názvů, třídy generované stránky nebo zobrazení:
+
+```cshtml
+@namespace Your.Namespace.Here
+```
+
+Pokud na stránce nebo zobrazení importuje rozhraní API pomocí `@namespace` direktiv, obor názvů původní soubor je nastavenou vzhledem k daném oboru názvů. 
+
+Pokud *Moje aplikace/stránky/\_ViewImports.cshtml* obsahuje `@namespace Hello.World`, obor názvů stránky nebo zobrazení, které importují `Hello.World` obor názvů je nastavit, jak je znázorněno v následující tabulce.
+
+| Stránka (nebo zobrazení)                     | Obor názvů               |
+| ---------------------------------- | ----------------------- |
+| *MyApp/Pages/Index.cshtml*         | `Hello.World`           |
+| *MyApp/Pages/MorePages/Bar.cshtml* | `Hello.World.MorePages` |
+
+Pokud máte víc souborů import `@namespace` direktiv, co nejblíže stránky nebo zobrazení v řetězci directory soubor je používán.
+
 ### <a name="section"></a>@section
 
-`@section` – Direktiva se používá ve spojení s [rozložení](xref:mvc/views/layout) povolit zobrazení k vykreslení obsahu v různých částech stránky HTML. Další informace najdete v tématu [oddíly](xref:mvc/views/layout#layout-sections-label).
+`@section` – Direktiva se používá ve spojení s [rozložení](xref:mvc/views/layout) umožňující stránky nebo zobrazení k vykreslení obsahu v různých částech stránky HTML. Další informace najdete v tématu [oddíly](xref:mvc/views/layout#layout-sections-label).
 
 ## <a name="templated-razor-delegates"></a>Šablony Razor delegátů
 

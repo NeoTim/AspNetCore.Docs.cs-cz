@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/29/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 0e4f6640beb77602edf1abd5d03b27b8badefd0c
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: be5afcc33e527e36892e409cc87d6d8725d40290
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470253"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034418"
 ---
 # <a name="blazor-javascript-interop"></a>Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
 
@@ -121,15 +121,15 @@ Některé [zprostředkovatele komunikace s objekty jazyka JavaScript](xref:blazo
 
 Můžete zaznamenat odkazy na elementy HTML v komponentě používá následující postup:
 
-* Přidat `ref` atribut na prvek jazyka HTML.
-* Definování pole typu `ElementRef` jejichž název odpovídá hodnotě `ref` atribut.
+* Přidat `@ref` atribut na prvek jazyka HTML.
+* Definování pole typu `ElementRef` jejichž název odpovídá hodnotě `@ref` atribut.
 
 Následující příklad ukazuje zachycení odkazu na `username` `<input>` element:
 
 ```cshtml
-<input ref="username" ... />
+<input @ref="username" ... />
 
-@functions {
+@code {
     ElementRef username;
 }
 ```

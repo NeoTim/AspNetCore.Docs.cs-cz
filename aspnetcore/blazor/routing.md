@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/14/2019
 uid: blazor/routing
-ms.openlocfilehash: b7f040292484f77c3cd12d9a0c07019782597882
-ms.sourcegitcommit: e1623d8279b27ff83d8ad67a1e7ef439259decdf
+ms.openlocfilehash: b2a703a8dda87812fce1e52b165ad6de901393a7
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/25/2019
-ms.locfileid: "66223124"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034697"
 ---
 # <a name="blazor-routing"></a>Blazor směrování
 
@@ -131,11 +131,11 @@ Následující komponenty přejde na součást aplikace čítače, při výběru
 
 <h1>Navigate in Code Example</h1>
 
-<button class="btn btn-primary" onclick="@NavigateToCounterComponent">
+<button class="btn btn-primary" @onclick="@NavigateToCounterComponent">
     Navigate to the Counter component
 </button>
 
-@functions {
+@code {
     private void NavigateToCounterComponent()
     {
         UriHelper.NavigateTo("counter");

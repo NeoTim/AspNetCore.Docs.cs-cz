@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: 9df18b25f6d82d655c093a17fe498615c0ff535e
-ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
+ms.openlocfilehash: 417f2ad79c14351487763888a9a3b022232b3766
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66716284"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034437"
 ---
 # <a name="get-started-with-blazor"></a>Začínáme s Blazor
 
@@ -25,7 +25,7 @@ Začínáme s Blazor:
 1. Instalace šablony Blazor spuštěním následujícího příkazu v příkazovém řádku:
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview5-19227-01
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview6.19307.2
    ```
 
 1. Postupujte podle pokynů podle vaší volby nástrojů:
@@ -149,7 +149,7 @@ Přidáte součást do jiné součásti pomocí syntaxe kódu HTML. Například 
 
 Spusťte aplikaci. Na domovskou stránku má svůj vlastní čítače poskytované součást čítače.
 
-Jsou zadány parametry komponenty pomocí atributů nebo [podřízený obsah](xref:blazor/components#child-content), které umožňují nastavit vlastnosti v podřízené součásti. Přidání parametru do komponenty čítače, aktualizovat součásti `@functions` blok:
+Jsou zadány parametry komponenty pomocí atributů nebo [podřízený obsah](xref:blazor/components#child-content), které umožňují nastavit vlastnosti v podřízené součásti. Přidání parametru do komponenty čítače, aktualizovat součásti `@code` blok:
 
 * Přidání vlastnosti pro `IncrementAmount` s `[Parameter]` atribut.
 * Změnit `IncrementCount` metoda se má použít `IncrementAmount` při zvýšit hodnotu `currentCount`.

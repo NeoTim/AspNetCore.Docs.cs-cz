@@ -5,14 +5,14 @@ description: Vytvoření podrobné Blazor aplikace.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2019
+ms.date: 06/12/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: d48b891127f4db929b631c0ddf199c07658e604c
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: df27dad17133f287b1c73dc308b4cc69426e0a63
+ms.sourcegitcommit: 739a3d7ca4fd2908ea0984940eca589a96359482
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65970126"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67040722"
 ---
 # <a name="build-your-first-blazor-app"></a>Vytvořte svoji první aplikaci Blazor
 
@@ -36,7 +36,7 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku vytvořte projekt 
 
    Uživatelské rozhraní komponenty čítač je definován v jazyce HTML. Dynamické vykreslování logiku (například smyčky, podmíněné příkazy, výrazy) přidána pomocí vložený C# syntaxe volá [Razor](xref:mvc/views/razor). Značka jazyka HTML a C# logiku vykreslení se převedou na třídu komponenty v okamžiku sestavení. Název generované třídy .NET odpovídá názvu souboru.
 
-   Členy třídy komponenty jsou definovány v `@functions` bloku. V `@functions` blokovat, stav komponent (vlastnosti, pole) a metody jsou určené pro zpracování událostí nebo definování dalších součástí logiky. Tyto členy, se použije jako součást logiky komponenty vykreslování a pro zpracování událostí.
+   Členy třídy komponenty jsou definovány v `@code` bloku. V `@code` blokovat, stav komponent (vlastnosti, pole) a metody jsou určené pro zpracování událostí nebo definování dalších součástí logiky. Tyto členy, se použije jako součást logiky komponenty vykreslování a pro zpracování událostí.
 
    Když **klikněte na mě** výběru tlačítka:
 
@@ -69,7 +69,7 @@ Zahrňte součásti v jiné součásti pomocí syntaxe pro HTML.
 
 Součástí mohou mít také parametry. Parametry komponenty jsou definovány pomocí vlastnosti neveřejné na komponentní třída dekorován `[Parameter]`. Atributy můžete zadat argumenty pro komponentu v kódu.
 
-1. Aktualizace komponenty `@functions` C# kódu:
+1. Aktualizace komponenty `@code` C# kódu:
 
    * Přidat `IncrementAmount` vlastnost upravené pomocí `[Parameter]` atribut.
    * Změnit `IncrementCount` metoda se má použít `IncrementAmount` při zvýšit hodnotu `currentCount`.
@@ -152,21 +152,13 @@ Přidáte novou součást aplikaci, která implementuje seznam úkolů.
 
 1. Znovu sestavte a spusťte aplikaci. Na stránce Nový Todo potvrďte, že odkaz na komponentu Todo funguje.
 
-1. Při vytváření aplikace na straně serveru Blazor, přidat obor názvů aplikace tak, aby  *\_Imports.razor* souboru. Následující `@using` příkaz předpokládá, že je obor názvů aplikace `WebApplication`:
-
-   ```cshtml
-   @using WebApplication
-   ```
-   
-   Aplikace na straně klienta Blazor obsahují obor názvů aplikace ve výchozím nastavení  *\_Imports.razor* souboru.
-
 1. Přidat *TodoItem.cs* souboru do kořenového adresáře projektu k uložení třídu, která představuje položku seznamu úkolů. Pomocí následujících C# kód `TodoItem` třídy:
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
 
 1. Vraťte se do komponenty Todo (*Pages/Todo.razor*):
 
-   * Přidání polí pro položky seznamu úkolů `@functions` bloku. Todo součásti používá toto pole pro uchování stavu pro seznam úkolů.
+   * Přidání polí pro položky seznamu úkolů `@code` bloku. Todo součásti používá toto pole pro uchování stavu pro seznam úkolů.
    * Přidat neuspořádaný seznam značek a `foreach` smyčky k vykreslení každé položky todo jako položku seznamu.
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
@@ -177,7 +169,7 @@ Přidáte novou součást aplikaci, která implementuje seznam úkolů.
 
 1. Znovu sestavte a spusťte aplikaci. Když **přidat todo** se vybere tlačítko, nic se nestane, protože obslužná rutina události není svázanou tlačítka.
 
-1. Přidat `AddTodo` metodu pro součást Todo a zaregistrujte ho pro tlačítko klikne pomocí `onclick` atribut:
+1. Přidat `AddTodo` metodu pro součást Todo a zaregistrujte ho pro tlačítko klikne pomocí `@onclick` atribut:
 
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo6.razor?highlight=2,7-10)]
 
@@ -188,7 +180,7 @@ Přidáte novou součást aplikaci, která implementuje seznam úkolů.
    [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
 
    ```cshtml
-   <input placeholder="Something todo" bind="@newTodo" />
+   <input placeholder="Something todo" @bind="@newTodo" />
    ```
 
 1. Aktualizace `AddTodo` způsob, jak přidat `TodoItem` se zadaným názvem do seznamu. Smazat hodnotu textového zadání tak, že nastavíte `newTodo` na prázdný řetězec:

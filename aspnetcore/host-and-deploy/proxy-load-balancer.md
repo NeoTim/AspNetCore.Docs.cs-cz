@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/11/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: bcafc33b8faf81912d536d3df8941d196685ecad
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: ab48d80c9cb1c09b5164ed732e76a59687683e97
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837368"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034727"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>Konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení
 
@@ -53,11 +53,11 @@ Ne všechna síťová zařízení přidat `X-Forwarded-For` a `X-Forwarded-Proto
 
 ## <a name="iisiis-express-and-aspnet-core-module"></a>Služby IIS/IIS Express a modul ASP.NET Core
 
-Ve výchozím nastavení je povoleno Middleware předaný záhlaví [Middleware pro integraci služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) když je aplikace hostovaná [mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model) za služby IIS a že modul ASP.NET Core. Middleware předaný záhlaví se aktivuje při spuštění první middleware kanál s omezenou konfiguraci konkrétní modul ASP.NET Core z důvodu otázky důvěryhodnosti předané hlavičky (například [falšování adresy IP](https://www.iplocation.net/ip-spoofing)). Middleware je nakonfigurovaný pro předávání `X-Forwarded-For` a `X-Forwarded-Proto` záhlaví a je omezená na jednu localhost proxy. Pokud je vyžadována další konfigurace, najdete v článku [možnosti předané middlewaru záhlaví](#forwarded-headers-middleware-options).
+Ve výchozím nastavení je povoleno Middleware předaný záhlaví [Middleware pro integraci služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) když je aplikace hostovaná [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model) za služby IIS a že modul ASP.NET Core. Middleware předaný záhlaví se aktivuje při spuštění první middleware kanál s omezenou konfiguraci konkrétní modul ASP.NET Core z důvodu otázky důvěryhodnosti předané hlavičky (například [falšování adresy IP](https://www.iplocation.net/ip-spoofing)). Middleware je nakonfigurovaný pro předávání `X-Forwarded-For` a `X-Forwarded-Proto` záhlaví a je omezená na jednu localhost proxy. Pokud je vyžadována další konfigurace, najdete v článku [možnosti předané middlewaru záhlaví](#forwarded-headers-middleware-options).
 
 ## <a name="other-proxy-server-and-load-balancer-scenarios"></a>Další proxy serveru a scénáře pro nástroj pro vyrovnávání zatížení
 
-Kromě použití [integrace služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) při hostování za nástrojem [mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), předané Middleware záhlaví není povolená ve výchozím nastavení. Přesměrovaná Middleware záhlaví musí být povolené pro aplikace pro proces, předá záhlaví s <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>. Po povolení middleware, pokud žádné <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> jsou určené pro middleware, výchozí [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) jsou [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders).
+Kromě použití [integrace služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) při hostování za nástrojem [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model), předané Middleware záhlaví není povolená ve výchozím nastavení. Přesměrovaná Middleware záhlaví musí být povolené pro aplikace pro proces, předá záhlaví s <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>. Po povolení middleware, pokud žádné <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> jsou určené pro middleware, výchozí [ForwardedHeadersOptions.ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) jsou [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders).
 
 Nakonfigurujte middleware s <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> předávat `X-Forwarded-For` a `X-Forwarded-Proto` záhlaví v `Startup.ConfigureServices`. Vyvolat <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> metoda `Startup.Configure` před voláním dalším middlewarem:
 

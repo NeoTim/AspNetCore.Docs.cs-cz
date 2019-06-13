@@ -3,14 +3,14 @@ title: Zprostředkovatelé úložiště klíčů v ASP.NET Core
 author: rick-anderson
 description: Další informace o poskytovatele úložiště klíčů v ASP.NET Core a jak konfigurovat umístění úložiště klíčů.
 ms.author: riande
-ms.date: 12/19/2018
+ms.date: 06/11/2019
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: d6dabc9e4581e0891d1dd14f73e086d50b45bba4
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 64c7e6b25d5b4acc72e96747a77826efaeb693fd
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903045"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034765"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>Zprostředkovatelé úložiště klíčů v ASP.NET Core
 
@@ -33,21 +33,11 @@ public void ConfigureServices(IServiceCollection services)
 
 `DirectoryInfo` Může odkazovat na adresáře na místním počítači, nebo můžete přejít do složky ve sdílené síťové složce. Pokud přejdete do adresáře v místním počítači (a tento scénář je, že jenom aplikace v místním počítači vyžaduje přístup k použití tohoto úložiště), zvažte použití [rozhraní Windows DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) (on Windows) k šifrování klíčů v klidovém stavu. V opačném případě zvažte použití [certifikát X.509](xref:security/data-protection/implementation/key-encryption-at-rest) šifrování klíčů v klidovém stavu.
 
-## <a name="azure-and-redis"></a>Azure a Redis
+## <a name="azure-storage"></a>Azure Storage
 
-::: moniker range=">= aspnetcore-2.2"
+[Microsoft.AspNetCore.DataProtection.AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) balíček umožňuje ukládat klíče ochrany dat ve službě Azure Blob Storage. Klíče mohou být sdíleny napříč několika instancemi webové aplikace. Aplikace můžete sdílet soubory cookie pro ověřování nebo CSRF ochrany napříč několika servery.
 
-[Microsoft.AspNetCore.DataProtection.AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) a [Microsoft.AspNetCore.DataProtection.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/) balíčky povolit ukládání klíče ochrany dat ve službě Azure Storage nebo Redis mezipaměť. Klíče mohou být sdíleny napříč několika instancemi webové aplikace. Aplikace můžete sdílet soubory cookie pro ověřování nebo CSRF ochrany napříč několika servery.
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.2"
-
-[Microsoft.AspNetCore.DataProtection.AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) a [Microsoft.AspNetCore.DataProtection.Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/) balíčky povolit ukládání klíče ochrany dat v Azure Storage nebo Azure Redis cache. Klíče mohou být sdíleny napříč několika instancemi webové aplikace. Aplikace můžete sdílet soubory cookie pro ověřování nebo CSRF ochrany napříč několika servery.
-
-::: moniker-end
-
-Pokud chcete nakonfigurovat zprostředkovatele služby Azure Blob Storage, volání jednoho z [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage) přetížení:
+Pokud chcete nakonfigurovat zprostředkovatele služby Azure Blob Storage, volání jednoho z [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage) přetížení. 
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -56,6 +46,39 @@ public void ConfigureServices(IServiceCollection services)
         .PersistKeysToAzureBlobStorage(new Uri("<blob URI including SAS token>"));
 }
 ```
+
+Pokud webová aplikace běží jako služba Azure, tokeny ověřování se dají automaticky vytvořit pomocí [ Microsoft.Azure.Services.appauthentication přistupovat](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/). 
+
+```csharp
+var tokenProvider = new AzureServiceTokenProvider();
+var token = await tokenProvider.GetAccessTokenAsync("https://storage.azure.com/");
+var credentials = new StorageCredentials(new TokenCredential(token));
+var storageAccount = new CloudStorageAccount(credentials, "mystorageaccount", "core.windows.net", useHttps: true);
+var client = storageAccount.CreateCloudBlobClient();
+var container = client.GetContainerReference("my-key-container");
+
+// optional - provision the container automatically
+await container.CreateIfNotExistsAsync();
+
+services.AddDataProtection()
+    .PersistKeysToAzureBlobStorage(container, "keys.xml");
+```
+
+Zobrazit [další podrobnosti o konfiguraci ověřování služba služba.](/azure/key-vault/service-to-service-authentication)
+
+## <a name="redis"></a>Redis Cache
+
+::: moniker range=">= aspnetcore-2.2"
+
+[Microsoft.AspNetCore.DataProtection.StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/) balíček umožňuje ukládat klíče ochrany dat v mezipaměti Redis. Klíče mohou být sdíleny napříč několika instancemi webové aplikace. Aplikace můžete sdílet soubory cookie pro ověřování nebo CSRF ochrany napříč několika servery.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+[Microsoft.AspNetCore.DataProtection.Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/) balíček umožňuje ukládat klíče ochrany dat v mezipaměti Redis. Klíče mohou být sdíleny napříč několika instancemi webové aplikace. Aplikace můžete sdílet soubory cookie pro ověřování nebo CSRF ochrany napříč několika servery.
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 

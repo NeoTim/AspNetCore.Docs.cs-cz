@@ -5,14 +5,14 @@ description: Tento článek obsahuje odkazy na hostiteli Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/30/2019
+ms.date: 05/28/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 8ce969739d9d98941d4d7670395c74e0e25c92a7
-ms.sourcegitcommit: b8ed594ab9f47fa32510574f3e1b210cff000967
+ms.openlocfilehash: 3649b77e53aee190172b06582951d7a0bfa0c805
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/28/2019
-ms.locfileid: "66251402"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034817"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
 
@@ -80,7 +80,7 @@ Pokud aplikace používá [obecný hostitele](xref:fundamentals/host/generic-hos
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 
-[Middleware pro integraci služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components), které konfiguruje předané záhlaví Middleware, při hostování za nástrojem [mimo proces](xref:fundamentals/servers/index#out-of-process-hosting-model), a že modul ASP.NET Core je nakonfigurovaný pro předávání schématu (HTTP/HTTPS) a Vzdálená IP adresa původu žádosti. Další konfigurace může být nezbytný pro aplikací hostovaných za službou další proxy servery a nástroje pro vyrovnávání zatížení. Další informace najdete v tématu [konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+[Middleware pro integraci služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components), které konfiguruje předané záhlaví Middleware, při hostování za nástrojem [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model), a že modul ASP.NET Core je nakonfigurovaný pro předávání schématu (HTTP/HTTPS) a Vzdálená IP adresa původu žádosti. Další konfigurace může být nezbytný pro aplikací hostovaných za službou další proxy servery a nástroje pro vyrovnávání zatížení. Další informace najdete v tématu [konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="monitoring-and-logging"></a>Monitorování a protokolování
 
