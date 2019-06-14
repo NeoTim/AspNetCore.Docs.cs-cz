@@ -166,10 +166,10 @@
       uid: fundamentals/middleware/index
     - name: Hostitel
       items:
-        - name: Webový hostitel
-          uid: fundamentals/host/web-host
         - name: Obecný hostitel
           uid: fundamentals/host/generic-host
+        - name: Webový hostitel
+          uid: fundamentals/host/web-host
     - name: Servery
       uid: fundamentals/servers/index
     - name: Konfigurace
