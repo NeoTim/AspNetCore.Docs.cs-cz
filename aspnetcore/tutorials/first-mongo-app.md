@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 06/10/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 5e3bdb10f0e192ba98df442959ceb68dc7c7adc5
-ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
+ms.openlocfilehash: 426b4c0dee290153b9b1bf83deec14fa728183cb
+ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2019
-ms.locfileid: "66824781"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67048079"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
@@ -270,7 +270,7 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
     [!code-csharp[](first-mongo-app/sample/BooksApi/Services/BookService.cs?name=snippet_BookServiceConstructor&highlight=3)]
 
-* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; představuje databázi Mongodb pro provádění operací. Tento kurz používá Obecné [GetCollection<TDocument>(kolekce)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) metoda v rozhraní k získání přístupu k datům v určité kolekci. Provádění operací CRUD proti kolekci po volání této metody. V `GetCollection<TDocument>(collection)` volání metody:
+* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; představuje databázi Mongodb pro provádění operací. Tento kurz používá Obecné [GetCollection\<TDocument > (kolekce)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) metoda v rozhraní k získání přístupu k datům v určité kolekci. Provádění operací CRUD proti kolekci po volání této metody. V `GetCollection<TDocument>(collection)` volání metody:
   * `collection` představuje název kolekce.
   * `TDocument` představuje typ objektu CLR uložená v kolekci.
 

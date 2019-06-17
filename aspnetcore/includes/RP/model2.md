@@ -12,7 +12,7 @@ Předchozí kód vytvoří `DbSet` vlastnost sady entit. V terminologii Entity F
 
 ### <a name="add-a-database-connection-string"></a>Přidat připojovací řetězec databáze
 
-Přidat připojovací řetězec pro *appsettings.json* souboru:
+Přidat připojovací řetězec pro *appsettings.json* sdílené, jak je znázorněno v následující zvýrazněný kód:
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 

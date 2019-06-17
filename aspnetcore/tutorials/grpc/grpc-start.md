@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 06/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 919db3f31310342657c89100a6e25e8293648a9f
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 76c40d108bc0ce9dec7099b10812c896f0b7777d
+ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034803"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67048198"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření gRPC klientem a serverem v ASP.NET Core
 
@@ -117,7 +117,7 @@ info: Microsoft.Hosting.Lifetime[0]
 * *greet.proto*: *Protos/greet.proto* soubor definuje `Greeter` gRPC a slouží ke generování gRPC serverovými prostředky. Další informace najdete v tématu [Úvod do gRPC](xref:grpc/index).
 * *Služby* složky: Obsahuje implementaci `Greeter` služby.
 * *appSettings.json*: Obsahuje konfigurační data, třeba protokol používá Kestrel. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
-* *Program.cs*: Vstupní bod pro službu gRPC obsahuje. Další informace naleznete v tématu <xref:fundamentals/host/web-host>.
+* *Program.cs*: Vstupní bod pro službu gRPC obsahuje. Další informace naleznete v tématu <xref:fundamentals/host/generic-host>.
 * *Startup.cs*: Obsahuje kód, který nakonfiguruje chování aplikace. Další informace najdete v tématu [spuštění aplikace](xref:fundamentals/startup).
 
 ## <a name="create-the-grpc-client-in-a-net-console-app"></a>Vytvoření klienta gRPC v konzolové aplikace .NET

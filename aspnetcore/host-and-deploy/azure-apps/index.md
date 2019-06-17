@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/28/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 3649b77e53aee190172b06582951d7a0bfa0c805
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 5daefde13310ebeb232ef4c8886b12ad78182e50
+ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034817"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67048239"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikace ASP.NET Core do Azure App Service
 
@@ -74,9 +74,17 @@ Nastavení aplikace na webu Azure Portal umožní nastavit proměnné prostřed�
 
 Při vytvoření nebo úpravě na webu Azure Portal nastavení aplikace a **Uložit** se vybere tlačítko, restartování aplikace Azure. Proměnná prostředí je k dispozici pro aplikace, po restartování služby.
 
-Pokud aplikace používá [webového hostitele](xref:fundamentals/host/web-host) a sestavení hostitele pomocí [WebHost.CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder), použít proměnné prostředí, které konfigurace hostitele `ASPNETCORE_` předponu. Další informace najdete v tématu <xref:fundamentals/host/web-host> a [poskytovatele konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
+::: moniker range=">= aspnetcore-3.0"
 
 Pokud aplikace používá [obecný hostitele](xref:fundamentals/host/generic-host), proměnné prostředí nejsou načtené do konfigurace vaší aplikace ve výchozím nastavení a poskytovatel konfigurace je třeba přidat pomocí vývojáře. Vývojář Určuje předponu proměnné prostředí po přidání zprostředkovatele konfigurace. Další informace najdete v tématu <xref:fundamentals/host/generic-host> a [poskytovatele konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
+
+Při sestavení aplikace hostitele pomocí [WebHost.CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder), použít proměnné prostředí, které konfigurace hostitele `ASPNETCORE_` předponu. Další informace najdete v tématu <xref:fundamentals/host/web-host> a [poskytovatele konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
+
+::: moniker-end
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 

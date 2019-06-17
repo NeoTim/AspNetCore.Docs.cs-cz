@@ -5,12 +5,12 @@ description: Tato série kurzů ukazuje, jak používat v ASP.NET Core Razor Pag
 ms.author: riande
 ms.date: 6/3/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: e7d0312bd4b54586f4a3d403f464ded1aa49bcac
-ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
+ms.openlocfilehash: ee5ef572db8b3c4e152fd864177c0eea3edc1f20
+ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2019
-ms.locfileid: "66824709"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67048214"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se stránkami Razor v ASP.NET Core
 
@@ -182,7 +182,7 @@ Obsahuje konfigurační data, jako je například připojovací řetězce. Dalš
 
 ### <a name="programcs"></a>Program.cs
 
-Obsahuje vstupní bod programu. Další informace naleznete v tématu <xref:fundamentals/host/web-host>.
+Obsahuje vstupní bod programu. Další informace naleznete v tématu <xref:fundamentals/host/generic-host>.
 
 ### <a name="startupcs"></a>Startup.cs
 

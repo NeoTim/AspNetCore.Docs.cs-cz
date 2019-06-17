@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/28/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 5cf7b9aa7ccf86f1a89e6145cfc185c5ef803e66
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: dac5a48042a71774cb884e30a166be68bee69691
+ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376415"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67048107"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2.0
 
@@ -60,7 +60,7 @@ Další informace najdete v tématu [Úvod k protokolování](xref:fundamentals/
 
 Konfigurace ověřování pro aplikaci s využitím DI usnadňuje nový model ověřování.
 
-Nové šablony jsou dostupné pro konfiguraci ověřování pro webové aplikace a webová rozhraní API pomocí služby [Azure AD B2C] (https://azure.microsoft.com/services/active-directory-b2c/).
+Nové šablony jsou dostupné pro konfiguraci ověřování pro webové aplikace a webové rozhraní API pomocí [Azure AD B2C](https://azure.microsoft.com/services/active-directory-b2c/).
 
 Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/3054).
 
