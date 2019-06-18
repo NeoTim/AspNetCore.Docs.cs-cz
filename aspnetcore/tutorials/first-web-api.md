@@ -1,242 +1,242 @@
 ---
-title: 'Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC'
+title: 'Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core'
 author: rick-anderson
-description: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
+description: Zjistěte, jak vytvořit webové rozhraní API pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/4/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: dce2926e3cb19d6ac8d2af0e9b96c31dee1d92fd
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 7e37e408f32b2e490a0d248a14940fc68d4bda0a
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087523"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67153228"
 ---
-# <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a><span data-ttu-id="1e5f8-103">Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC</span><span class="sxs-lookup"><span data-stu-id="1e5f8-103">Tutorial: Create a web API with ASP.NET Core MVC</span></span>
+# <a name="tutorial-create-a-web-api-with-aspnet-core"></a><span data-ttu-id="2a2cb-103">Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="2a2cb-103">Tutorial: Create a web API with ASP.NET Core</span></span>
 
-<span data-ttu-id="1e5f8-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Mike Wasson](https://github.com/mikewasson)</span><span class="sxs-lookup"><span data-stu-id="1e5f8-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Mike Wasson](https://github.com/mikewasson)</span></span>
+<span data-ttu-id="2a2cb-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Mike Wasson](https://github.com/mikewasson)</span><span class="sxs-lookup"><span data-stu-id="2a2cb-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Mike Wasson](https://github.com/mikewasson)</span></span>
 
-<span data-ttu-id="1e5f8-105">V tomto kurzu se naučíte se základy vytváření webových rozhraní API pomocí ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-105">This tutorial teaches the basics of building a web API with ASP.NET Core.</span></span>
+<span data-ttu-id="2a2cb-105">V tomto kurzu se naučíte se základy vytváření webových rozhraní API pomocí ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-105">This tutorial teaches the basics of building a web API with ASP.NET Core.</span></span>
 
-<span data-ttu-id="1e5f8-106">V tomto kurzu se naučíte:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-106">In this tutorial, you learn how to:</span></span>
+<span data-ttu-id="2a2cb-106">V tomto kurzu se naučíte:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-106">In this tutorial, you learn how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="1e5f8-107">Vytvořte projekt webového rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-107">Create a web API project.</span></span>
-> * <span data-ttu-id="1e5f8-108">Přidejte třídu modelu.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-108">Add a model class.</span></span>
-> * <span data-ttu-id="1e5f8-109">Vytvořte kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-109">Create the database context.</span></span>
-> * <span data-ttu-id="1e5f8-110">Zaregistrujte kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-110">Register the database context.</span></span>
-> * <span data-ttu-id="1e5f8-111">Přidání kontroleru.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-111">Add a controller.</span></span>
-> * <span data-ttu-id="1e5f8-112">Přidejte metody CRUD.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-112">Add CRUD methods.</span></span>
-> * <span data-ttu-id="1e5f8-113">Konfigurace směrování a cesty adresy URL.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-113">Configure routing and URL paths.</span></span>
-> * <span data-ttu-id="1e5f8-114">Zadejte návratové hodnoty.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-114">Specify return values.</span></span>
-> * <span data-ttu-id="1e5f8-115">Volání webového rozhraní API pomocí nástroje Postman.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-115">Call the web API with Postman.</span></span>
-> * <span data-ttu-id="1e5f8-116">Volání webového rozhraní API s jQuery.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-116">Call the web API with jQuery.</span></span>
+> * <span data-ttu-id="2a2cb-107">Vytvořte projekt webového rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-107">Create a web API project.</span></span>
+> * <span data-ttu-id="2a2cb-108">Přidejte třídu modelu.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-108">Add a model class.</span></span>
+> * <span data-ttu-id="2a2cb-109">Vytvořte kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-109">Create the database context.</span></span>
+> * <span data-ttu-id="2a2cb-110">Zaregistrujte kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-110">Register the database context.</span></span>
+> * <span data-ttu-id="2a2cb-111">Přidání kontroleru.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-111">Add a controller.</span></span>
+> * <span data-ttu-id="2a2cb-112">Přidejte metody CRUD.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-112">Add CRUD methods.</span></span>
+> * <span data-ttu-id="2a2cb-113">Konfigurace směrování a cesty adresy URL.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-113">Configure routing and URL paths.</span></span>
+> * <span data-ttu-id="2a2cb-114">Zadejte návratové hodnoty.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-114">Specify return values.</span></span>
+> * <span data-ttu-id="2a2cb-115">Volání webového rozhraní API pomocí nástroje Postman.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-115">Call the web API with Postman.</span></span>
+> * <span data-ttu-id="2a2cb-116">Volání webového rozhraní API s jQuery.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-116">Call the web API with jQuery.</span></span>
 
-<span data-ttu-id="1e5f8-117">Na konci máte webové rozhraní API, která může spravovat "úkolů" položky uložené v relační databázi.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-117">At the end, you have a web API that can manage "to-do" items stored in a relational database.</span></span>
+<span data-ttu-id="2a2cb-117">Na konci máte webové rozhraní API, která může spravovat "úkolů" položky uložené v relační databázi.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-117">At the end, you have a web API that can manage "to-do" items stored in a relational database.</span></span>
 
-## <a name="overview"></a><span data-ttu-id="1e5f8-118">Přehled</span><span class="sxs-lookup"><span data-stu-id="1e5f8-118">Overview</span></span>
+## <a name="overview"></a><span data-ttu-id="2a2cb-118">Přehled</span><span class="sxs-lookup"><span data-stu-id="2a2cb-118">Overview</span></span>
 
-<span data-ttu-id="1e5f8-119">Tento kurz vytvoří následující rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-119">This tutorial creates the following API:</span></span>
+<span data-ttu-id="2a2cb-119">Tento kurz vytvoří následující rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-119">This tutorial creates the following API:</span></span>
 
-|<span data-ttu-id="1e5f8-120">rozhraní API</span><span class="sxs-lookup"><span data-stu-id="1e5f8-120">API</span></span> | <span data-ttu-id="1e5f8-121">Popis</span><span class="sxs-lookup"><span data-stu-id="1e5f8-121">Description</span></span> | <span data-ttu-id="1e5f8-122">Text požadavku</span><span class="sxs-lookup"><span data-stu-id="1e5f8-122">Request body</span></span> | <span data-ttu-id="1e5f8-123">Text odpovědi</span><span class="sxs-lookup"><span data-stu-id="1e5f8-123">Response body</span></span> |
+|<span data-ttu-id="2a2cb-120">rozhraní API</span><span class="sxs-lookup"><span data-stu-id="2a2cb-120">API</span></span> | <span data-ttu-id="2a2cb-121">Popis</span><span class="sxs-lookup"><span data-stu-id="2a2cb-121">Description</span></span> | <span data-ttu-id="2a2cb-122">Text požadavku</span><span class="sxs-lookup"><span data-stu-id="2a2cb-122">Request body</span></span> | <span data-ttu-id="2a2cb-123">Text odpovědi</span><span class="sxs-lookup"><span data-stu-id="2a2cb-123">Response body</span></span> |
 |--- | ---- | ---- | ---- |
-|<span data-ttu-id="1e5f8-124">ZÍSKAT /api/todo</span><span class="sxs-lookup"><span data-stu-id="1e5f8-124">GET /api/todo</span></span> | <span data-ttu-id="1e5f8-125">Získat všechny položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-125">Get all to-do items</span></span> | <span data-ttu-id="1e5f8-126">Žádné</span><span class="sxs-lookup"><span data-stu-id="1e5f8-126">None</span></span> | <span data-ttu-id="1e5f8-127">Pole položek úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-127">Array of to-do items</span></span>|
-|<span data-ttu-id="1e5f8-128">ZÍSKAT/webové rozhraní API/todo / {id}</span><span class="sxs-lookup"><span data-stu-id="1e5f8-128">GET /api/todo/{id}</span></span> | <span data-ttu-id="1e5f8-129">Získat položky podle ID</span><span class="sxs-lookup"><span data-stu-id="1e5f8-129">Get an item by ID</span></span> | <span data-ttu-id="1e5f8-130">Žádná</span><span class="sxs-lookup"><span data-stu-id="1e5f8-130">None</span></span> | <span data-ttu-id="1e5f8-131">Položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-131">To-do item</span></span>|
-|<span data-ttu-id="1e5f8-132">Publikovat/api/todo</span><span class="sxs-lookup"><span data-stu-id="1e5f8-132">POST /api/todo</span></span> | <span data-ttu-id="1e5f8-133">Přidat novou položku</span><span class="sxs-lookup"><span data-stu-id="1e5f8-133">Add a new item</span></span> | <span data-ttu-id="1e5f8-134">Položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-134">To-do item</span></span> | <span data-ttu-id="1e5f8-135">Položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-135">To-do item</span></span> |
-|<span data-ttu-id="1e5f8-136">Vložení/webové rozhraní API/todo / {id}</span><span class="sxs-lookup"><span data-stu-id="1e5f8-136">PUT /api/todo/{id}</span></span> | <span data-ttu-id="1e5f8-137">Aktualizovat existující položku &nbsp;</span><span class="sxs-lookup"><span data-stu-id="1e5f8-137">Update an existing item &nbsp;</span></span> | <span data-ttu-id="1e5f8-138">Položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-138">To-do item</span></span> | <span data-ttu-id="1e5f8-139">Žádná</span><span class="sxs-lookup"><span data-stu-id="1e5f8-139">None</span></span> |
-|<span data-ttu-id="1e5f8-140">ODSTRANIT/webové rozhraní API/todo / {id} &nbsp; &nbsp;</span><span class="sxs-lookup"><span data-stu-id="1e5f8-140">DELETE /api/todo/{id} &nbsp; &nbsp;</span></span> | <span data-ttu-id="1e5f8-141">Odstranění položky &nbsp; &nbsp;</span><span class="sxs-lookup"><span data-stu-id="1e5f8-141">Delete an item &nbsp; &nbsp;</span></span> | <span data-ttu-id="1e5f8-142">Žádné</span><span class="sxs-lookup"><span data-stu-id="1e5f8-142">None</span></span> | <span data-ttu-id="1e5f8-143">Žádná</span><span class="sxs-lookup"><span data-stu-id="1e5f8-143">None</span></span>|
+|<span data-ttu-id="2a2cb-124">ZÍSKAT /api/todo</span><span class="sxs-lookup"><span data-stu-id="2a2cb-124">GET /api/todo</span></span> | <span data-ttu-id="2a2cb-125">Získat všechny položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-125">Get all to-do items</span></span> | <span data-ttu-id="2a2cb-126">Žádné</span><span class="sxs-lookup"><span data-stu-id="2a2cb-126">None</span></span> | <span data-ttu-id="2a2cb-127">Pole položek úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-127">Array of to-do items</span></span>|
+|<span data-ttu-id="2a2cb-128">ZÍSKAT/webové rozhraní API/todo / {id}</span><span class="sxs-lookup"><span data-stu-id="2a2cb-128">GET /api/todo/{id}</span></span> | <span data-ttu-id="2a2cb-129">Získat položky podle ID</span><span class="sxs-lookup"><span data-stu-id="2a2cb-129">Get an item by ID</span></span> | <span data-ttu-id="2a2cb-130">Žádná</span><span class="sxs-lookup"><span data-stu-id="2a2cb-130">None</span></span> | <span data-ttu-id="2a2cb-131">Položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-131">To-do item</span></span>|
+|<span data-ttu-id="2a2cb-132">Publikovat/api/todo</span><span class="sxs-lookup"><span data-stu-id="2a2cb-132">POST /api/todo</span></span> | <span data-ttu-id="2a2cb-133">Přidat novou položku</span><span class="sxs-lookup"><span data-stu-id="2a2cb-133">Add a new item</span></span> | <span data-ttu-id="2a2cb-134">Položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-134">To-do item</span></span> | <span data-ttu-id="2a2cb-135">Položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-135">To-do item</span></span> |
+|<span data-ttu-id="2a2cb-136">Vložení/webové rozhraní API/todo / {id}</span><span class="sxs-lookup"><span data-stu-id="2a2cb-136">PUT /api/todo/{id}</span></span> | <span data-ttu-id="2a2cb-137">Aktualizovat existující položku &nbsp;</span><span class="sxs-lookup"><span data-stu-id="2a2cb-137">Update an existing item &nbsp;</span></span> | <span data-ttu-id="2a2cb-138">Položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-138">To-do item</span></span> | <span data-ttu-id="2a2cb-139">Žádná</span><span class="sxs-lookup"><span data-stu-id="2a2cb-139">None</span></span> |
+|<span data-ttu-id="2a2cb-140">ODSTRANIT/webové rozhraní API/todo / {id} &nbsp; &nbsp;</span><span class="sxs-lookup"><span data-stu-id="2a2cb-140">DELETE /api/todo/{id} &nbsp; &nbsp;</span></span> | <span data-ttu-id="2a2cb-141">Odstranění položky &nbsp; &nbsp;</span><span class="sxs-lookup"><span data-stu-id="2a2cb-141">Delete an item &nbsp; &nbsp;</span></span> | <span data-ttu-id="2a2cb-142">Žádné</span><span class="sxs-lookup"><span data-stu-id="2a2cb-142">None</span></span> | <span data-ttu-id="2a2cb-143">Žádná</span><span class="sxs-lookup"><span data-stu-id="2a2cb-143">None</span></span>|
 
-<span data-ttu-id="1e5f8-144">Následující diagram znázorňuje návrh aplikace.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-144">The following diagram shows the design of the app.</span></span>
+<span data-ttu-id="2a2cb-144">Následující diagram znázorňuje návrh aplikace.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-144">The following diagram shows the design of the app.</span></span>
 
 ![Klient je reprezentována pole na levé straně a odešle žádost a obdrží odpověď od aplikace vykreslen na pravé straně pole.](first-web-api/_static/architecture.png)
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
 
-## <a name="create-a-web-project"></a><span data-ttu-id="1e5f8-149">Vytvoření webového projektu</span><span class="sxs-lookup"><span data-stu-id="1e5f8-149">Create a web project</span></span>
+## <a name="create-a-web-project"></a><span data-ttu-id="2a2cb-149">Vytvoření webového projektu</span><span class="sxs-lookup"><span data-stu-id="2a2cb-149">Create a web project</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="1e5f8-150">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="1e5f8-150">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="2a2cb-150">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="2a2cb-150">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="1e5f8-151">Z **souboru** nabídce vyberte možnost **nový** > **projektu**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-151">From the **File** menu, select **New** > **Project**.</span></span>
-* <span data-ttu-id="1e5f8-152">Vyberte **webové aplikace ASP.NET Core** šablony.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-152">Select the **ASP.NET Core Web Application** template.</span></span> <span data-ttu-id="1e5f8-153">Pojmenujte projekt *TodoApi* a klikněte na tlačítko **OK**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-153">Name the project *TodoApi* and click **OK**.</span></span>
-* <span data-ttu-id="1e5f8-154">V **nové webové aplikace ASP.NET Core – TodoApi** dialogového okna, vyberte verzi technologie ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-154">In the **New ASP.NET Core Web Application - TodoApi** dialog, choose the ASP.NET Core version.</span></span> <span data-ttu-id="1e5f8-155">Vyberte **API** šablonu a klikněte na tlačítko **OK**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-155">Select the **API** template and click **OK**.</span></span> <span data-ttu-id="1e5f8-156">Proveďte **není** vyberte **povolit podporu Dockeru**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-156">Do **not** select **Enable Docker Support**.</span></span>
+* <span data-ttu-id="2a2cb-151">Z **souboru** nabídce vyberte možnost **nový** > **projektu**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-151">From the **File** menu, select **New** > **Project**.</span></span>
+* <span data-ttu-id="2a2cb-152">Vyberte **webové aplikace ASP.NET Core** šablony.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-152">Select the **ASP.NET Core Web Application** template.</span></span> <span data-ttu-id="2a2cb-153">Pojmenujte projekt *TodoApi* a klikněte na tlačítko **OK**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-153">Name the project *TodoApi* and click **OK**.</span></span>
+* <span data-ttu-id="2a2cb-154">V **nové webové aplikace ASP.NET Core – TodoApi** dialogového okna, vyberte verzi technologie ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-154">In the **New ASP.NET Core Web Application - TodoApi** dialog, choose the ASP.NET Core version.</span></span> <span data-ttu-id="2a2cb-155">Vyberte **API** šablonu a klikněte na tlačítko **OK**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-155">Select the **API** template and click **OK**.</span></span> <span data-ttu-id="2a2cb-156">Proveďte **není** vyberte **povolit podporu Dockeru**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-156">Do **not** select **Enable Docker Support**.</span></span>
 
 ![VS – dialogové okno nového projektu](first-web-api/_static/vs.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="1e5f8-158">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="1e5f8-158">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="2a2cb-158">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="2a2cb-158">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="1e5f8-159">Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-159">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
-* <span data-ttu-id="1e5f8-160">Změňte adresář (`cd`) do složky, která bude obsahovat složky projektu.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-160">Change directories (`cd`) to the folder which will contain the project folder.</span></span>
-* <span data-ttu-id="1e5f8-161">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-161">Run the following commands:</span></span>
+* <span data-ttu-id="2a2cb-159">Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-159">Open the [integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal).</span></span>
+* <span data-ttu-id="2a2cb-160">Změňte adresář (`cd`) do složky, která bude obsahovat složky projektu.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-160">Change directories (`cd`) to the folder which will contain the project folder.</span></span>
+* <span data-ttu-id="2a2cb-161">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-161">Run the following commands:</span></span>
 
    ```console
    dotnet new webapi -o TodoApi
    code -r TodoApi
    ```
 
-  <span data-ttu-id="1e5f8-162">Tyto příkazy vytvořte nový projekt webového rozhraní API a otevřete novou instanci sady Visual Studio Code v nové složce projektu.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-162">These commands create a new web API project and open a new instance of Visual Studio Code in the new project folder.</span></span>
+  <span data-ttu-id="2a2cb-162">Tyto příkazy vytvořte nový projekt webového rozhraní API a otevřete novou instanci sady Visual Studio Code v nové složce projektu.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-162">These commands create a new web API project and open a new instance of Visual Studio Code in the new project folder.</span></span>
 
-* <span data-ttu-id="1e5f8-163">Když dialogové okno požádá, pokud chcete do projektu přidejte požadované prostředky, vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-163">When a dialog box asks if you want to add required assets to the project, select **Yes**.</span></span>
+* <span data-ttu-id="2a2cb-163">Když dialogové okno požádá, pokud chcete do projektu přidejte požadované prostředky, vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-163">When a dialog box asks if you want to add required assets to the project, select **Yes**.</span></span>
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="1e5f8-164">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="1e5f8-164">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="2a2cb-164">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="2a2cb-164">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="1e5f8-165">Vyberte **souboru** > **nové řešení**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-165">Select **File** > **New Solution**.</span></span>
+* <span data-ttu-id="2a2cb-165">Vyberte **souboru** > **nové řešení**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-165">Select **File** > **New Solution**.</span></span>
 
   ![macOS nové řešení](first-web-api-mac/_static/sln.png)
 
-* <span data-ttu-id="1e5f8-167">Vyberte **aplikace .NET Core** > **webového rozhraní API ASP.NET Core** > **Další**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-167">Select **.NET Core App** > **ASP.NET Core Web API** > **Next**.</span></span>
+* <span data-ttu-id="2a2cb-167">Vyberte **aplikace .NET Core** > **webového rozhraní API ASP.NET Core** > **Další**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-167">Select **.NET Core App** > **ASP.NET Core Web API** > **Next**.</span></span>
 
   ![macOS dialogové okno nového projektu](first-web-api-mac/_static/1.png)
   
-* <span data-ttu-id="1e5f8-169">V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z \**.NET Core 2.2*.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-169">In the **Configure your new ASP.NET Core Web API** dialog, accept the default **Target Framework** of \**.NET Core 2.2*.</span></span>
+* <span data-ttu-id="2a2cb-169">V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z \* *.NET Core 2.2*.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-169">In the **Configure your new ASP.NET Core Web API** dialog, accept the default **Target Framework** of \**.NET Core 2.2*.</span></span>
 
-* <span data-ttu-id="1e5f8-170">Zadejte *TodoApi* pro **název projektu** a pak vyberte **vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-170">Enter *TodoApi* for the **Project Name** and then select **Create**.</span></span>
+* <span data-ttu-id="2a2cb-170">Zadejte *TodoApi* pro **název projektu** a pak vyberte **vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-170">Enter *TodoApi* for the **Project Name** and then select **Create**.</span></span>
 
   ![Dialogové okno Konfigurace](first-web-api-mac/_static/2.png)
 
 ---
 
-### <a name="test-the-api"></a><span data-ttu-id="1e5f8-172">Testovat rozhraní API</span><span class="sxs-lookup"><span data-stu-id="1e5f8-172">Test the API</span></span>
+### <a name="test-the-api"></a><span data-ttu-id="2a2cb-172">Testovat rozhraní API</span><span class="sxs-lookup"><span data-stu-id="2a2cb-172">Test the API</span></span>
 
-<span data-ttu-id="1e5f8-173">Šablona projektu vytvoří `values` rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-173">The project template creates a `values` API.</span></span> <span data-ttu-id="1e5f8-174">Volání `Get` metoda v prohlížeči a testování aplikace.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-174">Call the `Get` method from a browser to test the app.</span></span>
+<span data-ttu-id="2a2cb-173">Šablona projektu vytvoří `values` rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-173">The project template creates a `values` API.</span></span> <span data-ttu-id="2a2cb-174">Volání `Get` metoda v prohlížeči a testování aplikace.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-174">Call the `Get` method from a browser to test the app.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="1e5f8-175">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="1e5f8-175">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="2a2cb-175">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="2a2cb-175">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="1e5f8-176">Stisknutím kláves Ctrl + F5 spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-176">Press Ctrl+F5 to run the app.</span></span> <span data-ttu-id="1e5f8-177">Visual Studio spustí prohlížeč a přejde na `https://localhost:<port>/api/values`, kde `<port>` je číslo portu náhodně vybrané.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-177">Visual Studio launches a browser and navigates to `https://localhost:<port>/api/values`, where `<port>` is a randomly chosen port number.</span></span>
+<span data-ttu-id="2a2cb-176">Stisknutím kláves Ctrl + F5 spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-176">Press Ctrl+F5 to run the app.</span></span> <span data-ttu-id="2a2cb-177">Visual Studio spustí prohlížeč a přejde na `https://localhost:<port>/api/values`, kde `<port>` je číslo portu náhodně vybrané.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-177">Visual Studio launches a browser and navigates to `https://localhost:<port>/api/values`, where `<port>` is a randomly chosen port number.</span></span>
 
-<span data-ttu-id="1e5f8-178">Pokud se zobrazí dialogové okno s dotazem, pokud by měla důvěřovat certifikátu služby IIS Express, vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-178">If you get a dialog box that asks if you should trust the IIS Express certificate, select **Yes**.</span></span> <span data-ttu-id="1e5f8-179">V **upozornění zabezpečení** dialogové okno, které se zobrazí další, vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-179">In the **Security Warning** dialog that appears next, select **Yes**.</span></span>
+<span data-ttu-id="2a2cb-178">Pokud se zobrazí dialogové okno s dotazem, pokud by měla důvěřovat certifikátu služby IIS Express, vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-178">If you get a dialog box that asks if you should trust the IIS Express certificate, select **Yes**.</span></span> <span data-ttu-id="2a2cb-179">V **upozornění zabezpečení** dialogové okno, které se zobrazí další, vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-179">In the **Security Warning** dialog that appears next, select **Yes**.</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="1e5f8-180">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="1e5f8-180">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="2a2cb-180">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="2a2cb-180">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="1e5f8-181">Stisknutím kláves Ctrl + F5 spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-181">Press Ctrl+F5 to run the app.</span></span> <span data-ttu-id="1e5f8-182">V prohlížeči přejděte na následující adrese URL: [ https://localhost:5001/api/values ](https://localhost:5001/api/values).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-182">In a browser, go to following URL: [https://localhost:5001/api/values](https://localhost:5001/api/values).</span></span>
+<span data-ttu-id="2a2cb-181">Stisknutím kláves Ctrl + F5 spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-181">Press Ctrl+F5 to run the app.</span></span> <span data-ttu-id="2a2cb-182">V prohlížeči přejděte na následující adrese URL: [ https://localhost:5001/api/values ](https://localhost:5001/api/values).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-182">In a browser, go to following URL: [https://localhost:5001/api/values](https://localhost:5001/api/values).</span></span>
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="1e5f8-183">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="1e5f8-183">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="2a2cb-183">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="2a2cb-183">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="1e5f8-184">Vyberte **spustit** > **spustit s ladění** aplikaci spustit.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-184">Select **Run** > **Start With Debugging** to launch the app.</span></span> <span data-ttu-id="1e5f8-185">Spuštění prohlížeče Visual Studio pro Mac a přejde na `https://localhost:<port>`, kde `<port>` je číslo portu náhodně vybrané.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-185">Visual Studio for Mac launches a browser and navigates to `https://localhost:<port>`, where `<port>` is a randomly chosen port number.</span></span> <span data-ttu-id="1e5f8-186">Vrátí chybu HTTP 404 (Nenalezeno).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-186">An HTTP 404 (Not Found) error is returned.</span></span> <span data-ttu-id="1e5f8-187">Připojit `/api/values` na adresu URL (změňte adresu URL na `https://localhost:<port>/api/values`).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-187">Append `/api/values` to the URL (change the URL to `https://localhost:<port>/api/values`).</span></span>
+<span data-ttu-id="2a2cb-184">Vyberte **spustit** > **spustit s ladění** aplikaci spustit.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-184">Select **Run** > **Start With Debugging** to launch the app.</span></span> <span data-ttu-id="2a2cb-185">Spuštění prohlížeče Visual Studio pro Mac a přejde na `https://localhost:<port>`, kde `<port>` je číslo portu náhodně vybrané.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-185">Visual Studio for Mac launches a browser and navigates to `https://localhost:<port>`, where `<port>` is a randomly chosen port number.</span></span> <span data-ttu-id="2a2cb-186">Vrátí chybu HTTP 404 (Nenalezeno).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-186">An HTTP 404 (Not Found) error is returned.</span></span> <span data-ttu-id="2a2cb-187">Připojit `/api/values` na adresu URL (změňte adresu URL na `https://localhost:<port>/api/values`).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-187">Append `/api/values` to the URL (change the URL to `https://localhost:<port>/api/values`).</span></span>
 
 ---
 
-<span data-ttu-id="1e5f8-188">Vrátí následující JSON:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-188">The following JSON is returned:</span></span>
+<span data-ttu-id="2a2cb-188">Vrátí následující JSON:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-188">The following JSON is returned:</span></span>
 
 ```json
 ["value1","value2"]
 ```
 
-## <a name="add-a-model-class"></a><span data-ttu-id="1e5f8-189">Přidejte třídu modelu</span><span class="sxs-lookup"><span data-stu-id="1e5f8-189">Add a model class</span></span>
+## <a name="add-a-model-class"></a><span data-ttu-id="2a2cb-189">Přidejte třídu modelu</span><span class="sxs-lookup"><span data-stu-id="2a2cb-189">Add a model class</span></span>
 
-<span data-ttu-id="1e5f8-190">A *modelu* je sada tříd, které představují data, která aplikace spravuje.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-190">A *model* is a set of classes that represent the data that the app manages.</span></span> <span data-ttu-id="1e5f8-191">Model pro tuto aplikaci je jedinou `TodoItem` třídy.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-191">The model for this app is a single `TodoItem` class.</span></span>
+<span data-ttu-id="2a2cb-190">A *modelu* je sada tříd, které představují data, která aplikace spravuje.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-190">A *model* is a set of classes that represent the data that the app manages.</span></span> <span data-ttu-id="2a2cb-191">Model pro tuto aplikaci je jedinou `TodoItem` třídy.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-191">The model for this app is a single `TodoItem` class.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="1e5f8-192">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="1e5f8-192">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="2a2cb-192">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="2a2cb-192">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="1e5f8-193">V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-193">In **Solution Explorer**, right-click the project.</span></span> <span data-ttu-id="1e5f8-194">Vyberte **přidat** > **novou složku**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-194">Select **Add** > **New Folder**.</span></span> <span data-ttu-id="1e5f8-195">Název složky *modely*.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-195">Name the folder *Models*.</span></span>
+* <span data-ttu-id="2a2cb-193">V **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-193">In **Solution Explorer**, right-click the project.</span></span> <span data-ttu-id="2a2cb-194">Vyberte **přidat** > **novou složku**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-194">Select **Add** > **New Folder**.</span></span> <span data-ttu-id="2a2cb-195">Název složky *modely*.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-195">Name the folder *Models*.</span></span>
 
-* <span data-ttu-id="1e5f8-196">Klikněte pravým tlačítkem myši *modely* a pak zvolte položku **přidat** > **třídy**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-196">Right-click the *Models* folder and select **Add** > **Class**.</span></span> <span data-ttu-id="1e5f8-197">Název třídy *TodoItem* a vyberte **přidat**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-197">Name the class *TodoItem* and select **Add**.</span></span>
+* <span data-ttu-id="2a2cb-196">Klikněte pravým tlačítkem myši *modely* a pak zvolte položku **přidat** > **třídy**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-196">Right-click the *Models* folder and select **Add** > **Class**.</span></span> <span data-ttu-id="2a2cb-197">Název třídy *TodoItem* a vyberte **přidat**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-197">Name the class *TodoItem* and select **Add**.</span></span>
 
-* <span data-ttu-id="1e5f8-198">Nahraďte kód šablony následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-198">Replace the template code with the following code:</span></span>
+* <span data-ttu-id="2a2cb-198">Nahraďte kód šablony následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-198">Replace the template code with the following code:</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="1e5f8-199">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="1e5f8-199">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="2a2cb-199">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="2a2cb-199">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="1e5f8-200">Přidat složku s názvem *modely*.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-200">Add a folder named *Models*.</span></span>
+* <span data-ttu-id="2a2cb-200">Přidat složku s názvem *modely*.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-200">Add a folder named *Models*.</span></span>
 
-* <span data-ttu-id="1e5f8-201">Přidat `TodoItem` třídu *modely* složka s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-201">Add a `TodoItem` class to the *Models* folder with the following code:</span></span>
+* <span data-ttu-id="2a2cb-201">Přidat `TodoItem` třídu *modely* složka s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-201">Add a `TodoItem` class to the *Models* folder with the following code:</span></span>
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="1e5f8-202">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="1e5f8-202">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[<span data-ttu-id="2a2cb-202">Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="2a2cb-202">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="1e5f8-203">Klikněte pravým tlačítkem na projekt.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-203">Right-click the project.</span></span> <span data-ttu-id="1e5f8-204">Vyberte **přidat** > **novou složku**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-204">Select **Add** > **New Folder**.</span></span> <span data-ttu-id="1e5f8-205">Název složky *modely*.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-205">Name the folder *Models*.</span></span>
+* <span data-ttu-id="2a2cb-203">Klikněte pravým tlačítkem na projekt.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-203">Right-click the project.</span></span> <span data-ttu-id="2a2cb-204">Vyberte **přidat** > **novou složku**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-204">Select **Add** > **New Folder**.</span></span> <span data-ttu-id="2a2cb-205">Název složky *modely*.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-205">Name the folder *Models*.</span></span>
 
   ![Nová složka](first-web-api-mac/_static/folder.png)
 
-* <span data-ttu-id="1e5f8-207">Klikněte pravým tlačítkem myši *modely* a pak zvolte položku **přidat** > **nový soubor** > **Obecné**  >  **Prázdná třída**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-207">Right-click the *Models* folder, and select **Add** > **New File** > **General** > **Empty Class**.</span></span>
+* <span data-ttu-id="2a2cb-207">Klikněte pravým tlačítkem myši *modely* a pak zvolte položku **přidat** > **nový soubor** > **Obecné**  >  **Prázdná třída**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-207">Right-click the *Models* folder, and select **Add** > **New File** > **General** > **Empty Class**.</span></span>
 
-* <span data-ttu-id="1e5f8-208">Název třídy *TodoItem*a potom klikněte na tlačítko **nový**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-208">Name the class *TodoItem*, and then click **New**.</span></span>
+* <span data-ttu-id="2a2cb-208">Název třídy *TodoItem*a potom klikněte na tlačítko **nový**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-208">Name the class *TodoItem*, and then click **New**.</span></span>
 
-* <span data-ttu-id="1e5f8-209">Nahraďte kód šablony následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-209">Replace the template code with the following code:</span></span>
+* <span data-ttu-id="2a2cb-209">Nahraďte kód šablony následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-209">Replace the template code with the following code:</span></span>
 
 ---
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Models/TodoItem.cs)]
 
-<span data-ttu-id="1e5f8-210">`Id` Vlastnost funguje jako jedinečný klíč v relační databázi.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-210">The `Id` property functions as the unique key in a relational database.</span></span>
+<span data-ttu-id="2a2cb-210">`Id` Vlastnost funguje jako jedinečný klíč v relační databázi.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-210">The `Id` property functions as the unique key in a relational database.</span></span>
 
-<span data-ttu-id="1e5f8-211">Třídy modelu můžete kamkoliv v projektu, ale *modely* složky používají konvence.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-211">Model classes can go anywhere in the project, but the *Models* folder is used by convention.</span></span>
+<span data-ttu-id="2a2cb-211">Třídy modelu můžete kamkoliv v projektu, ale *modely* složky používají konvence.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-211">Model classes can go anywhere in the project, but the *Models* folder is used by convention.</span></span>
 
-## <a name="add-a-database-context"></a><span data-ttu-id="1e5f8-212">Přidat kontext databáze</span><span class="sxs-lookup"><span data-stu-id="1e5f8-212">Add a database context</span></span>
+## <a name="add-a-database-context"></a><span data-ttu-id="2a2cb-212">Přidat kontext databáze</span><span class="sxs-lookup"><span data-stu-id="2a2cb-212">Add a database context</span></span>
 
-<span data-ttu-id="1e5f8-213">*Kontext databáze* je hlavní třída, která koordinuje funkce Entity Framework pro daný datový model.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-213">The *database context* is the main class that coordinates Entity Framework functionality for a data model.</span></span> <span data-ttu-id="1e5f8-214">Tato třída se vytvoří odvozením z `Microsoft.EntityFrameworkCore.DbContext` třídy.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-214">This class is created by deriving from the `Microsoft.EntityFrameworkCore.DbContext` class.</span></span>
+<span data-ttu-id="2a2cb-213">*Kontext databáze* je hlavní třída, která koordinuje funkce Entity Framework pro daný datový model.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-213">The *database context* is the main class that coordinates Entity Framework functionality for a data model.</span></span> <span data-ttu-id="2a2cb-214">Tato třída se vytvoří odvozením z `Microsoft.EntityFrameworkCore.DbContext` třídy.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-214">This class is created by deriving from the `Microsoft.EntityFrameworkCore.DbContext` class.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="1e5f8-215">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="1e5f8-215">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="2a2cb-215">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="2a2cb-215">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="1e5f8-216">Klikněte pravým tlačítkem myši *modely* a pak zvolte položku **přidat** > **třídy**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-216">Right-click the *Models* folder and select **Add** > **Class**.</span></span> <span data-ttu-id="1e5f8-217">Název třídy *TodoContext* a klikněte na tlačítko **přidat**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-217">Name the class *TodoContext* and click **Add**.</span></span>
+* <span data-ttu-id="2a2cb-216">Klikněte pravým tlačítkem myši *modely* a pak zvolte položku **přidat** > **třídy**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-216">Right-click the *Models* folder and select **Add** > **Class**.</span></span> <span data-ttu-id="2a2cb-217">Název třídy *TodoContext* a klikněte na tlačítko **přidat**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-217">Name the class *TodoContext* and click **Add**.</span></span>
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="1e5f8-218">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="1e5f8-218">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="2a2cb-218">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="2a2cb-218">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-* <span data-ttu-id="1e5f8-219">Přidat `TodoContext` třídu *modely* složky.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-219">Add a `TodoContext` class to the *Models* folder.</span></span>
+* <span data-ttu-id="2a2cb-219">Přidat `TodoContext` třídu *modely* složky.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-219">Add a `TodoContext` class to the *Models* folder.</span></span>
 
 ---
 
-* <span data-ttu-id="1e5f8-220">Nahraďte kód šablony následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-220">Replace the template code with the following code:</span></span>
+* <span data-ttu-id="2a2cb-220">Nahraďte kód šablony následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-220">Replace the template code with the following code:</span></span>
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Models/TodoContext.cs)]
 
-## <a name="register-the-database-context"></a><span data-ttu-id="1e5f8-221">Zaregistrujte kontext databáze</span><span class="sxs-lookup"><span data-stu-id="1e5f8-221">Register the database context</span></span>
+## <a name="register-the-database-context"></a><span data-ttu-id="2a2cb-221">Zaregistrujte kontext databáze</span><span class="sxs-lookup"><span data-stu-id="2a2cb-221">Register the database context</span></span>
 
-<span data-ttu-id="1e5f8-222">V ASP.NET Core, služeb, jako je kontext databáze, musí zaregistrovat [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) kontejneru.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-222">In ASP.NET Core, services such as the DB context must be registered with the [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="1e5f8-223">Kontejner poskytuje služby řadiče.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-223">The container provides the service to controllers.</span></span>
+<span data-ttu-id="2a2cb-222">V ASP.NET Core, služeb, jako je kontext databáze, musí zaregistrovat [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) kontejneru.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-222">In ASP.NET Core, services such as the DB context must be registered with the [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="2a2cb-223">Kontejner poskytuje služby řadiče.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-223">The container provides the service to controllers.</span></span>
 
-<span data-ttu-id="1e5f8-224">Aktualizace *Startup.cs* s následující zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-224">Update *Startup.cs* with the following highlighted code:</span></span>
+<span data-ttu-id="2a2cb-224">Aktualizace *Startup.cs* s následující zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-224">Update *Startup.cs* with the following highlighted code:</span></span>
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup1.cs?highlight=5,8,25-26&name=snippet_all)]
 
-<span data-ttu-id="1e5f8-225">Předchozí kód:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-225">The preceding code:</span></span>
+<span data-ttu-id="2a2cb-225">Předchozí kód:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-225">The preceding code:</span></span>
 
-* <span data-ttu-id="1e5f8-226">Odebere nevyužité `using` deklarace.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-226">Removes unused `using` declarations.</span></span>
-* <span data-ttu-id="1e5f8-227">Přidá do kontejneru DI kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-227">Adds the database context to the DI container.</span></span>
-* <span data-ttu-id="1e5f8-228">Určuje, zda kontext databáze bude používat databázi v paměti.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-228">Specifies that the database context will use an in-memory database.</span></span>
+* <span data-ttu-id="2a2cb-226">Odebere nevyužité `using` deklarace.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-226">Removes unused `using` declarations.</span></span>
+* <span data-ttu-id="2a2cb-227">Přidá do kontejneru DI kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-227">Adds the database context to the DI container.</span></span>
+* <span data-ttu-id="2a2cb-228">Určuje, zda kontext databáze bude používat databázi v paměti.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-228">Specifies that the database context will use an in-memory database.</span></span>
 
-## <a name="add-a-controller"></a><span data-ttu-id="1e5f8-229">Přidání kontroleru</span><span class="sxs-lookup"><span data-stu-id="1e5f8-229">Add a controller</span></span>
+## <a name="add-a-controller"></a><span data-ttu-id="2a2cb-229">Přidání kontroleru</span><span class="sxs-lookup"><span data-stu-id="2a2cb-229">Add a controller</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="1e5f8-230">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="1e5f8-230">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="2a2cb-230">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="2a2cb-230">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="1e5f8-231">Klikněte pravým tlačítkem myši *řadiče* složky.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-231">Right-click the *Controllers* folder.</span></span>
-* <span data-ttu-id="1e5f8-232">Vyberte **přidat** > **nová položka**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-232">Select **Add** > **New Item**.</span></span>
-* <span data-ttu-id="1e5f8-233">V **přidat novou položku** dialogového okna, vyberte **třída Kontroleru rozhraní API** šablony.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-233">In the **Add New Item** dialog, select the **API Controller Class** template.</span></span>
-* <span data-ttu-id="1e5f8-234">Název třídy *TodoController*a vyberte **přidat**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-234">Name the class *TodoController*, and select **Add**.</span></span>
+* <span data-ttu-id="2a2cb-231">Klikněte pravým tlačítkem myši *řadiče* složky.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-231">Right-click the *Controllers* folder.</span></span>
+* <span data-ttu-id="2a2cb-232">Vyberte **přidat** > **nová položka**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-232">Select **Add** > **New Item**.</span></span>
+* <span data-ttu-id="2a2cb-233">V **přidat novou položku** dialogového okna, vyberte **třída Kontroleru rozhraní API** šablony.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-233">In the **Add New Item** dialog, select the **API Controller Class** template.</span></span>
+* <span data-ttu-id="2a2cb-234">Název třídy *TodoController*a vyberte **přidat**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-234">Name the class *TodoController*, and select **Add**.</span></span>
 
   ![Přidání nové položky dialogové okno s kontrolerem v vyhledávací pole a webové rozhraní api kontroleru vybrané](first-web-api/_static/new_controller.png)
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="1e5f8-236">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="1e5f8-236">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[<span data-ttu-id="2a2cb-236">Visual Studio Code / Visual Studio for Mac</span><span class="sxs-lookup"><span data-stu-id="2a2cb-236">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-* <span data-ttu-id="1e5f8-237">V *řadiče* složku, vytvořte třídu s názvem `TodoController`.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-237">In the *Controllers* folder, create a class named `TodoController`.</span></span>
+* <span data-ttu-id="2a2cb-237">V *řadiče* složku, vytvořte třídu s názvem `TodoController`.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-237">In the *Controllers* folder, create a class named `TodoController`.</span></span>
 
 ---
 
-* <span data-ttu-id="1e5f8-238">Nahraďte kód šablony následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-238">Replace the template code with the following code:</span></span>
+* <span data-ttu-id="2a2cb-238">Nahraďte kód šablony následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-238">Replace the template code with the following code:</span></span>
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController2.cs?name=snippet_todo1)]
 
-<span data-ttu-id="1e5f8-239">Předchozí kód:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-239">The preceding code:</span></span>
+<span data-ttu-id="2a2cb-239">Předchozí kód:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-239">The preceding code:</span></span>
 
-* <span data-ttu-id="1e5f8-240">Definuje třídu kontroleru rozhraní API bez metody.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-240">Defines an API controller class without methods.</span></span>
-* <span data-ttu-id="1e5f8-241">Třída se upraví [[objektu ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) atribut.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-241">Decorates the class with the [[ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) attribute.</span></span> <span data-ttu-id="1e5f8-242">Tento atribut označuje, že kontroler reaguje na požadavky webové rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-242">This attribute indicates that the controller responds to web API requests.</span></span> <span data-ttu-id="1e5f8-243">Informace o konkrétní chování, které umožňuje atribut najdete v tématu <xref:web-api/index>.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-243">For information about specific behaviors that the attribute enables, see <xref:web-api/index>.</span></span>
-* <span data-ttu-id="1e5f8-244">Vložit kontext databáze používá DI (`TodoContext`) do kontroleru.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-244">Uses DI to inject the database context (`TodoContext`) into the controller.</span></span> <span data-ttu-id="1e5f8-245">Kontext databáze se používá ve všech [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) metody v kontroleru.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-245">The database context is used in each of the [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) methods in the controller.</span></span>
-* <span data-ttu-id="1e5f8-246">Přidá položku s názvem `Item1` k databázi, pokud databáze je prázdný.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-246">Adds an item named `Item1` to the database if the database is empty.</span></span> <span data-ttu-id="1e5f8-247">Tento kód je v konstruktoru, proto se spustí pokaždé, když se nový požadavek HTTP.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-247">This code is in the constructor, so it runs every time there's a new HTTP request.</span></span> <span data-ttu-id="1e5f8-248">Pokud odstraníte všechny položky, vytvoří konstruktor `Item1` znovu při příštím volání metody rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-248">If you delete all items, the constructor creates `Item1` again the next time an API method is called.</span></span> <span data-ttu-id="1e5f8-249">Proto může účet vypadat třeba odstranění akce nebyla úspěšná, když se ve skutečnosti fungovalo.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-249">So it may look like the deletion didn't work when it actually did work.</span></span>
+* <span data-ttu-id="2a2cb-240">Definuje třídu kontroleru rozhraní API bez metody.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-240">Defines an API controller class without methods.</span></span>
+* <span data-ttu-id="2a2cb-241">Třída se upraví [[objektu ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) atribut.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-241">Decorates the class with the [[ApiController]](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) attribute.</span></span> <span data-ttu-id="2a2cb-242">Tento atribut označuje, že kontroler reaguje na požadavky webové rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-242">This attribute indicates that the controller responds to web API requests.</span></span> <span data-ttu-id="2a2cb-243">Informace o konkrétní chování, které umožňuje atribut najdete v tématu <xref:web-api/index>.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-243">For information about specific behaviors that the attribute enables, see <xref:web-api/index>.</span></span>
+* <span data-ttu-id="2a2cb-244">Vložit kontext databáze používá DI (`TodoContext`) do kontroleru.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-244">Uses DI to inject the database context (`TodoContext`) into the controller.</span></span> <span data-ttu-id="2a2cb-245">Kontext databáze se používá ve všech [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) metody v kontroleru.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-245">The database context is used in each of the [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) methods in the controller.</span></span>
+* <span data-ttu-id="2a2cb-246">Přidá položku s názvem `Item1` k databázi, pokud databáze je prázdný.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-246">Adds an item named `Item1` to the database if the database is empty.</span></span> <span data-ttu-id="2a2cb-247">Tento kód je v konstruktoru, proto se spustí pokaždé, když se nový požadavek HTTP.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-247">This code is in the constructor, so it runs every time there's a new HTTP request.</span></span> <span data-ttu-id="2a2cb-248">Pokud odstraníte všechny položky, vytvoří konstruktor `Item1` znovu při příštím volání metody rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-248">If you delete all items, the constructor creates `Item1` again the next time an API method is called.</span></span> <span data-ttu-id="2a2cb-249">Proto může účet vypadat třeba odstranění akce nebyla úspěšná, když se ve skutečnosti fungovalo.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-249">So it may look like the deletion didn't work when it actually did work.</span></span>
 
-## <a name="add-get-methods"></a><span data-ttu-id="1e5f8-250">Přidejte metody Get</span><span class="sxs-lookup"><span data-stu-id="1e5f8-250">Add Get methods</span></span>
+## <a name="add-get-methods"></a><span data-ttu-id="2a2cb-250">Přidejte metody Get</span><span class="sxs-lookup"><span data-stu-id="2a2cb-250">Add Get methods</span></span>
 
-<span data-ttu-id="1e5f8-251">Chcete-li poskytují rozhraní API, který načte položky, přidejte následující metody, které `TodoController` třídy:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-251">To provide an API that retrieves to-do items, add the following methods to the `TodoController` class:</span></span>
+<span data-ttu-id="2a2cb-251">Chcete-li poskytují rozhraní API, který načte položky, přidejte následující metody, které `TodoController` třídy:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-251">To provide an API that retrieves to-do items, add the following methods to the `TodoController` class:</span></span>
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_GetAll)]
 
-<span data-ttu-id="1e5f8-252">Tyto metody implementovat dva koncové body GET:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-252">These methods implement two GET endpoints:</span></span>
+<span data-ttu-id="2a2cb-252">Tyto metody implementovat dva koncové body GET:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-252">These methods implement two GET endpoints:</span></span>
 
 * `GET /api/todo`
 * `GET /api/todo/{id}`
 
-<span data-ttu-id="1e5f8-253">Testování aplikace pomocí volání dva koncové body v prohlížeči.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-253">Test the app by calling the two endpoints from a browser.</span></span> <span data-ttu-id="1e5f8-254">Příklad:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-254">For example:</span></span>
+<span data-ttu-id="2a2cb-253">Testování aplikace pomocí volání dva koncové body v prohlížeči.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-253">Test the app by calling the two endpoints from a browser.</span></span> <span data-ttu-id="2a2cb-254">Příklad:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-254">For example:</span></span>
 
 * `https://localhost:<port>/api/todo`
 * `https://localhost:<port>/api/todo/1`
 
-<span data-ttu-id="1e5f8-255">Následující odpověď HTTP je vytvořen voláním `GetTodoItems`:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-255">The following HTTP response is produced by the call to `GetTodoItems`:</span></span>
+<span data-ttu-id="2a2cb-255">Následující odpověď HTTP je vytvořen voláním `GetTodoItems`:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-255">The following HTTP response is produced by the call to `GetTodoItems`:</span></span>
 
 ```json
 [
@@ -248,75 +248,75 @@ ms.locfileid: "65087523"
 ]
 ```
 
-## <a name="routing-and-url-paths"></a><span data-ttu-id="1e5f8-256">Směrování a adresa URL cesty</span><span class="sxs-lookup"><span data-stu-id="1e5f8-256">Routing and URL paths</span></span>
+## <a name="routing-and-url-paths"></a><span data-ttu-id="2a2cb-256">Směrování a adresa URL cesty</span><span class="sxs-lookup"><span data-stu-id="2a2cb-256">Routing and URL paths</span></span>
 
-<span data-ttu-id="1e5f8-257">[ `[HttpGet]` ](/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute) Atribut označuje metodu, která reaguje na požadavek HTTP GET.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-257">The [`[HttpGet]`](/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute) attribute denotes a method that responds to an HTTP GET request.</span></span> <span data-ttu-id="1e5f8-258">Cesta adresy URL pro každou metodu se vypočte takto:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-258">The URL path for each method is constructed as follows:</span></span>
+<span data-ttu-id="2a2cb-257">[ `[HttpGet]` ](/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute) Atribut označuje metodu, která reaguje na požadavek HTTP GET.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-257">The [`[HttpGet]`](/dotnet/api/microsoft.aspnetcore.mvc.httpgetattribute) attribute denotes a method that responds to an HTTP GET request.</span></span> <span data-ttu-id="2a2cb-258">Cesta adresy URL pro každou metodu se vypočte takto:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-258">The URL path for each method is constructed as follows:</span></span>
 
-* <span data-ttu-id="1e5f8-259">Začněte s řetězec šablony v kontroleru `Route` atribut:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-259">Start with the template string in the controller's `Route` attribute:</span></span>
+* <span data-ttu-id="2a2cb-259">Začněte s řetězec šablony v kontroleru `Route` atribut:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-259">Start with the template string in the controller's `Route` attribute:</span></span>
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=TodoController&highlight=3)]
 
-* <span data-ttu-id="1e5f8-260">Nahraďte `[controller]` s názvem kontroleru, který je název třídy kontroleru minus příponu "Kontroleru".</span><span class="sxs-lookup"><span data-stu-id="1e5f8-260">Replace `[controller]` with the name of the controller, which by convention is the controller class name minus the "Controller" suffix.</span></span> <span data-ttu-id="1e5f8-261">V tomto příkladu je název třídy kontroleru **Todo**Kontroleru, názvu kontroleru je "todo".</span><span class="sxs-lookup"><span data-stu-id="1e5f8-261">For this sample, the controller class name is **Todo**Controller, so the controller name is "todo".</span></span> <span data-ttu-id="1e5f8-262">ASP.NET Core [směrování](xref:mvc/controllers/routing) velká a malá písmena.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-262">ASP.NET Core [routing](xref:mvc/controllers/routing) is case insensitive.</span></span>
-* <span data-ttu-id="1e5f8-263">Pokud `[HttpGet]` atribut má šablona trasy (například `[HttpGet("products")]`), připojení, která k cestě.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-263">If the `[HttpGet]` attribute has a route template (for example, `[HttpGet("products")]`), append that to the path.</span></span> <span data-ttu-id="1e5f8-264">Tato ukázka nepoužívá šablony.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-264">This sample doesn't use a template.</span></span> <span data-ttu-id="1e5f8-265">Další informace najdete v tématu [atribut směrování pomocí protokolu Http [příkaz] atributy](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-265">For more information, see [Attribute routing with Http[Verb] attributes](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes).</span></span>
+* <span data-ttu-id="2a2cb-260">Nahraďte `[controller]` s názvem kontroleru, který je název třídy kontroleru minus příponu "Kontroleru".</span><span class="sxs-lookup"><span data-stu-id="2a2cb-260">Replace `[controller]` with the name of the controller, which by convention is the controller class name minus the "Controller" suffix.</span></span> <span data-ttu-id="2a2cb-261">V tomto příkladu je název třídy kontroleru **Todo**Kontroleru, názvu kontroleru je "todo".</span><span class="sxs-lookup"><span data-stu-id="2a2cb-261">For this sample, the controller class name is **Todo**Controller, so the controller name is "todo".</span></span> <span data-ttu-id="2a2cb-262">ASP.NET Core [směrování](xref:mvc/controllers/routing) velká a malá písmena.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-262">ASP.NET Core [routing](xref:mvc/controllers/routing) is case insensitive.</span></span>
+* <span data-ttu-id="2a2cb-263">Pokud `[HttpGet]` atribut má šablona trasy (například `[HttpGet("products")]`), připojení, která k cestě.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-263">If the `[HttpGet]` attribute has a route template (for example, `[HttpGet("products")]`), append that to the path.</span></span> <span data-ttu-id="2a2cb-264">Tato ukázka nepoužívá šablony.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-264">This sample doesn't use a template.</span></span> <span data-ttu-id="2a2cb-265">Další informace najdete v tématu [atribut směrování pomocí protokolu Http [příkaz] atributy](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-265">For more information, see [Attribute routing with Http[Verb] attributes](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes).</span></span>
 
-<span data-ttu-id="1e5f8-266">V následujícím `GetTodoItem` metody `"{id}"` je proměnná zástupný symbol pro jedinečný identifikátor položky úkolů.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-266">In the following `GetTodoItem` method, `"{id}"` is a placeholder variable for the unique identifier of the to-do item.</span></span> <span data-ttu-id="1e5f8-267">Když `GetTodoItem` je vyvolána, hodnota `"{id}"` v adrese URL je k dispozici v metodě jeho`id` parametru.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-267">When `GetTodoItem` is invoked, the value of `"{id}"` in the URL is provided to the method in its`id` parameter.</span></span>
+<span data-ttu-id="2a2cb-266">V následujícím `GetTodoItem` metody `"{id}"` je proměnná zástupný symbol pro jedinečný identifikátor položky úkolů.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-266">In the following `GetTodoItem` method, `"{id}"` is a placeholder variable for the unique identifier of the to-do item.</span></span> <span data-ttu-id="2a2cb-267">Když `GetTodoItem` je vyvolána, hodnota `"{id}"` v adrese URL je k dispozici v metodě jeho`id` parametru.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-267">When `GetTodoItem` is invoked, the value of `"{id}"` in the URL is provided to the method in its`id` parameter.</span></span>
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_GetByID&highlight=1-2)]
 
-## <a name="return-values"></a><span data-ttu-id="1e5f8-268">Vrácené hodnoty</span><span class="sxs-lookup"><span data-stu-id="1e5f8-268">Return values</span></span>
+## <a name="return-values"></a><span data-ttu-id="2a2cb-268">Vrácené hodnoty</span><span class="sxs-lookup"><span data-stu-id="2a2cb-268">Return values</span></span>
 
-<span data-ttu-id="1e5f8-269">Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult\<T > typ](xref:web-api/action-return-types#actionresultt-type).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-269">The return type of the `GetTodoItems` and `GetTodoItem` methods is [ActionResult\<T> type](xref:web-api/action-return-types#actionresultt-type).</span></span> <span data-ttu-id="1e5f8-270">ASP.NET Core automaticky serializuje objekt, který má [JSON](https://www.json.org/) a zapíše do datové části zprávy s odpovědí JSON.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-270">ASP.NET Core automatically serializes the object to [JSON](https://www.json.org/) and writes the JSON into the body of the response message.</span></span> <span data-ttu-id="1e5f8-271">Kód odpovědi pro tento návratový typ je 200, za předpokladu, že nejsou žádné neošetřené výjimky.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-271">The response code for this return type is 200, assuming there are no unhandled exceptions.</span></span> <span data-ttu-id="1e5f8-272">Nezpracované výjimky jsou přeloženy do chyby 5xx.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-272">Unhandled exceptions are translated into 5xx errors.</span></span>
+<span data-ttu-id="2a2cb-269">Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult\<T > typ](xref:web-api/action-return-types#actionresultt-type).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-269">The return type of the `GetTodoItems` and `GetTodoItem` methods is [ActionResult\<T> type](xref:web-api/action-return-types#actionresultt-type).</span></span> <span data-ttu-id="2a2cb-270">ASP.NET Core automaticky serializuje objekt, který má [JSON](https://www.json.org/) a zapíše do datové části zprávy s odpovědí JSON.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-270">ASP.NET Core automatically serializes the object to [JSON](https://www.json.org/) and writes the JSON into the body of the response message.</span></span> <span data-ttu-id="2a2cb-271">Kód odpovědi pro tento návratový typ je 200, za předpokladu, že nejsou žádné neošetřené výjimky.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-271">The response code for this return type is 200, assuming there are no unhandled exceptions.</span></span> <span data-ttu-id="2a2cb-272">Nezpracované výjimky jsou přeloženy do chyby 5xx.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-272">Unhandled exceptions are translated into 5xx errors.</span></span>
 
-<span data-ttu-id="1e5f8-273">`ActionResult` typy vrácených hodnot může představovat stavové kódy HTTP široký rozsah.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-273">`ActionResult` return types can represent a wide range of HTTP status codes.</span></span> <span data-ttu-id="1e5f8-274">Například `GetTodoItem` může vrátit hodnoty dvou různých stavu:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-274">For example, `GetTodoItem` can return two different status values:</span></span>
+<span data-ttu-id="2a2cb-273">`ActionResult` typy vrácených hodnot může představovat stavové kódy HTTP široký rozsah.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-273">`ActionResult` return types can represent a wide range of HTTP status codes.</span></span> <span data-ttu-id="2a2cb-274">Například `GetTodoItem` může vrátit hodnoty dvou různých stavu:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-274">For example, `GetTodoItem` can return two different status values:</span></span>
 
-* <span data-ttu-id="1e5f8-275">Pokud žádná položka odpovídá požadovaným ID, vrátí metoda 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) kód chyby.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-275">If no item matches the requested ID, the method returns a 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) error code.</span></span>
-* <span data-ttu-id="1e5f8-276">V opačném případě vrátí metoda 200 s těla odpovědi JSON.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-276">Otherwise, the method returns 200 with a JSON response body.</span></span> <span data-ttu-id="1e5f8-277">Vrací `item` výsledkem odpověď HTTP 200.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-277">Returning `item` results in an HTTP 200 response.</span></span>
+* <span data-ttu-id="2a2cb-275">Pokud žádná položka odpovídá požadovaným ID, vrátí metoda 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) kód chyby.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-275">If no item matches the requested ID, the method returns a 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) error code.</span></span>
+* <span data-ttu-id="2a2cb-276">V opačném případě vrátí metoda 200 s těla odpovědi JSON.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-276">Otherwise, the method returns 200 with a JSON response body.</span></span> <span data-ttu-id="2a2cb-277">Vrací `item` výsledkem odpověď HTTP 200.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-277">Returning `item` results in an HTTP 200 response.</span></span>
 
-## <a name="test-the-gettodoitems-method"></a><span data-ttu-id="1e5f8-278">Test GetTodoItems – metoda</span><span class="sxs-lookup"><span data-stu-id="1e5f8-278">Test the GetTodoItems method</span></span>
+## <a name="test-the-gettodoitems-method"></a><span data-ttu-id="2a2cb-278">Test GetTodoItems – metoda</span><span class="sxs-lookup"><span data-stu-id="2a2cb-278">Test the GetTodoItems method</span></span>
 
-<span data-ttu-id="1e5f8-279">Tento kurz používá Postman k otestování webové rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-279">This tutorial uses Postman to test the web API.</span></span>
+<span data-ttu-id="2a2cb-279">Tento kurz používá Postman k otestování webové rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-279">This tutorial uses Postman to test the web API.</span></span>
 
-* <span data-ttu-id="1e5f8-280">Nainstalujte [Postman](https://www.getpostman.com/apps)</span><span class="sxs-lookup"><span data-stu-id="1e5f8-280">Install [Postman](https://www.getpostman.com/apps)</span></span>
-* <span data-ttu-id="1e5f8-281">Spusťte webovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-281">Start the web app.</span></span>
-* <span data-ttu-id="1e5f8-282">Spusťte Postman.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-282">Start Postman.</span></span>
-* <span data-ttu-id="1e5f8-283">Zakázat **ověření certifikátu SSL**</span><span class="sxs-lookup"><span data-stu-id="1e5f8-283">Disable **SSL certificate verification**</span></span>
+* <span data-ttu-id="2a2cb-280">Nainstalujte [Postman](https://www.getpostman.com/apps)</span><span class="sxs-lookup"><span data-stu-id="2a2cb-280">Install [Postman](https://www.getpostman.com/apps)</span></span>
+* <span data-ttu-id="2a2cb-281">Spusťte webovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-281">Start the web app.</span></span>
+* <span data-ttu-id="2a2cb-282">Spusťte Postman.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-282">Start Postman.</span></span>
+* <span data-ttu-id="2a2cb-283">Zakázat **ověření certifikátu SSL**</span><span class="sxs-lookup"><span data-stu-id="2a2cb-283">Disable **SSL certificate verification**</span></span>
   
-  * <span data-ttu-id="1e5f8-284">Z **soubor > Nastavení** (\**Obecné* kartu), zakažte **ověření certifikátu SSL**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-284">From  **File > Settings** (\**General* tab), disable **SSL certificate verification**.</span></span>
+  * <span data-ttu-id="2a2cb-284">Z **soubor > Nastavení** (\**Obecné* kartu), zakažte **ověření certifikátu SSL**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-284">From  **File > Settings** (\**General* tab), disable **SSL certificate verification**.</span></span>
     > [!WARNING]
-    > <span data-ttu-id="1e5f8-285">Znovu povolte ověření certifikátu SSL po otestování kontroleru.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-285">Re-enable SSL certificate verification after testing the controller.</span></span>
+    > <span data-ttu-id="2a2cb-285">Znovu povolte ověření certifikátu SSL po otestování kontroleru.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-285">Re-enable SSL certificate verification after testing the controller.</span></span>
 
-* <span data-ttu-id="1e5f8-286">Vytvořte novou žádost.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-286">Create a new request.</span></span>
-  * <span data-ttu-id="1e5f8-287">Nastavte jako metodu HTTP **získat**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-287">Set the HTTP method to **GET**.</span></span>
-  * <span data-ttu-id="1e5f8-288">Nastavení adresy URL požadavku `https://localhost:<port>/api/todo`.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-288">Set the request URL to `https://localhost:<port>/api/todo`.</span></span> <span data-ttu-id="1e5f8-289">Například, `https://localhost:5001/api/todo`.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-289">For example, `https://localhost:5001/api/todo`.</span></span>
-* <span data-ttu-id="1e5f8-290">Nastavte **dvě podokna zobrazení** v nástroji Postman.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-290">Set **Two pane view** in Postman.</span></span>
-* <span data-ttu-id="1e5f8-291">Vyberte **Poslat**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-291">Select **Send**.</span></span>
+* <span data-ttu-id="2a2cb-286">Vytvořte novou žádost.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-286">Create a new request.</span></span>
+  * <span data-ttu-id="2a2cb-287">Nastavte jako metodu HTTP **získat**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-287">Set the HTTP method to **GET**.</span></span>
+  * <span data-ttu-id="2a2cb-288">Nastavení adresy URL požadavku `https://localhost:<port>/api/todo`.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-288">Set the request URL to `https://localhost:<port>/api/todo`.</span></span> <span data-ttu-id="2a2cb-289">Například, `https://localhost:5001/api/todo`.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-289">For example, `https://localhost:5001/api/todo`.</span></span>
+* <span data-ttu-id="2a2cb-290">Nastavte **dvě podokna zobrazení** v nástroji Postman.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-290">Set **Two pane view** in Postman.</span></span>
+* <span data-ttu-id="2a2cb-291">Vyberte **Poslat**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-291">Select **Send**.</span></span>
 
 ![Postman se požadavek Get](first-web-api/_static/2pv.png)
 
-## <a name="add-a-create-method"></a><span data-ttu-id="1e5f8-293">Přidání metody vytvoření</span><span class="sxs-lookup"><span data-stu-id="1e5f8-293">Add a Create method</span></span>
+## <a name="add-a-create-method"></a><span data-ttu-id="2a2cb-293">Přidání metody vytvoření</span><span class="sxs-lookup"><span data-stu-id="2a2cb-293">Add a Create method</span></span>
 
-<span data-ttu-id="1e5f8-294">Přidejte následující `PostTodoItem` metody:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-294">Add the following `PostTodoItem` method:</span></span>
+<span data-ttu-id="2a2cb-294">Přidejte následující `PostTodoItem` metody:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-294">Add the following `PostTodoItem` method:</span></span>
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Create)]
 
-<span data-ttu-id="1e5f8-295">Předchozí kód je metoda HTTP POST, je určeno [[HttpPost]](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) atribut.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-295">The preceding code is an HTTP POST method, as indicated by the [[HttpPost]](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) attribute.</span></span> <span data-ttu-id="1e5f8-296">Metoda získá hodnotu položky úkolů z textu požadavku HTTP.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-296">The method gets the value of the to-do item from the body of the HTTP request.</span></span>
+<span data-ttu-id="2a2cb-295">Předchozí kód je metoda HTTP POST, je určeno [[HttpPost]](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) atribut.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-295">The preceding code is an HTTP POST method, as indicated by the [[HttpPost]](/dotnet/api/microsoft.aspnetcore.mvc.httppostattribute) attribute.</span></span> <span data-ttu-id="2a2cb-296">Metoda získá hodnotu položky úkolů z textu požadavku HTTP.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-296">The method gets the value of the to-do item from the body of the HTTP request.</span></span>
 
-<span data-ttu-id="1e5f8-297">`CreatedAtAction` Metody:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-297">The `CreatedAtAction` method:</span></span>
+<span data-ttu-id="2a2cb-297">`CreatedAtAction` Metody:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-297">The `CreatedAtAction` method:</span></span>
 
-* <span data-ttu-id="1e5f8-298">Vrátí stavový kód HTTP 201, v případě úspěšného ověření.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-298">Returns an HTTP 201 status code, if successful.</span></span> <span data-ttu-id="1e5f8-299">HTTP 201 je standardní odpověď pro metodu POST protokolu HTTP, která vytvoří nový prostředek na serveru.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-299">HTTP 201 is the standard response for an HTTP POST method that creates a new resource on the server.</span></span>
-* <span data-ttu-id="1e5f8-300">Přidá `Location` hlavičky odpovědi.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-300">Adds a `Location` header to the response.</span></span> <span data-ttu-id="1e5f8-301">`Location` Hlavičky určuje identifikátor URI nově vytvořeného úkolu položky.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-301">The `Location` header specifies the URI of the newly created to-do item.</span></span> <span data-ttu-id="1e5f8-302">Další informace najdete v tématu [10.2.2 201 – vytvořeno](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-302">For more information, see [10.2.2 201 Created](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).</span></span>
-* <span data-ttu-id="1e5f8-303">Odkazy `GetTodoItem` akce pro vytvoření `Location` hlavičky identifikátoru URI.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-303">References the `GetTodoItem` action to create the `Location` header's URI.</span></span> <span data-ttu-id="1e5f8-304">C# `nameof` – Klíčové slovo se používá k vyhnuli pevnému zakódování název akce v `CreatedAtAction` volání.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-304">The C# `nameof` keyword is used to avoid hard-coding the action name in the `CreatedAtAction` call.</span></span>
+* <span data-ttu-id="2a2cb-298">Vrátí stavový kód HTTP 201, v případě úspěšného ověření.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-298">Returns an HTTP 201 status code, if successful.</span></span> <span data-ttu-id="2a2cb-299">HTTP 201 je standardní odpověď pro metodu POST protokolu HTTP, která vytvoří nový prostředek na serveru.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-299">HTTP 201 is the standard response for an HTTP POST method that creates a new resource on the server.</span></span>
+* <span data-ttu-id="2a2cb-300">Přidá `Location` hlavičky odpovědi.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-300">Adds a `Location` header to the response.</span></span> <span data-ttu-id="2a2cb-301">`Location` Hlavičky určuje identifikátor URI nově vytvořeného úkolu položky.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-301">The `Location` header specifies the URI of the newly created to-do item.</span></span> <span data-ttu-id="2a2cb-302">Další informace najdete v tématu [10.2.2 201 – vytvořeno](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-302">For more information, see [10.2.2 201 Created](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).</span></span>
+* <span data-ttu-id="2a2cb-303">Odkazy `GetTodoItem` akce pro vytvoření `Location` hlavičky identifikátoru URI.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-303">References the `GetTodoItem` action to create the `Location` header's URI.</span></span> <span data-ttu-id="2a2cb-304">C# `nameof` – Klíčové slovo se používá k vyhnuli pevnému zakódování název akce v `CreatedAtAction` volání.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-304">The C# `nameof` keyword is used to avoid hard-coding the action name in the `CreatedAtAction` call.</span></span>
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_GetByID&highlight=1-2)]
 
-### <a name="test-the-posttodoitem-method"></a><span data-ttu-id="1e5f8-305">Test PostTodoItem – metoda</span><span class="sxs-lookup"><span data-stu-id="1e5f8-305">Test the PostTodoItem method</span></span>
+### <a name="test-the-posttodoitem-method"></a><span data-ttu-id="2a2cb-305">Test PostTodoItem – metoda</span><span class="sxs-lookup"><span data-stu-id="2a2cb-305">Test the PostTodoItem method</span></span>
 
-* <span data-ttu-id="1e5f8-306">Sestavte projekt.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-306">Build the project.</span></span>
-* <span data-ttu-id="1e5f8-307">V nástroji Postman, nastavte jako metodu HTTP `POST`.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-307">In Postman, set the HTTP method to `POST`.</span></span>
-* <span data-ttu-id="1e5f8-308">Vyberte **tělo** kartu.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-308">Select the **Body** tab.</span></span>
-* <span data-ttu-id="1e5f8-309">Vyberte **nezpracovaná** přepínač.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-309">Select the **raw** radio button.</span></span>
-* <span data-ttu-id="1e5f8-310">Nastavte typ **JSON (application/json)**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-310">Set the type to **JSON (application/json)**.</span></span>
-* <span data-ttu-id="1e5f8-311">V textu požadavku zadejte JSON pro úkol:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-311">In the request body enter JSON for a to-do item:</span></span>
+* <span data-ttu-id="2a2cb-306">Sestavte projekt.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-306">Build the project.</span></span>
+* <span data-ttu-id="2a2cb-307">V nástroji Postman, nastavte jako metodu HTTP `POST`.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-307">In Postman, set the HTTP method to `POST`.</span></span>
+* <span data-ttu-id="2a2cb-308">Vyberte **tělo** kartu.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-308">Select the **Body** tab.</span></span>
+* <span data-ttu-id="2a2cb-309">Vyberte **nezpracovaná** přepínač.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-309">Select the **raw** radio button.</span></span>
+* <span data-ttu-id="2a2cb-310">Nastavte typ **JSON (application/json)** .</span><span class="sxs-lookup"><span data-stu-id="2a2cb-310">Set the type to **JSON (application/json)**.</span></span>
+* <span data-ttu-id="2a2cb-311">V textu požadavku zadejte JSON pro úkol:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-311">In the request body enter JSON for a to-do item:</span></span>
 
     ```json
     {
@@ -325,38 +325,38 @@ ms.locfileid: "65087523"
     }
     ```
 
-* <span data-ttu-id="1e5f8-312">Vyberte **Poslat**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-312">Select **Send**.</span></span>
+* <span data-ttu-id="2a2cb-312">Vyberte **Poslat**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-312">Select **Send**.</span></span>
 
   ![Postman se vytvořit žádost](first-web-api/_static/create.png)
 
-  <span data-ttu-id="1e5f8-314">Pokud obdržíte chybu 405 Metoda není povolena, je pravděpodobně výsledkem není kompilaci projektu po přidání `PostTodoItem` metody.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-314">If you get a 405 Method Not Allowed error, it's probably the result of not compiling the project after adding the `PostTodoItem` method.</span></span>
+  <span data-ttu-id="2a2cb-314">Pokud obdržíte chybu 405 Metoda není povolena, je pravděpodobně výsledkem není kompilaci projektu po přidání `PostTodoItem` metody.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-314">If you get a 405 Method Not Allowed error, it's probably the result of not compiling the project after adding the `PostTodoItem` method.</span></span>
 
-### <a name="test-the-location-header-uri"></a><span data-ttu-id="1e5f8-315">Testování hlavičku location identifikátoru URI</span><span class="sxs-lookup"><span data-stu-id="1e5f8-315">Test the location header URI</span></span>
+### <a name="test-the-location-header-uri"></a><span data-ttu-id="2a2cb-315">Testování hlavičku location identifikátoru URI</span><span class="sxs-lookup"><span data-stu-id="2a2cb-315">Test the location header URI</span></span>
 
-* <span data-ttu-id="1e5f8-316">Vyberte **záhlaví** kartu **odpovědi** podokně.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-316">Select the **Headers** tab in the **Response** pane.</span></span>
-* <span data-ttu-id="1e5f8-317">Kopírovat **umístění** hodnota hlavičky:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-317">Copy the **Location** header value:</span></span>
+* <span data-ttu-id="2a2cb-316">Vyberte **záhlaví** kartu **odpovědi** podokně.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-316">Select the **Headers** tab in the **Response** pane.</span></span>
+* <span data-ttu-id="2a2cb-317">Kopírovat **umístění** hodnota hlavičky:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-317">Copy the **Location** header value:</span></span>
 
   ![Karta hlavičky z konzoly nástroje Postman](first-web-api/_static/pmc2.png)
 
-* <span data-ttu-id="1e5f8-319">Nastavte jako metodu GET.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-319">Set the method to GET.</span></span>
-* <span data-ttu-id="1e5f8-320">Vložte identifikátor URI (například `https://localhost:5001/api/Todo/2`)</span><span class="sxs-lookup"><span data-stu-id="1e5f8-320">Paste the URI (for example, `https://localhost:5001/api/Todo/2`)</span></span>
-* <span data-ttu-id="1e5f8-321">Vyberte **Poslat**.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-321">Select **Send**.</span></span>
+* <span data-ttu-id="2a2cb-319">Nastavte jako metodu GET.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-319">Set the method to GET.</span></span>
+* <span data-ttu-id="2a2cb-320">Vložte identifikátor URI (například `https://localhost:5001/api/Todo/2`)</span><span class="sxs-lookup"><span data-stu-id="2a2cb-320">Paste the URI (for example, `https://localhost:5001/api/Todo/2`)</span></span>
+* <span data-ttu-id="2a2cb-321">Vyberte **Poslat**.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-321">Select **Send**.</span></span>
 
-## <a name="add-a-puttodoitem-method"></a><span data-ttu-id="1e5f8-322">Přidejte metodu PutTodoItem</span><span class="sxs-lookup"><span data-stu-id="1e5f8-322">Add a PutTodoItem method</span></span>
+## <a name="add-a-puttodoitem-method"></a><span data-ttu-id="2a2cb-322">Přidejte metodu PutTodoItem</span><span class="sxs-lookup"><span data-stu-id="2a2cb-322">Add a PutTodoItem method</span></span>
 
-<span data-ttu-id="1e5f8-323">Přidejte následující `PutTodoItem` metody:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-323">Add the following `PutTodoItem` method:</span></span>
+<span data-ttu-id="2a2cb-323">Přidejte následující `PutTodoItem` metody:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-323">Add the following `PutTodoItem` method:</span></span>
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Update)]
 
-<span data-ttu-id="1e5f8-324">`PutTodoItem` je podobný `PostTodoItem`, s výjimkou používá HTTP PUT.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-324">`PutTodoItem` is similar to `PostTodoItem`, except it uses HTTP PUT.</span></span> <span data-ttu-id="1e5f8-325">Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-325">The response is [204 (No Content)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).</span></span> <span data-ttu-id="1e5f8-326">Podle specifikace HTTP vyžaduje požadavek PUT klientovi umožní odeslat celý aktualizovanou entitu, nikoliv pouze změny.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-326">According to the HTTP specification, a PUT request requires the client to send the entire updated entity, not just the changes.</span></span> <span data-ttu-id="1e5f8-327">Chcete-li podporovat částečné aktualizace, použijte [HTTP PATCH](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-327">To support partial updates, use [HTTP PATCH](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).</span></span>
+<span data-ttu-id="2a2cb-324">`PutTodoItem` je podobný `PostTodoItem`, s výjimkou používá HTTP PUT.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-324">`PutTodoItem` is similar to `PostTodoItem`, except it uses HTTP PUT.</span></span> <span data-ttu-id="2a2cb-325">Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-325">The response is [204 (No Content)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).</span></span> <span data-ttu-id="2a2cb-326">Podle specifikace HTTP vyžaduje požadavek PUT klientovi umožní odeslat celý aktualizovanou entitu, nikoliv pouze změny.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-326">According to the HTTP specification, a PUT request requires the client to send the entire updated entity, not just the changes.</span></span> <span data-ttu-id="2a2cb-327">Chcete-li podporovat částečné aktualizace, použijte [HTTP PATCH](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-327">To support partial updates, use [HTTP PATCH](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).</span></span>
 
-<span data-ttu-id="1e5f8-328">Pokud dojde k chybě volání `PutTodoItem`, volání `GET` aby se zajistilo položky v databázi.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-328">If you get an error calling `PutTodoItem`, call `GET` to ensure there is an item in the database.</span></span>
+<span data-ttu-id="2a2cb-328">Pokud dojde k chybě volání `PutTodoItem`, volání `GET` aby se zajistilo položky v databázi.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-328">If you get an error calling `PutTodoItem`, call `GET` to ensure there is an item in the database.</span></span>
 
-### <a name="test-the-puttodoitem-method"></a><span data-ttu-id="1e5f8-329">Test PutTodoItem – metoda</span><span class="sxs-lookup"><span data-stu-id="1e5f8-329">Test the PutTodoItem method</span></span>
+### <a name="test-the-puttodoitem-method"></a><span data-ttu-id="2a2cb-329">Test PutTodoItem – metoda</span><span class="sxs-lookup"><span data-stu-id="2a2cb-329">Test the PutTodoItem method</span></span>
 
-<span data-ttu-id="1e5f8-330">Tato ukázka používá databázi v paměti, který musí být struktura inicializovaná při každém spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-330">This sample uses an in-memory database that must be initialed each time the app is started.</span></span> <span data-ttu-id="1e5f8-331">V databázi se musí být položka před provedením volání PUT.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-331">There must be an item in the database before you make a PUT call.</span></span> <span data-ttu-id="1e5f8-332">Volejte GET – pomáhat zajistit, že není položka v databázi před voláním PUT.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-332">Call GET to insure there is an item in the database before making a PUT call.</span></span>
+<span data-ttu-id="2a2cb-330">Tato ukázka používá databázi v paměti, který musí být struktura inicializovaná při každém spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-330">This sample uses an in-memory database that must be initialed each time the app is started.</span></span> <span data-ttu-id="2a2cb-331">V databázi se musí být položka před provedením volání PUT.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-331">There must be an item in the database before you make a PUT call.</span></span> <span data-ttu-id="2a2cb-332">Volejte GET – pomáhat zajistit, že není položka v databázi před voláním PUT.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-332">Call GET to insure there is an item in the database before making a PUT call.</span></span>
 
-<span data-ttu-id="1e5f8-333">Aktualizovat položku seznamu úkolů, která má id = 1 a nastavte její název na "informačního kanálu ryb":</span><span class="sxs-lookup"><span data-stu-id="1e5f8-333">Update the to-do item that has id = 1 and set its name to "feed fish":</span></span>
+<span data-ttu-id="2a2cb-333">Aktualizovat položku seznamu úkolů, která má id = 1 a nastavte její název na "informačního kanálu ryb":</span><span class="sxs-lookup"><span data-stu-id="2a2cb-333">Update the to-do item that has id = 1 and set its name to "feed fish":</span></span>
 
 ```json
   {
@@ -366,86 +366,86 @@ ms.locfileid: "65087523"
   }
 ```
 
-<span data-ttu-id="1e5f8-334">Následující obrázek ukazuje Postman aktualizace:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-334">The following image shows the Postman update:</span></span>
+<span data-ttu-id="2a2cb-334">Následující obrázek ukazuje Postman aktualizace:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-334">The following image shows the Postman update:</span></span>
 
 ![Postman konzola znázorňující 204 (žádný obsah) odpovědi](first-web-api/_static/pmcput.png)
 
-## <a name="add-a-deletetodoitem-method"></a><span data-ttu-id="1e5f8-336">Přidejte metodu DeleteTodoItem</span><span class="sxs-lookup"><span data-stu-id="1e5f8-336">Add a DeleteTodoItem method</span></span>
+## <a name="add-a-deletetodoitem-method"></a><span data-ttu-id="2a2cb-336">Přidejte metodu DeleteTodoItem</span><span class="sxs-lookup"><span data-stu-id="2a2cb-336">Add a DeleteTodoItem method</span></span>
 
-<span data-ttu-id="1e5f8-337">Přidejte následující `DeleteTodoItem` metody:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-337">Add the following `DeleteTodoItem` method:</span></span>
+<span data-ttu-id="2a2cb-337">Přidejte následující `DeleteTodoItem` metody:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-337">Add the following `DeleteTodoItem` method:</span></span>
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Delete)]
 
-<span data-ttu-id="1e5f8-338">`DeleteTodoItem` Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-338">The `DeleteTodoItem` response is [204 (No Content)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).</span></span>
+<span data-ttu-id="2a2cb-338">`DeleteTodoItem` Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-338">The `DeleteTodoItem` response is [204 (No Content)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).</span></span>
 
-### <a name="test-the-deletetodoitem-method"></a><span data-ttu-id="1e5f8-339">Test DeleteTodoItem – metoda</span><span class="sxs-lookup"><span data-stu-id="1e5f8-339">Test the DeleteTodoItem method</span></span>
+### <a name="test-the-deletetodoitem-method"></a><span data-ttu-id="2a2cb-339">Test DeleteTodoItem – metoda</span><span class="sxs-lookup"><span data-stu-id="2a2cb-339">Test the DeleteTodoItem method</span></span>
 
-<span data-ttu-id="1e5f8-340">Pomocí nástroje Postman odstraňte položku úkolu:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-340">Use Postman to delete a to-do item:</span></span>
+<span data-ttu-id="2a2cb-340">Pomocí nástroje Postman odstraňte položku úkolu:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-340">Use Postman to delete a to-do item:</span></span>
 
-* <span data-ttu-id="1e5f8-341">Nastavte jako metodu `DELETE`.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-341">Set the method to `DELETE`.</span></span>
-* <span data-ttu-id="1e5f8-342">Nastavte identifikátor URI objektu odstranit, například `https://localhost:5001/api/todo/1`</span><span class="sxs-lookup"><span data-stu-id="1e5f8-342">Set the URI of the object to delete, for example `https://localhost:5001/api/todo/1`</span></span>
-* <span data-ttu-id="1e5f8-343">Vyberte **odeslat**</span><span class="sxs-lookup"><span data-stu-id="1e5f8-343">Select **Send**</span></span>
+* <span data-ttu-id="2a2cb-341">Nastavte jako metodu `DELETE`.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-341">Set the method to `DELETE`.</span></span>
+* <span data-ttu-id="2a2cb-342">Nastavte identifikátor URI objektu odstranit, například `https://localhost:5001/api/todo/1`</span><span class="sxs-lookup"><span data-stu-id="2a2cb-342">Set the URI of the object to delete, for example `https://localhost:5001/api/todo/1`</span></span>
+* <span data-ttu-id="2a2cb-343">Vyberte **odeslat**</span><span class="sxs-lookup"><span data-stu-id="2a2cb-343">Select **Send**</span></span>
 
-<span data-ttu-id="1e5f8-344">Ukázkové aplikace můžete odstranit všechny položky, ale když se odstraní poslední položky, je vytvořen nový pomocí konstruktoru třídy modelu při příštím spuštění se volá rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-344">The sample app allows you to delete all the items, but when the last item is deleted, a new one is created by the model class constructor the next time the API is called.</span></span>
+<span data-ttu-id="2a2cb-344">Ukázkové aplikace můžete odstranit všechny položky, ale když se odstraní poslední položky, je vytvořen nový pomocí konstruktoru třídy modelu při příštím spuštění se volá rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-344">The sample app allows you to delete all the items, but when the last item is deleted, a new one is created by the model class constructor the next time the API is called.</span></span>
 
-## <a name="call-the-api-with-jquery"></a><span data-ttu-id="1e5f8-345">Volání rozhraní API pomocí jQuery</span><span class="sxs-lookup"><span data-stu-id="1e5f8-345">Call the API with jQuery</span></span>
+## <a name="call-the-api-with-jquery"></a><span data-ttu-id="2a2cb-345">Volání rozhraní API pomocí jQuery</span><span class="sxs-lookup"><span data-stu-id="2a2cb-345">Call the API with jQuery</span></span>
 
-<span data-ttu-id="1e5f8-346">V této části se přidá stránku HTML, který používá jQuery volat webové rozhraní api.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-346">In this section, an HTML page is added that uses jQuery to call the web api.</span></span> <span data-ttu-id="1e5f8-347">jQuery zahájí požadavek a aktualizuje stránku s podrobnostmi o z odpovědi rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-347">jQuery initiates the request and updates the page with the details from the API's response.</span></span>
+<span data-ttu-id="2a2cb-346">V této části se přidá stránku HTML, který používá jQuery volat webové rozhraní api.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-346">In this section, an HTML page is added that uses jQuery to call the web api.</span></span> <span data-ttu-id="2a2cb-347">jQuery zahájí požadavek a aktualizuje stránku s podrobnostmi o z odpovědi rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-347">jQuery initiates the request and updates the page with the details from the API's response.</span></span>
 
-<span data-ttu-id="1e5f8-348">Nakonfiguruje aplikaci, aby [doručování statických souborů](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolit výchozí mapování souboru](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_):</span><span class="sxs-lookup"><span data-stu-id="1e5f8-348">Configure the app to [serve static files](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) and [enable default file mapping](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_):</span></span>
+<span data-ttu-id="2a2cb-348">Nakonfiguruje aplikaci, aby [doručování statických souborů](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolit výchozí mapování souboru](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_):</span><span class="sxs-lookup"><span data-stu-id="2a2cb-348">Configure the app to [serve static files](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) and [enable default file mapping](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_):</span></span>
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 
 ::: moniker range=">= aspnetcore-2.2"
-<span data-ttu-id="1e5f8-349">Vytvoření *wwwroot* složku v adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-349">Create a *wwwroot* folder in the project directory.</span></span>
+<span data-ttu-id="2a2cb-349">Vytvoření *wwwroot* složku v adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-349">Create a *wwwroot* folder in the project directory.</span></span>
 ::: moniker-end
 
-<span data-ttu-id="1e5f8-350">Přidat soubor HTML s názvem *index.html* k *wwwroot* adresáře.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-350">Add an HTML file named *index.html* to the *wwwroot* directory.</span></span> <span data-ttu-id="1e5f8-351">Nahraďte jeho obsah následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-351">Replace its contents with the following markup:</span></span>
+<span data-ttu-id="2a2cb-350">Přidat soubor HTML s názvem *index.html* k *wwwroot* adresáře.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-350">Add an HTML file named *index.html* to the *wwwroot* directory.</span></span> <span data-ttu-id="2a2cb-351">Nahraďte jeho obsah následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-351">Replace its contents with the following markup:</span></span>
 
 [!code-html[](first-web-api/samples/2.2/TodoApi/wwwroot/index.html)]
 
-<span data-ttu-id="1e5f8-352">Přidejte soubor JavaScriptu s názvem *site.js* k *wwwroot* adresáře.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-352">Add a JavaScript file named *site.js* to the *wwwroot* directory.</span></span> <span data-ttu-id="1e5f8-353">Nahraďte jeho obsah následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-353">Replace its contents with the following code:</span></span>
+<span data-ttu-id="2a2cb-352">Přidejte soubor JavaScriptu s názvem *site.js* k *wwwroot* adresáře.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-352">Add a JavaScript file named *site.js* to the *wwwroot* directory.</span></span> <span data-ttu-id="2a2cb-353">Nahraďte jeho obsah následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-353">Replace its contents with the following code:</span></span>
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_SiteJs)]
 
-<span data-ttu-id="1e5f8-354">Ke změně nastavení spouštěcí projekt ASP.NET Core může být nutné testovací stránka HTML místně:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-354">A change to the ASP.NET Core project's launch settings may be required to test the HTML page locally:</span></span>
+<span data-ttu-id="2a2cb-354">Ke změně nastavení spouštěcí projekt ASP.NET Core může být nutné testovací stránka HTML místně:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-354">A change to the ASP.NET Core project's launch settings may be required to test the HTML page locally:</span></span>
 
-* <span data-ttu-id="1e5f8-355">Otevřít *Properties\launchSettings.json*.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-355">Open *Properties\launchSettings.json*.</span></span>
-* <span data-ttu-id="1e5f8-356">Odeberte `launchUrl` vlastnost, aby se aplikace na *index.html*&mdash;výchozí soubor projektu.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-356">Remove the `launchUrl` property to force the app to open at *index.html*&mdash;the project's default file.</span></span>
+* <span data-ttu-id="2a2cb-355">Otevřít *Properties\launchSettings.json*.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-355">Open *Properties\launchSettings.json*.</span></span>
+* <span data-ttu-id="2a2cb-356">Odeberte `launchUrl` vlastnost, aby se aplikace na *index.html*&mdash;výchozí soubor projektu.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-356">Remove the `launchUrl` property to force the app to open at *index.html*&mdash;the project's default file.</span></span>
 
-<span data-ttu-id="1e5f8-357">Existuje několik způsobů, jak získat jQuery.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-357">There are several ways to get jQuery.</span></span> <span data-ttu-id="1e5f8-358">V předchozím fragmentu kódu je načíst knihovnu ze sítě CDN.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-358">In the preceding snippet, the library is loaded from a CDN.</span></span>
+<span data-ttu-id="2a2cb-357">Existuje několik způsobů, jak získat jQuery.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-357">There are several ways to get jQuery.</span></span> <span data-ttu-id="2a2cb-358">V předchozím fragmentu kódu je načíst knihovnu ze sítě CDN.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-358">In the preceding snippet, the library is loaded from a CDN.</span></span>
 
-<span data-ttu-id="1e5f8-359">Tato ukázka volá všechny metody CRUD rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-359">This sample calls all of the CRUD methods of the API.</span></span> <span data-ttu-id="1e5f8-360">Následuje vysvětlení volání rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-360">Following are explanations of the calls to the API.</span></span>
+<span data-ttu-id="2a2cb-359">Tato ukázka volá všechny metody CRUD rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-359">This sample calls all of the CRUD methods of the API.</span></span> <span data-ttu-id="2a2cb-360">Následuje vysvětlení volání rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-360">Following are explanations of the calls to the API.</span></span>
 
-### <a name="get-a-list-of-to-do-items"></a><span data-ttu-id="1e5f8-361">Získání seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-361">Get a list of to-do items</span></span>
+### <a name="get-a-list-of-to-do-items"></a><span data-ttu-id="2a2cb-361">Získání seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-361">Get a list of to-do items</span></span>
 
-<span data-ttu-id="1e5f8-362">JQuery [ajax](https://api.jquery.com/jquery.ajax/) funkce odešle `GET` žádosti na rozhraní API, které vrací JSON představující pole položek úkolů.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-362">The jQuery [ajax](https://api.jquery.com/jquery.ajax/) function sends a `GET` request to the API, which returns JSON representing an array of to-do items.</span></span> <span data-ttu-id="1e5f8-363">`success` Funkce zpětného volání je vyvolána, pokud neproběhne.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-363">The `success` callback function is invoked if the request succeeds.</span></span> <span data-ttu-id="1e5f8-364">Při zpětném volání modelu DOM se aktualizuje informacemi úkolů.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-364">In the callback, the DOM is updated with the to-do information.</span></span>
+<span data-ttu-id="2a2cb-362">JQuery [ajax](https://api.jquery.com/jquery.ajax/) funkce odešle `GET` žádosti na rozhraní API, které vrací JSON představující pole položek úkolů.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-362">The jQuery [ajax](https://api.jquery.com/jquery.ajax/) function sends a `GET` request to the API, which returns JSON representing an array of to-do items.</span></span> <span data-ttu-id="2a2cb-363">`success` Funkce zpětného volání je vyvolána, pokud neproběhne.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-363">The `success` callback function is invoked if the request succeeds.</span></span> <span data-ttu-id="2a2cb-364">Při zpětném volání modelu DOM se aktualizuje informacemi úkolů.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-364">In the callback, the DOM is updated with the to-do information.</span></span>
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_GetData)]
 
-### <a name="add-a-to-do-item"></a><span data-ttu-id="1e5f8-365">Přidat položku seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-365">Add a to-do item</span></span>
+### <a name="add-a-to-do-item"></a><span data-ttu-id="2a2cb-365">Přidat položku seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-365">Add a to-do item</span></span>
 
-<span data-ttu-id="1e5f8-366">[Ajax](https://api.jquery.com/jquery.ajax/) funkce odešle `POST` požadavek se úkol v textu požadavku.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-366">The [ajax](https://api.jquery.com/jquery.ajax/) function sends a `POST` request with the to-do item in the request body.</span></span> <span data-ttu-id="1e5f8-367">`accepts` a `contentType` možnosti jsou nastaveny na `application/json` zadat typ média, který se přijalo a odeslalo.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-367">The `accepts` and `contentType` options are set to `application/json` to specify the media type being received and sent.</span></span> <span data-ttu-id="1e5f8-368">Položky seznamu úkolů je převést na JSON pomocí [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-368">The to-do item is converted to JSON by using [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).</span></span> <span data-ttu-id="1e5f8-369">Rozhraní API po návratu úspěšné stavový kód, `getData` funkce se vyvolala aktualizovat tabulku HTML.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-369">When the API returns a successful status code, the `getData` function is invoked to update the HTML table.</span></span>
+<span data-ttu-id="2a2cb-366">[Ajax](https://api.jquery.com/jquery.ajax/) funkce odešle `POST` požadavek se úkol v textu požadavku.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-366">The [ajax](https://api.jquery.com/jquery.ajax/) function sends a `POST` request with the to-do item in the request body.</span></span> <span data-ttu-id="2a2cb-367">`accepts` a `contentType` možnosti jsou nastaveny na `application/json` zadat typ média, který se přijalo a odeslalo.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-367">The `accepts` and `contentType` options are set to `application/json` to specify the media type being received and sent.</span></span> <span data-ttu-id="2a2cb-368">Položky seznamu úkolů je převést na JSON pomocí [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-368">The to-do item is converted to JSON by using [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify).</span></span> <span data-ttu-id="2a2cb-369">Rozhraní API po návratu úspěšné stavový kód, `getData` funkce se vyvolala aktualizovat tabulku HTML.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-369">When the API returns a successful status code, the `getData` function is invoked to update the HTML table.</span></span>
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AddItem)]
 
-### <a name="update-a-to-do-item"></a><span data-ttu-id="1e5f8-370">Aktualizace položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="1e5f8-370">Update a to-do item</span></span>
+### <a name="update-a-to-do-item"></a><span data-ttu-id="2a2cb-370">Aktualizace položky seznamu úkolů</span><span class="sxs-lookup"><span data-stu-id="2a2cb-370">Update a to-do item</span></span>
 
-<span data-ttu-id="1e5f8-371">Aktualizace položky úkolu je podobné jako přidání jednoho.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-371">Updating a to-do item is similar to adding one.</span></span> <span data-ttu-id="1e5f8-372">`url` Změny přidat jedinečný identifikátor položky a `type` je `PUT`.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-372">The `url` changes to add the unique identifier of the item, and the `type` is `PUT`.</span></span>
+<span data-ttu-id="2a2cb-371">Aktualizace položky úkolu je podobné jako přidání jednoho.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-371">Updating a to-do item is similar to adding one.</span></span> <span data-ttu-id="2a2cb-372">`url` Změny přidat jedinečný identifikátor položky a `type` je `PUT`.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-372">The `url` changes to add the unique identifier of the item, and the `type` is `PUT`.</span></span>
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AjaxPut)]
 
-### <a name="delete-a-to-do-item"></a><span data-ttu-id="1e5f8-373">Odstranit úkol</span><span class="sxs-lookup"><span data-stu-id="1e5f8-373">Delete a to-do item</span></span>
+### <a name="delete-a-to-do-item"></a><span data-ttu-id="2a2cb-373">Odstranit úkol</span><span class="sxs-lookup"><span data-stu-id="2a2cb-373">Delete a to-do item</span></span>
 
-<span data-ttu-id="1e5f8-374">Odstranění položky úkolu se provádí tak, že nastavíte `type` při volání AJAX `DELETE` a zadáte jedinečný identifikátor položky v adrese URL.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-374">Deleting a to-do item is accomplished by setting the `type` on the AJAX call to `DELETE` and specifying the item's unique identifier in the URL.</span></span>
+<span data-ttu-id="2a2cb-374">Odstranění položky úkolu se provádí tak, že nastavíte `type` při volání AJAX `DELETE` a zadáte jedinečný identifikátor položky v adrese URL.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-374">Deleting a to-do item is accomplished by setting the `type` on the AJAX call to `DELETE` and specifying the item's unique identifier in the URL.</span></span>
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AjaxDelete)]
 
-## <a name="additional-resources"></a><span data-ttu-id="1e5f8-375">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="1e5f8-375">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="2a2cb-375">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="2a2cb-375">Additional resources</span></span>
 
-<span data-ttu-id="1e5f8-376">[Zobrazení nebo stažení ukázkového kódu pro účely tohoto kurzu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-376">[View or download sample code for this tutorial](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples).</span></span> <span data-ttu-id="1e5f8-377">Zobrazit [stažení](xref:index#how-to-download-a-sample).</span><span class="sxs-lookup"><span data-stu-id="1e5f8-377">See [how to download](xref:index#how-to-download-a-sample).</span></span>
+<span data-ttu-id="2a2cb-376">[Zobrazení nebo stažení ukázkového kódu pro účely tohoto kurzu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-376">[View or download sample code for this tutorial](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples).</span></span> <span data-ttu-id="2a2cb-377">Zobrazit [stažení](xref:index#how-to-download-a-sample).</span><span class="sxs-lookup"><span data-stu-id="2a2cb-377">See [how to download](xref:index#how-to-download-a-sample).</span></span>
 
-<span data-ttu-id="1e5f8-378">Další informace naleznete v následujících materiálech:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-378">For more information, see the following resources:</span></span>
+<span data-ttu-id="2a2cb-378">Další informace naleznete v následujících materiálech:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-378">For more information, see the following resources:</span></span>
 
 * <xref:web-api/index>
 * <xref:tutorials/web-api-help-pages-using-swagger>
@@ -454,25 +454,25 @@ ms.locfileid: "65087523"
 * <xref:web-api/action-return-types>
 * <xref:host-and-deploy/azure-apps/index>
 * <xref:host-and-deploy/index>
-* [<span data-ttu-id="1e5f8-379">Verzi tohoto kurzu na webu YouTube</span><span class="sxs-lookup"><span data-stu-id="1e5f8-379">Youtube version of this tutorial</span></span>](https://www.youtube.com/watch?v=TTkhEyGBfAk)
+* [<span data-ttu-id="2a2cb-379">Verzi tohoto kurzu na webu YouTube</span><span class="sxs-lookup"><span data-stu-id="2a2cb-379">Youtube version of this tutorial</span></span>](https://www.youtube.com/watch?v=TTkhEyGBfAk)
 
-## <a name="next-steps"></a><span data-ttu-id="1e5f8-380">Další kroky</span><span class="sxs-lookup"><span data-stu-id="1e5f8-380">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="2a2cb-380">Další kroky</span><span class="sxs-lookup"><span data-stu-id="2a2cb-380">Next steps</span></span>
 
-<span data-ttu-id="1e5f8-381">V tomto kurzu jste se naučili:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-381">In this tutorial, you learned how to:</span></span>
+<span data-ttu-id="2a2cb-381">V tomto kurzu jste se naučili:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-381">In this tutorial, you learned how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="1e5f8-382">Vytvořte projekt webového rozhraní api.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-382">Create a web api project.</span></span>
-> * <span data-ttu-id="1e5f8-383">Přidejte třídu modelu.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-383">Add a model class.</span></span>
-> * <span data-ttu-id="1e5f8-384">Vytvořte kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-384">Create the database context.</span></span>
-> * <span data-ttu-id="1e5f8-385">Zaregistrujte kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-385">Register the database context.</span></span>
-> * <span data-ttu-id="1e5f8-386">Přidání kontroleru.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-386">Add a controller.</span></span>
-> * <span data-ttu-id="1e5f8-387">Přidejte metody CRUD.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-387">Add CRUD methods.</span></span>
-> * <span data-ttu-id="1e5f8-388">Konfigurace směrování a cesty adresy URL.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-388">Configure routing and URL paths.</span></span>
-> * <span data-ttu-id="1e5f8-389">Zadejte návratové hodnoty.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-389">Specify return values.</span></span>
-> * <span data-ttu-id="1e5f8-390">Volání webového rozhraní API pomocí nástroje Postman.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-390">Call the web API with Postman.</span></span>
-> * <span data-ttu-id="1e5f8-391">Volání webového rozhraní api pomocí jQuery.</span><span class="sxs-lookup"><span data-stu-id="1e5f8-391">Call the web api with jQuery.</span></span>
+> * <span data-ttu-id="2a2cb-382">Vytvořte projekt webového rozhraní api.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-382">Create a web api project.</span></span>
+> * <span data-ttu-id="2a2cb-383">Přidejte třídu modelu.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-383">Add a model class.</span></span>
+> * <span data-ttu-id="2a2cb-384">Vytvořte kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-384">Create the database context.</span></span>
+> * <span data-ttu-id="2a2cb-385">Zaregistrujte kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-385">Register the database context.</span></span>
+> * <span data-ttu-id="2a2cb-386">Přidání kontroleru.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-386">Add a controller.</span></span>
+> * <span data-ttu-id="2a2cb-387">Přidejte metody CRUD.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-387">Add CRUD methods.</span></span>
+> * <span data-ttu-id="2a2cb-388">Konfigurace směrování a cesty adresy URL.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-388">Configure routing and URL paths.</span></span>
+> * <span data-ttu-id="2a2cb-389">Zadejte návratové hodnoty.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-389">Specify return values.</span></span>
+> * <span data-ttu-id="2a2cb-390">Volání webového rozhraní API pomocí nástroje Postman.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-390">Call the web API with Postman.</span></span>
+> * <span data-ttu-id="2a2cb-391">Volání webového rozhraní api pomocí jQuery.</span><span class="sxs-lookup"><span data-stu-id="2a2cb-391">Call the web api with jQuery.</span></span>
 
-<span data-ttu-id="1e5f8-392">Přejděte k dalšímu kurzu se naučíte generování stránek nápovědy rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="1e5f8-392">Advance to the next tutorial to learn how to generate API help pages:</span></span>
+<span data-ttu-id="2a2cb-392">Přejděte k dalšímu kurzu se naučíte generování stránek nápovědy rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="2a2cb-392">Advance to the next tutorial to learn how to generate API help pages:</span></span>
 
 > [!div class="nextstepaction"]
 > <xref:tutorials/get-started-with-swashbuckle>
