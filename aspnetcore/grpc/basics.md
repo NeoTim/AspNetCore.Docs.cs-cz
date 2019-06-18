@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 03/31/2019
 uid: grpc/basics
-ms.openlocfilehash: 5a88bd0e9f789058b3606691c5ebd9a74325ac9b
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: 00772144cb484b78a256f178642463577d316be2
+ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376347"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67196349"
 ---
 # <a name="grpc-services-with-c"></a>gRPC služby pomocí jazyka C\#
 
@@ -38,7 +38,7 @@ Představme si třeba, *greet.proto* souboru použitého v [začít používat g
 
 *.Proto* soubor zahrnut v projektu tak, že ji přidáte `<Protobuf>` skupiny položek:
 
-[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-11)]
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
 
 ## <a name="c-tooling-support-for-proto-files"></a>C#Podpora nástrojů pro soubory .proto
 
@@ -50,7 +50,7 @@ Balíček nástroje [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) vy�
 
 Tento balíček je vyžadován server i klient projekty. `Grpc.Tools` lze přidat pomocí Správce balíčků v sadě Visual Studio nebo přidáním `<PackageReference>` do souboru projektu:
 
-[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=17)]
+[!code-xml[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=1&range=15)]
 
 Balíček nástroje není nutné za běhu, takže závislost je označená pomocí `PrivateAssets="All"`.
 
@@ -68,7 +68,7 @@ Pro prostředky na straně klienta je vygenerována typ konkrétní klienta. GRP
 
 Ve výchozím nastavení, prostředky serveru a klienta jsou generovány pro každou *.proto* zahrnuté v souboru `<Protobuf>` skupiny položek. Aby se serverové prostředky jsou generovány v projektu serveru, `GrpcServices` atribut je nastaven na `Server`.
 
-[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-11)]
+[!code-xml[](~/tutorials//grpc/grpc-start/sample/GrpcGreeter/GrpcGreeter.csproj?highlight=2&range=7-9)]
 
 Podobně platí, atribut je nastaven na `Client` v klientské projekty.
 

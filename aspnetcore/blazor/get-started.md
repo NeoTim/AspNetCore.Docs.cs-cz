@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/14/2019
 uid: blazor/get-started
-ms.openlocfilehash: 11637ef1c4b54961cc3094c263196be222cc2c60
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 7b235fea5b85516b9e3ececf6509a369cd483c8d
+ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152699"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67196277"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -74,6 +74,8 @@ Začínáme s Blazor:
 
    6\. Pokud používáte aplikaci na straně serveru Blazor aplikaci spustíme s použitím ladicího programu Visual Studio Code. Pokud používáte aplikaci na straně klienta Blazor, spusťte `dotnet run` ze složky projektu aplikace.
 
+   7\. V prohlížeči přejděte na `https://localhost:5001`.
+
    <!--
 
    # [Visual Studio for Mac](#tab/visual-studio-mac)
@@ -114,9 +116,9 @@ Začínáme s Blazor:
 
    Informace o dvou modelech hostování Blazor a na straně serveru a na straně klienta najdete v tématu <xref:blazor/hosting-models>.
 
-   ---
+   V prohlížeči přejděte na `https://localhost:5001`.
 
-V prohlížeči přejděte na `https://localhost:5001`.
+   ---
 
 Více stránek jsou k dispozici z karty na bočním panelu:
 
@@ -141,7 +143,7 @@ Pokaždé, když **klikněte na mě** výběru tlačítka:
 
 Modul runtime porovnává nový obsah na předchozí obsah a platí pouze změněný obsah do modelu Document Object Model (DOM).
 
-Přidáte součást do jiné součásti pomocí syntaxe kódu HTML. Například můžete přidat součást čítače na domovskou stránku aplikace tak, že přidáte `<Counter />` – element pro součást indexu.
+Přidáte součást do jiné součásti pomocí syntaxe kódu HTML. Třeba přidat součást čítače na domovskou stránku aplikace tak, že přidáte `<Counter />` – element pro součást indexu.
 
 *Pages/Index.razor*:
 

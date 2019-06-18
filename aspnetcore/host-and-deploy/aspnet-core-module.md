@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat modul ASP.NET Core pro hostování ap
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/05/2019
+ms.date: 06/17/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: f287a9bad623c5ff5c41868c7c4408b572b39000
-ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
+ms.openlocfilehash: d5392ff6b15eeb3a4502df578665538b936aae6f
+ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66716364"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67167061"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -451,11 +451,27 @@ Modul ASP.NET Core je konfigurovat, a poskytují rozšířené diagnostické pro
     stdoutLogFile="\\?\%home%\LogFiles\stdout"
     hostingModel="InProcess">
   <handlerSettings>
-    <handlerSetting name="debugFile" value="aspnetcore-debug.log" />
+    <handlerSetting name="debugFile" value=".\logs\aspnetcore-debug.log" />
     <handlerSetting name="debugLevel" value="FILE,TRACE" />
   </handlerSettings>
 </aspNetCore>
 ```
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+Všechny složky v cestě (*protokoly* v předchozím příkladu) vytvořené modulem při vytvoření souboru protokolu. Fond aplikací musí mít oprávnění k zápisu do umístění, ve kterém jsou zapsány protokoly (použijte `IIS AppPool\<app_pool_name>` poskytnout oprávnění k zápisu).
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Složky v cestě k dispozici na `<handlerSetting>` hodnotu (*protokoly* v předchozím příkladu) nebyly vytvořeny pomocí modulu automaticky a měla by existovat předem v nasazení. Fond aplikací musí mít oprávnění k zápisu do umístění, ve kterém jsou zapsány protokoly (použijte `IIS AppPool\<app_pool_name>` poskytnout oprávnění k zápisu).
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
 
 Ladit úrovně (`debugLevel`) hodnoty může obsahovat úroveň a umístění.
 

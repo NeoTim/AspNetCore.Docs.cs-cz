@@ -5,12 +5,12 @@ description: Přidání zobrazení pro jednoduchou aplikaci ASP.NET Core MVC
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 6ff706012dabbf9500a805708c1f058b59ebc610
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 70c96b4838b37ea2c193c328f00a410642338369
+ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903030"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67167085"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do aplikace ASP.NET Core MVC
 
@@ -72,7 +72,7 @@ Nahraďte obsah *Views/HelloWorld/Index.cshtml* Razor zobrazení souboru násled
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
-Přejděte na adresu `https://localhost:xxxx/HelloWorld`. `Index` Metoda ve `HelloWorldController` nedělalo většinu; spustili příkaz `return View();`, která zadané, že metoda by měla používat soubor šablony zobrazení k vykreslení odezva do prohlížeče. Protože jste nezadali explicitní název souboru šablony zobrazení, MVC na výchozí pomocí *Index.cshtml* zobrazení souboru v */zobrazení/HelloWorld* složky. Následující obrázek ukazuje řetězec "Hello z našich zobrazit šablonu!" pevně zakódované v zobrazení.
+Přejděte na adresu `https://localhost:xxxx/HelloWorld`. `Index` Metoda ve `HelloWorldController` nedělalo většinu; spustili příkaz `return View();`, která zadané, že metoda by měla používat soubor šablony zobrazení k vykreslení odezva do prohlížeče. Protože nebyl zadán název souboru šablony zobrazení, MVC na výchozí použití výchozího zobrazení souboru. Výchozí zobrazení soubor má stejný název jako metodu (`Index`), protože v */Views/HelloWorld/Index.cshtml* se používá. Následující obrázek ukazuje řetězec "Hello z našich zobrazit šablonu!" pevně zakódované v zobrazení.
 
 ![Okno prohlížeče](~/tutorials/first-mvc-app/adding-view/_static/hell_template.png)
 

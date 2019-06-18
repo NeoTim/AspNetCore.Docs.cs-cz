@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak je zodpovědná za mapování požadavku identifikátory URI pro koncový bod selektory a dispatching příchozí požadavky do koncových bodů směrování ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 06/17/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 2a7a942f43de94326e84977f09dc9a2e24dd00f0
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 71cb7215651a263e588531c9be644326c0b6eda6
+ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692574"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67167098"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -19,7 +19,7 @@ Podle [Ryanem Nowak](https://github.com/rynowak), [Steve Smith](https://ardalis.
 
 ::: moniker range="<= aspnetcore-1.1"
 
-1.1 verzi tohoto tématu, stáhněte si [směrování v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Routing_1.x.pdf).
+1\.1 verzi tohoto tématu, stáhněte si [směrování v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Routing_1.x.pdf).
 
 ::: moniker-end
 
@@ -140,6 +140,21 @@ Směrování je připojen k [middleware](xref:fundamentals/middleware/index) pro
 ::: moniker range=">= aspnetcore-2.2"
 
 Adresa URL odpovídající je proces, ve které směrování odešle příchozí žádost o *koncový bod*. Tento proces je na základě dat v cestě adresy URL, ale je možné rozšířit na zvažte všechna data v žádosti. Schopnost expedovat požadavky k oddělení obslužné rutiny je klíčem k škálování velikosti a složitosti aplikace.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+Když spustí Middleware směrování, nastaví koncový bod (`Endpoint`) a hodnoty do funkce na trasy <xref:Microsoft.AspNetCore.Http.HttpContext>. Pro aktuální požadavek:
+
+* Volání `HttpContext.GetEndpoint` získá koncový bod.
+* `HttpRequest.RouteValues` Získá kolekci hodnot trasy.
+
+Middleware po Middleware směrování můžete zobrazit koncový bod a provést akci. Například můžete Middleware povolení dotazování kolekce metadat koncového bodu pro zásady autorizace. Po veškerý middleware v kanálu zpracování žádostí provádí, je vyvolán delegát vybraný koncový bod.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
 
 Směrování systému v směrování koncový bod je zodpovědná za všechny dispatching rozhodnutí. Middleware použije zásady na základě vybraného koncového bodu, proto je důležité, že je uvnitř směrování systému k rozhodnutí může mít vliv na odesílání nebo uplatňování zásad zabezpečení.
 

@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit profily publikování v sadě Visual Studi
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/12/2019
+ms.date: 06/18/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: be5d1a79b7f4437d04586ae4ce24df94547d8a3c
-ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
+ms.openlocfilehash: 7006b73ea9a424a3c9530cf526727bc71a88838f
+ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/21/2019
-ms.locfileid: "65969979"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67196317"
 ---
 # <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>Visual Studio publikačních profilů pro nasazení aplikace ASP.NET Core
 
@@ -20,64 +20,17 @@ Podle [Sayed Ibrahim Hashimi](https://github.com/sayedihashimi) a [Rick Anderson
 
 Tento dokument se zaměřuje na pomocí sady Visual Studio 2017 nebo později k vytvoření a použití publikačních profilů. Profily publikování vytvořené pomocí sady Visual Studio můžete spustit z nástroje MSBuild a sadě Visual Studio. Zobrazit [publikovat webovou aplikaci ASP.NET Core do služby Azure App Service pomocí sady Visual Studio](xref:tutorials/publish-to-azure-webapp-using-vs) pokyny k publikování do Azure.
 
-Následující soubor projektu byl vytvořen pomocí příkazu `dotnet new mvc`:
-
-::: moniker range=">= aspnetcore-2.2"
+`dotnet new mvc` Příkaz vytvoří soubor projektu, která obsahuje následující nejvyšší úrovně `<Project>` element:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
+    <!-- omitted for brevity -->
 </Project>
 ```
 
-::: moniker-end
+Předchozí `<Project>` elementu `Sdk` atribut importuje MSBuild [vlastnosti](/visualstudio/msbuild/msbuild-properties) a [cíle](/visualstudio/msbuild/msbuild-targets) z *$(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\ SDK.props* a *$(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.targets*v uvedeném pořadí. Výchozím umístěním pro `$(MSBuildSDKsPath)` (s Visual Studio Enterprise. 2019) je *% programfiles (x86) %\Microsoft Visual Studio\2019\Enterprise\MSBuild\Sdks* složky.
 
-::: moniker range="< aspnetcore-2.2"
-
-```xml
-<Project Sdk="Microsoft.NET.Sdk.Web">
-
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
-</Project>
-```
-
-::: moniker-end
-
-`<Project>` Elementu `Sdk` atribut provádí následující úlohy:
-
-* Importuje soubor vlastnosti z *$(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.Props* na začátku.
-* Importuje soubor cílů z *$(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web\Sdk\Sdk.targets* na konci.
-
-Výchozím umístěním pro `MSBuildSDKsPath` (pomocí sady Visual Studio 2017 Enterprise) je *% programfiles (x86) %\Microsoft Visual Studio\2017\Enterprise\MSBuild\Sdks* složky.
-
-`Microsoft.NET.Sdk.Web` SDK závisí na:
-
-* *Microsoft.NET.Sdk.Web.ProjectSystem*
-* *Microsoft.NET.Sdk.Publish*
-
-Což způsobí, že následující vlastnosti a cíle, které se mají naimportovat:
-
-* *$(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web.ProjectSystem\Sdk\Sdk.Props*
-* *$(MSBuildSDKsPath)\Microsoft.NET.Sdk.Web.ProjectSystem\Sdk\Sdk.targets*
-* *$(MSBuildSDKsPath)\Microsoft.NET.Sdk.Publish\Sdk\Sdk.Props*
-* *$(MSBuildSDKsPath)\Microsoft.NET.Sdk.Publish\Sdk\Sdk.targets*
-
-Publikování import cílů vpravo sadu cílů založené na metodě publikování použít.
+`Microsoft.NET.Sdk.Web` (Sada web SDK) závisí na dalších sad SDK, včetně `Microsoft.NET.Sdk` (.NET Core SDK) a `Microsoft.NET.Sdk.Razor` ([Razor SDK](xref:razor-pages/sdk)). Vlastnosti nástroje MSBuild a cíle, které jsou spojené s každou závislé sady SDK jsou importovány. Publikujte cíle importu příslušné sady cíle založené na metodě publikování použít.
 
 Při načtení projektu nástroje MSBuild nebo Visual Studio provedou tyto akce vysoké úrovně:
 
@@ -87,9 +40,23 @@ Při načtení projektu nástroje MSBuild nebo Visual Studio provedou tyto akce 
 
 ## <a name="compute-project-items"></a>COMPUTE položky projektu
 
-Při načtení projektu jsou vypočítány položky projektu (soubory). `item type` Atribut určuje, jak se zpracovávají souboru. Ve výchozím nastavení *.cs* soubory jsou zahrnuty v `Compile` seznam položek. Soubory `Compile` jsou zkompilovány seznam položek.
+Při načtení projektu [položky projektu nástroje MSBuild](/visualstudio/msbuild/common-msbuild-project-items) jsou vypočítány (soubory). Typ položky určuje způsob zpracování souboru. Ve výchozím nastavení *.cs* soubory jsou zahrnuty v `Compile` seznam položek. Soubory `Compile` jsou zkompilovány seznam položek.
 
-`Content` Seznamu položek obsahuje soubory, které jsou publikovány kromě výstupy sestavení. Ve výchozím nastavení, soubory odpovídající vzoru `wwwroot/**` jsou součástí `Content` položky. `wwwroot/\*\*` [Model podpory zástupných znaků](https://gruntjs.com/configuring-tasks#globbing-patterns) vyhledá všechny soubory v *wwwroot* složky **a** podsložky. Pokud chcete explicitně přidat soubor do seznamu publikovat, přidejte přímo v souboru *.csproj* sdílené, jak je znázorněno v [vložených souborů](#include-files).
+`Content` Seznamu položek obsahuje soubory, které jsou publikovány kromě výstupy sestavení. Ve výchozím nastavení, soubory odpovídající vzorům `wwwroot\**`, `**\*.config`, a `**\*.json` jsou součástí `Content` seznam položek. Například `wwwroot\**` [model podpory zástupných znaků](https://gruntjs.com/configuring-tasks#globbing-patterns) vyhledá všechny soubory v *wwwroot* složky **a** jejích podsložkách.
+
+::: moniker range=">= aspnetcore-3.0"
+
+Importuje Web SDK [Razor SDK](xref:razor-pages/sdk). V důsledku toho soubory odpovídající vzorům `**\*.cshtml` a `**\*.razor` jsou taky součástí `Content` seznam položek.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+Importuje Web SDK [Razor SDK](xref:razor-pages/sdk). V důsledku toho soubory odpovídající `**\*.cshtml` vzoru jsou taky součástí `Content` seznam položek.
+
+::: moniker-end
+
+Pokud chcete explicitně přidat soubor do seznamu publikovat, přidejte přímo v souboru *.csproj* sdílené, jak je znázorněno [vložených souborů](#include-files) části.
 
 Při výběru **publikovat** tlačítko v sadě Visual Studio nebo při publikování z příkazového řádku:
 
@@ -103,7 +70,7 @@ Když se odkazuje projekt ASP.NET Core `Microsoft.NET.Sdk.Web` v souboru projekt
 
 ## <a name="basic-command-line-publishing"></a>Publikování základních příkazového řádku
 
-Příkazový řádek publikování funguje na všech platformách .NET Core podporovány a nevyžaduje, aby Visual Studio. Níže [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkaz spustí z adresáře projektu (která obsahuje *.csproj* souboru). Pokud není ve složce projektu explicitně předávat v cestě k souboru projektu. Příklad:
+Příkazový řádek publikování funguje na všech platformách .NET Core podporovány a nevyžaduje, aby Visual Studio. V následujících ukázkách [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkaz spustí z adresáře projektu (obsahující *.csproj* souboru). Pokud není ve složce projektu explicitně předávat v cestě k souboru projektu. Příklad:
 
 ```console
 dotnet publish C:\Webs\Web1
@@ -120,10 +87,12 @@ dotnet publish
 
 ```console
 C:\Webs\Web1>dotnet publish
-Microsoft (R) Build Engine version 15.3.409.57025 for .NET Core
+Microsoft (R) Build Engine version {version} for .NET Core
 Copyright (C) Microsoft Corporation. All rights reserved.
 
+  Restore completed in 36.81 ms for C:\Webs\Web1\Web1.csproj.
   Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp{X.Y}\Web1.dll
+  Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp{X.Y}\Web1.Views.dll
   Web1 -> C:\Webs\Web1\bin\Debug\netcoreapp{X.Y}\publish\
 ```
 
@@ -148,7 +117,7 @@ Následující příkaz publikuje `Release` od sestavení k síťové sdílené 
 
 `dotnet publish -c Release /p:PublishDir=//r8/release/AdminWeb`
 
-Sdílené síťové složky se zadaným lomítka (*//r8/*) a funguje na všech platformách .NET Core podporovány.
+Sdílené síťové složky se zadaným lomítka ( *//r8/* ) a funguje na všech platformách .NET Core podporovány.
 
 Potvrďte, že publikované aplikace pro nasazení neběží. Soubory *publikovat* složky jsou zamčené, když je aplikace spuštěna. Nasazení nebyla vytvořena, protože uzamčena, nelze zkopírovat soubory.
 
@@ -158,7 +127,7 @@ Tato část používá k vytvoření profilu publikování sady Visual Studio 20
 
 Publikování profilů může zjednodušit proces publikování, a může existovat libovolný počet profilů. Vytvořte profil publikování v sadě Visual Studio výběrem jedné z následujících cest:
 
-* Klikněte pravým tlačítkem na projekt v Průzkumníku řešení a vyberte **publikovat**.
+* Klikněte pravým tlačítkem na projekt v **Průzkumníka řešení** a vyberte **publikovat**.
 * Vyberte **publikovat {název projektu}** z **sestavení** nabídky.
 
 **Publikovat** zobrazuje kartu na stránce kapacity aplikace. Pokud projekt nemá profil publikování, zobrazí se následující stránka:
@@ -187,7 +156,7 @@ Při publikování do Azure cíl, *.pubxml* soubor obsahuje identifikátor vaše
 
 Se šifrují citlivé údaje (třeba publikovat heslo) na úrovni uživatele nebo počítače. Je uložený v *vlastnosti/PublishProfiles / {název profilu}.pubxml.user* souboru. Protože tento soubor můžete uložit citlivé informace, by neměla být zaškrtnuta do správy zdrojového kódu.
 
-Přehled o tom, jak publikovat webovou aplikaci v ASP.NET Core, najdete v části [hostitele a nasadit](xref:host-and-deploy/index). Úlohy MSBuild a cíle plánování pro publikování aplikace ASP.NET Core je open source na https://github.com/aspnet/websdk.
+Přehled o tom, jak publikovat webovou aplikaci v ASP.NET Core, najdete v části [hostitele a nasadit](xref:host-and-deploy/index). Úlohy MSBuild a cíle plánování pro publikování aplikace ASP.NET Core je open source na [aspnet/websdk úložiště](https://github.com/aspnet/websdk).
 
 `dotnet publish` můžete použít složku, MSDeploy, a [Kudu](https://github.com/projectkudu/kudu/wiki) publikační profily:
 
@@ -209,7 +178,7 @@ Balíček MSDeploy (aktuálně toto funguje pouze ve Windows, protože není MSD
 dotnet publish WebApplication.csproj /p:PublishProfile=<MsDeployPackageProfileName>
 ```
 
-V předchozích ukázkách **není** předat `deployonbuild` k `dotnet publish`.
+V předchozích ukázkách, nepředávejte `deployonbuild` k `dotnet publish`.
 
 Další informace najdete v tématu [Microsoft.NET.Sdk.Publish](https://github.com/aspnet/websdk#microsoftnetsdkpublish).
 
@@ -272,7 +241,7 @@ MSBuild file.
 </Project>
 ```
 
-Poznámka: `<LastUsedBuildConfiguration>` je nastavena na `Release`. Při publikování ze sady Visual Studio `<LastUsedBuildConfiguration>` hodnota vlastnosti konfigurace je nastavena pomocí hodnoty, když se spustí proces publikování. `<LastUsedBuildConfiguration>` Vlastnost konfigurace je speciální a nesmí být přepsána nastaveními v importovaný soubor MSBuild. Tato vlastnost může být přepsána z příkazového řádku.
+V předchozím příkladu `<LastUsedBuildConfiguration>` je nastavena na `Release`. Při publikování ze sady Visual Studio `<LastUsedBuildConfiguration>` hodnota vlastnosti konfigurace je nastavena pomocí hodnoty, když se spustí proces publikování. `<LastUsedBuildConfiguration>` Vlastnost konfigurace je speciální a nesmí být přepsána nastaveními v importovaný soubor MSBuild. Tato vlastnost může být přepsána z příkazového řádku.
 
 Použití .NET Core CLI:
 
@@ -334,7 +303,7 @@ dotnet msbuild "AzureWebApp.csproj"
 
 ## <a name="set-the-environment"></a>Nastavení prostředí
 
-Zahrnout `<EnvironmentName>` vlastnost v profilu publikování (*.pubxml*) nebo soubor projektu a nastavení aplikace [prostředí](xref:fundamentals/environments):
+Zahrnout `<EnvironmentName>` vlastnost v profilu publikování ( *.pubxml*) nebo soubor projektu a nastavení aplikace [prostředí](xref:fundamentals/environments):
 
 ```xml
 <PropertyGroup>
@@ -346,7 +315,15 @@ Pokud budete potřebovat *web.config* transformace (například nastavení prom�
 
 ## <a name="exclude-files"></a>Vyloučení souborů
 
-Při publikování webové aplikace ASP.NET Core, artefakty sestavení a obsah *wwwroot* složky jsou zahrnuty. `msbuild` podporuje [vzorů podpory zástupných znaků](https://gruntjs.com/configuring-tasks#globbing-patterns). Například následující `<Content>` element vyloučí veškerý text (*.txt*) souborů z doručené pošty *wwwroot/obsah* složce a jejích podsložkách.
+Při publikování webové aplikace ASP.NET Core, jsou zahrnuty následující prostředky:
+
+* Artefakty sestavení
+* Složky a soubory odpovídající následujících vzorů podpory zástupných znaků:
+  * `**\*.config` (například *web.config*)
+  * `**\*.json` (například *appsettings.json*)
+  * `wwwroot\**`
+
+Podporuje MSBuild [vzorů podpory zástupných znaků](https://gruntjs.com/configuring-tasks#globbing-patterns). Například následující `<Content>` element potlačí kopírování textu ( *.txt*) soubory *wwwroot\content* složce a jejích podsložkách:
 
 ```xml
 <ItemGroup>
@@ -356,7 +333,7 @@ Při publikování webové aplikace ASP.NET Core, artefakty sestavení a obsah *
 
 Předchozí kód lze přidat do profilu publikování nebo *.csproj* souboru. Když se přidá *.csproj* , pravidlo se přidá soubor všechny profily publikování v projektu.
 
-Následující `<MsDeploySkipRules>` element vyloučí všechny soubory *wwwroot/obsah* složky:
+Následující `<MsDeploySkipRules>` element vyloučí všechny soubory *wwwroot\content* složky:
 
 ```xml
 <ItemGroup>

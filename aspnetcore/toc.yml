@@ -70,6 +70,9 @@
               uid: tutorials/first-mvc-app/validation
             - name: Zkoumání metod Details a Delete
               uid: tutorials/first-mvc-app/details
+        - name: Blazor
+          displayName: tutorial
+          uid: tutorials/first-blazor-app
     - name: Aplikace Web API
       items:
         - name: Vytvoření webového rozhraní API

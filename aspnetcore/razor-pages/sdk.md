@@ -5,29 +5,43 @@ description: Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zamě�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 06/05/2019
+ms.date: 06/18/2019
 uid: razor-pages/sdk
-ms.openlocfilehash: 8c4e882af93b043afaa0bcf86fd1583405f84be9
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: fa69e4840377e0c1c8291c7ba9305a27bd3e6b82
+ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750180"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67196366"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+
+## <a name="overview"></a>Přehled
 
 [!INCLUDE[](~/includes/2.1-SDK.md)] Zahrnuje `Microsoft.NET.Sdk.Razor` sady MSBuild SDK (Razor SDK). Razor SDK:
 
 * Standardizuje prostředí týkající se vytváření, balení a publikování projektů, které obsahují [Razor](xref:mvc/views/razor) souborů pro projekty ASP.NET Core MVC.
 * Obsahuje sadu předdefinovaných cílů, vlastností a položek, které umožňují přizpůsobení kompilace souborech Razor.
 
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+
+Sada Razor SDK zahrnuje `<Content>` element s `Include` atribut nastaven na `**\*.cshtml` model podpory zástupných znaků. Porovnávání souborů k publikování.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+Sada Razor SDK zahrnuje `<Content>` prvky s `Include` nastavte atributy na `**\*.cshtml` a `**\*.razor` vzorů podpory zástupných znaků. Porovnávání souborů k publikování.
+
+::: moniker-end
+
 ## <a name="prerequisites"></a>Požadavky
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
-## <a name="using-the-razor-sdk"></a>Pomocí syntaxe Razor SDK
+## <a name="use-the-razor-sdk"></a>Použít syntaxi Razor SDK
 
 Většina webových aplikací není nutné explicitně odkazují na sadu SDK Razor.
 
@@ -37,7 +51,7 @@ Použití sady SDK Razor k vytvoření knihovny tříd obsahující zobrazení s
 
   ```xml
   <Project SDK="Microsoft.NET.Sdk.Razor">
-    ...
+    <!-- omitted for brevity -->
   </Project>
   ```
 
@@ -72,7 +86,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | Položky | Popis |
 | ----- | ----------- |
 | `RazorGenerate` | Položka elementy ( *.cshtml* soubory), které jsou vstupy do cíle generování kódu. |
-| `RazorCompile` | Položka elementy ( *.cs* soubory), které jsou vstupy do cíle kompilace Razor. Pomocí této ItemGroup můžete určit další soubory se zkompiluje do sestavení Razor. |
+| `RazorCompile` | Položka elementy ( *.cs* soubory), které jsou vstupy do cíle kompilace Razor. Použijte tento `ItemGroup` zadat další soubory se zkompiluje do sestavení Razor. |
 | `RazorTargetAssemblyAttribute` | Položka prvků, které slouží ke kódu generovat atributy pro sestavení Razor. Příklad:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
 | `RazorEmbeddedResource` | Položky elementy přidané jako vložené prostředky do generovaného sestavení Razor. |
 
@@ -115,3 +129,8 @@ Při cílení `Microsoft.NET.Sdk.Web` Razor jazykovou verzi sady SDK, je odvozen
   <RazorLangVersion>{VERSION}</RazorLangVersion>
 </PropertyGroup>
 ```
+
+## <a name="additional-resources"></a>Další zdroje
+
+* [Dodatky k formátu csproj pro .NET Core](/dotnet/core/tools/csproj)
+* [Společné položky projektu nástroje MSBuild](/visualstudio/msbuild/common-msbuild-project-items)
