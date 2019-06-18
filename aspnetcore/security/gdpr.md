@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/05/2019
 uid: security/gdpr
-ms.openlocfilehash: 967f3246836c93a1af56f7109edb056220606b58
-ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
+ms.openlocfilehash: 1580187afef56e8e2f5be7a4bae32912e6305c5a
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66716349"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152866"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>Podpora EU obecného Regulation (GDPR) v ASP.NET Core
 
@@ -32,7 +32,17 @@ ASP.NET Core nabízí rozhraní API a šablony, které vám pomohou splnit někt
 
 ## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>ASP.NET Core GDPR podporují v šabloně generovaný kód
 
+::: moniker range="< aspnetcore-2.2"
+
+Stránky Razor a MVC projekty vytvořené pomocí šablony projektu mají žádná podpora pro vyjádření souhlasu GDPR nebo soubor cookie. Chcete-li přidat podle nařízení GDPR, zkopírujte kód generovaný v šablonách 2.2 technologie ASP.NET Core.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
+
 Stránky Razor a MVC projekty vytvořené pomocí šablony projektu zahrnují následující podpory nařízení GDPR:
+
+::: moniker-end
 
 * [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions) a [UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy) jsou nastaveny `Startup` třídy.
 * *\_CookieConsentPartial.cshtml* [částečné zobrazení](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper). **Přijmout** tlačítko je zahrnuta v tomto souboru. Pokud uživatel klikne **přijmout** tlačítko, vyjadřoval souhlas k ukládání souborů cookie je k dispozici.
