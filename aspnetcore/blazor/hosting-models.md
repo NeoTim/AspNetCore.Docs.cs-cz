@@ -1,20 +1,20 @@
 ---
-title: Blazor modelech hostování
+title: ASP.NET Core Blazor hostování modelů
 author: guardrex
 description: Seznamte se s na straně klienta i stranu serveru Blazor hostování modely.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/05/2019
+ms.date: 06/14/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 0d800a9e6b66be18b80723cb5b8109fec5f69e38
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: c794daf6f33138c57500a04116a3d172f0201bd5
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034700"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152798"
 ---
-# <a name="blazor-hosting-models"></a>Blazor modelech hostování
+# <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor hostování modelů
 
 Podle [Daniel Roth](https://github.com/danroth27)
 

@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: d3954800f4f1358565a627768e34465215dc4f6e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bfe417a6153f74cf0ca2d9bcde4db1bba8453b3b
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900510"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152884"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: Zpracování souběžnosti – ASP.NET MVC s EF Core
 
@@ -154,7 +154,7 @@ Nahraďte stávající kód httppost `Edit` metodu s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EditPost)]
 
-Kód začíná pokusu o čtení z oddělení aktualizovat. Pokud `SingleOrDefaultAsync` metoda vrátí hodnotu null, z oddělení byla odstraněna jiným uživatelem. V takovém případě kód používá hodnoty odeslaného formuláře vytvořit entitu oddělení tak, aby stránky pro úpravu můžete zobrazí znovu, zobrazí se chybová zpráva. Jako alternativu nebude muset znovu vytvořit entity oddělení, pokud zobrazení pouze chybové zprávy bez opětovné zobrazení pole oddělení.
+Kód začíná pokusu o čtení z oddělení aktualizovat. Pokud `FirstOrDefaultAsync` metoda vrátí hodnotu null, z oddělení byla odstraněna jiným uživatelem. V takovém případě kód používá hodnoty odeslaného formuláře vytvořit entitu oddělení tak, aby stránky pro úpravu můžete zobrazí znovu, zobrazí se chybová zpráva. Jako alternativu nebude muset znovu vytvořit entity oddělení, pokud zobrazení pouze chybové zprávy bez opětovné zobrazení pole oddělení.
 
 Zobrazení ukládá původní `RowVersion` hodnotu ve skrytém poli a tato metoda přijímá hodnotu do `rowVersion` parametru. Před voláním `SaveChanges`, budete muset vytvořit z původní `RowVersion` hodnoty vlastnosti `OriginalValues` kolekce entity.
 

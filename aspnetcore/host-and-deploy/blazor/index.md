@@ -1,20 +1,20 @@
 ---
-title: Hostitelství a nasazení Blazor
+title: Hostitelství a nasazení aplikace ASP.NET Core Blazor
 author: guardrex
 description: Objevte, jak hostovat a nasazovat aplikace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/23/2019
+ms.date: 06/14/2019
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 0fc7643c65b93a63d7a594d35e4013eab76e9db8
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: 8a5ac5c58e7ceab07e55da8b61ebb01f7ac984bc
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376389"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67153202"
 ---
-# <a name="host-and-deploy-blazor"></a>Hostitelství a nasazení Blazor
+# <a name="host-and-deploy-aspnet-core-blazor"></a>Hostitelství a nasazení aplikace ASP.NET Core Blazor
 
 Podle [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), a [Daniel Roth](https://github.com/danroth27)
 
@@ -55,4 +55,4 @@ Pokyny k nasazení naleznete v následujících tématech:
 
 Blazor aplikace na straně klienta je možné dodávat z [služby Azure Storage](https://azure.microsoft.com/services/storage/) jako statického obsahu přímo z kontejneru úložiště.
 
-Další informace najdete v tématu [hostitele a nasadit Blazor straně klienta (samostatné nasazení): Azure Storage](xref:host-and-deploy/blazor/client-side#azure-storage).
+Další informace najdete v tématu [hostitele a nasazení aplikace ASP.NET Core Blazor – na straně klienta (samostatné nasazení): Azure Storage](xref:host-and-deploy/blazor/client-side#azure-storage).

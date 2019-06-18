@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
 uid: blazor/components
-ms.openlocfilehash: f88497195d9a108a4b8890522078736e335c5b0a
-ms.sourcegitcommit: 739a3d7ca4fd2908ea0984940eca589a96359482
+ms.openlocfilehash: 34800a9235892a6462f6d0f43b33ab40e847c628
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67040691"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152749"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -385,9 +385,9 @@ Vyvolání `EventCallback` nebo `EventCallback<T>` s `InvokeAsync` a operátoru 
 await callback.InvokeAsync(arg);
 ```
 
-Použití `EventCallback` a `EventCallback<T>` pro událost zpracování a vazby parametrů komponenty. Nepoužívejte `EventCallback` a `EventCallback<T>` pro podřízený obsah&mdash;i nadále používat `RenderFragment` a `RenderFragment<T>` pro podřízený obsah.
+Použití `EventCallback` a `EventCallback<T>` pro událost zpracování a vazby parametrů komponenty.
 
-Preferovat silného typu `EventCallback<T>`, která poskytuje lepší odpověď na chybu pro uživatele součásti. Podobně jako jiné obslužné rutině události uživatelského rozhraní, zadání parametru události je volitelné. Použití `EventCallback` při neexistuje převáděná hodnota předaný zpětnému volání.
+Preferovat silného typu `EventCallback<T>` přes `EventCallback`. `EventCallback<T>` poskytuje lepší zpětnou vazbu chyba uživatelům komponenty. Podobně jako jiné obslužné rutině události uživatelského rozhraní, zadání parametru události je volitelné. Použití `EventCallback` při neexistuje převáděná hodnota předaný zpětnému volání.
 
 ## <a name="capture-references-to-components"></a>Zachycení odkazy na komponenty
 

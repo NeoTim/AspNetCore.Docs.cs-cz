@@ -1,20 +1,20 @@
 ---
-title: Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
+title: ASP.NET Core Blazor JavaScript zprostředkovatele komunikace s objekty
 author: guardrex
 description: Zjistěte, jak volat funkce jazyka JavaScript od .NET a .NET metody z jazyka JavaScript v aplikacích Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/29/2019
+ms.date: 06/14/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: be5afcc33e527e36892e409cc87d6d8725d40290
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: df511fe77661cd1474e869b28e6858e0452eaae5
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034418"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152800"
 ---
-# <a name="blazor-javascript-interop"></a>Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
+# <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript zprostředkovatele komunikace s objekty
 
 Podle [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Roth](https://github.com/danroth27), a [Luke Latham](https://github.com/guardrex)
 

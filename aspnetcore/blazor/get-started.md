@@ -1,20 +1,20 @@
 ---
-title: Začínáme s Blazor
+title: Začínáme s ASP.NET Core Blazor
 author: guardrex
 description: Začínáme s Blazor vytvořením Blazor aplikace pomocí nástrojů podle vašeho výběru.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/05/2019
+ms.date: 06/14/2019
 uid: blazor/get-started
-ms.openlocfilehash: 417f2ad79c14351487763888a9a3b022232b3766
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 11637ef1c4b54961cc3094c263196be222cc2c60
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034437"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152699"
 ---
-# <a name="get-started-with-blazor"></a>Začínáme s Blazor
+# <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
 Podle [Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 

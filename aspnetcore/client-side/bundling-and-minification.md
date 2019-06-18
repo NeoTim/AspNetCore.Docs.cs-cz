@@ -4,14 +4,14 @@ author: scottaddie
 description: Zjistěte, jak optimalizovat statické prostředky ve webové aplikaci ASP.NET Core s použitím technik sdružování a minifikace.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: ba01d365a25dfbd13fed89263d7489b2ce2a8771
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: c3ec67d9f5c2b8eb44b5ced911ccfd0fa40a52a7
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65535935"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152767"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Vytvoření balíčku a minifikace statické prostředky v ASP.NET Core
 
@@ -286,6 +286,9 @@ npm i -g gulp-cli
 Pokud nejsou k dispozici sady Visual Studio nebo rozšíření například položky Bundler & Minifier, převeďte ručně.
 
 Přidat *package.json* souboru následujícím kódem `devDependencies`, do kořenového adresáře projektu:
+
+> [!WARNING]
+> `gulp-uglify` Modul nepodporuje ECMAScript (ES) 2015 / ES6 a novější. Nainstalujte [gulp terser](https://www.npmjs.com/package/gulp-terser) místo `gulp-uglify` používat ES2015 nebo ES6 nebo novější.
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/package.json?range=5-13)]
 

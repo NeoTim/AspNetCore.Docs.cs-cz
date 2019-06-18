@@ -1,20 +1,20 @@
 ---
-title: Hostitelství a nasazení Blazor na straně klienta
+title: Hostitelství a nasazení aplikace ASP.NET Core Blazor na straně klienta
 author: guardrex
 description: Zjistěte, jak hostovat a nasazení Blazor aplikace pomocí ASP.NET Core, Content Delivery Network (CDN), souborové servery a stránkách Githubu.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/21/2019
+ms.date: 06/14/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: b50516b4dce28a6b105b2ab8b9386060d5392983
-ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
+ms.openlocfilehash: 7567473ae8acd9e1072954907f0fe9c7beea29ad
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66376394"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67153188"
 ---
-# <a name="host-and-deploy-blazor-client-side"></a>Hostitelství a nasazení Blazor na straně klienta
+# <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>Hostitelství a nasazení aplikace ASP.NET Core Blazor na straně klienta
 
 Podle [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), a [Daniel Roth](https://github.com/danroth27)
 

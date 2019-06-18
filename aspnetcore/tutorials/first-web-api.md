@@ -1,19 +1,19 @@
 ---
-title: 'Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC'
+title: 'Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core'
 author: rick-anderson
-description: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
+description: Zjistěte, jak vytvořit webové rozhraní API pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/4/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: dce2926e3cb19d6ac8d2af0e9b96c31dee1d92fd
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 7e37e408f32b2e490a0d248a14940fc68d4bda0a
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087523"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67153228"
 ---
-# <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
+# <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Mike Wasson](https://github.com/mikewasson)
 
@@ -88,7 +88,7 @@ Následující diagram znázorňuje návrh aplikace.
 
   ![macOS dialogové okno nového projektu](first-web-api-mac/_static/1.png)
   
-* V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z **.NET Core 2.2*.
+* V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z * *.NET Core 2.2*.
 
 * Zadejte *TodoApi* pro **název projektu** a pak vyberte **vytvořit**.
 
@@ -315,7 +315,7 @@ Předchozí kód je metoda HTTP POST, je určeno [[HttpPost]](/dotnet/api/micros
 * V nástroji Postman, nastavte jako metodu HTTP `POST`.
 * Vyberte **tělo** kartu.
 * Vyberte **nezpracovaná** přepínač.
-* Nastavte typ **JSON (application/json)**.
+* Nastavte typ **JSON (application/json)** .
 * V textu požadavku zadejte JSON pro úkol:
 
     ```json

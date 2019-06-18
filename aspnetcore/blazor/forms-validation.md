@@ -1,20 +1,20 @@
 ---
-title: Blazor formulářů a ověřování
+title: ASP.NET Core Blazor formulářů a ověřování
 author: guardrex
 description: Naučte se používat v Blazor formuláře a scénáře ověření pole.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/12/2019
+ms.date: 06/14/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 52f53cbfbb335a4a0d681a378d383924c901ef57
-ms.sourcegitcommit: 739a3d7ca4fd2908ea0984940eca589a96359482
+ms.openlocfilehash: a3e47844d5d0611371f2fce24ed8d3ccb07754d7
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67040695"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152720"
 ---
-# <a name="blazor-forms-and-validation"></a>Blazor formulářů a ověřování
+# <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor formulářů a ověřování
 
 Podle [Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 

@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 06/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 76c40d108bc0ce9dec7099b10812c896f0b7777d
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.openlocfilehash: 6aef56ecd61ad71e166c03c12b28b25b931cdd88
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048198"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152934"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření gRPC klientem a serverem v ASP.NET Core
 
@@ -124,6 +124,7 @@ info: Microsoft.Hosting.Lifetime[0]
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
+* Spusťte druhou instanci aplikace Visual Studio.
 * Vyberte **souboru** > **nový** > **projektu** z řádku nabídek.
 * V **vytvořte nový projekt** dialogového okna, vyberte **Konzolová aplikace (.NET Core)** .
 * Vyberte **další**
@@ -151,7 +152,7 @@ Postupujte podle pokynů [tady](/dotnet/core/tutorials/using-on-mac-vs-full-solu
 
 ### <a name="add-required-packages"></a>Přidání požadovaných balíčků
 
-Přidejte do projektu klienta gRPC následující balíčky:
+GRPC klientský projekt vyžaduje následující balíčky:
 
 * [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client), který obsahuje klienta .NET Core.
 * [Google.Protobuf](https://www.nuget.org/packages/Google.Protobuf/), který obsahuje protobuf zpráva rozhraní API pro C#.
@@ -208,7 +209,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
-  Klikněte pravým tlačítkem na projekt a vyberte **upravit GrpcGreeterClient.csproj**.
+  Klikněte pravým tlačítkem na projekt a vyberte **upravit soubor projektu**.
 
   # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code) 
 
@@ -220,7 +221,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   ---
 
-* Přidat **greet.proto** do souboru `<Protobuf>` skupiny položek GrpcGreeterClient souboru projektu:
+* Přidat skupiny položek `<Protobuf>` element, který odkazuje **greet.proto** souboru:
 
   ```XML
   <ItemGroup>
@@ -228,11 +229,9 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
   </ItemGroup>
   ```
 
-Sestavení projektu klienta k aktivaci generování C# prostředky klienta.
-
 ### <a name="create-the-greeter-client"></a>Vytvoření klienta Greeter
 
-Projekt pro vytvoření typů v sestavení **Greeter** oboru názvů. `Greeter` Typy jsou automaticky generovány procesu sestavení.
+Projekt pro vytvoření typů v sestavení `GrpcGreeter` oboru názvů. `GrpcGreeter` Typy jsou automaticky generovány procesu sestavení.
 
 Také aktualizovat klienta sady gRPC *Program.cs* souboru následujícím kódem:
 

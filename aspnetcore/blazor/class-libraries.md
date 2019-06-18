@@ -1,20 +1,20 @@
 ---
-title: Knihovny tříd Razor komponenty
+title: ASP.NET Core Razor komponenty knihovny třídy
 author: guardrex
 description: Zjistěte, jak komponenty mohou být součástí Blazor aplikací z knihovny externí komponenta.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/09/2019
+ms.date: 06/14/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 4b0b9150a507eef302a95055ae1485f0f9c2d8cc
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 40dc029b35e0997e526fdfc02c275da5a84450b9
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034709"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152881"
 ---
-# <a name="razor-components-class-libraries"></a>Knihovny tříd Razor komponenty
+# <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor komponenty knihovny třídy
 
 Podle [Simon Timms](https://github.com/stimms)
 

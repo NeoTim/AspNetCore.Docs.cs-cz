@@ -1,20 +1,20 @@
 ---
-title: Ladění Blazor
+title: Ladění ASP.NET Core Blazor
 author: guardrex
 description: Zjistěte, jak ladit Blazor aplikace.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/15/2019
+ms.date: 06/14/2019
 uid: blazor/debug
-ms.openlocfilehash: 40457b942061fb910a6311af78ff29ac3a1699de
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 887edcd1db6942ba163857d48adfcf8efc8d7f5a
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898452"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152703"
 ---
-# <a name="debug-blazor"></a>Ladění Blazor
+# <a name="debug-aspnet-core-blazor"></a>Ladění ASP.NET Core Blazor
 
 [Daniel Roth](https://github.com/danroth27)
 
@@ -54,7 +54,7 @@ Pokud je vzdálené ladění je zakázané, **nelze nalézt kartu prohlížeče 
 
 ## <a name="debug-the-app"></a>Ladění aplikace
 
-Po spuštění Chrome s povoleným laděním vzdáleného ladění stiskněte kombinaci kláves otevře novou kartu ladicího programu. Za okamžik **zdroje** karta zobrazuje seznam sestavení .NET v aplikaci. Rozbalte každého sestavení a vyhledejte *.cs*/*.razor* zdrojové soubory pro ladění k dispozici. Nastavit zarážky, přejděte zpět na kartě aplikace a zarážky jsou přístupů, když kód spustí. Po zarážku přístupů, krokování (`F10`) prostřednictvím kódu nebo pokračovat (`F8`) obvykle spuštění kódu.
+Po spuštění Chrome s povoleným laděním vzdáleného ladění stiskněte kombinaci kláves otevře novou kartu ladicího programu. Za okamžik **zdroje** karta zobrazuje seznam sestavení .NET v aplikaci. Rozbalte každého sestavení a vyhledejte *.cs*/ *.razor* zdrojové soubory pro ladění k dispozici. Nastavit zarážky, přejděte zpět na kartě aplikace a zarážky jsou přístupů, když kód spustí. Po zarážku přístupů, krokování (`F10`) prostřednictvím kódu nebo pokračovat (`F8`) obvykle spuštění kódu.
 
 Blazor poskytuje ladicí proxy server tohoto implementuje [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) a argumentech protokolu. Informace specifické pro sítě. Při stisknutí klávesové zkratky ladění ukazuje Blazor Chrome DevTools na proxy serveru. Proxy server připojí do okna prohlížeče se snaží ladění (tedy potřeba povolit vzdálené ladění).
 

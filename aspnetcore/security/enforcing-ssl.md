@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/01/2018
 uid: security/enforcing-ssl
-ms.openlocfilehash: 8d48877153d6d75348e29299c669125904236de8
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 08ce50775d1b5348cb0528a1724cec2e5c72dae2
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692587"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152899"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynucení protokolu HTTPS v ASP.NET Core
 
@@ -24,11 +24,32 @@ Tento dokument ukazuje, jak:
 
 Žádné rozhraní API můžete zabránit posláním citlivých dat na první požadavek klienta.
 
+::: moniker range="< aspnetcore-3.0"
+
 > [!WARNING]
+> ## <a name="api-projects"></a>Projekty rozhraní API
+>
 > Proveďte **není** použít [RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) na webová rozhraní API, která zobrazit citlivé informace. `RequireHttpsAttribute` stavové kódy HTTP se používá pro přesměrování prohlížeče z HTTP na HTTPS. Klienti rozhraní API nemusí pochopit a dodržují přesměrování z HTTP na HTTPS. Tito klienti mohou odesílat informace přes protokol HTTP. Webová rozhraní API by buď:
 >
 > * Nelze naslouchat na HTTP.
 > * Ukončete připojení s stavový kód 400 (Chybný požadavek) a není obsluhovat žádosti.
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+> [!WARNING]
+> ## <a name="api-projects"></a>Projekty rozhraní API
+>
+> Proveďte **není** použít [RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) na webová rozhraní API, která zobrazit citlivé informace. `RequireHttpsAttribute` stavové kódy HTTP se používá pro přesměrování prohlížeče z HTTP na HTTPS. Klienti rozhraní API nemusí pochopit a dodržují přesměrování z HTTP na HTTPS. Tito klienti mohou odesílat informace přes protokol HTTP. Webová rozhraní API by buď:
+>
+> * Nelze naslouchat na HTTP.
+> * Ukončete připojení s stavový kód 400 (Chybný požadavek) a není obsluhovat žádosti.
+>
+> ## <a name="hsts-and-api-projects"></a>Projekty HSTS a rozhraní API
+>
+> Výchozí rozhraní API projekty neobsahují [HSTS](#hsts) protože HSTS je obecná pouze instrukce prohlížeče. Proveďte další volající, například telefon nebo aplikací klasické pracovní plochy, **není** dodržují podle pokynů. Dokonce i v rámci prohlížeče má jeden ověřené volání rozhraní API přes protokol HTTP rizika v nezabezpečené síti. Zabezpečený přístup, je konfigurace projekty rozhraní API a naslouchat pouze reagovat přes protokol HTTPS.
+
+::: moniker-end
 
 ## <a name="require-https"></a>Vyžadovat protokol HTTPS
 
@@ -159,6 +180,8 @@ Globálně vyžadování protokolu HTTPS (`options.Filters.Add(new RequireHttpsA
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
+
+<a name="hsts"></a>
 
 ## <a name="http-strict-transport-security-protocol-hsts"></a>Protokol zabezpečení striktní přenos HTTP (HSTS)
 
