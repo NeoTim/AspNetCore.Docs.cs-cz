@@ -3,18 +3,16 @@ title: Použití nástroje Grunt v ASP.NET Core
 author: rick-anderson
 description: Použití nástroje Grunt v ASP.NET Core
 ms.author: riande
-ms.date: 05/14/2019
+ms.date: 06/18/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: 4d9b6cf6f9a0007e9722bc054f0d9a7608f1473b
-ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
+ms.openlocfilehash: 851ce3b50e88fee597518aef23276800f4b50f06
+ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65620998"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67207754"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>Použití nástroje Grunt v ASP.NET Core
-
-Podle [Noel rýže](https://blog.falafel.com/falafel-software-recognized-sitefinity-website-year/)
 
 Grunt je Spouštěče úloh JavaScriptu, který automatizuje skript připravenost k minifikaci, TypeScript kompilace, nástroji "lint" kvality kódu, šablony stylů CSS předběžné procesory a téměř všechny opakované případě vyžadující způsobem pro podporu vývoje klienta. Grunt je plně podporováno v sadě Visual Studio.
 

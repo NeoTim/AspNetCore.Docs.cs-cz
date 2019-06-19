@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/18/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 7006b73ea9a424a3c9530cf526727bc71a88838f
-ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
+ms.openlocfilehash: ac243a3898553b2e14a6c15d311afaf62f112a24
+ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 06/18/2019
-ms.locfileid: "67196317"
+ms.locfileid: "67207817"
 ---
 # <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>Visual Studio publikačních profilů pro nasazení aplikace ASP.NET Core
 
@@ -402,7 +402,10 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 
 ## <a name="include-files"></a>Soubory k zahrnutí
 
-Obsahuje následující kód *image* mimo adresář projektu do složky *wwwroot/imagí* složku publikování webu:
+Následující kód:
+
+* Zahrnuje *image* mimo adresář projektu do složky *wwwroot/imagí* složku publikování webu.
+* Lze přidat *.csproj* souboru nebo profil publikování. Pokud je přidána do *.csproj* souboru, je zahrnutý v každé profilu publikování v projektu.
 
 ```xml
 <ItemGroup>
@@ -412,8 +415,6 @@ Obsahuje následující kód *image* mimo adresář projektu do složky *wwwroot
   </DotnetPublishFiles>
 </ItemGroup>
 ```
-
-Značky mohou být přidány do *.csproj* souboru nebo profil publikování. Pokud je přidána do *.csproj* souboru, je zahrnutý v každé profilu publikování v projektu.
 
 Následující zvýrazněný kód ukazuje jak na:
 
@@ -454,7 +455,7 @@ MSBuild file.
 </Project>
 ```
 
-Zobrazit [WebSDK Readme](https://github.com/aspnet/websdk) pro další nasazení ukázky.
+Najdete v článku [Web SDK úložiště Readme](https://github.com/aspnet/websdk) pro další nasazení ukázky.
 
 ## <a name="run-a-target-before-or-after-publishing"></a>Spustit cíl před nebo po publikování
 
@@ -493,6 +494,6 @@ Vyberte [ladění konzoly](https://github.com/projectkudu/kudu/wiki/Kudu-console
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Webu nasadit](https://www.iis.net/downloads/microsoft/web-deploy) (MSDeploy) zjednodušuje nasazení webové aplikace a weby pro servery služby IIS.
-* [https://github.com/aspnet/websdk](https://github.com/aspnet/websdk/issues): Soubor problémů a požádat o funkce pro nasazení.
+* [Úložiště GitHub sady SDK webové](https://github.com/aspnet/websdk/issues): Soubor problémů a požádat o funkce pro nasazení.
 * [Publikování webové aplikace v ASP.NET do virtuálního počítače Azure ze sady Visual Studio](/azure/virtual-machines/windows/publish-web-app-from-visual-studio)
 * <xref:host-and-deploy/iis/transform-webconfig>

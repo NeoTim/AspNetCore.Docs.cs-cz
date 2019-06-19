@@ -3,15 +3,15 @@ title: Přidat, stažení a odstranění dat uživatele na identitu v projektu a
 author: rick-anderson
 description: Zjistěte, jak přidat vlastní uživatelská data na identitu v projektu aplikace ASP.NET Core. Odstraníte data podle nařízení GDPR.
 ms.author: riande
-ms.date: 6/16/2018
+ms.date: 06/18/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: d704041f73a7d4773c3da9a23f120b07a03d64ac
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: c219500b7595fd8d200e4e5e742b1e1fda836ba3
+ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65086492"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67207741"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>Přidání, stáhněte si a odstranit vlastní uživatelská data na identitu v projektu aplikace ASP.NET Core
 
@@ -20,11 +20,11 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 Tento článek popisuje, jak:
 
 * Přidáte vlastní uživatelská data do webové aplikace ASP.NET Core.
-* Uspořádání vlastního uživatele datového modelu o [PersonalData](/dotnet/api/microsoft.aspnetcore.identity.personaldataattribute?view=aspnetcore-2.1) atribut tak, aby byl automaticky k dispozici ke stažení a odstranění. Nastavení může ke stažení a odstranění dat pomáhá plnit [GDPR](xref:security/gdpr) požadavky.
+* Uspořádání vlastního uživatele datového modelu o <xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute> atribut tak, aby byl automaticky k dispozici ke stažení a odstranění. Nastavení může ke stažení a odstranění dat pomáhá plnit [GDPR](xref:security/gdpr) požadavky.
 
 Ukázkový projekt je vytvořený z webová aplikace Razor Pages, ale pokyny jsou podobné pro webovou aplikaci ASP.NET Core MVC.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/add-user-data) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -34,7 +34,7 @@ Ukázkový projekt je vytvořený z webová aplikace Razor Pages, ale pokyny jso
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**. Pojmenujte projekt **WebApp1** Pokud budete chtít odpovídat oboru názvů [stáhněte si ukázky](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data/sample) kódu.
+* Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**. Pojmenujte projekt **WebApp1** Pokud budete chtít odpovídat oboru názvů [stáhněte si ukázky](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data) kódu.
 * Vyberte **webová aplikace ASP.NET Core** > **OK**
 * Vyberte **2.2 technologie ASP.NET Core** v rozevírací nabídce
 * Vyberte **webovou aplikaci**  > **OK**
