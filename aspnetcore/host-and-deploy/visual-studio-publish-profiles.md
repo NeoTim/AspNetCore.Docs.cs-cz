@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit profily publikování v sadě Visual Studi
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/18/2019
+ms.date: 06/20/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: ac243a3898553b2e14a6c15d311afaf62f112a24
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: f1711f3ee73b773cee82161668e76bcbcee55507
+ms.sourcegitcommit: 3eedd6180fbbdcb81a8e1ebdbeb035bf4f2feb92
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207817"
+ms.lasthandoff: 06/20/2019
+ms.locfileid: "67284545"
 ---
 # <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>Visual Studio publikačních profilů pro nasazení aplikace ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Sayed Ibrahim Hashimi](https://github.com/sayedihashimi) a [Rick Anderson
 
 Tento dokument se zaměřuje na pomocí sady Visual Studio 2017 nebo později k vytvoření a použití publikačních profilů. Profily publikování vytvořené pomocí sady Visual Studio můžete spustit z nástroje MSBuild a sadě Visual Studio. Zobrazit [publikovat webovou aplikaci ASP.NET Core do služby Azure App Service pomocí sady Visual Studio](xref:tutorials/publish-to-azure-webapp-using-vs) pokyny k publikování do Azure.
 
-`dotnet new mvc` Příkaz vytvoří soubor projektu, která obsahuje následující nejvyšší úrovně `<Project>` element:
+`dotnet new mvc` Příkaz vytvoří soubor projektu obsahující následující úrovni kořenového adresáře [ \<Projekt > element](/visualstudio/msbuild/project-element-msbuild):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
@@ -83,7 +83,7 @@ dotnet new mvc
 dotnet publish
 ```
 
-[Dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkaz vytváří výstup podobný následujícímu:
+[Dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkaz vytvoří varianta následující výstup:
 
 ```console
 C:\Webs\Web1>dotnet publish
@@ -402,57 +402,44 @@ Done Building Project "C:\Webs\Web1\Web1.csproj" (default targets).
 
 ## <a name="include-files"></a>Soubory k zahrnutí
 
-Následující kód:
+Následující části osnovy různé přístupy k zahrnutí souboru na čas publikování. [Zahrnutí souboru Obecné](#general-file-inclusion) části používá `DotNetPublishFiles` položky, které zajišťuje publikování souboru cílů v sadě SDK webové. [Selektivní soubor zahrnutí](#selective-file-inclusion) části používá `ResolvedFileToPublish` položky, které zajišťuje publikování souboru cílů v .NET Core SDK. Vzhledem k tomu, že Web SDK závisí na .NET Core SDK, buď položka se dá použít v projektu aplikace ASP.NET Core. 
 
-* Zahrnuje *image* mimo adresář projektu do složky *wwwroot/imagí* složku publikování webu.
-* Lze přidat *.csproj* souboru nebo profil publikování. Pokud je přidána do *.csproj* souboru, je zahrnutý v každé profilu publikování v projektu.
+### <a name="general-file-inclusion"></a>Obecné sdílené zahrnutí
+
+Následující příklad `<ItemGroup>` element ukazuje kopírování složky nachází mimo adresář projektu do složky publikovaného webu. Všechny soubory přidané do následující značky `<ItemGroup>` jsou zahrnuté ve výchozím nastavení.
 
 ```xml
 <ItemGroup>
   <_CustomFiles Include="$(MSBuildProjectDirectory)/../images/**/*" />
-  <DotnetPublishFiles Include="@(_CustomFiles)">
+  <DotNetPublishFiles Include="@(_CustomFiles)">
     <DestinationRelativePath>wwwroot/images/%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
-  </DotnetPublishFiles>
+  </DotNetPublishFiles>
 </ItemGroup>
 ```
 
-Následující zvýrazněný kód ukazuje jak na:
+Předchozí kód:
 
-* Zkopírovat soubor z mimo projekt sketchflow *wwwroot* složky.
-* Vyloučit *wwwroot\Content* složky.
-* Vyloučit *Views\Home\About2.cshtml*.
+* Lze přidat *.csproj* souboru nebo profil publikování. Pokud je přidána do *.csproj* souboru, je zahrnutý v každé profilu publikování v projektu.
+* Deklaruje `_CustomFiles` položku, kterou chcete ukládat soubory odpovídající `Include` model podpory zástupných znaků atributu. *Imagí* složky odkazuje ve vzoru se nachází mimo adresář projektu. A [rezervované vlastnosti](/visualstudio/msbuild/msbuild-reserved-and-well-known-properties)s názvem `$(MSBuildProjectDirectory)`, se přeloží na absolutní cestu k souboru projektu.
+* Obsahuje seznam souborů, které mají `DotNetPublishFiles` položky. Ve výchozím nastavení, položka společnosti `<DestinationRelativePath>` element je prázdný. Výchozí hodnota je přepsána v kódu a používá [známá metadata položky](/visualstudio/msbuild/msbuild-well-known-item-metadata) například `%(RecursiveDir)`. Představuje vnitřní text *wwwroot/imagí* složky publikovaného webu.
+
+### <a name="selective-file-inclusion"></a>Zahrnutí selektivní souboru
+
+Ukazuje zvýrazněný kód v následujícím příkladu:
+
+* Kopírování souboru do publikovaného webu se sídlem mimo projekt *wwwroot* složky. Název souboru *ReadMe2.md* zachovaný.
+* S výjimkou *wwwroot\Content* složky.
+* S výjimkou *Views\Home\About2.cshtml*.
+
+[!code-xml[](visual-studio-publish-profiles/samples/Web1.pubxml?highlight=18-23)]
+
+V předchozím příkladu `ResolvedFileToPublish` položku, jejíž výchozí chování je vždy kopírovat soubory součástí `Include` atribut publikovaného webu. Výchozí chování potlačíte včetně `<CopyToPublishDirectory>` podřízený element s vnitřní text buď `Never` nebo `PreserveNewest`. Příklad:
 
 ```xml
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-This file is used by the publish/package process of your Web project.
-You can customize the behavior of this process by editing this 
-MSBuild file.
--->
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <WebPublishMethod>FileSystem</WebPublishMethod>
-    <PublishProvider>FileSystem</PublishProvider>
-    <LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
-    <LastUsedPlatform>Any CPU</LastUsedPlatform>
-    <SiteUrlToLaunchAfterPublish />
-    <LaunchSiteAfterPublish>True</LaunchSiteAfterPublish>
-    <ExcludeApp_Data>False</ExcludeApp_Data>
-    <PublishFramework />
-    <ProjectGuid>afa9f185-7ce0-4935-9da1-ab676229d68a</ProjectGuid>
-    <publishUrl>bin\Release\PublishOutput</publishUrl>
-    <DeleteExistingFiles>False</DeleteExistingFiles>
-  </PropertyGroup>
-  <ItemGroup>
-    <ResolvedFileToPublish Include="..\ReadMe2.MD">
-      <RelativePath>wwwroot\ReadMe2.MD</RelativePath>
-    </ResolvedFileToPublish>
-
-    <Content Update="wwwroot\Content\**\*" CopyToPublishDirectory="Never" />
-    <Content Update="Views\Home\About2.cshtml" CopyToPublishDirectory="Never" />
-
-  </ItemGroup>
-</Project>
+<ResolvedFileToPublish Include="..\ReadMe2.md">
+  <RelativePath>wwwroot\ReadMe2.md</RelativePath>
+  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+</ResolvedFileToPublish>
 ```
 
 Najdete v článku [Web SDK úložiště Readme](https://github.com/aspnet/websdk) pro další nasazení ukázky.
