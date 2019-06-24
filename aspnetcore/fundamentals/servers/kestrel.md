@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 06/18/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: fe74583cdc1c8fa40ab12b4b31dc47f5e0296a6c
-ms.sourcegitcommit: 3eedd6180fbbdcb81a8e1ebdbeb035bf4f2feb92
+ms.openlocfilehash: b96aff5c41bbca80caf0d2d11bc52b9b7b55043e
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2019
-ms.locfileid: "67284521"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313774"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace serveru webové kestrel v ASP.NET Core
 
@@ -327,7 +327,15 @@ Omezení pro minimální rychlost žádosti v middlewaru můžete přepsat:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Startup.cs?name=snippet_Limits&highlight=6-21)]
 
-::: moniker range=">= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinResponseDataRateFeature> Odkazuje předchozího vzorku není k dispozici v `HttpContext.Features` pro požadavky HTTP/2 protože úprava šířku pásma na základě žádosti není obecně podporované pro HTTP/2 z důvodu multiplexing žádost o podporu protokolu. Ale <xref:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinRequestBodyDataRateFeature> se stále nachází `HttpContext.Features` pro požadavky HTTP/2, protože limit sazbou čtení můžou být *zakázané úplně* na základě jednotlivých žádostí nastavením `IHttpMinRequestBodyDataRateFeature.MinDataRate` k `null` i pro HTTP/2 požadavek. Při čtení `IHttpMinRequestBodyDataRateFeature.MinDataRate` nebo pokusu o nastavení hodnoty jiné než `null` bude mít za následek `NotSupportedException` vyvolané zadaný požadavek HTTP/2.
+
+Omezení přenosové rychlosti úrovni serveru, které jsou nakonfigurované přes `KestrelServerOptions.Limits` stále použít k připojení HTTP/1.x a HTTP/2.
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 Ani jedna kurzu funkce odkazované v předchozí ukázce se nacházejí v `HttpContext.Features` pro požadavky HTTP/2, protože úprava šířku pásma na základě žádosti se nepodporuje pro HTTP/2 z důvodu multiplexing žádost o podporu protokolu. Omezení přenosové rychlosti úrovni serveru, které jsou nakonfigurované přes `KestrelServerOptions.Limits` stále použít k připojení HTTP/1.x a HTTP/2.
 

@@ -4,14 +4,14 @@ author: guardrex
 description: Zjistěte, jak diagnostikovat problémy s nasazením služby ASP.NET Core Azure App Service.
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/06/2019
+ms.date: 06/19/2019
 uid: host-and-deploy/azure-apps/troubleshoot
-ms.openlocfilehash: 7a0bb7df27ebbea0eac79771452295846fad563a
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: d78499c1a82a011239f6b62b546f304a5d5017e2
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470440"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313762"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service"></a>Řešení potíží s ASP.NET Core ve službě Azure App Service
 
@@ -21,122 +21,14 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 Tento článek obsahuje pokyny o tom, jak Diagnostika ASP.NET Core problém při spuštění aplikace pomocí diagnostických nástrojů služby Azure App Service. Další pomoc při řešení potíží, najdete v části [Přehled diagnostiky služby Azure App Service](/azure/app-service/app-service-diagnostics) a [jak: Monitorování aplikací ve službě Azure App Service](/azure/app-service/web-sites-monitor) v dokumentaci k Azure.
 
-## <a name="app-startup-errors"></a>Chyby při spuštění aplikace
+Další témata pro řešení potíží:
 
-**502.5 zpracovat selhání** pracovní proces se nezdaří. Aplikace se nespustí.
+* Služba IIS také používá [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) pro hostování aplikací. Poradce při potížích, který se týká konkrétně služby IIS, naleznete v tématu <xref:host-and-deploy/iis/troubleshoot>.
+* <xref:fundamentals/error-handling> Popisuje způsob zpracování chyb v ASP.NET Core aplikace během vývoje v místním systému.
+* [Zjistěte, jak ladit pomocí sady Visual Studio](/visualstudio/debugger/getting-started-with-the-debugger) představuje funkce ladicího programu sady Visual Studio.
+* [Ladění pomocí Visual Studio Code](https://code.visualstudio.com/docs/editor/debugging) popisuje podporu ladění, které jsou součástí Visual Studio Code.
 
-[Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) pokusy o spuštění pracovního procesu, ale nepovede spustit. Zkoumání v protokolu událostí aplikace často pomáhá při řešení tohoto typu problému. Přístup k protokolu je podrobně [protokolu událostí aplikace](#application-event-log) oddílu.
-
-*502.5 selhání procesu* při nesprávně nakonfigurované aplikace způsobí, že se pracovní proces selže, vrátí se chybová stránka:
-
-![Okno prohlížeče zobrazující stránku 502.5 selhání procesu](troubleshoot/_static/process-failure-page.png)
-
-**Chyba 500 interní Server**
-
-Spuštění aplikace, ale chybu brání splnění žádosti. na serveru.
-
-Při spuštění nebo při vytváření odpovědi, k této chybě dochází v kódu aplikace. Odpověď může obsahovat žádný obsah nebo se může zobrazit odpovědi *500 – Interní chyba serveru* v prohlížeči. V protokolu událostí aplikace obvykle hlásí, že aplikace se normálně spustit. Z pohledu serveru, který je správný. Aplikace začal, ale nemůže generovat platnou odpověď. [Spusťte aplikaci v konzole Kudu](#run-the-app-in-the-kudu-console) nebo [povolit protokol stdout modul ASP.NET Core](#aspnet-core-module-stdout-log) k vyřešení tohoto problému.
-
-::: moniker range="= aspnetcore-2.2"
-
-### <a name="50030-in-process-startup-failure"></a>500.30 v procesu selhání spuštění
-
-Pracovní proces se nezdaří. Aplikace se nespustí.
-
-Modul ASP.NET Core se pokusí spustit .NET Core CLR v procesu, ale že ji nebude možné spustit. Příčinu selhání spuštění procesu se obvykle určí na základě položky [protokolu událostí aplikace](#application-event-log) a [protokolů stdout modul ASP.NET Core](#aspnet-core-module-stdout-log).
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
-
-### <a name="50031-ancm-failed-to-find-native-dependencies"></a>500.31 nepovedlo se najít nativní závislosti ANCM
-
-Pracovní proces se nezdaří. Aplikace se nespustí.
-
-Modul ASP.NET Core se pokusí spustit .NET Core runtime v procesu, ale že ji nebude možné spustit. Nejčastější příčinou této chyby při spuštění je, když `Microsoft.NETCore.App` nebo `Microsoft.AspNetCore.App` není nainstalován modul CLR. Pokud nasazení aplikace do cíle ASP.NET Core 3.0 a tuto verzi neexistuje na počítači, dojde k této chybě. Následuje příklad chybová zpráva:
-
-```
-The specified framework 'Microsoft.NETCore.App', version '3.0.0' was not found.
-  - The following frameworks were found:
-      2.2.1 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview5-27626-15 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27713-13 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27714-15 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-      3.0.0-preview6-27723-08 at [C:\Program Files\dotnet\x64\shared\Microsoft.NETCore.App]
-```
-
-Chybová zpráva obsahuje seznam všech nainstalovaných verzí rozhraní .NET Core a verze požadované aplikace. Chcete-li tuto chybu opravit, buď:
-
-* Nainstalujte odpovídající verzi .NET Core na počítači.
-* Změna aplikace pro cílení na verzi .NET Core, který je k dispozici na počítači.
-* Publikování aplikací jako [samostatná nasazení](/dotnet/core/deploying/#self-contained-deployments-scd).
-
-Při spuštění ve vývoji ( `ASPNETCORE_ENVIRONMENT` proměnná prostředí je nastavená na `Development`), konkrétní chyba zapsána do odpovědi HTTP. Příčinu selhání spuštění procesu je také součástí [protokolu událostí aplikace](#application-event-log).
-
-### <a name="50032-ancm-failed-to-load-dll"></a>500.32 ANCM nepovedlo se načíst knihovnu dll
-
-Pracovní proces se nezdaří. Aplikace se nespustí.
-
-Nejčastější příčinou této chyby je, že aplikace je publikována pro architekturu nekompatibilní procesor. Pokud pracovní proces běží jako 32bitová aplikace a aplikace byla publikována na cíl 64-bit, dojde k této chybě.
-
-Chcete-li tuto chybu opravit, buď:
-
-* Znovu publikujte aplikaci pro stejnou architekturu procesorů jako pracovní proces.
-* Publikování aplikací jako [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-executables-fde).
-
-### <a name="50033-ancm-request-handler-load-failure"></a>500.33 Chyba načtení obslužná rutina požadavku ANCM
-
-Pracovní proces se nezdaří. Aplikace se nespustí.
-
-Aplikace nebyla odkazovat `Microsoft.AspNetCore.App` rozhraní framework. Jenom aplikace, jejichž cílem `Microsoft.AspNetCore.App` framework mohou být hostovány systémem modul ASP.NET Core.
-
-Chcete-li tuto chybu opravit, zkontrolujte, že aplikace je cílen na verzi `Microsoft.AspNetCore.App` rozhraní framework. Zkontrolujte `.runtimeconfig.json` ověření rozhraní framework aplikace cílí.
-
-### <a name="50034-ancm-mixed-hosting-models-not-supported"></a>500.34 ANCM smíšené modelech hostování není podporován
-
-Pracovní proces nelze spustit aplikaci v rámci procesu a aplikace na více instancí procesu ve stejném procesu.
-
-Chcete-li vyřešit tuto chybu, spouštění aplikací v samostatné fondy aplikací IIS.
-
-### <a name="50035-ancm-multiple-in-process-applications-in-same-process"></a>500.35 ANCM několik aplikací v rámci procesu ve stejném procesu
-
-Pracovní proces nelze spustit aplikaci v rámci procesu a aplikace na více instancí procesu ve stejném procesu.
-
-Chcete-li vyřešit tuto chybu, spouštění aplikací v samostatné fondy aplikací IIS.
-
-### <a name="50036-ancm-out-of-process-handler-load-failure"></a>500.36 Chyba načtení ANCM obslužné rutiny na více instancí procesu
-
-Obslužné rutiny požadavku na více instancí procesu *aspnetcorev2_outofprocess.dll*, vedle položky není *aspnetcorev2.dll* souboru. To znamená, že modul ASP.NET Core poškozená instalace.
-
-Chcete-li vyřešit tuto chybu, opravte instalaci [sady hostování rozhraní .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle) (pro IIS) nebo Visual Studio (pro službu IIS Express).
-
-### <a name="50037-ancm-failed-to-start-within-startup-time-limit"></a>500.37 nepovedlo se spustit v rámci časový Limit spuštění ANCM
-
-Spuštění v rámci časový limit spuštění poskytují ANCM se nezdařilo. Výchozí časový limit je 120 sekund.
-
-Této chybě může dojít při spuštění velkého počtu aplikací ve stejném počítači. Zkontrolujte provozní špičky využití procesoru nebo paměti na serveru při spuštění. Budete muset rozvrhnout procesu spuštění více aplikací.
-
-### <a name="50030-in-process-startup-failure"></a>500.30 v procesu selhání spuštění
-
-Pracovní proces se nezdaří. Aplikace se nespustí.
-
-Modul ASP.NET Core se pokusí spustit .NET Core runtime v procesu, ale že ji nebude možné spustit. Příčinu selhání spuštění procesu se obvykle určí na základě položky [protokolu událostí aplikace](#application-event-log) a [protokolů stdout modul ASP.NET Core](#aspnet-core-module-stdout-log).
-
-### <a name="5000-in-process-handler-load-failure"></a>500.0 v procesu selhání načtení obslužné rutiny
-
-Pracovní proces se nezdaří. Aplikace se nespustí.
-
-Příčinu selhání spuštění procesu je také součástí [protokolu událostí aplikace](#application-event-log).
-
-::: moniker-end
-
-**Obnovení připojení**
-
-Pokud dojde k chybě po odeslání hlavičky, bude příliš pozdě pro server k odeslání **500 – Interní chyba serveru** , když dojde k chybě. Často se to stane, když dojde k chybě při serializaci složitých objektů pro odpověď. Tento typ chyby se zobrazí jako *obnovení připojení* chyba na straně klienta. [Protokolování aplikací](xref:fundamentals/logging/index) mohou pomoci při řešení těchto typů chyb.
-
-## <a name="default-startup-limits"></a>Výchozí omezení při spuštění
-
-Modul ASP.NET Core je nakonfigurovaná s výchozí *startupTimeLimit* 120 sekund. Když necháte na výchozí hodnotu, aplikace může trvat až dvě minuty, spusťte před modulu protokoly selhání procesu. Informace o konfiguraci modulu najdete v tématu [atributy elementu aspNetCore](xref:host-and-deploy/aspnet-core-module#attributes-of-the-aspnetcore-element).
+[!INCLUDE[](~/includes/azure-iis-startup-errors.md)]
 
 ## <a name="troubleshoot-app-startup-errors"></a>Řešení chyb při spuštění aplikace
 

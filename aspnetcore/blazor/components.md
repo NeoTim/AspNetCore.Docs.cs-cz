@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/12/2019
+ms.date: 06/16/2019
 uid: blazor/components
-ms.openlocfilehash: 3a3940f6862a6699f47ac9b5622008bb1953a4d9
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: eb8f72147c98ff1dab17c130122c441a2dd4de4d
+ms.sourcegitcommit: 28646e8ca62fb094db1557b5c0c02d5b45531824
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207656"
+ms.lasthandoff: 06/23/2019
+ms.locfileid: "67333428"
 ---
 # <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
 
@@ -145,13 +145,13 @@ Pomocí `@bind` s `CurrentValue` vlastnosti (`<input @bind="CurrentValue" />`) j
 
 Při vykreslování komponentu `value` elementu input pochází z `CurrentValue` vlastnost. Když uživatel zadá v textovém poli `onchange` událost se aktivuje a `CurrentValue` je nastavena na hodnotu změněné. Ve skutečnosti je generování kódu poněkud složitější, protože `@bind` zpracovává několik případů, kdy jsou provedeny převody typu. V zásadě `@bind` přidruží aktuální hodnotu výrazu s `value` obslužné rutiny a atributu změny pomocí zaregistrovaná obslužná rutina.
 
-Kromě `onchange`, vlastnost může být vázána pomocí jiné události, jako jsou `oninput` tak, že přidáte `@bind` atributem `event` parametr:
+Kromě zpracování `onchange` události s `@bind` syntaxi, vlastnosti nebo pole lze navázat tak, že určíte pomocí jiných událostí `@bind-value` atributem `event` parametru. Následující příklad vytvoří vazbu `CurrentValue` vlastnost `oninput` události:
 
 ```cshtml
-<input type="text" @bind-value="@CurrentValue" @bind-value:event="oninput" />
+<input @bind-value="CurrentValue" @bind-value:event="oninput" />
 ```
 
-Na rozdíl od `onchange`, `oninput` aktivována pro každý znak, který je vstup do textového pole.
+Na rozdíl od `onchange`, což je vyvoláno, pokud prvek ztratí fokus, `oninput` je aktivována, když hodnota textovém poli změny.
 
 **Formátovací řetězce**
 
@@ -305,13 +305,24 @@ Obslužné rutiny událostí může být také asynchronní a zpět <xref:System
 
 Pro některé události nejsou povoleny typy argumentů události specifické pro události. Pokud přístup k jednomu z těchto typů událostí není nezbytné, není potřeba ve volání metody.
 
-Seznam podporovaných událostí argumentů je:
+Podporované [UIEventArgs](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/UIEventArgs.cs) jsou uvedeny v následující tabulce.
 
-* UIEventArgs
-* UIChangeEventArgs
-* UIKeyboardEventArgs
-* UIMouseEventArgs
+| Událost | Třída |
+| ----- | ----- |
+| Schránka | `UIClipboardEventArgs` |
+| Přetažení  | `UIDragEventArgs` &ndash; `DataTransfer` slouží k ukládání dat Přetahované během operace přetažení a může obsahovat jeden nebo více `UIDataTransferItem`. `UIDataTransferItem` představuje jeden přetáhněte datovou položku. |
+| Chyba | `UIErrorEventArgs` |
+| fokus | `UIFocusEventArgs` &ndash; Neobsahuje podporu pro `relatedTarget`. |
+| `<input>` Změna | `UIChangeEventArgs` |
+| Klávesnice | `UIKeyboardEventArgs` |
+| Myši | `UIMouseEventArgs` |
+| Ukazatele myši | `UIPointerEventArgs` |
+| Kolečko myši | `UIWheelEventArgs` |
+| Průběh | `UIProgressEventArgs` |
+| Dotykové ovládání | `UITouchEventArgs` &ndash; `UITouchPoint` představuje jediné kontaktní místo na dotyk zařízení. |
 
+Informace o vlastnostech a zpracování událostí v předchozí tabulce chování událostí najdete v tématu [UIEventArgs](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/UIEventArgs.cs) ve zdroji odkazu.
+  
 Výrazy lambda lze také použít:
 
 ```cshtml

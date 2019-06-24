@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tento kurz ukazuje, integrace ověřování uživatele účtu Google do stávající aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 1/11/2019
+ms.date: 06/19/2019
 uid: security/authentication/google-logins
-ms.openlocfilehash: 44c79b3279db7946b6d89a726bd3f5acfb5f51af
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b0edac411e73cd2eec7c4e212b99971577f59cfb
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902061"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316454"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>Nastavení Google externí přihlášení v technologii ASP.NET Core
 
@@ -44,7 +44,9 @@ Můžete spravovat vaše přihlašovací údaje rozhraní API a jeho použití v
 
 ## <a name="configure-google-authentication"></a>Konfigurace ověřování Google
 
-Přidat služby Google `Startup.ConfigureServices`.
+Přidat služby Google `Startup.ConfigureServices`:
+
+[!code-csharp[](~/security/authentication/social/social-code/StartupGoogle.cs?name=snippet_ConfigureServices&highlight=10-18)]
 
 [!INCLUDE [default settings configuration](includes/default-settings2-2.md)]
 
@@ -58,7 +60,7 @@ Přidat služby Google `Startup.ConfigureServices`.
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
-Zobrazit [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem ověřování Google. To umožňuje požádat o jiné informace o uživateli.
+Zobrazit <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem ověřování Google. To umožňuje požádat o jiné informace o uživateli.
 
 ## <a name="change-the-default-callback-uri"></a>Změnit výchozí identifikátor URI zpětného volání
 
@@ -67,8 +69,8 @@ Segment identifikátoru URI `/signin-google` je nastaven jako výchozí zpětné
 ## <a name="troubleshooting"></a>Poradce při potížích
 
 * Pokud se nezobrazují žádné chyby přihlášení nebude fungovat, přepněte do režimu vývoj snazší ladit problém.
-* Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, při pokusu o ověření za následek *ArgumentException: Musí být Zadaná možnost "SignInScheme"*. Šablona projektu použité v tomto kurzu zajistí, že to se provádí.
-* Pokud nebyl vytvořen použití počáteční migraci databáze lokality, můžete získat *databázová operace selhala při zpracování požadavku* chyby. Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.
+* Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, při pokusu o ověření za následek *ArgumentException: Musí být Zadaná možnost "SignInScheme"* . Šablona projektu použité v tomto kurzu zajistí, že to se provádí.
+* Pokud nebyl vytvořen použití počáteční migraci databáze lokality, můžete získat *databázová operace selhala při zpracování požadavku* chyby. Vyberte **migrace použít** k vytvoření databáze a aktualizujte stránku, aby pokračovat po chybě.
 
 ## <a name="next-steps"></a>Další kroky
 

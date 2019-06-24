@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: Pochopení a odstraňování potíží upozornění a chyby s projekty ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/13/2019
+ms.date: 06/19/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 3d755b2f0c509d65dea86bbe719e42935d87d546
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bcec8a55a5111e1f3acf53ae2f57b45e6e609d25
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901947"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313677"
 ---
 # <a name="troubleshoot-aspnet-core-projects"></a>Řešení potíží s projekty ASP.NET Core
 
@@ -31,7 +31,7 @@ Následující odkazy obsahují pokyny k odstraňování problémů:
 
 V **nový projekt** dialogové okno pro ASP.NET Core, může zobrazit následující upozornění:
 
-> 32bitová i 64bitová verze sady .NET Core SDK jsou nainstalovány. Pouze šablony z 64bitové verze nainstalované na "C:\\Program Files\\dotnet\\sdk\\" se zobrazí.
+> 32bitové a 64bitové verze rozhraní .NET Core SDK jsou nainstalovány. Pouze šablony z 64bitové verze nainstalované na "C:\\Program Files\\dotnet\\sdk\\" se zobrazí.
 
 Toto upozornění se zobrazí, když (x86) 32bitové i 64bitovou (x 64) verze [.NET Core SDK](https://www.microsoft.com/net/download/all) jsou nainstalovány. Běžné důvody, které mohou být nainstalovány obě verze zahrnují:
 
@@ -47,7 +47,7 @@ V **nový projekt** dialogové okno pro ASP.NET Core, může zobrazit následuj�
 
 > .NET Core SDK je nainstalována na více místech. Pouze šablony ze sad SDK nainstalovaných v ' C:\\Program Files\\dotnet\\sdk\\"se zobrazí.
 
-Pokud máte alespoň jedna instalace sady .NET Core SDK do adresáře mimo se zobrazí tato zpráva *C:\\Program Files\\dotnet\\sdk\\*. K tomu obvykle dochází při .NET Core SDK je nasazený na počítači místo kopírovat/vložit instalační službu MSI.
+Pokud máte alespoň jedna instalace sady .NET Core SDK do adresáře mimo se zobrazí tato zpráva *C:\\Program Files\\dotnet\\sdk\\* . K tomu obvykle dochází při .NET Core SDK je nasazený na počítači místo kopírovat/vložit instalační službu MSI.
 
 Odinstalujte všechny 32bitové .NET Core SDK a moduly runtime zabránit toto upozornění. Odinstalovat z **ovládací panely** > **programy a funkce** > **odinstalovat nebo změnit program**. Pokud budete rozumět tomu, proč dojde k upozornění a jeho dopady, můžete upozornění ignorovat.
 

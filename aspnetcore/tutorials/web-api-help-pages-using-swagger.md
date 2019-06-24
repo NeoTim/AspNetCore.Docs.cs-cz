@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/20/2018
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: d7a6ed158dcb464bb80c83773ed7d455b25ce44b
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: fb65b84b781b5c19040b559f0d7635ceb00cf4a0
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901023"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316567"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>ASP.NET Core webové rozhraní API nápovědy stránky ve Swaggeru / OpenAPI
 
@@ -19,7 +19,7 @@ Podle [Christoph Nienaber](https://twitter.com/zuckerthoben) a [Rico Suter](http
 
 Při využívání webové rozhraní API, může vývojář náročné Principy jeho různé metody. [Swagger](https://swagger.io/), označované také jako [OpenAPI](https://www.openapis.org/), řeší problém generování užitečné stránky dokumentace a nápovědu pro webová rozhraní API. Poskytuje výhody, jako je například interaktivní dokumentace, generování klientských sad SDK a rozhraní API zjistitelnost.
 
-V tomto článku [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) a [službou NSwag](https://github.com/RSuter/NSwag) jsou konferenci .NET Swagger implementace:
+V tomto článku [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore) a [službou NSwag](https://github.com/RicoSuter/NSwag) jsou konferenci .NET Swagger implementace:
 
 * **Swashbuckle.AspNetCore** je projekt open source pro generování dokumentů Swagger pro rozhraní Web API ASP.NET Core.
 
@@ -108,7 +108,7 @@ Core do služby flow Swaggeru je specifikace Swagger&mdash;ve výchozím nastave
 
 ![Uživatelské rozhraní swagger](web-api-help-pages-using-swagger/_static/swagger-ui.png)
 
-Každá metoda public akce ve vašich kontrolerech můžete otestovat v uživatelském rozhraní. Klikněte na název metody, rozbalte v části. Přidat všechny potřebné parametry a klikněte na tlačítko **vyzkoušejte ji!**.
+Každá metoda public akce ve vašich kontrolerech můžete otestovat v uživatelském rozhraní. Klikněte na název metody, rozbalte v části. Přidat všechny potřebné parametry a klikněte na tlačítko **vyzkoušejte ji!** .
 
 ![Příklad Swagger získat testu](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 

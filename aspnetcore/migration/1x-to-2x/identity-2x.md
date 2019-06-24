@@ -3,14 +3,14 @@ title: Ověřování a identitu migrovat do ASP.NET Core 2.0
 author: scottaddie
 description: Tento článek popisuje nejběžnější postup pro migraci ASP.NET Core 1.x ověřování a identita pro ASP.NET Core 2.0.
 ms.author: scaddie
-ms.date: 06/13/2019
+ms.date: 06/21/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: 3e8bc75b87a85159c9668b52eea32bb7d700be6c
-ms.sourcegitcommit: 516f166c5f7cec54edf3d9c71e6e2ba53fb3b0e5
+ms.openlocfilehash: c83356e12fa5ae581b369265b9d857b08445ed51
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67196373"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313748"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>Ověřování a identitu migrovat do ASP.NET Core 2.0
 
@@ -304,18 +304,31 @@ V projektech, 2.0, import `Microsoft.AspNetCore.Authentication` obor názvů a o
 ## <a name="windows-authentication-httpsys--iisintegration"></a>Windows Authentication (HTTP.sys / IISIntegration)
 
 Existují dvě varianty ověřování Windows:
-1. Hostitel umožňuje pouze ověřeným uživatelům
-2. Oba hostitele umožňuje anonymní a ověření uživatelé
 
-První výše popsané není ovlivněn 2.0 změny.
+* Hostitel umožňuje pouze ověřeným uživatelům. Tato změna nemá vliv 2.0 změny.
+* Oba hostitele umožňuje anonymní a ověřených uživatelů. Tato varianta je ovlivněny změnami v 2.0. Například by aplikaci umožnit anonymní uživatelé na [IIS](xref:host-and-deploy/iis/index) nebo [HTTP.sys](xref:fundamentals/servers/httpsys) vrstvy, ale autorizovat uživatele na úrovni kontroleru. V tomto scénáři, nastavte výchozí schéma `Startup.ConfigureServices` metody.
 
-Druhá je popsáno výše je ovlivněny změnami v 2.0. Například je může být umožní anonymní uživatelé do vaší aplikace v IIS nebo [HTTP.sys](xref:fundamentals/servers/httpsys) vrstvy ale autorizací uživatele na úrovni Kontroleru. V tomto scénáři, nastavte výchozí schéma na `IISDefaults.AuthenticationScheme` v `Startup.ConfigureServices` metody:
+  Pro [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/), nastavte výchozí schéma na `IISDefaults.AuthenticationScheme`:
 
-```csharp
-services.AddAuthentication(IISDefaults.AuthenticationScheme);
-```
+  ```csharp
+  using Microsoft.AspNetCore.Server.IISIntegration;
 
-Nepodařilo se nastavit výchozí schéma brání vybízí funkčním požadavku authorize.
+  services.AddAuthentication(IISDefaults.AuthenticationScheme);
+  ```
+
+  Pro [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/), nastavte výchozí schéma na `HttpSysDefaults.AuthenticationScheme`:
+
+  ```csharp
+  using Microsoft.AspNetCore.Server.HttpSys;
+
+  services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
+  ```
+
+  Nepodařilo se nastavit výchozí schéma požadavku authorize (výzva) zabrání práce s následující výjimkou:
+
+  > `System.InvalidOperationException`: Žádné schéma authenticationscheme a nebyly žádné DefaultChallengeScheme nalezen.
+
+Další informace naleznete v tématu <xref:security/authentication/windowsauth>.
 
 <a name="identity-cookie-options"></a>
 

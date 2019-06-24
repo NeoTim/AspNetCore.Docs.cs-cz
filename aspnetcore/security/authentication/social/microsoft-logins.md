@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 5/11/2019
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 1c78cc957b6ff77c91c8ca4aef59a1cacd85a8ca
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: 16ec2d5f2bccc59958b884869ef42af9cfa13df0
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65517089"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316593"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Nastavení Microsoft Account externí přihlášení pomocí ASP.NET Core
 
@@ -59,7 +59,7 @@ Propojit citlivá nastavení, jako je Microsoft `ClientId` a `ClientSecret` pomo
 
 ## <a name="configure-microsoft-account-authentication"></a>Konfigurace ověřování pomocí účtu Microsoft
 
-Přidat službu Microsoft Account v `ConfigureServices` metoda *Startup.cs* souboru:
+Přidat službu Microsoft Account `Startup.ConfigureServices`:
 
 [!code-csharp[](~/security/authentication/social/social-code/StartupMS.cs?name=snippet&highlight=10-14)]
 
@@ -84,7 +84,7 @@ Nyní jste přihlášeni pomocí svých přihlašovacích údajů společnosti M
 * Pokud poskytovatel Account Microsoft vás přesměruje na přihlašovací stránce chyby, vezměte na vědomí chyba nadpis a popis parametrů řetězce dotazu přímo po `#` (hashtag) v identifikátoru Uri.
 
   I když chybová zpráva vypadá to, že indikovat problém s ověřováním Microsoft, Nejběžnější příčinou je identifikátor Uri neodpovídá žádné z vaší aplikace **identifikátory URI přesměrování** zadaný pro **webové** platformy .
-* Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"*. Šablona projektu používané v tomto příkladu zajistí, že se to.
+* Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"* . Šablona projektu používané v tomto příkladu zajistí, že se to.
 * Pokud nebyl vytvořen použití počáteční migraci databáze lokality, se zobrazí *databázová operace selhala při zpracování požadavku* chyby. Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.
 
 ## <a name="next-steps"></a>Další kroky

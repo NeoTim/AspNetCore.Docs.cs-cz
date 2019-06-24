@@ -4,14 +4,14 @@ author: guardrex
 description: Další informace o webového hostitele v ASP.NET Core, který je zodpovědný za spouštění a životního cyklu správy aplikací.
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/11/2019
+ms.date: 06/14/2019
 uid: fundamentals/host/web-host
-ms.openlocfilehash: 48f3b664d901bdfb27cdf9e798fa60c0587d1def
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: c5d5b723b31a5c211a47e378e50be858fda0b2bd
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610287"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313801"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core Web Host
 
@@ -19,27 +19,21 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 Konfigurace aplikace ASP.NET Core a spouštění *hostitele*. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Minimálně hostitele nakonfiguruje server a kanálu zpracování požadavků. Hostitele lze také nastavit protokolování, vkládání závislostí a konfiguraci.
 
-::: moniker range="<= aspnetcore-1.1"
+::: moniker range=">= aspnetcore-3.0"
 
-1.1 verzi tohoto tématu, stáhněte si [ASP.NET Core webového hostitele (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Web-Host_1.1.pdf).
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
-
-Tento článek se týká webového hostitele ASP.NET Core (<xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder>), což je pro hostování webových aplikací. Informace o hostiteli obecný .NET ([IHostBuilder](/dotnet/api/microsoft.extensions.hosting.ihostbuilder)), najdete v článku <xref:fundamentals/host/generic-host>.
+Tento článek se týká webového hostitele, která je k dispozici pouze z důvodu zpětné kompatibility. [Obecný hostitele](xref:fundamentals/host/generic-host) se doporučuje pro všechny typy aplikací.
 
 ::: moniker-end
 
-::: moniker range="> aspnetcore-2.2"
+::: moniker range="<= aspnetcore-2.2"
 
-Tento článek se týká webového hostitele ASP.NET Core ([IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder)). V ASP.NET Core 3.0 nahradí obecný hostitele webového hostitele. Další informace najdete v tématu [hostitele](xref:fundamentals/index#host).
+Tento článek se týká webového hostitele, který je pro hostování webových aplikací. Pro ostatní typy aplikací, použijte [obecný hostitele](xref:fundamentals/host/generic-host).
 
 ::: moniker-end
 
 ## <a name="set-up-a-host"></a>Nastavení hostitele
 
-Vytvoření hostitele pomocí instance [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder). To se obvykle provádí v vstupní bod aplikace, `Main` metody. Název metody Tvůrce `CreateWebHostBuilder`, je speciální název, který identifikuje metodu Tvůrce na externí komponenty, jako například [Entity Framework](/ef/core/).
+Vytvoření hostitele pomocí instance [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder). To se obvykle provádí v vstupní bod aplikace, `Main` metody.
 
 V šablonách projektů `Main` se nachází v *Program.cs*. Typická aplikace volá operaci [CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) spustit nastavení hostitele:
 
@@ -56,6 +50,8 @@ public class Program
             .UseStartup<Startup>();
 }
 ```
+
+Kód, který volá `CreateDefaultBuilder` je metoda s názvem `CreateWebHostBuilder`, která ho odděluje od kódu v `Main` , která volá `Run` tvůrce objektu. Toto oddělení je povinný, pokud používáte [nástroje Entity Framework Core](/ef/core/miscellaneous/cli/). Očekávali nástroje `CreateWebHostBuilder` metodu, která můžete volat v době návrhu a nakonfigurujte hostitele bez spuštění aplikace. Alternativou je implementovat `IDesignTimeDbContextFactory`. Další informace najdete v tématu [vytváření DbContext v době návrhu](/ef/core/miscellaneous/cli/dbcontext-creation).
 
 `CreateDefaultBuilder` provádí následující úlohy:
 
@@ -131,9 +127,9 @@ Konfigurace určené `CreateDefaultBuilder` můžete přepsat a rozšířen o [C
 Další informace o konfiguraci aplikací najdete v tématu <xref:fundamentals/configuration/index>.
 
 > [!NOTE]
-> Jako alternativu k použití statické `CreateDefaultBuilder` metoda vytvoření hostitele z [WebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder) je podporované přístup pomocí ASP.NET Core 2.x. Další informace najdete v tématu na kartě ASP.NET Core 1.x.
+> Jako alternativu k použití statické `CreateDefaultBuilder` metoda vytvoření hostitele z [WebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder) je podporované přístup pomocí ASP.NET Core 2.x.
 
-Při nastavování hostitele, [konfigurovat](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configure?view=aspnetcore-1.1) a [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder.configureservices?view=aspnetcore-1.1) metody lze zadat. Pokud `Startup` Zadaná třída, musíte definovat `Configure` metoda. Další informace naleznete v tématu <xref:fundamentals/startup>. Při vícenásobném volání metody `ConfigureServices` se přidají služby ze všech volání. Více volání `Configure` nebo `UseStartup` na `WebHostBuilder` nahradit předchozí nastavení.
+Při nastavování hostitele, [konfigurovat](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configure) a [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder.configureservices) metody lze zadat. Pokud `Startup` Zadaná třída, musíte definovat `Configure` metoda. Další informace naleznete v tématu <xref:fundamentals/startup>. Při vícenásobném volání metody `ConfigureServices` se přidají služby ze všech volání. Více volání `Configure` nebo `UseStartup` na `WebHostBuilder` nahradit předchozí nastavení.
 
 ## <a name="host-configuration-values"></a>Hodnoty konfigurace hostitele
 
@@ -509,7 +505,7 @@ using (var host = WebHost.Start("http://localhost:8080", app => app.Response.Wri
 }
 ```
 
-Vytvoří stejný výsledek jako **Start (RequestDelegate aplikace)**, s výjimkou aplikace reaguje na `http://localhost:8080`.
+Vytvoří stejný výsledek jako **Start (RequestDelegate aplikace)** , s výjimkou aplikace reaguje na `http://localhost:8080`.
 
 **Spustit (akce&lt;IRouteBuilder&gt; routeBuilder)**
 
@@ -566,7 +562,7 @@ using (var host = WebHost.Start("http://localhost:8080", router => router
 }
 ```
 
-Vytvoří stejný výsledek jako **spuštění (akce&lt;IRouteBuilder&gt; routeBuilder)**, s výjimkou aplikace reaguje na `http://localhost:8080`.
+Vytvoří stejný výsledek jako **spuštění (akce&lt;IRouteBuilder&gt; routeBuilder)** , s výjimkou aplikace reaguje na `http://localhost:8080`.
 
 **StartWith (akce&lt;IApplicationBuilder&gt; aplikace)**
 
@@ -608,7 +604,7 @@ using (var host = WebHost.StartWith("http://localhost:8080", app =>
 }
 ```
 
-Vytvoří stejný výsledek jako **StartWith (akce&lt;IApplicationBuilder&gt; aplikace)**, s výjimkou aplikace reaguje na `http://localhost:8080`.
+Vytvoří stejný výsledek jako **StartWith (akce&lt;IApplicationBuilder&gt; aplikace)** , s výjimkou aplikace reaguje na `http://localhost:8080`.
 
 ## <a name="ihostingenvironment-interface"></a>IHostingEnvironment rozhraní
 
