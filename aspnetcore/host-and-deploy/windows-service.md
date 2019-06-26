@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 4cfca4b38543ff073bb98dc09b483d96096928ae
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 3a254af4d56cb4abc7004a67b0d0b42de2b878b1
+ms.sourcegitcommit: 47cc13ab90913af9a2887cef0896bb4e9aba4dd5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692570"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67399106"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>Hostitele ASP.NET Core ve službě Windows
 
@@ -211,7 +211,7 @@ Alternativní způsob správy uživatelů při používání služby Active Dire
 
 K navázání *přihlásit jako službu* práva pro uživatelský účet služby:
 
-1. Otevřete editor místních zásad zabezpečení, že spustíte *secpool.msc*.
+1. Otevřete editor místních zásad zabezpečení, že spustíte *secpol.msc*.
 1. Rozbalte **místní zásady** uzel a vyberte možnost **přiřazení uživatelských práv**.
 1. Otevřít **přihlásit jako službu** zásad.
 1. Vyberte **přidat uživatele nebo skupinu**.
