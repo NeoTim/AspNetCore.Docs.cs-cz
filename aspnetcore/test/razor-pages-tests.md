@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/27/2017
 uid: test/razor-pages-tests
-ms.openlocfilehash: f1526b8803f43ec8cbe77c1d2c100d9daf6cd316
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: f0e47f975579dc114eaeda375028ec62696f58ed
+ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900036"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394742"
 ---
 # <a name="razor-pages-unit-tests-in-aspnet-core"></a>Testování částí stránky Razor v ASP.NET Core
 
@@ -66,7 +66,7 @@ Aplikace testů je konzolová aplikace uvnitř *tests/RazorPagesTestSample.Tests
 | Složky aplikace testu | Popis |
 | --------------- | ----------- |
 | *UnitTests*     | <ul><li>*DataAccessLayerTest.cs* obsahuje testy jednotek pro vrstvy DAL.</li><li>*IndexPageTests.cs* obsahuje testy jednotek pro model Index stránky.</li></ul> |
-| *Nástroje*     | Obsahuje `TestingDbContextOptions` metodu použitou k vytvoření nové databáze možnosti kontextu pro každý Jednotkový test DAL tak, aby se obnovení databáze do stavu směrný plán pro každý test. |
+| *Nástroje*     | Obsahuje `TestDbContextOptions` metodu použitou k vytvoření nové databáze možnosti kontextu pro každý Jednotkový test DAL tak, aby se obnovení databáze do stavu směrný plán pro každý test. |
 
 Je rozhraní pro testování [xUnit](https://xunit.github.io/). Objekt napodobování framework [Moq](https://github.com/moq/moq4).
 
@@ -93,14 +93,14 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-Problém s tímto přístupem je, že každý test přijme databáze v libovolné stavu předchozí test nacházela. To může být problematické, při pokusu o zápis atomickou jednotku testy, které není konfliktu mezi sebou. K vynucení `AppDbContext` pro každý test použít nový kontext databáze, zadejte `DbContextOptions` instanci, která je založena na nového poskytovatele služby. Test aplikace ukazuje, jak to udělat pomocí jeho `Utilities` metoda třídy `TestingDbContextOptions` (*tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs*):
+Problém s tímto přístupem je, že každý test přijme databáze v libovolné stavu předchozí test nacházela. To může být problematické, při pokusu o zápis atomickou jednotku testy, které není konfliktu mezi sebou. K vynucení `AppDbContext` pro každý test použít nový kontext databáze, zadejte `DbContextOptions` instanci, která je založena na nového poskytovatele služby. Test aplikace ukazuje, jak to udělat pomocí jeho `Utilities` metoda třídy `TestDbContextOptions` (*tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs*):
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
 Použití `DbContextOptions` v jednotce DAL testů umožňuje každého testu ke spuštění atomicky s novou databází instancí:
 
 ```csharp
-using (var db = new AppDbContext(Utilities.TestingDbContextOptions()))
+using (var db = new AppDbContext(Utilities.TestDbContextOptions()))
 {
     // Use the db here in the unit test.
 }

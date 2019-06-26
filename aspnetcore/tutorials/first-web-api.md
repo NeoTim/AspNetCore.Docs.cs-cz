@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak vytvořit webové rozhraní API pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/18/2019
+ms.date: 06/23/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 17e8ee08fca775b8fccc3f2e6cd6067caca9c79f
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: 0f069a75868bcbb988ade3f80d1f64c2cef4e972
+ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207785"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394779"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -49,7 +49,7 @@ Tento kurz vytvoří následující rozhraní API:
 
 Následující diagram znázorňuje návrh aplikace.
 
-![Klient je reprezentována pole na levé straně a odešle žádost a obdrží odpověď od aplikace vykreslen na pravé straně pole. V dialogovém okně aplikace tři pole představují kontroleru, model a vrstva přístupu k datům. Žádost vstupu do kontroleru aplikace a operace čtení a zápisu, ke kterým dochází mezi kontrolerem a vrstva přístupu k datům. Model je serializován a vrátí klientovi v odpovědi.](first-web-api/_static/architecture.png)
+![Klient je reprezentován políčko vlevo. Odešle žádost a obdrží odpověď od aplikace vykreslen na pravé straně pole. V dialogovém okně aplikace tři pole představují kontroleru, model a vrstva přístupu k datům. Žádost vstupu do kontroleru aplikace a operace čtení a zápisu, ke kterým dochází mezi kontrolerem a vrstva přístupu k datům. Model je serializován a vrátí klientovi v odpovědi.](first-web-api/_static/architecture.png)
 
 [!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
 
@@ -58,8 +58,9 @@ Následující diagram znázorňuje návrh aplikace.
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **souboru** nabídce vyberte možnost **nový** > **projektu**.
-* Vyberte **webové aplikace ASP.NET Core** šablony. Pojmenujte projekt *TodoApi* a klikněte na tlačítko **OK**.
-* V **nové webové aplikace ASP.NET Core – TodoApi** dialogového okna, vyberte verzi technologie ASP.NET Core. Vyberte **API** šablonu a klikněte na tlačítko **OK**. Proveďte **není** vyberte **povolit podporu Dockeru**.
+* Vyberte **webové aplikace ASP.NET Core** šablonu a klikněte na tlačítko **Další**.
+* Pojmenujte projekt *TodoApi* a klikněte na tlačítko **vytvořit**.
+* V **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **2.2 technologie ASP.NET Core** jsou vybrány. Vyberte **API** šablonu a klikněte na tlačítko **vytvořit**. **Není** vyberte **povolit podporu Dockeru**.
 
 ![VS – dialogové okno nového projektu](first-web-api/_static/vs.png)
 
@@ -386,13 +387,13 @@ Pomocí nástroje Postman odstraňte položku úkolu:
 * Nastavte identifikátor URI objektu odstranit, například `https://localhost:5001/api/todo/1`
 * Vyberte **odeslat**
 
-Ukázkové aplikace můžete odstranit všechny položky, ale když se odstraní poslední položky, je vytvořen nový pomocí konstruktoru třídy modelu při příštím spuštění se volá rozhraní API.
+Ukázkové aplikace můžete odstranit všechny položky. Ale když se odstraní poslední položky, nový se vytvoří pomocí konstruktoru třídy modelu při příštím spuštění se volá rozhraní API.
 
 ## <a name="call-the-api-with-jquery"></a>Volání rozhraní API pomocí jQuery
 
 V této části se přidá stránku HTML, který používá jQuery volat webové rozhraní api. jQuery zahájí požadavek a aktualizuje stránku s podrobnostmi o z odpovědi rozhraní API.
 
-Nakonfiguruje aplikaci, aby [doručování statických souborů](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolit výchozí mapování souboru](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_):
+Nakonfiguruje aplikaci, aby [doručování statických souborů](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolit výchozí mapování souboru](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) aktualizací *Startup.cs* s následující zvýrazněný kód:
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 

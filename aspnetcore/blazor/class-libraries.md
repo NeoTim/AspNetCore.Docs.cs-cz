@@ -5,28 +5,28 @@ description: Zjistěte, jak komponenty mohou být součástí Blazor aplikací z
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 06/24/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 40dc029b35e0997e526fdfc02c275da5a84450b9
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 8676e0fd660b7d281c80d06d24d5593c2df6348b
+ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152881"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394621"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor komponenty knihovny třídy
 
 Podle [Simon Timms](https://github.com/stimms)
 
-Součásti můžete sdílet v knihovnách tříd Razor ve všech projektech. Je možné zahrnout z komponenty:
+Součástí je možné sdílet v [knihovny tříd Razor (RCL)](xref:razor-pages/ui-class) napříč projekty. A *knihovna tříd Razor komponenty* půjdou zahrnout od:
 
 * Jiný projekt v řešení.
 * Balíček NuGet.
 * Odkazované knihovny .NET.
 
-Stejně jako regulární typy .NET jsou komponenty, jsou součástí knihovny tříd Razor normální sestavení .NET.
+Stejně, jako jsou komponenty regulární typy .NET, jsou součástí RCL normální sestavení .NET.
 
-## <a name="create-a-razor-class-library"></a>Vytvoření knihovny tříd Razor
+## <a name="create-an-rcl"></a>Vytvoření RCL
 
 Postupujte podle pokynů v <xref:blazor/get-started> článku ke konfiguraci prostředí pro Blazor.
 
@@ -37,23 +37,23 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku ke konfiguraci pro
 1. Zadejte název projektu **název projektu** pole nebo přijměte výchozí název projektu. V příkladech v tomto tématu se používá název projektu `MyComponentLib1`. Vyberte **Vytvořit**.
 1. V **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
 1. Vyberte **knihovny tříd Razor** šablony. Vyberte **Vytvořit**.
-1. Přidání knihovny tříd Razor k řešení:
+1. Přidáte do řešení RCL:
    1. Klikněte pravým tlačítkem na řešení. Vyberte **přidat** > **existující projekt**.
-   1. Přejděte k souboru projektu knihovny tříd Razor.
-   1. Vyberte soubor projektu knihovny tříd Razor ( *.csproj*).
-1. Přidáte odkaz knihovny tříd Razor z aplikace:
+   1. Přejděte k souboru projektu RCL.
+   1. Vyberte soubor projektu RCL ( *.csproj*).
+1. Přidejte odkaz RCL z aplikace:
    1. Klikněte pravým tlačítkem na projekt aplikace. Vyberte **přidat** > **odkaz**.
-   1. Vyberte projekt knihovny tříd Razor. Vyberte **OK**.
+   1. Vyberte projekt RCL. Vyberte **OK**.
 
 # <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code / .NET Core CLI](#tab/visual-studio-code+netcore-cli)
 
-1. Použití knihovny tříd Razor (`razorclasslib`) šablony s [dotnet nové](/dotnet/core/tools/dotnet-new) z příkazové okno. V následujícím příkladu je vytvořena s názvem knihovny tříd Razor `MyComponentLib1`. Složky obsahující `MyComponentLib1` je vytvořen automaticky při spuštění příkazu.
+1. Šablona knihovny tříd Razor (`razorclasslib`) se [dotnet nové](/dotnet/core/tools/dotnet-new) z příkazové okno. V následujícím příkladu je vytvořena s názvem RCL `MyComponentLib1`. Složky obsahující `MyComponentLib1` je vytvořen automaticky při spuštění příkazu.
 
    ```console
    dotnet new razorclasslib -o MyComponentLib1
    ```
 
-1. Přidání knihovny do existujícího projektu, použijte [se příkaz dotnet add odkaz](/dotnet/core/tools/dotnet-add-reference) z příkazové okno. V následujícím příkladu knihovny tříd Razor se přidá do aplikace. Spusťte následující příkaz ze složky projektu aplikace s cestou ke knihovně:
+1. Přidání knihovny do existujícího projektu, použijte [se příkaz dotnet add odkaz](/dotnet/core/tools/dotnet-add-reference) z příkazové okno. V následujícím příkladu se přidá RCL do aplikace. Spusťte následující příkaz ze složky projektu aplikace s cestou ke knihovně:
 
    ```console
    dotnet add reference {PATH TO LIBRARY}
@@ -61,9 +61,9 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku ke konfiguraci pro
 
 ---
 
-Přidat soubory součástí Razor ( *.razor*) do knihovny tříd Razor.
+Přidat soubory součástí Razor ( *.razor*) k RCL.
 
-## <a name="razor-class-libraries-not-supported-for-client-side-apps"></a>Knihovny tříd Razor není podporována pro aplikace na straně klienta
+## <a name="rcls-not-supported-for-client-side-apps"></a>RCLs není podporována pro aplikace na straně klienta
 
 ASP.NET Core 3.0 ve verzi Preview nejsou kompatibilní s aplikacemi na straně klienta Blazor knihovny tříd Razor.
 
@@ -74,15 +74,6 @@ dotnet new blazorlib -o MyComponentLib1
 ```
 
 Pomocí knihovny součástí `blazorlib` šablona může obsahovat statické soubory, jako jsou obrázky, JavaScript a šablony stylů. V okamžiku sestavení, statické soubory jsou vloženy do souborů sestavení ( *.dll*), která umožňuje využití komponent bez nutnosti starat o tom, jak zahrnout svoje prostředky. Všechny soubory zahrnuté v `content` adresáře jsou označeny jako vložený prostředek.
-
-## <a name="static-assets-not-supported-for-server-side-apps"></a>Statické prostředky nejsou podporovány pro aplikace na straně serveru
-
-Ve verzi Preview pro aplikaci ASP.NET Core 3.0 Blazor serverové aplikace moci spotřebovat statické prostředky z obou knihovny tříd Razor (`razorclasslib`) nebo knihovny Blazor (`blazorlib`).
-
-Jako dočasné řešení, můžete zkusit [BlazorEmbedLibrary](https://www.nuget.org/packages/BlazorEmbedLibrary/).
-
-> [!NOTE]
-> [BlazorEmbedLibrary](https://www.nuget.org/packages/BlazorEmbedLibrary/) není zachována nebo podporovaný společností Microsoft.
 
 ## <a name="consume-a-library-component"></a>Využívat komponentu knihovny
 
@@ -131,29 +122,12 @@ Nahrání balíčku NuGet pomocí [dotnet nuget publikovat](/dotnet/core/tools/d
 dotnet nuget publish
 ```
 
-Při použití `blazorlib` šablonu, statických prostředků jsou obsažené v balíčku NuGet. Příjemci knihovny automaticky obdrží skripty a šablony stylů, takže příjemci nejsou potřeba ručně instalovat prostředky. Všimněte si, že [statických prostředků se nepodporují pro aplikace na straně serveru](#static-assets-not-supported-for-server-side-apps), včetně toho, když Blazor knihovny (`blazorlib`) odkazuje na aplikaci na straně serveru.
+Při použití `blazorlib` šablonu, statických prostředků jsou obsažené v balíčku NuGet. Příjemci knihovny automaticky obdrží skripty a šablony stylů, takže příjemci nejsou potřeba ručně instalovat prostředky.
 
-## <a name="create-a-razor-class-library-with-static-assets"></a>Vytvoření knihovny tříd Razor s statické prostředky
+## <a name="create-a-razor-components-class-library-with-static-assets"></a>Vytvoření knihovny tříd Razor součásti s statické prostředky
 
-Knihovny tříd Razor (RCL) často vyžadují, aby Průvodce vyhledáváním statické prostředky, které lze odkazovat pomocí náročné aplikace RCL. ASP.NET Core je umožněno vytvoření RCLs, které zahrnují statické prostředky, které jsou k dispozici pro využívání aplikaci.
+RCL můžete zahrnout statické prostředky. Statické prostředky jsou dostupné pro každou aplikaci, která využívá knihovny. Další informace naleznete v tématu <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.
 
-Pokud chcete zahrnout jako součást knihovny tříd Razor doprovodná prostředky, vytvořte *wwwroot* složku v knihovně tříd a zahrnout všechny požadované soubory v této složce.
+## <a name="additional-resources"></a>Další zdroje
 
-Při balení knihovny tříd Razor, všechny doprovodná assety *wwwroot* složky jsou součástí balíčku automaticky a jsou k dispozici pro odkazování na balíček aplikace.
-
-### <a name="consume-content-from-a-referenced-razor-class-library"></a>Využívání obsahu z odkazované knihovny tříd Razor
-
-Soubory součástí *wwwroot* spotřebitelskou aplikaci v rámci předpona, která jsou vystaveny složku knihovny tříd Razor `_content/{LIBRARY NAME}/`. Využívání aplikace odkazuje na tyto prostředky prostřednictvím `<script>`, `<style>`, `<img>`a další značky HTML.
-
-### <a name="multi-project-development-flow"></a>Vývoj pro více projektů toku
-
-Při spuštění aplikace:
-
-* Prostředky zůstanou v jejich původním složek.
-* Všechny změny v knihovně tříd *wwwroot* složky se projeví v aplikaci bez nutnosti opětovného sestavení.
-
-V okamžiku sestavení manifestu vytvořen s všechna místa statický webový prostředek. Manifest je pro čtení v době běhu a umožňuje aplikacím využívat prostředky z odkazovaných projektů a balíčky.
-
-### <a name="publish"></a>Publikování
-
-Při publikování aplikace companion assety z všechny odkazované projekty a balíčky jsou zkopírovány do *wwwroot* složku publikované aplikace v rámci `_content/{LIBRARY NAME}/`.
+* <xref:razor-pages/ui-class>

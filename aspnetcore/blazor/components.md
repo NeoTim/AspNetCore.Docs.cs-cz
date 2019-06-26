@@ -1,20 +1,20 @@
 ---
-title: Vytváření a používání komponent Razor
+title: Vytváření a používání komponent ASP.NET Core Razor
 author: guardrex
 description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně jak vázat na data, zpracování událostí a spravovat životní cykly komponenty.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/16/2019
+ms.date: 06/24/2019
 uid: blazor/components
-ms.openlocfilehash: eb8f72147c98ff1dab17c130122c441a2dd4de4d
-ms.sourcegitcommit: 28646e8ca62fb094db1557b5c0c02d5b45531824
+ms.openlocfilehash: cd4d4f9d85f2fad6fe769340ab7a49e6ccb05861
+ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2019
-ms.locfileid: "67333428"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394688"
 ---
-# <a name="create-and-use-razor-components"></a>Vytváření a používání komponent Razor
+# <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání komponent ASP.NET Core Razor
 
 Podle [Luke Latham](https://github.com/guardrex) a [Daniel Roth](https://github.com/danroth27)
 
@@ -55,7 +55,7 @@ Komponenta členy můžete poté použita jako tato součást je vykreslování 
 
 Po se zpočátku zobrazí komponentu obnoví komponenty jeho vykreslení stromu v reakci na události. Blazor poté porovnává větve vykreslení oproti předchozímu a použije všechny změny do prohlížeče Document Object Model (DOM).
 
-Součásti jsou běžné C# třídy a může být umístěna kdekoli v rámci projektu. Součásti, které se obvykle vytvářejí webové stránky se nacházejí v *stránky* složky. Součásti non-page se často umístí do *Shared* nebo vlastní složky přidán do projektu. Pokud chcete použít vlastní složku, buď přidejte vlastní složky oboru názvů na nadřazenou komponentu nebo na aplikaci  *\_Imports.razor* souboru. Například následující obor názvů umožňuje součástí *součásti* složky, které jsou k dispozici, když je aplikace kořenový obor názvů `WebApplication`:
+Součásti jsou běžné C# třídy a může být umístěna kdekoli v rámci projektu. Součásti, které se obvykle vytvářejí webové stránky se nacházejí v *stránky* složky. Non stránka součásti jsou často umístěny do *Shared* nebo vlastní složky přidán do projektu. Pokud chcete použít vlastní složku, buď přidejte vlastní složky oboru názvů na nadřazenou komponentu nebo na aplikaci *_Imports.razor* souboru. Například následující obor názvů umožňuje součástí *součásti* složky, které jsou k dispozici, když je aplikace kořenový obor názvů `WebApplication`:
 
 ```cshtml
 @using WebApplication.Components
@@ -553,6 +553,18 @@ protected override void OnAfterRender()
 }
 ```
 
+### <a name="handle-incomplete-async-actions-at-render"></a>Zpracování neúplné asynchronní akce v vykreslení
+
+Asynchronní akce prováděné v události životního cyklu pravděpodobně nebyly dokončeny před vykreslením komponentu. Objekty mohou být `null` nebo neúplně naplněný daty při provádění metody životního cyklu. Poskytnout logiku vykreslování potvrďte, že objekty jsou inicializovány. Vykreslení zástupné prvky uživatelského rozhraní (například načítání zpráv) při objekty jsou `null`.
+
+V komponentě načíst Data z šablon Blazor `OnInitAsync` je potlačena za účelem nekopírovat přijímat data předpovědi (`forecasts`). Když `forecasts` je `null`, uživateli se zobrazí zpráva načtení. Po `Task` vrácený `OnInitAsync` dokončí, komponenta je rerendered s aktualizovaný stav.
+
+*Pages/FetchData.razor*:
+
+[!code-cshtml[](components/samples_snapshot/3.x/FetchData.razor?highlight=9)]
+
+### <a name="execute-code-before-parameters-are-set"></a>Spuštění kódu před parametry jsou nastavené.
+
 `SetParameters` může být potlačena za účelem spouštění kódu předtím, než jsou nastavené parametry:
 
 ```csharp
@@ -565,6 +577,8 @@ public override void SetParameters(ParameterCollection parameters)
 ```
 
 Pokud `base.SetParameters` není vyvolána, můžete vlastní kód interpretaci příchozí hodnoty parametrů v jakékoli požadované stejně, jako. Například příchozí parametry nejsou potřeba přiřadit k vlastnosti ve třídě.
+
+### <a name="suppress-refreshing-of-the-ui"></a>Potlačit aktualizaci uživatelského rozhraní
 
 `ShouldRender` může být potlačena za účelem potlačit aktualizaci uživatelského rozhraní. Implementace vrátí-li `true`, aktualizaci uživatelského rozhraní. I když `ShouldRender` je přepsána, komponenta je vždy Počáteční vykreslení.
 
