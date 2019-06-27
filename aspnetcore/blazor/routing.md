@@ -5,20 +5,20 @@ description: Zjistěte, jak směrovat požadavky v aplikacích a o NavLink kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 06/26/2019
 uid: blazor/routing
-ms.openlocfilehash: 4aba864c4d780591fb91b216eb128b9bf26a1662
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: ddbb43f897decc94218ad950ef8dda6ea153d0d3
+ms.sourcegitcommit: 9bb29f9ba6f0645ee8b9cabda07e3a5aa52cd659
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152765"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67406085"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor směrování
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Zjistěte, jak směrovat požadavky v aplikacích a o NavLink komponentě.
+Zjistěte, jak směrovat požadavky v aplikacích a o `NavLink` komponenty.
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>Integrace směrování koncových bodů ASP.NET Core
 
@@ -28,7 +28,7 @@ Blazor na straně serveru je integrovaná do [směrování ASP.NET Core koncový
 
 ## <a name="route-templates"></a>Šablony trasy
 
-`<Router>` Součást umožňuje směrování a je k dispozici šablona trasy pro jednotlivé dostupné komponenty. `<Router>` Součást se zobrazí v *App.razor* souboru:
+`Router` Součást umožňuje směrování a je k dispozici šablona trasy pro jednotlivé dostupné komponenty. `Router` Součást se zobrazí v *App.razor* souboru:
 
 V aplikaci na straně serveru Blazor:
 
@@ -48,16 +48,25 @@ Více šablon trasy můžete použít pro komponentu. Následující komponenty 
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
-`<Router>` podporuje nastavení záložního součásti pro vykreslení při požadované trase není vyřešený. Povolit tento scénář vyjádřit výslovný souhlas tím, že nastavíte `FallbackComponent` parametru na typ třídy záložní komponenty.
+> [!IMPORTANT]
+> Ke generování tras správně, musí aplikace obsahovat `<base>` označení na jeho *wwwroot/index.html* souboru (Blazor straně klienta) nebo *Pages/_Host.cshtml* (Blazor serverové) soubor s základní cesta aplikace zadané v poli `href` atribut (`<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/client-side#app-base-path>.
 
-Následující příklad nastaví komponentu podle *Pages/MyFallbackRazorComponent.razor* záložní součástí `<Router>`:
+## <a name="provide-custom-content-when-content-isnt-found"></a>Zadejte vlastní obsah, když obsah nebyl nalezen
+
+`Router` Komponenta umožňuje aplikaci určit vlastní obsah, pokud není nalezen obsah pro požadované trase.
+
+V *App.razor* sady vlastní obsah v souboru `<NotFoundContent>` elementu `Router` komponenty:
 
 ```cshtml
-<Router ... FallbackComponent="typeof(Pages.MyFallbackRazorComponent)" />
+<Router AppAssembly="typeof(Startup).Assembly">
+    <NotFoundContent>
+        <h1>Sorry</h1>
+        <p>Sorry, there's nothing at this address.</p> b
+    </NotFoundContent>
+</Router>
 ```
 
-> [!IMPORTANT]
-> Ke generování tras správně, musí aplikace obsahovat `<base>` označení na jeho *wwwroot/index.html* souboru (Blazor straně klienta) nebo *stránek /\_Host.cshtml* (Blazor serverové) soubor s Základní cesta aplikace podle `href` atribut (`<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/client-side#app-base-path>.
+Obsah `<NotFoundContent>` může obsahovat libovolné položky, jako další interaktivní komponenty.
 
 ## <a name="route-parameters"></a>Parametry trasy
 
@@ -71,7 +80,7 @@ Volitelné parametry nejsou podporovány pro Blazor aplikace v ASP.NET Core 3.0 
 
 Omezení trasy vynucuje typ odpovídající v segmentu směrování do komponenty.
 
-V následujícím příkladu trasy, která má součásti uživatelé pouze odpovídá, pokud:
+V následujícím příkladu, trasy, která má `Users` komponenta odpovídá pouze, pokud:
 
 * `Id` Segment směrování je k dispozici na adrese URL požadavku.
 * `Id` Segmentu je celé číslo (`int`).
@@ -96,9 +105,9 @@ Omezení trasy, které jsou uvedeny v následující tabulce jsou k dispozici. O
 
 ## <a name="navlink-component"></a>Komponenta NavLink
 
-Použít komponentu NavLink namísto HTML `<a>` prvky při vytváření navigačních odkazů. Komponentu NavLink se chová jako `<a>` elementu, s výjimkou přepíná `active` třídu šablony stylů CSS podle toho, jestli jeho `href` odpovídá aktuální adresa URL. `active` Třídy pomáhá uživateli vědět, na stránce, které je aktivní stránkou. mezi navigační odkazy zobrazí.
+Použití `NavLink` komponentu namísto HTML `<a>` prvky při vytváření navigačních odkazů. A `NavLink` se chová jako součást `<a>` elementu, s výjimkou přepíná `active` třídu šablony stylů CSS podle toho, jestli jeho `href` odpovídá aktuální adresa URL. `active` Třídy pomáhá uživateli vědět, na stránce, které je aktivní stránkou. mezi navigační odkazy zobrazí.
 
-Vytvoří následující komponenty NavMenu [Bootstrap](https://getbootstrap.com/docs/) navigační panel, který ukazuje, jak používat NavLink komponenty:
+Následující `NavMenu` vytvoří komponentu [Bootstrap](https://getbootstrap.com/docs/) navigační panel, který ukazuje, jak používat `NavLink` komponenty:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Shared/NavMenu.razor?name=snippet_NavLinks&highlight=4-6,9-11)]
 
@@ -107,7 +116,7 @@ Existují dva `NavLinkMatch` možnosti:
 * `NavLinkMatch.All` &ndash; Určuje, že NavLink musí být v případě, že odpovídá celou adresu URL aktuální aktivní.
 * `NavLinkMatch.Prefix` &ndash; Určuje, že NavLink musí být v případě, že odpovídá jakoukoli předponu adresy URL aktuální aktivní.
 
-V předchozím příkladu Home NavLink (`href=""`) odpovídá všem adresám URL a vždy přijímá `active` třídu šablony stylů CSS. Druhý NavLink přijímá pouze `active` třídy, když uživatel navštíví komponentu Blazor trasy (`href="BlazorRoute"`).
+V předchozím příkladu Home NavLink (`href=""`) odpovídá všem adresám URL a vždy přijímá `active` třídu šablony stylů CSS. Druhý NavLink přijímá pouze `active` třídy, když uživatel navštíví `BlazorRoute` součásti (`href="BlazorRoute"`).
 
 ## <a name="uri-and-navigation-state-helpers"></a>Identifikátor URI a navigační stav pomocné rutiny
 
@@ -116,7 +125,7 @@ Použití `Microsoft.AspNetCore.Components.IUriHelper` pro práci s identifikát
 | Člen | Popis |
 | ------ | ----------- |
 | `GetAbsoluteUri` | Získá aktuální absolutní identifikátor URI. |
-| `GetBaseUri` | Získá základní identifikátor URI (s koncovým lomítkem), který může být před relativní cesty URI k vytvoření absolutního identifikátoru URI. Obvykle `GetBaseUri` odpovídá `href` atribut v dokumentu `<base>` prvek *wwwroot/index.html* (Blazor straně klienta) nebo *stránek /\_Host.cshtml* (Blazor – na straně serveru). |
+| `GetBaseUri` | Získá základní identifikátor URI (s koncovým lomítkem), který může být před relativní cesty URI k vytvoření absolutního identifikátoru URI. Obvykle `GetBaseUri` odpovídá `href` atribut v dokumentu `<base>` prvek *wwwroot/index.html* (Blazor straně klienta) nebo *Pages/_Host.cshtml* () Blazor-na straně serveru). |
 | `NavigateTo` | Přejde na zadaný identifikátor URI. Pokud `forceLoad` je `true`:<ul><li>Směrování na straně klienta se přeskočí.</li><li>Prohlížeč musí načíst nová stránka ze serveru, zda identifikátor URI obvykle zpracovává směrovače na straně klienta.</li></ul> |
 | `OnLocationChanged` | Událost, která je vyvoláno, když se změní umístění navigace. |
 | `ToAbsoluteUri` | Převede relativní identifikátor URI na absolutní adresu URI. |
