@@ -5,14 +5,14 @@ description: Zjistěte, jak používat klientskou sadou Java funkce SignalR tech
 monikerRange: '>= aspnetcore-2.2'
 ms.author: mimengis
 ms.custom: mvc
-ms.date: 03/14/2019
+ms.date: 06/27/2019
 uid: signalr/java-client
-ms.openlocfilehash: e5a4a2d7df7e5b95f8f814aad5ff2844476c8b3d
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: eea1dfb7d8afcd34c0dacd8315ad196d7235c9f7
+ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898809"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67463274"
 ---
 # <a name="aspnet-core-signalr-java-client"></a>Klientskou sadou Java základní funkce SignalR technologie ASP.NET
 
@@ -98,9 +98,20 @@ HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
 
 ## <a name="known-limitations"></a>Známá omezení
 
+::: moniker range=">= aspnetcore-3.0"
+
+* Pouze protokol JSON je podporován.
+* Přenos použití náhradní lokality a přenos události odeslané serverem nejsou podporovány.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 * Pouze protokol JSON je podporován.
 * Je podporován pouze přenosu objekty Websocket.
 * Streamování se ještě nepodporuje.
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další zdroje
 

@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: Vysvětluje, jak vytvářet opakovaně použitelné uživatelské rozhraní Razor pomocí částečných zobrazení v knihovně tříd v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 06/24/2019
+ms.date: 06/28/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 96ef8fc055a6b92cd0808d02031d917b8446f305
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: d59f643a23b48ccbddf498ef534ee8432b010f40
+ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394746"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67463259"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelné uživatelské rozhraní v ASP.NET Core pomocí projektu knihovny tříd Razor
 
@@ -228,6 +228,8 @@ Předpokládejme, že *RazorUIClassLib/stránek/Shared* obsahuje dva soubory č�
 </body>
 ```
 
+::: moniker range=">= aspnetcore-3.0"
+
 ## <a name="create-an-rcl-with-static-assets"></a>Vytvoření RCL pomocí statické prostředky
 
 RCL může vyžadovat doprovodná statické prostředky, které lze odkazovat pomocí náročné aplikace RCL. ASP.NET Core je umožněno vytvoření RCLs, které zahrnují statické prostředky, které jsou k dispozici pro využívání aplikaci.
@@ -254,3 +256,5 @@ Při vytváření RCL, je vytvořen manifestu, který popisuje umístění stati
 ### <a name="publish"></a>Publikování
 
 Při publikování aplikace companion assety z všechny odkazované projekty a balíčky jsou zkopírovány do *wwwroot* složku publikované aplikace v rámci `_content/{LIBRARY NAME}/`.
+
+::: moniker-end
