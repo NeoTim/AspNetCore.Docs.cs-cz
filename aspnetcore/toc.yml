@@ -220,8 +220,6 @@
               uid: tutorials/razor-pages/validation
         - name: Filtry
           uid: razor-pages/filter
-        - name: Knihovny RCL (Razor Class Library)
-          uid: razor-pages/ui-class
         - name: Směrování a aplikační konvence
           uid: razor-pages/razor-pages-conventions
         - name: Nahrání souborů
@@ -298,8 +296,12 @@
           uid: blazor/routing
         - name: Interoperabilita JavaScriptu
           uid: blazor/javascript-interop
+        - name: Zabezpečení a identita
+          uid: security/blazor/index
         - name: Ladit
           uid: blazor/debug
+        - name: Volání webového rozhraní API
+          uid: blazor/call-web-api
         - name: Hostování a nasazení
           items:
             - name: Přehled
@@ -344,6 +346,8 @@
       uid: mvc/views/layout
     - name: Syntaxe Razor
       uid: mvc/views/razor
+    - name: Knihovny RCL (Razor Class Library)
+      uid: razor-pages/ui-class
     - name: Pomocné rutiny značek
       uid: mvc/views/tag-helpers/builtin-th/Index
       items:
@@ -454,9 +458,6 @@
         - name: Uživatelé a skupiny
           uid: signalr/groups
           displayName: signalr
-        - name: Publikování do Azure
-          uid: signalr/publish-to-azure-web-app
-          displayName: signalr
         - name: Aspekty návrhu rozhraní API
           uid: signalr/api-design
           displayName: signalr
@@ -487,9 +488,9 @@
         - name: Přehled
           displayName: signalr
           uid: signalr/scale
-        - name: Služba Azure SignalR
+        - name: Azure App Service
+          uid: signalr/publish-to-azure-web-app
           displayName: signalr
-          href: /azure/azure-signalr/signalr-overview?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Propojovací rozhraní Redis
           displayName: signalr
           uid: signalr/redis-backplane
@@ -960,6 +961,8 @@
       uid: security/ip-safelist
     - name: Zabezpečení aplikací – OWASP
       href: 'https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/DotNet_Security_Cheat_Sheet.md'
+    - name: Blazor
+      uid: security/blazor/index
 - name: Výkon
   items:
     - name: Přehled
