@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: signalr/configuration
-ms.openlocfilehash: 6c7bd602e621917c491bfb1e26ff0fcfc3a565b0
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: 662565e537fa0eb13ed80e558949740739a63558
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470365"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500382"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>Konfigurace jádra SignalR technologie ASP.NET
 
@@ -74,11 +74,22 @@ Následující tabulka popisuje možnosti pro konfiguraci rozbočovače SignalR:
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="= aspnetcore-2.2"
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `ClientTimeoutInterval` | 30 sekund | Server bude předpokládat, že klient odpojen Pokud neobdržel zprávu (včetně udržování) v tomto intervalu. Může to trvat déle než tento interval časového limitu klienta ve skutečnosti označit odpojené kvůli jak tato možnost je implementovaná. Doporučená hodnota je double `KeepAliveInterval` hodnotu.|
+| `HandshakeTimeout` | 15 sekund | Pokud klient nebude odeslat zprávu handshake počáteční v tomto časovém intervalu, je připojení ukončeno. Toto je upřesňující nastavení, by měla být změněna pouze v případě chyby časového limitu handshake dochází z důvodu závažné sítích s latencí. Další podrobnosti o procesu najdete v článku [specifikace protokolu rozbočovače SignalR](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `KeepAliveInterval` | 15 sekund | Pokud server není v rámci tohoto intervalu odeslal zprávu, je automaticky odeslána zpráva příkazu ping na udržení připojení otevřeného. Při změně `KeepAliveInterval`, změnit `ServerTimeout` / `serverTimeoutInMilliseconds` nastavení na straně klienta. Doporučené `ServerTimeout` / `serverTimeoutInMilliseconds` hodnotu double `KeepAliveInterval` hodnotu.  |
+| `SupportedProtocols` | Všechny nainstalované protokoly | Protokolů podporovaných toto centrum. Ve výchozím nastavení jsou povolené všechny protokoly, které jsou registrované na serveru, ale protokolů lze odebrat z tohoto seznamu zakázat konkrétní protokoly pro jednotlivé rozbočovače. |
+| `EnableDetailedErrors` | `false` | Pokud `true`, podrobné zprávy o výjimkách se vrátí ke klientům, když dojde k výjimce v metodě rozbočovače. Výchozí hodnota je `false`, jak tyto zprávy o výjimkách mohou obsahovat citlivé údaje. |
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.1"
+
+| Možnost | Výchozí hodnota | Popis |
+| ------ | ------------- | ----------- |
 | `HandshakeTimeout` | 15 sekund | Pokud klient nebude odeslat zprávu handshake počáteční v tomto časovém intervalu, je připojení ukončeno. Toto je upřesňující nastavení, by měla být změněna pouze v případě chyby časového limitu handshake dochází z důvodu závažné sítích s latencí. Další podrobnosti o procesu najdete v článku [specifikace protokolu rozbočovače SignalR](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 | `KeepAliveInterval` | 15 sekund | Pokud server není v rámci tohoto intervalu odeslal zprávu, je automaticky odeslána zpráva příkazu ping na udržení připojení otevřeného. Při změně `KeepAliveInterval`, změnit `ServerTimeout` / `serverTimeoutInMilliseconds` nastavení na straně klienta. Doporučené `ServerTimeout` / `serverTimeoutInMilliseconds` hodnotu double `KeepAliveInterval` hodnotu.  |
 | `SupportedProtocols` | Všechny nainstalované protokoly | Protokolů podporovaných toto centrum. Ve výchozím nastavení jsou povolené všechny protokoly, které jsou registrované na serveru, ale protokolů lze odebrat z tohoto seznamu zakázat konkrétní protokoly pro jednotlivé rozbočovače. |

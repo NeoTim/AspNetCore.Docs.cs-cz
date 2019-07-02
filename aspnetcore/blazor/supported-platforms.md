@@ -5,14 +5,14 @@ description: Další informace o podporovaných platforem pro ASP.NET Core Blazo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/21/2019
+ms.date: 07/01/2019
 uid: blazor/supported-platforms
-ms.openlocfilehash: 12ef3885044cfca17c2e7ffdb248fdebef26c48a
-ms.sourcegitcommit: e67356f5e643a5d43f6d567c5c998ce6002bdeb4
+ms.openlocfilehash: a1ed725de64459edfa2f84d320b2101fb628b1d3
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/22/2019
-ms.locfileid: "66005345"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500415"
 ---
 # <a name="aspnet-core-blazor-supported-platforms"></a>ASP.NET Core Blazor podporované platformy
 
@@ -22,7 +22,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 ### <a name="blazor-client-side"></a>Blazor na straně klienta
 
-| Prohlížeč                          | Version               |
+| Browser                          | Version               |
 | -------------------------------- | :-------------------: |
 | Microsoft Edge                   | aktuální               |
 | Mozilla Firefox                  | aktuální               |
@@ -32,11 +32,9 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 &dagger;Microsoft Internet Explorer nepodporuje [WebAssembly](http://webassembly.org).
 
-Další informace na model hostingu Blazor na straně klienta najdete v tématu <xref:blazor/hosting-models#client-side>.
-
 ### <a name="blazor-server-side"></a>Blazor na straně serveru
 
-| Prohlížeč                          | Version    |
+| Browser                          | Version    |
 | -------------------------------- | :--------: |
 | Microsoft Edge                   | aktuální    |
 | Mozilla Firefox                  | aktuální    |
@@ -46,4 +44,6 @@ Další informace na model hostingu Blazor na straně klienta najdete v tématu 
 
 &dagger;Jsou vyžadovány další polyfills (například příslibů jde přidat prostřednictvím [Polyfill.io](https://polyfill.io/v3/) sady).
 
-Další informace na model hostingu Blazor na straně serveru, naleznete v tématu <xref:blazor/hosting-models#server-side>.
+## <a name="additional-resources"></a>Další zdroje
+
+* <xref:blazor/hosting-models>

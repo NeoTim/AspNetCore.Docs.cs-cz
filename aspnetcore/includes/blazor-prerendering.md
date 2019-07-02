@@ -9,7 +9,7 @@ Zpoždění JavaScript volání interop až po navázání připojení s prohlí
 <input @ref="myInput" value="Value set during render" />
 
 @code {
-    ElementRef myInput;
+    private ElementRef myInput;
 
     protected override void OnAfterRender()
     {
@@ -19,11 +19,9 @@ Zpoždění JavaScript volání interop až po navázání připojení s prohlí
 }
 ```
 
-Tato součást následující demonstruje použití zprostředkovatele komunikace s objekty jazyka JavaScript jako součást logiky inicializace komponenty způsobem, který je kompatibilní s dokončení fáze před vykreslením.
+Následující komponenty demonstruje použití zprostředkovatele komunikace s objekty jazyka JavaScript jako součást logiky inicializace komponenty způsobem, který je kompatibilní s dokončení fáze před vykreslením. Součást ukazuje, že je možné aktivovat vykreslování aktualizace z uvnitř `OnAfterRenderAsync`. Vývojář musí Vyhněte se vytváření nekonečná smyčka v tomto scénáři.
 
-Součást ukazuje, že je možné aktivovat vykreslování aktualizace z uvnitř `OnAfterRenderAsync`. V tomto scénáři. Vývojář musí Vyhněte se vytváření nekonečnou smyčku.
-
-Kde `JSRuntime.InvokeAsync` se nazývá `ElementRef` je použít jenom v `OnAfterRenderAsync` a žádná předchozí metoda životního cyklu protože neexistuje žádný element jazyka JavaScript do po vykreslení komponentu.
+Kde `JSRuntime.InvokeAsync` se nazývá `ElementRef` je použít jenom v `OnAfterRenderAsync` a v jakékoli metodě starší životního cyklu vzhledem k tomu, že neexistuje žádný element JavaScript až po komponenta není vykreslené.
 
 `StateHasChanged` je volána k rerender komponentu s nový stav získaný z volání interop jazyka JavaScript. Kód nevytvoří nekonečnou smyčku, protože `StateHasChanged` se volá jenom v případě `infoFromJs` je `null`.
 
@@ -41,12 +39,12 @@ Kde `JSRuntime.InvokeAsync` se nazývá `ElementRef` je použít jenom v `OnAfte
 
 <p>
     Set value via JS interop call:
-    <input id="val-set-by-interop" @ref="@myElem" />
+    <input id="val-set-by-interop" @ref="myElem" />
 </p>
 
 @code {
-    string infoFromJs;
-    ElementRef myElem;
+    private string infoFromJs;
+    private ElementRef myElem;
 
     protected override async Task OnAfterRenderAsync()
     {

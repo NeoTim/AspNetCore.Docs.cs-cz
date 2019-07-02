@@ -5,14 +5,14 @@ description: Zjistěte, jak ASP.NET Core implementuje vkládání závislostí a
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/07/2019
+ms.date: 07/01/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: f4be1559c3b4c17cd09f1360d954c837d84d5058
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 815838e72bc51c70ca1d3d3c1fc6c196bd08ee70
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085616"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500461"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -468,6 +468,7 @@ DI je *alternativní* na vzorech přístupu statická/globální objekt. Nebudet
 * <xref:mvc/views/dependency-injection>
 * <xref:mvc/controllers/dependency-injection>
 * <xref:security/authorization/dependencyinjection>
+* <xref:blazor/dependency-injection>
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/extensibility>
 * [Psaní čistého kódu v ASP.NET Core pomocí vkládání závislostí (MSDN)](https://msdn.microsoft.com/magazine/mt703433.aspx)

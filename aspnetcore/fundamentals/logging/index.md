@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 05/01/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 435f06b85af4a1a5a78a870c2add3e15ff1ffe89
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: f028a94a9b2014129a96cff2c06ba00f99ea5d15
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837279"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500390"
 ---
 # <a name="logging-in-aspnet-core"></a>Protokolování v ASP.NET Core
 
@@ -29,7 +29,7 @@ Zprostředkovatel protokolování zobrazí nebo ukládají protokoly. Napříkla
 
 Chcete-li přidat poskytovatele, zavolejte poskytovatele `Add{provider name}` metody rozšíření v *Program.cs*:
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=17-19)]
+[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=18-20)]
 
 Volání výchozí projekt šablony <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, který přidá následující zprostředkovatele protokolování:
 
@@ -443,7 +443,7 @@ Chcete-li potlačit všechny protokoly, zadejte `LogLevel.None` jako minimální
 
 Volání kódu šablony projektu `CreateDefaultBuilder` nastavit protokolování pro poskytovatele konzoly a ladění. `CreateDefaultBuilder` Metoda také nastaví protokolování hledat konfiguraci `Logging` oddílu, psát kód podobný tomuto:
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=16)]
+[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=17)]
 
 Konfigurační data Určuje minimální úrovně podle poskytovatele a kategorie, jako v následujícím příkladu:
 

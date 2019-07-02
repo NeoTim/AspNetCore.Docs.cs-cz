@@ -3,14 +3,14 @@ title: Přizpůsobení modelu identity v ASP.NET Core
 author: ajcvickers
 description: Tento článek popisuje, jak přizpůsobit základní datový model Entity Framework Core pro ASP.NET Core Identity.
 ms.author: avickers
-ms.date: 04/24/2019
+ms.date: 07/01/2019
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 53ce77e20722f3ba3282ff4455a0b70d30e635b0
-ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
+ms.openlocfilehash: f549fdff4a416b5fadcb2b1078b051bbab8e402e
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/11/2019
-ms.locfileid: "65536021"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500473"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>Přizpůsobení modelu identity v ASP.NET Core
 
@@ -72,7 +72,7 @@ Identity model se skládá z následujících typů entit.
 
 ### <a name="default-model-configuration"></a>Výchozí konfigurace modelu
 
-Identity definuje mnoho *třídy kontextu* , která dědí z <xref:Microsoft.EntityFrameworkCore.DbContext> ke konfiguraci a použití modelu. Tato konfigurace se provádí pomocí [EF Core kód první Fluent API](/ef/core/modeling/) v <xref:Microsoft.EntityFrameworkCore.DbContext.OnModelCreating*> metody třídy kontextu. Výchozí konfigurace je:
+Identity definuje mnoho *třídy kontextu* , která dědí z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) ke konfiguraci a použití modelu. Tato konfigurace se provádí pomocí [EF Core kód první Fluent API](/ef/core/modeling/) v [OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating) metody třídy kontextu. Výchozí konfigurace je:
 
 ```csharp
 builder.Entity<TUser>(b =>
@@ -463,7 +463,7 @@ Použijte následující postup změna typu PK:
             .AddDefaultTokenProviders();
     ```
 
-    Primární klíč datový typ je odvozen díky analýze <xref:Microsoft.EntityFrameworkCore.DbContext> objektu.
+    Primární klíč datový typ je odvozen díky analýze [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) objektu.
 
     V ASP.NET Core 2.1 nebo novější je identita ve formě knihovny tříd Razor. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předcházející kód vyžaduje volání <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>. Pokud generátor Identity se použil k přidání Identity soubory do projektu, odeberte volání `AddDefaultUI`.
 
@@ -477,7 +477,7 @@ Použijte následující postup změna typu PK:
             .AddDefaultTokenProviders();
     ```
 
-    Primární klíč datový typ je odvozen díky analýze <xref:Microsoft.EntityFrameworkCore.DbContext> objektu.
+    Primární klíč datový typ je odvozen díky analýze [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) objektu.
 
     ::: moniker-end
 
@@ -507,7 +507,7 @@ Použijte následující postup změna typu PK:
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=13-16)]
 
-    Primární klíč datový typ je odvozen díky analýze <xref:Microsoft.EntityFrameworkCore.DbContext> objektu.
+    Primární klíč datový typ je odvozen díky analýze [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) objektu.
 
     V ASP.NET Core 2.1 nebo novější je identita ve formě knihovny tříd Razor. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předcházející kód vyžaduje volání <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>. Pokud generátor Identity se použil k přidání Identity soubory do projektu, odeberte volání `AddDefaultUI`.
 
@@ -521,7 +521,7 @@ Použijte následující postup změna typu PK:
 
     [!code-csharp[](customize-identity-model/samples/2.0/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=7-9)]
 
-    Primární klíč datový typ je odvozen díky analýze <xref:Microsoft.EntityFrameworkCore.DbContext> objektu.
+    Primární klíč datový typ je odvozen díky analýze [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) objektu.
 
     ::: moniker-end
 
@@ -962,7 +962,7 @@ V této části se přidá podporu pro proxy opožděné načtení do modelu ide
 Typy entit provádět vhodný pro opožděné načtení několika způsoby, jak je popsáno v [EF Core dokumentaci](/ef/core/querying/related-data#lazy-loading). Pro jednoduchost použijte opožděné načtení proxy, což vyžaduje:
 
 * Instalace [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) balíčku.
-* Volání <xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*> uvnitř <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*>.
+* Volání <xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*> uvnitř [AddDbContext\<TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext).
 * Typy subjekt `public virtual` navigační vlastnosti.
 
 Následující příklad ukazuje volání `UseLazyLoadingProxies` v `Startup.ConfigureServices`:

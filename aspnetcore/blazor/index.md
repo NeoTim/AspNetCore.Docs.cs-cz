@@ -5,14 +5,14 @@ description: Prozkoumejte službu ASP.NET Core Blazor způsob, jak vytvářet in
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 05/01/2019
+ms.date: 07/01/2019
 uid: blazor/index
-ms.openlocfilehash: d58115b17536cad0b3927e6d32b7dbe8db8e4b0f
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: dbfadf9481cf16279e2a491bc04f51058e1d8a9c
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034420"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500418"
 ---
 # <a name="introduction-to-blazor"></a>Úvod do Blazor
 
@@ -37,11 +37,16 @@ Pomocí rozhraní .NET pro vývoj webů na straně klienta nabízí následujíc
 
 ## <a name="components"></a>Komponenty
 
-Blazor aplikací jsou založené na *komponenty*. Komponenta v Blazor je prvek uživatelského rozhraní, jako je například formulář položka stránky, dialogové okno nebo data. Součásti zpracovávat události uživatele a definovat flexibilní logiku pro vykreslení uživatelského rozhraní. Součásti můžete vnořit a znovu použít.
+Blazor aplikací jsou založené na *komponenty*. Komponenta v Blazor je prvek uživatelského rozhraní, jako je například formulář položka stránky, dialogové okno nebo data.
 
-Komponenty jsou součástí sestavení .NET, které lze sdílet a distribuovat jako třídy rozhraní .NET [balíčky NuGet](/nuget/what-is-nuget). Komponentní třída jsou obvykle zapsána ve formě značek stránky Razor s *.razor* příponu souboru.
+Komponenty jsou součástí sestavení .NET třídy rozhraní .NET, který:
 
-Součástí Blazor jsou někdy označovány jako *Razor komponenty*. [Razor](xref:mvc/views/razor) je syntaxe pro kombinování značka jazyka HTML s C# kód určený pro produktivitu vývojářů. Razor umožňuje přepínat mezi značka jazyka HTML a C# ve stejném souboru s [IntelliSense](/visualstudio/ide/using-intellisense) podporovat. Stránky Razor a MVC také použít syntaxi Razor. Na rozdíl od Razor Pages a MVC, které jsou postavené na modelu žádost odpověď, používají součásti speciálně pro logika uživatelského rozhraní na straně klienta a skládání.
+* Definujte flexibilní logiku pro vykreslení uživatelského rozhraní.
+* Zpracování událostí uživatele.
+* Mohou být vnořené a znovu použít.
+* Lze sdílet a distribuovat jako [knihovny tříd Razor](xref:razor-pages/ui-class) nebo [balíčky NuGet](/nuget/what-is-nuget).
+
+Komponentní třída jsou obvykle zapsána ve formě [Razor](xref:mvc/views/razor) stránku značek *.razor* příponu souboru. Součástí Blazor formálně označují jako *Razor komponenty*. Razor je syntaxe pro kombinování značka jazyka HTML s C# kód určený pro produktivitu vývojářů. Razor umožňuje přepínat mezi značka jazyka HTML a C# ve stejném souboru s [IntelliSense](/visualstudio/ide/using-intellisense) podporovat. Stránky Razor a MVC také použít syntaxi Razor. Na rozdíl od Razor Pages a MVC, které jsou postavené na modelu žádost odpověď, používají součásti speciálně pro logika uživatelského rozhraní na straně klienta a skládání.
 
 Následující kód Razor ukazuje komponentu (*Dialog.razor*), který může být vnořena do jiné součásti:
 
@@ -63,14 +68,18 @@ Následující kód Razor ukazuje komponentu (*Dialog.razor*), který může bý
 
     private void OnYes()
     {
-        Console.WriteLine("Write to the console in C#!");
+        Console.WriteLine("Write to the console in C#! 'Yes' button was selected.");
     }
 }
 ```
 
 Dialogové okno textový obsah (`ChildContent`) a název (`Title`) jsou poskytovány komponenta, která používá tuto součást ve svém uživatelském rozhraní. `OnYes` je C# metoda aktivované pomocí tlačítka `onclick` událostí.
 
-Blazor používá přirozené značky HTML pro kompozici uživatelského rozhraní. Určete součásti elementů HTML a atributy značky předat hodnoty vlastnosti komponenty. `ChildContent` a `Title` určil institut NIST komponenta, která používá komponenty dialogového okna (*Index.razor*):
+Blazor používá přirozené značky HTML pro kompozici uživatelského rozhraní. Určete součásti elementů HTML a atributy značky předat hodnoty vlastnosti komponenty.
+
+V následujícím příkladu `Index` komponenta používá `Dialog` komponenty. `ChildContent` a `Title` jsou nastavené tak, že atributy a obsah `<Dialog>` elementu.
+
+*Index.razor*:
 
 ```cshtml
 @page "/"
@@ -90,15 +99,15 @@ Dialogového okna je vykreslen během nadřazeného (*Index.razor*) je přístup
 
 Při použití této součásti v aplikaci, technologie IntelliSense v [sady Visual Studio](/visualstudio/ide/using-intellisense) a [Visual Studio Code](https://code.visualstudio.com/docs/editor/intellisense) urychluje vývoj aplikací pomocí syntaxe a parametrů dokončení.
 
-Komponenty vykreslování do v paměti reprezentace prohlížeč DOM volána *vykreslení stromu* , který slouží k aktualizaci uživatelského rozhraní tak flexibilní a efektivní.
+Komponenty vykreslování do reprezentaci v paměti z prohlížeče Document Object Model (DOM) volá *vykreslení stromu*, který se používá k aktualizaci uživatelského rozhraní tak flexibilní a efektivní.
 
 ## <a name="blazor-client-side"></a>Blazor na straně klienta
 
 Blazor na straně klienta je jednostránkové aplikace rozhraní pro vytváření aplikací pro interaktivní webové na straně klienta s .NET. Blazor na straně klienta používá otevřené webové standardy bez transpilation moduly plug-in nebo kódu a pracuje ve všechny moderní webové prohlížeče, včetně mobilních.
 
-Spouštění kódu .NET uvnitř webových prohlížečů je možné podle [WebAssembly](http://webassembly.org) (zkrácené *wasm*). WebAssembly je otevřít web, standard a podporovaných webových prohlížečů bez modulů plug-in. WebAssembly je formát compact bajtového kódu optimalizovaný pro rychlé stažení a spuštění maximální rychlost.
+Spouštění kódu .NET uvnitř webových prohlížečů je možné podle [WebAssembly](http://webassembly.org) (zkrácené *wasm*). WebAssembly je formát compact bajtového kódu optimalizovaný pro rychlé stažení a spuštění maximální rychlost. WebAssembly je otevřít web, standard a podporovaných webových prohlížečů bez modulů plug-in.
 
-WebAssembly kód může přistupovat k úplné funkce aplikace prohlížeče prostřednictvím JavaScriptu, volá *vzájemná funkční spolupráce jazyka JavaScript* (nebo *zprostředkovatele komunikace s objekty jazyka JavaScript*). Spuštění kódu .NET proveden prostřednictvím WebAssembly v prohlížeči v stejné důvěryhodné izolovaného prostoru jako jazyka JavaScript, který skutečně eliminuje příležitosti pro aplikace k provádění škodlivých akcí v klientském počítači.
+WebAssembly kód může přistupovat k úplné funkce aplikace prohlížeče prostřednictvím JavaScriptu, volá *vzájemná funkční spolupráce jazyka JavaScript* (nebo *zprostředkovatele komunikace s objekty jazyka JavaScript*). .NET kód proveden prostřednictvím WebAssembly v prohlížeči se spustí v sandboxu jazyka JavaScript v prohlížeči pomocí ochrany, které poskytuje izolovaný prostor proti škodlivé akce v klientském počítači.
 
 ![Blazor na straně klienta běží v prohlížeči s WebAssembly kód .NET.](index/_static/blazor-client-side.png)
 
@@ -106,15 +115,13 @@ Aplikace na straně klienta Blazor při vytvoření a spuštění v prohlížeč
 
 * C#soubory kódu a Razor soubory jsou zkompilovány do sestavení .NET.
 * Sestavení a modul .NET runtime se stáhnou do prohlížeče.
-* Blazor klientské bootstraps modul .NET runtime a konfiguruje modul runtime k načtení sestavení pro aplikaci. Modul runtime Blazor na straně klienta používá zprostředkovatele komunikace s objekty jazyka JavaScript pro zpracování volání API manipulaci a prohlížeč Document Object Model (DOM).
+* Blazor klientské bootstraps modul .NET runtime a konfiguruje modul runtime k načtení sestavení pro aplikaci. Modul runtime Blazor na straně klienta používá zprostředkovatele komunikace s objekty jazyka JavaScript ke zpracování modelu DOM manipulaci a prohlížeče volání rozhraní API.
 
-Velikost publikované aplikace její *velikost datové části*, je důležité výkonu koeficient pro použitelnost aplikace míra. Velké aplikace trvá poměrně dlouhou dobu stahování v prohlížeči, který škodí jak uživatelské prostředí. Klientské Blazor optimalizuje velikost datové části snížit dobu stahování:
+Velikost publikované aplikace její *velikost datové části*, je důležité výkonu koeficient pro použitelnost aplikace míra. Velké aplikace trvá poměrně dlouhou dobu stahování v prohlížeči, který snižuje činnost koncového uživatele. Klientské Blazor optimalizuje velikost datové části snížit dobu stahování:
 
 * Nepoužitý kód je odebrána z aplikace, když se publikuje [Intermediate Language (IL) Linkeru](xref:host-and-deploy/blazor/configure-linker).
 * Odpovědi protokolu HTTP jsou komprimované.
 * Modul runtime rozhraní .NET a sestavení jsou uložené v mezipaměti v prohlížeči.
-
-Další informace a Rady týkající se model hostingu najdete v tématu <xref:blazor/hosting-models>.
 
 ## <a name="blazor-server-side"></a>Blazor na straně serveru
 
@@ -126,21 +133,20 @@ Připojení používané objektem Blazor serverové ke komunikaci s prohlížeč
 
 ![Blazor serveru běží kód .NET na serveru a komunikuje s modelu objektu dokumentu na straně klienta pomocí připojení SignalR](index/_static/blazor-server-side.png)
 
-Další informace a Rady týkající se model hostingu najdete v tématu <xref:blazor/hosting-models>.
-
 ## <a name="javascript-interop"></a>Interoperabilita JavaScriptu
 
-U aplikací, které vyžadují knihovny třetích stran jazyka JavaScript a prohlížeč rozhraní API pro součásti spolupracovat s použitím jazyka JavaScript. Součásti jsou schopny použití jakékoli knihovnu nebo rozhraní API, které jazyk JavaScript je možné použít. C#kód může volat do kódu jazyka JavaScript a kód jazyka JavaScript může volat do C# kódu. Další informace naleznete v tématu <xref:blazor/javascript-interop>.
+U aplikací, které vyžadují knihovny JavaScript třetích stran a přístup k prohlížeči rozhraní API pro součásti spolupracovat s použitím jazyka JavaScript. Součásti jsou schopny použití jakékoli knihovnu nebo rozhraní API, které jazyk JavaScript je možné použít. C#kód může volat do kódu jazyka JavaScript a kód jazyka JavaScript může volat do C# kódu. Další informace naleznete v tématu <xref:blazor/javascript-interop>.
 
 ## <a name="code-sharing-and-net-standard"></a>Sdílení kódu a .NET Standard
 
 Implementuje Blazor [.NET Standard 2.0](/dotnet/standard/net-standard). .NET standard je formální specifikaci rozhraní API pro .NET, které jsou společné pro implementace .NET. Knihovny tříd .NET standard můžete sdílet na různých platformách .NET, jako je například Blazor, rozhraní .NET Framework, .NET Core, Xamarin, Mono a Unity.
 
-Vyvolat rozhraní API, které nejsou použitelné ve webovém prohlížeči (například přístup k systému souborů, otevřeme soket a práce s vlákny) <xref:System.PlatformNotSupportedException>.
+Vyvolat rozhraní API, které nejsou použitelné v rámci webového prohlížeče (například přístup k systému souborů, otevřeme soket a práce s vlákny) <xref:System.PlatformNotSupportedException>.
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * [WebAssembly](http://webassembly.org/)
+* <xref:blazor/hosting-models>
 * [Průvodce jazykem C#](/dotnet/csharp/)
 * <xref:mvc/views/razor>
 * [HTML](https://www.w3.org/html/)

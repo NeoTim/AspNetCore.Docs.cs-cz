@@ -5,14 +5,14 @@ description: Zjistěte, jak nakonfigurovat ověřování Windows v ASP.NET Core 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 06/12/2019
+ms.date: 07/01/2019
 uid: security/authentication/windowsauth
-ms.openlocfilehash: 93f833adff95f25d570947cd1a9035d652f522c2
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 30f1f554a29412ed6b84115d457d2da1aba91c17
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034948"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500509"
 ---
 # <a name="configure-windows-authentication-in-aspnet-core"></a>Konfigurace ověřování Windows v ASP.NET Core
 
@@ -145,7 +145,10 @@ Použití **buď** z následujících postupů:
  [Microsoft.AspNetCore.Authentication.Negotiate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) jde použít balíček NuGet s [Kestrel](xref:fundamentals/servers/kestrel) pro podporu ověřování Windows ve Windows, Linuxu a macOS pomocí Negotiate, protokolu Kerberos a NTLM.
 
 > [!WARNING]
-> Přihlašovací údaje můžete nastavit jako trvalý napříč požadavky na připojení. *Vyjednávání ověřování se nesmí používat s proxy servery, pokud proxy server udržuje vztahů 1:1 připojení (trvalé připojení) s Kestrel.* To znamená, že vyjednat ověření se nesmí používat s Kestrel za IIS [ASP.NET Core modulu (ANCM) out-of-process](xref:host-and-deploy/iis/index#out-of-process-hosting-model).
+> Přihlašovací údaje můžete nastavit jako trvalý napříč požadavky na připojení. *Vyjednávání ověřování se nesmí používat s proxy servery, pokud proxy server udržuje vztahů 1:1 připojení (trvalé připojení) s Kestrel.*
+
+> [!NOTE]
+> Obslužná rutina Negotiate zjistí Pokud podkladový server nativně podporuje ověřování Windows, a pokud je povolené. Pokud server podporuje ověřování Windows, ale je zakázané, se zobrazuje chyba, která žádá o povolení implementaci serveru. Pokud je povoleno ověřování Windows na serveru, obslužná rutina Negotiate transparentně předává do ní.
 
  Přidat ověřovací služby vyvoláním <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> (`Microsoft.AspNetCore.Authentication.Negotiate` oboru názvů) a `AddNegotitate` (`Microsoft.AspNetCore.Authentication.Negotiate` oboru názvů) v `Startup.ConfigureServices`:
 
@@ -255,7 +258,17 @@ Zatímco [Microsoft.AspNetCore.Authentication.Negotiate](https://www.nuget.org/p
 
 ## <a name="claims-transformations"></a>Transformace deklarací identity
 
+::: moniker range=">= aspnetcore-3.0"
+
+Při hostování se službou IIS, <xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*> nevolá interně k inicializaci uživatele. Proto <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> implementace používaném k transformaci deklarací identity po každém ověření není ve výchozím nastavení. Další informace a příklad kódu, který aktivuje transformace deklarací identity najdete v tématu <xref:host-and-deploy/aspnet-core-module#in-process-hosting-model>.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 Při hostování za nástrojem s režimem v procesu služby IIS, <xref:Microsoft.AspNetCore.Authentication.AuthenticationService.AuthenticateAsync*> nevolá interně k inicializaci uživatele. Proto <xref:Microsoft.AspNetCore.Authentication.IClaimsTransformation> implementace používaném k transformaci deklarací identity po každém ověření není ve výchozím nastavení. Další informace a příklad kódu, který aktivuje transformace deklarací identity, při hostování v procesu najdete v tématu <xref:host-and-deploy/aspnet-core-module#in-process-hosting-model>.
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další zdroje
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/14/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: 7567473ae8acd9e1072954907f0fe9c7beea29ad
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: b6d08189280e9ca58362265d9b6f2536a3ad1d38
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67153188"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500495"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>Hostitelství a nasazení aplikace ASP.NET Core Blazor na straně klienta
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/24/2019
 uid: blazor/components
-ms.openlocfilehash: cd4d4f9d85f2fad6fe769340ab7a49e6ccb05861
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: 2f0447fa6fbc5e57954558d521e4ce047bdb6ab1
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394688"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500434"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání komponent ASP.NET Core Razor
 
@@ -1079,14 +1079,14 @@ builder.AddContent(1, "Second");
 
 Když tento kód spustí poprvé, pokud `someFlag` je `true`, obdrží Tvůrce:
 
-| Sequence | Type      | Data   |
+| Sequence | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | první  |
 | 1        | Textový uzel | Sekunda |
 
 Nyní Představte si, že `someFlag` stane `false`, a My se pak znovu. Tentokrát, obdrží Tvůrce:
 
-| Sequence | Type       | Data   |
+| Sequence | type       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Textový uzel  | Sekunda |
 
@@ -1115,7 +1115,7 @@ Teď by byl první výstup:
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. V druhém vykreslování, když `someFlag` je `false`, zobrazí se výstup:
 
-| Sequence | Type      | Data   |
+| Sequence | type      | Data   |
 | :------: | --------- | ------ |
 | 0        | Textový uzel | Sekunda |
 

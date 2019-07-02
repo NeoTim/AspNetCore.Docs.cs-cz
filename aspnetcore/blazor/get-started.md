@@ -5,14 +5,14 @@ description: Začínáme s Blazor vytvořením Blazor aplikace pomocí nástroj�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/18/2019
+ms.date: 07/01/2019
 uid: blazor/get-started
-ms.openlocfilehash: c614ff52600434158c75e288e0b15985c0eb8e68
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: 51fb531c07de35b08911c8475b192f3bda281ea4
+ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207657"
+ms.lasthandoff: 07/02/2019
+ms.locfileid: "67500438"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -54,13 +54,13 @@ Začínáme s Blazor:
 
    2\. Nainstalujte nejnovější [ C# pro Visual Studio Code příponou](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
 
-   3\. Blazor prostředí na straně klienta spusťte následující příkaz z příkazového prostředí:
+   3\. Blazor prostředí na straně klienta spusťte následující příkaz v příkazovém řádku:
 
       ```console
       dotnet new blazor -o WebApplication1
       ```
 
-      Blazor prostředí na straně serveru spusťte následující příkaz z příkazového prostředí:
+      Blazor prostředí na straně serveru spusťte následující příkaz v příkazovém řádku:
 
       ```console
       dotnet new blazorserverside -o WebApplication1
@@ -98,7 +98,7 @@ Začínáme s Blazor:
 
    # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
-   Blazor prostředí na straně klienta spusťte následující příkazy z příkazového prostředí:
+   Blazor prostředí na straně klienta spusťte následující příkazy v příkazovém řádku:
 
    ```console
    dotnet new blazor -o WebApplication1
@@ -106,7 +106,7 @@ Začínáme s Blazor:
    dotnet run
    ```
 
-   Blazor prostředí na straně serveru spusťte následující příkazy z příkazového prostředí:
+   Blazor prostředí na straně serveru spusťte následující příkazy v příkazovém řádku:
 
    ```console
    dotnet new blazorserverside -o WebApplication1
@@ -132,7 +132,7 @@ Na stránce čítače, vyberte **klikněte na mě** tlačítka se zvýší čít
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
-Žádost o `/counter` v prohlížeči, jak jsou určené `@page` – direktiva v horní části stránky, způsobí, že součást čítače pro vykreslení jeho obsah. Komponenty vykreslování do reprezentaci v paměti, který lze použít k aktualizaci uživatelského rozhraní v flexibilní a efektivní způsob vykreslení stromu.
+Žádost o `/counter` v prohlížeči, jak jsou určené `@page` – direktiva v horní části stránky, způsobí, že `Counter` součásti pro vykreslení jeho obsah. Komponenty vykreslování do reprezentaci v paměti, který lze použít k aktualizaci uživatelského rozhraní v flexibilní a efektivní způsob vykreslení stromu.
 
 Pokaždé, když **klikněte na mě** výběru tlačítka:
 
@@ -143,15 +143,15 @@ Pokaždé, když **klikněte na mě** výběru tlačítka:
 
 Modul runtime porovnává nový obsah na předchozí obsah a platí pouze změněný obsah do modelu Document Object Model (DOM).
 
-Přidáte součást do jiné součásti pomocí syntaxe kódu HTML. Třeba přidat součást čítače na domovskou stránku aplikace tak, že přidáte `<Counter />` – element pro součást indexu.
+Přidáte součást do jiné součásti pomocí syntaxe kódu HTML. Například přidat `Counter` na domovskou stránku aplikace tak, že přidáte komponentu `<Counter />` elementu `Index` komponenty.
 
 *Pages/Index.razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-Spusťte aplikaci. Na domovskou stránku má svůj vlastní čítače poskytované součást čítače.
+Spusťte aplikaci. Na domovskou stránku má svůj vlastní čítače poskytované `Counter` komponenty.
 
-Jsou zadány parametry komponenty pomocí atributů nebo [podřízený obsah](xref:blazor/components#child-content), které umožňují nastavit vlastnosti v podřízené součásti. Přidání parametru do komponenty čítače, aktualizovat součásti `@code` blok:
+Jsou zadány parametry komponenty pomocí atributů nebo [podřízený obsah](xref:blazor/components#child-content), které umožňují nastavit vlastnosti v podřízené součásti. Chcete-li přidat parametr `Counter` komponenty, aktualizovat součásti `@code` bloku:
 
 * Přidání vlastnosti pro `IncrementAmount` s `[Parameter]` atribut.
 * Změnit `IncrementCount` metoda se má použít `IncrementAmount` při zvýšit hodnotu `currentCount`.
@@ -160,13 +160,13 @@ Jsou zadány parametry komponenty pomocí atributů nebo [podřízený obsah](xr
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-Zadejte `IncrementAmount` v komponentě Index `<Counter>` pomocí atributu element.
+Zadejte `IncrementAmount` v `Index` komponenty `<Counter>` pomocí atributu element.
 
 *Pages/Index.razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-Spusťte aplikaci. Součást indexu má svůj vlastní čítač, který zvýší o 10 pokaždé, když **klikněte na mě** výběru tlačítka. Součást čítače (*Counter.razor*) na `/counter` pořád postupně zvyšuje o jednu.
+Spusťte aplikaci. `Index` Komponenta má svůj vlastní čítač, který zvýší o 10 pokaždé, když **klikněte na mě** výběru tlačítka. `Counter` Součásti (*Counter.razor*) na `/counter` pořád postupně zvyšuje o jednu.
 
 ## <a name="next-steps"></a>Další kroky
 
