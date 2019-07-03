@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 04/06/2019
 uid: razor-pages/index
-ms.openlocfilehash: 93796fa1edfa316790794d3775342147ea28ae2e
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 419355d670536fef1a38fbcb8ce1fd880c0e9b0d
+ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692539"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67555731"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do služby v ASP.NET Core Razor Pages
 
@@ -23,7 +23,21 @@ Pokud hledáte kurz, který používá Model-View-Controller přístup, přečt�
 
 Tento dokument obsahuje úvod do stránky Razor. Není podrobný kurz. Pokud některé části příliš pokročilý najdete v tématu [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start). Přehled ASP.NET Core, najdete v článku [Úvod do ASP.NET Core](xref:index).
 
-[!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
+## <a name="prerequisites"></a>Požadavky
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+
+---
 
 <a name="rpvs17"></a>
 
