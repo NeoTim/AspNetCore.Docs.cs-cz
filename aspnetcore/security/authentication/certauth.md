@@ -3,15 +3,15 @@ title: Konfigurace ověření certifikátu v ASP.NET Core
 author: blowdart
 description: Zjistěte, jak nakonfigurovat ověřování pomocí certifikátu v ASP.NET Core pro službu IIS a HTTP.sys.
 monikerRange: '>= aspnetcore-3.0'
-ms.author: barry.dorrans
+ms.author: bdorrans
 ms.date: 06/11/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: 37567128531187bfe7dd6c9f5aa990226e70f35f
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: 8609c58265340da1d618135795915d6c49e750a3
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837553"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538725"
 ---
 # <a name="overview"></a>Přehled
 

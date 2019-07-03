@@ -5,14 +5,14 @@ description: Zjistěte, jak volat funkce jazyka JavaScript od .NET a .NET metody
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 07/02/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: df511fe77661cd1474e869b28e6858e0452eaae5
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 5d90a83acae3864c40ce38b6259d1938e56a2c54
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152800"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538544"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript zprostředkovatele komunikace s objekty
 
@@ -34,7 +34,7 @@ Pro serverové aplikace:
 
 Následující příklad je založen na [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder), experimentální dekodér založené na jazyce JavaScript. Příklad ukazuje, jak vyvolat funkci z jazyka JavaScript C# metody. Funkce JavaScript, která přijímá pole bajtů z C# metody dekóduje pole a vrátí text na komponentu pro zobrazení.
 
-Uvnitř `<head>` prvek *wwwroot/index.html* (Blazor straně klienta) nebo *stránek /\_Host.cshtml* (Blazor serverové), poskytují funkce, která používá `TextDecoder` do dekódování předané pole:
+Uvnitř `<head>` prvek *wwwroot/index.html* (Blazor straně klienta) nebo *Pages/_Host.cshtml* (Blazor serverové), poskytují funkce, která používá `TextDecoder` k dekódování úspěch pole:
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
@@ -77,13 +77,13 @@ V aplikaci ukázka na straně klienta, který doprovází v tomto tématu jsou k
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-Místo `<script>` značka, která odkazuje na soubor jazyka JavaScript v *wwwroot/index.html* souboru (Blazor straně klienta) nebo *stránek /\_Host.cshtml* (Blazor serverové) soubor.
+Místo `<script>` značka, která odkazuje na soubor jazyka JavaScript v *wwwroot/index.html* souboru (Blazor straně klienta) nebo *Pages/_Host.cshtml* (Blazor serverové) soubor.
 
 *Wwwroot/index.HTML* (Blazor straně klienta):
 
 [!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
 
-*Stránky /\_Host.cshtml* (Blazor serverové):
+*Pages/_Host.cshtml* (Blazor serverové):
 
 [!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
 
@@ -170,7 +170,7 @@ Metoda je volána přímo v objektu. Následující příklad předpokládá, ž
 [!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,8,12)]
 
 > [!IMPORTANT]
-> `username` Proměnná je vyplněný pouze po komponentu vykreslí a zahrnuje její výstup `>` elementu. Pokud se pokusíte předat unpopulated `ElementRef` do kódu jazyka JavaScript, kód jazyka JavaScript obdrží `null`. K manipulaci s odkazy na prvky po vykreslení (Chcete-li nastavit počáteční fokus na prvek) použijte komponentu `OnAfterRenderAsync` nebo `OnAfterRender` [součástí životního cyklu metody](xref:blazor/components#lifecycle-methods).
+> `username` Proměnná je vyplněný pouze po vykreslení komponentu. Pokud unpopulated `ElementRef` je předán do kódu jazyka JavaScript, JavaScript, kód přijímá hodnotu z `null`. K manipulaci s odkazy na prvky po vykreslení (Chcete-li nastavit počáteční fokus na prvek) použijte komponentu `OnAfterRenderAsync` nebo `OnAfterRender` [součástí životního cyklu metody](xref:blazor/components#lifecycle-methods).
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>Vyvolání metod rozhraní .NET z funkce jazyka JavaScript
 
@@ -244,6 +244,6 @@ Interoperační kód jazyka JavaScript, mohou být součástí knihovny tříd, 
 
 Knihovna tříd zpracovává vkládání prostředky jazyka JavaScript v sestavení. Soubory jazyka JavaScript jsou umístěny v *wwwroot* složky. Nástroje postará vkládání prostředků při vytváření knihovny.
 
-Sestavené balíček NuGet je popsána v souboru projektu aplikace, stejně jako jakýkoli normální balíček NuGet se odkazuje. Po obnovení aplikace kód aplikace může volat do jazyka JavaScript, jako by šlo C#.
+Sestavené balíčku NuGet se odkazuje v souboru projektu vaší aplikace stejným způsobem, že všechny balíčky NuGet se odkazuje. Po obnovení balíčku kódu aplikace může volat do jazyka JavaScript, jako by šlo C#.
 
 Další informace naleznete v tématu <xref:blazor/class-libraries>.

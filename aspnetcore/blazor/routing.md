@@ -5,20 +5,20 @@ description: Zjistěte, jak směrovat požadavky v aplikacích a o NavLink kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/26/2019
+ms.date: 07/02/2019
 uid: blazor/routing
-ms.openlocfilehash: ddbb43f897decc94218ad950ef8dda6ea153d0d3
-ms.sourcegitcommit: 9bb29f9ba6f0645ee8b9cabda07e3a5aa52cd659
+ms.openlocfilehash: d2f0ce608d7368871f508754d7bbe4f75cc9701f
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67406085"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538524"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core Blazor směrování
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Zjistěte, jak směrovat požadavky v aplikacích a o `NavLink` komponenty.
+Naučte se směrovat požadavky a použít `NavLink` komponentu pro vytvoření navigační odkazy v aplikacích Blazor.
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>Integrace směrování koncových bodů ASP.NET Core
 
@@ -105,18 +105,18 @@ Omezení trasy, které jsou uvedeny v následující tabulce jsou k dispozici. O
 
 ## <a name="navlink-component"></a>Komponenta NavLink
 
-Použití `NavLink` komponentu namísto HTML `<a>` prvky při vytváření navigačních odkazů. A `NavLink` se chová jako součást `<a>` elementu, s výjimkou přepíná `active` třídu šablony stylů CSS podle toho, jestli jeho `href` odpovídá aktuální adresa URL. `active` Třídy pomáhá uživateli vědět, na stránce, které je aktivní stránkou. mezi navigační odkazy zobrazí.
+Použití `NavLink` komponentu místo elementů HTML hypertextový odkaz (`<a>`) při vytváření navigačních odkazů. A `NavLink` se chová jako součást `<a>` elementu, s výjimkou přepíná `active` třídu šablony stylů CSS podle toho, jestli jeho `href` odpovídá aktuální adresa URL. `active` Třídy pomáhá uživateli vědět, na stránce, které je aktivní stránkou. mezi navigační odkazy zobrazí.
 
 Následující `NavMenu` vytvoří komponentu [Bootstrap](https://getbootstrap.com/docs/) navigační panel, který ukazuje, jak používat `NavLink` komponenty:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Shared/NavMenu.razor?name=snippet_NavLinks&highlight=4-6,9-11)]
+[!code-cshtml[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
-Existují dva `NavLinkMatch` možnosti:
+Existují dva `NavLinkMatch` možnosti, které můžete přiřadit `Match` atribut `<NavLink>` element:
 
-* `NavLinkMatch.All` &ndash; Určuje, že NavLink musí být v případě, že odpovídá celou adresu URL aktuální aktivní.
-* `NavLinkMatch.Prefix` &ndash; Určuje, že NavLink musí být v případě, že odpovídá jakoukoli předponu adresy URL aktuální aktivní.
+* `NavLinkMatch.All` &ndash; `NavLink` Je aktivní v případě, že odpovídá celou aktuální adresu URL.
+* `NavLinkMatch.Prefix` (*výchozí*) &ndash; `NavLink` je aktivní v případě, že odpovídá jakoukoli předponu adresy URL aktuální.
 
-V předchozím příkladu Home NavLink (`href=""`) odpovídá všem adresám URL a vždy přijímá `active` třídu šablony stylů CSS. Druhý NavLink přijímá pouze `active` třídy, když uživatel navštíví `BlazorRoute` součásti (`href="BlazorRoute"`).
+V předchozím příkladu, domovská stránka `NavLink` `href=""` odpovídá domovské adresy URL a přijímá pouze `active` třídu šablony stylů CSS v aplikace výchozí základní cesta URL (například `https://localhost:5001/`). Druhá `NavLink` přijímá `active` třídy, když uživatel navštíví libovolnou adresu URL s `MyComponent` předpona (například `https://localhost:5001/MyComponent` a `https://localhost:5001/MyComponent/AnotherSegment`).
 
 ## <a name="uri-and-navigation-state-helpers"></a>Identifikátor URI a navigační stav pomocné rutiny
 
@@ -131,7 +131,7 @@ Použití `Microsoft.AspNetCore.Components.IUriHelper` pro práci s identifikát
 | `ToAbsoluteUri` | Převede relativní identifikátor URI na absolutní adresu URI. |
 | `ToBaseRelativePath` | Zadaný základní identifikátor URI (například identifikátor URI předtím vrátila rutina `GetBaseUri`), převede na identifikátor URI relativní k základní identifikátor URI předponu absolutní identifikátor URI. |
 
-Následující komponenty přejde na součást aplikace čítače, při výběru tlačítka:
+Následující komponenty přejde na aplikaci `Counter` součásti při výběru tlačítka:
 
 ```cshtml
 @page "/navigate"

@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat a nasazení Blazor aplikace pomocí ASP.NET
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 07/02/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: b6d08189280e9ca58362265d9b6f2536a3ad1d38
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.openlocfilehash: 46c99364098557557bff0c38cab5a91ee2d3979b
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67500495"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538636"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>Hostitelství a nasazení aplikace ASP.NET Core Blazor na straně klienta
 
@@ -106,19 +106,19 @@ Blazor provádí Intermediate Language (IL) propojení na každé sestavení ode
 
 ## <a name="rewrite-urls-for-correct-routing"></a>Přepisování adres URL pro správné směrování
 
-Směrování požadavků pro součásti stránky v aplikaci na straně klienta není snadné – stačí směrování žádostí na aplikace na straně serveru, prostředí. Vezměte v úvahu aplikace na straně klienta se dvěma stránkami:
+Směrování požadavků pro součásti stránky v aplikaci na straně klienta není snadné – stačí směrování žádostí na aplikace na straně serveru, prostředí. Vezměte v úvahu aplikace na straně klienta s dvě součásti:
 
-* **_Main.Razor** &ndash; zatížení v kořenovém adresáři aplikace a obsahuje odkaz na stránku o (`href="About"`).
-* **_About.Razor** &ndash; o stránce.
+* *Main.Razor* &ndash; zatížení v kořenovém adresáři aplikace a obsahuje odkaz `About` součásti (`href="About"`).
+* *About.Razor* &ndash; `About` komponenty.
 
 Pokud aplikace výchozí dokument se požaduje pomocí panelu Adresa prohlížeče (například `https://www.contoso.com/`):
 
 1. Prohlížeč odešle požadavek.
 1. Vrátí výchozí stránku, což je obvykle *index.html*.
 1. *index.HTML* bootstraps aplikace.
-1. Směrovač Blazor na zatížení a Razor hlavní stránky (*Main.razor*) se zobrazí.
+1. Směrovač Blazor na zatížení a syntaxi Razor `Main` komponenty se vykreslí.
 
-Na hlavní stránce vyberte odkaz na stránku o načte stránku o. Vyberte odkaz na stránku o funguje na straně klienta, protože směrovače Blazor zastaví prohlížeče z požadavku na Internetu, aby `www.contoso.com` pro `About` a slouží samotná stránka o. Všechny žádosti pro interní stránky *v rámci aplikace na straně klienta* stejným způsobem fungovat: Požadavky nejsou aktivace založené na prohlížeči požadavky na prostředky serveru hostované na Internetu. Směrovač interně zpracovává požadavky.
+Na hlavní stránce vyberte odkaz na `About` funguje komponenty na straně klienta, protože směrovače Blazor zastaví prohlížeče z požadavku na Internetu, aby `www.contoso.com` pro `About` a slouží vygenerované `About` komponentu. Všechny žádosti pro koncovým bodům s interním *v rámci aplikace na straně klienta* stejným způsobem fungovat: Požadavky nejsou aktivace založené na prohlížeči požadavky na prostředky serveru hostované na Internetu. Směrovač interně zpracovává požadavky.
 
 Pokud je vytvořena pomocí panelu Adresa prohlížeče pro žádost `www.contoso.com/About`, požadavek selže. Žádný takový prostředek neexistuje na hostiteli aplikace Internet, tak *404 - Nenalezeno* vrátí odpověď.
 
@@ -148,7 +148,7 @@ Reakce aplikace na místně `http://localhost:port/CoolApp`.
 
 Další informace najdete v části na [hodnota konfigurace hostitele základní cesty](#path-base).
 
-Pokud aplikace používá [model hostingu na straně klienta](xref:blazor/hosting-models#client-side) (na základě **Blazor** šablonu projektu; `blazor` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz) a je hostovaná jako dílčí aplikace služby IIS v aplikaci ASP.NET Core, je potřeba zakázat obslužnou rutinu zděděné modul ASP.NET Core nebo Ujistěte se, že aplikace root (nadřazené) `<handlers>` tématu *web.config* soubor není děděný Sub – aplikace.
+Pokud aplikace používá [model hostingu na straně klienta](xref:blazor/hosting-models#client-side) (na základě **Blazor (na straně klienta)** šablony projektu, `blazor` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz) a je hostovaná IIS sub-aplikace v aplikaci ASP.NET Core, je potřeba zakázat obslužnou rutinu zděděné modul ASP.NET Core nebo Ujistěte se, že aplikace root (nadřazené) `<handlers>` tématu *web.config* není soubor dědí podřízeným aplikacím.
 
 Odebrat publikování obslužné rutiny v aplikaci *web.config* souboru tak, že přidáte `<handlers>` část do souboru:
 
@@ -178,7 +178,7 @@ Kromě konfigurace základní cesty aplikace, jak je popsáno v této části se
 
 ## <a name="hosted-deployment-with-aspnet-core"></a>Hostované nasazení pomocí technologie ASP.NET Core
 
-A *hostované nasazení* slouží Blazor aplikace na straně klienta z prohlížečů [aplikace ASP.NET Core](xref:index) , který běží na serveru.
+A *hostované nasazení* slouží Blazor aplikace na straně klienta z prohlížečů [aplikace ASP.NET Core](xref:index) , který běží na webovém serveru.
 
 Blazor aplikace je součástí aplikace ASP.NET Core v publikované výstup tak, aby dvě aplikace se nasazují společně. Webový server, který dokáže hostovat aplikace ASP.NET Core je povinný. Hostované nasazení Visual Studio obsahuje **Blazor (ASP.NET Core hostované)** šablonu projektu (`blazorhosted` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz).
 

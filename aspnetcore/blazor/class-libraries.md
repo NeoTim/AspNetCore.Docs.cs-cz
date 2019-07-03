@@ -5,14 +5,14 @@ description: Zjistěte, jak komponenty mohou být součástí Blazor aplikací z
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/24/2019
+ms.date: 07/02/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 8676e0fd660b7d281c80d06d24d5593c2df6348b
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: e99dd63200dc863552f099b5d715f78a9732165c
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394621"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538505"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core Razor komponenty knihovny třídy
 
@@ -47,13 +47,13 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku ke konfiguraci pro
 
 # <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code / .NET Core CLI](#tab/visual-studio-code+netcore-cli)
 
-1. Šablona knihovny tříd Razor (`razorclasslib`) se [dotnet nové](/dotnet/core/tools/dotnet-new) z příkazové okno. V následujícím příkladu je vytvořena s názvem RCL `MyComponentLib1`. Složky obsahující `MyComponentLib1` je vytvořen automaticky při spuštění příkazu.
+1. Použití **knihovny tříd Razor** šablony (`razorclasslib`) se [dotnet nové](/dotnet/core/tools/dotnet-new) příkazu v příkazovém řádku. V následujícím příkladu je vytvořena s názvem RCL `MyComponentLib1`. Složky obsahující `MyComponentLib1` je vytvořen automaticky při spuštění příkazu:
 
    ```console
    dotnet new razorclasslib -o MyComponentLib1
    ```
 
-1. Přidání knihovny do existujícího projektu, použijte [se příkaz dotnet add odkaz](/dotnet/core/tools/dotnet-add-reference) z příkazové okno. V následujícím příkladu se přidá RCL do aplikace. Spusťte následující příkaz ze složky projektu aplikace s cestou ke knihovně:
+1. Chcete-li přidat knihovnu do existujícího projektu, použijte [se příkaz dotnet add odkaz](/dotnet/core/tools/dotnet-add-reference) příkazu v příkazovém řádku. V následujícím příkladu se přidá RCL do aplikace. Spusťte následující příkaz ze složky projektu aplikace s cestou ke knihovně:
 
    ```console
    dotnet add reference {PATH TO LIBRARY}
@@ -61,13 +61,9 @@ Postupujte podle pokynů v <xref:blazor/get-started> článku ke konfiguraci pro
 
 ---
 
-Přidat soubory součástí Razor ( *.razor*) k RCL.
-
 ## <a name="rcls-not-supported-for-client-side-apps"></a>RCLs není podporována pro aplikace na straně klienta
 
-ASP.NET Core 3.0 ve verzi Preview nejsou kompatibilní s aplikacemi na straně klienta Blazor knihovny tříd Razor.
-
-Blazor aplikace na straně klienta, použijte knihovně komponent Blazor vytvořené `blazorlib` šablonu z příkazové prostředí:
+V aktuální ASP.NET Core náhledu 3.0 nejsou kompatibilní s aplikacemi na straně klienta Blazor knihovny tříd Razor. Blazor aplikace na straně klienta, použijte knihovně komponent Blazor vytvořené `blazorlib` šablony v příkazovém řádku:
 
 ```console
 dotnet new blazorlib -o MyComponentLib1
@@ -82,9 +78,9 @@ Aby bylo možné využívat součásti definované v knihovně v jiném projektu
 * Použijte úplný název typu s oborem názvů.
 * Použití syntaxe Razor pro [ \@pomocí](xref:mvc/views/razor#using) směrnice. Jednotlivé komponenty mohou být přidány podle názvu.
 
-V následujících příkladech `MyComponentLib1` je součást Knihovna, která obsahuje prodejní sestavu (`SalesReport`) komponenty.
+V následujících příkladech `MyComponentLib1` je součástí knihovny obsahující `SalesReport` komponenty.
 
-Komponenta prodejní sestavu můžete odkazovat pomocí jeho úplný název typu s oborem názvů:
+`SalesReport` Komponenty lze odkazovat pomocí jeho úplný název typu s oborem názvů:
 
 ```cshtml
 <h1>Hello, world!</h1>
@@ -110,13 +106,13 @@ Zahrnout `@using MyComponentLib1` direktivu na nejvyšší úrovni *_Import.razo
 
 ## <a name="build-pack-and-ship-to-nuget"></a>Sestavení, aktualizací Service pack a příjemce pro NuGet
 
-Protože jsou součástí knihovny knihovny .NET standard, balení a je na cestě k NuGet se nijak neliší od balení a přesouvání všechny knihovny nuget. Balení se provádí pomocí [balíčku dotnet](/dotnet/core/tools/dotnet-pack) z příkazové prostředí:
+Protože jsou součástí knihovny knihovny .NET standard, balení a je na cestě k NuGet se nijak neliší od balení a přesouvání všechny knihovny nuget. Balení se provádí pomocí [balíčku dotnet](/dotnet/core/tools/dotnet-pack) příkazu v příkazovém řádku:
 
 ```console
 dotnet pack
 ```
 
-Nahrání balíčku NuGet pomocí [dotnet nuget publikovat](/dotnet/core/tools/dotnet-nuget-push) z příkazové prostředí:
+Nahrání balíčku NuGet pomocí [dotnet nuget publikovat](/dotnet/core/tools/dotnet-nuget-push) příkazu v příkazovém řádku:
 
 ```console
 dotnet nuget publish

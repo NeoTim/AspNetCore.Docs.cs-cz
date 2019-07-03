@@ -3,16 +3,16 @@ title: Použití webového rozhraní API analyzátorů
 author: pranavkm
 description: Další informace o analyzátorech webové rozhraní API v Microsoft.AspNetCore.Mvc.Api.Analyzers.
 monikerRange: '>= aspnetcore-2.2'
-ms.author: pranavkm
+ms.author: prkrishn
 ms.custom: mvc
 ms.date: 12/14/2018
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: bcc89f856e0aeef80c46a44f76f86b4c09ac6746
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 2aaef738ab2a64f85cb85708f63d2375c04cacb5
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902916"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538570"
 ---
 # <a name="use-web-api-analyzers"></a>Použití webového rozhraní API analyzátorů
 

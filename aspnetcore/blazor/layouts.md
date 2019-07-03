@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvářet rozložení opakovaně použitelné kompo
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 07/02/2019
 uid: blazor/layouts
-ms.openlocfilehash: 9f59f21a4c8477bdca1fe68bad4a41d0f62ffd9f
-ms.sourcegitcommit: 9bb29f9ba6f0645ee8b9cabda07e3a5aa52cd659
+ms.openlocfilehash: 2d652e149381f0a93e3135da978ab5737d47c6f1
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67406088"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538539"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor rozložení
 
@@ -24,8 +24,8 @@ Technicky vzato rozložení je jenom další komponenty. Rozložení je definov�
 
 Chcete-li *komponenty* do *rozložení*, součást:
 
-* Dědí z `LayoutComponentBase`, která definuje `Body` vlastnost, která obsahuje obsah, který se vykreslí uvnitř rozložení.
-* Používá syntaxi Razor `@Body` k určení umístění v kódu, kde má být vykreslen obsah.
+* Dědí z `LayoutComponentBase`, která definuje `Body` vlastnost pro vykreslený obsah uvnitř rozložení.
+* Používá syntaxi Razor `@Body` k určení umístění, ve značkách rozložení, ve kterém se vykreslí obsah.
 
 Následující příklad kódu ukazuje šablona Razor rozložení součásti *MainLayout.razor*. Rozložení dědí `LayoutComponentBase` a nastaví `@Body` mezi na navigačním panelu a v zápatí je uvedené:
 
@@ -35,13 +35,13 @@ Následující příklad kódu ukazuje šablona Razor rozložení součásti *Ma
 
 Pomocí direktivy Razor `@layout` do rozložení můžete použít na komponentu. Kompilátor převede `@layout` do `LayoutAttribute`, které platí pro třídu komponenty.
 
-Obsah následující komponenty *MasterList.razor*, je vložen do *MainLayout* v pozici `@Body`.
+Obsah následující komponenty *MasterList.razor*, je vložen do `MainLayout` v pozici `@Body`:
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
 ## <a name="centralized-layout-selection"></a>Výběr centralizované rozložení
 
-Všechny složky, které aplikace může volitelně obsahovat soubor šablony s názvem *_Imports.razor*. Kompilátor obsahuje direktivy zadané v souboru importu ve všech šablon Razor ve stejné složce a rekurzivně ve všech jejích podsložkách. Proto *_Imports.razor* soubor obsahující `@layout MainLayout` zajišťuje, že všechny součásti ve složce pomocí *MainLayout*. Není nutné opakovaně přidat `@layout MainLayout` ke všem *.razor* soubory ve složce a jejích podsložkách. `@using` direktivy jsou použita také na komponenty stejným způsobem.
+Všechny složky, které aplikace může volitelně obsahovat soubor šablony s názvem *_Imports.razor*. Kompilátor obsahuje direktivy zadané v souboru importu ve všech šablon Razor ve stejné složce a rekurzivně ve všech jejích podsložkách. Proto *_Imports.razor* soubor obsahující `@layout MainLayout` zajišťuje, že všechny součásti ve složce pomocí `MainLayout`. Není nutné opakovaně přidat `@layout MainLayout` ke všem *.razor* soubory ve složce a jejích podsložkách. `@using` direktivy jsou použita také na komponenty stejným způsobem.
 
 Následující *_Imports.razor* souboru importu:
 
@@ -67,7 +67,7 @@ Následující příklad ukazuje, jak používat vnořené rozložení. *Episode
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
-Nakonec `MasterLayout` v *MasterLayout.razor* obsahuje prvky rozložení nejvyšší úrovně, jako je například záhlaví, hlavní nabídky a zápatí. *MasterListLayout* s *EpisodesComponent* vykresleny kde `@Body` se zobrazí:
+Nakonec `MasterLayout` v *MasterLayout.razor* obsahuje prvky rozložení nejvyšší úrovně, jako je například záhlaví, hlavní nabídky a zápatí. `MasterListLayout` s `EpisodesComponent` vykresleny kde `@Body` se zobrazí:
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 

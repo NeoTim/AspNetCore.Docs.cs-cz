@@ -5,14 +5,14 @@ description: Zjistěte, jak řídit Linkeru Intermediate Language (IL) při vytv
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 07/02/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: bdddae16885f45df2c10e4d98b1c33eb11dfdf24
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 03be18e7ee6ca8103e1a666da9e693ff67267d83
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67153216"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538631"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace Linkeru pro ASP.NET Core Blazor
 
@@ -27,7 +27,7 @@ Sestavení ovládacího prvku propojení některou z následujících postupů:
 
 ## <a name="disable-linking-with-a-msbuild-property"></a>Zakázat propojení s vlastností MSBuild
 
-Propojení je povolené ve výchozím nastavení v režimu vydání, při vytváření aplikace, která zahrnuje publikování. Chcete-li zakázat propojení pro všechna sestavení, nastavte `<BlazorLinkOnBuild>` vlastnost MSBuild `false` v souboru projektu:
+Propojení je povolené ve výchozím nastavení v režimu vydání, při vytváření aplikace, která zahrnuje publikování. Chcete-li zakázat propojení pro všechna sestavení, nastavte `BlazorLinkOnBuild` vlastnost MSBuild `false` v souboru projektu:
 
 ```xml
 <PropertyGroup>
