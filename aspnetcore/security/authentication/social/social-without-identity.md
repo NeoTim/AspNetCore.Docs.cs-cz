@@ -5,12 +5,12 @@ description: Vysvětlení, používání Facebook, Google, Twitter, ověřován�
 ms.author: riande
 ms.date: 07/04/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: e67da513fef1ce453110c465b08e9c7965e71df5
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: 1e7124e8b07c0faf2d005ec3ef55c0414a697d64
+ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67557665"
+ms.lasthandoff: 07/04/2019
+ms.locfileid: "67561571"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>Ověřování pomocí zprostředkovatele sociální přihlásit bez ASP.NET Core Identity
 
@@ -47,7 +47,7 @@ V `Configure` metody, volání `UseAuthentication` metoda k vyvolání ověřova
 
 Další informace o schémat ověřování a ověřování souborů cookie najdete v tématu <xref:security/authentication/cookie>.
 
-## <a name="applying-basic-authorization"></a>Použití základního ověřování
+## <a name="applying-authorization"></a>Použití autorizace
 
 Otestujte konfiguraci ověřování aplikace s použitím `AuthorizeAttribute` atribut pro kontroler, akci nebo stránky. Následující kód omezuje přístup *ochrany osobních údajů* stránky pro uživatele, kteří byli ověřeni:
 
