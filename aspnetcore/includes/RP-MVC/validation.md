@@ -1,3 +1,4 @@
+
 ## <a name="add-validation-rules-to-the-movie-model"></a>Přidání pravidel ověřování modelu movie
 
 Otevřít *Movie.cs* souboru. Obor názvů DataAnnotations poskytuje sadu předdefinovaných ověřovacích atributy, pomocí kterých jsou deklarativně třída nebo vlastnost. DataAnnotations taky obsahuje atributy formátování, jako je `DataType` , pomoct při formátování a neposkytují žádné ověřování.
