@@ -5,14 +5,14 @@ description: Zjistěte, jak vytvořit a používat komponenty Razor, včetně ja
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/01/2019
+ms.date: 07/05/2019
 uid: blazor/components
-ms.openlocfilehash: c52f23ea319d30d871ecdfc9648a4e30aa877324
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: ca715457604f08e50628d1c1189ea3c570321112
+ms.sourcegitcommit: b9e914ef274b5ec359582f299724af6234dce135
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67538509"
+ms.lasthandoff: 07/05/2019
+ms.locfileid: "67596103"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání komponent ASP.NET Core Razor
 
@@ -961,34 +961,34 @@ Potomka `Tab` součásti capture obsahující `TabSet` jako parametr šablony, p
 Vykreslení fragmenty lze definovat pomocí syntaxe šablon Razor. Šablony Razor představují způsob, jak definovat fragment kódu uživatelského rozhraní a předpokládají následující formát:
 
 ```cshtml
-@<tag>...</tag>
+@<{HTML tag}>...</{HTML tag}>
 ```
 
-Následující příklad ukazuje, jak určit `RenderFragment` a `RenderFragment<T>` hodnoty.
-
-`RazorTemplates` Komponenty:
+Následující příklad ukazuje, jak určit `RenderFragment` a `RenderFragment<T>` hodnoty a vykreslit šablon přímo v komponentě. Vykreslení fragmenty lze také předat jako argumenty, které mají [bez vizuálního vzhledu součásti](#templated-components).
 
 ```cshtml
-@{
-    RenderFragment template = @<p>The time is @DateTime.Now.</p>;
-    RenderFragment<Pet> petTemplate = (pet) => @<p>Your pet's name is @pet.Name.</p>;
+@timeTemplate
+
+@petTemplate(new Pet { Name = "Rex" })
+
+@code {
+    private RenderFragment timeTemplate = @<p>The time is @DateTime.Now.</p>;
+    private RenderFragment<Pet> petTemplate = 
+        (pet) => @<p>Your pet's name is @pet.Name.</p>;
+
+    private class Pet
+    {
+        public string Name { get; set; }
+    }
 }
 ```
 
-Vykreslení fragmenty definované pomocí syntaxe Razor šablony mohou být předány jako argumenty bez vizuálního vzhledu součásti nebo vykresluje přímo. Předchozí šablony jsou přímo vykreslí následujícím kódem Razor:
+Vykreslí výstup předcházejícího kódu:
 
-```cshtml
-@template
+```html
+<p>The time is 10/04/2018 01:26:52.</p>
 
-@petTemplate(new Pet { Name = "Rex" })
-```
-
-Vykresleného výstupu:
-
-```
-The time is 10/04/2018 01:26:52.
-
-Your pet's name is Rex.
+<p>Your pet's name is Rex.</p>
 ```
 
 ## <a name="manual-rendertreebuilder-logic"></a>Ruční RenderTreeBuilder logiky
@@ -1003,12 +1003,12 @@ Vezměte v úvahu následující `PetDetails` komponenty, které ručně se daj�
 ```cshtml
 <h2>Pet Details Component</h2>
 
-<p>@PetDetailsQuote<p>
+<p>@PetDetailsQuote</p>
 
 @code
 {
     [Parameter]
-    string PetDetailsQuote { get; set; }
+    private string PetDetailsQuote { get; set; }
 }
 ```
 

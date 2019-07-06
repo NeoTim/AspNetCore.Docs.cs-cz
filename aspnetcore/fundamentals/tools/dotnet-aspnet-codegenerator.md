@@ -1,16 +1,17 @@
 ---
 title: příkaz DotNet aspnet codegenerator
 author: rick-anderson
+description: Příkaz dotnet aspnet codegenerator vygeneruje uživatelské rozhraní projekty ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-description: Příkaz dotnet aspnet codegenerator vygeneruje uživatelské rozhraní projekty ASP.NET Core
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: 55b592d9d203970777c84438e210519957abb35d
-ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
+ms.openlocfilehash: c96362f320efd84c35dc07294a2968a2c687ee94
+ms.sourcegitcommit: b9e914ef274b5ec359582f299724af6234dce135
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/04/2019
-ms.locfileid: "67561739"
+ms.lasthandoff: 07/05/2019
+ms.locfileid: "67596143"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>DotNet aspnet-codegenerator
 
@@ -18,20 +19,20 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 `dotnet aspnet-codegenerator` -Spustí modul ASP.NET Core generování uživatelského rozhraní. `dotnet aspnet-codegenerator` je jenom pro povinné pro generování uživatelského rozhraní z příkazového řádku, není potřeba používat generování uživatelského rozhraní pomocí sady Visual Studio.
 
-Tento článek se týká [.NET Core 2.2 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.2) a novější.
+Tento článek se týká [sady SDK .NET Core 2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1) a novější.
 
 ## <a name="installing-aspnet-codegenerator"></a>Instalace aspnet codegenerator
 
-`aspnet-codegenerator` je [globální nástroj](/dotnet/core/tools/global-tools) , který musí být nainstalována. Následující příkaz nainstaluje nejnovější stabilní verze `aspnet-codegenerator` nástroje:
+`dotnet-aspnet-codegenerator` je [globální nástroj](/dotnet/core/tools/global-tools) , který musí být nainstalována. Následující příkaz nainstaluje nejnovější stabilní verze `dotnet-aspnet-codegenerator` nástroje:
 
 ```console
-dotnet tool install -g aspnet-codegenerator
+dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-Zadáním následujícího příkazu aktualizace `aspnet-codegenerator` nejnovější stabilní verzi k dispozici z nainstalovaných sad .NET Core SDK:
+Zadáním následujícího příkazu aktualizace `dotnet-aspnet-codegenerator` nejnovější stabilní verzi k dispozici z nainstalovaných sad .NET Core SDK:
 
 ```console
-dotnet tool update -g aspnet-codegenerator
+dotnet tool update -g dotnet-aspnet-codegenerator
 ```
 
 ## <a name="synopsis"></a>Souhrn
@@ -43,7 +44,7 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ## <a name="description"></a>Popis
 
-`dotnet aspnet-codegenerator ` Globální příkaz spustí ASP.NET Core, generátor kódu a modulu generování uživatelského rozhraní.
+`dotnet aspnet-codegenerator` Globální příkaz spustí ASP.NET Core, generátor kódu a modulu generování uživatelského rozhraní.
 
 ## <a name="arguments"></a>Arguments
 
@@ -96,7 +97,7 @@ Následující části popisují možnosti dostupné pro podporované generátor
 * Oblast
 * Kontroler
 * Identita  
-* Razorpage
+* razorpage
 * Zobrazit
 
 <a name="area"></a>
@@ -142,7 +143,7 @@ dotnet aspnet-codegenerator controller -h
 
 Zobrazit [generování uživatelského rozhraní modelu film](/aspnet/core/tutorials/razor-pages/model) příklad `dotnet aspnet-codegenerator controller`.
 
-### <a name="razorpage"></a>Razorpage
+### <a name="razorpage"></a>razorpage
 
 <a name="rp"></a>
 
