@@ -2,16 +2,17 @@
 title: Testování částí stránky Razor v ASP.NET Core
 author: guardrex
 description: Zjistěte, jak vytvořit testy jednotek pro aplikace stránky Razor.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/27/2017
+ms.date: 07/07/2017
 uid: test/razor-pages-tests
-ms.openlocfilehash: f0e47f975579dc114eaeda375028ec62696f58ed
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: f89b4fcb0065e725f70deec7859e373f9158b4bd
+ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394742"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67622782"
 ---
 # <a name="razor-pages-unit-tests-in-aspnet-core"></a>Testování částí stránky Razor v ASP.NET Core
 
@@ -26,20 +27,20 @@ ASP.NET Core podporuje testů jednotek aplikací pro stránky Razor. Testy dat p
 
 Toto téma předpokládá, že máte základní znalosti o aplikace Razor Pages a testy jednotek. Pokud nejste obeznámeni s Razor Pages aplikace nebo koncepty testu, naleznete v následujících tématech:
 
-* [Úvod do Razor Pages](xref:razor-pages/index)
-* [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start)
+* <xref:razor-pages/index>
+* <xref:tutorials/razor-pages/razor-pages-start>
 * [Testování jednotek C# v .NET Core pomocí příkazu dotnet test a xUnit](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/razor-pages-tests/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázkový projekt se skládá ze dvou aplikací:
 
-| Aplikace         | Složka projektu                        | Popis |
-| ----------- | ------------------------------------- | ----------- |
-| Aplikace zprávy | *src/RazorPagesTestSample*            | Umožňuje uživateli přidat, toku nějaký tok odstranit, odstraňte všechny a analyzovat zprávy. |
-| Test aplikace    | *tests/RazorPagesTestSample.Tests*    | Používá se pro testování částí aplikace zprávu: Vrstva přístupu k datům (DAL) a model Index stránky. |
+| Aplikace         | Složka projektu                     | Popis |
+| ----------- | ---------------------------------- | ----------- |
+| Aplikace zprávy | *src/RazorPagesTestSample*         | Umožňuje uživateli přidat zprávu, odstraňte jednu zprávu, odstranit všechny zprávy a analyzovat zprávy (Najít průměrný počet slov za zprávy). |
+| Test aplikace    | *tests/RazorPagesTestSample.Tests* | Používá k testování částí vrstvy DAL a model Index stránky zprávy aplikace. |
 
-Testy můžete spustit pomocí integrované testovací funkce integrované vývojové prostředí, například [sady Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazového řádku, spusťte následující příkaz na příkazovém řádku v *tests/RazorPagesTestSample.Tests* složky:
+Testy můžete spustit pomocí integrované testovací funkce integrované vývojové prostředí, například [sady Visual Studio](/visualstudio/test/unit-test-your-code) nebo [Visual Studio for Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazového řádku, spusťte následující příkaz na příkazovém řádku v *tests/RazorPagesTestSample.Tests* složky:
 
 ```console
 dotnet test
@@ -47,17 +48,17 @@ dotnet test
 
 ## <a name="message-app-organization"></a>Zpráva aplikace organizace
 
-Zpráva aplikace je jednoduchý systém zpráv pro stránky Razor s následujícími charakteristikami:
+Aplikace zprávy je zpráva systém stránky Razor s následujícími charakteristikami:
 
-* Index stránky aplikace (*Pages/Index.cshtml* a *Pages/Index.cshtml.cs*) poskytuje uživatelské rozhraní a stránky model metody řídit přidání, odstranění a analýzy zprávy (průměrná slov za zprávy) .
+* Index stránky aplikace (*Pages/Index.cshtml* a *Pages/Index.cshtml.cs*) poskytuje uživatelské rozhraní a stránky model metody řídit přidání, odstranění a analýzy (Najít průměrný počet zpráv slov za zprávy).
 * Zprávu je popsán `Message` třídy (*Data/Message.cs*) s dvě vlastnosti: `Id` (klíč) a `Text` (zprávy). `Text` Vlastnost je požadováno a omezené na 200 znaků.
 * Zprávy jsou bezpečně uložené pomocí [databáze v paměti rozhraní Entity Framework](/ef/core/providers/in-memory/)&#8224;.
-* Aplikace obsahuje vrstvy přístupu k datům (DAL) ve své třídě kontext databáze `AppDbContext` (*Data/AppDbContext.cs*). DAL metody jsou označeny `virtual`, což umožňuje napodobování metody pro použití v testech.
+* Aplikace obsahuje DAL ve své třídě kontext databáze `AppDbContext` (*Data/AppDbContext.cs*). DAL metody jsou označeny `virtual`, což umožňuje napodobování metody pro použití v testech.
 * Pokud je při spuštění aplikace prázdné databáze, úložiště zpráv je inicializován pomocí tří zpráv. Tyto *nasadí zprávy* se také používají v testech.
 
 &#8224;Téma EF [Test s InMemory](/ef/core/miscellaneous/testing/in-memory), vysvětluje, jak používat databázi v paměti pro testy s použitím MSTest. Toto téma používá [xUnit](https://xunit.github.io/) rozhraní pro testování. Koncepty testu a testovací implementace napříč různými testovacími architektury jsou podobné, ale nejsou identické.
 
-I když se aplikace nepoužívá model úložiště a není efektivní příklad [pracovní jednotka (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), stránky Razor podporuje tyto způsoby vývoje. Další informace najdete v tématu [návrh vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovací kontroler logiku](/aspnet/core/mvc/controllers/testing) (ukázka implementuje vzor úložiště).
+I když se nepoužívá model úložiště ukázkové aplikace a není efektivní příklad [pracovní jednotka (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), stránky Razor podporuje tyto způsoby vývoje. Další informace najdete v tématu [návrh vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a <xref:mvc/controllers/testing> (ukázka implementuje vzor úložiště).
 
 ## <a name="test-app-organization"></a>Testování aplikace organizace
 
@@ -81,7 +82,7 @@ Zpráva k němu má aplikace DAL se čtyři metody obsažené v `AppDbContext` t
 | `DeleteAllMessagesAsync` | Odstraní všechny `Message` položky z databáze.                           |
 | `DeleteMessageAsync`     | Odstraní jeden `Message` z databáze pomocí `Id`.                      |
 
-Testy jednotek DAL vyžadují [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) při vytváření nového `AppDbContext` pro každý test. Jedním z přístupů k vytváření `DbContextOptions` pro každý test, je použít [DbContextOptionsBuilder](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder):
+Testy jednotek DAL vyžadují <xref:Microsoft.EntityFrameworkCore.DbContextOptions> při vytváření nového `AppDbContext` pro každý test. Jedním z přístupů k vytváření `DbContextOptions` pro každý test, je použít <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder>:
 
 ```csharp
 var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>()
@@ -148,15 +149,15 @@ Další sady testů jednotek je zodpovědná za testy model metody stránky. V a
 | Metoda modelu stránky | Funkce |
 | ----------------- | -------- |
 | `OnGetAsync` | Získá zprávy z vrstvy DAL pomocí uživatelského rozhraní `GetMessagesAsync` metody. |
-| `OnPostAddMessageAsync` | Pokud `ModelState` je platná, volá `AddMessageAsync` k přidání zprávy do databáze. |
+| `OnPostAddMessageAsync` | Pokud [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) je platná, volá `AddMessageAsync` k přidání zprávy do databáze. |
 | `OnPostDeleteAllMessagesAsync` | Volání `DeleteAllMessagesAsync` odstranit všechny zprávy v databázi. |
 | `OnPostDeleteMessageAsync` | Spustí `DeleteMessageAsync` se má odstranit zpráva s `Id` zadané. |
 | `OnPostAnalyzeMessagesAsync` | Pokud jeden nebo více zpráv v databázi, vypočítá průměrný počet slov za zprávy. |
 
 Model metody stránky jsou testovány pomocí sedm testy v `IndexPageTests` třídy (*tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs*). Testy pomocí známých uspořádat vyhodnocení Act vzor. Zaměřte se na tyto testy:
 
-* Určení, pokud podle metody správné chování při `ModelState` je neplatný.
-* Potvrzují se metody vytvoření správné `IActionResult`.
+* Určení, pokud podle metody správné chování při [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) je neplatný.
+* Potvrzují se metody vytvoření správné <xref:Microsoft.AspNetCore.Mvc.IActionResult>.
 * Kontroluje se, že jsou správně provedené přiřazení hodnoty vlastnosti.
 
 Tato skupina testy často napodobení metody vrstvy DAL k vytvoření očekávaná data Act krok, kde provedení metody modelu stránky. Například `GetMessagesAsync` metodu `AppDbContext` imitace výstup. Jakmile model metoda stránky spustí tuto metodu, model vrátí výsledek. Data nepochází od databáze. Tím se vytvoří předvídatelný a spolehlivý testovací podmínky pro použití vrstvy DAL v testech modelu stránky.
@@ -181,17 +182,18 @@ V `Assert` krok, skutečné zprávy (`actualMessages`) se přidělují `Messages
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet3)]
 
-Ostatní testy v této skupině vytvořit stránku objekty modelu, které zahrnují `DefaultHttpContext`, `ModelStateDictionary`, `ActionContext` navázat `PageContext`, `ViewDataDictionary`a `PageContext`. Toto jsou užitečné při provádění testů. Například vytváří aplikace zprávy `ModelState` chyba s `AddModelError` zkontroluje, jestli platný `PageResult` je vrácena, pokud `OnPostAddMessageAsync` spuštění:
+Ostatní testy v této skupině vytvořit stránku objekty modelu, které zahrnují <xref:Microsoft.AspNetCore.Http.DefaultHttpContext>, <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary>, <xref:Microsoft.AspNetCore.Mvc.ActionContext> navázat `PageContext`, `ViewDataDictionary`a `PageContext`. Toto jsou užitečné při provádění testů. Například vytváří aplikace zprávy `ModelState` chyba s <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> zkontroluje, jestli platný <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageResult> je vrácena, pokud `OnPostAddMessageAsync` spuštění:
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/UnitTests/IndexPageTests.cs?name=snippet4&highlight=11,26,29,32)]
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Testování jednotek C# v .NET Core pomocí příkazu dotnet test a xUnit](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
-* [Testovací kontrolery](xref:mvc/controllers/testing)
+* <xref:mvc/controllers/testing>
 * [Testování částí kódu](/visualstudio/test/unit-test-your-code) (Visual Studio)
-* [Integrační testy](xref:test/integration-tests)
+* <xref:test/integration-tests>
 * [xUnit.net](https://xunit.github.io/)
-* [Začínáme s xUnit.net (.NET Core/ASP.NET Core)](https://xunit.github.io/docs/getting-started-dotnet-core)
+* [Vytvoření kompletního řešení .NET Core v systému macOS pomocí sady Visual Studio pro Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution)
+* [Začínáme s xUnit.net: Použití .NET Core z příkazového řádku sady .NET SDK](https://xunit.github.io/docs/getting-started-dotnet-core)
 * [Moq](https://github.com/moq/moq4)
 * [Rychlý start Moq](https://github.com/Moq/moq4/wiki/Quickstart)
