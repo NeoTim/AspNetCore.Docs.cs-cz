@@ -4,14 +4,14 @@ author: prkhandelwal
 description: Tento kurz ukazuje vytvoření webového rozhraní ASP.NET Core API pomocí databáze MongoDB NoSQL.
 ms.author: scaddie
 ms.custom: mvc, seodec18
-ms.date: 06/10/2019
+ms.date: 07/10/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 426b4c0dee290153b9b1bf83deec14fa728183cb
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.openlocfilehash: c64f6e69a19e294a18cc72c860af0a03ef70d444
+ms.sourcegitcommit: 357a7120632b20465801c093e4e5bd4a315496a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048079"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67649196"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
@@ -109,6 +109,9 @@ Použití prostředí mongo v následujících krocích k vytvoření databáze,
       ]
     }
     ```
+  
+  > [!NOTE]
+  > ID je znázorněno v tomto článku nebudou odpovídat ID při spuštění této ukázky.
 
 1. Zobrazte dokumenty v databázi pomocí následujícího příkazu:
 
@@ -318,11 +321,11 @@ Předchozí kontroler web API:
     ]
     ```
 
-1. Přejděte do `http://localhost:<port>/api/books/5bfd996f7b8e48dc15ff215e` kontroler testů je přetížena `Get` metody akce. Zobrazí se následující odpověď JSON:
+1. Přejděte do `http://localhost:<port>/api/books/{id here}` kontroler testů je přetížena `Get` metody akce. Zobrazí se následující odpověď JSON:
 
     ```json
     {
-      "id":"5bfd996f7b8e48dc15ff215e",
+      "id":"{ID}",
       "bookName":"Clean Code",
       "price":43.15,
       "category":"Computers",
