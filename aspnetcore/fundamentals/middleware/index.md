@@ -5,14 +5,14 @@ description: Další informace o ASP.NET Core middleware a kanál žádosti.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/03/2019
+ms.date: 07/09/2019
 uid: fundamentals/middleware/index
-ms.openlocfilehash: cdb4916f277c64e4f273b2a0b9a7a4074600f7b7
-ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
+ms.openlocfilehash: 74ecc1fa099d2d33ceb066decc912978da53bfb3
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/04/2019
-ms.locfileid: "67561595"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724460"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -78,7 +78,7 @@ Následující `Startup.Configure` metoda přidá middlewarových komponent pro 
 1. MVC (<xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*>) přidat do kanálu požadavku MVC.
 
 ```csharp
-public void Configure(IApplicationBuilder app)
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
     if (env.IsDevelopment())
     {

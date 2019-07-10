@@ -1109,7 +1109,7 @@ builder.AddContent(seq++, "Second");
 
 Nyní první výstup je následující:
 
-| Pořadí | Typ      | Data   | | :------: | --------- | :--- : | | 0        | Textový uzel | První   | | 1        | Textový uzel | Druhý |
+| Pořadí | Typ      | Data   | | :------: | --------- | :--- : | | 0        | Textový uzel | První  | | 1        | Textový uzel | Druhý |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je `false` v druhém vykreslování a výstup je:
 

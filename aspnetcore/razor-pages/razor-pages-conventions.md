@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: 4e07b5803adbce94982584212fa65afbfd427b64
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 59c8af648b50deb51f3762c14348d08acd48886e
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899736"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724447"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>Konvence směrování a aplikačních stránky Razor v ASP.NET Core
 
@@ -226,7 +226,7 @@ Všimněte si, že adresa URL se vygeneruje pro **kontakt** odkaz na vykreslené
 
 Navštivte stránku nástroje kontakt na buď jeho běžný trasu `/Contact`, nebo vlastní trasy `/TheContactPage`. Pokud zadáte další `text` trasy segmentu, na stránce se zobrazí segment kódovaný jazykem HTML, že zadáte:
 
-![Příklad prohlížeče Microsoft Edge poskytnutí segment trasy volitelné 'text' 'TextValue"v adrese URL. Na vykreslené stránce zobrazuje hodnota 'text' segmentu.](razor-pages-conventions/_static/route-segment-with-custom-route.png)
+![Příklad prohlížeče Edge poskytnutí segment trasy volitelné 'text' 'TextValue"v adrese URL. Na vykreslené stránce zobrazuje hodnota 'text' segmentu.](razor-pages-conventions/_static/route-segment-with-custom-route.png)
 
 ## <a name="page-model-action-conventions"></a>Konvence akce modelu stránky
 
@@ -270,7 +270,7 @@ Ukázka demonstruje použití `AddPageApplicationModelConvention` přidáním z�
 
 Model stránky aplikace se používá ke kontrole relativní cestu pro segmenty, které vedou na stránku strany Page2 *OtherPages* složky. Pokud bude podmínka splněna, se přidá hlavičku. Pokud ne, `EmptyFilter` platí.
 
-`EmptyFilter` je [filtr akce](xref:mvc/controllers/filters#action-filters). Protože filtrů Akce ignorovány pomocí Razor Pages `EmptyFilter` operace tak, jak má, pokud cesta neobsahuje `OtherPages/Page2`.
+`EmptyFilter` je [filtr akce](xref:mvc/controllers/filters#action-filters). Protože filtrů Akce ignorovány pomocí Razor Pages `EmptyFilter` nemá žádný vliv, tak, jak má, pokud cesta neobsahuje `OtherPages/Page2`.
 
 Požadavek ukázky strany Page2 stránku na `localhost:5000/OtherPages/Page2` a zkontrolujte záhlaví, abyste viděli výsledek:
 
