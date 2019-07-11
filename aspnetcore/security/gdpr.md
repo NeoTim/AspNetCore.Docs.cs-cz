@@ -2,23 +2,47 @@
 title: General Data Protection Regulation (GDPR) podporují v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak získat přístup k GDPR Rozšiřovací body ve webové aplikaci ASP.NET Core.
-monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/05/2019
+ms.date: 07/11/2019
 uid: security/gdpr
-ms.openlocfilehash: 1580187afef56e8e2f5be7a4bae32912e6305c5a
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 01d2f8943c0995c1400122b89c4ca7c459a85279
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152866"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724566"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>Podpora EU obecného Regulation (GDPR) v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ASP.NET Core nabízí rozhraní API a šablony, které vám pomohou splnit některé [EU obecného Regulation (GDPR)](https://www.eugdpr.org/) požadavky:
+
+::: moniker range=">= aspnetcore-3.0"
+
+* Šablony projektů zahrnout Rozšiřovací body a provizorní kód, který můžete nahradit ochrany osobních údajů a zásady použití souborů cookie.
+* *Pages/Privacy.cshtml* stránky nebo *Views/Home/Privacy.cshtml* zobrazení obsahuje stránku, kterou chcete podrobnosti o zásadách ochrany osobních údajů vašeho webu.
+
+Součástí šablony ASP.NET Core 2.2 v aplikaci ASP.NET Core 3.0 vygenerovanou šablonu k povolení této funkce výchozí soubor cookie souhlas s tímto způsobem:
+
+* Přidat [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions) příliš `Startup.ConfigureServices` a [UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy) k `Startup.Configure`:
+
+  [!code-csharp[Main](gdpr/sample/RP3.0/Startup.cs?name=snippet1&highlight=12-19,38)]
+
+* Přidejte částečnou souhlasu soubor cookie k *_Layout.cshtml* souboru:
+
+  [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_Layout.cshtml?name=snippet&highlight=4)]
+
+* Přidat  *\_CookieConsentPartial.cshtml* soubor do projektu:
+
+  [!code-cshtml[Main](gdpr/sample/RP3.0/Pages/Shared/_CookieConsentPartial.cshtml)]
+
+* Vyberte verzi 2.2 technologie ASP.NET Core tohoto článku, přečtěte si informace o funkci soubor cookie souhlas.
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 * Šablony projektů zahrnout Rozšiřovací body a provizorní kód, který můžete nahradit ochrany osobních údajů a zásady použití souborů cookie.
 * Souhlas funkci soubor cookie umožňuje požádat o (a sledovat) souhlas uživatele pro ukládání osobních údajů. Pokud uživatel nevyjádřil souhlas shromažďování dat a k němu má aplikace [CheckConsentNeeded](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions.checkconsentneeded) nastavena na `true`, které není nezbytné soubory cookie se neodesílají do prohlížeče.
@@ -32,17 +56,7 @@ ASP.NET Core nabízí rozhraní API a šablony, které vám pomohou splnit někt
 
 ## <a name="aspnet-core-gdpr-support-in-template-generated-code"></a>ASP.NET Core GDPR podporují v šabloně generovaný kód
 
-::: moniker range="< aspnetcore-2.2"
-
-Stránky Razor a MVC projekty vytvořené pomocí šablony projektu mají žádná podpora pro vyjádření souhlasu GDPR nebo soubor cookie. Chcete-li přidat podle nařízení GDPR, zkopírujte kód generovaný v šablonách 2.2 technologie ASP.NET Core.
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.2"
-
 Stránky Razor a MVC projekty vytvořené pomocí šablony projektu zahrnují následující podpory nařízení GDPR:
-
-::: moniker-end
 
 * [CookiePolicyOptions](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyoptions) a [UseCookiePolicy](/dotnet/api/microsoft.aspnetcore.builder.cookiepolicyappbuilderextensions.usecookiepolicy) jsou nastaveny `Startup` třídy.
 * *\_CookieConsentPartial.cshtml* [částečné zobrazení](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper). **Přijmout** tlačítko je zahrnuta v tomto souboru. Pokud uživatel klikne **přijmout** tlačítko, vyjadřoval souhlas k ukládání souborů cookie je k dispozici.
@@ -63,7 +77,7 @@ Stránky Razor a MVC projekty vytvořené pomocí šablony projektu zahrnují n�
 
 *\_CookieConsentPartial.cshtml* částečné zobrazení:
 
-[!code-html[](gdpr/sample/RP/Pages/Shared/_CookieConsentPartial.cshtml)]
+[!code-html[](gdpr/sample/RP2.2/Pages/Shared/_CookieConsentPartial.cshtml)]
 
 Tato části:
 
@@ -75,7 +89,7 @@ Tato části:
 
 Pokud souhlas k ukládání souborů cookie nebyl zadán, jsou jenom soubory cookie označené základní odesláno prohlížeči. Následující kód provede základní cookie:
 
-[!code-csharp[Main](gdpr/sample/RP/Pages/Cookie.cshtml.cs?name=snippet1&highlight=5)]
+[!code-csharp[Main](gdpr/sample/RP2.2/Pages/Cookie.cshtml.cs?name=snippet1&highlight=5)]
 
 <a name="tempdata"></a>
 
@@ -83,11 +97,11 @@ Pokud souhlas k ukládání souborů cookie nebyl zadán, jsou jenom soubory coo
 
 [TempData poskytovatele](xref:fundamentals/app-state#tempdata) souboru cookie není podstatné. Pokud sledování je vypnuté, zprostředkovatel TempData není funkční. K povolení zprostředkovatele TempData při sledování je vypnuté, označte TempData soubor cookie jako důležité pro `Startup.ConfigureServices`:
 
-[!code-csharp[Main](gdpr/sample/RP/Startup.cs?name=snippet1)]
+[!code-csharp[Main](gdpr/sample/RP2.2/Startup.cs?name=snippet1)]
 
 [Stav relace](xref:fundamentals/app-state) soubory cookie nejsou nezbytně nutné. Stav relace není funkční, při sledování je vypnuté. Následující kód provede nezbytné soubory cookie relace:
 
-[!code-csharp[](gdpr/sample/RP/Startup.cs?name=snippet2)]
+[!code-csharp[](gdpr/sample/RP2.2/Startup.cs?name=snippet2)]
 
 <a name="pd"></a>
 
@@ -105,6 +119,8 @@ Poznámky:
 * **Odstranit** a **Stáhnout** odkazy reagovat jen na výchozí identifikační údaje. Aplikace, které vytvořit vlastní uživatelská data musí být rozšířené na odstranění a stažení vlastní uživatelská data. Další informace najdete v tématu [přidat, stahování a odstranit vlastní uživatelská data na identitu](xref:security/authentication/add-user-data).
 * Uložit tokeny pro daného uživatele, které jsou uložené v tabulce databáze Identity `AspNetUserTokens` se odstraní při odstranění uživatele prostřednictvím kaskádové odstranění chování kvůli [cizí klíč](https://github.com/aspnet/Identity/blob/release/2.1/src/EF/IdentityUserContext.cs#L152).
 * [Externí zprostředkovatel ověřování](xref:security/authentication/social/index), jako je Facebook nebo Google, není k dispozici, před přijetím zásady souboru cookie.
+
+::: moniker-end
 
 ## <a name="encryption-at-rest"></a>Šifrování v klidovém stavu
 
