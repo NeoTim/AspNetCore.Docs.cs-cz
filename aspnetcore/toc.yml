@@ -981,6 +981,8 @@
           uid: performance/caching/distributed
         - name: Middleware pro ukládání odpovědí do mezipaměti
           uid: performance/caching/middleware
+        - name: Opětovné používání objektů s využitím třídy ObjectPool
+          uid: performance/ObjectPool
     - name: Komprese odpovědí
       uid: performance/response-compression
     - name: Diagnostické nástroje
