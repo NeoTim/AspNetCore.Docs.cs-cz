@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/05/2019
 uid: test/integration-tests
-ms.openlocfilehash: 3af2a1f7c6a65d7ff42597972ee151a50fc95fb6
-ms.sourcegitcommit: c716ea9155a6b404c1f3d3d34e2388454cd276d7
+ms.openlocfilehash: a4e22e53b4658a7c6da3c9e15671a355b212f559
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66716377"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815370"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -184,7 +184,7 @@ Konfigurace webového hostitele je možné vytvořit nezávisle na testovacích 
   * Tlačítko Odeslat (`IHtmlElement`) a hodnoty (`IEnumerable<KeyValuePair<string, string>>`)
 
 > [!NOTE]
-> [AngleSharp](https://anglesharp.github.io/) je třetí strany parsování knihovna používaná pro demonstrační účely v tomto tématu a ukázkovou aplikaci. AngleSharp není podporován nebo potřebné pro testování integrace aplikací ASP.NET Core. Další analyzátory je možné, například [Html flexibilitu Pack (HAP)](http://html-agility-pack.net/). Další možností je napsat kód pro zpracování žádosti o token pro ověření a antiforgery soubor cookie antiforgery systému přímo.
+> [AngleSharp](https://anglesharp.github.io/) je třetí strany parsování knihovna používaná pro demonstrační účely v tomto tématu a ukázkovou aplikaci. AngleSharp není podporován nebo potřebné pro testování integrace aplikací ASP.NET Core. Další analyzátory je možné, například [Html flexibilitu Pack (HAP)](https://html-agility-pack.net/). Další možností je napsat kód pro zpracování žádosti o token pro ověření a antiforgery soubor cookie antiforgery systému přímo.
 
 ## <a name="customize-the-client-with-withwebhostbuilder"></a>Vlastní nastavení klienta se WithWebHostBuilder
 

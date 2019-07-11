@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tato ukázka předvádí, integrace ověřování uživatele účtu Microsoft do stávající aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 5/11/2019
+ms.date: 05/11/2019
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 16ec2d5f2bccc59958b884869ef42af9cfa13df0
-ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
+ms.openlocfilehash: 2c690e5bd8465806d42091616917cfdd747ef8f0
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67316593"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815578"
 ---
 # <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Nastavení Microsoft Account externí přihlášení pomocí ASP.NET Core
 
@@ -87,7 +87,7 @@ Nyní jste přihlášeni pomocí svých přihlašovacích údajů společnosti M
 * Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"* . Šablona projektu používané v tomto příkladu zajistí, že se to.
 * Pokud nebyl vytvořen použití počáteční migraci databáze lokality, se zobrazí *databázová operace selhala při zpracování požadavku* chyby. Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 * V tomto článku jsme si ukázali, jak můžete ověřit s Microsoftem. Můžete postupovat podle podobný přístup k ověření u jiných poskytovatelů na [předchozí stránce](xref:security/authentication/social/index).
 

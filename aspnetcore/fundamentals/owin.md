@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
-ms.openlocfilehash: 9d6ce79c15fe768c260c6361ac3babecab5f3f9b
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 7edb4db026f1b778d43ac72883690a0b2a18ee31
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087304"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814899"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřete Web Interface pro .NET (OWIN) s ASP.NET Core
 
@@ -35,7 +35,7 @@ To umožňuje zajistit také jejich hostování nad OWIN kompatibilní serveru/h
 
 Podpora OWIN ASP.NET Core je nasazen jako součást `Microsoft.AspNetCore.Owin` balíčku. Podpora OWIN můžete importovat do projektu po instalaci tohoto balíčku.
 
-Middlewaru OWIN, který odpovídá [specifikace OWIN](http://owin.org/spec/spec/owin-1.0.0.html), což vyžaduje `Func<IDictionary<string, object>, Task>` nastaví rozhraní a konkrétní klíče (například `owin.ResponseBody`). Následující jednoduchý middlewaru OWIN, který se zobrazí "Hello World":
+Middlewaru OWIN, který odpovídá [specifikace OWIN](https://owin.org/spec/spec/owin-1.0.0.html), což vyžaduje `Func<IDictionary<string, object>, Task>` nastaví rozhraní a konkrétní klíče (například `owin.ResponseBody`). Následující jednoduchý middlewaru OWIN, který se zobrazí "Hello World":
 
 ```csharp
 public Task OwinHello(IDictionary<string, object> environment)
@@ -43,7 +43,7 @@ public Task OwinHello(IDictionary<string, object> environment)
     string responseText = "Hello World via OWIN";
     byte[] responseBytes = Encoding.UTF8.GetBytes(responseText);
 
-    // OWIN Environment Keys: http://owin.org/spec/spec/owin-1.0.0.html
+    // OWIN Environment Keys: https://owin.org/spec/spec/owin-1.0.0.html
     var responseStream = (Stream)environment["owin.ResponseBody"];
     var responseHeaders = (IDictionary<string, string[]>)environment["owin.ResponseHeaders"];
 
@@ -230,7 +230,7 @@ Prostředí OWIN pomocí můžete sestavit `HttpContext`.
 
 ## <a name="owin-keys"></a>Klíče OWIN
 
-OWIN závisí `IDictionary<string,object>` objekt ke sdělování informací v celé výměně požadavků/odpovědí HTTP. ASP.NET Core implementuje klíče uvedených níže. Zobrazit [primární specifikace, rozšíření](http://owin.org/#spec), a [pokyny klíč OWIN a společné klíče](http://owin.org/spec/spec/CommonKeys.html).
+OWIN závisí `IDictionary<string,object>` objekt ke sdělování informací v celé výměně požadavků/odpovědí HTTP. ASP.NET Core implementuje klíče uvedených níže. Zobrazit [primární specifikace, rozšíření](https://owin.org/#spec), a [pokyny klíč OWIN a společné klíče](https://owin.org/spec/spec/CommonKeys.html).
 
 ### <a name="request-data-owin-v100"></a>Data žádosti (OWIN v1.0.0)
 
@@ -284,14 +284,14 @@ OWIN závisí `IDictionary<string,object>` objekt ke sdělování informací v c
 
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| sendfile.SendAsync | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) | Každý požadavek |
+| sendfile.SendAsync | Zobrazit [signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) | Každý požadavek |
 
 ### <a name="opaque-v030"></a>Neprůhledný v0.3.0
 
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
 | opaque.Version | `String` |  |
-| opaque.Upgrade | `OpaqueUpgrade` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
+| opaque.Upgrade | `OpaqueUpgrade` | Zobrazit [signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
 | opaque.Stream | `Stream` |  |
 | opaque.CallCancelled | `CancellationToken` |  |
 
@@ -300,12 +300,12 @@ OWIN závisí `IDictionary<string,object>` objekt ke sdělování informací v c
 | Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
 | websocket.Version | `String` |  |
-| objekt websocket. Přijmout | `WebSocketAccept` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
+| objekt websocket. Přijmout | `WebSocketAccept` | Zobrazit [signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
 | websocket.AcceptAlt |  | Bez specifikace |
 | objekt websocket. Dílčí protokol | `String` | Zobrazit [RFC6455 části 4.2.2](https://tools.ietf.org/html/rfc6455#section-4.2.2) krok 5.5 |
-| websocket.SendAsync | `WebSocketSendAsync` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
-| websocket.ReceiveAsync | `WebSocketReceiveAsync` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
-| websocket.CloseAsync | `WebSocketCloseAsync` | Zobrazit [signatura delegáta](http://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
+| websocket.SendAsync | `WebSocketSendAsync` | Zobrazit [signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
+| websocket.ReceiveAsync | `WebSocketReceiveAsync` | Zobrazit [signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
+| websocket.CloseAsync | `WebSocketCloseAsync` | Zobrazit [signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
 | objekt websocket. CallCancelled | `CancellationToken` |  |
 | websocket.ClientCloseStatus | `int` | volitelná, |
 | websocket.ClientCloseDescription | `String` | volitelná, |

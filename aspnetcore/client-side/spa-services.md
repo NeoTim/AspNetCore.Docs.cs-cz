@@ -7,16 +7,16 @@ ms.author: scaddie
 ms.custom: H1Hack27Feb2017
 ms.date: 05/28/2019
 uid: client-side/spa-services
-ms.openlocfilehash: c7cd35865c5bddf0e5efaa9e616832b6755d9227
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: 19710b58bca606d21feda9069ad00edd1e4f72e9
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750121"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813476"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>Použití služeb jazyka JavaScript vytvořte jednostránkové aplikace v ASP.NET Core
 
-Podle [Scott Addie](https://github.com/scottaddie) a [Fiyaz Hasan](http://fiyazhasan.me/)
+Podle [Scott Addie](https://github.com/scottaddie) a [Fiyaz Hasan](https://fiyazhasan.me/)
 
 Jednu stránku aplikace (SPA) je typ oblíbené webové aplikace z důvodu jeho přináší bohaté uživatelské prostředí. Integrace rozhraní jednostránková aplikace na straně klienta nebo knihovny, například [Angular](https://angular.io/) nebo [React](https://facebook.github.io/react/), pomocí rozhraní na straně serveru, jako jsou ASP.NET Core může být obtížné. Omezíte třecí plochy v procesu integrace byla vyvinuta služby jazyka JavaScript. Umožňuje bezproblémové operace mezi různých klientských a serverových sad technologie.
 
@@ -96,7 +96,7 @@ Tyto pomocné rutiny značek abstrakci složitými rozhraními komunikovat pří
 
 ### <a name="asp-prerender-module-tag-helper"></a>Pomocná rutina značky prostředí ASP. provedením operace prerender modulu
 
-`asp-prerender-module` Pomocné rutiny značky použité v předchozím příkladu kód provede *ClientApp/dist/main-server.js* na serveru pomocí Node.js. Pro přehlednost společnosti saké *hlavní server.js* je artefakt úlohy transpilation TypeScript pro JavaScript v souboru [Webpacku](http://webpack.github.io/) procesu sestavení. Webpacku definuje vstupní bod aliasu `main-server`; a procházení grafu závislostí pro tento alias začíná *ClientApp/spouštěcí server.ts* souboru:
+`asp-prerender-module` Pomocné rutiny značky použité v předchozím příkladu kód provede *ClientApp/dist/main-server.js* na serveru pomocí Node.js. Pro přehlednost společnosti saké *hlavní server.js* je artefakt úlohy transpilation TypeScript pro JavaScript v souboru [Webpacku](https://webpack.github.io/) procesu sestavení. Webpacku definuje vstupní bod aliasu `main-server`; a procházení grafu závislostí pro tento alias začíná *ClientApp/spouštěcí server.ts* souboru:
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=53)]
 

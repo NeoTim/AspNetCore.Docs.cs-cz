@@ -6,12 +6,12 @@ ms.author: casoper
 ms.date: 09/21/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: 0eb8b533f44a1f72cfc3c4ec5ec060adb37eed6c
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: c917a5130857165716bd801ac19dad0f53a7d214
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610367"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815381"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>Ověřování ve webovém rozhraní API pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -46,11 +46,11 @@ Vytvoření tenanta Azure AD B2C [jak je popsáno v dokumentaci k](/azure/active
 
 ## <a name="configure-a-sign-up-or-sign-in-policy"></a>Konfigurace zásady registrace nebo přihlašování
 
-Použijte postup v dokumentaci k Azure AD B2C do [vytvořit zásadu registrace nebo přihlašování](/azure/active-directory-b2c/active-directory-b2c-reference-policies#create-a-sign-up-or-sign-in-policy). Název zásady **SiUpIn**.  Použít ukázkové hodnoty uvedeny v dokumentaci pro **zprostředkovatelé Identity**, **atributy registrace**, a **deklarace identit aplikace**. Použití **spustit nyní** tlačítko k otestování zásady, jak je popsáno v dokumentaci je volitelné.
+Použijte postup v dokumentaci k Azure AD B2C do [vytvořit zásadu registrace nebo přihlašování](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions). Název zásady **SiUpIn**.  Použít ukázkové hodnoty uvedeny v dokumentaci pro **zprostředkovatelé Identity**, **atributy registrace**, a **deklarace identit aplikace**. Použití **spustit nyní** tlačítko k otestování zásady, jak je popsáno v dokumentaci je volitelné.
 
 ## <a name="register-the-api-in-azure-ad-b2c"></a>Registrace rozhraní API v Azure AD B2C
 
-V nově vytvořeného tenanta Azure AD B2C, registrace vašeho rozhraní API pomocí [kroky v dokumentaci k](/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-api) pod **registrace webového rozhraní API** oddílu.
+V nově vytvořeného tenanta Azure AD B2C, registrace vašeho rozhraní API pomocí [kroky v dokumentaci k](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application) pod **registrace webového rozhraní API** oddílu.
 
 Použijte následující hodnoty:
 
@@ -106,7 +106,7 @@ V sadě Visual Studio spusťte rozhraní API. Visual Studio spustí prohlížeč
 
 ### <a name="register-postman-as-a-web-app"></a>Zaregistrujte se jako webová aplikace Postman
 
-Od Postman simuluje webové aplikace, který získává tokeny z tenanta Azure AD B2C, musí být zaregistrované v tenantovi jako webovou aplikaci. Registrovat pomocí nástroje Postman [kroky v dokumentaci k](/azure/active-directory-b2c/active-directory-b2c-app-registration#register-a-web-app) pod **zaregistrovat webovou aplikaci** oddílu. Zastavení při **vytvořit tajný kód klienta aplikace webového** oddílu. Pro účely tohoto kurzu není nutné tajný kód klienta. 
+Od Postman simuluje webové aplikace, který získává tokeny z tenanta Azure AD B2C, musí být zaregistrované v tenantovi jako webovou aplikaci. Registrovat pomocí nástroje Postman [kroky v dokumentaci k](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application) pod **zaregistrovat webovou aplikaci** oddílu. Zastavení při **vytvořit tajný kód klienta aplikace webového** oddílu. Pro účely tohoto kurzu není nutné tajný kód klienta. 
 
 Použijte následující hodnoty:
 

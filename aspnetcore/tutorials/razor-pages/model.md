@@ -5,12 +5,12 @@ description: Objevte, jak přidat třídy pro správu filmy v databázi pomocí 
 ms.author: riande
 ms.date: 02/12/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 44e6f53d517b0470c5e6fa785a4061e59cda9ce6
-ms.sourcegitcommit: 20ca93d72cb0b3998637724b44523e57b089c8fd
+ms.openlocfilehash: be9f515178d0169a69487f917c7d39c6f11f1292
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/09/2019
-ms.locfileid: "65473610"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815053"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -76,13 +76,17 @@ Klikněte pravým tlačítkem na *stránek/filmy* složky > **přidat** > **novo
 
 ![Image z předchozích kroků.](model/_static/sca.png)
 
-V **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **stránky Razor pomocí Entity Frameworku (CRUD)** > **přidat**.
+V **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **stránky Razor pomocí Entity Frameworku (CRUD)**  > **přidat**.
 
 ![Image z předchozích kroků.](model/_static/add_scaffold.png)
 
 Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogové okno:
+<!-- In the next section, change 
+(plus) sign and accept the generated name 
+to use Data, it should not use models. That will make the namespace the same for the VS version and the CLI version
+-->
 
-* V **třída modelu** rozevírací seznam, vyberte **Movie (RazorPagesMovie.Models)**.
+* V **třída modelu** rozevírací seznam, vyberte **Movie (RazorPagesMovie.Models)** .
 * V **třída kontextu dat** řádek, vyberte **+** (plus) podepsat a přijměte vygenerovaný název **RazorPagesMovie.Models.RazorPagesMovieContext**.
 * Vyberte **Přidat**.
 

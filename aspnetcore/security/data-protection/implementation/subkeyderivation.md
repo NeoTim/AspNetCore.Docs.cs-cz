@@ -5,12 +5,12 @@ description: Přečtěte si podrobnosti implementace ochrany dat ASP.NET Core po
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/subkeyderivation
-ms.openlocfilehash: 37e7b01700e8a6b755b5ed16a9d7d75a9eeb970e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: bbfde378755b09cd5b1217b8cf66249b9fa1d6ad
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898434"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814377"
 ---
 # <a name="subkey-derivation-and-authenticated-encryption-in-aspnet-core"></a>Odvozování podklíčů a ověřené šifrování v ASP.NET Core
 
@@ -37,7 +37,7 @@ Protože AAD je jedinečný pro n-tice všechny tři komponenty, můžeme je pou
 
 (K_E, K_H) = SP800_108_CTR_HMACSHA512 (contextHeader K_M AAD, || keyModifier)
 
-Tady, voláme KDF SP800 108 NIST v režimu čítače (naleznete v tématu [NIST SP800-108](http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf), s. 5.1) s následujícími parametry:
+Tady, voláme KDF SP800 108 NIST v režimu čítače (naleznete v tématu [NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf), s. 5.1) s následujícími parametry:
 
 * Odvození klíče key (KDK) = K_M
 

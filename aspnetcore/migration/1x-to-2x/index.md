@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: fb6157205ab5280eb982a61e834eea5074864830
-ms.sourcegitcommit: a3926eae3f687013027a2828830c12a89add701f
+ms.openlocfilehash: 056930f3c586153d13555bbb6036f46587e2352d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65450955"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815092"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>Migrace z technologie ASP.NET Core 1.x do 2.0
 
@@ -31,7 +31,7 @@ Zobrazit [Začínáme s ASP.NET Core](xref:getting-started).
 
 ## <a name="update-target-framework-moniker-tfm"></a>Aktualizovat Moniker cílového rozhraní (TFM)
 
-Používejte projekty cílené na .NET Core [TFM](/dotnet/standard/frameworks#referring-to-frameworks) verze větší než nebo rovna hodnotě .NET Core 2.0. Hledat `<TargetFramework>` uzlu v *.csproj* souboru a nahraďte jeho vnitřní text s `netcoreapp2.0`:
+Používejte projekty cílené na .NET Core [TFM](/dotnet/standard/frameworks) verze větší než nebo rovna hodnotě .NET Core 2.0. Hledat `<TargetFramework>` uzlu v *.csproj* souboru a nahraďte jeho vnitřní text s `netcoreapp2.0`:
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=3)]
 

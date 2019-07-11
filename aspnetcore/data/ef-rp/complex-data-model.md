@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: a65543f805b197031bd46ef1974d4d4a5018b2d1
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: f995f3f74da4910de518af875eb89349a8457573
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65516906"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813715"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – Model dat – 5 z 8
 
@@ -486,7 +486,7 @@ Předchozí kód přidá nové entity a nakonfiguruje `CourseAssignment` složen
 
 ## <a name="fluent-api-alternative-to-attributes"></a>Fluent API alternativou k atributům
 
-`OnModelCreating` Metoda v předchozím kódu používá *rozhraní fluent API* konfigurace chování EF Core. Rozhraní API se nazývá "fluent", protože je často používána zavěšování řadu volání metody společně na jediném příkazu. [Následující kód](/ef/core/modeling/#methods-of-configuration) je příkladem rozhraní fluent API:
+`OnModelCreating` Metoda v předchozím kódu používá *rozhraní fluent API* konfigurace chování EF Core. Rozhraní API se nazývá "fluent", protože je často používána zavěšování řadu volání metody společně na jediném příkazu. [Následující kód](/ef/core/modeling/#use-fluent-api-to-configure-a-model) je příkladem rozhraní fluent API:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -512,7 +512,7 @@ Některé atributy použité v tomto kurzu se používají pro:
 * EF Core jenom konfiguraci (například `HasKey`).
 * Konfigurace ověření a EF Core (například `[StringLength(50)]`).
 
-Další informace o atributech vs. rozhraní fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/#methods-of-configuration).
+Další informace o atributech vs. rozhraní fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/).
 
 ## <a name="entity-diagram-showing-relationships"></a>Diagram znázorňující entitami
 

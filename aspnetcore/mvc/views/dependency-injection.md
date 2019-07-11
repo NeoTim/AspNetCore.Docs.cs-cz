@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core podporuje injektáž závislostí do zo
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: b411b164bfea81f82c5c9fc1052e0ecfe65f0bc2
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: 63feea5ddf286dd3e659f3a622cfb0f7451b9bba
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65517054"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815343"
 ---
 # <a name="dependency-injection-into-views-in-aspnet-core"></a>Injektáž závislostí do zobrazení v ASP.NET Core
 
@@ -106,4 +106,4 @@ Pokud chcete rozšířit stávající služby, můžete jednoduše použít tent
 
 ## <a name="see-also"></a>Viz také
 
-* Simon Timms blogu: [Načítání dat vyhledávací do zobrazení](http://blog.simontimms.com/2015/06/09/getting-lookup-data-into-you-view/)
+* Simon Timms blogu: [Načítání dat vyhledávací do zobrazení](https://blog.simontimms.com/2015/06/09/getting-lookup-data-into-you-view/)

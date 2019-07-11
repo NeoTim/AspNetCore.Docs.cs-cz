@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: c3ec67d9f5c2b8eb44b5ced911ccfd0fa40a52a7
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 6254a74fd0a11669706a2a89b156a3223e300d1c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152767"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813499"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Vytvoření balíčku a minifikace statické prostředky v ASP.NET Core
 
@@ -86,7 +86,7 @@ V ASP.NET Core 2.1 nebo novější, přidejte nový soubor JSON s názvem *bundl
 Možnosti konfigurace patří:
 
 * `outputFileName`: Název souboru svazku do výstupu. Může obsahovat relativní cestu z *bundleconfig.json* souboru. **Vyžaduje**
-* `inputFiles`: Pole souborů, které mají spojit dohromady. Jedná se o relativní cesty ke konfiguračnímu souboru. **volitelné**, * prázdnou hodnotu výsledkem prázdná výstupní soubor. [podpory zástupných znaků](http://www.tldp.org/LDP/abs/html/globbingref.html) vzory jsou podporovány.
+* `inputFiles`: Pole souborů, které mají spojit dohromady. Jedná se o relativní cesty ke konfiguračnímu souboru. **volitelné**, * prázdnou hodnotu výsledkem prázdná výstupní soubor. [podpory zástupných znaků](https://www.tldp.org/LDP/abs/html/globbingref.html) vzory jsou podporovány.
 * `minify`: Připravenost k minifikaci možnosti pro typ výstupu. **volitelné**, *výchozí – `minify: { enabled: true }`*
   * Možnosti konfigurace jsou k dispozici na typ výstupního souboru.
     * [CSS Minifier](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)

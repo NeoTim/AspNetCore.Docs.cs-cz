@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 893cde6ee6f4cbcc4051453c66b7405153a55d36
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.openlocfilehash: 80f5e3260ce991ef67fa2a0dd36f8be1f70b6271
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67500440"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813378"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor hostování modelů
 
 Podle [Daniel Roth](https://github.com/danroth27)
 
-Blazor je webové rozhraní navržené ke spuštění na straně klienta v prohlížeči na [WebAssembly](http://webassembly.org/)– na základě modulu runtime .NET (*Blazor na straně klienta*) nebo na serveru ASP.NET Core (*Blazor na straně serveru* ). Bez ohledu na modelech hostování modelu, aplikace a komponenty *jsou stejné*.
+Blazor je webové rozhraní navržené ke spuštění na straně klienta v prohlížeči na [WebAssembly](https://webassembly.org/)– na základě modulu runtime .NET (*Blazor na straně klienta*) nebo na serveru ASP.NET Core (*Blazor na straně serveru* ). Bez ohledu na modelech hostování modelu, aplikace a komponenty *jsou stejné*.
 
 Vytvoření projektu pro modelech hostování popsané v tomto článku najdete v tématu <xref:blazor/get-started>.
 

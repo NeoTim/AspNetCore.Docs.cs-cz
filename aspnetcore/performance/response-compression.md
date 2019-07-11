@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: performance/response-compression
-ms.openlocfilehash: e312d43fb62106f6ecb98367c29daa377bb227c9
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: d5d2da3dc0a8a452de97d98161d429389d2f7638
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899637"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815606"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Kompresi odpovědí v ASP.NET Core
 
@@ -30,7 +30,7 @@ Middleware pro kompresi odpovědí použijte, když jste:
 
 * Nelze použít následující technologie serverových komprese:
   * [Modul dynamická komprese služby IIS](https://www.iis.net/overview/reliability/dynamiccachingandcompression)
-  * [Apache mod_deflate modulu](http://httpd.apache.org/docs/current/mod/mod_deflate.html)
+  * [Apache mod_deflate modulu](https://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Server Nginx komprese a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * Hostování přímo na:
   * [HTTP.sys server](xref:fundamentals/servers/httpsys) (dříve se označovaly jako WebListener)
@@ -70,7 +70,7 @@ Když klient může zpracovat komprimovaného obsahu, klient informuje server je
 
 ::: moniker-end
 
-Další informace najdete v tématu [IANA oficiální kódování seznamu obsahu](http://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
+Další informace najdete v tématu [IANA oficiální kódování seznamu obsahu](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
 
 Middleware umožňuje přidat další komprese zprostředkovatelé pro vlastní `Accept-Encoding` hodnoty hlavičky. Další informace najdete v tématu [Vlastní zprostředkovatelé](#custom-providers) níže.
 
@@ -114,7 +114,7 @@ Aby byly middleware v projektu, přidejte odkaz na [Microsoft.AspNetCore.Respons
 
 ::: moniker-end
 
-## <a name="configuration"></a>Konfigurace
+## <a name="configuration"></a>Konfiguraci
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -146,7 +146,7 @@ public class Startup
 Poznámky:
 
 * `app.UseResponseCompression` musí být volána před `app.UseMvc`.
-* Použijte nástroj, jako [Fiddler](http://www.telerik.com/fiddler), [Firebug](http://getfirebug.com/), nebo [Postman](https://www.getpostman.com/) nastavit `Accept-Encoding` hlavička požadavku a studovat hlavičky odpovědi, velikost a text.
+* Použijte nástroj, jako [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/), nebo [Postman](https://www.getpostman.com/) nastavit `Accept-Encoding` hlavička požadavku a studovat hlavičky odpovědi, velikost a text.
 
 Odeslat žádost pro ukázkovou aplikaci bez `Accept-Encoding` záhlaví a podívejte se, že odpověď nekomprimované. `Content-Encoding` a `Vary` záhlaví nejsou k dispozici v odpovědi.
 
@@ -385,4 +385,4 @@ Pomocí některého nástroje, například [Fiddler](https://www.telerik.com/fid
 * [Mozilla Developer Network: Přijmout kódování](https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept-Encoding)
 * [RFC 7231 části 3.1.2.1: Codings obsahu](https://tools.ietf.org/html/rfc7231#section-3.1.2.1)
 * [RFC 7230 oddílu 4.2.3: Kódování GZIP](https://tools.ietf.org/html/rfc7230#section-4.2.3)
-* [Verze specifikace formátu souboru GZIP 4.3](http://www.ietf.org/rfc/rfc1952.txt)
+* [Verze specifikace formátu souboru GZIP 4.3](https://www.ietf.org/rfc/rfc1952.txt)

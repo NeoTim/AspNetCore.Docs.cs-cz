@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/20/2018
 uid: client-side/libman/libman-vs
-ms.openlocfilehash: d0494b96447ad2b256acbde7748209ff430ae7c1
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: ebfb405516d968bf5d5b8cff956a9892457027f2
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610182"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813461"
 ---
 # <a name="use-libman-with-aspnet-core-in-visual-studio"></a>LibMan pomocí ASP.NET Core v sadě Visual Studio
 
@@ -94,13 +94,13 @@ Chcete-li otevřít *libman.json* pro úpravy, existují tyto možnosti:
 
 **&#8224;** Pokud *libman.json* soubor v kořenové složce projektu již neexistuje, vytvoří se s obsahem výchozí položku šablony.
 
-Visual Studio nabízí bohaté možnosti JSON úpravy podpory, jako je například zabarvení, formátování, technologie IntelliSense a ověřování schématu. Schéma JSON manifestu LibMan se nachází v umístění [ http://json.schemastore.org/libman ](http://json.schemastore.org/libman).
+Visual Studio nabízí bohaté možnosti JSON úpravy podpory, jako je například zabarvení, formátování, technologie IntelliSense a ověřování schématu. Schéma JSON manifestu LibMan se nachází v umístění [ https://json.schemastore.org/libman ](https://json.schemastore.org/libman).
 
 Pomocí následující soubor manifestu LibMan načte soubory za definované v konfiguraci `libraries` vlastnost. Vysvětlení literály objektů definovaných v rámci `libraries` následující:
 
 * Podmnožinu [jQuery](https://jquery.com/) verze 3.3.1 je načten z CDNJS zprostředkovatele. Dílčí je definována v `files` vlastnost&mdash;*jquery.min.js*, *jquery.js*, a *jquery.min.map*. Soubory jsou umístěny v projektu *wwwroot/lib/jquery* složky.
 * Podkladové [Bootstrap](https://getbootstrap.com/) verze 4.1.3 je načten a je umístěná v *wwwroot/lib/bootstrap* složky. Literál objektu `provider` vlastnosti přepsání `defaultProvider` hodnotu vlastnosti. LibMan načte Bootstrap soubory z unpkg zprostředkovatele.
-* Podmnožinu [Lodash](https://lodash.com/) schválila orgán v rámci organizace. *Lodash.js* a *lodash.min.js* soubory se načítají z místního systému souborů na *C:\\temp\\lodash\\*. Soubory se zkopírují do projektu *wwwroot/lib/lodash* složky.
+* Podmnožinu [Lodash](https://lodash.com/) schválila orgán v rámci organizace. *Lodash.js* a *lodash.min.js* soubory se načítají z místního systému souborů na *C:\\temp\\lodash\\* . Soubory se zkopírují do projektu *wwwroot/lib/lodash* složky.
 
 [!code-json[](samples/LibManSample/libman.json)]
 
@@ -201,7 +201,7 @@ Chcete-li odinstalovat soubory knihovny:
 
 * Open *libman.json*.
 * Pozici blikajícího kurzoru dovnitř odpovídající `libraries` literálu objektu.
-* Klikněte na ikonu žárovky, která se zobrazí u levého okraje a vyberte **odinstalovat \<library_name > @\<library_version >**:
+* Klikněte na ikonu žárovky, která se zobrazí u levého okraje a vyberte **odinstalovat \<library_name > @\<library_version >** :
 
   ![Knihovna možnost místní nabídky odinstalovat](_static/uninstall-menu-option.png)
 

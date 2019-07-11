@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/23/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: a53f7019c1079296f073e743ddbf9d90fc5abad3
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: 1c3d911593a288aa897373dc01616498706e7069
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67555872"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815148"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -99,7 +99,7 @@ Následující diagram znázorňuje návrh aplikace.
 
   ![macOS nové řešení](first-web-api-mac/_static/sln.png)
 
-* Vyberte **aplikace .NET Core** > **webového rozhraní API ASP.NET Core** > **Další**.
+* Vyberte **.NET Core** > **aplikace** > **API** > **Další**.
 
   ![macOS dialogové okno nového projektu](first-web-api-mac/_static/1.png)
   
@@ -125,9 +125,9 @@ Pokud se zobrazí dialogové okno s dotazem, pokud by měla důvěřovat certifi
 
 Stisknutím kláves Ctrl + F5 spusťte aplikaci. V prohlížeči přejděte na následující adrese URL: [ https://localhost:5001/api/values ](https://localhost:5001/api/values).
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Vyberte **spustit** > **spustit s ladění** aplikaci spustit. Spuštění prohlížeče Visual Studio pro Mac a přejde na `https://localhost:<port>`, kde `<port>` je číslo portu náhodně vybrané. Vrátí chybu HTTP 404 (Nenalezeno). Připojit `/api/values` na adresu URL (změňte adresu URL na `https://localhost:<port>/api/values`).
+Vyberte **spustit** > **spustit ladění** aplikaci spustit. Spuštění prohlížeče Visual Studio pro Mac a přejde na `https://localhost:<port>`, kde `<port>` je číslo portu náhodně vybrané. Vrátí chybu HTTP 404 (Nenalezeno). Připojit `/api/values` na adresu URL (změňte adresu URL na `https://localhost:<port>/api/values`).
 
 ---
 
@@ -245,6 +245,8 @@ Tyto metody implementovat dva koncové body GET:
 
 * `GET /api/todo`
 * `GET /api/todo/{id}`
+
+Zastavte aplikaci, pokud je stále spuštěn. Potom ji spusťte znovu a nejnovější změny.
 
 Testování aplikace pomocí volání dva koncové body v prohlížeči. Příklad:
 
@@ -471,7 +473,7 @@ Další informace naleznete v následujících materiálech:
 * <xref:host-and-deploy/index>
 * [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=TTkhEyGBfAk)
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V tomto kurzu jste se naučili:
 

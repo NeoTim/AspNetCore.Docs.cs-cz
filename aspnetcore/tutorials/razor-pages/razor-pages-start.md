@@ -3,14 +3,14 @@ title: 'Kurz: Začínáme se stránkami Razor v ASP.NET Core'
 author: rick-anderson
 description: Tato série kurzů ukazuje, jak používat v ASP.NET Core Razor Pages. Zjistěte, jak vytvořit model, generování kódu pro stránky Razor, použít pro přístup k datům Entity Framework Core a SQL Server, vyhledávání, přidat ověřování vstupu a použití migrace k aktualizaci modelu.
 ms.author: riande
-ms.date: 6/3/2019
+ms.date: 06/3/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 207f5a5ab5e21d8cd8f6cf2f63641b94d8077ae5
-ms.sourcegitcommit: d6e51c60439f03a8992bda70cc982ddb15d3f100
+ms.openlocfilehash: b0cbb4dda5328d305686f21a0b3e8f8e83575a39
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67555804"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815265"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se stránkami Razor v ASP.NET Core
 
@@ -206,7 +206,7 @@ Obsahuje kód, který nakonfiguruje chování aplikace, jako je například jest
 
 * [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V tomto kurzu se naučíte:
 

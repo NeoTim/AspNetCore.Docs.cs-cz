@@ -4,14 +4,14 @@ author: pkellner
 description: Objevte atributy ASP.NET Core ukotvení pomocné rutiny značky a roli, kterou každý atribut hraje v rozšíření chování značky jazyka HTML anchor.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 4/18/2019
+ms.date: 04/18/2019
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: de45c99194d4825c1e404aa193b0f076ba659748
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9fd41b049104e99f1701354c40a05e5ee30e9c2f
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898575"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814995"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>Ukotvení pomocné rutiny značky v ASP.NET Core
 
@@ -41,7 +41,7 @@ Generovaný kód HTML:
 <a href="/Speaker">All Speakers</a>
 ```
 
-Pokud `asp-controller` je zadán atribut a `asp-action` není výchozí `asp-action` hodnotu akce kontroleru, který je přidružený k aktuálně prováděné zobrazení. Pokud `asp-action` je vynecháno z předchozí kód a ukotvení pomocné rutiny značky se používá v *HomeController*společnosti *Index* zobrazení (*/Home*), je generovaný kód HTML:
+Pokud `asp-controller` je zadán atribut a `asp-action` není výchozí `asp-action` hodnotu akce kontroleru, který je přidružený k aktuálně prováděné zobrazení. Pokud `asp-action` je vynecháno z předchozí kód a ukotvení pomocné rutiny značky se používá v *HomeController*společnosti *Index* zobrazení ( */Home*), je generovaný kód HTML:
 
 ```html
 <a href="/Home">All Speakers</a>

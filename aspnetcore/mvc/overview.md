@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core MVC je bohatou architekturu pro vytvá�
 ms.author: riande
 ms.date: 01/08/2018
 uid: mvc/overview
-ms.openlocfilehash: eb636616ab952f506993ae5f4692e5e966bb20f4
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 819bc93a7580626bf586b984b0ce169306df56d9
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087311"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815355"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -179,7 +179,7 @@ Kromě toho, že skvělé platforma pro vytváření webů, ASP.NET Core MVC má
 
 Rozhraní zahrnuje podporu pro vyjednávání obsahu HTTP s integrovanou podporou pro [formátování dat](xref:web-api/advanced/formatting) jako JSON nebo XML. Zápis [vlastní formátovací moduly](xref:web-api/advanced/custom-formatters) přidání podpory pro vlastní formáty.
 
-Použijte generování povolení podpory pro hypermédiích. Snadno povolit podporu pro [prostředků mezi zdroji (CORS) pro sdílení obsahu](http://www.w3.org/TR/cors/) tak, aby vaše webová rozhraní API mohou být sdíleny napříč více webových aplikací.
+Použijte generování povolení podpory pro hypermédiích. Snadno povolit podporu pro [prostředků mezi zdroji (CORS) pro sdílení obsahu](https://www.w3.org/TR/cors/) tak, aby vaše webová rozhraní API mohou být sdíleny napříč více webových aplikací.
 
 ### <a name="testability"></a>Testovatelnosti
 

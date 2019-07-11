@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 08/09/2018
 uid: client-side/bower
-ms.openlocfilehash: 08e6daa537c6c6f92a1cf80d70745e8ef606f580
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1292b75bdfe1cea56d9c8bc282b0dd90fc945a33
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899283"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813533"
 ---
 # <a name="manage-client-side-packages-with-bower-in-aspnet-core"></a>Správa balíčků na straně klienta nástrojem Bower v ASP.NET Core
 
@@ -22,9 +22,9 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Noel rýže](https://tw
 >
 > Yarn s Webpacku je jeden oblíbenou alternativu, pro kterou [pokyny k migraci](https://bower.io/blog/2017/how-to-migrate-away-from-bower/) jsou k dispozici.
 
-[Bower](https://bower.io/) zavolá sama sebe "Správce balíčků pro web". Vyplní void zanechaný neschopnost Nugetu doručování statických souborů obsahu v ekosystému .NET. Pro projekty ASP.NET Core, jsou tyto statické soubory přináší knihoven na straně klienta, jako je [jQuery](http://jquery.com/) a [Bootstrap](http://getbootstrap.com/). Pro knihovny .NET, můžete dál používat [NuGet](https://www.nuget.org/) Správce balíčků.
+[Bower](https://bower.io/) zavolá sama sebe "Správce balíčků pro web". Vyplní void zanechaný neschopnost Nugetu doručování statických souborů obsahu v ekosystému .NET. Pro projekty ASP.NET Core, jsou tyto statické soubory přináší knihoven na straně klienta, jako je [jQuery](https://jquery.com/) a [Bootstrap](https://getbootstrap.com/). Pro knihovny .NET, můžete dál používat [NuGet](https://www.nuget.org/) Správce balíčků.
 
-Proces sestavení nové projekty vytvořené pomocí šablon projektů ASP.NET Core, nastavení na straně klienta. [jQuery](http://jquery.com/) a [Bootstrap](http://getbootstrap.com/) jsou nainstalované a podporované Bower.
+Proces sestavení nové projekty vytvořené pomocí šablon projektů ASP.NET Core, nastavení na straně klienta. [jQuery](https://jquery.com/) a [Bootstrap](https://getbootstrap.com/) jsou nainstalované a podporované Bower.
 
 Balíčky na straně klienta jsou uvedené v *bower.json* souboru. Šablony projektů ASP.NET Core nakonfiguruje *bower.json* s Bootstrap, jQuery a k ověřování jQuery.
 
@@ -50,7 +50,7 @@ Otevřít *bower.json* a přidejte k závislostem "knihovnou aplikací font awes
 
 ![verze technologie IntelliSense pro bower](bower/_static/version-intelliSense.png)
 
-Bower používá [sémantické správy verzí](http://semver.org/) k uspořádání závislosti. Sémantické správy verzí, označované také jako SemVer identifikuje balíčky se schéma číslování \<hlavní >.\< podverze >. \<opravy >. Technologie IntelliSense zjednodušuje tím, že zobrazuje pouze několik běžné volby sémantické správy verzí. Horní položku v seznamu technologie IntelliSense (4.6.3 v příkladu výše) se považuje za nejnovější stabilní verze balíčku. Symbol stříšky (^) odpovídá nejnovější hlavní verzi a tilda (~) odpovídá nejnovější dílčí verzi.
+Bower používá [sémantické správy verzí](https://semver.org/) k uspořádání závislosti. Sémantické správy verzí, označované také jako SemVer identifikuje balíčky se schéma číslování \<hlavní >.\< podverze >. \<opravy >. Technologie IntelliSense zjednodušuje tím, že zobrazuje pouze několik běžné volby sémantické správy verzí. Horní položku v seznamu technologie IntelliSense (4.6.3 v příkladu výše) se považuje za nejnovější stabilní verze balíčku. Symbol stříšky (^) odpovídá nejnovější hlavní verzi a tilda (~) odpovídá nejnovější dílčí verzi.
 
 Uložit *bower.json* souboru. Visual Studio sleduje *bower.json* změny v souboru. Po uložení, *nainstalovat bower* spuštění příkazu. Najdete v okně Výstup **Bower/npm** zobrazení pro přesný příkaz spustit.
 

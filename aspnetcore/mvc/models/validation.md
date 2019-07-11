@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: 9737e45729b4e5abd9a33824c4d6610ca21681c0
-ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
+ms.openlocfilehash: 43b69e9b7588ad575f203200c5bc59a4272d0066
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/02/2019
-ms.locfileid: "66458475"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814103"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu v ASP.NET Core MVC a stránky Razor
 
@@ -315,7 +315,7 @@ Vlastní ověřování na straně klienta se provádí pomocí generování `dat
 
 [!code-javascript[](validation/sample/wwwroot/js/classicMovieValidator.js?name=snippet_UnobtrusiveValidation)]
 
-Informace o tom, jak psát adaptéry najdete v tématu [jQuery ověřit dokumentaci](http://jqueryvalidation.org/documentation/).
+Informace o tom, jak psát adaptéry najdete v tématu [jQuery ověřit dokumentaci](https://jqueryvalidation.org/documentation/).
 
 Použít adaptér pro dané pole aktivuje `data-` atributy, které:
 

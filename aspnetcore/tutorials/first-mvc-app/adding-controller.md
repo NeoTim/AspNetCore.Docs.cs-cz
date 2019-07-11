@@ -5,12 +5,12 @@ description: Zjistěte, jak přidat řadič jednoduchou aplikaci ASP.NET Core MV
 ms.author: riande
 ms.date: 02/28/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: 9dbfb52109260dbfe0c6c094a7ac4edae47d24e7
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: f28dc96b66fce736242d26a2584fea0a23375e23
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837342"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815196"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>Přidání kontroleru aplikace ASP.NET Core MVC
 
@@ -68,7 +68,7 @@ Každý `public` metoda v kontroleru je volatelná jako koncový bod HTTP. V př
 
 Koncový bod HTTP, jako je targetable adresy URL ve webové aplikaci `https://localhost:5001/HelloWorld`a kombinuje protokol použitý: `HTTPS`, umístění v síti webového serveru (včetně TCP port): `localhost:5001` a cílový identifikátor URI `HelloWorld`.
 
-První komentář stavy jde [HTTP GET](https://www.w3schools.com/tags/ref_httpmethods.asp) metody, která je volána přidáním `/HelloWorld/` k základní adrese URL. Určuje druhý komentář [HTTP GET](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) metody, která je volána přidáním `/HelloWorld/Welcome/` na adresu URL. V tomto kurzu později modul generování uživatelského rozhraní se používá ke generování `HTTP POST` metody, které aktualizují data.
+První komentář stavy jde [HTTP GET](https://www.w3schools.com/tags/ref_httpmethods.asp) metody, která je volána přidáním `/HelloWorld/` k základní adrese URL. Určuje druhý komentář [HTTP GET](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) metody, která je volána přidáním `/HelloWorld/Welcome/` na adresu URL. V tomto kurzu později modul generování uživatelského rozhraní se používá ke generování `HTTP POST` metody, které aktualizují data.
 
 Spusťte aplikaci v režimu bez ladění a připojit "HelloWorld" na cestu v panelu Adresa. `Index` Metoda vrátí hodnotu typu string.
 

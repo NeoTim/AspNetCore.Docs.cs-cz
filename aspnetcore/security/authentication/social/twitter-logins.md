@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tento kurz ukazuje, integrace ověřování uživatele účtu Twitter do stávající aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 5/11/2019
+ms.date: 05/11/2019
 uid: security/authentication/twitter-logins
-ms.openlocfilehash: 486d58b600ca5326a0728de40bb386fbb9440f67
-ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.openlocfilehash: d816ed27898639b0af6896a51ac035d5526c5d29
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/10/2019
-ms.locfileid: "65516874"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814072"
 ---
 # <a name="twitter-external-sign-in-setup-with-aspnet-core"></a>Nastavení externí přihlášení pomocí ASP.NET Core na twitteru
 
@@ -71,10 +71,10 @@ Nyní jste přihlášeni pomocí svých přihlašovacích údajů Twitter:
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 
-* **ASP.NET Core 2.x pouze:** Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"*. Šablona projektu používané v tomto příkladu zajistí, že se to.
+* **ASP.NET Core 2.x pouze:** Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"* . Šablona projektu používané v tomto příkladu zajistí, že se to.
 * Pokud nebyl vytvořen použití počáteční migraci databáze lokality, se zobrazí *databázová operace selhala při zpracování požadavku* chyby. Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 * V tomto článku jsme si ukázali, jak ověřování pomocí Twitteru. Můžete postupovat podle podobný přístup k ověření u jiných poskytovatelů na [předchozí stránce](xref:security/authentication/social/index).
 

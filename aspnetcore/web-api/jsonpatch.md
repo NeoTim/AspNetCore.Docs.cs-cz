@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/24/2019
 uid: web-api/jsonpatch
-ms.openlocfilehash: 14710e6431a2a7ce60fa7f190bef184da85281a0
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 97264903d85dbb397e85fdbf7b070e2aaae74bc8
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901326"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815543"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>JsonPatch in ASP.NET Core web API
 
@@ -71,7 +71,7 @@ Změny provedené při použití dokument opravy JSON pro prostředek jsou atomi
 
 ## <a name="path-syntax"></a>Syntaxe cesty
 
-[Cesta](http://tools.ietf.org/html/rfc6901) vlastnost objektu operace má lomítka mezi úrovněmi. Například, `"/address/zipCode"`.
+[Cesta](https://tools.ietf.org/html/rfc6901) vlastnost objektu operace má lomítka mezi úrovněmi. Například, `"/address/zipCode"`.
 
 Založený na nule indexy se používají k určení prvků pole. První prvek `addresses` pole by na `/addresses/0`. K `add` na konec pole používejte pomlčkou (-) místo číslo indexu: `/addresses/-`.
 
@@ -221,6 +221,6 @@ Testování ukázky, spusťte aplikaci a odesílat požadavky HTTP s následují
 
 * [Oprava IETF RFC 5789 specifikace – metoda](https://tools.ietf.org/html/rfc5789)
 * [Specifikaci IETF RFC 6902 JSON opravy](https://tools.ietf.org/html/rfc6902)
-* [Oprava JSON 6901 IETF RFC specifikace formátu cesty](http://tools.ietf.org/html/rfc6901)
-* [Dokumentace ke službě oprava JSON](http://jsonpatch.com/). Obsahuje odkazy na prostředky pro vytváření dokumentů oprava JSON.
+* [Oprava JSON 6901 IETF RFC specifikace formátu cesty](https://tools.ietf.org/html/rfc6901)
+* [Dokumentace ke službě oprava JSON](https://jsonpatch.com/). Obsahuje odkazy na prostředky pro vytváření dokumentů oprava JSON.
 * [ASP.NET Core oprava JSON zdrojového kódu](https://github.com/aspnet/AspNetCore/tree/master/src/Features/JsonPatch/src)

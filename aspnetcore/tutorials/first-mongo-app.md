@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 07/10/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: c64f6e69a19e294a18cc72c860af0a03ef70d444
-ms.sourcegitcommit: 357a7120632b20465801c093e4e5bd4a315496a8
+ms.openlocfilehash: 99b28407a249a5c0bc6a0cf3a285c04f1d6187a7
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2019
-ms.locfileid: "67649196"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815655"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
@@ -294,7 +294,7 @@ Předchozí kontroler web API:
 
 * Používá `BookService` pro provádění operací CRUD.
 * Obsahuje metody akce, který podporuje požadavky GET, POST, PUT a DELETE HTTP.
-* Volání <xref:System.Web.Http.ApiController.CreatedAtRoute*> v `Create` metoda akce se vraťte [HTTP 201](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) odpovědi. Stavový kód 201 je standardní odpověď pro metodu POST protokolu HTTP, která vytvoří nový prostředek na serveru. `CreatedAtRoute` Přidá také `Location` hlavičky odpovědi. `Location` Hlavičky určuje identifikátor URI nově vytvořeného knihy.
+* Volání <xref:System.Web.Http.ApiController.CreatedAtRoute*> v `Create` metoda akce se vraťte [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) odpovědi. Stavový kód 201 je standardní odpověď pro metodu POST protokolu HTTP, která vytvoří nový prostředek na serveru. `CreatedAtRoute` Přidá také `Location` hlavičky odpovědi. `Location` Hlavičky určuje identifikátor URI nově vytvořeného knihy.
 
 ## <a name="test-the-web-api"></a>Test webové rozhraní API
 
@@ -360,7 +360,7 @@ Tím se uspokojí předchozí požadavky, proveďte následující změny:
 
 1. Opakujte kroky uvedené v [testování webového rozhraní API](#test-the-web-api) oddílu. Všimněte si rozdílu v názvech vlastností JSON.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 Další informace o vytváření webových rozhraní API ASP.NET Core naleznete na následujících odkazech:
 

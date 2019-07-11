@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/09/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 1455aa9ce4ea24eaeb396134f91b6d089b346c17
-ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
+ms.openlocfilehash: f1282e9bf34a96e9495f35dcb51974594c938fde
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2019
-ms.locfileid: "67724437"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814803"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -140,7 +140,7 @@ Metoda `Startup.ConfigureServices` zodpovídá za definování služeb používa
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | Singleton |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | Singleton |
 
-Pokud je dostupná rozšiřující metoda rozšiřující kolekci služeb o registraci služby (případě jejích závislých služeb, je-li to požadováno), je zvykem použít jedinou rozšiřující metodu `Add{SERVICE_NAME}` k registraci všech služeb vyžadovaných danou službu. Následující kód je příklad toho, jak přidat další služby do kontejneru pomocí metody rozšíření <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*>, <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*>, a <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*>:
+Pokud je dostupná rozšiřující metoda rozšiřující kolekci služeb o registraci služby (případě jejích závislých služeb, je-li to požadováno), je zvykem použít jedinou rozšiřující metodu `Add{SERVICE_NAME}` k registraci všech služeb vyžadovaných danou službu. Následující kód je příklad toho, jak přidat další služby do kontejneru pomocí metody rozšíření [AddDbContext\<TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext), <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*>, a <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*>:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -156,7 +156,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Další informace najdete v tématu <xref:Microsoft.Extensions.DependencyInjection.ServiceCollection> clss v dokumentaci k rozhraní API.
+Další informace najdete v tématu <xref:Microsoft.Extensions.DependencyInjection.ServiceCollection> třídy v dokumentaci k rozhraní API.
 
 ## <a name="service-lifetimes"></a>Životnost služby
 
@@ -242,7 +242,7 @@ Když jsou vyřešeny služby `ActivatorUtilities`, vkládání konstruktor vyž
 
 ## <a name="entity-framework-contexts"></a>Kontexty Entity Frameworku
 
-Entity Framework kontexty jsou obvykle přidány do služby kontejneru pomocí [s vymezeným oborem životnost](#service-lifetimes) protože operací databáze webové aplikace jsou obvykle vymezené požadavku klienta. Výchozí doba života má obor, pokud se nezadá životnost <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*> přetížení při registraci kontext databáze. Služby danou dobu života neměli používat kontext databáze s životností kratší než služba.
+Entity Framework kontexty jsou obvykle přidány do služby kontejneru pomocí [s vymezeným oborem životnost](#service-lifetimes) protože operací databáze webové aplikace jsou obvykle vymezené požadavku klienta. Výchozí doba života má obor, pokud se nezadá životnost [AddDbContext\<TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) přetížení při registraci kontext databáze. Služby danou dobu života neměli používat kontext databáze s životností kratší než služba.
 
 ## <a name="lifetime-and-registration-options"></a>Životnosti a možnosti registrace
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/13/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 78c63cf135ca92f0b5f6c6828b2ae34a44a7b36c
-ms.sourcegitcommit: 3ee6ee0051c3d2c8d47a58cb17eef1a84a4c46a0
+ms.openlocfilehash: be176ed612be0773c4a5b52607c023da3856ac14
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65621013"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815320"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace služby Azure Key Vault v ASP.NET Core
 
@@ -34,7 +34,7 @@ Použití zprostředkovatele konfigurace trezoru klíčů Azure, přidejte odkaz
 Přijmout [spravovaných identit pro prostředky Azure](/azure/active-directory/managed-identities-azure-resources/overview) scénář, přidejte odkaz na balíček [Microsoft.Azure.Services.appauthentication přistupovat](https://www.nuget.org/packages/Microsoft.Azure.Services.AppAuthentication/) balíčku.
 
 > [!NOTE]
-> V době psaní, nejnovější stabilní verzi `Microsoft.Azure.Services.AppAuthentication`, verze `1.0.3`, poskytuje podporu pro [systém přiřadil spravovaných identit](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-worka-namehow-does-it-worka). Podpora pro *uživatelsky přiřazené identity spravované* je k dispozici v `1.2.0-preview2` balíčku. Toto téma popisuje použití identit spravovaných systému a připravená ukázková aplikace používá verzi `1.0.3` z `Microsoft.Azure.Services.AppAuthentication` balíčku.
+> V době psaní, nejnovější stabilní verzi `Microsoft.Azure.Services.AppAuthentication`, verze `1.0.3`, poskytuje podporu pro [systém přiřadil spravovaných identit](/azure/active-directory/managed-identities-azure-resources/overview#how-does-the-managed-identities-for-azure-resources-work). Podpora pro *uživatelsky přiřazené identity spravované* je k dispozici v `1.2.0-preview2` balíčku. Toto téma popisuje použití identit spravovaných systému a připravená ukázková aplikace používá verzi `1.0.3` z `Microsoft.Azure.Services.AppAuthentication` balíčku.
 
 ## <a name="sample-app"></a>Ukázková aplikace
 
@@ -120,11 +120,11 @@ Konfigurace služby Azure AD, Azure Key Vault a aplikace použít Azure Active D
 
 Tato ukázková aplikace používá ID aplikace a služby X.509 certifikátu při `#define` příkazu v horní části *Program.cs* souboru má nastavenou `Certificate`.
 
-1. Vytvořit archiv PKCS #12 (*.pfx*) certifikát. Možnosti pro vytváření certifikátů zahrnují [MakeCert na Windows](/windows/desktop/seccrypto/makecert) a [OpenSSL](https://www.openssl.org/).
+1. Vytvořit archiv PKCS #12 ( *.pfx*) certifikát. Možnosti pro vytváření certifikátů zahrnují [MakeCert na Windows](/windows/desktop/seccrypto/makecert) a [OpenSSL](https://www.openssl.org/).
 1. Nainstalujte certifikát do úložiště osobních certifikátů aktuálního uživatele. Označit klíč jako exportovatelný je volitelný. Poznamenejte si kryptografický otisk certifikátu, který se používá později v tomto procesu.
-1. Export archivu PKCS #12 (*.pfx*) certifikát jako certifikát kódování DER (*.cer*).
+1. Export archivu PKCS #12 ( *.pfx*) certifikát jako certifikát kódování DER ( *.cer*).
 1. Registrace aplikace v Azure AD (**registrace aplikací**).
-1. Nahrajte certifikát kódování DER (*.cer*) do služby Azure AD:
+1. Nahrajte certifikát kódování DER ( *.cer*) do služby Azure AD:
    1. Vyberte aplikaci ve službě Azure AD.
    1. Přejděte do **certifikáty a tajné kódy**.
    1. Vyberte **nahrát certifikát** se nahrát certifikát, který obsahuje veřejný klíč. A *.cer*, *.pem*, nebo *.crt* certifikátu je přijatelné.

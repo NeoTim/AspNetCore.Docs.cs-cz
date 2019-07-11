@@ -5,12 +5,12 @@ description: Další informace o použití částí aplikace, které jsou abstra
 ms.author: riande
 ms.date: 01/04/2017
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 5d5e79d3afe0eee6d0b126d4642ccd5f61bff409
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9d0b4b5fadcc287172f23fa36c421f04ca2ade4a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901209"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815485"
 ---
 # <a name="application-parts-in-aspnet-core"></a>Částí aplikace v ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "64901209"
 
 ## <a name="introducing-application-parts"></a>Úvod do částí aplikace
 
-Aplikace MVC načítat jejich funkcí z [částí aplikace](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpart). Zejména v případě [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) třída reprezentuje aplikace část, která je založená na sestavení. Tyto třídy můžete zjišťovat a načíst funkcemi technologie MVC., jako jsou řadiče, zobrazení komponenty, pomocných rutin značek a razor kompilace zdrojů. [ApplicationPartManager](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartmanager) zodpovídá za sledování částí aplikace a poskytovatelů funkcí, které jsou k dispozici pro aplikaci MVC. Můžete pracovat `ApplicationPartManager` v `Startup` při konfiguraci MVC:
+Aplikace MVC načítat jejich funkcí z [částí aplikace](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpart). Zejména v případě [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart) třída reprezentuje aplikace část, která je založená na sestavení. Tyto třídy můžete zjišťovat a načíst funkcemi technologie MVC., jako jsou řadiče, zobrazení komponenty, pomocných rutin značek a razor kompilace zdrojů. [ApplicationPartManager](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartmanager) zodpovídá za sledování částí aplikace a poskytovatelů funkcí, které jsou k dispozici pro aplikaci MVC. Můžete pracovat `ApplicationPartManager` v `Startup` při konfiguraci MVC:
 
 ```csharp
 // create an assembly part from a class's assembly

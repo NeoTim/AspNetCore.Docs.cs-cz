@@ -3,14 +3,14 @@ title: Stránky Razor s EF Core v ASP.NET Core - CRUD - 2, 8
 author: rick-anderson
 description: Ukazuje, jak vytvářet, číst, aktualizovat, odstranit pomocí EF Core
 ms.author: riande
-ms.date: 6/31/2017
+ms.date: 06/31/2017
 uid: data/ef-rp/crud
-ms.openlocfilehash: ec22c82b3b70399017b5b9aa61896440db647062
-ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.openlocfilehash: 9dd9ed7c39e3cf0e6e04c90e00d8b22d99988e9b
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66750018"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813694"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---crud---2-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - CRUD - 2, 8
 

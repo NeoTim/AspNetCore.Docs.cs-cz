@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/20/2018
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: fb65b84b781b5c19040b559f0d7635ceb00cf4a0
-ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
+ms.openlocfilehash: 456e1dcac583705d815c7578c0dba5c52c5dbb3a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67316567"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815391"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>ASP.NET Core webové rozhraní API nápovědy stránky ve Swaggeru / OpenAPI
 
@@ -113,7 +113,7 @@ Každá metoda public akce ve vašich kontrolerech můžete otestovat v uživate
 ![Příklad Swagger získat testu](web-api-help-pages-using-swagger/_static/get-try-it-out.png)
 
 > [!NOTE]
-> Uživatelské rozhraní Swagger verze použitá pro snímky obrazovky je verze 2. Například verze 3, naleznete v tématu [Petstore příklad](http://petstore.swagger.io/).
+> Uživatelské rozhraní Swagger verze použitá pro snímky obrazovky je verze 2. Například verze 3, naleznete v tématu [Petstore příklad](https://petstore.swagger.io/).
 
 ## <a name="next-steps"></a>Další kroky
 

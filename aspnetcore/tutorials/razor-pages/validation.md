@@ -4,14 +4,14 @@ author: rick-anderson
 description: Objevte, jak přidat ověření pro stránky Razor v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/5/2018
+ms.date: 12/05/2018
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 38e1fff9c7a212af992951dbf57e124cae69d36f
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.openlocfilehash: 8495849c89ca3d6fd2b2006b61ce2ec75ff504a5
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/19/2019
-ms.locfileid: "65874989"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815667"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování do stránky ASP.NET Core Razor
 
@@ -47,7 +47,7 @@ Významné výhodou je, že **žádné** změny kódu byly nezbytné ve vytvoře
 Formulář dat není odeslána na server, dokud nejsou žádné chyby ověřování na straně klienta. Zkontrolujte formulář, který není data zveřejnil(a) jeden nebo více z následujících postupů:
 
 * Vložit přerušení `OnPostAsync` metody. Odeslání formuláře (vyberte **vytvořit** nebo **Uložit**). Nikdy dosáhnete bodu přerušení.
-* Použití [nástroj Fiddler](http://www.telerik.com/fiddler).
+* Použití [nástroj Fiddler](https://www.telerik.com/fiddler).
 * Monitorování síťového provozu pomocí vývojářských nástrojů prohlížeče.
 
 ### <a name="server-side-validation"></a>Ověřování na straně serveru

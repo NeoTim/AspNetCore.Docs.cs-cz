@@ -4,14 +4,14 @@ author: rick-anderson
 description: Krátký kurz, který vytvoří a spustí základní aplikaci Hello World pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 5/15/2019
+ms.date: 05/15/2019
 uid: getting-started
-ms.openlocfilehash: 9227dcfbc84376d9d73bc6fc0dd76085779acae1
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: c35251a0e49fbbffee7b8f5ea6905322b9042261
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610306"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814937"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
@@ -98,7 +98,7 @@ Otevřít *Pages/Index.cshtml* a upravovat na stránce s následující zvýrazn
 
 Přejděte do [ https://localhost:5001 ](https://localhost:5001)a ověřte změny jsou zobrazeny.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V tomto kurzu jste se naučili:
 

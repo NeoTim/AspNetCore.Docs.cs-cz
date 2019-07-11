@@ -5,12 +5,12 @@ description: Zjistěte, jak vytvořit a použít vlastní formátovací moduly p
 ms.author: tdykstra
 ms.date: 02/08/2017
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: ece60b47f345235a084faacf8e59b792856614d2
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 03456f0a20cf1849bcd29101fda951f81edda31c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900663"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814823"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>Vlastní formátování v rozhraní Web API ASP.NET Core
 
@@ -82,7 +82,7 @@ V některých scénářích je nutné přepsat `CanWriteResult` místo `CanWrite
 * Existují odvozených tříd, které může být vrácena za běhu.
 * Musíte znát za běhu, který odvozené třídy vrátil akce.
 
-Předpokládejme například, vrátí podpis metody akce `Person` typu, ale může vrátit `Student` nebo `Instructor` typ, který je odvozen od `Person`. Pokud chcete, aby vaše formátovací modul pro zpracování pouze `Student` objekty, zkontrolujte typ [objekt](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object) v objektu kontextu k dispozici na `CanWriteResult` metody. Všimněte si, že není nutné používat `CanWriteResult` při vrácení metody akce `IActionResult`; v takovém případě `CanWriteType` metoda přijímá typ modulu runtime.
+Předpokládejme například, vrátí podpis metody akce `Person` typu, ale může vrátit `Student` nebo `Instructor` typ, který je odvozen od `Person`. Pokud chcete, aby vaše formátovací modul pro zpracování pouze `Student` objekty, zkontrolujte typ [objekt](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object) v objektu kontextu k dispozici na `CanWriteResult` metody. Všimněte si, že není nutné používat `CanWriteResult` při vrácení metody akce `IActionResult`; v takovém případě `CanWriteType` metoda přijímá typ modulu runtime.
 
 <a id="read-write"></a>
 
@@ -102,7 +102,7 @@ Pokud chcete použít vlastní formátovací modul, přidat instanci formátovac
 
 Formátovací moduly jsou vyhodnocovány v pořadí, v jakém že je vkládat v případě potřeby. První z nich má přednost.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 * [Prostý text formátovací modul ukázkového kódu na Githubu.](https://github.com/aspnet/Entropy/tree/master/samples/Mvc.Formatters)
 * [Ukázková aplikace pro tento dokument](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample), které implementuje jednoduché vCard Vstupní a výstupní formátování. Aplikace čte a zapisuje vCard, která vypadají, jako v následujícím příkladu:

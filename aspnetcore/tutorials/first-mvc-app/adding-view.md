@@ -5,12 +5,12 @@ description: Přidání zobrazení pro jednoduchou aplikaci ASP.NET Core MVC
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 70c96b4838b37ea2c193c328f00a410642338369
-ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
+ms.openlocfilehash: c86e5aba6dbd1e39460cc3d2c266ce704282ee09
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67167085"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815424"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do aplikace ASP.NET Core MVC
 
@@ -164,7 +164,7 @@ Data přijatá z adresy URL a předat pomocí řadiče [vazač modelu MVC](xref:
 
 ![Ochrana osobních údajů zobrazení úvodní popisek a frází Hello Rick zobrazí čtyřikrát](~/tutorials/first-mvc-app/adding-view/_static/rick2.png)
 
-V příkladu výše `ViewData` slovník byla použita k předání dat z kontroleru zobrazení. Později v tomto kurzu se používá model zobrazení k předání dat z kontroleru zobrazení. Přístup modelu zobrazení k předávání dat je obvykle mnohem upřednostňované nad `ViewData` slovníku přístup. Zobrazit [použití položek ViewBag, ViewData a TempData](http://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) Další informace.
+V příkladu výše `ViewData` slovník byla použita k předání dat z kontroleru zobrazení. Později v tomto kurzu se používá model zobrazení k předání dat z kontroleru zobrazení. Přístup modelu zobrazení k předávání dat je obvykle mnohem upřednostňované nad `ViewData` slovníku přístup. Zobrazit [použití položek ViewBag, ViewData a TempData](https://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) Další informace.
 
 V dalším kurzu se vytvoří databáze filmů.
 

@@ -22,6 +22,6 @@ Pokud požadavek obsahuje `Accept-Encoding` kompresi záhlaví a odpověď je ú
 
 ## <a name="use-the-sample"></a>Použitím této ukázky
 
-1. Vytvořit žádost o prostřednictvím [Fiddleru](http://www.telerik.com/fiddler), [Firebug](http://getfirebug.com/), nebo [Postman](https://www.getpostman.com/) k aplikaci bez `Accept-Encoding` záhlaví a Všimněte si datové části odpovědi velikost odpovědi a hlavičky odpovědi.
+1. Vytvořit žádost o prostřednictvím [Fiddleru](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/), nebo [Postman](https://www.getpostman.com/) k aplikaci bez `Accept-Encoding` záhlaví a Všimněte si datové části odpovědi velikost odpovědi a hlavičky odpovědi.
 1. Přidat `Accept-Encoding: br` nebo `Accept-Encoding: gzip` záhlaví a poznamenejte si velikost komprimovaných odpovědi a hlaviček odpovědí. Velikost odpovědi zahodí a `Content-Encoding` middlewarem označující, že komprese se buď Gzip je zahrnuta hlavička odpovědi nebo Brotli došlo k chybě. Když se podíváte na datovou část odpovědi pro Lorem Ipsum nebo **testfile1kb.txt** odpovědi, uvidíte, že text je komprimovaná a nejde přečíst.
 1. Přidat `Accept-Encoding: mycustomcompression` záhlaví a poznamenejte si hlavičky odpovědi. `CustomCompressionProvider` Je prázdná implementace, která není ve skutečnosti komprimovat odpověď, ale můžete vytvořit vlastní kompresi datového proudu obálku pro `CreateStream()` metody.

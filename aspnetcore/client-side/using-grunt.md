@@ -5,12 +5,12 @@ description: Použití nástroje Grunt v ASP.NET Core
 ms.author: riande
 ms.date: 06/18/2019
 uid: client-side/using-grunt
-ms.openlocfilehash: 851ce3b50e88fee597518aef23276800f4b50f06
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: f3832bd1fe5721fbda114103ac11a8d55312bcb2
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207754"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813554"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>Použití nástroje Grunt v ASP.NET Core
 
@@ -94,7 +94,7 @@ V dalším kroku nakonfigurujte NPM pro stažení nástroje grunt a grunt úlohy
     ![grunt technologie Intellisense](using-grunt/_static/devdependencies-grunt.png)
 
     > [!NOTE]
-    > NPM používá [sémantické správy verzí](http://semver.org/) k uspořádání závislosti. Sémantické správy verzí, označované také jako SemVer identifikuje balíčky se schéma číslování \<hlavní >.\< podverze >. \<opravy >. Technologie IntelliSense zjednodušuje tím, že zobrazuje pouze několik běžné volby sémantické správy verzí. Horní položku v seznamu technologie Intellisense (0.4.5 v příkladu výše) se považuje za nejnovější stabilní verze balíčku. Symbol stříšky (^) odpovídá nejnovější hlavní verzi a tilda (~) odpovídá nejnovější dílčí verzi. Najdete v článku [odkaz analyzátoru verzi semver NPM](https://www.npmjs.com/package/semver) jako průvodce k úplné expressivity poskytující SemVer.
+    > NPM používá [sémantické správy verzí](https://semver.org/) k uspořádání závislosti. Sémantické správy verzí, označované také jako SemVer identifikuje balíčky se schéma číslování \<hlavní >.\< podverze >. \<opravy >. Technologie IntelliSense zjednodušuje tím, že zobrazuje pouze několik běžné volby sémantické správy verzí. Horní položku v seznamu technologie Intellisense (0.4.5 v příkladu výše) se považuje za nejnovější stabilní verze balíčku. Symbol stříšky (^) odpovídá nejnovější hlavní verzi a tilda (~) odpovídá nejnovější dílčí verzi. Najdete v článku [odkaz analyzátoru verzi semver NPM](https://www.npmjs.com/package/semver) jako průvodce k úplné expressivity poskytující SemVer.
 
 3. Přidat další závislosti načíst grunt-contrib -\* balíčky *čisté*, *jshint*, *concat*, *uglify*a *watch* jak je znázorněno v následujícím příkladu. Verze nemusejí být stejné v příkladu.
 

@@ -5,12 +5,12 @@ description: Přečtěte si podrobnosti implementace hlavičky kontextu ochranu 
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/context-headers
-ms.openlocfilehash: 2b8fd594672bf623d38bfae90d05a984f92ce6a3
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 518423f5df93924d3df144994e4beb1755cd0bfc
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087554"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814018"
 ---
 # <a name="context-headers-in-aspnet-core"></a>Kontextová záhlaví v ASP.NET Core
 
@@ -48,7 +48,7 @@ Hlavičku kontextu se skládá z následujících součástí:
 
 V ideálním případě jsme mohli předat všechny nulové vektory K_E a K_H. Však chceme, aby se zabránilo situaci, kdy algoritmus zkontroluje existenci slabé klíče před provedením jakékoli operace (zejména DES a 3DES), který vylučuje pomocí jednoduché nebo repeatable vzoru, jako je vektor všemi nulovými.
 
-Místo toho v režimu čítač používáme KDF SP800 108 NIST (naleznete v tématu [NIST SP800-108](http://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf), s. 5.1) s nulovou délkou klíče, popisek a kontextu a HMACSHA512 jako základní PRF. Odvodíme | K_E | + | K_H | bajty výstupu, potom rozloží výsledek na K_E a K_H sami. Matematický je reprezentováno následujícím způsobem.
+Místo toho v režimu čítač používáme KDF SP800 108 NIST (naleznete v tématu [NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf), s. 5.1) s nulovou délkou klíče, popisek a kontextu a HMACSHA512 jako základní PRF. Odvodíme | K_E | + | K_H | bajty výstupu, potom rozloží výsledek na K_E a K_H sami. Matematický je reprezentováno následujícím způsobem.
 
 (K_E || K_H) = SP800_108_CTR (prf = HMACSHA512, key = "", label = "", kontext = "")
 
