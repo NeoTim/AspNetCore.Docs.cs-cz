@@ -6,16 +6,16 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/18/2019
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: 9fd41b049104e99f1701354c40a05e5ee30e9c2f
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 44fc4ff6334e33630974181021aa1a6880a89917
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814995"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856228"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>Ukotvení pomocné rutiny značky v ASP.NET Core
 
-Podle [Peter Kellner](http://peterkellner.net) a [Scott Addie](https://github.com/scottaddie)
+Podle [Peter Kellner](https://peterkellner.net) a [Scott Addie](https://github.com/scottaddie)
 
 [Ukotvení pomocné rutiny značky](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper) zvyšuje standard HTML anchor (`<a ... ></a>`) tak, že přidáte nové atributy značky. Podle konvence mají předponu názvů atributů `asp-`. Prvek vykreslené ukotvení `href` hodnota atributu je určen podle hodnot `asp-` atributy.
 

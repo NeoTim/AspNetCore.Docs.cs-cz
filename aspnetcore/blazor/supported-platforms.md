@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/supported-platforms
-ms.openlocfilehash: a1ed725de64459edfa2f84d320b2101fb628b1d3
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.openlocfilehash: 01f3a55a8536feedf713e07ea3724a0bc51e7c63
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67500415"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855797"
 ---
 # <a name="aspnet-core-blazor-supported-platforms"></a>ASP.NET Core Blazor podporované platformy
 
@@ -30,7 +30,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 | Safari, včetně systému iOS            | aktuální               |
 | Microsoft Internet Explorer      | Nepodporuje se&dagger; |
 
-&dagger;Microsoft Internet Explorer nepodporuje [WebAssembly](http://webassembly.org).
+&dagger;Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
 
 ### <a name="blazor-server-side"></a>Blazor na straně serveru
 

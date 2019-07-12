@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/08/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: df6f144f23f36d8009a5638859846e3cfb768b37
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 50b199744f32ad19335080da406db69665ec1ae9
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815447"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856162"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -259,7 +259,7 @@ V následujícím kódu `ServiceFilter` atribut načte instanci `AddHeaderResult
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/HomeController.cs?name=snippet_ServiceFilter&highlight=1)]
 
-[ServiceFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute.IsReusable):
+Při použití `ServiceFilterAttribute`a nastavte [ServiceFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute.IsReusable):
 
 * Poskytuje nápovědu, která instance filtru *může* znovu použít mimo byl vytvořen v rámci oboru požadavku. Modul runtime ASP.NET Core nezaručuje:
 
@@ -279,7 +279,10 @@ Protože `TypeFilterAttribute` nejsou přímo z kontejnerů DI přeložit typy:
 * Typy, které jsou odkazovány pomocí `TypeFilterAttribute` nemusíte být registrována pomocí kontejnerů DI.  Mají jejich závislosti podle kontejnerů DI splněny.
 * `TypeFilterAttribute` Volitelně může přijímat argumenty konstruktoru typu.
 
-Při použití `TypeFilterAttribute`a nastavte `IsReusable` se o nápovědu, která instance filtru *může* znovu použít mimo byl vytvořen v rámci oboru požadavku. Modul runtime ASP.NET Core poskytuje žádnou záruku, že jedna instance filtru bude vytvořen. `IsReusable` se nemá používat s filtr, který závisí na službách s životností jiného než typu singleton.
+Při použití `TypeFilterAttribute`a nastavte [TypeFilterAttribute.IsReusable](xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute.IsReusable):
+* Poskytuje nápovědu, která instance filtru *může* znovu použít mimo byl vytvořen v rámci oboru požadavku. Modul runtime ASP.NET Core poskytuje žádnou záruku, že jedna instance filtru bude vytvořen.
+
+* Se nemá používat s filtr, který závisí na službách s životností jiného než typu singleton.
 
 Následující příklad ukazuje, jak předat argumenty typu pomocí `TypeFilterAttribute`:
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/02/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: a47ff2ea1fbde8a5d2c6e8bcd73744812767de77
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: e1b7de6e31adae8102bbefba5d08418c4daac687
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67538460"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855782"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor formulářů a ověřování
 
@@ -159,7 +159,7 @@ Následující formulář ověřuje vstup uživatele s použitím ověřování 
     <p>
         <a href="http://www.startrek.com/">Star Trek</a>, 
         &copy;1966-2019 CBS Studios, Inc. and 
-        <a href="http://www.paramount.com">Paramount Pictures</a>
+        <a href="https://www.paramount.com">Paramount Pictures</a>
     </p>
 </EditForm>
 

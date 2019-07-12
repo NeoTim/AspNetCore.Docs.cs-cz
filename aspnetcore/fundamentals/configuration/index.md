@@ -5,14 +5,14 @@ description: Zjistěte, jak použít rozhraní API pro konfiguraci ke konfigurac
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/24/2019
+ms.date: 07/11/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 81820e8161965fcca2f97d00708df5a29df668de
-ms.sourcegitcommit: 9691b742134563b662948b0ed63f54ef7186801e
+ms.openlocfilehash: 3351ab743ce38b78b1c5857e52020fdeda12cbe7
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2019
-ms.locfileid: "66824827"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855818"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -21,6 +21,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 Konfigurace aplikace v ASP.NET Core je založená na páry klíč hodnota stanovené *poskytovatelé konfigurace*. Poskytovatelé konfigurace čtení konfiguračních dat do párů hodnot klíčů z různých zdrojů konfigurace:
 
 * Azure Key Vault
+* Konfigurace aplikace Azure
 * Argumenty příkazového řádku
 * Vlastní zprostředkovatelé (nainstalované nebo vytváření)
 * Adresář souborů
@@ -38,7 +39,7 @@ using Microsoft.Extensions.Configuration;
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="host-vs-app-configuration"></a>Hostování a konfigurace aplikací
+## <a name="host-versus-app-configuration"></a>Hostování konfigurace oproti konfiguraci v aplikaci
 
 Předtím, než aplikace je nakonfigurovaná a spuštěna, *hostitele* nakonfigurovaný a spustit. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Aplikace a hostitel jsou nakonfigurováni pomocí zprostředkovatele konfigurace popsané v tomto tématu. Páry klíč hodnota konfigurace hostitele se stanou součástí globální konfiguraci aplikace. Další informace o jak konfiguraci poskytovatele se používají při vytváření hostitele a vliv zdroje konfigurace hostitele konfigurace najdete v tématu [hostitele](xref:fundamentals/index#host).
 
@@ -145,6 +146,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace k dispozici pro
 | Poskytovatel | Obsahuje konfiguraci z&hellip; |
 | -------- | ----------------------------------- |
 | [Azure zprostředkovatel konfigurace trezoru klíčů](xref:security/key-vault-configuration) (*zabezpečení* témata) | Azure Key Vault |
+| [Poskytovatel konfigurace služby Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace k Azure) | Konfigurace aplikace Azure |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
 | [Vlastního poskytovatele konfigurace](#custom-configuration-provider) | Vlastní zdroj |
 | [Zprostředkovatel konfigurace proměnných prostředí](#environment-variables-configuration-provider) | Proměnné prostředí |
@@ -316,7 +318,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 Po spuštění předchozího příkazu se konfigurace obsahuje hodnoty uvedené v následující tabulce.
 
-| Key               | Value    |
+| Key               | Hodnota    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
@@ -331,7 +333,7 @@ Chcete-li aktivovat konfigurace proměnných prostředí, zavolejte <xref:Micros
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) umožňuje nastavit proměnné prostředí na webu Azure Portal, můžete přepsat konfiguraci aplikace pomocí zprostředkovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikace Azure: Přepsat konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
 
-`AddEnvironmentVariables` slouží k načtení proměnné prostředí s předponou `ASPNETCORE_` pro [konfigurace hostitele](#host-vs-app-configuration) při novém <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> je inicializován. Další informace najdete v tématu [webového hostitele: Nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
+`AddEnvironmentVariables` slouží k načtení proměnné prostředí s předponou `ASPNETCORE_` pro [konfigurace hostitele](#host-versus-app-configuration) při novém <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> je inicializován. Další informace najdete v tématu [webového hostitele: Nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
 
 `CreateDefaultBuilder` také načítání:
 
@@ -966,7 +968,7 @@ Následující páry klíč hodnota konfigurace jsou vytvořeny:
 | starship: Třída        | Vytvoření                                      |
 | starship: délka       | 304.8                                             |
 | starship: stává | False                                             |
-| Ochranné známky             | Paramount obrázky Corp. http://www.paramount.com |
+| Ochranné známky             | Paramount obrázky Corp. https://www.paramount.com |
 
 Ukázková aplikace volání `GetSection` s `starship` klíč. `starship` Páry klíč hodnota jsou izolované. `Bind` Metoda je volána v podčásti předávání v instanci `Starship` třídy. Po navázání hodnoty instanci, instance přidruženo k vlastnosti pro vykreslování:
 
@@ -1013,7 +1015,7 @@ TvShow = tvShow;
 
 Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tabulce.
 
-| Key             | Value  |
+| Key             | Hodnota  |
 | :-------------: | :----: |
 | pole: položky: 0 | gamma0 |
 | pole: položek: 1 | value1 |
@@ -1074,7 +1076,7 @@ config.AddJsonFile("missing_value.json", optional: false, reloadOnChange: false)
 
 Dvojice klíč hodnota v tabulce se načtou do konfigurace.
 
-| Key             | Value  |
+| Key             | Hodnota  |
 | :-------------: | :----: |
 | pole: položek: 3 | hodnota3 |
 
