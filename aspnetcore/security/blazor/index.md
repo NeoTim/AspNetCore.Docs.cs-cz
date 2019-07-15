@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/26/2019
 uid: security/blazor/index
-ms.openlocfilehash: b3bca26e7088a8353084a065f9b9593c9d8e08e6
-ms.sourcegitcommit: 9bb29f9ba6f0645ee8b9cabda07e3a5aa52cd659
+ms.openlocfilehash: 097a747f68729109922af5c68dfd918024ee6146
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67406199"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67893615"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor ověřování a autorizace
 
@@ -41,7 +41,7 @@ Aplikace na straně serveru Blazor provoz přes připojení v reálném čase, k
 
 Postupujte podle pokynů sady Visual Studio v <xref:blazor/get-started> článku vytvořte nový projekt na straně serveru Blazor s mechanismus ověřování.
 
-Po výběru **Blazor (serverové)** šablony v **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, vyberte **změnu** pod **ověřování** .
+Po výběru **Blazor serverovou aplikaci** šablony v **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, vyberte **změnu** pod **ověřování** .
 
 Otevře se dialogové okno nabízí stejnou sadu ověřovací mechanismy dostupné pro jiné technologie ASP.NET Core projekty:
 

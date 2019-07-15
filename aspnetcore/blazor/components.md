@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/05/2019
 uid: blazor/components
-ms.openlocfilehash: ca715457604f08e50628d1c1189ea3c570321112
-ms.sourcegitcommit: b9e914ef274b5ec359582f299724af6234dce135
+ms.openlocfilehash: 81100ebb0fdaf877df8c9e696c81b86324f8c0d0
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/05/2019
-ms.locfileid: "67596103"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67892245"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání komponent ASP.NET Core Razor
 
@@ -1109,7 +1109,10 @@ builder.AddContent(seq++, "Second");
 
 Nyní první výstup je následující:
 
-| Pořadí | Typ      | Data   | | :------: | --------- | :--- : | | 0        | Textový uzel | První  | | 1        | Textový uzel | Druhý |
+| Sequence | type      | Data   |
+| :------: | --------- | :----: |
+| 0        | Textový uzel | první  |
+| 1        | Textový uzel | Sekunda |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je `false` v druhém vykreslování a výstup je:
 

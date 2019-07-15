@@ -6,12 +6,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 07/08/2019
 uid: tutorials/signalr
-ms.openlocfilehash: 5588cab1ebbe8fbd6d134025f07f9580ecafd89f
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 53d3763a93cc72b6bcf85b64a706500299b3597f
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67855794"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67893795"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s knihovnou SignalR technologie ASP.NET Core
 
@@ -484,7 +484,7 @@ Na serveru funkce SignalR nastavené předat požadavky SignalR SignalR.
 > Pokud aplikace nebude fungovat, otevřete prohlížeč vývojářské nástroje (F12) a přejděte do konzoly. Můžou se zobrazovat chyby související s kódem HTML a JavaScript. Předpokládejme například, kam si ukládáte *signalr.js* v jiné složce než řízené. V takovém případě nebude fungovat odkaz na tento soubor a uvidíte v konzole chybu 404.
 > ![Chyba nenalezení signalr.js](signalr/_static/2.x/f12-console.png)
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu jste se naučili:
 
@@ -494,8 +494,6 @@ V tomto kurzu jste se naučili:
 > * Vytvoření rozbočovače SignalR.
 > * Nakonfigurujte projekt tak, aby používaly SignalR.
 > * Přidejte kód, který používá Centrum pro odesílání zpráv z libovolného klienta na všechny připojené klienty.
-
-## <a name="next-steps"></a>Další kroky
 
 Další informace o funkci SignalR naleznete v úvodu:
 

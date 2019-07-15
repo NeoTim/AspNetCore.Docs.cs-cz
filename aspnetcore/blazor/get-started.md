@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/get-started
-ms.openlocfilehash: 51fb531c07de35b08911c8475b192f3bda281ea4
-ms.sourcegitcommit: eb3e51d58dd713eefc242148f45bd9486be3a78a
+ms.openlocfilehash: 147e3b98ba4a5c6edc4f4dede2773730ffbe0385
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67500438"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67892240"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -44,12 +44,12 @@ Začínáme s Blazor:
 
    6\. V **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
 
-   7\. Blazor prostředí na straně klienta, vyberte **Blazor (na straně klienta)** šablony. Blazor prostředí na straně serveru, zvolte **Blazor (serverové)** šablony. Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor a na straně serveru a na straně klienta najdete v tématu <xref:blazor/hosting-models>.
+   7\. Blazor prostředí na straně klienta, vyberte **Blazor (na straně klienta)** šablony. Blazor prostředí na straně serveru, zvolte **aplikace Server Blazor** šablony. Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor a na straně serveru a na straně klienta najdete v tématu <xref:blazor/hosting-models>.
 
    8\. Stisknutím klávesy **F5** ke spuštění aplikace.
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-   
+
    1\. Nainstalujte [Visual Studio Code](https://code.visualstudio.com/).
 
    2\. Nainstalujte nejnovější [ C# pro Visual Studio Code příponou](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
@@ -86,7 +86,7 @@ Začínáme s Blazor:
 
    3\. In the sidebar, select **.NET Core** > **App**.
 
-   4\. For a Blazor server-side experience, select the **ASP.NET Core Blazor (server-side)** template. For a Blazor client-side experience, select the **ASP.NET Core Blazor (client-side)** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
+   4\. For a Blazor server-side experience, select the **ASP.NET Core Blazor Server App** template. For a Blazor client-side experience, select the **ASP.NET Core Blazor (client-side)** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
 
    5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
 

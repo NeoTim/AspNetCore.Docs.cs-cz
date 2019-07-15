@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 80f5e3260ce991ef67fa2a0dd36f8be1f70b6271
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 2f5a8a037534f4a881b474dd8bcc3119f504123a
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813378"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67892244"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor hostování modelů
 
@@ -58,7 +58,7 @@ S model hostingu na straně serveru aplikace spuštěné na serveru z v rámci a
 
 ![V prohlížeči komunikuje s aplikaci (už je hostovaná v rámci aplikace ASP.NET Core) na serveru pomocí připojení SignalR.](hosting-models/_static/server-side.png)
 
-Chcete-li vytvořit aplikaci Blazor používá model hostování na straně serveru, použijte ASP.NET Core **Blazor (serverové)** šablony ([nové blazorserverside dotnet](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core je hostitelem aplikace na straně serveru a vytvoří SignalR koncový bod, ve kterém se klienti připojují.
+Pokud chcete vytvořit aplikaci Blazor používá model hostování na straně serveru, použijte technologii ASP.NET Core **Blazor serverovou aplikaci** šablony ([nové blazorserverside dotnet](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core je hostitelem aplikace na straně serveru a vytvoří SignalR koncový bod, ve kterém se klienti připojují.
 
 Aplikace ASP.NET Core odkazuje aplikaci `Startup` třídy přidejte:
 
