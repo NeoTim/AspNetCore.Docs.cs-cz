@@ -3,14 +3,14 @@ title: Stránky Razor s EF Core v ASP.NET Core – migrace - 4 z 8
 author: rick-anderson
 description: V tomto kurzu začnete používat funkci migrace EF Core ke správě změn datových modelů v aplikaci ASP.NET Core MVC.
 ms.author: riande
-ms.date: 06/31/2017
+ms.date: 06/30/2017
 uid: data/ef-rp/migrations
-ms.openlocfilehash: b887be91a0c8332e7bd5fb7b1acc90eae138d9ed
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 54225a8126e04eb4ff3a6a0cde9d305249299887
+ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813633"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "68223870"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – migrace - 4 z 8
 
@@ -172,7 +172,7 @@ Login failed for user 'user name'.
 ### <a name="additional-resources"></a>Další zdroje
 
 * [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=OWSUuMLKTJo)
-* [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).
+* [.NET core CLI](/ef/core/miscellaneous/cli/dotnet).
 * [Konzola Správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
 
 
