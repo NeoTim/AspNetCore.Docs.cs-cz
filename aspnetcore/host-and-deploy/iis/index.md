@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru In
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2019
+ms.date: 07/16/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 2dab8b4839d6778d5dc6a3daf96c1719eecfe0fb
-ms.sourcegitcommit: 763af2cbdab0da62d1f1cfef4bcf787f251dfb5c
+ms.openlocfilehash: 644d84f9adba650b3ef10ba69cc75c22845be211
+ms.sourcegitcommit: 7e00e8236ca4eabf058f07020a5a3882daf7564f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394626"
+ms.lasthandoff: 07/16/2019
+ms.locfileid: "68239246"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -338,7 +338,7 @@ Při nasazování aplikací na servery s [Webdeploy](/iis/install/installing-pub
 
 ## <a name="create-the-iis-site"></a>Vytvořte web služby IIS
 
-1. V hostitelském systému vytvořte složku obsahující soubory a složky publikované aplikace. Rozložení nasazení vaší aplikace je popsána v [adresářovou strukturu](xref:host-and-deploy/directory-structure) tématu.
+1. V hostitelském systému vytvořte složku obsahující soubory a složky publikované aplikace. V tomto kroku je cesta ke složce zadat do služby IIS jako fyzická cesta k aplikaci. Další informace o rozložení souboru a složky pro nasazení vaší aplikace najdete v tématu <xref:host-and-deploy/directory-structure>.
 
 1. Ve Správci služby IIS rozbalte uzel serveru v **připojení** panelu. Klikněte pravým tlačítkem myši **lokality** složky. Vyberte **přidat web** z kontextové nabídky.
 
@@ -372,11 +372,11 @@ Další informace najdete v tématu [Windows nakonfigurovat ověřování](xref:
 
 ## <a name="deploy-the-app"></a>Nasazení aplikace
 
-Nasazení aplikace do složky vytvořené v hostitelském systému. [Webu nasadit](/iis/publish/using-web-deploy/introduction-to-web-deploy) je doporučené mechanismus pro nasazení.
+Nasazení aplikace do služby IIS **fyzická cesta** složky, který byl vytvořen v [vytvořit web služby IIS](#create-the-iis-site) oddílu. [Webu nasadit](/iis/publish/using-web-deploy/introduction-to-web-deploy) je doporučené mechanismus pro nasazení, ale existuje několik možností pro přesun aplikace z projektu *publikovat* složku pro nasazení hostujícího systému.
 
 ### <a name="web-deploy-with-visual-studio"></a>Nasazení webu pomocí sady Visual Studio
 
-Zobrazit [profily publikování sady Visual Studio pro nasazení aplikace ASP.NET Core](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) téma a zjistěte, jak vytvořit profil publikování pro použití s nasazením webu. Pokud poskytovatel hostingu poskytuje pro vytvoření nového profilu pro publikování nebo podporu, stáhněte si svůj profil a importujte ho pomocí sady Visual Studio **publikovat** dialogového okna.
+Zobrazit [profily publikování sady Visual Studio pro nasazení aplikace ASP.NET Core](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) téma a zjistěte, jak vytvořit profil publikování pro použití s nasazením webu. Pokud poskytovatel hostingu poskytuje pro vytvoření nového profilu pro publikování nebo podporu, stáhněte si svůj profil a importujte ho pomocí sady Visual Studio **publikovat** dialogové okno:
 
 ![Publikovat stránku dialogového okna](index/_static/pub-dialog.png)
 
@@ -386,11 +386,15 @@ Zobrazit [profily publikování sady Visual Studio pro nasazení aplikace ASP.NE
 
 ### <a name="alternatives-to-web-deploy"></a>Alternativy k webové nasazení
 
-Použijte několik metod pro přesun aplikace k hostování systému, jako je ruční export, příkazu Xcopy, Robocopy nebo prostředí PowerShell.
+Použít několik metod pro přesun aplikace do hostujícího systému, jako je ruční export [Xcopy](/windows-server/administration/windows-commands/xcopy), [Robocopy](/windows-server/administration/windows-commands/robocopy), nebo [Powershellu](/powershell/).
 
 Další informace o nasazení ASP.NET Core do služby IIS, najdete v článku [materiály pro nasazení pro správce služby IIS](#deployment-resources-for-iis-administrators) oddílu.
 
 ## <a name="browse-the-website"></a>Přejděte na web
+
+Po nasazení aplikace do hostujícího systému, vytvořte žádost na jednu z veřejných koncových bodů aplikace.
+
+V následujícím příkladu je vázán webu na službu IIS **název hostitele** z `www.mysite.com` na **Port** `80`. Vytvoří se požadavek na `http://www.mysite.com`:
 
 ![Prohlížeč Microsoft Edge načetl úvodní stránka služby IIS.](index/_static/browsewebsite.png)
 
