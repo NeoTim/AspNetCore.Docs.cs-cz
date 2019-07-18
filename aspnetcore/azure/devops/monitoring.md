@@ -4,14 +4,14 @@ author: CamSoper
 description: Monitorování a ladění kódu jako součást řešení DevOps s ASP.NET Core a Azure
 ms.author: casoper
 ms.custom: mvc, seodec18
-ms.date: 10/24/2018
+ms.date: 07/10/2019
 uid: azure/devops/monitor
-ms.openlocfilehash: 00489bd92dfff8fd80bd24c2e60193d32031d7c4
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 1d8ed99f4387dbc99929164c558cc2ce14bd9ea0
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899379"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68307961"
 ---
 # <a name="monitor-and-debug"></a>Monitorování a ladění
 
@@ -37,11 +37,11 @@ Aplikace služby App Service web apps je snadné sledování v reálném čase. 
 
     ![Snímek obrazovky zobrazující Přehled panelu](./media/monitoring/overview.png)
 
-    * **Http 5xx**: Počet chyb na straně serveru, obvykle výjimek v kódu ASP.NET Core.
-    * **Data v**: Příchozí data přicházející do webové aplikace.
-    * **Odchozí data**: Odchozí přenos dat z vaší webové aplikace pro klienty.
-    * **Požadavky**: Počet HTTP žádosti.
-    * **Průměrná doba odezvy**: Průměrná doba pro webovou aplikaci, aby odpovídal na požadavky HTTP.
+    * **Http 5xx**: Počet chyb na straně serveru, obvykle výjimky v kódu ASP.NET Core.
+    * **Data v**: Příchozí data přicházejí do vaší webové aplikace.
+    * **Výstupní data**: Odchozí přenos dat z vaší webové aplikace na klienty.
+    * **Požadavky**: Počet požadavků HTTP.
+    * **Průměrná doba odezvy**: Průměrná doba, kterou webové aplikace reagují na požadavky HTTP.
 
     Několik samoobslužné nástroje pro řešení potíží a optimalizace, které také najdete na této stránce.
 
@@ -89,7 +89,7 @@ Protokoly webového serveru a aplikace jsou zakázané ve výchozím nastavení 
 
     ![Diagnostické protokoly odkaz](./media/monitoring/logging.png)
 
-1. Zapnout **protokolování aplikace (systém souborů)**. Pokud se zobrazí výzva, klikněte na políčko pro instalaci rozšíření povolíte protokolování ve webové aplikaci app.
+1. Zapnout **protokolování aplikace (systém souborů)** . Pokud se zobrazí výzva, klikněte na políčko pro instalaci rozšíření povolíte protokolování ve webové aplikaci app.
 1. Nastavte **protokolování webového serveru** k **systému souborů**.
 1. Zadejte **dobu uchování** ve dnech. Například 30.
 1. Klikněte na **Uložit**.
@@ -111,7 +111,7 @@ Můžete se také protokoly [Streamovat prostřednictvím Azure Powershellu nebo
 
 Azure Monitor poskytuje také [upozornění v reálném čase](/azure/monitoring-and-diagnostics/insights-alerts-portal) na základě metrik, správy událostí a jiných kritérií.
 
-> *Poznámka: Aktuálně upozornění na metriky webové aplikace je k dispozici pouze ve službě upozornění (klasická).*
+> *Poznámka: Upozornění na metriky webové aplikace jsou aktuálně dostupná jenom ve službě výstrahy (Classic).*
 
 [Upozornění (klasická) služby](/azure/monitoring-and-diagnostics/monitor-quick-resource-metric-alert-portal) najdete ve službě Azure Monitor nebo v části **monitorování** část nastavení služby App Service.
 
@@ -135,7 +135,7 @@ V této části jste dokončili následující úlohy:
 
 ## <a name="additional-reading"></a>Další čtení
 
-* <xref:host-and-deploy/azure-apps/troubleshoot>
+* <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 * [Monitorování výkonu webových aplikací Azure pomocí Application Insights](/azure/application-insights/app-insights-azure-web-apps)
 * [Povolení protokolování diagnostiky pro webové aplikace ve službě Azure App Service](/azure/app-service/web-sites-enable-diagnostic-log)
