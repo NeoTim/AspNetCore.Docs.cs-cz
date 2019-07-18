@@ -117,7 +117,7 @@ Následující příklad ukazuje, jak se zaregistrovat middleware s `IStartupFil
 
 [!code-csharp[](startup/sample_snapshot/RequestSetOptionsStartupFilter.cs?name=snippet1&highlight=7)]
 
-`IStartupFilter` Je zaregistrovaný v kontejneru služby <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> a argumentech `Startup` z mimo `Startup` třídy:
+`IStartupFilter` je zaregistrovaný v kontejneru služeb  v <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> a rozšiřuje `Startup` mimo třídu `Startup`:
 
 [!code-csharp[](startup/sample_snapshot/Program2.cs?name=snippet1&highlight=4-5)]
 
@@ -128,11 +128,11 @@ Pokud je určena hodnota parametru řetězce dotazu `option`, middleware zpracuj
 Pořadí spuštění middlewarů je nastaveno podle pořadí registrace `IStartupFilter`:
 
 * Několik různých implementací `IStartupFilter` může operovat se stejnými objekty. Pokud je pro Vás důležité pořadí, seřaďte jednotlivé registrace služeb `IStartupFilter` tak, aby odpovídaly pořadí, ve kterém mají být jejich middlewary spuštěny.
-* Knihovny mohou přidávat middlewary s jednou nebo více implementacemi `IStartupFilter`, které se spuští před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí `IStartupFilter`. K vyvolání `IStartupFilter` middlewaru před `IStartupFilter` middlewarem přidaného knihovnou, umístěte registraci Vaší služby před registrací knihovny do kontejneru služeb. Pro opačné pořadí umístěte registraci služby za přidání knihovny.
+* Knihovny mohou přidávat middlewary s jednou nebo více implementacemi rozhraní `IStartupFilter`, které se spustí před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí rozhraní `IStartupFilter`. Pokud chcete vyvolat middleware rozhraní `IStartupFilter` před  middlewarem přidaným pomocí rozhraní `IStartupFilter` knihovny, umístěte registraci služby před přidání knihovny do kontejneru služeb. Pokud ji chcete vyvolat později, umístěte registraci služby za přidání knihovny.
 
 ## <a name="add-configuration-at-startup-from-an-external-assembly"></a>Přidání konfigurace při spuštění z externího sestavení
 
-<xref:Microsoft.AspNetCore.Hosting.IHostingStartup> Implementace umožňuje přidání vylepšení do aplikace při spuštění z externího sestavení mimo aplikaci prvku `Startup` třídy. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
+Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
 ## <a name="additional-resources"></a>Další zdroje
 
