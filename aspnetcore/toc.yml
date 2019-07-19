@@ -534,6 +534,10 @@
       uid: grpc/aspnetcore
     - name: Konfigurace
       uid: grpc/configuration
+    - name: Ověřování a autorizace
+      uid: grpc/authn-and-authz
+    - name: Důležité informace o zabezpečení
+      uid: grpc/security
     - name: Migrace služeb gRPC z C Core na ASP.NET Core
       uid: grpc/migration
     - name: Porovnání služeb gRPC pomocí rozhraní HTTP API
@@ -560,6 +564,10 @@
       uid: test/troubleshoot
     - name: protokolování
       uid: fundamentals/logging/index
+    - name: Řešení potíží s Azure a Internetovou informační službou (IIS)
+      uid: test/troubleshoot-azure-iis
+    - name: Referenční informace k chybám Azure a Internetové informační služby (IIS)
+      uid: host-and-deploy/azure-iis-errors-reference
 - name: "Přístup k\_datům"
   items:
     - name: Kurzy
@@ -656,7 +664,7 @@
           uid: host-and-deploy/aspnet-core-module
         - name: Řešení potíží
           displayName: 'azure, deploy, publish'
-          uid: host-and-deploy/azure-apps/troubleshoot
+          uid: test/troubleshoot-azure-iis
         - name: Referenční informace o chybách
           displayName: 'azure, deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
@@ -697,7 +705,7 @@
           uid: host-and-deploy/iis/modules
         - name: Řešení potíží
           displayName: 'deploy, publish'
-          uid: host-and-deploy/iis/troubleshoot
+          uid: test/troubleshoot-azure-iis
         - name: Referenční informace o chybách
           displayName: 'deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
