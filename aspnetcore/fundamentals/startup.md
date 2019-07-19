@@ -18,14 +18,14 @@ ms.locfileid: "59468621"
 
 Podle [Petr Dykstra](https://github.com/tdykstra), [Luke Latham](https://github.com/guardrex), a [Steve Smith](https://ardalis.com)
 
-Třída `Startup` konfiguruje služby a rouru zpracování požadavků aplikace.
+Třída `Startup` konfiguruje služby a kanál zpracování požadavků aplikace.
 
 ## <a name="the-startup-class"></a>Třída Startup
 
 Aplikace ASP.NET Core používají třídu `Startup`, která je konvenčně pojmenována `Startup`. Třída `Startup`:
 
 * Volitelně obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*>, která slouží pro konfiguraci *služeb* aplikace. Služba je znovupoužitelná komponenta, která poskytuje funkčnost aplikace. Služby jsou nakonfigurovány &ndash; neboli takzvaně *zaregistrovány* &ndash; v metodě `ConfigureServices` a využívány napříč aplikací skrze [vkládání závislostí (DI)](xref:fundamentals/dependency-injection) nebo <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.
-* Obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> pro vytvoření roury pro zpracování požadavků aplikace.
+* Obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> pro vytvoření kanálu pro zpracování požadavků aplikace.	
 
 `ConfigureServices` a `Configure` jsou volány modulem runtime při spuštění aplikace:
 
@@ -47,7 +47,7 @@ Ve třídě `Startup` se běžně používá [vkládání závislostí](xref:fun
 
 Alternativou ke vložení `IHostingEnvironment` je použití přístupu založeného na konvencích. Pokud aplikace definuje samostatnou třídu `Startup` pro různá prostředí (například `StartupDevelopment`), odpovídající třída `Startup` je vybrána v době běhu. Třída, jejíž název má příponu odpovídající aktuálnímu prostředí, je upřednostněna. Pokud aplikace běží ve vývojovém prostředí a obsahuje třídu `Startup` i třídu `StartupDevelopment`, použije se třída `StartupDevelopment` . Další informace naleznete v tématu [Používání více prostředí](xref:fundamentals/environments#environment-based-startup-class-and-methods).
 
-Další informace o hostiteli, naleznete v tématu [Hostitel](xref:fundamentals/index#host). Informace o zpracování chyb během spuštění naleznete v tématu [Zpracování výjimek při spuštění](xref:fundamentals/error-handling#startup-exception-handling).
+Další informace o hostiteli naleznete v tématu [Hostitel](xref:fundamentals/index#host). Informace o zpracování chyb během spuštění naleznete v tématu [Zpracování výjimek při spuštění](xref:fundamentals/error-handling#startup-exception-handling).
 
 ## <a name="the-configureservices-method"></a>Metoda ConfigureServices
 
@@ -71,9 +71,9 @@ Vizte [SetCompatibilityVersion](xref:mvc/compatibility-version) pro další info
 
 ## <a name="the-configure-method"></a>Metoda Configure
 
-Metoda <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> se používá k určení toho, jak aplikace reaguje na HTTP požadavky. Roura požadavků se konfiguruje tak, že přidáte [middlewarové](xref:fundamentals/middleware/index) komponenty do instance <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>. `IApplicationBuilder` je dostupný metodě `Configure`, není však registrován v kontejneru služeb. Hosting vytváří `IApplicationBuilder` a předává jej přímo metodě `Configure`.
+Metoda <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> se používá k určení toho, jak aplikace reaguje na HTTP požadavky. Kanál požadavků se konfiguruje tak, že přidáte [middlewarové](xref:fundamentals/middleware/index) komponenty do instance <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>. `IApplicationBuilder` je dostupný metodě `Configure`, není však registrován v kontejneru služeb. Hosting vytváří `IApplicationBuilder` a předává jej přímo metodě `Configure`.
 
-[Šablony ASP.NET Core](/dotnet/core/tools/dotnet-new) konfigurují rouru s podporou pro:
+[Šablony ASP.NET Core](/dotnet/core/tools/dotnet-new) konfigurují kanál s podporou pro:
 
 * [Stránku výjimek pro vývojáře](xref:fundamentals/error-handling#developer-exception-page)
 * [Obslužné rutiny výjimek](xref:fundamentals/error-handling#exception-handler-page)
@@ -85,9 +85,9 @@ Metoda <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> se používá 
 
 [!code-csharp[](startup/sample_snapshot/Startup4.cs)]
 
-Každá rozšiřující metoda `Use` přidá jednu nebo více middlewarových komponent do roury zpracování požadavku. Například rozšiřující metoda `UseMvc` přidává [Směrovací middleware](xref:fundamentals/routing) do roury zpracování požadavků a nakonfiguruje [MVC](xref:mvc/overview) jako výchozí obslužnou rutinu.
+Každá rozšiřující metoda `Use` přidá jednu nebo více middlewarových komponent do kanálu zpracování požadavku. Například rozšiřující metoda `UseMvc` přidává [Směrovací middleware](xref:fundamentals/routing) do kanálu zpracování požadavků a nakonfiguruje [MVC](xref:mvc/overview) jako výchozí obslužnou rutinu.
 
-Každá middlewarová komponenta v rouře zpracování požadavků zodpovídá za vyvolání další komponenty v rouře, případně může provést předčasné ukončení řetězce volání. Pokud nedojde k předčasnému ukončení řetězce volání během zpracování požadavku, může libovolný middleware požadavek zpracovat ještě podruhé, než je odeslán klientovi.
+Každá middlewarová komponenta v kanálu zpracování požadavků zodpovídá za vyvolání další komponenty v kanálu, případně může provést předčasné ukončení řetězce volání. Pokud nedojde k předčasnému ukončení řetězce volání během zpracování požadavku, může libovolný middleware požadavek zpracovat ještě podruhé, než je odeslán klientovi.
 
 Dodatečné služby, jako jsou například `IHostingEnvironment` a `ILoggerFactory`, je také možné určit v signatuře metody `Configure`. Jsou-li specifikovány, dodatečné služby se vloží za předpokladu jejich dostupnosti.
 
@@ -95,17 +95,17 @@ Další informace o tom, jak používat `IApplicationBuilder` a jaké je pořad�
 
 ## <a name="convenience-methods"></a>Usnadňující metody
 
-Ke konfiguraci služeb a roury zpracování požadavků bez použití třídy `Startup` využijte volání usnadňujících metod `ConfigureServices` a `Configure` tvůrce (builderu) hostitele. Při vícenásobném volání metody `ConfigureServices` se přidají služby ze všech volání. Pokud existuje více volání metody `Configure`, využije se poslední volání `Configure`.
+Ke konfiguraci služeb a kanálu zpracování požadavků bez použití třídy `Startup` využijte volání usnadňujících metod `ConfigureServices` a `Configure` tvůrce (builderu) hostitele. Při vícenásobném volání metody `ConfigureServices` se přidají služby ze všech volání. Pokud existuje více volání metody `Configure`, využije se poslední volání `Configure`.
 
 [!code-csharp[](startup/sample_snapshot/Program1.cs?highlight=16,20)]
 
 ## <a name="extend-startup-with-startup-filters"></a>Rozšíření třídy Startup pomocí filtrů po spuštění
 
-Využijte <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> pro konfiguraci middlewaru na začátku a na konci [konfigurační](#the-configure-method) middlewarové roury Vaší aplikace. `IStartupFilter` je užitečný k zajištění toho, aby byl daný middleware spuštěn před nebo po spuštění middlewarů přidaných knihovnami na začátku nebo konci roury zpracování požadavků aplikace.
+Využijte <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> pro konfiguraci middlewaru na začátku a na konci [konfigurační](#the-configure-method) middlewarového kanálu vaší aplikace. `IStartupFilter` je užitečný k zajištění toho, aby byl daný middleware spuštěn před nebo po spuštění middlewarů přidaných knihovnami na začátku nebo konci kanálu zpracování požadavků aplikace.
 
-`IStartupFilter` implementuje jedinou metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>, která přijímá a vrací `Action<IApplicationBuilder>`. <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> definuje třídu pro konfiguraci roury zpracování požadavků Vaší aplikace. Další informace naleznete v tématu [Vytvoření roury middlewaru s IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder).
+`IStartupFilter` implementuje jedinou metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>, která přijímá a vrací `Action<IApplicationBuilder>`. <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> definuje třídu pro konfiguraci kanálu zpracování požadavků vaší aplikace. Další informace naleznete v tématu [Vytvoření kanálu middlewaru s IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder).
 
-Každý `IStartupFilter` implementuje jeden nebo více middlewarů v rouře zpracování požadavků. Filtry jsou volány v pořadí, ve kterém byly přidány do kontejneru služeb. Filtry mohou přidávat middleware před nebo po předání řízení dalšímu filtru, tedy připojují se na začátek nebo konec kanálu aplikace.
+Každý `IStartupFilter` implementuje jeden nebo více middlewarů v kanálu zpracování požadavků. Filtry jsou volány v pořadí, ve kterém byly přidány do kontejneru služeb. Filtry mohou přidávat middleware před nebo po předání řízení dalšímu filtru, tedy připojují se na začátek nebo konec kanálu aplikace.
 
 Následující příklad ukazuje, jak se zaregistrovat middleware s `IStartupFilter`.
 
@@ -128,7 +128,7 @@ Pokud je určena hodnota parametru řetězce dotazu `option`, middleware zpracuj
 Pořadí spuštění middlewarů je nastaveno podle pořadí registrace `IStartupFilter`:
 
 * Několik různých implementací `IStartupFilter` může operovat se stejnými objekty. Pokud je pro Vás důležité pořadí, seřaďte jednotlivé registrace služeb `IStartupFilter` tak, aby odpovídaly pořadí, ve kterém mají být jejich middlewary spuštěny.
-* Knihovny mohou přidávat middlewary s jednou nebo více implementacemi `IStartupFilter`, které se spustí před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí `IStartupFilter`. K vyvolání `IStartupFilter` middlewaru před `IStartupFilter` middlewarem přidaného knihovnou, umístěte registraci Vaší služby před registrací knihovny do kontejneru služeb. Pro opačné pořadí umístěte registraci služby za přidání knihovny.
+* Knihovny mohou přidávat middlewary s jednou nebo více implementacemi rozhraní `IStartupFilter`, které se spustí před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí rozhraní `IStartupFilter`. Pokud chcete vyvolat middleware rozhraní `IStartupFilter` před middlewarem přidaným pomocí rozhraní `IStartupFilter` knihovny, umístěte registraci služby před přidání knihovny do kontejneru služeb. Pokud ji chcete vyvolat později, umístěte registraci služby za přidání knihovny.
 
 ## <a name="add-configuration-at-startup-from-an-external-assembly"></a>Přidání konfigurace při spuštění z externího sestavení
 
