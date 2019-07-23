@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: c160d93e22fc5b3511ba4e5539cce8576346898b
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 59c8af648b50deb51f3762c14348d08acd48886e
+ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665538"
+ms.lasthandoff: 07/10/2019
+ms.locfileid: "67724447"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>Konvence směrování a aplikačních stránky Razor v ASP.NET Core
 
@@ -26,7 +26,7 @@ Zadejte trasy stránku, přidat segmenty směrování nebo parametry trasu, mů�
 
 Existují vyhrazených slov, která nejde použít jako segmenty směrování nebo názvy parametrů. Další informace najdete v tématu [směrování: Vyhrazené názvy směrování](xref:fundamentals/routing#reserved-routing-names).
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 | Scénář | Ukázce... |
 | -------- | --------------------------- |
@@ -94,7 +94,7 @@ Ukázková aplikace přidá `{globalTemplate?}` šablona trasy pro všechny str�
 
 Kdykoli je to možné, nemají nastavený `Order`, což má za následek `Order = 0`. Spolehněte se na směrování k výběru správné směrování.
 
-Možnosti stránky Razor, jako je například přidávání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>, se přidají, když MVC se přidá do kolekce služby `Startup.ConfigureServices`. Příklad najdete v tématu [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
+Možnosti stránky Razor, jako je například přidávání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>, se přidají, když MVC se přidá do kolekce služby `Startup.ConfigureServices`. Příklad najdete v tématu [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
@@ -270,7 +270,7 @@ Ukázka demonstruje použití `AddPageApplicationModelConvention` přidáním z�
 
 Model stránky aplikace se používá ke kontrole relativní cestu pro segmenty, které vedou na stránku strany Page2 *OtherPages* složky. Pokud bude podmínka splněna, se přidá hlavičku. Pokud ne, `EmptyFilter` platí.
 
-`EmptyFilter` je [filtr akce](xref:mvc/controllers/filters#action-filters). Protože filtrů Akce ignorovány pomocí Razor Pages `EmptyFilter` operace tak, jak má, pokud cesta neobsahuje `OtherPages/Page2`.
+`EmptyFilter` je [filtr akce](xref:mvc/controllers/filters#action-filters). Protože filtrů Akce ignorovány pomocí Razor Pages `EmptyFilter` nemá žádný vliv, tak, jak má, pokud cesta neobsahuje `OtherPages/Page2`.
 
 Požadavek ukázky strany Page2 stránku na `localhost:5000/OtherPages/Page2` a zkontrolujte záhlaví, abyste viděli výsledek:
 

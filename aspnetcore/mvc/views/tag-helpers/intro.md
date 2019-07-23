@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 03/18/2019
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 7768dd45bdbe40c16176d57a76823cbb9dd0b91b
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 870ce2eb28f384b380cc1178842325dc28199f09
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264621"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814994"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>Pomocné rutiny značek v ASP.NET Core
 
@@ -19,7 +19,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ## <a name="what-are-tag-helpers"></a>Co jsou pomocné rutiny značek
 
-Pomocné rutiny značek povolit kód na straně serveru k účasti na vytváření a vykreslování prvků HTML v souborech Razor. Například předdefinované `ImageTagHelper` číslo verze můžete připojit k názvu image. Pokaždé, když se změní na obrázku, server vygeneruje nové jedinečné verze pro bitovou kopii, proto je zaručeno, že klienti získat aktuální image (namísto zastaralých bitové kopie v mezipaměti). Existuje mnoho integrovaných pomocných rutin značek pro běžné úlohy – například vytváření formulářů, odkazy, načítání prostředků a další – a ještě větší počet je dostupný ve veřejných úložištích GitHub a jako NuGet balíčky. Pomocné rutiny značek jsou vytvořené v jazyce C# a cílí na základě název elementu, atributu nebo nadřazené značky elementů HTML. Například předdefinované `LabelTagHelper` HTML můžete cílit na `<label>` element při `LabelTagHelper` atributy jsou použity. Pokud jste obeznámeni s [pomocných rutin HTML](http://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers), pomocných rutin značek snížit explicitní přechody mezi HTML a C# v zobrazení syntaxe Razor. V mnoha případech pomocných rutin HTML poskytnout alternativní způsob konkrétní pomocné rutiny značky, ale je důležité uvědomit si, že pomocné rutiny značek nemáte nahradit pomocné rutiny HTML a není k dispozici pomocné rutiny značky pro každý pomocné rutiny HTML. [Ve srovnání s pomocných rutin HTML pomocné rutiny značky](#tag-helpers-compared-to-html-helpers) vysvětluje rozdíly mezi více podrobností.
+Pomocné rutiny značek povolit kód na straně serveru k účasti na vytváření a vykreslování prvků HTML v souborech Razor. Například předdefinované `ImageTagHelper` číslo verze můžete připojit k názvu image. Pokaždé, když se změní na obrázku, server vygeneruje nové jedinečné verze pro bitovou kopii, proto je zaručeno, že klienti získat aktuální image (namísto zastaralých bitové kopie v mezipaměti). Existuje mnoho integrovaných pomocných rutin značek pro běžné úlohy – například vytváření formulářů, odkazy, načítání prostředků a další – a ještě větší počet je dostupný ve veřejných úložištích GitHub a jako NuGet balíčky. Pomocné rutiny značek jsou vytvořené v jazyce C# a cílí na základě název elementu, atributu nebo nadřazené značky elementů HTML. Například předdefinované `LabelTagHelper` HTML můžete cílit na `<label>` element při `LabelTagHelper` atributy jsou použity. Pokud jste obeznámeni s [pomocných rutin HTML](https://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers), pomocných rutin značek snížit explicitní přechody mezi HTML a C# v zobrazení syntaxe Razor. V mnoha případech pomocných rutin HTML poskytnout alternativní způsob konkrétní pomocné rutiny značky, ale je důležité uvědomit si, že pomocné rutiny značek nemáte nahradit pomocné rutiny HTML a není k dispozici pomocné rutiny značky pro každý pomocné rutiny HTML. [Ve srovnání s pomocných rutin HTML pomocné rutiny značky](#tag-helpers-compared-to-html-helpers) vysvětluje rozdíly mezi více podrobností.
 
 ## <a name="what-tag-helpers-provide"></a>Co poskytuje pomocné rutiny značek
 
@@ -175,7 +175,7 @@ Technologie IntelliSense jsou uvedené vlastnosti a metody dostupné pro model n
 
 ## <a name="tag-helpers-compared-to-html-helpers"></a>Pomocných rutin značek ve srovnání s pomocných rutin HTML
 
-Pomocné rutiny značek připojit k elementů HTML v zobrazení syntaxe Razor, zatímco [pomocných rutin HTML](http://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers) jsou vyvolány jako metody spolu s HTML v zobrazení syntaxe Razor. Vezměte v úvahu následující kód Razor, která vytvoří popisek HTML pomocí třídy šablony stylů CSS "titulek":
+Pomocné rutiny značek připojit k elementů HTML v zobrazení syntaxe Razor, zatímco [pomocných rutin HTML](https://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers) jsou vyvolány jako metody spolu s HTML v zobrazení syntaxe Razor. Vezměte v úvahu následující kód Razor, která vytvoří popisek HTML pomocí třídy šablony stylů CSS "titulek":
 
 ```cshtml
 @Html.Label("FirstName", "First Name:", new {@class="caption"})
@@ -249,8 +249,10 @@ Můžete přizpůsobit písma a barevné zvýraznění z **nástroje** > **možn
 
 ![obrázek](intro/_static/fontoptions2.png)
 
+[!INCLUDE[](~/includes/built-in-TH.md)]
+
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Autor pomocných rutin značek](xref:mvc/views/tag-helpers/authoring)
 * [Práce s formuláři](xref:mvc/views/working-with-forms)
-* [TagHelperSamples na Githubu](https://github.com/dpaquette/TagHelperSamples) obsahuje pomocné rutiny značky ukázky pro práci s [Bootstrap](http://getbootstrap.com/).
+* [TagHelperSamples na Githubu](https://github.com/dpaquette/TagHelperSamples) obsahuje pomocné rutiny značky ukázky pro práci s [Bootstrap](https://getbootstrap.com/).

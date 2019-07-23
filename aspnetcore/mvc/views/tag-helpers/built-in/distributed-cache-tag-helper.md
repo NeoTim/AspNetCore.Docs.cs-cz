@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
-ms.openlocfilehash: a5b33451a763c297c6d7885855a321c43435abb4
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
+ms.openlocfilehash: 4e4d383bac67c73bad8b0a31b9ceb9452251761b
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49325208"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856190"
 ---
 # <a name="distributed-cache-tag-helper-in-aspnet-core"></a>Distribuovaná mezipaměť pomocná rutina značek v ASP.NET Core
 
-Podle [Peter Kellner](http://peterkellner.net) a [Luke Latham](https://github.com/guardrex)
+Podle [Peter Kellner](https://peterkellner.net) a [Luke Latham](https://github.com/guardrex)
 
 Pomocná rutina značek distribuované mezipaměti umožňuje výrazně zlepšit výkon vaší aplikace ASP.NET Core pomocí ukládání do mezipaměti obsah ke zdroji distribuované mezipaměti.
 

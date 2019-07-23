@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/environment-tag-helper
-ms.openlocfilehash: 379f58ed37329f047d53adf1dcfdfd2ad6a6ca4e
-ms.sourcegitcommit: 4bdf7703aed86ebd56b9b4bae9ad5700002af32d
+ms.openlocfilehash: e2e038fe69da696b67f7aef61795e23dc8512fdf
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2018
-ms.locfileid: "49325234"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856134"
 ---
 # <a name="environment-tag-helper-in-aspnet-core"></a>Pomocná rutina značky prostředí v ASP.NET Core
 
-Podle [Peter Kellner](http://peterkellner.net), [Hisham Bin Ateya](https://twitter.com/hishambinateya), a [Luke Latham](https://github.com/guardrex)
+Podle [Peter Kellner](https://peterkellner.net), [Hisham Bin Ateya](https://twitter.com/hishambinateya), a [Luke Latham](https://github.com/guardrex)
 
 Pomocná rutina značky prostředí podmíněně vykreslí obsah uzavřené na základě aktuálního [hostitelské prostředí](xref:fundamentals/environments). Pomocná rutina značky prostředí jeden atribut, `names`, je čárkou oddělený seznam názvů prostředí. Pokud se názvy zadané prostředí shodují v aktuálním prostředí, se uzavřené obsah zobrazí.
 

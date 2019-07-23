@@ -1,20 +1,20 @@
 ---
-title: Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
+title: ASP.NET Core Blazor JavaScript zprostředkovatele komunikace s objekty
 author: guardrex
 description: Zjistěte, jak volat funkce jazyka JavaScript od .NET a .NET metody z jazyka JavaScript v aplikacích Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/19/2019
+ms.date: 07/02/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: bed1e3d33de5e8fb2d246b066803cdc95d6731ef
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: 5d90a83acae3864c40ce38b6259d1938e56a2c54
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982666"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538544"
 ---
-# <a name="blazor-javascript-interop"></a>Zprostředkovatel komunikace s objekty jazyka Blazor JavaScript
+# <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core Blazor JavaScript zprostředkovatele komunikace s objekty
 
 Podle [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Roth](https://github.com/danroth27), a [Luke Latham](https://github.com/guardrex)
 
@@ -34,21 +34,11 @@ Pro serverové aplikace:
 
 Následující příklad je založen na [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder), experimentální dekodér založené na jazyce JavaScript. Příklad ukazuje, jak vyvolat funkci z jazyka JavaScript C# metody. Funkce JavaScript, která přijímá pole bajtů z C# metody dekóduje pole a vrátí text na komponentu pro zobrazení.
 
-Uvnitř `<head>` prvek *wwwroot/index.html*, poskytují funkce, která používá `TextDecoder` k dekódování předané pole:
+Uvnitř `<head>` prvek *wwwroot/index.html* (Blazor straně klienta) nebo *Pages/_Host.cshtml* (Blazor serverové), poskytují funkce, která používá `TextDecoder` k dekódování úspěch pole:
 
-```html
-<script>
-  window.ConvertArray = (win1251Array) => {
-    var win1251decoder = new TextDecoder('windows-1251');
-    var bytes = new Uint8Array(win1251Array);
-    var decodedArray = win1251decoder.decode(bytes);
-    console.log(decodedArray);
-    return decodedArray;
-  };
-</script>
-```
+[!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
-Kód jazyka JavaScript, jako je například kódu zobrazeného v předchozím příkladu je také možné načíst ze souboru jazyka JavaScript (*js*) s odkazem na soubor skriptu *wwwroot/index.html* souboru:
+Kód jazyka JavaScript, jako je například kódu zobrazeného v předchozím příkladu je také možné načíst ze souboru JavaScriptu (*js*) s odkazem na soubor skriptu:
 
 ```html
 <script src="exampleJsInterop.js"></script>
@@ -59,99 +49,23 @@ Následující komponenty:
 * Vyvolá `ConvertArray` funkcí jazyka JavaScript s použitím `JsRuntime` při tlačítko součásti (**převést pole**) je vybraná.
 * Po zavolání funkce JavaScript, která se převede předané pole na řetězec. Řetězec se vrátí do komponenty pro zobrazení.
 
-```cshtml
-@page "/"
-@inject IJSRuntime JsRuntime;
-
-<h1>Call JavaScript Function Example</h1>
-
-<button type="button" class="btn btn-primary" onclick="@ConvertArray">
-    Convert Array
-</button>
-
-<p class="mt-2" style="font-size:1.6em">
-    <span class="badge badge-success">
-        @ConvertedText
-    </span>
-</p>
-
-@functions {
-    // Quote (c)2005 Universal Pictures: Serenity
-    // https://www.uphe.com/movies/serenity
-    // David Krumholtz on IMDB: https://www.imdb.com/name/nm0472710/
-
-    private MarkupString ConvertedText =
-        new MarkupString("Select the <b>Convert Array</b> button.");
-
-    private uint[] QuoteArray = new uint[]
-        {
-            60, 101, 109, 62, 67, 97, 110, 39, 116, 32, 115, 116, 111, 112, 32,
-            116, 104, 101, 32, 115, 105, 103, 110, 97, 108, 44, 32, 77, 97,
-            108, 46, 60, 47, 101, 109, 62, 32, 45, 32, 77, 114, 46, 32, 85, 110,
-            105, 118, 101, 114, 115, 101, 10, 10,
-        };
-
-    private async void ConvertArray()
-    {
-        var text =
-            await JsRuntime.InvokeAsync<string>("ConvertArray", QuoteArray);
-
-        ConvertedText = new MarkupString(text);
-
-        StateHasChanged();
-    }
-}
-```
+[!code-cshtml[](javascript-interop/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
 
 Použít `IJSRuntime` abstrakce, použijte některý z následujících postupů:
 
-* Vložit `IJSRuntime` abstrakce do souboru Razor (*.razor*):
+* Vložit `IJSRuntime` abstrakce do komponenty Razor ( *.razor*):
 
-  ```cshtml
-  @inject IJSRuntime JSRuntime
+  [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  @functions {
-      public override void OnInit()
-      {
-          StocksService.OnStockTickerUpdated += stockUpdate =>
-          {
-              JSRuntime.InvokeAsync<object>(
-                  "handleTickerChanged",
-                  stockUpdate.symbol,
-                  stockUpdate.price);
-          };
-      }
-  }
-  ```
+* Vložit `IJSRuntime` abstrakce do třídy ( *.cs*):
 
-* Vložit `IJSRuntime` abstrakce do třídy (*.cs*):
+  [!code-csharp[](javascript-interop/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
+
+* Pro dynamické generování obsahu s [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic), použijte `[Inject]` atribut:
 
   ```csharp
-  public class JsInteropClasses
-  {
-      private readonly IJSRuntime _jsRuntime;
-
-      public JsInteropClasses(IJSRuntime jsRuntime)
-      {
-          _jsRuntime = jsRuntime;
-      }
-
-      public Task<string> TickerChanged(string data)
-      {
-          // The handleTickerChanged JavaScript method is implemented
-          // in a JavaScript file, such as 'wwwroot/tickerJsInterop.js'.
-          return _jsRuntime.InvokeAsync<object>(
-              "handleTickerChanged",
-              stockUpdate.symbol,
-              stockUpdate.price);
-      }
-  }
-  ```
-
-* Pro dynamické generování obsahu s `BuildRenderTree`, použijte `[Inject]` atribut:
-
-  ```csharp
-  [Inject] IJSRuntime JSRuntime { get; set; }
+  [Inject]
+  IJSRuntime JSRuntime { get; set; }
   ```
 
 V aplikaci ukázka na straně klienta, který doprovází v tomto tématu jsou k dispozici aplikaci na straně klienta, která pracovat s modelu DOM na vstup uživatele a zobrazení uvítací zprávy dvě funkce jazyka JavaScript:
@@ -163,9 +77,15 @@ V aplikaci ukázka na straně klienta, který doprovází v tomto tématu jsou k
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-Místo `<script>` značka, která odkazuje na soubor jazyka JavaScript v *wwwroot/index.html* souboru:
+Místo `<script>` značka, která odkazuje na soubor jazyka JavaScript v *wwwroot/index.html* souboru (Blazor straně klienta) nebo *Pages/_Host.cshtml* (Blazor serverové) soubor.
+
+*Wwwroot/index.HTML* (Blazor straně klienta):
 
 [!code-html[](./common/samples/3.x/BlazorSample/wwwroot/index.html?highlight=15)]
+
+*Pages/_Host.cshtml* (Blazor serverové):
+
+[!code-cshtml[](javascript-interop/samples_snapshot/_Host.cshtml?highlight=29)]
 
 Neukládejte `<script>` značky v souboru součásti, protože `<script>` značku nejde dynamicky aktualizovat.
 
@@ -187,6 +107,10 @@ Ukázková aplikace obsahuje komponentu k předvedení zprostředkovatele komuni
 1. `showPrompt` Funkce přijímá vstup uživatele (uživatelské jméno), což je kódovaný jazykem HTML a vrácené na komponentu. Součást uloží uživatelské jméno v místní proměnné, `name`.
 1. Je řetězec uložen ve `name` je zahrnut do zobrazení uvítací zprávy, která se předá do funkce JavaScriptu, `displayWelcome`, který vykreslí zobrazení uvítací zprávy do záhlaví značky.
 
+## <a name="call-a-void-javascript-function"></a>Volání funkce void jazyka JavaScript
+
+Který vrací funkcí v JavaScriptu [void (0) / void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) nebo [nedefinované](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) jsou volány pomocí `IJSRuntime.InvokeAsync<object>`, která vrací `null`.
+
 ## <a name="detect-when-a-blazor-app-is-prerendering"></a>Rozpoznat, kdy aplikace Blazor se před vykreslením
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
@@ -195,20 +119,23 @@ Ukázková aplikace obsahuje komponentu k předvedení zprostředkovatele komuni
 
 Některé [zprostředkovatele komunikace s objekty jazyka JavaScript](xref:blazor/javascript-interop) scénáře vyžadují odkazy na prvky jazyka HTML. Například knihovna uživatelského rozhraní může vyžadovat odkaz na prvek pro inicializaci, nebo můžete potřebovat pro volání rozhraní API jako příkaz pro element, jako například `focus` nebo `play`.
 
-Odkazy na elementy HTML v komponentě můžete zachytit tak, že přidáte `ref` atribut na prvek jazyka HTML a pak definování pole typu `ElementRef` jejichž název odpovídá hodnotě `ref` atribut.
+Můžete zaznamenat odkazy na elementy HTML v komponentě používá následující postup:
 
-Následující příklad ukazuje, zachycení odkazu na element input uživatelské jméno:
+* Přidat `@ref` atribut na prvek jazyka HTML.
+* Definování pole typu `ElementRef` jejichž název odpovídá hodnotě `@ref` atribut.
+
+Následující příklad ukazuje zachycení odkazu na `username` `<input>` element:
 
 ```cshtml
-<input ref="username" ...>
+<input @ref="username" ... />
 
-@functions {
+@code {
     ElementRef username;
 }
 ```
 
 > [!NOTE]
-> Proveďte **není** používat odkazy zachycené element jako způsob vyplnění modelu DOM. To může být v rozporu s modelem deklarativní vykreslovací.
+> Proveďte **není** používat odkazy zachycené element jako způsob sestavování nebo manipulace s modelu DOM, když Blazor komunikuje s prvky odkazuje. To může být v rozporu s modelem deklarativní vykreslovací.
 
 Co se týče kódu .NET, `ElementRef` je neprůhledný popisovač. *Pouze* věc, kterou vám pomůžou s `ElementRef` je komunikace přes kódu jazyka JavaScript pomocí zprostředkovatele komunikace s objekty jazyka JavaScript. Pokud tak učiníte, obdrží kód JavaScript na straně `HTMLElement` instance, které můžete použít s normální modelu DOM rozhraní API.
 
@@ -243,15 +170,15 @@ Metoda je volána přímo v objektu. Následující příklad předpokládá, ž
 [!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,8,12)]
 
 > [!IMPORTANT]
-> `username` Proměnná je vyplněný pouze po komponentu vykreslí a zahrnuje její výstup `>` elementu. Pokud se pokusíte předat unpopulated `ElementRef` do kódu jazyka JavaScript, kód jazyka JavaScript obdrží `null`. K manipulaci s odkazy na prvky po vykreslení (Chcete-li nastavit počáteční fokus na prvek) použijte komponentu `OnAfterRenderAsync` nebo `OnAfterRender` [součástí životního cyklu metody](xref:blazor/components#lifecycle-methods).
+> `username` Proměnná je vyplněný pouze po vykreslení komponentu. Pokud unpopulated `ElementRef` je předán do kódu jazyka JavaScript, JavaScript, kód přijímá hodnotu z `null`. K manipulaci s odkazy na prvky po vykreslení (Chcete-li nastavit počáteční fokus na prvek) použijte komponentu `OnAfterRenderAsync` nebo `OnAfterRender` [součástí životního cyklu metody](xref:blazor/components#lifecycle-methods).
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>Vyvolání metod rozhraní .NET z funkce jazyka JavaScript
 
 ### <a name="static-net-method-call"></a>Volání statické metody rozhraní .NET
 
-Chcete-li volání statické metody rozhraní .NET z jazyka JavaScript, použijte `DotNet.invokeMethod` nebo `DotNet.invokeMethodAsync` funkce. Předat identifikátor statická metoda, kterou chcete volat, název sestavení obsahujícího funkce a žádné argumenty. Asynchronní verze se upřednostňuje pro zajištění podpory scénářů na straně serveru. Lze vyvolat z jazyka JavaScript, .NET metoda musí být veřejné, statické a upravený s `[JSInvokable]`. Ve výchozím nastavení, identifikátor metody je název metody, ale můžete zadat jiný identifikátor pomocí `JSInvokableAttribute` konstruktoru. Volání obecné metody otevřít se momentálně nepodporuje.
+Chcete-li volání statické metody rozhraní .NET z jazyka JavaScript, použijte `DotNet.invokeMethod` nebo `DotNet.invokeMethodAsync` funkce. Předat identifikátor statická metoda, kterou chcete volat, název sestavení obsahujícího funkce a žádné argumenty. Asynchronní verze se upřednostňuje pro zajištění podpory scénářů na straně serveru. Volání metody rozhraní .NET z jazyka JavaScript, .NET metoda musí být veřejné, statické a mít `[JSInvokable]` atribut. Ve výchozím nastavení, identifikátor metody je název metody, ale můžete zadat jiný identifikátor pomocí `JSInvokableAttribute` konstruktoru. Volání obecné metody otevřít se momentálně nepodporuje.
 
-Obsahuje ukázkovou aplikaci C# metoda vrátí pole `int`s. Metoda je doplněn `JSInvokable` atribut.
+Obsahuje ukázkovou aplikaci C# metoda vrátí pole `int`s. `JSInvokable` Atributu se použije pro metodu.
 
 *Pages/JsInterop.razor*:
 
@@ -275,7 +202,10 @@ Array(4) [ 1, 2, 3, 4 ]
 
 ### <a name="instance-method-call"></a>Volání metody instance
 
-Můžete také volat instanci metody rozhraní .NET z jazyka JavaScript. Vyvolání metody instance .NET z jazyka JavaScript, nejprve projít .NET instance do jazyka Javasript obalením v `DotNetObjectRef` instance. .NET instance je předána odkazem pro jazyk JavaScript a můžete vyvolávat metody instance .NET na použití instance `invokeMethod` nebo `invokeMethodAsync` funkce. .NET instance můžete také předán jako argument při volání metod rozhraní .NET z jazyka JavaScript.
+Můžete také volat instanci metody rozhraní .NET z jazyka JavaScript. Chcete-li vyvolat metodu instance .NET z jazyka JavaScript:
+
+* Předejte instanci .NET do jazyka Javasript obalením ho `DotNetObjectRef` instance. .NET instance je předána odkazem pro jazyk JavaScript.
+* Vyvolání metody instance .NET na použití instance `invokeMethod` nebo `invokeMethodAsync` funkce. .NET instance můžete také předán jako argument při volání metod rozhraní .NET z jazyka JavaScript.
 
 > [!NOTE]
 > Ukázková aplikace zprávy protokolu ke konzole na straně klienta. Následující příklady jsme vám ukázali bude ukázková aplikace prohlédněte výstup konzoly prohlížeče v prohlížeči vývojářské nástroje.
@@ -308,12 +238,12 @@ Výstup v nástrojích pro vývojáře v prohlížeči na webové konzoly:
 Hello, Blazor!
 ```
 
-## <a name="share-interop-code-in-a-blazor-class-library"></a>Sdílení knihovny tříd Blazor interoperační kód.
+## <a name="share-interop-code-in-a-class-library"></a>Sdílet interoperační kód. v knihovně tříd
 
-Interoperační kód jazyka JavaScript, mohou být součástí knihovny tříd Blazor (`dotnet new blazorlib`), která umožňuje sdílet kód v balíčku NuGet.
+Interoperační kód jazyka JavaScript, mohou být součástí knihovny tříd, která umožňuje sdílet kód v balíčku NuGet.
 
-Knihovna tříd Blazor zpracovává vkládání prostředky jazyka JavaScript v sestavení. Soubory jazyka JavaScript jsou umístěny v *wwwroot* složky. Nástroje postará vkládání prostředků při vytváření knihovny.
+Knihovna tříd zpracovává vkládání prostředky jazyka JavaScript v sestavení. Soubory jazyka JavaScript jsou umístěny v *wwwroot* složky. Nástroje postará vkládání prostředků při vytváření knihovny.
 
-Sestavené balíček NuGet je popsána v souboru projektu aplikace, stejně jako jakýkoli normální balíček NuGet se odkazuje. Po obnovení aplikace kód aplikace může volat do jazyka JavaScript, jako by šlo C#.
+Sestavené balíčku NuGet se odkazuje v souboru projektu vaší aplikace stejným způsobem, že všechny balíčky NuGet se odkazuje. Po obnovení balíčku kódu aplikace může volat do jazyka JavaScript, jako by šlo C#.
 
 Další informace naleznete v tématu <xref:blazor/class-libraries>.

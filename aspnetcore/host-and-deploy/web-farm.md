@@ -2,16 +2,17 @@
 title: Hostitele ASP.NET Core ve webové farmě
 author: guardrex
 description: Zjistěte, jak hostovat několik instancí aplikace ASP.NET Core se sdílenými prostředky v prostředí webové farmy.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/26/2018
+ms.date: 05/12/2019
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 4873665e6174a6acf885e1ebb41fb005d646bd1f
-ms.sourcegitcommit: e9b99854b0a8021dafabee0db5e1338067f250a9
+ms.openlocfilehash: df1be8cc76a5017923f26636a241b69881dfcc81
+ms.sourcegitcommit: b4ef2b00f3e1eb287138f8b43c811cb35a100d3e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52450668"
+ms.lasthandoff: 05/21/2019
+ms.locfileid: "65970112"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>Hostitele ASP.NET Core ve webové farmě
 
@@ -61,8 +62,8 @@ Následující scénáře nevyžadují další konfiguraci, ale jsou závislé n
 | -------- | ------------------- |
 | Ověřování | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématu <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. |
 | Identita | Konfigurace ověřování a databáze.<br><br>Další informace naleznete v tématu <xref:security/authentication/identity>. |
-| Relace | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) a ukládání do mezipaměti (naleznete v tématu <xref:performance/caching/distributed>).<br><br>Další informace najdete v tématu [stav relace a aplikace: stav relace](xref:fundamentals/app-state#session-state). |
-| TempData | Ochrana dat (šifrované soubory cookie) (naleznete v tématu <xref:security/data-protection/configuration/overview>) nebo v jiné relaci (naleznete v tématu [stav relace a aplikace: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [stav relace a aplikace: TempData](xref:fundamentals/app-state#tempdata). |
+| Relace | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) a ukládání do mezipaměti (naleznete v tématu <xref:performance/caching/distributed>).<br><br>Další informace najdete v tématu [stav relace a aplikace: Stav relace](xref:fundamentals/app-state#session-state). |
+| TempData | Ochranu dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) nebo v jiné relaci (naleznete v tématu [stav relace a aplikace: Stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [stav relace a aplikace: TempData](xref:fundamentals/app-state#tempdata). |
 | Proti padělání | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématu <xref:security/anti-request-forgery>. |
 
 ## <a name="troubleshoot"></a>Řešení potíží

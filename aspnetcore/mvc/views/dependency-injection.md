@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core podporuje injektáž závislostí do zo
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: dfadafe9ebb5799b45ef68653f20c5fc1a2506b5
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 63feea5ddf286dd3e659f3a622cfb0f7451b9bba
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410557"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815343"
 ---
 # <a name="dependency-injection-into-views-in-aspnet-core"></a>Injektáž závislostí do zobrazení v ASP.NET Core
 
@@ -18,15 +18,40 @@ Podle [Steve Smith](https://ardalis.com/)
 
 Podporuje ASP.NET Core [injektáž závislostí](xref:fundamentals/dependency-injection) do zobrazení. To může být užitečné pro zobrazení konkrétní služby, jako je lokalizace nebo data, vyžaduje se jenom pro naplnění zobrazení elementů. Snažte se zachovat [oddělení oblastí zájmu](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) mezi kontrolerů a zobrazení. Většina dat, které vaše zobrazení by měl předávat v kontroleru.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/dependency-injection/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/dependency-injection/sample) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="a-simple-example"></a>Jednoduchý příklad
+## <a name="configuration-injection"></a>Konfigurace vkládání
 
-Službu můžete vložit do zobrazení pomocí `@inject` směrnice. Můžete si představit `@inject` jako přidání vlastnosti do zobrazení a naplnění danou vlastnost pomocí DI.
+*appSettings.JSON* hodnoty můžete vloží přímo do zobrazení.
+
+Příklad *appsettings.json* souboru:
+
+```json
+{
+   "root": {
+      "parent": {
+         "child": "myvalue"
+      }
+   }
+}
+```
 
 Syntaxe pro `@inject`: `@inject <type> <name>`
 
-Příklad `@inject` v akci:
+Příklad použití `@inject`:
+
+```csharp
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+   string myValue = Configuration["root:parent:child"];
+   ...
+}
+```
+
+## <a name="service-injection"></a>Dokáže vložit službu
+
+Služby můžete být vloženy do zobrazení pomocí `@inject` směrnice. Můžete si představit `@inject` jako přidání vlastnosti do zobrazení a naplnění danou vlastnost pomocí DI.
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/ToDo/Index.cshtml?highlight=4,5,15,16,17)]
 
@@ -81,4 +106,4 @@ Pokud chcete rozšířit stávající služby, můžete jednoduše použít tent
 
 ## <a name="see-also"></a>Viz také
 
-* Simon Timms blogu: [Načítání dat vyhledávací do zobrazení](http://blog.simontimms.com/2015/06/09/getting-lookup-data-into-you-view/)
+* Simon Timms blogu: [Načítání dat vyhledávací do zobrazení](https://blog.simontimms.com/2015/06/09/getting-lookup-data-into-you-view/)

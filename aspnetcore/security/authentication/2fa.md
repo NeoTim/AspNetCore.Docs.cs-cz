@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/22/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/2fa
-ms.openlocfilehash: 9398cd3bb81eab7b427b19bbd5497630f4dc0838
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 96b4cc98f191d7c24637b8f352acbed3f46806f8
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165193"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64899685"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>Dvoufaktorové ověřování přes SMS v ASP.NET Core
 
@@ -23,7 +23,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Swiss vývojáři](htt
 
 Tento kurz ukazuje, jak nastavit dvojúrovňového ověřování (2FA) pomocí serveru SMS. Jsou uvedeny pokyny pro [twilio](https://www.twilio.com/) a [ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/), ale můžete použít jakýkoli jiný poskytovatel serveru SMS. Doporučujeme je provést [potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm) před zahájením tohoto kurzu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authentication/2fa/sample/Web2FA). [Jak stáhnout](xref:index#how-to-download-a-sample).
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/2fa/sample/Web2FA). [Jak stáhnout](xref:index#how-to-download-a-sample).
 
 ## <a name="create-a-new-aspnet-core-project"></a>Vytvořte nový projekt ASP.NET Core
 

@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak je zodpovědná za mapování požadavku identifikátory URI pro koncový bod selektory a dispatching příchozí požadavky do koncových bodů směrování ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 06/17/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 622f28f3b4348820c8781e0ba14ae5137136e797
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: 71cb7215651a263e588531c9be644326c0b6eda6
+ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346564"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67167098"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -19,7 +19,7 @@ Podle [Ryanem Nowak](https://github.com/rynowak), [Steve Smith](https://ardalis.
 
 ::: moniker range="<= aspnetcore-1.1"
 
-1.1 verzi tohoto tématu, stáhněte si [směrování v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Routing_1.x.pdf).
+1\.1 verzi tohoto tématu, stáhněte si [směrování v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Routing_1.x.pdf).
 
 ::: moniker-end
 
@@ -70,7 +70,7 @@ services.AddMvc()
 > [!IMPORTANT]
 > Tento dokument popisuje směrování nízké úrovně ASP.NET Core. Informace o směrování ASP.NET Core MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvence směrování ve stránky Razor, naleznete v tématu <xref:razor-pages/razor-pages-conventions>.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základní informace o směrování
 
@@ -141,6 +141,21 @@ Směrování je připojen k [middleware](xref:fundamentals/middleware/index) pro
 
 Adresa URL odpovídající je proces, ve které směrování odešle příchozí žádost o *koncový bod*. Tento proces je na základě dat v cestě adresy URL, ale je možné rozšířit na zvažte všechna data v žádosti. Schopnost expedovat požadavky k oddělení obslužné rutiny je klíčem k škálování velikosti a složitosti aplikace.
 
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+Když spustí Middleware směrování, nastaví koncový bod (`Endpoint`) a hodnoty do funkce na trasy <xref:Microsoft.AspNetCore.Http.HttpContext>. Pro aktuální požadavek:
+
+* Volání `HttpContext.GetEndpoint` získá koncový bod.
+* `HttpRequest.RouteValues` Získá kolekci hodnot trasy.
+
+Middleware po Middleware směrování můžete zobrazit koncový bod a provést akci. Například můžete Middleware povolení dotazování kolekce metadat koncového bodu pro zásady autorizace. Po veškerý middleware v kanálu zpracování žádostí provádí, je vyvolán delegát vybraný koncový bod.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-2.2"
+
 Směrování systému v směrování koncový bod je zodpovědná za všechny dispatching rozhodnutí. Middleware použije zásady na základě vybraného koncového bodu, proto je důležité, že je uvnitř směrování systému k rozhodnutí může mít vliv na odesílání nebo uplatňování zásad zabezpečení.
 
 Při provádění delegáta koncový bod, vlastnosti [RouteContext.RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) jsou nastaveny na odpovídající hodnoty, které jsou založené na zpracování požadavku provést doposud.
@@ -165,7 +180,9 @@ Shoda, která volá <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> tak�
 
 [RouteData.Routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers) je seznam tras, které účastnila úspěšně odpovídající požadavek. Trasy můžete vnořit do mezi sebou. <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> Vlastnost odpovídá cestě prostřednictvím logického stromu tras, z kterých vzniklo shoda. Obecně platí, první položky v <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je kolekce tras a byste měli použít pro generování adresy URL. Poslední položky v <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je obslužná rutina trasy, který odpovídá.
 
-### <a name="url-generation"></a>Generování adresy URL
+<a name="lg"></a>
+
+### <a name="url-generation-with-linkgenerator"></a>Generování adresy URL s LinkGenerator
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -734,7 +751,7 @@ Následující příklad ukazuje, jak ke generování odkazu pro trasu zadaný s
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
 
-<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> Vygeneruje na konci předchozí ukázka je `/package/create/123`. Poskytuje slovníku `operation` a `id` hodnot "Sledovat balíček trasy" šablony trasy `package/{operation}/{id}`. Podrobnosti najdete v tématu ukázkový kód v [použití směrování Middleware](#use-routing-middleware) části nebo [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/routing/samples).
+<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> Vygeneruje na konci předchozí ukázka je `/package/create/123`. Poskytuje slovníku `operation` a `id` hodnot "Sledovat balíček trasy" šablony trasy `package/{operation}/{id}`. Podrobnosti najdete v tématu ukázkový kód v [použití směrování Middleware](#use-routing-middleware) části nebo [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
 
 Druhý parametr <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> konstruktor je kolekce *okolí hodnoty*. Ambientní hodnoty jsou vhodné použít, protože omezují počet hodnot, které vývojář musí zadat v rámci kontextu požadavku. Aktuální hodnoty trasy z aktuální požadavek jsou považovány za okolí hodnoty pro generování odkazů. V aplikaci ASP.NET Core MVC `About` akce `HomeController`, není nutné zadat hodnotu trasy kontroleru propojení `Index` akce&mdash;okolí hodnotu `Home` se používá.
 

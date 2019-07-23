@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
-ms.openlocfilehash: fb69584f6e9d4756e175bbd6f3deb1f413b80fc5
-ms.sourcegitcommit: c43a6f1fe72d7c2db4b5815fd532f2b45d964e07
+ms.openlocfilehash: 0273a9805dd5db5450f57dcf3fd4d952308df074
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2018
-ms.locfileid: "50244811"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856215"
 ---
 # <a name="cache-tag-helper-in-aspnet-core-mvc"></a>Pomocná rutina značek v ASP.NET Core MVC do mezipaměti
 
-Podle [Peter Kellner](http://peterkellner.net) a [Luke Latham](https://github.com/guardrex) 
+Podle [Peter Kellner](https://peterkellner.net) a [Luke Latham](https://github.com/guardrex) 
 
 Pomocná rutina značek mezipaměti umožňuje zlepšit výkon vaší aplikace ASP.NET Core pomocí ukládání do mezipaměti obsah k poskytovateli vnitřní mezipaměti ASP.NET Core.
 
@@ -31,7 +31,7 @@ První požadavek na stránku, který obsahuje pomocné rutiny značky zobrazuje
 
 ## <a name="cache-tag-helper-attributes"></a>Atributy pomocné rutiny značky do mezipaměti
 
-### <a name="enabled"></a>Povoleno
+### <a name="enabled"></a>enabled
 
 | Typ atributu  | Příklady        | Výchozí |
 | --------------- | --------------- | ------- |
@@ -47,7 +47,7 @@ Příklad:
 </cache>
 ```
 
-### <a name="expires-on"></a>vyprší dne
+### <a name="expires-on"></a>expires-on
 
 | Typ atributu   | Příklad                            |
 | ---------------- | ---------------------------------- |
@@ -63,7 +63,7 @@ Následující příklad ukládá do mezipaměti obsah pomocné rutiny značky m
 </cache>
 ```
 
-### <a name="expires-after"></a>Po vypršení platnosti
+### <a name="expires-after"></a>expires-after
 
 | Typ atributu | Příklad                      | Výchozí    |
 | -------------- | ---------------------------- | ---------- |
@@ -81,7 +81,7 @@ Příklad:
 
 Nastaví výchozí zobrazovací modul Razor `expires-after` hodnota 20 minut.
 
-### <a name="expires-sliding"></a>klouzavé vypršení platnosti
+### <a name="expires-sliding"></a>expires-sliding
 
 | Typ atributu | Příklad                     |
 | -------------- | --------------------------- |
@@ -220,7 +220,7 @@ public IActionResult Index(string myParam1, string myParam2, string myParam3)
 </cache>
 ```
 
-### <a name="priority"></a>Priorita
+### <a name="priority"></a>priorita
 
 | Typ atributu      | Příklady                               | Výchozí  |
 | ------------------- | -------------------------------------- | -------- |

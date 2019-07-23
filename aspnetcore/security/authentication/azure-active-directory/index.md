@@ -3,15 +3,15 @@ title: Azure Active Directory a ASP.NET Core
 author: rick-anderson
 description: Objevte témata související s ověřováním pomocí Azure Active Directory v ASP.NET Core.
 ms.author: riande
-ms.date: 10/4/2017
+ms.date: 10/04/2017
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-active-directory/index
-ms.openlocfilehash: 5361f0202ddfde0dedd9d26decec0d20e74f7b52
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 9aaad8ff555416a525bc23e3d405957c57e53f9d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165256"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815083"
 ---
 # <a name="azure-active-directory-with-aspnet-core"></a>Azure Active Directory a ASP.NET Core
 

@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 25e8d5209f02683c533ef7c316b91d447f1b20ba
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: ae409158defe15ffaa7454039b302cf3c6437e54
+ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59705455"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67463282"
 ---
 # <a name="use-web-api-conventions"></a>Řiďte se vytváření webového rozhraní API
 
@@ -29,7 +29,7 @@ ASP.NET Core MVC 2.2 a novější obsahuje sadu výchozích konvencí v <xref:Mi
 
 V době běhu <xref:Microsoft.AspNetCore.Mvc.ApiExplorer> rozumí konvence. `ApiExplorer` je abstraktní MVC ke komunikaci s [OpenAPI](https://www.openapis.org/) (také označované jako Swagger) dokumentu generátorů. Atributy použité konvence jsou spojeny s akcí a jsou zahrnuty v dokumentaci k OpenAPI akce. [Rozhraní API analyzátorů](xref:web-api/advanced/analyzers) srozuměni konvence. Pokud je vaše akce neobvyklé (například vrátí stavový kód, který nebyl zdokumentován použité konvence), upozornění doporučuje dokumentu stavový kód.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/conventions/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/conventions/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="apply-web-api-conventions"></a>Použít konvence webového rozhraní API
 
@@ -50,7 +50,7 @@ Konvence není compose; Každá akce může být spojen s konvence přesně jede
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     ```
 
-Další informace o `[ProducesDefaultResponseType]`, naleznete v tématu [výchozí odpověď](https://swagger.io/docs/specification/describing-responses/#default).
+    Další informace o `[ProducesDefaultResponseType]`, naleznete v tématu [výchozí odpověď](https://swagger.io/docs/specification/describing-responses/#default).
 
 1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute` použijí pro kontroler &mdash; typ zadané konvence se vztahuje na všechny akce v kontroleru. Metoda konvence je upravený pomocí tipů, které určují akce, u kterých bude použito metodu konvence. Další informace o pomocných parametrů najdete v tématu [vytvoření webového rozhraní API konvence](#create-web-api-conventions)).
 

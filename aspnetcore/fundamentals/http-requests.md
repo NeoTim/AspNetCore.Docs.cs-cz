@@ -5,14 +5,14 @@ description: Další informace o použití rozhraní IHttpClientFactory ke sprá
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 03/30/2019
+ms.date: 05/10/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 270727443f091306ac3e4ce4e2ceb99b88bbc609
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 8b95f63c0e06a2b7d1d66064def192f91b8ffbb4
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58809205"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874961"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Požadavky HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -20,16 +20,20 @@ Podle [Glenn Condron](https://github.com/glennc), [Ryanem Nowak](https://github.
 
 <xref:System.Net.Http.IHttpClientFactory> Můžete zaregistrované a slouží ke konfiguraci a vytvořte <xref:System.Net.Http.HttpClient> instance v aplikaci. Nabízí následující výhody:
 
-* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logické `HttpClient` instancí. Například *githubu* klient může zaregistrované a nakonfigurovat tak, aby ke Githubu přistupovat. Výchozí klienta lze zaregistrovat k jiným účelům.
+* Poskytuje centrální místo pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Například *githubu* klient může zaregistrované a nakonfigurované pro přístup k [Githubu](https://github.com/). Výchozí klient může být zaregistrován k jiným účelům.
 * Kodifikuje koncept odchozí middleware prostřednictvím delegování obslužné rutiny ve `HttpClient` a rozšíření pro middleware založený na Polly výhod, které poskytuje.
-* Spravuje sdružování a dobu života základní `HttpClientMessageHandler` instancí se vyhnout běžným potížím DNS, ke kterým dochází při správě ručně `HttpClient` životnosti.
-* Přidá prostředí konfigurovat protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů, které jsou vytvořeny procesem.
+* Spravuje sdružování a životní cyklus instancí `HttpClientMessageHandler`, aby zabránil častým problémům s DNS, ke kterým dochází při manuální správě životnosti `HttpClient`.
+* Přidává konfigurovatelné protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů, které jsou vytvořeny objektem pro vytváření (Factory).
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([stažení](xref:index#how-to-download-a-sample))
+
+::: moniker range="<= aspnetcore-2.2"
 
 ## <a name="prerequisites"></a>Požadavky
 
 Projekty cílené na rozhraní .NET Framework vyžadují instalaci [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) balíček NuGet. Projekty, které cílí na .NET Core a odkaz [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) již patří `Microsoft.Extensions.Http` balíčku.
+
+::: moniker-end
 
 ## <a name="consumption-patterns"></a>Vzory využití
 
@@ -155,7 +159,7 @@ public class ValuesController : ControllerBase
 
 ## <a name="outgoing-request-middleware"></a>Odchozí žádosti o middlewaru
 
-`HttpClient` již obsahuje koncept delegování obslužné rutiny, které může být propojený pro odchozí požadavky HTTP. `IHttpClientFactory` Usnadňuje k definování obslužných rutin mají použít u každého klienta s názvem. Podporuje registraci a zřetězení více obslužných rutin k sestavení kanál middleware odchozí požadavek. Každá z těchto obslužných rutin je moci provádět úkoly před a za odchozí požadavek. Tento model je podobný kanál příchozí middlewaru v ASP.NET Core. Vzor poskytuje mechanismus ke správě vyskytující aspekty kolem požadavků protokolu HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializaci a protokolování.
+`HttpClient` již obsahuje koncept delegování obslužné rutiny, které může být propojený pro odchozí požadavky HTTP. `IHttpClientFactory` Usnadňuje k definování obslužných rutin mají použít u každého klienta s názvem. Podporuje registraci a zřetězení více obslužných rutin k sestavení kanál middleware odchozí požadavek. Každá z těchto obslužných rutin je moci provádět úkoly před a za odchozí požadavek. Tento návrhový vzor je podobný příchozímu middlewarovému kanálu v ASP.NET Core. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
 Chcete-li vytvořit obslužnou rutinu, definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler>. Přepsat `SendAsync` metoda spuštění kódu před předáním požadavku další obslužná rutina kanálu:
 
@@ -197,11 +201,10 @@ Použijte jednu z následujících dvou přístupů sdílet stav jednotlivých �
 
 `IHttpClientFactory` se integruje s oblíbenými knihovnu třetí strany s názvem [Polly](https://github.com/App-vNext/Polly). Polly je komplexní odolnosti a přechodné zpracování chyb library pro .NET. Umožňuje vývojářům vyjádřit zásady například opakování, jističe, vypršení časového limitu, přepážka izolace a záložních fluent a bezpečným způsobem.
 
-Metody rozšíření jsou k dispozici pro povolení použití zásad Polly nakonfigurované `HttpClient` instancí. Jsou k dispozici v rozšíření Polly [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) balíček NuGet. Není součástí tohoto balíčku [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Abyste použili rozšíření explicitní `<PackageReference />` by měl být zahrnutý v projektu.
+Metody rozšíření jsou k dispozici pro povolení použití zásad Polly nakonfigurované `HttpClient` instancí. Polly rozšíření:
 
-[!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/HttpClientFactorySample.csproj?highlight=10)]
-
-Po obnovení tohoto balíčku, rozšiřující metody jsou k dispozici pro podporu přidání obslužné rutiny na základě Polly klientům.
+* Podpora přidání obslužné rutiny na základě Polly klientům.
+* Je možné po instalaci [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) balíček NuGet. Balíček není součástí sdíleného rozhraní ASP.NET Core.
 
 ### <a name="handle-transient-faults"></a>Zpracování přechodných chyb
 
@@ -219,7 +222,7 @@ Další rozšiřující metody existují, které lze přidat na základě Polly 
 
 [!code-csharp[Main](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet8)]
 
-V předchozím kódu pokud je odchozí požadavek GET, časový limit 10 sekundu se použije. Pro jiné metody HTTP se používá s časovým limitem 30 sekund.
+V předchozím kódu pokud je odchozí požadavek HTTP GET, časový limit 10 sekundu se použije. Pro jiné metody HTTP se používá s časovým limitem 30 sekund.
 
 ### <a name="add-multiple-polly-handlers"></a>Přidávání více obslužných rutin Polly
 

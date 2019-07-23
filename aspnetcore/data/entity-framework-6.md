@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/entity-framework-6
-ms.openlocfilehash: b7679afbe4c364386fe8f16d22d7e9797a3e0c27
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.openlocfilehash: 50f51a72341cbad017872df581da214211b9920a
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50090056"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900615"
 ---
 # <a name="get-started-with-aspnet-core-and-entity-framework-6"></a>Začínáme s ASP.NET Core a Entity Framework 6
 
@@ -23,7 +23,7 @@ Tento článek ukazuje, jak pomocí Entity Framework 6 v aplikaci ASP.NET Core.
 
 Pokud chcete používat Entity Framework 6, projekt obsahuje kompilovat proti rozhraní .NET Framework jako Entity Framework 6 nepodporuje .NET Core. Pokud potřebujete funkce napříč platformami budete muset upgradovat na [Entity Framework Core](/ef/).
 
-Je doporučeným způsobem, jak pomocí Entity Framework 6 v aplikaci ASP.NET Core do kontextu EF6 a tříd modelu v knihovně tříd projektu, který cílí na úplné rozhraní framework. Přidejte odkaz na knihovnu tříd z projektu ASP.NET Core. Najdete v ukázce [řešení sady Visual Studio s EF6 a ASP.NET Core projekty](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/entity-framework-6/sample/).
+Je doporučeným způsobem, jak pomocí Entity Framework 6 v aplikaci ASP.NET Core do kontextu EF6 a tříd modelu v knihovně tříd projektu, který cílí na úplné rozhraní framework. Přidejte odkaz na knihovnu tříd z projektu ASP.NET Core. Najdete v ukázce [řešení sady Visual Studio s EF6 a ASP.NET Core projekty](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/).
 
 Nelze vložit objekt context EF6 v projektu aplikace ASP.NET Core, protože projekty .NET Core nepodporují všechny funkce, která EF6 příkazů, jako *povolení migrace* vyžadují.
 
@@ -61,7 +61,7 @@ S použitím DI pak můžete získat instance kontextu ve vašich kontrolerech. 
 
 ## <a name="sample-application"></a>Ukázkové aplikace
 
-Ukázkové aplikace práci, najdete v článku [ukázkové řešení sady Visual Studio](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/entity-framework-6/sample/) , který doprovází tento článek.
+Ukázkové aplikace práci, najdete v článku [ukázkové řešení sady Visual Studio](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/) , který doprovází tento článek.
 
 Tato ukázka je vytvořit úplně od začátku podle následujících kroků v sadě Visual Studio:
 

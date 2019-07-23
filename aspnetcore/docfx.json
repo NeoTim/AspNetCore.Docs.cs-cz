@@ -26,6 +26,7 @@
         "files": [
           "**/*.png",
           "**/*.jpg",
+          "**/*.gif",
           "**/*.svg",
           "**/*.pdf"
         ],
@@ -52,24 +53,13 @@
       "feedback_product_url": "https://github.com/aspnet/Home/blob/master/CONTRIBUTING.md",
       "feedback_system": "GitHub",
       "ms.prod": "aspnet-core",
+      "uhfHeaderId": "MSDocsHeader-DotNet",
       "searchScope": [
         "ASP.NET Core"
-      ]
+      ],
+      "disable_contribution_on_translation_quality": ["MT"]
     },
     "fileMetadata": {
-      "open_to_public_contributors": {
-        "azure/**/**.md": false,
-        "client-side/**/**.md": false,
-        "grpc/**/**.md": false,
-        "migration/**/**.md": false,
-        "performance/**/**.md": false,
-        "razor-components/**/**.md": false,
-        "razor-pages/**/**.md": false,
-        "release-notes/**/**.md": false,
-        "ecurity/**/**.md": false,
-        "signalr/**/**.md": false,
-        "test/**/**.md": false
-      },
       "ms.technology": {
         "azure/**/**.md": "aspnetcore-azure",
         "client-side/**/**.md": "aspnetcore-clientside",
@@ -77,6 +67,7 @@
         "data/**/**.md": "aspnetcore-data",
         "fundamentals/**/**.md": "aspnetcore-fundamentals",
         "getting-started/**/**.md": "aspnetcore-getstarted",
+        "grpc/**/**.md": "aspnetcore-grpc",
         "host-and-deploy/**/**.md": "aspnetcore-hostdeploy",
         "index.md": "aspnetcore",
         "migration/**/**.md": "aspnetcore-migration",
@@ -98,6 +89,7 @@
         "data/**/**.md": "conceptual",
         "fundamentals/**/**.md": "conceptual",
         "getting-started/**/**.md": "tutorial",
+        "grpc/**/**.md": "conceptual",
         "host-and-deploy/**/**.md": "conceptual",
         "index.md": "conceptual",
         "migration/**/**.md": "conceptual",

@@ -5,14 +5,14 @@ description: Zjistěte, jak použít rozhraní API pro konfiguraci ke konfigurac
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/11/2019
+ms.date: 07/11/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 52450460af59a8da4fc6b24e3aa83d55385e8c77
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 3351ab743ce38b78b1c5857e52020fdeda12cbe7
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750963"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855818"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -21,6 +21,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 Konfigurace aplikace v ASP.NET Core je založená na páry klíč hodnota stanovené *poskytovatelé konfigurace*. Poskytovatelé konfigurace čtení konfiguračních dat do párů hodnot klíčů z různých zdrojů konfigurace:
 
 * Azure Key Vault
+* Konfigurace aplikace Azure
 * Argumenty příkazového řádku
 * Vlastní zprostředkovatelé (nainstalované nebo vytváření)
 * Adresář souborů
@@ -28,13 +29,17 @@ Konfigurace aplikace v ASP.NET Core je založená na páry klíč hodnota stanov
 * Objekty v paměti .NET
 * Soubory nastavení
 
+Balíčky pro konfiguraci pro běžné scénáře poskytovatele konfigurace jsou součástí [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Příklady, postupujte podle, které v ukázkové aplikaci používají kódu <xref:Microsoft.Extensions.Configuration> obor názvů:
+
+```csharp
+using Microsoft.Extensions.Configuration;
+```
+
 *Možnosti vzor* je rozšířením konfigurace koncepty popsané v tomto tématu. Možnosti třídy používá k reprezentování skupiny související nastavení. Další informace o použití vzoru možnosti najdete v tématu <xref:fundamentals/configuration/options>.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-Tyto tři balíčky jsou součástí [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
-
-## <a name="host-vs-app-configuration"></a>Hostování a konfigurace aplikací
+## <a name="host-versus-app-configuration"></a>Hostování konfigurace oproti konfiguraci v aplikaci
 
 Předtím, než aplikace je nakonfigurovaná a spuštěna, *hostitele* nakonfigurovaný a spustit. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Aplikace a hostitel jsou nakonfigurováni pomocí zprostředkovatele konfigurace popsané v tomto tématu. Páry klíč hodnota konfigurace hostitele se stanou součástí globální konfiguraci aplikace. Další informace o jak konfiguraci poskytovatele se používají při vytváření hostitele a vliv zdroje konfigurace hostitele konfigurace najdete v tématu [hostitele](xref:fundamentals/index#host).
 
@@ -98,13 +103,11 @@ Pokud je soubor pro čtení do konfigurace, jedinečné klíče se vytvoří zac
 
 Konfigurace zdroje jsou při spuštění aplikace pro čtení v pořadí, že jsou uvedeny příslušné poskytovatele konfigurace.
 
-Poskytovatelé konfigurace souboru mají možnost znovu načíst konfiguraci je podkladový soubor nastavení se při změně po spuštění aplikace. Zprostředkovatel konfigurace souboru je popsána dále v tomto tématu.
+Poskytovatelé konfigurace, které implementují detekce změn se budou moct znovu načíst konfiguraci základní nastavení se při změně. Například soubor zprostředkovatel konfigurace (popsáno dále v tomto tématu) a [konfigurace zprostředkovatele služby Azure Key Vault](xref:security/key-vault-configuration) implementovat detekce změn.
 
 <xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v aplikaci prvku [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) kontejneru. <xref:Microsoft.Extensions.Configuration.IConfiguration> mohou být vloženy do stránky Razor <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> získat konfiguraci pro třídu:
 
 ```csharp
-// using Microsoft.Extensions.Configuration;
-
 public class IndexModel : PageModel
 {
     private readonly IConfiguration _config;
@@ -143,6 +146,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace k dispozici pro
 | Poskytovatel | Obsahuje konfiguraci z&hellip; |
 | -------- | ----------------------------------- |
 | [Azure zprostředkovatel konfigurace trezoru klíčů](xref:security/key-vault-configuration) (*zabezpečení* témata) | Azure Key Vault |
+| [Poskytovatel konfigurace služby Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace k Azure) | Konfigurace aplikace Azure |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
 | [Vlastního poskytovatele konfigurace](#custom-configuration-provider) | Vlastní zdroj |
 | [Zprostředkovatel konfigurace proměnných prostředí](#environment-variables-configuration-provider) | Proměnné prostředí |
@@ -169,7 +173,7 @@ Toto pořadí poskytovatelů přejde do místa při inicializaci nové <xref:Mic
 
 Volání <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> při vytváření hostitele tak, aby zadejte poskytovatele konfigurace aplikace kromě těch, přidání automaticky <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>:
 
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=19)]
+[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=20)]
 
 Konfigurace zadaný pro aplikace v <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> je k dispozici při spuštění aplikace, včetně `Startup.ConfigureServices`. Další informace najdete v tématu [konfigurace přístupu při spuštění](#access-configuration-during-startup) oddílu.
 
@@ -301,7 +305,7 @@ Jak je znázorněno v předchozím příkladu volání `CreateDefaultBuilder` by
 
 Po vytvoření slovníku mapování přepínač obsahuje data zobrazená v následující tabulce.
 
-| Key       | Hodnota             |
+| Key       | Value             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -329,7 +333,7 @@ Chcete-li aktivovat konfigurace proměnných prostředí, zavolejte <xref:Micros
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) umožňuje nastavit proměnné prostředí na webu Azure Portal, můžete přepsat konfiguraci aplikace pomocí zprostředkovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikace Azure: Přepsat konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
 
-`AddEnvironmentVariables` je automaticky volána pro proměnné prostředí s předponou `ASPNETCORE_` při inicializaci nové <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>. Další informace najdete v tématu [webového hostitele: Nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
+`AddEnvironmentVariables` slouží k načtení proměnné prostředí s předponou `ASPNETCORE_` pro [konfigurace hostitele](#host-versus-app-configuration) při novém <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> je inicializován. Další informace najdete v tématu [webového hostitele: Nastavení hostitele](xref:fundamentals/host/web-host#set-up-a-host).
 
 `CreateDefaultBuilder` také načítání:
 
@@ -357,8 +361,9 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 // Call additional providers here as needed.
-                // Call AddEnvironmentVariables last if you need to allow environment
-                // variables to override values from other providers.
+                // Call AddEnvironmentVariables last if you need to allow
+                // environment variables to override values from other 
+                // providers.
                 config.AddEnvironmentVariables(prefix: "PREFIX_");
             })
             .UseStartup<Startup>();
@@ -476,7 +481,8 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddIniFile("config.ini", optional: true, reloadOnChange: true);
+                config.AddIniFile(
+                    "config.ini", optional: true, reloadOnChange: true);
             })
             .UseStartup<Startup>();
 }
@@ -567,7 +573,8 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddJsonFile("config.json", optional: true, reloadOnChange: true);
+                config.AddJsonFile(
+                    "config.json", optional: true, reloadOnChange: true);
             })
             .UseStartup<Startup>();
 }
@@ -602,7 +609,7 @@ Ukázková aplikace využívá metodu statické pohodlí `CreateDefaultBuilder` 
 | -------------------------- | :---------------: | :--------------: |
 | Protokolování: LogLevel:System    | Informace o       | Informace o      |
 | Logging:LogLevel:Microsoft | Informace o       | Informace o      |
-| Protokolování: LogLevel:Default   | Ladit             | Chyba            |
+| Protokolování: LogLevel:Default   | Ladění             | Chyba            |
 | AllowedHosts               | *                 | *                |
 
 ### <a name="xml-configuration-provider"></a>Zprostředkovatel konfigurace XML
@@ -634,7 +641,8 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-                config.AddXmlFile("config.xml", optional: true, reloadOnChange: true);
+                config.AddXmlFile(
+                    "config.xml", optional: true, reloadOnChange: true);
             })
             .UseStartup<Startup>();
 }
@@ -749,7 +757,8 @@ public class Program
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "path/to/files");
+                var path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "path/to/files");
                 config.AddKeyPerFile(directoryPath: path, optional: true);
             })
             .UseStartup<Startup>();
@@ -837,8 +846,6 @@ V následujícím příkladu:
 * Uloží hodnotu v `NumberConfig` vlastnost pro použití na stránce.
 
 ```csharp
-// using Microsoft.Extensions.Configuration;
-
 public class IndexModel : PageModel
 {
     public IndexModel(IConfiguration config)
@@ -954,14 +961,14 @@ Obsahuje ukázkovou aplikaci `Starship` modelu (*Models/Starship.cs*):
 
 Následující páry klíč hodnota konfigurace jsou vytvořeny:
 
-| Key                   | Hodnota                                             |
+| Key                   | Value                                             |
 | --------------------- | ------------------------------------------------- |
 | starship: name         | USS Enterprise                                    |
 | starship: registru     | NCC-1701                                          |
 | starship: Třída        | Vytvoření                                      |
 | starship: délka       | 304.8                                             |
 | starship: stává | False                                             |
-| Ochranné známky             | Paramount obrázky Corp. http://www.paramount.com |
+| Ochranné známky             | Paramount obrázky Corp. https://www.paramount.com |
 
 Ukázková aplikace volání `GetSection` s `starship` klíč. `starship` Páry klíč hodnota jsou izolované. `Bind` Metoda je volána v podčásti předávání v instanci `Starship` třídy. Po navázání hodnoty instanci, instance přidruženo k vlastnosti pro vykreslování:
 
@@ -1018,7 +1025,7 @@ Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tab
 
 Tyto klíče a hodnoty jsou načteny v ukázkové aplikaci pomocí zprostředkovatele konfigurace paměti:
 
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=3-10,22)]
+[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,23)]
 
 Pole přeskočí hodnotu pro index &num;3. Konfigurace vazače není schopen vazby hodnoty null a vytvářet položky s hodnotou null v vázaným objektům, zrušte v okamžiku, kdy je znázorněn výsledek vazby toto pole na objekt, který se stane.
 
@@ -1092,7 +1099,7 @@ Pokud soubor JSON obsahuje pole, vytvoří se pro prvky pole s indexem založen�
 
 Zprostředkovatel konfigurace JSON čte konfigurační data do následující páry klíč hodnota:
 
-| Key                     | Hodnota  |
+| Key                     | Value  |
 | ----------------------- | :----: |
 | json_array:key          | valueA |
 | json_array:subsection:0 | Hodnotab |
@@ -1153,7 +1160,7 @@ Vytvoření vlastního poskytovatele konfigurace děděním z <xref:Microsoft.Ex
 
 Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *Program.cs*:
 
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=26)]
+[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=30-31)]
 
 ## <a name="access-configuration-during-startup"></a>Konfigurace přístupu při spuštění
 

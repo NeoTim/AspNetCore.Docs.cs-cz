@@ -5,14 +5,14 @@ description: Zjistěte, jak používat klientskou sadou Java funkce SignalR tech
 monikerRange: '>= aspnetcore-2.2'
 ms.author: mimengis
 ms.custom: mvc
-ms.date: 03/14/2019
+ms.date: 06/27/2019
 uid: signalr/java-client
-ms.openlocfilehash: 53055b2642cae7640ae79cb5ae88ad6b2714c689
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: ea0abbaee81222493ff02e1f3bba13ed1e494bf5
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209676"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814972"
 ---
 # <a name="aspnet-core-signalr-java-client"></a>Klientskou sadou Java základní funkce SignalR technologie ASP.NET
 
@@ -22,7 +22,7 @@ Klientskou sadou Java umožňuje připojení k serveru funkce SignalR technologi
 
 Konzolovou aplikaci Java vzorku, který odkazuje tento článek používá klientskou sadou SignalR Java.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/signalr/java-client/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="install-the-signalr-java-client-package"></a>Instalace balíčku pro klienta SignalR Java
 
@@ -86,7 +86,7 @@ Při zadávání vaši cílovou verzi sady Android SDK, s ohledem na Kompatibili
 
 ## <a name="configure-bearer-token-authentication"></a>Konfigurace ověřování nosného tokenu
 
-V klientovi SignalR Java můžete konfigurovat nosný token pro účely ověření zadáním "access token továrnu" [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java). Použití [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytování [RxJava](https://github.com/ReactiveX/RxJava) [jeden\<řetězec >](http://reactivex.io/documentation/single.html). Voláním [Single.defer](http://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-), můžou psát logiku k vytvoření přístupové tokeny pro vašeho klienta.
+V klientovi SignalR Java můžete konfigurovat nosný token pro účely ověření zadáním "access token továrnu" [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java). Použití [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytování [RxJava](https://github.com/ReactiveX/RxJava) [jeden\<řetězec >](https://reactivex.io/documentation/single.html). Voláním [Single.defer](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-), můžou psát logiku k vytvoření přístupové tokeny pro vašeho klienta.
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
@@ -98,9 +98,20 @@ HubConnection hubConnection = HubConnectionBuilder.create("YOUR HUB URL HERE")
 
 ## <a name="known-limitations"></a>Známá omezení
 
+::: moniker range=">= aspnetcore-3.0"
+
+* Pouze protokol JSON je podporován.
+* Přenos použití náhradní lokality a přenos události odeslané serverem nejsou podporovány.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 * Pouze protokol JSON je podporován.
 * Je podporován pouze přenosu objekty Websocket.
 * Streamování se ještě nepodporuje.
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další zdroje
 

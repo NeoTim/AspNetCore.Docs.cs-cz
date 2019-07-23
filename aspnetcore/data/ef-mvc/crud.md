@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: cee521eec3172c04b4d9d93c12076c42c9adff18
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 442570cdc79fe7c496392ffbcbc527cf841aefa9
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750623"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750085"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: Implementace funkcí CRUD – ASP.NET MVC s EF Core
 
@@ -177,7 +177,7 @@ Nahraďte následující kód metody HttpPost úpravy akce.
 
 Tyto změny implementace bránící overposting osvědčeným postupem zabezpečení. Generátor vygeneruje `Bind` atribut a přidání entity vytvořené vazače modelu v entitě sadu s `Modified` příznak. V mnoha scénářích se nedoporučuje kódu, protože `Bind` atribut vymaže všechny už existující data v polích, které nejsou uvedené v `Include` parametru.
 
-Nový kód čte existující entity a volání `TryUpdateModel` aktualizovat pole v načtenou entitu [na základě uživatelského zadání v datech odeslaného formuláře](xref:mvc/models/model-binding#how-model-binding-works). Entity Framework automatické sledování sad změn `Modified` příznak na pole, která změní vstup formuláře. Když `SaveChanges` metoda je volána, Entity Framework vytvoří SQL příkazy pro aktualizaci řádku databáze. Konflikty souběžnosti jsou ignorovány a pouze sloupce tabulky, které byly aktualizovány uživatelem se aktualizují v databázi. (Vyšší kurz ukazuje, jak zpracování konfliktů souběžnosti.)
+Nový kód čte existující entity a volání `TryUpdateModel` aktualizovat pole v načtenou entitu [na základě uživatelského zadání v datech odeslaného formuláře](xref:mvc/models/model-binding). Entity Framework automatické sledování sad změn `Modified` příznak na pole, která změní vstup formuláře. Když `SaveChanges` metoda je volána, Entity Framework vytvoří SQL příkazy pro aktualizaci řádku databáze. Konflikty souběžnosti jsou ignorovány a pouze sloupce tabulky, které byly aktualizovány uživatelem se aktualizují v databázi. (Vyšší kurz ukazuje, jak zpracování konfliktů souběžnosti.)
 
 Jako osvědčený postup, aby se zabránilo overposting, pole, která mají být možné aktualizovat pomocí **upravit** stránky jsou povolené v `TryUpdateModel` parametry. (Prázdný řetězec předcházející seznamu polí v seznamu parametrů je u předpony pro použití s názvy polí formuláře.) Aktuálně nejsou žádné další pole, které chcete chránit, ale seznam polí, která má vazač modelu pro vazbu zajistí, že pokud přidáte pole do datového modelu v budoucnu, že jsou automaticky chráněné dokud explicitně přidáte je tady.
 
@@ -293,7 +293,7 @@ Další informace najdete v tématu [sledování vs. Sledování bez](/ef/core/q
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>Další kroky
 

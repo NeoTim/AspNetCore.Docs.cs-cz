@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/08/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: 12c7b39bee462ff83188a5a0f10b133ca273863b
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 8d75db7b6e21da39949a7f7c04be826d4d10008e
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59425059"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814859"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -19,7 +19,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Scott Addie](https://t
 
 Statické soubory, jako jsou HTML, CSS, obrázky a JavaScript, představují majetek, který obsluhuje aplikace ASP.NET Core přímo pro klienty. Některé konfigurace je potřeba povolit poskytování obsahu těchto souborů.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/static-files/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/static-files/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="serve-static-files"></a>Doručování statických souborů
 
@@ -50,7 +50,7 @@ Statické soubory jsou přístupné přes cestu relativní vzhledem k kořenový
   * **Bitové kopie**
   * **js**
 
-Formát identifikátoru URI pro přístup k souboru v *image* je podsložka *http://\<server_address > /images/\<image_file_name >*. Například *http://localhost:9189/images/banner3.svg*.
+Formát identifikátoru URI pro přístup k souboru v *image* je podsložka *http://\<server_address > /images/\<image_file_name >* . Například *http://localhost:9189/images/banner3.svg* .
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -224,7 +224,7 @@ Pokud neexistuje žádný soubor s názvem výchozí v *MyStaticFiles* adresář
 
 [!code-csharp[](static-files/samples/1x/StartupFileExtensionContentTypeProvider.cs?name=snippet_ConfigureMethod&highlight=3-12,19)]
 
-Zobrazit [typy MIME obsahu](http://www.iana.org/assignments/media-types/media-types.xhtml).
+Zobrazit [typy MIME obsahu](https://www.iana.org/assignments/media-types/media-types.xhtml).
 
 ## <a name="non-standard-content-types"></a>Nestandardní typy obsahu
 

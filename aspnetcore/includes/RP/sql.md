@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 740573c3c6e23e6c9e48354d5b5a4a3c0a94a766
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265279"
----
 # <a name="work-with-sqlite-in-an-aspnet-core-razor-pages-app"></a>Práce s SQLite v ASP.NET Core Razor Pages aplikace
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
@@ -22,7 +14,7 @@ Další informace o používání `DbContext` s DI, přečtěte si téma [pomoc�
 
 > SQLite je samostatná, vysokou spolehlivost, embedded, plně vybavené, veřejné domény, databázový stroj SQL. SQLite je nejpoužívanější databázového stroje na světě.
 
-Celá řada nástrojů třetích stran, které si můžete stáhnout, spravovat a zobrazovat databázi SQLite. Následující obrázek je z [DB prohlížeč pro SQLite](http://sqlitebrowser.org/). Pokud máte oblíbený nástroj SQLite, na co se vám líbí o něm komentář.
+Celá řada nástrojů třetích stran, které si můžete stáhnout, spravovat a zobrazovat databázi SQLite. Následující obrázek je z [DB prohlížeč pro SQLite](https://sqlitebrowser.org/). Pokud máte oblíbený nástroj SQLite, na co se vám líbí o něm komentář.
 
 ![Prohlížeč DB pro SQLite zobrazující film db](../../tutorials/first-mvc-app-xplat/working-with-sql/_static/dbb.png)
 

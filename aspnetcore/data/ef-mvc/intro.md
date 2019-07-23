@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 5a2ec9a8d85925e55840962cc90b3092953e7920
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: a93d5af314f1ff679a8df636297a0d5849ebdb8d
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59012848"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610207"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
 
@@ -38,13 +38,13 @@ V tomto kurzu se naučíte:
 ## <a name="prerequisites"></a>Požadavky
 
 * [.NET Core SDK 2.2](https://www.microsoft.com/net/download)
-* [Visual Studio 2017 nebo 2019](https://visualstudio.microsoft.com/downloads/) s následujícími sadami funkcí:
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s následujícími sadami funkcí:
   * **Vývoj pro ASP.NET a web** pracovního vytížení
   * **Vývoj pro různé platformy .NET core** pracovního vytížení
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 
-Pokud narazíte na problém nevyřešíte sami, můžete najít řešení obvykle porovnáním kódu [dokončený projekt](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final). Seznam běžných chyb a jak je vyřešit, najdete v části [části Poradce při potížích s posledním dílem série](advanced.md#common-errors). Pokud jste nenašli, co potřebujete existuje, můžete odeslat dotaz do StackOverflow.com pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
+Pokud narazíte na problém nevyřešíte sami, můžete najít řešení obvykle porovnáním kódu [dokončený projekt](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final). Seznam běžných chyb a jak je vyřešit, najdete v části [části Poradce při potížích s posledním dílem série](advanced.md#common-errors). Pokud jste nenašli, co potřebujete existuje, můžete odeslat dotaz do StackOverflow.com pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
 > [!TIP]
 > Toto je série 10 kurzů, z nichž každý je založena na co se provádí v předchozích kurzech. Zvažte možnost uložení kopie projektu po každé úspěšné dokončení tohoto kurzu. A pokud narazíte na problémy, můžete začít z předchozí kurz o službě místo přechodu zpět na začátek celou řadu.
@@ -95,7 +95,7 @@ Otevřít *Views/Shared/_Layout.cshtml* a proveďte následující změny:
 
 Změny jsou zvýrazněné.
 
-[!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,37-48,63)]
+[!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,34-48,63)]
 
 V *Views/Home/Index.cshtml*, nahraďte obsah souboru následující kód, který nahradí text o ASP.NET a MVC o této aplikaci:
 
@@ -355,7 +355,7 @@ Další informace o asynchronním programování v rozhraní .NET najdete v tém
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>Další kroky
 

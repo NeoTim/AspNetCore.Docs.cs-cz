@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/data-protection/introduction
 ms.openlocfilehash: 37f170a3e8a46ef2215b0999358d46dd402636df
-ms.sourcegitcommit: 4d74644f11e0dac52b4510048490ae731c691496
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50089545"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64903279"
 ---
 # <a name="aspnet-core-data-protection"></a>Ochrana dat ASP.NET Core
 
@@ -21,7 +21,7 @@ Zásobník ochrany dat ASP.NET Core je navržená sloužící jako dlouhodobé n
 
 ## <a name="problem-statement"></a>Popis problému
 
-Příkaz celkový problém může stručně uvedeny v jedné větě: je potřeba zachovat důvěryhodné informace pro pozdější načtení, ale není důvěřovat mechanismus trvalosti. V podmínkách web to může být napsán jako "Potřebuji round-trip důvěryhodného stavu pomocí nedůvěryhodného klienta."
+Příkaz celkový problém, můžete v jedné větě stručně uvedeno: Je potřeba zachovat důvěryhodné informace pro pozdější načtení, ale není důvěřovat mechanismus trvalosti. V podmínkách web to může být napsán jako "Potřebuji round-trip důvěryhodného stavu pomocí nedůvěryhodného klienta."
 
 Canonical příkladem tohoto je soubor cookie pro ověřování nebo nosný token. Generuje server "Jsem Groot a mít oprávnění xyz" token a předá ho do klienta. V některé budoucí datum nabídne klientovi tento token zpět na server, ale je nutné nějaký druh ujištění, že klient nebyl založených na zfalšovaných token. Proto první požadavek: pravosti (označovaný také jako integritu, kontroly pravopisu proti).
 

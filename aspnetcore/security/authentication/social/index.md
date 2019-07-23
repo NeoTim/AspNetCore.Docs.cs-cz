@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tento kurz ukazuje vytvoření ASP.NET Core 2.x aplikace pomocí externího zprostředkovatele ověřování OAuth 2.0.
 ms.author: riande
 ms.custom: mvc
-ms.date: 4/19/2019
+ms.date: 05/10/2019
 uid: security/authentication/social/index
-ms.openlocfilehash: 61482481358256dc9ddd1a0a894541040a8a452f
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 8dac8a8a2276388414b6bb1211e970617b001637
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59516323"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874812"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Facebook, Google a externí zprostředkovatel ověřování v ASP.NET Core
 
@@ -33,10 +33,12 @@ Příklady, jak sociální přihlášení můžete jednotka provoz a zákazníka
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**.
-* Vytvořte novou webovou aplikaci ASP.NET Core.
-* Vyberte **2.2 technologie ASP.NET Core** v rozevíracím seznamu a pak vyberte **webovou aplikaci**.
-* Vyberte **změna ověřování** a ověřování sady **jednotlivé uživatelské účty**.
+* Vytvořte nový projekt.
+* Vyberte **webová aplikace ASP.NET Core** a **Další**.
+* Zadejte **název projektu** a potvrďte nebo změňte **umístění**. Vyberte **Vytvořit**.
+* Vyberte **2.2 technologie ASP.NET Core** v rozevíracím seznamu. Vyberte **webovou aplikaci** v seznamu šablon.
+* V části **ověřování**vyberte **změnu** a nastavte ověřování na **jednotlivé uživatelské účty**. Vyberte **OK**.
+* V **vytvořit novou webovou aplikaci ASP.NET Core** okně **vytvořit**.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -47,34 +49,23 @@ Příklady, jak sociální přihlášení můžete jednotka provoz a zákazníka
 * Spusťte následující příkazy:
 
   ```console
-  dotnet new webapp -o WebApp1
+  dotnet new webapp -o WebApp1 -au Individual -uld
   code -r WebApp1
   ```
 
   * `dotnet new` Příkaz vytvoří nový projekt v Razor Pages *WebApp1* složky.
+  * `-uld` používá LocalDB namísto SQLite. Vynechat `-uld` použít SQLite.
+  * `-au Individual` vytvoří kód pro jednotlivé ověřování.
   * `code` Příkaz otevře *WebApp1* složky v nové instanci sady Visual Studio Code.
 
-  Zobrazí se dialogové okno s **'WebApp1' chybí požadované prostředky pro sestavení a ladění. Přidat?**
-
-* Vyberte **Ano**
+* Zobrazí se dialogové okno s **'WebApp1' chybí požadované prostředky pro sestavení a ladění. Přidat?** Vyberte **Ano**.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Z terminálu spusťte následující příkaz:
-
-<!-- TODO: update these instruction once mac support 2.2 projects -->
-
-```console
-dotnet new webapp -o WebApp1
-```
-
-Předchozí příkazy použití [rozhraní příkazového řádku .NET Core](/dotnet/core/tools/dotnet) vytvoření projektu pro stránky Razor.
-
-## <a name="open-the-project"></a>Otevřete projekt
-
-Ze sady Visual Studio, vyberte **soubor > Otevřít**a pak vyberte *WebApp1.csproj* souboru.
-
-<!-- End of VS tabs -->
+* Vyberte **souboru** > **nové řešení**.
+* Vyberte **.NET Core** > **aplikace** na bočním panelu. Vyberte **webovou aplikaci** šablony. Vyberte **Další**.
+* Nastavte **Cílová architektura** přetažením dolů **.NET Core 2.2**. Vyberte **Další**.
+* Zadejte **název projektu**. Potvrďte nebo změňte **umístění**. Vyberte **Vytvořit**.
 
 ---
 

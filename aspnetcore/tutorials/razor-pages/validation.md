@@ -4,14 +4,14 @@ author: rick-anderson
 description: Objevte, jak přidat ověření pro stránky Razor v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/5/2018
+ms.date: 12/05/2018
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: e9214139c0e6e958445feb13b6350bad376a0152
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 8495849c89ca3d6fd2b2006b61ce2ec75ff504a5
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208236"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815667"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování do stránky ASP.NET Core Razor
 
@@ -28,22 +28,7 @@ Klíčovým principem vývoj softwaru je volána [suchého](https://wikipedia.or
 
 Podpora ověřování poskytované stránkami Razor a technologií Entity Framework je typickým příkladem suchého zásady. Ověřovací pravidla deklarativně zadávají se na jednom místě (ve třídě modelu) a pravidel se vynucují kdekoli v aplikaci.
 
-### <a name="adding-validation-rules-to-the-movie-model"></a>Přidání pravidel ověřování do modelu movie
-
-Otevřít *Models/Movie.cs* souboru. [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) poskytuje integrovanou sadu atributů ověření, která se použijí deklarativně třída nebo vlastnost. DataAnnotations také obsahovat formátování atributů, jako je `DataType` , pomoct při formátování a neposkytují ověření.
-
-Aktualizace `Movie` třídy výhod `Required`, `StringLength`, `RegularExpression`, a `Range` atributů ověření.
-
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRatingDA.cs?name=snippet1)]
-
-Ověření atributy určují chování, které je vynucuje na vlastnosti modelu:
-
-* `Required` a `MinimumLength` atributy znamená, že vlastnost musí mít hodnotu. Ale nic zabraňuje uživateli v zadávání prázdné znaky omezení ověření pro typ připouštějící hodnotu Null. Neumožňující [typů hodnot](/dotnet/csharp/language-reference/keywords/value-types) (například `decimal`, `int`, `float`, a `DateTime`) jsou ze své podstaty povinné a nemusíte `Required` atribut.
-* `RegularExpression` Atribut omezuje znaky, které může uživatel zadat. V předchozím kódu `Genre` musí začínat jeden nebo více písmeny a postupujte podle s nula nebo více písmeny, jednoduché nebo dvojité uvozovky, prázdné znaky nebo spojovníky. `Rating` musí začínat jeden nebo více písmeny a postupujte podle se nula nebo více písmena, čísla, jednoduché nebo dvojité uvozovky, prázdné znaky nebo spojovníky.
-* `Range` Atribut omezuje hodnotu do zadaného rozsahu.
-* `StringLength` Atribut Nastaví maximální délku řetězce a volitelně minimální délku. 
-
-Ověřovací pravidla automaticky vynucuje sada ASP.NET Core s pomáhá vytvářet aplikace robustnější. Automatické ověření u modelů pomáhá chránit aplikace, protože nebudou muset pamatovat jejich použití, když se přidá nový kód.
+[!INCLUDE[](~/includes/RP-MVC/validation.md)]
 
 ### <a name="validation-error-ui-in-razor-pages"></a>Chyba ověřování uživatelské rozhraní pro stránky Razor
 
@@ -62,7 +47,7 @@ Významné výhodou je, že **žádné** změny kódu byly nezbytné ve vytvoře
 Formulář dat není odeslána na server, dokud nejsou žádné chyby ověřování na straně klienta. Zkontrolujte formulář, který není data zveřejnil(a) jeden nebo více z následujících postupů:
 
 * Vložit přerušení `OnPostAsync` metody. Odeslání formuláře (vyberte **vytvořit** nebo **Uložit**). Nikdy dosáhnete bodu přerušení.
-* Použití [nástroj Fiddler](http://www.telerik.com/fiddler).
+* Použití [nástroj Fiddler](https://www.telerik.com/fiddler).
 * Monitorování síťového provozu pomocí vývojářských nástrojů prohlížeče.
 
 ### <a name="server-side-validation"></a>Ověřování na straně serveru

@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 26a29630c9a93ab5c50b4258f112e0085fcc2d6b
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264608"
----
 # <a name="aspnet-core-docs"></a>Dokumenty k ASP.NET Core
 
 Toto úložiště obsahuje rámcové dokumentaci k ASP.NET Core hostovaných [docs.microsoft.com/aspnet](https://docs.microsoft.com/aspnet). Najdete v článku [přispívání průvodce](CONTRIBUTING.md) a [seznamu problémů na](https://github.com/aspnet/Docs/issues) Pokud byste chtěli pomoc.

@@ -70,6 +70,9 @@
               uid: tutorials/first-mvc-app/validation
             - name: Zkoumání metod Details a Delete
               uid: tutorials/first-mvc-app/details
+        - name: Blazor
+          displayName: tutorial
+          uid: tutorials/first-blazor-app
     - name: Aplikace Web API
       items:
         - name: Vytvoření webového rozhraní API
@@ -91,7 +94,7 @@
           uid: tutorials/signalr-typescript-webpack
     - name: Aplikace využívající vzdálené volání procedur
       items:
-        - name: Začínáme se službou gRPC v ASP.NET Core
+        - name: Začínáme se službou gRPC
           uid: tutorials/grpc/grpc-start
     - name: "Přístup k\_datům"
       items:
@@ -166,10 +169,10 @@
       uid: fundamentals/middleware/index
     - name: Hostitel
       items:
-        - name: Webový hostitel
-          uid: fundamentals/host/web-host
         - name: Obecný hostitel
           uid: fundamentals/host/generic-host
+        - name: Webový hostitel
+          uid: fundamentals/host/web-host
     - name: Servery
       uid: fundamentals/servers/index
     - name: Konfigurace
@@ -189,6 +192,8 @@
       uid: fundamentals/http-requests
     - name: Statické soubory
       uid: fundamentals/static-files
+    - name: aspnet-codegenerator
+      uid: fundamentals/tools/dotnet-aspnet-codegenerator
 - name: Webové aplikace
   items:
     - name: Razor Pages
@@ -217,8 +222,6 @@
               uid: tutorials/razor-pages/validation
         - name: Filtry
           uid: razor-pages/filter
-        - name: Knihovny RCL (Razor Class Library)
-          uid: razor-pages/ui-class
         - name: Směrování a aplikační konvence
           uid: razor-pages/razor-pages-conventions
         - name: Nahrání souborů
@@ -230,8 +233,9 @@
         - name: Přehled
           uid: mvc/overview
         - name: Tutoriál
-          uid: tutorials/first-mvc-app/index
           items:
+            - name: Přehled
+              uid: tutorials/first-mvc-app/index
             - name: Začínáme
               uid: tutorials/first-mvc-app/start-mvc
             - name: Přidání kontroleru
@@ -272,6 +276,8 @@
       items:
         - name: Přehled
           uid: blazor/index
+        - name: Podporované platformy
+          uid: blazor/supported-platforms
         - name: Začínáme
           uid: blazor/get-started
         - name: Modely hostingu
@@ -292,8 +298,12 @@
           uid: blazor/routing
         - name: Interoperabilita JavaScriptu
           uid: blazor/javascript-interop
+        - name: Zabezpečení a identita
+          uid: security/blazor/index
         - name: Ladit
           uid: blazor/debug
+        - name: Volání webového rozhraní API
+          uid: blazor/call-web-api
         - name: Hostování a nasazení
           items:
             - name: Přehled
@@ -314,7 +324,7 @@
               uid: spa/react
             - name: React with Redux
               uid: spa/react-with-redux
-            - name: JavaScriptServices
+            - name: JavaScript Services
               uid: client-side/spa-services
         - name: LibMan
           items:
@@ -324,8 +334,6 @@
               uid: client-side/libman/libman-cli
             - name: Visual Studio
               uid: client-side/libman/libman-vs
-        - name: Gulp
-          uid: client-side/using-gulp
         - name: Grunt
           uid: client-side/using-grunt
         - name: Bower
@@ -338,13 +346,12 @@
       uid: fundamentals/app-state
     - name: Rozložení
       uid: mvc/views/layout
-    - name: Vazby modelu
-      uid: mvc/models/model-binding
-    - name: Ověření modelu
-      uid: mvc/models/validation
     - name: Syntaxe Razor
       uid: mvc/views/razor
+    - name: Knihovny RCL (Razor Class Library)
+      uid: razor-pages/ui-class
     - name: Pomocné rutiny značek
+      uid: mvc/views/tag-helpers/builtin-th/Index
       items:
         - name: Přehled
           uid: mvc/views/tag-helpers/intro
@@ -396,10 +403,6 @@
           uid: mvc/controllers/areas
         - name: Součásti aplikace
           uid: mvc/extensibility/app-parts
-        - name: Vlastní vazba modelu
-          uid: mvc/advanced/custom-model-binding
-        - name: Kompatibilita – verze
-          uid: mvc/compatibility-version
 - name: Aplikace Web API
   items:
     - name: Přehled
@@ -428,6 +431,8 @@
       uid: web-api/advanced/analyzers
     - name: Konvence
       uid: web-api/advanced/conventions
+    - name: Otestování rozhraní API pomocí HTTP REPL
+      uid: web-api/http-repl
 - name: Aplikace v reálném čase
   displayName: signalr
   items:
@@ -456,9 +461,6 @@
           displayName: signalr
         - name: Uživatelé a skupiny
           uid: signalr/groups
-          displayName: signalr
-        - name: Publikování do Azure
-          uid: signalr/publish-to-azure-web-app
           displayName: signalr
         - name: Aspekty návrhu rozhraní API
           uid: signalr/api-design
@@ -490,9 +492,9 @@
         - name: Přehled
           displayName: signalr
           uid: signalr/scale
-        - name: Služba Azure SignalR
+        - name: Azure App Service
+          uid: signalr/publish-to-azure-web-app
           displayName: signalr
-          href: /azure/azure-signalr/signalr-overview?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Propojovací rozhraní Redis
           displayName: signalr
           uid: signalr/redis-backplane
@@ -532,18 +534,14 @@
       uid: grpc/aspnetcore
     - name: Konfigurace
       uid: grpc/configuration
+    - name: Ověřování a autorizace
+      uid: grpc/authn-and-authz
+    - name: Důležité informace o zabezpečení
+      uid: grpc/security
     - name: Migrace služeb gRPC z C Core na ASP.NET Core
       uid: grpc/migration
     - name: Porovnání služeb gRPC pomocí rozhraní HTTP API
       uid: grpc/comparison
-    - name: Kurzy
-      items:
-        - name: Začínáme se službou gRPC v ASP.NET Core
-          uid: tutorials/grpc/index
-        - name: Vytvoření služby ASP.NET Core gRPC Greeter
-          uid: tutorials/grpc/grpc-start
-        - name: Vytvoření klienta .NET Core gRPC
-          uid: tutorials/grpc/grpc-client
 - name: 'Testování, ladění a odstraňování potíží'
   items:
     - name: Testování jednotek
@@ -566,6 +564,10 @@
       uid: test/troubleshoot
     - name: protokolování
       uid: fundamentals/logging/index
+    - name: Řešení potíží s Azure a Internetovou informační službou (IIS)
+      uid: test/troubleshoot-azure-iis
+    - name: Referenční informace k chybám Azure a Internetové informační služby (IIS)
+      uid: host-and-deploy/azure-iis-errors-reference
 - name: "Přístup k\_datům"
   items:
     - name: Kurzy
@@ -662,7 +664,7 @@
           uid: host-and-deploy/aspnet-core-module
         - name: Řešení potíží
           displayName: 'azure, deploy, publish'
-          uid: host-and-deploy/azure-apps/troubleshoot
+          uid: test/troubleshoot-azure-iis
         - name: Referenční informace o chybách
           displayName: 'azure, deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
@@ -703,7 +705,7 @@
           uid: host-and-deploy/iis/modules
         - name: Řešení potíží
           displayName: 'deploy, publish'
-          uid: host-and-deploy/iis/troubleshoot
+          uid: test/troubleshoot-azure-iis
         - name: Referenční informace o chybách
           displayName: 'deploy, publish'
           uid: host-and-deploy/azure-iis-errors-reference
@@ -826,6 +828,8 @@
           uid: security/authentication/2fa
         - name: Ověřování souborem cookie bez systému Identity
           uid: security/authentication/cookie
+        - name: Sociální ověřování bez systému Identity
+          uid: security/authentication/social/social-without-identity
         - name: Azure Active Directory
           items:
             - name: Přehled
@@ -846,6 +850,8 @@
           href: /azure/app-service/overview-authentication-authorization?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Individuální uživatelské účty
           uid: security/authentication/individual
+        - name: Nakonfigurování ověřování pomocí certifikátu
+          uid: security/authentication/certauth
     - name: Autorizace
       items:
         - name: Přehled
@@ -969,6 +975,8 @@
       uid: security/ip-safelist
     - name: Zabezpečení aplikací – OWASP
       href: 'https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/DotNet_Security_Cheat_Sheet.md'
+    - name: Blazor
+      uid: security/blazor/index
 - name: Výkon
   items:
     - name: Přehled
@@ -983,6 +991,8 @@
           uid: performance/caching/distributed
         - name: Middleware pro ukládání odpovědí do mezipaměti
           uid: performance/caching/middleware
+        - name: Opětovné používání objektů s využitím třídy ObjectPool
+          uid: performance/ObjectPool
     - name: Komprese odpovědí
       uid: performance/response-compression
     - name: Diagnostické nástroje
@@ -1000,6 +1010,14 @@
       uid: fundamentals/troubleshoot-aspnet-core-localization
 - name: Upřesnit
   items:
+    - name: Vazby modelu
+      uid: mvc/models/model-binding
+    - name: Vlastní vazba modelu
+      uid: mvc/advanced/custom-model-binding
+    - name: Ověření modelu
+      uid: mvc/models/validation
+    - name: Kompatibilita – verze
+      uid: mvc/compatibility-version
     - name: Psaní middlewaru
       uid: fundamentals/middleware/write
     - name: Operace žádostí a odpovědí
@@ -1076,4 +1094,4 @@
 - name: "referenční dokumentace k\_rozhraní API"
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
-  href: 'https://github.com/aspnet/Docs/blob/master/CONTRIBUTING.md'
+  href: 'https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'

@@ -5,22 +5,22 @@ description: Další informace o použití částí aplikace, které jsou abstra
 ms.author: riande
 ms.date: 01/04/2017
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: 67bd40adef4cdb0bd781f70114d3954cd9a8ed09
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 9d0b4b5fadcc287172f23fa36c421f04ca2ade4a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320092"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815485"
 ---
 # <a name="application-parts-in-aspnet-core"></a>Částí aplikace v ASP.NET Core
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 *Aplikace část* je abstrakcí nad prostředky, které aplikace, ze kterého MVC funkce, jako je řadiče zobrazení komponenty, nebo může být zjištěny pomocných rutin značek. Jedním z příkladů části aplikace je AssemblyPart, který zapouzdřuje odkaz na sestavení a zpřístupňuje typy a odkazy na sestavení. *Funkce poskytovatele* fungují s částí aplikace k naplnění funkce aplikace ASP.NET Core MVC. Případ použití hlavní částí aplikace je k tomu, abyste do konfigurace aplikace pro zjišťování (nebo vyloučit načítání) funkcemi technologie MVC ze sestavení.
 
 ## <a name="introducing-application-parts"></a>Úvod do částí aplikace
 
-Aplikace MVC načítat jejich funkcí z [částí aplikace](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpart). Zejména v případě [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) třída reprezentuje aplikace část, která je založená na sestavení. Tyto třídy můžete zjišťovat a načíst funkcemi technologie MVC., jako jsou řadiče, zobrazení komponenty, pomocných rutin značek a razor kompilace zdrojů. [ApplicationPartManager](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartmanager) zodpovídá za sledování částí aplikace a poskytovatelů funkcí, které jsou k dispozici pro aplikaci MVC. Můžete pracovat `ApplicationPartManager` v `Startup` při konfiguraci MVC:
+Aplikace MVC načítat jejich funkcí z [částí aplikace](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpart). Zejména v případě [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart) třída reprezentuje aplikace část, která je založená na sestavení. Tyto třídy můžete zjišťovat a načíst funkcemi technologie MVC., jako jsou řadiče, zobrazení komponenty, pomocných rutin značek a razor kompilace zdrojů. [ApplicationPartManager](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.applicationpartmanager) zodpovídá za sledování částí aplikace a poskytovatelů funkcí, které jsou k dispozici pro aplikaci MVC. Můžete pracovat `ApplicationPartManager` v `Startup` při konfiguraci MVC:
 
 ```csharp
 // create an assembly part from a class's assembly

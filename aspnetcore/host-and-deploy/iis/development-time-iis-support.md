@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/08/2019
 uid: host-and-deploy/iis/development-time-iis-support
-ms.openlocfilehash: 6f555858239b4432d252f8b3ac7add5c3e8bfe62
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: f2d5dbbdc80eec035616ddea234ee5d3343eeae8
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59425098"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815182"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Podpora služby IIS při vývoji v sadě Visual Studio pro ASP.NET Core
 
 Podle [Sourabh Shirhatti](https://twitter.com/sshirhatti) a [Luke Latham](https://github.com/guardrex)
 
-Tento článek popisuje [sady Visual Studio](https://www.visualstudio.com/vs/) podporuje ladění aplikací ASP.NET Core se službou IIS a systémem Windows Server. Toto téma vás provede povolením tento scénář a nastavení projektu.
+Tento článek popisuje [sady Visual Studio](https://visualstudio.microsoft.com) podporuje ladění aplikací ASP.NET Core se službou IIS a systémem Windows Server. Toto téma vás provede povolením tento scénář a nastavení projektu.
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -108,7 +108,7 @@ Vytvoření nového profilu spuštění přidává dobu vývoje služby IIS:
 
 ::: moniker-end
 
-Pokud není pomocí sady Visual Studio, ručně přidat profil spuštění, který [launchSettings.json](http://json.schemastore.org/launchsettings) ve *vlastnosti* složky. Následující příklad nastaví profil, který chcete používat protokol HTTPS:
+Pokud není pomocí sady Visual Studio, ručně přidat profil spuštění, který [launchSettings.json](https://json.schemastore.org/launchsettings) ve *vlastnosti* složky. Následující příklad nastaví profil, který chcete používat protokol HTTPS:
 
 ```json
 {

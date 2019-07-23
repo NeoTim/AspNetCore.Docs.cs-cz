@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/31/2019
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 1a299cbd5fb9d971176d7d440efdad68e3780231
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: d9db2a251820d0dab26f8a6bd2eb755090154165
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58809338"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813349"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostitele ASP.NET Core v Linuxu se serverem Nginx
 
@@ -23,7 +23,7 @@ Tato příručka vysvětluje nastavení prostředí připravené pro produkční
 Informace v jiné distribuce Linuxu podporuje ASP.NET Core najdete v tématu [předpoklady pro .NET Core v Linuxu](/dotnet/core/linux-prerequisites).
 
 > [!NOTE]
-> Pro Ubuntu 14.04 *supervisord* jako řešení pro monitorování procesu Kestrel se doporučuje. *systemd* není k dispozici na Ubuntu 14.04. Ubuntu 14.04 pokyny najdete v tématu [předchozí verzi tohoto tématu](https://github.com/aspnet/Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md).
+> Pro Ubuntu 14.04 *supervisord* jako řešení pro monitorování procesu Kestrel se doporučuje. *systemd* není k dispozici na Ubuntu 14.04. Ubuntu 14.04 pokyny najdete v tématu [předchozí verzi tohoto tématu](https://github.com/aspnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md).
 
 Tento průvodce:
 
@@ -308,7 +308,7 @@ Linux zabezpečení moduly (LSM) je architektura, která je součástí linuxov�
 Zavřete vypnout všechny externí porty, které nejsou používány. Znamená přístupnější aplikaci brány firewall (ufw) poskytuje front-endu pro `iptables` tím, že poskytuje rozhraní příkazového řádku pro konfiguraci brány firewall.
 
 > [!WARNING]
-> Brána firewall brání přístupu k celému systému, pokud není nakonfigurovaná správně. Nepodařilo se určit správný port SSH bude efektivně případě k zablokování systému jsou k němu připojit pomocí SSH. Výchozí port je 22. Další informace najdete v tématu [Úvod do ufw](https://help.ubuntu.com/community/UFW) a [ruční](http://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html).
+> Brána firewall brání přístupu k celému systému, pokud není nakonfigurovaná správně. Nepodařilo se určit správný port SSH bude efektivně případě k zablokování systému jsou k němu připojit pomocí SSH. Výchozí port je 22. Další informace najdete v tématu [Úvod do ufw](https://help.ubuntu.com/community/UFW) a [ruční](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html).
 
 Nainstalujte `ufw` a nakonfigurujte ho chcete povolit přenosy přes všechny porty potřebné.
 

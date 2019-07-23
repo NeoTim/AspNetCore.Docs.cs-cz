@@ -6,7 +6,7 @@
 
   ![Vytvořit zobrazení s poli pro genre, ceny, datum vydání a název](~/tutorials/first-mvc-app/adding-model/_static/movies.png)
 
-* Není možné zadávat desetinné tečky a čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") pro desetinné čárky a USA retweetovat neanglické formáty kalendářního data, je nutné provést kroky aplikaci poslali do světa. Zobrazit [ https://github.com/aspnet/Docs/issues/4076 ](https://github.com/aspnet/Docs/issues/4076) a [další prostředky](#additional-resources) Další informace. Teď zadejte celá čísla, jako je 10.
+* Není možné zadávat desetinné tečky a čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") pro desetinné čárky a USA retweetovat neanglické formáty kalendářního data, je nutné provést kroky aplikaci poslali do světa. Zobrazit [ https://github.com/aspnet/AspNetCore.Docs/issues/4076 ](https://github.com/aspnet/AspNetCore.Docs/issues/4076) a [další prostředky](#additional-resources) Další informace. Teď zadejte celá čísla, jako je 10.
 
 <a name="displayformatdatelocal"></a>
 

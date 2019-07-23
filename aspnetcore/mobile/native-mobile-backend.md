@@ -5,12 +5,12 @@ description: Zjistěte, jak vytvořit back-endových služeb pro podporu nativn�
 ms.author: riande
 ms.date: 10/14/2016
 uid: mobile/native-mobile-backend
-ms.openlocfilehash: 13149dd4b877b8c17d33d428779ad31d8c51ae9e
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: b50d2593d7dc4b89472033898373e3a22fc9a7a3
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488725"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64899079"
 ---
 # <a name="create-backend-services-for-native-mobile-apps-with-aspnet-core"></a>Vytvoření back-endových služeb pro nativní mobilní aplikace pomocí ASP.NET Core
 
@@ -18,7 +18,7 @@ Podle [Steve Smith](https://ardalis.com/)
 
 Mobilní aplikace může komunikovat s back-endových služeb ASP.NET Core. Pokyny pro připojení místní webové služby z emulátory Androidu a simulátory Iosu, najdete v části [připojení k místním webovým službám z iOS emulátory Androidu a simulátory](/xamarin/cross-platform/deploy-test/connect-to-local-web-services).
 
-[Zobrazení nebo stažení ukázkového kódu služby back-endu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample)
+[Zobrazení nebo stažení ukázkového kódu služby back-endu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample)
 
 ## <a name="the-sample-native-mobile-app"></a>Ukázka nativní mobilní aplikace
 

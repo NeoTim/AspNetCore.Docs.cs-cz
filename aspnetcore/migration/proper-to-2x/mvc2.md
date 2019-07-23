@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: migration/mvc2
-ms.openlocfilehash: 7f048f2f95f1a51a0b6ce3d36665420ff28ec26f
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: e9dffe8bce502e48a09af04ea0be9952a68aa46f
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208470"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815459"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core-20"></a>Migrace z ASP.NET do ASP.NET Core 2.0
 
@@ -60,7 +60,7 @@ ASP.NET Core zavedl nový mechanismus pro spuštění aplikace. Vstupní bod pro
 
 [!code-csharp[](samples/globalasax-sample.cs)]
 
-Tento přístup páry v odstupu aplikace a serveru, na kterém je nasazená tak, že dochází ke kolizím s implementací. Abyste mohli oddělit [OWIN](http://owin.org/) se seznámili s čistší způsob, jak použít více platforem současně. OWIN poskytuje kanál přidat pouze moduly, které jsou potřeba. Hostitelské prostředí přijímá [spuštění](xref:fundamentals/startup) funkce ke konfiguraci služby a kanál žádosti o aplikace. `Startup` registruje sadu middlewaru v aplikaci. Pro každý požadavek aplikace volá všechny komponenty middlewaru pomocí hlavního ukazatele odkazovaného seznamu do existující sady rutin. Každá komponenta middlewaru můžete přidat jeden nebo více obslužných rutin k žádosti o zpracování kanálu. Toho dosahuje tak, že vrací odkaz na obslužnou rutinu, která je na novou hlavičku seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužná rutina v seznamu. Pomocí ASP.NET Core je vstupním bodem k aplikaci `Startup`, a už nebude mít závislost *Global.asax*. Při použití s rozhraním .NET Framework OWIN, použijte jako kanál nějak takto:
+Tento přístup páry v odstupu aplikace a serveru, na kterém je nasazená tak, že dochází ke kolizím s implementací. Abyste mohli oddělit [OWIN](https://owin.org/) se seznámili s čistší způsob, jak použít více platforem současně. OWIN poskytuje kanál přidat pouze moduly, které jsou potřeba. Hostitelské prostředí přijímá [spuštění](xref:fundamentals/startup) funkce ke konfiguraci služby a kanál žádosti o aplikace. `Startup` registruje sadu middlewaru v aplikaci. Pro každý požadavek aplikace volá všechny komponenty middlewaru pomocí hlavního ukazatele odkazovaného seznamu do existující sady rutin. Každá komponenta middlewaru můžete přidat jeden nebo více obslužných rutin k žádosti o zpracování kanálu. Toho dosahuje tak, že vrací odkaz na obslužnou rutinu, která je na novou hlavičku seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužná rutina v seznamu. Pomocí ASP.NET Core je vstupním bodem k aplikaci `Startup`, a už nebude mít závislost *Global.asax*. Při použití s rozhraním .NET Framework OWIN, použijte jako kanál nějak takto:
 
 [!code-csharp[](samples/webapi-owin.cs)]
 
@@ -72,7 +72,7 @@ ASP.NET Core používá podobný přístup, ale nemusí spoléhat na OWIN pro zp
 
 `Startup` musí obsahovat `Configure` metoda. V `Configure`, přidat nezbytné middleware do kanálu. V následujícím příkladu (z výchozí šablony webové stránky) několik rozšiřující metody slouží ke konfiguraci kanálu s podporou:
 
-* [BrowserLink](http://vswebessentials.com/features/browserlink)
+* [BrowserLink](https://vswebessentials.com/features/browserlink)
 * Chybové stránky
 * Statické soubory
 * ASP.NET Core MVC
@@ -147,7 +147,7 @@ Důležitou součástí vývoje pro web je schopnost poskytovat statické a na s
 
 V technologii ASP.NET jsou statické soubory uložené v různých adresářích a odkazované v zobrazeních.
 
-V ASP.NET Core, statické soubory se ukládají do "kořenový adresář webové" (*&lt;obsahu kořenové&gt;/wwwroot*), pokud se nenakonfiguruje. Soubory se načtou do kanálu požadavku vyvoláním `UseStaticFiles` rozšiřující metoda z `Startup.Configure`:
+V ASP.NET Core, statické soubory se ukládají do "kořenový adresář webové" ( *&lt;obsahu kořenové&gt;/wwwroot*), pokud se nenakonfiguruje. Soubory se načtou do kanálu požadavku vyvoláním `UseStaticFiles` rozšiřující metoda z `Startup.Configure`:
 
 [!code-csharp[](../../fundamentals/static-files/samples/1x/StartupStaticFiles.cs?highlight=3&name=snippet_ConfigureMethod)]
 

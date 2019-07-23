@@ -1,15 +1,17 @@
-Následující tabulka obsahuje podrobnosti o parametry generátor kódu ASP.NET Core:
+<a name="codegenerator"></a>Následující tabulka podrobně popisuje ASP.NET Core parametry generátoru kódu:
 
 | Parametr               | Popis|
 | ----------------- | ------------ |
 | -m  | Název modelu. |
-| -dc  | `DbContext` Třídu použít. |
-| -udl | Použijte výchozí rozložení. |
-| -outDir | Relativní cesta k výstupní složce vytvořte zobrazení. |
-| --referenceScriptLibraries | Přidá `_ValidationScriptsPartial` upravovat a vytvářet stránky |
+| -dc  | `DbContext` Třída, která se má použít |
+| – UDL | Použijte výchozí rozložení. |
+| – outDir | Relativní cesta k výstupní složce pro vytvoření zobrazení |
+| --referenceScriptLibraries | Přidá `_ValidationScriptsPartial` k úpravám a vytváření stránek. |
 
-Použití `h` přepínače můžete zobrazit nápovědu pro `aspnet-codegenerator razorpage` příkaz:
+Nápovědu k příkazu získáte pomocí `h`přepínače `aspnet-codegenerator razorpage` :
 
 ```console
 dotnet aspnet-codegenerator razorpage -h
 ```
+
+Další informace najdete v tématu [dotnet ASPNET-CodeGenerator](xref:fundamentals/tools/dotnet-aspnet-codegenerator) 

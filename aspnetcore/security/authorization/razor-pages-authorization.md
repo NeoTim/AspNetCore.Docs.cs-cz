@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/03/2019
 uid: security/authorization/razor-pages-authorization
-ms.openlocfilehash: 040d33eba7eaf7a3aece2eedcdef7343e52972af
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: ff061f96f30cd893b903403de760a172c924cf06
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57345497"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64901998"
 ---
 # <a name="razor-pages-authorization-conventions-in-aspnet-core"></a>Vytváření názvů autorizace stránek Razor v ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 Jedním ze způsobů řízení přístupu v aplikaci pro stránky Razor je použití autorizace konvence při spuštění. Tato konvence umožňují uživateli uživatele autorizovat a umožňoval anonymním uživatelům přístup k jednotlivé stránky nebo složky stránek. Platí zásady popsané v tomto tématu automaticky [filtry autorizace](xref:mvc/controllers/filters#authorization-filters) pro řízení přístupu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/razor-pages-authorization/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 Tato ukázková aplikace používá [ověřování souborem cookie bez ASP.NET Core Identity](xref:security/authentication/cookie). Koncepty a příkladů uvedených v tomto tématu platí stejně pro aplikace, které používají technologii ASP.NET Core Identity. ASP.NET Core Identity, postupujte podle pokynů v <xref:security/authentication/identity>.
 

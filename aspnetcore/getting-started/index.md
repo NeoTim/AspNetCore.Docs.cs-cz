@@ -1,27 +1,27 @@
 ---
 title: Začínáme s ASP.NET Core
 author: rick-anderson
-description: Rychlý kurz, který vytvoří a spustí jednoduchou aplikaci Hello World pomocí ASP.NET Core.
+description: Krátký kurz, který vytvoří a spustí základní aplikaci Hello World pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2019
+ms.date: 05/15/2019
 uid: getting-started
-ms.openlocfilehash: 76728c484368a8b63130c259a9663473970846d3
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: c35251a0e49fbbffee7b8f5ea6905322b9042261
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209473"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814937"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
-Tento návod ukazuje, jak vytvořit webovou aplikaci ASP.NET jádro pomocí rozhraní příkazového řádku .NET Core.
+Tento kurz ukazuje, jak používat rozhraní příkazového řádku .NET Core k vytvoření a spuštění webové aplikace v ASP.NET Core.
 
 Se dozvíte, jak:
 
 > [!div class="checklist"]
 > * Vytvoření projektu webové aplikace.
-> * Povolte místní HTTPS.
+> * Důvěřujete certifikátu vývoje.
 > * Spusťte aplikaci.
 > * Úprava stránky syntaxe Razor.
 
@@ -41,7 +41,7 @@ Otevřete příkazové prostředí a zadejte následující příkaz:
 dotnet new webapp -o aspnetcoreapp
 ```
 
-## <a name="enable-local-https"></a>Povolit místní HTTPS
+### <a name="trust-the-development-certificate"></a>Důvěřovat certifikátu vývoj
 
 Důvěřujete certifikátu vývoj HTTPS:
 
@@ -71,6 +71,8 @@ Tento příkaz vás může vyzvat k zadání hesla k instalaci certifikátu v ř
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 
+Subsystém Windows pro Linux, najdete v části [certifikátu důvěřovat HTTPS ze subsystému Windows pro Linux](xref:security/enforcing-ssl#wsl).
+
 O tom, jak důvěřovat certifikátu protokolu HTTPS vývoj naleznete v dokumentaci k vaší distribuci Linuxu.
 
 ---
@@ -96,13 +98,13 @@ Otevřít *Pages/Index.cshtml* a upravovat na stránce s následující zvýrazn
 
 Přejděte do [ https://localhost:5001 ](https://localhost:5001)a ověřte změny jsou zobrazeny.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
 > * Vytvoření projektu webové aplikace.
-> * Povolte místní HTTPS.
+> * Důvěřujete certifikátu vývoje.
 > * Spusťte projekt.
 > * Proveďte změnu.
 

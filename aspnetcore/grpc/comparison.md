@@ -6,18 +6,18 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 03/31/2019
 uid: grpc/comparison
-ms.openlocfilehash: 0e9ef0e7ca8fb6d847b45f6dd7bd0aaa35fd149f
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 712010f62b418fc8964b48648e35698c7bd3b395
+ms.sourcegitcommit: 4d05e30567279072f1b070618afe58ae1bcefd5a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59468602"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66376425"
 ---
 # <a name="comparing-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
 Podle [James Newton – King](https://twitter.com/jamesnk)
 
-Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) porovnání rozhraní HTTP API (včetně ASP.NET Core [webová rozhraní API](xref: web-api/index)). Technologie používaná k poskytují rozhraní API pro vaše aplikace je důležité volbou a gRPC nabízí jedinečné výhody ve srovnání s rozhraní HTTP API. Tento článek popisuje silné a slabé stránky gRPC a doporučuje scénáře použití gRPC přes jiné technologie.
+Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) porovnání rozhraní HTTP API (včetně ASP.NET Core [webová rozhraní API](xref:web-api/index)). Technologie používaná k poskytují rozhraní API pro vaše aplikace je důležité volbou a gRPC nabízí jedinečné výhody ve srovnání s rozhraní HTTP API. Tento článek popisuje silné a slabé stránky gRPC a doporučuje scénáře použití gRPC přes jiné technologie.
 
 #### <a name="overview"></a>Přehled
 
@@ -76,9 +76,9 @@ Probíhá šíření termínu a zrušení prostřednictvím gRPC podřízené vo
 
 gRPC se skvěle hodí pro následující scénáře:
 
-* **Mikroslužby** &ndash; gRPC je navržený s nízkou latencí a vysokou propustnost komunikace. gRPC se skvěle hodí pro lightweight mikroslužeb kde efektivita je velmi důležité.
+* **Mikroslužby** &ndash; gRPC je určená pro nízkou latenci a vysokou propustnost komunikace. gRPC se skvěle hodí pro lightweight mikroslužeb kde efektivita je velmi důležité.
 * **Komunikace v reálném čase Point-to-Point** &ndash; gRPC má skvělou podporu pro obousměrné streamování. gRPC služby můžete nabízet zprávy bez dotazování v reálném čase.
-* **Prostředí Polygot** &ndash; gRPC nástrojů podporuje všechny oblíbené vývojářské jazyky, provádění gRPC dobrou volbou pro vícejazyčné prostředí.
+* **Polyglot prostředí** &ndash; gRPC nástrojů podporuje všechny oblíbené vývojářské jazyky, provádění gRPC dobrou volbou pro vícejazyčné prostředí.
 * **Síťové prostředí omezené** &ndash; gRPC zprávy jsou serializovat s příznakem Protobuf, zjednodušené formátu. GRPC zprávy je vždy menší než ekvivalentní zprávy JSON.
 
 ## <a name="grpc-weaknesses"></a>gRPC slabá místa

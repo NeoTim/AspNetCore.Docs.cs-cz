@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 6add725430380f0855fe660a70b90a4546ef0637
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: e8aa2c6e33968a6cbc05591e4e5017ea9eac691d
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750915"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900009"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Aktualizace souvisejících dat – ASP.NET MVC s EF Core
 
@@ -301,7 +301,7 @@ Jak je vysvětleno v [CRUD kurzu](crud.md), Entity Framework implementuje implic
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>Další kroky
 

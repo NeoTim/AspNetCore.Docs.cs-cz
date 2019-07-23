@@ -4,14 +4,14 @@ author: ardalis
 description: Zjistěte, jak k formátování dat odpovědi v rozhraní Web API ASP.NET Core.
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 10/14/2016
+ms.date: 05/29/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: b0fce0632fd2d885cb8e9a056923ec365d2f327d
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: b050011aa38743353fb2a7d133abcdca0b8c6d33
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209983"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814819"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v rozhraní Web API ASP.NET Core
 
@@ -19,7 +19,7 @@ Podle [Steve Smith](https://ardalis.com/)
 
 ASP.NET Core MVC obsahuje integrovanou podporu pro formátování dat odpovědi pomocí pevné formáty nebo v reakci na požadavky klienta.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/formatting/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/formatting/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="format-specific-action-results"></a>Výsledky specifické pro formát akcí
 
@@ -63,7 +63,7 @@ Používá následující metody akce `Ok` a `NotFound` pomocné metody:
 
 [!code-csharp[](./formatting/sample/Controllers/Api/AuthorsController.cs?highlight=8,10&range=28-38)]
 
-Odpověď ve formátu JSON se vrátí, pokud byl požadován jiného formátu a server může vrátit požadovanému formátu. Můžete použít nástroje, jako je [Fiddler](http://www.telerik.com/fiddler) vytvořte žádost, která obsahuje hlavičku Accept a určete jiný formát. V takovém případě pokud má server *formátovací modul* , který může vytvořit odpověď požadovaný formát, výsledkem bude vrácen ve formátu upřednostňované klienta.
+Odpověď ve formátu JSON se vrátí, pokud byl požadován jiného formátu a server může vrátit požadovanému formátu. Můžete použít nástroje, jako je [Fiddler](https://www.telerik.com/fiddler) vytvořte žádost, která obsahuje hlavičku Accept a určete jiný formát. V takovém případě pokud má server *formátovací modul* , který může vytvořit odpověď požadovaný formát, výsledkem bude vrácen ve formátu upřednostňované klienta.
 
 ![Fiddler konzola znázorňující ručně vytvořili získat požadavek s hodnotou hlavičky Accept application/XML](formatting/_static/fiddler-composer.png)
 
@@ -101,30 +101,53 @@ services.AddMvc(options =>
 
 Pokud vaše aplikace potřebuje pro podporu dalších formátech nad výchozí hodnotu JSON, můžete přidat balíčky NuGet a nakonfigurovat MVC pro jejich podporu. Existují samostatné formátovací moduly pro vstup a výstup. Vstupní formátovací moduly jsou používány [vazby modelu](xref:mvc/models/model-binding); formátování výstupu se používají k formátování odpovědi. Můžete taky nakonfigurovat [vlastní formátování](xref:web-api/advanced/custom-formatters).
 
-### <a name="adding-xml-format-support"></a>Přidání podpory pro formát XML
+::: moniker range=">= aspnetcore-3.0"
 
-Chcete-li přidat podporu pro formát XML, nainstalujte `Microsoft.AspNetCore.Mvc.Formatters.Xml` balíček NuGet.
+### <a name="configure-systemtextjson-based-formatters"></a>Konfigurace na základě System.Text.Json formátovacích modulů
 
-Přidat XmlSerializerFormatters do konfigurace MVC v *Startup.cs*:
-
-[!code-csharp[](./formatting/sample/Startup.cs?name=snippet1&highlight=2)]
-
-Alternativně můžete přidat jenom formátování výstupu:
+Funkce `System.Text.Json`– na základě formátování lze konfigurovat pomocí `Microsoft.AspNetCore.Mvc.MvcOptions.SerializerOptions`.
 
 ```csharp
 services.AddMvc(options =>
 {
-    options.OutputFormatters.Add(new XmlSerializerOutputFormatter());
+    options.SerializerOptions.WriterSettings.Indented = true;
 });
 ```
 
-Tyto dvě metody se serializace výsledků pomocí `System.Xml.Serialization.XmlSerializer`. Pokud dáváte přednost, můžete použít `System.Runtime.Serialization.DataContractSerializer` tak, že přidáte jeho přidružené formátovací modul:
+### <a name="add-newtonsoftjson-based-json-format-support"></a>Přidání podpory pro formát JSON založených na Newtonsoft.Json
+
+Před ASP.NET Core 3.0 MVC nastavena na výchozí pomocí formátování JSON, které jsou implementované pomocí `Newtonsoft.Json` balíčku. V ASP.NET Core 3.0 nebo novější, jsou na základě výchozí formátování JSON `System.Text.Json`. Podpora pro `Newtonsoft.Json`– na základě formátování a funkce je k dispozici nainstalováním [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet balíček a jeho v konfiguraci `Startup.ConfigureServices`.
 
 ```csharp
-services.AddMvc(options =>
-{
-    options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-});
+services.AddMvc()
+    .AddNewtonsoftJson();
+```
+
+Některé funkce nemusí fungovat s `System.Text.Json`– na základě formátovacích modulů a vyžadují odkaz na `Newtonsoft.Json`– na základě formátovací moduly pro vydanou verzi ASP.NET Core 3.0. Pokračovat v používání `Newtonsoft.Json`– na základě formátovacích modulů, pokud vaší aplikace ASP.NET Core 3.0 nebo novější:
+
+* Používá `Newtonsoft.Json` atributy (například `[JsonProperty]` nebo `[JsonIgnore]`), umožňuje upravit nastavení serializace nebo spoléhá na funkce, které `Newtonsoft.Json` poskytuje.
+* Nakonfiguruje `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings`. Před ASP.NET Core 3.0 `JsonResult.SerializerSettings` přijímá instanci `JsonSerializerSettings` , která je specifická pro `Newtonsoft.Json`.
+* Generuje [OpenAPI](<xref:tutorials/web-api-help-pages-using-swagger>) dokumentaci.
+
+::: moniker-end
+
+### <a name="add-xml-format-support"></a>Přidání podpory pro formát XML
+
+::: moniker range="<= aspnetcore-2.2"
+
+Chcete-li přidat podporu v ASP.NET Core 2.2 nebo dřívější formátování data XML, nainstalovat [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) balíček NuGet.
+
+::: moniker-end
+
+Formátovací moduly XML implementované pomocí `System.Xml.Serialization.XmlSerializer` se dá nakonfigurovat pomocí volání <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*> v `Startup.ConfigureServices`:
+
+[!code-csharp[](./formatting/sample/Startup.cs?name=snippet1&highlight=2)]
+
+Alternativně XML formátování, které jsou implementované pomocí `System.Runtime.Serialization.DataContractSerializer` se dá nakonfigurovat pomocí volání <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlDataContractSerializerFormatters*> v `Startup.ConfigureServices`:
+
+```csharp
+services.AddMvc()
+    .AddXmlDataContractSerializerFormatters();
 ```
 
 Po přidání podpory pro formát XML, by měl vrátit svoje metody kontroleru vhodný formát na základě daného požadavku `Accept` záhlaví jako Fiddler, tento příklad ukazuje:

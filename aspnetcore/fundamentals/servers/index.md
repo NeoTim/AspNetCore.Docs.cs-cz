@@ -2,22 +2,41 @@
 title: Implementací webového serveru v ASP.NET Core
 author: guardrex
 description: Zjišťování webové servery přes Kestrel a HTTP.sys pro ASP.NET Core. Zjistěte, jak vybrat server a kdy použít reverzní proxy server.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 02/14/2019
+ms.date: 06/01/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: 4fa32fb4fe1d482f1000cd803cd2d26cd9ff2341
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 10876a61d40679b1a022ce9c58329bf53c36c1bb
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410531"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855969"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementací webového serveru v ASP.NET Core
 
 Podle [Petr Dykstra](https://github.com/tdykstra), [Steve Smith](https://ardalis.com/), [Stephen Halter](https://twitter.com/halter73), a [Chris Ross](https://github.com/Tratcher)
 
 Aplikace ASP.NET Core spouští implementaci serveru HTTP v procesu. Implementace server přijímá požadavky protokolu HTTP a poskytuje je na aplikaci jako sada [funkce požadavků](xref:fundamentals/request-features) složený do <xref:Microsoft.AspNetCore.Http.HttpContext>.
+
+## <a name="kestrel"></a>Kestrel
+
+Kestrel je výchozí webový server, která je součástí šablony projektů ASP.NET Core.
+
+Použijte Kestrel:
+
+* Samostatně jako hraniční server zpracování požadavků přímo ze sítě, včetně Internetu.
+
+  ![Kestrel komunikuje přímo s Internetu bez reverzní proxy server](kestrel/_static/kestrel-to-internet2.png)
+
+* S *reverzní proxy server*, jako například [Internetové informační služby (IIS)](https://www.iis.net/), [Nginx](https://nginx.org), nebo [Apache](https://httpd.apache.org/). Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel.
+
+  ![Kestrel nepřímo komunikuje přes Internet prostřednictvím reverzního proxy serveru, jako je například Apache, IIS nebo Nginx](kestrel/_static/kestrel-to-internet.png)
+
+Konfigurace buď hostování&mdash;s nebo bez něj reverzní proxy server&mdash;se podporuje pro ASP.NET Core 2.1 nebo novější.
+
+Pokyny ke konfiguraci Kestrel a informace o použití Kestrel v konfigurace reverzního proxy serveru najdete v tématu <xref:fundamentals/servers/kestrel>.
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -26,56 +45,23 @@ Aplikace ASP.NET Core spouští implementaci serveru HTTP v procesu. Implementac
 ASP.NET Core se dodává s následujícími možnostmi:
 
 * [Kestrel server](xref:fundamentals/servers/kestrel) je výchozí, implementaci serveru HTTP pro různé platformy.
-* Server služby IIS protokolu HTTP [v procesový server](#in-process-hosting-model) pro službu IIS.
+* Server služby IIS protokolu HTTP [v procesový server](#hosting-models) pro službu IIS.
 * [HTTP.sys server](xref:fundamentals/servers/httpsys) je na základě protokolu HTTP jenom pro Windows server [ovladač HTTP.sys jádra a rozhraní API serveru HTTP](/windows/desktop/Http/http-api-start-page).
 
 Při použití [IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview), buď spuštění aplikace:
 
-* Ve stejném procesu jako pracovní proces služby IIS ( [model hostingu v procesu](#in-process-hosting-model)) se [HTTP serveru služby IIS](#iis-http-server). *V procesu* je doporučená konfigurace.
-* V procesu oddělit od pracovní proces služby IIS ( [model hostingu mimo proces](#out-of-process-hosting-model)) se [Kestrel server](#kestrel).
+* Ve stejném procesu jako pracovní proces služby IIS ( [model hostingu v procesu](#hosting-models)) s HTTP serverem IIS. *V procesu* je doporučená konfigurace.
+* V procesu oddělit od pracovní proces služby IIS ( [model hostingu mimo proces](#hosting-models)) se [Kestrel server](#kestrel).
 
 [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) je nativní modul služby IIS, která zpracovává nativní požadavků služby IIS mezi služby IIS a v rámci procesu serveru služby IIS protokolu HTTP nebo Kestrel. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
 ## <a name="hosting-models"></a>Modely hostingu
 
-### <a name="in-process-hosting-model"></a>Model hostingu v procesu
-
 Proces hostování, ASP.NET Core pomocí app běží ve stejném procesu jako jeho pracovní proces služby IIS. Hostování v procesu poskytuje Vylepšený výkon oproti mimo proces hostování, protože žádosti nejsou směrovány přes proxy server prostřednictvím adaptéru zpětné smyčky, síťové rozhraní, které vrátí odchozí síťový provoz do stejného počítače. Služba IIS zpracovává proces správy pomocí [Windows Process Activation Service (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
-Modul ASP.NET Core:
+Pomocí mimo proces hostování, aplikace ASP.NET Core spouštět v procesu nezávisle na pracovní proces služby IIS a modulu popisovače procesu správy. V modulu začne proces pro aplikace ASP.NET Core, když první žádost o přijetí a restartuje aplikaci, pokud se vypne nebo dojde k chybě. Toto je v podstatě stejné chování jako aplikace, které běží v procesu, která jsou spravována [Windows Process Activation Service (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
-* Provede inicializaci aplikace.
-  * Načtení [CoreCLR](/dotnet/standard/glossary#coreclr).
-  * Volání `Program.Main`.
-* Zpracovává životnost nativní požadavků služby IIS.
-
-Model hostingu v procesu není podporována pro aplikace ASP.NET Core, které jsou cíleny rozhraní .NET Framework.
-
-Následující diagram znázorňuje vztah mezi služby IIS, že modul ASP.NET Core a aplikace hostované v procesu:
-
-![Modul ASP.NET Core](_static/ancm-inprocess.png)
-
-Žádost o přijetí z webu pro ovladač HTTP.sys režimu jádra. Ovladač přesměruje požadavek na nativní služby IIS na webu nakonfigurovaný port, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul obdrží požadavek na nativní a předává je na serveru služby IIS protokolu HTTP (`IISHttpServer`). HTTP serveru služby IIS je implementace v rámci procesu serveru pro službu IIS, který převede žádosti z nativní do spravované.
-
-Po zpracování požadavku HTTP Server služby IIS požadavek odesílají do kanálu middleware ASP.NET Core. Zpracuje požadavek a předává je jako middleware kanálu `HttpContext` instanci aplikace logiky. Odpověď aplikace je předán zpět do služby IIS pomocí serveru služby IIS protokolu HTTP. Služba IIS odešle odpověď klientovi, který inicioval žádost.
-
-Hostování v procesu je vyjádřit výslovný souhlas pro existující aplikace, ale [dotnet nové](/dotnet/core/tools/dotnet-new) šablony ve výchozím nastavení model hostingu v procesu pro všechny scénáře pro službu IIS a služby IIS Express.
-
-### <a name="out-of-process-hosting-model"></a>Model hostingu mimo proces
-
-Protože aplikace ASP.NET Core spuštění v procesu oddělit od pracovní proces služby IIS, zpracovává modul Správa procesů. V modulu začne proces pro aplikace ASP.NET Core, když první žádost o přijetí a restartuje aplikaci, pokud se vypne nebo dojde k chybě. Toto je v podstatě stejné chování jako aplikace, které běží v procesu, která jsou spravována [Windows Process Activation Service (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
-
-Následující diagram znázorňuje vztah mezi služby IIS, že modul ASP.NET Core a aplikace hostované na více instancí procesu:
-
-![Modul ASP.NET Core](_static/ancm-outofprocess.png)
-
-Požadavky přicházejí z webu pro ovladač HTTP.sys režimu jádra. Ovladač směruje požadavky do služby IIS na webu nakonfigurovaný port, obvykle 80 (HTTP) nebo 443 (HTTPS). V modulu předá požadavky Kestrel na náhodný port pro aplikaci, která není port 80 nebo 443.
-
-V modulu určuje port, přes proměnnou prostředí při spuštění a Middleware pro integraci služby IIS nakonfiguruje server tak, aby naslouchala na `http://localhost:{PORT}`. Další kontroly jsou prováděny, a odmítne požadavky, které není pocházejí z modulu. Modul nepodporuje předávání protokolu HTTPS, takže žádosti se předávají prostřednictvím protokolu HTTP i v případě, že byla přijata službou IIS přes protokol HTTPS.
-
-Po Kestrel převezme žádosti z modulu, požadavek se vloží do kanálu middleware ASP.NET Core. Zpracuje požadavek a předává je jako middleware kanálu `HttpContext` instanci aplikace logiky. Middleware, které jsou přidány pomocí integrace služby IIS aktualizuje schéma, vzdálenou IP adresu a pathbase pro předání požadavku do Kestrel. Odpověď aplikace je předán zpět do služby IIS, které nabízených oznámení je zpět klienta HTTP, který inicioval žádost.
-
-Pro službu IIS a ASP.NET Core modulu pokyny ke konfiguraci naleznete v následujících tématech:
+Další informace a konfigurace pokyny naleznete v následujících tématech:
 
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/aspnet-core-module>
@@ -111,7 +97,7 @@ Následující diagram znázorňuje vztah mezi služby IIS, že modul ASP.NET Co
 
 Požadavky přicházejí z webu pro ovladač HTTP.sys režimu jádra. Ovladač směruje požadavky do služby IIS na webu nakonfigurovaný port, obvykle 80 (HTTP) nebo 443 (HTTPS). V modulu předá požadavky Kestrel na náhodný port pro aplikaci, která není port 80 nebo 443.
 
-V modulu určuje port, přes proměnnou prostředí při spuštění a Middleware pro integraci služby IIS nakonfiguruje server tak, aby naslouchala na `http://localhost:{port}`. Další kontroly jsou prováděny, a odmítne požadavky, které není pocházejí z modulu. Modul nepodporuje předávání protokolu HTTPS, takže žádosti se předávají prostřednictvím protokolu HTTP i v případě, že byla přijata službou IIS přes protokol HTTPS.
+V modulu určuje port, přes proměnnou prostředí při spuštění a [Middleware pro integraci služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) nakonfiguruje server tak, aby naslouchala na `http://localhost:{port}`. Další kontroly jsou prováděny, a odmítne požadavky, které není pocházejí z modulu. Modul nepodporuje předávání protokolu HTTPS, takže žádosti se předávají prostřednictvím protokolu HTTP i v případě, že byla přijata službou IIS přes protokol HTTPS.
 
 Po Kestrel převezme žádosti z modulu, požadavek se vloží do kanálu middleware ASP.NET Core. Zpracuje požadavek a předává je jako middleware kanálu `HttpContext` instanci aplikace logiky. Middleware, které jsou přidány pomocí integrace služby IIS aktualizuje schéma, vzdálenou IP adresu a pathbase pro předání požadavku do Kestrel. Odpověď aplikace je předán zpět do služby IIS, které nabízených oznámení je zpět klienta HTTP, který inicioval žádost.
 
@@ -132,42 +118,6 @@ ASP.NET Core se dodává s [Kestrel server](xref:fundamentals/servers/kestrel), 
 
 ::: moniker-end
 
-## <a name="kestrel"></a>Kestrel
-
-Kestrel je výchozí webový server, která je součástí šablony projektů ASP.NET Core.
-
-::: moniker range=">= aspnetcore-2.0"
-
-Dá se kestrel:
-
-* Samostatně jako hraniční server zpracování požadavků přímo ze sítě, včetně Internetu.
-
-  ![Kestrel komunikuje přímo s Internetu bez reverzní proxy server](kestrel/_static/kestrel-to-internet2.png)
-
-* S *reverzní proxy server*, jako například [Internetové informační služby (IIS)](https://www.iis.net/), [Nginx](http://nginx.org), nebo [Apache](https://httpd.apache.org/). Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel.
-
-  ![Kestrel nepřímo komunikuje přes Internet prostřednictvím reverzního proxy serveru, jako je například Apache, IIS nebo Nginx](kestrel/_static/kestrel-to-internet.png)
-
-Konfigurace buď hostování&mdash;s nebo bez něj reverzní proxy server&mdash;se podporuje pro ASP.NET Core 2.1 nebo novější.
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-Pokud aplikace přijímá jenom požadavky z interní sítě, je možné Kestrel samostatně.
-
-![Kestrel komunikuje přímo s interní sítě](kestrel/_static/kestrel-to-internal.png)
-
-Pokud aplikace je přístupný z Internetu, musíte použít Kestrel *reverzní proxy server*, jako například [Internetové informační služby (IIS)](https://www.iis.net/), [Nginx](http://nginx.org), nebo [Apache ](https://httpd.apache.org/). Reverzní proxy server přijímá požadavky HTTP z Internetu a předává je na Kestrel.
-
-![Kestrel nepřímo komunikuje přes Internet prostřednictvím reverzního proxy serveru, jako je například Apache, IIS nebo Nginx](kestrel/_static/kestrel-to-internet.png)
-
-Nejdůležitější důvod pomocí reverzního proxy serveru pro veřejnou hraniční server nasazení, které jsou vystaveny přímo k Internetu je zabezpečení. Verze 1.x Kestrel nezahrnují funkcí důležité zabezpečení, ochranu před útoky z Internetu. To zahrnuje, ale není omezený na, odpovídající časové limity, žádost o velikosti omezení a omezení počtu souběžných připojení.
-
-::: moniker-end
-
-Pokyny ke konfiguraci Kestrel a informace o použití Kestrel v konfigurace reverzního proxy serveru najdete v tématu <xref:fundamentals/servers/kestrel>.
-
 ### <a name="nginx-with-kestrel"></a>Server Nginx s Kestrel
 
 Informace o tom, jak použít Nginx jako reverzní proxy server pro Kestrel v Linuxu najdete v tématu <xref:host-and-deploy/linux-nginx>.
@@ -175,14 +125,6 @@ Informace o tom, jak použít Nginx jako reverzní proxy server pro Kestrel v Li
 ### <a name="apache-with-kestrel"></a>Apache s Kestrel
 
 Informace o tom, jak používat Apache na platformě Linux jako reverzní proxy server pro Kestrel najdete v tématu <xref:host-and-deploy/linux-apache>.
-
-::: moniker range=">= aspnetcore-2.2"
-
-## <a name="iis-http-server"></a>IIS HTTP Server
-
-Server služby IIS protokolu HTTP [v procesový server](#in-process-hosting-model) pro službu IIS a požadované pro nasazení v rámci procesu. [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) zpracovává nativní služby IIS požadavky mezi službou IIS a Server služby IIS protokolu HTTP. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
-
-::: moniker-end
 
 ## <a name="httpsys"></a>HTTP.sys
 
@@ -210,9 +152,9 @@ Pokud integrované servery nesplňují požadavky aplikace, implementace vlastn�
 
 Server se spustí, když je integrované vývojové prostředí (IDE) nebo editor spustí aplikaci:
 
-* [Visual Studio](https://www.visualstudio.com/vs/) &ndash; profily spouštění můžete použít ke spuštění aplikace a serveru s oběma [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)/[modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) nebo konzoly.
+* [Visual Studio](https://visualstudio.microsoft.com) &ndash; profily spouštění můžete použít ke spuštění aplikace a serveru s oběma [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)/[modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) nebo konzoly.
 * [Visual Studio Code](https://code.visualstudio.com/) &ndash; aplikace a serveru jsou spouštěny [Omnisharp](https://github.com/OmniSharp/omnisharp-vscode), která aktivuje CoreCLR ladicího programu.
-* [Visual Studio pro Mac](https://www.visualstudio.com/vs/mac/) &ndash; aplikace a serveru jsou spouštěny [ladicí program Mono konfigurace Soft-režim](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/).
+* [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/) &ndash; aplikace a serveru jsou spouštěny [ladicí program Mono konfigurace Soft-režim](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/).
 
 Při spuštění aplikace z příkazového řádku ve složce projektu [dotnet spustit](/dotnet/core/tools/dotnet-run) spustí aplikace a serveru (přes Kestrel a pouze HTTP.sys). Konfigurace je určena `-c|--configuration` možnost, který je nastaven na hodnotu `Debug` (výchozí) nebo `Release`. Pokud jsou k dispozici v profily spouštění *launchSettings.json* souboru, použijte `--launch-profile <NAME>` možnost nastavit profil spuštění (například `Development` nebo `Production`). Další informace najdete v tématu [dotnet spustit](/dotnet/core/tools/dotnet-run) a [vytváření distribučních balíčků .NET Core](/dotnet/core/build/distribution-packaging).
 

@@ -4,14 +4,14 @@ author: ssougnez
 description: V tomto kurzu nakonfigurujete Webpacku k vytvoření balíčku a sestavit webovou aplikaci funkce SignalR technologie ASP.NET Core, jejichž klienta je napsána v TypeScript.
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 02/11/2019
+ms.date: 04/23/2019
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: aaf9aa59928ed6b17bc0586d97dbdefc9e30362c
-ms.sourcegitcommit: 5e3797a02ff3c48bb8cb9ad4320bfd169ebe8aba
+ms.openlocfilehash: b186dffd724fb2fed49bbc2587ec066db319dffc
+ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2019
-ms.locfileid: "56102949"
+ms.lasthandoff: 05/14/2019
+ms.locfileid: "65610436"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>Použití funkce SignalR technologie ASP.NET Core s TypeScript a Webpacku
 
@@ -28,9 +28,24 @@ V tomto kurzu se naučíte:
 > * Konfigurace serveru SignalR
 > * Povolení komunikace mezi klientem a serverem
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample) ([stažení](xref:index#how-to-download-a-sample))
 
-[!INCLUDE [Prerequisites](~/includes/net-core-prereqs-vs-vsc-2.2.md)]
+## <a name="prerequisites"></a>Požadavky
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s **vývoj pro ASP.NET a web** pracovního vytížení
+* [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
+* [Node.js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+* [Visual Studio Code](https://code.visualstudio.com/download)
+* [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
+* [C#pro verzi Visual Studio Code 1.17.1 nebo novější](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [Node.js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
+
+---
 
 ## <a name="create-the-aspnet-core-web-app"></a>Vytvoření webové aplikace ASP.NET Core
 

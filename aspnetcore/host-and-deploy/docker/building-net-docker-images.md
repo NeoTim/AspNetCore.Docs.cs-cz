@@ -4,14 +4,14 @@ author: tdykstra
 description: Další informace o použití publikovaných imagí Dockeru .NET Core z registru Dockeru. Stažení imagí a vytvoření vlastních imagí.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 04/09/2019
+ms.date: 06/18/2019
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: e2673e64e18f942515f17982ab374a23392eb473
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: ea96ae6d36c7e8320ea49e666a807ece72645865
+ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165102"
+ms.lasthandoff: 06/18/2019
+ms.locfileid: "67207796"
 ---
 # <a name="docker-images-for-aspnet-core"></a>Image dockeru pro ASP.NET Core
 
@@ -54,7 +54,7 @@ Ukázkový soubor Dockerfile použije [Docker vícefázových sestavení funkce]
   * [macOS](https://docs.docker.com/docker-for-mac/install/)
   * [Windows](https://docs.docker.com/docker-for-windows/install/)
 
-* [git](https://git-scm.com/download)
+* [Git](https://git-scm.com/download)
 
 ## <a name="download-the-sample-app"></a>Stáhněte si ukázkovou aplikaci
 
@@ -140,7 +140,7 @@ V některých případech můžete chtít nasadit aplikace do kontejneru tak, ž
 
 * Přejděte do složky projektu v *dotnet dockeru/samples/aspnetapp/aspnetapp*.
 
-* Spustit [dotnet publikovat](https://docs.microsoft.com/dotnet/core/tools/dotnet-publish.md) příkaz:
+* Spustit [dotnet publikovat](/dotnet/core/tools/dotnet-publish) příkaz:
 
   ```console
   dotnet publish -c Release -o published
@@ -211,7 +211,7 @@ V tomto kurzu se naučíte:
 > * Spusťte ukázku pomocí v kontejnerech Windows
 > * Sestavíte a nasadíte ručně
 
-V dalším kroku informace o nástrojích, které Visual Studio pro práci s Dockerem.
+Úložiště Git, která obsahuje ukázkovou aplikaci také obsahuje dokumentaci. Přehled dostupných prostředků v úložišti, naleznete v tématu [v souboru README](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md). Zejména zjistěte, jak implementovat HTTPS:
 
 > [!div class="nextstepaction"]
-> <xref:host-and-deploy/docker/visual-studio-tools-for-docker>
+> [Vývoj aplikací ASP.NET Core s využitím Dockeru přes protokol HTTPS](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/aspnetcore-docker-https-development.md)

@@ -3,14 +3,14 @@ title: 'Kurz: Začínáme se stránkami Razor v ASP.NET Core'
 author: rick-anderson
 description: Tato série kurzů ukazuje, jak používat v ASP.NET Core Razor Pages. Zjistěte, jak vytvořit model, generování kódu pro stránky Razor, použít pro přístup k datům Entity Framework Core a SQL Server, vyhledávání, přidat ověřování vstupu a použití migrace k aktualizaci modelu.
 ms.author: riande
-ms.date: 12/5/2018
+ms.date: 06/03/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 1d264ca4a605d8291e273a8f054c92e7eefa5548
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 7e228c99b4d55c14cea9c915cf06a7fbbbd5af44
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59468844"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855740"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se stránkami Razor v ASP.NET Core
 
@@ -31,11 +31,25 @@ V tomto kurzu se naučíte:
 > * Spusťte aplikaci.
 > * Zkontrolujte soubory projektu.
 
-Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na kterém budete stavět v budoucích kurzech.
+Na konci tohoto kurzu budete mít funkční webová aplikace Razor Pages, na kterém budete stavět v budoucích kurzech.
 
 ![Index nebo Domovská stránka](razor-pages-start/_static/home2.2.png)
 
-[!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
+## <a name="prerequisites"></a>Požadavky
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+
+---
 
 ## <a name="create-a-razor-pages-web-app"></a>Vytvoření webové aplikace stránky Razor
 
@@ -43,13 +57,17 @@ Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na 
 
 * Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**.
 
-* Vytvořte novou webovou aplikaci ASP.NET Core. Pojmenujte projekt **RazorPagesMovie**. Je důležité projekt pojmenujte *RazorPagesMovie* tak obory názvů budou porovnávány názvy při zkopírujte a vložte kód.
+* Vytvořit novou webovou aplikaci ASP.NET Core a vyberte **Další**.
 
   ![Nová webová aplikace ASP.NET Core](razor-pages-start/_static/np_2.1.png)
 
-* Vyberte **2.2 technologie ASP.NET Core** v rozevíracím seznamu a pak vyberte **webovou aplikaci**.
+* Pojmenujte projekt **RazorPagesMovie**. Je důležité projekt pojmenujte *RazorPagesMovie* tak obory názvů budou porovnávány názvy při zkopírujte a vložte kód.
 
-  ![Nová webová aplikace ASP.NET Core](razor-pages-start/_static/np_2_2.2.png)
+  ![Nová webová aplikace ASP.NET Core](razor-pages-start/_static/config.png)
+
+* Vyberte **2.2 technologie ASP.NET Core** v rozevírací nabídce, **webovou aplikaci**a pak vyberte **vytvořit**.
+
+![Nová webová aplikace ASP.NET Core](razor-pages-start/_static/np_2_2.2.png)
 
   Následující počáteční projekt je vytvořen:
 
@@ -59,7 +77,7 @@ Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na 
 
 * Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
-* Změňte adresář (`cd`) do složky, která bude obsahovat projektu.
+* Přejděte do adresáře (`cd`) která bude obsahovat projektu.
 
 * Spusťte následující příkazy:
 
@@ -69,11 +87,11 @@ Na konci tohoto kurzu budete mít funkční webové aplikace stránky Razor, na 
   ```
 
   * `dotnet new` Příkaz vytvoří nový projekt v Razor Pages *RazorPagesMovie* složky.
-  * `code` Příkaz otevře *RazorPagesMovie* složky v nové instanci sady Visual Studio Code.
+  * `code` Příkaz otevře *RazorPagesMovie* složku v aktuální instanci aplikace Visual Studio Code.
 
-  Zobrazí se dialogové okno s **'RazorPagesMovie' chybí požadované prostředky pro sestavení a ladění. Přidat?**
+* Po stavový řádek OmniSharp bezpečnostní opatření ikona se změní na zelenou, dialogové okno s dotazem **'RazorPagesMovie' chybí požadované prostředky pro sestavení a ladění. Přidat?** Vyberte **Ano**.
 
-* Vyberte **Ano**
+  A *.vscode* adresáře, který obsahuje *launch.json* a *tasks.json* soubory, se přidá do kořenového adresáře projektu.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
@@ -178,7 +196,7 @@ Obsahuje konfigurační data, jako je například připojovací řetězce. Dalš
 
 ### <a name="programcs"></a>Program.cs
 
-Obsahuje vstupní bod programu. Další informace naleznete v tématu <xref:fundamentals/host/web-host>.
+Obsahuje vstupní bod programu. Další informace naleznete v tématu <xref:fundamentals/host/generic-host>.
 
 ### <a name="startupcs"></a>Startup.cs
 
@@ -188,7 +206,7 @@ Obsahuje kód, který nakonfiguruje chování aplikace, jako je například jest
 
 * [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V tomto kurzu se naučíte:
 

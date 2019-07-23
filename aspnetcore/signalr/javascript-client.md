@@ -7,20 +7,20 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/17/2019
 uid: signalr/javascript-client
-ms.openlocfilehash: f1f072e63928502fa1bad62e808ff035e57f2fd3
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: 8b645304b597db0c37fb9cd8814c493ca1c6ee62
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59983010"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814964"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>ASP.NET Core SignalR JavaScript klienta
 
-Podle [Rachel Appel](http://twitter.com/rachelappel)
+Podle [Rachel Appel](https://twitter.com/rachelappel)
 
 Klientská knihovna ASP.NET Core SignalR JavaScript umožňuje vývojářům volat kód rozbočovače na straně serveru.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/live/aspnetcore/signalr/javascript-client/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/javascript-client/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="install-the-signalr-client-package"></a>Instalace balíčku pro klienta SignalR
 
@@ -130,13 +130,13 @@ Před zahájením jakékoli pokusy o volání metody reconnect `HubConnection` s
 
 ```javascript
 connection.onreconnecting((error) => {
-  console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
+    console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
 
-  document.getElementById("messageInput").disabled = true;
+    document.getElementById("messageInput").disabled = true;
 
-  const li = document.createElement("li");
-  li.textContent = `Connection lost due to error "${error}". Reconnecting.`;
-  document.getElementById("messagesList").appendChild(li);
+    const li = document.createElement("li");
+    li.textContent = `Connection lost due to error "${error}". Reconnecting.`;
+    document.getElementById("messagesList").appendChild(li);
 });
 ```
 
@@ -149,13 +149,13 @@ Vzhledem k tomu, že připojení ověří zcela nový server, nový `connectionI
 
 ```javascript
 connection.onreconnected((connectionId) => {
-  console.assert(connection.state === signalR.HubConnectionState.Connected);
+    console.assert(connection.state === signalR.HubConnectionState.Connected);
 
-  document.getElementById("messageInput").disabled = false;
+    document.getElementById("messageInput").disabled = false;
 
-  const li = document.createElement("li");
-  li.textContent = `Connection reestablished. Connected with connectionId "${connectionId}".`;
-  document.getElementById("messagesList").appendChild(li);
+    const li = document.createElement("li");
+    li.textContent = `Connection reestablished. Connected with connectionId "${connectionId}".`;
+    document.getElementById("messagesList").appendChild(li);
 });
 ```
 
@@ -179,14 +179,14 @@ Pokud klient nebude znovu připojit úspěšně v rámci své první čtyři pok
 
 ```javascript
 connection.onclose((error) => {
-  console.assert(connection.state === signalR.HubConnectionState.Disconnected);
+    console.assert(connection.state === signalR.HubConnectionState.Disconnected);
 
-  document.getElementById("messageInput").disabled = true;
+    document.getElementById("messageInput").disabled = true;
 
-  const li = document.createElement("li");
-  li.textContent = `Connection closed due to error "${error}". Try refreshing this page to restart the connection.`;
-  document.getElementById("messagesList").appendChild(li);
-})
+    const li = document.createElement("li");
+    li.textContent = `Connection closed due to error "${error}". Try refreshing this page to restart the connection.`;
+    document.getElementById("messagesList").appendChild(li);
+});
 ```
 
 Pokud chcete nakonfigurovat vlastní počet pokusů o nové připojení před odpojením nebo změnit časování volání metody reconnect `withAutomaticReconnect` přijímá pole čísel představující zpoždění v milisekundách pro čekání před zahájením každý pokus o volání metody reconnect.
@@ -219,15 +219,16 @@ const connection = new signalR.HubConnectionBuilder()
     .withUrl("/chatHub")
     .withAutomaticReconnect({
         nextRetryDelayInMilliseconds: (previousRetryCount, elapsedMilliseconds) => {
-          if (elapsedMilliseconds < 60000) {
-            // If we've been reconnecting for less than 60 seconds so far,
-            // wait between 0 and 10 seconds before the next reconnect attempt.
-            return Math.random() * 10000;
-          } else {
-            // If we've been reconnecting for more than 60 seconds so far, stop reconnecting.
-            return null;
-          }
-        })
+            if (elapsedMilliseconds < 60000) {
+                // If we've been reconnecting for less than 60 seconds so far,
+                // wait between 0 and 10 seconds before the next reconnect attempt.
+                return Math.random() * 10000;
+            } else {
+                // If we've been reconnecting for more than 60 seconds so far, stop reconnecting.
+                return null;
+            }
+        }
+    })
     .build();
 ```
 
@@ -251,7 +252,7 @@ Následující kód ukazuje typický ručního nastavitelnou přístup:
 
 [!code-javascript[Reconnect the JavaScript client](javascript-client/sample/wwwroot/js/chat.js?range=28-40)]
 
-Skutečná implementace by použít exponenciální regrese nebo opakování zadaného počtu opakování, než se ukončí. 
+Skutečná implementace by použít exponenciální regrese nebo opakování zadaného počtu opakování, než se ukončí.
 
 ## <a name="additional-resources"></a>Další zdroje
 

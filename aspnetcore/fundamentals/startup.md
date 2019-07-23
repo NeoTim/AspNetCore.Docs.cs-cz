@@ -7,12 +7,12 @@ ms.author: tdykstra
 ms.custom: mvc
 ms.date: 01/17/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 362186be6feeeefeca3c56688ee6420de5fb9659
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 7e1741d2bed15f36a967713a2f9bd0d93801c8d0
+ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59468621"
+ms.lasthandoff: 05/19/2019
+ms.locfileid: "65874941"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
@@ -24,14 +24,18 @@ Třída `Startup` konfiguruje služby a kanál zpracování požadavků aplikace
 
 Aplikace ASP.NET Core používají třídu `Startup`, která je konvenčně pojmenována `Startup`. Třída `Startup`:
 
+
 * Volitelně obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*>, která slouží pro konfiguraci *služeb* aplikace. Služba je znovupoužitelná komponenta, která poskytuje funkčnost aplikace. Služby jsou nakonfigurovány &ndash; neboli takzvaně *zaregistrovány* &ndash; v metodě `ConfigureServices` a využívány napříč aplikací skrze [vkládání závislostí (DI)](xref:fundamentals/dependency-injection) nebo <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.
 * Obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> pro vytvoření kanálu pro zpracování požadavků aplikace.	
 
-`ConfigureServices` a `Configure` jsou volány modulem runtime při spuštění aplikace:
+
+`ConfigureServices` a `Configure` jsou volány modulem runtime ASP.NET Core, při spuštění aplikace:
 
 [!code-csharp[](startup/sample_snapshot/Startup1.cs?highlight=4,10)]
 
+
 Třída `Startup` je v aplikaci specifikována při vytváření [hostitele](xref:fundamentals/index#host). Hostitel aplikace je vytvořen při volání metody `Build` na tvůrci (builderu) hostitele ve třídě `Program`. Třída `Startup` je obvykle určena voláním metody [WebHostBuilderExtensions.UseStartup\<TStartup >](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*)  na tvůrci (builderu) hostitele:
+
 
 [!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=10)]
 
@@ -133,6 +137,7 @@ Pořadí spuštění middlewarů je nastaveno podle pořadí registrace `IStartu
 ## <a name="add-configuration-at-startup-from-an-external-assembly"></a>Přidání konfigurace při spuštění z externího sestavení
 
 Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
+
 
 ## <a name="additional-resources"></a>Další zdroje
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2019
 uid: fundamentals/app-state
-ms.openlocfilehash: 8eabb8262deda4dc56b8da4f148ec8168a85ca52
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 4b02a9b5867559da493054bb128aabed4d920ace
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208947"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813613"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>Stav relace a aplikace v ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Steve Smith](https://ar
 
 HTTP je Bezstavová protokol. Bez dalších kroků, požadavky HTTP jsou nezávislé zprávy, které nechcete zachovat hodnoty uživatele nebo stav aplikace. Tento článek popisuje několik přístupů, které chcete zachovat data a aplikace stavu mezi žádostí uživatele.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/app-state/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/app-state/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="state-management"></a>Správa stavu
 
@@ -65,7 +65,7 @@ Stav relace je třeba následujícího chování:
 * Aplikace si zachová relace po omezenou dobu od poslední žádosti. Aplikace nastaví časový limit relace nebo výchozí hodnotu 20 minut. Stav relace je ideální pro ukládání uživatelských dat, která je specifická pro konkrétní relace, ale pokud dat nevyžaduje, aby trvalého úložiště napříč relacemi.
 * Odstranit data relace buď pokud [ISession.Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) volána implementace nebo vypršení platnosti relace.
 * Neexistuje žádný výchozí mechanismus k informování kód aplikace, že bylo ukončeno prohlížeče klienta nebo když souboru cookie relace se odstraní nebo vypršení platnosti na straně klienta.
-* ASP.NET Core MVC a šablony Razor pages zahrnují podporu pro obecné nařízení (GDPR). Soubory cookie pro stav relace nejsou označené základní ve výchozím nastavení, proto stav relace není funkční, pokud je povoleno sledování návštěvníkem lokality. Další informace naleznete v tématu <xref:security/gdpr#tempdata-provider-and-session-state-cookies-are-not-essential>.
+* ASP.NET Core MVC a šablony Razor pages zahrnují podporu pro obecné nařízení (GDPR). Soubory cookie pro stav relace nejsou označené základní ve výchozím nastavení, proto stav relace není funkční, pokud je povoleno sledování návštěvníkem lokality. Další informace naleznete v tématu <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>.
 
 > [!WARNING]
 > Citlivá data neukládejte do stavu relace. Uživatel nemusí zavřete prohlížeč a zrušte souboru cookie relace. Některé prohlížeče udržovat platné soubory cookie v prohlížeči windows. Relace nemusí být omezeny na jednoho uživatele&mdash;dalšího uživatele může nadále procházet aplikace pomocí stejného souboru cookie relace.
@@ -81,7 +81,7 @@ Poskytovatel mezipaměti v paměti ukládá data relace v paměti na server, ve 
 
 * Některé z [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) mezipaměti paměti. `IDistributedCache` Implementace se používá jako záložní úložiště pro relaci. Další informace naleznete v tématu <xref:performance/caching/distributed>.
 * Volání [AddSession](/dotnet/api/microsoft.extensions.dependencyinjection.sessionservicecollectionextensions.addsession) v `ConfigureServices`.
-* Volání [UseSession](/dotnet/api/microsoft.aspnetcore.builder.sessionmiddlewareextensions#methods_) v `Configure`.
+* Volání [UseSession](/dotnet/api/microsoft.aspnetcore.builder.sessionmiddlewareextensions.usesession#Microsoft_AspNetCore_Builder_SessionMiddlewareExtensions_UseSession_Microsoft_AspNetCore_Builder_IApplicationBuilder_) v `Configure`.
 
 Následující kód ukazuje, jak nastavit Zprostředkovatel relací v paměti s výchozí implementace v paměti `IDistributedCache`:
 

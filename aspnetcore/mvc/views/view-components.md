@@ -3,20 +3,21 @@ title: Zobrazení komponenty v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak komponenty zobrazení se používají v ASP.NET Core a jejich přidání do aplikací.
 ms.author: riande
-ms.date: 1/30/2019
+ms.custom: mvc
+ms.date: 05/14/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: b18473c6a76c4dc9030f0a032db1aff733f5acb7
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: ff84abf9e0c682d22196a0a0f5f377990c80a6ae
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264784"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815279"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazení komponenty v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="view-components"></a>Komponenty zobrazení
 
@@ -40,6 +41,8 @@ Zobrazení komponenty jsou určeny kdekoli, že máte opakovaně použitelný vy
 * Panel přihlášení, který by být vykreslen na každé stránce a zobrazit odkazy na odhlášení nebo se přihlaste, v závislosti na protokolu ve stavu uživatele
 
 Komponenty zobrazení se skládá ze dvou částí: třídy (obvykle odvozen z [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)) a výsledek se vrátí (obvykle zobrazení). Jako jsou řadiče, může být zobrazení komponenty POCO, ale Většina vývojářů budete chtít využívat výhod metod a vlastností, které jsou k dispozici odvozením z `ViewComponent`.
+
+Při zvažování, pokud zobrazení komponenty splňovat požadavky vaší aplikace, zvažte místo toho použití součásti syntaxe Razor. Součásti Razor také kombinovat kód s C# kód k vytvoření opakovaně použitelné uživatelské rozhraní jednotky. Razor komponenty jsou navržené pro produktivitu vývojářů, při zadávání složení a logika uživatelského rozhraní na straně klienta. Další informace naleznete v tématu <xref:blazor/components>.
 
 ## <a name="creating-a-view-component"></a>Vytvoření zobrazení komponenty
 
@@ -144,7 +147,7 @@ V tomto příkladu je součásti zobrazení volání přímo z kontroleru:
 
 ## <a name="walkthrough-creating-a-simple-view-component"></a>Návod: Vytvoření jednoduché zobrazení komponenty
 
-[Stáhněte si](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a testování počátečního kódu. Je to Jednoduchý projekt s `ToDo` kontroler, který zobrazí seznam *ToDo* položky.
+[Stáhněte si](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a testování počátečního kódu. Je to Jednoduchý projekt s `ToDo` kontroler, který zobrazí seznam *ToDo* položky.
 
 ![Seznam úloh, ať už](view-components/_static/2dos.png)
 
@@ -176,9 +179,12 @@ Poznámky k kód:
 
 * Vytvořte *zobrazení/Shared/součásti/PriorityList* složky. Tento název složky musí odpovídat názvu třídy zobrazení komponenty nebo název třídy minus příponu (Pokud jsme postupovali podle úmluvy a použít *ViewComponent* přípony v názvu třídy). Pokud jste použili `ViewComponent` atribut, název třídy by musí odpovídat atributu označení.
 
-* Vytvoření *Views/Shared/Components/PriorityList/Default.cshtml* zobrazení Razor: [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
+* Vytvoření *Views/Shared/Components/PriorityList/Default.cshtml* zobrazení Razor:
 
-   Zobrazení Razor přebírá seznam `TodoItem` a zobrazí je. Pokud komponentu zobrazení `InvokeAsync` metoda neprojde název zobrazení (jako v naší ukázce) *výchozí* používají konvence pro název zobrazení. Později v tomto kurzu můžu ukážeme, jak předat název zobrazení. Pokud chcete přepsat výchozí styl k určitému kontroleru, přidejte do specifické pro kontroler zobrazení složky zobrazení (například *Views/ToDo/Components/PriorityList/Default.cshtml)*.
+
+  [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
+
+   Zobrazení Razor přebírá seznam `TodoItem` a zobrazí je. Pokud komponentu zobrazení `InvokeAsync` metoda neprojde název zobrazení (jako v naší ukázce) *výchozí* používají konvence pro název zobrazení. Později v tomto kurzu můžu ukážeme, jak předat název zobrazení. Pokud chcete přepsat výchozí styl k určitému kontroleru, přidejte do specifické pro kontroler zobrazení složky zobrazení (například *Views/ToDo/Components/PriorityList/Default.cshtml)* .
 
     Pokud je součást zobrazení specifické pro kontroler, můžete ho přidat do složky specifické pro kontroler (*Views/ToDo/Components/PriorityList/Default.cshtml*).
 

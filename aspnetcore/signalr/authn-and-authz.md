@@ -5,24 +5,50 @@ description: Další informace o použití ověřování a autorizace v knihovn�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 01/31/2019
+ms.date: 05/09/2019
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 5d4574775606b4354ec099b6b32e05294d9f0e45
-ms.sourcegitcommit: ed76cc752966c604a795fbc56d5a71d16ded0b58
+ms.openlocfilehash: e8f9dc48be780fb91bdec6ea4d579f5e4f16197b
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/02/2019
-ms.locfileid: "55667307"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65516944"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>Ověřování a autorizace v knihovně SignalR technologie ASP.NET Core
 
 Podle [Andrew Stanton sestry](https://twitter.com/anurse)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
 ## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>Ověření uživatelé připojení k rozbočovači SignalR
 
 SignalR je možné s [ověřování ASP.NET Core](xref:security/authentication/identity) Chcete-li přidružit uživatele ke každé připojení. V rozbočovači, ověřovacích dat je přístupný z [ `HubConnectionContext.User` ](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) vlastnost. Ověřování umožňuje IOT hub a volat metody pro všechna připojení, které jsou spojeny s konkrétním uživatelem (viz [spravovat uživatele a skupiny v knihovně SignalR](xref:signalr/groups) Další informace). Několik připojení může být spojen s jedním uživatelem.
+
+Následuje příklad `Startup.Configure` využívající SignalR a ASP.NET Core ověřování:
+
+```csharp
+public void Configure(IApplicationBuilder app)
+{
+    ...
+
+    app.UseStaticFiles();
+    
+    app.UseAuthentication();
+
+    app.UseSignalR(hubs =>
+    {
+        hubs.MapHub<ChatHub>("/chat");
+    });
+
+    app.UseMvc(routes =>
+    {
+        routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
+    });
+}
+```
+
+> [!NOTE]
+> Záleží na pořadí, ve kterém zaregistrujete ověřovací middleware SignalR a ASP.NET Core. Vždy volat `UseAuthentication` před `UseSignalR` tak, aby SignalR má uživatel na `HttpContext`.
 
 ### <a name="cookie-authentication"></a>Ověřování souborů cookie
 

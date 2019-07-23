@@ -5,14 +5,14 @@ description: Další informace o nastavení kontroly stavu pro ASP.NET Core infr
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/11/2019
+ms.date: 07/11/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 0bb80a5fccc8240c6f1fb8e59b379766bfd90d9e
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: 43b6c3b55170eaf3a989d0f2779edac5290df823
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488712"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855914"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Doplněk pro kontroly stavu v ASP.NET Core
 
@@ -26,7 +26,7 @@ Kontroly stavu jsou vystaveny aplikací jako koncových bodů HTTP. Kontroly sta
 * Použití paměti, disku a další prostředky fyzického serveru je možné monitorovat stav v pořádku.
 * Kontroly stavu můžete otestovat závislostí vaší aplikace, jako jsou databáze a externí služby koncových bodů, abyste zkontrolovali dostupnost a správně fungovat.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace obsahuje příklady scénářů popsaných v tomto tématu. Chcete-li spustit ukázkovou aplikaci v daném scénáři, použijte [dotnet spustit](/dotnet/core/tools/dotnet-run) příkaz ze složky projektu v příkazovém řádku. Zobrazit ukázkovou aplikaci *README.md* souboru a popisy scénářů v tomto tématu informace o tom, jak použít ukázkovou aplikaci.
 
@@ -36,7 +36,7 @@ Kontroly stavu se obvykle používají s externí monitorování orchestrator sl
 
 Odkaz [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) nebo přidat odkaz na balíček [Microsoft.AspNetCore.Diagnostics.HealthChecks](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.HealthChecks) balíčku.
 
-Ukázková aplikace poskytuje při spuštění kód pro demonstraci kontroly stavu pro několik scénářů. [Databáze sondy](#database-probe) scénář zkontroluje stav připojení databáze pomocí [BeatPulse](https://github.com/Xabaril/BeatPulse). [DbContext sondy](#entity-framework-core-dbcontext-probe) scénář zkontroluje databázi pomocí EF Core `DbContext`. Prozkoumat scénáře databázi, ukázková aplikace:
+Ukázková aplikace poskytuje při spuštění kód pro demonstraci kontroly stavu pro několik scénářů. [Databáze sondy](#database-probe) scénář zkontroluje stav připojení databáze pomocí [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). [DbContext sondy](#entity-framework-core-dbcontext-probe) scénář zkontroluje databázi pomocí EF Core `DbContext`. Prozkoumat scénáře databázi, ukázková aplikace:
 
 * Vytvoří databázi a obsahuje ve svém připojovacím řetězci *appsettings.json* souboru.
 * Má následující odkazy na balíčky v jeho souboru projektu:
@@ -44,7 +44,7 @@ Ukázková aplikace poskytuje při spuštění kód pro demonstraci kontroly sta
   * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) není zachována nebo podporovaný společností Microsoft.
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je port [BeatPulse](https://github.com/xabaril/beatpulse) a není zachována nebo podporovaný společností Microsoft.
 
 Další možností kontroly stavu ukazuje, jak filtrovat kontroly stavu port pro správu. Ukázková aplikace je potřeba vytvořit *Properties/launchSettings.json* soubor, který obsahuje adresu URL pro správu a port pro správu. Další informace najdete v tématu [filtrovat podle port](#filter-by-port) oddílu.
 
@@ -286,18 +286,18 @@ private static Task WriteResponse(HttpContext httpContext,
 
 Kontrola stavu můžete zadat dotaz na databázi pro spuštění jako logický test k označení, pokud je databáze obvykle reagovat.
 
-Tato ukázková aplikace používá [BeatPulse](https://github.com/Xabaril/BeatPulse), knihovna kontroly stavu pro aplikace ASP.NET Core, chcete-li provést kontrolu stavu v databázi serveru SQL Server. Spustí BeatPulse `SELECT 1` dotaz na databázi a zkontrolujte připojení k databázi je v pořádku.
+Tato ukázková aplikace používá [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks), knihovna kontroly stavu pro aplikace ASP.NET Core, chcete-li provést kontrolu stavu v databázi serveru SQL Server. `AspNetCore.Diagnostics.HealthChecks` Spustí `SELECT 1` dotaz na databázi a zkontrolujte připojení k databázi je v pořádku.
 
 > [!WARNING]
 > Při kontrole připojení databáze pomocí dotazu, vyberte dotaz, který vrací rychle. Přístup dotaz spustí riziko přetížení databáze a snížení jeho výkon. Ve většině případů není nutné spuštění testu dotazu. Stačí pouze provedení úspěšného připojení k databázi. Pokud zjistíte potřebné ke spuštění dotazu, zvolte jednoduchého dotazu SELECT, jako například `SELECT 1`.
 
-Chcete-li použít knihovnu BeatPulse zahrnout odkaz na balíček pro [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).
+Zahrnout odkaz na balíček pro [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).
 
 Zadejte platnou databázi připojovacího řetězce v *appsettings.json* souboru ukázkovou aplikaci. Aplikace používá databázi systému SQL Server s názvem `HealthCheckSample`:
 
 [!code-json[](health-checks/samples/2.x/HealthChecksSample/appsettings.json?highlight=3)]
 
-Registrace služby kontroly stavu s <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> v `Startup.ConfigureServices`. Ukázková aplikace volá na BeatPulse `AddSqlServer` metoda připojovacím řetězcem databázi (*DbHealthStartup.cs*):
+Registrace služby kontroly stavu s <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> v `Startup.ConfigureServices`. Volání ukázkové aplikace `AddSqlServer` metoda připojovacím řetězcem databázi (*DbHealthStartup.cs*):
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/DbHealthStartup.cs?name=snippet_ConfigureServices)]
 
@@ -312,7 +312,7 @@ dotnet run --scenario db
 ```
 
 > [!NOTE]
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) není zachována nebo podporovaný společností Microsoft.
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je port [BeatPulse](https://github.com/xabaril/beatpulse) a není zachována nebo podporovaný společností Microsoft.
 
 ## <a name="entity-framework-core-dbcontext-probe"></a>Entity Framework Core DbContext testu
 
@@ -469,9 +469,9 @@ dotnet run --scenario writer
 ```
 
 > [!NOTE]
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) zahrnuje na základě metrik stavu zaškrtnutí scénářů, včetně disk storage a maximální hodnota aktivity kontroly.
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje na základě metrik stavu zaškrtnutí scénářů, včetně disk storage a maximální hodnota aktivity kontroly.
 >
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) není zachována nebo podporovaný společností Microsoft.
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je port [BeatPulse](https://github.com/xabaril/beatpulse) a není zachována nebo podporovaný společností Microsoft.
 
 ## <a name="filter-by-port"></a>Filtrovat podle portu
 
@@ -681,6 +681,23 @@ V ukázkové aplikaci `LivenessProbeStartup` například `StartupHostedService` 
 ::: moniker-end
 
 > [!NOTE]
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) zahrnuje vydavatele pro několik systémů, včetně [Application Insights](/azure/application-insights/app-insights-overview).
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje vydavatele pro několik systémů, včetně [Application Insights](/azure/application-insights/app-insights-overview).
 >
-> [BeatPulse](https://github.com/Xabaril/BeatPulse) není zachována nebo podporovaný společností Microsoft.
+> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je port [BeatPulse](https://github.com/xabaril/beatpulse) a není zachována nebo podporovaný společností Microsoft.
+
+## <a name="restrict-health-checks-with-mapwhen"></a>Omezení kontroly stavu s MapWhen
+
+Použití <xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*> podmíněné větvi požadavku kanálu pro stav zkontrolujte koncových bodů.
+
+V následujícím příkladu `MapWhen` větve k aktivaci Middleware zkontrolovat stav, pokud požadavek GET pro kanál požadavku `api/HealthCheck` koncový bod:
+
+```csharp
+app.MapWhen(
+    context => context.Request.Method == HttpMethod.Get.Method && 
+        context.Request.Path.StartsWith("/api/HealthCheck"),
+    builder => builder.UseHealthChecks());
+
+app.UseMvc();
+```
+
+Další informace naleznete v tématu <xref:fundamentals/middleware/index#use-run-and-map>.

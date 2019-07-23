@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: cf8bb67703b564a711105123117498c94ab44e68
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 45506d071c90c91a61e6912ff51350b43e8ae136
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750512"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034792"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>Přidání nového pole do aplikace ASP.NET Core MVC
 
@@ -25,7 +25,7 @@ V této části [Entity Framework](/ef/core/get-started/aspnetcore/new-db) se po
 Když platforem EF Code First umožňuje automaticky vytvořte databázi, Code First:
 
 * Tabulka se přidá do databáze, kterou chcete sledovat schéma databáze.
-* Ověřte, že je synchronizovaný s tříd modelu, které byly vygenerovány z databáze. Pokud nejsou synchronizované, EF vyvolá výjimku. Díky tomu je snazší najít problémy s nekonzistentní databáze nebo kódu.
+* Ověřuje, že je synchronizovaný s tříd modelu, které byly vygenerovány z databáze. Pokud nejsou synchronizované, EF vyvolá výjimku. Díky tomu je snazší najít problémy s nekonzistentní databáze nebo kódu.
 
 ## <a name="add-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti hodnocení filmů modelu
 

@@ -5,14 +5,14 @@ description: Zjistěte, jak implementovat úlohy na pozadí s hostovanými služ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/25/2019
+ms.date: 06/03/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: d10a335429752c1a52c1b3619adecc41725a819a
-ms.sourcegitcommit: 24b1f6decbb17bb22a45166e5fdb0845c65af498
+ms.openlocfilehash: 2dbb1a84a380ab06a4be7ecf628799a070afc9e3
+ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/27/2019
-ms.locfileid: "56899304"
+ms.lasthandoff: 06/05/2019
+ms.locfileid: "66692513"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
@@ -24,12 +24,38 @@ V ASP.NET Core, je možné implementovat úlohy na pozadí jako *hostovaných sl
 * Hostovaná služba, která se aktivuje [vymezené služby](xref:fundamentals/dependency-injection#service-lifetimes). Injektáž závislostí můžete použít službu s vymezeným oborem.
 * Úkoly ve frontě na pozadí, které spouští sekvenčně.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace je k dispozici ve dvou verzích:
 
 * Webového hostitele &ndash; webového hostitele je užitečné pro hostování webových aplikací. Příklad kódu v tomto tématu se z webového hostitele verzi ukázky. Další informace najdete v tématu [webového hostitele](xref:fundamentals/host/web-host) tématu.
 * Obecný hostitele &ndash; obecný hostitele je nového v ASP.NET Core 2.1. Další informace najdete v tématu [obecný hostitele](xref:fundamentals/host/generic-host) tématu.
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="worker-service-template"></a>Šablona služby pracovního procesu
+
+Šablony ASP.NET Core pracovního procesu služby poskytuje výchozí bod pro psaní dlouho běžící aplikace služby. Použití šablony jako základ pro aplikace hostované služby:
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+1. Vytvořte nový projekt.
+1. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+1. Zadejte název projektu **název projektu** pole nebo přijměte výchozí název projektu. Vyberte **Vytvořit**.
+1. V **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
+1. Vyberte **služby pracovního procesu** šablony. Vyberte **Vytvořit**.
+
+# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code / .NET Core CLI](#tab/visual-studio-code+netcore-cli)
+
+Použití služby pracovního procesu (`worker`) šablony s [dotnet nové](/dotnet/core/tools/dotnet-new) z příkazové okno. V následujícím příkladu se vytvoří aplikace služby pracovního procesu pojmenované `ContosoWorkerService`. Složka pro `ContosoWorkerService` aplikace se vytvoří automaticky při spuštění příkazu.
+
+```console
+dotnet new worker -o ContosoWorkerService
+```
+
+---
+
+::: moniker-end
 
 ## <a name="package"></a>Balíček
 

@@ -6,18 +6,14 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 11/22/2018
 uid: data/ef-rp/intro
-ms.openlocfilehash: 61bc1ab8f63fa2288bdb6aaffb4f6b557586ad94
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: dea178d169cb8f2ae807caa2ef495d4243b1f59f
+ms.sourcegitcommit: 3376f224b47a89acf329b2d2f9260046a372f924
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165251"
+ms.lasthandoff: 05/10/2019
+ms.locfileid: "65516887"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 8
-
-[!INCLUDE[2.0 version](~/includes/RP-EF/20-pdf.md)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -25,7 +21,7 @@ Contoso University ukázkovou webovou aplikaci ukazuje, jak vytvořit aplikaci A
 
 Ukázková aplikace je webovou stránku pro fiktivní společnosti Contoso University. Zahrnuje funkce, jako student přijetí, kurz vytvoření a přiřazení instruktorem. Tato stránka je první ze série kurzů, které vysvětlují, jak vytvořit ukázková aplikace Contoso University.
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -43,7 +39,7 @@ Znalost [stránky Razor](xref:razor-pages/index). By se měla dokončit program�
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 
-Pokud narazíte na problém nevyřešíte sami, můžete najít řešení obvykle porovnáním kódu [dokončený projekt](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples). Je dobrým způsobem, jak získat pomoc tím, že publikuje dotaz do [StackOverflow.com](https://stackoverflow.com/questions/tagged/asp.net-core) pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
+Pokud narazíte na problém nevyřešíte sami, můžete najít řešení obvykle porovnáním kódu [dokončený projekt](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples). Je dobrým způsobem, jak získat pomoc tím, že publikuje dotaz do [StackOverflow.com](https://stackoverflow.com/questions/tagged/asp.net-core) pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
 ## <a name="the-contoso-university-web-app"></a>Webové aplikace Contoso University
 
@@ -316,7 +312,7 @@ Další informace o asynchronním programování v rozhraní .NET najdete v tém
 
 V dalším kurzu, základní CRUD (vytváření, čtení, aktualizace nebo odstranění) jsou zkoumány operace.
 
-::: moniker-end
+
 
 ## <a name="additional-resources"></a>Další zdroje
 

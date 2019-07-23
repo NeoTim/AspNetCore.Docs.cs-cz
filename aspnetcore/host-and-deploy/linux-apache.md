@@ -3,22 +3,22 @@ title: Hostitele ASP.NET Core v Linuxu pomocí Apache
 author: guardrex
 description: Zjistěte, jak nastavit službu Apache jako reverzní proxy server na CentOS pro přesměrování přenosu dat protokolu HTTP k webové aplikaci ASP.NET Core spuštěnou v prostředí Kestrel.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: spboyer
+ms.author: shboyer
 ms.custom: mvc
 ms.date: 03/31/2019
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 34da0653ff29acf3044e69e032307d1a3da7044a
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 1a092a302bbffa74fa7a861901046ebda1998989
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58809273"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813391"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Hostitele ASP.NET Core v Linuxu pomocí Apache
 
 Podle [Shayne Boyer](https://github.com/spboyer)
 
-Pomocí této příručky, zjistěte, jak nastavit [Apache](https://httpd.apache.org/) jako reverzní proxy server na [CentOS 7](https://www.centos.org/) pro přesměrování přenosu dat protokolu HTTP pro webovou aplikaci ASP.NET Core využívající [Kestrel](xref:fundamentals/servers/kestrel) serveru. [Mod_proxy rozšíření](http://httpd.apache.org/docs/2.4/mod/mod_proxy.html) a související moduly vytvořit reverzního proxy serveru.
+Pomocí této příručky, zjistěte, jak nastavit [Apache](https://httpd.apache.org/) jako reverzní proxy server na [CentOS 7](https://www.centos.org/) pro přesměrování přenosu dat protokolu HTTP pro webovou aplikaci ASP.NET Core využívající [Kestrel](xref:fundamentals/servers/kestrel) serveru. [Mod_proxy rozšíření](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html) a související moduly vytvořit reverzního proxy serveru.
 
 ## <a name="prerequisites"></a>Požadavky
 

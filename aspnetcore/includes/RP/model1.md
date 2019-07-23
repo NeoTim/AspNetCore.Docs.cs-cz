@@ -6,4 +6,4 @@ Tříd modelu, které vytvoříte jsou označovány jako POCO třídy (od "prost
 
 V tomto kurzu nejprve napsat tříd modelu a EF Core vytvoří databázi. Alternativní není součástí tohoto přístupu je [generování tříd modelu z existující databáze](/ef/core/get-started/aspnetcore/existing-db).
 
-[Zobrazení nebo stažení](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie) vzorku.
+[Zobrazení nebo stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie) vzorku.

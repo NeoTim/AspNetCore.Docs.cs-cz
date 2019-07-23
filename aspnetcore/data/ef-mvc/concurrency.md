@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 668cdafc078091b65035ecad854d2ecc62555721
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: bfe417a6153f74cf0ca2d9bcde4db1bba8453b3b
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58750855"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152884"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: Zpracování souběžnosti – ASP.NET MVC s EF Core
 
@@ -51,7 +51,7 @@ Pokud vaše aplikace potřebuje se tak ztrátě dat ve scénářích souběžnos
 
 Zámky pro správu má nevýhody. Může být složité do programu. Vyžaduje významné databáze správy zdrojů, a to může způsobit problémy s výkonem jako počet uživatelů aplikace zvyšuje. Z těchto důvodů ne všechny systémy správy databáze nepodporují Pesimistická souběžnost. Entity Framework Core obsahuje předdefinovanou podporu pro ni a v tomto kurzu nezobrazí způsobu jeho implementace.
 
-### <a name="optimistic-concurrency"></a>Optimistická souběžnost
+### <a name="optimistic-concurrency"></a>Optimistická metoda souběžného zpracování
 
 Alternativa k Pesimistická souběžnost je Optimistická souběžnost. Povolení konfliktů souběžnosti, která se provede a reaguje správně, pokud tomu znamená, že optimistického řízení souběžnosti. Například Jana navštíví stránku Upravit oddělení a změní hodnotu rozpočtu pro anglickou oddělení z $350,000.00 na 0.00 $.
 
@@ -154,7 +154,7 @@ Nahraďte stávající kód httppost `Edit` metodu s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EditPost)]
 
-Kód začíná pokusu o čtení z oddělení aktualizovat. Pokud `SingleOrDefaultAsync` metoda vrátí hodnotu null, z oddělení byla odstraněna jiným uživatelem. V takovém případě kód používá hodnoty odeslaného formuláře vytvořit entitu oddělení tak, aby stránky pro úpravu můžete zobrazí znovu, zobrazí se chybová zpráva. Jako alternativu nebude muset znovu vytvořit entity oddělení, pokud zobrazení pouze chybové zprávy bez opětovné zobrazení pole oddělení.
+Kód začíná pokusu o čtení z oddělení aktualizovat. Pokud `FirstOrDefaultAsync` metoda vrátí hodnotu null, z oddělení byla odstraněna jiným uživatelem. V takovém případě kód používá hodnoty odeslaného formuláře vytvořit entitu oddělení tak, aby stránky pro úpravu můžete zobrazí znovu, zobrazí se chybová zpráva. Jako alternativu nebude muset znovu vytvořit entity oddělení, pokud zobrazení pouze chybové zprávy bez opětovné zobrazení pole oddělení.
 
 Zobrazení ukládá původní `RowVersion` hodnotu ve skrytém poli a tato metoda přijímá hodnotu do `rowVersion` parametru. Před voláním `SaveChanges`, budete muset vytvořit z původní `RowVersion` hodnoty vlastnosti `OriginalValues` kolekce entity.
 
@@ -288,7 +288,7 @@ Nahraďte kód v *Views/Departments/Create.cshtml* vyberte možnost přidat do r
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="additional-resources"></a>Další zdroje
 

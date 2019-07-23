@@ -1,18 +1,18 @@
 ---
-title: Hostitelství a nasazení Blazor na straně serveru
+title: Hostitelství a nasazení ASP.NET Core Blazor na straně serveru
 author: guardrex
 description: Zjistěte, jak hostovat a nasazení aplikace na straně serveru Blazor pomocí ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/18/2019
+ms.date: 06/11/2019
 uid: host-and-deploy/blazor/server-side
-ms.openlocfilehash: 39e4f0634d40e8c720fa5a6a76bc0843487a4e3c
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: 56a03ff583bf85497e2b3bacc70123845a046e3d
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982585"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67892701"
 ---
 # <a name="host-and-deploy-blazor-server-side"></a>Hostitelství a nasazení Blazor na straně serveru
 
@@ -26,18 +26,21 @@ Serverové aplikace, které používají [model hostingu na straně serveru](xre
 
 S [model hostingu na straně serveru](xref:blazor/hosting-models#server-side), Blazor provádí na serveru z v rámci aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání jazyka JavaScript jsou zpracovány prostřednictvím [SignalR](xref:signalr/introduction) připojení.
 
-Aplikace je součástí aplikace ASP.NET Core v publikované výstupní a dvou aplikací se nasazují společně. Webový server, který dokáže hostovat aplikace ASP.NET Core je povinný. Pro nasazení na straně serveru, Visual Studio obsahuje **Blazor (serverové)** šablonu projektu (`blazorserverside` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz).
+Webový server, který dokáže hostovat aplikace ASP.NET Core je povinný. Visual Studio obsahuje **Blazor serverovou aplikaci** šablonu projektu (`blazorserverside` šablony při použití [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz).
 
-<!--
+## <a name="connection-scale-out"></a>Připojení pro horizontální navýšení kapacity
 
-**INSERT: Concerns are the same as publishing an ASP.NET Core SignalR app**
+Blazor serverové aplikace vyžadují jedno aktivní připojení SignalR pro každého uživatele. Produkční nasazení na straně serveru Blazor vyžaduje řešení pro podporu tolik souběžných připojení podle potřeb aplikace. [Služby Azure SignalR](/azure/azure-signalr/) zpracovává škálování připojení a doporučuje se jako škálování řešení pro Blazor aplikace na straně serveru. Další informace naleznete v tématu <xref:signalr/publish-to-azure-web-app>.
 
-**INSERT: Content on the Azure SignalR Service**
+## <a name="signalr-configuration"></a>Konfigurace funkce SignalR
 
-**INSERT: Manually turn on WebSockets support**
+SignalR je konfigurována pomocí ASP.NET Core pro nejběžnější scénáře Blazor na straně serveru. Pro vlastní a pokročilé scénáře, najdete v článcích SignalR v [další prostředky](#additional-resources) oddílu.
 
--->
+## <a name="additional-resources"></a>Další zdroje
 
-Další informace o nasazení a hostování aplikací ASP.NET Core najdete v tématu <xref:host-and-deploy/index>.
-
-Informace o nasazení do služby Azure App Service najdete v tématu <xref:tutorials/publish-to-azure-webapp-using-vs>.
+* <xref:signalr/introduction>
+* [Dokumentace ke službě Azure SignalR](/azure/azure-signalr/)
+* [Rychlý start: Vytvoření chatovací místnosti s použitím služby SignalR](/azure/azure-signalr/signalr-quickstart-dotnet-core)
+* <xref:host-and-deploy/index>
+* <xref:tutorials/publish-to-azure-webapp-using-vs>
+* [Nasazení ve verzi preview ASP.NET Core do služby Azure App Service](xref:host-and-deploy/azure-apps/index#deploy-aspnet-core-preview-release-to-azure-app-service)

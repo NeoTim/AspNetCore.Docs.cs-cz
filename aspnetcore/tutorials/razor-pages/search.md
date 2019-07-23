@@ -3,14 +3,14 @@ title: Přidání vyhledávání do ASP.NET Core Razor Pages
 author: rick-anderson
 description: Ukazuje, jak přidat vyhledávací technologie ASP.NET Core Razor Pages
 ms.author: riande
-ms.date: 12/3/2018
+ms.date: 12/03/2018
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: d0ce13e87c3f5e66008f308f6258403ea37b8847
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 5fc262f92b6a8de68ca8499a4647a9d2fb1450dd
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208223"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815643"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>Přidání vyhledávání do ASP.NET Core Razor Pages
 

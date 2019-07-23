@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/11/2019
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: ee43427fa1e82a365d49df50567b4ca7afb5a5d3
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 65a927b6288ca6cc41ee1bedd1080e52ffe0d3e1
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59516245"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034920"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany dat ASP.NET Core
 
@@ -23,7 +23,7 @@ Při inicializaci systému ochrany dat, se vztahuje [výchozí nastavení](xref:
 Pro tyto scénáře ochrany dat systému nabízí bohaté konfigurační rozhraní API.
 
 > [!WARNING]
-> Podobně jako u konfigurační soubory se aktualizační kanál, který data protection klíč by měly být chráněné pomocí příslušná oprávnění. Můžete také k šifrování klíčů v klidovém stavu, ale nezabrání útočníci vytvářet nové klíče. V důsledku toho je dopad na zabezpečení vaší aplikace. Umístění úložiště s nakonfigurovanou ochranou dat měli přístup pouze pro samotné podobným způsobem, jakým byste chránit konfigurační soubory aplikace. Například pokud se rozhodnete ukládat vaše klíče kanál na disk, pomocí oprávnění systému souborů. Zajištění pouze identitu, které běží vaše webová aplikace má ke čtení, zápisu a vytvoření přístup do tohoto adresáře. Pokud používáte Azure Table Storage, webové aplikace by měl mít možnost číst, zapsat nebo vytvořit nové položky v tabulce úložiště, atd.
+> Podobně jako u konfigurační soubory se aktualizační kanál, který data protection klíč by měly být chráněné pomocí příslušná oprávnění. Můžete také k šifrování klíčů v klidovém stavu, ale nezabrání útočníci vytvářet nové klíče. V důsledku toho je dopad na zabezpečení vaší aplikace. Umístění úložiště s nakonfigurovanou ochranou dat měli přístup pouze pro samotné podobným způsobem, jakým byste chránit konfigurační soubory aplikace. Například pokud se rozhodnete ukládat vaše klíče kanál na disk, pomocí oprávnění systému souborů. Zajištění pouze identitu, které běží vaše webová aplikace má ke čtení, zápisu a vytvoření přístup do tohoto adresáře. Pokud používáte úložiště objektů Blob v Azure, webové aplikace by měl mít možnost číst, zapsat nebo vytvořit nové položky v úložišti objektů blob, atd.
 >
 > Metoda rozšíření [AddDataProtection](/dotnet/api/microsoft.extensions.dependencyinjection.dataprotectionservicecollectionextensions.adddataprotection) vrátí [IDataProtectionBuilder](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionbuilder). `IDataProtectionBuilder` poskytuje rozšiřující metody, že můžete zřetězit dohromady konfigurace aplikace Data Protection možnosti.
 
@@ -42,7 +42,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Nastavte umístění úložiště klíč prstenec (například [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)). Umístění musí nastavit, protože volání `ProtectKeysWithAzureKeyVault` implementuje [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) , která zakáže nastavení ochrany dat, včetně umístění úložiště klíč kanál. V předchozím příkladu používá úložiště objektů Blob v Azure k uchování aktualizační kanál, který klíč. Další informace najdete v tématu [zprostředkovateli úložiště klíčů: Azure a Redis](xref:security/data-protection/implementation/key-storage-providers#azure-and-redis). Můžete také zachovat aktualizační kanál, který klíč místně s [PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system).
+Nastavte umístění úložiště klíč prstenec (například [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)). Umístění musí nastavit, protože volání `ProtectKeysWithAzureKeyVault` implementuje [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) , která zakáže nastavení ochrany dat, včetně umístění úložiště klíč kanál. V předchozím příkladu používá úložiště objektů Blob v Azure k uchování aktualizační kanál, který klíč. Další informace najdete v tématu [zprostředkovateli úložiště klíčů: Azure Storage](xref:security/data-protection/implementation/key-storage-providers#azure-storage). Můžete také zachovat aktualizační kanál, který klíč místně s [PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system).
 
 `keyIdentifier` Je identifikátor klíče služby key vault používá pro šifrování s klíčem. Například klíče vytvořeného ve službě key vault s názvem `dataprotection` v `contosokeyvault` má identifikátor klíče `https://contosokeyvault.vault.azure.net/keys/dataprotection/`. Poskytují aplikace s **rozbalení klíče** a **zabalit klíč** oprávnění k trezoru klíčů.
 
@@ -170,7 +170,7 @@ Když ochrana dat systému pochází od hostitele služby ASP.NET Core, je aplik
 
 Mechanismus izolace funguje tak, že vzhledem k tomu každou aplikaci na místním počítači jako jedinečný tenanta, proto <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> root pro aplikace automaticky zahrnuje ID aplikace jako diskriminátor. Jedinečné ID aplikace je fyzická cesta aplikace:
 
-* Pro aplikace hostované v [IIS](xref:fundamentals/servers/index#iis-http-server), jedinečné ID je fyzická cesta služby IIS aplikace. Pokud je aplikace nasazená v prostředí webové farmy, tato hodnota je stabilní, za předpokladu, že služba IIS prostředí jsou nakonfigurované podobně jako ve všech počítačích ve webové farmě.
+* Jedinečné ID je pro aplikace hostované ve službě IIS, fyzickou cestu aplikace IIS. Pokud je aplikace nasazená v prostředí webové farmy, tato hodnota je stabilní, za předpokladu, že služba IIS prostředí jsou nakonfigurované podobně jako ve všech počítačích ve webové farmě.
 * V místním prostředí aplikací a systémem [Kestrel server](xref:fundamentals/servers/index#kestrel), jedinečné ID je fyzická cesta k aplikaci na disku.
 
 Jedinečný identifikátor slouží k překonání resetování&mdash;jednotlivých aplikací a celý počítač.

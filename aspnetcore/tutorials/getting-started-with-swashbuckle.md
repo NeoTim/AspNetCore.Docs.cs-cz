@@ -4,20 +4,20 @@ author: zuckerthoben
 description: Zjistěte, jak přidat do projektu ASP.NET Core webové rozhraní API integrovat uživatelské rozhraní Swagger Swashbuckle.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 04/04/2019
+ms.date: 06/21/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 31d45eaa684118ab78d1b3ecac594e95712f631f
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 033f2dda9942f91f23158cf2d986062157a3b69e
+ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59068346"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67316607"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s Swashbuckle a ASP.NET Core
 
 Podle [Shayne Boyer](https://twitter.com/spboyer) a [Scott Addie](https://twitter.com/Scott_Addie)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 Existují tři hlavní komponenty pro Swashbuckle:
 
@@ -39,7 +39,7 @@ Swashbuckle lze přidat pomocí následujících postupů:
   * Spusťte následující příkaz:
 
     ```powershell
-    Install-Package Swashbuckle.AspNetCore
+    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc2
     ```
 
 * Z **spravovat balíčky NuGet** dialogové okno:
@@ -60,7 +60,7 @@ Swashbuckle lze přidat pomocí následujících postupů:
 Spuštěním následujícího příkazu z **integrovaný terminál**:
 
 ```console
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
 ```
 
 ### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
@@ -68,12 +68,16 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
 Spusťte následující příkaz:
 
 ```console
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
 ```
 
 ---
 
 ## <a name="add-and-configure-swagger-middleware"></a>Přidejte a nakonfigurujte Swagger middleware
+
+V `Startup` třídy, importujte následující obor názvů pro použití `OpenApiInfo` třídy:
+
+[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup2.cs?name=snippet_InfoClassNamespace)]
 
 Přidání generátoru Swagger do kolekce služby `Startup.ConfigureServices` metody:
 
@@ -88,10 +92,6 @@ Přidání generátoru Swagger do kolekce služby `Startup.ConfigureServices` me
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.Swashbuckle/Startup2.cs?name=snippet_ConfigureServices&highlight=9-12)]
 
 ::: moniker-end
-
-Importovat následující obor názvů pro použití `Info` třídy:
-
-[!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup2.cs?name=snippet_InfoClassNamespace)]
 
 V `Startup.Configure` metoda, povolí middleware pro poskytování generované dokumentů JSON a uživatelské rozhraní Swagger:
 

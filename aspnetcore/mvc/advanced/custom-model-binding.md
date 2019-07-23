@@ -5,12 +5,12 @@ description: Zjistěte, jak vazby modelu umožňuje akce kontroleru pracovat př
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 33551c9fc22561b992b4a09a4c7187ade136c09c
-ms.sourcegitcommit: d75d8eb26c2cce19876c8d5b65ac8a4b21f625ef
+ms.openlocfilehash: 3623a29976a2e2a7b1bdb22d35716b8a3b448958
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2019
-ms.locfileid: "56410242"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64903354"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>Vlastní vazba modelu v ASP.NET Core
 
@@ -18,7 +18,7 @@ Podle [Steve Smith](https://ardalis.com/)
 
 Vazby modelu umožňuje akce kontroleru pracovat přímo s typy modelů (předané jako argumenty metody), spíše než požadavky HTTP. Mapování mezi příchozí žádosti o datové a aplikační modely zařizuje služba vazače modelů. Vývojáři mohou rozšířit funkci vazby modelu předdefinovaných implementací vazače modelů vlastní (i když obvykle není nutné napsat vlastního zprostředkovatele).
 
-[Zobrazit nebo stáhnout ukázky z Githubu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/advanced/custom-model-binding/)
+[Zobrazit nebo stáhnout ukázky z Githubu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/custom-model-binding/)
 
 ## <a name="default-model-binder-limitations"></a>Výchozí omezení vazače modelu
 
@@ -40,7 +40,7 @@ Malou část řetězce s kódováním je vidět na následujícím obrázku:
 
 ![DotNet bot kódovaný](custom-model-binding/images/encoded-bot.png "dotnet bot kódování")
 
-Postupujte podle pokynů [vzorku README](https://github.com/aspnet/Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/sample/CustomModelBindingSample/README.md) pro převod řetězce s kódováním base64 do souboru.
+Postupujte podle pokynů [vzorku README](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/sample/CustomModelBindingSample/README.md) pro převod řetězce s kódováním base64 do souboru.
 
 Můžete provést řetězec s kódováním base64 a používat ASP.NET Core MVC `ByteArrayModelBinder` převést do bajtového pole. [ByteArrayModelBinderProvider](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.binders.bytearraymodelbinderprovider) která implementuje [IModelBinderProvider](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.imodelbinderprovider) mapuje `byte[]` argumenty `ByteArrayModelBinder`:
 

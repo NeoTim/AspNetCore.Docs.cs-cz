@@ -5,12 +5,12 @@ description: Přidání zobrazení pro jednoduchou aplikaci ASP.NET Core MVC
 ms.author: riande
 ms.date: 03/04/2017
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 6ff706012dabbf9500a805708c1f058b59ebc610
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: c86e5aba6dbd1e39460cc3d2c266ce704282ee09
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265555"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815424"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do aplikace ASP.NET Core MVC
 
@@ -72,7 +72,7 @@ Nahraďte obsah *Views/HelloWorld/Index.cshtml* Razor zobrazení souboru násled
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
-Přejděte na adresu `https://localhost:xxxx/HelloWorld`. `Index` Metoda ve `HelloWorldController` nedělalo většinu; spustili příkaz `return View();`, která zadané, že metoda by měla používat soubor šablony zobrazení k vykreslení odezva do prohlížeče. Protože jste nezadali explicitní název souboru šablony zobrazení, MVC na výchozí pomocí *Index.cshtml* zobrazení souboru v */zobrazení/HelloWorld* složky. Následující obrázek ukazuje řetězec "Hello z našich zobrazit šablonu!" pevně zakódované v zobrazení.
+Přejděte na adresu `https://localhost:xxxx/HelloWorld`. `Index` Metoda ve `HelloWorldController` nedělalo většinu; spustili příkaz `return View();`, která zadané, že metoda by měla používat soubor šablony zobrazení k vykreslení odezva do prohlížeče. Protože nebyl zadán název souboru šablony zobrazení, MVC na výchozí použití výchozího zobrazení souboru. Výchozí zobrazení soubor má stejný název jako metodu (`Index`), protože v */Views/HelloWorld/Index.cshtml* se používá. Následující obrázek ukazuje řetězec "Hello z našich zobrazit šablonu!" pevně zakódované v zobrazení.
 
 ![Okno prohlížeče](~/tutorials/first-mvc-app/adding-view/_static/hell_template.png)
 
@@ -98,7 +98,7 @@ V předchozím kódu `asp-area` [atribut ukotvení pomocné rutiny značky](xref
 > We haven't implemented the `Movies` controller yet, so if you click the `Movie App` link, you get a 404 (Not found) error.
 -->
 
-**Poznámka:**: `Movies` Kontroler není implementovaná. V tomto okamžiku `Movie App` odkaz není funkční.
+**Poznámka:** `Movies` Kontroler není implementovaná. V tomto okamžiku `Movie App` odkaz není funkční.
 
 Uložte změny a vyberte **ochrany osobních údajů** odkaz. Všimněte si, jak se zobrazuje jako nadpis informace o kartě prohlížeče **zásady ochrany osobních údajů – filmová aplikace** místo **zásady ochrany osobních údajů – Mvc Movie**:
 
@@ -164,7 +164,7 @@ Data přijatá z adresy URL a předat pomocí řadiče [vazač modelu MVC](xref:
 
 ![Ochrana osobních údajů zobrazení úvodní popisek a frází Hello Rick zobrazí čtyřikrát](~/tutorials/first-mvc-app/adding-view/_static/rick2.png)
 
-V příkladu výše `ViewData` slovník byla použita k předání dat z kontroleru zobrazení. Později v tomto kurzu se používá model zobrazení k předání dat z kontroleru zobrazení. Přístup modelu zobrazení k předávání dat je obvykle mnohem upřednostňované nad `ViewData` slovníku přístup. Zobrazit [použití položek ViewBag, ViewData a TempData](http://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) Další informace.
+V příkladu výše `ViewData` slovník byla použita k předání dat z kontroleru zobrazení. Později v tomto kurzu se používá model zobrazení k předání dat z kontroleru zobrazení. Přístup modelu zobrazení k předávání dat je obvykle mnohem upřednostňované nad `ViewData` slovníku přístup. Zobrazit [použití položek ViewBag, ViewData a TempData](https://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) Další informace.
 
 V dalším kurzu se vytvoří databáze filmů.
 

@@ -1,19 +1,19 @@
 ---
-title: 'Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC'
+title: 'Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core'
 author: rick-anderson
-description: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
+description: Zjistěte, jak vytvořit webové rozhraní API pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/4/2019
+ms.date: 07/11/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: a5c0140b70a30acd05b532d32525f6df92619075
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 95410cef9753fbb0eda6136320b59682e0553ea7
+ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165287"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "67893103"
 ---
-# <a name="tutorial-create-a-web-api-with-aspnet-core-mvc"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core MVC
+# <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Mike Wasson](https://github.com/mikewasson)
 
@@ -49,17 +49,32 @@ Tento kurz vytvoří následující rozhraní API:
 
 Následující diagram znázorňuje návrh aplikace.
 
-![Klient je reprezentována pole na levé straně a odešle žádost a obdrží odpověď od aplikace vykreslen na pravé straně pole. V dialogovém okně aplikace tři pole představují kontroleru, model a vrstva přístupu k datům. Žádost vstupu do kontroleru aplikace a operace čtení a zápisu, ke kterým dochází mezi kontrolerem a vrstva přístupu k datům. Model je serializován a vrátí klientovi v odpovědi.](first-web-api/_static/architecture.png)
+![Klient je reprezentován políčko vlevo. Odešle žádost a obdrží odpověď od aplikace vykreslen na pravé straně pole. V dialogovém okně aplikace tři pole představují kontroleru, model a vrstva přístupu k datům. Žádost vstupu do kontroleru aplikace a operace čtení a zápisu, ke kterým dochází mezi kontrolerem a vrstva přístupu k datům. Model je serializován a vrátí klientovi v odpovědi.](first-web-api/_static/architecture.png)
 
-[!INCLUDE[](~/includes/net-core-prereqs-all-2.2.md)]
+## <a name="prerequisites"></a>Požadavky
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+[!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
+
+---
 
 ## <a name="create-a-web-project"></a>Vytvoření webového projektu
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **souboru** nabídce vyberte možnost **nový** > **projektu**.
-* Vyberte **webové aplikace ASP.NET Core** šablony. Pojmenujte projekt *TodoApi* a klikněte na tlačítko **OK**.
-* V **nové webové aplikace ASP.NET Core – TodoApi** dialogového okna, vyberte verzi technologie ASP.NET Core. Vyberte **API** šablonu a klikněte na tlačítko **OK**. Proveďte **není** vyberte **povolit podporu Dockeru**.
+* Vyberte **webové aplikace ASP.NET Core** šablonu a klikněte na tlačítko **Další**.
+* Pojmenujte projekt *TodoApi* a klikněte na tlačítko **vytvořit**.
+* V **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **2.2 technologie ASP.NET Core** jsou vybrány. Vyberte **API** šablonu a klikněte na tlačítko **vytvořit**. **Není** vyberte **povolit podporu Dockeru**.
 
 ![VS – dialogové okno nového projektu](first-web-api/_static/vs.png)
 
@@ -84,11 +99,11 @@ Následující diagram znázorňuje návrh aplikace.
 
   ![macOS nové řešení](first-web-api-mac/_static/sln.png)
 
-* Vyberte **aplikace .NET Core** > **webového rozhraní API ASP.NET Core** > **Další**.
+* Vyberte **.NET Core** > **aplikace** > **API** > **Další**.
 
   ![macOS dialogové okno nového projektu](first-web-api-mac/_static/1.png)
   
-* V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z **.NET Core 2.2*.
+* V **nakonfigurovat nové technologie ASP.NET Core webové rozhraní API** dialogového okna, přijměte výchozí nastavení **Cílová architektura** z * *.NET Core 2.2*.
 
 * Zadejte *TodoApi* pro **název projektu** a pak vyberte **vytvořit**.
 
@@ -110,9 +125,9 @@ Pokud se zobrazí dialogové okno s dotazem, pokud by měla důvěřovat certifi
 
 Stisknutím kláves Ctrl + F5 spusťte aplikaci. V prohlížeči přejděte na následující adrese URL: [ https://localhost:5001/api/values ](https://localhost:5001/api/values).
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Vyberte **spustit** > **spustit s ladění** aplikaci spustit. Spuštění prohlížeče Visual Studio pro Mac a přejde na `https://localhost:<port>`, kde `<port>` je číslo portu náhodně vybrané. Vrátí chybu HTTP 404 (Nenalezeno). Připojit `/api/values` na adresu URL (změňte adresu URL na `https://localhost:<port>/api/values`).
+Vyberte **spustit** > **spustit ladění** aplikaci spustit. Spuštění prohlížeče Visual Studio pro Mac a přejde na `https://localhost:<port>`, kde `<port>` je číslo portu náhodně vybrané. Vrátí chybu HTTP 404 (Nenalezeno). Připojit `/api/values` na adresu URL (změňte adresu URL na `https://localhost:<port>/api/values`).
 
 ---
 
@@ -231,6 +246,8 @@ Tyto metody implementovat dva koncové body GET:
 * `GET /api/todo`
 * `GET /api/todo/{id}`
 
+Zastavte aplikaci, pokud je stále spuštěn. Potom ji spusťte znovu a nejnovější změny.
+
 Testování aplikace pomocí volání dva koncové body v prohlížeči. Příklad:
 
 * `https://localhost:<port>/api/todo`
@@ -276,7 +293,7 @@ Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult\<T > typ]
 
 Tento kurz používá Postman k otestování webové rozhraní API.
 
-* Nainstalujte [Postman](https://www.getpostman.com/apps)
+* Nainstalujte [Postman](https://www.getpostman.com/downloads/)
 * Spusťte webovou aplikaci.
 * Spusťte Postman.
 * Zakázat **ověření certifikátu SSL**
@@ -315,7 +332,7 @@ Předchozí kód je metoda HTTP POST, je určeno [[HttpPost]](/dotnet/api/micros
 * V nástroji Postman, nastavte jako metodu HTTP `POST`.
 * Vyberte **tělo** kartu.
 * Vyberte **nezpracovaná** přepínač.
-* Nastavte typ **JSON (application/json)**.
+* Nastavte typ **JSON (application/json)** .
 * V textu požadavku zadejte JSON pro úkol:
 
     ```json
@@ -350,7 +367,7 @@ Přidejte následující `PutTodoItem` metody:
 
 `PutTodoItem` je podobný `PostTodoItem`, s výjimkou používá HTTP PUT. Odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html). Podle specifikace HTTP vyžaduje požadavek PUT klientovi umožní odeslat celý aktualizovanou entitu, nikoliv pouze změny. Chcete-li podporovat částečné aktualizace, použijte [HTTP PATCH](xref:Microsoft.AspNetCore.Mvc.HttpPatchAttribute).
 
-Pokud dojde k chybě volání `PutTodoItem`, volání `GET` zajistit, že je položky v databázi.
+Pokud dojde k chybě volání `PutTodoItem`, volání `GET` aby se zajistilo položky v databázi.
 
 ### <a name="test-the-puttodoitem-method"></a>Test PutTodoItem – metoda
 
@@ -386,13 +403,13 @@ Pomocí nástroje Postman odstraňte položku úkolu:
 * Nastavte identifikátor URI objektu odstranit, například `https://localhost:5001/api/todo/1`
 * Vyberte **odeslat**
 
-Ukázkové aplikace můžete odstranit všechny položky, ale když se odstraní poslední položky, je vytvořen nový pomocí konstruktoru třídy modelu při příštím spuštění se volá rozhraní API.
+Ukázkové aplikace můžete odstranit všechny položky. Ale když se odstraní poslední položky, nový se vytvoří pomocí konstruktoru třídy modelu při příštím spuštění se volá rozhraní API.
 
 ## <a name="call-the-api-with-jquery"></a>Volání rozhraní API pomocí jQuery
 
 V této části se přidá stránku HTML, který používá jQuery volat webové rozhraní api. jQuery zahájí požadavek a aktualizuje stránku s podrobnostmi o z odpovědi rozhraní API.
 
-Nakonfiguruje aplikaci, aby [doručování statických souborů](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolit výchozí mapování souboru](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_):
+Nakonfiguruje aplikaci, aby [doručování statických souborů](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolit výchozí mapování souboru](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) aktualizací *Startup.cs* s následující zvýrazněný kód:
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 
@@ -443,7 +460,7 @@ Odstranění položky úkolu se provádí tak, že nastavíte `type` při volán
 
 ## <a name="additional-resources"></a>Další zdroje
 
-[Zobrazení nebo stažení ukázkového kódu pro účely tohoto kurzu](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/first-web-api/samples). Zobrazit [stažení](xref:index#how-to-download-a-sample).
+[Zobrazení nebo stažení ukázkového kódu pro účely tohoto kurzu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples). Zobrazit [stažení](xref:index#how-to-download-a-sample).
 
 Další informace naleznete v následujících materiálech:
 

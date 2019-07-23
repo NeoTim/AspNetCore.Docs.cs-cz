@@ -4,22 +4,22 @@ author: tdykstra
 description: Další informace o protokolovacího rozhraní v ASP.NET Core. Objevte poskytovatelé vestavěné protokolování a další informace o Oblíbené zprostředkovatele třetí strany.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/02/2019
+ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 8a2e310b47e32e9015b0c127ed79d8f6bdf2e44d
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: 51433cbf35e434300fbefae29f33594e765bcc7b
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982850"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67855928"
 ---
 # <a name="logging-in-aspnet-core"></a>Protokolování v ASP.NET Core
 
 Podle [Steve Smith](https://ardalis.com/) a [Petr Dykstra](https://github.com/tdykstra)
 
-ASP.NET Core podporuje protokolování rozhraní API, která funguje s různých poskytovatelů třetích stran a vestavěné protokolování. Tento článek ukazuje, jak používat rozhraní API protokolování s předdefinované zprostředkovatele.
+ASP.NET Core podporuje API pro protokolování, které funguje s množstvím zabudovaných poskytovatelů protokolování a poskytovatelů třetích stran. Tento článek ukazuje, jak používat rozhraní API protokolování s předdefinované zprostředkovatele.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="add-providers"></a>Přidat zprostředkovatele
 
@@ -29,12 +29,14 @@ Zprostředkovatel protokolování zobrazí nebo ukládají protokoly. Napříkla
 
 Chcete-li přidat poskytovatele, zavolejte poskytovatele `Add{provider name}` metody rozšíření v *Program.cs*:
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=17-19)]
+[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=18-20)]
+
+Předcházející kód vyžaduje odkazy `Microsoft.Extensions.Logging` a `Microsoft.Extensions.Configuration`.
 
 Volání výchozí projekt šablony <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, který přidá následující zprostředkovatele protokolování:
 
 * Konzola
-* Ladit
+* Ladění
 * EventSource (od verze 2.2 technologie ASP.NET Core)
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
@@ -49,12 +51,12 @@ Pokud používáte `CreateDefaultBuilder`, výchozí poskytovatele můžete nahr
 
 Používat poskytovatele, nainstalujte svůj balíček NuGet a volání metody rozšíření zprostředkovatele na instanci <xref:Microsoft.Extensions.Logging.ILoggerFactory>:
 
-[!code-csharp[](index/samples/1.x/TodoApiSample//Startup.cs?name=snippet_AddConsoleAndDebug&highlight=3,5-7)]
+[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_AddConsoleAndDebug&highlight=3,5-7)]
 
 ASP.NET Core [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) poskytuje `ILoggerFactory` instance. `AddConsole` a `AddDebug` metody rozšíření jsou definovány v [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/) a [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/) balíčky. Každá metoda rozšíření volá `ILoggerFactory.AddProvider` metodu instance zprostředkovatele.
 
 > [!NOTE]
-> [Ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/logging/index/samples/1.x) přidá poskytovatele protokolování v `Startup.Configure` metody. K získání výstupu protokolu z kódu, který se spustí dříve, přidejte poskytovatelů protokolování v `Startup` konstruktoru třídy.
+> [Ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples/1.x) přidá poskytovatele protokolování v `Startup.Configure` metody. K získání výstupu protokolu z kódu, který se spustí dříve, přidejte poskytovatelů protokolování v `Startup` konstruktoru třídy.
 
 ::: moniker-end
 
@@ -112,7 +114,7 @@ Zápis protokolů `Program` třídy, získat `ILogger` instanci z DI:
 
 Protokolování by měl být tak rychle, že se vyplatí výkon asynchronního kódu. Pokud vaše úložiště dat protokolování je pomalá, nemáte přímý zápis. Vezměte v úvahu zpočátku zápis zpráv protokolu do rychlého úložiště a pak později přesunout k úložišti pomalé. Například pokud jste protokolování na SQL Server, nechcete provést přímo v `Log` metody, protože `Log` metody jsou synchronní. Místo toho synchronně přidání protokolu zpráv do fronty v paměti a mají pracovní proces na pozadí zpráv z fronty pro asynchronní práci z odesílání dat do SQL serveru.
 
-## <a name="configuration"></a>Konfigurace
+## <a name="configuration"></a>Konfiguraci
 
 Zprostředkovatel konfigurace protokolování poskytuje jeden nebo více poskytovatelů konfigurace:
 
@@ -443,7 +445,7 @@ Chcete-li potlačit všechny protokoly, zadejte `LogLevel.None` jako minimální
 
 Volání kódu šablony projektu `CreateDefaultBuilder` nastavit protokolování pro poskytovatele konzoly a ladění. `CreateDefaultBuilder` Metoda také nastaví protokolování hledat konfiguraci `Logging` oddílu, psát kód podobný tomuto:
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=16)]
+[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=17)]
 
 Konfigurační data Určuje minimální úrovně podle poskytovatele a kategorie, jako v následujícím příkladu:
 
@@ -465,14 +467,14 @@ Konfigurační data a `AddFilter` kód zobrazený v předchozích ukázkách vyt
 
 | Číslo | Poskytovatel      | Kategorie, které začínají...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| 1      | Ladit         | Všechny kategorie                          | Informace o       |
+| 1      | Ladění         | Všechny kategorie                          | Informace o       |
 | 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
-| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
+| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladění             |
 | 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
 | 5      | Konzola       | Všechny kategorie                          | Informace o       |
-| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
-| 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
-| 8      | Ladit         | Microsoft                               | Trasování             |
+| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladění             |
+| 7      | Všichni poskytovatelé | Systém                                  | Ladění             |
+| 8      | Ladění         | Microsoft                               | Trasování             |
 
 Když `ILogger` je vytvořen objekt, `ILoggerFactory` objekt vybere jedno pravidlo na poskytovatele, který chcete použít pro tento protokolovač. Všechny zprávy, autorem `ILogger` instance jsou filtrovány podle vybrané pravidla. Nejspecifičtější pravidla pro každého zprostředkovatele a dvojice kategorie je vybrat z dostupných pravidla.
 
@@ -495,12 +497,13 @@ Výsledná `ILogger` instance odešle protokoly `Trace` úroveň a vyšší k po
 Každý poskytovatel definuje *alias* , který lze použít v konfiguraci místo plně kvalifikovaného názvu.  Pro předdefinované zprostředkovatele použijte následující aliasy:
 
 * Konzola
-* Ladit
+* Ladění
+* EventSource
 * EventLog
+* TraceSource
 * AzureAppServicesFile
 * AzureAppServicesBlob
-* TraceSource
-* EventSource
+* ApplicationInsights
 
 ### <a name="default-minimum-level"></a>Výchozí minimální úroveň
 
@@ -616,8 +619,9 @@ ASP.NET Core se celá dodává následující zprostředkovatele:
 * [EventSource](#eventsource-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
-
-Možnosti pro [protokolování v Azure](#logging-in-azure) jsou popsané dále v tomto článku.
+* [AzureAppServicesFile](#azure-app-service-provider)
+* [AzureAppServicesBlob](#azure-app-service-provider)
+* [ApplicationInsights](#azure-application-insights-trace-logging)
 
 Informace o protokolování stdout najdete v tématu <xref:host-and-deploy/iis/troubleshoot#aspnet-core-module-stdout-log> a <xref:host-and-deploy/azure-apps/troubleshoot#aspnet-core-module-stdout-log>.
 
@@ -641,6 +645,8 @@ loggerFactory.AddConsole();
 
 [Přetížení AddConsole](xref:Microsoft.Extensions.Logging.ConsoleLoggerExtensions) umožňují předáním minimální úroveň protokolování, funkce filtru a logickou hodnotu, která označuje, zda jsou obory. Další možností je a zajistěte tak předání `IConfiguration` objektu, který můžete určit podporu obory a úrovní protokolování.
 
+Možnosti poskytovatele konzoly najdete v tématu <xref:Microsoft.Extensions.Logging.Console.ConsoleLoggerOptions>.
+
 Zprostředkovatel konzoly má významný dopad na výkon a není obvykle vhodné pro použití v produkčním prostředí.
 
 Když vytvoříte nový projekt v sadě Visual Studio `AddConsole` metoda vypadá takto:
@@ -651,7 +657,7 @@ loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 
 Tento kód odkazuje `Logging` část *appSettings.json* souboru:
 
-[!code-json[](index/samples/1.x/TodoApiSample//appsettings.json)]
+[!code-json[](index/samples/1.x/TodoApiSample/appsettings.json)]
 
 Nastavení zobrazené protokoly framework limit upozornění zároveň umožní aplikaci k přihlášení na úrovni ladění, jak je vysvětleno v [filtrování protokolu](#log-filtering) oddílu. Další informace najdete v tématu [konfigurace](xref:fundamentals/configuration/index).
 
@@ -767,19 +773,6 @@ Následující příklad nastaví `TraceSource` zprostředkovatele, který zazna
 
 ::: moniker-end
 
-## <a name="logging-in-azure"></a>Protokolování v Azure
-
-Informace o protokolování v Azure najdete v následujících částech:
-
-* [Zprostředkovatel služby Azure App Service](#azure-app-service-provider)
-* [Streamování protokolů Azure](#azure-log-streaming)
-
-::: moniker range=">= aspnetcore-1.1"
-
-* [Protokolování trasování programu Azure Application Insights](#azure-application-insights-trace-logging)
-
-::: moniker-end
-
 ### <a name="azure-app-service-provider"></a>Zprostředkovatel služby Azure App Service
 
 [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) balíček zprostředkovatele zapisuje protokoly do textových souborů v systému souborů aplikace služby Azure App Service a na [úložiště objektů blob](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage) v účtu služby Azure Storage. Balíček zprostředkovatele je k dispozici pro aplikace zaměřené na .NET Core 1.1 nebo novější.
@@ -834,15 +827,16 @@ Chcete-li nakonfigurovat nastavení poskytovatele, použijte <xref:Microsoft.Ext
 
 ::: moniker-end
 
-Když nasadíte aplikaci služby App Service, aplikace respektuje nastavení v [diagnostické protokoly](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) část **služby App Service** stránky na webu Azure portal. Když tato nastavení jsou aktualizovány, změny se projeví okamžitě bez nutnosti restartování nebo opětovné nasazení aplikace.
+Když nasadíte aplikaci služby App Service, aplikace respektuje nastavení v [protokoly služby App Service](/azure/app-service/web-sites-enable-diagnostic-log/#enablediag) část **služby App Service** stránky na webu Azure portal. Když tato nastavení jsou aktualizovány, změny se projeví okamžitě bez nutnosti restartování nebo opětovné nasazení aplikace.
 
-![Nastavení protokolování Azure](index/_static/azure-logging-settings.png)
+* **Protokolování aplikace (systém souborů)**
+* **Protokolování aplikace (Blob)**
 
 Výchozím umístěním pro soubory protokolů je *D:\\domácí\\LogFiles\\aplikace* složky a výchozí název souboru je *diagnostiky yyyymmdd.txt*. Výchozí limit velikosti souboru je 10 MB a výchozí maximální počet souborů, které uchovávají se 2. Výchozí název objektu blob je *{app-name}{timestamp}/yyyy/mm/dd/hh/{guid}-applicationLog.txt*.
 
 Zprostředkovatel funguje pouze v případě projektu běží v prostředí Azure. Nemá žádný vliv, pokud projekt je spuštěn místně&mdash;nelze zapsat do místních souborů nebo místním vývojovým úložištěm objektů BLOB.
 
-### <a name="azure-log-streaming"></a>Streamování protokolů Azure
+#### <a name="azure-log-streaming"></a>Streamování protokolů Azure
 
 Streamování protokolů Azure umožňuje zobrazit protokol aktivit v reálném čase:
 
@@ -852,40 +846,46 @@ Streamování protokolů Azure umožňuje zobrazit protokol aktivit v reálném 
 
 Postup konfigurace, streamování protokolů Azure:
 
-* Přejděte **diagnostické protokoly** stránky na stránce portálu vaší aplikace.
+* Přejděte **protokoly služby App Service** stránky na stránce portálu vaší aplikace.
 * Nastavte **protokolování aplikace (systém souborů)** k **na**.
+* Vyberte protokol **úroveň**.
 
-![Stránka portálu diagnostické protokoly Azure](index/_static/azure-diagnostic-logs.png)
-
-Přejděte **streamování protokolů** stránku, abyste zobrazili zprávy aplikace. Jsou aplikace prostřednictvím přihlášení `ILogger` rozhraní.
-
-![Streamování protokolů Azure aplikace na portálu.](index/_static/azure-log-streaming.png)
+Přejděte **Stream protokolů** stránku, abyste zobrazili zprávy aplikace. Jsou aplikace prostřednictvím přihlášení `ILogger` rozhraní.
 
 ::: moniker range=">= aspnetcore-1.1"
 
 ### <a name="azure-application-insights-trace-logging"></a>Protokolování trasování programu Azure Application Insights
 
-Sada SDK služby Application Insights můžete shromažďovat a sestavy protokoly generované protokolování infrastruktury ASP.NET Core. Další informace naleznete v následujících materiálech:
+[Microsoft.Extensions.Logging.ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) balíček zprostředkovatele zapisuje protokoly do služby Azure Application Insights. Application Insights je služba, která monitoruje webové aplikace a poskytuje nástroje pro dotazování a analýze telemetrických dat. Pokud používáte tohoto zprostředkovatele, můžete dotazy a analýzu protokolů pomocí nástrojů Application Insights.
+
+Poskytovatel protokolování je zahrnutý jako závislost [Microsoft.ApplicationInsights.AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore), což je balíček, který obsahuje veškerá dostupná telemetrie pro ASP.NET Core. Pokud používáte tento balíček, není nutné instalovat balíček zprostředkovatele.
+
+Nepoužívejte [Microsoft.ApplicationInsights.Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) balíčku&mdash;, který je pro technologii ASP.NET 4.x.
+
+Další informace naleznete v následujících materiálech:
 
 * [Application Insights overview](/azure/application-insights/app-insights-overview)
-* [Application Insights pro ASP.NET Core](/azure/application-insights/app-insights-asp-net-core)
+* [Application Insights pro aplikace ASP.NET Core](/azure/azure-monitor/app/asp-net-core-no-visualstudio) – Začněte zde, pokud chcete implementovat telemetrii úplný rozsah Application Insights spolu s protokolování.
+* [Protokoly ApplicationInsightsLoggerProvider pro .NET Core ILogger](/azure/azure-monitor/app/ilogger) – Začněte zde, pokud chcete pro implementaci zprostředkovatele protokolování bez rest telemetrii Application Insights.
 * [Protokolování adaptéry Application Insights](https://github.com/Microsoft/ApplicationInsights-dotnet-logging/blob/develop/README.md).
-* [Application Insights ILogger implementace ukázky](/azure/azure-monitor/app/ilogger)
-
+* [Instalace, konfigurace a inicializujte sadu SDK Application Insights](/learn/modules/instrument-web-app-code-with-application-insights) – Interaktivní kurz na webu Microsoft Learn.
 ::: moniker-end
+
+> [!NOTE]
+> Od 5/1/2019 s názvem článku [Application Insights pro ASP.NET Core](/azure/azure-monitor/app/asp-net-core) je zastaralé a kurzu kroky nefungují. Odkazovat na [Application Insights pro aplikace ASP.NET Core](/azure/azure-monitor/app/asp-net-core-no-visualstudio) místo. Problému víme a pracujeme na opravě.
 
 ## <a name="third-party-logging-providers"></a>Zprostředkovatele přihlášení třetí strany
 
 Rozhraní protokolování třetích stran, které pracují s ASP.NET Core:
 
 * [elmah.io](https://elmah.io/) ([GitHub repo](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
-* [Gelf](http://docs.graylog.org/en/2.3/pages/gelf.html) ([úložiště GitHub se vzorovými](https://github.com/mattwcole/gelf-extensions-logging))
-* [JSNLog](http://jsnlog.com/) ([úložiště GitHub se vzorovými](https://github.com/mperdeck/jsnlog))
+* [Gelf](https://docs.graylog.org/en/2.3/pages/gelf.html) ([úložiště GitHub se vzorovými](https://github.com/mattwcole/gelf-extensions-logging))
+* [JSNLog](https://jsnlog.com/) ([úložiště GitHub se vzorovými](https://github.com/mperdeck/jsnlog))
 * [KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))
-* [Loggr](http://loggr.net/) ([úložiště GitHub se vzorovými](https://github.com/imobile3/Loggr.Extensions.Logging))
-* [NLog](http://nlog-project.org/) ([úložiště GitHub se vzorovými](https://github.com/NLog/NLog.Extensions.Logging))
+* [Loggr](https://loggr.net/) ([úložiště GitHub se vzorovými](https://github.com/imobile3/Loggr.Extensions.Logging))
+* [NLog](https://nlog-project.org/) ([úložiště GitHub se vzorovými](https://github.com/NLog/NLog.Extensions.Logging))
 * [SENTRY](https://sentry.io/welcome/) ([úložiště GitHub se vzorovými](https://github.com/getsentry/sentry-dotnet))
-* [Serilog](https://serilog.net/) ([úložiště GitHub se vzorovými](https://github.com/serilog/serilog-extensions-logging))
+* [Serilog](https://serilog.net/) ([úložiště GitHub se vzorovými](https://github.com/serilog/serilog-aspnetcore))
 * [Stackdriver](https://cloud.google.com/dotnet/docs/stackdriver#logging) ([úložiště Github se vzorovými](https://github.com/googleapis/google-cloud-dotnet))
 
 Můžete provádět některé rozhraní třetích stran [sémantického protokolování, označovaného také jako strukturované protokolování](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).

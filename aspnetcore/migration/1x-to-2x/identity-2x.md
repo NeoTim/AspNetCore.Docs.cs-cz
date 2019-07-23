@@ -3,20 +3,26 @@ title: Ověřování a identitu migrovat do ASP.NET Core 2.0
 author: scottaddie
 description: Tento článek popisuje nejběžnější postup pro migraci ASP.NET Core 1.x ověřování a identita pro ASP.NET Core 2.0.
 ms.author: scaddie
-ms.date: 12/18/2018
+ms.date: 06/21/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: d11d41c82236436096660a24df81a3df4da0fb8e
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: c83356e12fa5ae581b369265b9d857b08445ed51
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265360"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313748"
 ---
 # <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a>Ověřování a identitu migrovat do ASP.NET Core 2.0
 
 Podle [Scott Addie](https://github.com/scottaddie) a [ani Haovi společnosti](https://github.com/HaoK)
 
-ASP.NET Core 2.0 je nový model pro ověřování a [Identity](xref:security/authentication/identity) který zjednodušuje konfiguraci služby. Aplikace ASP.NET Core 1.x, které používají ověřování nebo Identity lze aktualizovat pomocí nového modelu, jak je uvedeno níže.
+ASP.NET Core 2.0 je nový model pro ověřování a [Identity](xref:security/authentication/identity) , který zjednodušuje konfiguraci služby. Aplikace ASP.NET Core 1.x, které používají ověřování nebo Identity lze aktualizovat pomocí nového modelu, jak je uvedeno níže.
+
+## <a name="update-namespaces"></a>Aktualizovat obory názvů
+
+V 1.x, třídy, například `IdentityRole` a `IdentityUser` nebyly nalezeny v `Microsoft.AspNetCore.Identity.EntityFrameworkCore` oboru názvů.
+
+Ve verzi 2.0 <xref:Microsoft.AspNetCore.Identity> obor názvů stal novým výchozím místem pro některé z těchto tříd. S kódem Identity výchozí ovlivněné třídy zahrnují `ApplicationUser` a `Startup`. Upravit vaše `using` příkazy ovlivněné odkazy.
 
 <a name="auth-middleware"></a>
 
@@ -162,6 +168,15 @@ Proveďte následující změny v *Startup.cs*:
     });
     ```
 
+- Nahradit `PostLogoutRedirectUri` vlastnost `OpenIdConnectOptions` akce s `SignedOutRedirectUri`:
+
+    ```csharp
+    .AddOpenIdConnect(options =>
+    {
+        options.SignedOutRedirectUri = "https://contoso.com";
+    });
+    ```
+    
 ### <a name="facebook-authentication"></a>Ověřování Facebooku
 
 Proveďte následující změny v *Startup.cs*:
@@ -289,18 +304,31 @@ V projektech, 2.0, import `Microsoft.AspNetCore.Authentication` obor názvů a o
 ## <a name="windows-authentication-httpsys--iisintegration"></a>Windows Authentication (HTTP.sys / IISIntegration)
 
 Existují dvě varianty ověřování Windows:
-1. Hostitel umožňuje pouze ověřeným uživatelům
-2. Oba hostitele umožňuje anonymní a ověření uživatelé
 
-První výše popsané není ovlivněn 2.0 změny.
+* Hostitel umožňuje pouze ověřeným uživatelům. Tato změna nemá vliv 2.0 změny.
+* Oba hostitele umožňuje anonymní a ověřených uživatelů. Tato varianta je ovlivněny změnami v 2.0. Například by aplikaci umožnit anonymní uživatelé na [IIS](xref:host-and-deploy/iis/index) nebo [HTTP.sys](xref:fundamentals/servers/httpsys) vrstvy, ale autorizovat uživatele na úrovni kontroleru. V tomto scénáři, nastavte výchozí schéma `Startup.ConfigureServices` metody.
 
-Druhá je popsáno výše je ovlivněny změnami v 2.0. Jako příklad vám může být umožní anonymní uživatelé do vaší aplikace v IIS nebo [HTTP.sys](xref:fundamentals/servers/httpsys) vrstvy ale autorizací uživatele na úrovni Kontroleru. V tomto scénáři, nastavte výchozí schéma na `IISDefaults.AuthenticationScheme` v `Startup.ConfigureServices` metody:
+  Pro [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/), nastavte výchozí schéma na `IISDefaults.AuthenticationScheme`:
 
-```csharp
-services.AddAuthentication(IISDefaults.AuthenticationScheme);
-```
+  ```csharp
+  using Microsoft.AspNetCore.Server.IISIntegration;
 
-Nepodařilo se nastavit výchozí schéma odpovídajícím způsobem brání vybízí funkčním požadavku authorize.
+  services.AddAuthentication(IISDefaults.AuthenticationScheme);
+  ```
+
+  Pro [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/), nastavte výchozí schéma na `HttpSysDefaults.AuthenticationScheme`:
+
+  ```csharp
+  using Microsoft.AspNetCore.Server.HttpSys;
+
+  services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
+  ```
+
+  Nepodařilo se nastavit výchozí schéma požadavku authorize (výzva) zabrání práce s následující výjimkou:
+
+  > `System.InvalidOperationException`: Žádné schéma authenticationscheme a nebyly žádné DefaultChallengeScheme nalezen.
+
+Další informace naleznete v tématu <xref:security/authentication/windowsauth>.
 
 <a name="identity-cookie-options"></a>
 
@@ -308,7 +336,7 @@ Nepodařilo se nastavit výchozí schéma odpovídajícím způsobem brání vyb
 
 Vedlejším účinkem 2.0 změny se přepnout na používání s názvem možnosti namísto souboru cookie možnosti instance. Odebere se možnost přizpůsobit si názvy schémat souboru cookie Identity.
 
-Například 1.x projekty použití [konstruktor vkládání](xref:mvc/controllers/dependency-injection#constructor-injection) předat `IdentityCookieOptions` parametr do *AccountController.cs*. Schéma externí soubor cookie ověřování přistupuje z zadanou instanci:
+Například 1.x projekty použití [konstruktor vkládání](xref:mvc/controllers/dependency-injection#constructor-injection) předat `IdentityCookieOptions` parametr do *AccountController.cs* a *ManageController.cs*. Schéma externí soubor cookie ověřování přistupuje z zadanou instanci:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor&highlight=4,11)]
 
@@ -316,9 +344,17 @@ Vkládání výše uvedené konstruktor stane zbytečné v projektech pro 2.0 a 
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor)]
 
-`IdentityConstants.ExternalScheme` – Konstanta je možné přímo:
+1.x projektů používaných `_externalCookieScheme` pole následujícím způsobem:
+
+[!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
+
+V projektech, 2.0 nahraďte předchozí kód následujícím kódem. `IdentityConstants.ExternalScheme` – Konstanta je možné přímo.
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
+
+Vyřešit nově přidaný `SignOutAsync` volání importováním následující obor názvů:
+
+[!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationImport)]
 
 <a name="navigation-properties"></a>
 
@@ -380,21 +416,21 @@ protected override void OnModelCreating(ModelBuilder builder)
 
 ## <a name="replace-getexternalauthenticationschemes"></a>Nahraďte GetExternalAuthenticationSchemes
 
-Synchronní metoda `GetExternalAuthenticationSchemes` byla odebrána a místo toho použití asynchronní verze. projekty 1.x mají následující kód *ManageController.cs*:
+Synchronní metoda `GetExternalAuthenticationSchemes` byla odebrána a místo toho použití asynchronní verze. projekty 1.x mají následující kód *Controllers/ManageController.cs*:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemes)]
 
-Tato metoda se zobrazí v *Login.cshtml* příliš:
+Tato metoda se zobrazí v *Views/Account/Login.cshtml* příliš:
 
-[!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Account/Login.cshtml?range=62,75-84)]
+[!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemes&highlight=2)]
 
-V projektech, 2.0, použijte `GetExternalAuthenticationSchemesAsync` metody:
+V projektech, 2.0, použijte <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> metody. Změnu v hodnotě *ManageController.cs* vypadá podobně jako následující kód:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemesAsync)]
 
 V *Login.cshtml*, `AuthenticationScheme` přistupuje ve vlastnosti `foreach` smyčky se změní na `Name`:
 
-[!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Views/Account/Login.cshtml?range=62,75-84)]
+[!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemesAsync&highlight=2,19)]
 
 <a name="property-change"></a>
 
@@ -412,4 +448,4 @@ V projektech, 2.0, návratový typ se změní na `IList<AuthenticationScheme>`. 
 
 ## <a name="additional-resources"></a>Další zdroje
 
-Další podrobnosti a diskusi najdete v tématu [diskuse Auth 2.0](https://github.com/aspnet/Security/issues/1338) problém na Githubu.
+Další informace najdete v tématu [diskuse Auth 2.0](https://github.com/aspnet/Security/issues/1338) problém na Githubu.

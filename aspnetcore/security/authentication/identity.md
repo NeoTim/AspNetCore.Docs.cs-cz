@@ -5,12 +5,12 @@ description: Pomocí Identity aplikace v ASP.NET Core. Zjistěte, jak nastavit p
 ms.author: riande
 ms.date: 03/26/2019
 uid: security/authentication/identity
-ms.openlocfilehash: efe8119c2d18db50dce3df57fa0e300d0d0df2cd
-ms.sourcegitcommit: 687ffb15ebe65379f75c84739ea851d5a0d788b7
+ms.openlocfilehash: d813fa364bb733185baa7b2cd2d95f8b4ff570e2
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/26/2019
-ms.locfileid: "58488670"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900483"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>Úvod do Identity v ASP.NET Core
 
@@ -20,7 +20,7 @@ ASP.NET Core Identity je systém členství, který přidá funkce přihlášen�
 
 Identity lze konfigurovat pomocí databáze SQL serveru ukládat uživatelská jména, hesla a data profilu. Můžete také jiné trvalého úložiště je možné, například Azure Table Storage.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/) ([ke stažení)](xref:index#how-to-download-a-sample)).
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/) ([ke stažení)](xref:index#how-to-download-a-sample)).
 
 V tomto tématu se naučíte, jak zaregistrovat, přihlaste se pomocí Identity a odhlášení uživatele. Podrobnější pokyny k vytváření aplikací, které používají Identity najdete v části Další kroky na konci tohoto článku.
 

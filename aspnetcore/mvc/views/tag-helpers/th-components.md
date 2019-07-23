@@ -4,14 +4,14 @@ author: scottaddie
 description: Zjistěte, jaké jsou součásti pomocné rutiny značek a jejich použití v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
-ms.date: 04/06/2019
+ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: fdad4ae367245cd3beabaf90587c1fe5e9162afe
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: b5b3abea6492cfaa7d6acd0e54073a8db12eb2a5
+ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59468592"
+ms.lasthandoff: 06/12/2019
+ms.locfileid: "67034763"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>Součásti pomocné rutiny značky v ASP.NET Core
 
@@ -21,7 +21,7 @@ Komponenta pomocné rutiny značky je pomocná rutina značky, který umožňuje
 
 ASP.NET Core zahrnuje dvě komponenty integrované pomocné rutiny značky: `head` a `body`. Nacházejí se v <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers> obor názvů a je možné v MVC a stránky Razor. Součásti pomocné rutiny značky nevyžadují registraci s touto aplikací v *_ViewImports.cshtml*.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="use-cases"></a>Případy použití
 
@@ -62,9 +62,16 @@ Předchozí kód vytvoří vazbu [Bootstrap popisek widgetu](https://getbootstra
 
 Komponentu pomocné rutiny značky musí být přidán do kolekce součásti pomocné rutiny značky aplikace. Existují tři způsoby, jak přidat do kolekce:
 
-1. [Registrace prostřednictvím služby kontejneru](#registration-via-services-container)
-1. [Registrace prostřednictvím souboru Razor](#registration-via-razor-file)
-1. [Registrace prostřednictvím stránky nebo Model kontroleru](#registration-via-page-model-or-controller)
+* [Součásti pomocné rutiny značky v ASP.NET Core](#tag-helper-components-in-aspnet-core)
+  * [Případy použití](#use-cases)
+    * [Vložit do hlavního elementu HTML](#inject-into-html-head-element)
+    * [Vložení do prvku text HTML](#inject-into-html-body-element)
+  * [Registrují komponentu](#register-a-component)
+    * [Registrace prostřednictvím služby kontejneru](#registration-via-services-container)
+    * [Registrace prostřednictvím souboru Razor](#registration-via-razor-file)
+    * [Registrace prostřednictvím stránky nebo Model kontroleru](#registration-via-page-model-or-controller)
+  * [Vytvoření komponenty](#create-a-component)
+  * [Další zdroje informací](#additional-resources)
 
 ### <a name="registration-via-services-container"></a>Registrace prostřednictvím služby kontejneru
 

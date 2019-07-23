@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/05/2019
 uid: test/loadtests
-ms.openlocfilehash: 0a8449ea2c9df0f2ac93058f03af0a1a2aa66508
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 4b07dd1af7e0c1d3ce9baa167b69fd8f80df204a
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59068180"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815176"
 ---
 # <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core zatížení a zátěžové testování
 
@@ -23,7 +23,7 @@ Zátěžové testování a zátěžové testování je důležité zajistit, že
 
 Zátěžové testy určení, zda lze aplikaci vytížený obnovení po selhání a elegantně vrátí k očekávané chování. Vytížený není aplikace spuštěna za normálních podmínek.
 
-Visual Studio 2019 je poslední verzi sady Visual Studio pomocí funkce zátěžového testu. Zákazníkům, kteří vyžadují nástroje v budoucnu testování zatížení doporučujeme alternativní nástrojů, jako je Apache JMeter Akamai CloudTest a BlazeMeter. Další informace najdete v tématu [zpráva k vydání verze. 2019 Visual Studio](/visualstudio/releases/2019/release-notes#test-tools).
+Visual Studio 2019 je poslední verzi sady Visual Studio pomocí funkce zátěžového testu. Zákazníkům, kteří vyžadují nástroje v budoucnu testování zatížení doporučujeme alternativní nástrojů, jako je Apache JMeter Akamai CloudTest a BlazeMeter. Další informace najdete v tématu [zpráva k vydání verze. 2019 Visual Studio](/visualstudio/releases/2019/release-notes-v16.0#test-tools).
 
 Zátěžového testování v Azure DevOps skončí platnost během 2020. Další informace najdete v tématu [cloudového zátěžového testování služby konci životnosti](https://devblogs.microsoft.com/devops/cloud-based-load-testing-service-eol/).
 
@@ -72,8 +72,9 @@ Následující seznam obsahuje nástroje výkonnosti webu třetích stran s růz
 * [ApacheBench (ab)](https://httpd.apache.org/docs/2.4/programs/ab.html)
 * [Gatling](https://gatling.io/)
 * [Locust](https://locust.io/)
-* [WebSurge větru – západ](http://websurge.west-wind.com/)
+* [WebSurge větru – západ](https://websurge.west-wind.com/)
 * [Netling](https://github.com/hallatore/Netling)
+* [Vegeta](https://github.com/tsenart/vegeta)
 
 ## <a name="additional-resources"></a>Další zdroje
 

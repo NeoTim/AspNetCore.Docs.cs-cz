@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: 5278527c86d5e2c895496663401964b6b9914c46
-ms.sourcegitcommit: a1c43150ed46aa01572399e8aede50d4668745ca
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58327398"
----
 Zvýrazněný kód výše znázorňuje kontext databáze filmů přidávaný do [injektáž závislostí](xref:fundamentals/dependency-injection) kontejner (v *Startup.cs* souboru). `services.AddDbContext<MvcMovieContext>(options =>` Určuje databázi, do použití a připojovací řetězec. `=>` je [operátor lambda](/dotnet/articles/csharp/language-reference/operators/lambda-operator).
 
 Otevřít *Controllers/MoviesController.cs* souboru a prozkoumání konstruktoru:

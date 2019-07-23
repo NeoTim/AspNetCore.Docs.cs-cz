@@ -7,11 +7,11 @@ ms.custom: H1Hack27Feb2017
 ms.date: 09/22/2017
 uid: client-side/using-browserlink
 ms.openlocfilehash: 452ba5149563c186750466f471c7b950f0017614
-ms.sourcegitcommit: d53e0cc71542b92de867bcce51575b054886f529
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756087"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900849"
 ---
 # <a name="browser-link-in-aspnet-core"></a>Browser Link v ASP.NET Core
 
@@ -71,7 +71,7 @@ if (env.IsDevelopment())
 }
 ```
 
-Další informace najdete v tématu [používání více prostředí](xref:fundamentals/environments).
+Další informace naleznete v tématu [Používání více prostředí](xref:fundamentals/environments).
 
 ## <a name="how-to-use-browser-link"></a>Postup použití funkce Browser Link
 
@@ -83,7 +83,7 @@ Browser Link ovládací prvek panelu nástrojů můžete:
 
 * Aktualizace webové aplikace v několika prohlížečích najednou.
 * Otevřít **řídicím odkazů prohlížeče**.
-* Povolení nebo zakázání **Browser Link**. Poznámka: Browser Link je zakázaný ve výchozím nastavení v sadě Visual Studio 2017 (15.3).
+* Povolení nebo zakázání **Browser Link**. Poznámka: Browser Link je zakázané ve výchozím nastavení v sadě Visual Studio 2017 (15.3).
 * Povolení nebo zakázání [Automatická synchronizace šablon stylů CSS](#enable-or-disable-css-auto-sync).
 
 > [!NOTE]
@@ -117,15 +117,15 @@ Browser Link funguje taky v prohlížečích, které můžete spustit z mimo sad
 
 Browser Link rozevírací nabídka spravovat připojení otevřené prohlížeče otevřete řídicím panelu odkazů prohlížeče:
 
-![řídicí panel otevřít browserslink](using-browserlink/_static/open-browserlink-dashboard.png)
+![open-browserslink-dashboard](using-browserlink/_static/open-browserlink-dashboard.png)
 
 Pokud je připojený žádný prohlížeč, můžete začít relaci – ladění tak, že vyberete *zobrazit v prohlížeči* odkaz:
 
-![browserlink řídicím bez propojení](using-browserlink/_static/browserlink-dashboard-no-connections.png)
+![browserlink-dashboard-no-connections](using-browserlink/_static/browserlink-dashboard-no-connections.png)
 
 V opačném případě propojených prohlížečů jsou uvedeny cestu ke stránce, která zobrazuje každou prohlížeče:
 
-![browserlink řídicí panel dvě připojení](using-browserlink/_static/browserlink-dashboard-two-connections.png)
+![browserlink-dashboard-two-connections](using-browserlink/_static/browserlink-dashboard-two-connections.png)
 
 Pokud chcete můžete klikněte na název uvedené prohlížeče k aktualizaci tohoto jediného prohlížeče.
 

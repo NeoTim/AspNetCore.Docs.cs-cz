@@ -5,12 +5,12 @@ description: Přidání modelu pro jednoduchou aplikaci ASP.NET Core.
 ms.author: riande
 ms.date: 02/25/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 08d8e9679bfee11f03e61cb4b9ae9b5b36186049
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: fcfe97e2228c21ffea8fe7ec5df8e2ea9c398828
+ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59012822"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66837329"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu pro aplikace ASP.NET Core MVC
 
@@ -156,7 +156,7 @@ V této části jsou prováděny následující úlohy:
 
    `Add-Migration` Příkaz vygeneruje kód pro vytvoření schématu počáteční databáze.
 
-   Schéma databáze je založeno na zadaném v modelu `MvcMovieContext` třídy (v *Data/MvcMovieContext.cs* souboru). `Initial` Argument je název migrace. Můžete použít libovolný název, ale podle konvence je název, který popisuje migraci použít. Další informace naleznete v tématu <xref:data/ef-mvc/migrations>.
+   Schéma databáze je založeno na zadaném v modelu `MvcMovieContext` třídy. `Initial` Argument je název migrace. Můžete použít libovolný název, ale podle konvence je název, který popisuje migraci použít. Další informace naleznete v tématu <xref:data/ef-mvc/migrations>.
 
    `Update-Database` Příkaz spustí `Up` metodu *migrace / {časové razítko} _InitialCreate.cs* soubor, který vytvoří databázi.
 
@@ -180,7 +180,7 @@ Nástroj pro generování uživatelského rozhraní automaticky vytvořen kontex
 
 Zkontrolujte následující `Startup.ConfigureServices` metody. Zvýrazněný řádek byl přidán modulem scaffolder:
 
-[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=14-15)]
 
 `MvcMovieContext` Souřadnice funkce EF Core (vytvoření, čtení, aktualizace, odstranění atd.) pro `Movie` modelu. Kontext dat (`MvcMovieContext`) je odvozen z [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext dat určuje entit, které jsou zahrnuty v datovém modelu:
 
@@ -214,7 +214,7 @@ Je provedena [kroku migrace](#pmc).
 * Test **vytvořit** odkaz. Zadejte a odesílat data.
 
   > [!NOTE]
-  > Není možné zadat desetinné čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") desetinné čárky a USA retweetovat neanglické formáty kalendářního data, aplikace musí být globalizována. Globalizace pokyny najdete v tématu [tento problém Githubu](https://github.com/aspnet/Docs/issues/4076#issuecomment-326590420).
+  > Není možné zadat desetinné čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") desetinné čárky a USA retweetovat neanglické formáty kalendářního data, aplikace musí být globalizována. Globalizace pokyny najdete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
 
 * Test **upravit**, **podrobnosti**, a **odstranit** odkazy.
 

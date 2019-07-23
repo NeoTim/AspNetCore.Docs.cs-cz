@@ -1,24 +1,24 @@
 ---
-title: Konfigurace Linkeru pro Blazor
+title: Konfigurace Linkeru pro ASP.NET Core Blazor
 author: guardrex
 description: Zjistěte, jak řídit Linkeru Intermediate Language (IL) při vytváření aplikace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/18/2019
+ms.date: 07/02/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 77016b6b1542becb2ccd49f0c0c5ba63da434a6c
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: 03be18e7ee6ca8103e1a666da9e693ff67267d83
+ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982611"
+ms.lasthandoff: 07/03/2019
+ms.locfileid: "67538631"
 ---
-# <a name="configure-the-linker-for-blazor"></a>Konfigurace Linkeru pro Blazor
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace Linkeru pro ASP.NET Core Blazor
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) propojení během každé sestavení pro vydání režimu z aplikace odebrat nepotřebné IL výstupního sestavení.
+Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) propojení během sestavení pro vydání z aplikace odebrat nepotřebné IL výstupního sestavení.
 
 Sestavení ovládacího prvku propojení některou z následujících postupů:
 
@@ -27,7 +27,7 @@ Sestavení ovládacího prvku propojení některou z následujících postupů:
 
 ## <a name="disable-linking-with-a-msbuild-property"></a>Zakázat propojení s vlastností MSBuild
 
-Propojení je povolené ve výchozím nastavení v režimu vydání, při vytváření aplikace, která zahrnuje publikování. Chcete-li zakázat propojení pro všechna sestavení, nastavte `<BlazorLinkOnBuild>` vlastnost MSBuild `false` v souboru projektu:
+Propojení je povolené ve výchozím nastavení v režimu vydání, při vytváření aplikace, která zahrnuje publikování. Chcete-li zakázat propojení pro všechna sestavení, nastavte `BlazorLinkOnBuild` vlastnost MSBuild `false` v souboru projektu:
 
 ```xml
 <PropertyGroup>

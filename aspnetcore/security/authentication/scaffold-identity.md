@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: 7445db31e461bf61e8a91af7239187a6ece9d011
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 9e784864ee78bdfb76dab7748f3fb81728b9c289
+ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59705468"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67622768"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>Identity vygenerované uživatelské rozhraní v projektech ASP.NET Core
 

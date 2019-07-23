@@ -5,14 +5,14 @@ description: Zjistěte, jak kompilace souborech Razor vyvolá se v aplikaci ASP.
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/02/2019
+ms.date: 06/20/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 11195f00e922f6817a0fa0988fad9d8082dea30a
-ms.sourcegitcommit: a467828b5e4eaae291d961ffe2279a571900de23
+ms.openlocfilehash: ff66148fc9aad2871f9f55ce76b5a0dacb0ad10c
+ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58142322"
+ms.lasthandoff: 06/21/2019
+ms.locfileid: "67313776"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>Kompilace souboru Razor v ASP.NET Core
 
@@ -45,7 +45,7 @@ Razor soubory kompilované za obě sestavení a publikování pomocí [Razor SDK
 ## <a name="razor-compilation"></a>Kompilace Razor
 
 ::: moniker range=">= aspnetcore-3.0"
-Kompilace sestavení a publikování běhu Razor souborů je povolené ve výchozím nastavení sada Razor SDK. Při povolené, kompilace modulu runtime, bude doplněk sestavení umožňující souborech Razor aktualizovat v případě, že jsou editied kompilace.
+Kompilace sestavení a publikování běhu Razor souborů je povolené ve výchozím nastavení sada Razor SDK. Pokud povolená, doplňuje kompilace modulu runtime sestavení kompilace, povolení souborech Razor aktualizovat, pokud je upravovat.
 
 ::: moniker-end
 
@@ -114,7 +114,7 @@ Kompilace sestavení doplňují kompilace modulu runtime souborů Razor. <xref:M
 Výchozí hodnota je `true` pro:
 
 * Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> nebo dřívější
-* Pokud je verze kompatibility aplikace pro nastavení do sady <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> nebo novější a je aplikace ve vývojovém prostředí <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*>. Jinými slovy, souborech Razor nebude znovu zkompilovat v mimo vývojové prostředí není-li <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> explicitně nastavena.
+* Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> nebo novější a je aplikace ve vývojovém prostředí <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*>. Jinými slovy, souborech Razor nebude znovu zkompilovat v mimo vývojové prostředí není-li <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> explicitně nastavena.
 
 Pokyny a příklady nastavení verze kompatibility aplikace najdete v tématu <xref:mvc/compatibility-version>.
 
@@ -125,17 +125,13 @@ Pokyny a příklady nastavení verze kompatibility aplikace najdete v tématu <x
 Kompilace modulu runtime se aktivuje pomocí `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` balíčku. Pokud chcete povolit kompilace modulu runtime, musí aplikace:
 
 * Nainstalujte [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) balíček NuGet.
-* Aktualizace aplikace `ConfigureServices` zahrnout volání `AddMvcRazorRuntimeCompilation`:
+* Aktualizace projektu `Startup.ConfigureServices` tak, aby zahrnoval volání `AddRazorRuntimeCompilation`:
 
   ```csharp
   services
-      .AddMvc()
-      .AddRazorRuntimeCompilation()
+      .AddControllersWithViews()
+      .AddRazorRuntimeCompilation();
   ```
-
-Pro kompilaci modulu runtime pro práci při nasazení, musí aplikace upravit kromě jejich soubory projektu, chcete-li nastavit `PreserveCompilationReferences` k `true`.
-
-[!code-xml[](view-compilation/sample/RuntimeCompilation.csproj?highlight=3)]
 
 ::: moniker-end
 

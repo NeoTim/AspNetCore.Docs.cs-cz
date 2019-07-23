@@ -51,7 +51,7 @@ Následující kód ukazuje `HTTP POST Edit` metodu, která zpracovává hodnoty
 
 ::: moniker-end
 
-`[Bind]` Atribut je jedním ze způsobů pro ochranu před [over-pass-the účtování](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost). Vlastnosti v by měly obsahovat pouze `[Bind]` atribut, který chcete změnit. Zobrazit [chránit před útoky over-pass-the účtování kontrolér](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application) Další informace. [Modely ViewModels](http://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/) poskytnout alternativní způsob zabráníte typu over-pass-the účtování.
+`[Bind]` Atribut je jedním ze způsobů pro ochranu před [over-pass-the účtování](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost). Vlastnosti v by měly obsahovat pouze `[Bind]` atribut, který chcete změnit. Zobrazit [chránit před útoky over-pass-the účtování kontrolér](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application) Další informace. [Modely ViewModels](https://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/) poskytnout alternativní způsob zabráníte typu over-pass-the účtování.
 
 Všimněte si, že druhá `Edit` předchází metody akce `[HttpPost]` atribut.
 
@@ -95,7 +95,7 @@ Když systém generování uživatelského rozhraní zobrazení pro úpravy, pro
 
 Všimněte si, jak se má zobrazit šablonu `@model MvcMovie.Models.Movie` příkazu v horní části souboru. `@model MvcMovie.Models.Movie` Určuje, že zobrazení očekává, že model pro zobrazení šablony, která má být typu `Movie`.
 
-Automaticky generovaný kód používá několik metod pomocné rutiny značky pro zjednodušení značka jazyka HTML. - [Pomocné rutiny značky popisek](xref:mvc/views/working-with-forms) zobrazuje název pole ("Title", "ReleaseDate", "Žánr" nebo "Price"). [Pomocné rutiny značky vstup](xref:mvc/views/working-with-forms) vykreslí HTML `<input>` elementu. [Pomocné rutiny značky ověření](xref:mvc/views/working-with-forms) zobrazí všechny zprávy ověření přidružené k této vlastnosti.
+Automaticky generovaný kód používá několik metod pomocné rutiny značky pro zjednodušení značka jazyka HTML. \- [Pomocné rutiny značky popisek](xref:mvc/views/working-with-forms) zobrazuje název pole ("Title", "ReleaseDate", "Žánr" nebo "Price"). [Pomocné rutiny značky vstup](xref:mvc/views/working-with-forms) vykreslí HTML `<input>` elementu. [Pomocné rutiny značky ověření](xref:mvc/views/working-with-forms) zobrazí všechny zprávy ověření přidružené k této vlastnosti.
 
 Spusťte aplikaci a přejděte `/Movies` adresy URL. Klikněte na tlačítko **upravit** odkaz. V prohlížeči zobrazte zdroj stránky. Vygenerovaný kód HTML `<form>` element je uveden níže.
 
@@ -136,7 +136,7 @@ Všechny `HttpGet` metody v kontroleru film podobné tvar. Dostanou video (nebo 
 * [Autor pomocných rutin značek](xref:mvc/views/tag-helpers/authoring)
 * [Ochrana proti padělání požadavků](xref:security/anti-request-forgery)
 * Ochrana vašich kontroléru z [over-pass-the účtování.](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application)
-* [ViewModels](http://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/)
+* [ViewModels](https://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/)
 * [Pomocná rutina značky formuláře](xref:mvc/views/working-with-forms)
 * [Pomocná rutina značky vstupu](xref:mvc/views/working-with-forms)
 * [Pomocná rutina značky popisku](xref:mvc/views/working-with-forms)

@@ -5,12 +5,12 @@ description: Zjistěte, jak číst a manipulace s modelem aplikace k úpravě ch
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/controllers/application-model
-ms.openlocfilehash: 6b0591a877c0d82e0ee6ab002eb6a6650753677b
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: f7f64c8b3a63ec66936772e724edb57037654059
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208593"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815512"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>Práce s modelem aplikace v ASP.NET Core
 
@@ -63,7 +63,7 @@ Potom (`Order=-990`):
 * Přidání parametrů metody akce v kontextu
 * Použití postupu a dalších atributů
 
-Některé vestavěným chováním jsou implementované `DefaultApplicationModelProvider`. Tento zprostředkovatel je zodpovědný za vytváření [ `ControllerModel` ](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel), které zase odkazuje [ `ActionModel` ](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel#Microsoft_AspNetCore_Mvc_ApplicationModels_ActionModel), [ `PropertyModel` ](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel), a [ `ParameterModel` ](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel#Microsoft_AspNetCore_Mvc_ApplicationModels_ParameterModel) instancí. `DefaultApplicationModelProvider` Třída je podrobnosti implementace interní rámec, můžete a bude v budoucnu změnit. 
+Některé vestavěným chováním jsou implementované `DefaultApplicationModelProvider`. Tento zprostředkovatel je zodpovědný za vytváření [ `ControllerModel` ](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel), které zase odkazuje [ `ActionModel` ](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel), [ `PropertyModel` ](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel), a [ `ParameterModel` ](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel) instancí. `DefaultApplicationModelProvider` Třída je podrobnosti implementace interní rámec, můžete a bude v budoucnu změnit. 
 
 `AuthorizationApplicationModelProvider` Zodpovídá za použití chování asociovaných s `AuthorizeFilter` a `AllowAnonymousFilter` atributy. [Další informace o těchto atributů](xref:security/authorization/simple).
 

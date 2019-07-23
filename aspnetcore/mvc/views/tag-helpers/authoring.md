@@ -4,20 +4,20 @@ author: rick-anderson
 description: Zjistěte, jak vytvářet pomocných rutin značek v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/12/2019
+ms.date: 04/29/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 19b7df1abc8765cb9a77487e39c4365fdacf2b65
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: c13e63725298975fc882aa45c4e75de53e1d66a8
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614419"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815161"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>Autor pomocných rutin značek v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="get-started-with-tag-helpers"></a>Začínáme s pomocných rutin značek
 
@@ -59,7 +59,7 @@ To znamená značku ukotvení díky tomu se tento odkaz na e-mailu. Můžete to 
 
    * Výstupní parametr `Process` (a `ProcessAsync`) obsahuje stavové prvek HTML reprezentativní původního zdroje sloužící ke generování značky HTML a obsah služby.
 
-   * Naše název třídy má příponu **Taghelperu.**, což je *není* povinné, ale se považuje za osvědčených postupů konvence. Můžete deklarovat třídu jako:
+   * Naše název třídy má příponu **Taghelperu.** , což je *není* povinné, ale se považuje za osvědčených postupů konvence. Můžete deklarovat třídu jako:
 
    ```csharp
    public class Email : TagHelper
@@ -108,7 +108,9 @@ Aktualizace `EmailTagHelper` třídy následujícím kódem:
 
 Tento postup funguje u atributu "href" tak dlouho, dokud aktuálně neexistuje v kolekci atributů. Můžete také použít `output.Attributes.Add` způsob, jak přidat na konec kolekce atributy značky pomocný atribut příznaku.
 
-1. Aktualizace značky *Views/Home/Contact.cshtml* soubor se tyto změny: [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
+1. Aktualizace značky *Views/Home/Contact.cshtml* soubor se tyto změny:
+
+   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
 
 1. Spusťte aplikaci a ověřte, že se vygeneruje správné odkazy.
 
@@ -191,7 +193,7 @@ Můžete také použít `[HtmlTargetElement]` můžete změnit název cílový e
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/WebsiteInformationTagHelper.cs)]
 
-   * Jak už bylo zmíněno dříve, přeloží pomocných rutin značek-jazyka Pascal C# třídy názvy a vlastnosti pro pomocné rutiny značky do [kebab případ](http://wiki.c2.com/?KebabCase). Proto použít `WebsiteInformationTagHelper` v Razor, napíšete `<website-information />`.
+   * Jak už bylo zmíněno dříve, přeloží pomocných rutin značek-jazyka Pascal C# třídy názvy a vlastnosti pro pomocné rutiny značky do [kebab případ](https://wiki.c2.com/?KebabCase). Proto použít `WebsiteInformationTagHelper` v Razor, napíšete `<website-information />`.
 
    * Nejsou explicitně určení cílového elementu s `[HtmlTargetElement]` atribut, tak výchozí `website-information` budou cílem. Pokud jste provedli následující atribut (Poznámka: není případ kebab ale odpovídá názvu třídy):
 
@@ -205,7 +207,7 @@ Můžete také použít `[HtmlTargetElement]` můžete změnit název cílový e
    [HtmlTargetElement("Website-Information")]
    ```
 
-   * Prvky, které jsou samouzavírací nemají žádný obsah. V tomto příkladu kód Razor používat samouzavírací značky, ale pomocné rutiny značky vytvářet [části](http://www.w3.org/TR/html5/sections.html#the-section-element) – element (což není samouzavírací a vy píšete obsah uvnitř `section` element). Proto je potřeba nastavit `TagMode` k `StartTagAndEndTag` k zápisu výstupu. Alternativně můžete Zakomentovat řádek nastavení `TagMode` a psát kód s koncovou značku. (Příklad kódu je zadáno později v tomto kurzu).
+   * Prvky, které jsou samouzavírací nemají žádný obsah. V tomto příkladu kód Razor používat samouzavírací značky, ale pomocné rutiny značky vytvářet [části](https://www.w3.org/TR/html5/sections.html#the-section-element) – element (což není samouzavírací a vy píšete obsah uvnitř `section` element). Proto je potřeba nastavit `TagMode` k `StartTagAndEndTag` k zápisu výstupu. Alternativně můžete Zakomentovat řádek nastavení `TagMode` a psát kód s koncovou značku. (Příklad kódu je zadáno později v tomto kurzu).
 
    * `$` (Znak dolaru) na následujícím řádku používá [interpolovaný řetězec](/dotnet/csharp/language-reference/keywords/interpolated-strings):
 
@@ -311,3 +313,12 @@ Pomocné rutiny značky poskytují několik vlastností k načtení obsahu.
 [!code-csharp[](../../views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinkerCopy.cs?highlight=5,6,10&range=8-21)]
 
 * Více volání `GetChildContentAsync` vrací stejnou hodnotu a nebude znovu spouštět `TagHelper` subjektu, pokud nepředáte v false parametr určující nepoužívat výsledky uložené v mezipaměti.
+
+## <a name="load-minified-partial-view-taghelper"></a>Načtení částečné zobrazení minifikovaný Taghelperu.
+
+V produkčním prostředí výkon lze zvýšit načtením minifikovaný částečné zobrazení. Abyste mohli využívat minifikovaný částečné zobrazení v produkčním prostředí:
+
+* Vytvořit/nastavení před sestavením proces, který minifikuje částečné zobrazení.
+* Pomocí následujícího kódu můžete načíst minifikovaný částečné zobrazení v jiných vývojových prostředích.
+
+[!code-csharp[](authoring/sample/AuthoringTagHelpers/src/MinifiedVersionTagHelper.cs?name=snippet)]

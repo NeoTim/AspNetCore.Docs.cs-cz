@@ -4,14 +4,14 @@ author: mjrousos
 description: Tipy pro zvýšení výkonu aplikací ASP.NET Core a předcházení běžným problémům s výkonem.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 04/13/2019
+ms.date: 05/10/2019
 uid: performance/performance-best-practices
-ms.openlocfilehash: 095db38cf3102f6e18930efdbbaeeb90dffad8af
-ms.sourcegitcommit: 017b673b3c700d2976b77201d0ac30172e2abc87
+ms.openlocfilehash: 7651dff18f98c60057660c8946c3daa66d272f6a
+ms.sourcegitcommit: ffe3ed7921ec6c7c70abaac1d10703ec9a43374c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59614445"
+ms.lasthandoff: 05/11/2019
+ms.locfileid: "65536072"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>ASP.NET Core Performance Best Practices
 
@@ -44,7 +44,7 @@ Aplikace ASP.NET Core by měly být navrhovány tak, aby dokázaly zpracovat vel
 * API pro přístup k datům a dlouho běžící operace volejte asynchronně.
 * Ujistěte se, že jsou controllery a Razor akce stránek asynchronní. Celý zásobník volání je asynchronní, aby bylo možné využívat [async/await](/dotnet/csharp/programming-guide/concepts/async/) vzory.
 
-A profileru jako například [PerfView](https://github.com/Microsoft/perfview), lze použít k vyhledání vlákna často přidá do [vlákna fondu](/windows/desktop/procthread/thread-pool). `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` Událost označuje vlákno, přidat do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc  -->
+A profileru jako například [PerfView](https://github.com/Microsoft/perfview), lze použít k vyhledání vlákna často přidá do [vlákna fondu](/windows/desktop/procthread/thread-pools). `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` Událost označuje vlákno, přidat do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc  -->
 
 ## <a name="minimize-large-object-allocations"></a>Minimalizujte velké alokace objektů
 
@@ -130,7 +130,7 @@ Aplikace ASP.NET Core s komplexními front-endy často posílají klientům mnoh
 Doporučení:
 
 * **Dělejte:** Použijte [integrovanou podporu](xref:client-side/bundling-and-minification) ASP.NET Core pro sdružování a minifikaci prostředků klienta.
-* **Proveďte** vezměte v úvahu další nástroje třetích stran, jako například [Gulp](xref:client-side/using-gulp) nebo [Webpacku](https://webpack.js.org/) pro klienta komplexní správu prostředků.
+* **Proveďte** vezměte v úvahu další nástroje třetích stran, jako například [Webpacku](https://webpack.js.org/), pro klienta komplexní správu prostředků.
 
 ## <a name="compress-responses"></a>Komprese odpovědí
 

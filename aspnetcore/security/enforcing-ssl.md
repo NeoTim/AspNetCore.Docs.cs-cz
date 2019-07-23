@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/01/2018
 uid: security/enforcing-ssl
-ms.openlocfilehash: 16cfa672fe4a81d9e8f09fc3dd1e6c036edd4c4e
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: 08ce50775d1b5348cb0528a1724cec2e5c72dae2
+ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58208973"
+ms.lasthandoff: 06/17/2019
+ms.locfileid: "67152899"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynucení protokolu HTTPS v ASP.NET Core
 
@@ -24,11 +24,32 @@ Tento dokument ukazuje, jak:
 
 Žádné rozhraní API můžete zabránit posláním citlivých dat na první požadavek klienta.
 
+::: moniker range="< aspnetcore-3.0"
+
 > [!WARNING]
+> ## <a name="api-projects"></a>Projekty rozhraní API
+>
 > Proveďte **není** použít [RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) na webová rozhraní API, která zobrazit citlivé informace. `RequireHttpsAttribute` stavové kódy HTTP se používá pro přesměrování prohlížeče z HTTP na HTTPS. Klienti rozhraní API nemusí pochopit a dodržují přesměrování z HTTP na HTTPS. Tito klienti mohou odesílat informace přes protokol HTTP. Webová rozhraní API by buď:
 >
 > * Nelze naslouchat na HTTP.
 > * Ukončete připojení s stavový kód 400 (Chybný požadavek) a není obsluhovat žádosti.
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+> [!WARNING]
+> ## <a name="api-projects"></a>Projekty rozhraní API
+>
+> Proveďte **není** použít [RequireHttpsAttribute](/dotnet/api/microsoft.aspnetcore.mvc.requirehttpsattribute) na webová rozhraní API, která zobrazit citlivé informace. `RequireHttpsAttribute` stavové kódy HTTP se používá pro přesměrování prohlížeče z HTTP na HTTPS. Klienti rozhraní API nemusí pochopit a dodržují přesměrování z HTTP na HTTPS. Tito klienti mohou odesílat informace přes protokol HTTP. Webová rozhraní API by buď:
+>
+> * Nelze naslouchat na HTTP.
+> * Ukončete připojení s stavový kód 400 (Chybný požadavek) a není obsluhovat žádosti.
+>
+> ## <a name="hsts-and-api-projects"></a>Projekty HSTS a rozhraní API
+>
+> Výchozí rozhraní API projekty neobsahují [HSTS](#hsts) protože HSTS je obecná pouze instrukce prohlížeče. Proveďte další volající, například telefon nebo aplikací klasické pracovní plochy, **není** dodržují podle pokynů. Dokonce i v rámci prohlížeče má jeden ověřené volání rozhraní API přes protokol HTTP rizika v nezabezpečené síti. Zabezpečený přístup, je konfigurace projekty rozhraní API a naslouchat pouze reagovat přes protokol HTTPS.
+
+::: moniker-end
 
 ## <a name="require-https"></a>Vyžadovat protokol HTTPS
 
@@ -160,6 +181,8 @@ Globálně vyžadování protokolu HTTPS (`options.Filters.Add(new RequireHttpsA
 
 ::: moniker range=">= aspnetcore-2.1"
 
+<a name="hsts"></a>
+
 ## <a name="http-strict-transport-security-protocol-hsts"></a>Protokol zabezpečení striktní přenos HTTP (HSTS)
 
 Za [OWASP](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project), [striktní přenos HTTP zabezpečení (HSTS)](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet) je vylepšení zabezpečení přihlášení, která je zadána pomocí hlavičky odpovědi webové aplikace. Když [prohlížeč, který podporuje HSTS](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet#Browser_Support) obdrží toto záhlaví:
@@ -226,6 +249,8 @@ dotnet new webapp --no-https
 
 ::: moniker range=">= aspnetcore-2.1"
 
+<a name="trust"></a>
+
 ## <a name="trust-the-aspnet-core-https-development-certificate-on-windows-and-macos"></a>Důvěřovat certifikátu vývoj pro ASP.NET Core HTTPS ve Windows a macOS
 
 Sada .NET core SDK zahrnuje vývoj nesprávný certifikát HTTPS. Certifikát je nainstalován jako součást prvního spuštění. Například `dotnet --info` vytváří výstup podobný následujícímu:
@@ -253,9 +278,20 @@ dotnet dev-certs https --help
 
 ## <a name="how-to-set-up-a-developer-certificate-for-docker"></a>Jak nastavit certifikát pro vývojáře pro Docker
 
-Zobrazit [tento problém Githubu](https://github.com/aspnet/Docs/issues/6199).
+Zobrazit [tento problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/6199).
 
 ::: moniker-end
+
+<a name="wsl"></a>
+
+## <a name="trust-https-certificate-from-windows-subsystem-for-linux"></a>Důvěřovat certifikátu protokolu HTTPS ze subsystému Windows pro Linux
+
+Subsystém Windows pro Linux (WSL) generuje HTTPS certifikátu podepsaného svým držitelem. Postup konfigurace úložiště certifikátů Windows důvěřovat certifikátům WSL:
+
+* Spuštěním následujícího příkazu exportujte certifikát WSL vygeneruje: `dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
+* V okně WSL spusťte následující příkaz: `ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
+
+  Ve výstupu předchozího příkazu nastaví proměnné prostředí, takže tento důvěryhodný certifikát Windows používá Linux.
 
 ## <a name="additional-information"></a>Další informace
 

@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 08/30/2018
 uid: client-side/libman/libman-cli
 ms.openlocfilehash: 5667f79648a60b8fd9496f8041ef08891ab766af
-ms.sourcegitcommit: 9bdba90b2c97a4016188434657194b2d7027d6e3
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47402082"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900882"
 ---
 # <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>Použití rozhraní příkazového řádku (CLI) LibMan s ASP.NET Core
 
@@ -171,7 +171,7 @@ Jsou k dispozici pro následující možnosti `libman install` příkaz:
 
 * `--files <FILE>`
 
-  Zadejte název souboru k instalaci z knihovny. Pokud není zadán, nainstalují se všechny soubory z knihovny. Zadejte jeden `--files` možnost na soubor k instalaci. Jsou podporovány příliš relativní cesty. Příklad: `--files dist/browser/signalr.js`.
+  Zadejte název souboru k instalaci z knihovny. Pokud není zadán, nainstalují se všechny soubory z knihovny. Zadejte jeden `--files` možnost na soubor k instalaci. Jsou podporovány příliš relativní cesty. Například: `--files dist/browser/signalr.js`.
 
 * `-p|--provider <PROVIDER>`
 

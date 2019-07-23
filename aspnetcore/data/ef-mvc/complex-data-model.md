@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 2f1acb8d0d665b0ae809e596891b2487fd17e63e
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: 8ef458108e60850d0d54e7b1e6472c5b92984ccc
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59983039"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813546"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>Kurz: Vytvoření složitého datového modelu – ASP.NET MVC s EF Core
 
@@ -397,7 +397,7 @@ Tento kód přidá nové entity a nakonfiguruje CourseAssignment entita složen�
 
 ## <a name="about-a-fluent-api-alternative"></a>O fluent alternativu rozhraní API
 
-Kód v `OnModelCreating` metodu `DbContext` třídy používá *rozhraní fluent API* konfigurace EF chování. Rozhraní API se nazývá "fluent", protože je často používána zavěšování řadu volání metody společně na jediném příkazu, jako v následujícím příkladu od [EF Core dokumentaci](/ef/core/modeling/#methods-of-configuration):
+Kód v `OnModelCreating` metodu `DbContext` třídy používá *rozhraní fluent API* konfigurace EF chování. Rozhraní API se nazývá "fluent", protože je často používána zavěšování řadu volání metody společně na jediném příkazu, jako v následujícím příkladu od [EF Core dokumentaci](/ef/core/modeling/#use-fluent-api-to-configure-a-model):
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -412,7 +412,7 @@ V tomto kurzu se při použití rozhraní fluent API pouze pro mapování datab�
 
 Někteří vývojáři dávají přednost používání rozhraní fluent API výhradně tak, aby se zachovat jejich tříd entit "vyčištění." Pokud chcete, a existuje několik přizpůsobení, které lze provést pouze s použitím rozhraní fluent API je možné kombinovat atributy a dynamického rozhraní API, ale obecně doporučeným postupem je zvolte jednu z těchto dvou přístupů a použití, který konzistentně dosahovat. Pokud používáte obě, mějte na paměti, že bez ohledu na to dojde ke konfliktu, rozhraní Fluent API přepisuje atributy.
 
-Další informace o atributech vs. rozhraní fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/#methods-of-configuration).
+Další informace o atributech vs. rozhraní fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/).
 
 ## <a name="entity-diagram-showing-relationships"></a>Diagram znázorňující entitami
 
@@ -509,9 +509,9 @@ Klikněte pravým tlačítkem myši **CourseAssignment** tabulce a vybrat **Data
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V tomto kurzu se naučíte:
 

@@ -1,3 +1,5 @@
 * [Visual Studio Code](https://code.visualstudio.com/download)
 * [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
-* [C#pro verzi Visual Studio Code 1.17.1 nebo novější](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [C#pro Visual Studio Code (nejnovější verze)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+
+Pokyny pro Visual Studio Code používají .NET Core CLI pro ASP.NET Core vývojové funkce, jako je vytváření projektu. Můžete postupovat podle těchto pokynů na libovolné platformě (macOS, Linux nebo Windows) a pomocí editoru kódu. Pokud použijete jinou než Visual Studio Code, může se vyžadovat menší změna.

@@ -5,12 +5,12 @@ description: Další informace o skriptování mezi weby (XSS) a techniky pro ř
 ms.author: riande
 ms.date: 10/02/2018
 uid: security/cross-site-scripting
-ms.openlocfilehash: 50f0211a2c64708d9b788dd10ce9064e66014d55
-ms.sourcegitcommit: a4dcca4f1cb81227c5ed3c92dc0e28be6e99447b
+ms.openlocfilehash: 1e9e988be68313cfd493832519c1be89335d6e48
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/10/2018
-ms.locfileid: "48910522"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815213"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>Zabránit webů skriptování mezi weby (XSS) v ASP.NET Core
 
@@ -214,7 +214,7 @@ Tento příklad rozšiřuje seznamu bezpečných zahrnout CjkUnifiedIdeographs r
 <p>This link text is in Chinese: <a href="/">汉语/漢語</a></p>
    ```
 
-Seznamu bezpečných rozsahy jsou zadané jako grafy kódu Unicode, ne jazyky. [Unicode standard](http://unicode.org/) má seznam [kódu grafy](http://www.unicode.org/charts/index.html) můžete použít k vyhledání graf obsahující znaky. Každý kodér, Html, JavaScript a adresu Url, musí být nakonfigurované samostatně.
+Seznamu bezpečných rozsahy jsou zadané jako grafy kódu Unicode, ne jazyky. [Unicode standard](https://unicode.org/) má seznam [kódu grafy](https://www.unicode.org/charts/index.html) můžete použít k vyhledání graf obsahující znaky. Každý kodér, Html, JavaScript a adresu Url, musí být nakonfigurované samostatně.
 
 > [!NOTE]
 > Přizpůsobení seznamu bezpečných ovlivňuje pouze Source prostřednictvím DI kodérů. Pokud přímý přístup k kodéru prostřednictvím `System.Text.Encodings.Web.*Encoder.Default` pak výchozí základní latinky se použije pouze safelist.

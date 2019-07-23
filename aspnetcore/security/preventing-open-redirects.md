@@ -5,12 +5,12 @@ description: Ukazuje, jak zabránit v otevřeném přesměrování útoků, kter
 ms.author: riande
 ms.date: 07/07/2017
 uid: security/preventing-open-redirects
-ms.openlocfilehash: 0896189d2caaccb19647eb7c6d57f29dfc0290dd
-ms.sourcegitcommit: d53e0cc71542b92de867bcce51575b054886f529
+ms.openlocfilehash: 9d8cac8708fe9aeadba5af1287362a20df7f6bfe
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2018
-ms.locfileid: "41756744"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815490"
 ---
 # <a name="prevent-open-redirect-attacks-in-aspnet-core"></a>Zabránění útokům na otevřeném přesměrování v ASP.NET Core
 
@@ -58,7 +58,7 @@ public IActionResult SomeAction(string redirectUrl)
 
 ### <a name="islocalurl"></a>IsLocalUrl
 
-Použití [IsLocalUrl](/dotnet/api/Microsoft.AspNetCore.Mvc.IUrlHelper?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_IUrlHelper_IsLocalUrl_System_String_) metoda test adresy URL před přesměrování:
+Použití [IsLocalUrl](/dotnet/api/Microsoft.AspNetCore.Mvc.IUrlHelper.islocalurl#Microsoft_AspNetCore_Mvc_IUrlHelper_IsLocalUrl_System_String_) metoda test adresy URL před přesměrování:
 
 Následující příklad ukazuje, jak zjistit, jestli je adresa URL místní před přesměrování.
 

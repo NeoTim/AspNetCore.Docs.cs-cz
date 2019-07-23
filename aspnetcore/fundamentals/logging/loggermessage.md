@@ -5,14 +5,14 @@ description: Další informace o použití LoggerMessage k vytváření delegát
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/31/2019
+ms.date: 04/24/2019
 uid: fundamentals/logging/loggermessage
-ms.openlocfilehash: 7a030b4bb754f65f8d93e51f203344c2dc02a634
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: a82dfa36330e987f03f576d0f80198e3bad7b429
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58809260"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65085591"
 ---
 # <a name="high-performance-logging-with-loggermessage-in-aspnet-core"></a>Vysoce výkonné protokolování pomocí LoggerMessage v ASP.NET Core
 
@@ -25,7 +25,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 * Metody rozšíření protokolování vyžadují "zabalení" (převod) typy hodnot, jako například `int`, do `object`. <xref:Microsoft.Extensions.Logging.LoggerMessage> Vzor se vyhnete zabalení pomocí statické <xref:System.Action> pole a metody rozšíření se silnými typy parametrů.
 * Metody rozšíření protokolování musí parsovat šablonu zprávy (pojmenované formátovací řetězec) pokaždé, když je zapsat zprávu protokolu. <xref:Microsoft.Extensions.Logging.LoggerMessage> vyžaduje pouze pokud zpráva je definován jednou analýze šablony.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/2.x/LoggerMessageSamples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/2.x/LoggerMessageSample) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace předvádí <xref:Microsoft.Extensions.Logging.LoggerMessage> funkce s nabídkou Základní sledování systému. Aplikace přidá a odstraní uvozovky použití databáze v paměti. Tyto operace jsou prováděny, zprávy protokolu jsou generovány pomocí <xref:Microsoft.Extensions.Logging.LoggerMessage> vzor.
 

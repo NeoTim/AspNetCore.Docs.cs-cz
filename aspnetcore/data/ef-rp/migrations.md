@@ -3,20 +3,16 @@ title: Stránky Razor s EF Core v ASP.NET Core – migrace - 4 z 8
 author: rick-anderson
 description: V tomto kurzu začnete používat funkci migrace EF Core ke správě změn datových modelů v aplikaci ASP.NET Core MVC.
 ms.author: riande
-ms.date: 6/31/2017
+ms.date: 06/30/2017
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 1803c6d3956121e4e7091f4f951917425e87c335
-ms.sourcegitcommit: 7d6019f762fc5b8cbedcd69801e8310f51a17c18
+ms.openlocfilehash: 54225a8126e04eb4ff3a6a0cde9d305249299887
+ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419469"
+ms.lasthandoff: 07/15/2019
+ms.locfileid: "68223870"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – migrace - 4 z 8
-
-[!INCLUDE[2.0 version](~/includes/RP-EF/20-pdf.md)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 Podle [Petr Dykstra](https://github.com/tdykstra), [Jan Macek P](https://twitter.com/thereformedprog), a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -25,7 +21,7 @@ Podle [Petr Dykstra](https://github.com/tdykstra), [Jan Macek P](https://twitter
 V tomto kurzu se používá funkce migrace EF Core ke správě změn datových modelů.
 
 Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace](
-https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
 
 Když se nová aplikace vyvíjí, model data často změny. Pokaždé, když změny modelu model získá synchronizován s databází. Tento kurz se tím, že konfigurace technologie Entity Framework pro vytvoření databáze, pokud neexistuje. Pokaždé, když datový model změny:
 
@@ -161,7 +157,7 @@ EF Core používá `__MigrationsHistory` tabulky zobrazíte, pokud žádné migr
 ## <a name="troubleshooting"></a>Poradce při potížích
 
 Stáhněte si [dokončené aplikace](
-https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part4-migrations).
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part4-migrations).
 
 Aplikace generuje následující výjimku:
 
@@ -176,10 +172,10 @@ Login failed for user 'user name'.
 ### <a name="additional-resources"></a>Další zdroje
 
 * [Verzi tohoto kurzu na webu YouTube](https://www.youtube.com/watch?v=OWSUuMLKTJo)
-* [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).
+* [.NET core CLI](/ef/core/miscellaneous/cli/dotnet).
 * [Konzola Správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
 
-::: moniker-end
+
 
 > [!div class="step-by-step"]
 > [Předchozí](xref:data/ef-rp/sort-filter-page)

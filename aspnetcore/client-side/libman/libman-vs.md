@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/20/2018
 uid: client-side/libman/libman-vs
-ms.openlocfilehash: 727bd80b7f37f6ebd9d37b7aab1aa6c33b85678c
-ms.sourcegitcommit: 375e9a67f5e1f7b0faaa056b4b46294cc70f55b7
+ms.openlocfilehash: ebfb405516d968bf5d5b8cff956a9892457027f2
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2018
-ms.locfileid: "50206724"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813461"
 ---
 # <a name="use-libman-with-aspnet-core-in-visual-studio"></a>LibMan pomocí ASP.NET Core v sadě Visual Studio
 
@@ -24,11 +24,11 @@ Visual Studio obsahuje integrovanou podporu [LibMan](xref:client-side/libman/ind
 * Dialog pro hledání pro hledání knihoven a přidávání souborů do projektu.
 * Podporu pro editaci *libman.json*&mdash;LibMan souboru manifestu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/client-side/libman/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/client-side/libman/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
 ## <a name="prerequisites"></a>Požadavky
 
-* Visual Studio 2017 verze 15,8 nebo novější s **vývoj pro ASP.NET a web** pracovního vytížení
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s **vývoj pro ASP.NET a web** pracovního vytížení
 
 ## <a name="add-library-files"></a>Přidejte soubory knihovny
 
@@ -64,9 +64,9 @@ Postupujte podle těchto kroků nainstalujte klientské knihovny:
   
   |Spustit umístění                           |Navrhované složky      |
   |------------------------------------------|----------------------|
-  |kořen projektu (Pokud *wwwroot* existuje)        |*Wwwroot/lib/jquery /* |
-  |kořen projektu (Pokud *wwwroot* neexistuje) |*lib/jquery /*         |
-  |*Stránky* složky v projektu                 |*Stránky/jquery /*       |
+  |kořen projektu (Pokud *wwwroot* existuje)        |*wwwroot/lib/jquery/* |
+  |kořen projektu (Pokud *wwwroot* neexistuje) |*lib/jquery/*         |
+  |*Stránky* složky v projektu                 |*Pages/jquery/*       |
 
 * Klikněte na tlačítko **nainstalovat** tlačítko a stáhněte si soubory na konfiguraci v *libman.json*.
 * Zkontrolujte **Správce knihovny** informačního kanálu **výstup** okno pro podrobné informace o instalaci. Příklad:
@@ -94,13 +94,13 @@ Chcete-li otevřít *libman.json* pro úpravy, existují tyto možnosti:
 
 **&#8224;** Pokud *libman.json* soubor v kořenové složce projektu již neexistuje, vytvoří se s obsahem výchozí položku šablony.
 
-Visual Studio nabízí bohaté možnosti JSON úpravy podpory, jako je například zabarvení, formátování, technologie IntelliSense a ověřování schématu. Schéma JSON manifestu LibMan se nachází v umístění [ http://json.schemastore.org/libman ](http://json.schemastore.org/libman).
+Visual Studio nabízí bohaté možnosti JSON úpravy podpory, jako je například zabarvení, formátování, technologie IntelliSense a ověřování schématu. Schéma JSON manifestu LibMan se nachází v umístění [ https://json.schemastore.org/libman ](https://json.schemastore.org/libman).
 
 Pomocí následující soubor manifestu LibMan načte soubory za definované v konfiguraci `libraries` vlastnost. Vysvětlení literály objektů definovaných v rámci `libraries` následující:
 
 * Podmnožinu [jQuery](https://jquery.com/) verze 3.3.1 je načten z CDNJS zprostředkovatele. Dílčí je definována v `files` vlastnost&mdash;*jquery.min.js*, *jquery.js*, a *jquery.min.map*. Soubory jsou umístěny v projektu *wwwroot/lib/jquery* složky.
 * Podkladové [Bootstrap](https://getbootstrap.com/) verze 4.1.3 je načten a je umístěná v *wwwroot/lib/bootstrap* složky. Literál objektu `provider` vlastnosti přepsání `defaultProvider` hodnotu vlastnosti. LibMan načte Bootstrap soubory z unpkg zprostředkovatele.
-* Podmnožinu [Lodash](https://lodash.com/) schválila orgán v rámci organizace. *Lodash.js* a *lodash.min.js* soubory se načítají z místního systému souborů na *C:\\temp\\lodash\\*. Soubory se zkopírují do projektu *wwwroot/lib/lodash* složky.
+* Podmnožinu [Lodash](https://lodash.com/) schválila orgán v rámci organizace. *Lodash.js* a *lodash.min.js* soubory se načítají z místního systému souborů na *C:\\temp\\lodash\\* . Soubory se zkopírují do projektu *wwwroot/lib/lodash* složky.
 
 [!code-json[](samples/LibManSample/libman.json)]
 
@@ -199,9 +199,9 @@ Operace vyčištění odstraní jenom soubory z projektu. Soubory knihoven zůst
 
 Chcete-li odinstalovat soubory knihovny:
 
-* Otevřít *libman.json*.
+* Open *libman.json*.
 * Pozici blikajícího kurzoru dovnitř odpovídající `libraries` literálu objektu.
-* Klikněte na ikonu žárovky, která se zobrazí u levého okraje a vyberte **odinstalovat \<library_name > @\<library_version >**:
+* Klikněte na ikonu žárovky, která se zobrazí u levého okraje a vyberte **odinstalovat \<library_name > @\<library_version >** :
 
   ![Knihovna možnost místní nabídky odinstalovat](_static/uninstall-menu-option.png)
 
@@ -211,7 +211,7 @@ Alternativně můžete ručně upravit a uložit LibMan manifest (*libman.json*)
 
 Vyhledat aktualizovanou knihovní verze:
 
-* Otevřít *libman.json*.
+* Open *libman.json*.
 * Pozici blikajícího kurzoru dovnitř odpovídající `libraries` literálu objektu.
 * Klikněte na ikonu žárovky, která se zobrazí na levém okraji. Najeďte myší na **vyhledávat aktualizace**.
 

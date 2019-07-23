@@ -3,14 +3,14 @@ title: Zásady schémata v ASP.NET Core
 author: rick-anderson
 description: Schémata ověřování zásad usnadňují mít jedno logické schéma ověřování
 ms.author: riande
-ms.date: 2/28/2019
+ms.date: 02/28/2019
 uid: security/authentication/policyschemes
-ms.openlocfilehash: c310b61e14df2b7846e32a602bb75914a5850aff
-ms.sourcegitcommit: 036d4b03fd86ca5bb378198e29ecf2704257f7b2
+ms.openlocfilehash: be03f349455c673b0739935ad20e596325c8cb74
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/05/2019
-ms.locfileid: "57346804"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815287"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>Zásady schémata v ASP.NET Core
 
@@ -32,7 +32,7 @@ Následující příklad ukazuje vyšší úrovně schéma, které kombinuje ni�
 
 [!code-csharp[sample](policyschemes/samples/Startup.cs?name=snippet1)]
 
-Následující příklad umožňuje dynamický výběr schémata na základě žádosti. To znamená jak kombinovat soubory cookie a ověřování rozhraní API.
+Následující příklad umožňuje dynamický výběr schémata na základě žádosti. To znamená jak kombinovat soubory cookie a rozhraní API ověřování:
 
  <!-- REVIEW, missing If set in public Func<HttpContext, string> ForwardDefaultSelector -->
 

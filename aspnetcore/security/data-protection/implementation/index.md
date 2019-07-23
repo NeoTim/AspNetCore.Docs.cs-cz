@@ -1,18 +1,18 @@
 ---
-title: Ochrana dat základní implementace technologie ASP.NET
+title: ASP.NET Core ochranu dat provádění
 author: rick-anderson
-description: Zjistit různé implementace témata týkající se ochrany dat ASP.NET Core.
+description: Objevte různá témata implementace ochrany dat ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/index
 ms.openlocfilehash: a21738ee2c092a9d14b7d448f7d3c7694f456ca8
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36273820"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64901629"
 ---
-# <a name="aspnet-core-data-protection-implementation"></a>Ochrana dat základní implementace technologie ASP.NET
+# <a name="aspnet-core-data-protection-implementation"></a>ASP.NET Core ochranu dat provádění
 
 * [Podrobnosti ověřeného šifrování](xref:security/data-protection/implementation/authenticated-encryption-details)
 

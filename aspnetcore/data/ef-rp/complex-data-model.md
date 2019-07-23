@@ -6,18 +6,14 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 9f22841a55fd2c2db76e36a5f5389c220a8d2acd
-ms.sourcegitcommit: eb784a68219b4829d8e50c8a334c38d4b94e0cfa
+ms.openlocfilehash: f995f3f74da4910de518af875eb89349a8457573
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59982888"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813715"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>Stránky Razor s EF Core v ASP.NET Core – Model dat – 5 z 8
-
-[!INCLUDE[2.0 version](~/includes/RP-EF/20-pdf.md)]
-
-::: moniker range=">= aspnetcore-2.1"
 
 Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -33,7 +29,7 @@ Tříd entit pro dokončené datový model je vidět na následujícím obrázku
 ![Entity diagram](complex-data-model/_static/diagram.png)
 
 Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace](
-https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
 
 ## <a name="customize-the-data-model-with-attributes"></a>Přizpůsobte si datový model s atributy
 
@@ -490,7 +486,7 @@ Předchozí kód přidá nové entity a nakonfiguruje `CourseAssignment` složen
 
 ## <a name="fluent-api-alternative-to-attributes"></a>Fluent API alternativou k atributům
 
-`OnModelCreating` Metoda v předchozím kódu používá *rozhraní fluent API* konfigurace chování EF Core. Rozhraní API se nazývá "fluent", protože je často používána zavěšování řadu volání metody společně na jediném příkazu. [Následující kód](/ef/core/modeling/#methods-of-configuration) je příkladem rozhraní fluent API:
+`OnModelCreating` Metoda v předchozím kódu používá *rozhraní fluent API* konfigurace chování EF Core. Rozhraní API se nazývá "fluent", protože je často používána zavěšování řadu volání metody společně na jediném příkazu. [Následující kód](/ef/core/modeling/#use-fluent-api-to-configure-a-model) je příkladem rozhraní fluent API:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -516,7 +512,7 @@ Některé atributy použité v tomto kurzu se používají pro:
 * EF Core jenom konfiguraci (například `HasKey`).
 * Konfigurace ověření a EF Core (například `[StringLength(50)]`).
 
-Další informace o atributech vs. rozhraní fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/#methods-of-configuration).
+Další informace o atributech vs. rozhraní fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/).
 
 ## <a name="entity-diagram-showing-relationships"></a>Diagram znázorňující entitami
 
@@ -670,7 +666,7 @@ Další kurz se zaměřuje na související data.
 * [YouTube verzi tohoto kurzu (část 1)](https://www.youtube.com/watch?v=0n2f0ObgCoA)
 * [YouTube verzi tohoto kurzu (část 2)](https://www.youtube.com/watch?v=Je0Z5K1TNmY)
 
-::: moniker-end
+
 
 > [!div class="step-by-step"]
 > [Předchozí](xref:data/ef-rp/migrations)

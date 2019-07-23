@@ -3,14 +3,15 @@ title: Co je nového v ASP.NET Core 2.0
 author: rick-anderson
 description: Informace o nových funkcích v ASP.NET Core 2.0.
 ms.author: riande
-ms.date: 07/10/2017
+ms.custom: mvc
+ms.date: 05/28/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 60e44e64bd1cfada0143e374f6f51dec0e4e84f8
-ms.sourcegitcommit: 5f299daa7c8102d56a63b214b9a34cc4bc87bc42
+ms.openlocfilehash: dac5a48042a71774cb884e30a166be68bee69691
+ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58209882"
+ms.lasthandoff: 06/13/2019
+ms.locfileid: "67048107"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2.0
 
@@ -47,7 +48,7 @@ ASP.NET Core 2.0 balíčky cílit na .NET Standard 2.0. Balíčky mohou odkazova
 
 `IConfiguration` Instance služby kontejneru přidá ve výchozím nastavení v ASP.NET Core 2.0. `IConfiguration` ve službách kontejneru usnadňuje pro aplikace pro načtení hodnoty konfigurace z kontejneru.
 
-Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/Docs/issues/3387).
+Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/3387).
 
 ## <a name="logging-update"></a>Protokolování aktualizace
 
@@ -59,9 +60,9 @@ Další informace najdete v tématu [Úvod k protokolování](xref:fundamentals/
 
 Konfigurace ověřování pro aplikaci s využitím DI usnadňuje nový model ověřování.
 
-Nové šablony jsou dostupné pro konfiguraci ověřování pro webové aplikace a webová rozhraní API pomocí služby [Azure AD B2C] (https://azure.microsoft.com/services/active-directory-b2c/).
+Nové šablony jsou dostupné pro konfiguraci ověřování pro webové aplikace a webové rozhraní API pomocí [Azure AD B2C](https://azure.microsoft.com/services/active-directory-b2c/).
 
-Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/Docs/issues/3054).
+Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/3054).
 
 ## <a name="identity-update"></a>Aktualizace identity
 
@@ -75,7 +76,7 @@ Další informace o ověřování změny ve verzi 2.0 naleznete na následujíc�
 
 ## <a name="spa-templates"></a>Šablon SPA
 
-Jeden šablony projektu stránka aplikace (SPA) pro Angular, Aurelia, knihovnou Knockout.js, React.js a React.js s Reduxem jsou k dispozici. Aktualizovali jsme Angular šablony Angular 4. Jsou k dispozici ve výchozím nastavení; šablony Angular a React informace o tom, jak získat další šablony najdete v tématu [vytvořte nový projekt SPA](xref:client-side/spa-services#creating-a-new-project). Informace o tom, jak vytvářet aplikace SPA v ASP.NET Core najdete v tématu [použití služeb JavaScriptServices pro vytváření jednostránkové aplikace](xref:client-side/spa-services).
+Jeden šablony projektu stránka aplikace (SPA) pro Angular, Aurelia, knihovnou Knockout.js, React.js a React.js s Reduxem jsou k dispozici. Aktualizovali jsme Angular šablony Angular 4. Jsou k dispozici ve výchozím nastavení; šablony Angular a React informace o tom, jak získat další šablony najdete v tématu [vytvořte nový projekt SPA](xref:client-side/spa-services#create-a-new-project). Informace o tom, jak vytvářet aplikace SPA v ASP.NET Core najdete v tématu <xref:client-side/spa-services>.
 
 ## <a name="kestrel-improvements"></a>Vylepšení kestrel
 
@@ -113,7 +114,7 @@ Hostitelská prostředí lze nyní vložení navíc závislosti a spouštění k
 
 V technologii ASP.NET Core 2.0, tato funkce slouží k automaticky povolit diagnostiku Application Insights při ladění v sadě Visual Studio a (po vyjádření výslovného souhlasu) při spuštění v Azure App Services. V důsledku toho šablony projektu už přidat balíčky Application Insights a kódu ve výchozím nastavení.
 
-Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/Docs/issues/3389).
+Informace o stavu plánované dokumentaci najdete v tématu [problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/3389).
 
 ## <a name="automatic-use-of-anti-forgery-tokens"></a>Automatické použití tokenů proti padělání
 

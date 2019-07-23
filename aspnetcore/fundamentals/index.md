@@ -5,14 +5,14 @@ description: Seznamte se se základními koncepty pro vytváření aplikací ASP
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/31/2019
+ms.date: 05/11/2019
 uid: fundamentals/index
-ms.openlocfilehash: a1fed574db0baab391ebb9cfc44664ceddbfa69b
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: a6c848987c97103864fd5410922346e85a68c353
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "58809286"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856238"
 ---
 # <a name="aspnet-core-fundamentals"></a>Základy ASP.NET Core
 
@@ -27,6 +27,7 @@ Třída `Startup` je místo, kde:
 
 * Kód pro konfiguraci (nebo *registraci*) služeb je přidán do metody `Startup.ConfigureServices`. *Služby* jsou komponenty, které se používají v aplikaci. Například kontextový objekt Entity Framework Core je takovou službou.
 * Kód pro konfiguraci kanálu pro zpracování požadavků (request handling pipeline) je přidán do metody `Startup.Configure`. Kanál se skládá z řady *middlewarových* komponent. Middleware může třeba obsluhovat požadavky na statické soubory nebo přesměrovávání požadavků HTTP na HTTPS. Každý middleware provádí asynchronní operace na kontextu `HttpContext` a následně vyvolá další middleware v kanálu nebo ukončí požadavek.
+
 
 Zde je ukázka třídy `Startup`:
 
@@ -60,9 +61,7 @@ ASP.NET Core obsahuje bohatou sadu integrovaných middleware a zároveň je mož
 
 Další informace naleznete v tématu <xref:fundamentals/middleware/index>.
 
-<a id="host"/>
-
-## <a name="the-host"></a>Hostitel
+## <a name="host"></a>Hostitel
 
 ASP.NET Core aplikace vytváří *hostitele* při spuštění. Hostitel je objekt, který zapouzdřuje všechny prostředky aplikace, jako například:
 
@@ -88,9 +87,12 @@ Architektura poskytuje metody `CreateDefaultBuilder` a `ConfigureWebHostDefaults
 
 Zde je ukázkový kód, který vytváří hostitele. Metody, které nastavují hostitele běžně používanými možnosti, jsou zvýrazněné:
 
-[!code-csharp[](index/snapshots/3.x/Program1.cs?highlight=9-10)]
 
-Další informace naleznete v tématu <xref:fundamentals/host/generic-host> a <xref:fundamentals/host/web-host>.
+* Použití [Kestrelu](#servers) jako webového serveru a povolení integrace do služby IIS.
+* Načtení konfigurace z *appsettings.json*, *appsettings.{ Název prostředí }.json*, proměnných prostředí, argumentů příkazového řádku a dalších zdrojů konfigurace.
+* Odeslání výstupu protokolování do konzoly a zprostředkovatelů ladění.
+
+Další informace naleznete v tématu <xref:fundamentals/host/generic-host>.
 
 ::: moniker-end
 
@@ -108,11 +110,15 @@ Zde je ukázkový kód, který vytváří hostitele:
 
 Další informace naleznete v tématu <xref:fundamentals/host/web-host>.
 
-::: moniker-end
+
+[!code-csharp[](index/snapshots/2.x/Program1.cs)]
 
 ### <a name="advanced-host-scenarios"></a>Pokročilé scénáře s hostitelem
 
-::: moniker range=">= aspnetcore-3.0"
+
+* Použití [Kestrelu](#servers) jako webového serveru a povolení integrace do služby IIS.
+* Načtení konfigurace z *appsettings.json*, *appsettings.{ Název prostředí }.json*, proměnných prostředí, argumentů příkazového řádku a dalších zdrojů konfigurace.
+* Odeslání výstupu protokolování do konzoly a zprostředkovatelů ladění.
 
 Obecný hostitel je k dispozici pro libovolnou aplikaci .NET Core &ndash; nejen pro aplikace ASP.NET Core. Obecný hostitel (třída `Host`) umožňuje jiným typům aplikací využívat společná rozšíření architektury, jako jsou například protokolování, DI, konfigurace a správa životního cyklu aplikace. Další informace naleznete v tématu <xref:fundamentals/host/generic-host>.
 
@@ -125,6 +131,7 @@ Webový hostitel je navržen pro použití s implementací HTTP serveru, který 
 ::: moniker-end
 
 Hostitele můžete také využít pro spouštění úlohy na pozadí. Další informace naleznete v tématu <xref:fundamentals/host/hosted-services>.
+
 
 ## <a name="servers"></a>Servery
 
@@ -189,6 +196,7 @@ Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
 ASP.NET Core využívá *vzor možností nastavení* pro ukládání a načítání hodnot konfigurace, kde je to možné. *Vzor možností nastavení* využívá třídy pro reprezentaci skupin souvisejících nastavení.
 
+
 Následující kód například nastavuje možnosti Websocketů:
 
 ```csharp
@@ -226,6 +234,7 @@ ASP.NET Core podporuje API pro protokolování, které funguje s množstvím zab
 
 Zapisujte do protokolu kdekoli v kódu vaší aplikace voláním patřičných metod objektu `ILogger`, který je možné získat pomocí vkládání  závislostí.
 
+
 Zde je ukázkový kód, který používá objekt `ILogger`, se zvýrazněním konstruktorového vkládání a protokolovacích metod.
 
 [!code-csharp[](index/snapshots/2.x/TodoController.cs?highlight=5,13,17)]
@@ -257,6 +266,7 @@ Implementace `IHttpClientFactory` je k dispozici pro vytváření instancí `Htt
 
 * Poskytuje centrální místo pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Například *github* klient může být zaregistrován a nakonfigurován tak, aby přistupoval ke GitHubu. Výchozí klient může být  zaregistrován k jiným účelům.
 * Podporuje registraci a řetězení více delegujících obslužných rutin k vytvoření middlewarového kanálu požadavků. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
+
 * Se integruje s *Polly*, oblíbenou knihovnou třetí strany pro zpracování přechodných chyb.
 * Spravuje sdružování a životní cyklus instancí `HttpClientMessageHandler`, aby zabránil častým problémům s DNS, ke kterým dochází při manuální správě životnosti `HttpClient`.
 * Přidává konfigurovatelné protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů, které jsou vytvořeny objektem pro vytváření (Factory).
@@ -284,5 +294,6 @@ Další informace najdete v tématu [kořenový adresář obsahu](xref:fundament
 Kořenový adresář webu (označovaný také jako *webroot*) je základní cesta k veřejným, statickým prostředkům, jako jsou CSS styly, JavaScript a soubory obrázků. Middleware pro statické soubory bude ve výchozím nastavení obsluhovat pouze soubory z tohoto kořenového adresáře webu (a jeho podadresářů). Výchozí hodnota kořenového adresáře webu je *{Kořenový adresář obsahu} / wwwroot*, jiné umístění však může být zadáno při [vytváření hostitele](#host).
 
 V Razor souborech (*.cshtml*) odkazuje symbol vlnovky následované lomítkem `~/` na kořenový adresář webu. Cesty začínající `~/` jsou označovány jako virtuální cesty.
+
 
 Další informace naleznete v tématu <xref:fundamentals/static-files>.

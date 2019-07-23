@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 07/16/2018
 uid: security/data-protection/implementation/key-encryption-at-rest
 ms.openlocfilehash: 52c3137dbe467096364b42430c92aecc7c15e313
-ms.sourcegitcommit: 8f8924ce4eb9effeaf489f177fb01b66867da16f
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2018
-ms.locfileid: "39219287"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64898773"
 ---
 # <a name="key-encryption-at-rest-in-aspnet-core"></a>Šifrování klíčů v klidovém stavu uložených v ASP.NET Core
 

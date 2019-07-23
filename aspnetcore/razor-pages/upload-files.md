@@ -7,24 +7,24 @@ ms.author: riande
 ms.date: 11/10/2018
 ms.custom: mvc, seodec18
 uid: razor-pages/upload-files
-ms.openlocfilehash: a12653e5dc99ad731de63e151af6dbdbe38ffefc
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 14d10424951e8ec3c7909d001c6f86e5fcb45d26
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165219"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815034"
 ---
 # <a name="upload-files-to-a-razor-page-in-aspnet-core"></a>Nahrání souborů do stránky v ASP.NET Core Razor
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Toto téma staví na [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample) v <xref:tutorials/razor-pages/razor-pages-start>.
+Toto téma staví na [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample) v <xref:tutorials/razor-pages/razor-pages-start>.
 
 Toto téma ukazuje, jak použít jednoduchý model vazby k nahrání souborů, což funguje dobře pro nahrávání malých souborů. Informace o datových proudů velkých souborů, najdete v části [nahrávání velkých souborů pomocí streamování](xref:mvc/models/file-uploads#uploading-large-files-with-streaming).
 
 V následujících krocích se funkci odesílání souborů plán video přidá do ukázkové aplikace. Plán video představuje `Schedule` třídy. Třída zahrnuje dvě verze plánu. Jedna verze je poskytováno zákazníkům, `PublicSchedule`. Jiné verze se používá pro zaměstnance společnosti `PrivateSchedule`. Každá verze je odeslán jako samostatný soubor. Tento kurz ukazuje, jak provést dvě nahrávání souborů ze stránky s jeden příspěvek na server.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/upload-files/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/upload-files/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="security-considerations"></a>Aspekty zabezpečení
 
@@ -64,7 +64,7 @@ Třída nemá vlastnost pro název plánu a vlastnost pro každý dvě verze pl�
 
 ## <a name="add-a-helper-method-to-upload-files"></a>Přidejte pomocnou metodu k nahrání souborů
 
-Aby se zabránilo duplicitě kód pro zpracování souborů odeslané plán, je třeba nejprve přidáte statickou pomocnou metodu. Vytvoření *nástroje* složky v aplikaci a přidejte *FileHelpers.cs* soubor s následujícím obsahem. Pomocná metoda `ProcessFormFile`, přebírá [IFormFile](/dotnet/api/microsoft.aspnetcore.http.iformfile) a [ModelStateDictionary](/api/microsoft.aspnetcore.mvc.modelbinding.modelstatedictionary) a vrátí řetězec obsahující velikosti a obsahu souboru. Typ obsahu a délka jsou kontrolovány. Pokud soubor není úspěšný ověření, chyba je přidána do `ModelState`.
+Aby se zabránilo duplicitě kód pro zpracování souborů odeslané plán, je třeba nejprve přidáte statickou pomocnou metodu. Vytvoření *nástroje* složky v aplikaci a přidejte *FileHelpers.cs* soubor s následujícím obsahem. Pomocná metoda `ProcessFormFile`, přebírá [IFormFile](/dotnet/api/microsoft.aspnetcore.http.iformfile) a [ModelStateDictionary](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelstatedictionary) a vrátí řetězec obsahující velikosti a obsahu souboru. Typ obsahu a délka jsou kontrolovány. Pokud soubor není úspěšný ověření, chyba je přidána do `ModelState`.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -117,7 +117,7 @@ Pracovní proces musí mít oprávnění k zápisu do umístění určeného pro
 
 ### <a name="save-the-file-to-azure-blob-storage"></a>Uložte soubor do úložiště objektů Blob v Azure
 
-Nahrát obsah souboru do úložiště objektů Blob v Azure, najdete v článku [Začínáme s Azure Blob Storage pomocí .NET](/azure/storage/blobs/storage-dotnet-how-to-use-blobs). Téma ukazuje, jak používat [UploadFromStream](/dotnet/api/microsoft.windowsazure.storage.file.cloudfile.uploadfromstreamasync) uložte [FileStream](/dotnet/api/system.io.filestream) do úložiště objektů blob.
+Nahrát obsah souboru do úložiště objektů Blob v Azure, najdete v článku [Začínáme s Azure Blob Storage pomocí .NET](/azure/storage/blobs/storage-dotnet-how-to-use-blobs). Téma ukazuje, jak používat [UploadFromStream](/dotnet/api/microsoft.azure.storage.file.cloudfile.uploadfromstreamasync) uložte [FileStream](/dotnet/api/system.io.filestream) do úložiště objektů blob.
 
 ## <a name="add-the-schedule-class"></a>Přidat třídu plán
 
@@ -188,7 +188,7 @@ V *stránky* složku, vytvořte *plány* složky. V *plány* složku, vytvořte 
 
 Každý formulář skupinou  **\<popisek >** , který zobrazí název každé vlastnosti třídy. `Display` Atributů `FileUpload` nabízí model zobrazované hodnoty popisků. Například `UploadPublicSchedule` zobrazovaného názvu vlastnosti se nastaví pomocí `[Display(Name="Public Schedule")]` a proto zobrazí "Veřejný plán" v popisku při vykreslení formuláři.
 
-Každá skupina formuláře zahrnuje ověření  **\<span >**. Uživatelský vstup nesplňuje-li nastavit atributy vlastnosti `FileUpload` třídy nebo zda má některý `ProcessFormFile` metoda soubor ověřování selže, modelu se nepodařilo ověřit. Pokud selže ověření modelu se vykreslí užitečné ověřovací zprávu pro uživatele. Například `Title` vlastnost je opatřen poznámkou `[Required]` a `[StringLength(60, MinimumLength = 3)]`. Pokud se uživateli nepodaří zadat název, obdrží zprávu s oznámením, že je vyžadována hodnota. Pokud uživatel zadá hodnotu menší než tři znaky nebo více než 60 znaků, obdrží zprávu s oznámením, že hodnota má nesprávnou délku. Pokud soubor uvedený, který nemá žádný obsah, zobrazí se zpráva označující, že soubor je prázdný.
+Každá skupina formuláře zahrnuje ověření  **\<span >** . Uživatelský vstup nesplňuje-li nastavit atributy vlastnosti `FileUpload` třídy nebo zda má některý `ProcessFormFile` metoda soubor ověřování selže, modelu se nepodařilo ověřit. Pokud selže ověření modelu se vykreslí užitečné ověřovací zprávu pro uživatele. Například `Title` vlastnost je opatřen poznámkou `[Required]` a `[StringLength(60, MinimumLength = 3)]`. Pokud se uživateli nepodaří zadat název, obdrží zprávu s oznámením, že je vyžadována hodnota. Pokud uživatel zadá hodnotu menší než tři znaky nebo více než 60 znaků, obdrží zprávu s oznámením, že hodnota má nesprávnou délku. Pokud soubor uvedený, který nemá žádný obsah, zobrazí se zpráva označující, že soubor je prázdný.
 
 ## <a name="add-the-page-model"></a>Přidání modelu stránky
 

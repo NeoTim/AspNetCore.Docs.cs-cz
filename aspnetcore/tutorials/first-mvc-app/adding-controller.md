@@ -5,12 +5,12 @@ description: Zjistěte, jak přidat řadič jednoduchou aplikaci ASP.NET Core MV
 ms.author: riande
 ms.date: 02/28/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: dad9262e544fc216ddc694b11b0dfb88b58db9cd
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: f28dc96b66fce736242d26a2584fea0a23375e23
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265015"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815196"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>Přidání kontroleru aplikace ASP.NET Core MVC
 
@@ -68,7 +68,7 @@ Každý `public` metoda v kontroleru je volatelná jako koncový bod HTTP. V př
 
 Koncový bod HTTP, jako je targetable adresy URL ve webové aplikaci `https://localhost:5001/HelloWorld`a kombinuje protokol použitý: `HTTPS`, umístění v síti webového serveru (včetně TCP port): `localhost:5001` a cílový identifikátor URI `HelloWorld`.
 
-První komentář stavy jde [HTTP GET](https://www.w3schools.com/tags/ref_httpmethods.asp) metody, která je volána přidáním `/HelloWorld/` k základní adrese URL. Určuje druhý komentář [HTTP GET](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) metody, která je volána přidáním `/HelloWorld/Welcome/` na adresu URL. V tomto kurzu později modul generování uživatelského rozhraní se používá ke generování `HTTP POST` metody, které aktualizují data.
+První komentář stavy jde [HTTP GET](https://www.w3schools.com/tags/ref_httpmethods.asp) metody, která je volána přidáním `/HelloWorld/` k základní adrese URL. Určuje druhý komentář [HTTP GET](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) metody, která je volána přidáním `/HelloWorld/Welcome/` na adresu URL. V tomto kurzu později modul generování uživatelského rozhraní se používá ke generování `HTTP POST` metody, které aktualizují data.
 
 Spusťte aplikaci v režimu bez ladění a připojit "HelloWorld" na cestu v panelu Adresa. `Index` Metoda vrátí hodnotu typu string.
 
@@ -102,7 +102,7 @@ Upravte kód předat některé informace o parametrech z adresy URL kontroleru. 
 Předchozí kód:
 
 * Volitelný parametr funkce jazyka C# používá k označení, že `numTimes` parametr výchozí hodnotu 1, pokud není pro tento parametr předána žádná hodnota. <!-- remove for simplified -->
-* Používá`HtmlEncoder.Default.Encode` k ochraně aplikace před zlými úmysly vstup (konkrétně JavaScript).
+* Používá `HtmlEncoder.Default.Encode` k ochraně aplikace před zlými úmysly vstup (konkrétně JavaScript).
 * Používá [interpolovaných řetězců](/dotnet/articles/csharp/language-reference/keywords/interpolated-strings) v `$"Hello {name}, NumTimes is: {numTimes}"`. <!-- remove for simplified -->
 
 Spusťte aplikaci a přejděte do:

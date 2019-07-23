@@ -5,12 +5,12 @@ description: Zjistěte, jak zpracovat zobrazení prezentace dat aplikace a inter
 ms.author: riande
 ms.date: 04/03/2019
 uid: mvc/views/overview
-ms.openlocfilehash: 766996645bc6ef2b6be42d729baf5d57f55b6ddd
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 5e56c6bb18cb5d2389c11eb3e4aa9869228da47d
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59012796"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64903405"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>Zobrazení v ASP.NET Core MVC
 
@@ -135,7 +135,7 @@ Se nejrobustnější zadává [modelu](xref:mvc/models/model-binding) typ v zobr
 
 Použití viewmodel k předávání dat k zobrazení umožňuje zobrazit výhod *silné* kontroly typu. *Silné typování* (nebo *silného typu*) znamená, že všechny proměnné a konstanty má typ, který explicitně definovány (například `string`, `int`, nebo `DateTime`). Platnost typy používané v zobrazení je zaškrtnuté políčko v době kompilace.
 
-[Visual Studio](https://www.visualstudio.com/vs/) a [Visual Studio Code](https://code.visualstudio.com/) seznam členů tříd se silnými typy použití funkce volána [IntelliSense](/visualstudio/ide/using-intellisense). Pokud chcete zobrazit vlastnosti viewmodel, zadejte název proměnné pro viewmodel následovaných tečkou (`.`). To vám umožňuje napsat kód rychleji s menším množstvím chyb.
+[Visual Studio](https://visualstudio.microsoft.com) a [Visual Studio Code](https://code.visualstudio.com/) seznam členů tříd se silnými typy použití funkce volána [IntelliSense](/visualstudio/ide/using-intellisense). Pokud chcete zobrazit vlastnosti viewmodel, zadejte název proměnné pro viewmodel následovaných tečkou (`.`). To vám umožňuje napsat kód rychleji s menším množstvím chyb.
 
 Zadat pomocí modelu `@model` směrnice. Použití modelu s `@Model`:
 

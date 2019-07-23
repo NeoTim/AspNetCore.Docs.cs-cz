@@ -1,11 +1,3 @@
----
-ms.openlocfilehash: de093954fedc0fef1f945e881e1c7a6a24178bdb
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58265411"
----
 ## <a name="add-initial-migration-and-update-the-database"></a>Přidat počáteční migraci a aktualizaci databáze
 
 * Otevřete příkazový řádek a přejděte do adresáře projektu. (Adresáře, který obsahuje *Startup.cs* souboru).

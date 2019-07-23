@@ -4,14 +4,14 @@ author: isaac2004
 description: Informace o nových funkcích v ASP.NET Core 2.1.
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2019
+ms.date: 04/30/2019
 uid: aspnetcore-2.1
-ms.openlocfilehash: 8299af819f86d3d2371650ce3d87deb817f0feb8
-ms.sourcegitcommit: 6ba5fb1fd0b7f9a6a79085b0ef56206e462094b7
+ms.openlocfilehash: 359f961db768b9048427c8ab296ee3e035879408
+ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2019
-ms.locfileid: "56248170"
+ms.lasthandoff: 05/06/2019
+ms.locfileid: "65086397"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>Co je nového v ASP.NET Core 2.1
 
@@ -28,7 +28,7 @@ Přepsali jsme SignalR pro ASP.NET Core 2.1. Funkce SignalR technologie ASP.NET 
 * Nový model datového proudu odpovědi.
 * Podpora pro klienty založené na úplné objekty Websocket.
 
-Další informace najdete v tématu [funkce SignalR technologie ASP.NET Core](xref:signalr/index).
+Další informace najdete v tématu [funkce SignalR technologie ASP.NET Core](xref:signalr/introduction).
 
 ## <a name="razor-class-libraries"></a>Knihovny tříd Razor
 
@@ -75,7 +75,7 @@ V produkčním prostředí musí být explicitně nakonfigurován protokol HTTPS
 
 ## <a name="gdpr"></a>GDPR
 
-ASP.NET Core nabízí rozhraní API a šablony, které vám pomohou splnit některé [EU obecného Regulation (GDPR)](https://www.eugdpr.org/) požadavky. Další informace najdete v tématu [podpory nařízení GDPR v ASP.NET Core](xref:security/gdpr). A [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/live/aspnetcore/security/gdpr/sample) ukazuje způsob použití a umožňuje testovat Většina rozhraní API přidat do šablony ASP.NET Core 2.1 a GDPR Rozšiřovací body.
+ASP.NET Core nabízí rozhraní API a šablony, které vám pomohou splnit některé [EU obecného Regulation (GDPR)](https://www.eugdpr.org/) požadavky. Další informace najdete v tématu [podpory nařízení GDPR v ASP.NET Core](xref:security/gdpr). A [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample) ukazuje způsob použití a umožňuje testovat Většina rozhraní API přidat do šablony ASP.NET Core 2.1 a GDPR Rozšiřovací body.
 
 ## <a name="integration-tests"></a>Integrační testy
 

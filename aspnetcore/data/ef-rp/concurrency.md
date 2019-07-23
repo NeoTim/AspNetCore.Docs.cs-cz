@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tento kurz ukazuje, jak řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/07/2018
+ms.date: 05/31/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: 213794398e1188e38b0bf3522c73207988615f9b
-ms.sourcegitcommit: 088e6744cd67a62f214f25146313a53949b17d35
+ms.openlocfilehash: 8430f8e720870a7b541655ea8bcfe2f67c942bb3
+ms.sourcegitcommit: c5339594101d30b189f61761275b7d310e80d18a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58320170"
+ms.lasthandoff: 06/02/2019
+ms.locfileid: "66458424"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - souběžnosti - 8 8
 
@@ -19,7 +19,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Petr Dykstra](https://g
 
 [!INCLUDE [about the series](../../includes/RP-EF/intro.md)]
 
-Tento kurz ukazuje, jak řešit konflikty při více uživateli aktualizovat entitu současně (ve stejnou dobu). Pokud narazíte na potíže nelze vyřešit, [stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
+Tento kurz ukazuje, jak řešit konflikty při více uživateli aktualizovat entitu současně (ve stejnou dobu). Pokud narazíte na potíže nelze vyřešit, [stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
 ## <a name="concurrency-conflicts"></a>Konflikty souběžnosti
 
@@ -189,7 +189,7 @@ Následující kód ukazuje aktualizovanou stránku:
 
 ### <a name="update-the-edit-page-model"></a>Aktualizace modelu stránky úpravy
 
-Aktualizace *pages\departments\edit.cshtml.cs* následujícím kódem:
+Aktualizace *Pages\Departments\Edit.cshtml.cs* následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet)]
 

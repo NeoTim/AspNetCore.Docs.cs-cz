@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: d2dd5e9b7f196bcbd1940f7ef58331dabd2367a1
-ms.sourcegitcommit: 816f39e852a8f453e8682081871a31bc66db153a
+ms.openlocfilehash: 5be53baf4b9eb8774501fbf7f781370f7f687d0c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/19/2018
-ms.locfileid: "53637804"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814943"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware v ASP.NET Core přepisování adres URL
 
@@ -19,7 +19,7 @@ Podle [Luke Latham](https://github.com/guardrex) a [Mikael Mengistu](https://git
 
 ::: moniker range="<= aspnetcore-1.1"
 
-1.1 verzi tohoto tématu, stáhněte si [Middleware pro přepis adres URL v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/URL_Rewriting_1.1.pdf).
+1\.1 verzi tohoto tématu, stáhněte si [Middleware pro přepis adres URL v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/URL_Rewriting_1.1.pdf).
 
 ::: moniker-end
 
@@ -38,7 +38,7 @@ Přepisování adres URL je úprava žádosti o adresy URL v závislosti na jede
 > [!NOTE]
 > Přepisování adres URL, může snížit výkon aplikace. Tam, kde je to možné, omezte počet a složitost pravidel.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="url-redirect-and-url-rewrite"></a>Adresa URL pro přesměrování a URL revize
 
@@ -68,7 +68,7 @@ I když se klient může být schopný načíst prostředek na přepsaný adresu
 
 ## <a name="url-rewriting-sample-app"></a>Ukázková aplikace přepis adres URL
 
-Můžete prozkoumat funkce Middleware přepisování adres URL se [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/). Aplikace použije pro přesměrování a přepsání pravidel a zobrazuje přesměrované nebo přepsaný adresu URL pro několik scénářů.
+Můžete prozkoumat funkce Middleware přepisování adres URL se [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/). Aplikace použije pro přesměrování a přepsání pravidel a zobrazuje přesměrované nebo přepsaný adresu URL pro několik scénářů.
 
 ## <a name="when-to-use-url-rewriting-middleware"></a>Kdy použít Middleware pro přepis adres URL
 
@@ -205,7 +205,7 @@ Pravidlo pro přepis adres `^rewrite-rule/(\d+)/(\d+)`, pouze odpovídá cesty, 
 | `/my-cool-rewrite-rule/1234/5678` | Ne    |
 | `/anotherrewrite-rule/1234/5678`  | Ne    |
 
-Následující `^rewrite-rule/` část výrazu, jsou dvě skupiny zachycení `(\d+)/(\d+)`. `\d` Označuje, že *odpovídá číslici (číslo)*. Znaménko plus (`+`) znamená, že *odpovídat nejméně jeden z předchozí znak*. Proto se adresa URL musí obsahovat číslo za nímž následuje lomítko následované jiné číslo. Tyto zachytávání skupiny jsou vloženy do přepsaný adresy URL jako `$1` a `$2`. Přepište řetězci pro nahrazení pravidlo umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta `/rewrite-rule/1234/5678` je přepsán získat prostředek na `/rewritten?var1=1234&var2=5678`. Pokud řetězec dotazu je k dispozici na původní požadavek, to se zachová, i když je přepsán adresu URL.
+Následující `^rewrite-rule/` část výrazu, jsou dvě skupiny zachycení `(\d+)/(\d+)`. `\d` Označuje, že *odpovídá číslici (číslo)* . Znaménko plus (`+`) znamená, že *odpovídat nejméně jeden z předchozí znak*. Proto se adresa URL musí obsahovat číslo za nímž následuje lomítko následované jiné číslo. Tyto zachytávání skupiny jsou vloženy do přepsaný adresy URL jako `$1` a `$2`. Přepište řetězci pro nahrazení pravidlo umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta `/rewrite-rule/1234/5678` je přepsán získat prostředek na `/rewritten?var1=1234&var2=5678`. Pokud řetězec dotazu je k dispozici na původní požadavek, to se zachová, i když je přepsán adresu URL.
 
 Neexistuje žádné odezvy na server se získat prostředek. Pokud existuje prostředek se načíst a vrácen do klienta se *200 – OK* stavový kód. Protože klient není přesměrován, adresu URL v adresním řádku prohlížeče se nezmění. Klienty nelze rozpoznat, že na serveru došlo k operaci přepisování adres URL.
 
@@ -254,7 +254,7 @@ Middleware podporuje následující proměnné na serveru Apache mod_rewrite:
 * SERVER_ADDR
 * SERVER_PORT
 * SERVER_PROTOCOL
-* ČAS
+* TIME
 * TIME_DAY
 * TIME_HOUR
 * TIME_MIN
@@ -384,5 +384,5 @@ Původní žádosti: `/image.jpg`
 * [Odkaz na modul konfigurace adresy URL revize](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)
 * [Fórum modulu přepsání adresy URL služby IIS](https://forums.iis.net/1152.aspx)
 * [Zachovat jednoduchá struktura adresy URL](https://support.google.com/webmasters/answer/76329?hl=en)
-* [10 přepisování adres URL tipy a triky](http://ruslany.net/2009/04/10-url-rewriting-tips-and-tricks/)
+* [10 přepisování adres URL tipy a triky](https://ruslany.net/2009/04/10-url-rewriting-tips-and-tricks/)
 * [Lomítko nebo lomítko](https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html)

@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 04/05/2018
 uid: razor-pages/filter
-ms.openlocfilehash: 32613d75d966a698c6478234f3f5f9d5fc0628bc
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 2480e67d251de8f8aecb6c484999c90d0220dd19
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264788"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900891"
 ---
 # <a name="filter-methods-for-razor-pages-in-aspnet-core"></a>Metody filtrování pro Razor Pages v ASP.NET Core
 
@@ -29,7 +29,7 @@ Stránka Razor filtry:
 
 Kód můžete spustit před metodu obslužné rutiny provede pomocí konstruktoru stránky nebo middleware, ale pouze filtry stránky Razor nemají přístup k [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_HttpContext). Filtry nemají [FilterContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.filtercontext?view=aspnetcore-2.0) odvozené parametr, který poskytuje přístup k `HttpContext`. Například [implementovat atribut filtru](#ifa) ukázka přidá hlavičku odpovědi, něco, co nelze provést s konstruktory nebo middlewaru.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/filter/sample/PageFilter) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/sample/PageFilter) ([stažení](xref:index#how-to-download-a-sample))
 
 Filtry stránek Razor poskytují následující metody, které se dají aplikovat globálně nebo na úrovni stránky:
 

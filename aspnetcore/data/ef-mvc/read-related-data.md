@@ -6,12 +6,12 @@ ms.author: tdykstra
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: a2ae878fd861b68a17de19af1b33b6ffbf5a268c
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 5b45ced4fe6ed220c9a63bc6480c8c8520b36ed4
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58751082"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64900360"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Čtení souvisejících dat – ASP.NET MVC s EF Core
 
@@ -245,7 +245,7 @@ Spustit aplikaci, přejděte na stránku Instruktoři Index a zobrazí obsah zob
 
 ## <a name="get-the-code"></a>Získat kód
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>Další kroky
 

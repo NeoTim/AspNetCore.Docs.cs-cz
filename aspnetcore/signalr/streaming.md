@@ -5,14 +5,14 @@ description: Naučíte se Streamovat data mezi klientem a serverem.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 04/12/2019
+ms.date: 06/05/2019
 uid: signalr/streaming
-ms.openlocfilehash: d185056d3bdda089eaa46ae9b8e13ab7a4354f93
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: a75156f398e113393ddb891d16eec3f09de80c09
+ms.sourcegitcommit: e7e04a45195d4e0527af6f7cf1807defb56dc3c3
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165073"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66750188"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>Použití datových proudů v knihovně SignalR technologie ASP.NET Core
 
@@ -30,13 +30,13 @@ Funkce SignalR technologie ASP.NET Core podporuje streamování návratové hodn
 
 ::: moniker-end
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/live/aspnetcore/signalr/streaming/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="set-up-a-hub-for-streaming"></a>Nastavení centra pro streamování
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Metodu rozbočovače na automaticky stane streamování metody rozbočovače, je po návratu <xref:System.Threading.Channels.ChannelReader%601>, `IAsyncEnumerable<T>`, `Task<ChannelReader<T>>`, nebo `Task<IAsyncEnumerable<T>>`.
+Metody rozbočovače automaticky změní streamování metody rozbočovače, pokud vrací <xref:System.Collections.Generic.IAsyncEnumerable`1>, <xref:System.Threading.Channels.ChannelReader%601>, `Task<IAsyncEnumerable<T>>`, nebo `Task<ChannelReader<T>>`.
 
 ::: moniker-end
 
@@ -93,9 +93,23 @@ Streamování metod rozbočovače na serveru do klienta může přijmout `Cancel
 
 ### <a name="client-to-server-streaming"></a>Klient server streamování
 
-Metody rozbočovače automaticky změní streamování metody rozbočovače klienta se serverem, pokud přijímá jeden nebo více <xref:System.Threading.Channels.ChannelReader`1>s. Následující příklad ukazuje základní informace o čtení datových proudů dat odeslaných z klienta. Vždy, když klient zapíše do <xref:System.Threading.Channels.ChannelWriter`1>, data jsou zapsána do `ChannelReader` na serveru, který čte z metody rozbočovače.
+Metody rozbočovače automaticky změní streamování metody rozbočovače klienta se serverem, pokud přijímá jeden nebo více objektů typu <xref:System.Threading.Channels.ChannelReader%601> nebo <xref:System.Collections.Generic.IAsyncEnumerable%601>. Následující příklad ukazuje základní informace o čtení datových proudů dat odeslaných z klienta. Vždy, když klient zapíše do <xref:System.Threading.Channels.ChannelWriter%601>, data jsou zapsána do `ChannelReader` na serveru, ze kterého čte metody rozbočovače.
 
 [!code-csharp[Streaming upload hub method](streaming/samples/3.0/Hubs/StreamHub.cs?name=snippet2)]
+
+<xref:System.Collections.Generic.IAsyncEnumerable%601> Odpovídá verzi metody.
+
+[!INCLUDE[](~/includes/csharp-8-required.md)]
+
+```csharp
+public async Task UploadStream(IAsyncEnumerable<Stream> stream) 
+{
+    await foreach (var item in stream)
+    {
+        Console.WriteLine(item);
+    }
+}
+```
 
 ::: moniker-end
 
@@ -103,9 +117,55 @@ Metody rozbočovače automaticky změní streamování metody rozbočovače klie
 
 ### <a name="server-to-client-streaming"></a>Server klient streamování
 
-`StreamAsChannelAsync` Metodu na `HubConnection` se používá k volání metody streaming klient a server. Předat název metody rozbočovače a argumenty, které jsou definovány v metody rozbočovače na `StreamAsChannelAsync`. Obecný parametr na `StreamAsChannelAsync<T>` Určuje typ objektu vrácený metodou streamování. A `ChannelReader<T>` vrácená z volání datového proudu a představuje datový proud na straně klienta.
+
+::: moniker range=">= aspnetcore-3.0"
+
+`StreamAsync` a `StreamAsChannelAsync` metody `HubConnection` se používají k vyvolání metody streaming klient a server. Předat název metody rozbočovače a argumenty, které jsou definovány v metody rozbočovače na `StreamAsync` nebo `StreamAsChannelAsync`. Obecný parametr na `StreamAsync<T>` a `StreamAsChannelAsync<T>` Určuje typ objektu vrácený metodou streamování. Objekt typu `IAsyncEnumerable<T>` nebo `ChannelReader<T>` vrácená z volání datového proudu a představuje datový proud na straně klienta.
+
+A `StreamAsync` příklad, který vrátí `IAsyncEnumerable<int>`:
+
+```csharp
+// Call "Cancel" on this CancellationTokenSource to send a cancellation message to
+// the server, which will trigger the corresponding token in the hub method.
+var cancellationTokenSource = new CancellationTokenSource();
+var stream = await hubConnection.StreamAsync<int>(
+    "Counter", 10, 500, cancellationTokenSource.Token);
+
+await foreach (var count in stream)
+{
+    Console.WriteLine($"{count}");
+}
+
+Console.WriteLine("Streaming completed");
+```
+
+Odpovídající `StreamAsChannelAsync` příklad, který vrátí `ChannelReader<int>`:
+
+```csharp
+// Call "Cancel" on this CancellationTokenSource to send a cancellation message to
+// the server, which will trigger the corresponding token in the hub method.
+var cancellationTokenSource = new CancellationTokenSource();
+var channel = await hubConnection.StreamAsChannelAsync<int>(
+    "Counter", 10, 500, cancellationTokenSource.Token);
+
+// Wait asynchronously for data to become available
+while (await channel.WaitToReadAsync())
+{
+    // Read all currently available data synchronously, before waiting for more data
+    while (channel.TryRead(out var count))
+    {
+        Console.WriteLine($"{count}");
+    }
+}
+
+Console.WriteLine("Streaming completed");
+```
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
+
+`StreamAsChannelAsync` Metodu na `HubConnection` se používá k volání metody streaming klient a server. Předat název metody rozbočovače a argumenty, které jsou definovány v metody rozbočovače na `StreamAsChannelAsync`. Obecný parametr na `StreamAsChannelAsync<T>` Určuje typ objektu vrácený metodou streamování. A `ChannelReader<T>` vrácená z volání datového proudu a představuje datový proud na straně klienta.
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -131,6 +191,8 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range="= aspnetcore-2.1"
 
+`StreamAsChannelAsync` Metodu na `HubConnection` se používá k volání metody streaming klient a server. Předat název metody rozbočovače a argumenty, které jsou definovány v metody rozbočovače na `StreamAsChannelAsync`. Obecný parametr na `StreamAsChannelAsync<T>` Určuje typ objektu vrácený metodou streamování. A `ChannelReader<T>` vrácená z volání datového proudu a představuje datový proud na straně klienta.
+
 ```csharp
 var channel = await hubConnection
     .StreamAsChannelAsync<int>("Counter", 10, 500, CancellationToken.None);
@@ -154,11 +216,29 @@ Console.WriteLine("Streaming completed");
 
 ### <a name="client-to-server-streaming"></a>Klient server streamování
 
-Vyvolání metody streaming centra klient server z klienta .NET, vytvořte `Channel` a předat `ChannelReader` jako argument `SendAsync`, `InvokeAsync`, nebo `StreamAsChannelAsync`, v závislosti na vyvolání metody rozbočovače.
+Existují dva způsoby, jak vyvolat metodu streamování rozbočovače klienta k serveru z klienta .NET. Můžete buď předejte `IAsyncEnumerable<T>` nebo `ChannelReader` jako argument `SendAsync`, `InvokeAsync`, nebo `StreamAsChannelAsync`, v závislosti na vyvolání metody rozbočovače.
 
-Vždy, když data se zapisují do `ChannelWriter`, metody rozbočovače na serveru obdrží novou položku s daty z klienta.
+Vždy, když data se zapisují do `IAsyncEnumerable` nebo `ChannelWriter` objekt metody rozbočovače na serveru obdrží novou položku s daty z klienta.
 
-Do konce datového proudu, dokončete kanál s `channel.Writer.Complete()`.
+Pokud se používá `IAsyncEnumerable` objekt datového proudu končí po metodě vracení datového proudu položky ukončí.
+
+[!INCLUDE[](~/includes/csharp-8-required.md)]
+
+```csharp
+async IAsyncEnumerable<string> clientStreamData()
+{
+    for (var i = 0; i < 5; i++)
+    {
+        var data = await FetchSomeData();
+        yield return data;
+    }
+    //After the for loop has completed and the local function exits the stream completion will be sent.
+}
+
+await connection.SendAsync("UploadStream", clientStreamData());
+```
+
+Nebo pokud používáte `ChannelWriter`, dokončete kanál s `channel.Writer.Complete()`:
 
 ```csharp
 var channel = Channel.CreateBounded<string>(10);

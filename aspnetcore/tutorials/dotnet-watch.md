@@ -5,12 +5,12 @@ description: Tento kurz ukazuje, jak nainstalovat a používat nástroje pro .NE
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 40ecca1c6f9d519b24649d0c28946d95b820c07c
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: 03b4f7f4ade5268915482a659890c7edc2d9a852
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59068193"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902169"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>Vyvíjejte aplikace ASP.NET Core s využitím sledovací proces souborů
 
@@ -20,7 +20,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Victor Hurdugaci](http
 
 Tento kurz používá existující webové rozhraní API s dva koncové body: jeden, který vrací součet a ten, který vrátí produktu. Metoda produkt obsahuje chybu, která je stanovena v tomto kurzu.
 
-Stáhněte si [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample). Skládá se ze dvou projektů: *WebApp* (ASP.NET Core webového rozhraní API) a *WebAppTests* (testů jednotek pro webové rozhraní API).
+Stáhněte si [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample). Skládá se ze dvou projektů: *WebApp* (ASP.NET Core webového rozhraní API) a *WebAppTests* (testů jednotek pro webové rozhraní API).
 
 V příkazovém řádku přejděte *WebApp* složky. Spusťte následující příkaz:
 

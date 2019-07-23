@@ -5,12 +5,12 @@ description: Zjistěte, jak vytvořit a použít vlastní formátovací moduly p
 ms.author: tdykstra
 ms.date: 02/08/2017
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: 611840defd1da3b57b365c99deaf1c67f1568227
-ms.sourcegitcommit: 57792e5f594db1574742588017c708350958bdf0
+ms.openlocfilehash: 03456f0a20cf1849bcd29101fda951f81edda31c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/20/2019
-ms.locfileid: "58264635"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67814823"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>Vlastní formátování v rozhraní Web API ASP.NET Core
 
@@ -18,7 +18,7 @@ podle [Petr Dykstra](https://github.com/tdykstra)
 
 ASP.NET Core MVC obsahuje integrovanou podporu pro výměnu dat ve webovém rozhraní API pomocí XML nebo JSON. Tento článek ukazuje, jak přidat podporu pro další formáty tak, že vytvoříte vlastní formátovací moduly.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-custom-formatters"></a>Kdy použít vlastní formátovací moduly
 
@@ -51,7 +51,7 @@ Typ média textu (například soubor vCard), jsou odvozeny z [TextInputFormatter
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=classdef)]
 
-Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
+Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
 
 Pro binární typy jsou odvozeny z [InputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.inputformatter) nebo [OutputFormatter](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformatter) základní třídy.
 
@@ -61,7 +61,7 @@ V konstruktoru, určete přidáním do platné médium typy a kódování `Suppo
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=ctor&highlight=3,5-6)]
 
-Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
+Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
 
 > [!NOTE]
 > Injektáž závislostí konstruktoru ve třídě formátovacího modulu nelze provést. Například nelze získat protokolovač tak, že přidáte parametr protokolovač konstruktoru. Pro přístup ke službám, budete muset použít objekt kontextu, který získá předán do metody. Příklad kódu [níže](#read-write) ukazuje, jak to provést.
@@ -72,7 +72,7 @@ Určení typu lze deserializovat do nebo z serializovat tak, že přepíšete `C
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=canwritetype)]
 
-Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
+Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
 
 #### <a name="the-canwriteresult-method"></a>CanWriteResult – metoda
 
@@ -82,7 +82,7 @@ V některých scénářích je nutné přepsat `CanWriteResult` místo `CanWrite
 * Existují odvozených tříd, které může být vrácena za běhu.
 * Musíte znát za běhu, který odvozené třídy vrátil akce.
 
-Předpokládejme například, vrátí podpis metody akce `Person` typu, ale může vrátit `Student` nebo `Instructor` typ, který je odvozen od `Person`. Pokud chcete, aby vaše formátovací modul pro zpracování pouze `Student` objekty, zkontrolujte typ [objekt](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object) v objektu kontextu k dispozici na `CanWriteResult` metody. Všimněte si, že není nutné používat `CanWriteResult` při vrácení metody akce `IActionResult`; v takovém případě `CanWriteType` metoda přijímá typ modulu runtime.
+Předpokládejme například, vrátí podpis metody akce `Person` typu, ale může vrátit `Student` nebo `Instructor` typ, který je odvozen od `Person`. Pokud chcete, aby vaše formátovací modul pro zpracování pouze `Student` objekty, zkontrolujte typ [objekt](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object) v objektu kontextu k dispozici na `CanWriteResult` metody. Všimněte si, že není nutné používat `CanWriteResult` při vrácení metody akce `IActionResult`; v takovém případě `CanWriteType` metoda přijímá typ modulu runtime.
 
 <a id="read-write"></a>
 
@@ -92,7 +92,7 @@ Vykonávají samotnou práci rušení serializace nebo serializace v `ReadReques
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=writeresponse&highlight=3-4)]
 
-Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
+Příklad vstupní formátovací modul, najdete v článku [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample).
 
 ## <a name="how-to-configure-mvc-to-use-a-custom-formatter"></a>Jak nakonfigurovat MVC pomocí vlastního formátovacího modulu
 
@@ -102,10 +102,10 @@ Pokud chcete použít vlastní formátovací modul, přidat instanci formátovac
 
 Formátovací moduly jsou vyhodnocovány v pořadí, v jakém že je vkládat v případě potřeby. První z nich má přednost.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 * [Prostý text formátovací modul ukázkového kódu na Githubu.](https://github.com/aspnet/Entropy/tree/master/samples/Mvc.Formatters)
-* [Ukázková aplikace pro tento dokument](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample), které implementuje jednoduché vCard Vstupní a výstupní formátování. Aplikace čte a zapisuje vCard, která vypadají, jako v následujícím příkladu:
+* [Ukázková aplikace pro tento dokument](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/custom-formatters/sample), které implementuje jednoduché vCard Vstupní a výstupní formátování. Aplikace čte a zapisuje vCard, která vypadají, jako v následujícím příkladu:
 
 ```
 BEGIN:VCARD

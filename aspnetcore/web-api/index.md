@@ -5,14 +5,14 @@ description: Naučte se základy vytváření webových rozhraní API v ASP.NET 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 04/11/2019
+ms.date: 07/08/2019
 uid: web-api/index
-ms.openlocfilehash: 334e5732269921a62356e7854824deccc051c291
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 4f9c334f74dd2a8b7c31c7a42703fa361ccf9139
+ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165169"
+ms.lasthandoff: 07/08/2019
+ms.locfileid: "67622800"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Scott Addie](https://github.com/scottaddie) a [Petr Dykstra](https://gith
 
 Podporuje vytváření služby RESTful, označované také jako webová rozhraní API, pomocí ASP.NET Core C#. Webové rozhraní API pro zpracování žádostí, používá řadiče. *Řadiče* ve webovém rozhraní API jsou třídy, které jsou odvozeny z `ControllerBase`. Tento článek ukazuje, jak používat kontrolery pro zpracování požadavků rozhraní API.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
 
 ## <a name="controllerbase-class"></a>Třída ControllerBase
 
@@ -28,7 +28,7 @@ Webové rozhraní API má jednu nebo více tříd kontroleru, které jsou odvoze
 
 [!code-csharp[](index/samples/2.x/Controllers/ValuesController.cs?name=snippet_Signature&highlight=3)]
 
-Nevytvářejte odvozením z kontroleru webového rozhraní API <xref:Microsoft.AspNetCore.Mvc.Controller> základní třídy. `Controller` je odvozen od `ControllerBase` a přidává podporu pro zobrazení, tak, aby byl pro zpracování webové stránky, webové rozhraní API požaduje.  Existuje výjimka tohoto pravidla: Pokud máte v plánu používat stejný kontrolér pro zobrazení a rozhraní API, jsou odvozeny z `Controller`.
+Nevytvářejte odvozením z kontroleru webového rozhraní API <xref:Microsoft.AspNetCore.Mvc.Controller> třídy. `Controller` je odvozen od `ControllerBase` a přidává podporu pro zobrazení, tak, aby byl pro zpracování webové stránky, webové rozhraní API požaduje.  Existuje výjimka tohoto pravidla: Pokud máte v plánu používat stejný kontrolér pro zobrazení a rozhraní API, jsou odvozeny z `Controller`.
 
 `ControllerBase` Třída poskytuje mnoho vlastností a metod, které jsou užitečné pro zpracování žádostí HTTP. Například `ControllerBase.CreatedAtAction` vrátí 201 stavový kód:
 
@@ -137,6 +137,10 @@ Chcete-li změnit výchozí odpověď <xref:Microsoft.AspNetCore.Mvc.Serializabl
 Chcete-li přizpůsobit odpověď, která je výsledkem chyba ověřování, použijte <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory>. Přidejte následující zvýrazněný kód po `services.AddMvc().SetCompatibilityVersion`:
 
 [!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureBadRequestResponse&highlight=3-20)]
+
+### <a name="log-automatic-400-responses"></a>Protokolovat 400 automatické odpovědi
+
+Zobrazit [protokolování automatické 400 odpovědi na chyby ověření modelu (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).
 
 ### <a name="disable-automatic-400"></a>Zakázat automatické 400
 

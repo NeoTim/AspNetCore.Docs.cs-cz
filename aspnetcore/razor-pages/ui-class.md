@@ -4,25 +4,25 @@ author: Rick-Anderson
 description: Vysvětluje, jak vytvářet opakovaně použitelné uživatelské rozhraní Razor pomocí částečných zobrazení v knihovně tříd v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 09/07/2018
+ms.date: 06/28/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 383b7e49b5dbd0c0f13218aff20abe6421d785b8
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: d59f643a23b48ccbddf498ef534ee8432b010f40
+ms.sourcegitcommit: 6d9cf728465cdb0de1037633a8b7df9a8989cccb
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165154"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67463259"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelné uživatelské rozhraní v ASP.NET Core pomocí projektu knihovny tříd Razor
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Zobrazení syntaxe Razor, stránky, řadiče, stránka modely [zobrazení součástí](xref:mvc/views/view-components), a datových modelů může být sestaven do knihovny tříd Razor (RCL). RCL můžete zabalit a znovu použít. Aplikace můžete zahrnout RCL a přepsání, zobrazení a stránky, které obsahuje. Při zobrazení, částečná zobrazení nebo stránky Razor se nachází v webové aplikace a RCL kód Razor (*.cshtml* soubor) na webu aplikace má přednost.
+Zobrazení syntaxe Razor, stránky, řadiče, stránka modely [Razor komponenty](xref:blazor/class-libraries), [zobrazení součástí](xref:mvc/views/view-components), a datových modelů může být sestaven do knihovny tříd Razor (RCL). RCL můžete zabalit a znovu použít. Aplikace můžete zahrnout RCL a přepsání, zobrazení a stránky, které obsahuje. Při zobrazení, částečná zobrazení nebo stránky Razor se nachází v webové aplikace a RCL kód Razor ( *.cshtml* soubor) na webu aplikace má přednost.
 
 Tato funkce vyžaduje [!INCLUDE[](~/includes/2.1-SDK.md)]
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="create-a-class-library-containing-razor-ui"></a>Vytvoření knihovny tříd obsahující Razor uživatelského rozhraní
 
@@ -34,7 +34,7 @@ Tato funkce vyžaduje [!INCLUDE[](~/includes/2.1-SDK.md)]
 * Ověřte **ASP.NET Core 2.1** nebo novější je vybrána.
 * Vyberte **knihovny tříd Razor** > **OK**.
 
-Knihovny tříd Razor má následující soubor projektu:
+RCL má následující soubor projektu:
 
 [!code-xml[Main](ui-class/samples/cli/RazorUIClassLib/RazorUIClassLib.csproj)]
 
@@ -54,20 +54,20 @@ Přidáte soubory Razor RCL.
 
 Šablony ASP.NET Core předpokládat RCL obsah je *oblasti* složky. V tématu [rozložení stránek RCL](#afs) k vytvoření obsahu v RCL, který zpřístupňuje `~/Pages` spíše než `~/Areas/Pages`.
 
-## <a name="referencing-razor-class-library-content"></a>Odkazování na obsah knihovny tříd Razor
+## <a name="referencing-rcl-content"></a>Odkazování na obsah RCL
 
 RCL lze odkazovat pomocí:
 
 * Balíček NuGet. V tématu [balíčky NuGet vytváření](/nuget/create-packages/creating-a-package) a [se příkaz dotnet add package](/dotnet/core/tools/dotnet-add-package) a [vytvoření a publikování balíčku NuGet](/nuget/quickstart/create-and-publish-a-package-using-visual-studio).
 * *{ProjectName} .csproj*. Zobrazit [dotnet-přidat odkaz na](/dotnet/core/tools/dotnet-add-reference).
 
-## <a name="walkthrough-create-a-razor-class-library-project-and-use-from-a-razor-pages-project"></a>Návod: Vytvořte projekt knihovny tříd Razor a používat z projektu pro stránky Razor
+## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a>Návod: Vytvoření projektu aplikace RCL a použití z projektu pro stránky Razor
 
-Můžete stáhnout [dokončený projekt](https://github.com/aspnet/Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) a otestovat ho namísto jeho vytvoření. Vzorku ke stažení obsahuje další kódu a odkazy, které usnadňuje testování projektu. Zanecháte zpětnou vazbu v [tento problém Githubu](https://github.com/aspnet/Docs/issues/6098) s komentáře na stažení ukázky a podrobné pokyny.
+Můžete stáhnout [dokončený projekt](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) a otestovat ho namísto jeho vytvoření. Vzorku ke stažení obsahuje další kódu a odkazy, které usnadňuje testování projektu. Zanecháte zpětnou vazbu v [tento problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/6098) s komentáře na stažení ukázky a podrobné pokyny.
 
 ### <a name="test-the-download-app"></a>Testování aplikace ke stažení
 
-Pokud jste nestáhli dokončené aplikace a by místo toho vytvořte projekt návodu, pokračujte [další části](#create-a-razor-class-library).
+Pokud jste nestáhli dokončené aplikace a by místo toho vytvořte projekt návodu, pokračujte [další části](#create-an-rcl).
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -91,9 +91,9 @@ dotnet run
 
 Postupujte podle pokynů v [WebApp1 testu](#test)
 
-## <a name="create-a-razor-class-library"></a>Vytvoření knihovny tříd Razor
+## <a name="create-an-rcl"></a>Vytvoření RCL
 
-V této části se vytvoří knihovny tříd Razor (RCL). Soubory Razor jsou přidány do RCL.
+V této části se vytvoří RCL. Soubory Razor jsou přidány do RCL.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -118,7 +118,7 @@ dotnet new viewstart -o RazorUIClassLib/Areas/MyFeature/Pages
 
 Předchozí příkazy:
 
-* Vytvoří `RazorUIClassLib` knihovny tříd Razor (RCL).
+* Vytvoří `RazorUIClassLib` RCL.
 * Vytvoří stránku Razor _TEXT a přidá jej RCL. `-np` Parametr vytvoří, aniž by `PageModel`.
 * Vytvoří [soubor _ViewStart.cshtml](xref:mvc/views/layout#running-code-before-each-view) soubor a přidá jej RCL.
 
@@ -174,7 +174,7 @@ Spusťte aplikaci.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-Vytvoření webová aplikace Razor Pages a soubor řešení, který obsahuje aplikace Razor Pages a knihovny tříd Razor:
+Vytvoření webová aplikace Razor Pages a soubor řešení obsahující aplikace Razor Pages a RCL:
 
 ```console
 dotnet new webapp -o WebApp1
@@ -197,13 +197,13 @@ dotnet run
 
 ### <a name="test-webapp1"></a>WebApp1 testu
 
-Ověřte, že se používá knihovny tříd Razor uživatelského rozhraní.
+Ověřte, zda že knihovny tříd Razor uživatelského rozhraní se používá:
 
 * Přejděte do `/MyFeature/Page1`.
 
 ## <a name="override-views-partial-views-and-pages"></a>Přepsání, zobrazení, částečná zobrazení a stránky
 
-Při zobrazení, částečná zobrazení nebo stránky Razor se nachází v webové aplikace a knihovny tříd Razor, kód Razor (*.cshtml* soubor) na webu aplikace má přednost. Například přidejte *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* k WebApp1, a Page1 v WebApp1 přednost Page1 v knihovně tříd Razor.
+Při zobrazení, částečná zobrazení nebo stránky Razor se nachází v webové aplikace a RCL kód Razor ( *.cshtml* soubor) na webu aplikace má přednost. Například přidejte *WebApp1/Areas/MyFeature/Pages/Page1.cshtml* k WebApp1, a Page1 v WebApp1 přednost Page1 v RCL.
 
 Ve vzorku ke stažení, přejmenujte *WebApp1/oblasti/MyFeature2* k *WebApp1/oblasti/MyFeature* otestovat prioritu.
 
@@ -227,3 +227,34 @@ Předpokládejme, že *RazorUIClassLib/stránek/Shared* obsahuje dva soubory č�
   <partial name="_Footer">
 </body>
 ```
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="create-an-rcl-with-static-assets"></a>Vytvoření RCL pomocí statické prostředky
+
+RCL může vyžadovat doprovodná statické prostředky, které lze odkazovat pomocí náročné aplikace RCL. ASP.NET Core je umožněno vytvoření RCLs, které zahrnují statické prostředky, které jsou k dispozici pro využívání aplikaci.
+
+Pokud chcete zahrnout jako součást RCL doprovodná prostředky, vytvořte *wwwroot* složku v knihovně tříd a zahrnout všechny požadované soubory v této složce.
+
+Při balení RCL, všechny doprovodná assety *wwwroot* složky jsou součástí balíčku automaticky a jsou k dispozici pro odkazování na balíček aplikace.
+
+### <a name="consume-content-from-a-referenced-rcl"></a>Využívat obsah od odkazované RCL
+
+Soubory obsažené v *wwwroot* spotřebitelskou aplikaci v rámci předpona, která jsou vystaveny složky RCL `_content/{LIBRARY NAME}/`. `{LIBRARY NAME}` název projektu knihovny je převeden na malá písmena s dobami (`.`) odebrat. Například knihovnu s názvem *Razor.Class.Lib* výsledků v cestě na statický obsah na `_content/razorclasslib/`.
+
+Využívání aplikace odkazuje na statické prostředky poskytovaných knihovnou s `<script>`, `<style>`, `<img>`a další značky HTML. Využívání aplikace musí mít [statického souboru podpory](xref:fundamentals/static-files) povolena.
+
+### <a name="multi-project-development-flow"></a>Vývoj pro více projektů toku
+
+Při spuštění aplikaci:
+
+* Prostředky v RCL zůstat v jejich původním složek. Prostředky nejsou přesunuta do používání aplikace.
+* Všechny změny v rámci RCL *wwwroot* složky se projeví v spotřebitelskou aplikaci po znovu sestaví RCL a bez nutnosti opětovného sestavení spotřebitelskou aplikací.
+
+Při vytváření RCL, je vytvořen manifestu, který popisuje umístění statický webový prostředek. Používání aplikací přečte manifest za běhu využívat prostředky z odkazovaných projektů a balíčky. Při přidání nového prostředku do RCL, RCL musí znovu vytvořit k aktualizaci manifestu náročné aplikace mohli získat přístup ke nový prostředek.
+
+### <a name="publish"></a>Publikování
+
+Při publikování aplikace companion assety z všechny odkazované projekty a balíčky jsou zkopírovány do *wwwroot* složku publikované aplikace v rámci `_content/{LIBRARY NAME}/`.
+
+::: moniker-end

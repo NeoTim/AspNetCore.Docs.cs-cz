@@ -4,14 +4,14 @@ author: scottaddie
 description: Zjistěte, jak optimalizovat statické prostředky ve webové aplikaci ASP.NET Core s použitím technik sdružování a minifikace.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/20/2018
+ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 5d5f0aadb7740c9b2b959d12a585cd8c91758ce8
-ms.sourcegitcommit: 4225e2c49a0081e6ac15acff673587201f54b4aa
+ms.openlocfilehash: 6254a74fd0a11669706a2a89b156a3223e300d1c
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/21/2018
-ms.locfileid: "52282134"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67813499"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Vytvoření balíčku a minifikace statické prostředky v ASP.NET Core
 
@@ -63,7 +63,7 @@ Prohlížeče jsou poměrně podrobné s ohledem na hlavičky požadavků HTTP. 
 
 ## <a name="choose-a-bundling-and-minification-strategy"></a>Volba strategie sdružování a minifikace
 
-Šablony projektů MVC a stránky Razor poskytují out-of-the-box řešení pro sdružování a minifikace skládající se z konfiguračního souboru JSON. Nástroje třetích stran, jako [Gulp](xref:client-side/using-gulp) a [Grunt](xref:client-side/using-grunt) spouštěčů úloh, provádět stejné úlohy s o něco složitější. Nástroj třetí strany je skvěle hodí, když pracovního postupu vývoje vyžaduje zpracování nad rámec sdružování a minifikace&mdash;jako je optimalizace linting a image. Pomocí sdružování a minifikace návrhu minifikovaný soubory vytvořené před nasazením aplikace. Sdružování a minifikace před nasazením poskytuje výhodu v podobě zatížení serveru. Ale je důležité uvědomit si tohoto návrhu sdružování a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.
+Šablony projektů MVC a stránky Razor poskytují out-of-the-box řešení pro sdružování a minifikace skládající se z konfiguračního souboru JSON. Nástroje třetích stran, jako [Grunt](xref:client-side/using-grunt) úkolů runner, provádět stejné úlohy s o něco složitější. Nástroj třetí strany je skvěle hodí, když pracovního postupu vývoje vyžaduje zpracování nad rámec sdružování a minifikace&mdash;jako je optimalizace linting a image. Pomocí sdružování a minifikace návrhu minifikovaný soubory vytvořené před nasazením aplikace. Sdružování a minifikace před nasazením poskytuje výhodu v podobě zatížení serveru. Ale je důležité uvědomit si tohoto návrhu sdružování a minifikace zvyšuje složitost sestavení a funguje jenom se statickými soubory.
 
 ## <a name="configure-bundling-and-minification"></a>Konfigurace sdružování a minifikace
 
@@ -86,10 +86,10 @@ V ASP.NET Core 2.1 nebo novější, přidejte nový soubor JSON s názvem *bundl
 Možnosti konfigurace patří:
 
 * `outputFileName`: Název souboru svazku do výstupu. Může obsahovat relativní cestu z *bundleconfig.json* souboru. **Vyžaduje**
-* `inputFiles`: Pole souborů, které mají spojit dohromady. Jedná se o relativní cesty ke konfiguračnímu souboru. **volitelné**, * prázdnou hodnotu výsledkem prázdná výstupní soubor. [podpory zástupných znaků](http://www.tldp.org/LDP/abs/html/globbingref.html) vzory jsou podporovány.
-* `minify`Možnosti výstupního typu: připravenost k minifikaci. **volitelné**, *výchozí – `minify: { enabled: true }`*
+* `inputFiles`: Pole souborů, které mají spojit dohromady. Jedná se o relativní cesty ke konfiguračnímu souboru. **volitelné**, * prázdnou hodnotu výsledkem prázdná výstupní soubor. [podpory zástupných znaků](https://www.tldp.org/LDP/abs/html/globbingref.html) vzory jsou podporovány.
+* `minify`: Připravenost k minifikaci možnosti pro typ výstupu. **volitelné**, *výchozí – `minify: { enabled: true }`*
   * Možnosti konfigurace jsou k dispozici na typ výstupního souboru.
-    * [Minifier šablon stylů CSS](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
+    * [CSS Minifier](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
     * [Minifier jazyka JavaScript](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
     * [HTML Minifier](https://github.com/madskristensen/BundlerMinifier/wiki)
 * `includeInProject`: Příznak označující, jestli se má přidat generované soubory do souboru projektu. **volitelné**, *výchozí – false*
@@ -218,7 +218,7 @@ K minifikaci *custom.css* a zabalí jej *site.css* do *site.min.css* přidejte r
 >
 > Tento model podpory zástupných znaků vyhledá všechny soubory šablon stylů CSS a vyloučí vzor minifikovaný souboru.
 
-Sestavení aplikace. Otevřít *site.min.css* a Všimněte si, že obsah *custom.css* je připojen na konec souboru.
+Sestavte aplikaci. Otevřít *site.min.css* a Všimněte si, že obsah *custom.css* je připojen na konec souboru.
 
 ## <a name="environment-based-bundling-and-minification"></a>Prostředí založené na sdružování a minifikace
 
@@ -287,6 +287,9 @@ Pokud nejsou k dispozici sady Visual Studio nebo rozšíření například polo�
 
 Přidat *package.json* souboru následujícím kódem `devDependencies`, do kořenového adresáře projektu:
 
+> [!WARNING]
+> `gulp-uglify` Modul nepodporuje ECMAScript (ES) 2015 / ES6 a novější. Nainstalujte [gulp terser](https://www.npmjs.com/package/gulp-terser) místo `gulp-uglify` používat ES2015 nebo ES6 nebo novější.
+
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/package.json?range=5-13)]
 
 Nainstalovat závislosti spuštěním následujícího příkazu na stejné úrovni jako *package.json*:
@@ -325,11 +328,9 @@ V tomto příkladu všechny úkoly definované v rámci `MyPreCompileTarget` cí
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
 
-Visual Studio Task Runner Explorer lze také vázat úlohy Gulp k určité události aplikace Visual Studio. Zobrazit [spuštění úlohy výchozí](xref:client-side/using-gulp#running-default-tasks) pokyny týkající se toho.
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Použití nástroje Gulp](xref:client-side/using-gulp)
 * [Použití nástroje Grunt](xref:client-side/using-grunt)
 * [Používání více prostředí](xref:fundamentals/environments)
 * [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)

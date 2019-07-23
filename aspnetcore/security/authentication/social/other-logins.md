@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/11/2018
 uid: security/authentication/otherlogins
-ms.openlocfilehash: b69c366ec1bf12ccf434991fc8a79eaf8c09da3d
-ms.sourcegitcommit: 09bcda59a58019fdf47b2db5259fe87acf19dd38
+ms.openlocfilehash: 2bc9a11d0a46e54b4206f846d187b8c1cc954f89
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51708462"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815563"
 ---
 # <a name="external-oauth-authentication-providers"></a>Externí zprostředkovatelé ověřování OAuth
 
@@ -37,11 +37,11 @@ Následující seznam obsahuje společné externího zprostředkovatele ověřov
 
 * [Flickr](https://www.flickr.com/services/apps/create) ([pokyny](https://www.flickr.com/services/api/auth.oauth.html))
 
-* [Dribble](https://dribbble.com/signup) ([pokyny](http://developer.dribbble.com/v1/oauth/))
+* [Dribble](https://dribbble.com/signup) ([pokyny](https://developer.dribbble.com/v1/oauth/))
 
 * [Vimeo](https://vimeo.com/join) ([pokyny](https://developer.vimeo.com/api/authentication))
 
-* [SoundCloud](https://soundcloud.com/you/apps/new) ([pokyny](https://developers.soundcloud.com/blog/we-love-oauth-2))
+* [SoundCloud](https://soundcloud.com/you/apps/new) ([Instructions](https://developers.soundcloud.com/blog/we-love-oauth-2))
 
 * [VK](https://vk.com/apps?act=manage) ([pokyny](https://vk.com/pages?oid=-17680044&p=Authorizing_Sites))
 

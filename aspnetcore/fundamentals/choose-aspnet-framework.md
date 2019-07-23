@@ -4,14 +4,14 @@ author: rick-anderson
 description: Vysvětluje, ASP.NET Core vs. ASP.NET 4.x a jak si vybrat mezi nimi.
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 09/11/2018
+ms.date: 07/15/2019
 uid: fundamentals/choose-between-aspnet-and-aspnetcore
-ms.openlocfilehash: a89af3ba8d95c80356439ee89601bda00d171d3b
-ms.sourcegitcommit: 8a84ce880b4c40d6694ba6423038f18fc2eb5746
-ms.translationtype: HT
+ms.openlocfilehash: 9e093e83a1f6367cbb244076a8351644244f9874
+ms.sourcegitcommit: 7e00e8236ca4eabf058f07020a5a3882daf7564f
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/23/2019
-ms.locfileid: "60165138"
+ms.lasthandoff: 07/16/2019
+ms.locfileid: "68239208"
 ---
 # <a name="choose-between-aspnet-4x-and-aspnet-core"></a>Zvolte mezi ASP.NET 4.x a ASP.NET Core
 
@@ -36,15 +36,14 @@ Následující tabulka porovnává ASP.NET Core, ASP.NET 4.x.
 |Sestavení pro Windows, macOS nebo Linux|Sestavení pro Windows|
 |[Stránky Razor](xref:razor-pages/index) je doporučený postup pro vytváření webového uživatelského rozhraní k ASP.NET Core 2.x. Viz také [MVC](xref:mvc/overview), [webové rozhraní API](xref:tutorials/first-web-api), a [SignalR](xref:signalr/introduction).|Použití [webových formulářů](/aspnet/web-forms), [SignalR](/aspnet/signalr), [MVC](/aspnet/mvc), [webové rozhraní API](/aspnet/web-api/), [Webhooky](/aspnet/webhooks/), nebo [webové stránky](/aspnet/web-pages)|
 |Více verzí na počítač|Jedna verze na počítač|
-|Vývoj s využitím sady Visual Studio [Visual Studio for Mac](https://www.visualstudio.com/vs/visual-studio-mac/), nebo [Visual Studio Code](https://code.visualstudio.com/) pomocí C# neboF#|Vývoj s využitím sady Visual Studio C#, VB, neboF#|
+|Vývoj s využitím [sady Visual Studio](https://visualstudio.microsoft.com/vs/), [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/), nebo [Visual Studio Code](https://code.visualstudio.com/) pomocí C# neboF#|Vývoj s využitím [sady Visual Studio](https://visualstudio.microsoft.com/vs/) pomocí C#, VB, neboF#|
 |Vyšší výkon než ASP.NET 4.x|Dobrý výkon|
-|[Zvolte rozhraní .NET Framework nebo .NET Core runtime](/dotnet/standard/choosing-core-framework-server)|Použít modul runtime rozhraní .NET Framework|
+|[Použití .NET Core runtime](/dotnet/standard/choosing-core-framework-server)|Použít modul runtime rozhraní .NET Framework|
 
 Zobrazit [ASP.NET Core, které cílí na rozhraní .NET Framework](xref:index#target-framework) informace o podpoře ASP.NET Core 2.x na rozhraní .NET Framework.
 
 ## <a name="aspnet-core-scenarios"></a>Scénáře ASP.NET Core
 
-* [Stránky Razor](xref:razor-pages/index) je doporučený postup pro vytváření webového uživatelského rozhraní k ASP.NET Core 2.x.
 * [Weby](xref:tutorials/first-mvc-app/index)
 * [Rozhraní API](xref:tutorials/first-web-api)
 * [V reálném čase](xref:signalr/index)

@@ -1,4 +1,5 @@
-<!-- THIS INCLUDE USED BY MVC AND RP --> Přidejte následující vlastnosti pro `Movie` třídy:
+<!-- THIS INCLUDE USED BY MVC AND RP -->
+Přidejte následující vlastnosti pro `Movie` třídy:
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/Movie.cs?name=snippet1)]
 

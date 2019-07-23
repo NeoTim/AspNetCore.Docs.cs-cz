@@ -2,26 +2,21 @@
 title: Implementace serveru webové kestrel v ASP.NET Core
 author: guardrex
 description: Další informace o Kestrel, napříč platformami webový server pro ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 03/28/2019
+ms.date: 06/24/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: ab56f01c000c5404b58d79727b5b426d801081c2
-ms.sourcegitcommit: 3e9e1f6d572947e15347e818f769e27dea56b648
+ms.openlocfilehash: 0a2072c3c97faaf51c36df63a5751246d344a971
+ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/30/2019
-ms.locfileid: "58751060"
+ms.lasthandoff: 07/12/2019
+ms.locfileid: "67856180"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace serveru webové kestrel v ASP.NET Core
 
 Podle [Petr Dykstra](https://github.com/tdykstra), [Chris Ross](https://github.com/Tratcher), a [Stephen Halter](https://twitter.com/halter73)
-
-::: moniker range="<= aspnetcore-1.1"
-
-1.1 verzi tohoto tématu, stáhněte si [Kestrel webového serveru provedení v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/Kestrel_1.1.pdf).
-
-::: moniker-end
 
 Kestrel je platformově univerzální [webového serveru pro ASP.NET Core](xref:fundamentals/servers/index). Kestrel je webový server, který je obsažen ve výchozím nastavení v šablonách projektů ASP.NET Core.
 
@@ -48,7 +43,7 @@ Kestrel podporuje následující scénáře:
 
 Kestrel se podporuje na všech platformách a verze, které podporuje .NET Core.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -74,7 +69,7 @@ HTTP/2 je ve výchozím nastavení zakázána. Další informace o konfiguraci, 
 
 ## <a name="when-to-use-kestrel-with-a-reverse-proxy"></a>Kdy použít Kestrel pomocí reverzního proxy serveru
 
-Kestrel můžete použít samostatně nebo se *reverzní proxy server*, jako například [Internetové informační služby (IIS)](https://www.iis.net/), [Nginx](http://nginx.org), nebo [Apache](https://httpd.apache.org/). Reverzní proxy server přijímá požadavky HTTP ze sítě a předává je na Kestrel.
+Kestrel lze použít samostatně nebo s *reverzní proxy server*, jako například [Internetové informační služby (IIS)](https://www.iis.net/), [Nginx](https://nginx.org), nebo [Apache](https://httpd.apache.org/). Reverzní proxy server přijímá požadavky HTTP ze sítě a předává je na Kestrel.
 
 Kestrel použít jako webového serveru edge (internetový):
 
@@ -166,9 +161,41 @@ Webový server Kestrel má omezení možnosti konfigurace, které jsou obzvláš
 
 Nastavit na omezení <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits> vlastnost <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> třídy. `Limits` Vlastnost obsahuje instanci <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits> třídy.
 
+Následující příklady používají <xref:Microsoft.AspNetCore.Server.Kestrel.Core> obor názvů:
+
+```csharp
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+```
+
+### <a name="keep-alive-timeout"></a>Zachování vypršení časového limitu
+
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.KeepAliveTimeout>
+
+Získá nebo nastaví [keep-alive vypršení časového limitu](https://tools.ietf.org/html/rfc7230#section-6.5). Výchozí hodnota je 2 minuty.
+
+::: moniker range=">= aspnetcore-2.2"
+
+[!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_Limits&highlight=15)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+```csharp
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+        .UseStartup<Startup>()
+        .UseKestrel(options =>
+        {
+            options.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(2);
+        });
+```
+
+::: moniker-end
+
 ### <a name="maximum-client-connections"></a>Maximální počet klientských připojení
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentConnections>  
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentConnections>
 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MaxConcurrentUpgradedConnections>
 
 Lze nastavit maximální počet souběžných otevřená připojení TCP pro celou aplikaci s následujícím kódem:
@@ -258,9 +285,11 @@ Můžete přepsat nastavení pro konkrétní žádost a v middlewaru:
 
 Pokud se pokusíte nakonfigurovat limit na vyžádání po spuštění aplikace k přečtení požadavku, je vyvolána výjimka. Je `IsReadOnly` vlastnost, která označuje, zda `MaxRequestBodySize` vlastnost je ve stavu jen pro čtení, což znamená, je příliš pozdě Konfigurace limitu.
 
+Při spuštění aplikace [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model) za [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module), omezení velikosti textu Kestrel na žádost je zakázaná, protože služba IIS již nastaví limit.
+
 ### <a name="minimum-request-body-data-rate"></a>Minimální požadavek tělo přenosová rychlost
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinRequestBodyDataRate>  
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinRequestBodyDataRate>
 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.MinResponseDataRate>
 
 Kestrel kontroluje každou sekundu, pokud je dat přicházejících u určenou míru v bajtech/sekundu. Pokud míra klesne pod minimální, vypršení časového limitu připojení. Období odkladu je množství času, aby Kestrel poskytuje klienta ke zvýšení jeho míra odesílání z až Toto minimum, frekvence není kontrolován během této doby. Období odkladu pomáhá předejít, vyřadit připojení, která původně odesílají data s nízkou rychlostí kvůli zpomalit TCP-start.
@@ -298,9 +327,43 @@ Omezení pro minimální rychlost žádosti v middlewaru můžete přepsat:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Startup.cs?name=snippet_Limits&highlight=6-21)]
 
-::: moniker range=">= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinResponseDataRateFeature> Odkazuje předchozího vzorku není k dispozici v `HttpContext.Features` pro požadavky HTTP/2 protože úprava šířku pásma na základě žádosti není obecně podporované pro HTTP/2 z důvodu multiplexing žádost o podporu protokolu. Ale <xref:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinRequestBodyDataRateFeature> se stále nachází `HttpContext.Features` pro požadavky HTTP/2, protože limit sazbou čtení můžou být *zakázané úplně* na základě jednotlivých žádostí nastavením `IHttpMinRequestBodyDataRateFeature.MinDataRate` k `null` i pro HTTP/2 požadavek. Při čtení `IHttpMinRequestBodyDataRateFeature.MinDataRate` nebo pokusu o nastavení hodnoty jiné než `null` bude mít za následek `NotSupportedException` vyvolané zadaný požadavek HTTP/2.
+
+Omezení přenosové rychlosti úrovni serveru, které jsou nakonfigurované přes `KestrelServerOptions.Limits` stále použít k připojení HTTP/1.x a HTTP/2.
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 Ani jedna kurzu funkce odkazované v předchozí ukázce se nacházejí v `HttpContext.Features` pro požadavky HTTP/2, protože úprava šířku pásma na základě žádosti se nepodporuje pro HTTP/2 z důvodu multiplexing žádost o podporu protokolu. Omezení přenosové rychlosti úrovni serveru, které jsou nakonfigurované přes `KestrelServerOptions.Limits` stále použít k připojení HTTP/1.x a HTTP/2.
+
+::: moniker-end
+
+### <a name="request-headers-timeout"></a>Časový limit žádosti hlavičky
+
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits.RequestHeadersTimeout>
+
+Získá nebo nastaví maximální množství času na serveru, kterou zůstane přijímající hlavičky žádosti. Výchozí hodnota je 30 sekund.
+
+::: moniker range=">= aspnetcore-2.2"
+
+[!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_Limits&highlight=16)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+```csharp
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+        .UseStartup<Startup>()
+        .UseKestrel(options =>
+        {
+            options.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(1);
+        });
+```
 
 ::: moniker-end
 
@@ -404,6 +467,47 @@ Výchozí hodnota je velikosti 96 KB (98,304).
 
 ::: moniker-end
 
+### <a name="synchronous-io"></a>Synchronní vstupně-výstupních operací
+
+::: moniker range=">= aspnetcore-3.0"
+
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO> Určuje, zda je povoleno synchronní vstupně-výstupních operací pro žádost a odpověď. Výchozí hodnota je `false`.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO> Určuje, zda je povoleno synchronní vstupně-výstupních operací pro žádost a odpověď. Výchozí hodnota je `true`.
+
+::: moniker-end
+
+> [!WARNING]
+> Velký počet blokování synchronní vstupně-výstupní operace může vést k vyčerpání fondu vlákno, takže aplikace reagovat. Povolit pouze `AllowSynchronousIO` při použití knihovny, který nepodporuje asynchronní vstupně-výstupních operací.
+
+::: moniker range=">= aspnetcore-2.2"
+
+Následující příklad povolí synchronní vstupně-výstupní operace:
+
+[!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_SyncIO&highlight=3)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-2.2"
+
+Následující příklad zakazuje synchronní vstupně-výstupní operace:
+
+```csharp
+public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    WebHost.CreateDefaultBuilder(args)
+        .UseStartup<Startup>()
+        .UseKestrel(options =>
+        {
+            options.AllowSynchronousIO = false;
+        });
+```
+
+::: moniker-end
+
 Informace o dalších možnostech Kestrel a omezení najdete tady:
 
 * <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions>
@@ -424,7 +528,7 @@ Určení adres URL pomocí:
 * `urls` Konfigurační klíč hostitele.
 * `UseUrls` metody rozšíření.
 
-Hodnota zadaná pomocí těchto přístupů může být jeden nebo více HTTP a HTTPS koncové body (HTTPS Pokud je k dispozici výchozí cert). Nakonfigurujte tuto hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000;http://localhost:8001"`).
+Hodnota zadaná pomocí těchto přístupů může být jeden nebo více HTTP a HTTPS koncové body (HTTPS Pokud je k dispozici výchozí cert). Nakonfigurujte tuto hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000; http://localhost:8001"`).
 
 Další informace o těchto přístupů najdete v tématu [adresy URL serveru](xref:fundamentals/host/web-host#server-urls) a [konfigurace přepisování](xref:fundamentals/host/web-host#override-configuration).
 
@@ -584,7 +688,7 @@ V následujícím *appsettings.json* příkladu:
 ```json
 {
 "Kestrel": {
-  "EndPoints": {
+  "Endpoints": {
     "Http": {
       "Url": "http://localhost:5000"
     },
@@ -601,7 +705,7 @@ V následujícím *appsettings.json* příkladu:
       "Url": "https://localhost:5002",
       "Certificate": {
         "Subject": "<subject; required>",
-        "Store": "<certificate store; defaults to My>",
+        "Store": "<certificate store; required>",
         "Location": "<location; defaults to CurrentUser>",
         "AllowInvalid": "<true or false; defaults to false>"
       }
@@ -634,7 +738,7 @@ O alternativu k použití **cesta** a **heslo** pro jakýkoliv certifikát je uz
 ```json
 "Default": {
   "Subject": "<subject; required>",
-  "Store": "<cert store; defaults to My>",
+  "Store": "<cert store; required>",
   "Location": "<location; defaults to CurrentUser>",
   "AllowInvalid": "<true or false; defaults to false>"
 }
@@ -704,13 +808,13 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
                 listenOptions.UseHttps(httpsOptions =>
                 {
                     var localhostCert = CertificateLoader.LoadFromStoreCert(
-                        "localhost", "My", StoreLocation.CurrentUser, 
+                        "localhost", "My", StoreLocation.CurrentUser,
                         allowInvalid: true);
                     var exampleCert = CertificateLoader.LoadFromStoreCert(
-                        "example.com", "My", StoreLocation.CurrentUser, 
+                        "example.com", "My", StoreLocation.CurrentUser,
                         allowInvalid: true);
                     var subExampleCert = CertificateLoader.LoadFromStoreCert(
-                        "sub.example.com", "My", StoreLocation.CurrentUser, 
+                        "sub.example.com", "My", StoreLocation.CurrentUser,
                         allowInvalid: true);
                     var certs = new Dictionary<string, X509Certificate2>(
                         StringComparer.OrdinalIgnoreCase);
@@ -747,13 +851,13 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
                 listenOptions.UseHttps(httpsOptions =>
                 {
                     var localhostCert = CertificateLoader.LoadFromStoreCert(
-                        "localhost", "My", StoreLocation.CurrentUser, 
+                        "localhost", "My", StoreLocation.CurrentUser,
                         allowInvalid: true);
                     var exampleCert = CertificateLoader.LoadFromStoreCert(
-                        "example.com", "My", StoreLocation.CurrentUser, 
+                        "example.com", "My", StoreLocation.CurrentUser,
                         allowInvalid: true);
                     var subExampleCert = CertificateLoader.LoadFromStoreCert(
-                        "sub.example.com", "My", StoreLocation.CurrentUser, 
+                        "sub.example.com", "My", StoreLocation.CurrentUser,
                         allowInvalid: true);
                     var certs = new Dictionary<string, X509Certificate2>(
                         StringComparer.OrdinalIgnoreCase);
@@ -960,13 +1064,13 @@ private class TlsFilterAdapter : IConnectionAdapter
     {
         var tlsFeature = context.Features.Get<ITlsHandshakeFeature>();
 
-        // Throw NotSupportedException for any cipher algorithm that you don't 
-        // wish to support. Alternatively, define and compare 
-        // ITlsHandshakeFeature.CipherAlgorithm to a list of acceptable cipher 
+        // Throw NotSupportedException for any cipher algorithm that you don't
+        // wish to support. Alternatively, define and compare
+        // ITlsHandshakeFeature.CipherAlgorithm to a list of acceptable cipher
         // suites.
         //
-        // A ITlsHandshakeFeature.CipherAlgorithm of CipherAlgorithmType.Null 
-        // indicates that no cipher algorithm supported by Kestrel matches the 
+        // A ITlsHandshakeFeature.CipherAlgorithm of CipherAlgorithmType.Null
+        // indicates that no cipher algorithm supported by Kestrel matches the
         // requested algorithm(s).
         if (tlsFeature.CipherAlgorithm == CipherAlgorithmType.Null)
         {
@@ -1001,7 +1105,7 @@ V následujícím *appsettings.json* pokládáme stav pro všechny koncové body
 ```json
 {
   "Kestrel": {
-    "EndPointDefaults": {
+    "EndpointDefaults": {
       "Protocols": "Http1AndHttp2"
     }
   }
@@ -1013,7 +1117,7 @@ Následující příklad souboru konfigurace naváže připojení protokolu pro 
 ```json
 {
   "Kestrel": {
-    "EndPoints": {
+    "Endpoints": {
       "HttpsDefaultCert": {
         "Url": "https://localhost:5001",
         "Protocols": "Http1AndHttp2"
@@ -1039,7 +1143,7 @@ Pro ASP.NET Core 2.1 nebo novější projekty, které používají [Microsoft.As
 * Přidat závislost [Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv/) balíček do souboru projektu vaší aplikace:
 
     ```xml
-    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv" 
+    <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv"
                       Version="<LATEST_VERSION>" />
     ```
 
@@ -1132,5 +1236,5 @@ Middleware filtrování hostitele je ve výchozím nastavení zakázána. Chcete
 * <xref:test/troubleshoot>
 * <xref:security/enforcing-ssl>
 * <xref:host-and-deploy/proxy-load-balancer>
-* [Kestrel zdrojového kódu](https://github.com/aspnet/KestrelHttpServer)
+* [Kestrel zdrojového kódu](https://github.com/aspnet/AspNetCore/tree/master/src/Servers/Kestrel)
 * [RFC 7230: Syntaxe a směrování zpráv (oddíl 5.4: Hostitel)](https://tools.ietf.org/html/rfc7230#section-5.4)

@@ -1,27 +1,27 @@
 ---
-title: Rozhraní API ochrany dat různé ASP.NET Core
+title: Různé technologie ASP.NET Core rozhraními API na ochranu dat
 author: rick-anderson
 description: Další informace o rozhraní ASP.NET Core Data Protection ISecret.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/extensibility/misc-apis
 ms.openlocfilehash: 114cdd6209970e46b827e403fbe79b95692d0242
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36279152"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64902658"
 ---
-# <a name="miscellaneous-aspnet-core-data-protection-apis"></a>Rozhraní API ochrany dat různé ASP.NET Core
+# <a name="miscellaneous-aspnet-core-data-protection-apis"></a>Různé technologie ASP.NET Core rozhraními API na ochranu dat
 
 <a name="data-protection-extensibility-mics-apis"></a>
 
 >[!WARNING]
-> Typy, které implementují některá z následujících rozhraní by měly být vláken pro více volající.
+> Typy, které implementují některý z následujících rozhraní by měly být bezpečné pro vlákna pro více volání.
 
 ## <a name="isecret"></a>ISecret
 
-`ISecret` Rozhraní představuje tajná hodnota, jako je například materiál kryptografické klíče. Obsahuje následující plochy rozhraní API:
+`ISecret` Rozhraní představuje hodnotu tajného kódu, jako je například kryptografické klíče. Obsahuje následující plochy rozhraní API:
 
 * `Length`: `int`
 
@@ -29,6 +29,6 @@ ms.locfileid: "36279152"
 
 * `WriteSecretIntoBuffer(ArraySegment<byte> buffer)`: `void`
 
-`WriteSecretIntoBuffer` Metoda naplní poskytnutá vyrovnávací paměť s nezpracovaná tajná hodnota. Z důvodu toto rozhraní API trvá vyrovnávací paměti jako parametr místo vrácení `byte[]` přímo je, že díky volající možnost připnout objekt vyrovnávací paměti, omezuje jeho vystavení tajný spravované uvolňování paměti.
+`WriteSecretIntoBuffer` Metoda naplní poskytnutá vyrovnávací paměť s nezpracované hodnoty tajných kódů. Z důvodu tohoto rozhraní API trvá vyrovnávací paměti jako parametr místo vrácení `byte[]` přímo je, že to dává volající možnost připnout vyrovnávací paměti objektu, omezuje jeho vystavení tajných kódů spravované systému uvolňování paměti.
 
-`Secret` Typ je konkrétní implementaci `ISecret` se uloží tajná hodnota v paměti v procesu. Na platformách systému Windows, jsou zašifrovaná tajná hodnota prostřednictvím [CryptProtectMemory](https://msdn.microsoft.com/library/windows/desktop/aa380262(v=vs.85).aspx).
+`Secret` Typ je konkrétní implementaci `ISecret` kde tajná hodnota uložená v paměti v procesu. Na platformách Windows, se šifrují tajná hodnota prostřednictvím [CryptProtectMemory](https://msdn.microsoft.com/library/windows/desktop/aa380262(v=vs.85).aspx).

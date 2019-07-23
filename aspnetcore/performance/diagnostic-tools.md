@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.date: 04/11/2019
 uid: performance/diagnostic-tools
-ms.openlocfilehash: 66676b5a2b95b87bfbbd50022e279e35a12b9793
-ms.sourcegitcommit: 78339e9891c8676db01a6e81e9cb0cdaa280162f
+ms.openlocfilehash: d273897b9ad26d57eb94b196b58f14019a96d07d
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2019
-ms.locfileid: "59516219"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815625"
 ---
 # <a name="performance-diagnostic-tools"></a>Diagnostické nástroje výkonu
 
@@ -53,7 +53,7 @@ Další informace najdete v tématu [Application Insights pro ASP.NET Core](/azu
 
 [PerfView](https://github.com/Microsoft/perfview) je nástroj pro analýzu výkonu vytvořený týmem .NET speciálně pro diagnostiku problémů s výkonem .NET. PerfView umožňuje analýzu využití procesoru, využití paměti, chování uvolňování paměti, událostí souvisejících s výkonem a skutečného času.
 
-Další informace o PerfView a jak s ním začít pracovat najdete ve [videokurzech](http://channel9.msdn.com/Series/PerfView-Tutorial) nebo si je můžete přečíst v uživatelské příručce, která je k dispozici přímo v nástroji, nebo [na GitHubu](https://github.com/Microsoft/perfview).
+Další informace o PerfView a jak s ním začít pracovat najdete ve [videokurzech](https://channel9.msdn.com/Series/PerfView-Tutorial) nebo si je můžete přečíst v uživatelské příručce, která je k dispozici přímo v nástroji, nebo [na GitHubu](https://github.com/Microsoft/perfview).
 
 ## <a name="windows-performance-toolkit"></a>Sada Windows Performance Toolkit
 

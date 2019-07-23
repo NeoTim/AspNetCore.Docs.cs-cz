@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 4afc9ac0a3c54b452c6a1b23e4de31d7e2fc5284
-ms.sourcegitcommit: 191d21c1e37b56f0df0187e795d9a56388bbf4c7
+ms.openlocfilehash: 302a5e10a70e40e75ab9fe4b3e5a98c4e847b822
+ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/08/2019
-ms.locfileid: "57665334"
+ms.lasthandoff: 07/11/2019
+ms.locfileid: "67815219"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro SPA
 
@@ -251,7 +251,7 @@ Tato část popisuje nasazení aplikace na Azure websites pomocí certifikátu u
 
 Pokud chcete nasadit na weby Azure, nasazení aplikace podle kroků v [aplikaci nasadit do Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure) prostředky Azure potřebné pro vytvoření a nasazení aplikace do produkčního prostředí.
 
-Po provedení předchozích kroků, aplikace se nasadí do Azure, ale ještě není funkční. Certifikát používaný aplikací je stále potřeba nastavit. Vyhledejte kryptografický otisk certifikátu, který se má použít a postupujte podle kroků popsaných v [načíst vaše certifikáty](/azure/app-service/app-service-web-ssl-cert-load#load-your-certificates).
+Po provedení předchozích kroků, aplikace se nasadí do Azure, ale ještě není funkční. Certifikát používaný aplikací je stále potřeba nastavit. Vyhledejte kryptografický otisk certifikátu, který se má použít a postupujte podle kroků popsaných v [načíst vaše certifikáty](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code).
 
 Přestože tyto kroky zmiňovat SSL, je **privátní certifikáty** části na portálu, kde můžete nahrát zřízené certifikátu pro použití s aplikací.
 

@@ -1,26 +1,26 @@
 ---
-title: Ochrana zprostředkovatele dočasných dat v ASP.NET Core
+title: Zprostředkovatelé dočasné ochrany dat v ASP.NET Core
 author: rick-anderson
-description: Další podrobnosti implementace zprostředkovatelů ochrany dočasných dat ASP.NET Core.
+description: Přečtěte si podrobnosti implementace ASP.NET Core zprostředkovatelé dočasné ochrany dat.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/key-storage-ephemeral
 ms.openlocfilehash: e4b0014ab3bdbf90b91383e8a33102f94faa8153
-ms.sourcegitcommit: a1afd04758e663d7062a5bfa8a0d4dca38f42afc
+ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2018
-ms.locfileid: "36279464"
+ms.lasthandoff: 04/27/2019
+ms.locfileid: "64901626"
 ---
-# <a name="ephemeral-data-protection-providers-in-aspnet-core"></a>Ochrana zprostředkovatele dočasných dat v ASP.NET Core
+# <a name="ephemeral-data-protection-providers-in-aspnet-core"></a>Zprostředkovatelé dočasné ochrany dat v ASP.NET Core
 
 <a name="data-protection-implementation-key-storage-ephemeral"></a>
 
-Existují scénáře, pokud aplikace potřebuje throwaway `IDataProtectionProvider`. Například vývojář může být právě experimentování v jednorázové konzolovou aplikaci, nebo vlastní aplikace je přechodný (je vytvořena nebo jednotku testování projektu). Chcete-li tyto scénáře podporovat [Microsoft.AspNetCore.DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/) balíček zahrnuje typ `EphemeralDataProtectionProvider`. Tento typ poskytuje základní implementaci `IDataProtectionProvider` jejichž klíče úložiště trvá výhradně v paměti a není zapsané do jakékoli úložiště zálohování.
+Existují scénáře, kdy aplikace potřebuje throwaway `IDataProtectionProvider`. Například vývojář může být pouze experimentování v jednorázové konzolovou aplikaci, nebo vlastní aplikace je přechodná (je vytvořena nebo projekt testování částí). Pro podporu těchto scénářů [Microsoft.AspNetCore.DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/) balíček obsahuje typ `EphemeralDataProtectionProvider`. Tento typ poskytuje základní implementaci `IDataProtectionProvider` jejichž klíče úložiště se nachází pouze v paměti a není zapsané do jakékoli záložního úložiště.
 
-Každá instance `EphemeralDataProtectionProvider` používá svůj vlastní jedinečný hlavní klíč. Proto pokud `IDataProtector` root na `EphemeralDataProtectionProvider` generuje chráněné datové části této datové části může být pouze zbaveny ekvivalentní `IDataProtector` (zadaný stejný [účel](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-consumer-apis-purposes) řetězu) root ve stejné `EphemeralDataProtectionProvider` instance.
+Každá instance `EphemeralDataProtectionProvider` používá svůj vlastní jedinečný hlavní klíč. Proto pokud `IDataProtector` kořenovým adresářem v `EphemeralDataProtectionProvider` generuje datové části je chráněný, tuto datovou část může být pouze zbaveny ekvivalentní `IDataProtector` (zadaný stejný [účel](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-consumer-apis-purposes) řetězu) kořenovým adresářem v stejný `EphemeralDataProtectionProvider` instance.
 
-Následující příklad ukazuje vytvoření instance `EphemeralDataProtectionProvider` a jeho použití k ochraně a zrušení data.
+Následující příklad ukazuje vytvoření instance `EphemeralDataProtectionProvider` a jeho použití k ochraně a zrušení ochrany dat.
 
 ```csharp
 using System;
