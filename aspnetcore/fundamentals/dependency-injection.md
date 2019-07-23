@@ -242,7 +242,8 @@ Pokud jsou služby řešeny pomocí `ActivatorUtilities`, konstruktorová injekc
 
 ## <a name="entity-framework-contexts"></a>Kontexty Entity Frameworku
 
-Kontexty Entity Frameworku jsou obvykle přidány do kontejneru služeb s [vymezenou životností](#service-lifetimes), protože operace webové aplikace nad databází jsou obvykle vymezeny na požadavek klienta. Výchozí doba životnosti je vymezená, pokud není specifikována v přetížení metody [AddDbContext\<TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) při registraci databázového kontextu. Služby s danou životností by neměly používat databázový kontext s životností kratší, než je životnost služby.
+Kontexty Entity Frameworku jsou obvykle přidány do kontejneru služeb s [vymezenou životností](#service-lifetimes), protože operace webové aplikace nad databází jsou obvykle vymezeny na požadavek klienta. Výchozí doba životnosti je vymezená, pokud není specifikována v přetížení metody <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext*> při registraci databázového kontextu. Služby s danou životností by neměly používat databázový kontext s životností kratší, než je životnost služby.
+
 
 ## <a name="lifetime-and-registration-options"></a>Životnosti a možnosti registrace
 

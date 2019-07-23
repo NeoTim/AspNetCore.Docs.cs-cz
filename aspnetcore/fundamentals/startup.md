@@ -24,14 +24,18 @@ Třída `Startup` konfiguruje služby a kanál zpracování požadavků aplikace
 
 Aplikace ASP.NET Core používají třídu `Startup`, která je konvenčně pojmenována `Startup`. Třída `Startup`:
 
-* Volitelně obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*>, která slouží pro konfiguraci *služeb* aplikace. Služba je znovupoužitelná komponenta, která poskytuje funkčnost aplikace. Služby jsou nakonfigurovány &mdash; neboli takzvaně *zaregistrovány* &mdash; v metodě `ConfigureServices` a využívány napříč aplikací skrze [vkládání závislostí (DI)](xref:fundamentals/dependency-injection) nebo <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.
-* Obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> pro vytvoření kanálu pro zpracování požadavků aplikace.
+
+* Volitelně obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*>, která slouží pro konfiguraci *služeb* aplikace. Služba je znovupoužitelná komponenta, která poskytuje funkčnost aplikace. Služby jsou nakonfigurovány &ndash; neboli takzvaně *zaregistrovány* &ndash; v metodě `ConfigureServices` a využívány napříč aplikací skrze [vkládání závislostí (DI)](xref:fundamentals/dependency-injection) nebo <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.
+* Obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> pro vytvoření kanálu pro zpracování požadavků aplikace.	
+
 
 `ConfigureServices` a `Configure` jsou volány modulem runtime ASP.NET Core, při spuštění aplikace:
 
 [!code-csharp[](startup/sample_snapshot/Startup1.cs?highlight=4,10)]
 
-Třída `Startup` je v aplikaci specifikována při vytváření [hostitele](xref:fundamentals/index#host). Hostitel aplikace je vytvořen při volání metody `Build` na tvůrci (builderu) hostitele ve třídě `Program`. Třída `Startup` je obvykle určena voláním metody [WebHostBuilderExtensions.UseStartup\<TStartup >](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) na tvůrci (builderu) hostitele:
+
+Třída `Startup` je v aplikaci specifikována při vytváření [hostitele](xref:fundamentals/index#host). Hostitel aplikace je vytvořen při volání metody `Build` na tvůrci (builderu) hostitele ve třídě `Program`. Třída `Startup` je obvykle určena voláním metody [WebHostBuilderExtensions.UseStartup\<TStartup >](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*)  na tvůrci (builderu) hostitele:
+
 
 [!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=10)]
 
@@ -128,11 +132,12 @@ Pokud je určena hodnota parametru řetězce dotazu `option`, middleware zpracuj
 Pořadí spuštění middlewarů je nastaveno podle pořadí registrace `IStartupFilter`:
 
 * Několik různých implementací `IStartupFilter` může operovat se stejnými objekty. Pokud je pro Vás důležité pořadí, seřaďte jednotlivé registrace služeb `IStartupFilter` tak, aby odpovídaly pořadí, ve kterém mají být jejich middlewary spuštěny.
-* Knihovny mohou přidávat middlewary s jednou nebo více implementacemi rozhraní `IStartupFilter`, které se spustí před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí rozhraní `IStartupFilter`. Pokud chcete vyvolat middleware rozhraní `IStartupFilter` před  middlewarem přidaným pomocí rozhraní `IStartupFilter` knihovny, umístěte registraci služby před přidání knihovny do kontejneru služeb. Pokud ji chcete vyvolat později, umístěte registraci služby za přidání knihovny.
+* Knihovny mohou přidávat middlewary s jednou nebo více implementacemi rozhraní `IStartupFilter`, které se spustí před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí rozhraní `IStartupFilter`. Pokud chcete vyvolat middleware rozhraní `IStartupFilter` před middlewarem přidaným pomocí rozhraní `IStartupFilter` knihovny, umístěte registraci služby před přidání knihovny do kontejneru služeb. Pokud ji chcete vyvolat později, umístěte registraci služby za přidání knihovny.
 
 ## <a name="add-configuration-at-startup-from-an-external-assembly"></a>Přidání konfigurace při spuštění z externího sestavení
 
-Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
+Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
+
 
 ## <a name="additional-resources"></a>Další zdroje
 
