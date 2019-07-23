@@ -192,7 +192,7 @@
       uid: fundamentals/http-requests
     - name: Statické soubory
       uid: fundamentals/static-files
-    - name: Generátor kódu
+    - name: aspnet-codegenerator
       uid: fundamentals/tools/dotnet-aspnet-codegenerator
 - name: Webové aplikace
   items:
