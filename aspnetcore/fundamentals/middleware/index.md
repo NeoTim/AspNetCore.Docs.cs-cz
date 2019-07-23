@@ -169,7 +169,7 @@ Pokud není žádost zpracována middlewarem pro statické soubory, je předána
 
 ::: moniker-end
 
-Následující příklad ukazuje pořadí middlewarů, ve kterém jsou požadavky na statické soubory zpracovávány middlewarem pro statické soubory před middlewarem pro kompresi odpovědí. Statické soubory nejsou komprimovány v tomto uspořádání middlewarů. MVC odpovědi z <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> mohou být komprimovány.
+Následující příklad ukazuje pořadí middlewarů, ve kterém se požadavky na statické soubory zpracovávají middlewarem pro statické soubory před middlewarem pro kompresi odpovědí. Statické soubory se v tomto uspořádání middlewarů nekomprimují. MVC odpovědi z <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> mohou být komprimovány.
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -183,9 +183,9 @@ public void Configure(IApplicationBuilder app)
 
 ### <a name="use-run-and-map"></a>Metody Use, Run a Map
 
-Konfigurujte HTTP rouru pomocí metod `Use`, `Run`, a `Map`. Metoda `Use` můžete předčasně ukončit rouru zpracování (tj. v případě, kdy nezavoláte delegáta požadavku `next`). `Run` je konvence a některé middlewarové komponenty mohou exponovat metodu `Run[Middleware]`, která se spouští na konci roury.
+Konfigurujte HTTP kanál pomocí metod Use, Run a Map. Metoda Use můžete předčasně ukončit kanál zpracování (tj. v případě, kdy nezavoláte delegáta požadavku next). Metoda Run je konvence a některé middlewarové komponenty mohou exponovat metodu Run[Middleware], která se spouští na konci kanálu.
 
-Rozšíření <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> jsou používány jako konvence pro větvení roury. `Map*` větví rouru požadavků na základě shody se zadanou cestou požadavku. Pokud cesta požadavku začíná danou cestou požadavku, je větev provedena.
+Rozšíření <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> jsou používána jako konvence pro větvení kanálu. Metoda Map* větví kanál požadavků na základě shody se zadanou cestou požadavku. Pokud cesta požadavku začíná danou cestou požadavku, větev se provede.
 
 [!code-csharp[](index/snapshot/Chain/StartupMap.cs?name=snippet1)]
 
