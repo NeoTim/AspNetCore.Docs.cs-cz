@@ -1,49 +1,177 @@
 ---
 title: Práce s databází a ASP.NET Core
 author: rick-anderson
-description: Vysvětluje, práci s databází a ASP.NET Core.
+description: Vysvětluje práci s databází a ASP.NET Core.
 ms.author: riande
-ms.date: 12/07/2017
+ms.date: 7/22/2019
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 6cef55382d8c77e95280ea4eea2dbc2af1c81987
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 197697f28e9faa45c1ac2b7f993bde15994957e5
+ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899820"
+ms.lasthandoff: 07/24/2019
+ms.locfileid: "68440378"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>Práce s databází a ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Joe Audette](https://twitter.com/joeaudette)
 
+::: moniker range=">= aspnetcore-3.0"
+
 [!INCLUDE[](~/includes/rp/download.md)]
 
-`RazorPagesMovieContext` Objekt zpracovává úlohu s připojením k databázi a mapování `Movie` objekty se záznamy v databázi. Kontext databáze je zaregistrován [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru v `ConfigureServices` metoda ve *Startup.cs*:
+Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. `RazorPagesMovieContext` Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v *Startup.cs*:
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
+
+---
+
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj získá připojovací řetězec ze souboru *appSettings. JSON* .
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+Hodnota názvu pro databázi (`Database={Database name}`) bude pro vygenerovaný kód odlišná. Hodnota name je libovolná.
+
+[!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json)]
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+[!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
+
+---
+
+Při nasazení aplikace do testovacího nebo provozního serveru lze použít proměnnou prostředí k nastavení připojovacího řetězce na skutečný databázový server. Další informace najdete v části [Konfigurace](xref:fundamentals/configuration/index) .
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
+
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení vytvoří `*.mdf` databáze LocalDB soubory `C:/Users/<user/>` v adresáři.
+
+<a name="ssox"></a>
+* V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
+
+  ![Nabídka Zobrazit](sql/_static/ssox.png)
+
+* Klikněte pravým tlačítkem na  tabulkuavyberteZobrazit`Movie` návrháře:
+
+  ![Kontextové nabídky otevřené v tabulce videí](sql/_static/design.png)
+
+  ![Tabulky filmů otevřené v Návrháři](sql/_static/dv.png)
+
+Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF vytvoří vlastnost s názvem `ID` pro primární klíč.
+
+* Klikněte pravým tlačítkem na  tabulkuavyberteZobrazit`Movie` data:
+
+  ![Tabulka videa otevřená zobrazující data tabulky](sql/_static/vd22.png)
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+[!INCLUDE[](~/includes/rp/sqlite.md)]
+[!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
+
+---
+
+## <a name="seed-the-database"></a>Přidání dat do databáze
+
+Vytvořte novou třídu s názvem `SeedData` ve složce *modely* s následujícím kódem:
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedData.cs?name=snippet_1)]
+
+Pokud databáze obsahuje nějaké filmy, inicializátor počáteční hodnoty se vrátí a nepřidá se žádné filmy.
+
+```csharp
+if (context.Movie.Any())
+{
+    return;   // DB has been seeded.
+}
+```
+
+<a name="si"></a>
+
+### <a name="add-the-seed-initializer"></a>Přidat inicializátor počáteční hodnoty
+
+V *Program.cs*, změnit `Main` metoda můžete provádět následující:
+
+* Instance kontextu databáze získáte z kontejneru pro vkládání závislostí.
+* Zavolejte metodu počáteční hodnoty a předejte jí kontext.
+* Vyřazení kontextu, když se dokončí metoda počáteční hodnoty.
+
+Následující kód ukazuje aktualizovaný *Program.cs* souboru.
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Program.cs)]
+
+Produkční aplikace by nevolala `Database.Migrate`. Přidá se k předchozímu kódu, aby se zabránilo následující výjimce, pokud `Update-Database` nebyla spuštěna:
+
+SqlException: Nelze otevřít databázi "RazorPagesMovieContext-21" požadovanou přihlášením. Přihlášení se nezdařilo.
+Přihlášení uživatele "uživatelské jméno" se nezdařilo.
+
+### <a name="test-the-app"></a>Testování aplikace
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+* Odstraňte všechny záznamy v databázi. Můžete to provést pomocí odkazů DELETE v prohlížeči nebo z [SSOX](xref:tutorials/razor-pages/new-field#ssox) .
+* Vynuťte inicializaci aplikace (volání metod ve `Startup` třídě), takže se metoda počáteční hodnoty spustí. Chcete-li vynutit inicializaci, IIS Express musí být zastavena a restartována. Můžete to provést s některým z následujících přístupů:
+
+  * Klikněte pravým tlačítkem myši na ikonu IIS Express systému v oznamovací oblasti a klepněte na **konec** nebo **zastavení webu**:
+
+    ![IIS Express ikona na hlavním panelu systému](../first-mvc-app/working-with-sql/_static/iisExIcon.png)
+
+    ![Kontextová nabídka](sql/_static/stopIIS.png)
+
+    * Pokud jste spustili VS v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění.
+    * Pokud jste spustili VS v režimu ladění, ukončete ladicí program a stiskněte klávesu F5.
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+Odstraní všechny záznamy v databázi (takže se metoda počáteční hodnoty spustí). Zastavením a spuštěním aplikace dosadíte databázi.
+
+Aplikace zobrazuje dosazený data.
+
+---
+
+V dalším kurzu dojde k vylepšení prezentace dat.
+
+## <a name="additional-resources"></a>Další zdroje
+
+> [!div class="step-by-step"]
+> [Předchozí Razor Pages](xref:tutorials/razor-pages/page)vygenerovanéjako[další:
+>  Aktualizace stránek](xref:tutorials/razor-pages/da1)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!INCLUDE[](~/includes/rp/download.md)]
+
+Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. `RazorPagesMovieContext` Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v *Startup.cs*:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 ---
 
-Další informace o metodách `ConfigureServices`, naleznete v tématu:
+Další informace o metodách používaných v `ConfigureServices`nástroji naleznete v tématu:
 
-* [Podpora EU obecného Regulation (GDPR) v ASP.NET Core](xref:security/gdpr) pro `CookiePolicyOptions`.
+* [Podpora GDPR (EU obecné nařízení o ochraně osobních údajů) v ASP.NET Core](xref:security/gdpr) pro `CookiePolicyOptions`.
 * [SetCompatibilityVersion](xref:mvc/compatibility-version)
 
-ASP.NET Core [konfigurace](xref:fundamentals/configuration/index) systému čtení `ConnectionString`. Pro místní vývoj, získá připojovací řetězec z *appsettings.json* souboru.
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj získá připojovací řetězec ze souboru *appSettings. JSON* .
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Hodnota názvu databáze (`Database={Database name}`) se bude lišit pro vygenerovaný kód. Hodnota názvu je volitelný.
+Hodnota názvu pro databázi (`Database={Database name}`) bude pro vygenerovaný kód odlišná. Hodnota name je libovolná.
 
 [!code-json[](razor-pages-start/sample/RazorPagesMovie22/appsettings.json)]
 
@@ -57,30 +185,30 @@ Hodnota názvu databáze (`Database={Database name}`) se bude lišit pro vygener
 
 ---
 
-Po nasazení aplikace na testovacím nebo produkčním serveru, proměnné prostředí je možné nastavit připojovací řetězec na skutečné databázový server. Zobrazit [konfigurace](xref:fundamentals/configuration/index) Další informace.
+Při nasazení aplikace do testovacího nebo provozního serveru lze použít proměnnou prostředí k nastavení připojovacího řetězce na skutečný databázový server. Další informace najdete v části [Konfigurace](xref:fundamentals/configuration/index) .
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB je Odlehčená verze SQL Server Express. databázový stroj, která je určená pro vývoj v programu. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení, vytvoří databázi LocalDB `*.mdf` soubory `C:/Users/<user/>` adresáře.
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení vytvoří `*.mdf` databáze LocalDB soubory `C:/Users/<user/>` v adresáři.
 
 <a name="ssox"></a>
-* Z **zobrazení** nabídce otevřete **Průzkumník objektů systému SQL Server** (SSOX).
+* V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
 
   ![Nabídka Zobrazit](sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem na `Movie` tabulce a vybrat **Návrhář zobrazení**:
+* Klikněte pravým tlačítkem na  tabulkuavyberteZobrazit`Movie` návrháře:
 
-  ![Kontextová nabídka otevřít na tabulky Movie](sql/_static/design.png)
+  ![Kontextová nabídka otevřená v tabulce videí](sql/_static/design.png)
 
-  ![Otevřít v Návrháři tabulky Movie](sql/_static/dv.png)
+  ![Tabulka videí otevřená v Návrháři](sql/_static/dv.png)
 
-Poznámka: na ikonu klíče vedle `ID`. Ve výchozím nastavení, EF vytvoří vlastnost s názvem `ID` pro primární klíč.
+Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF vytvoří vlastnost s názvem `ID` pro primární klíč.
 
-* Klikněte pravým tlačítkem na `Movie` tabulce a vybrat **Data zobrazení**:
+* Klikněte pravým tlačítkem na  tabulkuavyberteZobrazit`Movie` data:
 
-  ![Otevřít zobrazení tabulky dat tabulky Movie](sql/_static/vd22.png)
+  ![Tabulka videa otevřená zobrazující data tabulky](sql/_static/vd22.png)
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -96,11 +224,11 @@ Poznámka: na ikonu klíče vedle `ID`. Ve výchozím nastavení, EF vytvoří v
 
 ## <a name="seed-the-database"></a>Přidání dat do databáze
 
-Vytvořte novou třídu s názvem `SeedData` v *modely* složka s následujícím kódem:
+Vytvořte novou třídu s názvem `SeedData` ve složce *modely* s následujícím kódem:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedData.cs?name=snippet_1)]
 
-Pokud jsou všechny filmy v databázi, vrátí inicializátoru pro dosazení hodnot a jsou přidány žádné video.
+Pokud databáze obsahuje nějaké filmy, inicializátor počáteční hodnoty se vrátí a nepřidá se žádné filmy.
 
 ```csharp
 if (context.Movie.Any())
@@ -111,63 +239,65 @@ if (context.Movie.Any())
 
 <a name="si"></a>
 
-### <a name="add-the-seed-initializer"></a>Přidat inicializační výraz počáteční hodnoty
+### <a name="add-the-seed-initializer"></a>Přidat inicializátor počáteční hodnoty
 
 V *Program.cs*, změnit `Main` metoda můžete provádět následující:
 
 * Instance kontextu databáze získáte z kontejneru pro vkládání závislostí.
-* Volejte metodu počáteční hodnoty předání kontextu.
-* Kontext Dispose po dokončení počáteční hodnoty metody.
+* Zavolejte metodu počáteční hodnoty a předejte jí kontext.
+* Vyřazení kontextu, když se dokončí metoda počáteční hodnoty.
 
 Následující kód ukazuje aktualizovaný *Program.cs* souboru.
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Program.cs)]
 
-Produkční aplikace by volat `Database.Migrate`. Přidá se do předchozí kód, aby se zabránilo následující výjimku při `Update-Database` nebyl spuštěn:
+Produkční aplikace by nevolala `Database.Migrate`. Přidá se k předchozímu kódu, aby se zabránilo následující výjimce, pokud `Update-Database` nebyla spuštěna:
 
-SqlException: Databázi "RazorPagesMovieContext 21" požadovaný v přihlášení nelze otevřít. Přihlášení se nezdařilo.
-Přihlašovací jméno uživatele 'jméno uživatele' se nezdařilo.
+SqlException: Nelze otevřít databázi "RazorPagesMovieContext-21" požadovanou přihlášením. Přihlášení se nezdařilo.
+Přihlášení uživatele "uživatelské jméno" se nezdařilo.
 
 ### <a name="test-the-app"></a>Testování aplikace
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Odstraníte všechny záznamy z databáze. To lze provést pomocí odstranit odkazy v prohlížeči nebo z [SSOX](xref:tutorials/razor-pages/new-field#ssox)
-* Se aplikace inicializuje (volat metody ve `Startup` třídy), spustí seed – metoda. Pokud chcete vynutit inicializace, služba IIS Express musí zastavit, restartovat. Provést s některou z následujících postupů:
+* Odstraňte všechny záznamy v databázi. Můžete to provést pomocí odkazů DELETE v prohlížeči nebo z [SSOX](xref:tutorials/razor-pages/new-field#ssox) .
+* Vynuťte inicializaci aplikace (volání metod ve `Startup` třídě), takže se metoda počáteční hodnoty spustí. Chcete-li vynutit inicializaci, IIS Express musí být zastavena a restartována. Můžete to provést s některým z následujících přístupů:
 
-  * Klikněte pravým tlačítkem na službu IIS Express systému na hlavním panelu ikonu v oznamovací oblasti a klepněte na **ukončovací** nebo **zastavení webu**:
+  * V oznamovací oblasti klikněte pravým tlačítkem na ikonu na hlavním panelu IIS Express systému a klepněte na **konec** nebo **zastavení webu**:
 
-    ![Služba IIS Express ikonu na hlavním panelu](../first-mvc-app/working-with-sql/_static/iisExIcon.png)
+    ![IIS Express ikona na hlavním panelu systému](../first-mvc-app/working-with-sql/_static/iisExIcon.png)
 
-    ![Kontextové nabídky](sql/_static/stopIIS.png)
+    ![Kontextová nabídka](sql/_static/stopIIS.png)
 
-    * Pokud VS byly spuštěny v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění.
-    * Pokud jste používali zastavení ladicího programu VS v režimu ladění a stisknutím klávesy F5.
+    * Pokud jste spustili VS v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění.
+    * Pokud jste spustili VS v režimu ladění, ukončete ladicí program a stiskněte klávesu F5.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota). Zastavení a spuštění aplikace k přidání dat do databáze.
+Odstraní všechny záznamy v databázi (takže se metoda počáteční hodnoty spustí). Zastavením a spuštěním aplikace dosadíte databázi.
 
-Aplikace zobrazí dosazená data.
+Aplikace zobrazuje dosazený data.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Všechny záznamy z databáze odstraníte, (aby se spustí metodu počáteční hodnota). Zastavení a spuštění aplikace k přidání dat do databáze.
+Odstraní všechny záznamy v databázi (takže se metoda počáteční hodnoty spustí). Zastavením a spuštěním aplikace dosadíte databázi.
 
-Aplikace zobrazí dosazená data.
+Aplikace zobrazuje dosazený data.
 
 ---
 
-Aplikace bude zobrazovat dosazená data:
+Aplikace zobrazuje dosazený data:
 
-![Otevřít v prohlížeči Chrome ukazující data o filmech aplikace Movie](sql/_static/m55.png)
+![Aplikace Movie otevřená v Chrome zobrazující data videa](sql/_static/m55.png)
 
-V dalším kurzu se vyčistit prezentace data.
+V dalším kurzu se vyčistí prezentace dat.
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Verzi tohoto kurzu na webu YouTube](https://youtu.be/A_5ff11sDHY)
+* [Verze YouTube tohoto kurzu](https://youtu.be/A_5ff11sDHY)
 
 > [!div class="step-by-step"]
-> [Předchozí: Generované uživatelské rozhraní pro stránky Razor](xref:tutorials/razor-pages/page)
-> [Další: Aktualizace stránek](xref:tutorials/razor-pages/da1)
+> [Předchozí Razor Pages](xref:tutorials/razor-pages/page)vygenerovanéjako[další:
+>  Aktualizace stránek](xref:tutorials/razor-pages/da1)
+
+::: moniker-end

@@ -5,14 +5,14 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/05/2019
+ms.date: 07/23/2019
 uid: blazor/components
-ms.openlocfilehash: efed57f20c64b0f9c9bd5cc29a98e01408546a18
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: 123e6e1f798aa5a111bd9eabb492c3e015ae0c5d
+ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412413"
+ms.lasthandoff: 07/24/2019
+ms.locfileid: "68440315"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -121,6 +121,75 @@ Následující `ParentComponent` obsah vám může poskytnout obsah pro `ChildCo
 *Stránky/ParentComponent. Razor*:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
+
+## <a name="attribute-splatting-and-arbitrary-parameters"></a>Seskupováním atributů a libovolné parametry
+
+Komponenty mohou kromě deklarovaných parametrů komponenty zachytit a vykreslovat další atributy. Další atributy mohou být zachyceny ve slovníku a poté *splatted* na prvek při vykreslení komponenty pomocí `@attributes` direktivy Razor. Tento scénář je užitečný při definování komponenty, která vytváří prvek značky, který podporuje nejrůznější přizpůsobení. Například může být zdlouhavé definovat atributy samostatně pro objekt `<input>` , který podporuje mnoho parametrů.
+
+V `<input>` následujícím příkladu první prvek (`id="useIndividualParams"`) používá jednotlivé parametry komponenty, zatímco druhý `<input>` element (`id="useAttributesDict"`) používá atribut seskupováním:
+
+```cshtml
+<input id="useIndividualParams"
+       maxlength="@Maxlength"
+       placeholder="@Placeholder"
+       required="@Required"
+       size="@Size" />
+
+<input id="useAttributesDict"
+       @attributes="InputAttributes" />
+
+@code {
+    [Parameter]
+    private string Maxlength { get; set; } = "10";
+
+    [Parameter]
+    private string Placeholder { get; set; } = "Input placeholder text";
+
+    [Parameter]
+    private string Required { get; set; } = "required";
+
+    [Parameter]
+    private string Size { get; set; } = "50";
+
+    [Parameter]
+    private Dictionary<string, object> InputAttributes { get; set; } =
+        new Dictionary<string, object>()
+        {
+            { "maxlength", "10" }, 
+            { "placeholder", "Input placeholder text" }, 
+            { "required", "true" }, 
+            { "size", "50" }
+        };
+```
+
+Typ parametru musí být možné přiřadit `Dictionary<string, object>` pomocí řetězcových klíčů. Použití `IEnumerable<KeyValuePair<string, object>>` a`IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
+
+Vykreslené `<input>` elementy pomocí obou přístupů jsou identické:
+
+```html
+<input id="useIndividualParams"
+       maxlength="10"
+       placeholder="Input placeholder text"
+       required="required"
+       size="50">
+
+<input id="useAttributesDict"
+       maxlength="10"
+       placeholder="Input placeholder text"
+       required="true"
+       size="50">
+```
+
+Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `[Parameter]` atributu `CaptureUnmatchedAttributes` s vlastností nastavenou na `true`:
+
+```cshtml
+@code {
+    [Parameter(CaptureUnmatchedAttributes = true)]
+    private Dictionary<string, object> InputAttributes { get; set; }
+}
+```
+
+`CaptureUnmatchedAttributes` Vlastnost on`[Parameter]` umožňuje, aby tento parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedAttributes`.
 
 ## <a name="data-binding"></a>Datová vazba
 

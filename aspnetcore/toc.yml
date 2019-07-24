@@ -192,8 +192,6 @@
       uid: fundamentals/http-requests
     - name: Statické soubory
       uid: fundamentals/static-files
-    - name: aspnet-codegenerator
-      uid: fundamentals/tools/dotnet-aspnet-codegenerator
 - name: Webové aplikace
   items:
     - name: Razor Pages
@@ -403,6 +401,8 @@
           uid: mvc/controllers/areas
         - name: Součásti aplikace
           uid: mvc/extensibility/app-parts
+        - name: aspnet-codegenerator
+          uid: fundamentals/tools/dotnet-aspnet-codegenerator
 - name: Aplikace Web API
   items:
     - name: Přehled

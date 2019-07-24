@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 uid: blazor/get-started
-ms.openlocfilehash: 9ebe1e2d36f96bfa214c2389535c28db5db5020a
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: b4609858be43acf9d1b2d8be5eff4879fd56f49f
+ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412410"
+ms.lasthandoff: 07/24/2019
+ms.locfileid: "68440310"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -34,19 +34,18 @@ Začínáme s Blazor:
 
    1\. Nainstalujte si nejnovější verzi sady [Visual Studio Preview](https://visualstudio.com/vs/preview) s využitím úlohy **vývoje ASP.NET a webu** .
 
-   2\. Nainstalujte nejnovější [rozšíření Blazor](https://go.microsoft.com/fwlink/?linkid=870389) z Visual Studio Marketplace. Tento krok zpřístupňuje šablony Blazor k dispozici pro Visual Studio.
+   2\. Vytvořte nový projekt.
 
-   3\. Vytvořte nový projekt.
+   3\. Vyberte **aplikaci Blazor**. Vyberte **Další**.
 
-   4\. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+   4\. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
-   5\. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
+   5\. Pro Blazor prostředí na straně klienta vyberte šablonu **Blazor (na straně klienta)** . Pro Blazor prostředí na straně serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor, na straně serveru a na straně klienta, najdete v <xref:blazor/hosting-models>tématu.
 
-   6\. V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** .
+   6\. Stisknutím klávesy **F5** spusťte aplikaci.
 
-   7\. Pro Blazor prostředí na straně klienta vyberte šablonu **aplikace Blazor WebAssembly** . Pro Blazor prostředí na straně serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor, na straně serveru a na straně klienta, najdete v <xref:blazor/hosting-models>tématu.
-
-   8\. Stisknutím klávesy **F5** spusťte aplikaci.
+   > [!NOTE]
+   > Pokud jste nainstalovali rozšíření sady Visual Studio Blazor pro předchozí verzi Preview služby ASP.NET Core Blazor (Preview 6 nebo starší), můžete rozšíření odinstalovat v Preview 7. Instalace šablon Blazor do příkazového prostředí je teď dostačující pro povrchování šablon v aplikaci Visual Studio.
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
