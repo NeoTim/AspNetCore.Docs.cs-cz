@@ -1,21 +1,21 @@
-Spusťte generátor Identity:
+Spusťte generování uživatelského rozhraní identity:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt > **přidat** > **novou vygenerovanou položku**.
-* V levém podokně **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **Identity** > **přidat**.
-* V **ADD Identity** dialogového okna, vyberte požadované možnosti.
-  * Vyberte existující stránku rozložení nebo rozložení souboru budou přepsány nesprávný kód. Pokud stávající  *\_Layout.cshtml* byl vybrán soubor, je **není** přepsán.
+* V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identita** > **Přidat**.
+* V dialogovém okně **Přidat identitu** vyberte požadované možnosti.
+  * Vyberte existující stránku rozložení, nebo bude soubor rozložení přepsán nesprávným označením. Když je vybrán existující   *\_soubor layout. cshtml* , není přepsán.
 
- Například `~/Pages/Shared/_Layout.cshtml` pro stránky Razor `~/Views/Shared/_Layout.cshtml` pro projekty MVC
-* Pokud chcete použít existující kontext dat, vyberte aspoň jeden soubor přepsat. Musíte vybrat aspoň jeden soubor a přidejte datový kontext.
-  * Vyberte vaše třída kontextu dat.
-  * Vyberte **přidat**.
-* Vytvoří nový kontext uživatele a případně vytvořit třídu vlastního uživatele pro identitu:
+ Například: `~/Pages/Shared/_Layout.cshtml` pro Razor Pages `~/Views/Shared/_Layout.cshtml` pro projekty MVC
+* Chcete-li použít existující kontext dat, vyberte alespoň jeden soubor, který chcete přepsat. Je nutné vybrat alespoň jeden soubor pro přidání kontextu dat.
+  * Vyberte třídu datového kontextu.
+  * Vyberte **Přidat**.
+* Chcete-li vytvořit nový kontext uživatele a případně vytvořit vlastní třídu uživatelů pro identitu:
   * Vyberte **+** tlačítko pro vytvoření nového **třída kontextu dat**.
-  * Vyberte **přidat**.
+  * Vyberte **Přidat**.
 
-Poznámka: Pokud vytváříte nový kontext uživatele, není nutné vybrat soubor, který chcete přepsat.
+Poznámka: Pokud vytváříte nový uživatelský kontext, nemusíte vybírat soubor, který se má přepsat.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -25,7 +25,7 @@ Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-Přidat odkaz na balíček pro [Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do projektu (\*.csproj) souboru. Spusťte následující příkaz v adresáři projektu:
+Přidejte odkaz na balíček do [Microsoft. VisualStudio. Web. strategii. Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do souboru projektu (\*. csproj). Spusťte následující příkaz v adresáři projektu:
 
 ```console
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -38,18 +38,18 @@ Spusťte následující příkaz k výpisu možností generátor Identity:
 dotnet aspnet-codegenerator identity -h
 ```
 
-Ve složce projektu spusťte s možnostmi, které chcete generátor Identity. Například nastavit identitu pomocí výchozího uživatelského rozhraní a minimální počet souborů, spusťte následující příkaz. Použijte správný plně kvalifikovaný název pro váš kontext databáze:
+Ve složce projektu spusťte generátor identity pomocí možností, které chcete. Chcete-li například nastavit identitu pomocí výchozího uživatelského rozhraní a minimálního počtu souborů, spusťte následující příkaz. Použijte pro svůj kontext databáze správný plně kvalifikovaný název:
 
 ```console
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files Account.Register
 ```
 
-PowerShell používá jako oddělovač příkazu středník. Při použití prostředí PowerShell, řídicí středníky v seznamu souborů nebo vložit seznam souborů v dvojitých uvozovkách. Příklad:
+PowerShell používá jako oddělovač příkazů středník. Při používání PowerShellu v seznamu souborů oddělte středníkem a seznam souborů umístěte do dvojitých uvozovek. Příklad:
 
 ```console
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout"
 ```
 
-Pokud spustíte bez zadání generátor Identity `--files` příznak nebo `--useDefaultUI` příznak, všechny stránky k dispozici identita uživatelského rozhraní se vytvoří ve vašem projektu.
+Pokud spustíte generování identit identity bez zadání `--files` příznaku `--useDefaultUI` nebo příznaku, v projektu se vytvoří všechny dostupné stránky uživatelského rozhraní identity.
 
 ---
