@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/24/2019
 uid: blazor/components
-ms.openlocfilehash: 0bca723ba32d96a69bff1b3138051611d94b2a37
-ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
+ms.openlocfilehash: fa98f5c16d926db9c056032eff6d1edc5721aadd
+ms.sourcegitcommit: fbc66827e319d28bebed678ea5fd42f582fe3c34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 07/25/2019
-ms.locfileid: "68483152"
+ms.locfileid: "68493528"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -181,16 +181,16 @@ Vykreslené `<input>` elementy pomocí obou přístupů jsou identické:
        size="50">
 ```
 
-Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `[Parameter]` atributu `CaptureUnmatchedAttributes` s vlastností nastavenou na `true`:
+Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `[Parameter]` atributu `CaptureUnmatchedValues` s vlastností nastavenou na `true`:
 
 ```cshtml
 @code {
-    [Parameter(CaptureUnmatchedAttributes = true)]
+    [Parameter(CaptureUnmatchedValues = true)]
     private Dictionary<string, object> InputAttributes { get; set; }
 }
 ```
 
-`CaptureUnmatchedAttributes` Vlastnost on`[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedAttributes`. Typ vlastnosti používaný pomocí `CaptureUnmatchedAttributes` musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
+`CaptureUnmatchedValues` Vlastnost on`[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný pomocí `CaptureUnmatchedValues` musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
 
 ## <a name="data-binding"></a>Datová vazba
 

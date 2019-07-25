@@ -5,14 +5,14 @@ description: Naučte se používat globální nástroj HTTP REPL .NET Core k pro
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/23/2019
+ms.date: 07/25/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 29a29b98b31ac8e48545789928a8e83573ca9af5
-ms.sourcegitcommit: b1662379b6aeca66ef6c696bd2300c81aa74a514
+ms.openlocfilehash: e719d599545810d723840b0800cd6a2b4f96b123
+ms.sourcegitcommit: fbc66827e319d28bebed678ea5fd42f582fe3c34
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 07/25/2019
-ms.locfileid: "68485800"
+ms.locfileid: "68493576"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -21,7 +21,8 @@ ms.locfileid: "68485800"
 Smyčka HTTP Read-Eval-Print (REPL) je:
 
 * Podporuje se odlehčený nástroj příkazového řádku pro více platforem, který podporuje všude, kde je podporováno rozhraní .NET Core.
-* Slouží k provádění požadavků HTTP na testování ASP.NET Core webových rozhraní API a zobrazení jejich výsledků.
+* Slouží k provádění požadavků HTTP na testování ASP.NET Core webových rozhraní API (a webových rozhraní API non-ASP.NET Core) a zobrazení jejich výsledků.
+* Je možné testovat webová rozhraní API hostovaná v jakémkoli prostředí, včetně localhost a Azure App Service.
 
 Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods) :
 
