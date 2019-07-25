@@ -5,14 +5,14 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/23/2019
+ms.date: 07/24/2019
 uid: blazor/components
-ms.openlocfilehash: 123e6e1f798aa5a111bd9eabb492c3e015ae0c5d
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: 0bca723ba32d96a69bff1b3138051611d94b2a37
+ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68440315"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68483152"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -160,9 +160,10 @@ V `<input>` následujícím příkladu první prvek (`id="useIndividualParams"`)
             { "required", "true" }, 
             { "size", "50" }
         };
+}
 ```
 
-Typ parametru musí být možné přiřadit `Dictionary<string, object>` pomocí řetězcových klíčů. Použití `IEnumerable<KeyValuePair<string, object>>` a`IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
+Typ parametru musí být implementován `IEnumerable<KeyValuePair<string, object>>` pomocí řetězcových klíčů. Použití `IReadOnlyDictionary<string, object>` je také možností v tomto scénáři.
 
 Vykreslené `<input>` elementy pomocí obou přístupů jsou identické:
 
@@ -189,7 +190,7 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `
 }
 ```
 
-`CaptureUnmatchedAttributes` Vlastnost on`[Parameter]` umožňuje, aby tento parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedAttributes`.
+`CaptureUnmatchedAttributes` Vlastnost on`[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedAttributes`. Typ vlastnosti používaný pomocí `CaptureUnmatchedAttributes` musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
 
 ## <a name="data-binding"></a>Datová vazba
 
