@@ -1,102 +1,102 @@
 ---
-title: ASP.NET Core Blazor hostování modelů
+title: ASP.NET Core modely hostování Blazor
 author: guardrex
-description: Seznamte se s Blazor na straně klienta i stranu serveru hostování modely.
+description: Pochopení Blazor modelů hostování na straně klienta a na straně serveru.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 2f5a8a037534f4a881b474dd8bcc3119f504123a
-ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
+ms.openlocfilehash: 9dd96ff6e3539bf1c3e932b33776b16d0fbb2d34
+ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "67892244"
+ms.lasthandoff: 07/22/2019
+ms.locfileid: "68371792"
 ---
-# <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor hostování modelů
+# <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core modely hostování Blazor
 
-Podle [Daniel Roth](https://github.com/danroth27)
+Od [Daniel Skořepa](https://github.com/danroth27)
 
-Blazor je webové rozhraní navržené ke spuštění na straně klienta v prohlížeči na [WebAssembly](https://webassembly.org/)– na základě modulu runtime .NET (*Blazor na straně klienta*) nebo na serveru ASP.NET Core (*Blazor na straně serveru* ). Bez ohledu na modelech hostování modelu, aplikace a komponenty *jsou stejné*.
+Blazor je webová architektura navržená tak, aby běžela na straně klienta v prohlížeči na bázi .NET runtime založené na webovém [sestavení](https://webassembly.org/)(*Blazor na straně klienta*) nebo na straně serveru v ASP.NET Core (*Blazor Server*). Bez ohledu na model hostování jsou modely aplikací a komponent *stejné*.
 
-Vytvoření projektu pro modelech hostování popsané v tomto článku najdete v tématu <xref:blazor/get-started>.
+Chcete-li vytvořit projekt pro modely hostování popsané v tomto článku, přečtěte si téma <xref:blazor/get-started>.
 
 ## <a name="client-side"></a>Na straně klienta
 
-Hlavní model hostingu pro Blazor je spuštěné v prohlížeči na WebAssembly straně klienta. Aplikace Blazor, jeho závislosti a modul .NET runtime se stáhnou do prohlížeče. Aplikace je proveden přímo v prohlížeči vlákno uživatelského rozhraní. Aktualizace uživatelského rozhraní a zpracování událostí dochází v rámci stejného procesu. Prostředky aplikace se nasadí jako statické soubory na webový server nebo služba je schopná obsluhuje statický obsah, na klienty.
+Hlavní hostující model pro Blazor je spuštěn na straně klienta v prohlížeči na webovém sestavení. Do prohlížeče se stáhnou aplikace Blazor, její závislosti a modul runtime .NET. Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče. Aktualizace uživatelského rozhraní a zpracování událostí se vyskytují v rámci stejného procesu. Prostředky aplikace se nasazují jako statické soubory na webový server nebo službu, která je schopná obsluhovat statický obsah klientům.
 
-![Blazor straně klienta: Blazor aplikace běží na vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/client-side.png)
+![Blazor na straně klienta: Aplikace Blazor běží ve vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/client-side.png)
 
-Chcete-li vytvořit aplikaci Blazor používá model hostování na straně klienta, použijte jednu z následujících šablon:
+Chcete-li vytvořit aplikaci Blazor pomocí modelu hostování na straně klienta, použijte kteroukoli z následujících šablon:
 
-* **Blazor (na straně klienta)** ([nové blazor dotnet](/dotnet/core/tools/dotnet-new)) &ndash; nasazený jako sada statické soubory.
-* **Blazor (ASP.NET Core v prostředí)** ([nové blazorhosted dotnet](/dotnet/core/tools/dotnet-new)) &ndash; hostované serveru ASP.NET Core. Aplikace ASP.NET Core obsluhuje Blazor aplikaci pro klienty. Aplikace na straně klienta Blazor komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo [SignalR](xref:signalr/introduction).
+* **Blazor (na straně klienta)** ([dotnet New blazor](/dotnet/core/tools/dotnet-new)) &ndash; Nasazeno jako sada statických souborů.
+* **Blazor (ASP.NET Core Hosted)** ([dotnet New blazorhosted](/dotnet/core/tools/dotnet-new)) &ndash; Hostováno serverem ASP.NET Core. Aplikace ASP.NET Core obsluhuje aplikaci Blazor klientům. Klientská aplikace Blazor může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo signalizace. [](xref:signalr/introduction)
 
-Šablony zahrnují *blazor.webassembly.js* skript, který zpracovává:
+Šablony obsahují skript *blazor. WebAssembly. js* , který zpracovává:
 
-* Stahuje se modul .NET runtime, aplikace a závislostí aplikace.
-* Inicializace modulu runtime a spusťte tak aplikaci.
+* Stažení modulu runtime .NET, aplikace a závislostí aplikace.
+* Inicializace modulu runtime pro spuštění aplikace.
 
-Model hostingu na straně klienta nabízí několik výhod:
+Model hostování na straně klienta nabízí několik výhod:
 
-* Neexistuje žádná závislost .NET na straně serveru. Aplikace je plně funkční po stažení do klienta.
-* Materiály pro klienta a možnosti se plně využívají.
-* Práce se přebírá ze serveru klienta.
-* Webový server ASP.NET Core není vyžadován pro hostování aplikace. Scénářů bez serveru nasazení je možné (například poskytuje aplikace z CDN).
+* Neexistuje žádná závislost na straně serveru .NET. Aplikace po stažení do klienta plně funguje.
+* Prostředky a možnosti klienta jsou plně využité.
+* Práce je ze serveru převedena na klienta.
+* Pro hostování aplikace není vyžadován ASP.NET Core webový server. Jsou možné scénáře nasazení bez serveru (například poskytování aplikace z CDN).
 
-Existují nevýhody hostování na straně klienta:
+Downsides hostování na straně klienta:
 
-* Aplikace je omezen na možnosti prohlížeče.
-* Klienta s podporou, hardware a software (třeba podporu WebAssembly) je povinný.
-* Velikost ke stažení je větší a trvat delší dobu načtení aplikace.
-* Modul runtime rozhraní .NET a nástroje podpory je méně až po zralé. Například v existují omezení [.NET Standard](/dotnet/standard/net-standard) ladění a podporu.
+* Aplikace je omezená na možnosti prohlížeče.
+* Je vyžadován klientský hardware a software (například podpora WebAssembly).
+* Velikost ke stažení je větší a aplikace trvá déle, než se načtou.
+* Podpora modulu runtime .NET a nástrojů je méně vyspělá. Například omezení existují v [.NET Standard](/dotnet/standard/net-standard) podpoře a ladění.
 
 ## <a name="server-side"></a>Na straně serveru
 
-S model hostingu na straně serveru aplikace spuštěné na serveru z v rámci aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání jazyka JavaScript jsou zpracovány prostřednictvím [SignalR](xref:signalr/introduction) připojení.
+S modelem hostování na straně serveru se aplikace spouští na serveru z aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes připojení [](xref:signalr/introduction) k signalizaci.
 
-![V prohlížeči komunikuje s aplikaci (už je hostovaná v rámci aplikace ASP.NET Core) na serveru pomocí připojení SignalR.](hosting-models/_static/server-side.png)
+![Prohlížeč komunikuje s aplikací (hostovanou v aplikaci ASP.NET Core) na serveru přes připojení k signalizaci.](hosting-models/_static/server-side.png)
 
-Pokud chcete vytvořit aplikaci Blazor používá model hostování na straně serveru, použijte technologii ASP.NET Core **Blazor serverovou aplikaci** šablony ([nové blazorserverside dotnet](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core je hostitelem aplikace na straně serveru a vytvoří SignalR koncový bod, ve kterém se klienti připojují.
+K vytvoření aplikace Blazor pomocí modelu hostování na straně serveru použijte šablonu **aplikace serveru** pro ASP.NET Core Blazor ([dotnet New blazorserverside](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core hostuje serverovou aplikaci a vytvoří koncový bod signalizace, kde se klienti připojují.
 
-Aplikace ASP.NET Core odkazuje aplikaci `Startup` třídy přidejte:
+Aplikace ASP.NET Core odkazuje na `Startup` třídu aplikace, která se má přidat:
 
 * Služby na straně serveru.
-* Aplikace na žádost o zpracování kanálu.
+* Aplikace do kanálu pro zpracování požadavků.
 
-*Blazor.server.js* skript&dagger; naváže připojení klienta. Je zodpovědností aplikace k zachování a obnovení stavu aplikace podle potřeby (například v případě ztráty připojení).
+Skript&dagger; *blazor. Server. js* vytvoří připojení klienta. Je zodpovědností aplikace zachovat a obnovit stav aplikace podle potřeby (například v případě ztraceného síťového připojení).
 
-Model hostingu na straně serveru nabízí několik výhod:
+Model hostování na straně serveru nabízí několik výhod:
 
-* Velikost ke stažení je výrazně menší než aplikace na straně klienta a aplikace načte mnohem rychleji.
-* Aplikace plně využívá funkce serveru, včetně použití libovolné rozhraní API .NET Core kompatibilní.
-* .NET core na serveru se používá ke spuštění aplikace, takže existující .NET nástrojů, jako je ladění, funguje podle očekávání.
-* Tencí klienti jsou podporovány. Například serverové aplikace fungovat v prohlížečích, které nepodporují WebAssembly a na zařízeních s omezenými zdroji.
-* Aplikace .NET /C# základu kódu, včetně kódu komponenty aplikace, není poskytováni, na klienty.
+* Velikost ke stažení je výrazně menší než aplikace na straně klienta a aplikace se načítá mnohem rychleji.
+* Aplikace plně využívá možnosti serveru, včetně použití všech rozhraní API kompatibilních s rozhraním .NET Core.
+* Rozhraní .NET Core na serveru se používá ke spuštění aplikace, takže stávající nástroje .NET, jako je ladění, fungují podle očekávání.
+* Podporují se tenké klienty. Například aplikace na straně serveru fungují s prohlížeči, které nepodporují WebAssembly a na zařízeních s omezením prostředků.
+* Základ pro .NET/C# kód aplikace, včetně kódu komponenty aplikace, není obsluhován klientům.
 
-Existují nevýhody hostování na straně serveru:
+Existuje downsides hostování na straně serveru:
 
-* Obvykle existuje vyšší latencí. Každá interakce uživatele zahrnuje směrování v síti.
-* Není dostupná podpora v režimu offline. Pokud klienta nepovede, aplikace přestane fungovat.
-* Škálovatelnost je obtížné pro aplikace s mnoha uživateli. Server musí spravovat připojení více klientů a zpracování stavu klienta.
-* Server služby ASP.NET Core je zapotřebí pro zpracování aplikace. Scénářů bez serveru nasazení nejsou možné (například poskytuje aplikace z CDN).
+* Vyšší latence obvykle existuje. Každá interakce uživatele zahrnuje směrování sítě.
+* Neexistuje žádná podpora offline. Pokud připojení klienta neproběhne úspěšně, aplikace přestane fungovat.
+* Pro aplikace s mnoha uživateli je škálovatelnost náročná. Server musí spravovat více připojení klientů a zpracovávat stav klienta.
+* Pro obsluhu aplikace je vyžadován ASP.NET Core Server. Scénáře nasazení bez serveru nejsou možné (například poskytování aplikace z CDN).
 
-&dagger;*Blazor.server.js* skript pochází z vloženého prostředku v rámci sdílené ASP.NET Core.
+&dagger;Skript *blazor. Server. js* se obsluhuje z vloženého prostředku v ASP.NET Core sdíleném rozhraní.
 
 ### <a name="reconnection-to-the-same-server"></a>Opětovné připojení ke stejnému serveru
 
-Blazor serverové aplikace vyžadují aktivní připojení k serveru funkce SignalR. Pokud dojde ke ztrátě připojení, aplikace se pokusí znovu připojit k serveru. Za předpokladu, stav klienta je stále v paměti, bude pokračovat bez ztráty stavu relace klienta.
+Blazor aplikace na straně serveru vyžadují, aby se k serveru mohl připojit aktivní signál. Pokud dojde ke ztrátě připojení, aplikace se pokusí znovu připojit k serveru. Pokud je stav klienta stále v paměti, klientská relace pokračuje bez ztráty stavu.
  
-Když klient zjistí, že připojení bylo ztraceno, je výchozí uživatelské rozhraní a klient se pokusí znovu připojit, zobrazit uživateli. Pokud opětovného připojení selže, uživateli se nabídnou možnost opakovat. Chcete-li přizpůsobit uživatelské rozhraní, definujte element s `components-reconnect-modal` jako jeho `id`. Klient aktualizuje tento element s jedním z následujících tříd šablon stylů CSS na základě stavu připojení:
+Když klient zjistí, že došlo ke ztrátě připojení, zobrazí se uživateli výchozí uživatelské rozhraní, zatímco se klient pokusí znovu připojit. Pokud se opětovné připojení nepovede, uživateli se zobrazí možnost opakovat akci. Chcete-li přizpůsobit uživatelské rozhraní, definujte element `components-reconnect-modal` s jako `id` svůj na stránce *_Host. cshtml* Razor. Klient aktualizuje tento prvek pomocí jedné z následujících tříd šablony stylů CSS na základě stavu připojení:
  
-* `components-reconnect-show` &ndash; Zobrazit uživatelské rozhraní, které označíte, se ztratí připojení a klient se pokouší o obnovení připojení.
-* `components-reconnect-hide` &ndash; Klient má aktivní připojení, Skrýt uživatelské rozhraní.
-* `components-reconnect-failed` &ndash; Opětovné připojení se nezdařilo. Pokusu o opětovné připojení znovu, volání `window.Blazor.reconnect()`.
+* `components-reconnect-show`&ndash; Zobrazit uživatelské rozhraní, které indikuje, že připojení bylo ztraceno a klient se pokouší znovu připojit.
+* `components-reconnect-hide`&ndash; Klient má aktivní připojení, skryje uživatelské rozhraní.
+* `components-reconnect-failed`&ndash; Opětovné připojení se nezdařilo. Chcete-li se znovu pokusit `window.Blazor.reconnect()`o opětovné připojení, zavolejte.
 
-### <a name="stateful-reconnection-after-prerendering"></a>Stavové opětovného připojení po dokončení fáze před vykreslením
+### <a name="stateful-reconnection-after-prerendering"></a>Stav opětovného připojení po předvykreslování
  
-Aplikace na straně serveru Blazor nastavení jsou ve výchozím nastavení prerender uživatelského rozhraní na serveru před navázáním připojení klienta k serveru. Nastavuje se to *_Host.cshtml* stránky Razor:
+Blazor aplikace na straně serveru jsou nastavené ve výchozím nastavení tak, aby se před vytvořením připojení klienta k serveru předvedlo uživatelské rozhraní na serveru. To je nastavené na stránce *_Host. cshtml* Razor:
  
 ```cshtml
 <body>
@@ -106,13 +106,13 @@ Aplikace na straně serveru Blazor nastavení jsou ve výchozím nastavení prer
 </body>
 ```
  
-Klient znovu připojí k serveru pomocí stejného stavu, který se použil k prerender aplikace. Pokud se stav aplikace je stále v paměti, není stav komponenty rerendered po navázání připojení SignalR.
+Klient se znovu připojí k serveru se stejným stavem, který se použil k proprerender aplikace. Pokud je stav aplikace stále v paměti, stav součásti nebude po navázání připojení k signalizaci znovu vykreslen.
 
-### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Vykreslení stavové interaktivní součásti ze stránky Razor a zobrazení
+### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Vykreslovat stavově interaktivní komponenty ze stránek a zobrazení Razor
  
-Stavové interaktivní komponenty lze přidat stránky Razor nebo zobrazení. Při vykreslení stránky nebo zobrazení, komponenta je předkreslených s ním. Aplikace potom se znovu připojí k stav komponenty po připojení klienta pokládáme stav, stav je stále v paměti.
+Stavové interaktivní komponenty lze přidat na stránku nebo zobrazení Razor. Když se stránka nebo zobrazení vykresluje, komponenta se s ní předem vykreslí. Aplikace se pak znovu připojí ke stavu součásti, jakmile se naváže připojení klienta, pokud je stav stále v paměti.
  
-Například následující stránky Razor vykreslí `Counter` komponentu s počáteční počet, který je určen pomocí formuláře:
+Například následující stránka Razor vykresluje `Counter` komponentu s počátečním počtem zadaným pomocí formuláře:
  
 ```cshtml
 <h1>My Razor Page</h1>
@@ -130,18 +130,18 @@ Například následující stránky Razor vykreslí `Counter` komponentu s poč�
 }
 ```
 
-### <a name="detect-when-the-app-is-prerendering"></a>Rozpoznat, kdy aplikace je před vykreslením
+### <a name="detect-when-the-app-is-prerendering"></a>Rozpoznat, kdy se aplikace předvykresluje
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
-### <a name="configure-the-signalr-client-for-blazor-server-side-apps"></a>Konfigurace klienta SignalR pro Blazor serverové aplikace
+### <a name="configure-the-signalr-client-for-blazor-server-side-apps"></a>Konfigurace klienta nástroje Signal pro aplikace Blazor na straně serveru
  
-V některých případech budete muset nakonfigurovat klienta SignalR používat Blazor aplikace na straně serveru. Například můžete chtít konfigurovat protokolování na straně klienta SignalR pro diagnostiku problému připojení.
+V některých případech je třeba nakonfigurovat klienta nástroje Signal používaného Blazor aplikacemi na straně serveru. Například můžete chtít nakonfigurovat protokolování na straně klienta signalizace, aby bylo možné diagnostikovat problém s připojením.
  
-Abyste mohli nakonfigurovat klienta SignalR v *Pages/_Host.cshtml* souboru:
+Konfigurace klienta signalizace v souboru Pages */_Host. cshtml* :
 
-* Přidat `autostart="false"` atribut `<script>` značky *blazor.server.js* skriptu.
-* Volání `Blazor.start` a předat objekt konfigurace, který určuje Tvůrce SignalR.
+* Přidejte atribut do značky pro skript *blazor. Server. js.* `<script>` `autostart="false"`
+* Zavolejte `Blazor.start` a předejte do konfiguračního objektu, který určuje tvůrce signálu.
  
 ```html
 <script src="_framework/blazor.server.js" autostart="false"></script>

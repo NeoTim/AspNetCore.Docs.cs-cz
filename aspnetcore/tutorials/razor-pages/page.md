@@ -1,179 +1,374 @@
 ---
-title: Vygenerované stránky Razor v ASP.NET Core
+title: Vygenerované Razor Pages v ASP.NET Core
 author: rick-anderson
-description: Vysvětluje stránky Razor generovaných generování uživatelského rozhraní.
+description: Vysvětluje Razor Pages generovaného pomocí uživatelského rozhraní.
 ms.author: riande
-ms.date: 04/06/2019
+ms.date: 07/22/2019
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: fcda567eb99ca5e32e7bebe5dd9e16ac134369b1
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 741ee4291cacbb1de0f8341673c8fd6ef0c9a462
+ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900981"
+ms.lasthandoff: 07/22/2019
+ms.locfileid: "68371855"
 ---
-# <a name="scaffolded-razor-pages-in-aspnet-core"></a>Vygenerované stránky Razor v ASP.NET Core
+# <a name="scaffolded-razor-pages-in-aspnet-core"></a>Vygenerované Razor Pages v ASP.NET Core
+
+::: moniker range=">= aspnetcore-3.0"
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Tento kurz zkoumá stránky Razor vytvořené generování uživatelského rozhraní v předchozím kurzu.
+Tento kurz prověřuje Razor Pages vytvořené pomocí generování uživatelského rozhraní v [předchozím kurzu](xref:tutorials/razor-pages/model).
 
-[Zobrazení nebo stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22) vzorku.
+[!INCLUDE[View or download sample code](~/includes/rp/download.md)]
 
-## <a name="the-create-delete-details-and-edit-pages"></a>Vytvoření, odstranění, podrobností a upravit stránky
+## <a name="the-create-delete-details-and-edit-pages"></a>Stránky vytvořit, odstranit, podrobnosti a upravit
 
-Zkontrolujte *Pages/Movies/Index.cshtml.cs* Model stránky:
+Projděte si model stránky *stránky/filmy/index. cshtml. cs* :
 
-[!code-csharp[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs)]
+[!code-csharp[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs)]
 
-Stránky Razor jsou odvozeny z `PageModel`. Podle konvence `PageModel`-odvozené třídy se nazývá `<PageName>Model`. Konstruktor používá [injektáž závislostí](xref:fundamentals/dependency-injection) přidáte `RazorPagesMovieContext` na stránku. Vygenerované stránky postupovat podle tohoto vzoru. Zobrazit [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) Další informace o asynchronní programování s Entity Framework.
+Razor Pages jsou odvozeny `PageModel`z. Podle konvence `PageModel`je volána `<PageName>Model`třída odvozená od třídy. Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání `RazorPagesMovieContext` na stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování s Entity Framework najdete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
 
-Po odeslání žádosti pro stránku, `OnGetAsync` metoda vrátí seznam hodnot filmy pro stránky Razor. `OnGetAsync` nebo `OnGet` je volán na stránku Razor k inicializaci stavu stránky. V takovém případě `OnGetAsync` získá seznam filmy a zobrazí je.
+Když je vytvořena žádost pro stránku, `OnGetAsync` metoda vrátí seznam filmů na stránku Razor. `OnGetAsync`nebo `OnGet` je volána na stránce Razor pro inicializaci stavu stránky. V tomto případě `OnGetAsync` získá seznam filmů a zobrazí je.
 
-Když `OnGet` vrátí `void` nebo `OnGetAsync` vrátí`Task`, žádná vrácená metoda se používá. Pokud je návratový typ `IActionResult` nebo `Task<IActionResult>`, musí být zadaný příkaz return. Například *Pages/Movies/Create.cshtml.cs* `OnPostAsync` metody:
+Při `OnGet`vrácení nebo`Task`vrácení se nepoužije žádná návratová metoda. `OnGetAsync` `void` Pokud je `IActionResult` návratový typ nebo `Task<IActionResult>`, je nutné poskytnout návratový příkaz. Například metoda Pages */video/Create. cshtml. cs* `OnPostAsync` :
 
-[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml.cs?name=snippet)]
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
-<a name="index"></a> Zkontrolujte *Pages/Movies/Index.cshtml* stránky Razor:
+<a name="index"></a>Projděte stránku *stránky/filmy/index. cshtml* Razor:
 
-[!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml)]
+[!code-cshtml[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml)]
 
-Razor můžete přejít z HTML do jazyka C# nebo do kódu specifické pro syntaxi Razor. Když `@` následuje symbol [Razor rezervované klíčové slovo](xref:mvc/views/razor#razor-reserved-keywords), bude přecházet do kódu specifické pro Razor, jinak bude přecházet do jazyka C#.
+Razor může přejít z formátu HTML C# do nebo do kódu specifického pro Razor. Je-li [](xref:mvc/views/razor#razor-reserved-keywords) C#symbol následován rezervovaným klíčovým slovem Razor, přejde do kódu specifického pro Razor, jinak přejde do. `@`
 
-`@page` Direktivu Razor vytvoří soubor do akce MVC, což znamená, že dokáže zpracovat požadavky. `@page` musí být první direktivy Razor na stránce. `@page` je příkladem přechod do kódu specifické pro syntaxi Razor. Zobrazit [syntaxe Razor](xref:mvc/views/razor#razor-syntax) Další informace.
+Direktiva `@page` Razor vytvoří soubor na akci MVC, což znamená, že může zpracovávat požadavky. `@page`musí se jednat o první direktivu Razor na stránce. `@page`je příkladem přechodu do kódu specifického pro Razor. Další informace najdete v tématu [syntaxe Razor](xref:mvc/views/razor#razor-syntax) .
 
-Prozkoumejte výrazu lambda použít v následujících pomocné rutiny HTML:
+Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
 
 ```cshtml
 @Html.DisplayNameFor(model => model.Movie[0].Title))
 ```
 
-`DisplayNameFor` Zkontroluje pomocné rutiny HTML `Title` vlastnost se odkazuje ve výrazu lambda lze zjistit název zobrazení. Výraz lambda je zkontroloval spíše než vyhodnocen. To znamená, že neexistuje žádná narušení přístupu při `model`, `model.Movie`, nebo `model.Movie[0]` jsou `null` nebo je prázdný. Při vyhodnocování výrazu lambda (třeba index Mei `@Html.DisplayFor(modelItem => item.Title)`), jsou vyhodnocovány hodnoty vlastností modelu.
+Pomocník HTML kontroluje `Title` vlastnost, na kterou se odkazuje ve výrazu lambda pro určení zobrazovaného názvu. `DisplayNameFor` Výraz lambda je zkontrolován namísto vyhodnocení. To znamená, že nedojde k narušení přístupu `model`, `model.Movie` `model.Movie[0]` Pokud jsou `null` nebo prázdná. Při vyhodnocování výrazu lambda (například s hodnotou `@Html.DisplayFor(modelItem => item.Title)`) jsou vyhodnocovány hodnoty vlastností modelu.
 
 <a name="md"></a>
 
-### <a name="the-model-directive"></a>@model – Direktiva
+### <a name="the-model-directive"></a>@model Direktiva
 
-[!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
+[!code-cshtml[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
 
-`@model` Direktiva Určuje typ modelu předané do stránky Razor. V předchozím příkladu `@model` řádek provede `PageModel`-odvozené třídy, které jsou k dispozici pro stránky Razor. Model se používá v `@Html.DisplayNameFor` a `@Html.DisplayFor` [pomocných rutin HTML](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) na stránce.
+`@model` Direktiva určuje typ modelu předaného na stránku Razor. V předchozím příkladu `@model` čára `PageModel`zpřístupňuje třídu odvozenou pro stránku Razor. Model se používá v `@Html.DisplayNameFor` [pomocníkech HTML](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) a `@Html.DisplayFor` na stránce.
 
 ### <a name="the-layout-page"></a>Stránka rozložení
 
-Vyberte nabídky odkazy (**RazorPagesMovie**, **Domů**, a **ochrany osobních údajů**). Každá stránka zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementována v *Pages/Shared/_Layout.cshtml* souboru. Otevřít *Pages/Shared/_Layout.cshtml* souboru.
+Vyberte odkazy nabídky (**RazorPagesMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *Pages/Shared/_Layout. cshtml* . Otevřete soubor *Pages/Shared/_Layout. cshtml* .
 
-[Rozložení](xref:mvc/views/layout) šablony umožňují zadat kontejner rozložení HTML vašeho webu na jednom místě a použijte ji na několika stránkách ve vaší lokalitě. Najít `@RenderBody()` řádku. `RenderBody` je zástupný symbol, kde všechny specifický pro stránku zobrazení, se kterými create, show *zabalené* stránce rozložení. Například, pokud jste vybrali **ochrany osobních údajů** odkaz, **Pages/Privacy.cshtml** je zobrazení vykresleno uvnitř `RenderBody` metody.
+Šablony [rozložení](xref:mvc/views/layout) umožňují, aby rozložení kontejneru HTML bylo:
+
+* Zadáno na jednom místě.
+* Použito na více stránkách v lokalitě.
+
+`@RenderBody()` Najděte řádek. `RenderBody`je zástupný symbol, kde jsou všechna zobrazení konkrétní stránky zobrazena, *zabalena* na stránce rozložení. Například vyberte odkaz **osobních údajů** a zobrazení *stránky/soukromí. cshtml* je `RenderBody` vykresleno uvnitř metody.
 
 <a name="vd"></a>
 
 ### <a name="viewdata-and-layout"></a>ViewData a rozložení
 
-Vezměte v úvahu následující kód z *Pages/Movies/Index.cshtml* souboru:
+Vezměte v úvahu následující značky ze souboru *Pages/Movies/index. cshtml* :
+
+[!code-cshtml[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml?range=1-6&highlight=4-999)]
+
+Předchozí zvýrazněný kód je příkladem přechodu Razor do C#. Znaky `{` a `}` uzavírají blok C# kódu.
+
+`PageModel` Základní třída `ViewData` obsahuje vlastnost Dictionary, kterou lze použít k přidání dat a jejich předání do zobrazení. Objekty jsou přidány do `ViewData` slovníku pomocí vzoru klíč/hodnota. V předchozí ukázce `"Title"` je vlastnost přidána `ViewData` do slovníku.
+
+Tato `"Title"` vlastnost se používá v souboru *Pages/Shared/_Layout. cshtml* . Následující kód ukazuje několik prvních řádků souboru *_Layout. cshtml* .
+
+<!-- we need a snapshot copy of layout because we are
+changing in in the next step.
+-->
+[!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/NU/_Layout.cshtml?highlight=6)]
+
+Řádek `@*Markup removed for brevity.*@` je komentář Razor. Na rozdíl od komentářů jazyka`<!-- -->`HTML () nejsou komentáře pro Razor odesílány klientovi.
+
+### <a name="update-the-layout"></a>Aktualizovat rozložení
+
+Změňte prvek v souboru *Pages/Shared/_Layout. cshtml* tak, aby zobrazoval **film** místo **RazorPagesMovie.** `<title>`
+
+[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
+
+Vyhledejte následující kotvicí prvek v souboru *Pages/Shared/_Layout. cshtml* .
+
+```cshtml
+<a class="navbar-brand" asp-area="" asp-page="/Index">RazorPagesMovie</a>
+```
+
+Nahraďte předchozí prvek následujícím kódem:
+
+```cshtml
+<a class="navbar-brand" asp-page="/Movies/Index">RpMovie</a>
+```
+
+Předchozí element ukotvení je [pomocná pomůcka značek](xref:mvc/views/tag-helpers/intro). V tomto případě je to [Pomocník značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper). Atribut pomocník `/Movies/Index` značek a hodnota vytvoří odkaz na stránku Razor. `asp-page="/Movies/Index"` Hodnota `asp-area` atributu je prázdná, takže se oblast nepoužívá v odkazu. Další informace najdete v části [oblasti](xref:mvc/controllers/areas) .
+
+Uložte změny a otestujte aplikaci kliknutím na odkaz **RpMovie** . Pokud máte nějaké problémy, podívejte se na soubor [_Layout. cshtml](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Shared/_Layout.cshtml) na GitHubu.
+
+Otestujte ostatní odkazy (**Domů**, **RpMovie**, **vytvořit**, **Upravit**a **Odstranit**). Každá stránka nastaví nadpis, který vidíte na kartě prohlížeče. Při vytváření záložky stránky se nadpis používá pro záložku.
+
+> [!NOTE]
+> Není možné zadat desetinné čárky v `Price` pole. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a formáty kalendářních dat, které nejsou v češtině, je nutné provést kroky k globalizaci aplikace. Pokyny k přidání desetinné čárky najdete v tomto [problému v githubu 4076](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420) .
+
+Vlastnost je nastavena v souboru *Pages/_ViewStart. cshtml:* `Layout`
+
+[!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/Pages/_ViewStart.cshtml)]
+
+Předchozí kód nastaví soubor rozložení na *stránky/Shared/_Layout. cshtml* pro všechny soubory Razor ve složce *Pages* . Další informace najdete v tématu [rozložení](xref:razor-pages/index#layout) .
+
+### <a name="the-create-page-model"></a>Model vytvoření stránky
+
+Projděte si model stránky *stránky/filmy/vytvořit. cshtml. cs* :
+
+[!code-csharp[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippetALL)]
+
+`OnGet` Metoda inicializuje libovolný stav potřebný pro stránku. Stránka pro vytvoření nemá žádný stav k inicializaci, takže `Page` se vrátí. Později v tomto kurzu se zobrazuje příklad `OnGet` stavu inicializace. Metoda vytvoří objekt, který vykresluje stránku *vytvořit. cshtml.* `Page` `PageResult`
+
+Vlastnost používá atribut pro přihlášení k [modelu vazby.](xref:mvc/models/model-binding) `Movie` `[BindProperty]` Když formulář vytvořit odešle hodnoty formuláře, modul runtime ASP.NET Core váže odeslané hodnoty do `Movie` modelu.
+
+`OnPostAsync` Metoda se spustí, když stránka publikuje data formuláře:
+
+[!code-csharp[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippetPost)]
+
+Pokud dojde k nějakým chybám modelu, formulář se znovu zobrazí spolu se všemi publikovanými daty formuláře. Většinu chyb modelu lze zachytit na straně klienta před odesláním formuláře. Příkladem chyby modelu je publikování hodnoty pro pole data, které nelze převést na datum. Ověřování na straně klienta a ověřování modelu jsou popsány dále v tomto kurzu.
+
+Pokud nedochází k žádným chybám modelu, data se uloží a prohlížeč se přesměruje na stránku indexu.
+
+### <a name="the-create-razor-page"></a>Stránka vytvoření Razor
+
+Projděte si soubor *Pages/video/Create. cshtml* Razor Page:
+
+[!code-cshtml[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Create.cshtml)]
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+Visual Studio zobrazí následující značky v zřetelném tučném písmu, které se používá pro pomocníky značek:
+
+* `<form method="post">`
+* `<div asp-validation-summary="ModelOnly" class="text-danger"></div>`
+* `<label asp-for="Movie.Title" class="control-label"></label>`
+* `<input asp-for="Movie.Title" class="form-control" />`
+* `<span asp-validation-for="Movie.Title" class="text-danger"></span>`
+
+![VS17 zobrazení stránky vytvořit. cshtml](page/_static/th3.png)
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+V předchozím kódu se zobrazují následující pomocníky značek:
+
+* `<form method="post">`
+* `<div asp-validation-summary="ModelOnly" class="text-danger"></div>`
+* `<label asp-for="Movie.Title" class="control-label"></label>`
+* `<input asp-for="Movie.Title" class="form-control" />`
+* `<span asp-validation-for="Movie.Title" class="text-danger"></span>`
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+Visual Studio zobrazí následující značky v zřetelném tučném písmu, které se používá pro pomocníky značek:
+
+* `<form method="post">`
+* `<div asp-validation-summary="ModelOnly" class="text-danger"></div>`
+* `<label asp-for="Movie.Title" class="control-label"></label>`
+* `<input asp-for="Movie.Title" class="form-control" />`
+* `<span asp-validation-for="Movie.Title" class="text-danger"></span>`
+
+---
+
+Element je Pomocník pro [značky formuláře.](xref:mvc/views/working-with-forms#the-form-tag-helper) `<form method="post">` Pomocná rutina značky Form zahrnuje [](xref:security/anti-request-forgery)automaticky tokeny proti padělání.
+
+Modul generování uživatelského rozhraní vytvoří pro každé pole v modelu označení Razor (s výjimkou ID), které je podobné následujícímu:
+
+[!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Create.cshtml?range=15-20)]
+
+[Pomocníka značek ověřování](xref:mvc/views/working-with-forms#the-validation-tag-helpers) (`<div asp-validation-summary` a `<span asp-validation-for`) zobrazí chyby ověřování. Ověřování je podrobněji popsáno dále v této sérii.
+
+[Pomocník značek popisku](xref:mvc/views/working-with-forms#the-label-tag-helper) (`<label asp-for="Movie.Title" class="control-label"></label>`) vygeneruje popisek `Title` a `for` atribut pro vlastnost.
+
+[Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) (`<input asp-for="Movie.Title" class="form-control">`) používá atributy DataAnnotations a vytváří atributy HTML potřebné pro ověření jQuery na straně klienta. [](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6)
+
+Další informace o pomocníkech `<form method="post">`značek, jako je, najdete [v tématu označení pomocníků značek v ASP.NET Core](xref:mvc/views/tag-helpers/intro).
+
+## <a name="additional-resources"></a>Další zdroje
+
+> [!div class="step-by-step"]
+> [Předchozí Přidání modelu](xref:tutorials/razor-pages/model)
+> (Další):[ Database](xref:tutorials/razor-pages/sql)
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+
+Tento kurz prověřuje Razor Pages vytvořené pomocí generování uživatelského rozhraní v [předchozím kurzu](xref:tutorials/razor-pages/model).
+
+[Zobrazení nebo stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22) vzorku.
+
+## <a name="the-create-delete-details-and-edit-pages"></a>Stránky vytvořit, odstranit, podrobnosti a upravit
+
+Projděte si model stránky *stránky/filmy/index. cshtml. cs* :
+
+[!code-csharp[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs)]
+
+Razor Pages jsou odvozeny `PageModel`z. Podle konvence `PageModel`je volána `<PageName>Model`třída odvozená od třídy. Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání `RazorPagesMovieContext` na stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování s Entity Framework najdete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
+
+Když je vytvořena žádost pro stránku, `OnGetAsync` metoda vrátí seznam filmů na stránku Razor. `OnGetAsync`nebo `OnGet` je volána na stránce Razor pro inicializaci stavu stránky. V tomto případě `OnGetAsync` získá seznam filmů a zobrazí je.
+
+Při `OnGet`vrácení nebo`Task`vrácení se nepoužije žádná návratová metoda. `OnGetAsync` `void` Pokud je `IActionResult` návratový typ nebo `Task<IActionResult>`, je nutné poskytnout návratový příkaz. Například metoda Pages */video/Create. cshtml. cs* `OnPostAsync` :
+
+[!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml.cs?name=snippet)]
+
+<a name="index"></a>Projděte stránku *stránky/filmy/index. cshtml* Razor:
+
+[!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml)]
+
+Razor může přejít z formátu HTML C# do nebo do kódu specifického pro Razor. Je-li [](xref:mvc/views/razor#razor-reserved-keywords) C#symbol následován rezervovaným klíčovým slovem Razor, přejde do kódu specifického pro Razor, jinak přejde do. `@`
+
+Direktiva `@page` Razor vytvoří soubor na akci MVC, což znamená, že může zpracovávat požadavky. `@page`musí se jednat o první direktivu Razor na stránce. `@page`je příkladem přechodu do kódu specifického pro Razor. Další informace najdete v tématu [syntaxe Razor](xref:mvc/views/razor#razor-syntax) .
+
+Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
+
+```cshtml
+@Html.DisplayNameFor(model => model.Movie[0].Title))
+```
+
+Pomocník HTML kontroluje `Title` vlastnost, na kterou se odkazuje ve výrazu lambda pro určení zobrazovaného názvu. `DisplayNameFor` Výraz lambda je zkontrolován namísto vyhodnocení. To znamená, že nedojde k narušení přístupu `model`, `model.Movie` `model.Movie[0]` Pokud jsou `null` nebo prázdná. Při vyhodnocování výrazu lambda (například s hodnotou `@Html.DisplayFor(modelItem => item.Title)`) jsou vyhodnocovány hodnoty vlastností modelu.
+
+<a name="md"></a>
+
+### <a name="the-model-directive"></a>@model Direktiva
+
+[!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
+
+`@model` Direktiva určuje typ modelu předaného na stránku Razor. V předchozím příkladu `@model` čára `PageModel`zpřístupňuje třídu odvozenou pro stránku Razor. Model se používá v `@Html.DisplayNameFor` [pomocníkech HTML](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) a `@Html.DisplayFor` na stránce.
+
+### <a name="the-layout-page"></a>Stránka rozložení
+
+Vyberte odkazy nabídky (**RazorPagesMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *Pages/Shared/_Layout. cshtml* . Otevřete soubor *Pages/Shared/_Layout. cshtml* .
+
+Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. `@RenderBody()` Najděte řádek. `RenderBody`je zástupný symbol, kde jsou všechna zobrazení pro konkrétní stránku, která vytvoříte, *zabalena* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **stránky/soukromí. cshtml** se `RenderBody` vykreslí uvnitř metody.
+
+<a name="vd"></a>
+
+### <a name="viewdata-and-layout"></a>ViewData a rozložení
+
+Vezměte v úvahu následující kód ze souboru *Pages/Movies/index. cshtml* :
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-6&highlight=4-999)]
 
-Předchozí zvýrazněný kód je příkladem Razor převádějí do jazyka C#. `{` a `}` znaky, uzavřete blok kódu jazyka C#.
+Předchozí zvýrazněný kód je příkladem přechodu Razor do C#. Znaky `{` a `}` uzavírají blok C# kódu.
 
-`PageModel` Má základní třída `ViewData` slovník vlastností, který slouží k přidání dat, které chcete předat do zobrazení. Přidání objektů do `ViewData` slovník pomocí vzoru klíč/hodnota. V předchozím příkladu je přidána vlastnost "Title" `ViewData` slovníku.
+`PageModel` Základní třída `ViewData` má vlastnost Dictionary, kterou lze použít k přidání dat, která chcete předat zobrazení. Do `ViewData` slovníku přidáte objekty pomocí vzoru klíč/hodnota. V předchozím příkladu je do `ViewData` slovníku přidána vlastnost title.
 
-Vlastnost "Title" se používá v *Pages/Shared/_Layout.cshtml* souboru. Následující kód ukazuje několik prvních řádků tohoto *_Layout.cshtml* souboru.
+Vlastnost title se používá v souboru *Pages/Shared/_Layout. cshtml* . Následující kód ukazuje několik prvních řádků souboru *_Layout. cshtml* .
 
 <!-- we need a snapshot copy of layout because we are
 changing in in the next step.
 -->
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/NU/_Layout.cshtml?highlight=6-99)]
 
-Na řádku `@*Markup removed for brevity.*@` je komentáře syntaxe Razor, která se nezobrazí v souboru rozložení. Na rozdíl od komentáře HTML (`<!-- -->`), klient se nebude posílat komentáře syntaxe Razor.
+Řádek `@*Markup removed for brevity.*@` je komentář Razor, který se v souboru rozložení nezobrazí. Na rozdíl od komentářů jazyka`<!-- -->`HTML () nejsou komentáře pro Razor odesílány klientovi.
 
-### <a name="update-the-layout"></a>Aktualizace rozložení
+### <a name="update-the-layout"></a>Aktualizovat rozložení
 
-Změnit `<title>` element v *Pages/Shared/_Layout.cshtml* soubor k zobrazení **film** spíše než **RazorPagesMovie**.
+Změňte prvek v souboru *Pages/Shared/_Layout. cshtml* tak, aby zobrazoval **film** místo **RazorPagesMovie.** `<title>`
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
 
-Vyhledejte následující element anchor v *Pages/Shared/_Layout.cshtml* souboru.
+Vyhledejte následující kotvicí prvek v souboru *Pages/Shared/_Layout. cshtml* .
 
 ```cshtml
 <a class="navbar-brand" asp-area="" asp-page="/Index">RazorPagesMovie</a>
 ```
 
-Nahraďte následující značky předchozí prvek.
+Nahraďte předchozí prvek následujícím kódem.
 
 ```cshtml
 <a class="navbar-brand" asp-page="/Movies/Index">RpMovie</a>
 ```
 
-Předchozí element anchor je [pomocné rutiny značky](xref:mvc/views/tag-helpers/intro). V tomto případě má [ukotvení pomocné rutiny značky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper). `asp-page="/Movies/Index"` Pomocné rutiny značky atribut a hodnota vytvoří odkaz `/Movies/Index` stránky Razor. `asp-area` Hodnota atributu je prázdný, takže oblasti se nepoužívá v odkazu. Zobrazit [oblasti](xref:mvc/controllers/areas) Další informace.
+Předchozí element ukotvení je [pomocná pomůcka značek](xref:mvc/views/tag-helpers/intro). V tomto případě je to [Pomocník značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper). Atribut pomocník `/Movies/Index` značek a hodnota vytvoří odkaz na stránku Razor. `asp-page="/Movies/Index"` Hodnota `asp-area` atributu je prázdná, takže se oblast nepoužívá v odkazu. Další informace najdete v části [oblasti](xref:mvc/controllers/areas) .
 
-Uložte změny a otestujte aplikaci po kliknutí na **RpMovie** odkaz. Zobrazit [_Layout.cshtml](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml) souboru v Githubu, pokud máte potíže s.
+Uložte změny a otestujte aplikaci kliknutím na odkaz **RpMovie** . Pokud máte nějaké problémy, podívejte se na soubor [_Layout. cshtml](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml) na GitHubu.
 
-Testování propojení (**Domů**, **RpMovie**, **vytvořit**, **upravit**, a **odstranit**). Každá stránka nastaví nadpis, který se zobrazí na záložce prohlížeče. Když vytvoříte záložku na stránce, název se používá pro záložky.
+Otestujte ostatní odkazy (**Domů**, **RpMovie**, **vytvořit**, **Upravit**a **Odstranit**). Každá stránka nastaví nadpis, který vidíte na kartě prohlížeče. Při vytváření záložky stránky se nadpis používá pro záložku.
 
 > [!NOTE]
-> Není možné zadat desetinné čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") pro desetinné čárky a USA retweetovat neanglické formáty kalendářního data, je nutné provést kroky aplikaci poslali do světa. To [problém Githubu 4076](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420) pokyny k přidání desetinné čárky.
+> Není možné zadat desetinné čárky v `Price` pole. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a formáty kalendářních dat, které nejsou v češtině, je nutné provést kroky k globalizaci aplikace. Tento [problém githubu 4076](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420) najdete v pokynech k přidání desetinné čárky.
 
-`Layout` Je nastavena *Pages/_ViewStart.cshtml* souboru:
+Vlastnost je nastavena v souboru *Pages/_ViewStart. cshtml:* `Layout`
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/_ViewStart.cshtml)]
 
-Předchozí kód nastaví soubor rozložení *Pages/Shared/_Layout.cshtml* pro všechny soubory Razor pod *stránky* složky. Zobrazit [rozložení](xref:razor-pages/index#layout) Další informace.
+Předchozí kód nastaví soubor rozložení na *stránky/Shared/_Layout. cshtml* pro všechny soubory Razor ve složce *Pages* . Další informace najdete v tématu [rozložení](xref:razor-pages/index#layout) .
 
-### <a name="the-create-page-model"></a>Vytvořit model stránky
+### <a name="the-create-page-model"></a>Model vytvoření stránky
 
-Zkontrolujte *Pages/Movies/Create.cshtml.cs* model stránky:
+Projděte si model stránky *stránky/filmy/vytvořit. cshtml. cs* :
 
 [!code-csharp[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Create.cshtml.cs?name=snippetALL)]
 
-`OnGet` Metoda inicializuje některému ze stavů potřebné pro stránku. Stránka pro vytvoření nemá žádné stavu inicializace, tak `Page` je vrácena. Později v tomto kurzu uvidíte `OnGet` metodu inicializace stavu. `Page` Metoda vytvoří `PageResult` objekt, který vykreslí *Create.cshtml* stránky.
+`OnGet` Metoda inicializuje libovolný stav potřebný pro stránku. Stránka pro vytvoření nemá žádný stav k inicializaci, takže `Page` se vrátí. Později v tomto kurzu vidíte `OnGet` stav inicializace metody. Metoda vytvoří objekt, který vykresluje stránku *vytvořit. cshtml.* `Page` `PageResult`
 
-`Movie` Používá vlastnost `[BindProperty]` atribut pro přihlášení k [vazby modelu](xref:mvc/models/model-binding). Kdy vytvořit formulář pošle příspěvek s hodnot formuláře, modul runtime ASP.NET Core váže odeslaných hodnoty, které mají `Movie` modelu.
+Vlastnost používá atribut pro přihlášení k [modelu vazby.](xref:mvc/models/model-binding) `Movie` `[BindProperty]` Když formulář vytvořit odešle hodnoty formuláře, modul runtime ASP.NET Core váže odeslané hodnoty do `Movie` modelu.
 
-`OnPostAsync` Metody se spustí, když se publikuje data formuláře na stránce:
+`OnPostAsync` Metoda se spustí, když stránka publikuje data formuláře:
 
 [!code-csharp[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Create.cshtml.cs?name=snippetPost)]
 
-Pokud nejsou žádné chyby modelu, formulář se zobrazí znovu, spolu se všechna data formuláře. Většina chyb modelu může být zachycena na straně klienta, před odesláním formuláře. Příklad chybu modelu účtování hodnotu pro pole data, která se nedá převést na datum. Ověřování na straně klienta a ověření modelu jsou popsány dále v tomto kurzu.
+Pokud dojde k nějakým chybám modelu, formulář se znovu zobrazí spolu se všemi publikovanými daty formuláře. Většinu chyb modelu lze zachytit na straně klienta před odesláním formuláře. Příkladem chyby modelu je publikování hodnoty pro pole data, které nelze převést na datum. Ověřování na straně klienta a ověřování modelu jsou popsány dále v tomto kurzu.
 
-Pokud nejsou žádné chyby modelu, data se uloží a bude prohlížeč přesměrován na indexovou stránku.
+Pokud nedochází k žádným chybám modelu, data se uloží a prohlížeč se přesměruje na stránku indexu.
 
-### <a name="the-create-razor-page"></a>Vytvoření stránky Razor
+### <a name="the-create-razor-page"></a>Stránka vytvoření Razor
 
-Zkontrolujte *Pages/Movies/Create.cshtml* Razor stránkovacího souboru:
+Projděte si soubor *Pages/video/Create. cshtml* Razor Page:
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Create.cshtml)]
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Visual Studio zobrazí `<form method="post">` značku rozlišovací tučné písmo použité pro pomocné rutiny značek:
+Visual Studio zobrazí značku `<form method="post">` v zřetelném tučném písmu, které se používá pro pomocníky značek:
 
-![VS17 zobrazení Create.cshtml stránky](page/_static/th.png)
+![VS17 zobrazení stránky vytvořit. cshtml](page/_static/th.png)
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Další informace o pomocných rutin značek, jako `<form method="post">`, naleznete v tématu [pomocných rutin značek v ASP.NET Core](xref:mvc/views/tag-helpers/intro).
+Další informace o pomocníkech `<form method="post">`značek, jako je, najdete [v tématu označení pomocníků značek v ASP.NET Core](xref:mvc/views/tag-helpers/intro).
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Visual Studio pro Mac zobrazí `<form method="post">` značku rozlišovací tučné písmo použité pro pomocné rutiny značek.
+Visual Studio pro Mac zobrazí značku `<form method="post">` v zřetelném tučném písmu, které se používá pro pomocníky značek.
 
 ---
 
-`<form method="post">` Prvek je [pomocné rutiny značky formuláře](xref:mvc/views/working-with-forms#the-form-tag-helper). Pomocná rutina značky formuláře se automaticky zahrne [antiforgery token](xref:security/anti-request-forgery).
+Element je Pomocník pro [značky formuláře.](xref:mvc/views/working-with-forms#the-form-tag-helper) `<form method="post">` Pomocná rutina značky Form zahrnuje [](xref:security/anti-request-forgery)automaticky tokeny proti padělání.
 
-Modul generování uživatelského rozhraní vytvoří kód Razor pro každé pole v modelu (s výjimkou ID) podobný následujícímu:
+Modul generování uživatelského rozhraní vytvoří pro každé pole v modelu označení Razor (s výjimkou ID), které je podobné následujícímu:
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Create.cshtml?range=15-20)]
 
-[Pomocných rutin značek ověření](xref:mvc/views/working-with-forms#the-validation-tag-helpers) (`<div asp-validation-summary` a `<span asp-validation-for`) zobrazení chyb ověřování. Ověření se budeme věnovat jednotlivě podrobněji dále v této sérii.
+[Pomocníka značek ověřování](xref:mvc/views/working-with-forms#the-validation-tag-helpers) (`<div asp-validation-summary` a `<span asp-validation-for`) zobrazí chyby ověřování. Ověřování je podrobněji popsáno dále v této sérii.
 
-[Pomocné rutiny značky popisek](xref:mvc/views/working-with-forms#the-label-tag-helper) (`<label asp-for="Movie.Title" class="control-label"></label>`) generuje titulek popisek a `for` atribut pro `Title` vlastnost.
+[Pomocník značek popisku](xref:mvc/views/working-with-forms#the-label-tag-helper) (`<label asp-for="Movie.Title" class="control-label"></label>`) vygeneruje popisek `Title` a `for` atribut pro vlastnost.
 
-[Pomocné rutiny značky vstup](xref:mvc/views/working-with-forms) (`<input asp-for="Movie.Title" class="form-control">`) používá [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) atributy a vytváří atributy HTML, které jsou potřeba pro architekturu jQuery ověření na straně klienta.
+[Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) (`<input asp-for="Movie.Title" class="form-control">`) používá atributy DataAnnotations a vytváří atributy HTML potřebné pro ověření jQuery na straně klienta. [](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6)
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Verzi tohoto kurzu na webu YouTube](https://youtu.be/zxgKjPYnOMM)
+* [Verze YouTube tohoto kurzu](https://youtu.be/zxgKjPYnOMM)
 
 > [!div class="step-by-step"]
-> [Předchozí: Přidání modelu](xref:tutorials/razor-pages/model)
-> [Další: Database](xref:tutorials/razor-pages/sql)
+> [Předchozí Přidání modelu](xref:tutorials/razor-pages/model)
+> (Další):[ Database](xref:tutorials/razor-pages/sql)
+
+::: moniker-end

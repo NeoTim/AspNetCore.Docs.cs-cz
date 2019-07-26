@@ -1,74 +1,74 @@
 ---
-title: Visual Studio Tools for Docker s ASP.NET Core
+title: Nástroje kontejneru sady Visual Studio s ASP.NET Core
 author: spboyer
-description: Zjistěte, jak kontejnerizovat aplikace ASP.NET Core pomocí nástroje Visual Studio 2017 a Docker pro Windows.
+description: Naučte se používat nástroje a Docker for Windows sady Visual Studio k kontejnerizaceí ASP.NET Core aplikace.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: b0d884fe2fe56f267ad70c388a08cd3fe6256364
-ms.sourcegitcommit: 6afe57fb8d9055f88fedb92b16470398c4b9b24a
+ms.openlocfilehash: 5faf0be19448d8272901bf018357da63bbe22d4b
+ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/14/2019
-ms.locfileid: "65610376"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68308072"
 ---
-# <a name="visual-studio-tools-for-docker-with-aspnet-core"></a>Visual Studio Tools for Docker s ASP.NET Core
+# <a name="visual-studio-container-tools-with-aspnet-core"></a>Nástroje kontejneru sady Visual Studio s ASP.NET Core
 
-Visual Studio 2017 a novější verze podporují vytváření, ladění a spouštění kontejnerizovaných ASP.NET Core aplikace cílí na .NET Core. Jsou podporovány kontejnery Windows i Linuxu.
+Visual Studio 2017 a novější verze podporují sestavování, ladění a spouštění kontejnerových ASP.NET Core aplikací cílících na .NET Core. Podporují se kontejnery Windows i Linux.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/docker/visual-studio-tools-for-docker/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
 * [Docker pro Windows](https://docs.docker.com/docker-for-windows/install/)
-* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s **vývoj pro různé platformy .NET Core** pracovního vytížení
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje .NET Core pro různé platformy**
 
 ## <a name="installation-and-setup"></a>Instalace a nastavení
 
-Pro instalaci Dockeru, nejprve zkontrolujte informace na [Docker pro Windows: Co potřebujete vědět před instalací](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install). Dále nainstalujte [Docker pro Windows](https://docs.docker.com/docker-for-windows/install/).
+Pro instalaci Docker si nejdříve přečtěte informace na [adrese Docker for Windows: Co potřebujete znát před instalací](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install). Dále nainstalujte [Docker pro Windows](https://docs.docker.com/docker-for-windows/install/).
 
-**[Sdílené jednotky](https://docs.docker.com/docker-for-windows/#shared-drives)**  v Docker pro Windows musí být nakonfigurované pro podporu mapování svazku a ladění. Klikněte pravým tlačítkem na ikonu Dockeru na hlavním panelu, vyberte **nastavení**a vyberte **sdílené jednotky**. Vyberte jednotku, kde Docker ukládá soubory. Klikněte na tlačítko **Použít**.
+**[Sdílené jednotky](https://docs.docker.com/docker-for-windows/#shared-drives)** v Docker for Windows musí být nakonfigurovány tak, aby podporovaly mapování svazků a ladění. Klikněte pravým tlačítkem myši na ikonu Docker systémového panelu, vyberte **Nastavení**a vyberte **sdílené jednotky**. Vyberte jednotku, kde Docker ukládá soubory. Klikněte na tlačítko **Použít**.
 
-![Dialogové okno pro výběr místní jednotky C sdílení pro kontejnery](visual-studio-tools-for-docker/_static/settings-shared-drives-win.png)
+![Dialog pro výběr místního sdílení jednotky C pro kontejnery](visual-studio-tools-for-docker/_static/settings-shared-drives-win.png)
 
 > [!TIP]
-> Visual Studio 2017 verze 15.6 a vyšší výzvu, při **sdílené jednotky** nejsou nakonfigurované.
+> Visual Studio 2017 verze 15,6 a pozdější dotaz, pokud nejsou nakonfigurovány **sdílené jednotky** .
 
-## <a name="add-a-project-to-a-docker-container"></a>Přidat projekt do kontejneru Dockeru
+## <a name="add-a-project-to-a-docker-container"></a>Přidání projektu do kontejneru Docker
 
-Kontejnerizaci projektu aplikace ASP.NET Core, musí projekt cílit na .NET Core. Jsou podporovány kontejnery Linux i Windows.
+Aby bylo možné projekt ASP.NET Core kontejnerizace, musí projekt cílit na .NET Core. Jsou podporovány kontejnery Linux i Windows.
 
-Při přidávání podpory Docker do projektu, zvolte Windows nebo Linuxem kontejneru. Hostitele Docker musí běžet stejný typ kontejneru. Chcete-li změnit typ kontejneru v běžící instanci Dockeru, klikněte pravým tlačítkem na ikonu Dockeru na hlavním panelu a vyberte **přepnout na kontejnery Windows...**  nebo **přepnout na kontejnery Linuxu...** .
+Když do projektu přidáte podporu Docker, vyberte buď kontejner Windows, nebo Linux. Hostitel Docker musí používat stejný typ kontejneru. Chcete-li změnit typ kontejneru v běžící instanci Docker, klikněte pravým tlačítkem myši na ikonu Docker panelu systému a vyberte možnost **Přepnout na kontejnery Windows...** nebo **Přepnout na kontejnery platformy Linux..** ..
 
 ### <a name="new-app"></a>Nová aplikace
 
-Při vytváření nové aplikace s **webové aplikace ASP.NET Core** šablony projektu, vyberte **povolit podporu Dockeru** zaškrtávací políčko:
+Při vytváření nové aplikace pomocí šablon projektů **ASP.NET Core webové aplikace** zaškrtněte políčko **Povolit podporu Docker** :
 
-![Povolit podporu Dockeru zaškrtávací políčko](visual-studio-tools-for-docker/_static/enable-docker-support-check-box.png)
+![Zaškrtávací políčko Povolit podporu Docker](visual-studio-tools-for-docker/_static/enable-docker-support-check-box.png)
 
-Pokud je verze cílového rozhraní .NET Core **OS** umožňuje rozevírací seznam pro výběr typu kontejneru.
+Pokud je cílová architektura rozhraní .NET Core, rozevírací seznam **OS** umožňuje výběr typu kontejneru.
 
 ### <a name="existing-app"></a>Existující aplikace
 
-Pro projekty ASP.NET Core, jejichž cílem je .NET Core existují dvě možnosti pro přidání podpory Dockeru pomocí nástrojů. Otevřete projekt v sadě Visual Studio a zvolte jednu z následujících možností:
+Pro ASP.NET Core projekty cílené na .NET Core existují dvě možnosti, jak přidat podporu Docker prostřednictvím nástrojů. Otevřete projekt v aplikaci Visual Studio a vyberte jednu z následujících možností:
 
-* Vyberte **podporu Dockeru** z **projektu** nabídky.
-* Klikněte pravým tlačítkem na projekt v **Průzkumníka řešení** a vyberte **přidat** > **podporu Dockeru**.
+* V nabídce **projekt** vyberte možnost **Podpora Docker** .
+* Klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **Přidat** > **podporu Docker**.
 
-Visual Studio Tools for Docker nepodporuje přidávání Dockeru do existujícího projektu ASP.NET Core cílí na rozhraní .NET Framework.
+Nástroje kontejnerů sady Visual Studio nepodporují přidávání Docker do existující ASP.NET Core projektu cílících na .NET Framework.
 
-## <a name="dockerfile-overview"></a>Přehled souboru Dockerfile
+## <a name="dockerfile-overview"></a>Souboru Dockerfile – přehled
 
-A *soubor Dockerfile*, předpisu pro vytvoření finální image Dockeru, je přidán do kořenového adresáře projektu. Odkazovat na [odkaz na soubor Dockerfile](https://docs.docker.com/engine/reference/builder/) pro pochopení příkazy v rámci něj. Tento konkrétní *soubor Dockerfile* používá [vícefázových sestavení](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) s čtyřmi distinct, s názvem fáze sestavení umísťují:
+Do kořenového adresáře projektu se přidá recept pro vytvoření finální image Docker *souboru Dockerfile*. Porozumění příkazům, které jsou v něm, najdete v referenčních informacích k [souboru Dockerfile](https://docs.docker.com/engine/reference/builder/) . Tento konkrétní *souboru Dockerfile* používá [sestavení s více fázemi](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) se čtyřmi odlišnými pojmenovanými fázemi sestavení:
 
 ::: moniker range=">= aspnetcore-2.1"
 
 [!code-dockerfile[](visual-studio-tools-for-docker/samples/2.1/HelloDockerTools/Dockerfile.original?highlight=1,6,14,17)]
 
-Předchozí *soubor Dockerfile* vychází [microsoft/dotnet](https://hub.docker.com/r/microsoft/dotnet/) bitové kopie. Tato základní image obsahuje modul runtime ASP.NET Core a balíčky NuGet. Balíčky jsou just-in-time (JIT) zkompilována do zlepšit výkon při spuštění.
+Předchozí *souboru Dockerfile* je založen na obrázku [Microsoft/dotNET](https://hub.docker.com/r/microsoft/dotnet/) . Tato základní image zahrnuje ASP.NET Core Runtime a balíčky NuGet. Balíčky jsou kompilovány JIT (just-in-time), aby se zlepšil výkon při spuštění.
 
-Při nové dialogu projekt **konfigurace pro protokol HTTPS** zaškrtávací políčko zaškrtnuto, *soubor Dockerfile* poskytuje dva porty. Jeden port se používá pro přenos HTTP; jiný port se používá pro protokol HTTPS. Pokud políčko není zaškrtnuto, jeden port (80) je přístupný pro přenosy pomocí protokolu HTTP.
+Když je zaškrtnuté políčko **Konfigurovat pro protokol HTTPS** v dialogovém okně Nový projekt, *souboru Dockerfile* zpřístupňuje dva porty. Pro přenosy HTTP se používá jeden port; druhý port se používá pro protokol HTTPS. Pokud políčko není zaškrtnuté, bude pro přenosy HTTP vystaven jeden port (80).
 
 ::: moniker-end
 
@@ -76,74 +76,74 @@ Při nové dialogu projekt **konfigurace pro protokol HTTPS** zaškrtávací pol
 
 [!code-dockerfile[](visual-studio-tools-for-docker/samples/2.0/HelloDockerTools/Dockerfile?highlight=1,5,13,16)]
 
-Předchozí *soubor Dockerfile* vychází [microsoft/aspnetcore](https://hub.docker.com/r/microsoft/aspnetcore/) bitové kopie. Tato základní image obsahuje balíčky ASP.NET Core NuGet, které jsou just-in-time (JIT) zkompilována do zlepšit výkon při spuštění.
+Předchozí *souboru Dockerfile* vychází z image [Microsoft/aspnetcore](https://hub.docker.com/r/microsoft/aspnetcore/) . Tato základní image obsahuje ASP.NET Core balíčky NuGet, které jsou kompilovány JIT (just-in-time), aby se zlepšil výkon při spuštění.
 
 ::: moniker-end
 
-## <a name="add-container-orchestrator-support-to-an-app"></a>Přidat podporu orchestrátoru kontejnerů do aplikace
+## <a name="add-container-orchestrator-support-to-an-app"></a>Přidat do aplikace podporu nástroje Orchestrator pro kontejner
 
-Visual Studio 2017 verze 15.7 nebo starší podporují [Docker Compose](https://docs.docker.com/compose/overview/) jako řešení Orchestrace kontejnerů jediným. Docker Compose artefakty se přidají přes **přidat** > **podporu Dockeru**.
+Sady Visual Studio 2017 verze 15,7 nebo novější podporují [Docker Compose](https://docs.docker.com/compose/overview/) jako jediné řešení orchestrace kontejnerů. Artefakty Docker Compose se přidávají prostřednictvím **Přidat** > **podporu Docker**.
 
-Visual Studio 2017 verze 15,8 nebo novější přidat řešení Orchestrace jenom v případě, že vydal pokyn pro nástroje. Klikněte pravým tlačítkem na projekt v **Průzkumníka řešení** a vyberte **přidat** > **podporu Orchestrátoru kontejnerů**. Nabízíme dvě různé možnosti: [Docker Compose](#docker-compose) a [Service Fabric](#service-fabric).
+Visual Studio 2017 verze 15,8 nebo novější přidat řešení orchestrace pouze v případě, že je pokyn. Klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **Přidat** > **kontejner Orchestrator support**. K dispozici jsou dvě různé možnosti: [Docker Compose](#docker-compose) a [Service Fabric](#service-fabric).
 
 ### <a name="docker-compose"></a>Docker Compose
 
-Přidejte Visual Studio Tools for Docker *docker-compose* projektu do řešení se následující soubory:
+Nástroje kontejnerů sady Visual Studio přidají do řešení projekt *Docker-sestavení* s následujícími soubory:
 
-* *docker compose.dcproj* &ndash; soubor, který projekt. Zahrnuje `<DockerTargetOS>` prvek určující operačního systému, který se má použít.
-* *.dockerignore* &ndash; obsahuje seznam vzorů souborů a adresářů pro vyloučení při generování kontext sestavení.
-* *docker-compose.yml* &ndash; základní [Docker Compose](https://docs.docker.com/compose/overview/) soubor se používá k definování kolekce imagí vytvořili a spustili pomocí `docker-compose build` a `docker-compose run`v uvedeném pořadí.
-* *docker-compose.override.yml* &ndash; volitelný soubor ke čtení pomocí Docker Compose, s konfigurací přepsání pro služby. Visual Studio provede `docker-compose -f "docker-compose.yml" -f "docker-compose.override.yml"` sloučit tyto soubory.
+* Docker – Sestavte soubor *. dcproj* &ndash; , který představuje projekt. `<DockerTargetOS>` Obsahuje element určující operační systém, který se má použít.
+* *. dockerignore* &ndash; Uvádí vzor souborů a adresářů, které mají být vyloučeny při generování kontextu sestavení.
+* *Docker-Compose. yml* &ndash; základní soubor [Docker Compose](https://docs.docker.com/compose/overview/) slouží k definování kolekce imagí sestavených a spuštěných s `docker-compose build` a `docker-compose run`v uvedeném pořadí.
+* *Docker-Compose. override. yml* &ndash; volitelný soubor, který si přečte Docker Compose s přepsáním konfigurace pro služby. Visual Studio provede `docker-compose -f "docker-compose.yml" -f "docker-compose.override.yml"` sloučení těchto souborů.
 
-*Docker-compose.yml* soubor odkazuje na název obrázku, který je vytvořen při spuštění projektu:
+Soubor *Docker-Compose. yml* odkazuje na název bitové kopie, která je vytvořena při spuštění projektu:
 
 [!code-yaml[](visual-studio-tools-for-docker/samples/2.0/docker-compose.yml?highlight=5)]
 
-V předchozím příkladu `image: hellodockertools` generuje obrázek `hellodockertools:dev` při spuštění aplikace **ladění** režimu. `hellodockertools:latest` Image se vygeneruje, když aplikace běží v **vydání** režimu.
+V předchozím příkladu vygeneruje `image: hellodockertools` obrázek `hellodockertools:dev` , když aplikace běží v režimu **ladění** . Obrázek se vygeneruje, když aplikace běží v režimu **vydání.** `hellodockertools:latest`
 
-Před názvem obrázku [Docker Hubu](https://hub.docker.com/) uživatelské jméno (třeba `dockerhubusername/hellodockertools`) Pokud je image do registru. Můžete také změnit název image přidat adresu URL privátního registru (například `privateregistry.domain.com/hellodockertools`) v závislosti na konfiguraci.
+Pokud je image vložená do [](https://hub.docker.com/) registru, zadejte předponu názvu image k `dockerhubusername/hellodockertools`uživatelskému jménu Docker (například). Případně změňte název bitové kopie tak, aby zahrnoval adresu URL privátního registru (například `privateregistry.domain.com/hellodockertools`) v závislosti na konfiguraci.
 
-Pokud chcete různé chování v závislosti na konfiguraci sestavení (například ladění nebo vydání), přidejte určených pro konfigurace *docker-compose* soubory. Soubory by měly být pojmenovány podle konfigurace sestavení (například *docker compose.vs.debug.yml* a *docker compose.vs.release.yml*) a je umístěná ve stejném umístění jako *docker compose override.yml* souboru. 
+Pokud chcete jiné chování na základě konfigurace sestavení (například ladění nebo vydaná verze), přidejte soubory *Docker-skládání* specifické pro konfiguraci. Soubory by měly být pojmenovány podle konfigurace sestavení (například *Docker-Compose. vs. Debug. yml* a *Docker-Compose. vs. Release. yml*) a umístěny do stejného umístění jako soubor *Docker-Compose-override. yml* . 
 
-Použití souborů určených pro konfigurace přepsání, můžete zadat jinou konfiguraci nastavení (jako jsou proměnné prostředí a vstupní body) u sestavení konfigurace Debug a Release.
+Pomocí souborů přepsání specifických pro konfiguraci můžete pro konfigurace ladění a vydání zadat různá nastavení konfigurace (například proměnné prostředí nebo vstupní body).
 
 ### <a name="service-fabric"></a>Service Fabric
 
-Kromě základní [požadavky](#prerequisites), [Service Fabric](/azure/service-fabric/) řešení Orchestrace požadavky splněné následující požadavky:
+Kromě základních [požadavků](#prerequisites)řešení orchestrace [Service Fabric](/azure/service-fabric/) vyžaduje následující požadavky:
 
-* [Microsoft Azure Service Fabric SDK](https://www.microsoft.com/web/handlers/webpi.ashx?command=getinstallerredirect&appid=MicrosoftAzure-ServiceFabric-CoreSDK) version 2.6 nebo novější
-* Visual Studio **vývoj pro Azure** pracovního vytížení
+* [Microsoft Azure Service Fabric SDK](https://www.microsoft.com/web/handlers/webpi.ashx?command=getinstallerredirect&appid=MicrosoftAzure-ServiceFabric-CoreSDK) verze 2,6 nebo novější
+* Úloha **vývoje Azure** v aplikaci Visual Studio
 
-Service Fabric nepodporuje spuštěné kontejnery Linuxu v místním vývojovém clusteru na Windows. Pokud projekt již používá kontejner Linuxu, Visual Studio vyzve k přepnout na kontejnery Windows.
+Service Fabric nepodporuje spouštění kontejnerů Linux v místním vývojovém clusteru ve Windows. Pokud projekt již používá kontejner pro Linux, Visual Studio zobrazí výzvu k přepnutí do kontejnerů Windows.
 
-Visual Studio Tools for Docker provádět následující úlohy:
+Nástroje kontejneru sady Visual Studio dělají následující úlohy:
 
-* Přidá  *&lt;project_name&gt;aplikace* **aplikace Service Fabric** projektu do řešení.
-* Přidá *soubor Dockerfile* a *.dockerignore* soubor do projektu ASP.NET Core. Pokud *soubor Dockerfile* již existuje v projektu ASP.NET Core se přejmenovalo na *Dockerfile.original*. Nový *soubor Dockerfile*, podobně jako následujícím vytvoření:
+* Přidá do řešení projekt aplikace *&gt; &lt;PROJECT_NAME* **Service Fabric aplikace** .
+* Přidá do projektu ASP.NET Core soubor s příponou *souboru Dockerfile* a *. dockerignore* . Pokud *souboru Dockerfile* už v projektu ASP.NET Core existuje, přejmenuje se na *souboru Dockerfile. originál*. Vytvoří se nový *souboru Dockerfile*, který bude vypadat přibližně takto:
 
     [!code-dockerfile[](visual-studio-tools-for-docker/samples/2.1/HelloDockerTools/Dockerfile)]
 
-* Přidá `<IsServiceFabricServiceProject>` prvek do projektu ASP.NET Core *.csproj* souboru:
+* Přidá prvek do souboru *. csproj* ASP.NET Coreho projektu: `<IsServiceFabricServiceProject>`
 
     [!code-xml[](visual-studio-tools-for-docker/samples/2.1/HelloDockerTools/HelloDockerTools.csproj?name=snippet_IsServiceFabricServiceProject)]
 
-* Přidá *PackageRoot* složku pro projekt ASP.NET Core. Složka obsahuje manifest služby a nastavení pro novou službu.
+* Přidá složku *PackageRoot* do projektu ASP.NET Core. Složka obsahuje manifest a nastavení služby pro novou službu.
 
 Další informace najdete v tématu [nasazení aplikace .NET v kontejneru Windows do Azure Service Fabric](/azure/service-fabric/service-fabric-host-app-in-a-container).
 
 ## <a name="debug"></a>Ladění
 
-Vyberte **Docker** z ladění rozevírací seznam v panelu nástrojů a spusťte ladění aplikace. **Docker** zobrazení **výstup** okno zobrazuje probíhají následující akce:
+V  rozevíracím seznamu ladění na panelu nástrojů vyberte Docker a spusťte ladění aplikace. Zobrazení **Docker** okna **výstup** zobrazuje následující akce:
 
 ::: moniker range=">= aspnetcore-2.1"
 
-* *Modulu runtime 2.1 aspnetcore* značku *microsoft/dotnet* bitové kopie modulu runtime je získali (pokud ještě není v mezipaměti). Na obrázku nainstaluje moduly runtime ASP.NET Core a .NET Core a přidruženými knihovnami. Je optimalizovaný pro spouštění aplikací ASP.NET Core v produkčním prostředí.
-* `ASPNETCORE_ENVIRONMENT` Proměnná prostředí je nastavená na `Development` v kontejneru.
-* Dva porty dynamicky přidělovanou vystaveny: jeden pro HTTP a jeden pro protokol HTTPS. Port přiřazen k místnímu hostiteli může být dotázán pomocí `docker ps` příkazu.
+* Byla získána značka *2,1-aspnetcore-runtime* bitové kopie modulu runtime *aplikace Microsoft/dotNET* (Pokud ještě není v mezipaměti). Bitová kopie nainstaluje ASP.NET Core a moduly runtime .NET Core a přidružené knihovny. Je optimalizovaná pro spouštění ASP.NET Corech aplikací v produkčním prostředí.
+* Proměnná prostředí je nastavena na `Development` hodnotu v rámci kontejneru. `ASPNETCORE_ENVIRONMENT`
+* K dispozici jsou dva dynamicky přiřazené porty: jeden pro HTTP a jeden pro protokol HTTPS. Pomocí `docker ps` příkazu se dá zadat dotaz na port přiřazený k hostiteli localhost.
 * Aplikace se zkopíruje do kontejneru.
-* Spustí výchozí prohlížeč se ladicí program připojený ke kontejneru pomocí dynamicky přiřazeného portu.
+* Výchozí prohlížeč se spustí s ladicím programem připojeným ke kontejneru pomocí dynamicky přiřazeného portu.
 
-Výsledný image Dockeru aplikace je označený jako *dev*. Na obrázku je založen na *modulu runtime 2.1 aspnetcore* značku *microsoft/dotnet* základní image. Spustit `docker images` v příkaz **Konzola správce balíčků** okno (PMC). Image na počítači se zobrazí:
+Výsledná image Docker aplikace je označená jako *vývoj*. Obrázek je založen na značce *2,1-aspnetcore-runtime* základní image *Microsoft/dotNET* . Spusťte příkaz v okně **konzoly Správce balíčků** (PMC). `docker images` Zobrazí se obrázky na počítači:
 
 ```console
 REPOSITORY        TAG                     IMAGE ID      CREATED         SIZE
@@ -155,13 +155,13 @@ microsoft/dotnet  2.1-aspnetcore-runtime  fcc3887985bb  6 days ago      255MB
 
 ::: moniker range="<= aspnetcore-2.0"
 
-* *Microsoft/aspnetcore* bitové kopie modulu runtime je získali (pokud ještě není v mezipaměti).
-* `ASPNETCORE_ENVIRONMENT` Proměnná prostředí je nastavená na `Development` v kontejneru.
-* Port 80 je vystavena a mapují na dynamicky přidělovanou port pro místního hostitele. Port, který je určený hostitelem Dockeru a může být dotázán pomocí `docker ps` příkazu.
+* Byla získána bitová kopie modulu runtime *aplikace Microsoft/aspnetcore* (Pokud ještě není v mezipaměti).
+* Proměnná prostředí je nastavena na `Development` hodnotu v rámci kontejneru. `ASPNETCORE_ENVIRONMENT`
+* Port 80 je vystavený a mapovaný na dynamicky přiřazený port pro localhost. Port je určen hostitelem Docker a lze k němu zadat dotaz pomocí `docker ps` příkazu.
 * Aplikace se zkopíruje do kontejneru.
-* Spustí výchozí prohlížeč se ladicí program připojený ke kontejneru pomocí dynamicky přiřazeného portu.
+* Výchozí prohlížeč se spustí s ladicím programem připojeným ke kontejneru pomocí dynamicky přiřazeného portu.
 
-Výsledný image Dockeru aplikace je označený jako *dev*. Na obrázku je založen na *microsoft/aspnetcore* základní image. Spustit `docker images` v příkaz **Konzola správce balíčků** okno (PMC). Image na počítači se zobrazí:
+Výsledná image Docker aplikace je označená jako *vývoj*. Obrázek je založen na základní imagi *Microsoft/aspnetcore* . Spusťte příkaz v okně **konzoly Správce balíčků** (PMC). `docker images` Zobrazí se obrázky na počítači:
 
 ```console
 REPOSITORY            TAG  IMAGE ID      CREATED        SIZE
@@ -172,9 +172,9 @@ microsoft/aspnetcore  2.0  c69d39472da9  13 days ago    347MB
 ::: moniker-end
 
 > [!NOTE]
-> *Dev* image chybí obsah aplikace jako **ladění** konfigurace používají připojení svazku pro zajištění iterativní prostředí. Chcete-li odeslat image, použijte **vydání** konfigurace.
+> K *vývojové* imagi chybí obsah aplikace, protože konfigurace **ladění** používá k zajištění iteračního prostředí připojení svazku. Pokud chcete odeslat image, použijte konfiguraci **vydané verze** .
 
-Spustit `docker ps` příkazu v konzole PMC. Všimněte si, že je aplikace spuštěna pomocí kontejneru:
+`docker ps` Spusťte příkaz v PMC. Všimněte si, že aplikace je spuštěná pomocí kontejneru:
 
 ```console
 CONTAINER ID        IMAGE                  COMMAND                   CREATED             STATUS              PORTS                   NAMES
@@ -183,20 +183,20 @@ baf9a678c88d        hellodockertools:dev   "C:\\remote_debugge..."   21 seconds 
 
 ## <a name="edit-and-continue"></a>Upravit a pokračovat
 
-Změny statických souborů a zobrazeními Razor se automaticky aktualizují bez nutnosti kompilační krok. Proveďte požadovanou změnu, uložte a aktualizujte prohlížeč, chcete-li zobrazit aktualizace.
+Změny statických souborů a zobrazení Razor se automaticky aktualizují, aniž by byl nutný krok kompilace. Pro zobrazení aktualizace proveďte změnu, uložte a aktualizujte prohlížeč.
 
-Úpravy souborů kódu vyžadují kompilace a restartování Kestrel v kontejneru. Po provedení změn, použijte `CTRL+F5` provést proces a spusťte aplikaci v rámci kontejneru. Kontejner Dockeru se znovu sestavit nebo zastavená. Spustit `docker ps` příkazu v konzole PMC. Všimněte si, že původní kontejneru je stále spuštěna od 10 minut před:
+Změny souborů kódu vyžadují kompilaci a restartování Kestrel v rámci kontejneru. Po provedení změny použijte `CTRL+F5` k provedení procesu a spustí aplikaci v rámci kontejneru. Kontejner Docker není znovu sestaven ani zastaven. `docker ps` Spusťte příkaz v PMC. Všimněte si, že původní kontejner pořád běží před 10 minutami:
 
 ```console
 CONTAINER ID        IMAGE                  COMMAND                   CREATED             STATUS              PORTS                   NAMES
 baf9a678c88d        hellodockertools:dev   "C:\\remote_debugge..."   10 minutes ago      Up 10 minutes       0.0.0.0:37630->80/tcp   dockercompose4642749010770307127_hellodockertools_1
 ```
 
-## <a name="publish-docker-images"></a>Publikování Image Dockeru
+## <a name="publish-docker-images"></a>Publikování imagí Docker
 
-Po dokončení cyklu vývoje a ladění aplikace Visual Studio Tools for Docker pomáhají při vytváření bitové kopie produkční aplikace. Změna konfigurace rozevíracího seznamu **vydání** a sestavení aplikace. Nástroje získá kompilace/publikování image z Docker Hubu (pokud to nebude již v mezipaměti). Image se vytvářejí s *nejnovější* značky, který může doručit bez vyžádání do privátního registru nebo centra Dockeru.
+Až se cyklus vývoje a ladění aplikace dokončí, pomůže vám nástroje kontejnerů sady Visual Studio při vytváření produkční image aplikace. Změňte rozevírací seznam konfigurace na vydaná  a sestavte aplikaci. Nástroj získá obrázek kompilace/publikování z Docker Hub (Pokud ještě není v mezipaměti). Obrázek se vytvoří s *nejnovější* značkou, která se dá vložit do privátního registru nebo Dock centra.
 
-Spustit `docker images` příkazu v konzole PMC zobrazíte seznam imagí. Zobrazí se výstup podobný následujícímu:
+Pokud chcete zobrazit seznam imagí, spusťte příkazvPMC.`docker images` Zobrazí se výstup podobný následujícímu:
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -220,19 +220,19 @@ microsoft/aspnetcore-build  2.0     7fed40fbb647  13 days ago     2.02GB
 microsoft/aspnetcore        2.0     c69d39472da9  13 days ago     347MB
 ```
 
-`microsoft/aspnetcore-build` a `microsoft/aspnetcore` kopiemi uvedenými v předchozím výstupu jsou nahrazeny `microsoft/dotnet` Image od .NET Core 2.1. Další informace najdete v tématu [oznámení migrace úložiště Dockeru](https://github.com/aspnet/Announcements/issues/298).
+Image `microsoft/aspnetcore-build` a `microsoft/aspnetcore` uvedené v`microsoft/dotnet` předchozím výstupu se nahrazují obrázky od .NET Core 2,1. Další informace najdete v tématu [oznámení o migraci úložiště Docker](https://github.com/aspnet/Announcements/issues/298).
 
 ::: moniker-end
 
 > [!NOTE]
-> `docker images` Příkaz vrátí zprostředkující obrázků s názvy úložišť a značky identifikována jako  *\<žádný >* (které nejsou uvedené výše). Tyto nepojmenované bitové kopie jsou vytvářeny [vícefázových sestavení](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) *soubor Dockerfile*. Pomáhají zvýšit efektivitu vytváření konečném obrazu&mdash;při změnách se znovu sestavit pouze nezbytné vrstvy. Pokud zprostředkující bitové kopie jsou už je nepotřebujete, odstraňte je pomocí [docker rmi](https://docs.docker.com/engine/reference/commandline/rmi/) příkazu.
+> Příkaz vrátí zprostředkující image s názvy a značkami úložiště, které jsou označené jako  *\<None >* (není uvedená výše). `docker images` Tyto nepojmenované image jsou vytvářeny pomocí *souboru Dockerfile* [sestavení s více fázemi](https://docs.docker.com/engine/userguide/eng-image/multistage-build/) . Zlepšují efektivitu vytváření finálního obrázku&mdash;. při změně dojde k jejich opětovnému vytvoření pouze nezbytných vrstev. Když už nepotřebujete zprostředkující image, odstraňte je pomocí příkazu Docker [RMI](https://docs.docker.com/engine/reference/commandline/rmi/) .
 
-Může být očekávání pro produkci nebo verze image, která se má menší velikosti oproti tomu na *dev* bitové kopie. Z důvodu mapování svazku byly spuštěné ladicího programu a aplikace z místního počítače a není v rámci kontejneru. *Nejnovější* image se zabalit kód potřebné aplikace a spusťte tak aplikaci na hostitelském počítači. Delta proto je velikost kódu aplikace.
+Mohlo by se stát, že se v porovnání s *vývojovou* imagí bude zmenšovat velikost produkčního nebo produkčního obrazu. Z důvodu mapování svazků ladicí program a aplikace byly spuštěny z místního počítače, nikoli v rámci kontejneru. *Nejnovější* image zabalí potřebný kód aplikace ke spuštění aplikace na hostitelském počítači. Proto rozdíl je velikost kódu aplikace.
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Kontejner vývoj pomocí sady Visual Studio](/visualstudio/containers)
-* [Azure Service Fabric: Příprava vývojového prostředí](/azure/service-fabric/service-fabric-get-started)
+* [Vývoj kontejnerů pomocí sady Visual Studio](/visualstudio/containers)
+* [Service Fabric Azure: Příprava vývojového prostředí](/azure/service-fabric/service-fabric-get-started)
 * [Nasazení aplikace .NET v kontejneru Windows do Azure Service Fabric](/azure/service-fabric/service-fabric-host-app-in-a-container)
-* [Řešení potíží s Visual Studio 2017 vývoj aplikací pomocí Dockeru](/azure/vs-azure-tools-docker-troubleshooting-docker-errors)
-* [Visual Studio Tools pro úložiště GitHub Dockeru](https://github.com/Microsoft/DockerTools)
+* [Řešení potíží s vývojem pro Visual Studio pomocí Docker](/azure/vs-azure-tools-docker-troubleshooting-docker-errors)
+* [Úložiště GitHub pro Visual Studio Container Tools](https://github.com/Microsoft/DockerTools)

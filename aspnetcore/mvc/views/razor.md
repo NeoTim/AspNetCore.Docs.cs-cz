@@ -5,12 +5,12 @@ description: Další informace o syntaxi Razor kód pro vložení do webových s
 ms.author: riande
 ms.date: 06/12/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 87c5b97a653c139b8b79f4270e0d9d0081815433
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 634623aa6df860a2ff728da4e65d277326db37e2
+ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034936"
+ms.lasthandoff: 07/24/2019
+ms.locfileid: "68440360"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -174,7 +174,7 @@ Kód vykreslí následující kód HTML:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V blocích kódu, deklarujte [lokální funkce](/dotnet/csharp/programming-guide/classes-and-structs/local-functions) pomocí značek, která bude sloužit jako ukázka metody:
+V blocích kódu deklarujte [místní funkce](/dotnet/csharp/programming-guide/classes-and-structs/local-functions) pomocí značek, které budou sloužit jako metody šablonování:
 
 ```cshtml
 @{
@@ -241,7 +241,7 @@ K vykreslení rest celý řádek jako kód HTML uvnitř bloku kódu, použijte `
 
 Bez `@:` v kódu, je vygenerována chyba za běhu Razor.
 
-Upozornění: Navíc `@` znaky v souboru Razor mohou způsobit chyby kompilátoru příkazy v bloku. Tyto chyby kompilátoru může být obtížné pochopit, protože Skutečná chyba předchází oznámenou chybu. K této chybě dochází po kombinování více implicitního/explicitního výrazů v jednom bloku kódu.
+Upozornění: Nadbytečné `@` znaky v souboru Razor mohou způsobit chyby kompilátoru v příkazech později v bloku. Tyto chyby kompilátoru může být obtížné pochopit, protože Skutečná chyba předchází oznámenou chybu. K této chybě dochází po kombinování více implicitního/explicitního výrazů v jednom bloku kódu.
 
 ## <a name="control-structures"></a>Řídicí struktury
 
@@ -549,7 +549,7 @@ Následující kód je vygenerovaný Razor C# třídy:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-`@functions` metody sloužit jako ukázka metody, když mají značky:
+`@functions`metody slouží jako metody šablonování, pokud mají značky:
 
 ```cshtml
 @{
@@ -576,37 +576,34 @@ Kód vykreslí následující kód HTML:
 
 ### <a name="attribute"></a>@attribute
 
-`@attribute` – Direktiva přidá daný atribut do třídy vygenerované stránky nebo zobrazení. Následující příklad přidá `[Authorize]` atribut:
+`@attribute` Direktiva přidá daný atribut třídě vygenerované stránky nebo zobrazení. Následující příklad přidá `[Authorize]` atribut:
 
 ```cshtml
 @attribute [Authorize]
 ```
 
-> [!WARNING]
-> Ve verzi ASP.NET Core 3.0 ve verzi Preview 6 se o známý problém kde `@attribute` direktivy nefungují v  *\_Imports.razor* a  *\_ViewImports.cshtml* soubory. Tato informace bude opravena ve verzi Preview 7.
-
 ### <a name="namespace"></a>@namespace
 
-`@namespace` – Direktiva Nastaví obor názvů, třídy generované stránky nebo zobrazení:
+`@namespace` Direktiva nastaví obor názvů třídy generované stránky nebo zobrazení:
 
 ```cshtml
 @namespace Your.Namespace.Here
 ```
 
-Pokud na stránce nebo zobrazení importuje rozhraní API pomocí `@namespace` direktiv, obor názvů původní soubor je nastavenou vzhledem k daném oboru názvů. 
+Pokud stránka nebo zobrazení importuje rozhraní API s `@namespace` direktivou, je původní obor názvů souboru nastaven jako relativní k tomuto oboru názvů. 
 
-Pokud *Moje aplikace/stránky/\_ViewImports.cshtml* obsahuje `@namespace Hello.World`, obor názvů stránky nebo zobrazení, které importují `Hello.World` obor názvů je nastavit, jak je znázorněno v následující tabulce.
+Pokud obsahuje `Hello.World` *\_* MyApp/Pages/ViewImports. cshtml, je nastaven obor názvů stránek nebo zobrazení, která importují obor názvů, jak je uvedeno v následující tabulce. `@namespace Hello.World`
 
 | Stránka (nebo zobrazení)                     | Obor názvů               |
 | ---------------------------------- | ----------------------- |
-| *MyApp/Pages/Index.cshtml*         | `Hello.World`           |
-| *MyApp/Pages/MorePages/Bar.cshtml* | `Hello.World.MorePages` |
+| *MyApp/pages/index. cshtml*         | `Hello.World`           |
+| *MyApp/Pages/MorePages/bar. cshtml* | `Hello.World.MorePages` |
 
-Pokud máte víc souborů import `@namespace` direktiv, co nejblíže stránky nebo zobrazení v řetězci directory soubor je používán.
+Pokud má `@namespace` direktiva více souborů importu, použije se soubor nejbližší stránky nebo zobrazení v řetězci adresáře.
 
 ### <a name="section"></a>@section
 
-`@section` – Direktiva se používá ve spojení s [rozložení](xref:mvc/views/layout) umožňující stránky nebo zobrazení k vykreslení obsahu v různých částech stránky HTML. Další informace najdete v tématu [oddíly](xref:mvc/views/layout#layout-sections-label).
+Direktiva se používá společně s rozložením a umožňuje stránkám nebo zobrazením vykreslovat obsah v různých částech stránky HTML. [](xref:mvc/views/layout) `@section` Další informace najdete v tématu [oddíly](xref:mvc/views/layout#layout-sections-label).
 
 ## <a name="templated-razor-delegates"></a>Šablony Razor delegátů
 
@@ -819,7 +816,7 @@ Zobrazovací modul Razor provádí velká a malá písmena vyhledávání pro zo
 * Na základě zdrojového souboru:
   * V operačních systémech se systémy souborů malá a velká písmena (například Windows) fyzický soubor poskytovatele vyhledávání jsou malá a velká písmena. Například `return View("Test")` výsledkem shody */Views/Home/Test.cshtml*, */Views/home/test.cshtml*a další varianty velká a malá písmena.
   * V systémech souborů s malá a velká písmena (například Linux, OSX a s `EmbeddedFileProvider`), hledání jsou malá a velká písmena. Například `return View("Test")` konkrétně shody */Views/Home/Test.cshtml*.
-* Předkompilované zobrazení: S ASP.NET Core 2.0 nebo novější hledání předkompilované zobrazení velká a malá písmena na všechny operační systémy. Chování se shoduje s chování zprostředkovatele fyzického souboru ve Windows. Pokud se zobrazeními předkompilované liší pouze v případě, výsledek vyhledávání je Nedeterministický.
+* Předkompilovaná zobrazení: V případě ASP.NET Core 2,0 a novějších, hledání předkompilovaných zobrazení rozlišuje velká a malá písmena ve všech operačních systémech. Chování se shoduje s chování zprostředkovatele fyzického souboru ve Windows. Pokud se zobrazeními předkompilované liší pouze v případě, výsledek vyhledávání je Nedeterministický.
 
 Vývojáři nepodnikovým tak, aby odpovídaly malých a velkých písmen názvů použití malých a velkých souborů a adresářů:
 
