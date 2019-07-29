@@ -4,14 +4,14 @@ author: jamesnk
 description: Naučte se používat ověřování a autorizaci v gRPC pro ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 06/07/2019
+ms.date: 07/26/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 49024295e4db7976924397bb24567d92d6298562
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 34f7f8a5a22159329b3d6c4524943434c460c7fb
+ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308815"
+ms.lasthandoff: 07/29/2019
+ms.locfileid: "68602427"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>Ověřování a autorizace v gRPC pro ASP.NET Core
 
@@ -106,12 +106,25 @@ public Ticketer.TicketerClient CreateClientWithCert(
 
 ### <a name="other-authentication-mechanisms"></a>Jiné mechanismy ověřování
 
-Kromě nosných tokenů a ověřování klientských certifikátů je potřeba, aby všechny ASP.NET Core podporované mechanismy ověřování, jako je OAuth, OpenID a Negotiate, pracovaly s gRPC. Další informace o konfiguraci ověřování na straně serveru najdete na stránce [ASP.NET Core ověřování](xref:security/authentication/identity) .
+Mnoho ASP.NET Core podporovaných mechanismů ověřování funguje s gRPC:
 
-Konfigurace na straně klienta bude záviset na mechanismu ověřování, které používáte. Předchozí tokeny nosiče a příklady ověřování klientského certifikátu ukazují několik způsobů, jak může být klient gRPC nakonfigurovaný tak, aby odesílal metadata ověřování pomocí volání gRPC:
+* Azure Active Directory
+* Certifikát klienta
+* IdentityServer
+* Token JWT
+* OAuth 2,0
+* OpenID připojit
+* WS-Federation
+
+Další informace o konfiguraci ověřování na serveru najdete v tématu [ASP.NET Core Authentication](xref:security/authentication/identity).
+
+Konfigurace klienta gRPC na používání ověřování bude záviset na mechanismu ověřování, který používáte. Příklady předchozího nosiče a klientského certifikátu ukazují několik způsobů, jak může být klient gRPC nakonfigurovaný tak, aby odesílal metadata ověřování pomocí volání gRPC:
 
 * GRPC klienti silného typu `HttpClient` používají interně. Ověřování lze nakonfigurovat na [`HttpClientHandler`](/dotnet/api/system.net.http.httpclienthandler)nebo přidáním vlastních [`HttpMessageHandler`](/dotnet/api/system.net.http.httpmessagehandler) instancí do `HttpClient`.
 * Každé volání gRPC má nepovinný `CallOptions` argument. Vlastní záhlaví lze odeslat pomocí kolekce záhlaví možnosti.
+
+> [!NOTE]
+> Ověřování systému Windows (NTLM/Kerberos/Negotiate) nelze použít s gRPC. gRPC vyžaduje HTTP/2 a HTTP/2 nepodporuje ověřování systému Windows.
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>Autorizace uživatelů přístup k službám a metodám služeb
 

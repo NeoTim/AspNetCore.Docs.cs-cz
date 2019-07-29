@@ -5,14 +5,14 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/24/2019
+ms.date: 07/25/2019
 uid: blazor/components
-ms.openlocfilehash: fa98f5c16d926db9c056032eff6d1edc5721aadd
-ms.sourcegitcommit: fbc66827e319d28bebed678ea5fd42f582fe3c34
+ms.openlocfilehash: 38f6512315a63b1ac5831c43a7a5efac231a27d5
+ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68493528"
+ms.lasthandoff: 07/29/2019
+ms.locfileid: "68602420"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -107,7 +107,7 @@ V následujícím příkladu `ParentComponent` nastaví hodnotu `Title` vlastnos
 
 Komponenty mohou nastavit obsah jiné součásti. Součást přiřazení poskytuje obsah mezi značkami, které určují přijímací komponentu.
 
-V následujícím příkladu `ChildComponent` `ChildContent` má vlastnost, která představuje `RenderFragment`. Hodnota `ChildContent` je umístěna v označení komponenty, kde má být obsah vykreslen. Hodnota `ChildContent` je přijímána z nadřazené komponenty a vykreslena v `panel-body`panelu Bootstrap.
+V následujícím příkladu `ChildComponent` `ChildContent` má vlastnost, která představuje `RenderFragment`, který představuje segment uživatelského rozhraní pro vykreslení. Hodnota `ChildContent` je umístěna v označení komponenty, kde má být obsah vykreslen. Hodnota `ChildContent` je přijímána z nadřazené komponenty a vykreslena v `panel-body`panelu Bootstrap.
 
 *Components/ChildComponent. Razor*:
 
@@ -825,7 +825,7 @@ Komponenty se šablonami jsou komponenty, které přijímají jednu nebo více �
 
 ### <a name="template-parameters"></a>Parametry šablony
 
-Komponenta se šablonou je definována zadáním jednoho nebo více parametrů součásti typu `RenderFragment` nebo. `RenderFragment<T>` Fragment vykreslování představuje segment uživatelského rozhraní, který je vykreslen komponentou. Fragment vykreslování volitelně převezme parametr, který lze zadat při vyvolání fragmentu vykreslování.
+Komponenta se šablonou je definována zadáním jednoho nebo více parametrů součásti typu `RenderFragment` nebo. `RenderFragment<T>` Fragment vykreslování představuje segment uživatelského rozhraní, které se má vykreslit. `RenderFragment<T>`převezme parametr typu, který lze zadat při vyvolání fragmentu vykreslování.
 
 `TableTemplate`část
 

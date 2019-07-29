@@ -5,14 +5,14 @@ description: Tento článek obsahuje odkazy na hostitele Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/16/2019
+ms.date: 07/28/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: bbdb3e92b6b8afb44d9c0c95c240002c7b7c17db
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 5035a31526e0290964e0fdee05753aeaf6cb3790
+ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308145"
+ms.lasthandoff: 07/29/2019
+ms.locfileid: "68602439"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
@@ -41,6 +41,9 @@ Nastavte sestavení CI pro aplikaci ASP.NET Core a pak vytvořte Azure App Servi
 
 [Sandbox webové aplikace Azure](https://github.com/projectkudu/kudu/wiki/Azure-Web-App-sandbox)  
 Zjištění omezení spouštění Azure App Service runtime, která vynutila platforma Azure Apps
+
+<xref:test/troubleshoot>  
+Pochopení a řešení potíží s chybami a problémy s ASP.NET Core projekty.
 
 ## <a name="application-configuration"></a>Konfigurace aplikace
 
