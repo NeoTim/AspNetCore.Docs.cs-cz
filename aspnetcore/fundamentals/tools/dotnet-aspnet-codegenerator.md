@@ -1,41 +1,41 @@
 ---
-title: příkaz DotNet aspnet codegenerator
+title: dotnet ASPNET-CodeGenerator – příkaz
 author: rick-anderson
-description: Příkaz dotnet aspnet codegenerator vygeneruje uživatelské rozhraní projekty ASP.NET Core.
+description: Rozhraní dotnet ASPNET-CodeGenerator příkazy ASP.NET Core projekty.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: c96362f320efd84c35dc07294a2968a2c687ee94
-ms.sourcegitcommit: b9e914ef274b5ec359582f299724af6234dce135
+ms.openlocfilehash: c2c815735ad1b4dcec761b26ea3992a4effebe62
+ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/05/2019
-ms.locfileid: "67596143"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68682693"
 ---
-# <a name="dotnet-aspnet-codegenerator"></a>DotNet aspnet-codegenerator
+# <a name="dotnet-aspnet-codegenerator"></a>dotnet ASPNET – CodeGenerator
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-`dotnet aspnet-codegenerator` -Spustí modul ASP.NET Core generování uživatelského rozhraní. `dotnet aspnet-codegenerator` je jenom pro povinné pro generování uživatelského rozhraní z příkazového řádku, není potřeba používat generování uživatelského rozhraní pomocí sady Visual Studio.
+`dotnet aspnet-codegenerator`– Spustí modul generování uživatelského rozhraní ASP.NET Core. `dotnet aspnet-codegenerator`je vyžadován pouze pro generování uživatelského rozhraní z příkazového řádku, není nutné používat generování uživatelského rozhraní se sadou Visual Studio.
 
-Tento článek se týká [sady SDK .NET Core 2.1](https://dotnet.microsoft.com/download/dotnet-core/2.1) a novější.
+Tento článek se týká [.NET Core 2,1 SDK](https://dotnet.microsoft.com/download/dotnet-core/2.1) a novější.
 
-## <a name="installing-aspnet-codegenerator"></a>Instalace aspnet codegenerator
+## <a name="installing-aspnet-codegenerator"></a>Instalace ASPNET-CodeGenerator
 
-`dotnet-aspnet-codegenerator` je [globální nástroj](/dotnet/core/tools/global-tools) , který musí být nainstalována. Následující příkaz nainstaluje nejnovější stabilní verze `dotnet-aspnet-codegenerator` nástroje:
+`dotnet-aspnet-codegenerator`je [globální nástroj](/dotnet/core/tools/global-tools) , který musí být nainstalován. Následující příkaz nainstaluje nejnovější stabilní verzi `dotnet-aspnet-codegenerator` nástroje:
 
 ```console
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-Zadáním následujícího příkazu aktualizace `dotnet-aspnet-codegenerator` nejnovější stabilní verzi k dispozici z nainstalovaných sad .NET Core SDK:
+Následující příkaz aktualizuje `dotnet-aspnet-codegenerator` na nejnovější stabilní verzi dostupnou z nainstalovaných sad SDK .NET Core:
 
 ```console
 dotnet tool update -g dotnet-aspnet-codegenerator
 ```
 
-## <a name="synopsis"></a>Souhrn
+## <a name="synopsis"></a>Stručný obsah
 
 ```
 dotnet aspnet-codegenerator [arguments] [-p|--project] [-n|--nuget-package-dir] [-c|--configuration] [-tfm|--target-framework] [-b|--build-base-path] [--no-build] 
@@ -44,21 +44,21 @@ dotnet aspnet-codegenerator [-h|--help]
 
 ## <a name="description"></a>Popis
 
-`dotnet aspnet-codegenerator` Globální příkaz spustí ASP.NET Core, generátor kódu a modulu generování uživatelského rozhraní.
+`dotnet aspnet-codegenerator` Globální příkaz spustí generátor kódu ASP.NET Core a modul generování uživatelského rozhraní.
 
 ## <a name="arguments"></a>Arguments
 
 `generator`
 
-Generátor kódu pro spuštění. K dispozici jsou následující zdroje:
+Generátor kódu, který se má spustit. K dispozici jsou následující generátory:
 
 | Generátor | Operace |
 | ----------------- | ------------ | 
-| Oblast      | [Nástroj scaffold oblasti](/aspnet/core/mvc/controllers/areas) |
-  kontroler| [Vygeneruje uživatelské rozhraní kontroleru](/aspnet/core/tutorials/first-mvc-app/adding-model) |
-  identita  | [Nástroj scaffold Identity](/aspnet/core/security/authentication/scaffold-identity) |
-  razorpage | [Nástroj scaffold Razor Pages](/aspnet/core/tutorials/razor-pages/model) |
-  Zobrazení      | [Vygeneruje uživatelské rozhraní zobrazení](/aspnet/core/mvc/views/overview) |
+| Oblast      | [Generování uživatelského rozhraní oblasti](/aspnet/core/mvc/controllers/areas) |
+  kontroler| [Generování uživatelského rozhraní kontroleru](/aspnet/core/tutorials/first-mvc-app/adding-model) |
+  identita  | [Identita uživatelského rozhraní](/aspnet/core/security/authentication/scaffold-identity) |
+  razorpage | [Razor Pages generování uživatelského rozhraní](/aspnet/core/tutorials/razor-pages/model) |
+  zobrazení      | [Generování uživatelského rozhraní zobrazení](/aspnet/core/mvc/views/overview) |
 
 ## <a name="options"></a>Možnosti
 
@@ -72,82 +72,82 @@ Definuje konfiguraci sestavení. Výchozí hodnota je `Debug`.
 
 `-tfm|--target-framework`
 
-Cíl [Framework](/dotnet/standard/frameworks) používat. Například, `net46`.
+Cílová [Architektura](/dotnet/standard/frameworks) , která se má použít. Například, `net46`.
 
 `-b|--build-base-path`
 
-Základní cesta sestavení.
+Základní cesta sestavení
 
 `-h|--help`
 
-Vytiskne krátký nápovědy pro příkaz.
+Vypíše krátkou nápovědu k příkazu.
 
 `--no-build`
 
-Nelze sestavit projekt před provozováním. Také implicitně nastaví `--no-restore` příznak.
+Před spuštěním nevytvoří projekt. Také implicitně nastaví `--no-restore` příznak.
 
 `-p|--project <PATH>`
 
-Určuje cestu k souboru projektu pro spuštění (název složky nebo úplná cesta). Pokud není zadán, použije se výchozí do aktuálního adresáře.
+Určuje cestu k souboru projektu, který se má spustit (název složky nebo úplná cesta). Pokud není zadaný, použije se ve výchozím nastavení aktuální adresář.
 
-## <a name="generator-options"></a>Generátor možnosti
+## <a name="generator-options"></a>Možnosti generátoru
 
-Následující části popisují možnosti dostupné pro podporované generátory:
+Následující části obsahují podrobné informace o možnostech, které jsou k dispozici pro podporovaná generátory:
 
 * Oblast
-* Kontroler
+* Kontrolér
 * Identita  
-* razorpage
+* Razorpage
 * Zobrazit
 
 <a name="area"></a>
 
 ### <a name="area-options"></a>Možnosti oblasti
 
-Tento nástroj je určen pro webové projekty ASP.NET Core s kontrolerů a zobrazení. Není určena pro aplikace stránky Razor.
+Tento nástroj je určený pro ASP.NET Core webové projekty s řadiči a zobrazeními. Není určena pro aplikace Razor Pages.
 
 Použití: `dotnet aspnet-codegenerator area AreaNameToGenerate`
 
-Ve výstupu předchozího příkazu generuje následující složky:
+Předchozí příkaz vygeneruje následující složky:
 
 * *Oblasti*
   * *AreaNameToGenerate*
     * *Kontrolery*
     * *Data*
-    * *Modely*
+    * *Vzor*
     * *Zobrazení*
 
 <a name="ctl"></a>
 
-### <a name="controller-options"></a>Možnosti řadiče
+### <a name="controller-options"></a>Možnosti kontroleru
 
-V následující tabulce jsou uvedeny možnosti `aspnet-codegenerator` `controller` a `razorpage`:
+V následující tabulce jsou uvedeny možnosti `aspnet-codegenerator` pro `razorpage` `controller` a:
 
 [!INCLUDE [aspnet-codegenerator-args-md.md](~/includes/aspnet-codegenerator-args-md.md)]
 
-V následující tabulce jsou uvedeny možnosti, které jsou jedinečné pro `aspnet-codegenerator controller`:
+Následující tabulka uvádí možnosti, které jsou `aspnet-codegenerator controller`jedinečné pro:
 
 | Možnost               | Popis|
 | ----------------- | ------------ |
-| Parametr controllerName – nebo – název | Název kontroleru. |
-| --useAsyncActions nebo - asynchronní | Generovat asynchronní akce kontroleru. |
-| --noViews nebo -nv | Generovat **žádné** zobrazení. |
-| --restWithNoViews nebo – rozhraní api  | Generovat Kontroleru stylem REST API. `noViews` předpokládá se a zobrazit všechny související možnosti jsou ignorovány. |
-| --readWriteActions nebo - akce | Generovat kontroler s akcemi čtení/zápisu bez modelu. |
+| --Controller nebo-Name | Název kontroleru |
+| --useAsyncActions nebo-Async | Vygenerujte akce asynchronního kontroleru. |
+| --nezobrazení nebo-NV | Negenerovat **žádná** zobrazení |
+| --restWithNoViews nebo-API  | Vygenerujte kontrolér s rozhraním API stylu REST. `noViews`je předpokládaná a všechny možnosti zobrazení jsou ignorovány. |
+| --readWriteActions nebo-Actions | Vygeneruje kontroler s akcemi čtení/zápisu bez modelu. |
 
-Použití `-h` zapnout o pomoc `aspnet-codegenerator controller` příkaz:
+Pro nápovědu`aspnet-codegenerator controller` k příkazu použijte přepínač:`-h`
 
 ```console
 dotnet aspnet-codegenerator controller -h
 ```
 
-Zobrazit [generování uživatelského rozhraní modelu film](/aspnet/core/tutorials/razor-pages/model) příklad `dotnet aspnet-codegenerator controller`.
+Příklad`dotnet aspnet-codegenerator controller`naleznete v tématu [generování modelu filmu](/aspnet/core/tutorials/razor-pages/model) .
 
-### <a name="razorpage"></a>razorpage
+### <a name="razorpage"></a>Razorpage
 
 <a name="rp"></a>
 
-Stránky Razor můžete jednotlivě automaticky tak, že zadáte název nové stránky a šablonu, kterou chcete použít. Jsou podporované šablony:
+Razor Pages může být individuálně vygenerovaného uživatelského rozhraní zadáním názvu nové stránky a šablony, která se má použít. Podporované šablony:
 
 * `Empty`
 * `Create`
@@ -156,13 +156,13 @@ Stránky Razor můžete jednotlivě automaticky tak, že zadáte název nové st
 * `Details`
 * `List`
 
-Například následující příkaz Upravit šablony používá ke generování *MyEdit.cshtml* a *MyEdit.cshtml.cs*:
+Například následující příkaz používá šablonu Edit pro generování *MyEdit. cshtml* a *MyEdit.cshtml.cs*:
 
 ```console
 dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieContext -outDir Pages/Movies
 ```
 
-Obvykle, šablony a není zadán název generovaného souboru a jsou vytvořeny následující šablony:
+Obvykle není zadána šablona a vygenerovaný název souboru a jsou vytvořeny následující šablony:
 
 * `Create`
 * `Edit`
@@ -170,26 +170,26 @@ Obvykle, šablony a není zadán název generovaného souboru a jsou vytvořeny 
 * `Details`
 * `List`
 
-V následující tabulce jsou uvedeny možnosti `aspnet-codegenerator` `razorpage` a `controller`:
+V následující tabulce jsou uvedeny možnosti `aspnet-codegenerator` pro `controller` `razorpage` a:
 
 [!INCLUDE [aspnet-codegenerator-args-md.md](~/includes/aspnet-codegenerator-args-md.md)]
 
-V následující tabulce jsou uvedeny možnosti, které jsou jedinečné pro `aspnet-codegenerator razorpage`:
+Následující tabulka uvádí možnosti, které jsou `aspnet-codegenerator razorpage`jedinečné pro:
 
 | Možnost               | Popis|
 | ----------------- | ------------ |
-|   --namespaceName nebo – obor názvů | Název oboru názvů pro generovaný PageModel |
-| --partialView nebo - partial | Generovat částečné zobrazení. Pokud je tento parametr zadán, jsou ignorovány rozložení možnosti -l a - udl. |
-| --noPageModel nebo – npm | Přepínač nelze vygenerovat třídu PageModel pro prázdnou šablonu |
+|   --Namespace nebo-Namespace | Název oboru názvů, který se má použít pro vygenerovaný PageModel |
+| --partialView nebo-Partial | Vygeneruje částečné zobrazení. Možnosti rozložení – l a-UDL se při zadání tohoto nastavení ignorují. |
+| --noPageModel nebo-npm | Přepněte na negenerovat třídu PageModel pro prázdnou šablonu. |
 
-Použití `-h` zapnout o pomoc `aspnet-codegenerator razorpage` příkaz:
+Pro nápovědu`aspnet-codegenerator razorpage` k příkazu použijte přepínač:`-h`
 
 ```console
 dotnet aspnet-codegenerator razorpage -h
 ```
 
-Zobrazit [generování uživatelského rozhraní modelu film](/aspnet/core/tutorials/razor-pages/model) příklad `dotnet aspnet-codegenerator razorpage`.
+Příklad`dotnet aspnet-codegenerator razorpage`naleznete v tématu [generování modelu filmu](/aspnet/core/tutorials/razor-pages/model) .
 
 ### <a name="identity"></a>Identita
 
-Zobrazit [generování uživatelského rozhraní Identity](/aspnet/core/security/authentication/scaffold-identity)
+Zobrazit [identitu uživatelského rozhraní](/aspnet/core/security/authentication/scaffold-identity)

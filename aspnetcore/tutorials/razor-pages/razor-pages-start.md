@@ -5,12 +5,12 @@ description: V této sérii kurzů se dozvíte, jak používat Razor Pages v ASP
 ms.author: riande
 ms.date: 07/25/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 1605197188d97f27a884739a72400da2d5818b1a
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 57a10895c718c539ece280afcb27cb4033c7fb45
+ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68371997"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68682796"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme s Razor Pages v ASP.NET Core
 
@@ -83,8 +83,8 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
   code -r RazorPagesMovie
   ```
 
-  * Příkaz vytvoří nový projekt Razor Pages ve složce RazorPagesMovie.  `dotnet new`
-  * Příkaz otevře složku RazorPagesMovie v aktuální instanci Visual Studio Code.  `code`
+  * Příkaz vytvoří nový projekt Razor Pages ve složce RazorPagesMovie. `dotnet new`
+  * Příkaz otevře složku RazorPagesMovie v aktuální instanci Visual Studio Code. `code`
 
 * Až se ikona plamene u OmniSharp stavového řádku změní na zelenou **, dialogové okno požádá o požadované prostředky k sestavení a ladění chybí v ' RazorPagesMovie '. Přidat je?** Vyberte **Ano**.
 
@@ -133,7 +133,7 @@ V aplikaci Visual Studio vyberte **soubor > otevřít**a potom vyberte soubor *R
 
   [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* Stisknutím klávesy **cmd a opt-F5** spusťte bez ladicího programu.
+* Stisknutím **kombinace kláves ALT-CMD-Enter** spustíte bez ladicího programu. Můžete také přejít na panel nabídek a přejít na příkaz Spustit > Spustit bez ladění.
 
   Visual Studio spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `http://localhost:5001`.
 
@@ -170,7 +170,7 @@ Obsahuje vstupní bod pro program. Další informace naleznete v tématu <xref:
 
 Obsahuje kód, který konfiguruje chování aplikace. Další informace naleznete v tématu <xref:fundamentals/startup>.
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 Přejděte k dalšímu kurzu v řadě:
 
@@ -253,8 +253,8 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
   code -r RazorPagesMovie
   ```
 
-  * Příkaz vytvoří nový projekt Razor Pages ve složce RazorPagesMovie.  `dotnet new`
-  * Příkaz otevře složku RazorPagesMovie v aktuální instanci Visual Studio Code.  `code`
+  * Příkaz vytvoří nový projekt Razor Pages ve složce RazorPagesMovie. `dotnet new`
+  * Příkaz otevře složku RazorPagesMovie v aktuální instanci Visual Studio Code. `code`
 
 * Až se ikona plamene u OmniSharp stavového řádku změní na zelenou **, dialogové okno požádá o požadované prostředky k sestavení a ladění chybí v ' RazorPagesMovie '. Přidat je?** Vyberte **Ano**.
 
