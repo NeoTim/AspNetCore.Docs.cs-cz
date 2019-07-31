@@ -1,19 +1,19 @@
 ---
-title: Zobrazení komponenty v ASP.NET Core
+title: Zobrazit součásti v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak komponenty zobrazení se používají v ASP.NET Core a jejich přidání do aplikací.
+description: Přečtěte si, jak se v ASP.NET Core používají komponenty a jak je přidat do aplikací.
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/14/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: ff84abf9e0c682d22196a0a0f5f377990c80a6ae
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e6990368519857a27b291d7d565c09072f23f1b0
+ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815279"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68670083"
 ---
-# <a name="view-components-in-aspnet-core"></a>Zobrazení komponenty v ASP.NET Core
+# <a name="view-components-in-aspnet-core"></a>Zobrazit součásti v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -21,82 +21,82 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ## <a name="view-components"></a>Komponenty zobrazení
 
-Zobrazení komponenty jsou podobné částečná zobrazení, ale jsou výrazně výkonnější. Zobrazení komponenty nepoužívejte vazby modelu a pouze závisí na poskytnutý při volání do něj data. Tento článek byl zapsán pomocí kontrolerů a zobrazení, ale zobrazení komponenty také pracovat se stránkami Razor.
+Zobrazení součástí se podobá částečným zobrazením, ale jsou mnohem výkonnější. Zobrazení komponent nepoužívá vazbu modelu a závisí pouze na datech poskytnutých při jejich volání. Tento článek byl napsaný pomocí řadičů a zobrazení, ale kromě toho se v Razor Pages používají i komponenty.
 
-Zobrazení komponenty:
+Součást zobrazení:
 
-* Vykreslí blok dat, ne celou odpověď.
-* Zahrnuje stejné oddělení z otázky a výhody testovatelnosti najít mezi kontroler a zobrazení.
-* Můžete mít parametry a obchodní logiku.
-* Obvykle je vyvolána z rozložení stránky.
+* Vykreslí blok dat, nikoli celou odpověď.
+* Zahrnuje stejné výhody a testování, které byly nalezeny mezi kontrolkou a zobrazením.
+* Může mít parametry a obchodní logiku.
+* Je obvykle vyvolána ze stránky rozložení.
 
-Zobrazení komponenty jsou určeny kdekoli, že máte opakovaně použitelný vykreslování logiku, která je příliš složitý pro částečné zobrazení, jako například:
+Zobrazit součásti jsou určeny kdekoli, kde máte opakovaně použitelnou logiku vykreslování, která je příliš složitá pro částečné zobrazení, například:
 
 * Dynamické navigační nabídky
-* Značka cloudu (kde dotazuje databázi)
+* Označení cloudu (kde se dotazuje databáze)
 * Panel přihlášení
 * Nákupní košík
-* Nedávno publikovaných článků
-* Obsah bočního panelu na typické blogu
-* Panel přihlášení, který by být vykreslen na každé stránce a zobrazit odkazy na odhlášení nebo se přihlaste, v závislosti na protokolu ve stavu uživatele
+* Nedávno publikované články
+* Obsah bočního panelu na typickém blogu
+* Přihlašovací panel, který se vykreslí na každé stránce, a zobrazí buď odkazy pro odhlášení nebo přihlášení, v závislosti na stavu přihlášení uživatele.
 
-Komponenty zobrazení se skládá ze dvou částí: třídy (obvykle odvozen z [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)) a výsledek se vrátí (obvykle zobrazení). Jako jsou řadiče, může být zobrazení komponenty POCO, ale Většina vývojářů budete chtít využívat výhod metod a vlastností, které jsou k dispozici odvozením z `ViewComponent`.
+Součást zobrazení se skládá ze dvou částí: třídy (obvykle odvozené od [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)) a výsledek, který vrátí (obvykle zobrazení). Podobně jako řadiče se může jednat o součást zobrazení POCO, ale většina vývojářů bude chtít využít metody a vlastnosti, které jsou k dispozici odvozením `ViewComponent`z.
 
-Při zvažování, pokud zobrazení komponenty splňovat požadavky vaší aplikace, zvažte místo toho použití součásti syntaxe Razor. Součásti Razor také kombinovat kód s C# kód k vytvoření opakovaně použitelné uživatelské rozhraní jednotky. Razor komponenty jsou navržené pro produktivitu vývojářů, při zadávání složení a logika uživatelského rozhraní na straně klienta. Další informace naleznete v tématu <xref:blazor/components>.
+Při zvažování, zda zobrazit součásti vyhovují specifikacím aplikace, zvažte místo toho použití součástí Razor. Komponenty Razor také kombinují značky s C# kódem k tvorbě opakovaně použitelných jednotek uživatelského rozhraní. Komponenty Razor jsou navržené pro produktivitu vývojářů při poskytování logiky uživatelského rozhraní a způsobu složení na straně klienta. Další informace naleznete v tématu <xref:blazor/components>.
 
-## <a name="creating-a-view-component"></a>Vytvoření zobrazení komponenty
+## <a name="creating-a-view-component"></a>Vytvoření komponenty zobrazení
 
-Tato část obsahuje základní požadavky na vytvoření komponenty zobrazení. Později v tomto článku vytvoříme Zkontrolujte každý krok podrobně a vytvořte komponentu zobrazení.
+Tato část obsahuje požadavky na vysoké úrovni pro vytvoření komponenty zobrazení. Později v tomto článku probereme podrobný přehled jednotlivých kroků a vytvoříme pohledovou komponentu.
 
-### <a name="the-view-component-class"></a>Zobrazení komponentní třída
+### <a name="the-view-component-class"></a>Třída zobrazení součásti
 
-Komponentní třída zobrazení lze vytvořit pomocí některé z následujících akcí:
+Třídu zobrazení komponenty lze vytvořit pomocí kterékoli z následujících možností:
 
-* Odvozování z *ViewComponent*
-* Upravení třída s atributem `[ViewComponent]` atribut nebo odvozování z třídy s `[ViewComponent]` atribut
+* Odvození z *ViewComponent*
+* Upravení třídu s `[ViewComponent]` atributem nebo odvozením z třídy `[ViewComponent]` s atributem.
 * Vytvoření třídy, kde název končí příponou *ViewComponent*
 
-Jako jsou řadiče zobrazení komponenty musí být veřejné, bez vnoření a neabstraktní třídy. Název komponenty zobrazení je název třídy s příponou "ViewComponent" odebrat. To se dá také explicitně nastavit pomocí `ViewComponentAttribute.Name` vlastnost.
+Stejně jako řadiče musí být zobrazení součásti veřejné, nevnořené a neabstraktní třídy. Název komponenty zobrazení je název třídy s odebraným příponou "ViewComponent". Dá se taky explicitně zadat pomocí `ViewComponentAttribute.Name` vlastnosti.
 
-Zobrazení komponentní třída:
+Třída zobrazení komponenty:
 
-* Plně podporuje konstruktor [injektáž závislostí](../../fundamentals/dependency-injection.md)
+* Plně podporuje [vkládání závislostí](../../fundamentals/dependency-injection.md) konstruktoru
 
-* Není účastnit životního cyklu kontroleru, což znamená, že nemůžete použít [filtry](../controllers/filters.md) v komponentě zobrazení
+* Netrvá v životním cyklu kontroléru, což znamená, že nemůžete použít [filtry](../controllers/filters.md) v součásti zobrazení
 
-### <a name="view-component-methods"></a>Zobrazení komponenty metody
+### <a name="view-component-methods"></a>Zobrazit metody komponenty
 
-Zobrazení komponenty definuje svou logikou v `InvokeAsync` metodu, která vrací `Task<IViewComponentResult>` nebo v synchronního `Invoke` metodu, která vrátí `IViewComponentResult`. Parametry pocházejí přímo z volání zobrazení komponenty, nikoli z vazby modelu. Zobrazení komponenty nikdy přímo zpracovává žádost. Obvykle inicializuje model zobrazení komponenty a předá ji do zobrazení voláním `View` metody. Stručně řečeno zobrazte metody komponenty:
+Komponenta zobrazení `InvokeAsync` definuje svou logiku v metodě, která `Task<IViewComponentResult>` vrací nebo v `IViewComponentResult`synchronní `Invoke` metodě, která vrací. Parametry přicházejí přímo z vyvolání součásti zobrazení, nikoli z vazby modelu. Součást zobrazení nikdy nezpracovává požadavek přímo. Obvykle komponenta zobrazení inicializuje model a předá ho zobrazení voláním `View` metody. V části Souhrn si prohlédněte metody komponenty:
 
-* Definování `InvokeAsync` metodu, která vrací `Task<IViewComponentResult>` nebo synchronního `Invoke` metodu, která vrátí `IViewComponentResult`.
-* Obvykle inicializuje model a předává je do zobrazení pomocí volání `ViewComponent` `View` metody.
-* Parametry pocházejí z volání metody, ne HTTP. Neexistuje žádná vazba modelu.
-* Nejsou dostupné přímo jako koncový bod HTTP. Se už vyvolána z uživatelského kódu (obvykle v zobrazení). Zobrazení komponenty nikdy zpracuje požadavek.
-* Jsou přetížené na podpis a nikoli na jakékoli podrobnosti z aktuální žádosti HTTP.
+* Definujte metodu, která `Task<IViewComponentResult>` vrátí `Invoke` nebo`IViewComponentResult`synchronní metodu, která vrátí. `InvokeAsync`
+* Obvykle inicializuje model a předá ho zobrazení voláním `ViewComponent` `View` metody.
+* Parametry pocházejí z volající metody, nikoli HTTP. Neexistuje žádná vazba modelu.
+* Nejsou dostupné přímo jako koncový bod HTTP. Jsou vyvolány z vašeho kódu (obvykle v zobrazení). Součást zobrazení nikdy nezpracovává požadavek.
+* Jsou v signatuře přetížené místo jakýchkoli podrobností z aktuální žádosti HTTP.
 
-### <a name="view-search-path"></a>Zobrazení cesty pro hledání
+### <a name="view-search-path"></a>Zobrazit cestu pro hledání
 
-Modul runtime vyhledává zobrazení v následující cesty:
+Modul runtime vyhledává zobrazení v následujících cestách:
 
-* /Components/ /views/ {název řadiče} {název komponenty zobrazení} / {název zobrazení}
-* / Zobrazení/Shared/Components / {View název komponenty} / {název zobrazení}
-* / Stránek/Shared/Components / {View název komponenty} / {název zobrazení}
+* /Views/{Controller} název součásti/Components/{View}/{View}
+* Název součásti/Views/Shared/Components/{View}/{View}
+* Název součásti/Pages/Shared/Components/{View}/{View}
 
-Cesty pro hledání se vztahují na projekty na použití kontrolerů a zobrazení a stránky Razor.
+Cesta pro hledání se vztahuje na projekty pomocí řadičů a zobrazení a Razor Pages.
 
-Výchozí název zobrazení pro součást zobrazení je *výchozí*, což znamená, že váš soubor zobrazení se obvykle nazývá *stránku Default.cshtml*. Můžete zadat název jiné zobrazení, při vytváření komponenty výsledný objekt zobrazení, nebo při volání `View` metody.
+Výchozí název zobrazení pro součást zobrazení je *výchozí*, což znamená, že váš soubor zobrazení bude obvykle pojmenovaný *Default. cshtml*. Při vytváření výsledku zobrazení součásti nebo při volání `View` metody lze zadat jiný název zobrazení.
 
-Doporučujeme pojmenovat soubor zobrazení *stránku Default.cshtml* a použít *zobrazení/Shared/Components / {název komponenty zobrazení} / {název zobrazení}* cestu. `PriorityList` Komponenta zobrazení používané v tomto příkladu používá *Views/Shared/Components/PriorityList/Default.cshtml* pro součásti zobrazení.
+Doporučujeme pojmenovat soubor zobrazení *Default. cshtml* a použít cestu views */Shared/Components/{View Component Name}/{View Name}* . Komponenta zobrazení použitá v tomto příkladu používá zobrazení */Shared/Components/PriorityList/default. cshtml* pro zobrazení součástí zobrazení. `PriorityList`
 
 ## <a name="invoking-a-view-component"></a>Vyvolání komponenty zobrazení
 
-Chcete-li použít komponentu zobrazení, zavolejte následující uvnitř zobrazení:
+Chcete-li použít součást zobrazení, zavolejte v rámci zobrazení následující:
 
 ```cshtml
 @await Component.InvokeAsync("Name of view component", {Anonymous Type Containing Parameters})
 ```
 
-Parametry předávané `InvokeAsync` metody. `PriorityList` z je vyvolána zobrazení komponenty vyvinuté v následujícím článku *Views/ToDo/Index.cshtml* zobrazení souboru. V následujícím příkladu `InvokeAsync` metoda je volána s dva parametry:
+Parametry budou předány `InvokeAsync` metodě. Součást zobrazení vyvinutá v článku se vyvolá z zobrazení zobrazení */TODO/index. cshtml.* `PriorityList` V následujícím `InvokeAsync` postupu je metoda volána se dvěma parametry:
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
@@ -104,11 +104,11 @@ Parametry předávané `InvokeAsync` metody. `PriorityList` z je vyvolána zobra
 
 ## <a name="invoking-a-view-component-as-a-tag-helper"></a>Vyvolání komponenty zobrazení jako pomocné rutiny značky
 
-Pro ASP.NET Core 1.1 a vyšší, můžete vyvolat komponentu zobrazení jako [pomocné rutiny značky](xref:mvc/views/tag-helpers/intro):
+Pro ASP.NET Core 1,1 a vyšší můžete vyvolat součást zobrazení jako [pomocníka značky](xref:mvc/views/tag-helpers/intro):
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexTagHelper.cshtml?range=37-38)]
 
-Jazyka Pascal – třídy a metody parametry pro pomocné rutiny značek jsou přeloženy do jejich [kebab případ](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101). Pomocná rutina značky k vyvolání komponenty zobrazení používá `<vc></vc>` elementu. Zobrazení komponenty je určena následujícím způsobem:
+Parametry třídy a metody použita jazyka Pascal pro pomocníky značek jsou přeloženy do jejich [kebabho případu](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101). Pomocný pomocník značek k vyvolání komponenty zobrazení používá `<vc></vc>` element. Součást zobrazení je určena následujícím způsobem:
 
 ```cshtml
 <vc:[view-component-name]
@@ -117,120 +117,120 @@ Jazyka Pascal – třídy a metody parametry pro pomocné rutiny značek jsou p�
 </vc:[view-component-name]>
 ```
 
-Použití zobrazení komponenty jako pomocné rutiny značky, zaregistrovat sestavení obsahující pomocí zobrazení komponenty `@addTagHelper` směrnice. Pokud vaše komponenta zobrazení je v sestavení nazvané `MyWebApp`, přidejte následující direktivy k *_ViewImports.cshtml* souboru:
+Chcete-li použít zobrazení komponenty jako pomocníka značky, zaregistrujte sestavení obsahující komponentu zobrazení pomocí `@addTagHelper` direktivy. Pokud je vaše součást zobrazení v sestavení s názvem `MyWebApp`, přidejte následující direktivu do souboru *_ViewImports. cshtml* :
 
 ```cshtml
 @addTagHelper *, MyWebApp
 ```
 
-Zobrazení komponenty můžete zaregistrovat jako pomocné rutiny značky do souboru, která odkazuje na součást zobrazení. Zobrazit [Správa oboru pomocné rutiny značky](xref:mvc/views/tag-helpers/intro#managing-tag-helper-scope) Další informace o tom, jak zaregistrovat pomocných rutin značek.
+Můžete zaregistrovat součást zobrazení jako pomocný modul značek pro libovolný soubor, který odkazuje na součást zobrazení. Další informace o registraci pomocných rutin značek najdete v tématu [Správa oboru pomocných značek](xref:mvc/views/tag-helpers/intro#managing-tag-helper-scope) .
 
-`InvokeAsync` Metodu použitou v tomto kurzu:
+`InvokeAsync` Metoda použitá v tomto kurzu:
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
-Ve značkách pomocné rutiny značky:
+Značka pomocníka značky:
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexTagHelper.cshtml?range=37-38)]
 
-V příkladu výše `PriorityList` stane součástí zobrazení `priority-list`. Parametry pro zobrazení komponenty jsou předány jako atributy v případě kebab.
+V ukázce výše `PriorityList` se zobrazí `priority-list`součást zobrazení. Parametry pro zobrazení komponenty jsou předány jako atributy v případě kebab.
 
 ::: moniker-end
 
 ### <a name="invoking-a-view-component-directly-from-a-controller"></a>Vyvolání komponenty zobrazení přímo z kontroleru
 
-Zobrazení komponenty jsou obvykle vyvolány ze zobrazení, ale můžete je vyvolat přímo z metody kontroleru. Při zobrazení komponenty nebudete definovat koncových bodů, jako jsou řadiče, je možné snadno implementovat akce kontroleru, který vrátí obsah `ViewComponentResult`.
+Zobrazení komponent se obvykle vyvolají ze zobrazení, ale můžete je vyvolat přímo z metody kontroleru. Přestože funkce View Components nedefinuje koncové body jako řadiče, můžete snadno implementovat akci kontroleru, která vrací obsah `ViewComponentResult`.
 
-V tomto příkladu je součásti zobrazení volání přímo z kontroleru:
+V tomto příkladu je součást zobrazení volána přímo z kontroleru:
 
 [!code-csharp[](view-components/sample/ViewCompFinal/Controllers/ToDoController.cs?name=snippet_IndexVC)]
 
-## <a name="walkthrough-creating-a-simple-view-component"></a>Návod: Vytvoření jednoduché zobrazení komponenty
+## <a name="walkthrough-creating-a-simple-view-component"></a>Návod: Vytvoření jednoduché součásti zobrazení
 
-[Stáhněte si](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a testování počátečního kódu. Je to Jednoduchý projekt s `ToDo` kontroler, který zobrazí seznam *ToDo* položky.
+[Stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a otestování počátečního kódu. Jedná se o jednoduchý projekt s `ToDo` řadičem, který zobrazuje seznam položek *TODO* .
 
-![Seznam úloh, ať už](view-components/_static/2dos.png)
+![Seznam ToDo](view-components/_static/2dos.png)
 
-### <a name="add-a-viewcomponent-class"></a>Přidejte třídu ViewComponent
+### <a name="add-a-viewcomponent-class"></a>Přidat třídu ViewComponent
 
-Vytvoření *ViewComponents* složky a přidejte následující `PriorityListViewComponent` třídy:
+Vytvořte složku *ViewComponents* a přidejte následující `PriorityListViewComponent` třídu:
 
 [!code-csharp[](view-components/sample/ViewCompFinal/ViewComponents/PriorityListViewComponent1.cs?name=snippet1)]
 
-Poznámky k kód:
+Poznámky k kódu:
 
-* Zobrazení komponentní třídy mohou být obsaženy v **jakékoli** složky v projektu.
-* Protože třída název PriorityList**ViewComponent** končí příponou **ViewComponent**, modul runtime použije řetězec "PriorityList" při odkazování na komponentě třídy ze zobrazení. Já zatím vysvětlím, které podrobněji později.
-* `[ViewComponent]` Atribut můžete změnit název slouží jako odkaz na komponentu zobrazení. Například jsme mohli jsme s názvem třídy `XYZ` a použít `ViewComponent` atribut:
+* Třídy zobrazení komponent mohou být obsaženy v **jakékoli** složce projektu.
+* Vzhledem k tomu, že název třídy PriorityList**ViewComponent** končí příponou **ViewComponent**, modul runtime při odkazování na komponentu třídy ze zobrazení použije řetězec "PriorityList". Později vám ukážeme, že se dozvíte podrobněji.
+* `[ViewComponent]` Atribut může změnit název, který se používá k odkazování na součást zobrazení. Mohli bychom například jmenovat třídu `XYZ` a `ViewComponent` použít atribut:
 
   ```csharp
   [ViewComponent(Name = "PriorityList")]
      public class XYZ : ViewComponent
      ```
 
-* `[ViewComponent]` Výše uvedený atribut říká Výběr komponent zobrazení použít název `PriorityList` při hledání zobrazení související s komponentou a použít řetězec "PriorityList" při odkazování na komponentě třídy ze zobrazení. Já zatím vysvětlím, které podrobněji později.
-* Součást používá [injektáž závislostí](../../fundamentals/dependency-injection.md) zpřístupnit datového kontextu.
-* `InvokeAsync` Zpřístupní metodu, která může být volána z zobrazení a to může trvat libovolný počet argumentů.
-* `InvokeAsync` Metoda vrátí sadu `ToDo` položky, které splňují `isDone` a `maxPriority` parametry.
+* Výše uvedený `PriorityList` atribut oznamuje, že selektor komponent zobrazí název při hledání zobrazení přidružených k komponentě a při odkazování na komponentu třídy ze zobrazení pomocí řetězce "PriorityList". `[ViewComponent]` Později vám ukážeme, že se dozvíte podrobněji.
+* Komponenta používá [vkládání závislostí](../../fundamentals/dependency-injection.md) k zpřístupnění kontextu dat.
+* `InvokeAsync`zpřístupní metodu, která může být volána ze zobrazení a může mít libovolný počet argumentů.
+* Metoda vrátí `isDone` sadu položek, které odpovídají parametrům a `maxPriority`. `ToDo` `InvokeAsync`
 
-### <a name="create-the-view-component-razor-view"></a>Vytvořit zobrazení Razor komponenty zobrazení
+### <a name="create-the-view-component-razor-view"></a>Vytvoření zobrazení pro zobrazení Razor komponenty
 
-* Vytvořte *zobrazení/Shared/Components* složky. Tato složka **musí** jmenovat *komponenty*.
+* Vytvořte složku *views/Shared/Components* . Tato složka **musí** být pojmenována *součásti*.
 
-* Vytvořte *zobrazení/Shared/součásti/PriorityList* složky. Tento název složky musí odpovídat názvu třídy zobrazení komponenty nebo název třídy minus příponu (Pokud jsme postupovali podle úmluvy a použít *ViewComponent* přípony v názvu třídy). Pokud jste použili `ViewComponent` atribut, název třídy by musí odpovídat atributu označení.
+* Vytvořte složku *views/Shared/Components/PriorityList* . Název této složky se musí shodovat s názvem třídy zobrazení, nebo názvem třídy minus přípona (Pokud následovala konvence a použila v názvu třídy příponu *ViewComponent* ). Pokud jste použili `ViewComponent` atribut, musí název třídy odpovídat označení atributu.
 
-* Vytvoření *Views/Shared/Components/PriorityList/Default.cshtml* zobrazení Razor:
+* Vytvoření zobrazení */Shared/Components/PriorityList/default. cshtml* Razor View:
 
 
   [!code-cshtml[](view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/Default1.cshtml)]
 
-   Zobrazení Razor přebírá seznam `TodoItem` a zobrazí je. Pokud komponentu zobrazení `InvokeAsync` metoda neprojde název zobrazení (jako v naší ukázce) *výchozí* používají konvence pro název zobrazení. Později v tomto kurzu můžu ukážeme, jak předat název zobrazení. Pokud chcete přepsat výchozí styl k určitému kontroleru, přidejte do specifické pro kontroler zobrazení složky zobrazení (například *Views/ToDo/Components/PriorityList/Default.cshtml)* .
+   Zobrazení Razor převezme seznam `TodoItem` a zobrazí je. Pokud metoda View komponenty `InvokeAsync` nepředá název zobrazení (jako v naší ukázce), je použita *Výchozí hodnota* pro název zobrazení podle konvence. Později v tomto kurzu ukážeme, jak předat název zobrazení. Chcete-li přepsat výchozí styl pro určitý kontroler, přidejte zobrazení do složky zobrazení pro konkrétní řadič (například *zobrazení/TODO/komponenty/PriorityList/default. cshtml)* .
 
-    Pokud je součást zobrazení specifické pro kontroler, můžete ho přidat do složky specifické pro kontroler (*Views/ToDo/Components/PriorityList/Default.cshtml*).
+    Pokud je součást zobrazení specifická pro konkrétního řadiče, můžete ji přidat do složky pro konkrétního řadiče (*zobrazení/TODO/komponenty/PriorityList/default. cshtml*).
 
-* Přidat `div` obsahujícím volání do seznamu součástí priority k dolnímu okraji *Views/ToDo/index.cshtml* souboru:
+* Přidejte objekt `div` obsahující volání do komponenty seznamu priorit do dolní části souboru *views/index. cshtml* :
 
     [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFirst.cshtml?range=34-38)]
 
-Značky `@await Component.InvokeAsync` ukazuje syntaxi pro volání komponenty zobrazení. Prvním argumentem je název komponenty, které chceme volání nebo volání. Následující parametry jsou předány do komponenty. `InvokeAsync` můžete využít libovolný počet argumentů.
+Značka `@await Component.InvokeAsync` zobrazuje syntaxi pro volání komponent zobrazení. První argument je název součásti, kterou chceme vyvolat nebo zavolat. Další parametry jsou předány do komponenty. `InvokeAsync`může mít libovolný počet argumentů.
 
-Testování aplikace. Následující obrázek ukazuje seznam úkolů a prioritu položky:
+Otestujte aplikaci. Následující obrázek znázorňuje seznam ToDo a prioritní položky:
 
-![seznam a prioritu položek todo](view-components/_static/pi.png)
+![položky seznamu úkolů a prioritní](view-components/_static/pi.png)
 
-Komponenty zobrazení můžete také volat přímo z kontroleru:
+Můžete také volat součást zobrazení přímo z kontroleru:
 
 [!code-csharp[](view-components/sample/ViewCompFinal/Controllers/ToDoController.cs?name=snippet_IndexVC)]
 
-![prioritu položek z IndexVC akce](view-components/_static/indexvc.png)
+![prioritní položky z akce IndexVC](view-components/_static/indexvc.png)
 
-### <a name="specifying-a-view-name"></a>Zadejte název zobrazení
+### <a name="specifying-a-view-name"></a>Zadání názvu zobrazení
 
-Komponenta komplexní zobrazení může být nutné určit jiné než výchozí zobrazení za určitých podmínek. Následující kód ukazuje, jak zadat "PVC" zobrazení z `InvokeAsync` metody. Aktualizace `InvokeAsync` metodu `PriorityListViewComponent` třídy.
+Složitá součást zobrazení může při některých podmínkách určit jiné než výchozí zobrazení. Následující kód ukazuje, jak zadat zobrazení "PVC" z `InvokeAsync` metody. Aktualizujte `PriorityListViewComponent` metodu ve třídě. `InvokeAsync`
 
 [!code-csharp[](../../mvc/views/view-components/sample/ViewCompFinal/ViewComponents/PriorityListViewComponentFinal.cs?highlight=4,5,6,7,8,9&range=28-39)]
 
-Kopírovat *Views/Shared/Components/PriorityList/Default.cshtml* soubor k zobrazení s názvem *Views/Shared/Components/PriorityList/PVC.cshtml*. Přidáte záhlaví označující, že se používá PVC zobrazení.
+Zkopírujte soubor *views/Shared/Components/PriorityList/default. cshtml* do zobrazení s názvem views */Shared/Components/PriorityList/PVC. cshtml*. Přidejte záhlaví, které indikuje, že se používá zobrazení typu PVC.
 
 [!code-cshtml[](../../mvc/views/view-components/sample/ViewCompFinal/Views/Shared/Components/PriorityList/PVC.cshtml?highlight=3)]
 
-Update *Views/ToDo/Index.cshtml*:
+Aktualizace *zobrazení/TODO/index. cshtml*:
 
 <!-- Views/ToDo/Index.cshtml is never imported, so change to test tutorial -->
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexFinal.cshtml?range=35)]
 
-Spusťte aplikaci a ověřte PVC zobrazení.
+Spusťte aplikaci a ověřte zobrazení PVC.
 
-![Komponenty zobrazení prioritní](view-components/_static/pvc.png)
+![Prioritní zobrazení součásti](view-components/_static/pvc.png)
 
-Pokud není PVC zobrazení vykresleno, ověřte, zda že jsou volání komponenty zobrazení s prioritou 4 nebo vyšší.
+Pokud se zobrazení typu PVC nevykresluje, ověřte, že voláte komponentu zobrazení s prioritou 4 nebo vyšší.
 
-### <a name="examine-the-view-path"></a>Zkontrolujte cestu zobrazení
+### <a name="examine-the-view-path"></a>Prohlédněte si cestu zobrazení
 
-* Proto se vrátí zobrazení prioritní změňte parametr priority na tři nebo i rychleji.
-* Dočasně přejmenujte *Views/ToDo/Components/PriorityList/Default.cshtml* k *1Default.cshtml*.
-* Testování aplikace, získáte následující chybu:
+* Změňte parametr priority na tři nebo méně, aby zobrazení priority nebylo vráceno.
+* Dočasně přejmenujte *zobrazení/TODO/komponenty/PriorityList/default. cshtml* na *1Default. cshtml*.
+* Otestujte aplikaci, zobrazí se následující chyba:
 
    ```
    An unhandled exception occurred while processing the request.
@@ -240,25 +240,25 @@ Pokud není PVC zobrazení vykresleno, ověřte, zda že jsou volání komponent
    EnsureSuccessful
    ```
 
-* Kopírování *Views/ToDo/Components/PriorityList/1Default.cshtml* k *Views/Shared/Components/PriorityList/Default.cshtml*.
-* Přidat některé značky *Shared* ToDo zobrazení komponenty k označení zobrazení je z *Shared* složky.
-* Test **Shared** součásti zobrazení.
+* Kopírování *views/TODO/Components/PriorityList/1Default. cshtml* na *views/Shared/Components/PriorityList/default. cshtml*.
+* Přidáním kódu do zobrazení *sdílené* složky zobrazení TODO můžete zobrazit, že se zobrazení nachází ze *sdílené* složky.
+* Otestujte zobrazení **sdílené** komponenty.
 
-![Výstup úkolů s sdílené komponenty zobrazení](view-components/_static/shared.png)
+![Výstup ToDo se zobrazením sdílené komponenty](view-components/_static/shared.png)
 
-### <a name="avoiding-hard-coded-strings"></a>Jak se vyhnout pevně zakódované řetězce
+### <a name="avoiding-hard-coded-strings"></a>Zamezení pevně zakódovaných řetězců
 
-Pokud chcete kompilovat bezpečný přístup z více času, můžete nahradit název komponenty pevně zakódované zobrazení s názvem třídy. Vytvoření zobrazení komponenty bez přípony "ViewComponent":
+Pokud chcete zabezpečení času kompilace, můžete nahradit pevně kódovaný název komponenty zobrazení názvem třídy. Vytvořte součást zobrazení bez přípony "ViewComponent":
 
 [!code-csharp[](../../mvc/views/view-components/sample/ViewCompFinal/ViewComponents/PriorityList.cs?highlight=10&range=5-35)]
 
-Přidat `using` příkazu vaše Razor zobrazení souboru a použít `nameof` operátor:
+Přidejte příkaz do souboru zobrazení Razor a `nameof` použijte operátor: `using`
 
 [!code-cshtml[](view-components/sample/ViewCompFinal/Views/ToDo/IndexNameof.cshtml?range=1-6,35-)]
 
-## <a name="perform-synchronous-work"></a>Provedení synchronní práce
+## <a name="perform-synchronous-work"></a>Provést synchronní práci
 
-Rozhraní framework zpracovává volání synchronního `Invoke` metodu, pokud není nutné provádět asynchronní práce. Následující metoda vytvoří synchronního `Invoke` zobrazení komponenty:
+Architektura zpracovává synchronní `Invoke` metodu, pokud nepotřebujete provádět asynchronní práci. Následující metoda vytvoří synchronní `Invoke` součást zobrazení:
 
 ```csharp
 public class PriorityList : ViewComponent
@@ -271,7 +271,7 @@ public class PriorityList : ViewComponent
 }
 ```
 
-Dílčí zobrazení Razor soubor obsahuje řetězce předaný `Invoke` – metoda (*Views/Home/Components/PriorityList/Default.cshtml*):
+Soubor Razor komponenty zobrazit obsahuje seznam řetězců předaných `Invoke` metodě (views */Home/Components/PriorityList/default. cshtml*):
 
 ```cshtml
 @model List<string>
@@ -287,18 +287,18 @@ Dílčí zobrazení Razor soubor obsahuje řetězce předaný `Invoke` – metod
 
 ::: moniker range=">= aspnetcore-1.1"
 
-Zobrazení komponenty je vyvolán v souboru Razor (například *Views/Home/Index.cshtml*) pomocí některého z následujících postupů:
+Zobrazení komponenty je vyvoláno v souboru Razor (například views */Home/index. cshtml*) pomocí jednoho z následujících přístupů:
 
 * <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>
-* [Pomocná rutina značky](xref:mvc/views/tag-helpers/intro)
+* [Pomocník značek](xref:mvc/views/tag-helpers/intro)
 
-Použít <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper> přístup, zavolejte `Component.InvokeAsync`:
+Chcete-li <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper> použít přístup, `Component.InvokeAsync`zavolejte:
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-1.1"
 
-Zobrazení komponenty je vyvolán v souboru Razor (například *Views/Home/Index.cshtml*) s <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>.
+Zobrazení komponenty je vyvoláno v souboru Razor (například views */Home/index. cshtml*) pomocí <xref:Microsoft.AspNetCore.Mvc.IViewComponentHelper>.
 
 Volání `Component.InvokeAsync`:
 
@@ -310,13 +310,13 @@ Volání `Component.InvokeAsync`:
 
 ::: moniker range=">= aspnetcore-1.1"
 
-Použití pomocné rutiny značky, zaregistrovat sestavení obsahující pomocí zobrazení komponenty `@addTagHelper` – direktiva (součást zobrazení je v sestavení nazvané `MyWebApp`):
+Chcete-li použít pomocníka značky, zaregistrujte sestavení obsahující komponentu zobrazení `@addTagHelper` pomocí direktivy (zobrazení součásti je v sestavení s `MyWebApp`názvem):
 
 ```cshtml
 @addTagHelper *, MyWebApp
 ```
 
-Použití zobrazení komponenty pomocné rutiny značky v souboru kódu Razor:
+Použijte nápovědu pro zobrazení značky komponenty v souboru značek Razor:
 
 ```cshtml
 <vc:priority-list max-priority="999" is-done="false">
@@ -325,7 +325,15 @@ Použití zobrazení komponenty pomocné rutiny značky v souboru kódu Razor:
 
 ::: moniker-end
 
-Označení metody `PriorityList.Invoke` je synchronní, ale Razor najde a volá metodu s `Component.InvokeAsync` v souboru označení.
+Signatura `PriorityList.Invoke` metody je synchronní, ale Razor najde a volá `Component.InvokeAsync` metodu v souboru označení.
+
+## <a name="all-view-component-parameters-are-required"></a>Všechny parametry komponenty View jsou povinné.
+
+Každý parametr v součásti zobrazení je povinný atribut. Podívejte se na [Tento problém GitHubu](https://github.com/aspnet/AspNetCore/issues/5011). Pokud je vynechán libovolný parametr:
+
+* Signatura `InvokeAsync` metody se neshoduje, proto se metoda neprovede.
+* ViewComponent nevykresluje žádné značky.
+* Nebudou vyvolány žádné chyby.
 
 ## <a name="additional-resources"></a>Další zdroje
 
