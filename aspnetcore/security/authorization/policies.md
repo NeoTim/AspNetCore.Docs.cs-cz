@@ -1,39 +1,39 @@
 ---
-title: Autorizace na základě zásad v ASP.NET Core
+title: Ověřování na základě zásad v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak vytvořit a použít rutiny zásad autorizace pro vynucují požadavky pro autorizaci v aplikaci ASP.NET Core.
+description: Naučte se vytvářet a používat obslužné rutiny zásad autorizace pro vynucování autorizačních požadavků v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/05/2019
 uid: security/authorization/policies
-ms.openlocfilehash: 67337c847ba71df3fe61250996ec944632ad5d57
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.openlocfilehash: 60625944d4ba31da6b98bdf947991088dc75ed87
+ms.sourcegitcommit: 7001657c00358b082734ba4273693b9b3ed35d2a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837345"
+ms.lasthandoff: 07/31/2019
+ms.locfileid: "68669974"
 ---
-# <a name="policy-based-authorization-in-aspnet-core"></a>Autorizace na základě zásad v ASP.NET Core
+# <a name="policy-based-authorization-in-aspnet-core"></a>Ověřování na základě zásad v ASP.NET Core
 
-Na pozadí [autorizace na základě rolí](xref:security/authorization/roles) a [autorizace na základě rolí](xref:security/authorization/claims) pomocí požadavku, obslužné rutiny požadavku a předem nakonfigurované zásady. Tyto stavební bloky podporují výraz vyhodnocení autorizace v kódu. Výsledkem je struktura bohatší, opakovaně použitelný, testovatelného autorizace.
+V rámci pokrývání [ověřování na základě rolí](xref:security/authorization/roles) a [autorizaci založené](xref:security/authorization/claims) na deklaracích se používají požadavky, obslužná rutina požadavků a předem nakonfigurované zásady. Tyto stavební bloky podporují výraz ověřovacích vyhodnocení v kódu. Výsledkem je bohatší, opakovaně použitelná testovatelné autorizační struktura.
 
-Zásady autorizace se skládá z jednoho nebo více požadavků. Je registrován jako součást konfigurace služby ověřování v `Startup.ConfigureServices` metody:
+Zásady autorizace se skládají z jednoho nebo více požadavků. Je zaregistrován jako součást konfigurace autorizační služby v `Startup.ConfigureServices` metodě:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,66)]
 
-V předchozím příkladu se vytvoří zásadu "AtLeast21". Má jeden požadavek&mdash;s minimálním stářím, který je poskytnut jako parametr s požadavkem.
+V předchozím příkladu se vytvoří zásada "AtLeast21". Má jeden požadavek&mdash;na minimální stáří, které je zadáno jako parametr požadavku.
 
-## <a name="iauthorizationservice"></a>IAuthorizationService 
+## <a name="iauthorizationservice"></a>Načetl služby IAuthorizationService 
 
-Primární služba, která určuje, zda je ověření úspěšné <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService>:
+Primární služba, která určuje, jestli je autorizace úspěšná <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService>, je:
 
 [!code-csharp[](policies/samples/stubs/copy_of_IAuthorizationService.cs?highlight=24-25,48-49&name=snippet)]
 
-Předchozí kód zvýrazní dvou metod [služby IAuthorizationService](https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs).
+Předchozí kód zvýrazní dvě metody [načetl služby IAuthorizationService](https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationService.cs).
 
-<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement> je služba značky se žádné metody a mechanismus pro sledování, jestli je ověřování úspěšné.
+<xref:Microsoft.AspNetCore.Authorization.IAuthorizationRequirement>je služba značek bez metod a mechanismus pro sledování, zda autorizace je úspěšná.
 
-Každý <xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler> zodpovídá za probíhá kontrola, zda jsou splněny požadavky:
+Každý <xref:Microsoft.AspNetCore.Authorization.IAuthorizationHandler> je zodpovědný za kontrolu, zda jsou splněny požadavky:
 <!--The following code is a copy/paste from 
 https://github.com/aspnet/AspNetCore/blob/v2.2.4/src/Security/Authorization/Core/src/IAuthorizationHandler.cs -->
 
@@ -52,13 +52,13 @@ public interface IAuthorizationHandler
 }
 ```
 
-<xref:Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext> Třída je obslužná rutina používá k označení, zda byly splněny požadavky:
+<xref:Microsoft.AspNetCore.Authorization.AuthorizationHandlerContext> Třída je to, co obslužná rutina používá k označení, zda byly splněny požadavky:
 
 ```csharp
  context.Succeed(requirement)
 ```
 
-Následující kód ukazuje zjednodušený (i s poznámkami s komentáři) výchozí implementace autorizační službu:
+Následující kód zobrazuje zjednodušenou (a poznámkovou poznámku) výchozí implementaci autorizační služby:
 
 ```csharp
 public async Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user, 
@@ -81,7 +81,7 @@ public async Task<AuthorizationResult> AuthorizeAsync(ClaimsPrincipal user,
 }
 ```
 
-Následující kód ukazuje typické `ConfigureServices`:
+Následující kód ukazuje typický `ConfigureServices`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -102,91 +102,91 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Použití <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> nebo `[Authorize(Policy = "Something"]` pro autorizaci.
+Použijte <xref:Microsoft.AspNetCore.Authorization.IAuthorizationService> nebo`[Authorize(Policy = "Something")]` k autorizaci.
 
-## <a name="applying-policies-to-mvc-controllers"></a>Přiřazení zásad pro kontrolery MVC
+## <a name="applying-policies-to-mvc-controllers"></a>Použití zásad u řadičů MVC
 
-Pokud používáte pro stránky Razor, přečtěte si téma [přiřazení zásad pro stránky Razor](#applying-policies-to-razor-pages) v tomto dokumentu.
+Pokud používáte Razor Pages, přečtěte si téma [použití zásad pro Razor Pages](#applying-policies-to-razor-pages) v tomto dokumentu.
 
-Zásady se použijí k řadičům pomocí `[Authorize]` atribut s názvem zásady. Příklad:
+Zásady se aplikují na řadiče pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Controllers/AlcoholPurchaseController.cs?name=snippet_AlcoholPurchaseControllerClass&highlight=4)]
 
-## <a name="applying-policies-to-razor-pages"></a>Přiřazení zásad pro stránky Razor
+## <a name="applying-policies-to-razor-pages"></a>Použití zásad pro Razor Pages
 
-Zásady se použijí pro stránky Razor pomocí `[Authorize]` atribut s názvem zásady. Příklad:
+Zásady se aplikují na Razor Pages pomocí `[Authorize]` atributu s názvem zásady. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp2/Pages/AlcoholPurchase.cshtml.cs?name=snippet_AlcoholPurchaseModelClass&highlight=4)]
 
-Zásady můžete použít také pro stránky Razor pomocí [autorizace konvence](xref:security/authorization/razor-pages-authorization).
+Zásady je možné použít také pro Razor Pages pomocí [autorizační konvence](xref:security/authorization/razor-pages-authorization).
 
 ## <a name="requirements"></a>Požadavky
 
-Požadavek na autorizaci je kolekce dat parametry, které zásady můžete použít k vyhodnocení aktuální hlavní název uživatele. V zásadách "AtLeast21" požadavek je jediný parametr&mdash;minimálním stářím. Implementuje požadavek [IAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationrequirement), což je rozhraní prázdnou značku. Parametrizované minimální stáří požadavek může být implementován takto:
+Požadavek na autorizaci je kolekce datových parametrů, které může zásada použít k vyhodnocení aktuálního objektu zabezpečení uživatele. V našich zásadách "AtLeast21" je požadavek jedním parametrem&mdash;minimální stáří. Požadavek implementuje [IAuthorizationRequirement](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationrequirement), což je prázdné rozhraní značky. Parametr minimálního stáří by mohl být implementován následujícím způsobem:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Requirements/MinimumAgeRequirement.cs?name=snippet_MinimumAgeRequirementClass)]
 
-Zásad autorizace obsahuje více požadavků na autorizaci, všechny požadavky musí předat v pořadí pro hodnocení zásad proběhla úspěšně. Jinými slovy, více autorizace požadavky do jednoho autorizační zásady jsou považovány na **a** základ.
+Pokud zásady autorizace obsahují více autorizačních požadavků, musí všechny požadavky úspěšně projít, aby bylo vyhodnocení zásad úspěšné. Jinými slovy: víc autorizačních požadavků přidaných do jediné zásady autorizace se zpracovává na bázi **a** .
 
 > [!NOTE]
-> Požadavek není nutné mít data nebo vlastnosti.
+> Požadavek nemusí mít data ani vlastnosti.
 
 <a name="security-authorization-policies-based-authorization-handler"></a>
 
-## <a name="authorization-handlers"></a>Povolení obslužné rutiny
+## <a name="authorization-handlers"></a>Obslužné rutiny autorizace
 
-Je zodpovědná za vyhodnocení vlastností požadavek na obslužnou rutinu ověřování. Obslužná rutina autorizace vyhodnotí požadavky proti zadaný [AuthorizationHandlerContext](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext) k určení, zda je povolen přístup.
+Obslužná rutina autorizace zodpovídá za hodnocení vlastností požadavku. Obslužná rutina autorizace vyhodnocuje požadavky na poskytnutý [AuthorizationHandlerContext](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext) k určení, jestli je povolený přístup.
 
-Může mít požadavek [více obslužných rutin](#security-authorization-policies-based-multiple-handlers). Obslužná rutina může dědit [AuthorizationHandler\<TRequirement >](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandler-1), kde `TRequirement` je potřeba zpracovat. Alternativně může implementovat obslužnou rutinu [IAuthorizationHandler](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationhandler) pro zpracování více než jeden typ požadavku.
+Požadavek může mít [více obslužných rutin](#security-authorization-policies-based-multiple-handlers). Obslužná rutina může [dědit\<AuthorizationHandler TRequirement >](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandler-1), `TRequirement` kde je požadavek, který má být zpracován. Alternativně může obslužná rutina implementovat [IAuthorizationHandler](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizationhandler) pro zpracování více než jednoho typu požadavku.
 
-### <a name="use-a-handler-for-one-requirement"></a>Použijte obslužnou rutinu pro jeden požadavek
+### <a name="use-a-handler-for-one-requirement"></a>Použití obslužné rutiny pro jeden požadavek
 
 <a name="security-authorization-handler-example"></a>
 
-Následuje příklad vztah 1: 1, ve kterém obslužnou rutinu minimální stáří využívá jeden požadavek:
+Následuje příklad vztahu 1:1, ve kterém minimální věková obslužná rutina využívá jeden požadavek:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Handlers/MinimumAgeHandler.cs?name=snippet_MinimumAgeHandlerClass)]
 
-Předchozí kód určuje, zda má aktuální uživatel instančního objektu datum narození deklarace identity, který byl vydán známého a důvěryhodného vystavitele. Ověření nelze provést, pokud chybí deklarace identity, v takovém případě se vrátí dokončeného úkolu. Při deklaraci identity je k dispozici, se vypočítá věk uživatele. Pokud uživatel splňuje minimální stáří určené požadavku, autorizace se bude považovat za úspěšné. Když je ověření úspěšné, `context.Succeed` vyvolání splnění požadavku jako svůj jediný parametr.
+Předchozí kód určuje, zda má aktuální objekt zabezpečení uživatele datum narození, který byl vydán známým a důvěryhodným vydavatelem. K autorizaci nedojde v případě, že deklarace identity chybí. v takovém případě se vrátí dokončený úkol. Pokud je k dispozici deklarace identity, počítá se věk uživatele. Pokud uživatel splňuje minimální stáří definované požadavkem, autorizace se považuje za úspěšnou. Po úspěšném `context.Succeed` ověření je vyvolána s uspokojivým požadavkem jako jeho jediným parametrem.
 
-### <a name="use-a-handler-for-multiple-requirements"></a>Použijte obslužnou rutinu pro několik požadavků
+### <a name="use-a-handler-for-multiple-requirements"></a>Použití obslužné rutiny pro více požadavků
 
-Následuje příklad vztah jeden mnoho, ve kterém obslužnou rutinu oprávnění dokáže zpracovat tři různé typy požadavků:
+Následuje příklad vztahu 1: n, ve kterém obslužná rutina oprávnění dokáže zvládnout tři různé typy požadavků:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Handlers/PermissionHandler.cs?name=snippet_PermissionHandlerClass)]
 
-Předchozí kód projde [PendingRequirements](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.pendingrequirements#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_PendingRequirements)&mdash;vlastnost obsahující požadavky není označena jako úspěšně dokončený. Pro `ReadPermission` požadavek, uživatel musí být vlastníkem nebo sponzor přístup k požadovanému prostředku. V případě třídy `EditPermission` nebo `DeletePermission` požadavek, nezíská musí být vlastníkem pro přístup k požadovanému prostředku.
+Předchozí průchod kódu [PendingRequirements](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.pendingrequirements#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_PendingRequirements)&mdash;vlastnost obsahující požadavky, které nejsou označeny jako úspěšné. `ReadPermission` Pro přístup k požadovanému prostředku musí být uživatel buď vlastník, nebo sponzor. V případě `EditPermission` požadavku nebo `DeletePermission` musí být vlastníkem přístup k požadovanému prostředku.
 
 <a name="security-authorization-policies-based-handler-registration"></a>
 
-### <a name="handler-registration"></a>Zápis obslužné rutiny
+### <a name="handler-registration"></a>Registrace obslužné rutiny
 
 Obslužné rutiny jsou registrovány v kolekci služeb během konfigurace. Příklad:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=32-33,48-53,61,62-63,66)]
 
-Předchozí kód registruje `MinimumAgeHandler` jako singleton vyvoláním `services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();`. Obslužné rutiny lze registrovat pomocí některé z integrovaného [služby životnosti](xref:fundamentals/dependency-injection#service-lifetimes).
+Předchozí kód se registruje `MinimumAgeHandler` jako typ singleton vyvoláním. `services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();` Obslužné rutiny mohou být registrovány pomocí kterékoli z předdefinovaných [životností služby](xref:fundamentals/dependency-injection#service-lifetimes).
 
-## <a name="what-should-a-handler-return"></a>Co by měl vrátit obslužnou rutinu?
+## <a name="what-should-a-handler-return"></a>Co by měl obslužná rutina vrátit?
 
-Všimněte si, že `Handle` metodu [příklad obslužná rutina](#security-authorization-handler-example) nevrací žádnou hodnotu. Jak se stavem úspěch nebo selhání uvedené?
+Všimněte si, `Handle` že metoda v [příkladu obslužné rutiny](#security-authorization-handler-example) nevrací žádnou hodnotu. Jak se uvádí stav buď úspěch, nebo neúspěch?
 
-* Obslužná rutina indikuje úspěch voláním `context.Succeed(IAuthorizationRequirement requirement)`, předá tento požadavek, který se úspěšně ověřilo.
+* Obslužná rutina indikuje úspěch voláním `context.Succeed(IAuthorizationRequirement requirement)`a předáním požadavku, který byl úspěšně ověřen.
 
-* Obslužná rutina nemusí řešit selhání obecně platí, jako ostatní obslužné rutiny pro stejný požadavek může být úspěšné.
+* Obslužná rutina nemusí zpracovávat chyby obecně, protože jiné obslužné rutiny pro stejný požadavek mohou být úspěšné.
 
-* Chcete-li zaručit selhání, i v případě ostatních obslužných rutin požadavek úspěšný, zavolejte `context.Fail`.
+* Chcete-li zaručit selhání i v případě úspěchu dalších obslužných `context.Fail`rutin požadavků, zavolejte.
 
-Pokud obslužná rutina volá `context.Succeed` nebo `context.Fail`, stále se nazývají všechny ostatní obslužné rutiny. To umožňuje požadavek na vytvoření vedlejší účinky, jako je například protokolování, které dojde i v případě, že má jinou obslužnou rutinu úspěšně ověřen nebo požadavku se nezdařilo. Pokud je nastavena na `false`, [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) vlastnosti (k dispozici v ASP.NET Core 1.1 nebo novější) zkratům provádění obslužné rutiny při `context.Fail` je volána. `InvokeHandlersAfterFailure` Výchozí hodnota je `true`, v takovém případě se nazývají všechny obslužné rutiny.
+Pokud obslužná rutina `context.Succeed` volá `context.Fail`nebo, všechny ostatní obslužné rutiny jsou stále volány. To umožňuje požadavkům vytvořit vedlejší účinky, jako je protokolování, které probíhá, i když jiná obslužná rutina úspěšně ověřila nebo neprošel požadavek. Když je nastavena `false`na, vlastnost [InvokeHandlersAfterFailure](/dotnet/api/microsoft.aspnetcore.authorization.authorizationoptions.invokehandlersafterfailure#Microsoft_AspNetCore_Authorization_AuthorizationOptions_InvokeHandlersAfterFailure) (k dispozici v ASP.NET Core 1,1 a novější) krátkodobé okruhy, kdy `context.Fail` je volána spuštění obslužných rutin. `InvokeHandlersAfterFailure``true`výchozí hodnota – v takovém případě jsou volány všechny obslužné rutiny.
 
 > [!NOTE]
-> I když se ověřování nezdaří, jsou volány obslužné rutiny autorizace.
+> Obslužné rutiny autorizace jsou volány i v případě, že ověřování selhává.
 
 <a name="security-authorization-policies-based-multiple-handlers"></a>
 
-## <a name="why-would-i-want-multiple-handlers-for-a-requirement"></a>Proč byste měli více obslužných rutin pro požadavek?
+## <a name="why-would-i-want-multiple-handlers-for-a-requirement"></a>Proč bych chtěl více obslužných rutin pro požadavek?
 
-V případech, kde chcete vyhodnocení na **nebo** základ, implementovat více obslužných rutin pro jeden požadavek. Microsoft má například dveří, které otevřít pouze pomocí klíčů karty. Ponecháte-li karta s klíčem v domácnostech, recepční vytiskne dočasné štítku a otevře dveře za vás. V tomto scénáři bude mít jeden požadavek *BuildingEntry*, ale více obslužných rutin, každý z nich zkoumání jeden požadavek.
+V případech, kdy chcete, aby vyhodnocení bylo na **nebo** bázi, implementujte více obslužných rutin pro jeden požadavek. Například Microsoft má dveře, které se otevírají jenom s kartami Key. Pokud ponecháte kartu klíče na domovské stránce, recepční vytiskne dočasný štítek a otevře dvířka za vás. V tomto scénáři byste měli jeden požadavek, *BuildingEntry*, ale několik obslužných rutin, každý z nich prozkoumá jeden požadavek.
 
 *BuildingEntryRequirement.cs*
 
@@ -200,23 +200,23 @@ V případech, kde chcete vyhodnocení na **nebo** základ, implementovat více 
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Services/Handlers/TemporaryStickerHandler.cs?name=snippet_TemporaryStickerHandlerClass)]
 
-Ujistěte se, že jsou oba obslužné rutiny [zaregistrovaný](xref:security/authorization/policies#security-authorization-policies-based-handler-registration). Pokud je buď obslužná rutina úspěšné při zásady vyhodnotí `BuildingEntryRequirement`, hodnocení zásad úspěšné.
+Zajistěte, aby [](xref:security/authorization/policies#security-authorization-policies-based-handler-registration)byly oba obslužné rutiny registrovány. Pokud obslužná rutina uspěje `BuildingEntryRequirement`, když zásada vyhodnotí, vyhodnocení zásad je úspěšné.
 
-## <a name="using-a-func-to-fulfill-a-policy"></a>Používat funkci func pro splnění zásad
+## <a name="using-a-func-to-fulfill-a-policy"></a>Splnění zásad pomocí funkce
 
-Může nastat situace, ve které splňující zásady je jednoduchý vyjádřit v kódu. Je možné zadat `Func<AuthorizationHandlerContext, bool>` při konfiguraci zásad s `RequireAssertion` tvůrce zásad.
+Mohou nastat situace, kdy je vhodné zásadu snadno vyjádřit v kódu. Je možné dodat a `Func<AuthorizationHandlerContext, bool>` nakonfigurovat zásadu `RequireAssertion` pomocí Tvůrce zásad.
 
-Například předchozí `BadgeEntryHandler` měl by být přepsán následujícím způsobem:
+Například předchozí `BadgeEntryHandler` může být přepsána následujícím způsobem:
 
 [!code-csharp[](policies/samples/PoliciesAuthApp1/Startup.cs?range=50-51,55-61)]
 
-## <a name="accessing-mvc-request-context-in-handlers"></a>Přístup k kontext požadavku MVC v obslužné rutině
+## <a name="accessing-mvc-request-context-in-handlers"></a>Přístup k kontextu požadavku MVC v obslužných rutinách
 
-`HandleRequirementAsync` Implementovat v obslužné rutině autorizační metoda má dva parametry: `AuthorizationHandlerContext` a `TRequirement` obsluhujete. Architektur, jako je MVC nebo Jabbr jsou můžete přidat libovolný objekt `Resource` vlastnost `AuthorizationHandlerContext` k předávání dalších informací.
+Metoda, kterou implementujete v obslužné rutině autorizace, má dva `AuthorizationHandlerContext` parametry: `TRequirement` a, kterou zpracováváte. `HandleRequirementAsync` Architektury, jako je MVC nebo Jabbr, jsou volné pro přidání libovolného objektu do `Resource` vlastnosti v, `AuthorizationHandlerContext` aby bylo možné předávat Další informace.
 
-Například MVC předá instance [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) v `Resource` vlastnost. Tato vlastnost poskytuje přístup k `HttpContext`, `RouteData`a všechno, co je jinak poskytované MVC a stránky Razor.
+MVC například projde instanci [AuthorizationFilterContext](/dotnet/api/?term=AuthorizationFilterContext) ve `Resource` vlastnosti. Tato vlastnost poskytuje přístup k `HttpContext`, `RouteData`a vše ostatní poskytované MVC a Razor Pages.
 
-Použití `Resource` vlastnost je konkrétní rozhraní framework. Pomocí informací `Resource` vlastnost omezuje vaše zásady autorizace pro konkrétní platformy. Měli přetypovat `Resource` pomocí vlastnosti `is` – klíčové slovo a potom potvrdit přetypování proběhla úspěšně, aby se váš kód nebude k chybě s `InvalidCastException` při spuštění na ostatní platformy:
+Použití `Resource` vlastnosti je specifické pro rozhraní. Použití informací v této `Resource` vlastnosti omezuje vaše zásady autorizace na konkrétní architektury. `Resource` Vlastnost byste měli přetypovat `is` pomocí klíčového slova a pak potvrdit, že přetypování bylo úspěšné, aby při spuštění v jiných rozhraních nedošlo `InvalidCastException` k chybě kódu.
 
 ```csharp
 // Requires the following import:
