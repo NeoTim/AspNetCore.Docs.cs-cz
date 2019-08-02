@@ -2,7 +2,7 @@
 
 ### <a name="add-a-database-context-class"></a>Přidat třídu kontextu databáze
 
-Do složky `RazorPagesMovieContext` *data* přidejte následující třídu:
+V projektu RazorPagesMovie vytvořte novou složku s názvem *data*. Do složky `RazorPagesMovieContext` *data* přidejte následující třídu:
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
@@ -20,7 +20,7 @@ Do souboru *appSettings. JSON* přidejte připojovací řetězec, jak ukazuje n�
 
 ### <a name="add-required-nuget-packages"></a>Přidat požadované balíčky NuGet
 
-Spuštěním následujících příkazů .NET Core CLI přidejte SQLite, Entity Framework Core a strategii. design do projektu:
+Otevřete terminálu pro projekt RazorPagesMovie.  Klikněte pravým tlačítkem myši na název projektu na panelu návrh nebo rozložení a přejděte na **nástroje > otevřít** v terminálu. V Termech spusťte následující příkazy .NET Core CLI. Příkazy přidat SQLite, Entity Framework Core a strategii. design do projektu:
 
 ```console
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
