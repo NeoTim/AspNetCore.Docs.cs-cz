@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru In
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/16/2019
+ms.date: 07/28/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: a3d8c87fdb1cbc3b8b11b15f797190d626edad59
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 7677173493e68f5a5656c18533e0ae13a7c5bece
+ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308054"
+ms.lasthandoff: 07/29/2019
+ms.locfileid: "68602467"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -30,6 +30,8 @@ Následující operační systémy se podporují:
 [Http. sys Server](xref:fundamentals/servers/httpsys) (dříve označované jako webListener) nefungují v konfiguraci reverzního proxy serveru se službou IIS. Použití [Kestrel server](xref:fundamentals/servers/kestrel).
 
 Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-apps/index>.
+
+Pokyny k řešení potíží najdete <xref:test/troubleshoot>v tématu.
 
 ## <a name="supported-platforms"></a>Podporované platformy
 
@@ -68,7 +70,7 @@ Poté, co server HTTP služby IIS požadavek zpracuje, je požadavek vložen do 
 
 Vnitroprocesové hostování v rámci procesu je výslovný souhlas pro existující aplikace, ale [dotnet nové](/dotnet/core/tools/dotnet-new) šablony jsou výchozí pro všechny scénáře hostování v rámci procesu pro všechny služby IIS a IIS Express.
 
-`CreateDefaultBuilder`  [](/dotnet/standard/glossary#coreclr) přidá instanci voláním metodyprospuštěníCoreCLRahostováníaplikaceuvnitřpracovníhoprocesuslužbyIIS(W3wp.exeneboIISExpress.exe).<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> <xref:Microsoft.AspNetCore.Hosting.Server.IServer> Testy výkonu zjistí, že hostování .NET Core aplikace v procesu poskytuje výrazně vyšší propustnost žádostí, které jsou ve srovnání s žádostí aplikace na více instancí procesu a využívání proxy serverů k hostování [Kestrel](xref:fundamentals/servers/kestrel) serveru.
+`CreateDefaultBuilder` [](/dotnet/standard/glossary#coreclr) přidá instanci voláním metodyprospuštěníCoreCLRahostováníaplikaceuvnitřpracovníhoprocesuslužbyIIS(W3wp.exeneboIISExpress.exe).<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> <xref:Microsoft.AspNetCore.Hosting.Server.IServer> Testy výkonu zjistí, že hostování .NET Core aplikace v procesu poskytuje výrazně vyšší propustnost žádostí, které jsou ve srovnání s žádostí aplikace na více instancí procesu a využívání proxy serverů k hostování [Kestrel](xref:fundamentals/servers/kestrel) serveru.
 
 ::: moniker-end
 
@@ -263,7 +265,7 @@ Povolit **webového serveru (IIS)** role serveru a vytvoření služby rolí.
    Chcete-li povolit ověřování systému Windows, rozbalte následující uzly: **Zabezpečení webového serveru** > . Vyberte **ověřování Windows** funkce. Další informace najdete v tématu [ověřování Windows \<windowsAuthentication >](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Windows nakonfigurovat ověřování](xref:security/authentication/windowsauth).
 
    **Protokoly Websocket (volitelné)**  
-   Protokoly Websocket je podporována s ASP.NET Core 1.1 nebo vyšší. Pokud chcete povolit objekty WebSockets, rozbalte tyto uzly:  > **Vývoj aplikací**webového serveru. Vyberte **protokol WebSocket** funkce. Další informace najdete v tématu [objekty Websocket](xref:fundamentals/websockets).
+   Protokoly Websocket je podporována s ASP.NET Core 1.1 nebo vyšší. Pokud chcete povolit objekty WebSockets, rozbalte tyto uzly: > **Vývoj aplikací**webového serveru. Vyberte **protokol WebSocket** funkce. Další informace najdete v tématu [objekty Websocket](xref:fundamentals/websockets).
 
 1. Pokračujte **potvrzení** krok instalace role webového serveru a služby. Po instalaci se nevyžaduje restartování serveru/IIS **webového serveru (IIS)** role.
 
@@ -285,7 +287,7 @@ Povolit **konzolu pro správu IIS** a **webové služby**.
    Chcete-li povolit ověřování systému Windows, rozbalte následující uzly: **Zabezpečení webových služeb** > . Vyberte **ověřování Windows** funkce. Další informace najdete v tématu [ověřování Windows \<windowsAuthentication >](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Windows nakonfigurovat ověřování](xref:security/authentication/windowsauth).
 
    **Protokoly Websocket (volitelné)**  
-   Protokoly Websocket je podporována s ASP.NET Core 1.1 nebo vyšší. Pokud chcete povolit objekty WebSockets, rozbalte tyto uzly:  > **Funkce pro vývoj aplikací**ve webové službě. Vyberte **protokol WebSocket** funkce. Další informace najdete v tématu [objekty Websocket](xref:fundamentals/websockets).
+   Protokoly Websocket je podporována s ASP.NET Core 1.1 nebo vyšší. Pokud chcete povolit objekty WebSockets, rozbalte tyto uzly: > **Funkce pro vývoj aplikací**ve webové službě. Vyberte **protokol WebSocket** funkce. Další informace najdete v tématu [objekty Websocket](xref:fundamentals/websockets).
 
 1. Pokud instalace služby IIS vyžaduje restartování, restartujte systém.
 
