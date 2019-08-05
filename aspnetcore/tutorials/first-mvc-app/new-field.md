@@ -1,59 +1,73 @@
 ---
-title: Přidání nového pole do aplikace ASP.NET Core MVC
+title: Přidání nového pole do ASP.NET Core aplikace MVC
 author: rick-anderson
-description: Další informace o použití migrace Entity Framework Code First pro přidání nového pole do modelu a migrovat tuto změnu do databáze.
+description: Naučte se, jak pomocí Migrace Entity Framework Code First přidat nové pole do modelu a migrovat tuto změnu do databáze.
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 45506d071c90c91a61e6912ff51350b43e8ae136
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: f22a90dd7662bfb34e2f7adb87fa611012d78533
+ms.sourcegitcommit: b5e63714afc26e94be49a92619586df5189ed93a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034792"
+ms.lasthandoff: 08/02/2019
+ms.locfileid: "68739584"
 ---
-# <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>Přidání nového pole do aplikace ASP.NET Core MVC
+# <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>Přidání nového pole do ASP.NET Core aplikace MVC
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V této části [Entity Framework](/ef/core/get-started/aspnetcore/new-db) se používá k migrace Code First:
+V této části se [Entity Framework](/ef/core/get-started/aspnetcore/new-db) migrace Code First používá pro:
 
-* Přidání nového pole do modelu.
-* Migrace nové pole do databáze.
+* Přidejte do modelu nové pole.
+* Migrujte nové pole do databáze.
 
-Když platforem EF Code First umožňuje automaticky vytvořte databázi, Code First:
+Když se Code First EF používá k automatickému vytvoření databáze, Code First:
 
-* Tabulka se přidá do databáze, kterou chcete sledovat schéma databáze.
-* Ověřuje, že je synchronizovaný s tříd modelu, které byly vygenerovány z databáze. Pokud nejsou synchronizované, EF vyvolá výjimku. Díky tomu je snazší najít problémy s nekonzistentní databáze nebo kódu.
+* Přidá tabulku do databáze pro sledování schématu databáze.
+* Ověřuje, zda je databáze synchronizována s třídami modelů, ze kterých byla vygenerována. Pokud nejsou synchronizovány, EF vyvolá výjimku. Díky tomu je snazší najít nekonzistentní problémy s databází či kódem.
 
-## <a name="add-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti hodnocení filmů modelu
+## <a name="add-a-rating-property-to-the-movie-model"></a>Přidat vlastnost hodnocení do modelu videa
 
-Přidat `Rating` vlastnost *Models/Movie.cs*:
+Přidat vlastnost do *modelů/filmu. cs:* `Rating`
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
-Vytvořte aplikaci (Ctrl + Shift + B).
+Sestavení aplikace
 
-Protože jsme přidali nové pole do `Movie` třídy, budete muset aktualizovat vazbu seznamu povolených, aby tuto novou vlastnost budou zahrnuty. V *MoviesController.cs*, aktualizovat `[Bind]` atribut pro obě `Create` a `Edit` metody akce, které chcete zahrnout `Rating` vlastnost:
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+ Ctrl+Shift+B
+
+### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+`dotnet build`
+
+### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+Příkaz ⌘ + B
+
+------
+
+Vzhledem k tomu, že jste do `Movie` třídy přidali nové pole, je nutné aktualizovat seznam vazeb, aby byla tato nová vlastnost zahrnutá. V *MoviesController.cs*aktualizujte `[Bind]` `Create` atribut pro metody a `Edit` akce tak, aby zahrnovaly `Rating` vlastnost:
 
 ```csharp
 [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")]
    ```
 
-Aktualizace šablon zobrazení, aby bylo možné zobrazit, vytvořit a upravit novou `Rating` vlastností v okně prohlížeče.
+Aktualizujte šablony zobrazení, aby bylo možné zobrazit, vytvořit a upravit novou `Rating` vlastnost v zobrazení prohlížeče.
 
-Upravit */Views/Movies/Index.cshtml* a přidejte `Rating` pole:
+Upravte soubor */views/Movies/index.cshtml* a přidejte `Rating` pole:
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGenreRating.cshtml?highlight=16,38&range=24-64)]
 
-Aktualizace */Views/Movies/Create.cshtml* s `Rating` pole.
+Aktualizujte */views/Movies/Create.cshtml* s `Rating` polem.
 
 # <a name="visual-studio--visual-studio-for-mactabvisual-studiovisual-studio-mac"></a>[Visual Studio / Visual Studio for Mac](#tab/visual-studio+visual-studio-mac)
 
-Můžete kopírovat/vložit předchozí "formuláře skupinu" a aktualizujte pole pomohou technologie intelliSense. Technologie IntelliSense funguje s [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).
+Můžete zkopírovat a vložit předchozí "skupinu formulářů" a nechat intelliSense, aby vám aktualizovala pole. Technologie IntelliSense spolupracuje s [pomocníky značek](xref:mvc/views/tag-helpers/intro).
 
-![Vývojář napsal písmeno R pro hodnotu atributu ASP-pro druhý popisek prvku zobrazení. Jeho ikona místní nabídku technologie Intellisense zobrazí dostupná pole, včetně hodnocení, který je zvýrazněn v seznamu automaticky. Když vývojář klikne pole nebo stiskne klávesu Enter na klávesnici, hodnota se nastaví na hodnocení.](new-field/_static/cr.png)
+![Vývojář zadal písmeno R pro hodnotu atributu ASP-for v druhém prvku popisku zobrazení. V kontextové nabídce technologie IntelliSense se objevila pole k dispozici, včetně hodnocení, které je automaticky zvýrazněno v seznamu. Když vývojář klikne na pole nebo stiskne klávesu ENTER na klávesnici, hodnota se nastaví na hodnocení.](new-field/_static/cr.png)
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -61,29 +75,31 @@ Můžete kopírovat/vložit předchozí "formuláře skupinu" a aktualizujte pol
 
 ---
 
-Aktualizace `SeedData` třídy tak, že poskytuje hodnoty pro nový sloupec. Ukázka změnu je uveden níže, ale budete chtít tuto změnu pro každou `new Movie`.
+Aktualizujte zbývající šablony.
+
+Aktualizujte `SeedData` třídu tak, aby poskytovala hodnotu pro nový sloupec. Tato změna se zobrazuje níže, ale tuto změnu budete chtít udělat pro každou z nich `new Movie`.
 
 [!code-csharp[](start-mvc/sample/MvcMovie/Models/SeedDataRating.cs?name=snippet1&highlight=6)]
 
-Aplikace nebude fungovat, dokud databáze je aktualizováno, aby zahrnovalo nové pole. Pokud se má spustit nyní následující `SqlException` je vyvolána výjimka:
+Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud je spuštěno nyní, je vyvolána `SqlException` následující:
 
 `SqlException: Invalid column name 'Rating'.`
 
-K této chybě dochází, protože se liší od schématu tabulky Movie existující databáze aktualizované třídy modelu video. (Neexistuje žádný `Rating` sloupec v tabulce databáze.)
+K této chybě dochází, protože aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů existující databáze. (V tabulce databáze `Rating` není žádný sloupec.)
 
-Řešení chyby několika způsoby:
+K řešení této chyby je potřeba několik přístupů:
 
-1. Máte rozhraní Entity Framework automaticky vyřadit a znovu vytvořit databázi založené na nové schéma třídy modelu. Tento přístup je velmi vhodné v rané fázi vývojového cyklu, pokud provádíte databázi testu; s aktivním vývojem umožňuje rychlý rozvoj schématu modelu a databáze společně. Nevýhodou, je však dojít ke ztrátě existujících dat v databázi, takže nechcete tuto metodu použijte u provozní databáze. Použití inicializátoru automaticky naplnit databázi daty testu je často produktivní způsob, jak vyvíjet aplikace. To je dobrý nápad pro raného vývoje a při použití SQLite.
+1. Entity Framework automaticky vyřadit a znovu vytvořit databázi na základě nového schématu třídy modelu. Tento přístup je velmi výhodný v rané fázi vývoje, když provádíte aktivní vývoj na testovací databázi. umožňuje rychlou vývoj modelu a schématu databáze dohromady. Nevýhodou, ale je to, že ztratíte stávající data v databázi, takže nechcete tento přístup použít v provozní databázi. Použití inicializátoru k automatickému osazení databáze s testovacími daty je často produktivním způsobem pro vývoj aplikace. To je dobrý přístup pro prvotní vývoj a při použití SQLite.
 
-2. Explicitně upravte schéma stávající databázi tak, aby odpovídalo tříd modelu. Výhodou tohoto přístupu je, že zachováte vaše data. Můžete tuto změnu provést buď ručně, nebo tak, že vytvoříte databázi změnit skript.
+2. Explicitně upravte schéma existující databáze tak, aby odpovídalo třídám modelu. Výhodou tohoto přístupu je, že zachováte data. Tuto změnu můžete provést buď ručně, nebo vytvořením skriptu změny databáze.
 
-3. Pomocí migrace Code First aktualizovat schéma databáze.
+3. K aktualizaci schématu databáze použijte Migrace Code First.
 
-V tomto kurzu se používá migrace Code First.
+Pro tento kurz se používá Migrace Code First.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Z **nástroje** nabídce vyberte možnost **Správce balíčků NuGet > Konzola správce balíčků**.
+V nabídce **nástroje** vyberte **správce balíčků NuGet > konzolu Správce balíčků**.
 
   ![PMC nabídky](adding-model/_static/pmc.png)
 
@@ -94,17 +110,17 @@ Add-Migration Rating
 Update-Database
 ```
 
-`Add-Migration` Příkaz říká rozhraní framework migrace ke kontrole aktuální `Movie` modelů s aktuálním `Movie` schématu databáze a vytvářet kód potřebné k migraci databáze na nový model.
+Příkaz instruuje rámec migrace, aby kontroloval aktuální `Movie` model s aktuálním `Movie` databázovým schématem a vytvořil potřebný kód pro migraci databáze do nového modelu. `Add-Migration`
 
-Název "Hodnocení" je volitelný a slouží k pojmenování souboru migrace. Je vhodné použít smysluplný název souboru migrace.
+Název "hodnocení" je libovolný a slouží k pojmenování souboru migrace. Je užitečné použít pro migrační soubor smysluplný název.
 
-Pokud se odstraní všechny záznamy z databáze, Metoda initialize bude počáteční hodnoty databáze a uveďte `Rating` pole.
+Pokud jsou všechny záznamy v databázi odstraněny, metoda Initialize vytvoří databázi a zahrne `Rating` pole.
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-Odstranění databáze a znovu vytvořit databázi pomocí migrace. Pokud chcete odstranit databázi, odstraňte soubor databáze (*MvcMovie.db*). Spusťte `ef database update` příkaz:
+Odstraňte databázi a pomocí migrace znovu vytvořte databázi. Chcete-li odstranit databázi, odstraňte soubor databáze (*MvcMovie. DB*). Pak spusťte `ef database update` příkaz:
 
 ```console
 dotnet ef database update
@@ -113,8 +129,8 @@ dotnet ef database update
 ---
 <!-- End of VS tabs -->
 
-Spusťte aplikaci a ověřit, je možné vytvořit/upravit/zobrazit videa s `Rating` pole. Měli byste přidat `Rating` pole `Edit`, `Details`, a `Delete` zobrazení šablon.
+Spusťte aplikaci a ověřte, že můžete vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Měli byste přidat `Rating` pole `Edit`do šablon zobrazení, `Details`a `Delete` .
 
 > [!div class="step-by-step"]
-> [Předchozí](search.md)
-> [další](validation.md)
+> [Předchozí](search.md)Další
+> [](validation.md)
