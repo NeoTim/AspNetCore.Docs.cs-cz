@@ -1009,6 +1009,8 @@
       uid: fundamentals/localization
     - name: Lokalizace souborů Portable Object
       uid: fundamentals/portable-object-localization
+    - name: Rozšiřitelnost
+      uid: fundamentals/localization-extensibility
     - name: Řešení potíží
       uid: fundamentals/troubleshoot-aspnet-core-localization
 - name: Upřesnit

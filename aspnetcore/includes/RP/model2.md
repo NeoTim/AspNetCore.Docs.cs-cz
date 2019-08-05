@@ -18,18 +18,19 @@ Do souboru *appSettings. JSON* přidejte připojovací řetězec, jak ukazuje n�
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/appsettings_SQLite.json?highlight=10-12)]
 
-### <a name="add-required-nuget-packages"></a>Přidat požadované balíčky NuGet
+### <a name="add-nuget-packages-and-ef-tools"></a>Přidat balíčky NuGet a nástroje EF
 
-Otevřete terminálu pro projekt RazorPagesMovie.  Klikněte pravým tlačítkem myši na název projektu na panelu návrh nebo rozložení a přejděte na **nástroje > otevřít** v terminálu. V Termech spusťte následující příkazy .NET Core CLI. Příkazy přidat SQLite, Entity Framework Core a strategii. design do projektu:
+Otevřete terminálu pro projekt RazorPagesMovie.  Klikněte pravým tlačítkem myši na název projektu na panelu návrh nebo rozložení a přejděte na **nástroje > otevřít** v terminálu. Spusťte následující příkazy .NET Core CLI v termínu:
 
 ```console
+dotnet tool install --global dotnet-ef --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
 ```
 
-`Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíček je vyžadován pro generování uživatelského rozhraní.
+Předchozí příkazy přidají do projektu Entity Framework Core nástroje pro rozhraní .NET CLI a několik balíčků. `Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíček je vyžadován pro generování uživatelského rozhraní.
 
 <a name="reg"></a>
 

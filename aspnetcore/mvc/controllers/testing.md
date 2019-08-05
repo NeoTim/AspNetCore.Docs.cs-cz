@@ -1,183 +1,183 @@
 ---
-title: Testovací kontroler logiku v ASP.NET Core
+title: Logicer Test Controller v ASP.NET Core
 author: ardalis
-description: Zjistěte, jak otestovat logice kontroleru v ASP.NET Core s Moq a xUnit.
+description: Naučte se testovat logiku kontroleru v ASP.NET Core s MOQ a xUnit.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2019
+ms.date: 08/03/2019
 uid: mvc/controllers/testing
-ms.openlocfilehash: 8dd2fc5d581dbcb11afbcdc0c154c0e2640f9259
-ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
+ms.openlocfilehash: 6238454b4fb809179d78d4e743e79abadb994e5c
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2019
-ms.locfileid: "67622730"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776606"
 ---
-# <a name="test-controller-logic-in-aspnet-core"></a>Testovací kontroler logiku v ASP.NET Core
+# <a name="test-controller-logic-in-aspnet-core"></a>Logicer Test Controller v ASP.NET Core
 
-Podle [Steve Smith](https://ardalis.com/)
+[Steve Smith](https://ardalis.com/)
 
-[Kontrolery](xref:mvc/controllers/actions) přehrát hlavní roli ve všech aplikacích technologie ASP.NET Core MVC. V důsledku toho byste měli mít jistotu, které se chovají kontrolerů tak, jak má. Automatizované testy můžete detekovat chyby, před nasazením aplikace do produkčního prostředí.
+[Řadiče](xref:mvc/controllers/actions) hrají v libovolné ASP.NET Core aplikaci MVC ústřední roli. V takovém případě byste měli mít jistotu, že se řadiče chovají tak, jak mají. Automatizované testy můžou detekovat chyby, než se aplikace nasadí do produkčního prostředí.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="unit-tests-of-controller-logic"></a>Testy jednotek logice kontroleru
+## <a name="unit-tests-of-controller-logic"></a>Testování částí logiky kontroleru
 
-[Testy jednotek](/dotnet/articles/core/testing/unit-testing-with-dotnet-test) zahrnovat testování částí aplikace v izolaci od jeho infrastrukturu a závislosti. Když logice kontroleru testování částí, jenom obsah jedné akce jsou testovány, není chování z jejich závislých nebo samotného rozhraní.
+[Testy jednotek](/dotnet/articles/core/testing/unit-testing-with-dotnet-test) zahrnují testování součásti aplikace v izolaci od jejich infrastruktury a závislostí. V případě logiky kontroleru testování jednotek je testován pouze obsah jedné akce, nikoli chování jeho závislostí nebo samotného rozhraní.
 
-Nastavte testy jednotek akce kontroleru a zaměřte se na chování kontroleru. Řadič testu jednotek se vyhnete scénáře, jako [filtry](xref:mvc/controllers/filters), [směrování](xref:fundamentals/routing), a [vazby modelu](xref:mvc/models/model-binding). Testy, které se týkají interakce mezi součástmi, které souhrnně odpověď na žádost zpracovává *integrační testy*. Další informace o testy integrace najdete v tématu <xref:test/integration-tests>.
+Nastavte testy jednotek pro akce kontroleru, abyste se mohli soustředit na chování řadiče. Test jednotek kontroleru zabraňuje scénářům, jako jsou [filtry](xref:mvc/controllers/filters), [Směrování](xref:fundamentals/routing)a [vazby modelů](xref:mvc/models/model-binding). Testy, které pokrývají interakce mezi součástmi, které společně reagují na žádost, jsou zpracovávány *integračními testy*. Další informace o integračních testech naleznete v <xref:test/integration-tests>tématu.
 
-Pokud píšete vlastní filtry a tras, testování částí je v izolaci, nikoli jako součást testů na určitý kontroler akce.
+Pokud vytváříte vlastní filtry a trasy, jednotkové testy je třeba izolovat, nikoli jako součást testů na konkrétní akci kontroleru.
 
-Abychom si předvedli kontroleru testů jednotek, projděte si následující kontroler v ukázkové aplikaci. Kontroler Home zobrazí seznam debaty relací a povolí vytváření nových relací debaty s požadavek POST:
+Chcete-li předvést testy jednotek kontrol, zkontrolujte následující kontroler v ukázkové aplikaci. V domovském řadiči se zobrazuje seznam relací debaty a umožňuje vytváření nových relací debaty s požadavkem POST:
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Controllers/HomeController.cs?name=snippet_HomeController&highlight=1,5,10,31-32)]
 
 Předchozí kontroler:
 
-* Následuje [explicitní závislosti Princip](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
-* Očekává, že [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) poskytnout instance `IBrainstormSessionRepository`.
-* Můžete otestovat s imitaci `IBrainstormSessionRepository` služby pomocí mock objektu rozhraní, jako například [Moq](https://www.nuget.org/packages/Moq/). A *imitaci objekt* je objekt kovodělných předem sadu chování vlastnosti a metody pro testování. Další informace najdete v tématu [Úvod do integrace testy](xref:test/integration-tests#introduction-to-integration-tests).
+* Následuje po [principu explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
+* Očekává [vložení závislosti (di)](xref:fundamentals/dependency-injection) k poskytnutí instance `IBrainstormSessionRepository`.
+* Dá se testovat pomocí `IBrainstormSessionRepository` napodobné služby pomocí objektové architektury, jako je [MOQ](https://www.nuget.org/packages/Moq/). Napodobný *objekt* je prefabrikované objekt s předem stanovenou sadou vlastností a způsobu použití pro testování. Další informace najdete v tématu [Úvod do integračních testů](xref:test/integration-tests#introduction-to-integration-tests).
 
-`HTTP GET Index` Metoda nemá žádný nebo větvení a smyček pouze volání metod. Naprogramování testu části pro tuto akci:
+`HTTP GET Index` Metoda nemá žádné smyček ani větvení a volá jenom jednu metodu. Testování částí pro tuto akci:
 
-* Mocks `IBrainstormSessionRepository` služby pomocí `GetTestSessions` metody. `GetTestSessions` vytvoří dvě Debata mock relace s daty a názvy relací.
-* Spustí `Index` metody.
-* Vytvoří kontrolní výrazy na výsledek vrácený metodou:
-  * A <xref:Microsoft.AspNetCore.Mvc.ViewResult> je vrácena.
-  * [ViewDataDictionary.Model](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary.Model*) je `StormSessionViewModel`.
-  * Obsahuje dvě relace debaty ukládají do `ViewDataDictionary.Model`.
+* Napodobuje `GetTestSessions`službupomocímetody `IBrainstormSessionRepository` . `GetTestSessions`Vytvoří dvě modely pracovních debat s daty a názvy relací.
+* `Index` Spustí metodu.
+* Provede kontrolní výrazy u výsledku vráceného metodou:
+  * <xref:Microsoft.AspNetCore.Mvc.ViewResult> Je vrácen.
+  * [ViewDataDictionary. model](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary.Model*) je `StormSessionViewModel`.
+  * V portálu jsou uloženy dvě relace debaty `ViewDataDictionary.Model`.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/HomeControllerTests.cs?name=snippet_Index_ReturnsAViewResult_WithAListOfBrainstormSessions&highlight=14-17)]
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/HomeControllerTests.cs?name=snippet_GetTestSessions)]
 
-Kontroler Home `HTTP POST Index` testy metoda ověřuje, že:
+Testy `HTTP POST Index` metody v domácím řadiči ověří, že:
 
-* Když [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid*) je `false`, metoda akce vrací *400 – Chybný požadavek* <xref:Microsoft.AspNetCore.Mvc.ViewResult> s příslušná data.
-* Když `ModelState.IsValid` je `true`:
-  * `Add` Volání metody v daném úložišti.
-  * A <xref:Microsoft.AspNetCore.Mvc.RedirectToActionResult> je vrácen s správné argumenty.
+* Pokud je `false` [ModelState. IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid*) , metoda Action vrátí *400 Chybný požadavek* <xref:Microsoft.AspNetCore.Mvc.ViewResult> s příslušnými daty.
+* Kdy `ModelState.IsValid` je `true`:
+  * Je `Add` volána metoda v úložišti.
+  * A <xref:Microsoft.AspNetCore.Mvc.RedirectToActionResult> se vrátí se správnými argumenty.
 
-Do stavu modelu je neplatný je testována přidáním chyb s použitím <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> jak je znázorněno v následujícím prvního testu:
+Neplatný stav modelu je testován přidáním chyb pomocí <xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.AddModelError*> , jak je znázorněno v prvním testu níže:
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/HomeControllerTests.cs?name=snippet_ModelState_ValidOrInvalid&highlight=9,16-17,38-41)]
 
-Když [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) není platný, stejné `ViewResult` se vrátí jako požadavek GET. Test nebude se pokoušet a zajistěte tak předání modelu je neplatný. Předání neplatný model není platný přístup, protože není spuštěn vazby modelu (Přestože [test integrace](xref:test/integration-tests) používá vazbu modelu). V takovém případě není testovaný vazby modelu. Tyto testy jednotek pouze testovaný kód v metodě akce.
+Když je [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) neplatný, vrátí se `ViewResult` stejná jako pro požadavek GET. Test se nepokusí předat neplatný model. Předání neplatného modelu není platný přístup, protože vazba modelu není spuštěná (i když [test integrace](xref:test/integration-tests) používá vazbu modelu). V takovém případě není testována vazba modelu. Tyto testy jednotek testuje pouze kód v metodě Action.
 
-Druhý test ověří, že `ModelState` platí:
+Druhý test ověří, zda `ModelState` je platný:
 
-* Nový `BrainstormSession` přidá (prostřednictvím úložiště).
-* Metoda vrátí `RedirectToActionResult` s očekávané vlastnosti.
+* Přidá se `BrainstormSession` nový (přes úložiště).
+* Metoda vrátí `RedirectToActionResult` s očekávanými vlastnostmi.
 
-Imitaci volání, které nejsou volány jsou obvykle ignoruje, ale volání `Verifiable` volání na konci instalace umožňuje mock ověřování do testu. To se provádí pomocí volání `mockRepo.Verify`, který selže test, pokud nebyla volána metoda očekávané.
+Napodobovaná volání, která nejsou volána, jsou obvykle ignorována, ale volání `Verifiable` na konci volání instalace umožňuje v testu vzhled. To se provádí s voláním `mockRepo.Verify`, které nefunguje test, pokud se očekávaná metoda nevolala.
 
 > [!NOTE]
-> Díky Moq knihovny používané v tomto příkladu je možné kombinovat mocks ověřitelný nebo "přísné", s neověřitelného mocks (také nazývané "dojde ke ztrátě" mocks nebo zástupné procedury). Další informace o [přizpůsobení chování model s využitím Moq](https://github.com/Moq/moq4/wiki/Quickstart#customizing-mock-behavior).
+> Knihovna MOQ použitá v této ukázce umožňuje kombinovat ověřitelná, nebo "striktní", napodobná neověřitelnými písmeny (označované také jako "volné" nebo zástupné procedury). Přečtěte si další informace o přizpůsobení napodobení [chování pomocí MOQ](https://github.com/Moq/moq4/wiki/Quickstart#customizing-mock-behavior).
 
-[SessionController](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) v ukázce aplikace se zobrazí informace týkající se konkrétní debaty. Kontroler obsahuje logiku se neplatná `id` hodnoty (jsou k dispozici dva `return` scénáře v následujícím příkladu pro tyto scénáře). Finální `return` příkaz vrátí nový `StormSessionViewModel` k zobrazení (*Controllers/SessionController.cs*):
+[SessionController](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) v ukázkové aplikaci zobrazuje informace týkající se konkrétní relace debaty. Kontroler obsahuje logiku k zaznamenání `id` neplatných hodnot ( `return` v následujícím příkladu existují dva scénáře, které se týkají těchto scénářů). Poslední `return` příkaz vrátí nové `StormSessionViewModel` zobrazení (*Controllers/SessionController. cs*):
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs?name=snippet_SessionController&highlight=12-16,18-22,31)]
 
-Testování částí zahrnují jeden test pro každou `return` scénář v kontroleru relace `Index` akce:
+Testy jednotek zahrnují jeden test pro každý `return` scénář v akci řadiče `Index` relace:
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/SessionControllerTests.cs?name=snippet_SessionControllerTests&highlight=2,11-14,18,31-32,36,50-55)]
 
-Přesun ke kontroleru nápady, aplikace zpřístupňuje funkce jako webové rozhraní API na `api/ideas` trasy:
+Přesunutí na kontroler nápadů aplikace zpřístupňuje funkce jako webové rozhraní API v `api/ideas` trase:
 
-* Seznam nápadů (`IdeaDTO`) související s debaty je vrácený relace `ForSession` metody.
-* `Create` Metoda přidá nové nápady týkající se k relaci.
+* Pomocí metody je vrácen seznam`IdeaDTO`nápadů () přidružených k relaci debaty. `ForSession`
+* `Create` Metoda přidává do relace nové nápady.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Api/IdeasController.cs?name=snippet_ForSessionAndCreate&highlight=1-2,21-22)]
 
-Vyhněte se vracení obchodní domény entity přímo prostřednictvím volání rozhraní API. Entity domény:
+Vyhněte se vracení entit obchodních domén přímo prostřednictvím volání rozhraní API. Entity domény:
 
-* Často zahrnují více dat, než klient vyžaduje.
-* Zkombinujte zbytečně model interní domény aplikace s rozhraním API pro veřejně vystavené.
+* Často zahrnuje více dat, než vyžaduje klient nástroje.
+* Nenutně navýšení interního doménového modelu aplikace s veřejně vystaveným rozhraním API.
 
-Mapování mezi domény subjekty a typy vrácených do klienta lze provést:
+Mapování mezi doménovými entitami a typy vrácenými do klienta lze provést:
 
-* Ručně pomocí LINQ `Select`, jak ukázková aplikace používá. Další informace najdete v tématu [LINQ (Language Integrated Query)](/dotnet/standard/using-linq).
-* Automaticky s knihovnou jako například [AutoMapper](https://github.com/AutoMapper/AutoMapper).
+* Ručně pomocí LINQ `Select`, jak ukázková aplikace používá. Další informace naleznete v tématu [LINQ (Language Integrated Query)](/dotnet/standard/using-linq).
+* Automaticky pomocí knihovny, například automatického [mapovače](https://github.com/AutoMapper/AutoMapper).
 
-V dalším kroku ukázková aplikace předvádí testů jednotek pro `Create` a `ForSession` metody rozhraní API řadiče nápady.
+V dalším kroku Tato ukázková aplikace ukazuje testy `Create` jednotek rozhraní API a `ForSession` kontroleru nápadů.
 
-Ukázková aplikace obsahuje dva `ForSession` testy. První test Určuje, zda `ForSession` vrátí <xref:Microsoft.AspNetCore.Mvc.NotFoundObjectResult> (HTTP nebyl nalezen) pro neplatnou relaci:
+Ukázková aplikace obsahuje dva `ForSession` testy. První test určuje, zda `ForSession` <xref:Microsoft.AspNetCore.Mvc.NotFoundObjectResult> vrátí hodnotu (http Nenalezeno) pro neplatnou relaci:
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ApiIdeasControllerTests4&highlight=5,7-8,15-16)]
 
-Druhá `ForSession` testů Určuje, zda `ForSession` vrátí seznam nápadů relace (`<List<IdeaDTO>>`) pro relaci platný. Kontroly také prozkoumat první nápad k potvrzení jeho `Name` správnost vlastnost:
+Druhý `ForSession` test určuje, zda `ForSession` vrátí seznam nápadů relace (`<List<IdeaDTO>>`) pro platnou relaci. Kontroly také prověří první nápad a potvrdí, že `Name` jeho vlastnost je správná:
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ApiIdeasControllerTests5&highlight=5,7-8,15-18)]
 
-K otestování chování `Create` metoda při `ModelState` je neplatný, ukázkové aplikace přidá chybu modelu do řadiče testu v rámci. Otestovat ověření modelu nebo vazby při testech jednotek modelu se nepokoušejte&mdash;testování chování metody akce, když setkat s neplatnou `ModelState`:
+Chcete-li otestovat chování `Create` metody, `ModelState` Pokud je neplatná, ukázková aplikace přidá do kontroleru chybu modelu v rámci testu. Nepokoušejte se testovat ověřování modelu nebo vazbu modelů v testech&mdash;jednotek stačí testovat chování metody akce, pokud je začínat neplatným: `ModelState`
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ApiIdeasControllerTests1&highlight=7,13)]
 
-Druhý test `Create` závisí na úložišti vrácení `null`, takže mock úložiště je nakonfigurovaný k vrácení `null`. Není nutné vytvořit testovací databáze (v paměti nebo jinak) a vytvořit dotaz, který vrátí tento výsledek. Test můžete provést v jediném příkazu, jak vzorový kód ukazuje:
+Druhý test `Create` nástroje závisí na vráceném `null`úložišti, takže je nakonfigurované navýšení `null`úložiště. Není nutné vytvářet testovací databázi (v paměti nebo jinak) a vytvořit dotaz, který tento výsledek vrátí. Test lze provést v jediném příkazu, protože ukázka kódu ilustruje:
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ApiIdeasControllerTests2&highlight=7-8,15)]
 
-Třetí `Create` otestovat, `Create_ReturnsNewlyCreatedIdeaForSession`, ověřuje, že v úložišti `UpdateAsync` metoda je volána. Model se nazývá s `Verifiable`a imitaci úložiště `Verify` metoda je volána k potvrzení ověřitelné metody. Není test jednotky odpovědnost zajistit, aby `UpdateAsync` metoda uložit data&mdash;, které můžete provést pomocí o test integrace.
+Třetí `Create` `UpdateAsync` test ověří,zdajevolánametodaúložiště.`Create_ReturnsNewlyCreatedIdeaForSession` Tento maketa je volána `Verifiable`s a je volána `Verify` Metoda označeného úložiště k potvrzení, že je provedena ověřitelná metoda. Nejedná se o zodpovědnost za testování jednotek, aby bylo zajištěno, že `UpdateAsync` metoda uložila data&mdash;, která lze provést s testem integrace.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ApiIdeasControllerTests3&highlight=20-22,28-33)]
 
-## <a name="test-actionresultlttgt"></a>Testování ActionResult&lt;T&gt;
+## <a name="test-actionresultlttgt"></a>Test ActionResult&lt;T&gt;
 
-V ASP.NET Core 2.1 nebo novější [ActionResult&lt;T&gt; ](xref:web-api/action-return-types#actionresultt-type) (<xref:Microsoft.AspNetCore.Mvc.ActionResult%601>) umožňuje návratový typ odvozený od `ActionResult` nebo vrácení specifického typu.
+V ASP.NET Core 2,1 nebo novějším [ActionResult&lt;T&gt; ](xref:web-api/action-return-types#actionresultt-type) (<xref:Microsoft.AspNetCore.Mvc.ActionResult%601>) umožňuje vrátit typ odvozený od `ActionResult` nebo vracet konkrétní typ.
 
-Ukázková aplikace obsahuje metodu, která vrací `List<IdeaDTO>` pro dané relace `id`. Pokud relace `id` neexistuje, vrátí řadič <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>:
+Ukázková aplikace obsahuje metodu, která vrací `List<IdeaDTO>` pro danou relaci. `id` Pokud relace `id` neexistuje, kontroler vrátí <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>:
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Api/IdeasController.cs?name=snippet_ForSessionActionResult&highlight=10,21)]
 
-Dvě testů `ForSessionActionResult` řadiče jsou součástí `ApiIdeasControllerTests`.
+Do nástroje jsou zahrnuté `ForSessionActionResult` `ApiIdeasControllerTests`dva testy kontroleru.
 
-První test potvrdí, že kontroler vrací `ActionResult` , ale ne neexistující seznamu nápadů pro neexistující relace `id`:
+První test potvrdí, že kontroler vrátí `ActionResult` neexistující seznam nápadů pro neexistující relaci: `id`
 
-* `ActionResult` Typ je `ActionResult<List<IdeaDTO>>`.
-* <xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Result*> Je <xref:Microsoft.AspNetCore.Mvc.NotFoundObjectResult>.
+* `ActionResult` Typ je`ActionResult<List<IdeaDTO>>`.
+* <xref:Microsoft.AspNetCore.Mvc.ActionResult`1.Result*> Je a<xref:Microsoft.AspNetCore.Mvc.NotFoundObjectResult>.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ForSessionActionResult_ReturnsNotFoundObjectResultForNonexistentSession&highlight=7,10,13-14)]
 
-Pro relaci platný `id`, druhý test potvrdí, že metoda vrací:
+Pro platnou relaci `id`druhý test potvrdí, že metoda vrátí:
 
-* `ActionResult` s `List<IdeaDTO>` typu.
-* [ActionResult&lt;T&gt;. Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) je `List<IdeaDTO>` typu.
-* První položka v seznamu je platný odpovídající nápad uložené v mock relace (získán voláním `GetTestSession`).
+* `ActionResult` S`List<IdeaDTO>` typem.
+* [ActionResult&lt;T.&gt; Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) je `List<IdeaDTO>` typ.
+* První položka v seznamu je platný nápad, který odpovídá nápadu uloženému v relaci vzoru (získaný voláním `GetTestSession`).
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_ForSessionActionResult_ReturnsIdeasForSession&highlight=7-8,15-18)]
 
-Ukázková aplikace také zahrnuje metodu pro vytvoření nového `Idea` pro dané relace. Vrátí kontroleru:
+Ukázková aplikace také obsahuje metodu pro vytvoření nového `Idea` pro danou relaci. Kontroler vrátí:
 
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*> Neplatný model.
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*> Pokud relace neexistuje.
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> Při aktualizaci relace s nový nápad.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>Neplatný model.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>Pokud relace neexistuje.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*>Když se relace aktualizuje novým nápadem.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Api/IdeasController.cs?name=snippet_CreateActionResult&highlight=9,16,29)]
 
-Tři testů `CreateActionResult` jsou součástí `ApiIdeasControllerTests`.
+Tři testy `CreateActionResult` nástroje jsou součástí `ApiIdeasControllerTests`.
 
-První textový potvrdí, že <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*> vrátil neplatný model.
+První text potvrdí, že <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*> je vrácen pro neplatný model.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_CreateActionResult_ReturnsBadRequest_GivenInvalidModel&highlight=7,13-14)]
 
-Druhý test kontroluje, zda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*> je vrácena, pokud relace neexistuje.
+Druhý test ověří, zda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*> je vrácena, pokud relace neexistuje.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_CreateActionResult_ReturnsNotFoundObjectResultForNonexistentSession&highlight=5,15,22-23)]
 
-Pro relaci platný `id`, finální testování potvrdí, že:
+Pro platnou relaci `id`konečný test potvrzuje, že:
 
-* Metoda vrátí `ActionResult` s `BrainstormSession` typu.
-* [ActionResult&lt;T&gt;. Výsledek](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Result*) je <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult>. `CreatedAtActionResult` je obdobou *201 – vytvořeno* odpověď `Location` záhlaví.
-* [ActionResult&lt;T&gt;. Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) je `BrainstormSession` typu.
-* Aktualizujte relaci, mock voláním `UpdateAsync(testSession)`, byla vyvolána. `Verifiable` Volání metody je zaškrtnuté políčko spuštěním `mockRepo.Verify()` v kontrolní výrazy.
-* Dvě `Idea` objektů pro relaci.
-* Poslední položky ( `Idea` přidal mock volání `UpdateAsync`) odpovídá `newIdea` přidat do relace v testu.
+* Metoda vrací `ActionResult` `BrainstormSession` s typem.
+* [ActionResult&lt;T.&gt; Výsledkem](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Result*) je <xref:Microsoft.AspNetCore.Mvc.CreatedAtActionResult>. `CreatedAtActionResult`je analogický k *201 vytvořené* odpovědi s `Location` hlavičkou.
+* [ActionResult&lt;T.&gt; Hodnota](xref:Microsoft.AspNetCore.Mvc.ActionResult%601.Value*) je `BrainstormSession` typ.
+* Bylo vyvoláno nepoužité volání `UpdateAsync(testSession)`aktualizace relace. Volání metody je kontrolováno `mockRepo.Verify()` spuštěním ve kontrolním výrazu. `Verifiable`
+* Pro `Idea` relaci jsou vraceny dva objekty.
+* Poslední položka ( `Idea` přidaná `UpdateAsync`přívoláním metody) se shoduje `newIdea` s přidáním do relace v testu.
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/tests/TestingControllersSample.Tests/UnitTests/ApiIdeasControllerTests.cs?name=snippet_CreateActionResult_ReturnsNewlyCreatedIdeaForSession&highlight=20-22,28-34)]
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:test/integration-tests>
-* [Vytváření a spouštění testování částí pomocí sady Visual Studio](/visualstudio/test/unit-test-your-code).
+* [Vytvářejte a spouštějte testy jednotek pomocí sady Visual Studio](/visualstudio/test/unit-test-your-code).

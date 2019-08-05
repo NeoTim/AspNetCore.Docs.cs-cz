@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 222ae1d6212b838e5c70f831960fa23a9924a0ae
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: 4b94cc53777308deb26521a079d8a1c2742744db
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67856145"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776749"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
 
@@ -37,13 +37,13 @@ Tento kurz ukazuje, jak vytvořit webovou aplikaci ASP.NET Core s uživatelským
 * **Správci** můžete schválit nebo odmítnout kontaktní údaje. Uživatelé vidí pouze schválené kontakty.
 * **Správci** můžete schvalovat a odmítat a upravit nebo odstranit všechna data.
 
-Obrázky v tomto dokumentu není přesně odpovídat nejnovější šablony.
+Obrázky v tomto dokumentu se přesně neshodují s nejnovějšími šablonami.
 
 Na následujícím obrázku, uživatel Rick (`rick@example.com`) je přihlášený. Rick může zobrazit jenom schválené kontakty a **upravit**/**odstranit**/**vytvořit nový** odkazy pro jeho kontakty. Pouze poslední záznam vytvořil Rick, zobrazí **upravit** a **odstranit** odkazy. Ostatní uživatelé neuvidí poslední záznam, dokud správce nebo správce změní stav na "Schváleno".
 
 ![Snímek obrazovky zobrazující Rick přihlášení](secure-data/_static/rick.png)
 
-Na následujícím obrázku `manager@contoso.com` je podepsán v a role správce:
+Na následujícím obrázku `manager@contoso.com` je přihlášen a v roli manažera:
 
 ![Snímek obrazovky zobrazující manager@contoso.com přihlášení](secure-data/_static/manager1.png)
 
@@ -53,7 +53,7 @@ Následující obrázek ukazuje vedoucí zobrazení podrobností o kontaktu:
 
 **Schválit** a **odmítnout** tlačítek se zobrazí pouze správci a správci.
 
-Na následujícím obrázku `admin@contoso.com` je podepsán v a v roli správce:
+Na následujícím obrázku `admin@contoso.com` je přihlášen a v roli správce:
 
 ![Snímek obrazovky zobrazující admin@contoso.com přihlášení](secure-data/_static/admin.png)
 
@@ -65,9 +65,9 @@ Aplikace byla vytvořena pomocí [generování uživatelského rozhraní](xref:t
 
 Ukázka obsahuje následující rutiny autorizace:
 
-* `ContactIsOwnerAuthorizationHandler`: Zajišťuje, že uživatel může upravovat jenom svá data.
-* `ContactManagerAuthorizationHandler`: Umožňuje správcům schválit nebo odmítnout kontakty.
-* `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schválit nebo odmítnout kontakty a úpravy nebo odstranění kontaktů.
+* `ContactIsOwnerAuthorizationHandler`: Zajišťuje, aby uživatel mohl upravovat pouze svá data.
+* `ContactManagerAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty.
+* `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -122,7 +122,7 @@ Nastavte výchozí zásady ověřování tak, aby vyžadovala ověření uživat
 
  Můžete zrušit ověřování na úrovni metody stránky Razor, kontroler nebo akce s `[AllowAnonymous]` atribut. Nastavení výchozí zásady ověřování tak, aby vyžadovala ověření uživatelů chrání nově přidané Razor Pages a kontrolery. Ve výchozím nastavení je vyžadováno ověření je bezpečnější než spoléhání se na nové řadiče a Razor Pages zahrnout s `[Authorize]` atribut.
 
-Přidat [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) na Index a ochrana osobních údajů stránky anonymní uživatelé získali informace o webu předtím, než aby se zaregistrovali.
+Přidejte [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) na stránky rejstřík a soukromí, aby anonymní uživatelé mohli získat informace o lokalitě před jejich registrací.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Index.cshtml.cs?highlight=1,7)]
 
@@ -159,7 +159,7 @@ Vytvoření `ContactIsOwnerAuthorizationHandler` třídy v *autorizace* složky.
 `ContactIsOwnerAuthorizationHandler` Volání [kontextu. Úspěšné](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) aktuálně ověřeného uživatele při jeho vlastníkem. Obslužné rutiny autorizace obecně:
 
 * Vrátí `context.Succeed` Pokud jsou splněny.
-* Vrátí `Task.CompletedTask` Pokud požadavky nejsou splněny. `Task.CompletedTask` není úspěch nebo neúspěch&mdash;umožňuje ostatních obslužných rutin autorizaci ke spuštění.
+* Vrátí `Task.CompletedTask` Pokud požadavky nejsou splněny. `Task.CompletedTask`není úspěch nebo neúspěch&mdash;, umožňuje spuštění dalších obslužných rutin autorizace.
 
 Pokud je potřeba explicitně nezdaří, vrátí [kontextu. Selhání](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
 
@@ -242,7 +242,7 @@ Aktualizace modelu stránku odstranit sloužící k ověření, že uživatel m�
 
 V současné době ukazuje uživatelského rozhraní upravovat a odstraňovat kontakty, které uživatel nemůže upravovat odkazy.
 
-Vloží autorizační službu v *Pages/_ViewImports.cshtml* souboru tak, aby byl k dispozici pro všechna zobrazení:
+Vložení autorizační služby do souboru *Pages/_ViewImports. cshtml* , aby bylo dostupné pro všechna zobrazení:
 
 [!code-cshtml[](secure-data/samples/final3/Pages/_ViewImports.cshtml?highlight=6-99)]
 
@@ -269,14 +269,14 @@ Model stránky podrobnosti aktualizace:
 
 Zobrazit [tento problém](https://github.com/aspnet/AspNetCore.Docs/issues/8502) informace na:
 
-* Odebrání oprávnění uživatele. Například ztlumení uživatele v chatovací aplikaci.
+* Odebrání oprávnění uživatele. Například ztlumení uživatele v aplikaci chatu.
 * Přidání oprávnění pro uživatele.
 
 ## <a name="test-the-completed-app"></a>Testování dokončené aplikace
 
 Pokud jste dosud nenastavili hesla pro dosazené uživatelské účty, použijte [nástroj tajný klíč správce](xref:security/app-secrets#secret-manager) nastavit heslo:
 
-* Zvolte silné heslo: Použít osm nebo více znaků a alespoň jeden znak velká písmena, čísla a symbolů. Například `Passw0rd!` splňuje požadavky na silné heslo.
+* Vyberte silné heslo: Použijte osm nebo více znaků a alespoň jedno velké písmeno, číslici a symbol. Například `Passw0rd!` splňuje požadavky na silné heslo.
 * Spusťte následující příkaz ze složky projektu, kde `<PW>` je heslo:
 
   ```console
@@ -314,7 +314,7 @@ Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro ods
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* Přidat *Models/Contact.cs*:
+* Přidat *modely/kontakt. cs*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
@@ -330,9 +330,9 @@ dotnet ef migrations add initial
 dotnet ef database update
   ```
 
-Pokud se setkáte s chybou `dotnet aspnet-codegenerator razorpage` naleznete [tento problém Githubu](https://github.com/aspnet/Scaffolding/issues/984).
+Pokud se zobrazí chyba s `dotnet aspnet-codegenerator razorpage` příkazem, přečtěte si [Tento problém GitHub](https://github.com/aspnet/Scaffolding/issues/984).
 
-* Aktualizace **ContactManager** ukotvit v *Pages/Shared/_Layout.cshtml* souboru:
+* Aktualizujte kotvu **ContactManager** v souboru *Pages/Shared/_Layout. cshtml* :
 
  ```cshtml
 <a class="navbar-brand" asp-area="" asp-page="/Contacts/Index">ContactManager</a>
@@ -342,7 +342,7 @@ Pokud se setkáte s chybou `dotnet aspnet-codegenerator razorpage` naleznete [te
 
 ### <a name="seed-the-database"></a>Přidání dat do databáze
 
-Přidat [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs) třídu *Data* složky:
+Do složky *data* přidejte třídu [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs) :
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
@@ -366,7 +366,7 @@ Na následujícím obrázku, uživatel Rick (`rick@example.com`) je přihlášen
 
 ![Snímek obrazovky zobrazující Rick přihlášení](secure-data/_static/rick.png)
 
-Na následujícím obrázku `manager@contoso.com` je podepsán v a role správce:
+Na následujícím obrázku `manager@contoso.com` je přihlášen a v roli manažera:
 
 ![Snímek obrazovky zobrazující manager@contoso.com přihlášení](secure-data/_static/manager1.png)
 
@@ -376,7 +376,7 @@ Následující obrázek ukazuje vedoucí zobrazení podrobností o kontaktu:
 
 **Schválit** a **odmítnout** tlačítek se zobrazí pouze správci a správci.
 
-Na následujícím obrázku `admin@contoso.com` je podepsán v a v roli správce:
+Na následujícím obrázku `admin@contoso.com` je přihlášen a v roli správce:
 
 ![Snímek obrazovky zobrazující admin@contoso.com přihlášení](secure-data/_static/admin.png)
 
@@ -388,9 +388,9 @@ Aplikace byla vytvořena pomocí [generování uživatelského rozhraní](xref:t
 
 Ukázka obsahuje následující rutiny autorizace:
 
-* `ContactIsOwnerAuthorizationHandler`: Zajišťuje, že uživatel může upravovat jenom svá data.
-* `ContactManagerAuthorizationHandler`: Umožňuje správcům schválit nebo odmítnout kontakty.
-* `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schválit nebo odmítnout kontakty a úpravy nebo odstranění kontaktů.
+* `ContactIsOwnerAuthorizationHandler`: Zajišťuje, aby uživatel mohl upravovat pouze svá data.
+* `ContactManagerAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty.
+* `ContactAdministratorsAuthorizationHandler`: Umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -482,7 +482,7 @@ Vytvoření `ContactIsOwnerAuthorizationHandler` třídy v *autorizace* složky.
 `ContactIsOwnerAuthorizationHandler` Volání [kontextu. Úspěšné](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) aktuálně ověřeného uživatele při jeho vlastníkem. Obslužné rutiny autorizace obecně:
 
 * Vrátí `context.Succeed` Pokud jsou splněny.
-* Vrátí `Task.CompletedTask` Pokud požadavky nejsou splněny. `Task.CompletedTask` není úspěch nebo neúspěch&mdash;umožňuje ostatních obslužných rutin autorizaci ke spuštění.
+* Vrátí `Task.CompletedTask` Pokud požadavky nejsou splněny. `Task.CompletedTask`není úspěch nebo neúspěch&mdash;, umožňuje spuštění dalších obslužných rutin autorizace.
 
 Pokud je potřeba explicitně nezdaří, vrátí [kontextu. Selhání](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
 
@@ -592,25 +592,26 @@ Model stránky podrobnosti aktualizace:
 
 Zobrazit [tento problém](https://github.com/aspnet/AspNetCore.Docs/issues/8502) informace na:
 
-* Odebrání oprávnění uživatele. Například ztlumení uživatele v chatovací aplikaci.
+* Odebrání oprávnění uživatele. Například ztlumení uživatele v aplikaci chatu.
 * Přidání oprávnění pro uživatele.
 
 ## <a name="test-the-completed-app"></a>Testování dokončené aplikace
 
 Pokud jste dosud nenastavili hesla pro dosazené uživatelské účty, použijte [nástroj tajný klíč správce](xref:security/app-secrets#secret-manager) nastavit heslo:
 
-* Zvolte silné heslo: Použít osm nebo více znaků a alespoň jeden znak velká písmena, čísla a symbolů. Například `Passw0rd!` splňuje požadavky na silné heslo.
+* Vyberte silné heslo: Použijte osm nebo více znaků a alespoň jedno velké písmeno, číslici a symbol. Například `Passw0rd!` splňuje požadavky na silné heslo.
 * Spusťte následující příkaz ze složky projektu, kde `<PW>` je heslo:
 
   ```console
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-* Vyřaďte a aktualizaci databáze
+* Zrušení a aktualizace databáze
+
     ```console
      dotnet ef database drop -f
      dotnet ef database update  
-```
+     ```
 
 * Restartujte aplikaci k přidání dat do databáze.
 
@@ -640,7 +641,7 @@ Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro ods
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* Přidat *Models/Contact.cs*:
+* Přidat *modely/kontakt. cs*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 

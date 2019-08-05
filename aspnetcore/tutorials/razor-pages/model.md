@@ -5,12 +5,12 @@ description: Objevte, jak přidat třídy pro správu filmy v databázi pomocí 
 ms.author: riande
 ms.date: 07/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: b7f77cfa51f8d86504939e31eade0dfda8a6b1c9
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 1c944a10ced7219aa9b0635b822f27081c92995f
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68371898"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776714"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -99,7 +99,7 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
 
   ```console
-   dotnet tool install --global dotnet-aspnet-codegenerator
+   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
    ```
 
 * **Pro Windows**: Spusťte následující příkaz:
@@ -122,7 +122,7 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
 
   ```console
-   dotnet tool install --global dotnet-aspnet-codegenerator
+   dotnet tool install --global dotnet-aspnet-codegenerator --version 3.0.0-*
    ```
 
 * Spusťte následující příkaz:

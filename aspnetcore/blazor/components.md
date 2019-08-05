@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/02/2019
 uid: blazor/components
-ms.openlocfilehash: 278a593ebd6d0b18d2850f90e1b34ce5ec93e507
-ms.sourcegitcommit: b5e63714afc26e94be49a92619586df5189ed93a
+ms.openlocfilehash: 6285eb26bae283fe0c1a5bc000c2a4fe6b9ec738
+ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/02/2019
-ms.locfileid: "68739487"
+ms.lasthandoff: 08/04/2019
+ms.locfileid: "68776581"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -345,7 +345,7 @@ Následující kód volá `UpdateHeading` metodu, pokud je vybráno tlačítko v
 Následující kód volá `CheckChanged` metodu, když je zaškrtávací políčko změněno v uživatelském rozhraní:
 
 ```cshtml
-<input type="checkbox" class="form-check-input" @onchange="CheckboxChanged" />
+<input type="checkbox" class="form-check-input" @onchange="CheckChanged" />
 
 @code {
     private void CheckChanged()
