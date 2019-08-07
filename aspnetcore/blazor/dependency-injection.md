@@ -1,45 +1,45 @@
 ---
-title: Injektáž závislostí ASP.NET Core Blazor
+title: Vkládání závislostí ASP.NET Core Blazor
 author: guardrex
-description: Podívejte se, jak aplikace Blazor služby vložit do komponenty.
+description: Podívejte se, jak aplikace Blazor můžou vkládat služby do součástí.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/02/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: 394d99656ba52f6c561007121e63634c7cb84f37
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: a9330caa81eec0910206312283b3424c70cd1289
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67538474"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819774"
 ---
-# <a name="aspnet-core-blazor-dependency-injection"></a>Injektáž závislostí ASP.NET Core Blazor
+# <a name="aspnet-core-blazor-dependency-injection"></a>Vkládání závislostí ASP.NET Core Blazor
 
-Podle [Rainer Stropek](https://www.timecockpit.com)
+Od [Rainer Stropek](https://www.timecockpit.com)
 
-Podporuje Blazor [injektáž závislostí (DI)](xref:fundamentals/dependency-injection). Aplikace můžete použít integrované služby vkládání do komponenty. Aplikace můžete také definovat a registrovat vlastní služby a zpřístupnit je v celé aplikaci prostřednictvím DI.
+Blazor podporuje [vkládání závislostí (di)](xref:fundamentals/dependency-injection). Aplikace mohou používat vestavěné služby jejich vložením do komponent. Aplikace můžou také definovat a registrovat vlastní služby a zpřístupnit je v celé aplikaci přes DI.
 
-DI je technika, pro přístup ke službám, které jsou nakonfigurované v centrálním umístění. To může být užitečné v Blazor aplikací:
+DI je technika přístupu ke službám nakonfigurovaným v centrálním umístění. To může být užitečné v aplikacích Blazor k těmto akcím:
 
-* Sdílet jednu instanci třídy služby mezi řadu součástí, označované jako *singleton* služby.
-* Pomocí odkazu abstrakce oddělte součásti od tříd konkrétní služby. Představte si třeba rozhraní `IDataAccess` pro přístup k datům v aplikaci. Rozhraní je implementováno konkrétní `DataAccess` třídy a zaregistrováno jako služba v kontejneru aplikace služby. Pokud součást používá DI přijímat `IDataAccess` implementace, komponenta není spojeny s konkrétní typ. Implementace, je možné Prohodit, třeba pro imitovanou implementaci při testech jednotek.
+* Sdílejte jednu instanci třídy služby napříč mnoha komponentami, která se označuje jako služba typu *singleton* .
+* Oddělit komponenty od konkrétních tříd služeb pomocí abstrakcí odkazů. Představte si třeba rozhraní `IDataAccess` pro přístup k datům v aplikaci. Rozhraní je implementováno konkrétní `DataAccess` třídou a registrováno jako služba v kontejneru služby aplikace. Pokud komponenta používá di pro příjem `IDataAccess` implementace, komponenta není spojena se konkrétním typem. Implementaci je možné prohodit, třeba pro podrobnější implementaci v testování částí.
 
 ## <a name="default-services"></a>Výchozí služby
 
-Výchozí služby jsou automaticky přidány do aplikace služby kolekce.
+Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 
 | Služba | Životnost | Popis |
 | ------- | -------- | ----------- |
-| <xref:System.Net.Http.HttpClient> | Singleton | Poskytuje metody pro odesílání požadavků HTTP a příjem odpovědí HTTP ze zdroje identifikovaného identifikátorem URI. Všimněte si, že tato instance `HttpClient` používá prohlížeč pro zpracování provozu HTTP na pozadí. [HttpClient.BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress) se automaticky nastaví na základní identifikátor URI předponu aplikace. Další informace naleznete v tématu <xref:blazor/call-web-api>. |
-| `IJSRuntime` | Singleton | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odeslány volání JavaScriptu. Další informace naleznete v tématu <xref:blazor/javascript-interop>. |
-| `IUriHelper` | Singleton | Obsahuje pomocné rutiny pro práci s identifikátory URI a navigační stav. Další informace najdete v tématu [identifikátor URI a navigační stav pomocné rutiny](xref:blazor/routing#uri-and-navigation-state-helpers). |
+| <xref:System.Net.Http.HttpClient> | Singleton | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI. Všimněte si, že tato `HttpClient` instance nástroje používá prohlížeč pro zpracování provozu http na pozadí. [HttpClient. BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress) se automaticky nastaví na základní PŘEDPONu identifikátoru URI aplikace. Další informace naleznete v tématu <xref:blazor/call-web-api>. |
+| `IJSRuntime` | Singleton | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/javascript-interop>. |
+| `IUriHelper` | Singleton | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
 
-Vlastní poskytovatele neposkytuje automaticky výchozí služby uvedené v tabulce. Pokud používáte vlastní poskytovatele a kterékoli ze služeb, které jsou uvedené v tabulce vyžadují, přidejte do nového poskytovatele služby požadované služby.
+Vlastní zprostředkovatel služeb automaticky neposkytuje výchozí služby uvedené v tabulce. Pokud používáte vlastního poskytovatele služeb a potřebujete některou ze služeb zobrazených v tabulce, přidejte požadované služby k novému poskytovateli služeb.
 
-## <a name="add-services-to-an-app"></a>Přidání služby do aplikace
+## <a name="add-services-to-an-app"></a>Přidání služeb do aplikace
 
-Po vytvoření nové aplikace, zkontrolujte `Startup.ConfigureServices` metody:
+Po vytvoření nové aplikace si Projděte tuto `Startup.ConfigureServices` metodu:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -48,7 +48,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-`ConfigureServices` Metodě se předává <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>, což je seznam objektů služeb popisovač (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>). Služby jsou přidány tím, že poskytuje služby popisovače ke kolekci služby. Následující příklad ukazuje neznají koncept `IDataAccess` rozhraní a jeho konkrétní implementaci `DataAccess`:
+Metoda je předána, což je seznam objektů deskriptoru služby (<xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor>). <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> `ConfigureServices` Služby se přidávají tím, že se do kolekce služeb poskytují popisovače služby. Následující příklad ukazuje koncept s `IDataAccess` rozhraním a jeho konkrétní implementací: `DataAccess`
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -57,32 +57,32 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Služby můžete nakonfigurovat s životností je znázorněno v následující tabulce.
+Služby je možné konfigurovat s životností, která jsou uvedená v následující tabulce.
 
 | Životnost | Popis |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor klientů aktuálně nemá koncept DI obory. `Scoped`-registrovaných služeb se chovat jako `Singleton` služby. Ale podporuje model hostingu na straně serveru `Scoped` životnost. V komponentě Razor registrace vymezené služby působí na připojení. Z tohoto důvodu vymezené služby je upřednostňována pro služby, které by měly být omezeny aktuálního uživatele, i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | Vytvoří DI *jednu instanci* služby. Všechny součásti, které vyžadují `Singleton` služba přijímat instance ve stejné službě. |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | Vždy, když součást získá instanci `Transient` služby z kontejneru služeb přijme *novou instanci* služby. |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor na straně klienta aktuálně nemá koncept typu DI scopes. `Scoped`– registrované služby se chovají jako `Singleton` služby. Model hostování na straně serveru však podporuje `Scoped` dobu života. V komponentě Razor je vymezená registrace služby vymezená na připojení. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI vytvoří *jednu instanci* služby. Všechny součásti, které `Singleton` vyžadují službu, obdrží instanci stejné služby. |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | Pokaždé, když komponenta získá instanci `Transient` služby z kontejneru služby, obdrží *novou instanci* služby. |
 
-Systém DI je založen na systému DI v ASP.NET Core. Další informace naleznete v tématu <xref:fundamentals/dependency-injection>.
+Systém DI je založený na systému DI v ASP.NET Core. Další informace naleznete v tématu <xref:fundamentals/dependency-injection>.
 
-## <a name="request-a-service-in-a-component"></a>Žádosti o službu v komponentě
+## <a name="request-a-service-in-a-component"></a>Vyžádání služby v součásti
 
-Po přidání služby do kolekce služeb, vložit do komponenty pomocí služeb [ \@vložit](xref:mvc/views/razor#section-4) direktivu Razor. `@inject` má dva parametry:
+Po přidání služeb do kolekce služeb tyto služby vloží do komponent pomocí [ \@](xref:mvc/views/razor#inject) direktivy vložení Razor. `@inject`má dva parametry:
 
-* Typ &ndash; typ služby k vložení.
-* Vlastnost &ndash; název vlastnosti příjem service vložené aplikace. Vlastnost nevyžaduje ruční vytvoření. Kompilátor vytvoří vlastnost.
+* Zadejte &ndash; typ služby, kterou chcete vložit.
+* Vlastnost &ndash; název vlastnosti, která přijímá vloženou službu App Service. Vlastnost nevyžaduje ruční vytvoření. Kompilátor vytvoří vlastnost.
 
 Další informace naleznete v tématu <xref:mvc/views/dependency-injection>.
 
-Použití více `@inject` příkazy vkládat různé služby.
+Pro vložení `@inject` různých služeb použijte více příkazů.
 
-Následující příklad ukazuje, jak používat `@inject`. Implementace služby `Services.IDataAccess` se vloží do komponenty vlastnosti `DataRepository`. Všimněte si, jak kód využívá jenom `IDataAccess` abstrakce:
+Následující příklad ukazuje, jak použít `@inject`. Implementace `Services.IDataAccess` služby je vložena do vlastnosti `DataRepository`komponenty. Všimněte si, jak kód používá `IDataAccess` abstrakci:
 
 [!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
-Interně jsou vygenerované vlastnosti (`DataRepository`) je upravená pomocí `InjectAttribute` atribut. Tento atribut se obvykle nepoužívá přímo. Pokud základní třída je povinné pro součásti a vloženého vlastnosti se rovněž vyžadují pro základní třídu, ručně přidejte `InjectAttribute`:
+Interně je vygenerovaná vlastnost`DataRepository`() upravena `InjectAttribute` atributem. Obvykle se tento atribut nepoužívá přímo. Pokud je vyžadována základní třída pro součásti a vložené vlastnosti jsou také požadovány pro základní třídu, přidejte `InjectAttribute`ručně:
 
 ```csharp
 public class ComponentBase : IComponent
@@ -94,7 +94,7 @@ public class ComponentBase : IComponent
 }
 ```
 
-V součásti odvozené ze základní třídy `@inject` – direktiva není povinné. `InjectAttribute` Základní třídy je dostačující:
+V součástech odvozených ze základní třídy `@inject` není direktiva vyžadována. `InjectAttribute` Základní třída je dostačující:
 
 ```cshtml
 @page "/demo"
@@ -103,9 +103,9 @@ V součásti odvozené ze základní třídy `@inject` – direktiva není povin
 <h1>Demo Component</h1>
 ```
 
-## <a name="use-di-in-services"></a>Použití DI služby
+## <a name="use-di-in-services"></a>Použití DI v službách
 
-Komplexní služby můžou vyžadovat další služby. V předchozím příkladu `DataAccess` může vyžadovat `HttpClient` výchozí služby. `@inject` (nebo `InjectAttribute`) není k dispozici pro použití služby. *Konstruktor vkládání* musí použít. Přidat parametry do konstruktoru služby přidají požadované služby. Když DI vytvoří službu, rozpozná služby vyžaduje v konstruktoru a poskytuje je odpovídajícím způsobem.
+Komplexní služby můžou vyžadovat další služby. V předchozím příkladu `DataAccess` může `HttpClient` vyžadovat výchozí službu. `@inject`(nebo) `InjectAttribute`nejsou k dispozici pro použití v rámci služeb. Místo toho se musí použít *Injektáže konstruktoru* . Požadované služby jsou přidány přidáním parametrů do konstruktoru služby. Když DI vytvoří službu, rozpoznává služby, které vyžaduje v konstruktoru, a odpovídajícím způsobem je poskytne.
 
 ```csharp
 public class DataAccess : IDataAccess
@@ -119,11 +119,11 @@ public class DataAccess : IDataAccess
 }
 ```
 
-Předpoklady pro vkládání konstruktor:
+Předpoklady pro vložení konstruktoru:
 
-* Jeden konstruktor musí existovat, jehož argumenty lze všechny splnit DI. Další parametry, které se nevztahuje DI jsou povolené, pokud se určení výchozích hodnot.
-* Použít konstruktor musí být *veřejné*.
-* Jeden použít konstruktor, musí existovat. V případě nejednoznačnost DI vyvolá výjimku.
+* Je nutné, aby jeden konstruktor existoval, jehož argumenty mohou být splněny pomocí DI. Další parametry, které nejsou pokryty parametrem DI, jsou povoleny, pokud určují výchozí hodnoty.
+* Příslušný konstruktor musí být *veřejný*.
+* Musí existovat jeden použitelný konstruktor. V případě nejednoznačnosti Vyvolá příkaz DI výjimku.
 
 ## <a name="additional-resources"></a>Další zdroje
 

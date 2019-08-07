@@ -301,6 +301,8 @@
           uid: blazor/javascript-interop
         - name: Zabezpečení a identita
           uid: security/blazor/index
+        - name: Ošetření chyb
+          uid: blazor/handle-errors
         - name: Ladit
           uid: blazor/debug
         - name: Volání webového rozhraní API

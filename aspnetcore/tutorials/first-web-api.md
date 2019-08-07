@@ -4,14 +4,14 @@ author: rick-anderson
 description: Naučte se vytvářet webové rozhraní API pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/11/2019
+ms.date: 08/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 60235af56077127093ac1d77338bc228a6edf073
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 855d05fa2b9c1a7572212c40adbe61bb396f4bac
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602524"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819831"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -71,7 +71,7 @@ Následující diagram znázorňuje návrh aplikace.
 * V nabídce **soubor** vyberte možnost **Nový** > **projekt**.
 * Vyberte šablonu **ASP.NET Core webové aplikace** a klikněte na tlačítko **Další**.
 * Pojmenujte projekt *TodoApi* a klikněte na **vytvořit**.
-* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. **Nevybírejte možnost** **Povolit podporu Docker**.
+* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. Nevybírejte možnost **Povolit podporu Docker**.
 
 ![VS – dialogové okno nového projektu](first-web-api/_static/vs3.png)
 
@@ -513,7 +513,7 @@ Následující diagram znázorňuje návrh aplikace.
 * V nabídce **soubor** vyberte možnost **Nový** > **projekt**.
 * Vyberte šablonu **ASP.NET Core webové aplikace** a klikněte na tlačítko **Další**.
 * Pojmenujte projekt *TodoApi* a klikněte na **vytvořit**.
-* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 2,2** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. **Nevybírejte možnost** **Povolit podporu Docker**.
+* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 2,2** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. Nevybírejte možnost **Povolit podporu Docker**.
 
 ![VS – dialogové okno nového projektu](first-web-api/_static/vs.png)
 
@@ -728,6 +728,7 @@ Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult\<T > typ]
 * Pokud žádná položka odpovídá požadovaným ID, vrátí metoda 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) kód chyby.
 * V opačném případě vrátí metoda 200 s těla odpovědi JSON. Vrací `item` výsledkem odpověď HTTP 200.
 
+
 ## <a name="test-the-gettodoitems-method"></a>Test GetTodoItems – metoda
 
 Tento kurz používá Postman k otestování webové rozhraní API.
@@ -736,10 +737,19 @@ Tento kurz používá Postman k otestování webové rozhraní API.
 * Spusťte webovou aplikaci.
 * Spusťte Postman.
 * Zakázat **ověření certifikátu SSL**
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+* V **Nastavení** **souboru** > (karta**Obecné** ) zakažte **ověřování certifikátu SSL**.
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+* V možnosti Předvolba **post** > (karta**Obecné** ) zakažte **ověřování certifikátu SSL**. Případně vyberte klíče a vyberte **Nastavení**a pak zakažte ověřování certifikátu SSL.
+
+---
   
-  * Z **soubor > Nastavení** (**Obecné* kartu), zakažte **ověření certifikátu SSL**.
-    > [!WARNING]
-    > Znovu povolte ověření certifikátu SSL po otestování kontroleru.
+> [!WARNING]
+> Znovu povolte ověření certifikátu SSL po otestování kontroleru.
 
 * Vytvořte novou žádost.
   * Nastavte jako metodu HTTP **získat**.
@@ -751,7 +761,7 @@ Tento kurz používá Postman k otestování webové rozhraní API.
 
 ## <a name="add-a-create-method"></a>Přidání metody vytvoření
 
-Přidejte následující `PostTodoItem` metody:
+Přidejte následující `PostTodoItem` metodu do Controllers */TodoController. cs*: 
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Create)]
 

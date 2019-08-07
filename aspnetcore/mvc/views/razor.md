@@ -3,20 +3,20 @@ title: Referenční příručka syntaxe Razor pro ASP.NET Core
 author: rick-anderson
 description: Další informace o syntaxi Razor kód pro vložení do webových stránek kód založený na serveru.
 ms.author: riande
-ms.date: 06/12/2019
+ms.date: 08/05/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 634623aa6df860a2ff728da4e65d277326db37e2
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: 75bf0e792ff7975f03e0f7c2fa6a71ed74d813e1
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68440360"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819794"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Luke Latham](https://github.com/guardrex), [Taylora MÜLLENA](https://twitter.com/ntaylormullen), a [Dan Vicarel](https://github.com/Rabadash8820)
 
-Razor je syntaxe značek pro vkládání do webových stránek kód založený na serveru. Syntaxe Razor se skládá z kódu Razor C#a HTML. Máte soubory, které obvykle obsahují Razor *.cshtml* příponu souboru.
+Razor je syntaxe značek pro vkládání do webových stránek kód založený na serveru. Syntaxe Razor se skládá z kódu Razor C#a HTML. Máte soubory, které obvykle obsahují Razor *.cshtml* příponu souboru. Razor se nachází také v souborech [součástí Razor](xref:blazor/components) ( *. Razor*).
 
 ## <a name="rendering-html"></a>Vykreslování protokolu HTML
 
@@ -210,7 +210,7 @@ Je výchozí jazyk v bloku kódu C#, ale stránka Razor můžete přejít zpět 
 
 ### <a name="explicit-delimited-transition"></a>Explicitní převod s oddělovači
 
-Pokud chcete definovat dílčí část objektu bloku kódu, který vykreslovat kód HTML, obklopit fragmentem syntaxi Razor znaků pro vykreslování  **\<text >** značky:
+Chcete-li definovat dílčí oddíl bloku kódu, který by měl vykreslovat kód HTML, uzavřete znaky pro vykreslování se `<text>` značkou Razor:
 
 ```cshtml
 @for (var i = 0; i < people.Length; i++)
@@ -222,12 +222,12 @@ Pokud chcete definovat dílčí část objektu bloku kódu, který vykreslovat k
 
 Tuto metodu použijte k vykreslení HTML, který není obklopený značky jazyka HTML. Bez značky jazyka HTML nebo Razor dojde k chybě modulu runtime Razor.
 
-**\<Text >** značka je vhodné pro řízení prázdné znaky, při vykreslování obsahu:
+`<text>` Značka je užitečná pro řízení prázdných znaků při vykreslování obsahu:
 
-* Pouze obsah mezi  **\<text >** je vykreslen.
-* Žádné prázdné znaky před nebo po  **\<text >** značky se zobrazí ve výstupu protokolu HTML.
+* Vykreslí se jenom obsah `<text>` mezi značkou.
+* Před nebo po `<text>` značce se ve výstupu HTML nezobrazí žádné prázdné znaky.
 
-### <a name="explicit-line-transition-with-"></a>Explicitní řádek přechodu se @:
+### <a name="explicit-line-transition-with-colon"></a>Explicitní přechod na řádek s\@&colon;
 
 K vykreslení rest celý řádek jako kód HTML uvnitř bloku kódu, použijte `@:` syntaxi:
 
@@ -241,13 +241,13 @@ K vykreslení rest celý řádek jako kód HTML uvnitř bloku kódu, použijte `
 
 Bez `@:` v kódu, je vygenerována chyba za běhu Razor.
 
-Upozornění: Nadbytečné `@` znaky v souboru Razor mohou způsobit chyby kompilátoru v příkazech později v bloku. Tyto chyby kompilátoru může být obtížné pochopit, protože Skutečná chyba předchází oznámenou chybu. K této chybě dochází po kombinování více implicitního/explicitního výrazů v jednom bloku kódu.
+Nadbytečné `@` znaky v souboru Razor mohou způsobit chyby kompilátoru v příkazech později v bloku. Tyto chyby kompilátoru může být obtížné pochopit, protože Skutečná chyba předchází oznámenou chybu. K této chybě dochází po kombinování více implicitního/explicitního výrazů v jednom bloku kódu.
 
 ## <a name="control-structures"></a>Řídicí struktury
 
 Řídicí struktury jsou rozšíření bloky kódu. Všechny aspekty bloky kódu (Přechod na značky vložené C#) platí také pro následující struktury:
 
-### <a name="conditionals-if-else-if-else-and-switch"></a>Podmíněné výrazy @if, else if, else, a @switch
+### <a name="conditionals-if-else-if-else-and-switch"></a>Podmíněný parametr \@if, else if, else a Switch \@
 
 `@if` ovládací prvky, pokud kód se spustí:
 
@@ -292,7 +292,7 @@ Následující kód ukazuje použití příkazu switch:
 }
 ```
 
-### <a name="looping-for-foreach-while-and-do-while"></a>Opakování ve smyčce @for, @foreach, @while, a @do při
+### <a name="looping-for-foreach-while-and-do-while"></a>Smyčky pro, \@ForEach, \@while a \@while \@
 
 Bez vizuálního vzhledu HTML lze vykreslit s opakování ve smyčce řídicí příkazy. Pokud chcete zobrazit seznam lidí:
 
@@ -358,30 +358,27 @@ Podporují se následující příkazy opakování:
 } while (i < people.Length);
 ```
 
-### <a name="compound-using"></a>Složené @using
+### <a name="compound-using"></a>Složené \@pomocí
 
-V C#, `using` prohlášení se používá k zajištění uvolněn objekt. V prostředí Razor stejný mechanismus slouží k vytvoření pomocné rutiny HTML, které obsahují další obsah. V následujícím kódu pomocných rutin HTML, vykreslení značky formuláře s `@using` – příkaz:
+V C#, `using` prohlášení se používá k zajištění uvolněn objekt. V prostředí Razor stejný mechanismus slouží k vytvoření pomocné rutiny HTML, které obsahují další obsah. V následujícím kódu pomocník HTML vykresluje `<form>` značku `@using` s příkazem:
 
 ```cshtml
 @using (Html.BeginForm())
 {
     <div>
-        email:
-        <input type="email" id="Email" value="">
+        Email: <input type="email" id="Email" value="">
         <button>Register</button>
     </div>
 }
 ```
 
-Akce na úrovni oboru, můžete to provést pomocí [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).
-
-### <a name="try-catch-finally"></a>@try, catch, finally
+### <a name="try-catch-finally"></a>\@try, catch, finally
 
 Zpracování výjimek je podobný C#:
 
 [!code-cshtml[](razor/sample/Views/Home/Contact7.cshtml)]
 
-### <a name="lock"></a>@lock
+### <a name="lock"></a>\@získáte
 
 Razor má schopnost chránit kritické oddíly s příkazy uzamčení:
 
@@ -448,90 +445,47 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 Dále v tomto článku v části [Zkontrolujte syntaxi Razor C# třída vygenerovaná pro zobrazení](#inspect-the-razor-c-class-generated-for-a-view) vysvětluje, jak zobrazit tento generované třídy.
 
-<a name="using"></a>
+### <a name="attribute"></a>\@přidělen
 
-### <a name="using"></a>@using
-
-`@using` Direktivy přidává C# `using` direktiv generované zobrazení:
-
-[!code-cshtml[](razor/sample/Views/Home/Contact9.cshtml)]
-
-### <a name="model"></a>@model
-
-`@model` Direktiva Určuje typ modelu předána do zobrazení:
+`@attribute` Direktiva přidá daný atribut třídě vygenerované stránky nebo zobrazení. Následující příklad přidá `[Authorize]` atribut:
 
 ```cshtml
-@model TypeNameOfModel
+@attribute [Authorize]
 ```
 
-V aplikaci ASP.NET Core MVC vytvořené pomocí jednotlivých uživatelských účtů *Views/Account/Login.cshtml* zobrazení obsahuje následující deklaraci modelu:
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="code"></a>\@znakovou
+
+*Tento scénář platí pouze pro součásti Razor (. Razor).*
+
+Blok umožňuje komponentě [Razor](xref:blazor/components) přidat C# členy (pole, vlastnosti a metody) do komponenty: `@code`
 
 ```cshtml
-@model LoginViewModel
+@code {
+    // C# members (fields, properties, and methods)
+}
 ```
 
-Dědí třídu vygenerovanou z `RazorPage<dynamic>`:
+Pro součásti `@code` Razor je [@functions](#functions) alias a doporučený `@functions`. Je přípustný více `@code` než jeden blok.
 
-```csharp
-public class _Views_Account_Login_cshtml : RazorPage<LoginViewModel>
-```
+::: moniker-end
 
-Zpřístupňuje Razor `Model` předána do zobrazení, vlastnosti pro přístup k modelu:
+### <a name="functions"></a>\@POZVYHLEDAT
+
+Direktiva umožňuje přidat C# členy (pole, vlastnosti a metody) do generované třídy: `@functions`
 
 ```cshtml
-<div>The Login Email: @Model.Email</div>
+@functions {
+    // C# members (fields, properties, and methods)
+}
 ```
 
-`@model` Direktiva Určuje typ této vlastnosti. Direktiva Určuje, `T` v `RazorPage<T>` , že generované třídy, která zobrazení je odvozena z. Pokud `@model` – direktiva není zadán, `Model` vlastnost je typu `dynamic`. Z kontroleru zobrazení je předána hodnota modelu. Další informace najdete v tématu [se silnými typy modelů a &commat;– klíčové slovo modelu](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword).
+::: moniker range=">= aspnetcore-3.0"
 
-### <a name="inherits"></a>@inherits
+V [součástech Razor](xref:blazor/components)použijte `@code` více `@functions` než pro C# přidání členů.
 
-`@inherits` – Direktiva poskytuje plnou kontrolu nad třída dědí zobrazení:
-
-```cshtml
-@inherits TypeNameOfClassToInheritFrom
-```
-
-Následující kód je vlastní typ stránky Razor:
-
-[!code-csharp[](razor/sample/Classes/CustomRazorPage.cs)]
-
-`CustomText` Se zobrazí v zobrazení:
-
-[!code-cshtml[](razor/sample/Views/Home/Contact10.cshtml)]
-
-Kód vykreslí následující kód HTML:
-
-```html
-<div>Custom text: Gardyloo! - A Scottish warning yelled from a window before dumping a slop bucket on the street below.</div>
-```
-
- `@model` a `@inherits` je možné ve stejném zobrazení. `@inherits` může být v *_ViewImports.cshtml* soubor, který importuje zobrazení:
-
-[!code-cshtml[](razor/sample/Views/_ViewImportsModel.cshtml)]
-
-Následující kód je příkladem zobrazení se silnými typy:
-
-[!code-cshtml[](razor/sample/Views/Home/Login1.cshtml)]
-
-Pokud "rick@contoso.com" je předán zobrazení v modelu, generuje následující kód HTML:
-
-```html
-<div>The Login Email: rick@contoso.com</div>
-<div>Custom text: Gardyloo! - A Scottish warning yelled from a window before dumping a slop bucket on the street below.</div>
-```
-
-### <a name="inject"></a>@inject
-
-`@inject` Direktiva umožňuje vložit služby z stránky Razor [kontejneru služby](xref:fundamentals/dependency-injection) do zobrazení. Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection).
-
-### <a name="functions"></a>@functions
-
-`@functions` Direktiva umožňuje stránky Razor a přidat C# blok kódu do zobrazení:
-
-```cshtml
-@functions { // C# Code }
-```
+::: moniker-end
 
 Příklad:
 
@@ -572,38 +526,220 @@ Kód vykreslí následující kód HTML:
 <p>Name: <strong>Martin Luther King, Jr.</strong></p>
 ```
 
-::: moniker-end
+### <a name="implements"></a>\@implementace
 
-### <a name="attribute"></a>@attribute
+`@implements` Direktiva implementuje rozhraní pro generovanou třídu.
 
-`@attribute` Direktiva přidá daný atribut třídě vygenerované stránky nebo zobrazení. Následující příklad přidá `[Authorize]` atribut:
+Následující příklad implementuje <xref:System.IDisposable?displayProperty=fullName> <xref:System.IDisposable.Dispose*> , aby mohla být metoda volána:
 
 ```cshtml
-@attribute [Authorize]
+@implements IDisposable
+
+<h1>Example</h1>
+
+@functions {
+    private bool _isDisposed;
+
+    ...
+
+    public void Dispose() => _isDisposed = true;
+}
 ```
 
-### <a name="namespace"></a>@namespace
+::: moniker-end
 
-`@namespace` Direktiva nastaví obor názvů třídy generované stránky nebo zobrazení:
+### <a name="inherits"></a>\@zdědí
+
+`@inherits` – Direktiva poskytuje plnou kontrolu nad třída dědí zobrazení:
+
+```cshtml
+@inherits TypeNameOfClassToInheritFrom
+```
+
+Následující kód je vlastní typ stránky Razor:
+
+[!code-csharp[](razor/sample/Classes/CustomRazorPage.cs)]
+
+`CustomText` Se zobrazí v zobrazení:
+
+[!code-cshtml[](razor/sample/Views/Home/Contact10.cshtml)]
+
+Kód vykreslí následující kód HTML:
+
+```html
+<div>
+    Custom text: Gardyloo! - A Scottish warning yelled from a window before dumping
+    a slop bucket on the street below.
+</div>
+```
+
+ `@model` a `@inherits` je možné ve stejném zobrazení. `@inherits` může být v *_ViewImports.cshtml* soubor, který importuje zobrazení:
+
+[!code-cshtml[](razor/sample/Views/_ViewImportsModel.cshtml)]
+
+Následující kód je příkladem zobrazení se silnými typy:
+
+[!code-cshtml[](razor/sample/Views/Home/Login1.cshtml)]
+
+Pokud "rick@contoso.com" je předán zobrazení v modelu, generuje následující kód HTML:
+
+```html
+<div>The Login Email: rick@contoso.com</div>
+<div>
+    Custom text: Gardyloo! - A Scottish warning yelled from a window before dumping
+    a slop bucket on the street below.
+</div>
+```
+
+### <a name="inject"></a>\@vstřik
+
+`@inject` Direktiva umožňuje vložit služby z stránky Razor [kontejneru služby](xref:fundamentals/dependency-injection) do zobrazení. Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection).
+
+::: moniker range=">= aspnetcore-3.0"
+
+### <a name="layout"></a>\@rozložení
+
+*Tento scénář platí pouze pro součásti Razor (. Razor).*
+
+`@layout` Direktiva určuje rozložení součásti Razor. Komponenty rozložení se používají k zamezení Duplikace kódu a nekonzistenci. Další informace naleznete v tématu <xref:blazor/layouts>.
+
+::: moniker-end
+
+### <a name="model"></a>\@vzorový
+
+*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*
+
+`@model` Direktiva určuje typ modelu předaného na zobrazení nebo stránku:
+
+```cshtml
+@model TypeNameOfModel
+```
+
+V ASP.NET Core MVC nebo aplikace Razor Pages vytvořené pomocí individuálních uživatelských účtů, *zobrazení/účet/přihlášení. cshtml* obsahuje následující deklaraci modelu:
+
+```cshtml
+@model LoginViewModel
+```
+
+Dědí třídu vygenerovanou z `RazorPage<dynamic>`:
+
+```csharp
+public class _Views_Account_Login_cshtml : RazorPage<LoginViewModel>
+```
+
+Zpřístupňuje Razor `Model` předána do zobrazení, vlastnosti pro přístup k modelu:
+
+```cshtml
+<div>The Login Email: @Model.Email</div>
+```
+
+Direktiva určuje typ `Model` vlastnosti. `@model` Direktiva Určuje, `T` v `RazorPage<T>` , že generované třídy, která zobrazení je odvozena z. Pokud `@model` – direktiva není zadán, `Model` vlastnost je typu `dynamic`. Další informace naleznete v tématu [modely silného typu a @model klíčové slovo](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword).
+
+### <a name="namespace"></a>\@hosting
+
+`@namespace` Direktiva:
+
+* Nastaví obor názvů třídy vygenerované stránky Razor, zobrazení MVC nebo komponenty Razor.
+* Nastaví kořenové obory názvů pro třídy stránek, zobrazení nebo komponent z nejbližšího souboru importu ve stromu adresářů *_ViewImports. cshtml* (zobrazení nebo stránky) nebo *_Imports. Razor* (komponenty Razor).
 
 ```cshtml
 @namespace Your.Namespace.Here
 ```
 
-Pokud stránka nebo zobrazení importuje rozhraní API s `@namespace` direktivou, je původní obor názvů souboru nastaven jako relativní k tomuto oboru názvů. 
+Pro Razor Pages příklad zobrazený v následující tabulce:
 
-Pokud obsahuje `Hello.World` *\_* MyApp/Pages/ViewImports. cshtml, je nastaven obor názvů stránek nebo zobrazení, která importují obor názvů, jak je uvedeno v následující tabulce. `@namespace Hello.World`
+* Každá stránka importuje *stránky/_ViewImports. cshtml*.
+* *Pages/_ViewImports. cshtml* obsahuje `@namespace Hello.World`.
+* Každá stránka má `Hello.World` jako kořen oboru názvů IT.
 
-| Stránka (nebo zobrazení)                     | Obor názvů               |
-| ---------------------------------- | ----------------------- |
-| *MyApp/pages/index. cshtml*         | `Hello.World`           |
-| *MyApp/Pages/MorePages/bar. cshtml* | `Hello.World.MorePages` |
+| Page                                        | Obor názvů                             |
+| ------------------------------------------- | ------------------------------------- |
+| *Pages/index. cshtml*                        | `Hello.World`                         |
+| *Pages/MorePages/Page. cshtml*               | `Hello.World.MorePages`               |
+| *Pages/MorePages/EvenMorePages/Page. cshtml* | `Hello.World.MorePages.EvenMorePages` |
 
-Pokud má `@namespace` direktiva více souborů importu, použije se soubor nejbližší stránky nebo zobrazení v řetězci adresáře.
+Předchozí relace platí pro soubory importu používané s zobrazeními MVC a komponentami Razor.
 
-### <a name="section"></a>@section
+Pokud má více souborů `@namespace` importu direktivu, soubor, který je nejblíže stránce, zobrazení nebo komponentě v adresářovém stromu, slouží k nastavení kořenového oboru názvů.
 
-Direktiva se používá společně s rozložením a umožňuje stránkám nebo zobrazením vykreslovat obsah v různých částech stránky HTML. [](xref:mvc/views/layout) `@section` Další informace najdete v tématu [oddíly](xref:mvc/views/layout#layout-sections-label).
+Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@namespace Another.Planet` (nebo soubor Pages */MorePages/EvenMorePages/Page. cshtml* obsahuje `@namespace Another.Planet`), výsledek je zobrazen v následující tabulce.
+
+| Page                                        | Obor názvů               |
+| ------------------------------------------- | ----------------------- |
+| *Pages/index. cshtml*                        | `Hello.World`           |
+| *Pages/MorePages/Page. cshtml*               | `Hello.World.MorePages` |
+| *Pages/MorePages/EvenMorePages/Page. cshtml* | `Another.Planet`        |
+
+### <a name="page"></a>\@Page
+
+::: moniker range=">= aspnetcore-3.0"
+
+`@page` Direktiva má jiné účinky v závislosti na typu souboru, ve kterém se zobrazí. Direktiva:
+
+* V v souboru *. cshtml* znamená, že soubor je stránka Razor. Další informace naleznete v tématu <xref:razor-pages/index>.
+* Určuje, že komponenta Razor by měla zpracovávat požadavky přímo. Další informace naleznete v tématu <xref:blazor/routing>.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Direktiva na prvním řádku souboru *. cshtml* znamená, že soubor je stránka Razor. `@page` Další informace naleznete v tématu <xref:razor-pages/index>.
+
+::: moniker-end
+
+### <a name="section"></a>\@section
+
+*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*
+
+Direktiva se používá společně s [MVC a Razor Pages rozloženími](xref:mvc/views/layout) k tomu, aby zobrazení nebo stránky vygenerovaly obsah v různých částech stránky HTML. `@section` Další informace naleznete v tématu <xref:mvc/views/layout>.
+
+### <a name="using"></a>\@použití
+
+`@using` Direktivy přidává C# `using` direktiv generované zobrazení:
+
+[!code-cshtml[](razor/sample/Views/Home/Contact9.cshtml)]
+
+::: moniker range=">= aspnetcore-3.0"
+
+V [součástech Razor](xref:blazor/components)také řídí, `@using` které součásti jsou v oboru.
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="directive-attributes"></a>Atributy direktiv
+
+### <a name="attributes"></a>\@atribut
+
+*Tento scénář platí pouze pro součásti Razor (. Razor).*
+
+`@attributes`umožňuje komponentě vykreslovat nedeklarované atributy. Další informace naleznete v tématu <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>.
+
+### <a name="bind"></a>\@zapisovat
+
+*Tento scénář platí pouze pro součásti Razor (. Razor).*
+
+Datové vazby v součástech se provádí s `@bind` atributem. Další informace naleznete v tématu <xref:blazor/components#data-binding>.
+
+### <a name="onevent"></a>\@v události {Event}
+
+*Tento scénář platí pouze pro součásti Razor (. Razor).*
+
+Razor poskytuje funkce pro zpracování událostí pro součásti. Další informace naleznete v tématu <xref:blazor/components#event-handling>.
+
+### <a name="key"></a>\@zkrat
+
+*Tento scénář platí pouze pro součásti Razor (. Razor).*
+
+Atribut `@key` direktiva způsobí, že rozdílový algoritmus komponent garantuje zachování prvků nebo komponent na základě hodnoty klíče. Další informace naleznete v tématu <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>.
+
+### <a name="ref"></a>\@odkazů
+
+*Tento scénář platí pouze pro součásti Razor (. Razor).*
+
+Odkazy na součásti`@ref`() poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance. Další informace naleznete v tématu <xref:blazor/components#capture-references-to-components>.
+
+::: moniker-end
 
 ## <a name="templated-razor-delegates"></a>Šablony Razor delegátů
 
@@ -706,19 +842,21 @@ Vykresleného výstupu:
 
 ## <a name="tag-helpers"></a>Pomocné rutiny značek
 
+*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*
+
 Existují tři direktivy, které se týkají [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).
 
 | – Direktiva | Funkce |
 | --------- | -------- |
-| [&commat;addTagHelper](xref:mvc/views/tag-helpers/intro#add-helper-label) | Zpřístupní pomocných rutin značek k zobrazení. |
-| [&commat;removeTagHelper](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | Odebere ze zobrazení přidali dříve pomocných rutin značek. |
-| [&commat;tagHelperPrefix](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | Určuje předponu značky k povolení podpory pomocné rutiny značky a aby explicitní použití pomocné rutiny značky. |
+| [@addTagHelper](xref:mvc/views/tag-helpers/intro#add-helper-label) | Zpřístupní pomocných rutin značek k zobrazení. |
+| [@removeTagHelper](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | Odebere ze zobrazení přidali dříve pomocných rutin značek. |
+| [@tagHelperPrefix](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | Určuje předponu značky k povolení podpory pomocné rutiny značky a aby explicitní použití pomocné rutiny značky. |
 
 ## <a name="razor-reserved-keywords"></a>Razor vyhrazená klíčová slova
 
 ### <a name="razor-keywords"></a>Klíčová slova Razor
 
-* stránka (vyžaduje ASP.NET Core 2.0 a novější)
+* Page (vyžaduje ASP.NET Core 2,1 nebo novější)
 * – obor názvů
 * – funkce
 * Dědí

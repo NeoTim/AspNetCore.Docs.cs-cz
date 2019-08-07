@@ -1,53 +1,53 @@
 ---
-title: Úvod k ověřování pro jednu stránku aplikace v ASP.NET Core
+title: Seznámení s ověřováním pro jednostránkové aplikace v ASP.NET Core
 author: javiercn
-description: Použít identitu s jedinou stránku aplikaci hostované uvnitř aplikace ASP.NET Core.
+description: Používejte identitu s jednou stránkou, která je hostovaná v aplikaci ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 03/07/2019
+ms.date: 08/05/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 302a5e10a70e40e75ab9fe4b3e5a98c4e847b822
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 6b8818cc89a87e66ecec445ff8071348aacde64a
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815219"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819931"
 ---
-# <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro SPA
+# <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
-ASP.NET Core 3.0 nebo novější nabízí ověřování v jedné stránky aplikace (SPA) pomocí podpory pro povolení rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelé číslo zkombinuje s [IdentityServer](https://identityserver.io/) pro implementaci Open ID Connect.
+ASP.NET Core 3,0 nebo novější nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) pomocí podpory pro autorizaci rozhraní API. ASP.NET Coreá identita pro ověřování a ukládání uživatelů je kombinována s [IdentityServer](https://identityserver.io/) pro implementaci otevřeného ID Connect.
 
-Parametr ověřování byl přidán do **Angular** a **React** šablony, které je podobné tomuto: Parametr ověřování v projektu **webové aplikace (Model-View-Controller)**  (MVC) a **webovou aplikaci** šablony projektů (stránky Razor). Parametr povolené hodnoty jsou **žádný** a **jednotlivé**. **React.js a Reduxem** šablonu projektu nepodporuje parametr ověřování v tuto chvíli.
+Parametr ověřování byl přidán do úhlových a **reagujících** šablon projektů, které se podobají parametru ověřování ve **webové aplikaci (Model-View-Controller)** (MVC) a **webové aplikaci** (Razor Pages). šablony projektů. Povolené hodnoty parametrů jsou **none** a **jednotlivce**. Šablona projektu **reagují. js a Redux** v tuto chvíli nepodporuje parametr ověřování.
 
-## <a name="create-an-app-with-api-authorization-support"></a>Vytvoření aplikace s podporou ověřování API
+## <a name="create-an-app-with-api-authorization-support"></a>Vytvoření aplikace s podporou autorizace rozhraní API
 
-Ověřování a autorizace uživatelů je možné s Angular a SPA React. Otevřete příkazové okno a spusťte následující příkaz:
+Ověřování a autorizaci uživatelů lze použít s použitím úhlů i reagujících jednostránkové. Otevřete příkazové okno a spusťte následující příkaz:
 
-**Angular**:
+**Úhlová**:
 
 ```console
 dotnet new angular -o <output_directory_name> -au Individual
 ```
 
-**React**:
+**Reakce**:
 
 ```console
 dotnet new react -o <output_directory_name> -au Individual
 ```
 
-Předchozí příkaz vytvoří aplikace ASP.NET Core s *ClientApp* adresáře, který obsahuje tato jednostránková aplikace.
+Předchozí příkaz vytvoří aplikaci ASP.NET Core s adresářem *clientapp* obsahujícím Spa.
 
-## <a name="general-description-of-the-aspnet-core-components-of-the-app"></a>Obecný popis součástí aplikace ASP.NET Core
+## <a name="general-description-of-the-aspnet-core-components-of-the-app"></a>Obecný popis ASP.NET Core komponent aplikace
 
-Následující části popisují dodatky k projektu při ověřování podpora je součástí:
+Následující části popisují přidání do projektu, pokud je k dispozici podpora ověřování:
 
-### <a name="startup-class"></a>Třída při spuštění
+### <a name="startup-class"></a>Spouštěcí třída
 
-`Startup` Třída má těmito přídavky:
+`Startup` Třída má následující doplňky:
 
-* Uvnitř `Startup.ConfigureServices` metody:
-  * Identita s výchozí uživatelské rozhraní:
+* `Startup.ConfigureServices` Uvnitř metody:
+  * Identita s výchozím uživatelským rozhraním:
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -58,28 +58,28 @@ Následující části popisují dodatky k projektu při ověřování podpora j
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * IdentityServer ještě `AddApiAuthorization` Pomocná metoda tohoto nastavení některé výchozí konvence ASP.NET Core nad IdentityServer:
+  * IdentityServer s další `AddApiAuthorization` pomocnou metodou, která nastaví některé výchozí konvence ASP.NET Core v horní části IdentityServer:
 
     ```csharp
     services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * Ověřování pomocí dalších `AddIdentityServerJwt` Pomocná metoda, která nakonfiguruje aplikaci pro ověření tokenů JWT vytvářených IdentityServer:
+  * Ověřování s další `AddIdentityServerJwt` pomocnou metodou, která nakonfiguruje aplikaci pro ověření tokenů JWT vyprodukovaných pomocí IdentityServer:
 
     ```csharp
     services.AddAuthentication()
         .AddIdentityServerJwt();
     ```
 
-* Uvnitř `Startup.Configure` metody:
-  * Middleware ověřování, která zodpovídá za ověření požadavku pověření a nastavení uživatele v kontextu požadavku:
+* `Startup.Configure` Uvnitř metody:
+  * Middleware ověřování, který zodpovídá za ověření přihlašovacích údajů požadavku a nastavení uživatele v kontextu požadavku:
 
     ```csharp
     app.UseAuthentication();
     ```
 
-  * IdentityServer middleware, který zveřejňuje koncové body Open ID Connect:
+  * Middleware IdentityServer, který zpřístupňuje koncové body připojení Open ID:
 
     ```csharp
     app.UseIdentityServer();
@@ -87,29 +87,29 @@ Následující části popisují dodatky k projektu při ověřování podpora j
 
 ### <a name="addapiauthorization"></a>AddApiAuthorization
 
-Tato pomocná metoda nakonfiguruje IdentityServer používat naše podporovanou konfiguraci. IdentityServer je výkonný a rozšiřitelný rámec pro zpracování otázky zabezpečení aplikace. Ve stejnou dobu, která zveřejní zbytečné složitosti pro nejběžnější scénáře. V důsledku toho je sada konvence a možnosti konfigurace přesnost je potřeba, které jsou považovány za dobrým výchozím bodem. Po ověření potřeby změní, je plný výkon IdentityServer stále k dispozici pro přizpůsobení ověřování tak, aby odpovídala vašim potřebám.
+Tato pomocná metoda nakonfiguruje IdentityServer, aby používala naši podporovanou konfiguraci. IdentityServer je výkonná a rozšiřitelná architektura pro zpracování otázek zabezpečení aplikací. Ve stejnou chvíli zveřejňuje nepotřebnou složitost v nejběžnějších scénářích. V důsledku toho jsou k dispozici sady konvencí a možností konfigurace, které jsou považovány za dobrý výchozí bod. Jakmile se vaše potřeby ověřování změní, je stále k dispozici kompletní výkon IdentityServer, abyste mohli přizpůsobit ověřování podle vašich potřeb.
 
 ### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
 
-Tato pomocná metoda nakonfiguruje zásady schéma pro aplikaci jako výchozí obslužnou rutinu ověřování. Pokud chcete, aby identita zpracování všech požadavků směrovat do jakékoli podřízená cesta v prostoru adresa URL Identity nakonfigurované "/ Identity". `JwtBearerHandler` Zpracovává všechny ostatní žádosti. Kromě toho tato metoda zaregistruje `<<ApplicationName>>API` prostředku rozhraní API s IdentityServer s výchozí obor `<<ApplicationName>>API` a nakonfiguruje middlewaru tokenu nosiče JWT ověření tokeny vystavené službou IdentityServer pro aplikaci.
+Tato pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování. Zásada je nakonfigurovaná tak, aby umožňovala identitě zpracovat všechny požadavky směrované na jakoukoli dílčí cestu v prostoru URL identity/identity. `JwtBearerHandler` Zpracovává všechny ostatní požadavky. Tato metoda navíc registruje `<<ApplicationName>>API` prostředek rozhraní API s IdentityServer s výchozím `<<ApplicationName>>API` rozsahem a konfiguruje middleware tokenu JWT nosiče k ověření tokenů vydaných IdentityServer pro aplikaci.
 
 ### <a name="sampledatacontroller"></a>SampleDataController
 
-V *Controllers\SampleDataController.cs* souboru, Všimněte si, že `[Authorize]` atributu použít pro třídu, která označuje, že uživatel musí být povoleno podle výchozí zásady pro přístup k prostředku. Byly konfigurovány k použití výchozího schématu ověřování, který je nastavený podle výchozí zásady autorizace se stane s `AddIdentityServerJwt` na schéma zásad, které jsme zmínili výše, což `JwtBearerHandler` nakonfiguroval tato Pomocná metoda pro obslužnou rutinu výchozí požadavky na aplikace.
+V souboru *Controllers\SampleDataController.cs* si všimněte `[Authorize]` atributu použitého pro třídu, která indikuje, že uživatel musí být autorizován na základě výchozích zásad pro přístup k prostředku. Výchozí zásady autorizace se budou konfigurovat tak, aby používaly výchozí schéma ověřování, které je nastavené na `AddIdentityServerJwt` základě výše zmíněného schématu zásad. `JwtBearerHandler` tím se nakonfiguruje Tato pomocná metoda jako výchozí obslužná rutina pro žádosti do aplikace
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
-V *Data\ApplicationDbContext.cs* souboru, Všimněte si, že stejné `DbContext` se používá v Identity s výjimkou, která rozšiřuje `ApiAuthorizationDbContext` (více odvozené třídy z `IdentityDbContext`) a zahrnout schéma IdentityServer do.
+V souboru *Data\ApplicationDbContext.cs* si všimněte `DbContext` , že se používá v identitě s výjimkou, kterou rozšiřuje `ApiAuthorizationDbContext` (další odvozená třída z `IdentityDbContext`) k zahrnutí schématu pro IdentityServer.
 
-K získání úplné kontroly schématu databáze, dědit z jednoho z dostupných Identity `DbContext` třídy a konfigurovat kontextu se zahrnout schéma Identity voláním `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` na `OnModelCreating` metody.
+Chcete-li získat úplné řízení schématu databáze, zdědit jednu z dostupných tříd identity `DbContext` a nakonfigurovat kontext tak, aby zahrnoval schéma identity voláním `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating` metody.
 
 ### <a name="oidcconfigurationcontroller"></a>OidcConfigurationController
 
-V *Controllers\OidcConfigurationController.cs* souboru, Všimněte si, že koncový bod, pro kterého je zřízené pro obsluhu OIDC parametry, které je potřeba použít klienta.
+V souboru *Controllers\OidcConfigurationController.cs* si všimněte koncového bodu, který se zřídí, aby sloužil parametrům OIDC, které musí klient použít.
 
 ### <a name="appsettingsjson"></a>appsettings.json
 
-V *appsettings.json* souboru kořen projektu je nový `IdentityServer` část popisující seznam nakonfigurovat klienty. V následujícím příkladu je jednoho klienta. Název klienta odpovídá názvu aplikace a mapovat pomocí konvence na OAuth `ClientId` parametru. Profil, který určuje typ aplikace, která se právě nastavuje. Používá se interně k jednotce vytváření názvů, které zjednodušují proces konfigurace pro server. K dispozici několik profilů, jak je vysvětleno v [profily aplikací](#application-profiles) oddílu.
+V souboru *appSettings. JSON* kořenového adresáře projektu je k dispozici nová `IdentityServer` část, která popisuje seznam konfigurovaných klientů. V následujícím příkladu je jeden klient. Název klienta odpovídá názvu aplikace a je mapován podle konvence na parametr OAuth `ClientId` . Profil indikuje typ aplikace, která se konfiguruje. Interně se používá k zajištění konvencí, které zjednodušují proces konfigurace serveru. K dispozici je několik profilů, jak je vysvětleno v části [profily aplikací](#application-profiles) .
 
 ```json
 "IdentityServer": {
@@ -121,9 +121,9 @@ V *appsettings.json* souboru kořen projektu je nový `IdentityServer` část po
 }
 ```
 
-### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.json
+### <a name="appsettingsdevelopmentjson"></a>appSettings. Vývoj. JSON
 
-V *appsettings. Development.JSON* souboru kořen projektu je `IdentityServer` část popisující klíč používaný k podepisování tokenů. Při nasazení do produkčního prostředí, klíč se musí zřídit a nasadit spolu s aplikací, jak je vysvětleno v [nasazení do produkčního prostředí](#deploy-to-production) oddílu.
+V souboru *appSettings. Soubor Development. JSON* kořenového adresáře projektu obsahuje `IdentityServer` oddíl, který popisuje klíč použitý k podepisování tokenů. Při nasazování do produkčního prostředí se musí klíč zřídit a nasadit společně s aplikací, jak je vysvětleno v části [nasazení do produkčního](#deploy-to-production) prostředí.
 
 ```json
 "IdentityServer": {
@@ -133,43 +133,43 @@ V *appsettings. Development.JSON* souboru kořen projektu je `IdentityServer` č
 }
 ```
 
-## <a name="general-description-of-the-angular-app"></a>Obecný popis aplikaci Angular
+## <a name="general-description-of-the-angular-app"></a>Obecný popis aplikace z úhlů
 
-Ověřování a autorizace API podporují v Angular šablona se nachází v jeho vlastní Angular modulu *ClientApp\src\api autorizace* adresáře. Modul se skládá z následujících elementů:
+Podpora ověřování a autorizace rozhraní API v úhlové šabloně se nachází v jeho vlastním úhlovém modulu v adresáři *ClientApp\src\api-Authorization* . Modul se skládá z následujících prvků:
 
 * 3 součásti:
-  * *Login.Component.TS*: Zpracuje proces přihlášení aplikace.
-  * *logout.Component.TS*: Zpracovává odhlášení toku aplikace.
-  * *login-menu.component.ts*: Widget, který zobrazí jedno z následujících sad odkazů:
-    * Správa profilů uživatelů a odkazy, když je uživatel ověřený při odhlášení.
-    * Registrace a přihlášení odkazy, když uživatel není ověřen.
-* Trasa guard `AuthorizeGuard` , které mohou být přidány do cesty a vyžaduje, uživatel k ověření před návštěvou trasy.
-* Protokolu HTTP zachycování `AuthorizeInterceptor` přístupový token, který připojí k cílení na rozhraní API, když je uživatel ověřený odchozí požadavky HTTP.
-* Služba `AuthorizeService` , který zpracovává podrobnosti nižší úrovně o procesu ověřování a zveřejňuje informace o ověřeném uživateli na zbytek aplikace pro použití.
-* Angular modul, který definuje trasy, které jsou přidružené k ověřování části aplikace. Zpřístupňuje komponenta nabídky přihlášení, sběrač, ochranného zařízení a služby pro použití na zbývající části aplikace.
+  * *Login. Component. TS*: Zpracovává tok přihlášení aplikace.
+  * *Odhlásit. Component. TS*: Zpracovává tok odhlášení aplikace.
+  * *přihlášení – nabídka. Component. TS*: Widget, který zobrazuje jednu z následujících sad odkazů:
+    * Správa profilů uživatelů a odhlášení odkazů při ověření uživatele
+    * Registrace a přihlášení v odkazech, když se uživatel neověřuje
+* Ochrana `AuthorizeGuard` trasy, kterou je možné přidat do tras a vyžaduje ověření uživatele před návštěvou trasy.
+* Zachytávací `AuthorizeInterceptor` protokol HTTP, který připojuje přístupový token k odchozím požadavkům HTTP, které cílí na rozhraní API při ověření uživatele.
+* Služba `AuthorizeService` , která zpracovává podrobné informace o procesu ověřování a zpřístupňuje informace o ověřeném uživateli do zbytku aplikace za účelem využití.
+* Úhlový modul, který definuje trasy přidružené k částem ověřování aplikace. Zpřístupňuje komponentu nabídky přihlášení, zachytávací modul, ochranu a službu pro využití ze zbytku aplikace.
 
-## <a name="general-description-of-the-react-app"></a>Obecný popis aplikace React
+## <a name="general-description-of-the-react-app"></a>Obecný popis aplikace s poreakcim
 
-Podpora pro ověřování a autorizace rozhraní API v šabloně React se nachází v *ClientApp\src\components\api autorizace* adresáře. Se skládá z následujících elementů:
+Podpora ověřování a autorizace rozhraní API v šabloně reakce se nachází v adresáři *ClientApp\src\components\api-Authorization* . Skládá se z následujících prvků:
 
-* 4 komponenty:
-  * *Login.js*: Zpracuje proces přihlášení aplikace.
-  * *Logout.js*: Zpracovává odhlášení toku aplikace.
-  * *LoginMenu.js*: Widget, který zobrazí jedno z následujících sad odkazů:
-    * Správa profilů uživatelů a odkazy, když je uživatel ověřený při odhlášení.
-    * Registrace a přihlášení odkazy, když uživatel není ověřen.
-  * *AuthorizeRoute.js*: Podle postupu součást, která vyžaduje uživatele k ověření před vykreslením komponentu `Component` parametru.
-* Exportovaná `authService` instance třídy `AuthorizeService` , který zpracovává podrobnosti nižší úrovně o procesu ověřování a zveřejňuje informace o ověřeném uživateli na zbytek aplikace pro použití.
+* 4 součásti:
+  * *Login.js*: Zpracovává tok přihlášení aplikace.
+  * *Odhlašovací. js*: Zpracovává tok odhlášení aplikace.
+  * *LoginMenu. js*: Widget, který zobrazuje jednu z následujících sad odkazů:
+    * Správa profilů uživatelů a odhlášení odkazů při ověření uživatele
+    * Registrace a přihlášení v odkazech, když se uživatel neověřuje
+  * *AuthorizeRoute.js*: Komponenta směrování, která vyžaduje ověření uživatele před vykreslením součásti uvedené v `Component` parametru.
+* Exportovaná `authService` instance třídy `AuthorizeService` , která zpracovává podrobnosti na nižší úrovni procesu ověřování a zpřístupňuje informace o ověřeném uživateli do zbytku aplikace za účelem využití.
 
-Teď, když jste viděli základních komponent řešení, můžete využít najdete podrobnější přehled jednotlivých scénářů aplikace.
+Teď, když jste viděli hlavní součásti řešení, se můžete podívat na podrobnější přehled o jednotlivých scénářích aplikace.
 
-## <a name="require-authorization-on-a-new-api"></a>Vyžadovat ověření na nové rozhraní API
+## <a name="require-authorization-on-a-new-api"></a>Vyžadovat autorizaci pro nové rozhraní API
 
-Ve výchozím nastavení systém je nakonfigurován tak, aby vyžadovala snadno autorizace pro nové rozhraní API. Uděláte to tak, vytvořte nový kontroler a přidejte `[Authorize]` atribut třídy kontroleru nebo na každou akci v rámci kontroleru.
+Ve výchozím nastavení je systém nakonfigurován tak, aby snadno vyžadoval autorizaci pro nová rozhraní API. Provedete to tak, že vytvoříte nový kontroler `[Authorize]` a přidáte ho do třídy Controller nebo do jakékoli akce v rámci kontroleru.
 
-## <a name="protect-a-client-side-route-angular"></a>Ochrana trasu na straně klienta (Angular)
+## <a name="protect-a-client-side-route-angular"></a>Ochrana trasy na straně klienta (úhlové)
 
-Ochrana trasu na straně klienta se provádí tak, že přidáte authorize guard do seznamu chrání ke spuštění při konfiguraci směrování. Jako příklad najdete v tématu Jak `fetch-data` je trasa nakonfigurována v hlavní aplikaci Angular modulu:
+Ochrana směrování na straně klienta se provádí přidáním ochrany autorizace do seznamu ochranných zařízení, která se spustí při konfiguraci trasy. Jako příklad můžete vidět, jak `fetch-data` je trasa nakonfigurovaná v rámci modulu Main v hlavní aplikaci:
 
 ```typescript
 RouterModule.forRoot([
@@ -178,15 +178,15 @@ RouterModule.forRoot([
 ])
 ```
 
-Je důležité zmínit, že ochrana trasu nechrání skutečný koncový bod (které stále vyžadují `[Authorize]` byt aplikovaný atribut), ale, že ji pouze znemožní uživateli navigace pro danou trasu na straně klienta, když není ověřený.
+Je důležité si zmínit, že při ochraně trasy se nechrání skutečný koncový bod (který stále vyžaduje `[Authorize]` použití atributu), ale to brání uživateli v přechodu na danou trasu na straně klienta, pokud není ověřen.
 
-## <a name="authenticate-api-requests-angular"></a>Ověření požadavků rozhraní API (Angular)
+## <a name="authenticate-api-requests-angular"></a>Ověřit požadavky rozhraní API (úhlové)
 
-Ověřování požadavků na rozhraní API hostovaná aplikace se provádí automaticky pomocí zachycování klienta HTTP definované aplikací.
+Ověřování požadavků na rozhraní API hostovaná společně s aplikací se provádí automaticky pomocí zachytávací klienta HTTP definovaného aplikací.
 
-## <a name="protect-a-client-side-route-react"></a>Ochrana trasu na straně klienta (React)
+## <a name="protect-a-client-side-route-react"></a>Ochrana trasy na straně klienta (reakce)
 
-Ochrana trasu na straně klienta pomocí `AuthorizeRoute` komponentu místo prostý `Route` komponenty. Například, Všimněte si, jak `fetch-data` je trasa nakonfigurována v rámci `App` komponenty:
+Chránit směrování na straně klienta pomocí `AuthorizeRoute` komponenty místo prosté `Route` součásti. Všimněte si například, jak `fetch-data` je trasa nakonfigurovaná `App` v rámci součásti:
 
 ```jsx
 <AuthorizeRoute path='/fetch-data' component={FetchData} />
@@ -194,20 +194,20 @@ Ochrana trasu na straně klienta pomocí `AuthorizeRoute` komponentu místo pros
 
 Ochrana trasy:
 
-* Nechrání skutečný koncový bod (které stále vyžadují `[Authorize]` byt aplikovaný atribut).
-* Pouze znemožní uživateli navigace pro danou trasu na straně klienta, když není ověřený.
+* Nechrání skutečný koncový bod (který pořád vyžaduje `[Authorize]` Aplikování atributu).
+* Zabrání uživateli v přechodu na danou trasu na straně klienta, pokud není ověřen.
 
-## <a name="authenticate-api-requests-react"></a>Ověření požadavků rozhraní API (React)
+## <a name="authenticate-api-requests-react"></a>Ověřit požadavky rozhraní API (reagovat)
 
-Ověřování požadavků pomocí React probíhá v první import `authService` z instance `AuthorizeService`. Přístupový token je načten z `authService` je připojená k požadavku, jak je znázorněno níže. V součástech React tuto práci se obvykle provádí `componentDidMount` životního cyklu metody nebo jako výsledek z některých interakci s uživatelem.
+Ověřování požadavků pomocí reakce je provedeno napřed importem `authService` instance `AuthorizeService`z. Přístupový token je načten z `authService` a je připojen k žádosti, jak je uvedeno níže. V reakci na komponenty se tato práce obvykle provádí v `componentDidMount` metodě životního cyklu nebo jako výsledek z nějaké interakce s uživatelem.
 
-### <a name="import-the-authservice-into-your-component"></a>Importovat authService do komponenty
+### <a name="import-the-authservice-into-your-component"></a>Import authService do komponenty
 
 ```javascript
 import authService from './api-authorization/AuthorizeService'
 ```
 
-### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>Načíst a připojit přístupového tokenu do odpovědi
+### <a name="retrieve-and-attach-the-access-token-to-the-response"></a>Načtení a připojení přístupového tokenu k odpovědi
 
 ```javascript
 async populateWeatherData() {
@@ -222,17 +222,17 @@ async populateWeatherData() {
 
 ## <a name="deploy-to-production"></a>Nasazení do produkčního prostředí
 
-Nasazení aplikace do produkčního prostředí, třeba zřídí následující prostředky:
+Pokud chcete nasadit aplikaci do produkčního prostředí, je potřeba zřídit tyto prostředky:
 
-* Databázi k ukládání uživatelských účtů identit a IdentityServer uděluje.
-* Produkční certifikát používaný k podepisování tokenů.
-  * Neexistují žádné zvláštní požadavky tohoto certifikátu; může být certifikát podepsaný svým držitelem nebo certifikát poskytované prostřednictvím Certifikační autority.
-  * Mohou být generovány prostřednictvím standardních nástrojů jako PowerShell nebo OpenSSL.
-  * Můžete nainstalovat do úložiště certifikátů na cílových počítačích nebo nasadit jako *.pfx* souboru silným heslem.
+* Databáze pro ukládání uživatelských účtů identity a IdentityServer grantů.
+* Provozní certifikát, který se má použít pro podepisování tokenů.
+  * Pro tento certifikát neexistují žádné zvláštní požadavky. může se jednat o certifikát podepsaný svým držitelem nebo certifikát zřízený autoritou certifikační autority.
+  * Dá se vygenerovat pomocí standardních nástrojů, jako je PowerShell nebo OpenSSL.
+  * Dá se nainstalovat do úložiště certifikátů na cílových počítačích nebo nasadit jako soubor *. pfx* se silným heslem.
 
-### <a name="example-deploy-to-azure-websites"></a>Příklad: Nasazení do Azure Websites
+### <a name="example-deploy-to-azure-websites"></a>Příklad: Nasazení na Azure websites
 
-Tato část popisuje nasazení aplikace na Azure websites pomocí certifikátu uloženého v úložišti certifikátů. Pokud chcete upravit aplikaci načíst certifikát z úložiště certifikátů, plán služby App Service musí být na alespoň na úrovni Standard při konfiguraci v pozdějším kroku. V aplikaci prvku *appsettings.json* souboru, upravte `IdentityServer` části Zahrnout podrobnosti klíče:
+Tato část popisuje nasazení aplikace do Azure websites pomocí certifikátu uloženého v úložišti certifikátů. Aby bylo možné aplikaci upravit, aby načetla certifikát z úložiště certifikátů, musí být plán App Service při konfiguraci v pozdějším kroku přinejmenším na úrovni Standard. V souboru *appSettings. JSON* aplikace upravte `IdentityServer` oddíl tak, aby obsahoval podrobnosti klíče:
 
 ```json
 "IdentityServer": {
@@ -245,46 +245,46 @@ Tato část popisuje nasazení aplikace na Azure websites pomocí certifikátu u
 }
 ```
 
-* Vlastnost name u certifikátu odpovídá rozlišující subjekt certifikátu.
-* Představuje umístění úložiště, kam se načíst certifikát z (`CurrentUser` nebo `LocalMachine`).
-* Název úložiště představuje název úložiště certifikátů, kdy certifikát je uložen. V takovém případě odkazuje na úložiště osobní uživatele.
+* Vlastnost Name u certifikátu odpovídá rozlišujícímu předmětu certifikátu.
+* Umístění úložiště představuje místo, kde se má certifikát načíst (`CurrentUser` nebo `LocalMachine`).
+* Název úložiště představuje název úložiště certifikátů, ve kterém je certifikát uložený. V tomto případě odkazuje na úložiště osobních uživatelů.
 
-Pokud chcete nasadit na weby Azure, nasazení aplikace podle kroků v [aplikaci nasadit do Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure) prostředky Azure potřebné pro vytvoření a nasazení aplikace do produkčního prostředí.
+Pokud chcete nasadit na Azure websites, nasaďte aplikaci podle kroků v části [nasazení aplikace do Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure) a vytvořte potřebné prostředky Azure a nasaďte aplikaci do produkčního prostředí.
 
-Po provedení předchozích kroků, aplikace se nasadí do Azure, ale ještě není funkční. Certifikát používaný aplikací je stále potřeba nastavit. Vyhledejte kryptografický otisk certifikátu, který se má použít a postupujte podle kroků popsaných v [načíst vaše certifikáty](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code).
+Po provedení kroků uvedených v předchozích pokynech se aplikace nasadí do Azure, ale ještě není funkční. Certifikát používaný aplikací je stále potřeba nastavit. Vyhledejte kryptografický otisk certifikátu, který se má použít, a postupujte podle kroků popsaných v tématu [načtení certifikátů](/azure/app-service/app-service-web-ssl-cert-load#load-the-certificate-in-code).
 
-Přestože tyto kroky zmiňovat SSL, je **privátní certifikáty** části na portálu, kde můžete nahrát zřízené certifikátu pro použití s aplikací.
+I když tento postup uvádí protokol SSL, existuje část **privátní certifikáty** na portálu, kde můžete nahrát zřízený certifikát pro použití s aplikací.
 
-Po provedení tohoto kroku, restartujte aplikaci a měla by být funkční.
+Po provedení tohoto kroku restartujte aplikaci a měla by být funkční.
 
 ## <a name="other-configuration-options"></a>Další možnosti konfigurace
 
-Podpora rozhraní API autorizace postavená na IdentityServer sadu konvence, výchozí hodnoty a vylepšení prostředí pro SPA zjednodušit. Needless znamená potenciál IdentityServer je k dispozici na pozadí na integrace ASP.NET Core, které nepokrývá váš scénář. Podpora technologie ASP.NET Core se zaměřuje na "vlastní" aplikace Microsoftu, kde jsou všechny aplikace vytvoření a nasazení naší organizace. V důsledku toho není dostupná podpora pro takové věci, třeba souhlas nebo federace. Pro tyto scénáře použití IdentityServer a postupujte podle jejich dokumentaci.
+Podpora pro autorizaci rozhraní API se sestavuje na IdentityServer se sadou konvencí, výchozími hodnotami a vylepšeními, které zjednodušují prostředí jednostránkové. Bez nutnosti vyslovit, pokud ASP.NET Core integrace nepokrývá váš scénář, je k dispozici plný výkon IdentityServer na pozadí. Podpora ASP.NET Core se zaměřuje na aplikace "první strany", kde se všechny aplikace vytvářejí a nasazují v naší organizaci. V takovém případě se podpora nenabízí pro věci, jako je například souhlas nebo federace. V případě těchto scénářů použijte IdentityServer a postupujte podle jejich dokumentace.
 
 ### <a name="application-profiles"></a>Profily aplikací
 
-Profily aplikací jsou předdefinované konfigurace pro aplikace, které dále určují své parametry. V současné době jsou podporovány následující profily:
+Profily aplikací jsou předdefinované konfigurace pro aplikace, které dále definují jejich parametry. V současné době jsou podporovány následující profily:
 
-* `IdentityServerSPA`: Představuje SPA hostované vedle IdentityServer jako jeden celek.
-  * `redirect_uri` Výchozí hodnota je `/authentication/login-callback`.
-  * `post_logout_redirect_uri` Výchozí hodnota je `/authentication/logout-callback`.
-  * Zahrnuje sadu obory `openid`, `profile`a každý rozsah definovaný pro rozhraní API v aplikaci.
-  * Sada povolených typů odpovědi OIDC je `id_token token` nebo každý z nich jednotlivě (`id_token`, `token`).
-  * Režim povolený odpovědi je `fragment`.
-* `SPA`: Představuje SPA, která není hostována s IdentityServer.
-  * Zahrnuje sadu obory `openid`, `profile`a každý rozsah definovaný pro rozhraní API v aplikaci.
-  * Sada povolených typů odpovědi OIDC je `id_token token` nebo každý z nich jednotlivě (`id_token`, `token`).
-  * Režim povolený odpovědi je `fragment`.
-* `IdentityServerJwt`: Představuje rozhraní API, která je hostována společně s IdentityServer.
-  * Aplikace má nastavený jeden obor, která jako výchozí název aplikace.
-* `API`: Představuje rozhraní API, která není hostována s IdentityServer.
-  * Aplikace má nastavený jeden obor, která jako výchozí název aplikace.
+* `IdentityServerSPA`: Představuje zabezpečené ověřování na hostitele společně s IdentityServer jako s jednou jednotkou.
+  * Výchozí hodnota je `redirect_uri`. `/authentication/login-callback`
+  * Výchozí hodnota je `post_logout_redirect_uri`. `/authentication/logout-callback`
+  * Sada oborů zahrnuje `openid`, `profile`a každý obor definovaný pro rozhraní API v aplikaci.
+  * Sada povolených typů OIDC odezvy je `id_token token` nebo každou z nich jednotlivě (`id_token`, `token`).
+  * Režim povolených odpovědí je `fragment`.
+* `SPA`: Představuje zabezpečené ověřování hesla, které není hostované na IdentityServer.
+  * Sada oborů zahrnuje `openid`, `profile`a každý obor definovaný pro rozhraní API v aplikaci.
+  * Sada povolených typů OIDC odezvy je `id_token token` nebo každou z nich jednotlivě (`id_token`, `token`).
+  * Režim povolených odpovědí je `fragment`.
+* `IdentityServerJwt`: Představuje rozhraní API, které je hostované spolu s IdentityServer.
+  * Aplikace je nakonfigurovaná tak, aby měla jeden obor, který má výchozí název aplikace.
+* `API`: Představuje rozhraní API, které není hostované pomocí IdentityServer.
+  * Aplikace je nakonfigurovaná tak, aby měla jeden obor, který má výchozí název aplikace.
 
 ### <a name="configuration-through-appsettings"></a>Konfigurace prostřednictvím AppSettings
 
-Konfigurace aplikací pomocí konfiguračního systému jejich přidáním do seznamu `Clients` nebo `Resources`.
+Nakonfigurujte aplikace přes konfigurační systém jejich přidáním do seznamu `Clients` nebo. `Resources`
 
-Konfigurovat každý klient `redirect_uri` a `post_logout_redirect_uri` vlastnost, jak je znázorněno v následujícím příkladu:
+Nakonfigurujte jednotlivé vlastnosti klienta `redirect_uri` a `post_logout_redirect_uri` , jak je znázorněno v následujícím příkladu:
 
 ```json
 "IdentityServer": {
@@ -298,7 +298,7 @@ Konfigurovat každý klient `redirect_uri` a `post_logout_redirect_uri` vlastnos
 }
 ```
 
-Při konfiguraci prostředků, můžete nakonfigurovat obory pro prostředek, jak je znázorněno níže:
+Při konfiguraci prostředků můžete nakonfigurovat obory pro prostředek, jak je znázorněno níže:
 
 ```json
 "IdentityServer": {
@@ -313,7 +313,7 @@ Při konfiguraci prostředků, můžete nakonfigurovat obory pro prostředek, ja
 
 ### <a name="configuration-through-code"></a>Konfigurace prostřednictvím kódu
 
-Můžete taky nakonfigurovat klienty a prostředků prostřednictvím kódu pomocí přetížení `AddApiAuthorization` , která má akci, kterou chcete nakonfigurovat možnosti.
+Můžete také nakonfigurovat klienty a prostředky prostřednictvím kódu pomocí přetížení `AddApiAuthorization` , které provede akci konfigurace možností.
 
 ```csharp
 AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
@@ -333,3 +333,4 @@ AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
 
 * <xref:spa/angular>
 * <xref:spa/react>
+* <xref:security/authentication/scaffold-identity>

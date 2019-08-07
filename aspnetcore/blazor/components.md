@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/02/2019
 uid: blazor/components
-ms.openlocfilehash: 6285eb26bae283fe0c1a5bc000c2a4fe6b9ec738
-ms.sourcegitcommit: 4fe3ae892f54dc540859bff78741a28c2daa9a38
+ms.openlocfilehash: c5525542516d7b1318c26d12a5f59b0ded8dc659
+ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/04/2019
-ms.locfileid: "68776581"
+ms.lasthandoff: 08/06/2019
+ms.locfileid: "68819775"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -37,9 +37,9 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 Členy třídy komponenty jsou definovány v `@code` bloku. `@code` V bloku je stav součásti (vlastnosti, pole) zadán pomocí metod pro zpracování událostí nebo pro definování jiné logiky komponent. Je přípustný více `@code` než jeden blok.
 
 > [!NOTE]
-> V předchozích verzích ASP.NET Core `@functions` byly bloky použity pro stejný účel jako `@code` bloky. `@functions`bloky budou i nadále fungovat, ale doporučujeme použít `@code` direktivu.
+> V předchozích verzích Preview ASP.NET Core 3,0 `@functions` byly bloky použity pro stejný účel jako `@code` bloky v součástech Razor. `@functions`bloky nadále fungují v součástech Razor, ale doporučujeme použít `@code` blok v ASP.NET Core 3,0 Preview 6 nebo novějším.
 
-Členy komponenty pak lze použít jako součást logiky vykreslování komponenty pomocí C# výrazů, které začínají `@`na. Například C# pole se vykreslí pomocí předpony `@` na název pole. Následující příklad vyhodnocuje a vykresluje:
+Členy součásti lze použít jako součást logiky vykreslování komponenty pomocí C# výrazů, které začínají `@`na. Například C# pole se vykreslí pomocí předpony `@` na název pole. Následující příklad vyhodnocuje a vykresluje:
 
 * `_headingFontStyle`do hodnoty vlastnosti CSS pro `font-style`.
 * `_headingText`k obsahu `<h1>` elementu.
@@ -55,7 +55,7 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 
 Po prvním vykreslení komponenty vygeneruje komponenta znovu svůj strom vykreslování v reakci na události. Blazor pak porovná nový strom vykreslování s předchozí a použije všechny změny v model DOM (Document Object Model) v prohlížeči (DOM).
 
-Komponenty jsou běžné C# třídy a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, jsou obvykle umístěny ve složce *stránky* . Komponenty mimo stránku jsou často umístěny ve *sdílené* složce nebo vlastní složce přidané do projektu. Chcete-li použít vlastní složku, buď přidejte obor názvů vlastní složky do nadřazené komponenty nebo do souboru *_Imports. Razor* aplikace. Například následující obor názvů zpřístupňuje komponenty ve složce *Components* , když je `WebApplication`kořenový obor názvů aplikace:
+Komponenty jsou běžné C# třídy a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, jsou obvykle umístěny ve složce *stránky* . Komponenty mimo stránku jsou často umístěny ve *sdílené* složce nebo vlastní složce přidané do projektu. Chcete-li použít vlastní složku, přidejte obor názvů vlastní složky do nadřazené komponenty nebo do souboru *_Imports. Razor* aplikace. Například následující obor názvů zpřístupňuje komponenty ve složce *Components* , když je `WebApplication`kořenový obor názvů aplikace:
 
 ```cshtml
 @using WebApplication.Components
@@ -124,7 +124,7 @@ Následující `ParentComponent` obsah vám může poskytnout obsah pro `ChildCo
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>Seskupováním atributů a libovolné parametry
 
-Komponenty mohou kromě deklarovaných parametrů komponenty zachytit a vykreslovat další atributy. Další atributy mohou být zachyceny ve slovníku a poté *splatted* na prvek při vykreslení komponenty pomocí `@attributes` direktivy Razor. Tento scénář je užitečný při definování komponenty, která vytváří prvek značky, který podporuje nejrůznější přizpůsobení. Například může být zdlouhavé definovat atributy samostatně pro objekt `<input>` , který podporuje mnoho parametrů.
+Komponenty mohou kromě deklarovaných parametrů komponenty zachytit a vykreslovat další atributy. Další atributy mohou být zachyceny ve slovníku a poté *splatted* na prvek při vykreslení komponenty pomocí [@attributes](xref:mvc/views/razor#attributes) direktivy Razor. Tento scénář je užitečný při definování komponenty, která vytváří prvek značky, který podporuje nejrůznější přizpůsobení. Například může být zdlouhavé definovat atributy samostatně pro objekt `<input>` , který podporuje mnoho parametrů.
 
 V `<input>` následujícím příkladu první prvek (`id="useIndividualParams"`) používá jednotlivé parametry komponenty, zatímco druhý `<input>` element (`id="useAttributesDict"`) používá atribut seskupováním:
 
@@ -155,9 +155,9 @@ V `<input>` následujícím příkladu první prvek (`id="useIndividualParams"`)
     private Dictionary<string, object> InputAttributes { get; set; } =
         new Dictionary<string, object>()
         {
-            { "maxlength", "10" }, 
-            { "placeholder", "Input placeholder text" }, 
-            { "required", "true" }, 
+            { "maxlength", "10" },
+            { "placeholder", "Input placeholder text" },
+            { "required", "true" },
             { "size", "50" }
         };
 }
@@ -194,7 +194,7 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `
 
 ## <a name="data-binding"></a>Datová vazba
 
-Datové vazby na součásti a elementy modelu DOM jsou provedeny `@bind` atributem. V následujícím příkladu je svázáno `_italicsCheck` pole se zaškrtnutým stavem zaškrtávací políčko:
+Datové vazby na součásti a elementy modelu DOM jsou provedeny [@bind](xref:mvc/views/razor#bind) atributem. V následujícím příkladu je svázáno `_italicsCheck` pole se zaškrtnutým stavem zaškrtávací políčko:
 
 ```cshtml
 <input type="checkbox" class="form-check-input" id="italicsCheck" 
@@ -208,13 +208,13 @@ Zaškrtávací políčko se aktualizuje v uživatelském rozhraní pouze v pří
 Použití `@bind` s`CurrentValue` vlastností(`<input @bind="CurrentValue" />`) je v podstatě ekvivalentem následujícího:
 
 ```cshtml
-<input value="@CurrentValue" 
+<input value="@CurrentValue"
     @onchange="@((UIChangeEventArgs __e) => CurrentValue = __e.Value)" />
 ```
 
 Při vykreslení `value` komponenty `CurrentValue` z vlastnosti input element přichází. Když uživatel zadá do textového pole, `onchange` událost se aktivuje `CurrentValue` a vlastnost je nastavena na změněnou hodnotu. Ve skutečnosti je generování kódu trochu složitější, protože `@bind` zpracovává několik případů, kde jsou prováděny převody typu. V zásadě `@bind` přidruží aktuální hodnotu výrazu `value` k atributu a zpracovává změny pomocí registrované obslužné rutiny.
 
-Kromě zpracování `onchange` událostí pomocí `@bind` syntaxe lze vlastnost nebo pole svázat pomocí `@bind-value` jiných událostí `event` zadáním atributu s parametrem. Následující příklad váže `CurrentValue` vlastnost `oninput` pro událost:
+`onchange` Kromě zpracování[@bind-value:event](xref:mvc/views/razor#bind)událostí pomocí `@bind` syntaxe lze vlastnost nebo pole svázat pomocí [@bind-value](xref:mvc/views/razor#bind) jiných událostí `event` zadáním atributu s parametrem (). Následující příklad váže `CurrentValue` vlastnost `oninput` pro událost:
 
 ```cshtml
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
@@ -224,7 +224,7 @@ Na rozdíl `onchange`od, která je aktivována, když prvek ztratí `oninput` fo
 
 **Řetězce formátu**
 
-Datové vazby fungují s <xref:System.DateTime> formátovacími řetězci. Jiné formátovací výrazy, jako je například Měna nebo formáty čísel, nejsou v tuto chvíli k dispozici.
+Datové vazby fungují s <xref:System.DateTime> řetězci formátu pomocí [@bind:format](xref:mvc/views/razor#bind). Jiné formátovací výrazy, jako je například Měna nebo formáty čísel, nejsou v tuto chvíli k dispozici.
 
 ```cshtml
 <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
@@ -239,7 +239,7 @@ Atribut určuje formát data, který se má použít `value` pro `<input>` eleme
 
 **Parametry součásti**
 
-Vazba také rozpoznává parametry komponenty, `@bind-{property}` kde může svázat hodnotu vlastnosti napříč komponentami.
+Vazba rozpoznává parametry komponenty, `@bind-{property}` kde může svázat hodnotu vlastnosti napříč komponentami.
 
 Následující podřízená komponenta (`ChildComponent`) `Year` má parametr komponenty a `YearChanged` zpětné volání:
 
@@ -325,7 +325,7 @@ Obecně platí, že vlastnost může být svázána s odpovídající obslužnou
 
 ## <a name="event-handling"></a>Zpracování událostí
 
-Komponenty Razor poskytují funkce pro zpracování událostí. Pro atribut elementu HTML s názvem `on<event>` ( `onclick` například a `onsubmit`) s hodnotou typu delegáta, komponenty Razor považují hodnotu atributu za obslužnou rutinu události. Název atributu vždy začíná `@on`na.
+Komponenty Razor poskytují funkce pro zpracování událostí. Pro atribut elementu HTML s názvem `on{event}` ( `onclick` například a `onsubmit`) s hodnotou typu delegáta, komponenty Razor považují hodnotu atributu za obslužnou rutinu události. Název atributu má vždycky formát [ @on{Event}](xref:mvc/views/razor#onevent).
 
 Následující kód volá `UpdateHeading` metodu, pokud je vybráno tlačítko v uživatelském rozhraní:
 
@@ -372,7 +372,9 @@ V následujícím příkladu `UpdateHeading` se volá asynchronně po výběru t
 }
 ```
 
-U některých událostí jsou povoleny typy argumentů události specifické pro událost. Pokud přístup k některému z těchto typů událostí není nezbytný, není nutné ve volání metody.
+### <a name="event-argument-types"></a>Typy argumentů události
+
+U některých událostí jsou povoleny typy argumentů události. Pokud přístup k některému z těchto typů událostí není nezbytný, není nutné ve volání metody.
 
 Podporované [UIEventArgs](https://github.com/aspnet/AspNetCore/blob/release/3.0-preview8/src/Components/Components/src/UIEventArgs.cs) jsou uvedeny v následující tabulce.
 
@@ -391,7 +393,9 @@ Podporované [UIEventArgs](https://github.com/aspnet/AspNetCore/blob/release/3.0
 | Dotykové ovládání | `UITouchEventArgs`&ndash; představujejedenkontaktníbodnazařízenícitlivém`UITouchPoint` na dotykové ovládání. |
 
 Informace o vlastnostech a chování zpracování událostí událostí v předchozí tabulce naleznete v tématu [třídy EventArgs ve zdroji odkazu](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview8/src/Components/Web/src).
-  
+
+### <a name="lambda-expressions"></a>Výrazy lambda
+
 Lambda výrazy lze také použít:
 
 ```cshtml
@@ -471,7 +475,7 @@ Preferovat silného typu `EventCallback<T>` přes `EventCallback`. `EventCallbac
 
 ## <a name="capture-references-to-components"></a>Zachytit odkazy na komponenty
 
-Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance, například `Show` nebo `Reset`. Chcete-li zachytit odkaz na komponentu, `@ref` přidejte atribut do podřízené komponenty a pak definujte pole se stejným názvem a stejným typem jako podřízená komponenta.
+Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance, například `Show` nebo `Reset`. Chcete-li zachytit odkaz na komponentu, [@ref](xref:mvc/views/razor#ref) přidejte atribut do podřízené komponenty a pak definujte pole se stejným názvem a stejným typem jako podřízená komponenta.
 
 ```cshtml
 <MyLoginDialog @ref="loginDialog" ... />
@@ -496,7 +500,7 @@ Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachyc
 > [!NOTE]
 > Nepoužívejte odkazy na součásti pro použití stavu podřízených komponent. Místo toho použijte k předání dat podřízeným komponentám běžné deklarativní parametry. Použití běžných deklarativních parametrů má za následek podřízené komponenty, které jsou automaticky revykreslovány ve správný čas.
 
-## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>Slouží @key k řízení uchovávání prvků a komponent.
+## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>Použití \@klíče k řízení uchovávání prvků a komponent
 
 Při vykreslování seznamu prvků nebo komponent a následné změny prvků nebo komponent musí být Blazor rozdílový algoritmus rozhodnout, které z předchozích prvků nebo komponent lze zachovat a jak se mají objekty modelu namapovat. Obvykle je tento proces automatický a může být ignorován, ale existují případy, kdy můžete chtít řídit proces.
 
@@ -541,7 +545,7 @@ V některých scénářích použití `@key` minimalizuje složitost reprodukce 
 > [!IMPORTANT]
 > Klíče jsou místní pro každý prvek kontejneru nebo komponentu. Klíče nejsou v dokumentu globálně porovnány.
 
-### <a name="when-to-use-key"></a>Kdy použít@key
+### <a name="when-to-use-key"></a>Kdy použít \@klíč
 
 Obvykle má smysl použít `@key` při každém vykreslení seznamu (například `@foreach` v bloku) a existuje vhodná `@key`hodnota pro definování.
 
@@ -555,13 +559,13 @@ Můžete také použít `@key` , chcete-li zabránit Blazor v zachování prvku 
 
 Pokud `@currentPerson` se změní `@key` , direktiva Attribute vynutí, aby Blazor `<div>` zahození celého a jeho následníků a znovu sestavil podstrom v uživatelském rozhraní s novými prvky a komponentami. To může být užitečné, pokud potřebujete zaručit, že se při `@currentPerson` změnách nezachovají stav uživatelského rozhraní.
 
-### <a name="when-not-to-use-key"></a>Kdy se nepoužívá@key
+### <a name="when-not-to-use-key"></a>Kdy nepoužívat \@klíč
 
 Při rozdílech s se `@key`účtují náklady na výkon. Náklady na výkon nejsou velké, ale zadávejte `@key` jenom v případě, že řízení pravidel uchovávání prvků nebo součástí má aplikace výhodu.
 
 `@key` I když se nepoužívá, Blazor zachová podřízený element a instance komponenty co nejvíc. Jedinou výhodou použití `@key` je kontrola, *jak* jsou instance modelů mapovány na zachované instance komponent namísto rozdílového algoritmu výběru mapování.
 
-### <a name="what-values-to-use-for-key"></a>Jaké hodnoty se mají použít pro@key
+### <a name="what-values-to-use-for-key"></a>Jaké hodnoty se mají použít \@pro klíč
 
 Obecně dává smysl pro zadání jednoho z následujících typů hodnot pro `@key`:
 
@@ -748,26 +752,7 @@ This is the Index page.
 >
 > Částečně kvalifikované názvy nejsou podporovány. Například přidání `@using ComponentsSample` a `NavMenu.razor` odkazování pomocí `<Shared.NavMenu></Shared.NavMenu>` není podporováno.
 
-## <a name="razor-support"></a>Podpora Razor
-
-**Direktivy Razor**
-
-Direktivy Razor jsou uvedeny v následující tabulce.
-
-| – Direktiva | Popis |
-| --------- | ----------- |
-| [\@code](xref:mvc/views/razor#section-5) | Přidá blok C# kódu do komponenty. `@code`je alias `@functions`. `@code`se doporučuje `@functions`. Je přípustný více `@code` než jeden blok. |
-| [\@POZVYHLEDAT](xref:mvc/views/razor#section-5) | Přidá blok C# kódu do komponenty. Vyberte `@code` možnost `@functions` přes C# pro bloky kódu. |
-| `@implements` | Implementuje rozhraní pro generovanou třídu komponenty. |
-| [\@zdědí](xref:mvc/views/razor#section-3) | Poskytuje úplnou kontrolu nad třídou, kterou komponenta dědí. |
-| [\@vstřik](xref:mvc/views/razor#section-4) | Povoluje vkládání služby z [kontejneru služby](xref:fundamentals/dependency-injection). Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection). |
-| `@layout` | Určuje komponentu rozložení. Komponenty rozložení se používají k zamezení Duplikace kódu a nekonzistenci. |
-| [\@Page](xref:razor-pages/index#razor-pages) | Určuje, že komponenta má zpracovávat požadavky přímo. `@page` Direktivu lze zadat pomocí trasy a nepovinných parametrů. Na `@page` rozdíl od Razor Pages direktiva nemusí být první direktivou v horní části souboru. Další informace najdete v tématu [Směrování](xref:blazor/routing). |
-| [\@použití](xref:mvc/views/razor#using) | C# Přidádirektivudogenerovanétřídykomponent.`using` Tím se také přiřadí všechny součásti definované v tomto oboru názvů do rozsahu. |
-| [\@namespace](xref:mvc/views/razor#section-6) | Nastaví obor názvů generované třídy součásti. |
-| [\@přidělen](xref:mvc/views/razor#section-7) | Přidá atribut do generované třídy komponenty. |
-
-**Podmíněné atributy elementu HTML**
+## <a name="conditional-html-element-attributes"></a>Podmíněné atributy elementu HTML
 
 Atributy elementu HTML jsou podmíněně vykresleny na základě hodnoty .NET. Pokud je `false` hodnota nebo `null`, atribut není vykreslen. Pokud je `true`hodnota, je vygenerována hodnota atributu minimalizovaný.
 
@@ -794,9 +779,7 @@ Pokud `IsCompleted` je`false`, zaškrtávací políčko je vykresleno jako:
 <input type="checkbox" />
 ```
 
-**Další informace o Razor**
-
-Další informace o Razor najdete v referenčních informacích o [syntaxe Razor](xref:mvc/views/razor).
+Další informace naleznete v tématu <xref:mvc/views/razor>.
 
 ## <a name="raw-html"></a>Nezpracovaný kód HTML
 
