@@ -5,12 +5,12 @@ description: Objevte, jak přidat třídy pro správu filmy v databázi pomocí 
 ms.author: riande
 ms.date: 07/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 6132f7b907014b4f57bb9ae0300e00b6ecb23f1a
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 39e2a38e0b91b7dbecf05c084ca0be5e312dcb0d
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820067"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862875"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -135,18 +135,30 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 
 ---
 
-Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následující soubory:
-
 ### <a name="files-created"></a>Soubory vytvořené
+
+# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následující soubory:
 
 * *Stránky/filmy*: Vytvořit, odstranit, podrobnosti, upravit a index.
 * *Data/RazorPagesMovieContext.cs*
 
-### <a name="file-updated"></a>Aktualizovat soubor
+### <a name="updated"></a>Aktualizuj
 
 * *Startup.cs*
 
 Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
+
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+
+Proces generování uživatelského rozhraní vytvoří následující soubory:
+
+* *Stránky/filmy*: Vytvořit, odstranit, podrobnosti, upravit a index.
+
+Vytvořené soubory jsou vysvětleny v další části.
+
+---
 
 <a name="pmc"></a>
 
