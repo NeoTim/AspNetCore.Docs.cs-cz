@@ -5,12 +5,12 @@ description: Ukazuje, jak přidat hledání do základní ASP.NET Core aplikace 
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: ed6c7a095143670b7d06e43db3a428dec9bf97ad
-ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
+ms.openlocfilehash: 97ee5f66c142780d54d28013c109da61241d967b
+ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/01/2019
-ms.locfileid: "68707846"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68862948"
 ---
 # <a name="add-search-to-an-aspnet-core-mvc-app"></a>Přidání vyhledávání do aplikace ASP.NET Core MVC
 
@@ -85,7 +85,7 @@ Pokud přidáte tuto metodu, akce původce by odpovídala `[HttpPost] Index` met
 
 ![Okno prohlížeče s odpovědí na aplikaci z indexu HttpPost: filtrování na Ghost](~/tutorials/first-mvc-app/search/_static/fo.png)
 
-Nicméně i v případě, že přidáte `[HttpPost]` tuto verzi `Index` metody, existuje omezení, jak je vše implementováno. Představte si, že chcete vytvořit záložku konkrétního hledání nebo chcete poslat odkaz na přátele, na které můžou kliknout, aby se zobrazil stejný filtrovaný seznam filmů. Všimněte si, že adresa URL požadavku HTTP POST je stejná jako adresa URL žádosti GET (localhost: xxxxx/video/index) – v adrese URL nejsou žádné vyhledávací informace. Informace o hledaném řetězci jsou odesílány na server jako [hodnota pole formuláře](https://developer.mozilla.org/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data). Můžete si je ověřit pomocí nástrojů pro vývojáře v prohlížeči nebo skvělého [nástroje Fiddler](https://www.telerik.com/fiddler). Následující obrázek ukazuje vývojářské nástroje prohlížeče Chrome:
+Nicméně i v případě, že přidáte `[HttpPost]` tuto verzi `Index` metody, existuje omezení, jak je vše implementováno. Představte si, že chcete vytvořit záložku konkrétního hledání nebo chcete poslat odkaz na přátele, na které můžou kliknout, aby se zobrazil stejný filtrovaný seznam filmů. Všimněte si, že adresa URL požadavku HTTP POST je stejná jako adresa URL žádosti GET (localhost: {PORT}/video/index) – v adrese URL nejsou žádné vyhledávací informace. Informace o hledaném řetězci jsou odesílány na server jako [hodnota pole formuláře](https://developer.mozilla.org/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data). Můžete si je ověřit pomocí nástrojů pro vývojáře v prohlížeči nebo skvělého [nástroje Fiddler](https://www.telerik.com/fiddler). Následující obrázek ukazuje vývojářské nástroje prohlížeče Chrome:
 
 ![Karta síť Vývojářské nástroje v Microsoft Edge ukazující tělo žádosti s hodnotou searchString Ghost](~/tutorials/first-mvc-app/search/_static/f12_rb.png)
 
@@ -147,5 +147,5 @@ Otestujte aplikaci vyhledáním podle žánru, podle názvu filmu a pomocí obou
 ![Okno prohlížeče zobrazující výsledky https://localhost:5001/Movies?MovieGenre=Comedy&SearchString=2](~/tutorials/first-mvc-app/search/_static/s2.png)
 
 > [!div class="step-by-step"]
-> [Předchozí](controller-methods-views.md)Další
-> [](new-field.md)
+> [Předchozí](controller-methods-views.md)
+> [Další](new-field.md)
