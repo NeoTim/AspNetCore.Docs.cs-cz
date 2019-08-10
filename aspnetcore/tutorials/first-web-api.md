@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 855d05fa2b9c1a7572212c40adbe61bb396f4bac
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 5190fa30373c75e6358d9643cfe0042c7fc53557
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819831"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68915125"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -41,7 +41,7 @@ Tento kurz vytvoří následující rozhraní API:
 |ZÍSKAT/api/TodoItems | Získat všechny položky seznamu úkolů | Žádné | Pole položek úkolů|
 |ZÍSKAT/api/TodoItems/{id} | Získat položky podle ID | Žádná | Položky seznamu úkolů|
 |PŘÍSPĚVEK/api/TodoItems | Přidat novou položku | Položky seznamu úkolů | Položky seznamu úkolů |
-|Vložit/api/TodoItems/{id} | Aktualizovat existující položku &nbsp; | Položky seznamu úkolů | Žádný |
+|Vložit/api/TodoItems/{id} | Aktualizovat existující položku &nbsp; | Položky seznamu úkolů | Žádné |
 |Odstranit/api/TodoItems/{id} &nbsp;&nbsp; | Odstranění položky &nbsp; &nbsp; | Žádné | Žádná|
 
 Následující diagram znázorňuje návrh aplikace.
@@ -111,6 +111,15 @@ Následující diagram znázorňuje návrh aplikace.
 * Zadejte *TodoApi* pro **název projektu** a pak vyberte **vytvořit**.
 
   ![Dialogové okno Konfigurace](first-web-api-mac/_static/2.png)
+
+[!INCLUDE[](~/includes/mac-terminal-access.md)]
+
+Ve složce projektu otevřete terminál příkazu a spusťte následující příkazy:
+
+   ```console
+   dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
+   dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 3.0.0-*
+   ```
 
 ---
 
@@ -483,7 +492,7 @@ Tento kurz vytvoří následující rozhraní API:
 |ZÍSKAT/api/TodoItems | Získat všechny položky seznamu úkolů | Žádné | Pole položek úkolů|
 |ZÍSKAT/api/TodoItems/{id} | Získat položky podle ID | Žádná | Položky seznamu úkolů|
 |PŘÍSPĚVEK/api/TodoItems | Přidat novou položku | Položky seznamu úkolů | Položky seznamu úkolů |
-|Vložit/api/TodoItems/{id} | Aktualizovat existující položku &nbsp; | Položky seznamu úkolů | Žádný |
+|Vložit/api/TodoItems/{id} | Aktualizovat existující položku &nbsp; | Položky seznamu úkolů | Žádné |
 |Odstranit/api/TodoItems/{id} &nbsp;&nbsp; | Odstranění položky &nbsp; &nbsp; | Žádné | Žádná|
 
 Následující diagram znázorňuje návrh aplikace.

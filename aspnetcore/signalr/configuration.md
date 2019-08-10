@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 08/05/2019
 uid: signalr/configuration
-ms.openlocfilehash: 4706a1e2774fa9f6fb40085da944e8a82476ef05
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 475d9664c588c06bfcd816959be8a425ee01c023
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820044"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68915086"
 ---
 # <a name="aspnet-core-signalr-configuration"></a>Konfigurace signalizace ASP.NET Core
 
@@ -71,6 +71,7 @@ Následující tabulka obsahuje popis možností konfigurace Center pro signály
 | `SupportedProtocols` | Všechny nainstalované protokoly | Protokoly podporované tímto rozbočovačem Ve výchozím nastavení jsou povoleny všechny protokoly zaregistrované na serveru, ale protokoly je možné z tohoto seznamu odebrat, aby byly pro jednotlivá centra zakázané konkrétní protokoly. |
 | `EnableDetailedErrors` | `false` | Pokud `true`se do klientů vrátí podrobné zprávy o výjimce, pokud je vyvolána výjimka v metodě rozbočovače. Výchozí hodnota je `false`, protože tyto zprávy o výjimce můžou obsahovat citlivé informace. |
 | `StreamBufferCapacity` | `10` | Maximální počet položek, které lze uložit do vyrovnávací paměti pro datové proudy pro odeslání klienta. Pokud je dosaženo tohoto limitu, zpracování volání je blokováno, dokud server nezpracovává položky datového proudu.|
+| `MaximumReceiveMessageSize` | 32 KB | Maximální velikost jedné příchozí zprávy centra |
 
 ::: moniker-end
 
@@ -142,14 +143,31 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 Následující tabulka popisuje možnosti konfigurace upřesňujících možností protokolu HTTP pro ASP.NET Core signalizaci:
 
+::: moniker range=">= aspnetcore-3.0"
+
+| Možnost | Výchozí hodnota | Popis |
+| ------ | ------------- | ----------- |
+| `ApplicationMaxBufferSize` | 32 KB | Maximální počet bajtů přijatých od klienta, které jsou ukládány do vyrovnávací paměti serveru před použitím protitlaku. Zvýšením této hodnoty umožníte, aby server přijímal větší zprávy rychleji bez použití zatížení, ale může zvýšit spotřebu paměti. |
+| `AuthorizationData` | Data se `Authorize` automaticky shromažďují z atributů použitých pro třídu centra. | Seznam objektů [IAuthorizeData](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizedata) , pomocí kterých se určí, jestli je klient autorizovaný pro připojení k centru |
+| `TransportMaxBufferSize` | 32 KB | Maximální počet bajtů odeslaných aplikací, které jsou vyrovnávací paměti serveru před pozorováním protitlaku. Zvýšením této hodnoty umožníte serveru rychleji ukládat větší zprávy bez nutnosti očekávat zatížení, ale může zvýšit spotřebu paměti. |
+| `Transports` | Všechny přenosy jsou povolené. | Bitové příznaky výčtu `HttpTransportType` hodnot, které mohou omezit přenos, který může klient použít pro připojení. |
+| `LongPolling` | Viz níže. | Další možnosti specifické pro přenos dlouhého cyklického dotazování. |
+| `WebSockets` | Viz níže. | Další možnosti specifické pro přenos pomocí protokolu WebSockets |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `ApplicationMaxBufferSize` | 32 KB | Maximální počet bajtů přijatých od klienta, které jsou vyrovnávací paměti serveru. Zvýšením této hodnoty umožníte serveru přijímat větší zprávy, ale můžou negativně ovlivnit spotřebu paměti. |
 | `AuthorizationData` | Data se `Authorize` automaticky shromažďují z atributů použitých pro třídu centra. | Seznam objektů [IAuthorizeData](/dotnet/api/microsoft.aspnetcore.authorization.iauthorizedata) , pomocí kterých se určí, jestli je klient autorizovaný pro připojení k centru |
 | `TransportMaxBufferSize` | 32 KB | Maximální počet bajtů odeslaných aplikací, které jsou vyrovnávací paměti serveru. Zvýšením této hodnoty umožníte serveru odesílat větší zprávy, ale můžou negativně ovlivnit spotřebu paměti. |
-| `Transports` | Všechny přenosy jsou povolené. | Bitová maska `HttpTransportType` hodnot, která může omezit přenosů, které může klient použít pro připojení. |
+| `Transports` | Všechny přenosy jsou povolené. | Bitové příznaky výčtu `HttpTransportType` hodnot, které mohou omezit přenos, který může klient použít pro připojení. |
 | `LongPolling` | Viz níže. | Další možnosti specifické pro přenos dlouhého cyklického dotazování. |
 | `WebSockets` | Viz níže. | Další možnosti specifické pro přenos pomocí protokolu WebSockets |
+
+::: moniker-end
 
 Přenos dlouhého cyklického dotazování má další možnosti, které je možné `LongPolling` konfigurovat pomocí vlastnosti:
 

@@ -5,18 +5,20 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru In
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/28/2019
+ms.date: 07/31/2019
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 7677173493e68f5a5656c18533e0ae13a7c5bece
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: df4d74a2800ef586091347289561a03b31e33f44
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602467"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68913946"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
 Podle [Luke Latham](https://github.com/guardrex)
+
+Kurz týkající se publikování ASP.NET Core aplikace na server služby IIS najdete v tématu <xref:tutorials/publish-to-iis>.
 
 [Instalace .NET Core, který je hostitelem svazku](#install-the-net-core-hosting-bundle)
 

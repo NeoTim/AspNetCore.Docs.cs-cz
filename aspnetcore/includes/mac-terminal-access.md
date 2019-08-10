@@ -5,7 +5,7 @@ Při prvním přístupu k terminálovému příkazu na Macu vyžaduje následuj�
 * Přejděte na **Předvolby systému > klávesové zkratky > kláves > Services**.
 * V části **soubory a složky**ověřte, že je vybraná možnost ověřit, že je vybraná možnost **nový terminál ve složce**
 
-Předchozí pokyny umožňují přístup k terminálovému terminálu pomocí dvou způsobů: v rámci sady **Visual studia** nebo ze služby **Finder**. 
+Předchozí pokyny umožňují přístup k terminálovému terminálu pomocí dvou způsobů: v rámci sady **Visual Studio** nebo ze služby **Finder**. 
 
 #### <a name="to-access-a-command-terminal-from-visual-studio-for-mac"></a>Přístup k příkazovému terminálu z Visual Studio pro Mac:
 

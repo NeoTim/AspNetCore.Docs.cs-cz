@@ -1,40 +1,40 @@
 ---
-title: Konvence směrování a aplikačních stránky Razor v ASP.NET Core
+title: Razor Pages konvence směrování a aplikace v ASP.NET Core
 author: guardrex
-description: Zjistěte, jak směrování a aplikační konvence zprostředkovatele modelu můžete ovládací prvek stránky směrování, zjišťování a zpracování.
+description: Seznamte se s tím, jak konvence poskytovatelů modelů směrování a aplikací umožňují řídit směrování, zjišťování a zpracování stránky.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/07/2019
+ms.date: 08/08/2019
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: 59c8af648b50deb51f3762c14348d08acd48886e
-ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
+ms.openlocfilehash: c93f169c422d260f738faba4812861521f383e51
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2019
-ms.locfileid: "67724447"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68914980"
 ---
-# <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>Konvence směrování a aplikačních stránky Razor v ASP.NET Core
+# <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>Razor Pages konvence směrování a aplikace v ASP.NET Core
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Další informace o použití stránky [směrování a aplikační model poskytovatele konvence](xref:mvc/controllers/application-model#conventions) řídit směrování stránky, zjišťování a zpracování v aplikacích pro stránky Razor.
+Naučte se používat konvence směrování stránky [a poskytovatele modelů aplikací](xref:mvc/controllers/application-model#conventions) k řízení směrování, zjišťování a zpracování stránky v aplikacích Razor Pages.
 
-Pokud potřebujete nakonfigurovat vlastní stránku trasy pro jednotlivé stránky, konfigurace směrování pro ně [AddPageRoute konvence](#configure-a-page-route) je popsáno dále v tomto tématu.
+Pokud potřebujete nakonfigurovat vlastní trasy stránky pro jednotlivé stránky, nakonfigurujte směrování na stránky pomocí [AddPageRoute konvence](#configure-a-page-route) popsané dále v tomto tématu.
 
-Zadejte trasy stránku, přidat segmenty směrování nebo parametry trasu, můžete na stránce `@page` směrnice. Další informace najdete v tématu [trasy vlastní](xref:razor-pages/index#custom-routes).
+Chcete-li určit trasu stránky, přidat segmenty směrování nebo přidat parametry do trasy, použijte `@page` direktivu stránky. Další informace najdete v tématu [vlastní trasy](xref:razor-pages/index#custom-routes).
 
-Existují vyhrazených slov, která nejde použít jako segmenty směrování nebo názvy parametrů. Další informace najdete v tématu [směrování: Vyhrazené názvy směrování](xref:fundamentals/routing#reserved-routing-names).
+Existují vyhrazená slova, která nelze použít jako segmenty směrování nebo názvy parametrů. Další informace najdete v tématu [směrování: Názvy](xref:fundamentals/routing#reserved-routing-names)rezervovaných směrování.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
-| Scénář | Ukázce... |
+| Scénář | Ukázka znázorňuje... |
 | -------- | --------------------------- |
-| [Vytváření modelu](#model-conventions)<br><br>Conventions.Add<ul><li>IPageRouteModelConvention</li><li>IPageApplicationModelConvention</li><li>IPageHandlerModelConvention</li></ul> | Přidáte šablonu trasy a záhlaví stránek vaší aplikace. |
-| [Stránka trasy akce konvence](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidáte šablonu trasy na stránky ve složce a jednu stránku. |
-| [Konvence akce modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (třídy filtru, výraz lambda nebo objekt pro vytváření filtru)</li></ul> | Přidat záhlaví stránky ve složce, přidat hlavičku do jediné stránce a nakonfigurovat [filtr factory](xref:mvc/controllers/filters#ifilterfactory) přidat záhlaví stránek vaší aplikace. |
+| [Konvence modelu](#model-conventions)<br><br>Konvence. Add<ul><li>IPageRouteModelConvention</li><li>IPageApplicationModelConvention</li><li>IPageHandlerModelConvention</li></ul> | Přidejte šablonu a hlavičku směrování na stránky aplikace. |
+| [Konvence akcí při směrování stránky](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidejte šablonu směrování do stránek ve složce a na jednu stránku. |
+| [Konvence akcí modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (filtrovat třídu, lambda výraz nebo objekt pro vytváření filtru)</li></ul> | Umožňuje přidat záhlaví na stránky ve složce, přidat záhlaví na jednu stránku a nakonfigurovat [objekt pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) tak, aby přidal hlavičku na stránky aplikace. |
 
-Vytváření stránek Razor přidávají a konfigurovat pomocí <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> metodu rozšíření k <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> na kolekci služby v `Startup` třídy. Následující příklady konvence jsou vysvětleny dále v tomto tématu:
+Konvence Razor Pages jsou přidány a konfigurovány <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcBuilderExtensions.AddRazorPagesOptions*> pomocí metody rozšíření <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*> pro kolekci služeb ve `Startup` třídě. Následující příklady konvence jsou vysvětleny dále v tomto tématu:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -43,140 +43,225 @@ public void ConfigureServices(IServiceCollection services)
         .AddRazorPagesOptions(options =>
             {
                 options.Conventions.Add( ... );
-                options.Conventions.AddFolderRouteModelConvention("/OtherPages", model => { ... });
-                options.Conventions.AddPageRouteModelConvention("/About", model => { ... });
-                options.Conventions.AddPageRoute("/Contact", "TheContactPage/{text?}");
-                options.Conventions.AddFolderApplicationModelConvention("/OtherPages", model => { ... });
-                options.Conventions.AddPageApplicationModelConvention("/About", model => { ... });
+                options.Conventions.AddFolderRouteModelConvention(
+                    "/OtherPages", model => { ... });
+                options.Conventions.AddPageRouteModelConvention(
+                    "/About", model => { ... });
+                options.Conventions.AddPageRoute(
+                    "/Contact", "TheContactPage/{text?}");
+                options.Conventions.AddFolderApplicationModelConvention(
+                    "/OtherPages", model => { ... });
+                options.Conventions.AddPageApplicationModelConvention(
+                    "/About", model => { ... });
                 options.Conventions.ConfigureFilter(model => { ... });
                 options.Conventions.ConfigureFilter( ... );
             });
 }
 ```
 
-## <a name="route-order"></a>Pořadí trasy
+## <a name="route-order"></a>Pořadí směrování
 
-Zadejte trasy <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> pro zpracování (trasy párování).
+Trasy určují <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> pro zpracování (odpovídání tras).
 
-| Objednání            | Chování |
+| Pořadí            | Chování |
 | :--------------: | -------- |
-| -1               | Trasy se zpracuje dříve, než jsou zpracovány jiným trasám. |
-| 0                | Není zadáno pořadí (výchozí hodnota). Není přiřazení `Order` (`Order = null`) výchozí hodnoty trasy `Order` na hodnotu 0 (nula) pro zpracování. |
-| 1, 2, &hellip; n | Určuje pořadí zpracování trasy. |
+| -1               | Trasa je zpracována před zpracováním jiných tras. |
+| 0                | Pořadí není zadáno (výchozí hodnota). Nepřiřazuje `Order` se`Order = null`() výchozí hodnota `Order` trasy na 0 (nula) pro zpracování. |
+| 1, 2, &hellip; n | Určuje pořadí zpracování směrování. |
 
-Podle konvence pokládáme stav zpracování trasy:
+Zpracování směrování je zřízené podle konvence:
 
-* Trasy se zpracovávají v pořadí (hodnota -1, 0, 1, 2, &hellip; n).
-* Když trasy mají stejné `Order`, nejvíce určené směrování je nalezena shoda, nejprve následovaný specifické pro less trasy.
-* Když tras se stejnou `Order` a stejný počet parametrů odpovídat adrese URL žádosti, trasy se zpracovávají v pořadí, ve kterém se přidají do <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>.
+* Trasy jsou zpracovávány v sekvenčním pořadí (-1, 0, 1, &hellip; 2, n).
+* V případě, že trasy `Order`mají stejný směr, je nejdříve porovnána konkrétní trasa, za kterou následuje méně specifických tras.
+* Když se trasy se stejným `Order` počtem parametrů shodují s adresou URL požadavku, trasy se zpracovávají v pořadí, v jakém jsou přidány <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection>do.
 
-Pokud je to možné Vyhněte se v závislosti na zavedených postupu zpracování objednávky. Obecně platí směrování vybere správné směrování s odpovídajícími adresy URL. Pokud je nutné nastavit trasy `Order` vlastnosti pro směrování požadavků správně, směrování schéma aplikace je pravděpodobně matoucí pro klienty a křehkými udržovat. Které se snaží zjednodušit směrování schéma aplikace. Ukázková aplikace vyžaduje explicitní trasy zpracování objednávky k předvedení několik scénáře použití jedné aplikace. Nicméně, měli byste se pokusit postup nastavení trasy, aby `Order` v produkčních aplikacích.
+Pokud je to možné, vyhněte se v závislosti na zavedeném pořadí zpracování směrování. Obecně směrování vybírá správnou trasu s odpovídající adresou URL. Pokud musíte nastavit vlastnosti směrování `Order` na správně směrované požadavky, schéma směrování aplikace je pravděpodobně matoucí pro klienty a křehké na údržbu. Vyhledejte zjednodušené schéma směrování aplikace. Ukázková aplikace vyžaduje explicitní pořadí zpracování tras, které předvádí několik scénářů směrování pomocí jedné aplikace. Měli byste se však pokusit vyhnout postup nastavení trasy `Order` v produkčních aplikacích.
 
-Stránky Razor směrování a směrování sdílení řadiče MVC implementace. Informace o pořadí trasy v tématech MVC je k dispozici na [směrování na akce kontroleru: Pořadí trasy atributů](xref:mvc/controllers/routing#ordering-attribute-routes).
+Směrování Razor Pages směrování a řadiče MVC sdílí implementaci. Informace o pořadí směrování v tématech MVC jsou k dispozici [při směrování na akce kontroleru: Rozobjednávkuje](xref:mvc/controllers/routing#ordering-attribute-routes)trasy atributů.
 
-## <a name="model-conventions"></a>Vytváření modelu
+## <a name="model-conventions"></a>Konvence modelu
 
-Přidat delegáta pro <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> přidat [modelu konvencí](xref:mvc/controllers/application-model#conventions) , která platí pro stránky Razor.
+Přidejte delegáta pro <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> přidání [modelových konvencí](xref:mvc/controllers/application-model#conventions) , které se vztahují na Razor Pages.
 
-### <a name="add-a-route-model-convention-to-all-pages"></a>Přidání vytváření modelu trasu pro všechny stránky
+### <a name="add-a-route-model-convention-to-all-pages"></a>Přidat konvenci modelu směrování na všechny stránky
 
-Použití <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> vytvořit a přidat <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> ke kolekci <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> instancí, které se použijí během postupu stránky model konstrukce.
+Slouží <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> k vytvoření a <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> přidání kolekce <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> instancí, které se použijí během vytváření modelu směrování stránky.
 
-Ukázková aplikace přidá `{globalTemplate?}` šablona trasy pro všechny stránky v aplikaci:
+Ukázková aplikace přidá `{globalTemplate?}` šablonu směrování na všechny stránky v aplikaci:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Conventions/GlobalTemplatePageRouteModelConvention.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalTemplatePageRouteModelConvention.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> Vlastnost <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> je nastavena na `1`. Tím se zajistí následující trasu odpovídající chování v ukázkové aplikaci:
+::: moniker-end
 
-* Šablona trasy pro `TheContactPage/{text?}` přidat později v tomto tématu. Trasa stránku kontaktu má výchozí pořadí `null` (`Order = 0`), tak, aby odpovídala před `{globalTemplate?}` šablonu trasy.
-* `{aboutTemplate?}` Trasy šablona se přidá později v tomto tématu. `{aboutTemplate?}` Šablony je uveden `Order` z `2`. Když se na stránce o požaduje za `/About/RouteDataValue`, "RouteDataValue" je načten do `RouteData.Values["globalTemplate"]` (`Order = 1`) a není `RouteData.Values["aboutTemplate"]` (`Order = 2`) z důvodu nastavení `Order` vlastnost.
-* `{otherPagesTemplate?}` Trasy šablona se přidá později v tomto tématu. `{otherPagesTemplate?}` Šablony je uveden `Order` z `2`. Když všechny stránky v *stránek/OtherPages* složky je požadováno se parametr trasy (například `/OtherPages/Page1/RouteDataValue`), "RouteDataValue" je načten do `RouteData.Values["globalTemplate"]` (`Order = 1`) a ne `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) z důvodu nastavení `Order` vlastnost.
+Vlastnost pro je nastavena na `1`. <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> Tím se zajistí následující chování při shodě trasy v ukázkové aplikaci:
 
-Kdykoli je to možné, nemají nastavený `Order`, což má za následek `Order = 0`. Spolehněte se na směrování k výběru správné směrování.
+* Šablona směrování pro `TheContactPage/{text?}` je přidána později v tématu. Trasa stránky kontaktu má výchozí pořadí `null` (`Order = 0`), `{globalTemplate?}` takže odpovídá před šablonou směrování.
+* Šablona `{aboutTemplate?}` směrování se přidá později v tématu. `{aboutTemplate?}` Šabloně je přidělena. `Order` `2` Když se na `/About/RouteDataValue`stránce o žádosti vyžádá, "RouteDataValue" se načte do`Order = 1` `RouteData.Values["globalTemplate"]` () `Order` a `RouteData.Values["aboutTemplate"]` ne`Order = 2`() kvůli nastavení vlastnosti.
+* Šablona `{otherPagesTemplate?}` směrování se přidá později v tématu. `{otherPagesTemplate?}` Šabloně je přidělena. `Order` `2` Pokud je u libovolné stránky ve složce *Pages/OtherPages* požadováno zadáním parametru `/OtherPages/Page1/RouteDataValue`trasy (například), "RouteDataValue" se načte do `RouteData.Values["otherPagesTemplate"]` `RouteData.Values["globalTemplate"]` (`Order = 1`) a ne (`Order = 2`) kvůli nastavení `Order` vlastnost.
 
-Možnosti stránky Razor, jako je například přidávání <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>, se přidají, když MVC se přidá do kolekce služby `Startup.ConfigureServices`. Příklad najdete v tématu [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
+Pokud je to možné, nenastavte `Order`, které `Order = 0`výsledky mají. Pro výběr správné trasy se spoléhá na směrování.
+
+Možnosti Razor Pages, jako je například <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions>přidání, jsou přidány při přidání MVC do kolekce služeb v. `Startup.ConfigureServices` Příklad najdete v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/).
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
-Žádosti o stránku ukázky na `localhost:5000/About/GlobalRouteValue` a zkontrolujte výsledek:
+::: moniker-end
 
-![Na stránce o žádá s segment GlobalRouteValue trasy. Na vykreslené stránce se zobrazí, že hodnota data trasy je zachycena v metodě OnGet stránky.](razor-pages-conventions/_static/about-page-global-template.png)
+Požádejte o stránku ukázek o stránce `localhost:5000/About/GlobalRouteValue` a Prohlédněte si výsledek:
 
-### <a name="add-an-app-model-convention-to-all-pages"></a>Přidejte aplikaci modelu konvence pro všechny stránky
+![Stránka o aplikaci je požadována s segmentem směrování GlobalRouteValue. Vykreslená stránka ukazuje, že hodnota dat trasy je zachycena v metodě OnGet stránky.](razor-pages-conventions/_static/about-page-global-template.png)
 
-Použití <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> vytvořit a přidat <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> ke kolekci <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> stránce instance, které se použijí při vytváření modelu aplikace.
+### <a name="add-an-app-model-convention-to-all-pages"></a>Přidání konvence modelu aplikace na všechny stránky
 
-Abychom si předvedli to a jiné konvence později v tomto tématu, obsahuje ukázkovou aplikaci `AddHeaderAttribute` třídy. Konstruktor třídy přijímá `name` řetězec a `values` pole řetězců. Tyto hodnoty jsou použity v jeho `OnResultExecuting` metoda nastavit hlavičku odpovědi. Úplné třídy je zobrazena ve [stránce modelu akce konvence](#page-model-action-conventions) dále v tomto tématu.
+Použijte <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> k vytvoření a <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> přidání do kolekce <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> instancí, které se použijí během vytváření modelu aplikace stránky.
 
-Tato ukázková aplikace používá `AddHeaderAttribute` třídy přidat záhlaví `GlobalHeader`, na všechny stránky v aplikaci:
+Chcete-li předvést tuto a další konvenci později v tématu, ukázková `AddHeaderAttribute` aplikace obsahuje třídu. Konstruktor třídy přijímá `name` řetězec `values` a pole řetězců. Tyto hodnoty jsou použity v `OnResultExecuting` metodě pro nastavení hlavičky odpovědi. Úplná třída je uvedena v části [konvence akcí modelu stránky](#page-model-action-conventions) dále v tématu.
+
+Ukázková aplikace používá `AddHeaderAttribute` třídu k přidání záhlaví, `GlobalHeader`na všechny stránky v aplikaci:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Conventions/GlobalHeaderPageApplicationModelConvention.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalHeaderPageApplicationModelConvention.cs?name=snippet1)]
 
+::: moniker-end
+
 *Startup.cs*:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet2)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet2)]
 
-Žádosti o stránku ukázky na `localhost:5000/About` a zkontrolujte záhlaví, abyste viděli výsledek:
+::: moniker-end
 
-![Hlavičky odpovědi na stránce o ukazují, že byly přidány GlobalHeader.](razor-pages-conventions/_static/about-page-global-header.png)
+Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte si záhlaví a podívejte se na výsledek:
 
-### <a name="add-a-handler-model-convention-to-all-pages"></a>Přidat konvence model obslužné rutiny pro všechny stránky
+![Hlavičky odpovědi stránky o produktu ukazují, že byl přidán GlobalHeader.](razor-pages-conventions/_static/about-page-global-header.png)
 
-Použití <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> vytvořit a přidat <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageHandlerModelConvention> ke kolekci <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> stránce instance, které se použijí během konstrukce model obslužné rutiny.
+### <a name="add-a-handler-model-convention-to-all-pages"></a>Přidat konvenci modelu obslužné rutiny na všechny stránky
+
+Použijte <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.Conventions> k vytvoření a <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageHandlerModelConvention> přidání do kolekce <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> instancí, které jsou použity během vytváření modelu obslužné rutiny stránky.
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Conventions/GlobalPageHandlerModelConvention.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Conventions/GlobalPageHandlerModelConvention.cs?name=snippet1)]
 
+::: moniker-end
+
 *Startup.cs*:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet10)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet10)]
 
-## <a name="page-route-action-conventions"></a>Stránka trasy akce konvence
+::: moniker-end
 
-Výchozího zprostředkovatele modelu trasy, která je odvozena z <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider> vyvolá smluv, které poskytují body rozšiřitelnosti pro konfiguraci tras stránky.
+## <a name="page-route-action-conventions"></a>Konvence akcí při směrování stránky
 
-### <a name="folder-route-model-convention"></a>Složka trasy modelu konvence
+Výchozí zprostředkovatel modelu směrování, který je odvozen od <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelProvider> konvencí vyvolání, které jsou navrženy tak, aby poskytovaly body rozšiřitelnosti pro konfiguraci tras stránky.
 
-Použití <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> vytvořit a přidat <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> , která vyvolá akci na <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> pro všechny stránky v zadané složce.
+### <a name="folder-route-model-convention"></a>Konvence modelu směrování složky
 
-Tato ukázková aplikace používá <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> přidat `{otherPagesTemplate?}` šablonu trasy na stránky *OtherPages* složky:
+Slouží <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> k vytvoření a <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> Přidání akce, která vyvolá akci <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> pro všechny stránky v zadané složce.
+
+Ukázková aplikace používá <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderRouteModelConvention*> k `{otherPagesTemplate?}` Přidání šablony směrování na stránky ve složce *OtherPages* :
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet3)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet3)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> Vlastnost <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> je nastavena na `2`. To zajistí, že šablona pro `{globalTemplate?}` (dříve v tématu, které chcete nastavit `1`) je prioritu pro první data trasy hodnotu pozice, pokud je zadaná hodnota jednu trasu. Pokud stránku *stránek/OtherPages* složky je požadováno s hodnotu parametru trasy (například `/OtherPages/Page1/RouteDataValue`), "RouteDataValue" je načten do `RouteData.Values["globalTemplate"]` (`Order = 1`) a není `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) z důvodu nastavení `Order` vlastnost.
+::: moniker-end
 
-Kdykoli je to možné, nemají nastavený `Order`, což má za následek `Order = 0`. Spolehněte se na směrování k výběru správné směrování.
+Vlastnost pro je nastavena na `2`. <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> Tím se zajistí, že šablona `{globalTemplate?}` pro (nastavená výše v tématu `1`na) má prioritu první pozice hodnoty dat trasy při zadání jedné hodnoty trasy. Pokud se stránka ve složce *Pages/OtherPages* `/OtherPages/Page1/RouteDataValue`požaduje s hodnotou parametru trasy (například), "RouteDataValue" se načte do`Order = 1` `RouteData.Values["globalTemplate"]` () a ne `RouteData.Values["otherPagesTemplate"]` (`Order = 2`) kvůli nastavení `Order` vlastnost.
 
-Požadavek ukázky Page1 stránku na `localhost:5000/OtherPages/Page1/GlobalRouteValue/OtherPagesRouteValue` a zkontrolujte výsledek:
+Pokud je to možné, nenastavte `Order`, které `Order = 0`výsledky mají. Pro výběr správné trasy se spoléhá na směrování.
 
-![Page1 ve složce OtherPages žádá segmentu směrování GlobalRouteValue a OtherPagesRouteValue. Na vykreslené stránce ukazuje, že v metodě OnGet stránky jsou zachyceny hodnot dat trasy.](razor-pages-conventions/_static/otherpages-page1-global-and-otherpages-templates.png)
+Vyžádejte si Page1 stránku `localhost:5000/OtherPages/Page1/GlobalRouteValue/OtherPagesRouteValue` ukázky a Prohlédněte si výsledek:
 
-### <a name="page-route-model-convention"></a>Stránka trasy modelu konvence
+![Page1 ve složce OtherPages se vyžádá s segmentem směrování GlobalRouteValue a OtherPagesRouteValue. Vykreslená stránka ukazuje, že hodnoty dat trasy jsou zachyceny v metodě OnGet stránky.](razor-pages-conventions/_static/otherpages-page1-global-and-otherpages-templates.png)
 
-Použití <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageRouteModelConvention*> vytvořit a přidat <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> , která vyvolá akci na <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> stránky se zadaným názvem.
+### <a name="page-route-model-convention"></a>Konvence modelu směrování stránky
 
-Tato ukázková aplikace používá `AddPageRouteModelConvention` přidat `{aboutTemplate?}` šablonu trasy ke stránce About:
+Slouží <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageRouteModelConvention*> k vytvoření a <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageRouteModelConvention> Přidání akce, která vyvolá akci na <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteModel> stránce pro stránku se zadaným názvem.
+
+Ukázková aplikace používá `AddPageRouteModelConvention` k přidání šablony `{aboutTemplate?}` směrování na stránku o aplikaci:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet4)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet4)]
 
-<xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> Vlastnost <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> je nastavena na `2`. To zajistí, že šablona pro `{globalTemplate?}` (dříve v tématu, které chcete nastavit `1`) je prioritu pro první data trasy hodnotu pozice, pokud je zadaná hodnota jednu trasu. Pokud je hodnotou parametr trasy na požadované stránku o `/About/RouteDataValue`, "RouteDataValue" je načten do `RouteData.Values["globalTemplate"]` (`Order = 1`) a ne `RouteData.Values["aboutTemplate"]` (`Order = 2`) z důvodu nastavení `Order` vlastnost.
+::: moniker-end
 
-Kdykoli je to možné, nemají nastavený `Order`, což má za následek `Order = 0`. Spolehněte se na směrování k výběru správné směrování.
+Vlastnost pro je nastavena na `2`. <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel> <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.AttributeRouteModel.Order*> Tím se zajistí, že šablona `{globalTemplate?}` pro (nastavená výše v tématu `1`na) má prioritu první pozice hodnoty dat trasy při zadání jedné hodnoty trasy. Pokud se stránka o žádosti vyžaduje s hodnotou parametru Route na `/About/RouteDataValue`, je "RouteDataValue" načten do `RouteData.Values["globalTemplate"]` (`Order = 1`) `Order` a nikoli `RouteData.Values["aboutTemplate"]` (`Order = 2`) z důvodu nastavení vlastnosti.
 
-Žádosti o stránku ukázky na `localhost:5000/About/GlobalRouteValue/AboutRouteValue` a zkontrolujte výsledek:
+Pokud je to možné, nenastavte `Order`, které `Order = 0`výsledky mají. Pro výběr správné trasy se spoléhá na směrování.
 
-![Stránka je požadováno se segmenty směrování pro GlobalRouteValue a AboutRouteValue. Na vykreslené stránce ukazuje, že v metodě OnGet stránky jsou zachyceny hodnot dat trasy.](razor-pages-conventions/_static/about-page-global-and-about-templates.png)
+Požádejte o stránku ukázek o stránce `localhost:5000/About/GlobalRouteValue/AboutRouteValue` a Prohlédněte si výsledek:
+
+![U segmentů směrování pro GlobalRouteValue a AboutRouteValue se žádá o stránku. Vykreslená stránka ukazuje, že hodnoty dat trasy jsou zachyceny v metodě OnGet stránky.](razor-pages-conventions/_static/about-page-global-and-about-templates.png)
 
 ::: moniker range=">= aspnetcore-2.2"
 
-## <a name="use-a-parameter-transformer-to-customize-page-routes"></a>Použití transformátoru parametr k přizpůsobení stránky trasy
+## <a name="use-a-parameter-transformer-to-customize-page-routes"></a>Použití transformátoru parametrů k přizpůsobení cest stránky
 
-Použití transformeru parametr lze přizpůsobit stránky trasy generovaných ASP.NET Core. Parametr transformer implementuje `IOutboundParameterTransformer` a transformuje hodnoty parametrů. Například vlastní `SlugifyParameterTransformer` parametr transformer změny `SubscriptionManagement` trasy hodnota, která má `subscription-management`.
+Trasy stránky generované ASP.NET Core lze přizpůsobit pomocí transformátoru parametrů. Parametr Transformer implementuje `IOutboundParameterTransformer` a transformuje hodnotu parametrů. Například vlastní `SlugifyParameterTransformer` parametr Transformer `SubscriptionManagement` změní hodnotu Route na `subscription-management`.
 
-`PageRouteTransformerConvention` Stránky trasy modelu úmluvy transformátoru parametr pro složku a soubor segmenty název trasy pro automaticky generované stránky v aplikaci. Například soubor Razor Pages na */Pages/SubscriptionManagement/ViewAll.cshtml* bude mít jeho trasu přepsán z `/SubscriptionManagement/ViewAll` k `/subscription-management/view-all`.
+Konvence modelu směrování stránky aplikuje transformátor parametrů na složku a název souboru segmentů automaticky generovaných tras stránky v aplikaci. `PageRouteTransformerConvention` Například soubor Razor Pages v */Pages/SubscriptionManagement/ViewAll.cshtml* by měl přepsané směrování z `/SubscriptionManagement/ViewAll` do. `/subscription-management/view-all`
 
-`PageRouteTransformerConvention` pouze transformuje automaticky generované segmentů směrování stránky, které pocházejí ze stránky Razor složku a název souboru. To nebude transformace segmenty směrování přidána s `@page` směrnice. Úmluvy nebude transformovat trasy přidal <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*>.
+`PageRouteTransformerConvention`transformuje automaticky generované segmenty stránky trasy, které pocházejí z Razor Pages složky a názvu souboru. Netransformuje segmenty směrování přidané s `@page` direktivou. Konvence také netransformuje trasy, <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*>které přidal.
 
-`PageRouteTransformerConvention` Je zaregistrovaný jako možnost v `Startup.ConfigureServices`:
+Je zaregistrován jako možnost v `Startup.ConfigureServices`: `PageRouteTransformerConvention`
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -204,99 +289,179 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
 
 ::: moniker-end
 
-## <a name="configure-a-page-route"></a>Konfigurace stránky trasy
+## <a name="configure-a-page-route"></a>Konfigurace trasy stránky
 
-Použití <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> trasy na stránku konfigurace v cestě zadané stránky. Vygenerovaný odkazy na stránce použít zadanou trasu. `AddPageRoute` používá `AddPageRouteModelConvention` k vytvoření trasy.
+Slouží <xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.AddPageRoute*> ke konfiguraci směrování na stránku na zadané cestě stránky. Vygenerované odkazy na stránku používají zadanou trasu. `AddPageRoute`slouží `AddPageRouteModelConvention` k vytvoření trasy.
 
-Ukázková aplikace vytvoří trasu k `/TheContactPage` pro *Contact.cshtml*:
+Ukázková aplikace vytvoří trasu `/TheContactPage` pro *kontakt. cshtml*:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet5)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet5)]
 
-Na stránce kontaktu lze dosáhnout také za `/Contact` prostřednictvím jeho výchozí trasy.
+::: moniker-end
 
-Vlastní trasy ukázkovou aplikaci na stránku kontaktujte umožňuje volitelně `text` segment směrování (`{text?}`). Na stránce také zahrnuje tato volitelná segment v jeho `@page` direktiv v případě, že na stránce návštěvníka má přístup k jeho `/Contact` trasy:
+Stránku kontaktů lze také kontaktovat `/Contact` prostřednictvím výchozí trasy.
+
+Vlastní trasa ukázkové aplikace na stránku kontaktů umožňuje volitelný `text` segment směrování (`{text?}`). Tato stránka obsahuje také volitelný segment v rámci své `@page` směrnice pro případ, že návštěvník přistupuje ke stránce `/Contact` v cestě:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-cshtml[](razor-pages-conventions/samples/3.x/SampleApp/Pages/Contact.cshtml?highlight=1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-cshtml[](razor-pages-conventions/samples/2.x/SampleApp/Pages/Contact.cshtml?highlight=1)]
 
-Všimněte si, že adresa URL se vygeneruje pro **kontakt** odkaz na vykreslené stránce odráží aktualizovaný trasy:
+::: moniker-end
 
-![Ukázkový odkaz na aplikaci obraťte se na navigačním panelu](razor-pages-conventions/_static/contact-link.png)
+Všimněte si, že adresa URL vygenerovaná pro odkaz **kontaktu** na vykreslené stránce odráží aktualizovanou trasu:
 
-![Kontrola odkazu kontakt v zobrazený HTML označuje, že je odkaz nastavený na "/ TheContactPage.](razor-pages-conventions/_static/contact-link-source.png)
+![Odkaz na ukázkový kontakt aplikace na navigačním panelu](razor-pages-conventions/_static/contact-link.png)
 
-Navštivte stránku nástroje kontakt na buď jeho běžný trasu `/Contact`, nebo vlastní trasy `/TheContactPage`. Pokud zadáte další `text` trasy segmentu, na stránce se zobrazí segment kódovaný jazykem HTML, že zadáte:
+![Kontrola odkazu na kontakt ve vykresleném kódu HTML znamená, že odkaz href je nastaven na hodnotu "/TheContactPage".](razor-pages-conventions/_static/contact-link-source.png)
 
-![Příklad prohlížeče Edge poskytnutí segment trasy volitelné 'text' 'TextValue"v adrese URL. Na vykreslené stránce zobrazuje hodnota 'text' segmentu.](razor-pages-conventions/_static/route-segment-with-custom-route.png)
+Navštivte stránku kontaktů buď na své běžné trase, `/Contact`nebo na vlastní `/TheContactPage`trasu. Pokud zadáte další `text` segment směrování, stránka zobrazuje segment, který zakódovaný ve formátu HTML, který zadáte:
 
-## <a name="page-model-action-conventions"></a>Konvence akce modelu stránky
+![Prohlížeč Edge – příklad poskytnutí volitelného segmentu "text" trasy "TextValue" v adrese URL Vykreslená stránka ukazuje hodnotu segment "text".](razor-pages-conventions/_static/route-segment-with-custom-route.png)
 
-Výchozího zprostředkovatele modelu stránky, která implementuje <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider> vyvolá smluv, které poskytují body rozšiřitelnosti pro konfiguraci stránky modely. Tato konvence jsou užitečné při vytváření a úprava stránky zjišťování a scénáře zpracování.
+## <a name="page-model-action-conventions"></a>Konvence akcí modelu stránky
 
-Příklady v této části, se ukázková aplikace používá `AddHeaderAttribute` třídy, která je <xref:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute>, aplikovaná hlavičky odpovědi:
+Výchozí zprostředkovatel stránky, který implementuje implementují <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelProvider> konvence, které jsou navrženy tak, aby poskytovaly body rozšiřitelnosti pro konfiguraci modelů stránek. Tyto konvence jsou užitečné při sestavování a úpravách scénářů zjišťování a zpracování stránky.
+
+V příkladech v této části používá `AddHeaderAttribute` ukázková aplikace třídu, která <xref:Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute>je, která používá hlavičku odpovědi:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Filters/AddHeader.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Filters/AddHeader.cs?name=snippet1)]
 
-Pomocí konvencí vzorek ukazuje, jak použít atribut na všechny stránky ve složce a jednu stránku.
+::: moniker-end
 
-**Složky aplikace modelu konvence**
+Pomocí konvence Ukázka ukazuje, jak použít atribut na všechny stránky ve složce a na jednu stránku.
 
-Použití <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderApplicationModelConvention*> vytvořit a přidat <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> , která vyvolá akci na <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> instance pro všechny stránky v zadané složce.
+**Konvence modelu aplikace složky**
 
-Ukázka demonstruje použití `AddFolderApplicationModelConvention` přidáním záhlaví `OtherPagesHeader`, na stránky uvnitř *OtherPages* složku aplikace:
+Slouží <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddFolderApplicationModelConvention*> k vytvoření a <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> Přidání akce, která vyvolá akci u <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> instancí pro všechny stránky v zadané složce.
+
+Ukázka demonstruje použití `AddFolderApplicationModelConvention` přidáním záhlaví, `OtherPagesHeader`na stránkách ve složce *OtherPages* této aplikace:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet6)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet6)]
 
-Požadavek ukázky Page1 stránku na `localhost:5000/OtherPages/Page1` a zkontrolujte záhlaví, abyste viděli výsledek:
+::: moniker-end
+
+Vyžádejte si ukázkovou stránku Page1 `localhost:5000/OtherPages/Page1` na stránce a Prohlédněte si záhlaví a podívejte se na výsledek:
 
 ![Hlavičky odpovědi stránky OtherPages/Page1 ukazují, že byla přidána OtherPagesHeader.](razor-pages-conventions/_static/page1-otherpages-header.png)
 
-**Stránka aplikace modelu konvence**
+**Konvence modelu aplikace stránky**
 
-Použití <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageApplicationModelConvention*> vytvořit a přidat <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> , která vyvolá akci na <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> stránky se zadaným názvem.
+Slouží <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageConventionCollection.AddPageApplicationModelConvention*> k vytvoření a <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageApplicationModelConvention> Přidání akce, která vyvolá akci na <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageApplicationModel> stránce pro stránku se zadaným názvem.
 
-Ukázka demonstruje použití `AddPageApplicationModelConvention` přidáním záhlaví `AboutHeader`, ke stránce About:
+Ukázka demonstruje použití `AddPageApplicationModelConvention` přidáním záhlaví, `AboutHeader`na stránce o produktu:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet7)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet7)]
 
-Žádosti o stránku ukázky na `localhost:5000/About` a zkontrolujte záhlaví, abyste viděli výsledek:
+::: moniker-end
 
-![Hlavičky odpovědi na stránce o ukazují, že byly přidány AboutHeader.](razor-pages-conventions/_static/about-page-about-header.png)
+Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte si záhlaví a podívejte se na výsledek:
+
+![Hlavičky odpovědi stránky o produktu ukazují, že byl přidán AboutHeader.](razor-pages-conventions/_static/about-page-about-header.png)
 
 **Konfigurace filtru**
 
-<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> Nakonfiguruje zadaný filtr použít. Můžete implementovat filtr třídy, ale ukázková aplikace ukazuje, jak implementovat filtr ve výrazu lambda, který je implementován jako objekt factory, který vrátí filtr pozadí:
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*>nakonfiguruje zadaný filtr na použití. Můžete implementovat třídu filtru, ale ukázková aplikace ukazuje, jak implementovat filtr ve výrazu lambda, který je implementován na pozadí jako objekt pro vytváření, který vrací filtr:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet8)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet8)]
 
-Model stránky aplikace se používá ke kontrole relativní cestu pro segmenty, které vedou na stránku strany Page2 *OtherPages* složky. Pokud bude podmínka splněna, se přidá hlavičku. Pokud ne, `EmptyFilter` platí.
+::: moniker-end
 
-`EmptyFilter` je [filtr akce](xref:mvc/controllers/filters#action-filters). Protože filtrů Akce ignorovány pomocí Razor Pages `EmptyFilter` nemá žádný vliv, tak, jak má, pokud cesta neobsahuje `OtherPages/Page2`.
+Model webové aplikace se používá ke kontrole relativní cesty pro segmenty, které vedou ke stránce Page2 ve složce *OtherPages* . Pokud podmínka projde, přidá se hlavička. V `EmptyFilter` takovém případě se použije.
 
-Požadavek ukázky strany Page2 stránku na `localhost:5000/OtherPages/Page2` a zkontrolujte záhlaví, abyste viděli výsledek:
+`EmptyFilter`je [Filtr akcí](xref:mvc/controllers/filters#action-filters). Vzhledem k tomu, že filtry akcí jsou Razor Pages `EmptyFilter` ignorovány, nemá žádný vliv na zamýšlené, pokud `OtherPages/Page2`cesta neobsahuje.
 
-![OtherPagesPage2Header se přidá do odpovědi pro strany Page2.](razor-pages-conventions/_static/page2-filter-header.png)
+Vyžádejte si ukázkovou stránku Page2 `localhost:5000/OtherPages/Page2` na stránce a Prohlédněte si záhlaví a podívejte se na výsledek:
 
-**Konfigurace továrny filtru**
+![OtherPagesPage2Header se přidá do odpovědi pro Page2.](razor-pages-conventions/_static/page2-filter-header.png)
 
-<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*> Nastaví zadaný objekt factory použít [filtry](xref:mvc/controllers/filters) na všechny stránky Razor.
+**Konfigurace objektu pro vytváření filtrů**
 
-Ukázkovou aplikaci poskytuje příklad použití [filtr factory](xref:mvc/controllers/filters#ifilterfactory) přidáním záhlaví `FilterFactoryHeader`, se dvě hodnoty a stránek vaší aplikace:
+<xref:Microsoft.Extensions.DependencyInjection.PageConventionCollectionExtensions.ConfigureFilter*>nakonfiguruje určený objekt pro vytváření na použití [filtrů](xref:mvc/controllers/filters) na všechny Razor Pages.
+
+Ukázková aplikace poskytuje příklad použití [objektu pro vytváření filtru](xref:mvc/controllers/filters#ifilterfactory) přidáním hlavičky, `FilterFactoryHeader`se dvěma hodnotami na stránkách aplikace:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Startup.cs?name=snippet9)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Startup.cs?name=snippet9)]
 
+::: moniker-end
+
 *AddHeaderWithFactory.cs*:
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](razor-pages-conventions/samples/3.x/SampleApp/Factories/AddHeaderWithFactory.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](razor-pages-conventions/samples/2.x/SampleApp/Factories/AddHeaderWithFactory.cs?name=snippet1)]
 
-Žádosti o stránku ukázky na `localhost:5000/About` a zkontrolujte záhlaví, abyste viděli výsledek:
+::: moniker-end
 
-![Hlavičky odpovědi na stránce o ukazují, že byly přidány dva FilterFactoryHeader záhlaví.](razor-pages-conventions/_static/about-page-filter-factory-header.png)
+Požádejte o stránku ukázek o stránce `localhost:5000/About` a Prohlédněte si záhlaví a podívejte se na výsledek:
+
+![Hlavičky odpovědi stránky o stránku zobrazují, že byly přidány dvě hlavičky FilterFactoryHeader.](razor-pages-conventions/_static/about-page-filter-factory-header.png)
 
 ## <a name="mvc-filters-and-the-page-filter-ipagefilter"></a>Filtry MVC a filtr stránky (IPageFilter)
 
-MVC [filtrů Akce](xref:mvc/controllers/filters#action-filters) ignorují podle stránky Razor, protože stránky Razor pomocí metody obslužné rutiny. Jiné typy filtrů MVC jsou k dispozici pro použití: [Autorizace](xref:mvc/controllers/filters#authorization-filters), [výjimka](xref:mvc/controllers/filters#exception-filters), [prostředků](xref:mvc/controllers/filters#resource-filters), a [výsledek](xref:mvc/controllers/filters#result-filters). Další informace najdete v tématu [filtry](xref:mvc/controllers/filters) tématu.
+[Filtry akcí](xref:mvc/controllers/filters#action-filters) MVC se Razor Pages ignorují, protože Razor Pages použít obslužné rutiny. Další typy filtrů MVC jsou k dispozici pro použití: [Autorizace](xref:mvc/controllers/filters#authorization-filters), [výjimka](xref:mvc/controllers/filters#exception-filters), [prostředek](xref:mvc/controllers/filters#resource-filters)a [výsledek](xref:mvc/controllers/filters#result-filters). Další informace najdete v tématu [filtry](xref:mvc/controllers/filters) .
 
-Filtr stránky (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) je filtr, který platí pro stránky Razor. Další informace najdete v tématu [metody filtrování pro Razor Pages](xref:razor-pages/filter).
+Filtr stránky (<xref:Microsoft.AspNetCore.Mvc.Filters.IPageFilter>) je filtr, který se vztahuje na Razor Pages. Další informace naleznete v tématu [metody Filter pro Razor Pages](xref:razor-pages/filter).
 
 ## <a name="additional-resources"></a>Další zdroje
 

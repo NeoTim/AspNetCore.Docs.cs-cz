@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/06/2019
 uid: blazor/handle-errors
-ms.openlocfilehash: d247b6b6df4cfd1b099e4da0343b9c3751ae6cc8
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 52f55af99881b09c84d9cf88f5845efcb1ea76a1
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820103"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68913863"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
 
@@ -75,7 +75,7 @@ Předchozí neošetřené výjimky jsou popsány v následujících částech to
 Když Blazor vytvoří instanci komponenty:
 
 * Je vyvolán konstruktor součásti.
-* Jsou vyvolány konstruktory pro jakékoli služby di Services dodávané do konstruktoru komponenty [@inject](xref:blazor/dependency-injection#request-a-service-in-a-component) prostřednictvím direktivy nebo atributu [[vložení]](xref:blazor/dependency-injection#request-a-service-in-a-component) . 
+* Jsou vyvolány konstruktory jakékoliv nejednoznačné služby di Services dodávané konstruktoru komponenty prostřednictvím [@inject](xref:blazor/dependency-injection#request-a-service-in-a-component) direktivy nebo atributu [[vložení]](xref:blazor/dependency-injection#request-a-service-in-a-component) . 
 
 Okruh se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo `[Inject]` setter pro jakoukoliv vlastnost vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
@@ -109,7 +109,7 @@ Chcete-li zabránit výjimce odkazu s hodnotou null v logice `null` vykreslován
 
 [!code-cshtml[](handle-errors/samples_snapshot/3.x/person-example.razor?highlight=1)]
 
-Předchozí příklad kódu předpokládá, že `@person` **může** být `null`. Struktura kódu často zaručuje, že objekt existuje v době, kdy je komponenta vykreslena. V těchto případech není nutné kontrolovat `null` v logice vykreslování. V předchozím příkladu může být `person` zaručeno, že existuje, `person` protože je vytvořena při vytvoření instance komponenty.
+Předchozí kód předpokládá, že `person` není `null`. Struktura kódu často zaručuje, že objekt existuje v době, kdy je komponenta vykreslena. V těchto případech není nutné kontrolovat `null` v logice vykreslování. V předchozím příkladu může být `person` zaručeno, že existuje, `person` protože je vytvořena při vytvoření instance komponenty.
 
 ### <a name="event-handlers"></a>Obslužné rutiny událostí
 

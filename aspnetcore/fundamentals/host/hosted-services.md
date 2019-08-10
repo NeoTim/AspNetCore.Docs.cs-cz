@@ -7,47 +7,47 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 2dbb1a84a380ab06a4be7ecf628799a070afc9e3
-ms.sourcegitcommit: 5dd2ce9709c9e41142771e652d1a4bd0b5248cec
+ms.openlocfilehash: 3d4279a291182da60c0cb2fbb93a3922ed673cde
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2019
-ms.locfileid: "66692513"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68914013"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-V ASP.NET Core, je možné implementovat úlohy na pozadí jako *hostovaných služeb*. Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. Toto téma obsahuje tři příklady hostované služby:
+V ASP.NET Core se úlohy na pozadí dají implementovat jako *hostované služby*. Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. V tomto tématu najdete tři příklady hostovaných služeb:
 
-* Úlohy na pozadí, který běží na časovač.
-* Hostovaná služba, která se aktivuje [vymezené služby](xref:fundamentals/dependency-injection#service-lifetimes). Injektáž závislostí můžete použít službu s vymezeným oborem.
-* Úkoly ve frontě na pozadí, které spouští sekvenčně.
+* Úloha na pozadí, která běží na časovači.
+* Hostovaná služba, která aktivuje [vymezenou službu](xref:fundamentals/dependency-injection#service-lifetimes). Vymezená služba může používat vkládání závislostí.
+* Úlohy na pozadí, které běží sekvenčně.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace je k dispozici ve dvou verzích:
 
-* Webového hostitele &ndash; webového hostitele je užitečné pro hostování webových aplikací. Příklad kódu v tomto tématu se z webového hostitele verzi ukázky. Další informace najdete v tématu [webového hostitele](xref:fundamentals/host/web-host) tématu.
-* Obecný hostitele &ndash; obecný hostitele je nového v ASP.NET Core 2.1. Další informace najdete v tématu [obecný hostitele](xref:fundamentals/host/generic-host) tématu.
+* Webový hostitel &ndash; webového hostitele je vhodný pro hostování webových aplikací. Vzorový kód uvedený v tomto tématu je z verze ukázky webového hostitele. Další informace najdete v tématu věnovaném [webovému hostiteli](xref:fundamentals/host/web-host) .
+* Obecný hostitel &ndash; obecného hostitele je v ASP.NET Core 2,1 nový. Další informace najdete v tématu [Obecné hostitele](xref:fundamentals/host/generic-host) .
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="worker-service-template"></a>Šablona služby pracovního procesu
+## <a name="worker-service-template"></a>Šablona služby pracovní proces
 
-Šablony ASP.NET Core pracovního procesu služby poskytuje výchozí bod pro psaní dlouho běžící aplikace služby. Použití šablony jako základ pro aplikace hostované služby:
+Šablona služby ASP.NET Core Worker poskytuje výchozí bod pro psaní dlouhotrvajících aplikací služeb. Použití šablony jako základu pro aplikaci hostované služby:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. Vytvořte nový projekt.
 1. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
-1. Zadejte název projektu **název projektu** pole nebo přijměte výchozí název projektu. Vyberte **Vytvořit**.
-1. V **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, ujistěte se, že **.NET Core** a **ASP.NET Core 3.0** jsou vybrány.
-1. Vyberte **služby pracovního procesu** šablony. Vyberte **Vytvořit**.
+1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Vyberte **Vytvořit**.
+1. V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** .
+1. Vyberte šablonu **služby pracovního procesu** . Vyberte **Vytvořit**.
 
-# <a name="visual-studio-code--net-core-clitabvisual-studio-codenetcore-cli"></a>[Visual Studio Code / .NET Core CLI](#tab/visual-studio-code+netcore-cli)
+# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-Použití služby pracovního procesu (`worker`) šablony s [dotnet nové](/dotnet/core/tools/dotnet-new) z příkazové okno. V následujícím příkladu se vytvoří aplikace služby pracovního procesu pojmenované `ContosoWorkerService`. Složka pro `ContosoWorkerService` aplikace se vytvoří automaticky při spuštění příkazu.
+Použijte šablonu Worker Service`worker`() s příkazem [dotnet New](/dotnet/core/tools/dotnet-new) z příkazového prostředí. V následujícím příkladu se vytvoří aplikace pracovní služby s názvem `ContosoWorkerService`. Složka pro `ContosoWorkerService` aplikaci se vytvoří automaticky při spuštění příkazu.
 
 ```console
 dotnet new worker -o ContosoWorkerService
@@ -59,84 +59,84 @@ dotnet new worker -o ContosoWorkerService
 
 ## <a name="package"></a>Balíček
 
-Odkaz [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) nebo přidat odkaz na balíček [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) balíčku.
+Odkaz na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. Extensions. hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting) .
 
-## <a name="ihostedservice-interface"></a>IHostedService rozhraní
+## <a name="ihostedservice-interface"></a>Rozhraní IHostedService
 
-Hostované služby, které implementují <xref:Microsoft.Extensions.Hosting.IHostedService> rozhraní. Rozhraní definuje dvě metody pro objekty, které se spravují přes hostitele:
+Hostované služby implementují <xref:Microsoft.Extensions.Hosting.IHostedService> rozhraní. Rozhraní definuje dvě metody pro objekty, které jsou spravovány hostitelem:
 
-* [StartAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; `StartAsync` obsahuje logiku pro spuštění úlohy na pozadí. Při použití [webového hostitele](xref:fundamentals/host/web-host), `StartAsync` se volá, když server spuštěn a [IApplicationLifetime.ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*) se aktivuje. Při použití [obecný hostitele](xref:fundamentals/host/generic-host), `StartAsync` je volána před provedením `ApplicationStarted` se aktivuje.
+* [StartAsync (CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync*) &ndash; obsahujelogikupro`StartAsync` zahájení úlohy na pozadí. Při použití [webového hostitele](xref:fundamentals/host/web-host) `StartAsync` se volá po spuštění serveru a aktivaci [IApplicationLifetime. ApplicationStarted](xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime.ApplicationStarted*) . Při použití [obecného hostitele](xref:fundamentals/host/generic-host) `StartAsync` se před `ApplicationStarted` aktivací volá.
 
-* [StopAsync(CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) &ndash; aktivuje, pokud hostitel provádí řádné vypnutí. `StopAsync` obsahuje logiku pro ukončení úlohy na pozadí. Implementace <xref:System.IDisposable> a [finalizační metody (destruktory)](/dotnet/csharp/programming-guide/classes-and-structs/destructors) k uvolnění nespravovaných prostředků.
+* [StopAsync (CancellationToken)](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) &ndash; Aktivováno, když hostitel provádí bezproblémové vypnutí. `StopAsync`obsahuje logiku pro ukončení úlohy na pozadí. Implementujte <xref:System.IDisposable> a [finalizační metody (destruktory)](/dotnet/csharp/programming-guide/classes-and-structs/destructors) pro uvolnění jakýchkoli nespravovaných prostředků.
 
-  Token rušení, který má výchozí pět druhý časový limit k označení, že proces vypnutí by už nebude bezproblémové. Když bude podán požadavek na token:
+  Token zrušení má výchozí 5 sekundový časový limit, který označuje, že proces vypnutí by již neměl být řádný. Když se na tokenu požaduje zrušení:
 
-  * Všechny zbývající operace na pozadí, které provádí aplikace by měla přerušena.
-  * Všechny metody v `StopAsync` by měla vrátit okamžitě.
+  * Všechny zbývající operace na pozadí, které aplikace provádí, by měly být přerušeny.
+  * Všechny metody, které `StopAsync` jsou volány v nástroji, by měly vracet výzvu.
 
-  Nicméně úlohy nejsou byly zanechány po zrušení požadováno&mdash;volající čeká na dokončení všech úloh.
+  Úkoly se ale po zrušení žádosti&mdash;zruší, protože volající čeká na dokončení všech úkolů.
 
-  Pokud se aplikace ukončí neočekávaně (například aplikace proces selže), `StopAsync` nemusí být volána. Proto jakékoli metody volá nebo operací provedených v `StopAsync` nemusí být.
+  Pokud se aplikace neočekávaně ukončí (například proces aplikace se nezdařil), `StopAsync` nemusí být volána. Proto žádné metody, které jsou volány nebo `StopAsync` operací, které jsou prováděny v nástroji, nemusí nastat.
 
-  Chcete-li rozšířit výchozí pět druhý časový limit ukončení, nastavte:
+  Chcete-li zvětšit výchozí časový limit pěti sekund, nastavte:
 
-  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*> jestli používáte obecný hostitele. Další informace naleznete v tématu <xref:fundamentals/host/generic-host#shutdown-timeout>.
-  * Vypnutí vypršení časového limitu hostitele konfigurace nastavení při použití webového hostitele. Další informace naleznete v tématu <xref:fundamentals/host/web-host#shutdown-timeout>.
+  * <xref:Microsoft.Extensions.Hosting.HostOptions.ShutdownTimeout*>Při použití obecného hostitele. Další informace naleznete v tématu <xref:fundamentals/host/generic-host#shutdown-timeout>.
+  * Nastavení konfigurace hostitele časového limitu vypnutí při použití webového hostitele Další informace naleznete v tématu <xref:fundamentals/host/web-host#shutdown-timeout>.
 
-Hostovaná služba je aktivována jednou při spuštění aplikace a řádné ukončení při vypnutí aplikace. Pokud dojde k chybě při provádění úlohy na pozadí, `Dispose` by měla být volána i v případě `StopAsync` není volána.
+Hostovaná služba se aktivuje při spuštění aplikace a řádně se vypíná při vypnutí aplikace. Pokud je vyvolána chyba během provádění úlohy na pozadí, `Dispose` měla by být volána i `StopAsync` v případě, že není volána.
 
-## <a name="timed-background-tasks"></a>Úlohy na pozadí vypršel časový limit
+## <a name="timed-background-tasks"></a>Časované úlohy na pozadí
 
-Úlohy na pozadí vypršel časový limit využívá [System.Threading.Timer](xref:System.Threading.Timer) třídy. Časovač spustí úkolu `DoWork` metody. Časovač je zakázáno na `StopAsync` a uvolněno při uvolnění má v kontejneru služby `Dispose`:
+Úloha s časovým limitem na pozadí využívá třídu [System. Threading. Timer](xref:System.Threading.Timer) . Časovač aktivuje `DoWork` metodu úkolu. Časovač je zakázán `StopAsync` a vyřazen při vyřazení `Dispose`kontejneru služby:
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Services/TimedHostedService.cs?name=snippet1&highlight=15-16,30,37)]
 
-Není registrován v `Startup.ConfigureServices` s `AddHostedService` – metoda rozšíření:
+Služba je zaregistrovaná `Startup.ConfigureServices` v `AddHostedService` s metodou rozšíření:
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Startup.cs?name=snippet1)]
 
-## <a name="consuming-a-scoped-service-in-a-background-task"></a>Vymezené služby v rámci úlohy na pozadí
+## <a name="consuming-a-scoped-service-in-a-background-task"></a>Využívání vymezené služby v úloze na pozadí
 
-Použití [vymezené služby](xref:fundamentals/dependency-injection#service-lifetimes) v rámci `IHostedService`, vytvoření oboru. Ve výchozím nastavení je vytvořen žádný obor pro hostovanou službu.
+Chcete- [](xref:fundamentals/dependency-injection#service-lifetimes) li použít vymezené služby `IHostedService`v rámci, vytvořte obor. Ve výchozím nastavení není pro hostovanou službu vytvořen žádný obor.
 
-Služba úloh na pozadí s vymezeným oborem obsahuje logiku úlohy na pozadí. V následujícím příkladu <xref:Microsoft.Extensions.Logging.ILogger> se vloží do služby:
+Služba úlohy vymezeného na pozadí obsahuje logiku úlohy na pozadí. V následujícím příkladu <xref:Microsoft.Extensions.Logging.ILogger> je vložena do služby:
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Services/ScopedProcessingService.cs?name=snippet1)]
 
-Hostovaná služba vytvoří obor vyřešit služba úloh na pozadí s vymezeným oborem volat jeho `DoWork` metody:
+Hostovaná služba vytvoří obor pro řešení služby úlohy na pozadí, aby volal jeho `DoWork` metodu:
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Services/ConsumeScopedServiceHostedService.cs?name=snippet1&highlight=29-36)]
 
-Služby jsou registrované ve `Startup.ConfigureServices`. `IHostedService` Zaregistruje implementaci `AddHostedService` – metoda rozšíření:
+Služby jsou zaregistrované `Startup.ConfigureServices`v. Implementace je registrována `AddHostedService` s metodou rozšíření: `IHostedService`
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Startup.cs?name=snippet2)]
 
-## <a name="queued-background-tasks"></a>Úlohy na pozadí ve frontě
+## <a name="queued-background-tasks"></a>Úlohy na pozadí zařazené do fronty
 
-Fronta úloh na pozadí je založená na platformě .NET 4.x <xref:System.Web.Hosting.HostingEnvironment.QueueBackgroundWorkItem*> ([nezávazně naplánované být integrované pro ASP.NET Core 3.0](https://github.com/aspnet/Hosting/issues/1280)):
+Fronta úloh na pozadí je založena na rozhraní .NET 4. x <xref:System.Web.Hosting.HostingEnvironment.QueueBackgroundWorkItem*> ([nezávazně naplánováno jako integrované pro ASP.NET Core 3,0](https://github.com/aspnet/Hosting/issues/1280)):
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Services/BackgroundTaskQueue.cs?name=snippet1)]
 
-V `QueueHostedService`, úlohy na pozadí ve frontě jsou odstraněné z fronty a provést, protože <xref:Microsoft.Extensions.Hosting.BackgroundService>, což je základní třída pro implementaci dlouho běžící `IHostedService`:
+V `QueueHostedService`nástroji se úlohy na pozadí ve frontě odřadí a spustí <xref:Microsoft.Extensions.Hosting.BackgroundService>jako, což je základní třída pro implementaci dlouhého běhu `IHostedService`:
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Services/QueuedHostedService.cs?name=snippet1&highlight=21,25)]
 
-Služby jsou registrované ve `Startup.ConfigureServices`. `IHostedService` Zaregistruje implementaci `AddHostedService` – metoda rozšíření:
+Služby jsou zaregistrované `Startup.ConfigureServices`v. Implementace je registrována `AddHostedService` s metodou rozšíření: `IHostedService`
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Startup.cs?name=snippet3)]
 
-V třídě modelu Index stránky:
+Ve třídě modelu stránky indexu:
 
-* `IBackgroundTaskQueue` Se vloží do konstruktoru a přiřadí do `Queue`.
-* <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> Se vloží a přiřadí do `_serviceScopeFactory`. Objekt factory slouží k vytvoření instance <xref:Microsoft.Extensions.DependencyInjection.IServiceScope>, který se používá k vytvoření služeb v rámci oboru. Chcete-li použít aplikace se vytvoří obor `AppDbContext` ( [vymezené služby](xref:fundamentals/dependency-injection#service-lifetimes)) zapište záznamy databáze `IBackgroundTaskQueue` (služby typu singleton).
+* Je vložen do konstruktoru a přiřazen k `Queue`. `IBackgroundTaskQueue`
+* Je vložený a přiřazený k `_serviceScopeFactory`. <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> Objekt pro vytváření se používá k vytvoření instancí <xref:Microsoft.Extensions.DependencyInjection.IServiceScope>, které se používají k vytváření služeb v rámci oboru. Je vytvořen obor, aby bylo možné použít `AppDbContext` ( [vymezenou](xref:fundamentals/dependency-injection#service-lifetimes)) aplikaci k zápisu záznamů `IBackgroundTaskQueue` databáze do služby (singleton).
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Pages/Index.cshtml.cs?name=snippet1)]
 
-Když **přidat úkol** výběru tlačítka na indexovou stránku, `OnPostAddTask` provedení metody. `QueueBackgroundWorkItem` je volána k zařazení do fronty pracovní položku:
+Je-li na stránce indexu vybráno tlačítko **Přidat úkol** , `OnPostAddTask` je metoda spuštěna. `QueueBackgroundWorkItem`je volána k zařazení pracovní položky do fronty:
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample-WebHost/Pages/Index.cshtml.cs?name=snippet2)]
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Implementace úloh na pozadí v mikroslužbách s IHostedService a BackgroundService třídy](/dotnet/standard/microservices-architecture/multi-container-microservice-net-applications/background-tasks-with-ihostedservice)
+* [Implementace úloh na pozadí v mikroslužbách pomocí IHostedService a třídy BackgroundService](/dotnet/standard/microservices-architecture/multi-container-microservice-net-applications/background-tasks-with-ihostedservice)
 * <xref:System.Threading.Timer>

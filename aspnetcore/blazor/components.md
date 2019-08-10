@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/02/2019
 uid: blazor/components
-ms.openlocfilehash: c5525542516d7b1318c26d12a5f59b0ded8dc659
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 43457bffd748ebba68cc86d33fdeb98dc419704b
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819775"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68913892"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -26,10 +26,12 @@ Aplikace Blazor jsou sestavené pomocí *komponent*. Součást je samostatně ob
 
 Komponenty jsou implementovány v souborech komponenty [Razor](xref:mvc/views/razor) ( *. Razor*) pomocí kombinace kódu C# a kódu HTML. Komponenta v Blazor je formálně označována jako *Komponenta Razor*.
 
-Komponenty mohou být vytvořeny pomocí přípony souboru *. cshtml* , pokud jsou soubory označeny jako soubory komponenty Razor pomocí `_RazorComponentInclude` vlastnosti MSBuild. Například aplikace, která určuje, že všechny soubory *. cshtml* ve složce *Pages* by měly být považovány za soubory součástí Razor:
+Komponenty mohou být vytvořeny pomocí přípony souboru *. cshtml* . Použijte vlastnost MSBuild v souboru projektu k identifikaci souborů Component *. cshtml.* `_RazorComponentInclude` Například aplikace, která určuje, že všechny soubory *. cshtml* ve složce *Pages* by měly být považovány za soubory součástí Razor:
 
 ```xml
-<_RazorComponentInclude>Pages\**\*.cshtml</_RazorComponentInclude>
+<PropertyGroup>
+  <_RazorComponentInclude>Pages\**\*.cshtml</_RazorComponentInclude>
+</PropertyGroup>
 ```
 
 Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynamická logika vykreslování (například smyčky, podmíněné výrazy, výrazy) se přidá pomocí vložené C# syntaxe s názvem [Razor](xref:mvc/views/razor). Při kompilaci aplikace jsou značky kódu HTML a C# vykreslovací logiky převedeny na třídu součásti. Název generované třídy se shoduje s názvem souboru.
