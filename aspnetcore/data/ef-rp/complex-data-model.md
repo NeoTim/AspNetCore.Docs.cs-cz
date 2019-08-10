@@ -1,179 +1,140 @@
 ---
-title: Stránky Razor s EF Core v ASP.NET Core – Model dat – 5 z 8
+title: Razor Pages s EF Core v ASP.NET Core-datový model 5 z 8
 author: rick-anderson
-description: V tomto kurzu přidat další entity a relace a přizpůsobte si datový model zadáním formátování, ověřování a pravidel mapování.
+description: V tomto kurzu přidejte další entity a vztahy a upravte datový model zadáním formátování, ověřování a pravidel mapování.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2018
+ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: f995f3f74da4910de518af875eb89349a8457573
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 96e4acf0d6c9c079ebee32fc2f9951fdd668931b
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813715"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68914963"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a><span data-ttu-id="79a17-103">Stránky Razor s EF Core v ASP.NET Core – Model dat – 5 z 8</span><span class="sxs-lookup"><span data-stu-id="79a17-103">Razor Pages with EF Core in ASP.NET Core - Data Model - 5 of 8</span></span>
+# <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a><span data-ttu-id="508ef-103">Razor Pages s EF Core v ASP.NET Core-datový model 5 z 8</span><span class="sxs-lookup"><span data-stu-id="508ef-103">Razor Pages with EF Core in ASP.NET Core - Data Model - 5 of 8</span></span>
 
-<span data-ttu-id="79a17-104">Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="79a17-104">By [Tom Dykstra](https://github.com/tdykstra) and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="508ef-104">Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="508ef-104">By [Tom Dykstra](https://github.com/tdykstra) and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 [!INCLUDE [about the series](~/includes/RP-EF/intro.md)]
 
-<span data-ttu-id="79a17-105">Z předchozích kurzů ve spolupráci s základní datový model, který se skládá z tři entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-105">The previous tutorials worked with a basic data model that was composed of three entities.</span></span> <span data-ttu-id="79a17-106">V tomto kurzu:</span><span class="sxs-lookup"><span data-stu-id="79a17-106">In this tutorial:</span></span>
+::: moniker range=">= aspnetcore-3.0"
 
-* <span data-ttu-id="79a17-107">Jsou přidány další entit a vztahů.</span><span class="sxs-lookup"><span data-stu-id="79a17-107">More entities and relationships are added.</span></span>
-* <span data-ttu-id="79a17-108">Datový model je upravit tak, že zadáte formátování, ověřování a pravidel mapování databáze.</span><span class="sxs-lookup"><span data-stu-id="79a17-108">The data model is customized by specifying formatting, validation, and database mapping rules.</span></span>
+<span data-ttu-id="508ef-105">Předchozí kurzy pracovaly se základním datovým modelem, který se skládá ze tří entit.</span><span class="sxs-lookup"><span data-stu-id="508ef-105">The previous tutorials worked with a basic data model that was composed of three entities.</span></span> <span data-ttu-id="508ef-106">V tomto kurzu:</span><span class="sxs-lookup"><span data-stu-id="508ef-106">In this tutorial:</span></span>
 
-<span data-ttu-id="79a17-109">Tříd entit pro dokončené datový model je vidět na následujícím obrázku:</span><span class="sxs-lookup"><span data-stu-id="79a17-109">The entity classes for the completed data model is shown in the following illustration:</span></span>
+* <span data-ttu-id="508ef-107">Přidávají se další entity a vztahy.</span><span class="sxs-lookup"><span data-stu-id="508ef-107">More entities and relationships are added.</span></span>
+* <span data-ttu-id="508ef-108">Datový model je přizpůsoben zadáním pravidel formátování, ověřování a mapování databáze.</span><span class="sxs-lookup"><span data-stu-id="508ef-108">The data model is customized by specifying formatting, validation, and database mapping rules.</span></span>
 
-![Entity diagram](complex-data-model/_static/diagram.png)
+<span data-ttu-id="508ef-109">Dokončený datový model je zobrazený na následujícím obrázku:</span><span class="sxs-lookup"><span data-stu-id="508ef-109">The completed data model is shown in the following illustration:</span></span>
 
-<span data-ttu-id="79a17-111">Pokud narazíte na potíže nelze vyřešit, stáhněte si [dokončené aplikace](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).</span><span class="sxs-lookup"><span data-stu-id="79a17-111">If you run into problems you can't solve, download the [completed app](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).</span></span>
+![Diagram entit](complex-data-model/_static/diagram.png)
 
-## <a name="customize-the-data-model-with-attributes"></a><span data-ttu-id="79a17-112">Přizpůsobte si datový model s atributy</span><span class="sxs-lookup"><span data-stu-id="79a17-112">Customize the data model with attributes</span></span>
+## <a name="the-student-entity"></a><span data-ttu-id="508ef-111">Entita studenta</span><span class="sxs-lookup"><span data-stu-id="508ef-111">The Student entity</span></span>
 
-<span data-ttu-id="79a17-113">V této části je datový model přizpůsobený pomocí atributů.</span><span class="sxs-lookup"><span data-stu-id="79a17-113">In this section, the data model is customized using attributes.</span></span>
+![Entita studenta](complex-data-model/_static/student-entity.png)
 
-### <a name="the-datatype-attribute"></a><span data-ttu-id="79a17-114">Datový typ atributu</span><span class="sxs-lookup"><span data-stu-id="79a17-114">The DataType attribute</span></span>
+<span data-ttu-id="508ef-113">Nahraďte kód v *modelů/student. cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-113">Replace the code in *Models/Student.cs* with the following code:</span></span>
 
-<span data-ttu-id="79a17-115">Na stránkách student aktuálně zobrazuje čas datum registrace.</span><span class="sxs-lookup"><span data-stu-id="79a17-115">The student pages currently displays the time of the enrollment date.</span></span> <span data-ttu-id="79a17-116">Obvykle pole datum se zobrazí pouze datum a bez času.</span><span class="sxs-lookup"><span data-stu-id="79a17-116">Typically, date fields show only the date and not the time.</span></span>
+[!code-csharp[](intro/samples/cu30/Models/Student.cs)]
 
-<span data-ttu-id="79a17-117">Aktualizace *Models/Student.cs* s následující zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="79a17-117">Update *Models/Student.cs* with the following highlighted code:</span></span>
+<span data-ttu-id="508ef-114">Předchozí kód přidá `FullName` vlastnost a přidá následující atributy do existujících vlastností:</span><span class="sxs-lookup"><span data-stu-id="508ef-114">The preceding code adds a `FullName` property and adds the following attributes to existing properties:</span></span>
 
-[!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_DataType&highlight=3,12-13)]
+* `[DataType]`
+* `[DisplayFormat]`
+* `[StringLength]`
+* `[Column]`
+* `[Required]`
+* `[Display]`
 
-<span data-ttu-id="79a17-118">[Datový typ](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) atribut určuje datový typ, který je specifičtější než vnitřní typ databáze.</span><span class="sxs-lookup"><span data-stu-id="79a17-118">The [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) attribute specifies a data type that's more specific than the database intrinsic type.</span></span> <span data-ttu-id="79a17-119">V tomto případě by měl zobrazit pouze data, ne datum a čas.</span><span class="sxs-lookup"><span data-stu-id="79a17-119">In this case only the date should be displayed, not the date and time.</span></span> <span data-ttu-id="79a17-120">[Datový typ výčtu](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje pro mnoho typů dat, jako je například telefonní číslo, datum, čas, Měna, EmailAddress, atd. `DataType` Atribut můžete také povolit aplikaci automaticky poskytovat konkrétní typ funkce.</span><span class="sxs-lookup"><span data-stu-id="79a17-120">The [DataType Enumeration](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) provides for many data types, such as Date, Time, PhoneNumber, Currency, EmailAddress, etc. The `DataType` attribute can also enable the app to automatically provide type-specific features.</span></span> <span data-ttu-id="79a17-121">Příklad:</span><span class="sxs-lookup"><span data-stu-id="79a17-121">For example:</span></span>
+### <a name="the-fullname-calculated-property"></a><span data-ttu-id="508ef-115">Vypočítaná vlastnost FullName</span><span class="sxs-lookup"><span data-stu-id="508ef-115">The FullName calculated property</span></span>
 
-* <span data-ttu-id="79a17-122">`mailto:` Propojení se automaticky vytvoří pro `DataType.EmailAddress`.</span><span class="sxs-lookup"><span data-stu-id="79a17-122">The `mailto:` link is automatically created for `DataType.EmailAddress`.</span></span>
-* <span data-ttu-id="79a17-123">Výběr data se poskytuje pro `DataType.Date` u většiny prohlížečů.</span><span class="sxs-lookup"><span data-stu-id="79a17-123">The date selector is provided for `DataType.Date` in most browsers.</span></span>
+<span data-ttu-id="508ef-116">`FullName`je vypočtená vlastnost, která vrací hodnotu, která je vytvořena zřetězením dvou dalších vlastností.</span><span class="sxs-lookup"><span data-stu-id="508ef-116">`FullName` is a calculated property that returns a value that's created by concatenating two other properties.</span></span> <span data-ttu-id="508ef-117">`FullName`nedá se nastavit, takže má jenom přístup Get.</span><span class="sxs-lookup"><span data-stu-id="508ef-117">`FullName` can't be set, so it has only a get accessor.</span></span> <span data-ttu-id="508ef-118">V `FullName` databázi není vytvořen žádný sloupec.</span><span class="sxs-lookup"><span data-stu-id="508ef-118">No `FullName` column is created in the database.</span></span>
 
-<span data-ttu-id="79a17-124">`DataType` Atribut vysílá HTML 5 `data-` (čteno data dash) atributy, které využívají prohlížeče HTML 5.</span><span class="sxs-lookup"><span data-stu-id="79a17-124">The `DataType` attribute emits HTML 5 `data-` (pronounced data dash) attributes that HTML 5 browsers consume.</span></span> <span data-ttu-id="79a17-125">`DataType` Atributy neposkytují ověření.</span><span class="sxs-lookup"><span data-stu-id="79a17-125">The `DataType` attributes don't provide validation.</span></span>
+### <a name="the-datatype-attribute"></a><span data-ttu-id="508ef-119">Atribut DataType</span><span class="sxs-lookup"><span data-stu-id="508ef-119">The DataType attribute</span></span>
 
-<span data-ttu-id="79a17-126">`DataType.Date` neurčuje formátu, který se zobrazí datum.</span><span class="sxs-lookup"><span data-stu-id="79a17-126">`DataType.Date` doesn't specify the format of the date that's displayed.</span></span> <span data-ttu-id="79a17-127">Ve výchozím nastavení, zobrazí se pole datum podle výchozí formát založený na serveru [CultureInfo](xref:fundamentals/localization#provide-localized-resources-for-the-languages-and-cultures-you-support).</span><span class="sxs-lookup"><span data-stu-id="79a17-127">By default, the date field is displayed according to the default formats based on the server's [CultureInfo](xref:fundamentals/localization#provide-localized-resources-for-the-languages-and-cultures-you-support).</span></span>
+```csharp
+[DataType(DataType.Date)]
+```
 
-<span data-ttu-id="79a17-128">`DisplayFormat` Atribut se používá s ohledem na formát data:</span><span class="sxs-lookup"><span data-stu-id="79a17-128">The `DisplayFormat` attribute is used to explicitly specify the date format:</span></span>
+<span data-ttu-id="508ef-120">Pro data o registraci studenta aktuálně zobrazují všechny stránky denní dobu a datum, i když se jedná o relevantní datum.</span><span class="sxs-lookup"><span data-stu-id="508ef-120">For student enrollment dates, all of the pages currently display the time of day along with the date, although only the date is relevant.</span></span> <span data-ttu-id="508ef-121">Pomocí atributů datových poznámek můžete vytvořit jednu změnu kódu, která bude opravovat formát zobrazení na každé stránce, která zobrazuje data.</span><span class="sxs-lookup"><span data-stu-id="508ef-121">By using data annotation attributes, you can make one code change that will fix the display format in every page that shows the data.</span></span> 
+
+<span data-ttu-id="508ef-122">Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) Určuje datový typ, který je konkrétnější než vnitřní typ databáze.</span><span class="sxs-lookup"><span data-stu-id="508ef-122">The [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) attribute specifies a data type that's more specific than the database intrinsic type.</span></span> <span data-ttu-id="508ef-123">V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas.</span><span class="sxs-lookup"><span data-stu-id="508ef-123">In this case only the date should be displayed, not the date and time.</span></span> <span data-ttu-id="508ef-124">[Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. `DataType` Atribut také může aplikaci povolit automatické poskytování funkcí specifických pro typ.</span><span class="sxs-lookup"><span data-stu-id="508ef-124">The [DataType Enumeration](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) provides for many data types, such as Date, Time, PhoneNumber, Currency, EmailAddress, etc. The `DataType` attribute can also enable the app to automatically provide type-specific features.</span></span> <span data-ttu-id="508ef-125">Příklad:</span><span class="sxs-lookup"><span data-stu-id="508ef-125">For example:</span></span>
+
+* <span data-ttu-id="508ef-126">Automaticky se vytvoří `DataType.EmailAddress`odkaz pro. `mailto:`</span><span class="sxs-lookup"><span data-stu-id="508ef-126">The `mailto:` link is automatically created for `DataType.EmailAddress`.</span></span>
+* <span data-ttu-id="508ef-127">Selektor data je k `DataType.Date` dispozici ve většině prohlížečů.</span><span class="sxs-lookup"><span data-stu-id="508ef-127">The date selector is provided for `DataType.Date` in most browsers.</span></span>
+
+<span data-ttu-id="508ef-128">Atribut emituje atributy HTML 5 `data-` (vyslovení data pomlčky). `DataType`</span><span class="sxs-lookup"><span data-stu-id="508ef-128">The `DataType` attribute emits HTML 5 `data-` (pronounced data dash) attributes.</span></span> <span data-ttu-id="508ef-129">`DataType` Atributy neposkytují ověřování.</span><span class="sxs-lookup"><span data-stu-id="508ef-129">The `DataType` attributes don't provide validation.</span></span>
+
+### <a name="the-displayformat-attribute"></a><span data-ttu-id="508ef-130">Atribut DisplayFormat</span><span class="sxs-lookup"><span data-stu-id="508ef-130">The DisplayFormat attribute</span></span>
 
 ```csharp
 [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 ```
 
-<span data-ttu-id="79a17-129">`ApplyFormatInEditMode` Nastavení určuje, že formátování také bude použito pro úpravy uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="79a17-129">The `ApplyFormatInEditMode` setting specifies that the formatting should also be applied to the edit UI.</span></span> <span data-ttu-id="79a17-130">Některá pole neměli používat `ApplyFormatInEditMode`.</span><span class="sxs-lookup"><span data-stu-id="79a17-130">Some fields shouldn't use `ApplyFormatInEditMode`.</span></span> <span data-ttu-id="79a17-131">Symbol měny například obecně nebude se zobrazovat text do textového pole.</span><span class="sxs-lookup"><span data-stu-id="79a17-131">For example, the currency symbol should generally not be displayed in an edit text box.</span></span>
+<span data-ttu-id="508ef-131">`DataType.Date`neurčuje formát data, které se zobrazí.</span><span class="sxs-lookup"><span data-stu-id="508ef-131">`DataType.Date` doesn't specify the format of the date that's displayed.</span></span> <span data-ttu-id="508ef-132">Ve výchozím nastavení se pole Datum zobrazuje v závislosti na výchozích formátech na základě objektu [CultureInfo](xref:fundamentals/localization#provide-localized-resources-for-the-languages-and-cultures-you-support)serveru.</span><span class="sxs-lookup"><span data-stu-id="508ef-132">By default, the date field is displayed according to the default formats based on the server's [CultureInfo](xref:fundamentals/localization#provide-localized-resources-for-the-languages-and-cultures-you-support).</span></span>
 
-<span data-ttu-id="79a17-132">`DisplayFormat` Atribut lze použít samostatně.</span><span class="sxs-lookup"><span data-stu-id="79a17-132">The `DisplayFormat` attribute can be used by itself.</span></span> <span data-ttu-id="79a17-133">Obecně je vhodné použít `DataType` atributem `DisplayFormat` atribut.</span><span class="sxs-lookup"><span data-stu-id="79a17-133">It's generally a good idea to use the `DataType` attribute with the `DisplayFormat` attribute.</span></span> <span data-ttu-id="79a17-134">`DataType` Atribut přenáší sémantiku dat na rozdíl od vykreslování na obrazovce.</span><span class="sxs-lookup"><span data-stu-id="79a17-134">The `DataType` attribute conveys the semantics of the data as opposed to how to render it on a screen.</span></span> <span data-ttu-id="79a17-135">`DataType` Atribut poskytuje následující výhody, které nejsou k dispozici v `DisplayFormat`:</span><span class="sxs-lookup"><span data-stu-id="79a17-135">The `DataType` attribute provides the following benefits that are not available in `DisplayFormat`:</span></span>
+<span data-ttu-id="508ef-133">`DisplayFormat` Atribut slouží k explicitnímu zadání formátu data.</span><span class="sxs-lookup"><span data-stu-id="508ef-133">The `DisplayFormat` attribute is used to explicitly specify the date format.</span></span> <span data-ttu-id="508ef-134">Toto `ApplyFormatInEditMode` nastavení určuje, že by mělo být formátování použito také na uživatelské rozhraní pro úpravy.</span><span class="sxs-lookup"><span data-stu-id="508ef-134">The `ApplyFormatInEditMode` setting specifies that the formatting should also be applied to the edit UI.</span></span> <span data-ttu-id="508ef-135">Některá pole byste neměli `ApplyFormatInEditMode`používat.</span><span class="sxs-lookup"><span data-stu-id="508ef-135">Some fields shouldn't use `ApplyFormatInEditMode`.</span></span> <span data-ttu-id="508ef-136">Například symbol měny by neměl být v textovém poli pro úpravy obvykle zobrazen.</span><span class="sxs-lookup"><span data-stu-id="508ef-136">For example, the currency symbol should generally not be displayed in an edit text box.</span></span>
 
-* <span data-ttu-id="79a17-136">Prohlížeči můžete povolit funkce HTML5.</span><span class="sxs-lookup"><span data-stu-id="79a17-136">The browser can enable HTML5 features.</span></span> <span data-ttu-id="79a17-137">Například zobrazení ovládacího prvku kalendář, symbol měny odpovídající národní prostředí, odkazy na e-mailu, vstupní ověřování na straně klienta, atd.</span><span class="sxs-lookup"><span data-stu-id="79a17-137">For example, show a calendar control, the locale-appropriate currency symbol, email links, client-side input validation, etc.</span></span>
-* <span data-ttu-id="79a17-138">Ve výchozím prohlížečem data ve správném formátu podle národního prostředí.</span><span class="sxs-lookup"><span data-stu-id="79a17-138">By default, the browser renders data using the correct format based on the locale.</span></span>
+<span data-ttu-id="508ef-137">`DisplayFormat` Atribut může používat sám sebe.</span><span class="sxs-lookup"><span data-stu-id="508ef-137">The `DisplayFormat` attribute can be used by itself.</span></span> <span data-ttu-id="508ef-138">Obecně je vhodné použít `DataType` atribut `DisplayFormat` s atributem.</span><span class="sxs-lookup"><span data-stu-id="508ef-138">It's generally a good idea to use the `DataType` attribute with the `DisplayFormat` attribute.</span></span> <span data-ttu-id="508ef-139">`DataType` Atribut předává sémantiku dat na rozdíl od způsobu vykreslování na obrazovce.</span><span class="sxs-lookup"><span data-stu-id="508ef-139">The `DataType` attribute conveys the semantics of the data as opposed to how to render it on a screen.</span></span> <span data-ttu-id="508ef-140">Atribut poskytuje následující výhody, které nejsou k dispozici v `DisplayFormat`: `DataType`</span><span class="sxs-lookup"><span data-stu-id="508ef-140">The `DataType` attribute provides the following benefits that are not available in `DisplayFormat`:</span></span>
 
-<span data-ttu-id="79a17-139">Další informace najdete v tématu [ \<vstupní > pomocná rutina značek v dokumentaci](xref:mvc/views/working-with-forms#the-input-tag-helper).</span><span class="sxs-lookup"><span data-stu-id="79a17-139">For more information, see the [\<input> Tag Helper documentation](xref:mvc/views/working-with-forms#the-input-tag-helper).</span></span>
+* <span data-ttu-id="508ef-141">Prohlížeč může povolit funkce HTML5.</span><span class="sxs-lookup"><span data-stu-id="508ef-141">The browser can enable HTML5 features.</span></span> <span data-ttu-id="508ef-142">Například můžete zobrazit ovládací prvek kalendáře, symbol měny odpovídající národním prostředí, e-mailové odkazy a ověření vstupu na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="508ef-142">For example, show a calendar control, the locale-appropriate currency symbol, email links, and client-side input validation.</span></span>
+* <span data-ttu-id="508ef-143">Ve výchozím nastavení prohlížeč vykresluje data pomocí správného formátu založeného na národním prostředí.</span><span class="sxs-lookup"><span data-stu-id="508ef-143">By default, the browser renders data using the correct format based on the locale.</span></span>
 
-<span data-ttu-id="79a17-140">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="79a17-140">Run the app.</span></span> <span data-ttu-id="79a17-141">Přejděte na stránku studenty indexu.</span><span class="sxs-lookup"><span data-stu-id="79a17-141">Navigate to the Students Index page.</span></span> <span data-ttu-id="79a17-142">Časy se už nezobrazují.</span><span class="sxs-lookup"><span data-stu-id="79a17-142">Times are no longer displayed.</span></span> <span data-ttu-id="79a17-143">Každé zobrazení, která používá `Student` model zobrazí datum bez času.</span><span class="sxs-lookup"><span data-stu-id="79a17-143">Every view that uses the `Student` model displays the date without time.</span></span>
+<span data-ttu-id="508ef-144">Další informace najdete v [ \<dokumentaci k rutině Input > Tag](xref:mvc/views/working-with-forms#the-input-tag-helper).</span><span class="sxs-lookup"><span data-stu-id="508ef-144">For more information, see the [\<input> Tag Helper documentation](xref:mvc/views/working-with-forms#the-input-tag-helper).</span></span>
 
-![Studenti indexová stránka zobrazující data bez časy](complex-data-model/_static/dates-no-times.png)
+### <a name="the-stringlength-attribute"></a><span data-ttu-id="508ef-145">Atribut StringLength</span><span class="sxs-lookup"><span data-stu-id="508ef-145">The StringLength attribute</span></span>
 
-### <a name="the-stringlength-attribute"></a><span data-ttu-id="79a17-145">Atribut StringLength</span><span class="sxs-lookup"><span data-stu-id="79a17-145">The StringLength attribute</span></span>
+```csharp
+[StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+```
 
-<span data-ttu-id="79a17-146">S atributy lze zadat pravidla ověřování dat a chybové zprávy ověření.</span><span class="sxs-lookup"><span data-stu-id="79a17-146">Data validation rules and validation error messages can be specified with attributes.</span></span> <span data-ttu-id="79a17-147">[StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute?view=netframework-4.7.1) atribut určuje minimální a maximální délku znaků, které jsou povoleny v datové pole.</span><span class="sxs-lookup"><span data-stu-id="79a17-147">The [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute?view=netframework-4.7.1) attribute specifies the minimum and maximum length of characters that are allowed in a data field.</span></span> <span data-ttu-id="79a17-148">`StringLength` Atribut také poskytuje ověřování na straně klienta i stranu serveru.</span><span class="sxs-lookup"><span data-stu-id="79a17-148">The `StringLength` attribute also provides client-side and server-side validation.</span></span> <span data-ttu-id="79a17-149">Minimální hodnota nemá žádný vliv na schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="79a17-149">The minimum value has no impact on the database schema.</span></span>
+<span data-ttu-id="508ef-146">Pravidla ověřování dat a chybové zprávy ověřování lze zadat pomocí atributů.</span><span class="sxs-lookup"><span data-stu-id="508ef-146">Data validation rules and validation error messages can be specified with attributes.</span></span> <span data-ttu-id="508ef-147">Atribut [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute?view=netframework-4.7.1) určuje minimální a maximální délku znaků, které jsou povoleny v datovém poli.</span><span class="sxs-lookup"><span data-stu-id="508ef-147">The [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute?view=netframework-4.7.1) attribute specifies the minimum and maximum length of characters that are allowed in a data field.</span></span> <span data-ttu-id="508ef-148">Zobrazený kód omezuje názvy na více než 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="508ef-148">The code shown limits names to no more than 50 characters.</span></span> <span data-ttu-id="508ef-149">Příklad, který nastaví minimální délku řetězce, se zobrazí [později](#the-required-attribute).</span><span class="sxs-lookup"><span data-stu-id="508ef-149">An example that sets the minimum string length is shown [later](#the-required-attribute).</span></span>
 
-<span data-ttu-id="79a17-150">Aktualizace `Student` modelů s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="79a17-150">Update the `Student` model with the following code:</span></span>
+<span data-ttu-id="508ef-150">`StringLength` Atribut také poskytuje ověřování na straně klienta a serveru.</span><span class="sxs-lookup"><span data-stu-id="508ef-150">The `StringLength` attribute also provides client-side and server-side validation.</span></span> <span data-ttu-id="508ef-151">Minimální hodnota nemá žádný vliv na schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="508ef-151">The minimum value has no impact on the database schema.</span></span>
 
-[!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_StringLength&highlight=10,12)]
-
-<span data-ttu-id="79a17-151">Předchozí kód omezení názvů, které se více než 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="79a17-151">The preceding code limits names to no more than 50 characters.</span></span> <span data-ttu-id="79a17-152">`StringLength` Atribut nemá zabránit uživateli v zadávání prázdné znaky pro název.</span><span class="sxs-lookup"><span data-stu-id="79a17-152">The `StringLength` attribute doesn't prevent a user from entering white space for a name.</span></span> <span data-ttu-id="79a17-153">[Regulární výraz](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) atribut se používá k aplikování omezení na vstup.</span><span class="sxs-lookup"><span data-stu-id="79a17-153">The [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) attribute is used to apply restrictions to the input.</span></span> <span data-ttu-id="79a17-154">Například následující kód vyžaduje prvního znaku na velká písmena a zbývající znaky, které mají být abecední znak:</span><span class="sxs-lookup"><span data-stu-id="79a17-154">For example, the following code requires the first character to be upper case and the remaining characters to be alphabetical:</span></span>
+<span data-ttu-id="508ef-152">`StringLength` Atribut nebrání uživateli v zadání prázdného místa pro název.</span><span class="sxs-lookup"><span data-stu-id="508ef-152">The `StringLength` attribute doesn't prevent a user from entering white space for a name.</span></span> <span data-ttu-id="508ef-153">Atribut [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) lze použít k uplatnění omezení na vstup.</span><span class="sxs-lookup"><span data-stu-id="508ef-153">The [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) attribute can be used to apply restrictions to the input.</span></span> <span data-ttu-id="508ef-154">Například následující kód vyžaduje, aby první znak byl velkými písmeny a aby zbývající znaky byly abecedně:</span><span class="sxs-lookup"><span data-stu-id="508ef-154">For example, the following code requires the first character to be upper case and the remaining characters to be alphabetical:</span></span>
 
 ```csharp
 [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
 ```
 
-<span data-ttu-id="79a17-155">Spuštění aplikace:</span><span class="sxs-lookup"><span data-stu-id="79a17-155">Run the app:</span></span>
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-155">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-155">Visual Studio</span></span>](#tab/visual-studio)
 
-* <span data-ttu-id="79a17-156">Přejděte na stránku pro studenty.</span><span class="sxs-lookup"><span data-stu-id="79a17-156">Navigate to the Students page.</span></span>
-* <span data-ttu-id="79a17-157">Vyberte **vytvořit nový**a zadejte název delší než 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="79a17-157">Select **Create New**, and enter a name longer than 50 characters.</span></span>
-* <span data-ttu-id="79a17-158">Vyberte **vytvořit**, zobrazí se chybová zpráva ověření na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="79a17-158">Select **Create**, client-side validation shows an error message.</span></span>
+<span data-ttu-id="508ef-156">V **Průzkumník objektů systému SQL Server** (SSOX) otevřete Návrhář tabulky student dvojitým kliknutím na tabulku **student** .</span><span class="sxs-lookup"><span data-stu-id="508ef-156">In **SQL Server Object Explorer** (SSOX), open the Student table designer by double-clicking the **Student** table.</span></span>
 
-![Studenti index stránky zobrazující chyby délky řetězce](complex-data-model/_static/string-length-errors.png)
+![Tabulka studentů v SSOX před migracemi](complex-data-model/_static/ssox-before-migration.png)
 
-<span data-ttu-id="79a17-160">V **Průzkumník objektů systému SQL Server** (SSOX), otevřete Návrhář tabulky Student dvojitým kliknutím **Student** tabulky.</span><span class="sxs-lookup"><span data-stu-id="79a17-160">In **SQL Server Object Explorer** (SSOX), open the Student table designer by double-clicking the **Student** table.</span></span>
+<span data-ttu-id="508ef-158">Na předchozím obrázku je znázorněno schéma pro `Student` tabulku.</span><span class="sxs-lookup"><span data-stu-id="508ef-158">The preceding image shows the schema for the `Student` table.</span></span> <span data-ttu-id="508ef-159">Pole název mají typ `nvarchar(MAX)`.</span><span class="sxs-lookup"><span data-stu-id="508ef-159">The name fields have type `nvarchar(MAX)`.</span></span> <span data-ttu-id="508ef-160">Když se vytvoří migrace a použije se později v tomto kurzu, pole název se změní `nvarchar(50)` v důsledku atributů délky řetězce.</span><span class="sxs-lookup"><span data-stu-id="508ef-160">When a migration is created and applied later in this tutorial, the name fields become `nvarchar(50)` as a result of the string length attributes.</span></span>
 
-![Tabulky Studenti v SSOX před migrací](complex-data-model/_static/ssox-before-migration.png)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-161">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-161">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="79a17-162">Předchozí obrázek znázorňuje schéma `Student` tabulky.</span><span class="sxs-lookup"><span data-stu-id="79a17-162">The preceding image shows the schema for the `Student` table.</span></span> <span data-ttu-id="79a17-163">Název pole mají typ `nvarchar(MAX)` protože migrace nebyla spuštěna v databázi.</span><span class="sxs-lookup"><span data-stu-id="79a17-163">The name fields have type `nvarchar(MAX)` because migrations has not been run on the DB.</span></span> <span data-ttu-id="79a17-164">Spuštění migrace později v tomto kurzu se název pole se stanou `nvarchar(50)`.</span><span class="sxs-lookup"><span data-stu-id="79a17-164">When migrations are run later in this tutorial, the name fields become `nvarchar(50)`.</span></span>
-
-### <a name="the-column-attribute"></a><span data-ttu-id="79a17-165">Atribut sloupce</span><span class="sxs-lookup"><span data-stu-id="79a17-165">The Column attribute</span></span>
-
-<span data-ttu-id="79a17-166">Atributy můžete řídit, jak třídy a vlastnosti jsou namapovány na databázi.</span><span class="sxs-lookup"><span data-stu-id="79a17-166">Attributes can control how classes and properties are mapped to the database.</span></span> <span data-ttu-id="79a17-167">V této části `Column` atribut se používá k mapování názvu `FirstMidName` vlastnost na "FirstName" v databázi.</span><span class="sxs-lookup"><span data-stu-id="79a17-167">In this section, the `Column` attribute is used to map the name of the `FirstMidName` property to "FirstName" in the DB.</span></span>
-
-<span data-ttu-id="79a17-168">Když se vytvoří databáze, názvy vlastností na modelu se používají pro názvy sloupců (s výjimkou, kdy `Column` atribut se používá).</span><span class="sxs-lookup"><span data-stu-id="79a17-168">When the DB is created, property names on the model are used for column names (except when the `Column` attribute is used).</span></span>
-
-<span data-ttu-id="79a17-169">`Student` Model používá `FirstMidName` pro název prvního pole, protože pole může obsahovat také křestní jméno.</span><span class="sxs-lookup"><span data-stu-id="79a17-169">The `Student` model uses `FirstMidName` for the first-name field because the field might also contain a middle name.</span></span>
-
-<span data-ttu-id="79a17-170">Aktualizace *Student.cs* soubor s následující zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="79a17-170">Update the *Student.cs* file with the following highlighted code:</span></span>
-
-[!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_Column&highlight=4,14)]
-
-<span data-ttu-id="79a17-171">Předchozí změny `Student.FirstMidName` v aplikaci mapuje `FirstName` sloupec `Student` tabulky.</span><span class="sxs-lookup"><span data-stu-id="79a17-171">With the preceding change, `Student.FirstMidName` in the app maps to the `FirstName` column of the `Student` table.</span></span>
-
-<span data-ttu-id="79a17-172">Přidání `Column` atribut změní základní model `SchoolContext`.</span><span class="sxs-lookup"><span data-stu-id="79a17-172">The addition of the `Column` attribute changes the model backing the `SchoolContext`.</span></span> <span data-ttu-id="79a17-173">Základní model `SchoolContext` už neodpovídá databázi.</span><span class="sxs-lookup"><span data-stu-id="79a17-173">The model backing the `SchoolContext` no longer matches the database.</span></span> <span data-ttu-id="79a17-174">Pokud spuštění aplikace před použitím migrace je vygenerována následující výjimka:</span><span class="sxs-lookup"><span data-stu-id="79a17-174">If the app is run before applying migrations, the following exception is generated:</span></span>
-
-```SQL
-SqlException: Invalid column name 'FirstName'.
-```
-
-<span data-ttu-id="79a17-175">Aktualizace databáze:</span><span class="sxs-lookup"><span data-stu-id="79a17-175">To update the DB:</span></span>
-
-* <span data-ttu-id="79a17-176">Sestavte projekt.</span><span class="sxs-lookup"><span data-stu-id="79a17-176">Build the project.</span></span>
-* <span data-ttu-id="79a17-177">Otevřete okno příkazového řádku ve složce projektu.</span><span class="sxs-lookup"><span data-stu-id="79a17-177">Open a command window in the project folder.</span></span> <span data-ttu-id="79a17-178">Zadejte následující příkazy k vytvoření nové migrace a aktualizaci databáze:</span><span class="sxs-lookup"><span data-stu-id="79a17-178">Enter the following commands to create a new migration and update the DB:</span></span>
-
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="79a17-179">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="79a17-179">Visual Studio</span></span>](#tab/visual-studio)
-
-```PMC
-Add-Migration ColumnFirstName
-Update-Database
-```
-
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="79a17-180">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="79a17-180">.NET Core CLI</span></span>](#tab/netcore-cli)
-
-```console
-dotnet ef migrations add ColumnFirstName
-dotnet ef database update
-```
+<span data-ttu-id="508ef-162">V nástroji SQLite si Projděte definice sloupců pro `Student` tabulku.</span><span class="sxs-lookup"><span data-stu-id="508ef-162">In your SQLite tool, examine the column definitions for the `Student` table.</span></span> <span data-ttu-id="508ef-163">Pole název mají typ `Text`.</span><span class="sxs-lookup"><span data-stu-id="508ef-163">The name fields have type `Text`.</span></span> <span data-ttu-id="508ef-164">Všimněte si, že je voláno `FirstMidName`pole jméno.</span><span class="sxs-lookup"><span data-stu-id="508ef-164">Notice that the first name field is called `FirstMidName`.</span></span> <span data-ttu-id="508ef-165">V další části změníte název tohoto sloupce na `FirstName`.</span><span class="sxs-lookup"><span data-stu-id="508ef-165">In the next section, you change the name of that column to `FirstName`.</span></span>
 
 ---
 
-<span data-ttu-id="79a17-181">`migrations add ColumnFirstName` Příkaz vygeneruje následující upozornění:</span><span class="sxs-lookup"><span data-stu-id="79a17-181">The `migrations add ColumnFirstName` command generates the following warning message:</span></span>
+### <a name="the-column-attribute"></a><span data-ttu-id="508ef-166">Atribut Column</span><span class="sxs-lookup"><span data-stu-id="508ef-166">The Column attribute</span></span>
 
-```text
-An operation was scaffolded that may result in the loss of data.
-Please review the migration for accuracy.
+```csharp
+[Column("FirstName")]
+public string FirstMidName { get; set; }
 ```
 
-<span data-ttu-id="79a17-182">Upozornění je generována, protože název pole jsou teď omezená na 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="79a17-182">The warning is generated because the name fields are now limited to 50 characters.</span></span> <span data-ttu-id="79a17-183">Pokud název databáze do více než 50 znaků, by dojít ke ztrátě 51 poslední znak.</span><span class="sxs-lookup"><span data-stu-id="79a17-183">If a name in the DB had more than 50 characters, the 51 to last character would be lost.</span></span>
+<span data-ttu-id="508ef-167">Atributy mohou řídit způsob, jakým jsou třídy a vlastnosti mapovány na databázi.</span><span class="sxs-lookup"><span data-stu-id="508ef-167">Attributes can control how classes and properties are mapped to the database.</span></span> <span data-ttu-id="508ef-168">V modelu je atribut použit k mapování názvu `FirstMidName` vlastnosti na hodnotu "FirstName" v databázi. `Column` `Student`</span><span class="sxs-lookup"><span data-stu-id="508ef-168">In the `Student` model, the `Column` attribute is used to map the name of the `FirstMidName` property to "FirstName" in the database.</span></span>
 
-* <span data-ttu-id="79a17-184">Testování aplikace.</span><span class="sxs-lookup"><span data-stu-id="79a17-184">Test the app.</span></span>
+<span data-ttu-id="508ef-169">Při vytvoření databáze se názvy vlastností v modelu používají pro názvy sloupců (kromě případu, `Column` kdy se atribut používá).</span><span class="sxs-lookup"><span data-stu-id="508ef-169">When the database is created, property names on the model are used for column names (except when the `Column` attribute is used).</span></span> <span data-ttu-id="508ef-170">`Student` Model používá`FirstMidName` pole pro první název, protože pole může obsahovat také prostřední jméno.</span><span class="sxs-lookup"><span data-stu-id="508ef-170">The `Student` model uses `FirstMidName` for the first-name field because the field might also contain a middle name.</span></span>
 
-<span data-ttu-id="79a17-185">Otevřete tabulku studentů v SSOX:</span><span class="sxs-lookup"><span data-stu-id="79a17-185">Open the Student table in SSOX:</span></span>
+<span data-ttu-id="508ef-171">`[Column]` S `FirstName` `Student` atributem se vdatovémmodelumapuje`Student.FirstMidName` na sloupec tabulky.</span><span class="sxs-lookup"><span data-stu-id="508ef-171">With the `[Column]` attribute, `Student.FirstMidName` in the data model maps to the `FirstName` column of the `Student` table.</span></span> <span data-ttu-id="508ef-172">Přidání `Column` atributu změní model `SchoolContext`zálohování.</span><span class="sxs-lookup"><span data-stu-id="508ef-172">The addition of the `Column` attribute changes the model backing the `SchoolContext`.</span></span> <span data-ttu-id="508ef-173">Model, který `SchoolContext` zálohování již nevyhovuje, se neshoduje s databází.</span><span class="sxs-lookup"><span data-stu-id="508ef-173">The model backing the `SchoolContext` no longer matches the database.</span></span> <span data-ttu-id="508ef-174">Tato nesrovnalost bude vyřešena přidáním migrace později v tomto kurzu.</span><span class="sxs-lookup"><span data-stu-id="508ef-174">That discrepancy will be resolved by adding a migration later in this tutorial.</span></span>
 
-![Tabulky Studenti v SSOX po migraci](complex-data-model/_static/ssox-after-migration.png)
+### <a name="the-required-attribute"></a><span data-ttu-id="508ef-175">Požadovaný atribut</span><span class="sxs-lookup"><span data-stu-id="508ef-175">The Required attribute</span></span>
 
-<span data-ttu-id="79a17-187">Před migrací se použil, název sloupce byly typu [nvarchar(MAX)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql).</span><span class="sxs-lookup"><span data-stu-id="79a17-187">Before migration was applied, the name columns were of type [nvarchar(MAX)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql).</span></span> <span data-ttu-id="79a17-188">Název sloupce jsou nyní `nvarchar(50)`.</span><span class="sxs-lookup"><span data-stu-id="79a17-188">The name columns are now `nvarchar(50)`.</span></span> <span data-ttu-id="79a17-189">Změnil se název sloupce z `FirstMidName` k `FirstName`.</span><span class="sxs-lookup"><span data-stu-id="79a17-189">The column name has changed from `FirstMidName` to `FirstName`.</span></span>
+```csharp
+[Required]
+```
 
-> [!Note]
-> <span data-ttu-id="79a17-190">V následující části sestavení aplikace na několik fází generuje chyby kompilátoru.</span><span class="sxs-lookup"><span data-stu-id="79a17-190">In the following section, building the app at some stages generates compiler errors.</span></span> <span data-ttu-id="79a17-191">Podle pokynů určit, kdy k sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="79a17-191">The instructions specify when to build the app.</span></span>
+<span data-ttu-id="508ef-176">`Required` Atribut nastaví název vlastnosti povinná pole.</span><span class="sxs-lookup"><span data-stu-id="508ef-176">The `Required` attribute makes the name properties required fields.</span></span> <span data-ttu-id="508ef-177">Atribut není potřebný pro typy `DateTime`, `int`které neumožňují hodnotu null, jako jsou například typy hodnot (například, `double`, a). `Required`</span><span class="sxs-lookup"><span data-stu-id="508ef-177">The `Required` attribute isn't needed for non-nullable types such as value types (for example, `DateTime`, `int`, and `double`).</span></span> <span data-ttu-id="508ef-178">Typy, které nemůžou mít hodnotu null, se automaticky považují za povinná pole.</span><span class="sxs-lookup"><span data-stu-id="508ef-178">Types that can't be null are automatically treated as required fields.</span></span>
 
-## <a name="student-entity-update"></a><span data-ttu-id="79a17-192">Aktualizovat entitu studenta</span><span class="sxs-lookup"><span data-stu-id="79a17-192">Student entity update</span></span>
-
-![Student entity](complex-data-model/_static/student-entity.png)
-
-<span data-ttu-id="79a17-194">Aktualizace *Models/Student.cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="79a17-194">Update *Models/Student.cs* with the following code:</span></span>
-
-[!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_BeforeInheritance&highlight=11,13,15,18,22,24-31)]
-
-### <a name="the-required-attribute"></a><span data-ttu-id="79a17-195">Požadovaný atribut</span><span class="sxs-lookup"><span data-stu-id="79a17-195">The Required attribute</span></span>
-
-<span data-ttu-id="79a17-196">`Required` Atribut je povinná pole název vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="79a17-196">The `Required` attribute makes the name properties required fields.</span></span> <span data-ttu-id="79a17-197">`Required` Atribut není potřeba pro typy neumožňující hodnotu, jako jsou typy hodnot (`DateTime`, `int`, `double`atd.).</span><span class="sxs-lookup"><span data-stu-id="79a17-197">The `Required` attribute isn't needed for non-nullable types such as value types (`DateTime`, `int`, `double`, etc.).</span></span> <span data-ttu-id="79a17-198">Typy, které nemůže mít hodnotu null se automaticky považují za povinná pole.</span><span class="sxs-lookup"><span data-stu-id="79a17-198">Types that can't be null are automatically treated as required fields.</span></span>
-
-<span data-ttu-id="79a17-199">`Required` Atribut může nahrazena minimální délku parametru `StringLength` atribut:</span><span class="sxs-lookup"><span data-stu-id="79a17-199">The `Required` attribute could be replaced with a minimum length parameter in the `StringLength` attribute:</span></span>
+<span data-ttu-id="508ef-179">Atribut může být nahrazen parametrem minimální délky `StringLength` v atributu: `Required`</span><span class="sxs-lookup"><span data-stu-id="508ef-179">The `Required` attribute could be replaced with a minimum length parameter in the `StringLength` attribute:</span></span>
 
 ```csharp
 [Display(Name = "Last Name")]
@@ -181,128 +142,172 @@ Please review the migration for accuracy.
 public string LastName { get; set; }
 ```
 
-### <a name="the-display-attribute"></a><span data-ttu-id="79a17-200">Atribut zobrazení</span><span class="sxs-lookup"><span data-stu-id="79a17-200">The Display attribute</span></span>
+### <a name="the-display-attribute"></a><span data-ttu-id="508ef-180">Atribut zobrazení</span><span class="sxs-lookup"><span data-stu-id="508ef-180">The Display attribute</span></span>
 
-<span data-ttu-id="79a17-201">`Display` Atribut určuje, že popisek pro textová pole by měl být "Jméno", "Last Name", "Jméno" a "Datum registrace."</span><span class="sxs-lookup"><span data-stu-id="79a17-201">The `Display` attribute specifies that the caption for the text boxes should be "First Name", "Last Name", "Full Name", and "Enrollment Date."</span></span> <span data-ttu-id="79a17-202">Výchozí popisky neobsahoval mezeru dělení slova, třeba "Prijmeni".</span><span class="sxs-lookup"><span data-stu-id="79a17-202">The default captions had no space dividing the words, for example "Lastname."</span></span>
+```csharp
+[Display(Name = "Last Name")]
+```
 
-### <a name="the-fullname-calculated-property"></a><span data-ttu-id="79a17-203">Celý název počítané vlastnosti</span><span class="sxs-lookup"><span data-stu-id="79a17-203">The FullName calculated property</span></span>
+<span data-ttu-id="508ef-181">`Display` Atribut určuje, že titulek pro textová pole by měl být "jméno", "příjmení", "celé jméno" a "datum zápisu".</span><span class="sxs-lookup"><span data-stu-id="508ef-181">The `Display` attribute specifies that the caption for the text boxes should be "First Name", "Last Name", "Full Name", and "Enrollment Date."</span></span> <span data-ttu-id="508ef-182">Výchozí titulky neobsahovaly místo dělení slov, například "LastName".</span><span class="sxs-lookup"><span data-stu-id="508ef-182">The default captions had no space dividing the words, for example "Lastname."</span></span>
 
-<span data-ttu-id="79a17-204">`FullName` je počítaná vlastnost, která vrací hodnotu, která se vytváří zřetězením dvou dalších vlastností.</span><span class="sxs-lookup"><span data-stu-id="79a17-204">`FullName` is a calculated property that returns a value that's created by concatenating two other properties.</span></span> <span data-ttu-id="79a17-205">`FullName` Nelze nastavit, že obsahuje pouze přístupový objekt get.</span><span class="sxs-lookup"><span data-stu-id="79a17-205">`FullName` cannot be set, it has only a get accessor.</span></span> <span data-ttu-id="79a17-206">Ne `FullName` sloupce se vytvoří v databázi.</span><span class="sxs-lookup"><span data-stu-id="79a17-206">No `FullName` column is created in the database.</span></span>
+### <a name="create-a-migration"></a><span data-ttu-id="508ef-183">Vytvoření migrace</span><span class="sxs-lookup"><span data-stu-id="508ef-183">Create a migration</span></span>
 
-## <a name="create-the-instructor-entity"></a><span data-ttu-id="79a17-207">Vytvoření Entity instruktorem</span><span class="sxs-lookup"><span data-stu-id="79a17-207">Create the Instructor Entity</span></span>
+<span data-ttu-id="508ef-184">Spusťte aplikaci a pokračujte na stránku students.</span><span class="sxs-lookup"><span data-stu-id="508ef-184">Run the app and go to the Students page.</span></span> <span data-ttu-id="508ef-185">Je vyvolána výjimka.</span><span class="sxs-lookup"><span data-stu-id="508ef-185">An exception is thrown.</span></span> <span data-ttu-id="508ef-186">Atribut způsobí, že EF očekává, že najde sloupec s `FirstName`názvem, ale název sloupce v databázi je stále `FirstMidName`. `[Column]`</span><span class="sxs-lookup"><span data-stu-id="508ef-186">The `[Column]` attribute causes EF to expect to find a column named `FirstName`, but the column name in the database is still `FirstMidName`.</span></span>
 
-![Entita instruktorem](complex-data-model/_static/instructor-entity.png)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-187">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-187">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="79a17-209">Vytvoření *Models/Instructor.cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="79a17-209">Create *Models/Instructor.cs* with the following code:</span></span>
+<span data-ttu-id="508ef-188">Chybová zpráva je podobná následujícímu příkladu:</span><span class="sxs-lookup"><span data-stu-id="508ef-188">The error message is similar to the following example:</span></span>
 
-[!code-csharp[](intro/samples/cu21/Models/Instructor.cs)]
+```
+SqlException: Invalid column name 'FirstName'.
+```
 
-<span data-ttu-id="79a17-210">Více atributů může být na jednom řádku.</span><span class="sxs-lookup"><span data-stu-id="79a17-210">Multiple attributes can be on one line.</span></span> <span data-ttu-id="79a17-211">`HireDate` Atributů může být napsaná následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="79a17-211">The `HireDate` attributes could be written as follows:</span></span>
+* <span data-ttu-id="508ef-189">Do PMC zadejte následující příkazy, abyste vytvořili novou migraci a aktualizovali databázi:</span><span class="sxs-lookup"><span data-stu-id="508ef-189">In the PMC, enter the following commands to create a new migration and update the database:</span></span>
+
+  ```powershell
+  Add-Migration ColumnFirstName
+  Update-Database
+  ```
+
+  <span data-ttu-id="508ef-190">První z těchto příkazů generuje následující varovnou zprávu:</span><span class="sxs-lookup"><span data-stu-id="508ef-190">The first of these commands generates the following warning message:</span></span>
+
+  ```text
+  An operation was scaffolded that may result in the loss of data.
+  Please review the migration for accuracy.
+  ```
+
+  <span data-ttu-id="508ef-191">Upozornění je vygenerováno, protože pole s názvem jsou nyní omezena na 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="508ef-191">The warning is generated because the name fields are now limited to 50 characters.</span></span> <span data-ttu-id="508ef-192">Pokud má název v databázi více než 50 znaků, bude ztraceno 51 k poslednímu znaku.</span><span class="sxs-lookup"><span data-stu-id="508ef-192">If a name in the database had more than 50 characters, the 51 to last character would be lost.</span></span>
+
+* <span data-ttu-id="508ef-193">Otevřete tabulku student v SSOX:</span><span class="sxs-lookup"><span data-stu-id="508ef-193">Open the Student table in SSOX:</span></span>
+
+  ![Tabulka studentů v SSOX po migraci](complex-data-model/_static/ssox-after-migration.png)
+
+  <span data-ttu-id="508ef-195">Před použitím migrace byly sloupce názvu typu [nvarchar (max)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql).</span><span class="sxs-lookup"><span data-stu-id="508ef-195">Before the migration was applied, the name columns were of type [nvarchar(MAX)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql).</span></span> <span data-ttu-id="508ef-196">Sloupce názvů jsou nyní `nvarchar(50)`.</span><span class="sxs-lookup"><span data-stu-id="508ef-196">The name columns are now `nvarchar(50)`.</span></span> <span data-ttu-id="508ef-197">Změnil se název sloupce z `FirstMidName` na. `FirstName`</span><span class="sxs-lookup"><span data-stu-id="508ef-197">The column name has changed from `FirstMidName` to `FirstName`.</span></span>
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-198">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-198">Visual Studio Code</span></span>](#tab/visual-studio-code)
+
+<span data-ttu-id="508ef-199">Chybová zpráva je podobná následujícímu příkladu:</span><span class="sxs-lookup"><span data-stu-id="508ef-199">The error message is similar to the following example:</span></span>
+
+```
+SqliteException: SQLite Error 1: 'no such column: s.FirstName'.
+```
+
+* <span data-ttu-id="508ef-200">Otevřete okno příkazového řádku ve složce projektu.</span><span class="sxs-lookup"><span data-stu-id="508ef-200">Open a command window in the project folder.</span></span> <span data-ttu-id="508ef-201">Zadáním následujících příkazů vytvořte novou migraci a aktualizujte databázi:</span><span class="sxs-lookup"><span data-stu-id="508ef-201">Enter the following commands to create a new migration and update the database:</span></span>
+
+  ```console
+  dotnet ef migrations add ColumnFirstName
+  dotnet ef database update
+  ```
+
+  <span data-ttu-id="508ef-202">Příkaz aktualizace databáze zobrazí chybu jako v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="508ef-202">The database update command displays an error like the following example:</span></span>
+
+  ```text
+  SQLite does not support this migration operation ('AlterColumnOperation'). For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
+  ```
+
+<span data-ttu-id="508ef-203">Pro tento kurz se způsobem, jak se tato chyba zobrazí po této chybě, odstranit a znovu vytvořit počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="508ef-203">For this tutorial, the way to get past this error is to delete and re-create the initial migration.</span></span> <span data-ttu-id="508ef-204">Další informace najdete v poznámkovém upozornění SQLite v horní části [kurzu migrace](xref:data/ef-rp/migrations).</span><span class="sxs-lookup"><span data-stu-id="508ef-204">For more information, see the SQLite warning note at the top of the [migrations tutorial](xref:data/ef-rp/migrations).</span></span>
+
+* <span data-ttu-id="508ef-205">Odstraňte složku *migrace* .</span><span class="sxs-lookup"><span data-stu-id="508ef-205">Delete the *Migrations* folder.</span></span>
+* <span data-ttu-id="508ef-206">Spusťte následující příkazy k vyřazení databáze, vytvořte novou počáteční migraci a použijte migraci:</span><span class="sxs-lookup"><span data-stu-id="508ef-206">Run the following commands to drop the database, create a new initial migration, and apply the migration:</span></span>
+
+  ```console
+  dotnet ef database drop --force
+  dotnet ef migrations add InitialCreate
+  dotnet ef database update
+  ```
+
+* <span data-ttu-id="508ef-207">Projděte si tabulku student v nástroji SQLite.</span><span class="sxs-lookup"><span data-stu-id="508ef-207">Examine the Student table in your SQLite tool.</span></span> <span data-ttu-id="508ef-208">Sloupec, který byl FirstMidName, je nyní FirstName.</span><span class="sxs-lookup"><span data-stu-id="508ef-208">The column that was FirstMidName is now FirstName.</span></span>
+
+---
+
+* <span data-ttu-id="508ef-209">Spusťte aplikaci a pokračujte na stránku students.</span><span class="sxs-lookup"><span data-stu-id="508ef-209">Run the app and go to the Students page.</span></span>
+* <span data-ttu-id="508ef-210">Všimněte si, že časy nejsou vstupní ani se nezobrazují spolu s kalendářními daty.</span><span class="sxs-lookup"><span data-stu-id="508ef-210">Notice that times are not input or displayed along with dates.</span></span>
+* <span data-ttu-id="508ef-211">Vyberte **vytvořit novou**a zkuste zadat název delší než 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="508ef-211">Select **Create New**, and try to enter a name longer than 50 characters.</span></span>
+
+> [!Note]
+> <span data-ttu-id="508ef-212">V následujících oddílech sestavení aplikace v některých fázích generuje chyby kompilátoru.</span><span class="sxs-lookup"><span data-stu-id="508ef-212">In the following sections, building the app at some stages generates compiler errors.</span></span> <span data-ttu-id="508ef-213">Pokyny určují, kdy se má aplikace sestavit.</span><span class="sxs-lookup"><span data-stu-id="508ef-213">The instructions specify when to build the app.</span></span>
+
+## <a name="the-instructor-entity"></a><span data-ttu-id="508ef-214">Entita instruktor</span><span class="sxs-lookup"><span data-stu-id="508ef-214">The Instructor Entity</span></span>
+
+![Entita instruktora](complex-data-model/_static/instructor-entity.png)
+
+<span data-ttu-id="508ef-216">Vytvořte *modely/Instructor. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-216">Create *Models/Instructor.cs* with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu30/Models/Instructor.cs)]
+
+<span data-ttu-id="508ef-217">Více atributů může být na jednom řádku.</span><span class="sxs-lookup"><span data-stu-id="508ef-217">Multiple attributes can be on one line.</span></span> <span data-ttu-id="508ef-218">`HireDate` Atributy mohou být zapsány následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="508ef-218">The `HireDate` attributes could be written as follows:</span></span>
 
 ```csharp
 [DataType(DataType.Date),Display(Name = "Hire Date"),DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 ```
 
-### <a name="the-courseassignments-and-officeassignment-navigation-properties"></a><span data-ttu-id="79a17-212">Navigační vlastnosti CourseAssignments a OfficeAssignment</span><span class="sxs-lookup"><span data-stu-id="79a17-212">The CourseAssignments and OfficeAssignment navigation properties</span></span>
+### <a name="navigation-properties"></a><span data-ttu-id="508ef-219">Navigační vlastnosti</span><span class="sxs-lookup"><span data-stu-id="508ef-219">Navigation properties</span></span>
 
-<span data-ttu-id="79a17-213">`CourseAssignments` a `OfficeAssignment` jsou navigační vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="79a17-213">The `CourseAssignments` and `OfficeAssignment` properties are navigation properties.</span></span>
+<span data-ttu-id="508ef-220">Vlastnosti `CourseAssignments` a`OfficeAssignment` jsou navigační vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="508ef-220">The `CourseAssignments` and `OfficeAssignment` properties are navigation properties.</span></span>
 
-<span data-ttu-id="79a17-214">Instruktorem můžete naučit libovolný počet kurzů, takže `CourseAssignments` je definovaná jako kolekce.</span><span class="sxs-lookup"><span data-stu-id="79a17-214">An instructor can teach any number of courses, so `CourseAssignments` is defined as a collection.</span></span>
+<span data-ttu-id="508ef-221">Instruktor může naučit libovolný počet kurzů, takže `CourseAssignments` je definován jako kolekce.</span><span class="sxs-lookup"><span data-stu-id="508ef-221">An instructor can teach any number of courses, so `CourseAssignments` is defined as a collection.</span></span>
 
 ```csharp
 public ICollection<CourseAssignment> CourseAssignments { get; set; }
 ```
 
-<span data-ttu-id="79a17-215">Pokud vlastnost navigace obsahuje více entit:</span><span class="sxs-lookup"><span data-stu-id="79a17-215">If a navigation property holds multiple entities:</span></span>
-
-* <span data-ttu-id="79a17-216">Musí být typu seznamu, kde položky lze přidat, odstranit a aktualizovat.</span><span class="sxs-lookup"><span data-stu-id="79a17-216">It must be a list type where the entries can be added, deleted, and updated.</span></span>
-
-<span data-ttu-id="79a17-217">Navigační vlastnost typy patří:</span><span class="sxs-lookup"><span data-stu-id="79a17-217">Navigation property types include:</span></span>
-
-* `ICollection<T>`
-* `List<T>`
-* `HashSet<T>`
-
-<span data-ttu-id="79a17-218">Pokud `ICollection<T>` není zadán, vytvoří EF Core `HashSet<T>` kolekcí ve výchozím nastavení.</span><span class="sxs-lookup"><span data-stu-id="79a17-218">If `ICollection<T>` is specified, EF Core creates a `HashSet<T>` collection by default.</span></span>
-
-<span data-ttu-id="79a17-219">`CourseAssignment` Entity je vysvětleno v části u relací m: m.</span><span class="sxs-lookup"><span data-stu-id="79a17-219">The `CourseAssignment` entity is explained in the section on many-to-many relationships.</span></span>
-
-<span data-ttu-id="79a17-220">Contoso University obchodní pravidla stát, že instruktorem může mít maximálně jeden office.</span><span class="sxs-lookup"><span data-stu-id="79a17-220">Contoso University business rules state that an instructor can have at most one office.</span></span> <span data-ttu-id="79a17-221">`OfficeAssignment` Vlastnost obsahuje jediný `OfficeAssignment` entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-221">The `OfficeAssignment` property holds a single `OfficeAssignment` entity.</span></span> <span data-ttu-id="79a17-222">`OfficeAssignment` má hodnotu null, pokud není přiřazena žádná office.</span><span class="sxs-lookup"><span data-stu-id="79a17-222">`OfficeAssignment` is null if no office is assigned.</span></span>
+<span data-ttu-id="508ef-222">Instruktor může mít maximálně jednu kancelář, takže `OfficeAssignment` vlastnost obsahuje jednu `OfficeAssignment` entitu.</span><span class="sxs-lookup"><span data-stu-id="508ef-222">An instructor can have at most one office, so the `OfficeAssignment` property holds a single `OfficeAssignment` entity.</span></span> <span data-ttu-id="508ef-223">`OfficeAssignment`má hodnotu null, pokud není přiřazen žádný systém Office.</span><span class="sxs-lookup"><span data-stu-id="508ef-223">`OfficeAssignment` is null if no office is assigned.</span></span>
 
 ```csharp
 public OfficeAssignment OfficeAssignment { get; set; }
 ```
 
-## <a name="create-the-officeassignment-entity"></a><span data-ttu-id="79a17-223">Vytvoření OfficeAssignment entity</span><span class="sxs-lookup"><span data-stu-id="79a17-223">Create the OfficeAssignment entity</span></span>
+## <a name="the-officeassignment-entity"></a><span data-ttu-id="508ef-224">Entita OfficeAssignment</span><span class="sxs-lookup"><span data-stu-id="508ef-224">The OfficeAssignment entity</span></span>
 
-![OfficeAssignment entity](complex-data-model/_static/officeassignment-entity.png)
+![OfficeAssignment – entita](complex-data-model/_static/officeassignment-entity.png)
 
-<span data-ttu-id="79a17-225">Vytvoření *Models/OfficeAssignment.cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="79a17-225">Create *Models/OfficeAssignment.cs* with the following code:</span></span>
+<span data-ttu-id="508ef-226">Vytvořte *modely/OfficeAssignment. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-226">Create *Models/OfficeAssignment.cs* with the following code:</span></span>
 
-[!code-csharp[](intro/samples/cu21/Models/OfficeAssignment.cs)]
+[!code-csharp[](intro/samples/cu30/Models/OfficeAssignment.cs)]
 
-### <a name="the-key-attribute"></a><span data-ttu-id="79a17-226">Atribut Key</span><span class="sxs-lookup"><span data-stu-id="79a17-226">The Key attribute</span></span>
+### <a name="the-key-attribute"></a><span data-ttu-id="508ef-227">Klíčový atribut</span><span class="sxs-lookup"><span data-stu-id="508ef-227">The Key attribute</span></span>
 
-<span data-ttu-id="79a17-227">`[Key]` Atribut se používá k identifikaci vlastnost jako primární klíč (PK) název vlastnosti je něco jiného než classnameID nebo ID.</span><span class="sxs-lookup"><span data-stu-id="79a17-227">The `[Key]` attribute is used to identify a property as the primary key (PK) when the property name is something other than classnameID or ID.</span></span>
+<span data-ttu-id="508ef-228">`[Key]` Atribut slouží k identifikaci vlastnosti jako primárního klíče (PK), pokud je název vlastnosti něco jiného než classnameID nebo ID.</span><span class="sxs-lookup"><span data-stu-id="508ef-228">The `[Key]` attribute is used to identify a property as the primary key (PK) when the property name is something other than classnameID or ID.</span></span>
 
-<span data-ttu-id="79a17-228">Existuje jedna: nula nebo 1 vztah mezi `Instructor` a `OfficeAssignment` entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-228">There's a one-to-zero-or-one relationship between the `Instructor` and `OfficeAssignment` entities.</span></span> <span data-ttu-id="79a17-229">Přiřazení office existuje pouze ve vztahu k instruktorem, které je přiřazen.</span><span class="sxs-lookup"><span data-stu-id="79a17-229">An office assignment only exists in relation to the instructor it's assigned to.</span></span> <span data-ttu-id="79a17-230">`OfficeAssignment` PK má také svůj cizí klíč (Cizíklíč) `Instructor` entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-230">The `OfficeAssignment` PK is also its foreign key (FK) to the `Instructor` entity.</span></span> <span data-ttu-id="79a17-231">EF Core nemůže automaticky rozpoznat `InstructorID` jako PK z `OfficeAssignment` protože:</span><span class="sxs-lookup"><span data-stu-id="79a17-231">EF Core can't automatically recognize `InstructorID` as the PK of `OfficeAssignment` because:</span></span>
+<span data-ttu-id="508ef-229">Mezi `Instructor` entitami a `OfficeAssignment` je relace 1:1 nebo jedna.</span><span class="sxs-lookup"><span data-stu-id="508ef-229">There's a one-to-zero-or-one relationship between the `Instructor` and `OfficeAssignment` entities.</span></span> <span data-ttu-id="508ef-230">Přiřazení kanceláře existuje jenom ve vztahu k instruktorovi, ke kterému je přiřazený.</span><span class="sxs-lookup"><span data-stu-id="508ef-230">An office assignment only exists in relation to the instructor it's assigned to.</span></span> <span data-ttu-id="508ef-231">PK je také jeho cizí klíč (FK) `Instructor` k entitě. `OfficeAssignment`</span><span class="sxs-lookup"><span data-stu-id="508ef-231">The `OfficeAssignment` PK is also its foreign key (FK) to the `Instructor` entity.</span></span>
 
-* <span data-ttu-id="79a17-232">`InstructorID` není podle ID nebo classnameID konvence.</span><span class="sxs-lookup"><span data-stu-id="79a17-232">`InstructorID` doesn't follow the ID or classnameID naming convention.</span></span>
-
-<span data-ttu-id="79a17-233">Proto `Key` atribut se používá k identifikaci `InstructorID` jako primárnímu Klíči:</span><span class="sxs-lookup"><span data-stu-id="79a17-233">Therefore, the `Key` attribute is used to identify `InstructorID` as the PK:</span></span>
+<span data-ttu-id="508ef-232">EF Core nemůže automaticky rozpoznat `InstructorID` jako `OfficeAssignment` PK, protože `InstructorID` nedodržuje konvence pojmenování ID nebo classnameID.</span><span class="sxs-lookup"><span data-stu-id="508ef-232">EF Core can't automatically recognize `InstructorID` as the PK of `OfficeAssignment` because `InstructorID` doesn't follow the ID or classnameID naming convention.</span></span> <span data-ttu-id="508ef-233">Proto atribut slouží k identifikaci `InstructorID` jako PK: `Key`</span><span class="sxs-lookup"><span data-stu-id="508ef-233">Therefore, the `Key` attribute is used to identify `InstructorID` as the PK:</span></span>
 
 ```csharp
 [Key]
 public int InstructorID { get; set; }
 ```
 
-<span data-ttu-id="79a17-234">Ve výchozím nastavení EF Core považuje za klíč bez databáze vygenerovala protože sloupec je pro identifikující relaci.</span><span class="sxs-lookup"><span data-stu-id="79a17-234">By default, EF Core treats the key as non-database-generated because the column is for an identifying relationship.</span></span>
+<span data-ttu-id="508ef-234">Ve výchozím nastavení EF Core považuje klíč za generovaný nedatabází, protože sloupec je určen pro identifikaci vztahu.</span><span class="sxs-lookup"><span data-stu-id="508ef-234">By default, EF Core treats the key as non-database-generated because the column is for an identifying relationship.</span></span>
 
-### <a name="the-instructor-navigation-property"></a><span data-ttu-id="79a17-235">Navigační vlastnost instruktorem</span><span class="sxs-lookup"><span data-stu-id="79a17-235">The Instructor navigation property</span></span>
+### <a name="the-instructor-navigation-property"></a><span data-ttu-id="508ef-235">Navigační vlastnost instruktora</span><span class="sxs-lookup"><span data-stu-id="508ef-235">The Instructor navigation property</span></span>
 
-<span data-ttu-id="79a17-236">`OfficeAssignment` Navigační vlastnost pro `Instructor` entita může mít hodnotu Null protože:</span><span class="sxs-lookup"><span data-stu-id="79a17-236">The `OfficeAssignment` navigation property for the `Instructor` entity is nullable because:</span></span>
+<span data-ttu-id="508ef-236">Navigační vlastnost může mít hodnotu null, protože pro daný instruktor nemusí `OfficeAssignment` existovat řádek. `Instructor.OfficeAssignment`</span><span class="sxs-lookup"><span data-stu-id="508ef-236">The `Instructor.OfficeAssignment` navigation property can be null because there might not be an `OfficeAssignment` row for a given instructor.</span></span> <span data-ttu-id="508ef-237">Instruktor nemusí mít přiřazení kanceláře.</span><span class="sxs-lookup"><span data-stu-id="508ef-237">An instructor might not have an office assignment.</span></span>
 
-* <span data-ttu-id="79a17-237">Referenční typy (jako jsou třídy s možnou hodnotou Null).</span><span class="sxs-lookup"><span data-stu-id="79a17-237">Reference types (such as classes are nullable).</span></span>
-* <span data-ttu-id="79a17-238">Instruktorem nemusí mít přiřazení kanceláře.</span><span class="sxs-lookup"><span data-stu-id="79a17-238">An instructor might not have an office assignment.</span></span>
+<span data-ttu-id="508ef-238">Navigační vlastnost bude mít vždycky entitu instruktora, protože typ cizího klíče `int` `InstructorID` je, typ hodnoty, která není null. `OfficeAssignment.Instructor`</span><span class="sxs-lookup"><span data-stu-id="508ef-238">The `OfficeAssignment.Instructor` navigation property will always have an instructor entity because the foreign key `InstructorID` type is `int`, a non-nullable value type.</span></span> <span data-ttu-id="508ef-239">Přiřazení kanceláře nemůže existovat bez instruktora.</span><span class="sxs-lookup"><span data-stu-id="508ef-239">An office assignment can't exist without an instructor.</span></span>
 
-<span data-ttu-id="79a17-239">`OfficeAssignment` Entita má zakázanou `Instructor` navigační vlastnost protože:</span><span class="sxs-lookup"><span data-stu-id="79a17-239">The `OfficeAssignment` entity has a non-nullable `Instructor` navigation property because:</span></span>
+<span data-ttu-id="508ef-240">Pokud má `OfficeAssignment` entita související entitu, Každá entita má odkaz na jinou entitu v její navigační vlastnosti. `Instructor`</span><span class="sxs-lookup"><span data-stu-id="508ef-240">When an `Instructor` entity has a related `OfficeAssignment` entity, each entity has a reference to the other one in its navigation property.</span></span>
 
-* <span data-ttu-id="79a17-240">`InstructorID` hodnotu Null.</span><span class="sxs-lookup"><span data-stu-id="79a17-240">`InstructorID` is non-nullable.</span></span>
-* <span data-ttu-id="79a17-241">Přiřazení office nemůže existovat bez instruktorem.</span><span class="sxs-lookup"><span data-stu-id="79a17-241">An office assignment can't exist without an instructor.</span></span>
+## <a name="the-course-entity"></a><span data-ttu-id="508ef-241">Entita kurzu</span><span class="sxs-lookup"><span data-stu-id="508ef-241">The Course Entity</span></span>
 
-<span data-ttu-id="79a17-242">Když `Instructor` entita má se souvisejícím `OfficeAssignment` entit, každá entita obsahuje odkaz na druhou v jeho navigační vlastnost.</span><span class="sxs-lookup"><span data-stu-id="79a17-242">When an `Instructor` entity has a related `OfficeAssignment` entity, each entity has a reference to the other one in its navigation property.</span></span>
+![Entita kurzu](complex-data-model/_static/course-entity.png)
 
-<span data-ttu-id="79a17-243">`[Required]` Atribut můžete uplatnit `Instructor` navigační vlastnost:</span><span class="sxs-lookup"><span data-stu-id="79a17-243">The `[Required]` attribute could be applied to the `Instructor` navigation property:</span></span>
+<span data-ttu-id="508ef-243">Aktualizujte *modely/Course. cs* pomocí následujícího kódu:</span><span class="sxs-lookup"><span data-stu-id="508ef-243">Update *Models/Course.cs* with the following code:</span></span>
 
-```csharp
-[Required]
-public Instructor Instructor { get; set; }
-```
+[!code-csharp[](intro/samples/cu30/Models/Course.cs?highlight=2,10,13,16,19,21,23)]
 
-<span data-ttu-id="79a17-244">Předchozí kód určuje, že musí být související instruktorem.</span><span class="sxs-lookup"><span data-stu-id="79a17-244">The preceding code specifies that there must be a related instructor.</span></span> <span data-ttu-id="79a17-245">Předchozí kód není nutný, protože `InstructorID` cizí klíč (což je také primárnímu Klíči) je null.</span><span class="sxs-lookup"><span data-stu-id="79a17-245">The preceding code is unnecessary because the `InstructorID` foreign key (which is also the PK) is non-nullable.</span></span>
+<span data-ttu-id="508ef-244">Entita má vlastnost `DepartmentID`cizího klíče (FK). `Course`</span><span class="sxs-lookup"><span data-stu-id="508ef-244">The `Course` entity has a foreign key (FK) property `DepartmentID`.</span></span> <span data-ttu-id="508ef-245">`DepartmentID`odkazuje na související `Department` entitu.</span><span class="sxs-lookup"><span data-stu-id="508ef-245">`DepartmentID` points to the related `Department` entity.</span></span> <span data-ttu-id="508ef-246">`Course` Entita má vlastnost navigace. `Department`</span><span class="sxs-lookup"><span data-stu-id="508ef-246">The `Course` entity has a `Department` navigation property.</span></span>
 
-## <a name="modify-the-course-entity"></a><span data-ttu-id="79a17-246">Upravit Entity kurzu</span><span class="sxs-lookup"><span data-stu-id="79a17-246">Modify the Course Entity</span></span>
+<span data-ttu-id="508ef-247">EF Core nevyžaduje vlastnost cizího klíče pro datový model, pokud model má vlastnost navigace pro související entitu.</span><span class="sxs-lookup"><span data-stu-id="508ef-247">EF Core doesn't require a foreign key property for a data model when the model has a navigation property for a related entity.</span></span> <span data-ttu-id="508ef-248">EF Core v databázi automaticky vytvoří FKs bez ohledu na to, kde jsou potřeba.</span><span class="sxs-lookup"><span data-stu-id="508ef-248">EF Core automatically creates FKs in the database wherever they're needed.</span></span> <span data-ttu-id="508ef-249">EF Core vytvoří [stínové vlastnosti](/ef/core/modeling/shadow-properties) pro automatické vytváření FKs.</span><span class="sxs-lookup"><span data-stu-id="508ef-249">EF Core creates [shadow properties](/ef/core/modeling/shadow-properties) for automatically created FKs.</span></span> <span data-ttu-id="508ef-250">Explicitní a efektivnější je však, že explicitně včetně FK v datovém modelu může zjednodušit a efektivněji dělat aktualizace.</span><span class="sxs-lookup"><span data-stu-id="508ef-250">However, explicitly including the FK in the data model can make updates simpler and more efficient.</span></span> <span data-ttu-id="508ef-251">Zvažte například model, ve kterém není obsažena vlastnost `DepartmentID` FK .</span><span class="sxs-lookup"><span data-stu-id="508ef-251">For example, consider a model where the FK property `DepartmentID` is *not* included.</span></span> <span data-ttu-id="508ef-252">Když se načte entita kurzu, která se upraví:</span><span class="sxs-lookup"><span data-stu-id="508ef-252">When a course entity is fetched to edit:</span></span>
 
-![Kurz entity](complex-data-model/_static/course-entity.png)
+* <span data-ttu-id="508ef-253">`Department` Vlastnost má hodnotu null, pokud není explicitně načtena.</span><span class="sxs-lookup"><span data-stu-id="508ef-253">The `Department` property is null if it's not explicitly loaded.</span></span>
+* <span data-ttu-id="508ef-254">Chcete-li aktualizovat entitu kurzu `Department` , je nutné nejprve načíst entitu.</span><span class="sxs-lookup"><span data-stu-id="508ef-254">To update the course entity, the `Department` entity must first be fetched.</span></span>
 
-<span data-ttu-id="79a17-248">Aktualizace *Models/Course.cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="79a17-248">Update *Models/Course.cs* with the following code:</span></span>
+<span data-ttu-id="508ef-255">Pokud je vlastnost `DepartmentID` FK obsažena v datovém modelu, není nutné `Department` načíst entitu před aktualizací.</span><span class="sxs-lookup"><span data-stu-id="508ef-255">When the FK property `DepartmentID` is included in the data model, there's no need to fetch the `Department` entity before an update.</span></span>
 
-[!code-csharp[](intro/samples/cu21/Models/Course.cs?name=snippet_Final&highlight=2,10,13,16,19,21,23)]
+### <a name="the-databasegenerated-attribute"></a><span data-ttu-id="508ef-256">Atribut DatabaseGenerated</span><span class="sxs-lookup"><span data-stu-id="508ef-256">The DatabaseGenerated attribute</span></span>
 
-<span data-ttu-id="79a17-249">`Course` Entita má vlastnost cizí klíč (Cizíklíč) `DepartmentID`.</span><span class="sxs-lookup"><span data-stu-id="79a17-249">The `Course` entity has a foreign key (FK) property `DepartmentID`.</span></span> <span data-ttu-id="79a17-250">`DepartmentID` odkazuje na související `Department` entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-250">`DepartmentID` points to the related `Department` entity.</span></span> <span data-ttu-id="79a17-251">`Course` Má entita `Department` navigační vlastnost.</span><span class="sxs-lookup"><span data-stu-id="79a17-251">The `Course` entity has a `Department` navigation property.</span></span>
-
-<span data-ttu-id="79a17-252">EF Core nevyžaduje vlastnosti cizího klíče pro daný datový model, pokud model nemá vlastnost navigace u související entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-252">EF Core doesn't require a FK property for a data model when the model has a navigation property for a related entity.</span></span>
-
-<span data-ttu-id="79a17-253">EF Core FKs automaticky vytvoří v databázi bez ohledu na to budete potřebovat.</span><span class="sxs-lookup"><span data-stu-id="79a17-253">EF Core automatically creates FKs in the database wherever they're needed.</span></span> <span data-ttu-id="79a17-254">EF Core vytvoří [stínové vlastnosti](/ef/core/modeling/shadow-properties) pro automaticky vytvořené FKs.</span><span class="sxs-lookup"><span data-stu-id="79a17-254">EF Core creates [shadow properties](/ef/core/modeling/shadow-properties) for automatically created FKs.</span></span> <span data-ttu-id="79a17-255">Máte cizího klíče v datovém modelu můžete provést aktualizace, jednodušší a efektivnější.</span><span class="sxs-lookup"><span data-stu-id="79a17-255">Having the FK in the data model can make updates simpler and more efficient.</span></span> <span data-ttu-id="79a17-256">Představte si třeba modelu kde vlastnost FK `DepartmentID` je *není* zahrnuté.</span><span class="sxs-lookup"><span data-stu-id="79a17-256">For example, consider a model where the FK property `DepartmentID` is *not* included.</span></span> <span data-ttu-id="79a17-257">Když kurzu entity jsou načtena upravit:</span><span class="sxs-lookup"><span data-stu-id="79a17-257">When a course entity is fetched to edit:</span></span>
-
-* <span data-ttu-id="79a17-258">`Department` Entity má hodnotu null, pokud nejsou explicitně načtení.</span><span class="sxs-lookup"><span data-stu-id="79a17-258">The `Department` entity is null if it's not explicitly loaded.</span></span>
-* <span data-ttu-id="79a17-259">K aktualizaci kurzu entity `Department` musíte entitu nejdřív načíst.</span><span class="sxs-lookup"><span data-stu-id="79a17-259">To update the course entity, the `Department` entity must first be fetched.</span></span>
-
-<span data-ttu-id="79a17-260">Při vlastnost FK `DepartmentID` je zahrnuta v datovém modelu, není nutné načíst `Department` entity před aktualizace.</span><span class="sxs-lookup"><span data-stu-id="79a17-260">When the FK property `DepartmentID` is included in the data model, there's no need to fetch the `Department` entity before an update.</span></span>
-
-### <a name="the-databasegenerated-attribute"></a><span data-ttu-id="79a17-261">Atribut DatabaseGenerated</span><span class="sxs-lookup"><span data-stu-id="79a17-261">The DatabaseGenerated attribute</span></span>
-
-<span data-ttu-id="79a17-262">`[DatabaseGenerated(DatabaseGeneratedOption.None)]` Atribut určuje, že primárnímu Klíči je poskytovaný aplikací místo generován databází.</span><span class="sxs-lookup"><span data-stu-id="79a17-262">The `[DatabaseGenerated(DatabaseGeneratedOption.None)]` attribute specifies that the PK is provided by the application rather than generated by the database.</span></span>
+<span data-ttu-id="508ef-257">`[DatabaseGenerated(DatabaseGeneratedOption.None)]` Atribut určuje, zda je v rámci aplikace poskytnuta PK místo vygenerovaného databází.</span><span class="sxs-lookup"><span data-stu-id="508ef-257">The `[DatabaseGenerated(DatabaseGeneratedOption.None)]` attribute specifies that the PK is provided by the application rather than generated by the database.</span></span>
 
 ```csharp
 [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -310,184 +315,173 @@ public Instructor Instructor { get; set; }
 public int CourseID { get; set; }
 ```
 
-<span data-ttu-id="79a17-263">Ve výchozím nastavení EF Core předpokládá, že PK hodnoty jsou generovány pomocí databáze.</span><span class="sxs-lookup"><span data-stu-id="79a17-263">By default, EF Core assumes that PK values are generated by the DB.</span></span> <span data-ttu-id="79a17-264">DB generované PK hodnoty je obvykle nejlepší přístup.</span><span class="sxs-lookup"><span data-stu-id="79a17-264">DB generated PK values is generally the best approach.</span></span> <span data-ttu-id="79a17-265">Pro `Course` entity, uživatel Určuje, PK</span><span class="sxs-lookup"><span data-stu-id="79a17-265">For `Course` entities, the user specifies the PK.</span></span> <span data-ttu-id="79a17-266">Například kurzu číslo, například řadu 1000 pro oddělení matematické, řadu 2000 pro anglickou oddělení.</span><span class="sxs-lookup"><span data-stu-id="79a17-266">For example, a course number such as a 1000 series for the math department, a 2000 series for the English department.</span></span>
+<span data-ttu-id="508ef-258">Ve výchozím nastavení EF Core předpokládá, že se hodnoty PK generují v databázi.</span><span class="sxs-lookup"><span data-stu-id="508ef-258">By default, EF Core assumes that PK values are generated by the database.</span></span> <span data-ttu-id="508ef-259">Vygenerovaná databáze obvykle představuje nejlepší přístup.</span><span class="sxs-lookup"><span data-stu-id="508ef-259">Database-generated is generally the best approach.</span></span> <span data-ttu-id="508ef-260">Pro `Course` entity určuje uživatel PK.</span><span class="sxs-lookup"><span data-stu-id="508ef-260">For `Course` entities, the user specifies the PK.</span></span> <span data-ttu-id="508ef-261">Například číslo kurzu, jako je například série 1000 pro matematické oddělení, série 2000 pro národní oddělení.</span><span class="sxs-lookup"><span data-stu-id="508ef-261">For example, a course number such as a 1000 series for the math department, a 2000 series for the English department.</span></span>
 
-<span data-ttu-id="79a17-267">`DatabaseGenerated` Atribut lze použít také pro generování výchozích hodnot.</span><span class="sxs-lookup"><span data-stu-id="79a17-267">The `DatabaseGenerated` attribute can also be used to generate default values.</span></span> <span data-ttu-id="79a17-268">Například databáze může automaticky generovat pole s datem a zaznamenávat data řádku byl vytvořen nebo aktualizován.</span><span class="sxs-lookup"><span data-stu-id="79a17-268">For example, the DB can automatically generate a date field to record the date a row was created or updated.</span></span> <span data-ttu-id="79a17-269">Další informace najdete v tématu [vygenerovaným vlastnostem](/ef/core/modeling/generated-properties).</span><span class="sxs-lookup"><span data-stu-id="79a17-269">For more information, see [Generated Properties](/ef/core/modeling/generated-properties).</span></span>
+<span data-ttu-id="508ef-262">`DatabaseGenerated` Atribut lze také použít ke generování výchozích hodnot.</span><span class="sxs-lookup"><span data-stu-id="508ef-262">The `DatabaseGenerated` attribute can also be used to generate default values.</span></span> <span data-ttu-id="508ef-263">Databáze může například automaticky vygenerovat pole data pro záznam data, kdy byl řádek vytvořen nebo aktualizován.</span><span class="sxs-lookup"><span data-stu-id="508ef-263">For example, the database can automatically generate a date field to record the date a row was created or updated.</span></span> <span data-ttu-id="508ef-264">Další informace najdete v tématu [vygenerované vlastnosti](/ef/core/modeling/generated-properties).</span><span class="sxs-lookup"><span data-stu-id="508ef-264">For more information, see [Generated Properties](/ef/core/modeling/generated-properties).</span></span>
 
-### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="79a17-270">Vlastnosti cizího klíče a navigace</span><span class="sxs-lookup"><span data-stu-id="79a17-270">Foreign key and navigation properties</span></span>
+### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="508ef-265">Vlastnosti cizích klíčů a navigace</span><span class="sxs-lookup"><span data-stu-id="508ef-265">Foreign key and navigation properties</span></span>
 
-<span data-ttu-id="79a17-271">Vlastnosti cizího klíče (Cizíklíč) a navigačních vlastností v `Course` entity zahrnují následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="79a17-271">The foreign key (FK) properties and navigation properties in the `Course` entity reflect the following relationships:</span></span>
+<span data-ttu-id="508ef-266">Vlastnosti cizího klíče (FK) a navigační vlastnosti v `Course` entitě odráží následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="508ef-266">The foreign key (FK) properties and navigation properties in the `Course` entity reflect the following relationships:</span></span>
 
-<span data-ttu-id="79a17-272">Kurz je přiřazena jednoho oddělení, takže `DepartmentID` FK a `Department` navigační vlastnost.</span><span class="sxs-lookup"><span data-stu-id="79a17-272">A course is assigned to one department, so there's a `DepartmentID` FK and a `Department` navigation property.</span></span>
+<span data-ttu-id="508ef-267">Kurz se přiřadí jednomu oddělení, takže je k dispozici `DepartmentID` FK `Department` a navigační vlastnost.</span><span class="sxs-lookup"><span data-stu-id="508ef-267">A course is assigned to one department, so there's a `DepartmentID` FK and a `Department` navigation property.</span></span>
 
 ```csharp
 public int DepartmentID { get; set; }
 public Department Department { get; set; }
 ```
 
-<span data-ttu-id="79a17-273">Kurz můžete mít libovolný počet studentů zaregistrované, takže `Enrollments` navigační vlastnost je kolekce:</span><span class="sxs-lookup"><span data-stu-id="79a17-273">A course can have any number of students enrolled in it, so the `Enrollments` navigation property is a collection:</span></span>
+<span data-ttu-id="508ef-268">V rámci kurzu může být zaregistrované několik studentů, takže `Enrollments` navigační vlastnost je kolekce:</span><span class="sxs-lookup"><span data-stu-id="508ef-268">A course can have any number of students enrolled in it, so the `Enrollments` navigation property is a collection:</span></span>
 
 ```csharp
 public ICollection<Enrollment> Enrollments { get; set; }
 ```
 
-<span data-ttu-id="79a17-274">Kurz může být vedená instruktorů více, proto `CourseAssignments` navigační vlastnost je kolekce:</span><span class="sxs-lookup"><span data-stu-id="79a17-274">A course may be taught by multiple instructors, so the `CourseAssignments` navigation property is a collection:</span></span>
+<span data-ttu-id="508ef-269">Kurz může být výukou více instruktorů, takže `CourseAssignments` navigační vlastnost je kolekce:</span><span class="sxs-lookup"><span data-stu-id="508ef-269">A course may be taught by multiple instructors, so the `CourseAssignments` navigation property is a collection:</span></span>
 
 ```csharp
 public ICollection<CourseAssignment> CourseAssignments { get; set; }
 ```
 
-<span data-ttu-id="79a17-275">`CourseAssignment` je vysvětleno [později](#many-to-many-relationships).</span><span class="sxs-lookup"><span data-stu-id="79a17-275">`CourseAssignment` is explained [later](#many-to-many-relationships).</span></span>
+<span data-ttu-id="508ef-270">`CourseAssignment`je vysvětleno [později](#many-to-many-relationships).</span><span class="sxs-lookup"><span data-stu-id="508ef-270">`CourseAssignment` is explained [later](#many-to-many-relationships).</span></span>
 
-## <a name="create-the-department-entity"></a><span data-ttu-id="79a17-276">Vytvoření entity oddělení</span><span class="sxs-lookup"><span data-stu-id="79a17-276">Create the Department entity</span></span>
+## <a name="the-department-entity"></a><span data-ttu-id="508ef-271">Entita oddělení</span><span class="sxs-lookup"><span data-stu-id="508ef-271">The Department entity</span></span>
 
-![Oddělení entity](complex-data-model/_static/department-entity.png)
+![Entita oddělení](complex-data-model/_static/department-entity.png)
 
-<span data-ttu-id="79a17-278">Vytvoření *Models/Department.cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="79a17-278">Create *Models/Department.cs* with the following code:</span></span>
+<span data-ttu-id="508ef-273">Vytvořte *modely/oddělení. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-273">Create *Models/Department.cs* with the following code:</span></span>
 
-[!code-csharp[](intro/samples/cu21/Models/Department.cs?name=snippet_Begin)]
+[!code-csharp[](intro/samples/cu30snapshots/5-complex/Models/Department1.cs)]
 
-### <a name="the-column-attribute"></a><span data-ttu-id="79a17-279">Atribut sloupce</span><span class="sxs-lookup"><span data-stu-id="79a17-279">The Column attribute</span></span>
+### <a name="the-column-attribute"></a><span data-ttu-id="508ef-274">Atribut Column</span><span class="sxs-lookup"><span data-stu-id="508ef-274">The Column attribute</span></span>
 
-<span data-ttu-id="79a17-280">Dříve `Column` atributu byl použit Chcete-li změnit název mapování sloupců.</span><span class="sxs-lookup"><span data-stu-id="79a17-280">Previously the `Column` attribute was used to change column name mapping.</span></span> <span data-ttu-id="79a17-281">V kódu `Department` entity, `Column` atribut se používá ke změně mapování datového typu SQL.</span><span class="sxs-lookup"><span data-stu-id="79a17-281">In the code for the `Department` entity, the `Column` attribute is used to change SQL data type mapping.</span></span> <span data-ttu-id="79a17-282">`Budget` Sloupec je definovaný pomocí typ money systému SQL Server v databázi:</span><span class="sxs-lookup"><span data-stu-id="79a17-282">The `Budget` column is defined using the SQL Server money type in the DB:</span></span>
+<span data-ttu-id="508ef-275">Dřív se `Column` použil atribut pro změnu mapování názvu sloupce.</span><span class="sxs-lookup"><span data-stu-id="508ef-275">Previously the `Column` attribute was used to change column name mapping.</span></span> <span data-ttu-id="508ef-276">V kódu pro `Department` entitu `Column` se atribut používá ke změně mapování datových typů SQL.</span><span class="sxs-lookup"><span data-stu-id="508ef-276">In the code for the `Department` entity, the `Column` attribute is used to change SQL data type mapping.</span></span> <span data-ttu-id="508ef-277">`Budget` Sloupec je definovaný pomocí SQL Server peněžního typu v databázi:</span><span class="sxs-lookup"><span data-stu-id="508ef-277">The `Budget` column is defined using the SQL Server money type in the database:</span></span>
 
 ```csharp
 [Column(TypeName="money")]
 public decimal Budget { get; set; }
 ```
 
-<span data-ttu-id="79a17-283">Mapování sloupce není obvykle potřeba.</span><span class="sxs-lookup"><span data-stu-id="79a17-283">Column mapping is generally not required.</span></span> <span data-ttu-id="79a17-284">EF Core obecně vybere odpovídající datový typ SQL serveru na základě typu CLR pro vlastnost.</span><span class="sxs-lookup"><span data-stu-id="79a17-284">EF Core generally chooses the appropriate SQL Server data type based on the CLR type for the property.</span></span> <span data-ttu-id="79a17-285">Modul CLR `decimal` zadejte mapuje se na serveru SQL Server `decimal` typu.</span><span class="sxs-lookup"><span data-stu-id="79a17-285">The CLR `decimal` type maps to a SQL Server `decimal` type.</span></span> <span data-ttu-id="79a17-286">`Budget` je pro měnu, a datový typ money je vhodnější pro měny.</span><span class="sxs-lookup"><span data-stu-id="79a17-286">`Budget` is for currency, and the money data type is more appropriate for currency.</span></span>
+<span data-ttu-id="508ef-278">Mapování sloupce není obecně vyžadováno.</span><span class="sxs-lookup"><span data-stu-id="508ef-278">Column mapping is generally not required.</span></span> <span data-ttu-id="508ef-279">EF Core zvolí příslušný datový typ SQL Server na základě typu CLR pro danou vlastnost.</span><span class="sxs-lookup"><span data-stu-id="508ef-279">EF Core chooses the appropriate SQL Server data type based on the CLR type for the property.</span></span> <span data-ttu-id="508ef-280">Typ CLR `decimal` se mapuje na typ SQL Server `decimal` .</span><span class="sxs-lookup"><span data-stu-id="508ef-280">The CLR `decimal` type maps to a SQL Server `decimal` type.</span></span> <span data-ttu-id="508ef-281">`Budget`je pro měnu a datový typ Money je pro měnu vhodný.</span><span class="sxs-lookup"><span data-stu-id="508ef-281">`Budget` is for currency, and the money data type is more appropriate for currency.</span></span>
 
-### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="79a17-287">Vlastnosti cizího klíče a navigace</span><span class="sxs-lookup"><span data-stu-id="79a17-287">Foreign key and navigation properties</span></span>
+### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="508ef-282">Vlastnosti cizích klíčů a navigace</span><span class="sxs-lookup"><span data-stu-id="508ef-282">Foreign key and navigation properties</span></span>
 
-<span data-ttu-id="79a17-288">Vlastnosti cizího klíče a navigace zahrnují následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="79a17-288">The FK and navigation properties reflect the following relationships:</span></span>
+<span data-ttu-id="508ef-283">Vlastnosti FK a navigace odrážejí následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="508ef-283">The FK and navigation properties reflect the following relationships:</span></span>
 
-* <span data-ttu-id="79a17-289">Oddělení může nebo nemusí být správce.</span><span class="sxs-lookup"><span data-stu-id="79a17-289">A department may or may not have an administrator.</span></span>
-* <span data-ttu-id="79a17-290">Správce je vždy instruktorem.</span><span class="sxs-lookup"><span data-stu-id="79a17-290">An administrator is always an instructor.</span></span> <span data-ttu-id="79a17-291">Proto `InstructorID` vlastnost je zahrnutý jako FK k `Instructor` entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-291">Therefore the `InstructorID` property is included as the FK to the `Instructor` entity.</span></span>
+* <span data-ttu-id="508ef-284">Oddělení může nebo nemusí mít správce.</span><span class="sxs-lookup"><span data-stu-id="508ef-284">A department may or may not have an administrator.</span></span>
+* <span data-ttu-id="508ef-285">Správce je vždy instruktor.</span><span class="sxs-lookup"><span data-stu-id="508ef-285">An administrator is always an instructor.</span></span> <span data-ttu-id="508ef-286">Proto je `Instructor` vlastnost obsažena jako FK pro entitu. `InstructorID`</span><span class="sxs-lookup"><span data-stu-id="508ef-286">Therefore the `InstructorID` property is included as the FK to the `Instructor` entity.</span></span>
 
-<span data-ttu-id="79a17-292">Navigační vlastnost jmenuje `Administrator` obsahuje, ale `Instructor` entity:</span><span class="sxs-lookup"><span data-stu-id="79a17-292">The navigation property is named `Administrator` but holds an `Instructor` entity:</span></span>
+<span data-ttu-id="508ef-287">Navigační vlastnost má název `Administrator` , ale `Instructor` obsahuje entitu:</span><span class="sxs-lookup"><span data-stu-id="508ef-287">The navigation property is named `Administrator` but holds an `Instructor` entity:</span></span>
 
 ```csharp
 public int? InstructorID { get; set; }
 public Instructor Administrator { get; set; }
 ```
 
-<span data-ttu-id="79a17-293">Otazník (?) v předchozím kódu určuje, že vlastnost může mít hodnotu Null.</span><span class="sxs-lookup"><span data-stu-id="79a17-293">The question mark (?) in the preceding code specifies the property is nullable.</span></span>
+<span data-ttu-id="508ef-288">Otazník (?) v předchozím kódu určuje vlastnost s možnou hodnotou null.</span><span class="sxs-lookup"><span data-stu-id="508ef-288">The question mark (?) in the preceding code specifies the property is nullable.</span></span>
 
-<span data-ttu-id="79a17-294">Oddělení může mít mnoho kurzů, tedy navigační vlastnost kurzy:</span><span class="sxs-lookup"><span data-stu-id="79a17-294">A department may have many courses, so there's a Courses navigation property:</span></span>
+<span data-ttu-id="508ef-289">Oddělení může mít spoustu kurzů, takže máme navigační vlastnost kurzů:</span><span class="sxs-lookup"><span data-stu-id="508ef-289">A department may have many courses, so there's a Courses navigation property:</span></span>
 
 ```csharp
 public ICollection<Course> Courses { get; set; }
 ```
 
-<span data-ttu-id="79a17-295">Poznámka: Podle konvence EF Core umožňuje kaskádové odstranění pro Null FKs a vztahy many-to-many.</span><span class="sxs-lookup"><span data-stu-id="79a17-295">Note: By convention, EF Core enables cascade delete for non-nullable FKs and for many-to-many relationships.</span></span> <span data-ttu-id="79a17-296">Kaskádové odstranění může způsobit Cyklické kaskádové odstranění pravidla.</span><span class="sxs-lookup"><span data-stu-id="79a17-296">Cascading delete can result in circular cascade delete rules.</span></span> <span data-ttu-id="79a17-297">Kruhový Kaskádové odstraňování pravidel způsobí, že při migraci se přidá výjimku.</span><span class="sxs-lookup"><span data-stu-id="79a17-297">Circular cascade delete rules causes an exception when a migration is added.</span></span>
+<span data-ttu-id="508ef-290">Podle konvence EF Core povoluje kaskádové odstranění pro FKs, která nejsou null a pro relace m:n.</span><span class="sxs-lookup"><span data-stu-id="508ef-290">By convention, EF Core enables cascade delete for non-nullable FKs and for many-to-many relationships.</span></span> <span data-ttu-id="508ef-291">Toto výchozí chování může způsobit cyklické kaskády odstraňování pravidel.</span><span class="sxs-lookup"><span data-stu-id="508ef-291">This default behavior can result in circular cascade delete rules.</span></span> <span data-ttu-id="508ef-292">Cyklická kaskádová odstranění pravidel způsobují při přidání migrace výjimku.</span><span class="sxs-lookup"><span data-stu-id="508ef-292">Circular cascade delete rules cause an exception when a migration is added.</span></span>
 
-<span data-ttu-id="79a17-298">Například pokud `Department.InstructorID` vlastnost byla definována jako Null:</span><span class="sxs-lookup"><span data-stu-id="79a17-298">For example, if the `Department.InstructorID` property was defined as non-nullable:</span></span>
+<span data-ttu-id="508ef-293">Pokud je `Department.InstructorID` například vlastnost definovaná jako nepovolená, EF Core by nakonfigurovala pravidlo kaskádového odstranění.</span><span class="sxs-lookup"><span data-stu-id="508ef-293">For example, if the `Department.InstructorID` property was defined as non-nullable, EF Core would configure a cascade delete rule.</span></span> <span data-ttu-id="508ef-294">V takovém případě by se oddělení odstranilo, když se odstraní instruktor jako jeho správce.</span><span class="sxs-lookup"><span data-stu-id="508ef-294">In that case, the department would be deleted when the instructor assigned as its administrator is deleted.</span></span> <span data-ttu-id="508ef-295">V tomto scénáři by pravidlo omezení mělo smysl.</span><span class="sxs-lookup"><span data-stu-id="508ef-295">In this scenario, a restrict rule would make more sense.</span></span> <span data-ttu-id="508ef-296">Následující rozhraní Fluent API by nastavilo pravidlo omezení a zakáže kaskádové odstranění.</span><span class="sxs-lookup"><span data-stu-id="508ef-296">The following fluent API would set a restrict rule and disable cascade delete.</span></span>
 
-* <span data-ttu-id="79a17-299">EF Core nakonfiguruje kaskádové odstranění pravidlo můžete odstranit oddělení, když se kurzů vedených odstraní.</span><span class="sxs-lookup"><span data-stu-id="79a17-299">EF Core configures a cascade delete rule to delete the department when the instructor is deleted.</span></span>
-* <span data-ttu-id="79a17-300">Odstranění oddělení při odstranění kurzů vedených není zamýšlené chování.</span><span class="sxs-lookup"><span data-stu-id="79a17-300">Deleting the department when the instructor is deleted isn't the intended behavior.</span></span>
-* <span data-ttu-id="79a17-301">Následující rozhraní API fluent by nastavit pravidlo omezit, místo na sebe.</span><span class="sxs-lookup"><span data-stu-id="79a17-301">The following fluent API would set a restrict rule instead of cascade.</span></span>
-
-   ```csharp
-   modelBuilder.Entity<Department>()
-      .HasOne(d => d.Administrator)
-      .WithMany()
-      .OnDelete(DeleteBehavior.Restrict)
+  ```csharp
+  modelBuilder.Entity<Department>()
+     .HasOne(d => d.Administrator)
+     .WithMany()
+     .OnDelete(DeleteBehavior.Restrict)
   ```
 
-<span data-ttu-id="79a17-302">Předchozí kód zakáže kaskádové odstranění relace oddělení instruktorem.</span><span class="sxs-lookup"><span data-stu-id="79a17-302">The preceding code disables cascade delete on the department-instructor relationship.</span></span>
+## <a name="the-enrollment-entity"></a><span data-ttu-id="508ef-297">Registrace entity</span><span class="sxs-lookup"><span data-stu-id="508ef-297">The Enrollment entity</span></span>
 
-## <a name="update-the-enrollment-entity"></a><span data-ttu-id="79a17-303">Aktualizace registrace entity</span><span class="sxs-lookup"><span data-stu-id="79a17-303">Update the Enrollment entity</span></span>
+<span data-ttu-id="508ef-298">Záznam zápisu je pro jeden kurz, který přijímá jeden student.</span><span class="sxs-lookup"><span data-stu-id="508ef-298">An enrollment record is for one course taken by one student.</span></span>
 
-<span data-ttu-id="79a17-304">Záznam registrace je pro jeden kurz provedenou na základě jedné studentů.</span><span class="sxs-lookup"><span data-stu-id="79a17-304">An enrollment record is for one course taken by one student.</span></span>
+![Entita registrace](complex-data-model/_static/enrollment-entity.png)
 
-![Registrace entity](complex-data-model/_static/enrollment-entity.png)
+<span data-ttu-id="508ef-300">Aktualizujte *modely/zápis. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-300">Update *Models/Enrollment.cs* with the following code:</span></span>
 
-<span data-ttu-id="79a17-306">Aktualizace *Models/Enrollment.cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="79a17-306">Update *Models/Enrollment.cs* with the following code:</span></span>
+[!code-csharp[](intro/samples/cu30/Models/Enrollment.cs?highlight=1-2,16)]
 
-[!code-csharp[](intro/samples/cu21/Models/Enrollment.cs?name=snippet_Final&highlight=1-2,16)]
+### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="508ef-301">Vlastnosti cizích klíčů a navigace</span><span class="sxs-lookup"><span data-stu-id="508ef-301">Foreign key and navigation properties</span></span>
 
-### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="79a17-307">Vlastnosti cizího klíče a navigace</span><span class="sxs-lookup"><span data-stu-id="79a17-307">Foreign key and navigation properties</span></span>
+<span data-ttu-id="508ef-302">Vlastnosti CK a vlastnosti navigace odrážejí následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="508ef-302">The FK properties and navigation properties reflect the following relationships:</span></span>
 
-<span data-ttu-id="79a17-308">Vlastnosti cizího klíče a navigačních vlastností zahrnují následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="79a17-308">The FK properties and navigation properties reflect the following relationships:</span></span>
-
-<span data-ttu-id="79a17-309">Záznam registrace je pro jeden kurz, tedy `CourseID` vlastnosti cizího klíče a `Course` navigační vlastnost:</span><span class="sxs-lookup"><span data-stu-id="79a17-309">An enrollment record is for one course, so there's a `CourseID` FK property and a `Course` navigation property:</span></span>
+<span data-ttu-id="508ef-303">Záznam zápisu je pro jeden kurz, takže existuje `CourseID` vlastnost FK `Course` a navigační vlastnost:</span><span class="sxs-lookup"><span data-stu-id="508ef-303">An enrollment record is for one course, so there's a `CourseID` FK property and a `Course` navigation property:</span></span>
 
 ```csharp
 public int CourseID { get; set; }
 public Course Course { get; set; }
 ```
 
-<span data-ttu-id="79a17-310">Záznam registrace je pro jeden student, tedy `StudentID` vlastnosti cizího klíče a `Student` navigační vlastnost:</span><span class="sxs-lookup"><span data-stu-id="79a17-310">An enrollment record is for one student, so there's a `StudentID` FK property and a `Student` navigation property:</span></span>
+<span data-ttu-id="508ef-304">Záznam zápisu je určen pro jednoho studenta, takže existuje `StudentID` vlastnost FK `Student` a navigační vlastnost:</span><span class="sxs-lookup"><span data-stu-id="508ef-304">An enrollment record is for one student, so there's a `StudentID` FK property and a `Student` navigation property:</span></span>
 
 ```csharp
 public int StudentID { get; set; }
 public Student Student { get; set; }
 ```
 
-## <a name="many-to-many-relationships"></a><span data-ttu-id="79a17-311">Relace m: N</span><span class="sxs-lookup"><span data-stu-id="79a17-311">Many-to-Many Relationships</span></span>
+## <a name="many-to-many-relationships"></a><span data-ttu-id="508ef-305">Relace m:n</span><span class="sxs-lookup"><span data-stu-id="508ef-305">Many-to-Many Relationships</span></span>
 
-<span data-ttu-id="79a17-312">Existuje vztah n: n mezi `Student` a `Course` entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-312">There's a many-to-many relationship between the `Student` and `Course` entities.</span></span> <span data-ttu-id="79a17-313">`Enrollment` Entity funguje jako tabulka many-to-many spojení *s datovou částí* v databázi.</span><span class="sxs-lookup"><span data-stu-id="79a17-313">The `Enrollment` entity functions as a many-to-many join table *with payload* in the database.</span></span> <span data-ttu-id="79a17-314">"S datovou částí" znamená, že `Enrollment` tabulka obsahuje další data kromě FKs pro spojené tabulky (v tomto případě primárnímu Klíči a `Grade`).</span><span class="sxs-lookup"><span data-stu-id="79a17-314">"With payload" means that the `Enrollment` table contains additional data besides FKs for the joined tables (in this case, the PK and `Grade`).</span></span>
+<span data-ttu-id="508ef-306">Mezi `Student` entitami a `Course` existuje vztah m:n.</span><span class="sxs-lookup"><span data-stu-id="508ef-306">There's a many-to-many relationship between the `Student` and `Course` entities.</span></span> <span data-ttu-id="508ef-307">Entita funguje jako tabulka JOIN typu m:n *s datovou částí* v databázi. `Enrollment`</span><span class="sxs-lookup"><span data-stu-id="508ef-307">The `Enrollment` entity functions as a many-to-many join table *with payload* in the database.</span></span> <span data-ttu-id="508ef-308">"S datovou částí" znamená `Enrollment` , že tabulka obsahuje další data kromě FKs pro Spojené tabulky (v tomto případě PK a `Grade`).</span><span class="sxs-lookup"><span data-stu-id="508ef-308">"With payload" means that the `Enrollment` table contains additional data besides FKs for the joined tables (in this case, the PK and `Grade`).</span></span>
 
-<span data-ttu-id="79a17-315">Následující obrázek znázorňuje, jak tyto vztahy vypadat v diagramu entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-315">The following illustration shows what these relationships look like in an entity diagram.</span></span> <span data-ttu-id="79a17-316">(Tento diagram se vygeneroval pomocí [EF Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) pro EF 6.x.</span><span class="sxs-lookup"><span data-stu-id="79a17-316">(This diagram was generated using [EF Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) for EF 6.x.</span></span> <span data-ttu-id="79a17-317">Vytvoření diagramu, které nejsou součástí tohoto kurzu.)</span><span class="sxs-lookup"><span data-stu-id="79a17-317">Creating the diagram isn't part of the tutorial.)</span></span>
+<span data-ttu-id="508ef-309">Následující ilustrace znázorňuje, co tyto vztahy vypadají jako v diagramu entit.</span><span class="sxs-lookup"><span data-stu-id="508ef-309">The following illustration shows what these relationships look like in an entity diagram.</span></span> <span data-ttu-id="508ef-310">(Tento diagram byl vygenerován pomocí [nástrojů EF Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) pro EF 6. x.</span><span class="sxs-lookup"><span data-stu-id="508ef-310">(This diagram was generated using [EF Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) for EF 6.x.</span></span> <span data-ttu-id="508ef-311">Vytvoření diagramu není součástí kurzu.)</span><span class="sxs-lookup"><span data-stu-id="508ef-311">Creating the diagram isn't part of the tutorial.)</span></span>
 
-![Kurz student mnoho na mnoho vztah](complex-data-model/_static/student-course.png)
+![Mezi studenty hodně a mnoha](complex-data-model/_static/student-course.png)
 
-<span data-ttu-id="79a17-319">Každý řádek vztah má 1 na jednom konci a hvězdičku (\*) na druhém, určující vztah jeden mnoho.</span><span class="sxs-lookup"><span data-stu-id="79a17-319">Each relationship line has a 1 at one end and an asterisk (\*) at the other, indicating a one-to-many relationship.</span></span>
+<span data-ttu-id="508ef-313">Každá čára relace má 1 na jednom konci a hvězdičku (\*) na druhé straně, která indikuje relaci 1: n.</span><span class="sxs-lookup"><span data-stu-id="508ef-313">Each relationship line has a 1 at one end and an asterisk (\*) at the other, indicating a one-to-many relationship.</span></span>
 
-<span data-ttu-id="79a17-320">Pokud `Enrollment` tabulky nezahrnuli informace na podnikové úrovni, třeba jenom tak, aby obsahovala dva FKs (`CourseID` a `StudentID`).</span><span class="sxs-lookup"><span data-stu-id="79a17-320">If the `Enrollment` table didn't include grade information, it would only need to contain the two FKs (`CourseID` and `StudentID`).</span></span> <span data-ttu-id="79a17-321">Tabulku spojení many-to-many bez datové části se někdy nazývá čistě spojení tabulky (PJT).</span><span class="sxs-lookup"><span data-stu-id="79a17-321">A many-to-many join table without payload is sometimes called a pure join table (PJT).</span></span>
+<span data-ttu-id="508ef-314">Pokud tabulka neobsahovala informace o třídě, musí obsahovat pouze dvě FKs (`CourseID` a `StudentID`). `Enrollment`</span><span class="sxs-lookup"><span data-stu-id="508ef-314">If the `Enrollment` table didn't include grade information, it would only need to contain the two FKs (`CourseID` and `StudentID`).</span></span> <span data-ttu-id="508ef-315">Tabulka JOIN typu m:n bez datové části se někdy označuje jako čistá spojovací tabulka (PJT).</span><span class="sxs-lookup"><span data-stu-id="508ef-315">A many-to-many join table without payload is sometimes called a pure join table (PJT).</span></span>
 
-<span data-ttu-id="79a17-322">`Instructor` a `Course` entity mají vztah many-to-many pomocí tabulky čistě spojení.</span><span class="sxs-lookup"><span data-stu-id="79a17-322">The `Instructor` and `Course` entities have a many-to-many relationship using a pure join table.</span></span>
+<span data-ttu-id="508ef-316">Entity `Instructor` a`Course` mají relaci n:n pomocí tabulky Pure JOIN.</span><span class="sxs-lookup"><span data-stu-id="508ef-316">The `Instructor` and `Course` entities have a many-to-many relationship using a pure join table.</span></span>
 
-<span data-ttu-id="79a17-323">Poznámka: EF 6.x podporuje implicitní spojení tabulek pro vztahy many-to-many, ale EF Core nepodporuje.</span><span class="sxs-lookup"><span data-stu-id="79a17-323">Note: EF 6.x supports implicit join tables for many-to-many relationships, but EF Core doesn't.</span></span> <span data-ttu-id="79a17-324">Další informace najdete v tématu [Many-to-many vztahy v EF Core 2.0](https://blog.oneunicorn.com/2017/09/25/many-to-many-relationships-in-ef-core-2-0-part-1-the-basics/).</span><span class="sxs-lookup"><span data-stu-id="79a17-324">For more information, see [Many-to-many relationships in EF Core 2.0](https://blog.oneunicorn.com/2017/09/25/many-to-many-relationships-in-ef-core-2-0-part-1-the-basics/).</span></span>
+<span data-ttu-id="508ef-317">Poznámka: EF 6. x podporuje implicitní spojení tabulek pro relace m:n, ale EF Core ne.</span><span class="sxs-lookup"><span data-stu-id="508ef-317">Note: EF 6.x supports implicit join tables for many-to-many relationships, but EF Core doesn't.</span></span> <span data-ttu-id="508ef-318">Další informace najdete v tématu [relace m:n v EF Core 2,0](https://blog.oneunicorn.com/2017/09/25/many-to-many-relationships-in-ef-core-2-0-part-1-the-basics/).</span><span class="sxs-lookup"><span data-stu-id="508ef-318">For more information, see [Many-to-many relationships in EF Core 2.0](https://blog.oneunicorn.com/2017/09/25/many-to-many-relationships-in-ef-core-2-0-part-1-the-basics/).</span></span>
 
-## <a name="the-courseassignment-entity"></a><span data-ttu-id="79a17-325">CourseAssignment entity</span><span class="sxs-lookup"><span data-stu-id="79a17-325">The CourseAssignment entity</span></span>
+## <a name="the-courseassignment-entity"></a><span data-ttu-id="508ef-319">Entita CourseAssignment</span><span class="sxs-lookup"><span data-stu-id="508ef-319">The CourseAssignment entity</span></span>
 
-![CourseAssignment entity](complex-data-model/_static/courseassignment-entity.png)
+![CourseAssignment – entita](complex-data-model/_static/courseassignment-entity.png)
 
-<span data-ttu-id="79a17-327">Vytvoření *Models/CourseAssignment.cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="79a17-327">Create *Models/CourseAssignment.cs* with the following code:</span></span>
+<span data-ttu-id="508ef-321">Vytvořte *modely/CourseAssignment. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-321">Create *Models/CourseAssignment.cs* with the following code:</span></span>
 
-[!code-csharp[](intro/samples/cu21/Models/CourseAssignment.cs)]
+[!code-csharp[](intro/samples/cu30/Models/CourseAssignment.cs)]
 
-### <a name="instructor-to-courses"></a><span data-ttu-id="79a17-328">Kurzů vedených kurzy</span><span class="sxs-lookup"><span data-stu-id="79a17-328">Instructor-to-Courses</span></span>
+<span data-ttu-id="508ef-322">Relace m:n pro každého-více kurzů vyžaduje tabulku JOIN a entita pro tuto tabulku JOIN je CourseAssignment.</span><span class="sxs-lookup"><span data-stu-id="508ef-322">The Instructor-to-Courses many-to-many relationship requires a join table, and the entity for that join table is CourseAssignment.</span></span>
 
-![M:M kurzů vedených kurzy](complex-data-model/_static/courseassignment.png)
+![M:M instruktory do kurzů](complex-data-model/_static/courseassignment.png)
 
-<span data-ttu-id="79a17-330">Relace many-to-many kurzů vedených kurzy:</span><span class="sxs-lookup"><span data-stu-id="79a17-330">The Instructor-to-Courses many-to-many relationship:</span></span>
+<span data-ttu-id="508ef-324">Je běžné pojmenovat entitu `EntityName1EntityName2`JOIN.</span><span class="sxs-lookup"><span data-stu-id="508ef-324">It's common to name a join entity `EntityName1EntityName2`.</span></span> <span data-ttu-id="508ef-325">Například tabulka pro spojení instruktora do kurzů, kterou používá tento model `CourseInstructor`, bude.</span><span class="sxs-lookup"><span data-stu-id="508ef-325">For example, the Instructor-to-Courses join table using this pattern would be `CourseInstructor`.</span></span> <span data-ttu-id="508ef-326">Doporučujeme však použít název, který popisuje vztah.</span><span class="sxs-lookup"><span data-stu-id="508ef-326">However, we recommend using a name that describes the relationship.</span></span>
 
-* <span data-ttu-id="79a17-331">Vyžaduje tabulku spojení, která musí být reprezentována sadu entit.</span><span class="sxs-lookup"><span data-stu-id="79a17-331">Requires a join table that must be represented by an entity set.</span></span>
-* <span data-ttu-id="79a17-332">Je čistě vazební tabulka (tabulka bez datové části).</span><span class="sxs-lookup"><span data-stu-id="79a17-332">Is a pure join table (table without payload).</span></span>
+<span data-ttu-id="508ef-327">Modely dat začínají jednoduchým a roste.</span><span class="sxs-lookup"><span data-stu-id="508ef-327">Data models start out simple and grow.</span></span> <span data-ttu-id="508ef-328">Spojování tabulek bez datové části (PJTs) se často vyvíjí, aby zahrnovalo datovou část.</span><span class="sxs-lookup"><span data-stu-id="508ef-328">Join tables without payload (PJTs) frequently evolve to include payload.</span></span> <span data-ttu-id="508ef-329">Když začnete s popisným názvem entity, nemusíte při změně tabulky JOIN měnit název.</span><span class="sxs-lookup"><span data-stu-id="508ef-329">By starting with a descriptive entity name, the name doesn't need to change when the join table changes.</span></span> <span data-ttu-id="508ef-330">V ideálním případě by entita JOIN měla vlastní přirozený název (případně jeden Word) v obchodní doméně.</span><span class="sxs-lookup"><span data-stu-id="508ef-330">Ideally, the join entity would have its own natural (possibly single word) name in the business domain.</span></span> <span data-ttu-id="508ef-331">Například knihy a zákazníci mohou být propojeny s entitou JOIN nazvanou hodnocení.</span><span class="sxs-lookup"><span data-stu-id="508ef-331">For example, Books and Customers could be linked with a join entity called Ratings.</span></span> <span data-ttu-id="508ef-332">Pro relaci `CourseAssignment` n:n v instruktorech na více kurzů se používá přednost před `CourseInstructor`.</span><span class="sxs-lookup"><span data-stu-id="508ef-332">For the Instructor-to-Courses many-to-many relationship, `CourseAssignment` is preferred over `CourseInstructor`.</span></span>
 
-<span data-ttu-id="79a17-333">Je běžné název entity spojení `EntityName1EntityName2`.</span><span class="sxs-lookup"><span data-stu-id="79a17-333">It's common to name a join entity `EntityName1EntityName2`.</span></span> <span data-ttu-id="79a17-334">Například tabulku spojení kurzů vedených kurzy použití tohoto modelu je `CourseInstructor`.</span><span class="sxs-lookup"><span data-stu-id="79a17-334">For example, the Instructor-to-Courses join table using this pattern is `CourseInstructor`.</span></span> <span data-ttu-id="79a17-335">Doporučujeme však použít název, který popisuje relace.</span><span class="sxs-lookup"><span data-stu-id="79a17-335">However, we recommend using a name that describes the relationship.</span></span>
+### <a name="composite-key"></a><span data-ttu-id="508ef-333">Složený klíč</span><span class="sxs-lookup"><span data-stu-id="508ef-333">Composite key</span></span>
 
-<span data-ttu-id="79a17-336">Datové modely začíná jednoduchou a zvýší.</span><span class="sxs-lookup"><span data-stu-id="79a17-336">Data models start out simple and grow.</span></span> <span data-ttu-id="79a17-337">Žádné datové spojení (PJTs) často vyvíjet zahrnout datové části.</span><span class="sxs-lookup"><span data-stu-id="79a17-337">No-payload joins (PJTs) frequently evolve to include payload.</span></span> <span data-ttu-id="79a17-338">Začněte s entity popisný název, název nemusí změnit při změně tabulku spojení.</span><span class="sxs-lookup"><span data-stu-id="79a17-338">By starting with a descriptive entity name, the name doesn't need to change when the join table changes.</span></span> <span data-ttu-id="79a17-339">Spojení entit v ideálním případě by mít svůj vlastní přirozené název (může být jediné slovo) v obchodní domény.</span><span class="sxs-lookup"><span data-stu-id="79a17-339">Ideally, the join entity would have its own natural (possibly single word) name in the business domain.</span></span> <span data-ttu-id="79a17-340">Například může knihy a zákazníci propojené s spojení entitu s názvem hodnocení.</span><span class="sxs-lookup"><span data-stu-id="79a17-340">For example, Books and Customers could be linked with a join entity called Ratings.</span></span> <span data-ttu-id="79a17-341">Pro relaci many-to-many kurzů vedených – kurzy `CourseAssignment` je upřednostňované nad `CourseInstructor`.</span><span class="sxs-lookup"><span data-stu-id="79a17-341">For the Instructor-to-Courses many-to-many relationship, `CourseAssignment` is preferred over `CourseInstructor`.</span></span>
+<span data-ttu-id="508ef-334">Dva FKs v `CourseAssignment` (`InstructorID` `CourseID` a`CourseAssignment` ) společně identifikují každý řádek tabulky.</span><span class="sxs-lookup"><span data-stu-id="508ef-334">The two FKs in `CourseAssignment` (`InstructorID` and `CourseID`) together uniquely identify each row of the `CourseAssignment` table.</span></span> <span data-ttu-id="508ef-335">`CourseAssignment`nevyžaduje vyhrazený PK.</span><span class="sxs-lookup"><span data-stu-id="508ef-335">`CourseAssignment` doesn't require a dedicated PK.</span></span> <span data-ttu-id="508ef-336">Vlastnosti `InstructorID` a`CourseID` fungují jako složené PK.</span><span class="sxs-lookup"><span data-stu-id="508ef-336">The `InstructorID` and `CourseID` properties function as a composite PK.</span></span> <span data-ttu-id="508ef-337">Jediným způsobem, jak zadat složené PKs EF Core je s rozhraním *API Fluent*.</span><span class="sxs-lookup"><span data-stu-id="508ef-337">The only way to specify composite PKs to EF Core is with the *fluent API*.</span></span> <span data-ttu-id="508ef-338">V další části se dozvíte, jak nakonfigurovat složený PK.</span><span class="sxs-lookup"><span data-stu-id="508ef-338">The next section shows how to configure the composite PK.</span></span>
 
-### <a name="composite-key"></a><span data-ttu-id="79a17-342">Složený klíč</span><span class="sxs-lookup"><span data-stu-id="79a17-342">Composite key</span></span>
+<span data-ttu-id="508ef-339">Složený klíč zajišťuje:</span><span class="sxs-lookup"><span data-stu-id="508ef-339">The composite key ensures that:</span></span>
 
-<span data-ttu-id="79a17-343">FKs nejsou s možnou hodnotou Null.</span><span class="sxs-lookup"><span data-stu-id="79a17-343">FKs are not nullable.</span></span> <span data-ttu-id="79a17-344">Dvě FKs v `CourseAssignment` (`InstructorID` a `CourseID`) společně jednoznačné identifikaci jednotlivých řádků `CourseAssignment` tabulky.</span><span class="sxs-lookup"><span data-stu-id="79a17-344">The two FKs in `CourseAssignment` (`InstructorID` and `CourseID`) together uniquely identify each row of the `CourseAssignment` table.</span></span> <span data-ttu-id="79a17-345">`CourseAssignment` nevyžaduje vyhrazený PK</span><span class="sxs-lookup"><span data-stu-id="79a17-345">`CourseAssignment` doesn't require a dedicated PK.</span></span> <span data-ttu-id="79a17-346">`InstructorID` a `CourseID` vlastnosti fungovat jako složený PK</span><span class="sxs-lookup"><span data-stu-id="79a17-346">The `InstructorID` and `CourseID` properties function as a composite PK.</span></span> <span data-ttu-id="79a17-347">Jediný způsob, jak určit složené PKs na EF Core je *rozhraní fluent API*.</span><span class="sxs-lookup"><span data-stu-id="79a17-347">The only way to specify composite PKs to EF Core is with the *fluent API*.</span></span> <span data-ttu-id="79a17-348">V další části ukazuje, jak nakonfigurovat složené PK</span><span class="sxs-lookup"><span data-stu-id="79a17-348">The next section shows how to configure the composite PK.</span></span>
+* <span data-ttu-id="508ef-340">Pro jeden kurz je povoleno více řádků.</span><span class="sxs-lookup"><span data-stu-id="508ef-340">Multiple rows are allowed for one course.</span></span>
+* <span data-ttu-id="508ef-341">Pro jednoho instruktora je povoleno více řádků.</span><span class="sxs-lookup"><span data-stu-id="508ef-341">Multiple rows are allowed for one instructor.</span></span>
+* <span data-ttu-id="508ef-342">Pro stejný instruktor a kurz nejsou povoleny vícenásobné řádky.</span><span class="sxs-lookup"><span data-stu-id="508ef-342">Multiple rows aren't allowed for the same instructor and course.</span></span>
 
-<span data-ttu-id="79a17-349">Složený klíč zajistí:</span><span class="sxs-lookup"><span data-stu-id="79a17-349">The composite key ensures:</span></span>
+<span data-ttu-id="508ef-343">Entita `Enrollment` JOIN definuje vlastní PK, takže je možné duplikovat toto řazení.</span><span class="sxs-lookup"><span data-stu-id="508ef-343">The `Enrollment` join entity defines its own PK, so duplicates of this sort are possible.</span></span> <span data-ttu-id="508ef-344">Chcete-li zabránit těmto duplicitám:</span><span class="sxs-lookup"><span data-stu-id="508ef-344">To prevent such duplicates:</span></span>
 
-* <span data-ttu-id="79a17-350">Více řádků jsou povoleny pro jeden kurz.</span><span class="sxs-lookup"><span data-stu-id="79a17-350">Multiple rows are allowed for one course.</span></span>
-* <span data-ttu-id="79a17-351">Více řádků jsou povoleny pro jeden instruktorem.</span><span class="sxs-lookup"><span data-stu-id="79a17-351">Multiple rows are allowed for one instructor.</span></span>
-* <span data-ttu-id="79a17-352">Více řádků pro stejné instruktorem a kurzu není povoleno.</span><span class="sxs-lookup"><span data-stu-id="79a17-352">Multiple rows for the same instructor and course isn't allowed.</span></span>
+* <span data-ttu-id="508ef-345">Přidejte do polí FK jedinečný index nebo</span><span class="sxs-lookup"><span data-stu-id="508ef-345">Add a unique index on the FK fields, or</span></span>
+* <span data-ttu-id="508ef-346">Nakonfigurujte `Enrollment` pomocí primárního složeného klíče `CourseAssignment`podobného.</span><span class="sxs-lookup"><span data-stu-id="508ef-346">Configure `Enrollment` with a primary composite key similar to `CourseAssignment`.</span></span> <span data-ttu-id="508ef-347">Další informace najdete v tématu [indexy](/ef/core/modeling/indexes).</span><span class="sxs-lookup"><span data-stu-id="508ef-347">For more information, see [Indexes](/ef/core/modeling/indexes).</span></span>
 
-<span data-ttu-id="79a17-353">`Enrollment` Entity spojení definuje vlastní PK tak, aby byly možné duplicity toto řazení.</span><span class="sxs-lookup"><span data-stu-id="79a17-353">The `Enrollment` join entity defines its own PK, so duplicates of this sort are possible.</span></span> <span data-ttu-id="79a17-354">Aby se tyto duplicitní hodnoty:</span><span class="sxs-lookup"><span data-stu-id="79a17-354">To prevent such duplicates:</span></span>
+## <a name="update-the-database-context"></a><span data-ttu-id="508ef-348">Aktualizace kontextu databáze</span><span class="sxs-lookup"><span data-stu-id="508ef-348">Update the database context</span></span>
 
-* <span data-ttu-id="79a17-355">Přidat jedinečný index pro pole cizího klíče nebo</span><span class="sxs-lookup"><span data-stu-id="79a17-355">Add a unique index on the FK fields, or</span></span>
-* <span data-ttu-id="79a17-356">Konfigurace `Enrollment` s primární složený klíč podobný `CourseAssignment`.</span><span class="sxs-lookup"><span data-stu-id="79a17-356">Configure `Enrollment` with a primary composite key similar to `CourseAssignment`.</span></span> <span data-ttu-id="79a17-357">Další informace najdete v tématu [indexy](/ef/core/modeling/indexes).</span><span class="sxs-lookup"><span data-stu-id="79a17-357">For more information, see [Indexes](/ef/core/modeling/indexes).</span></span>
+<span data-ttu-id="508ef-349">Aktualizujte *data/SchoolContext. cs* pomocí následujícího kódu:</span><span class="sxs-lookup"><span data-stu-id="508ef-349">Update *Data/SchoolContext.cs* with the following code:</span></span>
 
-## <a name="update-the-db-context"></a><span data-ttu-id="79a17-358">Aktualizovat kontext databáze</span><span class="sxs-lookup"><span data-stu-id="79a17-358">Update the DB context</span></span>
+[!code-csharp[](intro/samples/cu30/Data/SchoolContext.cs?highlight=15-18,25-31)]
 
-<span data-ttu-id="79a17-359">Přidejte následující zvýrazněný kód do *Data/SchoolContext.cs*:</span><span class="sxs-lookup"><span data-stu-id="79a17-359">Add the following highlighted code to *Data/SchoolContext.cs*:</span></span>
+<span data-ttu-id="508ef-350">Předchozí kód přidá nové entity a nakonfiguruje `CourseAssignment` neseparovaný PK entity.</span><span class="sxs-lookup"><span data-stu-id="508ef-350">The preceding code adds the new entities and configures the `CourseAssignment` entity's composite PK.</span></span>
 
-[!code-csharp[](intro/samples/cu21/Data/SchoolContext.cs?name=snippet_BeforeInheritance&highlight=15-18,25-31)]
+## <a name="fluent-api-alternative-to-attributes"></a><span data-ttu-id="508ef-351">Alternativa k atributům rozhraní Fluent API</span><span class="sxs-lookup"><span data-stu-id="508ef-351">Fluent API alternative to attributes</span></span>
 
-<span data-ttu-id="79a17-360">Předchozí kód přidá nové entity a nakonfiguruje `CourseAssignment` složené PK entity</span><span class="sxs-lookup"><span data-stu-id="79a17-360">The preceding code adds the new entities and configures the `CourseAssignment` entity's composite PK.</span></span>
-
-## <a name="fluent-api-alternative-to-attributes"></a><span data-ttu-id="79a17-361">Fluent API alternativou k atributům</span><span class="sxs-lookup"><span data-stu-id="79a17-361">Fluent API alternative to attributes</span></span>
-
-<span data-ttu-id="79a17-362">`OnModelCreating` Metoda v předchozím kódu používá *rozhraní fluent API* konfigurace chování EF Core.</span><span class="sxs-lookup"><span data-stu-id="79a17-362">The `OnModelCreating` method in the preceding code uses the *fluent API* to configure EF Core behavior.</span></span> <span data-ttu-id="79a17-363">Rozhraní API se nazývá "fluent", protože je často používána zavěšování řadu volání metody společně na jediném příkazu.</span><span class="sxs-lookup"><span data-stu-id="79a17-363">The API is called "fluent" because it's often used by stringing a series of method calls together into a single statement.</span></span> <span data-ttu-id="79a17-364">[Následující kód](/ef/core/modeling/#use-fluent-api-to-configure-a-model) je příkladem rozhraní fluent API:</span><span class="sxs-lookup"><span data-stu-id="79a17-364">The [following code](/ef/core/modeling/#use-fluent-api-to-configure-a-model) is an example of the fluent API:</span></span>
+<span data-ttu-id="508ef-352">Metoda v předchozím kódu používá *rozhraní Fluent API* ke konfiguraci chování EF Core. `OnModelCreating`</span><span class="sxs-lookup"><span data-stu-id="508ef-352">The `OnModelCreating` method in the preceding code uses the *fluent API* to configure EF Core behavior.</span></span> <span data-ttu-id="508ef-353">Rozhraní API se nazývá "Fluent", protože se často používá k zřetězení řady volání metody do jednoho příkazu.</span><span class="sxs-lookup"><span data-stu-id="508ef-353">The API is called "fluent" because it's often used by stringing a series of method calls together into a single statement.</span></span> <span data-ttu-id="508ef-354">[Následující kód](/ef/core/modeling/#use-fluent-api-to-configure-a-model) je příkladem rozhraní Fluent API:</span><span class="sxs-lookup"><span data-stu-id="508ef-354">The [following code](/ef/core/modeling/#use-fluent-api-to-configure-a-model) is an example of the fluent API:</span></span>
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -498,54 +492,764 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-<span data-ttu-id="79a17-365">V tomto kurzu se používá rozhraní fluent API pouze pro mapování databáze, které nelze provést s atributy.</span><span class="sxs-lookup"><span data-stu-id="79a17-365">In this tutorial, the fluent API is used only for DB mapping that can't be done with attributes.</span></span> <span data-ttu-id="79a17-366">Rozhraní fluent API můžete však určit většinu formátování, ověřování a pravidla mapování, které lze provést s atributy.</span><span class="sxs-lookup"><span data-stu-id="79a17-366">However, the fluent API can specify most of the formatting, validation, and mapping rules that can be done with attributes.</span></span>
+<span data-ttu-id="508ef-355">V tomto kurzu se rozhraní API Fluent používá jenom pro mapování databáze, které nejde s atributy dělat.</span><span class="sxs-lookup"><span data-stu-id="508ef-355">In this tutorial, the fluent API is used only for database mapping that can't be done with attributes.</span></span> <span data-ttu-id="508ef-356">Rozhraní API Fluent ale může určovat většinu pravidel formátování, ověřování a mapování, která se dají provádět s atributy.</span><span class="sxs-lookup"><span data-stu-id="508ef-356">However, the fluent API can specify most of the formatting, validation, and mapping rules that can be done with attributes.</span></span>
 
-<span data-ttu-id="79a17-367">Některé atributy, jako `MinimumLength` nelze použít s rozhraním API fluent.</span><span class="sxs-lookup"><span data-stu-id="79a17-367">Some attributes such as `MinimumLength` can't be applied with the fluent API.</span></span> <span data-ttu-id="79a17-368">`MinimumLength` nedojde ke změně schématu, vztahuje se pouze minimální délka ověřovacího pravidla.</span><span class="sxs-lookup"><span data-stu-id="79a17-368">`MinimumLength` doesn't change the schema, it only applies a minimum length validation rule.</span></span>
+<span data-ttu-id="508ef-357">Některé atributy, `MinimumLength` jako například, se nedají použít s rozhraním API Fluent.</span><span class="sxs-lookup"><span data-stu-id="508ef-357">Some attributes such as `MinimumLength` can't be applied with the fluent API.</span></span> <span data-ttu-id="508ef-358">`MinimumLength`nemění schéma, používá pouze ověřovací pravidlo minimální délky.</span><span class="sxs-lookup"><span data-stu-id="508ef-358">`MinimumLength` doesn't change the schema, it only applies a minimum length validation rule.</span></span>
 
-<span data-ttu-id="79a17-369">Někteří vývojáři dávají přednost používání rozhraní fluent API výhradně tak, aby se zachovat jejich tříd entit "vyčištění."</span><span class="sxs-lookup"><span data-stu-id="79a17-369">Some developers prefer to use the fluent API exclusively so that they can keep their entity classes "clean."</span></span> <span data-ttu-id="79a17-370">Atributy a rozhraní fluent API lze kombinovat.</span><span class="sxs-lookup"><span data-stu-id="79a17-370">Attributes and the fluent API can be mixed.</span></span> <span data-ttu-id="79a17-371">Existují některé konfigurace, které lze provést pouze pomocí rozhraní fluent API (výběr kompozitní PK).</span><span class="sxs-lookup"><span data-stu-id="79a17-371">There are some configurations that can only be done with the fluent API (specifying a composite PK).</span></span> <span data-ttu-id="79a17-372">Existují některé konfigurace, které lze provést pouze s atributy (`MinimumLength`).</span><span class="sxs-lookup"><span data-stu-id="79a17-372">There are some configurations that can only be done with attributes (`MinimumLength`).</span></span> <span data-ttu-id="79a17-373">Doporučené postupy pro využití fluent API nebo atributy:</span><span class="sxs-lookup"><span data-stu-id="79a17-373">The recommended practice for using fluent API or attributes:</span></span>
+<span data-ttu-id="508ef-359">Někteří vývojáři dávají přednost použití rozhraní Fluent API, aby mohli zachovat třídy entit "vyčistit".</span><span class="sxs-lookup"><span data-stu-id="508ef-359">Some developers prefer to use the fluent API exclusively so that they can keep their entity classes "clean."</span></span> <span data-ttu-id="508ef-360">Atributy a rozhraní API Fluent lze kombinovat.</span><span class="sxs-lookup"><span data-stu-id="508ef-360">Attributes and the fluent API can be mixed.</span></span> <span data-ttu-id="508ef-361">Existují některé konfigurace, které lze provést pouze s rozhraním API Fluent (určením složeného PK).</span><span class="sxs-lookup"><span data-stu-id="508ef-361">There are some configurations that can only be done with the fluent API (specifying a composite PK).</span></span> <span data-ttu-id="508ef-362">Existují některé konfigurace, které lze provádět pouze s atributy (`MinimumLength`).</span><span class="sxs-lookup"><span data-stu-id="508ef-362">There are some configurations that can only be done with attributes (`MinimumLength`).</span></span> <span data-ttu-id="508ef-363">Doporučený postup pro použití rozhraní Fluent API nebo atributů:</span><span class="sxs-lookup"><span data-stu-id="508ef-363">The recommended practice for using fluent API or attributes:</span></span>
 
-* <span data-ttu-id="79a17-374">Zvolte jednu z těchto dvou přístupů.</span><span class="sxs-lookup"><span data-stu-id="79a17-374">Choose one of these two approaches.</span></span>
-* <span data-ttu-id="79a17-375">Použijte konzistentně dosahovat zvolený způsob.</span><span class="sxs-lookup"><span data-stu-id="79a17-375">Use the chosen approach consistently as much as possible.</span></span>
+* <span data-ttu-id="508ef-364">Vyberte jednu z těchto dvou přístupů.</span><span class="sxs-lookup"><span data-stu-id="508ef-364">Choose one of these two approaches.</span></span>
+* <span data-ttu-id="508ef-365">Používejte vybraný postup konzistentně co nejvíce.</span><span class="sxs-lookup"><span data-stu-id="508ef-365">Use the chosen approach consistently as much as possible.</span></span>
 
-<span data-ttu-id="79a17-376">Některé atributy použité v tomto kurzu se používají pro:</span><span class="sxs-lookup"><span data-stu-id="79a17-376">Some of the attributes used in the this tutorial are used for:</span></span>
+<span data-ttu-id="508ef-366">Některé atributy používané v tomto kurzu se používají pro:</span><span class="sxs-lookup"><span data-stu-id="508ef-366">Some of the attributes used in this tutorial are used for:</span></span>
 
-* <span data-ttu-id="79a17-377">Pouze ověřování (například `MinimumLength`).</span><span class="sxs-lookup"><span data-stu-id="79a17-377">Validation only (for example, `MinimumLength`).</span></span>
-* <span data-ttu-id="79a17-378">EF Core jenom konfiguraci (například `HasKey`).</span><span class="sxs-lookup"><span data-stu-id="79a17-378">EF Core configuration only (for example, `HasKey`).</span></span>
-* <span data-ttu-id="79a17-379">Konfigurace ověření a EF Core (například `[StringLength(50)]`).</span><span class="sxs-lookup"><span data-stu-id="79a17-379">Validation and EF Core configuration (for example, `[StringLength(50)]`).</span></span>
+* <span data-ttu-id="508ef-367">Pouze ověření (například `MinimumLength`).</span><span class="sxs-lookup"><span data-stu-id="508ef-367">Validation only (for example, `MinimumLength`).</span></span>
+* <span data-ttu-id="508ef-368">Pouze konfigurace EF Core (například `HasKey`).</span><span class="sxs-lookup"><span data-stu-id="508ef-368">EF Core configuration only (for example, `HasKey`).</span></span>
+* <span data-ttu-id="508ef-369">Konfigurace ověřování a EF Core (například `[StringLength(50)]`).</span><span class="sxs-lookup"><span data-stu-id="508ef-369">Validation and EF Core configuration (for example, `[StringLength(50)]`).</span></span>
 
-<span data-ttu-id="79a17-380">Další informace o atributech vs. rozhraní fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/).</span><span class="sxs-lookup"><span data-stu-id="79a17-380">For more information about attributes vs. fluent API, see [Methods of configuration](/ef/core/modeling/).</span></span>
+<span data-ttu-id="508ef-370">Další informace o atributech vs. Fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/).</span><span class="sxs-lookup"><span data-stu-id="508ef-370">For more information about attributes vs. fluent API, see [Methods of configuration](/ef/core/modeling/).</span></span>
 
-## <a name="entity-diagram-showing-relationships"></a><span data-ttu-id="79a17-381">Diagram znázorňující entitami</span><span class="sxs-lookup"><span data-stu-id="79a17-381">Entity Diagram Showing Relationships</span></span>
+## <a name="entity-diagram"></a><span data-ttu-id="508ef-371">Diagram entit</span><span class="sxs-lookup"><span data-stu-id="508ef-371">Entity diagram</span></span>
 
-<span data-ttu-id="79a17-382">Následující obrázek znázorňuje diagram, který EF Power Tools vytvořit pro dokončené model školy.</span><span class="sxs-lookup"><span data-stu-id="79a17-382">The following illustration shows the diagram that EF Power Tools create for the completed School model.</span></span>
+<span data-ttu-id="508ef-372">Následující ilustrace znázorňuje diagram, který nástroje EF Power Tools vytvoří pro dokončený školní model.</span><span class="sxs-lookup"><span data-stu-id="508ef-372">The following illustration shows the diagram that EF Power Tools create for the completed School model.</span></span>
 
-![Entity diagram](complex-data-model/_static/diagram.png)
+![Diagram entit](complex-data-model/_static/diagram.png)
 
-<span data-ttu-id="79a17-384">Předchozí diagram znázorňuje:</span><span class="sxs-lookup"><span data-stu-id="79a17-384">The preceding diagram shows:</span></span>
+<span data-ttu-id="508ef-374">Předchozí diagram znázorňuje:</span><span class="sxs-lookup"><span data-stu-id="508ef-374">The preceding diagram shows:</span></span>
 
-* <span data-ttu-id="79a17-385">Několik řádků vztah jeden mnoho (1 k \*).</span><span class="sxs-lookup"><span data-stu-id="79a17-385">Several one-to-many relationship lines (1 to \*).</span></span>
-* <span data-ttu-id="79a17-386">Řádek jedna nula nebo 1 v relaci m (1-0..1) mezi `Instructor` a `OfficeAssignment` entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-386">The one-to-zero-or-one relationship line (1 to 0..1) between the `Instructor` and `OfficeAssignment` entities.</span></span>
-* <span data-ttu-id="79a17-387">Čára relace nula nebo 1 n (0.. 1 na \*) mezi `Instructor` a `Department` entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-387">The zero-or-one-to-many relationship line (0..1 to \*) between the `Instructor` and `Department` entities.</span></span>
+* <span data-ttu-id="508ef-375">Několik čar relací 1:1 (1 až \*).</span><span class="sxs-lookup"><span data-stu-id="508ef-375">Several one-to-many relationship lines (1 to \*).</span></span>
+* <span data-ttu-id="508ef-376">Čára relace 1:1 (1 – 0.. 1) mezi `Instructor` entitami a. `OfficeAssignment`</span><span class="sxs-lookup"><span data-stu-id="508ef-376">The one-to-zero-or-one relationship line (1 to 0..1) between the `Instructor` and `OfficeAssignment` entities.</span></span>
+* <span data-ttu-id="508ef-377">Čára relace nula až n-many (0.. 1 až ×) mezi `Instructor` entitami a. `Department`</span><span class="sxs-lookup"><span data-stu-id="508ef-377">The zero-or-one-to-many relationship line (0..1 to \*) between the `Instructor` and `Department` entities.</span></span>
 
-## <a name="seed-the-db-with-test-data"></a><span data-ttu-id="79a17-388">Počáteční hodnota databáze se testovací Data</span><span class="sxs-lookup"><span data-stu-id="79a17-388">Seed the DB with Test Data</span></span>
+## <a name="seed-the-database"></a><span data-ttu-id="508ef-378">Přidání dat do databáze</span><span class="sxs-lookup"><span data-stu-id="508ef-378">Seed the database</span></span>
 
-<span data-ttu-id="79a17-389">Aktualizovat kód v *Data/DbInitializer.cs*:</span><span class="sxs-lookup"><span data-stu-id="79a17-389">Update the code in *Data/DbInitializer.cs*:</span></span>
+<span data-ttu-id="508ef-379">Aktualizujte kód v *data/DbInitializer. cs*:</span><span class="sxs-lookup"><span data-stu-id="508ef-379">Update the code in *Data/DbInitializer.cs*:</span></span>
+
+[!code-csharp[](intro/samples/cu30/Data/DbInitializer.cs)]
+
+<span data-ttu-id="508ef-380">Předchozí kód poskytuje počáteční data pro nové entity.</span><span class="sxs-lookup"><span data-stu-id="508ef-380">The preceding code provides seed data for the new entities.</span></span> <span data-ttu-id="508ef-381">Většina tohoto kódu vytváří nové objekty entit a načítá vzorová data.</span><span class="sxs-lookup"><span data-stu-id="508ef-381">Most of this code creates new entity objects and loads sample data.</span></span> <span data-ttu-id="508ef-382">Ukázková data se používají k testování.</span><span class="sxs-lookup"><span data-stu-id="508ef-382">The sample data is used for testing.</span></span> <span data-ttu-id="508ef-383">V `Enrollments` tématu `CourseAssignments` a najdete příklady, jak lze dosazení tabulek JOIN typu many.</span><span class="sxs-lookup"><span data-stu-id="508ef-383">See `Enrollments` and `CourseAssignments` for examples of how many-to-many join tables can be seeded.</span></span>
+
+## <a name="add-a-migration"></a><span data-ttu-id="508ef-384">Přidání migrace</span><span class="sxs-lookup"><span data-stu-id="508ef-384">Add a migration</span></span>
+
+<span data-ttu-id="508ef-385">Sestavte projekt.</span><span class="sxs-lookup"><span data-stu-id="508ef-385">Build the project.</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-386">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-386">Visual Studio</span></span>](#tab/visual-studio)
+
+<span data-ttu-id="508ef-387">V PMC spusťte následující příkaz.</span><span class="sxs-lookup"><span data-stu-id="508ef-387">In PMC, run the following command.</span></span>
+
+```powershell
+Add-Migration ComplexDataModel
+```
+
+<span data-ttu-id="508ef-388">Předchozí příkaz zobrazí upozornění na možnou ztrátu dat.</span><span class="sxs-lookup"><span data-stu-id="508ef-388">The preceding command displays a warning about possible data loss.</span></span>
+
+```text
+An operation was scaffolded that may result in the loss of data.
+Please review the migration for accuracy.
+To undo this action, use 'ef migrations remove'
+```
+
+<span data-ttu-id="508ef-389">Pokud se `database update` příkaz spustí, vytvoří se následující chyba:</span><span class="sxs-lookup"><span data-stu-id="508ef-389">If the `database update` command is run, the following error is produced:</span></span>
+
+```text
+The ALTER TABLE statement conflicted with the FOREIGN KEY constraint "FK_dbo.Course_dbo.Department_DepartmentID". The conflict occurred in
+database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
+```
+
+<span data-ttu-id="508ef-390">V další části se dozvíte, co dělat s touto chybou.</span><span class="sxs-lookup"><span data-stu-id="508ef-390">In the next section, you see what to do about this error.</span></span>
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-391">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-391">Visual Studio Code</span></span>](#tab/visual-studio-code)
+
+<span data-ttu-id="508ef-392">Pokud přidáte migraci a spustíte `database update` příkaz, vytvoří se následující chyba:</span><span class="sxs-lookup"><span data-stu-id="508ef-392">If you add a migration and run the `database update` command, the following error would be produced:</span></span>
+
+```text
+SQLite does not support this migration operation ('DropForeignKeyOperation').
+For more information, see http://go.microsoft.com/fwlink/?LinkId=723262.
+```
+
+<span data-ttu-id="508ef-393">V další části se zobrazí informace o tom, jak se vyhnout této chybě.</span><span class="sxs-lookup"><span data-stu-id="508ef-393">In the next section, you see how to avoid this error.</span></span>
+
+---
+
+## <a name="apply-the-migration-or-drop-and-re-create"></a><span data-ttu-id="508ef-394">Použití migrace nebo vyřazení a opětovné vytvoření</span><span class="sxs-lookup"><span data-stu-id="508ef-394">Apply the migration or drop and re-create</span></span>
+
+<span data-ttu-id="508ef-395">Teď, když máte existující databázi, musíte si představit, jak se na ni aplikují změny.</span><span class="sxs-lookup"><span data-stu-id="508ef-395">Now that you have an existing database, you need to think about how to apply changes to it.</span></span> <span data-ttu-id="508ef-396">V tomto kurzu se zobrazí dvě alternativy:</span><span class="sxs-lookup"><span data-stu-id="508ef-396">This tutorial shows two alternatives:</span></span>
+
+* <span data-ttu-id="508ef-397">[Vyřaďte a znovu vytvořte databázi](#drop).</span><span class="sxs-lookup"><span data-stu-id="508ef-397">[Drop and re-create the database](#drop).</span></span> <span data-ttu-id="508ef-398">Tuto část vyberte, pokud používáte SQLite.</span><span class="sxs-lookup"><span data-stu-id="508ef-398">Choose this section if you're using SQLite.</span></span>
+* <span data-ttu-id="508ef-399">[Použijte migraci na stávající databázi](#applyexisting).</span><span class="sxs-lookup"><span data-stu-id="508ef-399">[Apply the migration to the existing database](#applyexisting).</span></span> <span data-ttu-id="508ef-400">Pokyny v této části fungují pouze pro SQL Server, **nikoli pro SQLite**.</span><span class="sxs-lookup"><span data-stu-id="508ef-400">The instructions in this section work for SQL Server only, **not for SQLite**.</span></span> 
+
+<span data-ttu-id="508ef-401">Jedna volba funguje pro SQL Server.</span><span class="sxs-lookup"><span data-stu-id="508ef-401">Either choice works for SQL Server.</span></span> <span data-ttu-id="508ef-402">I když je metoda Apply složitější a časově náročná, jedná se o preferovaný přístup pro produkční prostředí z reálného světa.</span><span class="sxs-lookup"><span data-stu-id="508ef-402">While the apply-migration method is more complex and time-consuming, it's the preferred approach for real-world, production environments.</span></span> 
+
+<a name="drop"></a>
+
+## <a name="drop-and-re-create-the-database"></a><span data-ttu-id="508ef-403">Vyřazení a opětovné vytvoření databáze</span><span class="sxs-lookup"><span data-stu-id="508ef-403">Drop and re-create the database</span></span>
+
+<span data-ttu-id="508ef-404">[Tuto část přeskočte](#apply-the-migration) , pokud používáte SQL Server a chcete provést postup použití migrace v následující části.</span><span class="sxs-lookup"><span data-stu-id="508ef-404">[Skip this section](#apply-the-migration) if you're using SQL Server and want to do the apply-migration approach in the following section.</span></span>
+
+<span data-ttu-id="508ef-405">Chcete-li vynutit EF Core vytvoření nové databáze, vyřaďte a aktualizujte databázi:</span><span class="sxs-lookup"><span data-stu-id="508ef-405">To force EF Core to create a new database, drop and update the database:</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-406">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-406">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="508ef-407">V **konzole správce balíčků** (PMC) spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="508ef-407">In the **Package Manager Console** (PMC), run the following command:</span></span>
+
+  ```powershell
+  Drop-Database
+  ```
+
+* <span data-ttu-id="508ef-408">Odstraňte složku *migrace* a pak spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="508ef-408">Delete the *Migrations* folder, then run the following command:</span></span>
+
+  ```powershell
+  Add-Migration InitialCreate
+  Update-Database
+  ```
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-409">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-409">Visual Studio Code</span></span>](#tab/visual-studio-code)
+
+* <span data-ttu-id="508ef-410">Otevřete příkazové okno a přejděte do složky projektu.</span><span class="sxs-lookup"><span data-stu-id="508ef-410">Open a command window and navigate to the project folder.</span></span> <span data-ttu-id="508ef-411">Složka projektu obsahuje soubor *ContosoUniversity. csproj* .</span><span class="sxs-lookup"><span data-stu-id="508ef-411">The project folder contains the *ContosoUniversity.csproj* file.</span></span>
+
+* <span data-ttu-id="508ef-412">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="508ef-412">Run the following command:</span></span>
+
+  ```console
+  dotnet ef database drop --force
+  ```
+
+* <span data-ttu-id="508ef-413">Odstraňte složku *migrace* a pak spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="508ef-413">Delete the *Migrations* folder, then run the following command:</span></span>
+
+  ```console
+  dotnet ef migrations add InitialCreate
+  dotnet ef database update
+  ```
+
+---
+
+<span data-ttu-id="508ef-414">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="508ef-414">Run the app.</span></span> <span data-ttu-id="508ef-415">Spuštění aplikace spustí `DbInitializer.Initialize` metodu.</span><span class="sxs-lookup"><span data-stu-id="508ef-415">Running the app runs the `DbInitializer.Initialize` method.</span></span> <span data-ttu-id="508ef-416">`DbInitializer.Initialize` Naplní novou databázi.</span><span class="sxs-lookup"><span data-stu-id="508ef-416">The `DbInitializer.Initialize` populates the new database.</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-417">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-417">Visual Studio</span></span>](#tab/visual-studio)
+
+<span data-ttu-id="508ef-418">Otevřete databázi v SSOX:</span><span class="sxs-lookup"><span data-stu-id="508ef-418">Open the database in SSOX:</span></span>
+
+* <span data-ttu-id="508ef-419">Pokud jste dříve otevřeli SSOX, klikněte na tlačítko **aktualizovat** .</span><span class="sxs-lookup"><span data-stu-id="508ef-419">If SSOX was opened previously, click the **Refresh** button.</span></span>
+* <span data-ttu-id="508ef-420">Rozbalte **tabulky** uzlu.</span><span class="sxs-lookup"><span data-stu-id="508ef-420">Expand the **Tables** node.</span></span> <span data-ttu-id="508ef-421">Zobrazí se vytvořené tabulky.</span><span class="sxs-lookup"><span data-stu-id="508ef-421">The created tables are displayed.</span></span>
+
+  ![Tabulky v SSOX](complex-data-model/_static/ssox-tables.png)
+
+* <span data-ttu-id="508ef-423">Projděte si tabulku **CourseAssignment** :</span><span class="sxs-lookup"><span data-stu-id="508ef-423">Examine the **CourseAssignment** table:</span></span>
+
+  * <span data-ttu-id="508ef-424">Klikněte pravým tlačítkem na tabulku **CourseAssignment** a vyberte **Zobrazit data**.</span><span class="sxs-lookup"><span data-stu-id="508ef-424">Right-click the **CourseAssignment** table and select **View Data**.</span></span>
+  * <span data-ttu-id="508ef-425">Ověřte, že tabulka **CourseAssignment** obsahuje data.</span><span class="sxs-lookup"><span data-stu-id="508ef-425">Verify the **CourseAssignment** table contains data.</span></span>
+
+  ![Data CourseAssignment v SSOX](complex-data-model/_static/ssox-ci-data.png)
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-427">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-427">Visual Studio Code</span></span>](#tab/visual-studio-code)
+
+<span data-ttu-id="508ef-428">Použijte nástroj SQLite k prohlédnutí databáze:</span><span class="sxs-lookup"><span data-stu-id="508ef-428">Use your SQLite tool to examine the database:</span></span>
+
+* <span data-ttu-id="508ef-429">Nové tabulky a sloupce.</span><span class="sxs-lookup"><span data-stu-id="508ef-429">New tables and columns.</span></span>
+* <span data-ttu-id="508ef-430">Osazená data v tabulkách, například tabulka **CourseAssignment** .</span><span class="sxs-lookup"><span data-stu-id="508ef-430">Seeded data in tables, for example the **CourseAssignment** table.</span></span>
+
+---
+
+<a name="applyexisting"></a>
+
+## <a name="apply-the-migration"></a><span data-ttu-id="508ef-431">Použití migrace</span><span class="sxs-lookup"><span data-stu-id="508ef-431">Apply the migration</span></span>
+
+<span data-ttu-id="508ef-432">Tato část je volitelná.</span><span class="sxs-lookup"><span data-stu-id="508ef-432">This section is optional.</span></span> <span data-ttu-id="508ef-433">Tyto kroky fungují jenom pro SQL Server LocalDB a jenom v případě, že jste přeskočili předchozí oddíl [drop a znovu vytvořit databázi](#drop) .</span><span class="sxs-lookup"><span data-stu-id="508ef-433">These steps work only for SQL Server LocalDB and only if you skipped the preceding [Drop and re-create the database](#drop) section.</span></span>
+
+<span data-ttu-id="508ef-434">Pokud jsou migrace spouštěny s existujícími daty, může dojít k omezením FK, která nesplňují stávající data.</span><span class="sxs-lookup"><span data-stu-id="508ef-434">When migrations are run with existing data, there may be FK constraints that are not satisfied with the existing data.</span></span> <span data-ttu-id="508ef-435">S provozními daty je potřeba provést kroky pro migraci stávajících dat.</span><span class="sxs-lookup"><span data-stu-id="508ef-435">With production data, steps must be taken to migrate the existing data.</span></span> <span data-ttu-id="508ef-436">V této části najdete příklad opravy porušení omezení CK.</span><span class="sxs-lookup"><span data-stu-id="508ef-436">This section provides an example of fixing FK constraint violations.</span></span> <span data-ttu-id="508ef-437">Neprovádějte změny kódu bez zálohy.</span><span class="sxs-lookup"><span data-stu-id="508ef-437">Don't make these code changes without a backup.</span></span> <span data-ttu-id="508ef-438">Neprovádějte změny kódu, pokud jste dokončili předchozí oddíl [drop a znovu vytvořit databázi](#drop) .</span><span class="sxs-lookup"><span data-stu-id="508ef-438">Don't make these code changes if you completed the preceding [Drop and re-create the database](#drop) section.</span></span>
+
+<span data-ttu-id="508ef-439">Soubor *{timestamp} _ComplexDataModel. cs* obsahuje následující kód:</span><span class="sxs-lookup"><span data-stu-id="508ef-439">The *{timestamp}_ComplexDataModel.cs* file contains the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu30snapshots/5-complex/Migrations/ComplexDataModel.cs?name=snippet_DepartmentID)]
+
+<span data-ttu-id="508ef-440">Předchozí kód přidá `Course` do tabulky nenulovou hodnotu `DepartmentID` typu FK.</span><span class="sxs-lookup"><span data-stu-id="508ef-440">The preceding code adds a non-nullable `DepartmentID` FK to the `Course` table.</span></span> <span data-ttu-id="508ef-441">Databáze z předchozího kurzu obsahuje řádky v `Course`, aby bylo možné tabulku aktualizovat pomocí migrací.</span><span class="sxs-lookup"><span data-stu-id="508ef-441">The database from the previous tutorial contains rows in `Course`, so that table cannot be updated by migrations.</span></span>
+
+<span data-ttu-id="508ef-442">Chcete-li migrovat práci s existujícími daty: `ComplexDataModel`</span><span class="sxs-lookup"><span data-stu-id="508ef-442">To make the `ComplexDataModel` migration work with existing data:</span></span>
+
+* <span data-ttu-id="508ef-443">Změňte kód tak, aby nový sloupec (`DepartmentID`) poskytl výchozí hodnotu.</span><span class="sxs-lookup"><span data-stu-id="508ef-443">Change the code to give the new column (`DepartmentID`) a default value.</span></span>
+* <span data-ttu-id="508ef-444">Vytvořte falešné oddělení s názvem "Temp", které bude sloužit jako výchozí oddělení.</span><span class="sxs-lookup"><span data-stu-id="508ef-444">Create a fake department named "Temp" to act as the default department.</span></span>
+
+#### <a name="fix-the-foreign-key-constraints"></a><span data-ttu-id="508ef-445">Oprava omezení cizího klíče</span><span class="sxs-lookup"><span data-stu-id="508ef-445">Fix the foreign key constraints</span></span>
+
+<span data-ttu-id="508ef-446">Ve třídě `Up` migrace aktualizujte metodu: `ComplexDataModel`</span><span class="sxs-lookup"><span data-stu-id="508ef-446">In the `ComplexDataModel` migration class, update the `Up` method:</span></span>
+
+* <span data-ttu-id="508ef-447">Otevřete soubor *{timestamp} _ComplexDataModel. cs* .</span><span class="sxs-lookup"><span data-stu-id="508ef-447">Open the *{timestamp}_ComplexDataModel.cs* file.</span></span>
+* <span data-ttu-id="508ef-448">Odkomentujte řádek kódu, který přidá `DepartmentID` sloupec `Course` do tabulky.</span><span class="sxs-lookup"><span data-stu-id="508ef-448">Comment out the line of code that adds the `DepartmentID` column to the `Course` table.</span></span>
+
+[!code-csharp[](intro/samples/cu30snapshots/5-complex/Migrations/ComplexDataModel.cs?name=snippet_CommentOut&highlight=9-13)]
+
+<span data-ttu-id="508ef-449">Přidejte následující zvýrazněný kód.</span><span class="sxs-lookup"><span data-stu-id="508ef-449">Add the following highlighted code.</span></span> <span data-ttu-id="508ef-450">Nový kód přejde za `.CreateTable( name: "Department"` blok:</span><span class="sxs-lookup"><span data-stu-id="508ef-450">The new code goes after the `.CreateTable( name: "Department"` block:</span></span>
+
+<span data-ttu-id="508ef-451">[! Code-CSharp [] (Úvod/Samples/cu30snapshots/5-Complex/migrations/ComplexDataModel. cs? Name = snippet_CreateDefaultValue & zvýraznění = 23-31)]</span><span class="sxs-lookup"><span data-stu-id="508ef-451">[!code-csharp[](intro/samples/cu30snapshots/5-complex/Migrations/ ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=23-31)]</span></span>
+
+<span data-ttu-id="508ef-452">V předchozích změnách budou existující `Course` řádky při spuštění `ComplexDataModel.Up` metody v relaci s "dočasným" oddělením.</span><span class="sxs-lookup"><span data-stu-id="508ef-452">With the preceding changes, existing `Course` rows will be related to the "Temp" department after the `ComplexDataModel.Up` method runs.</span></span>
+
+<span data-ttu-id="508ef-453">Pro účely tohoto kurzu je zjednodušený způsob zpracování situace, kterou tady vidíte.</span><span class="sxs-lookup"><span data-stu-id="508ef-453">The way of handling the situation shown here is simplified for this tutorial.</span></span> <span data-ttu-id="508ef-454">Produkční aplikace by:</span><span class="sxs-lookup"><span data-stu-id="508ef-454">A production app would:</span></span>
+
+* <span data-ttu-id="508ef-455">Zahrnout kód nebo skripty pro přidání `Department` řádků a souvisejících `Course` řádků do nových `Department` řádků.</span><span class="sxs-lookup"><span data-stu-id="508ef-455">Include code or scripts to add `Department` rows and related `Course` rows to the new `Department` rows.</span></span>
+* <span data-ttu-id="508ef-456">Nepoužívejte oddělení "dočasné" nebo výchozí hodnotu pro `Course.DepartmentID`.</span><span class="sxs-lookup"><span data-stu-id="508ef-456">Not use the "Temp" department or the default value for `Course.DepartmentID`.</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-457">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-457">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="508ef-458">V **konzole správce balíčků** (PMC) spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="508ef-458">In the **Package Manager Console** (PMC), run the following command:</span></span>
+
+  ```powershell
+  Update-Database
+  ```
+
+<span data-ttu-id="508ef-459">Vzhledem k tomu, že Metodajenavrženatak,abyfungovalapouzesprázdnoudatabází,použijteSSOXkodstraněnívšechřádkůvtabulkáchstudentaCourse.`DbInitializer.Initialize`</span><span class="sxs-lookup"><span data-stu-id="508ef-459">Because the `DbInitializer.Initialize` method is designed to work only with an empty database, use SSOX to delete all the rows in the Student and Course tables.</span></span> <span data-ttu-id="508ef-460">(Kaskádová odstranění se postará o tabulku zápisu.)</span><span class="sxs-lookup"><span data-stu-id="508ef-460">(Cascade delete will take care of the Enrollment table.)</span></span>
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-461">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-461">Visual Studio Code</span></span>](#tab/visual-studio-code)
+
+* <span data-ttu-id="508ef-462">Pokud používáte SQL Server LocalDB s Visual Studio Code, spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="508ef-462">If you're using SQL Server LocalDB with Visual Studio Code, run the following command:</span></span>
+
+  ```console
+  dotnet ef database update
+  ```
+
+---
+
+<span data-ttu-id="508ef-463">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="508ef-463">Run the app.</span></span> <span data-ttu-id="508ef-464">Spuštění aplikace spustí `DbInitializer.Initialize` metodu.</span><span class="sxs-lookup"><span data-stu-id="508ef-464">Running the app runs the `DbInitializer.Initialize` method.</span></span> <span data-ttu-id="508ef-465">`DbInitializer.Initialize` Naplní novou databázi.</span><span class="sxs-lookup"><span data-stu-id="508ef-465">The `DbInitializer.Initialize` populates the new database.</span></span>
+
+## <a name="next-steps"></a><span data-ttu-id="508ef-466">Další kroky</span><span class="sxs-lookup"><span data-stu-id="508ef-466">Next steps</span></span>
+
+<span data-ttu-id="508ef-467">Následující dva kurzy ukazují, jak číst a aktualizovat související data.</span><span class="sxs-lookup"><span data-stu-id="508ef-467">The next two tutorials show how to read and update related data.</span></span>
+
+> [!div class="step-by-step"]
+> <span data-ttu-id="508ef-468">[Předchozí kurz](xref:data/ef-rp/migrations)
+> –[Další kurz](xref:data/ef-rp/read-related-data)</span><span class="sxs-lookup"><span data-stu-id="508ef-468">[Previous tutorial](xref:data/ef-rp/migrations)
+[Next tutorial](xref:data/ef-rp/read-related-data)</span></span>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+<span data-ttu-id="508ef-469">Předchozí kurzy pracovaly se základním datovým modelem, který se skládá ze tří entit.</span><span class="sxs-lookup"><span data-stu-id="508ef-469">The previous tutorials worked with a basic data model that was composed of three entities.</span></span> <span data-ttu-id="508ef-470">V tomto kurzu:</span><span class="sxs-lookup"><span data-stu-id="508ef-470">In this tutorial:</span></span>
+
+* <span data-ttu-id="508ef-471">Přidávají se další entity a vztahy.</span><span class="sxs-lookup"><span data-stu-id="508ef-471">More entities and relationships are added.</span></span>
+* <span data-ttu-id="508ef-472">Datový model je přizpůsoben zadáním pravidel formátování, ověřování a mapování databáze.</span><span class="sxs-lookup"><span data-stu-id="508ef-472">The data model is customized by specifying formatting, validation, and database mapping rules.</span></span>
+
+<span data-ttu-id="508ef-473">Třídy entit pro dokončený datový model jsou znázorněny na následujícím obrázku:</span><span class="sxs-lookup"><span data-stu-id="508ef-473">The entity classes for the completed data model are shown in the following illustration:</span></span>
+
+![Diagram entit](complex-data-model/_static/diagram.png)
+
+<span data-ttu-id="508ef-475">Pokud narazíte na problémy, které nemůžete [vyřešit,](
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)Stáhněte dokončenou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="508ef-475">If you run into problems you can't solve, download the [completed app](
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).</span></span>
+
+## <a name="customize-the-data-model-with-attributes"></a><span data-ttu-id="508ef-476">Přizpůsobení datového modelu pomocí atributů</span><span class="sxs-lookup"><span data-stu-id="508ef-476">Customize the data model with attributes</span></span>
+
+<span data-ttu-id="508ef-477">V této části je datový model přizpůsoben pomocí atributů.</span><span class="sxs-lookup"><span data-stu-id="508ef-477">In this section, the data model is customized using attributes.</span></span>
+
+### <a name="the-datatype-attribute"></a><span data-ttu-id="508ef-478">Atribut DataType</span><span class="sxs-lookup"><span data-stu-id="508ef-478">The DataType attribute</span></span>
+
+<span data-ttu-id="508ef-479">Na stránkách studenta se aktuálně zobrazuje čas pro datum registrace.</span><span class="sxs-lookup"><span data-stu-id="508ef-479">The student pages currently displays the time of the enrollment date.</span></span> <span data-ttu-id="508ef-480">Pole data obvykle zobrazují pouze datum a čas.</span><span class="sxs-lookup"><span data-stu-id="508ef-480">Typically, date fields show only the date and not the time.</span></span>
+
+<span data-ttu-id="508ef-481">Aktualizujte *modely/student. cs* následujícím zvýrazněným kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-481">Update *Models/Student.cs* with the following highlighted code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_DataType&highlight=3,12-13)]
+
+<span data-ttu-id="508ef-482">Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) Určuje datový typ, který je konkrétnější než vnitřní typ databáze.</span><span class="sxs-lookup"><span data-stu-id="508ef-482">The [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) attribute specifies a data type that's more specific than the database intrinsic type.</span></span> <span data-ttu-id="508ef-483">V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas.</span><span class="sxs-lookup"><span data-stu-id="508ef-483">In this case only the date should be displayed, not the date and time.</span></span> <span data-ttu-id="508ef-484">[Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. `DataType` Atribut také může aplikaci povolit automatické poskytování funkcí specifických pro typ.</span><span class="sxs-lookup"><span data-stu-id="508ef-484">The [DataType Enumeration](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) provides for many data types, such as Date, Time, PhoneNumber, Currency, EmailAddress, etc. The `DataType` attribute can also enable the app to automatically provide type-specific features.</span></span> <span data-ttu-id="508ef-485">Příklad:</span><span class="sxs-lookup"><span data-stu-id="508ef-485">For example:</span></span>
+
+* <span data-ttu-id="508ef-486">Automaticky se vytvoří `DataType.EmailAddress`odkaz pro. `mailto:`</span><span class="sxs-lookup"><span data-stu-id="508ef-486">The `mailto:` link is automatically created for `DataType.EmailAddress`.</span></span>
+* <span data-ttu-id="508ef-487">Selektor data je k `DataType.Date` dispozici ve většině prohlížečů.</span><span class="sxs-lookup"><span data-stu-id="508ef-487">The date selector is provided for `DataType.Date` in most browsers.</span></span>
+
+<span data-ttu-id="508ef-488">Atribut vygeneruje atributy HTML 5 `data-` (vyslovované datové přerušované), které používají prohlížeče formátu HTML 5. `DataType`</span><span class="sxs-lookup"><span data-stu-id="508ef-488">The `DataType` attribute emits HTML 5 `data-` (pronounced data dash) attributes that HTML 5 browsers consume.</span></span> <span data-ttu-id="508ef-489">`DataType` Atributy neposkytují ověřování.</span><span class="sxs-lookup"><span data-stu-id="508ef-489">The `DataType` attributes don't provide validation.</span></span>
+
+<span data-ttu-id="508ef-490">`DataType.Date`neurčuje formát data, které se zobrazí.</span><span class="sxs-lookup"><span data-stu-id="508ef-490">`DataType.Date` doesn't specify the format of the date that's displayed.</span></span> <span data-ttu-id="508ef-491">Ve výchozím nastavení se pole Datum zobrazuje v závislosti na výchozích formátech na základě objektu [CultureInfo](xref:fundamentals/localization#provide-localized-resources-for-the-languages-and-cultures-you-support)serveru.</span><span class="sxs-lookup"><span data-stu-id="508ef-491">By default, the date field is displayed according to the default formats based on the server's [CultureInfo](xref:fundamentals/localization#provide-localized-resources-for-the-languages-and-cultures-you-support).</span></span>
+
+<span data-ttu-id="508ef-492">`DisplayFormat` Atribut slouží k explicitnímu zadání formátu data:</span><span class="sxs-lookup"><span data-stu-id="508ef-492">The `DisplayFormat` attribute is used to explicitly specify the date format:</span></span>
+
+```csharp
+[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+```
+
+<span data-ttu-id="508ef-493">Toto `ApplyFormatInEditMode` nastavení určuje, že by mělo být formátování použito také na uživatelské rozhraní pro úpravy.</span><span class="sxs-lookup"><span data-stu-id="508ef-493">The `ApplyFormatInEditMode` setting specifies that the formatting should also be applied to the edit UI.</span></span> <span data-ttu-id="508ef-494">Některá pole byste neměli `ApplyFormatInEditMode`používat.</span><span class="sxs-lookup"><span data-stu-id="508ef-494">Some fields shouldn't use `ApplyFormatInEditMode`.</span></span> <span data-ttu-id="508ef-495">Například symbol měny by neměl být v textovém poli pro úpravy obvykle zobrazen.</span><span class="sxs-lookup"><span data-stu-id="508ef-495">For example, the currency symbol should generally not be displayed in an edit text box.</span></span>
+
+<span data-ttu-id="508ef-496">`DisplayFormat` Atribut může používat sám sebe.</span><span class="sxs-lookup"><span data-stu-id="508ef-496">The `DisplayFormat` attribute can be used by itself.</span></span> <span data-ttu-id="508ef-497">Obecně je vhodné použít `DataType` atribut `DisplayFormat` s atributem.</span><span class="sxs-lookup"><span data-stu-id="508ef-497">It's generally a good idea to use the `DataType` attribute with the `DisplayFormat` attribute.</span></span> <span data-ttu-id="508ef-498">`DataType` Atribut předává sémantiku dat na rozdíl od způsobu vykreslování na obrazovce.</span><span class="sxs-lookup"><span data-stu-id="508ef-498">The `DataType` attribute conveys the semantics of the data as opposed to how to render it on a screen.</span></span> <span data-ttu-id="508ef-499">Atribut poskytuje následující výhody, které nejsou k dispozici v `DisplayFormat`: `DataType`</span><span class="sxs-lookup"><span data-stu-id="508ef-499">The `DataType` attribute provides the following benefits that are not available in `DisplayFormat`:</span></span>
+
+* <span data-ttu-id="508ef-500">Prohlížeč může povolit funkce HTML5.</span><span class="sxs-lookup"><span data-stu-id="508ef-500">The browser can enable HTML5 features.</span></span> <span data-ttu-id="508ef-501">Například můžete zobrazit ovládací prvek kalendáře, symbol měny odpovídající národním prostředí, e-mailové odkazy, ověřování vstupu na straně klienta atd.</span><span class="sxs-lookup"><span data-stu-id="508ef-501">For example, show a calendar control, the locale-appropriate currency symbol, email links, client-side input validation, etc.</span></span>
+* <span data-ttu-id="508ef-502">Ve výchozím nastavení prohlížeč vykresluje data pomocí správného formátu založeného na národním prostředí.</span><span class="sxs-lookup"><span data-stu-id="508ef-502">By default, the browser renders data using the correct format based on the locale.</span></span>
+
+<span data-ttu-id="508ef-503">Další informace najdete v [ \<dokumentaci k rutině Input > Tag](xref:mvc/views/working-with-forms#the-input-tag-helper).</span><span class="sxs-lookup"><span data-stu-id="508ef-503">For more information, see the [\<input> Tag Helper documentation](xref:mvc/views/working-with-forms#the-input-tag-helper).</span></span>
+
+<span data-ttu-id="508ef-504">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="508ef-504">Run the app.</span></span> <span data-ttu-id="508ef-505">Přejděte na stránku indexu studentů.</span><span class="sxs-lookup"><span data-stu-id="508ef-505">Navigate to the Students Index page.</span></span> <span data-ttu-id="508ef-506">Časy se už nezobrazují.</span><span class="sxs-lookup"><span data-stu-id="508ef-506">Times are no longer displayed.</span></span> <span data-ttu-id="508ef-507">Každé zobrazení, které používá `Student` model, zobrazuje datum bez času.</span><span class="sxs-lookup"><span data-stu-id="508ef-507">Every view that uses the `Student` model displays the date without time.</span></span>
+
+![Stránka indexu studentů zobrazující data bez časů](complex-data-model/_static/dates-no-times.png)
+
+### <a name="the-stringlength-attribute"></a><span data-ttu-id="508ef-509">Atribut StringLength</span><span class="sxs-lookup"><span data-stu-id="508ef-509">The StringLength attribute</span></span>
+
+<span data-ttu-id="508ef-510">Pravidla ověřování dat a chybové zprávy ověřování lze zadat pomocí atributů.</span><span class="sxs-lookup"><span data-stu-id="508ef-510">Data validation rules and validation error messages can be specified with attributes.</span></span> <span data-ttu-id="508ef-511">Atribut [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute?view=netframework-4.7.1) určuje minimální a maximální délku znaků, které jsou povoleny v datovém poli.</span><span class="sxs-lookup"><span data-stu-id="508ef-511">The [StringLength](/dotnet/api/system.componentmodel.dataannotations.stringlengthattribute?view=netframework-4.7.1) attribute specifies the minimum and maximum length of characters that are allowed in a data field.</span></span> <span data-ttu-id="508ef-512">`StringLength` Atribut také poskytuje ověřování na straně klienta a serveru.</span><span class="sxs-lookup"><span data-stu-id="508ef-512">The `StringLength` attribute also provides client-side and server-side validation.</span></span> <span data-ttu-id="508ef-513">Minimální hodnota nemá žádný vliv na schéma databáze.</span><span class="sxs-lookup"><span data-stu-id="508ef-513">The minimum value has no impact on the database schema.</span></span>
+
+<span data-ttu-id="508ef-514">Aktualizujte `Student` model pomocí následujícího kódu:</span><span class="sxs-lookup"><span data-stu-id="508ef-514">Update the `Student` model with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_StringLength&highlight=10,12)]
+
+<span data-ttu-id="508ef-515">Předchozí kód omezuje názvy na více než 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="508ef-515">The preceding code limits names to no more than 50 characters.</span></span> <span data-ttu-id="508ef-516">`StringLength` Atribut nebrání uživateli v zadání prázdného místa pro název.</span><span class="sxs-lookup"><span data-stu-id="508ef-516">The `StringLength` attribute doesn't prevent a user from entering white space for a name.</span></span> <span data-ttu-id="508ef-517">Atribut [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) se používá k aplikování omezení na vstup.</span><span class="sxs-lookup"><span data-stu-id="508ef-517">The [RegularExpression](/dotnet/api/system.componentmodel.dataannotations.regularexpressionattribute?view=netframework-4.7.1) attribute is used to apply restrictions to the input.</span></span> <span data-ttu-id="508ef-518">Například následující kód vyžaduje, aby první znak byl velkými písmeny a aby zbývající znaky byly abecedně:</span><span class="sxs-lookup"><span data-stu-id="508ef-518">For example, the following code requires the first character to be upper case and the remaining characters to be alphabetical:</span></span>
+
+```csharp
+[RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
+```
+
+<span data-ttu-id="508ef-519">Spusťte aplikaci:</span><span class="sxs-lookup"><span data-stu-id="508ef-519">Run the app:</span></span>
+
+* <span data-ttu-id="508ef-520">Přejděte na stránku students.</span><span class="sxs-lookup"><span data-stu-id="508ef-520">Navigate to the Students page.</span></span>
+* <span data-ttu-id="508ef-521">Vyberte **vytvořit novou**a zadejte název delší než 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="508ef-521">Select **Create New**, and enter a name longer than 50 characters.</span></span>
+* <span data-ttu-id="508ef-522">Vyberte **vytvořit**, ověřování na straně klienta zobrazí chybovou zprávu.</span><span class="sxs-lookup"><span data-stu-id="508ef-522">Select **Create**, client-side validation shows an error message.</span></span>
+
+![Stránka indexu studentů zobrazující chyby délky řetězce](complex-data-model/_static/string-length-errors.png)
+
+<span data-ttu-id="508ef-524">V **Průzkumník objektů systému SQL Server** (SSOX) otevřete Návrhář tabulky student dvojitým kliknutím na tabulku **student** .</span><span class="sxs-lookup"><span data-stu-id="508ef-524">In **SQL Server Object Explorer** (SSOX), open the Student table designer by double-clicking the **Student** table.</span></span>
+
+![Tabulka studentů v SSOX před migracemi](complex-data-model/_static/ssox-before-migration.png)
+
+<span data-ttu-id="508ef-526">Na předchozím obrázku je znázorněno schéma pro `Student` tabulku.</span><span class="sxs-lookup"><span data-stu-id="508ef-526">The preceding image shows the schema for the `Student` table.</span></span> <span data-ttu-id="508ef-527">Pole název mají typ `nvarchar(MAX)` , protože migrace nejsou v databázi spuštěny.</span><span class="sxs-lookup"><span data-stu-id="508ef-527">The name fields have type `nvarchar(MAX)` because migrations has not been run on the DB.</span></span> <span data-ttu-id="508ef-528">Po spuštění migrace později v tomto kurzu se změní `nvarchar(50)`pole název.</span><span class="sxs-lookup"><span data-stu-id="508ef-528">When migrations are run later in this tutorial, the name fields become `nvarchar(50)`.</span></span>
+
+### <a name="the-column-attribute"></a><span data-ttu-id="508ef-529">Atribut Column</span><span class="sxs-lookup"><span data-stu-id="508ef-529">The Column attribute</span></span>
+
+<span data-ttu-id="508ef-530">Atributy mohou řídit způsob, jakým jsou třídy a vlastnosti mapovány na databázi.</span><span class="sxs-lookup"><span data-stu-id="508ef-530">Attributes can control how classes and properties are mapped to the database.</span></span> <span data-ttu-id="508ef-531">V této části `Column` se atribut používá pro mapování názvu `FirstMidName` vlastnosti na "FirstName" v databázi.</span><span class="sxs-lookup"><span data-stu-id="508ef-531">In this section, the `Column` attribute is used to map the name of the `FirstMidName` property to "FirstName" in the DB.</span></span>
+
+<span data-ttu-id="508ef-532">Při vytvoření databáze se názvy vlastností v modelu používají pro názvy sloupců (kromě případu, `Column` kdy se atribut používá).</span><span class="sxs-lookup"><span data-stu-id="508ef-532">When the DB is created, property names on the model are used for column names (except when the `Column` attribute is used).</span></span>
+
+<span data-ttu-id="508ef-533">`Student` Model používá`FirstMidName` pole pro první název, protože pole může obsahovat také prostřední jméno.</span><span class="sxs-lookup"><span data-stu-id="508ef-533">The `Student` model uses `FirstMidName` for the first-name field because the field might also contain a middle name.</span></span>
+
+<span data-ttu-id="508ef-534">Aktualizujte soubor *student.cs* pomocí následujícího zvýrazněného kódu:</span><span class="sxs-lookup"><span data-stu-id="508ef-534">Update the *Student.cs* file with the following highlighted code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_Column&highlight=4,14)]
+
+<span data-ttu-id="508ef-535">`Student.FirstMidName` V předchozí změně se v aplikaci mapuje `FirstName` na sloupec `Student` tabulky.</span><span class="sxs-lookup"><span data-stu-id="508ef-535">With the preceding change, `Student.FirstMidName` in the app maps to the `FirstName` column of the `Student` table.</span></span>
+
+<span data-ttu-id="508ef-536">Přidání `Column` atributu změní model `SchoolContext`zálohování.</span><span class="sxs-lookup"><span data-stu-id="508ef-536">The addition of the `Column` attribute changes the model backing the `SchoolContext`.</span></span> <span data-ttu-id="508ef-537">Model, který `SchoolContext` zálohování již nevyhovuje, se neshoduje s databází.</span><span class="sxs-lookup"><span data-stu-id="508ef-537">The model backing the `SchoolContext` no longer matches the database.</span></span> <span data-ttu-id="508ef-538">Pokud je aplikace spuštěná před použitím migrace, vygeneruje se tato výjimka:</span><span class="sxs-lookup"><span data-stu-id="508ef-538">If the app is run before applying migrations, the following exception is generated:</span></span>
+
+```SQL
+SqlException: Invalid column name 'FirstName'.
+```
+
+<span data-ttu-id="508ef-539">Aktualizace databáze:</span><span class="sxs-lookup"><span data-stu-id="508ef-539">To update the DB:</span></span>
+
+* <span data-ttu-id="508ef-540">Sestavte projekt.</span><span class="sxs-lookup"><span data-stu-id="508ef-540">Build the project.</span></span>
+* <span data-ttu-id="508ef-541">Otevřete okno příkazového řádku ve složce projektu.</span><span class="sxs-lookup"><span data-stu-id="508ef-541">Open a command window in the project folder.</span></span> <span data-ttu-id="508ef-542">Zadáním následujících příkazů vytvořte novou migraci a aktualizujte databázi:</span><span class="sxs-lookup"><span data-stu-id="508ef-542">Enter the following commands to create a new migration and update the DB:</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-543">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-543">Visual Studio</span></span>](#tab/visual-studio)
+
+```PMC
+Add-Migration ColumnFirstName
+Update-Database
+```
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-544">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-544">Visual Studio Code</span></span>](#tab/visual-studio-code)
+
+```console
+dotnet ef migrations add ColumnFirstName
+dotnet ef database update
+```
+
+---
+
+<span data-ttu-id="508ef-545">`migrations add ColumnFirstName` Příkaz vygeneruje následující varovnou zprávu:</span><span class="sxs-lookup"><span data-stu-id="508ef-545">The `migrations add ColumnFirstName` command generates the following warning message:</span></span>
+
+```text
+An operation was scaffolded that may result in the loss of data.
+Please review the migration for accuracy.
+```
+
+<span data-ttu-id="508ef-546">Upozornění je vygenerováno, protože pole s názvem jsou nyní omezena na 50 znaků.</span><span class="sxs-lookup"><span data-stu-id="508ef-546">The warning is generated because the name fields are now limited to 50 characters.</span></span> <span data-ttu-id="508ef-547">Pokud má název v databázi více než 50 znaků, ztratí se 51 na poslední znak.</span><span class="sxs-lookup"><span data-stu-id="508ef-547">If a name in the DB had more than 50 characters, the 51 to last character would be lost.</span></span>
+
+* <span data-ttu-id="508ef-548">Otestujte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="508ef-548">Test the app.</span></span>
+
+<span data-ttu-id="508ef-549">Otevřete tabulku student v SSOX:</span><span class="sxs-lookup"><span data-stu-id="508ef-549">Open the Student table in SSOX:</span></span>
+
+![Tabulka studentů v SSOX po migraci](complex-data-model/_static/ssox-after-migration.png)
+
+<span data-ttu-id="508ef-551">Před použitím migrace byly sloupce názvu typu [nvarchar (max)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql).</span><span class="sxs-lookup"><span data-stu-id="508ef-551">Before migration was applied, the name columns were of type [nvarchar(MAX)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql).</span></span> <span data-ttu-id="508ef-552">Sloupce názvů jsou nyní `nvarchar(50)`.</span><span class="sxs-lookup"><span data-stu-id="508ef-552">The name columns are now `nvarchar(50)`.</span></span> <span data-ttu-id="508ef-553">Změnil se název sloupce z `FirstMidName` na. `FirstName`</span><span class="sxs-lookup"><span data-stu-id="508ef-553">The column name has changed from `FirstMidName` to `FirstName`.</span></span>
+
+> [!Note]
+> <span data-ttu-id="508ef-554">V následující části sestavení aplikace v některých fázích generuje chyby kompilátoru.</span><span class="sxs-lookup"><span data-stu-id="508ef-554">In the following section, building the app at some stages generates compiler errors.</span></span> <span data-ttu-id="508ef-555">Pokyny určují, kdy se má aplikace sestavit.</span><span class="sxs-lookup"><span data-stu-id="508ef-555">The instructions specify when to build the app.</span></span>
+
+## <a name="student-entity-update"></a><span data-ttu-id="508ef-556">Aktualizace entity studenta</span><span class="sxs-lookup"><span data-stu-id="508ef-556">Student entity update</span></span>
+
+![Entita studenta](complex-data-model/_static/student-entity.png)
+
+<span data-ttu-id="508ef-558">Aktualizujte *modely/student. cs* následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-558">Update *Models/Student.cs* with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_BeforeInheritance&highlight=11,13,15,18,22,24-31)]
+
+### <a name="the-required-attribute"></a><span data-ttu-id="508ef-559">Požadovaný atribut</span><span class="sxs-lookup"><span data-stu-id="508ef-559">The Required attribute</span></span>
+
+<span data-ttu-id="508ef-560">`Required` Atribut nastaví název vlastnosti povinná pole.</span><span class="sxs-lookup"><span data-stu-id="508ef-560">The `Required` attribute makes the name properties required fields.</span></span> <span data-ttu-id="508ef-561">Atribut není potřebný pro typy, které neumožňují hodnotu null, jako jsou`DateTime`typy hodnot `double`(, `int`, atd.). `Required`</span><span class="sxs-lookup"><span data-stu-id="508ef-561">The `Required` attribute isn't needed for non-nullable types such as value types (`DateTime`, `int`, `double`, etc.).</span></span> <span data-ttu-id="508ef-562">Typy, které nemůžou mít hodnotu null, se automaticky považují za povinná pole.</span><span class="sxs-lookup"><span data-stu-id="508ef-562">Types that can't be null are automatically treated as required fields.</span></span>
+
+<span data-ttu-id="508ef-563">Atribut může být nahrazen parametrem minimální délky `StringLength` v atributu: `Required`</span><span class="sxs-lookup"><span data-stu-id="508ef-563">The `Required` attribute could be replaced with a minimum length parameter in the `StringLength` attribute:</span></span>
+
+```csharp
+[Display(Name = "Last Name")]
+[StringLength(50, MinimumLength=1)]
+public string LastName { get; set; }
+```
+
+### <a name="the-display-attribute"></a><span data-ttu-id="508ef-564">Atribut zobrazení</span><span class="sxs-lookup"><span data-stu-id="508ef-564">The Display attribute</span></span>
+
+<span data-ttu-id="508ef-565">`Display` Atribut určuje, že titulek pro textová pole by měl být "jméno", "příjmení", "celé jméno" a "datum zápisu".</span><span class="sxs-lookup"><span data-stu-id="508ef-565">The `Display` attribute specifies that the caption for the text boxes should be "First Name", "Last Name", "Full Name", and "Enrollment Date."</span></span> <span data-ttu-id="508ef-566">Výchozí titulky neobsahovaly místo dělení slov, například "LastName".</span><span class="sxs-lookup"><span data-stu-id="508ef-566">The default captions had no space dividing the words, for example "Lastname."</span></span>
+
+### <a name="the-fullname-calculated-property"></a><span data-ttu-id="508ef-567">Vypočítaná vlastnost FullName</span><span class="sxs-lookup"><span data-stu-id="508ef-567">The FullName calculated property</span></span>
+
+<span data-ttu-id="508ef-568">`FullName`je vypočtená vlastnost, která vrací hodnotu, která je vytvořena zřetězením dvou dalších vlastností.</span><span class="sxs-lookup"><span data-stu-id="508ef-568">`FullName` is a calculated property that returns a value that's created by concatenating two other properties.</span></span> <span data-ttu-id="508ef-569">`FullName`nelze ji nastavit, má pouze přistupující objekt get.</span><span class="sxs-lookup"><span data-stu-id="508ef-569">`FullName` cannot be set, it has only a get accessor.</span></span> <span data-ttu-id="508ef-570">V `FullName` databázi není vytvořen žádný sloupec.</span><span class="sxs-lookup"><span data-stu-id="508ef-570">No `FullName` column is created in the database.</span></span>
+
+## <a name="create-the-instructor-entity"></a><span data-ttu-id="508ef-571">Vytvořit entitu instruktora</span><span class="sxs-lookup"><span data-stu-id="508ef-571">Create the Instructor Entity</span></span>
+
+![Entita instruktora](complex-data-model/_static/instructor-entity.png)
+
+<span data-ttu-id="508ef-573">Vytvořte *modely/Instructor. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-573">Create *Models/Instructor.cs* with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/Instructor.cs)]
+
+<span data-ttu-id="508ef-574">Více atributů může být na jednom řádku.</span><span class="sxs-lookup"><span data-stu-id="508ef-574">Multiple attributes can be on one line.</span></span> <span data-ttu-id="508ef-575">`HireDate` Atributy mohou být zapsány následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="508ef-575">The `HireDate` attributes could be written as follows:</span></span>
+
+```csharp
+[DataType(DataType.Date),Display(Name = "Hire Date"),DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+```
+
+### <a name="the-courseassignments-and-officeassignment-navigation-properties"></a><span data-ttu-id="508ef-576">Navigační vlastnosti CourseAssignments a OfficeAssignment</span><span class="sxs-lookup"><span data-stu-id="508ef-576">The CourseAssignments and OfficeAssignment navigation properties</span></span>
+
+<span data-ttu-id="508ef-577">Vlastnosti `CourseAssignments` a`OfficeAssignment` jsou navigační vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="508ef-577">The `CourseAssignments` and `OfficeAssignment` properties are navigation properties.</span></span>
+
+<span data-ttu-id="508ef-578">Instruktor může naučit libovolný počet kurzů, takže `CourseAssignments` je definován jako kolekce.</span><span class="sxs-lookup"><span data-stu-id="508ef-578">An instructor can teach any number of courses, so `CourseAssignments` is defined as a collection.</span></span>
+
+```csharp
+public ICollection<CourseAssignment> CourseAssignments { get; set; }
+```
+
+<span data-ttu-id="508ef-579">Pokud navigační vlastnost obsahuje více entit:</span><span class="sxs-lookup"><span data-stu-id="508ef-579">If a navigation property holds multiple entities:</span></span>
+
+* <span data-ttu-id="508ef-580">Musí se jednat o typ seznamu, kde je možné přidávat, odstraňovat a aktualizovat položky.</span><span class="sxs-lookup"><span data-stu-id="508ef-580">It must be a list type where the entries can be added, deleted, and updated.</span></span>
+
+<span data-ttu-id="508ef-581">Mezi typy vlastností navigace patří:</span><span class="sxs-lookup"><span data-stu-id="508ef-581">Navigation property types include:</span></span>
+
+* `ICollection<T>`
+* `List<T>`
+* `HashSet<T>`
+
+<span data-ttu-id="508ef-582">Pokud `ICollection<T>` je zadáno, EF Core `HashSet<T>` vytvoří kolekci ve výchozím nastavení.</span><span class="sxs-lookup"><span data-stu-id="508ef-582">If `ICollection<T>` is specified, EF Core creates a `HashSet<T>` collection by default.</span></span>
+
+<span data-ttu-id="508ef-583">`CourseAssignment` Entita je vysvětlena v části u vztahů m:n.</span><span class="sxs-lookup"><span data-stu-id="508ef-583">The `CourseAssignment` entity is explained in the section on many-to-many relationships.</span></span>
+
+<span data-ttu-id="508ef-584">Firemní pravidla společnosti Contoso vysokých škol, že vyučující může mít maximálně jednu kancelář.</span><span class="sxs-lookup"><span data-stu-id="508ef-584">Contoso University business rules state that an instructor can have at most one office.</span></span> <span data-ttu-id="508ef-585">Vlastnost obsahuje jednu `OfficeAssignment`entitu. `OfficeAssignment`</span><span class="sxs-lookup"><span data-stu-id="508ef-585">The `OfficeAssignment` property holds a single `OfficeAssignment` entity.</span></span> <span data-ttu-id="508ef-586">`OfficeAssignment`má hodnotu null, pokud není přiřazen žádný systém Office.</span><span class="sxs-lookup"><span data-stu-id="508ef-586">`OfficeAssignment` is null if no office is assigned.</span></span>
+
+```csharp
+public OfficeAssignment OfficeAssignment { get; set; }
+```
+
+## <a name="create-the-officeassignment-entity"></a><span data-ttu-id="508ef-587">Vytvoření entity OfficeAssignment</span><span class="sxs-lookup"><span data-stu-id="508ef-587">Create the OfficeAssignment entity</span></span>
+
+![OfficeAssignment – entita](complex-data-model/_static/officeassignment-entity.png)
+
+<span data-ttu-id="508ef-589">Vytvořte *modely/OfficeAssignment. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-589">Create *Models/OfficeAssignment.cs* with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/OfficeAssignment.cs)]
+
+### <a name="the-key-attribute"></a><span data-ttu-id="508ef-590">Klíčový atribut</span><span class="sxs-lookup"><span data-stu-id="508ef-590">The Key attribute</span></span>
+
+<span data-ttu-id="508ef-591">`[Key]` Atribut slouží k identifikaci vlastnosti jako primárního klíče (PK), pokud je název vlastnosti něco jiného než classnameID nebo ID.</span><span class="sxs-lookup"><span data-stu-id="508ef-591">The `[Key]` attribute is used to identify a property as the primary key (PK) when the property name is something other than classnameID or ID.</span></span>
+
+<span data-ttu-id="508ef-592">Mezi `Instructor` entitami a `OfficeAssignment` je relace 1:1 nebo jedna.</span><span class="sxs-lookup"><span data-stu-id="508ef-592">There's a one-to-zero-or-one relationship between the `Instructor` and `OfficeAssignment` entities.</span></span> <span data-ttu-id="508ef-593">Přiřazení kanceláře existuje jenom ve vztahu k instruktorovi, ke kterému je přiřazený.</span><span class="sxs-lookup"><span data-stu-id="508ef-593">An office assignment only exists in relation to the instructor it's assigned to.</span></span> <span data-ttu-id="508ef-594">PK je také jeho cizí klíč (FK) `Instructor` k entitě. `OfficeAssignment`</span><span class="sxs-lookup"><span data-stu-id="508ef-594">The `OfficeAssignment` PK is also its foreign key (FK) to the `Instructor` entity.</span></span> <span data-ttu-id="508ef-595">EF Core nemůže automaticky rozpoznat `InstructorID` jako PK z těchto `OfficeAssignment` důvodů:</span><span class="sxs-lookup"><span data-stu-id="508ef-595">EF Core can't automatically recognize `InstructorID` as the PK of `OfficeAssignment` because:</span></span>
+
+* <span data-ttu-id="508ef-596">`InstructorID`nedodržuje konvence pojmenování ID nebo classnameID.</span><span class="sxs-lookup"><span data-stu-id="508ef-596">`InstructorID` doesn't follow the ID or classnameID naming convention.</span></span>
+
+<span data-ttu-id="508ef-597">Proto atribut slouží k identifikaci `InstructorID` jako PK: `Key`</span><span class="sxs-lookup"><span data-stu-id="508ef-597">Therefore, the `Key` attribute is used to identify `InstructorID` as the PK:</span></span>
+
+```csharp
+[Key]
+public int InstructorID { get; set; }
+```
+
+<span data-ttu-id="508ef-598">Ve výchozím nastavení EF Core považuje klíč za generovaný nedatabází, protože sloupec je určen pro identifikaci vztahu.</span><span class="sxs-lookup"><span data-stu-id="508ef-598">By default, EF Core treats the key as non-database-generated because the column is for an identifying relationship.</span></span>
+
+### <a name="the-instructor-navigation-property"></a><span data-ttu-id="508ef-599">Navigační vlastnost instruktora</span><span class="sxs-lookup"><span data-stu-id="508ef-599">The Instructor navigation property</span></span>
+
+<span data-ttu-id="508ef-600">Vlastnost navigace pro entitu `Instructor` může mít hodnotu null, protože: `OfficeAssignment`</span><span class="sxs-lookup"><span data-stu-id="508ef-600">The `OfficeAssignment` navigation property for the `Instructor` entity is nullable because:</span></span>
+
+* <span data-ttu-id="508ef-601">Typy odkazů (například třídy mohou mít hodnotu null).</span><span class="sxs-lookup"><span data-stu-id="508ef-601">Reference types (such as classes are nullable).</span></span>
+* <span data-ttu-id="508ef-602">Instruktor nemusí mít přiřazení kanceláře.</span><span class="sxs-lookup"><span data-stu-id="508ef-602">An instructor might not have an office assignment.</span></span>
+
+<span data-ttu-id="508ef-603">Entita `OfficeAssignment` má vlastnost navigace, která neumožňuje hodnotu null `Instructor` , protože:</span><span class="sxs-lookup"><span data-stu-id="508ef-603">The `OfficeAssignment` entity has a non-nullable `Instructor` navigation property because:</span></span>
+
+* <span data-ttu-id="508ef-604">`InstructorID`hodnota nemůže být null.</span><span class="sxs-lookup"><span data-stu-id="508ef-604">`InstructorID` is non-nullable.</span></span>
+* <span data-ttu-id="508ef-605">Přiřazení kanceláře nemůže existovat bez instruktora.</span><span class="sxs-lookup"><span data-stu-id="508ef-605">An office assignment can't exist without an instructor.</span></span>
+
+<span data-ttu-id="508ef-606">Pokud má `OfficeAssignment` entita související entitu, Každá entita má odkaz na jinou entitu v její navigační vlastnosti. `Instructor`</span><span class="sxs-lookup"><span data-stu-id="508ef-606">When an `Instructor` entity has a related `OfficeAssignment` entity, each entity has a reference to the other one in its navigation property.</span></span>
+
+<span data-ttu-id="508ef-607">Atribut lze použít `Instructor` pro navigační vlastnost: `[Required]`</span><span class="sxs-lookup"><span data-stu-id="508ef-607">The `[Required]` attribute could be applied to the `Instructor` navigation property:</span></span>
+
+```csharp
+[Required]
+public Instructor Instructor { get; set; }
+```
+
+<span data-ttu-id="508ef-608">Předchozí kód určuje, že musí existovat související instruktor.</span><span class="sxs-lookup"><span data-stu-id="508ef-608">The preceding code specifies that there must be a related instructor.</span></span> <span data-ttu-id="508ef-609">Předchozí kód není potřebný, protože `InstructorID` cizí klíč (což je také klíč PK) je nepovoluje hodnotu null.</span><span class="sxs-lookup"><span data-stu-id="508ef-609">The preceding code is unnecessary because the `InstructorID` foreign key (which is also the PK) is non-nullable.</span></span>
+
+## <a name="modify-the-course-entity"></a><span data-ttu-id="508ef-610">Úprava entity kurzu</span><span class="sxs-lookup"><span data-stu-id="508ef-610">Modify the Course Entity</span></span>
+
+![Entita kurzu](complex-data-model/_static/course-entity.png)
+
+<span data-ttu-id="508ef-612">Aktualizujte *modely/Course. cs* pomocí následujícího kódu:</span><span class="sxs-lookup"><span data-stu-id="508ef-612">Update *Models/Course.cs* with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/Course.cs?name=snippet_Final&highlight=2,10,13,16,19,21,23)]
+
+<span data-ttu-id="508ef-613">Entita má vlastnost `DepartmentID`cizího klíče (FK). `Course`</span><span class="sxs-lookup"><span data-stu-id="508ef-613">The `Course` entity has a foreign key (FK) property `DepartmentID`.</span></span> <span data-ttu-id="508ef-614">`DepartmentID`odkazuje na související `Department` entitu.</span><span class="sxs-lookup"><span data-stu-id="508ef-614">`DepartmentID` points to the related `Department` entity.</span></span> <span data-ttu-id="508ef-615">`Course` Entita má vlastnost navigace. `Department`</span><span class="sxs-lookup"><span data-stu-id="508ef-615">The `Course` entity has a `Department` navigation property.</span></span>
+
+<span data-ttu-id="508ef-616">EF Core nevyžaduje vlastnost FK pro datový model, pokud model má vlastnost navigace pro související entitu.</span><span class="sxs-lookup"><span data-stu-id="508ef-616">EF Core doesn't require a FK property for a data model when the model has a navigation property for a related entity.</span></span>
+
+<span data-ttu-id="508ef-617">EF Core v databázi automaticky vytvoří FKs bez ohledu na to, kde jsou potřeba.</span><span class="sxs-lookup"><span data-stu-id="508ef-617">EF Core automatically creates FKs in the database wherever they're needed.</span></span> <span data-ttu-id="508ef-618">EF Core vytvoří [stínové vlastnosti](/ef/core/modeling/shadow-properties) pro automatické vytváření FKs.</span><span class="sxs-lookup"><span data-stu-id="508ef-618">EF Core creates [shadow properties](/ef/core/modeling/shadow-properties) for automatically created FKs.</span></span> <span data-ttu-id="508ef-619">Pokud se v datovém modelu nachází FK, může být aktualizace jednodušší a efektivnější.</span><span class="sxs-lookup"><span data-stu-id="508ef-619">Having the FK in the data model can make updates simpler and more efficient.</span></span> <span data-ttu-id="508ef-620">Zvažte například model, ve kterém není obsažena vlastnost `DepartmentID` FK .</span><span class="sxs-lookup"><span data-stu-id="508ef-620">For example, consider a model where the FK property `DepartmentID` is *not* included.</span></span> <span data-ttu-id="508ef-621">Když se načte entita kurzu, která se upraví:</span><span class="sxs-lookup"><span data-stu-id="508ef-621">When a course entity is fetched to edit:</span></span>
+
+* <span data-ttu-id="508ef-622">`Department` Entita má hodnotu null, pokud není explicitně načtena.</span><span class="sxs-lookup"><span data-stu-id="508ef-622">The `Department` entity is null if it's not explicitly loaded.</span></span>
+* <span data-ttu-id="508ef-623">Chcete-li aktualizovat entitu kurzu `Department` , je nutné nejprve načíst entitu.</span><span class="sxs-lookup"><span data-stu-id="508ef-623">To update the course entity, the `Department` entity must first be fetched.</span></span>
+
+<span data-ttu-id="508ef-624">Pokud je vlastnost `DepartmentID` FK obsažena v datovém modelu, není nutné `Department` načíst entitu před aktualizací.</span><span class="sxs-lookup"><span data-stu-id="508ef-624">When the FK property `DepartmentID` is included in the data model, there's no need to fetch the `Department` entity before an update.</span></span>
+
+### <a name="the-databasegenerated-attribute"></a><span data-ttu-id="508ef-625">Atribut DatabaseGenerated</span><span class="sxs-lookup"><span data-stu-id="508ef-625">The DatabaseGenerated attribute</span></span>
+
+<span data-ttu-id="508ef-626">`[DatabaseGenerated(DatabaseGeneratedOption.None)]` Atribut určuje, zda je v rámci aplikace poskytnuta PK místo vygenerovaného databází.</span><span class="sxs-lookup"><span data-stu-id="508ef-626">The `[DatabaseGenerated(DatabaseGeneratedOption.None)]` attribute specifies that the PK is provided by the application rather than generated by the database.</span></span>
+
+```csharp
+[DatabaseGenerated(DatabaseGeneratedOption.None)]
+[Display(Name = "Number")]
+public int CourseID { get; set; }
+```
+
+<span data-ttu-id="508ef-627">Ve výchozím nastavení EF Core předpokládá, že jsou hodnoty PK generovány databází.</span><span class="sxs-lookup"><span data-stu-id="508ef-627">By default, EF Core assumes that PK values are generated by the DB.</span></span> <span data-ttu-id="508ef-628">DATABÁZE vygenerovala hodnoty PK většinou nejlepšího přístupu.</span><span class="sxs-lookup"><span data-stu-id="508ef-628">DB generated PK values is generally the best approach.</span></span> <span data-ttu-id="508ef-629">Pro `Course` entity určuje uživatel PK.</span><span class="sxs-lookup"><span data-stu-id="508ef-629">For `Course` entities, the user specifies the PK.</span></span> <span data-ttu-id="508ef-630">Například číslo kurzu, jako je například série 1000 pro matematické oddělení, série 2000 pro národní oddělení.</span><span class="sxs-lookup"><span data-stu-id="508ef-630">For example, a course number such as a 1000 series for the math department, a 2000 series for the English department.</span></span>
+
+<span data-ttu-id="508ef-631">`DatabaseGenerated` Atribut lze také použít ke generování výchozích hodnot.</span><span class="sxs-lookup"><span data-stu-id="508ef-631">The `DatabaseGenerated` attribute can also be used to generate default values.</span></span> <span data-ttu-id="508ef-632">DATABÁZE může například automaticky vygenerovat pole data pro záznam data, kdy byl řádek vytvořen nebo aktualizován.</span><span class="sxs-lookup"><span data-stu-id="508ef-632">For example, the DB can automatically generate a date field to record the date a row was created or updated.</span></span> <span data-ttu-id="508ef-633">Další informace najdete v tématu [vygenerované vlastnosti](/ef/core/modeling/generated-properties).</span><span class="sxs-lookup"><span data-stu-id="508ef-633">For more information, see [Generated Properties](/ef/core/modeling/generated-properties).</span></span>
+
+### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="508ef-634">Vlastnosti cizích klíčů a navigace</span><span class="sxs-lookup"><span data-stu-id="508ef-634">Foreign key and navigation properties</span></span>
+
+<span data-ttu-id="508ef-635">Vlastnosti cizího klíče (FK) a navigační vlastnosti v `Course` entitě odráží následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="508ef-635">The foreign key (FK) properties and navigation properties in the `Course` entity reflect the following relationships:</span></span>
+
+<span data-ttu-id="508ef-636">Kurz se přiřadí jednomu oddělení, takže je k dispozici `DepartmentID` FK `Department` a navigační vlastnost.</span><span class="sxs-lookup"><span data-stu-id="508ef-636">A course is assigned to one department, so there's a `DepartmentID` FK and a `Department` navigation property.</span></span>
+
+```csharp
+public int DepartmentID { get; set; }
+public Department Department { get; set; }
+```
+
+<span data-ttu-id="508ef-637">V rámci kurzu může být zaregistrované několik studentů, takže `Enrollments` navigační vlastnost je kolekce:</span><span class="sxs-lookup"><span data-stu-id="508ef-637">A course can have any number of students enrolled in it, so the `Enrollments` navigation property is a collection:</span></span>
+
+```csharp
+public ICollection<Enrollment> Enrollments { get; set; }
+```
+
+<span data-ttu-id="508ef-638">Kurz může být výukou více instruktorů, takže `CourseAssignments` navigační vlastnost je kolekce:</span><span class="sxs-lookup"><span data-stu-id="508ef-638">A course may be taught by multiple instructors, so the `CourseAssignments` navigation property is a collection:</span></span>
+
+```csharp
+public ICollection<CourseAssignment> CourseAssignments { get; set; }
+```
+
+<span data-ttu-id="508ef-639">`CourseAssignment`je vysvětleno [později](#many-to-many-relationships).</span><span class="sxs-lookup"><span data-stu-id="508ef-639">`CourseAssignment` is explained [later](#many-to-many-relationships).</span></span>
+
+## <a name="create-the-department-entity"></a><span data-ttu-id="508ef-640">Vytvořit entitu oddělení</span><span class="sxs-lookup"><span data-stu-id="508ef-640">Create the Department entity</span></span>
+
+![Entita oddělení](complex-data-model/_static/department-entity.png)
+
+<span data-ttu-id="508ef-642">Vytvořte *modely/oddělení. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-642">Create *Models/Department.cs* with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/Department.cs?name=snippet_Begin)]
+
+### <a name="the-column-attribute"></a><span data-ttu-id="508ef-643">Atribut Column</span><span class="sxs-lookup"><span data-stu-id="508ef-643">The Column attribute</span></span>
+
+<span data-ttu-id="508ef-644">Dřív se `Column` použil atribut pro změnu mapování názvu sloupce.</span><span class="sxs-lookup"><span data-stu-id="508ef-644">Previously the `Column` attribute was used to change column name mapping.</span></span> <span data-ttu-id="508ef-645">V kódu pro `Department` entitu `Column` se atribut používá ke změně mapování datových typů SQL.</span><span class="sxs-lookup"><span data-stu-id="508ef-645">In the code for the `Department` entity, the `Column` attribute is used to change SQL data type mapping.</span></span> <span data-ttu-id="508ef-646">`Budget` Sloupec je definovaný pomocí SQL Server peněžního typu v databázi:</span><span class="sxs-lookup"><span data-stu-id="508ef-646">The `Budget` column is defined using the SQL Server money type in the DB:</span></span>
+
+```csharp
+[Column(TypeName="money")]
+public decimal Budget { get; set; }
+```
+
+<span data-ttu-id="508ef-647">Mapování sloupce není obecně vyžadováno.</span><span class="sxs-lookup"><span data-stu-id="508ef-647">Column mapping is generally not required.</span></span> <span data-ttu-id="508ef-648">EF Core všeobecně vybere vhodný SQL Server datový typ založený na typu CLR pro danou vlastnost.</span><span class="sxs-lookup"><span data-stu-id="508ef-648">EF Core generally chooses the appropriate SQL Server data type based on the CLR type for the property.</span></span> <span data-ttu-id="508ef-649">Typ CLR `decimal` se mapuje na typ SQL Server `decimal` .</span><span class="sxs-lookup"><span data-stu-id="508ef-649">The CLR `decimal` type maps to a SQL Server `decimal` type.</span></span> <span data-ttu-id="508ef-650">`Budget`je pro měnu a datový typ Money je pro měnu vhodný.</span><span class="sxs-lookup"><span data-stu-id="508ef-650">`Budget` is for currency, and the money data type is more appropriate for currency.</span></span>
+
+### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="508ef-651">Vlastnosti cizích klíčů a navigace</span><span class="sxs-lookup"><span data-stu-id="508ef-651">Foreign key and navigation properties</span></span>
+
+<span data-ttu-id="508ef-652">Vlastnosti FK a navigace odrážejí následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="508ef-652">The FK and navigation properties reflect the following relationships:</span></span>
+
+* <span data-ttu-id="508ef-653">Oddělení může nebo nemusí mít správce.</span><span class="sxs-lookup"><span data-stu-id="508ef-653">A department may or may not have an administrator.</span></span>
+* <span data-ttu-id="508ef-654">Správce je vždy instruktor.</span><span class="sxs-lookup"><span data-stu-id="508ef-654">An administrator is always an instructor.</span></span> <span data-ttu-id="508ef-655">Proto je `Instructor` vlastnost obsažena jako FK pro entitu. `InstructorID`</span><span class="sxs-lookup"><span data-stu-id="508ef-655">Therefore the `InstructorID` property is included as the FK to the `Instructor` entity.</span></span>
+
+<span data-ttu-id="508ef-656">Navigační vlastnost má název `Administrator` , ale `Instructor` obsahuje entitu:</span><span class="sxs-lookup"><span data-stu-id="508ef-656">The navigation property is named `Administrator` but holds an `Instructor` entity:</span></span>
+
+```csharp
+public int? InstructorID { get; set; }
+public Instructor Administrator { get; set; }
+```
+
+<span data-ttu-id="508ef-657">Otazník (?) v předchozím kódu určuje vlastnost s možnou hodnotou null.</span><span class="sxs-lookup"><span data-stu-id="508ef-657">The question mark (?) in the preceding code specifies the property is nullable.</span></span>
+
+<span data-ttu-id="508ef-658">Oddělení může mít spoustu kurzů, takže máme navigační vlastnost kurzů:</span><span class="sxs-lookup"><span data-stu-id="508ef-658">A department may have many courses, so there's a Courses navigation property:</span></span>
+
+```csharp
+public ICollection<Course> Courses { get; set; }
+```
+
+<span data-ttu-id="508ef-659">Poznámka: Podle konvence EF Core povoluje kaskádové odstranění pro FKs, která nejsou null a pro relace m:n.</span><span class="sxs-lookup"><span data-stu-id="508ef-659">Note: By convention, EF Core enables cascade delete for non-nullable FKs and for many-to-many relationships.</span></span> <span data-ttu-id="508ef-660">Kaskádové odstranění může mít za následek cyklické Kaskádové odstraňování pravidel.</span><span class="sxs-lookup"><span data-stu-id="508ef-660">Cascading delete can result in circular cascade delete rules.</span></span> <span data-ttu-id="508ef-661">Cyklická kaskádová odstranění pravidel způsobí výjimku při přidání migrace.</span><span class="sxs-lookup"><span data-stu-id="508ef-661">Circular cascade delete rules causes an exception when a migration is added.</span></span>
+
+<span data-ttu-id="508ef-662">Pokud byla například `Department.InstructorID` vlastnost definována jako nepovolená hodnota null:</span><span class="sxs-lookup"><span data-stu-id="508ef-662">For example, if the `Department.InstructorID` property was defined as non-nullable:</span></span>
+
+* <span data-ttu-id="508ef-663">EF Core konfiguruje pravidlo kaskádového odstranění, které odstraní oddělení při odstranění instruktora.</span><span class="sxs-lookup"><span data-stu-id="508ef-663">EF Core configures a cascade delete rule to delete the department when the instructor is deleted.</span></span>
+* <span data-ttu-id="508ef-664">Odstranění oddělení, když se odstraní instruktor, není zamýšleným chováním.</span><span class="sxs-lookup"><span data-stu-id="508ef-664">Deleting the department when the instructor is deleted isn't the intended behavior.</span></span>
+* <span data-ttu-id="508ef-665">Následující rozhraní Fluent API by místo kaskádového nastavilo pravidlo omezení.</span><span class="sxs-lookup"><span data-stu-id="508ef-665">The following fluent API would set a restrict rule instead of cascade.</span></span>
+
+   ```csharp
+   modelBuilder.Entity<Department>()
+      .HasOne(d => d.Administrator)
+      .WithMany()
+      .OnDelete(DeleteBehavior.Restrict)
+  ```
+
+<span data-ttu-id="508ef-666">Předchozí kód zakáže kaskádové odstranění na základě vztahu oddělení a instruktor.</span><span class="sxs-lookup"><span data-stu-id="508ef-666">The preceding code disables cascade delete on the department-instructor relationship.</span></span>
+
+## <a name="update-the-enrollment-entity"></a><span data-ttu-id="508ef-667">Aktualizace entity registrace</span><span class="sxs-lookup"><span data-stu-id="508ef-667">Update the Enrollment entity</span></span>
+
+<span data-ttu-id="508ef-668">Záznam zápisu je pro jeden kurz, který přijímá jeden student.</span><span class="sxs-lookup"><span data-stu-id="508ef-668">An enrollment record is for one course taken by one student.</span></span>
+
+![Entita registrace](complex-data-model/_static/enrollment-entity.png)
+
+<span data-ttu-id="508ef-670">Aktualizujte *modely/zápis. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-670">Update *Models/Enrollment.cs* with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/Enrollment.cs?name=snippet_Final&highlight=1-2,16)]
+
+### <a name="foreign-key-and-navigation-properties"></a><span data-ttu-id="508ef-671">Vlastnosti cizích klíčů a navigace</span><span class="sxs-lookup"><span data-stu-id="508ef-671">Foreign key and navigation properties</span></span>
+
+<span data-ttu-id="508ef-672">Vlastnosti CK a vlastnosti navigace odrážejí následující vztahy:</span><span class="sxs-lookup"><span data-stu-id="508ef-672">The FK properties and navigation properties reflect the following relationships:</span></span>
+
+<span data-ttu-id="508ef-673">Záznam zápisu je pro jeden kurz, takže existuje `CourseID` vlastnost FK `Course` a navigační vlastnost:</span><span class="sxs-lookup"><span data-stu-id="508ef-673">An enrollment record is for one course, so there's a `CourseID` FK property and a `Course` navigation property:</span></span>
+
+```csharp
+public int CourseID { get; set; }
+public Course Course { get; set; }
+```
+
+<span data-ttu-id="508ef-674">Záznam zápisu je určen pro jednoho studenta, takže existuje `StudentID` vlastnost FK `Student` a navigační vlastnost:</span><span class="sxs-lookup"><span data-stu-id="508ef-674">An enrollment record is for one student, so there's a `StudentID` FK property and a `Student` navigation property:</span></span>
+
+```csharp
+public int StudentID { get; set; }
+public Student Student { get; set; }
+```
+
+## <a name="many-to-many-relationships"></a><span data-ttu-id="508ef-675">Relace m:n</span><span class="sxs-lookup"><span data-stu-id="508ef-675">Many-to-Many Relationships</span></span>
+
+<span data-ttu-id="508ef-676">Mezi `Student` entitami a `Course` existuje vztah m:n.</span><span class="sxs-lookup"><span data-stu-id="508ef-676">There's a many-to-many relationship between the `Student` and `Course` entities.</span></span> <span data-ttu-id="508ef-677">Entita funguje jako tabulka JOIN typu m:n *s datovou částí* v databázi. `Enrollment`</span><span class="sxs-lookup"><span data-stu-id="508ef-677">The `Enrollment` entity functions as a many-to-many join table *with payload* in the database.</span></span> <span data-ttu-id="508ef-678">"S datovou částí" znamená `Enrollment` , že tabulka obsahuje další data kromě FKs pro Spojené tabulky (v tomto případě PK a `Grade`).</span><span class="sxs-lookup"><span data-stu-id="508ef-678">"With payload" means that the `Enrollment` table contains additional data besides FKs for the joined tables (in this case, the PK and `Grade`).</span></span>
+
+<span data-ttu-id="508ef-679">Následující ilustrace znázorňuje, co tyto vztahy vypadají jako v diagramu entit.</span><span class="sxs-lookup"><span data-stu-id="508ef-679">The following illustration shows what these relationships look like in an entity diagram.</span></span> <span data-ttu-id="508ef-680">(Tento diagram byl vygenerován pomocí [nástrojů EF Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) pro EF 6. x.</span><span class="sxs-lookup"><span data-stu-id="508ef-680">(This diagram was generated using [EF Power Tools](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition) for EF 6.x.</span></span> <span data-ttu-id="508ef-681">Vytvoření diagramu není součástí kurzu.)</span><span class="sxs-lookup"><span data-stu-id="508ef-681">Creating the diagram isn't part of the tutorial.)</span></span>
+
+![Mezi studenty hodně a mnoha](complex-data-model/_static/student-course.png)
+
+<span data-ttu-id="508ef-683">Každá čára relace má 1 na jednom konci a hvězdičku (\*) na druhé straně, která indikuje relaci 1: n.</span><span class="sxs-lookup"><span data-stu-id="508ef-683">Each relationship line has a 1 at one end and an asterisk (\*) at the other, indicating a one-to-many relationship.</span></span>
+
+<span data-ttu-id="508ef-684">Pokud tabulka neobsahovala informace o třídě, musí obsahovat pouze dvě FKs (`CourseID` a `StudentID`). `Enrollment`</span><span class="sxs-lookup"><span data-stu-id="508ef-684">If the `Enrollment` table didn't include grade information, it would only need to contain the two FKs (`CourseID` and `StudentID`).</span></span> <span data-ttu-id="508ef-685">Tabulka JOIN typu m:n bez datové části se někdy označuje jako čistá spojovací tabulka (PJT).</span><span class="sxs-lookup"><span data-stu-id="508ef-685">A many-to-many join table without payload is sometimes called a pure join table (PJT).</span></span>
+
+<span data-ttu-id="508ef-686">Entity `Instructor` a`Course` mají relaci n:n pomocí tabulky Pure JOIN.</span><span class="sxs-lookup"><span data-stu-id="508ef-686">The `Instructor` and `Course` entities have a many-to-many relationship using a pure join table.</span></span>
+
+<span data-ttu-id="508ef-687">Poznámka: EF 6. x podporuje implicitní spojení tabulek pro relace m:n, ale EF Core ne.</span><span class="sxs-lookup"><span data-stu-id="508ef-687">Note: EF 6.x supports implicit join tables for many-to-many relationships, but EF Core doesn't.</span></span> <span data-ttu-id="508ef-688">Další informace najdete v tématu [relace m:n v EF Core 2,0](https://blog.oneunicorn.com/2017/09/25/many-to-many-relationships-in-ef-core-2-0-part-1-the-basics/).</span><span class="sxs-lookup"><span data-stu-id="508ef-688">For more information, see [Many-to-many relationships in EF Core 2.0](https://blog.oneunicorn.com/2017/09/25/many-to-many-relationships-in-ef-core-2-0-part-1-the-basics/).</span></span>
+
+## <a name="the-courseassignment-entity"></a><span data-ttu-id="508ef-689">Entita CourseAssignment</span><span class="sxs-lookup"><span data-stu-id="508ef-689">The CourseAssignment entity</span></span>
+
+![CourseAssignment – entita](complex-data-model/_static/courseassignment-entity.png)
+
+<span data-ttu-id="508ef-691">Vytvořte *modely/CourseAssignment. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="508ef-691">Create *Models/CourseAssignment.cs* with the following code:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Models/CourseAssignment.cs)]
+
+### <a name="instructor-to-courses"></a><span data-ttu-id="508ef-692">Instruktory do kurzů</span><span class="sxs-lookup"><span data-stu-id="508ef-692">Instructor-to-Courses</span></span>
+
+![M:M instruktory do kurzů](complex-data-model/_static/courseassignment.png)
+
+<span data-ttu-id="508ef-694">Vztah n:n od instruktora do více kurzů:</span><span class="sxs-lookup"><span data-stu-id="508ef-694">The Instructor-to-Courses many-to-many relationship:</span></span>
+
+* <span data-ttu-id="508ef-695">Vyžaduje tabulku JOIN, která musí být reprezentována sadou entit.</span><span class="sxs-lookup"><span data-stu-id="508ef-695">Requires a join table that must be represented by an entity set.</span></span>
+* <span data-ttu-id="508ef-696">Je čistá spojovací tabulka (tabulka bez datové části).</span><span class="sxs-lookup"><span data-stu-id="508ef-696">Is a pure join table (table without payload).</span></span>
+
+<span data-ttu-id="508ef-697">Je běžné pojmenovat entitu `EntityName1EntityName2`JOIN.</span><span class="sxs-lookup"><span data-stu-id="508ef-697">It's common to name a join entity `EntityName1EntityName2`.</span></span> <span data-ttu-id="508ef-698">Například tabulka pro spojení instruktora do kurzů, která používá tento model, je `CourseInstructor`.</span><span class="sxs-lookup"><span data-stu-id="508ef-698">For example, the Instructor-to-Courses join table using this pattern is `CourseInstructor`.</span></span> <span data-ttu-id="508ef-699">Doporučujeme však použít název, který popisuje vztah.</span><span class="sxs-lookup"><span data-stu-id="508ef-699">However, we recommend using a name that describes the relationship.</span></span>
+
+<span data-ttu-id="508ef-700">Modely dat začínají jednoduchým a roste.</span><span class="sxs-lookup"><span data-stu-id="508ef-700">Data models start out simple and grow.</span></span> <span data-ttu-id="508ef-701">Spojení bez datové části (PJTs) se často rozvíjejí, aby zahrnovalo datovou část.</span><span class="sxs-lookup"><span data-stu-id="508ef-701">No-payload joins (PJTs) frequently evolve to include payload.</span></span> <span data-ttu-id="508ef-702">Když začnete s popisným názvem entity, nemusíte při změně tabulky JOIN měnit název.</span><span class="sxs-lookup"><span data-stu-id="508ef-702">By starting with a descriptive entity name, the name doesn't need to change when the join table changes.</span></span> <span data-ttu-id="508ef-703">V ideálním případě by entita JOIN měla vlastní přirozený název (případně jeden Word) v obchodní doméně.</span><span class="sxs-lookup"><span data-stu-id="508ef-703">Ideally, the join entity would have its own natural (possibly single word) name in the business domain.</span></span> <span data-ttu-id="508ef-704">Například knihy a zákazníci mohou být propojeny s entitou JOIN nazvanou hodnocení.</span><span class="sxs-lookup"><span data-stu-id="508ef-704">For example, Books and Customers could be linked with a join entity called Ratings.</span></span> <span data-ttu-id="508ef-705">Pro relaci `CourseAssignment` n:n v instruktorech na více kurzů se používá přednost před `CourseInstructor`.</span><span class="sxs-lookup"><span data-stu-id="508ef-705">For the Instructor-to-Courses many-to-many relationship, `CourseAssignment` is preferred over `CourseInstructor`.</span></span>
+
+### <a name="composite-key"></a><span data-ttu-id="508ef-706">Složený klíč</span><span class="sxs-lookup"><span data-stu-id="508ef-706">Composite key</span></span>
+
+<span data-ttu-id="508ef-707">FKs nemohou mít hodnotu null.</span><span class="sxs-lookup"><span data-stu-id="508ef-707">FKs are not nullable.</span></span> <span data-ttu-id="508ef-708">Dva FKs v `CourseAssignment` (`InstructorID` `CourseID` a`CourseAssignment` ) společně identifikují každý řádek tabulky.</span><span class="sxs-lookup"><span data-stu-id="508ef-708">The two FKs in `CourseAssignment` (`InstructorID` and `CourseID`) together uniquely identify each row of the `CourseAssignment` table.</span></span> <span data-ttu-id="508ef-709">`CourseAssignment`nevyžaduje vyhrazený PK.</span><span class="sxs-lookup"><span data-stu-id="508ef-709">`CourseAssignment` doesn't require a dedicated PK.</span></span> <span data-ttu-id="508ef-710">Vlastnosti `InstructorID` a`CourseID` fungují jako složené PK.</span><span class="sxs-lookup"><span data-stu-id="508ef-710">The `InstructorID` and `CourseID` properties function as a composite PK.</span></span> <span data-ttu-id="508ef-711">Jediným způsobem, jak zadat složené PKs EF Core je s rozhraním *API Fluent*.</span><span class="sxs-lookup"><span data-stu-id="508ef-711">The only way to specify composite PKs to EF Core is with the *fluent API*.</span></span> <span data-ttu-id="508ef-712">V další části se dozvíte, jak nakonfigurovat složený PK.</span><span class="sxs-lookup"><span data-stu-id="508ef-712">The next section shows how to configure the composite PK.</span></span>
+
+<span data-ttu-id="508ef-713">Složený klíč zajišťuje:</span><span class="sxs-lookup"><span data-stu-id="508ef-713">The composite key ensures:</span></span>
+
+* <span data-ttu-id="508ef-714">Pro jeden kurz je povoleno více řádků.</span><span class="sxs-lookup"><span data-stu-id="508ef-714">Multiple rows are allowed for one course.</span></span>
+* <span data-ttu-id="508ef-715">Pro jednoho instruktora je povoleno více řádků.</span><span class="sxs-lookup"><span data-stu-id="508ef-715">Multiple rows are allowed for one instructor.</span></span>
+* <span data-ttu-id="508ef-716">Více řádků pro stejný instruktor a kurz není povoleno.</span><span class="sxs-lookup"><span data-stu-id="508ef-716">Multiple rows for the same instructor and course isn't allowed.</span></span>
+
+<span data-ttu-id="508ef-717">Entita `Enrollment` JOIN definuje vlastní PK, takže je možné duplikovat toto řazení.</span><span class="sxs-lookup"><span data-stu-id="508ef-717">The `Enrollment` join entity defines its own PK, so duplicates of this sort are possible.</span></span> <span data-ttu-id="508ef-718">Chcete-li zabránit těmto duplicitám:</span><span class="sxs-lookup"><span data-stu-id="508ef-718">To prevent such duplicates:</span></span>
+
+* <span data-ttu-id="508ef-719">Přidejte do polí FK jedinečný index nebo</span><span class="sxs-lookup"><span data-stu-id="508ef-719">Add a unique index on the FK fields, or</span></span>
+* <span data-ttu-id="508ef-720">Nakonfigurujte `Enrollment` pomocí primárního složeného klíče `CourseAssignment`podobného.</span><span class="sxs-lookup"><span data-stu-id="508ef-720">Configure `Enrollment` with a primary composite key similar to `CourseAssignment`.</span></span> <span data-ttu-id="508ef-721">Další informace najdete v tématu [indexy](/ef/core/modeling/indexes).</span><span class="sxs-lookup"><span data-stu-id="508ef-721">For more information, see [Indexes](/ef/core/modeling/indexes).</span></span>
+
+## <a name="update-the-db-context"></a><span data-ttu-id="508ef-722">Aktualizace kontextu databáze</span><span class="sxs-lookup"><span data-stu-id="508ef-722">Update the DB context</span></span>
+
+<span data-ttu-id="508ef-723">Do *data/SchoolContext. cs*přidejte následující zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="508ef-723">Add the following highlighted code to *Data/SchoolContext.cs*:</span></span>
+
+[!code-csharp[](intro/samples/cu21/Data/SchoolContext.cs?name=snippet_BeforeInheritance&highlight=15-18,25-31)]
+
+<span data-ttu-id="508ef-724">Předchozí kód přidá nové entity a nakonfiguruje `CourseAssignment` neseparovaný PK entity.</span><span class="sxs-lookup"><span data-stu-id="508ef-724">The preceding code adds the new entities and configures the `CourseAssignment` entity's composite PK.</span></span>
+
+## <a name="fluent-api-alternative-to-attributes"></a><span data-ttu-id="508ef-725">Alternativa k atributům rozhraní Fluent API</span><span class="sxs-lookup"><span data-stu-id="508ef-725">Fluent API alternative to attributes</span></span>
+
+<span data-ttu-id="508ef-726">Metoda v předchozím kódu používá *rozhraní Fluent API* ke konfiguraci chování EF Core. `OnModelCreating`</span><span class="sxs-lookup"><span data-stu-id="508ef-726">The `OnModelCreating` method in the preceding code uses the *fluent API* to configure EF Core behavior.</span></span> <span data-ttu-id="508ef-727">Rozhraní API se nazývá "Fluent", protože se často používá k zřetězení řady volání metody do jednoho příkazu.</span><span class="sxs-lookup"><span data-stu-id="508ef-727">The API is called "fluent" because it's often used by stringing a series of method calls together into a single statement.</span></span> <span data-ttu-id="508ef-728">[Následující kód](/ef/core/modeling/#use-fluent-api-to-configure-a-model) je příkladem rozhraní Fluent API:</span><span class="sxs-lookup"><span data-stu-id="508ef-728">The [following code](/ef/core/modeling/#use-fluent-api-to-configure-a-model) is an example of the fluent API:</span></span>
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Blog>()
+        .Property(b => b.Url)
+        .IsRequired();
+}
+```
+
+<span data-ttu-id="508ef-729">V tomto kurzu se rozhraní API Fluent používá jenom pro mapování DB, které nejde s atributy dělat.</span><span class="sxs-lookup"><span data-stu-id="508ef-729">In this tutorial, the fluent API is used only for DB mapping that can't be done with attributes.</span></span> <span data-ttu-id="508ef-730">Rozhraní API Fluent ale může určovat většinu pravidel formátování, ověřování a mapování, která se dají provádět s atributy.</span><span class="sxs-lookup"><span data-stu-id="508ef-730">However, the fluent API can specify most of the formatting, validation, and mapping rules that can be done with attributes.</span></span>
+
+<span data-ttu-id="508ef-731">Některé atributy, `MinimumLength` jako například, se nedají použít s rozhraním API Fluent.</span><span class="sxs-lookup"><span data-stu-id="508ef-731">Some attributes such as `MinimumLength` can't be applied with the fluent API.</span></span> <span data-ttu-id="508ef-732">`MinimumLength`nemění schéma, používá pouze ověřovací pravidlo minimální délky.</span><span class="sxs-lookup"><span data-stu-id="508ef-732">`MinimumLength` doesn't change the schema, it only applies a minimum length validation rule.</span></span>
+
+<span data-ttu-id="508ef-733">Někteří vývojáři dávají přednost použití rozhraní Fluent API, aby mohli zachovat třídy entit "vyčistit".</span><span class="sxs-lookup"><span data-stu-id="508ef-733">Some developers prefer to use the fluent API exclusively so that they can keep their entity classes "clean."</span></span> <span data-ttu-id="508ef-734">Atributy a rozhraní API Fluent lze kombinovat.</span><span class="sxs-lookup"><span data-stu-id="508ef-734">Attributes and the fluent API can be mixed.</span></span> <span data-ttu-id="508ef-735">Existují některé konfigurace, které lze provést pouze s rozhraním API Fluent (určením složeného PK).</span><span class="sxs-lookup"><span data-stu-id="508ef-735">There are some configurations that can only be done with the fluent API (specifying a composite PK).</span></span> <span data-ttu-id="508ef-736">Existují některé konfigurace, které lze provádět pouze s atributy (`MinimumLength`).</span><span class="sxs-lookup"><span data-stu-id="508ef-736">There are some configurations that can only be done with attributes (`MinimumLength`).</span></span> <span data-ttu-id="508ef-737">Doporučený postup pro použití rozhraní Fluent API nebo atributů:</span><span class="sxs-lookup"><span data-stu-id="508ef-737">The recommended practice for using fluent API or attributes:</span></span>
+
+* <span data-ttu-id="508ef-738">Vyberte jednu z těchto dvou přístupů.</span><span class="sxs-lookup"><span data-stu-id="508ef-738">Choose one of these two approaches.</span></span>
+* <span data-ttu-id="508ef-739">Používejte vybraný postup konzistentně co nejvíce.</span><span class="sxs-lookup"><span data-stu-id="508ef-739">Use the chosen approach consistently as much as possible.</span></span>
+
+<span data-ttu-id="508ef-740">Některé atributy použité v tomto kurzu se používají pro:</span><span class="sxs-lookup"><span data-stu-id="508ef-740">Some of the attributes used in the this tutorial are used for:</span></span>
+
+* <span data-ttu-id="508ef-741">Pouze ověření (například `MinimumLength`).</span><span class="sxs-lookup"><span data-stu-id="508ef-741">Validation only (for example, `MinimumLength`).</span></span>
+* <span data-ttu-id="508ef-742">Pouze konfigurace EF Core (například `HasKey`).</span><span class="sxs-lookup"><span data-stu-id="508ef-742">EF Core configuration only (for example, `HasKey`).</span></span>
+* <span data-ttu-id="508ef-743">Konfigurace ověřování a EF Core (například `[StringLength(50)]`).</span><span class="sxs-lookup"><span data-stu-id="508ef-743">Validation and EF Core configuration (for example, `[StringLength(50)]`).</span></span>
+
+<span data-ttu-id="508ef-744">Další informace o atributech vs. Fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/).</span><span class="sxs-lookup"><span data-stu-id="508ef-744">For more information about attributes vs. fluent API, see [Methods of configuration](/ef/core/modeling/).</span></span>
+
+## <a name="entity-diagram-showing-relationships"></a><span data-ttu-id="508ef-745">Diagram entit znázorňující vztahy</span><span class="sxs-lookup"><span data-stu-id="508ef-745">Entity Diagram Showing Relationships</span></span>
+
+<span data-ttu-id="508ef-746">Následující ilustrace znázorňuje diagram, který nástroje EF Power Tools vytvoří pro dokončený školní model.</span><span class="sxs-lookup"><span data-stu-id="508ef-746">The following illustration shows the diagram that EF Power Tools create for the completed School model.</span></span>
+
+![Diagram entit](complex-data-model/_static/diagram.png)
+
+<span data-ttu-id="508ef-748">Předchozí diagram znázorňuje:</span><span class="sxs-lookup"><span data-stu-id="508ef-748">The preceding diagram shows:</span></span>
+
+* <span data-ttu-id="508ef-749">Několik čar relací 1:1 (1 až \*).</span><span class="sxs-lookup"><span data-stu-id="508ef-749">Several one-to-many relationship lines (1 to \*).</span></span>
+* <span data-ttu-id="508ef-750">Čára relace 1:1 (1 – 0.. 1) mezi `Instructor` entitami a. `OfficeAssignment`</span><span class="sxs-lookup"><span data-stu-id="508ef-750">The one-to-zero-or-one relationship line (1 to 0..1) between the `Instructor` and `OfficeAssignment` entities.</span></span>
+* <span data-ttu-id="508ef-751">Čára relace nula až n-many (0.. 1 až ×) mezi `Instructor` entitami a. `Department`</span><span class="sxs-lookup"><span data-stu-id="508ef-751">The zero-or-one-to-many relationship line (0..1 to \*) between the `Instructor` and `Department` entities.</span></span>
+
+## <a name="seed-the-db-with-test-data"></a><span data-ttu-id="508ef-752">Osazení databáze pomocí testovacích dat</span><span class="sxs-lookup"><span data-stu-id="508ef-752">Seed the DB with Test Data</span></span>
+
+<span data-ttu-id="508ef-753">Aktualizujte kód v *data/DbInitializer. cs*:</span><span class="sxs-lookup"><span data-stu-id="508ef-753">Update the code in *Data/DbInitializer.cs*:</span></span>
 
 [!code-csharp[](intro/samples/cu21/Data/DbInitializer.cs?name=snippet_Final)]
 
-<span data-ttu-id="79a17-390">Předchozí kód poskytuje data počáteční hodnotu pro nové entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-390">The preceding code provides seed data for the new entities.</span></span> <span data-ttu-id="79a17-391">Většina tento kód vytvoří nové objekty entity a načte ukázková data.</span><span class="sxs-lookup"><span data-stu-id="79a17-391">Most of this code creates new entity objects and loads sample data.</span></span> <span data-ttu-id="79a17-392">Ukázková data se používá pro účely testování.</span><span class="sxs-lookup"><span data-stu-id="79a17-392">The sample data is used for testing.</span></span> <span data-ttu-id="79a17-393">Zobrazit `Enrollments` a `CourseAssignments` pro příklady jak many-to-many spojení tabulek můžete nasadí.</span><span class="sxs-lookup"><span data-stu-id="79a17-393">See `Enrollments` and `CourseAssignments` for examples of how many-to-many join tables can be seeded.</span></span>
+<span data-ttu-id="508ef-754">Předchozí kód poskytuje počáteční data pro nové entity.</span><span class="sxs-lookup"><span data-stu-id="508ef-754">The preceding code provides seed data for the new entities.</span></span> <span data-ttu-id="508ef-755">Většina tohoto kódu vytváří nové objekty entit a načítá vzorová data.</span><span class="sxs-lookup"><span data-stu-id="508ef-755">Most of this code creates new entity objects and loads sample data.</span></span> <span data-ttu-id="508ef-756">Ukázková data se používají k testování.</span><span class="sxs-lookup"><span data-stu-id="508ef-756">The sample data is used for testing.</span></span> <span data-ttu-id="508ef-757">V `Enrollments` tématu `CourseAssignments` a najdete příklady, jak lze dosazení tabulek JOIN typu many.</span><span class="sxs-lookup"><span data-stu-id="508ef-757">See `Enrollments` and `CourseAssignments` for examples of how many-to-many join tables can be seeded.</span></span>
 
-## <a name="add-a-migration"></a><span data-ttu-id="79a17-394">Přidejte migraci</span><span class="sxs-lookup"><span data-stu-id="79a17-394">Add a migration</span></span>
+## <a name="add-a-migration"></a><span data-ttu-id="508ef-758">Přidání migrace</span><span class="sxs-lookup"><span data-stu-id="508ef-758">Add a migration</span></span>
 
-<span data-ttu-id="79a17-395">Sestavte projekt.</span><span class="sxs-lookup"><span data-stu-id="79a17-395">Build the project.</span></span>
+<span data-ttu-id="508ef-759">Sestavte projekt.</span><span class="sxs-lookup"><span data-stu-id="508ef-759">Build the project.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="79a17-396">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="79a17-396">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-760">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-760">Visual Studio</span></span>](#tab/visual-studio)
 
 ```PMC
 Add-Migration ComplexDataModel
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="79a17-397">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="79a17-397">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-761">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-761">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 ```console
 dotnet ef migrations add ComplexDataModel
@@ -553,7 +1257,7 @@ dotnet ef migrations add ComplexDataModel
 
 ---
 
-<span data-ttu-id="79a17-398">Předchozí příkaz zobrazí varování týkající se ke ztrátě.</span><span class="sxs-lookup"><span data-stu-id="79a17-398">The preceding command displays a warning about possible data loss.</span></span>
+<span data-ttu-id="508ef-762">Předchozí příkaz zobrazí upozornění na možnou ztrátu dat.</span><span class="sxs-lookup"><span data-stu-id="508ef-762">The preceding command displays a warning about possible data loss.</span></span>
 
 ```text
 An operation was scaffolded that may result in the loss of data.
@@ -561,42 +1265,42 @@ Please review the migration for accuracy.
 Done. To undo this action, use 'ef migrations remove'
 ```
 
-<span data-ttu-id="79a17-399">Pokud `database update` příkaz spustit, je vytvořen následující chybu:</span><span class="sxs-lookup"><span data-stu-id="79a17-399">If the `database update` command is run, the following error is produced:</span></span>
+<span data-ttu-id="508ef-763">Pokud se `database update` příkaz spustí, vytvoří se následující chyba:</span><span class="sxs-lookup"><span data-stu-id="508ef-763">If the `database update` command is run, the following error is produced:</span></span>
 
 ```text
 The ALTER TABLE statement conflicted with the FOREIGN KEY constraint "FK_dbo.Course_dbo.Department_DepartmentID". The conflict occurred in
 database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 ```
 
-## <a name="apply-the-migration"></a><span data-ttu-id="79a17-400">Použití migrace</span><span class="sxs-lookup"><span data-stu-id="79a17-400">Apply the migration</span></span>
+## <a name="apply-the-migration"></a><span data-ttu-id="508ef-764">Použití migrace</span><span class="sxs-lookup"><span data-stu-id="508ef-764">Apply the migration</span></span>
 
-<span data-ttu-id="79a17-401">Teď, když máte existující databázi, musíte přemýšlet o tom, jak na ně vztahují budoucí změny.</span><span class="sxs-lookup"><span data-stu-id="79a17-401">Now that you have an existing database, you need to think about how to apply future changes to it.</span></span> <span data-ttu-id="79a17-402">Tento kurz ukazuje dva přístupy:</span><span class="sxs-lookup"><span data-stu-id="79a17-402">This tutorial shows two approaches:</span></span>
+<span data-ttu-id="508ef-765">Teď, když máte existující databázi, musíte si představit, jak v nich použít budoucí změny.</span><span class="sxs-lookup"><span data-stu-id="508ef-765">Now that you have an existing database, you need to think about how to apply future changes to it.</span></span> <span data-ttu-id="508ef-766">V tomto kurzu se dozvíte dva přístupy:</span><span class="sxs-lookup"><span data-stu-id="508ef-766">This tutorial shows two approaches:</span></span>
 
-* [<span data-ttu-id="79a17-403">Vyřadit a znovu vytvořit databázi</span><span class="sxs-lookup"><span data-stu-id="79a17-403">Drop and re-create the database</span></span>](#drop)
-* <span data-ttu-id="79a17-404">[Použití migrace k existující databázi](#applyexisting).</span><span class="sxs-lookup"><span data-stu-id="79a17-404">[Apply the migration to the existing database](#applyexisting).</span></span> <span data-ttu-id="79a17-405">Tato metoda je složité a časově náročné, je upřednostňovaný způsob pro každodenní praxe produkční prostředí.</span><span class="sxs-lookup"><span data-stu-id="79a17-405">While this method is more complex and time-consuming, it's the preferred approach for real-world, production environments.</span></span> <span data-ttu-id="79a17-406">**Poznámka:** Toto je volitelné části tohoto kurzu.</span><span class="sxs-lookup"><span data-stu-id="79a17-406">**Note**: This is an optional section of the tutorial.</span></span> <span data-ttu-id="79a17-407">Můžete provést rozevírací a znovu vytvořit kroky a tuto část přeskočit.</span><span class="sxs-lookup"><span data-stu-id="79a17-407">You can do the drop and re-create steps and skip this section.</span></span> <span data-ttu-id="79a17-408">Pokud chcete postupovat podle kroků v této části, nemáte proveďte rozevírací nabídku a znovu vytvořit kroky.</span><span class="sxs-lookup"><span data-stu-id="79a17-408">If you do want to follow the steps in this section, don't do the drop and re-create steps.</span></span> 
+* [<span data-ttu-id="508ef-767">Vyřazení a opětovné vytvoření databáze</span><span class="sxs-lookup"><span data-stu-id="508ef-767">Drop and re-create the database</span></span>](#drop)
+* <span data-ttu-id="508ef-768">[Použijte migraci na stávající databázi](#applyexisting).</span><span class="sxs-lookup"><span data-stu-id="508ef-768">[Apply the migration to the existing database](#applyexisting).</span></span> <span data-ttu-id="508ef-769">I když je tato metoda složitější a časově náročná, jedná se o preferovaný přístup pro produkční prostředí z reálného světa.</span><span class="sxs-lookup"><span data-stu-id="508ef-769">While this method is more complex and time-consuming, it's the preferred approach for real-world, production environments.</span></span> <span data-ttu-id="508ef-770">**Poznámka:** Toto je volitelný oddíl tohoto kurzu.</span><span class="sxs-lookup"><span data-stu-id="508ef-770">**Note**: This is an optional section of the tutorial.</span></span> <span data-ttu-id="508ef-771">Můžete provést kroky odkládací a znovu vytvořit a tuto část přeskočit.</span><span class="sxs-lookup"><span data-stu-id="508ef-771">You can do the drop and re-create steps and skip this section.</span></span> <span data-ttu-id="508ef-772">Pokud chcete postupovat podle kroků v této části, neprovádějte kroky odkládací a znovu vytvořit.</span><span class="sxs-lookup"><span data-stu-id="508ef-772">If you do want to follow the steps in this section, don't do the drop and re-create steps.</span></span> 
 
 <a name="drop"></a>
 
-### <a name="drop-and-re-create-the-database"></a><span data-ttu-id="79a17-409">Vyřadit a znovu vytvořit databázi</span><span class="sxs-lookup"><span data-stu-id="79a17-409">Drop and re-create the database</span></span>
+### <a name="drop-and-re-create-the-database"></a><span data-ttu-id="508ef-773">Vyřazení a opětovné vytvoření databáze</span><span class="sxs-lookup"><span data-stu-id="508ef-773">Drop and re-create the database</span></span>
 
-<span data-ttu-id="79a17-410">Kód v aktualizovaném `DbInitializer` přidá data počáteční hodnotu pro nové entity.</span><span class="sxs-lookup"><span data-stu-id="79a17-410">The code in the updated `DbInitializer` adds seed data for the new entities.</span></span> <span data-ttu-id="79a17-411">Pokud chcete vynutit EF Core k vytvoření nové databáze, vyřaďte a aktualizaci databáze:</span><span class="sxs-lookup"><span data-stu-id="79a17-411">To force EF Core to create a new  DB, drop and update the DB:</span></span>
+<span data-ttu-id="508ef-774">Kód v aktualizovaném `DbInitializer` přidání počátečních dat pro nové entity.</span><span class="sxs-lookup"><span data-stu-id="508ef-774">The code in the updated `DbInitializer` adds seed data for the new entities.</span></span> <span data-ttu-id="508ef-775">Pokud chcete vynutit EF Core vytvoření nové databáze, vyřaďte a aktualizujte databázi:</span><span class="sxs-lookup"><span data-stu-id="508ef-775">To force EF Core to create a new  DB, drop and update the DB:</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="79a17-412">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="79a17-412">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="508ef-776">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="508ef-776">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="79a17-413">V **Konzola správce balíčků** (PMC), spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="79a17-413">In the **Package Manager Console** (PMC), run the following command:</span></span>
+<span data-ttu-id="508ef-777">V **konzole správce balíčků** (PMC) spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="508ef-777">In the **Package Manager Console** (PMC), run the following command:</span></span>
 
 ```PMC
 Drop-Database
 Update-Database
 ```
 
-<span data-ttu-id="79a17-414">Spustit `Get-Help about_EntityFrameworkCore` z konzole PMC zobrazíte nápovědu.</span><span class="sxs-lookup"><span data-stu-id="79a17-414">Run `Get-Help about_EntityFrameworkCore` from the PMC to get help information.</span></span>
+<span data-ttu-id="508ef-778">Pokud `Get-Help about_EntityFrameworkCore` chcete získat informace o nápovědě, spusťte z PMC.</span><span class="sxs-lookup"><span data-stu-id="508ef-778">Run `Get-Help about_EntityFrameworkCore` from the PMC to get help information.</span></span>
 
-# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="79a17-415">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="79a17-415">.NET Core CLI</span></span>](#tab/netcore-cli)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="508ef-779">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="508ef-779">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="79a17-416">Otevřete okno příkazového řádku a přejděte do složky projektu.</span><span class="sxs-lookup"><span data-stu-id="79a17-416">Open a command window and navigate to the project folder.</span></span> <span data-ttu-id="79a17-417">Obsahuje složky projektu *Startup.cs* souboru.</span><span class="sxs-lookup"><span data-stu-id="79a17-417">The project folder contains the *Startup.cs* file.</span></span>
+<span data-ttu-id="508ef-780">Otevřete příkazové okno a přejděte do složky projektu.</span><span class="sxs-lookup"><span data-stu-id="508ef-780">Open a command window and navigate to the project folder.</span></span> <span data-ttu-id="508ef-781">Složka projektu obsahuje soubor *Startup.cs* .</span><span class="sxs-lookup"><span data-stu-id="508ef-781">The project folder contains the *Startup.cs* file.</span></span>
 
-<span data-ttu-id="79a17-418">V příkazovém okně zadejte následující:</span><span class="sxs-lookup"><span data-stu-id="79a17-418">Enter the following in the command window:</span></span>
+<span data-ttu-id="508ef-782">V příkazovém okně zadejte následující:</span><span class="sxs-lookup"><span data-stu-id="508ef-782">Enter the following in the command window:</span></span>
 
  ```console
  dotnet ef database drop
@@ -605,71 +1309,73 @@ dotnet ef database update
 
 ---
 
-<span data-ttu-id="79a17-419">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="79a17-419">Run the app.</span></span> <span data-ttu-id="79a17-420">Spuštění aplikace spuštěná `DbInitializer.Initialize` metody.</span><span class="sxs-lookup"><span data-stu-id="79a17-420">Running the app runs the `DbInitializer.Initialize` method.</span></span> <span data-ttu-id="79a17-421">`DbInitializer.Initialize` Naplní nová databáze.</span><span class="sxs-lookup"><span data-stu-id="79a17-421">The `DbInitializer.Initialize` populates the new DB.</span></span>
+<span data-ttu-id="508ef-783">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="508ef-783">Run the app.</span></span> <span data-ttu-id="508ef-784">Spuštění aplikace spustí `DbInitializer.Initialize` metodu.</span><span class="sxs-lookup"><span data-stu-id="508ef-784">Running the app runs the `DbInitializer.Initialize` method.</span></span> <span data-ttu-id="508ef-785">`DbInitializer.Initialize` Naplní novou databázi.</span><span class="sxs-lookup"><span data-stu-id="508ef-785">The `DbInitializer.Initialize` populates the new DB.</span></span>
 
-<span data-ttu-id="79a17-422">Otevřete v SSOX databáze:</span><span class="sxs-lookup"><span data-stu-id="79a17-422">Open the DB in SSOX:</span></span>
+<span data-ttu-id="508ef-786">Otevřete databázi v SSOX:</span><span class="sxs-lookup"><span data-stu-id="508ef-786">Open the DB in SSOX:</span></span>
 
-* <span data-ttu-id="79a17-423">Pokud SSOX byl dříve otevřen, klikněte na tlačítko **aktualizovat** tlačítko.</span><span class="sxs-lookup"><span data-stu-id="79a17-423">If SSOX was opened previously, click the **Refresh** button.</span></span>
-* <span data-ttu-id="79a17-424">Rozbalte **tabulky** uzlu.</span><span class="sxs-lookup"><span data-stu-id="79a17-424">Expand the **Tables** node.</span></span> <span data-ttu-id="79a17-425">Vytvořené tabulky se zobrazí.</span><span class="sxs-lookup"><span data-stu-id="79a17-425">The created tables are displayed.</span></span>
+* <span data-ttu-id="508ef-787">Pokud jste dříve otevřeli SSOX, klikněte na tlačítko **aktualizovat** .</span><span class="sxs-lookup"><span data-stu-id="508ef-787">If SSOX was opened previously, click the **Refresh** button.</span></span>
+* <span data-ttu-id="508ef-788">Rozbalte **tabulky** uzlu.</span><span class="sxs-lookup"><span data-stu-id="508ef-788">Expand the **Tables** node.</span></span> <span data-ttu-id="508ef-789">Zobrazí se vytvořené tabulky.</span><span class="sxs-lookup"><span data-stu-id="508ef-789">The created tables are displayed.</span></span>
 
 ![Tabulky v SSOX](complex-data-model/_static/ssox-tables.png)
 
-<span data-ttu-id="79a17-427">Zkontrolujte **CourseAssignment** tabulky:</span><span class="sxs-lookup"><span data-stu-id="79a17-427">Examine the **CourseAssignment** table:</span></span>
+<span data-ttu-id="508ef-791">Projděte si tabulku **CourseAssignment** :</span><span class="sxs-lookup"><span data-stu-id="508ef-791">Examine the **CourseAssignment** table:</span></span>
 
-* <span data-ttu-id="79a17-428">Klikněte pravým tlačítkem myši **CourseAssignment** tabulce a vybrat **Data zobrazení**.</span><span class="sxs-lookup"><span data-stu-id="79a17-428">Right-click the **CourseAssignment** table and select **View Data**.</span></span>
-* <span data-ttu-id="79a17-429">Ověřte, **CourseAssignment** tabulka obsahuje data.</span><span class="sxs-lookup"><span data-stu-id="79a17-429">Verify the **CourseAssignment** table contains data.</span></span>
+* <span data-ttu-id="508ef-792">Klikněte pravým tlačítkem na tabulku **CourseAssignment** a vyberte **Zobrazit data**.</span><span class="sxs-lookup"><span data-stu-id="508ef-792">Right-click the **CourseAssignment** table and select **View Data**.</span></span>
+* <span data-ttu-id="508ef-793">Ověřte, že tabulka **CourseAssignment** obsahuje data.</span><span class="sxs-lookup"><span data-stu-id="508ef-793">Verify the **CourseAssignment** table contains data.</span></span>
 
 ![Data CourseAssignment v SSOX](complex-data-model/_static/ssox-ci-data.png)
 
 <a name="applyexisting"></a>
 
-### <a name="apply-the-migration-to-the-existing-database"></a><span data-ttu-id="79a17-431">Použití migrace k existující databázi</span><span class="sxs-lookup"><span data-stu-id="79a17-431">Apply the migration to the existing database</span></span>
+### <a name="apply-the-migration-to-the-existing-database"></a><span data-ttu-id="508ef-795">Použít migraci na existující databázi</span><span class="sxs-lookup"><span data-stu-id="508ef-795">Apply the migration to the existing database</span></span>
 
-<span data-ttu-id="79a17-432">Tato část je nepovinná.</span><span class="sxs-lookup"><span data-stu-id="79a17-432">This section is optional.</span></span> <span data-ttu-id="79a17-433">Tento postup funguje pouze v případě, že jste přeskočili předchozí [vyřaďte a znovu vytvořit databázi](#drop) oddílu.</span><span class="sxs-lookup"><span data-stu-id="79a17-433">These steps work only if you skipped the preceding [Drop and re-create the database](#drop) section.</span></span>
+<span data-ttu-id="508ef-796">Tato část je volitelná.</span><span class="sxs-lookup"><span data-stu-id="508ef-796">This section is optional.</span></span> <span data-ttu-id="508ef-797">Tyto kroky fungují pouze v případě, že jste přeskočili předchozí oddíl [drop a znovu vytvořit databázi](#drop) .</span><span class="sxs-lookup"><span data-stu-id="508ef-797">These steps work only if you skipped the preceding [Drop and re-create the database](#drop) section.</span></span>
 
-<span data-ttu-id="79a17-434">Při spuštění migrace s existujícími daty, může být omezení cizího klíče, které nejsou splněné s existujícími daty.</span><span class="sxs-lookup"><span data-stu-id="79a17-434">When migrations are run with existing data, there may be FK constraints that are not satisfied with the existing data.</span></span> <span data-ttu-id="79a17-435">S použitím provozních dat musí být kroky potřebného k migraci existujících dat.</span><span class="sxs-lookup"><span data-stu-id="79a17-435">With production data, steps must be taken to migrate the existing data.</span></span> <span data-ttu-id="79a17-436">Tato část poskytuje příklad opravuje narušení omezení cizího klíče.</span><span class="sxs-lookup"><span data-stu-id="79a17-436">This section provides an example of fixing FK constraint violations.</span></span> <span data-ttu-id="79a17-437">Neprovádějte změny kódu bez předchozího provedení zálohy.</span><span class="sxs-lookup"><span data-stu-id="79a17-437">Don't make these code changes without a backup.</span></span> <span data-ttu-id="79a17-438">Nenastavujte tyto změny kódu, je-li dokončit předchozí části a aktualizována v databázi.</span><span class="sxs-lookup"><span data-stu-id="79a17-438">Don't make these code changes if you completed the previous section and updated the database.</span></span>
+<span data-ttu-id="508ef-798">Pokud jsou migrace spouštěny s existujícími daty, může dojít k omezením FK, která nesplňují stávající data.</span><span class="sxs-lookup"><span data-stu-id="508ef-798">When migrations are run with existing data, there may be FK constraints that are not satisfied with the existing data.</span></span> <span data-ttu-id="508ef-799">S provozními daty je potřeba provést kroky pro migraci stávajících dat.</span><span class="sxs-lookup"><span data-stu-id="508ef-799">With production data, steps must be taken to migrate the existing data.</span></span> <span data-ttu-id="508ef-800">V této části najdete příklad opravy porušení omezení CK.</span><span class="sxs-lookup"><span data-stu-id="508ef-800">This section provides an example of fixing FK constraint violations.</span></span> <span data-ttu-id="508ef-801">Neprovádějte změny kódu bez zálohy.</span><span class="sxs-lookup"><span data-stu-id="508ef-801">Don't make these code changes without a backup.</span></span> <span data-ttu-id="508ef-802">Neprovádějte změny kódu, pokud jste dokončili předchozí oddíl a aktualizovali databázi.</span><span class="sxs-lookup"><span data-stu-id="508ef-802">Don't make these code changes if you completed the previous section and updated the database.</span></span>
 
-<span data-ttu-id="79a17-439">*{Timestamp}_ComplexDataModel.cs* soubor obsahuje následující kód:</span><span class="sxs-lookup"><span data-stu-id="79a17-439">The *{timestamp}_ComplexDataModel.cs* file contains the following code:</span></span>
+<span data-ttu-id="508ef-803">Soubor *{timestamp} _ComplexDataModel. cs* obsahuje následující kód:</span><span class="sxs-lookup"><span data-stu-id="508ef-803">The *{timestamp}_ComplexDataModel.cs* file contains the following code:</span></span>
 
 [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_DepartmentID)]
 
-<span data-ttu-id="79a17-440">Předchozí kód přidá neumožňující `DepartmentID` FK k `Course` tabulky.</span><span class="sxs-lookup"><span data-stu-id="79a17-440">The preceding code adds a non-nullable `DepartmentID` FK to the `Course` table.</span></span> <span data-ttu-id="79a17-441">Databáze z předchozí kurz o službě obsahuje řádky v `Course`, takže tuto tabulku nelze aktualizovat migrace.</span><span class="sxs-lookup"><span data-stu-id="79a17-441">The DB from the previous tutorial contains rows in `Course`, so that table cannot be updated by migrations.</span></span>
+<span data-ttu-id="508ef-804">Předchozí kód přidá `Course` do tabulky nenulovou hodnotu `DepartmentID` typu FK.</span><span class="sxs-lookup"><span data-stu-id="508ef-804">The preceding code adds a non-nullable `DepartmentID` FK to the `Course` table.</span></span> <span data-ttu-id="508ef-805">Databáze z předchozího kurzu obsahuje řádky v `Course`, takže nelze aktualizovat tabulku pomocí migrací.</span><span class="sxs-lookup"><span data-stu-id="508ef-805">The DB from the previous tutorial contains rows in `Course`, so that table cannot be updated by migrations.</span></span>
 
-<span data-ttu-id="79a17-442">Chcete-li `ComplexDataModel` migraci vám nebudeme nic s existujícími daty:</span><span class="sxs-lookup"><span data-stu-id="79a17-442">To make the `ComplexDataModel` migration work with existing data:</span></span>
+<span data-ttu-id="508ef-806">Chcete-li migrovat práci s existujícími daty: `ComplexDataModel`</span><span class="sxs-lookup"><span data-stu-id="508ef-806">To make the `ComplexDataModel` migration work with existing data:</span></span>
 
-* <span data-ttu-id="79a17-443">Změňte kód a zadejte nový sloupec (`DepartmentID`) výchozí hodnotu.</span><span class="sxs-lookup"><span data-stu-id="79a17-443">Change the code to give the new column (`DepartmentID`) a default value.</span></span>
-* <span data-ttu-id="79a17-444">Vytvořte falešnou oddělení s názvem "Temp" tak, aby fungoval jako výchozí oddělení.</span><span class="sxs-lookup"><span data-stu-id="79a17-444">Create a fake department named "Temp" to act as the default department.</span></span>
+* <span data-ttu-id="508ef-807">Změňte kód tak, aby nový sloupec (`DepartmentID`) poskytl výchozí hodnotu.</span><span class="sxs-lookup"><span data-stu-id="508ef-807">Change the code to give the new column (`DepartmentID`) a default value.</span></span>
+* <span data-ttu-id="508ef-808">Vytvořte falešné oddělení s názvem "Temp", které bude sloužit jako výchozí oddělení.</span><span class="sxs-lookup"><span data-stu-id="508ef-808">Create a fake department named "Temp" to act as the default department.</span></span>
 
-#### <a name="fix-the-foreign-key-constraints"></a><span data-ttu-id="79a17-445">Oprava omezení cizího klíče</span><span class="sxs-lookup"><span data-stu-id="79a17-445">Fix the foreign key constraints</span></span>
+#### <a name="fix-the-foreign-key-constraints"></a><span data-ttu-id="508ef-809">Oprava omezení cizího klíče</span><span class="sxs-lookup"><span data-stu-id="508ef-809">Fix the foreign key constraints</span></span>
 
-<span data-ttu-id="79a17-446">Aktualizace `ComplexDataModel` třídy `Up` metody:</span><span class="sxs-lookup"><span data-stu-id="79a17-446">Update the `ComplexDataModel` classes `Up` method:</span></span>
+<span data-ttu-id="508ef-810">Aktualizujte metodu `Up`třídy: `ComplexDataModel`</span><span class="sxs-lookup"><span data-stu-id="508ef-810">Update the `ComplexDataModel` classes `Up` method:</span></span>
 
-* <span data-ttu-id="79a17-447">Otevřít *{timestamp}_ComplexDataModel.cs* souboru.</span><span class="sxs-lookup"><span data-stu-id="79a17-447">Open the *{timestamp}_ComplexDataModel.cs* file.</span></span>
-* <span data-ttu-id="79a17-448">Odkomentujte řádek kódu, který se přidá `DepartmentID` sloupec, který se `Course` tabulky.</span><span class="sxs-lookup"><span data-stu-id="79a17-448">Comment out the line of code that adds the `DepartmentID` column to the `Course` table.</span></span>
+* <span data-ttu-id="508ef-811">Otevřete soubor *{timestamp} _ComplexDataModel. cs* .</span><span class="sxs-lookup"><span data-stu-id="508ef-811">Open the *{timestamp}_ComplexDataModel.cs* file.</span></span>
+* <span data-ttu-id="508ef-812">Odkomentujte řádek kódu, který přidá `DepartmentID` sloupec `Course` do tabulky.</span><span class="sxs-lookup"><span data-stu-id="508ef-812">Comment out the line of code that adds the `DepartmentID` column to the `Course` table.</span></span>
 
 [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CommentOut&highlight=9-13)]
 
-<span data-ttu-id="79a17-449">Přidejte následující zvýrazněný kód.</span><span class="sxs-lookup"><span data-stu-id="79a17-449">Add the following highlighted code.</span></span> <span data-ttu-id="79a17-450">Nový kód prochází po `.CreateTable( name: "Department"` blok:</span><span class="sxs-lookup"><span data-stu-id="79a17-450">The new code goes after the `.CreateTable( name: "Department"` block:</span></span>
+<span data-ttu-id="508ef-813">Přidejte následující zvýrazněný kód.</span><span class="sxs-lookup"><span data-stu-id="508ef-813">Add the following highlighted code.</span></span> <span data-ttu-id="508ef-814">Nový kód přejde za `.CreateTable( name: "Department"` blok:</span><span class="sxs-lookup"><span data-stu-id="508ef-814">The new code goes after the `.CreateTable( name: "Department"` block:</span></span>
 
  [!code-csharp[](intro/samples/cu/Migrations/20171027005808_ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=22-32)]
 
-<span data-ttu-id="79a17-451">S předchozím změní, stávající `Course` řádky se související s oddělení "Temp" po `ComplexDataModel` `Up` metoda spuštění.</span><span class="sxs-lookup"><span data-stu-id="79a17-451">With the preceding changes, existing `Course` rows will be related to the "Temp" department after the `ComplexDataModel` `Up` method runs.</span></span>
+<span data-ttu-id="508ef-815">V předchozích změnách budou existující `Course` řádky při spuštění `Up` metody v relaci s "dočasným" oddělením `ComplexDataModel` .</span><span class="sxs-lookup"><span data-stu-id="508ef-815">With the preceding changes, existing `Course` rows will be related to the "Temp" department after the `ComplexDataModel` `Up` method runs.</span></span>
 
-<span data-ttu-id="79a17-452">Produkční aplikace bude:</span><span class="sxs-lookup"><span data-stu-id="79a17-452">A production app would:</span></span>
+<span data-ttu-id="508ef-816">Produkční aplikace by:</span><span class="sxs-lookup"><span data-stu-id="508ef-816">A production app would:</span></span>
 
-* <span data-ttu-id="79a17-453">Zahrnout kódu nebo skriptech, chcete-li přidat `Department` řádky a související `Course` řádky k novému `Department` řádků.</span><span class="sxs-lookup"><span data-stu-id="79a17-453">Include code or scripts to add `Department` rows and related `Course` rows to the new `Department` rows.</span></span>
-* <span data-ttu-id="79a17-454">Nepoužívat oddělení "Temp" nebo výchozí hodnotu pro `Course.DepartmentID`.</span><span class="sxs-lookup"><span data-stu-id="79a17-454">Not use the "Temp" department or the default value for `Course.DepartmentID`.</span></span>
+* <span data-ttu-id="508ef-817">Zahrnout kód nebo skripty pro přidání `Department` řádků a souvisejících `Course` řádků do nových `Department` řádků.</span><span class="sxs-lookup"><span data-stu-id="508ef-817">Include code or scripts to add `Department` rows and related `Course` rows to the new `Department` rows.</span></span>
+* <span data-ttu-id="508ef-818">Nepoužívejte oddělení "dočasné" nebo výchozí hodnotu pro `Course.DepartmentID`.</span><span class="sxs-lookup"><span data-stu-id="508ef-818">Not use the "Temp" department or the default value for `Course.DepartmentID`.</span></span>
 
-<span data-ttu-id="79a17-455">Další kurz se zaměřuje na související data.</span><span class="sxs-lookup"><span data-stu-id="79a17-455">The next tutorial covers related data.</span></span>
+<span data-ttu-id="508ef-819">Další kurz se zabývá souvisejícími daty.</span><span class="sxs-lookup"><span data-stu-id="508ef-819">The next tutorial covers related data.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="79a17-456">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="79a17-456">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="508ef-820">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="508ef-820">Additional resources</span></span>
 
-* [<span data-ttu-id="79a17-457">YouTube verzi tohoto kurzu (část 1)</span><span class="sxs-lookup"><span data-stu-id="79a17-457">YouTube version of this tutorial(Part 1)</span></span>](https://www.youtube.com/watch?v=0n2f0ObgCoA)
-* [<span data-ttu-id="79a17-458">YouTube verzi tohoto kurzu (část 2)</span><span class="sxs-lookup"><span data-stu-id="79a17-458">YouTube version of this tutorial(Part 2)</span></span>](https://www.youtube.com/watch?v=Je0Z5K1TNmY)
+* [<span data-ttu-id="508ef-821">Verze tohoto kurzu pro YouTube (část 1)</span><span class="sxs-lookup"><span data-stu-id="508ef-821">YouTube version of this tutorial(Part 1)</span></span>](https://www.youtube.com/watch?v=0n2f0ObgCoA)
+* [<span data-ttu-id="508ef-822">Verze tohoto kurzu pro YouTube (část 2)</span><span class="sxs-lookup"><span data-stu-id="508ef-822">YouTube version of this tutorial(Part 2)</span></span>](https://www.youtube.com/watch?v=Je0Z5K1TNmY)
 
 
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="79a17-459">[Předchozí](xref:data/ef-rp/migrations)
-> [další](xref:data/ef-rp/read-related-data)</span><span class="sxs-lookup"><span data-stu-id="79a17-459">[Previous](xref:data/ef-rp/migrations)
+> <span data-ttu-id="508ef-823">[Předchozí](xref:data/ef-rp/migrations)Další
+> [](xref:data/ef-rp/read-related-data)</span><span class="sxs-lookup"><span data-stu-id="508ef-823">[Previous](xref:data/ef-rp/migrations)
 [Next](xref:data/ef-rp/read-related-data)</span></span>
+
+::: moniker-end

@@ -1,142 +1,260 @@
 ---
 title: Spuštění aplikace v ASP.NET Core
 author: tdykstra
-description: Zjistěte, jak třídu pro spuštění v ASP.NET Core konfiguruje služby a kanál žádosti o aplikace.
-monikerRange: '>= aspnetcore-2.1'
+description: Přečtěte si, jak třída Startup v ASP.NET Core konfiguruje služby a kanál žádostí aplikace.
 ms.author: tdykstra
 ms.custom: mvc
-ms.date: 01/17/2019
+ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 7e1741d2bed15f36a967713a2f9bd0d93801c8d0
-ms.sourcegitcommit: ccbb84ae307a5bc527441d3d509c20b5c1edde05
+ms.openlocfilehash: 0ee1a972bf2b94119767e79c2f4ea18d3265e356
+ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/19/2019
-ms.locfileid: "65874941"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68913998"
 ---
-# <a name="app-startup-in-aspnet-core"></a><span data-ttu-id="8d68b-103">Spuštění aplikace v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="8d68b-103">App startup in ASP.NET Core</span></span>
+# <a name="app-startup-in-aspnet-core"></a><span data-ttu-id="fb31b-103">Spuštění aplikace v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="fb31b-103">App startup in ASP.NET Core</span></span>
 
-<span data-ttu-id="8d68b-104">Podle [Petr Dykstra](https://github.com/tdykstra), [Luke Latham](https://github.com/guardrex), a [Steve Smith](https://ardalis.com)</span><span class="sxs-lookup"><span data-stu-id="8d68b-104">By [Tom Dykstra](https://github.com/tdykstra), [Luke Latham](https://github.com/guardrex), and [Steve Smith](https://ardalis.com)</span></span>
+<span data-ttu-id="fb31b-104">[Rick Anderson](https://twitter.com/RickAndMSFT), [Dykstra](https://github.com/tdykstra), [Luke Latham](https://github.com/guardrex)a [Steve Smith](https://ardalis.com)</span><span class="sxs-lookup"><span data-stu-id="fb31b-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Tom Dykstra](https://github.com/tdykstra), [Luke Latham](https://github.com/guardrex), and [Steve Smith](https://ardalis.com)</span></span>
 
-<span data-ttu-id="8d68b-105">Třída `Startup` konfiguruje služby a kanál zpracování požadavků aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-105">The `Startup` class configures services and the app's request pipeline.</span></span>
+<span data-ttu-id="fb31b-105">Třída `Startup` konfiguruje služby a kanál zpracování požadavků aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-105">The `Startup` class configures services and the app's request pipeline.</span></span>
 
-## <a name="the-startup-class"></a><span data-ttu-id="8d68b-106">Třída Startup</span><span class="sxs-lookup"><span data-stu-id="8d68b-106">The Startup class</span></span>
+## <a name="the-startup-class"></a><span data-ttu-id="fb31b-106">Třída Startup</span><span class="sxs-lookup"><span data-stu-id="fb31b-106">The Startup class</span></span>
 
-<span data-ttu-id="8d68b-107">Aplikace ASP.NET Core používají třídu `Startup`, která je konvenčně pojmenována `Startup`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-107">ASP.NET Core apps use a `Startup` class, which is named `Startup` by convention.</span></span> <span data-ttu-id="8d68b-108">Třída `Startup`:</span><span class="sxs-lookup"><span data-stu-id="8d68b-108">The `Startup` class:</span></span>
+<span data-ttu-id="fb31b-107">Aplikace ASP.NET Core používají třídu `Startup`, která je konvenčně pojmenována `Startup`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-107">ASP.NET Core apps use a `Startup` class, which is named `Startup` by convention.</span></span> <span data-ttu-id="fb31b-108">Třída `Startup`:</span><span class="sxs-lookup"><span data-stu-id="fb31b-108">The `Startup` class:</span></span>
 
-* <span data-ttu-id="8d68b-109">Volitelně obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*>, která slouží pro konfiguraci *služeb* aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-109">Optionally includes a <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> method to configure the app's *services*.</span></span> <span data-ttu-id="8d68b-110">Služba je znovupoužitelná komponenta, která poskytuje funkčnost aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-110">A service is a reusable component that provides app functionality.</span></span> <span data-ttu-id="8d68b-111">Služby jsou nakonfigurovány &mdash; neboli takzvaně *zaregistrovány* &mdash; v metodě `ConfigureServices` a využívány napříč aplikací skrze [vkládání závislostí (DI)](xref:fundamentals/dependency-injection) nebo <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span><span class="sxs-lookup"><span data-stu-id="8d68b-111">Services are configured&mdash;also described as *registered*&mdash;in `ConfigureServices` and consumed across the app via [dependency injection (DI)](xref:fundamentals/dependency-injection) or <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span></span>
-* <span data-ttu-id="8d68b-112">Obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> pro vytvoření kanálu pro zpracování požadavků aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-112">Includes a <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> method to create the app's request processing pipeline.</span></span>
+* <span data-ttu-id="fb31b-109">Volitelně obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*>, která slouží pro konfiguraci *služeb* aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-109">Optionally includes a <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> method to configure the app's *services*.</span></span> <span data-ttu-id="fb31b-110">Služba je znovupoužitelná komponenta, která poskytuje funkčnost aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-110">A service is a reusable component that provides app functionality.</span></span> <span data-ttu-id="fb31b-111">Služby jsou nakonfigurovány &mdash; neboli takzvaně *zaregistrovány* &mdash; v metodě `ConfigureServices` a využívány napříč aplikací skrze [vkládání závislostí (DI)](xref:fundamentals/dependency-injection) nebo <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span><span class="sxs-lookup"><span data-stu-id="fb31b-111">Services are configured&mdash;also described as *registered*&mdash;in `ConfigureServices` and consumed across the app via [dependency injection (DI)](xref:fundamentals/dependency-injection) or <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span></span>
+* <span data-ttu-id="fb31b-112">Obsahuje metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> pro vytvoření kanálu pro zpracování požadavků aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-112">Includes a <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> method to create the app's request processing pipeline.</span></span>
 
-<span data-ttu-id="8d68b-113">`ConfigureServices` a `Configure` jsou volány modulem runtime ASP.NET Core, při spuštění aplikace:</span><span class="sxs-lookup"><span data-stu-id="8d68b-113">`ConfigureServices` and `Configure` are called by the ASP.NET Core runtime when the app starts:</span></span>
+<span data-ttu-id="fb31b-113">`ConfigureServices`a `Configure` jsou volány modulem runtime ASP.NET Core při spuštění aplikace:</span><span class="sxs-lookup"><span data-stu-id="fb31b-113">`ConfigureServices` and `Configure` are called by the ASP.NET Core runtime when the app starts:</span></span>
 
-[!code-csharp[](startup/sample_snapshot/Startup1.cs?highlight=4,10)]
+::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="8d68b-114">Třída `Startup` je v aplikaci specifikována při vytváření [hostitele](xref:fundamentals/index#host).</span><span class="sxs-lookup"><span data-stu-id="8d68b-114">The `Startup` class is specified to the app when the app's [host](xref:fundamentals/index#host) is built.</span></span> <span data-ttu-id="8d68b-115">Hostitel aplikace je vytvořen při volání metody `Build` na tvůrci (builderu) hostitele ve třídě `Program`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-115">The app's host is built when `Build` is called on the host builder in the `Program` class.</span></span> <span data-ttu-id="8d68b-116">Třída `Startup` je obvykle určena voláním metody [WebHostBuilderExtensions.UseStartup\<TStartup >](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) na tvůrci (builderu) hostitele:</span><span class="sxs-lookup"><span data-stu-id="8d68b-116">The `Startup` class is usually specified by calling the [WebHostBuilderExtensions.UseStartup\<TStartup>](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) method on the host builder:</span></span>
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
 
-[!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=10)]
+<span data-ttu-id="fb31b-114">Předchozí ukázka je určena pro [Razor Pages](xref:razor-pages/index); verze MVC je podobná.</span><span class="sxs-lookup"><span data-stu-id="fb31b-114">The preceding sample is for [Razor Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
 
-<span data-ttu-id="8d68b-117">Hostitel poskytuje služby, které jsou k dispozici konstruktoru třídy `Startup`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-117">The host provides services that are available to the `Startup` class constructor.</span></span> <span data-ttu-id="8d68b-118">Aplikace přidává další služby prostřednictvím metody `ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-118">The app adds additional services via `ConfigureServices`.</span></span> <span data-ttu-id="8d68b-119">Služby hostitele i aplikace jsou pak k dispozici v metodě `Configure` a v celé aplikaci.</span><span class="sxs-lookup"><span data-stu-id="8d68b-119">Both the host and app services are then available in `Configure` and throughout the app.</span></span>
+::: moniker-end
 
-<span data-ttu-id="8d68b-120">Ve třídě `Startup` se běžně používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení:</span><span class="sxs-lookup"><span data-stu-id="8d68b-120">A common use of [dependency injection](xref:fundamentals/dependency-injection) into the `Startup` class is to inject:</span></span>
+::: moniker range="< aspnetcore-3.0"
 
-* <span data-ttu-id="8d68b-121"><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> pro konfiguraci služby pomocí prostředí.</span><span class="sxs-lookup"><span data-stu-id="8d68b-121"><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> to configure services by environment.</span></span>
-* <span data-ttu-id="8d68b-122"><xref:Microsoft.Extensions.Configuration.IConfiguration> pro načtení konfigurace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-122"><xref:Microsoft.Extensions.Configuration.IConfiguration> to read configuration.</span></span>
-* <span data-ttu-id="8d68b-123"><xref:Microsoft.Extensions.Logging.ILoggerFactory> pro vytvoření protokolovacího nástroje v `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-123"><xref:Microsoft.Extensions.Logging.ILoggerFactory> to create a logger in `Startup.ConfigureServices`.</span></span>
+[!code-csharp[](startup/sample_snapshot/Startup1.cs)]
+
+::: moniker-end
+
+<span data-ttu-id="fb31b-115">Třída je určena při sestavení hostitele aplikace. [](xref:fundamentals/index#host) `Startup`</span><span class="sxs-lookup"><span data-stu-id="fb31b-115">The `Startup` class is specified when the app's [host](xref:fundamentals/index#host) is built.</span></span> <span data-ttu-id="fb31b-116">Třída je obvykle určena [`WebHostBuilderExtensions.UseStartup<TStartup>`](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) voláním metody v Tvůrci hostitele: `Startup`</span><span class="sxs-lookup"><span data-stu-id="fb31b-116">The `Startup` class is typically specified by calling the [`WebHostBuilderExtensions.UseStartup<TStartup>`](xref:Microsoft.AspNetCore.Hosting.WebHostBuilderExtensions.UseStartup*) method on the host builder:</span></span>
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](startup/sample_snapshot/Program3.cs?name=snippet_Program&highlight=12)]
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/Program3.cs?name=snippet_Program&highlight=12)]
+
+<span data-ttu-id="fb31b-117">Hostitel poskytuje služby, které jsou k dispozici konstruktoru třídy `Startup`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-117">The host provides services that are available to the `Startup` class constructor.</span></span> <span data-ttu-id="fb31b-118">Aplikace přidává další služby prostřednictvím metody `ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-118">The app adds additional services via `ConfigureServices`.</span></span> <span data-ttu-id="fb31b-119">Hostitelská i Aplikační služba jsou k dispozici `Configure` v i v celé aplikaci.</span><span class="sxs-lookup"><span data-stu-id="fb31b-119">Both the host and app services are available in `Configure` and throughout the app.</span></span>
+
+<span data-ttu-id="fb31b-120">Při použití `Startup` <xref:Microsoft.Extensions.Hosting.IHostBuilder>lze do konstruktoru vložit pouze následující typy služeb:</span><span class="sxs-lookup"><span data-stu-id="fb31b-120">Only the following service types can be injected into the `Startup` constructor when using <xref:Microsoft.Extensions.Hosting.IHostBuilder>:</span></span>
+
+* `IWebHostEnvironment`
+* `IHostEnvironment`
+* <xref:Microsoft.Extensions.Configuration.IConfiguration>
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/StartUp2.cs?name=snippet)]
+
+<span data-ttu-id="fb31b-121">Většina služeb není k dispozici, `Configure` dokud není volána metoda.</span><span class="sxs-lookup"><span data-stu-id="fb31b-121">Most services are not available until the `Configure` method is called.</span></span>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+<span data-ttu-id="fb31b-122">Hostitel poskytuje služby, které jsou k dispozici konstruktoru třídy `Startup`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-122">The host provides services that are available to the `Startup` class constructor.</span></span> <span data-ttu-id="fb31b-123">Aplikace přidává další služby prostřednictvím metody `ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-123">The app adds additional services via `ConfigureServices`.</span></span> <span data-ttu-id="fb31b-124">Služby hostitele i aplikace jsou pak k dispozici v metodě `Configure` a v celé aplikaci.</span><span class="sxs-lookup"><span data-stu-id="fb31b-124">Both the host and app services are then available in `Configure` and throughout the app.</span></span>
+
+<span data-ttu-id="fb31b-125">Ve třídě `Startup` se běžně používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení:</span><span class="sxs-lookup"><span data-stu-id="fb31b-125">A common use of [dependency injection](xref:fundamentals/dependency-injection) into the `Startup` class is to inject:</span></span>
+
+* <span data-ttu-id="fb31b-126"><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> pro konfiguraci služby pomocí prostředí.</span><span class="sxs-lookup"><span data-stu-id="fb31b-126"><xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> to configure services by environment.</span></span>
+* <span data-ttu-id="fb31b-127"><xref:Microsoft.Extensions.Configuration.IConfiguration> pro načtení konfigurace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-127"><xref:Microsoft.Extensions.Configuration.IConfiguration> to read configuration.</span></span>
+* <span data-ttu-id="fb31b-128"><xref:Microsoft.Extensions.Logging.ILoggerFactory> pro vytvoření protokolovacího nástroje v `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-128"><xref:Microsoft.Extensions.Logging.ILoggerFactory> to create a logger in `Startup.ConfigureServices`.</span></span>
 
 [!code-csharp[](startup/sample_snapshot/Startup2.cs?highlight=7-8)]
 
-<span data-ttu-id="8d68b-124">Alternativou ke vložení `IHostingEnvironment` je použití přístupu založeného na konvencích.</span><span class="sxs-lookup"><span data-stu-id="8d68b-124">An alternative to injecting `IHostingEnvironment` is to use a conventions-based approach.</span></span> <span data-ttu-id="8d68b-125">Pokud aplikace definuje samostatnou třídu `Startup` pro různá prostředí (například `StartupDevelopment`), odpovídající třída `Startup` je vybrána v době běhu.</span><span class="sxs-lookup"><span data-stu-id="8d68b-125">When the app defines separate `Startup` classes for different environments (for example, `StartupDevelopment`), the appropriate `Startup` class is selected at runtime.</span></span> <span data-ttu-id="8d68b-126">Třída, jejíž název má příponu odpovídající aktuálnímu prostředí, je upřednostněna.</span><span class="sxs-lookup"><span data-stu-id="8d68b-126">The class whose name suffix matches the current environment is prioritized.</span></span> <span data-ttu-id="8d68b-127">Pokud aplikace běží ve vývojovém prostředí a obsahuje třídu `Startup` i třídu `StartupDevelopment`, použije se třída `StartupDevelopment` .</span><span class="sxs-lookup"><span data-stu-id="8d68b-127">If the app is run in the Development environment and includes both a `Startup` class and a `StartupDevelopment` class, the `StartupDevelopment` class is used.</span></span> <span data-ttu-id="8d68b-128">Další informace naleznete v tématu [Používání více prostředí](xref:fundamentals/environments#environment-based-startup-class-and-methods).</span><span class="sxs-lookup"><span data-stu-id="8d68b-128">For more information, see [Use multiple environments](xref:fundamentals/environments#environment-based-startup-class-and-methods).</span></span>
+::: moniker-end
+<span data-ttu-id="fb31b-129">Alternativou ke vložení `IWebHostEnvironment` je použití přístupu založeného na konvencích.</span><span class="sxs-lookup"><span data-stu-id="fb31b-129">An alternative to injecting `IWebHostEnvironment` is to use a conventions-based approach.</span></span>
+::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="8d68b-129">Další informace o hostiteli naleznete v tématu [Hostitel](xref:fundamentals/index#host).</span><span class="sxs-lookup"><span data-stu-id="8d68b-129">To learn more about the host, see [The host](xref:fundamentals/index#host).</span></span> <span data-ttu-id="8d68b-130">Informace o zpracování chyb během spuštění naleznete v tématu [Zpracování výjimek při spuštění](xref:fundamentals/error-handling#startup-exception-handling).</span><span class="sxs-lookup"><span data-stu-id="8d68b-130">For information on handling errors during startup, see [Startup exception handling](xref:fundamentals/error-handling#startup-exception-handling).</span></span>
+::: moniker-end
 
-## <a name="the-configureservices-method"></a><span data-ttu-id="8d68b-131">Metoda ConfigureServices</span><span class="sxs-lookup"><span data-stu-id="8d68b-131">The ConfigureServices method</span></span>
+::: moniker range="< aspnetcore-3.0"
+<span data-ttu-id="fb31b-130">Alternativou ke vložení `IHostingEnvironment` je použití přístupu založeného na konvencích.</span><span class="sxs-lookup"><span data-stu-id="fb31b-130">An alternative to injecting `IHostingEnvironment` is to use a conventions-based approach.</span></span>
+::: moniker-end
 
-<span data-ttu-id="8d68b-132">Metoda <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> je:</span><span class="sxs-lookup"><span data-stu-id="8d68b-132">The <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> method is:</span></span>
+<span data-ttu-id="fb31b-131">Pokud aplikace definuje samostatnou třídu `Startup` pro různá prostředí (například `StartupDevelopment`), odpovídající třída `Startup` je vybrána v době běhu.</span><span class="sxs-lookup"><span data-stu-id="fb31b-131">When the app defines separate `Startup` classes for different environments (for example, `StartupDevelopment`), the appropriate `Startup` class is selected at runtime.</span></span> <span data-ttu-id="fb31b-132">Třída, jejíž název má příponu odpovídající aktuálnímu prostředí, je upřednostněna.</span><span class="sxs-lookup"><span data-stu-id="fb31b-132">The class whose name suffix matches the current environment is prioritized.</span></span> <span data-ttu-id="fb31b-133">Pokud aplikace běží ve vývojovém prostředí a obsahuje třídu `Startup` i třídu `StartupDevelopment`, použije se třída `StartupDevelopment` .</span><span class="sxs-lookup"><span data-stu-id="fb31b-133">If the app is run in the Development environment and includes both a `Startup` class and a `StartupDevelopment` class, the `StartupDevelopment` class is used.</span></span> <span data-ttu-id="fb31b-134">Další informace naleznete v tématu [Používání více prostředí](xref:fundamentals/environments#environment-based-startup-class-and-methods).</span><span class="sxs-lookup"><span data-stu-id="fb31b-134">For more information, see [Use multiple environments](xref:fundamentals/environments#environment-based-startup-class-and-methods).</span></span>
 
-* <span data-ttu-id="8d68b-133">Volitelná.</span><span class="sxs-lookup"><span data-stu-id="8d68b-133">Optional.</span></span>
-* <span data-ttu-id="8d68b-134">Je volána hostitelem před voláním metody `Configure` pro konfiguraci služeb aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-134">Called by the host before the `Configure` method to configure the app's services.</span></span>
-* <span data-ttu-id="8d68b-135">Metoda, ve které jsou [možnosti konfigurace](xref:fundamentals/configuration/index) nastaveny podle konvence.</span><span class="sxs-lookup"><span data-stu-id="8d68b-135">Where [configuration options](xref:fundamentals/configuration/index) are set by convention.</span></span>
+<span data-ttu-id="fb31b-135">Další informace o hostiteli najdete v [hostiteli](xref:fundamentals/index#host) .</span><span class="sxs-lookup"><span data-stu-id="fb31b-135">See [The host](xref:fundamentals/index#host) for more information on the host.</span></span> <span data-ttu-id="fb31b-136">Informace o zpracování chyb během spuštění naleznete v tématu [Zpracování výjimek při spuštění](xref:fundamentals/error-handling#startup-exception-handling).</span><span class="sxs-lookup"><span data-stu-id="fb31b-136">For information on handling errors during startup, see [Startup exception handling](xref:fundamentals/error-handling#startup-exception-handling).</span></span>
 
-<span data-ttu-id="8d68b-136">Typickým postupem je volání všech metod `Add{Service}` a následně volání všech metod `services.Configure{Service}`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-136">The typical pattern is to call all the `Add{Service}` methods and then call all of the `services.Configure{Service}` methods.</span></span> <span data-ttu-id="8d68b-137">Viz například [konfigurace Identity služby](xref:security/authentication/identity#pw).</span><span class="sxs-lookup"><span data-stu-id="8d68b-137">For example, see [Configure Identity services](xref:security/authentication/identity#pw).</span></span>
+## <a name="the-configureservices-method"></a><span data-ttu-id="fb31b-137">Metoda ConfigureServices</span><span class="sxs-lookup"><span data-stu-id="fb31b-137">The ConfigureServices method</span></span>
 
-<span data-ttu-id="8d68b-138">Hostitel může nakonfigurovat některé služby před voláním metody `Startup`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-138">The host may configure some services before `Startup` methods are called.</span></span> <span data-ttu-id="8d68b-139">Další informace najdete v tématu [Hostitel](xref:fundamentals/index#host).</span><span class="sxs-lookup"><span data-stu-id="8d68b-139">For more information, see [The host](xref:fundamentals/index#host).</span></span>
+<span data-ttu-id="fb31b-138">Metoda <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> je:</span><span class="sxs-lookup"><span data-stu-id="fb31b-138">The <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> method is:</span></span>
 
-<span data-ttu-id="8d68b-140">Pro funkce, které vyžadují rozsáhlou konfiguraci, existují rozšiřující metody `Add{Service}` nad <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>.</span><span class="sxs-lookup"><span data-stu-id="8d68b-140">For features that require substantial setup, there are `Add{Service}` extension methods on <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>.</span></span> <span data-ttu-id="8d68b-141">Typická aplikace ASP.NET Core registruje služby pro Entity Framework, Identity a MVC:</span><span class="sxs-lookup"><span data-stu-id="8d68b-141">A typical ASP.NET Core app registers services for Entity Framework, Identity, and MVC:</span></span>
+* <span data-ttu-id="fb31b-139">Volitelná.</span><span class="sxs-lookup"><span data-stu-id="fb31b-139">Optional.</span></span>
+* <span data-ttu-id="fb31b-140">Je volána hostitelem před voláním metody `Configure` pro konfiguraci služeb aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-140">Called by the host before the `Configure` method to configure the app's services.</span></span>
+* <span data-ttu-id="fb31b-141">metoda, ve které jsou [možnosti konfigurace](xref:fundamentals/configuration/index) nastaveny podle konvence.</span><span class="sxs-lookup"><span data-stu-id="fb31b-141">Where [configuration options](xref:fundamentals/configuration/index) are set by convention.</span></span>
+
+<span data-ttu-id="fb31b-142">Hostitel může nakonfigurovat některé služby před voláním metody `Startup`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-142">The host may configure some services before `Startup` methods are called.</span></span> <span data-ttu-id="fb31b-143">Další informace najdete v tématu [Hostitel](xref:fundamentals/index#host).</span><span class="sxs-lookup"><span data-stu-id="fb31b-143">For more information, see [The host](xref:fundamentals/index#host).</span></span>
+
+<span data-ttu-id="fb31b-144">Pro funkce, které vyžadují rozsáhlou konfiguraci, existují rozšiřující metody `Add{Service}` nad <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>.</span><span class="sxs-lookup"><span data-stu-id="fb31b-144">For features that require substantial setup, there are `Add{Service}` extension methods on <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>.</span></span> <span data-ttu-id="fb31b-145">**Přidejte**například DbContext, **přidejte**DefaultIdentity, **přidejte**EntityFrameworkStores a **přidejte**RazorPages:</span><span class="sxs-lookup"><span data-stu-id="fb31b-145">For example, **Add**DbContext, **Add**DefaultIdentity, **Add**EntityFrameworkStores, and **Add**RazorPages:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+<span data-ttu-id="fb31b-146">[! Code-CSharp [] (Startup/3.0 _samples/StartupFilterSample/StartupIdentity. cs? Name = fragment)]</span><span class="sxs-lookup"><span data-stu-id="fb31b-146">[!code-csharp[](startup/3.0_samples/StartupFilterSample/StartupIdentity.cs ?name=snippet)]</span></span>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/Startup3.cs)]
 
-<span data-ttu-id="8d68b-142">Po přidání služeb do kontejneru jsou tyto služby k dispozici v celé aplikaci a v rámci metody `Configure`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-142">Adding services to the service container makes them available within the app and in the `Configure` method.</span></span> <span data-ttu-id="8d68b-143">Služby jsou řešeny prostřednictvím [vkládání závislostí](xref:fundamentals/dependency-injection) nebo z <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span><span class="sxs-lookup"><span data-stu-id="8d68b-143">The services are resolved via [dependency injection](xref:fundamentals/dependency-injection) or from <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span></span>
+::: moniker-end
 
-<span data-ttu-id="8d68b-144">Vizte [SetCompatibilityVersion](xref:mvc/compatibility-version) pro další informace o `SetCompatibilityVersion`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-144">See [SetCompatibilityVersion](xref:mvc/compatibility-version) for more information on `SetCompatibilityVersion`.</span></span>
+<span data-ttu-id="fb31b-147">Po přidání služeb do kontejneru jsou tyto služby k dispozici v celé aplikaci a v rámci metody `Configure`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-147">Adding services to the service container makes them available within the app and in the `Configure` method.</span></span> <span data-ttu-id="fb31b-148">Služby jsou řešeny prostřednictvím [vkládání závislostí](xref:fundamentals/dependency-injection) nebo z <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span><span class="sxs-lookup"><span data-stu-id="fb31b-148">The services are resolved via [dependency injection](xref:fundamentals/dependency-injection) or from <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ApplicationServices*>.</span></span>
 
-## <a name="the-configure-method"></a><span data-ttu-id="8d68b-145">Metoda Configure</span><span class="sxs-lookup"><span data-stu-id="8d68b-145">The Configure method</span></span>
+::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="8d68b-146">Metoda <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> se používá k určení toho, jak aplikace reaguje na HTTP požadavky.</span><span class="sxs-lookup"><span data-stu-id="8d68b-146">The <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> method is used to specify how the app responds to HTTP requests.</span></span> <span data-ttu-id="8d68b-147">Kanál požadavků se konfiguruje tak, že přidáte [middlewarové](xref:fundamentals/middleware/index) komponenty do instance <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="8d68b-147">The request pipeline is configured by adding [middleware](xref:fundamentals/middleware/index) components to an <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> instance.</span></span> <span data-ttu-id="8d68b-148">`IApplicationBuilder` je dostupný metodě `Configure`, není však registrován v kontejneru služeb.</span><span class="sxs-lookup"><span data-stu-id="8d68b-148">`IApplicationBuilder` is available to the `Configure` method, but it isn't registered in the service container.</span></span> <span data-ttu-id="8d68b-149">Hosting vytváří `IApplicationBuilder` a předává jej přímo metodě `Configure`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-149">Hosting creates an `IApplicationBuilder` and passes it directly to `Configure`.</span></span>
+<span data-ttu-id="fb31b-149">Vizte [SetCompatibilityVersion](xref:mvc/compatibility-version) pro další informace o `SetCompatibilityVersion`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-149">See [SetCompatibilityVersion](xref:mvc/compatibility-version) for more information on `SetCompatibilityVersion`.</span></span>
 
-<span data-ttu-id="8d68b-150">[Šablony ASP.NET Core](/dotnet/core/tools/dotnet-new) konfigurují kanál s podporou pro:</span><span class="sxs-lookup"><span data-stu-id="8d68b-150">The [ASP.NET Core templates](/dotnet/core/tools/dotnet-new) configure the pipeline with support for:</span></span>
+::: moniker-end
 
-* [<span data-ttu-id="8d68b-151">Stránku výjimek pro vývojáře</span><span class="sxs-lookup"><span data-stu-id="8d68b-151">Developer Exception Page</span></span>](xref:fundamentals/error-handling#developer-exception-page)
-* [<span data-ttu-id="8d68b-152">Obslužné rutiny výjimek</span><span class="sxs-lookup"><span data-stu-id="8d68b-152">Exception handler</span></span>](xref:fundamentals/error-handling#exception-handler-page)
-* [<span data-ttu-id="8d68b-153">Zabezpečení striktního HTTP přenosu (HSTS)</span><span class="sxs-lookup"><span data-stu-id="8d68b-153">HTTP Strict Transport Security (HSTS)</span></span>](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
-* [<span data-ttu-id="8d68b-154">Přesměrování HTTPS</span><span class="sxs-lookup"><span data-stu-id="8d68b-154">HTTPS redirection</span></span>](xref:security/enforcing-ssl)
-* [<span data-ttu-id="8d68b-155">Statické soubory</span><span class="sxs-lookup"><span data-stu-id="8d68b-155">Static files</span></span>](xref:fundamentals/static-files)
-* [<span data-ttu-id="8d68b-156">General Data Protection Regulation (GDPR)</span><span class="sxs-lookup"><span data-stu-id="8d68b-156">General Data Protection Regulation (GDPR)</span></span>](xref:security/gdpr)
-* <span data-ttu-id="8d68b-157">ASP.NET Core [MVC](xref:mvc/overview) a [stránky Razor](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="8d68b-157">ASP.NET Core [MVC](xref:mvc/overview) and [Razor Pages](xref:razor-pages/index)</span></span>
+## <a name="the-configure-method"></a><span data-ttu-id="fb31b-150">Metoda Configure</span><span class="sxs-lookup"><span data-stu-id="fb31b-150">The Configure method</span></span>
+
+<span data-ttu-id="fb31b-151">Metoda <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> se používá k určení toho, jak aplikace reaguje na HTTP požadavky.</span><span class="sxs-lookup"><span data-stu-id="fb31b-151">The <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*> method is used to specify how the app responds to HTTP requests.</span></span> <span data-ttu-id="fb31b-152">Kanál požadavků se konfiguruje tak, že přidáte [middlewarové](xref:fundamentals/middleware/index) komponenty do instance <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="fb31b-152">The request pipeline is configured by adding [middleware](xref:fundamentals/middleware/index) components to an <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> instance.</span></span> <span data-ttu-id="fb31b-153">`IApplicationBuilder` je dostupný metodě `Configure`, není však registrován v kontejneru služeb.</span><span class="sxs-lookup"><span data-stu-id="fb31b-153">`IApplicationBuilder` is available to the `Configure` method, but it isn't registered in the service container.</span></span> <span data-ttu-id="fb31b-154">Hosting vytváří `IApplicationBuilder` a předává jej přímo metodě `Configure`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-154">Hosting creates an `IApplicationBuilder` and passes it directly to `Configure`.</span></span>
+
+<span data-ttu-id="fb31b-155">[Šablony ASP.NET Core](/dotnet/core/tools/dotnet-new) konfigurují kanál s podporou pro:</span><span class="sxs-lookup"><span data-stu-id="fb31b-155">The [ASP.NET Core templates](/dotnet/core/tools/dotnet-new) configure the pipeline with support for:</span></span>
+
+* [<span data-ttu-id="fb31b-156">Stránku výjimek pro vývojáře</span><span class="sxs-lookup"><span data-stu-id="fb31b-156">Developer Exception Page</span></span>](xref:fundamentals/error-handling#developer-exception-page)
+* [<span data-ttu-id="fb31b-157">Obslužné rutiny výjimek</span><span class="sxs-lookup"><span data-stu-id="fb31b-157">Exception handler</span></span>](xref:fundamentals/error-handling#exception-handler-page)
+* [<span data-ttu-id="fb31b-158">Zabezpečení striktního HTTP přenosu (HSTS)</span><span class="sxs-lookup"><span data-stu-id="fb31b-158">HTTP Strict Transport Security (HSTS)</span></span>](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts)
+* [<span data-ttu-id="fb31b-159">Přesměrování HTTPS</span><span class="sxs-lookup"><span data-stu-id="fb31b-159">HTTPS redirection</span></span>](xref:security/enforcing-ssl)
+* [<span data-ttu-id="fb31b-160">Statické soubory</span><span class="sxs-lookup"><span data-stu-id="fb31b-160">Static files</span></span>](xref:fundamentals/static-files)
+* <span data-ttu-id="fb31b-161">ASP.NET Core [MVC](xref:mvc/overview) a [Razor Pages](xref:razor-pages/index)</span><span class="sxs-lookup"><span data-stu-id="fb31b-161">ASP.NET Core [MVC](xref:mvc/overview) and [Razor Pages](xref:razor-pages/index)</span></span>
+
+::: moniker range="< aspnetcore-3.0"
+
+* [<span data-ttu-id="fb31b-162">Obecné nařízení o ochraně osobních údajů (GDPR)</span><span class="sxs-lookup"><span data-stu-id="fb31b-162">General Data Protection Regulation (GDPR)</span></span>](xref:security/gdpr)
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/Startup.cs?name=snippet)]
+
+<span data-ttu-id="fb31b-163">Předchozí ukázka je určena pro [Razor Pages](xref:razor-pages/index); verze MVC je podobná.</span><span class="sxs-lookup"><span data-stu-id="fb31b-163">The preceding sample is for [Razor Pages](xref:razor-pages/index); the MVC version is similar.</span></span>
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/Startup4.cs)]
 
-<span data-ttu-id="8d68b-158">Každá rozšiřující metoda `Use` přidá jednu nebo více middlewarových komponent do kanálu zpracování požadavku.</span><span class="sxs-lookup"><span data-stu-id="8d68b-158">Each `Use` extension method adds one or more middleware components to the request pipeline.</span></span> <span data-ttu-id="8d68b-159">Například rozšiřující metoda `UseMvc` přidává [Směrovací middleware](xref:fundamentals/routing) do kanálu zpracování požadavků a nakonfiguruje [MVC](xref:mvc/overview) jako výchozí obslužnou rutinu.</span><span class="sxs-lookup"><span data-stu-id="8d68b-159">For instance, the `UseMvc` extension method adds [Routing Middleware](xref:fundamentals/routing) to the request pipeline and configures [MVC](xref:mvc/overview) as the default handler.</span></span>
+::: moniker-end
 
-<span data-ttu-id="8d68b-160">Každá middlewarová komponenta v kanálu zpracování požadavků zodpovídá za vyvolání další komponenty v kanálu, případně může provést předčasné ukončení řetězce volání.</span><span class="sxs-lookup"><span data-stu-id="8d68b-160">Each middleware component in the request pipeline is responsible for invoking the next component in the pipeline or short-circuiting the chain, if appropriate.</span></span> <span data-ttu-id="8d68b-161">Pokud nedojde k předčasnému ukončení řetězce volání během zpracování požadavku, může libovolný middleware požadavek zpracovat ještě podruhé, než je odeslán klientovi.</span><span class="sxs-lookup"><span data-stu-id="8d68b-161">If short-circuiting doesn't occur along the middleware chain, each middleware has a second chance to process the request before it's sent to the client.</span></span>
+<span data-ttu-id="fb31b-164">Každá rozšiřující metoda `Use` přidá jednu nebo více middlewarových komponent do kanálu zpracování požadavku.</span><span class="sxs-lookup"><span data-stu-id="fb31b-164">Each `Use` extension method adds one or more middleware components to the request pipeline.</span></span> <span data-ttu-id="fb31b-165">Například nakonfiguruje middleware na poskytování [statických souborů](xref:fundamentals/static-files). [](xref:fundamentals/middleware/index) <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*></span><span class="sxs-lookup"><span data-stu-id="fb31b-165">For instance, <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> configures [middleware](xref:fundamentals/middleware/index) to serve [static files](xref:fundamentals/static-files).</span></span>
 
-<span data-ttu-id="8d68b-162">Dodatečné služby, jako jsou například `IHostingEnvironment` a `ILoggerFactory`, je také možné určit v signatuře metody `Configure`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-162">Additional services, such as `IHostingEnvironment` and `ILoggerFactory`, may also be specified in the `Configure` method signature.</span></span> <span data-ttu-id="8d68b-163">Jsou-li specifikovány, dodatečné služby se vloží za předpokladu jejich dostupnosti.</span><span class="sxs-lookup"><span data-stu-id="8d68b-163">When specified, additional services are injected if they're available.</span></span>
+<span data-ttu-id="fb31b-166">Každá middlewarová komponenta v kanálu zpracování požadavků zodpovídá za vyvolání další komponenty v kanálu, případně může provést předčasné ukončení řetězce volání.</span><span class="sxs-lookup"><span data-stu-id="fb31b-166">Each middleware component in the request pipeline is responsible for invoking the next component in the pipeline or short-circuiting the chain, if appropriate.</span></span>
 
-<span data-ttu-id="8d68b-164">Další informace o tom, jak používat `IApplicationBuilder` a jaké je pořadí zpracování middlewarů, naleznete v tématu <xref:fundamentals/middleware/index>.</span><span class="sxs-lookup"><span data-stu-id="8d68b-164">For more information on how to use `IApplicationBuilder` and the order of middleware processing, see <xref:fundamentals/middleware/index>.</span></span>
+::: moniker range=">= aspnetcore-3.0"
 
-## <a name="convenience-methods"></a><span data-ttu-id="8d68b-165">Usnadňující metody</span><span class="sxs-lookup"><span data-stu-id="8d68b-165">Convenience methods</span></span>
+<span data-ttu-id="fb31b-167">Další `IWebHostEnvironment`služby, jako například, `ILoggerFactory`nebo cokoli definované v `ConfigureServices`, lze zadat v `Configure` signatuře metody.</span><span class="sxs-lookup"><span data-stu-id="fb31b-167">Additional services, such as `IWebHostEnvironment`, `ILoggerFactory`, or anything defined in `ConfigureServices`, can be specified in the `Configure` method signature.</span></span> <span data-ttu-id="fb31b-168">Tyto služby jsou vloženy, pokud jsou k dispozici.</span><span class="sxs-lookup"><span data-stu-id="fb31b-168">These services are injected if they're available.</span></span>
 
-<span data-ttu-id="8d68b-166">Ke konfiguraci služeb a kanálu zpracování požadavků bez použití třídy `Startup` využijte volání usnadňujících metod `ConfigureServices` a `Configure` tvůrce (builderu) hostitele.</span><span class="sxs-lookup"><span data-stu-id="8d68b-166">To configure services and the request processing pipeline without using a `Startup` class, call `ConfigureServices` and `Configure` convenience methods on the host builder.</span></span> <span data-ttu-id="8d68b-167">Při vícenásobném volání metody `ConfigureServices` se přidají služby ze všech volání.</span><span class="sxs-lookup"><span data-stu-id="8d68b-167">Multiple calls to `ConfigureServices` append to one another.</span></span> <span data-ttu-id="8d68b-168">Pokud existuje více volání metody `Configure`, využije se poslední volání `Configure`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-168">If multiple `Configure` method calls exist, the last `Configure` call is used.</span></span>
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+<span data-ttu-id="fb31b-169">Další služby, `IHostingEnvironment` například a `ILoggerFactory`, nebo cokoli definované v `ConfigureServices`, lze zadat v `Configure` signatuře metody.</span><span class="sxs-lookup"><span data-stu-id="fb31b-169">Additional services, such as `IHostingEnvironment` and `ILoggerFactory`, or anything defined in `ConfigureServices`, can be specified in the `Configure` method signature.</span></span> <span data-ttu-id="fb31b-170">Tyto služby jsou vloženy, pokud jsou k dispozici.</span><span class="sxs-lookup"><span data-stu-id="fb31b-170">These services are injected if they're available.</span></span>
+
+::: moniker-end
+
+<span data-ttu-id="fb31b-171">Další informace o tom, jak používat `IApplicationBuilder` a jaké je pořadí zpracování middlewarů, naleznete v tématu <xref:fundamentals/middleware/index>.</span><span class="sxs-lookup"><span data-stu-id="fb31b-171">For more information on how to use `IApplicationBuilder` and the order of middleware processing, see <xref:fundamentals/middleware/index>.</span></span>
+
+<a name="convenience-methods"></a>
+
+## <a name="configure-services-without-startup"></a><span data-ttu-id="fb31b-172">Konfigurace služeb bez spuštění</span><span class="sxs-lookup"><span data-stu-id="fb31b-172">Configure services without Startup</span></span>
+
+<span data-ttu-id="fb31b-173">Ke konfiguraci služeb a kanálu zpracování požadavků bez použití třídy `Startup` využijte volání usnadňujících metod `ConfigureServices` a `Configure` tvůrce (builderu) hostitele.</span><span class="sxs-lookup"><span data-stu-id="fb31b-173">To configure services and the request processing pipeline without using a `Startup` class, call `ConfigureServices` and `Configure` convenience methods on the host builder.</span></span> <span data-ttu-id="fb31b-174">Při vícenásobném volání metody `ConfigureServices` se přidají služby ze všech volání.</span><span class="sxs-lookup"><span data-stu-id="fb31b-174">Multiple calls to `ConfigureServices` append to one another.</span></span> <span data-ttu-id="fb31b-175">Pokud existuje více volání metody `Configure`, využije se poslední volání `Configure`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-175">If multiple `Configure` method calls exist, the last `Configure` call is used.</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/Program1.cs?name=snippet)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/Program1.cs?highlight=16,20)]
 
-## <a name="extend-startup-with-startup-filters"></a><span data-ttu-id="8d68b-169">Rozšíření třídy Startup pomocí filtrů po spuštění</span><span class="sxs-lookup"><span data-stu-id="8d68b-169">Extend Startup with startup filters</span></span>
+::: moniker-end
 
-<span data-ttu-id="8d68b-170">Využijte <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> pro konfiguraci middlewaru na začátku a na konci [konfigurační](#the-configure-method) middlewarového kanálu vaší aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-170">Use <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> to configure middleware at the beginning or end of an app's [Configure](#the-configure-method) middleware pipeline.</span></span> <span data-ttu-id="8d68b-171">`IStartupFilter` je užitečný k zajištění toho, aby byl daný middleware spuštěn před nebo po spuštění middlewarů přidaných knihovnami na začátku nebo konci kanálu zpracování požadavků aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-171">`IStartupFilter` is useful to ensure that a middleware runs before or after middleware added by libraries at the start or end of the app's request processing pipeline.</span></span>
+## <a name="extend-startup-with-startup-filters"></a><span data-ttu-id="fb31b-176">Rozšíření třídy Startup pomocí filtrů po spuštění</span><span class="sxs-lookup"><span data-stu-id="fb31b-176">Extend Startup with startup filters</span></span>
 
-<span data-ttu-id="8d68b-172">`IStartupFilter` implementuje jedinou metodu <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>, která přijímá a vrací `Action<IApplicationBuilder>`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-172">`IStartupFilter` implements a single method, <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>, which receives and returns an `Action<IApplicationBuilder>`.</span></span> <span data-ttu-id="8d68b-173"><xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> definuje třídu pro konfiguraci kanálu zpracování požadavků vaší aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-173">An <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> defines a class to configure an app's request pipeline.</span></span> <span data-ttu-id="8d68b-174">Další informace naleznete v tématu [Vytvoření kanálu middlewaru s IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder).</span><span class="sxs-lookup"><span data-stu-id="8d68b-174">For more information, see [Create a middleware pipeline with IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder).</span></span>
+<span data-ttu-id="fb31b-177">Využijte <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> pro konfiguraci middlewaru na začátku a na konci [konfigurační](#the-configure-method) middlewarového kanálu vaší aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-177">Use <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> to configure middleware at the beginning or end of an app's [Configure](#the-configure-method) middleware pipeline.</span></span> <span data-ttu-id="fb31b-178">`IStartupFilter`slouží k vytvoření kanálu `Configure` metod.</span><span class="sxs-lookup"><span data-stu-id="fb31b-178">`IStartupFilter` is used to create a pipeline of `Configure` methods.</span></span> <span data-ttu-id="fb31b-179">[IStartupFilter. Configure](xref:Microsoft.AspNetCore.Hosting.IStartupFilter.Configure*) může nastavit middleware pro spuštění před nebo po middlewaru přidaném knihovnami.</span><span class="sxs-lookup"><span data-stu-id="fb31b-179">[IStartupFilter.Configure](xref:Microsoft.AspNetCore.Hosting.IStartupFilter.Configure*) can set a middleware to run before or after middleware added by libraries.</span></span>
 
-<span data-ttu-id="8d68b-175">Každý `IStartupFilter` implementuje jeden nebo více middlewarů v kanálu zpracování požadavků.</span><span class="sxs-lookup"><span data-stu-id="8d68b-175">Each `IStartupFilter` implements one or more middlewares in the request pipeline.</span></span> <span data-ttu-id="8d68b-176">Filtry jsou volány v pořadí, ve kterém byly přidány do kontejneru služeb.</span><span class="sxs-lookup"><span data-stu-id="8d68b-176">The filters are invoked in the order they were added to the service container.</span></span> <span data-ttu-id="8d68b-177">Filtry mohou přidávat middleware před nebo po předání řízení dalšímu filtru, tedy připojují se na začátek nebo konec kanálu aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-177">Filters may add middleware before or after passing control to the next filter, thus they append to the beginning or end of the app pipeline.</span></span>
+<span data-ttu-id="fb31b-180">`IStartupFilter`implementuje <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>, které přijímá a `Action<IApplicationBuilder>`vrací.</span><span class="sxs-lookup"><span data-stu-id="fb31b-180">`IStartupFilter` implements <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>, which receives and returns an `Action<IApplicationBuilder>`.</span></span> <span data-ttu-id="fb31b-181"><xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> definuje třídu pro konfiguraci kanálu zpracování požadavků vaší aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-181">An <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> defines a class to configure an app's request pipeline.</span></span> <span data-ttu-id="fb31b-182">Další informace naleznete v tématu [Vytvoření kanálu middlewaru s IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder).</span><span class="sxs-lookup"><span data-stu-id="fb31b-182">For more information, see [Create a middleware pipeline with IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder).</span></span>
 
-<span data-ttu-id="8d68b-178">Následující příklad ukazuje, jak se zaregistrovat middleware s `IStartupFilter`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-178">The following example demonstrates how to register a middleware with `IStartupFilter`.</span></span>
+<span data-ttu-id="fb31b-183">Každý `IStartupFilter` z nich může do kanálu požadavků přidat jeden nebo více middlewarů.</span><span class="sxs-lookup"><span data-stu-id="fb31b-183">Each `IStartupFilter` can add one or more middlewares in the request pipeline.</span></span> <span data-ttu-id="fb31b-184">Filtry jsou volány v pořadí, ve kterém byly přidány do kontejneru služeb.</span><span class="sxs-lookup"><span data-stu-id="fb31b-184">The filters are invoked in the order they were added to the service container.</span></span> <span data-ttu-id="fb31b-185">Filtry mohou přidávat middleware před nebo po předání řízení dalšímu filtru, tedy připojují se na začátek nebo konec kanálu aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-185">Filters may add middleware before or after passing control to the next filter, thus they append to the beginning or end of the app pipeline.</span></span>
 
-<span data-ttu-id="8d68b-179">Middleware `RequestSetOptionsMiddleware` nastaví hodnoty voleb z parametrů řetězce dotazu (query string parameters):</span><span class="sxs-lookup"><span data-stu-id="8d68b-179">The `RequestSetOptionsMiddleware` middleware sets an options value from a query string parameter:</span></span>
+<span data-ttu-id="fb31b-186">Následující příklad ukazuje, jak registrovat middleware pomocí `IStartupFilter`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-186">The following example demonstrates how to register a middleware with `IStartupFilter`.</span></span> <span data-ttu-id="fb31b-187">Middleware `RequestSetOptionsMiddleware` nastaví hodnoty voleb z parametrů řetězce dotazu (query string parameters):</span><span class="sxs-lookup"><span data-stu-id="fb31b-187">The `RequestSetOptionsMiddleware` middleware sets an options value from a query string parameter:</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/RequestSetOptionsMiddleware.cs?name=snippet1)]
+
+<span data-ttu-id="fb31b-188">`RequestSetOptionsMiddleware` je nakonfigurovaný ve třídě `RequestSetOptionsStartupFilter`:</span><span class="sxs-lookup"><span data-stu-id="fb31b-188">The `RequestSetOptionsMiddleware` is configured in the `RequestSetOptionsStartupFilter` class:</span></span>
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/RequestSetOptionsStartupFilter.cs?name=snippet1&highlight=7)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/RequestSetOptionsMiddleware.cs?name=snippet1&highlight=21)]
 
-<span data-ttu-id="8d68b-180">`RequestSetOptionsMiddleware` je nakonfigurovaný ve třídě `RequestSetOptionsStartupFilter`:</span><span class="sxs-lookup"><span data-stu-id="8d68b-180">The `RequestSetOptionsMiddleware` is configured in the `RequestSetOptionsStartupFilter` class:</span></span>
+<span data-ttu-id="fb31b-189">`RequestSetOptionsMiddleware` je nakonfigurovaný ve třídě `RequestSetOptionsStartupFilter`:</span><span class="sxs-lookup"><span data-stu-id="fb31b-189">The `RequestSetOptionsMiddleware` is configured in the `RequestSetOptionsStartupFilter` class:</span></span>
 
 [!code-csharp[](startup/sample_snapshot/RequestSetOptionsStartupFilter.cs?name=snippet1&highlight=7)]
 
-<span data-ttu-id="8d68b-181">`IStartupFilter` je zaregistrovaný v kontejneru služeb  v <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> a rozšiřuje `Startup` mimo třídu `Startup`:</span><span class="sxs-lookup"><span data-stu-id="8d68b-181">The `IStartupFilter` is registered in the service container in <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> and augments `Startup` from outside of the `Startup` class:</span></span>
+::: moniker-end
+
+<span data-ttu-id="fb31b-190">Je zaregistrován v kontejneru služby v <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*>. `IStartupFilter`</span><span class="sxs-lookup"><span data-stu-id="fb31b-190">The `IStartupFilter` is registered in the service container in <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*>.</span></span>
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](startup/3.0_samples/StartupFilterSample/Program.cs?name=snippet&highlight=19-20)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](startup/sample_snapshot/Program2.cs?name=snippet1&highlight=4-5)]
 
-<span data-ttu-id="8d68b-182">Pokud je určena hodnota parametru řetězce dotazu `option`, middleware zpracuje danou hodnotu předtím, než MVC middleware vykreslí odpověď:</span><span class="sxs-lookup"><span data-stu-id="8d68b-182">When a query string parameter for `option` is provided, the middleware processes the value assignment before the MVC middleware renders the response:</span></span>
+::: moniker-end
 
-![Okno prohlížeče zobrazující vykreslenou stránku Index.](startup/_static/index.png)
+<span data-ttu-id="fb31b-191">Pokud je k dispozici parametr `option` řetězce dotazu pro, middleware zpracovává přiřazení hodnoty před tím, než ASP.NET Core middleware vykreslí odpověď.</span><span class="sxs-lookup"><span data-stu-id="fb31b-191">When a query string parameter for `option` is provided, the middleware processes the value assignment before the ASP.NET Core middleware renders the response.</span></span>
 
-<span data-ttu-id="8d68b-185">Pořadí spuštění middlewarů je nastaveno podle pořadí registrace `IStartupFilter`:</span><span class="sxs-lookup"><span data-stu-id="8d68b-185">Middleware execution order is set by the order of `IStartupFilter` registrations:</span></span>
+<span data-ttu-id="fb31b-192">Pořadí spuštění middlewarů je nastaveno podle pořadí registrace `IStartupFilter`:</span><span class="sxs-lookup"><span data-stu-id="fb31b-192">Middleware execution order is set by the order of `IStartupFilter` registrations:</span></span>
 
-* <span data-ttu-id="8d68b-186">Několik různých implementací `IStartupFilter` může operovat se stejnými objekty.</span><span class="sxs-lookup"><span data-stu-id="8d68b-186">Multiple `IStartupFilter` implementations may interact with the same objects.</span></span> <span data-ttu-id="8d68b-187">Pokud je pro Vás důležité pořadí, seřaďte jednotlivé registrace služeb `IStartupFilter` tak, aby odpovídaly pořadí, ve kterém mají být jejich middlewary spuštěny.</span><span class="sxs-lookup"><span data-stu-id="8d68b-187">If ordering is important, order their `IStartupFilter` service registrations to match the order that their middlewares should run.</span></span>
-* <span data-ttu-id="8d68b-188">Knihovny mohou přidávat middlewary s jednou nebo více implementacemi rozhraní `IStartupFilter`, které se spustí před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí rozhraní `IStartupFilter`.</span><span class="sxs-lookup"><span data-stu-id="8d68b-188">Libraries may add middleware with one or more `IStartupFilter` implementations that run before or after other app middleware registered with `IStartupFilter`.</span></span> <span data-ttu-id="8d68b-189">Pokud chcete vyvolat middleware rozhraní `IStartupFilter` před  middlewarem přidaným pomocí rozhraní `IStartupFilter` knihovny, umístěte registraci služby před přidání knihovny do kontejneru služeb.</span><span class="sxs-lookup"><span data-stu-id="8d68b-189">To invoke an `IStartupFilter` middleware before a middleware added by a library's `IStartupFilter`, position the service registration before the library is added to the service container.</span></span> <span data-ttu-id="8d68b-190">Pokud ji chcete vyvolat později, umístěte registraci služby za přidání knihovny.</span><span class="sxs-lookup"><span data-stu-id="8d68b-190">To invoke it afterward, position the service registration after the library is added.</span></span>
+* <span data-ttu-id="fb31b-193">Několik různých implementací `IStartupFilter` může operovat se stejnými objekty.</span><span class="sxs-lookup"><span data-stu-id="fb31b-193">Multiple `IStartupFilter` implementations may interact with the same objects.</span></span> <span data-ttu-id="fb31b-194">Pokud je pro Vás důležité pořadí, seřaďte jednotlivé registrace služeb `IStartupFilter` tak, aby odpovídaly pořadí, ve kterém mají být jejich middlewary spuštěny.</span><span class="sxs-lookup"><span data-stu-id="fb31b-194">If ordering is important, order their `IStartupFilter` service registrations to match the order that their middlewares should run.</span></span>
+* <span data-ttu-id="fb31b-195">Knihovny mohou přidávat middlewary s jednou nebo více implementacemi `IStartupFilter`, které se spuští před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí `IStartupFilter`.</span><span class="sxs-lookup"><span data-stu-id="fb31b-195">Libraries may add middleware with one or more `IStartupFilter` implementations that run before or after other app middleware registered with `IStartupFilter`.</span></span> <span data-ttu-id="fb31b-196">Vyvolání `IStartupFilter` middlewaru před middlewarem přidaným `IStartupFilter`knihovnou:</span><span class="sxs-lookup"><span data-stu-id="fb31b-196">To invoke an `IStartupFilter` middleware before a middleware added by a library's `IStartupFilter`:</span></span>
 
-## <a name="add-configuration-at-startup-from-an-external-assembly"></a><span data-ttu-id="8d68b-191">Přidání konfigurace při spuštění z externího sestavení</span><span class="sxs-lookup"><span data-stu-id="8d68b-191">Add configuration at startup from an external assembly</span></span>
+  * <span data-ttu-id="fb31b-197">Před přidáním knihovny do kontejneru služby umístěte registraci služby.</span><span class="sxs-lookup"><span data-stu-id="fb31b-197">Position the service registration before the library is added to the service container.</span></span>
+  * <span data-ttu-id="fb31b-198">Chcete-li provést vyvolání, umístěte registraci služby po přidání knihovny.</span><span class="sxs-lookup"><span data-stu-id="fb31b-198">To invoke afterward, position the service registration after the library is added.</span></span>
 
-<span data-ttu-id="8d68b-192">Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace.</span><span class="sxs-lookup"><span data-stu-id="8d68b-192">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="8d68b-193">Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.</span><span class="sxs-lookup"><span data-stu-id="8d68b-193">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+## <a name="add-configuration-at-startup-from-an-external-assembly"></a><span data-ttu-id="fb31b-199">Přidání konfigurace při spuštění z externího sestavení</span><span class="sxs-lookup"><span data-stu-id="fb31b-199">Add configuration at startup from an external assembly</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="8d68b-194">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="8d68b-194">Additional resources</span></span>
+<span data-ttu-id="fb31b-200">Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace.</span><span class="sxs-lookup"><span data-stu-id="fb31b-200">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="fb31b-201">Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.</span><span class="sxs-lookup"><span data-stu-id="fb31b-201">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
 
-* [<span data-ttu-id="8d68b-195">Hostitel</span><span class="sxs-lookup"><span data-stu-id="8d68b-195">The host</span></span>](xref:fundamentals/index#host)
+## <a name="additional-resources"></a><span data-ttu-id="fb31b-202">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="fb31b-202">Additional resources</span></span>
+
+* [<span data-ttu-id="fb31b-203">Hostitel</span><span class="sxs-lookup"><span data-stu-id="fb31b-203">The host</span></span>](xref:fundamentals/index#host)
 * <xref:fundamentals/environments>
 * <xref:fundamentals/middleware/index>
 * <xref:fundamentals/logging/index>
