@@ -104,8 +104,6 @@
         - name: EF Core s Razor Pages
           displayName: tutorial
           items:
-            - name: Přehled
-              uid: data/ef-rp/index
             - name: Začínáme
               uid: data/ef-rp/intro
             - name: 'Vytváření, čtení, aktualizace a odstranění'
@@ -581,8 +579,6 @@
       items:
         - name: EF Core s Razor Pages
           items:
-            - name: Přehled
-              uid: data/ef-rp/index
             - name: Začínáme
               uid: data/ef-rp/intro
             - name: 'Vytváření, čtení, aktualizace a odstranění'
@@ -701,6 +697,8 @@
         - name: Přehled
           displayName: 'deploy, publish'
           uid: host-and-deploy/iis/index
+        - name: Kurz publikování do služby IIS
+          uid: tutorials/publish-to-iis
         - name: Modul ASP.NET Core
           displayName: 'deploy, publish'
           uid: host-and-deploy/aspnet-core-module
