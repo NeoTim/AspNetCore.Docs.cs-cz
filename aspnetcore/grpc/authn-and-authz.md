@@ -4,14 +4,14 @@ author: jamesnk
 description: Naučte se používat ověřování a autorizaci v gRPC pro ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 07/26/2019
+ms.date: 08/13/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 34f7f8a5a22159329b3d6c4524943434c460c7fb
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 19018c4ffae1228055a4858b496f135d015625b4
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602427"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993287"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>Ověřování a autorizace v gRPC pro ASP.NET Core
 
@@ -42,6 +42,8 @@ public void Configure(IApplicationBuilder app)
 
 > [!NOTE]
 > Pořadí, ve kterém zaregistrujete ASP.NET Core middlewaru ověřování. Vždy volejte `UseAuthentication` `UseAuthorization` apřed`UseEndpoints`a před. `UseRouting`
+
+Mechanismus ověřování, který vaše aplikace používá během volání, je nutné nakonfigurovat. Konfigurace ověřování je přidaná `Startup.ConfigureServices` v a bude se lišit v závislosti na mechanismu ověřování, který vaše aplikace používá. Příklady zabezpečení aplikací ASP.NET Core najdete v tématu [ukázky ověřování](xref:security/authentication/samples).
 
 Po nastavení ověřování se k uživateli dá v metodách služby gRPC přístup pomocí `ServerCallContext`.
 
@@ -146,7 +148,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-Jednotlivé metody služby mohou mít `[Authorize]` také použit atribut. Pokud aktuální uživatel neodpovídá zásadám použitým **pro metodu** i třídu, je volajícímu vrácena chyba:
+Jednotlivé metody služby mohou mít `[Authorize]` také použit atribut. Pokud aktuální uživatel neodpovídá zásadám použitým pro metodu i třídu, je volajícímu vrácena chyba:
 
 ```csharp
 [Authorize]

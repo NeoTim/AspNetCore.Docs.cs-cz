@@ -5,14 +5,14 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/02/2019
+ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: 43457bffd748ebba68cc86d33fdeb98dc419704b
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: a95c186d30eaf342f10ecbe6f7add242d4679a0f
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68913892"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993419"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -26,7 +26,9 @@ Aplikace Blazor jsou sestavené pomocí *komponent*. Součást je samostatně ob
 
 Komponenty jsou implementovány v souborech komponenty [Razor](xref:mvc/views/razor) ( *. Razor*) pomocí kombinace kódu C# a kódu HTML. Komponenta v Blazor je formálně označována jako *Komponenta Razor*.
 
-Komponenty mohou být vytvořeny pomocí přípony souboru *. cshtml* . Použijte vlastnost MSBuild v souboru projektu k identifikaci souborů Component *. cshtml.* `_RazorComponentInclude` Například aplikace, která určuje, že všechny soubory *. cshtml* ve složce *Pages* by měly být považovány za soubory součástí Razor:
+Název součásti musí začínat velkým znakem. Například *MyCoolComponent. Razor* je platný a *MyCoolComponent. Razor* je neplatný.
+
+Komponenty mohou být vytvořeny pomocí přípony souboru *. cshtml* , pokud jsou soubory označeny jako soubory komponenty Razor pomocí `_RazorComponentInclude` vlastnosti MSBuild. Například aplikace, která určuje, že všechny soubory *. cshtml* ve složce *Pages* by měly být považovány za soubory součástí Razor:
 
 ```xml
 <PropertyGroup>
@@ -79,9 +81,11 @@ I když stránky a zobrazení mohou používat komponenty, není tato konverzace
 
 Další informace o tom, jak se komponenty vykreslují a stav komponenty se spravuje v Blazorch aplikacích na straně serveru, <xref:blazor/hosting-models> najdete v článku.
 
-## <a name="using-components"></a>Používání komponent
+## <a name="use-components"></a>Použití komponent
 
 Komponenty mohou zahrnovat další komponenty deklarováním pomocí syntaxe elementu HTML. Označení pro použití komponenty vypadá jako značka HTML, kde název značky je typ komponenty.
+
+Vazba atributu rozlišuje velká a malá písmena. Například `@bind` je platný a `@Bind` je neplatný.
 
 Následující kód v *indexu. Razor* vykreslí `HeadingComponent` instanci:
 
@@ -91,9 +95,11 @@ Následující kód v *indexu. Razor* vykreslí `HeadingComponent` instanci:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/HeadingComponent.razor)]
 
+Pokud komponenta obsahuje element HTML s velkým prvním písmenem, které neodpovídá názvu komponenty, je vygenerováno upozornění označující, že element má neočekávaný název. `@using` Přidání příkazu pro obor názvů součásti zpřístupňuje komponentu, což odstraní upozornění.
+
 ## <a name="component-parameters"></a>Parametry součásti
 
-Komponenty mohou mít *parametry komponenty*, které jsou definovány pomocí vlastností (obvykle *neveřejné*) `[Parameter]` třídy komponenty s atributem. Použijte atributy k určení argumentů pro komponentu v kódu.
+Komponenty mohou mít *parametry komponenty*, které jsou definovány pomocí veřejných vlastností třídy komponenty s `[Parameter]` atributem. Použijte atributy k určení argumentů pro komponentu v kódu.
 
 *Components/ChildComponent. Razor*:
 
@@ -142,19 +148,19 @@ V `<input>` následujícím příkladu první prvek (`id="useIndividualParams"`)
 
 @code {
     [Parameter]
-    private string Maxlength { get; set; } = "10";
+    public string Maxlength { get; set; } = "10";
 
     [Parameter]
-    private string Placeholder { get; set; } = "Input placeholder text";
+    public string Placeholder { get; set; } = "Input placeholder text";
 
     [Parameter]
-    private string Required { get; set; } = "required";
+    public string Required { get; set; } = "required";
 
     [Parameter]
-    private string Size { get; set; } = "50";
+    public string Size { get; set; } = "50";
 
     [Parameter]
-    private Dictionary<string, object> InputAttributes { get; set; } =
+    public Dictionary<string, object> InputAttributes { get; set; } =
         new Dictionary<string, object>()
         {
             { "maxlength", "10" },
@@ -187,8 +193,8 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `
 
 ```cshtml
 @code {
-    [Parameter(CaptureUnmatchedValues = true)]
-    private Dictionary<string, object> InputAttributes { get; set; }
+    [Parameter(CaptureUnmatchedAttributes = true)]
+    public Dictionary<string, object> InputAttributes { get; set; }
 }
 ```
 
@@ -224,6 +230,33 @@ Při vykreslení `value` komponenty `CurrentValue` z vlastnosti input element p�
 
 Na rozdíl `onchange`od, která je aktivována, když prvek ztratí `oninput` fokus, je aktivována při změně hodnoty textového pole.
 
+**Globalizace**
+
+`@bind`hodnoty jsou formátovány pro zobrazení a analýzu pomocí pravidel aktuální jazykové verze.
+
+K aktuální jazykové verzi je možné přistupovat z <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName> vlastnosti.
+
+[CultureInfo. InvariantCulture](xref:System.Globalization.CultureInfo.InvariantCulture) se používá pro následující typy polí (`<input type="{TYPE}" />`):
+
+* `date`
+* `number`
+
+Předchozí typy polí:
+
+* Se zobrazují pomocí příslušných pravidel formátování založených na prohlížeči.
+* Text s volným formulářem nemůže obsahovat.
+* Poskytněte charakteristiky interakce s uživatelem na základě implementace prohlížeče.
+
+Následující typy polí mají specifické požadavky na formátování a aktuálně nejsou podporovány v Blazor, protože nejsou podporovány ve všech hlavních prohlížečích:
+
+* `datetime-local`
+* `month`
+* `week`
+
+`@bind``@bind:culture` podporuje parametr <xref:System.Globalization.CultureInfo?displayProperty=fullName> pro zajištění analýzy a formátování hodnoty. Specifikace jazykové verze není doporučena při použití `date` typů `number` polí a. `date`a `number` mají integrovanou podporu Blazor, která poskytuje požadovanou jazykovou verzi.
+
+Informace o tom, jak nastavit jazykovou verzi uživatele, najdete v [](#localization) části lokalizace.
+
 **Řetězce formátu**
 
 Datové vazby fungují s <xref:System.DateTime> řetězci formátu pomocí [@bind:format](xref:mvc/views/razor#bind). Jiné formátovací výrazy, jako je například Měna nebo formáty čísel, nejsou v tuto chvíli k dispozici.
@@ -233,11 +266,20 @@ Datové vazby fungují s <xref:System.DateTime> řetězci formátu pomocí [@bin
 
 @code {
     [Parameter]
-    private DateTime StartDate { get; set; } = new DateTime(2020, 1, 1);
+    public DateTime StartDate { get; set; } = new DateTime(2020, 1, 1);
 }
 ```
 
+V předchozím kódu `<input>` je výchozí `text`typ pole (`type`) elementu. `@bind:format`je podporováno pro vázání následujících typů rozhraní .NET:
+
+* <xref:System.DateTime?displayProperty=fullName>
+* <xref:System.DateTime?displayProperty=fullName>?
+* <xref:System.DateTimeOffset?displayProperty=fullName>
+* <xref:System.DateTimeOffset?displayProperty=fullName>?
+
 Atribut určuje formát data, který se má použít `value` pro `<input>` element. `@bind:format` Formát je také použit k analýze hodnoty při `onchange` výskytu události.
+
+Zadání formátu pro `date` typ pole se nedoporučuje, protože Blazor má vestavěnou podporu pro formátování kalendářních dat.
 
 **Parametry součásti**
 
@@ -252,10 +294,10 @@ Následující podřízená komponenta (`ChildComponent`) `Year` má parametr ko
 
 @code {
     [Parameter]
-    private int Year { get; set; }
+    public int Year { get; set; }
 
     [Parameter]
-    private EventCallback<int> YearChanged { get; set; }
+    public EventCallback<int> YearChanged { get; set; }
 }
 ```
 
@@ -278,7 +320,7 @@ Následující nadřazená komponenta používá `ChildComponent` a váže `Pare
 
 @code {
     [Parameter]
-    private int ParentYear { get; set; } = 1978;
+    public int ParentYear { get; set; } = 1978;
 
     private void ChangeTheYear()
     {
@@ -516,7 +558,7 @@ Vezměte v úvahu v následujícím příkladu:
 
 @code {
     [Parameter]
-    private IEnumerable<Person> People { get; set; }
+    public IEnumerable<Person> People { get; set; }
 }
 ```
 
@@ -532,7 +574,7 @@ Proces mapování lze řídit pomocí `@key` atributu direktiva. `@key`způsobí
 
 @code {
     [Parameter]
-    private IEnumerable<Person> People { get; set; }
+    public IEnumerable<Person> People { get; set; }
 }
 ```
 
@@ -574,7 +616,7 @@ Obecně dává smysl pro zadání jednoho z následujících typů hodnot pro `@
 * Instance objektů modelu (například `Person` instance jako v předchozím příkladu). To zajišťuje zachování v závislosti na rovnosti odkazů na objekty.
 * Jedinečné identifikátory (například hodnoty primárního klíče typu `int`, `string`nebo `Guid`).
 
-Vyhněte se zadávání hodnoty, která může kolidovat neočekávaně. Pokud `@key="@someObject.GetHashCode()"` je zadaný, může dojít k neočekávaným konfliktům, protože kódy hash nesouvisejících objektů můžou být stejné. Pokud jsou `@key` hodnoty v konfliktu požadovány v rámci stejné nadřazené položky `@key` , hodnoty nebudou přijaty.
+Zajistěte, aby `@key` hodnoty použité pro nekolidovat. Pokud jsou v rámci stejného nadřazeného prvku zjištěny hodnoty střetu, Blazor vyvolá výjimku, protože nemůže deterministické namapovat staré prvky nebo komponenty na nové prvky nebo komponenty. Používejte pouze jedinečné hodnoty, například instance objektů nebo hodnoty primárního klíče.
 
 ## <a name="lifecycle-methods"></a>Metody životního cyklu
 
@@ -765,7 +807,7 @@ V následujícím příkladu určuje, `IsCompleted` zda `checked` je vykreslena 
 
 @code {
     [Parameter]
-    private bool IsCompleted { get; set; }
+    public bool IsCompleted { get; set; }
 }
 ```
 
@@ -1063,7 +1105,7 @@ Vezměte v úvahu `PetDetails` následující součást, kterou je možné ručn
 @code
 {
     [Parameter]
-    private string PetDetailsQuote { get; set; }
+    public string PetDetailsQuote { get; set; }
 }
 ```
 
@@ -1191,3 +1233,123 @@ Toto je triviální příklad. Ve složitějších případech se složitými a 
 * Nepište dlouhé bloky ručně implementované `RenderTreeBuilder` logiky. Preferovat `.razor` soubory a umožněte kompilátoru, aby se zabývat pořadovým číslem.
 * Pokud jsou pořadová čísla pevně zakódované, rozdílový algoritmus vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou nepodstatné. Jednou z oprávněných možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit podle hodnoty nebo stovky (případně z upřednostňovaného intervalu). 
 * Blazor používá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdíly jsou mnohem rychlejší, když se používají pořadová čísla, a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro `.razor` vývojáře, kteří vytváří soubory.
+
+## <a name="localization"></a>Lokalizace
+
+Blazor aplikace na straně serveru jsou lokalizovány [](xref:fundamentals/localization#localization-middleware)pomocí middlewaru pro lokalizaci. Middleware vybere vhodnou jazykovou verzi pro uživatele, kteří žádají o prostředky z aplikace.
+
+Tuto jazykovou verzi lze nastavit pomocí jednoho z následujících přístupů:
+
+* [Soubory cookie](#cookies)
+* [Poskytnutí uživatelského rozhraní pro výběr jazykové verze](#provide-ui-to-choose-the-culture)
+
+Další informace a příklady naleznete v tématu <xref:fundamentals/localization>.
+
+### <a name="cookies"></a>Soubory cookie
+
+Soubor cookie lokalizační kultury může zachovat jazykovou verzi uživatele. Soubor cookie je vytvořen `OnGet` metodou stránky hostitele aplikace (*stránky/Host. cshtml. cs*). Middleware lokalizace přečte soubor cookie při následných požadavcích na nastavení jazykové verze uživatele. 
+
+Použití souboru cookie zajistí, že připojení protokolu WebSocket dokáže správně rozšířit jazykovou verzi. Pokud jsou schémata lokalizací založena na cestě URL nebo řetězci dotazu, nemusí být schopná pracovat s objekty WebSockets, takže nepůjde zachovat jazykovou verzi. Proto je doporučený přístup použití souboru cookie lokalizační kultury.
+
+Pokud je jazyková verze uložena v souboru cookie lokalizace, je možné použít jakoukoli techniku k přiřazení jazykové verze. Pokud už aplikace má zavedené lokalizační schéma pro ASP.NET Core na straně serveru, pokračujte v používání stávající infrastruktury lokalizace a nastavte soubor cookie lokalizační kultury v rámci schématu aplikace.
+
+Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v souboru cookie, který lze přečíst pomocí middleware Localization. Vytvořte soubor *Pages/Host. cshtml. cs* s následujícím obsahem v Blazor aplikaci na straně serveru:
+
+```csharp
+public class HostModel : PageModel
+{
+    public void OnGet()
+    {
+        HttpContext.Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName,
+            CookieRequestCultureProvider.MakeCookieValue(
+                new RequestCulture(
+                    CultureInfo.CurrentCulture,
+                    CultureInfo.CurrentUICulture)));
+    }
+}
+```
+
+Lokalizace se zpracovává v aplikaci:
+
+1. Prohlížeč pošle do aplikace počáteční požadavek HTTP.
+1. Jazyková verze je přiřazena pomocí middleware Localization.
+1. Metoda v *_Host. cshtml. cs* uchovává v rámci odpovědi jazykovou verzi v souboru cookie. `OnGet`
+1. Prohlížeč otevře připojení WebSocket a vytvoří interaktivní Blazor relaci na straně serveru.
+1. Middleware lokalizace přečte soubor cookie a přiřadí jazykovou verzi.
+1. Blazor relace na straně serveru začíná správnou jazykovou verzí.
+
+## <a name="provide-ui-to-choose-the-culture"></a>Poskytnutí uživatelského rozhraní pro výběr jazykové verze
+
+K poskytnutí uživatelského rozhraní, které uživateli umožní vybrat jazykovou verzi, se doporučuje *přístup založený na přesměrování* . Proces se podobá tomu, co se stane ve webové aplikaci, když se uživatel pokusí o přístup k&mdash;zabezpečenému prostředku, uživatel se přesměruje na přihlašovací stránku a pak se přesměruje zpátky na původní prostředek. 
+
+Aplikace zachovává vybranou jazykovou verzi uživatele prostřednictvím přesměrování na kontroler. Řadič Nastaví vybranou jazykovou verzi uživatele na soubor cookie a přesměruje uživatele zpět na původní identifikátor URI.
+
+Vytvořte koncový bod HTTP na serveru pro nastavení vybrané jazykové verze uživatele v souboru cookie a proveďte přesměrování zpátky na původní identifikátor URI:
+
+```csharp
+[Route("[controller]/[action]")]
+public class CultureController : Controller
+{
+    public IActionResult SetCulture(string culture, string redirectUri)
+    {
+        if (culture != null)
+        {
+            HttpContext.Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(
+                    new RequestCulture(culture)));
+        }
+
+        return LocalRedirect(redirectUri);
+    }
+}
+```
+
+> [!WARNING]
+> Pomocí výsledku `LocalRedirect` akce zabráníte otevírání útoků přes přesměrování. Další informace naleznete v tématu <xref:security/preventing-open-redirects>.
+
+Následující komponenta ukazuje příklad, jak provést počáteční přesměrování, když uživatel vybere jazykovou verzi:
+
+```cshtml
+@inject IUriHelper UriHelper
+
+<h3>Select your language</h3>
+
+<select @onchange="OnSelected">
+    <option>Select...</option>
+    <option value="en-US">English</option>
+    <option value="fr-FR">Français</option>
+</select>
+
+@code {
+    private double textNumber;
+
+    private void OnSelected(UIChangeEventArgs e)
+    {
+        var culture = (string)e.Value;
+        var uri = new Uri(UriHelper.GetAbsoluteUri())
+            .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        var query = $"?culture={Uri.EscapeDataString(culture)}&" +
+            $"redirectUri={Uri.EscapeDataString(uri)}";
+
+        UriHelper.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+    }
+}
+```
+
+### <a name="use-net-localization-scenarios-in-blazor-apps"></a>Použití scénářů lokalizace .NET v aplikacích Blazor
+
+V aplikacích Blazor jsou k dispozici následující scénáře lokalizace a globalizace rozhraní .NET:
+
+* . Systém prostředků netto
+* Formátování čísla a data specifické pro jazykovou verzi
+
+`@bind` Funkce Blazor provádí globalizaci na základě aktuální jazykové verze uživatele. Další informace najdete v části [vázání dat](#data-binding) .
+
+V současné době se podporuje omezená sada scénářů lokalizace ASP.NET Core:
+
+* `IStringLocalizer<>`*je podporováno* v aplikacích Blazor.
+* `IHtmlLocalizer<>`lokalizace datových poznámek, `IViewLocalizer<>`a jsou ASP.NET Core scénáře MVC a **nejsou podporované** v aplikacích Blazor.
+
+Další informace naleznete v tématu <xref:fundamentals/localization>.

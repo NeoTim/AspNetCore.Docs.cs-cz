@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/21/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 0ffd437bbb48ef1c7a9159fbf3ac41441613f434
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 606be317318eafa170d926aaace1f752d3a25510
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68372057"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994294"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s swashbuckle a ASP.NET Core
 
@@ -115,6 +115,8 @@ Pokud používáte adresáře se službou IIS nebo reverzním proxy serverem, na
 ## <a name="customize-and-extend"></a>Přizpůsobení a rozšiřování
 
 Swagger poskytuje možnosti pro dokumentaci k objektovému modelu a přizpůsobení uživatelského rozhraní tak, aby odpovídalo vašemu motivu.
+
+Ve spouštěcí třídě přidejte následující obory názvů:[!code-csharp[](~/tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup2.cs?name=snippet_PreReqNamespaces)]
 
 ### <a name="api-info-and-description"></a>Informace a popis rozhraní API
 
@@ -423,11 +425,11 @@ Vytvořte *vlastní soubor. CSS* v *wwwroot/Swagger/uživatelském rozhraní*s n
 
 [!code-css[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/wwwroot/swagger/ui/custom.css)]
 
-Odkaz *Custom. CSS* v souboru *index. html* za všechny ostatní soubory CSS:
+Odkaz na *vlastní šablony stylů. CSS* v souboru *index. html* ve složce uživatelského rozhraní za všechny ostatní soubory CSS:
 
 [!code-html[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/wwwroot/swagger/ui/index.html?name=snippet_SwaggerUiCss&highlight=3)]
 
-Přejděte na stránku *index. html* na adrese `http://localhost:<port>/swagger/ui/index.html`. Do `http://localhost:<port>/swagger/v1/swagger.json` textového pole záhlaví zadejte a klikněte na tlačítko **prozkoumat** . Výsledná stránka vypadá takto:
+Přejděte na stránku *index. html* na adrese `http://localhost:<port>/swagger/ui/index.html`. Do `https://localhost:<port>/swagger/v1/swagger.json` textového pole záhlaví zadejte a klikněte na tlačítko **prozkoumat** . Výsledná stránka vypadá takto:
 
 ![Uživatelské rozhraní Swagger s vlastním nadpisem záhlaví](web-api-help-pages-using-swagger/_static/custom-header.png)
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 9dd96ff6e3539bf1c3e932b33776b16d0fbb2d34
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 64393e826cb17550085f468f5916fca55973908f
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "68371792"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993392"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core modely hostování Blazor
 
@@ -28,10 +28,9 @@ Hlavní hostující model pro Blazor je spuštěn na straně klienta v prohlíž
 
 ![Blazor na straně klienta: Aplikace Blazor běží ve vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/client-side.png)
 
-Chcete-li vytvořit aplikaci Blazor pomocí modelu hostování na straně klienta, použijte kteroukoli z následujících šablon:
+Chcete-li vytvořit aplikaci Blazor pomocí modelu hostování na straně klienta, použijte šablonu **aplikace Blazor WebAssembly** ([dotnet New blazorwasm](/dotnet/core/tools/dotnet-new)).
 
-* **Blazor (na straně klienta)** ([dotnet New blazor](/dotnet/core/tools/dotnet-new)) &ndash; Nasazeno jako sada statických souborů.
-* **Blazor (ASP.NET Core Hosted)** ([dotnet New blazorhosted](/dotnet/core/tools/dotnet-new)) &ndash; Hostováno serverem ASP.NET Core. Aplikace ASP.NET Core obsluhuje aplikaci Blazor klientům. Klientská aplikace Blazor může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo signalizace. [](xref:signalr/introduction)
+Po výběru šablony **aplikace Blazor WebAssembly** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core hostované** ([dotnet New blazorwasm--Hosted](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core obsluhuje aplikaci Blazor klientům. Klientská aplikace Blazor může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo signalizace. [](xref:signalr/introduction)
 
 Šablony obsahují skript *blazor. WebAssembly. js* , který zpracovává:
 
@@ -58,7 +57,7 @@ S modelem hostování na straně serveru se aplikace spouští na serveru z apli
 
 ![Prohlížeč komunikuje s aplikací (hostovanou v aplikaci ASP.NET Core) na serveru přes připojení k signalizaci.](hosting-models/_static/server-side.png)
 
-K vytvoření aplikace Blazor pomocí modelu hostování na straně serveru použijte šablonu **aplikace serveru** pro ASP.NET Core Blazor ([dotnet New blazorserverside](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core hostuje serverovou aplikaci a vytvoří koncový bod signalizace, kde se klienti připojují.
+K vytvoření aplikace Blazor pomocí modelu hostování na straně serveru použijte šablonu **aplikace serveru** pro ASP.NET Core Blazor ([dotnet New blazorserver](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core hostuje serverovou aplikaci a vytvoří koncový bod signalizace, kde se klienti připojují.
 
 Aplikace ASP.NET Core odkazuje na `Startup` třídu aplikace, která se má přidat:
 

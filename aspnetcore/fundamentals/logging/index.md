@@ -1,23 +1,32 @@
 ---
-title: Přihlašování ASP.NET Core
+title: Přihlášení v .NET Core a ASP.NET Core
 author: tdykstra
-description: Přečtěte si o protokolovacím rozhraní v ASP.NET Core. Seznamte se s vestavěnými zprostředkovateli protokolování a seznamte se s oblíbenými poskytovateli třetích stran.
+description: Naučte se používat protokolovací rozhraní poskytovanou balíčkem NuGet Microsoft. Extensions. Logging.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 4fe677e69478284db2ccab655c35b5744b6f63f9
-ms.sourcegitcommit: 059ab380744fa3be3b69aa90d431b563c57092cf
+ms.openlocfilehash: 4e2aa1e18c3e3119e22452d5ca9b838581efbfd8
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68410911"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994111"
 ---
-# <a name="logging-in-aspnet-core"></a>Přihlašování ASP.NET Core
+# <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
-[Steve Smith](https://ardalis.com/) a [Dykstra](https://github.com/tdykstra)
+Tím, že [Dykstra](https://github.com/tdykstra) a [Steve Smith](https://ardalis.com/)
 
-ASP.NET Core podporuje API pro protokolování, které funguje s množstvím zabudovaných poskytovatelů protokolování a poskytovatelů třetích stran. V tomto článku se dozvíte, jak používat rozhraní API protokolování s integrovanými poskytovateli.
+.NET Core podporuje protokolovací rozhraní API, které funguje s řadou integrovaných poskytovatelů protokolování a jiných výrobců. V tomto článku se dozvíte, jak používat rozhraní API protokolování s integrovanými poskytovateli.
+
+::: moniker range=">= aspnetcore-3.0"
+
+Většina příkladů kódu, které jsou uvedené v tomto článku, se nachází v ASP.NET Corech aplikacích. Části těchto fragmentů kódu specifické pro protokolování se vztahují na libovolnou aplikaci .NET Core, která používá [obecného hostitele](xref:fundamentals/host/generic-host). Informace o tom, jak používat obecného hostitele v aplikacích nevyužívajících webovou konzolu, najdete v tématu [hostované služby](xref:fundamentals/host/hosted-services).
+
+Kód protokolování pro aplikace bez obecného hostitele se liší v způsobu [Přidání zprostředkovatelů](#add-providers) a [vytváření protokolovacích](#create-logs)nástrojů. Příklady kódu, který není hostitelský, jsou uvedeny v těchto částech článku.
+
+::: moniker-end
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
@@ -25,7 +34,32 @@ ASP.NET Core podporuje API pro protokolování, které funguje s množstvím zab
 
 Zprostředkovatel protokolování zobrazuje nebo ukládá protokoly. Například poskytovatel konzoly zobrazuje protokoly v konzole nástroje a poskytovatel Azure Application Insights je ukládá do Azure Application Insights. Protokoly lze odesílat do více cílů přidáním více zprostředkovatelů.
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
+
+Chcete-li přidat poskytovatele v aplikaci, která používá obecného hostitele, zavolejte metodu `Add{provider name}` rozšíření poskytovatele v *program.cs*:
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=6)]
+
+V konzolové aplikaci, která není hostitelem, zavolejte metodu `Add{provider name}` rozšíření poskytovatele při `LoggerFactory`vytváření:
+
+[!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=1,7)]
+
+`LoggerFactory`a `AddConsole` vyžadují`using` příkaz pro `Microsoft.Extensions.Logging`.
+
+Výchozí ASP.NET Core volání <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>šablon projektu, které přidává následující zprostředkovatele protokolování:
+
+* Konzola
+* Ladění
+* EventSource
+* Protokol událostí (pouze při spuštění v systému Windows)
+
+Výchozí poskytovatele můžete nahradit vašimi vlastními možnostmi. Zavolejte <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>a přidejte poskytovatele, které chcete.
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=5)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0 "
 
 Chcete-li přidat poskytovatele, zavolejte metodu `Add{provider name}` rozšíření poskytovatele v *program.cs*:
 
@@ -47,54 +81,80 @@ Pokud používáte `CreateDefaultBuilder`, můžete výchozí poskytovatele nahr
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
-
-Chcete-li použít poskytovatele, nainstalujte balíček NuGet a zavolejte metodu rozšíření poskytovatele na instanci <xref:Microsoft.Extensions.Logging.ILoggerFactory>:
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_AddConsoleAndDebug&highlight=3,5-7)]
-
-Tato`ILoggerFactory` instance poskytuje [vkládání závislostí ASP.NET Core (di)](xref:fundamentals/dependency-injection) . Metody rozšíření `AddDebug`ajsou definovány v balíčcích [Microsoft. Extensions. Logging. Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/) a [Microsoft. Extensions. Logging. Debug.](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/) `AddConsole` Každá metoda rozšíření volá `ILoggerFactory.AddProvider` metodu, která předává instanci poskytovatele.
-
-> [!NOTE]
-> [Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples/1.x) Přidá zprostředkovatele protokolování do `Startup.Configure` metody. Chcete-li získat výstup protokolu z kódu, který byl proveden dříve, přidejte `Startup` zprostředkovatele protokolování do konstruktoru třídy.
-
-::: moniker-end
-
 Přečtěte si další informace o [integrovaných poskytovatelích protokolování](#built-in-logging-providers) a [zprostředkovatelích protokolování třetích stran](#third-party-logging-providers) v tomto článku.
 
 ## <a name="create-logs"></a>Vytvořit protokoly
 
-<xref:Microsoft.Extensions.Logging.ILogger%601> Získá objekt z di.
+K vytváření protokolů použijte <xref:Microsoft.Extensions.Logging.ILogger%601> objekt. V rámci webové aplikace nebo hostované služby Získejte `ILogger` od vložení závislostí (di). V konzolových aplikacích bez hostitele použijte `LoggerFactory` k `ILogger`vytvoření.
 
-::: moniker range=">= aspnetcore-2.0"
+Následující ASP.NET Core příklad vytvoří protokolovací nástroj s `TodoApiSample.Pages.AboutModel` jako kategorie. *Kategorie* protokolu je řetězec, který je spojený s každým protokolem. Instance poskytovaná di vytvoří protokoly, které mají plně kvalifikovaný název typu `T` jako kategorie. `ILogger<T>` 
 
-Následující příklad řadiče vytvoří `Information` a `Warning` zaprotokoluje. *Kategorie* je `TodoApiSample.Controllers.TodoController` (plně `TodoController` kvalifikovaný název třídy v ukázkové aplikaci):
+::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=4,7)]
+[!code-csharp[](index/samples/3.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_LoggerDI&highlight=3,5,7)]
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+Následující příklad nehostitelských konzolových aplikací vytvoří protokolovací nástroj s `LoggingConsoleApp.Program` jako kategorií.
 
-Následující Razor Pages příklad vytvoří protokoly `Information` s jako *úroveň* a `TodoApiSample.Pages.AboutModel` jako *kategorii*:
+[!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=10)]
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_LoggerDI&highlight=3, 7)]
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](index/samples/2.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_LoggerDI&highlight=3,5,7)]
+
+::: moniker-end
+
+V následujících příkladech ASP.NET Core a konzolových aplikací se k vytváření protokolů s `Information` jako úroveň používá protokolovací nástroj. *Úroveň* protokolu označuje závažnost protokolované události. 
+
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_CallLogMethods&highlight=4)]
+
+[!code-csharp[](index/samples/3.x/LoggingConsoleApp/Program.cs?name=snippet_LoggerFactory&highlight=11)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Pages/About.cshtml.cs?name=snippet_CallLogMethods&highlight=4)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+[Úrovně](#log-level) a [kategorie](#log-category) jsou podrobněji vysvětleny dále v tomto článku. 
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=7)]
+::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+### <a name="create-logs-in-the-program-class"></a>Vytvořit protokoly ve třídě program
 
-Předchozí příklad vytvoří `Information` v *kategorii*a `Warning` jako *úroveň* a `TodoController` třídu protokoly. 
+Pokud chcete zapisovat protokoly ve `Program` třídě ASP.NET Core aplikace, Získejte po sestavení hostitele `ILogger` instanci od typu di:
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
+
+### <a name="create-logs-in-the-startup-class"></a>Vytvořit protokoly ve spouštěcí třídě
+
+Pokud chcete zapisovat protokoly v `Startup.Configure` metodě ASP.NET Core aplikace, `ILogger` zahrňte do signatury metody parametr:
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Startup.cs?name=snippet_Configure&highlight=1,5)]
+
+Zápis protokolů před dokončením nastavení di Container v `Startup.ConfigureServices` metodě není podporován:
+
+* Vkládání protokolovacího nástroje `Startup` do konstruktoru není podporováno.
+* Vkládání protokolovacího nástroje `Startup.ConfigureServices` do signatury metody není podporováno.
+
+Důvodem tohoto omezení je, že protokolování závisí na DI a na konfiguraci, která v systému zapíná na DI. Kontejner di není nastavený, dokud `ConfigureServices` se nedokončí.
+
+Vložení konstruktoru protokolovacího nástroje do `Startup` sady Works v dřívějších verzích ASP.NET Core, protože pro webového hostitele je vytvořen samostatný kontejner di. Informace o tom, proč je pro obecného hostitele vytvořeno jenom jeden kontejner, najdete v části [oznámení o změně](https://github.com/aspnet/Announcements/issues/353).
+
+Pokud potřebujete nakonfigurovat službu, která závisí na `ILogger<T>`, můžete to provést pomocí injektáže konstruktoru nebo poskytnutím metody pro vytváření. Přístup k metodě pro vytváření je doporučen pouze v případě, že není k dispozici žádná jiná možnost. Předpokládejme například, že potřebujete vyplnit vlastnost pomocí služby z DI:
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Startup.cs?name=snippet_ConfigureServices&highlight=6-10)]
+
+Předchozí zvýrazněný kód je `Func` , který se spustí, když di Container potřebuje vytvořit `MyService`instanci. Tímto způsobem můžete získat přístup k libovolné registrované službě.
 
 ::: moniker-end
 
-*Úroveň* protokolu označuje závažnost protokolované události. *Kategorie* protokolu je řetězec, který je spojený s každým protokolem. Instance vytvoří protokoly, které mají plně kvalifikovaný název typu `T` jako kategorie. `ILogger<T>` [Úrovně](#log-level) a [kategorie](#log-category) jsou podrobněji vysvětleny dále v tomto článku. 
-
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
 ### <a name="create-logs-in-startup"></a>Vytvořit protokoly při spuštění
 
@@ -102,7 +162,7 @@ Chcete-li zapsat protokoly `Startup` ve třídě, `ILogger` zahrňte parametr do
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Startup.cs?name=snippet_Startup&highlight=3,5,8,20,27)]
 
-### <a name="create-logs-in-program"></a>Vytvořit protokoly v programu
+### <a name="create-logs-in-the-program-class"></a>Vytvořit protokoly ve třídě program
 
 Chcete-li zapsat protokoly `Program` ve třídě, Získejte `ILogger` instanci od typu di:
 
@@ -156,29 +216,36 @@ Pokud jsou úrovně specifikovány `Logging.{providername}.LogLevel`v, přepíš
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.1"
-
-```json
-{
-  "Logging": {
-    "LogLevel": {
-      "Default": "Debug",
-      "System": "Information",
-      "Microsoft": "Information"
-    }
-  }
-}
-```
-
-`LogLevel`klíče udávají názvy protokolů. `Default` Klíč se vztahuje na protokoly, které nejsou výslovně uvedeny. Hodnota představuje [úroveň protokolu](#log-level) použitou pro daný protokol.
-
-::: moniker-end
-
 Informace o implementaci zprostředkovatelů konfigurace najdete v <xref:fundamentals/configuration/index>tématu.
 
 ## <a name="sample-logging-output"></a>Ukázka výstupu protokolování
 
 Pomocí ukázkového kódu zobrazeného v předchozí části se protokoly zobrazí v konzole nástroje při spuštění aplikace z příkazového řádku. Tady je příklad výstupu konzoly:
+
+::: moniker range=">= aspnetcore-3.0"
+
+```console
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/1.1 GET http://localhost:5000/api/todo/0
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 84.26180000000001ms 307
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 GET https://localhost:5001/api/todo/0
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'TodoApiSample.Controllers.TodoController.GetById (TodoApiSample)'
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "GetById", controller = "Todo", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetById(System.String) on controller TodoApiSample.Controllers.TodoController (TodoApiSample).
+info: TodoApiSample.Controllers.TodoController[1002]
+      Getting item 0
+warn: TodoApiSample.Controllers.TodoController[4000]
+      GetById(0) NOT FOUND
+info: Microsoft.AspNetCore.Mvc.StatusCodeResult[1]
+      Executing HttpStatusCodeResult, setting HTTP status code 404
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ```console
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
@@ -197,9 +264,31 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
       Request finished in 148.889ms 404
 ```
 
+::: moniker-end
+
 Předchozí protokoly byly vygenerovány vytvořením žádosti HTTP GET do ukázkové aplikace na adrese `http://localhost:5000/api/todo/0`.
 
 Tady je příklad stejného protokolu, který se zobrazí v okně ladění při spuštění ukázkové aplikace v aplikaci Visual Studio:
+
+::: moniker range=">= aspnetcore-3.0"
+
+```console
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request starting HTTP/2.0 GET https://localhost:44328/api/todo/0  
+Microsoft.AspNetCore.Routing.EndpointMiddleware: Information: Executing endpoint 'TodoApiSample.Controllers.TodoController.GetById (TodoApiSample)'
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Route matched with {action = "GetById", controller = "Todo", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetById(System.String) on controller TodoApiSample.Controllers.TodoController (TodoApiSample).
+TodoApiSample.Controllers.TodoController: Information: Getting item 0
+TodoApiSample.Controllers.TodoController: Warning: GetById(0) NOT FOUND
+Microsoft.AspNetCore.Mvc.StatusCodeResult: Information: Executing HttpStatusCodeResult, setting HTTP status code 404
+Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker: Information: Executed action TodoApiSample.Controllers.TodoController.GetById (TodoApiSample) in 34.167ms
+Microsoft.AspNetCore.Routing.EndpointMiddleware: Information: Executed endpoint 'TodoApiSample.Controllers.TodoController.GetById (TodoApiSample)'
+Microsoft.AspNetCore.Hosting.Diagnostics: Information: Request finished in 98.41300000000001ms 404
+```
+
+Protokoly, které jsou vytvořené `ILogger` voláními, které jsou uvedené v předchozí části, začínají na "TodoApiSample". Protokoly, které začínají na kategorie Microsoft, jsou z ASP.NET Coreho kódu rozhraní. ASP.NET Core a kód aplikace používají stejné rozhraní API a poskytovatele protokolování.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ```console
 Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request starting HTTP/1.1 GET http://localhost:53104/api/todo/0  
@@ -211,7 +300,9 @@ Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker:Information: Executed 
 Microsoft.AspNetCore.Hosting.Internal.WebHost:Information: Request finished in 316.3195ms 404
 ```
 
-Protokoly, které jsou vytvořené `ILogger` voláními, které jsou uvedené v předchozí části, začínají na "TodoApi. Controllers. TodoController". Protokoly, které začínají na kategorie Microsoft, jsou z ASP.NET Coreho kódu rozhraní. ASP.NET Core a kód aplikace používají stejné rozhraní API a poskytovatele protokolování.
+Protokoly, které jsou vytvořené `ILogger` voláními, které jsou uvedené v předchozí části, začínají na "TodoApi". Protokoly, které začínají na kategorie Microsoft, jsou z ASP.NET Coreho kódu rozhraní. ASP.NET Core a kód aplikace používají stejné rozhraní API a poskytovatele protokolování.
+
+::: moniker-end
 
 Zbývající část tohoto článku vysvětluje několik podrobností a možností protokolování.
 
@@ -225,29 +316,29 @@ Při vytvoření objektu je pro něj zadána *kategorie.* `ILogger` Tato kategor
 
 Použijte `ILogger<T>` k `T` získání instance, která používá plně kvalifikovaný název typu jako kategorii: `ILogger`
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=7)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=7)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LoggerDI&highlight=7)]
-
-::: moniker-end
-
 Chcete-li explicitně zadat kategorii, `ILoggerFactory.CreateLogger`zavolejte:
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CreateLogger&highlight=7,10)]
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CreateLogger&highlight=7,10)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CreateLogger&highlight=7,10)]
+[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CreateLogger&highlight=7,10)]
 
 ::: moniker-end
 
@@ -259,15 +350,15 @@ Každý protokol Určuje <xref:Microsoft.Extensions.Logging.LogLevel> hodnotu. �
 
 Následující kód vytváří `Information` a `Warning` protokoluje:
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
 ::: moniker-end
 
@@ -310,6 +401,51 @@ ASP.NET Core definuje následující úrovně protokolu seřazené od nejnižš�
 
 ASP.NET Core zapisuje protokoly pro události rozhraní .NET Framework. Příklady protokolů výše v tomto článku vyloučily nižší `Information` úrovně protokolů, takže se nevytvořily žádné `Debug` protokoly ani `Trace` protokoly na úrovni. Tady je příklad protokolů konzoly vytvořených spuštěním ukázkové aplikace nakonfigurované pro zobrazení `Debug` protokolů:
 
+::: moniker range=">= aspnetcore-3.0"
+
+```console
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[3]
+      Route matched with {action = "GetById", controller = "Todo", page = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult GetById(System.String) on controller TodoApiSample.Controllers.TodoController (TodoApiSample).
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of authorization filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of resource filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of action filters (in the following order): Microsoft.AspNetCore.Mvc.Filters.ControllerActionFilter (Order: -2147483648), Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of exception filters (in the following order): None
+dbug: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[1]
+      Execution plan of result filters (in the following order): Microsoft.AspNetCore.Mvc.ViewFeatures.Filters.SaveTempDataFilter
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[22]
+      Attempting to bind parameter 'id' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[44]
+      Attempting to bind parameter 'id' of type 'System.String' using the name 'id' in request data ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinder[45]
+      Done attempting to bind parameter 'id' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[23]
+      Done attempting to bind parameter 'id' of type 'System.String'.
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[26]
+      Attempting to validate the bound parameter 'id' of type 'System.String' ...
+dbug: Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder[27]
+      Done attempting to validate the bound parameter 'id' of type 'System.String'.
+info: TodoApiSample.Controllers.TodoController[1002]
+      Getting item 0
+warn: TodoApiSample.Controllers.TodoController[4000]
+      GetById(0) NOT FOUND
+info: Microsoft.AspNetCore.Mvc.StatusCodeResult[1]
+      Executing HttpStatusCodeResult, setting HTTP status code 404
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker[2]
+      Executed action TodoApiSample.Controllers.TodoController.GetById (TodoApiSample) in 32.690400000000004ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'TodoApiSample.Controllers.TodoController.GetById (TodoApiSample)'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished in 176.9103ms 404
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 ```console
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
       Request starting HTTP/1.1 GET http://localhost:62555/api/todo/0
@@ -339,23 +475,25 @@ info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
       Request finished in 2.7286ms 404
 ```
 
+::: moniker-end
+
 ## <a name="log-event-id"></a>ID události protokolu
 
 Každý protokol může určovat *ID události*. Tato ukázková aplikace používá lokálně definovanou `LoggingEvents` třídu:
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Core/LoggingEvents.cs?name=snippet_LoggingEvents)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Core/LoggingEvents.cs?name=snippet_LoggingEvents)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Core/LoggingEvents.cs?name=snippet_LoggingEvents)]
 
 ::: moniker-end
 
@@ -374,15 +512,15 @@ warn: TodoApi.Controllers.TodoController[4000]
 
 Každý protokol Určuje šablonu zprávy. Šablona zprávy může obsahovat zástupné symboly, pro které jsou k dispozici argumenty. Použijte názvy zástupných symbolů, nikoli čísla.
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
+[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_CallLogMethods&highlight=3,7)]
 
 ::: moniker-end
 
@@ -396,7 +534,7 @@ _logger.LogInformation("Parameter values: {p2}, {p1}", p1, p2);
 
 Tento kód vytvoří zprávu protokolu s hodnotami parametrů v posloupnosti:
 
-```
+```text
 Parameter values: parm1, parm2
 ```
 
@@ -412,30 +550,28 @@ Pokud odesíláte protokoly do služby Azure Table Storage, Každá entita tabul
 
 Metody protokolovacího nástroje mají přetížení, které umožňují předat výjimku, jak je uvedeno v následujícím příkladu:
 
-::: moniker range=">= aspnetcore-2.0"
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LogException&highlight=3)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LogException&highlight=3)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_LogException&highlight=3)]
-
-::: moniker-end
-
 Různí poskytovatelé zpracovávají informace o výjimce různými způsoby. Tady je příklad výstupu poskytovatele ladění z kódu uvedeného výše.
 
-```
-TodoApi.Controllers.TodoController:Warning: GetById(036dd898-fb01-47e8-9a65-f92eb73cf924) NOT FOUND
+```text
+TodoApiSample.Controllers.TodoController: Warning: GetById(55) NOT FOUND
 
 System.Exception: Item not found exception.
- at TodoApi.Controllers.TodoController.GetById(String id) in C:\logging\sample\src\TodoApi\Controllers\TodoController.cs:line 226
+   at TodoApiSample.Controllers.TodoController.GetById(String id) in C:\TodoApiSample\Controllers\TodoController.cs:line 226
 ```
 
 ## <a name="log-filtering"></a>Filtrování protokolů
-
-::: moniker range=">= aspnetcore-2.0"
 
 Můžete zadat minimální úroveň protokolu pro konkrétního zprostředkovatele a kategorii nebo pro všechny poskytovatele nebo všechny kategorie. Všechny protokoly nižší než minimální úroveň nebudou tomuto poskytovateli předány, takže se nebudou zobrazovat ani ukládat.
 
@@ -443,13 +579,21 @@ Chcete-li potlačit všechny `LogLevel.None` protokoly, zadejte jako minimální
 
 ### <a name="create-filter-rules-in-configuration"></a>Vytvořit pravidla filtru v konfiguraci
 
-Kód šablony projektu volá `CreateDefaultBuilder` k nastavení protokolování pro konzolu a zprostředkovatele ladění. Metoda také nastaví protokolování pro hledání konfigurace `Logging` v oddílu pomocí kódu podobného následujícímu: `CreateDefaultBuilder`
-
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_ExpandDefault&highlight=17)]
+Kód šablony projektu volá `CreateDefaultBuilder` k nastavení protokolování pro konzolu a zprostředkovatele ladění. Metoda nastaví protokolování tak, aby hledalo konfiguraci `Logging` v části, jak je vysvětleno [výše v tomto článku](#configuration). `CreateDefaultBuilder`
 
 Konfigurační data určují minimální úrovně protokolu podle poskytovatele a kategorie, jako v následujícím příkladu:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-json[](index/samples/3.x/TodoApiSample/appsettings.json)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-json[](index/samples/2.x/TodoApiSample/appsettings.json)]
+
+::: moniker-end
 
 Tento kód JSON vytvoří šest pravidel filtru: jeden pro poskytovatele ladění, čtyři pro poskytovatele konzoly a jeden pro všechny poskytovatele. Při `ILogger` vytvoření objektu se vybere jedno pravidlo pro každého poskytovatele.
 
@@ -457,7 +601,17 @@ Tento kód JSON vytvoří šest pravidel filtru: jeden pro poskytovatele laděn�
 
 Následující příklad ukazuje, jak registrovat pravidla filtru v kódu:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_FilterInCode&highlight=4-5)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_FilterInCode&highlight=4-5)]
+
+::: moniker-end
 
 Druhý `AddFilter` Určuje poskytovatele ladění pomocí jeho názvu typu. První `AddFilter` se vztahuje na všechny poskytovatele, protože neurčuje typ poskytovatele.
 
@@ -509,7 +663,17 @@ Každý zprostředkovatel definuje *alias* , který lze použít v konfiguraci m
 
 Existuje nastavení minimální úrovně, které se projeví pouze v případě, že se pro daného zprostředkovatele a kategorii nepoužijí žádná pravidla z konfigurace nebo kódu. Následující příklad ukazuje, jak nastavit minimální úroveň:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_MinLevel&highlight=3)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_MinLevel&highlight=3)]
+
+::: moniker-end
 
 Pokud nenastavíte explicitně minimální úroveň, výchozí hodnota je `Information`, což znamená, že `Trace` protokoly a `Debug` budou ignorovány.
 
@@ -517,27 +681,15 @@ Pokud nenastavíte explicitně minimální úroveň, výchozí hodnota je `Infor
 
 Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemají pravidla přiřazena pomocí konfigurace nebo kódu. Kód ve funkci má přístup k typu poskytovatele, kategorii a úrovni protokolu. Příklad:
 
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_FilterFunction&highlight=5-13)]
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_FilterFunction&highlight=3-11)]
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-2.0"
+::: moniker range="< aspnetcore-3.0"
 
-Někteří zprostředkovatelé protokolování umožňují určit, kdy se mají protokoly zapsat na paměťové médium nebo ignorovat na základě úrovně a kategorie protokolování.
-
-Metody rozšíření `AddDebug` a poskytují přetížení, která přijímají kritéria filtrování. `AddConsole` Následující vzorový kód způsobí, že poskytovatel konzoly ignoruje protokoly pod `Warning` úrovní, zatímco poskytovatel ladění ignoruje protokoly, které rozhraní vytvoří.
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_AddConsoleAndDebugWithFilter&highlight=6-7)]
-
-Metoda má přetížení, které `EventLogSettings` přebírá instanci, která může obsahovat funkci filtrování ve své `Filter` vlastnosti. `AddEventLog` Poskytovatel TraceSource neposkytuje žádné z těchto přetížení, protože jeho úroveň protokolování a další parametry jsou založené na rozhraní `SourceSwitch` a `TraceListener` , které používá.
-
-Chcete-li nastavit pravidla filtrování pro všechny poskytovatele, kteří jsou `ILoggerFactory` registrováni s instancí `WithFilter` , použijte metodu rozšíření. Níže uvedený příklad omezuje protokoly rozhraní (kategorie začíná na "Microsoft" nebo "System") na upozornění při protokolování na úrovni ladění pro protokoly vytvořené pomocí kódu aplikace.
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_FactoryFilter&highlight=6-11)]
-
-Pokud chcete zabránit psaní jakýchkoli protokolů, zadejte `LogLevel.None` jako minimální úroveň protokolu. Celočíselná hodnota `LogLevel.None` je 6, což je více než `LogLevel.Critical` (5).
-
-Rozšiřující metoda je poskytována balíčkem NuGet [Microsoft. Extensions. Logging. Filter.](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Filter) `WithFilter` Metoda vrátí novou `ILoggerFactory` instanci, která bude filtrovat zprávy protokolu předané všem poskytovatelům protokolovacích služeb, které jsou v ní zaregistrované. Neovlivňuje žádné jiné `ILoggerFactory` instance, včetně původní `ILoggerFactory` instance.
+[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_FilterFunction&highlight=5-13)]
 
 ::: moniker-end
 
@@ -563,50 +715,47 @@ Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core 
 
 Obor je `IDisposable` typ, který je vrácen <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> metodou a trvá, dokud nebude uvolněn. Použití oboru zabalením volání protokolovacího nástroje `using` v bloku:
 
-[!code-csharp[](index/samples/1.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_Scopes&highlight=4-5,13)]
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_Scopes&highlight=4-5,13)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](index/samples/2.x/TodoApiSample/Controllers/TodoController.cs?name=snippet_Scopes&highlight=4-5,13)]
+
+::: moniker-end
 
 Následující kód umožňuje obory pro poskytovatele konzoly:
 
-::: moniker range="> aspnetcore-2.0"
-
 *Program.cs*:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_Scopes&highlight=6)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_Scopes&highlight=4)]
+
+::: moniker-end
 
 > [!NOTE]
 > Aby bylo možné povolit protokolování na základě oboru, je nutné nakonfigurovat možnost protokolovacího nástroje konzoly.`IncludeScopes`
 >
 > Informace o konfiguraci najdete v části věnované [konfiguraci](#configuration) .
 
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-*Program.cs*:
-
-[!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_Scopes&highlight=4)]
-
-> [!NOTE]
-> Aby bylo možné povolit protokolování na základě oboru, je nutné nakonfigurovat možnost protokolovacího nástroje konzoly.`IncludeScopes`
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-*Startup.cs*:
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_Scopes&highlight=6)]
-
-::: moniker-end
-
 Každá zpráva protokolu obsahuje informace s vymezeným oborem:
 
 ```
-info: TodoApi.Controllers.TodoController[1002]
-      => RequestId:0HKV9C49II9CK RequestPath:/api/todo/0 => TodoApi.Controllers.TodoController.GetById (TodoApi) => Message attached to logs created in the using block
+info: TodoApiSample.Controllers.TodoController[1002]
+      => RequestId:0HKV9C49II9CK RequestPath:/api/todo/0 => TodoApiSample.Controllers.TodoController.GetById (TodoApi) => Message attached to logs created in the using block
       Getting item 0
-warn: TodoApi.Controllers.TodoController[4000]
-      => RequestId:0HKV9C49II9CK RequestPath:/api/todo/0 => TodoApi.Controllers.TodoController.GetById (TodoApi) => Message attached to logs created in the using block
+warn: TodoApiSample.Controllers.TodoController[4000]
+      => RequestId:0HKV9C49II9CK RequestPath:/api/todo/0 => TodoApiSample.Controllers.TodoController.GetById (TodoApi) => Message attached to logs created in the using block
       GetById(0) NOT FOUND
 ```
 
@@ -629,39 +778,9 @@ Informace o stdout a protokolování ladění pomocí modulu ASP.NET Core nalezn
 
 Balíček poskytovatele [Microsoft. Extensions. Logging. Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) odesílá výstup protokolu do konzoly. 
 
-::: moniker range=">= aspnetcore-2.0"
-
 ```csharp
 logging.AddConsole();
 ```
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-```csharp
-loggerFactory.AddConsole();
-```
-
-[AddConsole přetížení](xref:Microsoft.Extensions.Logging.ConsoleLoggerExtensions) umožňují předat minimální úroveň protokolu, funkci filtru a logickou hodnotu, která označuje, jestli jsou podporované obory. Další možností je předat `IConfiguration` objekt, který může určovat obory podpory a úrovně protokolování.
-
-Možnosti pro poskytovatele konzoly naleznete v <xref:Microsoft.Extensions.Logging.Console.ConsoleLoggerOptions>tématu.
-
-Poskytovatel konzoly má významný dopad na výkon a obecně není vhodný pro použití v produkčním prostředí.
-
-Při vytváření nového projektu v aplikaci Visual Studio bude `AddConsole` metoda vypadat takto:
-
-```csharp
-loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-```
-
-Tento kód odkazuje `Logging` na oddíl souboru *appSettings. JSON* :
-
-[!code-json[](index/samples/1.x/TodoApiSample/appsettings.json)]
-
-Nastavení zobrazovala možnost omezit protokoly rozhraní na upozornění, když aplikaci povolíte protokolování na úrovni ladění, jak je vysvětleno v části [filtrování protokolů](#log-filtering) . Další informace najdete v tématu [konfigurace](xref:fundamentals/configuration/index).
-
-::: moniker-end
 
 Chcete-li zobrazit výstup protokolování konzoly, otevřete příkazový řádek ve složce projektu a spusťte následující příkaz:
 
@@ -675,45 +794,19 @@ Balíček poskytovatele [Microsoft. Extensions. Logging. Debug](https://www.nuge
 
 V systému Linux tento poskytovatel zapisuje protokoly do */var/log/Message*.
 
-::: moniker range=">= aspnetcore-2.0"
-
 ```csharp
 logging.AddDebug();
 ```
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-```csharp
-loggerFactory.AddDebug();
-```
-
-[Přetížení AddDebug](xref:Microsoft.Extensions.Logging.DebugLoggerFactoryExtensions) umožňují předat minimální úroveň protokolu nebo funkci filtru.
-
-::: moniker-end
 
 ### <a name="eventsource-provider"></a>Zprostředkovatel EventSource
 
 Pro aplikace cílené na ASP.NET Core 1.1.0 nebo novější může balíček zprostředkovatele [Microsoft. Extensions. Logging. EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource) implementovat trasování událostí. Ve Windows používá [ETW](https://msdn.microsoft.com/library/windows/desktop/bb968803). Poskytovatel je pro různé platformy, ale pro Linux nebo macOS ještě nejsou k dispozici žádné nástroje pro shromažďování událostí a zobrazení.
 
-::: moniker range=">= aspnetcore-2.0"
-
 ```csharp
 logging.AddEventSourceLogger();
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-```csharp
-loggerFactory.AddEventSourceLogger();
-```
-
-::: moniker-end
-
-Dobrým způsobem, jak shromažďovat a zobrazovat protokoly, je použít [Nástroj PerfView](https://github.com/Microsoft/perfview). Existují i další nástroje pro zobrazení protokolů ETW, ale PerfView poskytuje nejlepší prostředí pro práci s událostmi trasování událostí pro Windows vygenerovanými službou ASP.NET.
+Dobrým způsobem, jak shromažďovat a zobrazovat protokoly, je použít [Nástroj PerfView](https://github.com/Microsoft/perfview). Existují i další nástroje pro zobrazení protokolů ETW, ale PerfView poskytuje nejlepší prostředí pro práci s událostmi trasování událostí pro Windows vygenerovanými ASP.NET Core.
 
 Pokud chcete nakonfigurovat PerfView pro shromažďování událostí protokolovaných tímto poskytovatelem, přidejte `*Microsoft-Extensions-Logging` řetězec do seznamu **další poskytovatelé** . (Na začátku řetězce nechybíš hvězdičku.)
 
@@ -723,107 +816,63 @@ Pokud chcete nakonfigurovat PerfView pro shromažďování událostí protokolov
 
 Balíček poskytovatele [Microsoft. Extensions. log. EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog) odesílá výstup protokolu do protokolu událostí systému Windows.
 
-::: moniker range=">= aspnetcore-2.0"
-
 ```csharp
 logging.AddEventLog();
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-```csharp
-loggerFactory.AddEventLog();
-```
-
-[Přetížení AddEventLog](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions) umožňují předat `EventLogSettings` nebo minimální úroveň protokolu.
-
-::: moniker-end
+[AddEventLog přetížení](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions) umožňují předat <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>.
 
 ### <a name="tracesource-provider"></a>Poskytovatel TraceSource
 
 Balíček poskytovatele [Microsoft. Extensions. Logging. TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource) používá <xref:System.Diagnostics.TraceSource> knihovny a poskytovatele.
 
-::: moniker range=">= aspnetcore-2.0"
-
 ```csharp
 logging.AddTraceSource(sourceSwitchName);
 ```
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-2.0"
-
-```csharp
-loggerFactory.AddTraceSource(sourceSwitchName);
-```
-
-::: moniker-end
 
 [Přetížení AddTraceSource](xref:Microsoft.Extensions.Logging.TraceSourceFactoryExtensions) umožňují předat zdrojový přepínač a naslouchací proces trasování.
 
 Aby bylo možné používat tohoto poskytovatele, aplikace musí běžet na .NET Framework (spíše než .NET Core). Poskytovatel může směrovat zprávy na celou řadu posluchačů [](/dotnet/framework/debug-trace-profile/trace-listeners), jako je <xref:System.Diagnostics.TextWriterTraceListener> například použití v ukázkové aplikaci.
 
-::: moniker range="< aspnetcore-2.0"
-
-Následující příklad konfiguruje `TraceSource` poskytovatele, který protokoluje `Warning` a rychlejší zprávy do okna konzoly.
-
-[!code-csharp[](index/samples/1.x/TodoApiSample/Startup.cs?name=snippet_TraceSource&highlight=9-12)]
-
-::: moniker-end
-
 ### <a name="azure-app-service-provider"></a>Poskytovatel Azure App Service
 
-Balíček poskytovatele [Microsoft. Extensions. Logging. AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) zapisuje protokoly do textových souborů v systému souborů aplikace Azure App Service a do [úložiště objektů BLOB](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage) v Azure Storagem účtu. Balíček Provider je dostupný pro aplikace cílené na .NET Core 1,1 nebo novější.
-
-::: moniker range=">= aspnetcore-2.0"
-
-Při cílení na .NET Core Pamatujte na následující body:
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.0"
-
-* Balíček Provider je zahrnutý ve ASP.NET Core [Microsoft. AspNetCore. All Metapackage](xref:fundamentals/metapackage).
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.1"
-
-* Balíček poskytovatele není zahrnutý ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app). Chcete-li použít poskytovatele, nainstalujte balíček.
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-2.0"
-
-Pokud cílíte .NET Framework nebo odkazování `Microsoft.AspNetCore.App` na Metapackage, přidejte do projektu balíček poskytovatele. Vyvolat `AddAzureWebAppDiagnostics`:
+Balíček poskytovatele [Microsoft. Extensions. Logging. AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices) zapisuje protokoly do textových souborů v systému souborů aplikace Azure App Service a do [úložiště objektů BLOB](https://azure.microsoft.com/documentation/articles/storage-dotnet-how-to-use-blobs/#what-is-blob-storage) v Azure Storagem účtu.
 
 ```csharp
 logging.AddAzureWebAppDiagnostics();
 ```
 
-::: moniker-end
+::: moniker range=">= aspnetcore-3.0"
 
-::: moniker range="= aspnetcore-1.1"
-
-```csharp
-loggerFactory.AddAzureWebAppDiagnostics();
-```
+Balíček poskytovatele není zahrnutý ve sdíleném rozhraní. Chcete-li použít poskytovatele, přidejte do projektu balíček poskytovatele.
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.1"
+::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-<xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> Přetížení umožňuje <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>předat. Objekt nastavení může přepsat výchozí nastavení, jako je například šablona výstupu protokolování, název objektu BLOB a omezení velikosti souboru. (*Výstupní šablona* je šablona zprávy, která se používá pro všechny protokoly kromě toho, co je k dispozici `ILogger` při volání metody.)
+Balíček poskytovatele není zahrnutý ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app). Při cílení na .NET Framework nebo odkazování na `Microsoft.AspNetCore.App` Metapackage přidejte do projektu balíček poskytovatele. 
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.2"
+::: moniker range=">= aspnetcore-3.0"
+
+Chcete-li konfigurovat nastavení zprostředkovatele <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> , <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>použijte a, jak je znázorněno v následujícím příkladu:
+
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AzLogOptions&highlight=17-28)]
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.2"
 
 Chcete-li konfigurovat nastavení zprostředkovatele <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureFileLoggerOptions> , <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureBlobLoggerOptions>použijte a, jak je znázorněno v následujícím příkladu:
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_AzLogOptions&highlight=19-27)]
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.1"
+
+<xref:Microsoft.Extensions.Logging.AzureAppServicesLoggerFactoryExtensions.AddAzureWebAppDiagnostics*> Přetížení umožňuje <xref:Microsoft.Extensions.Logging.AzureAppServices.AzureAppServicesDiagnosticsSettings>předat. Objekt nastavení může přepsat výchozí nastavení, jako je například šablona výstupu protokolování, název objektu BLOB a omezení velikosti souboru. (*Výstupní šablona* je šablona zprávy, která se používá pro všechny protokoly kromě toho, co je k dispozici `ILogger` při volání metody.)
 
 ::: moniker-end
 
@@ -852,8 +901,6 @@ Konfigurace streamování protokolů Azure:
 
 Pokud chcete zobrazit zprávy aplikace, přejděte na stránku **streamu protokolu** . Protokolují ho aplikace přes `ILogger` rozhraní.
 
-::: moniker range=">= aspnetcore-1.1"
-
 ### <a name="azure-application-insights-trace-logging"></a>Protokolování trasování Azure Application Insights
 
 Balíček poskytovatele [Microsoft. Extensions. Logging. ApplicationInsights](https://www.nuget.org/packages/Microsoft.Extensions.Logging.ApplicationInsights) zapisuje protokoly do Azure Application Insights. Application Insights je služba, která monitoruje webovou aplikaci a poskytuje nástroje pro dotazování a analýzu dat telemetrie. Pokud použijete tohoto poskytovatele, můžete zadávat dotazy a analyzovat protokoly pomocí Application Insightsch nástrojů.
@@ -869,7 +916,6 @@ Další informace naleznete v následujících materiálech:
 * [ApplicationInsightsLoggerProvider pro protokoly .NET Core ILogger](/azure/azure-monitor/app/ilogger) – začněte sem, pokud chcete implementovat poskytovatele protokolování bez zbytku Application Insights telemetrie.
 * [Application Insights adaptéry protokolování](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-trace-logs).
 * [Instalace, konfigurace a inicializace Application Insights sady SDK](/learn/modules/instrument-web-app-code-with-application-insights) – Interaktivní kurz na webu Microsoft Learn.
-::: moniker-end
 
 ## <a name="third-party-logging-providers"></a>Zprostředkovatelé protokolování třetích stran
 

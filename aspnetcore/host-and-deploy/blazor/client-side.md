@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: host-and-deploy/blazor/client-side
-ms.openlocfilehash: be6b6c245440cb085a1a6b115f4f087306f7cc83
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: e9a42bd4e8511d426761746047fed2d4f7dfc6dd
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308089"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994079"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-client-side"></a>Hostování a nasazení ASP.NET Core Blazor na straně klienta
 
@@ -148,7 +148,7 @@ Aplikace odpoví místně na adrese `http://localhost:port/CoolApp`.
 
 Další informace najdete v části na [hodnotě základní konfigurace hostitele Path](#path-base).
 
-Pokud aplikace používá [model hostování na straně klienta](xref:blazor/hosting-models#client-side) (na `blazor` základě šablony projektu **Blazor (na straně klienta)** , šablony při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) a je hostována jako podaplikace služby IIS v aplikaci ASP.NET Core, je důležité Zakažte zděděnou obslužnou rutinu modulu ASP.NET Core nebo zajistěte, aby dílčí `<handlers>` aplikace nezdědila oddíl kořenové (nadřazené) aplikace v souboru *Web. config* .
+Pokud aplikace používá [model hostování na straně klienta](xref:blazor/hosting-models#client-side) (na `blazorwasm` základě šablony projektu **aplikace Blazor WebAssembly** , šablony při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) a je hostována jako podaplikace služby IIS v aplikaci ASP.NET Core, je důležité Zakažte zděděnou obslužnou rutinu modulu ASP.NET Core nebo zajistěte, aby dílčí `<handlers>` aplikace nezdědila oddíl kořenové (nadřazené) aplikace v souboru *Web. config* .
 
 Odeberte obslužnou rutinu v publikovaném souboru *Web. config* aplikace přidáním `<handlers>` oddílu do souboru:
 
@@ -180,7 +180,7 @@ Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě k
 
 *Hostované nasazení* obsluhuje aplikaci Blazor na straně klienta z [aplikace ASP.NET Core](xref:index) , která běží na webovém serveru.
 
-Aplikace Blazor je součástí aplikace ASP.NET Core v publikovaném výstupu, takže se tyto dvě aplikace nasazují dohromady. Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core. V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu **Blazor (ASP.NET Core Hosted)** (`blazorhosted` šablona při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ).
+Aplikace Blazor je součástí aplikace ASP.NET Core v publikovaném výstupu, takže se tyto dvě aplikace nasazují dohromady. Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core. V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu **aplikace WebAssembly Blazor** (`blazorwasm` šablona při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) se zvolenou možností **Hosted** .
 
 Další informace o ASP.NET Core hostování a nasazení aplikací najdete v tématu <xref:host-and-deploy/index>.
 

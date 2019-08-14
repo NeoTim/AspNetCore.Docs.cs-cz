@@ -5,14 +5,14 @@ description: Začněte s Blazor vytvořením aplikace Blazor pomocí nástrojů 
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/23/2019
+ms.date: 08/13/2019
 uid: blazor/get-started
-ms.openlocfilehash: b4609858be43acf9d1b2d8be5eff4879fd56f49f
-ms.sourcegitcommit: 051f068c78931432e030b60094c38376d64d013e
+ms.openlocfilehash: 1358a2e92af9d9104e565718692b1ca1940b9d9e
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/24/2019
-ms.locfileid: "68440310"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68993404"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -25,7 +25,7 @@ Začínáme s Blazor:
 1. Nainstalujte šablony Blazor spuštěním následujícího příkazu v příkazovém prostředí:
 
    ```console
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview7.19365.7
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview8.19405.7
    ```
 
 1. Postupujte podle pokynů pro výběr nástrojů:
@@ -40,12 +40,12 @@ Začínáme s Blazor:
 
    4\. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
-   5\. Pro Blazor prostředí na straně klienta vyberte šablonu **Blazor (na straně klienta)** . Pro Blazor prostředí na straně serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor, na straně serveru a na straně klienta, najdete v <xref:blazor/hosting-models>tématu.
+   5\. Pro Blazor prostředí na straně klienta vyberte šablonu **aplikace Blazor WebAssembly** . Pro Blazor prostředí na straně serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor, na straně serveru a na straně klienta, najdete v <xref:blazor/hosting-models>tématu.
 
    6\. Stisknutím klávesy **F5** spusťte aplikaci.
 
    > [!NOTE]
-   > Pokud jste nainstalovali rozšíření sady Visual Studio Blazor pro předchozí verzi Preview služby ASP.NET Core Blazor (Preview 6 nebo starší), můžete rozšíření odinstalovat v Preview 7. Instalace šablon Blazor do příkazového prostředí je teď dostačující pro povrchování šablon v aplikaci Visual Studio.
+   > Pokud jste nainstalovali rozšíření sady Visual Studio Blazor pro předchozí verzi Preview služby ASP.NET Core Blazor (Preview 6 nebo starší), můžete rozšíření odinstalovat. Instalace šablon Blazor do příkazového prostředí je teď dostačující pro povrchování šablon v aplikaci Visual Studio.
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -56,13 +56,13 @@ Začínáme s Blazor:
    3\. Pro Blazor prostředí na straně klienta spusťte v příkazovém prostředí následující příkaz:
 
       ```console
-      dotnet new blazor -o WebApplication1
+      dotnet new blazorwasm -o WebApplication1
       ```
 
       Pro Blazor prostředí na straně serveru spusťte v příkazovém prostředí následující příkaz:
 
       ```console
-      dotnet new blazorserverside -o WebApplication1
+      dotnet new blazorserver -o WebApplication1
       ```
 
       Informace o dvou modelech hostování Blazor, na straně serveru a na straně klienta, najdete v <xref:blazor/hosting-models>tématu.
@@ -85,7 +85,7 @@ Začínáme s Blazor:
 
    3\. In the sidebar, select **.NET Core** > **App**.
 
-   4\. For a Blazor server-side experience, select the **ASP.NET Core Blazor Server App** template. For a Blazor client-side experience, select the **ASP.NET Core Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
+   4\. For a Blazor server-side experience, select the **Blazor Server App** template. For a Blazor client-side experience, select the **Blazor WebAssembly App** template. Select **Next**. For information on the two Blazor hosting models, server-side and client-side, see <xref:blazor/hosting-models>.
 
    5\. The **Target Framework** defaults to **.NET Core 3.0**. Select **Next**.
 
@@ -100,7 +100,7 @@ Začínáme s Blazor:
    Pro Blazor prostředí na straně klienta spusťte v příkazovém prostředí následující příkazy:
 
    ```console
-   dotnet new blazor -o WebApplication1
+   dotnet new blazorwasm -o WebApplication1
    cd WebApplication1
    dotnet run
    ```
@@ -108,7 +108,7 @@ Začínáme s Blazor:
    Pro Blazor prostředí na straně serveru spusťte v příkazovém prostředí následující příkazy:
 
    ```console
-   dotnet new blazorserverside -o WebApplication1
+   dotnet new blazorserver -o WebApplication1
    cd WebApplication1
    dotnet run
    ```
@@ -152,7 +152,7 @@ Spusťte aplikaci. Domovská stránka má vlastní počítadlo poskytované `Cou
 
 Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu](xref:blazor/components#child-content), který umožňuje nastavit vlastnosti pro podřízenou komponentu. Chcete-li přidat parametr do `Counter` komponenty, aktualizujte `@code` blok komponenty:
 
-* Přidejte vlastnost pro `IncrementAmount` `[Parameter]` s atributem.
+* Přidejte veřejnou vlastnost pro `IncrementAmount` `[Parameter]` s atributem.
 * Změňte metodu na `IncrementAmount` použití`currentCount`při zvyšování hodnoty. `IncrementCount`
 
 *Stránky/čítač. Razor*:

@@ -5,14 +5,14 @@ description: Naučte se konfigurovat a používat middleware pro ukládání odp
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/08/2019
+ms.date: 08/09/2019
 uid: performance/caching/middleware
-ms.openlocfilehash: 6371f42b100f70c6042064a6372c7b9e41fd5c73
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 838a08c12316d218501f26d5905f9e31ab93dfc9
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914990"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994232"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>Ukládání do mezipaměti middlewaru v ASP.NET Core
 
@@ -24,57 +24,57 @@ Tento článek vysvětluje, jak v aplikaci ASP.NET Core nakonfigurovat middlewar
 
 ## <a name="configuration"></a>Konfiguraci
 
-Použijte soubor [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. AspNetCore. ResponseCaching](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCaching/) .
+::: moniker range=">= aspnetcore-3.0"
+
+Middleware pro ukládání odpovědí do mezipaměti je k dispozici. balíčkem [Microsoft. AspNetCore. ResponseCaching](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCaching/) , který se implicitně přidávají do aplikací ASP.NET Core.
 
 `Startup.ConfigureServices`Do kolekce služby přidejte middleware pro ukládání odpovědí do mezipaměti:
 
-::: moniker range=">= aspnetcore-3.0"
-
 [!code-csharp[](middleware/samples/3.x/ResponseCachingMiddleware/Startup.cs?name=snippet1&highlight=3)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-[!code-csharp[](middleware/samples/2.x/ResponseCachingMiddleware/Startup.cs?name=snippet1&highlight=3)]
-
-::: moniker-end
 
 Nakonfigurujte aplikaci tak, aby používala middlewaru <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching*> s metodou rozšíření, která přidá middleware do kanálu zpracování požadavků v `Startup.Configure`:
 
-::: moniker range=">= aspnetcore-3.0"
-
 [!code-csharp[](middleware/samples/3.x/ResponseCachingMiddleware/Startup.cs?name=snippet2&highlight=16)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-[!code-csharp[](middleware/samples/2.x/ResponseCachingMiddleware/Startup.cs?name=snippet2&highlight=14)]
-
-::: moniker-end
 
 Ukázková aplikace přidá hlavičky pro řízení ukládání do mezipaměti pro následné žádosti:
 
 * [Řízení mezipaměti](https://tools.ietf.org/html/rfc7234#section-5.2) &ndash; Ukládá do mezipaměti odpovědi po dobu až 10 sekund.
 * [Různé](https://tools.ietf.org/html/rfc7231#section-7.1.4) Nakonfiguruje middleware tak, aby poskytoval odpověď uloženou [`Accept-Encoding`](https://tools.ietf.org/html/rfc7231#section-5.3.4) v mezipaměti pouze v případě, že hlavička následujících požadavků odpovídá původní žádosti. &ndash;
 
-::: moniker range=">= aspnetcore-3.0"
-
 [!code-csharp[](middleware/samples_snippets/3.x/AddHeaders.cs)]
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-[!code-csharp[](middleware/samples_snippets/2.x/AddHeaders.cs)]
-
-::: moniker-end
 
 Middleware pro ukládání odpovědí do mezipaměti ukládá pouze odpovědi serveru, jejichž výsledkem je stavový kód 200 (OK). Všechny ostatní odpovědi, včetně [chybových stránek](xref:fundamentals/error-handling), se middleware ignorují.
 
 > [!WARNING]
 > Odpovědi obsahující obsah pro ověřené klienty musí být označené jako neukládatelné do mezipaměti, aby middleware nemohli ukládat a obsluhovat tyto odpovědi. Podrobnosti o tom, jak middleware určuje, jestli je odpověď mezipaměť, najdete v tématu [podmínky pro ukládání do mezipaměti](#conditions-for-caching) .
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Použijte soubor [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. AspNetCore. ResponseCaching](https://www.nuget.org/packages/Microsoft.AspNetCore.ResponseCaching/) .
+
+`Startup.ConfigureServices`Do kolekce služby přidejte middleware pro ukládání odpovědí do mezipaměti:
+
+[!code-csharp[](middleware/samples/2.x/ResponseCachingMiddleware/Startup.cs?name=snippet1&highlight=3)]
+
+Nakonfigurujte aplikaci tak, aby používala middlewaru <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching*> s metodou rozšíření, která přidá middleware do kanálu zpracování požadavků v `Startup.Configure`:
+
+[!code-csharp[](middleware/samples/2.x/ResponseCachingMiddleware/Startup.cs?name=snippet2&highlight=14)]
+
+Ukázková aplikace přidá hlavičky pro řízení ukládání do mezipaměti pro následné žádosti:
+
+* [Řízení mezipaměti](https://tools.ietf.org/html/rfc7234#section-5.2) &ndash; Ukládá do mezipaměti odpovědi po dobu až 10 sekund.
+* [Různé](https://tools.ietf.org/html/rfc7231#section-7.1.4) Nakonfiguruje middleware tak, aby poskytoval odpověď uloženou [`Accept-Encoding`](https://tools.ietf.org/html/rfc7231#section-5.3.4) v mezipaměti pouze v případě, že hlavička následujících požadavků odpovídá původní žádosti. &ndash;
+
+[!code-csharp[](middleware/samples_snippets/2.x/AddHeaders.cs)]
+
+Middleware pro ukládání odpovědí do mezipaměti ukládá pouze odpovědi serveru, jejichž výsledkem je stavový kód 200 (OK). Všechny ostatní odpovědi, včetně [chybových stránek](xref:fundamentals/error-handling), se middleware ignorují.
+
+> [!WARNING]
+> Odpovědi obsahující obsah pro ověřené klienty musí být označené jako neukládatelné do mezipaměti, aby middleware nemohli ukládat a obsluhovat tyto odpovědi. Podrobnosti o tom, jak middleware určuje, jestli je odpověď mezipaměť, najdete v tématu [podmínky pro ukládání do mezipaměti](#conditions-for-caching) .
+
+::: moniker-end
 
 ## <a name="options"></a>Možnosti
 
