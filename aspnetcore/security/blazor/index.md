@@ -1,77 +1,77 @@
 ---
-title: ASP.NET Core Blazor ověřování a autorizace
+title: ASP.NET Core ověřování a autorizace Blazor
 author: guardrex
-description: Další informace o Blazor scénářů ověřování a autorizace.
+description: Přečtěte si o scénářích ověřování a autorizace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/26/2019
 uid: security/blazor/index
-ms.openlocfilehash: 097a747f68729109922af5c68dfd918024ee6146
-ms.sourcegitcommit: 040aedca220ed24ee1726e6886daf6906f95a028
+ms.openlocfilehash: 87d61a7ccda209243a62bc54467b8f02dad92c24
+ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "67893615"
+ms.lasthandoff: 08/13/2019
+ms.locfileid: "68994189"
 ---
-# <a name="aspnet-core-blazor-authentication-and-authorization"></a><span data-ttu-id="ec1e3-103">ASP.NET Core Blazor ověřování a autorizace</span><span class="sxs-lookup"><span data-stu-id="ec1e3-103">ASP.NET Core Blazor authentication and authorization</span></span>
+# <a name="aspnet-core-blazor-authentication-and-authorization"></a><span data-ttu-id="b7776-103">ASP.NET Core ověřování a autorizace Blazor</span><span class="sxs-lookup"><span data-stu-id="b7776-103">ASP.NET Core Blazor authentication and authorization</span></span>
 
-<span data-ttu-id="ec1e3-104">Podle [Steve Sanderson](https://github.com/SteveSandersonMS)</span><span class="sxs-lookup"><span data-stu-id="ec1e3-104">By [Steve Sanderson](https://github.com/SteveSandersonMS)</span></span>
+<span data-ttu-id="b7776-104">Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)</span><span class="sxs-lookup"><span data-stu-id="b7776-104">By [Steve Sanderson](https://github.com/SteveSandersonMS)</span></span>
 
-<span data-ttu-id="ec1e3-105">ASP.NET Core podporuje konfiguraci a správu zabezpečení v aplikacích Blazor.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-105">ASP.NET Core supports the configuration and management of security in Blazor apps.</span></span>
+<span data-ttu-id="b7776-105">ASP.NET Core podporuje konfiguraci a správu zabezpečení v aplikacích Blazor.</span><span class="sxs-lookup"><span data-stu-id="b7776-105">ASP.NET Core supports the configuration and management of security in Blazor apps.</span></span>
 
-<span data-ttu-id="ec1e3-106">Scénáře zabezpečení se liší mezi Blazor serverové a klientské aplikace.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-106">Security scenarios differ between Blazor server-side and client-side apps.</span></span> <span data-ttu-id="ec1e3-107">Protože Blazor serverové aplikace spustit na serveru, budou moct určit kontroly autorizace:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-107">Because Blazor server-side apps run on the server, authorization checks are able to determine:</span></span>
+<span data-ttu-id="b7776-106">Scénáře zabezpečení se liší mezi Blazor a klientskými aplikacemi na straně serveru.</span><span class="sxs-lookup"><span data-stu-id="b7776-106">Security scenarios differ between Blazor server-side and client-side apps.</span></span> <span data-ttu-id="b7776-107">Vzhledem k tomu, že Blazor aplikace na straně serveru běží na serveru, kontroly autorizace můžou určit:</span><span class="sxs-lookup"><span data-stu-id="b7776-107">Because Blazor server-side apps run on the server, authorization checks are able to determine:</span></span>
 
-* <span data-ttu-id="ec1e3-108">Možnosti uživatelského rozhraní zobrazovat uživatele (například položky nabídky, které jsou k dispozici pro uživatele).</span><span class="sxs-lookup"><span data-stu-id="ec1e3-108">The UI options presented to a user (for example, which menu entries are available to a user).</span></span>
-* <span data-ttu-id="ec1e3-109">Pravidla přístupu pro oblasti aplikace a komponenty.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-109">Access rules for areas of the app and components.</span></span>
+* <span data-ttu-id="b7776-108">Možnosti uživatelského rozhraní prezentované uživateli (například položky nabídky, které jsou k dispozici uživateli).</span><span class="sxs-lookup"><span data-stu-id="b7776-108">The UI options presented to a user (for example, which menu entries are available to a user).</span></span>
+* <span data-ttu-id="b7776-109">Pravidla přístupu pro oblasti aplikace a součástí</span><span class="sxs-lookup"><span data-stu-id="b7776-109">Access rules for areas of the app and components.</span></span>
 
-<span data-ttu-id="ec1e3-110">Aplikace na straně klienta Blazor na klientech.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-110">Blazor client-side apps run on the client.</span></span> <span data-ttu-id="ec1e3-111">Autorizace je *pouze* používá k určení, které pokud chcete zobrazit možnosti uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-111">Authorization is *only* used to determine which UI options to show.</span></span> <span data-ttu-id="ec1e3-112">Protože kontroly na straně klienta může obejít uživatelem nebo upraví, aplikace na straně klienta Blazor nemůže vynutit pravidla autorizace přístupu.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-112">Since client-side checks can be modified or bypassed by a user, a Blazor client-side app can't enforce authorization access rules.</span></span>
+<span data-ttu-id="b7776-110">Blazor aplikace na straně klienta běží na klientovi.</span><span class="sxs-lookup"><span data-stu-id="b7776-110">Blazor client-side apps run on the client.</span></span> <span data-ttu-id="b7776-111">Autorizace se používá *jenom* k určení možností uživatelského rozhraní, které se mají zobrazit.</span><span class="sxs-lookup"><span data-stu-id="b7776-111">Authorization is *only* used to determine which UI options to show.</span></span> <span data-ttu-id="b7776-112">Vzhledem k tomu, že kontroly na straně klienta mohou být upraveny nebo vynechány uživatelem, aplikace Blazor na straně klienta nemůže vyhovět autorizačním pravidlům.</span><span class="sxs-lookup"><span data-stu-id="b7776-112">Since client-side checks can be modified or bypassed by a user, a Blazor client-side app can't enforce authorization access rules.</span></span>
 
-## <a name="authentication"></a><span data-ttu-id="ec1e3-113">Ověřování</span><span class="sxs-lookup"><span data-stu-id="ec1e3-113">Authentication</span></span>
+## <a name="authentication"></a><span data-ttu-id="b7776-113">Ověřování</span><span class="sxs-lookup"><span data-stu-id="b7776-113">Authentication</span></span>
 
-<span data-ttu-id="ec1e3-114">Blazor pomocí stávající mechanismy ověřování ASP.NET Core zřizuje identitu uživatele.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-114">Blazor uses the existing ASP.NET Core authentication mechanisms to establish the user's identity.</span></span> <span data-ttu-id="ec1e3-115">Přesný postup závisí na tom, jak je hostitelem aplikace Blazor, na straně serveru nebo na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-115">The exact mechanism depends on how the Blazor app is hosted, server-side or client-side.</span></span>
+<span data-ttu-id="b7776-114">Blazor používá k vytvoření identity uživatele existující mechanismy ověřování ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="b7776-114">Blazor uses the existing ASP.NET Core authentication mechanisms to establish the user's identity.</span></span> <span data-ttu-id="b7776-115">Přesný mechanismus závisí na tom, jak je aplikace Blazor hostována, na straně serveru nebo na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="b7776-115">The exact mechanism depends on how the Blazor app is hosted, server-side or client-side.</span></span>
 
-### <a name="blazor-server-side-authentication"></a><span data-ttu-id="ec1e3-116">Blazor ověřování na straně serveru</span><span class="sxs-lookup"><span data-stu-id="ec1e3-116">Blazor server-side authentication</span></span>
+### <a name="blazor-server-side-authentication"></a><span data-ttu-id="b7776-116">Blazor ověřování na straně serveru</span><span class="sxs-lookup"><span data-stu-id="b7776-116">Blazor server-side authentication</span></span>
 
-<span data-ttu-id="ec1e3-117">Aplikace na straně serveru Blazor provoz přes připojení v reálném čase, který je vytvořen pomocí nástroje SignalR.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-117">Blazor server-side apps operate over a real-time connection that's created using SignalR.</span></span> <span data-ttu-id="ec1e3-118">[Ověřování v aplikacích založených na SignalR](xref:signalr/authn-and-authz) je zpracována při vytvoření připojení.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-118">[Authentication in SignalR-based apps](xref:signalr/authn-and-authz) is handled when the connection is established.</span></span> <span data-ttu-id="ec1e3-119">Ověřování může být založen na souboru cookie nebo některé jiné nosný token.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-119">Authentication can be based on a cookie or some other bearer token.</span></span>
+<span data-ttu-id="b7776-117">Blazor aplikace na straně serveru fungují prostřednictvím připojení v reálném čase vytvořeného pomocí signálu.</span><span class="sxs-lookup"><span data-stu-id="b7776-117">Blazor server-side apps operate over a real-time connection that's created using SignalR.</span></span> <span data-ttu-id="b7776-118">[Ověřování v aplikacích založených na službě Signal](xref:signalr/authn-and-authz) se zpracovává při navázání připojení.</span><span class="sxs-lookup"><span data-stu-id="b7776-118">[Authentication in SignalR-based apps](xref:signalr/authn-and-authz) is handled when the connection is established.</span></span> <span data-ttu-id="b7776-119">Ověřování může být založené na souboru cookie nebo nějakém jiném nosným tokenu.</span><span class="sxs-lookup"><span data-stu-id="b7776-119">Authentication can be based on a cookie or some other bearer token.</span></span>
 
-<span data-ttu-id="ec1e3-120">Šablona projektu na straně serveru Blazor můžete nastavit ověřování za vás při vytvoření projektu.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-120">The Blazor server-side project template can set up authentication for you when the project is created.</span></span>
+<span data-ttu-id="b7776-120">Šablona projektu Blazor na straně serveru může nastavit ověřování při vytvoření projektu.</span><span class="sxs-lookup"><span data-stu-id="b7776-120">The Blazor server-side project template can set up authentication for you when the project is created.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="ec1e3-121">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="ec1e3-121">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="b7776-121">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="b7776-121">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="ec1e3-122">Postupujte podle pokynů sady Visual Studio v <xref:blazor/get-started> článku vytvořte nový projekt na straně serveru Blazor s mechanismus ověřování.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-122">Follow the Visual Studio guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism.</span></span>
+<span data-ttu-id="b7776-122">Podle pokynů pro Visual Studio v <xref:blazor/get-started> článku vytvořte nový projekt Blazor na straně serveru s mechanismem ověřování.</span><span class="sxs-lookup"><span data-stu-id="b7776-122">Follow the Visual Studio guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism.</span></span>
 
-<span data-ttu-id="ec1e3-123">Po výběru **Blazor serverovou aplikaci** šablony v **vytvořit novou webovou aplikaci ASP.NET Core** dialogového okna, vyberte **změnu** pod **ověřování** .</span><span class="sxs-lookup"><span data-stu-id="ec1e3-123">After choosing the **Blazor Server App** template in the **Create a new ASP.NET Core Web Application** dialog, select **Change** under **Authentication**.</span></span>
+<span data-ttu-id="b7776-123">Po výběru šablony **aplikace Blazor serveru** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .</span><span class="sxs-lookup"><span data-stu-id="b7776-123">After choosing the **Blazor Server App** template in the **Create a new ASP.NET Core Web Application** dialog, select **Change** under **Authentication**.</span></span>
 
-<span data-ttu-id="ec1e3-124">Otevře se dialogové okno nabízí stejnou sadu ověřovací mechanismy dostupné pro jiné technologie ASP.NET Core projekty:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-124">A dialog opens to offer the same set of authentication mechanisms available for other ASP.NET Core projects:</span></span>
+<span data-ttu-id="b7776-124">Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pro jiné projekty ASP.NET Core:</span><span class="sxs-lookup"><span data-stu-id="b7776-124">A dialog opens to offer the same set of authentication mechanisms available for other ASP.NET Core projects:</span></span>
 
-* <span data-ttu-id="ec1e3-125">**Bez ověřování**</span><span class="sxs-lookup"><span data-stu-id="ec1e3-125">**No Authentication**</span></span>
-* <span data-ttu-id="ec1e3-126">**Individuální uživatelské účty** &ndash; mohou být uloženy uživatelských účtů:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-126">**Individual User Accounts** &ndash; User accounts can be stored:</span></span>
-  * <span data-ttu-id="ec1e3-127">V rámci aplikace pomocí ASP.NET Core [Identity](xref:security/authentication/identity) systému.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-127">Within the app using ASP.NET Core's [Identity](xref:security/authentication/identity) system.</span></span>
-  * <span data-ttu-id="ec1e3-128">S [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span><span class="sxs-lookup"><span data-stu-id="ec1e3-128">With [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span></span>
-* <span data-ttu-id="ec1e3-129">**Pracovní nebo školní účty**</span><span class="sxs-lookup"><span data-stu-id="ec1e3-129">**Work or School Accounts**</span></span>
-* <span data-ttu-id="ec1e3-130">**Ověřování Windows**</span><span class="sxs-lookup"><span data-stu-id="ec1e3-130">**Windows Authentication**</span></span>
+* <span data-ttu-id="b7776-125">**Bez ověřování**</span><span class="sxs-lookup"><span data-stu-id="b7776-125">**No Authentication**</span></span>
+* <span data-ttu-id="b7776-126">**Jednotlivé uživatelské účty** &ndash; Uživatelské účty je možné uložit:</span><span class="sxs-lookup"><span data-stu-id="b7776-126">**Individual User Accounts** &ndash; User accounts can be stored:</span></span>
+  * <span data-ttu-id="b7776-127">V aplikaci, která používá systém [identit](xref:security/authentication/identity) ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="b7776-127">Within the app using ASP.NET Core's [Identity](xref:security/authentication/identity) system.</span></span>
+  * <span data-ttu-id="b7776-128">S [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span><span class="sxs-lookup"><span data-stu-id="b7776-128">With [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span></span>
+* <span data-ttu-id="b7776-129">**Pracovní nebo školní účty**</span><span class="sxs-lookup"><span data-stu-id="b7776-129">**Work or School Accounts**</span></span>
+* <span data-ttu-id="b7776-130">**Ověřování systému Windows**</span><span class="sxs-lookup"><span data-stu-id="b7776-130">**Windows Authentication**</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="ec1e3-131">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="ec1e3-131">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="b7776-131">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="b7776-131">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="ec1e3-132">Postupujte podle pokynů Visual Studio Code v <xref:blazor/get-started> článku vytvořte nový projekt na straně serveru Blazor s mechanismus ověřování:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-132">Follow the Visual Studio Code guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism:</span></span>
+<span data-ttu-id="b7776-132">Postupujte podle pokynů Visual Studio Code v <xref:blazor/get-started> článku Vytvoření nového projektu na straně serveru Blazor pomocí mechanismu ověřování:</span><span class="sxs-lookup"><span data-stu-id="b7776-132">Follow the Visual Studio Code guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism:</span></span>
 
 ```console
-dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
+dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 ```
 
-<span data-ttu-id="ec1e3-133">Hodnoty povolenou ověřování (`{AUTHENTICATION}`) jsou uvedeny v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-133">Permissible authentication values (`{AUTHENTICATION}`) are shown in the following table.</span></span>
+<span data-ttu-id="b7776-133">Přípustné hodnoty ověřování (`{AUTHENTICATION}`) jsou uvedeny v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="b7776-133">Permissible authentication values (`{AUTHENTICATION}`) are shown in the following table.</span></span>
 
-| <span data-ttu-id="ec1e3-134">Mechanismus ověřování</span><span class="sxs-lookup"><span data-stu-id="ec1e3-134">Authentication mechanism</span></span>                                                                 | <span data-ttu-id="ec1e3-135">`{AUTHENTICATION}` Hodnota</span><span class="sxs-lookup"><span data-stu-id="ec1e3-135">`{AUTHENTICATION}` value</span></span> |
+| <span data-ttu-id="b7776-134">Mechanismus ověřování</span><span class="sxs-lookup"><span data-stu-id="b7776-134">Authentication mechanism</span></span>                                                                 | <span data-ttu-id="b7776-135">`{AUTHENTICATION}`osa</span><span class="sxs-lookup"><span data-stu-id="b7776-135">`{AUTHENTICATION}` value</span></span> |
 | ---------------------------------------------------------------------------------------- | :----------------------: |
-| <span data-ttu-id="ec1e3-136">Bez ověřování</span><span class="sxs-lookup"><span data-stu-id="ec1e3-136">No Authentication</span></span>                                                                        | `None`                   |
-| <span data-ttu-id="ec1e3-137">Osoba</span><span class="sxs-lookup"><span data-stu-id="ec1e3-137">Individual</span></span><br><span data-ttu-id="ec1e3-138">Uživatelé uložení v aplikaci s ASP.NET Core Identity.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-138">Users stored in the app with ASP.NET Core Identity.</span></span>                        | `Individual`             |
-| <span data-ttu-id="ec1e3-139">Osoba</span><span class="sxs-lookup"><span data-stu-id="ec1e3-139">Individual</span></span><br><span data-ttu-id="ec1e3-140">Uživatelé ukládají v [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span><span class="sxs-lookup"><span data-stu-id="ec1e3-140">Users stored in [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span></span> | `IndividualB2C`          |
-| <span data-ttu-id="ec1e3-141">Pracovní nebo školní účty</span><span class="sxs-lookup"><span data-stu-id="ec1e3-141">Work or School Accounts</span></span><br><span data-ttu-id="ec1e3-142">Ověřování organizace pro jednoho tenanta.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-142">Organizational authentication for a single tenant.</span></span>            | `SingleOrg`              |
-| <span data-ttu-id="ec1e3-143">Pracovní nebo školní účty</span><span class="sxs-lookup"><span data-stu-id="ec1e3-143">Work or School Accounts</span></span><br><span data-ttu-id="ec1e3-144">Ověřování organizace pro více tenantů.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-144">Organizational authentication for multiple tenants.</span></span>           | `MultiOrg`               |
-| <span data-ttu-id="ec1e3-145">Ověřování systému Windows</span><span class="sxs-lookup"><span data-stu-id="ec1e3-145">Windows Authentication</span></span>                                                                   | `Windows`                |
+| <span data-ttu-id="b7776-136">Bez ověřování</span><span class="sxs-lookup"><span data-stu-id="b7776-136">No Authentication</span></span>                                                                        | `None`                   |
+| <span data-ttu-id="b7776-137">Jednoho</span><span class="sxs-lookup"><span data-stu-id="b7776-137">Individual</span></span><br><span data-ttu-id="b7776-138">Uživatelé uložení v aplikaci pomocí ASP.NET Core identity</span><span class="sxs-lookup"><span data-stu-id="b7776-138">Users stored in the app with ASP.NET Core Identity.</span></span>                        | `Individual`             |
+| <span data-ttu-id="b7776-139">Jednoho</span><span class="sxs-lookup"><span data-stu-id="b7776-139">Individual</span></span><br><span data-ttu-id="b7776-140">Uživatelé uložení v [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span><span class="sxs-lookup"><span data-stu-id="b7776-140">Users stored in [Azure AD B2C](xref:security/authentication/azure-ad-b2c).</span></span> | `IndividualB2C`          |
+| <span data-ttu-id="b7776-141">Pracovní nebo školní účty</span><span class="sxs-lookup"><span data-stu-id="b7776-141">Work or School Accounts</span></span><br><span data-ttu-id="b7776-142">Ověřování organizace pro jednoho tenanta.</span><span class="sxs-lookup"><span data-stu-id="b7776-142">Organizational authentication for a single tenant.</span></span>            | `SingleOrg`              |
+| <span data-ttu-id="b7776-143">Pracovní nebo školní účty</span><span class="sxs-lookup"><span data-stu-id="b7776-143">Work or School Accounts</span></span><br><span data-ttu-id="b7776-144">Ověřování organizace pro více tenantů.</span><span class="sxs-lookup"><span data-stu-id="b7776-144">Organizational authentication for multiple tenants.</span></span>           | `MultiOrg`               |
+| <span data-ttu-id="b7776-145">Ověřování systému Windows</span><span class="sxs-lookup"><span data-stu-id="b7776-145">Windows Authentication</span></span>                                                                   | `Windows`                |
 
-<span data-ttu-id="ec1e3-146">Tento příkaz vytvoří složku s názvem se hodnota zadaná pro `{APP NAME}` zástupný text a používá název složky názvem aplikace.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-146">The command creates a folder named with the value provided for the `{APP NAME}` placeholder and uses the folder name as the app's name.</span></span> <span data-ttu-id="ec1e3-147">Další informace najdete v tématu [dotnet nové](/dotnet/core/tools/dotnet-new) příkaz v příručce .NET Core.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-147">For more information, see the [dotnet new](/dotnet/core/tools/dotnet-new) command in the .NET Core Guide.</span></span>
+<span data-ttu-id="b7776-146">Příkaz vytvoří složku s názvem s hodnotou zadanou pro `{APP NAME}` zástupný text a jako název aplikace použije název složky.</span><span class="sxs-lookup"><span data-stu-id="b7776-146">The command creates a folder named with the value provided for the `{APP NAME}` placeholder and uses the folder name as the app's name.</span></span> <span data-ttu-id="b7776-147">Další informace najdete v tématu [dotnet New](/dotnet/core/tools/dotnet-new) v příručce .NET Core.</span><span class="sxs-lookup"><span data-stu-id="b7776-147">For more information, see the [dotnet new](/dotnet/core/tools/dotnet-new) command in the .NET Core Guide.</span></span>
 
 <!--
 
@@ -91,7 +91,7 @@ dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
 Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism:
 
 ```console
-dotnet new blazorserverside -o {APP NAME} -au {AUTHENTICATION}
+dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 ```
 
 Permissible authentication values (`{AUTHENTICATION}`) are shown in the following table.
@@ -111,21 +111,21 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 ---
 
-### <a name="blazor-client-side-authentication"></a><span data-ttu-id="ec1e3-148">Blazor ověřování na straně klienta</span><span class="sxs-lookup"><span data-stu-id="ec1e3-148">Blazor client-side authentication</span></span>
+### <a name="blazor-client-side-authentication"></a><span data-ttu-id="b7776-148">Blazor ověřování na straně klienta</span><span class="sxs-lookup"><span data-stu-id="b7776-148">Blazor client-side authentication</span></span>
 
-<span data-ttu-id="ec1e3-149">V aplikacích Blazor na straně klienta lze vynechat kontroly ověřování vzhledem k tomu, že veškerý kód na straně klienta je možné upravovat prostřednictvím uživatelů.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-149">In Blazor client-side apps, authentication checks can be bypassed because all client-side code can be modified by users.</span></span> <span data-ttu-id="ec1e3-150">Totéž platí pro všechny aplikace na straně klienta technologií, jako je JavaScript SPA rozhraní nebo nativní aplikace pro libovolný operační systém.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-150">The same is true for all client-side app technologies, including JavaScript SPA frameworks or native apps for any operating system.</span></span>
+<span data-ttu-id="b7776-149">V Blazor aplikací na straně klienta se můžou kontroly ověřování obejít, protože všichni můžou upravovat kód na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="b7776-149">In Blazor client-side apps, authentication checks can be bypassed because all client-side code can be modified by users.</span></span> <span data-ttu-id="b7776-150">Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.</span><span class="sxs-lookup"><span data-stu-id="b7776-150">The same is true for all client-side app technologies, including JavaScript SPA frameworks or native apps for any operating system.</span></span>
 
-<span data-ttu-id="ec1e3-151">Implementace vlastního `AuthenticationStateProvider` služby service for apps Blazor na straně klienta je popsané v následujících částech.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-151">Implementation of a custom `AuthenticationStateProvider` service for Blazor client-side apps is covered in the following sections.</span></span>
+<span data-ttu-id="b7776-151">Implementace vlastní `AuthenticationStateProvider` služby pro Blazor aplikace na straně klienta je popsaná v následujících částech.</span><span class="sxs-lookup"><span data-stu-id="b7776-151">Implementation of a custom `AuthenticationStateProvider` service for Blazor client-side apps is covered in the following sections.</span></span>
 
-## <a name="authenticationstateprovider-service"></a><span data-ttu-id="ec1e3-152">AuthenticationStateProvider služby</span><span class="sxs-lookup"><span data-stu-id="ec1e3-152">AuthenticationStateProvider service</span></span>
+## <a name="authenticationstateprovider-service"></a><span data-ttu-id="b7776-152">Služba AuthenticationStateProvider</span><span class="sxs-lookup"><span data-stu-id="b7776-152">AuthenticationStateProvider service</span></span>
 
-<span data-ttu-id="ec1e3-153">Aplikace na straně serveru Blazor zahrnují integrované `AuthenticationStateProvider` služba, která získává data o stavu ověřování z ASP.NET Core `HttpContext.User`.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-153">Blazor server-side apps include a built-in `AuthenticationStateProvider` service that obtains authentication state data from ASP.NET Core's `HttpContext.User`.</span></span> <span data-ttu-id="ec1e3-154">To je, jak stav ověřování integruje do stávající mechanismy ověřování na straně serveru ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-154">This is how authentication state integrates with existing ASP.NET Core server-side authentication mechanisms.</span></span>
+<span data-ttu-id="b7776-153">Blazor aplikace na straně serveru obsahují integrovanou `AuthenticationStateProvider` službu, která získává data o stavu ověřování z `HttpContext.User`ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="b7776-153">Blazor server-side apps include a built-in `AuthenticationStateProvider` service that obtains authentication state data from ASP.NET Core's `HttpContext.User`.</span></span> <span data-ttu-id="b7776-154">To je způsob, jakým se stav ověřování integruje s existujícími mechanismy ASP.NET Core ověřování na straně serveru.</span><span class="sxs-lookup"><span data-stu-id="b7776-154">This is how authentication state integrates with existing ASP.NET Core server-side authentication mechanisms.</span></span>
 
-<span data-ttu-id="ec1e3-155">`AuthenticationStateProvider` je základní služby používané `AuthorizeView` komponenty a `CascadingAuthenticationState` součást pro získání stavu ověření.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-155">`AuthenticationStateProvider` is the underlying service used by the `AuthorizeView` component and `CascadingAuthenticationState` component to get the authentication state.</span></span>
+<span data-ttu-id="b7776-155">`AuthenticationStateProvider`je základní službou, kterou `AuthorizeView` komponenta a `CascadingAuthenticationState` komponenta používá k získání stavu ověřování.</span><span class="sxs-lookup"><span data-stu-id="b7776-155">`AuthenticationStateProvider` is the underlying service used by the `AuthorizeView` component and `CascadingAuthenticationState` component to get the authentication state.</span></span>
 
-<span data-ttu-id="ec1e3-156">Nepoužívejte obvykle `AuthenticationStateProvider` přímo.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-156">You don't typically use `AuthenticationStateProvider` directly.</span></span> <span data-ttu-id="ec1e3-157">Použití [AuthorizeView komponenty](#authorizeview-component) nebo [úloh<AuthenticationState> ](#expose-the-authentication-state-as-a-cascading-parameter) přístupů popsaných dále v tomto článku.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-157">Use the [AuthorizeView component](#authorizeview-component) or [Task<AuthenticationState>](#expose-the-authentication-state-as-a-cascading-parameter) approaches described later in this article.</span></span> <span data-ttu-id="ec1e3-158">Hlavní nevýhodou použití `AuthenticationStateProvider` přímo je, že není-li základní ověřování stavu změny dat automaticky upozorněn komponentu.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-158">The main drawback to using `AuthenticationStateProvider` directly is that the component isn't notified automatically if the underlying authentication state data changes.</span></span>
+<span data-ttu-id="b7776-156">Obvykle přímo nepoužíváte `AuthenticationStateProvider` .</span><span class="sxs-lookup"><span data-stu-id="b7776-156">You don't typically use `AuthenticationStateProvider` directly.</span></span> <span data-ttu-id="b7776-157">Použijte [komponentu AuthorizeView](#authorizeview-component) nebo přístupy [k<AuthenticationState> úkolům](#expose-the-authentication-state-as-a-cascading-parameter) , které jsou popsány dále v tomto článku.</span><span class="sxs-lookup"><span data-stu-id="b7776-157">Use the [AuthorizeView component](#authorizeview-component) or [Task<AuthenticationState>](#expose-the-authentication-state-as-a-cascading-parameter) approaches described later in this article.</span></span> <span data-ttu-id="b7776-158">Hlavní nevýhodou použití `AuthenticationStateProvider` přímo je, že součást není automaticky oznámena v případě, že dojde ke změně podkladových dat stavu ověřování.</span><span class="sxs-lookup"><span data-stu-id="b7776-158">The main drawback to using `AuthenticationStateProvider` directly is that the component isn't notified automatically if the underlying authentication state data changes.</span></span>
 
-<span data-ttu-id="ec1e3-159">`AuthenticationStateProvider` Služba může poskytovat aktuální uživatel <xref:System.Security.Claims.ClaimsPrincipal> data, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-159">The `AuthenticationStateProvider` service can provide the current user's <xref:System.Security.Claims.ClaimsPrincipal> data, as shown in the following example:</span></span>
+<span data-ttu-id="b7776-159">Služba může poskytnout <xref:System.Security.Claims.ClaimsPrincipal> data aktuálního uživatele, jak je znázorněno v následujícím příkladu: `AuthenticationStateProvider`</span><span class="sxs-lookup"><span data-stu-id="b7776-159">The `AuthenticationStateProvider` service can provide the current user's <xref:System.Security.Claims.ClaimsPrincipal> data, as shown in the following example:</span></span>
 
 ```cshtml
 @page "/"
@@ -151,13 +151,13 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 }
 ```
 
-<span data-ttu-id="ec1e3-160">Pokud `user.Identity.IsAuthenticated` je `true` , a proto je uživatel <xref:System.Security.Claims.ClaimsPrincipal>, jsou uvedené deklarace identity a vyhodnocování členství v rolích.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-160">If `user.Identity.IsAuthenticated` is `true` and because the user is a <xref:System.Security.Claims.ClaimsPrincipal>, claims can be enumerated and membership in roles evaluated.</span></span>
+<span data-ttu-id="b7776-160">Pokud `user.Identity.IsAuthenticated` je `true` a<xref:System.Security.Claims.ClaimsPrincipal>vzhledem k tomu, že je uživatel a, mohou být deklarace identity vyhodnoceny a ve vyhodnocování členů.</span><span class="sxs-lookup"><span data-stu-id="b7776-160">If `user.Identity.IsAuthenticated` is `true` and because the user is a <xref:System.Security.Claims.ClaimsPrincipal>, claims can be enumerated and membership in roles evaluated.</span></span>
 
-<span data-ttu-id="ec1e3-161">Další informace o injektáž závislostí (DI) a služby, najdete v části <xref:blazor/dependency-injection> a <xref:fundamentals/dependency-injection>.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-161">For more information on dependency injection (DI) and services, see <xref:blazor/dependency-injection> and <xref:fundamentals/dependency-injection>.</span></span>
+<span data-ttu-id="b7776-161">Další informace o vkládání závislostí (di) a službách naleznete v <xref:blazor/dependency-injection> tématu <xref:fundamentals/dependency-injection>a.</span><span class="sxs-lookup"><span data-stu-id="b7776-161">For more information on dependency injection (DI) and services, see <xref:blazor/dependency-injection> and <xref:fundamentals/dependency-injection>.</span></span>
 
-## <a name="implement-a-custom-authenticationstateprovider"></a><span data-ttu-id="ec1e3-162">Implementovat vlastní AuthenticationStateProvider</span><span class="sxs-lookup"><span data-stu-id="ec1e3-162">Implement a custom AuthenticationStateProvider</span></span>
+## <a name="implement-a-custom-authenticationstateprovider"></a><span data-ttu-id="b7776-162">Implementace vlastního AuthenticationStateProvider</span><span class="sxs-lookup"><span data-stu-id="b7776-162">Implement a custom AuthenticationStateProvider</span></span>
 
-<span data-ttu-id="ec1e3-163">Pokud jste sestavujete aplikaci na straně klienta Blazor nebo pokud vaše aplikace specifikace naprosto vyžaduje vlastního zprostředkovatele implementaci zprostředkovatele a přepsat `GetAuthenticationStateAsync`:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-163">If you're building a Blazor client-side app or if your app's specification absolutely requires a custom provider, implement a provider and override `GetAuthenticationStateAsync`:</span></span>
+<span data-ttu-id="b7776-163">Pokud vytváříte aplikaci Blazor na straně klienta nebo pokud specifikace vaší aplikace naprosto vyžaduje vlastního poskytovatele, implementujte zprostředkovatele a přepište `GetAuthenticationStateAsync`:</span><span class="sxs-lookup"><span data-stu-id="b7776-163">If you're building a Blazor client-side app or if your app's specification absolutely requires a custom provider, implement a provider and override `GetAuthenticationStateAsync`:</span></span>
 
 ```csharp
 class CustomAuthStateProvider : AuthenticationStateProvider
@@ -176,7 +176,7 @@ class CustomAuthStateProvider : AuthenticationStateProvider
 }
 ```
 
-<span data-ttu-id="ec1e3-164">`CustomAuthStateProvider` Není registrován v `Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-164">The `CustomAuthStateProvider` service is registered in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="b7776-164">Služba je registrovaná v `Startup.ConfigureServices`: `CustomAuthStateProvider`</span><span class="sxs-lookup"><span data-stu-id="b7776-164">The `CustomAuthStateProvider` service is registered in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -185,11 +185,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="ec1e3-165">Použití `CustomAuthStateProvider`, všichni uživatelé, se ověří pomocí uživatelského jména `mrfibuli`.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-165">Using the `CustomAuthStateProvider`, all users are authenticated with the username `mrfibuli`.</span></span>
+<span data-ttu-id="b7776-165">Pomocí nástroje se všechny uživatele ověřují pomocí uživatelského jména `mrfibuli`. `CustomAuthStateProvider`</span><span class="sxs-lookup"><span data-stu-id="b7776-165">Using the `CustomAuthStateProvider`, all users are authenticated with the username `mrfibuli`.</span></span>
 
-## <a name="expose-the-authentication-state-as-a-cascading-parameter"></a><span data-ttu-id="ec1e3-166">Stav ověřování vystavit jako parametr šablony</span><span class="sxs-lookup"><span data-stu-id="ec1e3-166">Expose the authentication state as a cascading parameter</span></span>
+## <a name="expose-the-authentication-state-as-a-cascading-parameter"></a><span data-ttu-id="b7776-166">Zveřejnit stav ověřování jako kaskádový parametr</span><span class="sxs-lookup"><span data-stu-id="b7776-166">Expose the authentication state as a cascading parameter</span></span>
 
-<span data-ttu-id="ec1e3-167">Pokud data ověření stavu, je třeba procesní logiky, jako je například provést akci při aktivaci tohoto uživatele získat ověřovací data stavu tak, že definujete šablony parametr typu `Task<AuthenticationState>`:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-167">If authentication state data is required for procedural logic, such as when performing an action triggered by the user, obtain the authentication state data by defining a cascading parameter of type `Task<AuthenticationState>`:</span></span>
+<span data-ttu-id="b7776-167">Pokud jsou v procedurální logice požadovány údaje o stavu ověřování, například při provádění akce aktivované uživatelem, Získejte údaje o stavu ověřování definováním kaskádového parametru typu `Task<AuthenticationState>`:</span><span class="sxs-lookup"><span data-stu-id="b7776-167">If authentication state data is required for procedural logic, such as when performing an action triggered by the user, obtain the authentication state data by defining a cascading parameter of type `Task<AuthenticationState>`:</span></span>
 
 ```cshtml
 @page "/"
@@ -217,9 +217,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="ec1e3-168">Pokud `user.Identity.IsAuthenticated` je `true`, jsou uvedené deklarace identity a vyhodnocování členství v rolích.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-168">If `user.Identity.IsAuthenticated` is `true`, claims can be enumerated and membership in roles evaluated.</span></span>
+<span data-ttu-id="b7776-168">V takovém případě `user.Identity.IsAuthenticated` můžou být deklarace identity výčtové a ve vyhodnocených rolích. `true`</span><span class="sxs-lookup"><span data-stu-id="b7776-168">If `user.Identity.IsAuthenticated` is `true`, claims can be enumerated and membership in roles evaluated.</span></span>
 
-<span data-ttu-id="ec1e3-169">Nastavit `Task<AuthenticationState>` kaskádové pomocí parametru `CascadingAuthenticationState` komponenty:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-169">Set up the `Task<AuthenticationState>` cascading parameter using the `CascadingAuthenticationState` component:</span></span>
+<span data-ttu-id="b7776-169">Nastavte kaskádový parametr `CascadingAuthenticationState` pomocí komponenty: `Task<AuthenticationState>`</span><span class="sxs-lookup"><span data-stu-id="b7776-169">Set up the `Task<AuthenticationState>` cascading parameter using the `CascadingAuthenticationState` component:</span></span>
 
 ```cshtml
 <CascadingAuthenticationState>
@@ -232,24 +232,24 @@ public void ConfigureServices(IServiceCollection services)
 </CascadingAuthenticationState>
 ```
 
-## <a name="authorization"></a><span data-ttu-id="ec1e3-170">Autorizace</span><span class="sxs-lookup"><span data-stu-id="ec1e3-170">Authorization</span></span>
+## <a name="authorization"></a><span data-ttu-id="b7776-170">Autorizace</span><span class="sxs-lookup"><span data-stu-id="b7776-170">Authorization</span></span>
 
-<span data-ttu-id="ec1e3-171">Po ověření uživatele *autorizace* pravidla se používají k řízení, co můžete dělat uživatele.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-171">After a user is authenticated, *authorization* rules are applied to control what the user can do.</span></span>
+<span data-ttu-id="b7776-171">Po ověření uživatele se uplatní *autorizační* pravidla, která řídí, co může uživatel dělat.</span><span class="sxs-lookup"><span data-stu-id="b7776-171">After a user is authenticated, *authorization* rules are applied to control what the user can do.</span></span>
 
-<span data-ttu-id="ec1e3-172">Obvykle povolen nebo odepřen přístup podle toho, jestli:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-172">Access is typically granted or denied based on whether:</span></span>
+<span data-ttu-id="b7776-172">Přístup je obvykle udělen nebo odepřen na základě toho, zda:</span><span class="sxs-lookup"><span data-stu-id="b7776-172">Access is typically granted or denied based on whether:</span></span>
 
-* <span data-ttu-id="ec1e3-173">Ověření uživatele (přihlášení).</span><span class="sxs-lookup"><span data-stu-id="ec1e3-173">A user is authenticated (signed in).</span></span>
-* <span data-ttu-id="ec1e3-174">Je uživatel v *role*.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-174">A user is in a *role*.</span></span>
-* <span data-ttu-id="ec1e3-175">Uživatel má *deklarace identity*.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-175">A user has a *claim*.</span></span>
-* <span data-ttu-id="ec1e3-176">A *zásady* je spokojeni.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-176">A *policy* is satisfied.</span></span>
+* <span data-ttu-id="b7776-173">Uživatel je ověřený (přihlášený).</span><span class="sxs-lookup"><span data-stu-id="b7776-173">A user is authenticated (signed in).</span></span>
+* <span data-ttu-id="b7776-174">Uživatel je v *roli*.</span><span class="sxs-lookup"><span data-stu-id="b7776-174">A user is in a *role*.</span></span>
+* <span data-ttu-id="b7776-175">Uživatel má deklaraci *identity*.</span><span class="sxs-lookup"><span data-stu-id="b7776-175">A user has a *claim*.</span></span>
+* <span data-ttu-id="b7776-176">Byla splněna *zásada* .</span><span class="sxs-lookup"><span data-stu-id="b7776-176">A *policy* is satisfied.</span></span>
 
-<span data-ttu-id="ec1e3-177">Každá z těchto konceptů je stejný jako v aplikaci ASP.NET Core MVC nebo stránky Razor.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-177">Each of these concepts is the same as in an ASP.NET Core MVC or Razor Pages app.</span></span> <span data-ttu-id="ec1e3-178">Další informace o zabezpečení ASP.NET Core, najdete v článcích v části [ASP.NET Core zabezpečení a identita](xref:security/index).</span><span class="sxs-lookup"><span data-stu-id="ec1e3-178">For more information on ASP.NET Core security, see the articles under [ASP.NET Core Security and Identity](xref:security/index).</span></span>
+<span data-ttu-id="b7776-177">Každá z těchto konceptů je stejná jako u ASP.NET Core MVC nebo Razor Pages aplikace.</span><span class="sxs-lookup"><span data-stu-id="b7776-177">Each of these concepts is the same as in an ASP.NET Core MVC or Razor Pages app.</span></span> <span data-ttu-id="b7776-178">Další informace o ASP.NET Core zabezpečení najdete v článcích [ASP.NET Core Security and identity](xref:security/index).</span><span class="sxs-lookup"><span data-stu-id="b7776-178">For more information on ASP.NET Core security, see the articles under [ASP.NET Core Security and Identity](xref:security/index).</span></span>
 
-## <a name="authorizeview-component"></a><span data-ttu-id="ec1e3-179">Komponenta AuthorizeView</span><span class="sxs-lookup"><span data-stu-id="ec1e3-179">AuthorizeView component</span></span>
+## <a name="authorizeview-component"></a><span data-ttu-id="b7776-179">Komponenta AuthorizeView</span><span class="sxs-lookup"><span data-stu-id="b7776-179">AuthorizeView component</span></span>
 
-<span data-ttu-id="ec1e3-180">`AuthorizeView` Komponenty selektivně zobrazí uživatelské rozhraní v závislosti na tom, jestli je uživatel oprávnění a prohlédněte si ho.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-180">The `AuthorizeView` component selectively displays UI depending on whether the user is authorized to see it.</span></span> <span data-ttu-id="ec1e3-181">Tento přístup je užitečný, pokud je potřeba jenom *zobrazit* data uživatele a není nutné používat identitu uživatelů v procesní logiky.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-181">This approach is useful when you only need to *display* data for the user and don't need to use the user's identity in procedural logic.</span></span>
+<span data-ttu-id="b7776-180">`AuthorizeView` Komponenta selektivně zobrazuje uživatelské rozhraní v závislosti na tom, zda je uživatel autorizován pro jeho zobrazení.</span><span class="sxs-lookup"><span data-stu-id="b7776-180">The `AuthorizeView` component selectively displays UI depending on whether the user is authorized to see it.</span></span> <span data-ttu-id="b7776-181">Tento přístup je užitečný, když potřebujete jenom *Zobrazit* data pro uživatele a nemusíte používat identitu uživatele v procedurální logice.</span><span class="sxs-lookup"><span data-stu-id="b7776-181">This approach is useful when you only need to *display* data for the user and don't need to use the user's identity in procedural logic.</span></span>
 
-<span data-ttu-id="ec1e3-182">Komponenta zpřístupní `context` proměnné typu `AuthenticationState`, který můžete použít pro přístup k informacím o přihlášeného uživatele:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-182">The component exposes a `context` variable of type `AuthenticationState`, which you can use to access information about the signed-in user:</span></span>
+<span data-ttu-id="b7776-182">Komponenta zveřejňuje `context` proměnnou typu `AuthenticationState`, kterou můžete použít pro přístup k informacím o přihlášeném uživateli:</span><span class="sxs-lookup"><span data-stu-id="b7776-182">The component exposes a `context` variable of type `AuthenticationState`, which you can use to access information about the signed-in user:</span></span>
 
 ```cshtml
 <AuthorizeView>
@@ -258,7 +258,7 @@ public void ConfigureServices(IServiceCollection services)
 </AuthorizeView>
 ```
 
-<span data-ttu-id="ec1e3-183">Pokud uživatel není ověřen, lze také zadat jiný obsah pro zobrazení:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-183">You can also supply different content for display if the user isn't authenticated:</span></span>
+<span data-ttu-id="b7776-183">V případě, že se uživatel neověřuje, můžete také Dodejte jiný obsah, který se zobrazí:</span><span class="sxs-lookup"><span data-stu-id="b7776-183">You can also supply different content for display if the user isn't authenticated:</span></span>
 
 ```cshtml
 <AuthorizeView>
@@ -273,20 +273,20 @@ public void ConfigureServices(IServiceCollection services)
 </AuthorizeView>
 ```
 
-<span data-ttu-id="ec1e3-184">Obsah `<Authorized>` a `<NotAuthorized>` může obsahovat libovolné položky, jako další interaktivní komponenty.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-184">The content of `<Authorized>` and `<NotAuthorized>` can include arbitrary items, such as other interactive components.</span></span>
+<span data-ttu-id="b7776-184">Obsah `<Authorized>` a`<NotAuthorized>` může zahrnovat libovolné položky, jako jsou například jiné interaktivní komponenty.</span><span class="sxs-lookup"><span data-stu-id="b7776-184">The content of `<Authorized>` and `<NotAuthorized>` can include arbitrary items, such as other interactive components.</span></span>
 
-<span data-ttu-id="ec1e3-185">Autorizace podmínky, například role nebo zásady, které řídí možnosti uživatelského rozhraní nebo přístup, jsou popsané v [autorizace](#authorization) oddílu.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-185">Authorization conditions, such as roles or policies that control UI options or access, are covered in the [Authorization](#authorization) section.</span></span>
+<span data-ttu-id="b7776-185">Podmínky autorizace, jako jsou role nebo zásady, které řídí možnosti uživatelského rozhraní nebo přístup, jsou uvedené v části [autorizace](#authorization) .</span><span class="sxs-lookup"><span data-stu-id="b7776-185">Authorization conditions, such as roles or policies that control UI options or access, are covered in the [Authorization](#authorization) section.</span></span>
 
-<span data-ttu-id="ec1e3-186">Pokud nejsou zadané podmínky autorizace, `AuthorizeView` využívá výchozí zásady a zpracovává:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-186">If authorization conditions aren't specified, `AuthorizeView` uses a default policy and treats:</span></span>
+<span data-ttu-id="b7776-186">Pokud nejsou zadané autorizační podmínky, `AuthorizeView` použije se výchozí zásada a bude se považovat za:</span><span class="sxs-lookup"><span data-stu-id="b7776-186">If authorization conditions aren't specified, `AuthorizeView` uses a default policy and treats:</span></span>
 
-* <span data-ttu-id="ec1e3-187">Ověřeným uživatelům (přihlášeni), jako oprávněnou.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-187">Authenticated (signed-in) users as authorized.</span></span>
-* <span data-ttu-id="ec1e3-188">Neověřené uživatele (podepsané out) jako neověřené.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-188">Unauthenticated (signed-out) users as unauthorized.</span></span>
+* <span data-ttu-id="b7776-187">Ověření uživatelé (přihlášeni) jako autorizované.</span><span class="sxs-lookup"><span data-stu-id="b7776-187">Authenticated (signed-in) users as authorized.</span></span>
+* <span data-ttu-id="b7776-188">Neověřené (odhlášené) uživatelé jako neautorizované.</span><span class="sxs-lookup"><span data-stu-id="b7776-188">Unauthenticated (signed-out) users as unauthorized.</span></span>
 
-### <a name="role-based-and-policy-based-authorization"></a><span data-ttu-id="ec1e3-189">Ověřování založené na rolích a na základě zásad</span><span class="sxs-lookup"><span data-stu-id="ec1e3-189">Role-based and policy-based authorization</span></span>
+### <a name="role-based-and-policy-based-authorization"></a><span data-ttu-id="b7776-189">Ověřování na základě rolí a na základě zásad</span><span class="sxs-lookup"><span data-stu-id="b7776-189">Role-based and policy-based authorization</span></span>
 
-<span data-ttu-id="ec1e3-190">`AuthorizeView` Komponenta podporuje *na základě rolí* nebo *založené na zásadách* autorizace.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-190">The `AuthorizeView` component supports *role-based* or *policy-based* authorization.</span></span>
+<span data-ttu-id="b7776-190">Komponenta podporuje autorizaci na základě rolí nebo *na základě zásad* . `AuthorizeView`</span><span class="sxs-lookup"><span data-stu-id="b7776-190">The `AuthorizeView` component supports *role-based* or *policy-based* authorization.</span></span>
 
-<span data-ttu-id="ec1e3-191">Autorizace na základě role, použít `Roles` parametr:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-191">For role-based authorization, use the `Roles` parameter:</span></span>
+<span data-ttu-id="b7776-191">Pro autorizaci založenou na rolích `Roles` použijte parametr:</span><span class="sxs-lookup"><span data-stu-id="b7776-191">For role-based authorization, use the `Roles` parameter:</span></span>
 
 ```cshtml
 <AuthorizeView Roles="admin, superuser">
@@ -294,9 +294,9 @@ public void ConfigureServices(IServiceCollection services)
 </AuthorizeView>
 ```
 
-<span data-ttu-id="ec1e3-192">Další informace naleznete v tématu <xref:security/authorization/roles>.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-192">For more information, see <xref:security/authorization/roles>.</span></span>
+<span data-ttu-id="b7776-192">Další informace naleznete v tématu <xref:security/authorization/roles>.</span><span class="sxs-lookup"><span data-stu-id="b7776-192">For more information, see <xref:security/authorization/roles>.</span></span>
 
-<span data-ttu-id="ec1e3-193">Na základě zásad autorizace, použijte `Policy` parametr:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-193">For policy-based authorization, use the `Policy` parameter:</span></span>
+<span data-ttu-id="b7776-193">Pro autorizaci založenou na zásadách použijte `Policy` parametr:</span><span class="sxs-lookup"><span data-stu-id="b7776-193">For policy-based authorization, use the `Policy` parameter:</span></span>
 
 ```cshtml
 <AuthorizeView Policy="content-editor">
@@ -304,17 +304,17 @@ public void ConfigureServices(IServiceCollection services)
 </AuthorizeView>
 ```
 
-<span data-ttu-id="ec1e3-194">Autorizace na základě deklarací identity je zvláštní případ autorizace na základě zásad.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-194">Claims-based authorization is a special case of policy-based authorization.</span></span> <span data-ttu-id="ec1e3-195">Například můžete definovat zásady, které vyžaduje, aby uživatelé měli určité deklarace identity.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-195">For example, you can define a policy that requires users to have a certain claim.</span></span> <span data-ttu-id="ec1e3-196">Další informace naleznete v tématu <xref:security/authorization/policies>.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-196">For more information, see <xref:security/authorization/policies>.</span></span>
+<span data-ttu-id="b7776-194">Ověřování na základě deklarací identity je zvláštní případ ověřování na základě zásad.</span><span class="sxs-lookup"><span data-stu-id="b7776-194">Claims-based authorization is a special case of policy-based authorization.</span></span> <span data-ttu-id="b7776-195">Můžete například definovat zásadu, která vyžaduje, aby uživatelé měli určitou deklaraci identity.</span><span class="sxs-lookup"><span data-stu-id="b7776-195">For example, you can define a policy that requires users to have a certain claim.</span></span> <span data-ttu-id="b7776-196">Další informace naleznete v tématu <xref:security/authorization/policies>.</span><span class="sxs-lookup"><span data-stu-id="b7776-196">For more information, see <xref:security/authorization/policies>.</span></span>
 
-<span data-ttu-id="ec1e3-197">Tato rozhraní API je možné v Blazor serverové nebo klientské aplikace Blazor.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-197">These APIs can be used in either Blazor server-side or Blazor client-side apps.</span></span>
+<span data-ttu-id="b7776-197">Tato rozhraní API se dají použít buď v Blazor na straně serveru, nebo v Blazor klientských aplikacích.</span><span class="sxs-lookup"><span data-stu-id="b7776-197">These APIs can be used in either Blazor server-side or Blazor client-side apps.</span></span>
 
-<span data-ttu-id="ec1e3-198">Pokud ani `Roles` ani `Policy` není zadána, `AuthorizeView` využívá výchozí zásady.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-198">If neither `Roles` nor `Policy` is specified, `AuthorizeView` uses the default policy.</span></span>
+<span data-ttu-id="b7776-198">Pokud není zadán `Policy` ani `AuthorizeView` ani, používá výchozí zásady. `Roles`</span><span class="sxs-lookup"><span data-stu-id="b7776-198">If neither `Roles` nor `Policy` is specified, `AuthorizeView` uses the default policy.</span></span>
 
-### <a name="content-displayed-during-asynchronous-authentication"></a><span data-ttu-id="ec1e3-199">Obsah zobrazený při asynchronním ověřování</span><span class="sxs-lookup"><span data-stu-id="ec1e3-199">Content displayed during asynchronous authentication</span></span>
+### <a name="content-displayed-during-asynchronous-authentication"></a><span data-ttu-id="b7776-199">Obsah zobrazený během asynchronního ověřování</span><span class="sxs-lookup"><span data-stu-id="b7776-199">Content displayed during asynchronous authentication</span></span>
 
-<span data-ttu-id="ec1e3-200">Blazor umožňuje pro ověřování stavu bude určen *asynchronně*.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-200">Blazor allows for authentication state to be determined *asynchronously*.</span></span> <span data-ttu-id="ec1e3-201">Primární scénáře pro tento přístup je v aplikacích Blazor na straně klienta, které vytvoříte žádost o externí koncový bod pro ověřování.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-201">The primary scenario for this approach is in Blazor client-side apps that make a request to an external endpoint for authentication.</span></span>
+<span data-ttu-id="b7776-200">Blazor umožňuje *asynchronní*určení stavu ověřování.</span><span class="sxs-lookup"><span data-stu-id="b7776-200">Blazor allows for authentication state to be determined *asynchronously*.</span></span> <span data-ttu-id="b7776-201">Primární scénář pro tento přístup je v Blazor aplikací na straně klienta, které vytvářejí požadavek na externí koncový bod pro ověřování.</span><span class="sxs-lookup"><span data-stu-id="b7776-201">The primary scenario for this approach is in Blazor client-side apps that make a request to an external endpoint for authentication.</span></span>
 
-<span data-ttu-id="ec1e3-202">Probíhá ověřování, `AuthorizeView` žádný obsah se zobrazí ve výchozím nastavení.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-202">While authentication is in progress, `AuthorizeView` displays no content by default.</span></span> <span data-ttu-id="ec1e3-203">Chcete-li zobrazit obsah, když dojde k ověření, použijte `<Authorizing>` element:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-203">To display content while authentication occurs, use the `<Authorizing>` element:</span></span>
+<span data-ttu-id="b7776-202">V průběhu ověřování ve `AuthorizeView` výchozím nastavení nezobrazí žádný obsah.</span><span class="sxs-lookup"><span data-stu-id="b7776-202">While authentication is in progress, `AuthorizeView` displays no content by default.</span></span> <span data-ttu-id="b7776-203">Chcete-li zobrazit obsah, když dojde k `<Authorizing>` ověřování, použijte element:</span><span class="sxs-lookup"><span data-stu-id="b7776-203">To display content while authentication occurs, use the `<Authorizing>` element:</span></span>
 
 ```cshtml
 <AuthorizeView>
@@ -329,11 +329,11 @@ public void ConfigureServices(IServiceCollection services)
 </AuthorizeView>
 ```
 
-<span data-ttu-id="ec1e3-204">Tento přístup se obvykle pro Blazor serverové aplikace.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-204">This approach isn't normally applicable to Blazor server-side apps.</span></span> <span data-ttu-id="ec1e3-205">Stav ověřování Blazor serverové aplikace vědět, co nejdříve pokládáme stav, stav.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-205">Blazor server-side apps know the authentication state as soon as the state is established.</span></span> <span data-ttu-id="ec1e3-206">`Authorizing` obsah lze zadat v aplikaci na straně serveru Blazor `AuthorizeView` součásti, ale obsah je nikdy zobrazeny.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-206">`Authorizing` content can be provided in a Blazor server-side app's `AuthorizeView` component, but the content is never displayed.</span></span>
+<span data-ttu-id="b7776-204">Tento přístup se obvykle nevztahuje na Blazor aplikace na straně serveru.</span><span class="sxs-lookup"><span data-stu-id="b7776-204">This approach isn't normally applicable to Blazor server-side apps.</span></span> <span data-ttu-id="b7776-205">Blazor aplikace na straně serveru znají stav ověřování, jakmile se naváže stav.</span><span class="sxs-lookup"><span data-stu-id="b7776-205">Blazor server-side apps know the authentication state as soon as the state is established.</span></span> <span data-ttu-id="b7776-206">`Authorizing`obsah může být k dispozici v `AuthorizeView` součásti aplikace na straně serveru Blazor, ale obsah se nikdy nezobrazí.</span><span class="sxs-lookup"><span data-stu-id="b7776-206">`Authorizing` content can be provided in a Blazor server-side app's `AuthorizeView` component, but the content is never displayed.</span></span>
 
-## <a name="authorize-attribute"></a><span data-ttu-id="ec1e3-207">Atribut [Povolit]</span><span class="sxs-lookup"><span data-stu-id="ec1e3-207">[Authorize] attribute</span></span>
+## <a name="authorize-attribute"></a><span data-ttu-id="b7776-207">[Autorizační] – atribut</span><span class="sxs-lookup"><span data-stu-id="b7776-207">[Authorize] attribute</span></span>
 
-<span data-ttu-id="ec1e3-208">Stejně jako aplikace můžete použít `[Authorize]` s kontroler MVC nebo stránky Razor `[Authorize]` lze také použít s komponentami Razor:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-208">Just like an app can use `[Authorize]` with an MVC controller or Razor page, `[Authorize]` can also be used with Razor Components:</span></span>
+<span data-ttu-id="b7776-208">Stejně jako aplikace může `[Authorize]` být použita s řadičem MVC nebo stránkou Razor, `[Authorize]` lze také použít s komponentami Razor:</span><span class="sxs-lookup"><span data-stu-id="b7776-208">Just like an app can use `[Authorize]` with an MVC controller or Razor page, `[Authorize]` can also be used with Razor Components:</span></span>
 
 ```cshtml
 @page "/"
@@ -343,11 +343,11 @@ You can only see this if you're signed in.
 ```
 
 > [!IMPORTANT]
-> <span data-ttu-id="ec1e3-209">Používejte pouze `[Authorize]` na `@page` součásti kontaktovat prostřednictvím směrovače Blazor.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-209">Only use `[Authorize]` on `@page` components reached via the Blazor Router.</span></span> <span data-ttu-id="ec1e3-210">Se autorizace provádí pouze jako určitý aspekt směrování a *není* pro podřízené součásti vykreslen v rámci stránky.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-210">Authorization is only performed as an aspect of routing and *not* for child components rendered within a page.</span></span> <span data-ttu-id="ec1e3-211">Chcete-li povolit zobrazení konkrétní součástí v rámci stránky, použijte `AuthorizeView` místo.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-211">To authorize the display of specific parts within a page, use `AuthorizeView` instead.</span></span>
+> <span data-ttu-id="b7776-209">Používejte `[Authorize]` pouze v `@page` součástech, které jsou dostupné prostřednictvím směrovače Blazor.</span><span class="sxs-lookup"><span data-stu-id="b7776-209">Only use `[Authorize]` on `@page` components reached via the Blazor Router.</span></span> <span data-ttu-id="b7776-210">Autorizace se provádí jenom jako aspekt směrování, a *ne* pro podřízené komponenty vygenerované v rámci stránky.</span><span class="sxs-lookup"><span data-stu-id="b7776-210">Authorization is only performed as an aspect of routing and *not* for child components rendered within a page.</span></span> <span data-ttu-id="b7776-211">Chcete-li autorizovat zobrazení určitých částí v rámci stránky, použijte `AuthorizeView` místo toho.</span><span class="sxs-lookup"><span data-stu-id="b7776-211">To authorize the display of specific parts within a page, use `AuthorizeView` instead.</span></span>
 
-<span data-ttu-id="ec1e3-212">Budete muset přidat `@using Microsoft.AspNetCore.Authorization` součásti nebo položky *_Imports.razor* souboru v pořadí pro komponentu pro kompilaci.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-212">You may need to add `@using Microsoft.AspNetCore.Authorization` either to the component or to the *_Imports.razor* file in order for the component to compile.</span></span>
+<span data-ttu-id="b7776-212">Aby mohla být komponenta zkompilována, může být nutné přidat `@using Microsoft.AspNetCore.Authorization` buď do součásti, nebo do souboru *_Imports. Razor* .</span><span class="sxs-lookup"><span data-stu-id="b7776-212">You may need to add `@using Microsoft.AspNetCore.Authorization` either to the component or to the *_Imports.razor* file in order for the component to compile.</span></span>
 
-<span data-ttu-id="ec1e3-213">`[Authorize]` Atribut také podporuje ověřování na základě rolí nebo na základě zásad.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-213">The `[Authorize]` attribute also supports role-based or policy-based authorization.</span></span> <span data-ttu-id="ec1e3-214">Autorizace na základě role, použít `Roles` parametr:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-214">For role-based authorization, use the `Roles` parameter:</span></span>
+<span data-ttu-id="b7776-213">`[Authorize]` Atribut také podporuje ověřování na základě rolí nebo na základě zásad.</span><span class="sxs-lookup"><span data-stu-id="b7776-213">The `[Authorize]` attribute also supports role-based or policy-based authorization.</span></span> <span data-ttu-id="b7776-214">Pro autorizaci založenou na rolích `Roles` použijte parametr:</span><span class="sxs-lookup"><span data-stu-id="b7776-214">For role-based authorization, use the `Roles` parameter:</span></span>
 
 ```cshtml
 @page "/"
@@ -356,7 +356,7 @@ You can only see this if you're signed in.
 <p>You can only see this if you're in the 'admin' or 'superuser' role.</p>
 ```
 
-<span data-ttu-id="ec1e3-215">Na základě zásad autorizace, použijte `Policy` parametr:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-215">For policy-based authorization, use the `Policy` parameter:</span></span>
+<span data-ttu-id="b7776-215">Pro autorizaci založenou na zásadách použijte `Policy` parametr:</span><span class="sxs-lookup"><span data-stu-id="b7776-215">For policy-based authorization, use the `Policy` parameter:</span></span>
 
 ```cshtml
 @page "/"
@@ -365,20 +365,20 @@ You can only see this if you're signed in.
 <p>You can only see this if you satisfy the 'content-editor' policy.</p>
 ```
 
-<span data-ttu-id="ec1e3-216">Pokud ani `Roles` ani `Policy` není zadána, `[Authorize]` využívá výchozí zásady, které ve výchozím nastavení se zachází:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-216">If neither `Roles` nor `Policy` is specified, `[Authorize]` uses the default policy, which by default is to treat:</span></span>
+<span data-ttu-id="b7776-216">Pokud není zadán `Policy` ani `[Authorize]` ani, používá výchozí zásadu, která ve výchozím nastavení zachází: `Roles`</span><span class="sxs-lookup"><span data-stu-id="b7776-216">If neither `Roles` nor `Policy` is specified, `[Authorize]` uses the default policy, which by default is to treat:</span></span>
 
-* <span data-ttu-id="ec1e3-217">Ověřeným uživatelům (přihlášeni), jako oprávněnou.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-217">Authenticated (signed-in) users as authorized.</span></span>
-* <span data-ttu-id="ec1e3-218">Neověřené uživatele (podepsané out) jako neověřené.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-218">Unauthenticated (signed-out) users as unauthorized.</span></span>
+* <span data-ttu-id="b7776-217">Ověření uživatelé (přihlášeni) jako autorizované.</span><span class="sxs-lookup"><span data-stu-id="b7776-217">Authenticated (signed-in) users as authorized.</span></span>
+* <span data-ttu-id="b7776-218">Neověřené (odhlášené) uživatelé jako neautorizované.</span><span class="sxs-lookup"><span data-stu-id="b7776-218">Unauthenticated (signed-out) users as unauthorized.</span></span>
 
-## <a name="customize-unauthorized-content-with-the-router-component"></a><span data-ttu-id="ec1e3-219">Přizpůsobit neoprávněné obsah s komponentou směrovače</span><span class="sxs-lookup"><span data-stu-id="ec1e3-219">Customize unauthorized content with the Router component</span></span>
+## <a name="customize-unauthorized-content-with-the-router-component"></a><span data-ttu-id="b7776-219">Přizpůsobení neoprávněného obsahu pomocí součásti směrovače</span><span class="sxs-lookup"><span data-stu-id="b7776-219">Customize unauthorized content with the Router component</span></span>
 
-<span data-ttu-id="ec1e3-220">`Router` Komponenta umožňuje aplikaci určit vlastní obsah, pokud:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-220">The `Router` component allows the app to specify custom content if:</span></span>
+<span data-ttu-id="b7776-220">`Router` Komponenta umožňuje aplikaci zadat vlastní obsah, pokud:</span><span class="sxs-lookup"><span data-stu-id="b7776-220">The `Router` component allows the app to specify custom content if:</span></span>
 
-* <span data-ttu-id="ec1e3-221">Obsah nebyl nalezen.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-221">Content isn't found.</span></span>
-* <span data-ttu-id="ec1e3-222">Uživatel `[Authorize]` podmínku použít pro komponentu.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-222">The user fails an `[Authorize]` condition applied to the component.</span></span> <span data-ttu-id="ec1e3-223">`[Authorize]` Se věnuje atribut [atribut [Authorize]](#authorize-attribute) části.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-223">The `[Authorize]` attribute is covered in the [[Authorize] attribute](#authorize-attribute) section.</span></span>
-* <span data-ttu-id="ec1e3-224">Probíhá asynchronní ověřování.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-224">Asynchronous authentication is in progress.</span></span>
+* <span data-ttu-id="b7776-221">Obsah nebyl nalezen.</span><span class="sxs-lookup"><span data-stu-id="b7776-221">Content isn't found.</span></span>
+* <span data-ttu-id="b7776-222">Uživatel nezdařil `[Authorize]` podmínku použitou pro komponentu.</span><span class="sxs-lookup"><span data-stu-id="b7776-222">The user fails an `[Authorize]` condition applied to the component.</span></span> <span data-ttu-id="b7776-223">Atribut je popsán v části [[autorizační] atributu.](#authorize-attribute) `[Authorize]`</span><span class="sxs-lookup"><span data-stu-id="b7776-223">The `[Authorize]` attribute is covered in the [[Authorize] attribute](#authorize-attribute) section.</span></span>
+* <span data-ttu-id="b7776-224">Probíhá asynchronní ověřování.</span><span class="sxs-lookup"><span data-stu-id="b7776-224">Asynchronous authentication is in progress.</span></span>
 
-<span data-ttu-id="ec1e3-225">Ve výchozí šablona Blazor projektu na straně serveru *App.razor* souboru ukazuje, jak nastavit vlastní obsah:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-225">In the default Blazor server-side project template, the *App.razor* file demonstrates how to set custom content:</span></span>
+<span data-ttu-id="b7776-225">Ve výchozí šabloně projektu na straně serveru Blazor soubor *App. Razor* ukazuje, jak nastavit vlastní obsah:</span><span class="sxs-lookup"><span data-stu-id="b7776-225">In the default Blazor server-side project template, the *App.razor* file demonstrates how to set custom content:</span></span>
 
 ```cshtml
 <CascadingAuthenticationState>
@@ -400,21 +400,21 @@ You can only see this if you're signed in.
 </CascadingAuthenticationState>
 ```
 
-<span data-ttu-id="ec1e3-226">Obsah `<NotFoundContent>`, `<NotAuthorizedContent>`, a `<AuthorizingContent>` může obsahovat libovolné položky, jako další interaktivní komponenty.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-226">The content of `<NotFoundContent>`, `<NotAuthorizedContent>`, and `<AuthorizingContent>` can include arbitrary items, such as other interactive components.</span></span>
+<span data-ttu-id="b7776-226">Obsah `<NotFoundContent>`, `<NotAuthorizedContent>`a můžezahrnovatlibovolnépoložky,jakojsounapříkladjinéinteraktivníkomponenty.`<AuthorizingContent>`</span><span class="sxs-lookup"><span data-stu-id="b7776-226">The content of `<NotFoundContent>`, `<NotAuthorizedContent>`, and `<AuthorizingContent>` can include arbitrary items, such as other interactive components.</span></span>
 
-<span data-ttu-id="ec1e3-227">Pokud `<NotAuthorizedContent>` není zadán, směrovač používá záložní následující zpráva:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-227">If `<NotAuthorizedContent>` isn't specified, the router uses the following fallback message:</span></span>
+<span data-ttu-id="b7776-227">Pokud `<NotAuthorizedContent>` parametr není zadán, bude směrovač používat následující záložní zprávu:</span><span class="sxs-lookup"><span data-stu-id="b7776-227">If `<NotAuthorizedContent>` isn't specified, the router uses the following fallback message:</span></span>
 
 ```html
 Not authorized.
 ```
 
-## <a name="notification-about-authentication-state-changes"></a><span data-ttu-id="ec1e3-228">Oznámení o změně stavu ověřování</span><span class="sxs-lookup"><span data-stu-id="ec1e3-228">Notification about authentication state changes</span></span>
+## <a name="notification-about-authentication-state-changes"></a><span data-ttu-id="b7776-228">Oznámení o změnách stavu ověřování</span><span class="sxs-lookup"><span data-stu-id="b7776-228">Notification about authentication state changes</span></span>
 
-<span data-ttu-id="ec1e3-229">Pokud aplikace zjistí, že došlo ke změně podkladová data ověření stavu (například proto odhlášení uživatele nebo jiný uživatel změnil své role), vlastní `AuthenticationStateProvider` můžete případně vyvolat metodu `NotifyAuthenticationStateChanged` na `AuthenticationStateProvider` základní Třída.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-229">If the app determines that the underlying authentication state data has changed (for example, because the user signed out or another user has changed their roles), a custom `AuthenticationStateProvider` can optionally invoke the method `NotifyAuthenticationStateChanged` on the `AuthenticationStateProvider` base class.</span></span> <span data-ttu-id="ec1e3-230">To upozorní spotřebitelé dat stavu ověřování (například `AuthorizeView`) k rerender nová data.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-230">This notifies consumers of the authentication state data (for example, `AuthorizeView`) to rerender using the new data.</span></span>
+<span data-ttu-id="b7776-229">Pokud aplikace zjistí, že se změnila základní data stavu ověřování (například kvůli tomu, že se uživatel odhlásil nebo jiný uživatel změnil své role), vlastní `AuthenticationStateProvider` možnost může volitelně vyvolat metodu `NotifyAuthenticationStateChanged` na `AuthenticationStateProvider` bázi Base. Deník.</span><span class="sxs-lookup"><span data-stu-id="b7776-229">If the app determines that the underlying authentication state data has changed (for example, because the user signed out or another user has changed their roles), a custom `AuthenticationStateProvider` can optionally invoke the method `NotifyAuthenticationStateChanged` on the `AuthenticationStateProvider` base class.</span></span> <span data-ttu-id="b7776-230">Tím se uživatele upozorní na data stavu ověřování (například `AuthorizeView`) k opakovanému vykreslení pomocí nových dat.</span><span class="sxs-lookup"><span data-stu-id="b7776-230">This notifies consumers of the authentication state data (for example, `AuthorizeView`) to rerender using the new data.</span></span>
 
-## <a name="procedural-logic"></a><span data-ttu-id="ec1e3-231">Procesní logiky</span><span class="sxs-lookup"><span data-stu-id="ec1e3-231">Procedural logic</span></span>
+## <a name="procedural-logic"></a><span data-ttu-id="b7776-231">Procesní logika</span><span class="sxs-lookup"><span data-stu-id="b7776-231">Procedural logic</span></span>
 
-<span data-ttu-id="ec1e3-232">Pokud aplikace je potřeba zkontrolovat autorizační pravidla, jako součást procesní logiky, pomocí kaskádových akcí parametr typu `Task<AuthenticationState>` získat uživatele <xref:System.Security.Claims.ClaimsPrincipal>.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-232">If the app is required to check authorization rules as part of procedural logic, use a cascaded parameter of type `Task<AuthenticationState>` to obtain the user's <xref:System.Security.Claims.ClaimsPrincipal>.</span></span> <span data-ttu-id="ec1e3-233">`Task<AuthenticationState>` je možné kombinovat s dalšími službami, jako například `IAuthorizationService`, k vyhodnocení zásad.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-233">`Task<AuthenticationState>` can be combined with other services, such as `IAuthorizationService`, to evaluate policies.</span></span>
+<span data-ttu-id="b7776-232">Pokud je aplikace nutná k kontrole autorizačních pravidel v rámci procedurální logiky, použijte k získání `Task<AuthenticationState>` <xref:System.Security.Claims.ClaimsPrincipal>uživatele kaskádový parametr typu.</span><span class="sxs-lookup"><span data-stu-id="b7776-232">If the app is required to check authorization rules as part of procedural logic, use a cascaded parameter of type `Task<AuthenticationState>` to obtain the user's <xref:System.Security.Claims.ClaimsPrincipal>.</span></span> <span data-ttu-id="b7776-233">`Task<AuthenticationState>`lze kombinovat s jinými službami, například `IAuthorizationService`, k vyhodnocení zásad.</span><span class="sxs-lookup"><span data-stu-id="b7776-233">`Task<AuthenticationState>` can be combined with other services, such as `IAuthorizationService`, to evaluate policies.</span></span>
 
 ```cshtml
 @inject IAuthorizationService AuthorizationService
@@ -449,21 +449,21 @@ Not authorized.
 }
 ```
 
-## <a name="authorization-in-blazor-client-side-apps"></a><span data-ttu-id="ec1e3-234">Autorizace v aplikacích Blazor na straně klienta</span><span class="sxs-lookup"><span data-stu-id="ec1e3-234">Authorization in Blazor client-side apps</span></span>
+## <a name="authorization-in-blazor-client-side-apps"></a><span data-ttu-id="b7776-234">Autorizace v Blazor klientských aplikacích na straně klienta</span><span class="sxs-lookup"><span data-stu-id="b7776-234">Authorization in Blazor client-side apps</span></span>
 
-<span data-ttu-id="ec1e3-235">V aplikacích Blazor na straně klienta lze vynechat kontroly autorizace vzhledem k tomu, že veškerý kód na straně klienta je možné upravovat prostřednictvím uživatelů.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-235">In Blazor client-side apps, authorization checks can be bypassed because all client-side code can be modified by users.</span></span> <span data-ttu-id="ec1e3-236">Totéž platí pro všechny aplikace na straně klienta technologií, jako je JavaScript SPA rozhraní nebo nativní aplikace pro libovolný operační systém.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-236">The same is true for all client-side app technologies, including JavaScript SPA frameworks or native apps for any operating system.</span></span>
+<span data-ttu-id="b7776-235">V aplikacích Blazor na straně klienta se můžou kontroly autorizace obejít, protože všichni můžou upravovat kód na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="b7776-235">In Blazor client-side apps, authorization checks can be bypassed because all client-side code can be modified by users.</span></span> <span data-ttu-id="b7776-236">Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.</span><span class="sxs-lookup"><span data-stu-id="b7776-236">The same is true for all client-side app technologies, including JavaScript SPA frameworks or native apps for any operating system.</span></span>
 
-<span data-ttu-id="ec1e3-237">**Vždy provádějte kontroly autorizace na serveru v rámci žádné koncové body rozhraní API přistupuje aplikace na straně klienta.**</span><span class="sxs-lookup"><span data-stu-id="ec1e3-237">**Always perform authorization checks on the server within any API endpoints accessed by your client-side app.**</span></span>
+<span data-ttu-id="b7776-237">**Na serveru vždy provádějte kontroly autorizace v libovolném koncovém bodu rozhraní API, ke kterému přistupovala aplikace na straně klienta.**</span><span class="sxs-lookup"><span data-stu-id="b7776-237">**Always perform authorization checks on the server within any API endpoints accessed by your client-side app.**</span></span>
 
-## <a name="troubleshoot-errors"></a><span data-ttu-id="ec1e3-238">Řešení potíží s chybami</span><span class="sxs-lookup"><span data-stu-id="ec1e3-238">Troubleshoot errors</span></span>
+## <a name="troubleshoot-errors"></a><span data-ttu-id="b7776-238">Řešení chyb</span><span class="sxs-lookup"><span data-stu-id="b7776-238">Troubleshoot errors</span></span>
 
-<span data-ttu-id="ec1e3-239">Běžné chyby:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-239">Common errors:</span></span>
+<span data-ttu-id="b7776-239">Běžné chyby:</span><span class="sxs-lookup"><span data-stu-id="b7776-239">Common errors:</span></span>
 
-* <span data-ttu-id="ec1e3-240">**Vyžaduje ověřování šablony parametr typu úloh\<AuthenticationState >. Zvažte použití CascadingAuthenticationState zadat.**</span><span class="sxs-lookup"><span data-stu-id="ec1e3-240">**Authorization requires a cascading parameter of type Task\<AuthenticationState>. Consider using CascadingAuthenticationState to supply this.**</span></span>
+* <span data-ttu-id="b7776-240">**Autorizace vyžaduje kaskádový parametr typu Task\<AuthenticationState >. Zvažte použití CascadingAuthenticationState k zadání.**</span><span class="sxs-lookup"><span data-stu-id="b7776-240">**Authorization requires a cascading parameter of type Task\<AuthenticationState>. Consider using CascadingAuthenticationState to supply this.**</span></span>
 
-* <span data-ttu-id="ec1e3-241">**`null` je přijímána hodnota pro `authenticationStateTask`**</span><span class="sxs-lookup"><span data-stu-id="ec1e3-241">**`null` value is received for `authenticationStateTask`**</span></span>
+* <span data-ttu-id="b7776-241">**`null`hodnota je přijata pro`authenticationStateTask`**</span><span class="sxs-lookup"><span data-stu-id="b7776-241">**`null` value is received for `authenticationStateTask`**</span></span>
 
-<span data-ttu-id="ec1e3-242">Je pravděpodobné, že projekt nebyl vytvořen pomocí šablony Blazor na straně serveru s povoleným ověřováním.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-242">It's likely that the project wasn't created using a Blazor server-side template with authentication enabled.</span></span> <span data-ttu-id="ec1e3-243">Zabalení `<CascadingAuthenticationState>` některé části uživatelského rozhraní stromu, například v *App.razor* následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="ec1e3-243">Wrap a `<CascadingAuthenticationState>` around some part of the UI tree, for example in *App.razor* as follows:</span></span>
+<span data-ttu-id="b7776-242">Je možné, že projekt nebyl vytvořen pomocí šablony Blazor na straně serveru s povoleným ověřováním.</span><span class="sxs-lookup"><span data-stu-id="b7776-242">It's likely that the project wasn't created using a Blazor server-side template with authentication enabled.</span></span> <span data-ttu-id="b7776-243">Zabalte kolem některé části stromu uživatelského rozhraní, například v *App. Razor* , následovně: `<CascadingAuthenticationState>`</span><span class="sxs-lookup"><span data-stu-id="b7776-243">Wrap a `<CascadingAuthenticationState>` around some part of the UI tree, for example in *App.razor* as follows:</span></span>
 
 ```cshtml
 <CascadingAuthenticationState>
@@ -473,9 +473,9 @@ Not authorized.
 </CascadingAuthenticationState>
 ```
 
-<span data-ttu-id="ec1e3-244">`CascadingAuthenticationState` Poskytuje `Task<AuthenticationState>` šablony parametr, který pak přijme ze základního `AuthenticationStateProvider` DI služby.</span><span class="sxs-lookup"><span data-stu-id="ec1e3-244">The `CascadingAuthenticationState` supplies the `Task<AuthenticationState>` cascading parameter, which in turn it receives from the underlying `AuthenticationStateProvider` DI service.</span></span>
+<span data-ttu-id="b7776-244">Doplní kaskádový parametr, který zase získá z podkladové `AuthenticationStateProvider` služby di. `Task<AuthenticationState>` `CascadingAuthenticationState`</span><span class="sxs-lookup"><span data-stu-id="b7776-244">The `CascadingAuthenticationState` supplies the `Task<AuthenticationState>` cascading parameter, which in turn it receives from the underlying `AuthenticationStateProvider` DI service.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="ec1e3-245">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="ec1e3-245">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="b7776-245">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="b7776-245">Additional resources</span></span>
 
 * <xref:security/index>
 * <xref:security/authentication/windowsauth>
