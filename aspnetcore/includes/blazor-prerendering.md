@@ -1,15 +1,15 @@
-<span data-ttu-id="f3184-101">Při aplikaci na straně serveru Blazor se před vykreslením, nejsou některé akce, jako je například volání do jazyka JavaScript, je to možné, protože nebyl navázat připojení s prohlížečem.</span><span class="sxs-lookup"><span data-stu-id="f3184-101">While a Blazor server-side app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="f3184-102">Součásti nutné k vykreslení odlišně při předkreslených.</span><span class="sxs-lookup"><span data-stu-id="f3184-102">Components may need to render differently when prerendered.</span></span>
+<span data-ttu-id="8a7c7-101">I když je aplikace Blazor na straně serveru předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-101">While a Blazor server-side app is prerendering, certain actions, such as calling into JavaScript, aren't possible because a connection with the browser hasn't been established.</span></span> <span data-ttu-id="8a7c7-102">Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-102">Components may need to render differently when prerendered.</span></span>
 
-<span data-ttu-id="f3184-103">Zpoždění JavaScript volání interop až po navázání připojení s prohlížečem můžete použít `OnAfterRenderAsync` událostí součástí životního cyklu.</span><span class="sxs-lookup"><span data-stu-id="f3184-103">To delay JavaScript interop calls until after the connection with the browser is established, you can use the `OnAfterRenderAsync` component lifecycle event.</span></span> <span data-ttu-id="f3184-104">Tato událost je volána pouze po aplikace plně vykreslením a připojení klienta.</span><span class="sxs-lookup"><span data-stu-id="f3184-104">This event is only called after the app is fully rendered and the client connection is established.</span></span>
+<span data-ttu-id="8a7c7-103">Chcete-li spojit volání interoperability JavaScriptu až po navázání spojení s prohlížečem, můžete `OnAfterRenderAsync` použít událost životního cyklu součásti.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-103">To delay JavaScript interop calls until after the connection with the browser is established, you can use the `OnAfterRenderAsync` component lifecycle event.</span></span> <span data-ttu-id="8a7c7-104">Tato událost se volá jenom v případě, že se aplikace úplně vykreslí a naváže se připojení klienta.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-104">This event is only called after the app is fully rendered and the client connection is established.</span></span>
 
 ```cshtml
 @using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
-<input @ref="myInput" value="Value set during render" />
+<input @ref="myInput" @ref:suppressField value="Value set during render" />
 
 @code {
-    private ElementRef myInput;
+    private ElementReference myInput;
 
     protected override void OnAfterRender()
     {
@@ -19,11 +19,11 @@
 }
 ```
 
-<span data-ttu-id="f3184-105">Následující komponenty demonstruje použití zprostředkovatele komunikace s objekty jazyka JavaScript jako součást logiky inicializace komponenty způsobem, který je kompatibilní s dokončení fáze před vykreslením.</span><span class="sxs-lookup"><span data-stu-id="f3184-105">The following component demonstrates how to use JavaScript interop as part of a component's initialization logic in a way that's compatible with prerendering.</span></span> <span data-ttu-id="f3184-106">Součást ukazuje, že je možné aktivovat vykreslování aktualizace z uvnitř `OnAfterRenderAsync`.</span><span class="sxs-lookup"><span data-stu-id="f3184-106">The component shows that it's possible to trigger a rendering update from inside `OnAfterRenderAsync`.</span></span> <span data-ttu-id="f3184-107">Vývojář musí Vyhněte se vytváření nekonečná smyčka v tomto scénáři.</span><span class="sxs-lookup"><span data-stu-id="f3184-107">The developer must avoid creating an infinite loop in this scenario.</span></span>
+<span data-ttu-id="8a7c7-105">Následující komponenta ukazuje, jak použít zprostředkovatele komunikace s JavaScriptem jako součást logiky inicializace komponenty způsobem, který je kompatibilní s předvykreslováním.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-105">The following component demonstrates how to use JavaScript interop as part of a component's initialization logic in a way that's compatible with prerendering.</span></span> <span data-ttu-id="8a7c7-106">Komponenta ukazuje, že je možné aktivovat aktualizaci vykreslování zevnitř `OnAfterRenderAsync`.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-106">The component shows that it's possible to trigger a rendering update from inside `OnAfterRenderAsync`.</span></span> <span data-ttu-id="8a7c7-107">Vývojář se musí v tomto scénáři vyhnout vytvoření nekonečné smyčky.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-107">The developer must avoid creating an infinite loop in this scenario.</span></span>
 
-<span data-ttu-id="f3184-108">Kde `JSRuntime.InvokeAsync` se nazývá `ElementRef` je použít jenom v `OnAfterRenderAsync` a v jakékoli metodě starší životního cyklu vzhledem k tomu, že neexistuje žádný element JavaScript až po komponenta není vykreslené.</span><span class="sxs-lookup"><span data-stu-id="f3184-108">Where `JSRuntime.InvokeAsync` is called, `ElementRef` is only used in `OnAfterRenderAsync` and not in any earlier lifecycle method because there's no JavaScript element until after the component is rendered.</span></span>
+<span data-ttu-id="8a7c7-108">Kde `JSRuntime.InvokeAsync` je volána, `ElementRef` je použita pouze v `OnAfterRenderAsync` a nikoli v předchozí metodě životního cyklu, protože není k dispozici žádný element jazyka JavaScript, dokud není komponenta vykreslena.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-108">Where `JSRuntime.InvokeAsync` is called, `ElementRef` is only used in `OnAfterRenderAsync` and not in any earlier lifecycle method because there's no JavaScript element until after the component is rendered.</span></span>
 
-<span data-ttu-id="f3184-109">`StateHasChanged` je volána k rerender komponentu s nový stav získaný z volání interop jazyka JavaScript.</span><span class="sxs-lookup"><span data-stu-id="f3184-109">`StateHasChanged` is called to rerender the component with the new state obtained from the JavaScript interop call.</span></span> <span data-ttu-id="f3184-110">Kód nevytvoří nekonečnou smyčku, protože `StateHasChanged` se volá jenom v případě `infoFromJs` je `null`.</span><span class="sxs-lookup"><span data-stu-id="f3184-110">The code doesn't create an infinite loop because `StateHasChanged` is only called when `infoFromJs` is `null`.</span></span>
+<span data-ttu-id="8a7c7-109">`StateHasChanged`se volá, aby se komponenta znovu vykreslila s novým stavem získaným z volání interoperability JavaScript.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-109">`StateHasChanged` is called to rerender the component with the new state obtained from the JavaScript interop call.</span></span> <span data-ttu-id="8a7c7-110">Kód nevytváří nekonečnou smyčku `StateHasChanged` , protože je volána `infoFromJs` pouze `null`v případě, že je.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-110">The code doesn't create an infinite loop because `StateHasChanged` is only called when `infoFromJs` is `null`.</span></span>
 
 ```cshtml
 @page "/prerendered-interop"
@@ -39,12 +39,12 @@
 
 <p>
     Set value via JS interop call:
-    <input id="val-set-by-interop" @ref="myElem" />
+    <input id="val-set-by-interop" @ref="myElem" @ref:suppressField />
 </p>
 
 @code {
     private string infoFromJs;
-    private ElementRef myElem;
+    private ElementReference myElem;
 
     protected override async Task OnAfterRenderAsync()
     {
@@ -68,7 +68,7 @@
 }
 ```
 
-<span data-ttu-id="f3184-111">Podmíněně vykreslit rozdílný obsah založen na tom, jestli aplikace je aktuálně před vykreslením obsahu, použijte `IsConnected` vlastnost `IComponentContext` služby.</span><span class="sxs-lookup"><span data-stu-id="f3184-111">To conditionally render different content based on whether the app is currently prerendering content, use the `IsConnected` property on the `IComponentContext` service.</span></span> <span data-ttu-id="f3184-112">Při spuštění serveru straně `IsConnected` vrátí jenom `true` Pokud neexistuje aktivní připojení ke klientovi.</span><span class="sxs-lookup"><span data-stu-id="f3184-112">When running server-side, `IsConnected` only returns `true` if there's an active connection to the client.</span></span> <span data-ttu-id="f3184-113">Vždy vrátí `true` při spuštění na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="f3184-113">It always returns `true` when running client-side.</span></span>
+<span data-ttu-id="8a7c7-111">Chcete-li podmíněně vykreslovat jiný obsah na základě toho, zda aplikace aktuálně předchází obsah, `IsConnected` použijte vlastnost `IComponentContext` ve službě.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-111">To conditionally render different content based on whether the app is currently prerendering content, use the `IsConnected` property on the `IComponentContext` service.</span></span> <span data-ttu-id="8a7c7-112">Při spuštění na straně serveru se `IsConnected` vrátí `true` jenom v případě, že existuje aktivní připojení k klientovi.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-112">When running server-side, `IsConnected` only returns `true` if there's an active connection to the client.</span></span> <span data-ttu-id="8a7c7-113">Vždycky se vrátí `true` při spuštění na straně klienta.</span><span class="sxs-lookup"><span data-stu-id="8a7c7-113">It always returns `true` when running client-side.</span></span>
 
 ```cshtml
 @page "/isconnected-example"
