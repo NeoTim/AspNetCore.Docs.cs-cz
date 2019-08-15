@@ -5,12 +5,12 @@ description: V této sérii kurzů se dozvíte, jak používat Razor Pages v ASP
 ms.author: riande
 ms.date: 07/25/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 57a10895c718c539ece280afcb27cb4033c7fb45
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: 67a5fcee0a37861fd39a018443edbc0b9e513213
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68682796"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69487676"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme s Razor Pages v ASP.NET Core
 
@@ -92,15 +92,22 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Z terminálu spusťte následující příkaz:
+* Vyberte **soubor** > **nové řešení**.
 
-<!-- TODO: update these instruction once mac support 2.2 projects -->
+![macOS nové řešení](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-```console
-dotnet new webapp -o RazorPagesMovie
-```
+* Jako **Další**vyberte **webovou aplikaci** > > .NETCore> App.
 
-Předchozí příkazy používají [.NET Core CLI](/dotnet/core/tools/dotnet) k vytvoření projektu Razor Pages.
+  ![macOS dialogové okno nového projektu](razor-pages-start/_static/webapp.png)
+
+* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** nastavte **cílové** rozhraní **.NET Core 3,0**.
+
+  ![macOS .NET Core 3,0 – výběr](razor-pages-start/_static/targetframework3.png)
+
+* Pojmenujte projekt **RazorPagesMovie**a pak vyberte **vytvořit**.
+
+  ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
+
 
 ## <a name="open-the-project"></a>Otevřít projekt
 
@@ -170,7 +177,7 @@ Obsahuje vstupní bod pro program. Další informace naleznete v tématu <xref:
 
 Obsahuje kód, který konfiguruje chování aplikace. Další informace naleznete v tématu <xref:fundamentals/startup>.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 Přejděte k dalšímu kurzu v řadě:
 
@@ -373,7 +380,7 @@ Obsahuje kód, který konfiguruje chování aplikace, například zda vyžaduje 
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 Přejděte k dalšímu kurzu v řadě:
 

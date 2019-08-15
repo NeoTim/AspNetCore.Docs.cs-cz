@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: ffd25fe0288159681f7fc052fc09e1f6fc425404
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 00ea14ca95c328b5f8779785a92aa0720a96eb05
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030307"
+ms.locfileid: "69487562"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core interoperability JavaScriptu pro Blazor
 
@@ -125,11 +125,12 @@ Zachyťte odkazy na prvky HTML v součásti pomocí následujícího postupu:
 
 * `@ref` Přidejte atribut do elementu HTML.
 * Definujte pole typu `ElementReference` , jehož název odpovídá hodnotě `@ref` atributu.
+* `@ref:suppressField` Zadejte parametr, který potlačí generování zálohovaných polí. Další informace najdete v tématu [Odebrání @ref podpory automatického zálohování polí v 3.0.0-preview9](https://github.com/aspnet/Announcements/issues/381).
 
 Následující příklad ukazuje, jak zachytit odkaz na `username` `<input>` prvek:
 
 ```cshtml
-<input @ref="username" ... />
+<input @ref="username" @ref:suppressField ... />
 
 @code {
     ElementReference username;
@@ -158,7 +159,7 @@ Pomocí `IJSRuntime.InvokeAsync<T>` a zavolejte `exampleJsFunctions.focusElement
 ```cshtml
 @inject IJSRuntime JSRuntime
 
-<input @ref="username" />
+<input @ref="username" @ref:suppressField />
 <button @onclick="SetFocus">Set focus on username</button>
 
 @code {
@@ -188,7 +189,7 @@ Metoda je volána přímo na objektu. Následující příklad předpokládá, �
 @inject IJSRuntime JSRuntime
 @using JsInteropClasses
 
-<input @ref="username" />
+<input @ref="username" @ref:suppressField />
 <button @onclick="SetFocus">Set focus on username</button>
 
 @code {

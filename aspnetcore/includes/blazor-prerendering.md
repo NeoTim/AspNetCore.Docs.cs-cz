@@ -1,15 +1,15 @@
-Při aplikaci na straně serveru Blazor se před vykreslením, nejsou některé akce, jako je například volání do jazyka JavaScript, je to možné, protože nebyl navázat připojení s prohlížečem. Součásti nutné k vykreslení odlišně při předkreslených.
+I když je aplikace Blazor na straně serveru předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně.
 
-Zpoždění JavaScript volání interop až po navázání připojení s prohlížečem můžete použít `OnAfterRenderAsync` událostí součástí životního cyklu. Tato událost je volána pouze po aplikace plně vykreslením a připojení klienta.
+Chcete-li spojit volání interoperability JavaScriptu až po navázání spojení s prohlížečem, můžete `OnAfterRenderAsync` použít událost životního cyklu součásti. Tato událost se volá jenom v případě, že se aplikace úplně vykreslí a naváže se připojení klienta.
 
 ```cshtml
 @using Microsoft.JSInterop
 @inject IJSRuntime JSRuntime
 
-<input @ref="myInput" value="Value set during render" />
+<input @ref="myInput" @ref:suppressField value="Value set during render" />
 
 @code {
-    private ElementRef myInput;
+    private ElementReference myInput;
 
     protected override void OnAfterRender()
     {
@@ -19,11 +19,11 @@ Zpoždění JavaScript volání interop až po navázání připojení s prohlí
 }
 ```
 
-Následující komponenty demonstruje použití zprostředkovatele komunikace s objekty jazyka JavaScript jako součást logiky inicializace komponenty způsobem, který je kompatibilní s dokončení fáze před vykreslením. Součást ukazuje, že je možné aktivovat vykreslování aktualizace z uvnitř `OnAfterRenderAsync`. Vývojář musí Vyhněte se vytváření nekonečná smyčka v tomto scénáři.
+Následující komponenta ukazuje, jak použít zprostředkovatele komunikace s JavaScriptem jako součást logiky inicializace komponenty způsobem, který je kompatibilní s předvykreslováním. Komponenta ukazuje, že je možné aktivovat aktualizaci vykreslování zevnitř `OnAfterRenderAsync`. Vývojář se musí v tomto scénáři vyhnout vytvoření nekonečné smyčky.
 
-Kde `JSRuntime.InvokeAsync` se nazývá `ElementRef` je použít jenom v `OnAfterRenderAsync` a v jakékoli metodě starší životního cyklu vzhledem k tomu, že neexistuje žádný element JavaScript až po komponenta není vykreslené.
+Kde `JSRuntime.InvokeAsync` je volána, `ElementRef` je použita pouze v `OnAfterRenderAsync` a nikoli v předchozí metodě životního cyklu, protože není k dispozici žádný element jazyka JavaScript, dokud není komponenta vykreslena.
 
-`StateHasChanged` je volána k rerender komponentu s nový stav získaný z volání interop jazyka JavaScript. Kód nevytvoří nekonečnou smyčku, protože `StateHasChanged` se volá jenom v případě `infoFromJs` je `null`.
+`StateHasChanged`se volá, aby se komponenta znovu vykreslila s novým stavem získaným z volání interoperability JavaScript. Kód nevytváří nekonečnou smyčku `StateHasChanged` , protože je volána `infoFromJs` pouze `null`v případě, že je.
 
 ```cshtml
 @page "/prerendered-interop"
@@ -39,12 +39,12 @@ Kde `JSRuntime.InvokeAsync` se nazývá `ElementRef` je použít jenom v `OnAfte
 
 <p>
     Set value via JS interop call:
-    <input id="val-set-by-interop" @ref="myElem" />
+    <input id="val-set-by-interop" @ref="myElem" @ref:suppressField />
 </p>
 
 @code {
     private string infoFromJs;
-    private ElementRef myElem;
+    private ElementReference myElem;
 
     protected override async Task OnAfterRenderAsync()
     {
@@ -68,7 +68,7 @@ Kde `JSRuntime.InvokeAsync` se nazývá `ElementRef` je použít jenom v `OnAfte
 }
 ```
 
-Podmíněně vykreslit rozdílný obsah založen na tom, jestli aplikace je aktuálně před vykreslením obsahu, použijte `IsConnected` vlastnost `IComponentContext` služby. Při spuštění serveru straně `IsConnected` vrátí jenom `true` Pokud neexistuje aktivní připojení ke klientovi. Vždy vrátí `true` při spuštění na straně klienta.
+Chcete-li podmíněně vykreslovat jiný obsah na základě toho, zda aplikace aktuálně předchází obsah, `IsConnected` použijte vlastnost `IComponentContext` ve službě. Při spuštění na straně serveru se `IsConnected` vrátí `true` jenom v případě, že existuje aktivní připojení k klientovi. Vždycky se vrátí `true` při spuštění na straně klienta.
 
 ```cshtml
 @page "/isconnected-example"

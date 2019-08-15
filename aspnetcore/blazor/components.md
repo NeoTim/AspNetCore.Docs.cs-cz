@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: 8cb2dc4c3cd22fe71fe15c22762948f9dcd3c08f
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 752f49f020acf26efcb304ed5e28e27c478dac83
+ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030358"
+ms.locfileid: "69487596"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -523,9 +523,10 @@ Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, a
 
 * [@ref](xref:mvc/views/razor#ref) Přidejte atribut do podřízené součásti.
 * Definujte pole stejného typu jako podřízená komponenta.
+* `@ref:suppressField` Zadejte parametr, který potlačí generování zálohovaných polí. Další informace najdete v tématu [Odebrání @ref podpory automatického zálohování polí v 3.0.0-preview9](https://github.com/aspnet/Announcements/issues/381).
 
 ```cshtml
-<MyLoginDialog @ref="loginDialog" ... />
+<MyLoginDialog @ref="loginDialog" @ref:suppressField ... />
 
 @code {
     private MyLoginDialog loginDialog;
