@@ -5,7 +5,7 @@ Následující tabulka podrobně popisuje ASP.NET Core parametry generátoru kó
 | -m  | Název modelu. |
 | -dc  | Kontext dat |
 | – UDL | Použijte výchozí rozložení. |
-| --relativeFolderPath | Relativní cesta k výstupní složce pro vytvoření zobrazení |
+| --relativeFolderPath | Relativní cesta k výstupní složce pro vytvoření souborů. |
 | --useDefaultLayout | Pro zobrazení je nutné použít výchozí rozložení. |
 | --referenceScriptLibraries | Přidá `_ValidationScriptsPartial` k úpravám a vytváření stránek. |
 
