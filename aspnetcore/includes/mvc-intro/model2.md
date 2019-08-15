@@ -1,43 +1,97 @@
+::: moniker range=">= aspnetcore-3.0"
+
 <a name="dc"></a>
 
-Přidejte následující `MvcMovieContext` třídu *modely* složky:  
+Vytvořte složku *dat* .
 
-[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Data/MvcMovieContext.cs)]
+Do složky `MvcMovieContext` *data* přidejte následující třídu:  
 
-Předchozí kód vytvoří `DbSet` vlastnost sady entit. V terminologii Entity Framework obvykle sadu entit odpovídá databázové tabulky a entity odpovídající řádek v tabulce.
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/zDocOnly/MvcMovieContext.cs?name=snippet)]
+
+Předchozí kód vytvoří `DbSet` vlastnost pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
 
 <a name="cs"></a>
 
 ### <a name="add-a-database-connection-string"></a>Přidat připojovací řetězec databáze
 
-Přidat připojovací řetězec pro *appsettings.json* souboru:
+Přidejte do souboru *appSettings. JSON* připojovací řetězec:
+
+[!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/appsettings_SQLite.json?highlight=10-12)]
+
+### <a name="add-nuget-packages-and-ef-tools"></a>Přidat balíčky NuGet a nástroje EF
+
+Spusťte následující příkazy .NET Core CLI:
+
+```console
+dotnet tool install --global dotnet-ef --version 3.0.0-*
+dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
+```
+
+Předchozí příkazy přidají do projektu Entity Framework Core nástroje pro rozhraní .NET CLI a několik balíčků. `Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíček je vyžadován pro generování uživatelského rozhraní.
+
+<a name="reg"></a>
+
+### <a name="register-the-database-context"></a>Zaregistrujte kontext databáze
+
+Do horní části `using` *Startup.cs*přidejte následující příkazy:
+
+```csharp
+using MvcMovie.Data;
+using Microsoft.EntityFrameworkCore;
+```
+
+Zaregistrujte kontext databáze pomocí kontejneru pro `Startup.ConfigureServices` [vkládání závislostí](xref:fundamentals/dependency-injection) v.
+
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_UseSqlite&highlight=6-7)]
+
+Sestavte projekt jako kontrolu chyb kompilátoru.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Přidejte následující `MvcMovieContext` třídu *modely* složky:  
+
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Data/MvcMovieContext.cs)]
+
+Předchozí kód vytvoří `DbSet` vlastnost pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
+
+<a name="cs"></a>
+
+### <a name="add-a-database-connection-string"></a>Přidat připojovací řetězec databáze
+
+Přidejte do souboru *appSettings. JSON* připojovací řetězec:
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
 ### <a name="add-required-nuget-packages"></a>Přidat požadované balíčky NuGet
 
-Spusťte následující příkaz rozhraní příkazového řádku .NET Core pro přidání SQLite a CodeGeneration.Design do projektu:
+Spusťte následující .NET Core CLI příkaz pro přidání SQLite a strategii. design do projektu:
 
 ```console
 dotnet add package Microsoft.EntityFrameworkCore.SQLite
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 ```
 
-`Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíčky jsou požadovány pro generování uživatelského rozhraní.
+`Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíček je vyžadován pro generování uživatelského rozhraní.
 
 <a name="reg"></a>
 
 ### <a name="register-the-database-context"></a>Zaregistrujte kontext databáze
 
-Přidejte následující `using` příkazů v horní části *Startup.cs*:
+Do horní části `using` *Startup.cs*přidejte následující příkazy:
 
 ```csharp
 using MvcMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-Zaregistrujte kontext databáze s [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru v `Startup.ConfigureServices`.
+Zaregistrujte kontext databáze pomocí kontejneru pro `Startup.ConfigureServices` [vkládání závislostí](xref:fundamentals/dependency-injection) v.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 Sestavte projekt jako kontrolu chyb.
+::: moniker-end

@@ -1,131 +1,124 @@
 ---
-title: Součásti pomocné rutiny značky v ASP.NET Core
+title: Pomocné komponenty značek v ASP.NET Core
 author: scottaddie
-description: Zjistěte, jaké jsou součásti pomocné rutiny značek a jejich použití v ASP.NET Core.
+description: Přečtěte si, co jsou pomocné komponenty značek a jak je používat v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: b5b3abea6492cfaa7d6acd0e54073a8db12eb2a5
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 23e244649350b41e4112d10df63139864e5b4381
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034763"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022221"
 ---
-# <a name="tag-helper-components-in-aspnet-core"></a>Součásti pomocné rutiny značky v ASP.NET Core
+# <a name="tag-helper-components-in-aspnet-core"></a>Pomocné komponenty značek v ASP.NET Core
 
-Podle [Scott Addie](https://twitter.com/Scott_Addie) a [Hasan Fiyaz Bin](https://github.com/fiyazbinhasan)
+Autor – [Scott Addie](https://twitter.com/Scott_Addie) a [Fiyaz bin Hasan](https://github.com/fiyazbinhasan)
 
-Komponenta pomocné rutiny značky je pomocná rutina značky, který umožňuje podmíněně úprava nebo přidání elementů HTML kódu na straně serveru. Tato funkce je dostupná v ASP.NET Core 2.0 nebo novější.
+Pomocná komponenta značek je pomocný pomocník značek, který umožňuje podmíněně upravovat nebo přidávat prvky HTML z kódu na straně serveru. Tato funkce je k dispozici v ASP.NET Core 2,0 nebo novějším.
 
-ASP.NET Core zahrnuje dvě komponenty integrované pomocné rutiny značky: `head` a `body`. Nacházejí se v <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers> obor názvů a je možné v MVC a stránky Razor. Součásti pomocné rutiny značky nevyžadují registraci s touto aplikací v *_ViewImports.cshtml*.
+ASP.NET Core obsahuje dvě vestavěné pomocné komponenty značek: `head` a. `body` Jsou umístěny v <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers> oboru názvů a lze je použít v MVC i Razor Pages. Pomocné komponenty značek nevyžadují registraci u aplikace v *_ViewImports. cshtml*.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="use-cases"></a>Případy použití
 
-Dvě běžné případy použití komponent pomocné rutiny značky patří:
+Mezi dva běžné případy použití pomocných komponent značek patří:
 
-1. [Vkládání `<link>` do `<head>`.](#inject-into-html-head-element)
-1. [Vkládání `<script>` do `<body>`.](#inject-into-html-body-element)
+1. [`<link>` Vložení`<head>`do.](#inject-into-html-head-element)
+1. [`<script>` Vložení`<body>`do.](#inject-into-html-body-element)
 
 Následující části popisují tyto případy použití.
 
-### <a name="inject-into-html-head-element"></a>Vložit do hlavního elementu HTML
+### <a name="inject-into-html-head-element"></a>Vložit do elementu Head HTML
 
-V kódu HTML `<head>` elementu, soubory šablon stylů CSS se obvykle importují s HTML `<link>` elementu. Následující kód vkládá `<link>` elementu do `<head>` pomocí elementu `head` komponenty pomocné rutiny značky:
+V rámci elementu `<head>` HTML se soubory CSS běžně importují pomocí elementu HTML. `<link>` Následující kód vloží `<link>` element `<head>` do prvku pomocí `head` pomocné komponenty Tag:
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressStyleTagHelperComponent.cs)]
 
 V předchozím kódu:
 
-* `AddressStyleTagHelperComponent` implementuje <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent>. Abstrakce:
-  * Umožňuje inicializaci třídy s vlastností <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext>.
-  * Umožňuje použití komponent pomocné rutiny značky přidat nebo upravit prvky jazyka HTML.
-* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.Order*> Vlastnost definuje pořadí, ve kterém jsou generovány komponenty. `Order` je potřeba, pokud existuje více použití komponent pomocné rutiny značky v aplikaci.
-* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.ProcessAsync*> Porovná kontextu spuštění <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.TagName*> hodnoty vlastnosti `head`. Pokud porovnání vyhodnocen jako true, obsah `_style` pole se vloží do kódu HTML `<head>` elementu.
+* `AddressStyleTagHelperComponent`implementuje <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent>. Abstrakce:
+  * Umožňuje inicializaci třídy s <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext>.
+  * Povoluje použití pomocných komponent značek k přidání nebo úpravě prvků HTML.
+* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.Order*> Vlastnost definuje pořadí, ve kterém se komponenty vykreslují. `Order`je nutné v případě, že je v aplikaci více použití komponent pomocníka značek.
+* <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperComponent.ProcessAsync*>Porovná hodnotu <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContext.TagName*> vlastnosti kontextu spuštění s `head`hodnotou. Pokud se porovnání vyhodnotí jako true, obsah `_style` pole je vložen do elementu HTML. `<head>`
 
-### <a name="inject-into-html-body-element"></a>Vložení do prvku text HTML
+### <a name="inject-into-html-body-element"></a>Vložit do prvku textu HTML
 
-`body` Komponenty pomocné rutiny značky lze vložit `<script>` elementu do `<body>` elementu. Následující kód ukazuje tento postup:
+Komponenta pomocník `<script>`značekmůže vložit prvek do `<body>` prvku. `body` Následující kód demonstruje tuto techniku:
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressScriptTagHelperComponent.cs)]
 
-Samostatný soubor HTML se používá k ukládání `<script>` elementu. Soubor HTML díky kód přehlednější a jednodušší údržbu. Předchozí kód načte obsah *TagHelpers/Templates/AddressToolTipScript.html* a připojí jej s výstupem pomocné rutiny značky. *AddressToolTipScript.html* soubor obsahuje následující kód:
+K uložení `<script>` prvku se používá samostatný soubor HTML. Soubor HTML vytváří čisticí kód a je udržovatelnější. Předchozí kód přečte obsah *TagHelpers/Templates/AddressToolTipScript.html* a připojí ho k výstupu pomocníka značek. Soubor *AddressToolTipScript. html* obsahuje následující kód:
 
 [!code-html[](th-components/samples/RazorPagesSample/TagHelpers/Templates/AddressToolTipScript.html)]
 
-Předchozí kód vytvoří vazbu [Bootstrap popisek widgetu](https://getbootstrap.com/docs/3.3/javascript/#tooltips) k libovolnému `<address>` element, který obsahuje `printable` atribut. Efekt je viditelná, když ukazatel myši pohybuje nad prvkem.
+Předchozí kód váže [widget](https://getbootstrap.com/docs/3.3/javascript/#tooltips) s popisem spouštěcího `printable` prvku na `<address>` libovolný prvek, který obsahuje atribut. Je-li ukazatel myši umístěn nad prvkem, je efekt zobrazen.
 
-## <a name="register-a-component"></a>Registrují komponentu
+## <a name="register-a-component"></a>Registrace součásti
 
-Komponentu pomocné rutiny značky musí být přidán do kolekce součásti pomocné rutiny značky aplikace. Existují tři způsoby, jak přidat do kolekce:
+Komponenta pomocníka značek musí být přidána do kolekce komponent pomocníka značek aplikace. Existují tři způsoby, jak přidat do kolekce:
 
-* [Součásti pomocné rutiny značky v ASP.NET Core](#tag-helper-components-in-aspnet-core)
-  * [Případy použití](#use-cases)
-    * [Vložit do hlavního elementu HTML](#inject-into-html-head-element)
-    * [Vložení do prvku text HTML](#inject-into-html-body-element)
-  * [Registrují komponentu](#register-a-component)
-    * [Registrace prostřednictvím služby kontejneru](#registration-via-services-container)
-    * [Registrace prostřednictvím souboru Razor](#registration-via-razor-file)
-    * [Registrace prostřednictvím stránky nebo Model kontroleru](#registration-via-page-model-or-controller)
-  * [Vytvoření komponenty](#create-a-component)
-  * [Další zdroje informací](#additional-resources)
+* [Registrace prostřednictvím kontejneru služby](#registration-via-services-container)
+* [Registrace prostřednictvím souboru Razor](#registration-via-razor-file)
+* [Registrace přes model stránky nebo kontroler](#registration-via-page-model-or-controller)
 
-### <a name="registration-via-services-container"></a>Registrace prostřednictvím služby kontejneru
+### <a name="registration-via-services-container"></a>Registrace prostřednictvím kontejneru služby
 
-Pokud třída součástí pomocné rutiny značky není spravován pomocí <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager>, musí zaregistrovat [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) systému. Následující `Startup.ConfigureServices` kódu registrů `AddressStyleTagHelperComponent` a `AddressScriptTagHelperComponent` třídy s [přechodná doba života](xref:fundamentals/dependency-injection#lifetime-and-registration-options):
+Pokud není třída pomocné komponenty značky spravovaná pomocí <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.ITagHelperComponentManager>, musí být zaregistrovaná v systému [vkládání závislostí (di)](xref:fundamentals/dependency-injection) . Následující `Startup.ConfigureServices` kód [](xref:fundamentals/dependency-injection#lifetime-and-registration-options)registruje třídy a `AddressScriptTagHelperComponent`s přechodnou životností: `AddressStyleTagHelperComponent`
 
 [!code-csharp[](th-components/samples/RazorPagesSample/Startup.cs?name=snippet_ConfigureServices&highlight=12-15)]
 
 ### <a name="registration-via-razor-file"></a>Registrace prostřednictvím souboru Razor
 
-Pokud součást pomocné rutiny značky není registrována s DI, lze jej zaregistrovat ze stránky Razor Pages nebo zobrazení MVC. Tento postup slouží k řízení vloženého kódu a pořadí spuštění součásti ze souboru Razor.
+Pokud komponenta pomocníka značek není zaregistrovaná v DI, dá se zaregistrovat ze stránky Razor Pages nebo zobrazení MVC. Tato technika se používá pro řízení vloženého kódu a pořadí provádění součástí ze souboru Razor.
 
-`ITagHelperComponentManager` slouží k přidání komponenty pomocné rutiny značky nebo odebrat z aplikace. Následující kód ukazuje tento postup s `AddressTagHelperComponent`:
+`ITagHelperComponentManager`slouží k přidání pomocných komponent značek nebo jejich odebrání z aplikace. Následující kód demonstruje tuto techniku `AddressTagHelperComponent`s:
 
 [!code-cshtml[](th-components/samples/RazorPagesSample/Pages/Contact.cshtml?name=snippet_ITagHelperComponentManager)]
 
 V předchozím kódu:
 
-* `@inject` Směrnice poskytuje instance `ITagHelperComponentManager`. Instance je přiřazen do proměnné s názvem `manager` pro přístup k směru server-klient v souboru Razor.
-* Instance `AddressTagHelperComponent` se přidá do kolekce součásti pomocné rutiny značky aplikací.
+* Direktiva poskytuje `ITagHelperComponentManager`instanci. `@inject` Instance je přiřazena k proměnné s názvem `manager` pro přístup pro příjem dat v souboru Razor.
+* Instance `AddressTagHelperComponent` je přidána do kolekce komponent pomocníka značek aplikace.
 
-`AddressTagHelperComponent` upravit tak, aby vyhovovaly konstruktor, který přijímá `markup` a `order` parametry:
+`AddressTagHelperComponent`je upraveno tak, aby vyhovovalo konstruktoru `markup` , `order` který přijímá parametry a:
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressTagHelperComponent.cs?name=snippet_Constructor)]
 
-Poskytnuté `markup` parametr se používá v `ProcessAsync` následujícím způsobem:
+Zadaný `markup` parametr se používá v `ProcessAsync` následujícím příkladu:
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressTagHelperComponent.cs?name=snippet_ProcessAsync&highlight=10-11)]
 
-### <a name="registration-via-page-model-or-controller"></a>Registrace prostřednictvím stránky nebo Model kontroleru
+### <a name="registration-via-page-model-or-controller"></a>Registrace přes model stránky nebo kontroler
 
-Pokud součást pomocné rutiny značky není registrována s DI, lze jej zaregistrovat z modelu stránky Razor Pages nebo kontroler MVC. Tato technika je užitečná pro oddělení logiky C# v souborech Razor.
+Pokud komponenta pomocníka značek není zaregistrovaná v DI, může být zaregistrovaná z Razor Pagesho modelu nebo kontroleru MVC. Tato technika je užitečná pro oddělení C# logiky ze souborů Razor.
 
-Vkládání konstruktor se používá pro přístup k instanci `ITagHelperComponentManager`. Komponenta pomocné rutiny značky se přidá do kolekce na instanci komponenty pomocné rutiny značky. Tuto techniku s demonstruje následující model stránky Razor Pages `AddressTagHelperComponent`:
+Injektáže konstruktoru se používá pro přístup k instanci `ITagHelperComponentManager`. Komponenta pomocník značek je přidána do kolekce komponent pomocníka značek instance. Následující Razor Pages model ukazuje tuto techniku s `AddressTagHelperComponent`:
 
 [!code-csharp[](th-components/samples/RazorPagesSample/Pages/Index.cshtml.cs?name=snippet_IndexModelClass)]
 
 V předchozím kódu:
 
-* Vkládání konstruktor se používá pro přístup k instanci `ITagHelperComponentManager`.
-* Instance `AddressTagHelperComponent` se přidá do kolekce součásti pomocné rutiny značky aplikací.
+* Injektáže konstruktoru se používá pro přístup k instanci `ITagHelperComponentManager`.
+* Instance `AddressTagHelperComponent` je přidána do kolekce komponent pomocníka značek aplikace.
 
 ## <a name="create-a-component"></a>Vytvoření komponenty
 
-Chcete-li vytvořit komponentu vlastní pomocné rutiny značky:
+Vytvoření vlastní pomocné komponenty značky:
 
-* Vytvořit veřejnou třídu odvozenou z <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentTagHelper>.
-* Použití [[HtmlTargetElement]](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) atribut třídy. Zadejte název cílového elementu HTML.
-* *Volitelné*: Použití [[EditorBrowsable(EditorBrowsableState.Never)]](xref:System.ComponentModel.EditorBrowsableAttribute) atribut třídy pro potlačení tohoto typu zobrazení v IntelliSense.
+* Vytvoří veřejnou třídu odvozenou z <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperComponentTagHelper>.
+* Použijte pro třídu atribut [[HtmlTargetElement]](xref:Microsoft.AspNetCore.Razor.TagHelpers.HtmlTargetElementAttribute) . Zadejte název cílového elementu HTML.
+* *Volitelné*: Použijte atribut [[členy editorbrowsable (EditorBrowsableState. Never)]](xref:System.ComponentModel.EditorBrowsableAttribute) pro třídu pro potlačení zobrazení typu v technologii IntelliSense.
 
-Následující kód vytvoří komponentu vlastní pomocné rutiny značky, který cílí `<address>` prvek HTML:
+Následující kód vytvoří vlastní pomocnou komponentu značky, která se zaměřuje `<address>` na element jazyka HTML:
 
 [!code-csharp[](th-components/samples/RazorPagesSample/TagHelpers/AddressTagHelperComponentTagHelper.cs)]
 
-Použít vlastní `address` komponenty pomocné rutiny značky se vložit kód HTML následujícím způsobem:
+Použijte vlastní `address` komponentu pomocníka značek pro vložení značek HTML následujícím způsobem:
 
 ```csharp
 public class AddressTagHelperComponent : TagHelperComponent
@@ -153,12 +146,12 @@ public class AddressTagHelperComponent : TagHelperComponent
 }
 ```
 
-Předchozí `ProcessAsync` metoda vkládá HTML poskytnuté <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.SetHtmlContent*> do odpovídající `<address>` elementu. Vyvolá se vkládání při:
+Předchozí `ProcessAsync` metoda vloží do odpovídajícího `<address>` prvku kód HTML, <xref:Microsoft.AspNetCore.Razor.TagHelpers.TagHelperContent.SetHtmlContent*> který je k dispozici. K injektáže dojde v těchto případech:
 
-* Kontext spuštění `TagName` vlastnost hodnota se rovná `address`.
-* Odpovídající `<address>` obsahuje element `printable` atribut.
+* Hodnota `TagName` vlastnosti kontextu spuštění `address`se rovná.
+* Odpovídající `<address>` element`printable` má atribut.
 
-Například `if` vyhodnotí na hodnotu true při zpracovávání následujících `<address>` element:
+Například příkaz je `if` vyhodnocen jako true při zpracování následujícího `<address>` elementu:
 
 [!code-cshtml[](th-components/samples/RazorPagesSample/Pages/Contact.cshtml?name=snippet_AddressPrintable)]
 

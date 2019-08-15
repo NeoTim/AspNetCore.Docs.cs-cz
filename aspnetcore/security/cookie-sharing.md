@@ -1,48 +1,48 @@
 ---
-title: Sdílet soubory cookie pro ověřování mezi aplikací v ASP.NET
+title: Sdílení souborů cookie ověřování mezi ASP.NET aplikacemi
 author: rick-anderson
-description: Zjistěte, jak sdílet soubory cookie pro ověřování mezi ASP.NET 4.x a ASP.NET Core aplikace.
+description: Naučte se sdílet soubory cookie ověřování mezi ASP.NET 4. x a ASP.NET Core aplikacemi.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/15/2019
+ms.date: 08/14/2019
 uid: security/cookie-sharing
-ms.openlocfilehash: b2f906ac97fe79b2a66a5ab709bcbcb03ab8cc39
-ms.sourcegitcommit: 1bf80f4acd62151ff8cce517f03f6fa891136409
+ms.openlocfilehash: 1650afce5c371d0830bb207618b9c1495f0ce587
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/15/2019
-ms.locfileid: "68223913"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022393"
 ---
-# <a name="share-authentication-cookies-among-aspnet-apps"></a>Sdílet soubory cookie pro ověřování mezi aplikací v ASP.NET
+# <a name="share-authentication-cookies-among-aspnet-apps"></a>Sdílení souborů cookie ověřování mezi ASP.NET aplikacemi
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Luke Latham](https://github.com/guardrex)
+Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Luke Latham](https://github.com/guardrex)
 
-Websites se často skládají z jednotlivých webových aplikací společně fungují. Pokud chcete poskytovat jednotné přihlašování (SSO), musíte webové aplikace v rámci lokality sdílet soubory cookie pro ověřování. Pro podporu tohoto scénáře, zásobník ochrany dat umožňuje sdílení Katana ověřování souborů cookie a lístků pro ověřování souborů cookie pomocí ASP.NET Core.
+Weby se často skládají z jednotlivých vzájemně pracujících webových aplikací. Aby bylo možné zajistit jednotné přihlašování (SSO), musí webové aplikace v rámci lokality sdílet soubory cookie ověřování. Pro podporu tohoto scénáře umožňuje zásobník ochrany dat sdílení Katana souborů cookie a ověřovacích lístků pro ASP.NET Core souborů cookie.
 
-V následující příklady:
+V následujících příkladech:
 
-* Název souboru cookie ověřování je nastavena na hodnotu běžné `.AspNet.SharedCookie`.
-* `AuthenticationType` Je nastavena na `Identity.Application` buď explicitně nebo implicitně.
-* Běžný název aplikace se používá k povolení systém ochrany dat ke sdílení klíče ochrany dat (`SharedCookieApp`).
-* `Identity.Application` slouží jako schéma ověřování. Jakékoli schéma se používá, musí být používány konzistentně *v různých i* sdílený soubor cookie aplikace jako výchozí schéma nebo explicitním nastavením. Schéma se používá při šifrování a dešifrování souborů cookie, takže konzistentní schéma musí využívat napříč aplikacemi.
-* Společný [klíč ochrany dat](xref:security/data-protection/implementation/key-management) umístění úložiště se používá.
-  * V aplikacích ASP.NET Core <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.PersistKeysToFileSystem*> slouží k nastavení umístění úložiště klíčů.
-  * V aplikacích rozhraní .NET Framework, Middleware ověřování souborů Cookie používá provádění <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider>. `DataProtectionProvider` poskytuje služby ochrany dat pro šifrování a dešifrování dat datové části souboru cookie ověřování. `DataProtectionProvider` Instance je izolovaná od systém ochrany dat používaný v ostatních částech aplikace. [DataProtectionProvider.Create (System.IO.DirectoryInfo, akce\<IDataProtectionBuilder >)](xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider.Create*) přijímá <xref:System.IO.DirectoryInfo> a zadejte umístění pro ukládání klíčů ochrany dat.
-* `DataProtectionProvider` vyžaduje [Microsoft.AspNetCore.DataProtection.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) balíček NuGet:
-  * V aplikacích ASP.NET Core 2.x, odkazovat [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
-  * V aplikacích rozhraní .NET Framework, přidejte odkaz na balíček pro [Microsoft.AspNetCore.DataProtection.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/).
-* <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*> Nastaví běžný název aplikace.
+* Název souboru cookie ověřování je nastaven na společnou hodnotu `.AspNet.SharedCookie`.
+* `AuthenticationType` Je`Identity.Application` nastaven buď explicitně, nebo jako výchozí.
+* Běžný název aplikace se používá k tomu, aby systém ochrany dat mohl sdílet klíče ochrany dat (`SharedCookieApp`).
+* `Identity.Application`slouží jako schéma ověřování. Bez ohledu na to, jaké schéma se používá, se musí používat konzistentně v rámci aplikace sdílené soubory cookie *a napříč* nimi, a to buď jako výchozí schéma, nebo explicitně nastavením. Schéma se používá při šifrování a dešifrování souborů cookie, takže v aplikacích je nutné použít konzistentní schéma.
+* Používá se společné umístění úložiště [klíčů pro ochranu dat](xref:security/data-protection/implementation/key-management) .
+  * V ASP.NET Core aplikace <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.PersistKeysToFileSystem*> se používá k nastavení umístění úložiště klíčů.
+  * V .NET Frameworkch aplikacích používá middleware pro <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider>ověřování souborů cookie implementaci. `DataProtectionProvider`poskytuje služby ochrany dat pro šifrování a dešifrování dat datové části ověřovacího souboru cookie. `DataProtectionProvider` Instance je izolovaná od systému ochrany dat, který používají jiné části aplikace. [DataProtectionProvider. Create (System. IO. DirectoryInfo, Action\<IDataProtectionBuilder >)](xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider.Create*) přijme a <xref:System.IO.DirectoryInfo> určí umístění pro úložiště klíčů ochrany dat.
+* `DataProtectionProvider`vyžaduje balíček NuGet [Microsoft. AspNetCore. DataProtection. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) :
+  * V aplikacích ASP.NET Core 2. x odkazují na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
+  * V .NET Framework aplikace přidejte odkaz na balíček do [Microsoft. AspNetCore. DataProtection. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/).
+* <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*>Nastaví běžný název aplikace.
 
-## <a name="share-authentication-cookies-among-aspnet-core-apps"></a>Sdílet soubory cookie pro ověřování mezi aplikací ASP.NET Core
+## <a name="share-authentication-cookies-among-aspnet-core-apps"></a>Sdílení souborů cookie ověřování mezi ASP.NET Coremi aplikacemi
 
-Při použití technologie ASP.NET Core Identity:
+Při použití ASP.NET Core identity:
 
-* Data ochrany klíčů a název aplikace musí být sdílena mezi aplikacemi. Společné umístění úložiště klíčů je k dispozici na <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.PersistKeysToFileSystem*> metoda v následujících příkladech. Použití <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*> konfigurace běžný název sdílené aplikace (`SharedCookieApp` v následujících příkladech). Další informace naleznete v tématu <xref:security/data-protection/configuration/overview>.
-* Použití <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.ConfigureApplicationCookie*> metodu rozšíření k nastavení služby ochrany dat pro soubory cookie.
-* V následujícím příkladu je typ ověřování nastavený na `Identity.Application` ve výchozím nastavení.
+* Klíče ochrany dat a název aplikace se musí sdílet mezi aplikacemi. K <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.PersistKeysToFileSystem*> metodě v následujících příkladech je poskytováno společné umístění úložiště klíčů. Použijte <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*> ke konfiguraci společného názvu sdílené aplikace (`SharedCookieApp` v následujících příkladech). Další informace naleznete v tématu <xref:security/data-protection/configuration/overview>.
+* Použijte metodu <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.ConfigureApplicationCookie*> rozšíření k nastavení služby ochrany dat pro soubory cookie.
+* Výchozí typ ověřování je `Identity.Application`.
 
-V `Startup.ConfigureServices`:
+V `Startup.ConfigureServices`nástroji:
 
 ```csharp
 services.AddDataProtection()
@@ -54,7 +54,7 @@ services.ConfigureApplicationCookie(options => {
 });
 ```
 
-Při používání souborů cookie bez ASP.NET Core Identity přímo, konfigurovat ochranu dat a ověřování v `Startup.ConfigureServices`. V následujícím příkladu je typ ověřování nastavený na `Identity.Application`:
+Při přímém použití souborů cookie bez ASP.NET Core identity nakonfigurujte ochranu a ověřování dat `Startup.ConfigureServices`v. V následujícím příkladu je typ ověřování nastaven na `Identity.Application`:
 
 ```csharp
 services.AddDataProtection()
@@ -68,43 +68,43 @@ services.AddAuthentication("Identity.Application")
     });
 ```
 
-Při hostování aplikací, které sdílení souborů cookie mezi subdomény, zadejte běžné doménu v [Cookie.Domain](xref:Microsoft.AspNetCore.Http.CookieBuilder.Domain) vlastnost. Ke sdílení souborů cookie mezi aplikacemi na `contoso.com`, jako například `first_subdomain.contoso.com` a `second_subdomain.contoso.com`, zadejte `Cookie.Domain` jako `.contoso.com`:
+Při hostování aplikací sdílejících soubory cookie napříč subdoménami zadejte společnou doménu ve vlastnosti [cookie. Domain](xref:Microsoft.AspNetCore.Http.CookieBuilder.Domain) . Chcete-li sdílet soubory cookie `contoso.com`napříč aplikacemi, `first_subdomain.contoso.com` například `second_subdomain.contoso.com`a, zadejte `Cookie.Domain` jako `.contoso.com`:
 
 ```csharp
 options.Cookie.Domain = ".contoso.com";
 ```
 
-## <a name="encrypt-data-protection-keys-at-rest"></a>Šifrování klíče ochrany dat v klidovém stavu
+## <a name="encrypt-data-protection-keys-at-rest"></a>Šifrovat klíče ochrany dat v klidovém umístění
 
-Pro nasazení v produkčním prostředí, nakonfigurovat `DataProtectionProvider` šifrování klíčů v klidovém stavu pomocí rozhraní DPAPI nebo certifikátu x 509. Další informace naleznete v tématu <xref:security/data-protection/implementation/key-encryption-at-rest>. V následujícím příkladu je poskytnuta kryptografický otisk certifikátu <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.ProtectKeysWithCertificate*>:
+V případě nasazení v produkčním prostředí `DataProtectionProvider` nakonfigurujte šifrování klíčů v klidovém formátu pomocí DPAPI nebo certifikátu x509. Další informace naleznete v tématu <xref:security/data-protection/implementation/key-encryption-at-rest>. V následujícím příkladu je k <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.ProtectKeysWithCertificate*>dispozici kryptografický otisk certifikátu:
 
 ```csharp
 services.AddDataProtection()
     .ProtectKeysWithCertificate("{CERTIFICATE THUMBPRINT}");
 ```
 
-## <a name="share-authentication-cookies-between-aspnet-4x-and-aspnet-core-apps"></a>Sdílet soubory cookie pro ověřování mezi ASP.NET 4.x a aplikací ASP.NET Core
+## <a name="share-authentication-cookies-between-aspnet-4x-and-aspnet-core-apps"></a>Sdílení souborů cookie pro ověřování mezi ASP.NET 4. x a ASP.NET Core aplikacemi
 
-Aplikace ASP.NET 4.x, používající Middleware ověřování souborů Cookie Katana dá Generovat soubory cookie pro ověřování, které jsou kompatibilní s Middlewarem ověřování ASP.NET Core souboru Cookie. Díky tomu upgradem jednotlivých aplikací velkých webů v několika krocích zároveň hladký jednotné přihlašování v lokalitě.
+Aplikace ASP.NET 4. x, které používají middleware ověřování souborů cookie Katana, se dají nakonfigurovat tak, aby vygenerovaly soubory cookie ověřování, které jsou kompatibilní s middlewarem ověřování souborů cookie ASP.NET Core To umožňuje v několika krocích upgradovat jednotlivé aplikace velké lokality a zajistit tak hladké možnosti jednotného přihlašování napříč lokalitami.
 
-Pokud aplikace používá Katana Middleware ověřování souborů Cookie, volá `UseCookieAuthentication` v projektu *Startup.Auth.cs* souboru. Projektech ASP.NET 4.x webové aplikace vytvořené pomocí sady Visual Studio 2013 a později použít Katana Middleware ověřování souborů Cookie ve výchozím nastavení. I když `UseCookieAuthentication` je zastaralý a pro aplikace ASP.NET Core, volání `UseCookieAuthentication` v ASP.NET 4.x aplikaci, která používá Katana Middleware ověřování souborů Cookie je platný.
+Když aplikace používá middleware ověřování Katana souborů cookie, volá `UseCookieAuthentication` se v souboru *Startup.auth.cs* projektu. Projekty webové aplikace ASP.NET 4. x vytvořené pomocí Visual Studio 2013 a později ve výchozím nastavení používají middleware ověřování souborů cookie Katana. I `UseCookieAuthentication` když je zastaralá a podporovaná pro `UseCookieAuthentication` ASP.NET Core aplikace, volání v aplikaci ASP.NET 4. x, která používá middleware ověřování souborů cookie Katana, je platná.
 
-Aplikace ASP.NET 4.x musí cílit na rozhraní .NET Framework 4.5.1 nebo novější. V opačném případě potřebné balíčky NuGet nepodaří nainstalovat.
+Aplikace ASP.NET 4. x musí cílit na .NET Framework 4.5.1 nebo novější. V opačném případě se instalace nezbytných balíčků NuGet nezdařila.
 
-Sdílet soubory cookie pro ověřování mezi aplikace ASP.NET 4.x a aplikace ASP.NET Core, konfiguraci aplikace ASP.NET Core, jak je uvedeno v [sdílet soubory cookie pro ověřování mezi aplikací ASP.NET Core](#share-authentication-cookies-among-aspnet-core-apps) části a pak nakonfigurujte aplikaci ASP.NET 4.x jako následuje.
+Pokud chcete soubory cookie pro ověřování sdílet mezi aplikací ASP.NET 4. x a aplikací ASP.NET Core, nakonfigurujte aplikaci ASP.NET Core tak, jak je uvedeno v části [sdílení ověřovacích souborů cookie mezi ASP.NET Coremi aplikacemi](#share-authentication-cookies-among-aspnet-core-apps) , a pak nakonfigurujte aplikaci ASP.NET 4. x následujícím způsobem.
 
-Potvrďte, že balíčky aplikace se aktualizují na nejnovější verze. Nainstalujte [Microsoft.Owin.Security.Interop](https://www.nuget.org/packages/Microsoft.Owin.Security.Interop/) balíček do jednotlivých aplikací ASP.NET 4.x.
+Zkontrolujte, jestli jsou balíčky aplikace aktualizované na nejnovější verze. Do každé aplikace ASP.NET 4. x nainstalujte balíček [Microsoft. Owin. Security. Interop](https://www.nuget.org/packages/Microsoft.Owin.Security.Interop/) .
 
-Vyhledejte a upravte volání `UseCookieAuthentication`:
+Vyhledejte a upravte volání na `UseCookieAuthentication`:
 
-* Změňte název souboru cookie na odpovídat názvu, používat Middleware ověřování souborů Cookie základní technologie ASP.NET (`.AspNet.SharedCookie` v příkladu).
-* V následujícím příkladu je typ ověřování nastavený na `Identity.Application`.
-* Zadat instanci `DataProtectionProvider` inicializovány na společné umístění dat ochrany úložiště klíčů.
-* Potvrďte, že je název aplikace nastavený na běžný název aplikaci používat všechny aplikace, které sdílejí soubory cookie pro ověřování (`SharedCookieApp` v příkladu).
+* Změňte název souboru cookie tak, aby odpovídal názvu, který používá middleware pro ověřování`.AspNet.SharedCookie` souborů cookie ASP.NET Core (v příkladu).
+* V následujícím příkladu je typ ověřování nastaven na `Identity.Application`.
+* Zadejte instanci `DataProtectionProvider` inicializovaného do umístění úložiště klíčů pro Common data Protection.
+* Ověřte, že je název aplikace nastavený na společný název aplikace používaný všemi aplikacemi, které sdílejí soubory cookie ověřování (`SharedCookieApp` v tomto příkladu).
 
-Pokud není nastavení `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier` a `http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider`, nastavte <xref:System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier> k deklaraci identity, která odlišuje jedinečných uživatelů.
+Pokud není `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier` nastavené `http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider`a, <xref:System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier> nastavte na deklaraci identity, která rozlišuje jedinečné uživatele.
 
-*App_Start/Startup.auth.cs*:
+*App_start/Startup. auth. cs*:
 
 ```csharp
 app.UseCookieAuthentication(new CookieAuthenticationOptions
@@ -137,7 +137,7 @@ System.Web.Helpers.AntiForgeryConfig.UniqueClaimTypeIdentifier =
     "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name";
 ```
 
-Při generování identitu uživatele, typ ověřování (`Identity.Application`) musí odpovídat typ definovaný v `AuthenticationType` sadu s `UseCookieAuthentication` v *App_Start/Startup.Auth.cs*.
+Při generování identity uživatele`Identity.Application`musí typ ověřování () odpovídat typu `AuthenticationType` definovanému v sadě s použitím `UseCookieAuthentication` v *app_start/Startup. auth. cs*.
 
 *Models/IdentityModels.cs*:
 
@@ -159,11 +159,11 @@ public class ApplicationUser : IdentityUser
 }
 ```
 
-## <a name="use-a-common-user-database"></a>Použít běžné uživatelské databázi
+## <a name="use-a-common-user-database"></a>Použití společné uživatelské databáze
 
-Když aplikace použít stejnou identitu schématu (stejnou verzi Identity), potvrďte, že systém Identity pro každé aplikaci, která ukazuje na stejné uživatele databáze. V opačném případě systém identit vytvoří chyby za běhu při pokusí se porovnat informace v souboru cookie pro ověřování proti informací ve své databázi.
+Když aplikace používají stejné schéma identity (stejnou verzi identity), ujistěte se, že systém identit pro každou aplikaci je odkazoval na stejnou uživatelskou databázi. V opačném případě systém identit vytvoří selhání za běhu při pokusu o shodu s informacemi v ověřovacím souboru cookie proti informacím v příslušné databázi.
 
-Pokud schéma Identity se liší mezi aplikacemi, obvykle vzhledem k tomu aplikace používáte různé verze Identity založené na nejnovější verzi Identity společnou databázi pro sdílení obsahu není možné bez přemapování a přidání sloupců ve schématech Identity jinou aplikaci. Často je efektivnější upgrade dalších aplikací používat nejnovější verzi Identity tak, aby aplikace může sdílet společnou databázi.
+Když se schéma identity mezi aplikacemi liší, obvykle protože aplikace používají různé verze identity, sdílení společné databáze na základě nejnovější verze identity není možné bez nutnosti přemapování a přidání sloupců v schématech identit jiných aplikací. Je často efektivnější upgradovat ostatní aplikace tak, aby používaly nejnovější verzi identity, aby bylo možné sdílet aplikace do společné databáze.
 
 ## <a name="additional-resources"></a>Další zdroje
 

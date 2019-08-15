@@ -5,12 +5,12 @@ description: Naučte se, jak začít s ASP.NET Core MVC.
 ms.author: riande
 ms.date: 08/05/2019
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: f6a92423546ebd9d4c8e1a92fb81b6b72f847f61
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 36f4811f876a6e35440445103a1f86ae06b31b6a
+ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820102"
+ms.lasthandoff: 08/14/2019
+ms.locfileid: "69022521"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
@@ -126,7 +126,6 @@ Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
   ![Služba IIS Express](start-mvc/_static/iis_express.png)
 
-
   Následující obrázek znázorňuje aplikaci:
 
   ![Stránka domů nebo index](start-mvc/_static/home2.2.png)
@@ -140,12 +139,6 @@ Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
   Visual Studio Code spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `https://localhost:5001`. Panel Adresa se zobrazí `localhost:port:5001` a ne něco jako `example.com`. To je proto `localhost` , že se jedná o standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače.
 
   Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použití režimu bez ladění k aktualizaci stránky a zobrazení změn.
-
-* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
-
-  ![Stránka domů nebo index](start-mvc/_static/privacy.png)
-
-  Následující obrázek ukazuje aplikaci po přijetí sledování:
 
   ![Stránka domů nebo index](start-mvc/_static/home2.2.png)
 
