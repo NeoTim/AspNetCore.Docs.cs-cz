@@ -5,14 +5,14 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2019
+ms.date: 08/13/2019
 uid: blazor/routing
-ms.openlocfilehash: 70cae6b3a21fe3537d6841a6716398a5fc45db62
-ms.sourcegitcommit: f30b18442ed12831c7e86b0db249183ccd749f59
+ms.openlocfilehash: 197b1a91b3540d21639c3ee775b2c490da7b23fe
+ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/23/2019
-ms.locfileid: "68412392"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69030394"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
 
@@ -117,6 +117,18 @@ Existují dvě `NavLinkMatch` možnosti, které lze přiřadit `Match` k atribut
 * `NavLinkMatch.Prefix`(*výchozí*) &ndash; Jeaktivní,pokudodpovídálibovolnépředponě`NavLink` aktuální adresy URL.
 
 V předchozím příkladu se Domovská stránka `NavLink` `href=""` shoduje s `active` adresou URL domů a přijímá pouze třídu CSS ve `https://localhost:5001/`výchozí základní cestě URL aplikace (například). Druhá `NavLink` Získá třídu, `active` když uživatel `MyComponent` navštíví libovolnou adresu URL s předponou (například `https://localhost:5001/MyComponent` a `https://localhost:5001/MyComponent/AnotherSegment`).
+
+Další `NavLink` atributy komponenty jsou předány do vykreslené značky ukotvení. V následujícím příkladu `NavLink` komponenta `target` zahrnuje atribut:
+
+```cshtml
+<NavLink href="my-page" target="_blank">My page</NavLink>
+```
+
+Vykresluje se následující kód HTML:
+
+```html
+<a href="my-page" target="_blank" rel="noopener noreferrer">My page</a>
+```
 
 ## <a name="uri-and-navigation-state-helpers"></a>Identifikátory URI a pomocníka pro stav navigace
 

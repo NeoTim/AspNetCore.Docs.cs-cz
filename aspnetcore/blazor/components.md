@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: a95c186d30eaf342f10ecbe6f7add242d4679a0f
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 8cb2dc4c3cd22fe71fe15c22762948f9dcd3c08f
+ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993419"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69030358"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -519,7 +519,10 @@ Preferovat silného typu `EventCallback<T>` přes `EventCallback`. `EventCallbac
 
 ## <a name="capture-references-to-components"></a>Zachytit odkazy na komponenty
 
-Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance, například `Show` nebo `Reset`. Chcete-li zachytit odkaz na komponentu, [@ref](xref:mvc/views/razor#ref) přidejte atribut do podřízené komponenty a pak definujte pole se stejným názvem a stejným typem jako podřízená komponenta.
+Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance, například `Show` nebo `Reset`. Zachytit odkaz na komponentu:
+
+* [@ref](xref:mvc/views/razor#ref) Přidejte atribut do podřízené součásti.
+* Definujte pole stejného typu jako podřízená komponenta.
 
 ```cshtml
 <MyLoginDialog @ref="loginDialog" ... />
@@ -538,6 +541,30 @@ Při vykreslení `loginDialog` komponenty je pole vyplněno `MyLoginDialog` inst
 
 > [!IMPORTANT]
 > Proměnná je naplněna pouze po vykreslení komponenty a její výstup `MyLoginDialog` obsahuje element. `loginDialog` Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte `OnAfterRenderAsync` metody `OnAfterRender` nebo.
+
+<!-- HOLD https://github.com/aspnet/AspNetCore.Docs/pull/13818
+Component references provide a way to reference a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.
+
+The Razor compiler automatically generates a backing field for element and component references when using [@ref](xref:mvc/views/razor#ref). In the following example, there's no need to create a `myLoginDialog` field for the `LoginDialog` component:
+
+```cshtml
+<LoginDialog @ref="myLoginDialog" ... />
+
+@code {
+    private void OnSomething()
+    {
+        myLoginDialog.Show();
+    }
+}
+```
+
+When the component is rendered, the generated `myLoginDialog` field is populated with the `LoginDialog` component instance. You can then invoke .NET methods on the component instance.
+
+In some cases, a backing field is required. For example, declare a backing field when referencing generic components. To suppress backing field generation, specify the `@ref:suppressField` parameter.
+
+> [!IMPORTANT]
+> The generated `myLoginDialog` variable is only populated after the component is rendered and its output includes the `LoginDialog` element. Until that point, there's nothing to reference. To manipulate components references after the component has finished rendering, use the `OnAfterRenderAsync` or `OnAfterRender` methods.
+-->
 
 Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachycení odkazů na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není to funkce [interoperability JavaScriptu](xref:blazor/javascript-interop) . Odkazy na součásti nejsou předány kódu&mdash;jazyka JavaScript, které jsou používány pouze v kódu .NET.
 
@@ -620,19 +647,19 @@ Zajistěte, aby `@key` hodnoty použité pro nekolidovat. Pokud jsou v rámci st
 
 ## <a name="lifecycle-methods"></a>Metody životního cyklu
 
-`OnInitAsync`a `OnInit` spusťte kód pro inicializaci komponenty. Chcete-li provést asynchronní operaci, `OnInitAsync` použijte `await` a klíčové slovo pro operaci:
+`OnInitializedAsync`a `OnInitialized` spusťte kód pro inicializaci komponenty. Chcete-li provést asynchronní operaci, `OnInitializedAsync` použijte `await` a klíčové slovo pro operaci:
 
 ```csharp
-protected override async Task OnInitAsync()
+protected override async Task OnInitializedAsync()
 {
     await ...
 }
 ```
 
-Pro synchronní operaci použijte `OnInit`:
+Pro synchronní operaci použijte `OnInitialized`:
 
 ```csharp
-protected override void OnInit()
+protected override void OnInitialized()
 {
     ...
 }
@@ -674,7 +701,7 @@ protected override void OnAfterRender()
 
 Asynchronní akce provedené v událostech životního cyklu se možná nedokončily, než se komponenta vykreslí. Objekty mohou být `null` při provádění metody životního cyklu nebo neúplná data naplněna daty. Poskytněte logiku vykreslování pro potvrzení, že jsou objekty inicializovány. Vykreslí zástupné prvky uživatelského rozhraní (například zprávu o načítání), `null`zatímco objekty jsou.
 
-V komponentě `OnInitAsync` šablon Blazor je přepsáno na asynchronně příjem dat předpovědi (`forecasts`). `FetchData` V takovém případě `forecasts` se uživateli zobrazí zpráva o načítání. `null` `Task` Po úspěšnémdokončenísekomponentaznovuvykreslís`OnInitAsync` aktualizovaným stavem.
+V komponentě `OnInitializedAsync` šablon Blazor je přepsáno na asynchronně příjem dat předpovědi (`forecasts`). `FetchData` V takovém případě `forecasts` se uživateli zobrazí zpráva o načítání. `null` `Task` Po úspěšnémdokončenísekomponentaznovuvykreslís`OnInitializedAsync` aktualizovaným stavem.
 
 *Stránky/FetchData. Razor*:
 
@@ -685,7 +712,7 @@ V komponentě `OnInitAsync` šablon Blazor je přepsáno na asynchronně příje
 `SetParameters`lze přepsat pro spuštění kódu před nastavením parametrů:
 
 ```csharp
-public override void SetParameters(ParameterCollection parameters)
+public override void SetParameters(ParameterView parameters)
 {
     ...
 

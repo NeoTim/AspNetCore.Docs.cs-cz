@@ -1,89 +1,93 @@
 ---
-title: Mezipaměť in-memory v ASP.NET Core
+title: Mezipaměť v paměti v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak data v paměti v ASP.NET Core do mezipaměti.
+description: Naučte se, jak ukládat data do mezipaměti v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/11/2019
+ms.date: 8/11/2019
 uid: performance/caching/memory
-ms.openlocfilehash: ffd21f014c02f46d19364a7a54686b8d5c95dc1a
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 474f71225371ea89b023ee077d4ecc03e9751681
+ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815032"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69030318"
 ---
-# <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť in-memory v ASP.NET Core
+# <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť v paměti v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Jan Luo](https://github.com/JunTaoLuo), a [Steve Smith](https://ardalis.com/)
+Autor – [Rick Anderson](https://twitter.com/RickAndMSFT), [Jan Luo](https://github.com/JunTaoLuo)a [Steve Smith](https://ardalis.com/)
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/sample) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="caching-basics"></a>Základní informace o ukládání do mezipaměti
+## <a name="caching-basics"></a>Základy ukládání do mezipaměti
 
-Ukládání do mezipaměti může výrazně zlepšit výkon a škálovatelnost aplikace tím, že snižuje práci potřebnou k generování obsahu. Ukládání do mezipaměti funguje nejlépe s daty, která se mění jen zřídka. Ukládání do mezipaměti ke zkopírování dat, které mohou být vráceny mnohem rychlejší než z původního zdroje. Aplikace by měla bude sepsána a otestovaný na **nikdy** závisí na data uložená v mezipaměti.
+Ukládání do mezipaměti může významně zlepšit výkon a škálovatelnost aplikace tím, že zkracuje práci potřebnou k vygenerování obsahu. Ukládání do mezipaměti funguje nejlépe s daty, která se mění zřídka. Ukládání do mezipaměti vytváří kopii dat, která může být vrácena mnohem rychleji než z původního zdroje. Aplikace by měly být napsány a testovány, aby **nikdy nebyly** závislé na datech uložených v mezipaměti.
 
-ASP.NET Core podporuje několik různé mezipaměti. Nejjednodušší cache je založená na [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache), která představuje mezipaměti uloženy v paměti na webovém serveru. Aplikace, které běží na serverové farmě několika serverů by měly zajistit relace jsou vždy navrchu, při použití mezipaměti umístěné v paměti. Rychlé relace Ujistěte se, že následné žádosti z klienta všech přejít na stejném serveru. Například Azure Web apps pomocí [směrování žádostí na aplikace](https://www.iis.net/learn/extensions/planning-for-arr) (směrování žádostí na aplikace) směrovat všechny následné požadavky na stejný server.
+ASP.NET Core podporuje několik různých mezipamětí. Nejjednodušší mezipaměť je založena na [IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache), který představuje mezipaměť uloženou v paměti webového serveru. Aplikace, které běží na serverové farmě více serverů, by měly zajistit, aby relace byly při použití mezipaměti v paměti rychlé. Relace typu Sticky se zajišťují, aby následné požadavky z klienta přešly na stejný server. Například Azure Web Apps používá [Směrování žádostí o aplikace](https://www.iis.net/learn/extensions/planning-for-arr) (ARR) ke směrování všech dalších požadavků na stejný server.
 
-Vyžadují jiné rychlé relace ve webové farmě [distribuovaná mezipaměť](distributed.md) abyste se vyhnuli potížím konzistence mezipaměti. U některých aplikací může podporovat distribuované mezipaměti vyšší horizontální navýšení kapacity než mezipaměti v paměti. Pomocí distribuované mezipaměti snižuje zátěž při mezipaměť k externímu procesu.
+Nesticky relace ve webové farmě vyžadují [distribuovanou mezipaměť](distributed.md) , aby nedocházelo k problémům s konzistencí mezipaměti. Pro některé aplikace může distribuovaná mezipaměť podporovat větší škálování než mezipaměť v paměti. Použití distribuované mezipaměti přesměruje paměť mezipaměti do externího procesu.
 
 ::: moniker range="< aspnetcore-2.0"
 
-`IMemoryCache` Mezipaměti vyřazení položky mezipaměti zatížení paměti, není-li [mezipaměti priority](/dotnet/api/microsoft.extensions.caching.memory.cacheitempriority) je nastavena na `CacheItemPriority.NeverRemove`. Můžete nastavit `CacheItemPriority` nastavte prioritu, se kterým mezipaměti vyloučí položky tím snižuje jejich přetížení paměti.
+Mezipaměť vyřadí položky mezipaměti s tlakem paměti, pokud není [Priorita mezipaměti](/dotnet/api/microsoft.extensions.caching.memory.cacheitempriority) nastavena na `CacheItemPriority.NeverRemove`hodnotu. `IMemoryCache` Můžete nastavit, `CacheItemPriority` aby se upravila priorita, se kterou mezipaměť vyloučí položky pod tlakem.
 
 ::: moniker-end
 
-Mezipaměť v paměti můžete uložit libovolný objekt; rozhraní distribuované mezipaměti je omezená na `byte[]`. Úložiště mezipaměti v paměti a distribuované mezipaměti položky jako páry klíč hodnota.
+Mezipaměť v paměti může ukládat libovolný objekt. rozhraní distribuované mezipaměti je omezené na `byte[]`. Položky mezipaměti v paměti a distribuované mezipaměti ukládají jako páry klíč-hodnota.
 
-## <a name="systemruntimecachingmemorycache"></a>System.Runtime.Caching/MemoryCache
+## <a name="systemruntimecachingmemorycache"></a>System. Runtime. Caching/MemoryCache
 
-<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache> ([Balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) lze použít s:
+<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache>([Balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
 
-* .NET standard 2.0 nebo novější.
-* Žádné [implementace .NET](/dotnet/standard/net-standard#net-implementation-support) , který cílí na .NET Standard 2.0 nebo novější. Například, ASP.NET Core 2.0 nebo novější.
-* Rozhraní .NET framework 4.5 nebo novější.
+* .NET Standard 2,0 nebo novější.
+* Jakákoli [implementace .NET](/dotnet/standard/net-standard#net-implementation-support) , která cílí na .NET Standard 2,0 nebo novější. Například ASP.NET Core 2,0 nebo novější.
+* .NET Framework 4,5 nebo novější.
 
-[Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` (popsané v tomto článku) se doporučuje namísto používat `System.Runtime.Caching` / `MemoryCache` lépe integrovaná do ASP.NET Core. Například `IMemoryCache` nativně funguje s ASP.NET Core [injektáž závislostí](xref:fundamentals/dependency-injection).
+[Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/) / `IMemoryCache` (popsaná v `System.Runtime.Caching` / `MemoryCache` tomto článku) se doporučuje, protože je lépe integrovaná do ASP.NET Core. Například `IMemoryCache` funguje nativně s [vkládáním závislostí](xref:fundamentals/dependency-injection)ASP.NET Core.
 
-Použití `System.Runtime.Caching` / `MemoryCache` jako most kompatibility během portování kódu z ASP.NET 4.x ASP.NET Core.
+Použijte `System.Runtime.Caching` jakomostkompatibility`MemoryCache` při přenosu kódu z ASP.NET 4. x do ASP.NET Core. /
 
-## <a name="cache-guidelines"></a>Pokyny k mezipaměti
+## <a name="cache-guidelines"></a>Pokyny pro mezipaměť
 
-* Kód by měl mít vždy záložní volbu pro načtení dat a **není** závisí na hodnotu uloženou v mezipaměti k dispozici.
-* Mezipaměť používá omezených zdrojů paměti. Omezit růst mezipaměti:
-  * Proveďte **není** použít externí vstup jako klíče mezipaměti.
-  * Chcete-li omezit růst mezipaměti pomocí vypršení platnosti.
-  * [Můžete omezit velikost mezipaměti SetSize, velikost a hodnota parametru SizeLimit](#use-setsize-size-and-sizelimit-to-limit-cache-size). Modul runtime ASP.NET Core neomezuje velikost mezipaměti podle tlaku na paměť. Záleží jen na vývojářské omezení velikosti mezipaměti.
+* Kód by měl vždy mít možnost Fallback načíst data a **nemusí** být závislý na dostupné hodnotě uložené v mezipaměti.
+* Mezipaměť používá prostředek omezených, paměť. Omezit nárůst mezipaměti:
+  * Nepoužívejte externí vstup jako klíče mezipaměti.
+  * K omezení růstu mezipaměti použijte vypršení platnosti.
+  * [Pro omezení velikosti mezipaměti použijte možnost setSize, Size a SizeLimit](#use-setsize-size-and-sizelimit-to-limit-cache-size). Modul runtime ASP.NET Core neomezuje velikost mezipaměti na základě tlaku paměti. Velikost mezipaměti můžete omezit na vývojáře.
 
-## <a name="using-imemorycache"></a>Pomocí IMemoryCache
+## <a name="using-imemorycache"></a>Použití IMemoryCache
 
-Ukládání do mezipaměti v paměti je *služby* , který se odkazuje z vaší aplikace pomocí [injektáž závislostí](../../fundamentals/dependency-injection.md). Volání `AddMemoryCache` v `ConfigureServices`:
+> [!WARNING]
+> Použití *sdílené* mezipaměti paměti ze [Injektáže](xref:fundamentals/dependency-injection) a volání `SetSize`závislosti, `Size`nebo `SizeLimit` pro omezení velikosti mezipaměti může způsobit selhání aplikace. Pokud je u mezipaměti nastaveno omezení velikosti, všechny položky musí při přidávání určovat velikost. To může vést k problémům, protože vývojáři nemusí mít úplnou kontrolu nad tím, co používá sdílenou mezipaměť. Entity Framework Core například používá sdílenou mezipaměť a neurčuje velikost. Pokud aplikace nastaví omezení velikosti mezipaměti a používá EF Core, aplikace vyvolá `InvalidOperationException`.
+> Při použití `SetSize`, `Size`nebo `SizeLimit` k omezení mezipaměti vytvořte pro ukládání do mezipaměti typ singleton. Další informace a příklad najdete v tématu [použití setSize, Size a SizeLimit k omezení velikosti mezipaměti](#use-setsize-size-and-sizelimit-to-limit-cache-size).
+
+Mezipaměť v paměti je *Služba* , na kterou se odkazuje z vaší aplikace pomocí [Injektáže závislostí](xref:fundamentals/dependency-injection). Zavolat `AddMemoryCache` na `ConfigureServices`:
 
 [!code-csharp[](memory/sample/WebCache/Startup.cs?highlight=9)]
 
-Žádosti `IMemoryCache` instance v konstruktoru:
+Vyžádejte `IMemoryCache` instanci v konstruktoru:
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ctor)]
 
 ::: moniker range="< aspnetcore-2.0"
 
-`IMemoryCache` vyžaduje balíček NuGet [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/).
+`IMemoryCache`vyžaduje balíček NuGet [Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/).
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-`IMemoryCache` vyžaduje balíček NuGet [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/), která je k dispozici v [metabalíček Microsoft.aspnetcore.all](xref:fundamentals/metapackage).
+`IMemoryCache`vyžaduje balíček NuGet [Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/), který je k dispozici ve [službě Microsoft. AspNetCore. All Metapackage](xref:fundamentals/metapackage).
 
 ::: moniker-end
 
 ::: moniker range="> aspnetcore-2.0"
 
-`IMemoryCache` vyžaduje balíček NuGet [Microsoft.Extensions.Caching.Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/), která je k dispozici v [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app).
+`IMemoryCache`vyžaduje balíček NuGet [Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/), který je k dispozici ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
 ::: moniker-end
 
-Následující kód používá [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__) ke kontrole, jestli časem spadá do mezipaměti. Pokud čas neukládají do mezipaměti, je vytvořen a přidán do mezipaměti se nová položka [nastavit](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_).
+Následující kód používá [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__) ke kontrole, zda je čas v mezipaměti. Pokud čas není uložen v mezipaměti, je vytvořena nová položka a přidána do mezipaměti se [sadou](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_).
 
 [!code-csharp [](memory/sample/WebCache/CacheKeys.cs)]
 
@@ -93,59 +97,59 @@ Aktuální čas a čas v mezipaměti se zobrazí:
 
 [!code-cshtml[](memory/sample/WebCache/Views/Home/Cache.cshtml)]
 
-V mezipaměti `DateTime` hodnota zůstává v mezipaměti, i když existují požadavky v rámci časového limitu. Následující obrázek ukazuje aktuální čas a starší čas načtení z mezipaměti:
+Hodnota uložená `DateTime` v mezipaměti zůstává v mezipaměti a v době, kdy jsou požadavky v rámci časového limitu. Následující obrázek ukazuje aktuální čas a starší čas načtený z mezipaměti:
 
-![Index zobrazení se zobrazí dva různé časy.](memory/_static/time.png)
+![Zobrazení indexu se dvěma různými časy zobrazení](memory/_static/time.png)
 
-Následující kód používá [GetOrCreate](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.getorcreate#Microsoft_Extensions_Caching_Memory_CacheExtensions_GetOrCreate__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_System_Func_Microsoft_Extensions_Caching_Memory_ICacheEntry___0__) a [GetOrCreateAsync](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.getorcreateasync#Microsoft_Extensions_Caching_Memory_CacheExtensions_GetOrCreateAsync__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_System_Func_Microsoft_Extensions_Caching_Memory_ICacheEntry_System_Threading_Tasks_Task___0___) ukládání dat do mezipaměti.
+Následující kód používá [GetOrCreate](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.getorcreate#Microsoft_Extensions_Caching_Memory_CacheExtensions_GetOrCreate__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_System_Func_Microsoft_Extensions_Caching_Memory_ICacheEntry___0__) a [GetOrCreateAsync](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.getorcreateasync#Microsoft_Extensions_Caching_Memory_CacheExtensions_GetOrCreateAsync__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_System_Func_Microsoft_Extensions_Caching_Memory_ICacheEntry_System_Threading_Tasks_Task___0___) k ukládání dat do mezipaměti.
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet2&highlight=3-7,14-19)]
 
-Následující kód volá [získat](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_) načíst uložené v mezipaměti Doba:
+Následující kód volá [Get](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_) k načtení času uloženého v mezipaměti:
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_gct)]
 
-<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*> , <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>, a [získat](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_) jsou součástí metody rozšíření [CacheExtensions](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions) třídu, která rozšiřuje možnosti <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>. Zobrazit [IMemoryCache metody](/dotnet/api/microsoft.extensions.caching.memory.imemorycache) a [CacheExtensions metody](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions) popis jiné metody mezipaměti.
+<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*>metody <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>rozšíření, a [Get](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.get#Microsoft_Extensions_Caching_Memory_CacheExtensions_Get__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object_) jsou součástí <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>třídy [CacheExtensions](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions) , která rozšiřuje možnosti. Popis dalších metod mezipaměti naleznete v tématu [metody IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache) a [metody CacheExtensions](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions) .
 
 ## <a name="memorycacheentryoptions"></a>MemoryCacheEntryOptions
 
 Následující ukázka:
 
-* Nastaví čas, absolutní vypršení platnosti. Toto je maximální doba, kterou položka mezipaměti a zabrání přílišnému zastarávání při průběžně obnovení klouzavé vypršení platnosti položky.
-* Nastaví klouzavou dobu vypršení platnosti. Požadavky, které přístup k této položce v mezipaměti se resetuje klouzavé vypršení platnosti hodiny.
-* Nastaví prioritu mezipaměti `CacheItemPriority.NeverRemove`.
-* Nastaví [PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate) , která bude volána po provedení položky dojde k jeho vyřazení z mezipaměti. Zpětné volání je spuštěn na jiném podprocesu než kód, který odebere položku z mezipaměti.
+* Nastaví absolutní čas vypršení platnosti. Toto je maximální doba, po kterou může být položka ukládána do mezipaměti, a zabraňuje tomu, aby se položka přestala být příliš zastaralá, když se průběžná doba
+* Nastaví posuvný čas vypršení platnosti. Požadavky, které přistupují k této položce v mezipaměti, budou resetovat hodiny klouzavého vypršení platnosti.
+* Nastaví prioritu mezipaměti na `CacheItemPriority.NeverRemove`.
+* Nastaví [PostEvictionDelegate](/dotnet/api/microsoft.extensions.caching.memory.postevictiondelegate) , který bude volán po vyřazení položky z mezipaměti. Zpětné volání je spuštěno v jiném vlákně z kódu, který odebere položku z mezipaměti.
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_et&highlight=14-21)]
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>Použití SetSize, velikost a hodnota parametru SizeLimit omezení velikosti mezipaměti
+## <a name="use-setsize-size-and-sizelimit-to-limit-cache-size"></a>Omezení velikosti mezipaměti pomocí SetSize, velikosti a SizeLimit
 
-A `MemoryCache` instance může volitelně zadat a vynutit omezení velikosti. Omezení velikosti paměti nemá definovanou jednotka měření vzhledem k tomu, že mezipaměť nemá žádný mechanismus pro měření velikosti položky. Pokud je nastaven limit velikosti mezipaměti, musíte zadat všechny položky velikosti. Modul runtime ASP.NET Core neomezuje velikost mezipaměti podle tlaku na paměť. Záleží jen na vývojářské omezení velikosti mezipaměti. Zadaná velikost je v jednotkách, které vývojář klikne.
+`MemoryCache` Instance může volitelně určovat a vymáhat omezení velikosti. Omezení velikosti paměti nemá definovanou měrnou jednotku, protože mezipaměť nemá žádný mechanismus pro měření velikosti položek. Pokud je nastaven limit velikosti paměti mezipaměti, všechny položky musí určovat velikost. Modul runtime ASP.NET Core neomezuje velikost mezipaměti na základě tlaku paměti. Velikost mezipaměti můžete omezit na vývojáře. Zadaná velikost je v jednotkách, které vývojář zvolí.
 
 Příklad:
 
-* Pokud webová aplikace byla primárně ukládání do mezipaměti řetězce, každý velikost položky mezipaměti může být délka řetězce.
-* Aplikace může určit velikost všechny položky jako 1 a maximální velikost je počet záznamů.
+* Pokud byla webová aplikace primárně do mezipaměti řetězců, každá velikost položky mezipaměti může být délka řetězce.
+* Aplikace může určit velikost všech položek jako 1 a limit velikosti je počet položek.
 
-Následující kód vytvoří unitless pevnou velikost [MemoryCache](/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=aspnetcore-2.1) přístupné [injektáž závislostí](xref:fundamentals/dependency-injection):
+Následující kód vytvoří pevnou velikost jednotky [MemoryCache](/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=aspnetcore-2.1) přístupná pro [vkládání závislostí](xref:fundamentals/dependency-injection):
 
 [!code-csharp[](memory/sample/RPcache/Services/MyMemoryCache.cs?name=snippet)]
 
-[Hodnota parametru SizeLimit](/dotnet/api/microsoft.extensions.caching.memory.memorycacheoptions.sizelimit?view=aspnetcore-2.1#Microsoft_Extensions_Caching_Memory_MemoryCacheOptions_SizeLimit) nemá žádné jednotky. Položky uložené v mezipaměti musí zadejte velikost v libovolné jednotky, které považují za nejvhodnější, pokud byla nastavena velikost mezipaměti. Všichni uživatelé instance mezipaměti by měla používat stejné jednotky systému. Položky nebudou zapisována do mezipaměti pokud součet velikostí položka uložená v mezipaměti přesahuje hodnotu zadanou pomocí `SizeLimit`. Pokud je nastaveno žádné omezení velikosti mezipaměti, se bude ignorovat velikost mezipaměti, nastavte v položce.
+[SizeLimit](/dotnet/api/microsoft.extensions.caching.memory.memorycacheoptions.sizelimit?view=aspnetcore-2.1#Microsoft_Extensions_Caching_Memory_MemoryCacheOptions_SizeLimit) nemá jednotky. Položky v mezipaměti musí určovat velikost v jakémkoli z jednotek, které považují za nejvhodnější, pokud byla nastavena velikost paměti mezipaměti. Všichni uživatelé instance mezipaměti by měli používat stejný systém jednotek. Záznam nebude uložen do mezipaměti, pokud součet velikostí záznamů uložených v mezipaměti překročí hodnotu zadanou parametrem `SizeLimit`. Pokud není nastavené žádné omezení velikosti mezipaměti, bude velikost mezipaměti nastavená u položky ignorována.
 
-Následující kód registrů `MyMemoryCache` s [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru.
+Následující kód se registruje `MyMemoryCache` v kontejneru injektáže pro [vkládání závislostí](xref:fundamentals/dependency-injection) .
 
 [!code-csharp[](memory/sample/RPcache/Startup.cs?name=snippet&highlight=5)]
 
-`MyMemoryCache` je vytvořen jako nezávislé mezipaměti pro součásti, které jsou tato velikost omezená mezipaměť si vědomi a vědět, jak odpovídajícím způsobem nastavit velikost položky mezipaměti.
+`MyMemoryCache`je vytvořen jako nezávislá mezipaměť paměti pro součásti, které mají informace o této velikosti omezené mezipaměti a také o tom, jak správně nastavit velikost položky mezipaměti.
 
 Následující kód používá `MyMemoryCache`:
 
 [!code-csharp[](memory/sample/RPcache/Pages/About.cshtml.cs?name=snippet)]
 
-Velikost položky mezipaměti můžete nastavit [velikost](/dotnet/api/microsoft.extensions.caching.memory.memorycacheentryoptions.size?view=aspnetcore-2.1#Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_Size) nebo [SetSize](/dotnet/api/microsoft.extensions.caching.memory.memorycacheentryextensions.setsize?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_MemoryCacheEntryExtensions_SetSize_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_System_Int64_) – metoda rozšíření:
+Velikost položky mezipaměti lze nastavit podle [velikosti](/dotnet/api/microsoft.extensions.caching.memory.memorycacheentryoptions.size?view=aspnetcore-2.1#Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_Size) nebo metody rozšíření [setSize](/dotnet/api/microsoft.extensions.caching.memory.memorycacheentryextensions.setsize?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_MemoryCacheEntryExtensions_SetSize_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_System_Int64_) :
 
 [!code-csharp[](memory/sample/RPcache/Pages/About.cshtml.cs?name=snippet2&highlight=9,10,14,15)]
 
@@ -153,22 +157,22 @@ Velikost položky mezipaměti můžete nastavit [velikost](/dotnet/api/microsoft
 
 ## <a name="cache-dependencies"></a>Závislosti mezipaměti
 
-Následující příklad ukazuje, jak do vypršení platnosti položky mezipaměti, když vyprší platnost závislé položky. A `CancellationChangeToken` se přidá do položku z mezipaměti. Když `Cancel` je volán na `CancellationTokenSource`, obě položky mezipaměti se vyřadí.
+Následující příklad ukazuje, jak vyprší platnost položky mezipaměti, pokud vyprší platnost závislé položky. `CancellationChangeToken` Přidá se k položce v mezipaměti. Když `Cancel` je volána `CancellationTokenSource`na, obě položky mezipaměti jsou vyřazeny.
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ed)]
 
-Použití `CancellationTokenSource` umožňuje více položek mezipaměti vyřazení jako skupinu. S `using` vzor ve výše uvedeném kódu, vytvářejí položky mezipaměti `using` bloku zdědí nastavení vypršení platnosti a aktivačních událostí.
+Použití možnosti `CancellationTokenSource` umožňuje vyřazení více položek mezipaměti jako skupiny. Pomocí vzoru ve výše uvedeném kódu budou položky mezipaměti vytvořené `using` uvnitř bloku dědit triggery a nastavení vypršení platnosti. `using`
 
 ## <a name="additional-notes"></a>Další poznámky
 
-* Při použití zpětné volání k znovu vytvořit položku mezipaměti:
+* Při použití zpětného volání k naplnění položky mezipaměti:
 
-  * Více požadavků můžete najít hodnotu uloženou v mezipaměti klíče prázdný protože zpětného volání nebyl dokončen.
-  * Výsledkem může být několik vláken opětovného vyplnění položku z mezipaměti.
+  * Více požadavků může najít hodnotu klíče uloženou v mezipaměti jako prázdné, protože zpětné volání nebylo dokončeno.
+  * To může mít za následek, že v několika vláknech se znovu naplní položka v mezipaměti.
 
-* Při použití jedné položky cache a vytvořte další podřízené zkopíruje nastavení podle času vypršení platnosti a vypršení platnosti tokenů nadřazená položka. Podřízené není ruční odebrání vypršela platnost, nebo aktualizace nadřazené položky.
+* Když se jedna položka mezipaměti používá k vytvoření jiného, podřízená položka zkopíruje tokeny vypršení platnosti nadřazené položky a nastavení vypršení platnosti na základě času. K podřízenému objektu nevypršela platnost ručním odebráním nebo aktualizací nadřazené položky.
 
-* Použití [PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks) nastavit zpětná volání, které aktivuje po položka mezipaměti je odstraněn z mezipaměti.
+* Pomocí [PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks) můžete nastavit zpětná volání, která budou aktivována po vyřazení položky mezipaměti z mezipaměti.
 
 ## <a name="additional-resources"></a>Další zdroje
 

@@ -5,14 +5,14 @@ description: Zjistěte, jak mohou být součásti součástí aplikací Blazor z
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2019
+ms.date: 08/13/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 402b7b072554f63f85e7cf5e55336104d235a071
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 6e93d48bbc684845952c3db8935ccc8b190044b7
+ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68913906"
+ms.lasthandoff: 08/15/2019
+ms.locfileid: "69030347"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core knihovny tříd součástí Razor
 
@@ -33,10 +33,9 @@ Pokud chcete nakonfigurovat prostředí pro <xref:blazor/get-started> Blazor, po
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. Vytvořte nový projekt.
-1. Vyberte **webová aplikace ASP.NET Core**. Vyberte **Další**.
+1. Vyberte **knihovnu tříd Razor**. Vyberte **Další**.
+1. V dialogovém okně **vytvořit novou knihovnu tříd Razor** vyberte **vytvořit**.
 1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. V příkladech v tomto tématu se používá název `MyComponentLib1`projektu. Vyberte **Vytvořit**.
-1. V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** .
-1. Vyberte šablonu **knihovny tříd Razor** . Vyberte **Vytvořit**.
 1. Přidat RCL do řešení:
    1. Klikněte pravým tlačítkem na řešení. Vyberte **Přidat** > **existující projekt**.
    1. Přejděte do souboru projektu RCL.
