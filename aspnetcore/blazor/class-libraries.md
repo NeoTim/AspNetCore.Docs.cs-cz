@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 6e93d48bbc684845952c3db8935ccc8b190044b7
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: b5857f2cf22bde801deeeaf227817fdf99862f4a
+ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030347"
+ms.lasthandoff: 08/16/2019
+ms.locfileid: "69545782"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core knihovny tříd součástí Razor
 
@@ -60,16 +60,6 @@ Pokud chcete nakonfigurovat prostředí pro <xref:blazor/get-started> Blazor, po
 
 ---
 
-## <a name="rcls-not-supported-for-client-side-apps"></a>RCLs se nepodporuje pro aplikace na straně klienta.
-
-V aktuálním ASP.NET Core 3,0 Preview nejsou knihovny tříd Razor kompatibilní s Blazor aplikacemi na straně klienta. Pro Blazor aplikace na straně klienta použijte Blazor knihovnu komponent vytvořenou `blazorlib` šablonou v příkazovém prostředí:
-
-```console
-dotnet new blazorlib -o MyComponentLib1
-```
-
-Knihovny komponent, které `blazorlib` používají šablonu, můžou zahrnovat statické soubory, jako jsou obrázky, JavaScript a šablony stylů. V době sestavování jsou statické soubory vloženy do sestaveného souboru sestavení ( *. dll*), což umožňuje spotřebovat komponenty bez obav, jak zahrnout jejich prostředky. Všechny soubory zahrnuté v `content` adresáři jsou označené jako vložené prostředky.
-
 ## <a name="consume-a-library-component"></a>Využití komponenty knihovny
 
 Aby bylo možné využívat komponenty definované v knihovně v jiném projektu, použijte některý z následujících přístupů:
@@ -116,8 +106,6 @@ Nahrajte balíček do NuGet pomocí příkazu [dotnet NuGet pro publikování](/
 ```console
 dotnet nuget publish
 ```
-
-Při použití `blazorlib` šablony jsou do balíčku NuGet zahrnuty statické prostředky. Příjemci knihovny automaticky přijímají skripty a šablony stylů, takže uživatelé nejsou k ruční instalaci prostředků potřebovat.
 
 ## <a name="create-a-razor-components-class-library-with-static-assets"></a>Vytvoření knihovny tříd součástí Razor se statickými prostředky
 

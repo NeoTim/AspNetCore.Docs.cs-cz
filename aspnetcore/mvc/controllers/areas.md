@@ -3,14 +3,14 @@ title: Oblasti v ASP.NET Core
 author: rick-anderson
 description: Přečtěte si, jak se jedná o funkci ASP.NET MVC, která slouží k uspořádání souvisejících funkcí do skupiny jako samostatného oboru názvů (pro směrování) a struktury složek (pro zobrazení).
 ms.author: riande
-ms.date: 08/07/2019
+ms.date: 08/16/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: e44c726c47caa3dd0c8c92e3a2502a590bee82d1
-ms.sourcegitcommit: 2719c70cd15a430479ab4007ff3e197fbf5dfee0
+ms.openlocfilehash: d0af3092776ee09469c879fffd3047c50b1a59b4
+ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68862786"
+ms.lasthandoff: 08/16/2019
+ms.locfileid: "69545804"
 ---
 # <a name="areas-in-aspnet-core"></a>Oblasti v ASP.NET Core
 
@@ -136,7 +136,7 @@ Následující kód změní výchozí složku oblasti z `"Areas"` na: `"MyAreas"
 
 ## <a name="areas-with-razor-pages"></a>Oblasti s Razor Pages
 
-Oblasti, které Razor Pages vyžadují a *oblasti&lt;nebo/Pages&gt;název* složky v kořenovém adresáři aplikace. Při [stažení ukázkového](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples) souboru se používá následující struktura složek.
+Oblasti s Razor Pages v kořenu aplikace vyžadují *<area name>oblast nebo složku/Pages* . Pro [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples)se používá tato struktura složek:
 
 * Název projektu
   * Oblasti
