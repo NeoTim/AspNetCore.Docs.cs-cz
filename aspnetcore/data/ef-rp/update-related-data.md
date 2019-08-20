@@ -1,16 +1,16 @@
 ---
 title: Razor Pages s EF Core ve službě ASP.NET Core – data související s aktualizací – 7 z 8
-author: rick-anderson
+author: tdykstra
 description: V tomto kurzu aktualizujete související data aktualizací polí cizího klíče a vlastností navigace.
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/update-related-data
-ms.openlocfilehash: 4f41ad5fa17cd6ee56f14cd87fb62a47f3a4a9df
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: bc237cf928d852b92c5c1984527129404f88018d
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993368"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583494"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---update-related-data---7-of-8"></a>Razor Pages s EF Core ve službě ASP.NET Core – data související s aktualizací – 7 z 8
 
@@ -225,7 +225,7 @@ Předchozí kód provede následující změny:
 
 Spusťte aplikaci a otestujte stránku odstranit.
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 > [!div class="step-by-step"]
 > [Předchozí kurz](xref:data/ef-rp/read-related-data)

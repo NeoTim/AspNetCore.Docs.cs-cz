@@ -1,17 +1,17 @@
 ---
 title: Razor Pages s EF Core v ASP.NET Core – řazení, filtrování, stránkování – 3 z 8
-author: rick-anderson
+author: tdykstra
 description: V tomto kurzu přidáte na stránku Razor funkce řazení, filtrování a stránkování pomocí ASP.NET Core a Entity Framework Core.
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 70f4220674502265963410b928b9340aa20e0cea
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: b4cef98f3ad4973878c5fa65a47c0b86cdfc8686
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914115"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583517"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>Razor Pages s EF Core v ASP.NET Core – řazení, filtrování, stránkování – 3 z 8
 
@@ -257,7 +257,7 @@ Spusťte aplikaci a přejděte na stránku o produktu. V tabulce se zobrazí po�
 
 ![O stránce](sort-filter-page/_static/about30.png)
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V dalším kurzu aplikace používá migrace k aktualizaci datového modelu.
 

@@ -1,18 +1,18 @@
 ---
-title: ASP.NET Core MVC s EF Core – série kurzů
-author: rick-anderson
+title: ASP.NET Core MVC s řadou EF Core kurzů
+author: tdykstra
 description: ''
 ms.author: tdykstra
 ms.date: 03/27/2017
 uid: data/ef-mvc/index
-ms.openlocfilehash: 4a7b79faccdc76f090192e80d0450ca01ed8b58a
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 53d75b56257af0ad1146ca829b652f93413b5469
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899946"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583151"
 ---
-# <a name="aspnet-core-mvc-with-ef-core---tutorial-series"></a>ASP.NET Core MVC s EF Core – série kurzů
+# <a name="aspnet-core-mvc-with-ef-core---tutorial-series"></a>ASP.NET Core MVC s řadou EF Core kurzů
 
 [!INCLUDE [RP better than MVC](../../includes/RP-EF/rp-over-mvc.md)]
 

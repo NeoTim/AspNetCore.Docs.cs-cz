@@ -1,47 +1,47 @@
 ---
-title: 'Kurz: Aktualizace souvisejících dat – ASP.NET MVC s EF Core'
-description: V tomto kurzu budete aktualizovat souvisejících dat prostřednictvím aktualizace pole cizích klíčů a navigační vlastnosti.
-author: rick-anderson
+title: 'Kurz: Aktualizace souvisejících dat – ASP.NET MVC pomocí EF Core'
+description: V tomto kurzu aktualizujete související data aktualizací polí cizího klíče a vlastností navigace.
+author: tdykstra
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: e8aa2c6e33968a6cbc05591e4e5017ea9eac691d
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 4bf444d3334f32ff80a6e21607b250c00e0dc7ca
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900009"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583413"
 ---
-# <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Aktualizace souvisejících dat – ASP.NET MVC s EF Core
+# <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Aktualizace souvisejících dat – ASP.NET MVC pomocí EF Core
 
-V předchozím kurzu zobrazí související data; v tomto kurzu budete aktualizovat souvisejících dat prostřednictvím aktualizace pole cizích klíčů a navigační vlastnosti.
+V předchozím kurzu jste zobrazili související data. v tomto kurzu aktualizujete související data aktualizací polí cizího klíče a vlastností navigace.
 
-Následující ilustrace znázorňují některé stránky, které budete pracovat.
+Následující ilustrace znázorňují některé stránky, se kterými budete pracovat.
 
-![Kurz stránky pro úpravu](update-related-data/_static/course-edit.png)
+![Stránka pro úpravu kurzu](update-related-data/_static/course-edit.png)
 
-![Stránky pro úpravu instruktorem](update-related-data/_static/instructor-edit-courses.png)
+![Stránka pro úpravu instruktora](update-related-data/_static/instructor-edit-courses.png)
 
 V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
-> * Přizpůsobení stránek kurzy
-> * Přidat Instruktoři upravit stránku
-> * Přidejte do stránky pro úpravu kurzy
-> * Stránka pro aktualizaci Delete
-> * Přidat stránku vytvořit pobočky a kurzy
+> * Přizpůsobení stránek kurzů
+> * Přidat stránku pro úpravu instruktorů
+> * Přidání kurzů pro úpravu stránky
+> * Aktualizace stránky pro odstranění
+> * Přidání umístění Office a kurzů k vytvoření stránky
 
 ## <a name="prerequisites"></a>Požadavky
 
 * [Čtení souvisejících dat](read-related-data.md)
 
-## <a name="customize-courses-pages"></a>Přizpůsobení stránek kurzy
+## <a name="customize-courses-pages"></a>Přizpůsobení stránek kurzů
 
-Při vytvoření nové entity kurzu musí mít relaci k existující oddělení. K provedení této obsahuje automaticky generovaný kód metody kontroleru a vytvořit a upravit zobrazení, které zahrnují rozevíracího seznamu pro výběr oddělení. Sady rozevíracího seznamu `Course.DepartmentID` vlastnost cizího klíče, a to je všechny Entity Framework, které potřebujete-li načíst `Department` navigační vlastnost s odpovídající entita oddělení. Budete používat automaticky generovaný kód, ale mírně se přidání zpracování chyb a rozevírací seznam seřadit změnit.
+Když se vytvoří nová entita kurzu, musí mít relaci s existujícím oddělením. Pro usnadnění tohoto kódu se vygenerovaný kód skládá z metod kontroleru a vytváření a upravování zobrazení, která obsahují rozevírací seznam pro výběr oddělení. Rozevírací seznam nastaví `Course.DepartmentID` vlastnost cizího klíče a to je vše, co Entity Framework potřebuje, aby se vlastnost `Department` navigace načetla s příslušnou entitou oddělení. Použijete generovaný kód, ale mírně ho změníte a přidáte tak zpracování chyb a seřadíte rozevírací seznam.
 
-V *CoursesController.cs*, odstraňte čtyři metody vytvoření a úprava a nahraďte následujícím kódem:
+V *CoursesController.cs*odstraňte čtyři metody Create a Edit a nahraďte je následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_CreateGet)]
 
@@ -51,91 +51,91 @@ V *CoursesController.cs*, odstraňte čtyři metody vytvoření a úprava a nahr
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_EditPost)]
 
-Po `Edit` metoda HttpPost vytvoření nové metody, který načítá informace o oddělení pro rozevíracího seznamu.
+Po metodě `Edit` HTTPPOST vytvořte novou metodu, která načte informace o oddělení v rozevíracím seznamu.
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_Departments)]
 
-`PopulateDepartmentsDropDownList` Metoda načte seznam všech oddělení seřazené podle názvu, vytvoří `SelectList` kolekce rozevírací seznam a předá kolekce na zobrazení `ViewBag`. Metoda přijímá volitelný `selectedDepartment` parametr, který umožňuje volajícímu kódu k určení, které se při vykreslení rozevíracího seznamu vybrat položku. Zobrazení předá název "DepartmentID" `<select>` pomocné rutiny značky a pomocné rutiny pak mohl podívejte se `ViewBag` objekt pro `SelectList` s názvem "DepartmentID".
+Metoda získá seznam všech oddělení seřazených podle názvu, `SelectList` vytvoří kolekci pro rozevírací seznam a předá kolekci do zobrazení v `ViewBag`. `PopulateDepartmentsDropDownList` Metoda přijímá volitelný `selectedDepartment` parametr, který umožňuje volajícímu kódu určit položku, která bude vybrána při vykreslení rozevíracího seznamu. Zobrazení pojmenuje název "DepartmentID" do `<select>` pomocné rutiny značky a pomoc pak ví, aby hledal `ViewBag` objekt pro `SelectList` pojmenování "DepartmentID".
 
-Třídy MetadataExchangeClientMode `Create` volání metod `PopulateDepartmentsDropDownList` metody bez nastavení vybrané položky, protože pro nový kurz oddělení nedojde k ještě:
+Metoda HttpGet `Create` `PopulateDepartmentsDropDownList` volá metodu bez nastavení vybrané položky, protože pro nový kurz se oddělení ještě nevytvořilo:
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?highlight=3&name=snippet_CreateGet)]
 
-Třídy MetadataExchangeClientMode `Edit` metoda nastaví vybrané položky na základě ID oddělení, které je již přiřazen ke kurzu, který právě upravujete:
+Metoda HttpGet `Edit` Nastaví vybranou položku na základě ID oddělení, které je už přiřazené k upravovanému kurzu:
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?highlight=15&name=snippet_EditGet)]
 
-Pro obě metody HttpPost `Create` a `Edit` také obsahovat kód, který nastaví vybrané položky při jejich opětovné zobrazení na stránce po chybě. Tím se zajistí, že při stránce se zobrazí znovu, chcete-li zobrazit chybová zpráva, ať oddělení byla vybrána pořád vybraný.
+Metody HTTPPOST pro obojí `Create` a `Edit` také obsahují kód, který nastaví vybranou položku, když znovu zobrazí stránku po chybě. Tím se zajistí, že se při zobrazení stránky zobrazí chybová zpráva bez ohledu na vybrané oddělení zůstane vybraná možnost.
 
-### <a name="add-asnotracking-to-details-and-delete-methods"></a>Přidáte. AsNoTracking podrobností a metod Delete
+### <a name="add-asnotracking-to-details-and-delete-methods"></a>Přidávání. AsNoTracking metody Details a DELETE
 
-Chcete-li optimalizovat výkon podrobnosti o kurzu a odstranění stránek, přidejte `AsNoTracking` volání `Details` a HttpGet `Delete` metody.
+Pokud chcete optimalizovat výkon pro podrobnosti kurzu a odstranit stránky, přidejte `AsNoTracking` volání `Details` metod a HttpGet `Delete` .
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?highlight=10&name=snippet_Details)]
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?highlight=10&name=snippet_DeleteGet)]
 
-### <a name="modify-the-course-views"></a>Upravit zobrazení kurzů
+### <a name="modify-the-course-views"></a>Úprava zobrazení kurzu
 
-V *Views/Courses/Create.cshtml*, přidat možnost "Vybrat oddělení" k **oddělení** rozevíracího seznamu, změnit popisek z **DepartmentID** k  **Oddělení**a přidat ověřovací zprávu.
+V okně *zobrazení/kurzy/vytvořit. cshtml*přidejte možnost "vybrat oddělení" do rozevíracího seznamu **oddělení** , změňte titulek z **DepartmentID** na **oddělení**a přidejte ověřovací zprávu.
 
 [!code-html[](intro/samples/cu/Views/Courses/Create.cshtml?highlight=2-6&range=29-34)]
 
-V *Views/Courses/Edit.cshtml*, provést stejnou změnu pro pole oddělení, který jste právě provedli v *Create.cshtml*.
+V *zobrazeních, kurzech/úpravách. cshtml*udělejte stejnou změnu pro pole oddělení, které jste právě vytvořili v části *vytvoření. cshtml*.
 
-Také v *Views/Courses/Edit.cshtml*, přidejte pole číslo kurzu před **název** pole. Vzhledem k tomu, že číslo kurzu je primárním klíčem, se zobrazí, ale nelze změnit.
+Také v *zobrazeních/kurzech/upravit. cshtml*přidejte pole číslo kurzu před pole **název** . Vzhledem k tomu, že číslo kurzu je primární klíč, zobrazuje se, ale nedá se změnit.
 
 [!code-html[](intro/samples/cu/Views/Courses/Edit.cshtml?range=15-18)]
 
-Již existuje skrytá pole (`<input type="hidden">`) pro číslo kurzu v zobrazení pro úpravy. Přidávání `<label>` pomocné rutiny značky není eliminuje nutnost skryté pole, protože nezpůsobí kurzu číslo, které má být součástí odeslaných dat, když uživatel klikne **Uložit** na **upravit** stránky.
+V zobrazení pro úpravy již existuje skryté`<input type="hidden">`pole () pro číslo kurzu. Přidáním pomocníka značek se eliminuje nutnost skrytého pole, protože nezpůsobí, že se číslo kurzu zahrne do publikovaných dat, když uživatel klikne na Uložit na stránce Upravit. `<label>`
 
-V *Views/Courses/Delete.cshtml*kurzu číselného pole v horní části a přidejte změnit ID oddělení název oddělení.
+V *zobrazení/kurzy/odstranit. cshtml*přidejte do horní části pole číslo kurzu a změňte ID oddělení na název oddělení.
 
 [!code-html[](intro/samples/cu/Views/Courses/Delete.cshtml?highlight=14-19,36)]
 
-V *Views/Courses/Details.cshtml*, provést stejnou změnu, který jste právě provedli pro *Delete.cshtml*.
+V *zobrazeních/kurzech/details. cshtml*udělejte stejnou změnu, kterou jste právě provedli pro *odstranění. cshtml*.
 
 ### <a name="test-the-course-pages"></a>Testování stránek kurzu
 
-Spusťte aplikaci, vyberte **kurzy** klikněte na tlačítko **vytvořit nový**a zadejte data pro nový kurzu:
+Spusťte aplikaci, vyberte kartu **kurzy** , klikněte na **vytvořit novou**a zadejte data nového kurzu:
 
-![Stránka pro vytvoření kurzu](update-related-data/_static/course-create.png)
+![Stránka vytvoření kurzu](update-related-data/_static/course-create.png)
 
-Klikněte na možnost **Vytvořit**. Kurzy indexovou stránku se zobrazí nové kurzu přidat do seznamu. Název oddělení v seznamu Index stránky pochází z navigační vlastnosti zobrazující, že byla správně vytvoří vztah.
+Klikněte na možnost **Vytvořit**. Stránka s rejstříkem kurzů se zobrazí spolu s novým kurzem přidaným do seznamu. Název oddělení v seznamu stránek indexu pochází z navigační vlastnosti, která ukazuje, že relace byla správně vytvořena.
 
-Klikněte na tlačítko **upravit** na kurz v kurzy indexovou stránku.
+V kurzu na stránce s rejstříkem kurzů klikněte na **Upravit** .
 
-![Kurz stránky pro úpravu](update-related-data/_static/course-edit.png)
+![Stránka pro úpravu kurzu](update-related-data/_static/course-edit.png)
 
-Data na stránce a klikněte na tlačítko **Uložit**. S daty aktualizovaný kurz se zobrazí stránka kurzy indexu.
+Změňte data na stránce a klikněte na **Uložit**. Stránka s rejstříkem kurzů se zobrazuje s aktualizovanými daty kurzu.
 
-## <a name="add-instructors-edit-page"></a>Přidat Instruktoři upravit stránku
+## <a name="add-instructors-edit-page"></a>Přidat stránku pro úpravu instruktorů
 
-Při úpravě záznamu instruktorem, budete chtít být schopen aktualizovat přiřazení kanceláře instruktorem. Entita kurzů vedených má jeden nula nebo m relaci s entitou OfficeAssignment, což znamená, že má váš kód pro zpracování těchto situacích:
+Když upravíte záznam instruktora, chcete mít schopnost aktualizovat přiřazení kanceláře instruktora. Entita Instructor má relaci 1:1 s entitou OfficeAssignment, což znamená, že váš kód musí zpracovávat následující situace:
 
-* Pokud uživatel vymaže přiřazení kanceláře a původně hodnotu, odstraňte OfficeAssignment entity.
+* Pokud uživatel zruší přiřazení Office a původně měl hodnotu, odstraňte entitu OfficeAssignment.
 
-* Pokud uživatel zadá hodnotu přiřazení office a ho původně byla prázdná, vytvořte novou entitu OfficeAssignment.
+* Pokud uživatel zadá hodnotu přiřazení Office, která byla původně prázdná, vytvořte novou entitu OfficeAssignment.
 
-* Pokud uživatel změní hodnotu přiřazení sady office, změňte hodnotu v existující OfficeAssignment entity.
+* Pokud uživatel změní hodnotu přiřazení kanceláře, změňte hodnotu v existující entitě OfficeAssignment.
 
-### <a name="update-the-instructors-controller"></a>Aktualizace kontroleru Instruktoři
+### <a name="update-the-instructors-controller"></a>Aktualizace kontroleru instruktorů
 
-V *InstructorsController.cs*, změňte kód třídy MetadataExchangeClientMode `Edit` metodu tak, že načte entity kurzů vedených `OfficeAssignment` navigační vlastnost a volání `AsNoTracking`:
+V *InstructorsController.cs*změňte kód v metodě HttpGet `Edit` tak, aby byla načtena vlastnost `OfficeAssignment` navigace a volání `AsNoTracking`entity instruktora:
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=8-11&name=snippet_EditGetOA)]
 
-Nahraďte HttpPost `Edit` metody následující kód pro zpracování aktualizací přiřazení sady office:
+Chcete-li `Edit` zpracovat aktualizace přiřazení Office, nahraďte metodu HTTPPOST následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_EditPostOA)]
 
-Kód provede následující akce:
+Kód provede následující:
 
-* Změní název metody k `EditPost` protože podpis je teď stejně jako třídy MetadataExchangeClientMode `Edit` – metoda ( `ActionName` atribut určuje, že `/Edit/` adresa URL se stále používá).
+* `EditPost` Změní název metody na, protože signatura je nyní stejná jako metoda HttpGet `Edit` ( `ActionName` atribut určuje, že `/Edit/` se adresa URL stále používá).
 
-* Získá aktuální kurzů vedených entit z databáze pomocí nemůžou dočkat, až načítání pro `OfficeAssignment` navigační vlastnost. To je stejný jako u třídy MetadataExchangeClientMode `Edit` metody.
+* Získá aktuální entitu instruktor z databáze pomocí Eager načítání pro `OfficeAssignment` navigační vlastnost. To se shoduje s tím, co jste provedli `Edit` v metodě HttpGet.
 
-* Načtená entita kurzů vedených aktualizuje s hodnotami z vazače modelu. `TryUpdateModel` Přetížení vám umožní přidat na seznam povolených vlastnosti, které chcete zahrnout. To zabraňuje typu over-pass-the účtování, jak je vysvětleno v [druhé části kurzu](crud.md).
+* Aktualizuje načtenou entitu Instructor hodnotami z pořadače modelů. `TryUpdateModel` Přetížení umožňuje seznam povolených vlastností, které chcete zahrnout. Tím zabráníte převzetí služeb při selhání, jak je vysvětleno v [druhém kurzu](crud.md).
 
     <!-- Snippets don't play well with <ul> [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?range=241-244)] -->
 
@@ -146,7 +146,7 @@ Kód provede následující akce:
         i => i.FirstMidName, i => i.LastName, i => i.HireDate, i => i.OfficeAssignment))
     ```
 
-* Pokud office umístění je prázdné, nastaví vlastnost Instructor.OfficeAssignment na hodnotu null, tak, aby související řádek v tabulce OfficeAssignment se odstraní.
+* Pokud je umístění kanceláře prázdné, vlastnost Instructor. OfficeAssignment nastaví na hodnotu null, aby se související řádek v tabulce OfficeAssignment odstranil.
 
     <!-- Snippets don't play well with <ul>  "intro/samples/cu/Controllers/InstructorsController.cs"} -->
 
@@ -159,118 +159,118 @@ Kód provede následující akce:
 
 * Uloží změny do databáze.
 
-### <a name="update-the-instructor-edit-view"></a>Aktualizace kurzů vedených upravit zobrazení
+### <a name="update-the-instructor-edit-view"></a>Aktualizace zobrazení pro úpravy instruktora
 
-V *Views/Instructors/Edit.cshtml*, přidat nové pole pro úpravy pobočce, na konci před **Uložit** tlačítka:
+V *zobrazeních/instruktorech/upravit. cshtml*přidejte nové pole pro úpravy umístění kanceláře, a to na konci před tlačítkem **Uložit** :
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=30-34)]
 
-Spusťte aplikaci, vyberte **Instruktoři** kartu a potom klikněte na tlačítko **upravit** na instruktorem. Změnit **pobočce** a klikněte na tlačítko **Uložit**.
+Spusťte aplikaci, vyberte kartu **instruktoři** a potom klikněte na tlačítko **Upravit** v instruktorovi. Změňte **umístění kanceláře** a klikněte na **Uložit**.
 
-![Stránky pro úpravu instruktorem](update-related-data/_static/instructor-edit-office.png)
+![Stránka pro úpravu instruktora](update-related-data/_static/instructor-edit-office.png)
 
-## <a name="add-courses-to-edit-page"></a>Přidejte do stránky pro úpravu kurzy
+## <a name="add-courses-to-edit-page"></a>Přidání kurzů pro úpravu stránky
 
-Instruktoři může představuje libovolný počet kurzů. Teď budete vylepšit kurzů vedených upravit stránku tak, že přidáte změnit přiřazení kurz pomocí skupiny zaškrtávacích políček, jak je znázorněno na následujícím snímku obrazovky:
+Instruktoři můžou učit libovolný počet kurzů. Nyní vylepšíte stránku pro úpravu instruktoru přidáním možnosti změnit přiřazení kurzů pomocí skupiny zaškrtávacích políček, jak je znázorněno na následujícím snímku obrazovky:
 
-![Stránky pro úpravu instruktorem s kurzy](update-related-data/_static/instructor-edit-courses.png)
+![Stránka pro úpravu instruktorů s kurzy](update-related-data/_static/instructor-edit-courses.png)
 
-Vztah mezi entitami kurzu a kurzů vedených je many-to-many. Pokud chcete přidat a odebrat relace, přidávat a odebírat entity do a ze sady entit CourseAssignments spojení.
+Vztah mezi entitami Course a instruktorem je mnoho až mnoho. Chcete-li přidat a odebrat relace, přidejte a odeberte entity do a ze sady entit CourseAssignments JOIN.
 
-Rozhraní, které vám umožní měnit které kurzy instruktorem je přiřazená je skupina zaškrtávacích políček. Zaškrtávací políčko pro každý kurz v databázi se zobrazí a jsou ty, které se kurzů vedených je aktuálně přiřazená k vybrané. Uživatel může vyberte nebo zrušte zaškrtnutí políček, chcete-li změnit přiřazení kurzu. Kdyby mnohem větší počet kurzů, by pravděpodobně chtít použít jinou metodu prezentace dat v zobrazení, ale stejnou metodu manipulace s spojení entity byste použili k vytvoření nebo odstranění vztahů.
+Uživatelské rozhraní, které umožňuje změnit, ke kterým kurzům je instruktor přiřazen, je skupina zaškrtávacích políček. Zobrazí se zaškrtávací políčko pro každý kurz v databázi a jsou vybrány ty, ke kterým je instruktor aktuálně přiřazen. Uživatel může zaškrtnutím nebo zrušením zaškrtnutí políček změnit přiřazení kurzů. Pokud byl počet kurzů mnohem větší, pravděpodobně budete chtít použít jinou metodu, která prezentují data v zobrazení, ale použijte stejnou metodu manipulace s entitou JOIN k vytváření nebo odstraňování relací.
 
-### <a name="update-the-instructors-controller"></a>Aktualizace kontroleru Instruktoři
+### <a name="update-the-instructors-controller"></a>Aktualizace kontroleru instruktorů
 
-Pro zadání dat pro zobrazení seznamu zaškrtávacích políček, použijete třídu modelu zobrazení.
+Chcete-li poskytnout data do zobrazení pro seznam zaškrtávacích políček, použijte třídu zobrazení modelu.
 
-Vytvoření *AssignedCourseData.cs* v *SchoolViewModels* složky a nahraďte existující kód následujícím kódem:
+Vytvořte *AssignedCourseData.cs* ve složce *SchoolViewModels* a nahraďte existující kód následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/AssignedCourseData.cs)]
 
-V *InstructorsController.cs*, nahraďte třídy MetadataExchangeClientMode `Edit` metodu s následujícím kódem. Změny jsou zvýrazněné.
+V *InstructorsController.cs*nahraďte metodu HttpGet `Edit` následujícím kódem. Změny jsou zvýrazněné.
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=10,17,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36&name=snippet_EditGetCourses)]
 
-Kód přidá předběžné načítání pro `Courses` navigační vlastnost a volá novou `PopulateAssignedCourseData` metodu k dispozici informaci pro použití pole zaškrtávací políčko `AssignedCourseData` zobrazení třídy modelu.
+Kód přidá načtení Eager pro `Courses` navigační vlastnost a zavolá metodu New `PopulateAssignedCourseData` k poskytnutí informací pro pole `AssignedCourseData` zaškrtávacího políčka pomocí třídy zobrazení modelu.
 
-Kód v `PopulateAssignedCourseData` metoda přečte všechny entity kurzu-li načíst seznam kurzů horizontálních oddílů pomocí třídy modelu zobrazení. Jednotlivých kurzů, kód kontroluje, zda existuje kurz v kurzů vedených `Courses` navigační vlastnost. Chcete-li vytvořit efektivní vyhledávání při kontrole, zda je přiřazen kurzů vedených kurz, kurzy přiřazená kurzů vedených jsou vloženy do `HashSet` kolekce. `Assigned` Je nastavena na hodnotu true pro kurzy kurzů vedených přiřazen. Zobrazení bude tuto vlastnost použít k určení, které Kontrola polí musí být zobrazen jako vybraný. Nakonec je předán zobrazení v seznamu `ViewData`.
+Kód v `PopulateAssignedCourseData` metodě čte prostřednictvím všech entit kurzu, aby bylo možné načíst seznam kurzů pomocí třídy zobrazení modelu. Pro každý kurz kód kontroluje, zda v `Courses` navigační vlastnosti instruktora existuje kurz. K vytvoření efektivního vyhledávání při kontrole, jestli je kurz přiřazen instruktorovi, jsou kurzy přiřazené k instruktorovi vloženy do `HashSet` kolekce. `Assigned` Vlastnost je nastavena na hodnotu true pro kurzy, ke kterým je instruktor přiřazen. Zobrazení použije tuto vlastnost k určení, která zaškrtávací políčka se musí zobrazit jako vybraná. Nakonec se seznam předává do zobrazení v `ViewData`.
 
-Dál přidejte kód, který se spouští, když uživatel klikne **Uložit**. Nahraďte `EditPost` metoda s tímto kódem a přidejte novou metodu, která aktualizuje `Courses` navigační vlastnost entity instruktorem.
+Dále přidejte kód, který se spustí, když uživatel klikne na **Uložit**. Nahraďte `Courses` metodu následujícím kódem a přidejte novou metodu, která aktualizuje navigační vlastnost entity Instructor. `EditPost`
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=1,3,12,13,25,39-40&name=snippet_EditPostCourses)]
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_UpdateCourses&highlight=1-31)]
 
-Podpis metody je nyní liší od třídy MetadataExchangeClientMode `Edit` metodu, tak název metody se změní z `EditPost` zpět `Edit`.
+Signatura metody se teď liší od metody HttpGet `Edit` , takže se název metody změní z `EditPost` back na `Edit`.
 
-Protože zobrazení neobsahuje kolekci entit kurz, vazače modelu se nedají automaticky aktualizovat `CourseAssignments` navigační vlastnost. Namísto použití vazače modelu k aktualizaci `CourseAssignments` navigační vlastnost, která učiníte v novém `UpdateInstructorCourses` metoda. Proto je třeba vyloučit `CourseAssignments` vlastnost z vazby modelu. To nevyžaduje změny kódu, který volá `TryUpdateModel` vzhledem k tomu, že používáte přetížení přidávání na seznam povolených a `CourseAssignments` není v seznamu pro zahrnutí.
+Vzhledem k tomu, že zobrazení nemá kolekci entit kurzu, nemůže pořadač modelů automaticky aktualizovat `CourseAssignments` navigační vlastnost. Namísto použití pořadače modelů k aktualizaci `CourseAssignments` navigační vlastnosti to uděláte v nové `UpdateInstructorCourses` metodě. Proto je nutné vyloučit `CourseAssignments` vlastnost z vazby modelu. To nevyžaduje žádné změny kódu, který volá `TryUpdateModel` , protože používáte přetížení na seznamu povolených a `CourseAssignments` není v seznamu zahrnutí.
 
-Pokud není žádná kontrola se zaškrtnuta, kód v `UpdateInstructorCourses` inicializuje `CourseAssignments` navigační vlastnost s prázdnou kolekci a vrátí:
+Pokud nebyla vybrána žádná zaškrtávací políčka, kód v `UpdateInstructorCourses` rámci `CourseAssignments` inicializuje navigační vlastnost s prázdnou kolekcí a vrátí:
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_UpdateCourses&highlight=3-7)]
 
-Kód pak projde všechny kurzy v databázi a zkontroluje každý kurz oproti těm, které jsou přiřazeny k instruktorem a ty, které byly vybrány v zobrazení. K usnadnění efektivnější vyhledávání, druhé dvě kolekce jsou uloženy v `HashSet` objekty.
+Kód pak projde všemi kurzy v databázi a zkontroluje každý kurz s těmi, které jsou aktuálně přiřazeny k instruktorovi, a k těm, které byly vybrány v zobrazení. Aby bylo možné efektivně vyhledávat, jsou tyto dvě kolekce uloženy v `HashSet` objektech.
 
-Pokud zaškrtli políčko pro kurz ale kurzu není v `Instructor.CourseAssignments` navigační vlastnost, kurz je přidán do kolekce ve vlastnosti navigace.
+Pokud je vybráno zaškrtávací políčko pro kurz, ale kurz není v `Instructor.CourseAssignments` navigační vlastnosti, kurz se přidá do kolekce v navigační vlastnosti.
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=14-20&name=snippet_UpdateCourses)]
 
-Pokud není zaškrtnuté políčko kurzům, ale celé probíhá `Instructor.CourseAssignments` navigační vlastnost, kurz je odebrána z navigační vlastnost.
+Pokud není vybrané zaškrtávací políčko pro kurz, ale kurz je v `Instructor.CourseAssignments` navigační vlastnosti, kurz se odebere z navigační vlastnosti.
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=21-29&name=snippet_UpdateCourses)]
 
-### <a name="update-the-instructor-views"></a>Aktualizace zobrazení instruktorem
+### <a name="update-the-instructor-views"></a>Aktualizace zobrazení instruktora
 
-V *Views/Instructors/Edit.cshtml*, přidat **kurzy** pole s polem zaškrtávacích políček přidáním následujícího kódu ihned po `div` prvky pro **Office**  pole a před `div` – element pro **Uložit** tlačítko.
+V *zobrazeních/instruktorech/upravit. cshtml*přidejte pole **kurzů** s polem zaškrtávacích políček přidáním následujícího kódu `div` hned za prvky pro pole **Office** a před `div` elementem.  **Tlačítko Uložit**
 
 <a id="notepad"></a>
 > [!NOTE]
-> Při vkládání kódu v sadě Visual Studio konce řádků může být změněn tak, aby kód přestane fungovat. Pokud po vložení vypadá jinak kód, stiskněte Ctrl + Z jednou k vrácení zpět, automatického formátování. To tak, aby vypadají se zobrazí zde opraví konce řádků. Odsazení nemusí být dokonalý, ale `@</tr><tr>`, `@:<td>`, `@:</td>`, a `@:</tr>` řádky musí být na jednom řádku znázorněno nebo zobrazí se chyba za běhu. Blok vybrali nový kód a stisknutím klávesy Tab třikrát na řádek nahoru nový kód existující kód. Tento problém je vyřešen ve Visual Studio 2019.
+> Když kód vložíte v aplikaci Visual Studio, mohou být zalomení řádků změněny způsobem, který kód přerušuje. Pokud kód po vložení vypadá jinak, stiskněte klávesovou zkratku CTRL + Z, aby bylo automatické formátování vráceno zpět. Tím dojde k odstranění konců řádků, aby vypadaly jako v tomto příkladu. Odsazení nemusí být dokonalé `@</tr><tr>`, ale `@:</tr>` řádky `@:</td>`, `@:<td>`, a musí být na jednom řádku, jak je znázorněno, nebo se zobrazí chyba za běhu. Po vybrání bloku nového kódu stiskněte klávesu Tabulátor třikrát, aby se nový kód pořádek nastavil s existujícím kódem. Tento problém je opravený v aplikaci Visual Studio 2019.
 
 [!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=35-61)]
 
-Tento kód vytvoří tabulku HTML, který obsahuje tři sloupce. V každém sloupci, představuje zaškrtávací políčko, za nímž následuje, který se skládá z kurzu počet a názvy popisků. Všechna zaškrtávací políčka mají stejný název ("selectedCourses"), která informuje o vazač modelu jsou považovány za skupinu. Hodnota atributu každé zaškrtávací políčko je nastavena na hodnotu `CourseID`. Na stránce, když se pošle vazače modelu předá kontroler, který se skládá z pole `CourseID` pouze zaškrtávací políčka, které jsou vybrané hodnoty.
+Tento kód vytvoří tabulku HTML, která má tři sloupce. V každém sloupci je zaškrtávací políčko následované titulkem, který se skládá z čísla a názvu kurzu. Všechna zaškrtávací políčka mají stejný název ("selectedCourses"), který informuje pořadač modelů o tom, že se mají považovat za skupinu. Atribut Value každé zaškrtávací políčko je nastaven na hodnotu `CourseID`. Po zveřejnění stránky předává pořadač modelu pole do kontroleru, který se skládá z `CourseID` hodnot pouze u zaškrtávacích políček, která jsou vybrána.
 
-Když zaškrtávací políčka jsou zpočátku vykresleno, ty, které jsou pro kurzy, které jsou přiřazeny kurzů vedených kontrole atributů, který vybere je (zobrazí se, které je zaškrtnuté políčko).
+Když jsou tato zaškrtávací políčka zpočátku vykreslena, jsou pro kurzy přiřazené instruktorem zkontrolovány atributy, které je vyberou (zobrazí zaškrtnutí).
 
-Spusťte aplikaci, vyberte **Instruktoři** kartu a klikněte na tlačítko **upravit** na instruktorem zobrazíte **upravit** stránky.
+Spusťte aplikaci, vyberte kartu **instruktory** a klikněte na tlačítko **Upravit** na instruktorovi, aby se zobrazila stránka pro **Úpravy** .
 
-![Stránky pro úpravu instruktorem s kurzy](update-related-data/_static/instructor-edit-courses.png)
+![Stránka pro úpravu instruktorů s kurzy](update-related-data/_static/instructor-edit-courses.png)
 
-Změňte některá přiřazení kurzu a klikněte na Uložit. Provedené změny se projeví na indexovou stránku.
+Změňte některá přiřazení kurzů a klikněte na Uložit. Změny, které provedete, se projeví na stránce indexu.
 
 > [!NOTE]
-> Přístup provádět upravovat data kurzu kurzů vedených funguje dobře, když je omezený počet kurzů. Pro kolekce, které jsou mnohem větší různé uživatelské rozhraní a jinou metodu aktualizace by vyžaduje.
+> Postup, který je zde k dispozici pro úpravu dat kurzu instruktora, funguje dobře, pokud existuje omezený počet kurzů. Pro kolekce, které jsou mnohem větší, by se vyžadovalo jiné uživatelské rozhraní a odlišná metoda aktualizace.
 
-## <a name="update-delete-page"></a>Stránka pro aktualizaci Delete
+## <a name="update-delete-page"></a>Aktualizace stránky pro odstranění
 
-V *InstructorsController.cs*, odstranit `DeleteConfirmed` metoda a vložte následující kód na příslušné místo.
+V *InstructorsController.cs*odstraňte `DeleteConfirmed` metodu a vložte následující kód na místo.
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?highlight=5-7,9-12&name=snippet_DeleteConfirmed)]
 
 Tento kód provede následující změny:
 
-* Fakturuje se u eager načítání pro `CourseAssignments` navigační vlastnost. Je nutné zahrnout to nebo EF nebude vědět o související `CourseAssignment` entity a nedojde k jejich odstranění. Abyste nemuseli přečtěte si je tady můžete nakonfigurovat kaskádové odstranění v databázi.
+* Načítá Eager pro `CourseAssignments` navigační vlastnost. Je nutné zahrnout tento, nebo EF neznáte související `CourseAssignment` entity a nebude je odstraňovat. Abyste se vyhnuli nutnosti jejich čtení, můžete v databázi nakonfigurovat kaskádové odstranění.
 
-* Pokud instruktorem, která se má odstranit je přiřazen jako správce z jakékoli oddělení, odebere z těchto oddělení přiřazení instruktorem.
+* Pokud je instruktor, který má být odstraněn, přiřazen jako správce jakékoli oddělení, odebere z těchto oddělení přiřazení instruktora.
 
-## <a name="add-office-location-and-courses-to-create-page"></a>Přidat stránku vytvořit pobočky a kurzy
+## <a name="add-office-location-and-courses-to-create-page"></a>Přidání umístění Office a kurzů k vytvoření stránky
 
-V *InstructorsController.cs*, odstraňte HttpGet a HttpPost `Create` metody a místo nich přidejte následující kód:
+V *InstructorsController.cs*odstraňte metody HttpGet a HTTPPOST `Create` a pak na jejich místo přidejte následující kód:
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_Create&highlight=3-5,12,14-22,29)]
 
-Tento kód se podobá viděli pro `Edit` jsou vybrané metody s výjimkou případů, které žádné kurzy. Třídy MetadataExchangeClientMode `Create` volání metod `PopulateAssignedCourseData` metoda není, protože může být ale vybrané kurzy účelem zadejte prázdnou kolekci pro `foreach` smyčky v zobrazení (jinak zobrazit kód by výjimku výjimky odkaz s hodnotou null).
+Tento kód se podobá tomu, co jste viděli `Edit` pro metody s tím rozdílem, že se nevybraly žádné kurzy. Metoda HttpGet `Create` volá metodu, `PopulateAssignedCourseData` protože by mohly být vybrány kurzy, ale za účelem poskytnutí prázdné kolekce pro `foreach` smyčku v zobrazení (jinak kód zobrazení by vyvolal výjimku s hodnotou null).
 
-HttpPost `Create` metoda přidá každé vybrané kurz `CourseAssignments` navigační vlastnost před kontroluje výskyt chyb ověření a přidá nový kurzů vedených do databáze. Kurzy jsou přidány, i když nejsou chyby modelu, takže když existují chyby modelu (pro příklad, uživatel s klíčem, což je neplatné datum) a na stránce se zobrazí znovu, zobrazí se chybová zpráva, se automaticky obnoví zvolené kurzů, které byly provedeny.
+Metoda HTTPPOST `Create` přidá každý vybraný kurz `CourseAssignments` do vlastnosti navigace před tím, než zkontroluje chyby ověřování a přidá nového instruktora do databáze. Kurzy se přidávají i v případě, že dojde k chybám modelu, takže když dojde k chybám modelu (například uživatel zaznamená neplatné datum) a stránka se znovu zobrazí s chybovou zprávou, všechny vybrané kurzy se automaticky obnoví.
 
-Všimněte si, aby bylo možné přidat kurzy, které `CourseAssignments` navigační vlastnost, je třeba inicializovat vlastnost jako prázdnou kolekci:
+Všimněte si, že aby bylo možné do `CourseAssignments` navigační vlastnosti přidat kurzy, musíte tuto vlastnost inicializovat jako prázdnou kolekci:
 
 ```csharp
 instructor.CourseAssignments = new List<CourseAssignment>();
 ```
 
-Jako alternativu k to v kódu kontroleru je může provést v modelu kurzů vedených změnou metoda getter vlastnosti pro vytvoření kolekce Pokud neexistuje, jak je znázorněno v následujícím příkladu:
+Jako alternativu k tomu, že se jedná o kód kontroleru, to můžete provést v modelu instruktoru změnou vlastnosti getter na automaticky vytvořit kolekci, pokud neexistuje, jak je znázorněno v následujícím příkladu:
 
 ```csharp
 private ICollection<CourseAssignment> _courseAssignments;
@@ -287,17 +287,17 @@ public ICollection<CourseAssignment> CourseAssignments
 }
 ```
 
-Pokud změníte `CourseAssignments` vlastnost tímto způsobem můžete odebrat explicitní vlastnost inicializační kód v kontroleru.
+Pokud tuto `CourseAssignments` vlastnost upravíte tímto způsobem, můžete v řadiči odebrat explicitní inicializační kód vlastnosti.
 
-V *Views/Instructor/Create.cshtml*, přidejte textové pole umístění office a zaškrtněte políčka pro kurzy před tlačítka pro odeslání. Třeba v případě stránky pro úpravu [opravte formátování Pokud Visual Studio přeformátuje kód při vkládání](#notepad).
+V *zobrazení/instruktor/vytvořit. cshtml*, přidejte textové pole umístění kanceláře a zaškrtávací políčka pro kurzy před tlačítkem Odeslat. Jako v případě stránky pro úpravy [opravte formátování, pokud aplikace Visual Studio přeformátuje kód při jeho vložení](#notepad).
 
 [!code-html[](intro/samples/cu/Views/Instructors/Create.cshtml?range=29-61)]
 
-Testování tak, že aplikaci spustíte a vytváření instruktorem.
+Otestujte spuštěním aplikace a vytvořením instruktora.
 
 ## <a name="handling-transactions"></a>Zpracování transakcí
 
-Jak je vysvětleno v [CRUD kurzu](crud.md), Entity Framework implementuje implicitně transakce. Pro scénáře, kde můžete potřebovat mít lepší kontrolu – například pokud budete chtít zahrnout operace provedené mimo rozhraní Entity Framework v rámci transakce – viz [transakce](/ef/core/saving/transactions).
+Jak je vysvětleno v [kurzu CRUD](crud.md), Entity Framework implicitně implementuje transakce. V případě scénářů, kde potřebujete větší kontrolu – například pokud chcete zahrnout operace provedené mimo Entity Framework v transakci – viz [transakce](/ef/core/saving/transactions).
 
 ## <a name="get-the-code"></a>Získat kód
 
@@ -308,13 +308,13 @@ Jak je vysvětleno v [CRUD kurzu](crud.md), Entity Framework implementuje implic
 V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
-> * Vlastní stránky kurzy
-> * Přidání Instruktoři upravit stránku
-> * Přidání kurzy, které stránky pro úpravu
-> * Aktualizovaná stránka Delete
-> * Přidání pobočky a kurzy, které stránka pro vytvoření
+> * Stránky přizpůsobených kurzů
+> * Stránka pro úpravu přidaných instruktorů
+> * Přidání kurzů pro úpravu stránky
+> * Aktualizace stránky pro odstranění
+> * Přidání umístění Office a kurzů k vytvoření stránky
 
-Přejděte k dalšímu kurzu se naučíte zpracování konfliktů souběžnosti.
+Přejděte k dalšímu kurzu, kde se dozvíte, jak zpracovávat konflikty souběžnosti.
 
 > [!div class="nextstepaction"]
 > [Zpracování konfliktů souběžnosti](concurrency.md)

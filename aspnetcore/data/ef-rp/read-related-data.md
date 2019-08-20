@@ -1,17 +1,17 @@
 ---
 title: Razor Pages s EF Core ve ASP.NET Core – data související s čtením – 6 z 8
-author: rick-anderson
+author: tdykstra
 description: V tomto kurzu si přečtete a zobrazíte související data – to znamená data, která Entity Framework načíst do vlastností navigace.
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: a4864a749ed9c839c2a22f179759a3f28db525ee
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: c9da404b1bbd072d3e033f18a7366169082dac06
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914183"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583544"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>Razor Pages s EF Core ve ASP.NET Core – data související s čtením – 6 z 8
 

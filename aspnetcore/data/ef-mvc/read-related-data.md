@@ -1,17 +1,17 @@
 ---
 title: 'Kurz: Čtení souvisejících dat – ASP.NET MVC pomocí EF Core'
 description: V tomto kurzu si přečtete a zobrazíte související data – to znamená data, která Entity Framework načíst do vlastností navigace.
-author: rick-anderson
+author: tdykstra
 ms.author: tdykstra
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 20f801e23f3e75d7915bcb7c095060b68d9cb03f
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 43d05d0a5f938e60cdb54a0025d8bc277059c2e3
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819786"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583427"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Čtení souvisejících dat – ASP.NET MVC pomocí EF Core
 
@@ -53,7 +53,7 @@ Existuje několik způsobů, jak může software pro mapování relačních dat 
 
 * Opožděné načítání. Při prvním načtení entity se nenačte související data. Při prvním pokusu o přístup k navigační vlastnosti je však automaticky načtena data potřebná pro tuto vlastnost navigace. Dotaz se pošle do databáze pokaždé, když se pokusíte získat data z navigační vlastnosti poprvé. Entity Framework Core 1,0 nepodporuje opožděné načítání.
 
-### <a name="performance-considerations"></a>Důležité informace o výkonu
+### <a name="performance-considerations"></a>Otázky výkonu
 
 Pokud víte, že pro každou načtenou entitu potřebujete související data, Eager načítání často nabízí nejlepší výkon, protože jediný dotaz odeslaný do databáze je obvykle efektivnější než samostatné dotazy pro každou načtenou entitu. Předpokládejme například, že každé oddělení má deset souvisejících kurzů. Eager načtení všech souvisejících dat by způsobilo pouze jeden (JOIN) dotaz a jednu zpáteční cestu do databáze. Samostatný dotaz na kurzy pro každé oddělení by způsobil jedenácté cestování databáze. Další výměna cest k databázi je obzvláště neškodná na výkon, pokud je latence vysoká.
 

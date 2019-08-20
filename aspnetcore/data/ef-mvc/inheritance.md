@@ -1,152 +1,152 @@
 ---
-title: 'Kurz: Implementace dědičnosti – ASP.NET MVC s EF Core'
-description: V tomto kurzu se seznámíte implementace dědičnosti v datovém modelu, s použitím Entity Framework Core v aplikaci ASP.NET Core.
-author: rick-anderson
+title: 'Kurz: Implementace dědičnosti – ASP.NET MVC pomocí EF Core'
+description: Tento kurz vám ukáže, jak implementovat dědičnost v datovém modelu pomocí Entity Framework Core v ASP.NET Core aplikaci.
+author: tdykstra
 ms.author: tdykstra
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: f80de595fd23cc9c1065e5257ad1d2376ea40cf3
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 0d46d7238b4e6f79b17564db213047738629a467
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900318"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583477"
 ---
-# <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>Kurz: Implementace dědičnosti – ASP.NET MVC s EF Core
+# <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>Kurz: Implementace dědičnosti – ASP.NET MVC pomocí EF Core
 
-V předchozím kurzu zpracování výjimky souběžnosti. Tento kurzu se dozvíte, jak implementovat dědičnosti v datovém modelu.
+V předchozím kurzu jste zpracovali výjimky souběžnosti. Tento kurz vám ukáže, jak implementovat dědičnost v datovém modelu.
 
-V objektově orientované programování, můžete dědičnost usnadňuje opakované využívání kódu. V tomto kurzu změníte `Instructor` a `Student` tak, že jsou odvozeny z třídy `Person` základní třída, která obsahuje vlastnosti, například `LastName` , které jsou společné pro vyučující a studenty. Nebude přidat nebo změnit libovolné webové stránky, ale změníte kód, a tyto změny se automaticky projeví v databázi.
+V objektově orientovaném programování můžete použít dědičnost k usnadnění opětovného použití kódu. V `Instructor` tomto kurzu změníte třídy a `Student` tak `Person` , aby byly odvozeny ze základní třídy, která obsahuje vlastnosti `LastName` , jako jsou společné pro instruktory i studenty. Nepřidáte ani neměníte žádné webové stránky, ale změníte část kódu a tyto změny se automaticky projeví v databázi.
 
 V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
-> * Mapovat dědičnosti do databáze
-> * Vytvořte třídu osoby
-> * Aktualizace instruktorem a studentů
-> * Do modelu přidat osoby
-> * Vytvoření a aktualizaci migrace
-> * Provedení testu
+> * Mapování dědičnosti na databázi
+> * Vytvoření třídy Person
+> * Aktualizace instruktora a studenta
+> * Přidat osobu do modelu
+> * Vytváření a aktualizace migrací
+> * Testování implementace
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Popisovač souběžnosti](concurrency.md)
+* [Souběžnost popisovačů](concurrency.md)
 
-## <a name="map-inheritance-to-database"></a>Mapovat dědičnosti do databáze
+## <a name="map-inheritance-to-database"></a>Mapování dědičnosti na databázi
 
-`Instructor` a `Student` třídy v datovém modelu školy mají několik vlastností, které jsou shodné:
+Třídy `Instructor` a`Student` v modelu školních dat obsahují několik vlastností, které jsou identické:
 
-![Třídy pro studenty a instruktorem](inheritance/_static/no-inheritance.png)
+![Třídy student a instruktor](inheritance/_static/no-inheritance.png)
 
-Předpokládejme, že chcete vyloučit redundantní kód pro vlastnosti, které jsou sdíleny `Instructor` a `Student` entity. Nebo chcete zadat službu, která dokáže formátovat názvy bez caring, zda název pochází instruktorem nebo student. Můžete vytvořit `Person` základní třída, která obsahuje pouze ty sdílené vlastnosti a pak proveďte `Instructor` a `Student` třídy dědí ze základní třídy, jak je znázorněno na následujícím obrázku:
+Předpokládejme, že chcete eliminovat redundantní kód pro vlastnosti, které jsou sdíleny `Instructor` entitami a. `Student` Nebo chcete napsat službu, která může formátovat názvy bez caring, jestli název pochází od instruktora nebo studenta. Můžete vytvořit `Person` základní třídu, která obsahuje pouze tyto sdílené vlastnosti, `Instructor` a poté nastavit třídy a `Student` dědění z této základní třídy, jak je znázorněno na následujícím obrázku:
 
-![Pro studenty a kurzů vedených třídy odvozené od třídy osoby](inheritance/_static/inheritance.png)
+![Třídy studenta a instruktory odvozené od třídy Person](inheritance/_static/inheritance.png)
 
-Existuje několik způsobů, které tato struktura dědičnosti můžou být reprezentované v databázi. Můžete mít tabulku osoba, která obsahuje informace o studenty a vyučující v jediné tabulce. Některé sloupce může použít pouze na Instruktoři (HireDate), některé jenom pro studenty (EnrollmentDate), některé na obě (LastName, FirstName). Obvykle museli jste sloupec diskriminátoru, který označuje, který typ každý řádek představuje. Pro sloupec diskriminátoru může mít například "Kurzů vedených" pro vyučující a "Studentů" pro studenty.
+Existuje několik způsobů, jak lze tuto strukturu dědičnosti znázornit v databázi. Můžete mít tabulku Person, která obsahuje informace o studentech i instruktorech v jedné tabulce. Některé sloupce mohou být použity pouze pro instruktory (ZaměstnánOd), některé pouze pro studenty (EnrollmentDate), některá pro obě (LastName, FirstName). Obvykle byste měli sloupec diskriminátoru, který určuje, který typ každý řádek představuje. Sloupec diskriminátoru může mít například "instruktor" pro studenty a studenta.
 
-![Příklad tabulky podle hierarchie](inheritance/_static/tph.png)
+![Příklad tabulky na hierarchii](inheritance/_static/tph.png)
 
-Tento model generování struktury dědičnosti entity z tabulky izolované databáze se nazývá dědičnosti na hierarchii tabulky (TPH).
+Tento model generování struktury dědičnosti entit z jedné databázové tabulky se nazývá dědičnost typu tabulka-na hierarchii (TPH).
 
-Další možností je databázi tak, aby vypadat více jako struktury dědičnosti. Například může obsahovat pouze název pole v tabulce osoby a mít samostatné instruktorem a studentů tabulky s poli datum.
+Alternativou je, že databáze vypadá podobně jako struktura dědičnosti. Například můžete mít pouze pole název v tabulce Person a mají samostatné tabulky instruktor a student s poli data.
 
-![Dědičnost za typ tabulky](inheritance/_static/tpt.png)
+![Dědičnost tabulek podle typu](inheritance/_static/tpt.png)
 
-Tento model vytváření tabulky databáze pro každou třídu entity se nazývá tabulka na jeden typ (TPT) dědičnosti.
+Tento model vytvoření tabulky databáze pro každou třídu entity se nazývá dědičnost tabulky podle typu (TPT).
 
-Další možností je ještě všechny typy neabstraktní namapovat jednotlivé tabulky. Všechny vlastnosti třídy, včetně zděděné vlastnosti mapovat na sloupce příslušné tabulky. Tento model se nazývá dědičnost tabulky na konkrétní třídy (TPC). Pokud jste implementovali TPC dědičnosti pro osobu, studenty a kurzů vedených třídy, jak je uvedeno výše, by vypadalo tabulky studentů a kurzů vedených nijak neliší po implementaci dědičnosti než dříve.
+Ještě další možností je mapovat všechny neabstraktní typy na jednotlivé tabulky. Všechny vlastnosti třídy, včetně děděných vlastností, jsou mapovány na sloupce odpovídající tabulky. Tento model se nazývá dědičnost tříd (TPC) podle konkrétní třídy. Pokud jste implementovali TPC dědění pro třídy Person, student a instruktor, jak je uvedeno výše, tabulky student a instruktor by po implementaci dědění nevypadaly jinak než předtím.
 
-TPC a TPH vzory dědičnosti obecně doručit lepší výkon než vzory TPT dědičnosti, protože TPT vzory může vést k dotazům komplexní spojení.
+Vzorce dědičnosti TPC a TPH obvykle poskytují lepší výkon než vzory dědičnosti TPT, protože vzory TPT mohou mít za následek složité spojení dotazů.
 
-Tento kurz ukazuje, jak implementovat TPH dědičnosti. TPH je pouze dědičnosti vzor, který podporuje Entity Framework Core.  Co můžete udělat, je vytvořit `Person` tříd, změnit `Instructor` a `Student` třídy, které jsou odvozeny z `Person`, přidejte novou třídu do `DbContext`a vytvořit migrace.
+Tento kurz ukazuje, jak implementovat dědičnosti TPH. TPH je jediný vzorek dědičnosti, který Entity Framework Core podporuje.  To, co uděláte, je vytvořit `Person` třídu, `Instructor` změnit třídy a `Student` , které se mají `Person`odvodit `DbContext`z, přidat novou třídu do a vytvořit migraci.
 
 > [!TIP]
-> Zvažte možnost uložení kopie projektu před provedením následující změny.  Pak pokud narazíte na problémy a potřebujete začít znovu, ji bude snazší spuštění z projektu uložený místo vrácení kroků v tomto kurzu nebo že přejdete zpět na začátek celou řadu.
+> Zvažte uložení kopie projektu před provedením následujících změn.  Pak Pokud narazíte na problémy a potřebujete začít znovu, bude snazší začít z uloženého projektu místo vrácení kroků provedených pro tento kurz nebo přechod zpět na začátek celé řady.
 
-## <a name="create-the-person-class"></a>Vytvořte třídu osoby
+## <a name="create-the-person-class"></a>Vytvoření třídy Person
 
-Ve složce modely vytvořit Person.cs a nahraďte kód šablony následujícím kódem:
+Ve složce modely vytvořte Person.cs a nahraďte kód šablony následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Models/Person.cs)]
 
-## <a name="update-instructor-and-student"></a>Aktualizace instruktorem a studentů
+## <a name="update-instructor-and-student"></a>Aktualizace instruktora a studenta
 
-V *Instructor.cs*, kurzů vedených třída odvozena od třídy osoby a odstraňte klíč a název pole. Kód bude vypadat jako v následujícím příkladu:
+V *Instructor.cs*odvodíte třídu Instructor z třídy Person a odstraňte pole klíč a název. Kód bude vypadat jako v následujícím příkladu:
 
 [!code-csharp[](intro/samples/cu/Models/Instructor.cs?name=snippet_AfterInheritance&highlight=8)]
 
-Provést stejné změny v *Student.cs*.
+Udělejte stejné změny v *student.cs*.
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_AfterInheritance&highlight=8)]
 
-## <a name="add-person-to-the-model"></a>Do modelu přidat osoby
+## <a name="add-person-to-the-model"></a>Přidat osobu do modelu
 
-Přidat typ entity osoby k *SchoolContext.cs*. Nové řádky jsou zvýrazněné.
+Do *SchoolContext.cs*přidejte typ entity Person. Nové řádky jsou zvýrazněny.
 
 [!code-csharp[](intro/samples/cu/Data/SchoolContext.cs?name=snippet_AfterInheritance&highlight=19,30)]
 
-To je vše, Entity Framework potřebuje, aby konfigurace tabulky na hierarchii dědičnosti. Jak zjistíte, když se aktualizuje databázi, bude mít tabulku osoba místo tabulky studentů a instruktorem.
+To je vše, co Entity Framework potřebuje, aby bylo možné nakonfigurovat dědičnost tabulek na hierarchii. Jak vidíte, při aktualizaci databáze bude mít uživatelskou tabulku místo tabulek student a instruktor.
 
-## <a name="create-and-update-migrations"></a>Vytvoření a aktualizaci migrace
+## <a name="create-and-update-migrations"></a>Vytváření a aktualizace migrací
 
-Uložte změny a sestavte projekt. Potom otevřete okno příkazového řádku ve složce projektu a zadejte následující příkaz:
+Uložte změny a sestavte projekt. Pak otevřete okno příkazového řádku ve složce projektu a zadejte následující příkaz:
 
 ```console
 dotnet ef migrations add Inheritance
 ```
 
-Při spuštění `database update` ještě příkazu. Tento příkaz způsobí nedošlo ke ztrátě dat. vzhledem k tomu, že bude tabulku instruktorem a přejmenovat Tabulka Student osobě. Budete muset zadat vlastní kód, chcete-li zachovat existující data.
+Tento `database update` příkaz ještě nespouštějte. Tento příkaz bude mít za následek ztrátu dat, protože odstraní tabulku instruktora a přejmenuje tabulku student na Person. Aby bylo možné zachovat existující data, je třeba zadat vlastní kód.
 
-Otevřít *migrace /\<časové razítko > _Inheritance.cs* a nahraďte `Up` metodu s následujícím kódem:
+Otevřete *migrace nebo\<časové razítko > _Inheritance. cs* a nahraďte `Up` metodu následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Migrations/20170216215525_Inheritance.cs?name=snippet_Up)]
 
-Tento kód se postará o tyto úlohy aktualizace databáze:
+Tento kód má na starosti následující úlohy aktualizace databáze:
 
-* Odebere omezení cizího klíče a indexy, které odkazují na tabulce studentů.
+* Odebere omezení a indexy cizího klíče, které odkazují na tabulku studenta.
 
-* Přejmenuje tabulce kurzů vedených jako osoba a provede změny, které jsou potřeba, aby se uložení údajů studentů:
+* Přejmenuje tabulku instruktora jako osobu a provede změny potřebné k uložení dat studenta:
 
-* Přidá EnrollmentDate s možnou hodnotou Null pro studenty.
+* Přidá EnrollmentDate s možnou hodnotou null pro studenty.
 
-* Přidá sloupec diskriminátoru k označení, zda je řádek student nebo instruktorem.
+* Přidá sloupec diskriminátoru, který označuje, zda je řádek určen studentem nebo instruktorem.
 
-* Protože student řádků nebude mít dat, díky HireDate s možnou hodnotou Null.
+* Vytvoří hodnotu Nullable s možnou hodnotou null, protože řádky studenta nebudou mít data přijetí.
 
-* Přidá dočasné pole, který se použije k aktualizaci cizí klíče, které odkazují na studenty. Při kopírování studenty do tabulky osob dostanou nové hodnoty primárního klíče.
+* Přidá dočasné pole, které bude použito k aktualizaci cizích klíčů, které odkazují na studenty. Když zkopírujete studenty do tabulky Person, získají se nové hodnoty primárního klíče.
 
-* Kopíruje data z tabulky Student do tabulky osob. To způsobí, že studenti mohli přiřadit nové hodnoty primárního klíče.
+* Zkopíruje data z tabulky student do tabulky Person (osoba). To způsobí, že studenti získají přiřazené nové hodnoty primárního klíče.
 
-* Opravy hodnoty cizího klíče, které odkazují na studenty.
+* Opravuje hodnoty cizích klíčů, které odkazují na studenty.
 
-* Znovu vytvoří omezení cizího klíče a indexy, nyní je odkazující na tabulku osoby.
+* Znovu vytvoří omezení a indexy cizího klíče, které se teď odkazují na tabulku Person.
 
-(Namísto celého čísla byste použili identifikátor GUID jako typ primárního klíče, student hodnoty primárního klíče nemusí měnit a některé z těchto kroků může vynechat.)
+(Pokud jste použili GUID místo celého čísla jako typ primárního klíče, hodnoty primárního klíče studenta se nemusejí změnit a některé z těchto kroků by mohly být vynechány.)
 
-Spustit `database update` příkaz:
+`database update` Spusťte příkaz:
 
 ```console
 dotnet ef database update
 ```
 
-(V produkční systém by proveďte příslušné změny `Down` metodu v případě někdy museli vrátit k předchozí verzi databáze použít. V tomto kurzu nebudete používat `Down` metoda.)
+(V produkčním systému provedete odpovídající změny `Down` metody v případě, že byste to museli použít pro návrat k předchozí verzi databáze. Pro tento kurz nebudete používat `Down` metodu.)
 
 > [!NOTE]
-> Je možné získat další chyby při provedení změn schématu v databázi, která obsahuje už existující data. Pokud se zobrazí chyby při migraci, které nelze vyřešit, můžete změnit název databáze v připojovacím řetězci nebo odstranit databázi. S novou databázi nejsou žádná data k migraci a příkazu update databáze má větší pravděpodobnost dokončí bez chyb. Pokud chcete odstranit databázi, použijte SSOX nebo spusťte `database drop` příkazu rozhraní příkazového řádku.
+> Při provádění změn schématu v databázi, která obsahuje existující data, je možné získat další chyby. Pokud získáte chyby migrace, které nelze vyřešit, můžete buď změnit název databáze v připojovacím řetězci nebo odstranit databázi. V případě nové databáze není k dispozici žádná data k migraci a příkaz Update-Database je pravděpodobnější, že se dokončí bez chyb. Databázi odstraníte tak, že použijete SSOX nebo spustíte `database drop` příkaz CLI.
 
-## <a name="test-the-implementation"></a>Provedení testu
+## <a name="test-the-implementation"></a>Testování implementace
 
-Spusťte aplikaci a vyzkoušejte různé stránky. Všechno, co funguje stejně jako předtím.
+Spusťte aplikaci a vyzkoušejte si různé stránky. Vše funguje stejně jako dříve.
 
-V **Průzkumník objektů systému SQL Server**, rozbalte **datového připojení/SchoolContext** a potom **tabulky**, a uvidíte, že byly nahrazeny tabulky studentů a instruktorem Tabulka osoby. Otevření Návrháře tabulky osoby a uvidíte, že obsahuje všechny sloupce, které mají být používány v tabulkách studentů a kurzů vedených.
+V **Průzkumník objektů systému SQL Server**rozbalte **data připojení/SchoolContext** a pak **tabulky**a uvidíte, že tabulky student a instruktor byly nahrazeny tabulkou Person. Otevřete návrháře tabulky osoba a uvidíte, že obsahuje všechny sloupce, které se používají v tabulkách student a instruktor.
 
-![Tabulky osob v SSOX](inheritance/_static/ssox-person-table.png)
+![Tabulka Person v SSOX](inheritance/_static/ssox-person-table.png)
 
-Klikněte pravým tlačítkem na tabulku osoba a potom klikněte na **zobrazit Data tabulky** zobrazit sloupec diskriminátoru.
+Klikněte pravým tlačítkem myši na tabulku Person a potom kliknutím na možnost **Zobrazit data tabulky** zobrazte sloupec diskriminátor.
 
-![Osoba tabulky v SSOX - tabulkových dat](inheritance/_static/ssox-person-data.png)
+![Tabulka Person v tabulce SSOX data](inheritance/_static/ssox-person-data.png)
 
 ## <a name="get-the-code"></a>Získat kód
 
@@ -154,21 +154,21 @@ Klikněte pravým tlačítkem na tabulku osoba a potom klikněte na **zobrazit D
 
 ## <a name="additional-resources"></a>Další zdroje
 
-Další informace o dědičnosti v Entity Framework Core najdete v tématu [dědičnosti](/ef/core/modeling/inheritance).
+Další informace o dědičnosti v Entity Framework Core naleznete v tématu [Dědičnost](/ef/core/modeling/inheritance).
 
 ## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
-> * Mapovaná dědičnosti do databáze
-> * Vytvoření třídy osoby
-> * Aktualizované instruktorem a studentů
-> * Přidání, kdo modelu
-> * Vytvoření a aktualizaci migrace
-> * Testování implementace
+> * Namapovaná dědičnost na databázi
+> * Byla vytvořena třída Person.
+> * Aktualizovaný instruktor a student
+> * Do modelu se přidala osoba.
+> * Vytvořené a aktualizované migrace
+> * Otestování implementace
 
-Přejděte k dalšímu kurzu, kde se naučíte, jak zpracovat širokou škálu relativně pokročilé scénáře rozhraní Entity Framework.
+Přejděte k dalšímu kurzu, kde se dozvíte, jak zvládnout celou řadu poměrně pokročilých scénářů Entity Framework.
 
 > [!div class="nextstepaction"]
-> [Další: Pokročilá témata](advanced.md)
+> [Generace Pokročilá témata](advanced.md)

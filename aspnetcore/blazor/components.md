@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: 5361c506f112cbb74865c3819f0b3bd578a1705a
-ms.sourcegitcommit: 38cac2552029fc19428722bb204ff9e16eb94225
+ms.openlocfilehash: e1afae730d61463d31c8a1698fc31904a3fc8f0e
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/18/2019
-ms.locfileid: "69573082"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583087"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -193,14 +193,14 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `
 
 ```cshtml
 @code {
-    [Parameter(CaptureUnmatchedAttributes = true)]
+    [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> InputAttributes { get; set; }
 }
 ```
 
 `CaptureUnmatchedValues` Vlastnost on`[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný pomocí `CaptureUnmatchedValues` musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
 
-## <a name="data-binding"></a>Datová vazba
+## <a name="data-binding"></a>Vytváření datových vazeb
 
 Datové vazby na součásti a elementy modelu DOM jsou provedeny [@bind](xref:mvc/views/razor#bind) atributem. V následujícím příkladu je svázáno `_italicsCheck` pole se zaškrtnutým stavem zaškrtávací políčko:
 
@@ -1202,14 +1202,14 @@ builder.AddContent(1, "Second");
 
 V případě, že se kód spustí poprvé, v `someFlag` případě `true`, že je, tvůrce obdrží:
 
-| Sequence | type      | Data   |
+| Pořadí | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | Sekunda |
 
 Představte `false`si, že `someFlag` se zobrazí a značka se znovu vykreslí. Tentokrát Tvůrce získá:
 
-| Sequence | type       | Data   |
+| Pořadí | type       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Textový uzel  | Sekunda |
 
@@ -1234,14 +1234,14 @@ builder.AddContent(seq++, "Second");
 
 Teď je první výstup:
 
-| Sequence | type      | Data   |
+| Pořadí | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | Sekunda |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag`je `false` ve druhém vykreslování a výstup je:
 
-| Sequence | type      | Data   |
+| Pořadí | type      | Data   |
 | :------: | --------- | ------ |
 | 0        | Textový uzel | Sekunda |
 

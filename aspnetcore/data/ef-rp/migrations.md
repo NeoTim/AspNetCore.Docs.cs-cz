@@ -1,16 +1,16 @@
 ---
 title: Razor Pages s EF Core v ASP.NET Core – migrace – 4 z 8
-author: rick-anderson
+author: tdykstra
 description: V tomto kurzu začnete používat funkci migrace EF Core pro správu změn datového modelu v aplikaci ASP.NET Core MVC.
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 73624f515e8089b5852864b60ec66ad79c7475c3
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 110ffa8ecea1fe6e55a2f979a4ce851ed59e1807
+ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914067"
+ms.lasthandoff: 08/19/2019
+ms.locfileid: "69583507"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Razor Pages s EF Core v ASP.NET Core – migrace – 4 z 8
 
@@ -128,7 +128,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 * Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.
 * Spuštění `dotnet ef database update` ze kontrolovaného prostředí.
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Pokud aplikace používá SQL Server LocalDB a zobrazí následující výjimku:
 
@@ -293,7 +293,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 
 EF Core používá `__MigrationsHistory` tabulku k zobrazení, jestli je potřeba spustit nějaké migrace. Pokud je databáze aktuální, nespustí se žádná migrace.
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Stáhněte dokončenou aplikaci](
 https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations). [
