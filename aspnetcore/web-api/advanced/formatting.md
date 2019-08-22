@@ -1,94 +1,95 @@
 ---
-title: Formátování dat odpovědi v rozhraní Web API ASP.NET Core
+title: Formátování dat odpovědi v ASP.NET Core Web API
 author: ardalis
-description: Zjistěte, jak k formátování dat odpovědi v rozhraní Web API ASP.NET Core.
+description: Naučte se, jak formátovat data odpovědí v ASP.NET Core webovém rozhraní API.
 ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 05/29/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: b050011aa38743353fb2a7d133abcdca0b8c6d33
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e3417c9bfd3824133b86de2fe74f5f71367e1560
+ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814819"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886523"
 ---
-# <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v rozhraní Web API ASP.NET Core
+<!-- DO NOT EDIT BEFORE https://github.com/aspnet/AspNetCore.Docs/pull/12077 MERGES -->
+# <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
-Podle [Steve Smith](https://ardalis.com/)
+[Steve Smith](https://ardalis.com/)
 
-ASP.NET Core MVC obsahuje integrovanou podporu pro formátování dat odpovědi pomocí pevné formáty nebo v reakci na požadavky klienta.
+ASP.NET Core MVC obsahuje integrovanou podporu pro formátování dat odpovědí pomocí pevných formátů nebo v reakci na specifikace klientů.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/formatting/sample) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="format-specific-action-results"></a>Výsledky specifické pro formát akcí
+## <a name="format-specific-action-results"></a>Výsledky akce specifické pro formát
 
-Některé typy výsledků akcí, jako jsou specifické pro konkrétní formát `JsonResult` a `ContentResult`. Akce může vrátit konkrétní výsledky, které jsou vždy formátována určitým způsobem. Například vrácení `JsonResult` vrátí data ve formátu JSON, bez ohledu na předvolby klienta. Podobně, vrácení `ContentResult` vrátí data ve formátu prostého textu řetězce (stejně jako jednoduše vrátit řetězec).
+Některé typy výsledků akce jsou specifické pro konkrétní formát, například `JsonResult` a. `ContentResult` Akce mohou vracet konkrétní výsledky, které jsou vždy formátovány určitým způsobem. Například vrácení a vrátí data `JsonResult` ve formátu JSON bez ohledu na Předvolby klienta. `ContentResult` Stejně tak vrátí návratová data řetězce ve formátu prostého textu (stejně jako jednoduše vrátí řetězec).
 
 > [!NOTE]
-> Akce nemusí vracet žádné konkrétní typ; MVC podporuje libovolný objekt návratovou hodnotu. Akce vrátí-li `IActionResult` provádění a kontroler dědí z `Controller`, je vývojářům k dispozici mnoho pomocné metody odpovídající na řadu možností. Výsledky z akcí, které vracejí objekty, které nejsou `IActionResult` typy se serializovat pomocí odpovídající `IOutputFormatter` implementace.
+> Akce není nutná k vrácení určitého konkrétního typu; MVC podporuje jakoukoli návratovou hodnotu objektu. Pokud akce vrátí `IActionResult` implementaci a kontroler dědí z `Controller`, mají vývojáři mnoho pomocných metod, které odpovídají mnoha volbám. Výsledky z akcí, které vracejí objekty, které `IActionResult` nejsou typy, budou serializovány pomocí `IOutputFormatter` příslušné implementace.
 
-Vrácení dat v určitém formátu z kontroler, který dědí z `Controller` základní třídy, použijte metodu integrovaných pomocných `Json` vrátit JSON a `Content` pro prostý text. Vaše metoda akce by měla vrátit buď konkrétní výsledný typ (například `JsonResult`) nebo `IActionResult`.
+Chcete-li vrátit data v konkrétním formátu z kontroleru, který dědí ze `Controller` základní třídy, použijte vestavěnou pomocnou metodu `Json` pro návrat JSON a `Content` pro prostý text. Vaše metoda Action by měla vracet buď konkrétní typ výsledku (například, `JsonResult`) nebo. `IActionResult`
 
-Vrácení dat ve formátu JSON:
+Vracení dat ve formátu JSON:
 
 [!code-csharp[](./formatting/sample/Controllers/Api/AuthorsController.cs?highlight=3,5&range=21-26)]
 
-Ukázková odpověď z tuto akci:
+Ukázková odpověď z této akce:
 
-![Karta síť vývojářských nástrojů v Microsoft Edge zobrazující typ obsahu odpovědi je application/json](formatting/_static/json-response.png)
+![Karta síť Vývojářské nástroje v Microsoft Edge ukazující, že typ obsahu odpovědi je Application/JSON](formatting/_static/json-response.png)
 
-Všimněte si, že je typem obsahu odpovědi `application/json`, jak je znázorněno v seznamu síťových požadavků i v sekci hlavičky odpovědi. Všimněte si také seznam možností v prohlížeči (v tomto případě Microsoft Edge) v hlavičce Accept v části záhlaví požadavku. Současnou techniku ignoruje tuto hlavičku; obeying ho, jsou popsány níže.
+Všimněte si, že typ obsahu odpovědi je `application/json`zobrazen v seznamu síťových požadavků a v části hlavičky odpovědi. Všimněte si také seznam možností prezentovaných prohlížečem (v tomto případě Microsoft Edge) v hlavičce Accept v části s hlavičkami žádosti. Aktuální technika ignoruje tuto hlavičku. pojednává o tom, jak je popsáno níže.
 
-Chcete-li vrátit data ve formátu prostého textu, použijte `ContentResult` a `Content` pomocné rutiny:
+Chcete-li vrátit data ve formátu prostého textu `Content` , použijte aplikaci `ContentResult` a pomocníka:
 
 [!code-csharp[](./formatting/sample/Controllers/Api/AuthorsController.cs?highlight=3,5&range=47-52)]
 
-Odpověď z tuto akci:
+Odpověď z této akce:
 
-![Karta síť vývojářských nástrojů v Microsoft Edge zobrazující typ obsahu odpovědi je text/plain](formatting/_static/text-response.png)
+![Karta síť Vývojářské nástroje v Microsoft Edge ukazující, že typ obsahu odpovědi je text/prostý](formatting/_static/text-response.png)
 
-Poznámka: v tomto případě `Content-Type` vrátil je `text/plain`. Také můžete dosáhnout toto stejné chování pomocí pouze typ odpovědi řetězec:
+Všimněte si, že `Content-Type` v tomto případě je `text/plain`vráceno. Stejné chování můžete také dosáhnout pouze pomocí typu řetězcové odpovědi:
 
 [!code-csharp[](./formatting/sample/Controllers/Api/AuthorsController.cs?highlight=3,5&range=54-59)]
 
 >[!TIP]
-> U netriviální akcí s několika vrátí typy nebo možností (například jiné stavové kódy HTTP na základě výsledku operace prováděné), při odstraňování preferujte `IActionResult` jako návratový typ.
+> Pro netriviální akce s vícenásobnými návratovými typy nebo možnostmi (například různé stavové kódy HTTP založené na výsledku prováděných operací), preferovat `IActionResult` jako návratový typ.
 
 ## <a name="content-negotiation"></a>Vyjednávání obsahu
 
-Vyjednávání obsahu (*conneg* zkráceně) nastane, pokud klient Určuje [hlavičky Accept](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html). Výchozí formát používaný čtečkou ASP.NET Core MVC je JSON. Vyjednávání obsahu je implementováno `ObjectResult`. Je také součástí stavový kód určité akce výsledky vracené z metod helper (které jsou všechny založené na `ObjectResult`). Můžete se taky vrátit typ modelu (třídy, které jste definovali jako typ přenosu dat) a rozhraní budou automaticky zabalte ji v `ObjectResult` za vás.
+Vyjednávání obsahu (*conneg* pro krátké) proběhne, když klient zadá [hlavičku Accept](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html). Výchozí formát používaný ASP.NET Core MVC je JSON. Vyjednávání obsahu je implementováno `ObjectResult`nástrojem. Je také integrováno do výsledků akce specifické pro stav, které byly vráceny z pomocných metod (které jsou založeny `ObjectResult`na). Můžete také vrátit typ modelu (třídu, kterou jste definovali jako typ přenosu dat), a rozhraní si ho `ObjectResult` automaticky zalomí za vás.
 
-Používá následující metody akce `Ok` a `NotFound` pomocné metody:
+Následující metoda akce používá `Ok` pomocné metody a: `NotFound`
 
 [!code-csharp[](./formatting/sample/Controllers/Api/AuthorsController.cs?highlight=8,10&range=28-38)]
 
-Odpověď ve formátu JSON se vrátí, pokud byl požadován jiného formátu a server může vrátit požadovanému formátu. Můžete použít nástroje, jako je [Fiddler](https://www.telerik.com/fiddler) vytvořte žádost, která obsahuje hlavičku Accept a určete jiný formát. V takovém případě pokud má server *formátovací modul* , který může vytvořit odpověď požadovaný formát, výsledkem bude vrácen ve formátu upřednostňované klienta.
+Pokud není požadován jiný formát a server může vracet požadovaný formát, bude vrácena odpověď ve formátu JSON. Pomocí nástroje, jako je [Fiddler](https://www.telerik.com/fiddler) , můžete vytvořit požadavek, který obsahuje hlavičku Accept a zadat jiný formát. V takovém případě, pokud má server *formátovací modul* , který může vytvořit odpověď v požadovaném formátu, výsledek bude vrácen ve formátu upřednostňovaném pro klienta.
 
-![Fiddler konzola znázorňující ručně vytvořili získat požadavek s hodnotou hlavičky Accept application/XML](formatting/_static/fiddler-composer.png)
+![Konzola Fiddler zobrazující manuálně vytvořený požadavek GET s hodnotou potvrdit hlavičku Application/XML](formatting/_static/fiddler-composer.png)
 
-Ve výše uvedeném snímku obrazovky se použil autora aplikace Fiddler k vytvoření žádosti, určení `Accept: application/xml`. Ve výchozím nastavení, ASP.NET Core MVC podporuje pouze JSON, takže i když je určený jiný formát, vrácený výsledek je stále ve formátu JSON. Uvidíte jak přidat další formátování v další části.
+Ve výše uvedeném snímku obrazovky byl k vygenerování požadavku použit skladatel Fiddler, který určí `Accept: application/xml`. Ve výchozím nastavení ASP.NET Core MVC podporuje pouze JSON, takže i v případě, že je zadán jiný formát, vrácený výsledek je stále ve formátu JSON. V další části se dozvíte, jak přidat další formátovací modul.
 
-Akce kontroleru vrátit POCOs (Plain původní objekty CLR), v takovém případě automaticky vytvoří ASP.NET Core MVC `ObjectResult` za vás, která obaluje objekt. Klient získá formátovaný serializovaný objekt (formát JSON je výchozí, můžete nakonfigurovat, XML nebo jiných formátů). Pokud je objekt vrácen je `null`, pak se vrátíte rozhraní framework `204 No Content` odpovědi.
+Akce kontroleru mohou vracet POCOs (staré staré objekty CLR). v takovém případě ASP.NET Core MVC automaticky vytvoří `ObjectResult` pro vás objekt, který ho zalomí. Klient získá formátovaný serializovaný objekt (výchozí formát JSON, můžete nakonfigurovat XML nebo jiné formáty). Pokud je `null`vrácen objekt, pak rozhraní `204 No Content` vrátí odpověď.
 
-Vrátí typ objektu:
+Vrací se typ objektu:
 
 [!code-csharp[](./formatting/sample/Controllers/Api/AuthorsController.cs?highlight=3&range=40-45)]
 
-Ve vzorku obdrží žádost o platné Autor alias odpověď 200 OK údaji autora. Žádost o neplatný alias přijetí 204 bez obsahu odpovědi. Snímky obrazovky zobrazující odpověď ve formátu XML a JSON jsou uvedeny níže.
+V ukázce bude požadavek na platný alias autora dostávat odpověď 200 OK s daty autora. Požadavek na neplatný alias obdrží odpověď Content-204 bez obsahu. Snímky obrazovky ukazující odpověď ve formátech XML a JSON jsou uvedené níže.
 
-### <a name="content-negotiation-process"></a>Zpracování vyjednávání obsahu
+### <a name="content-negotiation-process"></a>Proces vyjednávání obsahu
 
-Obsahu *vyjednávání* pouze probíhá-li `Accept` hlavička objeví v požadavku. Pokud požadavek obsahuje hlavičku accept, rozhraní se zobrazí výčet typů médií v hlavičce accept v pořadí priority a pokusí se najít formátovací modul, který může vytvořit odpověď v jednom z formátů zadaná v hlavičce accept. V případě, že není formátování nalezeno, která splňují požadavek klienta, rozhraní se pokusí najít první formátovací modul, který může vytvořit odpověď (Pokud pro vývojáře se nakonfigurovala možnost v `MvcOptions` vrátit 406 Nepřijatelný místo). Pokud požadavek určuje XML, ale formátovací modul XML není nakonfigurovaná, budou formátovací modul JSON použít. Obecně platí Pokud je nakonfigurovaná žádná formátovací modul, který může poskytnout požadovaný formát, pak první formátovací modul, která dokáže formátovat objektu se používá. Pokud není uveden žádný záhlaví, první formátovací modul, který dokáže zpracovat objekt, který má být vrácen se použije k serializaci odpovědi. V takovém případě není k dispozici žádné vyjednávání dochází – na serveru je určení jakém formátu bude používat.
+K`Accept` vyjednání obsahu dochází pouze v případě, že se v požadavku objeví hlavička. Když požadavek obsahuje hlavičku Accept, rozhraní provede výčet typů médií v hlavičce Accept v pořadí předvolby a pokusí se najít formátovací modul, který může vytvořit odpověď v jednom z formátů určených hlavičkou Accept. V případě, že se nenajde žádný formátovací modul, který může splnit požadavek klienta, rozhraní se pokusí najít první formátovací modul, který může vyvolat odpověď (pokud vývojář nenakonfiguroval možnost na `MvcOptions` vrácení 406. místo toho není přijatelné). Pokud požadavek Určuje kód XML, ale formátovací modul XML nebyl nakonfigurován, bude použit formátovací modul JSON. Obecně platí, že pokud není nakonfigurován žádný formátovací modul, který může poskytnout požadovaný formát, bude použit první formátovací modul, který může objekt formátovat. Pokud není zadán žádný nadpis, bude při serializaci odpovědi použit první formátovací modul, který může zpracovat objekt, který má být vrácen. V takovém případě se neuskuteční žádné vyjednávání – server určí, který formát bude používat.
 
 > [!NOTE]
-> Pokud hlavička Accept obsahuje `*/*`, záhlaví se ignoruje, pokud `RespectBrowserAcceptHeader` je nastavena na hodnotu true v `MvcOptions`.
+> Pokud hlavička Accept obsahuje `*/*`, záhlaví se bude ignorovat, pokud `RespectBrowserAcceptHeader` `MvcOptions`není nastavené na hodnotu true.
 
 ### <a name="browsers-and-content-negotiation"></a>Prohlížeče a vyjednávání obsahu
 
-Na rozdíl od typických klientů rozhraní API, webové prohlížeče jsou obvykle slouží k poskytování `Accept` hlavičky, které obsahují širokou škálu formátů, včetně zástupných znaků. Ve výchozím nastavení, když rozhraní zjistí, že žádost pochází z prohlížeče, se bude ignorovat `Accept` hlavičky a místo toho návratový obsah v aplikaci nakonfigurovaná výchozí formát (JSON není-li jinak nakonfigurované). To poskytuje konzistentní prostředí při použití různých prohlížečů k používání rozhraní API.
+Na rozdíl od typických klientů rozhraní API mají webové prohlížeče `Accept` v úmyslu zadávat hlavičky, které obsahují nejrůznější formáty, včetně zástupných znaků. Ve výchozím nastavení, když rozhraní detekuje, že požadavek přichází z prohlížeče, ignoruje `Accept` hlavičku a místo toho vrátí obsah v nakonfigurovaném výchozím formátu aplikace (JSON, pokud není nakonfigurované jinak). To poskytuje jednotnější prostředí při použití různých prohlížečů ke využívání rozhraní API.
 
-Pokud si přejete prohlížeče dodržet aplikace hlavičky accept, to můžete nakonfigurovat jako součást konfigurace MVC nastavením `RespectBrowserAcceptHeader` k `true` v `ConfigureServices` metoda *Startup.cs*.
+Pokud upřednostňujete, `RespectBrowserAcceptHeader` aby aplikace přijímala hlavičky, můžete ji nakonfigurovat jako součást konfigurace MVC nastavením na `true` v `ConfigureServices` metodě v *Startup.cs*.
 
 ```csharp
 services.AddMvc(options =>
@@ -99,13 +100,13 @@ services.AddMvc(options =>
 
 ## <a name="configuring-formatters"></a>Konfigurace formátovacích modulů
 
-Pokud vaše aplikace potřebuje pro podporu dalších formátech nad výchozí hodnotu JSON, můžete přidat balíčky NuGet a nakonfigurovat MVC pro jejich podporu. Existují samostatné formátovací moduly pro vstup a výstup. Vstupní formátovací moduly jsou používány [vazby modelu](xref:mvc/models/model-binding); formátování výstupu se používají k formátování odpovědi. Můžete taky nakonfigurovat [vlastní formátování](xref:web-api/advanced/custom-formatters).
+Pokud vaše aplikace potřebuje podporovat další formáty nad rámec výchozího formátu JSON, můžete přidat balíčky NuGet a nakonfigurovat MVC na jejich podporu. Pro vstup a výstup existují samostatné formátovací moduly. Vstupní formátovací moduly jsou používány [vazbou modelu](xref:mvc/models/model-binding); výstupní formátovací moduly se používají k formátování odpovědí. Můžete také nakonfigurovat [vlastní formátovací](xref:web-api/advanced/custom-formatters)moduly.
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="configure-systemtextjson-based-formatters"></a>Konfigurace na základě System.Text.Json formátovacích modulů
+### <a name="configure-systemtextjson-based-formatters"></a>Konfigurace formátovacích modulů založených na System. text. JSON
 
-Funkce `System.Text.Json`– na základě formátování lze konfigurovat pomocí `Microsoft.AspNetCore.Mvc.MvcOptions.SerializerOptions`.
+Funkce pro `System.Text.Json`formátovací moduly založené na službě se dají konfigurovat pomocí `Microsoft.AspNetCore.Mvc.MvcOptions.SerializerOptions`.
 
 ```csharp
 services.AddMvc(options =>
@@ -114,68 +115,68 @@ services.AddMvc(options =>
 });
 ```
 
-### <a name="add-newtonsoftjson-based-json-format-support"></a>Přidání podpory pro formát JSON založených na Newtonsoft.Json
+### <a name="add-newtonsoftjson-based-json-format-support"></a>Přidání podpory formátu JSON založeného na Newtonsoft. JSON
 
-Před ASP.NET Core 3.0 MVC nastavena na výchozí pomocí formátování JSON, které jsou implementované pomocí `Newtonsoft.Json` balíčku. V ASP.NET Core 3.0 nebo novější, jsou na základě výchozí formátování JSON `System.Text.Json`. Podpora pro `Newtonsoft.Json`– na základě formátování a funkce je k dispozici nainstalováním [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet balíček a jeho v konfiguraci `Startup.ConfigureServices`.
+Před ASP.NET Core 3,0 byla `Newtonsoft.Json` sada MVC použita jako výchozí pro použití formátovacích formátovacích formátu JSON implementovaných pomocí balíčku. V ASP.NET Core 3,0 nebo novějších jsou výchozí formátovací moduly JSON založené na `System.Text.Json`. Podpora formátovacích a funkcí založených na standardech je k dispozici po instalaci balíčku NuGet [Microsoft. AspNetCore. Mvc. NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) a jeho konfiguraci v `Startup.ConfigureServices`. `Newtonsoft.Json`
 
 ```csharp
 services.AddMvc()
     .AddNewtonsoftJson();
 ```
 
-Některé funkce nemusí fungovat s `System.Text.Json`– na základě formátovacích modulů a vyžadují odkaz na `Newtonsoft.Json`– na základě formátovací moduly pro vydanou verzi ASP.NET Core 3.0. Pokračovat v používání `Newtonsoft.Json`– na základě formátovacích modulů, pokud vaší aplikace ASP.NET Core 3.0 nebo novější:
+Některé funkce nemusí fungovat správně s `System.Text.Json`formátovacími moduly a vyžadují odkaz `Newtonsoft.Json`na formátování založené na ASP.NET Core 3,0 vydání. I nadále používat `Newtonsoft.Json`formátovací moduly založené na ASP.NET Core 3,0 nebo novější:
 
-* Používá `Newtonsoft.Json` atributy (například `[JsonProperty]` nebo `[JsonIgnore]`), umožňuje upravit nastavení serializace nebo spoléhá na funkce, které `Newtonsoft.Json` poskytuje.
-* Nakonfiguruje `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings`. Před ASP.NET Core 3.0 `JsonResult.SerializerSettings` přijímá instanci `JsonSerializerSettings` , která je specifická pro `Newtonsoft.Json`.
-* Generuje [OpenAPI](<xref:tutorials/web-api-help-pages-using-swagger>) dokumentaci.
+* Používá `Newtonsoft.Json` atributy ( `[JsonProperty]` například nebo `[JsonIgnore]`), přizpůsobuje nastavení serializace nebo spoléhá na funkce, které `Newtonsoft.Json` poskytuje.
+* Nakonfiguruje `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings`. Před ASP.NET Core 3,0 `JsonResult.SerializerSettings` akceptuje `JsonSerializerSettings` instance, která je specifická pro `Newtonsoft.Json`.
+* Generuje dokumentaci k [openapi](<xref:tutorials/web-api-help-pages-using-swagger>) .
 
 ::: moniker-end
 
-### <a name="add-xml-format-support"></a>Přidání podpory pro formát XML
+### <a name="add-xml-format-support"></a>Přidat podporu formátu XML
 
 ::: moniker range="<= aspnetcore-2.2"
 
-Chcete-li přidat podporu v ASP.NET Core 2.2 nebo dřívější formátování data XML, nainstalovat [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) balíček NuGet.
+Chcete-li přidat podporu formátování XML v ASP.NET Core 2,2 nebo starší, nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. formátovací Modules. XML](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) .
 
 ::: moniker-end
 
-Formátovací moduly XML implementované pomocí `System.Xml.Serialization.XmlSerializer` se dá nakonfigurovat pomocí volání <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*> v `Startup.ConfigureServices`:
+Formátovací moduly XML implementované pomocí `System.Xml.Serialization.XmlSerializer` lze nakonfigurovat voláním <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*> v `Startup.ConfigureServices`:
 
 [!code-csharp[](./formatting/sample/Startup.cs?name=snippet1&highlight=2)]
 
-Alternativně XML formátování, které jsou implementované pomocí `System.Runtime.Serialization.DataContractSerializer` se dá nakonfigurovat pomocí volání <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlDataContractSerializerFormatters*> v `Startup.ConfigureServices`:
+Formátovací moduly XML implementované pomocí `System.Runtime.Serialization.DataContractSerializer` lze také nakonfigurovat voláním <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlDataContractSerializerFormatters*> v `Startup.ConfigureServices`:
 
 ```csharp
 services.AddMvc()
     .AddXmlDataContractSerializerFormatters();
 ```
 
-Po přidání podpory pro formát XML, by měl vrátit svoje metody kontroleru vhodný formát na základě daného požadavku `Accept` záhlaví jako Fiddler, tento příklad ukazuje:
+Jakmile přidáte podporu pro formátování XML, metody kontroleru by měly vracet odpovídající formát na základě `Accept` hlavičky žádosti, jak ukazuje tento příklad Fiddler:
 
-![Fiddler konzoly: Nezpracovaná karta pro požadavek zobrazuje, že je hodnota hlavičky Accept application/xml. Na kartě nezpracovaná pro odpověď zobrazena hodnota hlavičky Content-Type application/XML.](formatting/_static/xml-response.png)
+![Konzola Fiddler: Nepůvodní karta pro požadavek zobrazuje hodnotu přijmout hlavičku je Application/XML. Nepůvodní karta pro odpověď zobrazuje hodnotu hlavičky Content-Type pro Application/XML.](formatting/_static/xml-response.png)
 
-Se zobrazí v kartě kontroly, která byla vytvořena žádost o získání nezpracovaných se `Accept: application/xml` hlavička set. Zobrazí se podokno odpovědi `Content-Type: application/xml` záhlaví a `Author` objekt má byl serializován do formátu XML.
+Na kartě kontrolori si můžete prohlédnout nezpracovaný požadavek GET s `Accept: application/xml` hlavičkovou sadou. V podokně odpověď se zobrazí `Content-Type: application/xml` záhlaví `Author` a objekt byl serializován do formátu XML.
 
-Použijte kartu Composer upravit požadavku k určení `application/json` v `Accept` záhlaví. Provedení požadavku a odpovědi naformátovaný jako JSON:
+Pomocí karty skladatele upravte požadavek na zadání `application/json` `Accept` v hlavičce. Spusťte požadavek a odpověď bude formátována jako JSON:
 
-![Fiddler konzoly: Nezpracovaná karta pro požadavek zobrazuje, že je hodnota hlavičky Accept application/json. Na kartě nezpracovaná pro odpověď zobrazena hodnota záhlaví Content-Type application/json.](formatting/_static/json-response-fiddler.png)
+![Konzola Fiddler: Nepůvodní karta pro požadavek zobrazuje hodnotu přijmout hlavičku je Application/JSON. Nepůvodní karta pro odpověď zobrazuje hodnotu hlavičky Content-Type pro Application/JSON.](formatting/_static/json-response-fiddler.png)
 
-Na tomto snímku obrazovky vidíte požadavek nastaví hlavičku z `Accept: application/json` a odpovědi určuje stejný jako jeho `Content-Type`. `Author` Objektu se zobrazí v těle odpovědi ve formátu JSON.
+Na tomto snímku obrazovky vidíte, že požadavek nastaví hlavičku `Accept: application/json` a odpověď určuje stejnou hodnotu jako její. `Content-Type` `Author` Objekt je zobrazen v těle odpovědi ve formátu JSON.
 
-### <a name="forcing-a-particular-format"></a>Vynucení konkrétní formát
+### <a name="forcing-a-particular-format"></a>Vynucení konkrétního formátu
 
-Pokud chcete omezit formáty odpovědi pro konkrétní akci je možné, můžete použít `[Produces]` filtru. `[Produces]` Filtr určuje formát odpovědi pro konkrétní akci (nebo řadič). Jako většina [filtry](xref:mvc/controllers/filters), to je možné použít na akci, kontroler nebo globální obor.
+Pokud chcete omezit formáty odezvy pro konkrétní akci, můžete použít `[Produces]` filtr. `[Produces]` Filtr určuje formáty odezvy konkrétní akce (nebo kontroleru). Podobně jako u většiny [filtrů](xref:mvc/controllers/filters)můžete tuto možnost použít na akci, řadič nebo globální rozsah.
 
 ```csharp
 [Produces("application/json")]
 public class AuthorsController
 ```
 
-`[Produces]` Filtr vynutí všechny akce v rámci `AuthorsController` k vrácení odpovědí ve formátu JSON i v případě jiných formátovací moduly byly nakonfigurované pro aplikaci a poskytnutý klientem `Accept` záhlaví žádosti o jiné, k dispozici formát. Zobrazit [filtry](xref:mvc/controllers/filters) Další informace, včetně postupu jak používat filtry globálně.
+Filtr vynutí všechny akce `AuthorsController` v rámci, aby vracely odpovědi ve formátu JSON, `Accept` a to i v případě, že se pro aplikaci nakonfigurovaly jiné formátovací moduly a klient zadal hlavičku s požadavkem na jinou dostupnou. `[Produces]` formátovat. Další informace, včetně toho, jak filtry použít globálně, najdete v tématu [filtry](xref:mvc/controllers/filters) .
 
-### <a name="special-case-formatters"></a>Zvláštní případ formátovacích modulů
+### <a name="special-case-formatters"></a>Formátování speciálních případů
 
-Některé speciální případy jsou implementovány pomocí předdefinované formátování. Ve výchozím nastavení `string` návratové typy naformátovaný jako *text/plain* (*text/html* žádost prostřednictvím `Accept` záhlaví). Toto chování lze odebrat odstraněním `TextOutputFormatter`. Odebrat formátování v `Configure` metoda *Startup.cs* (viz dole). Akce, které mají objekt modelu vrátit typ vrátí 204 neodpovídá obsahu při vrácení `null`. Toto chování lze odebrat odstraněním `HttpNoContentOutputFormatter`. Následující kód, odebere `TextOutputFormatter` a `HttpNoContentOutputFormatter`.
+Některé speciální případy jsou implementovány pomocí integrovaných formátovacích modulů. Ve výchozím nastavení `string` budou návratové typy formátovány jako *Text/prostý* (*text/HTML* , pokud `Accept` jsou požadovány prostřednictvím záhlaví). Toto chování je možné odebrat odebráním `TextOutputFormatter`. Odstraňte formátovací moduly v `Configure` metodě v *Startup.cs* (viz níže). Akce, které mají návratový typ objektu modelu, vrátí 204 bez odezvy obsahu `null`, pokud se vrátí. Toto chování je možné odebrat odebráním `HttpNoContentOutputFormatter`. Následující kód odstraní `TextOutputFormatter` a `HttpNoContentOutputFormatter`.
 
 ```csharp
 services.AddMvc(options =>
@@ -185,13 +186,13 @@ services.AddMvc(options =>
 });
 ```
 
-Bez `TextOutputFormatter`, `string` vrátí typy vrátit 406 Nepřijatelný, například. Všimněte si, že pokud existuje formátovací modul XML ji naformátuje `string` návratové typy, pokud `TextOutputFormatter` se odebere.
+`TextOutputFormatter` Bezhodnotvrátínávratové`string` typy 406, například. Všimněte si, že pokud formátovací modul XML existuje, naformátuje `string` návratové typy, `TextOutputFormatter` Pokud je odebrán.
 
-Bez `HttpNoContentOutputFormatter`, objektů null jsou formátovány pomocí nakonfigurovaného formátovacího modulu. Například formátování JSON jednoduše vrátit odpověď se na znalostech `null`, zatímco formátovací modul XML vrátí prázdný element XML s atributem `xsi:nil="true"` nastavit.
+`HttpNoContentOutputFormatter`Bez objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Například formátovací modul JSON jednoduše vrátí odpověď s tělem `null`, zatímco formátovací modul XML vrátí prázdný element XML s nastaveným atributem. `xsi:nil="true"`
 
-## <a name="response-format-url-mappings"></a>Mapování formát adresy URL odpovědi
+## <a name="response-format-url-mappings"></a>Mapování adres URL formátu odpovědi
 
-Klienti mohou požadovat konkrétní formát jako část adresy URL, například v řetězci dotazu nebo části cesty nebo pomocí rozšíření specifické pro formát souborů například XML nebo .json. Mapování z cestu požadavku by měl určený v trase, kterou používá rozhraní API. Příklad:
+Klienti mohou požádat o konkrétní formát v rámci adresy URL, například v řetězci dotazu nebo části cesty, nebo pomocí přípony souboru specifického pro formát, jako je například. XML nebo. JSON. Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Příklad:
 
 ```csharp
 [FormatFilter]
@@ -201,10 +202,10 @@ public class ProductsController
     public Product GetById(int id)
 ```
 
-Tato trasa by umožnilo požadovaný formát zadaný jako volitelný soubor rozšíření. `[FormatFilter]` Atribut zkontroluje existenci hodnoty formátu `RouteData` a bude mapovat formát odpovědi na odpovídající formátovací modul, když je vytvořen odpověď.
+Tato trasa umožní zadat požadovaný formát jako volitelnou příponu souboru. Atribut kontroluje existenci hodnoty formátu `RouteData` v a při vytvoření odpovědi namapuje formát odpovědi na příslušný formátovací modul. `[FormatFilter]`
 
-|           trasy            |             Formátovací modul              |
+|           Cestě            |             Modul              |
 |----------------------------|------------------------------------|
-|   `/products/GetById/5`    |    Výchozí formátování výstupu    |
-| `/products/GetById/5.json` | Formátování JSON (je-li konfigurováno) |
-| `/products/GetById/5.xml`  | Formátovací modul XML (Pokud je nakonfigurovaná)  |
+|   `/products/GetById/5`    |    Výchozí výstupní formátovací modul    |
+| `/products/GetById/5.json` | Formátovací modul JSON (Pokud je nakonfigurovaný) |
+| `/products/GetById/5.xml`  | Formátovací modul XML (Pokud je nakonfigurovaný)  |

@@ -1,6 +1,5 @@
 ---
 page_type: sample
-title: Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 description: V tomto kurzu se dozvíte, jak vytvořit webové rozhraní API ASP.NET Core pomocí databáze NoSQL v databázi MongoDB.
 languages:
 - csharp
@@ -9,12 +8,12 @@ products:
 - aspnet-core
 - vs
 urlFragment: aspnetcore-webapi-mongodb
-ms.openlocfilehash: 051fc62e5e323657c08026bbca9d71dbc6aa2978
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 402b25f3f7c1644a52832b5c8566269773932e95
+ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69619717"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886299"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
 
@@ -133,24 +132,6 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
     ```powershell
     Install-Package MongoDB.Driver -Version {VERSION}
-    ```
-
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-
-1. V příkazovém řádku spusťte následující příkazy:
-
-    ```console
-    dotnet new webapi -o BooksApi
-    code BooksApi
-    ```
-
-    Nový ASP.NET Core webové rozhraní API projekt cílí na .NET Core je generována a otevřít ve Visual Studio Code.
-
-1. Až se ikona plamene u OmniSharp stavového řádku změní na zelenou **, dialogové okno požádá o požadované prostředky k sestavení a ladění chybí v ' BooksApi '. Přidat je?** . Vyberte **Ano**.
-1. Navštivte galerii [NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) pro určení nejnovější stabilní verze ovladače .NET pro MongoDB. Otevřít **integrovaný terminál** a přejděte do kořenového adresáře projektu. Spusťte následující příkaz k instalaci ovladače .NET pro MongoDB:
-
-    ```console
-    dotnet add BooksApi.csproj package MongoDB.Driver -v {VERSION}
     ```
 
 ## <a name="add-an-entity-model"></a>Přidání modelu entity
@@ -527,3 +508,10 @@ Chcete-li splnit předchozí požadavky, proveďte následující změny:
     ```
 
 1. Opakujte kroky definované v části [Test webového rozhraní API](#test-the-web-api) . Všimněte si rozdílu v názvech vlastností JSON.
+
+## <a name="next-steps"></a>Další kroky
+
+Další informace o vytváření webových rozhraní API ASP.NET Core naleznete na následujících odkazech:
+
+* [YouTube verze tohoto článku](https://www.youtube.com/watch?v=7uJt_sOenyo&feature=youtu.be)
+* [Vytváření webových rozhraní API pomocí ASP.NET Core](https://docs.microsoft.com/aspnet/core/web-api/index?view=aspnetcore-3.0)

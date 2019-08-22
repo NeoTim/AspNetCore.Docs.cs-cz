@@ -1,146 +1,141 @@
 ---
-title: Middleware v ASP.NET Core přepisování adres URL
+title: Middleware pro přepis adres URL v ASP.NET Core
 author: guardrex
-description: Další informace o adrese URL přepsání a přesměrování s Middleware pro přepis adres URL v aplikacích ASP.NET Core.
+description: Přečtěte si informace o přepsání adresy URL a přesměrování pomocí middlewaru pro přepis adres URL v aplikacích ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 08/16/2019
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: 5be53baf4b9eb8774501fbf7f781370f7f687d0c
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e284d2172af723bb80a7be9f6e6f1a87ebe5208e
+ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814943"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886497"
 ---
-# <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware v ASP.NET Core přepisování adres URL
+# <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware pro přepis adres URL v ASP.NET Core
 
-Podle [Luke Latham](https://github.com/guardrex) a [Mikael Mengistu](https://github.com/mikaelm12)
+Od [Luke Latham](https://github.com/guardrex) a [Mikael Mengistu](https://github.com/mikaelm12)
 
-::: moniker range="<= aspnetcore-1.1"
+::: moniker range=">= aspnetcore-3.0"
 
-1\.1 verzi tohoto tématu, stáhněte si [Middleware pro přepis adres URL v ASP.NET Core (verze 1.1, PDF)](https://webpifeed.blob.core.windows.net/webpifeed/Partners/URL_Rewriting_1.1.pdf).
+Tento dokument zavádí přepis adres URL s pokyny k použití middlewaru přepisu adresy URL v aplikacích ASP.NET Core.
 
-::: moniker-end
+Přepsání adresy URL je to, že se jedná o úpravu adres URL žádostí na základě jednoho nebo více předdefinovaných pravidel. Přepsání adresy URL vytvoří abstrakci mezi umístěními prostředků a jejich adresami tak, aby umístění a adresy nebyly pevně propojené. Přepsání adresy URL je v několika scénářích užitečné pro:
 
-Toto téma představuje přepisování adres URL s pokyny, jak používat Middleware pro přepis adres URL v aplikacích ASP.NET Core.
-
-Přepisování adres URL je úprava žádosti o adresy URL v závislosti na jeden nebo více předdefinovaných pravidel. Přepisování adres URL vytvoří abstrakci mezi umístění prostředků a jejich adresy tak, aby umístění a adresy nejsou připojeny úzce. Přepisování adres URL je užitečné v několika scénářích pro:
-
-* Přesuňte nebo nahradit server zdroje dočasně nebo trvale a udržovat stabilní lokátory pro tyto prostředky.
-* Rozdělte zpracování požadavků v různých aplikací nebo víc oblastech jednu aplikaci.
-* Odebrat, přidat nebo změnit uspořádání segmenty adres URL na příchozí požadavky.
-* Optimalizujte veřejné adresy URL pro hledání modulu optimalizace (SEO).
-* Povolit používání popisný veřejné adresy URL usnadnit návštěvníkům předpovědět, můžete si vyžádat prostředek vrácený obsah.
-* Přesměrujte nezabezpečené požadavky do zabezpečené koncové body.
-* Zabraňte hotlinking, kde externí web používá prostředí statické prostředku v jiné lokalitě propojením prostředku do jeho vlastní obsah.
+* Dočasné nebo trvalé přesunutí nebo nahrazení prostředků serveru a udržování stabilních lokátorů pro tyto prostředky.
+* Rozdělte zpracování požadavků napříč různými aplikacemi nebo napříč oblastmi jedné aplikace.
+* Umožňuje odebrat, přidat nebo změnit uspořádání segmentů adresy URL příchozích požadavků.
+* Optimalizujte veřejné adresy URL pro optimalizaci vyhledávače (SEO).
+* Povolí použití přívětivých veřejných adres URL, které návštěvníkům pomůžou odhadnout obsah vrácený požadavkem na prostředek.
+* Přesměrovat nezabezpečené požadavky na zabezpečené koncové body.
+* Zabránit hotlinking, kde externí lokalita používá hostovaný statický prostředek na jiné lokalitě propojením prostředku s vlastním obsahem.
 
 > [!NOTE]
-> Přepisování adres URL, může snížit výkon aplikace. Tam, kde je to možné, omezte počet a složitost pravidel.
+> Přepsání adresy URL může snížit výkon aplikace. Pokud je to možné, omezte počet a složitost pravidel.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="url-redirect-and-url-rewrite"></a>Adresa URL pro přesměrování a URL revize
+## <a name="url-redirect-and-url-rewrite"></a>Přesměrování adresy URL a přepsání adresy URL
 
-Rozdíl mezi formulace *adresy URL přesměrování* a *přepsání adresy URL* je jednoduchý, ale má vliv na důležité pro poskytování prostředků pro klienty. Middleware pro přepis adres URL ASP.NET Core je schopen splnit potřebu obojí.
+Rozdíl mezi přesměrováním *URL* a přepsáním *adresy URL* je malý, ale má důležitý dopad na poskytování prostředků klientům. Rozhraní middleware pro přepis adres URL ASP.NET Core je schopné splnit nutnost obou.
 
-A *adresy URL přesměrování* zahrnuje operace na straně klienta, kde klientovi je odeslán pokyn k přístupu k prostředku na jinou adresu než klient původně požadována. To vyžaduje odezvy serveru. Adresa URL přesměrování, který je vrácen do klienta se zobrazí v adresním řádku prohlížeče, pokud klient odešle novou žádost o prostředku.
+*Přesměrování adresy URL* zahrnuje i operaci na straně klienta, kde klient má pokyn k přístupu k prostředku na jiné adrese, než jakou požadoval klient původně. To vyžaduje zpáteční cestu k serveru. Adresa URL pro přesměrování vracená klientovi se zobrazí v adresním řádku prohlížeče, když klient vytvoří nový požadavek na prostředek.
 
-Pokud `/resource` je *přesměrováno* k `/different-resource`, tento server odpoví, že klient by měl získat prostředek na `/different-resource` s kód stavu označující, že přesměrování je dočasný nebo trvalý.
+Pokud `/resource` je *přesměrován* na `/different-resource`, server odpoví, že by měl klient získat prostředek na `/different-resource` stavovém kódu, což značí, že přesměrování je buď dočasné, nebo trvalé.
 
-![Koncový bod služby WebAPI dočasně změnila z verze 1 (v1) verze 2 (v2) na serveru. Klient odešle požadavek na službu na cestu /v1/api verze 1. Server odesílá zpět 302 odpověď (Found) se nové, dočasné cesty pro službu v /v2/api verze 2. Klient provádí druhou žádost ve službě na adrese URL přesměrování. Server jako odpověď vrátí stavový kód 200 (OK).](url-rewriting/_static/url_redirect.png)
+![Koncový bod služby WebAPI se dočasně změnil z verze 1 (V1) na verzi 2 (v2) na serveru. Klient odešle požadavek na službu ve verzi 1 cesty/v1/API. Server pošle odpověď 302 (nalezeno) nové dočasné cestě ke službě ve verzi 2/v2/API. Klient vytvoří druhý požadavek na službu na adrese URL pro přesměrování. Server odpoví stavovým kódem 200 (OK).](url-rewriting/_static/url_redirect.png)
 
-Při přesměrování požadavků na jinou adresu URL, označuje, zda přesměrování trvalé nebo dočasné zadáním stavový kód s odpovědí:
+Při přesměrování požadavků na jinou adresu URL určete, zda je přesměrování trvalé nebo dočasné, zadáním stavového kódu s odpovědí:
 
-* *301 - trvale přesunuto* stavový kód se používá ve kterém prostředek má novou, trvalé adresy URL a chcete, aby dáte pokyn, aby klient, všechny budoucí žádosti o prostředku by měl použít novou adresu URL. *Klient může ukládat do mezipaměti a opakovaně používat odpovědi, když je obdržena 301 stavový kód.*
+* V případě, že má prostředek novou, trvalou adresu URL a chcete dát klientovi pokyn, aby všechny budoucí požadavky na prostředek používaly novou adresu URL, se použije kód *trvale přesunutý stav 301* . *Klient může ukládat odpověď do mezipaměti a znovu ji použít, když se přijme stavový kód 301.*
 
-* *302 - nalezen* stavový kód se používá v případě přesměrování je dočasný nebo obecně změnit. 302 stavový kód označuje klientovi nechcete uložit adresu URL a budoucí použití.
+* V případě, že je přesměrování dočasné nebo obecně se může změnit, je použit stavový kód *302* . Stavový kód 302 indikuje klientovi, aby neukládal adresu URL a použil ho v budoucnu.
 
-Další informace o stavových kódů, najdete v části [dokumentu RFC 2616: Definice stavových kódů](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
+Další informace o stavových kódech najdete v [dokumentu RFC 2616: Definice](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)stavových kódů.
 
-A *přepsání adresy URL* je operace na straně serveru, který poskytuje prostředek z adres různých prostředků než vyžádáno klientem. Přepisování adres URL nevyžaduje odezvy serveru. Přepsaný adresa URL není vrácen do klienta a nebude zobrazovat v adresním řádku prohlížeče.
+*Přepsání adresy URL* je operace na straně serveru, která poskytuje prostředek z jiné adresy prostředku, než jakou požaduje klient. Přepsání adresy URL nevyžaduje zpáteční cestu k serveru. Přepsaná adresa URL se nevrátí klientovi a nezobrazí se v adresním řádku prohlížeče.
 
-Pokud `/resource` je *přepsán* k `/different-resource`, server *interně* načte a vrátí prostředek na `/different-resource`.
+Pokud `/resource` je přepsáno `/different-resource`na, server *interně* načte a vrátí prostředek na `/different-resource`.
 
-I když se klient může být schopný načíst prostředek na přepsaný adresu URL, není klient informován, že prostředky existují na přepsaný adrese URL, když vytvoří jeho žádost a obdrží odpověď.
+I když klient může být schopný načíst prostředek na adrese URL přepsané adresy, klient nebude informovat o tom, že prostředek existuje na přepsané adrese URL, když odešle svůj požadavek a obdrží odpověď.
 
-![Koncový bod služby WebAPI se změnil z verze 1 (v1) verze 2 (v2) na serveru. Klient odešle požadavek na službu na cestu /v1/api verze 1. Přístup k této službě na cestu /v2/api verze 2 je přepsán adresu URL požadavku. Služby jsou reaguje na klienta se stavovým kódem 200 (OK).](url-rewriting/_static/url_rewrite.png)
+![Koncový bod služby WebAPI se změnil z verze 1 (V1) na verzi 2 (v2) na serveru. Klient odešle požadavek na službu ve verzi 1 cesty/v1/API. Adresa URL požadavku se přepíše pro přístup ke službě ve verzi 2 cesty/v2/API. Služba odpoví klientovi stavovým kódem 200 (OK).](url-rewriting/_static/url_rewrite.png)
 
-## <a name="url-rewriting-sample-app"></a>Ukázková aplikace přepis adres URL
+## <a name="url-rewriting-sample-app"></a>Ukázková aplikace pro přepsání adresy URL
 
-Můžete prozkoumat funkce Middleware přepisování adres URL se [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/). Aplikace použije pro přesměrování a přepsání pravidel a zobrazuje přesměrované nebo přepsaný adresu URL pro několik scénářů.
+Pomocí [ukázkové aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)můžete prozkoumat funkce middlewaru přepsaného adresou URL. Aplikace použije pravidla přesměrování a přepisu a zobrazí přesměrovanou nebo přepsanou adresu URL pro několik scénářů.
 
-## <a name="when-to-use-url-rewriting-middleware"></a>Kdy použít Middleware pro přepis adres URL
+## <a name="when-to-use-url-rewriting-middleware"></a>Kdy použít middleware přepisu adresy URL
 
-Middleware pro přepis adres URL používejte, až budete moci pomocí následujících postupů:
+Pokud nemůžete použít následující přístupy, použijte middleware přepisující adresu URL:
 
-* [Modul přepisování adres URL se službou IIS v systému Windows Server](https://www.iis.net/downloads/microsoft/url-rewrite)
-* [Apache mod_rewrite modulu na serveru Apache](https://httpd.apache.org/docs/2.4/rewrite/)
-* [Na serveru Nginx přepisování adres URL](https://www.nginx.com/blog/creating-nginx-rewrite-rules/)
+* [Modul pro přepsání adresy URL ve službě IIS v systému Windows Server](https://www.iis.net/downloads/microsoft/url-rewrite)
+* [Modul Apache mod_rewrite na serveru Apache](https://httpd.apache.org/docs/2.4/rewrite/)
+* [Přepsání adresy URL na Nginx](https://www.nginx.com/blog/creating-nginx-rewrite-rules/)
 
-Navíc používat middleware, když je aplikace hostovaná na [serveru HTTP.sys](xref:fundamentals/servers/httpsys) (dříve se označovaly jako WebListener).
+Použijte taky middleware, pokud je aplikace hostována na [serveru http. sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
 
-Hlavní důvody pro použití serverem přepisování adres URL technologií ve službě IIS, Apache a Nginx jsou:
+Hlavními důvody pro použití technologie přepisování adres URL založené na serveru ve službě IIS, Apache a Nginx jsou:
 
-* Middleware nepodporuje úplné funkce aplikace tyto moduly.
+* Middleware nepodporuje všechny funkce těchto modulů.
 
-  Některé funkce serveru moduly nechcete pracovat s projekty ASP.NET Core, jako `IsFile` a `IsDirectory` omezení modulu IIS Rewrite. V těchto scénářích platí místo toho použijte middleware.
-* Výkon middleware pravděpodobně neodpovídá počtu moduly.
+  Některé funkce v modulech serveru nefungují s ASP.NET Core projekty, jako jsou `IsFile` omezení a `IsDirectory` modulu IIS Rewrite. V těchto scénářích místo toho použijte middleware.
+* Výkon middleware se pravděpodobně neshoduje s modulem.
 
-  Srovnávací testy je jediný způsob, jak zjistit poprvé jaký přístup nejvíce snižuje výkon, nebo pokud snížení výkonu zanedbatelné.
+  Srovnávací testy jsou jediným způsobem, jak zjistit, který přístup snižuje výkon, který je v nejvyšší nebo v případě, že je snížený výkon.
 
 ## <a name="package"></a>Balíček
 
-Aby byly middleware ve vašem projektu, přidejte odkaz na balíček pro [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) v souboru projektu, který obsahuje [Microsoft.AspNetCore.Rewrite](https://www.nuget.org/packages/Microsoft.AspNetCore.Rewrite) balíčku.
-
-Pokud nepoužíváte `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all, přidejte odkaz na projekt `Microsoft.AspNetCore.Rewrite` balíčku.
+Middleware pro přepis adres URL poskytuje balíček [Microsoft. AspNetCore. Rewrite](https://www.nuget.org/packages/Microsoft.AspNetCore.Rewrite) , který je implicitně zahrnutý v aplikacích ASP.NET Core.
 
 ## <a name="extension-and-options"></a>Rozšíření a možnosti
 
-Vytvořit přepsání adresy URL a přesměrovat pravidla tak, že vytvoříte instanci [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) třída s atributem rozšiřující metody pro každý z vašich pravidlech přepisování. Zřetězit více pravidel v pořadí, které chcete je zpracována. `RewriteOptions` Jsou předány do Middleware pro přepis adres URL, protože se přidá do kanálu požadavku s <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*>:
+Vytvořte pravidla přepsání a přesměrování adresy URL vytvořením instance třídy [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) s metodami rozšíření pro každé pravidlo přepsání. Řetězení více pravidel v pořadí, ve kterém se mají zpracovat. Rozhraní `RewriteOptions` se předává do middleware přepisování adresy URL při jeho přidání do kanálu požadavků pomocí <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*>:
 
-[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
-### <a name="redirect-non-www-to-www"></a>Přesměrovat na www webové služby.
+### <a name="redirect-non-www-to-www"></a>Přesměrovat neexistující na webovou
 
-Povolení aplikace pro přesměrování jinou hodnotu než tři možnosti`www` vyžádá, aby `www`:
+Tři možnosti umožňují, aby aplikace přesměrovala`www` požadavky bez `www`požadavků na:
 
-* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWwwPermanent*> &ndash; Požadavek na trvalé přesměrování `www` subdomény, pokud je požadavek jinou hodnotu než`www`. Přesměruje se [Status308PermanentRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status308PermanentRedirect) stavový kód.
+* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWwwPermanent*>Pokud je žádost jiná než`www`, `www` trvale přesměrujte požadavek na subdoménu. &ndash; Přesměruje stavový kód [Status308PermanentRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status308PermanentRedirect) .
 
-* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWww*> &ndash; Požadavek na přesměrování `www` subdomény, pokud je příchozí požadavek jinou hodnotu než`www`. Přesměruje se [Status307TemporaryRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect) stavový kód. Přetížení umožňuje stanovit stavový kód odpovědi. Použijte pole <xref:Microsoft.AspNetCore.Http.StatusCodes> třídu pro přiřazení kódu stavu.
+* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWww*>Přesměruje požadavek `www` do subdomény, pokud je`www`příchozí požadavek jiný než. &ndash; Přesměruje stavový kód [Status307TemporaryRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect) . Přetížení umožňuje poskytnout stavový kód pro odpověď. Použijte pole <xref:Microsoft.AspNetCore.Http.StatusCodes> třídy pro přiřazení stavového kódu.
 
-### <a name="url-redirect"></a>Adresa URL pro přesměrování
+### <a name="url-redirect"></a>Přesměrování adresy URL
 
-Použití <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirect*> pro přesměrování požadavků. První parametr obsahuje vaše regulárního výrazu pro porovnávání v cestě adresy URL příchozích. Druhý parametr je řetězci pro nahrazení. Třetí parametr, pokud jsou k dispozici, určuje kód stavu. Pokud nezadáte kód stavu, stavový kód výchozí *302 - nalezen*, což znamená, že prostředek je dočasně nepřesunul ani nahradit.
+Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirect*> k přesměrování požadavků. První parametr obsahuje váš regulární výraz pro porovnání s cestou příchozí adresy URL. Druhým parametrem je náhradní řetězec. Třetí parametr, pokud je k dispozici, určuje stavový kód. Pokud nezadáte stavový kód, stavový kód se standardně *302 – Nalezeno*, což znamená, že prostředek je dočasně přesunut nebo nahrazen.
 
-[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=9)]
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=9)]
 
-V prohlížeči pomocí nástrojů pro vývojáře, vytvořte žádost na ukázkovou aplikaci s cestou `/redirect-rule/1234/5678`. Odpovídá regulárnímu cestu požadavku na `redirect-rule/(.*)`, a cesta se nahradí `/redirected/1234/5678`. Přesměrování URL budou odeslána zpět do klienta se *302 - nalezen* stavový kód. Prohlížeč odešle nový požadavek na adrese URL přesměrování, které se zobrazí v adresním řádku prohlížeče. Protože žádná pravidla v aplikaci vzorek se vyhledala shoda podle adresy URL pro přesměrování:
+V prohlížeči s povolenými vývojářskými nástroji vytvořte žádost o ukázkovou aplikaci s cestou `/redirect-rule/1234/5678`. Regulární výraz odpovídá cestě požadavku na `redirect-rule/(.*)`a cesta je nahrazena řetězcem. `/redirected/1234/5678` Adresa URL pro přesměrování se pošle zpátky do klienta s kódem stavu 302, který se *našel* . Prohlížeč vytvoří novou žádost na adrese URL pro přesměrování, která se zobrazí v adresním řádku prohlížeče. Vzhledem k tomu, že se žádná pravidla v ukázkové aplikaci neshodují s adresou URL pro přesměrování:
 
-* Druhý požadavek přijme *200 – OK* odezvu aplikace.
-* Text odpovědi zobrazí adresu URL přesměrování.
+* Druhá žádost obdrží odpověď *200-OK* od aplikace.
+* Tělo odpovědi zobrazuje adresu URL pro přesměrování.
 
-A odezvy se provádí na server, když je adresa URL *přesměrováno*.
+Při *přesměrování*adresy URL se na Server provede cyklická výměna.
 
 > [!WARNING]
-> Buďte opatrní při vytváření pravidla pro přesměrování. U každého požadavku do aplikace, včetně po přesměrování se vyhodnocují pravidla pro přesměrování. Je snadné vytvořit náhodou *smyčky nekonečné přesměrování*.
+> Buďte opatrní při vytváření pravidel přesměrování. Pravidla přesměrování se vyhodnocují při každém požadavku na aplikaci, včetně po přesměrování. Je snadné vytvořit smyčku nekonečných *přesměrování*.
 
-Původní žádosti: `/redirect-rule/1234/5678`
+Původní požadavek:`/redirect-rule/1234/5678`
 
-![Okno prohlížeče s vývojářskými nástroji pro sledování požadavků a odpovědí](url-rewriting/_static/add_redirect.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect.png)
 
-Část výraz v závorkách se nazývá *skupina zachycení*. Tečka (`.`) výrazu znamená, že *odpovídá jakémukoli znaku*. Hvězdička (`*`) označuje *odpovídá předchozímu znaku nula nebo vícekrát*. Proto segmenty poslední dvě cesty adresy URL, `1234/5678`, jsou zachyceny na základě skupina zachycení `(.*)`. Libovolná hodnota je zadat v adrese URL požadavku po `redirect-rule/` zachycena této skupiny jediné zachycení.
+Část výrazu obsažená v závorkách se nazývá *Skupina zachycení*. Tečka (`.`) výrazu znamená, že *odpovídá libovolnému znaku*. Hvězdička (`*`) značí, *že se předchozí znak rovná nule nebo vícekrát*. Proto jsou poslední dva segmenty cesty adresy URL `1234/5678`zachyceny skupinou `(.*)`zachycení. Jakákoli hodnota, kterou zadáte v adrese URL `redirect-rule/` požadavku, potom, co je tato jediná skupina zachycení zachycena.
 
-V řetězci pro nahrazení zachycené skupiny jsou vloženy do řetězce bez znak dolaru (`$`) následované pořadové číslo pro zachytávání. Hodnota první skupiny zachycení se získá pomocí `$1`, druhý s `$2`, a budou pokračovat v práci v pořadí pro zachycení skupiny ve vaší regulární výraz. Je pouze jeden zachycené skupině regex pravidlo přesměrování v ukázkovou aplikaci, takže pouze jednu skupinu vložený v řetězci pro nahrazení, který je `$1`. Když se pravidlo použije, adresa URL stane `/redirected/1234/5678`.
+V řetězci pro nahrazení jsou zachycené skupiny vloženy do řetězce s znakem dolaru (`$`) následovaným pořadovým číslem záznamu. První hodnota skupiny zachycení je získána s `$1`, druhým s `$2`a pokračuje v pořadí pro skupiny zachycení ve vašem regulárním výrazu. Regulární výraz pravidla přesměrování v ukázkové aplikaci obsahuje jenom jednu zachycenou skupinu, takže v náhradním řetězci je jenom jedna vložená skupina, která je `$1`. Po použití pravidla se adresa URL bude `/redirected/1234/5678`nacházet.
 
-### <a name="url-redirect-to-a-secure-endpoint"></a>Adresa URL přesměrování do zabezpečeného koncového bodu
+### <a name="url-redirect-to-a-secure-endpoint"></a>Přesměrování adresy URL na zabezpečený koncový bod
 
-Použití <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttps*> pro přesměrování požadavků protokolu HTTP na stejného hostitele a cestu pomocí protokolu HTTPS. Pokud není zadán kód stavu, middleware použije se výchozí *302 - nalezen*. Pokud není zadán port:
+Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttps*> k přesměrování požadavků HTTP na stejného hostitele a cestu pomocí protokolu HTTPS. Pokud kód stavu není zadaný, použije se ve výchozím nastavení middleware *302 – Nalezeno*. Pokud port není dodán:
 
-* Výchozí hodnota middleware `null`.
-* Schéma se změní na `https` (protokol HTTPS), a klient přistupuje k prostředku na portu 443.
+* Ve výchozím nastavení `null`se používá middleware.
+* Schéma se změní na `https` (protokol HTTPS) a klient přistupuje k prostředku na portu 443.
 
-Následující příklad ukazuje, jak nastavit stavový kód na *301 - trvale přesunuto* a změňte port 5001.
+Následující příklad ukazuje, jak nastavit stavový kód na *301 – trvale přesunuto* a změnit port na 5001.
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -152,7 +147,7 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
-Použití <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttpsPermanent*> přesměrovat nezabezpečené požadavky na stejného hostitele a cestu s zabezpečený protokol HTTPS na portu 443. Middleware nastaví stavový kód na *301 - trvale přesunuto*.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttpsPermanent*> k přesměrování nezabezpečených požadavků na stejného hostitele a cestu s protokolem Secure https na portu 443. Middleware nastaví stavový kód na *301 – trvale přesunuto*.
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -165,31 +160,31 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> Při přesměrování do zabezpečeného koncového bodu bez nutnosti další přesměrování pravidla, doporučujeme používat Middleware přesměrování protokolu HTTPS. Další informace najdete v tématu [vynucení HTTPS](xref:security/enforcing-ssl#require-https) tématu.
+> Při přesměrování na zabezpečený koncový bod bez požadavku na další pravidla přesměrování doporučujeme použít middleware pro přesměrování protokolu HTTPS. Další informace najdete v tématu věnovaném vykonání [protokolu HTTPS](xref:security/enforcing-ssl#require-https) .
 
-Ukázková aplikace je schopná představením toho, jak používat `AddRedirectToHttps` nebo `AddRedirectToHttpsPermanent`. Přidat metodu rozšíření k `RewriteOptions`. Ujistěte se, nezabezpečený požadavek na aplikaci na libovolnou adresu URL. Zavřít upozornění, že nedůvěryhodný certifikát podepsaný svým držitelem zabezpečení v prohlížeči nebo vytvořte výjimku důvěřovat certifikátům.
+Ukázková aplikace dokáže demonstrovat, jak používat `AddRedirectToHttps` nebo. `AddRedirectToHttpsPermanent` Přidejte metodu rozšíření do `RewriteOptions`. Vytvořte nezabezpečenou žádost o aplikaci na libovolné adrese URL. Zrušte upozornění zabezpečení prohlížeče, že certifikát podepsaný svým držitelem je nedůvěryhodný, nebo vytvořte výjimku pro důvěřování certifikátu.
 
-Původní žádost o prostřednictvím `AddRedirectToHttps(301, 5001)`: `http://localhost:5000/secure`
+Původní požadavek s `AddRedirectToHttps(301, 5001)`použitím:`http://localhost:5000/secure`
 
-![Okno prohlížeče s vývojářskými nástroji pro sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https.png)
 
-Původní žádost o prostřednictvím `AddRedirectToHttpsPermanent`: `http://localhost:5000/secure`
+Původní požadavek s `AddRedirectToHttpsPermanent`použitím:`http://localhost:5000/secure`
 
-![Okno prohlížeče s vývojářskými nástroji pro sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https_permanent.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https_permanent.png)
 
 ### <a name="url-rewrite"></a>Přepsání adresy URL
 
-Použití <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*> k vytvoření pravidla pro přepis adres URL. První parametr obsahuje regulárního výrazu pro porovnávání na příchozí cestě adresy URL. Druhý parametr je řetězci pro nahrazení. Třetí parametr `skipRemainingRules: {true|false}`, pozná middleware, jestli se mají přeskočit další přepsání pravidla, pokud aktuální pravidlo použije.
+Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*> k vytvoření pravidla pro přepis adres URL. První parametr obsahuje regulární výraz pro porovnání na cestě příchozích adres URL. Druhým parametrem je náhradní řetězec. Třetí parametr, `skipRemainingRules: {true|false}`označuje middleware bez ohledu na to, zda má přeskočit další pravidla přepsání, pokud je použito aktuální pravidlo.
 
-[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=10-11)]
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=10-11)]
 
-Původní žádosti: `/rewrite-rule/1234/5678`
+Původní požadavek:`/rewrite-rule/1234/5678`
 
-![Okno prohlížeče s vývojářskými nástroji pro sledování požadavků a odpovědí](url-rewriting/_static/add_rewrite.png)
+![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_rewrite.png)
 
-Stříšky (`^`) na začátku výrazu znamená že odpovídající začne na začátku cesty URL.
+Kosočtverce (`^`) na začátku výrazu znamená, že shoda začíná na začátku cesty URL.
 
-V předchozím příkladu se pravidlo přesměrování `redirect-rule/(.*)`, neexistuje žádný stříšky (`^`) na začátku regulární výraz. Proto může předcházet žádné znaky `redirect-rule/` v cestě k porovnání.
+V předchozím příkladu s pravidlem `redirect-rule/(.*)`přesměrování není na začátku regulárního výrazu k dispozici žádná kosočtverce (`^`). Proto jakékoli znaky mohou předcházet `redirect-rule/` v cestě k úspěšné shodě.
 
 | Cesta                               | Shoda |
 | ---------------------------------- | :---: |
@@ -197,7 +192,7 @@ V předchozím příkladu se pravidlo přesměrování `redirect-rule/(.*)`, nee
 | `/my-cool-redirect-rule/1234/5678` | Ano   |
 | `/anotherredirect-rule/1234/5678`  | Ano   |
 
-Pravidlo pro přepis adres `^rewrite-rule/(\d+)/(\d+)`, pouze odpovídá cesty, pokud jsou při spuštění systému `rewrite-rule/`. V následující tabulce Všimněte si rozdílů v porovnávání.
+Pravidlo `^rewrite-rule/(\d+)/(\d+)`přepsaného zápisu odpovídá pouze cestám, pokud `rewrite-rule/`začínají na. V následující tabulce si všimněte rozdílu v porovnání.
 
 | Cesta                              | Shoda |
 | --------------------------------- | :---: |
@@ -205,33 +200,33 @@ Pravidlo pro přepis adres `^rewrite-rule/(\d+)/(\d+)`, pouze odpovídá cesty, 
 | `/my-cool-rewrite-rule/1234/5678` | Ne    |
 | `/anotherrewrite-rule/1234/5678`  | Ne    |
 
-Následující `^rewrite-rule/` část výrazu, jsou dvě skupiny zachycení `(\d+)/(\d+)`. `\d` Označuje, že *odpovídá číslici (číslo)* . Znaménko plus (`+`) znamená, že *odpovídat nejméně jeden z předchozí znak*. Proto se adresa URL musí obsahovat číslo za nímž následuje lomítko následované jiné číslo. Tyto zachytávání skupiny jsou vloženy do přepsaný adresy URL jako `$1` a `$2`. Přepište řetězci pro nahrazení pravidlo umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta `/rewrite-rule/1234/5678` je přepsán získat prostředek na `/rewritten?var1=1234&var2=5678`. Pokud řetězec dotazu je k dispozici na původní požadavek, to se zachová, i když je přepsán adresu URL.
+Po části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)`. `^rewrite-rule/` Značí shodu *s číslicí (číslem).* `\d` Znaménko plus (`+`) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2`. Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta `/rewrite-rule/1234/5678` k je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678`. Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 
-Neexistuje žádné odezvy na server se získat prostředek. Pokud existuje prostředek se načíst a vrácen do klienta se *200 – OK* stavový kód. Protože klient není přesměrován, adresu URL v adresním řádku prohlížeče se nezmění. Klienty nelze rozpoznat, že na serveru došlo k operaci přepisování adres URL.
+K získání prostředku neexistuje žádná Přenosová cesta k serveru. Pokud prostředek existuje, načte se a vrátí do klienta s kódem stavu *200-OK* . Vzhledem k tomu, že klient není přesměrován, adresa URL v adresním řádku prohlížeče se nezmění. Klienti nerozpoznají, že na serveru došlo k operaci přepsání adresy URL.
 
 > [!NOTE]
-> Použití `skipRemainingRules: true` vždy, když možné protože pravidel je výpočetně náročná a zvyšuje doba odezvy aplikace. Nejrychlejší odezvu aplikace:
+> `skipRemainingRules: true` Kdykoli je to možné, protože vyhovující pravidla jsou výpočetně náročná a zvyšují dobu odezvy aplikace. Pro nejrychlejší aplikační odpověď:
 >
-> * Pravidla z nejčastěji odpovídající pravidlo pro nejméně často odpovídající pravidlo pro přepis adres pořadí.
-> * Zpracování zbývající pravidla přeskočte, pokud je nalezena shoda, a je potřeba žádná další pravidla zpracování.
+> * Seřazení pravidel přepisu z nejčastěji spárovaného pravidla na nejméně často spárované pravidlo.
+> * Pokud dojde ke shodě a není vyžadováno žádné další zpracování pravidla, přeskočte zpracování zbývajících pravidel.
 
-### <a name="apache-modrewrite"></a>Apache mod_rewrite
+### <a name="apache-mod_rewrite"></a>Apache mod_rewrite
 
-Použití Apache mod_rewrite pravidel s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*>. Ujistěte se, že soubor pravidel je nasazen s aplikací. Další informace a příklady pravidel mod_rewrite najdete v tématu [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
+Použijte pravidla Apache mod_rewrite s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*>nástrojem. Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Další informace a příklady pravidel mod_rewrite najdete v článku [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
 
-A <xref:System.IO.StreamReader> slouží k načtení pravidla z *ApacheModRewrite.txt* souboru pravidel:
+Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite. txt:* <xref:System.IO.StreamReader>
 
-[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
 
-Ukázková aplikace přesměruje požadavky z `/apache-mod-rules-redirect/(.\*)` k `/redirected?id=$1`. Stavový kód odpovědi je *302 - nalezen*.
+Ukázková aplikace přesměrovává požadavky od `/apache-mod-rules-redirect/(.\*)` do. `/redirected?id=$1` Stavový kód odpovědi je *302 – Nalezeno*.
 
-[!code[](url-rewriting/samples/2.x/SampleApp/ApacheModRewrite.txt)]
+[!code[](url-rewriting/samples/3.x/SampleApp/ApacheModRewrite.txt)]
 
-Původní žádosti: `/apache-mod-rules-redirect/1234`
+Původní požadavek:`/apache-mod-rules-redirect/1234`
 
-![Okno prohlížeče s vývojářskými nástroji pro sledování požadavků a odpovědí](url-rewriting/_static/add_apache_mod_redirect.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_apache_mod_redirect.png)
 
-Middleware podporuje následující proměnné na serveru Apache mod_rewrite:
+Middleware podporuje následující proměnné serveru Apache mod_rewrite:
 
 * CONN_REMOTE_ADDR
 * HTTP_ACCEPT
@@ -261,38 +256,38 @@ Middleware podporuje následující proměnné na serveru Apache mod_rewrite:
 * TIME_MON
 * TIME_SEC
 * TIME_WDAY
-* MODULU KPI
+* TIME_YEAR
 
-### <a name="iis-url-rewrite-module-rules"></a>Modul přepisování adres URL služby IIS pravidla
+### <a name="iis-url-rewrite-module-rules"></a>Pravidla pro přepsání adresy URL služby IIS
 
-Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul přepisování adres URL služby IIS, použijte <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*>. Ujistěte se, že soubor pravidel je nasazen s aplikací. Není přímá middlewaru, který má být použit aplikace *web.config* souboru při spuštění ve Windows serveru služby IIS. Se službou IIS, tato pravidla by měly být uloženy mimo aplikaci prvku *web.config* souboru, aby nedocházelo ke konfliktům s modulem IIS Rewrite. Další informace a příklady pravidel modul přepisování adres URL služby IIS najdete v tématu [pomocí přepisování adres Url modul 2.0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [URL přepsání konfigurace odkazu na modul](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference).
+Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*>použijte. Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití souboru *Web. config* aplikace při spuštění v systému Windows Server IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *Web. config* aplikace, aby nedocházelo ke konfliktům s modulem pro přepis služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
 
-A <xref:System.IO.StreamReader> slouží k načtení pravidla z *IISUrlRewrite.xml* souboru pravidel:
+Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite. XML:* <xref:System.IO.StreamReader>
 
-[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
 
-Ukázková aplikace přepíše žádosti od `/iis-rules-rewrite/(.*)` k `/rewritten?id=$1`. Odpověď je odeslána na klienta se *200 – OK* stavový kód.
+Ukázková aplikace přepíše požadavky od `/iis-rules-rewrite/(.*)` do. `/rewritten?id=$1` Odpověď se pošle klientovi s kódem stavu *200-OK* .
 
-[!code-xml[](url-rewriting/samples/2.x/SampleApp/IISUrlRewrite.xml)]
+[!code-xml[](url-rewriting/samples/3.x/SampleApp/IISUrlRewrite.xml)]
 
-Původní žádosti: `/iis-rules-rewrite/1234`
+Původní požadavek:`/iis-rules-rewrite/1234`
 
-![Okno prohlížeče s vývojářskými nástroji pro sledování požadavků a odpovědí](url-rewriting/_static/add_iis_url_rewrite.png)
+![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_iis_url_rewrite.png)
 
-Pokud máte aktivní revize modul IIS s nakonfigurovaná pravidla úrovni serveru, které by ovlivnily aplikace nežádoucí způsoby, můžete zakázat modul IIS revize pro danou aplikaci. Další informace najdete v tématu [moduly IIS zakázání](xref:host-and-deploy/iis/modules#disabling-iis-modules).
+Pokud máte aktivní modul pro přepis služby IIS s nakonfigurovanými pravidly na úrovni serveru, který by ovlivnil vaši aplikaci nežádoucím způsobem, můžete pro aplikaci zakázat modul IIS Rewrite. Další informace najdete v tématu [zakázání modulů IIS](xref:host-and-deploy/iis/modules#disabling-iis-modules).
 
 #### <a name="unsupported-features"></a>Nepodporované funkce
 
-Middleware vydané s ASP.NET Core 2.x nepodporuje následující funkce modul přepisování adres URL služby IIS:
+Middleware vydaná ASP.NET Core 2. x nepodporuje následující funkce modulu pro přepis adres URL služby IIS:
 
 * Odchozí pravidla
-* Vlastní serverové proměnné
+* Vlastní proměnné serveru
 * Zástupné znaky
 * LogRewrittenUrl
 
-#### <a name="supported-server-variables"></a>Podporované serverové proměnné
+#### <a name="supported-server-variables"></a>Podporované proměnné serveru
 
-Middleware podporuje následující proměnné serveru modul přepisování adres URL služby IIS:
+Middleware podporuje následující proměnné serveru pro přepis adres URL služby IIS:
 
 * CONTENT_LENGTH
 * CONTENT_TYPE
@@ -312,31 +307,385 @@ Middleware podporuje následující proměnné serveru modul přepisování adre
 * REQUEST_URI
 
 > [!NOTE]
-> Můžete také získat <xref:Microsoft.Extensions.FileProviders.IFileProvider> prostřednictvím <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>. Tento přístup může poskytnout větší flexibilitu pro umístění vaší revize souborů pravidel. Ujistěte se, že soubory přepsání pravidel jsou nasazeny na server v cestě, které zadáte.
+> Můžete také získat <xref:Microsoft.Extensions.FileProviders.IFileProvider> <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>prostřednictvím. Tento přístup může poskytovat větší flexibilitu pro umístění souborů pravidel přepisu. Ujistěte se, že jsou v cestě, kterou zadáte, nasazené soubory pravidel přepisu na server.
 >
 > ```csharp
 > PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
 > ```
 
-### <a name="method-based-rule"></a>Pravidlo na základě – metoda
+### <a name="method-based-rule"></a>Pravidlo založené na metodách
 
-Použití <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> implementovat vlastní logiku pravidla v metodě. `Add` Zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext>, který je k dispozici <xref:Microsoft.AspNetCore.Http.HttpContext> pro použití v metodě. [RewriteContext.Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) Určuje, jak další kanálu probíhá zpracování. Nastavte hodnotu na jednu z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> , který zpřístupňuje metodu pro použití v metodě. <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
 
 | `RewriteContext.Result`              | Akce                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
-| `RuleResult.ContinueRules` (výchozí) | Pokračujte v použití pravidel.                                         |
-| `RuleResult.EndResponse`             | Zastavit použití pravidel a odeslání odpovědi.                       |
-| `RuleResult.SkipRemainingRules`      | Zastavit použití pravidel a odeslat kontextu do dalšího middlewaru. |
+| `RuleResult.ContinueRules`výchozí | Pokračovat v používání pravidel.                                         |
+| `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       |
+| `RuleResult.SkipRemainingRules`      | Zastavení použití pravidel a odeslání kontextu do dalšího middlewaru. |
+
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=14)]
+
+Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml`, je požadavek přesměrován na. `/xmlfiles/file.xml` Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/File.XML*, soubor middleware statických souborů zachová soubor klientovi ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
+
+*RewriteRules.cs*:
+
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/RewriteRules.cs?name=snippet_RedirectXmlFileRequests&highlight=14-18)]
+
+Tento přístup může také přezapisovat požadavky. Ukázková aplikace ukazuje přepis cesty k libovolné žádosti o textový soubor, aby sloužil textový soubor *. txt* ze složky *wwwroot* . Middleware statických souborů zachovává soubor na základě aktualizované cesty požadavku:
+
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=15,22)]
+
+*RewriteRules.cs*:
+
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/RewriteRules.cs?name=snippet_RewriteTextFileRequests&highlight=7-8)]
+
+### <a name="irule-based-rule"></a>Pravidlo založené na IRule
+
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k použití logiky pravidla ve třídě, která <xref:Microsoft.AspNetCore.Rewrite.IRule> implementuje rozhraní. `IRule`poskytuje větší flexibilitu při použití pravidla založeného na metodách. Vaše třída implementace může obsahovat konstruktor, který umožňuje předat parametry pro <xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> metodu.
+
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
+
+Hodnoty parametrů v ukázkové aplikaci pro `extension` `newPath` a jsou zkontrolovány, aby splňovaly několik podmínek. Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif.* `extension` Pokud není platná <xref:System.ArgumentException> , je vyvolána výjimka. `newPath` Pokud je pro *image. png*vytvořen požadavek, je požadavek přesměrován na `/png-images/image.png`. Pokud je pro *image. jpg*vytvořen požadavek, je požadavek přesměrován na `/jpg-images/image.jpg`. Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
+
+[!code-csharp[](url-rewriting/samples/3.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
+
+Původní požadavek:`/image.png`
+
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image. png](url-rewriting/_static/add_redirect_png_requests.png)
+
+Původní požadavek:`/image.jpg`
+
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image. jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
+
+## <a name="regex-examples"></a>Příklady Regex
+
+| Cíl | & Řetězce regulárního výrazu<br>Příklad shody | & Řetězce nahrazení<br>Příklad výstupu |
+| ---- | ------------------------------- | -------------------------------------- |
+| Přepište cestu do řetězce dotazu. | `^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123` |
+| Koncové lomítko pruhu | `(.*)/$`<br>`/path/` | `$1`<br>`/path` |
+| Vymáhat koncové lomítko | `(.*[^/])$`<br>`/path` | `$1/`<br>`/path/` |
+| Vyhnout se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$` Nebo `^(?!.*\.axd$)(.*)$`<br>Ano:`/resource.htm`<br>Ne:`/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
+| Změna uspořádání segmentů adresy URL | `path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1` |
+| Nahradit segment adresy URL | `^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Tento dokument zavádí přepis adres URL s pokyny k použití middlewaru přepisu adresy URL v aplikacích ASP.NET Core.
+
+Přepsání adresy URL je to, že se jedná o úpravu adres URL žádostí na základě jednoho nebo více předdefinovaných pravidel. Přepsání adresy URL vytvoří abstrakci mezi umístěními prostředků a jejich adresami tak, aby umístění a adresy nebyly pevně propojené. Přepsání adresy URL je v několika scénářích užitečné pro:
+
+* Dočasné nebo trvalé přesunutí nebo nahrazení prostředků serveru a udržování stabilních lokátorů pro tyto prostředky.
+* Rozdělte zpracování požadavků napříč různými aplikacemi nebo napříč oblastmi jedné aplikace.
+* Umožňuje odebrat, přidat nebo změnit uspořádání segmentů adresy URL příchozích požadavků.
+* Optimalizujte veřejné adresy URL pro optimalizaci vyhledávače (SEO).
+* Povolí použití přívětivých veřejných adres URL, které návštěvníkům pomůžou odhadnout obsah vrácený požadavkem na prostředek.
+* Přesměrovat nezabezpečené požadavky na zabezpečené koncové body.
+* Zabránit hotlinking, kde externí lokalita používá hostovaný statický prostředek na jiné lokalitě propojením prostředku s vlastním obsahem.
+
+> [!NOTE]
+> Přepsání adresy URL může snížit výkon aplikace. Pokud je to možné, omezte počet a složitost pravidel.
+
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/) ([stažení](xref:index#how-to-download-a-sample))
+
+## <a name="url-redirect-and-url-rewrite"></a>Přesměrování adresy URL a přepsání adresy URL
+
+Rozdíl mezi přesměrováním *URL* a přepsáním *adresy URL* je malý, ale má důležitý dopad na poskytování prostředků klientům. Rozhraní middleware pro přepis adres URL ASP.NET Core je schopné splnit nutnost obou.
+
+*Přesměrování adresy URL* zahrnuje i operaci na straně klienta, kde klient má pokyn k přístupu k prostředku na jiné adrese, než jakou požadoval klient původně. To vyžaduje zpáteční cestu k serveru. Adresa URL pro přesměrování vracená klientovi se zobrazí v adresním řádku prohlížeče, když klient vytvoří nový požadavek na prostředek.
+
+Pokud `/resource` je *přesměrován* na `/different-resource`, server odpoví, že by měl klient získat prostředek na `/different-resource` stavovém kódu, což značí, že přesměrování je buď dočasné, nebo trvalé.
+
+![Koncový bod služby WebAPI se dočasně změnil z verze 1 (V1) na verzi 2 (v2) na serveru. Klient odešle požadavek na službu ve verzi 1 cesty/v1/API. Server pošle odpověď 302 (nalezeno) nové dočasné cestě ke službě ve verzi 2/v2/API. Klient vytvoří druhý požadavek na službu na adrese URL pro přesměrování. Server odpoví stavovým kódem 200 (OK).](url-rewriting/_static/url_redirect.png)
+
+Při přesměrování požadavků na jinou adresu URL určete, zda je přesměrování trvalé nebo dočasné, zadáním stavového kódu s odpovědí:
+
+* V případě, že má prostředek novou, trvalou adresu URL a chcete dát klientovi pokyn, aby všechny budoucí požadavky na prostředek používaly novou adresu URL, se použije kód *trvale přesunutý stav 301* . *Klient může ukládat odpověď do mezipaměti a znovu ji použít, když se přijme stavový kód 301.*
+
+* V případě, že je přesměrování dočasné nebo obecně se může změnit, je použit stavový kód *302* . Stavový kód 302 indikuje klientovi, aby neukládal adresu URL a použil ho v budoucnu.
+
+Další informace o stavových kódech najdete v [dokumentu RFC 2616: Definice](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)stavových kódů.
+
+*Přepsání adresy URL* je operace na straně serveru, která poskytuje prostředek z jiné adresy prostředku, než jakou požaduje klient. Přepsání adresy URL nevyžaduje zpáteční cestu k serveru. Přepsaná adresa URL se nevrátí klientovi a nezobrazí se v adresním řádku prohlížeče.
+
+Pokud `/resource` je přepsáno `/different-resource`na, server *interně* načte a vrátí prostředek na `/different-resource`.
+
+I když klient může být schopný načíst prostředek na adrese URL přepsané adresy, klient nebude informovat o tom, že prostředek existuje na přepsané adrese URL, když odešle svůj požadavek a obdrží odpověď.
+
+![Koncový bod služby WebAPI se změnil z verze 1 (V1) na verzi 2 (v2) na serveru. Klient odešle požadavek na službu ve verzi 1 cesty/v1/API. Adresa URL požadavku se přepíše pro přístup ke službě ve verzi 2 cesty/v2/API. Služba odpoví klientovi stavovým kódem 200 (OK).](url-rewriting/_static/url_rewrite.png)
+
+## <a name="url-rewriting-sample-app"></a>Ukázková aplikace pro přepsání adresy URL
+
+Pomocí [ukázkové aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/url-rewriting/samples/)můžete prozkoumat funkce middlewaru přepsaného adresou URL. Aplikace použije pravidla přesměrování a přepisu a zobrazí přesměrovanou nebo přepsanou adresu URL pro několik scénářů.
+
+## <a name="when-to-use-url-rewriting-middleware"></a>Kdy použít middleware přepisu adresy URL
+
+Pokud nemůžete použít následující přístupy, použijte middleware přepisující adresu URL:
+
+* [Modul pro přepsání adresy URL ve službě IIS v systému Windows Server](https://www.iis.net/downloads/microsoft/url-rewrite)
+* [Modul Apache mod_rewrite na serveru Apache](https://httpd.apache.org/docs/2.4/rewrite/)
+* [Přepsání adresy URL na Nginx](https://www.nginx.com/blog/creating-nginx-rewrite-rules/)
+
+Použijte taky middleware, pokud je aplikace hostována na [serveru http. sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
+
+Hlavními důvody pro použití technologie přepisování adres URL založené na serveru ve službě IIS, Apache a Nginx jsou:
+
+* Middleware nepodporuje všechny funkce těchto modulů.
+
+  Některé funkce v modulech serveru nefungují s ASP.NET Core projekty, jako jsou `IsFile` omezení a `IsDirectory` modulu IIS Rewrite. V těchto scénářích místo toho použijte middleware.
+* Výkon middleware se pravděpodobně neshoduje s modulem.
+
+  Srovnávací testy jsou jediným způsobem, jak zjistit, který přístup snižuje výkon, který je v nejvyšší nebo v případě, že je snížený výkon.
+
+## <a name="package"></a>Balíček
+
+Chcete-li do projektu zahrnout middleware, přidejte odkaz na balíček do souboru [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) v souboru projektu, který obsahuje balíček [Microsoft. AspNetCore. Rewrite](https://www.nuget.org/packages/Microsoft.AspNetCore.Rewrite) .
+
+Pokud nepoužíváte `Microsoft.AspNetCore.App` Metapackage, přidejte `Microsoft.AspNetCore.Rewrite` do balíčku odkaz na projekt.
+
+## <a name="extension-and-options"></a>Rozšíření a možnosti
+
+Vytvořte pravidla přepsání a přesměrování adresy URL vytvořením instance třídy [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) s metodami rozšíření pro každé pravidlo přepsání. Řetězení více pravidel v pořadí, ve kterém se mají zpracovat. Rozhraní `RewriteOptions` se předává do middleware přepisování adresy URL při jeho přidání do kanálu požadavků pomocí <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*>:
+
+[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
+
+### <a name="redirect-non-www-to-www"></a>Přesměrovat neexistující na webovou
+
+Tři možnosti umožňují, aby aplikace přesměrovala`www` požadavky bez `www`požadavků na:
+
+* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWwwPermanent*>Pokud je žádost jiná než`www`, `www` trvale přesměrujte požadavek na subdoménu. &ndash; Přesměruje stavový kód [Status308PermanentRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status308PermanentRedirect) .
+
+* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWww*>Přesměruje požadavek `www` do subdomény, pokud je`www`příchozí požadavek jiný než. &ndash; Přesměruje stavový kód [Status307TemporaryRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect) . Přetížení umožňuje poskytnout stavový kód pro odpověď. Použijte pole <xref:Microsoft.AspNetCore.Http.StatusCodes> třídy pro přiřazení stavového kódu.
+
+### <a name="url-redirect"></a>Přesměrování adresy URL
+
+Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirect*> k přesměrování požadavků. První parametr obsahuje váš regulární výraz pro porovnání s cestou příchozí adresy URL. Druhým parametrem je náhradní řetězec. Třetí parametr, pokud je k dispozici, určuje stavový kód. Pokud nezadáte stavový kód, stavový kód se standardně *302 – Nalezeno*, což znamená, že prostředek je dočasně přesunut nebo nahrazen.
+
+[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=9)]
+
+V prohlížeči s povolenými vývojářskými nástroji vytvořte žádost o ukázkovou aplikaci s cestou `/redirect-rule/1234/5678`. Regulární výraz odpovídá cestě požadavku na `redirect-rule/(.*)`a cesta je nahrazena řetězcem. `/redirected/1234/5678` Adresa URL pro přesměrování se pošle zpátky do klienta s kódem stavu 302, který se *našel* . Prohlížeč vytvoří novou žádost na adrese URL pro přesměrování, která se zobrazí v adresním řádku prohlížeče. Vzhledem k tomu, že se žádná pravidla v ukázkové aplikaci neshodují s adresou URL pro přesměrování:
+
+* Druhá žádost obdrží odpověď *200-OK* od aplikace.
+* Tělo odpovědi zobrazuje adresu URL pro přesměrování.
+
+Při *přesměrování*adresy URL se na Server provede cyklická výměna.
+
+> [!WARNING]
+> Buďte opatrní při vytváření pravidel přesměrování. Pravidla přesměrování se vyhodnocují při každém požadavku na aplikaci, včetně po přesměrování. Je snadné vytvořit smyčku nekonečných *přesměrování*.
+
+Původní požadavek:`/redirect-rule/1234/5678`
+
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect.png)
+
+Část výrazu obsažená v závorkách se nazývá *Skupina zachycení*. Tečka (`.`) výrazu znamená, že *odpovídá libovolnému znaku*. Hvězdička (`*`) značí, *že se předchozí znak rovná nule nebo vícekrát*. Proto jsou poslední dva segmenty cesty adresy URL `1234/5678`zachyceny skupinou `(.*)`zachycení. Jakákoli hodnota, kterou zadáte v adrese URL `redirect-rule/` požadavku, potom, co je tato jediná skupina zachycení zachycena.
+
+V řetězci pro nahrazení jsou zachycené skupiny vloženy do řetězce s znakem dolaru (`$`) následovaným pořadovým číslem záznamu. První hodnota skupiny zachycení je získána s `$1`, druhým s `$2`a pokračuje v pořadí pro skupiny zachycení ve vašem regulárním výrazu. Regulární výraz pravidla přesměrování v ukázkové aplikaci obsahuje jenom jednu zachycenou skupinu, takže v náhradním řetězci je jenom jedna vložená skupina, která je `$1`. Po použití pravidla se adresa URL bude `/redirected/1234/5678`nacházet.
+
+### <a name="url-redirect-to-a-secure-endpoint"></a>Přesměrování adresy URL na zabezpečený koncový bod
+
+Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttps*> k přesměrování požadavků HTTP na stejného hostitele a cestu pomocí protokolu HTTPS. Pokud kód stavu není zadaný, použije se ve výchozím nastavení middleware *302 – Nalezeno*. Pokud port není dodán:
+
+* Ve výchozím nastavení `null`se používá middleware.
+* Schéma se změní na `https` (protokol HTTPS) a klient přistupuje k prostředku na portu 443.
+
+Následující příklad ukazuje, jak nastavit stavový kód na *301 – trvale přesunuto* a změnit port na 5001.
+
+```csharp
+public void Configure(IApplicationBuilder app)
+{
+    var options = new RewriteOptions()
+        .AddRedirectToHttps(301, 5001);
+
+    app.UseRewriter(options);
+}
+```
+
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttpsPermanent*> k přesměrování nezabezpečených požadavků na stejného hostitele a cestu s protokolem Secure https na portu 443. Middleware nastaví stavový kód na *301 – trvale přesunuto*.
+
+```csharp
+public void Configure(IApplicationBuilder app)
+{
+    var options = new RewriteOptions()
+        .AddRedirectToHttpsPermanent();
+
+    app.UseRewriter(options);
+}
+```
+
+> [!NOTE]
+> Při přesměrování na zabezpečený koncový bod bez požadavku na další pravidla přesměrování doporučujeme použít middleware pro přesměrování protokolu HTTPS. Další informace najdete v tématu věnovaném vykonání [protokolu HTTPS](xref:security/enforcing-ssl#require-https) .
+
+Ukázková aplikace dokáže demonstrovat, jak používat `AddRedirectToHttps` nebo. `AddRedirectToHttpsPermanent` Přidejte metodu rozšíření do `RewriteOptions`. Vytvořte nezabezpečenou žádost o aplikaci na libovolné adrese URL. Zrušte upozornění zabezpečení prohlížeče, že certifikát podepsaný svým držitelem je nedůvěryhodný, nebo vytvořte výjimku pro důvěřování certifikátu.
+
+Původní požadavek s `AddRedirectToHttps(301, 5001)`použitím:`http://localhost:5000/secure`
+
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https.png)
+
+Původní požadavek s `AddRedirectToHttpsPermanent`použitím:`http://localhost:5000/secure`
+
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https_permanent.png)
+
+### <a name="url-rewrite"></a>Přepsání adresy URL
+
+Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*> k vytvoření pravidla pro přepis adres URL. První parametr obsahuje regulární výraz pro porovnání na cestě příchozích adres URL. Druhým parametrem je náhradní řetězec. Třetí parametr, `skipRemainingRules: {true|false}`označuje middleware bez ohledu na to, zda má přeskočit další pravidla přepsání, pokud je použito aktuální pravidlo.
+
+[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=10-11)]
+
+Původní požadavek:`/rewrite-rule/1234/5678`
+
+![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_rewrite.png)
+
+Kosočtverce (`^`) na začátku výrazu znamená, že shoda začíná na začátku cesty URL.
+
+V předchozím příkladu s pravidlem `redirect-rule/(.*)`přesměrování není na začátku regulárního výrazu k dispozici žádná kosočtverce (`^`). Proto jakékoli znaky mohou předcházet `redirect-rule/` v cestě k úspěšné shodě.
+
+| Cesta                               | Shoda |
+| ---------------------------------- | :---: |
+| `/redirect-rule/1234/5678`         | Ano   |
+| `/my-cool-redirect-rule/1234/5678` | Ano   |
+| `/anotherredirect-rule/1234/5678`  | Ano   |
+
+Pravidlo `^rewrite-rule/(\d+)/(\d+)`přepsaného zápisu odpovídá pouze cestám, pokud `rewrite-rule/`začínají na. V následující tabulce si všimněte rozdílu v porovnání.
+
+| Cesta                              | Shoda |
+| --------------------------------- | :---: |
+| `/rewrite-rule/1234/5678`         | Ano   |
+| `/my-cool-rewrite-rule/1234/5678` | Ne    |
+| `/anotherrewrite-rule/1234/5678`  | Ne    |
+
+Po části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)`. `^rewrite-rule/` Značí shodu *s číslicí (číslem).* `\d` Znaménko plus (`+`) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2`. Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta `/rewrite-rule/1234/5678` k je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678`. Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
+
+K získání prostředku neexistuje žádná Přenosová cesta k serveru. Pokud prostředek existuje, načte se a vrátí do klienta s kódem stavu *200-OK* . Vzhledem k tomu, že klient není přesměrován, adresa URL v adresním řádku prohlížeče se nezmění. Klienti nerozpoznají, že na serveru došlo k operaci přepsání adresy URL.
+
+> [!NOTE]
+> `skipRemainingRules: true` Kdykoli je to možné, protože vyhovující pravidla jsou výpočetně náročná a zvyšují dobu odezvy aplikace. Pro nejrychlejší aplikační odpověď:
+>
+> * Seřazení pravidel přepisu z nejčastěji spárovaného pravidla na nejméně často spárované pravidlo.
+> * Pokud dojde ke shodě a není vyžadováno žádné další zpracování pravidla, přeskočte zpracování zbývajících pravidel.
+
+### <a name="apache-mod_rewrite"></a>Apache mod_rewrite
+
+Použijte pravidla Apache mod_rewrite s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*>nástrojem. Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Další informace a příklady pravidel mod_rewrite najdete v článku [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
+
+Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite. txt:* <xref:System.IO.StreamReader>
+
+[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
+
+Ukázková aplikace přesměrovává požadavky od `/apache-mod-rules-redirect/(.\*)` do. `/redirected?id=$1` Stavový kód odpovědi je *302 – Nalezeno*.
+
+[!code[](url-rewriting/samples/2.x/SampleApp/ApacheModRewrite.txt)]
+
+Původní požadavek:`/apache-mod-rules-redirect/1234`
+
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_apache_mod_redirect.png)
+
+Middleware podporuje následující proměnné serveru Apache mod_rewrite:
+
+* CONN_REMOTE_ADDR
+* HTTP_ACCEPT
+* HTTP_CONNECTION
+* HTTP_COOKIE
+* HTTP_FORWARDED
+* HTTP_HOST
+* HTTP_REFERER
+* HTTP_USER_AGENT
+* HTTPS
+* IPV6
+* QUERY_STRING
+* REMOTE_ADDR
+* REMOTE_PORT
+* REQUEST_FILENAME
+* REQUEST_METHOD
+* REQUEST_SCHEME
+* REQUEST_URI
+* SCRIPT_FILENAME
+* SERVER_ADDR
+* SERVER_PORT
+* SERVER_PROTOCOL
+* TIME
+* TIME_DAY
+* TIME_HOUR
+* TIME_MIN
+* TIME_MON
+* TIME_SEC
+* TIME_WDAY
+* TIME_YEAR
+
+### <a name="iis-url-rewrite-module-rules"></a>Pravidla pro přepsání adresy URL služby IIS
+
+Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*>použijte. Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití souboru *Web. config* aplikace při spuštění v systému Windows Server IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *Web. config* aplikace, aby nedocházelo ke konfliktům s modulem pro přepis služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
+
+Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite. XML:* <xref:System.IO.StreamReader>
+
+[!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
+
+Ukázková aplikace přepíše požadavky od `/iis-rules-rewrite/(.*)` do. `/rewritten?id=$1` Odpověď se pošle klientovi s kódem stavu *200-OK* .
+
+[!code-xml[](url-rewriting/samples/2.x/SampleApp/IISUrlRewrite.xml)]
+
+Původní požadavek:`/iis-rules-rewrite/1234`
+
+![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_iis_url_rewrite.png)
+
+Pokud máte aktivní modul pro přepis služby IIS s nakonfigurovanými pravidly na úrovni serveru, který by ovlivnil vaši aplikaci nežádoucím způsobem, můžete pro aplikaci zakázat modul IIS Rewrite. Další informace najdete v tématu [zakázání modulů IIS](xref:host-and-deploy/iis/modules#disabling-iis-modules).
+
+#### <a name="unsupported-features"></a>Nepodporované funkce
+
+Middleware vydaná ASP.NET Core 2. x nepodporuje následující funkce modulu pro přepis adres URL služby IIS:
+
+* Odchozí pravidla
+* Vlastní proměnné serveru
+* Zástupné znaky
+* LogRewrittenUrl
+
+#### <a name="supported-server-variables"></a>Podporované proměnné serveru
+
+Middleware podporuje následující proměnné serveru pro přepis adres URL služby IIS:
+
+* CONTENT_LENGTH
+* CONTENT_TYPE
+* HTTP_ACCEPT
+* HTTP_CONNECTION
+* HTTP_COOKIE
+* HTTP_HOST
+* HTTP_REFERER
+* HTTP_URL
+* HTTP_USER_AGENT
+* HTTPS
+* LOCAL_ADDR
+* QUERY_STRING
+* REMOTE_ADDR
+* REMOTE_PORT
+* REQUEST_FILENAME
+* REQUEST_URI
+
+> [!NOTE]
+> Můžete také získat <xref:Microsoft.Extensions.FileProviders.IFileProvider> <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>prostřednictvím. Tento přístup může poskytovat větší flexibilitu pro umístění souborů pravidel přepisu. Ujistěte se, že jsou v cestě, kterou zadáte, nasazené soubory pravidel přepisu na server.
+>
+> ```csharp
+> PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
+> ```
+
+### <a name="method-based-rule"></a>Pravidlo založené na metodách
+
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> , který zpřístupňuje metodu pro použití v metodě. <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
+
+| `RewriteContext.Result`              | Akce                                                           |
+| ------------------------------------ | ---------------------------------------------------------------- |
+| `RuleResult.ContinueRules`výchozí | Pokračovat v používání pravidel.                                         |
+| `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       |
+| `RuleResult.SkipRemainingRules`      | Zastavení použití pravidel a odeslání kontextu do dalšího middlewaru. |
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=14)]
 
-Ukázková aplikace předvádí metodu, který přesměruje požadavky pro cesty, která končit *.xml*. Pokud se požadavek `/file.xml`, je požadavek přesměrován na `/xmlfiles/file.xml`. Kód stavu je nastaven na *301 - trvale přesunuto*. Při prohlížeč provede novou žádost */xmlfiles/file.xml*, Middleware statické soubory slouží soubor do klienta z *wwwroot/xmlfiles* složky. Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě *200 – OK* se vrátí stavový kód a přesměrování nedojde na straně klienta.
+Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml`, je požadavek přesměrován na. `/xmlfiles/file.xml` Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/File.XML*, soubor middleware statických souborů zachová soubor klientovi ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
 
 *RewriteRules.cs*:
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectXmlFileRequests&highlight=14-18)]
 
-Tento přístup může také přepsání požadavků. Ukázková aplikace předvádí přepsání cesty u všech žádostí textový soubor k poskytování *soubor.txt* textový soubor z *wwwroot* složky. Middleware statické soubory slouží souboru na základě cesty aktualizované požadavku:
+Tento přístup může také přezapisovat požadavky. Ukázková aplikace ukazuje přepis cesty k libovolné žádosti o textový soubor, aby sloužil textový soubor *. txt* ze složky *wwwroot* . Middleware statických souborů zachovává soubor na základě aktualizované cesty požadavku:
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=15,22)]
 
@@ -344,45 +693,47 @@ Tento přístup může také přepsání požadavků. Ukázková aplikace předv
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RewriteTextFileRequests&highlight=7-8)]
 
-### <a name="irule-based-rule"></a>Pravidlo na základě IRule
+### <a name="irule-based-rule"></a>Pravidlo založené na IRule
 
-Použít <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> používat logice pravidla v třídě, která implementuje <xref:Microsoft.AspNetCore.Rewrite.IRule> rozhraní. `IRule` nabízí větší flexibilitu v porovnání s využitím pravidel založených na volání metody přístupu. Vaše implementace třídy může obsahovat konstruktor, který umožňuje, můžete předat parametry <xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> metody.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k použití logiky pravidla ve třídě, která <xref:Microsoft.AspNetCore.Rewrite.IRule> implementuje rozhraní. `IRule`poskytuje větší flexibilitu při použití pravidla založeného na metodách. Vaše třída implementace může obsahovat konstruktor, který umožňuje předat parametry pro <xref:Microsoft.AspNetCore.Rewrite.IRule.ApplyRule*> metodu.
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou kontrolovány pro splnění určitých podmínek. `extension` Musí obsahovat hodnotu, a hodnota musí být *.png*, *.jpg*, nebo *.gif*. Pokud `newPath` není platný, <xref:System.ArgumentException> je vyvolána výjimka. Pokud se požadavek *image.png*, je požadavek přesměrován na `/png-images/image.png`. Pokud se požadavek *image.jpg*, je požadavek přesměrován na `/jpg-images/image.jpg`. Kód stavu je nastaven na *301 - trvale přesunuto*a `context.Result` je nastavena na zastavení zpracování pravidel a odeslání odpovědi.
+Hodnoty parametrů v ukázkové aplikaci pro `extension` `newPath` a jsou zkontrolovány, aby splňovaly několik podmínek. Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif.* `extension` Pokud není platná <xref:System.ArgumentException> , je vyvolána výjimka. `newPath` Pokud je pro *image. png*vytvořen požadavek, je požadavek přesměrován na `/png-images/image.png`. Pokud je pro *image. jpg*vytvořen požadavek, je požadavek přesměrován na `/jpg-images/image.jpg`. Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
-Původní žádosti: `/image.png`
+Původní požadavek:`/image.png`
 
-![Okno prohlížeče s vývojářskými nástroji pro sledování požadavků a odpovědí pro image.png](url-rewriting/_static/add_redirect_png_requests.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image. png](url-rewriting/_static/add_redirect_png_requests.png)
 
-Původní žádosti: `/image.jpg`
+Původní požadavek:`/image.jpg`
 
-![Okno prohlížeče s vývojářskými nástroji pro sledování požadavků a odpovědí pro image.jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image. jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
 
-## <a name="regex-examples"></a>Příklady regulární výraz
+## <a name="regex-examples"></a>Příklady Regex
 
-| Cíl | Řetězec regulárního výrazu &<br>Příklad shody | Náhradní řetězec &<br>Příklad výstupu |
+| Cíl | & Řetězce regulárního výrazu<br>Příklad shody | & Řetězce nahrazení<br>Příklad výstupu |
 | ---- | ------------------------------- | -------------------------------------- |
-| Přepsat cestu do řetězce dotazu | `^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123` |
-| Odstranit koncové lomítko | `(.*)/$`<br>`/path/` | `$1`<br>`/path` |
-| Vynucení adresy koncové lomítko | `(.*[^/])$`<br>`/path` | `$1/`<br>`/path/` |
-| Vyhněte se přepsání určité žádosti | `^(.*)(?<!\.axd)$` Nebo `^(?!.*\.axd$)(.*)$`<br>Ano: `/resource.htm`<br>Ne: `/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
-| Změna uspořádání segmenty adres URL | `path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1` |
-| Nahraďte segment adresy URL | `^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
+| Přepište cestu do řetězce dotazu. | `^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123` |
+| Koncové lomítko pruhu | `(.*)/$`<br>`/path/` | `$1`<br>`/path` |
+| Vymáhat koncové lomítko | `(.*[^/])$`<br>`/path` | `$1/`<br>`/path/` |
+| Vyhnout se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$` Nebo `^(?!.*\.axd$)(.*)$`<br>Ano:`/resource.htm`<br>Ne:`/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
+| Změna uspořádání segmentů adresy URL | `path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1` |
+| Nahradit segment adresy URL | `^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Spuštění aplikace](startup.md)
-* [Middleware](xref:fundamentals/middleware/index)
-* [Regulární výrazy v rozhraní .NET](/dotnet/articles/standard/base-types/regular-expressions)
-* [Jazyk regulárních výrazů – Stručná referenční příručka](/dotnet/articles/standard/base-types/quick-ref)
+* <xref:fundamentals/startup>
+* <xref:fundamentals/middleware/index>
+* [Regulární výrazy v .NET](/dotnet/articles/standard/base-types/regular-expressions)
+* [Jazyk regulárních výrazů – stručná referenční dokumentace](/dotnet/articles/standard/base-types/quick-ref)
 * [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/)
-* [Pomocí modulu přepisování adres Url 2.0 (pro IIS)](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20)
-* [Odkaz na modul konfigurace adresy URL revize](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)
-* [Fórum modulu přepsání adresy URL služby IIS](https://forums.iis.net/1152.aspx)
-* [Zachovat jednoduchá struktura adresy URL](https://support.google.com/webmasters/answer/76329?hl=en)
-* [10 přepisování adres URL tipy a triky](https://ruslany.net/2009/04/10-url-rewriting-tips-and-tricks/)
-* [Lomítko nebo lomítko](https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html)
+* [Použití modulu URL pro přepis 2,0 (pro IIS)](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20)
+* [Odkaz na konfiguraci modulu pro přepis adresy URL](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)
+* [Fórum modulu pro přepsání adresy URL služby IIS](https://forums.iis.net/1152.aspx)
+* [Zachování jednoduché struktury URL](https://support.google.com/webmasters/answer/76329?hl=en)
+* [10 tipů a triky pro přepis adres URL](https://ruslany.net/2009/04/10-url-rewriting-tips-and-tricks/)
+* [Na lomítko nebo ne na lomítko](https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html)
