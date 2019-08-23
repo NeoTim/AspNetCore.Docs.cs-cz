@@ -1,181 +1,181 @@
 ---
-title: Vazby modelu v ASP.NET Core
-author: tdykstra
-description: Zjistěte, jak vazby modelu v ASP.NET Core funguje a jak můžete přizpůsobit její chování.
+title: Vazba modelu v ASP.NET Core
+author: rick-anderson
+description: Přečtěte si, jak vazba modelu v ASP.NET Core funguje a jak přizpůsobit jeho chování.
 ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
-ms.author: tdykstra
+ms.author: riande
 ms.date: 05/31/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: 10a9f8327bf16d11ec1e04ac3888d701f1ab1778
-ms.sourcegitcommit: bee530454ae2b3c25dc7ffebf93536f479a14460
+ms.openlocfilehash: 298e305cf918117ec2d313060a7420a1e721a365
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2019
-ms.locfileid: "67724527"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975299"
 ---
-# <a name="model-binding-in-aspnet-core"></a>Vazby modelu v ASP.NET Core
+# <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
-Tento článek vysvětluje, jaké vazby modelu je, jak to funguje a jak přizpůsobit chování aplikace.
+Tento článek vysvětluje, co je vazba modelů, jak funguje a jak přizpůsobit její chování.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples) ([stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples) ([stažení](xref:index#how-to-download-a-sample)).
 
-## <a name="what-is-model-binding"></a>Co je vazby modelu
+## <a name="what-is-model-binding"></a>Co je vazba modelu
 
-Řadiče a stránky Razor pracovat s daty, která pochází z požadavků HTTP. Například data trasy, která může poskytnout klíč záznamu a pole odeslaného formuláře může poskytnout hodnoty pro vlastnosti modelu. Zápis kódu pro každou z těchto hodnot načíst a je převést na typy .NET z řetězců může být zdlouhavé a náchylné k chybě. Tento proces automatizuje vazby modelu. Systém vazby modelu:
+Řadiče a stránky Razor fungují s daty, která pocházejí z požadavků HTTP. Například data směrování můžou poskytovat klíč záznamu a pole odeslaných formulářů můžou poskytovat hodnoty pro vlastnosti modelu. Psaní kódu pro načtení každé z těchto hodnot a jejich převod z řetězců na typy .NET by byly únavné a náchylné k chybám. Vazba modelu automatizuje tento proces. Systém vazby modelů:
 
-* Načte data z různých zdrojů, jako je směrování dat, pole formuláře a řetězce dotazu.
-* Poskytuje data, která mají řadiče a stránek Razor parametry metody a veřejné vlastnosti.
-* Převede řetězec data na typy .NET.
+* Načte data z různých zdrojů, jako jsou například data směrování, pole formuláře a řetězce dotazů.
+* Poskytuje data pro řadiče a stránky Razor v parametrech metod a veřejných vlastnostech.
+* Převádí řetězcová data na typy .NET.
 * Aktualizuje vlastnosti komplexních typů.
 
 ## <a name="example"></a>Příklad
 
-Předpokládejme, že máte následující metody akce:
+Předpokládejme, že máte následující metodu akce:
 
 [!code-csharp[](model-binding/samples/2.x/Controllers/PetsController.cs?name=snippet_DogsOnly)]
 
-A aplikace obdrží žádost o tuto adresu URL:
+A aplikace obdrží požadavek s touto adresou URL:
 
 ```
 http://contoso.com/api/pets/2?DogsOnly=true
 ```
 
-Vazby modelu přejde ale takto po směrování systému vybere metodu akce:
+Vazba modelu bude provedená, i když následující kroky potom, co systém směrování vybere metodu akce:
 
-* Najde první parametr `GetByID`, celočíselným parametrem s názvem `id`.
-* Prohlédne dostupné zdroje v požadavku HTTP a vyhledá `id` = "2" v datech trasy.
-* Převede řetězec "2" do celého čísla 2.
-* Najde další parametr `GetByID`, logickou hodnotu s názvem `dogsOnly`.
-* Prohlédne zdroje a vyhledá "DogsOnly = true" v řetězci dotazu. Shoda názvu není malá a velká písmena.
-* Převede řetězec "true" na logickou hodnotu `true`.
+* Vyhledá první parametr typu `GetByID`Integer s názvem. `id`
+* Vyhledá z dostupných zdrojů v požadavku HTTP a vyhledá `id` v datech směrování = "2".
+* Převede řetězec "2" na celé číslo 2.
+* Najde další parametr `GetByID`logického názvu `dogsOnly`.
+* Prohledá zdroje a v řetězci dotazu vyhledá "DogsOnly = true". U porovnávání názvů se nerozlišují malá a velká písmena.
+* Převede řetězec "true" na logickou `true`hodnotu.
 
-Pak zavolá rozhraní `GetById` metodu 2 pro `id` parametr, a `true` pro `dogsOnly` parametru.
+Rozhraní potom zavolá `GetById` metodu, která předá 2 `id` pro `dogsOnly` parametr a `true` pro parametr.
 
-V předchozím příkladu cíle vazby modelu jsou parametry metody, které jsou jednoduché typy. Cíle může být také vlastností komplexního typu. Po každé vlastnosti je úspěšně navázán, [ověření modelu](xref:mvc/models/validation) dojde k této vlastnosti. Požadovaný záznam, jaká data je vázán na model a všechny chyby ověření nebo vazba je uložena v [ControllerBase.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) nebo [PageModel.ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState). Chcete-li zjistit, pokud tento proces byl úspěšný, je aplikace zkontroluje [ModelState.IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) příznak.
+V předchozím příkladu jsou cíle vazby modelů parametry metod, které jsou jednoduché typy. Cíle mohou být také vlastnostmi komplexního typu. Po úspěšném vytvoření vazby každé vlastnosti dojde k [ověření modelu](xref:mvc/models/validation) pro danou vlastnost. Záznam o tom, jaká data jsou vázána na model a všechny chyby vazby nebo ověřování, jsou uloženy v [ControllerBase. ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState) nebo [PageModel. ModelState](xref:Microsoft.AspNetCore.Mvc.ControllerBase.ModelState). Chcete-li zjistit, zda byl tento proces úspěšný, aplikace zkontroluje příznak [ModelState. IsValid](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary.IsValid) .
 
 ## <a name="targets"></a>Cíle
 
-Vazby modelu se pokusí najít hodnoty pro následující typy cíle:
+Vazba modelu se pokusí najít hodnoty pro následující typy cílů:
 
-* Parametry metody akce kontroleru, který požadavek prochází, k.
-* Parametry metody obslužné rutiny pro stránky Razor, který požadavek prochází, k. 
-* Veřejné vlastnosti kontroleru nebo `PageModel` třídy, pokud zadané atributy.
+* Parametry metody akce kontroleru, na kterou je směrován požadavek
+* Parametry metody obslužné rutiny Razor Pages, na kterou je směrován požadavek. 
+* Veřejné vlastnosti řadiče nebo `PageModel` třídy, pokud jsou určeny atributy.
 
-### <a name="bindproperty-attribute"></a>Atribut [BindProperty]
+### <a name="bindproperty-attribute"></a>[BindProperty] – atribut
 
-Můžete použít pro veřejnou vlastnost řadiče nebo `PageModel` třídy způsobit vazby modelu pro tuto vlastnost cíle:
+Dá se použít na veřejnou vlastnost kontroleru nebo `PageModel` třídy, aby vazba modelu mohla cílit na tuto vlastnost:
 
 [!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Edit.cshtml.cs?name=snippet_BindProperty&highlight=7-8)]
 
-### <a name="bindpropertiesattribute"></a>Atribut [BindProperties]
+### <a name="bindpropertiesattribute"></a>[BindProperties] – atribut
 
-K dispozici v ASP.NET Core 2.1 nebo novější.  Můžete použít k řadiči nebo `PageModel` třídy říct vazby modelu cílit na všechny veřejné vlastnosti třídy:
+K dispozici v ASP.NET Core 2,1 a novějším.  Dá se použít na kontrolér nebo `PageModel` třídu pro oznámení, že vazba modelu cílí na všechny veřejné vlastnosti třídy:
 
 [!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Create.cshtml.cs?name=snippet_BindProperties&highlight=1-2)]
 
-### <a name="model-binding-for-http-get-requests"></a>Vazby pro požadavky HTTP GET modelu
+### <a name="model-binding-for-http-get-requests"></a>Vazba modelu pro požadavky HTTP GET
 
-Ve výchozím nastavení nejsou vázané vlastnosti pro požadavky HTTP GET. Obvykle je vše, co potřebujete pro požadavek GET parametr ID záznamu. ID záznamu slouží k vyhledání položky v databázi. Proto není nutné vytvořit vazbu vlastnosti, která obsahuje instance modelu. Ve scénářích, kde má vlastnosti, které jsou vázány na data z požadavků GET, nastavte `SupportsGet` vlastnost `true`:
+Ve výchozím nastavení nejsou vlastnosti pro požadavky HTTP GET vázané. Obvykle stačí pro požadavek GET parametr ID záznamu. ID záznamu slouží k vyhledání položky v databázi. Proto není nutné navazovat vlastnost, která obsahuje instanci modelu. Ve scénářích, kdy chcete vlastnosti navázané na data z požadavků GET, nastavte `SupportsGet` vlastnost na `true`:
 
 [!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Index.cshtml.cs?name=snippet_SupportsGet)]
 
-## <a name="sources"></a>Zdroje
+## <a name="sources"></a>Prostředky
 
-Ve výchozím nastavení vazby modelu získá data ve formě dvojic klíč / hodnota z následujících zdrojů v jednom požadavku HTTP:
+Ve výchozím nastavení ve vazbě modelu získává data ve formě párů klíč-hodnota z následujících zdrojů v požadavku HTTP:
 
 1. Pole formuláře 
-1. Text požadavku (pro [řadiči, které mají atribut [objektu ApiController]](xref:web-api/index#binding-source-parameter-inference).)
-1. Data trasy
+1. Tělo žádosti (pro [řadiče, které mají atribut [ApiController]](xref:web-api/index#binding-source-parameter-inference).)
+1. Směrování dat
 1. Parametry řetězce dotazu
 1. Nahrané soubory 
 
-Pro každý cílový parametr nebo vlastnost zdroje jsou prohledávány v uvedeném pořadí v tomto seznamu. Existuje pár výjimek:
+Pro každý cílový parametr nebo vlastnost jsou zdroje prohledávány v pořadí uvedeném v tomto seznamu. Existuje několik výjimek:
 
-* Směrování dat a dotazu řetězcové hodnoty se používají pouze pro jednoduché typy.
-* Nahrané soubory jsou propojeny pouze cílové typy, které implementují `IFormFile` nebo `IEnumerable<IFormFile>`.
+* Data směrování a hodnoty řetězce dotazu jsou používány pouze pro jednoduché typy.
+* Nahrané soubory jsou vázány pouze na cílové `IFormFile` typy `IEnumerable<IFormFile>`, které implementují nebo.
 
-Pokud výchozí chování nedává správných výsledků, můžete použít jednu z následujících atributů k určení zdroje použít pro libovolný daný cíl. 
+Pokud výchozí chování nedává správné výsledky, můžete použít jeden z následujících atributů k určení zdroje, který se má použít pro libovolný cíl. 
 
-* [[FromQuery] ](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) -Získá hodnoty z řetězce dotazu. 
-* [[FromRoute] ](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) -Získá hodnoty z dat trasy.
-* [[FromForm] ](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) -Získá hodnoty z polí odeslaného formuláře.
-* [[FromBody] ](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) -Získá hodnoty z textu požadavku.
-* [[FromHeader] ](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) -Získá hodnoty z hlavičky protokolu HTTP.
+* [[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) – načte hodnoty z řetězce dotazu. 
+* [[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) – načte hodnoty z dat směrování.
+* [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) – načte hodnoty z publikovaných polí formuláře.
+* [[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) – načte hodnoty z textu žádosti.
+* [[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) – načte hodnoty z hlaviček protokolu HTTP.
 
 Tyto atributy:
 
-* Jsou přidány do vlastnosti modelu jednotlivě (ne na třídu modelu), jako v následujícím příkladu:
+* Jsou přidány do vlastností modelu jednotlivě (nikoli do třídy modelu), jako v následujícím příkladu:
 
   [!code-csharp[](model-binding/samples/2.x/Models/Instructor.cs?name=snippet_FromQuery&highlight=5-6)]
 
-* Volitelně můžete přijměte hodnotu názvu modelu v konstruktoru. Tato možnost je k dispozici v případě, že název vlastnosti neodpovídá hodnotě v identifikátoru požadavku. Například může být hodnota v požadavku hlavička s pomlčkou ve svém názvu, jako v následujícím příkladu:
+* Volitelně akceptuje hodnotu názvu modelu v konstruktoru. Tato možnost je k dispozici v případě, že se název vlastnosti neshoduje s hodnotou v požadavku. Například hodnota v požadavku může být záhlavím s pomlčkou v názvu, jako v následujícím příkladu:
 
   [!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Index.cshtml.cs?name=snippet_FromHeader)]
 
-### <a name="frombody-attribute"></a>Atribut [FromBody]
+### <a name="frombody-attribute"></a>[FromBody] – atribut
 
-Data těla požadavku je analyzován pomocí vstupní formátování specifické pro typ obsahu požadavku. Vstupní formátovací moduly jsou vysvětleny [dále v tomto článku](#input-formatters).
+Data těla žádosti se analyzují pomocí formátovacího modulu vstupu, který je specifický pro typ obsahu požadavku. Vstupní formátovací moduly jsou vysvětleny [dále v tomto článku](#input-formatters).
 
-Nemůžete použít `[FromBody]` k více než jeden parametr na metodu akce. Modul runtime ASP.NET Core deleguje na starost čtení datový proud požadavku na vstupní formátovacího modulu. Jakmile je datový proud požadavku pro čtení, již není k dispozici ke čtení pro druhé vazby `[FromBody]` parametry.
+Neplatí `[FromBody]` pro více než jeden parametr na metodu Action. Modul runtime ASP.NET Core deleguje zodpovědnost za čtení datového proudu požadavku ke vstupnímu formátovacímu modulu. Až se datový proud žádosti přečte, už ho nebude možné znovu načíst pro vazbu dalších `[FromBody]` parametrů.
 
 ### <a name="additional-sources"></a>Další zdroje
 
-Zdroj dat je určena k systému vazby modelu *hodnota poskytovatelé*. Můžete napsat a registraci zprostředkovatele vlastního hodnot, které získávají data pro vazbu modelu z jiných zdrojů. Například můžete data ze souborů cookie nebo stav relace. Pokud chcete získat data z nového zdroje:
+Zdrojová data jsou k dispozici pro systém vázání modelů podle *zprostředkovatelů hodnot*. Můžete zapisovat a registrovat vlastní poskytovatele hodnot, který získá data pro vazbu modelu z jiných zdrojů. Například můžete chtít data ze souborů cookie nebo stavu relace. Načtení dat z nového zdroje:
 
 * Vytvořte třídu, která implementuje `IValueProvider`.
 * Vytvořte třídu, která implementuje `IValueProviderFactory`.
-* Registrovat třídu objektů factory v `Startup.ConfigureServices`.
+* Zaregistrujte třídu factory `Startup.ConfigureServices`v.
 
-Obsahuje ukázkovou aplikaci [zprostředkovatele hodnot](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/CookieValueProvider.cs) a [factory](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/CookieValueProviderFactory.cs) příklad, který získá hodnoty z soubory cookie. Zde je registrační kód v `Startup.ConfigureServices`:
+Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/CookieValueProvider.cs) a [výrobní](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices`:
 
 [!code-csharp[](model-binding/samples/2.x/Startup.cs?name=snippet_ValueProvider&highlight=3)]
 
-Kód zobrazený vloží zprostředkovatele vlastní hodnoty koneckonců zprostředkovatele předdefinovaných hodnot.  Aby byla první v seznamu, volání `Insert(0, new CookieValueProviderFactory())` místo `Add`.
+Zobrazený kód vloží zprostředkovatele vlastních hodnot po všech vestavěných poskytovatelích hodnot.  Chcete-li jej nastavit jako první v seznamu, `Insert(0, new CookieValueProviderFactory())` zavolejte `Add`místo.
 
-## <a name="no-source-for-a-model-property"></a>Žádný zdroj pro vlastnosti modelu
+## <a name="no-source-for-a-model-property"></a>Žádný zdroj pro vlastnost modelu
 
-Ve výchozím nastavení se nevytvoří chyby stavu modelu, pokud není nalezena žádná hodnota pro vlastnosti modelu. Vlastnost je nastavena na hodnotu null nebo výchozí hodnotu:
+Ve výchozím nastavení se chyba stavu modelu nevytvoří, pokud se pro vlastnost modelu nenajde žádná hodnota. Vlastnost je nastavena na hodnotu null nebo na výchozí hodnotu:
 
-* Jednoduché typy s možnou hodnotou Null jsou nastaveny na `null`.
-* Typy hodnot neumožňující jsou nastaveny na `default(T)`. Například parametr `int id` je nastavena na hodnotu 0.
-* Vazby modelu pro komplexní typy, vytvoří instanci pomocí výchozího konstruktoru, aniž byste museli nastavovat vlastnosti.
-* Pole jsou nastaveny na `Array.Empty<T>()`, s tím rozdílem, že `byte[]` pole jsou nastaveny na `null`.
+* Jednoduché typy s možnou hodnotou `null`null jsou nastaveny na.
+* Typy hodnot, které nejsou null, jsou `default(T)`nastaveny na. Například parametr `int id` je nastaven na hodnotu 0.
+* Pro komplexní typy vazba modelu vytvoří instanci pomocí výchozího konstruktoru bez nastavení vlastností.
+* Pole jsou nastavena na `Array.Empty<T>()`, s výjimkou toho, že `null` `byte[]` pole jsou nastavena na.
 
-Pokud stav modelu by měl zrušit, když nelze najít v polích formuláře pro vlastnosti modelu, použijte [atribut [BindRequired]](#bindrequired-attribute).
+Pokud má být stav modelu Neověřeno, pokud se v polích formuláře pro vlastnost modelu nenalezne žádné, použijte [atribut [BindRequired]](#bindrequired-attribute).
 
-Všimněte si, že tento `[BindRequired]` platí chování vazby modelu z odeslaného formuláře dat, nikoli data XML nebo JSON v textu požadavku. Data těla požadavku se zpracovává souborem [vstup formátovací moduly](#input-formatters).
+Všimněte si, `[BindRequired]` že toto chování se vztahuje na vazbu modelu z publikovaných dat formuláře, nikoli na data JSON nebo XML v těle žádosti. Data těla žádosti jsou zpracována [vstupními formátovacími](#input-formatters)moduly.
 
-## <a name="type-conversion-errors"></a>Chyby převodu typů
+## <a name="type-conversion-errors"></a>Chyby konverze typu
 
-Pokud zdroj nenajde, ale nelze převést na typ cíle, stav modelu označen jako neplatný. Cílový parametr nebo vlastnost je nastavena na hodnotu null nebo výchozí hodnotu, jak je uvedeno v předchozí části.
+Pokud je zdroj nalezen, ale nelze jej převést na cílový typ, stav modelu je označen jako neplatný. Parametr Target nebo Property je nastaven na hodnotu null nebo na výchozí hodnotu, jak je uvedeno v předchozí části.
 
-V kontroler API, která má `[ApiController]` atribut, výsledné stavy modelu je neplatný v automatické odpovědi HTTP 400.
+V kontroleru rozhraní API, který má `[ApiController]` atribut, má neplatný stav modelu za následek automatickou odpověď HTTP 400.
 
-Na stránce Razor opětovné zobrazení na stránce s chybovou zprávou:
+Na stránce Razor znovu zobrazte stránku s chybovou zprávou:
 
 [!code-csharp[](model-binding/samples/2.x/Pages/Instructors/Create.cshtml.cs?name=snippet_HandleMBError&highlight=3-6)]
 
-Ověřování na straně klienta zachycuje většinu chybnými daty, které by jinak odeslána do formuláře pro stránky Razor. Toto ověření je obtížné aktivovat předchozí zvýrazněný kód. Obsahuje ukázkovou aplikaci **odeslat pomocí neplatné datum** tlačítko, které umístí chybnými daty **datum přijetí** pole a formulář odešle. Toto tlačítko ukazuje, jak kód pro opětovné zobrazení na stránce funguje při výskytu chyby převodu dat.
+Ověřování na straně klienta zachytí nejvíc chybných dat, která by jinak byla odeslána do Razor Pages formuláře. Díky tomuto ověření je obtížné aktivovat předchozí zvýrazněný kód. Ukázková aplikace obsahuje tlačítko **Odeslat s neplatným datem** , které do pole **Datum přijetí** vloží nesprávná data a formulář odešle. Toto tlačítko ukazuje, jak kód pro zobrazení stránky funguje, když dojde k chybám převodu dat.
 
-Pokud na stránce se zobrazí znovu v předchozím kódu, neplatný vstup nezobrazuje pole formuláře. Je to proto, že vlastnost modelu byla nastavena na hodnotu null nebo výchozí hodnotu. Neplatný vstup nezobrazí v chybové zprávě. Pokud ale chcete chybná data v poli formuláře znovu, zvažte provedení vlastnost modelu řetězec a udělat převod dat ručně.
+V případě, že je stránka znovu zobrazena v předchozím kódu, není v poli formuláře zobrazen neplatný vstup. Důvodem je to, že vlastnost modelu byla nastavena na hodnotu null nebo na výchozí hodnotu. V chybové zprávě se zobrazí neplatný vstup. Pokud ale chcete, aby se v poli formuláře znovu zobrazila chybná data, je vhodné vytvořit řetězec vlastnosti modelu a provést převod dat ručně.
 
-Stejné strategie se doporučuje, pokud nechcete, aby chyby převodu typu za následek chyby stavu modelu. V takovém případě zkontrolujte vlastnost modelu řetězec.
+Pokud nechcete, aby se chyby převodu typů způsobily při chybách stavu modelu, doporučujeme stejnou strategii. V takovém případě nastavte vlastnost model na řetězec.
 
 ## <a name="simple-types"></a>Jednoduché typy
 
-Jednoduché typy, které vazače modelu můžete převést do zdrojové řetězce patří:
+Jednoduché typy, které modelový pořadač může převést na zdrojové řetězce, do zahrnují následující:
 
 * [Datový typ Boolean](xref:System.ComponentModel.BooleanConverter)
-* [Bajtů](xref:System.ComponentModel.ByteConverter), [SByte](xref:System.ComponentModel.SByteConverter)
+* [Byte](xref:System.ComponentModel.ByteConverter), [SByte](xref:System.ComponentModel.SByteConverter)
 * [Char](xref:System.ComponentModel.CharConverter)
-* [Datum a čas](xref:System.ComponentModel.DateTimeConverter)
+* [Hodnotu](xref:System.ComponentModel.DateTimeConverter)
 * [DateTimeOffset](xref:System.ComponentModel.DateTimeOffsetConverter)
-* [Decimal](xref:System.ComponentModel.DecimalConverter)
-* [Double](xref:System.ComponentModel.DoubleConverter)
-* [Výčet](xref:System.ComponentModel.EnumConverter)
-* [identifikátor GUID](xref:System.ComponentModel.GuidConverter)
+* [Notaci](xref:System.ComponentModel.DecimalConverter)
+* [Klepat](xref:System.ComponentModel.DoubleConverter)
+* [Vytváření](xref:System.ComponentModel.EnumConverter)
+* [Hlavních](xref:System.ComponentModel.GuidConverter)
 * [Int16](xref:System.ComponentModel.Int16Converter), [Int32](xref:System.ComponentModel.Int32Converter), [Int64](xref:System.ComponentModel.Int64Converter)
-* [Jeden](xref:System.ComponentModel.SingleConverter)
+* [Konkrétní](xref:System.ComponentModel.SingleConverter)
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter), [UInt32](xref:System.ComponentModel.UInt32Converter), [UInt64](xref:System.ComponentModel.UInt64Converter)
 * [Identifikátor URI](xref:System.UriTypeConverter)
@@ -183,13 +183,13 @@ Jednoduché typy, které vazače modelu můžete převést do zdrojové řetězc
 
 ## <a name="complex-types"></a>Komplexní typy
 
-Komplexní typ musí mít veřejný výchozí konstruktor a veřejný zapisovatelný vlastnosti pro vytvoření vazby. Pokud dojde k vazbě modelu, třída je vytvořen pomocí veřejný výchozí konstruktor. 
+Aby bylo možné vytvořit vazby komplexního typu, musí mít veřejný výchozí konstruktor a veřejné vlastnosti s možností zápisu. Když dojde k vazbě modelu, instance třídy je vytvořena pomocí veřejného výchozího konstruktoru. 
 
-Pro každou vlastnost komplexní typ vazby modelu vypadá prostřednictvím zdroje pro vzor názvů *prefix.property_name*. Pokud se nic nenajde, vyhledá pouze *%{Property_Name/* bez předpony.
+Pro každou vlastnost komplexního typu vyhledává vazba modelu zdroje pro předponu vzoru názvu *. property_name*. Pokud se nic nenajde, vyhledá jenom *Property_Name* bez předpony.
 
-Předpona pro vazbu parametru, je název parametru. Vazba `PageModel` veřejné vlastnosti, předpona, která je název veřejné vlastnosti. Některé atributy mají `Prefix` vlastnost, která vám umožní potlačit výchozí použití názvu parametru nebo vlastnost.
+Pro svázání s parametrem je předpona názvem parametru. Pro svázání s `PageModel` veřejnou vlastností je předpona názvem veřejné vlastnosti. Některé atributy mají `Prefix` vlastnost, která umožňuje přepsat výchozí použití parametru nebo názvu vlastnosti.
 
-Předpokládejme například, že komplexní typ je následující `Instructor` třídy:
+Předpokládejme například, že komplexní typ je následující `Instructor` třída:
 
   ```csharp
   public class Instructor
@@ -200,94 +200,94 @@ Předpokládejme například, že komplexní typ je následující `Instructor` 
   }
   ```
 
-### <a name="prefix--parameter-name"></a>Předpona = název parametru
+### <a name="prefix--parameter-name"></a>Prefix = název parametru
 
-Pokud je model vázán parametr s názvem `instructorToUpdate`:
+Pokud je model, který chcete svázat, parametr s `instructorToUpdate`názvem:
 
 ```csharp
 public IActionResult OnPost(int? id, Instructor instructorToUpdate)
 ```
 
-Spuštění vazby modelu projitím zdroje pro klíč `instructorToUpdate.ID`. Pokud, který nenajde, vyhledá `ID` bez předpony.
+Vazba modelu začne prohledáním zdrojů klíče `instructorToUpdate.ID`. Pokud se nenajde, vyhledá `ID` se bez předpony.
 
-### <a name="prefix--property-name"></a>Předpona = název vlastnosti
+### <a name="prefix--property-name"></a>Prefix = název vlastnosti
 
-Pokud je model vázán vlastnost s názvem `Instructor` kontroleru nebo `PageModel` třídy:
+Pokud je model, který chcete svázat, vlastnost s `Instructor` názvem kontroleru nebo `PageModel` třídy:
 
 ```csharp
 [BindProperty]
 public Instructor Instructor { get; set; }
 ```
 
-Spuštění vazby modelu projitím zdroje pro klíč `Instructor.ID`. Pokud, který nenajde, vyhledá `ID` bez předpony.
+Vazba modelu začne prohledáním zdrojů klíče `Instructor.ID`. Pokud se nenajde, vyhledá `ID` se bez předpony.
 
-### <a name="custom-prefix"></a>Vlastní předponu
+### <a name="custom-prefix"></a>Vlastní předpona
 
-Pokud je model vázán parametr s názvem `instructorToUpdate` a `Bind` Určuje atribut `Instructor` jako předpona:
+Pokud je model, který má být svázán, parametr `instructorToUpdate` pojmenovaný `Bind` a atribut určuje `Instructor` jako předponu:
 
 ```csharp
 public IActionResult OnPost(
     int? id, [Bind(Prefix = "Instructor")] Instructor instructorToUpdate)
 ```
 
-Spuštění vazby modelu projitím zdroje pro klíč `Instructor.ID`. Pokud, který nenajde, vyhledá `ID` bez předpony.
+Vazba modelu začne prohledáním zdrojů klíče `Instructor.ID`. Pokud se nenajde, vyhledá `ID` se bez předpony.
 
-### <a name="attributes-for-complex-type-targets"></a>Atributy pro komplexní typ cíle
+### <a name="attributes-for-complex-type-targets"></a>Atributy pro cíle komplexního typu
 
-Několik vestavěné atributy jsou k dispozici pro řízení vazby modelu komplexních typů:
+K dispozici je několik předdefinovaných atributů pro řízení vazeb modelu komplexních typů:
 
 * `[BindRequired]`
 * `[BindNever]`
 * `[Bind]`
 
 > [!NOTE]
-> Tyto atributy ovlivňují model vazby při publikování formuláře je dat zdrojové hodnoty. Neovlivňují vstupní formátovací moduly, které proces publikování textem žádosti ve formátu JSON a XML. Vstupní formátovací moduly jsou vysvětleny [dále v tomto článku](#input-formatters).
+> Tyto atributy ovlivňují vazbu modelu, když jsou publikovaná data formuláře zdrojem hodnot. Neovlivňují vstupní formátovací moduly, které zpracovávají odeslané texty JSON a XML požadavku. Vstupní formátovací moduly jsou vysvětleny [dále v tomto článku](#input-formatters).
 >
-> Viz také informace o `[Required]` atribut [ověření modelu](xref:mvc/models/validation#required-attribute).
+> Viz také diskuze o `[Required]` atributu v [ověřování modelu](xref:mvc/models/validation#required-attribute).
 
-### <a name="bindrequired-attribute"></a>Atribut [BindRequired]
+### <a name="bindrequired-attribute"></a>[BindRequired] – atribut
 
-Může používat jedině pro vlastnosti modelu, ne na parametry metod. Způsobí, že vazba modelu přidat chyby stavu modelu, pokud vazba nebyla vytvořena pro vlastnosti modelu. Tady je příklad:
+Dá se použít jenom pro vlastnosti modelu, nikoli na parametry metody. Způsobí, že vazba modelu přidá chybu stavu modelu, pokud pro vlastnost modelu neproběhne vazba. Tady je příklad:
 
 [!code-csharp[](model-binding/samples/2.x/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
 
-### <a name="bindnever-attribute"></a>Atribut [BindNever]
+### <a name="bindnever-attribute"></a>[BindNever] – atribut
 
-Může používat jedině pro vlastnosti modelu, ne na parametry metod. Zabraňuje vazby modelu z nastavení vlastnosti modelu. Tady je příklad:
+Dá se použít jenom pro vlastnosti modelu, nikoli na parametry metody. Zabraňuje vazbě modelu v nastavení vlastnosti modelu. Tady je příklad:
 
 [!code-csharp[](model-binding/samples/2.x/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
 
-### <a name="bind-attribute"></a>Atribut [vazby]
+### <a name="bind-attribute"></a>[BIND] – atribut
 
-Můžete použít pro třídu nebo parametr metody. Určuje vlastnosti modelu, které by měl být součástí vazby modelu.
+Lze použít pro třídu nebo parametr metody. Určuje, které vlastnosti modelu by měly být zahrnuty ve vazbě modelu.
 
-V následujícím příkladu, pouze zadané vlastnosti `Instructor` modelu jsou vázána při volání metody všechny obslužné rutiny nebo akce:
+V následujícím příkladu jsou při volání jakékoli obslužné rutiny nebo `Instructor` metody akce vázány pouze zadané vlastnosti modelu:
 
 ```csharp
 [Bind("LastName,FirstMidName,HireDate")]
 public class Instructor
 ```
 
-V následujícím příkladu, pouze zadané vlastnosti `Instructor` modelu když jsou vázány `OnPost` volání metody:
+V následujícím příkladu jsou `Instructor` `OnPost` při volání metody svázány pouze zadané vlastnosti modelu:
 
 ```csharp
 [HttpPost]
 public IActionResult OnPost([Bind("LastName,FirstMidName,HireDate")] Instructor instructor)
 ```
 
-`[Bind]` Atribut lze použít k ochraně proti overposting v *vytvořit* scénáře. Nebude fungovat dobře ve scénářích upravit, protože vyloučené vlastnosti nastavena na hodnotu null nebo výchozí hodnotu namísto vlevo beze změny. Pro ochranu proti overposting Zobrazit modely doporučujeme místo `[Bind]` atribut. Další informace najdete v tématu [Poznámka k zabezpečení o overposting](xref:data/ef-mvc/crud#security-note-about-overposting).
+Atribut lze použít k ochraně před přeúčtováním ve scénářích *vytváření.* `[Bind]` Nefunguje dobře v scénářích úprav, protože vyloučené vlastnosti jsou nastavené na hodnotu null nebo výchozí hodnota místo toho, aby byla ponechána beze změny. Pro obranu před přeúčtováním se doporučuje zobrazit modely namísto `[Bind]` atributu. Další informace najdete v části [Poznámka k zabezpečení týkající](xref:data/ef-mvc/crud#security-note-about-overposting)se přestavování.
 
 ## <a name="collections"></a>Kolekce
 
-Pro cíle, které jsou kolekce typů jednoduché, vazby modelu hledá odpovídající *parameter_name* nebo *%{Property_Name/* . Pokud není nalezena žádná shoda, hledá se pro jeden z podporovaných formátů bez předpony. Příklad:
+Pro cíle, které jsou kolekcemi jednoduchých typů, vazba modelu vyhledá shody s *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
 
-* Předpokládejme, že je parametr vázat pole s názvem `selectedCourses`:
+* Předpokládejme, že parametr, který má být svázán, `selectedCourses`je pole s názvem:
 
   ```csharp
   public IActionResult OnPost(int? id, int[] selectedCourses)
   ```
 
-* Řetězcová data formuláře nebo dotazu může být v jednom z následujících formátů:
+* Data formuláře nebo řetězce dotazu mohou být v jednom z následujících formátů:
    
   ```
   selectedCourses=1050&selectedCourses=2000 
@@ -309,30 +309,30 @@ Pro cíle, které jsou kolekce typů jednoduché, vazby modelu hledá odpovídaj
   [a]=1050&[b]=2000&index=a&index=b
   ```
 
-* Tento formát je podporován pouze v dat formuláře:
+* Následující formát je podporován pouze v datech formuláře:
 
   ```
   selectedCourses[]=1050&selectedCourses[]=2000
   ```
 
-* Pro všechny předchozí příklad formátuje vazby modelu předá pole dvou položek `selectedCourses` parametr:
+* Pro všechny předchozí ukázkové formáty předává vazba modelu pole dvou položek do `selectedCourses` parametru:
 
   * selectedCourses[0]=1050
   * selectedCourses[1]=2000
 
-  Formáty dat tohoto dolního indexu čísla použití (...) [0]... [1]...) Ujistěte se, že jsou číslovány postupně na nule. Pokud jsou všechny mezery v číslování dolního indexu, jsou ignorovány všechny položky po mezery. Například pokud dolní indexy jsou 0 až 2 místo 0 a 1, druhá položka je ignorována.
+  Formáty dat, které používají čísla v dolním indexu (... [0]... [1]...) musí se ujistit, že jsou číslovány sekvenčně počínaje nulou. Pokud jsou v číslování dolních indexů nějaké mezery, všechny položky po mezerě se ignorují. Například pokud jsou v dolním indexu 0 a 2 místo 0 a 1, bude druhá položka ignorována.
 
-## <a name="dictionaries"></a>slovníky
+## <a name="dictionaries"></a>Slovníky
 
-Pro `Dictionary` cíle, vazby modelu hledá odpovídající *parameter_name* nebo *%{Property_Name/* . Pokud není nalezena žádná shoda, hledá se pro jeden z podporovaných formátů bez předpony. Příklad:
+V `Dictionary` případě cílů vyhledá vazba modelu shody s *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
 
-* Předpokládejme, že je parametr target `Dictionary<int, string>` s názvem `selectedCourses`:
+* Předpokládejme, že cílový parametr je `Dictionary<int, string>` pojmenovaný `selectedCourses`:
 
   ```csharp
   public IActionResult OnPost(int? id, Dictionary<int, string> selectedCourses)
   ```
 
-* Odeslaná data řetězec formuláře nebo dotazu může vypadat například jeden z následujících příkladů:
+* Odeslaná data formuláře nebo řetězce dotazu mohou vypadat jako jeden z následujících příkladů:
 
   ```
   selectedCourses[1050]=Chemistry&selectedCourses[2000]=Economics
@@ -351,42 +351,42 @@ Pro `Dictionary` cíle, vazby modelu hledá odpovídající *parameter_name* neb
   [0].Key=1050&[0].Value=Chemistry&[1].Key=2000&[1].Value=Economics
   ```
 
-* Pro všechny předchozí příklad formátuje vazby modelu předá slovník dvě položky `selectedCourses` parametr:
+* Pro všechny předchozí ukázkové formáty předává vazba modelu do `selectedCourses` parametru slovník dvou položek:
 
   * selectedCourses["1050"]="Chemistry"
   * selectedCourses["2000"]="Economics"
 
 ## <a name="special-data-types"></a>Speciální datové typy
 
-Existují některé speciální datové typy, které dokáže zpracovat vazby modelu.
+Existují některé speciální datové typy, které mohou vázání modelů zpracovat.
 
 ### <a name="iformfile-and-iformfilecollection"></a>IFormFile a IFormFileCollection
 
-Nahraný soubor zahrnutý v požadavku HTTP.  Je také podporována `IEnumerable<IFormFile>` u více souborů.
+Nahraný soubor zahrnutý v požadavku HTTP.  Podporováno je `IEnumerable<IFormFile>` také pro více souborů.
 
-### <a name="cancellationtoken"></a>cancellationToken
+### <a name="cancellationtoken"></a>CancellationToken
 
-Použít pro zrušení aktivity v asynchronní řadiče.
+Slouží k zrušení aktivity v asynchronních řadičích.
 
 ### <a name="formcollection"></a>FormCollection
 
-Umožňuje načíst všechny hodnoty z odeslaného formuláře data.
+Používá se k načtení všech hodnot z publikovaných dat formuláře.
 
-## <a name="input-formatters"></a>Vstupní formátovacích modulů
+## <a name="input-formatters"></a>Vstupní formátovací moduly
 
-Data v textu požadavku může být ve formátu JSON, XML nebo jiném formátu. Tato data analyzovat, model vazby používá *vstupní formátování* , který je nakonfigurovaný pro zpracování konkrétního typu obsahu. Ve výchozím nastavení ASP.NET Core zahrnuje formátu JSON vstupní formátovacích modulů pro zpracování dat JSON. Můžete přidat další formátování pro jiné typy obsahu.
+Data v textu požadavku mohou být v kódu JSON, XML nebo v jiném formátu. Pro analýzu těchto dat používá vazba modelu *vstupní formátovací modul* , který je nakonfigurován pro zpracování konkrétního typu obsahu. Ve výchozím nastavení ASP.NET Core zahrnuje vstupní formátovací moduly založené na formátu JSON pro zpracování dat JSON. Můžete přidat další formátovací moduly pro ostatní typy obsahu.
 
-ASP.NET Core vybere vstupní formátovacích modulů na základě [Consumes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) atribut. Pokud je k dispozici žádný atribut, použije [hlavičku Content-Type](https://www.w3.org/Protocols/rfc1341/4_Content-Type.html).
+ASP.NET Core vybere vstupní formátovací modul založený na atributu [spotřebes](xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute) . Pokud není přítomen žádný atribut, používá [hlavičku Content-Type](https://www.w3.org/Protocols/rfc1341/4_Content-Type.html).
 
-Použití předdefinované vstupní formátovací moduly XML:
+Chcete-li použít předdefinované vstupní formátovací moduly XML:
 
-* Nainstalujte `Microsoft.AspNetCore.Mvc.Formatters.Xml` balíček NuGet.
+* Nainstalujte balíček `Microsoft.AspNetCore.Mvc.Formatters.Xml` NuGet.
 
-* V `Startup.ConfigureServices`, volání <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlSerializerFormatters*> nebo <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlDataContractSerializerFormatters*>.
+* V `Startup.ConfigureServices`, zavolejte <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlSerializerFormatters*> nebo <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlDataContractSerializerFormatters*>.
 
   [!code-csharp[](model-binding/samples/2.x/Startup.cs?name=snippet_ValueProvider&highlight=9)]
 
-* Použít `Consumes` atribut třídy kontroleru nebo metody akce, které by měli počítat datovou část požadavku XML.
+* `Consumes` Použijte atribut na třídy kontroleru nebo metody akcí, které by měly v textu požadavku očekávat XML.
 
   ```csharp
   [HttpPost]
@@ -394,33 +394,33 @@ Použití předdefinované vstupní formátovací moduly XML:
   public ActionResult<Pet> Create(Pet pet)
   ```
 
-  Další informace najdete v tématu [představení serializace XML](https://docs.microsoft.com/en-us/dotnet/standard/serialization/introducing-xml-serialization).
+  Další informace najdete v tématu [představení XML serializace](https://docs.microsoft.com/en-us/dotnet/standard/serialization/introducing-xml-serialization).
 
 ## <a name="exclude-specified-types-from-model-binding"></a>Vyloučit zadané typy z vazby modelu
 
-V modelu a ověření vazby systémech chování vychází [ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata). Můžete přizpůsobit `ModelMetadata` tak, že přidáte podrobnosti zprostředkovatele, aby [MvcOptions.ModelMetadataDetailsProviders](xref:Microsoft.AspNetCore.Mvc.MvcOptions.ModelMetadataDetailsProviders). Podrobnosti o předdefinovaných zprostředkovatelé jsou k dispozici pro zakázání ověření pro zadané typy nebo vazby modelu.
+Chování vazeb modelů a ověřovacích systémů řídí [ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata). Můžete přizpůsobit `ModelMetadata` přidáním poskytovatele podrobností do [MvcOptions. ModelMetadataDetailsProviders](xref:Microsoft.AspNetCore.Mvc.MvcOptions.ModelMetadataDetailsProviders). Předdefinovaná poskytovatelé podrobností jsou k dispozici pro zakázání vazby modelu nebo ověření pro zadané typy.
 
-Chcete-li zakázat vazby modelu zadaného typu všech modelů, přidejte <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider> v `Startup.ConfigureServices`. Například s vazbou modelu zakázat na všech modelů typu `System.Version`:
+Chcete-li zakázat vazbu modelu ve všech modelech zadaného typu, přidejte <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider> do `Startup.ConfigureServices`. Například pro zakázání vazby modelu u všech modelů typu `System.Version`:
 
 [!code-csharp[](model-binding/samples/2.x/Startup.cs?name=snippet_ValueProvider&highlight=4-5)]
 
-Chcete-li zakázat ověřování na vlastnosti zadaného typu, přidejte <xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider> v `Startup.ConfigureServices`. Například chcete-li zakázat ověřování na vlastnosti typu `System.Guid`:
+Chcete-li zakázat ověřování vlastností zadaného typu, přidejte <xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider> `Startup.ConfigureServices`do. Chcete-li například zakázat ověřování vlastností typu `System.Guid`:
 
 [!code-csharp[](model-binding/samples/2.x/Startup.cs?name=snippet_ValueProvider&highlight=6-7)]
 
-## <a name="custom-model-binders"></a>Vazače modelů vlastní
+## <a name="custom-model-binders"></a>Vlastní pořadače modelů
 
-Vazby modelu můžete rozšířit pomocí zápisu vlastního modelu pořadače a použití `[ModelBinder]` atribut a vyberte pro daný cíl. Další informace o [vlastní vazba modelu](xref:mvc/advanced/custom-model-binding).
+Vazbu modelu můžete roztáhnout tak, že napíšete vlastní pořadač modelů `[ModelBinder]` a pomocí atributu ho vyberete pro daný cíl. Přečtěte si další informace o [vazbě vlastního modelu](xref:mvc/advanced/custom-model-binding).
 
-## <a name="manual-model-binding"></a>Vazby modelu ruční
+## <a name="manual-model-binding"></a>Ruční vazba modelu
 
-Vazby modelu lze vyvolat ručně pomocí <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> metody. Metoda je definována v obou `ControllerBase` a `PageModel` třídy. Metoda přetížení umožňují určit zprostředkovatele předponu a hodnota má být použit. Metoda vrátí `false` selhání vazby modelu. Tady je příklad:
+Vazbu modelu lze vyvolat ručně pomocí <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> metody. Metoda je definována v obou `ControllerBase` `PageModel` třídách i. Přetížení metody umožňují určit poskytovatele předpony a hodnoty, které se mají použít. Metoda vrátí `false` , zda se vazba modelu nezdařila. Tady je příklad:
 
 [!code-csharp[](model-binding/samples/2.x/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
 
-## <a name="fromservices-attribute"></a>Atribut [FromServices]
+## <a name="fromservices-attribute"></a>[FromServices] – atribut
 
-Název tohoto atributu má následující formát, které určují zdroj dat atributů vazby modelu. Ale nejedná se o vázání dat z zprostředkovatele hodnot. Získá instanci typu z [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru. Jeho účelem je poskytnout alternativu vůči útoku prostřednictvím injektáže konstruktoru pro, když potřebujete službu pouze v případě, že konkrétní metoda je volána.
+Název tohoto atributu se řídí vzorem atributů vazby modelu, které určují zdroj dat. Nejedná se ale o vazbu dat od poskytovatele hodnot. Získává instanci typu z kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Jeho účelem je poskytnout alternativu k injektáže konstruktoru, pokud potřebujete službu pouze v případě, že je volána konkrétní metoda.
 
 ## <a name="additional-resources"></a>Další zdroje
 

@@ -1,18 +1,18 @@
 ---
 title: Ověření modelu ve ASP.NET Core MVC
-author: tdykstra
+author: rick-anderson
 description: Přečtěte si o ověřování modelu ve ASP.NET Core MVC a Razor Pages.
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/06/2019
 monikerRange: '>= aspnetcore-2.1'
 uid: mvc/models/validation
-ms.openlocfilehash: 43b69e9b7588ad575f203200c5bc59a4272d0066
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: eb18d3a701a4d1937ac6eb9f61916f348b95882a
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "67814103"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975261"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověřování modelu ve ASP.NET Core MVC a Razor Pages
 
@@ -157,7 +157,7 @@ Pokud potřebujete ověření, které neposkytuje předdefinované atributy, mů
 
 U scénářů, které vestavěné atributy ověřování nezpracovávají, můžete vytvořit vlastní ověřovací atributy. Vytvořte třídu, která dědí z <xref:System.ComponentModel.DataAnnotations.ValidationAttribute>, a <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> přepište metodu.
 
-Metoda přijímá objekt s názvem hodnota, což je vstup, který má být ověřen.  `IsValid` Přetížení také přijímá `ValidationContext` objekt, který poskytuje další informace, jako je například instance modelu vytvořená vazbou modelu.
+Metoda přijímá objekt s názvem hodnota, což je vstup, který má být ověřen. `IsValid` Přetížení také přijímá `ValidationContext` objekt, který poskytuje další informace, jako je například instance modelu vytvořená vazbou modelu.
 
 Následující příklad ověří, že datum vydání filmu v *klasickém* žánru nenásleduje po zadaném roce. Atribut nejprve zkontroluje Žánr a pokračuje pouze v případě, že je *klasický.* `[ClassicMovie2]` U filmů identifikovaných jako klasických kontroluje datum vydání, aby se zajistilo, že není pozdější než limit předaný konstruktoru atributu.)
 

@@ -3,16 +3,16 @@ title: Implementace webového serveru Kestrel v ASP.NET Core
 author: guardrex
 description: Přečtěte si o Kestrel, webovém serveru pro různé platformy pro ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 06/24/2019
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 1266813524bb5f33c50ff4e0a0961570f21689f1
-ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
+ms.openlocfilehash: 763f65ea26367e56c2ff1392eea51e62fc663ee6
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68483230"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975529"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru Kestrel v ASP.NET Core
 
@@ -750,7 +750,7 @@ Poznámky ke schématu:
 * U každého koncového bodu je vyžadován parametr.`Url` Formát pro tento parametr je stejný jako konfigurační parametr nejvyšší úrovně `Urls` s tím rozdílem, že je omezen na jedinou hodnotu.
 * Tyto koncové body nahrazují hodnoty definované v konfiguraci nejvyšší úrovně `Urls` místo jejich přidání do těchto koncových bodů. Koncové body definované v kódu `Listen` prostřednictvím jsou kumulativní pomocí koncových bodů definovaných v konfiguračním oddílu.
 * `Certificate` Oddíl je nepovinný. Pokud není `Certificate` oddíl zadaný, použijí se výchozí hodnoty definované v dřívějších scénářích. Pokud nejsou k dispozici žádné výchozí hodnoty, Server vyvolá výjimku a nemůže se spustit.
-* &ndash; &ndash;  Oddíl podporuje jak heslo cesty, tak certifikáty úložiště subjektu. `Certificate`
+* &ndash;&ndash; Oddíl podporuje jak heslo cesty, tak certifikáty úložiště subjektu. `Certificate`
 * V takovém případě může být definován libovolný počet koncových bodů, pokud to nezpůsobí konflikty portů.
 * `options.Configure(context.Configuration.GetSection("Kestrel"))``KestrelConfigurationLoader` vrátí metodu`.Endpoint(string name, options => { })` s metodou, kterou lze použít k doplnění nastavení nakonfigurovaného koncového bodu:
 

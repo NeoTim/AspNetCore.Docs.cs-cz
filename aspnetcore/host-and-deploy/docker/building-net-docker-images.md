@@ -1,17 +1,17 @@
 ---
 title: Image Docker pro ASP.NET Core
-author: tdykstra
+author: rick-anderson
 description: Naučte se používat publikované image Docker .NET Core z registru Docker. Vyžádání imagí a sestavení vlastních imagí.
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 06/18/2019
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: 578f6f8cd54597fe0a6186d182cccc3955331e49
-ms.sourcegitcommit: 2fa0ffe82a47c7317efc9ea908365881cbcb8ed7
+ms.openlocfilehash: 38bdad7110a45538be01cf432aab773c4205980e
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69572863"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975427"
 ---
 # <a name="docker-images-for-aspnet-core"></a>Image Docker pro ASP.NET Core
 

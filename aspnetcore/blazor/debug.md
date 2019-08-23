@@ -5,14 +5,14 @@ description: Naučte se ladit aplikace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/31/2019
+ms.date: 08/22/2019
 uid: blazor/debug
-ms.openlocfilehash: 37c6009727a4f62b61793adca0d83cdd53be4b9a
-ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
+ms.openlocfilehash: c3188a1fe1b699b787f7a95630f3918d295d0f68
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/01/2019
-ms.locfileid: "68707806"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69974899"
 ---
 # <a name="debug-aspnet-core-blazor"></a>Ladění ASP.NET Core Blazor
 
@@ -51,6 +51,10 @@ Ladění vyžaduje některý z následujících prohlížečů:
 1. Přihlaste se k aplikaci v prohlížeči.
 1. Umístěte fokus klávesnice na aplikaci, ne na panel nástroje pro vývojáře. Panel nástrojů pro vývojáře lze zavřít při zahájení ladění.
 1. Vyberte následující klávesovou zkratku specifickou pro Blazor:
+   * `Shift+Alt+D`v systému Windows/Linux
+   * `Shift+Cmd+D`v macOS
+1. Postupujte podle kroků uvedených na obrazovce a restartujte prohlížeč se zapnutým vzdáleným laděním.
+1. Znovu vyberte následující klávesovou zkratku Blazor, abyste mohli spustit ladicí relaci:
    * `Shift+Alt+D`v systému Windows/Linux
    * `Shift+Cmd+D`v macOS
 

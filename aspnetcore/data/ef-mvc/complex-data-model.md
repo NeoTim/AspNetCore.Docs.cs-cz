@@ -2,17 +2,17 @@
 title: 'Kurz: Vytvoření komplexního datového modelu – ASP.NET MVC pomocí EF Core'
 description: V tomto kurzu přidejte další entity a vztahy a upravte datový model zadáním formátování, ověřování a pravidel mapování.
 author: tdykstra
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 3563bf279f2ed9c9d79b5a9da2709e18511620d2
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: a69f1fdd38fec35dec6bb8125bf29859a437a891
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583270"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975081"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>Kurz: Vytvoření komplexního datového modelu – ASP.NET MVC pomocí EF Core
 
@@ -511,7 +511,7 @@ Klikněte pravým tlačítkem na tabulku **CourseAssignment** a vyberte **Zobraz
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu se naučíte:
 

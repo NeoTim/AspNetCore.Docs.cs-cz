@@ -2,17 +2,17 @@
 title: 'Kurz: Zpracování souběžnosti – ASP.NET MVC pomocí EF Core'
 description: Tento kurz ukazuje, jak řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
 author: tdykstra
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: d4b83bd269b067ab6fa9e8666109bacc602589bd
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 0a42a8adbe485f47853fa05fb500f4480f06e3f5
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583250"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975114"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: Zpracování souběžnosti – ASP.NET MVC pomocí EF Core
 
@@ -294,7 +294,7 @@ Chcete-li přidat možnost výběru do rozevíracího seznamu, nahraďte kód v 
 
  Další informace o zpracování souběžnosti v EF Core naleznete v tématu [konflikty souběžnosti](/ef/core/saving/concurrency).
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu se naučíte:
 

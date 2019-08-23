@@ -2,19 +2,27 @@
 title: 'Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC'
 description: Toto je první v sérii kurzů, které vysvětlují, jak vytvořit ukázkovou aplikaci Contoso University od začátku.
 author: tdykstra
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 1b68c20ba206a5afe36f307525879f91d03d95d1
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 3450ac5b46e2a03b5d58c8760b78a52065343992
+ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583339"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985363"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
+
+::: moniker range=">= aspnetcore-3.0"
+
+Tento kurz se neaktualizoval na ASP.NET Core 3,0. [Verze Razor Pages](xref:data/ef-rp/intro) byla aktualizována. Informace o tom, kdy je možné aktualizaci aktualizovat, najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/13920).
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
@@ -42,7 +50,7 @@ V tomto kurzu se naučíte:
   * **ASP.NET a webové vývojové** úlohy
   * **Vývojová úloha .NET Core pro různé platformy**
 
-## <a name="troubleshooting"></a>Řešení potíží
+## <a name="troubleshooting"></a>Poradce při potížích
 
 Pokud narazíte na problém nevyřešíte sami, můžete najít řešení obvykle porovnáním kódu [dokončený projekt](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final). Seznam běžných chyb a jejich řešení najdete v [části věnované řešení potíží v posledním kurzu v řadě](advanced.md#common-errors). Pokud tam nenajdete, co potřebujete, můžete odeslat otázku do StackOverflow.com pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
@@ -357,7 +365,7 @@ Další informace o asynchronním programování v rozhraní .NET naleznete v t�
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu se naučíte:
 
@@ -378,3 +386,5 @@ Přejděte k dalšímu kurzu, kde se dozvíte, jak provádět základní operace
 
 > [!div class="nextstepaction"]
 > [Implementace základní funkce CRUD](crud.md)
+
+::: moniker-end

@@ -1,115 +1,115 @@
 ---
-title: Co je nového v ASP.NET Core 2.2
-author: tdykstra
-description: Informace o nových funkcích v ASP.NET Core 2.2.
-ms.author: tdykstra
+title: Co je nového v ASP.NET Core 2,2
+author: rick-anderson
+description: Seznamte se s novými funkcemi v ASP.NET Core 2,2.
+ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: aspnetcore-2.2
-ms.openlocfilehash: ad7b5ecc4f03d845375b1612150da183df9ec0d9
-ms.sourcegitcommit: 06a455d63ff7d6b571ca832e8117f4ac9d646baf
+ms.openlocfilehash: 88a202d85c4d4ed7a395dba78feea29ef4637732
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67316584"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975715"
 ---
-# <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2.2
+# <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2,2
 
-Tento článek se soustředí na nejdůležitější změny provedené v 2.2 technologie ASP.NET Core, odkazy na relevantní dokumentaci.
+Tento článek zvýrazňuje nejvýznamnější změny v ASP.NET Core 2,2 s odkazy na příslušnou dokumentaci.
 
-## <a name="openapi-analyzers--conventions"></a>Analyzátory OpenAPI a konvence
+## <a name="openapi-analyzers--conventions"></a>OpenAPI analyzátory & konvence
 
-OpenAPI (dříve označované jako Swagger) je specifikace bez ohledu na jazyk pro popis rozhraní REST API. Ekosystém OpenAPI obsahuje nástroje, které umožňují vyhledávání, testování a produkci pomocí specifikace kód klienta. Podpora pro generování a vizualizaci OpenAPI dokumenty v ASP.NET Core MVC se poskytuje prostřednictvím projektů, jako vyvinutý komunitou [službou NSwag](https://github.com/RicoSuter/NSwag) a [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore). ASP.NET Core 2.2 poskytuje vylepšené nástroje a modul runtime prostředí pro vytváření dokumentů OpenAPI.
+OpenAPI (dříve označované jako Swagger) je specifikace jazyka nezávislá pro popis rozhraní REST API. Ekosystém OpenAPI obsahuje nástroje, které umožňují zjistit, testovat a vyprodukovat klientský kód pomocí specifikace. Podpora pro generování a vizualizaci dokumentů OpenAPI ve ASP.NET Core MVC je poskytována prostřednictvím projektů založených na komunitě, jako je [NSwag](https://github.com/RicoSuter/NSwag) a [swashbuckle. AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore). ASP.NET Core 2,2 poskytuje vylepšené nástroje a běhové prostředí pro vytváření dokumentů OpenAPI.
 
 Další informace naleznete v následujících materiálech:
 
 * <xref:web-api/advanced/analyzers>
 * <xref:web-api/advanced/conventions>
-* [ASP.NET Core 2.2.0-preview1: Analyzátory OpenAPI a konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
+* [ASP.NET Core 2.2.0-preview1: OpenAPI analyzátory & konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
 
-## <a name="problem-details-support"></a>Podrobnosti o problému podpory
+## <a name="problem-details-support"></a>Podpora podrobností o problému
 
-ASP.NET Core 2.1 zavedené `ProblemDetails`na základě [RFC 7807](https://tools.ietf.org/html/rfc7807) specifikace pro provádění podrobnosti o chybě se odpověď HTTP. 2\.2 `ProblemDetails` je standardní odpověď pro klienta kódy chyb v řadiče s `ApiControllerAttribute`. `IActionResult` Vrátí chyba stavový kód (4xx) nyní vrátí klientovi `ProblemDetails` textu. Výsledek bude obsahovat také Identifikátor korelace, který lze použít ke korelaci chyb pomocí protokolů z požadavku. Chyby klienta `ProducesResponseType` výchozí hodnota je pomocí `ProblemDetails` jako typ odpovědi. To je popsána v OpenAPI / Swagger výstupní vygenerované pomocí službou NSwag nebo Swashbuckle.AspNetCore.
+Zavedl `ProblemDetails`se ASP.NET Core 2,1 na základě specifikace [RFC 7807](https://tools.ietf.org/html/rfc7807) pro přenos podrobností o chybě s odpovědí HTTP. V 2,2 `ProblemDetails` je standardní odezva na kódy chyb klienta v řadičích s `ApiControllerAttribute`atributem. Vrácení stavového kódu chyby klienta (4xx) nyní `ProblemDetails` vrací tělo. `IActionResult` Výsledek také obsahuje ID korelace, které lze použít ke korelaci chyby pomocí protokolů požadavků. V případě chyb `ProducesResponseType` klienta se jako typ `ProblemDetails` odpovědi použije výchozí hodnota. To je dokumentováno ve výstupu OpenAPI/Swagger vygenerovaném pomocí NSwag nebo swashbuckle. AspNetCore.
 
-## <a name="endpoint-routing"></a>Koncový bod směrování
+## <a name="endpoint-routing"></a>Směrování koncových bodů
 
-ASP.NET Core 2.2 používá nový *koncový bod směrování* systému pro lepší odesílání požadavků. Mezi tyto změny patří nové propojení členy generování rozhraní API a parametr transformátory trasy.
+ASP.NET Core 2,2 používá pro lepší odesílání žádostí nový systém *Směrování koncových bodů* . Změny zahrnují nové členy rozhraní API pro generování odkazů a parametry směrování.
 
 Další informace naleznete v následujících materiálech:
 
-* [Koncový bod směrování v 2.2](https://blogs.msdn.microsoft.com/webdev/2018/08/27/asp-net-core-2-2-0-preview1-endpoint-routing/)
-* [Parametr transformátory trasy](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx) (viz **směrování** část)
-* [Rozdíly mezi směrování na základě IRouter a koncového bodu](xref:fundamentals/routing?view=aspnetcore-2.2#differences-from-earlier-versions-of-routing)
+* [Směrování koncových bodů v 2,2](https://blogs.msdn.microsoft.com/webdev/2018/08/27/asp-net-core-2-2-0-preview1-endpoint-routing/)
+* [Transformátory parametrů trasy](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx) (viz část **Směrování** )
+* [Rozdíly mezi směrováním na základě IRouter a koncových bodů](xref:fundamentals/routing?view=aspnetcore-2.2#differences-from-earlier-versions-of-routing)
 
 ## <a name="health-checks"></a>Kontroly stavu
 
-Nový stav kontroluje, že služba bude snazší používat ASP.NET Core v prostředí, které vyžadují kontroly stavu, jako je třeba Kubernetes. Doplněk pro kontroly stavu zahrnuje middleware a sadu knihoven, které definují `IHealthCheck` abstrakce a služby.
+Nové služby kontroly stavu usnadňují používání ASP.NET Core v prostředích, která vyžadují kontroly stavu, jako je například Kubernetes. Kontroly stavu zahrnují middleware a sadu knihoven, které definují `IHealthCheck` abstrakci a službu.
 
-Kontroly stavu jsou používány orchestrátor kontejnerů nebo Vyrovnávání zatížení do rychle zjistit, pokud je systém reagování na žádosti normálně. Orchestrátor kontejnerů může reagovat na stav selhání zkontrolovat, že zastavení nasazení se zajištěním provozu nebo kontejner se restartuje. Nástroj pro vyrovnávání zatížení může reagovat na kontrolu stavu můžete provoz nasměrovat od selhání instance služby.
+Kontroly stavu jsou používány nástrojem Orchestrator nebo nástrojem pro vyrovnávání zatížení, aby bylo možné rychle zjistit, zda systém reaguje na požadavky normálně. Produkt Orchestrator Container může reagovat na selhání kontroly stavu zastavením nasazení nebo restartováním kontejneru. Nástroj pro vyrovnávání zatížení může reagovat na kontrolu stavu směrováním provozu mimo selhání instance služby.
 
-Kontroly stavu jsou vystaveny jako koncový bod HTTP používají systémy pro monitorování aplikací. Kontroly stavu můžete nakonfigurovat pro různé scénáře monitorování a systémy pro monitorování v reálném čase. Doplněk pro kontroly stavu služby se integruje s [BeatPulse projektu](https://github.com/Xabaril/BeatPulse). snadněji přidání kontroly pro desítek oblíbených systémů a závislostí.
+Kontroly stavu jsou zpřístupněny aplikací jako koncový bod HTTP používaný systémy monitorování. Kontroly stavu je možné nakonfigurovat pro nejrůznější scénáře monitorování v reálném čase a monitorovací systémy. Služba kontroly stavu se integruje s [projektem BeatPulse](https://github.com/Xabaril/BeatPulse). Díky tomu je snazší přidat kontroly pro spoustu oblíbených systémů a závislostí.
 
-Další informace najdete v tématu [doplněk pro kontroly stavu v ASP.NET Core](xref:host-and-deploy/health-checks).
+Další informace najdete v tématu [kontroly stavu v ASP.NET Core](xref:host-and-deploy/health-checks).
 
-## <a name="http2-in-kestrel"></a>V Kestrel HTTP/2
+## <a name="http2-in-kestrel"></a>HTTP/2 v Kestrel
 
-ASP.NET Core 2.2 přidává podporu pro HTTP/2.
+ASP.NET Core 2,2 přidává podporu pro HTTP/2.
 
-HTTP/2 je hlavní revize protokolu HTTP. Některé důležité funkce protokolu HTTP/2 jsou podpora komprimaci hlaviček a plně multiplexní datové proudy přes samostatné připojení. Zatímco HTTP/2 zachovává sémantiku na HTTP (hlavičky protokolu HTTP, metody atd.) je zásadní změnu z HTTP/1.x na tom, jak tato data jsou uvedeny a odeslány prostřednictvím sítě jako.
+HTTP/2 je hlavní revize protokolu HTTP. Některé z významných funkcí HTTP/2 jsou podporovány pro kompresi hlaviček a plně multiplexované streamy přes jedno připojení. I když protokol HTTP/2 zachovává sémantiku protokolu HTTP (hlavičky HTTP, metody atd.), jedná se o zásadní změnu z HTTP/1. x na to, jak jsou tato data přenášená a odesílaná přes drát.
 
-Následkem této změně rámce servery a klienti potřebovat pro vyjednávání protokolu verze použitá. Vyjednávání protokolu v aplikační vrstvě (ALPN) je rozšíření protokolu TLS, který umožňuje serveru a klienta pro vyjednávání protokolu verze použitá jako součást své metody handshake TLS. I když je možné mít předchozí znalosti mezi serverem a klientem na protokol, podporují všechny hlavní prohlížeče ALPN jako jediný způsob, jak vytvořit připojení HTTP/2.
+V důsledku této změny v rámcích musí servery a klienti vyjednávat použitou verzi protokolu. Vyjednávání protokolu aplikační vrstvy (ALPN) je rozšíření TLS, které umožňuje serveru a klientovi vyjednávat verzi protokolu použitou jako součást metody handshake TLS. I když je možné mít předchozí znalosti mezi serverem a klientem v protokolu, všechny hlavní prohlížeče podporují ALPN jako jediný způsob, jak vytvořit připojení HTTP/2.
 
-Další informace najdete v tématu [podpora HTTP/2](xref:fundamentals/servers/index?view=aspnetcore-2.2#http2-support).
+Další informace najdete v tématu [Podpora protokolu HTTP/2](xref:fundamentals/servers/index?view=aspnetcore-2.2#http2-support).
 
-## <a name="kestrel-configuration"></a>Konfigurace kestrel
+## <a name="kestrel-configuration"></a>Konfigurace Kestrel
 
-V dřívějších verzích sady ASP.NET Core, Kestrel možnosti nakonfigurují voláním `UseKestrel`. 2\.2, Kestrel možnosti nakonfigurují voláním `ConfigureKestrel` na tvůrce hostitele. Tato změna řeší problém s pořadí `IServer` registrace pro hostování v procesu. Další informace naleznete v následujících materiálech:
+V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel`. V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrací pro vnitroprocesové hostování v rámci procesu. Další informace naleznete v následujících materiálech:
 
-* [Zmírnění má konflikt](https://github.com/aspnet/KestrelHttpServer/issues/2760)
-* [Nakonfigurujte Kestrel možnosti server s ConfigureKestrel](xref:fundamentals/servers/kestrel?view=aspnetcore-2.2#how-to-use-kestrel-in-aspnet-core-apps)
+* [Zmírnit konflikt UseIIS](https://github.com/aspnet/KestrelHttpServer/issues/2760)
+* [Konfigurace možností serveru Kestrel pomocí ConfigureKestrel](xref:fundamentals/servers/kestrel?view=aspnetcore-2.2#how-to-use-kestrel-in-aspnet-core-apps)
 
-## <a name="iis-in-process-hosting"></a>Hostování v procesu služby IIS
+## <a name="iis-in-process-hosting"></a>Hostování v rámci vnitroprocesové služby IIS
 
-V dřívějších verzích sady ASP.NET Core služba IIS slouží jako reverzní proxy server. 2\.2, že modul ASP.NET Core spouštěcí CoreCLR a hostovat aplikace uvnitř pracovní proces služby IIS (*w3wp.exe*). Hostování v procesu zajišťuje výkon a diagnostiku zisky při spuštění pomocí služby IIS.
+V dřívějších verzích ASP.NET Core služba IIS slouží jako reverzní proxy server. V 2,2 může modul ASP.NET Core spustit CoreCLR a hostovat aplikaci v pracovním procesu služby IIS (*W3wp. exe*). Hostování v rámci procesu poskytuje výkon a diagnostiku při používání služby IIS.
 
-Další informace najdete v tématu [proces hostování pro službu IIS](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model).
+Další informace najdete v tématu [vnitroprocesové hostování pro službu IIS](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model).
 
-## <a name="signalr-java-client"></a>Klientskou sadou SignalR Java
+## <a name="signalr-java-client"></a>Klient pro signalizaci Java
 
-ASP.NET Core 2.2 zavádí klientskou sadou Java pro funkci SignalR. Tento klient podporuje připojení k serveru funkce SignalR technologie ASP.NET Core z kódu Java, včetně aplikací pro Android.
+ASP.NET Core 2,2 zavádí klienta Java pro signalizaci. Tento klient podporuje připojení k serveru ASP.NET Core signalizace z kódu Java, včetně aplikací pro Android.
 
-Další informace najdete v tématu [klientskou sadou Java funkce SignalR technologie ASP.NET Core](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2).
+Další informace najdete v tématu [ASP.NET Core klienta Java Signal](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2).
 
 ## <a name="cors-improvements"></a>Vylepšení CORS
 
-V dřívějších verzích sady ASP.NET Core, CORS Middleware umožňuje `Accept`, `Accept-Language`, `Content-Language`, a `Origin` hlavičky k odeslání bez ohledu na nakonfigurované v hodnoty `CorsPolicy.Headers`. 2\.2, shoda se zásadami Middlewarem CORS je možné, pouze při odeslání hlaviček `Access-Control-Request-Headers` přesně odpovídat záhlaví uvádí `WithHeaders`.
+V `Accept`dřívějších verzích ASP.NET Core middleware CORS povoluje posílání hlaviček `Content-Language`, `Accept-Language`a `Origin` , a to bez ohledu na hodnoty nakonfigurované v. `CorsPolicy.Headers` V 2,2 se shoda zásad middlewaru CORS dá provést jenom v `Access-Control-Request-Headers` případě, že se záhlaví navzájem přesně shodují se záhlavími uvedenými v. `WithHeaders`
 
-Další informace najdete v tématu [Middlewarem CORS](xref:security/cors?view=aspnetcore-2.2#set-the-allowed-request-headers).
+Další informace najdete v tématu [middleware CORS](xref:security/cors?view=aspnetcore-2.2#set-the-allowed-request-headers).
 
 ## <a name="response-compression"></a>Komprese odpovědí
 
-ASP.NET Core 2.2 můžete kompresi odpovědí s [formát komprese Brotli](https://tools.ietf.org/html/rfc7932).
+ASP.NET Core 2,2 může komprimovat odpovědi pomocí [formátu komprese Brotli](https://tools.ietf.org/html/rfc7932).
 
-Další informace najdete v tématu [Middleware pro kompresi odpovědí podporuje kompresi Brotli](xref:performance/response-compression?view=aspnetcore-2.2#brotli-compression-provider).
+Další informace najdete v tématu [middleware pro kompresi odpovědí podporuje Brotli kompresi](xref:performance/response-compression?view=aspnetcore-2.2#brotli-compression-provider).
 
 ## <a name="project-templates"></a>Šablony projektů
 
-Byly aktualizovány šablony webových projektů ASP.NET Core [Bootstrap 4](https://getbootstrap.com/docs/4.1/migration/) a [Angular 6](https://blog.angular.io/version-6-of-angular-now-available-cc56b0efa7a4). Nový vzhled je vizuálně jednodušší a usnadňuje naleznete v tématu důležité struktury aplikace.
+Šablony ASP.NET Core webového projektu byly aktualizovány na [bootstrap 4](https://getbootstrap.com/docs/4.1/migration/) a na [úhlove 6](https://blog.angular.io/version-6-of-angular-now-available-cc56b0efa7a4). Nový vzhled je vizuálně jednodušší a usnadňuje zobrazení důležitých struktur aplikace.
 
-![Index nebo Domovská stránka](~/tutorials/razor-pages/razor-pages-start/_static/home2.2.png)
+![Stránka domů nebo index](~/tutorials/razor-pages/razor-pages-start/_static/home2.2.png)
 
-## <a name="validation-performance"></a>Ověření výkonu
+## <a name="validation-performance"></a>Výkon ověřování
 
-MVC ověření systému slouží k mít rozšiřitelný a flexibilní, abyste mohli určit, na každý požadavek na, což validátory platí pro daný model. To je skvělé pro vytváření poskytovatelů komplexní ověřování. V nejběžnější případ pouze používá integrované validátory aplikace a nevyžadují tato mimořádná flexibilita. Integrované validátory patří například DataAnnotations [povinné] a [StringLength] a `IValidatableObject`.
+Systém ověřování MVC je navržený tak, aby byl rozšiřitelný a flexibilní, což vám umožní určit na základě jednotlivých požadavků, které validátory se vztahují na daný model. To je skvělé pro vytváření komplexních zprostředkovatelů ověřování. V nejběžnějším případě však aplikace používá pouze předdefinované validátory a nevyžaduje tuto dodatečnou flexibilitu. Předdefinované Validátory zahrnují dataanotace, jako jsou [povinné] a [StringLength] `IValidatableObject`a.
 
-V ASP.NET Core 2.2 můžou MVC zkrácenou ověření, pokud určí, že daný model grafu nevyžaduje ověření. Výsledky ověření v významná vylepšení přeskakuje se při ověřování modelů, které nelze nebo nemají žádné validátory. To zahrnuje objekty, jako jsou kolekcí primitivních elementů (například `byte[]`, `string[]`, `Dictionary<string, string>`), nebo komplexního objektu grafy bez mnoho validátorů.
+V ASP.NET Core 2,2 může MVC ověřování pomocí krátkého okruhu, pokud zjistí, že daný graf modelu nevyžaduje ověření. Při ověřování modelů, které nemohou nebo nemají žádné validátory, se výsledky ověřování přeskočí. To zahrnuje objekty, jako jsou například kolekce primitivních objektů ( `byte[]`například `string[]`, `Dictionary<string, string>`,) nebo grafy složitých objektů bez mnoha validátorů.
 
 ## <a name="http-client-performance"></a>Výkon klienta HTTP
 
-V ASP.NET Core 2.2 výkon `SocketsHttpHandler` byla vylepšena snížením Uzamčení kolize fondu připojení. U aplikací, které usnadňují mnoho odchozích požadavků protokolu HTTP, jako je například některé architektury mikroslužeb se zlepšila propustnost. Pod zátěží `HttpClient` až o 60 % v Linuxu a 20 % pro Windows se dalo zlepšit propustnost.
+V ASP.NET Core 2,2 se zvýšil výkon `SocketsHttpHandler` tím, že se zmenší kolize uzamčení fondu připojení. V případě aplikací, které provedou mnoho odchozích požadavků HTTP, jako jsou například některé architektury mikroslužeb, je propustnost vylepšena. V případě `HttpClient` zátěže je možné zvýšit propustnost až 60% v systémech Linux a 20% ve Windows.
 
-Další informace najdete v tématu [žádosti o přijetí změn, který k tomuto vylepšení](https://github.com/dotnet/corefx/pull/32568).
+Další informace najdete v [žádosti o přijetí změn, která provedla toto zlepšení](https://github.com/dotnet/corefx/pull/32568).
 
 ## <a name="additional-information"></a>Další informace
 
-Úplný seznam změn, najdete v článku [poznámky k verzi pro ASP.NET Core 2.2](https://github.com/aspnet/Home/releases/tag/2.2.0).
+Úplný seznam změn najdete v poznámkách k [verzi pro ASP.NET Core 2,2](https://github.com/aspnet/Home/releases/tag/2.2.0).

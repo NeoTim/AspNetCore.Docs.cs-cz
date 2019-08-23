@@ -1,18 +1,18 @@
 ---
 title: Zpracování chyb v ASP.NET Core
-author: tdykstra
+author: rick-anderson
 description: Objevte, jak zpracovávat chyby v aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: f9f91455b273b99608ca6f1524df6cb748a26669
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.openlocfilehash: 652a97a6b7fbe4c8cc678b86a92eea59937e809c
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308197"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975587"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
@@ -73,7 +73,7 @@ Použijte <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> p
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Pages/Error.cshtml.cs?name=snippet_ExceptionHandlerPathFeature&3,7)]
 
 > [!WARNING]
-> Neslouží **klientům** informace o citlivých chybách. Obsluha chyb je bezpečnostní riziko.
+> Neslouží klientům informace o citlivých chybách. Obsluha chyb je bezpečnostní riziko.
 
 Chcete-li zobrazit stránku zpracování výjimek v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `ProdEnvironment` direktivy `ErrorHandlerPage` preprocesoru a a vyberte možnost **aktivovat výjimku** na domovské stránce.
 
@@ -86,7 +86,7 @@ Zde je příklad použití výrazu lambda pro zpracování výjimek:
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_HandlerPageLambda)]
 
 > [!WARNING]
-> **Neobsluhujte** citlivé informace o chybách <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> z <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientů ani do nich. Obsluha chyb je bezpečnostní riziko.
+> Neobsluhujte citlivé informace o chybách <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> z <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientů ani do nich. Obsluha chyb je bezpečnostní riziko.
 
 Chcete-li zobrazit výsledek lambda zpracování výjimek v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples), použijte `ProdEnvironment` direktivy preprocesoru `ErrorHandlerLambda` a a vyberte možnost **aktivovat výjimku** na domovské stránce.
 

@@ -4,15 +4,15 @@ author: Rick-Anderson
 description: Vysvětluje, jak vytvářet opakovaně použitelné uživatelské rozhraní Razor pomocí částečných zobrazení v knihovně tříd v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 08/20/2019
+ms.date: 08/22/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 468d961c291810ca4dfbe615acd972cfd6e7572a
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 5b83cb44302a5900ec7b2ccc049790b4c1ca57e5
+ms.sourcegitcommit: 6189b0ced9c115248c6ede02efcd0b29d31f2115
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886396"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985385"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelného uživatelského rozhraní pomocí projektu knihovny tříd Razor v ASP.NET Core
 
@@ -237,6 +237,39 @@ RCL může vyžadovat doprovodné statické prostředky, které mohou být odkaz
 Chcete-li zahrnout doprovodné materiály jako součást RCL, vytvořte složku *wwwroot* v knihovně tříd a zahrňte všechny požadované soubory do této složky.
 
 Při balení RCL jsou do balíčku automaticky zahrnuty všechny doprovodné materiály ve složce *wwwroot* .
+
+### <a name="exclude-static-assets"></a>Vyloučení statických prostředků
+
+Chcete-li vyloučit statické prostředky, přidejte požadovanou cestu vyloučení do `$(DefaultItemExcludes)` skupiny vlastností v souboru projektu. Jednotlivé položky oddělte středníkem`;`().
+
+V následujícím příkladu není šablona *lib. CSS* ve složce *wwwroot* považována za statický prostředek a není obsažena v publikovaném RCL:
+
+```xml
+<PropertyGroup>
+  <DefaultItemExcludes>$(DefaultItemExcludes);wwwroot\lib.css</DefaultItemExcludes>
+</PropertyGroup>
+```
+
+### <a name="typescript-integration"></a>Integrace TypeScriptu
+
+Zahrnutí souborů TypeScriptu do RCL:
+
+1. Soubory TypeScript ( *. TS*) umístěte mimo složku *wwwroot* . Umístěte například soubory do složky *klienta* .
+
+1. Nakonfigurujte výstup sestavení TypeScriptu pro složku *wwwroot* . Nastavte vlastnost uvnitř `PropertyGroup` souboru projektu: `TypescriptOutDir`
+
+   ```xml
+   <TypescriptOutDir>wwwroot</TypescriptOutDir>
+   ```
+
+1. Přidejte cíl TypeScript jako závislost `ResolveCurrentProjectStaticWebAssets` cíle přidáním následujícího cíle `PropertyGroup` do v souboru projektu:
+
+   ```xml
+   <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+     TypeScriptCompile;
+     $(ResolveCurrentProjectStaticWebAssetsInputs)
+   </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+   ```
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>Využití obsahu z odkazovaného RCL
 

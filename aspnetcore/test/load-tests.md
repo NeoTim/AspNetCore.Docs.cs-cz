@@ -1,64 +1,64 @@
 ---
-title: ASP.NET Core zatížení a zátěžové testování
+title: ASP.NET Core zátěžové nebo zátěžové testování
 author: Jeremy-Meng
-description: Přečtěte si o několika důležité nástroje a přístupy k testování zatížení a zátěžové testování aplikací pro ASP.NET Core.
+description: Přečtěte si několik důležitých nástrojů a přístupů pro zátěžové testování a zátěžové testování ASP.NET Core aplikací.
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/05/2019
+ms.date: 4/05/2019
 uid: test/loadtests
-ms.openlocfilehash: 4b07dd1af7e0c1d3ce9baa167b69fd8f80df204a
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 7a9dfc1fedf747ab26daa573b61ed01c31709058
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815176"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975249"
 ---
-# <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core zatížení a zátěžové testování
+# <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core zátěžové nebo zátěžové testování
 
-Zátěžové testování a zátěžové testování je důležité zajistit, že webová aplikace představuje výkonné a škálovatelné. Své cíle se liší, i když často sdílejí podobné testy.
+Zátěžové testování a zátěžové testování jsou důležité k zajištění toho, aby byla webová aplikace výkonná a škálovatelná. Jejich cíle se liší, i když často sdílejí podobné testy.
 
-**Zátěžové testy** &ndash; otestovat, zda aplikace dokáže zpracovat zadané zátěž uživatelů pro určité scénáře při stále nesplňujete cíl odpovědi. Za normálních podmínek spuštění aplikace.
+**Zátěžové testy** &ndash; Otestujte, jestli aplikace může zpracovat zadané zatížení uživatelů pro určitý scénář a přitom stále vyhovuje cíli odpovědi. Aplikace se spouští za běžných podmínek.
 
-**Zátěžové testy** &ndash; testovací stabilitu aplikace při spuštění v rámci extrémní podmínky, často dlouhou dobu. Testy vysokého uživatelského zatížení, provozní špičky nebo postupně zvyšující se zatížení, umístěte na aplikaci nebo omezují výpočetních prostředků aplikace.
+**Zátěžové testy** &ndash; Testování stability aplikace při provozu za extrémních podmínek, často po dlouhou dobu. Testy zadávají vysoké uživatelské zatížení, buď špičky nebo postupně zvyšují zatížení, v aplikaci, nebo omezují výpočetní prostředky aplikace.
 
-Zátěžové testy určení, zda lze aplikaci vytížený obnovení po selhání a elegantně vrátí k očekávané chování. Vytížený není aplikace spuštěna za normálních podmínek.
+Zátěžové testy určují, jestli se aplikace v rámci zátěže může zotavit z chyby a řádně se vrátit k očekávanému chování. V případě zátěže není aplikace spouštěna za běžných podmínek.
 
-Visual Studio 2019 je poslední verzi sady Visual Studio pomocí funkce zátěžového testu. Zákazníkům, kteří vyžadují nástroje v budoucnu testování zatížení doporučujeme alternativní nástrojů, jako je Apache JMeter Akamai CloudTest a BlazeMeter. Další informace najdete v tématu [zpráva k vydání verze. 2019 Visual Studio](/visualstudio/releases/2019/release-notes-v16.0#test-tools).
+Visual Studio 2019 je poslední verzí sady Visual Studio s funkcemi zátěžového testu. Pro zákazníky, kteří potřebují nástroje pro testování zatížení v budoucnu, doporučujeme použít alternativní nástroje, jako je Apache JMeter, Akamai CloudTest a BlazeMeter. Další informace naleznete v poznámkách k [verzi sady Visual Studio 2019](/visualstudio/releases/2019/release-notes-v16.0#test-tools).
 
-Zátěžového testování v Azure DevOps skončí platnost během 2020. Další informace najdete v tématu [cloudového zátěžového testování služby konci životnosti](https://devblogs.microsoft.com/devops/cloud-based-load-testing-service-eol/).
+Služba zátěžové testování ve službě Azure DevOps končí na 2020. Další informace najdete v tématu [cloudová služba zátěžového testování – konec životnosti](https://devblogs.microsoft.com/devops/cloud-based-load-testing-service-eol/).
 
 ## <a name="visual-studio-tools"></a>Nástroje sady Visual Studio
 
-Visual Studio umožňuje uživatelům vytvářet, vyvíjet a ladit testy webového výkonu a zatížení. Možnost je k dispozici pro vytvoření testů pomocí zaznamenávání akcí ve webovém prohlížeči.
+Visual Studio umožňuje uživatelům vytvářet, vyvíjet a ladit testy výkonu a zátěže webu. Možnost je k dispozici pro vytváření testů pomocí zaznamenávání akcí ve webovém prohlížeči.
 
-Informace o tom, jak vytvořit, nakonfigurovat a spustit zátěžový test projektů pomocí sady Visual Studio 2017 najdete v tématu [rychlý start: Vytvoření projektu zátěžového testu](/visualstudio/test/quickstart-create-a-load-test-project?view=vs-2017). Další informace najdete v tématu [další prostředky](#additional-resources) oddílu.
+Informace o tom, jak vytvořit, nakonfigurovat a spustit projekty zátěžového testu pomocí sady Visual Studio 2017, najdete [v tématu rychlý Start: Vytvořte projekt](/visualstudio/test/quickstart-create-a-load-test-project?view=vs-2017)zátěžového testu.
 
-Zátěžové testy lze nakonfigurovat ke spuštění v místním prostředí nebo spuštění v cloudu s využitím Azure DevOps.
+Zátěžové testy lze nakonfigurovat tak, aby běžely místně nebo běžely v cloudu s využitím Azure DevOps.
 
 ## <a name="azure-devops"></a>Azure DevOps
 
-Spuštění zátěžového testu můžete začít používat [testovací plány Azure DevOps](/azure/devops/test/load-test/index?view=vsts) služby.
+Běh zátěžového testu lze spustit pomocí služby [Azure DevOps test Plans](/azure/devops/test/load-test/index?view=vsts) .
 
-![Azure DevOps zátěžového testování cílová stránka](./load-tests/_static/azure-devops-load-test.png)
+![Cílová stránka pro zátěžové testování Azure DevOps](./load-tests/_static/azure-devops-load-test.png)
 
-Tato služba podporuje následující formáty testu:
+Služba podporuje následující formáty testů:
 
-* Visual Studio &ndash; webového testu vytvořené v sadě Visual Studio.
-* Archiv HTTP &ndash; přenosy HTTP zachycena uvnitř archivu je přehrály během testování.
-* [Na základě adresy URL](/azure/devops/test/load-test/get-started-simple-cloud-load-test?view=vsts) &ndash; umožňuje zadat adresy URL načíst test, typy požadavků, hlaviček a řetězce dotazu. Nastavení parametrů, jako je například doba trvání spuštění vzor zatížení a počet uživatelů, je možné nakonfigurovat.
-* [Apache JMeter](https://jmeter.apache.org/).
+* Webový test &ndash; sady Visual Studio vytvořený v aplikaci Visual Studio.
+* Během testování &ndash; se v průběhu testování přehraje archivní přenos protokolu HTTP v archivu.
+* [Na základě adresy URL](/azure/devops/test/load-test/get-started-simple-cloud-load-test?view=vsts) &ndash; Umožňuje zadat adresy URL pro zátěžový test, typy požadavků, záhlaví a řetězce dotazu. Je možné nakonfigurovat parametry nastavení, jako je například doba trvání, vzorek zatížení a počet uživatelů.
+* [Apache JMeter](https://jmeter.apache.org/)
 
 ## <a name="azure-portal"></a>portál Azure
 
-[Azure portal umožňuje nastavení a spuštění zátěžového testování webových aplikací](/azure/devops/test/load-test/app-service-web-app-performance-test?view=vsts) přímo z **výkonu** kartu služby App Service na webu Azure portal.
+[Azure Portal umožňuje nastavit a spustit zátěžové testování webových aplikací](/azure/devops/test/load-test/app-service-web-app-performance-test?view=vsts) přímo z karty **výkon** App Service v Azure Portal.
 
-![Azure App Service na webu Azure portal](./load-tests/_static/azure-appservice-perf-test.png)
+![Azure App Service v Azure Portal](./load-tests/_static/azure-appservice-perf-test.png)
 
-Test může být manuálního testu se zadanou adresu URL nebo soubor webový Test Visual Studio, které můžete testovat více adres URL.
+Test může být manuální test se zadanou adresou URL nebo souborem webového testu sady Visual Studio, který může testovat více adres URL.
 
-![Nový Test výkonnosti stránky na webu Azure portal](./load-tests/_static/azure-appservice-perf-test-config.png)
+![Nová stránka testu výkonu na Azure Portal](./load-tests/_static/azure-appservice-perf-test-config.png)
 
-Na konci testu zobrazit sestavy generované charakteristiky výkonu aplikace. Příklad statistiky patří:
+Na konci testu zobrazuje vygenerované sestavy charakteristiky výkonu aplikace. Příklady statistik zahrnují:
 
 * Průměrná doba odezvy
 * Maximální propustnost: počet požadavků za sekundu
@@ -66,16 +66,12 @@ Na konci testu zobrazit sestavy generované charakteristiky výkonu aplikace. P�
 
 ## <a name="third-party-tools"></a>Nástroje třetích stran
 
-Následující seznam obsahuje nástroje výkonnosti webu třetích stran s různými sadami funkcí:
+Následující seznam obsahuje nástroje webového výkonu jiných výrobců s různými sadami funkcí:
 
 * [Apache JMeter](https://jmeter.apache.org/)
-* [ApacheBench (ab)](https://httpd.apache.org/docs/2.4/programs/ab.html)
+* [ApacheBench (AB)](https://httpd.apache.org/docs/2.4/programs/ab.html)
 * [Gatling](https://gatling.io/)
-* [Locust](https://locust.io/)
-* [WebSurge větru – západ](https://websurge.west-wind.com/)
+* [Svatojánského](https://locust.io/)
+* [Webwind v západním větru](https://websurge.west-wind.com/)
 * [Netling](https://github.com/hallatore/Netling)
 * [Vegeta](https://github.com/tsenart/vegeta)
-
-## <a name="additional-resources"></a>Další zdroje
-
-* [Načíst Test blogovou sérii](https://blogs.msdn.microsoft.com/charles_sterling/2015/06/01/load-test-series-part-i-creating-web-performance-tests-for-a-load-test/)

@@ -1,17 +1,17 @@
 ---
 title: Spuštění aplikace v ASP.NET Core
-author: tdykstra
+author: rick-anderson
 description: Přečtěte si, jak třída Startup v ASP.NET Core konfiguruje služby a kanál žádostí aplikace.
-ms.author: tdykstra
+ms.author: riande
 ms.custom: mvc
 ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 2ce4f2093c11066370160c62949888837065f129
-ms.sourcegitcommit: 2fa0ffe82a47c7317efc9ea908365881cbcb8ed7
+ms.openlocfilehash: 8866ee9210a91754d8050d0b91ff52c3d3fe0836
+ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69572831"
+ms.lasthandoff: 08/22/2019
+ms.locfileid: "69975441"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
