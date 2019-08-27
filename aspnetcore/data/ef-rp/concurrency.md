@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: df3cc9eb3d0c1748ca9cd194ee58e4614bba24d5
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: da57633c345ec087b1a4f24ddc7771e7a2d04720
+ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583405"
+ms.lasthandoff: 08/27/2019
+ms.locfileid: "70059079"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - souběžnosti - 8 8
 
@@ -234,7 +234,7 @@ Sestavte projekt.
 
 Nástroj pro generování uživatelského rozhraní vytvořil `RowVersion` sloupec pro stránku indexu, ale toto pole by se v produkční aplikaci nezobrazovalo. V tomto kurzu se zobrazí poslední bajt `RowVersion` , který vám ukáže, jak funguje zpracování souběžnosti. Poslední bajt není zaručený jako jedinečný.
 
-Aktualizace indexovou stránku:
+Aktualizovat stránku *Pages\Departments\Index.cshtml* :
 
 * Nahraďte indexem oddělení.
 * Změňte kód obsahující `RowVersion` tak, aby zobrazoval pouze poslední bajt pole bajtů.

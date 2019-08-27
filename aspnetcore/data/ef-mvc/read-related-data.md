@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: 5e2db1aca18ce86eef2c9823b752f994c301da5f
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 2bf556dae5d30819c54ecc3f0dadfbd3316db1cc
+ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975129"
+ms.lasthandoff: 08/27/2019
+ms.locfileid: "70059110"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Čtení souvisejících dat – ASP.NET MVC pomocí EF Core
 
@@ -239,7 +239,7 @@ Předpokládejme, že jste uživatelům očekávali jenom zřídka jenom ty regi
 
 [!code-csharp[](intro/samples/cu/Controllers/InstructorsController.cs?name=snippet_ExplicitLoading&highlight=23-29)]
 
-Nový kód zruší volání metody *ThenInclude* pro data zápisu z kódu, který načítá entity instruktora. Pokud je vybrán instruktor a kurz, zvýrazněný kód načte entity registrace pro vybraný kurz a entity studenta pro každou registraci.
+Nový kód zruší volání metody *ThenInclude* pro data zápisu z kódu, který načítá entity instruktora. Tím také klesne `AsNoTracking`.  Pokud je vybrán instruktor a kurz, zvýrazněný kód načte entity registrace pro vybraný kurz a entity studenta pro každou registraci.
 
 Spusťte aplikaci, přejděte na stránku indexu instruktory nyní a uvidíte, že se na stránce zobrazí žádný rozdíl, i když jste změnili způsob, jakým se data načítají.
 
