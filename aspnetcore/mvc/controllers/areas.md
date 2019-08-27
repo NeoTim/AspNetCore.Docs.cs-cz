@@ -5,12 +5,12 @@ description: Přečtěte si, jak se jedná o funkci ASP.NET MVC, která slouží
 ms.author: riande
 ms.date: 08/16/2019
 uid: mvc/controllers/areas
-ms.openlocfilehash: d0af3092776ee09469c879fffd3047c50b1a59b4
-ms.sourcegitcommit: 4cb0c7e74355f2e87c60e2a196f842b937247a99
+ms.openlocfilehash: 9065aa23a537add5a9376472e4f4478e9d4149bd
+ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/16/2019
-ms.locfileid: "69545804"
+ms.lasthandoff: 08/26/2019
+ms.locfileid: "70024732"
 ---
 # <a name="areas-in-aspnet-core"></a>Oblasti v ASP.NET Core
 
@@ -72,9 +72,7 @@ I když je předchozí rozložení typický při použití oblastí, k použití
 /Areas/<Area-Name>/Views/Shared/<Action-Name>.cshtml
 /Views/Shared/<Action-Name>.cshtml
 /Pages/Shared/<Action-Name>.cshtml
-   ```
-
-Umístění nezobrazených složek, jako jsou *řadiče* a *modely* , **nezáleží**. Například složka *řadiče* a *modely* není vyžadována. Obsah *řadičů* a *modelů* je kód, který je zkompilován do knihovny DLL. Obsah *zobrazení* není zkompilován, dokud není proveden požadavek na toto zobrazení.
+```
 
 <a name="attribute"></a>
 

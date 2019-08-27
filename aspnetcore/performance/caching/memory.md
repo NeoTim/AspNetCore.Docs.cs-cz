@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/22/2019
 uid: performance/caching/memory
-ms.openlocfilehash: 3005adec9ffe41859d05a3f61c7c45b8e7bfeefc
-ms.sourcegitcommit: bdaee0e8c657fe7546fd6b7990db9c03c2af04df
+ms.openlocfilehash: 1519abbca6430063f037372a4927f5818f160457
+ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69908377"
+ms.lasthandoff: 08/26/2019
+ms.locfileid: "70024789"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť v paměti v ASP.NET Core
 
@@ -85,15 +85,15 @@ Následující kód Získá nebo vytvoří položku uloženou v mezipaměti s ab
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet99)]
 
-Sada položek v mezipaměti s klouzavé vypršení platnosti je ohrožena pouze v případě neaktuálnosti, protože není k dispozici žádná vazba na její vypršení platnosti. Použití absolutního vypršení platnosti s posuvnou platností pro zajištění, že se položka v mezipaměti nebude zastaralá, než absolutní doba vypršení platnosti. Je-li absolutní doba platnosti kombinována s posouváním, absolutní doba platnosti nastaví horní mez na dobu, po kterou může být položka ukládána do mezipaměti. Na rozdíl od absolutního času vypršení platnosti je tato položka z mezipaměti vyřazena, pokud není vyžadována z mezipaměti v klouzavém intervalu vypršení platnosti. Při zadání absolutního a klouzavého vypršení platnosti jsou vypršení platnosti logicky ORed.
+Sada položek v mezipaměti s klouzavé vypršení platnosti je ohrožena pouze v případě, že je zastaralá. Pokud se k němu dostanete častěji než klouzavé období vypršení platnosti, tato položka nikdy nevyprší. Zkombinujte klouzavé vypršení platnosti s absolutním vypršením platnosti a zajistěte tak, že platnost položky vyprší po uplynutí absolutního času vypršení. Absolutní vypršení platnosti nastaví horní mez na dobu, po kterou může být položka ukládána do mezipaměti, a stále umožňuje, aby položka vypršela dříve, pokud se nepožaduje v klouzavém intervalu vypršení platnosti. Při zadání absolutního i klouzavého vypršení platnosti jsou vypršení platnosti logicky ORed. Pokud je interval klouzavého vypršení platnosti *nebo* absolutního času vypršení platnosti, položka bude z mezipaměti vyřazena.
 
-Následující kód Získá nebo vytvoří položku uloženou v mezipaměti s klouzavé a absolutní vypršení platnosti:
+Následující kód Získá nebo vytvoří položku uloženou v mezipaměti s použitím klouzavého *i* absolutního vypršení platnosti:
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet9)]
 
 Předchozí kód zaručuje, že data nebudou ukládána do mezipaměti déle než absolutní čas.
 
-<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*>, <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>a <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.Get*> jsou rozšiřujícímetody<xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>, které jsou součástí třídy,kterározšiřujeschopnost.<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions> Popis dalších metod mezipaměti naleznete v tématu [metody IMemoryCache](/dotnet/api/microsoft.extensions.caching.memory.imemorycache) a [metody CacheExtensions](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions) .
+<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreate*>, <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.GetOrCreateAsync*>a <xref:Microsoft.Extensions.Caching.Memory.CacheExtensions.Get*> jsou<xref:Microsoft.Extensions.Caching.Memory.CacheExtensions> rozšiřující metody třídy. Tyto metody rozšiřuje schopnost <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>.
 
 ## <a name="memorycacheentryoptions"></a>MemoryCacheEntryOptions
 
