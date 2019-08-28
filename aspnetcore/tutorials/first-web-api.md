@@ -4,14 +4,14 @@ author: rick-anderson
 description: Naučte se vytvářet webové rozhraní API pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2019
+ms.date: 08/27/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 99985e9fb1134c2ba808434f8d24c4a768773268
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 25bfccb136d875b454034bd011828c9f3b6cd3d8
+ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022596"
+ms.lasthandoff: 08/28/2019
+ms.locfileid: "70113290"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -462,9 +462,9 @@ Pomocí nástroje Postman odstraňte položku úkolu:
 * Nastavte identifikátor URI objektu odstranit, například `https://localhost:5001/api/TodoItems/1`
 * Vyberte **odeslat**
 
-## <a name="call-the-api-from-jquery"></a>Volání rozhraní API ze jQuery
+## <a name="call-the-web-api-with-javascript"></a>Volání webového rozhraní API pomocí JavaScriptu
 
-Viz [kurz: Zavolejte ASP.NET Core webového rozhraní API pomocí jQuery](xref:tutorials/web-api-jquery).
+Viz [kurz: Zavolejte ASP.NET Core Web API pomocí JavaScriptu](xref:tutorials/web-api-javascript).
 
 ::: moniker-end
 
@@ -480,9 +480,10 @@ V tomto kurzu se naučíte:
 > * Konfigurace směrování a cesty adresy URL.
 > * Zadejte návratové hodnoty.
 > * Volání webového rozhraní API pomocí nástroje Postman.
-> * Zavolejte webové rozhraní API pomocí jQuery.
+> * Zavolejte webové rozhraní API pomocí JavaScriptu.
 
 Na konci máte webové rozhraní API, která může spravovat "úkolů" položky uložené v relační databázi.
+
 ## <a name="overview"></a>Přehled
 
 Tento kurz vytvoří následující rozhraní API:
@@ -737,7 +738,6 @@ Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult\<T > typ]
 * Pokud žádná položka odpovídá požadovaným ID, vrátí metoda 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) kód chyby.
 * V opačném případě vrátí metoda 200 s těla odpovědi JSON. Vrací `item` výsledkem odpověď HTTP 200.
 
-
 ## <a name="test-the-gettodoitems-method"></a>Test GetTodoItems – metoda
 
 Tento kurz používá Postman k otestování webové rozhraní API.
@@ -863,9 +863,9 @@ Pomocí nástroje Postman odstraňte položku úkolu:
 
 Ukázková aplikace umožňuje odstranit všechny položky. Když je však poslední položka odstraněna, vytvoří se nový konstruktor třídy modelu při příštím volání rozhraní API.
 
-## <a name="call-the-api-with-jquery"></a>Volání rozhraní API pomocí jQuery
+## <a name="call-the-web-api-with-javascript"></a>Volání webového rozhraní API pomocí JavaScriptu
 
-V této části se přidá stránku HTML, který používá jQuery volat webové rozhraní api. jQuery zahájí požadavek a aktualizuje stránku s podrobnostmi o z odpovědi rozhraní API.
+V této části se přidá stránka HTML, která pomocí JavaScriptu volá webové rozhraní API. Načtené rozhraní API iniciuje požadavek. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
 
 Nakonfigurujte aplikaci tak, aby sloužila pro [statické soubory](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) , a [Povolte výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) aktualizací *Startup.cs* pomocí následujícího zvýrazněného kódu:
 
@@ -886,19 +886,17 @@ Ke změně nastavení spouštěcí projekt ASP.NET Core může být nutné testo
 * Otevřít *Properties\launchSettings.json*.
 * Odeberte `launchUrl` vlastnost, aby se aplikace na *index.html*&mdash;výchozí soubor projektu.
 
-Existuje několik způsobů, jak získat jQuery. V předchozím fragmentu kódu je načíst knihovnu ze sítě CDN.
-
-Tato ukázka volá všechny metody CRUD rozhraní API. Následuje vysvětlení volání rozhraní API.
+Tato ukázka volá všechny metody CRUD webového rozhraní API. Následuje vysvětlení volání rozhraní API.
 
 ### <a name="get-a-list-of-to-do-items"></a>Získání seznamu úkolů
 
-JQuery [ajax](https://api.jquery.com/jquery.ajax/) funkce odešle `GET` žádosti na rozhraní API, které vrací JSON představující pole položek úkolů. `success` Funkce zpětného volání je vyvolána, pokud neproběhne. Při zpětném volání modelu DOM se aktualizuje informacemi úkolů.
+Načtení odešle požadavek HTTP GET do webového rozhraní API, které vrátí JSON představující pole položek úkolů. `success` Funkce zpětného volání je vyvolána, pokud neproběhne. Při zpětném volání modelu DOM se aktualizuje informacemi úkolů.
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_GetData)]
 
 ### <a name="add-a-to-do-item"></a>Přidat položku seznamu úkolů
 
-[Ajax](https://api.jquery.com/jquery.ajax/) funkce odešle `POST` požadavek se úkol v textu požadavku. `accepts` a `contentType` možnosti jsou nastaveny na `application/json` zadat typ média, který se přijalo a odeslalo. Položky seznamu úkolů je převést na JSON pomocí [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify). Rozhraní API po návratu úspěšné stavový kód, `getData` funkce se vyvolala aktualizovat tabulku HTML.
+Metoda Fetch odešle požadavek HTTP POST s položkou k žádosti v textu požadavku. `accepts` a `contentType` možnosti jsou nastaveny na `application/json` zadat typ média, který se přijalo a odeslalo. Položky seznamu úkolů je převést na JSON pomocí [JSON.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify). Rozhraní API po návratu úspěšné stavový kód, `getData` funkce se vyvolala aktualizovat tabulku HTML.
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AddItem)]
 
