@@ -5,14 +5,14 @@ description: Naučte se používat globální nástroj HTTP REPL .NET Core k pro
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 07/25/2019
+ms.date: 08/29/2019
 uid: web-api/http-repl
-ms.openlocfilehash: d2c5f774595e7a2223e84cc76eecdb9baa04adfe
-ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
+ms.openlocfilehash: e97b127b869b847997f9c48e4031306daecef2f9
+ms.sourcegitcommit: 4b00e77f9984ce76356e829cfe7f75f0f61a7a8f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2019
-ms.locfileid: "70024804"
+ms.lasthandoff: 08/29/2019
+ms.locfileid: "70145784"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -278,52 +278,6 @@ Pokud nejsou nastavené určité klíče barev, považují se za obecnější kl
 * Pokud `colors.json.string` nemá hodnotu, `colors.json.literal` je použita hodnota.
 * Pokud `colors.json.literal` nemá hodnotu, `colors.json` je použita hodnota. 
 * Pokud `colors.json` hodnota nemá hodnotu, použije se výchozí barva textu (`AllowedColors.None`) příkazového prostředí.
-
-### <a name="set-indentation-size"></a>Nastavit velikost odsazení
-
-Přizpůsobení velikosti odsazení odpovědí se v současné době podporuje jenom pro JSON. Výchozí velikost jsou dvě mezery. Příklad:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Apple"
-  },
-  {
-    "id": 2,
-    "name": "Orange"
-  },
-  {
-    "id": 3,
-    "name": "Strawberry"
-  }
-]
-```
-
-Chcete-li změnit výchozí velikost, nastavte `formatting.json.indentSize` klíč. Například pokud chcete vždy použít čtyři mezery:
-
-```console
-pref set formatting.json.indentSize 4
-```
-
-Následující odpovědi dodržují nastavení čtyř mezer:
-
-```json
-[
-    {
-        "id": 1,
-        "name": "Apple"
-    },
-    {
-        "id": 2,
-        "name": "Orange"
-    },
-    {
-        "id": 3,
-        "name": "Strawberry"
-    }
-]
-```
 
 ### <a name="set-indentation-size"></a>Nastavit velikost odsazení
 

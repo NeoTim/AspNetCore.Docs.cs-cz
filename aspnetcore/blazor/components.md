@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/components
-ms.openlocfilehash: e1afae730d61463d31c8a1698fc31904a3fc8f0e
-ms.sourcegitcommit: 257cc3fe8c1d61341aa3b07e5bc0fa3d1c1c1d1c
+ms.openlocfilehash: 07e9153ccfdc78d1da57b815d33220f7fa597cc7
+ms.sourcegitcommit: 4b00e77f9984ce76356e829cfe7f75f0f61a7a8f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/19/2019
-ms.locfileid: "69583087"
+ms.lasthandoff: 08/29/2019
+ms.locfileid: "70145728"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -200,7 +200,7 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `
 
 `CaptureUnmatchedValues` Vlastnost on`[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný pomocí `CaptureUnmatchedValues` musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
 
-## <a name="data-binding"></a>Vytváření datových vazeb
+## <a name="data-binding"></a>Datová vazba
 
 Datové vazby na součásti a elementy modelu DOM jsou provedeny [@bind](xref:mvc/views/razor#bind) atributem. V následujícím příkladu je svázáno `_italicsCheck` pole se zaškrtnutým stavem zaškrtávací políčko:
 
@@ -436,7 +436,7 @@ Podporované [UIEventArgs](https://github.com/aspnet/AspNetCore/blob/release/3.0
 | Průběh | `UIProgressEventArgs` |
 | Dotykové ovládání | `UITouchEventArgs`&ndash; představujejedenkontaktníbodnazařízenícitlivém`UITouchPoint` na dotykové ovládání. |
 
-Informace o vlastnostech a chování zpracování událostí událostí v předchozí tabulce naleznete v tématu [třídy EventArgs ve zdroji odkazu](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview8/src/Components/Web/src).
+Informace o vlastnostech a chování zpracování událostí v předchozí tabulce naleznete v tématu [třídy EventArgs v referenčním zdroji (ASPNET/AspNetCore Release/3.0-preview9)](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src).
 
 ### <a name="lambda-expressions"></a>Výrazy lambda
 
@@ -1202,14 +1202,14 @@ builder.AddContent(1, "Second");
 
 V případě, že se kód spustí poprvé, v `someFlag` případě `true`, že je, tvůrce obdrží:
 
-| Pořadí | type      | Data   |
+| Sequence | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | Sekunda |
 
 Představte `false`si, že `someFlag` se zobrazí a značka se znovu vykreslí. Tentokrát Tvůrce získá:
 
-| Pořadí | type       | Data   |
+| Sequence | type       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Textový uzel  | Sekunda |
 
@@ -1234,14 +1234,14 @@ builder.AddContent(seq++, "Second");
 
 Teď je první výstup:
 
-| Pořadí | type      | Data   |
+| Sequence | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | Sekunda |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag`je `false` ve druhém vykreslování a výstup je:
 
-| Pořadí | type      | Data   |
+| Sequence | type      | Data   |
 | :------: | --------- | ------ |
 | 0        | Textový uzel | Sekunda |
 

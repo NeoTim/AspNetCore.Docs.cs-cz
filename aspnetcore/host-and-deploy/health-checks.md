@@ -1,86 +1,86 @@
 ---
-title: Doplněk pro kontroly stavu v ASP.NET Core
+title: Kontroly stavu v ASP.NET Core
 author: guardrex
-description: Další informace o nastavení kontroly stavu pro ASP.NET Core infrastruktury, jako jsou aplikace a databáze.
+description: Naučte se, jak nastavit kontroly stavu pro infrastrukturu ASP.NET Core, jako jsou aplikace a databáze.
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 43b6c3b55170eaf3a989d0f2779edac5290df823
-ms.sourcegitcommit: 7a40c56bf6a6aaa63a7ee83a2cac9b3a1d77555e
+ms.openlocfilehash: cc2ee50cd887a14fba2141bee13d65e777c16232
+ms.sourcegitcommit: 4b00e77f9984ce76356e829cfe7f75f0f61a7a8f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/12/2019
-ms.locfileid: "67855914"
+ms.lasthandoff: 08/29/2019
+ms.locfileid: "70145751"
 ---
-# <a name="health-checks-in-aspnet-core"></a>Doplněk pro kontroly stavu v ASP.NET Core
+# <a name="health-checks-in-aspnet-core"></a>Kontroly stavu v ASP.NET Core
 
-Podle [Luke Latham](https://github.com/guardrex) a [Glenn Condron](https://github.com/glennc)
+Od [Luke Latham](https://github.com/guardrex) a [Glenn Condron](https://github.com/glennc)
 
-ASP.NET Core nabízí Middleware zkontrolovat stav a knihovny pro vytváření sestav stavu komponent infrastruktury aplikace.
+ASP.NET Core nabízí middleware pro kontrolu stavu a knihovny pro vytváření sestav stavu součástí infrastruktury aplikací.
 
-Kontroly stavu jsou vystaveny aplikací jako koncových bodů HTTP. Kontroly stavu koncových bodů lze nakonfigurovat pro různé scénáře monitorování v reálném čase:
+Kontroly stavu jsou zpřístupněné aplikací jako koncové body HTTP. Koncové body kontroly stavu je možné nakonfigurovat pro nejrůznější scénáře monitorování v reálném čase:
 
-* Sondy stavu služby mohou být využívána orchestrátorů kontejnerů a zkontrolovat stav vaší aplikace Vyrovnávání zatížení. Například orchestrátor kontejnerů může reagovat na stav selhání zkontrolovat, že zastavení nasazení se zajištěním provozu nebo kontejner se restartuje. Nástroj pro vyrovnávání zatížení může reagovat na není v pořádku aplikace můžete provoz nasměrovat od selhání instance na instanci v pořádku.
-* Použití paměti, disku a další prostředky fyzického serveru je možné monitorovat stav v pořádku.
-* Kontroly stavu můžete otestovat závislostí vaší aplikace, jako jsou databáze a externí služby koncových bodů, abyste zkontrolovali dostupnost a správně fungovat.
+* Sondy stavu můžou použít orchestrace kontejnerů a nástroje pro vyrovnávání zatížení ke kontrole stavu aplikace. Například produkt Orchestrator může reagovat na selhání kontroly stavu zastavením zavedení nasazení nebo restartováním kontejneru. Nástroj pro vyrovnávání zatížení může reagovat na poškozenou aplikaci směrováním provozu mimo instanci selhání do stavu v pořádku.
+* Použití paměti, disku a dalších prostředků fyzického serveru se dá monitorovat v dobrém stavu.
+* Kontroly stavu můžou testovat závislosti aplikace, jako jsou databáze a externí koncové body služby, aby se potvrdila dostupnost a normální fungování.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-Ukázková aplikace obsahuje příklady scénářů popsaných v tomto tématu. Chcete-li spustit ukázkovou aplikaci v daném scénáři, použijte [dotnet spustit](/dotnet/core/tools/dotnet-run) příkaz ze složky projektu v příkazovém řádku. Zobrazit ukázkovou aplikaci *README.md* souboru a popisy scénářů v tomto tématu informace o tom, jak použít ukázkovou aplikaci.
+Ukázková aplikace obsahuje příklady scénářů popsaných v tomto tématu. Pokud chcete pro daný scénář spustit ukázkovou aplikaci, použijte příkaz [dotnet Run](/dotnet/core/tools/dotnet-run) ze složky projektu v příkazovém prostředí. Podrobnosti o tom, jak používat ukázkovou aplikaci, najdete v souboru *Readme.MD* ukázkové aplikace a v popisech scénářů v tomto tématu.
 
 ## <a name="prerequisites"></a>Požadavky
 
-Kontroly stavu se obvykle používají s externí monitorování orchestrator služby nebo kontejneru a zkontrolujte stav aplikace. Před přidáním kontroly stavu aplikace, rozhodněte, na který monitorovací systém použít. Systém monitorování Určuje, jaké typy kontroly stavu k vytvoření a konfigurace jejich koncové body.
+Kontroly stavu se obvykle používají s externí službou monitorování nebo nástrojem Orchestrator Container Service ke kontrole stavu aplikace. Před přidáním kontrol stavu do aplikace se rozhodněte, který monitorovací systém se má použít. Monitorovací systém vyhodnotí, jaké typy kontrol stavu se mají vytvořit a jak nakonfigurovat jejich koncové body.
 
-Odkaz [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app) nebo přidat odkaz na balíček [Microsoft.AspNetCore.Diagnostics.HealthChecks](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.HealthChecks) balíčku.
+Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. AspNetCore. Diagnostics. HealthChecks](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.HealthChecks) .
 
-Ukázková aplikace poskytuje při spuštění kód pro demonstraci kontroly stavu pro několik scénářů. [Databáze sondy](#database-probe) scénář zkontroluje stav připojení databáze pomocí [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). [DbContext sondy](#entity-framework-core-dbcontext-probe) scénář zkontroluje databázi pomocí EF Core `DbContext`. Prozkoumat scénáře databázi, ukázková aplikace:
+Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro několik scénářů. Scénář [testu databáze](#database-probe) kontroluje stav připojení k databázi pomocí [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). Scénář [testu DbContext](#entity-framework-core-dbcontext-probe) zkontroluje databázi pomocí EF Core `DbContext`. K prozkoumání scénářů databáze se jedná o ukázkovou aplikaci:
 
-* Vytvoří databázi a obsahuje ve svém připojovacím řetězci *appsettings.json* souboru.
-* Má následující odkazy na balíčky v jeho souboru projektu:
+* Vytvoří databázi a poskytne připojovací řetězec v souboru *appSettings. JSON* .
+* Obsahuje následující odkazy na balíček v souboru projektu:
   * [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
   * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je port [BeatPulse](https://github.com/xabaril/beatpulse) a není zachována nebo podporovaný společností Microsoft.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
 
-Další možností kontroly stavu ukazuje, jak filtrovat kontroly stavu port pro správu. Ukázková aplikace je potřeba vytvořit *Properties/launchSettings.json* soubor, který obsahuje adresu URL pro správu a port pro správu. Další informace najdete v tématu [filtrovat podle port](#filter-by-port) oddílu.
+Další scénář kontroly stavu ukazuje, jak filtrovat kontroly stavu na port pro správu. Ukázková aplikace vyžaduje, abyste vytvořili soubor *Properties/launchSettings. JSON* , který obsahuje adresu URL pro správu a port pro správu. Další informace naleznete v části [Filter by port](#filter-by-port) .
 
-## <a name="basic-health-probe"></a>Sonda stavu základní
+## <a name="basic-health-probe"></a>Základní sonda stavu
 
-U mnoha aplikací konfiguraci sondy základní stav, který bude hlásit dostupnost aplikace ke zpracování požadavků (*aktivity*) ke zjištění stavu aplikace.
+U mnoha aplikací je základní konfigurace sondy stavu, která oznamuje dostupnost aplikace pro zpracování požadavků (*živý*), ke zjištění stavu aplikace dostačující.
 
-Základní konfigurace zaregistruje služeb kontroly stavu a volá Middleware Kontrola stavu reagovat na koncový bod adresy URL odpovědí stavu. Ve výchozím nastavení jsou registrovány žádné konkrétní stav kontroly testování žádné konkrétní závislost nebo subsystému. Aplikace se považuje za v pořádku, pokud je schopný reagovat na adresu URL koncového bodu stavu. Zapíše zapisovače odpovědí výchozí stav (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>) jako odpověď ve formátu prostého textu zpět do klienta, která [HealthStatus.Healthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus), [HealthStatus.Degraded](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) nebo [ HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) stav.
+Základní konfigurace registruje služby kontroly stavu a volá middleware kontroly stavu, aby reagoval na koncový bod adresy URL s odpovědí na stav. Ve výchozím nastavení nejsou k otestování konkrétní závislosti nebo subsystému registrovány žádné konkrétní kontroly stavu. Aplikace se považuje za v pořádku, pokud dokáže reagovat na adresu URL koncového bodu stavu. Výchozí<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>zapisovač odpovědí zapisuje stav () jako odpověď ve formátu prostého textu zpátky klientovi, což značí buď [funkčnosti. dobrý](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus)stav, [funkčnosti. Degraded](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) nebo [funkčnosti.](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) status není v pořádku.
 
-Registrace služby kontroly stavu s <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> v `Startup.ConfigureServices`. Přidat stav zkontrolujte Middleware s <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> v kanálu zpracování žádosti o `Startup.Configure`.
+Registrovat služby kontroly stavu v <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> nástroji `Startup.ConfigureServices`v. Přidejte middleware pro <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> kontrolu stavu v `Startup.Configure`kanálu zpracování požadavků.
 
-V ukázkové aplikaci, je vytvořen koncový bod stavu zaškrtnutí v `/health` (*BasicStartup.cs*):
+V ukázkové aplikaci se koncový bod kontroly stavu vytvoří `/health` (*BasicStartup.cs*):
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/BasicStartup.cs?name=snippet1&highlight=5,10)]
 
-Ke spuštění základní konfiguraci scénář s využitím ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém řádku:
+Pokud chcete spustit scénář základní konfigurace pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém prostředí:
 
 ```console
 dotnet run --scenario basic
 ```
 
-### <a name="docker-example"></a>Příklad dockeru
+### <a name="docker-example"></a>Ukázka Docker
 
-[Docker](xref:host-and-deploy/docker/index) nabízí integrované `HEALTHCHECK` směrnice, kterého chcete zkontrolovat stav, který používá základní stav Zkontrolujte konfiguraci aplikace:
+[Docker](xref:host-and-deploy/docker/index) nabízí vestavěnou `HEALTHCHECK` direktivu, která se dá použít ke kontrole stavu aplikace, která používá konfiguraci základní kontroly stavu:
 
 ```
 HEALTHCHECK CMD curl --fail http://localhost:5000/health || exit
 ```
 
-## <a name="create-health-checks"></a>Vytvoření kontroly stavu
+## <a name="create-health-checks"></a>Vytvořit kontroly stavu
 
-Doplněk pro kontroly stavu jsou vytvořeny pomocí implementace <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> rozhraní. <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck.CheckHealthAsync*> Metoda vrátí hodnotu `Task<` <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult> `>` , který označuje stav jako `Healthy`, `Degraded`, nebo `Unhealthy`. Výsledkem je zapsán jako odpověď ve formátu prostého textu se dají konfigurovat stavovým kódem (konfigurace je popsaná v [možnosti kontroly stavu](#health-check-options) části). <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult> Můžete také vrátit volitelné páry klíč hodnota.
+Kontroly stavu jsou vytvářeny implementací <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> rozhraní. <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck.CheckHealthAsync*> Metoda `Healthy` vrátíhodnotu,která`Degraded`označuje stav jako, nebo. `Unhealthy` `>` `Task<` <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult> Výsledek je zapsán jako odpověď v podobě prostého textu s konfigurovatelným stavovým kódem (konfigurace je popsána v části [Možnosti kontroly stavu](#health-check-options) ). <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult>může také vracet volitelné páry klíč-hodnota.
 
-### <a name="example-health-check"></a>Kontrola stavu příklad
+### <a name="example-health-check"></a>Příklad kontroly stavu
 
-Následující `ExampleHealthCheck` třídy ukazuje rozložení kontrolou stavu:
+Následující `ExampleHealthCheck` třída demonstruje rozložení kontroly stavu:
 
 ```csharp
 public class ExampleHealthCheck : IHealthCheck
@@ -111,9 +111,9 @@ public class ExampleHealthCheck : IHealthCheck
 }
 ```
 
-### <a name="register-health-check-services"></a>Registrace služeb kontroly stavu
+### <a name="register-health-check-services"></a>Registrovat služby kontroly stavu
 
-`ExampleHealthCheck` Typ je přidat do služby kontroly stavu s <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*>:
+Typ se přidá do služby kontroly stavu pomocí <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*>: `ExampleHealthCheck`
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -123,9 +123,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> Přetížení je znázorněno v následujícím příkladu nastaví stav chyby (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>) k sestavě, když je kontrola stavu hlásí selhání. Pokud je nastaven stav selhání `null` (výchozí), [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) se použije v hlášení. Toto přetížení je užitečný scénář pro autory knihoven, kde stav selhání indikován knihovny vynucuje aplikace, když dojde k selhání kontroly stavu, pokud provádění kontroly stavu respektuje nastavení.
+Přetížení znázorněné v následujícím příkladu nastaví stav selhání (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>) na hodnotu ohlásit, když při kontrole stavu nahlásí chybu. <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> Pokud je stav selhání nastavený na `null` (výchozí), funkčnosti se hlásí jako [chybné](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) . Toto přetížení je užitečným scénářem pro autory knihoven, kde stav selhání uvedený v knihovně vynutila aplikace, když dojde k selhání kontroly stavu, pokud se při implementaci kontroly stavu splní nastavení.
 
-*Značky* můžete použít k filtrování kontroly stavu (popsáno dále v [filtrovat kontroly stavu](#filter-health-checks) části).
+*Značky* lze použít k filtrování kontrol stavu (popsaných dále v oddílu [Filtr kontrol stavu](#filter-health-checks) ).
 
 ```csharp
 services.AddHealthChecks()
@@ -135,7 +135,7 @@ services.AddHealthChecks()
         tags: new[] { "example" });
 ```
 
-<xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> Můžete také spustit funkci lambda. V následujícím příkladu je zadán název kontroly stavu jako `Example` a kontrola vždy vrátí hodnotu stavu v pořádku:
+<xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*>lze také spustit funkci lambda. V následujícím příkladu je název kontroly stavu zadán jako `Example` a zaškrtávací políčka vždy vrátí dobrý stav:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -146,9 +146,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-### <a name="use-health-checks-middleware"></a>Použití middlewaru kontroly stavu
+### <a name="use-health-checks-middleware"></a>Použití middlewaru pro kontroly stavu
 
-V `Startup.Configure`, volání <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> v kanálu zpracování se adresa URL koncového bodu nebo relativní cesta:
+V `Startup.Configure`aplikaci volejte <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> kanál zpracování s adresou URL koncového bodu nebo relativní cestou:
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -157,26 +157,26 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Pokud kontroly stavu naslouchat požadavkům na konkrétní port, použijte přetížení <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> nastavení portu (popsány dále v [filtrovat podle port](#filter-by-port) části):
+Pokud by kontroly stavu měly naslouchat na konkrétním portu, použijte přetížení <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> pro nastavení portu (popsáno dále v části [Filter by port](#filter-by-port) ):
 
 ```csharp
 app.UseHealthChecks("/health", port: 8000);
 ```
 
-Middleware ověří stavu je *terminálu middleware* v kanálu zpracování žádosti o aplikace. První stavu vrácení koncového bodu došlo k, který přesně odpovídá adrese URL požadavku spustí a zkratům middleware zbytku. Dojde-li krátký cyklus, spustí žádné middleware následující kontroly stavu odpovídající.
+Middleware pro kontrolu stavu je middleware *terminálu* v kanálu zpracování požadavků aplikace. První koncový bod kontroly stavu, který se přesně shoduje s adresou URL požadavku, je spuštěný a má krátké okruhy ve zbývající části kanálu middlewaru. Při krátkém okruhu se neprovede žádné middleware, které následují po odpovídající kontrole stavu.
 
 ## <a name="health-check-options"></a>Možnosti kontroly stavu
 
-<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions> poskytnout příležitosti k přizpůsobení chování kontrolu stavu:
+<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions>Poskytněte možnost přizpůsobení chování kontroly stavu:
 
 * [Filtrovat kontroly stavu](#filter-health-checks)
-* [Přizpůsobení stavový kód HTTP](#customize-the-http-status-code)
+* [Přizpůsobení stavového kódu HTTP](#customize-the-http-status-code)
 * [Potlačit hlavičky mezipaměti](#suppress-cache-headers)
 * [Přizpůsobení výstupu](#customize-output)
 
 ### <a name="filter-health-checks"></a>Filtrovat kontroly stavu
 
-Ve výchozím nastavení spustí všechny kontroly stavu registrované Middleware zkontrolovat stav. Pro spuštění podmnožiny kontroly stavu, poskytují funkce, která vrátí logickou hodnotu k <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate> možnost. V následujícím příkladu `Bar` Kontrola stavu je odfiltrována podle jeho značky (`bar_tag`) v podmíněném příkazu funkce, kde `true` je vrácena pouze v případě kontrola stavu <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckRegistration.Tags> odpovídá vlastnosti `foo_tag` nebo `baz_tag`:
+Ve výchozím nastavení middleware pro kontrolu stavu spouští všechny zaregistrované kontroly stavu. Chcete-li spustit podmnožinu kontrol stavu, zadejte funkci, která vrací logickou <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate> hodnotu pro možnost. V `Bar` následujícím příkladu je kontrole stavu Filtrováno podle značky ( `true` `bar_tag`) v podmíněném příkazu funkce, kde <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckRegistration.Tags> je vrácena pouze v případě, že odpovídá `foo_tag` vlastnost kontroly stavu nebo `baz_tag`:
 
 ```csharp
 using System.Threading.Tasks;
@@ -205,9 +205,9 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-### <a name="customize-the-http-status-code"></a>Přizpůsobení stavový kód HTTP
+### <a name="customize-the-http-status-code"></a>Přizpůsobení stavového kódu HTTP
 
-Použití <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes> přizpůsobit mapování stavu stavové kódy HTTP. Následující <xref:Microsoft.AspNetCore.Http.StatusCodes> přiřazení jsou výchozí hodnoty pro daný middleware. Změňte hodnoty stavu kódu podle svých požadavků.
+Slouží <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes> k přizpůsobení mapování stavu na stavové kódy HTTP. Následující <xref:Microsoft.AspNetCore.Http.StatusCodes> přiřazení jsou výchozí hodnoty používané middlewarem. Změňte hodnoty stavového kódu tak, aby splňovaly vaše požadavky.
 
 ```csharp
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -231,7 +231,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="suppress-cache-headers"></a>Potlačit hlavičky mezipaměti
 
-<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses> Určuje, zda Middleware zkontrolovat stav přidá do odpovědi test zabránit ukládání do mezipaměti odpovědi hlavičky protokolu HTTP. Pokud je hodnota `false` (výchozí), middleware Nastaví nebo přepíše `Cache-Control`, `Expires`, a `Pragma` záhlaví zabránit ukládání odpovědí do mezipaměti. Pokud je hodnota `true`, middleware nemění mezipaměti hlaviček odpovědi.
+<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses>Určuje, jestli middleware pro kontrolu stavu přidá hlavičky HTTP do odezvy testu, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je `false` hodnota (výchozí), middleware nastaví nebo `Cache-Control`přepíše hlavičky, `Expires`a `Pragma` , aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je `true`hodnota, middleware neupraví hlavičky mezipaměti odpovědi.
 
 ```csharp
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -249,7 +249,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 ### <a name="customize-output"></a>Přizpůsobení výstupu
 
-<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter> Možnost získá nebo nastaví delegáta použitý k zápisu odpovědi. Výchozí delegáta zapíše odpověď o minimální ve formátu prostého textu s řetězcovou hodnotu [HealthReport.Status](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport.Status).
+<xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter> Možnost Získá nebo nastaví delegáta použitý k zápisu odpovědi. Výchozí delegát zapisuje minimální odpověď ve formátu prostého textu s řetězcovou hodnotou [HealthReport. status](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport.Status).
 
 ```csharp
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -284,77 +284,77 @@ private static Task WriteResponse(HttpContext httpContext,
 
 ## <a name="database-probe"></a>Test databáze
 
-Kontrola stavu můžete zadat dotaz na databázi pro spuštění jako logický test k označení, pokud je databáze obvykle reagovat.
+Kontrola stavu může určit databázový dotaz, který se má spustit jako logický test, aby označoval, zda databáze obvykle reaguje.
 
-Tato ukázková aplikace používá [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks), knihovna kontroly stavu pro aplikace ASP.NET Core, chcete-li provést kontrolu stavu v databázi serveru SQL Server. `AspNetCore.Diagnostics.HealthChecks` Spustí `SELECT 1` dotaz na databázi a zkontrolujte připojení k databázi je v pořádku.
+Ukázková aplikace pomocí [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks), knihovny kontroly stavu pro aplikace ASP.NET Core, provede kontrolu stavu databáze SQL Server. `AspNetCore.Diagnostics.HealthChecks``SELECT 1` spustí dotaz na databázi, aby se ověřilo, že připojení k databázi je v pořádku.
 
 > [!WARNING]
-> Při kontrole připojení databáze pomocí dotazu, vyberte dotaz, který vrací rychle. Přístup dotaz spustí riziko přetížení databáze a snížení jeho výkon. Ve většině případů není nutné spuštění testu dotazu. Stačí pouze provedení úspěšného připojení k databázi. Pokud zjistíte potřebné ke spuštění dotazu, zvolte jednoduchého dotazu SELECT, jako například `SELECT 1`.
+> Při kontrole připojení k databázi pomocí dotazu vyberte dotaz, který se rychle vrátí. Přístup k dotazům spouští riziko přetížení databáze a snížení výkonu. Ve většině případů není nutné spustit testovací dotaz. Stačí pouze provést úspěšné připojení k databázi. Pokud zjistíte, že je nutné spustit dotaz, zvolte jednoduchý dotaz SELECT, například `SELECT 1`.
 
-Zahrnout odkaz na balíček pro [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).
+Zahrňte odkaz na balíček do [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).
 
-Zadejte platnou databázi připojovacího řetězce v *appsettings.json* souboru ukázkovou aplikaci. Aplikace používá databázi systému SQL Server s názvem `HealthCheckSample`:
+Zadejte platný připojovací řetězec databáze do souboru *appSettings. JSON* ukázkové aplikace. Aplikace používá SQL Server databázi s názvem `HealthCheckSample`:
 
 [!code-json[](health-checks/samples/2.x/HealthChecksSample/appsettings.json?highlight=3)]
 
-Registrace služby kontroly stavu s <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> v `Startup.ConfigureServices`. Volání ukázkové aplikace `AddSqlServer` metoda připojovacím řetězcem databázi (*DbHealthStartup.cs*):
+Registrovat služby kontroly stavu v <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> nástroji `Startup.ConfigureServices`v. Ukázková aplikace volá `AddSqlServer` metodu s připojovacím řetězcem databáze (*DbHealthStartup.cs*):
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/DbHealthStartup.cs?name=snippet_ConfigureServices)]
 
-Volat stavu zkontrolujte Middleware v kanálu zpracování aplikace v `Startup.Configure`:
+Zavolá middleware pro kontrolu stavu v kanálu zpracování `Startup.Configure`aplikace v:
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/DbHealthStartup.cs?name=snippet_Configure)]
 
-Pokud chcete spustit scénář testu databáze pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém řádku:
+Pokud chcete spustit scénář testu databáze pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém prostředí:
 
 ```console
 dotnet run --scenario db
 ```
 
 > [!NOTE]
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je port [BeatPulse](https://github.com/xabaril/beatpulse) a není zachována nebo podporovaný společností Microsoft.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
 
-## <a name="entity-framework-core-dbcontext-probe"></a>Entity Framework Core DbContext testu
+## <a name="entity-framework-core-dbcontext-probe"></a>Test Entity Framework Core DbContext
 
-`DbContext` Kontrola potvrdí, že aplikace mohla komunikovat s databází, které jsou nakonfigurované pro EF Core `DbContext`. `DbContext` Kontrola se podporuje v aplikacích, které:
+Tato `DbContext` kontrolu potvrdí, že aplikace může komunikovat s databází nakonfigurovanou pro EF Core `DbContext`. Tato `DbContext` kontrolu je podporovaná v aplikacích, které:
 
-* Použití [Entity Framework (EF) Core](/ef/core/).
-* Zahrnout odkaz na balíček pro [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/).
+* Použijte [jádro Entity Framework (EF)](/ef/core/).
+* Zahrňte odkaz na balíček [Microsoft. Extensions. Diagnostics. HealthChecks. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/).
 
-`AddDbContextCheck<TContext>` zaregistruje kontrolu stavu `DbContext`. `DbContext` Je předána jako `TContext` metody. Přetížení je možné konfigurovat stav chyby, značky a vlastní testovat dotaz.
+`AddDbContextCheck<TContext>`zaregistruje kontrolu stavu pro `DbContext`. `DbContext` Je dodán`TContext` jako metoda metodě. K dispozici je přetížení pro konfiguraci stavu selhání, značek a vlastního testovacího dotazu.
 
 Ve výchozím nastavení:
 
-* `DbContextHealthCheck` Volá EF Core `CanConnectAsync` metody. Můžete přizpůsobit, jaké operace je spuštěna při kontrole stavu pomocí `AddDbContextCheck` přetížení metody.
+* `DbContextHealthCheck` Volá metodu`CanConnectAsync` EF Core. Můžete přizpůsobit, která operace je spuštěna při kontrole stavu pomocí `AddDbContextCheck` přetížení metod.
 * Název kontroly stavu je název `TContext` typu.
 
-V ukázkové aplikaci `AppDbContext` je poskytnuta `AddDbContextCheck` a zaregistrováno jako služba v `Startup.ConfigureServices`.
+V ukázkové aplikaci `AppDbContext` je k `AddDbContextCheck` dispozici a zaregistrováno jako služba v `Startup.ConfigureServices`nástroji.
 
 *DbContextHealthStartup.cs*:
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/DbContextHealthStartup.cs?name=snippet_ConfigureServices)]
 
-V ukázkové aplikaci `UseHealthChecks` přidá Middleware zkontrolovat stav v `Startup.Configure`.
+V ukázkové aplikaci `UseHealthChecks` přidá middleware pro kontrolu stavu v `Startup.Configure`.
 
 *DbContextHealthStartup.cs*:
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/DbContextHealthStartup.cs?name=snippet_Configure)]
 
-Ke spuštění `DbContext` scénář s využitím ukázkové aplikace pro zjišťování, potvrďte, že zadaná pomocí připojovacího řetězce databáze neexistuje v instanci systému SQL Server. Pokud databáze existuje, odstraňte ho.
+Pokud chcete spustit `DbContext` scénář sondy pomocí ukázkové aplikace, zkontrolujte, že databáze určená připojovacím řetězcem v instanci SQL Server neexistuje. Pokud databáze existuje, odstraňte ji.
 
-Ze složky projektu v příkazovém řádku spusťte následující příkaz:
+Ze složky projektu v příkazovém prostředí spusťte následující příkaz:
 
 ```console
 dotnet run --scenario dbcontext
 ```
 
-Jakmile je aplikace spuštěna, kontroluje stav tak, že požadavek na `/health` koncový bod v prohlížeči. Databáze a `AppDbContext` neexistují, takže aplikace poskytuje odpovědi na následující:
+Po spuštění aplikace ověřte stav tak, že v prohlížeči vytvoříte požadavek na `/health` koncový bod. Databáze a `AppDbContext` neexistuje, takže aplikace nabízí následující odpověď:
 
 ```
 Unhealthy
 ```
 
-Spusťte ukázkovou aplikaci k vytvoření databáze. Vytvořit žádost o `/createdatabase`. Reakce aplikace:
+Aktivujte ukázkovou aplikaci pro vytvoření databáze. Vytvořte žádost na `/createdatabase`. Aplikace odpoví:
 
 ```
 Creating the database...
@@ -362,13 +362,13 @@ Done!
 Navigate to /health to see the health status.
 ```
 
-Vytvořit žádost o `/health` koncového bodu. Databáze a kontext existují, takže reakce aplikace:
+Vytvořte požadavek na `/health` koncový bod. Databáze a kontext existují, takže aplikace reaguje:
 
 ```
 Healthy
 ```
 
-Spusťte ukázkovou aplikaci odstranit databázi. Vytvořit žádost o `/deletedatabase`. Reakce aplikace:
+Aktivujte ukázkovou aplikaci, aby se odstranila databáze. Vytvořte žádost na `/deletedatabase`. Aplikace odpoví:
 
 ```
 Deleting the database...
@@ -376,52 +376,52 @@ Done!
 Navigate to /health to see the health status.
 ```
 
-Vytvořit žádost o `/health` koncového bodu. Aplikace poskytuje odpověď není v pořádku:
+Vytvořte požadavek na `/health` koncový bod. Aplikace poskytuje poškozenou reakci:
 
 ```
 Unhealthy
 ```
 
-## <a name="separate-readiness-and-liveness-probes"></a>Samostatné připravenost a testům aktivity
+## <a name="separate-readiness-and-liveness-probes"></a>Samostatné sondy pro připravenost a živý provoz
 
-V některých scénářích hostování se používají pár kontroly stavu, který odlišit dvou stavů – stav aplikace:
+V některých scénářích hostování se používá pár kontrol stavu, který rozlišuje dva stavy aplikace:
 
-* Aplikace je funkční, ale není ještě připraven pro příjem požadavků. Tento stav se aplikace *připravenosti*.
-* Fungovat a reagovat na požadavky aplikace. Tento stav se aplikace *aktivity*.
+* Aplikace funguje, ale ještě není připravená na příjem požadavků. Tento stav je *připravenost*aplikace.
+* Aplikace funguje a reaguje na požadavky. Tento stav je živými aplikacemi.
 
-Kontrola připravenosti obvykle provádí rozsáhlé a časově náročné sadu kontroly, aby zjistil, zda všechny subsystémy aplikace a prostředky jsou k dispozici. Kontrola aktivity provádí pouze Rychlá kontrola k určení, zda je k dispozici pro zpracování požadavků aplikace. Po aplikaci předává jeho kontroly připravenosti, je nemusí ovlivnit aplikaci dále sadou nákladné kontroly připravenosti&mdash;další kontroly vyžadují jenom tehdy, vyhledávají se aktivity.
+Kontrola připravenosti obvykle provádí rozsáhlejší a časově náročnou sadu kontrol, aby bylo možné zjistit, zda jsou k dispozici všechny subsystémy a prostředky aplikace. K dispozici je pouze rychlá kontrolu, která určuje, zda je aplikace k dispozici pro zpracování požadavků. Po úspěšném provedení kontroly připravenosti aplikace nemusíte aplikaci navýšit dál s nákladnými sadami kontrol&mdash;připravenosti, které vyžadují kontrolu živého ověření.
 
-Ukázková aplikace obsahuje kontrolou stavu k dokončení dlouho běžící úloha po spuštění v hlášení [hostovanou službu](xref:fundamentals/host/hosted-services). `StartupHostedServiceHealthCheck` Zpřístupňuje vlastnost, `StartupTaskCompleted`, který hostovanou službu, můžete nastavit na `true` po dokončení jeho dlouho běžící úlohy (*StartupHostedServiceHealthCheck.cs*):
+Ukázková aplikace obsahuje kontrolu stavu, která oznamuje dokončení dlouhotrvající úlohy po spuštění v [hostované službě](xref:fundamentals/host/hosted-services). Zpřístupňuje `true` vlastnost, která hostovaná služba může nastavit na hodnotu po dokončení její dlouhotrvající úlohy (StartupHostedServiceHealthCheck.cs): `StartupTaskCompleted` `StartupHostedServiceHealthCheck`
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/StartupHostedServiceHealthCheck.cs?name=snippet1&highlight=7-11)]
 
-Dlouho běžící úlohy na pozadí se spustí [hostovanou službu](xref:fundamentals/host/hosted-services) (*služby/StartupHostedService*). Na závěr úkolu `StartupHostedServiceHealthCheck.StartupTaskCompleted` je nastavena na `true`:
+Dlouhotrvající úloha na pozadí se spouští v [hostované službě](xref:fundamentals/host/hosted-services) (*Services/StartupHostedService*). Při uzavírání úkolu `StartupHostedServiceHealthCheck.StartupTaskCompleted` je nastaveno na `true`:
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/Services/StartupHostedService.cs?name=snippet1&highlight=18-20)]
 
-Kontrola stavu je registrovaný pomocí <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> v `Startup.ConfigureServices` spolu s hostovanou službu. Protože hostovanou službu, musíte nastavit vlastnost na kontrolu stavu, kontrola stavu se registruje v kontejneru služby (*LivenessProbeStartup.cs*):
+Kontroly stavu jsou registrovány <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> ve `Startup.ConfigureServices` službě společně s hostovanou službou. Vzhledem k tomu, že hostovaná služba musí nastavit vlastnost pro kontrolu stavu, je tato kontrolu také zaregistrována v kontejneru služby (*LivenessProbeStartup.cs*):
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs?name=snippet_ConfigureServices)]
 
-Volat stavu zkontrolujte Middleware v kanálu zpracování aplikace v `Startup.Configure`. V ukázkové aplikaci koncových bodů kontroly stavu jsou vytvářeny na `/health/ready` pro kontrolu připravenosti a `/health/live` pro kontroly aktivity. Filtry kontroly připravenosti stav doplněk pro kontroly stavu, obraťte se `ready` značky. Kontrola aktivity filtruje `StartupHostedServiceHealthCheck` vrácením `false` v [HealthCheckOptions.Predicate](xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate) (Další informace najdete v tématu [filtrovat kontroly stavu](#filter-health-checks)):
+V kanálu pro zpracování aplikací v `Startup.Configure`se zavolá middleware pro kontrolu stavu. V ukázkové aplikaci jsou koncové body kontroly stavu vytvořeny v `/health/ready` pro kontrolu připravenosti a `/health/live` pro kontrolu živého provozu. Kontrola připravenosti filtruje kontrolu stavu na kontrolu stavu se `ready` značkou. Kontrola živého odfiltruje vrácení `StartupHostedServiceHealthCheck` `false` se změnami v [HealthCheckOptions. predikátu](xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate) (Další informace najdete v tématu [filtrování kontrol stavu](#filter-health-checks)):
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs?name=snippet_Configure)]
 
-Pokud chcete spustit scénář konfigurace připravenosti/aktivity pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém řádku:
+Pokud chcete spustit scénář konfigurace připravenosti/živých aplikací pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém prostředí:
 
 ```console
 dotnet run --scenario liveness
 ```
 
-V prohlížeči, navštivte `/health/ready` několikrát až do 15 sekund prošly. Zkontrolujte stav sestavy *není v pořádku* po dobu prvních 15 sekund. Po 15 sekundách koncový bod sestav *pořádku*, která odráží dokončení dlouho běžící úlohy v hostované službě.
+V prohlížeči navštivte `/health/ready` několikrát, dokud neuplyne 15 sekund. Zprávy o kontrole stavu nejsou v *pořádku* po dobu prvních 15 sekund. Po 15 sekundách koncový bod hlásí stav *v pořádku*, který odráží dokončení dlouhotrvající úlohy hostované službou.
 
-Tento příklad také vytvoří vydavatel zkontrolovat stav (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> implementace), který spustí první Kontrola připravenosti s dvěma druhý zpoždění. Další informace najdete v tématu [vydavatele zkontrolovat stav](#health-check-publisher) oddílu.
+V tomto příkladu se vytvoří také Vydavatel kontroly stavu<xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> (implementace), který spouští první kontrolu připravenosti se dvěma sekundami. Další informace najdete v části [Vydavatel kontroly stavu](#health-check-publisher) .
 
 ### <a name="kubernetes-example"></a>Příklad Kubernetes
 
-Použití samostatné kontroly připravenosti a aktivity je užitečná v prostředí, jako [Kubernetes](https://kubernetes.io/). V systému Kubernetes může být aplikace vyžadují k provedení práce časově náročné spuštění před přijetím požadavků, jako je test podkladové databázi dostupnosti. Použití samostatné kontroly umožňuje orchestrator k rozlišení, zda je funkční, ale není ještě připraven aplikace nebo pokud aplikace se nepodařilo spustit. Další informace o připravenosti a testům aktivity v Kubernetes najdete v tématu [konfigurace aktivity a testy připravenosti](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) v dokumentaci ke Kubernetes.
+Používání samostatné kontroly připravenosti a živých kontrol je užitečné v prostředí, jako je [Kubernetes](https://kubernetes.io/). V Kubernetes může být aplikace nutná k provádění časově náročné práce při spuštění před přijetím požadavků, jako je například test dostupnosti podkladové databáze. Použití samostatných kontrol umožňuje nástroji Orchestrator rozlišit, jestli aplikace funguje, ale ještě není připravená, nebo jestli se aplikace nedala spustit. Další informace o testování připravenosti a provozní sondy v Kubernetes najdete v tématu [Konfigurace živých a připravených sond](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/) v dokumentaci k Kubernetes.
 
-Následující příklad ukazuje konfiguraci sondy připravenosti Kubernetes:
+Následující příklad ukazuje konfiguraci testu připravenosti na Kubernetes:
 
 ```
 spec:
@@ -440,48 +440,48 @@ spec:
       - containerPort: 80
 ```
 
-## <a name="metric-based-probe-with-a-custom-response-writer"></a>Kontrolu založenou na metriky se zapisovačem vlastní odpovědi
+## <a name="metric-based-probe-with-a-custom-response-writer"></a>Test založený na metrikách s vlastním zapisovačem odpovědí
 
-Ukázková aplikace předvádí kontrolou stavu paměti se zapisovačem vlastní odpovědi.
+Ukázková aplikace ukazuje kontrolu stavu paměti pomocí vlastního zapisovače odpovědí.
 
-`MemoryHealthCheck` sestavy snížený výkon, pokud aplikace používá více než dané prahové hodnoty paměti (v ukázkové aplikaci 1 GB). <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult> Obsahuje informace o systému uvolňování paměti (GC) pro aplikaci (*MemoryHealthCheck.cs*):
+`MemoryHealthCheck`hlásí stav není v pořádku, pokud aplikace používá více než danou prahovou hodnotu paměti (1 GB v ukázkové aplikaci). Zahrnuje informace o uvolňování paměti (GC) pro aplikaci (*MemoryHealthCheck.cs):* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckResult>
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/MemoryHealthCheck.cs?name=snippet1)]
 
-Registrace služby kontroly stavu s <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> v `Startup.ConfigureServices`. Místo povolení stav zkontrolovat, že předáte <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*>, `MemoryHealthCheck` je registrována jako služba. Všechny <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> registrovaných služeb jsou k dispozici služby kontroly stavu a middlewarem. Doporučujeme, abyste registrace služby kontroly stavu jako deklarace služeb typu Singleton.
+Registrovat služby kontroly stavu v <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> nástroji `Startup.ConfigureServices`v. Místo povolení kontroly stavu předáním <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*> `MemoryHealthCheck` jako služby je zaregistrována jako služba. Všechny <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> registrované služby jsou k dispozici pro služby kontroly stavu a middleware. Službu pro kontrolu stavu doporučujeme zaregistrovat jako služby typu singleton.
 
 *CustomWriterStartup.cs*:
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_ConfigureServices&highlight=4)]
 
-Volat stavu zkontrolujte Middleware v kanálu zpracování aplikace v `Startup.Configure`. A `WriteResponse` delegáta je k dispozici na `ResponseWriter` vlastnost výstup vlastní odpověď ve formátu JSON, kdy se spustí Kontrola stavu:
+V kanálu pro zpracování aplikací v `Startup.Configure`se zavolá middleware pro kontrolu stavu. `WriteResponse` Delegát poskytne`ResponseWriter` vlastnost pro výstup vlastní odpovědi JSON, když se spustí kontroly stavu:
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_Configure&highlight=6)]
 
-`WriteResponse` Metoda formáty `CompositeHealthCheckResult` do JSON objekt a vrátí výstup JSON pro odpověď na kontrolu stavu:
+`WriteResponse` Metoda zformátujeobjektdoobjektuJSONaposkytnevýstupJSON`CompositeHealthCheckResult` pro odpověď kontroly stavu:
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_WriteResponse)]
 
-Pokud chcete spustit kontrolu založenou na metriku s výstupní zapisovač vlastní odpovědi pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém řádku:
+Pokud chcete spustit test založený na metrikách s vlastním výstupem zapisovače odpovědí pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém prostředí:
 
 ```console
 dotnet run --scenario writer
 ```
 
 > [!NOTE]
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje na základě metrik stavu zaškrtnutí scénářů, včetně disk storage a maximální hodnota aktivity kontroly.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje scénáře kontroly stavu založené na metrikách, včetně úložného prostoru na disku a maximální hodnoty živé kontroly.
 >
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je port [BeatPulse](https://github.com/xabaril/beatpulse) a není zachována nebo podporovaný společností Microsoft.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
 
 ## <a name="filter-by-port"></a>Filtrovat podle portu
 
-Volání <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> s portem omezuje žádostí o kontrolu stavu na zadaný port. To se obvykle používá v prostředí kontejneru zpřístupňuje porty pro monitorování služby.
+Volání <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> s portem omezí požadavky na kontrolu stavu na zadaný port. Obvykle se používá v prostředí kontejneru k vystavení portu pro monitorovací služby.
 
-Ukázková aplikace se nakonfiguruje port pomocí [poskytovatele konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider). Port je nastavena v *launchSettings.json* souboru a předána zprostředkovateli konfigurace přes proměnnou prostředí. Musíte také nakonfigurovat server tak, aby naslouchala na žádosti na portu pro správu.
+Ukázková aplikace nakonfiguruje port pomocí [poskytovatele konfigurace proměnné prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider). Port je nastaven v souboru *launchSettings. JSON* a předán poskytovateli konfigurace prostřednictvím proměnné prostředí. Také je nutné nakonfigurovat server tak, aby naslouchal žádosti na portu pro správu.
 
-Ukázková aplikace použít k předvedení správy konfigurace portů, vytvořte *launchSettings.json* ve *vlastnosti* složky.
+Pokud chcete ukázkovou aplikaci použít k předvedení konfigurace portů pro správu, vytvořte soubor *launchSettings. JSON* ve složce *Properties (vlastnosti* ).
 
-Následující *launchSettings.json* soubor není zahrnutý v souborech projektu ukázkovou aplikaci a musí být vytvořeny ručně.
+Následující soubor *launchSettings. JSON* není zahrnutý v souborech projektu ukázkové aplikace a je nutné ho vytvořit ručně.
 
 *Properties/launchSettings.json*:
 
@@ -503,12 +503,12 @@ Následující *launchSettings.json* soubor není zahrnutý v souborech projektu
 }
 ```
 
-Registrace služby kontroly stavu s <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> v `Startup.ConfigureServices`. Volání <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> Určuje port pro správu (*ManagementPortStartup.cs*):
+Registrovat služby kontroly stavu v <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> nástroji `Startup.ConfigureServices`v. Volání <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> Určuje port pro správu (*ManagementPortStartup.cs*):
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/ManagementPortStartup.cs?name=snippet1&highlight=12,18)]
 
 > [!NOTE]
-> Vytváří se můžete vyhnout *launchSettings.json* soubor v ukázkové aplikaci tak, že nastavíte adresy URL a port pro správu explicitně v kódu. V *Program.cs* kde <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> je vytvořen, přidejte volání do <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*> a poskytovat normální odpovědi koncového bodu aplikace a portu bodu správy. V *ManagementPortStartup.cs* kde <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> je volána, explicitně zadat port pro správu.
+> Vytvoření souboru *launchSettings. JSON* v ukázkové aplikaci se vyhnete tak, že v kódu nastavíte adresy URL a port pro správu explicitně. V *program.cs* , kde <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> je vytvořena, přidejte volání do <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*> a poskytněte normální koncový bod odpovědi aplikace a koncový bod portu pro správu. V *ManagementPortStartup.cs* , <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> kde je volána, určete explicitně port pro správu.
 >
 > *Program.cs*:
 >
@@ -533,17 +533,17 @@ Registrace služby kontroly stavu s <xref:Microsoft.Extensions.DependencyInjecti
 > app.UseHealthChecks("/health", port: 5001);
 > ```
 
-Pokud chcete spustit scénář konfigurace portu správy pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém řádku:
+Pokud chcete spustit scénář konfigurace portu pro správu pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém prostředí:
 
 ```console
 dotnet run --scenario port
 ```
 
-## <a name="distribute-a-health-check-library"></a>Distribuovat knihovny kontroly stavu
+## <a name="distribute-a-health-check-library"></a>Distribuce knihovny kontroly stavu
 
-Kontrola stavu distribuce jako knihovna:
+Postup při distribuci kontroly stavu jako knihovny:
 
-1. Zápis kontrolou stavu, který implementuje <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> rozhraní jako samostatná třída. Třídu můžete spolehnout na [injektáž závislostí (DI)](xref:fundamentals/dependency-injection), zadejte aktivace, a [s názvem možnosti](xref:fundamentals/configuration/options) pro přístup k datům konfigurace.
+1. Zapište kontrolu stavu, která implementuje <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> rozhraní jako samostatnou třídu. Třída může spoléhat na [vkládání závislostí (di)](xref:fundamentals/dependency-injection), aktivovat typ a [pojmenované možnosti](xref:fundamentals/configuration/options) pro přístup k datům konfigurace.
 
    ```csharp
    using System;
@@ -592,18 +592,18 @@ Kontrola stavu distribuce jako knihovna:
    }
    ```
 
-1. Zápis metody rozšíření s parametry, které náročné aplikace volá operaci v jeho `Startup.Configure` metoda. V následujícím příkladu předpokládejme následující podpis metody kontroly stavu:
+1. Zapište metodu rozšíření s parametry, které aplikace spotřebovávají ve své `Startup.Configure` metodě. V následujícím příkladu předpokládejme následující signatura metody kontroly stavu:
 
    ```csharp
    ExampleHealthCheck(string, string, int )
    ```
 
-   Předchozí signatura Určuje, který `ExampleHealthCheck` vyžaduje další data k procesu stav zkontrolujte logiku testu. Data se poskytuje pro delegáta, používá k vytvoření instance kontroly stavu, když je kontrola stavu registrovaný pomocí metody rozšíření. V následujícím příkladu Určuje volitelný volající:
+   Předchozí signatura indikuje, že `ExampleHealthCheck` pro zpracování logiky sondy kontroly stavu vyžaduje další data. Data jsou k dispozici delegátovi použitému k vytvoření instance kontroly stavu při registraci kontroly stavu s metodou rozšíření. V následujícím příkladu volající určuje nepovinné:
 
-   * Název kontroly stavu (`name`). Pokud `null`, `example_health_check` se používá.
-   * řetězcový datový bod pro kontroly stavu (`data1`).
-   * celočíselný datový bod pro kontroly stavu (`data2`). Pokud `null`, `1` se používá.
-   * stav selhání (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>). Výchozí hodnota je `null`. Pokud `null`, [HealthStatus.Unhealthy](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) se použije v hlášení stavu selhání.
+   * název kontroly stavu (`name`). Pokud `null`sepoužívá. `example_health_check`
+   * datový bod řetězce pro kontrolu stavu (`data1`).
+   * celočíselný datový bod pro kontrolu stavu (`data2`). Pokud `null`sepoužívá. `1`
+   * stav selhání (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>). Výchozí hodnota je `null`. Pokud `null`je [funkčnosti.](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) není v pořádku, je hlášen stav selhání.
    * značky (`IEnumerable<string>`).
 
    ```csharp
@@ -633,40 +633,40 @@ Kontrola stavu distribuce jako knihovna:
 
 ## <a name="health-check-publisher"></a>Vydavatel kontroly stavu
 
-Když <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> se přidá do kontejneru služby systém kontroly stavu pravidelně provádí kontroly stavu a volání `PublishAsync` k výsledku. To je užitečné v monitorování systému scénář, který očekává, že každý proces pro volání systém sledování pravidelně aby bylo možné zjistit stav nabízené stavu.
+Když se přidá do kontejneru služby, systém kontroly stavu pravidelně spouští kontroly stavu a volání `PublishAsync` s výsledkem. <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> To je užitečné ve scénáři sledování stavu založeném na nabízených oznámeních, který očekává, že každý proces bude pravidelně volat monitorovací systém, aby se zjistil stav.
 
-<xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> Rozhraní obsahuje jedinou metodu:
+<xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> Rozhraní má jedinou metodu:
 
 ```csharp
 Task PublishAsync(HealthReport report, CancellationToken cancellationToken);
 ```
 
-<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions> Můžete tak nastavit:
+<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions>umožňuje nastavit:
 
-* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Delay> &ndash; Počáteční zpoždění byla aplikována za aplikace se spustí před spuštěním <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> instancí. Zpoždění je použít jednou při spuštění a neplatí pro dalších iteracích. Výchozí hodnota je pět sekund.
-* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Period> &ndash; Období <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> spuštění. Výchozí hodnota je 30 sekund.
-* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Predicate> &ndash; Pokud <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Predicate> je `null` (výchozí), služba stavu zaškrtnutí vydavatele běží všechny kontroly stavu registrované. Pro spuštění podmnožiny kontroly stavu, poskytují funkce, která filtruje sadu kontroly. Predikát je vyhodnocen jednotlivých období.
-* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Timeout> &ndash; Časový limit pro provedení stavu kontroluje všechny <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> instancí. Použití <xref:System.Threading.Timeout.InfiniteTimeSpan> provádět bez časového limitu. Výchozí hodnota je 30 sekund.
+* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Delay>Počáteční zpoždění použité po spuštění aplikace před spuštěním <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> instancí. &ndash; Zpoždění se použije jednou při spuštění a nevztahuje se na další iterace. Výchozí hodnota je pět sekund.
+* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Period>&ndash; Doba spuštění.<xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> Výchozí hodnota je 30 sekund.
+* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Predicate>&ndash; Pokud je(`null` výchozí), spustí služba Vydavatel kontroly stavu všechny zaregistrované kontroly stavu. <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Predicate> Chcete-li spustit podmnožinu kontrol stavu, zadejte funkci, která filtruje sadu kontrol. Predikát je vyhodnocen každou periodu.
+* <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Timeout>Časový limit pro spuštění kontrol stavu pro všechny <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> instance. &ndash; Použijte <xref:System.Threading.Timeout.InfiniteTimeSpan> k provedení bez časového limitu. Výchozí hodnota je 30 sekund.
 
 ::: moniker range="= aspnetcore-2.2"
 
 > [!WARNING]
-> Ve verzi 2.2 technologie ASP.NET Core, nastavení <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Period> není kompilátorem respektovány <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> provádění; nastaví hodnotu <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Delay>. Tento problém bude opraven v ASP.NET Core 3.0. Další informace najdete v tématu [HealthCheckPublisherOptions.Period nastaví hodnotu vlastnosti. Zpoždění](https://github.com/aspnet/Extensions/issues/1041).
+> Ve verzi ASP.NET Core 2,2 není nastavení <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Period> dodrženo <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> implementací. nastavuje hodnotu <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckPublisherOptions.Delay>. Tento problém bude opravený v ASP.NET Core 3,0. Další informace naleznete v tématu [HealthCheckPublisherOptions. period nastaví hodnotu. Zpoždění](https://github.com/aspnet/Extensions/issues/1041).
 
 ::: moniker-end
 
-V ukázkové aplikaci `ReadinessPublisher` je <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> implementace. Kontrola stavu se zaznamená do `Entries` nebude úspěšné a pro každou kontrolu:
+V ukázkové aplikaci `ReadinessPublisher` <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> je implementace. Stav kontroly stavu se zaznamenává `Entries` a protokoluje pro každou kontrolu:
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/ReadinessPublisher.cs?name=snippet_ReadinessPublisher&highlight=20,22-23)]
 
-V ukázkové aplikaci `LivenessProbeStartup` například `StartupHostedService` kontroly připravenosti má dvě druhý zpoždění spuštění a spustí kontrolu každých 30 sekund. K aktivaci <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> zaregistruje implementaci vzorku `ReadinessPublisher` jako služba typu singleton v [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) kontejneru:
+V `LivenessProbeStartup` příkladu`StartupHostedService` ukázkové aplikace má kontroler připravenosti dvě sekundy na spuštění a spustí kontrolu každých 30 sekund. Chcete-li <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> aktivovat implementaci, ukázka se `ReadinessPublisher` registruje jako služba s jedním prvkem v kontejneru [Injektáže (di) pro vkládání závislostí](xref:fundamentals/dependency-injection) :
 
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/LivenessProbeStartup.cs?name=snippet_ConfigureServices&highlight=12-17,28)]
 
 ::: moniker range="= aspnetcore-2.2"
 
 > [!NOTE]
-> Následující alternativní řešení umožňuje přidat <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> instance služby kontejneru, když jeden nebo více jiných hostované služby již byly přidány do aplikace. Toto řešení nevyžaduje verzi technologie ASP.NET Core 3.0. Další informace najdete v tématu: https://github.com/aspnet/Extensions/issues/639.
+> Následující alternativní řešení povoluje přidání <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheckPublisher> instance do kontejneru služby, pokud již byla do aplikace přidána jedna nebo více dalších hostovaných služeb. Toto řešení se nebude vyžadovat u vydání ASP.NET Core 3,0. Další informace najdete v tématu: https://github.com/aspnet/Extensions/issues/639.
 >
 > ```csharp
 > private const string HealthCheckServiceAssembly =
@@ -681,15 +681,15 @@ V ukázkové aplikaci `LivenessProbeStartup` například `StartupHostedService` 
 ::: moniker-end
 
 > [!NOTE]
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje vydavatele pro několik systémů, včetně [Application Insights](/azure/application-insights/app-insights-overview).
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje vydavatele pro několik systémů, včetně [Application Insights](/azure/application-insights/app-insights-overview).
 >
-> [AspNetCore.Diagnostics.HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je port [BeatPulse](https://github.com/xabaril/beatpulse) a není zachována nebo podporovaný společností Microsoft.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
 
-## <a name="restrict-health-checks-with-mapwhen"></a>Omezení kontroly stavu s MapWhen
+## <a name="restrict-health-checks-with-mapwhen"></a>Omezení kontrol stavu pomocí MapWhen
 
-Použití <xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*> podmíněné větvi požadavku kanálu pro stav zkontrolujte koncových bodů.
+Použijte <xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*> k podmíněně větvení kanálu žádostí pro koncové body kontroly stavu.
 
-V následujícím příkladu `MapWhen` větve k aktivaci Middleware zkontrolovat stav, pokud požadavek GET pro kanál požadavku `api/HealthCheck` koncový bod:
+V následujícím příkladu větví kanál `MapWhen` žádosti o aktivaci middlewaru kontroly stavu, pokud se `api/HealthCheck` pro koncový bod přijme požadavek GET:
 
 ```csharp
 app.MapWhen(
