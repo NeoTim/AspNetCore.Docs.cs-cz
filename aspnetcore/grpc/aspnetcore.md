@@ -4,14 +4,14 @@ author: juntaoluo
 description: Seznamte se se základními pojmy při psaní služeb gRPC pomocí ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 08/07/2019
+ms.date: 08/28/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 38111c152c581c50767f9cd4e5fa257bd3fd804e
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 128f5b36eac9112460c33693db5537134a077476
+ms.sourcegitcommit: 23f79bd71d49c4efddb56377c1f553cc993d781b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022305"
+ms.lasthandoff: 08/29/2019
+ms.locfileid: "70130708"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>Služby gRPC s ASP.NET Core
 
@@ -53,15 +53,76 @@ gRPC vyžaduje balíček [gRPC. AspNetCore](https://www.nuget.org/packages/Grpc.
 
 ### <a name="configure-grpc"></a>Konfigurace gRPC
 
-gRPC je povoleno s `AddGrpc` metodou:
+V *Startup.cs*:
 
-[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=7)]
+* gRPC je povoleno s `AddGrpc` metodou.
+* Každá služba gRPC je prostřednictvím `MapGrpcService` metody přidána do kanálu směrování.
 
-Každá služba gRPC se přidá do kanálu směrování prostřednictvím `MapGrpcService` metody:
-
-[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=24)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=7,24)]
 
 ASP.NET Core middlewarů a funkcí sdílí kanál směrování, proto je možné aplikaci nakonfigurovat tak, aby poskytovala další obslužné rutiny žádostí. Další obslužné rutiny žádostí, jako jsou například řadiče MVC, pracují paralelně s nakonfigurovanými gRPC službami.
+
+### <a name="configure-kestrel"></a>Konfigurace Kestrel
+
+Koncové body Kestrel gRPC:
+
+* Vyžadovat HTTP/2.
+* By měl být zabezpečený pomocí protokolu HTTPS.
+
+#### <a name="http2"></a>HTTP/2
+
+Kestrel [podporuje HTTP/2](xref:fundamentals/servers/kestrel#http2-support) na většině moderních operačních systémů. Ve výchozím nastavení jsou Kestrel koncové body konfigurovány pro podporu připojení HTTP/1.1 a HTTP/2.
+
+> [!NOTE]
+> macOS nepodporuje ASP.NET Core gRPC se [zabezpečením TLS (Transport Layer Security)](https://tools.ietf.org/html/rfc5246). K úspěšnému spuštění gRPC služeb na macOS se vyžaduje další konfigurace. Další informace najdete v tématu [nepovedlo se spustit aplikaci ASP.NET Core gRPC v MacOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).
+
+#### <a name="https"></a>HTTPS
+
+Koncové body Kestrel použité pro gRPC by měly být zabezpečené pomocí protokolu HTTPS. Ve vývoji se koncový bod HTTPS automaticky vytvoří `https://localhost:5001` , když je k dispozici ASP.NET Core vývojový certifikát. Není nutná žádná konfigurace.
+
+V produkčním prostředí musí být HTTPS explicitně nakonfigurovaný. V následujícím příkladu *appSettings. JSON* je k dispozici koncový bod HTTP/2 zabezpečený pomocí protokolu https:
+
+```json
+{
+  "Kestrel": {
+    "Endpoints": {
+      "HttpsDefaultCert": {
+        "Url": "https://localhost:5001",
+        "Protocols": "Http2"
+      }
+    },
+    "Certificates": {
+      "Default": {
+        "Path": "<path to .pfx file>",
+        "Password": "<certificate password>"
+      }
+    }
+  }
+}
+```
+
+Alternativně lze Kestrel endspoints nakonfigurovat v *program.cs*:
+
+```csharp
+public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.ConfigureKestrel(options =>
+            {
+                // This endpoint will use HTTP/2 and HTTPS on port 5001.
+                options.Listen(IPAddress.Any, 5001, listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http2;
+                    listenOptions.UseHttps("<path to .pfx file>", 
+                        "<certificate password>");
+                });
+            });
+            webBuilder.UseStartup<Startup>();
+        });
+```
+
+Další informace o povolení HTTP/2 a HTTPS s Kestrel najdete v tématu [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 ## <a name="integration-with-aspnet-core-apis"></a>Integrace s rozhraními API ASP.NET Core
 
@@ -93,4 +154,4 @@ Rozhraní gRPC API poskytuje přístup k některým datům zprávy HTTP/2, jako 
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/index>
 * <xref:grpc/basics>
-* <xref:grpc/migration>
+* <xref:fundamentals/servers/kestrel>
