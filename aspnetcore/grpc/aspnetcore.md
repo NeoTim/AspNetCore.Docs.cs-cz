@@ -4,14 +4,14 @@ author: juntaoluo
 description: Seznamte se se základními pojmy při psaní služeb gRPC pomocí ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 08/28/2019
+ms.date: 09/03/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 128f5b36eac9112460c33693db5537134a077476
-ms.sourcegitcommit: 23f79bd71d49c4efddb56377c1f553cc993d781b
+ms.openlocfilehash: 28e6b8589bbe0b6a3723b64736c723c883302571
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2019
-ms.locfileid: "70130708"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238159"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>Služby gRPC s ASP.NET Core
 
@@ -71,10 +71,9 @@ Koncové body Kestrel gRPC:
 
 #### <a name="http2"></a>HTTP/2
 
-Kestrel [podporuje HTTP/2](xref:fundamentals/servers/kestrel#http2-support) na většině moderních operačních systémů. Ve výchozím nastavení jsou Kestrel koncové body konfigurovány pro podporu připojení HTTP/1.1 a HTTP/2.
+gRPC vyžaduje HTTP/2. gRPC pro ASP.NET Core ověří [HttpRequest. protokol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) je `HTTP/2`.
 
-> [!NOTE]
-> macOS nepodporuje ASP.NET Core gRPC se [zabezpečením TLS (Transport Layer Security)](https://tools.ietf.org/html/rfc5246). K úspěšnému spuštění gRPC služeb na macOS se vyžaduje další konfigurace. Další informace najdete v tématu [nepovedlo se spustit aplikaci ASP.NET Core gRPC v MacOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).
+Kestrel [podporuje HTTP/2](xref:fundamentals/servers/kestrel#http2-support) na většině moderních operačních systémů. Ve výchozím nastavení jsou Kestrel koncové body konfigurovány pro podporu připojení HTTP/1.1 a HTTP/2.
 
 #### <a name="https"></a>HTTPS
 
@@ -101,7 +100,7 @@ V produkčním prostředí musí být HTTPS explicitně nakonfigurovaný. V nás
 }
 ```
 
-Alternativně lze Kestrel endspoints nakonfigurovat v *program.cs*:
+Alternativně lze v *program.cs*nakonfigurovat koncové body Kestrel:
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -122,7 +121,12 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
+Pokud je koncový bod HTTP/2 nakonfigurovaný bez HTTPS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastavené na `HttpProtocols.Http2`. `HttpProtocols.Http1AndHttp2`nelze použít, protože pro vyjednání HTTP/2 je vyžadován protokol HTTPS. Bez protokolu HTTPS jsou všechna připojení ke koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC neúspěšná.
+
 Další informace o povolení HTTP/2 a HTTPS s Kestrel najdete v tématu [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration).
+
+> [!NOTE]
+> macOS nepodporuje ASP.NET Core gRPC se [zabezpečením TLS (Transport Layer Security)](https://tools.ietf.org/html/rfc5246). K úspěšnému spuštění gRPC služeb na macOS se vyžaduje další konfigurace. Další informace najdete v tématu [nepovedlo se spustit aplikaci ASP.NET Core gRPC v MacOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).
 
 ## <a name="integration-with-aspnet-core-apis"></a>Integrace s rozhraními API ASP.NET Core
 

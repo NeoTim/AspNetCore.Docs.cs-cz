@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 34b977f70f3e7e58e4ab6fcf3d8f69800896a65d
-ms.sourcegitcommit: 0774a61a3a6c1412a7da0e7d932dc60c506441fc
+ms.openlocfilehash: ab29cf687c80551d275cae69f28b7576016bfff6
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/27/2019
-ms.locfileid: "70059117"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238121"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>Razor Pages s EF Core v ASP.NET Core-datový model 5 z 8
 
@@ -301,7 +301,7 @@ Aktualizujte *modely/Course. cs* pomocí následujícího kódu:
 
 Entita má vlastnost `DepartmentID`cizího klíče (FK). `Course` `DepartmentID`odkazuje na související `Department` entitu. `Course` Entita má vlastnost navigace. `Department`
 
-EF Core nevyžaduje vlastnost cizího klíče pro datový model, pokud model má vlastnost navigace pro související entitu. EF Core v databázi automaticky vytvoří FKs bez ohledu na to, kde jsou potřeba. EF Core vytvoří [stínové vlastnosti](/ef/core/modeling/shadow-properties) pro automatické vytváření FKs. Explicitní a efektivnější je však, že explicitně včetně FK v datovém modelu může zjednodušit a efektivněji dělat aktualizace. Zvažte například model, ve kterém není obsažena vlastnost `DepartmentID` FK . Když se načte entita kurzu, která se upraví:
+EF Core nevyžaduje vlastnost cizího klíče pro datový model, pokud model má vlastnost navigace pro související entitu. EF Core v databázi automaticky vytvoří FKs bez ohledu na to, kde jsou potřeba. EF Core vytvoří [stínové vlastnosti](/ef/core/modeling/shadow-properties) pro automatické vytváření FKs. Explicitní a efektivnější je však, že explicitně včetně FK v datovém modelu může zjednodušit a efektivněji dělat aktualizace. Zvažte například model, ve kterém *není obsažena* vlastnost `DepartmentID` FK. Když se načte entita kurzu, která se upraví:
 
 * `Department` Vlastnost má hodnotu null, pokud není explicitně načtena.
 * Chcete-li aktualizovat entitu kurzu `Department` , je nutné nejprve načíst entitu.
@@ -390,7 +390,7 @@ public ICollection<Course> Courses { get; set; }
 
 Podle konvence EF Core povoluje kaskádové odstranění pro FKs, která nejsou null a pro relace m:n. Toto výchozí chování může způsobit cyklické kaskády odstraňování pravidel. Cyklická kaskádová odstranění pravidel způsobují při přidání migrace výjimku.
 
-Pokud je `Department.InstructorID` například vlastnost definovaná jako nepovolená, EF Core by nakonfigurovala pravidlo kaskádového odstranění. V takovém případě by se oddělení odstranilo, když se odstraní instruktor jako jeho správce. V tomto scénáři by pravidlo omezení mělo smysl. Následující rozhraní Fluent API by nastavilo pravidlo omezení a zakáže kaskádové odstranění.
+Pokud je `Department.InstructorID` například vlastnost definovaná jako nepovolená, EF Core by nakonfigurovala pravidlo kaskádového odstranění. V takovém případě by se oddělení odstranilo, když se odstraní instruktor jako jeho správce. V tomto scénáři by pravidlo omezení mělo smysl. Následující [rozhraní Fluent API](#fluent-api-alternative-to-attributes) by nastavilo pravidlo omezení a zakáže kaskádové odstranění.
 
   ```csharp
   modelBuilder.Entity<Department>()
@@ -461,7 +461,7 @@ Modely dat začínají jednoduchým a roste. Spojování tabulek bez datové č�
 
 ### <a name="composite-key"></a>Složený klíč
 
-Dva FKs v `CourseAssignment` (`InstructorID` `CourseID` a`CourseAssignment` ) společně identifikují každý řádek tabulky. `CourseAssignment`nevyžaduje vyhrazený PK. Vlastnosti `InstructorID` a`CourseID` fungují jako složené PK. Jediným způsobem, jak zadat složené PKs EF Core je s rozhraním *API Fluent*. V další části se dozvíte, jak nakonfigurovat složený PK.
+Dva FKs v `CourseAssignment` (`InstructorID` `CourseID` a`CourseAssignment` ) společně identifikují každý řádek tabulky. `CourseAssignment`nevyžaduje vyhrazený PK. Vlastnosti `InstructorID` a`CourseID` fungují jako složené PK. Jediným způsobem, jak zadat složené PKs EF Core je s *rozhraním API Fluent*. V další části se dozvíte, jak nakonfigurovat složený PK.
 
 Složený klíč zajišťuje:
 
@@ -998,7 +998,7 @@ Entita má vlastnost `DepartmentID`cizího klíče (FK). `Course` `DepartmentID`
 
 EF Core nevyžaduje vlastnost FK pro datový model, pokud model má vlastnost navigace pro související entitu.
 
-EF Core v databázi automaticky vytvoří FKs bez ohledu na to, kde jsou potřeba. EF Core vytvoří [stínové vlastnosti](/ef/core/modeling/shadow-properties) pro automatické vytváření FKs. Pokud se v datovém modelu nachází FK, může být aktualizace jednodušší a efektivnější. Zvažte například model, ve kterém není obsažena vlastnost `DepartmentID` FK . Když se načte entita kurzu, která se upraví:
+EF Core v databázi automaticky vytvoří FKs bez ohledu na to, kde jsou potřeba. EF Core vytvoří [stínové vlastnosti](/ef/core/modeling/shadow-properties) pro automatické vytváření FKs. Pokud se v datovém modelu nachází FK, může být aktualizace jednodušší a efektivnější. Zvažte například model, ve kterém *není obsažena* vlastnost `DepartmentID` FK. Když se načte entita kurzu, která se upraví:
 
 * `Department` Entita má hodnotu null, pokud není explicitně načtena.
 * Chcete-li aktualizovat entitu kurzu `Department` , je nutné nejprve načíst entitu.
@@ -1091,7 +1091,7 @@ Pokud byla například `Department.InstructorID` vlastnost definována jako nepo
 
 * EF Core konfiguruje pravidlo kaskádového odstranění, které odstraní oddělení při odstranění instruktora.
 * Odstranění oddělení, když se odstraní instruktor, není zamýšleným chováním.
-* Následující rozhraní Fluent API by místo kaskádového nastavilo pravidlo omezení.
+* Následující [rozhraní Fluent API](#fluent-api-alternative-to-attributes) by místo kaskádového nastavilo pravidlo omezení.
 
    ```csharp
    modelBuilder.Entity<Department>()
@@ -1169,7 +1169,7 @@ Modely dat začínají jednoduchým a roste. Spojení bez datové části (PJTs)
 
 ### <a name="composite-key"></a>Složený klíč
 
-FKs nemohou mít hodnotu null. Dva FKs v `CourseAssignment` (`InstructorID` `CourseID` a`CourseAssignment` ) společně identifikují každý řádek tabulky. `CourseAssignment`nevyžaduje vyhrazený PK. Vlastnosti `InstructorID` a`CourseID` fungují jako složené PK. Jediným způsobem, jak zadat složené PKs EF Core je s rozhraním *API Fluent*. V další části se dozvíte, jak nakonfigurovat složený PK.
+FKs nemohou mít hodnotu null. Dva FKs v `CourseAssignment` (`InstructorID` `CourseID` a`CourseAssignment` ) společně identifikují každý řádek tabulky. `CourseAssignment`nevyžaduje vyhrazený PK. Vlastnosti `InstructorID` a`CourseID` fungují jako složené PK. Jediným způsobem, jak zadat složené PKs EF Core je s *rozhraním API Fluent*. V další části se dozvíte, jak nakonfigurovat složený PK.
 
 Složený klíč zajišťuje:
 

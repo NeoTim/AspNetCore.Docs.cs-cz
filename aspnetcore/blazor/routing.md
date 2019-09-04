@@ -5,14 +5,14 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 08/23/2019
 uid: blazor/routing
-ms.openlocfilehash: 197b1a91b3540d21639c3ee775b2c490da7b23fe
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 067dad657c1e89a31fac45fdfa095cce4b10798d
+ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030394"
+ms.lasthandoff: 09/03/2019
+ms.locfileid: "70238060"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
 
@@ -103,6 +103,21 @@ K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení t
 > [!WARNING]
 > Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime`), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
 
+### <a name="routing-with-urls-that-contain-dots"></a>Směrování s adresami URL, které obsahují tečky
+
+V Blazorch aplikacích na straně serveru je `/` výchozí trasa v *_Host. cshtml* (`@page "/"`). Adresa URL požadavku, která obsahuje tečku`.`(), není shodná s výchozí cestou, protože adresa URL se zobrazí pro vyžádání souboru. Aplikace Blazor vrací odpověď na *404, která nebyla nalezena* pro statický soubor, který neexistuje. Chcete-li použít trasy, které obsahují tečku, nakonfigurujte *_Host. cshtml* s následující šablonou směrování:
+
+```cshtml
+@page "/{**path}"
+```
+
+`"/{**path}"` Šablona obsahuje:
+
+* Dvojitá hvězdička *– veškerá* syntaxe (`**`) pro zachycení cesty mezi více hranicemi složek bez kódování lomítka (`/`).
+* Název `path` parametru trasy.
+
+Další informace naleznete v tématu <xref:fundamentals/routing>.
+
 ## <a name="navlink-component"></a>Komponenta NavLink
 
 Použít komponentu namísto prvků hypertextového odkazu HTML (`<a>`) při vytváření navigačních odkazů. `NavLink` Komponenta se chová `<a>` jako element `active` s tím rozdílem, že přepíná třídu CSS na základě toho, `href` zda odpovídá aktuální adrese URL. `NavLink` `active` Třída pomáhá uživateli pochopit, která stránka je aktivní stránkou mezi zobrazenými navigačními odkazy.
@@ -163,3 +178,4 @@ Pokud je vybráno tlačítko, následující komponenta přejde `Counter` na sou
     }
 }
 ```
+
