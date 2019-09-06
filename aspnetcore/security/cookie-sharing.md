@@ -5,14 +5,14 @@ description: Naučte se sdílet soubory cookie ověřování mezi ASP.NET 4. x a
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2019
+ms.date: 09/05/2019
 uid: security/cookie-sharing
-ms.openlocfilehash: 1650afce5c371d0830bb207618b9c1495f0ce587
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: 9b5bee9fb588ef04efd50aa4a5afc3e53da1b123
+ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022393"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70384763"
 ---
 # <a name="share-authentication-cookies-among-aspnet-apps"></a>Sdílení souborů cookie ověřování mezi ASP.NET aplikacemi
 
@@ -34,7 +34,7 @@ V následujících příkladech:
   * V .NET Framework aplikace přidejte odkaz na balíček do [Microsoft. AspNetCore. DataProtection. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/).
 * <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.SetApplicationName*>Nastaví běžný název aplikace.
 
-## <a name="share-authentication-cookies-among-aspnet-core-apps"></a>Sdílení souborů cookie ověřování mezi ASP.NET Coremi aplikacemi
+## <a name="share-authentication-cookies-with-aspnet-core-identity"></a>Sdílení souborů cookie ověřování pomocí ASP.NET Core identity
 
 Při použití ASP.NET Core identity:
 
@@ -46,7 +46,7 @@ V `Startup.ConfigureServices`nástroji:
 
 ```csharp
 services.AddDataProtection()
-    .PersistKeysToFileSystem({PATH TO COMMON KEY RING FOLDER})
+    .PersistKeysToFileSystem("{PATH TO COMMON KEY RING FOLDER}")
     .SetApplicationName("SharedCookieApp");
 
 services.ConfigureApplicationCookie(options => {
@@ -54,11 +54,13 @@ services.ConfigureApplicationCookie(options => {
 });
 ```
 
+## <a name="share-authentication-cookies-without-aspnet-core-identity"></a>Sdílení souborů cookie ověřování bez ASP.NET Core identity
+
 Při přímém použití souborů cookie bez ASP.NET Core identity nakonfigurujte ochranu a ověřování dat `Startup.ConfigureServices`v. V následujícím příkladu je typ ověřování nastaven na `Identity.Application`:
 
 ```csharp
 services.AddDataProtection()
-    .PersistKeysToFileSystem({PATH TO COMMON KEY RING FOLDER})
+    .PersistKeysToFileSystem("{PATH TO COMMON KEY RING FOLDER}")
     .SetApplicationName("SharedCookieApp");
 
 services.AddAuthentication("Identity.Application")
@@ -67,6 +69,23 @@ services.AddAuthentication("Identity.Application")
         options.Cookie.Name = ".AspNet.SharedCookie";
     });
 ```
+
+## <a name="share-cookies-across-different-base-paths"></a>Sdílení souborů cookie napříč různými základními cestami
+
+Ověřovací soubor cookie používá jako výchozí soubor cookie. [HttpRequest. PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase) [. Path](xref:Microsoft.AspNetCore.Http.CookieBuilder.Path). Pokud se soubor cookie aplikace musí sdílet mezi různými základními cestami `Path` , musí se přepsat:
+
+```csharp
+services.AddDataProtection()
+    .PersistKeysToFileSystem("{PATH TO COMMON KEY RING FOLDER}")
+    .SetApplicationName("SharedCookieApp");
+
+services.ConfigureApplicationCookie(options => {
+    options.Cookie.Name = ".AspNet.SharedCookie";
+    options.Cookie.Path = "/";
+});
+```
+
+## <a name="share-cookies-across-subdomains"></a>Sdílení souborů cookie napříč subdoménami
 
 Při hostování aplikací sdílejících soubory cookie napříč subdoménami zadejte společnou doménu ve vlastnosti [cookie. Domain](xref:Microsoft.AspNetCore.Http.CookieBuilder.Domain) . Chcete-li sdílet soubory cookie `contoso.com`napříč aplikacemi, `first_subdomain.contoso.com` například `second_subdomain.contoso.com`a, zadejte `Cookie.Domain` jako `.contoso.com`:
 
@@ -91,7 +110,7 @@ Když aplikace používá middleware ověřování Katana souborů cookie, volá
 
 Aplikace ASP.NET 4. x musí cílit na .NET Framework 4.5.1 nebo novější. V opačném případě se instalace nezbytných balíčků NuGet nezdařila.
 
-Pokud chcete soubory cookie pro ověřování sdílet mezi aplikací ASP.NET 4. x a aplikací ASP.NET Core, nakonfigurujte aplikaci ASP.NET Core tak, jak je uvedeno v části [sdílení ověřovacích souborů cookie mezi ASP.NET Coremi aplikacemi](#share-authentication-cookies-among-aspnet-core-apps) , a pak nakonfigurujte aplikaci ASP.NET 4. x následujícím způsobem.
+Pokud chcete soubory cookie pro ověřování sdílet mezi aplikací ASP.NET 4. x a aplikací ASP.NET Core, nakonfigurujte aplikaci ASP.NET Core tak, jak je uvedeno v části [sdílení ověřovacích souborů cookie mezi ASP.NET Coremi aplikacemi](#share-authentication-cookies-with-aspnet-core-identity) , a pak nakonfigurujte aplikaci ASP.NET 4. x následujícím způsobem.
 
 Zkontrolujte, jestli jsou balíčky aplikace aktualizované na nejnovější verze. Do každé aplikace ASP.NET 4. x nainstalujte balíček [Microsoft. Owin. Security. Interop](https://www.nuget.org/packages/Microsoft.Owin.Security.Interop/) .
 
@@ -123,7 +142,7 @@ app.UseCookieAuthentication(new CookieAuthenticationOptions
     },
     TicketDataFormat = new AspNetTicketDataFormat(
         new DataProtectorShim(
-            DataProtectionProvider.Create({PATH TO COMMON KEY RING FOLDER},
+            DataProtectionProvider.Create("{PATH TO COMMON KEY RING FOLDER}",
                 (builder) => { builder.SetApplicationName("SharedCookieApp"); })
             .CreateProtector(
                 "Microsoft.AspNetCore.Authentication.Cookies." +

@@ -1,49 +1,51 @@
 ---
-title: Ověřování souborem cookie bez ASP.NET Core Identity
+title: Použití ověřování souborem cookie bez ASP.NET Core identity
 author: rick-anderson
-description: Další informace o použití ověřování souborem cookie bez ASP.NET Core Identity.
+description: Naučte se používat ověřování souborem cookie bez ASP.NET Core identity.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 07/07/2019
+ms.date: 08/20/2019
 uid: security/authentication/cookie
-ms.openlocfilehash: bbba2e77f806e1ed30bb734763cdbaedc1471d62
-ms.sourcegitcommit: 91cc1f07ef178ab709ea42f8b3a10399c970496e
+ms.openlocfilehash: 76c7fc20c8870668ca7c65d975e2ed59f40f7dc8
+ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/08/2019
-ms.locfileid: "67622749"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70384831"
 ---
-# <a name="use-cookie-authentication-without-aspnet-core-identity"></a>Ověřování souborem cookie bez ASP.NET Core Identity
+# <a name="use-cookie-authentication-without-aspnet-core-identity"></a>Použití ověřování souborem cookie bez ASP.NET Core identity
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Luke Latham](https://github.com/guardrex)
+Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Luke Latham](https://github.com/guardrex)
 
-ASP.NET Core Identity je ověřování dokončeno, plně vybavené poskytovatel pro vytváření a správa přihlášení. Nicméně je možné zprostředkovatele ověřování ověřování na základě souboru cookie bez ASP.NET Core Identity. Další informace naleznete v tématu <xref:security/authentication/identity>.
+::: moniker range=">= aspnetcore-3.0"
+
+ASP.NET Core identity je úplný, plnohodnotný zprostředkovatel ověřování pro vytváření a správu přihlašovacích údajů. Můžete ale použít poskytovatele ověřování ověřování na základě souborů cookie bez ASP.NET Core identity. Další informace naleznete v tématu <xref:security/authentication/identity>.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-Pro demonstrační účely v ukázkové aplikaci je uživatelský účet pro hypotetické uživatele Marie Rodriguez pevně zakódované do aplikace. Použití **e-mailu** uživatelské jméno `maria.rodriguez@contoso.com` a jakékoli heslo k přihlášení uživatele. Ověření uživatele v `AuthenticateUser` metodu *Pages/Account/Login.cshtml.cs* souboru. V reálný příklad uživatel by ověřovány proti databázi.
+Pro demonstrační účely v ukázkové aplikaci je uživatelský účet pro hypotetického uživatele Marie Rodriguez pevně zakódované do aplikace. K přihlášení uživatele použijte `maria.rodriguez@contoso.com` **e-mailovou** adresu a jakékoli heslo. Uživatel je ověřený v `AuthenticateUser` metodě v souboru *Pages/Account/Login. cshtml. cs* . V reálném příkladu by byl uživatel ověřený proti databázi.
 
 ## <a name="configuration"></a>Konfiguraci
 
-Pokud se aplikace nepoužívá [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app), vytvořit odkaz na balíček v souboru projektu [Microsoft.AspNetCore.Authentication.Cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) balíčku.
+Pokud aplikace nepoužívá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), vytvořte odkaz na balíček v souboru projektu pro balíček [Microsoft. AspNetCore. Authentication. cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) .
 
-V `Startup.ConfigureServices` metody vytvoření Middleware ověřování služby s <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> a <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*> metody:
+V metodě vytvořte služby ověřování middlewaru <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> pomocí metod a <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>: `Startup.ConfigureServices`
 
-[!code-csharp[](cookie/samples/2.x/CookieSample/Startup.cs?name=snippet1)]
+[!code-csharp[](cookie/samples/3.x/CookieSample/Startup.cs?name=snippet1)]
 
-<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme> Předaný `AddAuthentication` nastaví výchozí schéma ověřování pro aplikaci. `AuthenticationScheme` je užitečné, pokud existuje více instancí ověřování souborů cookie a vy chcete [autorizovat s konkrétní schéma](xref:security/authorization/limitingidentitybyscheme). Nastavení `AuthenticationScheme` k [CookieAuthenticationDefaults.AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) poskytuje hodnotu "Soubory cookie" pro schéma. Můžete zadat libovolnou hodnotu řetězce, která odlišuje schéma.
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme>předáno `AddAuthentication` pro nastavení výchozího schématu ověřování pro aplikaci. `AuthenticationScheme`je užitečné v případě, že existuje více instancí ověřování souborem cookie a chcete [autorizovat s konkrétním schématem](xref:security/authorization/limitingidentitybyscheme). Nastavení na [CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) poskytuje pro schéma hodnotu "cookies". `AuthenticationScheme` Můžete dodat libovolnou řetězcovou hodnotu, která rozlišuje schéma.
 
-Schéma ověřování aplikace se liší od schématu ověřování souborů cookie aplikaci. Pokud není k dispozici schéma ověřování souborů cookie do <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>, používá `CookieAuthenticationDefaults.AuthenticationScheme` (soubory cookie.").
+Schéma ověřování aplikace se liší od schématu ověřování souborů cookie aplikace. Pokud není k <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>dispozici schéma ověřování souborů cookie, použije `CookieAuthenticationDefaults.AuthenticationScheme` se ("soubory cookie").
 
-Soubor cookie ověřování <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> je nastavena na `true` ve výchozím nastavení. Když návštěvník nevyjádřil souhlas shromažďování dat jsou povoleny soubory cookie pro ověřování. Další informace naleznete v tématu <xref:security/gdpr#essential-cookies>.
+<xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> Vlastnost ověřovacího souboru cookie je standardně `true` nastavená na hodnotu. Soubory cookie ověřování jsou povoleny, pokud návštěvník webu nesouhlasí s shromažďováním dat. Další informace naleznete v tématu <xref:security/gdpr#essential-cookies>.
 
-V `Startup.Configure` metody, volání `UseAuthentication` metoda k vyvolání ověřovací Middleware, který nastaví `HttpContext.User` vlastnost. Volání `UseAuthentication` před voláním metody `UseMvcWithDefaultRoute` nebo `UseMvc`:
+V `Startup.Configure`, zavolejte `UseAuthentication` a `UseAuthorization` a nastavte`HttpContext.User` vlastnost a spusťte middleware autorizace pro požadavky. Před voláním `UseAuthorization` volejte`UseEndpoints`metody a: `UseAuthentication`
 
-[!code-csharp[](cookie/samples/2.x/CookieSample/Startup.cs?name=snippet2)]
+[!code-csharp[](cookie/samples/3.x/CookieSample/Startup.cs?name=snippet2)]
 
-<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions> Třída se používá ke konfiguraci možností zprostředkovatele ověřování.
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions> Třída se používá ke konfiguraci možností poskytovatele ověřování.
 
-Nastavte `CookieAuthenticationOptions` v konfiguraci služby pro ověřování v `Startup.ConfigureServices` metody:
+Nastavte `CookieAuthenticationOptions` v konfiguraci služby pro ověřování `Startup.ConfigureServices` v metodě:
 
 ```csharp
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -53,17 +55,17 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     });
 ```
 
-## <a name="cookie-policy-middleware"></a>Zásady middlewaru souboru cookie.
+## <a name="cookie-policy-middleware"></a>Middleware zásad souborů cookie
 
-[Zásady middlewaru souboru cookie](xref:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware) umožňuje možnosti zásad souboru cookie. Přidání middleware do kanálu zpracování aplikace je v pořadí citlivé&mdash;ovlivní pouze podřízené komponenty zaregistrovaný v kanálu.
+[Middleware zásad souborů cookie](xref:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware) umožňuje využít zásady souborů cookie. Přidání middlewaru do kanálu zpracování aplikace je v pořádku&mdash;. týká se pouze podřízených komponent registrovaných v kanálu.
 
 ```csharp
 app.UseCookiePolicy(cookiePolicyOptions);
 ```
 
-Použití <xref:Microsoft.AspNetCore.Builder.CookiePolicyOptions> poskytnuté zásady middlewaru souboru Cookie. k řízení globální vlastnosti zpracování souboru cookie a hook do obslužné rutiny zpracování souboru cookie, když jsou soubory cookie připojí nebo odstraní.
+Použití <xref:Microsoft.AspNetCore.Builder.CookiePolicyOptions> poskytovaného middlewaru zásad souborů cookie k řízení globálních charakteristik zpracování souborů cookie a připojení do obslužných rutin zpracování souborů cookie, když jsou soubory cookie připojeny nebo smazány.
 
-Výchozí hodnota <xref:Microsoft.AspNetCore.Builder.CookiePolicyOptions.MinimumSameSitePolicy> hodnotu `SameSiteMode.Lax` tak, aby povolovala ověřování OAuth2. Přísně vynutit zásady stejný web `SameSiteMode.Strict`, nastavte `MinimumSameSitePolicy`. I když toto nastavení přeruší OAuth2 nebo jiná schémata ověřování mezi zdroji, zvyšuje úroveň zabezpečení souboru cookie pro ostatní typy aplikací, které se nemusíte spoléhat na zpracování žádosti nepůvodního zdroje.
+Výchozí <xref:Microsoft.AspNetCore.Builder.CookiePolicyOptions.MinimumSameSitePolicy> hodnota je `SameSiteMode.Lax` povolit ověřování OAuth2. Chcete-li striktně vyhovět zásadě `SameSiteMode.Strict`stejného serveru, `MinimumSameSitePolicy`nastavte. I když toto nastavení přeruší OAuth2 a další schémata ověřování mezi zdroji, zvyšuje úroveň zabezpečení souborů cookie pro jiné typy aplikací, které nespoléhají na zpracování žádostí mezi zdroji.
 
 ```csharp
 var cookiePolicyOptions = new CookiePolicyOptions
@@ -72,46 +74,46 @@ var cookiePolicyOptions = new CookiePolicyOptions
 };
 ```
 
-Nastavení zásad middlewaru souboru Cookie pro `MinimumSameSitePolicy` může mít vliv na nastavení `Cookie.SameSite` v `CookieAuthenticationOptions` nastavení podle níže uvedených matice.
+Nastavení middlewaru zásad souborů cookie `MinimumSameSitePolicy` pro může ovlivnit `Cookie.SameSite` nastavení v nastavení `CookieAuthenticationOptions` v závislosti na následující matici.
 
-| MinimumSameSitePolicy | Cookie.SameSite | Výsledná nastavení Cookie.SameSite |
+| MinimumSameSitePolicy | Cookie.SameSite | Nastavení výsledného souboru cookie. SameSite |
 | --------------------- | --------------- | --------------------------------- |
 | SameSiteMode.None     | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
 | SameSiteMode.Lax      | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Lax<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
 | SameSiteMode.Strict   | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Strict<br>SameSiteMode.Strict<br>SameSiteMode.Strict |
 
-## <a name="create-an-authentication-cookie"></a>Vytvoření souboru cookie pro ověřování
+## <a name="create-an-authentication-cookie"></a>Vytvoření ověřovacího souboru cookie
 
-Pokud chcete vytvořit soubor cookie, která uchovává informace o uživateli, vytvořit <xref:System.Security.Claims.ClaimsPrincipal>. Informace o uživateli je serializován a uložená v souboru cookie. 
+Chcete-li vytvořit soubor cookie obsahující informace o uživateli <xref:System.Security.Claims.ClaimsPrincipal>, vytvořte. Informace o uživateli jsou serializovány a uloženy v souboru cookie. 
 
-Vytvoření <xref:System.Security.Claims.ClaimsIdentity> s jakékoli požadované <xref:System.Security.Claims.Claim>s a volání <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*> k přihlášení uživatele:
+Vytvořit s libovolným vyžadovaným <xref:System.Security.Claims.Claim>s a <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*> voláním pro přihlášení uživatele: <xref:System.Security.Claims.ClaimsIdentity>
 
-[!code-csharp[](cookie/samples/2.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet1)]
+[!code-csharp[](cookie/samples/3.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet1)]
 
-`SignInAsync` Vytvoří do zašifrovaného souboru cookie a přidá jej do aktuální odpovědi. Pokud `AuthenticationScheme` není zadán, výchozí schéma se používá.
+`SignInAsync`Vytvoří zašifrovaný soubor cookie a přidá ho k aktuální odpovědi. Pokud `AuthenticationScheme` není zadaný, použije se výchozí schéma.
 
-ASP.NET Core [ochranu dat](xref:security/data-protection/using-data-protection) pro šifrování je použit systém. Pro aplikaci hostovanou ve více počítačích, zatížení vyrovnávání mezi aplikacemi, nebo pomocí webové farmy, [Konfigurace ochrany dat](xref:security/data-protection/configuration/overview) používat stejné aktualizační kanál klíč a identifikátor aplikace.
+Systém [ochrany dat](xref:security/data-protection/using-data-protection) ASP.NET Core slouží k šifrování. Pro aplikaci hostovanou na více počítačích, Vyrovnávání zatížení napříč aplikacemi nebo při použití webové farmy [nakonfigurujte ochranu dat](xref:security/data-protection/configuration/overview) tak, aby používala stejný identifikátor Key Ring a App.
 
 ## <a name="sign-out"></a>Odhlásit se
 
-Chcete-li odhlásit aktuálního uživatele a odstranit jejich souborů cookie, zavolejte <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>:
+Chcete-li odhlásit aktuálního uživatele a odstranit svůj soubor cookie <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>, zavolejte:
 
-[!code-csharp[](cookie/samples/2.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet2)]
+[!code-csharp[](cookie/samples/3.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet2)]
 
-Pokud `CookieAuthenticationDefaults.AuthenticationScheme` (nebo "Soubory cookie") se nepoužívá jako schéma (například "ContosoCookie"), zadejte schéma používané při konfiguraci zprostředkovatele ověřování. V opačném případě se používá výchozí schéma.
+Pokud `CookieAuthenticationDefaults.AuthenticationScheme` se (nebo "soubory cookie") nepoužívají jako schéma (například "ContosoCookie"), zadejte schéma používané při konfiguraci poskytovatele ověřování. V opačném případě se použije výchozí schéma.
 
-## <a name="react-to-back-end-changes"></a>Reagovat na změny back-end
+## <a name="react-to-back-end-changes"></a>Reakce na back-endové změny
 
-Po vytvoření souboru cookie je soubor cookie jediný zdroj identity. Pokud uživatelský účet zakázaná v back endových systémů:
+Po vytvoření souboru cookie je soubor cookie jediným zdrojem identity. Pokud je uživatelský účet v systémech back-end zakázaný, postupujte takto:
 
-* Aplikace soubor cookie ověřování systém bude dál zpracovávat žádosti na základě souboru cookie ověřování.
-* Uživatel zůstane přihlášený do aplikace za předpokladu, je platný soubor cookie ověřování.
+* Systém ověřování souborů cookie aplikace nadále zpracovává požadavky založené na souboru cookie ověřování.
+* Uživatel zůstane přihlášený k aplikaci, pokud je ověřovací soubor cookie platný.
 
-<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.ValidatePrincipal*> Události je možné zachytit a přepsat ověření souboru cookie identity. Ověřování souborů cookie u každého požadavku snižuje riziko odvolané uživatele, kteří používají aplikaci.
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.ValidatePrincipal*> Událost se dá použít k zachycení a přepsání ověřování identity souborů cookie. Ověření souboru cookie u všech požadavků snižuje riziko odvolaných uživatelů, kteří přistupují k aplikaci.
 
-Jedním z přístupů k ověření souboru cookie je založená na udržování přehledu o změně uživatelskou databázi. Pokud databáze nebylo změněno od uživatele soubor cookie vydala, není nutné opakované ověření uživatele, pokud jejich souborů cookie je stále platný. V ukázkové aplikaci, databázi je implementována v `IUserRepository` a uloží `LastChanged` hodnotu. Při aktualizaci uživatele v databázi, `LastChanged` je hodnota nastavena na aktuální čas.
+Jeden přístup k ověření souboru cookie je založen na sledování toho, kdy se databáze uživatele změní. Pokud se databáze od vydání souboru cookie uživatele nezměnila, není nutné znovu ověřit uživatele, pokud je jejich soubor cookie stále platný. V ukázkové aplikaci je databáze implementována v `IUserRepository` a `LastChanged` ukládá hodnotu. Při aktualizaci uživatele v databázi `LastChanged` je hodnota nastavena na aktuální čas.
 
-Pokud chcete platnost souboru cookie, pokud změny databáze v závislosti na `LastChanged` hodnoty, vytvořte soubor cookie s `LastChanged` deklarace obsahující aktuální `LastChanged` hodnota z databáze:
+Aby se soubor cookie neověřoval, když se databáze na základě této `LastChanged` hodnoty změní, vytvořte soubor cookie `LastChanged` s deklarací identity obsahující aktuální `LastChanged` hodnotu z databáze:
 
 ```csharp
 var claims = new List<Claim>
@@ -129,13 +131,13 @@ await HttpContext.SignInAsync(
     new ClaimsPrincipal(claimsIdentity));
 ```
 
-K implementaci přepsání `ValidatePrincipal` události, napište metodu s následující signaturou ve třídě, která je odvozena z <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents>:
+Chcete-li implementovat přepsání pro `ValidatePrincipal` událost, napište metodu s následujícím podpisem ve třídě, která je odvozena z <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents>:
 
 ```csharp
 ValidatePrincipal(CookieValidatePrincipalContext)
 ```
 
-Tady je příklad implementace `CookieAuthenticationEvents`:
+Následuje příklad implementace `CookieAuthenticationEvents`:
 
 ```csharp
 using System.Linq;
@@ -174,7 +176,7 @@ public class CustomCookieAuthenticationEvents : CookieAuthenticationEvents
 }
 ```
 
-Zaregistrovat instanci události během registrace služby souborů cookie v `Startup.ConfigureServices` metody. Zadejte [obor registrace služby](xref:fundamentals/dependency-injection#service-lifetimes) pro vaše `CustomCookieAuthenticationEvents` třídy:
+Zaregistrujte instanci události během registrace služby souborů cookie `Startup.ConfigureServices` v metodě. Poskytněte [registraci oboru služby](xref:fundamentals/dependency-injection#service-lifetimes) pro `CustomCookieAuthenticationEvents` třídu:
 
 ```csharp
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -186,18 +188,18 @@ services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 services.AddScoped<CustomCookieAuthenticationEvents>();
 ```
 
-Představte si situaci, ve kterém se aktualizuje uživatelské jméno&mdash;rozhodnutí, která nemá vliv na zabezpečení žádným způsobem. Pokud chcete aktualizovat nedestruktivně hlavní název uživatele, zavolejte `context.ReplacePrincipal` a nastavit `context.ShouldRenew` vlastnost `true`.
+Vezměte v úvahu situaci, kdy je jméno uživatele Aktualizováno&mdash;rozhodnutím, které nijak neovlivňuje zabezpečení. Pokud chcete nedestruktivní aktualizaci objektu zabezpečení uživatele, zavolejte `context.ReplacePrincipal` a `context.ShouldRenew` nastavte vlastnost na `true`.
 
 > [!WARNING]
-> Tento přístup je zde popsáno, se aktivuje u každého požadavku. Ověřuje se ověřovací soubory cookie pro všechny uživatele v každé žádosti může způsobit snížení výkonu velké aplikace.
+> Přístup, který je zde popsán, se spustí při každém požadavku. Ověřování souborů cookie pro ověřování pro všechny uživatele na všech žádostech může mít za následek velkou sankci pro výkon aplikace.
 
 ## <a name="persistent-cookies"></a>Trvalé soubory cookie
 
-Můžete chtít soubor cookie zachovat v rámci relací prohlížeče. Tato trvalost má být povoleno pouze explicitní uživatelské souhlas s "Zapamatovat" zaškrtávací políčko na přihlašovací nebo mechanismus podobný. 
+Můžete chtít, aby soubor cookie trval mezi relacemi prohlížeče. Tato stálost by měla být povolena pouze s explicitním souhlasem uživatele s zaškrtávacím políčkem "zapamatovat mě" při přihlašování nebo podobném mechanismu. 
 
-Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který odolává prostřednictvím prohlížeče UZÁVĚRECH. Klouzavé vypršení platnosti nastavení jste dříve nakonfigurovali jsou zachované. Pokud se při zavření prohlížeče vyprší platnost souboru cookie, vymaže prohlížeči soubor cookie po jeho restartování.
+Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který se zachová v rámci zavření prohlížeče. Budou dodržena všechna nastavení klouzavého vypršení platnosti dříve nakonfigurovaná. Pokud soubor cookie vyprší v době, kdy je prohlížeč zavřen, prohlížeč po restartování odstraní soubor cookie.
 
-Nastavte <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.IsPersistent> k `true` v <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties>:
+Nastavit <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.IsPersistent> `true` na: <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties>
 
 ```csharp
 // using Microsoft.AspNetCore.Authentication;
@@ -211,11 +213,11 @@ await HttpContext.SignInAsync(
     });
 ```
 
-## <a name="absolute-cookie-expiration"></a>Soubor cookie absolutní vypršení platnosti
+## <a name="absolute-cookie-expiration"></a>Vypršení platnosti absolutního souboru cookie
 
-Čas absolutní vypršení platnosti můžete nastavit pomocí <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.ExpiresUtc>. K vytvoření trvalého souboru cookie, `IsPersistent` musí být také nastavena. V opačném případě soubor cookie se vytvoří s životností založeného na relacích a může vyprší před nebo po lístek ověřování, který ji obsahuje. Když `ExpiresUtc` je nastaven, přepíše hodnotu <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions.ExpireTimeSpan> možnost <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions>, pokud nastavení.
+Absolutní čas vypršení platnosti lze nastavit pomocí <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.ExpiresUtc>. Chcete-li vytvořit trvalý soubor `IsPersistent` cookie, je nutné také nastavit. V opačném případě se soubor cookie vytvoří s životností založenou na relaci a může vypršet buď před, nebo za ověřovacím lístkem, který obsahuje. Když `ExpiresUtc` je nastaveno, přepíše hodnotu <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions.ExpireTimeSpan> možnosti <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions>, pokud je nastavena.
 
-Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který má platnost po dobu 20 minut. To ignoruje klouzavé vypršení platnosti nastavení předtím nakonfigurovali.
+Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který trvá 20 minut. Tato možnost ignoruje všechna nastavení klouzavého vypršení platnosti dříve nakonfigurovaná.
 
 ```csharp
 // using Microsoft.AspNetCore.Authentication;
@@ -230,9 +232,228 @@ await HttpContext.SignInAsync(
     });
 ```
 
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+ASP.NET Core identity je úplný, plnohodnotný zprostředkovatel ověřování pro vytváření a správu přihlašovacích údajů. Můžete ale použít poskytovatele ověřování ověřování na základě souborů cookie bez ASP.NET Core identity. Další informace naleznete v tématu <xref:security/authentication/identity>.
+
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/cookie/samples) ([stažení](xref:index#how-to-download-a-sample))
+
+Pro demonstrační účely v ukázkové aplikaci je uživatelský účet pro hypotetického uživatele Marie Rodriguez pevně zakódované do aplikace. K přihlášení uživatele použijte `maria.rodriguez@contoso.com` **e-mailovou** adresu a jakékoli heslo. Uživatel je ověřený v `AuthenticateUser` metodě v souboru *Pages/Account/Login. cshtml. cs* . V reálném příkladu by byl uživatel ověřený proti databázi.
+
+## <a name="configuration"></a>Konfiguraci
+
+Pokud aplikace nepoužívá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), vytvořte odkaz na balíček v souboru projektu pro balíček [Microsoft. AspNetCore. Authentication. cookies](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Cookies/) .
+
+V metodě vytvořte službu ověřování middlewaru <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*> pomocí metod a <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>: `Startup.ConfigureServices`
+
+[!code-csharp[](cookie/samples/2.x/CookieSample/Startup.cs?name=snippet1)]
+
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme>předáno `AddAuthentication` pro nastavení výchozího schématu ověřování pro aplikaci. `AuthenticationScheme`je užitečné v případě, že existuje více instancí ověřování souborem cookie a chcete [autorizovat s konkrétním schématem](xref:security/authorization/limitingidentitybyscheme). Nastavení na [CookieAuthenticationDefaults. AuthenticationScheme](xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationDefaults.AuthenticationScheme) poskytuje pro schéma hodnotu "cookies". `AuthenticationScheme` Můžete dodat libovolnou řetězcovou hodnotu, která rozlišuje schéma.
+
+Schéma ověřování aplikace se liší od schématu ověřování souborů cookie aplikace. Pokud není k <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>dispozici schéma ověřování souborů cookie, použije `CookieAuthenticationDefaults.AuthenticationScheme` se ("soubory cookie").
+
+<xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential> Vlastnost ověřovacího souboru cookie je standardně `true` nastavená na hodnotu. Soubory cookie ověřování jsou povoleny, pokud návštěvník webu nesouhlasí s shromažďováním dat. Další informace naleznete v tématu <xref:security/gdpr#essential-cookies>.
+
+V metodě zavolejte metodu pro vyvolání middleware `HttpContext.User` ověřování, který nastaví vlastnost. `UseAuthentication` `Startup.Configure` Zavolejte metodu před voláním `UseMvcWithDefaultRoute` nebo `UseMvc`: `UseAuthentication`
+
+[!code-csharp[](cookie/samples/2.x/CookieSample/Startup.cs?name=snippet2)]
+
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions> Třída se používá ke konfiguraci možností poskytovatele ověřování.
+
+Nastavte `CookieAuthenticationOptions` v konfiguraci služby pro ověřování `Startup.ConfigureServices` v metodě:
+
+```csharp
+services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        ...
+    });
+```
+
+## <a name="cookie-policy-middleware"></a>Middleware zásad souborů cookie
+
+[Middleware zásad souborů cookie](xref:Microsoft.AspNetCore.CookiePolicy.CookiePolicyMiddleware) umožňuje využít zásady souborů cookie. Přidání middlewaru do kanálu zpracování aplikace je v pořádku&mdash;. týká se pouze podřízených komponent registrovaných v kanálu.
+
+```csharp
+app.UseCookiePolicy(cookiePolicyOptions);
+```
+
+Použití <xref:Microsoft.AspNetCore.Builder.CookiePolicyOptions> poskytovaného middlewaru zásad souborů cookie k řízení globálních charakteristik zpracování souborů cookie a připojení do obslužných rutin zpracování souborů cookie, když jsou soubory cookie připojeny nebo smazány.
+
+Výchozí <xref:Microsoft.AspNetCore.Builder.CookiePolicyOptions.MinimumSameSitePolicy> hodnota je `SameSiteMode.Lax` povolit ověřování OAuth2. Chcete-li striktně vyhovět zásadě `SameSiteMode.Strict`stejného serveru, `MinimumSameSitePolicy`nastavte. I když toto nastavení přeruší OAuth2 a další schémata ověřování mezi zdroji, zvyšuje úroveň zabezpečení souborů cookie pro jiné typy aplikací, které nespoléhají na zpracování žádostí mezi zdroji.
+
+```csharp
+var cookiePolicyOptions = new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict,
+};
+```
+
+Nastavení middlewaru zásad souborů cookie `MinimumSameSitePolicy` pro může ovlivnit `Cookie.SameSite` nastavení v nastavení `CookieAuthenticationOptions` v závislosti na následující matici.
+
+| MinimumSameSitePolicy | Cookie.SameSite | Nastavení výsledného souboru cookie. SameSite |
+| --------------------- | --------------- | --------------------------------- |
+| SameSiteMode.None     | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Lax      | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Lax<br>SameSiteMode.Lax<br>SameSiteMode.Strict |
+| SameSiteMode.Strict   | SameSiteMode.None<br>SameSiteMode.Lax<br>SameSiteMode.Strict | SameSiteMode.Strict<br>SameSiteMode.Strict<br>SameSiteMode.Strict |
+
+## <a name="create-an-authentication-cookie"></a>Vytvoření ověřovacího souboru cookie
+
+Chcete-li vytvořit soubor cookie obsahující informace o uživateli <xref:System.Security.Claims.ClaimsPrincipal>, vytvořte. Informace o uživateli jsou serializovány a uloženy v souboru cookie. 
+
+Vytvořit s libovolným vyžadovaným <xref:System.Security.Claims.Claim>s a <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*> voláním pro přihlášení uživatele: <xref:System.Security.Claims.ClaimsIdentity>
+
+[!code-csharp[](cookie/samples/2.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet1)]
+
+`SignInAsync`Vytvoří zašifrovaný soubor cookie a přidá ho k aktuální odpovědi. Pokud `AuthenticationScheme` není zadaný, použije se výchozí schéma.
+
+Systém [ochrany dat](xref:security/data-protection/using-data-protection) ASP.NET Core slouží k šifrování. Pro aplikaci hostovanou na více počítačích, Vyrovnávání zatížení napříč aplikacemi nebo při použití webové farmy [nakonfigurujte ochranu dat](xref:security/data-protection/configuration/overview) tak, aby používala stejný identifikátor Key Ring a App.
+
+## <a name="sign-out"></a>Odhlásit se
+
+Chcete-li odhlásit aktuálního uživatele a odstranit svůj soubor cookie <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignOutAsync*>, zavolejte:
+
+[!code-csharp[](cookie/samples/2.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet2)]
+
+Pokud `CookieAuthenticationDefaults.AuthenticationScheme` se (nebo "soubory cookie") nepoužívají jako schéma (například "ContosoCookie"), zadejte schéma používané při konfiguraci poskytovatele ověřování. V opačném případě se použije výchozí schéma.
+
+## <a name="react-to-back-end-changes"></a>Reakce na back-endové změny
+
+Po vytvoření souboru cookie je soubor cookie jediným zdrojem identity. Pokud je uživatelský účet v systémech back-end zakázaný, postupujte takto:
+
+* Systém ověřování souborů cookie aplikace nadále zpracovává požadavky založené na souboru cookie ověřování.
+* Uživatel zůstane přihlášený k aplikaci, pokud je ověřovací soubor cookie platný.
+
+<xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents.ValidatePrincipal*> Událost se dá použít k zachycení a přepsání ověřování identity souborů cookie. Ověření souboru cookie u všech požadavků snižuje riziko odvolaných uživatelů, kteří přistupují k aplikaci.
+
+Jeden přístup k ověření souboru cookie je založen na sledování toho, kdy se databáze uživatele změní. Pokud se databáze od vydání souboru cookie uživatele nezměnila, není nutné znovu ověřit uživatele, pokud je jejich soubor cookie stále platný. V ukázkové aplikaci je databáze implementována v `IUserRepository` a `LastChanged` ukládá hodnotu. Při aktualizaci uživatele v databázi `LastChanged` je hodnota nastavena na aktuální čas.
+
+Aby se soubor cookie neověřoval, když se databáze na základě této `LastChanged` hodnoty změní, vytvořte soubor cookie `LastChanged` s deklarací identity obsahující aktuální `LastChanged` hodnotu z databáze:
+
+```csharp
+var claims = new List<Claim>
+{
+    new Claim(ClaimTypes.Name, user.Email),
+    new Claim("LastChanged", {Database Value})
+};
+
+var claimsIdentity = new ClaimsIdentity(
+    claims, 
+    CookieAuthenticationDefaults.AuthenticationScheme);
+
+await HttpContext.SignInAsync(
+    CookieAuthenticationDefaults.AuthenticationScheme, 
+    new ClaimsPrincipal(claimsIdentity));
+```
+
+Chcete-li implementovat přepsání pro `ValidatePrincipal` událost, napište metodu s následujícím podpisem ve třídě, která je odvozena z <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationEvents>:
+
+```csharp
+ValidatePrincipal(CookieValidatePrincipalContext)
+```
+
+Následuje příklad implementace `CookieAuthenticationEvents`:
+
+```csharp
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
+public class CustomCookieAuthenticationEvents : CookieAuthenticationEvents
+{
+    private readonly IUserRepository _userRepository;
+
+    public CustomCookieAuthenticationEvents(IUserRepository userRepository)
+    {
+        // Get the database from registered DI services.
+        _userRepository = userRepository;
+    }
+
+    public override async Task ValidatePrincipal(CookieValidatePrincipalContext context)
+    {
+        var userPrincipal = context.Principal;
+
+        // Look for the LastChanged claim.
+        var lastChanged = (from c in userPrincipal.Claims
+                           where c.Type == "LastChanged"
+                           select c.Value).FirstOrDefault();
+
+        if (string.IsNullOrEmpty(lastChanged) ||
+            !_userRepository.ValidateLastChanged(lastChanged))
+        {
+            context.RejectPrincipal();
+
+            await context.HttpContext.SignOutAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme);
+        }
+    }
+}
+```
+
+Zaregistrujte instanci události během registrace služby souborů cookie `Startup.ConfigureServices` v metodě. Poskytněte [registraci oboru služby](xref:fundamentals/dependency-injection#service-lifetimes) pro `CustomCookieAuthenticationEvents` třídu:
+
+```csharp
+services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.EventsType = typeof(CustomCookieAuthenticationEvents);
+    });
+
+services.AddScoped<CustomCookieAuthenticationEvents>();
+```
+
+Vezměte v úvahu situaci, kdy je jméno uživatele Aktualizováno&mdash;rozhodnutím, které nijak neovlivňuje zabezpečení. Pokud chcete nedestruktivní aktualizaci objektu zabezpečení uživatele, zavolejte `context.ReplacePrincipal` a `context.ShouldRenew` nastavte vlastnost na `true`.
+
+> [!WARNING]
+> Přístup, který je zde popsán, se spustí při každém požadavku. Ověřování souborů cookie pro ověřování pro všechny uživatele na všech žádostech může mít za následek velkou sankci pro výkon aplikace.
+
+## <a name="persistent-cookies"></a>Trvalé soubory cookie
+
+Můžete chtít, aby soubor cookie trval mezi relacemi prohlížeče. Tato stálost by měla být povolena pouze s explicitním souhlasem uživatele s zaškrtávacím políčkem "zapamatovat mě" při přihlašování nebo podobném mechanismu. 
+
+Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který se zachová v rámci zavření prohlížeče. Budou dodržena všechna nastavení klouzavého vypršení platnosti dříve nakonfigurovaná. Pokud soubor cookie vyprší v době, kdy je prohlížeč zavřen, prohlížeč po restartování odstraní soubor cookie.
+
+Nastavit <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.IsPersistent> `true` na: <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties>
+
+```csharp
+// using Microsoft.AspNetCore.Authentication;
+
+await HttpContext.SignInAsync(
+    CookieAuthenticationDefaults.AuthenticationScheme,
+    new ClaimsPrincipal(claimsIdentity),
+    new AuthenticationProperties
+    {
+        IsPersistent = true
+    });
+```
+
+## <a name="absolute-cookie-expiration"></a>Vypršení platnosti absolutního souboru cookie
+
+Absolutní čas vypršení platnosti lze nastavit pomocí <xref:Microsoft.AspNetCore.Authentication.AuthenticationProperties.ExpiresUtc>. Chcete-li vytvořit trvalý soubor `IsPersistent` cookie, je nutné také nastavit. V opačném případě se soubor cookie vytvoří s životností založenou na relaci a může vypršet buď před, nebo za ověřovacím lístkem, který obsahuje. Když `ExpiresUtc` je nastaveno, přepíše hodnotu <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions.ExpireTimeSpan> možnosti <xref:Microsoft.AspNetCore.Builder.CookieAuthenticationOptions>, pokud je nastavena.
+
+Následující fragment kódu vytvoří identitu a odpovídající soubor cookie, který trvá 20 minut. Tato možnost ignoruje všechna nastavení klouzavého vypršení platnosti dříve nakonfigurovaná.
+
+```csharp
+// using Microsoft.AspNetCore.Authentication;
+
+await HttpContext.SignInAsync(
+    CookieAuthenticationDefaults.AuthenticationScheme,
+    new ClaimsPrincipal(claimsIdentity),
+    new AuthenticationProperties
+    {
+        IsPersistent = true,
+        ExpiresUtc = DateTime.UtcNow.AddMinutes(20)
+    });
+```
+
+::: moniker-end
+
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/authorization/limitingidentitybyscheme>
 * <xref:security/authorization/claims>
-* [Role na základě zásad kontroly](xref:security/authorization/roles#policy-based-role-checks)
+* [Kontroly rolí na základě zásad](xref:security/authorization/roles#policy-based-role-checks)
 * <xref:host-and-deploy/web-farm>
