@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 64393e826cb17550085f468f5916fca55973908f
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: bf2bce4f89e8bfe6e5aeeb4860c85a60c5eb4b7c
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993392"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310397"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core modely hostování Blazor
 
@@ -30,7 +30,7 @@ Hlavní hostující model pro Blazor je spuštěn na straně klienta v prohlíž
 
 Chcete-li vytvořit aplikaci Blazor pomocí modelu hostování na straně klienta, použijte šablonu **aplikace Blazor WebAssembly** ([dotnet New blazorwasm](/dotnet/core/tools/dotnet-new)).
 
-Po výběru šablony **aplikace Blazor WebAssembly** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core hostované** ([dotnet New blazorwasm--Hosted](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core obsluhuje aplikaci Blazor klientům. Klientská aplikace Blazor může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo signalizace. [](xref:signalr/introduction)
+Po výběru šablony **aplikace Blazor WebAssembly** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core hostované** ([dotnet New blazorwasm--Hosted](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core obsluhuje aplikaci Blazor klientům. Klientská aplikace Blazor může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo [signalizace](xref:signalr/introduction).
 
 Šablony obsahují skript *blazor. WebAssembly. js* , který zpracovává:
 
@@ -53,7 +53,7 @@ Downsides hostování na straně klienta:
 
 ## <a name="server-side"></a>Na straně serveru
 
-S modelem hostování na straně serveru se aplikace spouští na serveru z aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes připojení [](xref:signalr/introduction) k signalizaci.
+S modelem hostování na straně serveru se aplikace spouští na serveru z aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes připojení k [signalizaci](xref:signalr/introduction) .
 
 ![Prohlížeč komunikuje s aplikací (hostovanou v aplikaci ASP.NET Core) na serveru přes připojení k signalizaci.](hosting-models/_static/server-side.png)
 
@@ -99,35 +99,67 @@ Blazor aplikace na straně serveru jsou nastavené ve výchozím nastavení tak,
  
 ```cshtml
 <body>
-    <app>@(await Html.RenderComponentAsync<App>())</app>
+    <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
  
     <script src="_framework/blazor.server.js"></script>
 </body>
 ```
+
+`RenderMode`nakonfiguruje, jestli součást:
+
+* Je předem vykreslen na stránku.
+* Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor z uživatelského agenta.
+
+| `RenderMode`        | Popis |
+| ------------------- | ----------- |
+| `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro Blazor aplikaci na straně serveru. Po spuštění agenta uživatele se tato značka používá ke spuštění aplikace v Blazor. Parametry nejsou podporovány. |
+| `Server`            | Vykreslí značku pro Blazor aplikaci na straně serveru. Výstup komponenty není zahrnutý. Po spuštění agenta uživatele se tato značka používá ke spuštění aplikace v Blazor. Parametry nejsou podporovány. |
+| `Static`            | Vykreslí komponentu do statického HTML. Jsou podporovány parametry. |
+
+Vykreslování součástí serveru ze statické stránky HTML není podporováno.
  
 Klient se znovu připojí k serveru se stejným stavem, který se použil k proprerender aplikace. Pokud je stav aplikace stále v paměti, stav součásti nebude po navázání připojení k signalizaci znovu vykreslen.
 
 ### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Vykreslovat stavově interaktivní komponenty ze stránek a zobrazení Razor
  
-Stavové interaktivní komponenty lze přidat na stránku nebo zobrazení Razor. Když se stránka nebo zobrazení vykresluje, komponenta se s ní předem vykreslí. Aplikace se pak znovu připojí ke stavu součásti, jakmile se naváže připojení klienta, pokud je stav stále v paměti.
+Stavové interaktivní komponenty lze přidat na stránku nebo zobrazení Razor.
+
+Při vykreslení stránky nebo zobrazení:
+
+* Komponenta je předem vykreslena se stránkou nebo zobrazením.
+* Počáteční stav součásti, který se používá pro předvykreslování, bude ztracen.
+* Po navázání připojení k signalizaci se vytvoří nový stav součásti.
  
-Například následující stránka Razor vykresluje `Counter` komponentu s počátečním počtem zadaným pomocí formuláře:
+Následující stránka Razor vykresluje `Counter` komponentu:
+
+```cshtml
+<h1>My Razor Page</h1>
+ 
+@(await Html.RenderComponentAsync<Counter>(RenderMode.ServerPrerendered))
+```
+
+### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Vykreslování neinteraktivních komponent ze stránek a zobrazení Razor
+
+Na následující stránce `MyComponent` Razor je komponenta staticky vykreslena s počáteční hodnotou zadanou pomocí formuláře:
  
 ```cshtml
 <h1>My Razor Page</h1>
 
 <form>
-    <input type="number" asp-for="InitialCount" />
-    <button type="submit">Set initial count</button>
+    <input type="number" asp-for="InitialValue" />
+    <button type="submit">Set initial value</button>
 </form>
  
-@(await Html.RenderComponentAsync<Counter>(new { InitialCount = InitialCount }))
+@(await Html.RenderComponentAsync<MyComponent>(RenderMode.Static, 
+    new { InitialValue = InitialValue }))
  
 @code {
     [BindProperty(SupportsGet=true)]
-    public int InitialCount { get; set; }
+    public int InitialValue { get; set; }
 }
 ```
+
+Vzhledem `MyComponent` k tomu, že se staticky vykreslují, komponenta nemůže být interaktivní.
 
 ### <a name="detect-when-the-app-is-prerendering"></a>Rozpoznat, kdy se aplikace předvykresluje
  
@@ -137,7 +169,7 @@ Například následující stránka Razor vykresluje `Counter` komponentu s poč
  
 V některých případech je třeba nakonfigurovat klienta nástroje Signal používaného Blazor aplikacemi na straně serveru. Například můžete chtít nakonfigurovat protokolování na straně klienta signalizace, aby bylo možné diagnostikovat problém s připojením.
  
-Konfigurace klienta signalizace v souboru Pages */_Host. cshtml* :
+Konfigurace klienta signalizace v souboru *Pages/_Host. cshtml* :
 
 * Přidejte atribut do značky pro skript *blazor. Server. js.* `<script>` `autostart="false"`
 * Zavolejte `Blazor.start` a předejte do konfiguračního objektu, který určuje tvůrce signálu.

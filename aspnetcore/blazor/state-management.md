@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/13/2019
 uid: blazor/state-management
-ms.openlocfilehash: af040635302fbf2dae8192dcf37d55bfcfedfcec
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 01f32130e43b7235cb438ad71321256882f53573
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030369"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310307"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -237,10 +237,7 @@ Během předvykreslování:
 
 Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předvykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah do `localStorage` té `sessionStorage` doby, než je k dispozici.
 
-Chcete-li zakázat předvykreslování:
-
-1. Otevřete soubor *Pages/_Host. cshtml* a odeberte volání `Html.RenderComponentAsync`.
-1. Otevřete soubor a nahraďte `endpoints.MapBlazorHub()` volání pomocí `endpoints.MapBlazorHub<App>("app")`. `Startup.cs` `App`je typ kořenové součásti. `"app"`je Selektor šablon stylů CSS určující umístění pro kořenovou komponentu.
+Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte volání `Html.RenderComponentAsync<App>(RenderMode.Server)`na.
 
 Předvykreslování může být užitečné pro jiné stránky, které `localStorage` nepoužívají `sessionStorage`nebo. Aby bylo možné předvykreslování povolit, odložte operaci načtení, dokud se prohlížeč nepřipojí k okruhu. Následuje příklad uložení hodnoty čítače:
 

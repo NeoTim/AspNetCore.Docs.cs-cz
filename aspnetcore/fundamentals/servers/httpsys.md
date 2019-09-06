@@ -5,14 +5,14 @@ description: Přečtěte si o HTTP. sys, webovém serveru pro ASP.NET Core ve Wi
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/20/2019
+ms.date: 08/27/2019
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 5ee866c862f16c2c22539bf880b5a93415504fb1
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: b9adbdd83b3c4e1eeaadcf99fa3ee6cb41f67f8e
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975521"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310511"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru HTTP. sys v ASP.NET Core
 
@@ -38,7 +38,7 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
 
@@ -84,99 +84,100 @@ Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování pro
 
 ### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití HTTP. sys
 
-1. Odkaz na balíček v souboru projektu není vyžadován při použití [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) ([nuget.org](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)) (ASP.NET Core 2,1 nebo novější). Pokud nepoužíváte `Microsoft.AspNetCore.App` Metapackage, přidejte odkaz na balíček do [Microsoft. AspNetCore. Server. HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/).
+::: moniker range="< aspnetcore-3.0"
 
-2. Při sestavování hostitele zavolejte metodu <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions> rozšířeníaurčetepožadované.<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> Následující příklad nastaví možnosti na jejich výchozí hodnoty:
+Odkaz na balíček v souboru projektu není vyžadován při použití [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) ([NuGet.org](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)). Pokud nepoužíváte `Microsoft.AspNetCore.App` Metapackage, přidejte odkaz na balíček do [Microsoft. AspNetCore. Server. HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/).
+
+::: moniker-end
+
+Při sestavování hostitele zavolejte metodu <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions> rozšířeníaurčetepožadované.<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> Následující příklad nastaví možnosti na jejich výchozí hodnoty:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-   ```csharp
-   public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-      WebHost.CreateDefaultBuilder(args)
-          .UseStartup<Startup>()
-          .UseHttpSys(options =>
-          {
-              options.AllowSynchronousIO = false;
-              options.Authentication.Schemes = AuthenticationSchemes.None;
-              options.Authentication.AllowAnonymous = true;
-              options.MaxConnections = null;
-              options.MaxRequestBodySize = 30000000;
-              options.UrlPrefixes.Add("http://localhost:5000");
-          });
-   ```
+[!code-csharp[](httpsys/samples/3.x/SampleApp/Program.cs?name=snippet1&highlight=5-13)]
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-   [!code-csharp[](httpsys/sample/Program.cs?name=snippet1&highlight=4-12)]
+[!code-csharp[](httpsys/samples/2.x/SampleApp/Program.cs?name=snippet1&highlight=4-12)]
 
 ::: moniker-end
 
-   Další konfiguraci HTTP. sys bude zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
+Další konfiguraci HTTP. sys bude zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
    **Možnosti HTTP. sys**
 
 ::: moniker range=">= aspnetcore-3.0"
 
-   | Vlastnost | Popis | Výchozí |
-   | -------- | ----------- | :-----: |
-   | [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Určuje, zda je povolen synchronní vstup/výstup pro `HttpContext.Request.Body` a `HttpContext.Response.Body`. | `false` |
-   | [Ověřování. AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povoluje anonymní požadavky. | `true` |
-   | [Ověřování. schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Určete povolená schémata ověřování. Může být kdykoli změněno před vyřazením naslouchacího procesu. Hodnoty jsou k dispozici [ve výčtu schémata AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`: `Kerberos`, `Negotiate`, `None`, a `NTLM`. | `None` |
-   | [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokusit se o ukládání do mezipaměti v [režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) pro odpovědi s oprávněnými záhlavími. Odpověď nesmí obsahovat `Set-Cookie`hlavičky, `Vary`ani `Pragma` . Musí `Cache-Control` obsahovat hlavičku, která je `public` a buď `shared-max-age` hodnota nebo `max-age` , nebo `Expires` záhlaví. | `true` |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijetí. | 5 &times; [prostředí.<br> ProcessorCount](xref:System.Environment.ProcessorCount) |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení, která se mají přijmout Použijte `-1` pro nekonečné. Použijte `null` k použití nastavení pro počítač v rámci registru. | `null`<br>počet |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte konfiguraci http <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> . sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; je povolený v případě, že rozhraní API serveru http vyprázdní tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; je povolený pro rozhraní API serveru http, aby bylo možné analyzovat hlavičku požadavku.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; minimální rychlost odesílání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; je povolený, aby žádost zůstala ve frontě požadavků ještě předtím, než ji aplikace vybere.</li></ul> |  |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte, <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> který se má zaregistrovat v http. sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
+| Vlastnost | Popis | Výchozí |
+| -------- | ----------- | :-----: |
+| [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Určuje, zda je povolen synchronní vstup/výstup pro `HttpContext.Request.Body` a `HttpContext.Response.Body`. | `false` |
+| [Ověřování. AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povoluje anonymní požadavky. | `true` |
+| [Ověřování. schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Určete povolená schémata ověřování. Může být kdykoli změněno před vyřazením naslouchacího procesu. Hodnoty jsou k dispozici [ve výčtu schémata AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`: `Kerberos`, `Negotiate`, `None`, a `NTLM`. | `None` |
+| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokusit se o ukládání do mezipaměti v [režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) pro odpovědi s oprávněnými záhlavími. Odpověď nesmí obsahovat `Set-Cookie`hlavičky, `Vary`ani `Pragma` . Musí `Cache-Control` obsahovat hlavičku, která je `public` a buď `shared-max-age` hodnota nebo `max-age` , nebo `Expires` záhlaví. | `true` |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijetí. | 5 &times; [prostředí.<br> ProcessorCount](xref:System.Environment.ProcessorCount) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení, která se mají přijmout Použijte `-1` pro nekonečné. Použijte `null` k použití nastavení pro počítač v rámci registru. | `null`<br>počet |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte konfiguraci http <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> . sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; je povolený v případě, že rozhraní API serveru http vyprázdní tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; je povolený pro rozhraní API serveru http, aby bylo možné analyzovat hlavičku požadavku.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; minimální rychlost odesílání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; je povolený, aby žádost zůstala ve frontě požadavků ještě předtím, než ji aplikace vybere.</li></ul> |  |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte, <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> který se má zaregistrovat v http. sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-   | Vlastnost | Popis | Výchozí |
-   | -------- | ----------- | :-----: |
-   | [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Určuje, zda je povolen synchronní vstup/výstup pro `HttpContext.Request.Body` a `HttpContext.Response.Body`. | `true` |
-   | [Ověřování. AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povoluje anonymní požadavky. | `true` |
-   | [Ověřování. schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Určete povolená schémata ověřování. Může být kdykoli změněno před vyřazením naslouchacího procesu. Hodnoty jsou k dispozici [ve výčtu schémata AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`: `Kerberos`, `Negotiate`, `None`, a `NTLM`. | `None` |
-   | [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokusit se o ukládání do mezipaměti v [režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) pro odpovědi s oprávněnými záhlavími. Odpověď nesmí obsahovat `Set-Cookie`hlavičky, `Vary`ani `Pragma` . Musí `Cache-Control` obsahovat hlavičku, která je `public` a buď `shared-max-age` hodnota nebo `max-age` , nebo `Expires` záhlaví. | `true` |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijetí. | 5 &times; [prostředí.<br> ProcessorCount](xref:System.Environment.ProcessorCount) |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení, která se mají přijmout Použijte `-1` pro nekonečné. Použijte `null` k použití nastavení pro počítač v rámci registru. | `null`<br>počet |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte konfiguraci http <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> . sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; je povolený v případě, že rozhraní API serveru http vyprázdní tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; je povolený pro rozhraní API serveru http, aby bylo možné analyzovat hlavičku požadavku.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; minimální rychlost odesílání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; je povolený, aby žádost zůstala ve frontě požadavků ještě předtím, než ji aplikace vybere.</li></ul> |  |
-   | <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte, <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> který se má zaregistrovat v http. sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
+| Vlastnost | Popis | Výchozí |
+| -------- | ----------- | :-----: |
+| [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Určuje, zda je povolen synchronní vstup/výstup pro `HttpContext.Request.Body` a `HttpContext.Response.Body`. | `true` |
+| [Ověřování. AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povoluje anonymní požadavky. | `true` |
+| [Ověřování. schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Určete povolená schémata ověřování. Může být kdykoli změněno před vyřazením naslouchacího procesu. Hodnoty jsou k dispozici [ve výčtu schémata AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`: `Kerberos`, `Negotiate`, `None`, a `NTLM`. | `None` |
+| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokusit se o ukládání do mezipaměti v [režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) pro odpovědi s oprávněnými záhlavími. Odpověď nesmí obsahovat `Set-Cookie`hlavičky, `Vary`ani `Pragma` . Musí `Cache-Control` obsahovat hlavičku, která je `public` a buď `shared-max-age` hodnota nebo `max-age` , nebo `Expires` záhlaví. | `true` |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijetí. | 5 &times; [prostředí.<br> ProcessorCount](xref:System.Environment.ProcessorCount) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení, která se mají přijmout Použijte `-1` pro nekonečné. Použijte `null` k použití nastavení pro počítač v rámci registru. | `null`<br>počet |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte konfiguraci http <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> . sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; je povolený v případě, že rozhraní API serveru http vyprázdní tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; je povolený pro rozhraní API serveru http, aby bylo možné analyzovat hlavičku požadavku.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; minimální rychlost odesílání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; je povolený, aby žádost zůstala ve frontě požadavků ještě předtím, než ji aplikace vybere.</li></ul> |  |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte, <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> který se má zaregistrovat v http. sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
 
 ::: moniker-end
 
-   <a name="maxrequestbodysize"></a>
+<a name="maxrequestbodysize"></a>
 
-   **MaxRequestBodySize**
+**MaxRequestBodySize**
 
-   Maximální povolená velikost libovolného textu žádosti v bajtech Při nastavení na `null`je maximální velikost textu požadavku neomezená. Toto omezení nemá žádný vliv na upgradovaná připojení, která jsou vždycky neomezená.
+Maximální povolená velikost libovolného textu žádosti v bajtech Při nastavení na `null`je maximální velikost textu požadavku neomezená. Toto omezení nemá žádný vliv na upgradovaná připojení, která jsou vždycky neomezená.
 
-   Doporučená metoda pro přepsání limitu v aplikaci ASP.NET Core MVC pro jeden `IActionResult` je <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> použít atribut pro metodu akce:
+Doporučená metoda pro přepsání limitu v aplikaci ASP.NET Core MVC pro jeden `IActionResult` je <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> použít atribut pro metodu akce:
 
-   ```csharp
-   [RequestSizeLimit(100000000)]
-   public IActionResult MyActionMethod()
-   ```
+```csharp
+[RequestSizeLimit(100000000)]
+public IActionResult MyActionMethod()
+```
 
-   Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit žádosti poté, co aplikace začne číst požadavek. Vlastnost může být použita k označení, `MaxRequestBodySize` zda je vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu. `IsReadOnly`
+Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit žádosti poté, co aplikace začne číst požadavek. Vlastnost může být použita k označení, `MaxRequestBodySize` zda je vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu. `IsReadOnly`
 
-   Pokud by měla aplikace přepsat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> jednotlivé požadavky, <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>použijte:
+Pokud by měla aplikace přepsat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> jednotlivé požadavky, <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>použijte:
 
-   [!code-csharp[](httpsys/sample/Startup.cs?name=snippet1&highlight=6-7)]
+::: moniker range=">= aspnetcore-3.0"
 
-3. Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná tak, aby spouštěla službu IIS nebo IIS Express.
+[!code-csharp[](httpsys/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=6-7)]
 
-   V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcete-li spustit projekt jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
+::: moniker-end
 
-   ![Vybrat profil aplikace konzoly](httpsys/_static/vs-choose-profile.png)
+::: moniker range="< aspnetcore-3.0"
+
+[!code-csharp[](httpsys/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=6-7)]
+
+::: moniker-end
+
+Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná tak, aby spouštěla službu IIS nebo IIS Express.
+
+V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcete-li spustit projekt jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
+
+![Vybrat profil aplikace konzoly](httpsys/_static/vs-choose-profile.png)
 
 ### <a name="configure-windows-server"></a>Konfigurace Windows serveru
 
@@ -208,7 +209,17 @@ Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování pro
 
    Následující příklad kódu ukazuje, jak používat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou `10.0.0.4` serveru na portu 443:
 
-   [!code-csharp[](httpsys/sample_snapshot/Program.cs?name=snippet1&highlight=6)]
+::: moniker range=">= aspnetcore-3.0"
+
+   [!code-csharp[](httpsys/samples_snapshot/3.x/Program.cs?highlight=7)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+   [!code-csharp[](httpsys/samples_snapshot/2.x/Program.cs?highlight=6)]
+
+::: moniker-end
 
    Výhodou `UrlPrefixes` je, že se okamžitě generuje chybová zpráva pro nesprávně naformátované předpony.
 

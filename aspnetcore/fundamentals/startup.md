@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 8866ee9210a91754d8050d0b91ff52c3d3fe0836
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 9407de4ee91ba43b2c95fa98f0cf479bf8539cab
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975441"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310498"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
@@ -80,15 +80,11 @@ Ve třídě `Startup` se běžně používá [vkládání závislostí](xref:fun
 
 [!code-csharp[](startup/sample_snapshot/Startup2.cs?highlight=7-8)]
 
-::: moniker-end
-Alternativou ke vložení `IWebHostEnvironment` je použití přístupu založeného na konvencích.
-::: moniker range=">= aspnetcore-3.0"
+Většina služeb není k dispozici, `Configure` dokud není volána metoda.
 
 ::: moniker-end
 
-::: moniker range="< aspnetcore-3.0"
-Alternativou ke vložení `IHostingEnvironment` je použití přístupu založeného na konvencích.
-::: moniker-end
+### <a name="multiple-startup"></a>Vícenásobné spuštění
 
 Pokud aplikace definuje samostatnou třídu `Startup` pro různá prostředí (například `StartupDevelopment`), odpovídající třída `Startup` je vybrána v době běhu. Třída, jejíž název má příponu odpovídající aktuálnímu prostředí, je upřednostněna. Pokud aplikace běží ve vývojovém prostředí a obsahuje třídu `Startup` i třídu `StartupDevelopment`, použije se třída `StartupDevelopment` . Další informace naleznete v tématu [Používání více prostředí](xref:fundamentals/environments#environment-based-startup-class-and-methods).
 
@@ -159,7 +155,7 @@ Předchozí ukázka je určena pro [Razor Pages](xref:razor-pages/index); verze 
 
 ::: moniker-end
 
-Každá rozšiřující metoda `Use` přidá jednu nebo více middlewarových komponent do kanálu zpracování požadavku. Například nakonfiguruje middleware na poskytování [statických souborů](xref:fundamentals/static-files). [](xref:fundamentals/middleware/index) <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*>
+Každá rozšiřující metoda `Use` přidá jednu nebo více middlewarových komponent do kanálu zpracování požadavku. Například nakonfiguruje [middleware](xref:fundamentals/middleware/index) na poskytování [statických souborů.](xref:fundamentals/static-files) <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*>
 
 Každá middlewarová komponenta v kanálu zpracování požadavků zodpovídá za vyvolání další komponenty v kanálu, případně může provést předčasné ukončení řetězce volání.
 

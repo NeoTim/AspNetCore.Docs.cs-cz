@@ -5,14 +5,14 @@ description: Přečtěte si o scénářích ověřování a autorizace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/26/2019
+ms.date: 08/29/2019
 uid: security/blazor/index
-ms.openlocfilehash: 87d61a7ccda209243a62bc54467b8f02dad92c24
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 8714acbeb6e8a00992a601030811b24f53426b82
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994189"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310524"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
@@ -219,17 +219,21 @@ Pokud jsou v procedurální logice požadovány údaje o stavu ověřování, na
 
 V takovém případě `user.Identity.IsAuthenticated` můžou být deklarace identity výčtové a ve vyhodnocených rolích. `true`
 
-Nastavte kaskádový parametr `CascadingAuthenticationState` pomocí komponenty: `Task<AuthenticationState>`
+Nastavte kaskádový parametr `AuthorizeRouteView` pomocí komponent a `CascadingAuthenticationState`: `Task<AuthenticationState>`
 
 ```cshtml
-<CascadingAuthenticationState>
-    <Router AppAssembly="typeof(Startup).Assembly">
-        <NotFoundContent>
-            <h1>Sorry</h1>
-            <p>Sorry, there's nothing at this address.</p>
-        </NotFoundContent>
-    </Router>
-</CascadingAuthenticationState>
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>
 ```
 
 ## <a name="authorization"></a>Autorizace
@@ -240,7 +244,7 @@ Přístup je obvykle udělen nebo odepřen na základě toho, zda:
 
 * Uživatel je ověřený (přihlášený).
 * Uživatel je v *roli*.
-* Uživatel má deklaraci *identity*.
+* Uživatel má *deklaraci identity*.
 * Byla splněna *zásada* .
 
 Každá z těchto konceptů je stejná jako u ASP.NET Core MVC nebo Razor Pages aplikace. Další informace o ASP.NET Core zabezpečení najdete v článcích [ASP.NET Core Security and identity](xref:security/index).
@@ -372,7 +376,7 @@ Pokud není zadán `Policy` ani `[Authorize]` ani, používá výchozí zásadu,
 
 ## <a name="customize-unauthorized-content-with-the-router-component"></a>Přizpůsobení neoprávněného obsahu pomocí součásti směrovače
 
-`Router` Komponenta umožňuje aplikaci zadat vlastní obsah, pokud:
+`Router` Komponenta společně `AuthorizeRouteView` s komponentou umožňuje aplikaci zadat vlastní obsah, pokud:
 
 * Obsah nebyl nalezen.
 * Uživatel nezdařil `[Authorize]` podmínku použitou pro komponentu. Atribut je popsán v části [[autorizační] atributu.](#authorize-attribute) `[Authorize]`
@@ -381,28 +385,34 @@ Pokud není zadán `Policy` ani `[Authorize]` ani, používá výchozí zásadu,
 Ve výchozí šabloně projektu na straně serveru Blazor soubor *App. Razor* ukazuje, jak nastavit vlastní obsah:
 
 ```cshtml
-<CascadingAuthenticationState>
-    <Router AppAssembly="typeof(Startup).Assembly">
-        <NotFoundContent>
-            <h1>Sorry</h1>
-            <p>Sorry, there's nothing at this address.</p>
-        </NotFoundContent>
-        <NotAuthorizedContent>
-            <h1>Sorry</h1>
-            <p>You're not authorized to reach this page.</p>
-            <p>You may need to log in as a different user.</p>
-        </NotAuthorizedContent>
-        <AuthorizingContent>
-            <h1>Authentication in progress</h1>
-            <p>Only visible while authentication is in progress.</p>
-        </AuthorizingContent>
-    </Router>
-</CascadingAuthenticationState>
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <NotAuthorized>
+                <h1>Sorry</h1>
+                <p>You're not authorized to reach this page.</p>
+                <p>You may need to log in as a different user.</p>
+            </NotAuthorized>
+            <Authorizing>
+                <h1>Authentication in progress</h1>
+                <p>Only visible while authentication is in progress.</p>
+            </Authorizing>
+        </AuthorizeRouteView>
+    </Found>
+    <NotFound>
+        <CascadingAuthenticationState>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <h1>Sorry</h1>
+                <p>Sorry, there's nothing at this address.</p>
+            </LayoutView>
+        </CascadingAuthenticationState>
+    </NotFound>
+</Router>
 ```
 
-Obsah `<NotFoundContent>`, `<NotAuthorizedContent>`a můžezahrnovatlibovolnépoložky,jakojsounapříkladjinéinteraktivníkomponenty.`<AuthorizingContent>`
+Obsah `<NotFound>`, `<NotAuthorized>`a můžezahrnovatlibovolnépoložky,jakojsounapříkladjinéinteraktivníkomponenty.`<Authorizing>`
 
-Pokud `<NotAuthorizedContent>` parametr není zadán, bude směrovač používat následující záložní zprávu:
+Pokud `<NotAuthorized>` není zadaný `<AuthorizeRouteView>` , použije se tato záložní zpráva:
 
 ```html
 Not authorized.
@@ -478,4 +488,5 @@ Doplní kaskádový parametr, který zase získá z podkladové `AuthenticationS
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/index>
+* <xref:security/blazor/server-side>
 * <xref:security/authentication/windowsauth>

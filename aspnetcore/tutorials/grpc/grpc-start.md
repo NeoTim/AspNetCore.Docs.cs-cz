@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 8/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: ffe0034f1d33fb9282b39c030421b9b307413cdb
-ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
+ms.openlocfilehash: 7f80ead06f00037ae51b35d40dff9bc7f99bc5d8
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/28/2019
-ms.locfileid: "70113270"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310571"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření klienta a serveru gRPC v ASP.NET Core
 
@@ -144,7 +144,7 @@ Soubory projektu *GrpcGreeter* :
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Otevřete druhou instanci aplikace Visual Studio a vyberte možnost **vytvořit nový projekt**.
-* V dialogovém okně **vytvořit nový projekt** vyberte konzolová **aplikace (.NET Core)** a pak vyberte **Další**.
+* V dialogovém okně **vytvořit nový projekt** vyberte **Konzolová aplikace (.NET Core)** a pak vyberte **Další**.
 * Do textového pole **název** zadejte **GrpcGreeterClient** a vyberte **vytvořit**.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
@@ -217,7 +217,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
 ### <a name="add-greetproto"></a>Přidat pozdrav. proto
 
-* V klientském projektu gRPC vytvořte složku.
+* V klientském projektu gRPC *vytvořte složku.*
 * Zkopírujte soubor *Protos\greet.proto* ze služby gRPC Greeter do projektu klienta gRPC.
 * Upravte soubor projektu *GrpcGreeterClient. csproj* :
 
@@ -256,13 +256,13 @@ Aktualizujte soubor *program.cs* klienta gRPC pomocí následujícího kódu:
 Klient s pozdravem vytvořil:
 
 * Vytvoří se instance obsahující informace pro vytvoření připojení ke službě gRPC. `HttpClient`
-* `HttpClient` Použití ke konstrukci klienta Greeter:
+* `HttpClient` Použití k vytvoření kanálu gRPC a klienta Greeter:
 
-[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=3-6)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=3-5)]
 
 Klient Greeter volá asynchronní `SayHello` metodu. Zobrazí se výsledek `SayHello` volání:
 
-[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=7-9)]
+[!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=6-8)]
 
 ## <a name="test-the-grpc-client-with-the-grpc-greeter-service"></a>Test klienta gRPC pomocí služby gRPC Greeter
 

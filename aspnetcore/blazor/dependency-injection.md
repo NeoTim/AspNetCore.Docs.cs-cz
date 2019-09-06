@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/02/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: a9330caa81eec0910206312283b3424c70cd1289
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: a2bfa0cbe951e817ed6264f1a151d5a716cd795c
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819774"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310357"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>Vkládání závislostí ASP.NET Core Blazor
 
@@ -33,7 +33,7 @@ Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 | ------- | -------- | ----------- |
 | <xref:System.Net.Http.HttpClient> | Singleton | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI. Všimněte si, že tato `HttpClient` instance nástroje používá prohlížeč pro zpracování provozu http na pozadí. [HttpClient. BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress) se automaticky nastaví na základní PŘEDPONu identifikátoru URI aplikace. Další informace naleznete v tématu <xref:blazor/call-web-api>. |
 | `IJSRuntime` | Singleton | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/javascript-interop>. |
-| `IUriHelper` | Singleton | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
+| `NavigationManager` | Singleton | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
 
 Vlastní zprostředkovatel služeb automaticky neposkytuje výchozí služby uvedené v tabulce. Pokud používáte vlastního poskytovatele služeb a potřebujete některou ze služeb zobrazených v tabulce, přidejte požadované služby k novému poskytovateli služeb.
 

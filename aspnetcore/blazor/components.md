@@ -5,14 +5,14 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 09/04/2019
 uid: blazor/components
-ms.openlocfilehash: 07e9153ccfdc78d1da57b815d33220f7fa597cc7
-ms.sourcegitcommit: 4b00e77f9984ce76356e829cfe7f75f0f61a7a8f
+ms.openlocfilehash: ce9da14bbe19cbee960d215f6167a0e760bd607a
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/29/2019
-ms.locfileid: "70145728"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310363"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -72,8 +72,8 @@ Použijte komponenty se stávajícími Razor Pages a MVC aplikacemi. Aby bylo mo
 Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte `RenderComponentAsync<TComponent>` pomocnou metodu HTML:
 
 ```cshtml
-<div id="Counter">
-    @(await Html.RenderComponentAsync<Counter>(new { IncrementAmount = 10 }))
+<div id="MyComponent">
+    @(await Html.RenderComponentAsync<MyComponent>(RenderMode.ServerPrerendered))
 </div>
 ```
 
@@ -255,7 +255,7 @@ Následující typy polí mají specifické požadavky na formátování a aktu�
 
 `@bind``@bind:culture` podporuje parametr <xref:System.Globalization.CultureInfo?displayProperty=fullName> pro zajištění analýzy a formátování hodnoty. Specifikace jazykové verze není doporučena při použití `date` typů `number` polí a. `date`a `number` mají integrovanou podporu Blazor, která poskytuje požadovanou jazykovou verzi.
 
-Informace o tom, jak nastavit jazykovou verzi uživatele, najdete v [](#localization) části lokalizace.
+Informace o tom, jak nastavit jazykovou verzi uživatele, najdete v části [lokalizace](#localization) .
 
 **Řetězce formátu**
 
@@ -420,23 +420,23 @@ V následujícím příkladu `UpdateHeading` se volá asynchronně po výběru t
 
 U některých událostí jsou povoleny typy argumentů události. Pokud přístup k některému z těchto typů událostí není nezbytný, není nutné ve volání metody.
 
-Podporované [UIEventArgs](https://github.com/aspnet/AspNetCore/blob/release/3.0-preview8/src/Components/Components/src/UIEventArgs.cs) jsou uvedeny v následující tabulce.
+Podporovaná vlastnost [EventArgs](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web) je uvedena v následující tabulce.
 
 | Událost | Třída |
 | ----- | ----- |
-| Schránka | `UIClipboardEventArgs` |
-| Přetažení  | `UIDragEventArgs`slouží k uchovávání přetažených dat během operace přetažení a může obsahovat jeden nebo více `UIDataTransferItem`. &ndash; `DataTransfer` `UIDataTransferItem`reprezentuje jednu položku dat přetažením. |
-| Chyba | `UIErrorEventArgs` |
-| Vybrána | `UIFocusEventArgs`Nezahrnuje podporu pro `relatedTarget`. &ndash; |
-| `<input>`mění | `UIChangeEventArgs` |
-| Klávesnice | `UIKeyboardEventArgs` |
-| Stisknut | `UIMouseEventArgs` |
-| Ukazatele myši | `UIPointerEventArgs` |
-| Kolečko myši | `UIWheelEventArgs` |
-| Průběh | `UIProgressEventArgs` |
-| Dotykové ovládání | `UITouchEventArgs`&ndash; představujejedenkontaktníbodnazařízenícitlivém`UITouchPoint` na dotykové ovládání. |
+| Schránka        | `ClipboardEventArgs` |
+| Přetažení             | `DragEventArgs`&ndash; auchovávajípřetažená`DataTransferItem`datapoložky. `DataTransfer` |
+| Chyba            | `ErrorEventArgs` |
+| Vybrána            | `FocusEventArgs`Nezahrnuje podporu pro `relatedTarget`. &ndash; |
+| `<input>`mění | `ChangeEventArgs` |
+| Klávesnice         | `KeyboardEventArgs` |
+| Stisknut            | `MouseEventArgs` |
+| Ukazatele myši    | `PointerEventArgs` |
+| Kolečko myši      | `WheelEventArgs` |
+| Průběh         | `ProgressEventArgs` |
+| Dotykové ovládání            | `TouchEventArgs`&ndash; představujejedenkontaktníbodnazařízenícitlivém`TouchPoint` na dotykové ovládání. |
 
-Informace o vlastnostech a chování zpracování událostí v předchozí tabulce naleznete v tématu [třídy EventArgs v referenčním zdroji (ASPNET/AspNetCore Release/3.0-preview9)](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src).
+Informace o vlastnostech a chování zpracování událostí v předchozí tabulce naleznete v tématu [třídy EventArgs v referenčním zdroji (ASPNET/AspNetCore Release/3.0-preview9)](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web).
 
 ### <a name="lambda-expressions"></a>Výrazy lambda
 
@@ -473,7 +473,7 @@ Je často vhodné uzavřít další hodnoty, jako například při iteraci přes
 ```
 
 > [!NOTE]
-> Nepoužívejte proměnnou smyčky ( `i`) ve `for` smyčce přímo ve výrazu lambda. V opačném případě se stejná proměnná používá ve všech výrazech lambda, což způsobuje `i`, že hodnota je stejná ve všech výrazech lambda. Vždycky zachytit svou hodnotu v místní proměnné (`buttonNumber` v předchozím příkladu) a pak ji použít.
+> Nepoužívejte **proměnnou** smyčky (`i`) ve `for` smyčce přímo ve výrazu lambda. V opačném případě se stejná proměnná používá ve všech výrazech lambda, což způsobuje `i`, že hodnota je stejná ve všech výrazech lambda. Vždycky zachytit svou hodnotu v místní proměnné (`buttonNumber` v předchozím příkladu) a pak ji použít.
 
 ### <a name="eventcallback"></a>Vnořenou eventCallback
 
@@ -523,10 +523,9 @@ Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, a
 
 * [@ref](xref:mvc/views/razor#ref) Přidejte atribut do podřízené součásti.
 * Definujte pole stejného typu jako podřízená komponenta.
-* `@ref:suppressField` Zadejte parametr, který potlačí generování zálohovaných polí. Další informace najdete v tématu [Odebrání @ref podpory automatického zálohování polí v 3.0.0-preview9](https://github.com/aspnet/Announcements/issues/381).
 
 ```cshtml
-<MyLoginDialog @ref="loginDialog" @ref:suppressField ... />
+<MyLoginDialog @ref="loginDialog" ... />
 
 @code {
     private MyLoginDialog loginDialog;
@@ -543,34 +542,67 @@ Při vykreslení `loginDialog` komponenty je pole vyplněno `MyLoginDialog` inst
 > [!IMPORTANT]
 > Proměnná je naplněna pouze po vykreslení komponenty a její výstup `MyLoginDialog` obsahuje element. `loginDialog` Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte `OnAfterRenderAsync` metody `OnAfterRender` nebo.
 
-<!-- HOLD https://github.com/aspnet/AspNetCore.Docs/pull/13818
-Component references provide a way to reference a component instance so that you can issue commands to that instance, such as `Show` or `Reset`.
+Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachycení odkazů na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není to funkce [interoperability JavaScriptu](xref:blazor/javascript-interop) . Odkazy na součásti nejsou předány kódu&mdash;jazyka JavaScript, které jsou používány pouze v kódu .NET.
 
-The Razor compiler automatically generates a backing field for element and component references when using [@ref](xref:mvc/views/razor#ref). In the following example, there's no need to create a `myLoginDialog` field for the `LoginDialog` component:
+> [!NOTE]
+> Nepoužívejte odkazy na součásti **pro použití stavu** podřízených komponent. Místo toho použijte k předání dat podřízeným komponentám běžné deklarativní parametry. Použití běžných deklarativních parametrů má za následek podřízené komponenty, které jsou automaticky revykreslovány ve správný čas.
+
+## <a name="invoke-component-methods-externally-to-update-state"></a>Vyvolat metody komponenty externě na stav aktualizace
+
+Blazor používá `SynchronizationContext` k vykonání jediného logického vlákna. V tomto `SynchronizationContext`případě jsou spouštěny metody životního cyklu komponenty a všechna zpětná volání událostí, která jsou aktivována nástrojem Blazor. V případě, že komponenta musí být aktualizována na základě externí události, jako je například časovač nebo jiné oznámení, použijte `InvokeAsync` metodu, která bude zaslána do `SynchronizationContext`Blazor.
+
+Představte si například *službu* pro upozorňování, která může oznámit všechny součásti, které jsou v aktualizovaném stavu:
+
+```csharp
+public class NotifierService
+{
+    // Can be called from anywhere
+    public async Task Update(string key, int value)
+    {
+        if (Notify != null)
+        {
+            await Notify.Invoke(key, value);
+        }
+    }
+
+    public event Action<string, int, Task> Notify;
+}
+```
+
+`NotifierService` Použití pro aktualizaci komponenty:
 
 ```cshtml
-<LoginDialog @ref="myLoginDialog" ... />
+@page "/"
+@inject NotifierService Notifier
+@implements IDisposable
+
+<p>Last update: @lastNotification.key = @lastNotification.value</p>
 
 @code {
-    private void OnSomething()
+    private (string key, int value) lastNotification;
+
+    protected override void OnInitialized()
     {
-        myLoginDialog.Show();
+        Notifier.Notify += OnNotify;
+    }
+
+    public async Task OnNotify(string key, int value)
+    {
+        await InvokeAsync(() =>
+        {
+            lastNotification = (key, value);
+            StateHasChanged();
+        });
+    }
+
+    public void Dispose()
+    {
+        Notifier.Notify -= OnNotify;
     }
 }
 ```
 
-When the component is rendered, the generated `myLoginDialog` field is populated with the `LoginDialog` component instance. You can then invoke .NET methods on the component instance.
-
-In some cases, a backing field is required. For example, declare a backing field when referencing generic components. To suppress backing field generation, specify the `@ref:suppressField` parameter.
-
-> [!IMPORTANT]
-> The generated `myLoginDialog` variable is only populated after the component is rendered and its output includes the `LoginDialog` element. Until that point, there's nothing to reference. To manipulate components references after the component has finished rendering, use the `OnAfterRenderAsync` or `OnAfterRender` methods.
--->
-
-Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachycení odkazů na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není to funkce [interoperability JavaScriptu](xref:blazor/javascript-interop) . Odkazy na součásti nejsou předány kódu&mdash;jazyka JavaScript, které jsou používány pouze v kódu .NET.
-
-> [!NOTE]
-> Nepoužívejte odkazy na součásti pro použití stavu podřízených komponent. Místo toho použijte k předání dat podřízeným komponentám běžné deklarativní parametry. Použití běžných deklarativních parametrů má za následek podřízené komponenty, které jsou automaticky revykreslovány ve správný čas.
+V předchozím příkladu `NotifierService` vyvolá `OnNotify` metodu komponenty mimo Blazor 's `SynchronizationContext`. `InvokeAsync`slouží k přepnutí do správného kontextu a vykreslení vykreslování do fronty.
 
 ## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>Použití \@klíče k řízení uchovávání prvků a komponent
 
@@ -1006,18 +1038,7 @@ Například ukázková aplikace určuje informace o motivu (`ThemeInfo`) v jedno
 }
 ```
 
-Chcete-li použít kaskádové hodnoty, komponenty deklaruje kaskádové parametry pomocí `[CascadingParameter]` atributu nebo na základě hodnoty řetězcového názvu:
-
-```cshtml
-<CascadingValue Value=@PermInfo Name="UserPermissions">...</CascadingValue>
-
-[CascadingParameter(Name = "UserPermissions")]
-private PermInfo Permissions { get; set; }
-```
-
-Vazba s hodnotou názvu řetězce je relevantní, pokud máte více kaskádových hodnot stejného typu a potřebujete je odlišit v rámci stejného podstromu.
-
-Kaskádové hodnoty jsou vázány na kaskádové parametry podle typu.
+Chcete-li použít kaskádové hodnoty, komponenty deklaruje kaskádové parametry pomocí `[CascadingParameter]` atributu. Kaskádové hodnoty jsou vázány na kaskádové parametry podle typu.
 
 V ukázkové aplikaci `CascadingValuesParametersTheme` váže `ThemeInfo` komponenta kaskádovou hodnotu k kaskádovým parametrům. Parametr slouží k nastavení třídy CSS pro jedno z tlačítek zobrazených komponentou.
 
@@ -1057,13 +1078,46 @@ V ukázkové aplikaci `CascadingValuesParametersTheme` váže `ThemeInfo` kompon
 }
 ```
 
+Pro kaskádování více hodnot stejného typu v rámci stejného podstromu zadejte jedinečný `Name` řetězec pro každou `CascadingValue` součást a odpovídající `CascadingParameter`. V následujícím příkladu jsou dvě `CascadingValue` komponenty kaskádovitě různé `MyCascadingType` instance podle názvu:
+
+```cshtml
+<CascadingValue Value=@ParentCascadeParameter1 Name="CascadeParam1">
+    <CascadingValue Value=@ParentCascadeParameter2 Name="CascadeParam2">
+        ...
+    </CascadingValue>
+</CascadingValue>
+
+@code {
+    private MyCascadingType ParentCascadeParameter1;
+
+    [Parameter]
+    public MyCascadingType ParentCascadeParameter2 { get; set; }
+
+    ...
+}
+```
+
+V komponentě následníka tyto parametry přebírají své hodnoty z odpovídajících kaskádových hodnot v komponentě předchůdce podle názvu:
+
+```cshtml
+...
+
+@code {
+    [CascadingParameter(Name = "CascadeParam1")]
+    protected MyCascadingType ChildCascadeParameter1 { get; set; }
+    
+    [CascadingParameter(Name = "CascadeParam2")]
+    protected MyCascadingType ChildCascadeParameter2 { get; set; }
+}
+```
+
 ### <a name="tabset-example"></a>Příklad TabSet
 
 Kaskádové parametry také umožňují komponentám spolupracovat napříč hierarchií součástí. Podívejte se například na následující příklad *TabSet* v ukázkové aplikaci.
 
 Ukázková aplikace má `ITab` rozhraní, které implementuje karty:
 
-[!code-cs[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
+[!code-csharp[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
 
 Komponenta používá komponentu, která obsahuje několik `Tab` komponent: `TabSet` `CascadingValuesParametersTabSet`
 
@@ -1176,7 +1230,7 @@ V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `
 
 Soubory `.razor` Blazor jsou vždy kompilovány. Tato možnost je potenciálně skvělou výhodou `.razor` , protože krok kompilace lze použít k vložení informací, které zlepšují výkon aplikace za běhu.
 
-Hlavní příklad těchto vylepšení zahrnuje pořadová *čísla*. Pořadová čísla označují modul runtime, ze kterého výstupy pocházejí, ze kterých se liší a seřazené řádky kódu. Modul runtime používá tyto informace k vygenerování efektivních rozdílů stromu v lineárním čase, což je mnohem rychlejší než obvykle pro obecný rozdílový algoritmus stromu.
+Hlavní příklad těchto vylepšení zahrnuje *pořadová čísla*. Pořadová čísla označují modul runtime, ze kterého výstupy pocházejí, ze kterých se liší a seřazené řádky kódu. Modul runtime používá tyto informace k vygenerování efektivních rozdílů stromu v lineárním čase, což je mnohem rychlejší než obvykle pro obecný rozdílový algoritmus stromu.
 
 Vezměte v úvahu následující `.razor` jednoduchý soubor:
 
@@ -1264,7 +1318,7 @@ Toto je triviální příklad. Ve složitějších případech se složitými a 
 
 ## <a name="localization"></a>Lokalizace
 
-Blazor aplikace na straně serveru jsou lokalizovány [](xref:fundamentals/localization#localization-middleware)pomocí middlewaru pro lokalizaci. Middleware vybere vhodnou jazykovou verzi pro uživatele, kteří žádají o prostředky z aplikace.
+Blazor aplikace na straně serveru jsou lokalizovány pomocí [middlewaru pro lokalizaci](xref:fundamentals/localization#localization-middleware). Middleware vybere vhodnou jazykovou verzi pro uživatele, kteří žádají o prostředky z aplikace.
 
 Tuto jazykovou verzi lze nastavit pomocí jednoho z následujících přístupů:
 
@@ -1340,7 +1394,7 @@ public class CultureController : Controller
 Následující komponenta ukazuje příklad, jak provést počáteční přesměrování, když uživatel vybere jazykovou verzi:
 
 ```cshtml
-@inject IUriHelper UriHelper
+@inject NavigationManager NavigationManager
 
 <h3>Select your language</h3>
 
@@ -1356,12 +1410,12 @@ Následující komponenta ukazuje příklad, jak provést počáteční přesmě
     private void OnSelected(UIChangeEventArgs e)
     {
         var culture = (string)e.Value;
-        var uri = new Uri(UriHelper.GetAbsoluteUri())
+        var uri = new Uri(NavigationManager.Uri())
             .GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
         var query = $"?culture={Uri.EscapeDataString(culture)}&" +
             $"redirectUri={Uri.EscapeDataString(uri)}";
 
-        UriHelper.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
     }
 }
 ```
@@ -1381,3 +1435,21 @@ V současné době se podporuje omezená sada scénářů lokalizace ASP.NET Cor
 * `IHtmlLocalizer<>`lokalizace datových poznámek, `IViewLocalizer<>`a jsou ASP.NET Core scénáře MVC a **nejsou podporované** v aplikacích Blazor.
 
 Další informace naleznete v tématu <xref:fundamentals/localization>.
+
+## <a name="scalable-vector-graphics-svg-images"></a>Obrázky ve formátu SVG (Scalable Vector Graphics)
+
+Vzhledem k `<img>` tomu, že Blazor vykresluje HTML, obrázky podporované prohlížečem, včetně obrázků SVG (Scalable Vector Graphics) ( *. SVG*), jsou podporovány prostřednictvím značky:
+
+```html
+<img alt="Example image" src="some-image.svg" />
+```
+
+Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů ( *. CSS*):
+
+```css
+.my-element {
+    background-image: url("some-image.svg");
+}
+```
+
+Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg>` značku přímo umístíte do souboru komponenty ( *. Razor*), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů ještě není podporováno. Například `<use>` značky nejsou aktuálně dodržovány a `@bind` nelze je použít s některými značkami SVG. Očekáváme, že tato omezení vyřešíme v budoucí verzi.

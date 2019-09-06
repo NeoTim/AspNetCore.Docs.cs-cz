@@ -5,14 +5,14 @@ description: Naučte se používat scénáře ověřování formulářů a polí
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 09/04/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 0b2e38cdbd974a28960b917fb6b5ce370f8c4659
-ms.sourcegitcommit: f5f0ff65d4e2a961939762fb00e654491a2c772a
+ms.openlocfilehash: 4531ef44a7df3951f3bebdf88e597165fa75f06e
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69030327"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310332"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core formuláře a ověřování Blazor
 
@@ -173,11 +173,30 @@ Následující formulář ověří uživatelský vstup pomocí ověřování def
 }
 ```
 
-Vytvoří jako kaskádovou hodnotu, která sleduje metadata procesu úprav, včetně toho, která pole jsou upravena a aktuální zprávy ověření. [](xref:blazor/components#cascading-values-and-parameters) `EditForm` `EditContext` Poskytuje taky praktické události pro platná a neplatná odeslání (`OnValidSubmit`, `OnInvalidSubmit`). `EditForm` Alternativně můžete `OnSubmit` použít k aktivaci ověřování a hodnot polí pro kontrolu pomocí vlastního ověřovacího kódu.
+Vytvoří jako [kaskádovou hodnotu](xref:blazor/components#cascading-values-and-parameters) , která sleduje metadata procesu úprav, včetně toho, která pole jsou upravena a aktuální zprávy ověření. `EditContext` `EditForm` Poskytuje taky praktické události pro platná a neplatná odeslání (`OnValidSubmit`, `OnInvalidSubmit`). `EditForm` Alternativně můžete `OnSubmit` použít k aktivaci ověřování a hodnot polí pro kontrolu pomocí vlastního ověřovacího kódu.
+
+## <a name="inputtext-based-on-the-input-event"></a>InputText na základě události vstupu
+
+Pomocí komponenty můžete vytvořit vlastní komponentu, která místo `change` události `input` používá událost. `InputText`
+
+Vytvořte komponentu s následujícím kódem a použijte komponentu stejně jako `InputText` je použit:
+
+```cshtml
+@inherits InputText
+
+<input 
+    @attributes="AdditionalAttributes" 
+    class="@CssClass" 
+    value="@CurrentValue" 
+    @oninput="EventCallback.Factory.CreateBinder<string>(
+        this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+```
+
+## <a name="validation-support"></a>Podpora ověřování
 
 Komponenta připojuje ověřování pomocí datových poznámek do `EditContext`kaskády. `DataAnnotationsValidator` Povolení podpory pro ověřování pomocí datových poznámek aktuálně vyžaduje toto explicitní gesto, ale zvažujeme, že toto je výchozí chování, které pak můžete přepsat. Chcete-li použít jiný systém ověřování než datové poznámky, nahraďte `DataAnnotationsValidator` vlastní implementaci. ASP.NET Core implementace je k dispozici pro kontrolu v referenčním zdroji: [](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/Forms/DataAnnotationsValidator.cs)DataAnnotationsValidator/[AddDataAnnotationsValidation](https://github.com/aspnet/AspNetCore/blob/master/src/Components/Components/src/Forms/EditContextDataAnnotationsExtensions.cs). *Implementace ASP.NET Core se v období vydání verze Preview vztahuje k rychlým aktualizacím.*
 
-Komponenta shrnuje všechny zprávy o ověřování, které jsou podobné [pomocníka značek pro ověřování](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper). `ValidationSummary`
+Komponenta shrnuje všechny zprávy o ověřování, které jsou podobné [pomocníka značek pro ověřování.](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper) `ValidationSummary`
 
 Komponenta zobrazí ověřovací zprávy pro konkrétní pole, které se podobá [pomocníka značek ověřovací zprávy.](xref:mvc/views/working-with-forms#the-validation-message-tag-helper) `ValidationMessage` Zadejte pole pro ověření s `For` atributem a výrazem lambda pojmenování vlastnosti modelu:
 
@@ -186,3 +205,7 @@ Komponenta zobrazí ověřovací zprávy pro konkrétní pole, které se podobá
 ```
 
 Komponenty `ValidationMessage` a`ValidationSummary` podporují libovolné atributy. Všechny atributy, které se neshodují s parametrem komponenty, `<div>` jsou `<ul>` přidány do generovaného prvku nebo.
+
+### <a name="validation-of-complex-or-collection-type-properties"></a>Ověřování vlastností komplexního nebo typu kolekce
+
+Atributy ověřování použité pro vlastnosti modelu jsou ověřovány při odeslání formuláře. Nicméně vlastnosti kolekcí nebo komplexních datových typů modelu nejsou ověřeny při odesílání formuláře. Chcete-li v tomto scénáři akceptovat vnořené atributy ověřování, použijte vlastní ověřovací komponentu. Příklad naleznete v tématu [Ukázka ověření Blazor v úložišti GitHub/Samples](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Validation).

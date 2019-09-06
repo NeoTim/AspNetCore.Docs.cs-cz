@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 08/26/2019
 uid: grpc/troubleshoot
-ms.openlocfilehash: 49bde2792f0fd7910de02d75f5f443000916dec7
-ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
+ms.openlocfilehash: e0c12aac083bc2e13f66831e756f2a93b7ee76b0
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/28/2019
-ms.locfileid: "70112756"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310450"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>Řešení potíží s gRPC pro .NET Core
 
@@ -40,10 +40,9 @@ Klient .NET Core musí v adrese `https` serveru použít k volání zabezpečen�
 ```csharp
 static async Task Main(string[] args)
 {
-    var httpClient = new HttpClient();
     // The port number(5001) must match the port of the gRPC server.
-    httpClient.BaseAddress = new Uri("https://localhost:5001");
-    var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+    var channel = GrpcChannel.ForAddress("https://localhost:5001");
+    var client = new Greet.GreeterClient(channel);
 }
 ```
 
@@ -78,13 +77,12 @@ var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
 Pro volání nezabezpečených služeb gRPC s klientem .NET Core je vyžadována další konfigurace. Klient gRPC musí na adrese serveru `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport` nastavit přepínač `true` a použít `http` ho:
 
 ```csharp
-// This switch must be set before creating the HttpClient.
+// This switch must be set before creating the GrpcChannel/HttpClient.
 AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
-var httpClient = new HttpClient();
-// The address starts with "http://"
-httpClient.BaseAddress = new Uri("http://localhost:5000");
-var client = GrpcClient.Create<Greeter.GreeterClient>(httpClient);
+// The port number(5000) must match the port of the gRPC server.
+var channel = GrpcChannel.ForAddress("https://localhost:5001");
+var client = new Greet.GreeterClient(channel);
 ```
 
 ## <a name="unable-to-start-aspnet-core-grpc-app-on-macos"></a>Nepovedlo se spustit aplikaci ASP.NET Core gRPC v macOS

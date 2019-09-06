@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2019
 uid: blazor/routing
-ms.openlocfilehash: 067dad657c1e89a31fac45fdfa095cce4b10798d
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: ae3d7ab01185dd6f2e8e0f59b78c2e693fe464b0
+ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238060"
+ms.lasthandoff: 09/05/2019
+ms.locfileid: "70310355"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
 
@@ -30,16 +30,17 @@ Blazor na straně serveru je integrovaná do [Směrování koncového bodu ASP.N
 
 `Router` Komponenta povolí směrování a pro každou dostupnou součást je k dispozici šablona směrování. Komponenta se zobrazí v souboru *App. Razor:* `Router`
 
-V aplikaci Blazor na straně serveru:
+V Blazor na straně serveru nebo v aplikaci na straně klienta:
 
 ```cshtml
-<Router AppAssembly="typeof(Startup).Assembly" />
-```
-
-V aplikaci Blazor na straně klienta:
-
-```cshtml
-<Router AppAssembly="typeof(Program).Assembly" />
+<Router AppAssembly="typeof(Startup).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
+        <p>Sorry, there's nothing at this address.</p>
+    </NotFound>
+</Router>
 ```
 
 Je-li soubor *. Razor* s `@page` direktivou kompilován, je k dispozici vygenerovaná <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> třída, která určuje šablonu trasy. V době běhu Směrovač vyhledává třídy komponent pomocí `RouteAttribute` a a vykresluje komponentu se šablonou směrování, která odpovídá požadované adrese URL.
@@ -49,24 +50,27 @@ Pro komponentu lze použít více šablon směrování. Následující komponent
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> Aby bylo možné správně Generovat trasy, musí aplikace zahrnovat `<base>` značku v souboru *wwwroot/index.html* (Blazor na straně klienta) nebo *stránky/_Host. cshtml* (Blazor na straně serveru) se základní cestou `href` aplikace zadanou v atributu ( `<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/client-side#app-base-path>.
+> Aby adresy URL bylo možné správně přeložit, musí aplikace v `<base>` souboru *wwwroot/index.html* obsahovat značku (Blazor na straně klienta) nebo *stránky/_Host. cshtml* (Blazor na straně serveru) se základní cestou `href` aplikace zadanou v atributu ( `<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/client-side#app-base-path>.
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>Poskytnutí vlastního obsahu, když se nenalezne obsah
 
 `Router` Komponenta umožňuje aplikaci zadat vlastní obsah, pokud se pro požadovanou trasu nenajde obsah.
 
-V souboru *App. Razor* nastavte vlastní obsah v `<NotFoundContent>` elementu `Router` komponenty:
+V souboru *App. Razor* nastavte vlastní obsah v `<NotFound>` parametru `Router` šablony součásti:
 
 ```cshtml
 <Router AppAssembly="typeof(Startup).Assembly">
-    <NotFoundContent>
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+    <NotFound>
         <h1>Sorry</h1>
         <p>Sorry, there's nothing at this address.</p> b
-    </NotFoundContent>
+    </NotFound>
 </Router>
 ```
 
-Obsah `<NotFoundContent>` může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti.
+Obsah `<NotFound>` může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti.
 
 ## <a name="route-parameters"></a>Parametry směrování
 
@@ -147,14 +151,14 @@ Vykresluje se následující kód HTML:
 
 ## <a name="uri-and-navigation-state-helpers"></a>Identifikátory URI a pomocníka pro stav navigace
 
-Použijte `Microsoft.AspNetCore.Components.IUriHelper` pro práci s identifikátory URI a navigací v C# kódu. `IUriHelper`poskytuje událost a metody uvedené v následující tabulce.
+Použijte `Microsoft.AspNetCore.Components.NavigationManager` pro práci s identifikátory URI a navigací v C# kódu. `NavigationManager`poskytuje událost a metody uvedené v následující tabulce.
 
 | Člen | Popis |
 | ------ | ----------- |
-| `GetAbsoluteUri` | Získá aktuální absolutní identifikátor URI. |
-| `GetBaseUri` | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. `GetBaseUri` Obvykle odpovídá `href` *atributu v* prvku dokumentu v wwwroot/index.html (Blazor na straně klienta) nebo na *stránkách/_Host. cshtml* (Blazor na straně serveru). `<base>` |
+| `Uri` | Získá aktuální absolutní identifikátor URI. |
+| `BaseUri` | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. `BaseUri` Obvykle odpovídá `href` *atributu v* prvku dokumentu v wwwroot/index.html (Blazor na straně klienta) nebo na *stránkách/_Host. cshtml* (Blazor na straně serveru). `<base>` |
 | `NavigateTo` | Přejde k zadanému identifikátoru URI. Pokud `forceLoad` je `true`:<ul><li>Směrování na straně klienta se nepoužívá.</li><li>Prohlížeč je nucen načíst novou stránku ze serveru, bez ohledu na to, zda je identifikátor URI obvykle zpracováván směrovačem na straně klienta.</li></ul> |
-| `OnLocationChanged` | Událost, která se aktivuje, když se změní navigační umístění |
+| `LocationChanged` | Událost, která se aktivuje, když se změní navigační umístění |
 | `ToAbsoluteUri` | Převede relativní identifikátor URI na absolutní identifikátor URI. |
 | `ToBaseRelativePath` | Vzhledem k základnímu identifikátoru URI (například identifikátor URI, který `GetBaseUri`dřív vrátil), převede absolutní identifikátor URI na URI relativně k základní předponě identifikátoru URI. |
 
@@ -162,8 +166,7 @@ Pokud je vybráno tlačítko, následující komponenta přejde `Counter` na sou
 
 ```cshtml
 @page "/navigate"
-@using Microsoft.AspNetCore.Components
-@inject IUriHelper UriHelper
+@inject NavigationManager NavigationManager
 
 <h1>Navigate in Code Example</h1>
 
@@ -174,7 +177,7 @@ Pokud je vybráno tlačítko, následující komponenta přejde `Counter` na sou
 @code {
     private void NavigateToCounterComponent()
     {
-        UriHelper.NavigateTo("counter");
+        NavigationManager.NavigateTo("counter");
     }
 }
 ```
