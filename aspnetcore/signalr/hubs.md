@@ -1,42 +1,60 @@
 ---
-title: Použití rozbočovače signalr technologie ASP.NET Core
+title: Použití Center v nástroji ASP.NET Core Signal
 author: bradygaster
-description: Další informace o použití rozbočovače signalr technologie ASP.NET Core.
+description: Naučte se používat centra v nástroji ASP.NET Core Signal.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/20/2018
 uid: signalr/hubs
-ms.openlocfilehash: eb87aab2b7f3a58c6cec80f48f7616749f0809e2
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 4922d6d780b18727d3ac181b94dbf75458d74fe6
+ms.sourcegitcommit: 387cf29f5d5addef2cbc70670a11d612806b36b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902898"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70746516"
 ---
-# <a name="use-hubs-in-signalr-for-aspnet-core"></a>Použití rozbočovače signalr pro ASP.NET Core
+# <a name="use-hubs-in-signalr-for-aspnet-core"></a>Používat centra v nástroji Signal pro ASP.NET Core
 
-Podle [Rachel Appel](https://twitter.com/rachelappel) a [Kevin Griffin](https://twitter.com/1kevgriff)
+Od [Rachel Appel](https://twitter.com/rachelappel) a [Kevin Griffin](https://twitter.com/1kevgriff)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ ) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ ) [(stažení)](xref:index#how-to-download-a-sample)
 
-## <a name="what-is-a-signalr-hub"></a>Co je rozbočovače SignalR
+## <a name="what-is-a-signalr-hub"></a>Co je centrum signálů
 
-Rozhraní API pro rozbočovače SignalR můžete volat metody pro připojené klienty ze serveru. V serverovém kódu definovat metody, které jsou volány klientem. V kódu klienta můžete definovat metody, které jsou volány ze serveru. Funkce SignalR se postará o všechno, co na pozadí, které umožňuje komunikaci klienta se serverem a server klient v reálném čase.
+Rozhraní API centra signalizace umožňuje volat metody v připojených klientech ze serveru. V kódu serveru definujete metody, které jsou volány klientem. V kódu klienta definujete metody, které jsou volány ze serveru. Signál se stará o vše na pozadí, které umožňuje komunikaci mezi klientem a serverem od klientů po straně klienta.
 
-## <a name="configure-signalr-hubs"></a>Konfigurace rozbočovače SignalR
+## <a name="configure-signalr-hubs"></a>Konfigurovat centra signalizace
 
-SignalR middleware vyžaduje některé služby, které jsou nakonfigurované pomocí volání `services.AddSignalR`.
+Middleware signálu vyžaduje některé služby, které jsou nakonfigurované voláním `services.AddSignalR`.
 
 [!code-csharp[Configure service](hubs/sample/startup.cs?range=38)]
 
-Při přidávání funkce SignalR pro aplikace ASP.NET Core, nastavit trasy SignalR voláním `app.UseSignalR` v `Startup.Configure` metody.
+::: moniker range=">= aspnetcore-3.0"
+
+Když přidáváte funkci signalizace do aplikace ASP.NET Core, nastaví trasy signalizace volání `endpoint.MapHub` `Startup.Configure` ve `app.UseEndpoints` zpětném volání metody.
+
+```csharp
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chathub");
+});
+```
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
+Při přidávání funkce signalizace do aplikace ASP.NET Core instalační program směruje trasy voláním `app.UseSignalR` `Startup.Configure` metody.
 
 [!code-csharp[Configure routes to hubs](hubs/sample/startup.cs?range=57-60)]
 
-## <a name="create-and-use-hubs"></a>Vytvoření a použití rozbočovače
+::: moniker-end
 
-Vytvoření centra deklarováním třídy, která dědí z `Hub`a přidejte do ní veřejné metody. Klienti mohou volat metody, které jsou definovány jako `public`.
+## <a name="create-and-use-hubs"></a>Vytváření a používání Center
+
+Vytvořte centrum deklarováním třídy, která dědí z `Hub`a přidejte do ní veřejné metody. Klienti mohou volat metody, které jsou definovány `public`jako.
 
 ```csharp
 public class ChatHub : Hub
@@ -48,85 +66,85 @@ public class ChatHub : Hub
 }
 ```
 
-Můžete určit návratový typ a parametry, včetně komplexní typy a pole, stejně jako v jakékoli metodě jazyka C#. Funkce SignalR zpracovává serializace a deserializace komplexních objektů a polí v parametry a návratové hodnoty.
+Můžete zadat návratový typ a parametry, včetně složitých typů a polí, stejně jako v libovolné C# metodě. Signal zpracovává serializaci a deserializaci komplexních objektů a polí ve vašich parametrech a návratových hodnotách.
 
 > [!NOTE]
-> Centra jsou přechodné:
+> Rozbočovače jsou přechodné:
 >
-> * Neukládejte stav do vlastnosti u třídy rozbočovače. Každé volání metody rozbočovače, je proveden v nové instanci rozbočovače.  
-> * Použití `await` při volání asynchronní metody, které jsou závislé na rozbočovači zůstává aktivní. Například metoda jako `Clients.All.SendAsync(...)` může selhat, pokud je volána bez `await` a metody rozbočovače nedokončí, před `SendAsync` dokončí.
+> * Neukládat stav ve vlastnosti ve třídě hub. Každé volání metody centra je spuštěno na nové instanci centra.
+> * Použijte `await` při volání asynchronních metod, které jsou závislé na době zachování rozbočovače. Například metoda `Clients.All.SendAsync(...)` , jako například, může selhat, pokud je volána bez `await` a metoda centra se dokončí před `SendAsync` dokončením.
 
 ## <a name="the-context-object"></a>Objekt kontextu
 
-`Hub` Třída nemá `Context` vlastnost, která obsahuje následující vlastnosti s informacemi o připojení:
+`Hub` Třída`Context` má vlastnost, která obsahuje následující vlastnosti s informacemi o připojení:
 
 | Vlastnost | Popis |
 | ------ | ----------- |
-| `ConnectionId` | Získá jedinečný ID pro připojení, přiřazené systémem SignalR. Existuje jedno ID připojení pro každé připojení.|
-| `UserIdentifier` | Získá [identifikátor uživatele](xref:signalr/groups). Ve výchozím nastavení, používá SignalR `ClaimTypes.NameIdentifier` z `ClaimsPrincipal` přidružené k připojení jako identifikátor uživatele. |
-| `User` | Získá `ClaimsPrincipal` spojené s aktuálním uživatelem. |
-| `Items` | Získá kolekci klíč/hodnota, která umožňuje sdílet data v rámci oboru pro toto připojení. Data mohou být uložena v této kolekci a se zachová připojení napříč volání metod rozbočovače na jiný. |
-| `Features` | Získá kolekci funkcí, které jsou k dispozici na připojení. Teď není potřeba tuto kolekci ve většině scénářů, takže ho není podrobně popsány v ještě. |
-| `ConnectionAborted` | Získá `CancellationToken` , která upozorní, když je připojení přerušeno. |
+| `ConnectionId` | Získá jedinečné ID pro připojení, které přiřadí signál. Pro každé připojení existuje jedno ID připojení.|
+| `UserIdentifier` | Získá [identifikátor uživatele](xref:signalr/groups). Ve výchozím nastavení signál používá `ClaimTypes.NameIdentifier` `ClaimsPrincipal` od přidruženého k připojení jako identifikátor uživatele. |
+| `User` | `ClaimsPrincipal` Získá přidružený k aktuálnímu uživateli. |
+| `Items` | Získá kolekci klíč/hodnota, která se dá použít ke sdílení dat v rámci rozsahu tohoto připojení. Data mohou být uložena v této kolekci a budou uchována pro připojení v různých voláních metod rozbočovače. |
+| `Features` | Získá kolekci funkcí dostupných na připojení. Ve většině scénářů teď není tato kolekce potřebná, takže ještě není popsána podrobněji. |
+| `ConnectionAborted` | Získá upozornění `CancellationToken` , když je připojení přerušeno. |
 
-`Hub.Context` obsahuje také následující metody:
+`Hub.Context`obsahuje také následující metody:
 
 | Metoda | Popis |
 | ------ | ----------- |
-| `GetHttpContext` | Vrátí `HttpContext` pro připojení, nebo `null` Pokud připojení není přidružený požadavku HTTP. Pro připojení prostřednictvím protokolu HTTP můžete použít tuto metodu se získat informace, jako jsou hlavičky protokolu HTTP a řetězce dotazu. |
-| `Abort` | Zruší připojení. |
+| `GetHttpContext` | Vrátí pro připojení, nebo `null` Pokud připojení není přidruženo k požadavku HTTP. `HttpContext` V případě připojení HTTP můžete použít tuto metodu k získání informací, jako jsou hlavičky HTTP a řetězce dotazů. |
+| `Abort` | Přeruší připojení. |
 
-## <a name="the-clients-object"></a>Objekt klientů
+## <a name="the-clients-object"></a>Objekt klienti
 
-`Hub` Třída nemá `Clients` vlastnost, která obsahuje následující vlastnosti pro komunikaci mezi serverem a klientem:
+`Hub` Třída`Clients` má vlastnost, která obsahuje následující vlastnosti pro komunikaci mezi serverem a klientem:
 
 | Vlastnost | Popis |
 | ------ | ----------- |
-| `All` | Volá metodu na všechny připojené klienty |
-| `Caller` | Volá metodu na straně klienta, který volal metodu rozbočovače na |
-| `Others` | Volá metodu na všechny připojené klienty kromě klienta, který volal metodu |
+| `All` | Volá metodu na všech připojených klientech. |
+| `Caller` | Volá metodu na klientovi, který vyvolal metodu hub. |
+| `Others` | Volá metodu na všech připojených klientech s výjimkou klienta, který metodu vyvolal. |
 
-`Hub.Clients` obsahuje také následující metody:
+`Hub.Clients`obsahuje také následující metody:
 
 | Metoda | Popis |
 | ------ | ----------- |
-| `AllExcept` | Volá metodu na všechny připojené klienty s výjimkou zadaných připojení |
-| `Client` | Volá metodu pro konkrétní připojení klienta |
-| `Clients` | Volá metodu pro konkrétní připojených klientů |
-| `Group` | Volá metodu pro všechna připojení v určené skupině  |
-| `GroupExcept` | Volá metodu pro všechna připojení v určené skupině s výjimkou zadaných připojení |
-| `Groups` | Volá metodu pro více skupin pro připojení  |
-| `OthersInGroup` | Volá metodu pro připojení s výjimkou klienta, který volal metodu rozbočovače na skupinu  |
-| `User` | Volá metodu pro všechna připojení, které jsou spojené s konkrétním uživatelem |
-| `Users` | Volá metodu pro všechna připojení přidružená k určení uživatelé |
+| `AllExcept` | Volá metodu na všech připojených klientech s výjimkou zadaných připojení. |
+| `Client` | Volá metodu pro určitého připojeného klienta. |
+| `Clients` | Volá metodu pro konkrétní připojené klienty. |
+| `Group` | Volá metodu pro všechna připojení v zadané skupině.  |
+| `GroupExcept` | Volá metodu pro všechna připojení v zadané skupině s výjimkou zadaných připojení. |
+| `Groups` | Volá metodu pro více skupin připojení.  |
+| `OthersInGroup` | Volá metodu pro skupinu připojení s výjimkou klienta, který vyvolal metodu hub.  |
+| `User` | Volá metodu pro všechna připojení přidružená ke konkrétnímu uživateli. |
+| `Users` | Volá metodu pro všechna připojení přidružená k určeným uživatelům. |
 
-Každé vlastnosti nebo metody v předchozích tabulkách vrátí objekt s `SendAsync` metoda. `SendAsync` Metoda vám umožňuje zadat název a parametry metody volání.
+Každá vlastnost nebo metoda v předchozích tabulkách vrátí objekt s `SendAsync` metodou. `SendAsync` Metoda umožňuje zadejte název a parametry metody klienta, které mají být volány.
 
-## <a name="send-messages-to-clients"></a>Odesílání zpráv do klientů
+## <a name="send-messages-to-clients"></a>Odesílání zpráv klientům
 
-Chcete-li provést volání do konkrétních klientů, použijte vlastnosti `Clients` objektu. V následujícím příkladu jsou tři metody rozbočovače:
+Chcete-li volat konkrétní klienty, použijte vlastnosti `Clients` objektu. V následujícím příkladu jsou tři metody centra:
 
-* `SendMessage` Odešle zprávu do všech připojených klientů používajících `Clients.All`.
-* `SendMessageToCaller` Odešle zprávu zpět do volajícího a pomocí `Clients.Caller`.
-* `SendMessageToGroups` Odešle zprávu pro všechny klienty v `SignalR Users` skupiny.
+* `SendMessage`odešle zprávu všem připojeným klientům pomocí `Clients.All`.
+* `SendMessageToCaller`pošle zprávu zpět volajícímu pomocí `Clients.Caller`.
+* `SendMessageToGroups`pošle zprávu všem klientům ve `SignalR Users` skupině.
 
 [!code-csharp[Send messages](hubs/sample/hubs/chathub.cs?name=HubMethods)]
 
-## <a name="strongly-typed-hubs"></a>Silného typu rozbočovače
+## <a name="strongly-typed-hubs"></a>Rozbočovače silného typu
 
-Nevýhodou použití `SendAsync` je, že spoléhá na magický řetězec a určit metodu klienta k volání. Kvůli tomu open kód chyby za běhu, pokud název metody je zadáno chybně nebo chybějící z klienta.
+Nevýhodou použití `SendAsync` je, že při určení metody klienta, která má být volána, spoléhá na řetězec Magic. Tím zůstane kód otevřený pro běhové chyby, pokud je název metody špatně napsaný nebo chybí v klientovi.
 
-O alternativu k použití `SendAsync` silného typu, je `Hub` s <xref:Microsoft.AspNetCore.SignalR.Hub%601>. V následujícím příkladu `ChatHub` metody klienta bylo extrahováno ven do rozhraní volá `IChatClient`.  
+Alternativa k použití `SendAsync` je silného `Hub` typu s <xref:Microsoft.AspNetCore.SignalR.Hub%601>. V následujícím příkladu `ChatHub` byly klientské metody extrahovány do rozhraní s názvem `IChatClient`.
 
 [!code-csharp[Interface for IChatClient](hubs/sample/hubs/ichatclient.cs?name=snippet_IChatClient)]
 
-Toto rozhraní je možné Refaktorovat předchozí `ChatHub` příklad.
+Toto rozhraní lze použít k refaktorování předchozího `ChatHub` příkladu.
 
 [!code-csharp[Strongly typed ChatHub](hubs/sample/hubs/StronglyTypedChatHub.cs?range=8-18,36)]
 
-Pomocí `Hub<IChatClient>` povolí kompilaci kontrolu metodu klienta. To brání problémy způsobené pomocí magic řetězců, protože `Hub<T>` můžete poskytnout přístup k metodám definované v rozhraní.
+Pomocí `Hub<IChatClient>` této metody lze provádět kontrolu klientských metod v době kompilace. To brání problémům způsobeným použitím řetězců Magic, protože `Hub<T>` může poskytnout přístup pouze k metodám definovaným v rozhraní.
 
-Pomocí silného typu `Hub<T>` zakáže možnost používat `SendAsync`. Jakékoli metody definované v rozhraní může být stále definována jako o asynchronním. Ve skutečnosti, každá z těchto metod by mělo vrátit `Task`. Protože je rozhraní, nepoužívejte `async` – klíčové slovo. Příklad:
+Použití silného typu `Hub<T>` zakáže schopnost použít. `SendAsync` Jakékoli metody definované v rozhraní lze i nadále definovat jako asynchronní. Každá z těchto metod by ve skutečnosti měla vrátit `Task`. Vzhledem k tomu, že se jedná o rozhraní `async` , nepoužívejte klíčové slovo. Příklad:
 
 ```csharp
 public interface IClient
@@ -136,47 +154,47 @@ public interface IClient
 ```
 
 > [!NOTE]
-> `Async` Přípona není odebrána z názvu metody. Pokud vaše metoda klienta je definována s `.on('MyMethodAsync')`, neměli byste používat `MyMethodAsync` jako název.
+> `Async` Přípona není z názvu metody odstraněna. Pokud vaše metoda klienta není definovaná pomocí `.on('MyMethodAsync')`, neměli byste používat `MyMethodAsync` jako název.
 
-## <a name="change-the-name-of-a-hub-method"></a>Změnit název metody rozbočovače
+## <a name="change-the-name-of-a-hub-method"></a>Změna názvu metody centra
 
-Výchozí název metody rozbočovače serveru je název metody rozhraní .NET. Můžete však použít [HubMethodName](xref:Microsoft.AspNetCore.SignalR.HubMethodNameAttribute) změnit toto výchozí nastavení a ručně zadávat název metody atributu. Klient musí použít tento název místo názvu metody rozhraní .NET, při volání metody.
+Ve výchozím nastavení je název metody centra serveru název metody .NET. Můžete však použít atribut [HubMethodName](xref:Microsoft.AspNetCore.SignalR.HubMethodNameAttribute) ke změně tohoto výchozího nastavení a ručně zadat název metody. Klient by měl použít tento název namísto názvu metody .NET při volání metody.
 
 [!code-csharp[HubMethodName attribute](hubs/sample/hubs/chathub.cs?name=HubMethodName&highlight=1)]
 
 ## <a name="handle-events-for-a-connection"></a>Zpracování událostí pro připojení
 
-Poskytuje rozhraní API pro rozbočovače SignalR `OnConnectedAsync` a `OnDisconnectedAsync` virtuální metody pro správu a sledování připojení. Přepsat `OnConnectedAsync` virtuální metody pro provádění akcí po připojení klienta k rozbočovači, jako je například přidávání do skupiny.
+Rozhraní API pro centra signalizace poskytuje `OnConnectedAsync` virtuálním metodám a `OnDisconnectedAsync` ke správě a sledování připojení. Přepište `OnConnectedAsync` virtuální metodu tak, aby prováděla akce, když se klient připojí k rozbočovači, jako je například přidání do skupiny.
 
 [!code-csharp[Handle connection](hubs/sample/hubs/chathub.cs?name=OnConnectedAsync)]
 
-Přepsat `OnDisconnectedAsync` virtuální metody pro provádění akcí po odpojení klienta. Pokud se klient odpojí záměrně (voláním `connection.stop()`, například), `exception` parametr bude `null`. Nicméně, pokud je klient odpojen z důvodu chyby (jako je například selhání sítě), `exception` parametr bude obsahovat výjimku popisující chybu.
+Přepište `OnDisconnectedAsync` virtuální metodu tak, aby prováděla akce, když se klient odpojí. Pokud se klient odpojí úmyslně (například voláním metody `connection.stop()`) `exception` , bude parametr `null`. Pokud je však klient odpojen z důvodu chyby (například selhání sítě), `exception` parametr bude obsahovat výjimku popisující selhání.
 
 [!code-csharp[Handle disconnection](hubs/sample/hubs/chathub.cs?name=OnDisconnectedAsync)]
 
 ## <a name="handle-errors"></a>Ošetření chyb
 
-Výjimky vzniklé v metodách vašeho centra se posílají klientovi, který volal metodu. Na klientovi JavaScript `invoke` metoda vrátí hodnotu [JavaScript Promise](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises). Když klient obdrží chybu s obslužnou rutinou k němu připojit pomocí promise `catch`, ji má a předají jako JavaScript `Error` objektu.
+Výjimky vyvolané ve vašich metodách centra jsou odesílány klientovi, který tuto metodu vyvolal. V klientovi `invoke` jazyka JavaScript vrátí metoda [příslib JavaScriptu](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises). Když klient obdrží chybu s obslužnou rutinou připojenou k Promise pomocí `catch`, je vyvolána a předána jako objekt JavaScriptu `Error` .
 
 [!code-javascript[Error](hubs/sample/wwwroot/js/chat.js?range=23)]
 
-Pokud vaše Centrum vyvolá výjimku, nebyly uzavřeny připojení. Ve výchozím nastavení SignalR vrátí obecnou chybovou zprávu do klienta. Příklad:
+Pokud vaše centrum vyvolá výjimku, připojení se nezavřou. Ve výchozím nastavení signál vrací klientovi obecnou chybovou zprávu. Příklad:
 
 ```
 Microsoft.AspNetCore.SignalR.HubException: An unexpected error occurred invoking 'MethodName' on the server.
 ```
 
-Neočekávané výjimky často obsahují citlivé informace, jako je například název databáze serveru ve výjimce aktivuje v případě selhání připojení k databázi. Funkce SignalR nezveřejňuje tyto podrobné chybové zprávy ve výchozím nastavení jako bezpečnostní opatření. Zobrazit [článku aspekty zabezpečení](xref:signalr/security#exceptions) Další informace o důvod, proč jsou potlačeny podrobnosti o výjimce.
+Neočekávané výjimky často obsahují citlivé informace, jako je třeba název databázového serveru v výjimce aktivované při neúspěchu připojení k databázi. Signál nezveřejňuje tyto podrobné chybové zprávy ve výchozím nastavení jako bezpečnostní opatření. Další informace o tom, proč se potlačí podrobnosti o výjimce, najdete v článku věnovaném [bezpečnostním hlediskům](xref:signalr/security#exceptions) .
 
-Pokud máte výjimečné podmínce můžete *proveďte* šířit do klienta, můžete použít `HubException` třídy. Pokud vyvoláte `HubException` z vaší metody rozbočovače SignalR **bude** odeslat celá zpráva ke klientovi ponechat beze změny.
+Pokud máte výjimečnou podmínku *, kterou chcete* rozšířit na klienta, můžete použít `HubException` třídu. Pokud vyvoláte `HubException` z metody rozbočovače **, odesílatel** pošle celou zprávu klientovi, nemění se.
 
 [!code-csharp[ThrowHubException](hubs/sample/hubs/chathub.cs?name=ThrowHubException&highlight=3)]
 
 > [!NOTE]
-> Funkce SignalR odesílá pouze `Message` vlastnosti výjimky do klienta. Trasování zásobníku a dalších vlastností o výjimce nejsou k dispozici ke klientovi.
+> Signál pouze odesílá `Message` vlastnost výjimky klientovi. Trasování zásobníku a další vlastnosti výjimky nejsou pro klienta k dispozici.
 
 ## <a name="related-resources"></a>Související prostředky
 
-* [Úvod do ASP.NET Core SignalR](xref:signalr/introduction)
+* [Úvod k signalizaci ASP.NET Core](xref:signalr/introduction)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

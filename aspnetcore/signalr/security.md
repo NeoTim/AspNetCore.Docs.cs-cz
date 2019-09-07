@@ -1,103 +1,137 @@
 ---
-title: Informace o zabezpečení ve funkci SignalR technologie ASP.NET Core
+title: Otázky zabezpečení v nástroji ASP.NET Core Signal
 author: bradygaster
-description: Další informace o použití ověřování a autorizace v knihovně SignalR technologie ASP.NET Core.
+description: Naučte se používat ověřování a autorizaci v nástroji ASP.NET Core Signal.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
 ms.date: 11/06/2018
 uid: signalr/security
-ms.openlocfilehash: 6e9f849ed856cf1cbf989b8b16cab5209c465471
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: a52db2ff51c55f7299d63aa3c7398f99727e0694
+ms.sourcegitcommit: 387cf29f5d5addef2cbc70670a11d612806b36b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898644"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70746548"
 ---
-# <a name="security-considerations-in-aspnet-core-signalr"></a>Informace o zabezpečení ve funkci SignalR technologie ASP.NET Core
+# <a name="security-considerations-in-aspnet-core-signalr"></a>Otázky zabezpečení v nástroji ASP.NET Core Signal
 
-Podle [Andrew Stanton sestry](https://twitter.com/anurse)
+Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
-Tento článek obsahuje informace o zabezpečení knihovnou SignalR.
+Tento článek poskytuje informace o zabezpečení signalizace.
 
-## <a name="cross-origin-resource-sharing"></a>Sdílení prostředků různého původu
+## <a name="cross-origin-resource-sharing"></a>Sdílení prostředků mezi zdroji
 
-[Prostředků mezi zdroji (CORS) pro sdílení obsahu](https://www.w3.org/TR/cors/) slouží k povolení připojení SignalR nepůvodního zdroje v prohlížeči. Pokud kód jazyka JavaScript je hostované v jiné doméně aplikace SignalR [middlewarem CORS](xref:security/cors) musí lze povolit JavaScript, který chcete připojit k aplikaci SignalR. Povolení žádostí nepůvodního pouze z domén, které důvěřujete nebo ovládacího prvku. Příklad:
+[Sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/) se dá použít k povolení připojení k signalizaci mezi zdroji v prohlížeči. Pokud je JavaScriptový kód hostovaný v jiné doméně než aplikace pro signalizaci, musí být povolený [middleware CORS](xref:security/cors) , aby se JavaScript mohl připojit k aplikaci Signal. Povoluje žádosti mezi zdroji jenom z domén, které důvěřujete nebo ovládáte. Příklad:
 
-* Je hostitelem vašeho webu `http://www.example.com`
-* Je hostitelem vaší aplikace SignalR `http://signalr.example.com`
+* Váš web je hostovaný na`http://www.example.com`
+* Vaše aplikace Signal je hostovaná na`http://signalr.example.com`
 
-CORS by měl být nakonfigurovaný v SignalR aplikaci a Povolit jenom původ `www.example.com`.
+V aplikaci signalizace by měla být nakonfigurovaná CORS, aby bylo možné `www.example.com`jenom původ.
 
-Další informace o konfiguraci CORS, najdete v části [povolení prostředků různého původů (CORS)](xref:security/cors). Funkce SignalR **vyžaduje** následující zásady CORS:
+Další informace o konfiguraci CORS najdete v tématu [povolení požadavků mezi zdroji (CORS)](xref:security/cors). Signál **vyžaduje** následující zásady CORS:
 
-* Povolte konkrétní očekávané zdroje. Povolení jakýkoli původ je možné, ale je **není** zabezpečení nebo doporučené.
-* Metody HTTP `GET` a `POST` musí být povoleno.
-* Přihlašovací údaje musí být povolena, i když se ověřování nepoužívá.
+* Povolí konkrétní očekávané zdroje. Povolení libovolného zdroje je možné, ale **není zabezpečené nebo** Doporučené.
+* Metody `GET` http a `POST` musí být povoleny.
+* Přihlašovací údaje musí být povolené, i když se ověřování nepoužívá.
 
-Například následující zásadu CORS umožňuje klientovi SignalR prohlížeče hostované na `https://example.com` přístup k aplikaci SignalR hostitelem `https://signalr.example.com`:
+Následující zásada CORS například umožňuje klientovi prohlížeče signálu, `https://example.com` který je hostitelem aplikace, získat přístup k aplikaci Signal, která je hostována na: `https://signalr.example.com`
+
+::: moniker range=">= aspnetcore-3.0"
+
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    // ... other middleware ...
+
+    // Make sure the CORS middleware is ahead of SignalR.
+    app.UseCors(builder =>
+    {
+        builder.WithOrigins("https://example.com")
+            .AllowAnyHeader()
+            .WithMethods("GET", "POST")
+            .AllowCredentials();
+    });
+
+    // ... other middleware ...
+    app.UseRouting();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapHub<ChatHub>("/chatHub");
+    });
+
+    // ... other middleware ...
+}
+```
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
 
 [!code-csharp[Main](security/sample/Startup.cs?name=snippet1)]
 
-> [!NOTE]
-> SignalR je nekompatibilní s integrovaná funkce CORS v Azure App Service.
+::: moniker-end
 
-## <a name="websocket-origin-restriction"></a>Omezení objektu websocket na straně zdroje
+> [!NOTE]
+> Návěstí není kompatibilní s integrovanou funkcí CORS v Azure App Service.
+
+## <a name="websocket-origin-restriction"></a>Omezení původu protokolu WebSocket
 
 ::: moniker range=">= aspnetcore-2.2"
 
-Poskytovanou CORS se nevztahují na objekty Websocket. Původní omezení na protokoly Websocket, najdete v článku [objekty Websocket původu omezení](xref:fundamentals/websockets#websocket-origin-restriction).
+Ochrany, které poskytuje CORS, se nevztahují na objekty WebSockets. Pro omezení původu u WebSockets si přečtěte [omezení původu WebSockets](xref:fundamentals/websockets#websocket-origin-restriction).
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-Poskytovanou CORS se nevztahují na objekty Websocket. Prohlížeče **není**:
+Ochrany, které poskytuje CORS, se nevztahují na objekty WebSockets. Prohlížeče **neobsahují:**
 
-* Provedení přípravné požadavků CORS.
-* Respektujeme zadaná v omezení `Access-Control` záhlaví při provádění požadavků protokolu WebSocket.
+* Provádění požadavků CORS v řádu CORS
+* Respektujte omezení zadaná v `Access-Control` hlavičkách při vytváření požadavků protokolu WebSocket.
 
-Ale prohlížeče odesílají `Origin` záhlaví při vydávání žádostí protokolu WebSocket. Aplikace musí být nakonfigurovaný k ověření tyto hlavičky k zajištění, že jsou povoleny pouze objekty Websocket očekávané původ, odkud pocházejí.
+Prohlížeče ale při vydávání požadavků protokolu `Origin` WebSocket odesílají hlavičku. Aplikace by měly být nakonfigurovány pro ověření těchto hlaviček, aby bylo zajištěno, že budou povoleny pouze objekty WebSockets přicházející z očekávaných zdrojů.
 
-V ASP.NET Core 2.1 nebo novější, hlavičky ověření lze dosáhnout pomocí vlastního middlewaru umístit **před `UseSignalR`a ověřovací middleware** v `Configure`:
+V ASP.NET Core 2,1 a novějších lze ověření hlaviček dosáhnout pomocí vlastního middleware, který **je `UseSignalR`umístěn před a middleware ověřování** v: `Configure`
 
 [!code-csharp[Main](security/sample/Startup.cs?name=snippet2)]
 
 > [!NOTE]
-> `Origin` Záhlaví je řízena klientem a stejně jako `Referer` záhlaví, můžete zfalšovaná. By měla tato záhlaví **není** používat jako mechanismus ověřování.
+> Záhlaví řídí klient a, `Referer` podobně jako záhlaví, může být falešným. `Origin` Tato **záhlaví by se neměla používat** jako ověřovací mechanismus.
 
 ::: moniker-end
 
-## <a name="access-token-logging"></a>Protokolování token přístupu
+## <a name="access-token-logging"></a>Protokolování přístupového tokenu
 
-Při použití Server-Sent události nebo protokoly Websocket, klientský prohlížeč odesílá přístupový token v řetězci dotazu. Přijetí přístupový token pomocí řetězce dotazu, je obecně stejně bezpečné jako použití standardní `Authorization` záhlaví. Používejte vždy HTTPS k zajištění zabezpečené připojení mezi klientem a serverem začátku do konce. Mnoho webových serverů protokolu adresu URL pro každý požadavek, včetně řetězec dotazu. Protokolování adresy URL může protokolovat přístupový token. ASP.NET Core protokoly ve výchozím nastavení, která bude obsahovat řetězec dotazu adresy URL pro každý požadavek. Příklad:
+Při použití objektů WebSocket nebo událostí odesílaných serverem klientský prohlížeč odešle přístupový token do řetězce dotazu. Příjem přístupového tokenu prostřednictvím řetězce dotazu je obecně zabezpečený jako při použití `Authorization` standardního záhlaví. Protokol HTTPS byste měli vždycky používat k zajištění zabezpečeného koncového připojení mezi klientem a serverem. Mnohé webové servery protokolují adresu URL pro každý požadavek včetně řetězce dotazu. Protokolování adres URL může protokolovat přístupový token. ASP.NET Core zaznamená adresu URL pro každý požadavek ve výchozím nastavení, což bude obsahovat řetězec dotazu. Příklad:
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
       Request starting HTTP/1.1 GET http://localhost:5000/myhub?access_token=1234
 ```
 
-Pokud máte obavy o protokolování tato data pomocí protokolů serveru, můžete zakázat protokolování zcela podle konfigurace `Microsoft.AspNetCore.Hosting` protokolovacího nástroje k `Warning` úroveň nebo novější (tyto zprávy se zapisují na `Info` úroveň). Naleznete v dokumentaci [filtrování protokolu](xref:fundamentals/logging/index#log-filtering) Další informace. Pokud stále chcete protokolovat určité informace o žádostech, můžete [zápisu middleware](xref:fundamentals/middleware/write) protokolování dat vyžadují a filtrování `access_token` dotazování řetězcovou hodnotu (pokud existuje).
+Pokud máte obavy týkající se protokolování těchto dat do protokolů serveru, můžete toto protokolování zcela zakázat nakonfigurováním `Microsoft.AspNetCore.Hosting` protokolovacího nástroje `Warning` na úroveň nebo výše (tyto zprávy jsou zapsány na `Info` úrovni). Další informace najdete v dokumentaci o [filtrování protokolů](xref:fundamentals/logging/index#log-filtering) . Pokud přesto chcete protokolovat určité informace o žádostech, můžete [napsat middleware](xref:fundamentals/middleware/write) pro protokolování dat, která požadujete, a odfiltrovat hodnotu řetězce dotazu (Pokud je k `access_token` dispozici).
 
 ## <a name="exceptions"></a>Výjimky
 
-Zprávy o výjimkách jsou obvykle považovány za citlivá data, která by neměla být odhalena do klienta. Ve výchozím nastavení nebude funkce SignalR Odeslat podrobnosti výjimky vyvolané metodou rozbočovače klientovi. Místo toho klient obdrží obecná zpráva oznamující, že došlo k chybě. Výjimka doručení zpráv do klienta monitorconfigurationoverride lze přepsat (např. vývojové nebo testovací) [ `EnableDetailedErrors` ](xref:signalr/configuration#configure-server-options). Zprávy o výjimkách by neměly být vystaveny klientům v produkčních aplikacích.
+Zprávy výjimek se obecně považují za citlivá data, která by neměla být odhalena klientovi. Ve výchozím nastavení signál neodesílá podrobnosti o výjimce vyvolané metodou centra klientovi. Místo toho klient obdrží obecnou zprávu oznamující, že došlo k chybě. Doručení zprávy o výjimce klientovi lze přepsat (například při vývoji nebo testování) pomocí [`EnableDetailedErrors`](xref:signalr/configuration#configure-server-options). Zprávy výjimek by neměly být vystaveny klientovi v produkčních aplikacích.
 
 ## <a name="buffer-management"></a>Správa vyrovnávací paměti
 
-SignalR na připojení vyrovnávací paměti používá ke správě příchozí a odchozí zprávy. Ve výchozím nastavení omezuje SignalR vyrovnávací paměti na 32 KB. Největší zprávu, kterou můžete poslat klient nebo server je 32 KB. Maximální velikost paměti spotřebované na připojení pro zprávy je 32 KB. Pokud vaše zprávy jsou vždy menší než 32 KB, můžete zkrátit limit, který:
+Signalizace používá pro správu příchozích a odchozích zpráv vyrovnávací paměti vázané na připojení. Ve výchozím nastavení signál omezuje tyto vyrovnávací paměti na 32 KB. Největší zpráva, kterou může klient nebo server odeslat, je 32 KB. Maximální velikost paměti spotřebované připojením pro zprávy je 32 KB. Pokud jsou vaše zprávy vždycky menší než 32 KB, můžete omezit limit, který:
 
-* Brání klientovi tomu nebudou moct odeslat zprávu větší.
-* Server nikdy muset přidělit velké vyrovnávací paměti pro příjem zpráv.
+* Zabraňuje klientovi, aby mohl odeslat větší zprávu.
+* Server nikdy nebude muset přidělit velké vyrovnávací paměti pro příjem zpráv.
 
-Pokud vaše zprávy jsou větší než 32 KB, můžete zvýšit limit. Zvýšit tento limit znamená, že:
+Pokud jsou vaše zprávy větší než 32 KB, můžete tento limit zvýšit. Zvýšení tohoto limitu znamená:
 
-* Klient může způsobit server k přidělení vyrovnávací paměti velké paměti.
-* Server přidělení velké vyrovnávací paměti může snížit počet souběžných připojení.
+* Klient může způsobit přidělení rozsáhlých vyrovnávacích pamětí pro server.
+* Přidělení serveru pro velké vyrovnávací paměti může snížit počet souběžných připojení.
 
-Existují omezení pro příchozí a odchozí zprávy, jak lze nakonfigurovat podle [ `HttpConnectionDispatcherOptions` ](xref:signalr/configuration#configure-server-options) objekt gurovaný `MapHub`:
+U příchozích a odchozích zpráv platí omezení, jak je možné nakonfigurovat u [`HttpConnectionDispatcherOptions`](xref:signalr/configuration#configure-server-options) objektu nakonfigurovaného v: `MapHub`
 
-* `ApplicationMaxBufferSize` představuje maximální počet bajtů z klienta, který vyrovnávací paměti serveru. Pokud se klient pokusí odeslat zprávu větší než tento limit, může připojení ukončeno.
-* `TransportMaxBufferSize` představuje maximální počet bajtů, které může server odeslat. Pokud se server pokusí odeslat zprávu (včetně návratové hodnoty metod rozbočovače na) větší než tento limit, bude vyvolána výjimka.
+* `ApplicationMaxBufferSize`představuje maximální počet bajtů od klienta, které jsou vyrovnávací paměti serveru. Pokud se klient pokusí odeslat zprávu větší, než je toto omezení, připojení může být zavřeno.
+* `TransportMaxBufferSize`představuje maximální počet bajtů, které může server odeslat. Pokud se server pokusí odeslat zprávu (včetně návratových hodnot z metod z rozbočovače) větší, než je tento limit, bude vyvolána výjimka.
 
-Nastavení limitu `0` zakáže limit. Odebrání limitu umožňuje klientovi umožní odeslat zprávu libovolné velikosti. Klientů zasílání velkých zpráv může způsobit nadbytek paměti mají být přiděleny. Využití nadbytek paměti může výrazně snížit počet souběžných připojení.
+Nastavením limitu `0` zakážete tento limit. Odebráním tohoto limitu můžete klientovi poslat zprávu libovolné velikosti. Zlomyslní klienti odesílající velké zprávy můžou způsobit přidělení nadměrné paměti. Nadměrné využití paměti může významně snížit počet souběžných připojení.
