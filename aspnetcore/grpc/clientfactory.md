@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 08/21/2019
 uid: grpc/clientfactory
-ms.openlocfilehash: a52fd397a7ed3e327938b0847af7f4e6a4a79400
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 5d719893e96ae017e2de0ee1744003d2d67a49c9
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310644"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773667"
 ---
 # <a name="grpc-client-factory-integration-in-net-core"></a>integrace klientské továrny gRPC v .NET Core
 
@@ -30,7 +30,7 @@ Pokud chcete zaregistrovat klienta gRPC, můžete použít `AddGrpcClient` obecn
 ```csharp
 services.AddGrpcClient<Greeter.GreeterClient>(o =>
 {
-    o.Address = new Uri("http://localhost:5001");
+    o.Address = new Uri("https://localhost:5001");
 });
 ```
 
@@ -69,7 +69,7 @@ public class AggregatorService : Aggregator.AggregatorBase
 services
     .AddGrpcClient<Greeter.GreeterClient>(o =>
     {
-        o.BaseAddress = new Uri("http://localhost:5001");
+        o.Address = new Uri("https://localhost:5001");
     })
     .ConfigurePrimaryHttpMessageHandler(() =>
     {
@@ -92,7 +92,7 @@ k dispozici jsou metody specifické pro gRPC:
 services
     .AddGrpcClient<Greeter.GreeterClient>(o =>
     {
-        o.Address = new Uri("http://localhost:5001");
+        o.Address = new Uri("https://localhost:5001");
     })
     .AddInterceptor(() => new LoggingInterceptor())
     .ConfigureChannel(o =>
@@ -111,7 +111,7 @@ gRPC klienti, které vytvořila továrna ve službě gRPC, se `EnableCallContext
 services
     .AddGrpcClient<Greeter.GreeterClient>(o =>
     {
-        o.Address = new Uri("http://localhost:5001");
+        o.Address = new Uri("https://localhost:5001");
     })
     .EnableCallContextPropagation();
 ```

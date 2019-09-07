@@ -5,14 +5,14 @@ description: Naučte se zmírnit bezpečnostní hrozby pro Blazor aplikací na s
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/04/2019
+ms.date: 09/05/2019
 uid: security/blazor/server-side
-ms.openlocfilehash: eb8068354182f9e05411bf48232878911bae6af8
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 13bb4475b4beac78cf489d83fb59a3e0d6d8f2d9
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310700"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800493"
 ---
 # <a name="secure-aspnet-core-blazor-server-side-apps"></a>Zabezpečení ASP.NET Core Blazor aplikací na straně serveru
 

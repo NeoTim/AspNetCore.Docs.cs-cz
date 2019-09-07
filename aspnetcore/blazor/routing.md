@@ -5,14 +5,14 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/23/2019
+ms.date: 09/06/2019
 uid: blazor/routing
-ms.openlocfilehash: ae3d7ab01185dd6f2e8e0f59b78c2e693fe464b0
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: d348908261c51b477aa698a407266d05c0df5a33
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310355"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800341"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
 
@@ -28,9 +28,7 @@ Blazor na straně serveru je integrovaná do [Směrování koncového bodu ASP.N
 
 ## <a name="route-templates"></a>Šablony směrování
 
-`Router` Komponenta povolí směrování a pro každou dostupnou součást je k dispozici šablona směrování. Komponenta se zobrazí v souboru *App. Razor:* `Router`
-
-V Blazor na straně serveru nebo v aplikaci na straně klienta:
+Tato `Router` součást umožňuje směrování na jednotlivé komponenty se zadanou trasou. Komponenta se zobrazí v souboru *App. Razor:* `Router`
 
 ```cshtml
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -43,20 +41,27 @@ V Blazor na straně serveru nebo v aplikaci na straně klienta:
 </Router>
 ```
 
-Je-li soubor *. Razor* s `@page` direktivou kompilován, je k dispozici vygenerovaná <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> třída, která určuje šablonu trasy. V době běhu Směrovač vyhledává třídy komponent pomocí `RouteAttribute` a a vykresluje komponentu se šablonou směrování, která odpovídá požadované adrese URL.
+Je-li soubor *. Razor* s `@page` direktivou kompilován, je k dispozici vygenerovaná <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> třída, která určuje šablonu trasy.
+
+Za běhu `RouteView` komponenty:
+
+* `RouteData` Přijímá`Router` od spolu s požadovanými parametry.
+* Vykreslí určenou komponentu pomocí jejího rozložení (nebo volitelného výchozího rozložení) pomocí zadaných parametrů.
+
+Volitelně můžete zadat `DefaultLayout` parametr s třídou rozložení, který se má použít pro součásti, které neurčují rozložení. Výchozí šablony Blazor určují `MainLayout` komponentu. *MainLayout. Razor* se nachází ve *sdílené* složce projektu šablony. Další informace o rozložení najdete v tématu <xref:blazor/layouts>.
 
 Pro komponentu lze použít více šablon směrování. Následující komponenta reaguje na požadavky pro `/BlazorRoute` a: `/DifferentBlazorRoute`
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> Aby adresy URL bylo možné správně přeložit, musí aplikace v `<base>` souboru *wwwroot/index.html* obsahovat značku (Blazor na straně klienta) nebo *stránky/_Host. cshtml* (Blazor na straně serveru) se základní cestou `href` aplikace zadanou v atributu ( `<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/client-side#app-base-path>.
+> Aby adresy URL bylo možné správně přeložit, musí aplikace v `<base>` souboru *wwwroot/index.html* obsahovat značku (Blazor na straně klienta) nebo *stránky/_Host. cshtml* (Blazor na straně serveru) se základní cestou `href` aplikace zadanou v atributu ( `<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>Poskytnutí vlastního obsahu, když se nenalezne obsah
 
 `Router` Komponenta umožňuje aplikaci zadat vlastní obsah, pokud se pro požadovanou trasu nenajde obsah.
 
-V souboru *App. Razor* nastavte vlastní obsah v `<NotFound>` parametru `Router` šablony součásti:
+V souboru *App. Razor* nastavte vlastní obsah v `NotFound` parametru `Router` šablony součásti:
 
 ```cshtml
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -70,7 +75,13 @@ V souboru *App. Razor* nastavte vlastní obsah v `<NotFound>` parametru `Router`
 </Router>
 ```
 
-Obsah `<NotFound>` může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti.
+Obsah `<NotFound>` značek může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti. Chcete-li použít výchozí rozložení `NotFound` obsahu, přečtěte si téma. <xref:blazor/layouts>
+
+## <a name="route-to-components-from-multiple-assemblies"></a>Směrování na součásti z více sestavení
+
+Použijte parametr k určení dalších sestavení, `Router` která má součást při hledání směrovatelných komponent zvážit. `AdditionalAssemblies` Zadaná sestavení jsou kromě `AppAssembly`zadaného sestavení považována za. V následujícím příkladu `Component1` je směrovatelný komponenta definovaná v odkazované knihovně tříd. Následující `AdditionalAssemblies` příklad vede k podpoře směrování pro `Component1`:
+
+< router AppAssembly = "typeof (program). Assembly "AdditionalAssemblies =" New [] {typeof (Component1). Sestavení} >...</Router>
 
 ## <a name="route-parameters"></a>Parametry směrování
 
@@ -181,4 +192,3 @@ Pokud je vybráno tlačítko, následující komponenta přejde `Counter` na sou
     }
 }
 ```
-

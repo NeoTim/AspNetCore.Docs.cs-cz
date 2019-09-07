@@ -5,14 +5,14 @@ description: Prozkoumejte ASP.NET Core Blazor, způsob sestavení interaktivníh
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 08/13/2019
+ms.date: 09/05/2019
 uid: blazor/index
-ms.openlocfilehash: b13446651603fe23c4595028272ba19ed7bbd5fd
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 6b62eb372d642c1ad9df880a4b71e5d5a8e40b60
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993372"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800324"
 ---
 # <a name="introduction-to-blazor"></a>Úvod do Blazor
 
@@ -105,9 +105,9 @@ Komponenty vykreslí do reprezentace v paměti model DOM (Document Object Model)
 
 Blazor na straně klienta je jednostránková architektura aplikací pro vytváření interaktivních webových aplikací na straně klienta pomocí .NET. Blazor na straně klienta používá otevřené webové standardy bez modulů plug-in a transpilation Code a funguje ve všech moderních webových prohlížečích, včetně mobilních prohlížečů.
 
-Spouštění kódu .NET ve webových prohlížečích je umožněno [](https://webassembly.org) webovým sestavením (zkráceným *wasm*). WebAssembly je formát kompaktního bajtu optimalizovaného pro rychlé stažení a maximální rychlost spuštění. WebAssembly je otevřený webový standard a podporuje se ve webových prohlížečích bez modulů plug-in.
+Spouštění kódu .NET ve webových prohlížečích je umožněno webovým [sestavením](https://webassembly.org) (zkráceným *wasm*). WebAssembly je formát kompaktního bajtu optimalizovaného pro rychlé stažení a maximální rychlost spuštění. WebAssembly je otevřený webový standard a podporuje se ve webových prohlížečích bez modulů plug-in.
 
-Kód webového sestavení má přístup k úplným funkcím prohlížeče prostřednictvím JavaScriptu, označovanému jako *interoperabilita JavaScriptu* (nebo *zprostředkovatel komunikace*s JavaScriptem). Kód .NET spuštěný pomocí webového sestavení v prohlížeči se spouští v izolovaném prostoru JavaScript v prohlížeči s ochranou, že izolovaný prostor poskytuje proti škodlivým akcím v klientském počítači.
+Kód webového sestavení má přístup k úplným funkcím prohlížeče prostřednictvím JavaScriptu, označovanému jako *interoperabilita JavaScriptu* (nebo *zprostředkovatel komunikace s JavaScriptem*). Kód .NET spuštěný pomocí webového sestavení v prohlížeči se spouští v izolovaném prostoru JavaScript v prohlížeči s ochranou, že izolovaný prostor poskytuje proti škodlivým akcím v klientském počítači.
 
 ![Blazor na straně klienta spouští kód .NET v prohlížeči pomocí webového sestavení.](index/_static/blazor-client-side.png)
 
@@ -119,13 +119,13 @@ Když je aplikace Blazor na straně klienta sestavená a spuštěná v prohlíž
 
 Velikost publikované aplikace, její *Velikost datové části*, je důležitým faktorem výkonu pro useability aplikace. Stažení velké aplikace může trvat poměrně dlouhou dobu, než se stáhne do prohlížeče, což snižuje činnost koncového uživatele. Blazor na straně klienta optimalizuje velikost datové části, aby se snížila doba stahování:
 
-* Nepoužitý kód se z aplikace vyčerpá, když se publikuje pomocí linkeru pro [převodní jazyk (IL)](xref:host-and-deploy/blazor/configure-linker).
+* Nepoužitý kód se z aplikace vyčerpá, když se publikuje pomocí [linkeru pro převodní jazyk (IL)](xref:host-and-deploy/blazor/configure-linker).
 * Odpovědi HTTP jsou komprimovány.
 * Modul runtime .NET a sestavení jsou ukládány do mezipaměti v prohlížeči.
 
 ## <a name="blazor-server-side"></a>Blazor na straně serveru
 
-Blazor odpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor na straně serveru poskytuje podporu pro hostování komponent Razor na serveru v aplikaci ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes [](xref:signalr/introduction) připojení k signalizaci.
+Blazor odpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor na straně serveru poskytuje podporu pro hostování komponent Razor na serveru v aplikaci ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes připojení k [signalizaci](xref:signalr/introduction) .
 
 Modul runtime zpracovává odeslání událostí uživatelského rozhraní z prohlížeče na server a po spuštění komponent aplikuje aktualizace uživatelského rozhraní odeslané serverem zpátky do prohlížeče.
 

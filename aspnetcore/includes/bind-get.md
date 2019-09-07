@@ -1,4 +1,10 @@
 > [!WARNING]
-> Z bezpečnostních důvodů musíte výslovný souhlas se vazba `GET` požadovat data na stránce Vlastnosti modelu. Ověření vstupu uživatele před mapování na vlastnosti. K přidání na `GET` vazby je užitečné, když adresování scénáře, které jsou závislé na řetězec nebo trasy hodnoty dotazu.
+> Z bezpečnostních důvodů musíte vyjádřit výslovný souhlas s vazbou `GET` na data požadavku na vlastnosti modelu stránky. Před mapováním na vlastnosti ověřte vstup uživatele. Přizpůsobování `GET` vazby je užitečné při adresování scénářů, které spoléhají na řetězce dotazů nebo hodnoty tras.
 >
-> Vytvořit vazbu vlastnosti `GET` nastavit požadavky [[BindProperty]](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) atributu `SupportsGet` vlastnost `true`: `[BindProperty(SupportsGet = true)]`
+> Chcete-li vytvořit navázání vlastnosti u `GET` požadavků, nastavte `SupportsGet` vlastnost atributu [[BindProperty]](xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute) na: `true`
+>
+> ```csharp
+> [BindProperty(SupportsGet = true)]
+> ```
+>
+> Další informace najdete v tématu [ASP.NET Core Community rychlou schůzku: Vazba na GET diskuze (YouTube](https://www.youtube.com/watch?v=p7iHB9V-KVU&feature=youtu.be&t=54m27s))

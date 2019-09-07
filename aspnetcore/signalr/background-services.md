@@ -1,68 +1,103 @@
 ---
-title: Funkce SignalR technologie ASP.NET Core hostitele služby na pozadí
+title: Signál hostitelského ASP.NET Core ve službách na pozadí
 author: bradygaster
-description: Zjistěte, jak odesílat zprávy ze tříd .NET Core BackgroundService klientům SignalR.
+description: Naučte se odesílat zprávy klientům signalizace z tříd .NET Core BackgroundService.
 monikerRange: '>= aspnetcore-2.2'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 02/04/2019
 uid: signalr/background-services
-ms.openlocfilehash: dcd62f0c7056a3f987291b6c8bb8b87f94160865
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 23a53f33a03ce3b76cf6846c3f214a6cad055209
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087764"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773942"
 ---
-# <a name="host-aspnet-core-signalr-in-background-services"></a>Funkce SignalR technologie ASP.NET Core hostitele služby na pozadí
+# <a name="host-aspnet-core-signalr-in-background-services"></a>Signál hostitelského ASP.NET Core ve službách na pozadí
 
-Podle [Brady Gaster](https://twitter.com/bradygaster)
+Od [Brady gastera](https://twitter.com/bradygaster)
 
-Tento článek obsahuje pokyny pro:
+Tento článek poskytuje pokyny pro:
 
-* Hostování rozbočovače SignalR pomocí pracovní proces na pozadí hostované pomocí ASP.NET Core.
-* Zasílání zpráv pro připojení klientů z v rámci .NET Core [BackgroundService](xref:Microsoft.Extensions.Hosting.BackgroundService).
+* Hostování Center signálů pomocí pracovního procesu na pozadí hostovaného s ASP.NET Core.
+* Posílání zpráv pro připojené klienty z rozhraní .NET Core [BackgroundService](xref:Microsoft.Extensions.Hosting.BackgroundService).
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [(stažení)](xref:index#how-to-download-a-sample)
 
-## <a name="wire-up-signalr-during-startup"></a>Nastavit SignalR při spuštění
+## <a name="wire-up-signalr-during-startup"></a>Síťový signál při spuštění
 
-Hostování rozbočovače SignalR technologie ASP.NET Core v rámci pracovní proces na pozadí se shoduje s hostující Hubu ve webové aplikaci ASP.NET Core. V `Startup.ConfigureServices` metody, volání `services.AddSignalR` přidá k požadovaným službám vrstvu ASP.NET Core Dependency Injection (DI) pro podporu systému SignalR. V `Startup.Configure`, `UseSignalR` metoda je volána k přenosu do centra koncových bodů v kanálu požadavku ASP.NET Core.
+::: moniker range=">= aspnetcore-3.0"
+
+Hostování Center ASP.NET Corech signálů v kontextu pracovního procesu na pozadí je stejné jako hostování rozbočovače v ASP.NET Core webové aplikaci. V metodě volání `services.AddSignalR` přidá k podpoře signálu požadované služby pro vrstvu ASP.NET Core pro vkládání závislostí (di). `Startup.ConfigureServices` V `Startup.Configure`je metodavolánavezpětnémvolánípropřenoskoncovýchbodůrozbočovačevkanálužádostiASP.NETCore.`MapHub` `UseEndpoints`
+
+```csharp
+public class Startup
+{
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSignalR();
+        services.AddHostedService<Worker>();
+    }
+
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+
+        app.UseRouting();
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapHub<ClockHub>("/hubs/clock");
+        });
+    }
+}
+```
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
+Hostování Center ASP.NET Corech signálů v kontextu pracovního procesu na pozadí je stejné jako hostování rozbočovače v ASP.NET Core webové aplikaci. V metodě volání `services.AddSignalR` přidá k podpoře signálu požadované služby pro vrstvu ASP.NET Core pro vkládání závislostí (di). `Startup.ConfigureServices` V `Startup.Configure`nástrojije metodavolánapropřenoskoncovýchbodůrozbočovačevkanálužádostiASP.NETCore.`UseSignalR`
 
 [!code-csharp[Startup](background-service/sample/Server/Startup.cs?name=Startup)]
 
-V předchozím příkladu `ClockHub` implementuje třída `Hub<T>` třídy za účelem vytvoření rozbočovač silného typu. `ClockHub` Nakonfigurovanou `Startup` třídy reagovat na požadavky na koncovém bodu `/hubs/clock`.
+::: moniker-end
 
-Další informace o silného typu rozbočovače, naleznete v tématu [použití rozbočovače signalr pro ASP.NET Core](xref:signalr/hubs#strongly-typed-hubs).
+V předchozím příkladu `ClockHub` třída `Hub<T>` implementuje třídu pro vytvoření rozbočovače silného typu. Ve třídě byl nakonfigurován tak, aby odpovídal na požadavky na koncovém bodu `/hubs/clock`. `ClockHub` `Startup`
+
+Další informace o rozbočovačích se silnými typy najdete v tématu [použití Center v nástroji Signal pro ASP.NET Core](xref:signalr/hubs#strongly-typed-hubs).
 
 > [!NOTE]
-> Tato funkce se neomezuje na [centra\<T >](xref:Microsoft.AspNetCore.SignalR.Hub`1) třídy. Všechny třídy, která dědí z [centra](xref:Microsoft.AspNetCore.SignalR.Hub), jako například [DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub), budou fungovat i.
+> Tato funkce není omezená na třídu [>\<centra t](xref:Microsoft.AspNetCore.SignalR.Hub`1) . Budou fungovat i všechny třídy, které dědí z [rozbočovače](xref:Microsoft.AspNetCore.SignalR.Hub), například [DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub).
 
 [!code-csharp[Startup](background-service/sample/Server/ClockHub.cs?name=ClockHub)]
 
-Rozhraní používá silného typu `ClockHub` je `IClock` rozhraní.
+Rozhraní používané silným typem `ClockHub` `IClock` je rozhraní.
 
 [!code-csharp[Startup](background-service/sample/HubServiceInterfaces/IClock.cs?name=IClock)]
 
-## <a name="call-a-signalr-hub-from-a-background-service"></a>Volání rozbočovače SignalR ze služby na pozadí
+## <a name="call-a-signalr-hub-from-a-background-service"></a>Volání centra signalizace ze služby na pozadí
 
-Při spuštění `Worker` třídy, `BackgroundService`, je připraveno, pomocí `AddHostedService`.
+Během spouštění `Worker` je třída `BackgroundService`, a, připojená pomocí `AddHostedService`.
 
 ```csharp
 services.AddHostedService<Worker>();
 ```
 
-Protože SignalR je také připraveno, během `Startup` fáze, ve kterém každé centrum je připojen k jednotlivé koncový bod v ASP.NET Core kanál požadavků HTTP, je reprezentována každé centrum `IHubContext<T>` na serveru. Pomocí ASP.NET Core nabízí DI, dalším třídám, mohl vytvořit jeho instanci hostující vrstvy, jako je třeba `BackgroundService` tříd, kontroler MVC a modely stránky Razor, lze získat odkazy na rozbočovače na straně serveru tak, že přijímá instance `IHubContext<ClockHub, IClock>` během konstrukce.
+Vzhledem k tomu, že je signál v průběhu `Startup` fáze také zapojený, kdy je každé centrum připojené k jednotlivému koncovému bodu v kanálu požadavků HTTP ASP.NET Core, je každé centrum reprezentované `IHubContext<T>` na serveru. Pomocí funkcí ASP.NET Core di jsou jiné třídy, jejichž instance je vytvořena hostující vrstvou, `BackgroundService` jako jsou třídy, třídy kontroleru MVC nebo modely stránek Razor, schopny získat odkazy na centra na straně serveru tím, `IHubContext<ClockHub, IClock>` že přijímají instance během konstrukce.
 
 [!code-csharp[Startup](background-service/sample/Server/Worker.cs?name=Worker)]
 
-Jako `ExecuteAsync` metoda je volána zavádět postupně ve službě na pozadí, aktuální datum a čas na serveru se odesílají připojeným klientům pomocí `ClockHub`.
+Jak je `ClockHub`metoda volána iterativním způsobem ve službě na pozadí, je aktuální datum a čas serveru odesíláno připojeným klientům pomocí. `ExecuteAsync`
 
-## <a name="react-to-signalr-events-with-background-services"></a>Reagujte na události SignalR s služby na pozadí
+## <a name="react-to-signalr-events-with-background-services"></a>Reakce na události signalizace pomocí služeb na pozadí
 
-Stejně jako jednotlivé stránky aplikace pomocí jazyka JavaScript klienta pro funkci SignalR nebo desktopové aplikace .NET, můžete provést pomocí <xref:signalr/dotnet-client>, `BackgroundService` nebo `IHostedService` implementace lze také použít k připojení k rozbočovačům SignalR a reagovat na události.
+Podobně jako jedna stránková aplikace, která používá klienta JavaScriptu pro Signal nebo desktopovou aplikaci .NET <xref:signalr/dotnet-client> `BackgroundService` , se dá použít k připojení k centrům signálů a k reagování na události pomocí implementace, a nebo `IHostedService` .
 
-`ClockHubClient` Třída implementuje oba `IClock` rozhraní a `IHostedService` rozhraní. Tímto způsobem ji můžou být připraveno, během `Startup` spouštět nepřetržitě a reagovat na události v centru ze serveru. 
+Třída implementuje `IClock` rozhraní i`IHostedService` rozhraní. `ClockHubClient` Tímto způsobem je možné během `Startup` nepřetržitého chodu a reakce na události centra ze serveru pracovat.
 
 ```csharp
 public partial class ClockHubClient : IClock, IHostedService
@@ -70,15 +105,15 @@ public partial class ClockHubClient : IClock, IHostedService
 }
 ```
 
-Během inicializace `ClockHubClient` vytvoří instanci `HubConnection` a sváže `IClock.ShowTime` metody jako obslužnou rutinu pro centra `ShowTime` událostí.
+Během inicializace `ClockHubClient` vytvoří instance `HubConnection` a vodiče `IClock.ShowTime` `ShowTime` metodu jako obslužnou rutinu pro událost centra.
 
 [!code-csharp[The ClockHubClient constructor](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=ClockHubClientCtor)]
 
-V `IHostedService.StartAsync` implementace, `HubConnection` se spustí asynchronně.
+V implementaci se modul `HubConnection` spouští asynchronně. `IHostedService.StartAsync`
 
 [!code-csharp[StartAsync method](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=StartAsync)]
 
-Během `IHostedService.StopAsync` metody `HubConnection` vyřazen asynchronně.
+`IHostedService.StopAsync` Během metody `HubConnection` je vyřazení asynchronně.
 
 [!code-csharp[StopAsync method](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=StopAsync)]
 
@@ -87,4 +122,4 @@ Během `IHostedService.StopAsync` metody `HubConnection` vyřazen asynchronně.
 * [Začínáme](xref:tutorials/signalr)
 * [Centra](xref:signalr/hubs)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
-* [Silného typu rozbočovače](xref:signalr/hubs#strongly-typed-hubs)
+* [Rozbočovače silného typu](xref:signalr/hubs#strongly-typed-hubs)

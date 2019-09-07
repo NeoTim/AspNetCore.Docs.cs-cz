@@ -1,30 +1,37 @@
 ---
-title: Použití služeb jazyka JavaScript vytvořte jednostránkové aplikace v ASP.NET Core
+title: Použití služeb JavaScriptu k vytváření aplikací s jedním stránkou v ASP.NET Core
 author: scottaddie
-description: Přečtěte si o výhodách používání služby jazyka JavaScript vytvořte jedné stránce aplikace (SPA) se opírá o ASP.NET Core.
+description: Přečtěte si o výhodách používání služeb JavaScript k vytvoření jednostránkové aplikace (SPA), kterou zajišťuje ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: H1Hack27Feb2017
-ms.date: 05/28/2019
+ms.date: 09/06/2019
 uid: client-side/spa-services
-ms.openlocfilehash: 19710b58bca606d21feda9069ad00edd1e4f72e9
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 16c9eb1d79bca792062d292795763c54dd02bd37
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813476"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773419"
 ---
-# <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>Použití služeb jazyka JavaScript vytvořte jednostránkové aplikace v ASP.NET Core
+# <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>Použití služeb JavaScriptu k vytváření aplikací s jedním stránkou v ASP.NET Core
 
 Podle [Scott Addie](https://github.com/scottaddie) a [Fiyaz Hasan](https://fiyazhasan.me/)
 
-Jednu stránku aplikace (SPA) je typ oblíbené webové aplikace z důvodu jeho přináší bohaté uživatelské prostředí. Integrace rozhraní jednostránková aplikace na straně klienta nebo knihovny, například [Angular](https://angular.io/) nebo [React](https://facebook.github.io/react/), pomocí rozhraní na straně serveru, jako jsou ASP.NET Core může být obtížné. Omezíte třecí plochy v procesu integrace byla vyvinuta služby jazyka JavaScript. Umožňuje bezproblémové operace mezi různých klientských a serverových sad technologie.
+Jednu stránku aplikace (SPA) je typ oblíbené webové aplikace z důvodu jeho přináší bohaté uživatelské prostředí. Integrace rozhraní a knihoven SPA na straně klienta, jako je například [úhlová](https://angular.io/) nebo [reakce](https://facebook.github.io/react/), s architekturami na straně serveru, jako je například ASP.NET Core, mohou být obtížné. Služba JavaScript Services byla vyvinuta za účelem snížení tření v procesu integrace. Umožňuje bezproblémové operace mezi různých klientských a serverových sad technologie.
 
-## <a name="what-is-javascript-services"></a>Co je služba jazyka JavaScript
+::: moniker range=">= aspnetcore-3.0"
 
-Služby jazyka JavaScript je sada technologií na straně klienta pro ASP.NET Core. Jeho cílem je na pozici ASP.NET Core, jako preferovanou platformu na straně serveru vývojářů pro vytváření SPA.
+> [!WARNING]
+> Funkce popsané v tomto článku jsou zastaralé od ASP.NET Core 3,0. V balíčku NuGet [Microsoft. AspNetCore. SpaServices. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.SpaServices.Extensions) je k dispozici jednodušší mechanismus pro integraci rozhraní Spa. Další informace najdete v tématech [[oznámení] obsoleting Microsoft. AspNetCore. SpaServices a Microsoft. AspNetCore. NodeServices](https://github.com/aspnet/AspNetCore/issues/12890).
 
-Služba jazyka JavaScript se skládá ze dvou různých balíčcích NuGet:
+::: moniker-end
+
+## <a name="what-is-javascript-services"></a>Co je JavaScript Services
+
+Služba JavaScript Services je kolekce technologií na straně klienta pro ASP.NET Core. Jeho cílem je na pozici ASP.NET Core, jako preferovanou platformu na straně serveru vývojářů pro vytváření SPA.
+
+Služby JavaScriptu se skládají ze dvou různých balíčků NuGet:
 
 * [Microsoft.AspNetCore.NodeServices](https://www.nuget.org/packages/Microsoft.AspNetCore.NodeServices/) (NodeServices)
 * [Microsoft.AspNetCore.SpaServices](https://www.nuget.org/packages/Microsoft.AspNetCore.SpaServices/) (SpaServices)
@@ -39,7 +46,7 @@ Mnoho pozornosti v tomto článku je umístěn na použití SpaServices balíčk
 
 ## <a name="what-is-spaservices"></a>Co je SpaServices
 
-SpaServices byl vytvořen na pozici ASP.NET Core, jako preferovanou platformu na straně serveru vývojářů pro vytváření SPA. SpaServices není vyžadována k vývoji SPA s ASP.NET Core a nezamyká vývojáře do rozhraní konkrétního klienta.
+SpaServices byl vytvořen na pozici ASP.NET Core, jako preferovanou platformu na straně serveru vývojářů pro vytváření SPA. SpaServices se nevyžaduje k vývoji jednostránkové s ASP.NET Core a nezamkne vývojáře do konkrétního klientského rozhraní.
 
 SpaServices infrastrukturu užitečné jako:
 
@@ -62,11 +69,11 @@ Pro práci s SpaServices, nainstalujte následující:
     node -v && npm -v
     ```
 
-  * Pokud nasazení na web Azure, nemusíte nic dělat&mdash;Node.js je nainstalováný a dostupný v serverových prostředích.
+  * Pokud nasazujete na web Azure, není k dispozici&mdash;žádná akce Node. js, která je k dispozici v prostředích serveru.
 
 * [!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
 
-  * Ve Windows pomocí sady Visual Studio 2017, je nainstalován sadu SDK tak, že vyberete **vývoj pro různé platformy .NET Core** pracovního vytížení.
+  * V systému Windows pomocí sady Visual Studio 2017 se sada SDK nainstaluje výběrem úlohy **vývoje .NET Core pro různé platformy** .
 
 * [Microsoft.AspNetCore.SpaServices](https://www.nuget.org/packages/Microsoft.AspNetCore.SpaServices/) balíček NuGet
 
@@ -76,15 +83,15 @@ Univerzální aplikace (označované také jako isomorphic) je schopný běžet 
 
 ASP.NET Core [pomocných rutin značek](xref:mvc/views/tag-helpers/intro) poskytované SpaServices zjednodušení implementace modulů na straně serveru dokončení fáze před vykreslením vyvoláním funkce jazyka JavaScript na serveru.
 
-### <a name="server-side-prerendering-prerequisites"></a>Před vykreslením požadavky na straně serveru
+### <a name="server-side-prerendering-prerequisites"></a>Požadavky na předběžné vykreslování na straně serveru
 
-Nainstalujte [aspnet – dokončení fáze před vykreslením](https://www.npmjs.com/package/aspnet-prerendering) balíčku npm:
+Nainstalujte balíček npm [s předvykreslováním ASPNET](https://www.npmjs.com/package/aspnet-prerendering) :
 
 ```console
 npm i -S aspnet-prerendering
 ```
 
-### <a name="server-side-prerendering-configuration"></a>Před vykreslením konfigurace na straně serveru
+### <a name="server-side-prerendering-configuration"></a>Konfigurace předvykreslování na straně serveru
 
 Pomocné rutiny značek se provádí objevitelný prostřednictvím registrace oboru názvů v projektu *_ViewImports.cshtml* souboru:
 
@@ -94,7 +101,7 @@ Tyto pomocné rutiny značek abstrakci složitými rozhraními komunikovat pří
 
 [!code-cshtml[](../client-side/spa-services/sample/SpaServicesSampleApp/Views/Home/Index.cshtml?range=5)]
 
-### <a name="asp-prerender-module-tag-helper"></a>Pomocná rutina značky prostředí ASP. provedením operace prerender modulu
+### <a name="asp-prerender-module-tag-helper"></a>ASP-PreRender-pomocník značek modulu
 
 `asp-prerender-module` Pomocné rutiny značky použité v předchozím příkladu kód provede *ClientApp/dist/main-server.js* na serveru pomocí Node.js. Pro přehlednost společnosti saké *hlavní server.js* je artefakt úlohy transpilation TypeScript pro JavaScript v souboru [Webpacku](https://webpack.github.io/) procesu sestavení. Webpacku definuje vstupní bod aliasu `main-server`; a procházení grafu závislostí pro tento alias začíná *ClientApp/spouštěcí server.ts* souboru:
 
@@ -104,7 +111,7 @@ V následujícím příkladu Angular *ClientApp/spouštěcí server.ts* využív
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-34,79-)]
 
-### <a name="asp-prerender-data-tag-helper"></a>Pomocná rutina značky prostředí ASP. provedením operace prerender dat
+### <a name="asp-prerender-data-tag-helper"></a>ASP-PreRender-Pomocník s datovou značkou
 
 Pokud spolu s `asp-prerender-module` pomocné rutiny značky `asp-prerender-data` pomocné rutiny značky lze použít k předání kontextové informace ze zobrazení syntaxe Razor pro jazyk JavaScript na straně serveru. Například následující kód předá data uživatele `main-server` modul:
 
@@ -114,7 +121,7 @@ Přijatého `UserName` argument serializován pomocí předdefinovaných seriali
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-21,38-52,79-)]
 
-Názvy vlastností, které jsou předány v pomocných rutin značek jsou reprezentovány s **PascalCase** zápis. Kontrast, JavaScript, kde jsou reprezentovány stejné názvy vlastností **camelCase**. Výchozí konfigurace serializace JSON je zodpovědná za tento rozdíl.
+Názvy vlastností předané v Pomocníkech značek jsou reprezentovány **PascalCase** Notation. Kontrast, JavaScript, kde jsou reprezentovány stejné názvy vlastností **camelCase**. Výchozí konfigurace serializace JSON je zodpovědná za tento rozdíl.
 
 Rozbalte na předchozí příklad kódu, data mohou být předána ze serveru do zobrazení podle hydrating `globals` zadanou pro vlastnost `resolve` funkce:
 
@@ -132,15 +139,15 @@ Rozbalte na předchozí příklad kódu, data mohou být předána ze serveru do
 "build": "npm run build:vendor && npm run build:custom",
 ```
 
-### <a name="webpack-dev-middleware-prerequisites"></a>Middleware Webpacku vývoj požadavků
+### <a name="webpack-dev-middleware-prerequisites"></a>Požadavky na middleware pro vývoj pro Webpack
 
-Nainstalujte [aspnet webpacku](https://www.npmjs.com/package/aspnet-webpack) balíčku npm:
+Instalace balíčku [ASPNET-Webpack](https://www.npmjs.com/package/aspnet-webpack) npm:
 
 ```console
 npm i -D aspnet-webpack
 ```
 
-### <a name="webpack-dev-middleware-configuration"></a>Konfigurace Webpacku Dev middlewaru
+### <a name="webpack-dev-middleware-configuration"></a>Konfigurace pro vývoj middlewaru pro Webpack
 
 Webpacku Dev middlewaru je zaregistrovat do kanál požadavků HTTP prostřednictvím následující kód *Startup.cs* souboru `Configure` metody:
 
@@ -156,15 +163,15 @@ Webpacku Dev middlewaru je zaregistrovat do kanál požadavků HTTP prostřednic
 
 Představte si, že na Webpacku [horké nahrazení modulu](https://webpack.js.org/concepts/hot-module-replacement/) (HMR) funkce jako vývojem představ o [Webpacku Dev Middleware](#webpack-dev-middleware). HMR představuje stejné výhody, ale další zjednodušuje pracovní postup vývoje pomocí automaticky aktualizuje obsah stránky po kompilaci změn. Tento nástroj nezaměnili při aktualizaci prohlížeče, které by mohly narušit aktuálního stavu v paměti a ladicí relace tato jednostránková aplikace. Je aktivní propojení mezi službou Webpacku Dev Middleware a prohlížeče, což znamená, že změny jsou vloženy do prohlížeče.
 
-### <a name="hot-module-replacement-prerequisites"></a>Aktivní požadavky modulu nahrazení
+### <a name="hot-module-replacement-prerequisites"></a>Požadavky na nahrazení horkého modulu
 
-Nainstalujte [webpacku horkou middleware](https://www.npmjs.com/package/webpack-hot-middleware) balíčku npm:
+Nainstalujte balíček [Webpack – Hot-middleware](https://www.npmjs.com/package/webpack-hot-middleware) npm:
 
 ```console
 npm i -D webpack-hot-middleware
 ```
 
-### <a name="hot-module-replacement-configuration"></a>Aktivní konfigurace modulu nahrazení
+### <a name="hot-module-replacement-configuration"></a>Konfigurace nahrazení horkého modulu
 
 Komponenta HMR musí být zaregistrovaný do kanál požadavků HTTP pro MVC v `Configure` metody:
 
@@ -186,29 +193,29 @@ Po načtení aplikace v prohlížeči, poskytuje nástroje pro vývojáře kartu
 
 ## <a name="routing-helpers"></a>Směrování pomocné rutiny
 
-Ve většině SPA založené na ASP.NET Core směrování na straně klienta se často vyžaduje kromě směrování na straně serveru. Jednostránková aplikace a MVC směrovací systémy může pracovat nezávisle na bez rušení. Existuje, ale jeden okraj případu představující vyzve: identifikace obdržíte kód odpovědi HTTP 404.
+Ve většině ASP.NET Core jednostránkové na straně klienta je často žádoucí směrování na straně klienta kromě směrování na straně serveru. Jednostránková aplikace a MVC směrovací systémy může pracovat nezávisle na bez rušení. Existuje, ale jeden okraj případu představující vyzve: identifikace obdržíte kód odpovědi HTTP 404.
 
-Vezměte v úvahu scénář, ve kterém bez přípony trasu `/some/page` se používá. Předpokládejme, požadavek nebude – porovnávací trasu na straně serveru, ale jeho vzor neshoduje trasu na straně klienta. Teď se podíváme příchozí žádosti pro `/images/user-512.png`, což obecně očekává, že se najít soubor obrázku na serveru. Pokud tuto cestu požadovaného prostředku neodpovídá žádné trasu na straně serveru nebo statický soubor, je pravděpodobné, že aplikace na straně klienta by ji zpracovat&mdash;obvykle vrátí stavový kód HTTP 404 je žádoucí.
+Vezměte v úvahu scénář, ve kterém bez přípony trasu `/some/page` se používá. Předpokládejme, požadavek nebude – porovnávací trasu na straně serveru, ale jeho vzor neshoduje trasu na straně klienta. Teď se podíváme příchozí žádosti pro `/images/user-512.png`, což obecně očekává, že se najít soubor obrázku na serveru. Pokud tato požadovaná cesta prostředku neodpovídá žádné cestě na straně serveru ani ke statickému souboru, je pravděpodobné, že aplikace na straně klienta nebude&mdash;obvykle zpracovávat stavový kód protokolu HTTP 404.
 
-### <a name="routing-helpers-prerequisites"></a>Požadavky směrování pomocné rutiny
+### <a name="routing-helpers-prerequisites"></a>Požadavky na helpdesky směrování
 
-Nainstalujte balíček npm směrování na straně klienta. Jako příklad použijeme Angular:
+Nainstalujte balíček npm pro směrování na straně klienta. Jako příklad použijeme Angular:
 
 ```console
 npm i -S @angular/router
 ```
 
-### <a name="routing-helpers-configuration"></a>Konfigurace směrování pomocné rutiny
+### <a name="routing-helpers-configuration"></a>Konfigurace pomocníků pro směrování
 
 Rozšiřující metoda s názvem `MapSpaFallbackRoute` je používán `Configure` metody:
 
 [!code-csharp[](../client-side/spa-services/sample/SpaServicesSampleApp/Startup.cs?name=snippet_MvcRoutingTable&highlight=7-9)]
 
-Trasy se vyhodnocují v pořadí, ve kterém jsou nakonfigurované. V důsledku toho `default` trasy v předchozím příkladu kódu je nejdříve nepoužije pro porovnávání vzorů.
+Trasy jsou vyhodnocovány v pořadí, ve kterém jsou konfigurovány. V důsledku toho `default` trasy v předchozím příkladu kódu je nejdříve nepoužije pro porovnávání vzorů.
 
 ## <a name="create-a-new-project"></a>Vytvoření nového projektu
 
-JavaScript služby poskytují předem nakonfigurované aplikace šablony. Tyto šablony ve spojení s jinou architektury a knihovny, například Angular, React nebo Reduxem SpaServices používá.
+Služby JavaScriptu poskytují předem nakonfigurované šablony aplikací. SpaServices se používá v těchto šablonách společně s různými rozhraními a knihovnami, jako je například úhlová, reakce a Redux.
 
 Tyto šablony lze ji nainstalovat prostřednictvím rozhraní příkazového řádku .NET Core, spuštěním následujícího příkazu:
 
@@ -241,9 +248,9 @@ Existují dva způsoby konfigurace primární runtime:
   * Vyloučí zdrojových mapování.
   * Optimalizuje kód na straně klienta prostřednictvím sdružování a minifikace.
 
-ASP.NET Core, používá proměnnou prostředí s názvem `ASPNETCORE_ENVIRONMENT` k uložení režim konfigurace arm. Další informace najdete v tématu [nastavte prostředí](xref:fundamentals/environments#set-the-environment).
+ASP.NET Core, používá proměnnou prostředí s názvem `ASPNETCORE_ENVIRONMENT` k uložení režim konfigurace arm. Další informace najdete v tématu [nastavení prostředí](xref:fundamentals/environments#set-the-environment).
 
-### <a name="run-with-net-core-cli"></a>Spuštění pomocí .NET Core CLI
+### <a name="run-with-net-core-cli"></a>Spustit s .NET Core CLI
 
 Obnovte spuštěním následujícího příkazu v kořenovém adresáři projektu vyžaduje NuGet a npm, balíčků:
 
@@ -259,7 +266,7 @@ dotnet run
 
 Spuštění aplikace v místním hostiteli podle [režim konfigurace modulu runtime](#set-the-runtime-configuration-mode). Přejděte na `http://localhost:5000` v prohlížeči se zobrazí na úvodní stránku.
 
-### <a name="run-with-visual-studio-2017"></a>Spuštění sady Visual Studio 2017
+### <a name="run-with-visual-studio-2017"></a>Spustit se sadou Visual Studio 2017
 
 Otevřít *.csproj* soubor generovaný nástrojem [dotnet nové](/dotnet/core/tools/dotnet-new) příkazu. Obnoví požadované balíčky NuGet a npm se automaticky při otevření projektu. Tento proces obnovení může trvat několik minut a aplikace je připraven ke spuštění až po dokončení. Klikněte na zelené tlačítko pro spuštění nebo stisknutím klávesy `Ctrl + F5`, a v prohlížeči otevře úvodní stránku aplikace. Aplikace bude spuštěna na místním hostiteli podle [režim konfigurace modulu runtime](#set-the-runtime-configuration-mode).
 
@@ -289,10 +296,10 @@ Kombinování vygenerovaných prostředků na straně klienta a publikované art
 
 Cíl nástroje MSBuild má následující zodpovědnosti:
 
-1. Obnovení balíčků npm.
-1. Vytvoření produkčních sestavení prostředků třetích stran, na straně klienta.
-1. Vytvoření produkčních sestavení vlastních prostředků na straně klienta.
-1. Kopírovat materiály generované Webpacku do složky publikovat.
+1. Obnovte balíčky npm.
+1. Vytvoření výrobního sestavení prostředků na straně klienta.
+1. Vytvořte výrobní sestavení vlastních prostředků na straně klienta.
+1. Zkopírujte prostředky vygenerované v sadě Webpack do složky pro publikování.
 
 Cíl nástroje MSBuild je vyvolána při spuštění:
 

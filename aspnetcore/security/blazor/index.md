@@ -5,14 +5,14 @@ description: Přečtěte si o scénářích ověřování a autorizace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/29/2019
+ms.date: 09/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: 8714acbeb6e8a00992a601030811b24f53426b82
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 2ba7b0612c2be50ae0797c50dc3cb0d63c0f0c2d
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310524"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800505"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
@@ -277,7 +277,7 @@ V případě, že se uživatel neověřuje, můžete také Dodejte jiný obsah, 
 </AuthorizeView>
 ```
 
-Obsah `<Authorized>` a`<NotAuthorized>` může zahrnovat libovolné položky, jako jsou například jiné interaktivní komponenty.
+Obsah `<Authorized>` značek a `<NotAuthorized>` může obsahovat libovolné položky, jako jsou například jiné interaktivní komponenty.
 
 Podmínky autorizace, jako jsou role nebo zásady, které řídí možnosti uživatelského rozhraní nebo přístup, jsou uvedené v části [autorizace](#authorization) .
 
@@ -410,9 +410,9 @@ Ve výchozí šabloně projektu na straně serveru Blazor soubor *App. Razor* uk
 </Router>
 ```
 
-Obsah `<NotFound>`, `<NotAuthorized>`a můžezahrnovatlibovolnépoložky,jakojsounapříkladjinéinteraktivníkomponenty.`<Authorizing>`
+Obsah `<NotFound>`značek, `<NotAuthorized>`a `<Authorizing>` může obsahovat libovolné položky, jako jsou například jiné interaktivní komponenty.
 
-Pokud `<NotAuthorized>` není zadaný `<AuthorizeRouteView>` , použije se tato záložní zpráva:
+Pokud není `AuthorizeRouteView` element zadán, používá následující záložní zprávu: `<NotAuthorized>`
 
 ```html
 Not authorized.

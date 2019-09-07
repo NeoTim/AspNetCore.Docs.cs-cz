@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 9f5ecc7840fc7ffd9432a3bb67d0418efb7e8fd6
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 261abae499a0d5f807a14aebd224949881067bc7
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975620"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773813"
 ---
 # <a name="net-generic-host"></a>Obecný hostitel .NET
 
@@ -170,6 +170,8 @@ Další informace najdete v tématu [konfigurace v ASP.NET Core](xref:fundamenta
 
 V této části jsou uvedená nastavení hostitele, která se vztahují na úlohy HTTP i bez HTTP. Ve výchozím nastavení proměnné prostředí použité pro konfiguraci těchto nastavení mohou mít `DOTNET_` předponu nebo. `ASPNETCORE_`
 
+<!-- In the following sections, two spaces at end of line are used to force line breaks in the rendered page. -->
+
 ### <a name="applicationname"></a>ApplicationName
 
 Vlastnost [IHostEnvironment. ApplicationName](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ApplicationName*) je nastavena v konfiguraci hostitele během vytváření hostitele.
@@ -312,8 +314,9 @@ webBuilder.UseSetting(WebHostDefaults.HostingStartupExcludeAssembliesKey, "assem
 
 Port přesměrování HTTPS. Používá se při [vynucování https](xref:security/enforcing-ssl).
 
-**Klíč**: https_port **typ**:**Výchozí hodnota** *řetězce*
-: Výchozí hodnota není nastavena.
+**Klíč**: https_port  
+**Typ**: *řetězec*  
+**Výchozí**: Výchozí hodnota není nastavena.  
 **Proměnná prostředí**:`<PREFIX_>HTTPS_PORT`
 
 Chcete-li nastavit tuto hodnotu, použijte konfiguraci `UseSetting`nebo volání:
@@ -356,7 +359,8 @@ webBuilder.UseSetting(WebHostDefaults.PreventHostingStartupKey, "true");
 
 Sestavení, ve kterém se má `Startup` Hledat třída
 
-**Klíč**: startupAssembly **typ**: *řetězec*  
+**Klíč**: startupAssembly  
+**Typ**: *řetězec*  
 **Výchozí**: Sestavení aplikace  
 **Proměnná prostředí**:`<PREFIX_>STARTUPASSEMBLY`
 
@@ -376,8 +380,8 @@ Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokol
 
 **Klíč**: adresy URL  
 **Typ**: *řetězec*  
-**Výchozí**: `http://localhost:5000` a `https://localhost:5001`proměnná prostředí: 
-`<PREFIX_>URLS`
+**Výchozí**: `http://localhost:5000` a`https://localhost:5001`  
+**Proměnná prostředí**:`<PREFIX_>URLS`
 
 K nastavení této hodnoty použijte proměnnou prostředí nebo volání `UseUrls`:
 
@@ -656,7 +660,7 @@ Chcete-li přesunout soubory nastavení do výstupního adresáře, zadejte soub
 
 Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. Další informace naleznete v tématu <xref:fundamentals/host/hosted-services>.
 
-[Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) `AddHostedService` používá metodu rozšíření k přidání služby pro události života, `LifetimeEventsHostedService`a časově omezená úloha `TimedHostedService`na pozadí, do aplikace:
+[Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/generic-host/samples/) používá `AddHostedService` metodu rozšíření k přidání služby pro události života, `LifetimeEventsHostedService`a časově omezená úloha `TimedHostedService`na pozadí, do aplikace:
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_ConfigureServices)]
 

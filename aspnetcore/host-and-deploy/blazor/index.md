@@ -5,14 +5,14 @@ description: Objevte, jak hostovat a nasazovat aplikace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 09/05/2019
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: d18abbf33c71dca5130bfc6b503b46c1d5bce537
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 5a56bbda5bb7727c7dbeaed7f2a91d0dcb6e7e71
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68913929"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773588"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>Hostování a nasazení ASP.NET Core Blazor
 
@@ -44,15 +44,48 @@ Aplikace Blazor na straně klienta je publikovaná ve složce */bin/Release/{Tar
 
 Prostředky ve složce jsou nasazeny na webový server. Nasazení může být ruční nebo automatizovaný proces v závislosti na používaných vývojářských nástrojích.
 
+## <a name="app-base-path"></a>Základní cesta aplikace
+
+*Základní cesta aplikace* je kořenová cesta URL aplikace. Vezměte v úvahu následující hlavní aplikace a aplikace Blazor:
+
+* Je volána `MyApp`hlavní aplikace:
+  * Aplikace se fyzicky nachází v *\\d: MyApp*.
+  * Žádosti jsou přijímány `https://www.contoso.com/{MYAPP RESOURCE}`na adrese.
+* Volaná `CoolApp` aplikace Blazor je dílčí `MyApp`aplikace:
+  * Dílčí aplikace je fyzicky umístěná v *d:\\MyApp\\CoolApp*.
+  * Žádosti jsou přijímány `https://www.contoso.com/CoolApp/{COOLAPP RESOURCE}`na adrese.
+
+Bez zadání další konfigurace pro `CoolApp`nemůže podaplikace v tomto scénáři znát, kde se nachází na serveru. Aplikace například nemůže sestavovat správné relativní adresy URL k prostředkům bez vědomí, že se nachází v relativní cestě `/CoolApp/`URL.
+
+Chcete-li zadat konfiguraci `https://www.contoso.com/CoolApp/`pro základní cestu aplikace Blazor `<base>` , je `href` atribut značky nastaven na relativní kořenovou cestu v souboru *wwwroot/index.html* :
+
+```html
+<base href="/CoolApp/">
+```
+
+Když zadáte relativní cestu URL, komponenta, která není v kořenovém adresáři, může vytvářet adresy URL relativní k kořenové cestě aplikace. Komponenty na různých úrovních adresářové struktury můžou vytvářet odkazy na jiné prostředky v umístění v rámci aplikace. Základní cesta aplikace se také používá k zachycení hypertextového odkazu, kde `href` cíl odkazu je v rámci základní cesty k umístění&mdash;identifikátoru URI aplikace, Blazor směrovač zpracovává interní navigaci.
+
+V mnoha hostitelských scénářích je relativní cesta URL k aplikaci kořenem aplikace. V těchto případech je základní cestou k relativní adrese URL aplikace lomítko (`<base href="/" />`), což je výchozí konfigurace aplikace Blazor. V jiných scénářích hostování, jako jsou stránky GitHubu a podaplikace služby IIS, musí být základní cesta aplikace nastavená na relativní cestu URL serveru k aplikaci.
+
+Chcete-li nastavit základní cestu aplikace, aktualizujte `<base>` značku `<head>` v rámci prvků značek souboru *wwwroot/index.html* . Nastavte hodnotu `/{RELATIVE URL PATH}/`atributuna (vyžaduje se koncové lomítko), kde `{RELATIVE URL PATH}` je úplná relativní cesta URL aplikace. `href`
+
+Pro aplikaci, která má nekořenovou cestu relativní adresy URL (například `<base href="/CoolApp/">`), aplikace *při místním spuštění*nenalezne své prostředky. Chcete-li tento problém překonat při místním vývoji a testování, můžete dodat *základní argument Path* , který odpovídá `href` hodnotě `<base>` značky za běhu. Pokud chcete předat základní argument Path při místním spuštění aplikace, spusťte `dotnet run` příkaz z adresáře aplikace `--pathbase` s možností:
+
+```console
+dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}
+```
+
+Pro aplikaci s relativní cestou `/CoolApp/` URL (`<base href="/CoolApp/">`) je tento příkaz:
+
+```console
+dotnet run --pathbase=/CoolApp
+```
+
+Aplikace odpoví místně na adrese `http://localhost:port/CoolApp`.
+
 ## <a name="deployment"></a>Nasazení
 
 Pokyny k nasazení najdete v následujících tématech:
 
 * <xref:host-and-deploy/blazor/client-side>
 * <xref:host-and-deploy/blazor/server-side>
-
-## <a name="blazor-serverless-hosting-with-azure-storage"></a>Blazor hostování bez serveru pomocí Azure Storage
-
-Blazor aplikace na straně klienta je možné obsluhovat z [Azure Storage](https://azure.microsoft.com/services/storage/) jako statický obsah přímo z kontejneru úložiště.
-
-Další informace najdete v tématu [hostování a nasazení ASP.NET Core Blazor na straně klienta (samostatné nasazení): Azure Storage](xref:host-and-deploy/blazor/client-side#azure-storage).

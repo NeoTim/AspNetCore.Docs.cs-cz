@@ -1,57 +1,57 @@
 ---
 title: Zápis vlastního middlewaru ASP.NET Core
 author: rick-anderson
-description: Informace o psaní vlastního middlewaru ASP.NET Core.
+description: Naučte se psát vlastní middleware ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/17/2019
+ms.date: 08/22/2019
 uid: fundamentals/middleware/write
-ms.openlocfilehash: 352db93dd7061070c76e34f6c03883f68e2041ee
-ms.sourcegitcommit: 28a2874765cefe9eaa068dceb989a978ba2096aa
+ms.openlocfilehash: e74bba9e1bd826d4f493b0ee642a198f984daada
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67167100"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773720"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>Zápis vlastního middlewaru ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Steve Smith](https://ardalis.com/)
+Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Steve Smith](https://ardalis.com/)
 
-Middleware je software, který je sestaven do kanálu služby aplikace pro zpracování požadavků a odpovědí. ASP.NET Core nabízí bohaté nastavit integrované middlewarových komponent, ale v některých případech můžete chtít napsat vlastního middlewaru.
+Middleware je software, který je včleněn do kanálu aplikace a zpracovává požadavky a odpovědi. ASP.NET Core poskytuje bohatou sadu integrovaných komponent middlewaru, ale v některých případech můžete chtít napsat vlastní middleware.
 
-## <a name="middleware-class"></a>Třída middlewaru
+## <a name="middleware-class"></a>Middleware – třída
 
-Middleware je obecně zapouzdřené v třídě a vystavený s metodou rozšíření. Vezměte v úvahu následující middlewaru, který nastaví jazykovou verzi pro aktuální požadavek z řetězce dotazu:
+Middleware je obecně zapouzdřena ve třídě a vystavena s metodou rozšíření. Vezměte v úvahu následující middleware, který nastaví jazykovou verzi pro aktuální požadavek z řetězce dotazu:
 
-[!code-csharp[](index/snapshot/Culture/StartupCulture.cs?name=snippet1)]
+[!code-csharp[](write/snapshot/StartupCulture.cs)]
 
-Předchozí kód ukázkové slouží k předvedení vytváření komponenta middlewaru. ASP.NET Core lokalizace integrovanou podporu najdete na webu <xref:fundamentals/localization>.
+Předchozí vzorový kód slouží k předvedení vytváření komponenty middlewaru. Integrovanou podporu lokalizace ASP.NET Core najdete v tématu <xref:fundamentals/localization>.
 
-Otestujte middleware předáním jazykovou verzi. Například požadovat `https://localhost:5001/?culture=no`.
+Otestujte middleware předáním v jazykové verzi. Například Request `https://localhost:5001/?culture=no`.
 
-Následující kód přesune delegáta middleware pro třídu:
+Následující kód přesune delegáta middlewaru do třídy:
 
-[!code-csharp[](index/snapshot/Culture/RequestCultureMiddleware.cs)]
+[!code-csharp[](write/snapshot/RequestCultureMiddleware.cs)]
 
-Třída middlewaru, musí obsahovat:
+Třída middleware musí zahrnovat:
 
 * Veřejný konstruktor s parametrem typu <xref:Microsoft.AspNetCore.Http.RequestDelegate>.
 * Veřejná metoda s názvem `Invoke` nebo `InvokeAsync`. Tato metoda musí:
-  * Vrátit `Task`.
-  * První parametr typu přijmout <xref:Microsoft.AspNetCore.Http.HttpContext>.
+  * `Task`Vrátí.
+  * Přijměte první parametr typu <xref:Microsoft.AspNetCore.Http.HttpContext>.
   
-Další parametry pro konstruktor a `Invoke` / `InvokeAsync` jsou vyplněn [injektáž závislostí (DI)](xref:fundamentals/dependency-injection).
+Další parametry pro `Invoke` konstruktor a / `InvokeAsync` jsou vyplněny pomocí [Injektáže závislosti (di)](xref:fundamentals/dependency-injection).
 
-## <a name="middleware-dependencies"></a>Middleware závislosti
+## <a name="middleware-dependencies"></a>Závislosti middlewaru
 
-Postupujte podle middleware [explicitní závislosti Princip](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies) zveřejněním závislých 've svém konstruktoru. Middleware je vytvořen jednou za *dobu životnosti aplikace*. Najdete v článku [middleware závislosti na požadavku](#per-request-middleware-dependencies) části, pokud je potřeba sdílet s middlewaru v rámci žádost o služby.
+Middleware by měly následovat po [principu explicitní závislosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies) tím, že vystaví jeho závislosti ve svém konstruktoru. Middleware je postaven jednou za *dobu života aplikace*. Pokud potřebujete v rámci žádosti sdílet služby se middlewarem, podívejte se na část [závislosti middlewaru na žádost](#per-request-middleware-dependencies) .
 
-Middlewarových komponent lze vyřešit jejich závislosti z [injektáž závislostí (DI)](xref:fundamentals/dependency-injection) prostřednictvím parametry konstruktoru. [UseMiddleware&lt;T&gt; ](/dotnet/api/microsoft.aspnetcore.builder.usemiddlewareextensions.usemiddleware#Microsoft_AspNetCore_Builder_UseMiddlewareExtensions_UseMiddleware_Microsoft_AspNetCore_Builder_IApplicationBuilder_System_Type_System_Object___) můžete také přijmout přímo další parametry.
+Komponenty middlewaru mohou vyřešit své závislosti z [Injektáže závislosti (di)](xref:fundamentals/dependency-injection) prostřednictvím parametrů konstruktoru. [UseMiddleware&lt;T&gt; ](/dotnet/api/microsoft.aspnetcore.builder.usemiddlewareextensions.usemiddleware#Microsoft_AspNetCore_Builder_UseMiddlewareExtensions_UseMiddleware_Microsoft_AspNetCore_Builder_IApplicationBuilder_System_Type_System_Object___) může také přímo přijmout další parametry.
 
-## <a name="per-request-middleware-dependencies"></a>Middleware závislosti na základě žádosti
+## <a name="per-request-middleware-dependencies"></a>Závislosti middlewaru na požadavek
 
-Protože middlewaru je vytvořen při spuštění aplikace, nikoli jednotlivých žádostí, *obor* služby životního cyklu používat middleware konstruktory nejsou sdíleny s jinými typy vložený závislostí při každém požadavku. Pokud musíte sdílet *obor* služby mezi middlewaru a ostatními typy, přidejte tyto služby `Invoke` podpis metody. `Invoke` Metoda může přijímat další parametry, které se vyplní podle DI:
+Vzhledem k tomu, že middleware se vytvářejí při spuštění aplikace, ne na vyžádání, jsou *služby životnosti* , které jsou používány konstruktory middleware, sdíleny s jinými typy vloženými závislostmi během každé žádosti. Pokud potřebujete sdílet *vymezenou* službu mezi middlewarem a jinými typy, přidejte tyto služby do `Invoke` signatury metody. `Invoke` Metoda může přijmout další parametry, které jsou vyplněny parametrem di:
 
 ```csharp
 public class CustomMiddleware
@@ -74,13 +74,13 @@ public class CustomMiddleware
 
 ## <a name="middleware-extension-method"></a>Metoda rozšíření middlewaru
 
-Poskytuje následující metody rozšíření middleware prostřednictvím <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>:
+Následující rozšiřující metoda zpřístupňuje middleware prostřednictvím <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>:
 
-[!code-csharp[](index/snapshot/Culture/RequestCultureMiddlewareExtensions.cs)]
+[!code-csharp[](write/snapshot/RequestCultureMiddlewareExtensions.cs)]
 
 Následující kód volá middleware z `Startup.Configure`:
 
-[!code-csharp[](index/snapshot/Culture/Startup.cs?name=snippet1&highlight=5)]
+[!code-csharp[](write/snapshot/Startup.cs?highlight=5)]
 
 ## <a name="additional-resources"></a>Další zdroje
 

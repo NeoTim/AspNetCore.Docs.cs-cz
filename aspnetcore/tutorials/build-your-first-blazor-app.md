@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 2f0410eb75a6ef3f3d361c75bce7e79ae6d42a61
-ms.sourcegitcommit: 983b31449fe398e6e922eb13e9eb6f4287ec91e8
+ms.openlocfilehash: ea1111f43b6b8b4f47061056e8ad8d505f92dba6
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/24/2019
-ms.locfileid: "70017506"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800488"
 ---
 # <a name="build-your-first-blazor-app"></a>Vytvoření první aplikace v Blazor
 
@@ -24,7 +24,7 @@ Podle pokynů v <xref:blazor/get-started> článku vytvořte projekt Blazor pro 
 
 ## <a name="build-components"></a>Komponenty sestavení
 
-1. Ve složce Pages ( *stránky* ) vyhledejte jednotlivé tři stránky aplikace: Domů, čítač a načíst data. Tyto stránky jsou implementovány pomocí indexu souborů komponent Razor *. Razor*, *Counter. Razor*a *FetchData. Razor*.
+1. Ve složce *Pages (stránky* ) vyhledejte jednotlivé tři stránky aplikace: Domů, čítač a načíst data. Tyto stránky jsou implementovány pomocí indexu souborů komponent Razor *. Razor*, *Counter. Razor*a *FetchData. Razor*.
 
 1. Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale Blazor poskytuje lepší přístup pomocí C#.
 
@@ -67,11 +67,11 @@ Zahrnutí komponenty do jiné komponenty pomocí syntaxe jazyka HTML.
 
 ## <a name="component-parameters"></a>Parametry součásti
 
-Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pomocí veřejných vlastností třídy Component dekorované pomocí `[Parameter]`. Použijte atributy k určení argumentů pro komponentu v kódu.
+Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pomocí veřejných vlastností třídy Component s `[Parameter]` atributem. Použijte atributy k určení argumentů pro komponentu v kódu.
 
 1. Aktualizujte C# kód komponenty `@code` :
 
-   * Přidejte vlastnost upravenou `[Parameter]`atributem. `IncrementAmount`
+   * Přidejte veřejnou `IncrementAmount` vlastnost `[Parameter]` s atributem.
    * Změňte metodu na `IncrementAmount` použití`currentCount`při zvyšování hodnoty. `IncrementCount`
 
    *Stránky/čítač. Razor*:

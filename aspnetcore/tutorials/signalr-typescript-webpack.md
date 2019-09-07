@@ -6,12 +6,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 04/23/2019
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: fec89cab52b5909344d2ebc0d69582ecf97ecefc
-ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
+ms.openlocfilehash: 628fbb9940ad14cb15e3abd88b8b6a524b24d70a
+ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70384950"
+ms.lasthandoff: 09/06/2019
+ms.locfileid: "70773948"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>Použití signalizace ASP.NET Core s TypeScript a webpackem
 
@@ -413,6 +413,8 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 1. Namapujte */hub* trasu na `ChatHub` centrum. Na konec `Startup.Configure` metody přidejte následující řádky:
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_UseSignalR)]
+
+::: moniker-end
 
 1. V kořenovém adresáři projektu vytvořte nový adresář s názvem *centra*. Jejím účelem je uložit centrum signalizace, které se vytvoří v dalším kroku.
 

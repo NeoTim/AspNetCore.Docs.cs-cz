@@ -5,14 +5,14 @@ description: Podívejte se, jak aplikace Blazor můžou vkládat služby do sou�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/02/2019
+ms.date: 09/06/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: a2bfa0cbe951e817ed6264f1a151d5a716cd795c
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 0b48cd0cbe14d2b07627f56ab78611bbd3209fa1
+ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310357"
+ms.lasthandoff: 09/07/2019
+ms.locfileid: "70800391"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>Vkládání závislostí ASP.NET Core Blazor
 
@@ -61,7 +61,7 @@ Služby je možné konfigurovat s životností, která jsou uvedená v následuj
 
 | Životnost | Popis |
 | -------- | ----------- |
-| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor na straně klienta aktuálně nemá koncept typu DI scopes. `Scoped`– registrované služby se chovají jako `Singleton` služby. Model hostování na straně serveru však podporuje `Scoped` dobu života. V komponentě Razor je vymezená registrace služby vymezená na připojení. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor aplikace pro WebAssembly aktuálně nemají koncept typu DI obory. `Scoped`– registrované služby se chovají jako `Singleton` služby. Model hostování na straně serveru však podporuje `Scoped` dobu života. V aplikacích Blazor Server je obor registrace služby vymezená na *připojení*. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI vytvoří *jednu instanci* služby. Všechny součásti, které `Singleton` vyžadují službu, obdrží instanci stejné služby. |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient*> | Pokaždé, když komponenta získá instanci `Transient` služby z kontejneru služby, obdrží *novou instanci* služby. |
 
@@ -124,6 +124,29 @@ Předpoklady pro vložení konstruktoru:
 * Je nutné, aby jeden konstruktor existoval, jehož argumenty mohou být splněny pomocí DI. Další parametry, které nejsou pokryty parametrem DI, jsou povoleny, pokud určují výchozí hodnoty.
 * Příslušný konstruktor musí být *veřejný*.
 * Musí existovat jeden použitelný konstruktor. V případě nejednoznačnosti Vyvolá příkaz DI výjimku.
+
+## <a name="utility-base-component-classes-to-manage-a-di-scope"></a>Základní třídy komponenty nástroje pro správu oboru DI
+
+V aplikacích ASP.NET Core jsou oborové služby obvykle vymezeny na aktuální požadavek. Po dokončení žádosti se v systému DI odstraní všechny obory nebo přechodné služby. V aplikacích Blazor Server je rozsah požadavků po dobu trvání připojení klienta, což může vést k přechodným a oborům služeb, které jsou delší, než se očekávalo.
+
+Chcete-li obor služeb omezit na životnost komponenty, lze použít `OwningComponentBase` základní třídy a. `OwningComponentBase<TService>` Tyto základní třídy zpřístupňují `ScopedServices` vlastnost typu `IServiceProvider` , která řeší služby s rozsahem životnosti komponenty. Chcete-li vytvořit komponentu, která dědí ze základní třídy ve Razor, použijte `@inherits` direktivu.
+
+```cshtml
+@page "/users"
+@attribute [Authorize]
+@inherits OwningComponentBase<Data.ApplicationDbContext>
+
+<h1>Users (@Service.Users.Count())</h1>
+<ul>
+    @foreach (var user in Service.Users)
+    {
+        <li>@user.UserName</li>
+    }
+</ul>
+```
+
+> [!NOTE]
+> Služby vložené do komponenty pomocí `@inject` `InjectAttribute` nebo nejsou vytvořeny v oboru komponenty a jsou svázány s oborem požadavku.
 
 ## <a name="additional-resources"></a>Další zdroje
 
