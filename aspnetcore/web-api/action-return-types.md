@@ -1,137 +1,195 @@
 ---
-title: Návratové typy akcí kontroleru v rozhraní Web API ASP.NET Core
+title: Návratové typy akcí kontroleru v ASP.NET Core webovém rozhraní API
 author: scottaddie
-description: Další informace o použití různé metody návratové typy akcí kontroleru v ASP.NET Core Web API.
+description: Přečtěte si o použití různých návratových typů metody kontroleru v ASP.NET Core webovém rozhraní API.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 01/04/2019
+ms.date: 09/09/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: b89ead55cd46ef62a3bc28b1cfc9077d3ce9aba2
-ms.sourcegitcommit: a04eb20e81243930ec829a9db5dd5de49f669450
+ms.openlocfilehash: 79134ab252f309f8b39b8db5f8f3e82035e0eb7f
+ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/03/2019
-ms.locfileid: "66470408"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70815748"
 ---
-# <a name="controller-action-return-types-in-aspnet-core-web-api"></a><span data-ttu-id="075b7-103">Návratové typy akcí kontroleru v rozhraní Web API ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="075b7-103">Controller action return types in ASP.NET Core Web API</span></span>
+# <a name="controller-action-return-types-in-aspnet-core-web-api"></a><span data-ttu-id="84b33-103">Návratové typy akcí kontroleru v ASP.NET Core webovém rozhraní API</span><span class="sxs-lookup"><span data-stu-id="84b33-103">Controller action return types in ASP.NET Core web API</span></span>
 
-<span data-ttu-id="075b7-104">Podle [Scott Addie](https://github.com/scottaddie)</span><span class="sxs-lookup"><span data-stu-id="075b7-104">By [Scott Addie](https://github.com/scottaddie)</span></span>
+<span data-ttu-id="84b33-104">[Scott Addie](https://github.com/scottaddie)</span><span class="sxs-lookup"><span data-stu-id="84b33-104">By [Scott Addie](https://github.com/scottaddie)</span></span>
 
-<span data-ttu-id="075b7-105">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/action-return-types/samples) ([stažení](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="075b7-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/action-return-types/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="84b33-105">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/action-return-types/samples) ([stažení](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="84b33-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/action-return-types/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="075b7-106">ASP.NET Core nabízí že následující možnosti pro akce kontroleru webového rozhraní API vrací typy:</span><span class="sxs-lookup"><span data-stu-id="075b7-106">ASP.NET Core offers the following options for Web API controller action return types:</span></span>
+<span data-ttu-id="84b33-106">ASP.NET Core nabízí následující možnosti pro návratové typy akce řadiče webového rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="84b33-106">ASP.NET Core offers the following options for web API controller action return types:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-* [<span data-ttu-id="075b7-107">Konkrétní typ</span><span class="sxs-lookup"><span data-stu-id="075b7-107">Specific type</span></span>](#specific-type)
-* [<span data-ttu-id="075b7-108">IActionResult</span><span class="sxs-lookup"><span data-stu-id="075b7-108">IActionResult</span></span>](#iactionresult-type)
-* [<span data-ttu-id="075b7-109">ActionResult\<T ></span><span class="sxs-lookup"><span data-stu-id="075b7-109">ActionResult\<T></span></span>](#actionresultt-type)
+* [<span data-ttu-id="84b33-107">Konkrétní typ</span><span class="sxs-lookup"><span data-stu-id="84b33-107">Specific type</span></span>](#specific-type)
+* [<span data-ttu-id="84b33-108">IActionResult</span><span class="sxs-lookup"><span data-stu-id="84b33-108">IActionResult</span></span>](#iactionresult-type)
+* [<span data-ttu-id="84b33-109">ActionResult\<T ></span><span class="sxs-lookup"><span data-stu-id="84b33-109">ActionResult\<T></span></span>](#actionresultt-type)
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.0"
 
-* [<span data-ttu-id="075b7-110">Konkrétní typ</span><span class="sxs-lookup"><span data-stu-id="075b7-110">Specific type</span></span>](#specific-type)
-* [<span data-ttu-id="075b7-111">IActionResult</span><span class="sxs-lookup"><span data-stu-id="075b7-111">IActionResult</span></span>](#iactionresult-type)
+* [<span data-ttu-id="84b33-110">Konkrétní typ</span><span class="sxs-lookup"><span data-stu-id="84b33-110">Specific type</span></span>](#specific-type)
+* [<span data-ttu-id="84b33-111">IActionResult</span><span class="sxs-lookup"><span data-stu-id="84b33-111">IActionResult</span></span>](#iactionresult-type)
 
 ::: moniker-end
 
-<span data-ttu-id="075b7-112">Tento dokument vysvětluje, kdy je nejvhodnější použít každý návratový typ.</span><span class="sxs-lookup"><span data-stu-id="075b7-112">This document explains when it's most appropriate to use each return type.</span></span>
+<span data-ttu-id="84b33-112">Tento dokument vysvětluje, kdy je nejvhodnější použít každý návratový typ.</span><span class="sxs-lookup"><span data-stu-id="84b33-112">This document explains when it's most appropriate to use each return type.</span></span>
 
-## <a name="specific-type"></a><span data-ttu-id="075b7-113">Konkrétní typ</span><span class="sxs-lookup"><span data-stu-id="075b7-113">Specific type</span></span>
+## <a name="specific-type"></a><span data-ttu-id="84b33-113">Konkrétní typ</span><span class="sxs-lookup"><span data-stu-id="84b33-113">Specific type</span></span>
 
-<span data-ttu-id="075b7-114">Nejjednodušší akce vrátí primitivních nebo složitých datový typ (například `string` nebo zadejte vlastní objekt).</span><span class="sxs-lookup"><span data-stu-id="075b7-114">The simplest action returns a primitive or complex data type (for example, `string` or a custom object type).</span></span> <span data-ttu-id="075b7-115">Vezměte v úvahu následující akce, která vrátí kolekci vlastní `Product` objekty:</span><span class="sxs-lookup"><span data-stu-id="075b7-115">Consider the following action, which returns a collection of custom `Product` objects:</span></span>
+<span data-ttu-id="84b33-114">Nejjednodušší akce vrátí primitivní nebo komplexní datový typ (například `string` nebo vlastní typ objektu).</span><span class="sxs-lookup"><span data-stu-id="84b33-114">The simplest action returns a primitive or complex data type (for example, `string` or a custom object type).</span></span> <span data-ttu-id="84b33-115">Vezměte v úvahu následující akci, která vrátí kolekci vlastních `Product` objektů:</span><span class="sxs-lookup"><span data-stu-id="84b33-115">Consider the following action, which returns a collection of custom `Product` objects:</span></span>
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_Get)]
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_Get)]
 
-<span data-ttu-id="075b7-116">Vrácení specifického typu může stačit bez známých podmínky k ochraně proti během provádění akce.</span><span class="sxs-lookup"><span data-stu-id="075b7-116">Without known conditions to safeguard against during action execution, returning a specific type could suffice.</span></span> <span data-ttu-id="075b7-117">Předchozí akci nepřijímá žádné parametry, takže není potřeba omezení ověření parametru.</span><span class="sxs-lookup"><span data-stu-id="075b7-117">The preceding action accepts no parameters, so parameter constraints validation isn't needed.</span></span>
+<span data-ttu-id="84b33-116">Bez známých podmínek pro ochranu proti během provádění akce může být pro vrácení určitého typu stačit.</span><span class="sxs-lookup"><span data-stu-id="84b33-116">Without known conditions to safeguard against during action execution, returning a specific type could suffice.</span></span> <span data-ttu-id="84b33-117">Předchozí akce nepřijímá žádné parametry, takže ověření omezení parametrů není nutné.</span><span class="sxs-lookup"><span data-stu-id="84b33-117">The preceding action accepts no parameters, so parameter constraints validation isn't needed.</span></span>
 
-<span data-ttu-id="075b7-118">Když známé podmínky musí být zahrnuté pro jedná o smluvní jednání, jsou zavedeny více návratový cesty.</span><span class="sxs-lookup"><span data-stu-id="075b7-118">When known conditions need to be accounted for in an action, multiple return paths are introduced.</span></span> <span data-ttu-id="075b7-119">V takovém případě je běžné kombinovat [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) návratový typ s návratovým typem primitivních nebo složitých.</span><span class="sxs-lookup"><span data-stu-id="075b7-119">In such a case, it's common to mix an [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) return type with the primitive or complex return type.</span></span> <span data-ttu-id="075b7-120">Buď [IActionResult](#iactionresult-type) nebo [ActionResult\<T >](#actionresultt-type) jsou nezbytné pro tento typ akce.</span><span class="sxs-lookup"><span data-stu-id="075b7-120">Either [IActionResult](#iactionresult-type) or [ActionResult\<T>](#actionresultt-type) are necessary to accommodate this type of action.</span></span>
+<span data-ttu-id="84b33-118">Pokud je nutné, aby byly v akci účtovány známé podmínky, jsou zavedeny vícenásobné návratové cesty.</span><span class="sxs-lookup"><span data-stu-id="84b33-118">When known conditions need to be accounted for in an action, multiple return paths are introduced.</span></span> <span data-ttu-id="84b33-119">V takovém případě je běžné kombinovat <xref:Microsoft.AspNetCore.Mvc.ActionResult> návratový typ s primitivním nebo komplexním návratovým typem.</span><span class="sxs-lookup"><span data-stu-id="84b33-119">In such a case, it's common to mix an <xref:Microsoft.AspNetCore.Mvc.ActionResult> return type with the primitive or complex return type.</span></span> <span data-ttu-id="84b33-120">K tomuto typu akce musí > [IActionResult](#iactionresult-type) nebo [ActionResult\<T](#actionresultt-type) .</span><span class="sxs-lookup"><span data-stu-id="84b33-120">Either [IActionResult](#iactionresult-type) or [ActionResult\<T>](#actionresultt-type) are necessary to accommodate this type of action.</span></span>
 
-## <a name="iactionresult-type"></a><span data-ttu-id="075b7-121">Typ IActionResult</span><span class="sxs-lookup"><span data-stu-id="075b7-121">IActionResult type</span></span>
+### <a name="return-ienumerablet-or-iasyncenumerablet"></a><span data-ttu-id="84b33-121">Vrátit IEnumerable\<t > nebo IAsyncEnumerable\<T ></span><span class="sxs-lookup"><span data-stu-id="84b33-121">Return IEnumerable\<T> or IAsyncEnumerable\<T></span></span>
 
-<span data-ttu-id="075b7-122">[IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) návratový typ je vhodné, když více [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) vrátí typy je možné v akci.</span><span class="sxs-lookup"><span data-stu-id="075b7-122">The [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) return type is appropriate when multiple [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) return types are possible in an action.</span></span> <span data-ttu-id="075b7-123">`ActionResult` Typy představují různé stavových kódů HTTP.</span><span class="sxs-lookup"><span data-stu-id="075b7-123">The `ActionResult` types represent various HTTP status codes.</span></span> <span data-ttu-id="075b7-124">Jsou některé běžné návratové typy spadající do této kategorie [BadRequestResult](/dotnet/api/microsoft.aspnetcore.mvc.badrequestresult) (400) [NotFoundResult](/dotnet/api/microsoft.aspnetcore.mvc.notfoundresult) (404), a [OkObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.okobjectresult) (200).</span><span class="sxs-lookup"><span data-stu-id="075b7-124">Some common return types falling into this category are [BadRequestResult](/dotnet/api/microsoft.aspnetcore.mvc.badrequestresult) (400), [NotFoundResult](/dotnet/api/microsoft.aspnetcore.mvc.notfoundresult) (404), and [OkObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.okobjectresult) (200).</span></span>
+<span data-ttu-id="84b33-122">V ASP.NET Core 2,2 a starších verzích vrátila <xref:System.Collections.Generic.IAsyncEnumerable%601> akce výsledkem synchronní iterace kolekce serializátorem.</span><span class="sxs-lookup"><span data-stu-id="84b33-122">In ASP.NET Core 2.2 and earlier, returning <xref:System.Collections.Generic.IAsyncEnumerable%601> from an action results in synchronous collection iteration by the serializer.</span></span> <span data-ttu-id="84b33-123">Výsledkem je blokování volání a potenciál pro fond vláken vyčerpání.</span><span class="sxs-lookup"><span data-stu-id="84b33-123">The result is the blocking of calls and a potential for thread pool starvation.</span></span> <span data-ttu-id="84b33-124">K ilustraci si představte, že jádro Entity Framework (EF) se používá pro potřeby přístupu k datům webového rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="84b33-124">To illustrate, imagine that Entity Framework (EF) Core is being used for the web API's data access needs.</span></span> <span data-ttu-id="84b33-125">Následující návratový typ akce je synchronně výčtu během serializace:</span><span class="sxs-lookup"><span data-stu-id="84b33-125">The following action's return type is synchronously enumerated during serialization:</span></span>
 
-<span data-ttu-id="075b7-125">Protože jsou více návratových typů a cesty v akci, liberální použití [[ProducesResponseType]](/dotnet/api/microsoft.aspnetcore.mvc.producesresponsetypeattribute.-ctor) je atribut nezbytný.</span><span class="sxs-lookup"><span data-stu-id="075b7-125">Because there are multiple return types and paths in the action, liberal use of the [[ProducesResponseType]](/dotnet/api/microsoft.aspnetcore.mvc.producesresponsetypeattribute.-ctor) attribute is necessary.</span></span> <span data-ttu-id="075b7-126">Tento atribut vytváří více popisné podrobnosti o odpovědi pro stránky nápovědy rozhraní API generovaných nástrojů, jako je [Swagger](/aspnet/core/tutorials/web-api-help-pages-using-swagger).</span><span class="sxs-lookup"><span data-stu-id="075b7-126">This attribute produces more descriptive response details for API help pages generated by tools like [Swagger](/aspnet/core/tutorials/web-api-help-pages-using-swagger).</span></span> <span data-ttu-id="075b7-127">`[ProducesResponseType]` označuje známé typy a stavové kódy HTTP, který se má vrátit akce.</span><span class="sxs-lookup"><span data-stu-id="075b7-127">`[ProducesResponseType]` indicates the known types and HTTP status codes to be returned by the action.</span></span>
+```csharp
+public IEnumerable<Product> GetOnSaleProducts() =>
+    _context.Products.Where(p => p.IsOnSale);
+```
 
-### <a name="synchronous-action"></a><span data-ttu-id="075b7-128">Synchronní akce</span><span class="sxs-lookup"><span data-stu-id="075b7-128">Synchronous action</span></span>
+<span data-ttu-id="84b33-126">Aby se zabránilo synchronnímu výčtu a blokování čekání na databázi v ASP.NET Core 2,2 a starších verzích `ToListAsync`, vyvolejte:</span><span class="sxs-lookup"><span data-stu-id="84b33-126">To avoid synchronous enumeration and blocking waits on the database in ASP.NET Core 2.2 and earlier, invoke `ToListAsync`:</span></span>
 
-<span data-ttu-id="075b7-129">Vezměte v úvahu následující synchronní akce, ve kterém jsou dvě možné návratové typy:</span><span class="sxs-lookup"><span data-stu-id="075b7-129">Consider the following synchronous action in which there are two possible return types:</span></span>
+```csharp
+public IEnumerable<Product> GetOnSaleProducts() =>
+    _context.Products.Where(p => p.IsOnSale).ToListAsync();
+```
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=8,11)]
+<span data-ttu-id="84b33-127">V ASP.NET Core 3,0 a novějším se `IAsyncEnumerable<T>` vrátí akce:</span><span class="sxs-lookup"><span data-stu-id="84b33-127">In ASP.NET Core 3.0 and later, returning `IAsyncEnumerable<T>` from an action:</span></span>
 
-<span data-ttu-id="075b7-130">V předchozí akci, se vrátí stavový kód 404 při produktu reprezentována `id` podkladových dat v úložišti neexistuje.</span><span class="sxs-lookup"><span data-stu-id="075b7-130">In the preceding action, a 404 status code is returned when the product represented by `id` doesn't exist in the underlying data store.</span></span> <span data-ttu-id="075b7-131">[NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) Pomocná metoda, je vyvolána jako zástupce `return new NotFoundResult();`.</span><span class="sxs-lookup"><span data-stu-id="075b7-131">The [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) helper method is invoked as a shortcut to `return new NotFoundResult();`.</span></span> <span data-ttu-id="075b7-132">Pokud produkt existuje, `Product` objekt představující datové části se vrátil s kódem stavový kód 200.</span><span class="sxs-lookup"><span data-stu-id="075b7-132">If the product does exist, a `Product` object representing the payload is returned with a 200 status code.</span></span> <span data-ttu-id="075b7-133">[Ok](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.ok) Pomocná metoda, je vyvolána jako zkrácený zápis `return new OkObjectResult(product);`.</span><span class="sxs-lookup"><span data-stu-id="075b7-133">The [Ok](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.ok) helper method is invoked as the shorthand form of `return new OkObjectResult(product);`.</span></span>
+* <span data-ttu-id="84b33-128">Již nevede k synchronní iteraci.</span><span class="sxs-lookup"><span data-stu-id="84b33-128">No longer results in synchronous iteration.</span></span>
+* <span data-ttu-id="84b33-129">Se bude co nejefektivnější <xref:System.Collections.Generic.IEnumerable%601>jako vrácení.</span><span class="sxs-lookup"><span data-stu-id="84b33-129">Becomes as efficient as returning <xref:System.Collections.Generic.IEnumerable%601>.</span></span>
 
-### <a name="asynchronous-action"></a><span data-ttu-id="075b7-134">Asynchronní akce</span><span class="sxs-lookup"><span data-stu-id="075b7-134">Asynchronous action</span></span>
+<span data-ttu-id="84b33-130">ASP.NET Core 3,0 a novější vyrovnávací paměti výsledek následující akce před jejím poskytnutím serializátoru:</span><span class="sxs-lookup"><span data-stu-id="84b33-130">ASP.NET Core 3.0 and later buffers the result of the following action before providing it to the serializer:</span></span>
 
-<span data-ttu-id="075b7-135">Vezměte v úvahu následující asynchronní akce, ve kterém jsou dvě možné návratové typy:</span><span class="sxs-lookup"><span data-stu-id="075b7-135">Consider the following asynchronous action in which there are two possible return types:</span></span>
+```csharp
+public IEnumerable<Product> GetOnSaleProducts() =>
+    _context.Products.Where(p => p.IsOnSale);
+```
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
+<span data-ttu-id="84b33-131">Zvažte deklaraci návratového typu podpisu akce, `IAsyncEnumerable<T>` aby se zajistila asynchronní iterace.</span><span class="sxs-lookup"><span data-stu-id="84b33-131">Consider declaring the action signature's return type as `IAsyncEnumerable<T>` to guarantee the asynchronous iteration.</span></span> <span data-ttu-id="84b33-132">V konečném případě je režim iterace založen na vráceném základním konkrétním typu.</span><span class="sxs-lookup"><span data-stu-id="84b33-132">Ultimately, the iteration mode is based on the underlying concrete type being returned.</span></span> <span data-ttu-id="84b33-133">MVC automaticky ukládá do vyrovnávací paměti jakýkoli konkrétní typ `IAsyncEnumerable<T>`, který implementuje.</span><span class="sxs-lookup"><span data-stu-id="84b33-133">MVC automatically buffers any concrete type that implements `IAsyncEnumerable<T>`.</span></span>
 
-<span data-ttu-id="075b7-136">V předchozím kódu:</span><span class="sxs-lookup"><span data-stu-id="075b7-136">In the preceding code:</span></span>
+<span data-ttu-id="84b33-134">Vezměte v úvahu následující akci, která vrací záznamy produktů s cenami za `IEnumerable<Product>`prodej jako:</span><span class="sxs-lookup"><span data-stu-id="84b33-134">Consider the following action, which returns sale-priced product records as `IEnumerable<Product>`:</span></span>
 
-* <span data-ttu-id="075b7-137">Stavový kód 400 ([chybného požadavku](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*)) se vrátí modulem runtime ASP.NET Core, když "XYZ Widget" obsahuje popis produktu.</span><span class="sxs-lookup"><span data-stu-id="075b7-137">A 400 status code ([BadRequest](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*)) is returned by the ASP.NET Core runtime when the product description contains "XYZ Widget".</span></span>
-* <span data-ttu-id="075b7-138">201 stavový kód je generován [CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) metoda při vytváření produktu.</span><span class="sxs-lookup"><span data-stu-id="075b7-138">A 201 status code is generated by the [CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) method when a product is created.</span></span> <span data-ttu-id="075b7-139">V této cestě kódu `Product` je vrácen objekt.</span><span class="sxs-lookup"><span data-stu-id="075b7-139">In this code path, the `Product` object is returned.</span></span>
+[!code-csharp[](../web-api/action-return-types/samples/3x/WebApiSample.Api.30/Controllers/ProductsController.cs?name=snippet_GetOnSaleProducts)]
 
-<span data-ttu-id="075b7-140">Například následující model označuje, že musí zahrnovat požadavky `Name` a `Description` vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="075b7-140">For example, the following model indicates that requests must include the `Name` and `Description` properties.</span></span> <span data-ttu-id="075b7-141">Proto selhání kvůli `Name` a `Description` v požadavku způsobí selhání ověření modelu.</span><span class="sxs-lookup"><span data-stu-id="075b7-141">Therefore, failure to provide `Name` and `Description` in the request causes model validation to fail.</span></span>
+<span data-ttu-id="84b33-135">`IAsyncEnumerable<Product>` Ekvivalent předchozí akce:</span><span class="sxs-lookup"><span data-stu-id="84b33-135">The `IAsyncEnumerable<Product>` equivalent of the preceding action is:</span></span>
 
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.DataAccess/Models/Product.cs?name=snippet_ProductClass&highlight=5-6,8-9)]
+[!code-csharp[](../web-api/action-return-types/samples/3x/WebApiSample.Api.30/Controllers/ProductsController.cs?name=snippet_GetOnSaleProductsAsync)]
+
+<span data-ttu-id="84b33-136">Obě předchozí akce nejsou blokující ASP.NET Core 3,0.</span><span class="sxs-lookup"><span data-stu-id="84b33-136">Both of the preceding actions are non-blocking as of ASP.NET Core 3.0.</span></span>
+
+## <a name="iactionresult-type"></a><span data-ttu-id="84b33-137">Typ IActionResult</span><span class="sxs-lookup"><span data-stu-id="84b33-137">IActionResult type</span></span>
+
+<span data-ttu-id="84b33-138">Návratový typ je vhodný, pokud je `ActionResult` možné v akci použít více návratových typů. <xref:Microsoft.AspNetCore.Mvc.IActionResult></span><span class="sxs-lookup"><span data-stu-id="84b33-138">The <xref:Microsoft.AspNetCore.Mvc.IActionResult> return type is appropriate when multiple `ActionResult` return types are possible in an action.</span></span> <span data-ttu-id="84b33-139">`ActionResult` Typy reprezentují různé stavové kódy HTTP.</span><span class="sxs-lookup"><span data-stu-id="84b33-139">The `ActionResult` types represent various HTTP status codes.</span></span> <span data-ttu-id="84b33-140">Jakákoli Neabstraktní třída odvozená od `ActionResult` je platná jako platný návratový typ.</span><span class="sxs-lookup"><span data-stu-id="84b33-140">Any non-abstract class deriving from `ActionResult` qualifies as a valid return type.</span></span> <span data-ttu-id="84b33-141">Některé běžné návratové typy v této kategorii <xref:Microsoft.AspNetCore.Mvc.BadRequestResult> jsou (400) <xref:Microsoft.AspNetCore.Mvc.NotFoundResult> , (404) a <xref:Microsoft.AspNetCore.Mvc.OkObjectResult> (200).</span><span class="sxs-lookup"><span data-stu-id="84b33-141">Some common return types in this category are <xref:Microsoft.AspNetCore.Mvc.BadRequestResult> (400), <xref:Microsoft.AspNetCore.Mvc.NotFoundResult> (404), and <xref:Microsoft.AspNetCore.Mvc.OkObjectResult> (200).</span></span> <span data-ttu-id="84b33-142">Alternativně lze metody ve <xref:Microsoft.AspNetCore.Mvc.ControllerBase> třídě použít k vrácení `ActionResult` typů z akce.</span><span class="sxs-lookup"><span data-stu-id="84b33-142">Alternatively, convenience methods in the <xref:Microsoft.AspNetCore.Mvc.ControllerBase> class can be used to return `ActionResult` types from an action.</span></span> <span data-ttu-id="84b33-143">Například `return BadRequest();` je zkrácený `return new BadRequestResult();`tvar.</span><span class="sxs-lookup"><span data-stu-id="84b33-143">For example, `return BadRequest();` is a shorthand form of `return new BadRequestResult();`.</span></span>
+
+<span data-ttu-id="84b33-144">Vzhledem k tomu, že v tomto typu akce existuje více návratových typů a cest, je nezbytné použít atribut [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) .</span><span class="sxs-lookup"><span data-stu-id="84b33-144">Because there are multiple return types and paths in this type of action, liberal use of the [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) attribute is necessary.</span></span> <span data-ttu-id="84b33-145">Tento atribut vytváří podrobnější podrobnosti odpovědi na stránky pro nápovědu k webovému rozhraní API generované nástroji, jako je [Swagger](xref:tutorials/web-api-help-pages-using-swagger).</span><span class="sxs-lookup"><span data-stu-id="84b33-145">This attribute produces more descriptive response details for web API help pages generated by tools like [Swagger](xref:tutorials/web-api-help-pages-using-swagger).</span></span> <span data-ttu-id="84b33-146">`[ProducesResponseType]`Určuje známé typy a stavové kódy HTTP, které má akce vrátit.</span><span class="sxs-lookup"><span data-stu-id="84b33-146">`[ProducesResponseType]` indicates the known types and HTTP status codes to be returned by the action.</span></span>
+
+### <a name="synchronous-action"></a><span data-ttu-id="84b33-147">Synchronní akce</span><span class="sxs-lookup"><span data-stu-id="84b33-147">Synchronous action</span></span>
+
+<span data-ttu-id="84b33-148">Zvažte následující synchronní akci, ve které existují dva možné návratové typy:</span><span class="sxs-lookup"><span data-stu-id="84b33-148">Consider the following synchronous action in which there are two possible return types:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="075b7-142">Pokud [[objektu ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) je použit atribut v ASP.NET Core 2.1 nebo novější, stavový kód 400 za následek chyby ověření modelu.</span><span class="sxs-lookup"><span data-stu-id="075b7-142">If the [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute in ASP.NET Core 2.1 or later  is applied, model validation errors result in a 400 status code.</span></span> <span data-ttu-id="075b7-143">Další informace najdete v tématu [odpovědi HTTP 400 automatické](xref:web-api/index#automatic-http-400-responses).</span><span class="sxs-lookup"><span data-stu-id="075b7-143">For more information, see [Automatic HTTP 400 responses](xref:web-api/index#automatic-http-400-responses).</span></span>
-
-## <a name="actionresultt-type"></a><span data-ttu-id="075b7-144">ActionResult\<T > typ</span><span class="sxs-lookup"><span data-stu-id="075b7-144">ActionResult\<T> type</span></span>
-
-<span data-ttu-id="075b7-145">ASP.NET Core 2.1 přináší [ActionResult\<T >](/dotnet/api/microsoft.aspnetcore.mvc.actionresult-1) návratový typ pro akce kontroleru webového rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="075b7-145">ASP.NET Core 2.1 introduces the [ActionResult\<T>](/dotnet/api/microsoft.aspnetcore.mvc.actionresult-1) return type for Web API controller actions.</span></span> <span data-ttu-id="075b7-146">Umožňuje návratový typ odvozený od [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) nebo se vraťte [konkrétní typ](#specific-type).</span><span class="sxs-lookup"><span data-stu-id="075b7-146">It enables you to return a type deriving from [ActionResult](/dotnet/api/microsoft.aspnetcore.mvc.actionresult) or return a [specific type](#specific-type).</span></span> <span data-ttu-id="075b7-147">`ActionResult<T>` nabízí následující výhody oproti [IActionResult typ](#iactionresult-type):</span><span class="sxs-lookup"><span data-stu-id="075b7-147">`ActionResult<T>` offers the following benefits over the [IActionResult type](#iactionresult-type):</span></span>
-
-* <span data-ttu-id="075b7-148">[[ProducesResponseType]](/dotnet/api/microsoft.aspnetcore.mvc.producesresponsetypeattribute) atributu `Type` vlastnost je možné vyloučit z replikace.</span><span class="sxs-lookup"><span data-stu-id="075b7-148">The [[ProducesResponseType]](/dotnet/api/microsoft.aspnetcore.mvc.producesresponsetypeattribute) attribute's `Type` property can be excluded.</span></span> <span data-ttu-id="075b7-149">Například `[ProducesResponseType(200, Type = typeof(Product))]` je zjednodušenou `[ProducesResponseType(200)]`.</span><span class="sxs-lookup"><span data-stu-id="075b7-149">For example, `[ProducesResponseType(200, Type = typeof(Product))]` is simplified to `[ProducesResponseType(200)]`.</span></span> <span data-ttu-id="075b7-150">Očekávaný návratový typ je odvozen namísto z akce `T` v `ActionResult<T>`.</span><span class="sxs-lookup"><span data-stu-id="075b7-150">The action's expected return type is instead inferred from the `T` in `ActionResult<T>`.</span></span>
-* <span data-ttu-id="075b7-151">[Implicitní přetypování operátory](/dotnet/csharp/language-reference/keywords/implicit) podporu převodu obou `T` a `ActionResult` k `ActionResult<T>`.</span><span class="sxs-lookup"><span data-stu-id="075b7-151">[Implicit cast operators](/dotnet/csharp/language-reference/keywords/implicit) support the conversion of both `T` and `ActionResult` to `ActionResult<T>`.</span></span> <span data-ttu-id="075b7-152">`T` převede na [ObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.objectresult), což znamená, že `return new ObjectResult(T);` je zjednodušenou `return T;`.</span><span class="sxs-lookup"><span data-stu-id="075b7-152">`T` converts to [ObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.objectresult), which means `return new ObjectResult(T);` is simplified to `return T;`.</span></span>
-
-<span data-ttu-id="075b7-153">C# nepodporuje operátory implicitní přetypování na rozhraní.</span><span class="sxs-lookup"><span data-stu-id="075b7-153">C# doesn't support implicit cast operators on interfaces.</span></span> <span data-ttu-id="075b7-154">V důsledku toho je potřeba použít převod rozhraní do konkrétního typu implementujícího typ `ActionResult<T>`.</span><span class="sxs-lookup"><span data-stu-id="075b7-154">Consequently, conversion of the interface to a concrete type is necessary to use `ActionResult<T>`.</span></span> <span data-ttu-id="075b7-155">Například použití `IEnumerable` nebude fungovat v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="075b7-155">For example, use of `IEnumerable` in the following example doesn't work:</span></span>
-
-```csharp
-[HttpGet]
-public ActionResult<IEnumerable<Product>> Get()
-{
-    return _repository.GetProducts();
-}
-```
-
-<span data-ttu-id="075b7-156">Jedna možnost, chcete-li vyřešit předchozí kód je vrátit `_repository.GetProducts().ToList();`.</span><span class="sxs-lookup"><span data-stu-id="075b7-156">One option to fix the preceding code is to return `_repository.GetProducts().ToList();`.</span></span>
-
-<span data-ttu-id="075b7-157">Většinu akcí mít návratový typ konkrétní.</span><span class="sxs-lookup"><span data-stu-id="075b7-157">Most actions have a specific return type.</span></span> <span data-ttu-id="075b7-158">Neočekávané podmínky může dojít během provádění akce, ve kterém případ konkrétní typ nevrátí.</span><span class="sxs-lookup"><span data-stu-id="075b7-158">Unexpected conditions can occur during action execution, in which case the specific type isn't returned.</span></span> <span data-ttu-id="075b7-159">Vstupní parametr akce může například selhat ověření modelu.</span><span class="sxs-lookup"><span data-stu-id="075b7-159">For example, an action's input parameter may fail model validation.</span></span> <span data-ttu-id="075b7-160">V takovém případě je běžné vrátí odpovídající `ActionResult` typ místo konkrétního typu.</span><span class="sxs-lookup"><span data-stu-id="075b7-160">In such a case, it's common to return the appropriate `ActionResult` type instead of the specific type.</span></span>
-
-### <a name="synchronous-action"></a><span data-ttu-id="075b7-161">Synchronní akce</span><span class="sxs-lookup"><span data-stu-id="075b7-161">Synchronous action</span></span>
-
-<span data-ttu-id="075b7-162">Vezměte v úvahu synchronní akce, ve kterém jsou dvě možné návratové typy:</span><span class="sxs-lookup"><span data-stu-id="075b7-162">Consider a synchronous action in which there are two possible return types:</span></span>
-
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=7,10)]
-
-<span data-ttu-id="075b7-163">V předchozím kódu je vrátil stavový kód 404 při produktu v databázi neexistuje.</span><span class="sxs-lookup"><span data-stu-id="075b7-163">In the preceding code, a 404 status code is returned when the product doesn't exist in the database.</span></span> <span data-ttu-id="075b7-164">Pokud produkt neexistuje, odpovídající `Product` je vrácen objekt.</span><span class="sxs-lookup"><span data-stu-id="075b7-164">If the product does exist, the corresponding `Product` object is returned.</span></span> <span data-ttu-id="075b7-165">Před ASP.NET Core 2.1 `return product;` řádku by byl `return Ok(product);`.</span><span class="sxs-lookup"><span data-stu-id="075b7-165">Before ASP.NET Core 2.1, the `return product;` line would have been `return Ok(product);`.</span></span>
-
-> [!TIP]
-> <span data-ttu-id="075b7-166">K ASP.NET Core 2.1 je povolená odvození zdroj vazby parametrů akce, když je doplněn třídu kontroleru `[ApiController]` atribut.</span><span class="sxs-lookup"><span data-stu-id="075b7-166">As of ASP.NET Core 2.1, action parameter binding source inference is enabled when a controller class is decorated with the `[ApiController]` attribute.</span></span> <span data-ttu-id="075b7-167">Název parametru názvu v šabloně trasy automaticky svázán pomocí žádosti o data trasy.</span><span class="sxs-lookup"><span data-stu-id="075b7-167">A parameter name matching a name in the route template is automatically bound using the request route data.</span></span> <span data-ttu-id="075b7-168">V důsledku toho předchozí akce `id` parametr není explicitně opatřen poznámkou [[FromRoute]](/dotnet/api/microsoft.aspnetcore.mvc.fromrouteattribute) atribut.</span><span class="sxs-lookup"><span data-stu-id="075b7-168">Consequently, the preceding action's `id` parameter isn't explicitly annotated with the [[FromRoute]](/dotnet/api/microsoft.aspnetcore.mvc.fromrouteattribute) attribute.</span></span>
-
-### <a name="asynchronous-action"></a><span data-ttu-id="075b7-169">Asynchronní akce</span><span class="sxs-lookup"><span data-stu-id="075b7-169">Asynchronous action</span></span>
-
-<span data-ttu-id="075b7-170">Vezměte v úvahu asynchronní akce, ve kterém jsou dvě možné návratové typy:</span><span class="sxs-lookup"><span data-stu-id="075b7-170">Consider an asynchronous action in which there are two possible return types:</span></span>
-
-[!code-csharp[](../web-api/action-return-types/samples/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
-
-<span data-ttu-id="075b7-171">V předchozím kódu:</span><span class="sxs-lookup"><span data-stu-id="075b7-171">In the preceding code:</span></span>
-
-* <span data-ttu-id="075b7-172">Stavový kód 400 ([chybného požadavku](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*)) se vrátí modulem runtime ASP.NET Core při:</span><span class="sxs-lookup"><span data-stu-id="075b7-172">A 400 status code ([BadRequest](xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*)) is returned by the ASP.NET Core runtime when:</span></span>
-  * <span data-ttu-id="075b7-173">[[Objektu ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) byl použit atribut a selže ověření modelu.</span><span class="sxs-lookup"><span data-stu-id="075b7-173">The [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute has been applied and model validation fails.</span></span>
-  * <span data-ttu-id="075b7-174">Popis produktu obsahuje "XYZ Widget".</span><span class="sxs-lookup"><span data-stu-id="075b7-174">The product description contains "XYZ Widget".</span></span>
-* <span data-ttu-id="075b7-175">201 stavový kód je generován [CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) metoda při vytváření produktu.</span><span class="sxs-lookup"><span data-stu-id="075b7-175">A 201 status code is generated by the [CreatedAtAction](xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*) method when a product is created.</span></span> <span data-ttu-id="075b7-176">V této cestě kódu `Product` je vrácen objekt.</span><span class="sxs-lookup"><span data-stu-id="075b7-176">In this code path, the `Product` object is returned.</span></span>
-
-> [!TIP]
-> <span data-ttu-id="075b7-177">K ASP.NET Core 2.1 je povolená odvození zdroj vazby parametrů akce, když je doplněn třídu kontroleru `[ApiController]` atribut.</span><span class="sxs-lookup"><span data-stu-id="075b7-177">As of ASP.NET Core 2.1, action parameter binding source inference is enabled when a controller class is decorated with the `[ApiController]` attribute.</span></span> <span data-ttu-id="075b7-178">Komplexní typ parametry jsou automaticky svázán pomocí textu požadavku.</span><span class="sxs-lookup"><span data-stu-id="075b7-178">Complex type parameters are automatically bound using the request body.</span></span> <span data-ttu-id="075b7-179">V důsledku toho předchozí akce `product` parametr není explicitně opatřen poznámkou [[FromBody]](/dotnet/api/microsoft.aspnetcore.mvc.frombodyattribute) atribut.</span><span class="sxs-lookup"><span data-stu-id="075b7-179">Consequently, the preceding action's `product` parameter isn't explicitly annotated with the [[FromBody]](/dotnet/api/microsoft.aspnetcore.mvc.frombodyattribute) attribute.</span></span>
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=8,11)]
 
 ::: moniker-end
 
-## <a name="additional-resources"></a><span data-ttu-id="075b7-180">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="075b7-180">Additional resources</span></span>
+::: moniker range="<= aspnetcore-2.0"
+
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=8,11)]
+
+::: moniker-end
+
+<span data-ttu-id="84b33-149">V předchozí akci:</span><span class="sxs-lookup"><span data-stu-id="84b33-149">In the preceding action:</span></span>
+
+* <span data-ttu-id="84b33-150">Pokud produkt reprezentovaný `id` neexistují v podkladovém úložišti dat, vrátí se stavový kód 404.</span><span class="sxs-lookup"><span data-stu-id="84b33-150">A 404 status code is returned when the product represented by `id` doesn't exist in the underlying data store.</span></span> <span data-ttu-id="84b33-151">Metoda usnadnění je vyvolána jako zkrácený pro `return new NotFoundResult();`. <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*></span><span class="sxs-lookup"><span data-stu-id="84b33-151">The <xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*> convenience method is invoked as shorthand for `return new NotFoundResult();`.</span></span>
+* <span data-ttu-id="84b33-152">Stavový kód 200 se vrátí s `Product` objektem, když produkt existuje.</span><span class="sxs-lookup"><span data-stu-id="84b33-152">A 200 status code is returned with the `Product` object when the product does exist.</span></span> <span data-ttu-id="84b33-153">Metoda usnadnění je vyvolána jako zkrácený pro `return new OkObjectResult(product);`. <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*></span><span class="sxs-lookup"><span data-stu-id="84b33-153">The <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*> convenience method is invoked as shorthand for `return new OkObjectResult(product);`.</span></span>
+
+### <a name="asynchronous-action"></a><span data-ttu-id="84b33-154">Asynchronní akce</span><span class="sxs-lookup"><span data-stu-id="84b33-154">Asynchronous action</span></span>
+
+<span data-ttu-id="84b33-155">Zvažte následující asynchronní akci, ve které existují dva možné návratové typy:</span><span class="sxs-lookup"><span data-stu-id="84b33-155">Consider the following asynchronous action in which there are two possible return types:</span></span>
+
+::: moniker range=">= aspnetcore-2.1"
+
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.0"
+
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.Pre21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
+
+::: moniker-end
+
+<span data-ttu-id="84b33-156">V předchozí akci:</span><span class="sxs-lookup"><span data-stu-id="84b33-156">In the preceding action:</span></span>
+
+* <span data-ttu-id="84b33-157">Pokud popis produktu obsahuje "widget XYZ", vrátí se stavový kód 400.</span><span class="sxs-lookup"><span data-stu-id="84b33-157">A 400 status code is returned when the product description contains "XYZ Widget".</span></span> <span data-ttu-id="84b33-158">Metoda usnadnění je vyvolána jako zkrácený pro `return new BadRequestResult();`. <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*></span><span class="sxs-lookup"><span data-stu-id="84b33-158">The <xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*> convenience method is invoked as shorthand for `return new BadRequestResult();`.</span></span>
+* <span data-ttu-id="84b33-159">Kód stavu 201 je vygenerován <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> metodou pohodlí při vytvoření produktu.</span><span class="sxs-lookup"><span data-stu-id="84b33-159">A 201 status code is generated by the <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> convenience method when a product is created.</span></span> <span data-ttu-id="84b33-160">Alternativa k volání `CreatedAtAction` je `return new CreatedAtActionResult(nameof(GetById), "Products", new { id = product.Id }, product);`.</span><span class="sxs-lookup"><span data-stu-id="84b33-160">An alternative to calling `CreatedAtAction` is `return new CreatedAtActionResult(nameof(GetById), "Products", new { id = product.Id }, product);`.</span></span> <span data-ttu-id="84b33-161">V této cestě `Product` kódu je objekt uveden v těle odpovědi.</span><span class="sxs-lookup"><span data-stu-id="84b33-161">In this code path, the `Product` object is provided in the response body.</span></span> <span data-ttu-id="84b33-162">Poskytla se hlavička odpovědi obsahující nově vytvořenou adresu URL produktu. `Location`</span><span class="sxs-lookup"><span data-stu-id="84b33-162">A `Location` response header containing the newly created product's URL is provided.</span></span>
+
+<span data-ttu-id="84b33-163">Například následující model označuje, že požadavky musí zahrnovat `Name` vlastnosti a. `Description`</span><span class="sxs-lookup"><span data-stu-id="84b33-163">For example, the following model indicates that requests must include the `Name` and `Description` properties.</span></span> <span data-ttu-id="84b33-164">Nepovedlo `Name` se `Description` poskytnout a v žádosti dojde k selhání ověřování modelu.</span><span class="sxs-lookup"><span data-stu-id="84b33-164">Failure to provide `Name` and `Description` in the request causes model validation to fail.</span></span>
+
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.DataAccess/Models/Product.cs?name=snippet_ProductClass&highlight=5-6,8-9)]
+
+::: moniker range=">= aspnetcore-2.1"
+
+<span data-ttu-id="84b33-165">Pokud je použit atribut [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) v ASP.NET Core 2,1 nebo novějším, výsledkem chyb ověření modelu je 400 stavového kódu.</span><span class="sxs-lookup"><span data-stu-id="84b33-165">If the [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute in ASP.NET Core 2.1 or later is applied, model validation errors result in a 400 status code.</span></span> <span data-ttu-id="84b33-166">Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses).</span><span class="sxs-lookup"><span data-stu-id="84b33-166">For more information, see [Automatic HTTP 400 responses](xref:web-api/index#automatic-http-400-responses).</span></span>
+
+## <a name="actionresultt-type"></a><span data-ttu-id="84b33-167">ActionResult\<T – typ ></span><span class="sxs-lookup"><span data-stu-id="84b33-167">ActionResult\<T> type</span></span>
+
+<span data-ttu-id="84b33-168">ASP.NET Core 2,1 zavedla pro akce kontroleru webového rozhraní API > návratový typ [ActionResult\<T](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) .</span><span class="sxs-lookup"><span data-stu-id="84b33-168">ASP.NET Core 2.1 introduced the [ActionResult\<T>](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) return type for web API controller actions.</span></span> <span data-ttu-id="84b33-169">Umožňuje vrátit typ odvozený z <xref:Microsoft.AspNetCore.Mvc.ActionResult> nebo vracet [konkrétní typ](#specific-type).</span><span class="sxs-lookup"><span data-stu-id="84b33-169">It enables you to return a type deriving from <xref:Microsoft.AspNetCore.Mvc.ActionResult> or return a [specific type](#specific-type).</span></span> <span data-ttu-id="84b33-170">`ActionResult<T>`nabízí následující výhody oproti [IActionResult typu](#iactionresult-type):</span><span class="sxs-lookup"><span data-stu-id="84b33-170">`ActionResult<T>` offers the following benefits over the [IActionResult type](#iactionresult-type):</span></span>
+
+* <span data-ttu-id="84b33-171">`Type` Vlastnost atributu [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) lze vyloučit.</span><span class="sxs-lookup"><span data-stu-id="84b33-171">The [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) attribute's `Type` property can be excluded.</span></span> <span data-ttu-id="84b33-172">Například `[ProducesResponseType(200, Type = typeof(Product))]` je zjednodušený pro `[ProducesResponseType(200)]`.</span><span class="sxs-lookup"><span data-stu-id="84b33-172">For example, `[ProducesResponseType(200, Type = typeof(Product))]` is simplified to `[ProducesResponseType(200)]`.</span></span> <span data-ttu-id="84b33-173">Očekávaný návratový typ akce je místo odvoditelné z `T` v. `ActionResult<T>`</span><span class="sxs-lookup"><span data-stu-id="84b33-173">The action's expected return type is instead inferred from the `T` in `ActionResult<T>`.</span></span>
+* <span data-ttu-id="84b33-174">[Operátory implicitního přetypování](/dotnet/csharp/language-reference/keywords/implicit) podporují převod obou `T` `ActionResult` i na `ActionResult<T>`.</span><span class="sxs-lookup"><span data-stu-id="84b33-174">[Implicit cast operators](/dotnet/csharp/language-reference/keywords/implicit) support the conversion of both `T` and `ActionResult` to `ActionResult<T>`.</span></span> <span data-ttu-id="84b33-175">`T`převádí na <xref:Microsoft.AspNetCore.Mvc.ObjectResult>, což znamená `return new ObjectResult(T);` , že je `return T;`zjednodušený.</span><span class="sxs-lookup"><span data-stu-id="84b33-175">`T` converts to <xref:Microsoft.AspNetCore.Mvc.ObjectResult>, which means `return new ObjectResult(T);` is simplified to `return T;`.</span></span>
+
+<span data-ttu-id="84b33-176">C#nepodporuje implicitní operátory přetypování na rozhraních.</span><span class="sxs-lookup"><span data-stu-id="84b33-176">C# doesn't support implicit cast operators on interfaces.</span></span> <span data-ttu-id="84b33-177">V důsledku toho je nutné použít `ActionResult<T>`převod rozhraní na konkrétní typ.</span><span class="sxs-lookup"><span data-stu-id="84b33-177">Consequently, conversion of the interface to a concrete type is necessary to use `ActionResult<T>`.</span></span> <span data-ttu-id="84b33-178">Například použití `IEnumerable` v následujícím příkladu nefunguje:</span><span class="sxs-lookup"><span data-stu-id="84b33-178">For example, use of `IEnumerable` in the following example doesn't work:</span></span>
+
+```csharp
+[HttpGet]
+public ActionResult<IEnumerable<Product>> Get() =>
+    _repository.GetProducts();
+```
+
+<span data-ttu-id="84b33-179">Jednou z možností, jak opravit předchozí kód, je `_repository.GetProducts().ToList();`vrátit.</span><span class="sxs-lookup"><span data-stu-id="84b33-179">One option to fix the preceding code is to return `_repository.GetProducts().ToList();`.</span></span>
+
+<span data-ttu-id="84b33-180">Většina akcí má určitý návratový typ.</span><span class="sxs-lookup"><span data-stu-id="84b33-180">Most actions have a specific return type.</span></span> <span data-ttu-id="84b33-181">Během provádění akce mohou nastat neočekávané podmínky. v takovém případě se konkrétní typ nevrátí.</span><span class="sxs-lookup"><span data-stu-id="84b33-181">Unexpected conditions can occur during action execution, in which case the specific type isn't returned.</span></span> <span data-ttu-id="84b33-182">Například vstupní parametr akce může selhat při ověřování modelu.</span><span class="sxs-lookup"><span data-stu-id="84b33-182">For example, an action's input parameter may fail model validation.</span></span> <span data-ttu-id="84b33-183">V takovém případě je běžné vracet odpovídající `ActionResult` typ místo konkrétního typu.</span><span class="sxs-lookup"><span data-stu-id="84b33-183">In such a case, it's common to return the appropriate `ActionResult` type instead of the specific type.</span></span>
+
+### <a name="synchronous-action"></a><span data-ttu-id="84b33-184">Synchronní akce</span><span class="sxs-lookup"><span data-stu-id="84b33-184">Synchronous action</span></span>
+
+<span data-ttu-id="84b33-185">Zvažte synchronní akci, ve které existují dva možné návratové typy:</span><span class="sxs-lookup"><span data-stu-id="84b33-185">Consider a synchronous action in which there are two possible return types:</span></span>
+
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_GetById&highlight=7,10)]
+
+<span data-ttu-id="84b33-186">V předchozí akci:</span><span class="sxs-lookup"><span data-stu-id="84b33-186">In the preceding action:</span></span>
+
+* <span data-ttu-id="84b33-187">Stavový kód 404 se vrátí, když produkt v databázi neexistuje.</span><span class="sxs-lookup"><span data-stu-id="84b33-187">A 404 status code is returned when the product doesn't exist in the database.</span></span>
+* <span data-ttu-id="84b33-188">Pokud produkt existuje, vrátí se stavový kód `Product` 200 s odpovídajícím objektem.</span><span class="sxs-lookup"><span data-stu-id="84b33-188">A 200 status code is returned with the corresponding `Product` object when the product does exist.</span></span> <span data-ttu-id="84b33-189">Před ASP.NET Core 2,1 `return product;` musí být `return Ok(product);`řádek.</span><span class="sxs-lookup"><span data-stu-id="84b33-189">Before ASP.NET Core 2.1, the `return product;` line had to be `return Ok(product);`.</span></span>
+
+### <a name="asynchronous-action"></a><span data-ttu-id="84b33-190">Asynchronní akce</span><span class="sxs-lookup"><span data-stu-id="84b33-190">Asynchronous action</span></span>
+
+<span data-ttu-id="84b33-191">Zvažte asynchronní akci, ve které existují dva možné návratové typy:</span><span class="sxs-lookup"><span data-stu-id="84b33-191">Consider an asynchronous action in which there are two possible return types:</span></span>
+
+[!code-csharp[](../web-api/action-return-types/samples/2x/WebApiSample.Api.21/Controllers/ProductsController.cs?name=snippet_CreateAsync&highlight=8,13)]
+
+<span data-ttu-id="84b33-192">V předchozí akci:</span><span class="sxs-lookup"><span data-stu-id="84b33-192">In the preceding action:</span></span>
+
+* <span data-ttu-id="84b33-193">ASP.NET Core Runtime vrátí stavový<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>kód 400, když:</span><span class="sxs-lookup"><span data-stu-id="84b33-193">A 400 status code (<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>) is returned by the ASP.NET Core runtime when:</span></span>
+  * <span data-ttu-id="84b33-194">Atribut [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) byl použit a ověření modelu se nezdařilo.</span><span class="sxs-lookup"><span data-stu-id="84b33-194">The [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute has been applied and model validation fails.</span></span>
+  * <span data-ttu-id="84b33-195">Popis produktu obsahuje "widget XYZ".</span><span class="sxs-lookup"><span data-stu-id="84b33-195">The product description contains "XYZ Widget".</span></span>
+* <span data-ttu-id="84b33-196">Kód stavu 201 je generován <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> metodou při vytvoření produktu.</span><span class="sxs-lookup"><span data-stu-id="84b33-196">A 201 status code is generated by the <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*> method when a product is created.</span></span> <span data-ttu-id="84b33-197">V této cestě `Product` kódu je objekt uveden v těle odpovědi.</span><span class="sxs-lookup"><span data-stu-id="84b33-197">In this code path, the `Product` object is provided in the response body.</span></span> <span data-ttu-id="84b33-198">Poskytla se hlavička odpovědi obsahující nově vytvořenou adresu URL produktu. `Location`</span><span class="sxs-lookup"><span data-stu-id="84b33-198">A `Location` response header containing the newly created product's URL is provided.</span></span>
+
+::: moniker-end
+
+## <a name="additional-resources"></a><span data-ttu-id="84b33-199">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="84b33-199">Additional resources</span></span>
 
 * <xref:mvc/controllers/actions>
 * <xref:mvc/models/validation>
