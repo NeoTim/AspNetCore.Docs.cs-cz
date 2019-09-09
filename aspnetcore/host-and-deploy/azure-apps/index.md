@@ -5,14 +5,14 @@ description: Tento článek obsahuje odkazy na hostitele Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/28/2019
+ms.date: 09/07/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 5035a31526e0290964e0fdee05753aeaf6cb3790
-ms.sourcegitcommit: 0efb9e219fef481dee35f7b763165e488aa6cf9c
+ms.openlocfilehash: 5da32b5fd1026263f721db442b2676d45b239b8d
+ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/29/2019
-ms.locfileid: "68602439"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70815598"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
@@ -87,7 +87,7 @@ Když aplikace používá [obecného hostitele](xref:fundamentals/host/generic-h
 
 ::: moniker range="< aspnetcore-3.0"
 
-Když aplikace vytvoří hostitele pomocí webhost [. CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder), proměnné prostředí, které konfigurují hostitele, používají `ASPNETCORE_` předponu. Další informace naleznete v tématu <xref:fundamentals/host/web-host> a [zprostředkovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
+Když aplikace vytvoří hostitele pomocí [webhost. CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder), proměnné prostředí, které konfigurují hostitele, používají `ASPNETCORE_` předponu. Další informace naleznete v tématu <xref:fundamentals/host/web-host> a [zprostředkovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
 
 ::: moniker-end
 
@@ -97,17 +97,7 @@ Když aplikace vytvoří hostitele pomocí webhost [. CreateDefaultBuilder](/dot
 
 ## <a name="monitoring-and-logging"></a>Monitorování a protokolování
 
-::: moniker range=">= aspnetcore-3.0"
-
-Aplikace ASP.NET Core nasazené pro App Service automaticky dostanou rozšíření App Service **ASP.NET Core Integration Logging**. Rozšíření umožňuje integraci protokolování pro aplikace ASP.NET Core v Azure App Service.
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
-
-Aplikace ASP.NET Core nasazené pro App Service automaticky dostanou rozšíření App Service **ASP.NET Core rozšíření protokolování**. Rozšíření umožňuje integraci protokolování pro aplikace ASP.NET Core v Azure App Service.
-
-::: moniker-end
+Azure App Service nabízí **rozšíření protokolování ASP.NET Core**, která umožňují integraci protokolování pro ASP.NET Core aplikace. Chcete-li automaticky přidat rozšíření do App Service, použijte proces **publikování** v aplikaci Visual Studio s profilem publikování **App Service** . Pokud nepoužíváte aplikaci Visual Studio k nasazení aplikace, ručně nainstalujte rozšíření na webu Azure Portal prostřednictvím dialogového okna**rozšíření** **vývojových nástrojů** > App Service.
 
 Informace o monitorování, protokolování a odstraňování potíží najdete v následujících článcích:
 
@@ -267,7 +257,7 @@ Použijte nástroje sady Visual Studio nebo rozhraní příkazového řádku (CL
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
-1. V souboru projektu zadejte jeden nebo více identifikátorů [modulu runtime (identifikátorů RID)](/dotnet/core/rid-catalog). Pro `<RuntimeIdentifier>` jeden identifikátor RID použijte (jednotné číslo), nebo `<RuntimeIdentifiers>` použijte (plural) k poskytnutí seznamu identifikátorů ridů oddělených středníkem. V následujícím příkladu `win-x86` je zadáno RID:
+1. V souboru projektu zadejte jeden nebo více [identifikátorů modulu runtime (identifikátorů RID)](/dotnet/core/rid-catalog). Pro `<RuntimeIdentifier>` jeden identifikátor RID použijte (jednotné číslo), nebo `<RuntimeIdentifiers>` použijte (plural) k poskytnutí seznamu identifikátorů ridů oddělených středníkem. V následujícím příkladu `win-x86` je zadáno RID:
 
    ```xml
    <PropertyGroup>

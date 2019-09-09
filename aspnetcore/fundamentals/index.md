@@ -5,14 +5,14 @@ description: Seznamte se se základními pojmy pro vytváření ASP.NET Corech a
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/02/2019
+ms.date: 09/06/2019
 uid: fundamentals/index
-ms.openlocfilehash: 7e2901919c8b0165d0f169abf74fe5bc0edd8be4
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: cff2afd62ed60648dc689d408dde56ecda18c261
+ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773745"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70815651"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core základy
 
@@ -272,7 +272,7 @@ Kořenový adresář webu (označovaný také jako *webroot*) je základní cest
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Další informace najdete v tématu [ContentRootPath](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#contentrootpath) .
+Další informace najdete v článku [Webroot](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#webroot) .
 
 ::: moniker-end
 

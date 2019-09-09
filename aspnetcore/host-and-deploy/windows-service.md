@@ -5,14 +5,14 @@ description: Naučte se hostovat aplikaci ASP.NET Core ve službě systému Wind
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/03/2019
+ms.date: 09/09/2019
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 308a8bd10371cc70c431b8858ef7d82c1bb624da
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: c2a2941f2a4e27218c90cf47453c69149da8e766
+ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975412"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70815696"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>ASP.NET Core hostitele ve službě systému Windows
 
@@ -312,15 +312,17 @@ Pro zpracování <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostServi
 
 Služby, které komunikují s požadavky z Internetu nebo podnikové sítě a jsou za proxy serverem nebo nástrojem pro vyrovnávání zatížení, můžou vyžadovat další konfiguraci. Další informace naleznete v tématu <xref:host-and-deploy/proxy-load-balancer>.
 
-## <a name="configure-https"></a>Konfigurace HTTPS
+## <a name="configure-endpoints"></a>Konfigurace koncových bodů
 
-Konfigurace služby pomocí zabezpečeného koncového bodu:
+Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000`. Nakonfigurujte adresu URL a port `ASPNETCORE_URLS` nastavením proměnné prostředí.
 
-1. Vytvořte certifikát X. 509 pro hostující systém pomocí mechanismů pro získání a nasazení certifikátů vaší platformy.
+Další přístupy k adresám URL a konfiguracím portů, včetně podpory koncových bodů HTTPS, najdete v následujících tématech:
 
-1. Zadejte [konfiguraci koncového bodu HTTPS serveru Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration) pro použití certifikátu.
+* <xref:fundamentals/servers/kestrel#endpoint-configuration>Kestrel
+* <xref:fundamentals/servers/httpsys#configure-windows-server>(HTTP. sys)
 
-Použití vývojového certifikátu HTTPS ASP.NET Core k zabezpečení koncového bodu služby se nepodporuje.
+> [!NOTE]
+> Použití vývojového certifikátu HTTPS ASP.NET Core k zabezpečení koncového bodu služby se nepodporuje.
 
 ## <a name="current-directory-and-content-root"></a>Aktuální adresář a kořen obsahu
 

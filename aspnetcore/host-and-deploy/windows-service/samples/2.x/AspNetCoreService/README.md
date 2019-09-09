@@ -1,3 +1,5 @@
-# <a name="aspnet-core-windows-service-sample-framework-dependent-deployment"></a>ASP.NET Core Windows Service vzorku (závisí na architektuře nasazení)
+# <a name="aspnet-core-windows-service-sample"></a>Ukázka ASP.NET Core služby systému Windows
 
-Tento příklad ukazuje, jak hostovat aplikace ASP.NET Core jako služba Windows bez použití služby IIS. V této ukázce podle scénáře popsaného v [hostitele ASP.NET Core ve službě Windows](https://docs.microsoft.com/aspnet/core/host-and-deploy/windows-service).
+V této ukázce se dozvíte, jak hostovat aplikaci ASP.NET Core jako službu systému Windows bez použití služby IIS. Tato ukázka předvádí scénář, který je popsán v tématu [ASP.NET Core hostitele ve službě systému Windows](https://docs.microsoft.com/aspnet/core/host-and-deploy/windows-service).
+
+Po vytvoření a spuštění služby přejděte k aplikaci v prohlížeči na adrese `http://localhost:5000/`.
