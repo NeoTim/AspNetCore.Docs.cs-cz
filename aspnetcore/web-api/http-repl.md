@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 7121670856da4b123b1c3e780a7952da0fb696a1
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: b93641c96ad093b40aaa887f19409d4c2e1490df
+ms.sourcegitcommit: efb9c16321b34f8ede802822b26eb983de16479b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238043"
+ms.lasthandoff: 09/09/2019
+ms.locfileid: "70842275"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -55,24 +55,24 @@ dotnet tool install -g Microsoft.dotnet-httprepl --version "3.0.0-*"
 Po úspěšné instalaci nástroje spusťte následující příkaz, který spustí HTTP REPL:
 
 ```console
-dotnet httprepl
+httprepl
 ```
 
 Chcete-li zobrazit dostupné příkazy HTTP REPL, spusťte jeden z následujících příkazů:
 
 ```console
-dotnet httprepl -h
+httprepl -h
 ```
 
 ```console
-dotnet httprepl --help
+httprepl --help
 ```
 
 Zobrazí se následující výstup:
 
 ```console
 Usage:
-  dotnet httprepl [<BASE_ADDRESS>] [options]
+  httprepl [<BASE_ADDRESS>] [options]
 
 Arguments:
   <BASE_ADDRESS> - The initial base address for the REPL.
@@ -131,13 +131,13 @@ Příkaz HTTP REPL nabízí dokončování příkazů. Stisknutí klávesy <kbd>
 Připojte se k webovému rozhraní API spuštěním následujícího příkazu:
 
 ```console
-dotnet httprepl <ROOT URI>
+httprepl <ROOT URI>
 ```
 
 `<ROOT URI>`je základní identifikátor URI pro webové rozhraní API. Příklad:
 
 ```console
-dotnet httprepl https://localhost:5001
+httprepl https://localhost:5001
 ```
 
 Případně spusťte následující příkaz kdykoli, když je spuštěn protokol HTTP REPL:
@@ -928,7 +928,7 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
 Pokud chcete odebrat veškerý výstup napsaný do příkazového prostředí nástrojem http REPL, spusťte `clear` příkaz nebo. `cls` K ilustraci si představte, že příkazové prostředí obsahuje následující výstup:
 
 ```console
-dotnet httprepl https://localhost:5001
+httprepl https://localhost:5001
 (Disconnected)~ set base "https://localhost:5001"
 Using swagger metadata from https://localhost:5001/swagger/v1/swagger.json
 
