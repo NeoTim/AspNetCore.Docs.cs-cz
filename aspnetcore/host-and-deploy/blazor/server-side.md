@@ -5,42 +5,83 @@ description: Naučte se hostovat a nasazovat Blazor aplikaci na straně serveru 
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/05/2019
+ms.date: 09/07/2019
 uid: host-and-deploy/blazor/server-side
-ms.openlocfilehash: 8da71faf6abc5929d6cd43d42fd896e378d99ef6
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: fc47dfa1344b74ec7110211e3698217e246ab86d
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773577"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878482"
 ---
-# <a name="host-and-deploy-blazor-server-side"></a><span data-ttu-id="52089-103">Hostování a nasazení Blazor na straně serveru</span><span class="sxs-lookup"><span data-stu-id="52089-103">Host and deploy Blazor server-side</span></span>
+# <a name="host-and-deploy-blazor-server-side"></a><span data-ttu-id="d12ce-103">Hostování a nasazení Blazor na straně serveru</span><span class="sxs-lookup"><span data-stu-id="d12ce-103">Host and deploy Blazor server-side</span></span>
 
-<span data-ttu-id="52089-104">Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="52089-104">By [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), and [Daniel Roth](https://github.com/danroth27)</span></span>
+<span data-ttu-id="d12ce-104">Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)</span><span class="sxs-lookup"><span data-stu-id="d12ce-104">By [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), and [Daniel Roth](https://github.com/danroth27)</span></span>
 
-## <a name="host-configuration-values"></a><span data-ttu-id="52089-105">Hodnoty konfigurace hostitele</span><span class="sxs-lookup"><span data-stu-id="52089-105">Host configuration values</span></span>
+## <a name="host-configuration-values"></a><span data-ttu-id="d12ce-105">Hodnoty konfigurace hostitele</span><span class="sxs-lookup"><span data-stu-id="d12ce-105">Host configuration values</span></span>
 
-<span data-ttu-id="52089-106">Aplikace na straně serveru, které používají [model hostování na straně serveru](xref:blazor/hosting-models#server-side) , mohou přijímat [hodnoty konfigurace obecného hostitele](xref:fundamentals/host/generic-host#host-configuration).</span><span class="sxs-lookup"><span data-stu-id="52089-106">Server-side apps that use the [server-side hosting model](xref:blazor/hosting-models#server-side) can accept [Generic Host configuration values](xref:fundamentals/host/generic-host#host-configuration).</span></span>
+<span data-ttu-id="d12ce-106">Aplikace na straně serveru, které používají [model hostování na straně serveru](xref:blazor/hosting-models#server-side) , mohou přijímat [hodnoty konfigurace obecného hostitele](xref:fundamentals/host/generic-host#host-configuration).</span><span class="sxs-lookup"><span data-stu-id="d12ce-106">Server-side apps that use the [server-side hosting model](xref:blazor/hosting-models#server-side) can accept [Generic Host configuration values](xref:fundamentals/host/generic-host#host-configuration).</span></span>
 
-## <a name="deployment"></a><span data-ttu-id="52089-107">Nasazení</span><span class="sxs-lookup"><span data-stu-id="52089-107">Deployment</span></span>
+## <a name="deployment"></a><span data-ttu-id="d12ce-107">Nasazení</span><span class="sxs-lookup"><span data-stu-id="d12ce-107">Deployment</span></span>
 
-<span data-ttu-id="52089-108">S [modelem hostování na straně serveru](xref:blazor/hosting-models#server-side)je Blazor spuštěn na serveru z aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="52089-108">With the [server-side hosting model](xref:blazor/hosting-models#server-side), Blazor is executed on the server from within an ASP.NET Core app.</span></span> <span data-ttu-id="52089-109">Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes připojení k [signalizaci](xref:signalr/introduction) .</span><span class="sxs-lookup"><span data-stu-id="52089-109">UI updates, event handling, and JavaScript calls are handled over a [SignalR](xref:signalr/introduction) connection.</span></span>
+<span data-ttu-id="d12ce-108">S [modelem hostování na straně serveru](xref:blazor/hosting-models#server-side)je Blazor spuštěn na serveru z aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="d12ce-108">With the [server-side hosting model](xref:blazor/hosting-models#server-side), Blazor is executed on the server from within an ASP.NET Core app.</span></span> <span data-ttu-id="d12ce-109">Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes připojení [](xref:signalr/introduction) k signalizaci.</span><span class="sxs-lookup"><span data-stu-id="d12ce-109">UI updates, event handling, and JavaScript calls are handled over a [SignalR](xref:signalr/introduction) connection.</span></span>
 
-<span data-ttu-id="52089-110">Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="52089-110">A web server capable of hosting an ASP.NET Core app is required.</span></span> <span data-ttu-id="52089-111">Visual Studio obsahuje šablonu projektu **aplikace Blazor serveru** (`blazorserverside` šablona při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ).</span><span class="sxs-lookup"><span data-stu-id="52089-111">Visual Studio includes the **Blazor Server App** project template (`blazorserverside` template when using the [dotnet new](/dotnet/core/tools/dotnet-new) command).</span></span>
+<span data-ttu-id="d12ce-110">Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="d12ce-110">A web server capable of hosting an ASP.NET Core app is required.</span></span> <span data-ttu-id="d12ce-111">Visual Studio obsahuje šablonu projektu **aplikace Blazor serveru** (`blazorserverside` šablona při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ).</span><span class="sxs-lookup"><span data-stu-id="d12ce-111">Visual Studio includes the **Blazor Server App** project template (`blazorserverside` template when using the [dotnet new](/dotnet/core/tools/dotnet-new) command).</span></span>
 
-## <a name="connection-scale-out"></a><span data-ttu-id="52089-112">Horizontální navýšení kapacity připojení</span><span class="sxs-lookup"><span data-stu-id="52089-112">Connection scale out</span></span>
+## <a name="scalability"></a><span data-ttu-id="d12ce-112">Škálovatelnost</span><span class="sxs-lookup"><span data-stu-id="d12ce-112">Scalability</span></span>
 
-<span data-ttu-id="52089-113">Blazor aplikace na straně serveru vyžadují jedno aktivní připojení k signalizaci pro každého uživatele.</span><span class="sxs-lookup"><span data-stu-id="52089-113">Blazor server-side apps require one active SignalR connection for each user.</span></span> <span data-ttu-id="52089-114">Provozní Blazor nasazení na straně serveru vyžaduje řešení pro podporu tolika souběžných připojení, kolik vyžaduje aplikace.</span><span class="sxs-lookup"><span data-stu-id="52089-114">A production Blazor server-side deployment requires a solution for supporting as many concurrent connections as required by the app.</span></span> <span data-ttu-id="52089-115">[Služba signalizace Azure](/azure/azure-signalr/) zpracovává škálování připojení a doporučuje se jako řešení škálování pro Blazor aplikace na straně serveru.</span><span class="sxs-lookup"><span data-stu-id="52089-115">The [Azure SignalR Service](/azure/azure-signalr/) handles the scaling of connections and is recommended as a scaling solution for Blazor server-side apps.</span></span> <span data-ttu-id="52089-116">Další informace naleznete v tématu <xref:signalr/publish-to-azure-web-app>.</span><span class="sxs-lookup"><span data-stu-id="52089-116">For more information, see <xref:signalr/publish-to-azure-web-app>.</span></span>
+<span data-ttu-id="d12ce-113">Naplánujte nasazení, aby se zajistilo co nejlepší využití dostupné infrastruktury pro aplikaci Blazor serveru.</span><span class="sxs-lookup"><span data-stu-id="d12ce-113">Plan a deployment to make the best use of the available infrastructure for a Blazor Server app.</span></span> <span data-ttu-id="d12ce-114">Podívejte se na následující zdroje informací pro řešení škálovatelnosti aplikace serveru Blazor:</span><span class="sxs-lookup"><span data-stu-id="d12ce-114">See the following resources to address Blazor Server app scalability:</span></span>
 
-## <a name="signalr-configuration"></a><span data-ttu-id="52089-117">Konfigurace signálu</span><span class="sxs-lookup"><span data-stu-id="52089-117">SignalR configuration</span></span>
+* [<span data-ttu-id="d12ce-115">Základy aplikací serveru Blazor</span><span class="sxs-lookup"><span data-stu-id="d12ce-115">Fundamentals of Blazor Server apps</span></span>](xref:blazor/hosting-models#server-side)
+* <xref:security/blazor/server-side>
 
-<span data-ttu-id="52089-118">Služba Signal je nakonfigurována ASP.NET Core pro nejběžnější scénáře Blazor na straně serveru.</span><span class="sxs-lookup"><span data-stu-id="52089-118">SignalR is configured by ASP.NET Core for the most common Blazor server-side scenarios.</span></span> <span data-ttu-id="52089-119">Vlastní a pokročilé scénáře najdete v článcích o signalizaci v části [Další zdroje informací](#additional-resources) .</span><span class="sxs-lookup"><span data-stu-id="52089-119">For custom and advanced scenarios, consult the SignalR articles in the [Additional resources](#additional-resources) section.</span></span>
+### <a name="deployment-server"></a><span data-ttu-id="d12ce-116">Server nasazení</span><span class="sxs-lookup"><span data-stu-id="d12ce-116">Deployment server</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="52089-120">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="52089-120">Additional resources</span></span>
+<span data-ttu-id="d12ce-117">Při zvažování škálovatelnosti jednoho serveru (horizontální navýšení kapacity) je pravděpodobným zdrojem dostupným pro aplikaci první prostředek, který bude aplikace vyčerpat při zvýšení požadavků uživatelů.</span><span class="sxs-lookup"><span data-stu-id="d12ce-117">When considering the scalability of a single server (scale up), the memory available to an app is likely the first resource that the app will exhaust as user demands increase.</span></span> <span data-ttu-id="d12ce-118">Dostupná paměť na serveru má vliv na:</span><span class="sxs-lookup"><span data-stu-id="d12ce-118">The available memory on the server affects the:</span></span>
 
-* <xref:signalr/introduction>
-* [<span data-ttu-id="52089-121">Dokumentace ke službě Azure Signal</span><span class="sxs-lookup"><span data-stu-id="52089-121">Azure SignalR Service Documentation</span></span>](/azure/azure-signalr/)
-* [<span data-ttu-id="52089-122">Rychlý start: Vytvoření chatovací místnosti pomocí služby Signal</span><span class="sxs-lookup"><span data-stu-id="52089-122">Quickstart: Create a chat room by using SignalR Service</span></span>](/azure/azure-signalr/signalr-quickstart-dotnet-core)
-* <xref:host-and-deploy/index>
-* <xref:tutorials/publish-to-azure-webapp-using-vs>
-* [<span data-ttu-id="52089-123">Nasazení verze Preview ASP.NET Core do Azure App Service</span><span class="sxs-lookup"><span data-stu-id="52089-123">Deploy ASP.NET Core preview release to Azure App Service</span></span>](xref:host-and-deploy/azure-apps/index#deploy-aspnet-core-preview-release-to-azure-app-service)
+* <span data-ttu-id="d12ce-119">Počet aktivních okruhů, které může server podporovat.</span><span class="sxs-lookup"><span data-stu-id="d12ce-119">Number of active circuits that a server can support.</span></span>
+* <span data-ttu-id="d12ce-120">Latence uživatelského rozhraní u klienta.</span><span class="sxs-lookup"><span data-stu-id="d12ce-120">UI latency on the client.</span></span>
+
+<span data-ttu-id="d12ce-121">Pokyny k vytváření zabezpečených a škálovatelných aplikací Blazor serveru najdete <xref:security/blazor/server-side>v tématu.</span><span class="sxs-lookup"><span data-stu-id="d12ce-121">For guidance on building secure and scalable Blazor server apps, see <xref:security/blazor/server-side>.</span></span>
+
+<span data-ttu-id="d12ce-122">Každý okruh používá pro minimální aplikaci *Hello World*ve stylu přibližně 250 kB paměti.</span><span class="sxs-lookup"><span data-stu-id="d12ce-122">Each circuit uses approximately 250 KB of memory for a minimal *Hello World*-style app.</span></span> <span data-ttu-id="d12ce-123">Velikost okruhu závisí na kódu aplikace a požadavcích na údržbu stavu přidružených k jednotlivým součástem.</span><span class="sxs-lookup"><span data-stu-id="d12ce-123">The size of a circuit depends on the app's code and the state maintenance requirements associated with each component.</span></span> <span data-ttu-id="d12ce-124">Doporučujeme změřit požadavky na prostředky během vývoje vaší aplikace a infrastruktury, ale následující směrný plán může být výchozím bodem při plánování nasazení cíle: Pokud očekáváte, že aplikace bude podporovat 5 000 souběžných uživatelů, zvažte rozpočtování do aplikace minimálně 1,3 GB paměti serveru (nebo ~ 273 KB na uživatele).</span><span class="sxs-lookup"><span data-stu-id="d12ce-124">We recommend that you measure resource demands during development for your app and infrastructure, but the following baseline can be a starting point in planning your deployment target: If you expect your app to support 5,000 concurrent users, consider budgeting at least 1.3 GB of server memory to the app (or ~273 KB per user).</span></span>
+
+### <a name="signalr-configuration"></a><span data-ttu-id="d12ce-125">Konfigurace signálu</span><span class="sxs-lookup"><span data-stu-id="d12ce-125">SignalR configuration</span></span>
+
+<span data-ttu-id="d12ce-126">Aplikace serveru Blazor používají ke komunikaci s prohlížečem ASP.NET Core signál.</span><span class="sxs-lookup"><span data-stu-id="d12ce-126">Blazor Server apps use ASP.NET Core SignalR to communicate with the browser.</span></span> <span data-ttu-id="d12ce-127">[Podmínky hostování a škálování signalizace](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor serverové aplikace.</span><span class="sxs-lookup"><span data-stu-id="d12ce-127">[SignalR's hosting and scaling conditions](xref:signalr/publish-to-azure-web-app) apply to Blazor Server apps.</span></span>
+
+<span data-ttu-id="d12ce-128">Blazor funguje nejlépe při použití WebSockets jako přenosu signálu z důvodu nižší latence, spolehlivosti a [zabezpečení](xref:signalr/security).</span><span class="sxs-lookup"><span data-stu-id="d12ce-128">Blazor works best when using WebSockets as the SignalR transport due to lower latency, reliability, and [security](xref:signalr/security).</span></span> <span data-ttu-id="d12ce-129">Pokud nejsou objekty WebSockets dostupné nebo když je aplikace explicitně nakonfigurovaná tak, aby používala dlouhé cyklické dotazování, používá se pro ně signalizace dlouhé.</span><span class="sxs-lookup"><span data-stu-id="d12ce-129">Long Polling is used by SignalR when WebSockets isn't available or when the app is explicitly configured to use Long Polling.</span></span> <span data-ttu-id="d12ce-130">Při nasazování do Azure App Service nakonfigurujte aplikaci tak, aby používala objekty WebSocket v nastaveních Azure Portal služby.</span><span class="sxs-lookup"><span data-stu-id="d12ce-130">When deploying to Azure App Service, configure the app to use WebSockets in the Azure portal settings for the service.</span></span> <span data-ttu-id="d12ce-131">Podrobnosti o konfiguraci aplikace pro Azure App Service najdete v [pokynech pro publikování signálu](xref:signalr/publish-to-azure-web-app).</span><span class="sxs-lookup"><span data-stu-id="d12ce-131">For details on configuring the app for Azure App Service, see the [SignalR publishing guidelines](xref:signalr/publish-to-azure-web-app).</span></span>
+
+<span data-ttu-id="d12ce-132">Pro aplikace serveru Blazor doporučujeme používat [službu Azure signaler](/azure/azure-signalr) .</span><span class="sxs-lookup"><span data-stu-id="d12ce-132">We recommend using the [Azure SignalR Service](/azure/azure-signalr) for Blazor Server apps.</span></span> <span data-ttu-id="d12ce-133">Služba umožňuje škálovat aplikace serveru Blazor na velký počet souběžných připojení k signalizaci.</span><span class="sxs-lookup"><span data-stu-id="d12ce-133">The service allows for scaling up a Blazor Server app to a large number of concurrent SignalR connections.</span></span> <span data-ttu-id="d12ce-134">Kromě toho globální dosah a vysoce výkonná datová centra služby signalizace významně pomáhají při snižování latence kvůli geografickým zeměpisům.</span><span class="sxs-lookup"><span data-stu-id="d12ce-134">In addition, the SignalR service's global reach and high-performance data centers significantly aid in reducing latency due to geography.</span></span>
+
+### <a name="measure-network-latency"></a><span data-ttu-id="d12ce-135">Měření latence sítě</span><span class="sxs-lookup"><span data-stu-id="d12ce-135">Measure network latency</span></span>
+
+<span data-ttu-id="d12ce-136">[Zprostředkovatel komunikace js](xref:blazor/javascript-interop) lze použít k měření latence sítě, jak ukazuje následující příklad:</span><span class="sxs-lookup"><span data-stu-id="d12ce-136">[JS interop](xref:blazor/javascript-interop) can be used to measure network latency, as the following example demonstrates:</span></span>
+
+```cshtml
+@inject IJSRuntime JS
+
+@if (latency is null)
+{
+    <span>Calculating...</span>
+}
+else
+{
+    <span>@(latency.Value.TotalMilliseconds)ms</span>
+}
+
+@code
+{
+    private DateTime startTime;
+    private TimeSpan? latency;
+
+    protected override async Task OnInitializedAsync()
+    {
+        startTime = DateTime.UtcNow;
+        var _ = await JS.InvokeAsync<string>("toString");
+        latency = DateTime.UtcNow - startTime;
+    }
+}
+```
+
+<span data-ttu-id="d12ce-137">Pro přiměřené prostředí uživatelského rozhraní doporučujeme, abyste trvalou latenci uživatelského rozhraní 250ms nebo méně.</span><span class="sxs-lookup"><span data-stu-id="d12ce-137">For a reasonable UI experience, we recommend a sustained UI latency of 250ms or less.</span></span>
