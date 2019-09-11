@@ -5,14 +5,14 @@ description: Naučte se zmírnit bezpečnostní hrozby pro Blazor aplikací na s
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/05/2019
+ms.date: 09/07/2019
 uid: security/blazor/server-side
-ms.openlocfilehash: 13bb4475b4beac78cf489d83fb59a3e0d6d8f2d9
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: d30f19bfbbcdb6c142f03a6e0cc6e1fc154c2091
+ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800493"
+ms.lasthandoff: 09/10/2019
+ms.locfileid: "70878522"
 ---
 # <a name="secure-aspnet-core-blazor-server-side-apps"></a>Zabezpečení ASP.NET Core Blazor aplikací na straně serveru
 
@@ -115,7 +115,7 @@ Klient komunikuje s odesláním a dokončením vykreslování událostí serveru
 Pro volání z metod .NET do JavaScriptu:
 
 * Všechna volání mají konfigurovatelný časový limit, po jehož uplynutí selžou, a vrátí <xref:System.OperationCanceledException> volajícímu.
-  * Výchozí časový limit pro volání (`CircuitOptions.JSInteropDefaultCallTimeout`) po jednu minutu.
+  * Výchozí časový limit pro volání (`CircuitOptions.JSInteropDefaultCallTimeout`) po jednu minutu. Pokud chcete tento limit nakonfigurovat, <xref:blazor/javascript-interop#harden-js-interop-calls>Přečtěte si téma.
   * Je možné zadat token zrušení pro řízení zrušení u jednotlivých volání. Spoléhá se na výchozí časový limit volání, kde je to možné, a s časovým limitem pro jakékoli volání klienta, pokud je k dispozici token zrušení.
 * Výsledek volání JavaScriptu nemůže být důvěryhodný. Klient aplikace Blazor spuštěný v prohlížeči vyhledá funkci JavaScriptu, která se má vyvolat. Funkce je vyvolána a výsledek nebo chyba je vytvořena. Zlomyslný klient se může pokusit:
   * Způsobí problém v aplikaci vrácením chyby z funkce JavaScriptu.
@@ -200,6 +200,72 @@ Klient může odeslat jednu nebo více událostí přírůstku předtím, než a
 ```
 
 Přidáním `if (count < 3) { ... }` kontroly do obslužné rutiny je rozhodnutí o zvýšení `count` na základě aktuálního stavu aplikace. Rozhodnutí není založené na stavu uživatelského rozhraní jako v předchozím příkladu, což může být dočasně zastaralé.
+
+### <a name="guard-against-multiple-dispatches"></a>Ochrana proti více odesláním
+
+Pokud zpětné volání události vyvolá dlouhou běžící operaci, například načtení dat z externí služby nebo databáze, zvažte použití ochrany. Ochrana může uživatelům zabránit ve zařazení více operací do fronty, zatímco operace probíhá pomocí vizuální zpětné vazby. Následující kód komponenty nastaví `isLoading` na, `true` když `GetForecastAsync` získá data ze serveru. V nástroji `true`je tlačítko neaktivní v uživatelském rozhraní: `isLoading`
+
+```cshtml
+@page "/fetchdata"
+@using BlazorServerSample.Data
+@inject WeatherForecastService ForecastService
+
+<button disabled="@isLoading" @onclick="UpdateForecasts">Update</button>
+
+@code {
+    private bool isLoading;
+    private WeatherForecast[] forecasts;
+
+    private async Task UpdateForecasts()
+    {
+        if (!isLoading)
+        {
+            isLoading = true;
+            forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+            isLoading = false;
+        }
+    }
+}
+```
+
+### <a name="cancel-early-and-avoid-use-after-dispose"></a>Zrušit počáteční a vyhnout se použití po vyřazení
+
+Kromě používání ochrany, jak je popsáno v části [Guard proti více odesláních](#guard-against-multiple-dispatches) , zvažte použití nástroje <xref:System.Threading.CancellationToken> ke zrušení dlouhotrvajících operací při likvidaci komponenty. Tento přístup má výhodu při zamezení používání funkcí *po Dispose* v součástech:
+
+```cshtml
+@implements IDisposable
+
+...
+
+@code {
+    private readonly CancellationTokenSource TokenSource = 
+        new CancellationTokenSource();
+
+    private async Task UpdateForecasts()
+    {
+        ...
+
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now, 
+            TokenSource.Token);
+
+        if (TokenSource.Token.IsCancellationRequested)
+        {
+           return;
+        }
+
+        ...
+    }
+
+    public void Dispose()
+    {
+        CancellationTokenSource.Cancel();
+    }
+}
+```
+
+### <a name="avoid-events-that-produce-large-amounts-of-data"></a>Vyhněte se událostem, které vytváří velké objemy dat
+
+Některé události modelu DOM, například `oninput` nebo `onscroll`, mohou vytvořit velké množství dat. Nepoužívejte tyto události v aplikacích Blazor serveru.
 
 ## <a name="additional-security-guidance"></a>Další pokyny k zabezpečení
 
@@ -330,6 +396,9 @@ Následující seznam bezpečnostních otázek není vyčerpávající:
 * Zabrání klientovi v přidělování nevázané velikosti paměti.
   * Data v rámci součásti.
   * `DotNetObject`odkazy vracené klientovi.
+* Ochrana proti více odesláním.
+* Zrušit dlouhotrvající operace, když je komponenta vyřazena.
+* Vyhněte se událostem, které vytváří velké objemy dat.
 * Vyhněte se použití vstupu uživatele jako součásti volání `NavigationManager.Navigate` a ověření vstupu uživatele pro adresy URL proti sadě povolených původních míst, pokud je to nenevyhnutelné.
 * Neprovádějte rozhodnutí o autorizaci na základě stavu uživatelského rozhraní, ale jenom ze stavu součásti.
 * Zvažte použití [zásad zabezpečení obsahu (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP) k ochraně před útoky XSS.
