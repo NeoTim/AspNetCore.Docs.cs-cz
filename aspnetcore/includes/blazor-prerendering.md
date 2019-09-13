@@ -1,4 +1,4 @@
-I když je aplikace Blazor na straně serveru předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně.
+I když je aplikace serveru Blazor předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně.
 
 Chcete-li spojit volání interoperability JavaScriptu až po navázání spojení s prohlížečem, můžete `OnAfterRenderAsync` použít událost životního cyklu součásti. Tato událost se volá jenom v případě, že se aplikace úplně vykreslí a naváže se připojení klienta.
 
@@ -62,7 +62,7 @@ Kde `JSRuntime.InvokeAsync` je volána, `ElementRef` je použita pouze v `OnAfte
 }
 ```
 
-Chcete-li podmíněně vykreslovat jiný obsah na základě toho, zda aplikace aktuálně předchází obsah, `IsConnected` použijte vlastnost `IComponentContext` ve službě. Při spuštění na straně serveru se `IsConnected` vrátí `true` jenom v případě, že existuje aktivní připojení k klientovi. Vždycky se vrátí `true` při spuštění na straně klienta.
+Chcete-li podmíněně vykreslovat jiný obsah na základě toho, zda aplikace aktuálně předchází obsah, `IsConnected` použijte vlastnost `IComponentContext` ve službě. Pro aplikace Blazor serveru vrátí `IsConnected` `true` jenom v případě, že existuje aktivní připojení k klientovi. Vždycky se vrátí `true` v Blazorch aplikacích WebAssembly.
 
 ```cshtml
 @page "/isconnected-example"

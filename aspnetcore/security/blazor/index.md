@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: 2ba7b0612c2be50ae0797c50dc3cb0d63c0f0c2d
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: ab8cc547463ef647316b5a4e377c15021debc4b1
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800505"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963955"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
@@ -20,26 +20,26 @@ Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
 ASP.NET Core podporuje konfiguraci a správu zabezpečení v aplikacích Blazor.
 
-Scénáře zabezpečení se liší mezi Blazor a klientskými aplikacemi na straně serveru. Vzhledem k tomu, že Blazor aplikace na straně serveru běží na serveru, kontroly autorizace můžou určit:
+Scénáře zabezpečení se liší mezi Blazor serverem a Blazor aplikacemi WebAssembly. Vzhledem k tomu, že aplikace Blazor serveru běží na serveru, kontroly autorizace můžou určit:
 
 * Možnosti uživatelského rozhraní prezentované uživateli (například položky nabídky, které jsou k dispozici uživateli).
 * Pravidla přístupu pro oblasti aplikace a součástí
 
-Blazor aplikace na straně klienta běží na klientovi. Autorizace se používá *jenom* k určení možností uživatelského rozhraní, které se mají zobrazit. Vzhledem k tomu, že kontroly na straně klienta mohou být upraveny nebo vynechány uživatelem, aplikace Blazor na straně klienta nemůže vyhovět autorizačním pravidlům.
+Blazor aplikace WebAssembly běží na klientovi. Autorizace se používá *jenom* k určení možností uživatelského rozhraní, které se mají zobrazit. Vzhledem k tomu, že kontroly na straně klienta mohou být upraveny nebo vynechány uživatelem, aplikace Blazor WebAssembly nemůže vyhovět autorizačním pravidlům.
 
 ## <a name="authentication"></a>Ověřování
 
-Blazor používá k vytvoření identity uživatele existující mechanismy ověřování ASP.NET Core. Přesný mechanismus závisí na tom, jak je aplikace Blazor hostována, na straně serveru nebo na straně klienta.
+Blazor používá k vytvoření identity uživatele existující mechanismy ověřování ASP.NET Core. Přesný mechanismus závisí na tom, jak je aplikace Blazor hostovaná, Blazor Server nebo Blazor WebAssembly.
 
-### <a name="blazor-server-side-authentication"></a>Blazor ověřování na straně serveru
+### <a name="blazor-server-authentication"></a>Ověřování serveru Blazor
 
-Blazor aplikace na straně serveru fungují prostřednictvím připojení v reálném čase vytvořeného pomocí signálu. [Ověřování v aplikacích založených na službě Signal](xref:signalr/authn-and-authz) se zpracovává při navázání připojení. Ověřování může být založené na souboru cookie nebo nějakém jiném nosným tokenu.
+Blazor serverové aplikace pracují přes připojení v reálném čase, které je vytvořené pomocí signálu. [Ověřování v aplikacích založených na službě Signal](xref:signalr/authn-and-authz) se zpracovává při navázání připojení. Ověřování může být založené na souboru cookie nebo nějakém jiném nosným tokenu.
 
-Šablona projektu Blazor na straně serveru může nastavit ověřování při vytvoření projektu.
+Šablona projektu serveru Blazor může pro vás nastavit ověřování při vytvoření projektu.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Podle pokynů pro Visual Studio v <xref:blazor/get-started> článku vytvořte nový projekt Blazor na straně serveru s mechanismem ověřování.
+Pokud chcete vytvořit nový projekt serveru Blazor <xref:blazor/get-started> s ověřovacím mechanismem, postupujte podle pokynů pro Visual Studio v článku.
 
 Po výběru šablony **aplikace Blazor serveru** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
 
@@ -54,7 +54,7 @@ Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pr
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Postupujte podle pokynů Visual Studio Code v <xref:blazor/get-started> článku Vytvoření nového projektu na straně serveru Blazor pomocí mechanismu ověřování:
+Postupujte podle pokynů Visual Studio Code v <xref:blazor/get-started> článku Vytvoření nového projektu serveru Blazor s mechanismem ověřování:
 
 ```console
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -88,7 +88,7 @@ Příkaz vytvoří složku s názvem s hodnotou zadanou pro `{APP NAME}` zástup
 <!--
 # [.NET Core CLI](#tab/netcore-cli/)
 
-Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor server-side project with an authentication mechanism:
+Follow the .NET Core CLI guidance in the <xref:blazor/get-started> article to create a new Blazor Server project with an authentication mechanism:
 
 ```console
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -111,15 +111,15 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 ---
 
-### <a name="blazor-client-side-authentication"></a>Blazor ověřování na straně klienta
+### <a name="blazor-webassembly-authentication"></a>Blazor ověřování WebAssembly
 
-V Blazor aplikací na straně klienta se můžou kontroly ověřování obejít, protože všichni můžou upravovat kód na straně klienta. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
+V aplikacích Blazor WebAssembly lze kontroly ověřování obejít, protože všechny kódy na straně klienta mohou být změněny uživateli. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
 
-Implementace vlastní `AuthenticationStateProvider` služby pro Blazor aplikace na straně klienta je popsaná v následujících částech.
+Implementace vlastní `AuthenticationStateProvider` služby pro aplikace WebAssembly v Blazor je popsaná v následujících částech.
 
 ## <a name="authenticationstateprovider-service"></a>Služba AuthenticationStateProvider
 
-Blazor aplikace na straně serveru obsahují integrovanou `AuthenticationStateProvider` službu, která získává data o stavu ověřování z `HttpContext.User`ASP.NET Core. To je způsob, jakým se stav ověřování integruje s existujícími mechanismy ASP.NET Core ověřování na straně serveru.
+Serverové aplikace Blazor obsahují integrovanou `AuthenticationStateProvider` službu, která získává data o stavu ověřování z `HttpContext.User`ASP.NET Core. To je způsob, jakým se stav ověřování integruje s existujícími mechanismy ASP.NET Core ověřování na straně serveru.
 
 `AuthenticationStateProvider`je základní službou, kterou `AuthorizeView` komponenta a `CascadingAuthenticationState` komponenta používá k získání stavu ověřování.
 
@@ -157,7 +157,7 @@ Další informace o vkládání závislostí (di) a službách naleznete v <xref
 
 ## <a name="implement-a-custom-authenticationstateprovider"></a>Implementace vlastního AuthenticationStateProvider
 
-Pokud vytváříte aplikaci Blazor na straně klienta nebo pokud specifikace vaší aplikace naprosto vyžaduje vlastního poskytovatele, implementujte zprostředkovatele a přepište `GetAuthenticationStateAsync`:
+Pokud vytváříte aplikaci WebAssembly Blazor nebo pokud specifikace vaší aplikace naprosto vyžaduje vlastního poskytovatele, implementujte zprostředkovatele a přepište `GetAuthenticationStateAsync`:
 
 ```csharp
 class CustomAuthStateProvider : AuthenticationStateProvider
@@ -310,13 +310,13 @@ Pro autorizaci založenou na zásadách použijte `Policy` parametr:
 
 Ověřování na základě deklarací identity je zvláštní případ ověřování na základě zásad. Můžete například definovat zásadu, která vyžaduje, aby uživatelé měli určitou deklaraci identity. Další informace naleznete v tématu <xref:security/authorization/policies>.
 
-Tato rozhraní API se dají použít buď v Blazor na straně serveru, nebo v Blazor klientských aplikacích.
+Tato rozhraní API se dají použít buď v Blazor serveru, nebo v aplikacích Blazor WebAssembly.
 
 Pokud není zadán `Policy` ani `AuthorizeView` ani, používá výchozí zásady. `Roles`
 
 ### <a name="content-displayed-during-asynchronous-authentication"></a>Obsah zobrazený během asynchronního ověřování
 
-Blazor umožňuje *asynchronní*určení stavu ověřování. Primární scénář pro tento přístup je v Blazor aplikací na straně klienta, které vytvářejí požadavek na externí koncový bod pro ověřování.
+Blazor umožňuje *asynchronní*určení stavu ověřování. Primární scénář pro tento přístup je v aplikacích Blazor WebAssembly, které vytvářejí požadavek na externí koncový bod pro ověřování.
 
 V průběhu ověřování ve `AuthorizeView` výchozím nastavení nezobrazí žádný obsah. Chcete-li zobrazit obsah, když dojde k `<Authorizing>` ověřování, použijte element:
 
@@ -333,7 +333,7 @@ V průběhu ověřování ve `AuthorizeView` výchozím nastavení nezobrazí ž
 </AuthorizeView>
 ```
 
-Tento přístup se obvykle nevztahuje na Blazor aplikace na straně serveru. Blazor aplikace na straně serveru znají stav ověřování, jakmile se naváže stav. `Authorizing`obsah může být k dispozici v `AuthorizeView` součásti aplikace na straně serveru Blazor, ale obsah se nikdy nezobrazí.
+Tento přístup se obvykle nevztahuje na aplikace serveru Blazor. Aplikace Blazor serveru znají stav ověřování, jakmile se naváže stav. `Authorizing`obsah může být k dispozici v `AuthorizeView` součásti aplikace serveru Blazor, ale obsah se nikdy nezobrazí.
 
 ## <a name="authorize-attribute"></a>[Autorizační] – atribut
 
@@ -382,7 +382,7 @@ Pokud není zadán `Policy` ani `[Authorize]` ani, používá výchozí zásadu,
 * Uživatel nezdařil `[Authorize]` podmínku použitou pro komponentu. Atribut je popsán v části [[autorizační] atributu.](#authorize-attribute) `[Authorize]`
 * Probíhá asynchronní ověřování.
 
-Ve výchozí šabloně projektu na straně serveru Blazor soubor *App. Razor* ukazuje, jak nastavit vlastní obsah:
+Ve výchozí šabloně projektu serveru Blazor soubor *App. Razor* ukazuje, jak nastavit vlastní obsah:
 
 ```cshtml
 <Router AppAssembly="@typeof(Program).Assembly">
@@ -459,9 +459,9 @@ Pokud je aplikace nutná k kontrole autorizačních pravidel v rámci procedurá
 }
 ```
 
-## <a name="authorization-in-blazor-client-side-apps"></a>Autorizace v Blazor klientských aplikacích na straně klienta
+## <a name="authorization-in-blazor-webassembly-apps"></a>Autorizace v Blazorch aplikacích WebAssembly
 
-V aplikacích Blazor na straně klienta se můžou kontroly autorizace obejít, protože všichni můžou upravovat kód na straně klienta. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
+V aplikacích Blazor WebAssembly lze kontroly autorizace obejít, protože všechny kódy na straně klienta mohou být změněny uživateli. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
 
 **Na serveru vždy provádějte kontroly autorizace v libovolném koncovém bodu rozhraní API, ke kterému přistupovala aplikace na straně klienta.**
 
@@ -473,7 +473,7 @@ Běžné chyby:
 
 * **`null`hodnota je přijata pro`authenticationStateTask`**
 
-Je možné, že projekt nebyl vytvořen pomocí šablony Blazor na straně serveru s povoleným ověřováním. Zabalte kolem některé části stromu uživatelského rozhraní, například v *App. Razor* , následovně: `<CascadingAuthenticationState>`
+Je možné, že projekt nebyl vytvořen pomocí šablony serveru Blazor s povoleným ověřováním. Zabalte kolem některé části stromu uživatelského rozhraní, například v *App. Razor* , následovně: `<CascadingAuthenticationState>`
 
 ```cshtml
 <CascadingAuthenticationState>
@@ -488,5 +488,5 @@ Doplní kaskádový parametr, který zase získá z podkladové `AuthenticationS
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/index>
-* <xref:security/blazor/server-side>
+* <xref:security/blazor/server>
 * <xref:security/authentication/windowsauth>

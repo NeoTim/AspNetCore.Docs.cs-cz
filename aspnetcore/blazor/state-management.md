@@ -1,18 +1,18 @@
 ---
 title: Správa stavu ASP.NET Core Blazor
 author: guardrex
-description: Přečtěte si, jak zachovat stav v Blazor aplikacích na straně serveru.
+description: Přečtěte si, jak zachovat stav v aplikacích Blazor serveru.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/state-management
-ms.openlocfilehash: 000736dde53670d1df76f41cc7cf4f95ef48800a
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: e1c3b030f466a820d49c36839d7ee26bb7cea4d3
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800349"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70963857"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -27,7 +27,7 @@ Příkladem stavu drženého pro okruh uživatele jsou:
 * Data uchovávaná v instancích služby pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) , která jsou vymezena okruhu.
 
 > [!NOTE]
-> Tento článek řeší trvalost stavu v Blazor aplikacích na straně serveru. Blazor aplikace na straně klienta můžou využít [trvalost stavu na straně klienta v prohlížeči](#client-side-in-the-browser) , ale kromě rozsahu tohoto článku vyžadují vlastní řešení nebo balíčky třetích stran.
+> Tento článek řeší trvalost stavu v aplikacích Blazor serveru. Blazor aplikace WebAssembly můžou využít [trvalost stavu na straně klienta v prohlížeči](#client-side-in-the-browser) , ale kromě rozsahu tohoto článku vyžadují vlastní řešení nebo balíčky třetích stran.
 
 ## <a name="blazor-circuits"></a>Okruhy Blazor
 
@@ -62,7 +62,7 @@ Obvykle není nutné zachovávat snadno-znovu vytvořený stav, jako je napřík
 
 ## <a name="where-to-persist-state"></a>Kam zachovat stav
 
-Existují tři společná umístění pro zachování stavu v Blazor aplikaci na straně serveru. Každý přístup nejlépe vyhovuje různým scénářům a má odlišná omezení:
+V serverové aplikaci Blazor existují tři společná umístění pro zachování stavu. Každý přístup nejlépe vyhovuje různým scénářům a má odlišná omezení:
 
 * [Na straně serveru v databázi](#server-side-in-a-database)
 * [Adresa URL](#url)
@@ -100,7 +100,7 @@ Informace o definování vzorů adres URL pomocí `@page` direktivy naleznete <x
 Pro přechodná data, která uživatel aktivně vytváří, je běžným záložním úložištěm prohlížeč `localStorage` a `sessionStorage` kolekce. Pokud dojde k opuštění okruhu, nepotřebuje aplikace spravovat nebo vymazat uložený stav, což je výhodou pro úložiště na straně serveru.
 
 > [!NOTE]
-> "Klientská strana" v této části odkazuje na scénáře na straně klienta v prohlížeči, nikoli na [Blazor model hostování na straně](xref:blazor/hosting-models#client-side)klienta. `localStorage`a `sessionStorage` dá se použít v Blazor aplikacích na straně klienta, ale jenom psaním vlastního kódu nebo pomocí balíčku třetí strany.
+> "Klientská strana" v této části odkazuje na scénáře na straně klienta v prohlížeči, nikoli na [Blazor model hostování WebAssembly](xref:blazor/hosting-models#blazor-webassembly). `localStorage`a `sessionStorage` lze jej použít v aplikacích Blazor WebAssembly, ale pouze psaním vlastního kódu nebo pomocí balíčku třetí strany.
 
 `localStorage`a `sessionStorage` liší se následujícím způsobem:
 
@@ -118,7 +118,7 @@ Upozornění pro použití úložiště prohlížeče:
 
 * Podobně jako při použití databáze na straně serveru je načítání a ukládání dat asynchronní.
 * Na rozdíl od databáze na straně serveru není úložiště během předgenerování k dispozici, protože požadovaná stránka v prohlížeči neexistuje během fáze předvykreslování.
-* Úložiště několika kilobajtů dat je pro Blazor aplikace na straně serveru přijatelné. Po několika kilobajtech je potřeba vzít v úvahu dopad na výkon, protože data se načítají a ukládají v síti.
+* Úložiště několika kilobajtů dat je pro aplikace Blazor serveru přijatelné. Po několika kilobajtech je potřeba vzít v úvahu dopad na výkon, protože data se načítají a ukládají v síti.
 * Uživatelé můžou data zobrazit nebo s nimi manipulovat. [Ochrana dat](xref:security/data-protection/introduction) ASP.NET Core může riziko zmírnit.
 
 ## <a name="third-party-browser-storage-solutions"></a>Řešení úložiště v prohlížeči třetích stran
@@ -138,7 +138,7 @@ Příklad balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-pro
 
 Postup instalace `Microsoft.AspNetCore.ProtectedBrowserStorage` balíčku:
 
-1. V projektu aplikace Blazor na straně serveru přidejte odkaz na balíček do [Microsoft. AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).
+1. V projektu aplikace Blazor Server přidejte odkaz na balíček do [Microsoft. AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).
 1. V HTML nejvyšší úrovně (například v souboru *Pages/_Host. cshtml* ve výchozí šabloně projektu) přidejte následující `<script>` značku:
 
    ```html

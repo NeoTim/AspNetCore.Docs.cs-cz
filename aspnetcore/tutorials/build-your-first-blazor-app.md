@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/23/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: ea1111f43b6b8b4f47061056e8ad8d505f92dba6
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: ffbdf6991830d554fc508d1d2fe8e4b9586210df
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800488"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70964182"
 ---
 # <a name="build-your-first-blazor-app"></a>Vytvoření první aplikace v Blazor
 
@@ -57,7 +57,7 @@ Zahrnutí komponenty do jiné komponenty pomocí syntaxe jazyka HTML.
 
 1. `Index` Přidejtekomponentudo`Index` komponenty aplikace přidáním `<Counter />` prvku do komponenty (*index. Razor*). `Counter`
 
-   Pokud pro toto prostředí používáte Blazor na straně klienta, `SurveyPrompt` komponenta se používá `Index` pro komponentu. Nahraďte `<Counter />`elementelementem. `<SurveyPrompt>` Pokud pro toto prostředí používáte Blazor aplikaci na straně serveru, přidejte `<Counter />` element `Index` do komponenty:
+   Pokud pro toto prostředí používáte Blazor WebAssembly, `SurveyPrompt` komponenta se používá `Index` komponentou. Nahraďte `<Counter />`elementelementem. `<SurveyPrompt>` Pokud pro toto prostředí používáte aplikaci serveru Blazor, přidejte `<Counter />` element `Index` do komponenty:
 
    *Pages/index. Razor*:
 
@@ -101,7 +101,7 @@ Služby zaregistrované v kontejneru služby aplikace jsou dostupné komponentá
 
 Projděte si direktivy `FetchData` komponenty.
 
-Pokud pracujete s Blazor aplikací na straně serveru, `WeatherForecastService` je služba zaregistrovaná jako typ [singleton](xref:fundamentals/dependency-injection#service-lifetimes), takže v celé aplikaci je dostupná jedna instance služby. Direktiva slouží k vložení instance `WeatherForecastService` služby do komponenty. `@inject`
+Pokud pracujete s aplikací serveru Blazor, `WeatherForecastService` služba se zaregistruje jako [singleton](xref:fundamentals/dependency-injection#service-lifetimes), takže v celé aplikaci je dostupná jedna instance služby. Direktiva slouží k vložení instance `WeatherForecastService` služby do komponenty. `@inject`
 
 *Stránky/FetchData. Razor*:
 
@@ -111,7 +111,7 @@ Komponenta používá vloženou službu jako `ForecastService` `WeatherForecast`
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-Pokud pracujete s aplikací Blazor na straně klienta, `HttpClient` je vložena pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* :
+Pokud pracujete s aplikací Blazor WebAssembly, `HttpClient` je vložena pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* :
 
 *Stránky/FetchData. Razor*:
 

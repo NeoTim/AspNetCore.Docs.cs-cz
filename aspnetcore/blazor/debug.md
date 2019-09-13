@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/22/2019
 uid: blazor/debug
-ms.openlocfilehash: c3188a1fe1b699b787f7a95630f3918d295d0f68
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: e9477e504d32fd1dd5d6c87392386d1131f46e9f
+ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69974899"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70964000"
 ---
 # <a name="debug-aspnet-core-blazor"></a>Ladění ASP.NET Core Blazor
 
 [Daniel Skořepa](https://github.com/danroth27)
 
-Pro ladění Blazorch klientských aplikací běžících na WebAssembly v Chrome existuje *brzké* podpora.
+Pro ladění Blazorch aplikací WebAssembly běžících na WebAssembly v Chrome existuje *brzké* podpora.
 
 Možnosti ladicího programu jsou omezené. K dispozici jsou tyto scénáře:
 
@@ -27,7 +27,7 @@ Možnosti ladicího programu jsou omezené. K dispozici jsou tyto scénáře:
 * V zobrazení *místních* hodnot Sledujte hodnoty jakýchkoli místních proměnných typu `int`, `string`a `bool`.
 * Podívejte se do zásobníku volání, včetně řetězů volání, které přecházejí z JavaScriptu do .NET a z .NET do JavaScriptu.
 
-Nemůžete:
+*Nemůžete*:
 
 * Sledujte hodnoty všech národních prostředí, která nejsou `int`, `string`nebo `bool`.
 * Sledujte hodnoty jakýchkoli vlastností nebo polí třídy.
@@ -47,7 +47,7 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
 ## <a name="procedure"></a>Postup
 
-1. Spusťte aplikaci Blazor na straně klienta v `Debug` konfiguraci. Předat možnost příkazu [dotnet Run](/dotnet/core/tools/dotnet-run) : `dotnet run --configuration Debug`. `--configuration Debug`
+1. Spusťte aplikaci Blazor WebAssembly v `Debug` konfiguraci. Předat možnost příkazu [dotnet Run](/dotnet/core/tools/dotnet-run) : `dotnet run --configuration Debug`. `--configuration Debug`
 1. Přihlaste se k aplikaci v prohlížeči.
 1. Umístěte fokus klávesnice na aplikaci, ne na panel nástroje pro vývojáře. Panel nástrojů pro vývojáře lze zavřít při zahájení ladění.
 1. Vyberte následující klávesovou zkratku specifickou pro Blazor:
@@ -60,7 +60,7 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
 ## <a name="enable-remote-debugging"></a>Povolit vzdálené ladění
 
-Pokud je vzdálené ladění zakázané, nemůžete najít chybovou stránku **karty prohlížeče** , která je vygenerovaná v Chrome. Chybová stránka obsahuje pokyny pro spuštění aplikace Chrome s otevřeným portem pro ladění, aby se proxy server Blazor pro ladění mohl připojit k aplikaci. *Zavřete všechny instance Chrome* a restartujte Chrome podle pokynů.
+Pokud je vzdálené ladění zakázané, **nemůžete najít** chybovou stránku karty prohlížeče, která je vygenerovaná v Chrome. Chybová stránka obsahuje pokyny pro spuštění aplikace Chrome s otevřeným portem pro ladění, aby se proxy server Blazor pro ladění mohl připojit k aplikaci. *Zavřete všechny instance Chrome* a restartujte Chrome podle pokynů.
 
 ## <a name="debug-the-app"></a>Ladění aplikace
 
