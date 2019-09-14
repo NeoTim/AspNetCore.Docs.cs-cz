@@ -1,80 +1,80 @@
 ---
 title: Částečná zobrazení v ASP.NET Core
 author: ardalis
-description: Objevte, jak použít částečné zobrazení k rozdělení souborů velké značek a omezili dvojí společné značky na webových stránkách v aplikacích ASP.NET Core.
+description: Zjistíte, jak použít částečná zobrazení k rozdělení velkých souborů s označením a jak omezit duplicity běžných značek mezi webovými stránkami v ASP.NET Corech aplikacích.
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
 uid: mvc/views/partial
-ms.openlocfilehash: 901fd52f89969141713e443890781a77308bd901
-ms.sourcegitcommit: 335a88c1b6e7f0caa8a3a27db57c56664d676d34
+ms.openlocfilehash: 50c4f41d5d3099184aa3992ed7e176b74c488d2a
+ms.sourcegitcommit: 805f625d16d74e77f02f5f37326e5aceafcb78e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2019
-ms.locfileid: "67034913"
+ms.lasthandoff: 09/13/2019
+ms.locfileid: "70985574"
 ---
-# <a name="partial-views-in-aspnet-core"></a><span data-ttu-id="0dee3-103">Částečná zobrazení v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="0dee3-103">Partial views in ASP.NET Core</span></span>
+# <a name="partial-views-in-aspnet-core"></a><span data-ttu-id="c34d9-103">Částečná zobrazení v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="c34d9-103">Partial views in ASP.NET Core</span></span>
 
-<span data-ttu-id="0dee3-104">Podle [Steve Smith](https://ardalis.com/), [Luke Latham](https://github.com/guardrex), [Maher JENDOUBI](https://twitter.com/maherjend), [Rick Anderson](https://twitter.com/RickAndMSFT), a [Scott Sauber](https://twitter.com/scottsauber)</span><span class="sxs-lookup"><span data-stu-id="0dee3-104">By [Steve Smith](https://ardalis.com/), [Luke Latham](https://github.com/guardrex), [Maher JENDOUBI](https://twitter.com/maherjend), [Rick Anderson](https://twitter.com/RickAndMSFT), and [Scott Sauber](https://twitter.com/scottsauber)</span></span>
+<span data-ttu-id="c34d9-104">[Steve Smith](https://ardalis.com/), [Luke LATHAM](https://github.com/guardrex), [Maher JENDOUBI](https://twitter.com/maherjend), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Scott Sauber](https://twitter.com/scottsauber)</span><span class="sxs-lookup"><span data-stu-id="c34d9-104">By [Steve Smith](https://ardalis.com/), [Luke Latham](https://github.com/guardrex), [Maher JENDOUBI](https://twitter.com/maherjend), [Rick Anderson](https://twitter.com/RickAndMSFT), and [Scott Sauber](https://twitter.com/scottsauber)</span></span>
 
-<span data-ttu-id="0dee3-105">Částečné zobrazení je [Razor](xref:mvc/views/razor) souboru označení ( *.cshtml*), který vykreslí výstupu protokolu HTML *v rámci* jiný soubor značek je vykreslen výstup.</span><span class="sxs-lookup"><span data-stu-id="0dee3-105">A partial view is a [Razor](xref:mvc/views/razor) markup file (*.cshtml*) that renders HTML output *within* another markup file's rendered output.</span></span>
+<span data-ttu-id="c34d9-105">Částečné zobrazení je soubor značek [Razor](xref:mvc/views/razor) ( *. cshtml*), který vykresluje výstup HTML *v rámci* jiného vykresleného výstupu souboru s označením.</span><span class="sxs-lookup"><span data-stu-id="c34d9-105">A partial view is a [Razor](xref:mvc/views/razor) markup file (*.cshtml*) that renders HTML output *within* another markup file's rendered output.</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="0dee3-106">Termín *částečné zobrazení* se používá při vývoji buď aplikace MVC, ve kterém jsou volány soubory označení *zobrazení*, nebo aplikace stránky Razor, ve kterém jsou volány soubory označení *stránky*.</span><span class="sxs-lookup"><span data-stu-id="0dee3-106">The term *partial view* is used when developing either an MVC app, where markup files are called *views*, or a Razor Pages app, where markup files are called *pages*.</span></span> <span data-ttu-id="0dee3-107">Toto téma odkazuje obecně na zobrazení MVC a stránek Razor pages jako *soubory označení*.</span><span class="sxs-lookup"><span data-stu-id="0dee3-107">This topic generically refers to MVC views and Razor Pages pages as *markup files*.</span></span>
+<span data-ttu-id="c34d9-106">Termín *částečné zobrazení* se používá při vývoji aplikace MVC, kde jsou soubory značek označovány jako *zobrazení*nebo Razor Pages aplikace, kde se soubory označení nazývají *stránky*.</span><span class="sxs-lookup"><span data-stu-id="c34d9-106">The term *partial view* is used when developing either an MVC app, where markup files are called *views*, or a Razor Pages app, where markup files are called *pages*.</span></span> <span data-ttu-id="c34d9-107">Toto téma obecně odkazuje na zobrazení MVC a stránky Razor Pages jako *soubory značek*.</span><span class="sxs-lookup"><span data-stu-id="c34d9-107">This topic generically refers to MVC views and Razor Pages pages as *markup files*.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="0dee3-108">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/partial/sample) ([stažení](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="0dee3-108">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/partial/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="c34d9-108">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/partial/sample) ([stažení](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="c34d9-108">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/partial/sample) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="when-to-use-partial-views"></a><span data-ttu-id="0dee3-109">Kdy použít částečné zobrazení</span><span class="sxs-lookup"><span data-stu-id="0dee3-109">When to use partial views</span></span>
+## <a name="when-to-use-partial-views"></a><span data-ttu-id="c34d9-109">Kdy použít částečná zobrazení</span><span class="sxs-lookup"><span data-stu-id="c34d9-109">When to use partial views</span></span>
 
-<span data-ttu-id="0dee3-110">Částečná zobrazení jsou účinný způsob, jak:</span><span class="sxs-lookup"><span data-stu-id="0dee3-110">Partial views are an effective way to:</span></span>
+<span data-ttu-id="c34d9-110">Částečná zobrazení představují efektivní způsob:</span><span class="sxs-lookup"><span data-stu-id="c34d9-110">Partial views are an effective way to:</span></span>
 
-* <span data-ttu-id="0dee3-111">Rozdělte soubory velkých značek na menší součásti.</span><span class="sxs-lookup"><span data-stu-id="0dee3-111">Break up large markup files into smaller components.</span></span>
+* <span data-ttu-id="c34d9-111">Rozdělte velké soubory s označením na menší součásti.</span><span class="sxs-lookup"><span data-stu-id="c34d9-111">Break up large markup files into smaller components.</span></span>
 
-  <span data-ttu-id="0dee3-112">Ve velkých složitých značek souborů skládá z několika logických částí, je výhodné pracovat se službou každého jednotlivého samostatný do částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-112">In a large, complex markup file composed of several logical pieces, there's an advantage to working with each piece isolated into a partial view.</span></span> <span data-ttu-id="0dee3-113">Kód v souboru označení je spravovat, protože kód obsahuje pouze celkovou strukturu stránky a odkazy na částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-113">The code in the markup file is manageable because the markup only contains the overall page structure and references to partial views.</span></span>
-* <span data-ttu-id="0dee3-114">Omezili dvojí společný kód obsah značky souborů.</span><span class="sxs-lookup"><span data-stu-id="0dee3-114">Reduce the duplication of common markup content across markup files.</span></span>
+  <span data-ttu-id="c34d9-112">Ve velkém komplexním souboru označení složeném z několika logických částí je výhodná práce s každou částí izolovanou do částečného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-112">In a large, complex markup file composed of several logical pieces, there's an advantage to working with each piece isolated into a partial view.</span></span> <span data-ttu-id="c34d9-113">Kód v souboru označení lze spravovat, protože značky obsahují pouze celkovou strukturu stránky a odkazy na částečná zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-113">The code in the markup file is manageable because the markup only contains the overall page structure and references to partial views.</span></span>
+* <span data-ttu-id="c34d9-114">Snižte duplicitu společného obsahu značek napříč soubory značek.</span><span class="sxs-lookup"><span data-stu-id="c34d9-114">Reduce the duplication of common markup content across markup files.</span></span>
 
-  <span data-ttu-id="0dee3-115">Při použití stejné prvky kódu v souborech značek částečné zobrazení odebere duplicitní značky obsah do jednoho souboru částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-115">When the same markup elements are used across markup files, a partial view removes the duplication of markup content into one partial view file.</span></span> <span data-ttu-id="0dee3-116">Při změně kódu v částečné zobrazení aktualizuje vykresleného výstupu souborů značek, které používají částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-116">When the markup is changed in the partial view, it updates the rendered output of the markup files that use the partial view.</span></span>
+  <span data-ttu-id="c34d9-115">Když se stejné prvky značek používají napříč soubory značek, částečné zobrazení odstraní duplikaci obsahu kódu do jednoho souboru částečného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-115">When the same markup elements are used across markup files, a partial view removes the duplication of markup content into one partial view file.</span></span> <span data-ttu-id="c34d9-116">Při změně kódu v částečném zobrazení aktualizuje Vykreslený výstup souborů označení, které používají částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-116">When the markup is changed in the partial view, it updates the rendered output of the markup files that use the partial view.</span></span>
 
-<span data-ttu-id="0dee3-117">Částečná zobrazení nesmí sloužit k udržování společné prvky rozložení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-117">Partial views shouldn't be used to maintain common layout elements.</span></span> <span data-ttu-id="0dee3-118">Společné prvky rozložení musí být zadán v [_Layout.cshtml](xref:mvc/views/layout) soubory.</span><span class="sxs-lookup"><span data-stu-id="0dee3-118">Common layout elements should be specified in [_Layout.cshtml](xref:mvc/views/layout) files.</span></span>
+<span data-ttu-id="c34d9-117">Částečná zobrazení by se neměla používat k údržbě běžných prvků rozložení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-117">Partial views shouldn't be used to maintain common layout elements.</span></span> <span data-ttu-id="c34d9-118">V souborech [_Layout. cshtml](xref:mvc/views/layout) by měly být zadány běžné prvky rozložení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-118">Common layout elements should be specified in [_Layout.cshtml](xref:mvc/views/layout) files.</span></span>
 
-<span data-ttu-id="0dee3-119">Není použít částečné zobrazení, ve kterém jsou vyžadována k vykreslení kódu vykreslování komplexní logiku nebo spuštění kódu.</span><span class="sxs-lookup"><span data-stu-id="0dee3-119">Don't use a partial view where complex rendering logic or code execution is required to render the markup.</span></span> <span data-ttu-id="0dee3-120">Namísto částečné zobrazení, použijte [zobrazení komponenty](xref:mvc/views/view-components).</span><span class="sxs-lookup"><span data-stu-id="0dee3-120">Instead of a partial view, use a [view component](xref:mvc/views/view-components).</span></span>
+<span data-ttu-id="c34d9-119">Nepoužívejte částečné zobrazení, kde je pro vykreslení značky nutná složitá logika vykreslování nebo provádění kódu.</span><span class="sxs-lookup"><span data-stu-id="c34d9-119">Don't use a partial view where complex rendering logic or code execution is required to render the markup.</span></span> <span data-ttu-id="c34d9-120">Místo částečného zobrazení použijte [zobrazení komponenty](xref:mvc/views/view-components).</span><span class="sxs-lookup"><span data-stu-id="c34d9-120">Instead of a partial view, use a [view component](xref:mvc/views/view-components).</span></span>
 
-## <a name="declare-partial-views"></a><span data-ttu-id="0dee3-121">Deklarujte částečné zobrazení</span><span class="sxs-lookup"><span data-stu-id="0dee3-121">Declare partial views</span></span>
+## <a name="declare-partial-views"></a><span data-ttu-id="c34d9-121">Deklarovat částečná zobrazení</span><span class="sxs-lookup"><span data-stu-id="c34d9-121">Declare partial views</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="0dee3-122">Částečné zobrazení je *.cshtml* souboru označení udržována v rámci *zobrazení* složky (MVC) nebo *stránky* složky (stránky Razor).</span><span class="sxs-lookup"><span data-stu-id="0dee3-122">A partial view is a *.cshtml* markup file maintained within the *Views* folder (MVC) or *Pages* folder (Razor Pages).</span></span>
+<span data-ttu-id="c34d9-122">Částečné zobrazení je soubor s označením *. cshtml* udržovaný ve složce *zobrazení* (MVC) nebo ve složce *stránek* (Razor Pages).</span><span class="sxs-lookup"><span data-stu-id="c34d9-122">A partial view is a *.cshtml* markup file maintained within the *Views* folder (MVC) or *Pages* folder (Razor Pages).</span></span>
 
-<span data-ttu-id="0dee3-123">V ASP.NET Core MVC, řadič <xref:Microsoft.AspNetCore.Mvc.ViewResult> je schopen vracet částečné zobrazení nebo zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-123">In ASP.NET Core MVC, a controller's <xref:Microsoft.AspNetCore.Mvc.ViewResult> is capable of returning either a view or a partial view.</span></span> <span data-ttu-id="0dee3-124">V Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> může vrátit reprezentovaná jako částečné zobrazení <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> objektu.</span><span class="sxs-lookup"><span data-stu-id="0dee3-124">In Razor Pages, a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> can return a partial view represented as a <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> object.</span></span> <span data-ttu-id="0dee3-125">Odkazování na a vykreslení částečných zobrazení je popsána v [odkazovat na částečné zobrazení](#reference-a-partial-view) oddílu.</span><span class="sxs-lookup"><span data-stu-id="0dee3-125">Referencing and rendering partial views is described in the [Reference a partial view](#reference-a-partial-view) section.</span></span>
+<span data-ttu-id="c34d9-123">V ASP.NET Core MVC může řadič <xref:Microsoft.AspNetCore.Mvc.ViewResult> vracet buď zobrazení, nebo částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-123">In ASP.NET Core MVC, a controller's <xref:Microsoft.AspNetCore.Mvc.ViewResult> is capable of returning either a view or a partial view.</span></span> <span data-ttu-id="c34d9-124">V Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> může vracet částečné zobrazení reprezentované <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> jako objekt.</span><span class="sxs-lookup"><span data-stu-id="c34d9-124">In Razor Pages, a <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> can return a partial view represented as a <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> object.</span></span> <span data-ttu-id="c34d9-125">Odkazování na částečné zobrazení a jejich vykreslování je popsané v části [Reference k částečnému zobrazení](#reference-a-partial-view) .</span><span class="sxs-lookup"><span data-stu-id="c34d9-125">Referencing and rendering partial views is described in the [Reference a partial view](#reference-a-partial-view) section.</span></span>
 
-<span data-ttu-id="0dee3-126">Na rozdíl od zobrazení MVC nebo vykreslení stránky částečné zobrazení nespustí *soubor _ViewStart.cshtml*.</span><span class="sxs-lookup"><span data-stu-id="0dee3-126">Unlike MVC view or page rendering, a partial view doesn't run *_ViewStart.cshtml*.</span></span> <span data-ttu-id="0dee3-127">Další informace o *soubor _ViewStart.cshtml*, naleznete v tématu <xref:mvc/views/layout>.</span><span class="sxs-lookup"><span data-stu-id="0dee3-127">For more information on *_ViewStart.cshtml*, see <xref:mvc/views/layout>.</span></span>
+<span data-ttu-id="c34d9-126">Na rozdíl od zobrazení MVC nebo vykreslování stránky neběží částečné zobrazení *_ViewStart. cshtml*.</span><span class="sxs-lookup"><span data-stu-id="c34d9-126">Unlike MVC view or page rendering, a partial view doesn't run *_ViewStart.cshtml*.</span></span> <span data-ttu-id="c34d9-127">Další informace o *_ViewStart. cshtml*naleznete v tématu <xref:mvc/views/layout>.</span><span class="sxs-lookup"><span data-stu-id="c34d9-127">For more information on *_ViewStart.cshtml*, see <xref:mvc/views/layout>.</span></span>
 
-<span data-ttu-id="0dee3-128">Názvy souborů částečné zobrazení často začínají podtržítkem (`_`).</span><span class="sxs-lookup"><span data-stu-id="0dee3-128">Partial view file names often begin with an underscore (`_`).</span></span> <span data-ttu-id="0dee3-129">Tyto zásady vytváření názvů není povinné, ale pomáhá vizuálně odlišili od zobrazení a stránky částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-129">This naming convention isn't required, but it helps to visually differentiate partial views from views and pages.</span></span>
+<span data-ttu-id="c34d9-128">Názvy souborů částečného zobrazení často začínají podtržítkem (`_`).</span><span class="sxs-lookup"><span data-stu-id="c34d9-128">Partial view file names often begin with an underscore (`_`).</span></span> <span data-ttu-id="c34d9-129">Tato konvence pojmenování není povinná, ale pomáhá vizuálně odlišit částečná zobrazení ze zobrazení a stránek.</span><span class="sxs-lookup"><span data-stu-id="c34d9-129">This naming convention isn't required, but it helps to visually differentiate partial views from views and pages.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.0"
 
-<span data-ttu-id="0dee3-130">Částečné zobrazení je *.cshtml* souboru označení udržována v rámci *zobrazení* složky.</span><span class="sxs-lookup"><span data-stu-id="0dee3-130">A partial view is a *.cshtml* markup file maintained within the *Views* folder.</span></span>
+<span data-ttu-id="c34d9-130">Částečné zobrazení je soubor označení *. cshtml* spravovaný ve složce *views* .</span><span class="sxs-lookup"><span data-stu-id="c34d9-130">A partial view is a *.cshtml* markup file maintained within the *Views* folder.</span></span>
 
-<span data-ttu-id="0dee3-131">Kontroleru <xref:Microsoft.AspNetCore.Mvc.ViewResult> je schopen vracet částečné zobrazení nebo zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-131">A controller's <xref:Microsoft.AspNetCore.Mvc.ViewResult> is capable of returning either a view or a partial view.</span></span> <span data-ttu-id="0dee3-132">Odkazování na a vykreslení částečných zobrazení je popsána v [odkazovat na částečné zobrazení](#reference-a-partial-view) oddílu.</span><span class="sxs-lookup"><span data-stu-id="0dee3-132">Referencing and rendering partial views is described in the [Reference a partial view](#reference-a-partial-view) section.</span></span>
+<span data-ttu-id="c34d9-131">Řadič <xref:Microsoft.AspNetCore.Mvc.ViewResult> může vracet buď zobrazení, nebo částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-131">A controller's <xref:Microsoft.AspNetCore.Mvc.ViewResult> is capable of returning either a view or a partial view.</span></span> <span data-ttu-id="c34d9-132">Odkazování na částečné zobrazení a jejich vykreslování je popsané v části [Reference k částečnému zobrazení](#reference-a-partial-view) .</span><span class="sxs-lookup"><span data-stu-id="c34d9-132">Referencing and rendering partial views is described in the [Reference a partial view](#reference-a-partial-view) section.</span></span>
 
-<span data-ttu-id="0dee3-133">Na rozdíl od MVC vykreslení zobrazení, částečná zobrazení nespustí *soubor _ViewStart.cshtml*.</span><span class="sxs-lookup"><span data-stu-id="0dee3-133">Unlike MVC view rendering, a partial view doesn't run *_ViewStart.cshtml*.</span></span> <span data-ttu-id="0dee3-134">Další informace o *soubor _ViewStart.cshtml*, naleznete v tématu <xref:mvc/views/layout>.</span><span class="sxs-lookup"><span data-stu-id="0dee3-134">For more information on *_ViewStart.cshtml*, see <xref:mvc/views/layout>.</span></span>
+<span data-ttu-id="c34d9-133">Na rozdíl od vykreslování zobrazení MVC nespustí částečné zobrazení *_ViewStart. cshtml*.</span><span class="sxs-lookup"><span data-stu-id="c34d9-133">Unlike MVC view rendering, a partial view doesn't run *_ViewStart.cshtml*.</span></span> <span data-ttu-id="c34d9-134">Další informace o *_ViewStart. cshtml*naleznete v tématu <xref:mvc/views/layout>.</span><span class="sxs-lookup"><span data-stu-id="c34d9-134">For more information on *_ViewStart.cshtml*, see <xref:mvc/views/layout>.</span></span>
 
-<span data-ttu-id="0dee3-135">Názvy souborů částečné zobrazení často začínají podtržítkem (`_`).</span><span class="sxs-lookup"><span data-stu-id="0dee3-135">Partial view file names often begin with an underscore (`_`).</span></span> <span data-ttu-id="0dee3-136">Tyto zásady vytváření názvů není povinné, ale pomáhá vizuálně odlišili od zobrazení částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-136">This naming convention isn't required, but it helps to visually differentiate partial views from views.</span></span>
+<span data-ttu-id="c34d9-135">Názvy souborů částečného zobrazení často začínají podtržítkem (`_`).</span><span class="sxs-lookup"><span data-stu-id="c34d9-135">Partial view file names often begin with an underscore (`_`).</span></span> <span data-ttu-id="c34d9-136">Tato konvence pojmenování není povinná, ale pomáhá vizuálně odlišit částečná zobrazení ze zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-136">This naming convention isn't required, but it helps to visually differentiate partial views from views.</span></span>
 
 ::: moniker-end
 
-## <a name="reference-a-partial-view"></a><span data-ttu-id="0dee3-137">Odkaz na částečné zobrazení</span><span class="sxs-lookup"><span data-stu-id="0dee3-137">Reference a partial view</span></span>
+## <a name="reference-a-partial-view"></a><span data-ttu-id="c34d9-137">Odkaz na částečné zobrazení</span><span class="sxs-lookup"><span data-stu-id="c34d9-137">Reference a partial view</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
-### <a name="use-a-partial-view-in-a-razor-pages-pagemodel"></a><span data-ttu-id="0dee3-138">Použít částečné zobrazení v PageModel stránek Razor</span><span class="sxs-lookup"><span data-stu-id="0dee3-138">Use a partial view in a Razor Pages PageModel</span></span>
+### <a name="use-a-partial-view-in-a-razor-pages-pagemodel"></a><span data-ttu-id="c34d9-138">Použití částečného zobrazení v Razor Pages PageModel</span><span class="sxs-lookup"><span data-stu-id="c34d9-138">Use a partial view in a Razor Pages PageModel</span></span>
 
-<span data-ttu-id="0dee3-139">V ASP.NET Core 2.0 nebo 2.1, vykreslí metodu obslužné rutiny  *\_AuthorPartialRP.cshtml* částečného zobrazení do odpovědi:</span><span class="sxs-lookup"><span data-stu-id="0dee3-139">In ASP.NET Core 2.0 or 2.1, the following handler method renders the *\_AuthorPartialRP.cshtml* partial view to the response:</span></span>
+<span data-ttu-id="c34d9-139">V ASP.NET Core 2,0 nebo 2,1, následující metoda obslužné rutiny vykresluje  *\_částečné zobrazení AuthorPartialRP. cshtml* na odpověď:</span><span class="sxs-lookup"><span data-stu-id="c34d9-139">In ASP.NET Core 2.0 or 2.1, the following handler method renders the *\_AuthorPartialRP.cshtml* partial view to the response:</span></span>
 
 ```csharp
 public IActionResult OnGetPartial() =>
@@ -89,104 +89,104 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="0dee3-140">V ASP.NET Core 2.2 nebo vyšší, můžete také volat metodu obslužné rutiny <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> metodu za účelem vytvoření `PartialViewResult` objektu:</span><span class="sxs-lookup"><span data-stu-id="0dee3-140">In ASP.NET Core 2.2 or later, a handler method can alternatively call the <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> method to produce a `PartialViewResult` object:</span></span>
+<span data-ttu-id="c34d9-140">V ASP.NET Core 2,2 nebo novější, metoda obslužné rutiny může alternativně <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> zavolat metodu pro `PartialViewResult` vytvoření objektu:</span><span class="sxs-lookup"><span data-stu-id="c34d9-140">In ASP.NET Core 2.2 or later, a handler method can alternatively call the <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> method to produce a `PartialViewResult` object:</span></span>
 
 [!code-csharp[](partial/sample/PartialViewsSample/Pages/DiscoveryRP.cshtml.cs?name=snippet_OnGetPartial)]
 
 ::: moniker-end
 
-### <a name="use-a-partial-view-in-a-markup-file"></a><span data-ttu-id="0dee3-141">V souboru označení použít částečné zobrazení</span><span class="sxs-lookup"><span data-stu-id="0dee3-141">Use a partial view in a markup file</span></span>
+### <a name="use-a-partial-view-in-a-markup-file"></a><span data-ttu-id="c34d9-141">Použití částečného zobrazení v souboru označení</span><span class="sxs-lookup"><span data-stu-id="c34d9-141">Use a partial view in a markup file</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="0dee3-142">V souboru kódu existuje několik způsobů, jak odkazovat na částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-142">Within a markup file, there are several ways to reference a partial view.</span></span> <span data-ttu-id="0dee3-143">Doporučujeme vám, že aplikace použijte jednu z následujících dvou přístupů asynchronní vykreslování:</span><span class="sxs-lookup"><span data-stu-id="0dee3-143">We recommend that apps use one of the following asynchronous rendering approaches:</span></span>
+<span data-ttu-id="c34d9-142">V souboru označení existuje několik způsobů, jak odkazovat na částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-142">Within a markup file, there are several ways to reference a partial view.</span></span> <span data-ttu-id="c34d9-143">Doporučujeme, aby aplikace používaly jeden z následujících přístupů k asynchronnímu vykreslování:</span><span class="sxs-lookup"><span data-stu-id="c34d9-143">We recommend that apps use one of the following asynchronous rendering approaches:</span></span>
 
-* [<span data-ttu-id="0dee3-144">Pomocná rutina částečné značky</span><span class="sxs-lookup"><span data-stu-id="0dee3-144">Partial Tag Helper</span></span>](#partial-tag-helper)
-* [<span data-ttu-id="0dee3-145">Asynchronous HTML Helper</span><span class="sxs-lookup"><span data-stu-id="0dee3-145">Asynchronous HTML Helper</span></span>](#asynchronous-html-helper)
+* [<span data-ttu-id="c34d9-144">Pomocná rutina částečné značky</span><span class="sxs-lookup"><span data-stu-id="c34d9-144">Partial Tag Helper</span></span>](#partial-tag-helper)
+* [<span data-ttu-id="c34d9-145">Asynchronní pomocník HTML</span><span class="sxs-lookup"><span data-stu-id="c34d9-145">Asynchronous HTML Helper</span></span>](#asynchronous-html-helper)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.1"
 
-<span data-ttu-id="0dee3-146">V souboru kódu existují dva způsoby, jak odkazovat na částečné zobrazení:</span><span class="sxs-lookup"><span data-stu-id="0dee3-146">Within a markup file, there are two ways to reference a partial view:</span></span>
+<span data-ttu-id="c34d9-146">V souboru označení existují dva způsoby, jak odkazovat na částečné zobrazení:</span><span class="sxs-lookup"><span data-stu-id="c34d9-146">Within a markup file, there are two ways to reference a partial view:</span></span>
 
-* [<span data-ttu-id="0dee3-147">Asynchronous HTML Helper</span><span class="sxs-lookup"><span data-stu-id="0dee3-147">Asynchronous HTML Helper</span></span>](#asynchronous-html-helper)
-* [<span data-ttu-id="0dee3-148">Synchronní pomocné rutiny HTML</span><span class="sxs-lookup"><span data-stu-id="0dee3-148">Synchronous HTML Helper</span></span>](#synchronous-html-helper)
+* [<span data-ttu-id="c34d9-147">Asynchronní pomocník HTML</span><span class="sxs-lookup"><span data-stu-id="c34d9-147">Asynchronous HTML Helper</span></span>](#asynchronous-html-helper)
+* [<span data-ttu-id="c34d9-148">Synchronní pomocník HTML</span><span class="sxs-lookup"><span data-stu-id="c34d9-148">Synchronous HTML Helper</span></span>](#synchronous-html-helper)
 
-<span data-ttu-id="0dee3-149">Doporučujeme používat aplikace [asynchronní pomocné rutiny HTML](#asynchronous-html-helper).</span><span class="sxs-lookup"><span data-stu-id="0dee3-149">We recommend that apps use the [Asynchronous HTML Helper](#asynchronous-html-helper).</span></span>
+<span data-ttu-id="c34d9-149">Doporučujeme, aby aplikace používaly [asynchronní NÁPOVĚDU HTML](#asynchronous-html-helper).</span><span class="sxs-lookup"><span data-stu-id="c34d9-149">We recommend that apps use the [Asynchronous HTML Helper](#asynchronous-html-helper).</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-### <a name="partial-tag-helper"></a><span data-ttu-id="0dee3-150">Pomocná rutina částečné značky</span><span class="sxs-lookup"><span data-stu-id="0dee3-150">Partial Tag Helper</span></span>
+### <a name="partial-tag-helper"></a><span data-ttu-id="c34d9-150">Pomocník s částečnou značkou</span><span class="sxs-lookup"><span data-stu-id="c34d9-150">Partial Tag Helper</span></span>
 
-<span data-ttu-id="0dee3-151">[Pomocná rutina částečné značky](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) vyžaduje ASP.NET Core 2.1 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="0dee3-151">The [Partial Tag Helper](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) requires ASP.NET Core 2.1 or later.</span></span>
+<span data-ttu-id="c34d9-151">[Pomocník pro částečnou značku](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) vyžaduje ASP.NET Core 2,1 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="c34d9-151">The [Partial Tag Helper](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) requires ASP.NET Core 2.1 or later.</span></span>
 
-<span data-ttu-id="0dee3-152">Pomocná rutina částečné značky vykreslí obsah asynchronně a používá HTML syntaxe:</span><span class="sxs-lookup"><span data-stu-id="0dee3-152">The Partial Tag Helper renders content asynchronously and uses an HTML-like syntax:</span></span>
+<span data-ttu-id="c34d9-152">Pomocník pro částečnou značku vykresluje obsah asynchronně a používá syntaxi podobnou HTML:</span><span class="sxs-lookup"><span data-stu-id="c34d9-152">The Partial Tag Helper renders content asynchronously and uses an HTML-like syntax:</span></span>
 
 ```cshtml
 <partial name="_PartialName" />
 ```
 
-<span data-ttu-id="0dee3-153">Pokud přípona souboru je k dispozici, odkazuje na pomocné rutiny značky částečné zobrazení, který musí být ve stejné složce jako soubor značek volání částečného zobrazení:</span><span class="sxs-lookup"><span data-stu-id="0dee3-153">When a file extension is present, the Tag Helper references a partial view that must be in the same folder as the markup file calling the partial view:</span></span>
+<span data-ttu-id="c34d9-153">Pokud je k dispozici Přípona souboru, pomocník značek odkazuje na částečné zobrazení, které musí být ve stejné složce jako soubor označení, který volá částečné zobrazení:</span><span class="sxs-lookup"><span data-stu-id="c34d9-153">When a file extension is present, the Tag Helper references a partial view that must be in the same folder as the markup file calling the partial view:</span></span>
 
 ```cshtml
 <partial name="_PartialName.cshtml" />
 ```
 
-<span data-ttu-id="0dee3-154">Následující příklad odkazuje částečné zobrazení z kořenového adresáře aplikace.</span><span class="sxs-lookup"><span data-stu-id="0dee3-154">The following example references a partial view from the app root.</span></span> <span data-ttu-id="0dee3-155">Cesty, které začínají lomítkem tilda (`~/`) nebo lomítko (`/`) najdete v kořenovém adresáři aplikace:</span><span class="sxs-lookup"><span data-stu-id="0dee3-155">Paths that start with a tilde-slash (`~/`) or a slash (`/`) refer to the app root:</span></span>
+<span data-ttu-id="c34d9-154">Následující příklad odkazuje na částečné zobrazení z kořene aplikace.</span><span class="sxs-lookup"><span data-stu-id="c34d9-154">The following example references a partial view from the app root.</span></span> <span data-ttu-id="c34d9-155">Cesty, které začínají znakem tildy (`~/`) nebo lomítkem (`/`), odkazují na kořen aplikace:</span><span class="sxs-lookup"><span data-stu-id="c34d9-155">Paths that start with a tilde-slash (`~/`) or a slash (`/`) refer to the app root:</span></span>
 
-<span data-ttu-id="0dee3-156">**Stránky Razor**</span><span class="sxs-lookup"><span data-stu-id="0dee3-156">**Razor Pages**</span></span>
+<span data-ttu-id="c34d9-156">**Stránky Razor**</span><span class="sxs-lookup"><span data-stu-id="c34d9-156">**Razor Pages**</span></span>
 
 ```cshtml
 <partial name="~/Pages/Folder/_PartialName.cshtml" />
 <partial name="/Pages/Folder/_PartialName.cshtml" />
 ```
 
-<span data-ttu-id="0dee3-157">**MVC**</span><span class="sxs-lookup"><span data-stu-id="0dee3-157">**MVC**</span></span>
+<span data-ttu-id="c34d9-157">**MVC**</span><span class="sxs-lookup"><span data-stu-id="c34d9-157">**MVC**</span></span>
 
 ```cshtml
 <partial name="~/Views/Folder/_PartialName.cshtml" />
 <partial name="/Views/Folder/_PartialName.cshtml" />
 ```
 
-<span data-ttu-id="0dee3-158">Následující příklad odkazuje na částečné zobrazení pomocí relativní cesty:</span><span class="sxs-lookup"><span data-stu-id="0dee3-158">The following example references a partial view with a relative path:</span></span>
+<span data-ttu-id="c34d9-158">Následující příklad odkazuje na částečné zobrazení s relativní cestou:</span><span class="sxs-lookup"><span data-stu-id="c34d9-158">The following example references a partial view with a relative path:</span></span>
 
 ```cshtml
 <partial name="../Account/_PartialName.cshtml" />
 ```
 
-<span data-ttu-id="0dee3-159">Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper>.</span><span class="sxs-lookup"><span data-stu-id="0dee3-159">For more information, see <xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper>.</span></span>
+<span data-ttu-id="c34d9-159">Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper>.</span><span class="sxs-lookup"><span data-stu-id="c34d9-159">For more information, see <xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper>.</span></span>
 
 ::: moniker-end
 
-### <a name="asynchronous-html-helper"></a><span data-ttu-id="0dee3-160">Asynchronous HTML Helper</span><span class="sxs-lookup"><span data-stu-id="0dee3-160">Asynchronous HTML Helper</span></span>
+### <a name="asynchronous-html-helper"></a><span data-ttu-id="c34d9-160">Asynchronní pomocník HTML</span><span class="sxs-lookup"><span data-stu-id="c34d9-160">Asynchronous HTML Helper</span></span>
 
-<span data-ttu-id="0dee3-161">Při použití pomocné rutiny HTML, nejlepším postupem je použití <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>.</span><span class="sxs-lookup"><span data-stu-id="0dee3-161">When using an HTML Helper, the best practice is to use <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>.</span></span> <span data-ttu-id="0dee3-162">`PartialAsync` Vrátí <xref:Microsoft.AspNetCore.Html.IHtmlContent> typ zabalené v <xref:System.Threading.Tasks.Task%601>.</span><span class="sxs-lookup"><span data-stu-id="0dee3-162">`PartialAsync` returns an <xref:Microsoft.AspNetCore.Html.IHtmlContent> type wrapped in a <xref:System.Threading.Tasks.Task%601>.</span></span> <span data-ttu-id="0dee3-163">Metoda odkazuje jsou očekávané volání s `@` znak:</span><span class="sxs-lookup"><span data-stu-id="0dee3-163">The method is referenced by prefixing the awaited call with an `@` character:</span></span>
+<span data-ttu-id="c34d9-161">Při použití pomocníka jazyka HTML je nejvhodnější použít <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>.</span><span class="sxs-lookup"><span data-stu-id="c34d9-161">When using an HTML Helper, the best practice is to use <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>.</span></span> <span data-ttu-id="c34d9-162">`PartialAsync`Vrátí typ zabalený v <xref:System.Threading.Tasks.Task%601>. <xref:Microsoft.AspNetCore.Html.IHtmlContent></span><span class="sxs-lookup"><span data-stu-id="c34d9-162">`PartialAsync` returns an <xref:Microsoft.AspNetCore.Html.IHtmlContent> type wrapped in a <xref:System.Threading.Tasks.Task%601>.</span></span> <span data-ttu-id="c34d9-163">Na metodu se odkazuje pomocí předpony očekávaného volání s `@` znakem:</span><span class="sxs-lookup"><span data-stu-id="c34d9-163">The method is referenced by prefixing the awaited call with an `@` character:</span></span>
 
 ```cshtml
 @await Html.PartialAsync("_PartialName")
 ```
 
-<span data-ttu-id="0dee3-164">Pokud přípona souboru je k dispozici, odkazuje na pomocné rutiny HTML částečné zobrazení, který musí být ve stejné složce jako soubor značek volání částečného zobrazení:</span><span class="sxs-lookup"><span data-stu-id="0dee3-164">When the file extension is present, the HTML Helper references a partial view that must be in the same folder as the markup file calling the partial view:</span></span>
+<span data-ttu-id="c34d9-164">Pokud je k dispozici Přípona souboru, pomocník HTML odkazuje na částečné zobrazení, které musí být ve stejné složce jako soubor označení, který volá částečné zobrazení:</span><span class="sxs-lookup"><span data-stu-id="c34d9-164">When the file extension is present, the HTML Helper references a partial view that must be in the same folder as the markup file calling the partial view:</span></span>
 
 ```cshtml
 @await Html.PartialAsync("_PartialName.cshtml")
 ```
 
-<span data-ttu-id="0dee3-165">Následující příklad odkazuje částečné zobrazení z kořenového adresáře aplikace.</span><span class="sxs-lookup"><span data-stu-id="0dee3-165">The following example references a partial view from the app root.</span></span> <span data-ttu-id="0dee3-166">Cesty, které začínají lomítkem tilda (`~/`) nebo lomítko (`/`) najdete v kořenovém adresáři aplikace:</span><span class="sxs-lookup"><span data-stu-id="0dee3-166">Paths that start with a tilde-slash (`~/`) or a slash (`/`) refer to the app root:</span></span>
+<span data-ttu-id="c34d9-165">Následující příklad odkazuje na částečné zobrazení z kořene aplikace.</span><span class="sxs-lookup"><span data-stu-id="c34d9-165">The following example references a partial view from the app root.</span></span> <span data-ttu-id="c34d9-166">Cesty, které začínají znakem tildy (`~/`) nebo lomítkem (`/`), odkazují na kořen aplikace:</span><span class="sxs-lookup"><span data-stu-id="c34d9-166">Paths that start with a tilde-slash (`~/`) or a slash (`/`) refer to the app root:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="0dee3-167">**Stránky Razor**</span><span class="sxs-lookup"><span data-stu-id="0dee3-167">**Razor Pages**</span></span>
+<span data-ttu-id="c34d9-167">**Stránky Razor**</span><span class="sxs-lookup"><span data-stu-id="c34d9-167">**Razor Pages**</span></span>
 
 ```cshtml
 @await Html.PartialAsync("~/Pages/Folder/_PartialName.cshtml")
 @await Html.PartialAsync("/Pages/Folder/_PartialName.cshtml")
 ```
 
-<span data-ttu-id="0dee3-168">**MVC**</span><span class="sxs-lookup"><span data-stu-id="0dee3-168">**MVC**</span></span>
+<span data-ttu-id="c34d9-168">**MVC**</span><span class="sxs-lookup"><span data-stu-id="c34d9-168">**MVC**</span></span>
 
 ::: moniker-end
 
@@ -195,50 +195,50 @@ public IActionResult OnGetPartial() =>
 @await Html.PartialAsync("/Views/Folder/_PartialName.cshtml")
 ```
 
-<span data-ttu-id="0dee3-169">Následující příklad odkazuje na částečné zobrazení pomocí relativní cesty:</span><span class="sxs-lookup"><span data-stu-id="0dee3-169">The following example references a partial view with a relative path:</span></span>
+<span data-ttu-id="c34d9-169">Následující příklad odkazuje na částečné zobrazení s relativní cestou:</span><span class="sxs-lookup"><span data-stu-id="c34d9-169">The following example references a partial view with a relative path:</span></span>
 
 ```cshtml
 @await Html.PartialAsync("../Account/_LoginPartial.cshtml")
 ```
 
-<span data-ttu-id="0dee3-170">Alternativně můžete vykreslení částečného zobrazení s <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*>.</span><span class="sxs-lookup"><span data-stu-id="0dee3-170">Alternatively, you can render a partial view with <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*>.</span></span> <span data-ttu-id="0dee3-171">Tato metoda nevrací <xref:Microsoft.AspNetCore.Html.IHtmlContent>.</span><span class="sxs-lookup"><span data-stu-id="0dee3-171">This method doesn't return an <xref:Microsoft.AspNetCore.Html.IHtmlContent>.</span></span> <span data-ttu-id="0dee3-172">Jejich streamování vykresleného výstupu přímo do odpovědi.</span><span class="sxs-lookup"><span data-stu-id="0dee3-172">It streams the rendered output directly to the response.</span></span> <span data-ttu-id="0dee3-173">Protože metoda nevrací výsledek, musí být volána v rámci bloku kódu Razor:</span><span class="sxs-lookup"><span data-stu-id="0dee3-173">Because the method doesn't return a result, it must be called within a Razor code block:</span></span>
+<span data-ttu-id="c34d9-170">Alternativně můžete vykreslit částečné zobrazení pomocí <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*>.</span><span class="sxs-lookup"><span data-stu-id="c34d9-170">Alternatively, you can render a partial view with <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*>.</span></span> <span data-ttu-id="c34d9-171">Tato metoda nevrací <xref:Microsoft.AspNetCore.Html.IHtmlContent>.</span><span class="sxs-lookup"><span data-stu-id="c34d9-171">This method doesn't return an <xref:Microsoft.AspNetCore.Html.IHtmlContent>.</span></span> <span data-ttu-id="c34d9-172">Streamuje Vykreslený výstup přímo k odpovědi.</span><span class="sxs-lookup"><span data-stu-id="c34d9-172">It streams the rendered output directly to the response.</span></span> <span data-ttu-id="c34d9-173">Vzhledem k tomu, že metoda nevrací výsledek, musí být volána v rámci bloku kódu Razor:</span><span class="sxs-lookup"><span data-stu-id="c34d9-173">Because the method doesn't return a result, it must be called within a Razor code block:</span></span>
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Home/Discovery.cshtml?name=snippet_RenderPartialAsync)]
 
-<span data-ttu-id="0dee3-174">Protože `RenderPartialAsync` datové proudy vykreslený obsah, poskytuje lepší výkon v některých scénářích.</span><span class="sxs-lookup"><span data-stu-id="0dee3-174">Since `RenderPartialAsync` streams rendered content, it provides better performance in some scenarios.</span></span> <span data-ttu-id="0dee3-175">V situacích, kritickém pro výkon srovnávací testy na stránce pomocí obou metod a použít přístup, který generuje rychlejší odezvu.</span><span class="sxs-lookup"><span data-stu-id="0dee3-175">In performance-critical situations, benchmark the page using both approaches and use the approach that generates a faster response.</span></span>
+<span data-ttu-id="c34d9-174">Vzhledem `RenderPartialAsync` k tomu, že streamy vykreslují obsah, poskytuje v některých scénářích lepší výkon.</span><span class="sxs-lookup"><span data-stu-id="c34d9-174">Since `RenderPartialAsync` streams rendered content, it provides better performance in some scenarios.</span></span> <span data-ttu-id="c34d9-175">V situacích, které kritické pro výkon, srovnávací testy stránky pomocí obou přístupů a používejte přístup, který generuje rychlejší odpověď.</span><span class="sxs-lookup"><span data-stu-id="c34d9-175">In performance-critical situations, benchmark the page using both approaches and use the approach that generates a faster response.</span></span>
 
-### <a name="synchronous-html-helper"></a><span data-ttu-id="0dee3-176">Synchronní pomocné rutiny HTML</span><span class="sxs-lookup"><span data-stu-id="0dee3-176">Synchronous HTML Helper</span></span>
+### <a name="synchronous-html-helper"></a><span data-ttu-id="c34d9-176">Synchronní pomocník HTML</span><span class="sxs-lookup"><span data-stu-id="c34d9-176">Synchronous HTML Helper</span></span>
 
-<span data-ttu-id="0dee3-177"><xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.Partial*> a <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartial*> jsou synchronní ekvivalenty `PartialAsync` a `RenderPartialAsync`v uvedeném pořadí.</span><span class="sxs-lookup"><span data-stu-id="0dee3-177"><xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.Partial*> and <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartial*> are the synchronous equivalents of `PartialAsync` and `RenderPartialAsync`, respectively.</span></span> <span data-ttu-id="0dee3-178">Synchronní ekvivalenty se nedoporučuje, protože existují scénáře, ve kterých zablokování.</span><span class="sxs-lookup"><span data-stu-id="0dee3-178">The synchronous equivalents aren't recommended because there are scenarios in which they deadlock.</span></span> <span data-ttu-id="0dee3-179">Synchronní metody jsou určené pro odstranění v budoucí verzi.</span><span class="sxs-lookup"><span data-stu-id="0dee3-179">The synchronous methods are targeted for removal in a future release.</span></span>
+<span data-ttu-id="c34d9-177"><xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.Partial*>a <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartial*> jsou synchronní ekvivalenty `PartialAsync` a `RenderPartialAsync`v uvedeném pořadí.</span><span class="sxs-lookup"><span data-stu-id="c34d9-177"><xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.Partial*> and <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartial*> are the synchronous equivalents of `PartialAsync` and `RenderPartialAsync`, respectively.</span></span> <span data-ttu-id="c34d9-178">Synchronní ekvivalenty se nedoporučují, protože existují scénáře, ve kterých se zablokují.</span><span class="sxs-lookup"><span data-stu-id="c34d9-178">The synchronous equivalents aren't recommended because there are scenarios in which they deadlock.</span></span> <span data-ttu-id="c34d9-179">Synchronní metody jsou zaměřené na odebrání v budoucí verzi.</span><span class="sxs-lookup"><span data-stu-id="c34d9-179">The synchronous methods are targeted for removal in a future release.</span></span>
 
 > [!IMPORTANT]
-> <span data-ttu-id="0dee3-180">Pokud potřebujete spustit kód, použijte [zobrazení komponenty](xref:mvc/views/view-components) místo částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-180">If you need to execute code, use a [view component](xref:mvc/views/view-components) instead of a partial view.</span></span>
+> <span data-ttu-id="c34d9-180">Pokud potřebujete spustit kód, použijte místo částečného zobrazení [komponentu zobrazení](xref:mvc/views/view-components) .</span><span class="sxs-lookup"><span data-stu-id="c34d9-180">If you need to execute code, use a [view component](xref:mvc/views/view-components) instead of a partial view.</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="0dee3-181">Volání `Partial` nebo `RenderPartial` výsledky v analyzátor upozornění aplikace Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="0dee3-181">Calling `Partial` or `RenderPartial` results in a Visual Studio analyzer warning.</span></span> <span data-ttu-id="0dee3-182">Například přítomnost `Partial` provede následující upozornění:</span><span class="sxs-lookup"><span data-stu-id="0dee3-182">For example, the presence of `Partial` yields the following warning message:</span></span>
+<span data-ttu-id="c34d9-181">Volání `Partial` nebo`RenderPartial` výsledky v upozornění analyzátoru sady Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="c34d9-181">Calling `Partial` or `RenderPartial` results in a Visual Studio analyzer warning.</span></span> <span data-ttu-id="c34d9-182">Například přítomnost `Partial` poskytne následující zprávu upozornění:</span><span class="sxs-lookup"><span data-stu-id="c34d9-182">For example, the presence of `Partial` yields the following warning message:</span></span>
 
-> <span data-ttu-id="0dee3-183">Použití IHtmlHelper.Partial může způsobit zablokování aplikace.</span><span class="sxs-lookup"><span data-stu-id="0dee3-183">Use of IHtmlHelper.Partial may result in application deadlocks.</span></span> <span data-ttu-id="0dee3-184">Zvažte použití &lt;částečné&gt; pomocné rutiny značky nebo IHtmlHelper.PartialAsync.</span><span class="sxs-lookup"><span data-stu-id="0dee3-184">Consider using &lt;partial&gt; Tag Helper or IHtmlHelper.PartialAsync.</span></span>
+> <span data-ttu-id="c34d9-183">Použití IHtmlHelper. Partial může způsobit zablokování aplikace.</span><span class="sxs-lookup"><span data-stu-id="c34d9-183">Use of IHtmlHelper.Partial may result in application deadlocks.</span></span> <span data-ttu-id="c34d9-184">Zvažte použití &lt;pomocníka s částečnou&gt; značkou nebo IHtmlHelper. PartialAsync.</span><span class="sxs-lookup"><span data-stu-id="c34d9-184">Consider using &lt;partial&gt; Tag Helper or IHtmlHelper.PartialAsync.</span></span>
 
-<span data-ttu-id="0dee3-185">Nahraďte volání `@Html.Partial` s `@await Html.PartialAsync` nebo [pomocná rutina částečné značky](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper).</span><span class="sxs-lookup"><span data-stu-id="0dee3-185">Replace calls to `@Html.Partial` with `@await Html.PartialAsync` or the [Partial Tag Helper](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper).</span></span> <span data-ttu-id="0dee3-186">Další informace o migraci pomocná rutina částečné značky najdete v tématu [migrace ze pomocné rutiny HTML](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper).</span><span class="sxs-lookup"><span data-stu-id="0dee3-186">For more information on Partial Tag Helper migration, see [Migrate from an HTML Helper](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper).</span></span>
+<span data-ttu-id="c34d9-185">Nahraďte volání `@Html.Partial` pomocí `@await Html.PartialAsync` nebo [částečného pomocníka značek](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper).</span><span class="sxs-lookup"><span data-stu-id="c34d9-185">Replace calls to `@Html.Partial` with `@await Html.PartialAsync` or the [Partial Tag Helper](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper).</span></span> <span data-ttu-id="c34d9-186">Další informace o migraci pomocníka částečné značky najdete v tématu [migrace z pomocníka jazyka HTML](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper).</span><span class="sxs-lookup"><span data-stu-id="c34d9-186">For more information on Partial Tag Helper migration, see [Migrate from an HTML Helper](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper).</span></span>
 
 ::: moniker-end
 
-## <a name="partial-view-discovery"></a><span data-ttu-id="0dee3-187">Částečné zobrazení zjišťování</span><span class="sxs-lookup"><span data-stu-id="0dee3-187">Partial view discovery</span></span>
+## <a name="partial-view-discovery"></a><span data-ttu-id="c34d9-187">Zjišťování částečného zobrazení</span><span class="sxs-lookup"><span data-stu-id="c34d9-187">Partial view discovery</span></span>
 
-<span data-ttu-id="0dee3-188">Když částečné zobrazení se odkazuje jeho názvem bez přípony souboru, následující umístění budou prohledána v uvedené pořadí:</span><span class="sxs-lookup"><span data-stu-id="0dee3-188">When a partial view is referenced by name without a file extension, the following locations are searched in the stated order:</span></span>
+<span data-ttu-id="c34d9-188">Pokud se na částečné zobrazení odkazuje pomocí názvu bez přípony souboru, prohledávají se v uvedeném pořadí následující umístění:</span><span class="sxs-lookup"><span data-stu-id="c34d9-188">When a partial view is referenced by name without a file extension, the following locations are searched in the stated order:</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="0dee3-189">**Stránky Razor**</span><span class="sxs-lookup"><span data-stu-id="0dee3-189">**Razor Pages**</span></span>
+<span data-ttu-id="c34d9-189">**Stránky Razor**</span><span class="sxs-lookup"><span data-stu-id="c34d9-189">**Razor Pages**</span></span>
 
-1. <span data-ttu-id="0dee3-190">Právě probíhá na stránce složky</span><span class="sxs-lookup"><span data-stu-id="0dee3-190">Currently executing page's folder</span></span>
-1. <span data-ttu-id="0dee3-191">Directory graphu nahoře na stránce složky</span><span class="sxs-lookup"><span data-stu-id="0dee3-191">Directory graph above the page's folder</span></span>
+1. <span data-ttu-id="c34d9-190">Aktuálně prováděná složka stránky</span><span class="sxs-lookup"><span data-stu-id="c34d9-190">Currently executing page's folder</span></span>
+1. <span data-ttu-id="c34d9-191">Adresář grafu nad složkou stránky</span><span class="sxs-lookup"><span data-stu-id="c34d9-191">Directory graph above the page's folder</span></span>
 1. `/Shared`
 1. `/Pages/Shared`
 1. `/Views/Shared`
 
-<span data-ttu-id="0dee3-192">**MVC**</span><span class="sxs-lookup"><span data-stu-id="0dee3-192">**MVC**</span></span>
+<span data-ttu-id="c34d9-192">**MVC**</span><span class="sxs-lookup"><span data-stu-id="c34d9-192">**MVC**</span></span>
 
 ::: moniker-end
 
@@ -259,26 +259,26 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker-end
 
-<span data-ttu-id="0dee3-193">Částečné zobrazení zjišťování platí následující zásady:</span><span class="sxs-lookup"><span data-stu-id="0dee3-193">The following conventions apply to partial view discovery:</span></span>
+<span data-ttu-id="c34d9-193">Následující konvence se vztahují na zjišťování částečného zobrazení:</span><span class="sxs-lookup"><span data-stu-id="c34d9-193">The following conventions apply to partial view discovery:</span></span>
 
-* <span data-ttu-id="0dee3-194">Částečná zobrazení jinou se stejným názvem souboru jsou povoleny v případě, že částečná zobrazení jsou v různých složkách.</span><span class="sxs-lookup"><span data-stu-id="0dee3-194">Different partial views with the same file name are allowed when the partial views are in different folders.</span></span>
-* <span data-ttu-id="0dee3-195">Při odkazování na částečné zobrazení podle názvu bez přípony souboru a částečné zobrazení je k dispozici ve složce obou volajícího a *Shared* složky, částečné zobrazení ve složce volajícího, jež poskytuje částečného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-195">When referencing a partial view by name without a file extension and the partial view is present in both the caller's folder and the *Shared* folder, the partial view in the caller's folder supplies the partial view.</span></span> <span data-ttu-id="0dee3-196">Pokud není k dispozici ve složce volajícího částečného zobrazení, částečného zobrazení je k dispozici z *Shared* složky.</span><span class="sxs-lookup"><span data-stu-id="0dee3-196">If the partial view isn't present in the caller's folder, the partial view is provided from the *Shared* folder.</span></span> <span data-ttu-id="0dee3-197">Částečné zobrazení v *Shared* složky se nazývají *sdílené částečná zobrazení* nebo *výchozí částečná zobrazení*.</span><span class="sxs-lookup"><span data-stu-id="0dee3-197">Partial views in the *Shared* folder are called *shared partial views* or *default partial views*.</span></span>
-* <span data-ttu-id="0dee3-198">Částečná zobrazení mohou být *zřetězené*&mdash;částečné zobrazení můžete volat jiné částečné zobrazení, pokud cyklický odkaz není vytvořený ve volání.</span><span class="sxs-lookup"><span data-stu-id="0dee3-198">Partial views can be *chained*&mdash;a partial view can call another partial view if a circular reference isn't formed by the calls.</span></span> <span data-ttu-id="0dee3-199">Relativní cesty jsou vždy relativní vzhledem k aktuální soubor nebyl pro kořenový server WSUS nebo nadřazený soubor.</span><span class="sxs-lookup"><span data-stu-id="0dee3-199">Relative paths are always relative to the current file, not to the root or parent of the file.</span></span>
+* <span data-ttu-id="c34d9-194">Různá částečná zobrazení se stejným názvem souboru jsou povolena, pokud jsou částečná zobrazení v různých složkách.</span><span class="sxs-lookup"><span data-stu-id="c34d9-194">Different partial views with the same file name are allowed when the partial views are in different folders.</span></span>
+* <span data-ttu-id="c34d9-195">Při odkazování na částečné zobrazení podle názvu bez přípony souboru a částečného zobrazení se nachází ve složce volajícího i ve *sdílené* složce, částečné zobrazení ve složce volajícího poskytuje částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-195">When referencing a partial view by name without a file extension and the partial view is present in both the caller's folder and the *Shared* folder, the partial view in the caller's folder supplies the partial view.</span></span> <span data-ttu-id="c34d9-196">Pokud se částečné zobrazení nenachází ve složce volajícího, částečné zobrazení se poskytuje ze *sdílené* složky.</span><span class="sxs-lookup"><span data-stu-id="c34d9-196">If the partial view isn't present in the caller's folder, the partial view is provided from the *Shared* folder.</span></span> <span data-ttu-id="c34d9-197">Částečná zobrazení ve *sdílené* složce se nazývají *sdílená částečná zobrazení* nebo *výchozí částečná zobrazení*.</span><span class="sxs-lookup"><span data-stu-id="c34d9-197">Partial views in the *Shared* folder are called *shared partial views* or *default partial views*.</span></span>
+* <span data-ttu-id="c34d9-198">Částečná zobrazení mohou být *zřetězena*&mdash;z částečného zobrazení, pokud cyklický odkaz není vytvořen voláními.</span><span class="sxs-lookup"><span data-stu-id="c34d9-198">Partial views can be *chained*&mdash;a partial view can call another partial view if a circular reference isn't formed by the calls.</span></span> <span data-ttu-id="c34d9-199">Relativní cesty jsou vždycky relativní vzhledem k aktuálnímu souboru, ne ke kořenu nebo nadřazenému souboru.</span><span class="sxs-lookup"><span data-stu-id="c34d9-199">Relative paths are always relative to the current file, not to the root or parent of the file.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="0dee3-200">A [Razor](xref:mvc/views/razor) `section` definované v částečné zobrazení je skryt nadřazené značky souborů.</span><span class="sxs-lookup"><span data-stu-id="0dee3-200">A [Razor](xref:mvc/views/razor) `section` defined in a partial view is invisible to parent markup files.</span></span> <span data-ttu-id="0dee3-201">`section` Bude viditelná jenom pro částečné zobrazení, ve kterém je definována.</span><span class="sxs-lookup"><span data-stu-id="0dee3-201">The `section` is only visible to the partial view in which it's defined.</span></span>
+> <span data-ttu-id="c34d9-200">[](xref:mvc/views/razor) Razor`section` definovaná v částečném zobrazení je neviditelná pro nadřazené soubory značek.</span><span class="sxs-lookup"><span data-stu-id="c34d9-200">A [Razor](xref:mvc/views/razor) `section` defined in a partial view is invisible to parent markup files.</span></span> <span data-ttu-id="c34d9-201">`section` Je viditelný pouze pro částečné zobrazení, ve kterém je definováno.</span><span class="sxs-lookup"><span data-stu-id="c34d9-201">The `section` is only visible to the partial view in which it's defined.</span></span>
 
-## <a name="access-data-from-partial-views"></a><span data-ttu-id="0dee3-202">Přístup k datům z částečné zobrazení</span><span class="sxs-lookup"><span data-stu-id="0dee3-202">Access data from partial views</span></span>
+## <a name="access-data-from-partial-views"></a><span data-ttu-id="c34d9-202">Přístup k datům z částečných zobrazení</span><span class="sxs-lookup"><span data-stu-id="c34d9-202">Access data from partial views</span></span>
 
-<span data-ttu-id="0dee3-203">Při vytváření instance částečného zobrazení přijme *kopírování* z nadřazeného objektu `ViewData` slovníku.</span><span class="sxs-lookup"><span data-stu-id="0dee3-203">When a partial view is instantiated, it receives a *copy* of the parent's `ViewData` dictionary.</span></span> <span data-ttu-id="0dee3-204">Aktualizace provedené v datech v rámci částečného zobrazení se ukládají do nadřazeného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-204">Updates made to the data within the partial view aren't persisted to the parent view.</span></span> <span data-ttu-id="0dee3-205">`ViewData` provedené změny v částečné zobrazení při vrátí částečného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-205">`ViewData` changes in a partial view are lost when the partial view returns.</span></span>
+<span data-ttu-id="c34d9-203">Když je vytvořena instance částečného zobrazení, obdrží *kopii* nadřazeného `ViewData` slovníku.</span><span class="sxs-lookup"><span data-stu-id="c34d9-203">When a partial view is instantiated, it receives a *copy* of the parent's `ViewData` dictionary.</span></span> <span data-ttu-id="c34d9-204">Aktualizace dat v rámci částečného zobrazení nejsou trvale uložené v nadřazeném zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-204">Updates made to the data within the partial view aren't persisted to the parent view.</span></span> <span data-ttu-id="c34d9-205">`ViewData`změny v částečném zobrazení jsou po vrácení částečného zobrazení ztraceny.</span><span class="sxs-lookup"><span data-stu-id="c34d9-205">`ViewData` changes in a partial view are lost when the partial view returns.</span></span>
 
-<span data-ttu-id="0dee3-206">Následující příklad ukazuje, jak předat instanci [objektu ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) částečné zobrazení:</span><span class="sxs-lookup"><span data-stu-id="0dee3-206">The following example demonstrates how to pass an instance of [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) to a partial view:</span></span>
+<span data-ttu-id="c34d9-206">Následující příklad ukazuje, jak předat instanci [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) do částečného zobrazení:</span><span class="sxs-lookup"><span data-stu-id="c34d9-206">The following example demonstrates how to pass an instance of [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) to a partial view:</span></span>
 
 ```cshtml
 @await Html.PartialAsync("_PartialName", customViewData)
 ```
 
-<span data-ttu-id="0dee3-207">Model lze předat do částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-207">You can pass a model into a partial view.</span></span> <span data-ttu-id="0dee3-208">Vlastní objekt může být tento model.</span><span class="sxs-lookup"><span data-stu-id="0dee3-208">The model can be a custom object.</span></span> <span data-ttu-id="0dee3-209">Můžete předat model s `PartialAsync` (vykreslí blok volajícímu) nebo `RenderPartialAsync` (streamování obsahu do výstupu):</span><span class="sxs-lookup"><span data-stu-id="0dee3-209">You can pass a model with `PartialAsync` (renders a block of content to the caller) or `RenderPartialAsync` (streams the content to the output):</span></span>
+<span data-ttu-id="c34d9-207">Model můžete předat do částečného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-207">You can pass a model into a partial view.</span></span> <span data-ttu-id="c34d9-208">Modelem může být vlastní objekt.</span><span class="sxs-lookup"><span data-stu-id="c34d9-208">The model can be a custom object.</span></span> <span data-ttu-id="c34d9-209">Můžete předat model s `PartialAsync` (vykreslí blok obsahu volajícímu) nebo `RenderPartialAsync` (streamuje obsah do výstupu):</span><span class="sxs-lookup"><span data-stu-id="c34d9-209">You can pass a model with `PartialAsync` (renders a block of content to the caller) or `RenderPartialAsync` (streams the content to the output):</span></span>
 
 ```cshtml
 @await Html.PartialAsync("_PartialName", model)
@@ -286,58 +286,58 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="0dee3-210">**Stránky Razor**</span><span class="sxs-lookup"><span data-stu-id="0dee3-210">**Razor Pages**</span></span>
+<span data-ttu-id="c34d9-210">**Stránky Razor**</span><span class="sxs-lookup"><span data-stu-id="c34d9-210">**Razor Pages**</span></span>
 
-<span data-ttu-id="0dee3-211">Následující kód v ukázkové aplikaci je z *Pages/ArticlesRP/ReadRP.cshtml* stránky.</span><span class="sxs-lookup"><span data-stu-id="0dee3-211">The following markup in the sample app is from the *Pages/ArticlesRP/ReadRP.cshtml* page.</span></span> <span data-ttu-id="0dee3-212">Tato stránka obsahuje dvě částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-212">The page contains two partial views.</span></span> <span data-ttu-id="0dee3-213">Druhý částečné zobrazení předává do modelu a `ViewData` částečného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-213">The second partial view passes in a model and `ViewData` to the partial view.</span></span> <span data-ttu-id="0dee3-214">`ViewDataDictionary` Přetížení konstruktoru slouží k předání nového `ViewData` slovníku při zachování stávajících `ViewData` slovníku.</span><span class="sxs-lookup"><span data-stu-id="0dee3-214">The `ViewDataDictionary` constructor overload is used to pass a new `ViewData` dictionary while retaining the existing `ViewData` dictionary.</span></span>
+<span data-ttu-id="c34d9-211">Následující značky v ukázkové aplikaci jsou ze stránky *stránky/ArticlesRP/ReadRP. cshtml* .</span><span class="sxs-lookup"><span data-stu-id="c34d9-211">The following markup in the sample app is from the *Pages/ArticlesRP/ReadRP.cshtml* page.</span></span> <span data-ttu-id="c34d9-212">Stránka obsahuje dvě částečná zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-212">The page contains two partial views.</span></span> <span data-ttu-id="c34d9-213">Druhé částečné zobrazení projde v modelu a `ViewData` částečném zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-213">The second partial view passes in a model and `ViewData` to the partial view.</span></span> <span data-ttu-id="c34d9-214">Přetížení konstruktoru se používá k předání nového `ViewData` slovníku při zachování existujícího `ViewData` slovníku. `ViewDataDictionary`</span><span class="sxs-lookup"><span data-stu-id="c34d9-214">The `ViewDataDictionary` constructor overload is used to pass a new `ViewData` dictionary while retaining the existing `ViewData` dictionary.</span></span>
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Pages/ArticlesRP/ReadRP.cshtml?name=snippet_ReadPartialViewRP&highlight=5,15-20)]
 
-<span data-ttu-id="0dee3-215">*Pages/Shared/_AuthorPartialRP.cshtml* je první částečné zobrazení odkazuje *ReadRP.cshtml* souboru označení:</span><span class="sxs-lookup"><span data-stu-id="0dee3-215">*Pages/Shared/_AuthorPartialRP.cshtml* is the first partial view referenced by the *ReadRP.cshtml* markup file:</span></span>
+<span data-ttu-id="c34d9-215">*Pages/Shared/_AuthorPartialRP. cshtml* je první částečné zobrazení, na které odkazuje soubor s označením *ReadRP. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="c34d9-215">*Pages/Shared/_AuthorPartialRP.cshtml* is the first partial view referenced by the *ReadRP.cshtml* markup file:</span></span>
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Pages/Shared/_AuthorPartialRP.cshtml)]
 
-<span data-ttu-id="0dee3-216">*Pages/ArticlesRP/_ArticleSectionRP.cshtml* je druhý částečné zobrazení odkazuje *ReadRP.cshtml* souboru označení:</span><span class="sxs-lookup"><span data-stu-id="0dee3-216">*Pages/ArticlesRP/_ArticleSectionRP.cshtml* is the second partial view referenced by the *ReadRP.cshtml* markup file:</span></span>
+<span data-ttu-id="c34d9-216">*Pages/ArticlesRP/_ArticleSectionRP. cshtml* je druhé částečné zobrazení, na které odkazuje soubor s označením *ReadRP. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="c34d9-216">*Pages/ArticlesRP/_ArticleSectionRP.cshtml* is the second partial view referenced by the *ReadRP.cshtml* markup file:</span></span>
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Pages/ArticlesRP/_ArticleSectionRP.cshtml)]
 
-<span data-ttu-id="0dee3-217">**MVC**</span><span class="sxs-lookup"><span data-stu-id="0dee3-217">**MVC**</span></span>
+<span data-ttu-id="c34d9-217">**MVC**</span><span class="sxs-lookup"><span data-stu-id="c34d9-217">**MVC**</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="0dee3-218">Následující kód v ukazuje ukázkové aplikace *Views/Articles/Read.cshtml* zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-218">The following markup in the sample app shows the *Views/Articles/Read.cshtml* view.</span></span> <span data-ttu-id="0dee3-219">Zobrazení obsahuje dvě částečné zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-219">The view contains two partial views.</span></span> <span data-ttu-id="0dee3-220">Druhý částečné zobrazení předává do modelu a `ViewData` částečného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="0dee3-220">The second partial view passes in a model and `ViewData` to the partial view.</span></span> <span data-ttu-id="0dee3-221">`ViewDataDictionary` Přetížení konstruktoru slouží k předání nového `ViewData` slovníku při zachování stávajících `ViewData` slovníku.</span><span class="sxs-lookup"><span data-stu-id="0dee3-221">The `ViewDataDictionary` constructor overload is used to pass a new `ViewData` dictionary while retaining the existing `ViewData` dictionary.</span></span>
+<span data-ttu-id="c34d9-218">Následující kód v ukázkové aplikaci zobrazuje zobrazení */články/čtení. cshtml* .</span><span class="sxs-lookup"><span data-stu-id="c34d9-218">The following markup in the sample app shows the *Views/Articles/Read.cshtml* view.</span></span> <span data-ttu-id="c34d9-219">Zobrazení obsahuje dvě částečná zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-219">The view contains two partial views.</span></span> <span data-ttu-id="c34d9-220">Druhé částečné zobrazení projde v modelu a `ViewData` částečném zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-220">The second partial view passes in a model and `ViewData` to the partial view.</span></span> <span data-ttu-id="c34d9-221">Přetížení konstruktoru se používá k předání nového `ViewData` slovníku při zachování existujícího `ViewData` slovníku. `ViewDataDictionary`</span><span class="sxs-lookup"><span data-stu-id="c34d9-221">The `ViewDataDictionary` constructor overload is used to pass a new `ViewData` dictionary while retaining the existing `ViewData` dictionary.</span></span>
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Articles/Read.cshtml?name=snippet_ReadPartialView&highlight=5,15-20)]
 
-<span data-ttu-id="0dee3-222">*Views/Shared/_AuthorPartial.cshtml* je první částečné zobrazení odkazuje *ReadRP.cshtml* souboru označení:</span><span class="sxs-lookup"><span data-stu-id="0dee3-222">*Views/Shared/_AuthorPartial.cshtml* is the first partial view referenced by the *ReadRP.cshtml* markup file:</span></span>
+<span data-ttu-id="c34d9-222">Views */Shared/_AuthorPartial. cshtml* je první částečné zobrazení, na které odkazuje soubor s označením *Read. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="c34d9-222">*Views/Shared/_AuthorPartial.cshtml* is the first partial view referenced by the *Read.cshtml* markup file:</span></span>
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Shared/_AuthorPartial.cshtml)]
 
-<span data-ttu-id="0dee3-223">*Views/Articles/_ArticleSection.cshtml* je druhý částečné zobrazení odkazuje *Read.cshtml* souboru označení:</span><span class="sxs-lookup"><span data-stu-id="0dee3-223">*Views/Articles/_ArticleSection.cshtml* is the second partial view referenced by the *Read.cshtml* markup file:</span></span>
+<span data-ttu-id="c34d9-223">Views */articles/_ArticleSection. cshtml* je druhé částečné zobrazení, na které odkazuje soubor s označením *Read. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="c34d9-223">*Views/Articles/_ArticleSection.cshtml* is the second partial view referenced by the *Read.cshtml* markup file:</span></span>
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Articles/_ArticleSection.cshtml)]
 
-<span data-ttu-id="0dee3-224">Za běhu, jsou vykreslovány částečné do souboru kódu nadřazené vykresleného výstupu, který je vykreslen v rámci sdíleného *_Layout.cshtml*.</span><span class="sxs-lookup"><span data-stu-id="0dee3-224">At runtime, the partials are rendered into the parent markup file's rendered output, which itself is rendered within the shared *_Layout.cshtml*.</span></span> <span data-ttu-id="0dee3-225">První částečné zobrazení vykreslí autoři článku název a datum publikování:</span><span class="sxs-lookup"><span data-stu-id="0dee3-225">The first partial view renders the article author's name and publication date:</span></span>
+<span data-ttu-id="c34d9-224">V době běhu jsou fragmenty vykresleny do vykresleného výstupu nadřazeného souboru označení, který je vykreslen v rámci sdíleného *_Layout. cshtml*.</span><span class="sxs-lookup"><span data-stu-id="c34d9-224">At runtime, the partials are rendered into the parent markup file's rendered output, which itself is rendered within the shared *_Layout.cshtml*.</span></span> <span data-ttu-id="c34d9-225">První částečné zobrazení vykreslí jméno autora článku a datum publikování:</span><span class="sxs-lookup"><span data-stu-id="c34d9-225">The first partial view renders the article author's name and publication date:</span></span>
 
-> <span data-ttu-id="0dee3-226">Abraham Lincoln</span><span class="sxs-lookup"><span data-stu-id="0dee3-226">Abraham Lincoln</span></span>
+> <span data-ttu-id="c34d9-226">Abraham Lincoln</span><span class="sxs-lookup"><span data-stu-id="c34d9-226">Abraham Lincoln</span></span>
 >
-> <span data-ttu-id="0dee3-227">Toto částečné zobrazení z &lt;cesta k souboru sdílené částečné zobrazení&gt;.</span><span class="sxs-lookup"><span data-stu-id="0dee3-227">This partial view from &lt;shared partial view file path&gt;.</span></span>
-> <span data-ttu-id="0dee3-228">19/11/1863 12:00:00 AM</span><span class="sxs-lookup"><span data-stu-id="0dee3-228">11/19/1863 12:00:00 AM</span></span>
+> <span data-ttu-id="c34d9-227">Toto částečné zobrazení ze &lt;sdílené cesty&gt;k souboru částečného zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c34d9-227">This partial view from &lt;shared partial view file path&gt;.</span></span>
+> <span data-ttu-id="c34d9-228">11/19/1863 12:00:00 DOP.</span><span class="sxs-lookup"><span data-stu-id="c34d9-228">11/19/1863 12:00:00 AM</span></span>
 
-<span data-ttu-id="0dee3-229">Druhý částečné zobrazení vykreslí části článku:</span><span class="sxs-lookup"><span data-stu-id="0dee3-229">The second partial view renders the article's sections:</span></span>
+<span data-ttu-id="c34d9-229">Druhé částečné zobrazení vykreslí oddíly článku:</span><span class="sxs-lookup"><span data-stu-id="c34d9-229">The second partial view renders the article's sections:</span></span>
 
-> <span data-ttu-id="0dee3-230">Jeden Index části: 0</span><span class="sxs-lookup"><span data-stu-id="0dee3-230">Section One Index: 0</span></span>
+> <span data-ttu-id="c34d9-230">Jeden index oddílu: 0</span><span class="sxs-lookup"><span data-stu-id="c34d9-230">Section One Index: 0</span></span>
 >
-> <span data-ttu-id="0dee3-231">Čtyři skóre a sedm let před...</span><span class="sxs-lookup"><span data-stu-id="0dee3-231">Four score and seven years ago ...</span></span>
+> <span data-ttu-id="c34d9-231">Před čtyřmi a sedmi lety...</span><span class="sxs-lookup"><span data-stu-id="c34d9-231">Four score and seven years ago ...</span></span>
 >
-> <span data-ttu-id="0dee3-232">Index oddílu dvě: 1</span><span class="sxs-lookup"><span data-stu-id="0dee3-232">Section Two Index: 1</span></span>
+> <span data-ttu-id="c34d9-232">Oddíl dva indexy: 1</span><span class="sxs-lookup"><span data-stu-id="c34d9-232">Section Two Index: 1</span></span>
 >
-> <span data-ttu-id="0dee3-233">Nyní jsme se zabývají skvělé občanské války, testování...</span><span class="sxs-lookup"><span data-stu-id="0dee3-233">Now we are engaged in a great civil war, testing ...</span></span>
+> <span data-ttu-id="c34d9-233">Teď jsme se zabývají skvělým občanském válečným testováním...</span><span class="sxs-lookup"><span data-stu-id="c34d9-233">Now we are engaged in a great civil war, testing ...</span></span>
 >
-> <span data-ttu-id="0dee3-234">Index oddílu tři: 2</span><span class="sxs-lookup"><span data-stu-id="0dee3-234">Section Three Index: 2</span></span>
+> <span data-ttu-id="c34d9-234">Oddíl tři rejstřík: 2</span><span class="sxs-lookup"><span data-stu-id="c34d9-234">Section Three Index: 2</span></span>
 >
-> <span data-ttu-id="0dee3-235">Ale ve větší smysl, jsme nelze vyhradit...</span><span class="sxs-lookup"><span data-stu-id="0dee3-235">But, in a larger sense, we can not dedicate ...</span></span>
+> <span data-ttu-id="c34d9-235">Ale ve větším smyslu nemůžeme vyhradit...</span><span class="sxs-lookup"><span data-stu-id="c34d9-235">But, in a larger sense, we can not dedicate ...</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="0dee3-236">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="0dee3-236">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="c34d9-236">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="c34d9-236">Additional resources</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
