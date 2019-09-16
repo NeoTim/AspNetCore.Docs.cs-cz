@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 07/22/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: c5347049151aed90f453f0ead2fc06649d9cf949
-ms.sourcegitcommit: bdaee0e8c657fe7546fd6b7990db9c03c2af04df
+ms.openlocfilehash: 3b3f159382bba82cf1b55ca34f52d3db38c5dc7c
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69908403"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011113"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -41,7 +41,7 @@ Toto je první v sérii kurzů, které ukazují, jak používat Entity Framework
 
 Pokyny pro Visual Studio používají [SQL Server LocalDB](/sql/database-engine/configure-windows/sql-server-2016-express-localdb), verzi SQL Server Express, která se spouští jenom v systému Windows.
 
-Pokyny pro Visual Studio Code používají [](https://www.sqlite.org/)Nástroj pro databázový stroj pro různé platformy.
+Pokyny pro [Visual Studio Code používají nástroj](https://www.sqlite.org/)pro databázový stroj pro různé platformy.
 
 Pokud se rozhodnete použít SQLite, Stáhněte a nainstalujte nástroj třetí strany pro správu a zobrazení databáze SQLite, jako je například [prohlížeč databáze pro SQLite](https://sqlitebrowser.org/).
 
@@ -442,7 +442,7 @@ Některé co je potřeba mít na paměti při zápisu asynchronního kódu, kter
 
 Další informace o asynchronním programování v rozhraní .NET najdete v tématu [asynchronní přehled](/dotnet/standard/async) a [asynchronní programování pomocí modifikátoru async a operátoru await](/dotnet/csharp/programming-guide/concepts/async/).
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 > [!div class="step-by-step"]
 > [Další kurz](xref:data/ef-rp/crud)
@@ -633,7 +633,7 @@ Nástroj pro generování uživatelského rozhraní automaticky vytvoří kontex
 
 Zkontrolujte `ConfigureServices` metoda ve *Startup.cs*. Zvýrazněný řádek byl přidán modulem scaffolder:
 
-[!code-csharp[](intro/samples/cu21/Startup.cs?name=snippet_SchoolContext&highlight=5-6)]
+[!code-csharp[](intro/samples/cu21/Startup.cs?name=snippet_SchoolContext&highlight=13-14)]
 
 Název připojovacího řetězce je předán v rámci voláním metody na [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) objektu. Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) načte připojovací řetězec z *appsettings.json* souboru.
 

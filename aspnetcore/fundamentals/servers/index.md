@@ -1,18 +1,18 @@
 ---
 title: Implementace webového serveru v ASP.NET Core
-author: guardrex
+author: tdykstra
 description: Seznamte se s webovými servery Kestrel a HTTP. sys pro ASP.NET Core. Naučte se, jak vybrat server a kdy použít reverzní proxy server.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/01/2019
+ms.date: 08/10/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: 404fec18409a675981fc0c068ee9a99001e06c16
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: cfea559725a644f167aa3afdf88c78bace4b5950
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975545"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011156"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementace webového serveru v ASP.NET Core
 
@@ -34,7 +34,7 @@ Použijte Kestrel:
 
   ![Kestrel nepřímo komunikuje s internetem prostřednictvím reverzní proxy server, jako je IIS, Nginx nebo Apache.](kestrel/_static/kestrel-to-internet.png)
 
-Konfigurace&mdash;hostování s nebo bez reverzního proxy server&mdash;se podporuje pro aplikace ASP.NET Core 2,1 nebo novější.
+Je podporována buď&mdash;konfigurace hostování s zpětným proxy serverm&mdash;, nebo bez něj.
 
 Pokyny ke konfiguraci Kestrel a informace o tom, kdy použít Kestrel v konfiguraci reverzního proxy serveru <xref:fundamentals/servers/kestrel>, najdete v tématu.
 

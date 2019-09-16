@@ -4,14 +4,14 @@ author: rick-anderson
 description: Naučte se vyžadovat protokol HTTPS/TLS ve ASP.NET Core webové aplikaci.
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 654b083a0dade2fc8df5cccf9fa434f30627794b
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 8474b8f12d3e08e47a4cc9b20543d2a9e6e91998
+ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773973"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71011078"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
@@ -232,7 +232,7 @@ Při přesměrování na https bez požadavku na další pravidla přesměrován
 
 ## <a name="http-strict-transport-security-protocol-hsts"></a>Protokol HTTP Strict Transport Security (HSTS)
 
-Za [OWASP](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project)je [zabezpečení protokolu HTTP (HSTS Strict Transport Security)](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet) na základě souhlasu s hlavičkou odpovědi zadané pomocí webové aplikace. Když [prohlížeč, který podporuje HSTS,](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet#Browser_Support) obdrží tuto hlavičku:
+Za [OWASP](https://www.owasp.org/index.php/About_The_Open_Web_Application_Security_Project)je [zabezpečení protokolu HTTP (HSTS Strict Transport Security)](https://cheatsheetseries.owasp.org/cheatsheets/HTTP_Strict_Transport_Security_Cheat_Sheet.html) na základě souhlasu s hlavičkou odpovědi zadané pomocí webové aplikace. Když [prohlížeč, který podporuje HSTS,](https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html#browser-support) obdrží tuto hlavičku:
 
 * Prohlížeč ukládá konfiguraci pro doménu, která znemožňuje odeslání jakékoli komunikace prostřednictvím protokolu HTTP. Prohlížeč vynutí veškerou komunikaci přes protokol HTTPS.
 * Prohlížeč brání uživateli v používání nedůvěryhodných nebo neplatných certifikátů. Prohlížeč zakáže výzvy, které umožní uživateli dočasně důvěřovat takovému certifikátu.
