@@ -99,7 +99,7 @@
       items:
         - name: Začínáme se službou gRPC
           uid: tutorials/grpc/grpc-start
-    - name: "Přístup k\_datům"
+    - name: Přístup k datům
       items:
         - name: EF Core s Razor Pages
           displayName: tutorial
@@ -153,9 +153,12 @@
 - name: Kurzy (Microsoft Learn)
   displayName: tutorial
   items:
+    - name: Webové aplikace
+      displayName: 'tutorial, razor, razor pages, ui'
+      href: /learn/modules/create-razor-pages-aspnet-core/
     - name: Aplikace Web API
       href: /learn/modules/build-web-api-net-core/
-    - name: "Přístup k\_datům"
+    - name: Přístup k datům
       displayName: 'tutorial, ef, entity framework'
       href: /learn/modules/persist-data-ef-core/
     - name: Zabezpečení webové aplikace
@@ -185,11 +188,11 @@
       uid: fundamentals/configuration/options
     - name: 'Prostředí (vývojové, pracovní, produkční)'
       uid: fundamentals/environments
-    - name: protokolování
+    - name: Protokolování
       uid: fundamentals/logging/index
     - name: Směrování
       uid: fundamentals/routing
-    - name: Ošetření chyb
+    - name: Zpracování chyb
       uid: fundamentals/error-handling
     - name: Vytváření požadavků HTTP
       displayName: 'httpclient, httpclientfactory'
@@ -202,7 +205,7 @@
       items:
         - name: Úvod
           uid: razor-pages/index
-        - name: Tutoriál
+        - name: Kurz
           items:
             - name: Přehled
               uid: tutorials/razor-pages/index
@@ -234,7 +237,7 @@
       items:
         - name: Přehled
           uid: mvc/overview
-        - name: Tutoriál
+        - name: Kurz
           items:
             - name: Přehled
               uid: tutorials/first-mvc-app/index
@@ -308,9 +311,9 @@
               uid: security/blazor/server
         - name: Správa stavu
           uid: blazor/state-management
-        - name: Ošetření chyb
+        - name: Zpracování chyb
           uid: blazor/handle-errors
-        - name: Ladit
+        - name: Ladění
           uid: blazor/debug
         - name: Volání webového rozhraní API
           uid: blazor/call-web-api
@@ -328,7 +331,7 @@
       items:
         - name: Jednostránkové aplikace
           items:
-            - name: Angular
+            - name: Úhlová
               uid: spa/angular
             - name: React
               uid: spa/react
@@ -399,7 +402,7 @@
               href: 'mvc/views/working-with-forms.md#the-validation-message-tag-helper'
             - name: Souhrn ověření
               href: 'mvc/views/working-with-forms.md#the-validation-summary-tag-helper'
-    - name: Upřesnit
+    - name: Upřesňující
       items:
         - name: Komponenty zobrazení
           uid: mvc/views/view-components
@@ -435,13 +438,15 @@
           uid: tutorials/get-started-with-nswag
     - name: Návratové typy akcí
       uid: web-api/action-return-types
+    - name: Zpracování žádostí o opravu JSON
+      uid: web-api/jsonpatch
     - name: Formátování dat odpovědi
       uid: web-api/advanced/formatting
     - name: Vlastní formátovací moduly
       uid: web-api/advanced/custom-formatters
     - name: Analyzátory
       uid: web-api/advanced/analyzers
-    - name: Konvence
+    - name: Zásady
       uid: web-api/advanced/conventions
     - name: Otestování rozhraní API pomocí HTTP REPL
       uid: web-api/http-repl
@@ -552,7 +557,7 @@
       uid: grpc/configuration
     - name: Ověřování a autorizace
       uid: grpc/authn-and-authz
-    - name: Důležité informace o zabezpečení
+    - name: Aspekty zabezpečení
       uid: grpc/security
     - name: Migrace služeb gRPC z C Core
       uid: grpc/migration
@@ -562,7 +567,7 @@
       uid: grpc/troubleshoot
 - name: 'Testování, ladění a odstraňování potíží'
   items:
-    - name: Testování jednotek
+    - name: Testování částí
       href: /dotnet/core/testing/unit-testing-with-dotnet-test?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Testy jednotek stránek Razor
       uid: test/razor-pages-tests
@@ -580,13 +585,13 @@
       uid: test/loadtests
     - name: Řešení potíží
       uid: test/troubleshoot
-    - name: protokolování
+    - name: Protokolování
       uid: fundamentals/logging/index
     - name: Řešení potíží s Azure a Internetovou informační službou (IIS)
       uid: test/troubleshoot-azure-iis
     - name: Referenční informace k chybám Azure a Internetové informační služby (IIS)
       uid: host-and-deploy/azure-iis-errors-reference
-- name: "Přístup k\_datům"
+- name: Přístup k datům
   items:
     - name: Kurzy
       items:
@@ -646,7 +651,7 @@
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-blobs?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Queue Storage
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-queues?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: Table Storage
+        - name: Úložiště Table
           href: /azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
 - name: Hostování a nasazení
   displayName: publish
@@ -796,7 +801,7 @@
   items:
     - name: Přehled
       uid: security/index
-    - name: Ověřování
+    - name: Authentication
       items:
         - name: Úvod do systému Identity
           uid: security/authentication/identity
@@ -975,7 +980,7 @@
         - name: Zprostředkovatel konfigurace služby Azure Key Vault
           displayName: 'password, connection string, API key, secrets'
           uid: security/key-vault-configuration
-    - name: Vynucení protokolu HTTPS
+    - name: Vynucení HTTPS
       uid: security/enforcing-ssl
     - name: Hostování Dockeru pomocí protokolu HTTPS
       uid: security/docker-https
@@ -1034,7 +1039,7 @@
       uid: fundamentals/localization-extensibility
     - name: Řešení potíží
       uid: fundamentals/troubleshoot-aspnet-core-localization
-- name: Upřesnit
+- name: Upřesňující
   items:
     - name: Vazby modelu
       uid: mvc/models/model-binding
@@ -1102,7 +1107,7 @@
           uid: migration/proper-to-2x/index
         - name: MVC
           uid: migration/mvc
-        - name: Webové rozhraní API
+        - name: Web API
           uid: migration/webapi
         - name: Konfigurace
           uid: migration/configuration
@@ -1117,7 +1122,7 @@
     - name: Protokolování (ne u ASP.NET Core)
       displayName: 'migrate, migration'
       uid: migration/logging-nonaspnetcore
-- name: "referenční dokumentace k\_rozhraní API"
+- name: API – referenční informace
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
   href: 'https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'
