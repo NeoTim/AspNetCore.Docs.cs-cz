@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/components
-ms.openlocfilehash: bc9fa06e5acccb773717fe87bf4aabb971b8dee5
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: e51f6745f6e0c748e51d7f8a49193f3d81fd2a06
+ms.sourcegitcommit: 07cd66e367d080acb201c7296809541599c947d1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963782"
+ms.lasthandoff: 09/17/2019
+ms.locfileid: "71039182"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -229,6 +229,34 @@ Při vykreslení `value` komponenty `CurrentValue` z vlastnosti input element p�
 ```
 
 Na rozdíl `onchange`od, která je aktivována, když prvek ztratí `oninput` fokus, je aktivována při změně hodnoty textového pole.
+
+**Hodnoty, které nelze analyzovat**
+
+Když uživatel poskytne neanalyzovatelné hodnoty prvku DataBound, hodnota neanalyzovat se automaticky vrátí na předchozí hodnotu, když se aktivuje událost BIND.
+
+Vezměte v úvahu následující scénář:
+
+* Element je `int` svázán`123`s typem s počáteční hodnotou: `<input>`
+
+  ```cshtml
+  <input @bind="MyProperty" />
+
+  @code {
+      [Parameter]
+      public int MyProperty { get; set; } = 123;
+  }
+  ```
+* Uživatel aktualizuje hodnotu prvku na `123.45` stránce a změní fokus prvku.
+
+V předchozím scénáři je hodnota elementu vrácena na `123`. Pokud je hodnota `123.45` zamítnuta ve prospěch původní `123`hodnoty, uživateli se rozumí, že jejich hodnota nebyla přijata.
+
+Ve výchozím nastavení se vazba vztahuje na `onchange` událost elementu (`@bind="{PROPERTY OR FIELD}"`). Použijte `@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}` k nastavení jiné události. Pro událost (`@bind-value:event="oninput"`) se reverze provádí po stisknutí klávesy, která zavádí neanalyzovatelné hodnoty. `oninput` Při cílení `oninput` události `int`s typem vázaného na uživatele `.` je znemožněno zadání znaku. `.` Znak je okamžitě odstraněn, takže uživatel obdrží okamžitou zpětnou vazbu, že jsou povolena pouze celá čísla. K dispozici jsou situace, kdy vrácení hodnoty na `oninput` událost není ideální, například pokud by měl uživatel povoleno vymazat `<input>` neanalyzovatelné hodnoty. K alternativám patří:
+
+* Nepoužívejte `oninput` událost. Použijte výchozí `onchange` událost (`@bind="{PROPERTY OR FIELD}"`), kde není platná hodnota vrácena, dokud prvek neztratí fokus.
+* Vytvořte vazby na typ s možnou hodnotou `int?` null `string`, například nebo, a poskytněte vlastní logiku pro zpracování neplatných položek.
+* Použijte [součást pro ověření formuláře](xref:blazor/forms-validation), `InputNumber` jako je například `InputDate`nebo. Komponenty ověřování formuláře mají integrovanou podporu pro správu neplatných vstupů. Součásti pro ověření formuláře:
+  * Povolí uživateli zadání neplatných vstupů a přijetí chyb ověřování na přidruženém `EditContext`.
+  * Zobrazí chyby ověřování v uživatelském rozhraní, aniž by došlo ke konfliktu s uživatelem, který zadává další data z formuláře.
 
 **Globalizace**
 
