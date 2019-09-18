@@ -1,100 +1,100 @@
 ---
-title: Bezpečné ukládání tajných kódů aplikace při vývoji v ASP.NET Core
+title: Bezpečné ukládání tajných kódů aplikací ve vývoji v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak ukládat a načítat citlivých informací jako tajných kódů aplikace během vývoje aplikace ASP.NET Core.
+description: Naučte se ukládat a načítat citlivé informace jako tajné klíče aplikace při vývoji aplikace ASP.NET Core.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/13/2019
 uid: security/app-secrets
-ms.openlocfilehash: 195901e466262020fd1217bd9dfb6162910bb861
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 0203a5737caf1af809b739d9e266a6971cd1523b
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899523"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080717"
 ---
-# <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a><span data-ttu-id="abf52-103">Bezpečné ukládání tajných kódů aplikace při vývoji v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="abf52-103">Safe storage of app secrets in development in ASP.NET Core</span></span>
+# <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a><span data-ttu-id="c8260-103">Bezpečné ukládání tajných kódů aplikací ve vývoji v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="c8260-103">Safe storage of app secrets in development in ASP.NET Core</span></span>
 
-<span data-ttu-id="abf52-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Roth](https://github.com/danroth27), a [Scott Addie](https://github.com/scottaddie)</span><span class="sxs-lookup"><span data-stu-id="abf52-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Roth](https://github.com/danroth27), and [Scott Addie](https://github.com/scottaddie)</span></span>
+<span data-ttu-id="c8260-104">Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Skořepa](https://github.com/danroth27)a [Scott Addie](https://github.com/scottaddie)</span><span class="sxs-lookup"><span data-stu-id="c8260-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Roth](https://github.com/danroth27), and [Scott Addie](https://github.com/scottaddie)</span></span>
 
-<span data-ttu-id="abf52-105">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([stažení](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="abf52-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="c8260-105">[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([stažení](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="c8260-105">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="abf52-106">Tento dokument popisuje postupy pro ukládání a načítání citlivých dat během vývoje aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="abf52-106">This document explains techniques for storing and retrieving sensitive data during the development of an ASP.NET Core app.</span></span> <span data-ttu-id="abf52-107">Nikdy ukládání hesel nebo jiných citlivých dat. ve zdrojovém kódu.</span><span class="sxs-lookup"><span data-stu-id="abf52-107">Never store passwords or other sensitive data in source code.</span></span> <span data-ttu-id="abf52-108">Tajné klíče v produkčním prostředí by se neměly pro vývoj nebo testování.</span><span class="sxs-lookup"><span data-stu-id="abf52-108">Production secrets shouldn't be used for development or test.</span></span> <span data-ttu-id="abf52-109">Můžete ukládat a chránit Azure testovací a produkční tajných kódů pomocí [poskytovatele konfigurace služby Azure Key Vault](xref:security/key-vault-configuration).</span><span class="sxs-lookup"><span data-stu-id="abf52-109">You can store and protect Azure test and production secrets with the [Azure Key Vault configuration provider](xref:security/key-vault-configuration).</span></span>
+<span data-ttu-id="c8260-106">Tento dokument vysvětluje techniky pro ukládání a načítání citlivých dat během vývoje aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="c8260-106">This document explains techniques for storing and retrieving sensitive data during the development of an ASP.NET Core app.</span></span> <span data-ttu-id="c8260-107">Nikdy neukládejte hesla nebo další citlivá data ve zdrojovém kódu.</span><span class="sxs-lookup"><span data-stu-id="c8260-107">Never store passwords or other sensitive data in source code.</span></span> <span data-ttu-id="c8260-108">Provozní tajemství by se neměla používat pro vývoj nebo testování.</span><span class="sxs-lookup"><span data-stu-id="c8260-108">Production secrets shouldn't be used for development or test.</span></span> <span data-ttu-id="c8260-109">Pomocí [poskytovatele konfigurace Azure Key Vault](xref:security/key-vault-configuration)můžete ukládat a chránit tajné kódy Azure test a produkčního prostředí.</span><span class="sxs-lookup"><span data-stu-id="c8260-109">You can store and protect Azure test and production secrets with the [Azure Key Vault configuration provider](xref:security/key-vault-configuration).</span></span>
 
-## <a name="environment-variables"></a><span data-ttu-id="abf52-110">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="abf52-110">Environment variables</span></span>
+## <a name="environment-variables"></a><span data-ttu-id="c8260-110">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c8260-110">Environment variables</span></span>
 
-<span data-ttu-id="abf52-111">Proměnné prostředí je použit k ukládání tajných kódů aplikace v kódu nebo v místních konfiguračních souborech.</span><span class="sxs-lookup"><span data-stu-id="abf52-111">Environment variables are used to avoid storage of app secrets in code or in local configuration files.</span></span> <span data-ttu-id="abf52-112">Proměnné prostředí přepsat hodnoty konfigurace pro všechny zdroje dříve zadanou konfiguraci.</span><span class="sxs-lookup"><span data-stu-id="abf52-112">Environment variables override configuration values for all previously specified configuration sources.</span></span>
+<span data-ttu-id="c8260-111">Proměnné prostředí se používají k tomu, aby nedocházelo k ukládání tajných klíčů k aplikacím v kódu nebo v místních konfiguračních souborech.</span><span class="sxs-lookup"><span data-stu-id="c8260-111">Environment variables are used to avoid storage of app secrets in code or in local configuration files.</span></span> <span data-ttu-id="c8260-112">Proměnné prostředí přepíšou konfigurační hodnoty pro všechny dříve zadané zdroje konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c8260-112">Environment variables override configuration values for all previously specified configuration sources.</span></span>
 
 ::: moniker range="<= aspnetcore-1.1"
 
-<span data-ttu-id="abf52-113">Konfigurace čtení hodnot proměnných prostředí pomocí volání <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> v `Startup` konstruktor:</span><span class="sxs-lookup"><span data-stu-id="abf52-113">Configure the reading of environment variable values by calling <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> in the `Startup` constructor:</span></span>
+<span data-ttu-id="c8260-113">Nakonfigurujte čtení hodnot proměnných prostředí voláním <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> `Startup` v konstruktoru:</span><span class="sxs-lookup"><span data-stu-id="c8260-113">Configure the reading of environment variable values by calling <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> in the `Startup` constructor:</span></span>
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=8)]
 
 ::: moniker-end
 
-<span data-ttu-id="abf52-114">Vezměte v úvahu webovou aplikaci ASP.NET Core, ve kterém **jednotlivé uživatelské účty** je zabezpečená.</span><span class="sxs-lookup"><span data-stu-id="abf52-114">Consider an ASP.NET Core web app in which **Individual User Accounts** security is enabled.</span></span> <span data-ttu-id="abf52-115">Výchozí připojovací řetězec databáze je součástí projektu *appsettings.json* soubor s klíčem `DefaultConnection`.</span><span class="sxs-lookup"><span data-stu-id="abf52-115">A default database connection string is included in the project's *appsettings.json* file with the key `DefaultConnection`.</span></span> <span data-ttu-id="abf52-116">Výchozí připojovací řetězec je pro LocalDB, který běží v uživatelském režimu a nevyžaduje, aby heslo.</span><span class="sxs-lookup"><span data-stu-id="abf52-116">The default connection string is for LocalDB, which runs in user mode and doesn't require a password.</span></span> <span data-ttu-id="abf52-117">Během nasazování aplikací `DefaultConnection` klíče hodnota se dá přepsat hodnotou proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="abf52-117">During app deployment, the `DefaultConnection` key value can be overridden with an environment variable's value.</span></span> <span data-ttu-id="abf52-118">Proměnná prostředí může ukládat úplný připojovací řetězec s citlivé přihlašovací údaje.</span><span class="sxs-lookup"><span data-stu-id="abf52-118">The environment variable may store the complete connection string with sensitive credentials.</span></span>
+<span data-ttu-id="c8260-114">Vezměte v úvahu ASP.NET Core webovou aplikaci, ve které je povolené zabezpečení **individuálních uživatelských účtů** .</span><span class="sxs-lookup"><span data-stu-id="c8260-114">Consider an ASP.NET Core web app in which **Individual User Accounts** security is enabled.</span></span> <span data-ttu-id="c8260-115">Výchozí připojovací řetězec databáze je obsažen v souboru *appSettings. JSON* projektu s klíčem `DefaultConnection`.</span><span class="sxs-lookup"><span data-stu-id="c8260-115">A default database connection string is included in the project's *appsettings.json* file with the key `DefaultConnection`.</span></span> <span data-ttu-id="c8260-116">Výchozí připojovací řetězec je pro LocalDB, který běží v uživatelském režimu a nevyžaduje heslo.</span><span class="sxs-lookup"><span data-stu-id="c8260-116">The default connection string is for LocalDB, which runs in user mode and doesn't require a password.</span></span> <span data-ttu-id="c8260-117">Během nasazování `DefaultConnection` aplikace se hodnota klíče dá přepsat hodnotou proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="c8260-117">During app deployment, the `DefaultConnection` key value can be overridden with an environment variable's value.</span></span> <span data-ttu-id="c8260-118">Proměnná prostředí může ukládat úplný připojovací řetězec s citlivými přihlašovacími údaji.</span><span class="sxs-lookup"><span data-stu-id="c8260-118">The environment variable may store the complete connection string with sensitive credentials.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="abf52-119">Proměnné prostředí jsou obecně uložené v nezašifrované prostého textu.</span><span class="sxs-lookup"><span data-stu-id="abf52-119">Environment variables are generally stored in plain, unencrypted text.</span></span> <span data-ttu-id="abf52-120">Pokud počítači nebo procesu dojde k ohrožení, proměnné prostředí je přístupný nedůvěryhodní.</span><span class="sxs-lookup"><span data-stu-id="abf52-120">If the machine or process is compromised, environment variables can be accessed by untrusted parties.</span></span> <span data-ttu-id="abf52-121">Může vyžadovat další opatření k zamezení zveřejňování těchto tajných kódů uživatelů.</span><span class="sxs-lookup"><span data-stu-id="abf52-121">Additional measures to prevent disclosure of user secrets may be required.</span></span>
+> <span data-ttu-id="c8260-119">Proměnné prostředí se většinou ukládají v prostém, nešifrovaném textu.</span><span class="sxs-lookup"><span data-stu-id="c8260-119">Environment variables are generally stored in plain, unencrypted text.</span></span> <span data-ttu-id="c8260-120">Pokud dojde k ohrožení bezpečnosti počítače nebo procesu, jsou proměnné prostředí dostupné nedůvěryhodnými stranami.</span><span class="sxs-lookup"><span data-stu-id="c8260-120">If the machine or process is compromised, environment variables can be accessed by untrusted parties.</span></span> <span data-ttu-id="c8260-121">Další opatření, která zabraňují odhalení tajných kódů uživateli, mohou být povinná.</span><span class="sxs-lookup"><span data-stu-id="c8260-121">Additional measures to prevent disclosure of user secrets may be required.</span></span>
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-## <a name="secret-manager"></a><span data-ttu-id="abf52-122">Tajný klíč správce</span><span class="sxs-lookup"><span data-stu-id="abf52-122">Secret Manager</span></span>
+## <a name="secret-manager"></a><span data-ttu-id="c8260-122">Správce tajných klíčů</span><span class="sxs-lookup"><span data-stu-id="c8260-122">Secret Manager</span></span>
 
-<span data-ttu-id="abf52-123">Tajný klíč správce nástroj ukládá citlivých dat během vývoje projektu aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="abf52-123">The Secret Manager tool stores sensitive data during the development of an ASP.NET Core project.</span></span> <span data-ttu-id="abf52-124">V tomto kontextu je část citlivá data tajný kód aplikace.</span><span class="sxs-lookup"><span data-stu-id="abf52-124">In this context, a piece of sensitive data is an app secret.</span></span> <span data-ttu-id="abf52-125">Tajné kódy aplikace jsou uložené v samostatném umístění ve stromu projektu.</span><span class="sxs-lookup"><span data-stu-id="abf52-125">App secrets are stored in a separate location from the project tree.</span></span> <span data-ttu-id="abf52-126">Tajných kódů aplikace jsou přidružené k určitému projektu nebo sdílet mezi více projekty.</span><span class="sxs-lookup"><span data-stu-id="abf52-126">The app secrets are associated with a specific project or shared across several projects.</span></span> <span data-ttu-id="abf52-127">Tajných kódů aplikace se změnami do správy zdrojového kódu.</span><span class="sxs-lookup"><span data-stu-id="abf52-127">The app secrets aren't checked into source control.</span></span>
+<span data-ttu-id="c8260-123">Nástroj Správce tajných klíčů ukládá citlivé údaje během vývoje ASP.NET Core projektu.</span><span class="sxs-lookup"><span data-stu-id="c8260-123">The Secret Manager tool stores sensitive data during the development of an ASP.NET Core project.</span></span> <span data-ttu-id="c8260-124">V tomto kontextu je část citlivých dat tajný klíč aplikace.</span><span class="sxs-lookup"><span data-stu-id="c8260-124">In this context, a piece of sensitive data is an app secret.</span></span> <span data-ttu-id="c8260-125">Tajné klíče aplikace se ukládají v odděleném umístění ze stromu projektu.</span><span class="sxs-lookup"><span data-stu-id="c8260-125">App secrets are stored in a separate location from the project tree.</span></span> <span data-ttu-id="c8260-126">Tajné klíče aplikace jsou přidruženy k určitému projektu nebo sdíleny napříč několika projekty.</span><span class="sxs-lookup"><span data-stu-id="c8260-126">The app secrets are associated with a specific project or shared across several projects.</span></span> <span data-ttu-id="c8260-127">Tajné kódy aplikace nejsou zaregistrovány do správy zdrojového kódu.</span><span class="sxs-lookup"><span data-stu-id="c8260-127">The app secrets aren't checked into source control.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="abf52-128">Nástroj manažera tajných nešifruje uložené tajných kódů a by neměla být zpracována jako důvěryhodné úložiště.</span><span class="sxs-lookup"><span data-stu-id="abf52-128">The Secret Manager tool doesn't encrypt the stored secrets and shouldn't be treated as a trusted store.</span></span> <span data-ttu-id="abf52-129">Je jenom pro účely vývoje.</span><span class="sxs-lookup"><span data-stu-id="abf52-129">It's for development purposes only.</span></span> <span data-ttu-id="abf52-130">Klíče a hodnoty jsou uložené v konfiguračním souboru JSON v adresáři profilu uživatele.</span><span class="sxs-lookup"><span data-stu-id="abf52-130">The keys and values are stored in a JSON configuration file in the user profile directory.</span></span>
+> <span data-ttu-id="c8260-128">Nástroj Správce tajných klíčů nešifruje uložené tajné klíče a neměl by být považován za důvěryhodné úložiště.</span><span class="sxs-lookup"><span data-stu-id="c8260-128">The Secret Manager tool doesn't encrypt the stored secrets and shouldn't be treated as a trusted store.</span></span> <span data-ttu-id="c8260-129">Pouze pro účely vývoje.</span><span class="sxs-lookup"><span data-stu-id="c8260-129">It's for development purposes only.</span></span> <span data-ttu-id="c8260-130">Klíče a hodnoty jsou uložené v konfiguračním souboru JSON v adresáři profilu uživatele.</span><span class="sxs-lookup"><span data-stu-id="c8260-130">The keys and values are stored in a JSON configuration file in the user profile directory.</span></span>
 
-## <a name="how-the-secret-manager-tool-works"></a><span data-ttu-id="abf52-131">Jak funguje nástroj tajný klíč správce</span><span class="sxs-lookup"><span data-stu-id="abf52-131">How the Secret Manager tool works</span></span>
+## <a name="how-the-secret-manager-tool-works"></a><span data-ttu-id="c8260-131">Jak funguje nástroj Správce tajných klíčů</span><span class="sxs-lookup"><span data-stu-id="c8260-131">How the Secret Manager tool works</span></span>
 
-<span data-ttu-id="abf52-132">Nástroj manažera tajných vyčleňuje podrobnosti implementace, například jak a kde jsou uložené hodnoty.</span><span class="sxs-lookup"><span data-stu-id="abf52-132">The Secret Manager tool abstracts away the implementation details, such as where and how the values are stored.</span></span> <span data-ttu-id="abf52-133">Nástroj můžete použít bez znalosti tyto podrobnosti implementace.</span><span class="sxs-lookup"><span data-stu-id="abf52-133">You can use the tool without knowing these implementation details.</span></span> <span data-ttu-id="abf52-134">Hodnoty jsou uložené v konfiguračním souboru JSON ve složce profilu systému protected Users na místním počítači:</span><span class="sxs-lookup"><span data-stu-id="abf52-134">The values are stored in a JSON configuration file in a system-protected user profile folder on the local machine:</span></span>
+<span data-ttu-id="c8260-132">Nástroj Správce tajných klíčů vyříznout podrobnosti implementace, například WHERE a způsob uložení hodnot.</span><span class="sxs-lookup"><span data-stu-id="c8260-132">The Secret Manager tool abstracts away the implementation details, such as where and how the values are stored.</span></span> <span data-ttu-id="c8260-133">Tento nástroj můžete použít bez znalosti těchto podrobností implementace.</span><span class="sxs-lookup"><span data-stu-id="c8260-133">You can use the tool without knowing these implementation details.</span></span> <span data-ttu-id="c8260-134">Hodnoty jsou uložené v konfiguračním souboru JSON ve složce profilu uživatele chráněné systémem v místním počítači:</span><span class="sxs-lookup"><span data-stu-id="c8260-134">The values are stored in a JSON configuration file in a system-protected user profile folder on the local machine:</span></span>
 
-# <a name="windowstabwindows"></a>[<span data-ttu-id="abf52-135">Windows</span><span class="sxs-lookup"><span data-stu-id="abf52-135">Windows</span></span>](#tab/windows)
+# <a name="windowstabwindows"></a>[<span data-ttu-id="c8260-135">Windows</span><span class="sxs-lookup"><span data-stu-id="c8260-135">Windows</span></span>](#tab/windows)
 
-<span data-ttu-id="abf52-136">Cesta systému souborů:</span><span class="sxs-lookup"><span data-stu-id="abf52-136">File system path:</span></span>
+<span data-ttu-id="c8260-136">Cesta k systému souborů:</span><span class="sxs-lookup"><span data-stu-id="c8260-136">File system path:</span></span>
 
 `%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json`
 
-# <a name="linux--macostablinuxmacos"></a>[<span data-ttu-id="abf52-137">Linux / macOS</span><span class="sxs-lookup"><span data-stu-id="abf52-137">Linux / macOS</span></span>](#tab/linux+macos)
+# <a name="linux--macostablinuxmacos"></a>[<span data-ttu-id="c8260-137">Linux / macOS</span><span class="sxs-lookup"><span data-stu-id="c8260-137">Linux / macOS</span></span>](#tab/linux+macos)
 
-<span data-ttu-id="abf52-138">Cesta systému souborů:</span><span class="sxs-lookup"><span data-stu-id="abf52-138">File system path:</span></span>
+<span data-ttu-id="c8260-138">Cesta k systému souborů:</span><span class="sxs-lookup"><span data-stu-id="c8260-138">File system path:</span></span>
 
 `~/.microsoft/usersecrets/<user_secrets_id>/secrets.json`
 
 ---
 
-<span data-ttu-id="abf52-139">V předchozím cesty k souborům, nahraďte `<user_secrets_id>` s `UserSecretsId` hodnotu zadanou v *.csproj* souboru.</span><span class="sxs-lookup"><span data-stu-id="abf52-139">In the preceding file paths, replace `<user_secrets_id>` with the `UserSecretsId` value specified in the *.csproj* file.</span></span>
+<span data-ttu-id="c8260-139">V předchozích cestách souborů nahraďte `<user_secrets_id>` `UserSecretsId` hodnotou zadanou v souboru *. csproj* .</span><span class="sxs-lookup"><span data-stu-id="c8260-139">In the preceding file paths, replace `<user_secrets_id>` with the `UserSecretsId` value specified in the *.csproj* file.</span></span>
 
-<span data-ttu-id="abf52-140">Nemusíte psát kód, který závisí na umístění nebo formátu data uložená pomocí nástroje Správce tajný klíč.</span><span class="sxs-lookup"><span data-stu-id="abf52-140">Don't write code that depends on the location or format of data saved with the Secret Manager tool.</span></span> <span data-ttu-id="abf52-141">Tyto podrobnosti implementace se může změnit.</span><span class="sxs-lookup"><span data-stu-id="abf52-141">These implementation details may change.</span></span> <span data-ttu-id="abf52-142">Například hodnoty tajných kódů nejsou zašifrované, ale může být v budoucnosti.</span><span class="sxs-lookup"><span data-stu-id="abf52-142">For example, the secret values aren't encrypted, but could be in the future.</span></span>
+<span data-ttu-id="c8260-140">Nepište kód, který závisí na umístění nebo formátu dat uložených pomocí nástroje Správce tajných klíčů.</span><span class="sxs-lookup"><span data-stu-id="c8260-140">Don't write code that depends on the location or format of data saved with the Secret Manager tool.</span></span> <span data-ttu-id="c8260-141">Tyto podrobnosti implementace se můžou změnit.</span><span class="sxs-lookup"><span data-stu-id="c8260-141">These implementation details may change.</span></span> <span data-ttu-id="c8260-142">Například tajné hodnoty nejsou šifrovány, ale mohou být v budoucnu.</span><span class="sxs-lookup"><span data-stu-id="c8260-142">For example, the secret values aren't encrypted, but could be in the future.</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
-## <a name="install-the-secret-manager-tool"></a><span data-ttu-id="abf52-143">Nainstalujte nástroj tajný klíč správce</span><span class="sxs-lookup"><span data-stu-id="abf52-143">Install the Secret Manager tool</span></span>
+## <a name="install-the-secret-manager-tool"></a><span data-ttu-id="c8260-143">Instalace nástroje Správce tajných klíčů</span><span class="sxs-lookup"><span data-stu-id="c8260-143">Install the Secret Manager tool</span></span>
 
-<span data-ttu-id="abf52-144">Tajný klíč správce je jako součást balíčku s rozhraní příkazového řádku .NET Core v rozhraní .NET Core SDK 2.1.300 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="abf52-144">The Secret Manager tool is bundled with the .NET Core CLI in .NET Core SDK 2.1.300 or later.</span></span> <span data-ttu-id="abf52-145">Pro .NET Core SDK verze před 2.1.300 je nutné instalaci nástroje.</span><span class="sxs-lookup"><span data-stu-id="abf52-145">For .NET Core SDK versions before 2.1.300, tool installation is necessary.</span></span>
+<span data-ttu-id="c8260-144">Nástroj Správce tajných klíčů je součástí .NET Core CLI v .NET Core SDK 2.1.300 nebo novějším.</span><span class="sxs-lookup"><span data-stu-id="c8260-144">The Secret Manager tool is bundled with the .NET Core CLI in .NET Core SDK 2.1.300 or later.</span></span> <span data-ttu-id="c8260-145">Pro .NET Core SDK verze před 2.1.300 je instalace nástroje nutná.</span><span class="sxs-lookup"><span data-stu-id="c8260-145">For .NET Core SDK versions before 2.1.300, tool installation is necessary.</span></span>
 
 > [!TIP]
-> <span data-ttu-id="abf52-146">Spustit `dotnet --version` z příkazové okno, chcete-li zobrazit číslo nainstalované verze .NET Core SDK.</span><span class="sxs-lookup"><span data-stu-id="abf52-146">Run `dotnet --version` from a command shell to see the installed .NET Core SDK version number.</span></span>
+> <span data-ttu-id="c8260-146">Pokud `dotnet --version` chcete zobrazit nainstalované číslo verze .NET Core SDK, spusťte z příkazového prostředí.</span><span class="sxs-lookup"><span data-stu-id="c8260-146">Run `dotnet --version` from a command shell to see the installed .NET Core SDK version number.</span></span>
 
-<span data-ttu-id="abf52-147">Pokud se používají sadu .NET Core SDK obsahuje nástroje, zobrazí se upozornění:</span><span class="sxs-lookup"><span data-stu-id="abf52-147">A warning is displayed if the .NET Core SDK being used includes the tool:</span></span>
+<span data-ttu-id="c8260-147">Zobrazí se upozornění, pokud .NET Core SDK používá nástroj:</span><span class="sxs-lookup"><span data-stu-id="c8260-147">A warning is displayed if the .NET Core SDK being used includes the tool:</span></span>
 
 ```console
 The tool 'Microsoft.Extensions.SecretManager.Tools' is now included in the .NET Core SDK. Information on resolving this warning is available at (https://aka.ms/dotnetclitools-in-box).
 ```
 
-<span data-ttu-id="abf52-148">Nainstalujte [Microsoft.Extensions.SecretManager.Tools](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) balíčku NuGet ve vašem projektu ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="abf52-148">Install the [Microsoft.Extensions.SecretManager.Tools](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet package in your ASP.NET Core project.</span></span> <span data-ttu-id="abf52-149">Příklad:</span><span class="sxs-lookup"><span data-stu-id="abf52-149">For example:</span></span>
+<span data-ttu-id="c8260-148">Do projektu ASP.NET Core nainstalujte balíček NuGet [Microsoft. Extensions. SecretManager. Tools](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) .</span><span class="sxs-lookup"><span data-stu-id="c8260-148">Install the [Microsoft.Extensions.SecretManager.Tools](https://www.nuget.org/packages/Microsoft.Extensions.SecretManager.Tools/) NuGet package in your ASP.NET Core project.</span></span> <span data-ttu-id="c8260-149">Příklad:</span><span class="sxs-lookup"><span data-stu-id="c8260-149">For example:</span></span>
 
 [!code-xml[](app-secrets/samples/1.x/UserSecrets/UserSecrets.csproj?name=snippet_CsprojFile&highlight=15-16)]
 
-<span data-ttu-id="abf52-150">Spuštěním následujícího příkazu v příkazovém prostředí se ověřit instalaci nástroje:</span><span class="sxs-lookup"><span data-stu-id="abf52-150">Execute the following command in a command shell to validate the tool installation:</span></span>
+<span data-ttu-id="c8260-150">Spuštěním následujícího příkazu v příkazovém prostředí Ověřte instalaci nástroje:</span><span class="sxs-lookup"><span data-stu-id="c8260-150">Execute the following command in a command shell to validate the tool installation:</span></span>
 
-```console
+```dotnetcli
 dotnet user-secrets -h
 ```
 
-<span data-ttu-id="abf52-151">Tajný klíč správce nástroj zobrazí ukázkové využití, možnosti a nápovědy k příkazům:</span><span class="sxs-lookup"><span data-stu-id="abf52-151">The Secret Manager tool displays sample usage, options, and command help:</span></span>
+<span data-ttu-id="c8260-151">Nástroj Správce tajných klíčů zobrazuje ukázkové použití, možnosti a nápovědu k příkazům:</span><span class="sxs-lookup"><span data-stu-id="c8260-151">The Secret Manager tool displays sample usage, options, and command help:</span></span>
 
 ```console
 Usage: dotnet user-secrets [options] [command]
@@ -117,29 +117,29 @@ Use "dotnet user-secrets [command] --help" for more information about a command.
 ```
 
 > [!NOTE]
-> <span data-ttu-id="abf52-152">Musí být ve stejném adresáři jako *.csproj* spuštění nástroje, které jsou definovány v souboru *.csproj* souboru `DotNetCliToolReference` elementy.</span><span class="sxs-lookup"><span data-stu-id="abf52-152">You must be in the same directory as the *.csproj* file to run tools defined in the *.csproj* file's `DotNetCliToolReference` elements.</span></span>
+> <span data-ttu-id="c8260-152">Musíte být ve stejném adresáři jako soubor *. csproj* ke spuštění nástrojů definovaných v `DotNetCliToolReference` prvcích souboru *. csproj* .</span><span class="sxs-lookup"><span data-stu-id="c8260-152">You must be in the same directory as the *.csproj* file to run tools defined in the *.csproj* file's `DotNetCliToolReference` elements.</span></span>
 
 ::: moniker-end
 
-## <a name="enable-secret-storage"></a><span data-ttu-id="abf52-153">Povolit úložiště tajných kódů</span><span class="sxs-lookup"><span data-stu-id="abf52-153">Enable secret storage</span></span>
+## <a name="enable-secret-storage"></a><span data-ttu-id="c8260-153">Povolit tajné úložiště</span><span class="sxs-lookup"><span data-stu-id="c8260-153">Enable secret storage</span></span>
 
-<span data-ttu-id="abf52-154">Tajný klíč správce nástroj funguje v nastavení konfigurace specifické pro projekt uložené v profilu uživatele.</span><span class="sxs-lookup"><span data-stu-id="abf52-154">The Secret Manager tool operates on project-specific configuration settings stored in your user profile.</span></span>
+<span data-ttu-id="c8260-154">Nástroj Správce tajných klíčů pracuje na nastavení konfigurace specifické pro projekt uložené v profilu uživatele.</span><span class="sxs-lookup"><span data-stu-id="c8260-154">The Secret Manager tool operates on project-specific configuration settings stored in your user profile.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="abf52-155">Obsahuje nástroj Správce tajný kód `init` v .NET Core SDK 3.0.100 příkaz nebo novější.</span><span class="sxs-lookup"><span data-stu-id="abf52-155">The Secret Manager tool includes an `init` command in .NET Core SDK 3.0.100 or later.</span></span> <span data-ttu-id="abf52-156">Pokud chcete použít tajné klíče uživatelů, spusťte následující příkaz v adresáři projektu:</span><span class="sxs-lookup"><span data-stu-id="abf52-156">To use user secrets, run the following command in the project directory:</span></span>
+<span data-ttu-id="c8260-155">Nástroj Správce tajných klíčů obsahuje `init` příkaz v .NET Core SDK 3.0.100 nebo novějším.</span><span class="sxs-lookup"><span data-stu-id="c8260-155">The Secret Manager tool includes an `init` command in .NET Core SDK 3.0.100 or later.</span></span> <span data-ttu-id="c8260-156">Chcete-li použít tajné klíče uživatele, spusťte následující příkaz v adresáři projektu:</span><span class="sxs-lookup"><span data-stu-id="c8260-156">To use user secrets, run the following command in the project directory:</span></span>
 
-```console
+```dotnetcli
 dotnet user-secrets init
 ```
 
-<span data-ttu-id="abf52-157">Ve výstupu předchozího příkazu přidá `UserSecretsId` v elementu `PropertyGroup` z *.csproj* souboru.</span><span class="sxs-lookup"><span data-stu-id="abf52-157">The preceding command adds a `UserSecretsId` element within a `PropertyGroup` of the *.csproj* file.</span></span> <span data-ttu-id="abf52-158">Ve výchozím nastavení vnitřní text `UserSecretsId` je identifikátor GUID.</span><span class="sxs-lookup"><span data-stu-id="abf52-158">By default, the inner text of `UserSecretsId` is a GUID.</span></span> <span data-ttu-id="abf52-159">Vnitřní text je volitelný, ale je jedinečné pro projekt.</span><span class="sxs-lookup"><span data-stu-id="abf52-159">The inner text is arbitrary, but is unique to the project.</span></span>
+<span data-ttu-id="c8260-157">Předchozí příkaz přidá `UserSecretsId` prvek `PropertyGroup` v rámci souboru *. csproj* .</span><span class="sxs-lookup"><span data-stu-id="c8260-157">The preceding command adds a `UserSecretsId` element within a `PropertyGroup` of the *.csproj* file.</span></span> <span data-ttu-id="c8260-158">Ve výchozím nastavení je vnitřní text pro `UserSecretsId` identifikátor GUID.</span><span class="sxs-lookup"><span data-stu-id="c8260-158">By default, the inner text of `UserSecretsId` is a GUID.</span></span> <span data-ttu-id="c8260-159">Vnitřní text je libovolný, ale je pro projekt jedinečný.</span><span class="sxs-lookup"><span data-stu-id="c8260-159">The inner text is arbitrary, but is unique to the project.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-<span data-ttu-id="abf52-160">Pro použití tajných kódů uživatelů, definovat `UserSecretsId` v elementu `PropertyGroup` z *.csproj* souboru.</span><span class="sxs-lookup"><span data-stu-id="abf52-160">To use user secrets, define a `UserSecretsId` element within a `PropertyGroup` of the *.csproj* file.</span></span> <span data-ttu-id="abf52-161">Vnitřní text `UserSecretsId` je volitelný, ale jsou jedinečná pro projekt.</span><span class="sxs-lookup"><span data-stu-id="abf52-161">The inner text of `UserSecretsId` is arbitrary, but is unique to the project.</span></span> <span data-ttu-id="abf52-162">Vývojáři obvykle generování identifikátoru GUID pro `UserSecretsId`.</span><span class="sxs-lookup"><span data-stu-id="abf52-162">Developers typically generate a GUID for the `UserSecretsId`.</span></span>
+<span data-ttu-id="c8260-160">Pro použití uživatelských tajných klíčů definujte `UserSecretsId` prvek `PropertyGroup` v rámci souboru *. csproj* .</span><span class="sxs-lookup"><span data-stu-id="c8260-160">To use user secrets, define a `UserSecretsId` element within a `PropertyGroup` of the *.csproj* file.</span></span> <span data-ttu-id="c8260-161">Vnitřní text `UserSecretsId` je libovolný, ale je pro projekt jedinečný.</span><span class="sxs-lookup"><span data-stu-id="c8260-161">The inner text of `UserSecretsId` is arbitrary, but is unique to the project.</span></span> <span data-ttu-id="c8260-162">Vývojáři obvykle generují identifikátor GUID pro `UserSecretsId`.</span><span class="sxs-lookup"><span data-stu-id="c8260-162">Developers typically generate a GUID for the `UserSecretsId`.</span></span>
 
 ::: moniker-end
 
@@ -156,27 +156,27 @@ dotnet user-secrets init
 ::: moniker-end
 
 > [!TIP]
-> <span data-ttu-id="abf52-163">V sadě Visual Studio, klikněte pravým tlačítkem na projekt v Průzkumníku řešení a vyberte **spravovat tajné klíče uživatelů** v místní nabídce.</span><span class="sxs-lookup"><span data-stu-id="abf52-163">In Visual Studio, right-click the project in Solution Explorer, and select **Manage User Secrets** from the context menu.</span></span> <span data-ttu-id="abf52-164">Přidá tento gesta `UserSecretsId` prvek vyplní identifikátor GUID položky *.csproj* souboru.</span><span class="sxs-lookup"><span data-stu-id="abf52-164">This gesture adds a `UserSecretsId` element, populated with a GUID, to the *.csproj* file.</span></span>
+> <span data-ttu-id="c8260-163">V aplikaci Visual Studio klikněte pravým tlačítkem myši na projekt v Průzkumník řešení a v místní nabídce vyberte možnost **spravovat tajné klíče uživatele** .</span><span class="sxs-lookup"><span data-stu-id="c8260-163">In Visual Studio, right-click the project in Solution Explorer, and select **Manage User Secrets** from the context menu.</span></span> <span data-ttu-id="c8260-164">Tento gesto přidá `UserSecretsId` prvek, který je vyplněn identifikátorem GUID, do souboru *. csproj* .</span><span class="sxs-lookup"><span data-stu-id="c8260-164">This gesture adds a `UserSecretsId` element, populated with a GUID, to the *.csproj* file.</span></span>
 
-## <a name="set-a-secret"></a><span data-ttu-id="abf52-165">Nastavte tajného kódu</span><span class="sxs-lookup"><span data-stu-id="abf52-165">Set a secret</span></span>
+## <a name="set-a-secret"></a><span data-ttu-id="c8260-165">Nastavení tajného klíče</span><span class="sxs-lookup"><span data-stu-id="c8260-165">Set a secret</span></span>
 
-<span data-ttu-id="abf52-166">Definujte tajný kód aplikace, který se skládá z klíče a jeho hodnotu.</span><span class="sxs-lookup"><span data-stu-id="abf52-166">Define an app secret consisting of a key and its value.</span></span> <span data-ttu-id="abf52-167">Tajný kód je přiřazena k projektu `UserSecretsId` hodnotu.</span><span class="sxs-lookup"><span data-stu-id="abf52-167">The secret is associated with the project's `UserSecretsId` value.</span></span> <span data-ttu-id="abf52-168">Například spusťte následující příkaz z adresáře, ve kterém *.csproj* soubor existuje:</span><span class="sxs-lookup"><span data-stu-id="abf52-168">For example, run the following command from the directory in which the *.csproj* file exists:</span></span>
+<span data-ttu-id="c8260-166">Definujte tajný klíč aplikace skládající se z klíče a jeho hodnoty.</span><span class="sxs-lookup"><span data-stu-id="c8260-166">Define an app secret consisting of a key and its value.</span></span> <span data-ttu-id="c8260-167">Tajný kód je přidružený k `UserSecretsId` hodnotě projektu.</span><span class="sxs-lookup"><span data-stu-id="c8260-167">The secret is associated with the project's `UserSecretsId` value.</span></span> <span data-ttu-id="c8260-168">Například spusťte následující příkaz z adresáře, ve kterém existuje soubor *. csproj* :</span><span class="sxs-lookup"><span data-stu-id="c8260-168">For example, run the following command from the directory in which the *.csproj* file exists:</span></span>
 
-```console
+```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345"
 ```
 
-<span data-ttu-id="abf52-169">V předchozím příkladu, který označuje dvojtečka `Movies` je literál s objektu `ServiceApiKey` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="abf52-169">In the preceding example, the colon denotes that `Movies` is an object literal with a `ServiceApiKey` property.</span></span>
+<span data-ttu-id="c8260-169">V předchozím příkladu dvojtečka označuje `Movies` literál objektu `ServiceApiKey` s vlastností.</span><span class="sxs-lookup"><span data-stu-id="c8260-169">In the preceding example, the colon denotes that `Movies` is an object literal with a `ServiceApiKey` property.</span></span>
 
-<span data-ttu-id="abf52-170">Nástroj tajný klíč správce je možné z jiných adresářů příliš.</span><span class="sxs-lookup"><span data-stu-id="abf52-170">The Secret Manager tool can be used from other directories too.</span></span> <span data-ttu-id="abf52-171">Použití `--project` možnost zadat cestu systému souborů, ve kterém *.csproj* soubor existuje.</span><span class="sxs-lookup"><span data-stu-id="abf52-171">Use the `--project` option to supply the file system path at which the *.csproj* file exists.</span></span> <span data-ttu-id="abf52-172">Příklad:</span><span class="sxs-lookup"><span data-stu-id="abf52-172">For example:</span></span>
+<span data-ttu-id="c8260-170">Nástroj Správce tajných klíčů je možné použít i v jiných adresářích.</span><span class="sxs-lookup"><span data-stu-id="c8260-170">The Secret Manager tool can be used from other directories too.</span></span> <span data-ttu-id="c8260-171">Pomocí možnosti zadejte cestu k systému souborů, na které existuje soubor *. csproj.* `--project`</span><span class="sxs-lookup"><span data-stu-id="c8260-171">Use the `--project` option to supply the file system path at which the *.csproj* file exists.</span></span> <span data-ttu-id="c8260-172">Příklad:</span><span class="sxs-lookup"><span data-stu-id="c8260-172">For example:</span></span>
 
-```console
+```dotnetcli
 dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp1\src\WebApp1"
 ```
 
-### <a name="json-structure-flattening-in-visual-studio"></a><span data-ttu-id="abf52-173">Struktura JSON sloučení v sadě Visual Studio</span><span class="sxs-lookup"><span data-stu-id="abf52-173">JSON structure flattening in Visual Studio</span></span>
+### <a name="json-structure-flattening-in-visual-studio"></a><span data-ttu-id="c8260-173">Sloučení struktury JSON v aplikaci Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c8260-173">JSON structure flattening in Visual Studio</span></span>
 
-<span data-ttu-id="abf52-174">Visual Studio **spravovat tajné klíče uživatelů** gesta otevře *secrets.json* souboru v textovém editoru.</span><span class="sxs-lookup"><span data-stu-id="abf52-174">Visual Studio's **Manage User Secrets** gesture opens a *secrets.json* file in the text editor.</span></span> <span data-ttu-id="abf52-175">Nahraďte obsah *secrets.json* s páry klíč hodnota, které mají být uloženy.</span><span class="sxs-lookup"><span data-stu-id="abf52-175">Replace the contents of *secrets.json* with the key-value pairs to be stored.</span></span> <span data-ttu-id="abf52-176">Příklad:</span><span class="sxs-lookup"><span data-stu-id="abf52-176">For example:</span></span>
+<span data-ttu-id="c8260-174">Gesto **Spravovat uživatelské tajemství** v aplikaci Visual Studio otevře v textovém editoru soubor *tajných kódů. JSON* .</span><span class="sxs-lookup"><span data-stu-id="c8260-174">Visual Studio's **Manage User Secrets** gesture opens a *secrets.json* file in the text editor.</span></span> <span data-ttu-id="c8260-175">Nahraďte obsah *tajných klíčů. JSON* páry klíč-hodnota, které se mají uložit.</span><span class="sxs-lookup"><span data-stu-id="c8260-175">Replace the contents of *secrets.json* with the key-value pairs to be stored.</span></span> <span data-ttu-id="c8260-176">Příklad:</span><span class="sxs-lookup"><span data-stu-id="c8260-176">For example:</span></span>
 
 ```json
 {
@@ -187,7 +187,7 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 }
 ```
 
-<span data-ttu-id="abf52-177">Struktura JSON se sloučí po změny prostřednictvím `dotnet user-secrets remove` nebo `dotnet user-secrets set`.</span><span class="sxs-lookup"><span data-stu-id="abf52-177">The JSON structure is flattened after modifications via `dotnet user-secrets remove` or `dotnet user-secrets set`.</span></span> <span data-ttu-id="abf52-178">Například systém `dotnet user-secrets remove "Movies:ConnectionString"` sbalí `Movies` literálu objektu.</span><span class="sxs-lookup"><span data-stu-id="abf52-178">For example, running `dotnet user-secrets remove "Movies:ConnectionString"` collapses the `Movies` object literal.</span></span> <span data-ttu-id="abf52-179">Upravený soubor vypadá přibližně takto:</span><span class="sxs-lookup"><span data-stu-id="abf52-179">The modified file resembles the following:</span></span>
+<span data-ttu-id="c8260-177">Struktura JSON je po úpravách prostřednictvím `dotnet user-secrets remove` nebo `dotnet user-secrets set`. shrnuta.</span><span class="sxs-lookup"><span data-stu-id="c8260-177">The JSON structure is flattened after modifications via `dotnet user-secrets remove` or `dotnet user-secrets set`.</span></span> <span data-ttu-id="c8260-178">Například spuštění `dotnet user-secrets remove "Movies:ConnectionString"` sbalí `Movies` literál objektu.</span><span class="sxs-lookup"><span data-stu-id="c8260-178">For example, running `dotnet user-secrets remove "Movies:ConnectionString"` collapses the `Movies` object literal.</span></span> <span data-ttu-id="c8260-179">Změněný soubor se podobá následujícímu:</span><span class="sxs-lookup"><span data-stu-id="c8260-179">The modified file resembles the following:</span></span>
 
 ```json
 {
@@ -195,45 +195,45 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 }
 ```
 
-## <a name="set-multiple-secrets"></a><span data-ttu-id="abf52-180">Nastavit víc tajných kódů</span><span class="sxs-lookup"><span data-stu-id="abf52-180">Set multiple secrets</span></span>
+## <a name="set-multiple-secrets"></a><span data-ttu-id="c8260-180">Nastavení více tajných klíčů</span><span class="sxs-lookup"><span data-stu-id="c8260-180">Set multiple secrets</span></span>
 
-<span data-ttu-id="abf52-181">Dávku tajné kódy je možné nastavit přesměrujete JSON na `set` příkazu.</span><span class="sxs-lookup"><span data-stu-id="abf52-181">A batch of secrets can be set by piping JSON to the `set` command.</span></span> <span data-ttu-id="abf52-182">V následujícím příkladu *Input.JSON vypadá* obsah souboru jsou směrované do `set` příkazu.</span><span class="sxs-lookup"><span data-stu-id="abf52-182">In the following example, the *input.json* file's contents are piped to the `set` command.</span></span>
+<span data-ttu-id="c8260-181">Dávku tajných kódů lze nastavit pomocí `set` příkazuového řádku JSON pro příkaz.</span><span class="sxs-lookup"><span data-stu-id="c8260-181">A batch of secrets can be set by piping JSON to the `set` command.</span></span> <span data-ttu-id="c8260-182">V následujícím příkladu je obsah souboru *input. JSON* v kanálu do `set` příkazu.</span><span class="sxs-lookup"><span data-stu-id="c8260-182">In the following example, the *input.json* file's contents are piped to the `set` command.</span></span>
 
-# <a name="windowstabwindows"></a>[<span data-ttu-id="abf52-183">Windows</span><span class="sxs-lookup"><span data-stu-id="abf52-183">Windows</span></span>](#tab/windows)
+# <a name="windowstabwindows"></a>[<span data-ttu-id="c8260-183">Windows</span><span class="sxs-lookup"><span data-stu-id="c8260-183">Windows</span></span>](#tab/windows)
 
-<span data-ttu-id="abf52-184">Otevřete příkazové okno a spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="abf52-184">Open a command shell, and execute the following command:</span></span>
+<span data-ttu-id="c8260-184">Otevřete příkazové prostředí a spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="c8260-184">Open a command shell, and execute the following command:</span></span>
 
-  ```console
+  ```dotnetcli
   type .\input.json | dotnet user-secrets set
   ```
 
-# <a name="linux--macostablinuxmacos"></a>[<span data-ttu-id="abf52-185">Linux / macOS</span><span class="sxs-lookup"><span data-stu-id="abf52-185">Linux / macOS</span></span>](#tab/linux+macos)
+# <a name="linux--macostablinuxmacos"></a>[<span data-ttu-id="c8260-185">Linux / macOS</span><span class="sxs-lookup"><span data-stu-id="c8260-185">Linux / macOS</span></span>](#tab/linux+macos)
 
-<span data-ttu-id="abf52-186">Otevřete příkazové okno a spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="abf52-186">Open a command shell, and execute the following command:</span></span>
+<span data-ttu-id="c8260-186">Otevřete příkazové prostředí a spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="c8260-186">Open a command shell, and execute the following command:</span></span>
 
-  ```console
+  ```dotnetcli
   cat ./input.json | dotnet user-secrets set
   ```
 
 ---
 
-## <a name="access-a-secret"></a><span data-ttu-id="abf52-187">Přístup k tajným kódem</span><span class="sxs-lookup"><span data-stu-id="abf52-187">Access a secret</span></span>
+## <a name="access-a-secret"></a><span data-ttu-id="c8260-187">Přístup ke tajnému kódu</span><span class="sxs-lookup"><span data-stu-id="c8260-187">Access a secret</span></span>
 
-<span data-ttu-id="abf52-188">[Rozhraní API pro ASP.NET Core konfigurace](xref:fundamentals/configuration/index) poskytuje přístup k tajným kódům tajný klíč správce.</span><span class="sxs-lookup"><span data-stu-id="abf52-188">The [ASP.NET Core Configuration API](xref:fundamentals/configuration/index) provides access to Secret Manager secrets.</span></span>
+<span data-ttu-id="c8260-188">[Rozhraní API pro konfiguraci ASP.NET Core](xref:fundamentals/configuration/index) poskytuje přístup ke tajným tajným klíčům správce.</span><span class="sxs-lookup"><span data-stu-id="c8260-188">The [ASP.NET Core Configuration API](xref:fundamentals/configuration/index) provides access to Secret Manager secrets.</span></span>
 
 ::: moniker range=">= aspnetcore-2.0 <= aspnetcore-2.2"
 
-<span data-ttu-id="abf52-189">Pokud váš projekt cílí na .NET Framework, nainstalujte [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) balíček NuGet.</span><span class="sxs-lookup"><span data-stu-id="abf52-189">If your project targets .NET Framework, install the [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet package.</span></span>
+<span data-ttu-id="c8260-189">Pokud je projekt cílen .NET Framework, nainstalujte balíček NuGet [Microsoft. Extensions. Configuration. UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) .</span><span class="sxs-lookup"><span data-stu-id="c8260-189">If your project targets .NET Framework, install the [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet package.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="abf52-190">V technologii ASP.NET Core 2.0 nebo novější, uživatelský zdroj konfigurace tajných kódů se automaticky přidá ve vývojovém režimu při volání projektu <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> k inicializaci nové instance hostitele s předem nakonfigurované výchozí hodnoty.</span><span class="sxs-lookup"><span data-stu-id="abf52-190">In ASP.NET Core 2.0 or later, the user secrets configuration source is automatically added in development mode when the project calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> to initialize a new instance of the host with preconfigured defaults.</span></span> <span data-ttu-id="abf52-191">`CreateDefaultBuilder` volání <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> při <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> je <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>:</span><span class="sxs-lookup"><span data-stu-id="abf52-191">`CreateDefaultBuilder` calls <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> when the <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> is <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>:</span></span>
+<span data-ttu-id="c8260-190">V ASP.NET Core 2,0 nebo novějším je zdroj konfigurace tajných kódů uživatelských tajných kódů automaticky přidán do režimu vývoje <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> , pokud projekt volá inicializaci nové instance hostitele s předem konfigurovanými výchozími hodnotami.</span><span class="sxs-lookup"><span data-stu-id="c8260-190">In ASP.NET Core 2.0 or later, the user secrets configuration source is automatically added in development mode when the project calls <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> to initialize a new instance of the host with preconfigured defaults.</span></span> <span data-ttu-id="c8260-191">`CreateDefaultBuilder`volá <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> se, <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> když <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>je:</span><span class="sxs-lookup"><span data-stu-id="c8260-191">`CreateDefaultBuilder` calls <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> when the <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> is <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>:</span></span>
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
-<span data-ttu-id="abf52-192">Když `CreateDefaultBuilder` není volána, přidat zdroj konfigurace tajných kódů uživatelů explicitně voláním <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> v `Startup` konstruktoru.</span><span class="sxs-lookup"><span data-stu-id="abf52-192">When `CreateDefaultBuilder` isn't called, add the user secrets configuration source explicitly by calling <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> in the `Startup` constructor.</span></span> <span data-ttu-id="abf52-193">Volání `AddUserSecrets` pouze při spuštění aplikace ve vývojovém prostředí, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="abf52-193">Call `AddUserSecrets` only when the app runs in the Development environment, as shown in the following example:</span></span>
+<span data-ttu-id="c8260-192">Pokud `CreateDefaultBuilder` není volána, přidejte zdroj konfigurace tajných klíčů uživatele explicitně voláním <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> v `Startup` konstruktoru.</span><span class="sxs-lookup"><span data-stu-id="c8260-192">When `CreateDefaultBuilder` isn't called, add the user secrets configuration source explicitly by calling <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> in the `Startup` constructor.</span></span> <span data-ttu-id="c8260-193">Volejte `AddUserSecrets` pouze v případě, že aplikace běží ve vývojovém prostředí, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="c8260-193">Call `AddUserSecrets` only when the app runs in the Development environment, as shown in the following example:</span></span>
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -241,15 +241,15 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 ::: moniker range="<= aspnetcore-1.1"
 
-<span data-ttu-id="abf52-194">Nainstalujte [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) balíček NuGet.</span><span class="sxs-lookup"><span data-stu-id="abf52-194">Install the [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet package.</span></span>
+<span data-ttu-id="c8260-194">Nainstalujte balíček NuGet [Microsoft. Extensions. Configuration. UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) .</span><span class="sxs-lookup"><span data-stu-id="c8260-194">Install the [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet package.</span></span>
 
-<span data-ttu-id="abf52-195">Přidat zdroj konfigurace tajných kódů uživatelů pomocí volání <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> v `Startup` konstruktor:</span><span class="sxs-lookup"><span data-stu-id="abf52-195">Add the user secrets configuration source with a call to <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> in the `Startup` constructor:</span></span>
+<span data-ttu-id="c8260-195">Přidejte zdroj konfigurace uživatelských tajných klíčů s voláním <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> do `Startup` v konstruktoru:</span><span class="sxs-lookup"><span data-stu-id="c8260-195">Add the user secrets configuration source with a call to <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> in the `Startup` constructor:</span></span>
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
 ::: moniker-end
 
-<span data-ttu-id="abf52-196">Tajné klíče uživatelů se dá načíst pomocí `Configuration` rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="abf52-196">User secrets can be retrieved via the `Configuration` API:</span></span>
+<span data-ttu-id="c8260-196">Uživatelské tajné kódy lze načíst prostřednictvím `Configuration` rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="c8260-196">User secrets can be retrieved via the `Configuration` API:</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -263,13 +263,13 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 ::: moniker-end
 
-## <a name="map-secrets-to-a-poco"></a><span data-ttu-id="abf52-197">Mapování tajných kódů POCO</span><span class="sxs-lookup"><span data-stu-id="abf52-197">Map secrets to a POCO</span></span>
+## <a name="map-secrets-to-a-poco"></a><span data-ttu-id="c8260-197">Mapování tajných kódů na POCO</span><span class="sxs-lookup"><span data-stu-id="c8260-197">Map secrets to a POCO</span></span>
 
-<span data-ttu-id="abf52-198">Mapování literál celého objektu POCO (jednoduchá třída .NET s vlastnostmi) je užitečné pro agregaci související vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="abf52-198">Mapping an entire object literal to a POCO (a simple .NET class with properties) is useful for aggregating related properties.</span></span>
+<span data-ttu-id="c8260-198">Mapování celého literálu objektu na POCO (jednoduchá třída .NET s vlastnostmi) je užitečná pro agregaci souvisejících vlastností.</span><span class="sxs-lookup"><span data-stu-id="c8260-198">Mapping an entire object literal to a POCO (a simple .NET class with properties) is useful for aggregating related properties.</span></span>
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-<span data-ttu-id="abf52-199">Chcete-li namapovat předchozí tajných kódů POCO, použijte `Configuration` rozhraní API [objektu vazby grafu](xref:fundamentals/configuration/index#bind-to-an-object-graph) funkce.</span><span class="sxs-lookup"><span data-stu-id="abf52-199">To map the preceding secrets to a POCO, use the `Configuration` API's [object graph binding](xref:fundamentals/configuration/index#bind-to-an-object-graph) feature.</span></span> <span data-ttu-id="abf52-200">Následující kód vytvoří vazbu k vlastní `MovieSettings` POCO a přístupy `ServiceApiKey` hodnota vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="abf52-200">The following code binds to a custom `MovieSettings` POCO and accesses the `ServiceApiKey` property value:</span></span>
+<span data-ttu-id="c8260-199">K namapování předchozích tajných kódů na POCO použijte `Configuration` funkci [vazby grafu objektů](xref:fundamentals/configuration/index#bind-to-an-object-graph) rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="c8260-199">To map the preceding secrets to a POCO, use the `Configuration` API's [object graph binding](xref:fundamentals/configuration/index#bind-to-an-object-graph) feature.</span></span> <span data-ttu-id="c8260-200">Následující kód se váže k vlastnímu `MovieSettings` POCO a přistupuje `ServiceApiKey` k hodnotě vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="c8260-200">The following code binds to a custom `MovieSettings` POCO and accesses the `ServiceApiKey` property value:</span></span>
 
 ::: moniker range=">= aspnetcore-1.1"
 
@@ -283,27 +283,27 @@ dotnet user-secrets set "Movies:ServiceApiKey" "12345" --project "C:\apps\WebApp
 
 ::: moniker-end
 
-<span data-ttu-id="abf52-201">`Movies:ConnectionString` a `Movies:ServiceApiKey` tajných kódů se mapují na odpovídající vlastnosti v `MovieSettings`:</span><span class="sxs-lookup"><span data-stu-id="abf52-201">The `Movies:ConnectionString` and `Movies:ServiceApiKey` secrets are mapped to the respective properties in `MovieSettings`:</span></span>
+<span data-ttu-id="c8260-201">Tajné kódy `Movies:ServiceApiKey`ajsou mapovány na příslušné vlastnosti v `MovieSettings`: `Movies:ConnectionString`</span><span class="sxs-lookup"><span data-stu-id="c8260-201">The `Movies:ConnectionString` and `Movies:ServiceApiKey` secrets are mapped to the respective properties in `MovieSettings`:</span></span>
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
 
-## <a name="string-replacement-with-secrets"></a><span data-ttu-id="abf52-202">Náhradní řetězec s tajnými kódy</span><span class="sxs-lookup"><span data-stu-id="abf52-202">String replacement with secrets</span></span>
+## <a name="string-replacement-with-secrets"></a><span data-ttu-id="c8260-202">Výměna řetězců s tajnými kódy</span><span class="sxs-lookup"><span data-stu-id="c8260-202">String replacement with secrets</span></span>
 
-<span data-ttu-id="abf52-203">Není bezpečné ukládání hesel ve formátu prostého textu.</span><span class="sxs-lookup"><span data-stu-id="abf52-203">Storing passwords in plain text is insecure.</span></span> <span data-ttu-id="abf52-204">Příklad připojovacího řetězce databáze uloženého v *appsettings.json* může zahrnovat heslo pro zadaného uživatele:</span><span class="sxs-lookup"><span data-stu-id="abf52-204">For example, a database connection string stored in *appsettings.json* may include a password for the specified user:</span></span>
+<span data-ttu-id="c8260-203">Ukládání hesel v prostém textu je nezabezpečené.</span><span class="sxs-lookup"><span data-stu-id="c8260-203">Storing passwords in plain text is insecure.</span></span> <span data-ttu-id="c8260-204">Připojovací řetězec databáze uložený v souboru *appSettings. JSON* může například zahrnovat heslo pro zadaného uživatele:</span><span class="sxs-lookup"><span data-stu-id="c8260-204">For example, a database connection string stored in *appsettings.json* may include a password for the specified user:</span></span>
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
-<span data-ttu-id="abf52-205">Je lépe zabezpečit přístup k uložení hesla jako tajný kód.</span><span class="sxs-lookup"><span data-stu-id="abf52-205">A more secure approach is to store the password as a secret.</span></span> <span data-ttu-id="abf52-206">Příklad:</span><span class="sxs-lookup"><span data-stu-id="abf52-206">For example:</span></span>
+<span data-ttu-id="c8260-205">Bezpečnější je ukládání hesla jako tajného klíče.</span><span class="sxs-lookup"><span data-stu-id="c8260-205">A more secure approach is to store the password as a secret.</span></span> <span data-ttu-id="c8260-206">Příklad:</span><span class="sxs-lookup"><span data-stu-id="c8260-206">For example:</span></span>
 
-```console
+```dotnetcli
 dotnet user-secrets set "DbPassword" "pass123"
 ```
 
-<span data-ttu-id="abf52-207">Odeberte `Password` páru klíč hodnota z připojovacího řetězce v *appsettings.json*.</span><span class="sxs-lookup"><span data-stu-id="abf52-207">Remove the `Password` key-value pair from the connection string in *appsettings.json*.</span></span> <span data-ttu-id="abf52-208">Příklad:</span><span class="sxs-lookup"><span data-stu-id="abf52-208">For example:</span></span>
+<span data-ttu-id="c8260-207">Odeberte dvojici klíč-hodnota z připojovacího řetězce v souboru *appSettings. JSON.* `Password`</span><span class="sxs-lookup"><span data-stu-id="c8260-207">Remove the `Password` key-value pair from the connection string in *appsettings.json*.</span></span> <span data-ttu-id="c8260-208">Příklad:</span><span class="sxs-lookup"><span data-stu-id="c8260-208">For example:</span></span>
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
-<span data-ttu-id="abf52-209">Hodnota tajného klíče se dá nastavit na <xref:System.Data.SqlClient.SqlConnectionStringBuilder> objektu <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> vlastnost dokončete připojovací řetězec:</span><span class="sxs-lookup"><span data-stu-id="abf52-209">The secret's value can be set on a <xref:System.Data.SqlClient.SqlConnectionStringBuilder> object's <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> property to complete the connection string:</span></span>
+<span data-ttu-id="c8260-209">Hodnota tajného klíče může být nastavena na <xref:System.Data.SqlClient.SqlConnectionStringBuilder> <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> vlastnost objektu pro dokončení připojovacího řetězce:</span><span class="sxs-lookup"><span data-stu-id="c8260-209">The secret's value can be set on a <xref:System.Data.SqlClient.SqlConnectionStringBuilder> object's <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> property to complete the connection string:</span></span>
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -317,36 +317,36 @@ dotnet user-secrets set "DbPassword" "pass123"
 
 ::: moniker-end
 
-## <a name="list-the-secrets"></a><span data-ttu-id="abf52-210">Uvádí tajné klíče.</span><span class="sxs-lookup"><span data-stu-id="abf52-210">List the secrets</span></span>
+## <a name="list-the-secrets"></a><span data-ttu-id="c8260-210">Výpis tajných kódů</span><span class="sxs-lookup"><span data-stu-id="c8260-210">List the secrets</span></span>
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-<span data-ttu-id="abf52-211">Spusťte následující příkaz z adresáře, ve kterém *.csproj* soubor existuje:</span><span class="sxs-lookup"><span data-stu-id="abf52-211">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+<span data-ttu-id="c8260-211">Z adresáře, ve kterém existuje soubor *. csproj* , spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="c8260-211">Run the following command from the directory in which the *.csproj* file exists:</span></span>
 
-```console
+```dotnetcli
 dotnet user-secrets list
 ```
 
-<span data-ttu-id="abf52-212">Zobrazí se následující výstup:</span><span class="sxs-lookup"><span data-stu-id="abf52-212">The following output appears:</span></span>
+<span data-ttu-id="c8260-212">Zobrazí se následující výstup:</span><span class="sxs-lookup"><span data-stu-id="c8260-212">The following output appears:</span></span>
 
 ```console
 Movies:ConnectionString = Server=(localdb)\mssqllocaldb;Database=Movie-1;Trusted_Connection=True;MultipleActiveResultSets=true
 Movies:ServiceApiKey = 12345
 ```
 
-<span data-ttu-id="abf52-213">V předchozím příkladu, dvojtečka v názvu klíče označuje hierarchie objektů v rámci *secrets.json*.</span><span class="sxs-lookup"><span data-stu-id="abf52-213">In the preceding example, a colon in the key names denotes the object hierarchy within *secrets.json*.</span></span>
+<span data-ttu-id="c8260-213">V předchozím příkladu dvojtečka v názvech klíčů označuje hierarchii objektů v rámci *tajných kódů. JSON*.</span><span class="sxs-lookup"><span data-stu-id="c8260-213">In the preceding example, a colon in the key names denotes the object hierarchy within *secrets.json*.</span></span>
 
-## <a name="remove-a-single-secret"></a><span data-ttu-id="abf52-214">Odebrat tajný kód jednotného</span><span class="sxs-lookup"><span data-stu-id="abf52-214">Remove a single secret</span></span>
+## <a name="remove-a-single-secret"></a><span data-ttu-id="c8260-214">Odebrání jednoho tajného klíče</span><span class="sxs-lookup"><span data-stu-id="c8260-214">Remove a single secret</span></span>
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-<span data-ttu-id="abf52-215">Spusťte následující příkaz z adresáře, ve kterém *.csproj* soubor existuje:</span><span class="sxs-lookup"><span data-stu-id="abf52-215">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+<span data-ttu-id="c8260-215">Z adresáře, ve kterém existuje soubor *. csproj* , spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="c8260-215">Run the following command from the directory in which the *.csproj* file exists:</span></span>
 
-```console
+```dotnetcli
 dotnet user-secrets remove "Movies:ConnectionString"
 ```
 
-<span data-ttu-id="abf52-216">Aplikace *secrets.json* změny odebrat páru klíč hodnota, které jsou přidružené k souboru `MoviesConnectionString` klíč:</span><span class="sxs-lookup"><span data-stu-id="abf52-216">The app's *secrets.json* file was modified to remove the key-value pair associated with the `MoviesConnectionString` key:</span></span>
+<span data-ttu-id="c8260-216">Soubor *tajných kódů. JSON* aplikace byl změněn tak, aby odstranil dvojici klíč-hodnota přidruženou `MoviesConnectionString` ke klíči:</span><span class="sxs-lookup"><span data-stu-id="c8260-216">The app's *secrets.json* file was modified to remove the key-value pair associated with the `MoviesConnectionString` key:</span></span>
 
 ```json
 {
@@ -356,35 +356,35 @@ dotnet user-secrets remove "Movies:ConnectionString"
 }
 ```
 
-<span data-ttu-id="abf52-217">Spuštění `dotnet user-secrets list` zobrazí následující zprávu:</span><span class="sxs-lookup"><span data-stu-id="abf52-217">Running `dotnet user-secrets list` displays the following message:</span></span>
+<span data-ttu-id="c8260-217">Při `dotnet user-secrets list` spuštění se zobrazí následující zpráva:</span><span class="sxs-lookup"><span data-stu-id="c8260-217">Running `dotnet user-secrets list` displays the following message:</span></span>
 
 ```console
 Movies:ServiceApiKey = 12345
 ```
 
-## <a name="remove-all-secrets"></a><span data-ttu-id="abf52-218">Odebrání všech tajných kódů</span><span class="sxs-lookup"><span data-stu-id="abf52-218">Remove all secrets</span></span>
+## <a name="remove-all-secrets"></a><span data-ttu-id="c8260-218">Odebrat všechna tajná klíčová</span><span class="sxs-lookup"><span data-stu-id="c8260-218">Remove all secrets</span></span>
 
 [!INCLUDE[secrets.json file](~/includes/app-secrets/secrets-json-file-and-text.md)]
 
-<span data-ttu-id="abf52-219">Spusťte následující příkaz z adresáře, ve kterém *.csproj* soubor existuje:</span><span class="sxs-lookup"><span data-stu-id="abf52-219">Run the following command from the directory in which the *.csproj* file exists:</span></span>
+<span data-ttu-id="c8260-219">Z adresáře, ve kterém existuje soubor *. csproj* , spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="c8260-219">Run the following command from the directory in which the *.csproj* file exists:</span></span>
 
-```console
+```dotnetcli
 dotnet user-secrets clear
 ```
 
-<span data-ttu-id="abf52-220">Všechny tajné klíče uživatelů pro aplikaci se odstranily z *secrets.json* souboru:</span><span class="sxs-lookup"><span data-stu-id="abf52-220">All user secrets for the app have been deleted from the *secrets.json* file:</span></span>
+<span data-ttu-id="c8260-220">Všechny tajné klíče uživatele pro aplikaci byly odstraněny ze souboru *tajných kódů. JSON* :</span><span class="sxs-lookup"><span data-stu-id="c8260-220">All user secrets for the app have been deleted from the *secrets.json* file:</span></span>
 
 ```json
 {}
 ```
 
-<span data-ttu-id="abf52-221">Spuštění `dotnet user-secrets list` zobrazí následující zprávu:</span><span class="sxs-lookup"><span data-stu-id="abf52-221">Running `dotnet user-secrets list` displays the following message:</span></span>
+<span data-ttu-id="c8260-221">Při `dotnet user-secrets list` spuštění se zobrazí následující zpráva:</span><span class="sxs-lookup"><span data-stu-id="c8260-221">Running `dotnet user-secrets list` displays the following message:</span></span>
 
 ```console
 No secrets configured for this application.
 ```
 
-## <a name="additional-resources"></a><span data-ttu-id="abf52-222">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="abf52-222">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="c8260-222">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="c8260-222">Additional resources</span></span>
 
 * <xref:fundamentals/configuration/index>
 * <xref:security/key-vault-configuration>
