@@ -1,9 +1,9 @@
 # <a name="aspnet-core-integration-testing-sample"></a>Ukázka testování integrace ASP.NET Core
 
-Tato ukázka ilustruje testování integrace [ASP.NET Core Razor Pages](https://docs.microsoft.com/aspnet/core/mvc/razor-pages) aplikace. Tato ukázka demonstruje funkce popsané v [integrační testy v ASP.NET Core](https://docs.microsoft.com/aspnet/core/test/integration-tests) tématu.
+Tato ukázka znázorňuje integrační testování aplikace [ASP.NET Core Razor Pages](https://docs.microsoft.com/aspnet/core/mvc/razor-pages) . Tato ukázka předvádí funkce popsané v tématu [integrační testy v ASP.NET Core](https://docs.microsoft.com/aspnet/core/test/integration-tests) tématu.
 
-Pokud nepoužíváte integrované vývojové prostředí s integrované funkce pro testování, spuštěním následujícího příkazu na příkazovém řádku v *tests/RazorPagesProject.Tests* složky:
+Pokud nepoužíváte integrované vývojové prostředí s integrovanými funkcemi testování, spusťte následující příkaz na příkazovém řádku ve složce *Tests/RazorPagesProject. Tests* :
 
-```console
+```dotnetcli
 dotnet test
 ```

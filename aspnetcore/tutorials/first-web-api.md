@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/27/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 25bfccb136d875b454034bd011828c9f3b6cd3d8
-ms.sourcegitcommit: de17150e5ec7507d7114dde0e5dbc2e45a66ef53
+ms.openlocfilehash: 1cc4fffc50978a3a958a96e1eb250cb85a8d2879
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/28/2019
-ms.locfileid: "70113290"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082071"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -71,7 +71,7 @@ Následující diagram znázorňuje návrh aplikace.
 * V nabídce **soubor** vyberte možnost **Nový** > **projekt**.
 * Vyberte šablonu **ASP.NET Core webové aplikace** a klikněte na tlačítko **Další**.
 * Pojmenujte projekt *TodoApi* a klikněte na **vytvořit**.
-* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. Nevybírejte možnost **Povolit podporu Docker**.
+* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. **Nevybírejte možnost** **Povolit podporu Docker**.
 
 ![VS – dialogové okno nového projektu](first-web-api/_static/vs3.png)
 
@@ -81,7 +81,7 @@ Následující diagram znázorňuje návrh aplikace.
 * Změňte adresáře (`cd`) na složku, která bude obsahovat složku projektu.
 * Spusťte následující příkazy:
 
-   ```console
+   ```dotnetcli
    dotnet new webapi -o TodoApi
    cd TodoAPI
    dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
@@ -116,7 +116,7 @@ Následující diagram znázorňuje návrh aplikace.
 
 Ve složce projektu otevřete terminál příkazu a spusťte následující příkazy:
 
-   ```console
+   ```dotnetcli
    dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
    dotnet add package Microsoft.EntityFrameworkCore.InMemory --version 3.0.0-*
    ```
@@ -280,7 +280,7 @@ Předchozí kód:
 
 Spusťte následující příkazy:
 
-```console
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
 dotnet tool install --global dotnet-aspnet-codegenerator
@@ -392,7 +392,7 @@ Odpověď podobná následující je vytvořena voláním metody `GetTodoItems`:
 * Nastavte **dvě podokna zobrazení** v nástroji Postman.
 * Vyberte **Poslat**.
 
-Tato aplikace používá databázi v paměti. Pokud se aplikace zastaví a spustí, předchozí požadavek GET nebude vracet žádná data. Pokud se nevrátí žádná data [](#post) , odešlete data do aplikace.
+Tato aplikace používá databázi v paměti. Pokud se aplikace zastaví a spustí, předchozí požadavek GET nebude vracet žádná data. Pokud se nevrátí žádná data, [odešlete](#post) data do aplikace.
 
 ## <a name="routing-and-url-paths"></a>Směrování a adresa URL cesty
 
@@ -523,7 +523,7 @@ Následující diagram znázorňuje návrh aplikace.
 * V nabídce **soubor** vyberte možnost **Nový** > **projekt**.
 * Vyberte šablonu **ASP.NET Core webové aplikace** a klikněte na tlačítko **Další**.
 * Pojmenujte projekt *TodoApi* a klikněte na **vytvořit**.
-* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 2,2** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. Nevybírejte možnost **Povolit podporu Docker**.
+* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 2,2** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. **Nevybírejte možnost** **Povolit podporu Docker**.
 
 ![VS – dialogové okno nového projektu](first-web-api/_static/vs.png)
 
@@ -533,7 +533,7 @@ Následující diagram znázorňuje návrh aplikace.
 * Změňte adresáře (`cd`) na složku, která bude obsahovat složku projektu.
 * Spusťte následující příkazy:
 
-   ```console
+   ```dotnetcli
    dotnet new webapi -o TodoApi
    code -r TodoApi
    ```
@@ -753,7 +753,7 @@ Tento kurz používá Postman k otestování webové rozhraní API.
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-* V možnosti Předvolba **post** > (karta**Obecné** ) zakažte **ověřování certifikátu SSL**. Případně vyberte klíče a vyberte **Nastavení**a pak zakažte ověřování certifikátu SSL.
+* V možnosti**předvolba** **post** > (karta**Obecné** ) zakažte **ověřování certifikátu SSL**. Případně vyberte klíče a vyberte **Nastavení**a pak zakažte ověřování certifikátu SSL.
 
 ---
   
@@ -770,7 +770,7 @@ Tento kurz používá Postman k otestování webové rozhraní API.
 
 ## <a name="add-a-create-method"></a>Přidání metody vytvoření
 
-Přidejte následující `PostTodoItem` metodu do Controllers */TodoController. cs*: 
+Přidejte následující `PostTodoItem` metodu do *Controllers/TodoController. cs*: 
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Create)]
 
@@ -867,7 +867,7 @@ Ukázková aplikace umožňuje odstranit všechny položky. Když je však posle
 
 V této části se přidá stránka HTML, která pomocí JavaScriptu volá webové rozhraní API. Načtené rozhraní API iniciuje požadavek. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
 
-Nakonfigurujte aplikaci tak, aby sloužila pro [statické soubory](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) , a [Povolte výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) aktualizací *Startup.cs* pomocí následujícího zvýrazněného kódu:
+Nakonfigurujte aplikaci tak, aby [sloužila pro statické soubory](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) , a [Povolte výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) aktualizací *Startup.cs* pomocí následujícího zvýrazněného kódu:
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup.cs?highlight=14-15&name=snippet_configure)]
 

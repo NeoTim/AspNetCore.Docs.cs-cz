@@ -1,65 +1,65 @@
 ---
-title: Nastavení Microsoft Account externí přihlášení pomocí ASP.NET Core
+title: Nastavení externího přihlášení k účtu Microsoft pomocí ASP.NET Core
 author: rick-anderson
-description: Tato ukázka předvádí, integrace ověřování uživatele účtu Microsoft do stávající aplikace ASP.NET Core.
+description: Tato ukázka demonstruje integraci účet Microsoft ověřování uživatelů do existující aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/11/2019
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 2c690e5bd8465806d42091616917cfdd747ef8f0
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 91ace293fd16cd180b3d5c183c637af6db1d08c3
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815578"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082342"
 ---
-# <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Nastavení Microsoft Account externí přihlášení pomocí ASP.NET Core
+# <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Nastavení externího přihlášení k účtu Microsoft pomocí ASP.NET Core
 
 Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Tento příklad ukazuje, jak povolit uživatelům přihlašovat se pomocí svého účtu Microsoft pomocí ASP.NET Core 2.2 projektu vytvořeného na [předchozí stránce](xref:security/authentication/social/index).
+V této ukázce se dozvíte, jak uživatelům povolit, aby se k účet Microsoft přihlásili pomocí projektu ASP.NET Core 2,2 vytvořeného na [předchozí stránce](xref:security/authentication/social/index).
 
-## <a name="create-the-app-in-microsoft-developer-portal"></a>Vytvoření aplikace portálu společnosti Microsoft pro vývojáře
+## <a name="create-the-app-in-microsoft-developer-portal"></a>Vytvoření aplikace na portálu Microsoftu pro vývojáře
 
-* Přejděte [portál Azure – registrace aplikací](https://go.microsoft.com/fwlink/?linkid=2083908) stránky a vytvoření nebo přihlášení účtem Microsoft:
+* Přejděte na stránku [Azure Portal-registrace aplikací](https://go.microsoft.com/fwlink/?linkid=2083908) a vytvořte nebo Přihlaste se ke účet Microsoft:
 
-Pokud nemáte účet Microsoft, vyberte **vytvořit**. Po přihlášení budete přesměrováni **registrace aplikací** stránky:
+Pokud nemáte účet Microsoft, vyberte **vytvořit**. Po přihlášení budete přesměrováni na stránku **Registrace aplikací** :
 
-* Vyberte **nové registrace**
+* Vybrat **novou registraci**
 * Zadejte **název**.
-* Vyberte možnost pro **podporovaných typů účtu**.  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts -->
-* V části **identifikátor URI pro přesměrování**, zadejte adresu URL svého vývoj s `/signin-microsoft` připojí. Například, `https://localhost:44389/signin-microsoft`. Schéma ověřování Microsoft nakonfigurovat později v tomto příkladu bude automaticky zpracovávat požadavky na `/signin-microsoft` trasy, která má implementovat tok OAuth.
-* Vyberte **zaregistrovat**
+* Vyberte možnost pro **podporované typy účtů**.  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts -->
+* V části **identifikátor URI přesměrování**zadejte adresu URL pro `/signin-microsoft` vývoj s připojením. Například, `https://localhost:44389/signin-microsoft`. Schéma ověřování společnosti Microsoft nakonfigurované později v této ukázce bude automaticky zpracovávat požadavky `/signin-microsoft` na trase za účelem implementace toku OAuth.
+* Vybrat **registraci**
 
-### <a name="create-client-secret"></a>Vytvořit tajný kód klienta
+### <a name="create-client-secret"></a>Vytvořit tajný klíč klienta
 
-* V levém podokně vyberte **certifikáty a tajné kódy**.
-* V části **tajné klíče klienta**vyberte **nový tajný kód klienta**
+* V levém podokně vyberte **certifikáty & tajných**kódů.
+* V části **tajné klíče klienta**vyberte **nový tajný klíč klienta** .
 
-  * Přidáte popis tajný kód klienta.
-  * Vyberte **přidat** tlačítko.
+  * Přidejte popis pro tajný klíč klienta.
+  * Vyberte tlačítko **Přidat** .
 
-* V části **tajné klíče klienta**, zkopírujte hodnotu tajný kód klienta.
+* V části **tajné klíče klienta**Zkopírujte hodnotu tajného klíče klienta.
 
 > [!NOTE]
-> Segment identifikátoru URI `/signin-microsoft` je nastaven jako výchozí zpětného volání zprostředkovatele ověřování společnosti Microsoft. Můžete změnit výchozí identifikátor URI zpětného volání při konfiguraci middlewaru ověřování společnosti Microsoft prostřednictvím zděděnou [RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) vlastnost [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions) třídy.
+> Segment `/signin-microsoft` identifikátoru URI je nastaven jako výchozí zpětné volání poskytovatele ověřování společnosti Microsoft. Výchozí identifikátor URI zpětného volání můžete změnit během konfigurace middleware ověřování od společnosti Microsoft prostřednictvím zděděné vlastnosti [RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions) .
 
-## <a name="store-the-microsoft-client-id-and-client-secret"></a>Store Microsoft klienta ID a tajný klíč klienta
+## <a name="store-the-microsoft-client-id-and-client-secret"></a>Uložení ID klienta Microsoft a tajného kódu klienta
 
-Spusťte následující příkazy zabezpečeně ukládat `ClientId` a `ClientSecret` pomocí [manažera tajných](xref:security/app-secrets):
+Spuštěním následujících příkazů bezpečně uložte `ClientId` a `ClientSecret` použijte [správce tajných klíčů](xref:security/app-secrets):
 
-```console
+```dotnetcli
 dotnet user-secrets set Authentication:Microsoft:ClientId <Client-Id>
 dotnet user-secrets set Authentication:Microsoft:ClientSecret <Client-Secret>
 ```
 
-Propojit citlivá nastavení, jako je Microsoft `ClientId` a `ClientSecret` pomocí konfigurace aplikace [manažera tajných](xref:security/app-secrets). Pro účely tohoto příkladu název tokeny `Authentication:Microsoft:ClientId` a `Authentication:Microsoft:ClientSecret`.
+Pomocí [správce tajných](xref:security/app-secrets)kódů `ClientId` propojte citlivá nastavení, jako je Microsoft, a `ClientSecret` konfiguraci vaší aplikace. Pro účely této ukázky pojmenujte tokeny `Authentication:Microsoft:ClientId` a. `Authentication:Microsoft:ClientSecret`
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-## <a name="configure-microsoft-account-authentication"></a>Konfigurace ověřování pomocí účtu Microsoft
+## <a name="configure-microsoft-account-authentication"></a>Konfigurace ověřování účtu Microsoft
 
-Přidat službu Microsoft Account `Startup.ConfigureServices`:
+Přidejte službu účtu Microsoft do `Startup.ConfigureServices`:
 
 [!code-csharp[](~/security/authentication/social/social-code/StartupMS.cs?name=snippet&highlight=10-14)]
 
@@ -67,30 +67,30 @@ Přidat službu Microsoft Account `Startup.ConfigureServices`:
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
-Zobrazit [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.builder.microsoftaccountoptions) reference k rozhraní API pro další informace o konfiguraci možností podporovaných příkazem Account Microsoft ověřování. To umožňuje požádat o jiné informace o uživateli.
+Další informace o možnostech Konfigurace podporovaných ověřováním účtů Microsoft najdete v referenčních informacích k rozhraní [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.builder.microsoftaccountoptions) API. To umožňuje požádat o jiné informace o uživateli.
 
-## <a name="sign-in-with-microsoft-account"></a>Přihlaste se pomocí účtu Microsoft
+## <a name="sign-in-with-microsoft-account"></a>Účet Přihlásit se účtem Microsoft
 
-Spustit a klikněte na tlačítko **přihlášení**. Zobrazí se možnost přihlásit se účtem Microsoft. Po kliknutí na Microsoft, budete přesměrováni do společnosti Microsoft pro ověřování. Po přihlášení pomocí Account Microsoftu (pokud ještě nejste přihlášení) se výzva k povolení přístup k informacím:
+Spusťte rozhraní a klikněte na **Přihlásit se**. Zobrazí se možnost přihlásit se s Microsoftem. Když kliknete na Microsoft, budete přesměrováni na Microsoft pro ověřování. Po přihlášení pomocí účtu Microsoft (Pokud ještě není přihlášený) se zobrazí výzva, abyste aplikaci dali přístup k vašim informacím:
 
-Klepněte na **Ano** a budete přesměrováni zpět na webovou stránku, kde můžete nastavit e-mailu.
+Klepněte na **Ano** a budete přesměrováni zpět na web, kde můžete nastavit e-mail.
 
-Nyní jste přihlášeni pomocí svých přihlašovacích údajů společnosti Microsoft:
+Nyní jste přihlášeni pomocí přihlašovacích údajů Microsoftu:
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 
-* Pokud poskytovatel Account Microsoft vás přesměruje na přihlašovací stránce chyby, vezměte na vědomí chyba nadpis a popis parametrů řetězce dotazu přímo po `#` (hashtag) v identifikátoru Uri.
+* Pokud vám poskytovatel účtu Microsoft přesměruje na chybovou stránku pro přihlášení, poznamenejte si parametry řetězce chyby a popis v parametrech řetězce dotazu `#` přímo za (hashtag) v identifikátoru URI.
 
-  I když chybová zpráva vypadá to, že indikovat problém s ověřováním Microsoft, Nejběžnější příčinou je identifikátor Uri neodpovídá žádné z vaší aplikace **identifikátory URI přesměrování** zadaný pro **webové** platformy .
-* Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"* . Šablona projektu používané v tomto příkladu zajistí, že se to.
+  I když se chybová zpráva jeví jako problém s ověřováním Microsoftu, Nejběžnější příčinou je, že identifikátor URI vaší aplikace neodpovídá žádnému identifikátoru **URI přesměrování** , který je zadaný pro **webovou** platformu.
+* Pokud identita není nakonfigurována voláním `services.AddIdentity` v `ConfigureServices`, výsledkem *pokusu o ověření bude ArgumentException: Je nutné zadat*možnost SignInScheme. Šablona projektu použitá v této ukázce zajišťuje, že je to hotové.
 * Pokud nebyl vytvořen použití počáteční migraci databáze lokality, se zobrazí *databázová operace selhala při zpracování požadavku* chyby. Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.
 
 ## <a name="next-steps"></a>Další postup
 
-* V tomto článku jsme si ukázali, jak můžete ověřit s Microsoftem. Můžete postupovat podle podobný přístup k ověření u jiných poskytovatelů na [předchozí stránce](xref:security/authentication/social/index).
+* Tento článek ukazuje, jak se dá ověřit u Microsoftu. Můžete postupovat podle podobný přístup k ověření u jiných poskytovatelů na [předchozí stránce](xref:security/authentication/social/index).
 
-* Po publikování webu do webové aplikace Azure, vytvořte nový klient tajných kódů na portálu pro vývojáře společnosti Microsoft.
+* Po publikování webu do webové aplikace Azure vytvořte nové tajné klíče klienta na portálu Microsoftu pro vývojáře.
 
 * Nastavte `Authentication:Microsoft:ClientId` a `Authentication:Microsoft:ClientSecret` jako nastavení aplikace na webu Azure Portal. Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.

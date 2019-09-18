@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 07/04/2019
 uid: fundamentals/tools/dotnet-aspnet-codegenerator
-ms.openlocfilehash: c2c815735ad1b4dcec761b26ea3992a4effebe62
-ms.sourcegitcommit: 979dbfc5e9ce09b9470789989cddfcfb57079d94
+ms.openlocfilehash: 1043a578f66d5bb57f4a81e9fe21afa5e3c37cb8
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/31/2019
-ms.locfileid: "68682693"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081512"
 ---
 # <a name="dotnet-aspnet-codegenerator"></a>dotnet ASPNET – CodeGenerator
 
@@ -25,13 +25,13 @@ Tento článek se týká [.NET Core 2,1 SDK](https://dotnet.microsoft.com/downlo
 
 `dotnet-aspnet-codegenerator`je [globální nástroj](/dotnet/core/tools/global-tools) , který musí být nainstalován. Následující příkaz nainstaluje nejnovější stabilní verzi `dotnet-aspnet-codegenerator` nástroje:
 
-```console
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 Následující příkaz aktualizuje `dotnet-aspnet-codegenerator` na nejnovější stabilní verzi dostupnou z nainstalovaných sad SDK .NET Core:
 
-```console
+```dotnetcli
 dotnet tool update -g dotnet-aspnet-codegenerator
 ```
 
@@ -95,7 +95,7 @@ Určuje cestu k souboru projektu, který se má spustit (název složky nebo úp
 Následující části obsahují podrobné informace o možnostech, které jsou k dispozici pro podporovaná generátory:
 
 * Oblast
-* Kontrolér
+* kontrolér
 * Identita  
 * Razorpage
 * Zobrazit
@@ -137,7 +137,7 @@ Následující tabulka uvádí možnosti, které jsou `aspnet-codegenerator cont
 
 Pro nápovědu`aspnet-codegenerator controller` k příkazu použijte přepínač:`-h`
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator controller -h
 ```
 
@@ -158,7 +158,7 @@ Razor Pages může být individuálně vygenerovaného uživatelského rozhraní
 
 Například následující příkaz používá šablonu Edit pro generování *MyEdit. cshtml* a *MyEdit.cshtml.cs*:
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator razorpage MyEdit Edit -m Movie -dc RazorPagesMovieContext -outDir Pages/Movies
 ```
 
@@ -184,7 +184,7 @@ Následující tabulka uvádí možnosti, které jsou `aspnet-codegenerator razo
 
 Pro nápovědu`aspnet-codegenerator razorpage` k příkazu použijte přepínač:`-h`
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator razorpage -h
 ```
 

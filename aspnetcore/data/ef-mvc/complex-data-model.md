@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: a69f1fdd38fec35dec6bb8125bf29859a437a891
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 85a11ba082fc8f6b364019f6cefcd5b1fe5a9215
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975081"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080465"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>Kurz: Vytvoření komplexního datového modelu – ASP.NET MVC pomocí EF Core
 
@@ -98,11 +98,11 @@ Model databáze se teď změnil způsobem, který vyžaduje změnu ve schématu 
 
 Uložte změny a sestavte projekt. Pak otevřete příkazové okno ve složce projektu a zadejte následující příkazy:
 
-```console
+```dotnetcli
 dotnet ef migrations add MaxLengthOnNames
 ```
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -126,11 +126,11 @@ Přidání `Column` atributu změní model `SchoolContext`, který ho zálohuje,
 
 Uložte změny a sestavte projekt. Pak otevřete příkazové okno ve složce projektu a zadáním následujících příkazů vytvořte další migraci:
 
-```console
+```dotnetcli
 dotnet ef migrations add ColumnFirstName
 ```
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -434,7 +434,7 @@ Jak jste viděli v prvním kurzu, většina tohoto kódu jednoduše vytvoří no
 
 Uložte změny a sestavte projekt. Pak otevřete příkazové okno ve složce projektu a zadejte `migrations add` příkaz (zatím neprovádějte příkaz Update-Database):
 
-```console
+```dotnetcli
 dotnet ef migrations add ComplexDataModel
 ```
 
@@ -483,7 +483,7 @@ Uložte změnu do souboru *appSettings. JSON*.
 > [!NOTE]
 > Jako alternativu ke změně názvu databáze můžete databázi odstranit. Použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo `database drop` příkaz CLI:
 >
-> ```console
+> ```dotnetcli
 > dotnet ef database drop
 > ```
 
@@ -491,7 +491,7 @@ Uložte změnu do souboru *appSettings. JSON*.
 
 Poté, co jste změnili název databáze nebo odstranili databázi, spusťte `database update` příkaz v příkazovém okně a spusťte migrace.
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -511,7 +511,7 @@ Klikněte pravým tlačítkem na tabulku **CourseAssignment** a vyberte **Zobraz
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V tomto kurzu se naučíte:
 

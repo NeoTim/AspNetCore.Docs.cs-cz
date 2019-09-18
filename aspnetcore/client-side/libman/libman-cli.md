@@ -1,23 +1,23 @@
 ---
-title: Použití rozhraní příkazového řádku (CLI) LibMan s ASP.NET Core
+title: Použití rozhraní příkazového řádku LibMan (CLI) s ASP.NET Core
 author: scottaddie
-description: Další informace o použití rozhraní příkazového řádku (CLI) LibMan v projektu aplikace ASP.NET Core.
+description: Naučte se používat rozhraní příkazového řádku LibMan (CLI) v projektu ASP.NET Core.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/30/2018
 uid: client-side/libman/libman-cli
-ms.openlocfilehash: 5667f79648a60b8fd9496f8041ef08891ab766af
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: cf61bab2f0c3fc33d293968b8ac380cb56958d29
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900882"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080624"
 ---
-# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>Použití rozhraní příkazového řádku (CLI) LibMan s ASP.NET Core
+# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>Použití rozhraní příkazového řádku LibMan (CLI) s ASP.NET Core
 
-Podle [Scott Addie](https://twitter.com/Scott_Addie)
+[Scott Addie](https://twitter.com/Scott_Addie)
 
-[LibMan](xref:client-side/libman/index) CLI je nástroj napříč platformami, která je podporována everywhere .NET Core je podporována.
+[LibMan](xref:client-side/libman/index) CLI je nástroj pro různé platformy, který podporuje všude, kde je podporováno rozhraní .NET Core.
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -27,41 +27,41 @@ Podle [Scott Addie](https://twitter.com/Scott_Addie)
 
 Instalace rozhraní příkazového řádku LibMan:
 
-```console
+```dotnetcli
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 ```
 
-A [globální nástroje .NET Core](/dotnet/core/tools/global-tools#install-a-global-tool) se instaluje z [Microsoft.Web.LibraryManager.Cli](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) balíček NuGet.
+[Globální nástroj .NET Core](/dotnet/core/tools/global-tools#install-a-global-tool) je nainstalovaný z balíčku NuGet [Microsoft. Web. LibraryManager. CLI](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Cli/) .
 
 Instalace rozhraní příkazového řádku LibMan z konkrétního zdroje balíčku NuGet:
 
-```console
+```dotnetcli
 dotnet tool install -g Microsoft.Web.LibraryManager.Cli --version 1.0.94-g606058a278 --add-source C:\Temp\
 ```
 
-V předchozím příkladu je nainstalován nástroj globální .NET Core z místního počítače Windows *C:\Temp\Microsoft.Web.LibraryManager.Cli.1.0.94-g606058a278.nupkg* souboru.
+V předchozím příkladu je globální nástroj .NET Core nainstalovaný ze souboru *C:\Temp\Microsoft.Web.LibraryManager.CLI.1.0.94-g606058a278.nupkg* místního počítače s Windows.
 
 ## <a name="usage"></a>Použití
 
-Po úspěšné instalaci rozhraní příkazového řádku můžete pomocí následujícího příkazu:
+Po úspěšné instalaci rozhraní příkazového řádku je možné použít následující příkaz:
 
 ```console
 libman
 ```
 
-Pokud chcete zobrazit nainstalovanou verzi rozhraní příkazového řádku:
+Chcete-li zobrazit nainstalovanou verzi rozhraní příkazového řádku:
 
 ```console
 libman --version
 ```
 
-Chcete-li zobrazit dostupné příkazy rozhraní příkazového řádku:
+Postup zobrazení dostupných příkazů rozhraní příkazového řádku:
 
 ```console
 libman --help
 ```
 
-Ve výstupu předchozího příkazu se zobrazí výstup podobný následujícímu:
+Předchozí příkaz zobrazí výstup podobný následujícímu:
 
 ```console
  1.0.163+g45474d37ed
@@ -88,13 +88,13 @@ Commands:
 Use "libman [command] --help" for more information about a command.
 ```
 
-Následující oddíly popisují dostupné příkazy rozhraní příkazového řádku.
+Následující části popisují dostupné příkazy rozhraní příkazového řádku.
 
 ## <a name="initialize-libman-in-the-project"></a>Inicializovat LibMan v projektu
 
-`libman init` Příkaz vytvoří *libman.json* souboru, pokud neexistuje. Soubor se vytvoří s výchozí obsah šablony položky.
+Příkaz vytvoří soubor *Libman. JSON* , pokud jeden neexistuje. `libman init` Vytvoří se soubor s výchozím obsahem šablony položky.
 
-### <a name="synopsis"></a>Souhrn
+### <a name="synopsis"></a>Stručný obsah
 
 ```console
 libman init [-d|--default-destination] [-p|--default-provider] [--verbosity]
@@ -103,15 +103,15 @@ libman init [-h|--help]
 
 ### <a name="options"></a>Možnosti
 
-Jsou k dispozici pro následující možnosti `libman init` příkaz:
+Pro `libman init` příkaz jsou k dispozici následující možnosti:
 
 * `-d|--default-destination <PATH>`
 
-  Cestu relativní vzhledem k aktuální složky. Soubory knihovny nainstalují v tomto umístění, pokud žádné `destination` vlastnost je definována pro knihovny *libman.json*. `<PATH>` Hodnotu zapíšete do `defaultDestination` vlastnost *libman.json*.
+  Cesta relativní k aktuální složce Soubory knihovny jsou nainstalovány v tomto umístění, pokud `destination` není definována žádná vlastnost pro knihovnu v souboru *Libman. JSON*. Hodnota je zapsána `defaultDestination` do vlastnosti *Libman. JSON.* `<PATH>`
 
 * `-p|--default-provider <PROVIDER>`
 
-  Zprostředkovatele, který se použijte, pokud není definován žádný poskytovatel pro danou knihovnu. `<PROVIDER>` Hodnotu zapíšete do `defaultProvider` vlastnost *libman.json*. Nahraďte `<PROVIDER>` s jedním z následujících hodnot:
+  Poskytovatel, který má být použit, pokud pro danou knihovnu není definován žádný zprostředkovatel. Hodnota je zapsána `defaultProvider` do vlastnosti *Libman. JSON.* `<PROVIDER>` Nahraďte `<PROVIDER>` některou z následujících hodnot:
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -119,7 +119,7 @@ Jsou k dispozici pro následující možnosti `libman init` příkaz:
 
 ### <a name="examples"></a>Příklady
 
-Chcete-li vytvořit *libman.json* soubor v projektu aplikace ASP.NET Core:
+Vytvoření souboru *Libman. JSON* v projektu ASP.NET Core:
 
 * Přejděte do kořenového adresáře projektu.
 * Spusťte následující příkaz:
@@ -128,13 +128,13 @@ Chcete-li vytvořit *libman.json* soubor v projektu aplikace ASP.NET Core:
   libman init
   ```
 
-* Zadejte název výchozího poskytovatele nebo stisknutím klávesy `Enter` poskytovatel CDNJS výchozí se použije. Platné hodnoty jsou:
+* Zadejte název výchozího poskytovatele, nebo stiskněte klávesu `Enter` a použijte výchozího poskytovatele CDNJS. Platné hodnoty jsou:
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  ![příkaz init libman – výchozího zprostředkovatele](_static/libman-init-provider.png)
+  ![příkaz Libman init – výchozí zprostředkovatel](_static/libman-init-provider.png)
 
-A *libman.json* přidá soubor do kořenového adresáře projektu s následujícím obsahem:
+Do kořenu projektu se přidá soubor *Libman. JSON* s následujícím obsahem:
 
 ```json
 {
@@ -144,11 +144,11 @@ A *libman.json* přidá soubor do kořenového adresáře projektu s následují
 }
 ```
 
-## <a name="add-library-files"></a>Přidejte soubory knihovny
+## <a name="add-library-files"></a>Přidat soubory knihovny
 
-`libman install` Příkaz stáhne a nainstaluje soubory knihovny do projektu. A *libman.json* se přidá soubor, pokud neexistuje. *Libman.json* změně souboru k ukládání konfiguračních souborů knihoven.
+`libman install` Příkaz stáhne a nainstaluje soubory knihovny do projektu. Pokud jeden soubor *Libman. JSON* neexistuje, přidá se. Soubor *Libman. JSON* se upraví tak, aby se uložily podrobnosti o konfiguraci souborů knihovny.
 
-### <a name="synopsis"></a>Souhrn
+### <a name="synopsis"></a>Stručný obsah
 
 ```console
 libman install <LIBRARY> [-d|--destination] [--files] [-p|--provider] [--verbosity]
@@ -159,33 +159,33 @@ libman install [-h|--help]
 
 `LIBRARY`
 
-Název knihovny určené k instalaci. Tento název může obsahovat notation číslo verze (například `@1.2.0`).
+Název knihovny, která se má nainstalovat Tento název může obsahovat zápis čísla verze (například `@1.2.0`).
 
 ### <a name="options"></a>Možnosti
 
-Jsou k dispozici pro následující možnosti `libman install` příkaz:
+Pro `libman install` příkaz jsou k dispozici následující možnosti:
 
 * `-d|--destination <PATH>`
 
-  Umístění pro instalaci knihovny. Pokud není zadán, použije se výchozí umístění. Pokud ne `defaultDestination` je zadána vlastnost v *libman.json*, tato možnost je vyžadována.
+  Umístění pro instalaci knihovny. Pokud není zadaný, použije se výchozí umístění. Pokud v `defaultDestination` *Libman. JSON*není zadaná žádná vlastnost, je tato možnost povinná.
 
 * `--files <FILE>`
 
-  Zadejte název souboru k instalaci z knihovny. Pokud není zadán, nainstalují se všechny soubory z knihovny. Zadejte jeden `--files` možnost na soubor k instalaci. Jsou podporovány příliš relativní cesty. Například: `--files dist/browser/signalr.js`.
+  Zadejte název souboru, který se má nainstalovat z knihovny. Pokud tento parametr nezadáte, nainstalují se všechny soubory z knihovny. Zadejte jednu `--files` možnost pro soubor, který se má nainstalovat. Jsou podporovány i relativní cesty. Například: `--files dist/browser/signalr.js`.
 
 * `-p|--provider <PROVIDER>`
 
-  Název zprostředkovatele, který má být použit pro získání knihovny. Nahraďte `<PROVIDER>` s jedním z následujících hodnot:
+  Název zprostředkovatele, který se má použít pro získání knihovny. Nahraďte `<PROVIDER>` některou z následujících hodnot:
   
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  Pokud není zadán, `defaultProvider` vlastnost *libman.json* se používá. Pokud ne `defaultProvider` je zadána vlastnost v *libman.json*, tato možnost je vyžadována.
+  Pokud není zadaný, `defaultProvider` použije se vlastnost v *Libman. JSON* . Pokud v `defaultProvider` *Libman. JSON*není zadaná žádná vlastnost, je tato možnost povinná.
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>Příklady
 
-Vezměte v úvahu následující *libman.json* souboru:
+Vezměte v úvahu následující soubor *Libman. JSON* :
 
 ```json
 {
@@ -195,13 +195,13 @@ Vezměte v úvahu následující *libman.json* souboru:
 }
 ```
 
-K instalaci verze jQuery 3.2.1 *jquery.min.js* do souboru *wwwroot/skripty/jquery* pomocí zprostředkovatele CDNJS složky:
+Chcete-li nainstalovat soubor jQuery verze 3.2.1 *jQuery. js* do složky *wwwroot/Scripts/JQUERY* pomocí poskytovatele CDNJS:
 
 ```console
 libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquery --files jquery.min.js
 ```
 
-*Libman.json* soubor má následující podobu:
+Soubor *Libman. JSON* se podobá následujícímu:
 
 ```json
 {
@@ -219,20 +219,20 @@ libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquer
 }
 ```
 
-Chcete-li nainstalovat *calendar.js* a *calendar.css* souborů z *C:\\temp\\contosoCalendar\\*  pomocí systému souborů poskytovatel:
+Instalace souborů *Calendar. js* a *Calendar. CSS* z *C:\\Temp\\contosoCalendar\\*  pomocí zprostředkovatele systému souborů:
 
   ```console
   libman install C:\temp\contosoCalendar\ --provider filesystem --files calendar.js --files calendar.css
   ```
 
-Se zobrazí následující výzva pro dva důvody:
+Následující výzva se zobrazí ze dvou důvodů:
 
-* *Libman.json* soubor neobsahuje `defaultDestination` vlastnost.
-* `libman install` Neobsahuje příkaz `-d|--destination` možnost.
+* Soubor`defaultDestination` *Libman. JSON* neobsahuje vlastnost.
+* `libman install` Příkaz`-d|--destination` neobsahuje možnost.
 
-![libman nainstalovat příkaz – cíl](_static/libman-install-destination.png)
+![Libman – příkaz instalace – cíl](_static/libman-install-destination.png)
 
-Po přijetí výchozího místa určení, *libman.json* soubor má následující podobu:
+Po přijetí výchozího cíle se soubor *Libman. JSON* podobá následujícímu:
 
 ```json
 {
@@ -259,15 +259,15 @@ Po přijetí výchozího místa určení, *libman.json* soubor má následujíc�
 }
 ```
 
-## <a name="restore-library-files"></a>Obnovit soubory knihoven
+## <a name="restore-library-files"></a>Obnovit soubory knihovny
 
-`libman restore` Nainstaluje soubory knihoven, které jsou definovány v *libman.json*. Platí následující pravidla:
+Příkaz nainstaluje soubory knihovny definované v souboru *Libman. JSON.* `libman restore` Platí následující pravidla:
 
-* Pokud ne *libman.json* soubor v kořenovém adresáři projektu existuje, vrátí se chyba.
-* Pokud knihovny určuje zprostředkovatele, `defaultProvider` vlastnost v *libman.json* se ignoruje.
-* Pokud knihovny určuje cíl, `defaultDestination` vlastnost *libman.json* se ignoruje.
+* Pokud v kořenovém adresáři projektu neexistuje žádný soubor *Libman. JSON* , je vrácena chyba.
+* Pokud knihovna Určuje poskytovatele, `defaultProvider` vlastnost v *Libman. JSON* se ignoruje.
+* Pokud knihovna určuje cíl, `defaultDestination` vlastnost v *Libman. JSON* se ignoruje.
 
-### <a name="synopsis"></a>Souhrn
+### <a name="synopsis"></a>Stručný obsah
 
 ```console
 libman restore [--verbosity]
@@ -276,23 +276,23 @@ libman restore [-h|--help]
 
 ### <a name="options"></a>Možnosti
 
-Jsou k dispozici pro následující možnosti `libman restore` příkaz:
+Pro `libman restore` příkaz jsou k dispozici následující možnosti:
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>Příklady
 
-Pokud chcete obnovit soubory knihovny definované v *libman.json*:
+Postup obnovení souborů knihovny definovaných v souboru *Libman. JSON*:
 
 ```console
 libman restore
 ```
 
-## <a name="delete-library-files"></a>Odstranit soubory knihoven
+## <a name="delete-library-files"></a>Odstranit soubory knihovny
 
-`libman clean` Příkaz odstraní soubory knihovny přes LibMan byly obnoveny. Složky, které se stanou prázdný po provedení této operace jsou odstraněny. Konfigurace v přidružené soubory knihovny `libraries` vlastnost *libman.json* se neodeberou.
+Příkaz `libman clean` odstraní soubory knihovny, které byly dříve obnoveny prostřednictvím LibMan. Složky, které se po odstranění této operace stanou prázdné Soubory knihovny přidružené konfigurace ve `libraries` vlastnosti *Libman. JSON* se neodeberou.
 
-### <a name="synopsis"></a>Souhrn
+### <a name="synopsis"></a>Stručný obsah
 
 ```console
 libman clean [--verbosity]
@@ -301,33 +301,33 @@ libman clean [-h|--help]
 
 ### <a name="options"></a>Možnosti
 
-Jsou k dispozici pro následující možnosti `libman clean` příkaz:
+Pro `libman clean` příkaz jsou k dispozici následující možnosti:
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>Příklady
 
-Chcete-li odstranit soubory knihovny k instalaci použili LibMan:
+Postup odstranění souborů knihovny nainstalované prostřednictvím LibMan:
 
 ```console
 libman clean
 ```
 
-## <a name="uninstall-library-files"></a>Odinstalace soubory knihoven
+## <a name="uninstall-library-files"></a>Odinstalace souborů knihovny
 
 `libman uninstall` Příkaz:
 
-* Odstraní všechny soubory přidružené k zadanou knihovnu z cílového umístění v *libman.json*.
-* Odstraní konfiguraci přidruženou knihovnu z *libman.json*.
+* Odstraní všechny soubory přidružené k zadané knihovně z cíle v souboru *Libman. JSON*.
+* Odebere přidruženou konfiguraci knihovny z *Libman. JSON*.
 
-Dojde k chybě při:
+K chybě dojde v těchto případech:
 
-* Ne *libman.json* existuje soubor v kořenové složce projektu.
-* Zadanou knihovnu neexistuje.
+* V kořenu projektu neexistuje žádný soubor *Libman. JSON* .
+* Zadaná knihovna neexistuje.
 
-Pokud je nainstalovaná více než jedna knihovna se stejným názvem, budete vyzváni, zvolte jeden.
+Pokud je nainstalovaná více než jedna knihovna se stejným názvem, budete vyzváni k výběru jedné z nich.
 
-### <a name="synopsis"></a>Souhrn
+### <a name="synopsis"></a>Stručný obsah
 
 ```console
 libman uninstall <LIBRARY> [--verbosity]
@@ -338,21 +338,21 @@ libman uninstall [-h|--help]
 
 `LIBRARY`
 
-Název knihovny určené k odinstalaci. Tento název může obsahovat notation číslo verze (například `@1.2.0`).
+Název knihovny, která se má odinstalovat. Tento název může obsahovat zápis čísla verze (například `@1.2.0`).
 
 ### <a name="options"></a>Možnosti
 
-Jsou k dispozici pro následující možnosti `libman uninstall` příkaz:
+Pro `libman uninstall` příkaz jsou k dispozici následující možnosti:
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>Příklady
 
-Vezměte v úvahu následující *libman.json* souboru:
+Vezměte v úvahu následující soubor *Libman. JSON* :
 
 [!code-json[](samples/LibManSample/libman.json)]
 
-* Pokud chcete odinstalovat jQuery, některý z následujících příkazů úspěšné:
+* Chcete-li odinstalovat jQuery, některý z následujících příkazů je úspěšný:
 
   ```console
   libman uninstall jquery
@@ -362,24 +362,24 @@ Vezměte v úvahu následující *libman.json* souboru:
   libman uninstall jquery@3.3.1
   ```
 
-* K odinstalaci soubory Lodash instalovaných pomocí instalace `filesystem` zprostředkovatele:
+* Odinstalace souborů Lodash nainstalovaných prostřednictvím `filesystem` zprostředkovatele:
 
   ```console
   libman uninstall C:\temp\lodash\
   ```
 
-## <a name="update-library-version"></a>Aktualizujte verzi knihovny
+## <a name="update-library-version"></a>Aktualizovat verzi knihovny
 
-`libman update` Příkaz aktualizuje instalovaných pomocí instalace LibMan zadanou verzi knihovny.
+`libman update` Příkaz aktualizuje knihovnu nainstalovanou přes LibMan do zadané verze.
 
-Dojde k chybě při:
+K chybě dojde v těchto případech:
 
-* Ne *libman.json* existuje soubor v kořenové složce projektu.
-* Zadanou knihovnu neexistuje.
+* V kořenu projektu neexistuje žádný soubor *Libman. JSON* .
+* Zadaná knihovna neexistuje.
 
-Pokud je nainstalovaná více než jedna knihovna se stejným názvem, budete vyzváni, zvolte jeden.
+Pokud je nainstalovaná více než jedna knihovna se stejným názvem, budete vyzváni k výběru jedné z nich.
 
-### <a name="synopsis"></a>Souhrn
+### <a name="synopsis"></a>Stručný obsah
 
 ```console
 libman update <LIBRARY> [-pre] [--to] [--verbosity]
@@ -390,47 +390,47 @@ libman update [-h|--help]
 
 `LIBRARY`
 
-Název knihovny určené k aktualizaci.
+Název knihovny, která se má aktualizovat
 
 ### <a name="options"></a>Možnosti
 
-Jsou k dispozici pro následující možnosti `libman update` příkaz:
+Pro `libman update` příkaz jsou k dispozici následující možnosti:
 
 * `-pre`
 
-  Získáte nejnovější předběžnou verzi knihovny.
+  Získejte nejnovější předběžnou verzi knihovny.
 
 * `--to <VERSION>`
 
-  Získáte konkrétní verzi knihovny.
+  Získat konkrétní verzi knihovny.
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>Příklady
 
-* JQuery aktualizovat na nejnovější verzi:
+* Aktualizace jQuery na nejnovější verzi:
 
   ```console
   libman update jquery
   ```
 
-* Chcete aktualizovat jQuery verze 3.3.1:
+* Aktualizace jQuery na verzi 3.3.1:
 
   ```console
   libman update jquery --to 3.3.1
   ```
 
-* Chcete-li aktualizovat jQuery nejnovější předběžnou verzi:
+* Aktualizace jQuery na nejnovější verzi předprodejní verze:
 
   ```console
   libman update jquery -pre
   ```
 
-## <a name="manage-library-cache"></a>Správa mezipaměti knihovny
+## <a name="manage-library-cache"></a>Spravovat mezipaměť knihovny
 
-`libman cache` Příkaz spravuje mezipaměti LibMan knihovny. `filesystem` Poskytovatele nepoužívá mezipaměť knihovny.
+`libman cache` Příkaz spravuje mezipaměť knihovny LibMan. `filesystem` Zprostředkovatel nepoužívá mezipaměť knihovny.
 
-### <a name="synopsis"></a>Souhrn
+### <a name="synopsis"></a>Stručný obsah
 
 ```console
 libman cache clean [<PROVIDER>] [--verbosity]
@@ -442,27 +442,27 @@ libman cache [-h|--help]
 
 `PROVIDER`
 
-Použít pouze s `clean` příkazu. Určuje mezipaměť zprostředkovatele k vyčištění. Platné hodnoty jsou:
+Používá se jenom s `clean` příkazem. Určuje mezipaměť poskytovatele, která se má vyčistit. Platné hodnoty jsou:
 
 [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
 ### <a name="options"></a>Možnosti
 
-Jsou k dispozici pro následující možnosti `libman cache` příkaz:
+Pro `libman cache` příkaz jsou k dispozici následující možnosti:
 
 * `--files`
 
-  Seznam názvů souborů, které jsou uložené v mezipaměti.
+  Vypíše názvy souborů, které jsou uloženy v mezipaměti.
 
 * `--libraries`
 
-  Seznam názvů knihoven, které jsou uložené v mezipaměti.
+  Seznam názvů knihoven, které jsou uloženy v mezipaměti.
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>Příklady
 
-* Chcete-li zobrazit názvy knihoven v mezipaměti na poskytovatele, použijte jednu z následujících příkazů:
+* Chcete-li zobrazit názvy knihoven uložených v mezipaměti podle zprostředkovatele, použijte jeden z následujících příkazů:
 
   ```console
   libman cache list
@@ -489,7 +489,7 @@ Jsou k dispozici pro následující možnosti `libman cache` příkaz:
       react
   ```
 
-* Chcete-li zobrazit názvy souborů v mezipaměti knihovny na zprostředkovatele:
+* Zobrazení názvů souborů knihoven uložených v mezipaměti na poskytovatele:
 
   ```console
   libman cache list --files
@@ -538,15 +538,15 @@ Jsou k dispozici pro následující možnosti `libman cache` příkaz:
           metadata.json
   ```
 
-  Všimněte si, že tento výstup ukazuje, že jQuery verze 3.2.1 a 3.3.1 jsou uložené v mezipaměti v rámci zprostředkovatele CDNJS.
+  Všimněte si, že předchozí výstup ukazuje, že jsou ve zprostředkovateli CDNJS uloženy do mezipaměti jQuery verze 3.2.1 a 3.3.1.
 
-* Vyprázdnit mezipaměť knihovny pro poskytovatele CDNJS:
+* Chcete-li vyprázdnit mezipaměť knihovny pro poskytovatele CDNJS:
 
   ```console
   libman cache clean cdnjs
   ```
 
-  Po vyprazdňují se mezipaměť zprostředkovatele CDNJS, `libman cache list` příkazu se zobrazí následující:
+  Po vyprázdnění mezipaměti `libman cache list` poskytovatele CDNJS zobrazí příkaz následující:
 
   ```console
   Cache contents:
@@ -559,13 +559,13 @@ Jsou k dispozici pro následující možnosti `libman cache` příkaz:
       (empty)
   ```
 
-* Vyprázdnění mezipaměti pro všechny podporované zprostředkovatele:
+* Chcete-li vyprázdnit mezipaměť pro všechny podporované zprostředkovatele:
 
   ```console
   libman cache clean
   ```
 
-  Po vyprazdňují se všechny mezipaměti zprostředkovatele `libman cache list` příkazu se zobrazí následující:
+  Po vyprázdnění všech mezipamětí zprostředkovatele budou `libman cache list` v příkazu zobrazeny tyto možnosti:
 
   ```console
   Cache contents:
@@ -578,6 +578,6 @@ Jsou k dispozici pro následující možnosti `libman cache` příkaz:
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Nainstalujte nástroj Global](/dotnet/core/tools/global-tools#install-a-global-tool)
+* [Instalace globálního nástroje](/dotnet/core/tools/global-tools#install-a-global-tool)
 * <xref:client-side/libman/libman-vs>
-* [Úložiště LibMan GitHub](https://github.com/aspnet/LibraryManager)
+* [Úložiště GitHub LibMan](https://github.com/aspnet/LibraryManager)

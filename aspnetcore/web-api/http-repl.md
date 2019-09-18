@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: web-api/http-repl
-ms.openlocfilehash: b93641c96ad093b40aaa887f19409d4c2e1490df
-ms.sourcegitcommit: efb9c16321b34f8ede802822b26eb983de16479b
+ms.openlocfilehash: 8ef49797fed3379e33810f311bfc474e524122e0
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2019
-ms.locfileid: "70842275"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082590"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -44,7 +44,7 @@ Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhr
 
 Pro instalaci HTTP REPL spusťte následující příkaz:
 
-```console
+```dotnetcli
 dotnet tool install -g Microsoft.dotnet-httprepl --version "3.0.0-*"
 ```
 

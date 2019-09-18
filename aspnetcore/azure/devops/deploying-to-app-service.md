@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: e09d03f1d30f128b1db1588aa92b28ec3e4ae626
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: df41f296e9c4e1eff6e31d45b29ec30ee1e20cf4
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898938"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080439"
 ---
 # <a name="deploy-an-app-to-app-service"></a>Nasazení aplikace do služby App Service
 
@@ -35,7 +35,7 @@ Nebojte se podívejte kódu, ale je důležité pochopit, že není nic zvlášt
 
 Z příkazové okno stáhnout kód, sestavte projekt a spusťte následujícím způsobem.
 
-> *Poznámka: Linux nebo macOS uživatelů byste provedli odpovídající změny pro cesty, například pomocí lomítkem (`/`) namísto zpětné lomítko (`\`).*
+> *Poznámka: Uživatelé Linux/MacOS by měli provádět vhodné změny cest, např. pomocí lomítka (`/`) místo zpětného lomítka (`\`).*
 
 1. Klonování kódu do složky na místním počítači.
 
@@ -51,13 +51,13 @@ Z příkazové okno stáhnout kód, sestavte projekt a spusťte následujícím 
 
 3. Obnovte balíčky a sestavte řešení.
 
-    ```console
+    ```dotnetcli
     dotnet build
     ```
 
 4. Spusťte aplikaci.
 
-    ```console
+    ```dotnetcli
     dotnet run
     ```
 
@@ -73,7 +73,7 @@ Z příkazové okno stáhnout kód, sestavte projekt a spusťte následujícím 
 
 Pokud chcete nasadit aplikaci, bude nutné k vytvoření služby App Service [webovou aplikaci](/azure/app-service/app-service-web-overview). Po vytvoření webové aplikace nasadíte do něj z místního počítače pomocí Gitu.
 
-1. Přihlaste se k [Azure Cloud Shell](https://shell.azure.com/bash). Poznámka: Při přihlášení poprvé Cloud Shell zobrazí výzvu k vytvoření účtu úložiště pro konfigurační soubory. Přijměte výchozí hodnoty nebo zadejte jedinečný název.
+1. Přihlaste se k [Azure Cloud Shell](https://shell.azure.com/bash). Poznámka: Při prvním přihlášení Cloud Shell vyzve k vytvoření účtu úložiště pro konfigurační soubory. Přijměte výchozí hodnoty nebo zadejte jedinečný název.
 
 2. Pomocí služby Cloud Shell pro následující kroky.
 
@@ -141,7 +141,7 @@ Pokud chcete nasadit aplikaci, bude nutné k vytvoření služby App Service [we
 
 ## <a name="deployment-with-visual-studio"></a>Nasazení pomocí sady Visual Studio
 
-> *Poznámka: Tato část platí jenom pro Windows. Uživatelé Linuxu a macOS by měl provést změnu je popsáno v kroku 2 níže. Soubor uložte a potvrďte změnu do místního úložiště s `git commit`. Nakonec push změny s `git push`, protože v první části.*
+> *Poznámka: Tato část se vztahuje pouze na systém Windows. Uživatelé Linuxu a macOS by měl provést změnu je popsáno v kroku 2 níže. Soubor uložte a potvrďte změnu do místního úložiště s `git commit`. Nakonec push změny s `git push`, protože v první části.*
 
 Z příkazového okna již byla nasazena aplikace. S použitím integrovaných nástrojů sady Visual Studio nasadit aktualizace do aplikace. Na pozadí Visual Studio totéž jako nástrojů příkazového řádku, ale v rámci známé uživatelské rozhraní sady Visual Studio.
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 06/03/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 3d4279a291182da60c0cb2fbb93a3922ed673cde
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 1db3ee1a9bcc0d41edf24df55bcd8d54fb0e9724
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68914013"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081784"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
@@ -49,7 +49,7 @@ Ukázková aplikace je k dispozici ve dvou verzích:
 
 Použijte šablonu Worker Service`worker`() s příkazem [dotnet New](/dotnet/core/tools/dotnet-new) z příkazového prostředí. V následujícím příkladu se vytvoří aplikace pracovní služby s názvem `ContosoWorkerService`. Složka pro `ContosoWorkerService` aplikaci se vytvoří automaticky při spuštění příkazu.
 
-```console
+```dotnetcli
 dotnet new worker -o ContosoWorkerService
 ```
 
@@ -97,7 +97,7 @@ Služba je zaregistrovaná `Startup.ConfigureServices` v `AddHostedService` s me
 
 ## <a name="consuming-a-scoped-service-in-a-background-task"></a>Využívání vymezené služby v úloze na pozadí
 
-Chcete- [](xref:fundamentals/dependency-injection#service-lifetimes) li použít vymezené služby `IHostedService`v rámci, vytvořte obor. Ve výchozím nastavení není pro hostovanou službu vytvořen žádný obor.
+Chcete-li použít [vymezené služby](xref:fundamentals/dependency-injection#service-lifetimes) v rámci `IHostedService`, vytvořte obor. Ve výchozím nastavení není pro hostovanou službu vytvořen žádný obor.
 
 Služba úlohy vymezeného na pozadí obsahuje logiku úlohy na pozadí. V následujícím příkladu <xref:Microsoft.Extensions.Logging.ILogger> je vložena do služby:
 

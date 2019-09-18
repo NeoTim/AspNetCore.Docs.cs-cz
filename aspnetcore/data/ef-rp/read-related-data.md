@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 62224312aa9b7f3e0164b5300e491f59b0832acd
-ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
+ms.openlocfilehash: f53f8edef7fe8690d0e414bc094d81dc99ad198a
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2019
-ms.locfileid: "70024723"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082093"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>Razor Pages s EF Core ve ASP.NET Core – data související s čtením – 6 z 8
 
@@ -71,7 +71,7 @@ Chcete-li zobrazit název přiřazeného oddělení za kurz:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Postupujte podle pokynů v části [stránky](xref:data/ef-rp/intro#scaffold-student-pages) pro studenty s těmito výjimkami:
+* Postupujte podle pokynů v části [stránky pro studenty](xref:data/ef-rp/intro#scaffold-student-pages) s těmito výjimkami:
 
   * Vytvořte složku *stránky nebo kurzy* .
   * Použijte `Course` pro třídu modelu.
@@ -85,13 +85,13 @@ Chcete-li zobrazit název přiřazeného oddělení za kurz:
 
   **Ve Windows:**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages\Courses --referenceScriptLibraries
   ```
 
   **V systému Linux nebo macOS:**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages/Courses --referenceScriptLibraries
   ```
 
@@ -182,13 +182,13 @@ Vytvořte *SchoolViewModels/InstructorIndexData. cs* s následujícím kódem:
 
   **Ve Windows:**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages\Instructors --referenceScriptLibraries
   ```
 
   **V systému Linux nebo macOS:**
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages/Instructors --referenceScriptLibraries
   ```
 
@@ -297,7 +297,7 @@ Metoda může `Where` předat`Where` podmínku namísto volání metody samostat
 
 `Single` Použití s podmínkou WHERE je záležitostí osobní preference. Neposkytuje za použití `Where` metody žádné výhody.
 
-## <a name="explicit-loading"></a>Explicitní načítání
+## <a name="explicit-loading"></a>explicitní načítání
 
 Aktuální kód určuje Eager načítání pro `Enrollments` a: `Students`
 
@@ -390,7 +390,7 @@ Postupujte podle pokynů v [generování uživatelského rozhraní modelu studen
 
  Spusťte následující příkaz:
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Course -dc SchoolContext -udl -outDir Pages\Courses --referenceScriptLibraries
   ```
 
@@ -477,7 +477,7 @@ Postupujte podle pokynů v [generování uživatelského rozhraní modelu studen
 
  Spusťte následující příkaz:
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Instructor -dc SchoolContext -udl -outDir Pages\Instructors --referenceScriptLibraries
   ```
 
@@ -617,7 +617,7 @@ Metoda může `Where` předat`Where` podmínku namísto volání metody samostat
 
 Předchozí `Single` přístup neposkytuje oproti použití `Where`žádné výhody. Někteří vývojáři upřednostňují `Single` styl přístupu.
 
-## <a name="explicit-loading"></a>Explicitní načítání
+## <a name="explicit-loading"></a>explicitní načítání
 
 Aktuální kód určuje Eager načítání pro `Enrollments` a: `Students`
 

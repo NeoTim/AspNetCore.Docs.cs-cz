@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 0a42a8adbe485f47853fa05fb500f4480f06e3f5
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: e8c88ed2811ad221d94c963c6e14fea9bc1607ea
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975114"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080448"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: Zpracování souběžnosti – ASP.NET MVC pomocí EF Core
 
@@ -116,11 +116,11 @@ Přidáním vlastnosti, kterou jste změnili databázový model, takže je nutn�
 
 Uložte změny a sestavte projekt a pak v příkazovém okně zadejte následující příkazy:
 
-```console
+```dotnetcli
 dotnet ef migrations add RowVersion
 ```
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 
@@ -194,7 +194,7 @@ V *zobrazení/oddělení/upravit. cshtml*proveďte následující změny:
 
 ## <a name="test-concurrency-conflicts"></a>Konflikty testů v souběžnosti
 
-Spusťte aplikaci a pokračujte na stránku s indexem oddělení. Klikněte pravým tlačítkem myši na hypertextový odkaz pro jazykové oddělení a vyberte **otevřít na nové kartě**a pak klikněte na hypertextový odkaz pro **Úpravy** v anglickém oddělení. Dvě karty prohlížeče nyní zobrazují stejné informace.
+Spusťte aplikaci a pokračujte na stránku s indexem oddělení. Klikněte pravým tlačítkem **myši na hypertextový odkaz pro** jazykové oddělení a vyberte **otevřít na nové kartě**a pak klikněte na hypertextový odkaz pro **Úpravy** v anglickém oddělení. Dvě karty prohlížeče nyní zobrazují stejné informace.
 
 Změňte pole na první kartě prohlížeče a klikněte na **Uložit**.
 
@@ -294,7 +294,7 @@ Chcete-li přidat možnost výběru do rozevíracího seznamu, nahraďte kód v 
 
  Další informace o zpracování souběžnosti v EF Core naleznete v tématu [konflikty souběžnosti](/ef/core/saving/concurrency).
 
-## <a name="next-steps"></a>Další kroky
+## <a name="next-steps"></a>Další postup
 
 V tomto kurzu se naučíte:
 

@@ -5,7 +5,7 @@ Spusťte generování uživatelského rozhraní identity:
 * Z **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt > **přidat** > **novou vygenerovanou položku**.
 * V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identita** > **Přidat**.
 * V dialogovém okně **Přidat identitu** vyberte požadované možnosti.
-  * Vyberte existující stránku rozložení, nebo bude soubor rozložení přepsán nesprávným označením. Když je vybrán existující   *\_soubor layout. cshtml* , není přepsán.
+  * Vyberte existující stránku rozložení, nebo bude soubor rozložení přepsán nesprávným označením. Když je vybrán existující  *\_soubor layout. cshtml* , není přepsán.
 
  Například: `~/Pages/Shared/_Layout.cshtml` pro Razor Pages `~/Views/Shared/_Layout.cshtml` pro projekty MVC
 * Chcete-li použít existující kontext dat, vyberte alespoň jeden soubor, který chcete přepsat. Je nutné vybrat alespoň jeden soubor pro přidání kontextu dat.
@@ -21,32 +21,32 @@ Poznámka: Pokud vytváříte nový uživatelský kontext, nemusíte vybírat so
 
 Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 
-```console
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 Přidejte odkaz na balíček do [Microsoft. VisualStudio. Web. strategii. Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do souboru projektu (\*. csproj). Spusťte následující příkaz v adresáři projektu:
 
-```console
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
 Spusťte následující příkaz k výpisu možností generátor Identity:
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
 
 Ve složce projektu spusťte generátor identity pomocí možností, které chcete. Chcete-li například nastavit identitu pomocí výchozího uživatelského rozhraní a minimálního počtu souborů, spusťte následující příkaz. Použijte pro svůj kontext databáze správný plně kvalifikovaný název:
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files Account.Register
 ```
 
 PowerShell používá jako oddělovač příkazů středník. Při používání PowerShellu v seznamu souborů oddělte středníkem a seznam souborů umístěte do dvojitých uvozovek. Příklad:
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator identity -dc MyWeb.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout"
 ```
 

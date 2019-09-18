@@ -10,7 +10,7 @@
 
 Nápovědu k příkazu získáte pomocí `h`přepínače `aspnet-codegenerator razorpage` :
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator razorpage -h
 ```
 

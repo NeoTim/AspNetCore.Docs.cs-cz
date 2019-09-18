@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: fcb238c132a774200e9f54f1141f5ba79fa2f802
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 3ee95d9b648a90c90d06e33a30b568626a1eb0aa
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975166"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080837"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>Kurz: Použití funkcí migrace – ASP.NET MVC s EF Core
 
@@ -51,7 +51,7 @@ Tato změna nastaví projekt tak, že první migrace vytvoří novou databázi. 
 > [!NOTE]
 > Jako alternativu ke změně názvu databáze můžete databázi odstranit. Použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo `database drop` příkaz CLI:
 >
-> ```console
+> ```dotnetcli
 > dotnet ef database drop
 > ```
 >
@@ -71,7 +71,7 @@ Uložte změny a sestavte projekt. Pak otevřete příkazové okno a přejděte 
 
 V příkazovém okně zadejte následující příkaz:
 
-```console
+```dotnetcli
 dotnet ef migrations add InitialCreate
 ```
 
@@ -112,7 +112,7 @@ Další informace o tom, jak se soubor snímku používá, najdete [v tématu EF
 
 V okně příkazového řádku zadejte následující příkaz, který v něm vytvoří databázi a tabulky.
 
-```console
+```dotnetcli
 dotnet ef database update
 ```
 

@@ -6,109 +6,109 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/15/2019
 uid: getting-started
-ms.openlocfilehash: c35251a0e49fbbffee7b8f5ea6905322b9042261
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: d1edf91f1b37ba2b69732471dc6c1f306ac5ad24
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814937"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081132"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
-Tento kurz ukazuje, jak používat rozhraní příkazového řádku .NET Core k vytvoření a spuštění webové aplikace v ASP.NET Core.
+V tomto kurzu se dozvíte, jak používat rozhraní příkazového řádku .NET Core k vytvoření a spuštění webové aplikace ASP.NET Core.
 
-Se dozvíte, jak:
+Naučíte se:
 
 > [!div class="checklist"]
-> * Vytvoření projektu webové aplikace.
-> * Důvěřujete certifikátu vývoje.
+> * Vytvořte projekt webové aplikace.
+> * Důvěřovat vývojovému certifikátu.
 > * Spusťte aplikaci.
-> * Úprava stránky syntaxe Razor.
+> * Úprava stránky Razor
 
-Na konci máte spuštěn v místním počítači pomocí aplikace pracovní web app.
+Na konci budete mít na svém místním počítači spuštěnou funkční webovou aplikaci.
 
-![Domovská stránka aplikace](_static/home-page.png)
+![Domovská stránka webové aplikace](_static/home-page.png)
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [.NET Core 2.2 SDK](https://www.microsoft.com/net/download/all)
+* [Sada .NET Core 2,2 SDK](https://www.microsoft.com/net/download/all)
 
 ## <a name="create-a-web-app-project"></a>Vytvoření projektu webové aplikace
 
 Otevřete příkazové prostředí a zadejte následující příkaz:
 
-```console
+```dotnetcli
 dotnet new webapp -o aspnetcoreapp
 ```
 
-### <a name="trust-the-development-certificate"></a>Důvěřovat certifikátu vývoj
+### <a name="trust-the-development-certificate"></a>Důvěřovat vývojovému certifikátu
 
-Důvěřujete certifikátu vývoj HTTPS:
+Důvěřovat vývojovému certifikátu HTTPS:
 
 # <a name="windowstabwindows"></a>[Windows](#tab/windows)
 
-```console
+```dotnetcli
 dotnet dev-certs https --trust
 ```
 
-Ve výstupu předchozího příkazu se zobrazí následující dialogové okno:
+Předchozí příkaz zobrazí následující dialog:
 
 ![Dialogové okno upozornění zabezpečení](~/getting-started/_static/cert.png)
 
-Vyberte **Ano** Pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
+Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, vyberte **Ano** .
 
 # <a name="macostabmacos"></a>[macOS](#tab/macos)
 
-```console
+```dotnetcli
 dotnet dev-certs https --trust
 ```
 
-Ve výstupu předchozího příkazu se zobrazí následující zpráva:
+Předchozí příkaz zobrazí následující zprávu:
 
-*Byla vyžádána důvěřující vývojářský certifikát HTTPS. Pokud certifikát není důvěryhodný jsme se spusťte následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`
+*Byl požadován vztah důvěryhodnosti s vývojovým certifikátem HTTPS. Pokud certifikát ještě nedůvěřuje, spustíme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`
 
-Tento příkaz vás může vyzvat k zadání hesla k instalaci certifikátu v řetězci klíčů systému. Zadejte svoje heslo, pokud vyjádříte souhlas s důvěřovat certifikátu vývoje.
+Tento příkaz vás může vyzvat k zadání hesla pro instalaci certifikátu do systémového řetězce klíčů. Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, zadejte své heslo.
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
 
-Subsystém Windows pro Linux, najdete v části [certifikátu důvěřovat HTTPS ze subsystému Windows pro Linux](xref:security/enforcing-ssl#wsl).
+Informace o subsystému Windows pro Linux najdete v tématu [Trust certifikát HTTPS v subsystému Windows pro Linux](xref:security/enforcing-ssl#wsl).
 
-O tom, jak důvěřovat certifikátu protokolu HTTPS vývoj naleznete v dokumentaci k vaší distribuci Linuxu.
+Informace o tom, jak důvěřovat certifikátu vývoje HTTPS, najdete v dokumentaci k distribuci systému Linux.
 
 ---
 
-Další informace najdete v tématu [důvěřovat certifikátu vývoj pro ASP.NET Core HTTPS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)
+Další informace najdete v tématu [důvěryhodnost ASP.NET Core certifikát pro vývoj https](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) .
 
 ## <a name="run-the-app"></a>Spuštění aplikace
 
 Spusťte následující příkazy:
 
-```console
+```dotnetcli
 cd aspnetcoreapp
 dotnet run
 ```
 
-Po příkazového okna označuje, aplikace byla spuštěna, přejděte do [ https://localhost:5001 ](https://localhost:5001). Klikněte na tlačítko **přijmout** přijměte zásady ochrany osobních údajů a soubory cookie. Tato aplikace nemá uchovává osobní údaje.
+Jakmile příkazové prostředí ukáže, že aplikace začala, přejděte na [https://localhost:5001](https://localhost:5001)adresu. Kliknutím na **přijmout** přijměte zásady ochrany osobních údajů a souborů cookie. Tato aplikace nemá uchovává osobní údaje.
 
-## <a name="edit-a-razor-page"></a>Úprava stránky syntaxe Razor
+## <a name="edit-a-razor-page"></a>Úprava stránky Razor
 
-Otevřít *Pages/Index.cshtml* a upravovat na stránce s následující zvýrazněný kód:
+Otevřete *pages/index. cshtml* a upravte stránku pomocí následujícího zvýrazněného kódu:
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-Přejděte do [ https://localhost:5001 ](https://localhost:5001)a ověřte změny jsou zobrazeny.
+Vyhledejte a ověřte, zda jsou změny zobrazeny. [https://localhost:5001](https://localhost:5001)
 
 ## <a name="next-steps"></a>Další postup
 
 V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
-> * Vytvoření projektu webové aplikace.
-> * Důvěřujete certifikátu vývoje.
+> * Vytvořte projekt webové aplikace.
+> * Důvěřovat vývojovému certifikátu.
 > * Spusťte projekt.
 > * Proveďte změnu.
 
-Další informace o ASP.NET Core najdete v tématu Doporučené výuky v úvodu:
+Další informace o ASP.NET Core najdete v tématu doporučený postup výuky v úvodu:
 
 > [!div class="nextstepaction"]
 > <xref:index#recommended-learning-path>

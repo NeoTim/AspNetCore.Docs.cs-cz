@@ -1,6 +1,6 @@
 * Vystavte certifikát pro vývoj HTTPS tak, že spustíte následující příkaz:
 
-  ```console
+  ```dotnetcli
   dotnet dev-certs https --trust
   ```
   

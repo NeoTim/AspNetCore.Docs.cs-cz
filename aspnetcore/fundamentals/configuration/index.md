@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/12/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 5723295c70f8d893f758ca5dc87180c6b707f493
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 0de2222e8072523ff0e5d261a9fe5ef8eb9a7606
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994180"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081822"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -187,7 +187,7 @@ Konfigurační hodnoty přijímají následující konvence:
 * Hodnoty jsou řetězce.
 * Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.
 
-## <a name="providers"></a>Dodavateli
+## <a name="providers"></a>dodavateli
 
 V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.
 
@@ -354,7 +354,7 @@ V rámci stejného příkazu Nekombinujte páry klíč-hodnota argumentu příka
 
 Příklady příkazů:
 
-```console
+```dotnetcli
 dotnet run CommandLineKey1=value1 --CommandLineKey2=value2 /CommandLineKey3=value3
 dotnet run --CommandLineKey1 value1 /CommandLineKey2 value2
 dotnet run CommandLineKey1= CommandLineKey2=value2
@@ -402,7 +402,7 @@ Po vytvoření slovníku mapování přepínačů obsahuje data uvedená v násl
 
 Pokud se klíče mapovaného přepínače používají při spuštění aplikace, konfigurace obdrží hodnotu konfigurace klíče poskytnutého slovníkem:
 
-```console
+```dotnetcli
 dotnet run -CLKey1=value1 -CLKey2=value2
 ```
 
@@ -425,7 +425,7 @@ Chcete-li aktivovat konfiguraci proměnných prostředí, <xref:Microsoft.Extens
 
 ::: moniker range=">= aspnetcore-3.0"
 
-`AddEnvironmentVariables`slouží k načtení proměnných prostředí `DOTNET_` s předponou pro [konfiguraci hostitele](#host-versus-app-configuration) při inicializaci nového hostitele, který je hostitelem s obecným [hostitelem](xref:fundamentals/host/generic-host) a `CreateDefaultBuilder` který je volán. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
+`AddEnvironmentVariables`slouží k načtení proměnných prostředí `DOTNET_` s předponou pro [konfiguraci hostitele](#host-versus-app-configuration) při inicializaci nového hostitele, který je hostitelem s [obecným hostitelem](xref:fundamentals/host/generic-host) a `CreateDefaultBuilder` který je volán. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
 
 ::: moniker-end
 
@@ -860,7 +860,7 @@ Při `GetSection` vrácení odpovídajícího <xref:Microsoft.Extensions.Configu
 
 ### <a name="getchildren"></a>GetChildren –
 
-Volání [IConfiguration.](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) getchildrens pro `section2` získá výjimku `IEnumerable<IConfigurationSection>` , která zahrnuje:
+Volání [IConfiguration. getchildrens](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) pro `section2` získá výjimku `IEnumerable<IConfigurationSection>` , která zahrnuje:
 
 * `subsection0`
 * `subsection1`

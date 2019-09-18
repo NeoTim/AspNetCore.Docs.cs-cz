@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 06/18/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: c219500b7595fd8d200e4e5e742b1e1fda836ba3
-ms.sourcegitcommit: a1283d486ac1dcedfc7ea302e1cc882833e2c515
+ms.openlocfilehash: f5a47ffd2e068414268ed9037d4376bfd21ba1bb
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/18/2019
-ms.locfileid: "67207741"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080799"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>Přidání, stáhněte si a odstranit vlastní uživatelská data na identitu v projektu aplikace ASP.NET Core
 
@@ -20,7 +20,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 Tento článek popisuje, jak:
 
 * Přidáte vlastní uživatelská data do webové aplikace ASP.NET Core.
-* Uspořádání vlastního uživatele datového modelu o <xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute> atribut tak, aby byl automaticky k dispozici ke stažení a odstranění. Nastavení může ke stažení a odstranění dat pomáhá plnit [GDPR](xref:security/gdpr) požadavky.
+* Seupravte vlastní uživatelský datový model pomocí <xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute> atributu tak, aby byl automaticky dostupný ke stažení a odstranění. Nastavení může ke stažení a odstranění dat pomáhá plnit [GDPR](xref:security/gdpr) požadavky.
 
 Ukázkový projekt je vytvořený z webová aplikace Razor Pages, ale pokyny jsou podobné pro webovou aplikaci ASP.NET Core MVC.
 
@@ -36,13 +36,13 @@ Ukázkový projekt je vytvořený z webová aplikace Razor Pages, ale pokyny jso
 
 * Ze sady Visual Studio **souboru** nabídce vyberte možnost **nový** > **projektu**. Pojmenujte projekt **WebApp1** Pokud budete chtít odpovídat oboru názvů [stáhněte si ukázky](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data) kódu.
 * Vyberte **webová aplikace ASP.NET Core** > **OK**
-* Vyberte **2.2 technologie ASP.NET Core** v rozevírací nabídce
+* V rozevíracím seznamu vyberte **ASP.NET Core 2,2** .
 * Vyberte **webovou aplikaci**  > **OK**
 * Sestavte a spusťte projekt.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet new webapp -o WebApp1
 ```
 
@@ -67,26 +67,26 @@ dotnet new webapp -o WebApp1
 
 Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 
-```cli
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
 Přidat odkaz na balíček pro [Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do souboru projektu (.csproj). Spusťte následující příkaz v adresáři projektu:
 
-```cli
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
 Spusťte následující příkaz k výpisu možností generátor Identity:
 
-```cli
+```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
 
 Ve složce projektu spustit generátor Identity:
 
-```cli
+```dotnetcli
 dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account.Manage.Index
 ```
 
@@ -143,14 +143,14 @@ Sestavte projekt.
 
 V sadě Visual Studio **Konzola správce balíčků**:
 
-```PMC
+```powershell
 Add-Migration CustomUserData
 Update-Database
 ```
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-```cli
+```dotnetcli
 dotnet ef migrations add CustomUserData
 dotnet ef database update
 ```

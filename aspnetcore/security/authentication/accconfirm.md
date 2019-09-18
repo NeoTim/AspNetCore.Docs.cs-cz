@@ -1,22 +1,22 @@
 ---
 title: Potvrzení účtu a obnovení hesla v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak vytvořit aplikaci ASP.NET Core s e-mailové potvrzení a resetováním hesla.
+description: Naučte se vytvářet aplikace ASP.NET Core s potvrzením e-mailu a resetováním hesla.
 ms.author: riande
 ms.date: 03/11/2019
 uid: security/authentication/accconfirm
-ms.openlocfilehash: 802ba446af04df6a35ac73187ad693b8ec80c654
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 8a515990be584aa1233fc3bf77811ae3784d9b1c
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67814837"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081565"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Ponant](https://github.com/Ponant), a [Joe Audette](https://twitter.com/joeaudette)
+Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Ponant](https://github.com/Ponant)a [Jan Audette](https://twitter.com/joeaudette)
 
-Tento kurz ukazuje, jak vytvářet aplikace v ASP.NET Core s e-mailové potvrzení a resetováním hesla. Tento kurz je **není** začátku tématu. Měli byste se seznámit s:
+V tomto kurzu se dozvíte, jak vytvořit aplikaci ASP.NET Core s potvrzením e-mailu a resetováním hesla. Tento **kurz není** úvodním tématem. Měli byste se seznámit s:
 
 * [ASP.NET Core](xref:tutorials/razor-pages/razor-pages-start)
 * [Ověřování](xref:security/authentication/identity)
@@ -26,7 +26,7 @@ Tento kurz ukazuje, jak vytvářet aplikace v ASP.NET Core s e-mailové potvrzen
 
 ::: moniker range="<= aspnetcore-2.0"
 
-Zobrazit [tento soubor PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) pro verzi technologie ASP.NET Core 1.1.
+V [tomto souboru PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) se zobrazí verze ASP.NET Core 1,1.
 
 ::: moniker-end
 
@@ -34,47 +34,47 @@ Zobrazit [tento soubor PDF](https://webpifeed.blob.core.windows.net/webpifeed/Pa
 
 ## <a name="prerequisites"></a>Požadavky
 
-[Sady SDK .NET core 3.0 nebo novější](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+[.NET Core 3,0 SDK nebo novější](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
 ## <a name="create-and-test-a-web-app-with-authentication"></a>Vytvoření a otestování webové aplikace s ověřováním
 
-Spusťte následující příkazy k vytvoření webové aplikace s ověřováním.
+Spuštěním následujících příkazů vytvořte webovou aplikaci s ověřováním.
 
-```console
+```dotnetcli
 dotnet new webapp -au Individual -uld -o WebPWrecover
 cd WebPWrecover
 dotnet run
 ```
 
-Spusťte aplikaci, vyberte **zaregistrovat** propojit a zaregistrovat uživatele. Po registraci, budete přesměrováni na na do `/Identity/Account/RegisterConfirmation` stránku, která obsahuje odkaz pro simulaci potvrzení e-mailu:
+Spusťte aplikaci, vyberte odkaz **Registrovat** a zaregistrujte uživatele. Po zaregistrování budete přesměrováni na stránku `/Identity/Account/RegisterConfirmation` , která obsahuje odkaz pro simulaci potvrzení e-mailu:
 
-* Vyberte `Click here to confirm your account` odkaz.
-* Vyberte **přihlášení** odkaz a přihlaste se pomocí stejných přihlašovacích údajů.
-* Vyberte `Hello YourEmail@provider.com!` odkaz, což vás přesměruje na `/Identity/Account/Manage/PersonalData` stránky.
-* Vyberte **osobní údaje** kartu na levé straně a pak vyberte **odstranit**.
+* `Click here to confirm your account` Vyberte odkaz.
+* Vyberte **přihlašovací** odkaz a přihlaste se se stejnými přihlašovacími údaji.
+* Vyberte odkaz, který vás přesměruje `/Identity/Account/Manage/PersonalData` na stránku. `Hello YourEmail@provider.com!`
+* Na levé straně vyberte kartu **osobní data** a pak vyberte **Odstranit**.
 
 ### <a name="configure-an-email-provider"></a>Konfigurace poskytovatele e-mailu
 
-V tomto kurzu [SendGrid](https://sendgrid.com) se používá k odesílání e-mailu. Potřebujete účet SendGrid a klíč k odesílání e-mailu. Můžete použít jiné poskytovateli e-mailu. Doporučujeme že použít SendGrid nebo jiné služby e-mailu k odeslání e-mailu. SMTP je obtížné zabezpečení a zařídit správné nastavení.
+V tomto kurzu se k odeslání e-mailu používá [SendGrid](https://sendgrid.com) . K odeslání e-mailu potřebujete účet SendGrid a klíč. Můžete použít jiné poskytovatele e-mailů. K odeslání e-mailu doporučujeme použít SendGrid nebo jinou e-mailovou službu. Protokol SMTP je obtížné zabezpečit a nastavit správně.
 
-Vytvoření třídy k načtení klíče zabezpečeného e-mailu. V tomto příkladu vytvoření *Services/AuthMessageSenderOptions.cs*:
+Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázce vytvořte *Services/AuthMessageSenderOptions. cs*:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Services/AuthMessageSenderOptions.cs?name=snippet1)]
 
-#### <a name="configure-sendgrid-user-secrets"></a>Konfigurace služby SendGrid tajných klíčů uživatelů
+#### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` s [manažera tajných nástroj](xref:security/app-secrets). Příklad:
+`SendGridUser` Nastavte a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
 
-```console
+```dotnetcli
 dotnet user-secrets set SendGridUser RickAndMSFT
 dotnet user-secrets set SendGridKey <key>
 
 Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-Na Windows, manažera tajných ukládá dvojice klíčů/hodnota v *secrets.json* soubor `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáře.
+Správce tajných kódů v systému Windows ukládá páry klíče/hodnoty do souboru *tajných klíčů. JSON* v `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáři.
 
-Obsah *secrets.json* souboru nejsou šifrovány. Následující kód ukazuje *secrets.json* souboru. `SendGridKey` Hodnota byla odebrána.
+Obsah souboru *tajných kódů. JSON* není zašifrovaný. Následující kód ukazuje soubor *tajných kódů. JSON* . `SendGridKey` Hodnota byla odebrána.
 
 ```json
 {
@@ -83,135 +83,135 @@ Obsah *secrets.json* souboru nejsou šifrovány. Následující kód ukazuje *se
 }
 ```
 
-Další informace najdete v tématu [možnosti vzor](xref:fundamentals/configuration/options) a [konfigurace](xref:fundamentals/configuration/index).
+Další informace najdete v tématu [vzor možností](xref:fundamentals/configuration/options) a [Konfigurace](xref:fundamentals/configuration/index).
 
-### <a name="install-sendgrid"></a>Instalace služby SendGrid
+### <a name="install-sendgrid"></a>Nainstalovat SendGrid
 
-Tento kurz ukazuje, jak přidat e-mailová oznámení prostřednictvím [SendGrid](https://sendgrid.com/), ale můžete odesílat e-mailu pomocí protokolu SMTP a další mechanismy.
+V tomto kurzu se dozvíte, jak přidat e-mailová oznámení prostřednictvím [SendGrid](https://sendgrid.com/), ale můžete posílat e-maily pomocí protokolu SMTP a dalších mechanismů.
 
-Nainstalujte `SendGrid` balíček NuGet:
+Nainstalujte balíček `SendGrid` NuGet:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V konzole Správce balíčků zadejte následující příkaz:
+V konzole správce balíčků zadejte následující příkaz:
 
-``` PMC
+```powershell
 Install-Package SendGrid
 ```
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-V konzole zadejte následující příkaz:
+Z konzoly zadejte následující příkaz:
 
-```cli
+```dotnetcli
 dotnet add package SendGrid
 ```
 
 ---
 
-Naleznete v tématu [začít pomocí Sendgridu zdarma](https://sendgrid.com/free/) k registraci bezplatného účtu SendGrid.
+Pokud si chcete zaregistrovat bezplatný účet SendGrid, přečtěte si téma Začínáme [se službou SendGrid](https://sendgrid.com/free/) zdarma.
 
-### <a name="implement-iemailsender"></a>Implementace IEmailSender
+### <a name="implement-iemailsender"></a>Implementovat IEmailSender
 
-Implementovat `IEmailSender`, vytvořit *Services/EmailSender.cs* podobně jako následujícím kódem:
+K implementaci `IEmailSender`vytvořte *služby/EmailSender. cs* s kódem podobným následujícímu:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Services/EmailSender.cs)]
 
 ### <a name="configure-startup-to-support-email"></a>Konfigurace spuštění pro podporu e-mailu
 
-Přidejte následující kód, který `ConfigureServices` metoda ve *Startup.cs* souboru:
+Do `ConfigureServices` metody v souboru *Startup.cs* přidejte následující kód:
 
-* Přidat `EmailSender` jako přechodné služby.
-* Zaregistrujte `AuthMessageSenderOptions` instance konfigurace.
+* Přidejte `EmailSender` jako přechodné služby.
+* Zaregistrujte instanci `AuthMessageSenderOptions` konfigurace.
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/Startup.cs?name=snippet1&highlight=11-15)]
 
-## <a name="register-confirm-email-and-reset-password"></a>Zaregistrovat a potvrďte e-mailu a resetování hesla
+## <a name="register-confirm-email-and-reset-password"></a>Registrace, potvrzení e-mailu a resetování hesla
 
-Spuštění webové aplikace a testů potvrzení účtu a heslo pro obnovení toku.
+Spusťte webovou aplikaci a otestujte postup potvrzení a obnovení hesla účtu.
 
 * Spusťte aplikaci a zaregistrovat nový uživatel
-* Zkontrolujte svého e-mailu na odkaz pro potvrzení účtu. Zobrazit [ladění e-mailu](#debug) Pokud neobdržíte e-mailu.
-* Klikněte na odkaz pro potvrzení e-mailu.
-* Přihlaste se pomocí e-mailu a hesla.
+* Ověřte si e-mail s odkazem na potvrzení účtu. Pokud e-mail neobdržíte, přečtěte si téma [ladění e-mailu](#debug) .
+* Kliknutím na odkaz potvrďte svůj e-mail.
+* Přihlaste se pomocí svého e-mailu a hesla.
 * Odhlaste se.
 
-### <a name="test-password-reset"></a>Resetování hesla testu
+### <a name="test-password-reset"></a>Test resetování hesla
 
-* Pokud jste přihlášeni, vyberte **odhlášení**.
-* Vyberte **přihlášení** spojit a vybrat možnost **zapomněli jste heslo?** odkaz.
+* Pokud jste přihlášeni, vyberte **Odhlásit**.
+* Vyberte odkaz **Přihlásit** a vyberte odkaz **zapomenuté heslo?** .
 * Zadejte e-mail, který jste použili k registraci účtu.
-* Odešle e-mail s odkazem k resetování hesla. Zkontrolujte e-mailu a klikněte na odkaz pro resetování hesla. Po úspěšném resetování vašeho hesla se můžete přihlásit pomocí své e-mailu a nové heslo.
+* Pošle se e-mail s odkazem na resetování hesla. Podívejte se na e-mail a kliknutím na odkaz resetujte heslo. Po úspěšném resetování hesla se můžete přihlásit pomocí e-mailu a nového hesla.
 
-## <a name="change-email-and-activity-timeout"></a>Časový limit změny e-mailu a aktivita
+## <a name="change-email-and-activity-timeout"></a>Časový limit změny e-mailu a aktivity
 
-Výchozí hodnota časového limitu nečinnosti je 14 dní. Následující kód nastaví časový limit neaktivity na 5 dní:
+Výchozí časový limit nečinnosti je 14 dní. Následující kód nastaví časový limit nečinnosti na 5 dní:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupAppCookie.cs?name=snippet1)]
 
-### <a name="change-all-data-protection-token-lifespans"></a>Změnit všechny lifespans token ochrany dat
+### <a name="change-all-data-protection-token-lifespans"></a>Změna všech životností tokenů ochrany dat
 
-Následující kód změní všechny data protection tokeny časový limit na 3 hodiny:
+Následující kód změní všechna období časového limitu tokenů ochrany dat na 3 hodiny:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupAllTokens.cs?name=snippet1&highlight=11-12)]
 
-Integrovaná v tokenech identitu uživatele (naleznete v tématu [AspNetCore/src/Identity/Extensions.Core/src/TokenOptions.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) mít [vypršení časového limitu jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs).
+Předdefinované tokeny uživatelů identity (viz [AspNetCore/src/identity/Extensions. Core/src/TokenOptions. cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) mají [časový limit jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs).
 
-### <a name="change-the-email-token-lifespan"></a>Změnit životnost tokenu e-mailu
+### <a name="change-the-email-token-lifespan"></a>Změna životnosti tokenu e-mailu
 
-Výchozí token životnosti [tokeny Identity uživatele](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) je [jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs). Tato část ukazuje, jak změnit životnost tokenu e-mailu.
+Výchozí životnost tokenu [tokenů identity uživatele](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) je [jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs). V této části se dozvíte, jak změnit životnost tokenu e-mailu.
 
-Přidat vlastní [DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1) a <xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>:
+Přidejte vlastní [DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1) a: <xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/TokenProviders/CustomTokenProvider.cs?name=snippet1)]
 
-Přidáte vlastního zprostředkovatele do služby kontejneru:
+Přidejte vlastního zprostředkovatele do kontejneru služby:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover30/StartupEmail.cs?name=snippet1&highlight=10-16)]
 
-### <a name="resend-email-confirmation"></a>Znovu poslat e-mailové potvrzení
+### <a name="resend-email-confirmation"></a>Odeslat potvrzení znovu e-mailem
 
-Zobrazit [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/5410).
+Podívejte se na [Tento problém GitHubu](https://github.com/aspnet/AspNetCore/issues/5410).
 
 <a name="debug"></a>
 
-### <a name="debug-email"></a>Ladění e-mailu
+### <a name="debug-email"></a>Ladit e-mail
 
-Pokud nelze získat pracovní e-mailu:
+Pokud nemůžete získat e-mail:
 
-* Nastavte zarážku v `EmailSender.Execute` ověření `SendGridClient.SendEmailAsync` je volána.
-* Vytvoření [konzolovou aplikaci k odesílání e-mailu](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html) pomocí podobné kódu `EmailSender.Execute`.
-* Zkontrolujte [e-mailové aktivity](https://sendgrid.com/docs/User_Guide/email_activity.html) stránky.
-* Zkontrolujte složku s nevyžádanou poštou.
-* Zkuste jinou e-mailový alias na jinou e-mailovou zprostředkovatele (Microsoft, Yahoo, Gmail, atd.)
-* Pokuste se odeslat na jiné e-mailové účty.
+* Nastavte zarážku v `EmailSender.Execute` na hodnotu `SendGridClient.SendEmailAsync` ověřit je volána.
+* Vytvořte [konzolovou aplikaci pro odesílání e-mailů](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html) s `EmailSender.Execute`podobným kódem.
+* Zkontrolujte stránku [e-mailové aktivity](https://sendgrid.com/docs/User_Guide/email_activity.html) .
+* Ověřte složku s nevyžádanou poštou.
+* Vyzkoušejte si jiný e-mailový alias u jiného poskytovatele e-mailu (Microsoft, Yahoo, Gmail atd.)
+* Zkuste odesílat do jiných e-mailových účtů.
 
-**Z bezpečnostních důvodů** je **není** použití produkční tajných kódů v vývoj a testování. Pokud publikujete aplikaci do Azure, nastavte SendGrid tajné kódy jako nastavení aplikace na portálu Azure Web App. Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.
+**Osvědčeným postupem z hlediska zabezpečení** je **Nepoužívat provozní** tajemství v rámci testování a vývoje. Pokud publikujete aplikaci do Azure, nastavte tajné klíče SendGrid jako nastavení aplikace na portálu webové aplikace Azure. Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.
 
-## <a name="combine-social-and-local-login-accounts"></a>Sloučit účty sociálních sítí a místní přihlášení
+## <a name="combine-social-and-local-login-accounts"></a>Kombinování sociálních a místních přihlašovacích účtů
 
-K dokončení této části, je nutné nejprve povolit externí zprostředkovatel ověřování. Zobrazit [Facebook, Google a externí zprostředkovatel ověřování](xref:security/authentication/social/index).
+Chcete-li dokončit tuto část, je nutné nejprve povolit externího zprostředkovatele ověřování. Prohlédněte si [ověřování pro Facebook, Google a externí poskytovatele](xref:security/authentication/social/index).
 
-Kliknutím na odkaz na vaši e-mailu můžete kombinovat místní a sociální účty. V tomto pořadí "RickAndMSFT@gmail.com" se nejprve vytvoří jako místní přihlášení; však můžete nejprve vytvořte účet jako přihlášení prostřednictvím sociální sítě a pak přidat místní přihlašovací údaje.
+Místní a sociální účty můžete zkombinovat kliknutím na svůj e-mailový odkaz. V následujícím pořadí se "RickAndMSFT@gmail.com" nejdřív vytvoří jako místní přihlašovací jméno. účet ale můžete vytvořit jako nejdřív sociální přihlášení a pak přidat místní přihlašovací jméno.
 
-![Webová aplikace: RickAndMSFT@gmail.com uživatel byl ověřen](accconfirm/_static/rick.png)
+![Webová aplikace: RickAndMSFT@gmail.com ověřené uživatelem](accconfirm/_static/rick.png)
 
-Klikněte na **spravovat** odkaz. Poznámka: externí 0 (přihlašování přes sociální sítě) spojená s tímto účtem.
+Klikněte na odkaz **Správa** . Poznamenejte si externí (sociální přihlášení) přidružená k tomuto účtu.
 
-![Správa zobrazení](accconfirm/_static/manage.png)
+![Spravovat zobrazení](accconfirm/_static/manage.png)
 
-Klikněte na odkaz pro další přihlášení služby a přijímání požadavků aplikace. Na následujícím obrázku je Facebooku zprostředkovatele externího ověřování:
+Klikněte na odkaz na jinou přihlašovací službu a přijměte žádosti o aplikaci. Na následujícím obrázku je Facebook externí zprostředkovatel ověřování:
 
-![Spravovat externí přihlášení zobrazení výpisu Facebooku](accconfirm/_static/fb.png)
+![Správa zobrazení externích přihlášení s výpisem Facebooku](accconfirm/_static/fb.png)
 
-Byli sloučeni dva účty. Máte možnost přihlásit se přes účet. Můžete chtít uživatelům přidat místní účty v případě nefungující Služba ověřování v jejich přihlášení prostřednictvím sociální sítě nebo spíše se jste ztratili přístup k jejich účtu na sociální síti.
+Tyto dva účty byly kombinovány. Můžete se přihlásit pomocí obou účtů. Je možné, že budete chtít, aby uživatelé mohli přidávat místní účty pro případ výpadku služby ověřování v síti pro sociální přihlášení nebo pravděpodobně ztratili přístup ke svému sociálnímu účtu.
 
-## <a name="enable-account-confirmation-after-a-site-has-users"></a>Po lokality má uživatelům povolit potvrzení účtu
+## <a name="enable-account-confirmation-after-a-site-has-users"></a>Povolit potvrzení účtu, jakmile má lokalita uživatele
 
-Povolení potvrzení účtu na webu s uživateli zamezí všichni stávající uživatelé. Stávající uživatelé jsou uzamčen, protože jejich účty nejsou potvrzeny. Obejít existující uzamčení uživatelů, použijte jednu z následujících postupů:
+Povolení potvrzení účtu na webu s uživateli zamkne všechny existující uživatele. Stávající uživatelé jsou uzamčeni, protože jejich účty nejsou potvrzené. Chcete-li vyřešit stávající uzamčení uživatele, použijte jeden z následujících přístupů:
 
-* Aktualizujte databázi pro označení všichni stávající uživatelé, jako je potvrzen.
-* Zkontrolujte stávající uživatele. Třeba dávkové odeslání e-mailů s potvrzovací odkazy.
+* Aktualizujte databázi tak, aby označila všechny existující uživatele jako potvrzené.
+* Potvrďte stávající uživatele. Například Batch – posílání e-mailů s odkazy na potvrzení.
 
 ::: moniker-end
 
@@ -219,13 +219,13 @@ Povolení potvrzení účtu na webu s uživateli zamezí všichni stávající u
 
 ## <a name="prerequisites"></a>Požadavky
 
-[Sady SDK .NET core 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
+[.NET Core 2,2 SDK nebo novější](https://www.microsoft.com/net/download/all)
 
-## <a name="create-a-web--app-and-scaffold-identity"></a>Vytvoření webové aplikace a generování uživatelského rozhraní Identity
+## <a name="create-a-web--app-and-scaffold-identity"></a>Vytvoření webové aplikace a identity uživatelského rozhraní
 
-Spusťte následující příkazy k vytvoření webové aplikace s ověřováním.
+Spuštěním následujících příkazů vytvořte webovou aplikaci s ověřováním.
 
-```console
+```dotnetcli
 dotnet new webapp -au Individual -uld -o WebPWrecover
 cd WebPWrecover
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -237,50 +237,50 @@ dotnet run
 
 ```
 
-## <a name="test-new-user-registration"></a>Otestovat nové registrace uživatele
+## <a name="test-new-user-registration"></a>Otestovat registraci nových uživatelů
 
-Spusťte aplikaci, vyberte **zaregistrovat** propojit a zaregistrovat uživatele. V tomto okamžiku je pouze ověření na e-mailu [[EmailAddress]](/dotnet/api/system.componentmodel.dataannotations.emailaddressattribute) atribut. Po odeslání registrace, jste přihlášení do aplikace. Později v tomto kurzu se kód aktualizuje tak, že noví uživatelé nemůže přihlásit, dokud se ověří e-mailu.
+Spusťte aplikaci, vyberte odkaz **Registrovat** a zaregistrujte uživatele. V tomto okamžiku je jediným ověřením e-mailu atribut [[EmailAddress]](/dotnet/api/system.componentmodel.dataannotations.emailaddressattribute) . Po odeslání registrace jste přihlášení do aplikace. Později v tomto kurzu se kód aktualizuje, aby se noví uživatelé nemohli přihlásit, dokud se neověří jejich e-mailová adresa.
 
 [!INCLUDE[](~/includes/view-identity-db.md)]
 
-Poznámka: v tabulce `EmailConfirmed` pole je `False`.
+Všimněte si, že `EmailConfirmed` pole tabulky `False`je.
 
-Můžete chtít tento e-mail znovu použít v dalším kroku při ní odešle e-mail s potvrzením. Klikněte pravým tlačítkem na řádek a vyberte **odstranit**. Odstraňuje se e-mailový alias usnadňuje v následujících krocích.
+Tento e-mail můžete chtít znovu použít v dalším kroku, když aplikace pošle potvrzovací e-mail. Klikněte pravým tlačítkem na řádek a vyberte **Odstranit**. Odstranění aliasu e-mailu usnadňuje následující kroky.
 
 <a name="prevent-login-at-registration"></a>
 
-## <a name="require-email-confirmation"></a>Vyžádání potvrzení e-mailu
+## <a name="require-email-confirmation"></a>Vyžadovat potvrzení e-mailu
 
-Je osvědčeným postupem je potvrďte e-mailu nové registrace uživatele. E-mailu pomáhá potvrzení ověření někdo jiný, nejsou zosobnění (to znamená, že se ještě nezaregistrovali někoho jiného e-mailu). Předpokládejme, že jste měli diskusní fórum, a chtěli byste zabránit "yli@example.com"registroval jako"nolivetto@contoso.com". Bez potvrzení e-mailu "nolivetto@contoso.com" mohli dostávat nežádoucí e-mailu z vaší aplikace. Předpokládejme, že uživatel zaregistrován nechtěně jako "ylo@example.com" a kdyby si všimli chyba "yli". Se nebude moci použít obnovení hesla, protože aplikace nemá správnou e-mailu. Potvrzení e-mailu zajišťuje omezenou ochranu před roboty. Potvrzení e-mailu neposkytuje ochranu z uživateli se zlými úmysly s mnoha e-mailové účty.
+Osvědčeným postupem je potvrdit e-mailovou registraci nového uživatele. Potvrzení e-mailu pomáhá ověřit, že nezosobňuje někoho jiného (tj. není zaregistrované u e-mailu někoho jiného). Předpokládejme, že máte diskuzní fórum a chtěli jste zabránityli@example.comv registracinolivetto@contoso.comjako. Bez potvrzení e-mailu může zprávanolivetto@contoso.comz vaší aplikace obdržet nevyžádaný e-mail. Předpokládejme, že uživatel omylem registrovanýylo@example.comjako "" a jste zaznamenal chybu "Yli". Nebylo by možné použít obnovení hesla, protože aplikace nemá správný e-mail. Potvrzení e-mailu poskytuje omezené ochrany z roboty. Potvrzení e-mailu neposkytuje ochranu před uživateli se zlými úmysly s mnoha e-mailovými účty
 
-Obvykle chcete novým uživatelům zabránit v účtování všechna data na webový server dříve, než potvrzeno e-mailu.
+Obecně chcete, aby noví uživatelé před odesláním jakýchkoli dat na web nemuseli odeslat potvrzené e-maily.
 
-Aktualizace `Startup.ConfigureServices` tak, aby vyžadovala potvrzeno e-mailu:
+Aktualizace `Startup.ConfigureServices` pro vyžadování potvrzeného e-mailové adresy:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=8-11)]
 
-`config.SignIn.RequireConfirmedEmail = true;` zabraňuje registrovaných uživatelů přihlásit, dokud není potvrzené e-mailu.
+`config.SignIn.RequireConfirmedEmail = true;`zabrání registrovaným uživatelům v přihlášení, dokud se nepotvrdí jejich e-maily.
 
-### <a name="configure-email-provider"></a>Konfigurace poskytovatele e-mailu
+### <a name="configure-email-provider"></a>Konfigurovat poskytovatele e-mailů
 
-V tomto kurzu [SendGrid](https://sendgrid.com) se používá k odesílání e-mailu. Potřebujete účet SendGrid a klíč k odesílání e-mailu. Můžete použít jiné poskytovateli e-mailu. ASP.NET Core 2.x zahrnuje `System.Net.Mail`, který umožňuje odeslání e-mailu z vaší aplikace. Doporučujeme že použít SendGrid nebo jiné služby e-mailu k odeslání e-mailu. SMTP je obtížné zabezpečení a zařídit správné nastavení.
+V tomto kurzu se k odeslání e-mailu používá [SendGrid](https://sendgrid.com) . K odeslání e-mailu potřebujete účet SendGrid a klíč. Můžete použít jiné poskytovatele e-mailů. ASP.NET Core 2. x zahrnuje `System.Net.Mail`, což umožňuje odesílat e-maily z vaší aplikace. K odeslání e-mailu doporučujeme použít SendGrid nebo jinou e-mailovou službu. Protokol SMTP je obtížné zabezpečit a nastavit správně.
 
-Vytvoření třídy k načtení klíče zabezpečeného e-mailu. V tomto příkladu vytvoření *Services/AuthMessageSenderOptions.cs*:
+Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázce vytvořte *Services/AuthMessageSenderOptions. cs*:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Services/AuthMessageSenderOptions.cs?name=snippet1)]
 
-#### <a name="configure-sendgrid-user-secrets"></a>Konfigurace služby SendGrid tajných klíčů uživatelů
+#### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` s [manažera tajných nástroj](xref:security/app-secrets). Příklad:
+`SendGridUser` Nastavte a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
 
 ```console
 C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT
 info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-Na Windows, manažera tajných ukládá dvojice klíčů/hodnota v *secrets.json* soubor `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáře.
+Správce tajných kódů v systému Windows ukládá páry klíče/hodnoty do souboru *tajných klíčů. JSON* v `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáři.
 
-Obsah *secrets.json* souboru nejsou šifrovány. Následující kód ukazuje *secrets.json* souboru. `SendGridKey` Hodnota byla odebrána.
+Obsah souboru *tajných kódů. JSON* není zašifrovaný. Následující kód ukazuje soubor *tajných kódů. JSON* . `SendGridKey` Hodnota byla odebrána.
 
 ```json
 {
@@ -289,154 +289,154 @@ Obsah *secrets.json* souboru nejsou šifrovány. Následující kód ukazuje *se
 }
 ```
 
-Další informace najdete v tématu [možnosti vzor](xref:fundamentals/configuration/options) a [konfigurace](xref:fundamentals/configuration/index).
+Další informace najdete v tématu [vzor možností](xref:fundamentals/configuration/options) a [Konfigurace](xref:fundamentals/configuration/index).
 
-### <a name="install-sendgrid"></a>Instalace služby SendGrid
+### <a name="install-sendgrid"></a>Nainstalovat SendGrid
 
-Tento kurz ukazuje, jak přidat e-mailová oznámení prostřednictvím [SendGrid](https://sendgrid.com/), ale můžete odesílat e-mailu pomocí protokolu SMTP a další mechanismy.
+V tomto kurzu se dozvíte, jak přidat e-mailová oznámení prostřednictvím [SendGrid](https://sendgrid.com/), ale můžete posílat e-maily pomocí protokolu SMTP a dalších mechanismů.
 
-Nainstalujte `SendGrid` balíček NuGet:
+Nainstalujte balíček `SendGrid` NuGet:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V konzole Správce balíčků zadejte následující příkaz:
+V konzole správce balíčků zadejte následující příkaz:
 
-``` PMC
+```powershell
 Install-Package SendGrid
 ```
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-V konzole zadejte následující příkaz:
+Z konzoly zadejte následující příkaz:
 
-```cli
+```dotnetcli
 dotnet add package SendGrid
 ```
 
 ---
 
-Naleznete v tématu [začít pomocí Sendgridu zdarma](https://sendgrid.com/free/) k registraci bezplatného účtu SendGrid.
+Pokud si chcete zaregistrovat bezplatný účet SendGrid, přečtěte si téma Začínáme [se službou SendGrid](https://sendgrid.com/free/) zdarma.
 
-### <a name="implement-iemailsender"></a>Implementace IEmailSender
+### <a name="implement-iemailsender"></a>Implementovat IEmailSender
 
-Implementovat `IEmailSender`, vytvořit *Services/EmailSender.cs* podobně jako následujícím kódem:
+K implementaci `IEmailSender`vytvořte *služby/EmailSender. cs* s kódem podobným následujícímu:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Services/EmailSender.cs)]
 
 ### <a name="configure-startup-to-support-email"></a>Konfigurace spuštění pro podporu e-mailu
 
-Přidejte následující kód, který `ConfigureServices` metoda ve *Startup.cs* souboru:
+Do `ConfigureServices` metody v souboru *Startup.cs* přidejte následující kód:
 
-* Přidat `EmailSender` jako přechodné služby.
-* Zaregistrujte `AuthMessageSenderOptions` instance konfigurace.
+* Přidejte `EmailSender` jako přechodné služby.
+* Zaregistrujte instanci `AuthMessageSenderOptions` konfigurace.
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Startup.cs?name=snippet1&highlight=15-99)]
 
-## <a name="enable-account-confirmation-and-password-recovery"></a>Povolit obnovení hesla a potvrzení účtu
+## <a name="enable-account-confirmation-and-password-recovery"></a>Povolení potvrzení účtu a obnovení hesla
 
-Šablona má kód pro obnovení potvrzení a heslo účtu. Najít `OnPostAsync` metoda *Areas/Identity/Pages/Account/Register.cshtml.cs*.
+Šablona obsahuje kód pro potvrzení účtu a obnovení hesla. Vyhledejte metodu v *oblasti/identita/stránky/účet/Register. cshtml. cs.* `OnPostAsync`
 
-Nově zaregistrovaný uživatelům zabránit v probíhá automaticky přihlašování tak následující řádek:
+Zabraňte automatického přihlášení nově registrovaných uživatelů pomocí komentáře k následujícímu řádku:
 
 ```csharp
 await _signInManager.SignInAsync(user, isPersistent: false);
 ```
 
-Úplná metoda se zobrazí s změněný řádek zvýrazněný:
+Metoda Complete se zobrazí se zvýrazněným změněným řádkem:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/Areas/Identity/Pages/Account/Register.cshtml.cs?highlight=22&name=snippet_Register)]
 
-## <a name="register-confirm-email-and-reset-password"></a>Zaregistrovat a potvrďte e-mailu a resetování hesla
+## <a name="register-confirm-email-and-reset-password"></a>Registrace, potvrzení e-mailu a resetování hesla
 
-Spuštění webové aplikace a testů potvrzení účtu a heslo pro obnovení toku.
+Spusťte webovou aplikaci a otestujte postup potvrzení a obnovení hesla účtu.
 
 * Spusťte aplikaci a zaregistrovat nový uživatel
-* Zkontrolujte svého e-mailu na odkaz pro potvrzení účtu. Zobrazit [ladění e-mailu](#debug) Pokud neobdržíte e-mailu.
-* Klikněte na odkaz pro potvrzení e-mailu.
-* Přihlaste se pomocí e-mailu a hesla.
+* Ověřte si e-mail s odkazem na potvrzení účtu. Pokud e-mail neobdržíte, přečtěte si téma [ladění e-mailu](#debug) .
+* Kliknutím na odkaz potvrďte svůj e-mail.
+* Přihlaste se pomocí svého e-mailu a hesla.
 * Odhlaste se.
 
-### <a name="view-the-manage-page"></a>Zobrazení stránky Správa
+### <a name="view-the-manage-page"></a>Zobrazit stránku pro správu
 
-Vyberte své uživatelské jméno v prohlížeči: ![okna prohlížeče s uživatelským jménem](accconfirm/_static/un.png)
+V prohlížeči vyberte své uživatelské jméno: ![okno prohlížeče s uživatelským jménem](accconfirm/_static/un.png)
 
-Zobrazí se stránka Správa s **profilu** vybraná karta. **E-mailu** zobrazí zaškrtávací políčko označující e-mailu byl potvrzen.
+Stránka Správa se zobrazí s vybranou kartou **profil** . **E-mail** zobrazuje zaškrtávací políčko označující, že byl e-mail potvrzen.
 
-### <a name="test-password-reset"></a>Resetování hesla testu
+### <a name="test-password-reset"></a>Test resetování hesla
 
-* Pokud jste přihlášeni, vyberte **odhlášení**.
-* Vyberte **přihlášení** spojit a vybrat možnost **zapomněli jste heslo?** odkaz.
+* Pokud jste přihlášeni, vyberte **Odhlásit**.
+* Vyberte odkaz **Přihlásit** a vyberte odkaz **zapomenuté heslo?** .
 * Zadejte e-mail, který jste použili k registraci účtu.
-* Odešle e-mail s odkazem k resetování hesla. Zkontrolujte e-mailu a klikněte na odkaz pro resetování hesla. Po úspěšném resetování vašeho hesla se můžete přihlásit pomocí své e-mailu a nové heslo.
+* Pošle se e-mail s odkazem na resetování hesla. Podívejte se na e-mail a kliknutím na odkaz resetujte heslo. Po úspěšném resetování hesla se můžete přihlásit pomocí e-mailu a nového hesla.
 
-## <a name="change-email-and-activity-timeout"></a>Časový limit změny e-mailu a aktivita
+## <a name="change-email-and-activity-timeout"></a>Časový limit změny e-mailu a aktivity
 
-Výchozí hodnota časového limitu nečinnosti je 14 dní. Následující kód nastaví časový limit neaktivity na 5 dní:
+Výchozí časový limit nečinnosti je 14 dní. Následující kód nastaví časový limit nečinnosti na 5 dní:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAppCookie.cs?name=snippet1)]
 
-### <a name="change-all-data-protection-token-lifespans"></a>Změnit všechny lifespans token ochrany dat
+### <a name="change-all-data-protection-token-lifespans"></a>Změna všech životností tokenů ochrany dat
 
-Následující kód změní všechny data protection tokeny časový limit na 3 hodiny:
+Následující kód změní všechna období časového limitu tokenů ochrany dat na 3 hodiny:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupAllTokens.cs?name=snippet1&highlight=15-16)]
 
-Integrovaná v tokenech identitu uživatele (naleznete v tématu [AspNetCore/src/Identity/Extensions.Core/src/TokenOptions.cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) mít [vypršení časového limitu jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs).
+Předdefinované tokeny uživatelů identity (viz [AspNetCore/src/identity/Extensions. Core/src/TokenOptions. cs](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) ) mají [časový limit jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs).
 
-### <a name="change-the-email-token-lifespan"></a>Změnit životnost tokenu e-mailu
+### <a name="change-the-email-token-lifespan"></a>Změna životnosti tokenu e-mailu
 
-Výchozí token životnosti [tokeny Identity uživatele](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) je [jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs). Tato část ukazuje, jak změnit životnost tokenu e-mailu.
+Výchozí životnost tokenu [tokenů identity uživatele](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Extensions.Core/src/TokenOptions.cs) je [jeden den](https://github.com/aspnet/AspNetCore/blob/v2.2.2/src/Identity/Core/src/DataProtectionTokenProviderOptions.cs). V této části se dozvíte, jak změnit životnost tokenu e-mailu.
 
-Přidat vlastní [DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1) a <xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>:
+Přidejte vlastní [DataProtectorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.dataprotectortokenprovider-1) a: <xref:Microsoft.AspNetCore.Identity.DataProtectionTokenProviderOptions>
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/TokenProviders/CustomTokenProvider.cs?name=snippet1)]
 
-Přidáte vlastního zprostředkovatele do služby kontejneru:
+Přidejte vlastního zprostředkovatele do kontejneru služby:
 
 [!code-csharp[](accconfirm/sample/WebPWrecover22/StartupEmail.cs?name=snippet1&highlight=10-13,18)]
 
-### <a name="resend-email-confirmation"></a>Znovu poslat e-mailové potvrzení
+### <a name="resend-email-confirmation"></a>Odeslat potvrzení znovu e-mailem
 
-Zobrazit [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/5410).
+Podívejte se na [Tento problém GitHubu](https://github.com/aspnet/AspNetCore/issues/5410).
 
 <a name="debug"></a>
 
-### <a name="debug-email"></a>Ladění e-mailu
+### <a name="debug-email"></a>Ladit e-mail
 
-Pokud nelze získat pracovní e-mailu:
+Pokud nemůžete získat e-mail:
 
-* Nastavte zarážku v `EmailSender.Execute` ověření `SendGridClient.SendEmailAsync` je volána.
-* Vytvoření [konzolovou aplikaci k odesílání e-mailu](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html) pomocí podobné kódu `EmailSender.Execute`.
-* Zkontrolujte [e-mailové aktivity](https://sendgrid.com/docs/User_Guide/email_activity.html) stránky.
-* Zkontrolujte složku s nevyžádanou poštou.
-* Zkuste jinou e-mailový alias na jinou e-mailovou zprostředkovatele (Microsoft, Yahoo, Gmail, atd.)
-* Pokuste se odeslat na jiné e-mailové účty.
+* Nastavte zarážku v `EmailSender.Execute` na hodnotu `SendGridClient.SendEmailAsync` ověřit je volána.
+* Vytvořte [konzolovou aplikaci pro odesílání e-mailů](https://sendgrid.com/docs/Integrate/Code_Examples/v2_Mail/csharp.html) s `EmailSender.Execute`podobným kódem.
+* Zkontrolujte stránku [e-mailové aktivity](https://sendgrid.com/docs/User_Guide/email_activity.html) .
+* Ověřte složku s nevyžádanou poštou.
+* Vyzkoušejte si jiný e-mailový alias u jiného poskytovatele e-mailu (Microsoft, Yahoo, Gmail atd.)
+* Zkuste odesílat do jiných e-mailových účtů.
 
-**Z bezpečnostních důvodů** je **není** použití produkční tajných kódů v vývoj a testování. Pokud publikujete aplikaci do Azure, můžete nastavit SendGrid tajné kódy jako nastavení aplikace ve webové aplikaci Azure portal. Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.
+**Osvědčeným postupem z hlediska zabezpečení** je **Nepoužívat provozní** tajemství v rámci testování a vývoje. Pokud publikujete aplikaci do Azure, můžete nastavit tajné klíče SendGrid jako nastavení aplikace na portálu webové aplikace Azure. Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.
 
-## <a name="combine-social-and-local-login-accounts"></a>Sloučit účty sociálních sítí a místní přihlášení
+## <a name="combine-social-and-local-login-accounts"></a>Kombinování sociálních a místních přihlašovacích účtů
 
-K dokončení této části, je nutné nejprve povolit externí zprostředkovatel ověřování. Zobrazit [Facebook, Google a externí zprostředkovatel ověřování](xref:security/authentication/social/index).
+Chcete-li dokončit tuto část, je nutné nejprve povolit externího zprostředkovatele ověřování. Prohlédněte si [ověřování pro Facebook, Google a externí poskytovatele](xref:security/authentication/social/index).
 
-Kliknutím na odkaz na vaši e-mailu můžete kombinovat místní a sociální účty. V tomto pořadí "RickAndMSFT@gmail.com" se nejprve vytvoří jako místní přihlášení; však můžete nejprve vytvořte účet jako přihlášení prostřednictvím sociální sítě a pak přidat místní přihlašovací údaje.
+Místní a sociální účty můžete zkombinovat kliknutím na svůj e-mailový odkaz. V následujícím pořadí se "RickAndMSFT@gmail.com" nejdřív vytvoří jako místní přihlašovací jméno. účet ale můžete vytvořit jako nejdřív sociální přihlášení a pak přidat místní přihlašovací jméno.
 
-![Webová aplikace: RickAndMSFT@gmail.com uživatel byl ověřen](accconfirm/_static/rick.png)
+![Webová aplikace: RickAndMSFT@gmail.com ověřené uživatelem](accconfirm/_static/rick.png)
 
-Klikněte na **spravovat** odkaz. Poznámka: externí 0 (přihlašování přes sociální sítě) spojená s tímto účtem.
+Klikněte na odkaz **Správa** . Poznamenejte si externí (sociální přihlášení) přidružená k tomuto účtu.
 
-![Správa zobrazení](accconfirm/_static/manage.png)
+![Spravovat zobrazení](accconfirm/_static/manage.png)
 
-Klikněte na odkaz pro další přihlášení služby a přijímání požadavků aplikace. Na následujícím obrázku je Facebooku zprostředkovatele externího ověřování:
+Klikněte na odkaz na jinou přihlašovací službu a přijměte žádosti o aplikaci. Na následujícím obrázku je Facebook externí zprostředkovatel ověřování:
 
-![Spravovat externí přihlášení zobrazení výpisu Facebooku](accconfirm/_static/fb.png)
+![Správa zobrazení externích přihlášení s výpisem Facebooku](accconfirm/_static/fb.png)
 
-Byli sloučeni dva účty. Máte možnost přihlásit se přes účet. Můžete chtít uživatelům přidat místní účty v případě nefungující Služba ověřování v jejich přihlášení prostřednictvím sociální sítě nebo spíše se jste ztratili přístup k jejich účtu na sociální síti.
+Tyto dva účty byly kombinovány. Můžete se přihlásit pomocí obou účtů. Je možné, že budete chtít, aby uživatelé mohli přidávat místní účty pro případ výpadku služby ověřování v síti pro sociální přihlášení nebo pravděpodobně ztratili přístup ke svému sociálnímu účtu.
 
-## <a name="enable-account-confirmation-after-a-site-has-users"></a>Po lokality má uživatelům povolit potvrzení účtu
+## <a name="enable-account-confirmation-after-a-site-has-users"></a>Povolit potvrzení účtu, jakmile má lokalita uživatele
 
-Povolení potvrzení účtu na webu s uživateli zamezí všichni stávající uživatelé. Stávající uživatelé jsou uzamčen, protože jejich účty nejsou potvrzeny. Obejít existující uzamčení uživatelů, použijte jednu z následujících postupů:
+Povolení potvrzení účtu na webu s uživateli zamkne všechny existující uživatele. Stávající uživatelé jsou uzamčeni, protože jejich účty nejsou potvrzené. Chcete-li vyřešit stávající uzamčení uživatele, použijte jeden z následujících přístupů:
 
-* Aktualizujte databázi pro označení všichni stávající uživatelé, jako je potvrzen.
-* Zkontrolujte stávající uživatele. Třeba dávkové odeslání e-mailů s potvrzovací odkazy.
+* Aktualizujte databázi tak, aby označila všechny existující uživatele jako potvrzené.
+* Potvrďte stávající uživatele. Například Batch – posílání e-mailů s odkazy na potvrzení.
 
 ::: moniker-end

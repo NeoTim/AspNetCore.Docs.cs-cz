@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/14/2019
 uid: test/razor-pages-tests
-ms.openlocfilehash: 35feb5dd95fa79ceca7ff03523cef30d29ccbdd3
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: afac97d686ef190ebb92d20a55a15dd774b0d1de
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022565"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081429"
 ---
 # <a name="razor-pages-unit-tests-in-aspnet-core"></a>Razor Pages testování částí v ASP.NET Core
 
@@ -44,7 +44,7 @@ Vzorový projekt se skládá ze dvou aplikací:
 
 Testy lze spustit pomocí integrovaných funkcí testu integrovaného vývojového prostředí (IDE), jako je například [Visual Studio](/visualstudio/test/unit-test-your-code) nebo [Visual Studio pro Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazový řádek, spusťte následující příkaz na příkazovém řádku ve složce *Tests/RazorPagesTestSample. Tests* :
 
-```console
+```dotnetcli
 dotnet test
 ```
 
@@ -52,7 +52,7 @@ dotnet test
 
 Aplikace zprávy je Razor Pages systém zpráv s následujícími charakteristikami:
 
-* Stránka indexu aplikace (*pages/index. cshtml* a Pages */index. cshtml. cs*) poskytuje metody uživatelského rozhraní a modelu stránky pro řízení přidávání, odstraňování a analýzy zpráv (hledání průměrného počtu slov na jednu zprávu).
+* Stránka indexu aplikace (*pages/index. cshtml* a *pages/index. cshtml. cs*) poskytuje metody uživatelského rozhraní a modelu stránky pro řízení přidávání, odstraňování a analýzy zpráv (hledání průměrného počtu slov na jednu zprávu).
 * Zpráva je popsána `Message` třídou (*data/Message. cs*) se dvěma vlastnostmi: `Id` (klíč) a `Text` (zpráva). `Text` Vlastnost je povinná a omezená na 200 znaků.
 * Zprávy se ukládají&#8224;pomocí [databáze Entity Framework v paměti](/ef/core/providers/in-memory/).
 * Aplikace obsahuje ve své třídě `AppDbContext` kontext databáze dal (*data/AppDbContext. cs*). Metody dal jsou označeny `virtual`, což umožňuje napodobovat metody pro použití v testech.
@@ -96,7 +96,7 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-Problém s tímto přístupem je, že každý test obdrží databázi v jakémkoli stavu, který předchozí test opustil. To může být problematické při pokusu o zápis atomických testů, které mezi sebou nekolidují. Chcete-li `AppDbContext` vynutit použití nového kontextu databáze pro každý test, `DbContextOptions` zadejte instanci, která je založena na novém poskytovateli služeb. Testovací aplikace ukazuje, jak to provést pomocí `Utilities` metody `TestDbContextOptions` třídy (Tests */RazorPagesTestSample. Tests/Utilities/Utilities. cs*):
+Problém s tímto přístupem je, že každý test obdrží databázi v jakémkoli stavu, který předchozí test opustil. To může být problematické při pokusu o zápis atomických testů, které mezi sebou nekolidují. Chcete-li `AppDbContext` vynutit použití nového kontextu databáze pro každý test, `DbContextOptions` zadejte instanci, která je založena na novém poskytovateli služeb. Testovací aplikace ukazuje, jak to provést pomocí `Utilities` metody `TestDbContextOptions` třídy (*Tests/RazorPagesTestSample. Tests/Utilities/Utilities. cs*):
 
 [!code-csharp[](razor-pages-tests/samples/3.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
@@ -156,7 +156,7 @@ Další sada testů jednotek zodpovídá za testy metod modelu stránky. V aplik
 | `OnPostDeleteMessageAsync` | Provede `DeleteMessageAsync` odstranění zprávy `Id` se zadaným. |
 | `OnPostAnalyzeMessagesAsync` | Pokud je v databázi jedna nebo více zpráv, vypočítá průměrný počet slov na jednu zprávu. |
 
-Metody modelu stránky jsou testovány pomocí sedmi testů ve `IndexPageTests` třídě (Tests */RazorPagesTestSample. Tests/UnitTests/IndexPageTests. cs*). Testy používají známý vzor uspořádání a vyhodnocení – Act. Tyto testy se zaměřují na:
+Metody modelu stránky jsou testovány pomocí sedmi testů ve `IndexPageTests` třídě (*Tests/RazorPagesTestSample. Tests/UnitTests/IndexPageTests. cs*). Testy používají známý vzor uspořádání a vyhodnocení – Act. Tyto testy se zaměřují na:
 
 * Určení, zda metody dodrží správné chování, pokud je [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) neplatné.
 * Potvrzení metod vyprodukuje správné <xref:Microsoft.AspNetCore.Mvc.IActionResult>.
@@ -228,7 +228,7 @@ Vzorový projekt se skládá ze dvou aplikací:
 
 Testy lze spustit pomocí integrovaných funkcí testu integrovaného vývojového prostředí (IDE), jako je například [Visual Studio](/visualstudio/test/unit-test-your-code) nebo [Visual Studio pro Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazový řádek, spusťte následující příkaz na příkazovém řádku ve složce *Tests/RazorPagesTestSample. Tests* :
 
-```console
+```dotnetcli
 dotnet test
 ```
 
@@ -236,7 +236,7 @@ dotnet test
 
 Aplikace zprávy je Razor Pages systém zpráv s následujícími charakteristikami:
 
-* Stránka indexu aplikace (*pages/index. cshtml* a Pages */index. cshtml. cs*) poskytuje metody uživatelského rozhraní a modelu stránky pro řízení přidávání, odstraňování a analýzy zpráv (hledání průměrného počtu slov na jednu zprávu).
+* Stránka indexu aplikace (*pages/index. cshtml* a *pages/index. cshtml. cs*) poskytuje metody uživatelského rozhraní a modelu stránky pro řízení přidávání, odstraňování a analýzy zpráv (hledání průměrného počtu slov na jednu zprávu).
 * Zpráva je popsána `Message` třídou (*data/Message. cs*) se dvěma vlastnostmi: `Id` (klíč) a `Text` (zpráva). `Text` Vlastnost je povinná a omezená na 200 znaků.
 * Zprávy se ukládají&#8224;pomocí [databáze Entity Framework v paměti](/ef/core/providers/in-memory/).
 * Aplikace obsahuje ve své třídě `AppDbContext` kontext databáze dal (*data/AppDbContext. cs*). Metody dal jsou označeny `virtual`, což umožňuje napodobovat metody pro použití v testech.
@@ -280,7 +280,7 @@ using (var db = new AppDbContext(optionsBuilder.Options))
 }
 ```
 
-Problém s tímto přístupem je, že každý test obdrží databázi v jakémkoli stavu, který předchozí test opustil. To může být problematické při pokusu o zápis atomických testů, které mezi sebou nekolidují. Chcete-li `AppDbContext` vynutit použití nového kontextu databáze pro každý test, `DbContextOptions` zadejte instanci, která je založena na novém poskytovateli služeb. Testovací aplikace ukazuje, jak to provést pomocí `Utilities` metody `TestDbContextOptions` třídy (Tests */RazorPagesTestSample. Tests/Utilities/Utilities. cs*):
+Problém s tímto přístupem je, že každý test obdrží databázi v jakémkoli stavu, který předchozí test opustil. To může být problematické při pokusu o zápis atomických testů, které mezi sebou nekolidují. Chcete-li `AppDbContext` vynutit použití nového kontextu databáze pro každý test, `DbContextOptions` zadejte instanci, která je založena na novém poskytovateli služeb. Testovací aplikace ukazuje, jak to provést pomocí `Utilities` metody `TestDbContextOptions` třídy (*Tests/RazorPagesTestSample. Tests/Utilities/Utilities. cs*):
 
 [!code-csharp[](razor-pages-tests/samples/2.x/tests/RazorPagesTestSample.Tests/Utilities/Utilities.cs?name=snippet1)]
 
@@ -340,7 +340,7 @@ Další sada testů jednotek zodpovídá za testy metod modelu stránky. V aplik
 | `OnPostDeleteMessageAsync` | Provede `DeleteMessageAsync` odstranění zprávy `Id` se zadaným. |
 | `OnPostAnalyzeMessagesAsync` | Pokud je v databázi jedna nebo více zpráv, vypočítá průměrný počet slov na jednu zprávu. |
 
-Metody modelu stránky jsou testovány pomocí sedmi testů ve `IndexPageTests` třídě (Tests */RazorPagesTestSample. Tests/UnitTests/IndexPageTests. cs*). Testy používají známý vzor uspořádání a vyhodnocení – Act. Tyto testy se zaměřují na:
+Metody modelu stránky jsou testovány pomocí sedmi testů ve `IndexPageTests` třídě (*Tests/RazorPagesTestSample. Tests/UnitTests/IndexPageTests. cs*). Testy používají známý vzor uspořádání a vyhodnocení – Act. Tyto testy se zaměřují na:
 
 * Určení, zda metody dodrží správné chování, pokud je [ModelState](xref:Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary) neplatné.
 * Potvrzení metod vyprodukuje správné <xref:Microsoft.AspNetCore.Mvc.IActionResult>.

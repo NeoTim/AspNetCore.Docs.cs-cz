@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/08/2019
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: c31beae16f46153daac188ab1638e5530584ac88
-ms.sourcegitcommit: 776367717e990bdd600cb3c9148ffb905d56862d
+ms.openlocfilehash: 4ac7b3a2f738e443263dd888f556e0aff7c8099b
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68927214"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082381"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>Publikování aplikace ASP.NET Core ve službě IIS
 
@@ -84,7 +84,7 @@ Pokud chcete vytvořit aplikaci Razor Pages, postupujte podle kurzu.<xref:gettin
 
 1. V příkazovém prostředí publikujte aplikaci v konfiguraci vydaných verzí pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
 
-   ```console
+   ```dotnetcli
    dotnet publish --configuration Release
    ```
 
@@ -103,7 +103,7 @@ Pokud chcete vytvořit aplikaci Razor Pages, postupujte podle kurzu.<xref:gettin
 
 Aplikace je v prohlížeči přístupná, až obdrží první požadavek. Vyžádejte aplikaci na vazbu koncového bodu, kterou jste navázali ve Správci služby IIS pro danou lokalitu.
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu jste se naučili:
 

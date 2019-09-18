@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: d95f44394d6ecc3c3896b45c5bebc73fa2d92445
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: d827f6f839c9e42e6d3d7b04fe8b24a1c9732aee
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011188"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082444"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
 
@@ -103,7 +103,7 @@ Použití technologie ASP.NET [Identity](xref:security/authentication/identity) 
 
 Vytvořte novou migraci a aktualizaci databáze:
 
-```console
+```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
@@ -130,7 +130,7 @@ Přidejte [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowa
 
 `SeedData` Třída vytvoří dva účty: správce a správce. Použití [nástroj tajný klíč správce](xref:security/app-secrets) nastavení hesla pro tyto účty. Nastavte heslo z adresáře projektu (adresáře, který obsahuje *Program.cs*):
 
-```console
+```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
@@ -279,7 +279,7 @@ Pokud jste dosud nenastavili hesla pro dosazené uživatelské účty, použijte
 * Vyberte silné heslo: Použijte osm nebo více znaků a alespoň jedno velké písmeno, číslici a symbol. Například `Passw0rd!` splňuje požadavky na silné heslo.
 * Spusťte následující příkaz ze složky projektu, kde `<PW>` je heslo:
 
-  ```console
+  ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
@@ -310,7 +310,7 @@ Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro ods
   * Pojmenujte ji "ContactManager" tak obor názvů odpovídá oboru názvů použitého v ukázce.
   * `-uld` Určuje LocalDB místo SQLite
 
-  ```console
+  ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
@@ -321,14 +321,14 @@ Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro ods
 * Vygenerované uživatelské rozhraní `Contact` modelu.
 * Vytvořte počáteční migraci a aktualizaci databáze:
 
-```console
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet tool install -g dotnet-aspnet-codegenerator
 dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
 dotnet ef database drop -f
 dotnet ef migrations add initial
 dotnet ef database update
-  ```
+```
 
 Pokud se zobrazí chyba s `dotnet aspnet-codegenerator razorpage` příkazem, přečtěte si [Tento problém GitHub](https://github.com/aspnet/Scaffolding/issues/984).
 
@@ -426,7 +426,7 @@ Použití technologie ASP.NET [Identity](xref:security/authentication/identity) 
 
 Vytvořte novou migraci a aktualizaci databáze:
 
-```console
+```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
@@ -453,7 +453,7 @@ Přidat [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowano
 
 `SeedData` Třída vytvoří dva účty: správce a správce. Použití [nástroj tajný klíč správce](xref:security/app-secrets) nastavení hesla pro tyto účty. Nastavte heslo z adresáře projektu (adresáře, který obsahuje *Program.cs*):
 
-```console
+```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
@@ -602,16 +602,16 @@ Pokud jste dosud nenastavili hesla pro dosazené uživatelské účty, použijte
 * Vyberte silné heslo: Použijte osm nebo více znaků a alespoň jedno velké písmeno, číslici a symbol. Například `Passw0rd!` splňuje požadavky na silné heslo.
 * Spusťte následující příkaz ze složky projektu, kde `<PW>` je heslo:
 
-  ```console
+  ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
 * Zrušení a aktualizace databáze
 
-    ```console
-     dotnet ef database drop -f
-     dotnet ef database update  
-     ```
+  ```dotnetcli
+  dotnet ef database drop -f
+  dotnet ef database update  
+  ```
 
 * Restartujte aplikaci k přidání dat do databáze.
 
@@ -637,7 +637,7 @@ Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro ods
   * Pojmenujte ji "ContactManager" tak obor názvů odpovídá oboru názvů použitého v ukázce.
   * `-uld` Určuje LocalDB místo SQLite
 
-  ```console
+  ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
@@ -648,7 +648,7 @@ Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro ods
 * Vygenerované uživatelské rozhraní `Contact` modelu.
 * Vytvořte počáteční migraci a aktualizaci databáze:
 
-  ```console
+  ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
   dotnet ef database drop -f
   dotnet ef migrations add initial

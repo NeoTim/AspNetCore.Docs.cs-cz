@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 05/11/2019
 uid: security/authentication/twitter-logins
-ms.openlocfilehash: 6b6fa3e50f602a92fec9112ac3ba43583de33a70
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 5182f1647acb664bf35f086fcddbe909559a62f7
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68994285"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082294"
 ---
 # <a name="twitter-external-sign-in-setup-with-aspnet-core"></a>Nastavení externího přihlášení k Twitteru pomocí ASP.NET Core
 
 Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V této ukázce se dozvíte, jak uživatelům povolit, aby se k [účtu Twitter](https://dev.twitter.com/web/sign-in/desktop-browser) přihlásili pomocí ukázkového projektu ASP.NET Core 2,2 vytvořeného na [předchozí stránce](xref:security/authentication/social/index).
+V této ukázce se dozvíte, jak uživatelům povolit, aby se k [účtu Twitter přihlásili](https://dev.twitter.com/web/sign-in/desktop-browser) pomocí ukázkového projektu ASP.NET Core 2,2 vytvořeného na [předchozí stránce](xref:security/authentication/social/index).
 
 ## <a name="create-the-app-in-twitter"></a>Vytvoření aplikace na Twitteru
 
@@ -25,7 +25,7 @@ V této ukázce se dozvíte, jak uživatelům povolit, aby se k [účtu Twitter]
 
 * Klepněte na **vytvořit novou aplikaci** a vyplňte **název**aplikace, **Popis** a identifikátor URI veřejného **webu** (může to být dočasné, dokud nezaregistrujete název domény):
 
-* Zadejte identifikátor URI pro vývoj `/signin-twitter` s připojením k platným poli s **platnými identifikátory URI pro přesměrování OAuth** (například: `https://webapp128.azurewebsites.net/signin-twitter`). Schéma ověřování Twitteru, které je nakonfigurované později v této ukázce, `/signin-twitter` automaticky zpracuje požadavky na trase k implementaci toku OAuth.
+* Zadejte identifikátor URI pro vývoj `/signin-twitter` s připojením k **platným poli s platnými identifikátory URI pro přesměrování OAuth** (například: `https://webapp128.azurewebsites.net/signin-twitter`). Schéma ověřování Twitteru, které je nakonfigurované později v této ukázce, `/signin-twitter` automaticky zpracuje požadavky na trase k implementaci toku OAuth.
 
   > [!NOTE]
   > Segment `/signin-twitter` identifikátoru URI je nastaven jako výchozí zpětné volání poskytovatele ověřování Twitteru. Výchozí identifikátor URI zpětného volání můžete změnit během konfigurace middleware pro ověřování Twitteru prostřednictvím zděděné vlastnosti [RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [TwitterOptions](/dotnet/api/microsoft.aspnetcore.authentication.twitter.twitteroptions) .
@@ -36,7 +36,7 @@ V této ukázce se dozvíte, jak uživatelům povolit, aby se k [účtu Twitter]
 
 Spuštěním následujících příkazů bezpečně uložte `ClientId` a `ClientSecret` použijte [správce tajných klíčů](xref:security/app-secrets):
 
-```console
+```dotnetcli
 dotnet user-secrets set Authentication:Twitter:ConsumerAPIKey <Key>
 dotnet user-secrets set Authentication:Twitter:ConsumerSecret <Secret>
 ```

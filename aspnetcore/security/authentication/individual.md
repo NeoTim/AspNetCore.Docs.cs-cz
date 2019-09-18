@@ -1,26 +1,26 @@
 ---
-title: Články podle projekty ASP.NET Core, které jsou vytvořené pomocí jednotlivých uživatelských účtů
+title: Články založené na ASP.NET Core projektech vytvořených pomocí individuálních uživatelských účtů
 author: rick-anderson
-description: Vyhledat články založené na projekty ASP.NET Core, které jsou vytvořené pomocí jednotlivých uživatelských účtů.
+description: Objevte články na základě ASP.NET Core projektů vytvořených pomocí individuálních uživatelských účtů.
 ms.author: riande
 ms.date: 11/30/2017
 uid: security/authentication/individual
-ms.openlocfilehash: f9c1be16386da935382275815bb5fd5c72894b1c
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: cf548417268a8587787471b9ed91c0ed109fbee9
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898875"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080705"
 ---
-# <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>Články podle projekty ASP.NET Core, které jsou vytvořené pomocí jednotlivých uživatelských účtů
+# <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>Články založené na ASP.NET Core projektech vytvořených pomocí individuálních uživatelských účtů
 
-ASP.NET Core Identity je součástí šablony projektů v sadě Visual Studio s parametrem "Jednotlivých uživatelských účtů".
+ASP.NET Core identita je zahrnuta v šablonách projektů v aplikaci Visual Studio s možností jednotlivé uživatelské účty.
 
-Ověřování šablony jsou k dispozici v rozhraní .NET Core CLI s `-au Individual`:
+Šablony ověřování jsou dostupné v .NET Core CLI s `-au Individual`:
 
 ::: moniker range=">= aspnetcore-2.1"
 
-```console
+```dotnetcli
 dotnet new mvc -au Individual
 dotnet new webapp -au Individual
 ```
@@ -29,37 +29,37 @@ dotnet new webapp -au Individual
 
 ::: moniker range="= aspnetcore-2.0"
 
-```console
+```dotnetcli
 dotnet new mvc -au Individual
 dotnet new razor -au Individual
 ```
 
 ::: moniker-end
 
-Zobrazit [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/5833) pro ověřování webové rozhraní API.
+Podívejte se na [Tento problém GitHubu](https://github.com/aspnet/AspNetCore/issues/5833) pro ověřování webového rozhraní API.
 
 <a name="no"></a>
 
 ## <a name="no-authentication"></a>Bez ověřování
 
-Ověřování je zadaný v rozhraní příkazového řádku .NET Core s `-au` možnost. V sadě Visual Studio **změna ověřování** dialogové okno je k dispozici pro nové webové aplikace. Výchozí pro nové webové aplikace v sadě Visual Studio je **bez ověřování**.
+Ověřování je zadáno v .NET Core CLI s `-au` možností. V aplikaci Visual Studio je k dispozici dialog **Změna ověřování** pro nové webové aplikace. Výchozí pro nové webové aplikace v aplikaci Visual Studio není **ověřování**.
 
 Projekty vytvořené bez ověřování:
 
-* Neobsahují webových stránek a uživatelského rozhraní pro přihlášení a odhlášení.
-* Neobsahují ověřovacího kódu.
+* Neobsahujte webové stránky a uživatelské rozhraní pro přihlášení a odhlášení.
+* Neobsahujte ověřovací kód.
 
 <a name="win"></a>
 
 ## <a name="windows-authentication"></a>Ověřování systému Windows
 
-Ověřování Windows je určená pro nové webové aplikace v rozhraní příkazového řádku .NET Core s `-au Windows` možnost. V sadě Visual Studio **změna ověřování** dialogové okno obsahuje **ověřování Windows** možnosti.
+Ověřování systému Windows je zadáno pro nové webové aplikace v .NET Core CLI s `-au Windows` možností. V aplikaci Visual Studio je v dialogovém okně pro **změnu ověřování** k dispozici možnost **ověřování systému Windows** .
 
-Pokud je vybrána možnost ověření Windows, aplikace je nakonfigurovaná pro používání [modul IIS ověřování Windows](xref:host-and-deploy/iis/modules). Ověřování Windows je určená pro intranetové weby.
+Pokud je vybraná možnost ověřování systému Windows, aplikace je nakonfigurovaná tak, aby používala [modul služby IIS pro ověřování systému Windows](xref:host-and-deploy/iis/modules). Ověřování systému Windows je určeno pro intranetové weby.
 
 ## <a name="additional-resources"></a>Další zdroje
 
-Následující články popisují, jak používat kód vygenerovaný v šablony ASP.NET Core, které používají jednotlivých uživatelských účtů:
+V následujících článcích se dozvíte, jak používat kód vygenerovaný v ASP.NET Core šablonách, které používají jednotlivé uživatelské účty:
 
 * [Dvoufaktorové ověřování přes SMS](xref:security/authentication/2fa)
 * [Potvrzení účtu a obnovení hesla v ASP.NET Core](xref:security/authentication/accconfirm)

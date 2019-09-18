@@ -22,7 +22,7 @@ Přidejte do souboru *appSettings. JSON* připojovací řetězec:
 
 Spusťte následující příkazy .NET Core CLI:
 
-```console
+```dotnetcli
 dotnet tool install --global dotnet-ef --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
@@ -71,7 +71,7 @@ Přidejte do souboru *appSettings. JSON* připojovací řetězec:
 
 Spusťte následující .NET Core CLI příkaz pro přidání SQLite a strategii. design do projektu:
 
-```console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.SQLite
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 ```

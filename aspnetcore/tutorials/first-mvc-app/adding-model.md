@@ -5,12 +5,12 @@ description: Přidejte model do jednoduché aplikace ASP.NET Core.
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 038ea8cf7c72e4aaca6e06c0208d3dd1d5597577
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: b0efaf76cb2172f5b7568e42065b99b1259949de
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022472"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082026"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu do ASP.NET Core aplikace MVC
 
@@ -49,7 +49,7 @@ Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal
   * Uživatel není požádán o zadání informací o čase do pole datum.
   * Zobrazí se pouze datum, nejedná se o informace o čase.
 
-[](/dotnet/api/system.componentmodel.dataannotations) V pozdějším kurzu jsou uvedena tato anotace.
+V pozdějším kurzu jsou uvedena tato [Anotace](/dotnet/api/system.componentmodel.dataannotations) .
 
 ## <a name="add-nuget-packages"></a>Přidat balíčky NuGet
 
@@ -71,7 +71,7 @@ Předchozí příkaz přidá poskytovatele EF Core SQL Server. Balíček Provide
 
 Spusťte následující příkazy .NET Core CLI:
 
-```console
+```dotnetcli
 dotnet tool install --global dotnet-ef --version 3.0.0-*
 dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
@@ -152,7 +152,7 @@ Použijte nástroj pro generování uživatelského rozhraní k vytvoření str�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku controllers **> přidat > novou vygenerované položky**.
+V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku *Controllers* **> přidat > novou vygenerované položky**.
 
 ![zobrazení výše uvedeného kroku](adding-model/_static/add_controller21.png)
 
@@ -190,8 +190,8 @@ Automatické vytváření těchto souborů se říká *generování uživatelsk�
 
 * Spusťte následující příkaz:
 
-  ```console
-     dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```dotnetcli
+   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
   [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]
@@ -202,8 +202,8 @@ Automatické vytváření těchto souborů se říká *generování uživatelsk�
 
 * Spusťte následující příkaz:
 
-  ```console
-     dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```dotnetcli
+   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
   [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]
@@ -212,7 +212,7 @@ Automatické vytváření těchto souborů se říká *generování uživatelsk�
 
 <!-- End of tabs                  -->
 
-Vygenerované stránky nemůžete zatím použít, protože databáze neexistuje. Pokud aplikaci spouštíte a kliknete na odkaz **filmové aplikace** , nemůžete *otevřít databázi* ani *žádnou takovou tabulku: Chybová* zpráva videa
+Vygenerované stránky nemůžete zatím použít, protože databáze neexistuje. Pokud aplikaci spouštíte a kliknete na odkaz **filmové aplikace** , *nemůžete otevřít databázi* ani *žádnou takovou tabulku: Chybová* zpráva videa
 
 <a name="migration"></a>
 
@@ -247,7 +247,7 @@ Update-Database
 
 Spusťte následující příkazy .NET Core CLI:
 
-```console
+```dotnetcli
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
@@ -356,7 +356,7 @@ Projděte si obsah souboru *views/video/details. cshtml* :
 @model MvcMovie.Models.Movie
    ```
 
-Tato `@model` Direktiva umožňuje přístup k videu, který kontroler předali do zobrazení. `Model` Objekt je silného typu. Například v zobrazení Details *. cshtml* kód předá každé pole videa do `DisplayNameFor` pomocníků HTML a `DisplayFor` s objektem silného typu `Model` . Metody `Create` a `Edit` zobrazení také`Movie` předají objekt modelu.
+Tato `@model` Direktiva umožňuje přístup k videu, který kontroler předali do zobrazení. `Model` Objekt je silného typu. Například v zobrazení *Details. cshtml* kód předá každé pole videa do `DisplayNameFor` pomocníků HTML a `DisplayFor` s objektem silného typu `Model` . Metody `Create` a `Edit` zobrazení také`Movie` předají objekt modelu.
 
 Prohlédněte si zobrazení *index. cshtml* a `Index` metodu v řadiči filmů. Všimněte si, jak kód při `List` `View` volání metody vytvoří objekt. Kód předá tento `Movies` seznam `Index` z metody Action do zobrazení:
 
@@ -410,7 +410,7 @@ V této části je automaticky generovaný model video. To znamená vytvoří n�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku controllers **> přidat > novou vygenerované položky**.
+V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku *Controllers* **> přidat > novou vygenerované položky**.
 
 ![zobrazení výše uvedeného kroku](adding-model/_static/add_controller21.png)
 
@@ -447,7 +447,7 @@ K automatickému vytvoření kontextu databáze a operací [CRUD](https://wikipe
 * Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
 
-  ```console
+  ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
@@ -459,8 +459,8 @@ K automatickému vytvoření kontextu databáze a operací [CRUD](https://wikipe
 
 * Spusťte následující příkaz:
 
-  ```console
-     dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```dotnetcli
+   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
 [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]
@@ -472,14 +472,14 @@ K automatickému vytvoření kontextu databáze a operací [CRUD](https://wikipe
 * Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
 
-  ```console
+  ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
 * Spusťte následující příkaz:
 
-  ```console
-     dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+  ```dotnetcli
+   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
   ```
 
 [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]
@@ -665,7 +665,7 @@ Zahrnutím `@model` příkazu v horní části souboru zobrazení můžete urči
 @model MvcMovie.Models.Movie
    ```
 
-Tato `@model` Direktiva umožňuje přístup k videu, který kontroler předává do zobrazení `Model` pomocí objektu se silným typem. Například v zobrazení Details *. cshtml* kód předá každé pole videa do `DisplayNameFor` pomocníků HTML a `DisplayFor` s objektem silného typu `Model` . Metody `Create` a `Edit` zobrazení také`Movie` předají objekt modelu.
+Tato `@model` Direktiva umožňuje přístup k videu, který kontroler předává do zobrazení `Model` pomocí objektu se silným typem. Například v zobrazení *Details. cshtml* kód předá každé pole videa do `DisplayNameFor` pomocníků HTML a `DisplayFor` s objektem silného typu `Model` . Metody `Create` a `Edit` zobrazení také`Movie` předají objekt modelu.
 
 Prohlédněte si zobrazení *index. cshtml* a `Index` metodu v řadiči filmů. Všimněte si, jak kód při `List` `View` volání metody vytvoří objekt. Kód předá tento `Movies` seznam `Index` z metody Action do zobrazení:
 

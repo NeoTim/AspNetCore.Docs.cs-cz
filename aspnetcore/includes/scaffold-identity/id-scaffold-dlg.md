@@ -1,11 +1,11 @@
-Spusťte generátor Identity:
+Spusťte generování uživatelského rozhraní identity:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt > **přidat** > **novou vygenerovanou položku**.
 * V levém podokně **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **Identity** > **přidat**.
-* V **ADD Identity** dialogového okna, vyberte požadované možnosti.
-  * Vyberte existující stránku rozložení nebo rozložení souboru budou přepsány nesprávný kód. Například `~/Pages/Shared/_Layout.cshtml` pro stránky Razor `~/Views/Shared/_Layout.cshtml` pro projekty MVC
+* V dialogovém okně **Přidat identitu** vyberte požadované možnosti.
+  * Vyberte existující stránku rozložení, nebo bude soubor rozložení přepsán nesprávným označením. Například `~/Pages/Shared/_Layout.cshtml` pro Razor Pages `~/Views/Shared/_Layout.cshtml` pro projekty MVC
   * Vyberte **+** tlačítko pro vytvoření nového **třída kontextu dat**.
 * Vyberte **přidat**.
 
@@ -13,26 +13,26 @@ Spusťte generátor Identity:
 
 Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 
-```cli
+```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-Přidat odkaz na balíček pro [Microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do projektu (\*.csproj) souboru. Spusťte následující příkaz v adresáři projektu:
+Přidejte odkaz na balíček do [Microsoft. VisualStudio. Web. strategii. Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do souboru projektu (\*. csproj). Spusťte následující příkaz v adresáři projektu:
 
-```cli
+```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
 Spusťte následující příkaz k výpisu možností generátor Identity:
 
-```cli
+```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
 
-Ve složce projektu spusťte s možnostmi, které chcete generátor Identity. Například nastavit identitu pomocí výchozího uživatelského rozhraní a minimální počet souborů, spusťte následující příkaz:
+Ve složce projektu spusťte generátor identity pomocí možností, které chcete. Chcete-li například nastavit identitu pomocí výchozího uživatelského rozhraní a minimálního počtu souborů, spusťte následující příkaz:
 
-```cli
+```dotnetcli
 dotnet aspnet-codegenerator identity --useDefaultUI
 ```
 

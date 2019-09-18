@@ -1,23 +1,23 @@
 ---
 title: Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 author: rick-anderson
-description: Kurz s příklady kódu pro demonstraci integrace ověřování pomocí účtu uživatele Facebooku do stávající aplikace ASP.NET Core.
+description: Kurz s příklady kódu, které demonstrují integraci ověřování uživatelů z účtu Facebook do existující aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: seoapril2019, mvc, seodec18
 ms.date: 03/04/2019
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: 84b891f6cee71a26726d49a9d42ae45007d2b429
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: f7b21de7e5fe9d77804588280c3d8be9df8afee5
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899859"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082551"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 
 Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V tomto kurzu s příklady kódu ukazuje, jak povolit vašim uživatelům přihlašovat se pomocí svého účtu sítě Facebook použitím ukázkového projektu ASP.NET Core 2.0 vytvořit na [předchozí stránce](xref:security/authentication/social/index). Začneme tím, že vytvoříte podle ID aplikace pro Facebook [oficiální kroky](https://developers.facebook.com).
+Tento kurz s příklady kódu ukazuje, jak se uživatelům umožní přihlásit se pomocí účtu na Facebooku pomocí ukázkového projektu ASP.NET Core 2,0 vytvořeného na [předchozí stránce](xref:security/authentication/social/index). Začneme tím, že vytvoříte podle ID aplikace pro Facebook [oficiální kroky](https://developers.facebook.com).
 
 ## <a name="create-the-app-in-facebook"></a>Vytvoření aplikace na Facebooku
 
@@ -64,7 +64,7 @@ Propojit citlivá nastavení, jako je Facebook `App ID` a `App Secret` pomocí k
 
 Spusťte následující příkazy zabezpečeně ukládat `App ID` a `App Secret` pomocí manažera tajných:
 
-```console
+```dotnetcli
 dotnet user-secrets set Authentication:Facebook:AppId <app-id>
 dotnet user-secrets set Authentication:Facebook:AppSecret <app-secret>
 ```
@@ -123,7 +123,7 @@ Zobrazit [FacebookOptions](/dotnet/api/microsoft.aspnetcore.builder.facebookopti
 
 Spusťte aplikaci a klikněte na tlačítko **přihlášení**. Zobrazí se možnost přihlásit se přes Facebook.
 
-![Webové aplikace: Uživatel nebyl ověřen](index/_static/DoneFacebook.png)
+![Webová aplikace: Uživatel nebyl ověřen.](index/_static/DoneFacebook.png)
 
 Po kliknutí na **Facebook**, budete přesměrováni na Facebook pro ověření:
 
@@ -137,18 +137,18 @@ Po zadání vašich přihlašovacích údajů k Facebooku budete přesměrováni
 
 Nyní jste přihlášeni pomocí vašich přihlašovacích údajů k Facebooku:
 
-![Webové aplikace: Uživatel byl ověřen](index/_static/Done.png)
+![Webová aplikace: Ověřeno uživatelem](index/_static/Done.png)
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
 ## <a name="troubleshooting"></a>Poradce při potížích
 
-* **ASP.NET Core 2.x pouze:** Pokud není nakonfigurovaná identita voláním `services.AddIdentity` v `ConfigureServices`, bude výsledkem pokusu o ověření *ArgumentException: Musí být Zadaná možnost "SignInScheme"*. Šablona projektu použité v tomto kurzu zajistí, že to se provádí.
+* **Pouze ASP.NET Core 2. x:** Pokud identita není nakonfigurována voláním `services.AddIdentity` v `ConfigureServices`, výsledkem *pokusu o ověření bude ArgumentException: Je nutné zadat*možnost SignInScheme. Šablona projektu použité v tomto kurzu zajistí, že to se provádí.
 * Pokud nebyl vytvořen použití počáteční migraci databáze lokality, můžete získat *databázová operace selhala při zpracování požadavku* chyby. Klepněte na **migrace použít** k vytvoření databáze a aktualizovat a pokračovat po chybě.
 
 ## <a name="next-steps"></a>Další kroky
 
-* Přidat [Microsoft.AspNetCore.Authentication.Facebook](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Facebook) balíček NuGet do projektu pro pokročilé scénáře ověřování služby Facebook. Tento balíček nevyžaduje integrovat funkce externí přihlášení Facebooku s vaší aplikací. 
+* Přidejte do projektu balíček NuGet [Microsoft. AspNetCore. Authentication. Facebook](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Facebook) pro pokročilé scénáře ověřování na Facebooku. Tento balíček není potřebný pro integraci funkce externích přihlášení ke službě Facebook s vaší aplikací. 
 
 * V tomto článku jsme si ukázali, jak ověřování pomocí Facebooku. Můžete postupovat podle podobný přístup k ověření u jiných poskytovatelů na [předchozí stránce](xref:security/authentication/social/index).
 

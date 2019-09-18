@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 913511948def86cb2065459a3fcf5f16362a92d5
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 7a67efad187f29773c1cac7a5a2457d02080114b
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975036"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080551"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: Další informace o pokročilých scénářích – ASP.NET MVC s EF Core
 
@@ -161,7 +161,7 @@ Mnoho vývojářů napíše kód, který implementuje úložiště a pracovní p
 
 Informace o implementaci vzorového úložiště a pracovní jednotky najdete v části [Entity Framework 5 této série kurzů](/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application).
 
-Entity Framework Core implementuje poskytovatele databáze v paměti, který lze použít k testování. Další informace najdete v tématu [test s](/ef/core/miscellaneous/testing/in-memory)nepamětí.
+Entity Framework Core implementuje poskytovatele databáze v paměti, který lze použít k testování. Další informace najdete v tématu [test s Nepamětí](/ef/core/miscellaneous/testing/in-memory).
 
 ## <a name="automatic-change-detection"></a>Automatické zjišťování změn
 
@@ -235,7 +235,7 @@ Databázi v SSOX odstraníte tak, že kliknete pravým tlačítkem na databázi,
 
 Chcete-li odstranit databázi pomocí rozhraní příkazového řádku, `database drop` spusťte příkaz CLI:
 
-```console
+```dotnetcli
 dotnet ef database drop
 ```
 

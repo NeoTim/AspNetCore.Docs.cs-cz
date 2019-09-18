@@ -1,10 +1,10 @@
-* Důvěřujete certifikátu vývoj HTTPS spuštěním následujícího příkazu:
+* Vystavte certifikát pro vývoj HTTPS tak, že spustíte následující příkaz:
 
-    ```console
+    ```dotnetcli
     dotnet dev-certs https --trust
     ```
 
-* Ve výstupu předchozího příkazu se zobrazí následující výstup:
+* Předchozí příkaz zobrazí následující výstup:
 
     ```console
     Trusting the HTTPS development certificate was requested. If the certificate 
@@ -16,6 +16,6 @@
     The HTTPS developer certificate was generated successfully.
     ```
 
-* Pokud se zobrazí výzva, zadejte uživatelské jméno admin a heslo.  Certifikát se teď nainstalovaný a důvěryhodné.
+* Pokud se zobrazí výzva, zadejte uživatelské jméno a heslo správce.  Certifikát bude nyní nainstalován a považován za důvěryhodný.
 
-    Zobrazit [důvěřovat certifikátu vývoj pro ASP.NET Core HTTPS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) Další informace.
+    Další informace najdete v tématu [důvěryhodnost certifikátu pro vývoj ASP.NET Core https](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) .

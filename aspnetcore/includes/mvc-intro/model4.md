@@ -11,7 +11,7 @@ Následující tabulka podrobně popisuje ASP.NET Core parametry generátoru kó
 
 Nápovědu k příkazu získáte pomocí `h`přepínače `aspnet-codegenerator controller` :
 
-```console
+```dotnetcli
 dotnet aspnet-codegenerator controller -h
 ```
 

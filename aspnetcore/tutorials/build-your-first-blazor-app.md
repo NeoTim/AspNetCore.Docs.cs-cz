@@ -5,14 +5,14 @@ description: Sestavte aplikaci pro Blazor krok za krokem.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/23/2019
+ms.date: 09/15/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: ffbdf6991830d554fc508d1d2fe8e4b9586210df
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: b433d793ae615bc4ece7c63bebd72d349adf43ee
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964182"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71081254"
 ---
 # <a name="build-your-first-blazor-app"></a>Vytvoření první aplikace v Blazor
 
@@ -97,11 +97,11 @@ Direktiva v horní části `Counter` souboru *Counter. Razor* určuje, že kompo
 
 ## <a name="dependency-injection"></a>Injektáž závislostí
 
-Služby zaregistrované v kontejneru služby aplikace jsou dostupné komponentám prostřednictvím [Injektáže závislostí (di)](xref:fundamentals/dependency-injection). Vloží služby do komponenty pomocí `@inject` direktivy.
+Pokud pracujete s aplikací serveru Blazor, `WeatherForecastService` služba se zaregistruje jako [singleton](xref:fundamentals/dependency-injection#service-lifetimes) v `Startup.ConfigureServices`. Instance služby je k dispozici v celé aplikaci prostřednictvím [Injektáže závislosti (di)](xref:fundamentals/dependency-injection):
 
-Projděte si direktivy `FetchData` komponenty.
+[!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-Pokud pracujete s aplikací serveru Blazor, `WeatherForecastService` služba se zaregistruje jako [singleton](xref:fundamentals/dependency-injection#service-lifetimes), takže v celé aplikaci je dostupná jedna instance služby. Direktiva slouží k vložení instance `WeatherForecastService` služby do komponenty. `@inject`
+Direktiva slouží k vložení instance `WeatherForecastService` služby do `FetchData` komponenty. `@inject`
 
 *Stránky/FetchData. Razor*:
 
@@ -111,7 +111,7 @@ Komponenta používá vloženou službu jako `ForecastService` `WeatherForecast`
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-Pokud pracujete s aplikací Blazor WebAssembly, `HttpClient` je vložena pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* :
+Pokud pracujete s aplikací Blazor WebAssembly, `HttpClient` je vložena pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* .
 
 *Stránky/FetchData. Razor*:
 
@@ -120,7 +120,6 @@ Pokud pracujete s aplikací Blazor WebAssembly, `HttpClient` je vložena pro zí
 Smyčka foreach se používá k vykreslení každé instance prognózy jako řádku v tabulce dat o počasí: [ \@](/dotnet/csharp/language-reference/keywords/foreach-in)
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
-
 
 ## <a name="build-a-todo-list"></a>Sestavení seznamu TODO
 

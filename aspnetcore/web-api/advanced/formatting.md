@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 05/29/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: e3417c9bfd3824133b86de2fe74f5f71367e1560
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 8bee4efdae5341ddab5bd3aec278ecfef37f0c08
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886523"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71082351"
 ---
 <!-- DO NOT EDIT BEFORE https://github.com/aspnet/AspNetCore.Docs/pull/12077 MERGES -->
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
@@ -80,7 +80,7 @@ V ukázce bude požadavek na platný alias autora dostávat odpověď 200 OK s d
 
 ### <a name="content-negotiation-process"></a>Proces vyjednávání obsahu
 
-K`Accept` vyjednání obsahu dochází pouze v případě, že se v požadavku objeví hlavička. Když požadavek obsahuje hlavičku Accept, rozhraní provede výčet typů médií v hlavičce Accept v pořadí předvolby a pokusí se najít formátovací modul, který může vytvořit odpověď v jednom z formátů určených hlavičkou Accept. V případě, že se nenajde žádný formátovací modul, který může splnit požadavek klienta, rozhraní se pokusí najít první formátovací modul, který může vyvolat odpověď (pokud vývojář nenakonfiguroval možnost na `MvcOptions` vrácení 406. místo toho není přijatelné). Pokud požadavek Určuje kód XML, ale formátovací modul XML nebyl nakonfigurován, bude použit formátovací modul JSON. Obecně platí, že pokud není nakonfigurován žádný formátovací modul, který může poskytnout požadovaný formát, bude použit první formátovací modul, který může objekt formátovat. Pokud není zadán žádný nadpis, bude při serializaci odpovědi použit první formátovací modul, který může zpracovat objekt, který má být vrácen. V takovém případě se neuskuteční žádné vyjednávání – server určí, který formát bude používat.
+K`Accept` *vyjednání* obsahu dochází pouze v případě, že se v požadavku objeví hlavička. Když požadavek obsahuje hlavičku Accept, rozhraní provede výčet typů médií v hlavičce Accept v pořadí předvolby a pokusí se najít formátovací modul, který může vytvořit odpověď v jednom z formátů určených hlavičkou Accept. V případě, že se nenajde žádný formátovací modul, který může splnit požadavek klienta, rozhraní se pokusí najít první formátovací modul, který může vyvolat odpověď (pokud vývojář nenakonfiguroval možnost na `MvcOptions` vrácení 406. místo toho není přijatelné). Pokud požadavek Určuje kód XML, ale formátovací modul XML nebyl nakonfigurován, bude použit formátovací modul JSON. Obecně platí, že pokud není nakonfigurován žádný formátovací modul, který může poskytnout požadovaný formát, bude použit první formátovací modul, který může objekt formátovat. Pokud není zadán žádný nadpis, bude při serializaci odpovědi použit první formátovací modul, který může zpracovat objekt, který má být vrácen. V takovém případě se neuskuteční žádné vyjednávání – server určí, který formát bude používat.
 
 > [!NOTE]
 > Pokud hlavička Accept obsahuje `*/*`, záhlaví se bude ignorovat, pokud `RespectBrowserAcceptHeader` `MvcOptions`není nastavené na hodnotu true.
@@ -106,13 +106,29 @@ Pokud vaše aplikace potřebuje podporovat další formáty nad rámec výchozí
 
 ### <a name="configure-systemtextjson-based-formatters"></a>Konfigurace formátovacích modulů založených na System. text. JSON
 
-Funkce pro `System.Text.Json`formátovací moduly založené na službě se dají konfigurovat pomocí `Microsoft.AspNetCore.Mvc.MvcOptions.SerializerOptions`.
+Funkce pro `System.Text.Json`formátovací moduly založené na službě se dají konfigurovat pomocí `Microsoft.AspNetCore.Mvc.JsonOptions.SerializerOptions`.
 
 ```csharp
-services.AddMvc(options =>
+services.AddControllers().AddJsonOptions(options =>
 {
-    options.SerializerOptions.WriterSettings.Indented = true;
+    // Use the default property (Pascal) casing.
+    options.SerializerOptions.PropertyNamingPolicy = null;
+
+    // Configure a custom converter.
+    options.SerializerOptions.Converters.Add(new MyCustomJsonConverter());
 });
+```
+
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult`. Příklad:
+
+```csharp
+public IActionResult Get()
+{
+    return Json(model, new JsonSerializerOptions
+    {
+        options.WriteIndented = true,
+    });
+}
 ```
 
 ### <a name="add-newtonsoftjson-based-json-format-support"></a>Přidání podpory formátu JSON založeného na Newtonsoft. JSON
@@ -120,7 +136,7 @@ services.AddMvc(options =>
 Před ASP.NET Core 3,0 byla `Newtonsoft.Json` sada MVC použita jako výchozí pro použití formátovacích formátovacích formátu JSON implementovaných pomocí balíčku. V ASP.NET Core 3,0 nebo novějších jsou výchozí formátovací moduly JSON založené na `System.Text.Json`. Podpora formátovacích a funkcí založených na standardech je k dispozici po instalaci balíčku NuGet [Microsoft. AspNetCore. Mvc. NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) a jeho konfiguraci v `Startup.ConfigureServices`. `Newtonsoft.Json`
 
 ```csharp
-services.AddMvc()
+services.AddControllers()
     .AddNewtonsoftJson();
 ```
 
@@ -129,6 +145,31 @@ Některé funkce nemusí fungovat správně s `System.Text.Json`formátovacími 
 * Používá `Newtonsoft.Json` atributy ( `[JsonProperty]` například nebo `[JsonIgnore]`), přizpůsobuje nastavení serializace nebo spoléhá na funkce, které `Newtonsoft.Json` poskytuje.
 * Nakonfiguruje `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings`. Před ASP.NET Core 3,0 `JsonResult.SerializerSettings` akceptuje `JsonSerializerSettings` instance, která je specifická pro `Newtonsoft.Json`.
 * Generuje dokumentaci k [openapi](<xref:tutorials/web-api-help-pages-using-swagger>) .
+
+Funkce pro `Newtonsoft.Json`formátovací moduly založené na službě se dají nakonfigurovat pomocí `Microsoft.AspNetCore.Mvc.MvcNewtonsoftJsonOptions.SerializerSettings`:
+
+```csharp
+services.AddControllers().AddNewtonsoftJson(options =>
+{
+    // Use the default property (Pascal) casing
+    options.SerializerSettings.ContractResolver = new DefautlContractResolver();
+
+    // Configure a custom converter
+    options.SerializerOptions.Converters.Add(new MyCustomJsonConverter());
+});
+```
+
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult`. Příklad:
+
+```csharp
+public IActionResult Get()
+{
+    return Json(model, new JsonSerializerSettings
+    {
+        options.Formatting = Formatting.Indented,
+    });
+}
+```
 
 ::: moniker-end
 

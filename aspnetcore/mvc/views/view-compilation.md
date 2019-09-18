@@ -1,18 +1,18 @@
 ---
 title: Kompilace souboru Razor v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak kompilace souborech Razor vyvolá se v aplikaci ASP.NET Core.
+description: Přečtěte si, jak probíhá kompilace souborů Razor v aplikaci ASP.NET Core.
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/20/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: ff66148fc9aad2871f9f55ce76b5a0dacb0ad10c
-ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
+ms.openlocfilehash: 0aa632bce32ef44f65d92639284c64c1d00e952e
+ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67313776"
+ms.lasthandoff: 09/18/2019
+ms.locfileid: "71080816"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>Kompilace souboru Razor v ASP.NET Core
 
@@ -20,66 +20,66 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range="= aspnetcore-1.1"
 
-Soubor Razor je zkompilován za běhu, když uživatel vyvolá přidružené zobrazení MVC. Publikování souborů Razor čas sestavení není podporováno. Volitelně mohou být zkompilovány soubory Razor na čas publikování a nasazen s aplikací&mdash;nástrojem pro předkompilaci.
+Soubor Razor je kompilován za běhu, když je vyvolána přidružená zobrazení MVC. Publikování souboru Razor v čase sestavení není podporováno. Soubory Razor mohou být volitelně kompilovány v době publikování a nasazeny s&mdash;aplikací pomocí nástroje předkompilace.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-Souboru Razor je zkompilován za běhu, když uživatel vyvolá přidružené zobrazení stránky Razor nebo MVC. Publikování souborů Razor čas sestavení není podporováno. Volitelně mohou být zkompilovány soubory Razor na čas publikování a nasazen s aplikací&mdash;nástrojem pro předkompilaci.
+Soubor Razor se zkompiluje za běhu, když se vyvolá přidružená stránka Razor nebo zobrazení MVC. Publikování souboru Razor v čase sestavení není podporováno. Soubory Razor mohou být volitelně kompilovány v době publikování a nasazeny s&mdash;aplikací pomocí nástroje předkompilace.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-Souboru Razor je zkompilován za běhu, když uživatel vyvolá přidružené zobrazení stránky Razor nebo MVC. Razor soubory kompilované za obě sestavení a publikování pomocí [Razor SDK](xref:razor-pages/sdk).
+Soubor Razor se zkompiluje za běhu, když se vyvolá přidružená stránka Razor nebo zobrazení MVC. Soubory Razor jsou kompilovány jak při sestavování, tak při publikování pomocí [sady Razor SDK](xref:razor-pages/sdk).
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Razor soubory kompilované za obě sestavení a publikování pomocí [Razor SDK](xref:razor-pages/sdk). Kompilace modulu runtime může volitelně stará konfigurace vaší aplikace.
+Soubory Razor jsou kompilovány jak při sestavování, tak při publikování pomocí [sady Razor SDK](xref:razor-pages/sdk). Kompilace za běhu může být volitelně povolena konfigurací aplikace.
 
 ::: moniker-end
 
 ## <a name="razor-compilation"></a>Kompilace Razor
 
 ::: moniker range=">= aspnetcore-3.0"
-Kompilace sestavení a publikování běhu Razor souborů je povolené ve výchozím nastavení sada Razor SDK. Pokud povolená, doplňuje kompilace modulu runtime sestavení kompilace, povolení souborech Razor aktualizovat, pokud je upravovat.
+Kompilace souborů Razor založená na sestavení a publikování je ve výchozím nastavení povolena sadou Razor SDK. Pokud je povoleno, kompilace za běhu doplňuje kompilaci času sestavení a umožňuje aktualizaci souborů Razor, pokud jsou upravovány.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-Kompilace sestavení a publikování běhu Razor souborů je povolené ve výchozím nastavení sada Razor SDK. Úprava souborů Razor, až se aktualizují je podporována v okamžiku sestavení. Ve výchozím nastavení pouze kompilované *Views.dll* a ne *.cshtml* soubory nebo odkazy na sestavení požadovaných pro kompilaci Razor soubory jsou nasazeny s vaší aplikací.
+Kompilace souborů Razor založená na sestavení a publikování je ve výchozím nastavení povolena sadou Razor SDK. Úpravy souborů Razor po jejich aktualizaci jsou podporovány v době sestavení. Ve výchozím nastavení se do vaší aplikace nasazují pouze kompilovaná *zobrazení. dll* a žádné soubory *. cshtml* nebo odkazy na sestavení, která jsou nutná pro zkompilování souborů Razor.
 
 > [!IMPORTANT]
-> Předkompilaci je zastaralá a v ASP.NET Core 3.0 se odebere. Doporučujeme migrovat na [Razor Sdk](xref:razor-pages/sdk).
+> Předkompilace nástroje je zastaralá a bude odebrána v ASP.NET Core 3,0. Doporučujeme, abyste provedli migraci na [sadu Razor SDK](xref:razor-pages/sdk).
 >
-> Sada Razor SDK nabídka platí jenom v případě, že žádné vlastnosti specifické pro předkompilaci jsou nastaveny v souboru projektu. Například nastavení *.csproj* souboru `MvcRazorCompileOnPublish` vlastnost `true` zakáže Razor SDK.
+> Sada Razor SDK je platná pouze v případě, že v souboru projektu nejsou nastaveny žádné vlastnosti specifické pro předkompilaci. Například nastavením `MvcRazorCompileOnPublish` vlastnosti `true` souboru *. csproj* zakážete sadu Razor SDK.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-Pokud váš projekt cílí na .NET Framework, nainstalujte [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) balíček NuGet:
+Pokud je projekt cílen .NET Framework, nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. Razor. ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) :
 
 [!code-xml[](view-compilation/sample/DotNetFrameworkProject.csproj?name=snippet_ViewCompilationPackage)]
 
-Pokud váš projekt cílí na .NET Core, nejsou nutné žádné změny.
+Pokud váš projekt cílí na .NET Core, nemusíte dělat žádné změny.
 
-Šablony projektů ASP.NET Core 2.x implicitně nastavena `MvcRazorCompileOnPublish` vlastnost `true` ve výchozím nastavení. V důsledku toho tento prvek můžete ho bezpečně odebrat z *.csproj* souboru.
+Šablony projektu ASP.NET Core 2. x implicitně nastavují `MvcRazorCompileOnPublish` vlastnost na `true` hodnotu standardně. V důsledku toho lze tento prvek bezpečně odebrat ze souboru *. csproj* .
 
 > [!IMPORTANT]
-> Předkompilaci je zastaralá a v ASP.NET Core 3.0 se odebere. Doporučujeme migrovat na [Razor Sdk](xref:razor-pages/sdk).
+> Předkompilace nástroje je zastaralá a bude odebrána v ASP.NET Core 3,0. Doporučujeme, abyste provedli migraci na [sadu Razor SDK](xref:razor-pages/sdk).
 >
-> Předkompilace Razor soubor není k dispozici při provádění [samostatná nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) v ASP.NET Core 2.0.
+> Předkompilace souboru Razor není k dispozici při provádění [samostatně zahrnutého nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) v ASP.NET Core 2,0.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-1.1"
 
-Nastavte `MvcRazorCompileOnPublish` vlastnost `true`a nainstalujte [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) balíček NuGet. Následující *.csproj* ukázka zvýrazní tato nastavení:
+Nastavte vlastnost na `true`a nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. Razor. ViewCompilation.](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation/) `MvcRazorCompileOnPublish` Následující ukázka *. csproj* zvýrazní tato nastavení:
 
 [!code-xml[](view-compilation/sample/MvcRazorCompileOnPublish.csproj?highlight=4,10)]
 
@@ -87,34 +87,34 @@ Nastavte `MvcRazorCompileOnPublish` vlastnost `true`a nainstalujte [Microsoft.As
 
 ::: moniker range="<= aspnetcore-2.0"
 
-Příprava aplikace pro [nasazení závisí na architektuře](/dotnet/core/deploying/#framework-dependent-deployments-fdd) s [příkazu rozhraní příkazového řádku .NET Core pro publikování](/dotnet/core/tools/dotnet-publish). Můžete třeba spustíte následující příkaz v kořenovém adresáři projektu:
+Připravte aplikaci pro [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd) pomocí [příkazu .NET Core CLI publikovat](/dotnet/core/tools/dotnet-publish). Například spusťte následující příkaz v kořenu projektu:
 
-```console
+```dotnetcli
 dotnet publish -c Release
 ```
 
-A  *\<project_name >. PrecompiledViews.dll* soubor obsahující kompilovaných souborech Razor, je vytvořen při předkompilaci proběhne úspěšně. Například následující snímek obrazovky znázorňuje obsah *Index.cshtml* v rámci *WebApplication1.PrecompiledViews.dll*:
+PROJECT_NAME  *>\<. Soubor PrecompiledViews. dll* obsahující zkompilované soubory Razor je vytvořen po úspěšném dokončení předkompilace. Například následující snímek obrazovky znázorňuje obsah souboru *index. cshtml* v rámci *WebApplication1. PrecompiledViews. dll*:
 
-![Zobrazení syntaxe Razor uvnitř knihovny DLL](view-compilation/_static/razor-views-in-dll.png)
+![Zobrazení Razor v knihovně DLL](view-compilation/_static/razor-views-in-dll.png)
 
 ::: moniker-end
 
-## <a name="runtime-compilation"></a>Kompilace modulu runtime
+## <a name="runtime-compilation"></a>Kompilace za běhu
 
 ::: moniker range="= aspnetcore-2.1"
 
-Kompilace sestavení doplňují kompilace modulu runtime souborů Razor. ASP.NET Core MVC Razor zkompiluje soubory při obsah *.cshtml* změna souboru.
+Kompilace v době sestavení je doplněna kompilací souborů Razor za běhu. ASP.NET Core MVC bude znovu kompilovat soubory Razor, když se změní obsah souboru *. cshtml* .
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.2"
 
-Kompilace sestavení doplňují kompilace modulu runtime souborů Razor. <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> Získává nebo nastavuje hodnotu, která určuje, zda jsou soubory Razor (zobrazení syntaxe Razor a Razor Pages) znovu zkompilovat a pokud soubory na disku.
+Kompilace v době sestavení je doplněna kompilací souborů Razor za běhu. <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions> Získávánebonastavujehodnotu,kteráurčuje,jestlisesouboryRazor(zobrazeníRazoraRazorPages)majíznovuzkompilovataaktualizovat,pokudse<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> soubory na disku mění.
 
-Výchozí hodnota je `true` pro:
+Výchozí hodnota je `true` :
 
-* Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> nebo dřívější
-* Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> nebo novější a je aplikace ve vývojovém prostředí <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*>. Jinými slovy, souborech Razor nebude znovu zkompilovat v mimo vývojové prostředí není-li <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> explicitně nastavena.
+* Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> nebo starší
+* Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> nebo novější a aplikace se nachází ve vývojovém prostředí. <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*> Jinými slovy, soubory Razor nebudou znovu zkompilovány v nevývojovém prostředí, pokud <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange> není explicitně nastaveno.
 
 Pokyny a příklady nastavení verze kompatibility aplikace najdete v tématu <xref:mvc/compatibility-version>.
 
@@ -122,10 +122,10 @@ Pokyny a příklady nastavení verze kompatibility aplikace najdete v tématu <x
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Kompilace modulu runtime se aktivuje pomocí `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` balíčku. Pokud chcete povolit kompilace modulu runtime, musí aplikace:
+Kompilace modulu runtime je povolena pomocí `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation` balíčku. Aby bylo možné povolit kompilaci za běhu, aplikace musí:
 
-* Nainstalujte [Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) balíček NuGet.
-* Aktualizace projektu `Startup.ConfigureServices` tak, aby zahrnoval volání `AddRazorRuntimeCompilation`:
+* Nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. Razor. RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) .
+* Aktualizujte `Startup.ConfigureServices` metodu projektu tak, aby zahrnovala `AddRazorRuntimeCompilation`volání:
 
   ```csharp
   services
