@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/01/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: fe6cdca1f7180f9da26fe2838e529becb26ccd45
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: f16891182d274333ddc05eea401c06468e0717b1
+ms.sourcegitcommit: b1e480e1736b0fe0e4d8dce4a4cf5c8e47fc2101
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081105"
+ms.lasthandoff: 09/19/2019
+ms.locfileid: "71108086"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace Azure Key Vault v ASP.NET Core
 
@@ -90,13 +90,13 @@ Pokyny poskytované [rychlým startem: Nastavení a načtení tajného klíče z
 
 1. Vytvořte skupinu prostředků pomocí následujícího příkazu, kde `{RESOURCE GROUP NAME}` je název skupiny prostředků pro novou skupinu prostředků a `{LOCATION}` oblast Azure (Datacenter):
 
-   ```console
+   ```azure-cli
    az group create --name "{RESOURCE GROUP NAME}" --location {LOCATION}
    ```
 
 1. Vytvořte Trezor klíčů ve skupině prostředků pomocí následujícího příkazu, kde `{KEY VAULT NAME}` je název nového trezoru klíčů a `{LOCATION}` oblast Azure (Datacenter):
 
-   ```console
+   ```azure-cli
    az keyvault create --name "{KEY VAULT NAME}" --resource-group "{RESOURCE GROUP NAME}" --location {LOCATION}
    ```
 
@@ -106,7 +106,7 @@ Pokyny poskytované [rychlým startem: Nastavení a načtení tajného klíče z
 
    Následující tajné klíče jsou pro použití s ukázkovou aplikací. Hodnoty zahrnují `_prod` příponu pro jejich rozlišení `_dev` od hodnot přípony načtených ve vývojovém prostředí od uživatelských tajných kódů. Nahraďte `{KEY VAULT NAME}` názvem trezoru klíčů, který jste vytvořili v předchozím kroku:
 
-   ```console
+   ```azure-cli
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "SecretName" --value "secret_value_1_prod"
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "Section--SecretName" --value "secret_value_2_prod"
    ```
@@ -176,7 +176,7 @@ Aplikace nasazená do Azure App Service se při vytvoření služby automaticky 
 
 Pomocí rozhraní příkazového řádku Azure a ID objektu aplikace poskytněte aplikaci `list` a `get` oprávnění pro přístup k trezoru klíčů:
 
-```console
+```azure-cli
 az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secret-permissions get list
 ```
 
@@ -240,7 +240,7 @@ Při implementaci tohoto přístupu:
 
 1. Tajné kódy se ukládají v Azure Key Vault pomocí následujících příkazů Azure CLI:
 
-   ```console
+   ```azure-cli
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5000-AppSecret" --value "5.0.0.0_secret_value_prod"
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5100-AppSecret" --value "5.1.0.0_secret_value_prod"
    ```

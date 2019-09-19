@@ -1,77 +1,104 @@
 ---
-title: Povolení žádostí napříč zdroji (CORS) v ASP.NET Core
+title: Povolit žádosti mezi zdroji (CORS) v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak CORS jako standard pro povolení nebo odmítnutí žádostí nepůvodního v aplikaci ASP.NET Core.
+description: Seznamte se s tím, jak CORS jako standard pro povolení nebo odmítnutí žádostí o více zdrojů v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: security/cors
-ms.openlocfilehash: 655d9be894c677f8adf0fecc2b465d5ae7af2b61
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: a34b77ad799a00707048c923b82b48774ce91682
+ms.sourcegitcommit: b1e480e1736b0fe0e4d8dce4a4cf5c8e47fc2101
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903051"
+ms.lasthandoff: 09/19/2019
+ms.locfileid: "71108071"
 ---
-# <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolení žádostí napříč zdroji (CORS) v ASP.NET Core
+# <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolit žádosti mezi zdroji (CORS) v ASP.NET Core
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Tento článek popisuje postup povolení CORS v aplikaci ASP.NET Core.
+Tento článek popisuje, jak v aplikaci ASP.NET Core povolit CORS.
 
-Zabezpečení prohlížečů brání zasílání požadavků na jiné doméně než ten, který obsluhuje webovou stránku na webové stránce. Toto omezení je volána *zásada stejného zdroje*. Zásada stejného zdroje brání škodlivým webům ve čtení citlivých dat z jiné lokality. V některých případech můžete chtít povolit, že ostatní lokality provádět požadavky cross-origin do vaší aplikace. Další informace najdete v tématu [Mozilla CORS článku](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla požadavky na jinou doménu než ta, která tuto webovou stránku obsluhoval. Toto omezení se nazývá *zásady stejného původu*. Zásady stejného původce brání škodlivému webu v čtení citlivých dat z jiné lokality. V některých případech můžete chtít, aby ostatní weby ve vaší aplikaci provedly žádosti o více zdrojů. Další informace najdete v článku věnovaném [Mozilla CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
-[Pro různé zdroje sdílení prostředků](https://www.w3.org/TR/cors/) (CORS):
+[Sdílení prostředků mezi zdroji](https://www.w3.org/TR/cors/) (CORS):
 
-* Je standard, která umožňuje server zmírnit zásadu stejného zdroje W3C.
-* Je **není** funkce zabezpečení, CORS zmírňuje zabezpečení. Rozhraní API není bezpečnější povolením CORS. Další informace najdete v tématu [funguje jak CORS](#how-cors).
-* Umožňuje serveru tak, aby výslovně povolit některé požadavky cross-origin, zatímco jiné odmítnout.
-* Je bezpečnější a flexibilnější, než starší techniky, jako například [JSONP](/dotnet/framework/wcf/samples/jsonp).
+* Je standard W3C, který umožňuje serveru zmírnit zásady stejného zdroje.
+* Nejedná **se o funkci** zabezpečení, CORS zabezpečení CORS zmírnit. Rozhraní API není bezpečnější díky povolení CORS. Další informace najdete v tématu [jak CORS funguje](#how-cors).
+* Umožňuje serveru explicitně povolit některé žádosti mezi zdroji a současně odmítat jiné.
+* Je bezpečnější a pružnější než u předchozích technik, jako třeba [JSONP](/dotnet/framework/wcf/samples/jsonp).
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="same-origin"></a>Stejného původu
+## <a name="same-origin"></a>Stejný původ
 
-Pokud mají stejné schémata, hostitele a porty mít dvě adresy URL stejného původu ([RFC 6454](https://tools.ietf.org/html/rfc6454)).
+Dvě adresy URL mají stejný původ, pokud mají identická schémata, hostitele a porty ([RFC 6454](https://tools.ietf.org/html/rfc6454)).
 
-Tyto dvě adresy URL mají stejného původu:
+Tyto dvě adresy URL mají stejný původ:
 
 * `https://example.com/foo.html`
 * `https://example.com/bar.html`
 
-Tyto adresy URL mají různé zdroje než předchozí dvě adresy URL:
+Tyto adresy URL mají různé zdroje, než jsou předchozí dvě adresy URL:
 
-* `https://example.net` &ndash; Jiné domény
-* `https://www.example.com/foo.html` &ndash; Different subdomain
-* `http://example.com/foo.html` &ndash; Jiné schéma
-* `https://example.com:9000/foo.html` &ndash; Jiný port
+* `https://example.net`&ndash; Jiná doména
+* `https://www.example.com/foo.html`&ndash; Jiná subdoména
+* `http://example.com/foo.html`&ndash; Jiné schéma
+* `https://example.com:9000/foo.html`&ndash; Jiný port
 
-Aplikace Internet Explorer nezahrne port při porovnání zdrojů.
+Internet Explorer při porovnávání zdrojů nebere v úvahu port.
 
-## <a name="cors-with-named-policy-and-middleware"></a>S s názvem zásady a middlewarem CORS
+## <a name="cors-with-named-policy-and-middleware"></a>CORS s pojmenovanými zásadami a middlewarem
 
-CORS Middleware zpracovává požadavky cross-origin. Následující kód umožňuje použití CORS pro celou aplikaci se zadaném umístění:
+Middleware CORS zpracovává požadavky mezi zdroji. Následující kód umožňuje CORS pro celou aplikaci se zadaným počátkem:
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup.cs?name=snippet&highlight=8,14-23,38)]
 
 Předchozí kód:
 
-* Nastaví název zásady "\_myAllowSpecificOrigins". Název zásad je volitelný.
-* Volání <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> metodu rozšíření, která umožňuje použití CORS.
-* Volání <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*> s [výraz lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Používá výraz lambda <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> objektu. [Možnosti konfigurace](#cors-policy-options), jako například `WithOrigins`, jsou popsány dále v tomto článku.
+* Nastaví název zásady na "\_myAllowSpecificOrigins". Název zásady je libovolný.
+* Volá metodu <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> rozšíření, která umožňuje CORS.
+* Volání <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*> s [výrazem lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Lambda převezme <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> objekt. [Možnosti konfigurace](#cors-policy-options), například `WithOrigins`, jsou popsány dále v tomto článku.
 
-<xref:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors*> Volání metody přidá CORS služby do aplikace služby kontejneru:
+Volání <xref:Microsoft.Extensions.DependencyInjection.MvcCorsMvcCoreBuilderExtensions.AddCors*> metody přidá služby CORS do kontejneru služby aplikace:
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup.cs?name=snippet2)]
 
-Další informace najdete v tématu [možnosti zásad CORS](#cpo) v tomto dokumentu.
+Další informace najdete v tématu [Možnosti zásad CORS](#cpo) v tomto dokumentu.
 
-<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> Metoda můžete zřetězit metod, jak je znázorněno v následujícím kódu:
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> Metoda může řetězit metody, jak je znázorněno v následujícím kódu:
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Startup2.cs?name=snippet2)]
 
-Následující zvýrazněný kód platí zásady CORS pro všechny koncové body pro aplikace přes CORS Middleware:
+Poznámka: Adresa URL nesmí **obsahovat koncové** lomítko (`/`). Pokud adresa URL končí `/`, porovnávání se vrátí `false` a nevrátí se žádné záhlaví.
 
+::: moniker range=">= aspnetcore-3.0"
+
+Následující kód aplikuje zásady CORS na všechny koncové body aplikací prostřednictvím middlewaru CORS:
+```csharp
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    // Preceding code ommitted.
+    app.UseRouting();
+
+    app.UseCors();
+
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+
+    // Following code ommited.
+}
+```
+
+> [!WARNING]
+> Při směrování koncových bodů musí být middleware CORS nakonfigurované tak, aby se `UseRouting` spustilo mezi voláními a `UseEndpoints`. Nesprávná konfigurace způsobí, že middleware přestane fungovat správně.
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+Následující kód aplikuje zásady CORS na všechny koncové body aplikací prostřednictvím middlewaru CORS:
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 {
@@ -90,151 +117,165 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     app.UseMvc();
 }
 ```
+Poznámka: `UseCors` musí být volána před `UseMvc`.
 
-Zobrazit [povolení CORS v stránky Razor, kontrolerů a metod akcí](#ecors) použít zásady CORS na úrovni stránky nebo kontroler nebo akce.
+::: moniker-end
 
-Poznámka:
+Viz [Povolení CORS v Razor Pages, řadičích a metodách akcí](#ecors) pro aplikování zásad CORS na úrovni stránky, řadiče nebo akce.
 
-* `UseCors` musí být volána před `UseMvc`.
-* Adresa URL musí **není** obsahovat koncové lomítko (`/`). Pokud adresa URL se ukončí s `/`, porovnání vrátí `false` a vrátí se bez záhlaví.
-
-Zobrazit [Test CORS](#test) pokyny k testování předchozí kód.
+Pokyny k testování předchozího kódu najdete v části [test CORS](#test) .
 
 <a name="ecors"></a>
 
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="enable-cors-with-endpoint-routing"></a>Povolení CORS s směrováním koncových bodů
+
+S směrováním koncových bodů je možné CORS povolit na základě jednotlivých koncových bodů `RequireCors` pomocí sady rozšiřujících metod.
+
+```csharp
+app.UseEndpoints(endpoints =>
+{
+  endpoints.MapGet("/echo", async context => context.Response.WriteAsync("echo"))
+    .RequireCors("policy-name");
+});
+
+```
+
+Podobně lze CORS povolit také pro všechny řadiče:
+
+```csharp
+app.UseEndpoints(endpoints =>
+{
+  endpoints.MapControllers().RequireCors("policy-name");
+});
+```
+::: moniker-end
+
 ## <a name="enable-cors-with-attributes"></a>Povolení CORS s atributy
 
-[ &lbrack;EnableCors&rbrack; ](xref:Microsoft.AspNetCore.Cors.EnableCorsAttribute) atribut poskytuje alternativu k použití CORS globálně. `[EnableCors]` Atribut umožňuje použití CORS pro vybrané koncové body, nikoli všechny koncové body.
+Atribut [EnableCors&rbrack;představuje alternativu k použití CORS globálně. &lbrack;](xref:Microsoft.AspNetCore.Cors.EnableCorsAttribute) `[EnableCors]` Atribut povoluje CORS pro vybrané koncové body místo všech koncových bodů.
 
-Použití `[EnableCors]` určit výchozí zásady a `[EnableCors("{Policy String}")]` zadat zásady.
+Slouží `[EnableCors]` k zadání výchozích zásad a `[EnableCors("{Policy String}")]` k určení zásad.
 
 `[EnableCors]` Atribut lze použít pro:
 
-* Stránka Razor `PageModel`
-* Kontroler
+* Stránka Razor`PageModel`
+* kontrolér
 * Metoda akce kontroleru
 
-Můžete použít různé zásady/stránky modelu/akce kontroleru se `[EnableCors]` atribut. Když `[EnableCors]` atribut je použít pro metodu řadiče/akce/stránky – model a CORS je povolený v middlewaru, obě zásady se použijí. Nedoporučujeme kombinování zásad. Použití `[EnableCors]` atribut nebo middleware, nikoli oba současně ve stejné aplikaci.
+S `[EnableCors]` atributem lze použít různé zásady pro kontroler/Page-model/Action. Pokud je `[EnableCors]` atribut použit na řadičích, na úrovni stránky nebo na metodu a akci a v middlewaru je povoleno CORS, jsou obě zásady aplikovány. Doporučujeme před kombinováním zásad. `[EnableCors]` Použijte atribut nebo middleware, nikoli oba ve stejné aplikaci.
 
-Následující kód platí jiné zásady pro jednotlivé metody:
+Následující kód používá pro každou metodu jinou zásadu:
 
 [!code-csharp[](cors/sample/Cors/WebAPI/Controllers/WidgetController.cs?name=snippet&highlight=6,14)]
 
-Následující kód vytvoří výchozí zásady CORS a zásady s názvem `"AnotherPolicy"`:
+Následující kód vytvoří výchozí zásadu CORS a zásadu s názvem `"AnotherPolicy"`:
 
 [!code-csharp[](cors/sample/Cors/WebAPI/StartupMultiPolicy.cs?name=snippet&highlight=12-28)]
 
-### <a name="disable-cors"></a>Zákazu sdílení CORS
+### <a name="disable-cors"></a>Zakázání CORS
 
-[ &lbrack;DisableCors&rbrack; ](xref:Microsoft.AspNetCore.Cors.DisableCorsAttribute) atribut zakáže CORS pro/stránky modelu/akce kontroleru.
+Atribut [DisableCors&rbrack;zakáže CORS pro kontroler/Page-model/Action. &lbrack;](xref:Microsoft.AspNetCore.Cors.DisableCorsAttribute)
 
 <a name="cpo"></a>
 
 ## <a name="cors-policy-options"></a>Možnosti zásad CORS
 
-Tato část popisuje různé možnosti, které je možné nastavit v zásadu CORS:
+Tato část popisuje různé možnosti, které je možné nastavit v zásadách CORS:
 
-* [Nastavte povolené zdroje](#set-the-allowed-origins)
-* [Nastavte povolené metody HTTP](#set-the-allowed-http-methods)
-* [Nastavit hlavičku povolené žádosti](#set-the-allowed-request-headers)
-* [Nastavit hlavičky vystavené odpovědi](#set-the-exposed-response-headers)
-* [Přihlašovací údaje v požadavky cross-origin](#credentials-in-cross-origin-requests)
-* [Nastavit čas vypršení platnosti předběžné](#set-the-preflight-expiration-time)
+* [Nastavení povolených zdrojů](#set-the-allowed-origins)
+* [Nastavení povolených metod HTTP](#set-the-allowed-http-methods)
+* [Nastavení povolených hlaviček žádosti](#set-the-allowed-request-headers)
+* [Nastavení hlaviček vystavené odpovědi](#set-the-exposed-response-headers)
+* [Přihlašovací údaje v žádostech mezi zdroji](#credentials-in-cross-origin-requests)
+* [Nastavit čas vypršení platnosti předběžné kontroly](#set-the-preflight-expiration-time)
 
-<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*> je volána `Startup.ConfigureServices`. Pro některé možnosti, může být užitečné ke čtení [funguje jak CORS](#how-cors) první části.
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsOptions.AddPolicy*>je volána v `Startup.ConfigureServices`. U některých možností může být užitečné si nejdřív přečíst oddíl [jak CORS funguje](#how-cors) .
 
-## <a name="set-the-allowed-origins"></a>Nastavte povolené zdroje
+## <a name="set-the-allowed-origins"></a>Nastavení povolených zdrojů
 
-<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*> &ndash; Umožňuje požadavků CORS z všechny původy žádné schéma (`http` nebo `https`). `AllowAnyOrigin` není bezpečné a protože *všechny weby* může aplikace provádět požadavky cross-origin.
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyOrigin*>Povoluje žádosti CORS ze všech míst původu s jakýmkoli schématem`http` ( `https`nebo). &ndash; `AllowAnyOrigin`je nezabezpečené, protože *libovolný web* může do aplikace dělat žádosti mezi zdroji.
 
 ::: moniker range=">= aspnetcore-2.2"
 
 > [!NOTE]
-> Určení `AllowAnyOrigin` a `AllowCredentials` je nezabezpečené konfigurace a může vést k padělání žádosti více webů. CORS služby vrátí neplatnou odpověď CORS, pokud aplikace je nakonfigurovaná u obou metod.
+> Určení `AllowAnyOrigin` a`AllowCredentials` jedná se o nezabezpečenou konfiguraci a může mít za následek padělání žádostí mezi weby. Služba CORS vrátí neplatnou odpověď CORS, pokud je aplikace nakonfigurovaná pomocí obou metod.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
 > [!NOTE]
-> Určení `AllowAnyOrigin` a `AllowCredentials` je nezabezpečené konfigurace a může vést k padělání žádosti více webů. Pro zabezpečené aplikace zadejte přesný seznam původů, pokud klient musí autorizovat samotné pro přístup k prostředkům serveru.
+> Určení `AllowAnyOrigin` a`AllowCredentials` jedná se o nezabezpečenou konfiguraci a může mít za následek padělání žádostí mezi weby. V případě zabezpečené aplikace zadejte přesný seznam zdrojů, pokud je klient musí autorizovat pro přístup k prostředkům serveru.
 
 ::: moniker-end
 
-<!-- REVIEW required
-I changed from
-Specifying `AllowAnyOrigin` and `AllowCredentials` is an insecure configuration. **This** setting affects preflight requests and the ...
-to
-**`AllowAnyOrigin`** affects preflight requests and the
-
-to remove the ambiguous **This**.
--->
-
-`AllowAnyOrigin` ovlivňuje časový limit předběžné požadavky a `Access-Control-Allow-Origin` záhlaví. Další informace najdete v tématu [časový limit předběžné požadavky](#preflight-requests) oddílu.
+`AllowAnyOrigin`má vliv na požadavky na `Access-Control-Allow-Origin` kontrolu a hlavičku. Další informace najdete v části [požadavky na kontrolu před výstupem](#preflight-requests) .
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*> &ndash; Nastaví <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> vlastnost zásady tak, aby jako funkce, která umožňuje zdrojů tak, aby odpovídaly nakonfigurovaný zástupnou doménu, když vyhodnocuje se, jestli je povolený původ.
+<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*>&ndash; Nastaví vlastnostzásadynafunkci,kteráumožňuje,abysepřivyhodnocování,jestlijepůvodpovolený,shodovalyskonfigurovanoudoménouse<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> zástupnými znaky.
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-104&highlight=4)]
 
 ::: moniker-end
 
-### <a name="set-the-allowed-http-methods"></a>Nastavte povolené metody HTTP
+### <a name="set-the-allowed-http-methods"></a>Nastavení povolených metod HTTP
 
 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyMethod*>:
 
-* Umožňuje libovolné metody HTTP:
-* Ovlivňuje časový limit předběžné požadavky a `Access-Control-Allow-Methods` záhlaví. Další informace najdete v tématu [časový limit předběžné požadavky](#preflight-requests) oddílu.
+* Umožňuje jakoukoli metodu HTTP:
+* Má vliv na požadavky na `Access-Control-Allow-Methods` kontrolu a hlavičku. Další informace najdete v části [požadavky na kontrolu před výstupem](#preflight-requests) .
 
-### <a name="set-the-allowed-request-headers"></a>Nastavit hlavičku povolené žádosti
+### <a name="set-the-allowed-request-headers"></a>Nastavení povolených hlaviček žádosti
 
-Volá se, aby konkrétní hlavičky se odešle žádost CORS *vytvářet hlavičky žádosti*, volání <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> a zadat povolené hlavičky:
+Pokud chcete povolit odeslání konkrétních hlaviček v žádosti CORS s názvem *záhlaví žádosti o autora*, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*> a zadejte povolené hlavičky:
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=55-60&highlight=5)]
 
-Chcete-li povolit všechny hlavičky žádosti, vytvářet volání <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>:
+Pokud chcete povolení všech hlaviček žádostí o autora <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>, zavolejte:
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=64-69&highlight=5)]
 
-Toto nastavení má vliv předběžných požadavků a `Access-Control-Request-Headers` záhlaví. Další informace najdete v tématu [časový limit předběžné požadavky](#preflight-requests) oddílu.
+Toto nastavení má vliv na `Access-Control-Request-Headers` žádosti o předběžné kontroly a hlavičku. Další informace najdete v části [požadavky na kontrolu před výstupem](#preflight-requests) .
 
 ::: moniker range=">= aspnetcore-2.2"
 
-Shoda se zásadami Middlewarem CORS pro konkrétní hlavičky určené `WithHeaders` je možné, pouze při odeslání hlaviček `Access-Control-Request-Headers` přesně odpovídat záhlaví uvádí `WithHeaders`.
+Zásada middlewaru CORS odpovídající konkrétním hlavičkám, které `WithHeaders` určuje, je možná jenom v případě, `Access-Control-Request-Headers` že se záhlaví poslala přesně `WithHeaders`a odpovídají hlavičkám uvedeným v.
 
-Zvažte například aplikaci nakonfigurovány takto:
+Představte si například aplikaci nakonfigurovanou takto:
 
 ```csharp
 app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 ```
 
-CORS Middleware předběžný požadavek s následující hlavičky žádosti odmítne, protože `Content-Language` ([HeaderNames.ContentLanguage](xref:Microsoft.Net.Http.Headers.HeaderNames.ContentLanguage)) není uveden ve `WithHeaders`:
+Middleware CORS odmítá požadavek na předběžné kontroly s následující hlavičkou `Content-Language` požadavku, protože ([HeaderNames. ContentLanguage](xref:Microsoft.Net.Http.Headers.HeaderNames.ContentLanguage)) `WithHeaders`není uvedená v tomto seznamu:
 
 ```
 Access-Control-Request-Headers: Cache-Control, Content-Language
 ```
 
-Vrátí aplikaci *200 OK* odpověď, ale nebude odesílat hlavičky CORS zpět. Prohlížeč proto nebude se pokoušet žádosti nepůvodního zdroje.
+Aplikace vrátí odpověď *200 OK* , ale nepošle hlavičky CORS zpátky. Proto prohlížeč nezkouší požadavek mezi zdroji.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-CORS Middleware vždy povoluje čtyři záhlaví v `Access-Control-Request-Headers` k odeslání bez ohledu na nakonfigurované v CorsPolicy.Headers hodnoty. Tento seznam hlaviček obsahuje:
+Middleware CORS vždycky povoluje posílání čtyř `Access-Control-Request-Headers` hlaviček v, bez ohledu na hodnoty nakonfigurované v CorsPolicy. Headers. Tento seznam hlaviček obsahuje:
 
 * `Accept`
 * `Accept-Language`
 * `Content-Language`
 * `Origin`
 
-Zvažte například aplikaci nakonfigurovány takto:
+Představte si například aplikaci nakonfigurovanou takto:
 
 ```csharp
 app.UseCors(policy => policy.WithHeaders(HeaderNames.CacheControl));
 ```
 
-CORS Middleware se úspěšně odpoví na předběžný požadavek s následující hlavičky žádosti protože `Content-Language` je vždy přidat na seznam povolených:
+Middleware CORS odpoví úspěšně do žádosti o kontrolu před výstupem s následující `Content-Language` hlavičkou požadavku, protože je vždy na seznamu povolených:
 
 ```
 Access-Control-Request-Headers: Cache-Control, Content-Language
@@ -242,11 +283,11 @@ Access-Control-Request-Headers: Cache-Control, Content-Language
 
 ::: moniker-end
 
-### <a name="set-the-exposed-response-headers"></a>Nastavit hlavičky vystavené odpovědi
+### <a name="set-the-exposed-response-headers"></a>Nastavení hlaviček vystavené odpovědi
 
-Ve výchozím prohlížeči nezveřejňuje všechny hlavičky odpovědí do aplikace. Další informace najdete v tématu [W3C napříč sdílení prostředků různého původu (terminologie): Hlavička odpovědi jednoduché](https://www.w3.org/TR/cors/#simple-response-header).
+Ve výchozím nastavení prohlížeč nezveřejňuje všechny hlavičky odpovědí do aplikace. Další informace najdete v tématu [sdílení prostředků mezi zdroji W3C (terminologie): Jednoduchá hlavička](https://www.w3.org/TR/cors/#simple-response-header)odpovědi
 
-Hlavičky odpovědi, které jsou k dispozici ve výchozím nastavení jsou:
+Ve výchozím nastavení jsou k dispozici následující hlavičky odpovědí:
 
 * `Cache-Control`
 * `Content-Language`
@@ -255,15 +296,15 @@ Hlavičky odpovědi, které jsou k dispozici ve výchozím nastavení jsou:
 * `Last-Modified`
 * `Pragma`
 
-Specifikace CORS volá tyto hlavičky *hlavičky odpovědi jednoduché*. Chcete-li zpřístupnit další hlavičky pro aplikace, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>:
+Specifikace CORS volá tyto hlavičky *jednoduché hlavičky odpovědi*. Pokud chcete, aby byla aplikace k dispozici ostatním <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>hlavičkám, zavolejte:
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=73-78&highlight=5)]
 
-### <a name="credentials-in-cross-origin-requests"></a>Přihlašovací údaje v požadavky cross-origin
+### <a name="credentials-in-cross-origin-requests"></a>Přihlašovací údaje v žádostech mezi zdroji
 
-Přihlašovací údaje vyžadují speciální zacházení v požadavku CORS. Ve výchozím nastavení nebude prohlížeč odesílá pověření s žádostí nepůvodního zdroje. Přihlašovací údaje zahrnují soubory cookie a schémat ověřování protokolu HTTP. Odesílá pověření s žádostí nepůvodního zdroje, musíte nastavit klienta `XMLHttpRequest.withCredentials` k `true`.
+Přihlašovací údaje vyžadují zvláštní zpracování v žádosti CORS. V prohlížeči se ve výchozím nastavení neodesílají přihlašovací údaje s žádostí o více zdrojů. Přihlašovací údaje zahrnují soubory cookie a schémata ověřování HTTP. Aby bylo možné odesílat přihlašovací údaje pomocí žádosti o více zdrojů, musí být `XMLHttpRequest.withCredentials` klient `true`nastaven na.
 
-Pomocí `XMLHttpRequest` přímo:
+Přímé `XMLHttpRequest` použití:
 
 ```javascript
 var xhr = new XMLHttpRequest();
@@ -283,7 +324,7 @@ $.ajax({
 });
 ```
 
-Použití [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API):
+Pomocí [rozhraní API pro načtení](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API):
 
 ```javascript
 fetch('https://www.example.com/api/test', {
@@ -291,33 +332,33 @@ fetch('https://www.example.com/api/test', {
 });
 ```
 
-Na serveru, musíte povolit přihlašovací údaje. Chcete-li povolit přihlašovací údaje mezi zdroji, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowCredentials*>:
+Server musí přihlašovací údaje umožňovat. Pokud chcete povolení přihlašovacích údajů mezi zdroji <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowCredentials*>, zavolejte:
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=82-87&highlight=5)]
 
-Odpověď HTTP, která zahrnuje `Access-Control-Allow-Credentials` hlavičky, která sděluje prohlížeči, že server umožňuje přihlašovací údaje pro žádosti nepůvodního zdroje.
+Odpověď HTTP obsahuje `Access-Control-Allow-Credentials` hlavičku, která oznamuje prohlížeči, že server povoluje přihlašovací údaje pro požadavek mezi zdroji.
 
-Pokud prohlížeč odesílá pověření, ale odpověď neobsahuje platný `Access-Control-Allow-Credentials` záhlaví, v prohlížeči nezveřejňuje odpovědi do aplikace a nepůvodního požadavek selže.
+Pokud prohlížeč odesílá přihlašovací údaje, ale odpověď neobsahuje platnou `Access-Control-Allow-Credentials` hlavičku, prohlížeč nezveřejňuje odpověď na aplikaci a žádost o více zdrojů se nezdařila.
 
-Povolení nepůvodního pověření je bezpečnostním rizikem. Web v jiné doméně odeslat do aplikace jménem uživatele bez vědomí uživatele pověření přihlášeného uživatele. <!-- TODO Review: When using `AllowCredentials`, all CORS enabled domains must be trusted.
+Povolení přihlašovacích údajů mezi zdroji je bezpečnostní riziko. Web v jiné doméně může odeslat přihlašovací údaje přihlášeného uživatele do aplikace jménem uživatele bez vědomí uživatele. <!-- TODO Review: When using `AllowCredentials`, all CORS enabled domains must be trusted.
 I don't like "all CORS enabled domains must be trusted", because it implies that if you're not using  `AllowCredentials`, domains don't need to be trusted. -->
 
-Specifikace CORS také uvádí nastavení počátky k `"*"` (všechny původy) je neplatná-li `Access-Control-Allow-Credentials` záhlaví je k dispozici.
+Specifikace CORS také uvádí, že `"*"` `Access-Control-Allow-Credentials` Pokud je hlavička k dispozici, nastavení původu na (všechny zdroje) je neplatné.
 
-### <a name="preflight-requests"></a>Předběžných požadavků
+### <a name="preflight-requests"></a>Požadavky na kontrolu před výstupem
 
-U některých požadavků CORS prohlížeč odešle požadavek další před provedením aktuálního požadavku. Tento požadavek je volána *předběžný požadavek*. Prohlížeči můžete přeskočit předběžný požadavek, pokud jsou splněny následující podmínky:
+U některých požadavků CORS prohlížeč před provedením samotného požadavku pošle další požadavek. Tento požadavek se nazývá *žádost o kontrolu před výstupem*. Prohlížeč může požadavek na předběžné kontroly přeskočit, pokud jsou splněné následující podmínky:
 
-* Metoda žádosti je GET, HEAD nebo POST.
-* Aplikaci nelze nastavit hlavičku žádosti jiných než `Accept`, `Accept-Language`, `Content-Language`, `Content-Type`, nebo `Last-Event-ID`.
-* `Content-Type` Záhlaví,-li nastavit, protože má jednu z následujících hodnot:
+* Metoda Request je GET, HEAD nebo POST.
+* Aplikace nenastaví záhlaví `Accept`žádostí s výjimkou, `Accept-Language`, `Content-Language` `Content-Type`, nebo `Last-Event-ID`.
+* `Content-Type` Záhlaví, pokud je nastaveno, má jednu z následujících hodnot:
   * `application/x-www-form-urlencoded`
   * `multipart/form-data`
   * `text/plain`
 
-Sada pravidel na hlavičky požadavku pro požadavek klienta se vztahuje na hlavičky, které aplikace nastaví voláním `setRequestHeader` na `XMLHttpRequest` objektu. Specifikace CORS volá tyto hlavičky *vytvářet hlavičky požadavku*. Toto pravidlo neplatí pro záhlaví můžete nastavit v prohlížeči, jako například `User-Agent`, `Host`, nebo `Content-Length`.
+Pravidlo pro záhlaví požadavku nastavené pro požadavek klienta se vztahuje na hlavičky, které sada aplikací zavolá `setRequestHeader` `XMLHttpRequest` na objekt. Specifikace CORS volá *záhlaví požadavku autora*záhlaví. Pravidlo se nevztahuje na hlavičky, které může prohlížeč nastavit, například `User-Agent`, `Host`nebo `Content-Length`.
 
-Následuje příklad předběžný požadavek:
+Následuje příklad žádosti o kontrolu před výstupem:
 
 ```
 OPTIONS https://myservice.azurewebsites.net/api/test HTTP/1.1
@@ -331,24 +372,24 @@ Host: myservice.azurewebsites.net
 Content-Length: 0
 ```
 
-Přípravné požadavek používá metodu HTTP OPTIONS. Obsahuje dva speciálními záhlavími:
+Požadavek na lety používá metodu HTTP. Obsahuje dvě speciální hlavičky:
 
-* `Access-Control-Request-Method`: Metoda protokolu HTTP, který se použije pro aktuálního požadavku.
-* `Access-Control-Request-Headers`: Seznam hlaviček požadavků, které aplikace nastaví u aktuálního požadavku. Jak bylo uvedeno dříve, to nezahrnuje hlavičky, které nastaví v prohlížeči, jako například `User-Agent`.
+* `Access-Control-Request-Method`: Metoda HTTP, která se bude používat pro skutečný požadavek.
+* `Access-Control-Request-Headers`: Seznam hlaviček požadavků, které aplikace nastaví na skutečném požadavku. Jak bylo uvedeno výše, nezahrnuje hlavičky, které prohlížeč nastavuje, například `User-Agent`.
 
-Předběžný požadavek CORS patří `Access-Control-Request-Headers` hlavičky, která označuje hlavičky, které jsou odeslány pomocí aktuálního požadavku na server.
+Požadavek předběžné kontroly CORS může zahrnovat `Access-Control-Request-Headers` hlavičku, která serveru oznamuje hlavičkám, které jsou odesílány se skutečným požadavkem.
 
-Chcete-li povolit konkrétní hlavičky, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>:
+Pro povolení konkrétních hlaviček zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithHeaders*>:
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=55-60&highlight=5)]
 
-Chcete-li povolit všechny hlavičky žádosti, vytvářet volání <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>:
+Pokud chcete povolení všech hlaviček žádostí o autora <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.AllowAnyHeader*>, zavolejte:
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=64-69&highlight=5)]
 
-Nejsou zcela konzistentní v tom, jak je nastavit prohlížeče `Access-Control-Request-Headers`. Pokud nastavíte záhlaví na něco jiného než `"*"` (nebo použijte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.AllowAnyHeader*>), by měl obsahovat alespoň `Accept`, `Content-Type`, a `Origin`, a navíc jakékoli vlastní hlavičky, které chcete podporovat.
+Prohlížeče nejsou zcela konzistentní v tom, jak `Access-Control-Request-Headers`nastavily. Pokud nastavíte záhlaví na jinou hodnotu než `"*"` (nebo použít <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.AllowAnyHeader*>), měli byste zahrnout aspoň `Accept`, `Content-Type`a a `Origin`také libovolné vlastní hlavičky, které chcete podporovat.
 
-Následuje příklad odpovědi pro předběžný požadavek (za předpokladu, že server umožňuje žádosti):
+Následuje příklad odpovědi na žádost o kontrolu před výstupem (za předpokladu, že server povoluje požadavek):
 
 ```
 HTTP/1.1 200 OK
@@ -361,36 +402,36 @@ Access-Control-Allow-Methods: PUT
 Date: Wed, 20 May 2015 06:33:22 GMT
 ```
 
-Odpověď obsahuje `Access-Control-Allow-Methods` hlavičku, která uvádí povolené metody a volitelně `Access-Control-Allow-Headers` hlavičky, která uvádí povolené hlavičky. Pokud je předběžný požadavek úspěšné, prohlížeč odesílá aktuálního požadavku.
+Odpověď obsahuje `Access-Control-Allow-Methods` hlavičku, která obsahuje seznam povolených metod a `Access-Control-Allow-Headers` volitelně záhlaví, ve kterém jsou uvedeny povolené hlavičky. Pokud je žádost o kontrolu před výstupem úspěšná, prohlížeč pošle skutečný požadavek.
 
-Pokud je předběžný požadavek, vrátí aplikaci *200 OK* odpovědi ale nebude odesílat hlavičky CORS zpět. Prohlížeč proto nebude se pokoušet žádosti nepůvodního zdroje.
+Pokud je žádost o předběžné kontroly zamítnutá, aplikace vrátí odpověď *200 OK* , ale nepošle hlavičky CORS zpátky. Proto prohlížeč nezkouší požadavek mezi zdroji.
 
-### <a name="set-the-preflight-expiration-time"></a>Nastavit čas vypršení platnosti předběžné
+### <a name="set-the-preflight-expiration-time"></a>Nastavit čas vypršení platnosti předběžné kontroly
 
-`Access-Control-Max-Age` Záhlaví Určuje, jak dlouho může do mezipaměti odpovědi pro předběžný požadavek. Chcete-li nastavit tuto hlavičku, zavolejte <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetPreflightMaxAge*>:
+Záhlaví `Access-Control-Max-Age` určuje, jak dlouho může být odpověď na požadavek na kontrolu před výstupem ukládána do mezipaměti. Chcete-li nastavit tuto hlavičku <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetPreflightMaxAge*>, zavolejte:
 
 [!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=91-96&highlight=5)]
 
 <a name="how-cors"></a>
 
-## <a name="how-cors-works"></a>Jak funguje CORS
+## <a name="how-cors-works"></a>Jak CORS funguje
 
-Tato část popisuje, co se stane [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) požadavek na úrovni zprávy HTTP.
+Tato část popisuje, co se stane v žádosti [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) na úrovni zpráv HTTP.
 
-* CORS je **není** funkce zabezpečení. CORS je standard W3C, která umožňuje server zmírnit zásadu stejného zdroje.
-  * Například může použít škodlivý objekt actor [zabránit webů skriptování mezi weby (XSS)](xref:security/cross-site-scripting) proti vaší lokality a spuštění podvržení žádosti do své lokality zapnuté CORS odcizit informace.
-* Vaše rozhraní API není bezpečnější povolením CORS.
-  * To je na klienta (prohlížeč) k vynucení CORS. Server zpracuje požadavek a vrátí odpověď, je klient, který vrátí odpověď na chybu a bloků. Například některé z následujících nástrojů se zobrazí odpověď serveru:
+* CORS není **funkce** zabezpečení. CORS je standard W3C, který umožňuje serveru zmírnit zásady stejného zdroje.
+  * Škodlivý objekt actor by například mohl použít možnost [zabránit skriptování mezi weby (XSS)](xref:security/cross-site-scripting) na vašem webu a provést požadavek napříč lokalitami na lokalitu s povoleným CORS, aby mohl ukrást informace.
+* Vaše rozhraní API není bezpečnější díky povolení CORS.
+  * Pro vymáhání CORS je to až klient (prohlížeč). Server požadavek spustí a vrátí odpověď, jedná se o klienta, který vrátí chybu a zablokuje odpověď. Například kterýkoli z následujících nástrojů zobrazí odpověď serveru:
     * [Fiddler](https://www.telerik.com/fiddler)
     * [Postman](https://www.getpostman.com/)
     * [.NET HttpClient](/dotnet/csharp/tutorials/console-webapiclient)
-    * Zadáním adresy URL do adresního řádku webového prohlížeče.
-* Jedná se o způsob pro server, aby prohlížeče k provedení různých původů [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) nebo [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) požadavek, který by jinak zakázáno.
-  * Prohlížeče, které (CORS) nemůže provádět požadavky cross-origin. Před CORS [JSONP](https://www.w3schools.com/js/js_json_jsonp.asp) byl použit pro toto omezení obejít. JSONP nepoužívá XHR, použije `<script>` značky pro příjem odpovědi. Skripty mohou být načteny nepůvodního zdroje.
+    * Webový prohlížeč zadáním adresy URL do panelu Adresa.
+* To je způsob, jak serveru dovolit prohlížečům spustit [XHR](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) nebo [načíst požadavek rozhraní API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) pro různé zdroje, které by jinak bylo zakázané.
+  * Prohlížeče (bez CORS) nemůžou provádět žádosti mezi zdroji. Před CORS se k obcházení tohoto omezení použil [JSONP](https://www.w3schools.com/js/js_json_jsonp.asp) . JSONP nepoužívá XHR, používá `<script>` značku k přijetí odpovědi. Skripty mohou být načteny mezi zdroji.
 
-[Specifikace CORS](https://www.w3.org/TR/cors/) zavedené několik nové hlavičky protokolu HTTP, které umožňují požadavky cross-origin. Pokud je prohlížeč podporuje CORS, nastaví tyto hlavičky automaticky pro požadavky cross-origin. Vlastní kód jazyka JavaScript není vyžadován k povolení sdílení CORS.
+[Specifikace CORS](https://www.w3.org/TR/cors/) představila několik nových hlaviček protokolu HTTP, které umožňují žádosti mezi zdroji. Pokud prohlížeč podporuje CORS, nastaví tyto hlavičky pro žádosti mezi zdroji automaticky. Pro povolení CORS není nutný vlastní kód JavaScriptu.
 
-Následuje příklad žádosti nepůvodního zdroje. `Origin` Záhlaví obsahuje domény, lokality, která odeslala žádost:
+Následuje příklad žádosti o více zdrojů. `Origin` Hlavička poskytuje doménu webu, který vytváří požadavek:
 
 ```
 GET https://myservice.azurewebsites.net/api/test HTTP/1.1
@@ -403,7 +444,7 @@ User-Agent: Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6
 Host: myservice.azurewebsites.net
 ```
 
-Pokud server umožňuje, aby žádosti, nastaví `Access-Control-Allow-Origin` hlaviček v odpovědi. Hodnotu této hlavičky odpovídá buď `Origin` hlavička ze žádosti nebo je hodnota zástupného znaku `"*"`, což znamená, že jakýkoli původ je povoleno:
+Pokud server tuto žádost povoluje, nastaví `Access-Control-Allow-Origin` hlavičku v odpovědi. Hodnota této hlavičky se shoduje s `Origin` hlavičkou z požadavku nebo se jedná o zástupnou hodnotu `"*"`, což znamená, že je povolen libovolný původ:
 
 ```
 HTTP/1.1 200 OK
@@ -417,41 +458,41 @@ Content-Length: 12
 Test message
 ```
 
-Pokud odpověď neobsahuje `Access-Control-Allow-Origin` hlavičky žádosti nepůvodního selže. Konkrétně v prohlížeči zakazuje požadavku. I v případě, že server vrátí úspěšné odpovědi, prohlížeč nevyužívá odpovědi k dispozici pro klientské aplikace.
+Pokud odpověď nezahrnuje `Access-Control-Allow-Origin` hlavičku, požadavek na více zdrojů se nezdařil. Konkrétně prohlížeč požadavek nepovoluje. I v případě, že server vrátí úspěšnou odpověď, prohlížeč nezpřístupňuje odpověď klientské aplikaci.
 
 <a name="test"></a>
 
 ## <a name="test-cors"></a>Test CORS
 
-Test CORS:
+Testování CORS:
 
-1. [Vytvoření projektu aplikace API](xref:tutorials/first-web-api). Alternativně můžete [Stáhněte ukázku](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors).
-1. Povolení CORS pomocí jednoho z postupů v tomto dokumentu. Příklad:
+1. [Vytvořte projekt API](xref:tutorials/first-web-api). Alternativně si můžete [Stáhnout ukázku](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors).
+1. Povolte CORS pomocí jednoho z přístupů v tomto dokumentu. Příklad:
 
   [!code-csharp[](cors/sample/Cors/WebAPI/StartupTest.cs?name=snippet2&highlight=13-18)]
 
   > [!WARNING]
-  > `WithOrigins("https://localhost:<port>");` by měla sloužit pouze pro účely testování ukázkové aplikace podobně jako [stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors).
+  > `WithOrigins("https://localhost:<port>");`by se mělo používat jenom pro testování ukázkové aplikace, podobně jako u [ukázkového kódu ke stažení](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors).
 
-1. Vytvoření projektu webové aplikace (pro stránky Razor nebo MVC). Ukázka používá pro stránky Razor. Můžete vytvořit webovou aplikaci ve stejném řešení jako projekt rozhraní API.
-1. Přidejte následující zvýrazněný kód do *Index.cshtml* souboru:
+1. Vytvořte projekt webové aplikace (Razor Pages nebo MVC). Ukázka používá Razor Pages. Webovou aplikaci můžete vytvořit ve stejném řešení jako projekt rozhraní API.
+1. Do souboru *index. cshtml* přidejte následující zvýrazněný kód:
 
   [!code-csharp[](cors/sample/Cors/ClientApp/Pages/Index2.cshtml?highlight=7-99)]
 
-1. V předchozím kódu nahraďte `url: 'https://<web app>.azurewebsites.net/api/values/1',` s adresou URL nasazené aplikace.
-1. Nasazení projektu rozhraní API. Například [nasazení do Azure](xref:host-and-deploy/azure-apps/index).
-1. Spuštění aplikace Razor Pages nebo MVC z plochy a klikněte na **Test** tlačítko. Pomocí nástrojů F12 Zkontrolujte chybové zprávy.
-1. Odebrat localhost očátek z `WithOrigins` a nasazení aplikace. Můžete také spusťte klientskou aplikaci s jiným portem. Například spusťte ze sady Visual Studio.
-1. Testování pomocí klientské aplikace. Selhání CORS vrátí chybu, ale chybová zpráva není k dispozici pro jazyk JavaScript. Na kartě konzoly v nástrojích F12 tools chybu. V závislosti na prohlížeči dojde k chybě (v konzole nástroje F12) podobný následujícímu:
+1. V předchozím kódu nahraďte `url: 'https://<web app>.azurewebsites.net/api/values/1',` adresu URL nasazené aplikace.
+1. Nasaďte projekt API. Nasaďte například [do Azure](xref:host-and-deploy/azure-apps/index).
+1. Spusťte aplikaci Razor Pages nebo MVC z plochy a klikněte na tlačítko **test** . Pomocí nástrojů F12 zkontrolujte chybové zprávy.
+1. Odeberte původ localhost z `WithOrigins` a nasaďte aplikaci. Případně spusťte klientskou aplikaci s jiným portem. Například spusťte ze sady Visual Studio.
+1. Otestujte pomocí klientské aplikace. Chyby CORS vracejí chybu, ale chybová zpráva není k dispozici pro JavaScript. K zobrazení chyby použijte kartu konzola v nástrojích F12. V závislosti na prohlížeči se zobrazí chyba (v konzole nástrojů F12), která je podobná následující:
 
-   * Pomocí Microsoft Edge:
+   * Používání Microsoft Edge:
 
-     **SEC7120: [CORS] původ `https://localhost:44375` nenalezl `https://localhost:44375` v hlavička odpovědi Access-Control-Allow-Origin pro prostředek nepůvodního zdroje `https://webapi.azurewebsites.net/api/values/1`**
+     **SEC7120: [CORS] původ `https://localhost:44375` nebyl nalezen `https://localhost:44375` v hlavičce odpovědi Access-Control-Allow-Origin pro prostředek pro více zdrojů.`https://webapi.azurewebsites.net/api/values/1`**
 
    * Použití Chrome:
 
-     **Přístup k XMLHttpRequest na `https://webapi.azurewebsites.net/api/values/1` z počátku `https://localhost:44375` nezablokoval zásada CORS: Žádné záhlaví 'Přístup-Control-Allow-Origin' je k dispozici u požadovaného prostředku.**
+     **Zásada CORS zablokovala přístup `https://localhost:44375` k XMLHttpRequest `https://webapi.azurewebsites.net/api/values/1` od původu: U požadovaného prostředku není k dispozici hlavička Access-Control-Allow-Origin.**
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Prostředků mezi zdroji (CORS) pro sdílení obsahu](https://developer.mozilla.org/docs/Web/HTTP/CORS)
+* [Sdílení prostředků mezi zdroji (CORS)](https://developer.mozilla.org/docs/Web/HTTP/CORS)
