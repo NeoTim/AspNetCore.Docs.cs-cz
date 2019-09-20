@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2019
 uid: web-api/index
-ms.openlocfilehash: 6e1868690a2c384307a23c89467505d3ed8916db
-ms.sourcegitcommit: 805f625d16d74e77f02f5f37326e5aceafcb78e3
+ms.openlocfilehash: aab9b848eb6e69055b019c9253c716898e9847e2
+ms.sourcegitcommit: a11f09c10ef3d4eeab7ae9ce993e7f30427741c1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70985464"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149351"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytváření webových rozhraní API pomocí ASP.NET Core
 
@@ -159,7 +159,7 @@ Akce jsou nepřístupné prostřednictvím [konvenčních tras](xref:mvc/control
 
 ::: moniker-end
 
-## <a name="automatic-http-400-responses"></a>Automatické odpovědi HTTP 400
+### <a name="automatic-http-400-responses"></a>Automatické odpovědi HTTP 400
 
 `[ApiController]` Atribut způsobuje chyby ověření modelu automaticky a odpověď HTTP 400. V důsledku toho následující kód není zbytečný v metodě akce:
 
@@ -172,7 +172,7 @@ if (!ModelState.IsValid)
 
 ASP.NET Core MVC používá <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> filtr akcí k provedení předchozí kontroly.
 
-### <a name="default-badrequest-response"></a>Výchozí odpověď důvodu chybného požadavku 
+### <a name="default-badrequest-response"></a>Výchozí odpověď důvodu chybného požadavku
 
 V případě kompatibility verze 2,1 je <xref:Microsoft.AspNetCore.Mvc.SerializableError>výchozí typ odpovědi pro odpověď HTTP 400. Následující text žádosti je příkladem serializovaného typu:
 
@@ -206,36 +206,6 @@ V případě kompatibility verze 2,2 nebo novější je <xref:Microsoft.AspNetCo
 
 * Poskytuje strojově čitelný formát pro zadávání chyb v odpovědích webového rozhraní API.
 * Vyhovuje [specifikaci RFC 7807](https://tools.ietf.org/html/rfc7807).
-
-Chcete-li změnit výchozí typ odpovědi `SerializableError`na, použijte zvýrazněné změny `Startup.ConfigureServices`v:
-
-::: moniker-end
-
-::: moniker range=">= aspnetcore-3.0"
-
-[!code-csharp[](index/samples/3.x/Startup.cs?name=snippet_DisableProblemDetailsInvalidModelStateResponseFactory&highlight=4-13)]
-
-::: moniker-end
-
-::: moniker range="= aspnetcore-2.2"
-
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_DisableProblemDetailsInvalidModelStateResponseFactory&highlight=5-14)]
-
-::: moniker-end
-
-### <a name="customize-badrequest-response"></a>Přizpůsobení odpovědi důvodu chybného požadavku
-
-K přizpůsobení odpovědi, která je výsledkem chyby ověřování, použijte <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory>. Příklad:
-
-::: moniker range=">= aspnetcore-3.0"
-
-[!code-csharp[](index/samples/3.x/Startup.cs?name=snippet_ConfigureBadRequestResponse&highlight=4-20)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.2"
-
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureBadRequestResponse&highlight=5-21)]
 
 ::: moniker-end
 
@@ -283,7 +253,7 @@ V následujícím příkladu `[FromQuery]` atribut označuje `discontinuedOnly` 
 
 `[ApiController]` Atribut použije odvozená pravidla pro výchozí zdroje dat parametrů akce. Tato pravidla vám umožní určit ruční identifikaci zdrojů vazby použitím atributů u parametrů akce. Pravidla odvození zdroje vazby se chovají následujícím způsobem:
 
-* `[FromBody]`je odvozený pro parametry komplexního typu. Výjimka na `[FromBody]` odvozený pravidlo je jakýkoli komplexní, vestavěný typ se speciálním významem, <xref:Microsoft.AspNetCore.Http.IFormCollection> například a <xref:System.Threading.CancellationToken>. Kód odvození zdroje vazby ignoruje tyto speciální typy. 
+* `[FromBody]`je odvozený pro parametry komplexního typu. Výjimka na `[FromBody]` odvozený pravidlo je jakýkoli komplexní, vestavěný typ se speciálním významem, <xref:Microsoft.AspNetCore.Http.IFormCollection> například a <xref:System.Threading.CancellationToken>. Kód odvození zdroje vazby ignoruje tyto speciální typy.
 * `[FromForm]`je odvozený pro parametry akce typu <xref:Microsoft.AspNetCore.Http.IFormFile> a. <xref:Microsoft.AspNetCore.Http.IFormFileCollection> Není odvozený pro žádné jednoduché nebo uživatelsky definované typy.
 * `[FromRoute]`je odvozen pro všechny názvy parametrů akce, které odpovídají parametru v šabloně trasy. Když parametr akce odpovídá víc než jedna trasa, bude se brát v úvahu `[FromRoute]`jakákoli hodnota trasy.
 * `[FromQuery]`je odvozen pro všechny ostatní parametry akce.
@@ -375,22 +345,6 @@ Metoda vytvoří stavový kód HTTP 404 `ProblemDetails` s tělem. `NotFound` P�
 }
 ```
 
-### <a name="customize-problemdetails-response"></a>Přizpůsobení odpovědi ProblemDetails
-
-Pomocí vlastnosti nakonfigurujte obsah `ProblemDetails` odpovědi. <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.ClientErrorMapping*> Například následující kód aktualizuje `type` vlastnost pro odpovědi 404:
-
-::: moniker range=">= aspnetcore-3.0"
-
-[!code-csharp[](index/samples/3.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=8-9)]
-
-::: moniker-end
-
-::: moniker range="<= aspnetcore-2.2"
-
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=9-10)]
-
-::: moniker-end
-
 ### <a name="disable-problemdetails-response"></a>Zakázat odpověď ProblemDetails
 
 Automatické vytváření `ProblemDetails` instance je zakázáno, <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors*> Pokud je vlastnost nastavena na `true`hodnotu. Do `Startup.ConfigureServices`tohoto pole přidejte následující kód:
@@ -407,9 +361,10 @@ Automatické vytváření `ProblemDetails` instance je zakázáno, <xref:Microso
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje 
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:web-api/action-return-types>
+* <xref:web-api/handle-errors>
 * <xref:web-api/advanced/custom-formatters>
 * <xref:web-api/advanced/formatting>
 * <xref:tutorials/web-api-help-pages-using-swagger>
