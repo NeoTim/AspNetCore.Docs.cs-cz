@@ -448,6 +448,8 @@
       uid: web-api/advanced/analyzers
     - name: Konvence
       uid: web-api/advanced/conventions
+    - name: Ošetření chyb
+      uid: web-api/handle-errors
     - name: Otestování rozhraní API pomocí HTTP REPL
       uid: web-api/http-repl
 - name: Aplikace v reálném čase
