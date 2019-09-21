@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/15/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: b433d793ae615bc4ece7c63bebd72d349adf43ee
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 10feb5467a6a6b5a43e0df739fa72902af9854da
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081254"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168359"
 ---
 # <a name="build-your-first-blazor-app"></a>Vytvoření první aplikace v Blazor
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 V tomto kurzu se dozvíte, jak vytvořit a upravit aplikaci v Blazor.
 

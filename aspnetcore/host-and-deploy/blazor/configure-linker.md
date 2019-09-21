@@ -1,33 +1,35 @@
 ---
-title: Konfigurace Linkeru pro ASP.NET Core Blazor
+title: Konfigurace linkeru pro ASP.NET Core Blazor
 author: guardrex
-description: Zjistěte, jak řídit Linkeru Intermediate Language (IL) při vytváření aplikace Blazor.
+description: Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování aplikace v Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/02/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 03be18e7ee6ca8103e1a666da9e693ff67267d83
-ms.sourcegitcommit: 0b9e767a09beaaaa4301915cdda9ef69daaf3ff2
+ms.openlocfilehash: cf017ec6d6de3c5848b866b0c29781f283c5de44
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2019
-ms.locfileid: "67538631"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71167980"
 ---
-# <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace Linkeru pro ASP.NET Core Blazor
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Provádí Blazor [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) propojení během sestavení pro vydání z aplikace odebrat nepotřebné IL výstupního sestavení.
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Sestavení ovládacího prvku propojení některou z následujících postupů:
+Blazor provádí propojení s [pokročilým jazykem (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení pro vydání, aby se z výstupních sestavení aplikace odstranilo zbytečné Il.
 
-* Zakázat globálně propojení s [vlastnost MSBuild](#disable-linking-with-a-msbuild-property).
-* Ovládací prvek propojení na základě na sestavení s [konfigurační soubor](#control-linking-with-a-configuration-file).
+Ovládací prvek propojuje sestavení pomocí některého z následujících přístupů:
+
+* Zakáže propojení globálně s [vlastností MSBuild](#disable-linking-with-a-msbuild-property).
+* Řízení propojení podle jednotlivých sestavení pomocí [konfiguračního souboru](#control-linking-with-a-configuration-file).
 
 ## <a name="disable-linking-with-a-msbuild-property"></a>Zakázat propojení s vlastností MSBuild
 
-Propojení je povolené ve výchozím nastavení v režimu vydání, při vytváření aplikace, která zahrnuje publikování. Chcete-li zakázat propojení pro všechna sestavení, nastavte `BlazorLinkOnBuild` vlastnost MSBuild `false` v souboru projektu:
+Propojení je ve výchozím nastavení povoleno v režimu vydání, když je sestavena aplikace, která zahrnuje publikování. Chcete-li zakázat propojování pro všechna sestavení `BlazorLinkOnBuild` , nastavte vlastnost `false` MSBuild na hodnotu v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -35,9 +37,9 @@ Propojení je povolené ve výchozím nastavení v režimu vydání, při vytvá
 </PropertyGroup>
 ```
 
-## <a name="control-linking-with-a-configuration-file"></a>Ovládací prvek propojení s konfiguračním souborem
+## <a name="control-linking-with-a-configuration-file"></a>Řízení propojování pomocí konfiguračního souboru
 
-Ovládací prvek propojení na základě za sestavení tak, že poskytuje konfigurační soubor XML a zadání souboru jako položky nástroje MSBuild v souboru projektu:
+Řízení propojení na základě sestavení zadáním konfiguračního souboru XML a zadáním souboru jako položky MSBuild v souboru projektu:
 
 ```xml
 <ItemGroup>
@@ -45,7 +47,7 @@ Ovládací prvek propojení na základě za sestavení tak, že poskytuje konfig
 </ItemGroup>
 ```
 
-*Linker.xml*:
+*Linker. XML*:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -77,4 +79,4 @@ Ovládací prvek propojení na základě za sestavení tak, že poskytuje konfig
 </linker>
 ```
 
-Další informace najdete v tématu [IL Linkeru: Syntaxe xml popisovače](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).
+Další informace najdete v tématu [linkeru Il: Syntaxe popisovače](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)XML

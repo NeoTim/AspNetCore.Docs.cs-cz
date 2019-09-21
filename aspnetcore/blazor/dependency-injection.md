@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/06/2019
 uid: blazor/dependency-injection
-ms.openlocfilehash: 6c01fdc390cc9150cf81673c717b73c4b10c31f1
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 074d7a669c900eb242c8329147b28d1c50652915
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963967"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168085"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>Vkládání závislostí ASP.NET Core Blazor
 
 Od [Rainer Stropek](https://www.timecockpit.com)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor podporuje [vkládání závislostí (di)](xref:fundamentals/dependency-injection). Aplikace mohou používat vestavěné služby jejich vložením do komponent. Aplikace můžou také definovat a registrovat vlastní služby a zpřístupnit je v celé aplikaci přes DI.
 
@@ -29,7 +31,7 @@ DI je technika přístupu ke službám nakonfigurovaným v centrálním umístě
 
 Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 
-| Služba | Životnost | Popis |
+| Služba | Doba platnosti | Popis |
 | ------- | -------- | ----------- |
 | <xref:System.Net.Http.HttpClient> | Singleton | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI. Všimněte si, že tato `HttpClient` instance nástroje používá prohlížeč pro zpracování provozu http na pozadí. [HttpClient. BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress) se automaticky nastaví na základní PŘEDPONu identifikátoru URI aplikace. Další informace naleznete v tématu <xref:blazor/call-web-api>. |
 | `IJSRuntime` | Singleton | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/javascript-interop>. |
@@ -59,7 +61,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Služby je možné konfigurovat s životností, která jsou uvedená v následující tabulce.
 
-| Životnost | Popis |
+| Doba platnosti | Popis |
 | -------- | ----------- |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped*> | Blazor aplikace pro WebAssembly aktuálně nemají koncept typu DI obory. `Scoped`– registrované služby se chovají jako `Singleton` služby. Model hostování serveru Blazor však podporuje `Scoped` dobu života. V aplikacích Blazor Server je obor registrace služby vymezená na *připojení*. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton*> | DI vytvoří *jednu instanci* služby. Všechny součásti, které `Singleton` vyžadují službu, obdrží instanci stejné služby. |

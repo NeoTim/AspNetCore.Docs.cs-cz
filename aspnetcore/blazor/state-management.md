@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/state-management
-ms.openlocfilehash: e1c3b030f466a820d49c36839d7ee26bb7cea4d3
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 2acb91785e8c5fc34070d5428b89119667945753
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70963857"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168201"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor Server je stavová architektura aplikace. Ve většině případů aplikace udržuje průběžné připojení k serveru. Stav uživatele je uložený v paměti serveru v *okruhu*. 
 

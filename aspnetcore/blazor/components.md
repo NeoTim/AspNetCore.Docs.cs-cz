@@ -5,14 +5,14 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/19/2019
 uid: blazor/components
-ms.openlocfilehash: 521421ac413218c1f04dd9feade2a49dc1f7b918
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 55b40bc640715bf4052fa99ed68f63250b67e8d1
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080532"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168221"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -1128,7 +1128,7 @@ Alternativně lze zadat `Context` atribut prvku komponenty. Zadaný `Context` at
 
 ### <a name="generic-typed-components"></a>Komponenty s obecným typem
 
-Komponenty se šablonami jsou často typu obecně typované. Například obecná `ListViewTemplate` komponenta může být použita k vykreslování `IEnumerable<T>` hodnot. Chcete-li definovat obecné komponenty, použijte `@typeparam` direktivu k určení parametrů typu:
+Komponenty se šablonami jsou často typu obecně typované. Například obecná `ListViewTemplate` komponenta může být použita k vykreslování `IEnumerable<T>` hodnot. Chcete-li definovat obecné komponenty, použijte [@typeparam](xref:mvc/views/razor#typeparam) direktivu k určení parametrů typu:
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.razor)]
 

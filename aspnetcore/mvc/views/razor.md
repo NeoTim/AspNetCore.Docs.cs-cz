@@ -3,14 +3,14 @@ title: Referenční příručka syntaxe Razor pro ASP.NET Core
 author: rick-anderson
 description: Další informace o syntaxi Razor kód pro vložení do webových stránek kód založený na serveru.
 ms.author: riande
-ms.date: 08/05/2019
+ms.date: 09/19/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 75bf0e792ff7975f03e0f7c2fa6a71ed74d813e1
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: 9a319f7efb6d879559afd9faca6955aba719fa2f
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68819794"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168303"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -459,7 +459,7 @@ Dále v tomto článku v části [Zkontrolujte syntaxi Razor C# třída vygenero
 
 *Tento scénář platí pouze pro součásti Razor (. Razor).*
 
-Blok umožňuje komponentě [Razor](xref:blazor/components) přidat C# členy (pole, vlastnosti a metody) do komponenty: `@code`
+Blok umožňuje [komponentě Razor](xref:blazor/components) přidat C# členy (pole, vlastnosti a metody) do komponenty: `@code`
 
 ```cshtml
 @code {
@@ -662,7 +662,7 @@ Předchozí relace platí pro soubory importu používané s zobrazeními MVC a 
 
 Pokud má více souborů `@namespace` importu direktivu, soubor, který je nejblíže stránce, zobrazení nebo komponentě v adresářovém stromu, slouží k nastavení kořenového oboru názvů.
 
-Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@namespace Another.Planet` (nebo soubor Pages */MorePages/EvenMorePages/Page. cshtml* obsahuje `@namespace Another.Planet`), výsledek je zobrazen v následující tabulce.
+Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@namespace Another.Planet` (nebo soubor *Pages/MorePages/EvenMorePages/Page. cshtml* obsahuje `@namespace Another.Planet`), výsledek je zobrazen v následující tabulce.
 
 | Page                                        | Obor názvů               |
 | ------------------------------------------- | ----------------------- |
@@ -738,6 +738,12 @@ Atribut `@key` direktiva způsobí, že rozdílový algoritmus komponent garantu
 *Tento scénář platí pouze pro součásti Razor (. Razor).*
 
 Odkazy na součásti`@ref`() poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance. Další informace naleznete v tématu <xref:blazor/components#capture-references-to-components>.
+
+### <a name="typeparam"></a>\@typeparam
+
+*Tento scénář platí pouze pro součásti Razor (. Razor).*
+
+`@typeparam` Direktiva deklaruje parametr obecného typu pro generovanou třídu komponenty. Další informace naleznete v tématu <xref:blazor/components#generic-typed-components>.
 
 ::: moniker-end
 

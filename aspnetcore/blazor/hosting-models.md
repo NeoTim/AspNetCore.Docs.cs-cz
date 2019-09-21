@@ -7,16 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/07/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 6e225e490e54e44877fa27573ff9b513c8dcd9a3
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 47c546a086588919e4458d6aeeb39453cbc754e0
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964035"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168137"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core modely hostování Blazor
 
 Od [Daniel Skořepa](https://github.com/danroth27)
+
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 Blazor je webová architektura navržená tak, aby běžela na straně klienta v prohlížeči v prostředí .NET runtime založeném na webovém [sestavení](https://webassembly.org/)(*Blazor WebAssembly*) nebo na straně serveru v ASP.NET Core (*Server Blazor*). Bez ohledu na model hostování jsou modely aplikací a komponent *stejné*.
 
@@ -51,7 +53,7 @@ Existuje downsides hostování WebAssembly Blazor:
 * Velikost ke stažení je větší a aplikace trvá déle, než se načtou.
 * Podpora modulu runtime .NET a nástrojů je méně vyspělá. Například omezení existují v [.NET Standard](/dotnet/standard/net-standard) podpoře a ladění.
 
-## <a name="blazor-server"></a>Server Blazor
+## <a name="blazor-server"></a>Blazor Server
 
 S modelem hostování serveru Blazor je aplikace spuštěná na serveru z aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes připojení [](xref:signalr/introduction) k signalizaci.
 

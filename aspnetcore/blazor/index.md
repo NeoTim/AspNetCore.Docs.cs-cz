@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc, seoapril2019
 ms.date: 09/05/2019
 uid: blazor/index
-ms.openlocfilehash: 767ec8f106bebb92cf13a10eb63fab4905715d3d
-ms.sourcegitcommit: 092061c4f6ef46ed2165fa84de6273d3786fb97e
+ms.openlocfilehash: 378892efafa6b979d7f92a5e559b2dc8bb12295d
+ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/13/2019
-ms.locfileid: "70964107"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71168257"
 ---
 # <a name="introduction-to-blazor"></a>Úvod do Blazor
 
@@ -103,6 +103,8 @@ Komponenty vykreslí do reprezentace v paměti model DOM (Document Object Model)
 
 ## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
+[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
+
 Blazor WebAssembly je jediná stránka architektury aplikace pro vytváření interaktivních webových aplikací na straně klienta s .NET. Blazor WebAssembly používá otevřené webové standardy bez modulů plug-in a Code transpilation a funguje ve všech moderních webových prohlížečích, včetně mobilních prohlížečů.
 
 Spouštění kódu .NET ve webových prohlížečích je umožněno [](https://webassembly.org) webovým sestavením (zkráceným *wasm*). WebAssembly je formát kompaktního bajtu optimalizovaného pro rychlé stažení a maximální rychlost spuštění. WebAssembly je otevřený webový standard a podporuje se ve webových prohlížečích bez modulů plug-in.
@@ -123,7 +125,7 @@ Velikost publikované aplikace, její *Velikost datové části*, je důležitý
 * Odpovědi HTTP jsou komprimovány.
 * Modul runtime .NET a sestavení jsou ukládány do mezipaměti v prohlížeči.
 
-## <a name="blazor-server"></a>Server Blazor
+## <a name="blazor-server"></a>Blazor Server
 
 Blazor odpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Server poskytuje podporu pro hostování komponent Razor na serveru v aplikaci ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes [](xref:signalr/introduction) připojení k signalizaci.
 
