@@ -7,21 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/15/2019
 uid: blazor/forms-validation
-ms.openlocfilehash: 2fd76db90a53e328cd2ac8f452fba58365db0384
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: c68ebf7f7bf07b6c243ab16307716cea13870446
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011060"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176341"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core formuláře a ověřování Blazor
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
 Formuláře a ověřování se v Blazor podporují pomocí [datových poznámek](xref:mvc/models/validation).
-
-> [!NOTE]
-> Formuláře a scénáře ověřování se nejspíš mění v každé verzi Preview.
 
 Následující `ExampleModel` typ definuje logiku ověřování pomocí datových poznámek:
 

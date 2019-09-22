@@ -32,7 +32,6 @@ Kde `JSRuntime.InvokeAsync` je volána, `ElementRef` je použita pouze v `OnAfte
 @page "/prerendered-interop"
 @using Microsoft.AspNetCore.Components
 @using Microsoft.JSInterop
-@inject IComponentContext ComponentContext
 @inject IJSRuntime JSRuntime
 
 <p>
@@ -59,32 +58,5 @@ Kde `JSRuntime.InvokeAsync` je volána, `ElementRef` je použita pouze v `OnAfte
             StateHasChanged();
         }
     }
-}
-```
-
-Chcete-li podmíněně vykreslovat jiný obsah na základě toho, zda aplikace aktuálně předchází obsah, `IsConnected` použijte vlastnost `IComponentContext` ve službě. Pro aplikace Blazor serveru vrátí `IsConnected` `true` jenom v případě, že existuje aktivní připojení k klientovi. Vždycky se vrátí `true` v Blazorch aplikacích WebAssembly.
-
-```cshtml
-@page "/isconnected-example"
-@using Microsoft.AspNetCore.Components.Services
-@inject IComponentContext ComponentContext
-
-<h1>IsConnected Example</h1>
-
-<p>
-    Current state:
-    <strong id="connected-state">
-        @(ComponentContext.IsConnected ? "connected" : "not connected")
-    </strong>
-</p>
-
-<p>
-    Clicks:
-    <strong id="count">@count</strong>
-    <button id="increment-count" @onclick="@(() => count++)">Click me</button>
-</p>
-
-@code {
-    private int count;
 }
 ```

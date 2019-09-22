@@ -5,14 +5,14 @@ description: Naučte se vytvářet opakovaně použitelné součásti rozložen�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 09/21/2019
 uid: blazor/layouts
-ms.openlocfilehash: 05a38c10e18407d50422192ab1ddf3ff4b0f3a5b
-ms.sourcegitcommit: 43c6335b5859282f64d66a7696c5935a2bcdf966
+ms.openlocfilehash: 6ae795f720cd2cc1010ebec46bcee877b31d20c6
+ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/07/2019
-ms.locfileid: "70800372"
+ms.lasthandoff: 09/21/2019
+ms.locfileid: "71176423"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core rozložení Blazor
 
@@ -45,6 +45,8 @@ Chcete-li zadat výchozí rozložení `NotFound` obsahu, `LayoutView` zadejte pr
 
 Další informace o `Router` komponentě naleznete v tématu <xref:blazor/routing>.
 
+Určení rozložení jako výchozího rozložení ve směrovači je užitečný postup, protože je možné ho přepsat pro jednotlivé komponenty nebo pro jednotlivé složky. Upřednostňujete použití směrovače k nastavení výchozího rozložení aplikace, protože se jedná o nejobecnější postup.
+
 ## <a name="specify-a-layout-in-a-component"></a>Určení rozložení v součásti
 
 Použijte direktivu `@layout` Razor pro použití rozložení na komponentu. Kompilátor převede `@layout` `LayoutAttribute`na, který je použit pro třídu komponenty.
@@ -52,6 +54,8 @@ Použijte direktivu `@layout` Razor pro použití rozložení na komponentu. Kom
 Obsah následující `MasterList` komponenty je vložen `MasterLayout` do pozice v umístění `@Body`:
 
 [!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
+
+Určením rozložení přímo v součásti dojde k přepsání *výchozí sady rozložení* ve směrovači nebo `@layout` direktivy importované z *_Imports. Razor*.
 
 ## <a name="centralized-layout-selection"></a>Centralizovaný výběr rozložení
 
@@ -66,6 +70,8 @@ Následující soubor *_Imports. Razor* importuje:
 [!code-cshtml[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
 Soubor *_Imports. Razor* je podobný [souboru _ViewImports. cshtml pro zobrazení a stránky Razor](xref:mvc/views/layout#importing-shared-directives) , ale používá se konkrétně pro soubory komponenty Razor.
+
+Zadání rozložení v *_Imports. Razor* přepíše rozložení zadané jako *výchozí rozložení*směrovače.
 
 ## <a name="nested-layouts"></a>Vnořená rozložení
 
