@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 8ef49797fed3379e33810f311bfc474e524122e0
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 086ac141a04ab4a560f2c26fb049ef8a5493dc97
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082590"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187239"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -45,7 +45,7 @@ Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhr
 Pro instalaci HTTP REPL spusťte následující příkaz:
 
 ```dotnetcli
-dotnet tool install -g Microsoft.dotnet-httprepl --version "3.0.0-*"
+dotnet tool install -g Microsoft.dotnet-httprepl
 ```
 
 [Globální nástroj .NET Core](/dotnet/core/tools/global-tools#install-a-global-tool) je nainstalovaný z balíčku NuGet [Microsoft. dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) .

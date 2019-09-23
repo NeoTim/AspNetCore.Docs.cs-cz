@@ -5,14 +5,14 @@ description: Tento článek obsahuje odkazy na hostitele Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/07/2019
+ms.date: 07/28/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 7736888c43aafd2f64e3d7b079f2099fe548a825
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 4dc150ff4534e42e1995a185f650cea9df70ccc4
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081078"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187048"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
@@ -97,7 +97,17 @@ Když aplikace vytvoří hostitele pomocí webhost [. CreateDefaultBuilder](/dot
 
 ## <a name="monitoring-and-logging"></a>Monitorování a protokolování
 
-Azure App Service nabízí **rozšíření protokolování ASP.NET Core**, která umožňují integraci protokolování pro ASP.NET Core aplikace. Chcete-li automaticky přidat rozšíření do App Service, použijte proces **publikování** v aplikaci Visual Studio s profilem publikování **App Service** . Pokud nepoužíváte aplikaci Visual Studio k nasazení aplikace, ručně nainstalujte rozšíření na webu Azure Portal prostřednictvím dialogového okna**rozšíření** **vývojových nástrojů** > App Service.
+::: moniker range=">= aspnetcore-3.0"
+
+Aplikace ASP.NET Core nasazené pro App Service automaticky dostanou rozšíření App Service **ASP.NET Core Integration Logging**. Rozšíření umožňuje integraci protokolování pro aplikace ASP.NET Core v Azure App Service.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Aplikace ASP.NET Core nasazené pro App Service automaticky dostanou rozšíření App Service **ASP.NET Core rozšíření protokolování**. Rozšíření umožňuje integraci protokolování pro aplikace ASP.NET Core v Azure App Service.
+
+::: moniker-end
 
 Informace o monitorování, protokolování a odstraňování potíží najdete v následujících článcích:
 
@@ -128,10 +138,21 @@ Při záměně mezi sloty nasazení nebude možné dešifrovat uložená data po
 * Redis Cache
 
 Další informace naleznete v tématu <xref:security/data-protection/implementation/key-storage-providers>.
+<a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>
+<!-- revert this after 3.0 supported
+## Deploy ASP.NET Core preview release to Azure App Service
 
-## <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>Nasazení verze Preview ASP.NET Core do Azure App Service
+Use one of the following approaches if the app relies on a preview release of .NET Core:
 
-Pokud se aplikace spoléhá na verzi Preview rozhraní .NET Core, použijte jeden z následujících přístupů:
+* [Install the preview site extension](#install-the-preview-site-extension).
+* [Deploy a self-contained preview app](#deploy-a-self-contained-preview-app).
+* [Use Docker with Web Apps for containers](#use-docker-with-web-apps-for-containers).
+-->
+## <a name="deploy-aspnet-core-30-to-azure-app-service"></a>Nasazení ASP.NET Core 3,0 do Azure App Service
+
+Doufáme, že bude mít ASP.NET Core 3,0 k dispozici v Azure App Service brzo.
+
+Pokud aplikace spoléhá na rozhraní .NET Core 3,0, použijte jeden z následujících přístupů:
 
 * [Nainstalujte rozšíření webu verze Preview](#install-the-preview-site-extension).
 * [Nasaďte samostatně obsaženou aplikaci pro náhled](#deploy-a-self-contained-preview-app).
@@ -230,7 +251,7 @@ Pro 64 [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-depe
 
 1. V příkazovém prostředí publikujte aplikaci v konfiguraci vydaných verzí pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) . V následujícím příkladu je aplikace publikována jako aplikace závislá na rozhraní:
 
-   ```dotnetcli
+   ```console
    dotnet publish --configuration Release
    ```
 
@@ -268,7 +289,7 @@ Použijte nástroje sady Visual Studio nebo rozhraní příkazového řádku (CL
 
 1. Z příkazového prostředí publikujte aplikaci v konfiguraci vydání pro modul runtime hostitele pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) . V následujícím příkladu je aplikace publikována pro `win-x86` identifikátor RID. Identifikátor RID zadaný do `--runtime` možnosti musí být uveden `<RuntimeIdentifier>` ve vlastnosti (nebo `<RuntimeIdentifiers>`) v souboru projektu.
 
-   ```dotnetcli
+   ```console
    dotnet publish --configuration Release --runtime win-x86
    ```
 

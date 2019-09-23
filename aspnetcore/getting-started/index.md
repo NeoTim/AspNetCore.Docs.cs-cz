@@ -4,14 +4,14 @@ author: rick-anderson
 description: Krátký kurz, který vytvoří a spustí základní aplikaci Hello World pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/15/2019
+ms.date: 09/22/2019
 uid: getting-started
-ms.openlocfilehash: d1edf91f1b37ba2b69732471dc6c1f306ac5ad24
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 0f05ab120d64832a4bc2fd70921efc7238ee9eac
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081132"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187068"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
@@ -31,7 +31,7 @@ Na konci budete mít na svém místním počítači spuštěnou funkční webovo
 
 ## <a name="prerequisites"></a>Požadavky
 
-* [Sada .NET Core 2,2 SDK](https://www.microsoft.com/net/download/all)
+[!INCLUDE[](~/includes/3.0-SDK.md)]
 
 ## <a name="create-a-web-app-project"></a>Vytvoření projektu webové aplikace
 
@@ -40,6 +40,11 @@ Otevřete příkazové prostředí a zadejte následující příkaz:
 ```dotnetcli
 dotnet new webapp -o aspnetcoreapp
 ```
+
+Předchozí příkaz:
+
+* Vytvoří novou webovou aplikaci.  
+* Parametr vytvoří adresář s názvem aspnetcoreapp se zdrojovými soubory aplikace. `-o`
 
 ### <a name="trust-the-development-certificate"></a>Důvěřovat vývojovému certifikátu
 
@@ -98,7 +103,7 @@ Otevřete *pages/index. cshtml* a upravte stránku pomocí následujícího zvý
 
 Vyhledejte a ověřte, zda jsou změny zobrazeny. [https://localhost:5001](https://localhost:5001)
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu jste se naučili:
 

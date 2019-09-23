@@ -20,17 +20,7 @@ Do souboru *appSettings. JSON* přidejte připojovací řetězec, jak ukazuje n�
 
 ### <a name="add-nuget-packages-and-ef-tools"></a>Přidat balíčky NuGet a nástroje EF
 
-Otevřete terminálu pro projekt RazorPagesMovie.  Klikněte pravým tlačítkem myši na název projektu na panelu návrh nebo rozložení a přejděte na **nástroje > otevřít** v terminálu. Spusťte následující příkazy .NET Core CLI v termínu:
-
-```dotnetcli
-dotnet tool install --global dotnet-ef --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-```
-
-Předchozí příkazy přidají do projektu Entity Framework Core nástroje pro rozhraní .NET CLI a několik balíčků. `Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíček je vyžadován pro generování uživatelského rozhraní.
+[!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
 
 <a name="reg"></a>
 

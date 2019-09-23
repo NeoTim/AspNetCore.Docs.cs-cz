@@ -5,12 +5,12 @@ description: V tomto kurzu začnete používat funkci migrace EF Core pro správ
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 8a4929a905c6a488231d7d29e1101f6fd887477f
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: efcf62d56a7b4cee4780d5f0475b4ef363fe1897
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082083"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187071"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Razor Pages s EF Core v ASP.NET Core – migrace – 4 z 8
 
@@ -45,7 +45,7 @@ Drop-Database
 * Spusťte následující příkaz na příkazovém řádku pro instalaci nástrojů EF CLI:
 
   ```dotnetcli
-  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef
   ```
 
 * Na příkazovém řádku přejděte do složky projektu. Složka projektu obsahuje soubor *ContosoUniversity. csproj* .
@@ -145,7 +145,7 @@ Login failed for user 'user name'.
 * [EF Core CLI](/ef/core/miscellaneous/cli/dotnet).
 * [Konzola Správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 V dalším kurzu se vytvoří datový model a přidají se vlastnosti entity a nové entity.
 
@@ -306,7 +306,7 @@ The login failed.
 Login failed for user 'user name'.
 ```
 
-Řešení Spustit `dotnet ef database update`
+Řešení Spusťte `dotnet ef database update`.
 
 ### <a name="additional-resources"></a>Další zdroje
 
@@ -317,8 +317,8 @@ Login failed for user 'user name'.
 
 
 > [!div class="step-by-step"]
-> [Předchozí](xref:data/ef-rp/sort-filter-page)Další
-> [](xref:data/ef-rp/complex-data-model)
+> [Předchozí](xref:data/ef-rp/sort-filter-page)
+> [Další](xref:data/ef-rp/complex-data-model)
 
 ::: moniker-end
 

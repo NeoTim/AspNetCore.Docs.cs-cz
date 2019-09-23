@@ -20,17 +20,7 @@ Přidejte do souboru *appSettings. JSON* připojovací řetězec:
 
 ### <a name="add-nuget-packages-and-ef-tools"></a>Přidat balíčky NuGet a nástroje EF
 
-Spusťte následující příkazy .NET Core CLI:
-
-```dotnetcli
-dotnet tool install --global dotnet-ef --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-```
-
-Předchozí příkazy přidají do projektu Entity Framework Core nástroje pro rozhraní .NET CLI a několik balíčků. `Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíček je vyžadován pro generování uživatelského rozhraní.
+[!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
 
 <a name="reg"></a>
 

@@ -5,12 +5,12 @@ description: Přečtěte si, jak vazba modelu umožňuje akcím kontroleru praco
 ms.author: riande
 ms.date: 11/13/2018
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 91f42393ffee3249f9167e10eaea7b279a7cb70b
-ms.sourcegitcommit: e7c56e8da5419bbc20b437c2dd531dedf9b0dc6b
+ms.openlocfilehash: b2fbe6a9f11315d1fb8863fbf62e8929c7ff3fc2
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/10/2019
-ms.locfileid: "70878408"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71186880"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>Vazba vlastního modelu v ASP.NET Core
 
@@ -132,9 +132,7 @@ Pokud přidáte poskytovatele na konec kolekce, může to mít za následek vol�
 
 ### <a name="polymorphic-model-binding"></a>Polymorfní vazba modelu
 
-Vazba na různé modely odvozených typů se označuje jako polymorfní vazba modelu. Pokud je hodnota požadavku svázána s konkrétním typem odvozeného modelu, je nutné zadat vlastní vazbu modelu. Pokud není tento přístup vyžadován, doporučujeme vyhnout se vazbě polymorfního modelu. Vázání polymorfního modelu způsobuje obtížně na základě vazebných modelů. Nicméně pokud aplikace vyžaduje vazbu polymorfního modelu, implementace může vypadat jako v následujícím kódu:
-
-Vazba na různé modely odvozených typů se označuje jako polymorfní vazba modelu. Pokud je hodnota požadavku svázána s konkrétním typem odvozeného modelu, je nutné zadat vlastní vazbu modelu. Polymorfní vazba modelu:
+Vazba na různé modely odvozených typů se označuje jako polymorfní vazba modelu. Polymorfní vazba vlastního modelu je požadována v případě, že hodnota požadavku musí být vázána na konkrétní typ odvozeného modelu. Polymorfní vazba modelu:
 
 * Není typický pro REST API, která je navržená tak, aby spolupracovala se všemi jazyky.
 * To je obtížné kvůli vázaným modelům.

@@ -5,12 +5,12 @@ description: Přidejte model do jednoduché aplikace ASP.NET Core.
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: b0efaf76cb2172f5b7568e42065b99b1259949de
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: b2ef7a582dfedcd670af7bb18a6927cec31f6414
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082026"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187268"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu do ASP.NET Core aplikace MVC
 
@@ -69,21 +69,7 @@ Předchozí příkaz přidá poskytovatele EF Core SQL Server. Balíček Provide
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
-Spusťte následující příkazy .NET Core CLI:
-
-```dotnetcli
-dotnet tool install --global dotnet-ef --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SQLite --version 3.0.0-*
-dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.Design --version 3.0.0-*
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 3.0.0-*
-```
-
-Do předchozích příkazů přidejte:
-
-* Nástroje Entity Framework Core pro rozhraní příkazového řádku .NET
-* Zprostředkovatel SQLite EF Core, který nainstaluje EF Core balíček jako závislost.
-* Balíčky nutné pro generování uživatelského rozhraní `Microsoft.VisualStudio.Web.CodeGeneration.Design` : `Microsoft.EntityFrameworkCore.SqlServer`a.
+[!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
 
 ---
 

@@ -1,69 +1,120 @@
 ---
-title: Middleware aktivace s kontejnerem jiného výrobce v ASP.NET Core
+title: Aktivace middlewaru pomocí kontejneru třetí strany v ASP.NET Core
 author: guardrex
-description: Zjistěte, jak používat middleware silného typu pomocí aktivace založené na objekt pro vytváření a kontejnerem jiného výrobce v ASP.NET Core.
+description: Naučte se používat middleware silného typu s aktivací založenou na výrobě a kontejnerem třetí strany v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/03/2019
+ms.date: 09/22/2019
 uid: fundamentals/middleware/extensibility-third-party-container
-ms.openlocfilehash: 4bc99b4c336aba611287c9fbe03d4252f8abee5b
-ms.sourcegitcommit: f6e6730872a7d6f039f97d1df762f0d0bd5e34cf
+ms.openlocfilehash: e54a2bd366457fa2d898b7ee26e95021aec5389b
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/04/2019
-ms.locfileid: "67561652"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187094"
 ---
-# <a name="middleware-activation-with-a-third-party-container-in-aspnet-core"></a>Middleware aktivace s kontejnerem jiného výrobce v ASP.NET Core
+# <a name="middleware-activation-with-a-third-party-container-in-aspnet-core"></a>Aktivace middlewaru pomocí kontejneru třetí strany v ASP.NET Core
 
 Podle [Luke Latham](https://github.com/guardrex)
 
-Tento článek ukazuje, jak používat <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> a <xref:Microsoft.AspNetCore.Http.IMiddleware> jako bod rozšiřitelnosti pro [middleware](xref:fundamentals/middleware/index) aktivace s kontejnerem jiného výrobce. Úvodní informace o `IMiddlewareFactory` a `IMiddleware`, naleznete v tématu <xref:fundamentals/middleware/extensibility>.
+::: moniker range=">= aspnetcore-3.0"
+
+Tento článek ukazuje, jak používat <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> a <xref:Microsoft.AspNetCore.Http.IMiddleware> jako bod rozšiřitelnosti pro aktivaci [middlewaru](xref:fundamentals/middleware/index) pomocí kontejneru třetí strany. Úvodní informace o systémech `IMiddlewareFactory` a `IMiddleware`najdete v <xref:fundamentals/middleware/extensibility>tématu.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
-Ukázková aplikace předvádí middleware aktivace pomocí `IMiddlewareFactory` implementaci `SimpleInjectorMiddlewareFactory`. Ukázka používá [jednoduché Injector](https://simpleinjector.org) kontejneru pro vkládání (DI) závislosti.
+Ukázková aplikace předvádí aktivaci middlewaru `IMiddlewareFactory` pomocí `SimpleInjectorMiddlewareFactory`implementace. Ukázka používá [jednoduchý](https://simpleinjector.org) kontejner vkládání závislostí (di).
 
-Ukázková implementace middlewaru zaznamenává hodnota poskytnutá parametru řetězce dotazu (`key`). Middleware použije objekt context vloženého databáze (s vymezeným oborem service) k zaznamenání hodnotu řetězce dotazu v databázi v paměti.
+Implementace middleware v ukázce zaznamenává hodnotu poskytnutou parametrem řetězce dotazu (`key`). Middleware používá vložený kontext databáze (Oborová služba) k záznamu hodnoty řetězce dotazu do databáze v paměti.
 
 > [!NOTE]
-> Tato ukázková aplikace používá [jednoduché Injector](https://github.com/simpleinjector/SimpleInjector) čistě pro demonstrační účely. Využití jednoduché Injector není o potvrzení. Přístupy k aktivaci middleware popsaného v dokumentaci k jednoduché Injector a programu jednoduché Injector jsou doporučené problémy Githubu. Další informace najdete v tématu [jednoduché Injector dokumentaci](https://simpleinjector.readthedocs.io/en/latest/index.html) a [úložiště GitHub jednoduché Injector](https://github.com/simpleinjector/SimpleInjector).
+> Ukázková aplikace používá pro demonstrační účely čistě modul pro [vkládání](https://github.com/simpleinjector/SimpleInjector) . Použití jednoduchého injektoru není potvrzením. Přístupy k aktivaci middlewaru popsané v dokumentaci k funkci Simple injektor a problémy GitHubu doporučuje údržba jednoduchého injektoru. Další informace najdete v [dokumentaci k jednoduchému vstřikovacímu](https://simpleinjector.readthedocs.io/en/latest/index.html) zařízení a v [úložišti GitHub pro jednoduché](https://github.com/simpleinjector/SimpleInjector)sady pro vkládání.
 
 ## <a name="imiddlewarefactory"></a>IMiddlewareFactory
 
-<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> poskytuje metody pro vytvoření middlewaru.
+<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>poskytuje metody pro vytvoření middlewaru.
 
-V ukázkové aplikaci se implementuje objekt pro vytváření middleware k vytvoření `SimpleInjectorActivatedMiddleware` instance. Objekt pro vytváření middleware používá jednoduché Injector kontejneru pro middleware:
+V ukázkové aplikaci je implementován objekt pro vytváření middlewaru pro vytvoření `SimpleInjectorActivatedMiddleware` instance. Objekt pro vytváření middlewaru používá jednoduchý kontejner injektoru k překladu middlewaru:
+
+[!code-csharp[](extensibility-third-party-container/samples/3.x/SampleApp/Middleware/SimpleInjectorMiddlewareFactory.cs?name=snippet1&highlight=5-8,12)]
+
+## <a name="imiddleware"></a>IMiddleware
+
+<xref:Microsoft.AspNetCore.Http.IMiddleware>definuje middleware pro kanál žádostí aplikace.
+
+Middleware aktivovaný `IMiddlewareFactory` implementací (*middleware/SimpleInjectorActivatedMiddleware. cs*):
+
+[!code-csharp[](extensibility-third-party-container/samples/3.x/SampleApp/Middleware/SimpleInjectorActivatedMiddleware.cs?name=snippet1)]
+
+Pro middleware (*middleware/MiddlewareExtensions. cs*) se vytvoří rozšíření:
+
+[!code-csharp[](extensibility-third-party-container/samples/3.x/SampleApp/Middleware/MiddlewareExtensions.cs?name=snippet1)]
+
+`Startup.ConfigureServices`musí provádět několik úloh:
+
+* Nastavení jednoduchého kontejneru pro nástřik.
+* Zaregistrujte objekt pro vytváření a middlewaru.
+* Zpřístupněte kontext databáze aplikace z jednoduchého kontejneru injektoru.
+
+[!code-csharp[](extensibility-third-party-container/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
+
+Middleware je zaregistrován v kanálu zpracování žádosti v `Startup.Configure`nástroji:
+
+[!code-csharp[](extensibility-third-party-container/samples/3.x/SampleApp/Startup.cs?name=snippet2&highlight=12)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Tento článek ukazuje, jak používat <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> a <xref:Microsoft.AspNetCore.Http.IMiddleware> jako bod rozšiřitelnosti pro aktivaci [middlewaru](xref:fundamentals/middleware/index) pomocí kontejneru třetí strany. Úvodní informace o systémech `IMiddlewareFactory` a `IMiddleware`najdete v <xref:fundamentals/middleware/extensibility>tématu.
+
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility-third-party-container/samples/) ([stažení](xref:index#how-to-download-a-sample))
+
+Ukázková aplikace předvádí aktivaci middlewaru `IMiddlewareFactory` pomocí `SimpleInjectorMiddlewareFactory`implementace. Ukázka používá [jednoduchý](https://simpleinjector.org) kontejner vkládání závislostí (di).
+
+Implementace middleware v ukázce zaznamenává hodnotu poskytnutou parametrem řetězce dotazu (`key`). Middleware používá vložený kontext databáze (Oborová služba) k záznamu hodnoty řetězce dotazu do databáze v paměti.
+
+> [!NOTE]
+> Ukázková aplikace používá pro demonstrační účely čistě modul pro [vkládání](https://github.com/simpleinjector/SimpleInjector) . Použití jednoduchého injektoru není potvrzením. Přístupy k aktivaci middlewaru popsané v dokumentaci k funkci Simple injektor a problémy GitHubu doporučuje údržba jednoduchého injektoru. Další informace najdete v [dokumentaci k jednoduchému vstřikovacímu](https://simpleinjector.readthedocs.io/en/latest/index.html) zařízení a v [úložišti GitHub pro jednoduché](https://github.com/simpleinjector/SimpleInjector)sady pro vkládání.
+
+## <a name="imiddlewarefactory"></a>IMiddlewareFactory
+
+<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>poskytuje metody pro vytvoření middlewaru.
+
+V ukázkové aplikaci je implementován objekt pro vytváření middlewaru pro vytvoření `SimpleInjectorActivatedMiddleware` instance. Objekt pro vytváření middlewaru používá jednoduchý kontejner injektoru k překladu middlewaru:
 
 [!code-csharp[](extensibility-third-party-container/samples/2.x/SampleApp/Middleware/SimpleInjectorMiddlewareFactory.cs?name=snippet1&highlight=5-8,12)]
 
 ## <a name="imiddleware"></a>IMiddleware
 
-<xref:Microsoft.AspNetCore.Http.IMiddleware> Definuje middleware pro kanál žádosti o aplikace.
+<xref:Microsoft.AspNetCore.Http.IMiddleware>definuje middleware pro kanál žádostí aplikace.
 
-Middleware aktivoval `IMiddlewareFactory` implementace (*Middleware/SimpleInjectorActivatedMiddleware.cs*):
+Middleware aktivovaný `IMiddlewareFactory` implementací (*middleware/SimpleInjectorActivatedMiddleware. cs*):
 
 [!code-csharp[](extensibility-third-party-container/samples/2.x/SampleApp/Middleware/SimpleInjectorActivatedMiddleware.cs?name=snippet1)]
 
-Vytvoření rozšíření pro middleware (*Middleware/MiddlewareExtensions.cs*):
+Pro middleware (*middleware/MiddlewareExtensions. cs*) se vytvoří rozšíření:
 
 [!code-csharp[](extensibility-third-party-container/samples/2.x/SampleApp/Middleware/MiddlewareExtensions.cs?name=snippet1)]
 
-`Startup.ConfigureServices` třeba provést několik úloh:
+`Startup.ConfigureServices`musí provádět několik úloh:
 
-* Nastavte jednoduché Injector kontejner.
+* Nastavení jednoduchého kontejneru pro nástřik.
 * Zaregistrujte objekt pro vytváření a middlewaru.
-* Kontext databáze aplikace zpřístupníte z jednoduchého Injector kontejneru.
+* Zpřístupněte kontext databáze aplikace z jednoduchého kontejneru injektoru.
 
 [!code-csharp[](extensibility-third-party-container/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
-Middleware je registrován v kanálu zpracování žádostí v `Startup.Configure`:
+Middleware je zaregistrován v kanálu zpracování žádosti v `Startup.Configure`nástroji:
 
-[!code-csharp[](extensibility-third-party-container/samples/2.x/SampleApp/Startup.cs?name=snippet2&highlight=13)]
+[!code-csharp[](extensibility-third-party-container/samples/2.x/SampleApp/Startup.cs?name=snippet2&highlight=12)]
+
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Middleware](xref:fundamentals/middleware/index)
-* [Middleware založený na objekt pro vytváření aktivace](xref:fundamentals/middleware/extensibility)
-* [Jednoduché úložiště Injector GitHub](https://github.com/simpleinjector/SimpleInjector)
-* [Dokumentace k jednoduché Injector](https://simpleinjector.readthedocs.io/en/latest/index.html)
+* [Aktivace middlewaru založená na objektu factory](xref:fundamentals/middleware/extensibility)
+* [Úložiště GitHub pro jednoduché vložení](https://github.com/simpleinjector/SimpleInjector)
+* [Dokumentace k jednoduchému vstřikovacímu zařízení](https://simpleinjector.readthedocs.io/en/latest/index.html)

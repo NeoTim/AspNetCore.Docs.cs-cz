@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2019
 uid: security/cors
-ms.openlocfilehash: a34b77ad799a00707048c923b82b48774ce91682
-ms.sourcegitcommit: b1e480e1736b0fe0e4d8dce4a4cf5c8e47fc2101
+ms.openlocfilehash: a02b3497684979c1a9e792437f9f1a4c467600f0
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/19/2019
-ms.locfileid: "71108071"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187251"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolit žádosti mezi zdroji (CORS) v ASP.NET Core
 
@@ -217,7 +217,7 @@ Tato část popisuje různé možnosti, které je možné nastavit v zásadách 
 
 <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.SetIsOriginAllowedToAllowWildcardSubdomains*>&ndash; Nastaví vlastnostzásadynafunkci,kteráumožňuje,abysepřivyhodnocování,jestlijepůvodpovolený,shodovalyskonfigurovanoudoménouse<xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy.IsOriginAllowed*> zástupnými znaky.
 
-[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-104&highlight=4)]
+[!code-csharp[](cors/sample/CorsExample4/Startup.cs?range=100-105&highlight=4-5)]
 
 ::: moniker-end
 
