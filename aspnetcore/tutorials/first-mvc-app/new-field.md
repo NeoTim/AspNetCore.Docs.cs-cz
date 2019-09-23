@@ -134,5 +134,5 @@ dotnet ef database update
 Spusťte aplikaci a ověřte, že můžete vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Měli byste přidat `Rating` pole `Edit`do šablon zobrazení, `Details`a `Delete` .
 
 > [!div class="step-by-step"]
-> [Předchozí](search.md)Další
-> [](validation.md)
+> [Předchozí](search.md)
+> [Další](validation.md)
