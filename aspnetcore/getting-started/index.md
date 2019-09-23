@@ -4,111 +4,116 @@ author: rick-anderson
 description: Krátký kurz, který vytvoří a spustí základní aplikaci Hello World pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/15/2019
+ms.date: 09/22/2019
 uid: getting-started
-ms.openlocfilehash: d1edf91f1b37ba2b69732471dc6c1f306ac5ad24
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 0f05ab120d64832a4bc2fd70921efc7238ee9eac
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081132"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187068"
 ---
-# <a name="tutorial-get-started-with-aspnet-core"></a><span data-ttu-id="d70af-103">Kurz: Začínáme s ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="d70af-103">Tutorial: Get started with ASP.NET Core</span></span>
+# <a name="tutorial-get-started-with-aspnet-core"></a><span data-ttu-id="8c665-103">Kurz: Začínáme s ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="8c665-103">Tutorial: Get started with ASP.NET Core</span></span>
 
-<span data-ttu-id="d70af-104">V tomto kurzu se dozvíte, jak používat rozhraní příkazového řádku .NET Core k vytvoření a spuštění webové aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="d70af-104">This tutorial shows how to use the .NET Core command-line interface to create and run an ASP.NET Core web app.</span></span>
+<span data-ttu-id="8c665-104">V tomto kurzu se dozvíte, jak používat rozhraní příkazového řádku .NET Core k vytvoření a spuštění webové aplikace ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="8c665-104">This tutorial shows how to use the .NET Core command-line interface to create and run an ASP.NET Core web app.</span></span>
 
-<span data-ttu-id="d70af-105">Naučíte se:</span><span class="sxs-lookup"><span data-stu-id="d70af-105">You'll learn how to:</span></span>
+<span data-ttu-id="8c665-105">Naučíte se:</span><span class="sxs-lookup"><span data-stu-id="8c665-105">You'll learn how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="d70af-106">Vytvořte projekt webové aplikace.</span><span class="sxs-lookup"><span data-stu-id="d70af-106">Create a web app project.</span></span>
-> * <span data-ttu-id="d70af-107">Důvěřovat vývojovému certifikátu.</span><span class="sxs-lookup"><span data-stu-id="d70af-107">Trust the development certificate.</span></span>
-> * <span data-ttu-id="d70af-108">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="d70af-108">Run the app.</span></span>
-> * <span data-ttu-id="d70af-109">Úprava stránky Razor</span><span class="sxs-lookup"><span data-stu-id="d70af-109">Edit a Razor page.</span></span>
+> * <span data-ttu-id="8c665-106">Vytvořte projekt webové aplikace.</span><span class="sxs-lookup"><span data-stu-id="8c665-106">Create a web app project.</span></span>
+> * <span data-ttu-id="8c665-107">Důvěřovat vývojovému certifikátu.</span><span class="sxs-lookup"><span data-stu-id="8c665-107">Trust the development certificate.</span></span>
+> * <span data-ttu-id="8c665-108">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="8c665-108">Run the app.</span></span>
+> * <span data-ttu-id="8c665-109">Úprava stránky Razor</span><span class="sxs-lookup"><span data-stu-id="8c665-109">Edit a Razor page.</span></span>
 
-<span data-ttu-id="d70af-110">Na konci budete mít na svém místním počítači spuštěnou funkční webovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="d70af-110">At the end, you'll have a working web app running on your local machine.</span></span>
+<span data-ttu-id="8c665-110">Na konci budete mít na svém místním počítači spuštěnou funkční webovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="8c665-110">At the end, you'll have a working web app running on your local machine.</span></span>
 
 ![Domovská stránka webové aplikace](_static/home-page.png)
 
-## <a name="prerequisites"></a><span data-ttu-id="d70af-112">Požadavky</span><span class="sxs-lookup"><span data-stu-id="d70af-112">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="8c665-112">Požadavky</span><span class="sxs-lookup"><span data-stu-id="8c665-112">Prerequisites</span></span>
 
-* [<span data-ttu-id="d70af-113">Sada .NET Core 2,2 SDK</span><span class="sxs-lookup"><span data-stu-id="d70af-113">.NET Core 2.2 SDK</span></span>](https://www.microsoft.com/net/download/all)
+[!INCLUDE[](~/includes/3.0-SDK.md)]
 
-## <a name="create-a-web-app-project"></a><span data-ttu-id="d70af-114">Vytvoření projektu webové aplikace</span><span class="sxs-lookup"><span data-stu-id="d70af-114">Create a web app project</span></span>
+## <a name="create-a-web-app-project"></a><span data-ttu-id="8c665-113">Vytvoření projektu webové aplikace</span><span class="sxs-lookup"><span data-stu-id="8c665-113">Create a web app project</span></span>
 
-<span data-ttu-id="d70af-115">Otevřete příkazové prostředí a zadejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="d70af-115">Open a command shell, and enter the following command:</span></span>
+<span data-ttu-id="8c665-114">Otevřete příkazové prostředí a zadejte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="8c665-114">Open a command shell, and enter the following command:</span></span>
 
 ```dotnetcli
 dotnet new webapp -o aspnetcoreapp
 ```
 
-### <a name="trust-the-development-certificate"></a><span data-ttu-id="d70af-116">Důvěřovat vývojovému certifikátu</span><span class="sxs-lookup"><span data-stu-id="d70af-116">Trust the development certificate</span></span>
+<span data-ttu-id="8c665-115">Předchozí příkaz:</span><span class="sxs-lookup"><span data-stu-id="8c665-115">The preceding command:</span></span>
 
-<span data-ttu-id="d70af-117">Důvěřovat vývojovému certifikátu HTTPS:</span><span class="sxs-lookup"><span data-stu-id="d70af-117">Trust the HTTPS development certificate:</span></span>
+* <span data-ttu-id="8c665-116">Vytvoří novou webovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="8c665-116">Creates a new web app.</span></span>  
+* <span data-ttu-id="8c665-117">Parametr vytvoří adresář s názvem aspnetcoreapp se zdrojovými soubory aplikace. `-o`</span><span class="sxs-lookup"><span data-stu-id="8c665-117">The `-o` parameter creates a directory named *aspnetcoreapp* with the source files for the app.</span></span>
 
-# <a name="windowstabwindows"></a>[<span data-ttu-id="d70af-118">Windows</span><span class="sxs-lookup"><span data-stu-id="d70af-118">Windows</span></span>](#tab/windows)
+### <a name="trust-the-development-certificate"></a><span data-ttu-id="8c665-118">Důvěřovat vývojovému certifikátu</span><span class="sxs-lookup"><span data-stu-id="8c665-118">Trust the development certificate</span></span>
+
+<span data-ttu-id="8c665-119">Důvěřovat vývojovému certifikátu HTTPS:</span><span class="sxs-lookup"><span data-stu-id="8c665-119">Trust the HTTPS development certificate:</span></span>
+
+# <a name="windowstabwindows"></a>[<span data-ttu-id="8c665-120">Windows</span><span class="sxs-lookup"><span data-stu-id="8c665-120">Windows</span></span>](#tab/windows)
 
 ```dotnetcli
 dotnet dev-certs https --trust
 ```
 
-<span data-ttu-id="d70af-119">Předchozí příkaz zobrazí následující dialog:</span><span class="sxs-lookup"><span data-stu-id="d70af-119">The preceding command displays the following dialog:</span></span>
+<span data-ttu-id="8c665-121">Předchozí příkaz zobrazí následující dialog:</span><span class="sxs-lookup"><span data-stu-id="8c665-121">The preceding command displays the following dialog:</span></span>
 
 ![Dialogové okno upozornění zabezpečení](~/getting-started/_static/cert.png)
 
-<span data-ttu-id="d70af-121">Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, vyberte **Ano** .</span><span class="sxs-lookup"><span data-stu-id="d70af-121">Select **Yes** if you agree to trust the development certificate.</span></span>
+<span data-ttu-id="8c665-123">Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, vyberte **Ano** .</span><span class="sxs-lookup"><span data-stu-id="8c665-123">Select **Yes** if you agree to trust the development certificate.</span></span>
 
-# <a name="macostabmacos"></a>[<span data-ttu-id="d70af-122">macOS</span><span class="sxs-lookup"><span data-stu-id="d70af-122">macOS</span></span>](#tab/macos)
+# <a name="macostabmacos"></a>[<span data-ttu-id="8c665-124">macOS</span><span class="sxs-lookup"><span data-stu-id="8c665-124">macOS</span></span>](#tab/macos)
 
 ```dotnetcli
 dotnet dev-certs https --trust
 ```
 
-<span data-ttu-id="d70af-123">Předchozí příkaz zobrazí následující zprávu:</span><span class="sxs-lookup"><span data-stu-id="d70af-123">The preceding command displays the following message:</span></span>
+<span data-ttu-id="8c665-125">Předchozí příkaz zobrazí následující zprávu:</span><span class="sxs-lookup"><span data-stu-id="8c665-125">The preceding command displays the following message:</span></span>
 
-<span data-ttu-id="d70af-124">*Byl požadován vztah důvěryhodnosti s vývojovým certifikátem HTTPS. Pokud certifikát ještě nedůvěřuje, spustíme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`</span><span class="sxs-lookup"><span data-stu-id="d70af-124">*Trusting the HTTPS development certificate was requested. If the certificate is not already trusted we will run the following command:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`</span></span>
+<span data-ttu-id="8c665-126">*Byl požadován vztah důvěryhodnosti s vývojovým certifikátem HTTPS. Pokud certifikát ještě nedůvěřuje, spustíme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`</span><span class="sxs-lookup"><span data-stu-id="8c665-126">*Trusting the HTTPS development certificate was requested. If the certificate is not already trusted we will run the following command:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`</span></span>
 
-<span data-ttu-id="d70af-125">Tento příkaz vás může vyzvat k zadání hesla pro instalaci certifikátu do systémového řetězce klíčů.</span><span class="sxs-lookup"><span data-stu-id="d70af-125">This command might prompt you for your password to install the certificate on the system keychain.</span></span> <span data-ttu-id="d70af-126">Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, zadejte své heslo.</span><span class="sxs-lookup"><span data-stu-id="d70af-126">Enter your password if you agree to trust the development certificate.</span></span>
+<span data-ttu-id="8c665-127">Tento příkaz vás může vyzvat k zadání hesla pro instalaci certifikátu do systémového řetězce klíčů.</span><span class="sxs-lookup"><span data-stu-id="8c665-127">This command might prompt you for your password to install the certificate on the system keychain.</span></span> <span data-ttu-id="8c665-128">Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, zadejte své heslo.</span><span class="sxs-lookup"><span data-stu-id="8c665-128">Enter your password if you agree to trust the development certificate.</span></span>
 
-# <a name="linuxtablinux"></a>[<span data-ttu-id="d70af-127">Linux</span><span class="sxs-lookup"><span data-stu-id="d70af-127">Linux</span></span>](#tab/linux)
+# <a name="linuxtablinux"></a>[<span data-ttu-id="8c665-129">Linux</span><span class="sxs-lookup"><span data-stu-id="8c665-129">Linux</span></span>](#tab/linux)
 
-<span data-ttu-id="d70af-128">Informace o subsystému Windows pro Linux najdete v tématu [Trust certifikát HTTPS v subsystému Windows pro Linux](xref:security/enforcing-ssl#wsl).</span><span class="sxs-lookup"><span data-stu-id="d70af-128">For Windows Subsystem for Linux, see [Trust HTTPS certificate from Windows Subsystem for Linux](xref:security/enforcing-ssl#wsl).</span></span>
+<span data-ttu-id="8c665-130">Informace o subsystému Windows pro Linux najdete v tématu [Trust certifikát HTTPS v subsystému Windows pro Linux](xref:security/enforcing-ssl#wsl).</span><span class="sxs-lookup"><span data-stu-id="8c665-130">For Windows Subsystem for Linux, see [Trust HTTPS certificate from Windows Subsystem for Linux](xref:security/enforcing-ssl#wsl).</span></span>
 
-<span data-ttu-id="d70af-129">Informace o tom, jak důvěřovat certifikátu vývoje HTTPS, najdete v dokumentaci k distribuci systému Linux.</span><span class="sxs-lookup"><span data-stu-id="d70af-129">See the documentation for your Linux distribution on how to trust the HTTPS development certificate.</span></span>
+<span data-ttu-id="8c665-131">Informace o tom, jak důvěřovat certifikátu vývoje HTTPS, najdete v dokumentaci k distribuci systému Linux.</span><span class="sxs-lookup"><span data-stu-id="8c665-131">See the documentation for your Linux distribution on how to trust the HTTPS development certificate.</span></span>
 
 ---
 
-<span data-ttu-id="d70af-130">Další informace najdete v tématu [důvěryhodnost ASP.NET Core certifikát pro vývoj https](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) .</span><span class="sxs-lookup"><span data-stu-id="d70af-130">For more information, see [Trust the ASP.NET Core HTTPS development certificate](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)</span></span>
+<span data-ttu-id="8c665-132">Další informace najdete v tématu [důvěryhodnost ASP.NET Core certifikát pro vývoj https](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) .</span><span class="sxs-lookup"><span data-stu-id="8c665-132">For more information, see [Trust the ASP.NET Core HTTPS development certificate](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos)</span></span>
 
-## <a name="run-the-app"></a><span data-ttu-id="d70af-131">Spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="d70af-131">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="8c665-133">Spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="8c665-133">Run the app</span></span>
 
-<span data-ttu-id="d70af-132">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="d70af-132">Run the following commands:</span></span>
+<span data-ttu-id="8c665-134">Spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="8c665-134">Run the following commands:</span></span>
 
 ```dotnetcli
 cd aspnetcoreapp
 dotnet run
 ```
 
-<span data-ttu-id="d70af-133">Jakmile příkazové prostředí ukáže, že aplikace začala, přejděte na [https://localhost:5001](https://localhost:5001)adresu.</span><span class="sxs-lookup"><span data-stu-id="d70af-133">After the command shell indicates that the app has started, browse to [https://localhost:5001](https://localhost:5001).</span></span> <span data-ttu-id="d70af-134">Kliknutím na **přijmout** přijměte zásady ochrany osobních údajů a souborů cookie.</span><span class="sxs-lookup"><span data-stu-id="d70af-134">Click **Accept** to accept the privacy and cookie policy.</span></span> <span data-ttu-id="d70af-135">Tato aplikace nemá uchovává osobní údaje.</span><span class="sxs-lookup"><span data-stu-id="d70af-135">This app doesn't keep personal information.</span></span>
+<span data-ttu-id="8c665-135">Jakmile příkazové prostředí ukáže, že aplikace začala, přejděte na [https://localhost:5001](https://localhost:5001)adresu.</span><span class="sxs-lookup"><span data-stu-id="8c665-135">After the command shell indicates that the app has started, browse to [https://localhost:5001](https://localhost:5001).</span></span> <span data-ttu-id="8c665-136">Kliknutím na **přijmout** přijměte zásady ochrany osobních údajů a souborů cookie.</span><span class="sxs-lookup"><span data-stu-id="8c665-136">Click **Accept** to accept the privacy and cookie policy.</span></span> <span data-ttu-id="8c665-137">Tato aplikace nemá uchovává osobní údaje.</span><span class="sxs-lookup"><span data-stu-id="8c665-137">This app doesn't keep personal information.</span></span>
 
-## <a name="edit-a-razor-page"></a><span data-ttu-id="d70af-136">Úprava stránky Razor</span><span class="sxs-lookup"><span data-stu-id="d70af-136">Edit a Razor page</span></span>
+## <a name="edit-a-razor-page"></a><span data-ttu-id="8c665-138">Úprava stránky Razor</span><span class="sxs-lookup"><span data-stu-id="8c665-138">Edit a Razor page</span></span>
 
-<span data-ttu-id="d70af-137">Otevřete *pages/index. cshtml* a upravte stránku pomocí následujícího zvýrazněného kódu:</span><span class="sxs-lookup"><span data-stu-id="d70af-137">Open *Pages/Index.cshtml* and modify the page with the following highlighted markup:</span></span>
+<span data-ttu-id="8c665-139">Otevřete *pages/index. cshtml* a upravte stránku pomocí následujícího zvýrazněného kódu:</span><span class="sxs-lookup"><span data-stu-id="8c665-139">Open *Pages/Index.cshtml* and modify the page with the following highlighted markup:</span></span>
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-<span data-ttu-id="d70af-138">Vyhledejte a ověřte, zda jsou změny zobrazeny. [https://localhost:5001](https://localhost:5001)</span><span class="sxs-lookup"><span data-stu-id="d70af-138">Browse to [https://localhost:5001](https://localhost:5001), and verify the changes are displayed.</span></span>
+<span data-ttu-id="8c665-140">Vyhledejte a ověřte, zda jsou změny zobrazeny. [https://localhost:5001](https://localhost:5001)</span><span class="sxs-lookup"><span data-stu-id="8c665-140">Browse to [https://localhost:5001](https://localhost:5001), and verify the changes are displayed.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="d70af-139">Další postup</span><span class="sxs-lookup"><span data-stu-id="d70af-139">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="8c665-141">Další kroky</span><span class="sxs-lookup"><span data-stu-id="8c665-141">Next steps</span></span>
 
-<span data-ttu-id="d70af-140">V tomto kurzu jste se naučili:</span><span class="sxs-lookup"><span data-stu-id="d70af-140">In this tutorial, you learned how to:</span></span>
+<span data-ttu-id="8c665-142">V tomto kurzu jste se naučili:</span><span class="sxs-lookup"><span data-stu-id="8c665-142">In this tutorial, you learned how to:</span></span>
 
 > [!div class="checklist"]
-> * <span data-ttu-id="d70af-141">Vytvořte projekt webové aplikace.</span><span class="sxs-lookup"><span data-stu-id="d70af-141">Create a web app project.</span></span>
-> * <span data-ttu-id="d70af-142">Důvěřovat vývojovému certifikátu.</span><span class="sxs-lookup"><span data-stu-id="d70af-142">Trust the development certificate.</span></span>
-> * <span data-ttu-id="d70af-143">Spusťte projekt.</span><span class="sxs-lookup"><span data-stu-id="d70af-143">Run the project.</span></span>
-> * <span data-ttu-id="d70af-144">Proveďte změnu.</span><span class="sxs-lookup"><span data-stu-id="d70af-144">Make a change.</span></span>
+> * <span data-ttu-id="8c665-143">Vytvořte projekt webové aplikace.</span><span class="sxs-lookup"><span data-stu-id="8c665-143">Create a web app project.</span></span>
+> * <span data-ttu-id="8c665-144">Důvěřovat vývojovému certifikátu.</span><span class="sxs-lookup"><span data-stu-id="8c665-144">Trust the development certificate.</span></span>
+> * <span data-ttu-id="8c665-145">Spusťte projekt.</span><span class="sxs-lookup"><span data-stu-id="8c665-145">Run the project.</span></span>
+> * <span data-ttu-id="8c665-146">Proveďte změnu.</span><span class="sxs-lookup"><span data-stu-id="8c665-146">Make a change.</span></span>
 
-<span data-ttu-id="d70af-145">Další informace o ASP.NET Core najdete v tématu doporučený postup výuky v úvodu:</span><span class="sxs-lookup"><span data-stu-id="d70af-145">To learn more about ASP.NET Core, see the recommended learning path in the introduction:</span></span>
+<span data-ttu-id="8c665-147">Další informace o ASP.NET Core najdete v tématu doporučený postup výuky v úvodu:</span><span class="sxs-lookup"><span data-stu-id="8c665-147">To learn more about ASP.NET Core, see the recommended learning path in the introduction:</span></span>
 
 > [!div class="nextstepaction"]
 > <xref:index#recommended-learning-path>

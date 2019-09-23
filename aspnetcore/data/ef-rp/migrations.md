@@ -5,52 +5,52 @@ description: V tomto kurzu začnete používat funkci migrace EF Core pro správ
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 8a4929a905c6a488231d7d29e1101f6fd887477f
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: efcf62d56a7b4cee4780d5f0475b4ef363fe1897
+ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082083"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71187071"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a><span data-ttu-id="44550-103">Razor Pages s EF Core v ASP.NET Core – migrace – 4 z 8</span><span class="sxs-lookup"><span data-stu-id="44550-103">Razor Pages with EF Core in ASP.NET Core - Migrations - 4 of 8</span></span>
+# <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a><span data-ttu-id="487b8-103">Razor Pages s EF Core v ASP.NET Core – migrace – 4 z 8</span><span class="sxs-lookup"><span data-stu-id="487b8-103">Razor Pages with EF Core in ASP.NET Core - Migrations - 4 of 8</span></span>
 
-<span data-ttu-id="44550-104">Tím, že [Dykstra](https://github.com/tdykstra), [Jan P Smith](https://twitter.com/thereformedprog)a [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="44550-104">By [Tom Dykstra](https://github.com/tdykstra), [Jon P Smith](https://twitter.com/thereformedprog), and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
+<span data-ttu-id="487b8-104">Tím, že [Dykstra](https://github.com/tdykstra), [Jan P Smith](https://twitter.com/thereformedprog)a [Rick Anderson](https://twitter.com/RickAndMSFT)</span><span class="sxs-lookup"><span data-stu-id="487b8-104">By [Tom Dykstra](https://github.com/tdykstra), [Jon P Smith](https://twitter.com/thereformedprog), and [Rick Anderson](https://twitter.com/RickAndMSFT)</span></span>
 
 [!INCLUDE [about the series](~/includes/RP-EF/intro.md)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="44550-105">V tomto kurzu se seznámíte s funkcí migrace EF Core pro správu změn datového modelu.</span><span class="sxs-lookup"><span data-stu-id="44550-105">This tutorial introduces the EF Core migrations feature for managing data model changes.</span></span>
+<span data-ttu-id="487b8-105">V tomto kurzu se seznámíte s funkcí migrace EF Core pro správu změn datového modelu.</span><span class="sxs-lookup"><span data-stu-id="487b8-105">This tutorial introduces the EF Core migrations feature for managing data model changes.</span></span>
 
-<span data-ttu-id="44550-106">Při vývoji nové aplikace se datový model často mění.</span><span class="sxs-lookup"><span data-stu-id="44550-106">When a new app is developed, the data model changes frequently.</span></span> <span data-ttu-id="44550-107">Pokaždé, když se model změní, model se nesynchronizuje s databází.</span><span class="sxs-lookup"><span data-stu-id="44550-107">Each time the model changes, the model gets out of sync with the database.</span></span> <span data-ttu-id="44550-108">Tato série kurzů začala konfigurací Entity Framework vytvořit databázi, pokud neexistuje.</span><span class="sxs-lookup"><span data-stu-id="44550-108">This tutorial series started by configuring the Entity Framework to create the database if it doesn't exist.</span></span> <span data-ttu-id="44550-109">Pokaždé, když se datový model změní, je nutné odstranit databázi.</span><span class="sxs-lookup"><span data-stu-id="44550-109">Each time the data model changes, you have to drop the database.</span></span> <span data-ttu-id="44550-110">Při příštím spuštění aplikace volá `EnsureCreated` opětovné vytvoření databáze, aby odpovídala novému datovému modelu.</span><span class="sxs-lookup"><span data-stu-id="44550-110">The next time the app runs, the call to `EnsureCreated` re-creates the database to match the new data model.</span></span> <span data-ttu-id="44550-111">`DbInitializer` Třída se pak spustí a dosadí novou databázi.</span><span class="sxs-lookup"><span data-stu-id="44550-111">The `DbInitializer` class then runs to seed the new database.</span></span>
+<span data-ttu-id="487b8-106">Při vývoji nové aplikace se datový model často mění.</span><span class="sxs-lookup"><span data-stu-id="487b8-106">When a new app is developed, the data model changes frequently.</span></span> <span data-ttu-id="487b8-107">Pokaždé, když se model změní, model se nesynchronizuje s databází.</span><span class="sxs-lookup"><span data-stu-id="487b8-107">Each time the model changes, the model gets out of sync with the database.</span></span> <span data-ttu-id="487b8-108">Tato série kurzů začala konfigurací Entity Framework vytvořit databázi, pokud neexistuje.</span><span class="sxs-lookup"><span data-stu-id="487b8-108">This tutorial series started by configuring the Entity Framework to create the database if it doesn't exist.</span></span> <span data-ttu-id="487b8-109">Pokaždé, když se datový model změní, je nutné odstranit databázi.</span><span class="sxs-lookup"><span data-stu-id="487b8-109">Each time the data model changes, you have to drop the database.</span></span> <span data-ttu-id="487b8-110">Při příštím spuštění aplikace volá `EnsureCreated` opětovné vytvoření databáze, aby odpovídala novému datovému modelu.</span><span class="sxs-lookup"><span data-stu-id="487b8-110">The next time the app runs, the call to `EnsureCreated` re-creates the database to match the new data model.</span></span> <span data-ttu-id="487b8-111">`DbInitializer` Třída se pak spustí a dosadí novou databázi.</span><span class="sxs-lookup"><span data-stu-id="487b8-111">The `DbInitializer` class then runs to seed the new database.</span></span>
 
-<span data-ttu-id="44550-112">Tento přístup k uchování databáze v synchronizaci s datovým modelem funguje dobře, dokud aplikaci nenainstalujete do produkčního prostředí.</span><span class="sxs-lookup"><span data-stu-id="44550-112">This approach to keeping the database in sync with the data model works well until you deploy the app to production.</span></span> <span data-ttu-id="44550-113">Když je aplikace spuštěná v produkčním prostředí, obvykle ukládá data, která je potřeba zachovat.</span><span class="sxs-lookup"><span data-stu-id="44550-113">When the app is running in production, it's usually storing data that needs to be maintained.</span></span> <span data-ttu-id="44550-114">Aplikace nemůže začít s testovací databází pokaždé, když je provedena změna (například přidání nového sloupce).</span><span class="sxs-lookup"><span data-stu-id="44550-114">The app can't start with a test database each time a change is made (such as adding a new column).</span></span> <span data-ttu-id="44550-115">Funkce migrace EF Core vyřeší tento problém tím, že umožňuje EF Core aktualizovat schéma databáze místo vytvoření nové databáze.</span><span class="sxs-lookup"><span data-stu-id="44550-115">The EF Core Migrations feature solves this problem by enabling EF Core to update the database schema instead of creating a new database.</span></span>
+<span data-ttu-id="487b8-112">Tento přístup k uchování databáze v synchronizaci s datovým modelem funguje dobře, dokud aplikaci nenainstalujete do produkčního prostředí.</span><span class="sxs-lookup"><span data-stu-id="487b8-112">This approach to keeping the database in sync with the data model works well until you deploy the app to production.</span></span> <span data-ttu-id="487b8-113">Když je aplikace spuštěná v produkčním prostředí, obvykle ukládá data, která je potřeba zachovat.</span><span class="sxs-lookup"><span data-stu-id="487b8-113">When the app is running in production, it's usually storing data that needs to be maintained.</span></span> <span data-ttu-id="487b8-114">Aplikace nemůže začít s testovací databází pokaždé, když je provedena změna (například přidání nového sloupce).</span><span class="sxs-lookup"><span data-stu-id="487b8-114">The app can't start with a test database each time a change is made (such as adding a new column).</span></span> <span data-ttu-id="487b8-115">Funkce migrace EF Core vyřeší tento problém tím, že umožňuje EF Core aktualizovat schéma databáze místo vytvoření nové databáze.</span><span class="sxs-lookup"><span data-stu-id="487b8-115">The EF Core Migrations feature solves this problem by enabling EF Core to update the database schema instead of creating a new database.</span></span>
 
-<span data-ttu-id="44550-116">Místo vyřazení a opětovného vytvoření databáze při změně datového modelu migrace aktualizuje schéma a zachová stávající data.</span><span class="sxs-lookup"><span data-stu-id="44550-116">Rather than dropping and recreating the database when the data model changes, migrations updates the schema and retains existing data.</span></span>
+<span data-ttu-id="487b8-116">Místo vyřazení a opětovného vytvoření databáze při změně datového modelu migrace aktualizuje schéma a zachová stávající data.</span><span class="sxs-lookup"><span data-stu-id="487b8-116">Rather than dropping and recreating the database when the data model changes, migrations updates the schema and retains existing data.</span></span>
 
 [!INCLUDE[](~/includes/sqlite-warn.md)]
 
-## <a name="drop-the-database"></a><span data-ttu-id="44550-117">Odstranit databázi</span><span class="sxs-lookup"><span data-stu-id="44550-117">Drop the database</span></span>
+## <a name="drop-the-database"></a><span data-ttu-id="487b8-117">Odstranit databázi</span><span class="sxs-lookup"><span data-stu-id="487b8-117">Drop the database</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="44550-118">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="44550-118">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="487b8-118">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="487b8-118">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="44550-119">K odstranění databáze použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo spusťte následující příkaz v **konzole správce balíčků** (PMC):</span><span class="sxs-lookup"><span data-stu-id="44550-119">Use **SQL Server Object Explorer** (SSOX) to delete the database, or run the following command in the **Package Manager Console** (PMC):</span></span>
+<span data-ttu-id="487b8-119">K odstranění databáze použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo spusťte následující příkaz v **konzole správce balíčků** (PMC):</span><span class="sxs-lookup"><span data-stu-id="487b8-119">Use **SQL Server Object Explorer** (SSOX) to delete the database, or run the following command in the **Package Manager Console** (PMC):</span></span>
 
 ```powershell
 Drop-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="44550-120">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="44550-120">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="487b8-120">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="487b8-120">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-* <span data-ttu-id="44550-121">Spusťte následující příkaz na příkazovém řádku pro instalaci nástrojů EF CLI:</span><span class="sxs-lookup"><span data-stu-id="44550-121">Run the following command at a command prompt to install the EF CLI tools:</span></span>
+* <span data-ttu-id="487b8-121">Spusťte následující příkaz na příkazovém řádku pro instalaci nástrojů EF CLI:</span><span class="sxs-lookup"><span data-stu-id="487b8-121">Run the following command at a command prompt to install the EF CLI tools:</span></span>
 
   ```dotnetcli
-  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef
   ```
 
-* <span data-ttu-id="44550-122">Na příkazovém řádku přejděte do složky projektu.</span><span class="sxs-lookup"><span data-stu-id="44550-122">In the command prompt, navigate to the project folder.</span></span> <span data-ttu-id="44550-123">Složka projektu obsahuje soubor *ContosoUniversity. csproj* .</span><span class="sxs-lookup"><span data-stu-id="44550-123">The project folder contains the *ContosoUniversity.csproj* file.</span></span>
+* <span data-ttu-id="487b8-122">Na příkazovém řádku přejděte do složky projektu.</span><span class="sxs-lookup"><span data-stu-id="487b8-122">In the command prompt, navigate to the project folder.</span></span> <span data-ttu-id="487b8-123">Složka projektu obsahuje soubor *ContosoUniversity. csproj* .</span><span class="sxs-lookup"><span data-stu-id="487b8-123">The project folder contains the *ContosoUniversity.csproj* file.</span></span>
 
-* <span data-ttu-id="44550-124">Odstraňte soubor *cu. DB* nebo spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="44550-124">Delete the *CU.db* file, or run the following command:</span></span>
+* <span data-ttu-id="487b8-124">Odstraňte soubor *cu. DB* nebo spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="487b8-124">Delete the *CU.db* file, or run the following command:</span></span>
 
   ```dotnetcli
   dotnet ef database drop --force
@@ -58,20 +58,20 @@ Drop-Database
 
 ---
 
-## <a name="create-an-initial-migration"></a><span data-ttu-id="44550-125">Vytvoření prvotní migrace</span><span class="sxs-lookup"><span data-stu-id="44550-125">Create an initial migration</span></span>
+## <a name="create-an-initial-migration"></a><span data-ttu-id="487b8-125">Vytvoření prvotní migrace</span><span class="sxs-lookup"><span data-stu-id="487b8-125">Create an initial migration</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="44550-126">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="44550-126">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="487b8-126">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="487b8-126">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="44550-127">V PMC spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="44550-127">Run the following commands in the PMC:</span></span>
+<span data-ttu-id="487b8-127">V PMC spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="487b8-127">Run the following commands in the PMC:</span></span>
 
 ```powershell
 Add-Migration InitialCreate
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="44550-128">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="44550-128">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="487b8-128">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="487b8-128">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="44550-129">Ujistěte se, že je příkazový řádek ve složce projektu, a spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="44550-129">Make sure the command prompt is in the project folder, and run the following commands:</span></span>
+<span data-ttu-id="487b8-129">Ujistěte se, že je příkazový řádek ve složce projektu, a spusťte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="487b8-129">Make sure the command prompt is in the project folder, and run the following commands:</span></span>
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate
@@ -80,57 +80,57 @@ dotnet ef database update
 
 ---
 
-## <a name="up-and-down-methods"></a><span data-ttu-id="44550-130">Metody nahoru a dolů</span><span class="sxs-lookup"><span data-stu-id="44550-130">Up and Down methods</span></span>
+## <a name="up-and-down-methods"></a><span data-ttu-id="487b8-130">Metody nahoru a dolů</span><span class="sxs-lookup"><span data-stu-id="487b8-130">Up and Down methods</span></span>
 
-<span data-ttu-id="44550-131">Příkaz EF Core `migrations add` vygeneroval kód pro vytvoření databáze.</span><span class="sxs-lookup"><span data-stu-id="44550-131">The EF Core `migrations add` command generated code to create the database.</span></span> <span data-ttu-id="44550-132">Tento kód migrace se nachází v *\<časovém razítku migrace > souboru _InitialCreate. cs* .</span><span class="sxs-lookup"><span data-stu-id="44550-132">This migrations code is in the *Migrations\<timestamp>_InitialCreate.cs* file.</span></span> <span data-ttu-id="44550-133">`Up` Metoda`InitialCreate` třídy vytvoří tabulky databáze, které odpovídají sadám entit datového modelu.</span><span class="sxs-lookup"><span data-stu-id="44550-133">The `Up` method of the `InitialCreate` class creates the database tables that correspond to the data model entity sets.</span></span> <span data-ttu-id="44550-134">`Down` Metoda je odstraní, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="44550-134">The `Down` method deletes them, as shown in the following example:</span></span>
+<span data-ttu-id="487b8-131">Příkaz EF Core `migrations add` vygeneroval kód pro vytvoření databáze.</span><span class="sxs-lookup"><span data-stu-id="487b8-131">The EF Core `migrations add` command generated code to create the database.</span></span> <span data-ttu-id="487b8-132">Tento kód migrace se nachází v *\<časovém razítku migrace > souboru _InitialCreate. cs* .</span><span class="sxs-lookup"><span data-stu-id="487b8-132">This migrations code is in the *Migrations\<timestamp>_InitialCreate.cs* file.</span></span> <span data-ttu-id="487b8-133">`Up` Metoda`InitialCreate` třídy vytvoří tabulky databáze, které odpovídají sadám entit datového modelu.</span><span class="sxs-lookup"><span data-stu-id="487b8-133">The `Up` method of the `InitialCreate` class creates the database tables that correspond to the data model entity sets.</span></span> <span data-ttu-id="487b8-134">`Down` Metoda je odstraní, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="487b8-134">The `Down` method deletes them, as shown in the following example:</span></span>
 
 [!code-csharp[](intro/samples/cu30/Migrations/20190731193522_InitialCreate.cs)]
 
-<span data-ttu-id="44550-135">Předchozí kód je určen pro počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="44550-135">The preceding code is for the initial migration.</span></span> <span data-ttu-id="44550-136">Kód:</span><span class="sxs-lookup"><span data-stu-id="44550-136">The code:</span></span>
+<span data-ttu-id="487b8-135">Předchozí kód je určen pro počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="487b8-135">The preceding code is for the initial migration.</span></span> <span data-ttu-id="487b8-136">Kód:</span><span class="sxs-lookup"><span data-stu-id="487b8-136">The code:</span></span>
 
-* <span data-ttu-id="44550-137">Bylo vygenerováno `migrations add InitialCreate` příkazem.</span><span class="sxs-lookup"><span data-stu-id="44550-137">Was generated by the `migrations add InitialCreate` command.</span></span> 
-* <span data-ttu-id="44550-138">Se spustí `database update` příkazem.</span><span class="sxs-lookup"><span data-stu-id="44550-138">Is executed by the `database update` command.</span></span>
-* <span data-ttu-id="44550-139">Vytvoří databázi pro datový model určený třídou kontextu databáze.</span><span class="sxs-lookup"><span data-stu-id="44550-139">Creates a database for the data model specified by the database context class.</span></span>
+* <span data-ttu-id="487b8-137">Bylo vygenerováno `migrations add InitialCreate` příkazem.</span><span class="sxs-lookup"><span data-stu-id="487b8-137">Was generated by the `migrations add InitialCreate` command.</span></span> 
+* <span data-ttu-id="487b8-138">Se spustí `database update` příkazem.</span><span class="sxs-lookup"><span data-stu-id="487b8-138">Is executed by the `database update` command.</span></span>
+* <span data-ttu-id="487b8-139">Vytvoří databázi pro datový model určený třídou kontextu databáze.</span><span class="sxs-lookup"><span data-stu-id="487b8-139">Creates a database for the data model specified by the database context class.</span></span>
 
-<span data-ttu-id="44550-140">Pro název souboru se používá parametr názvu migrace (v příkladu "InitialCreate").</span><span class="sxs-lookup"><span data-stu-id="44550-140">The migration name parameter ("InitialCreate" in the example) is used for the file name.</span></span> <span data-ttu-id="44550-141">Název migrace může být libovolný platný název souboru.</span><span class="sxs-lookup"><span data-stu-id="44550-141">The migration name can be any valid file name.</span></span> <span data-ttu-id="44550-142">Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí.</span><span class="sxs-lookup"><span data-stu-id="44550-142">It's best to choose a word or phrase that summarizes what is being done in the migration.</span></span> <span data-ttu-id="44550-143">Například migrace, která přidala tabulku oddělení, se může jmenovat "AddDepartmentTable".</span><span class="sxs-lookup"><span data-stu-id="44550-143">For example, a migration that added a department table might be called "AddDepartmentTable."</span></span>
+<span data-ttu-id="487b8-140">Pro název souboru se používá parametr názvu migrace (v příkladu "InitialCreate").</span><span class="sxs-lookup"><span data-stu-id="487b8-140">The migration name parameter ("InitialCreate" in the example) is used for the file name.</span></span> <span data-ttu-id="487b8-141">Název migrace může být libovolný platný název souboru.</span><span class="sxs-lookup"><span data-stu-id="487b8-141">The migration name can be any valid file name.</span></span> <span data-ttu-id="487b8-142">Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí.</span><span class="sxs-lookup"><span data-stu-id="487b8-142">It's best to choose a word or phrase that summarizes what is being done in the migration.</span></span> <span data-ttu-id="487b8-143">Například migrace, která přidala tabulku oddělení, se může jmenovat "AddDepartmentTable".</span><span class="sxs-lookup"><span data-stu-id="487b8-143">For example, a migration that added a department table might be called "AddDepartmentTable."</span></span>
 
-## <a name="the-migrations-history-table"></a><span data-ttu-id="44550-144">Tabulka historie migrace</span><span class="sxs-lookup"><span data-stu-id="44550-144">The migrations history table</span></span>
+## <a name="the-migrations-history-table"></a><span data-ttu-id="487b8-144">Tabulka historie migrace</span><span class="sxs-lookup"><span data-stu-id="487b8-144">The migrations history table</span></span>
 
-* <span data-ttu-id="44550-145">K prozkoumání databáze použijte SSOX nebo nástroj SQLite.</span><span class="sxs-lookup"><span data-stu-id="44550-145">Use SSOX or your SQLite tool to inspect the database.</span></span>
-* <span data-ttu-id="44550-146">Všimněte si přidání `__EFMigrationsHistory` tabulky.</span><span class="sxs-lookup"><span data-stu-id="44550-146">Notice the addition of an `__EFMigrationsHistory` table.</span></span> <span data-ttu-id="44550-147">V `__EFMigrationsHistory` tabulce je sledováno, které migrace byly pro databázi aplikovány.</span><span class="sxs-lookup"><span data-stu-id="44550-147">The `__EFMigrationsHistory` table keeps track of which migrations have been applied to the database.</span></span>
-* <span data-ttu-id="44550-148">Zobrazit data v `__EFMigrationsHistory` tabulce.</span><span class="sxs-lookup"><span data-stu-id="44550-148">View the data in the `__EFMigrationsHistory` table.</span></span> <span data-ttu-id="44550-149">Zobrazuje jeden řádek pro první migraci.</span><span class="sxs-lookup"><span data-stu-id="44550-149">It shows one row for the first migration.</span></span>
+* <span data-ttu-id="487b8-145">K prozkoumání databáze použijte SSOX nebo nástroj SQLite.</span><span class="sxs-lookup"><span data-stu-id="487b8-145">Use SSOX or your SQLite tool to inspect the database.</span></span>
+* <span data-ttu-id="487b8-146">Všimněte si přidání `__EFMigrationsHistory` tabulky.</span><span class="sxs-lookup"><span data-stu-id="487b8-146">Notice the addition of an `__EFMigrationsHistory` table.</span></span> <span data-ttu-id="487b8-147">V `__EFMigrationsHistory` tabulce je sledováno, které migrace byly pro databázi aplikovány.</span><span class="sxs-lookup"><span data-stu-id="487b8-147">The `__EFMigrationsHistory` table keeps track of which migrations have been applied to the database.</span></span>
+* <span data-ttu-id="487b8-148">Zobrazit data v `__EFMigrationsHistory` tabulce.</span><span class="sxs-lookup"><span data-stu-id="487b8-148">View the data in the `__EFMigrationsHistory` table.</span></span> <span data-ttu-id="487b8-149">Zobrazuje jeden řádek pro první migraci.</span><span class="sxs-lookup"><span data-stu-id="487b8-149">It shows one row for the first migration.</span></span>
 
-## <a name="the-data-model-snapshot"></a><span data-ttu-id="44550-150">Snímek datového modelu</span><span class="sxs-lookup"><span data-stu-id="44550-150">The data model snapshot</span></span>
+## <a name="the-data-model-snapshot"></a><span data-ttu-id="487b8-150">Snímek datového modelu</span><span class="sxs-lookup"><span data-stu-id="487b8-150">The data model snapshot</span></span>
 
-<span data-ttu-id="44550-151">Migrace vytvoří *snímek* aktuálního datového modelu v části *migrace/SchoolContextModelSnapshot. cs*.</span><span class="sxs-lookup"><span data-stu-id="44550-151">Migrations creates a *snapshot* of the current data model in *Migrations/SchoolContextModelSnapshot.cs*.</span></span> <span data-ttu-id="44550-152">Když přidáte migraci, EF určí, co se změnilo, porovnáním s aktuálním datovým modelem se souborem snímku.</span><span class="sxs-lookup"><span data-stu-id="44550-152">When you add a migration, EF determines what changed by comparing the current data model to the snapshot file.</span></span>
+<span data-ttu-id="487b8-151">Migrace vytvoří *snímek* aktuálního datového modelu v části *migrace/SchoolContextModelSnapshot. cs*.</span><span class="sxs-lookup"><span data-stu-id="487b8-151">Migrations creates a *snapshot* of the current data model in *Migrations/SchoolContextModelSnapshot.cs*.</span></span> <span data-ttu-id="487b8-152">Když přidáte migraci, EF určí, co se změnilo, porovnáním s aktuálním datovým modelem se souborem snímku.</span><span class="sxs-lookup"><span data-stu-id="487b8-152">When you add a migration, EF determines what changed by comparing the current data model to the snapshot file.</span></span>
 
-<span data-ttu-id="44550-153">Vzhledem k tomu, že soubor snímku sleduje stav datového modelu, nelze migraci odstranit odstraněním `<timestamp>_<migrationname>.cs` souboru.</span><span class="sxs-lookup"><span data-stu-id="44550-153">Because the snapshot file tracks the state of the data model, you can't delete a migration by deleting the `<timestamp>_<migrationname>.cs` file.</span></span> <span data-ttu-id="44550-154">Chcete-li zálohovat nejnovější migraci, je nutné použít `migrations remove` příkaz.</span><span class="sxs-lookup"><span data-stu-id="44550-154">To back out the most recent migration, you have to use the `migrations remove` command.</span></span> <span data-ttu-id="44550-155">Tento příkaz odstraní migraci a zajistí správné resetování snímku.</span><span class="sxs-lookup"><span data-stu-id="44550-155">That command deletes the migration and ensures the snapshot is correctly reset.</span></span> <span data-ttu-id="44550-156">Další informace najdete v tématu [Odebrání migrace pro dotnet EF](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove).</span><span class="sxs-lookup"><span data-stu-id="44550-156">For more information, see [dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove).</span></span>
+<span data-ttu-id="487b8-153">Vzhledem k tomu, že soubor snímku sleduje stav datového modelu, nelze migraci odstranit odstraněním `<timestamp>_<migrationname>.cs` souboru.</span><span class="sxs-lookup"><span data-stu-id="487b8-153">Because the snapshot file tracks the state of the data model, you can't delete a migration by deleting the `<timestamp>_<migrationname>.cs` file.</span></span> <span data-ttu-id="487b8-154">Chcete-li zálohovat nejnovější migraci, je nutné použít `migrations remove` příkaz.</span><span class="sxs-lookup"><span data-stu-id="487b8-154">To back out the most recent migration, you have to use the `migrations remove` command.</span></span> <span data-ttu-id="487b8-155">Tento příkaz odstraní migraci a zajistí správné resetování snímku.</span><span class="sxs-lookup"><span data-stu-id="487b8-155">That command deletes the migration and ensures the snapshot is correctly reset.</span></span> <span data-ttu-id="487b8-156">Další informace najdete v tématu [Odebrání migrace pro dotnet EF](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove).</span><span class="sxs-lookup"><span data-stu-id="487b8-156">For more information, see [dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove).</span></span>
 
-## <a name="remove-ensurecreated"></a><span data-ttu-id="44550-157">Odebrat EnsureCreated</span><span class="sxs-lookup"><span data-stu-id="44550-157">Remove EnsureCreated</span></span>
+## <a name="remove-ensurecreated"></a><span data-ttu-id="487b8-157">Odebrat EnsureCreated</span><span class="sxs-lookup"><span data-stu-id="487b8-157">Remove EnsureCreated</span></span>
 
-<span data-ttu-id="44550-158">Tato řada kurzů začala pomocí `EnsureCreated`.</span><span class="sxs-lookup"><span data-stu-id="44550-158">This tutorial series started by using `EnsureCreated`.</span></span> <span data-ttu-id="44550-159">`EnsureCreated`nevytvoří tabulku historie migrace a nedá se použít s migracemi.</span><span class="sxs-lookup"><span data-stu-id="44550-159">`EnsureCreated` doesn't create a migrations history table and so can't be used with migrations.</span></span> <span data-ttu-id="44550-160">Je navržená pro testování nebo rychlé vytváření prototypů, kde se databáze vynechává a často se znovu vytvoří.</span><span class="sxs-lookup"><span data-stu-id="44550-160">It's designed for testing or rapid prototyping where the database is dropped and re-created frequently.</span></span>
+<span data-ttu-id="487b8-158">Tato řada kurzů začala pomocí `EnsureCreated`.</span><span class="sxs-lookup"><span data-stu-id="487b8-158">This tutorial series started by using `EnsureCreated`.</span></span> <span data-ttu-id="487b8-159">`EnsureCreated`nevytvoří tabulku historie migrace a nedá se použít s migracemi.</span><span class="sxs-lookup"><span data-stu-id="487b8-159">`EnsureCreated` doesn't create a migrations history table and so can't be used with migrations.</span></span> <span data-ttu-id="487b8-160">Je navržená pro testování nebo rychlé vytváření prototypů, kde se databáze vynechává a často se znovu vytvoří.</span><span class="sxs-lookup"><span data-stu-id="487b8-160">It's designed for testing or rapid prototyping where the database is dropped and re-created frequently.</span></span>
 
-<span data-ttu-id="44550-161">Od tohoto okamžiku budou kurzy používat migrace.</span><span class="sxs-lookup"><span data-stu-id="44550-161">From this point forward, the tutorials will use migrations.</span></span>
+<span data-ttu-id="487b8-161">Od tohoto okamžiku budou kurzy používat migrace.</span><span class="sxs-lookup"><span data-stu-id="487b8-161">From this point forward, the tutorials will use migrations.</span></span>
 
-<span data-ttu-id="44550-162">Do pole *data/DBInitializer. cs*přidejte následující řádek:</span><span class="sxs-lookup"><span data-stu-id="44550-162">In *Data/DBInitializer.cs*, comment out the following line:</span></span>
+<span data-ttu-id="487b8-162">Do pole *data/DBInitializer. cs*přidejte následující řádek:</span><span class="sxs-lookup"><span data-stu-id="487b8-162">In *Data/DBInitializer.cs*, comment out the following line:</span></span>
 
 ```csharp
 context.Database.EnsureCreated();
 ```
-<span data-ttu-id="44550-163">Spusťte aplikaci a ověřte, že je databáze osazená.</span><span class="sxs-lookup"><span data-stu-id="44550-163">Run the app and verify that the database is seeded.</span></span>
+<span data-ttu-id="487b8-163">Spusťte aplikaci a ověřte, že je databáze osazená.</span><span class="sxs-lookup"><span data-stu-id="487b8-163">Run the app and verify that the database is seeded.</span></span>
 
-## <a name="applying-migrations-in-production"></a><span data-ttu-id="44550-164">Použití migrace v produkčním prostředí</span><span class="sxs-lookup"><span data-stu-id="44550-164">Applying migrations in production</span></span>
+## <a name="applying-migrations-in-production"></a><span data-ttu-id="487b8-164">Použití migrace v produkčním prostředí</span><span class="sxs-lookup"><span data-stu-id="487b8-164">Applying migrations in production</span></span>
 
-<span data-ttu-id="44550-165">Doporučujeme, aby **provozní aplikace** nevolaly funkci [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="44550-165">We recommend that production apps **not** call [Database.Migrate](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) at application startup.</span></span> <span data-ttu-id="44550-166">`Migrate`by se neměl volat z aplikace, která je nasazená na serverovou farmu.</span><span class="sxs-lookup"><span data-stu-id="44550-166">`Migrate` shouldn't be called from an app that is deployed to a server farm.</span></span> <span data-ttu-id="44550-167">Pokud je aplikace škálovaná na více instancí serveru, je obtížné zajistit, aby aktualizace schématu databáze neprobíhaly na více serverech nebo byly v konfliktu s přístupem pro čtení a zápis.</span><span class="sxs-lookup"><span data-stu-id="44550-167">If the app is scaled out to multiple server instances, it's hard to ensure database schema updates don't happen from multiple servers or conflict with read/write access.</span></span>
+<span data-ttu-id="487b8-165">Doporučujeme, aby **provozní aplikace** nevolaly funkci [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="487b8-165">We recommend that production apps **not** call [Database.Migrate](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) at application startup.</span></span> <span data-ttu-id="487b8-166">`Migrate`by se neměl volat z aplikace, která je nasazená na serverovou farmu.</span><span class="sxs-lookup"><span data-stu-id="487b8-166">`Migrate` shouldn't be called from an app that is deployed to a server farm.</span></span> <span data-ttu-id="487b8-167">Pokud je aplikace škálovaná na více instancí serveru, je obtížné zajistit, aby aktualizace schématu databáze neprobíhaly na více serverech nebo byly v konfliktu s přístupem pro čtení a zápis.</span><span class="sxs-lookup"><span data-stu-id="487b8-167">If the app is scaled out to multiple server instances, it's hard to ensure database schema updates don't happen from multiple servers or conflict with read/write access.</span></span>
 
-<span data-ttu-id="44550-168">Migrace databáze by se měla provádět v rámci nasazení a řízeným způsobem.</span><span class="sxs-lookup"><span data-stu-id="44550-168">Database migration should be done as part of deployment, and in a controlled way.</span></span> <span data-ttu-id="44550-169">Přístupy k migraci do produkční databáze zahrnují:</span><span class="sxs-lookup"><span data-stu-id="44550-169">Production database migration approaches include:</span></span>
+<span data-ttu-id="487b8-168">Migrace databáze by se měla provádět v rámci nasazení a řízeným způsobem.</span><span class="sxs-lookup"><span data-stu-id="487b8-168">Database migration should be done as part of deployment, and in a controlled way.</span></span> <span data-ttu-id="487b8-169">Přístupy k migraci do produkční databáze zahrnují:</span><span class="sxs-lookup"><span data-stu-id="487b8-169">Production database migration approaches include:</span></span>
 
-* <span data-ttu-id="44550-170">Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.</span><span class="sxs-lookup"><span data-stu-id="44550-170">Using migrations to create SQL scripts and using the SQL scripts in deployment.</span></span>
-* <span data-ttu-id="44550-171">Spuštění `dotnet ef database update` ze kontrolovaného prostředí.</span><span class="sxs-lookup"><span data-stu-id="44550-171">Running `dotnet ef database update` from a controlled environment.</span></span>
+* <span data-ttu-id="487b8-170">Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.</span><span class="sxs-lookup"><span data-stu-id="487b8-170">Using migrations to create SQL scripts and using the SQL scripts in deployment.</span></span>
+* <span data-ttu-id="487b8-171">Spuštění `dotnet ef database update` ze kontrolovaného prostředí.</span><span class="sxs-lookup"><span data-stu-id="487b8-171">Running `dotnet ef database update` from a controlled environment.</span></span>
 
-## <a name="troubleshooting"></a><span data-ttu-id="44550-172">Poradce při potížích</span><span class="sxs-lookup"><span data-stu-id="44550-172">Troubleshooting</span></span>
+## <a name="troubleshooting"></a><span data-ttu-id="487b8-172">Poradce při potížích</span><span class="sxs-lookup"><span data-stu-id="487b8-172">Troubleshooting</span></span>
 
-<span data-ttu-id="44550-173">Pokud aplikace používá SQL Server LocalDB a zobrazí následující výjimku:</span><span class="sxs-lookup"><span data-stu-id="44550-173">If the app uses SQL Server LocalDB and displays the following exception:</span></span>
+<span data-ttu-id="487b8-173">Pokud aplikace používá SQL Server LocalDB a zobrazí následující výjimku:</span><span class="sxs-lookup"><span data-stu-id="487b8-173">If the app uses SQL Server LocalDB and displays the following exception:</span></span>
 
 ```text
 SqlException: Cannot open database "ContosoUniversity" requested by the login.
@@ -138,61 +138,61 @@ The login failed.
 Login failed for user 'user name'.
 ```
 
-<span data-ttu-id="44550-174">Řešení může být spuštěno `dotnet ef database update` na příkazovém řádku.</span><span class="sxs-lookup"><span data-stu-id="44550-174">The solution may be to run `dotnet ef database update` at a command prompt.</span></span>
+<span data-ttu-id="487b8-174">Řešení může být spuštěno `dotnet ef database update` na příkazovém řádku.</span><span class="sxs-lookup"><span data-stu-id="487b8-174">The solution may be to run `dotnet ef database update` at a command prompt.</span></span>
 
-### <a name="additional-resources"></a><span data-ttu-id="44550-175">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="44550-175">Additional resources</span></span>
+### <a name="additional-resources"></a><span data-ttu-id="487b8-175">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="487b8-175">Additional resources</span></span>
 
-* <span data-ttu-id="44550-176">[EF Core CLI](/ef/core/miscellaneous/cli/dotnet).</span><span class="sxs-lookup"><span data-stu-id="44550-176">[EF Core CLI](/ef/core/miscellaneous/cli/dotnet).</span></span>
-* [<span data-ttu-id="44550-177">Konzola Správce balíčků (Visual Studio)</span><span class="sxs-lookup"><span data-stu-id="44550-177">Package Manager Console (Visual Studio)</span></span>](/ef/core/miscellaneous/cli/powershell)
+* <span data-ttu-id="487b8-176">[EF Core CLI](/ef/core/miscellaneous/cli/dotnet).</span><span class="sxs-lookup"><span data-stu-id="487b8-176">[EF Core CLI](/ef/core/miscellaneous/cli/dotnet).</span></span>
+* [<span data-ttu-id="487b8-177">Konzola Správce balíčků (Visual Studio)</span><span class="sxs-lookup"><span data-stu-id="487b8-177">Package Manager Console (Visual Studio)</span></span>](/ef/core/miscellaneous/cli/powershell)
 
-## <a name="next-steps"></a><span data-ttu-id="44550-178">Další postup</span><span class="sxs-lookup"><span data-stu-id="44550-178">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="487b8-178">Další kroky</span><span class="sxs-lookup"><span data-stu-id="487b8-178">Next steps</span></span>
 
-<span data-ttu-id="44550-179">V dalším kurzu se vytvoří datový model a přidají se vlastnosti entity a nové entity.</span><span class="sxs-lookup"><span data-stu-id="44550-179">The next tutorial builds out the data model, adding entity properties and new entities.</span></span>
+<span data-ttu-id="487b8-179">V dalším kurzu se vytvoří datový model a přidají se vlastnosti entity a nové entity.</span><span class="sxs-lookup"><span data-stu-id="487b8-179">The next tutorial builds out the data model, adding entity properties and new entities.</span></span>
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="44550-180">[Předchozí kurz](xref:data/ef-rp/sort-filter-page)
-> –[Další kurz](xref:data/ef-rp/complex-data-model)</span><span class="sxs-lookup"><span data-stu-id="44550-180">[Previous tutorial](xref:data/ef-rp/sort-filter-page)
+> <span data-ttu-id="487b8-180">[Předchozí kurz](xref:data/ef-rp/sort-filter-page)
+> –[Další kurz](xref:data/ef-rp/complex-data-model)</span><span class="sxs-lookup"><span data-stu-id="487b8-180">[Previous tutorial](xref:data/ef-rp/sort-filter-page)
 [Next tutorial](xref:data/ef-rp/complex-data-model)</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="44550-181">V tomto kurzu se používá funkce migrace EF Core pro správu změn datového modelu.</span><span class="sxs-lookup"><span data-stu-id="44550-181">In this tutorial, the EF Core migrations feature for managing data model changes is used.</span></span>
+<span data-ttu-id="487b8-181">V tomto kurzu se používá funkce migrace EF Core pro správu změn datového modelu.</span><span class="sxs-lookup"><span data-stu-id="487b8-181">In this tutorial, the EF Core migrations feature for managing data model changes is used.</span></span>
 
-<span data-ttu-id="44550-182">Pokud narazíte na problémy, které nemůžete [vyřešit,](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)Stáhněte dokončenou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="44550-182">If you run into problems you can't solve, download the [completed app](
+<span data-ttu-id="487b8-182">Pokud narazíte na problémy, které nemůžete [vyřešit,](
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples)Stáhněte dokončenou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="487b8-182">If you run into problems you can't solve, download the [completed app](
 https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).</span></span>
 
-<span data-ttu-id="44550-183">Při vývoji nové aplikace se datový model často mění.</span><span class="sxs-lookup"><span data-stu-id="44550-183">When a new app is developed, the data model changes frequently.</span></span> <span data-ttu-id="44550-184">Pokaždé, když se model změní, model se nesynchronizuje s databází.</span><span class="sxs-lookup"><span data-stu-id="44550-184">Each time the model changes, the model gets out of sync with the database.</span></span> <span data-ttu-id="44550-185">Tento kurz se zahájil konfigurací Entity Framework k vytvoření databáze, pokud neexistuje.</span><span class="sxs-lookup"><span data-stu-id="44550-185">This tutorial started by configuring the Entity Framework to create the database if it doesn't exist.</span></span> <span data-ttu-id="44550-186">Pokaždé, když se změní datový model:</span><span class="sxs-lookup"><span data-stu-id="44550-186">Each time the data model changes:</span></span>
+<span data-ttu-id="487b8-183">Při vývoji nové aplikace se datový model často mění.</span><span class="sxs-lookup"><span data-stu-id="487b8-183">When a new app is developed, the data model changes frequently.</span></span> <span data-ttu-id="487b8-184">Pokaždé, když se model změní, model se nesynchronizuje s databází.</span><span class="sxs-lookup"><span data-stu-id="487b8-184">Each time the model changes, the model gets out of sync with the database.</span></span> <span data-ttu-id="487b8-185">Tento kurz se zahájil konfigurací Entity Framework k vytvoření databáze, pokud neexistuje.</span><span class="sxs-lookup"><span data-stu-id="487b8-185">This tutorial started by configuring the Entity Framework to create the database if it doesn't exist.</span></span> <span data-ttu-id="487b8-186">Pokaždé, když se změní datový model:</span><span class="sxs-lookup"><span data-stu-id="487b8-186">Each time the data model changes:</span></span>
 
-* <span data-ttu-id="44550-187">DATABÁZE je vyřazena.</span><span class="sxs-lookup"><span data-stu-id="44550-187">The DB is dropped.</span></span>
-* <span data-ttu-id="44550-188">EF vytvoří nový, který odpovídá modelu.</span><span class="sxs-lookup"><span data-stu-id="44550-188">EF creates a new one that matches the model.</span></span>
-* <span data-ttu-id="44550-189">Aplikace vysemena databáze s testovacími daty.</span><span class="sxs-lookup"><span data-stu-id="44550-189">The app seeds the DB with test data.</span></span>
+* <span data-ttu-id="487b8-187">DATABÁZE je vyřazena.</span><span class="sxs-lookup"><span data-stu-id="487b8-187">The DB is dropped.</span></span>
+* <span data-ttu-id="487b8-188">EF vytvoří nový, který odpovídá modelu.</span><span class="sxs-lookup"><span data-stu-id="487b8-188">EF creates a new one that matches the model.</span></span>
+* <span data-ttu-id="487b8-189">Aplikace vysemena databáze s testovacími daty.</span><span class="sxs-lookup"><span data-stu-id="487b8-189">The app seeds the DB with test data.</span></span>
 
-<span data-ttu-id="44550-190">Tento přístup k uchování databáze v synchronizaci s datovým modelem funguje dobře, dokud aplikaci nenainstalujete do produkčního prostředí.</span><span class="sxs-lookup"><span data-stu-id="44550-190">This approach to keeping the DB in sync with the data model works well until you deploy the app to production.</span></span> <span data-ttu-id="44550-191">Když je aplikace spuštěná v produkčním prostředí, obvykle ukládá data, která je potřeba zachovat.</span><span class="sxs-lookup"><span data-stu-id="44550-191">When the app is running in production, it's usually storing data that needs to be maintained.</span></span> <span data-ttu-id="44550-192">Aplikace nemůže začít s testovací databází pokaždé, když je provedena změna (například přidání nového sloupce).</span><span class="sxs-lookup"><span data-stu-id="44550-192">The app can't start with a test DB each time a change is made (such as adding a new column).</span></span> <span data-ttu-id="44550-193">Funkce migrace EF Core vyřeší tento problém tím, že umožňuje EF Core aktualizovat schéma databáze místo vytvoření nové databáze.</span><span class="sxs-lookup"><span data-stu-id="44550-193">The EF Core Migrations feature solves this problem by enabling EF Core to update the DB schema instead of creating a new DB.</span></span>
+<span data-ttu-id="487b8-190">Tento přístup k uchování databáze v synchronizaci s datovým modelem funguje dobře, dokud aplikaci nenainstalujete do produkčního prostředí.</span><span class="sxs-lookup"><span data-stu-id="487b8-190">This approach to keeping the DB in sync with the data model works well until you deploy the app to production.</span></span> <span data-ttu-id="487b8-191">Když je aplikace spuštěná v produkčním prostředí, obvykle ukládá data, která je potřeba zachovat.</span><span class="sxs-lookup"><span data-stu-id="487b8-191">When the app is running in production, it's usually storing data that needs to be maintained.</span></span> <span data-ttu-id="487b8-192">Aplikace nemůže začít s testovací databází pokaždé, když je provedena změna (například přidání nového sloupce).</span><span class="sxs-lookup"><span data-stu-id="487b8-192">The app can't start with a test DB each time a change is made (such as adding a new column).</span></span> <span data-ttu-id="487b8-193">Funkce migrace EF Core vyřeší tento problém tím, že umožňuje EF Core aktualizovat schéma databáze místo vytvoření nové databáze.</span><span class="sxs-lookup"><span data-stu-id="487b8-193">The EF Core Migrations feature solves this problem by enabling EF Core to update the DB schema instead of creating a new DB.</span></span>
 
-<span data-ttu-id="44550-194">Místo vyřazení a opětovného vytvoření databáze při změně datového modelu migrace aktualizuje schéma a zachová stávající data.</span><span class="sxs-lookup"><span data-stu-id="44550-194">Rather than dropping and recreating the DB when the data model changes, migrations updates the schema and retains existing data.</span></span>
+<span data-ttu-id="487b8-194">Místo vyřazení a opětovného vytvoření databáze při změně datového modelu migrace aktualizuje schéma a zachová stávající data.</span><span class="sxs-lookup"><span data-stu-id="487b8-194">Rather than dropping and recreating the DB when the data model changes, migrations updates the schema and retains existing data.</span></span>
 
-## <a name="drop-the-database"></a><span data-ttu-id="44550-195">Odstranit databázi</span><span class="sxs-lookup"><span data-stu-id="44550-195">Drop the database</span></span>
+## <a name="drop-the-database"></a><span data-ttu-id="487b8-195">Odstranit databázi</span><span class="sxs-lookup"><span data-stu-id="487b8-195">Drop the database</span></span>
 
-<span data-ttu-id="44550-196">Použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo `database drop` příkaz:</span><span class="sxs-lookup"><span data-stu-id="44550-196">Use **SQL Server Object Explorer** (SSOX) or the `database drop` command:</span></span>
+<span data-ttu-id="487b8-196">Použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo `database drop` příkaz:</span><span class="sxs-lookup"><span data-stu-id="487b8-196">Use **SQL Server Object Explorer** (SSOX) or the `database drop` command:</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="44550-197">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="44550-197">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="487b8-197">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="487b8-197">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="44550-198">V **konzole správce balíčků** (PMC) spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="44550-198">In the **Package Manager Console** (PMC), run the following command:</span></span>
+<span data-ttu-id="487b8-198">V **konzole správce balíčků** (PMC) spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="487b8-198">In the **Package Manager Console** (PMC), run the following command:</span></span>
 
 ```PMC
 Drop-Database
 ```
 
-<span data-ttu-id="44550-199">Pokud `Get-Help about_EntityFrameworkCore` chcete získat informace o nápovědě, spusťte z PMC.</span><span class="sxs-lookup"><span data-stu-id="44550-199">Run `Get-Help about_EntityFrameworkCore` from the PMC to get help information.</span></span>
+<span data-ttu-id="487b8-199">Pokud `Get-Help about_EntityFrameworkCore` chcete získat informace o nápovědě, spusťte z PMC.</span><span class="sxs-lookup"><span data-stu-id="487b8-199">Run `Get-Help about_EntityFrameworkCore` from the PMC to get help information.</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="44550-200">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="44550-200">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="487b8-200">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="487b8-200">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="44550-201">Otevřete příkazové okno a přejděte do složky projektu.</span><span class="sxs-lookup"><span data-stu-id="44550-201">Open a command window and navigate to the project folder.</span></span> <span data-ttu-id="44550-202">Složka projektu obsahuje soubor *Startup.cs* .</span><span class="sxs-lookup"><span data-stu-id="44550-202">The project folder contains the *Startup.cs* file.</span></span>
+<span data-ttu-id="487b8-201">Otevřete příkazové okno a přejděte do složky projektu.</span><span class="sxs-lookup"><span data-stu-id="487b8-201">Open a command window and navigate to the project folder.</span></span> <span data-ttu-id="487b8-202">Složka projektu obsahuje soubor *Startup.cs* .</span><span class="sxs-lookup"><span data-stu-id="487b8-202">The project folder contains the *Startup.cs* file.</span></span>
 
-<span data-ttu-id="44550-203">V příkazovém okně zadejte následující:</span><span class="sxs-lookup"><span data-stu-id="44550-203">Enter the following in the command window:</span></span>
+<span data-ttu-id="487b8-203">V příkazovém okně zadejte následující:</span><span class="sxs-lookup"><span data-stu-id="487b8-203">Enter the following in the command window:</span></span>
 
  ```dotnetcli
  dotnet ef database drop
@@ -200,18 +200,18 @@ Drop-Database
 
 ---
 
-## <a name="create-an-initial-migration-and-update-the-db"></a><span data-ttu-id="44550-204">Vytvoření prvotní migrace a aktualizace databáze</span><span class="sxs-lookup"><span data-stu-id="44550-204">Create an initial migration and update the DB</span></span>
+## <a name="create-an-initial-migration-and-update-the-db"></a><span data-ttu-id="487b8-204">Vytvoření prvotní migrace a aktualizace databáze</span><span class="sxs-lookup"><span data-stu-id="487b8-204">Create an initial migration and update the DB</span></span>
 
-<span data-ttu-id="44550-205">Sestavte projekt a vytvořte první migraci.</span><span class="sxs-lookup"><span data-stu-id="44550-205">Build the project and create the first migration.</span></span>
+<span data-ttu-id="487b8-205">Sestavte projekt a vytvořte první migraci.</span><span class="sxs-lookup"><span data-stu-id="487b8-205">Build the project and create the first migration.</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="44550-206">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="44550-206">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="487b8-206">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="487b8-206">Visual Studio</span></span>](#tab/visual-studio)
 
 ```PMC
 Add-Migration InitialCreate
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="44550-207">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="44550-207">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="487b8-207">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="487b8-207">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate
@@ -220,88 +220,88 @@ dotnet ef database update
 
 ---
 
-### <a name="examine-the-up-and-down-methods"></a><span data-ttu-id="44550-208">Projděte si metody nahoru a dolů.</span><span class="sxs-lookup"><span data-stu-id="44550-208">Examine the Up and Down methods</span></span>
+### <a name="examine-the-up-and-down-methods"></a><span data-ttu-id="487b8-208">Projděte si metody nahoru a dolů.</span><span class="sxs-lookup"><span data-stu-id="487b8-208">Examine the Up and Down methods</span></span>
 
-<span data-ttu-id="44550-209">Příkaz EF Core `migrations add` vygeneroval kód pro vytvoření databáze.</span><span class="sxs-lookup"><span data-stu-id="44550-209">The EF Core `migrations add` command  generated code to create the DB.</span></span> <span data-ttu-id="44550-210">Tento kód migrace se nachází v *\<časovém razítku migrace > souboru _InitialCreate. cs* .</span><span class="sxs-lookup"><span data-stu-id="44550-210">This migrations code is in the *Migrations\<timestamp>_InitialCreate.cs* file.</span></span> <span data-ttu-id="44550-211">`Up` Metoda`InitialCreate` třídy vytvoří tabulky databáze, které odpovídají sadám entit datového modelu.</span><span class="sxs-lookup"><span data-stu-id="44550-211">The `Up` method of the `InitialCreate` class creates the DB tables that correspond to the data model entity sets.</span></span> <span data-ttu-id="44550-212">`Down` Metoda je odstraní, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="44550-212">The `Down` method deletes them, as shown in the following example:</span></span>
+<span data-ttu-id="487b8-209">Příkaz EF Core `migrations add` vygeneroval kód pro vytvoření databáze.</span><span class="sxs-lookup"><span data-stu-id="487b8-209">The EF Core `migrations add` command  generated code to create the DB.</span></span> <span data-ttu-id="487b8-210">Tento kód migrace se nachází v *\<časovém razítku migrace > souboru _InitialCreate. cs* .</span><span class="sxs-lookup"><span data-stu-id="487b8-210">This migrations code is in the *Migrations\<timestamp>_InitialCreate.cs* file.</span></span> <span data-ttu-id="487b8-211">`Up` Metoda`InitialCreate` třídy vytvoří tabulky databáze, které odpovídají sadám entit datového modelu.</span><span class="sxs-lookup"><span data-stu-id="487b8-211">The `Up` method of the `InitialCreate` class creates the DB tables that correspond to the data model entity sets.</span></span> <span data-ttu-id="487b8-212">`Down` Metoda je odstraní, jak je znázorněno v následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="487b8-212">The `Down` method deletes them, as shown in the following example:</span></span>
 
 [!code-csharp[](intro/samples/cu21/Migrations/20180626224812_InitialCreate.cs?range=7-24,77-88)]
 
-<span data-ttu-id="44550-213">Migrace volá `Up` metodu, která implementuje změny datového modelu pro migraci.</span><span class="sxs-lookup"><span data-stu-id="44550-213">Migrations calls the `Up` method to implement the data model changes for a migration.</span></span> <span data-ttu-id="44550-214">Když zadáte příkaz pro vrácení aktualizace, migrace volá `Down` metodu.</span><span class="sxs-lookup"><span data-stu-id="44550-214">When you enter a command to roll back the update, migrations calls the `Down` method.</span></span>
+<span data-ttu-id="487b8-213">Migrace volá `Up` metodu, která implementuje změny datového modelu pro migraci.</span><span class="sxs-lookup"><span data-stu-id="487b8-213">Migrations calls the `Up` method to implement the data model changes for a migration.</span></span> <span data-ttu-id="487b8-214">Když zadáte příkaz pro vrácení aktualizace, migrace volá `Down` metodu.</span><span class="sxs-lookup"><span data-stu-id="487b8-214">When you enter a command to roll back the update, migrations calls the `Down` method.</span></span>
 
-<span data-ttu-id="44550-215">Předchozí kód je určen pro počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="44550-215">The preceding code is for the initial migration.</span></span> <span data-ttu-id="44550-216">Tento kód byl vytvořen při `migrations add InitialCreate` spuštění příkazu.</span><span class="sxs-lookup"><span data-stu-id="44550-216">That code was created when the `migrations add InitialCreate` command was run.</span></span> <span data-ttu-id="44550-217">Pro název souboru se používá parametr názvu migrace (v příkladu "InitialCreate").</span><span class="sxs-lookup"><span data-stu-id="44550-217">The migration name parameter ("InitialCreate" in the example) is used for the file name.</span></span> <span data-ttu-id="44550-218">Název migrace může být libovolný platný název souboru.</span><span class="sxs-lookup"><span data-stu-id="44550-218">The migration name can be any valid file name.</span></span> <span data-ttu-id="44550-219">Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí.</span><span class="sxs-lookup"><span data-stu-id="44550-219">It's best to choose a word or phrase that summarizes what is being done in the migration.</span></span> <span data-ttu-id="44550-220">Například migrace, která přidala tabulku oddělení, se může jmenovat "AddDepartmentTable".</span><span class="sxs-lookup"><span data-stu-id="44550-220">For example, a migration that added a department table might be called "AddDepartmentTable."</span></span>
+<span data-ttu-id="487b8-215">Předchozí kód je určen pro počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="487b8-215">The preceding code is for the initial migration.</span></span> <span data-ttu-id="487b8-216">Tento kód byl vytvořen při `migrations add InitialCreate` spuštění příkazu.</span><span class="sxs-lookup"><span data-stu-id="487b8-216">That code was created when the `migrations add InitialCreate` command was run.</span></span> <span data-ttu-id="487b8-217">Pro název souboru se používá parametr názvu migrace (v příkladu "InitialCreate").</span><span class="sxs-lookup"><span data-stu-id="487b8-217">The migration name parameter ("InitialCreate" in the example) is used for the file name.</span></span> <span data-ttu-id="487b8-218">Název migrace může být libovolný platný název souboru.</span><span class="sxs-lookup"><span data-stu-id="487b8-218">The migration name can be any valid file name.</span></span> <span data-ttu-id="487b8-219">Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí.</span><span class="sxs-lookup"><span data-stu-id="487b8-219">It's best to choose a word or phrase that summarizes what is being done in the migration.</span></span> <span data-ttu-id="487b8-220">Například migrace, která přidala tabulku oddělení, se může jmenovat "AddDepartmentTable".</span><span class="sxs-lookup"><span data-stu-id="487b8-220">For example, a migration that added a department table might be called "AddDepartmentTable."</span></span>
 
-<span data-ttu-id="44550-221">Při vytvoření počáteční migrace a existence databáze:</span><span class="sxs-lookup"><span data-stu-id="44550-221">If the initial migration is created and the DB exists:</span></span>
+<span data-ttu-id="487b8-221">Při vytvoření počáteční migrace a existence databáze:</span><span class="sxs-lookup"><span data-stu-id="487b8-221">If the initial migration is created and the DB exists:</span></span>
 
-* <span data-ttu-id="44550-222">Generuje se kód pro vytvoření databáze.</span><span class="sxs-lookup"><span data-stu-id="44550-222">The DB creation code is generated.</span></span>
-* <span data-ttu-id="44550-223">Kód pro vytvoření databáze není nutné spouštět, protože databáze již odpovídá datovému modelu.</span><span class="sxs-lookup"><span data-stu-id="44550-223">The DB creation code doesn't need to run because the DB already matches the data model.</span></span> <span data-ttu-id="44550-224">Pokud je kód pro vytvoření databáze spuštěn, neprovede žádné změny, protože databáze již odpovídá datovému modelu.</span><span class="sxs-lookup"><span data-stu-id="44550-224">If the DB creation code is run, it doesn't make any changes because the DB already matches the data model.</span></span>
+* <span data-ttu-id="487b8-222">Generuje se kód pro vytvoření databáze.</span><span class="sxs-lookup"><span data-stu-id="487b8-222">The DB creation code is generated.</span></span>
+* <span data-ttu-id="487b8-223">Kód pro vytvoření databáze není nutné spouštět, protože databáze již odpovídá datovému modelu.</span><span class="sxs-lookup"><span data-stu-id="487b8-223">The DB creation code doesn't need to run because the DB already matches the data model.</span></span> <span data-ttu-id="487b8-224">Pokud je kód pro vytvoření databáze spuštěn, neprovede žádné změny, protože databáze již odpovídá datovému modelu.</span><span class="sxs-lookup"><span data-stu-id="487b8-224">If the DB creation code is run, it doesn't make any changes because the DB already matches the data model.</span></span>
 
-<span data-ttu-id="44550-225">Když se aplikace nasadí do nového prostředí, musí se pro vytvoření databáze spustit kód pro vytvoření databáze.</span><span class="sxs-lookup"><span data-stu-id="44550-225">When the app is deployed to a new environment, the DB creation code must be run to create the DB.</span></span>
+<span data-ttu-id="487b8-225">Když se aplikace nasadí do nového prostředí, musí se pro vytvoření databáze spustit kód pro vytvoření databáze.</span><span class="sxs-lookup"><span data-stu-id="487b8-225">When the app is deployed to a new environment, the DB creation code must be run to create the DB.</span></span>
 
-<span data-ttu-id="44550-226">Dříve byla databáze vyřazena a neexistuje, takže migrace vytvoří novou databázi.</span><span class="sxs-lookup"><span data-stu-id="44550-226">Previously the DB was dropped and doesn't exist, so migrations creates the new DB.</span></span>
+<span data-ttu-id="487b8-226">Dříve byla databáze vyřazena a neexistuje, takže migrace vytvoří novou databázi.</span><span class="sxs-lookup"><span data-stu-id="487b8-226">Previously the DB was dropped and doesn't exist, so migrations creates the new DB.</span></span>
 
-### <a name="the-data-model-snapshot"></a><span data-ttu-id="44550-227">Snímek datového modelu</span><span class="sxs-lookup"><span data-stu-id="44550-227">The data model snapshot</span></span>
+### <a name="the-data-model-snapshot"></a><span data-ttu-id="487b8-227">Snímek datového modelu</span><span class="sxs-lookup"><span data-stu-id="487b8-227">The data model snapshot</span></span>
 
-<span data-ttu-id="44550-228">Migrace vytvoří *snímek* aktuálního schématu databáze v části *migrations/SchoolContextModelSnapshot. cs*.</span><span class="sxs-lookup"><span data-stu-id="44550-228">Migrations create a *snapshot* of the current database schema in *Migrations/SchoolContextModelSnapshot.cs*.</span></span> <span data-ttu-id="44550-229">Když přidáte migraci, EF určí, co se změnilo, porovnáním datového modelu se souborem snímku.</span><span class="sxs-lookup"><span data-stu-id="44550-229">When you add a migration, EF determines what changed by comparing the data model to the snapshot file.</span></span>
+<span data-ttu-id="487b8-228">Migrace vytvoří *snímek* aktuálního schématu databáze v části *migrations/SchoolContextModelSnapshot. cs*.</span><span class="sxs-lookup"><span data-stu-id="487b8-228">Migrations create a *snapshot* of the current database schema in *Migrations/SchoolContextModelSnapshot.cs*.</span></span> <span data-ttu-id="487b8-229">Když přidáte migraci, EF určí, co se změnilo, porovnáním datového modelu se souborem snímku.</span><span class="sxs-lookup"><span data-stu-id="487b8-229">When you add a migration, EF determines what changed by comparing the data model to the snapshot file.</span></span>
 
-<span data-ttu-id="44550-230">K odstranění migrace použijte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="44550-230">To delete a migration, use the following command:</span></span>
+<span data-ttu-id="487b8-230">K odstranění migrace použijte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="487b8-230">To delete a migration, use the following command:</span></span>
 
-# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="44550-231">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="44550-231">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="487b8-231">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="487b8-231">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="44550-232">Odebrání – migrace</span><span class="sxs-lookup"><span data-stu-id="44550-232">Remove-Migration</span></span>
+<span data-ttu-id="487b8-232">Odebrání – migrace</span><span class="sxs-lookup"><span data-stu-id="487b8-232">Remove-Migration</span></span>
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="44550-233">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="44550-233">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="487b8-233">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="487b8-233">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations remove
 ```
 
-<span data-ttu-id="44550-234">Další informace najdete v tématu [Odebrání migrace pro dotnet EF](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove).</span><span class="sxs-lookup"><span data-stu-id="44550-234">For more information, see [dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove).</span></span>
+<span data-ttu-id="487b8-234">Další informace najdete v tématu [Odebrání migrace pro dotnet EF](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove).</span><span class="sxs-lookup"><span data-stu-id="487b8-234">For more information, see [dotnet ef migrations remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove).</span></span>
 
 ---
 
-<span data-ttu-id="44550-235">Příkaz odebrat migrace odstraní migraci a zajistí správné resetování snímku.</span><span class="sxs-lookup"><span data-stu-id="44550-235">The remove migrations command deletes the migration and ensures the snapshot is correctly reset.</span></span>
+<span data-ttu-id="487b8-235">Příkaz odebrat migrace odstraní migraci a zajistí správné resetování snímku.</span><span class="sxs-lookup"><span data-stu-id="487b8-235">The remove migrations command deletes the migration and ensures the snapshot is correctly reset.</span></span>
 
-### <a name="remove-ensurecreated-and-test-the-app"></a><span data-ttu-id="44550-236">Odebrání EnsureCreated a testování aplikace</span><span class="sxs-lookup"><span data-stu-id="44550-236">Remove EnsureCreated and test the app</span></span>
+### <a name="remove-ensurecreated-and-test-the-app"></a><span data-ttu-id="487b8-236">Odebrání EnsureCreated a testování aplikace</span><span class="sxs-lookup"><span data-stu-id="487b8-236">Remove EnsureCreated and test the app</span></span>
 
-<span data-ttu-id="44550-237">Pro prvotní vývoj se `EnsureCreated` použil.</span><span class="sxs-lookup"><span data-stu-id="44550-237">For early development, `EnsureCreated` was used.</span></span> <span data-ttu-id="44550-238">V tomto kurzu se používají migrace.</span><span class="sxs-lookup"><span data-stu-id="44550-238">In this tutorial, migrations are used.</span></span> <span data-ttu-id="44550-239">`EnsureCreated`má následující omezení:</span><span class="sxs-lookup"><span data-stu-id="44550-239">`EnsureCreated` has the following limitations:</span></span>
+<span data-ttu-id="487b8-237">Pro prvotní vývoj se `EnsureCreated` použil.</span><span class="sxs-lookup"><span data-stu-id="487b8-237">For early development, `EnsureCreated` was used.</span></span> <span data-ttu-id="487b8-238">V tomto kurzu se používají migrace.</span><span class="sxs-lookup"><span data-stu-id="487b8-238">In this tutorial, migrations are used.</span></span> <span data-ttu-id="487b8-239">`EnsureCreated`má následující omezení:</span><span class="sxs-lookup"><span data-stu-id="487b8-239">`EnsureCreated` has the following limitations:</span></span>
 
-* <span data-ttu-id="44550-240">Vynechá migrace a vytvoří databázi a schéma.</span><span class="sxs-lookup"><span data-stu-id="44550-240">Bypasses migrations and creates the DB and schema.</span></span>
-* <span data-ttu-id="44550-241">Nevytváří tabulku migrace.</span><span class="sxs-lookup"><span data-stu-id="44550-241">Doesn't create a migrations table.</span></span>
-* <span data-ttu-id="44550-242">Nelze *použít* s migracemi.</span><span class="sxs-lookup"><span data-stu-id="44550-242">Can *not* be used with migrations.</span></span>
-* <span data-ttu-id="44550-243">Je určený pro testování nebo rychlé vytváření prototypů, kde se databáze vynechává a často se znovu vytvoří.</span><span class="sxs-lookup"><span data-stu-id="44550-243">Is designed for testing or rapid prototyping where the DB is dropped and re-created frequently.</span></span>
+* <span data-ttu-id="487b8-240">Vynechá migrace a vytvoří databázi a schéma.</span><span class="sxs-lookup"><span data-stu-id="487b8-240">Bypasses migrations and creates the DB and schema.</span></span>
+* <span data-ttu-id="487b8-241">Nevytváří tabulku migrace.</span><span class="sxs-lookup"><span data-stu-id="487b8-241">Doesn't create a migrations table.</span></span>
+* <span data-ttu-id="487b8-242">Nelze *použít* s migracemi.</span><span class="sxs-lookup"><span data-stu-id="487b8-242">Can *not* be used with migrations.</span></span>
+* <span data-ttu-id="487b8-243">Je určený pro testování nebo rychlé vytváření prototypů, kde se databáze vynechává a často se znovu vytvoří.</span><span class="sxs-lookup"><span data-stu-id="487b8-243">Is designed for testing or rapid prototyping where the DB is dropped and re-created frequently.</span></span>
 
-<span data-ttu-id="44550-244">Odebrat `EnsureCreated`:</span><span class="sxs-lookup"><span data-stu-id="44550-244">Remove `EnsureCreated`:</span></span>
+<span data-ttu-id="487b8-244">Odebrat `EnsureCreated`:</span><span class="sxs-lookup"><span data-stu-id="487b8-244">Remove `EnsureCreated`:</span></span>
 
 ```csharp
 context.Database.EnsureCreated();
 ```
 
-<span data-ttu-id="44550-245">Spusťte aplikaci a ověřte, že je tato databáze osazená.</span><span class="sxs-lookup"><span data-stu-id="44550-245">Run the app and verify the DB is seeded.</span></span>
+<span data-ttu-id="487b8-245">Spusťte aplikaci a ověřte, že je tato databáze osazená.</span><span class="sxs-lookup"><span data-stu-id="487b8-245">Run the app and verify the DB is seeded.</span></span>
 
-### <a name="inspect-the-database"></a><span data-ttu-id="44550-246">Kontrola databáze</span><span class="sxs-lookup"><span data-stu-id="44550-246">Inspect the database</span></span>
+### <a name="inspect-the-database"></a><span data-ttu-id="487b8-246">Kontrola databáze</span><span class="sxs-lookup"><span data-stu-id="487b8-246">Inspect the database</span></span>
 
-<span data-ttu-id="44550-247">K prozkoumání databáze použijte **Průzkumník objektů systému SQL Server** .</span><span class="sxs-lookup"><span data-stu-id="44550-247">Use **SQL Server Object Explorer** to inspect the DB.</span></span> <span data-ttu-id="44550-248">Všimněte si přidání `__EFMigrationsHistory` tabulky.</span><span class="sxs-lookup"><span data-stu-id="44550-248">Notice the addition of an `__EFMigrationsHistory` table.</span></span> <span data-ttu-id="44550-249">V `__EFMigrationsHistory` tabulce je sledováno, které migrace byly pro databázi aplikovány.</span><span class="sxs-lookup"><span data-stu-id="44550-249">The `__EFMigrationsHistory` table keeps track of which migrations have been applied to the DB.</span></span> <span data-ttu-id="44550-250">Zobrazit data v `__EFMigrationsHistory` tabulce zobrazuje jeden řádek pro první migraci.</span><span class="sxs-lookup"><span data-stu-id="44550-250">View the data in the `__EFMigrationsHistory` table, it shows one row for the first migration.</span></span> <span data-ttu-id="44550-251">Poslední přihlášení v předchozím příkladu výstupu CLI ukazuje příkaz INSERT, který tento řádek vytvoří.</span><span class="sxs-lookup"><span data-stu-id="44550-251">The last log in the preceding CLI output example shows the INSERT statement that creates this row.</span></span>
+<span data-ttu-id="487b8-247">K prozkoumání databáze použijte **Průzkumník objektů systému SQL Server** .</span><span class="sxs-lookup"><span data-stu-id="487b8-247">Use **SQL Server Object Explorer** to inspect the DB.</span></span> <span data-ttu-id="487b8-248">Všimněte si přidání `__EFMigrationsHistory` tabulky.</span><span class="sxs-lookup"><span data-stu-id="487b8-248">Notice the addition of an `__EFMigrationsHistory` table.</span></span> <span data-ttu-id="487b8-249">V `__EFMigrationsHistory` tabulce je sledováno, které migrace byly pro databázi aplikovány.</span><span class="sxs-lookup"><span data-stu-id="487b8-249">The `__EFMigrationsHistory` table keeps track of which migrations have been applied to the DB.</span></span> <span data-ttu-id="487b8-250">Zobrazit data v `__EFMigrationsHistory` tabulce zobrazuje jeden řádek pro první migraci.</span><span class="sxs-lookup"><span data-stu-id="487b8-250">View the data in the `__EFMigrationsHistory` table, it shows one row for the first migration.</span></span> <span data-ttu-id="487b8-251">Poslední přihlášení v předchozím příkladu výstupu CLI ukazuje příkaz INSERT, který tento řádek vytvoří.</span><span class="sxs-lookup"><span data-stu-id="487b8-251">The last log in the preceding CLI output example shows the INSERT statement that creates this row.</span></span>
 
-<span data-ttu-id="44550-252">Spusťte aplikaci a ověřte, že vše funguje.</span><span class="sxs-lookup"><span data-stu-id="44550-252">Run the app and verify that everything works.</span></span>
+<span data-ttu-id="487b8-252">Spusťte aplikaci a ověřte, že vše funguje.</span><span class="sxs-lookup"><span data-stu-id="487b8-252">Run the app and verify that everything works.</span></span>
 
-## <a name="applying-migrations-in-production"></a><span data-ttu-id="44550-253">Použití migrace v produkčním prostředí</span><span class="sxs-lookup"><span data-stu-id="44550-253">Applying migrations in production</span></span>
+## <a name="applying-migrations-in-production"></a><span data-ttu-id="487b8-253">Použití migrace v produkčním prostředí</span><span class="sxs-lookup"><span data-stu-id="487b8-253">Applying migrations in production</span></span>
 
-<span data-ttu-id="44550-254">Doporučujeme **, aby produkční** aplikace nevolaly metodu [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="44550-254">We recommend production apps should **not** call [Database.Migrate](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) at application startup.</span></span> <span data-ttu-id="44550-255">`Migrate`by se neměl volat z aplikace v serverové farmě.</span><span class="sxs-lookup"><span data-stu-id="44550-255">`Migrate` shouldn't be called from an app in server farm.</span></span> <span data-ttu-id="44550-256">Například pokud je aplikace nasazená v cloudu s možností škálování na více instancí (spouští se víc instancí aplikace).</span><span class="sxs-lookup"><span data-stu-id="44550-256">For example, if the app has been cloud deployed with scale-out (multiple instances of the app are running).</span></span>
+<span data-ttu-id="487b8-254">Doporučujeme **, aby produkční** aplikace nevolaly metodu [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace.</span><span class="sxs-lookup"><span data-stu-id="487b8-254">We recommend production apps should **not** call [Database.Migrate](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) at application startup.</span></span> <span data-ttu-id="487b8-255">`Migrate`by se neměl volat z aplikace v serverové farmě.</span><span class="sxs-lookup"><span data-stu-id="487b8-255">`Migrate` shouldn't be called from an app in server farm.</span></span> <span data-ttu-id="487b8-256">Například pokud je aplikace nasazená v cloudu s možností škálování na více instancí (spouští se víc instancí aplikace).</span><span class="sxs-lookup"><span data-stu-id="487b8-256">For example, if the app has been cloud deployed with scale-out (multiple instances of the app are running).</span></span>
 
-<span data-ttu-id="44550-257">Migrace databáze by se měla provádět v rámci nasazení a řízeným způsobem.</span><span class="sxs-lookup"><span data-stu-id="44550-257">Database migration should be done as part of deployment, and in a controlled way.</span></span> <span data-ttu-id="44550-258">Přístupy k migraci do produkční databáze zahrnují:</span><span class="sxs-lookup"><span data-stu-id="44550-258">Production database migration approaches include:</span></span>
+<span data-ttu-id="487b8-257">Migrace databáze by se měla provádět v rámci nasazení a řízeným způsobem.</span><span class="sxs-lookup"><span data-stu-id="487b8-257">Database migration should be done as part of deployment, and in a controlled way.</span></span> <span data-ttu-id="487b8-258">Přístupy k migraci do produkční databáze zahrnují:</span><span class="sxs-lookup"><span data-stu-id="487b8-258">Production database migration approaches include:</span></span>
 
-* <span data-ttu-id="44550-259">Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.</span><span class="sxs-lookup"><span data-stu-id="44550-259">Using migrations to create SQL scripts and using the SQL scripts in deployment.</span></span>
-* <span data-ttu-id="44550-260">Spuštění `dotnet ef database update` ze kontrolovaného prostředí.</span><span class="sxs-lookup"><span data-stu-id="44550-260">Running `dotnet ef database update` from a controlled environment.</span></span>
+* <span data-ttu-id="487b8-259">Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.</span><span class="sxs-lookup"><span data-stu-id="487b8-259">Using migrations to create SQL scripts and using the SQL scripts in deployment.</span></span>
+* <span data-ttu-id="487b8-260">Spuštění `dotnet ef database update` ze kontrolovaného prostředí.</span><span class="sxs-lookup"><span data-stu-id="487b8-260">Running `dotnet ef database update` from a controlled environment.</span></span>
 
-<span data-ttu-id="44550-261">EF Core používá `__MigrationsHistory` tabulku k zobrazení, jestli je potřeba spustit nějaké migrace.</span><span class="sxs-lookup"><span data-stu-id="44550-261">EF Core uses the `__MigrationsHistory` table to see if any migrations need to run.</span></span> <span data-ttu-id="44550-262">Pokud je databáze aktuální, nespustí se žádná migrace.</span><span class="sxs-lookup"><span data-stu-id="44550-262">If the DB is up-to-date, no migration is run.</span></span>
+<span data-ttu-id="487b8-261">EF Core používá `__MigrationsHistory` tabulku k zobrazení, jestli je potřeba spustit nějaké migrace.</span><span class="sxs-lookup"><span data-stu-id="487b8-261">EF Core uses the `__MigrationsHistory` table to see if any migrations need to run.</span></span> <span data-ttu-id="487b8-262">Pokud je databáze aktuální, nespustí se žádná migrace.</span><span class="sxs-lookup"><span data-stu-id="487b8-262">If the DB is up-to-date, no migration is run.</span></span>
 
-## <a name="troubleshooting"></a><span data-ttu-id="44550-263">Poradce při potížích</span><span class="sxs-lookup"><span data-stu-id="44550-263">Troubleshooting</span></span>
+## <a name="troubleshooting"></a><span data-ttu-id="487b8-263">Poradce při potížích</span><span class="sxs-lookup"><span data-stu-id="487b8-263">Troubleshooting</span></span>
 
-<span data-ttu-id="44550-264">Stáhněte dokončenou aplikaci](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations). [</span><span class="sxs-lookup"><span data-stu-id="44550-264">Download the [completed app](
+<span data-ttu-id="487b8-264">Stáhněte dokončenou aplikaci](
+https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations). [</span><span class="sxs-lookup"><span data-stu-id="487b8-264">Download the [completed app](
 https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations).</span></span>
 
-<span data-ttu-id="44550-265">Aplikace vygeneruje následující výjimku:</span><span class="sxs-lookup"><span data-stu-id="44550-265">The app generates the following exception:</span></span>
+<span data-ttu-id="487b8-265">Aplikace vygeneruje následující výjimku:</span><span class="sxs-lookup"><span data-stu-id="487b8-265">The app generates the following exception:</span></span>
 
 ```text
 SqlException: Cannot open database "ContosoUniversity" requested by the login.
@@ -309,19 +309,19 @@ The login failed.
 Login failed for user 'user name'.
 ```
 
-<span data-ttu-id="44550-266">Řešení Spustit `dotnet ef database update`</span><span class="sxs-lookup"><span data-stu-id="44550-266">Solution: Run `dotnet ef database update`</span></span>
+<span data-ttu-id="487b8-266">Řešení Spusťte `dotnet ef database update`.</span><span class="sxs-lookup"><span data-stu-id="487b8-266">Solution: Run `dotnet ef database update`</span></span>
 
-### <a name="additional-resources"></a><span data-ttu-id="44550-267">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="44550-267">Additional resources</span></span>
+### <a name="additional-resources"></a><span data-ttu-id="487b8-267">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="487b8-267">Additional resources</span></span>
 
-* [<span data-ttu-id="44550-268">Verze YouTube tohoto kurzu</span><span class="sxs-lookup"><span data-stu-id="44550-268">YouTube version of this tutorial</span></span>](https://www.youtube.com/watch?v=OWSUuMLKTJo)
-* <span data-ttu-id="44550-269">[.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).</span><span class="sxs-lookup"><span data-stu-id="44550-269">[.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).</span></span>
-* [<span data-ttu-id="44550-270">Konzola Správce balíčků (Visual Studio)</span><span class="sxs-lookup"><span data-stu-id="44550-270">Package Manager Console (Visual Studio)</span></span>](/ef/core/miscellaneous/cli/powershell)
+* [<span data-ttu-id="487b8-268">Verze YouTube tohoto kurzu</span><span class="sxs-lookup"><span data-stu-id="487b8-268">YouTube version of this tutorial</span></span>](https://www.youtube.com/watch?v=OWSUuMLKTJo)
+* <span data-ttu-id="487b8-269">[.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).</span><span class="sxs-lookup"><span data-stu-id="487b8-269">[.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).</span></span>
+* [<span data-ttu-id="487b8-270">Konzola Správce balíčků (Visual Studio)</span><span class="sxs-lookup"><span data-stu-id="487b8-270">Package Manager Console (Visual Studio)</span></span>](/ef/core/miscellaneous/cli/powershell)
 
 
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="44550-271">[Předchozí](xref:data/ef-rp/sort-filter-page)Další
-> [](xref:data/ef-rp/complex-data-model)</span><span class="sxs-lookup"><span data-stu-id="44550-271">[Previous](xref:data/ef-rp/sort-filter-page)
+> <span data-ttu-id="487b8-271">[Předchozí](xref:data/ef-rp/sort-filter-page)
+> [Další](xref:data/ef-rp/complex-data-model)</span><span class="sxs-lookup"><span data-stu-id="487b8-271">[Previous](xref:data/ef-rp/sort-filter-page)
 [Next](xref:data/ef-rp/complex-data-model)</span></span>
 
 ::: moniker-end
