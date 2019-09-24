@@ -7,75 +7,75 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: blazor/get-started
-ms.openlocfilehash: b1d0b1a99bac202567e44ae11986c57ab5891e43
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: 428e231a38bb6547cfc69ccb253374da5218e058
+ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168098"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71198906"
 ---
-# <a name="get-started-with-aspnet-core-blazor"></a><span data-ttu-id="c3580-103">Začínáme s ASP.NET Core Blazor</span><span class="sxs-lookup"><span data-stu-id="c3580-103">Get started with ASP.NET Core Blazor</span></span>
+# <a name="get-started-with-aspnet-core-blazor"></a><span data-ttu-id="669e9-103">Začínáme s ASP.NET Core Blazor</span><span class="sxs-lookup"><span data-stu-id="669e9-103">Get started with ASP.NET Core Blazor</span></span>
 
-<span data-ttu-id="c3580-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="c3580-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="669e9-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="669e9-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-<span data-ttu-id="c3580-105">Začínáme s Blazor:</span><span class="sxs-lookup"><span data-stu-id="c3580-105">Get started with Blazor:</span></span>
+<span data-ttu-id="669e9-105">Začínáme s Blazor:</span><span class="sxs-lookup"><span data-stu-id="669e9-105">Get started with Blazor:</span></span>
 
-1. <span data-ttu-id="c3580-106">Nainstalujte nejnovější verzi [sady .NET Core 3,0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) .</span><span class="sxs-lookup"><span data-stu-id="c3580-106">Install the latest [.NET Core 3.0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.</span></span>
+1. <span data-ttu-id="669e9-106">Nainstalujte nejnovější verzi [sady .NET Core 3,0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) .</span><span class="sxs-lookup"><span data-stu-id="669e9-106">Install the latest [.NET Core 3.0 Preview SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) release.</span></span>
 
-1. <span data-ttu-id="c3580-107">Nainstalujte šablony Blazor spuštěním následujícího příkazu v příkazovém prostředí:</span><span class="sxs-lookup"><span data-stu-id="c3580-107">Install the Blazor templates by running the following command in a command shell:</span></span>
+1. <span data-ttu-id="669e9-107">Nainstalujte šablony Blazor spuštěním následujícího příkazu v příkazovém prostředí:</span><span class="sxs-lookup"><span data-stu-id="669e9-107">Install the Blazor templates by running the following command in a command shell:</span></span>
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19457.4
+   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19465.2
    ```
 
-1. <span data-ttu-id="c3580-108">Postupujte podle pokynů pro výběr nástrojů:</span><span class="sxs-lookup"><span data-stu-id="c3580-108">Follow the guidance for your choice of tooling:</span></span>
+1. <span data-ttu-id="669e9-108">Postupujte podle pokynů pro výběr nástrojů:</span><span class="sxs-lookup"><span data-stu-id="669e9-108">Follow the guidance for your choice of tooling:</span></span>
 
-   # <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="c3580-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="c3580-109">Visual Studio</span></span>](#tab/visual-studio)
+   # <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="669e9-109">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="669e9-109">Visual Studio</span></span>](#tab/visual-studio)
 
-   <span data-ttu-id="c3580-110">1\.</span><span class="sxs-lookup"><span data-stu-id="c3580-110">1\.</span></span> <span data-ttu-id="c3580-111">Nainstalujte si nejnovější verzi sady [Visual Studio Preview](https://visualstudio.com/vs/preview) s využitím úlohy **vývoje ASP.NET a webu** .</span><span class="sxs-lookup"><span data-stu-id="c3580-111">Install the latest [Visual Studio preview](https://visualstudio.com/vs/preview) with the **ASP.NET and web development** workload.</span></span>
+   <span data-ttu-id="669e9-110">1\.</span><span class="sxs-lookup"><span data-stu-id="669e9-110">1\.</span></span> <span data-ttu-id="669e9-111">Nainstalujte si nejnovější verzi sady [Visual Studio Preview](https://visualstudio.com/vs/preview) s využitím úlohy **vývoje ASP.NET a webu** .</span><span class="sxs-lookup"><span data-stu-id="669e9-111">Install the latest [Visual Studio preview](https://visualstudio.com/vs/preview) with the **ASP.NET and web development** workload.</span></span>
 
-   <span data-ttu-id="c3580-112">2\.</span><span class="sxs-lookup"><span data-stu-id="c3580-112">2\.</span></span> <span data-ttu-id="c3580-113">Vytvořte nový projekt.</span><span class="sxs-lookup"><span data-stu-id="c3580-113">Create a new project.</span></span>
+   <span data-ttu-id="669e9-112">2\.</span><span class="sxs-lookup"><span data-stu-id="669e9-112">2\.</span></span> <span data-ttu-id="669e9-113">Vytvořte nový projekt.</span><span class="sxs-lookup"><span data-stu-id="669e9-113">Create a new project.</span></span>
 
-   <span data-ttu-id="c3580-114">3\.</span><span class="sxs-lookup"><span data-stu-id="c3580-114">3\.</span></span> <span data-ttu-id="c3580-115">Vyberte **aplikaci Blazor**.</span><span class="sxs-lookup"><span data-stu-id="c3580-115">Select **Blazor App**.</span></span> <span data-ttu-id="c3580-116">Vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="c3580-116">Select **Next**.</span></span>
+   <span data-ttu-id="669e9-114">3\.</span><span class="sxs-lookup"><span data-stu-id="669e9-114">3\.</span></span> <span data-ttu-id="669e9-115">Vyberte **aplikaci Blazor**.</span><span class="sxs-lookup"><span data-stu-id="669e9-115">Select **Blazor App**.</span></span> <span data-ttu-id="669e9-116">Vyberte **Další**.</span><span class="sxs-lookup"><span data-stu-id="669e9-116">Select **Next**.</span></span>
 
-   <span data-ttu-id="c3580-117">4\.</span><span class="sxs-lookup"><span data-stu-id="c3580-117">4\.</span></span> <span data-ttu-id="c3580-118">Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu.</span><span class="sxs-lookup"><span data-stu-id="c3580-118">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="c3580-119">Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu.</span><span class="sxs-lookup"><span data-stu-id="c3580-119">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="c3580-120">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="c3580-120">Select **Create**.</span></span>
+   <span data-ttu-id="669e9-117">4\.</span><span class="sxs-lookup"><span data-stu-id="669e9-117">4\.</span></span> <span data-ttu-id="669e9-118">Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu.</span><span class="sxs-lookup"><span data-stu-id="669e9-118">Provide a project name in the **Project name** field or accept the default project name.</span></span> <span data-ttu-id="669e9-119">Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu.</span><span class="sxs-lookup"><span data-stu-id="669e9-119">Confirm the **Location** entry is correct or provide a location for the project.</span></span> <span data-ttu-id="669e9-120">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="669e9-120">Select **Create**.</span></span>
 
-   <span data-ttu-id="c3580-121">5\.</span><span class="sxs-lookup"><span data-stu-id="c3580-121">5\.</span></span> <span data-ttu-id="c3580-122">Pro prostředí WebAssembly Blazor vyberte šablonu **aplikace Blazor WebAssembly** .</span><span class="sxs-lookup"><span data-stu-id="c3580-122">For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="c3580-123">Pro prostředí Blazor serveru vyberte šablonu **aplikace serveru Blazor** .</span><span class="sxs-lookup"><span data-stu-id="c3580-123">For a Blazor Server experience, choose the **Blazor Server App** template.</span></span> <span data-ttu-id="c3580-124">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="c3580-124">Select **Create**.</span></span> <span data-ttu-id="c3580-125">Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.</span><span class="sxs-lookup"><span data-stu-id="c3580-125">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="669e9-121">5\.</span><span class="sxs-lookup"><span data-stu-id="669e9-121">5\.</span></span> <span data-ttu-id="669e9-122">Pro prostředí WebAssembly Blazor vyberte šablonu **aplikace Blazor WebAssembly** .</span><span class="sxs-lookup"><span data-stu-id="669e9-122">For a Blazor WebAssembly experience, choose the **Blazor WebAssembly App** template.</span></span> <span data-ttu-id="669e9-123">Pro prostředí Blazor serveru vyberte šablonu **aplikace serveru Blazor** .</span><span class="sxs-lookup"><span data-stu-id="669e9-123">For a Blazor Server experience, choose the **Blazor Server App** template.</span></span> <span data-ttu-id="669e9-124">Vyberte **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="669e9-124">Select **Create**.</span></span> <span data-ttu-id="669e9-125">Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.</span><span class="sxs-lookup"><span data-stu-id="669e9-125">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="c3580-126">6\.</span><span class="sxs-lookup"><span data-stu-id="c3580-126">6\.</span></span> <span data-ttu-id="c3580-127">Stisknutím klávesy **F5** spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="c3580-127">Press **F5** to run the app.</span></span>
+   <span data-ttu-id="669e9-126">6\.</span><span class="sxs-lookup"><span data-stu-id="669e9-126">6\.</span></span> <span data-ttu-id="669e9-127">Stisknutím klávesy **F5** spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="669e9-127">Press **F5** to run the app.</span></span>
 
    > [!NOTE]
-   > <span data-ttu-id="c3580-128">Pokud jste nainstalovali rozšíření sady Visual Studio Blazor pro předchozí verzi Preview služby ASP.NET Core Blazor (Preview 6 nebo starší), můžete rozšíření odinstalovat.</span><span class="sxs-lookup"><span data-stu-id="c3580-128">If you installed the Blazor Visual Studio extension for a prior preview release of ASP.NET Core Blazor (Preview 6 or earlier), you can uninstall the extension.</span></span> <span data-ttu-id="c3580-129">Instalace šablon Blazor do příkazového prostředí je teď dostačující pro povrchování šablon v aplikaci Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="c3580-129">Installing the Blazor templates in a command shell is now sufficient to surface the templates in Visual Studio.</span></span>
+   > <span data-ttu-id="669e9-128">Pokud jste nainstalovali rozšíření sady Visual Studio Blazor pro předchozí verzi Preview služby ASP.NET Core Blazor (Preview 6 nebo starší), můžete rozšíření odinstalovat.</span><span class="sxs-lookup"><span data-stu-id="669e9-128">If you installed the Blazor Visual Studio extension for a prior preview release of ASP.NET Core Blazor (Preview 6 or earlier), you can uninstall the extension.</span></span> <span data-ttu-id="669e9-129">Instalace šablon Blazor do příkazového prostředí je teď dostačující pro povrchování šablon v aplikaci Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="669e9-129">Installing the Blazor templates in a command shell is now sufficient to surface the templates in Visual Studio.</span></span>
 
-   # <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="c3580-130">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="c3580-130">Visual Studio Code</span></span>](#tab/visual-studio-code)
+   # <a name="visual-studio-codetabvisual-studio-code"></a>[<span data-ttu-id="669e9-130">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="669e9-130">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-   <span data-ttu-id="c3580-131">1\.</span><span class="sxs-lookup"><span data-stu-id="c3580-131">1\.</span></span> <span data-ttu-id="c3580-132">Nainstalujte [Visual Studio Code](https://code.visualstudio.com/).</span><span class="sxs-lookup"><span data-stu-id="c3580-132">Install [Visual Studio Code](https://code.visualstudio.com/).</span></span>
+   <span data-ttu-id="669e9-131">1\.</span><span class="sxs-lookup"><span data-stu-id="669e9-131">1\.</span></span> <span data-ttu-id="669e9-132">Nainstalujte [Visual Studio Code](https://code.visualstudio.com/).</span><span class="sxs-lookup"><span data-stu-id="669e9-132">Install [Visual Studio Code](https://code.visualstudio.com/).</span></span>
 
-   <span data-ttu-id="c3580-133">2\.</span><span class="sxs-lookup"><span data-stu-id="c3580-133">2\.</span></span> <span data-ttu-id="c3580-134">Nainstalujte nejnovější verzi [ C# pro Visual Studio Code rozšíření](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).</span><span class="sxs-lookup"><span data-stu-id="c3580-134">Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).</span></span>
+   <span data-ttu-id="669e9-133">2\.</span><span class="sxs-lookup"><span data-stu-id="669e9-133">2\.</span></span> <span data-ttu-id="669e9-134">Nainstalujte nejnovější verzi [ C# pro Visual Studio Code rozšíření](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).</span><span class="sxs-lookup"><span data-stu-id="669e9-134">Install the latest [C# for Visual Studio Code extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).</span></span>
 
-   <span data-ttu-id="c3580-135">3\.</span><span class="sxs-lookup"><span data-stu-id="c3580-135">3\.</span></span> <span data-ttu-id="c3580-136">Pro prostředí WebAssembly Blazor spusťte následující příkaz v příkazovém prostředí:</span><span class="sxs-lookup"><span data-stu-id="c3580-136">For a Blazor WebAssembly experience, execute the following command in a command shell:</span></span>
+   <span data-ttu-id="669e9-135">3\.</span><span class="sxs-lookup"><span data-stu-id="669e9-135">3\.</span></span> <span data-ttu-id="669e9-136">Pro prostředí WebAssembly Blazor spusťte následující příkaz v příkazovém prostředí:</span><span class="sxs-lookup"><span data-stu-id="669e9-136">For a Blazor WebAssembly experience, execute the following command in a command shell:</span></span>
 
       ```dotnetcli
       dotnet new blazorwasm -o WebApplication1
       ```
 
-      <span data-ttu-id="c3580-137">Pro prostředí Blazor serveru spusťte v příkazovém prostředí následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="c3580-137">For a Blazor Server experience, execute the following command in a command shell:</span></span>
+      <span data-ttu-id="669e9-137">Pro prostředí Blazor serveru spusťte v příkazovém prostředí následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="669e9-137">For a Blazor Server experience, execute the following command in a command shell:</span></span>
 
       ```dotnetcli
       dotnet new blazorserver -o WebApplication1
       ```
 
-      <span data-ttu-id="c3580-138">Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.</span><span class="sxs-lookup"><span data-stu-id="c3580-138">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
+      <span data-ttu-id="669e9-138">Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.</span><span class="sxs-lookup"><span data-stu-id="669e9-138">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="c3580-139">4\.</span><span class="sxs-lookup"><span data-stu-id="c3580-139">4\.</span></span> <span data-ttu-id="c3580-140">Otevřete složku *WebApplication1* v Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="c3580-140">Open the *WebApplication1* folder in Visual Studio Code.</span></span>
+   <span data-ttu-id="669e9-139">4\.</span><span class="sxs-lookup"><span data-stu-id="669e9-139">4\.</span></span> <span data-ttu-id="669e9-140">Otevřete složku *WebApplication1* v Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="669e9-140">Open the *WebApplication1* folder in Visual Studio Code.</span></span>
 
-   <span data-ttu-id="c3580-141">5\.</span><span class="sxs-lookup"><span data-stu-id="c3580-141">5\.</span></span> <span data-ttu-id="c3580-142">Pro projekt Blazor serveru rozhraní IDE požaduje, abyste přidali prostředky pro sestavení a ladění projektu.</span><span class="sxs-lookup"><span data-stu-id="c3580-142">For a Blazor Server project, the IDE requests that you add assets to build and debug the project.</span></span> <span data-ttu-id="c3580-143">Vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="c3580-143">Select **Yes**.</span></span>
+   <span data-ttu-id="669e9-141">5\.</span><span class="sxs-lookup"><span data-stu-id="669e9-141">5\.</span></span> <span data-ttu-id="669e9-142">Pro projekt Blazor serveru rozhraní IDE požaduje, abyste přidali prostředky pro sestavení a ladění projektu.</span><span class="sxs-lookup"><span data-stu-id="669e9-142">For a Blazor Server project, the IDE requests that you add assets to build and debug the project.</span></span> <span data-ttu-id="669e9-143">Vyberte **Ano**.</span><span class="sxs-lookup"><span data-stu-id="669e9-143">Select **Yes**.</span></span>
 
-   <span data-ttu-id="c3580-144">6\.</span><span class="sxs-lookup"><span data-stu-id="c3580-144">6\.</span></span> <span data-ttu-id="c3580-145">Pokud používáte aplikaci serveru Blazor, spusťte aplikaci pomocí ladicího programu Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="c3580-145">If using a Blazor Server app, run the app using the Visual Studio Code debugger.</span></span> <span data-ttu-id="c3580-146">Pokud používáte aplikaci WebAssembly Blazor, spusťte `dotnet run` ji ze složky projektu aplikace.</span><span class="sxs-lookup"><span data-stu-id="c3580-146">If using a Blazor WebAssembly app, execute `dotnet run` from the app's project folder.</span></span>
+   <span data-ttu-id="669e9-144">6\.</span><span class="sxs-lookup"><span data-stu-id="669e9-144">6\.</span></span> <span data-ttu-id="669e9-145">Pokud používáte aplikaci serveru Blazor, spusťte aplikaci pomocí ladicího programu Visual Studio Code.</span><span class="sxs-lookup"><span data-stu-id="669e9-145">If using a Blazor Server app, run the app using the Visual Studio Code debugger.</span></span> <span data-ttu-id="669e9-146">Pokud používáte aplikaci WebAssembly Blazor, spusťte `dotnet run` ji ze složky projektu aplikace.</span><span class="sxs-lookup"><span data-stu-id="669e9-146">If using a Blazor WebAssembly app, execute `dotnet run` from the app's project folder.</span></span>
 
-   <span data-ttu-id="c3580-147">7\.</span><span class="sxs-lookup"><span data-stu-id="c3580-147">7\.</span></span> <span data-ttu-id="c3580-148">V prohlížeči přejděte na `https://localhost:5001`.</span><span class="sxs-lookup"><span data-stu-id="c3580-148">In a browser, navigate to `https://localhost:5001`.</span></span>
+   <span data-ttu-id="669e9-147">7\.</span><span class="sxs-lookup"><span data-stu-id="669e9-147">7\.</span></span> <span data-ttu-id="669e9-148">V prohlížeči přejděte na `https://localhost:5001`.</span><span class="sxs-lookup"><span data-stu-id="669e9-148">In a browser, navigate to `https://localhost:5001`.</span></span>
 
    <!--
 
@@ -97,9 +97,9 @@ ms.locfileid: "71168098"
 
    -->
 
-   # <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="c3580-149">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="c3580-149">.NET Core CLI</span></span>](#tab/netcore-cli/)
+   # <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="669e9-149">Rozhraní příkazového řádku .NET Core</span><span class="sxs-lookup"><span data-stu-id="669e9-149">.NET Core CLI</span></span>](#tab/netcore-cli/)
 
-   <span data-ttu-id="c3580-150">Pro prostředí WebAssembly Blazor spusťte následující příkazy v příkazovém prostředí:</span><span class="sxs-lookup"><span data-stu-id="c3580-150">For a Blazor WebAssembly experience, execute the following commands in a command shell:</span></span>
+   <span data-ttu-id="669e9-150">Pro prostředí WebAssembly Blazor spusťte následující příkazy v příkazovém prostředí:</span><span class="sxs-lookup"><span data-stu-id="669e9-150">For a Blazor WebAssembly experience, execute the following commands in a command shell:</span></span>
 
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
@@ -107,7 +107,7 @@ ms.locfileid: "71168098"
    dotnet run
    ```
 
-   <span data-ttu-id="c3580-151">Pro prostředí Blazor serveru spusťte v příkazovém prostředí následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="c3580-151">For a Blazor Server experience, execute the following commands in a command shell:</span></span>
+   <span data-ttu-id="669e9-151">Pro prostředí Blazor serveru spusťte v příkazovém prostředí následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="669e9-151">For a Blazor Server experience, execute the following commands in a command shell:</span></span>
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
@@ -115,64 +115,64 @@ ms.locfileid: "71168098"
    dotnet run
    ```
 
-   <span data-ttu-id="c3580-152">Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.</span><span class="sxs-lookup"><span data-stu-id="c3580-152">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
+   <span data-ttu-id="669e9-152">Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.</span><span class="sxs-lookup"><span data-stu-id="669e9-152">For information on the two Blazor hosting models, *Blazor Server* and *Blazor WebAssembly*, see <xref:blazor/hosting-models>.</span></span>
 
-   <span data-ttu-id="c3580-153">V prohlížeči přejděte na `https://localhost:5001`.</span><span class="sxs-lookup"><span data-stu-id="c3580-153">In a browser, navigate to `https://localhost:5001`.</span></span>
+   <span data-ttu-id="669e9-153">V prohlížeči přejděte na `https://localhost:5001`.</span><span class="sxs-lookup"><span data-stu-id="669e9-153">In a browser, navigate to `https://localhost:5001`.</span></span>
 
    ---
 
-<span data-ttu-id="c3580-154">Na kartách na bočním panelu je k dispozici více stránek:</span><span class="sxs-lookup"><span data-stu-id="c3580-154">Multiple pages are available from tabs in the sidebar:</span></span>
+<span data-ttu-id="669e9-154">Na kartách na bočním panelu je k dispozici více stránek:</span><span class="sxs-lookup"><span data-stu-id="669e9-154">Multiple pages are available from tabs in the sidebar:</span></span>
 
-* <span data-ttu-id="c3580-155">Domů</span><span class="sxs-lookup"><span data-stu-id="c3580-155">Home</span></span>
-* <span data-ttu-id="c3580-156">Čítač</span><span class="sxs-lookup"><span data-stu-id="c3580-156">Counter</span></span>
-* <span data-ttu-id="c3580-157">Načíst data</span><span class="sxs-lookup"><span data-stu-id="c3580-157">Fetch data</span></span>
+* <span data-ttu-id="669e9-155">Domů</span><span class="sxs-lookup"><span data-stu-id="669e9-155">Home</span></span>
+* <span data-ttu-id="669e9-156">Čítač</span><span class="sxs-lookup"><span data-stu-id="669e9-156">Counter</span></span>
+* <span data-ttu-id="669e9-157">Načíst data</span><span class="sxs-lookup"><span data-stu-id="669e9-157">Fetch data</span></span>
 
-<span data-ttu-id="c3580-158">Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky.</span><span class="sxs-lookup"><span data-stu-id="c3580-158">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="c3580-159">Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale komponenty Razor poskytují lepší přístup pomocí C#.</span><span class="sxs-lookup"><span data-stu-id="c3580-159">Incrementing a counter in a webpage normally requires writing JavaScript, but Razor components provide a better approach using C#.</span></span>
+<span data-ttu-id="669e9-158">Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky.</span><span class="sxs-lookup"><span data-stu-id="669e9-158">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="669e9-159">Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale komponenty Razor poskytují lepší přístup pomocí C#.</span><span class="sxs-lookup"><span data-stu-id="669e9-159">Incrementing a counter in a webpage normally requires writing JavaScript, but Razor components provide a better approach using C#.</span></span>
 
-<span data-ttu-id="c3580-160">*Stránky/čítač. Razor*:</span><span class="sxs-lookup"><span data-stu-id="c3580-160">*Pages/Counter.razor*:</span></span>
+<span data-ttu-id="669e9-160">*Stránky/čítač. Razor*:</span><span class="sxs-lookup"><span data-stu-id="669e9-160">*Pages/Counter.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
-<span data-ttu-id="c3580-161">Požadavek `/counter` na v prohlížeči, jak je uveden `@page` v direktivě nahoře, způsobí, že `Counter` komponenta vykreslí svůj obsah.</span><span class="sxs-lookup"><span data-stu-id="c3580-161">A request for `/counter` in the browser, as specified by the `@page` directive at the top, causes the `Counter` component to render its content.</span></span> <span data-ttu-id="c3580-162">Komponenty vykreslí do reprezentace v paměti stromu vykreslování, který lze poté použít k flexibilnímu a efektivnímu způsobu aktualizace uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="c3580-162">Components render into an in-memory representation of the render tree that can then be used to update the UI in a flexible and efficient way.</span></span>
+<span data-ttu-id="669e9-161">Požadavek `/counter` na v prohlížeči, jak je uveden `@page` v direktivě nahoře, způsobí, že `Counter` komponenta vykreslí svůj obsah.</span><span class="sxs-lookup"><span data-stu-id="669e9-161">A request for `/counter` in the browser, as specified by the `@page` directive at the top, causes the `Counter` component to render its content.</span></span> <span data-ttu-id="669e9-162">Komponenty vykreslí do reprezentace v paměti stromu vykreslování, který lze poté použít k flexibilnímu a efektivnímu způsobu aktualizace uživatelského rozhraní.</span><span class="sxs-lookup"><span data-stu-id="669e9-162">Components render into an in-memory representation of the render tree that can then be used to update the UI in a flexible and efficient way.</span></span>
 
-<span data-ttu-id="c3580-163">Pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** :</span><span class="sxs-lookup"><span data-stu-id="c3580-163">Each time the **Click me** button is selected:</span></span>
+<span data-ttu-id="669e9-163">Pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** :</span><span class="sxs-lookup"><span data-stu-id="669e9-163">Each time the **Click me** button is selected:</span></span>
 
-* <span data-ttu-id="c3580-164">`onclick` Událost je aktivována.</span><span class="sxs-lookup"><span data-stu-id="c3580-164">The `onclick` event is fired.</span></span>
-* <span data-ttu-id="c3580-165">`IncrementCount` Metoda je volána.</span><span class="sxs-lookup"><span data-stu-id="c3580-165">The `IncrementCount` method is called.</span></span>
-* <span data-ttu-id="c3580-166">Dojde `currentCount` k zvýšení.</span><span class="sxs-lookup"><span data-stu-id="c3580-166">The `currentCount` is incremented.</span></span>
-* <span data-ttu-id="c3580-167">Komponenta se znovu vykreslí.</span><span class="sxs-lookup"><span data-stu-id="c3580-167">The component is rendered again.</span></span>
+* <span data-ttu-id="669e9-164">`onclick` Událost je aktivována.</span><span class="sxs-lookup"><span data-stu-id="669e9-164">The `onclick` event is fired.</span></span>
+* <span data-ttu-id="669e9-165">`IncrementCount` Metoda je volána.</span><span class="sxs-lookup"><span data-stu-id="669e9-165">The `IncrementCount` method is called.</span></span>
+* <span data-ttu-id="669e9-166">Dojde `currentCount` k zvýšení.</span><span class="sxs-lookup"><span data-stu-id="669e9-166">The `currentCount` is incremented.</span></span>
+* <span data-ttu-id="669e9-167">Komponenta se znovu vykreslí.</span><span class="sxs-lookup"><span data-stu-id="669e9-167">The component is rendered again.</span></span>
 
-<span data-ttu-id="c3580-168">Modul runtime porovná nový obsah s předchozím obsahem a na model DOM (Document Object Model) (DOM) použije pouze změněný obsah.</span><span class="sxs-lookup"><span data-stu-id="c3580-168">The runtime compares the new content to the previous content and only applies the changed content to the Document Object Model (DOM).</span></span>
+<span data-ttu-id="669e9-168">Modul runtime porovná nový obsah s předchozím obsahem a na model DOM (Document Object Model) (DOM) použije pouze změněný obsah.</span><span class="sxs-lookup"><span data-stu-id="669e9-168">The runtime compares the new content to the previous content and only applies the changed content to the Document Object Model (DOM).</span></span>
 
-<span data-ttu-id="c3580-169">Přidejte komponentu do jiné komponenty pomocí syntaxe jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="c3580-169">Add a component to another component using HTML syntax.</span></span> <span data-ttu-id="c3580-170">Například přidejte `Counter` komponentu do domovské stránky aplikace `<Counter />` přidáním elementu do `Index` komponenty.</span><span class="sxs-lookup"><span data-stu-id="c3580-170">For example, add the `Counter` component to the app's homepage by adding a `<Counter />` element to the `Index` component.</span></span>
+<span data-ttu-id="669e9-169">Přidejte komponentu do jiné komponenty pomocí syntaxe jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="669e9-169">Add a component to another component using HTML syntax.</span></span> <span data-ttu-id="669e9-170">Například přidejte `Counter` komponentu do domovské stránky aplikace `<Counter />` přidáním elementu do `Index` komponenty.</span><span class="sxs-lookup"><span data-stu-id="669e9-170">For example, add the `Counter` component to the app's homepage by adding a `<Counter />` element to the `Index` component.</span></span>
 
-<span data-ttu-id="c3580-171">*Pages/index. Razor*:</span><span class="sxs-lookup"><span data-stu-id="c3580-171">*Pages/Index.razor*:</span></span>
+<span data-ttu-id="669e9-171">*Pages/index. Razor*:</span><span class="sxs-lookup"><span data-stu-id="669e9-171">*Pages/Index.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-<span data-ttu-id="c3580-172">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="c3580-172">Run the app.</span></span> <span data-ttu-id="c3580-173">Domovská stránka má vlastní počítadlo poskytované `Counter` komponentou.</span><span class="sxs-lookup"><span data-stu-id="c3580-173">The homepage has its own counter provided by the `Counter` component.</span></span>
+<span data-ttu-id="669e9-172">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="669e9-172">Run the app.</span></span> <span data-ttu-id="669e9-173">Domovská stránka má vlastní počítadlo poskytované `Counter` komponentou.</span><span class="sxs-lookup"><span data-stu-id="669e9-173">The homepage has its own counter provided by the `Counter` component.</span></span>
 
-<span data-ttu-id="c3580-174">Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu](xref:blazor/components#child-content), který umožňuje nastavit vlastnosti pro podřízenou komponentu.</span><span class="sxs-lookup"><span data-stu-id="c3580-174">Component parameters are specified using attributes or [child content](xref:blazor/components#child-content), which allow you to set properties on the child component.</span></span> <span data-ttu-id="c3580-175">Chcete-li přidat parametr do `Counter` komponenty, aktualizujte `@code` blok komponenty:</span><span class="sxs-lookup"><span data-stu-id="c3580-175">To add a parameter to the `Counter` component, update the component's `@code` block:</span></span>
+<span data-ttu-id="669e9-174">Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu](xref:blazor/components#child-content), který umožňuje nastavit vlastnosti pro podřízenou komponentu.</span><span class="sxs-lookup"><span data-stu-id="669e9-174">Component parameters are specified using attributes or [child content](xref:blazor/components#child-content), which allow you to set properties on the child component.</span></span> <span data-ttu-id="669e9-175">Chcete-li přidat parametr do `Counter` komponenty, aktualizujte `@code` blok komponenty:</span><span class="sxs-lookup"><span data-stu-id="669e9-175">To add a parameter to the `Counter` component, update the component's `@code` block:</span></span>
 
-* <span data-ttu-id="c3580-176">Přidejte veřejnou vlastnost pro `IncrementAmount` `[Parameter]` s atributem.</span><span class="sxs-lookup"><span data-stu-id="c3580-176">Add a public property for `IncrementAmount` with a `[Parameter]` attribute.</span></span>
-* <span data-ttu-id="c3580-177">Změňte metodu na `IncrementAmount` použití`currentCount`při zvyšování hodnoty. `IncrementCount`</span><span class="sxs-lookup"><span data-stu-id="c3580-177">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
+* <span data-ttu-id="669e9-176">Přidejte veřejnou vlastnost pro `IncrementAmount` `[Parameter]` s atributem.</span><span class="sxs-lookup"><span data-stu-id="669e9-176">Add a public property for `IncrementAmount` with a `[Parameter]` attribute.</span></span>
+* <span data-ttu-id="669e9-177">Změňte metodu na `IncrementAmount` použití`currentCount`při zvyšování hodnoty. `IncrementCount`</span><span class="sxs-lookup"><span data-stu-id="669e9-177">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
 
-<span data-ttu-id="c3580-178">*Stránky/čítač. Razor*:</span><span class="sxs-lookup"><span data-stu-id="c3580-178">*Pages/Counter.razor*:</span></span>
+<span data-ttu-id="669e9-178">*Stránky/čítač. Razor*:</span><span class="sxs-lookup"><span data-stu-id="669e9-178">*Pages/Counter.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-<span data-ttu-id="c3580-179">`IncrementAmount` Zadejte velementu`<Counter>`komponentypomocíatributu. `Index`</span><span class="sxs-lookup"><span data-stu-id="c3580-179">Specify the `IncrementAmount` in the `Index` component's `<Counter>` element using an attribute.</span></span>
+<span data-ttu-id="669e9-179">`IncrementAmount` Zadejte velementu`<Counter>`komponentypomocíatributu. `Index`</span><span class="sxs-lookup"><span data-stu-id="669e9-179">Specify the `IncrementAmount` in the `Index` component's `<Counter>` element using an attribute.</span></span>
 
-<span data-ttu-id="c3580-180">*Pages/index. Razor*:</span><span class="sxs-lookup"><span data-stu-id="c3580-180">*Pages/Index.razor*:</span></span>
+<span data-ttu-id="669e9-180">*Pages/index. Razor*:</span><span class="sxs-lookup"><span data-stu-id="669e9-180">*Pages/Index.razor*:</span></span>
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-<span data-ttu-id="c3580-181">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="c3580-181">Run the app.</span></span> <span data-ttu-id="c3580-182">Komponenta má vlastní čítač, který se zvýší o deset pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další.** `Index`</span><span class="sxs-lookup"><span data-stu-id="c3580-182">The `Index` component has its own counter that increments by ten each time the **Click me** button is selected.</span></span> <span data-ttu-id="c3580-183">Komponenta `Counter` ( `/counter` *Counter. Razor*) se stále zvyšuje o jednu.</span><span class="sxs-lookup"><span data-stu-id="c3580-183">The `Counter` component (*Counter.razor*) at `/counter` continues to increment by one.</span></span>
+<span data-ttu-id="669e9-181">Spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="669e9-181">Run the app.</span></span> <span data-ttu-id="669e9-182">Komponenta má vlastní čítač, který se zvýší o deset pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další.** `Index`</span><span class="sxs-lookup"><span data-stu-id="669e9-182">The `Index` component has its own counter that increments by ten each time the **Click me** button is selected.</span></span> <span data-ttu-id="669e9-183">Komponenta `Counter` ( `/counter` *Counter. Razor*) se stále zvyšuje o jednu.</span><span class="sxs-lookup"><span data-stu-id="669e9-183">The `Counter` component (*Counter.razor*) at `/counter` continues to increment by one.</span></span>
 
-## <a name="next-steps"></a><span data-ttu-id="c3580-184">Další kroky</span><span class="sxs-lookup"><span data-stu-id="c3580-184">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="669e9-184">Další kroky</span><span class="sxs-lookup"><span data-stu-id="669e9-184">Next steps</span></span>
 
 <xref:tutorials/first-blazor-app>
 
-## <a name="additional-resources"></a><span data-ttu-id="c3580-185">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="c3580-185">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="669e9-185">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="669e9-185">Additional resources</span></span>
 
 * <xref:signalr/introduction>
