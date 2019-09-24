@@ -4,14 +4,14 @@ author: rick-anderson
 description: Seznamte se s novými funkcemi v ASP.NET Core 3,0.
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/20/2019
+ms.date: 09/23/2019
 uid: aspnetcore-3.0
-ms.openlocfilehash: 97703b8d67c148ef6b3ee4a93cdfc07ab970ecd4
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: 490d00da7282e2efe28fcc52e593dd71d7324d3f
+ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187486"
+ms.locfileid: "71198991"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -487,6 +487,17 @@ Další informace naleznete v tématu:
 V předchozích verzích ASP.NET Core volání <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> a <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> bylo problematické při nasazení do Azure Linux nebo za libovolný reverzní proxy server jiný než IIS. Oprava pro předchozí verze je popsána v [části dopředného schématu pro reverzní proxy servery se systémy Linux a non-IIS](xref:host-and-deploy/proxy-load-balancer#forward-the-scheme-for-linux-and-non-iis-reverse-proxies).
 
 Tento scénář je opravený v ASP.NET Core 3,0. Hostitel povoluje [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options) , pokud `ASPNETCORE_FORWARDEDHEADERS_ENABLED` je proměnná prostředí nastavena na `true`. `ASPNETCORE_FORWARDEDHEADERS_ENABLED`je nastavené `true` na obrázky kontejnerů.
+
+## <a name="performance-improvements"></a>Vylepšení výkonu
+
+ASP.NET Core 3,0 obsahuje mnoho vylepšení, která omezují využití paměti a zvyšují propustnost:
+
+* Snížení využití paměti při použití integrovaného kontejneru vkládání závislostí pro vymezené služby.
+* Snížení počtu přidělení napříč rámec, včetně scénářů middlewaru a směrování.
+* Snížení využití paměti pro připojení protokolu WebSocket.
+* Snižování paměti a vylepšení propustnosti pro připojení HTTPS.
+* Nový optimalizovaný a plně asynchronní serializátor JSON.
+* Snížení využití paměti a vylepšení propustnosti při analýze formuláře.
 
 ## <a name="aspnet-core-30-only-runs-on-net-core-30"></a>ASP.NET Core 3,0 běží pouze na .NET Core 3,0
 

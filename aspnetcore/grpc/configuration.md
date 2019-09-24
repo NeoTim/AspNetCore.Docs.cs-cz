@@ -1,24 +1,24 @@
 ---
-title: gRPC pro konfiguraci ASP.NET Core
+title: Konfigurace gRPC pro .NET
 author: jamesnk
-description: Naučte se nakonfigurovat gRPC pro aplikace ASP.NET Core.
+description: Přečtěte si, jak nakonfigurovat gRPC pro aplikace .NET.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: grpc/configuration
-ms.openlocfilehash: d6f095820271a3bb07e05e29299fbb82b042983b
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 42574b43b4751efc37ff3a827716df4cb8130842
+ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773683"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71199083"
 ---
-# <a name="grpc-for-aspnet-core-configuration"></a>gRPC pro konfiguraci ASP.NET Core
+# <a name="grpc-for-net-configuration"></a>Konfigurace gRPC pro .NET
 
 ## <a name="configure-services-options"></a>Konfigurace možností služeb
 
-Následující tabulka popisuje možnosti konfigurace služeb gRPC:
+služby gRPC Services se konfigurují `AddGrpc` v *Startup.cs*. Následující tabulka popisuje možnosti konfigurace služeb gRPC:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
@@ -39,13 +39,13 @@ Možnosti pro jednu službu přepíší globální možnosti poskytované v `Add
 
 ## <a name="configure-client-options"></a>Konfigurace možností klienta
 
-Následující tabulka popisuje možnosti konfigurace gRPCch kanálů:
+Konfigurace klienta gRPC je nastavená `GrpcChannelOptions`na. Následující tabulka popisuje možnosti konfigurace gRPCch kanálů:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `HttpClient` | Nová instance | `HttpClient` Slouží k provádění volání gRPC. Klienta lze nastavit tak, aby nakonfiguroval vlastní `HttpClientHandler`nastavení, nebo přidat další obslužné rutiny do kanálu HTTP pro volání gRPC. Pokud není zadaný, vytvoří se pro kanál `HttpClient` nová instance. `HttpClient` Bude automaticky vyřazen. |
 | `DisposeHttpClient` | `false` | Pokud `true` a`HttpClient` `GrpcChannel` je zadán, instance bude uvolněna při uvolnění. `HttpClient` |
-| `LoggerFactory` | `null` | Klient `LoggerFactory` používaný klientem k protokolování informací o voláních gRPC. Instanci lze přeložit z injektáže závislosti nebo vytvořit pomocí `LoggerFactory.Create`. `LoggerFactory` Příklady konfigurace protokolování najdete v tématu <xref:fundamentals/logging/index>. |
+| `LoggerFactory` | `null` | Klient `LoggerFactory` používaný klientem k protokolování informací o voláních gRPC. Instanci lze přeložit z injektáže závislosti nebo vytvořit pomocí `LoggerFactory.Create`. `LoggerFactory` Příklady konfigurace protokolování najdete v tématu <xref:grpc/diagnostics#grpc-client-logging>. |
 | `MaxSendMessageSize` | `null` | Maximální velikost zprávy v bajtech, kterou je možné odeslat z klienta. Při pokusu o odeslání zprávy, která přesahuje nakonfigurovanou maximální velikost zprávy, dojde k výjimce. |
 | `MaxReceiveMessageSize` | 4 MB | Maximální velikost zprávy v bajtech, kterou může klient přijmout. Pokud klient obdrží zprávu, která tento limit překračuje, vyvolá výjimku. Zvýšením této hodnoty umožníte klientovi přijímat větší zprávy, ale může negativně ovlivnit spotřebu paměti. |
 | `Credentials` | `null` | `ChannelCredentials` Instance. Přihlašovací údaje se používají k přidání metadat ověřování pro volání gRPC. |
@@ -62,4 +62,5 @@ Následující kód:
 
 * <xref:grpc/aspnetcore>
 * <xref:grpc/client>
+* <xref:grpc/diagnostics>
 * <xref:tutorials/grpc/grpc-start>

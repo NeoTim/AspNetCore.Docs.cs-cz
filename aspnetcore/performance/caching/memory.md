@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/22/2019
 uid: performance/caching/memory
-ms.openlocfilehash: 1519abbca6430063f037372a4927f5818f160457
-ms.sourcegitcommit: 776598f71da0d1e4c9e923b3b395d3c3b5825796
+ms.openlocfilehash: 0479df14dd5d757710e361fce43782a8137588cb
+ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/26/2019
-ms.locfileid: "70024789"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71198903"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť v paměti v ASP.NET Core
 
@@ -47,9 +47,9 @@ Použijte `System.Runtime.Caching` jakomostkompatibility`MemoryCache` při přen
 
 * Kód by měl vždy mít možnost Fallback načíst data a **nemusí** být závislý na dostupné hodnotě uložené v mezipaměti.
 * Mezipaměť používá prostředek omezených, paměť. Omezit nárůst mezipaměti:
-  * Nepoužívejte externí vstup jako klíče mezipaměti.
+  * Nepoužívejte **externí** vstup jako klíče mezipaměti.
   * K omezení růstu mezipaměti použijte vypršení platnosti.
-  * [Pro omezení velikosti mezipaměti použijte možnost setSize, Size a SizeLimit](#use-setsize-size-and-sizelimit-to-limit-cache-size). Modul runtime ASP.NET Core neomezuje velikost mezipaměti na základě tlaku paměti. Velikost mezipaměti můžete omezit na vývojáře.
+  * [Pro omezení velikosti mezipaměti použijte možnost setSize, Size a SizeLimit](#use-setsize-size-and-sizelimit-to-limit-cache-size). Modul runtime ASP.NET Core **neomezuje velikost** mezipaměti na základě tlaku paměti. Velikost mezipaměti můžete omezit na vývojáře.
 
 ## <a name="use-imemorycache"></a>Použití IMemoryCache
 
@@ -63,7 +63,7 @@ Mezipaměť v paměti je *Služba* , na kterou se odkazuje z aplikace pomocí [I
 
 Následující kód používá [TryGetValue](/dotnet/api/microsoft.extensions.caching.memory.imemorycache.trygetvalue?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_IMemoryCache_TryGetValue_System_Object_System_Object__) ke kontrole, zda je čas v mezipaměti. Pokud čas není uložen v mezipaměti, je vytvořena nová položka a přidána do mezipaměti se [sadou](/dotnet/api/microsoft.extensions.caching.memory.cacheextensions.set?view=aspnetcore-2.0#Microsoft_Extensions_Caching_Memory_CacheExtensions_Set__1_Microsoft_Extensions_Caching_Memory_IMemoryCache_System_Object___0_Microsoft_Extensions_Caching_Memory_MemoryCacheEntryOptions_). `CacheKeys` Třída je součástí ukázky stahování.
 
-[! Code-CSharp [] (paměť/3.0 Sample/WebCacheSample/CacheKeys. cs) [](memory/3.0sample/WebCacheSample/CacheKeys.cs)]
+[!code-csharp[](memory/3.0sample/WebCacheSample/CacheKeys.cs)]
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet1)]
 
@@ -220,7 +220,7 @@ Použijte `System.Runtime.Caching` jakomostkompatibility`MemoryCache` při přen
 
 * Kód by měl vždy mít možnost Fallback načíst data a **nemusí** být závislý na dostupné hodnotě uložené v mezipaměti.
 * Mezipaměť používá prostředek omezených, paměť. Omezit nárůst mezipaměti:
-  * Nepoužívejte externí vstup jako klíče mezipaměti.
+  * Nepoužívejte **externí** vstup jako klíče mezipaměti.
   * K omezení růstu mezipaměti použijte vypršení platnosti.
   * [Pro omezení velikosti mezipaměti použijte možnost setSize, Size a SizeLimit](#use-setsize-size-and-sizelimit-to-limit-cache-size). Modul runtime ASP.NET Core neomezuje velikost mezipaměti na základě tlaku paměti. Velikost mezipaměti můžete omezit na vývojáře.
 

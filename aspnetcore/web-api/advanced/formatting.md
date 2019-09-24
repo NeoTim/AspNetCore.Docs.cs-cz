@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 8/22/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 7b19bf54ea9f8a87c26ba7567a7348fcbea997c8
-ms.sourcegitcommit: e7dc89620fa02c2ff80bee1e3f77297f97616968
+ms.openlocfilehash: 5861a8e353b8fac95ca51aca7b44a768d3c2ffb7
+ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71151182"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71199060"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -250,8 +250,8 @@ Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozh
 
 Předchozí trasa umožňuje zadat požadovaný formát jako volitelnou příponu souboru. Atribut kontroluje existenci hodnoty formátu `RouteData` v a při vytvoření odpovědi mapuje formát odpovědi na příslušný formátovací modul. [`[FormatFilter]`](xref:Microsoft.AspNetCore.Mvc.FormatFilterAttribute)
 
-|           Cestě            |             Modul              |
-|----------------------------|------------------------------------|
-|   `/products/GetById/5`    |    Výchozí výstupní formátovací modul    |
-| `/products/GetById/5.json` | Formátovací modul JSON (Pokud je nakonfigurovaný) |
-| `/products/GetById/5.xml`  | Formátovací modul XML (Pokud je nakonfigurovaný)  |
+|           Cestě        |             Modul              |
+|------------------------|------------------------------------|
+|   `/api/products/5`    |    Výchozí výstupní formátovací modul    |
+| `/api/products/5.json` | Formátovací modul JSON (Pokud je nakonfigurovaný) |
+| `/api/products/5.xml`  | Formátovací modul XML (Pokud je nakonfigurovaný)  |
