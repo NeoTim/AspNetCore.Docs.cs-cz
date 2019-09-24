@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 09/19/2019
 uid: razor-pages/index
-ms.openlocfilehash: 284fb0fa64b26cf51f822b9ef42fe9bb7247e421
-ms.sourcegitcommit: e7dc89620fa02c2ff80bee1e3f77297f97616968
+ms.openlocfilehash: 7e27bbc84816bd282b2b8de936772eb5c597d74f
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71151150"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207375"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor Pages v ASP.NET Core
 
@@ -414,7 +414,7 @@ Další informace o částečných zobrazeních naleznete <xref:mvc/views/partia
 
 Stránka `Create` , která se zobrazuje dřív, `RedirectToPage`používá:
 
-[!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet_PageModel&highlight=15-16)]
+[!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet_PageModel&highlight=28)]
 
 Aplikace má následující strukturu souborů nebo složek:
 
@@ -428,13 +428,13 @@ Aplikace má následující strukturu souborů nebo složek:
     * *Edit.cshtml*
     * *Index.cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `./Index` lze použít ke generování identifikátorů URI na stránce *Pages/Customers/index. cshtml* . Příklad:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který slouží k přístupu na předchozí stránku. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Příklad:
 
 * `Url.Page("./Index", ...)`
-* `<a asp-page="/Customers/Index">Customers Index Page</a>`
+* `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Příklad:
+Absolutní název `/Index` stránky se používá ke generování adres URL na stránce *pages/index. cshtml* . Příklad:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`

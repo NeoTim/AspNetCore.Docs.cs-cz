@@ -5,14 +5,14 @@ description: Přečtěte si o scénářích ověřování a autorizace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/05/2019
+ms.date: 09/23/2019
 uid: security/blazor/index
-ms.openlocfilehash: 51fb1f9984878fceee0b207d02a02622c3ba191d
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: b0536b4290cd39397ceb440e0508b75d0373bc88
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168347"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71211721"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 

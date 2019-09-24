@@ -5,14 +5,14 @@ description: Zjistěte, jak mohou být součásti součástí aplikací Blazor z
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/13/2019
+ms.date: 09/23/2019
 uid: blazor/class-libraries
-ms.openlocfilehash: 91c4ffb29649c162fc15e5cb70dc60144b53afea
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: d9ef276357e95d97b7d89427c5e237aceea7a0d3
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080667"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207097"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core knihovny tříd součástí Razor
 

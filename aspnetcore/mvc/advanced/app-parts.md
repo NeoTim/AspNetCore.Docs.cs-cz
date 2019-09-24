@@ -5,17 +5,14 @@ description: Sdílení řadičů, zobrazení, Razor Pages a dalších prvků apl
 ms.author: riande
 ms.date: 05/14/2019
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: ad0372f25377115e6fc7c8ea42db75de56b3e6d2
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: 4b4c8c554a7045a180b56cf9998ab1a8496cde1b
+ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187012"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71207346"
 ---
 # <a name="share-controllers-views-razor-pages-and-more-with-application-parts-in-aspnet-core"></a>Sdílení řadičů, zobrazení, Razor Pages a dalších prvků aplikace v ASP.NET Core
-=======
-
-<!-- DO NOT MAKE CHANGES BEFORE https://github.com/aspnet/AspNetCore.Docs/pull/12376 Merges -->
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -46,14 +43,14 @@ Zahrnutí zobrazení do sestavení:
 * Do souboru sdíleného projektu přidejte následující kód:
 
   ```csproj
-    <ItemGroup>
-      <EmbeddedResource Include = "Views\**\*.cshtml" />
-    </ ItemGroup >
+  <ItemGroup>
+      <EmbeddedResource Include="Views\**\*.cshtml" />
+  </ItemGroup>
   ```
 
 * <xref:Microsoft.Extensions.FileProviders.EmbeddedFileProvider> Přidejte<xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngine>do:
 
-[!code-csharp[](./app-parts/sample1/WebAppParts/StartupViews.cs?name=snippet&highlight=3-7)]
+  [!code-csharp[](./app-parts/sample1/WebAppParts/StartupViews.cs?name=snippet&highlight=3-7)]
 
 ### <a name="prevent-loading-resources"></a>Zabránit načítání prostředků
 
@@ -64,7 +61,7 @@ Následující kód používá <xref:Microsoft.AspNetCore.Mvc.ApplicationParts> 
 `ApplicationPartManager` Obsahuje části pro:
 
 * Sestavení aplikace a závislá sestavení.
-* `Microsoft.AspNetCore.Mvc.TagHelpers`
+* `Microsoft.AspNetCore.Mvc.TagHelpers`.
 * `Microsoft.AspNetCore.Mvc.Razor`.
 
 ## <a name="application-feature-providers"></a>Poskytovatelé funkcí aplikace
@@ -79,7 +76,7 @@ Poskytovatelé funkcí dědí <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.IA
 
 ### <a name="generic-controller-feature"></a>Funkce obecného kontroleru
 
-ASP.NET Core ignorují [Obecné řadiče](/dotnet/csharp/programming-guide/generics/generic-classes). Obecný kontroler má parametr typu (například `MyController<T>`). Následující příklad přidá instance obecného kontroleru pro zadaný seznam typů.
+ASP.NET Core ignorují [Obecné řadiče](/dotnet/csharp/programming-guide/generics/generic-classes). Obecný kontroler má parametr typu (například `MyController<T>`). Následující příklad přidá instance obecného kontroleru pro zadaný seznam typů:
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/GenericControllerFeatureProvider.cs?name=snippet)]
 
@@ -99,10 +96,34 @@ Třída `GenericController`:
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/GenericController.cs)]
 
+Například vyžádání adresy URL `https://localhost:5001/Sprocket` s výsledkem je následující odpověď:
+
+```text
+Hello from a generic Sprocket controller.
+```
+
 ### <a name="display-available-features"></a>Zobrazit dostupné funkce
 
-Funkce, které jsou k dispozici pro aplikaci, mohou být `ApplicationPartManager` vyhodnoceny pomocí injektáže prostřednictvím [Injektáže závislosti](../../fundamentals/dependency-injection.md):
+Funkce, které jsou k dispozici pro aplikaci, mohou být vyhodnoceny požadavkem `ApplicationPartManager` na [vkládání závislostí](../../fundamentals/dependency-injection.md):
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/Controllers/FeaturesController.cs?highlight=16,25-27)]
 
-[Ukázka ke stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2) používá předchozí kód k zobrazení funkcí aplikace.
+[Ukázka ke stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2) používá předchozí kód k zobrazení funkcí aplikace:
+
+```text
+Controllers:
+    - FeaturesController
+    - HomeController
+    - HelloController
+    - GenericController`1
+    - GenericController`1
+Tag Helpers:
+    - PrerenderTagHelper
+    - AnchorTagHelper
+    - CacheTagHelper
+    - DistributedCacheTagHelper
+    - EnvironmentTagHelper
+    - Additional Tag Helpers omitted for brevity.
+View Components:
+    - SampleViewComponent
+```
