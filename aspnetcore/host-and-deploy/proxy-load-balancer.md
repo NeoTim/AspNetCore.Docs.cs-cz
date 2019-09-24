@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/12/2019
 uid: host-and-deploy/proxy-load-balancer
-ms.openlocfilehash: 4f04e6cae120ee88734855252542e2bfc2f194a0
-ms.sourcegitcommit: 849af69ee3c94cdb9fd8fa1f1bb8f5a5dda7b9eb
+ms.openlocfilehash: 3243f5d3254e6585ff9ca48900a3326aa9b6f502
+ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/22/2019
-ms.locfileid: "67856174"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71219172"
 ---
 # <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení
 
@@ -299,18 +299,18 @@ Zápis protokolů místo textu odpovědi:
 app.Use(async (context, next) =>
 {
     // Request method, scheme, and path
-    _logger.LogDebug("Request Method: {METHOD}", context.Request.Method);
-    _logger.LogDebug("Request Scheme: {SCHEME}", context.Request.Scheme);
-    _logger.LogDebug("Request Path: {PATH}", context.Request.Path);
+    _logger.LogDebug("Request Method: {Method}", context.Request.Method);
+    _logger.LogDebug("Request Scheme: {Scheme}", context.Request.Scheme);
+    _logger.LogDebug("Request Path: {Path}", context.Request.Path);
 
     // Headers
     foreach (var header in context.Request.Headers)
     {
-        _logger.LogDebug("Header: {KEY}: {VALUE}", header.Key, header.Value);
+        _logger.LogDebug("Header: {Key}: {Value}", header.Key, header.Value);
     }
 
     // Connection: RemoteIp
-    _logger.LogDebug("Request RemoteIp: {REMOTE_IP_ADDRESS}", 
+    _logger.LogDebug("Request RemoteIp: {RemoteIpAddress}", 
         context.Connection.RemoteIpAddress);
 
     await next();

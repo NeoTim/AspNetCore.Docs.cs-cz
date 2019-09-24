@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 03734addcc0e063c2c216b26b59762d27d35d47c
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 90b439603dd51ff02e40045b9420876d7200bef1
+ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081158"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71219160"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -49,7 +49,7 @@ V konzolové aplikaci, která není hostitelem, zavolejte metodu `Add{provider n
 Výchozí ASP.NET Core volání <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>šablon projektu, které přidává následující zprostředkovatele protokolování:
 
 * Konzola
-* Ladění
+* Ladit
 * EventSource
 * Protokol událostí (pouze při spuštění v systému Windows)
 
@@ -70,7 +70,7 @@ Předchozí kód vyžaduje odkazy na `Microsoft.Extensions.Logging` a. `Microsof
 Výchozí volání <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>šablony projektu, které přidává následující zprostředkovatele protokolování:
 
 * Konzola
-* Ladění
+* Ladit
 * EventSource (počínaje ASP.NET Core 2,2)
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
@@ -174,7 +174,7 @@ Chcete-li zapsat protokoly `Program` ve třídě, Získejte `ILogger` instanci o
 
 Protokolování by mělo být tak rychlé, aby neplatilo náklady na výkon asynchronního kódu. Pokud je úložiště dat protokolování pomalé, nezapište ho přímo. Nejprve zvažte možnost zapsat zprávy protokolu do rychlého úložiště a pak je později přesunout do pomalého úložiště. Například pokud se přihlašujete k SQL Server, nechcete provádět přímo v `Log` metodě, `Log` protože metody jsou synchronní. Místo toho můžete synchronně přidat protokolové zprávy do fronty v paměti a nechat pracovní proces na pozadí získat zprávy z fronty, aby asynchronní operace vkládání dat do SQL Server.
 
-## <a name="configuration"></a>Konfiguraci
+## <a name="configuration"></a>Konfigurace
 
 Konfigurace zprostředkovatele protokolování je poskytována jedním nebo více poskytovateli konfigurace:
 
@@ -346,7 +346,7 @@ Chcete-li explicitně zadat kategorii, `ILoggerFactory.CreateLogger`zavolejte:
 
 ## <a name="log-level"></a>Úroveň protokolování
 
-Každý protokol Určuje <xref:Microsoft.Extensions.Logging.LogLevel> hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat `Information` protokol, pokud metoda končí normálně `Warning` a protokol, když metoda vrátí stavový kód 404 Nenalezeno.
+Každý protokol Určuje <xref:Microsoft.Extensions.Logging.LogLevel> hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat `Information` protokol, pokud metoda končí normálně `Warning` a protokol, když metoda vrátí stavový kód *404 Nenalezeno*.
 
 Následující kód vytváří `Information` a `Warning` protokoluje:
 
@@ -529,7 +529,7 @@ Pořadí zástupných symbolů, nikoli jejich názvů, určuje, které parametry
 ```csharp
 string p1 = "parm1";
 string p2 = "parm2";
-_logger.LogInformation("Parameter values: {p2}, {p1}", p1, p2);
+_logger.LogInformation("Parameter values: {p1}, {p2}", p1, p2);
 ```
 
 Tento kód vytvoří zprávu protokolu s hodnotami parametrů v posloupnosti:
@@ -541,7 +541,7 @@ Parameter values: parm1, parm2
 Protokolovací rozhraní funguje tímto způsobem, aby zprostředkovatelé protokolování mohli implementovat [sémantické protokolování, označované také jako strukturované protokolování](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging). Samotné argumenty jsou předány do protokolovacího systému, nikoli pouze ze šablony formátované zprávy. Tyto informace umožňují poskytovatelům protokolování ukládat hodnoty parametrů jako pole. Předpokládejme například, že volání metody protokolovacího nástroje vypadá takto:
 
 ```csharp
-_logger.LogInformation("Getting item {ID} at {RequestTime}", id, DateTime.Now);
+_logger.LogInformation("Getting item {Id} at {RequestTime}", id, DateTime.Now);
 ```
 
 Pokud odesíláte protokoly do služby Azure Table Storage, Každá entita tabulky Azure může mít `ID` vlastnosti a `RequestTime` , což zjednodušuje dotazy na data protokolu. Dotaz může najít všechny protokoly v rámci určitého `RequestTime` rozsahu, aniž by došlo k analýze časového limitu textové zprávy.
@@ -621,14 +621,14 @@ Konfigurační data a `AddFilter` kód zobrazený v předchozích příkladech v
 
 | Číslo | Poskytovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| 1      | Ladění         | Všechny kategorie                          | Informace o       |
+| 1      | Ladit         | Všechny kategorie                          | Informace o       |
 | 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
-| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladění             |
+| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
 | 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
 | 5      | Konzola       | Všechny kategorie                          | Informace o       |
-| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladění             |
-| 7      | Všichni poskytovatelé | Systém                                  | Ladění             |
-| 8      | Ladění         | Microsoft                               | Přehled             |
+| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
+| 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
+| 8      | Ladit         | Microsoft                               | Přehled             |
 
 `ILogger` Při vytvoření`ILoggerFactory` objektu vybere objekt jedno pravidlo pro každého poskytovatele, které se použije pro tento protokolovací nástroj. Všechny zprávy napsané `ILogger` instancí jsou filtrovány podle vybraných pravidel. V dostupných pravidlech se vybere nejpřesnější pravidlo pro jednotlivé dvojice zprostředkovatel a kategorie.
 
@@ -651,7 +651,7 @@ Výsledná `ILogger` instance odesílá `Trace` protokoly úrovně a výše do p
 Každý zprostředkovatel definuje *alias* , který lze použít v konfiguraci místo plně kvalifikovaného názvu typu.  Pro předdefinované poskytovatele použijte následující aliasy:
 
 * Konzola
-* Ladění
+* Ladit
 * EventSource
 * EventLog
 * TraceSource

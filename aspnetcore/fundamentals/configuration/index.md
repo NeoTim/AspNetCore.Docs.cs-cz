@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/12/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 0de2222e8072523ff0e5d261a9fe5ef8eb9a7606
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 357a3d89648086f0329cd16bc9d72863df9bdcd6
+ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081822"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71217783"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -226,7 +226,7 @@ Chcete-li nakonfigurovat tvůrce hostitele, <xref:Microsoft.Extensions.Hosting.H
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
     Host.CreateDefaultBuilder(args)
-        .ConfigureHostConfiguration((hostingContext, config) =>
+        .ConfigureHostConfiguration(config =>
         {
             var dict = new Dictionary<string, string>
             {
@@ -621,7 +621,7 @@ Ukázková aplikace využívá metodu `CreateDefaultBuilder` statického usnadn�
 | -------------------------- | :---------------: | :--------------: |
 | Protokolování: LogLevel: systém    | Informace o       | Informace o      |
 | Logging:LogLevel:Microsoft | Informace o       | Informace o      |
-| Protokolování: LogLevel: výchozí   | Ladění             | Chyba            |
+| Protokolování: LogLevel: výchozí   | Ladit             | Chyba            |
 | AllowedHosts               | *                 | *                |
 
 ### <a name="xml-configuration-provider"></a>Poskytovatel konfigurace XML
@@ -924,7 +924,7 @@ Vytvoří se následující páry klíč-hodnota konfigurace:
 | Starship: třída        | Založen                                      |
 | Starship: délka       | 304,8                                             |
 | Starship: vyřazení z provozu | False                                             |
-| Patka             | Nejdůležitější obrázky Corp. https://www.paramount.com |
+| Patka             | Paramount Pictures Corp. https://www.paramount.com |
 
 Ukázková aplikace volá `GetSection` `starship` klíč. Páry `starship` klíč-hodnota jsou izolované. Metoda je volána pro dílčí oddíl procházející v instanci `Starship` třídy. `Bind` Po vytvoření vazby hodnot instance je instance přiřazena k vlastnosti pro vykreslování:
 

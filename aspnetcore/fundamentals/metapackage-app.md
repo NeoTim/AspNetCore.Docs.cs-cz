@@ -1,47 +1,73 @@
 ---
-title: Microsoft.AspNetCore.App Microsoft.aspnetcore.all pro ASP.NET Core 2.1 nebo novější
+title: Microsoft. AspNetCore. app Metapackage pro ASP.NET Core
 author: Rick-Anderson
-description: Microsoft.aspnetcore.All Microsoft.AspNetCore.App zahrnuje všechny podporované balíčky ASP.NET Core a Entity Framework Core.
+description: Sdílené rozhraní Microsoft. AspNetCore. app
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 04/21/2019
+ms.date: 09/24/2019
 uid: fundamentals/metapackage-app
-ms.openlocfilehash: 913e3d83fbf1af7ea995a88202f86c60b359a7e2
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 8435445890ce00f33ab9a8692f5442b1609192da
+ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085654"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71219112"
 ---
-# <a name="microsoftaspnetcoreapp-metapackage-for-aspnet-core-21-or-later"></a>Microsoft.AspNetCore.App Microsoft.aspnetcore.all pro ASP.NET Core 2.1 nebo novější
+# <a name="microsoftaspnetcoreapp-for-aspnet-core"></a>Microsoft. AspNetCore. app pro ASP.NET Core
 
-Tato funkce vyžaduje ASP.NET Core 2.1 nebo novější, cílení na .NET Core 2.1 nebo novější.
+::: moniker range=">= aspnetcore-3.0"
 
-[Microsoft.AspNetCore.App](https://www.nuget.org/packages/Microsoft.AspNetCore.App) [Microsoft.aspnetcore.all](/dotnet/core/packages#metapackages) pro ASP.NET Core:
+ Rozhraní ASP.NET Core Shared Framework`Microsoft.AspNetCore.App`() obsahuje sestavení vyvinutá a podporovaná společností Microsoft. `Microsoft.AspNetCore.App`se nainstaluje, když je nainstalovaná [sada .NET Core 3,0 nebo novější SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) . *Sdílené rozhraní* je sada sestavení (soubory *. dll* ), které jsou nainstalovány na počítači a zahrnují komponentu modulu runtime a sadu targeting pack. Další informace najdete v tématu [sdílené rozhraní](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
 
-* Nezahrnuje závislostí třetích stran, s výjimkou [Json.NET](https://www.nuget.org/packages/Newtonsoft.Json/), [Remotion.Linq](https://www.nuget.org/packages/Remotion.Linq/), a [IX asynchronní](https://www.nuget.org/packages/System.Interactive.Async/). Tyto závislosti 3rd třetích stran jsou nezbytné k zajištění funkcí funkce hlavní rozhraní.
-* Zahrnuje všechny podporované balíčky týmem ASP.NET Core s výjimkou těch, které obsahují závislostí třetích stran (jiné než uvedené výše).
-* Zahrnuje všechny podporované balíčky týmem Entity Framework Core s výjimkou těch, které obsahují závislostí třetích stran (jiné než uvedené výše).
+* Projekty, které cílí `Microsoft.NET.Sdk.Web` na sadu SDK, implicitně odkazují na `Microsoft.AspNetCore.App` rozhraní.
 
-Všechny funkce technologie ASP.NET Core 2.1 nebo novější a Entity Framework Core 2.1 a vyšší jsou součástí `Microsoft.AspNetCore.App` balíčku. Výchozí šablony cílení ASP.NET Core 2.1 projektu a později tento balíček použít. Doporučujeme aplikace ASP.NET Core 2.1 nebo novější a Entity Framework Core 2.1 a později použít `Microsoft.AspNetCore.App` balíčku.
+Pro tyto projekty nejsou vyžadovány žádné další odkazy:
 
-Číslo verze `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all představuje minimální verzi technologie ASP.NET Core a Entity Framework Core verze.
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+    ...
+</Project>
+```
 
-Použití `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all poskytuje omezení verze, které chrání vaše aplikace:
+ASP.NET Core sdílené rozhraní:
 
-* Pokud je součástí balíčku, který obsahuje přechodné (ne přímým přístupem) závislost na balíčku v `Microsoft.AspNetCore.App`a tato čísla verze se liší, NuGet dojde k chybě.
-* Další balíčky, přidá do vaší aplikace nelze změnit verzi balíčky, které jsou součástí `Microsoft.AspNetCore.App`.
-* Verze konzistence zajišťuje spolehlivé prostředí. `Microsoft.AspNetCore.App` účelem je zabránit kombinace netestované verze související bitů, které jsou právě používány společně ve stejné aplikaci.
+* Neobsahuje závislosti třetích stran.
+* Zahrnuje všechny podporované balíčky ASP.NET Core týmu.
 
-Aplikace, které používají `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all automaticky využít sdílené architektuře ASP.NET Core. Při použití `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all, **žádné** nasazení se aplikace používají prostředky z balíčků odkazovaných ASP.NET Core NuGet&mdash;sdílené architektuře ASP.NET Core obsahuje tyto prostředky. Prostředky v rámci sdílené předkompilovány zlepšit dobu spuštění aplikace. Další informace najdete v tématu [sdílené architektuře](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
+::: moniker-end
 
-Následující projekt odkazy na soubory `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all pro ASP.NET Core a představuje typické ASP.NET Core 2.1 šablony:
+::: moniker range="< aspnetcore-3.0"
+
+Tato funkce vyžaduje ASP.NET Core 2. x cílící na rozhraní .NET Core 2. x.
+
+[Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App) [Metapackage](/dotnet/core/packages#metapackages) pro ASP.NET Core:
+
+* Nezahrnuje závislosti třetích stran kromě [JSON.NET](https://www.nuget.org/packages/Newtonsoft.Json/), [remotion. Linq](https://www.nuget.org/packages/Remotion.Linq/)a [IX-Async](https://www.nuget.org/packages/System.Interactive.Async/). Tyto závislosti třetích stran se považují za nezbytné, aby se zajistilo, že funkce hlavních architektur funguje.
+* Zahrnuje všechny podporované balíčky ASP.NET Core týmu s výjimkou těch, které obsahují závislosti třetích stran (jiné než výše zmíněné).
+* Zahrnuje všechny podporované balíčky Entity Framework Core týmu s výjimkou těch, které obsahují závislosti třetích stran (jiné než výše zmíněné).
+
+Do `Microsoft.AspNetCore.App` balíčku jsou zahrnuté všechny funkce ASP.NET Core 2. x a Entity Framework Core 2. x. Výchozí šablony projektu, které cílí na ASP.NET Core 2. x, používají tento balíček. Doporučujeme, aby byly `Microsoft.AspNetCore.App` aplikace cílené ASP.NET Core 2. x a Entity Framework Core 2. x použijte balíček.
+
+Číslo `Microsoft.AspNetCore.App` verze Metapackage představuje minimální verzi ASP.NET Core a Entity Framework Core verzi.
+
+`Microsoft.AspNetCore.App` Použití Metapackage poskytuje omezení verze, která chrání vaši aplikaci:
+
+* Pokud je zahrnut balíček, který má přenositelný (nepřímý) závislý na balíčku v `Microsoft.AspNetCore.App`nástroji, přičemž se tato čísla verzí liší, NuGet vygeneruje chybu.
+* Jiné balíčky přidané do vaší aplikace nemůžou měnit verzi balíčků zahrnutých v `Microsoft.AspNetCore.App`.
+* Konzistence verzí zajišťuje spolehlivé prostředí. `Microsoft.AspNetCore.App`byla navržena tak, aby bránila netestovým kombinacím verzí souvisejících bitů společně ve stejné aplikaci.
+
+Aplikace, které používají `Microsoft.AspNetCore.App` Metapackage, automaticky využijí ASP.NET Core sdílené rozhraní. Při použití `Microsoft.AspNetCore.App` Metapackage nejsou nasazeny **žádné** prostředky z odkazovaného ASP.NET Core balíčků NuGet spolu s aplikací&mdash;, ASP.NET Core sdílená architektura obsahuje tyto prostředky. Prostředky ve sdíleném rozhraní jsou předkompilovány pro zlepšení času spuštění aplikace. Další informace najdete v tématu [sdílené rozhraní](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
+
+Následující soubor projektu odkazuje na `Microsoft.AspNetCore.App` Metapackage pro ASP.NET Core a představuje typickou šablonu ASP.NET Core 2,2:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -51,35 +77,41 @@ Následující projekt odkazy na soubory `Microsoft.AspNetCore.App` Microsoft.as
 </Project>
 ```
 
-Předchozí kód představuje typické ASP.NET Core 2.1 a vyšší šablony. Neurčuje číslo verze `Microsoft.AspNetCore.App` odkaz na balíček. Pokud není zadána verze, [implicitní](https://github.com/dotnet/core/blob/master/release-notes/1.0/sdk/1.0-rc3-implicit-package-refs.md) ale není určená verze sady SDK, tedy `Microsoft.NET.Sdk.Web`. Doporučujeme, abyste spoléhat na implicitní verze určené sady SDK a nastavení nejsou explicitně číslo verze na odkaz na balíček. Pokud máte otázky k tomu, ponechte v Githubu komentář [diskuse implicitní verze Microsoft.AspNetCore.App](https://github.com/aspnet/AspNetCore.Docs/issues/6430).
+Předchozí kód představuje typickou šablonu ASP.NET Core 2. x. Neurčuje číslo verze odkazu na `Microsoft.AspNetCore.App` balíček. Není-li zadána verze, je [implicitní](https://github.com/dotnet/core/blob/master/release-notes/1.0/sdk/1.0-rc3-implicit-package-refs.md) verze určena sadou SDK, tedy `Microsoft.NET.Sdk.Web`. Doporučujeme, abyste se spoléhali na implicitní verzi určenou sadou SDK a neexplicitně nastavoval číslo verze na odkaz na balíček. Pokud máte na tento přístup nějaké dotazy, ponechte si komentář GitHubu v [diskuzi o implicitní verzi Microsoft. AspNetCore. app](https://github.com/aspnet/AspNetCore.Docs/issues/6430).
 
-Implicitní verze je nastaveno na `major.minor.0` pro přenosné aplikace. Mechanismus vpřed sdílené architektuře se spustí aplikaci na nejnovější verzi kompatibilní mezi nainstalované rozhraní sdílené. Chcete-li zaručit, že při vývoji se používá stejnou verzi, testovacím i produkčním prostředí, ujistěte se, že stejná verze modulu sdílené framework je nainstalována ve všech prostředích. Pro aplikace uzavřeným číslo implicitní verze nastavena na `major.minor.patch` sdílené Framework dodávat v nainstalované sady SDK.
+Implicitní verze je nastavená na `major.minor.0` pro přenosné aplikace. Mechanismus pro přeposílání sdíleného rozhraní spustí aplikaci na nejnovější kompatibilní verzi z nainstalovaných sdílených rozhraní. Aby bylo zaručeno, že stejná verze se používá ve vývoji, testování a produkčním prostředí, zajistěte, aby byla stejná verze sdíleného rozhraní nainstalovaná ve všech prostředích. U samostatných aplikací je implicitní číslo verze nastaveno na `major.minor.patch` sdílené rozhraní, které je součástí sady SDK.
 
-Určení číslo verze na `Microsoft.AspNetCore.App` nemá odkaz **není** zaručit, že tato verze sdíleného vybere se rozhraní framework. Předpokládejme například, ale není určená verze "2.1.1", ale je nainstalovaná "2.1.3". V takovém případě bude aplikace používat "2.1.3". Však není doporučena, můžete zakázat Posunutí vpřed (opravy a/nebo menší). Další informace týkající se příkaz dotnet hostitele vpřed a jak nakonfigurovat své chování najdete v tématu [dotnet hostitele dopředné posunutí](https://github.com/dotnet/core-setup/blob/master/Documentation/design-docs/roll-forward-on-no-candidate-fx.md).
-
-::: moniker range="= aspnetcore-2.1"
-
-`<Project Sdk` musí být nastaveno na `Microsoft.NET.Sdk.Web` použít implicitní verze `Microsoft.AspNetCore.App`. Když `<Project Sdk="Microsoft.NET.Sdk">` (bez koncových `.Web`) se používá:
-
-* Generují se následující upozornění:
-
-  *Upozornění NU1604: Závislosti projektu Microsoft.AspNetCore.App neobsahuje inkluzivní dolní mez. Dolní mez zahrňte do verze závislosti zajistit výsledky obnovení budou konzistentní.*
-
-* Jde o známý problém s .NET Core 2.1 SDK.
+Zadáním čísla verze na `Microsoft.AspNetCore.App` odkaz **nezaručujete**, že bude zvolena verze sdíleného rozhraní. Například Předpokládejme, že je zadána verze "2.2.1", ale je nainstalována "2.2.3". V takovém případě bude aplikace používat "2.2.3". I když se to nedoporučuje, můžete zablokovat přeposlání (oprava nebo podverze). Další informace o tom, jak integrovat hostitele dotnet a jak nakonfigurovat jeho chování, najdete v tématu [dotnet Host – přesměrování](https://github.com/dotnet/core-setup/blob/master/Documentation/design-docs/roll-forward-on-no-candidate-fx.md).
 
 ::: moniker-end
 
+::: moniker range="= aspnetcore-2.1"
+
+`<Project Sdk`musí být nastaven na `Microsoft.NET.Sdk.Web` hodnotu pro použití implicitní verze `Microsoft.AspNetCore.App`. When `<Project Sdk="Microsoft.NET.Sdk">` (bez `.Web`koncového) se používá:
+
+* Vygeneruje se následující upozornění:
+
+  *Upozornění NU1604: Závislost projektu Microsoft. AspNetCore. app neobsahuje zahrnutí dolní meze. Zahrňte do verze závislosti dolní mez, aby se zajistilo konzistentní výsledky obnovení.*
+
+* Jedná se o známý problém se sadou .NET Core 2,1 SDK.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 <a name="update"></a>
 
-## <a name="update-aspnet-core"></a>Aktualizace ASP.NET Core
+## <a name="update-aspnet-core"></a>Aktualizovat ASP.NET Core
 
-`Microsoft.AspNetCore.App` [Microsoft.aspnetcore.all](/dotnet/core/packages#metapackages) není tradiční balíček, který je aktualizována z NuGet. Podobně jako `Microsoft.NETCore.App`, `Microsoft.AspNetCore.App` představuje sdílený modul runtime, který má zpracovat mimo NuGet sémantiku speciální správy verzí. Další informace najdete v tématu [balíčky, metabalíčky a architektury](/dotnet/core/packages).
+Metapackage není tradiční balíček, který je aktualizovaný z NuGet. [](/dotnet/core/packages#metapackages) `Microsoft.AspNetCore.App` Podobně jako `Microsoft.AspNetCore.App` , představuje sdílený modul runtime, který má sémantiku se speciálními verzemi zpracovávanými mimo NuGet. `Microsoft.NETCore.App` Další informace najdete v tématu [balíčky, metabalíčky a rozhraní](/dotnet/core/packages).
 
-Chcete-li aktualizovat ASP.NET Core:
+Aktualizace ASP.NET Core:
 
-* Na počítačích vývojářů a buildovací servery: Stáhněte a nainstalujte [.NET Core SDK](https://www.microsoft.com/net/download).
-* Na serverech nasazení: Stáhněte a nainstalujte [.NET Core runtime](https://www.microsoft.com/net/download).
+* Ve vývojových počítačích a serverech sestavení: Stáhněte a nainstalujte [.NET Core SDK](https://www.microsoft.com/net/download).
+* Na serverech nasazení: Stáhněte a nainstalujte [modul runtime .NET Core](https://www.microsoft.com/net/download).
 
- Aplikace se posunout vpřed byla nejnovější nainstalovaná verze na restartování aplikace. Není potřeba aktualizovat `Microsoft.AspNetCore.App` číslo verze v souboru projektu. Další informace najdete v tématu [aplikace závisí na architektuře posunout vpřed](/dotnet/core/versions/selection#framework-dependent-apps-roll-forward).
+ Aplikace přestanou až na nejnovější nainstalovanou verzi při restartu aplikace. V souboru projektu není nutné aktualizovat `Microsoft.AspNetCore.App` číslo verze. Další informace najdete v tématu [předejte vám aplikace závislé na rozhraní](/dotnet/core/versions/selection#framework-dependent-apps-roll-forward).
 
-Pokud vaše aplikace už dřív použili `Microsoft.AspNetCore.All`, naleznete v tématu [migrace z metabalíček na Microsoft.AspNetCore.App](xref:fundamentals/metapackage#migrate).
+Pokud se vaše aplikace dřív `Microsoft.AspNetCore.All`používala, přečtěte si téma [migrace z Microsoft. AspNetCore. All do Microsoft. AspNetCore. app](xref:fundamentals/metapackage#migrate).
+
+::: moniker-end
