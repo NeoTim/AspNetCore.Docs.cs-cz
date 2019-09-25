@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 90b439603dd51ff02e40045b9420876d7200bef1
-ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
+ms.openlocfilehash: 2d517a89c6002b5c85e98128605f95585354f8db
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 09/24/2019
-ms.locfileid: "71219160"
+ms.locfileid: "71248254"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -936,7 +936,7 @@ Některé architektury třetích stran můžou provádět sémantické [protokol
 Použití architektury třetí strany se podobá použití jednoho z vestavěných zprostředkovatelů:
 
 1. Přidejte do projektu balíček NuGet.
-1. `ILoggerFactory`Zavolejte.
+1. Zavolejte metodu `ILoggerFactory` rozšíření poskytovanou protokolovacím rozhraním.
 
 Další informace najdete v dokumentaci pro každého poskytovatele. Microsoft nepodporuje zprostředkovatele protokolování třetích stran.
 

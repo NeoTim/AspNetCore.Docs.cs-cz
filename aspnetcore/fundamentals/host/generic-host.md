@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/01/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 261abae499a0d5f807a14aebd224949881067bc7
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.openlocfilehash: 75af6dc58d31aaad888b14640268bf05c193272d
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773813"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248280"
 ---
 # <a name="net-generic-host"></a>Obecný hostitel .NET
 
@@ -25,8 +25,8 @@ Tento článek představuje obecného hostitele .NET Core (<xref:Microsoft.Exten
 *Hostitel* je objekt, který zapouzdřuje prostředky aplikace, jako například:
 
 * Vkládání závislostí (DI)
-* Protokolování
-* Konfiguraci
+* protokolování
+* Konfigurace
 * `IHostedService`implementaci
 
 Při spuštění hostitele volá `IHostedService.StartAsync` každou <xref:Microsoft.Extensions.Hosting.IHostedService> implementaci, kterou najde v kontejneru di. V rámci webové aplikace je jednou z `IHostedService` implementací webová služba, která spouští [implementaci HTTP serveru](xref:fundamentals/index#servers).
@@ -90,7 +90,7 @@ Pokud aplikace používá Entity Framework Core, neměňte název ani signaturu 
   * Argumenty příkazového řádku.
 * Přidá následující zprostředkovatele [protokolování](xref:fundamentals/logging/index) :
   * Konzola
-  * Ladění
+  * Ladit
   * EventSource
   * Protokol událostí (pouze při spuštění v systému Windows)
 * Povolí [ověřování oboru](xref:fundamentals/dependency-injection#scope-validation) a [ověřování závislostí](xref:Microsoft.Extensions.DependencyInjection.ServiceProviderOptions.ValidateOnBuild) při vývoji prostředí.
@@ -113,7 +113,7 @@ Mezi služby, které jsou zaregistrovány automaticky, patří následující:
 * [IHostLifetime](#ihostlifetime)
 * [IHostEnvironment / IWebHostEnvironment](#ihostenvironment)
 
-Seznam všech služeb poskytovaných rozhraním najdete v tématu <xref:fundamentals/dependency-injection#framework-provided-services>.
+Další informace o službách poskytovaných rozhraním najdete v <xref:fundamentals/dependency-injection#framework-provided-services>tématu.
 
 ## <a name="ihostapplicationlifetime"></a>IHostApplicationLifetime
 

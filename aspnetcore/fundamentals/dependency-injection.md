@@ -5,14 +5,14 @@ description: Zjistěte, jak ASP.NET Core implementuje vkládání závislostí a
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/14/2019
+ms.date: 09/24/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: a984bb766e6876db4f8ed4c850a1984ba87d627d
-ms.sourcegitcommit: 476ea5ad86a680b7b017c6f32098acd3414c0f6c
+ms.openlocfilehash: fefd0b9df71d5b0e7c30a31620292fd37eeecfa4
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/14/2019
-ms.locfileid: "69022280"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248266"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -45,7 +45,7 @@ public class MyDependency
 }
 ```
 
-Pro zpřístupnění metody `WriteMessage` v jiné třídě je možné vytvořit instanci třídy `MyDependency`. Třída `MyDependency` je závislostí třídy `IndexModel`:
+Pro zpřístupnění metody `WriteMessage` v jiné třídě je možné vytvořit instanci třídy `MyDependency`. Třída `MyDependency` je závislost třídy `IndexModel`:
 
 ```csharp
 public class IndexModel : PageModel
@@ -74,11 +74,31 @@ Vkládání závislostí řeší tyto problémy prostřednictvím:
 
 V [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples) definuje rozhraní `IMyDependency` metody, které poskytuje služba aplikaci:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Interfaces/IMyDependency.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Interfaces/IMyDependency.cs?name=snippet1)]
+
+::: moniker-end
 
 Toto rozhraní je implementováno konkrétním typem `MyDependency`:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/MyDependency.cs?name=snippet1)]
+
+::: moniker-end
 
 `MyDependency`vyžádá <xref:Microsoft.Extensions.Logging.ILogger`1> v jeho konstruktoru. Není neobvyklé používat zřetězené vkládání závislostí. Každá požadovaná závislost může v zápětí požadovat své vlastní závislosti. Kontejner řeší závislosti v grafu a vrací plně vyřešené služby. Množina závislostí, které musí být rozhodnuty, se obvykle označuje jako *strom závislostí*, *graf závislostí*, nebo *graf objektů*.
 
@@ -92,7 +112,17 @@ services.AddSingleton(typeof(ILogger<T>), typeof(Logger<T>));
 
 V ukázkové aplikaci je služba `IMyDependency` registrována s konkrétním typem `MyDependency`. Registrace specifikuje rámec životnosti služby na životnost jednoho požadavku. [Životnosti služby](#service-lifetimes) jsou popsány dále v tomto tématu.
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=5)]
+
+::: moniker-end
 
 > [!NOTE]
 > Každá rozšiřující metoda `services.Add{SERVICE_NAME}` přidává (a potenciálně konfiguruje) služby. Například `services.AddMvc()` přidává služby Stránek Razor a MVC. Doporučujeme, aby v aplikacích byla tato konvence dodržena. Umístěte rozšiřující metody do jmenného prostoru [Microsoft.Extensions.DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) pro zapouzdření skupin registrací služeb.
@@ -117,13 +147,65 @@ Instance služby je požadována prostřednictvím konstruktoru třídy, kde se 
 
 V ukázkové aplikaci je požadována instance `IMyDependency` a posléze použita k volání metody `WriteMessage` dané služby:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3,6,13,29-30)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=3,6,13,29-30)]
+
+::: moniker-end
+
+## <a name="services-injected-into-startup"></a>Služby vložené do spuštění
+
+Při použití obecného hostitele ( `Startup` <xref:Microsoft.Extensions.Hosting.IHostBuilder>) mohou být do konstruktoru vloženy pouze následující typy služeb:
+
+* `IWebHostEnvironment`
+* <xref:Microsoft.Extensions.Hosting.IHostEnvironment>
+* <xref:Microsoft.Extensions.Configuration.IConfiguration>
+
+Služby je možné vložit do `Startup.Configure`:
+
+```csharp
+public void Configure(IApplicationBuilder app, IOptions<MyOptions> options)
+{
+    ...
+}
+```
+
+Další informace naleznete v tématu <xref:fundamentals/startup>.
 
 ## <a name="framework-provided-services"></a>Služby poskytované frameworkem
 
-Metoda `Startup.ConfigureServices` zodpovídá za definování služeb používaných aplikací, včetně funkcí platformy, jako je například Entity Framework Core a ASP.NET Core MVC. Zpočátku jsou v `IServiceCollection`, který je poskytován metodě `ConfigureServices`, definovány následující služby (v závislosti na [konfiguraci hostitele](xref:fundamentals/index#host)):
+`Startup.ConfigureServices` Metoda zodpovídá za definování služeb, které aplikace používá, včetně funkcí platformy, jako je například Entity Framework Core a ASP.NET Core MVC. Zpočátku služba má služby definované rozhraním v závislosti na [tom, jak byl hostitel nakonfigurovaný.](xref:fundamentals/index#host) `IServiceCollection` `ConfigureServices` Pro aplikaci, která je založená na šabloně ASP.NET Core, není běžné, že mají stovky služeb zaregistrovaných v rámci rozhraní. V následující tabulce je uvedena malá ukázka služeb registrovaných v rozhraní.
 
-| Typ služby | Životnost |
+::: moniker range=">= aspnetcore-3.0"
+
+| Typ služby | Doba platnosti |
+| ------------ | -------- |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Přechodná |
+| `IHostApplicationLifetime` | Singleton |
+| `IWebHostEnvironment` | Singleton |
+| <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | Přechodná |
+| <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | Přechodná |
+| <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | Přechodná |
+| <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | Singleton |
+| <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | Singleton |
+| <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | Singleton |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+| Typ služby | Doba platnosti |
 | ------------ | -------- |
 | <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Přechodná |
 | <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime?displayProperty=fullName> | Singleton |
@@ -140,11 +222,17 @@ Metoda `Startup.ConfigureServices` zodpovídá za definování služeb používa
 | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | Singleton |
 | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | Singleton |
 
-Pokud je dostupná rozšiřující metoda rozšiřující kolekci služeb o registraci služby (případě jejích závislých služeb, je-li to požadováno), je zvykem použít jedinou rozšiřující metodu `Add{SERVICE_NAME}` k registraci všech služeb vyžadovaných danou službu. Následující kód je příkladem přidání dalších služeb do kontejneru pomocí metod rozšíření [\<AddDbContext TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext), <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*>a <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*>:
+::: moniker-end
+
+## <a name="register-additional-services-with-extension-methods"></a>Registrace dalších služeb pomocí rozšiřujících metod
+
+Pokud je dostupná rozšiřující metoda rozšiřující kolekci služeb o registraci služby (případě jejích závislých služeb, je-li to požadováno), je zvykem použít jedinou rozšiřující metodu `Add{SERVICE_NAME}` k registraci všech služeb vyžadovaných danou službu. Následující kód je příkladem přidání dalších služeb do kontejneru pomocí metod rozšíření [\<AddDbContext TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext) a: <xref:Microsoft.Extensions.DependencyInjection.IdentityServiceCollectionExtensions.AddIdentityCore*>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
+    ...
+
     services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -152,7 +240,7 @@ public void ConfigureServices(IServiceCollection services)
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
-    services.AddMvc();
+    ...
 }
 ```
 
@@ -248,11 +336,31 @@ Kontexty Entity Frameworku jsou obvykle přidány do kontejneru služeb s [vymez
 
 Na ukázku rozdílů mezi životnostmi a možnostmi registrace si prohlédněte následující rozhraní reprezentující úlohy jako operace s jedinečným identifikátorem `OperationId`. V závislosti na tom, jak je životnost této služby nakonfigurována pro následující rozhraní, poskytne kontejner stejnou nebo rozdílnou instanci služby během vyžádání třídou:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Interfaces/IOperation.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Interfaces/IOperation.cs?name=snippet1)]
+
+::: moniker-end
 
 Rozhraní jsou implementovány ve třídě `Operation`. Konstruktor `Operation` vytvoří identifikátor GUID, pokud není explicitně poskytnut:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Models/Operation.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Models/Operation.cs?name=snippet1)]
+
+::: moniker-end
 
 Služba `OperationService` je zaregistrována tak, aby závisela na jednotlivých typech tříd `Operation`. Když je `OperationService` vyžádána pomocí vkládání závislostí, obdrží buď novou nebo stávající instanci třídy jednotlivých služeb v závislosti na životnosti závislých služeb.
 
@@ -260,17 +368,47 @@ Služba `OperationService` je zaregistrována tak, aby závisela na jednotlivýc
 * Když se vytvoří vymezené služby pro jednotlivé požadavky klienta, `OperationId` `IOperationScoped` služba je stejná jako `OperationService` v rámci žádosti klienta. V rámci požadavků klientů obě služby sdílejí jinou `OperationId` hodnotu.
 * Pokud se služby instance singleton a singleton vytvoří jednou a použije se pro všechny požadavky klientů a všechny služby, je `OperationId` v rámci všech žádostí o službu konstantní.
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Services/OperationService.cs?name=snippet1)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Services/OperationService.cs?name=snippet1)]
+
+::: moniker-end
 
 V `Startup.ConfigureServices` je každý typ přidán do kontejneru na základě svého pojmenování podle životnosti:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=6-9,12)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Startup.cs?name=snippet1&highlight=6-9,12)]
+
+::: moniker-end
 
 Služba `IOperationSingletonInstance` používá konkrétní instanci se známým ID nastaveným na `Guid.Empty`. Je pak zřejmé, kdy je tento typ použit (jeho identifikátor GUID obsahuje samé nuly).
 
 Ukázková aplikace demonstruje živostnosti objektů v rámci jednotlivých požadavků a mezi nimi. Třída `IndexModel` ukázkové aplikace vyžaduje každý druh typu `IOperation` a službu `OperationService`. Stránka následně vypisuje všechny hodnoty `OperationId` modelu stránky a služby prostřednictvím přiřazených vlastností:
 
+::: moniker range=">= aspnetcore-3.0"
+
+[!code-csharp[](dependency-injection/samples/3.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=7-11,14-18,21-25)]
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 [!code-csharp[](dependency-injection/samples/2.x/DependencyInjectionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=7-11,14-18,21-25)]
+
+::: moniker-end
 
 Následující výpis ukazuje výsledek dvou HTTP požadavků:
 
@@ -316,30 +454,93 @@ Všimněte si, které hodnoty `OperationId` se liší v rámci požadavku a mezi
 
 Vytvořte pomocí [IServiceScopeFactory. CreateScope](xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory.CreateScope*) pro řešení oboru služby v rámci rozsahu aplikace. <xref:Microsoft.Extensions.DependencyInjection.IServiceScope> Tento způsob je užitečný pro přístup k službám s vymezenou životností při provádění inicializačních úloh během spuštění. Následující příklad ukazuje, jak získat kontext pro `MyScopedService`: `Program.Main`
 
+::: moniker range=">= aspnetcore-3.0"
+
 ```csharp
-public static void Main(string[] args)
+using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
+
+public class Program
 {
-    var host = CreateWebHostBuilder(args).Build();
-
-    using (var serviceScope = host.Services.CreateScope())
+    public static async Task Main(string[] args)
     {
-        var services = serviceScope.ServiceProvider;
+        var host = CreateHostBuilder(args).Build();
 
-        try
+        using (var serviceScope = host.Services.CreateScope())
         {
-            var serviceContext = services.GetRequiredService<MyScopedService>();
-            // Use the context here
+            var services = serviceScope.ServiceProvider;
+
+            try
+            {
+                var serviceContext = services.GetRequiredService<MyScopedService>();
+                // Use the context here
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred.");
+            }
         }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred.");
-        }
+    
+        await host.RunAsync();
     }
 
-    host.Run();
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+            });
 }
 ```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+```csharp
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var host = CreateWebHostBuilder(args).Build();
+
+        using (var serviceScope = host.Services.CreateScope())
+        {
+            var services = serviceScope.ServiceProvider;
+
+            try
+            {
+                var serviceContext = services.GetRequiredService<MyScopedService>();
+                // Use the context here
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred.");
+            }
+        }
+    
+        await host.RunAsync();
+    }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        WebHost.CreateDefaultBuilder(args)
+            .UseStartup<Startup>();
+}
+```
+
+::: moniker-end
 
 ## <a name="scope-validation"></a>Ověření rámce životnosti
 
@@ -405,7 +606,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="default-service-container-replacement"></a>Nahrazení výchozího kontejneru služeb
 
-Integrovaný kontejner služeb je primárně určen pro naplnění potřeb frameworku a většiny uživatelských aplikací. Doporučujeme používat integrovaný kontejner, dokud nebudete potřebovat specifické funkce nepodporované kontejnerem. Některé z funkcí podporovaných v kontejnerech 3. stran neobsažených ve výchozím kontejneru jsou:
+Integrovaný kontejner služeb je navržený tak, aby sloužil potřebám architektury a většině spotřebitelských aplikací. Pokud nepotřebujete určitou funkci, kterou integrovaný kontejner nepodporuje, doporučujeme použít vestavěný kontejner, například:
 
 * Vkládání pomocí vlastností
 * Vkládání na základě názvu
@@ -413,47 +614,15 @@ Integrovaný kontejner služeb je primárně určen pro naplnění potřeb frame
 * Vlastní správa životnosti
 * Podpora `Func<T>` pro línou inicializaci
 
-Pro seznam některých kontejnerů podporujících adaptéry, vizte [Soubor readme.md ke Vkládání závislostí](https://github.com/aspnet/Extensions/tree/master/src/DependencyInjection).
+S ASP.NET Coremi aplikacemi je možné používat následující kontejnery třetích stran:
 
-Následující příklad nahrazuje integrovaný kontejner kontejnerem [Autofac](https://autofac.org/):
-
-* Nainstalujte odpovídající balíčky kontejneru:
-
-  * [Autofac](https://www.nuget.org/packages/Autofac/)
-  * [Autofac.Extensions.DependencyInjection](https://www.nuget.org/packages/Autofac.Extensions.DependencyInjection/)
-
-* Nakonfigurujte kontejner v `Startup.ConfigureServices` a vraťte `IServiceProvider`:
-
-    ```csharp
-    public IServiceProvider ConfigureServices(IServiceCollection services)
-    {
-        services.AddMvc();
-        // Add other framework services
-
-        // Add Autofac
-        var containerBuilder = new ContainerBuilder();
-        containerBuilder.RegisterModule<DefaultModule>();
-        containerBuilder.Populate(services);
-        var container = containerBuilder.Build();
-        return new AutofacServiceProvider(container);
-    }
-    ```
-
-    `Startup.ConfigureServices` musí vracet `IServiceProvider` pro použití kontejneru 3. stran.
-
-* Konfigurace Autofacu v `DefaultModule`:
-
-    ```csharp
-    public class DefaultModule : Module
-    {
-        protected override void Load(ContainerBuilder builder)
-        {
-            builder.RegisterType<CharacterRepository>().As<ICharacterRepository>();
-        }
-    }
-    ```
-
-Za běhu je použit Autofac pro rozhodování typů a vkládání závislostí. Další informace o používání Autofac s ASP.NET Core naleznete v [dokumentaci Autofac](https://docs.autofac.org/en/latest/integration/aspnetcore.html).
+* [Autofac](https://autofac.readthedocs.io/en/latest/integration/aspnetcore.html)
+* [DryIoc](https://www.nuget.org/packages/DryIoc.Microsoft.DependencyInjection)
+* [Integrit](https://www.nuget.org/packages/Grace.DependencyInjection.Extensions)
+* [LightInject](https://github.com/seesharper/LightInject.Microsoft.DependencyInjection)
+* [Lamar](https://jasperfx.github.io/lamar/)
+* [Stashbox](https://github.com/z4kn4fein/stashbox-extensions-dependencyinjection)
+* [Unity](https://www.nuget.org/packages/Unity.Microsoft.DependencyInjection)
 
 ### <a name="thread-safety"></a>Bezpečný přístup z více vláken
 

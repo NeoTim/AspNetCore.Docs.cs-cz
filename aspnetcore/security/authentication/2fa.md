@@ -7,12 +7,12 @@ ms.author: riande
 ms.date: 09/22/2018
 ms.custom: mvc, seodec18
 uid: security/authentication/2fa
-ms.openlocfilehash: 96b4cc98f191d7c24637b8f352acbed3f46806f8
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 68219579be9b7a7b25da6e348054e1ff2015cf5f
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64899685"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248385"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>Dvoufaktorové ověřování přes SMS v ASP.NET Core
 
@@ -27,29 +27,29 @@ Tento kurz ukazuje, jak nastavit dvojúrovňového ověřování (2FA) pomocí s
 
 ## <a name="create-a-new-aspnet-core-project"></a>Vytvořte nový projekt ASP.NET Core
 
-Vytvořit novou webovou aplikaci ASP.NET Core s názvem `Web2FA` s jednotlivými uživatelskými účty. Postupujte podle pokynů v <xref:security/enforcing-ssl> nastavit a vyžadují protokol HTTPS.
+Vytvořit novou webovou aplikaci ASP.NET Core s názvem `Web2FA` s jednotlivými uživatelskými účty. Při nastavování <xref:security/enforcing-ssl> a vyžadování protokolu HTTPS postupujte podle pokynů v části.
 
 ### <a name="create-an-sms-account"></a>Vytvoření účtu služby SMS
 
-Vytvoření účtu služby SMS, například [twilio](https://www.twilio.com/) nebo [ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/). Zaznamenejte přihlašovací údaje pro ověřování (pro twilio: accountSid a pro ASPSMS ověřovacího tokenu: Vlastnosti userkey jedná a heslo).
+Vytvoření účtu služby SMS, například [twilio](https://www.twilio.com/) nebo [ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/). Zaznamenejte přihlašovací údaje pro ověřování (pro Twilio: accountSid a authToken pro ASPSMS: Vlastnosti UserKey a heslo).
 
 #### <a name="figuring-out-sms-provider-credentials"></a>Zjištění přihlašovací údaje poskytovatele serveru SMS
 
-**Twilio:**
+**Twilio**
 
-Z karty řídicí panel svého účtu Twilio, zkopírujte **SID účtu** a **ověřovací token**.
+Na kartě řídicí panel účtu Twilio zkopírujte **identifikátor SID účtu** a **ověřovací token**.
 
 **ASPSMS:**
 
-V nastavení účtu, přejděte na **vlastnosti userkey jedná** a zkopírujte ho spolu s vaší **heslo**.
+V nastavení účtu přejděte na **vlastnosti UserKey** a zkopírujte ho společně s vaším **heslem**.
 
 Později jsme uloží tyto hodnoty se pomocí nástroje Správce tajný klíč v rámci klíče `SMSAccountIdentification` a `SMSAccountPassword`.
 
 #### <a name="specifying-senderid--originator"></a>Určení SenderID / původce
 
-**Twilio:** Na kartě čísla zkopírujte váš Twilio **telefonní číslo**.
+**Twilio** Na kartě čísla zkopírujte své Twilio **telefonní číslo**.
 
-**ASPSMS:** V rámci nabídky autoru odemknout odemknout jeden nebo více autoru nebo zvolte příkazce alfanumerické znaky (není podporováno ve všech sítích).
+**ASPSMS:** V nabídce odemknout původci odemkněte jeden nebo více původců nebo vyberte alfanumerický původ (není podporován všemi sítěmi).
 
 Dále jsme uloží tuto hodnotu pomocí nástroje Správce tajný klíč v klíči `SMSAccountFrom`.
 
@@ -70,7 +70,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 * Přidání balíčku NuGet pro poskytovatele serveru SMS. Z balíčku správce konzoly (konzolu PMC) spusťte:
 
-**Twilio:**
+**Twilio**
 
 `Install-Package Twilio`
 
@@ -80,9 +80,11 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 * Přidejte kód *Services/MessageServices.cs* soubor serveru SMS. Použijte Twilio nebo ASPSMS části:
 
-**Twilio:** [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
+**Twilio**  
+[!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
 
-**ASPSMS:** [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_ASPSMS.cs)]
+**ASPSMS:**  
+[!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_ASPSMS.cs)]
 
 ### <a name="configure-startup-to-use-smsoptions"></a>Konfigurace spuštění používat `SMSoptions`
 
@@ -92,7 +94,7 @@ Přidat `SMSoptions` ke kontejneru služby v `ConfigureServices` metodu *Startup
 
 ### <a name="enable-two-factor-authentication"></a>Povolení dvoufaktorového ověřování
 
-Otevřít *Views/Manage/Index.cshtml* soubor zobrazení Razor a odeberte znaky komentáře (abyste je zakomentovaný, žádné značky).
+Otevřete soubor zobrazení */Správa/index. cshtml* Razor zobrazení a odeberte znaky komentáře (takže se neoznačí jako komentář žádné značky).
 
 ## <a name="log-in-with-two-factor-authentication"></a>Přihlaste se pomocí dvojúrovňového ověřování
 
@@ -140,7 +142,7 @@ Pokud vám textovou zprávu, přečtěte si téma twilio protokolu stránky.
 
 ## <a name="account-lockout-for-protecting-against-brute-force-attacks"></a>Uzamčení účtu pro ochranu před útoky hrubou silou
 
-Uzamčení účtu, doporučujeme pomocí 2FA. Když se uživatel přihlásí pomocí místního účtu nebo účtu na sociální síti, se ukládají jednotlivé neúspěšné pokusy o na 2FA. Pokud je dosaženo maximální neúspěšných pokusů o přístup, je uživatel uzamčen (výchozí: 5 minut uzamčení po 5 neúspěšných pokusů o přístup). Po provedení úspěšného ověření resetuje počet pokusů o neúspěšných přístupů a resetuje na hodiny. Maximální počet neúspěšných pokusů o přístup a doby uzamčení lze nastavit pomocí [MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts) a [DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan). Následující nakonfiguruje uzamčení účtu po dobu 10 minut po 10 neúspěšných pokusů o přístup:
+Uzamčení účtu, doporučujeme pomocí 2FA. Když se uživatel přihlásí pomocí místního účtu nebo účtu na sociální síti, se ukládají jednotlivé neúspěšné pokusy o na 2FA. Pokud je dosaženo maximálního počtu neúspěšných pokusů o přístup, uživatel je uzamčen (výchozí: 5 minut uzamčení po 5 neúspěšných pokusech o přístup. Po provedení úspěšného ověření resetuje počet pokusů o neúspěšných přístupů a resetuje na hodiny. Maximální počet neúspěšných pokusů o přístup a doby uzamčení lze nastavit pomocí [MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts) a [DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan). Následující nakonfiguruje uzamčení účtu po dobu 10 minut po 10 neúspěšných pokusů o přístup:
 
 [!code-csharp[](2fa/sample/Web2FA/Startup.cs?name=snippet2&highlight=13-17)]
 

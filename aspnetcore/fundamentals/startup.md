@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 9407de4ee91ba43b2c95fa98f0cf479bf8539cab
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 47194f786b2d32fb343e8f1078a4400d6db37293
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310498"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248338"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
@@ -59,7 +59,7 @@ Hostitel poskytuje služby, které jsou k dispozici konstruktoru třídy `Startu
 Při použití `Startup` <xref:Microsoft.Extensions.Hosting.IHostBuilder>lze do konstruktoru vložit pouze následující typy služeb:
 
 * `IWebHostEnvironment`
-* `IHostEnvironment`
+* <xref:Microsoft.Extensions.Hosting.IHostEnvironment>
 * <xref:Microsoft.Extensions.Configuration.IConfiguration>
 
 [!code-csharp[](startup/3.0_samples/StartupFilterSample/StartUp2.cs?name=snippet)]
@@ -96,7 +96,7 @@ Metoda <xref:Microsoft.AspNetCore.Hosting.StartupBase.ConfigureServices*> je:
 
 * Volitelná.
 * Je volána hostitelem před voláním metody `Configure` pro konfiguraci služeb aplikace.
-* metoda, ve které jsou [možnosti konfigurace](xref:fundamentals/configuration/index) nastaveny podle konvence.
+* Metoda, ve které jsou [možnosti konfigurace](xref:fundamentals/configuration/index) nastaveny podle konvence.
 
 Hostitel může nakonfigurovat některé služby před voláním metody `Startup`. Další informace najdete v tématu [Hostitel](xref:fundamentals/index#host).
 
@@ -239,7 +239,7 @@ Pokud je k dispozici parametr `option` řetězce dotazu pro, middleware zpracov�
 Pořadí spuštění middlewarů je nastaveno podle pořadí registrace `IStartupFilter`:
 
 * Několik různých implementací `IStartupFilter` může operovat se stejnými objekty. Pokud je pro Vás důležité pořadí, seřaďte jednotlivé registrace služeb `IStartupFilter` tak, aby odpovídaly pořadí, ve kterém mají být jejich middlewary spuštěny.
-* Knihovny mohou přidávat middlewary s jednou nebo více implementacemi `IStartupFilter`, které se spuští před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí `IStartupFilter`. Vyvolání `IStartupFilter` middlewaru před middlewarem přidaným `IStartupFilter`knihovnou:
+* Knihovny mohou přidávat middlewary s jednou nebo více implementacemi rozhraní `IStartupFilter`, které se spustí před nebo po spuštění ostatních middlewarů aplikace zaregistrovaných pomocí rozhraní `IStartupFilter`. Vyvolání `IStartupFilter` middlewaru před middlewarem přidaným `IStartupFilter`knihovnou:
 
   * Před přidáním knihovny do kontejneru služby umístěte registraci služby.
   * Chcete-li provést vyvolání, umístěte registraci služby po přidání knihovny.

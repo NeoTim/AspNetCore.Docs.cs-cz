@@ -4,14 +4,14 @@ author: bradygaster
 description: V tomto kurzu vytvoříte aplikaci Chat, která používá nástroj ASP.NET Core Signal.
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 07/08/2019
+ms.date: 09/24/2019
 uid: tutorials/signalr
-ms.openlocfilehash: 2dfa994b9763a0139cb70cbf9847ac3b02b568e4
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 7a6574bd3c463f0890f5dc076944f1ab0f0c919a
+ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081974"
+ms.lasthandoff: 09/24/2019
+ms.locfileid: "71248401"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s nástrojem ASP.NET Core Signal
 
@@ -248,7 +248,7 @@ Server signalizace musí být nakonfigurován tak, aby předával požadavky na 
 >   dotnet dev-certs https --trust
 >   ```
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 Další informace o signalizaci najdete v úvodu:
 
@@ -485,7 +485,11 @@ Server signalizace musí být nakonfigurován tak, aby předával požadavky na 
 > Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že umístíte *signál. js* do jiné složky než směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.
 > ![Chyba signalizace. js nebyla nalezena.](signalr/_static/2.x/f12-console.png)
 
-## <a name="next-steps"></a>Další postup
+## <a name="additional-resources"></a>Další zdroje
+
+* [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=iKlVmu-r0JQ)
+
+## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu jste se naučili:
 
