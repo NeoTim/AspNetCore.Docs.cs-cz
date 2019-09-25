@@ -1,25 +1,27 @@
 ---
-title: Porovnání služeb gRPC pomocí rozhraní HTTP API
+title: Porovnání služeb gRPC s rozhraními API HTTP
 author: jamesnk
 description: Přečtěte si, jak gRPC porovnává s rozhraními API HTTP a co doporučuje scénáře.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 03/31/2019
+ms.date: 09/25/2019
 uid: grpc/comparison
-ms.openlocfilehash: c34c7ecb668e478e2be3271928a2439979a746d9
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.openlocfilehash: 935078d890998fe6af366e3f6a7bf21f53c20cf7
+ms.sourcegitcommit: a7813a776809a5029c94aa503ee71994f156231f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310474"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71267719"
 ---
-# <a name="comparing-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
+# <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC s rozhraními API HTTP
 
 Od [James Newton – král](https://twitter.com/jamesnk)
 
 Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) porovnávají s rozhraními API http (včetně ASP.NET Core [webových rozhraní API](xref:web-api/index)). Technologie používaná k poskytování rozhraní API pro vaši aplikaci je důležitou volbou a gRPC nabízí jedinečné výhody v porovnání s rozhraními API protokolu HTTP. Tento článek popisuje silné a slabé stránky gRPC a doporučuje scénáře použití gRPC nad jinými technologiemi.
 
-#### <a name="overview"></a>Přehled
+## <a name="high-level-comparison"></a>Porovnání na vysoké úrovni
+
+Následující tabulka nabízí vysoké srovnání funkcí mezi gRPC a rozhraními API protokolu HTTP s JSON.
 
 | Funkce          | gRPC                                               | HTTP API s JSON           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
@@ -30,7 +32,7 @@ Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) por
 | Streamování        | [Klient, server, obousměrné](#streaming)       | Klient, Server                |
 | Podpora prohlížeče  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano                           |
 | Zabezpečení         | Přenos (HTTPS)                                  | Přenos (HTTPS)             |
-| Klientský kód – obecné  | [Ano](#code-generation)                            | OpenAPI + nástroje třetích stran |
+| Generování kódu klienta | [Ano](#code-generation)                      | OpenAPI + nástroje třetích stran |
 
 ## <a name="grpc-strengths"></a>gRPC síly
 
@@ -47,7 +49,7 @@ gRPC je navržená pro HTTP/2, což je hlavní revize HTTP, která poskytuje vý
 
 Všechny gRPC architektury poskytují prvotřídní podporu pro generování kódu. Základním souborem pro gRPC vývoj je [soubor *...* ](https://developers.google.com/protocol-buffers/docs/proto3)to definuje kontrakt služeb gRPC a zpráv. Z tohoto souboru gRPC architektury budou kód generovat základní třídu služby, zprávy a kompletního klienta.
 
-Sdílením `*.proto` souboru mezi serverem a klientem je možné vygenerovat zprávy a kód klienta z koncového na konec. Generování kódu klienta eliminuje duplikaci zpráv na straně klienta a serveru a pro vás vytvoří klienta se silným typem. Nemusíte psát klienta, ale v aplikacích s mnoha službami ušetříte významnou dobu vývoje.
+Sdílení souboru *.* a klienta mezi serverem a klientem může být vygenerováno z koncového konce. Generování kódu klienta eliminuje duplikaci zpráv na straně klienta a serveru a pro vás vytvoří klienta se silným typem. Nemusíte psát klienta, ale v aplikacích s mnoha službami ušetříte významnou dobu vývoje.
 
 ### <a name="strict-specification"></a>Striktní specifikace
 
@@ -95,7 +97,7 @@ GRPC-web nepodporuje všechny funkce gRPC. Klient a obousměrné streamování s
 
 Požadavky HTTP API se odesílají jako text a můžou je číst a vytvářet člověkem.
 
-zprávy gRPC jsou ve výchozím nastavení kódované pomocí Protobuf. I když je Protobuf efektivní pro posílání a přijímání, jeho binární formát není čitelný lidmi. Protobuf vyžaduje, aby byl popis rozhraní zprávy zadaný v `*.proto` souboru správně deserializován. K analýze datových částí Protobuf na lince a k vytváření požadavků rukou je potřeba další nástroje.
+zprávy gRPC jsou ve výchozím nastavení kódované pomocí Protobuf. I když je Protobuf efektivní pro posílání a přijímání, jeho binární formát není čitelný lidmi. Protobuf vyžaduje, aby byl popis rozhraní zprávy zadaný v souboru *.* proč správně deserializován. K analýze datových částí Protobuf na lince a k vytváření požadavků rukou je potřeba další nástroje.
 
 Funkce jako [reflexe serveru](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) a [Nástroj příkazového řádku gRPC](https://github.com/grpc/grpc/blob/master/doc/command_line_tool.md) existují pro pomoc s binárními Protobuf zprávami. Také zprávy Protobuf podporují [Převod do formátu JSON a z](https://developers.google.com/protocol-buffers/docs/proto3#json)něj. Integrovaný převod JSON poskytuje efektivní způsob, jak převést zprávy Protobuf do nebo z lidského čitelného formuláře při ladění.
 

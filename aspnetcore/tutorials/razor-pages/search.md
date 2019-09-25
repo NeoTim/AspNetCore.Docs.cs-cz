@@ -5,12 +5,12 @@ description: Ukazuje, jak přidat hledání do ASP.NET Core Razor Pages
 ms.author: riande
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: d1aa3f914ebcab4d095b6fca1dac3cf44855d516
-ms.sourcegitcommit: 16502797ea749e2690feaa5e652a65b89c007c89
+ms.openlocfilehash: fde99d8fab00265294bccb2ecdb380d02a8f3673
+ms.sourcegitcommit: a7813a776809a5029c94aa503ee71994f156231f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68483290"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71267755"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>Přidat hledání do ASP.NET Core Razor Pages
 
@@ -20,7 +20,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-V následujících částech se přidají hledání filmů  podle žánru nebo *názvu* .
+V následujících částech se přidají hledání filmů podle *žánru* nebo *názvu* .
 
 Přidejte následující zvýrazněné vlastnosti na *stránky/filmy/index. cshtml. cs*:
 
@@ -45,7 +45,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-Dotaz je definován *pouze* v tomto okamžiku, nebyl proto spuštěn  proti databázi.
+Dotaz je definován *pouze* v tomto okamžiku **, nebyl proto** spuštěn proti databázi.
 
 `SearchString` Pokud vlastnost nemá hodnotu null nebo je prázdná, dotaz na filmy se upraví tak, aby se vyfiltroval v hledaném řetězci:
 
@@ -122,7 +122,7 @@ Otestujte aplikaci tak, že vyhledáte podle žánru, podle názvu filmu a pomoc
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-V následujících částech se přidají hledání filmů  podle žánru nebo *názvu* .
+V následujících částech se přidají hledání filmů podle *žánru* nebo *názvu* .
 
 Přidejte následující zvýrazněné vlastnosti na *stránky/filmy/index. cshtml. cs*:
 
@@ -147,7 +147,7 @@ var movies = from m in _context.Movie
              select m;
 ```
 
-Dotaz je definován *pouze* v tomto okamžiku, nebyl proto spuštěn  proti databázi.
+Dotaz je definován *pouze* v tomto okamžiku **, nebyl proto** spuštěn proti databázi.
 
 `SearchString` Pokud vlastnost nemá hodnotu null nebo je prázdná, dotaz na filmy se upraví tak, aby se vyfiltroval v hledaném řetězci:
 
@@ -209,6 +209,7 @@ Aktualizujte *index. cshtml* následujícím způsobem:
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexFormGenreNoRating.cshtml?highlight=16-18&range=1-26)]
 
 Otestujte aplikaci tak, že vyhledáte podle žánru, podle názvu filmu a pomocí obou.
+Předchozí kód používá pomocníka pro [výběr značky](xref:mvc/views/working-with-forms#the-select-tag-helper) a pomocníka značek možností.
 
 ## <a name="additional-resources"></a>Další zdroje
 
