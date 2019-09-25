@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/03/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 28e6b8589bbe0b6a3723b64736c723c883302571
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: 18a6dd2ddd4f3c3c4466e3b96dd1748fd0972e39
+ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238159"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71250805"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>Služby gRPC s ASP.NET Core
 
@@ -67,7 +67,7 @@ ASP.NET Core middlewarů a funkcí sdílí kanál směrování, proto je možné
 Koncové body Kestrel gRPC:
 
 * Vyžadovat HTTP/2.
-* By měl být zabezpečený pomocí protokolu HTTPS.
+* By měl být zabezpečený pomocí [protokolu TLS (Transport Layer Security)](https://tools.ietf.org/html/rfc5246).
 
 #### <a name="http2"></a>HTTP/2
 
@@ -75,58 +75,28 @@ gRPC vyžaduje HTTP/2. gRPC pro ASP.NET Core ověří [HttpRequest. protokol](xr
 
 Kestrel [podporuje HTTP/2](xref:fundamentals/servers/kestrel#http2-support) na většině moderních operačních systémů. Ve výchozím nastavení jsou Kestrel koncové body konfigurovány pro podporu připojení HTTP/1.1 a HTTP/2.
 
-#### <a name="https"></a>HTTPS
+#### <a name="tls"></a>TLS
 
-Koncové body Kestrel použité pro gRPC by měly být zabezpečené pomocí protokolu HTTPS. Ve vývoji se koncový bod HTTPS automaticky vytvoří `https://localhost:5001` , když je k dispozici ASP.NET Core vývojový certifikát. Není nutná žádná konfigurace.
+Koncové body Kestrel použité pro gRPC by měly být zabezpečené pomocí protokolu TLS. Ve vývojovém prostředí je koncový bod zabezpečený pomocí protokolu TLS `https://localhost:5001` automaticky vytvořen v době, kdy je k dispozici ASP.NET Core vývojový certifikát. Není nutná žádná konfigurace. `https` Předpona ověří koncový bod Kestrel pomocí protokolu TLS.
 
-V produkčním prostředí musí být HTTPS explicitně nakonfigurovaný. V následujícím příkladu *appSettings. JSON* je k dispozici koncový bod HTTP/2 zabezpečený pomocí protokolu https:
+V produkčním prostředí musí být protokol TLS explicitně nakonfigurovaný. V následujícím příkladu *appSettings. JSON* je k dispozici koncový bod HTTP/2 zabezpečený protokolem TLS:
 
-```json
-{
-  "Kestrel": {
-    "Endpoints": {
-      "HttpsDefaultCert": {
-        "Url": "https://localhost:5001",
-        "Protocols": "Http2"
-      }
-    },
-    "Certificates": {
-      "Default": {
-        "Path": "<path to .pfx file>",
-        "Password": "<certificate password>"
-      }
-    }
-  }
-}
-```
+[!code-json[](~/grpc/aspnetcore/sample/appsettings.json?highlight=4)]
 
 Alternativně lze v *program.cs*nakonfigurovat koncové body Kestrel:
 
-```csharp
-public static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.ConfigureKestrel(options =>
-            {
-                // This endpoint will use HTTP/2 and HTTPS on port 5001.
-                options.Listen(IPAddress.Any, 5001, listenOptions =>
-                {
-                    listenOptions.Protocols = HttpProtocols.Http2;
-                    listenOptions.UseHttps("<path to .pfx file>", 
-                        "<certificate password>");
-                });
-            });
-            webBuilder.UseStartup<Startup>();
-        });
-```
+[!code-csharp[](~/grpc/aspnetcore/sample/Program.cs?highlight=7&name=snippet)]
 
-Pokud je koncový bod HTTP/2 nakonfigurovaný bez HTTPS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastavené na `HttpProtocols.Http2`. `HttpProtocols.Http1AndHttp2`nelze použít, protože pro vyjednání HTTP/2 je vyžadován protokol HTTPS. Bez protokolu HTTPS jsou všechna připojení ke koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC neúspěšná.
+#### <a name="protocol-negotiation"></a>Vyjednávání protokolu
 
-Další informace o povolení HTTP/2 a HTTPS s Kestrel najdete v tématu [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration).
+Protokol TLS se používá pro více než zabezpečení komunikace. Metoda handshake [protokolu TLS (ALPN)](https://tools.ietf.org/html/rfc7301#section-3) se používá k vyjednání protokolu připojení mezi klientem a serverem, když koncový bod podporuje více protokolů. Toto vyjednávání určuje, zda připojení používá protokol HTTP/1.1 nebo HTTP/2.
+
+Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven `HttpProtocols.Http2`na. Koncový bod s více protokoly (například `HttpProtocols.Http1AndHttp2`) nelze použít bez TLS, protože neexistuje žádné vyjednávání. Všechna připojení k nezabezpečenému koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC selžou.
+
+Další informace o povolení HTTP/2 a TLS s Kestrel najdete v tématu [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!NOTE]
-> macOS nepodporuje ASP.NET Core gRPC se [zabezpečením TLS (Transport Layer Security)](https://tools.ietf.org/html/rfc5246). K úspěšnému spuštění gRPC služeb na macOS se vyžaduje další konfigurace. Další informace najdete v tématu [nepovedlo se spustit aplikaci ASP.NET Core gRPC v MacOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).
+> macOS nepodporuje ASP.NET Core gRPC s protokolem TLS. K úspěšnému spuštění gRPC služeb na macOS se vyžaduje další konfigurace. Další informace najdete v tématu [nepovedlo se spustit aplikaci ASP.NET Core gRPC v MacOS](xref:grpc/troubleshoot#unable-to-start-aspnet-core-grpc-app-on-macos).
 
 ## <a name="integration-with-aspnet-core-apis"></a>Integrace s rozhraními API ASP.NET Core
 

@@ -1,50 +1,65 @@
 ---
 title: Verze kompatibility pro ASP.NET Core MVC
 author: rick-anderson
-description: Zjistěte, jak třídu pro spuštění v ASP.NET Core konfiguruje služby a kanál žádosti o aplikace.
+description: Zjistěte, jak třída Startup v ASP.NET Core konfiguruje služby a kanál žádostí aplikace.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/15/2019
+ms.date: 9/25/2019
 uid: mvc/compatibility-version
-ms.openlocfilehash: b360da105799a1dccb1902e167e50e78864b76a9
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 35e3b6acba2bc9a0b863bd6d1e96365328b5f169
+ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65085891"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71256164"
 ---
 # <a name="compatibility-version-for-aspnet-core-mvc"></a>Verze kompatibility pro ASP.NET Core MVC
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda umožňuje aplikacím vyjádřit výslovný souhlas nebo výslovný nesouhlas s potenciálně rozbíjející změny chování zavedení v ASP.NET Core MVC 2.1 nebo novější. Potenciálně rozbíjející změny chování jsou obecně v způsob, jakým se chová subsystému MVC a jak **kódu** je volána modulem runtime. Vyjádření výslovného souhlasu, získáte nejnovější chování a dlouhodobé chování ASP.NET Core.
+::: moniker range="= aspnetcore-3.0"
 
-Následující kód nastaví režim kompatibility ASP.NET Core 2.2:
+<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda je no-op pro aplikace ASP.NET Core 3,0. To znamená, že `SetCompatibilityVersion` volání s jakoukoliv <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion> hodnotou nemá žádný vliv na aplikaci.
+
+* Další podverze ASP.NET Core může poskytovat novou `CompatibilityVersion` hodnotu.
+* `CompatibilityVersion`hodnoty `Version_2_0` prostřednictvím `Version_2_2` jsou označeny `[Obsolete(...)]`.
+* Přečtěte si téma [přerušení změn rozhraní API v antipadělání, CORS, diagnostice, MVC a směrování](https://github.com/aspnet/Announcements/issues/387). Tento seznam obsahuje zásadní změny pro přepínače kompatibility.
+
+Pokud chcete zjistit `SetCompatibilityVersion` , jak funguje s aplikacemi ASP.NET Core 2. x, vyberte [verzi ASP.NET Core 2,2 tohoto článku](https://docs.microsoft.com/aspnet/core/mvc/compatibility-version?view=aspnetcore-2.2).
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda umožňuje aplikaci ASP.NET Core 2. x odsouhlasit nebo odhlásit potenciálně odstraněné změny chování, které byly představeny v ASP.NET Core MVC 2,1 nebo 2,2. Tyto potenciálně narušující změny chování jsou všeobecně ve způsobu, jakým se subsystém MVC chová a jak je **váš kód** volán modulem runtime. Když se rozhodnete, získáte nejnovější chování a dlouhodobé chování ASP.NET Core.
+
+Následující kód nastaví režim kompatibility na ASP.NET Core 2,2:
 
 [!code-csharp[Main](compatibility-version/samples/2.x/CompatibilityVersionSample/Startup.cs?name=snippet1)]
 
-Doporučujeme, abyste testování aplikace pomocí nejnovější verze (`CompatibilityVersion.Version_2_2`). Předpokládáme, že většina aplikací nebudou mít nejnovější změny chování pomocí nejnovější verze.
+Doporučujeme, abyste aplikaci otestovali pomocí nejnovější verze (`CompatibilityVersion.Latest`). Předpokládáme, že většina aplikací nebude mít změny chování v nejnovější verzi.
 
-Aplikace, které volají `SetCompatibilityVersion(CompatibilityVersion.Version_2_0)` chráněná před potenciálně rozbíjející změny chování zavedené v ASP.NET Core 2.1 MVC a novější verze 2.x. Tato ochrana:
+Aplikace, které `SetCompatibilityVersion(CompatibilityVersion.Version_2_0)` volají, jsou chráněny před potenciálně rozbitými změnami chování, které byly představeny ve verzích ASP.NET Core 2.1/2.2 MVC. Tato ochrana:
 
-* Se nevztahují na všechny změny, 2.1 nebo novější, je určen potenciálně rozbíjející změny v chování modulu runtime ASP.NET Core v subsystému MVC.
-* Nevztahuje se na další hlavní verze.
+* Neplatí pro všechny 2,1 a pozdější změny, je cílem potenciálně poškodit ASP.NET Core změny chování modulu runtime v podsystému MVC.
+* Nerozšiřuje na ASP.NET Core 3,0.
 
-Výchozí kompatibilitu pro ASP.NET Core 2.1 a vyšší 2.x aplikací, které toho **není** volání `SetCompatibilityVersion` je 2.0 kompatibility. To znamená, že není volání `SetCompatibilityVersion` je stejný jako volání funkce `SetCompatibilityVersion(CompatibilityVersion.Version_2_0)`.
+Výchozí kompatibilita pro aplikace ASP.NET Core 2,1 a 2,2, které `SetCompatibilityVersion` **nevolají,** je 2,0 kompatibilita. To znamená, že není `SetCompatibilityVersion` voláno stejně jako volání `SetCompatibilityVersion(CompatibilityVersion.Version_2_0)`.
 
-Následující kód nastaví režim kompatibility ASP.NET Core 2.2, s výjimkou následujících chování:
+Následující kód nastaví režim kompatibility na ASP.NET Core 2,2, s výjimkou následujícího chování:
 
 * <xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowCombiningAuthorizeFilters>
 * <xref:Microsoft.AspNetCore.Mvc.MvcOptions.InputFormatterExceptionPolicy>
 
 [!code-csharp[Main](compatibility-version/samples/2.x/CompatibilityVersionSample/Startup2.cs?name=snippet1)]
 
-Pro aplikace, dojde k rozbíjející změny chování, pomocí příslušné kompatibilita přepínačů:
+U aplikací, které narazí na změny chování, použijte příslušné přepínače kompatibility:
 
-* Umožňuje použít nejnovější verzi a vyjádřit výslovný nesouhlas zvláštní nejnovější změny chování.
-* Získáte čas na aktualizaci aplikace, funguje s nejnovějšími změnami.
+* Umožňuje použít nejnovější verzi a vyjádřit výslovný souhlas s konkrétními změnami porušení chování.
+* Poskytuje čas k aktualizaci aplikace tak, aby fungovala s nejnovějšími změnami.
 
-<xref:Microsoft.AspNetCore.Mvc.MvcOptions> Dokumentace je dobré vysvětlení co změnil a proč změny jsou vylepšení pro většinu uživatelů.
+<xref:Microsoft.AspNetCore.Mvc.MvcOptions> Dokumentace má dobré vysvětlení toho, co se změnilo a proč jsou změny pro většinu uživatelů lepší.
 
-V některé budoucí datum, bude [verze technologie ASP.NET Core 3.0](https://github.com/aspnet/Home/wiki/Roadmap). Ve verzi 3.0 se odebere staré chování podporuje přepínače kompatibility. Domníváme, že se že jedná pozitivní změny, které téměř všechny uživatele. Zavedením teď tyto změny, mohou nyní využívat většinu aplikací a ostatní bude mít čas aktualizovat svoje aplikace.
+U ASP.NET Core 3,0 se odebralo staré chování podporované přepínači kompatibility. Myslíme na to, že jsou kladné změny využívání téměř všemi uživateli. Díky zavedení těchto změn v 2,1 a 2,2 může většina aplikací těžit, zatímco ostatní mají čas na aktualizaci.
+::: moniker-end

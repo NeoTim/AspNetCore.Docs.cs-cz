@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/23/2019
 uid: grpc/diagnostics
-ms.openlocfilehash: ce6ad96d9e26c9cd3844093536745f8f9bea4a76
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: 7194e91b40a08c4a7ee619b8f207900af2683aa1
+ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71204343"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71250739"
 ---
 # <a name="logging-and-diagnostics-in-grpc-on-net"></a>Protokolování a diagnostika v gRPC v .NET
 
@@ -28,11 +28,11 @@ Vzhledem k tomu, že jsou služby gRPC hostované na ASP.NET Core, používá sy
 
 gRPC přidá do `Grpc` kategorie protokoly. Pokud chcete povolit podrobné protokoly z gRPC, nakonfigurujte `Grpc` `Debug` předpony na úroveň v souboru *appSettings. JSON* přidáním následujících položek do `LogLevel` dílčí části v: `Logging`
 
-[!code-json[](diagnostics/logging-config.json?highlight=7)]
+[!code-json[](diagnostics/sample/logging-config.json?highlight=7)]
 
 Můžete ho také nakonfigurovat v *Startup.cs* pomocí `ConfigureLogging`:
 
-[!code-csharp[](diagnostics/logging-config-code.cs?highlight=5)]
+[!code-csharp[](diagnostics/sample/logging-config-code.cs?highlight=5)]
 
 Pokud nepoužíváte konfiguraci založenou na formátu JSON, nastavte v konfiguračním systému následující hodnotu konfigurace:
 
@@ -46,7 +46,7 @@ Tuto `Debug` úroveň doporučujeme používat při shromažďování podrobněj
 
 Tady je příklad výstupu konzoly na `Debug` úrovni služby gRPC:
 
-```
+```console
 info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
       Request starting HTTP/2 POST https://localhost:5001/Greet.Greeter/SayHello application/grpc
 info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
@@ -82,19 +82,19 @@ Pokud je aplikace nasazená do jiného prostředí (například Docker, Kubernet
 
 Chcete-li získat protokoly z klienta rozhraní .NET, můžete nastavit `GrpcChannelOptions.LoggerFactory` vlastnost při vytvoření kanálu klienta. Pokud voláte službu gRPC z aplikace ASP.NET Core, bude objekt pro vytváření protokolovacího nástroje možné přeložit z injektáže závislosti (DI):
 
-[!code-csharp[](diagnostics/net-client-dependency-injection.cs?highlight=7,16)]
+[!code-csharp[](diagnostics/sample/net-client-dependency-injection.cs?highlight=7,16)]
 
 Alternativním způsobem, jak povolit protokolování klienta, je použít objekt pro vytváření klientů [gRPC](xref:grpc/clientfactory) k vytvoření klienta. Klient gRPC zaregistrovaný ve službě klient Factory a vyřešený z typu DI bude automaticky používat nakonfigurované protokolování aplikace.
 
 Pokud vaše aplikace nepoužívá di, můžete vytvořit novou `ILoggerFactory` instanci pomocí [LoggerFactory. Create](xref:Microsoft.Extensions.Logging.LoggerFactory.Create*). Pokud chcete získat přístup k této metodě, přidejte do své aplikace balíček [Microsoft. Extensions. Logging](https://www.nuget.org/packages/microsoft.extensions.logging/) .
 
-[!code-csharp[](diagnostics/net-client-loggerfactory-create.cs?highlight=1,8)]
+[!code-csharp[](diagnostics/sample/net-client-loggerfactory-create.cs?highlight=1,8)]
 
 ### <a name="sample-logging-output"></a>Ukázka výstupu protokolování
 
 Tady je příklad výstupu konzoly na `Debug` úrovni klienta gRPC:
 
-```
+```console
 dbug: Grpc.Net.Client.Internal.GrpcCall[1]
       Starting gRPC call. Method type: 'Unary', URI: 'https://localhost:5001/Greet.Greeter/SayHello'.
 dbug: Grpc.Net.Client.Internal.GrpcCall[6]
