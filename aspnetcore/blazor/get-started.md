@@ -5,14 +5,14 @@ description: Začněte s Blazor vytvořením aplikace Blazor pomocí nástrojů 
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/25/2019
 uid: blazor/get-started
-ms.openlocfilehash: 4c2a8f62b7f6a60815d131756d1e551904d918ad
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 5aec91eff7de0732a47fec1aafa5e094c89c37a4
+ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207222"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71295432"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -24,7 +24,7 @@ Začínáme s Blazor:
 
 1. Nainstalujte nejnovější verzi [sady .NET Core 3,0 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.0) .
 
-1. Nainstalujte šablony Blazor spuštěním následujícího příkazu v příkazovém prostředí:
+1. Nainstalujte šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) spuštěním následujícího příkazu v příkazovém prostředí:
 
    ```dotnetcli
    dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.0.0-preview9.19465.2
