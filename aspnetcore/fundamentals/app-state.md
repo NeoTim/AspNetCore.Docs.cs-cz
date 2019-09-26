@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/12/2019
 uid: fundamentals/app-state
-ms.openlocfilehash: 578be568b58dc630e8aabf8cb355266766741b9e
-ms.sourcegitcommit: 116bfaeab72122fa7d586cdb2e5b8f456a2dc92a
+ms.openlocfilehash: ccb37a422d972ab9113bb4115473d054282dac87
+ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70384742"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71278696"
 ---
 # <a name="session-and-app-state-in-aspnet-core"></a>Stav relace a aplikace v ASP.NET Core
 
@@ -315,6 +315,10 @@ Použití [Injektáže závislosti](xref:fundamentals/dependency-injection) k zp
   Uživatel například ukládá v relaci nákupní košík. Uživatel přidá položku na košík, ale potvrzení se nezdařilo. Aplikace neví o selhání, takže oznamuje uživateli, že se položka přidala do svého košíku, což není pravda.
 
   Doporučený postup pro kontrolu chyb je zavolat `await feature.Session.CommitAsync();` z kódu aplikace, když se aplikace dokončí zápisem do relace. `CommitAsync`vyvolá výjimku, pokud není záložní úložiště k dispozici. V `CommitAsync` případě chyby může aplikace zpracovat výjimku. `LoadAsync`Vyvolá se za stejných podmínek, kdy úložiště dat není k dispozici.
+  
+## <a name="signalr-and-session-state"></a>Signál a stav relace
+
+Aplikace Signal by neměly k ukládání informací používat stav relace. Aplikace Signal se můžou ukládat na stav `Context.Items` připojení v centru. <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
 ## <a name="additional-resources"></a>Další zdroje
 

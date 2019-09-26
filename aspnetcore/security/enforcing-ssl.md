@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: eafb06d181ca3f085cccb314749c8d4deba074fa
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: aa42b1c7199e951714be809de9c9c5f857473485
+ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082564"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71278757"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
@@ -362,6 +362,58 @@ Subsystém Windows pro Linux (WSL) vygeneruje certifikát podepsaný svým drži
 * V okně WSL spusťte následující příkaz:`ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
 
   Předchozí příkaz nastaví proměnné prostředí tak, aby Linux používal důvěryhodný certifikát Windows.
+
+## <a name="troubleshoot-certificate-problems"></a>Řešení problémů s certifikáty
+
+Tato část obsahuje informace o tom, kdy byl certifikát pro vývoj ASP.NET Core HTTPS [nainstalovaný a důvěryhodný](#trust), ale přesto máte upozornění prohlížeče, že certifikát není důvěryhodný.
+
+### <a name="all-platforms---certificate-not-trusted"></a>Všechny platformy – certifikát není důvěryhodný.
+
+Spusťte následující příkazy:
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+Zavřete všechny otevřené instance prohlížeče. Otevřete nové okno prohlížeče pro aplikaci. Důvěryhodnost certifikátu je ukládána v mezipaměti prohlížeči.
+
+Předchozí příkazy vyřeší většinu problémů s důvěryhodností prohlížečů. Pokud prohlížeč stále certifikát nepovažuje za důvěryhodný, postupujte podle následujících doporučení pro konkrétní platformu.
+
+### <a name="docker---certificate-not-trusted"></a>Docker – certifikát není důvěryhodný.
+
+* Odstraňte složku *C:\Users\{uživatele} \AppData\Roaming\ASP.NET\Https* .
+* Vyčistěte řešení. Odstranit *bin* a *obj* složek.
+* Restartujte nástroj pro vývoj. Například Visual Studio, Visual Studio Code nebo Visual Studio pro Mac.
+
+### <a name="windows---certificate-not-trusted"></a>Windows – certifikát není důvěryhodný.
+
+* Ověřte certifikáty v úložišti certifikátů. V části `localhost` `ASP.NET Core HTTPS development certificate` ibymělbýtcertifikáts`Current User > Personal > Certificates` popisným názvem.`Current User > Trusted root certification authorities > Certificates`
+* Odeberte všechny nalezené certifikáty z osobních i důvěryhodných kořenových certifikačních autorit. **Neodstraňujte** certifikát IIS Express localhost.
+* Spusťte následující příkazy:
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+Zavřete všechny otevřené instance prohlížeče. Otevřete nové okno prohlížeče pro aplikaci.
+
+### <a name="os-x---certificate-not-trusted"></a>OS X – certifikát není důvěryhodný.
+
+* Otevřete přístup k řetězci klíčů.
+* Vyberte systémový řetězec klíčů.
+* Ověřte přítomnost certifikátu localhost.
+* Ověřte, zda obsahuje `+` symbol na ikoně, aby označovala jeho důvěru pro všechny uživatele.
+* Odeberte certifikát ze systémového řetězce klíčů.
+* Spusťte následující příkazy:
+
+```dotnetcli
+dotnet devcerts https --clean
+dotnet devcerts https --trust
+```
+
+Zavřete všechny otevřené instance prohlížeče. Otevřete nové okno prohlížeče pro aplikaci.
 
 ## <a name="additional-information"></a>Další informace
 
