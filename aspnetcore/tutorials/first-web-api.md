@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/27/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 6f6240084f6dee1fa4b9ae7efb7748a129d5ed37
-ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
-ms.translationtype: HT
+ms.openlocfilehash: 5e5215f246c6c7a805a4c99f485d51a2fb3c712d
+ms.sourcegitcommit: cf9ffcce4fe0b69fe795aae9ae06e99fdb18bdfc
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 09/26/2019
-ms.locfileid: "71301208"
+ms.locfileid: "71306668"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -71,7 +71,7 @@ Následující diagram znázorňuje návrh aplikace.
 * V nabídce **soubor** vyberte možnost **Nový** > **projekt**.
 * Vyberte šablonu **ASP.NET Core webové aplikace** a klikněte na tlačítko **Další**.
 * Pojmenujte projekt *TodoApi* a klikněte na **vytvořit**.
-* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**. **Nevybírejte možnost** **Povolit podporu Docker**.
+* V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** . Vyberte šablonu **rozhraní API** a klikněte na **vytvořit**.
 
 ![VS – dialogové okno nového projektu](first-web-api/_static/vs3.png)
 
@@ -227,9 +227,8 @@ Třídy modelu můžete kamkoliv v projektu, ale *modely* složky používají k
 ### <a name="add-microsoftentityframeworkcoresqlserver"></a>Přidat Microsoft. EntityFrameworkCore. SqlServer
 
 * V nabídce **nástroje** vyberte **správce balíčků NuGet > spravovat balíčky NuGet pro řešení**.
-* Zaškrtněte políčko **zahrnout předběžné verze** .
 * Vyberte kartu **Procházet** a potom do vyhledávacího pole zadejte **Microsoft. EntityFrameworkCore. SqlServer** .
-* V levém podokně vyberte **Microsoft. EntityFrameworkCore. SqlServer v 3.0.0-Preview** .
+* V levém podokně vyberte **Microsoft. EntityFrameworkCore. SqlServer** .
 * Zaškrtněte políčko **projekt** v pravém podokně a pak vyberte **nainstalovat**.
 * Pomocí předchozích pokynů přidejte `Microsoft.EntityFrameworkCore.InMemory` balíček NuGet.
 
