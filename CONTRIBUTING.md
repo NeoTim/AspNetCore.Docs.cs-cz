@@ -1,6 +1,7 @@
 # <a name="contribute-to-the-aspnet-core-documentation"></a>Přispívání do dokumentace k ASP.NET Core
 
 Tento dokument popisuje proces pro přispívání do článků a ukázky kódu, které jsou hostované na [webu Dokumentace k ASP.NET](https://docs.microsoft.com/aspnet/). Máte překlep opravy a nové články jsou Vítá příspěvky.
+<!--test-->
 
 ## <a name="how-to-make-a-simple-correction-or-suggestion"></a>Jak vytvořit jednoduchý opravy nebo návrh
 
