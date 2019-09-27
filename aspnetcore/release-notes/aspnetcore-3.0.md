@@ -4,14 +4,14 @@ author: rick-anderson
 description: Seznamte se s novými funkcemi v ASP.NET Core 3,0.
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/26/2019
 uid: aspnetcore-3.0
-ms.openlocfilehash: 490d00da7282e2efe28fcc52e593dd71d7324d3f
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: c1b61fee7264b972c70dbfa8f1461e33e3645746
+ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198991"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317661"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -319,6 +319,17 @@ Následující seznam obsahuje nové direktivy Razor:
 * [@attribute](xref:mvc/views/razor#attribute)&ndash; Direktivapoužijedanýatributnatřídu`@attribute` generované stránky nebo zobrazení. Například, `@attribute [Authorize]`.
 * [@implements](xref:mvc/views/razor#implements)&ndash; Direktivaimplementuje`@implements` rozhraní pro generovanou třídu. Například, `@implements IDisposable`.
 
+## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 podporuje ověřování a autorizaci pro webová rozhraní API a jednostránkové.
+
+[IdentityServer4](https://identityserver.io) je rozhraní OpenID Connect a OAuth 2,0 framework pro ASP.NET Core 3,0. IdentityServer4 umožňuje následující funkce zabezpečení:
+
+* Ověřování jako služba (AaaS)
+* Jednotné přihlašování/vypínání (SSO) nad více typy aplikací
+* Řízení přístupu pro rozhraní API
+* Federační brána
+
+Další informace najdete v tématu [Vítá vás IdentityServer4](http://docs.identityserver.io/en/latest/index.html).
+
 ## <a name="certificate-and-kerberos-authentication"></a>Ověřování pomocí certifikátů a protokolu Kerberos
 
 Ověřování certifikátu vyžaduje:
@@ -420,9 +431,9 @@ Další informace naleznete v tématu <xref:migration/22-to-30#kestrel>.
 
 Protokol HTTP/2 je ve výchozím nastavení povolený pro koncové body HTTPS v Kestrel. Podpora HTTP/2 pro IIS nebo HTTP. sys je povolená, když operační systém podporuje.
 
-## <a name="request-counters"></a>Čítače požadavků
+## <a name="eventcounters-on-request"></a>EventCounters na žádost
 
-Hostování EventSource (Microsoft. AspNetCore. Hosting) vysílá následující EventCounters vztahující se k příchozím žádostem:
+Hostování EventSource, `Microsoft.AspNetCore.Hosting`vygeneruje následující nové <xref:System.Diagnostics.Tracing.EventCounter> typy týkající se příchozích požadavků:
 
 * `requests-per-second`
 * `total-requests`
@@ -476,7 +487,7 @@ Chyby při spuštění při hostování ASP.NET Corech aplikací ve službě IIS
 
 .NET Core 3,0 zavádí novou šablonu aplikace služby pracovního procesu. Tato šablona poskytuje výchozí bod pro psaní dlouhodobě běžících služeb v .NET Core.
 
-Další informace naleznete v tématu:
+Další informace naleznete v tématu:
 
 * [Pracovní procesy .NET Core jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>

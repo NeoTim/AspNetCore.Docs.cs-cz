@@ -5,14 +5,14 @@ description: Zjistěte, jak implementovat úlohy na pozadí s hostovanými služ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/18/2019
+ms.date: 09/26/2019
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: 8df86b10d7ba853edb3265df0e02eabbf8a2c058
-ms.sourcegitcommit: fa61d882be9d0c48bd681f2efcb97e05522051d0
+ms.openlocfilehash: 5a29952c4e50edb953fa03c6ea1a1ae27b728bb0
+ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71205709"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317724"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
@@ -45,7 +45,7 @@ Ukázková aplikace je k dispozici ve dvou verzích:
 1. V dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** potvrďte, že je vybrána možnost **.net Core** a **ASP.NET Core 3,0** .
 1. Vyberte šablonu **služby pracovního procesu** . Vyberte **Vytvořit**.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 1. Vytvořte nový projekt.
 1. Na bočním panelu vyberte **aplikaci** v části **.NET Core** .
@@ -123,10 +123,12 @@ Hostovaná služba se aktivuje při spuštění aplikace a řádně se vypíná 
 
 ## <a name="backgroundservice"></a>BackgroundService
 
-`BackgroundService`je základní třídou pro implementaci dlouhého běhu <xref:Microsoft.Extensions.Hosting.IHostedService>. `BackgroundService`definuje dvě metody pro operace na pozadí:
+`BackgroundService`je základní třídou pro implementaci dlouhého běhu <xref:Microsoft.Extensions.Hosting.IHostedService>. `BackgroundService``ExecuteAsync(CancellationToken stoppingToken)` poskytuje abstraktní metodu, která bude obsahovat logiku služby. Je `stoppingToken` aktivována, když je volána metoda [IHostedService. StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) . Implementace této metody vrátí `Task` , která představuje celou dobu života služby na pozadí.
 
-* `ExecuteAsync(CancellationToken stoppingToken)`Volá se přispuštění<xref:Microsoft.Extensions.Hosting.IHostedService> . &ndash; `ExecuteAsync` Implementace by měla vrátit `Task` , která představuje dobu života dlouhotrvajících probíhajících operací. Vyvolána `stoppingToken` , když je volána metoda [IHostedService. StopAsync](xref:Microsoft.Extensions.Hosting.IHostedService.StopAsync*) .
-* `StopAsync(CancellationToken stoppingToken)`&ndash; se aktivuje,kdyžhostitelaplikace`StopAsync` provádí řádné vypnutí. `stoppingToken` Označuje, že proces vypnutí by již neměl být řádný.
+*Volitelně můžete* také přepsat metody definované v `IHostedService` pro spuštění spouštěcího a ukončovacího kódu pro vaši službu:
+
+* `StopAsync(CancellationToken cancellationToken)`&ndash; sevolá,kdyžhostitel`StopAsync` aplikace provádí řádné vypnutí. Je `cancellationToken` správcem signalizována, když se hostitel rozhodne vynutit ukončení služby. Pokud je tato metoda přepsána, je **nutné** zavolat `await`(a) metodu základní třídy, aby se služba správně vypnula.
+* `StartAsync(CancellationToken cancellationToken)`&ndash; sevoláke`StartAsync` spuštění služby na pozadí. `cancellationToken` Je správcem signalizována, pokud je proces spuštění přerušený. Implementace vrátí `Task` , který představuje proces spuštění služby. Žádné další služby nejsou spuštěny, `Task` dokud se nedokončí. Pokud je tato metoda přepsána, je **nutné** zavolat `await`(a) metodu základní třídy, aby bylo zajištěno, že služba bude spuštěna správně.
 
 ## <a name="timed-background-tasks"></a>Časované úlohy na pozadí
 

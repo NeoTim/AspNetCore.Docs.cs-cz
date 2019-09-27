@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/22/2019
 uid: getting-started
-ms.openlocfilehash: 0f05ab120d64832a4bc2fd70921efc7238ee9eac
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: c9cd5e05f52c8bdefa931adc654087dac91e2f05
+ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71187068"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317754"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
@@ -90,18 +90,18 @@ Spusťte následující příkazy:
 
 ```dotnetcli
 cd aspnetcoreapp
-dotnet run
+dotnet watch run
 ```
 
 Jakmile příkazové prostředí ukáže, že aplikace začala, přejděte na [https://localhost:5001](https://localhost:5001)adresu. Kliknutím na **přijmout** přijměte zásady ochrany osobních údajů a souborů cookie. Tato aplikace nemá uchovává osobní údaje.
 
 ## <a name="edit-a-razor-page"></a>Úprava stránky Razor
 
-Otevřete *pages/index. cshtml* a upravte stránku pomocí následujícího zvýrazněného kódu:
+Otevřete *pages/index. cshtml* a upravte a uložte stránku s následujícím zvýrazněným označením:
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-Vyhledejte a ověřte, zda jsou změny zobrazeny. [https://localhost:5001](https://localhost:5001)
+[https://localhost:5001](https://localhost:5001)Vyhledejte, aktualizujte stránku a ověřte, zda jsou zobrazeny změny.
 
 ## <a name="next-steps"></a>Další kroky
 

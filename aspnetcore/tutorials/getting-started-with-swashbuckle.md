@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/21/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: f538b06d2245400e234dadc2fd93c8aef94743ff
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: b96d15e732b78fd834e16347739b5a3a2ba2e98d
+ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081213"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317792"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s swashbuckle a ASP.NET Core
 
@@ -39,7 +39,7 @@ Swashbuckle je možné přidat s následujícími přístupy:
   * Spusťte následující příkaz:
 
     ```powershell
-    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc2
+    Install-Package Swashbuckle.AspNetCore -Version 5.0.0-rc3
     ```
 
 * V dialogovém okně **Spravovat balíčky NuGet** :
@@ -49,7 +49,7 @@ Swashbuckle je možné přidat s následujícími přístupy:
   * Do vyhledávacího pole zadejte "swashbuckle. AspNetCore".
   * Na kartě **Procházet** vyberte nejnovější balíček "swashbuckle. AspNetCore" a klikněte na **instalovat** .
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení** > **Přidat balíčky...**
 * Nastavte rozevírací seznam pro **zdroj** okna **Přidat balíčky** na "NuGet.org".
@@ -62,7 +62,7 @@ Swashbuckle je možné přidat s následujícími přístupy:
 Z **integrovaného terminálu**spusťte následující příkaz:
 
 ```dotnetcli
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc3
 ```
 
 ### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
@@ -70,7 +70,7 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
 Spusťte následující příkaz:
 
 ```dotnetcli
-dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc2
+dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc3
 ```
 
 ---
@@ -172,7 +172,7 @@ Komentáře XML lze povolit pomocí následujících přístupů:
 
 ::: moniker-end
 
-#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 

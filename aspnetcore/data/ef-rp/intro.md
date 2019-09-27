@@ -4,14 +4,14 @@ author: tdykstra
 description: Ukazuje, jak vytvořit aplikaci pro stránky Razor pomocí Entity Framework Core
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 07/22/2019
+ms.date: 09/26/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 6b7d2ca1cea23efd195f1ae0e0a749c6d2d9b622
-ms.sourcegitcommit: d34b2627a69bc8940b76a949de830335db9701d3
+ms.openlocfilehash: e261ccd30dc9ef0929e74fa44a5ed752d515b707
+ms.sourcegitcommit: e644258c95dd50a82284f107b9bf3becbc43b2b2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71186952"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317686"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Stránky Razor pomocí Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -19,7 +19,7 @@ Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twit
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Toto je první v sérii kurzů, které ukazují, jak používat Entity Framework (EF) jádro v aplikaci ASP.NET Core Razor Pages. Kurzy vytvářejí web pro fiktivní univerzitě společnosti Contoso. Tato lokalita obsahuje funkce, jako je například využití studenta, vytváření kurzů a přiřazení instruktorů.
+Toto je první v sérii kurzů, které ukazují, jak používat Entity Framework (EF) jádro v aplikaci [ASP.NET Core Razor Pages](xref:razor-pages/index) . Kurzy vytvářejí web pro fiktivní univerzitě společnosti Contoso. Tato lokalita obsahuje funkce, jako je například využití studenta, vytváření kurzů a přiřazení instruktorů.
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
@@ -45,7 +45,7 @@ Pokyny pro [Visual Studio Code používají nástroj](https://www.sqlite.org/)pr
 
 Pokud se rozhodnete použít SQLite, Stáhněte a nainstalujte nástroj třetí strany pro správu a zobrazení databáze SQLite, jako je například [prohlížeč databáze pro SQLite](https://sqlitebrowser.org/).
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Pokud narazíte na problém, který nemůžete vyřešit, porovnejte kód s [dokončeným projektem](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples). Dobrý způsob, jak získat pomoc, je odeslání otázky do StackOverflow.com s použitím [značky ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [značky EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
