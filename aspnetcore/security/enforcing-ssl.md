@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/14/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: aa42b1c7199e951714be809de9c9c5f857473485
-ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
+ms.openlocfilehash: 1d1bba6a1f1da2af959bc69b31f79bac53bf48b9
+ms.sourcegitcommit: fe3e556bf438fc4136fcf0bac61cf96e3e91caf5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71278757"
+ms.lasthandoff: 09/27/2019
+ms.locfileid: "71341474"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
@@ -313,7 +313,7 @@ Zrušte zaškrtnuté políčko **Konfigurovat pro protokol HTTPS** .
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli) 
 
-`--no-https` Použijte možnost. Příklad
+`--no-https` Použijte možnost. Například
 
 ```dotnetcli
 dotnet new webapp --no-https
@@ -393,8 +393,8 @@ Předchozí příkazy vyřeší většinu problémů s důvěryhodností prohlí
 * Spusťte následující příkazy:
 
 ```dotnetcli
-dotnet devcerts https --clean
-dotnet devcerts https --trust
+dotnet dev-certs https --clean
+dotnet dev-certs https --trust
 ```
 
 Zavřete všechny otevřené instance prohlížeče. Otevřete nové okno prohlížeče pro aplikaci.
