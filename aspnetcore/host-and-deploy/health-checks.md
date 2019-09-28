@@ -5,14 +5,14 @@ description: Naučte se, jak nastavit kontroly stavu pro infrastrukturu ASP.NET 
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/27/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: d8be6c8eb45cde162693621e63bf40d48d04c324
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: e4b2a577815335078f7e0c9128144a514e42a6c3
+ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71199001"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71482056"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Kontroly stavu v ASP.NET Core
 
@@ -46,7 +46,7 @@ Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro
   * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
-> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
 Další scénář kontroly stavu ukazuje, jak filtrovat kontroly stavu na port pro správu. Ukázková aplikace vyžaduje, abyste vytvořili soubor *Properties/launchSettings. JSON* , který obsahuje adresu URL pro správu a port pro správu. Další informace naleznete v části [Filter by port](#filter-by-port) .
 
@@ -337,7 +337,7 @@ dotnet run --scenario db
 ```
 
 > [!NOTE]
-> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
 ## <a name="entity-framework-core-dbcontext-probe"></a>Test Entity Framework Core DbContext
 
@@ -526,7 +526,7 @@ dotnet run --scenario writer
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje scénáře kontroly stavu založené na metrikách, včetně úložného prostoru na disku a maximální hodnoty živé kontroly.
 >
-> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
 ## <a name="filter-by-port"></a>Filtrovat podle portu
 
@@ -741,7 +741,7 @@ V `LivenessProbeStartup` příkladu`StartupHostedService` ukázkové aplikace m�
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje vydavatele pro několik systémů, včetně [Application Insights](/azure/application-insights/app-insights-overview).
 >
-> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
 ## <a name="restrict-health-checks-with-mapwhen"></a>Omezení kontrol stavu pomocí MapWhen
 
@@ -793,7 +793,7 @@ Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro
   * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
-> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
 Další scénář kontroly stavu ukazuje, jak filtrovat kontroly stavu na port pro správu. Ukázková aplikace vyžaduje, abyste vytvořili soubor *Properties/launchSettings. JSON* , který obsahuje adresu URL pro správu a port pro správu. Další informace naleznete v části [Filter by port](#filter-by-port) .
 
@@ -1055,7 +1055,7 @@ dotnet run --scenario db
 ```
 
 > [!NOTE]
-> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
 ## <a name="entity-framework-core-dbcontext-probe"></a>Test Entity Framework Core DbContext
 
@@ -1231,7 +1231,7 @@ dotnet run --scenario writer
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje scénáře kontroly stavu založené na metrikách, včetně úložného prostoru na disku a maximální hodnoty živé kontroly.
 >
-> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
 ## <a name="filter-by-port"></a>Filtrovat podle portu
 
@@ -1432,7 +1432,7 @@ V `LivenessProbeStartup` příkladu`StartupHostedService` ukázkové aplikace m�
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) zahrnuje vydavatele pro několik systémů, včetně [Application Insights](/azure/application-insights/app-insights-overview).
 >
-> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) je portem [BeatPulse](https://github.com/xabaril/beatpulse) , který společnost Microsoft neudržuje ani nepodporuje.
+> [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
 ## <a name="restrict-health-checks-with-mapwhen"></a>Omezení kontrol stavu pomocí MapWhen
 

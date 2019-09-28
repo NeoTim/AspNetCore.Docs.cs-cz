@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/24/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 14fe4bf9266ec6b2d588fa26d7a460531e33aa30
-ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
+ms.openlocfilehash: c8037d79c79c5b7eb3b99d9724aa3e5361f92b8c
+ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71295495"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71482047"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -44,7 +44,7 @@ Podpora generování adresy URL umožňuje, aby se aplikace vyvinula bez adres U
 
 Směrování používá pro reprezentaci logických koncových bodů v aplikaci *koncové body* (`Endpoint`).
 
-Koncový bod definuje delegáta pro zpracování požadavků a kolekci libovolných metadat. Metadata se používají k implementaci průřezů na základě zásad a konfigurace připojených ke každému koncovému bodu.
+Koncový bod definuje delegáta pro zpracování požadavků a kolekci libovolných metadat. Metadata se používají k implementaci průřezových obav na základě zásad a konfigurace připojených ke každému koncovému bodu.
 
 Systém směrování má následující vlastnosti:
 
@@ -485,7 +485,7 @@ Regulární výrazy používají oddělovače a tokeny podobné těm, které pou
 
 Regulární výrazy používané v směrování často začínají znakem stříšky`^`() a odpovídají počáteční pozici řetězce. Výrazy se často končí znakem dolaru (`$`) a koncem řetězce. Znaky `^` a`$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez znaků `$` a regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. `^` Následující tabulka obsahuje příklady a vysvětlení, proč se shodují nebo neshodují.
 
-| Výraz   | String    | Shoda | Komentář               |
+| Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
 | `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
@@ -1071,7 +1071,7 @@ Regulární výrazy používají oddělovače a tokeny podobné těm, které pou
 
 Regulární výrazy používané v směrování často začínají znakem stříšky`^`() a odpovídají počáteční pozici řetězce. Výrazy se často končí znakem dolaru (`$`) a koncem řetězce. Znaky `^` a`$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez znaků `$` a regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. `^` Následující tabulka obsahuje příklady a vysvětlení, proč se shodují nebo neshodují.
 
-| Výraz   | String    | Shoda | Komentář               |
+| Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
 | `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
@@ -1525,7 +1525,7 @@ Regulární výrazy používají oddělovače a tokeny podobné těm, které pou
 
 Regulární výrazy používané v směrování často začínají znakem stříšky`^`() a odpovídají počáteční pozici řetězce. Výrazy se často končí znakem dolaru (`$`) a koncem řetězce. Znaky `^` a`$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez znaků `$` a regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. `^` Následující tabulka obsahuje příklady a vysvětlení, proč se shodují nebo neshodují.
 
-| Výraz   | String    | Shoda | Komentář               |
+| Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
 | `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |

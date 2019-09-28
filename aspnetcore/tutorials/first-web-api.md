@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/27/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 5e5215f246c6c7a805a4c99f485d51a2fb3c712d
-ms.sourcegitcommit: cf9ffcce4fe0b69fe795aae9ae06e99fdb18bdfc
+ms.openlocfilehash: 366323416061bf729c092419f2f6a5912884252b
+ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306668"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71551722"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -58,7 +58,7 @@ Následující diagram znázorňuje návrh aplikace.
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
@@ -83,7 +83,7 @@ Následující diagram znázorňuje návrh aplikace.
 
    ```dotnetcli
    dotnet new webapi -o TodoApi
-   cd TodoAPI
+   cd TodoApi
    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
    dotnet add package Microsoft.EntityFrameworkCore.InMemory
    code -r ../TodoApi
@@ -96,7 +96,7 @@ Následující diagram znázorňuje návrh aplikace.
   * Vytvoří nový projekt webového rozhraní API a otevře ho v Visual Studio Code.
   * Přidá balíčky NuGet, které jsou nutné v další části.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Vyberte **soubor** > **nové řešení**.
 
@@ -137,7 +137,7 @@ Pokud se zobrazí dialogové okno s dotazem, pokud by měla důvěřovat certifi
 
 Stisknutím kláves Ctrl + F5 spusťte aplikaci. V prohlížeči přejděte na následující adrese URL: [ https://localhost:5001/WeatherForecast ](https://localhost:5001/WeatherForecast).
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Vyberte **Spustit** > **ladění** a spusťte aplikaci. Spuštění prohlížeče Visual Studio pro Mac a přejde na `https://localhost:<port>`, kde `<port>` je číslo portu náhodně vybrané. Vrátí chybu HTTP 404 (Nenalezeno). Připojit `/WeatherForecast` na adresu URL (změňte adresu URL na `https://localhost:<port>/WeatherForecast`).
 
@@ -271,8 +271,8 @@ Předchozí kód:
 * Vyberte možnost **kontroler API s akcemi, pomocí Entity Framework**a pak vyberte **Přidat**.
 * V dialogovém okně **Přidání kontroleru rozhraní API pomocí akcí Entity Framework** :
 
-  * V **třídě modelu**vyberte **TodoItem (TodoAPI. Models)** .
-  * Ve **třídě Context data**vyberte **TodoContext (TodoAPI. Models)** .
+  * V **třídě modelu**vyberte **TodoItem (TodoApi. Models)** .
+  * Ve **třídě Context data**vyberte **TodoContext (TodoApi. Models)** .
   * Vyberte **Přidat**
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
@@ -509,7 +509,7 @@ Následující diagram znázorňuje návrh aplikace.
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
@@ -541,7 +541,7 @@ Následující diagram znázorňuje návrh aplikace.
 
 * Pokud se zobrazí dialogové okno s dotazem, zda chcete přidat požadované prostředky do projektu, vyberte možnost **Ano**.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Vyberte **soubor** > **nové řešení**.
 
@@ -573,7 +573,7 @@ Pokud se zobrazí dialogové okno s dotazem, pokud by měla důvěřovat certifi
 
 Stisknutím kláves Ctrl + F5 spusťte aplikaci. V prohlížeči přejděte na následující adrese URL: [ https://localhost:5001/api/values ](https://localhost:5001/api/values).
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Vyberte **Spustit** > **ladění** a spusťte aplikaci. Spuštění prohlížeče Visual Studio pro Mac a přejde na `https://localhost:<port>`, kde `<port>` je číslo portu náhodně vybrané. Vrátí chybu HTTP 404 (Nenalezeno). Připojit `/api/values` na adresu URL (změňte adresu URL na `https://localhost:<port>/api/values`).
 
