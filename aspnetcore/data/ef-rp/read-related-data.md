@@ -4,14 +4,14 @@ author: tdykstra
 description: V tomto kurzu si přečtete a zobrazíte související data – to znamená data, která Entity Framework načíst do vlastností navigace.
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/22/2019
+ms.date: 09/28/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: f53f8edef7fe8690d0e414bc094d81dc99ad198a
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 02b52dee0b661ad26cd6fa9fea08fcea3d7dd9bd
+ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082093"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71592303"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>Razor Pages s EF Core ve ASP.NET Core – data související s čtením – 6 z 8
 
@@ -258,7 +258,7 @@ Předchozí kód provede následující změny:
   }
   ```
 
-* Přidá sloupec **kurzů** , ve kterém se zobrazují kurzy, které každý instruktor prodlužuje. Další informace o této syntaxi Razor naleznete v tématu [ `@:` explicitní přechod řádků](xref:mvc/views/razor#explicit-line-transition-with-) .
+* Přidá sloupec **kurzů** , ve kterém se zobrazují kurzy, které každý instruktor prodlužuje. Další informace o této syntaxi Razor naleznete v tématu [explicitní přechod mezi řádky](xref:mvc/views/razor#explicit-line-transition) .
 
 * Přidá kód, který dynamicky `class="success"` přidá `tr` do prvku vybraného instruktora a kurzu. Tím se nastaví barva pozadí pro vybraný řádek pomocí třídy Bootstrap.
 
@@ -527,7 +527,7 @@ Předchozí kód provede následující změny:
   }
   ```
 
-* Přidali jsme sloupec **kurzy** , ve kterém se zobrazují kurzy výukové každým instruktorem. Další informace o této syntaxi Razor naleznete v tématu [ `@:` explicitní přechod řádků](xref:mvc/views/razor#explicit-line-transition-with-) .
+* Přidali jsme sloupec **kurzy** , ve kterém se zobrazují kurzy výukové každým instruktorem. Další informace o této syntaxi Razor naleznete v tématu [explicitní přechod mezi řádky](xref:mvc/views/razor#explicit-line-transition) .
 
 * Přidaný kód, který `class="success"` dynamicky přidá `tr` do prvku vybraného instruktora. Tím se nastaví barva pozadí pro vybraný řádek pomocí třídy Bootstrap.
 
@@ -646,7 +646,7 @@ V dalším kurzu se dozvíte, jak aktualizovat související data.
 * [Verze tohoto kurzu pro YouTube (Část2)](https://www.youtube.com/watch?v=xvDDrIHv5ko)
 
 >[!div class="step-by-step"]
->[Předchozí](xref:data/ef-rp/complex-data-model)Další
->[](xref:data/ef-rp/update-related-data)
+>[Předchozí](xref:data/ef-rp/complex-data-model)
+>[Další](xref:data/ef-rp/update-related-data)
 
 ::: moniker-end

@@ -3,14 +3,14 @@ title: Referenční příručka syntaxe Razor pro ASP.NET Core
 author: rick-anderson
 description: Další informace o syntaxi Razor kód pro vložení do webových stránek kód založený na serveru.
 ms.author: riande
-ms.date: 09/19/2019
+ms.date: 09/28/2019
 uid: mvc/views/razor
-ms.openlocfilehash: 9a319f7efb6d879559afd9faca6955aba719fa2f
-ms.sourcegitcommit: e5a74f882c14eaa0e5639ff082355e130559ba83
+ms.openlocfilehash: 6f8835419dbf4c271617f57484c3408e0af30617
+ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71168303"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71592329"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -227,9 +227,9 @@ Tuto metodu použijte k vykreslení HTML, který není obklopený značky jazyka
 * Vykreslí se jenom obsah `<text>` mezi značkou.
 * Před nebo po `<text>` značce se ve výstupu HTML nezobrazí žádné prázdné znaky.
 
-### <a name="explicit-line-transition-with-colon"></a>Explicitní přechod na řádek s\@&colon;
+### <a name="explicit-line-transition"></a>Explicitní přechod řádku
 
-K vykreslení rest celý řádek jako kód HTML uvnitř bloku kódu, použijte `@:` syntaxi:
+Chcete-li vykreslit zbytek celého řádku jako HTML v bloku kódu, použijte syntaxi `@:`:
 
 ```cshtml
 @for (var i = 0; i < people.Length; i++)
