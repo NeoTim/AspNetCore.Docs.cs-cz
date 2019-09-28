@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 8/22/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 5861a8e353b8fac95ca51aca7b44a768d3c2ffb7
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: e503df3d81efbb2800503c0cb4ff5ae093b6e1ac
+ms.sourcegitcommit: 023495344053dc59115c80538f0ece935e7490a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71199060"
+ms.lasthandoff: 09/28/2019
+ms.locfileid: "71592354"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -169,7 +169,7 @@ Funkce pro `Newtonsoft.Json`formátovací moduly založené na službě se dají
 services.AddControllers().AddNewtonsoftJson(options =>
 {
     // Use the default property (Pascal) casing
-    options.SerializerSettings.ContractResolver = new DefautlContractResolver();
+    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
 
     // Configure a custom converter
     options.SerializerOptions.Converters.Add(new MyCustomJsonConverter());
