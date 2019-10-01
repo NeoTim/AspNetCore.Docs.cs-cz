@@ -4,14 +4,14 @@ author: rick-anderson
 description: Naučte se vytvářet webové rozhraní API pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/27/2019
+ms.date: 09/29/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 366323416061bf729c092419f2f6a5912884252b
-ms.sourcegitcommit: 5d25a7f22c50ca6fdd0f8ecd8e525822e1b35b7a
+ms.openlocfilehash: 7bb98fe5befa8eea80885d246da31ad87d5cfc2d
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71551722"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71691216"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -273,7 +273,7 @@ Předchozí kód:
 
   * V **třídě modelu**vyberte **TodoItem (TodoApi. Models)** .
   * Ve **třídě Context data**vyberte **TodoContext (TodoApi. Models)** .
-  * Vyberte **Přidat**
+  * Vyberte **Přidat**.
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -283,7 +283,7 @@ Spusťte následující příkazy:
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet tool install --global dotnet-aspnet-codegenerator
-dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext  -outDir Controllers
+dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
 ```
 
 Předchozí příkazy:
@@ -322,7 +322,7 @@ Tento kurz používá Postman k otestování webové rozhraní API.
 * Spusťte webovou aplikaci.
 * Spusťte Postman.
 * Zakázat **ověření certifikátu SSL**
-* Z **soubor > Nastavení** (**Obecné* kartu), zakažte **ověření certifikátu SSL**.
+* V **Nastavení** **souboru** > (karta**Obecné** ) zakažte **ověřování certifikátu SSL**.
     > [!WARNING]
     > Znovu povolte ověření certifikátu SSL po otestování kontroleru.
 
@@ -356,7 +356,7 @@ Tento kurz používá Postman k otestování webové rozhraní API.
   ![Karta hlavičky z konzoly nástroje Postman](first-web-api/_static/3/create.png)
 
 * Nastavte jako metodu GET.
-* Vložte identifikátor URI (například `https://localhost:5001/api/TodoItems/1`)
+* Vložte identifikátor URI (například `https://localhost:5001/api/TodoItems/1`).
 * Vyberte **Poslat**.
 
 ## <a name="examine-the-get-methods"></a>Projděte si metody GET.
@@ -404,7 +404,7 @@ Tato aplikace používá databázi v paměti. Pokud se aplikace zastaví a spust
 * Nahraďte `[controller]` s názvem kontroleru, který je název třídy kontroleru minus příponu "Kontroleru". V této ukázce je název třídy kontroleru **TodoItems**Controller, takže název kontroleru je "TodoItems". ASP.NET Core [směrování](xref:mvc/controllers/routing) velká a malá písmena.
 * `[HttpGet("products")]`Pokud má `[HttpGet]` atribut směrovací šablonu (například), přidejte ji k cestě. Tato ukázka nepoužívá šablony. Další informace najdete v tématu [atribut směrování pomocí protokolu Http [příkaz] atributy](xref:mvc/controllers/routing#attribute-routing-with-httpverb-attributes).
 
-V následujícím `GetTodoItem` metody `"{id}"` je proměnná zástupný symbol pro jedinečný identifikátor položky úkolů. Když `GetTodoItem` je vyvolána, hodnota `"{id}"` v adrese URL je k dispozici v metodě jeho`id` parametru.
+V následujícím `GetTodoItem` metody `"{id}"` je proměnná zástupný symbol pro jedinečný identifikátor položky úkolů. Když je vyvoláno `GetTodoItem`, hodnota `"{id}"` v adrese URL je poskytnuta metodě v parametru `id`.
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_GetByID&highlight=1-2)]
 
@@ -458,8 +458,8 @@ Projděte `DeleteTodoItem` si metodu:
 Pomocí nástroje Postman odstraňte položku úkolu:
 
 * Nastavte jako metodu `DELETE`.
-* Nastavte identifikátor URI objektu odstranit, například `https://localhost:5001/api/TodoItems/1`
-* Vyberte **odeslat**
+* Nastavte identifikátor URI objektu, který má být odstraněn (například `https://localhost:5001/api/TodoItems/1`).
+* Vyberte **Poslat**.
 
 ## <a name="call-the-web-api-with-javascript"></a>Volání webového rozhraní API pomocí JavaScriptu
 
@@ -741,10 +741,10 @@ Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult\<T > typ]
 
 Tento kurz používá Postman k otestování webové rozhraní API.
 
-* Nainstalujte [Postman](https://www.getpostman.com/downloads/)
+* Nainstalujte [post](https://www.getpostman.com/downloads/).
 * Spusťte webovou aplikaci.
 * Spusťte Postman.
-* Zakázat **ověření certifikátu SSL**
+* Zakáže **ověřování certifikátu SSL**.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -813,7 +813,7 @@ Předchozí kód je metoda HTTP POST, je určeno [[HttpPost]](/dotnet/api/micros
   ![Karta hlavičky z konzoly nástroje Postman](first-web-api/_static/pmc2.png)
 
 * Nastavte jako metodu GET.
-* Vložte identifikátor URI (například `https://localhost:5001/api/Todo/2`)
+* Vložte identifikátor URI (například `https://localhost:5001/api/Todo/2`).
 * Vyberte **Poslat**.
 
 ## <a name="add-a-puttodoitem-method"></a>Přidejte metodu PutTodoItem
@@ -857,8 +857,8 @@ Přidejte následující `DeleteTodoItem` metody:
 Pomocí nástroje Postman odstraňte položku úkolu:
 
 * Nastavte jako metodu `DELETE`.
-* Nastavte identifikátor URI objektu odstranit, například `https://localhost:5001/api/todo/1`
-* Vyberte **odeslat**
+* Nastavte identifikátor URI objektu, který má být odstraněn (například `https://localhost:5001/api/todo/1`).
+* Vyberte **Poslat**.
 
 Ukázková aplikace umožňuje odstranit všechny položky. Když je však poslední položka odstraněna, vytvoří se nový konstruktor třídy modelu při příštím volání rozhraní API.
 

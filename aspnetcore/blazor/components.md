@@ -5,14 +5,14 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 09/30/2019
 uid: blazor/components
-ms.openlocfilehash: 28e908968bd77c61da72d1bcc6032e580d15541b
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: ea216e405e5be52b578e99a529d8c6a726ea9cdd
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207269"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71688033"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -192,7 +192,7 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `
 
 `CaptureUnmatchedValues` Vlastnost on`[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný pomocí `CaptureUnmatchedValues` musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
 
-## <a name="data-binding"></a>Datová vazba
+## <a name="data-binding"></a>Vytváření datových vazeb
 
 Datové vazby na součásti a elementy modelu DOM jsou provedeny [@bind](xref:mvc/views/razor#bind) atributem. V následujícím příkladu je svázáno `_italicsCheck` pole se zaškrtnutým stavem zaškrtávací políčko:
 
@@ -440,7 +440,7 @@ V následujícím příkladu `UpdateHeading` se volá asynchronně po výběru t
 
 U některých událostí jsou povoleny typy argumentů události. Pokud přístup k některému z těchto typů událostí není nezbytný, není nutné ve volání metody.
 
-Podporovaná vlastnost [EventArgs](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web) je uvedena v následující tabulce.
+Podporované `EventArgs` jsou uvedeny v následující tabulce.
 
 | Událost | Třída |
 | ----- | ----- |
@@ -456,7 +456,7 @@ Podporovaná vlastnost [EventArgs](https://github.com/aspnet/AspNetCore/tree/rel
 | Průběh         | `ProgressEventArgs` |
 | Dotykové ovládání            | `TouchEventArgs`&ndash; představujejedenkontaktníbodnazařízenícitlivém`TouchPoint` na dotykové ovládání. |
 
-Informace o vlastnostech a chování zpracování událostí v předchozí tabulce naleznete v tématu [třídy EventArgs v referenčním zdroji (ASPNET/AspNetCore Release/3.0-preview9)](https://github.com/aspnet/AspNetCore/tree/release/3.0-preview9/src/Components/Web/src/Web).
+Informace o vlastnostech a chování zpracování událostí událostí v předchozí tabulce naleznete v tématu [třídy EventArgs ve zdroji referencí (ASPNET/AspNetCore Release/3.0)](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web).
 
 ### <a name="lambda-expressions"></a>Výrazy lambda
 
@@ -1382,7 +1382,7 @@ V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `
 }
 ```
 
-> ! Upozornění Typy v `Microsoft.AspNetCore.Components.RenderTree` nástroji umožňují zpracování *výsledků* operací vykreslování. Jedná se o interní podrobnosti implementace Blazor Framework. Tyto typy by měly být považovány za *nestabilní* a mohou se změnit v budoucích verzích.
+> ! Upozornění Typy v `Microsoft.AspNetCore.Components.RenderTree` umožňují zpracování *výsledků* operací vykreslování. Jedná se o interní podrobnosti implementace Blazor Framework. Tyto typy by měly být považovány za *nestabilní* a mohou se změnit v budoucích verzích.
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>Pořadová čísla se vztahují na čísla řádků kódu a nikoli na pořadí provádění.
 
@@ -1414,14 +1414,14 @@ builder.AddContent(1, "Second");
 
 V případě, že se kód spustí poprvé, v `someFlag` případě `true`, že je, tvůrce obdrží:
 
-| Sequence | type      | Data   |
+| Pořadí | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | Sekunda |
 
 Představte `false`si, že `someFlag` se zobrazí a značka se znovu vykreslí. Tentokrát Tvůrce získá:
 
-| Sequence | type       | Data   |
+| Pořadí | type       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Textový uzel  | Sekunda |
 
@@ -1446,14 +1446,14 @@ builder.AddContent(seq++, "Second");
 
 Teď je první výstup:
 
-| Sequence | type      | Data   |
+| Pořadí | type      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | Sekunda |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag`je `false` ve druhém vykreslování a výstup je:
 
-| Sequence | type      | Data   |
+| Pořadí | type      | Data   |
 | :------: | --------- | ------ |
 | 0        | Textový uzel | Sekunda |
 
@@ -1514,7 +1514,7 @@ Lokalizace se zpracovává v aplikaci:
 
 1. Prohlížeč pošle do aplikace počáteční požadavek HTTP.
 1. Jazyková verze je přiřazena pomocí middleware Localization.
-1. Metoda v *_Host. cshtml. cs* uchovává v rámci odpovědi jazykovou verzi v souboru cookie. `OnGet`
+1. Metoda `OnGet` v *_Host. cshtml. cs* uchovává v rámci odpovědi jazykovou verzi v souboru cookie.
 1. Prohlížeč otevře připojení pomocí protokolu WebSocket a vytvoří interaktivní relaci serveru Blazor.
 1. Middleware lokalizace přečte soubor cookie a přiřadí jazykovou verzi.
 1. Relace serveru Blazor začíná správnou jazykovou verzí.

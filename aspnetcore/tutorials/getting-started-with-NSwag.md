@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/21/2019
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: cdaa5aff3007030c70bc959bbf07903bdf39e736
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 5e62a8cc50947969d42981350b65a24781929d62
+ms.sourcegitcommit: fe88748b762525cb490f7e39089a4760f6a73a24
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082436"
+ms.lasthandoff: 09/30/2019
+ms.locfileid: "71691187"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme s NSwag a ASP.NET Core
 
@@ -64,7 +64,7 @@ K instalaci balíčku NuGet NSwag použijte jeden z následujících přístupů
   * Do vyhledávacího pole zadejte "NSwag. AspNetCore".
   * Na kartě **Procházet** vyberte balíček NSwag. AspNetCore a klikněte na **nainstalovat** .
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení** > **Přidat balíčky...**
 * Nastavte rozevírací seznam pro **zdroj** okna **Přidat balíčky** na "NuGet.org".
@@ -104,7 +104,7 @@ Můžete využít možnosti generování kódu NSwag výběrem jedné z následu
 * [NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio) Desktopová aplikace pro Windows pro generování kódu klienta rozhraní C# API v nástroji nebo TypeScript. &ndash;
 * Balíčky NuGet [NSwag. strategii. CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) nebo [NSwag. strategii. TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) pro generování kódu v rámci projektu.
 * NSwag z [příkazového řádku](https://github.com/RicoSuter/NSwag/wiki/CommandLine).
-* Balíček NuGet [NSwag. MSBuild](https://github.com/RicoSuter/NSwag/wiki/MSBuild)
+* Balíček NuGet [NSwag. MSBuild](https://github.com/RicoSuter/NSwag/wiki/NSwag.MSBuild)
 * Připojená služba &ndash; sady Visual Studio [Unchase openapi (Swagger)](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice) pro vygenerování kódu klienta rozhraní API v C# nástroji nebo TypeScript. Také generuje C# řadiče pro služby openapi Services pomocí NSwag.
 
 ### <a name="generate-code-with-nswagstudio"></a>Generování kódu pomocí NSwagStudio
@@ -211,7 +211,7 @@ Chcete-li povolit komentáře XML, proveďte následující kroky:
 
 ::: moniker-end
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
