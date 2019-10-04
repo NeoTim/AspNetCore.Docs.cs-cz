@@ -122,13 +122,8 @@
               uid: data/ef-rp/update-related-data
             - name: Zpracování konfliktů souběžnosti
               uid: data/ef-rp/concurrency
-        - name: 'EF Core s MVC, existující databáze'
+        - name: EF Core s MVC
           displayName: tutorial
-          href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: 'EF Core s MVC, nová databáze'
-          displayName: tutorial
-          href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: 'EF Core s MVC, 10 kurzů'
           items:
             - name: Přehled
               uid: data/ef-mvc/index
@@ -231,8 +226,6 @@
           uid: razor-pages/filter
         - name: Směrování a aplikační konvence
           uid: razor-pages/razor-pages-conventions
-        - name: Nahrání souborů
-          uid: razor-pages/upload-files
         - name: Sada Razor SDK
           uid: razor-pages/sdk
     - name: MVC
@@ -271,8 +264,6 @@
           uid: mvc/controllers/actions
         - name: Směrování
           uid: mvc/controllers/routing
-        - name: Nahrání souborů
-          uid: mvc/models/file-uploads
         - name: Injektáž závislostí – kontrolery
           uid: mvc/controllers/dependency-injection
         - name: Injektáž závislostí – zobrazení
@@ -418,6 +409,8 @@
           uid: mvc/controllers/filters
         - name: Oblasti
           uid: mvc/controllers/areas
+        - name: Nahrání souborů
+          uid: mvc/models/file-uploads
         - name: Součásti aplikace
           uid: mvc/extensibility/app-parts
         - name: aspnet-codegenerator
@@ -632,11 +625,7 @@
               uid: data/ef-rp/update-related-data
             - name: Zpracování konfliktů souběžnosti
               uid: data/ef-rp/concurrency
-        - name: 'EF Core s MVC, nová databáze'
-          href: /ef/core/get-started/aspnetcore/new-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: 'EF Core s MVC, existující databáze'
-          href: /ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: 'EF Core s MVC, 10 kurzů'
+        - name: EF Core s MVC
           items:
             - name: Přehled
               uid: data/ef-mvc/index
