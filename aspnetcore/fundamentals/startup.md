@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/7/2019
 uid: fundamentals/startup
-ms.openlocfilehash: 47194f786b2d32fb343e8f1078a4400d6db37293
-ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
+ms.openlocfilehash: 0ea3965f73f4b0334810bc9ec2910b0c9364a7ba
+ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71248338"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71942872"
 ---
 # <a name="app-startup-in-aspnet-core"></a>Spuštění aplikace v ASP.NET Core
 
@@ -192,7 +192,10 @@ Ke konfiguraci služeb a kanálu zpracování požadavků bez použití třídy 
 
 ## <a name="extend-startup-with-startup-filters"></a>Rozšíření třídy Startup pomocí filtrů po spuštění
 
-Využijte <xref:Microsoft.AspNetCore.Hosting.IStartupFilter> pro konfiguraci middlewaru na začátku a na konci [konfigurační](#the-configure-method) middlewarového kanálu vaší aplikace. `IStartupFilter`slouží k vytvoření kanálu `Configure` metod. [IStartupFilter. Configure](xref:Microsoft.AspNetCore.Hosting.IStartupFilter.Configure*) může nastavit middleware pro spuštění před nebo po middlewaru přidaném knihovnami.
+Použít <xref:Microsoft.AspNetCore.Hosting.IStartupFilter>:
+
+* Konfigurace middlewaru na začátku nebo na konci kanálu [Konfigurace](#the-configure-method) middlewaru aplikace bez explicitního volání `Use{Middleware}`. `IStartupFilter` používá ASP.NET Core k přidání výchozích hodnot na začátek kanálu, aniž by bylo nutné, aby autor aplikace explicitně zaregistroval výchozí middleware. `IStartupFilter` povolí jiné volání komponent `Use{Middleware}` jménem autora aplikace.
+* Vytvoření kanálu metod `Configure`. [IStartupFilter. Configure](xref:Microsoft.AspNetCore.Hosting.IStartupFilter.Configure*) může nastavit middleware pro spuštění před nebo po middlewaru přidaném knihovnami.
 
 `IStartupFilter`implementuje <xref:Microsoft.AspNetCore.Hosting.StartupBase.Configure*>, které přijímá a `Action<IApplicationBuilder>`vrací. <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> definuje třídu pro konfiguraci kanálu zpracování požadavků vaší aplikace. Další informace naleznete v tématu [Vytvoření kanálu middlewaru s IApplicationBuilder](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder).
 

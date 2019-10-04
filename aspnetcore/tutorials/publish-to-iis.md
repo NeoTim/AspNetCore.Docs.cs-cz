@@ -5,14 +5,14 @@ description: Naučte se hostovat aplikaci ASP.NET Core na serveru IIS.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/08/2019
+ms.date: 10/03/2019
 uid: tutorials/publish-to-iis
-ms.openlocfilehash: 4ac7b3a2f738e443263dd888f556e0aff7c8099b
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 820527cc15f883c906d2fdf1c073d443a5b3b40e
+ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082381"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71942888"
 ---
 # <a name="publish-an-aspnet-core-app-to-iis"></a>Publikování aplikace ASP.NET Core ve službě IIS
 
@@ -43,7 +43,7 @@ Tento kurz se zabývá následujícími tématy:
 
 ## <a name="install-the-net-core-hosting-bundle"></a>Instalace .NET Core, který je hostitelem svazku
 
-Na server IIS nainstalujte *hostující sadu .NET Core* . Nainstaluje sady .NET Core Runtime, knihovny .NET Core a [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Povolí modul ASP.NET Core aplikací ke spuštění za služby IIS. Pokud systém nemá připojení k Internetu, získejte a nainstalujte [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/download/details.aspx?id=53840) před instalací sady hostování rozhraní .NET Core.
+Na server IIS nainstalujte *hostující sadu .NET Core* . Nainstaluje sady .NET Core Runtime, knihovny .NET Core a [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Povolí modul ASP.NET Core aplikací ke spuštění za služby IIS.
 
 Stažení instalačního programu pomocí následujícího odkazu:
 
@@ -90,7 +90,7 @@ Pokud chcete vytvořit aplikaci Razor Pages, postupujte podle kurzu.<xref:gettin
 
 1. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 1. Klikněte pravým tlačítkem na projekt v **řešení** a vyberte **publikovat** > **publikovat do složky**.
 1. Nastavte cestu ke **složce** .

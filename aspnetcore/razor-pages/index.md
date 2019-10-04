@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 09/19/2019
 uid: razor-pages/index
-ms.openlocfilehash: bccdd7e5c1c90dd76ca1b788dbf09000c5cbe14b
-ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
+ms.openlocfilehash: 63938b0347dc698a67f2ba8c083097c55c6c9c66
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71256190"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925281"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor Pages v ASP.NET Core
 
@@ -35,7 +35,7 @@ Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. 
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
@@ -53,7 +53,7 @@ Podrobné pokyny k vytvoření projektu Razor Pages najdete v tématu [Začíná
 
 Spusťte `dotnet new webapp` příkaz z příkazového řádku.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Spusťte `dotnet new webapp` příkaz z příkazového řádku.
 
@@ -185,7 +185,7 @@ V předchozím kódu vyúčtováním formuláře:
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Create.cshtml.cs?name=snippet_PageModel&highlight=15-16)]
 
-`[BindProperty]`neměl **by se** používat pro modely obsahující vlastnosti, které by klient neměl měnit. Další informace najdete v tématu o [přeúčtování](xref:data/ef-rp/crud#overposting) .
+`[BindProperty]`neměl **by se** používat pro modely obsahující vlastnosti, které by klient neměl měnit. Další informace najdete v tématu [přestavení](xref:data/ef-rp/crud#overposting).
 
 Razor Pages ve výchozím nastavení vlastnosti BIND pouze s jinými než`GET` slovesy. Vazba na vlastnosti odstraní nutnost psaní kódu pro převod dat HTTP na typ modelu. Vazba zkracuje kód pomocí stejné vlastnosti pro vykreslení polí formuláře (`<input asp-for="Customer.Name">`) a přijměte vstup.
 
@@ -298,7 +298,7 @@ Vezměte v úvahu `Movie` následující model:
 
 Atributy ověřování určují chování, které se má vyhovět pro vlastnosti modelu, na které se aplikují:
 
-* Atributy `Required` a`MinimumLength` označují, že vlastnost musí mít hodnotu, ale nic nebrání uživateli v zadání prázdného místa pro splnění tohoto ověření.
+* Atributy `Required` a `MinimumLength` označují, že vlastnost musí mít hodnotu, ale nic nebrání uživateli v zadání prázdného místa pro splnění tohoto ověření.
 * `RegularExpression` Atribut slouží k omezení znaků, které lze zadat. V předchozím kódu "Žánr":
 
   * Je nutné použít pouze písmena.
@@ -317,7 +317,7 @@ Stránka vytvořit pro `Movie` model zobrazuje chyby s neplatnými hodnotami:
 
 ![Formulář zobrazení videa s několika chybami ověřování na straně klienta jQuery](~/tutorials/razor-pages/validation/_static/val.png)
 
-Další informace naleznete v tématu:
+Další informace naleznete v tématu:
 
 * [Přidání ověření do aplikace Movie](xref:tutorials/razor-pages/validation)
 * [Ověřování modelu v ASP.NET Core](xref:mvc/models/validation).
@@ -336,13 +336,13 @@ Razor Pages se vrátí k volání `OnGet` obslužné rutiny, pokud není definov
 
 ## <a name="xsrfcsrf-and-razor-pages"></a>XSRF/CSRF a Razor Pages
 
-Razor Pages jsou chráněny[ověřováním proti padělání](xref:security/anti-request-forgery). [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) vloží tokeny proti padělání do prvků formuláře HTML.
+Razor Pages jsou chráněny [ověřováním proti padělání](xref:security/anti-request-forgery). [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) vloží tokeny proti padělání do prvků formuláře HTML.
 
 <a name="layout"></a>
 
 ## <a name="using-layouts-partials-templates-and-tag-helpers-with-razor-pages"></a>Použití rozložení, částečných, šablon a značek pomocníků s Razor Pages
 
-Stránky fungují se všemi možnostmi modulu zobrazení Razor. Rozložení, částečné typy, šablony, pomocníka značek, *_ViewStart. cshtml*, *_ViewImports. cshtml* fungují stejným způsobem jako u konvenčních zobrazení Razor.
+Stránky fungují se všemi možnostmi modulu zobrazení Razor. Rozložení, částečné typy, šablony, pomocníka značek, *_ViewStart. cshtml*a *_ViewImports. cshtml* fungují stejným způsobem jako u tradičních zobrazení Razor.
 
 Pojďme tuto stránku obstarit tím, že využijete některé z těchto možností.
 
@@ -356,7 +356,7 @@ Přidat [stránku rozložení](xref:mvc/views/layout) na *stránky/Shared/_Layou
 * Importuje struktury HTML, jako jsou JavaScript a StyleSheet.
 * Obsah stránky Razor se vykreslí tam, kde `@RenderBody()` je volána metoda.
 
-Další informace najdete v tématu [rozložení stránky](xref:mvc/views/layout)...
+Další informace najdete v tématu [rozložení stránky](xref:mvc/views/layout).
 
 Vlastnost [layout](xref:mvc/views/layout#specifying-a-layout) je nastavena na *stránce Pages/_ViewStart. cshtml*:
 
@@ -384,7 +384,7 @@ Přidejte soubor *Pages/_ViewImports. cshtml* :
 
 `@namespace` Direktiva nastaví obor názvů pro stránku. `@model` Direktiva nemusí zahrnovat obor názvů.
 
-Pokud je `@namespace` direktiva obsažena v *_ViewImports. cshtml*, zadaný obor názvů poskytuje předponu pro generovaný obor názvů na stránce, která importuje direktivu. `@namespace` Zbytek generovaného oboru názvů (část přípony) je relativní cesta oddělená tečkou mezi složkou obsahující *_ViewImports. cshtml* a složkou obsahující stránku.
+Pokud je direktiva `@namespace` obsažena v *_ViewImports. cshtml*, zadaný obor názvů poskytuje předponu pro generovaný obor názvů na stránce, která importuje direktivu `@namespace`. Zbytek generovaného oboru názvů (část přípony) je relativní cesta oddělená tečkou mezi složkou obsahující *_ViewImports. cshtml* a složkou obsahující stránku.
 
 Například `PageModel` třídy *Pages/Customers/Edit. cshtml. cs* explicitně nastaví obor názvů:
 
@@ -474,7 +474,7 @@ Další informace naleznete v tématu <xref:mvc/controllers/areas> a <xref:razo
 
 ## <a name="viewdata-attribute"></a>ViewData – atribut
 
-Data je možné předat stránce pomocí <xref:Microsoft.AspNetCore.Mvc.ViewDataAttribute>. Vlastnosti s atributem [ViewData] mají své hodnoty uložené a načtené z <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary>.
+Data je možné předat stránce pomocí <xref:Microsoft.AspNetCore.Mvc.ViewDataAttribute>. Vlastnosti s atributem `[ViewData]` mají své hodnoty uložené a načtené z <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary>.
 
 V následujícím příkladu `AboutModel` `[ViewData]` použije atribut na `Title` vlastnost:
 
@@ -527,7 +527,7 @@ Model stránky *Pages/Customers/index. cshtml. cs* aplikuje `[TempData]` atribut
 public string Message { get; set; }
 ```
 
-Další informace najdete v tématu [TempData](xref:fundamentals/app-state#tempdata) .
+Další informace najdete v tématu [TempData](xref:fundamentals/app-state#tempdata).
 
 <a name="mhpp"></a>
 
@@ -579,7 +579,7 @@ Chcete-li konfigurovat pokročilé možnosti, použijte metodu <xref:Microsoft.E
 
 <xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions> Pomocí můžete nastavit kořenový adresář pro stránky nebo přidat konvence modelu aplikace pro stránky. Další informace o konvencích najdete v tématu [Razor Pages autorizačních konvencí](xref:security/authorization/razor-pages-authorization).
 
-Chcete-li předkompilovat zobrazení, přečtěte si téma [kompilace zobrazení Razor](xref:mvc/views/view-compilation) .
+Chcete-li předkompilovat zobrazení, přečtěte si téma [kompilace zobrazení Razor](xref:mvc/views/view-compilation).
 
 ### <a name="specify-that-razor-pages-are-at-the-content-root"></a>Zadejte, že Razor Pages jsou v kořenu obsahu.
 
@@ -595,8 +595,8 @@ Přidat <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuild
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* Další informace najdete v tématu [Začínáme s Razor Pages](xref:tutorials/razor-pages/razor-pages-start), který sestává z tohoto úvodního sestavení.
-* [Stažení nebo zobrazení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/index/3.0sample).
+* Další informace najdete v tématu [Začínáme s Razor Pages, který sestává](xref:tutorials/razor-pages/razor-pages-start)z tohoto úvodního sestavení.
+* [Stáhnout nebo zobrazit ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/index/3.0sample)
 * <xref:index>
 * <xref:mvc/views/razor>
 * <xref:mvc/controllers/areas>
@@ -628,7 +628,7 @@ Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. 
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
@@ -642,7 +642,7 @@ Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. 
 
 Podrobné pokyny k vytvoření projektu Razor Pages najdete v tématu [Začínáme s Razor Pages](xref:tutorials/razor-pages/razor-pages-start) .
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Spusťte `dotnet new webapp` příkaz z příkazového řádku.
 
@@ -903,7 +903,7 @@ V případě explicitního použití direktivynastránce:`@namespace`
 
 Direktiva nastaví obor názvů pro stránku. `@model` Direktiva nemusí zahrnovat obor názvů.
 
-Pokud je `@namespace` direktiva obsažena v *_ViewImports. cshtml*, zadaný obor názvů poskytuje předponu pro generovaný obor názvů na stránce, která importuje direktivu. `@namespace` Zbytek generovaného oboru názvů (část přípony) je relativní cesta oddělená tečkou mezi složkou obsahující *_ViewImports. cshtml* a složkou obsahující stránku.
+Pokud je direktiva `@namespace` obsažena v *_ViewImports. cshtml*, zadaný obor názvů poskytuje předponu pro generovaný obor názvů na stránce, která importuje direktivu `@namespace`. Zbytek generovaného oboru názvů (část přípony) je relativní cesta oddělená tečkou mezi složkou obsahující *_ViewImports. cshtml* a složkou obsahující stránku.
 
 Například `PageModel` třídy *Pages/Customers/Edit. cshtml. cs* explicitně nastaví obor názvů:
 

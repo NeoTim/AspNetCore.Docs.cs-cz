@@ -5,14 +5,14 @@ description: Pochopení modelů hostování serverů Blazor a Blazor pro WebAsse
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/03/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 766b52df82f75ea1223e20d8471faa5732311f91
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: bc3ad9c7c4731b685fc161844d9f55e51722c0ea
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207239"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924676"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core modely hostování Blazor
 
@@ -133,11 +133,14 @@ Blazor serverové aplikace by měly být optimalizované pro minimalizaci latenc
 
 Serverové aplikace Blazor vyžadují připojení aktivního signálu k serveru. Pokud dojde ke ztrátě připojení, aplikace se pokusí znovu připojit k serveru. Pokud je stav klienta stále v paměti, klientská relace pokračuje bez ztráty stavu.
 
-Když klient zjistí, že došlo ke ztrátě připojení, zobrazí se uživateli výchozí uživatelské rozhraní, zatímco se klient pokusí znovu připojit. Pokud se opětovné připojení nepovede, uživateli se zobrazí možnost opakovat akci. Chcete-li přizpůsobit uživatelské rozhraní, definujte element `components-reconnect-modal` s jako `id` svůj na stránce *_Host. cshtml* Razor. Klient aktualizuje tento prvek pomocí jedné z následujících tříd šablony stylů CSS na základě stavu připojení:
+Když klient zjistí, že došlo ke ztrátě připojení, zobrazí se uživateli výchozí uživatelské rozhraní, zatímco se klient pokusí znovu připojit. Pokud se opětovné připojení nepovede, uživateli se zobrazí možnost opakovat akci. Chcete-li přizpůsobit uživatelské rozhraní, definujte element s `components-reconnect-modal` jako jeho `id` na stránce *_Host. cshtml* Razor. Klient aktualizuje tento prvek pomocí jedné z následujících tříd šablony stylů CSS na základě stavu připojení:
 
-* `components-reconnect-show`&ndash; Zobrazit uživatelské rozhraní, které indikuje, že připojení bylo ztraceno a klient se pokouší znovu připojit.
+* `components-reconnect-show` &ndash; zobrazí uživatelské rozhraní pro indikaci ztraceného připojení a klient se pokouší znovu připojit.
 * `components-reconnect-hide`&ndash; Klient má aktivní připojení, skryje uživatelské rozhraní.
-* `components-reconnect-failed`&ndash; Opětovné připojení se nezdařilo. Chcete-li se znovu pokusit `window.Blazor.reconnect()`o opětovné připojení, zavolejte.
+* `components-reconnect-failed` &ndash; opětovné připojení selhalo, pravděpodobně kvůli selhání sítě. Chcete-li se pokusit o opětovné připojení, zavolejte `window.Blazor.reconnect()`.
+* `components-reconnect-rejected` &ndash; opětovné připojení bylo zamítnuto. Server byl dosažen, ale odmítl připojení a stav uživatele na serveru zmizí. Chcete-li aplikaci znovu načíst, zavolejte `location.reload()`. Tento stav připojení může mít za následek:
+  * Dojde k chybě v okruhu (kód na straně serveru).
+  * Klient je dostatečně odpojený, aby server vynechal stav uživatele. Instance komponent, se kterými uživatel spolupracuje, jsou vyřazeny.
 
 ### <a name="stateful-reconnection-after-prerendering"></a>Stav opětovného připojení po předvykreslování
 

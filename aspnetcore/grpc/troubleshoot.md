@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 09/21/2019
 uid: grpc/troubleshoot
-ms.openlocfilehash: 15377ba4b31ce9319df300b23e5a95c67bca7db4
-ms.sourcegitcommit: 04ce94b3c1b01d167f30eed60c1c95446dfe759d
+ms.openlocfilehash: c31f499b008cdec9d759e804b18965156ca99f30
+ms.sourcegitcommit: d8b12cc1716ee329d7bd2300e201b61e15d506ac
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/21/2019
-ms.locfileid: "71176507"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71942893"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>Řešení potíží s gRPC pro .NET Core
 
@@ -151,3 +151,21 @@ Klientská aplikace gRPC, která provádí volání gRPC, potřebuje jenom konkr
   <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
 </ItemGroup>
 ```
+
+## <a name="wpf-projects-unable-to-generated-grpc-c-assets-from-proto-files"></a>Projekty WPF nemohly vygenerovat gRPC C# prostředky z *@no__t -2. soubory.*
+
+Projekty WPF mají [známý problém](https://github.com/dotnet/wpf/issues/810) , který brání správnému fungování generování kódu gRPC. Všechny typy gRPC generované v projektu WPF odkazem na `Grpc.Tools` a *. proto* soubory vytvoří chyby kompilace při použití:
+
+> Chyba CS0246: Typ nebo název oboru názvů ' MyGrpcServices ' nebyl nalezen (nechybí Direktiva using nebo odkaz na sestavení?)
+
+Tento problém můžete vyřešit pomocí těchto potíží:
+
+1. Vytvořte nový projekt knihovny tříd .NET Core.
+2. V novém projektu přidejte odkazy pro povolení [ C# generování kódu z *@no__t -3.* a soubory:
+    * Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .
+    * Do`<Protobuf>` skupiny položek přidejte *\*soubory..* .
+3. V aplikaci WPF přidejte odkaz na nový projekt.
+
+Aplikace WPF může použít gRPC generované typy z nového projektu knihovny tříd.
+
+[!INCLUDE[](~/includes/gRPCazure.md)]

@@ -5,14 +5,14 @@ description: Tento článek obsahuje odkazy na hostitele Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/28/2019
+ms.date: 10/02/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 7489868fac513948cbe6f48391e7260a34b2175e
-ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
+ms.openlocfilehash: bda4923adb0f9769f883ef64f7902c8650308222
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/01/2019
-ms.locfileid: "71703755"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924891"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
@@ -292,7 +292,7 @@ Použijte nástroje sady Visual Studio nebo rozhraní příkazového řádku (CL
 1. Z příkazového prostředí publikujte aplikaci v konfiguraci vydání pro modul runtime hostitele pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) . V následujícím příkladu je aplikace publikována pro `win-x86` identifikátor RID. Identifikátor RID zadaný do `--runtime` možnosti musí být uveden `<RuntimeIdentifier>` ve vlastnosti (nebo `<RuntimeIdentifiers>`) v souboru projektu.
 
    ```console
-   dotnet publish --configuration Release --runtime win-x86
+   dotnet publish --configuration Release --runtime win-x86 --self-contained
    ```
 
 1. Přesuňte obsah složky *bin/Release/{Target Framework}/{runtime identifikátor}/Publish* do lokality v App Service. Pokud přetáhnete obsah složky pro *publikování* z místního pevného disku nebo sdílené síťové složky přímo do App Service v konzole Kudu, přetáhněte soubory do `D:\home\site\wwwroot` složky v konzole Kudu.

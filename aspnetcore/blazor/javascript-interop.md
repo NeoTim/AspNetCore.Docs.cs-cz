@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/23/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: 2b5d1433fce6e09adf3caa58e55e678b00ad98ee
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: b30bce6ef3ebf1cd2f4f3fe8d046e1db9b6929d5
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211655"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924650"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core interoperability JavaScriptu pro Blazor
 
@@ -38,7 +38,7 @@ Pro aplikace Blazor serveru:
 
 Následující příklad je založen na [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder), experimentálním dekodéru založeném na JavaScriptu. Příklad ukazuje, jak vyvolat funkci JavaScriptu z C# metody. Funkce JavaScriptu přijímá bajtové pole z C# metody, dekóduje pole a vrátí text do komponenty k zobrazení.
 
-Uvnitř prvku wwwroot/index.html (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci, která používá `TextDecoder` k dekódování předaného pole: `<head>`
+Uvnitř elementu `<head>` prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci, která používá `TextDecoder` k dekódování předaného pole:
 
 [!code-html[](javascript-interop/samples_snapshot/index-script.html)]
 
@@ -81,7 +81,7 @@ V ukázkové aplikaci na straně klienta, která doprovází toto téma, jsou k 
 
 [!code-javascript[](./common/samples/3.x/BlazorSample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-Umístěte značku, která odkazuje na soubor JavaScriptu, v souboru wwwroot/index.html (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor). `<script>`
+Umístěte značku `<script>`, která odkazuje na soubor JavaScriptu v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor).
 
 *wwwroot/index.html* (Blazor WebAssembly):
 
@@ -139,7 +139,7 @@ Následující příklad ukazuje, jak zachytit odkaz na `username` `<input>` prv
 ```
 
 > [!NOTE]
-> Nepoužívejte **odkazy** zachycených prvků jako způsob naplnění nebo manipulace s modelem DOM, pokud Blazor komunikuje s prvky, na které odkazuje. V takovém případě může dojít k narušování deklarativního vykreslovacího modelu.
+> Nepoužívejte **odkazy** zachycených prvků jako způsob naplnění modelu DOM. V takovém případě může dojít k narušování deklarativního vykreslovacího modelu.
 
 Pokud se jedná o kód .NET, `ElementReference` je neprůhledný popisovač. *Jediná* věc, kterou můžete udělat `ElementReference` , je předat do kódu JavaScriptu prostřednictvím interoperability JavaScript. Když to uděláte, kód na straně JavaScriptu obdrží `HTMLElement` instanci, kterou může použít s normálními rozhraními API DOM.
 

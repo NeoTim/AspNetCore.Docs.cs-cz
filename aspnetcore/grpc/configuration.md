@@ -7,12 +7,12 @@ ms.author: jamesnk
 ms.custom: mvc
 ms.date: 09/05/2019
 uid: grpc/configuration
-ms.openlocfilehash: 42574b43b4751efc37ff3a827716df4cb8130842
-ms.sourcegitcommit: 0365af91518004c4a44a30dc3a8ac324558a399b
+ms.openlocfilehash: 3ef92f10d914ef9fa3e13a7bdd5c863bab297f57
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71199083"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925209"
 ---
 # <a name="grpc-for-net-configuration"></a>Konfigurace gRPC pro .NET
 
@@ -57,6 +57,8 @@ Následující kód:
 * Vytvoří klienta.
 
 [!code-csharp[](~/grpc/configuration/sample/Program.cs?name=snippet&highlight=3-8)]
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ## <a name="additional-resources"></a>Další zdroje
 

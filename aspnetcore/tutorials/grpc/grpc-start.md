@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 8/26/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 8c0f57e69d4cdee5b5f5510d7db04991ed6df475
-ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
+ms.openlocfilehash: 9eeb71ca751005780560f0f2200edc2013541c34
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71250825"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925227"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření klienta a serveru gRPC v ASP.NET Core
 
@@ -40,7 +40,7 @@ V tomto kurzu se naučíte:
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
@@ -78,7 +78,7 @@ V tomto kurzu se naučíte:
   Zobrazí se dialogové okno s **požadovanými prostředky pro sestavení a ladění chybí v ' GrpcGreeter '. Přidat je?**
 * Vyberte **Ano**.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Z terminálu spusťte následující příkazy:
 
@@ -107,7 +107,7 @@ V aplikaci Visual Studio vyberte **soubor** > **otevřít**a potom vyberte soubo
 
 * Spusťte projekt gRPC Greeter *GrpcGreeter* z příkazového řádku pomocí `dotnet run`příkazu.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Spusťte projekt gRPC Greeter *GrpcGreeter* z příkazového řádku pomocí `dotnet run`příkazu.
 
@@ -158,7 +158,7 @@ Soubory projektu *GrpcGreeter* :
   code -r GrpcGreeterClient
   ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 Postupujte podle pokynů v tématu vytvoření [kompletního řešení .NET Core na MacOS pomocí Visual Studio pro Mac](/dotnet/core/tutorials/using-on-mac-vs-full-solution) k vytvoření konzolové aplikace s názvem *GrpcGreeterClient*.
 
@@ -206,7 +206,7 @@ dotnet add GrpcGreeterClient.csproj package Google.Protobuf
 dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na složku **balíčky** v **oblast řešení** > **Přidat balíčky** .
 * Do vyhledávacího pole zadejte **Grpc .NET. Client** .
@@ -229,7 +229,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   Vyberte soubor *GrpcGreeterClient. csproj* .
 
-  # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+  # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
   Klikněte pravým tlačítkem na projekt a vyberte **nástroje** > **Upravit soubor**.
 
@@ -277,7 +277,7 @@ Klient Greeter volá asynchronní `SayHello` metodu. Zobrazí se výsledek `SayH
 * Spusťte klienta.
 
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
 
 * Spusťte službu Greeter.
 * Spusťte klienta.
@@ -314,6 +314,8 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 
 > [!NOTE]
 > Kód v tomto článku vyžaduje k zabezpečení služby gRPC ASP.NET Core certifikát pro vývoj HTTPS. Pokud se klient u zprávy `The remote certificate is invalid according to the validation procedure.`nezdařil, vývojový certifikát není důvěryhodný. Pokyny k vyřešení tohoto problému naleznete v tématu [Trust ASP.NET Core certifikát pro vývoj https ve Windows a MacOS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos).
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ### <a name="next-steps"></a>Další kroky
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/11/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 2d517a89c6002b5c85e98128605f95585354f8db
-ms.sourcegitcommit: e54672f5c493258dc449fac5b98faf47eb123b28
+ms.openlocfilehash: bb38ebca3c7b9bb4c28a52c0dad80be9669e1b40
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71248254"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71924880"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -49,7 +49,7 @@ V konzolové aplikaci, která není hostitelem, zavolejte metodu `Add{provider n
 Výchozí ASP.NET Core volání <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>šablon projektu, které přidává následující zprostředkovatele protokolování:
 
 * Konzola
-* Ladit
+* Ladění
 * EventSource
 * Protokol událostí (pouze při spuštění v systému Windows)
 
@@ -70,7 +70,7 @@ Předchozí kód vyžaduje odkazy na `Microsoft.Extensions.Logging` a. `Microsof
 Výchozí volání <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>šablony projektu, které přidává následující zprostředkovatele protokolování:
 
 * Konzola
-* Ladit
+* Ladění
 * EventSource (počínaje ASP.NET Core 2,2)
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
@@ -174,7 +174,7 @@ Chcete-li zapsat protokoly `Program` ve třídě, Získejte `ILogger` instanci o
 
 Protokolování by mělo být tak rychlé, aby neplatilo náklady na výkon asynchronního kódu. Pokud je úložiště dat protokolování pomalé, nezapište ho přímo. Nejprve zvažte možnost zapsat zprávy protokolu do rychlého úložiště a pak je později přesunout do pomalého úložiště. Například pokud se přihlašujete k SQL Server, nechcete provádět přímo v `Log` metodě, `Log` protože metody jsou synchronní. Místo toho můžete synchronně přidat protokolové zprávy do fronty v paměti a nechat pracovní proces na pozadí získat zprávy z fronty, aby asynchronní operace vkládání dat do SQL Server.
 
-## <a name="configuration"></a>Konfigurace
+## <a name="configuration"></a>Konfiguraci
 
 Konfigurace zprostředkovatele protokolování je poskytována jedním nebo více poskytovateli konfigurace:
 
@@ -529,7 +529,7 @@ Pořadí zástupných symbolů, nikoli jejich názvů, určuje, které parametry
 ```csharp
 string p1 = "parm1";
 string p2 = "parm2";
-_logger.LogInformation("Parameter values: {p1}, {p2}", p1, p2);
+_logger.LogInformation("Parameter values: {p2}, {p1}", p1, p2);
 ```
 
 Tento kód vytvoří zprávu protokolu s hodnotami parametrů v posloupnosti:
@@ -619,16 +619,16 @@ Druhý `AddFilter` Určuje poskytovatele ladění pomocí jeho názvu typu. Prvn
 
 Konfigurační data a `AddFilter` kód zobrazený v předchozích příkladech vytvoří pravidla uvedená v následující tabulce. Prvních šest přicházejí z příkladu konfigurace a poslední dva pocházejí z příkladu kódu.
 
-| Číslo | Poskytovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
+| Number | Poskytovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| 1      | Ladit         | Všechny kategorie                          | Informace o       |
+| 1      | Ladění         | Všechny kategorie                          | Information       |
 | 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
-| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
+| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladění             |
 | 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
-| 5      | Konzola       | Všechny kategorie                          | Informace o       |
-| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
-| 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
-| 8      | Ladit         | Microsoft                               | Přehled             |
+| 5      | Konzola       | Všechny kategorie                          | Information       |
+| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladění             |
+| 7      | Všichni poskytovatelé | Systém                                  | Ladění             |
+| 8      | Ladění         | Microsoft                               | Přehled             |
 
 `ILogger` Při vytvoření`ILoggerFactory` objektu vybere objekt jedno pravidlo pro každého poskytovatele, které se použije pro tento protokolovací nástroj. Všechny zprávy napsané `ILogger` instancí jsou filtrovány podle vybraných pravidel. V dostupných pravidlech se vybere nejpřesnější pravidlo pro jednotlivé dvojice zprostředkovatel a kategorie.
 
@@ -651,7 +651,7 @@ Výsledná `ILogger` instance odesílá `Trace` protokoly úrovně a výše do p
 Každý zprostředkovatel definuje *alias* , který lze použít v konfiguraci místo plně kvalifikovaného názvu typu.  Pro předdefinované poskytovatele použijte následující aliasy:
 
 * Konzola
-* Ladit
+* Ladění
 * EventSource
 * EventLog
 * TraceSource
@@ -697,7 +697,7 @@ Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemaj�
 
 Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core s poznámkami o tom, jaké protokoly se mají od nich očekávat:
 
-| Kategorie                            | Poznámky |
+| Category                            | Poznámky |
 | ----------------------------------- | ----- |
 | Microsoft.AspNetCore                | Obecná diagnostika ASP.NET Core. |
 | Microsoft.AspNetCore.DataProtection | Které klíče byly zváženy, nalezeny a použity. |
