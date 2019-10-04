@@ -5,12 +5,12 @@ description: Přečtěte si o použití SQL Server LocalDB nebo SQLite v aplikac
 ms.author: riande
 ms.date: 8/16/2019
 uid: tutorials/first-mvc-app/working-with-sql
-ms.openlocfilehash: d2784d9edc32b79e67dbcd193be55b44bc8d2c49
-ms.sourcegitcommit: 7a46973998623aead757ad386fe33602b1658793
+ms.openlocfilehash: cb356bca50540d7c471cf625a26bfe2dd155b627
+ms.sourcegitcommit: 3ffcd8cbff8b49128733842f72270bc58279de70
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/15/2019
-ms.locfileid: "69487633"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71955922"
 ---
 # <a name="work-with-sql-in-aspnet-core"></a>Práce s SQL v ASP.NET Core
 
@@ -18,7 +18,7 @@ ms.locfileid: "69487633"
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. `MvcMovieContext` Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v souboru *Startup.cs* :
+Objekt `MvcMovieContext` zpracovává úlohu připojení k databázi a mapování objektů `Movie` na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [vkládání závislostí](xref:fundamentals/dependency-injection) v metodě `ConfigureServices` v souboru *Startup.cs* :
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -50,15 +50,15 @@ LocalDB je zjednodušená verze databázového stroje SQL Server Express, který
 
   ![Nabídka Zobrazit](working-with-sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem na tabulku>návrháře`Movie` zobrazení.
+* Klikněte pravým tlačítkem na tabulku `Movie` **> návrháře zobrazení**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/design.png)
 
   ![Tabulka videí otevřená v Návrháři](working-with-sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primární klíč.
+Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primárního klíče.
 
-* Klikněte pravým tlačítkem na tabulku>Zobrazit`Movie` data.
+* Klikněte pravým tlačítkem na tabulku `Movie` **> zobrazit data.**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/ssox2.png)
 
@@ -74,7 +74,7 @@ Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vyt
 
 ## <a name="seed-the-database"></a>Přidání dat do databáze
 
-Vytvořte novou třídu s názvem `SeedData` ve složce *modely* . Vygenerovaný kód nahraďte následujícím kódem:
+Ve složce *modely* vytvořte novou třídu s názvem `SeedData`. Vygenerovaný kód nahraďte následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/SeedData.cs?name=snippet_1)]
 
@@ -93,14 +93,14 @@ if (context.Movie.Any())
 
 Obsah *program.cs* nahraďte následujícím kódem:
 
-[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Program.cs)]
+[!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Program.cs)]
 
 Testování aplikace
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Odstraňte všechny záznamy v databázi. Můžete to provést pomocí odkazů DELETE v prohlížeči nebo z SSOX.
-* Vynuťte inicializaci aplikace (volání metod ve `Startup` třídě), takže se metoda počáteční hodnoty spustí. Chcete-li vynutit inicializaci, IIS Express musí být zastavena a restartována. Můžete to provést s některým z následujících přístupů:
+* Vynuťte inicializaci aplikace (voláním metod ve třídě `Startup`), takže se metoda počáteční hodnoty spustí. Chcete-li vynutit inicializaci, IIS Express musí být zastavena a restartována. Můžete to provést s některým z následujících přístupů:
 
   * Klikněte pravým tlačítkem myši na ikonu IIS Express systému v oznamovací oblasti a klepněte na **konec** nebo **zastavení webu** .
 
@@ -122,15 +122,15 @@ Aplikace zobrazuje dosazený data.
 ![Filmová aplikace MVC otevřená v Microsoft Edge ukazující data videa](working-with-sql/_static/m55.png)
 
 > [!div class="step-by-step"]
-> [Předchozí](adding-model.md)Další
-> [](controller-methods-views.md)
+> [Předchozí](adding-model.md)
+> [Další](controller-methods-views.md)
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. `MvcMovieContext` Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v souboru *Startup.cs* :
+Objekt `MvcMovieContext` zpracovává úlohu připojení k databázi a mapování objektů `Movie` na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [vkládání závislostí](xref:fundamentals/dependency-injection) v metodě `ConfigureServices` v souboru *Startup.cs* :
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -162,15 +162,15 @@ LocalDB je zjednodušená verze databázového stroje SQL Server Express, který
 
   ![Nabídka Zobrazit](working-with-sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem na tabulku>návrháře`Movie` zobrazení.
+* Klikněte pravým tlačítkem na tabulku `Movie` **> návrháře zobrazení**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/design.png)
 
   ![Tabulka videí otevřená v Návrháři](working-with-sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primární klíč.
+Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primárního klíče.
 
-* Klikněte pravým tlačítkem na tabulku>Zobrazit`Movie` data.
+* Klikněte pravým tlačítkem na tabulku `Movie` **> zobrazit data.**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/ssox2.png)
 
@@ -186,7 +186,7 @@ Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vyt
 
 ## <a name="seed-the-database"></a>Přidání dat do databáze
 
-Vytvořte novou třídu s názvem `SeedData` ve složce *modely* . Vygenerovaný kód nahraďte následujícím kódem:
+Ve složce *modely* vytvořte novou třídu s názvem `SeedData`. Vygenerovaný kód nahraďte následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/SeedData.cs?name=snippet_1)]
 
@@ -212,7 +212,7 @@ Testování aplikace
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Odstraňte všechny záznamy v databázi. Můžete to provést pomocí odkazů DELETE v prohlížeči nebo z SSOX.
-* Vynuťte inicializaci aplikace (volání metod ve `Startup` třídě), takže se metoda počáteční hodnoty spustí. Chcete-li vynutit inicializaci, IIS Express musí být zastavena a restartována. Můžete to provést s některým z následujících přístupů:
+* Vynuťte inicializaci aplikace (voláním metod ve třídě `Startup`), takže se metoda počáteční hodnoty spustí. Chcete-li vynutit inicializaci, IIS Express musí být zastavena a restartována. Můžete to provést s některým z následujících přístupů:
 
   * Klikněte pravým tlačítkem myši na ikonu IIS Express systému v oznamovací oblasti a klepněte na **konec** nebo **zastavení webu** .
 
@@ -234,7 +234,7 @@ Aplikace zobrazuje dosazený data.
 ![Filmová aplikace MVC otevřená v Microsoft Edge ukazující data videa](working-with-sql/_static/m55.png)
 
 > [!div class="step-by-step"]
-> [Předchozí](adding-model.md)Další
-> [](controller-methods-views.md)
+> [Předchozí](adding-model.md)
+> [Další](controller-methods-views.md)
 
 ::: moniker-end

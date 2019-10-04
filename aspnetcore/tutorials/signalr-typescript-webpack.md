@@ -4,14 +4,14 @@ author: ssougnez
 description: V tomto kurzu nakonfigurujete sadu Webpack tak, aby se vytvořila sada a vytvořila se webová aplikace ASP.NET Core Signaler, jejíž klient je napsaný v TypeScript.
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 04/23/2019
+ms.date: 10/04/2019
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 99628b4f52980e6d32c70d11bb0d8a770dac7f86
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 630e8cb5efe9c313479960626d3d864c4923cbd1
+ms.sourcegitcommit: 3ffcd8cbff8b49128733842f72270bc58279de70
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081574"
+ms.lasthandoff: 10/04/2019
+ms.locfileid: "71955935"
 ---
 # <a name="use-aspnet-core-signalr-with-typescript-and-webpack"></a>Použití signalizace ASP.NET Core s TypeScript a webpackem
 
@@ -55,14 +55,14 @@ V tomto kurzu se naučíte:
 
 Nakonfigurujte aplikaci Visual Studio tak, aby vyhledala npm v proměnné prostředí *path* . Ve výchozím nastavení používá Visual Studio verzi npm nalezenou v instalačním adresáři. Postupujte podle těchto pokynů v aplikaci Visual Studio:
 
-1. Přejděte na **nástroje** > **Možnosti** >projekty a řešení web Správabalíčků> externích webových nástrojů. >
+1. Přejděte k **nástrojům** @no__t **možnosti** -1 > **projekty a řešení** > **externí webové nástroje**pro **Web Správa balíčků** >.
 1. Ze seznamu vyberte položku *$ (cesta)* . Kliknutím na šipku nahoru tuto položku přesunete do druhé pozice v seznamu.
 
     ![Konfigurace sady Visual Studio](signalr-typescript-webpack/_static/signalr-configure-path-visual-studio.png)
 
 Konfigurace sady Visual Studio byla dokončena. Je čas vytvořit projekt.
 
-1. Použijte možnost **soubor** > **Nový** > **projekt** a vyberte šablonu **webové aplikace ASP.NET Core** .
+1. Použijte možnost **soubor** > **Nový** @no__t nabídky **projekt** -3 a vyberte šablonu **ASP.NET Core webové aplikace** .
 1. Pojmenujte projekt *SignalRWebPack*a vyberte **vytvořit**.
 1. V rozevíracím seznamu cílové rozhraní vyberte *.NET Core* a v rozevíracím seznamu rozhraní vyberte *ASP.NET Core 3,0* . Vyberte **prázdnou** šablonu a vyberte **vytvořit**.
 
@@ -92,7 +92,7 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     [!code-json[package.json](signalr-typescript-webpack/sample/3.x/snippets/package1.json?highlight=4)]
 
-    Nastavení vlastnosti tak, `true` aby se zabránilo upozorněním na instalaci balíčku v dalším kroku. `private`
+    Nastavení vlastnosti `private` na hodnotu `true` brání v dalším kroku upozornění na instalaci balíčku.
 
 1. Nainstalujte požadované balíčky npm. Z kořenového adresáře projektu spusťte následující příkaz:
 
@@ -102,12 +102,12 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Některé podrobnosti příkazu si všimněte:
 
-    * Číslo verze následuje po `@` znaménku pro každý název balíčku. NPM nainstaluje tyto konkrétní verze balíčku.
-    * Možnost zakáže výchozí chování npm při psaní operátorů rozsahu [sémantických verzí](https://semver.org/) do *Package. JSON*. `-E` Například `"webpack": "4.29.3"` je použit `"webpack": "^4.29.3"`místo. Tato možnost zabrání nezamýšleným upgradům na novější verze balíčků.
+    * Číslo verze se řídí znakem `@` pro každý název balíčku. NPM nainstaluje tyto konkrétní verze balíčku.
+    * Možnost `-E` zakáže výchozí chování npm při psaní operátorů rozsahu [sémantických verzí](https://semver.org/) do *Package. JSON*. Například `"webpack": "4.29.3"` se použije místo `"webpack": "^4.29.3"`. Tato možnost zabrání nezamýšleným upgradům na novější verze balíčků.
 
     Další podrobnosti najdete v oficiální dokumentaci k [instalaci npm](https://docs.npmjs.com/cli/install) .
 
-1. Nahraďte vlastnost souboru *Package. JSON* následujícím fragmentem kódu: `scripts`
+1. Nahraďte vlastnost `scripts` souboru *Package. JSON* následujícím fragmentem kódu:
 
     ```json
     "scripts": {
@@ -119,9 +119,9 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Některé vysvětlení skriptů:
 
-    * `build`: Rozbalí prostředky na straně klienta v režimu vývoje a sleduje změny souborů. Sledovací proces souboru způsobí, že se sada znovu generuje při každém změně souboru projektu. `mode` Možnost zakáže optimalizace produkčního prostředí, jako je například protřepání stromu a minifikace. Používejte `build` pouze ve vývoji.
+    * `build`: Rozbalí prostředky na straně klienta v režimu vývoje a sleduje změny souborů. Sledovací proces souboru způsobí, že se sada znovu generuje při každém změně souboru projektu. Možnost `mode` zakáže optimalizace produkčního prostředí, jako je například protřepání stromu a minifikace. Používejte pouze `build` ve vývoji.
     * `release`: Rozbalí prostředky na straně klienta v provozním režimu.
-    * `publish`: `release` Spustí skript, který bude seskupit prostředky na straně klienta v provozním režimu. Volá příkaz [publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI k publikování aplikace.
+    * `publish`: Spustí skript `release` pro vytvoření svazku prostředků na straně klienta v provozním režimu. Volá příkaz [publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI k publikování aplikace.
 
 1. V kořenovém adresáři projektu vytvořte soubor s názvem *Webpack. config. js*s následujícím obsahem:
 
@@ -129,8 +129,8 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Předchozí soubor nakonfiguruje kompilaci sady Webpack. Některé podrobnosti konfigurace k poznámení:
 
-    * Vlastnost přepisuje výchozí hodnotu *DIST.* `output` Místo toho se svazek vydává v adresáři *wwwroot* .
-    * Pole obsahuje *. js* pro Import klientského JavaScriptu pro signalizaci. `resolve.extensions`
+    * Vlastnost `output` přepisuje výchozí hodnotu *DIST*. Místo toho se svazek vydává v adresáři *wwwroot* .
+    * Pole `resolve.extensions` zahrnuje *. js* pro Import klientského JavaScriptu pro signalizaci.
 
 1. V kořenovém adresáři projektu vytvořte nový *zdrojový* adresář. Jeho účelem je uložit prostředky na straně klienta v projektu.
 
@@ -160,22 +160,22 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Předchozí TypeScript načte odkazy na elementy modelu DOM a připojí dvě obslužné rutiny událostí:
 
-    * `keyup`: Tato událost se aktivuje, když uživatel zadá něco do textového pole `tbMessage`identifikovaného jako. Funkce se volá, když uživatel stiskne klávesu **ENTER.** `send`
-    * `click`: Tato událost se aktivuje, když uživatel klikne na tlačítko **Odeslat** . Je `send` volána funkce.
+    * `keyup`: Tato událost se aktivuje, když uživatel zadá něco do textového pole identifikovaného jako `tbMessage`. Funkce `send` se volá, když uživatel stiskne klávesu **ENTER** .
+    * `click`: Tato událost se aktivuje, když uživatel klikne na tlačítko **Odeslat** . Je volána funkce `send`.
 
 ## <a name="configure-the-aspnet-core-app"></a>Konfigurace aplikace ASP.NET Core
 
-1. Do metody přidejte volání [UseDefaultFiles](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [UseStaticFiles.](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) `Startup.Configure`
+1. V metodě `Startup.Configure` přidejte volání do [UseDefaultFiles](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [UseStaticFiles](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_).
 
    [!code-csharp[Startup](signalr-typescript-webpack/sample/3.x/Startup.cs?name=snippet_UseStaticDefaultFiles&highlight=2-3)]
 
    Předchozí kód umožňuje serveru vyhledat a zpracovat soubor *index. html* bez ohledu na to, zda uživatel zadal svou úplnou adresu URL nebo kořenovou adresu URL webové aplikace.
 
-1. Na konci `Startup.Configure` metody namapujte cestu */hub* k `ChatHub` centru. Nahraďte kód, který se zobrazí *Hello World!* s následujícím řádkem: 
+1. Na konci metody `Startup.Configure` namapujte cestu */hub* k rozbočovači `ChatHub`. Nahraďte kód, který se zobrazí *Hello World!* s následujícím řádkem: 
 
    [!code-csharp[Startup](signalr-typescript-webpack/sample/3.x/Startup.cs?name=snippet_UseSignalR&highlight=3)]
 
-1. V metodě zavolejte AddSignalR. [](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_) `Startup.ConfigureServices` Přidá do projektu služby signalizace.
+1. V metodě `Startup.ConfigureServices` volejte [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_). Přidá do projektu služby signalizace.
 
    [!code-csharp[Startup](signalr-typescript-webpack/sample/3.x/Startup.cs?name=snippet_AddSignalR)]
 
@@ -185,7 +185,7 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     [!code-csharp[ChatHub](signalr-typescript-webpack/sample/3.x/snippets/ChatHub.cs?name=snippet_ChatHubStubClass)]
 
-1. Přidejte následující kód na začátek souboru *Startup.cs* pro vyřešení `ChatHub` odkazu:
+1. Přidejte následující kód na začátek souboru *Startup.cs* pro vyřešení odkazu `ChatHub`:
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/3.x/Startup.cs?name=snippet_HubsNamespace)]
 
@@ -205,23 +205,23 @@ Aplikace aktuálně zobrazuje jednoduchý formulář pro posílání zpráv. Př
 
     [!code-typescript[index.ts](signalr-typescript-webpack/sample/3.x/snippets/index2.ts?name=snippet_IndexTsPhase2File&highlight=2,9-23)]
 
-    Předchozí kód podporuje příjem zpráv ze serveru. `HubConnectionBuilder` Třída vytvoří nového tvůrce pro konfiguraci připojení k serveru. `withUrl` Funkce nakonfiguruje adresu URL centra.
+    Předchozí kód podporuje příjem zpráv ze serveru. Třída `HubConnectionBuilder` vytvoří nového tvůrce pro konfiguraci připojení k serveru. Funkce `withUrl` nakonfiguruje adresu URL centra.
 
-    Signalizace umožňuje výměnu zpráv mezi klientem a serverem. Každá zpráva má konkrétní název. Můžete například mít zprávy s názvem `messageReceived` , který spouští logiku odpovědnou za zobrazení nové zprávy v zóně zprávy. Naslouchat konkrétní zprávě se dá provést prostřednictvím `on` funkce. Můžete naslouchat libovolnému počtu názvů zpráv. Je také možné předat parametry do zprávy, jako je například jméno autora a obsah přijaté zprávy. Jakmile klient obdrží zprávu, vytvoří se nový `div` prvek s názvem autora a obsahem zprávy v jeho `innerHTML` atributu. Je přidána do hlavního `div` prvku zobrazujícího zprávy.
+    Signalizace umožňuje výměnu zpráv mezi klientem a serverem. Každá zpráva má konkrétní název. Můžete například mít zprávy s názvem `messageReceived`, které spouštějí logiku odpovědnou za zobrazení nové zprávy v zóně zprávy. Naslouchat konkrétní zprávě se dá provést pomocí funkce `on`. Můžete naslouchat libovolnému počtu názvů zpráv. Je také možné předat parametry do zprávy, jako je například jméno autora a obsah přijaté zprávy. Jakmile klient obdrží zprávu, vytvoří se nový prvek `div` s názvem autora a obsahem zprávy ve svém atributu `innerHTML`. Je přidáno do hlavního prvku `div` zobrazujícím zprávy.
 
 1. Teď, když klient může obdržet zprávu, ji nakonfiguruje k odesílání zpráv. Přidejte zvýrazněný kód do souboru *Src/index. TS* :
 
     [!code-typescript[index.ts](signalr-typescript-webpack/sample/3.x/src/index.ts?highlight=34-35)]
 
-    Odeslání zprávy prostřednictvím připojení WebSockets vyžaduje volání `send` metody. První parametr metody je název zprávy. Data zprávy jsou v ostatních parametrech nezvyklá. V tomto příkladu se zobrazí zpráva, která `newMessage` je označena jako odeslaná na server. Zpráva se skládá z uživatelského jména a vstupu uživatele z textového pole. Pokud funkce Send funguje, hodnota textového pole se nevymaže.
+    Odeslání zprávy prostřednictvím připojení WebSockets vyžaduje volání metody `send`. První parametr metody je název zprávy. Data zprávy jsou v ostatních parametrech nezvyklá. V tomto příkladu se na server pošle zpráva identifikovaná jako `newMessage`. Zpráva se skládá z uživatelského jména a vstupu uživatele z textového pole. Pokud funkce Send funguje, hodnota textového pole se nevymaže.
 
-1. Přidejte zvýrazněnou metodu do `ChatHub` třídy:
+1. Přidejte zvýrazněnou metodu do třídy `ChatHub`:
 
     [!code-csharp[ChatHub](signalr-typescript-webpack/sample/3.x/Hubs/ChatHub.cs?highlight=8-11)]
 
-    Předchozí vysílání kódu přijalo zprávy všem připojeným uživatelům, jakmile je server obdrží. Není nutné mít obecnou `on` metodu pro příjem všech zpráv. Metoda pojmenovaná po názvu zprávy postačuje.
+    Předchozí vysílání kódu přijalo zprávy všem připojeným uživatelům, jakmile je server obdrží. Pro příjem všech zpráv není nutné mít obecnou metodu `on`. Metoda pojmenovaná po názvu zprávy postačuje.
 
-    V tomto příkladu pošle klient TypeScript zprávu identifikovanou jako `newMessage`. C# `NewMessage` Na klientech se provede volání metody [SendAsync](/dotnet/api/microsoft.aspnetcore.signalr.clientproxyextensions.sendasync) [. All](/dotnet/api/microsoft.aspnetcore.signalr.ihubclients-1.all). Přijaté zprávy se odesílají všem klientům připojeným k centru.
+    V tomto příkladu pošle klient TypeScript zprávu identifikovanou jako `newMessage`. Metoda C# `NewMessage` očekává data odesílaná klientem. Na klientech se provede volání metody [SendAsync](/dotnet/api/microsoft.aspnetcore.signalr.clientproxyextensions.sendasync) [. All](/dotnet/api/microsoft.aspnetcore.signalr.ihubclients-1.all). Přijaté zprávy se odesílají všem klientům připojeným k centru.
 
 ## <a name="test-the-app"></a>Testování aplikace
 
@@ -229,11 +229,11 @@ Ověřte, že aplikace funguje s následujícím postupem.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. Spusťte příkaz Webpack v režimu *vydání* . Pomocí okna **konzoly Správce balíčků** spusťte v kořenovém adresáři projektu následující příkaz. Pokud nejste v kořenovém adresáři projektu, zadejte `cd SignalRWebPack` před zadáním příkazu.
+1. Spusťte příkaz Webpack v režimu *vydání* . Pomocí okna **konzoly Správce balíčků** spusťte v kořenovém adresáři projektu následující příkaz. Pokud nejste v kořenovém adresáři projektu, před zadáním příkazu zadejte `cd SignalRWebPack`.
 
     [!INCLUDE [npm-run-release](../includes/signalr-typescript-webpack/npm-run-release.md)]
 
-1. Vyberte **ladit** > **Spustit bez ladění** , aby se aplikace spouštěla v prohlížeči bez připojení ladicího programu. Soubor *wwwroot/index.html* se obsluhuje na `http://localhost:<port_number>`.
+1. Vyberte **ladit** > **Spustit bez ladění** a spusťte aplikaci v prohlížeči bez připojení ladicího programu. Soubor *wwwroot/index.html* se obsluhuje na `http://localhost:<port_number>`.
 
    Pokud se zobrazí chyby kompilace, zkuste řešení zavřít a znovu otevřít. 
 
@@ -267,7 +267,7 @@ Ověřte, že aplikace funguje s následujícím postupem.
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -290,14 +290,14 @@ Ověřte, že aplikace funguje s následujícím postupem.
 
 Nakonfigurujte aplikaci Visual Studio tak, aby vyhledala npm v proměnné prostředí *path* . Ve výchozím nastavení používá Visual Studio verzi npm nalezenou v instalačním adresáři. Postupujte podle těchto pokynů v aplikaci Visual Studio:
 
-1. Přejděte na **nástroje** > **Možnosti** >projekty a řešení web Správabalíčků> externích webových nástrojů. >
+1. Přejděte k **nástrojům** @no__t **možnosti** -1 > **projekty a řešení** > **externí webové nástroje**pro **Web Správa balíčků** >.
 1. Ze seznamu vyberte položku *$ (cesta)* . Kliknutím na šipku nahoru tuto položku přesunete do druhé pozice v seznamu.
 
     ![Konfigurace sady Visual Studio](signalr-typescript-webpack/_static/signalr-configure-path-visual-studio.png)
 
 Konfigurace sady Visual Studio byla dokončena. Je čas vytvořit projekt.
 
-1. Použijte možnost **soubor** > **Nový** > **projekt** a vyberte šablonu **webové aplikace ASP.NET Core** .
+1. Použijte možnost **soubor** > **Nový** @no__t nabídky **projekt** -3 a vyberte šablonu **ASP.NET Core webové aplikace** .
 1. Pojmenujte projekt *SignalRWebPack*a vyberte **vytvořit**.
 1. V rozevíracím seznamu cílové rozhraní vyberte *.NET Core* a v rozevíracím seznamu rozhraní vyberte *ASP.NET Core 2,2* . Vyberte **prázdnou** šablonu a vyberte **vytvořit**.
 
@@ -327,7 +327,7 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     [!code-json[package.json](signalr-typescript-webpack/sample/2.x/snippets/package1.json?highlight=4)]
 
-    Nastavení vlastnosti tak, `true` aby se zabránilo upozorněním na instalaci balíčku v dalším kroku. `private`
+    Nastavení vlastnosti `private` na hodnotu `true` brání v dalším kroku upozornění na instalaci balíčku.
 
 1. Nainstalujte požadované balíčky npm. Z kořenového adresáře projektu spusťte následující příkaz:
 
@@ -337,12 +337,12 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Některé podrobnosti příkazu si všimněte:
 
-    * Číslo verze následuje po `@` znaménku pro každý název balíčku. NPM nainstaluje tyto konkrétní verze balíčku.
-    * Možnost zakáže výchozí chování npm při psaní operátorů rozsahu [sémantických verzí](https://semver.org/) do *Package. JSON*. `-E` Například `"webpack": "4.29.3"` je použit `"webpack": "^4.29.3"`místo. Tato možnost zabrání nezamýšleným upgradům na novější verze balíčků.
+    * Číslo verze se řídí znakem `@` pro každý název balíčku. NPM nainstaluje tyto konkrétní verze balíčku.
+    * Možnost `-E` zakáže výchozí chování npm při psaní operátorů rozsahu [sémantických verzí](https://semver.org/) do *Package. JSON*. Například `"webpack": "4.29.3"` se použije místo `"webpack": "^4.29.3"`. Tato možnost zabrání nezamýšleným upgradům na novější verze balíčků.
 
     Další podrobnosti najdete v oficiální dokumentaci k [instalaci npm](https://docs.npmjs.com/cli/install) .
 
-1. Nahraďte vlastnost souboru *Package. JSON* následujícím fragmentem kódu: `scripts`
+1. Nahraďte vlastnost `scripts` souboru *Package. JSON* následujícím fragmentem kódu:
 
     ```json
     "scripts": {
@@ -354,9 +354,9 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Některé vysvětlení skriptů:
 
-    * `build`: Rozbalí prostředky na straně klienta v režimu vývoje a sleduje změny souborů. Sledovací proces souboru způsobí, že se sada znovu generuje při každém změně souboru projektu. `mode` Možnost zakáže optimalizace produkčního prostředí, jako je například protřepání stromu a minifikace. Používejte `build` pouze ve vývoji.
+    * `build`: Rozbalí prostředky na straně klienta v režimu vývoje a sleduje změny souborů. Sledovací proces souboru způsobí, že se sada znovu generuje při každém změně souboru projektu. Možnost `mode` zakáže optimalizace produkčního prostředí, jako je například protřepání stromu a minifikace. Používejte pouze `build` ve vývoji.
     * `release`: Rozbalí prostředky na straně klienta v provozním režimu.
-    * `publish`: `release` Spustí skript, který bude seskupit prostředky na straně klienta v provozním režimu. Volá příkaz [publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI k publikování aplikace.
+    * `publish`: Spustí skript `release` pro vytvoření svazku prostředků na straně klienta v provozním režimu. Volá příkaz [publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI k publikování aplikace.
 
 1. V kořenovém adresáři projektu vytvořte soubor s názvem *Webpack. config. js*s následujícím obsahem:
 
@@ -364,8 +364,8 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Předchozí soubor nakonfiguruje kompilaci sady Webpack. Některé podrobnosti konfigurace k poznámení:
 
-    * Vlastnost přepisuje výchozí hodnotu *DIST.* `output` Místo toho se svazek vydává v adresáři *wwwroot* .
-    * Pole obsahuje *. js* pro Import klientského JavaScriptu pro signalizaci. `resolve.extensions`
+    * Vlastnost `output` přepisuje výchozí hodnotu *DIST*. Místo toho se svazek vydává v adresáři *wwwroot* .
+    * Pole `resolve.extensions` zahrnuje *. js* pro Import klientského JavaScriptu pro signalizaci.
 
 1. V kořenovém adresáři projektu vytvořte nový *zdrojový* adresář. Jeho účelem je uložit prostředky na straně klienta v projektu.
 
@@ -395,26 +395,24 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     Předchozí TypeScript načte odkazy na elementy modelu DOM a připojí dvě obslužné rutiny událostí:
 
-    * `keyup`: Tato událost se aktivuje, když uživatel zadá něco do textového pole `tbMessage`identifikovaného jako. Funkce se volá, když uživatel stiskne klávesu **ENTER.** `send`
-    * `click`: Tato událost se aktivuje, když uživatel klikne na tlačítko **Odeslat** . Je `send` volána funkce.
+    * `keyup`: Tato událost se aktivuje, když uživatel zadá něco do textového pole identifikovaného jako `tbMessage`. Funkce `send` se volá, když uživatel stiskne klávesu **ENTER** .
+    * `click`: Tato událost se aktivuje, když uživatel klikne na tlačítko **Odeslat** . Je volána funkce `send`.
 
 ## <a name="configure-the-aspnet-core-app"></a>Konfigurace aplikace ASP.NET Core
 
-1. Kód uvedený v `Startup.Configure` metodě zobrazuje *Hello World!* . Nahraďte volání [](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) [](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_)metody voláním UseDefaultFiles a `app.Run` UseStaticFiles.
+1. Kód uvedený v metodě `Startup.Configure` zobrazuje *Hello World!* . Nahraďte volání metody `app.Run` voláními do [UseDefaultFiles](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [UseStaticFiles](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_).
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_UseStaticDefaultFiles)]
 
     Předchozí kód umožňuje serveru vyhledat a zpracovat soubor *index. html* bez ohledu na to, zda uživatel zadal svou úplnou adresu URL nebo kořenovou adresu URL webové aplikace.
 
-1. Zavolejte [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_) v `Startup.ConfigureServices` metodě. Přidá do projektu služby signalizace.
+1. Zavolejte [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr#Microsoft_Extensions_DependencyInjection_SignalRDependencyInjectionExtensions_AddSignalR_Microsoft_Extensions_DependencyInjection_IServiceCollection_) v metodě `Startup.ConfigureServices`. Přidá do projektu služby signalizace.
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_AddSignalR)]
 
-1. Namapujte */hub* trasu na `ChatHub` centrum. Na konec `Startup.Configure` metody přidejte následující řádky:
+1. Namapujte */hubou* trasu na rozbočovač `ChatHub`. Na konec metody `Startup.Configure` přidejte následující řádky:
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_UseSignalR)]
-
-::: moniker-end
 
 1. V kořenovém adresáři projektu vytvořte nový adresář s názvem *centra*. Jejím účelem je uložit centrum signalizace, které se vytvoří v dalším kroku.
 
@@ -422,7 +420,7 @@ Následující postup nakonfiguruje převod TypeScript na JavaScript a sdružov�
 
     [!code-csharp[ChatHub](signalr-typescript-webpack/sample/2.x/snippets/ChatHub.cs?name=snippet_ChatHubStubClass)]
 
-1. Přidejte následující kód na začátek souboru *Startup.cs* pro vyřešení `ChatHub` odkazu:
+1. Přidejte následující kód na začátek souboru *Startup.cs* pro vyřešení odkazu `ChatHub`:
 
     [!code-csharp[Startup](signalr-typescript-webpack/sample/2.x/Startup.cs?name=snippet_HubsNamespace)]
 
@@ -442,23 +440,23 @@ Aplikace aktuálně zobrazuje jednoduchý formulář pro posílání zpráv. Př
 
     [!code-typescript[index.ts](signalr-typescript-webpack/sample/2.x/snippets/index2.ts?name=snippet_IndexTsPhase2File&highlight=2,9-23)]
 
-    Předchozí kód podporuje příjem zpráv ze serveru. `HubConnectionBuilder` Třída vytvoří nového tvůrce pro konfiguraci připojení k serveru. `withUrl` Funkce nakonfiguruje adresu URL centra.
+    Předchozí kód podporuje příjem zpráv ze serveru. Třída `HubConnectionBuilder` vytvoří nového tvůrce pro konfiguraci připojení k serveru. Funkce `withUrl` nakonfiguruje adresu URL centra.
 
-    Signalizace umožňuje výměnu zpráv mezi klientem a serverem. Každá zpráva má konkrétní název. Můžete například mít zprávy s názvem `messageReceived` , který spouští logiku odpovědnou za zobrazení nové zprávy v zóně zprávy. Naslouchat konkrétní zprávě se dá provést prostřednictvím `on` funkce. Můžete naslouchat libovolnému počtu názvů zpráv. Je také možné předat parametry do zprávy, jako je například jméno autora a obsah přijaté zprávy. Jakmile klient obdrží zprávu, vytvoří se nový `div` prvek s názvem autora a obsahem zprávy v jeho `innerHTML` atributu. Je přidána do hlavního `div` prvku zobrazujícího zprávy.
+    Signalizace umožňuje výměnu zpráv mezi klientem a serverem. Každá zpráva má konkrétní název. Můžete například mít zprávy s názvem `messageReceived`, které spouštějí logiku odpovědnou za zobrazení nové zprávy v zóně zprávy. Naslouchat konkrétní zprávě se dá provést pomocí funkce `on`. Můžete naslouchat libovolnému počtu názvů zpráv. Je také možné předat parametry do zprávy, jako je například jméno autora a obsah přijaté zprávy. Jakmile klient obdrží zprávu, vytvoří se nový prvek `div` s názvem autora a obsahem zprávy ve svém atributu `innerHTML`. Je přidáno do hlavního prvku `div` zobrazujícím zprávy.
 
 1. Teď, když klient může obdržet zprávu, ji nakonfiguruje k odesílání zpráv. Přidejte zvýrazněný kód do souboru *Src/index. TS* :
 
     [!code-typescript[index.ts](signalr-typescript-webpack/sample/2.x/src/index.ts?highlight=34-35)]
 
-    Odeslání zprávy prostřednictvím připojení WebSockets vyžaduje volání `send` metody. První parametr metody je název zprávy. Data zprávy jsou v ostatních parametrech nezvyklá. V tomto příkladu se zobrazí zpráva, která `newMessage` je označena jako odeslaná na server. Zpráva se skládá z uživatelského jména a vstupu uživatele z textového pole. Pokud funkce Send funguje, hodnota textového pole se nevymaže.
+    Odeslání zprávy prostřednictvím připojení WebSockets vyžaduje volání metody `send`. První parametr metody je název zprávy. Data zprávy jsou v ostatních parametrech nezvyklá. V tomto příkladu se na server pošle zpráva identifikovaná jako `newMessage`. Zpráva se skládá z uživatelského jména a vstupu uživatele z textového pole. Pokud funkce Send funguje, hodnota textového pole se nevymaže.
 
-1. Přidejte zvýrazněnou metodu do `ChatHub` třídy:
+1. Přidejte zvýrazněnou metodu do třídy `ChatHub`:
 
     [!code-csharp[ChatHub](signalr-typescript-webpack/sample/2.x/Hubs/ChatHub.cs?highlight=8-11)]
 
-    Předchozí vysílání kódu přijalo zprávy všem připojeným uživatelům, jakmile je server obdrží. Není nutné mít obecnou `on` metodu pro příjem všech zpráv. Metoda pojmenovaná po názvu zprávy postačuje.
+    Předchozí vysílání kódu přijalo zprávy všem připojeným uživatelům, jakmile je server obdrží. Pro příjem všech zpráv není nutné mít obecnou metodu `on`. Metoda pojmenovaná po názvu zprávy postačuje.
 
-    V tomto příkladu pošle klient TypeScript zprávu identifikovanou jako `newMessage`. C# `NewMessage` Na klientech se provede volání metody [SendAsync](/dotnet/api/microsoft.aspnetcore.signalr.clientproxyextensions.sendasync) [. All](/dotnet/api/microsoft.aspnetcore.signalr.ihubclients-1.all). Přijaté zprávy se odesílají všem klientům připojeným k centru.
+    V tomto příkladu pošle klient TypeScript zprávu identifikovanou jako `newMessage`. Metoda C# `NewMessage` očekává data odesílaná klientem. Na klientech se provede volání metody [SendAsync](/dotnet/api/microsoft.aspnetcore.signalr.clientproxyextensions.sendasync) [. All](/dotnet/api/microsoft.aspnetcore.signalr.ihubclients-1.all). Přijaté zprávy se odesílají všem klientům připojeným k centru.
 
 ## <a name="test-the-app"></a>Testování aplikace
 
@@ -466,11 +464,11 @@ Ověřte, že aplikace funguje s následujícím postupem.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. Spusťte příkaz Webpack v režimu *vydání* . Pomocí okna **konzoly Správce balíčků** spusťte v kořenovém adresáři projektu následující příkaz. Pokud nejste v kořenovém adresáři projektu, zadejte `cd SignalRWebPack` před zadáním příkazu.
+1. Spusťte příkaz Webpack v režimu *vydání* . Pomocí okna **konzoly Správce balíčků** spusťte v kořenovém adresáři projektu následující příkaz. Pokud nejste v kořenovém adresáři projektu, před zadáním příkazu zadejte `cd SignalRWebPack`.
 
     [!INCLUDE [npm-run-release](../includes/signalr-typescript-webpack/npm-run-release.md)]
 
-1. Vyberte **ladit** > **Spustit bez ladění** , aby se aplikace spouštěla v prohlížeči bez připojení ladicího programu. Soubor *wwwroot/index.html* se obsluhuje na `http://localhost:<port_number>`.
+1. Vyberte **ladit** > **Spustit bez ladění** a spusťte aplikaci v prohlížeči bez připojení ladicího programu. Soubor *wwwroot/index.html* se obsluhuje na `http://localhost:<port_number>`.
 
 1. Otevřete jinou instanci prohlížeče (libovolný prohlížeč). Vložte adresu URL do panelu Adresa.
 
