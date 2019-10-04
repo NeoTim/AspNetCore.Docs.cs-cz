@@ -6,34 +6,34 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/20/2019
 uid: grpc/index
-ms.openlocfilehash: 88ceeba329ff2c7d764b7a5eabd5413da6ace765
-ms.sourcegitcommit: 8a36be1bfee02eba3b07b7a86085ec25c38bae6b
+ms.openlocfilehash: 2f32bf6e8df2c5b3574c337682cdc2845991630c
+ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71219120"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71925176"
 ---
-# <a name="introduction-to-grpc-on-net-core"></a><span data-ttu-id="a3257-103">Úvod do gRPC v .NET Core</span><span class="sxs-lookup"><span data-stu-id="a3257-103">Introduction to gRPC on .NET Core</span></span>
+# <a name="introduction-to-grpc-on-net-core"></a><span data-ttu-id="445cd-103">Úvod do gRPC v .NET Core</span><span class="sxs-lookup"><span data-stu-id="445cd-103">Introduction to gRPC on .NET Core</span></span>
 
-<span data-ttu-id="a3257-104">Od [Jan Luo](https://github.com/juntaoluo) a [James Newton – král](https://twitter.com/jamesnk)</span><span class="sxs-lookup"><span data-stu-id="a3257-104">By [John Luo](https://github.com/juntaoluo) and [James Newton-King](https://twitter.com/jamesnk)</span></span>
+<span data-ttu-id="445cd-104">Od [Jan Luo](https://github.com/juntaoluo) a [James Newton – král](https://twitter.com/jamesnk)</span><span class="sxs-lookup"><span data-stu-id="445cd-104">By [John Luo](https://github.com/juntaoluo) and [James Newton-King](https://twitter.com/jamesnk)</span></span>
 
-<span data-ttu-id="a3257-105">[gRPC](https://grpc.io/docs/guides/) je jazyk nezávislá, vysoce výkonné rozhraní vzdáleného volání procedur (RPC).</span><span class="sxs-lookup"><span data-stu-id="a3257-105">[gRPC](https://grpc.io/docs/guides/) is a language agnostic, high-performance Remote Procedure Call (RPC) framework.</span></span>
+<span data-ttu-id="445cd-105">[gRPC](https://grpc.io/docs/guides/) je jazyk nezávislá, vysoce výkonné rozhraní vzdáleného volání procedur (RPC).</span><span class="sxs-lookup"><span data-stu-id="445cd-105">[gRPC](https://grpc.io/docs/guides/) is a language agnostic, high-performance Remote Procedure Call (RPC) framework.</span></span>
 
-<span data-ttu-id="a3257-106">Hlavní výhody gRPC jsou:</span><span class="sxs-lookup"><span data-stu-id="a3257-106">The main benefits of gRPC are:</span></span>
-* <span data-ttu-id="a3257-107">Moderní vysoce výkonná odlehčená architektura protokolu RPC.</span><span class="sxs-lookup"><span data-stu-id="a3257-107">Modern high-performance lightweight RPC framework.</span></span>
-* <span data-ttu-id="a3257-108">Vývoj rozhraní API kontraktu, ve výchozím nastavení používá vyrovnávací paměti protokolů, což umožňuje implementaci nezávislá jazyka.</span><span class="sxs-lookup"><span data-stu-id="a3257-108">Contract-first API development, using Protocol Buffers by default, allowing for language agnostic implementations.</span></span>
-* <span data-ttu-id="a3257-109">Nástroj, který je k dispozici pro mnoho jazyků pro generování serverů a klientů se silným typem.</span><span class="sxs-lookup"><span data-stu-id="a3257-109">Tooling available for many languages to generate strongly-typed servers and clients.</span></span>
-* <span data-ttu-id="a3257-110">Podporuje volání klientů, serverů a obousměrného streamování.</span><span class="sxs-lookup"><span data-stu-id="a3257-110">Supports client, server, and bi-directional streaming calls.</span></span>
-* <span data-ttu-id="a3257-111">Omezené využití sítě pomocí binární serializace Protobuf</span><span class="sxs-lookup"><span data-stu-id="a3257-111">Reduced network usage with Protobuf binary serialization.</span></span>
+<span data-ttu-id="445cd-106">Hlavní výhody gRPC jsou:</span><span class="sxs-lookup"><span data-stu-id="445cd-106">The main benefits of gRPC are:</span></span>
+* <span data-ttu-id="445cd-107">Moderní, vysoce výkonné a odlehčené rozhraní RPC.</span><span class="sxs-lookup"><span data-stu-id="445cd-107">Modern, high-performance, lightweight RPC framework.</span></span>
+* <span data-ttu-id="445cd-108">Vývoj rozhraní API kontraktu, ve výchozím nastavení používá vyrovnávací paměti protokolů, což umožňuje implementaci nezávislá jazyka.</span><span class="sxs-lookup"><span data-stu-id="445cd-108">Contract-first API development, using Protocol Buffers by default, allowing for language agnostic implementations.</span></span>
+* <span data-ttu-id="445cd-109">Nástroj, který je k dispozici pro mnoho jazyků pro generování serverů a klientů se silným typem.</span><span class="sxs-lookup"><span data-stu-id="445cd-109">Tooling available for many languages to generate strongly-typed servers and clients.</span></span>
+* <span data-ttu-id="445cd-110">Podporuje volání klientů, serverů a obousměrného streamování.</span><span class="sxs-lookup"><span data-stu-id="445cd-110">Supports client, server, and bi-directional streaming calls.</span></span>
+* <span data-ttu-id="445cd-111">Omezené využití sítě pomocí binární serializace Protobuf</span><span class="sxs-lookup"><span data-stu-id="445cd-111">Reduced network usage with Protobuf binary serialization.</span></span>
 
-<span data-ttu-id="a3257-112">Díky těmto výhodám je gRPC ideální pro:</span><span class="sxs-lookup"><span data-stu-id="a3257-112">These benefits make gRPC ideal for:</span></span>
-* <span data-ttu-id="a3257-113">Odlehčené mikroslužby, ve kterých je efektivita nejdůležitější.</span><span class="sxs-lookup"><span data-stu-id="a3257-113">Lightweight microservices where efficiency is critical.</span></span>
-* <span data-ttu-id="a3257-114">Polyglot systémy, ve kterých se pro vývoj vyžaduje více jazyků.</span><span class="sxs-lookup"><span data-stu-id="a3257-114">Polyglot systems where multiple languages are required for development.</span></span>
-* <span data-ttu-id="a3257-115">Služby v reálném čase Point-to-Point, které potřebují zpracovávat žádosti o streamování nebo odpovědi.</span><span class="sxs-lookup"><span data-stu-id="a3257-115">Point-to-point real-time services that need to handle streaming requests or responses.</span></span>
+<span data-ttu-id="445cd-112">Díky těmto výhodám je gRPC ideální pro:</span><span class="sxs-lookup"><span data-stu-id="445cd-112">These benefits make gRPC ideal for:</span></span>
+* <span data-ttu-id="445cd-113">Odlehčené mikroslužby, ve kterých je efektivita nejdůležitější.</span><span class="sxs-lookup"><span data-stu-id="445cd-113">Lightweight microservices where efficiency is critical.</span></span>
+* <span data-ttu-id="445cd-114">Polyglot systémy, ve kterých se pro vývoj vyžaduje více jazyků.</span><span class="sxs-lookup"><span data-stu-id="445cd-114">Polyglot systems where multiple languages are required for development.</span></span>
+* <span data-ttu-id="445cd-115">Služby v reálném čase Point-to-Point, které potřebují zpracovávat žádosti o streamování nebo odpovědi.</span><span class="sxs-lookup"><span data-stu-id="445cd-115">Point-to-point real-time services that need to handle streaming requests or responses.</span></span>
 
-## <a name="c-tooling-support-for-proto-files"></a><span data-ttu-id="a3257-116">C#Podpora nástrojů pro soubory.</span><span class="sxs-lookup"><span data-stu-id="a3257-116">C# Tooling support for .proto files</span></span>
+## <a name="c-tooling-support-for-proto-files"></a><span data-ttu-id="445cd-116">C#Podpora nástrojů pro soubory.</span><span class="sxs-lookup"><span data-stu-id="445cd-116">C# Tooling support for .proto files</span></span>
 
-<span data-ttu-id="a3257-117">gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem.</span><span class="sxs-lookup"><span data-stu-id="a3257-117">gRPC uses a contract-first approach to API development.</span></span> <span data-ttu-id="a3257-118">Služby a zprávy jsou definovány v *\*souboru. proto* soubory:</span><span class="sxs-lookup"><span data-stu-id="a3257-118">Services and messages are defined in *\*.proto* files:</span></span>
+<span data-ttu-id="445cd-117">gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem.</span><span class="sxs-lookup"><span data-stu-id="445cd-117">gRPC uses a contract-first approach to API development.</span></span> <span data-ttu-id="445cd-118">Služby a zprávy jsou definovány v *\*souboru. proto* soubory:</span><span class="sxs-lookup"><span data-stu-id="445cd-118">Services and messages are defined in *\*.proto* files:</span></span>
 
 ```protobuf
 syntax = "proto3";
@@ -51,10 +51,10 @@ message HelloReply {
 }
 ```
 
-<span data-ttu-id="a3257-119">Typy .NET pro služby, klienti a zprávy jsou automaticky vygenerováni *\*zahrnutím souborů do* projektu:</span><span class="sxs-lookup"><span data-stu-id="a3257-119">.NET types for services, clients and messages are automatically generated by including *\*.proto* files in a project:</span></span>
+<span data-ttu-id="445cd-119">Typy .NET pro služby, klienti a zprávy jsou automaticky vygenerováni *\*zahrnutím souborů do* projektu:</span><span class="sxs-lookup"><span data-stu-id="445cd-119">.NET types for services, clients and messages are automatically generated by including *\*.proto* files in a project:</span></span>
 
-* <span data-ttu-id="a3257-120">Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .</span><span class="sxs-lookup"><span data-stu-id="a3257-120">Add a package reference to [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) package.</span></span>
-* <span data-ttu-id="a3257-121">Do`<Protobuf>` skupiny položek přidejte *\*soubory..* .</span><span class="sxs-lookup"><span data-stu-id="a3257-121">Add *\*.proto* files to the `<Protobuf>` item group.</span></span>
+* <span data-ttu-id="445cd-120">Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .</span><span class="sxs-lookup"><span data-stu-id="445cd-120">Add a package reference to [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/) package.</span></span>
+* <span data-ttu-id="445cd-121">Do`<Protobuf>` skupiny položek přidejte *\*soubory..* .</span><span class="sxs-lookup"><span data-stu-id="445cd-121">Add *\*.proto* files to the `<Protobuf>` item group.</span></span>
 
 ```xml
 <ItemGroup>
@@ -62,13 +62,13 @@ message HelloReply {
 </ItemGroup>
 ```
 
-<span data-ttu-id="a3257-122">Další informace o podpoře nástrojů gRPC naleznete v tématu <xref:grpc/basics>.</span><span class="sxs-lookup"><span data-stu-id="a3257-122">For more information on gRPC tooling support, see <xref:grpc/basics>.</span></span>
+<span data-ttu-id="445cd-122">Další informace o podpoře nástrojů gRPC naleznete v tématu <xref:grpc/basics>.</span><span class="sxs-lookup"><span data-stu-id="445cd-122">For more information on gRPC tooling support, see <xref:grpc/basics>.</span></span>
 
-## <a name="grpc-services-on-aspnet-core"></a><span data-ttu-id="a3257-123">gRPC Services na ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="a3257-123">gRPC services on ASP.NET Core</span></span>
+## <a name="grpc-services-on-aspnet-core"></a><span data-ttu-id="445cd-123">gRPC Services na ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="445cd-123">gRPC services on ASP.NET Core</span></span>
 
-<span data-ttu-id="a3257-124">služby gRPC lze hostovat na ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="a3257-124">gRPC services can be hosted on ASP.NET Core.</span></span> <span data-ttu-id="a3257-125">Služby mají úplnou integraci s oblíbenými ASP.NET Core funkcemi, jako je protokolování, vkládání závislostí (DI), ověřování a autorizace.</span><span class="sxs-lookup"><span data-stu-id="a3257-125">Services have full integration with popular ASP.NET Core features such as logging, dependency injection (DI), authentication and authorization.</span></span>
+<span data-ttu-id="445cd-124">služby gRPC lze hostovat na ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="445cd-124">gRPC services can be hosted on ASP.NET Core.</span></span> <span data-ttu-id="445cd-125">Služby mají úplnou integraci s oblíbenými ASP.NET Core funkcemi, jako je protokolování, vkládání závislostí (DI), ověřování a autorizace.</span><span class="sxs-lookup"><span data-stu-id="445cd-125">Services have full integration with popular ASP.NET Core features such as logging, dependency injection (DI), authentication and authorization.</span></span>
 
-<span data-ttu-id="a3257-126">Šablona projektu služby gRPC poskytuje počáteční službu:</span><span class="sxs-lookup"><span data-stu-id="a3257-126">The gRPC service project template provides a starter service:</span></span>
+<span data-ttu-id="445cd-126">Šablona projektu služby gRPC poskytuje počáteční službu:</span><span class="sxs-lookup"><span data-stu-id="445cd-126">The gRPC service project template provides a starter service:</span></span>
 
 ```csharp
 public class GreeterService : Greeter.GreeterBase
@@ -92,7 +92,7 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-<span data-ttu-id="a3257-127">`GreeterService`dědí z `GreeterBase` typu, který je vygenerován `Greeter` ze služby v  *\*souboru..* .</span><span class="sxs-lookup"><span data-stu-id="a3257-127">`GreeterService` inherits from the `GreeterBase` type, which is generated from the `Greeter` service in the *\*.proto* file.</span></span> <span data-ttu-id="a3257-128">Služba je zpřístupněna klientům v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="a3257-128">The service is made accessible to clients in *Startup.cs*:</span></span>
+<span data-ttu-id="445cd-127">`GreeterService`dědí z `GreeterBase` typu, který je vygenerován `Greeter` ze služby v  *\*souboru..* .</span><span class="sxs-lookup"><span data-stu-id="445cd-127">`GreeterService` inherits from the `GreeterBase` type, which is generated from the `Greeter` service in the *\*.proto* file.</span></span> <span data-ttu-id="445cd-128">Služba je zpřístupněna klientům v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="445cd-128">The service is made accessible to clients in *Startup.cs*:</span></span>
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -101,11 +101,11 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-<span data-ttu-id="a3257-129">Další informace o službách gRPC Services v ASP.NET Core najdete v <xref:grpc/aspnetcore>tématu.</span><span class="sxs-lookup"><span data-stu-id="a3257-129">To learn more about gRPC services on ASP.NET Core, see <xref:grpc/aspnetcore>.</span></span>
+<span data-ttu-id="445cd-129">Další informace o službách gRPC Services v ASP.NET Core najdete v <xref:grpc/aspnetcore>tématu.</span><span class="sxs-lookup"><span data-stu-id="445cd-129">To learn more about gRPC services on ASP.NET Core, see <xref:grpc/aspnetcore>.</span></span>
 
-## <a name="call-grpc-services-with-a-net-client"></a><span data-ttu-id="a3257-130">Volání služeb gRPC Services pomocí klienta .NET</span><span class="sxs-lookup"><span data-stu-id="a3257-130">Call gRPC services with a .NET client</span></span>
+## <a name="call-grpc-services-with-a-net-client"></a><span data-ttu-id="445cd-130">Volání služeb gRPC Services pomocí klienta .NET</span><span class="sxs-lookup"><span data-stu-id="445cd-130">Call gRPC services with a .NET client</span></span>
 
-<span data-ttu-id="a3257-131">gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze *\*souborů. proto*](xref:grpc/basics#generated-c-assets).</span><span class="sxs-lookup"><span data-stu-id="a3257-131">gRPC clients are concrete client types that are [generated from *\*.proto* files](xref:grpc/basics#generated-c-assets).</span></span> <span data-ttu-id="a3257-132">Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v *\*souboru..* .</span><span class="sxs-lookup"><span data-stu-id="a3257-132">The concrete gRPC client has methods that translate to the gRPC service in the *\*.proto* file.</span></span>
+<span data-ttu-id="445cd-131">gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze *\*souborů. proto*](xref:grpc/basics#generated-c-assets).</span><span class="sxs-lookup"><span data-stu-id="445cd-131">gRPC clients are concrete client types that are [generated from *\*.proto* files](xref:grpc/basics#generated-c-assets).</span></span> <span data-ttu-id="445cd-132">Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v *\*souboru..* .</span><span class="sxs-lookup"><span data-stu-id="445cd-132">The concrete gRPC client has methods that translate to the gRPC service in the *\*.proto* file.</span></span>
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -117,11 +117,13 @@ var response = await client.SayHello(
 Console.WriteLine(response.Message);
 ```
 
-<span data-ttu-id="a3257-133">Klient gRPC se vytvoří pomocí kanálu, který představuje dlouhodobé připojení ke službě gRPC.</span><span class="sxs-lookup"><span data-stu-id="a3257-133">A gRPC client is created using a channel, which represents a long-lived connection to a gRPC service.</span></span> <span data-ttu-id="a3257-134">Kanál se dá vytvořit pomocí `GrpcChannel.ForAddress`.</span><span class="sxs-lookup"><span data-stu-id="a3257-134">A channel can be created using `GrpcChannel.ForAddress`.</span></span>
+<span data-ttu-id="445cd-133">Klient gRPC se vytvoří pomocí kanálu, který představuje dlouhodobé připojení ke službě gRPC.</span><span class="sxs-lookup"><span data-stu-id="445cd-133">A gRPC client is created using a channel, which represents a long-lived connection to a gRPC service.</span></span> <span data-ttu-id="445cd-134">Kanál se dá vytvořit pomocí `GrpcChannel.ForAddress`.</span><span class="sxs-lookup"><span data-stu-id="445cd-134">A channel can be created using `GrpcChannel.ForAddress`.</span></span>
 
-<span data-ttu-id="a3257-135">Další informace o vytváření klientů a volání různých metod služby najdete v tématu <xref:grpc/client>.</span><span class="sxs-lookup"><span data-stu-id="a3257-135">For more information on creating clients, and calling different service methods, see <xref:grpc/client>.</span></span>
+<span data-ttu-id="445cd-135">Další informace o vytváření klientů a volání různých metod služby najdete v tématu <xref:grpc/client>.</span><span class="sxs-lookup"><span data-stu-id="445cd-135">For more information on creating clients, and calling different service methods, see <xref:grpc/client>.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="a3257-136">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="a3257-136">Additional resources</span></span>
+[!INCLUDE[](~/includes/gRPCazure.md)]
+
+## <a name="additional-resources"></a><span data-ttu-id="445cd-136">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="445cd-136">Additional resources</span></span>
 
 * <xref:grpc/basics>
 * <xref:grpc/aspnetcore>
