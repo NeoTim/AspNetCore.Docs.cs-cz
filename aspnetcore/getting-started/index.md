@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/22/2019
 uid: getting-started
-ms.openlocfilehash: 798f1ee87c05d886d8991e3f0230c8ebc6341ba8
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 116a22bce80257948bfcc02c03a74a4b5568b8b5
+ms.sourcegitcommit: 4649814d1ae32248419da4e8f8242850fd8679a5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71925103"
+ms.lasthandoff: 10/05/2019
+ms.locfileid: "71975694"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
@@ -44,7 +44,7 @@ dotnet new webapp -o aspnetcoreapp
 Předchozí příkaz:
 
 * Vytvoří novou webovou aplikaci.  
-* Parametr vytvoří adresář s názvem aspnetcoreapp se zdrojovými soubory aplikace. `-o aspnetcoreapp`
+* Parametr `-o aspnetcoreapp` vytvoří adresář s názvem *aspnetcoreapp* se zdrojovými soubory aplikace.
 
 ### <a name="trust-the-development-certificate"></a>Důvěřovat vývojovému certifikátu
 
@@ -70,13 +70,11 @@ dotnet dev-certs https --trust
 
 Předchozí příkaz zobrazí následující zprávu:
 
-*Byl požadován vztah důvěryhodnosti s vývojovým certifikátem HTTPS. Pokud certifikát ještě nedůvěřuje, spustíme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`
+@no__t – 0Trusting certifikát vývoje HTTPS byl požadován. Pokud certifikát ještě nedůvěřuje, spustíme následující příkaz: * `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`.
 
 Tento příkaz vás může vyzvat k zadání hesla pro instalaci certifikátu do systémového řetězce klíčů. Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, zadejte své heslo.
 
 # <a name="linuxtablinux"></a>[Linux](#tab/linux)
-
-Informace o subsystému Windows pro Linux najdete v tématu [Trust certifikát HTTPS v subsystému Windows pro Linux](xref:security/enforcing-ssl#wsl).
 
 Informace o tom, jak důvěřovat certifikátu vývoje HTTPS, najdete v dokumentaci k distribuci systému Linux.
 
@@ -93,7 +91,7 @@ cd aspnetcoreapp
 dotnet watch run
 ```
 
-Jakmile příkazové prostředí ukáže, že aplikace začala, přejděte na [https://localhost:5001](https://localhost:5001)adresu.
+Jakmile příkazové prostředí indikuje, že aplikace začala, přejděte do [https://localhost:5001](https://localhost:5001).
 
 ## <a name="edit-a-razor-page"></a>Úprava stránky Razor
 
@@ -101,7 +99,7 @@ Otevřete *pages/index. cshtml* a upravte a uložte stránku s následujícím z
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-[https://localhost:5001](https://localhost:5001)Vyhledejte, aktualizujte stránku a ověřte, zda jsou zobrazeny změny.
+Přejděte na [https://localhost:5001](https://localhost:5001), aktualizujte stránku a ověřte, zda jsou zobrazeny změny.
 
 ## <a name="next-steps"></a>Další kroky
 
