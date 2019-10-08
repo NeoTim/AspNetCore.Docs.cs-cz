@@ -5,14 +5,14 @@ description: Přečtěte si o scénářích ověřování a autorizace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/05/2019
 uid: security/blazor/index
-ms.openlocfilehash: b0536b4290cd39397ceb440e0508b75d0373bc88
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 1fcd54e954d09e66b8bb1c9a51ef56193f3acf93
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211721"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007434"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
@@ -41,14 +41,14 @@ Blazor serverové aplikace pracují přes připojení v reálném čase, které 
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Pokud chcete vytvořit nový projekt serveru Blazor <xref:blazor/get-started> s ověřovacím mechanismem, postupujte podle pokynů pro Visual Studio v článku.
+Postupujte podle pokynů pro Visual Studio v článku <xref:blazor/get-started> a vytvořte nový projekt serveru Blazor s mechanismem ověřování.
 
 Po výběru šablony **aplikace Blazor serveru** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
 
 Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pro jiné projekty ASP.NET Core:
 
 * **Bez ověřování**
-* **Jednotlivé uživatelské účty** &ndash; Uživatelské účty je možné uložit:
+* **Jednotlivé uživatelské účty** &ndash; uživatelské účty mohou být uloženy:
   * V aplikaci, která používá systém [identit](xref:security/authentication/identity) ASP.NET Core.
   * S [Azure AD B2C](xref:security/authentication/azure-ad-b2c).
 * **Pracovní nebo školní účty**
@@ -56,7 +56,7 @@ Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pr
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Postupujte podle pokynů Visual Studio Code v <xref:blazor/get-started> článku Vytvoření nového projektu serveru Blazor s mechanismem ověřování:
+Postupujte podle pokynů Visual Studio Code v článku <xref:blazor/get-started> a vytvořte nový projekt serveru Blazor s mechanismem ověřování:
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -64,7 +64,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 Přípustné hodnoty ověřování (`{AUTHENTICATION}`) jsou uvedeny v následující tabulce.
 
-| Mechanismus ověřování                                                                 | `{AUTHENTICATION}`osa |
+| Mechanismus ověřování                                                                 | hodnota `{AUTHENTICATION}` |
 | ---------------------------------------------------------------------------------------- | :----------------------: |
 | Bez ověřování                                                                        | `None`                   |
 | Jednoho<br>Uživatelé uložení v aplikaci pomocí ASP.NET Core identity                        | `Individual`             |
@@ -73,7 +73,7 @@ Přípustné hodnoty ověřování (`{AUTHENTICATION}`) jsou uvedeny v následuj
 | Pracovní nebo školní účty<br>Ověřování organizace pro více tenantů.           | `MultiOrg`               |
 | Ověřování systému Windows                                                                   | `Windows`                |
 
-Příkaz vytvoří složku s názvem s hodnotou zadanou pro `{APP NAME}` zástupný text a jako název aplikace použije název složky. Další informace najdete v tématu [dotnet New](/dotnet/core/tools/dotnet-new) v příručce .NET Core.
+Příkaz vytvoří složku s názvem s hodnotou poskytnutou pro zástupný symbol `{APP NAME}` a jako název aplikace použije název složky. Další informace najdete v tématu [dotnet New](/dotnet/core/tools/dotnet-new) v příručce .NET Core.
 
 <!--
 
@@ -117,20 +117,23 @@ The command creates a folder named with the value provided for the `{APP NAME}` 
 
 V aplikacích Blazor WebAssembly lze kontroly ověřování obejít, protože všechny kódy na straně klienta mohou být změněny uživateli. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
 
-Implementace vlastní `AuthenticationStateProvider` služby pro aplikace WebAssembly v Blazor je popsaná v následujících částech.
+Přidejte odkaz na balíček pro [Microsoft. AspNetCore. Components. Authorization](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) do souboru projektu aplikace.
+
+Implementace vlastní služby `AuthenticationStateProvider` pro aplikace Blazor WebAssembly se zabývá následujícími oddíly.
 
 ## <a name="authenticationstateprovider-service"></a>Služba AuthenticationStateProvider
 
-Serverové aplikace Blazor obsahují integrovanou `AuthenticationStateProvider` službu, která získává data o stavu ověřování z `HttpContext.User`ASP.NET Core. To je způsob, jakým se stav ověřování integruje s existujícími mechanismy ASP.NET Core ověřování na straně serveru.
+Mezi serverové aplikace Blazor patří integrovaná služba @no__t 0, která získává data o stavu ověřování ze ASP.NET Core `HttpContext.User`. To je způsob, jakým se stav ověřování integruje s existujícími mechanismy ASP.NET Core ověřování na straně serveru.
 
-`AuthenticationStateProvider`je základní službou, kterou `AuthorizeView` komponenta a `CascadingAuthenticationState` komponenta používá k získání stavu ověřování.
+`AuthenticationStateProvider` je základní služba, kterou komponenta `AuthorizeView` a komponenta `CascadingAuthenticationState` používá k získání stavu ověřování.
 
-Obvykle přímo nepoužíváte `AuthenticationStateProvider` . Použijte [komponentu AuthorizeView](#authorizeview-component) nebo přístupy [k<AuthenticationState> úkolům](#expose-the-authentication-state-as-a-cascading-parameter) , které jsou popsány dále v tomto článku. Hlavní nevýhodou použití `AuthenticationStateProvider` přímo je, že součást není automaticky oznámena v případě, že dojde ke změně podkladových dat stavu ověřování.
+Přímo nepoužíváte `AuthenticationStateProvider` přímo. Použijte [AuthorizeView součást](#authorizeview-component) nebo [úlohu @ no__t-2](#expose-the-authentication-state-as-a-cascading-parameter) popsanou dále v tomto článku. Hlavní nevýhodou použití `AuthenticationStateProvider` přímo je, že komponenta není automaticky oznámena, pokud se změní příslušná data stavu ověřování.
 
-Služba může poskytnout <xref:System.Security.Claims.ClaimsPrincipal> data aktuálního uživatele, jak je znázorněno v následujícím příkladu: `AuthenticationStateProvider`
+Služba `AuthenticationStateProvider` může poskytovat data <xref:System.Security.Claims.ClaimsPrincipal> aktuálního uživatele, jak je znázorněno v následujícím příkladu:
 
 ```cshtml
 @page "/"
+@using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <button @onclick="@LogUsername">Write user info to console</button>
@@ -153,41 +156,48 @@ Služba může poskytnout <xref:System.Security.Claims.ClaimsPrincipal> data akt
 }
 ```
 
-Pokud `user.Identity.IsAuthenticated` je `true` a<xref:System.Security.Claims.ClaimsPrincipal>vzhledem k tomu, že je uživatel a, mohou být deklarace identity vyhodnoceny a ve vyhodnocování členů.
+Pokud je `user.Identity.IsAuthenticated` `true` a protože je to <xref:System.Security.Claims.ClaimsPrincipal>, mohou být deklarace identity vyhodnoceny a členství v rolích.
 
-Další informace o vkládání závislostí (di) a službách naleznete v <xref:blazor/dependency-injection> tématu <xref:fundamentals/dependency-injection>a.
+Další informace o vkládání závislostí (DI) a službách najdete v tématu <xref:blazor/dependency-injection> a <xref:fundamentals/dependency-injection>.
 
 ## <a name="implement-a-custom-authenticationstateprovider"></a>Implementace vlastního AuthenticationStateProvider
 
 Pokud vytváříte aplikaci WebAssembly Blazor nebo pokud specifikace vaší aplikace naprosto vyžaduje vlastního poskytovatele, implementujte zprostředkovatele a přepište `GetAuthenticationStateAsync`:
 
 ```csharp
-class CustomAuthStateProvider : AuthenticationStateProvider
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Authorization;
+
+namespace BlazorSample.Services
 {
-    public override Task<AuthenticationState> GetAuthenticationStateAsync()
+    public class CustomAuthStateProvider : AuthenticationStateProvider
     {
-        var identity = new ClaimsIdentity(new[]
+        public override Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            new Claim(ClaimTypes.Name, "mrfibuli"),
-        }, "Fake authentication type");
+            var identity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Name, "mrfibuli"),
+            }, "Fake authentication type");
 
-        var user = new ClaimsPrincipal(identity);
+            var user = new ClaimsPrincipal(identity);
 
-        return Task.FromResult(new AuthenticationState(user));
+            return Task.FromResult(new AuthenticationState(user));
+        }
     }
 }
 ```
 
-Služba je registrovaná v `Startup.ConfigureServices`: `CustomAuthStateProvider`
+Služba `CustomAuthStateProvider` je zaregistrovaná v `Startup.ConfigureServices`:
 
 ```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
-}
+// using Microsoft.AspNetCore.Components.Authorization;
+// using BlazorSample.Services;
+
+services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
 ```
 
-Pomocí nástroje se všechny uživatele ověřují pomocí uživatelského jména `mrfibuli`. `CustomAuthStateProvider`
+Pomocí `CustomAuthStateProvider` se všechny uživatele ověřují pomocí uživatelského jména `mrfibuli`.
 
 ## <a name="expose-the-authentication-state-as-a-cascading-parameter"></a>Zveřejnit stav ověřování jako kaskádový parametr
 
@@ -219,9 +229,12 @@ Pokud jsou v procedurální logice požadovány údaje o stavu ověřování, na
 }
 ```
 
-V takovém případě `user.Identity.IsAuthenticated` můžou být deklarace identity výčtové a ve vyhodnocených rolích. `true`
+> [!NOTE]
+> V součásti aplikace WebAssembly v Blazor přidejte obor názvů `Microsoft.AspNetCore.Components.Authorization` (`@using Microsoft.AspNetCore.Components.Authorization`).
 
-Nastavte kaskádový parametr `AuthorizeRouteView` pomocí komponent a `CascadingAuthenticationState`: `Task<AuthenticationState>`
+Pokud je `user.Identity.IsAuthenticated` `true`, můžou být deklarace identity výčtované a ve vyhodnocených rolích se vytvořilo členství.
+
+Pomocí komponent `AuthorizeRouteView` a `CascadingAuthenticationState` nastavte kaskádový parametr `Task<AuthenticationState>`:
 
 ```cshtml
 <Router AppAssembly="@typeof(Program).Assembly">
@@ -238,7 +251,7 @@ Nastavte kaskádový parametr `AuthorizeRouteView` pomocí komponent a `Cascadin
 </Router>
 ```
 
-## <a name="authorization"></a>Autorizace
+## <a name="authorization"></a>Authorization
 
 Po ověření uživatele se uplatní *autorizační* pravidla, která řídí, co může uživatel dělat.
 
@@ -253,9 +266,9 @@ Každá z těchto konceptů je stejná jako u ASP.NET Core MVC nebo Razor Pages 
 
 ## <a name="authorizeview-component"></a>Komponenta AuthorizeView
 
-`AuthorizeView` Komponenta selektivně zobrazuje uživatelské rozhraní v závislosti na tom, zda je uživatel autorizován pro jeho zobrazení. Tento přístup je užitečný, když potřebujete jenom *Zobrazit* data pro uživatele a nemusíte používat identitu uživatele v procedurální logice.
+Komponenta `AuthorizeView` selektivně zobrazuje uživatelské rozhraní v závislosti na tom, zda je uživatel oprávněn k zobrazení. Tento přístup je užitečný, když potřebujete jenom *Zobrazit* data pro uživatele a nemusíte používat identitu uživatele v procedurální logice.
 
-Komponenta zveřejňuje `context` proměnnou typu `AuthenticationState`, kterou můžete použít pro přístup k informacím o přihlášeném uživateli:
+Tato součást zpřístupňuje proměnnou `context` typu `AuthenticationState`, kterou můžete použít pro přístup k informacím o přihlášeném uživateli:
 
 ```cshtml
 <AuthorizeView>
@@ -279,20 +292,20 @@ V případě, že se uživatel neověřuje, můžete také Dodejte jiný obsah, 
 </AuthorizeView>
 ```
 
-Obsah `<Authorized>` značek a `<NotAuthorized>` může obsahovat libovolné položky, jako jsou například jiné interaktivní komponenty.
+Obsah značek `<Authorized>` a `<NotAuthorized>` může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti.
 
 Podmínky autorizace, jako jsou role nebo zásady, které řídí možnosti uživatelského rozhraní nebo přístup, jsou uvedené v části [autorizace](#authorization) .
 
-Pokud nejsou zadané autorizační podmínky, `AuthorizeView` použije se výchozí zásada a bude se považovat za:
+Pokud nejsou zadané autorizační podmínky, `AuthorizeView` používá výchozí zásady a zpracovává se:
 
 * Ověření uživatelé (přihlášeni) jako autorizované.
 * Neověřené (odhlášené) uživatelé jako neautorizované.
 
 ### <a name="role-based-and-policy-based-authorization"></a>Ověřování na základě rolí a na základě zásad
 
-Komponenta podporuje autorizaci na základě rolí nebo *na základě zásad* . `AuthorizeView`
+Komponenta `AuthorizeView` podporuje ověřování na základě *rolí* nebo *na základě zásad* .
 
-Pro autorizaci založenou na rolích `Roles` použijte parametr:
+U ověřování na základě rolí použijte parametr `Roles`:
 
 ```cshtml
 <AuthorizeView Roles="admin, superuser">
@@ -302,7 +315,7 @@ Pro autorizaci založenou na rolích `Roles` použijte parametr:
 
 Další informace naleznete v tématu <xref:security/authorization/roles>.
 
-Pro autorizaci založenou na zásadách použijte `Policy` parametr:
+Pro autorizaci založenou na zásadách použijte parametr `Policy`:
 
 ```cshtml
 <AuthorizeView Policy="content-editor">
@@ -314,13 +327,13 @@ Ověřování na základě deklarací identity je zvláštní případ ověřov�
 
 Tato rozhraní API se dají použít buď v Blazor serveru, nebo v aplikacích Blazor WebAssembly.
 
-Pokud není zadán `Policy` ani `AuthorizeView` ani, používá výchozí zásady. `Roles`
+Pokud není zadána žádná hodnota `Roles` ani `Policy`, používá `AuthorizeView` výchozí zásady.
 
 ### <a name="content-displayed-during-asynchronous-authentication"></a>Obsah zobrazený během asynchronního ověřování
 
 Blazor umožňuje *asynchronní*určení stavu ověřování. Primární scénář pro tento přístup je v aplikacích Blazor WebAssembly, které vytvářejí požadavek na externí koncový bod pro ověřování.
 
-V průběhu ověřování ve `AuthorizeView` výchozím nastavení nezobrazí žádný obsah. Chcete-li zobrazit obsah, když dojde k `<Authorizing>` ověřování, použijte element:
+Při ověřování probíhá `AuthorizeView` ve výchozím nastavení nezobrazí žádný obsah. Chcete-li zobrazit obsah, když dojde k ověřování, použijte `<Authorizing>` elementu:
 
 ```cshtml
 <AuthorizeView>
@@ -335,11 +348,11 @@ V průběhu ověřování ve `AuthorizeView` výchozím nastavení nezobrazí ž
 </AuthorizeView>
 ```
 
-Tento přístup se obvykle nevztahuje na aplikace serveru Blazor. Aplikace Blazor serveru znají stav ověřování, jakmile se naváže stav. `Authorizing`obsah může být k dispozici v `AuthorizeView` součásti aplikace serveru Blazor, ale obsah se nikdy nezobrazí.
+Tento přístup se obvykle nevztahuje na aplikace serveru Blazor. Aplikace Blazor serveru znají stav ověřování, jakmile se naváže stav. obsah `Authorizing` se dá zadat v součásti `AuthorizeView` aplikace serveru Blazor, ale obsah se nikdy nezobrazí.
 
 ## <a name="authorize-attribute"></a>[Autorizační] – atribut
 
-Stejně jako aplikace může `[Authorize]` být použita s řadičem MVC nebo stránkou Razor, `[Authorize]` lze také použít s komponentami Razor:
+Atribut `[Authorize]` lze použít v součástech Razor:
 
 ```cshtml
 @page "/"
@@ -348,12 +361,13 @@ Stejně jako aplikace může `[Authorize]` být použita s řadičem MVC nebo st
 You can only see this if you're signed in.
 ```
 
+> [!NOTE]
+> V součásti aplikace WebAssembly v Blazor přidejte do příkladů v této části obor názvů `Microsoft.AspNetCore.Authorization` (`@using Microsoft.AspNetCore.Authorization`).
+
 > [!IMPORTANT]
-> Používejte `[Authorize]` pouze v `@page` součástech, které jsou dostupné prostřednictvím směrovače Blazor. Autorizace se provádí jenom jako aspekt směrování, a *ne* pro podřízené komponenty vygenerované v rámci stránky. Chcete-li autorizovat zobrazení určitých částí v rámci stránky, použijte `AuthorizeView` místo toho.
+> Pro součásti `@page`, které jsou dostupné prostřednictvím směrovače Blazor, použijte jenom `[Authorize]`. Autorizace se provádí jenom jako aspekt směrování, a *ne* pro podřízené komponenty vygenerované v rámci stránky. K ověření zobrazení určitých částí na stránce použijte místo toho `AuthorizeView`.
 
-Aby mohla být komponenta zkompilována, může být nutné přidat `@using Microsoft.AspNetCore.Authorization` buď do součásti, nebo do souboru *_Imports. Razor* .
-
-`[Authorize]` Atribut také podporuje ověřování na základě rolí nebo na základě zásad. Pro autorizaci založenou na rolích `Roles` použijte parametr:
+Atribut `[Authorize]` také podporuje autorizaci založenou na rolích nebo na základě zásad. U ověřování na základě rolí použijte parametr `Roles`:
 
 ```cshtml
 @page "/"
@@ -362,7 +376,7 @@ Aby mohla být komponenta zkompilována, může být nutné přidat `@using Micr
 <p>You can only see this if you're in the 'admin' or 'superuser' role.</p>
 ```
 
-Pro autorizaci založenou na zásadách použijte `Policy` parametr:
+Pro autorizaci založenou na zásadách použijte parametr `Policy`:
 
 ```cshtml
 @page "/"
@@ -371,17 +385,17 @@ Pro autorizaci založenou na zásadách použijte `Policy` parametr:
 <p>You can only see this if you satisfy the 'content-editor' policy.</p>
 ```
 
-Pokud není zadán `Policy` ani `[Authorize]` ani, používá výchozí zásadu, která ve výchozím nastavení zachází: `Roles`
+Pokud není zadána žádná `Roles` ani `Policy`, používá `[Authorize]` výchozí zásadu, která ve výchozím nastavení zachází:
 
 * Ověření uživatelé (přihlášeni) jako autorizované.
 * Neověřené (odhlášené) uživatelé jako neautorizované.
 
 ## <a name="customize-unauthorized-content-with-the-router-component"></a>Přizpůsobení neoprávněného obsahu pomocí součásti směrovače
 
-`Router` Komponenta společně `AuthorizeRouteView` s komponentou umožňuje aplikaci zadat vlastní obsah, pokud:
+Komponenta `Router` v kombinaci s komponentou `AuthorizeRouteView` umožňuje aplikaci zadat vlastní obsah, pokud:
 
 * Obsah nebyl nalezen.
-* Uživatel nezdařil `[Authorize]` podmínku použitou pro komponentu. Atribut je popsán v části [[autorizační] atributu.](#authorize-attribute) `[Authorize]`
+* Uživatel nevydá podmínku `[Authorize]`, která se pro komponentu aplikuje. Atribut `[Authorize]` je popsán v části [[autorizační] atributu](#authorize-attribute) .
 * Probíhá asynchronní ověřování.
 
 Ve výchozí šabloně projektu serveru Blazor soubor *App. Razor* ukazuje, jak nastavit vlastní obsah:
@@ -412,9 +426,9 @@ Ve výchozí šabloně projektu serveru Blazor soubor *App. Razor* ukazuje, jak 
 </Router>
 ```
 
-Obsah `<NotFound>`značek, `<NotAuthorized>`a `<Authorizing>` může obsahovat libovolné položky, jako jsou například jiné interaktivní komponenty.
+Obsah značek `<NotFound>`, `<NotAuthorized>` a `<Authorizing>` může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti.
 
-Pokud není `AuthorizeRouteView` element zadán, používá následující záložní zprávu: `<NotAuthorized>`
+Pokud není zadán prvek `<NotAuthorized>`, používá `AuthorizeRouteView` následující záložní zprávu:
 
 ```html
 Not authorized.
@@ -422,11 +436,11 @@ Not authorized.
 
 ## <a name="notification-about-authentication-state-changes"></a>Oznámení o změnách stavu ověřování
 
-Pokud aplikace zjistí, že se změnila základní data stavu ověřování (například kvůli tomu, že se uživatel odhlásil nebo jiný uživatel změnil své role), vlastní `AuthenticationStateProvider` možnost může volitelně vyvolat metodu `NotifyAuthenticationStateChanged` na `AuthenticationStateProvider` bázi Base. Deník. Tím se uživatele upozorní na data stavu ověřování (například `AuthorizeView`) k opakovanému vykreslení pomocí nových dat.
+Pokud aplikace zjistí, že se změnila základní data stavu ověřování (například kvůli tomu, že se uživatel odhlásil nebo jiný uživatel změnil své role), vlastní `AuthenticationStateProvider` může volitelně vyvolat metodu `NotifyAuthenticationStateChanged` na základní třídě `AuthenticationStateProvider`. Tím se uživatelům upozorní na data stavu ověřování (například `AuthorizeView`), která se mají znovu vykreslovat pomocí nových dat.
 
 ## <a name="procedural-logic"></a>Procesní logika
 
-Pokud je aplikace nutná k kontrole autorizačních pravidel v rámci procedurální logiky, použijte k získání `Task<AuthenticationState>` <xref:System.Security.Claims.ClaimsPrincipal>uživatele kaskádový parametr typu. `Task<AuthenticationState>`lze kombinovat s jinými službami, například `IAuthorizationService`, k vyhodnocení zásad.
+Pokud je aplikace nutná k kontrole autorizačních pravidel v rámci procedurální logiky, použijte k získání <xref:System.Security.Claims.ClaimsPrincipal> kaskádový parametr typu `Task<AuthenticationState>`. `Task<AuthenticationState>` se dá zkombinovat s jinými službami, jako je například `IAuthorizationService`, k vyhodnocení zásad.
 
 ```cshtml
 @inject IAuthorizationService AuthorizationService
@@ -461,6 +475,14 @@ Pokud je aplikace nutná k kontrole autorizačních pravidel v rámci procedurá
 }
 ```
 
+> [!NOTE]
+> Do komponenty aplikace Blazor WebAssembly přidejte obory názvů `Microsoft.AspNetCore.Authorization` a `Microsoft.AspNetCore.Components.Authorization`:
+>
+> ```cshtml
+> @using Microsoft.AspNetCore.Authorization
+> @using Microsoft.AspNetCore.Components.Authorization
+> ```
+
 ## <a name="authorization-in-blazor-webassembly-apps"></a>Autorizace v Blazorch aplikacích WebAssembly
 
 V aplikacích Blazor WebAssembly lze kontroly autorizace obejít, protože všechny kódy na straně klienta mohou být změněny uživateli. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
@@ -471,11 +493,11 @@ V aplikacích Blazor WebAssembly lze kontroly autorizace obejít, protože všec
 
 Běžné chyby:
 
-* **Autorizace vyžaduje kaskádový parametr typu Task\<AuthenticationState >. Zvažte použití CascadingAuthenticationState k zadání.**
+* **Authorization vyžaduje kaskádový parametr typu Task @ no__t-1AuthenticationState >. Zvažte použití CascadingAuthenticationState k zadání tohoto.**
 
-* **`null`hodnota je přijata pro`authenticationStateTask`**
+* **pro `authenticationStateTask` je přijata hodnota `null`.**
 
-Je možné, že projekt nebyl vytvořen pomocí šablony serveru Blazor s povoleným ověřováním. Zabalte kolem některé části stromu uživatelského rozhraní, například v *App. Razor* , následovně: `<CascadingAuthenticationState>`
+Je možné, že projekt nebyl vytvořen pomocí šablony serveru Blazor s povoleným ověřováním. Zabalte `<CascadingAuthenticationState>` kolem některé části stromu uživatelského rozhraní, například v *App. Razor* následujícím způsobem:
 
 ```cshtml
 <CascadingAuthenticationState>
@@ -485,7 +507,7 @@ Je možné, že projekt nebyl vytvořen pomocí šablony serveru Blazor s povole
 </CascadingAuthenticationState>
 ```
 
-Doplní kaskádový parametr, který zase získá z podkladové `AuthenticationStateProvider` služby di. `Task<AuthenticationState>` `CascadingAuthenticationState`
+@No__t-0 dodá kaskádový parametr `Task<AuthenticationState>`, který pak získá ze základní služby `AuthenticationStateProvider` DI.
 
 ## <a name="additional-resources"></a>Další zdroje
 

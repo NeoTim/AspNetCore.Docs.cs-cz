@@ -5,14 +5,14 @@ description: Seznamte se s obecným hostitelem .NET Core, který je zodpovědný
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/05/2019
+ms.date: 10/07/2019
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: bd6e01697900b93d5b98122c726e1f8c8b89c0fc
-ms.sourcegitcommit: 4115bf0e850c13d4e655beb5ab5e8ff431173cb6
+ms.openlocfilehash: 1582955cd18e6739111af05c9a892cd5cb4e270d
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/06/2019
-ms.locfileid: "71981931"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007240"
 ---
 # <a name="net-generic-host"></a>Obecný hostitel .NET
 
@@ -78,7 +78,7 @@ Pokud aplikace používá Entity Framework Core, neměňte název ani signaturu 
 
 <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> Metody:
 
-* Nastaví kořen obsahu na cestu vrácenou <xref:System.IO.Directory.GetCurrentDirectory*>.
+* Nastaví [kořen obsahu](xref:fundamentals/index#content-root) na cestu vrácenou <xref:System.IO.Directory.GetCurrentDirectory*>.
 * Načte konfiguraci hostitele z:
   * Proměnné prostředí s předponou "DOTNET_".
   * Argumenty příkazového řádku.
@@ -199,6 +199,11 @@ Host.CreateDefaultBuilder(args)
     .UseContentRoot("c:\\content-root")
     //...
 ```
+
+Další informace naleznete v tématu:
+
+* @no__t – 0Fundamentals: Kořen obsahu @ no__t-0
+* [WebRoot](#webroot)
 
 ### <a name="environmentname"></a>EnvironmentName
 
@@ -397,7 +402,7 @@ Relativní cesta ke statickým prostředkům aplikace
 
 **Klíč**: Webroot  
 **Typ**: *řetězec*  
-**Výchozí**: *(Kořen obsahu)/wwwroot*, pokud cesta existuje. Pokud cesta neexistuje, použije se zprostředkovatel souborů no-op.  
+**Výchozí**: Výchozí hodnota je `wwwroot`. Cesta k *obsahu {root}/wwwroot* musí existovat. Pokud cesta neexistuje, použije se zprostředkovatel souborů no-op.  
 **Proměnná prostředí**: `<PREFIX_>WEBROOT`
 
 Chcete-li nastavit tuto hodnotu, použijte proměnnou prostředí nebo volání `UseWebRoot`:
@@ -405,6 +410,11 @@ Chcete-li nastavit tuto hodnotu, použijte proměnnou prostředí nebo volání 
 ```csharp
 webBuilder.UseWebRoot("public");
 ```
+
+Další informace naleznete v tématu:
+
+* @no__t – 0Fundamentals: Webový kořenový adresář @ no__t-0
+* [ContentRootPath](#contentrootpath)
 
 ## <a name="manage-the-host-lifetime"></a>Správa životnosti hostitele
 
@@ -574,6 +584,8 @@ Toto nastavení určuje, kde hostitel začne vyhledávat soubory obsahu.
 Pokud cesta neexistuje, hostitele se nepodaří spustit.
 
 [!code-csharp[](generic-host/samples-snapshot/2.x/GenericHostSample/Program.cs?name=snippet_UseContentRoot)]
+
+Další informace najdete v tématu [Fundamentals: Kořen obsahu @ no__t-0.
 
 ### <a name="environment"></a>Prostředí
 

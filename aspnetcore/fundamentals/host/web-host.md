@@ -2,16 +2,17 @@
 title: ASP.NET Core webového hostitele
 author: rick-anderson
 description: Přečtěte si o webovém hostiteli v ASP.NET Core, který zodpovídá za správu spouštění a životního cyklu aplikací.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/14/2019
+ms.date: 10/07/2019
 uid: fundamentals/host/web-host
-ms.openlocfilehash: 977c1df67c2775870d630f3a1085d5e19cef58f5
-ms.sourcegitcommit: 4115bf0e850c13d4e655beb5ab5e8ff431173cb6
+ms.openlocfilehash: bc18b5490d232758b796d33a62cd8d1a7dd7289f
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/06/2019
-ms.locfileid: "71981901"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007106"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core webového hostitele
 
@@ -23,7 +24,7 @@ Tento článek se zabývá webovým hostitelem, který zůstává dostupný jeno
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 Tento článek se zabývá webovým hostitelem, který je určený pro hostování webových aplikací. Pro jiné druhy aplikací použijte [obecného hostitele](xref:fundamentals/host/generic-host).
 
@@ -54,7 +55,7 @@ Kód, který volá `CreateDefaultBuilder`, je v metodě s názvem `CreateWebHost
 `CreateDefaultBuilder` provádí následující úlohy:
 
 * Nakonfiguruje server [Kestrel](xref:fundamentals/servers/kestrel) jako webový server pomocí poskytovatelů konfigurace hostování aplikace. Výchozí možnosti serveru Kestrel naleznete v tématu <xref:fundamentals/servers/kestrel#kestrel-options>.
-* Nastaví kořen obsahu na cestu vrácenou [adresářem. GetCurrentDirectory](/dotnet/api/system.io.directory.getcurrentdirectory).
+* Nastaví [kořen obsahu](xref:fundamentals/index#content-root) na cestu vrácenou [adresářem. GetCurrentDirectory](/dotnet/api/system.io.directory.getcurrentdirectory).
 * Načte [konfiguraci hostitele](#host-configuration-values) z:
   * Proměnné prostředí s předponou `ASPNETCORE_` (například `ASPNETCORE_ENVIRONMENT`).
   * Argumenty příkazového řádku.
@@ -120,7 +121,7 @@ Konfiguraci definovanou pomocí `CreateDefaultBuilder` lze přepsat a rozšíři
 
 ::: moniker-end
 
-*Kořen obsahu* určuje, kde hostitel vyhledává soubory obsahu, například soubory zobrazení MVC. Při spuštění aplikace z kořenové složky projektu se jako kořen obsahu použije kořenová složka projektu. Toto je výchozí použití v [aplikaci Visual Studio](https://visualstudio.microsoft.com) a [dotnet New Templates](/dotnet/core/tools/dotnet-new).
+[Kořen obsahu](xref:fundamentals/index#content-root) určuje, kde hostitel vyhledává soubory obsahu, například soubory zobrazení MVC. Při spuštění aplikace z kořenové složky projektu se jako kořen obsahu použije kořenová složka projektu. Toto je výchozí použití v [aplikaci Visual Studio](https://visualstudio.microsoft.com) a [dotnet New Templates](/dotnet/core/tools/dotnet-new).
 
 Další informace o konfiguraci aplikace najdete v tématu <xref:fundamentals/configuration/index>.
 
@@ -141,7 +142,17 @@ Hostitel používá jakoukoli možnost, která hodnotu nastaví jako poslední. 
 
 ### <a name="application-key-name"></a>Klíč aplikace (název)
 
+::: moniker range=">= aspnetcore-3.0"
+
+Vlastnost `IWebHostEnvironment.ApplicationName` je automaticky nastavena při volání [UseStartup](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.usestartup) nebo [Configure](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configure) během vytváření hostitele. Hodnota je nastavená na název sestavení, které obsahuje vstupní bod aplikace. Chcete-li nastavit hodnotu explicitně, použijte [WebHostDefaults. ApplicationKey](/dotnet/api/microsoft.aspnetcore.hosting.webhostdefaults.applicationkey):
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 Vlastnost [IHostingEnvironment. ApplicationName](/dotnet/api/microsoft.extensions.hosting.ihostingenvironment.applicationname) je automaticky nastavena při volání [UseStartup](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.usestartup) nebo [Configure](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configure) během vytváření hostitele. Hodnota je nastavená na název sestavení, které obsahuje vstupní bod aplikace. Chcete-li nastavit hodnotu explicitně, použijte [WebHostDefaults. ApplicationKey](/dotnet/api/microsoft.aspnetcore.hosting.webhostdefaults.applicationkey):
+
+::: moniker-end
 
 **Klíč**: ApplicationName  
 **Typ**: *řetězec*  
@@ -171,9 +182,9 @@ WebHost.CreateDefaultBuilder(args)
     .CaptureStartupErrors(true)
 ```
 
-### <a name="content-root"></a>Kořen obsahu
+### <a name="content-root"></a>Kořenový adresář obsahu
 
-Toto nastavení určuje, kde ASP.NET Core začít hledat soubory obsahu, například zobrazení MVC. 
+Toto nastavení určuje, kde ASP.NET Core začne vyhledávat soubory obsahu.
 
 **Klíč**: contentRoot  
 **Typ**: *řetězec*  
@@ -181,12 +192,17 @@ Toto nastavení určuje, kde ASP.NET Core začít hledat soubory obsahu, napří
 **Nastavit pomocí**: `UseContentRoot`  
 **Proměnná prostředí**: `ASPNETCORE_CONTENTROOT`
 
-Kořen obsahu se používá také jako základní cesta pro [Nastavení kořenového adresáře webu](#web-root). Pokud cesta neexistuje, hostitele se nepodaří spustit.
+Kořen obsahu se používá také jako základní cesta pro [kořenový adresář webu](xref:fundamentals/index#web-root). Pokud kořenová cesta obsahu neexistuje, hostitele se nepodaří spustit.
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
     .UseContentRoot("c:\\<content-root>")
 ```
+
+Další informace naleznete v tématu:
+
+* @no__t – 0Fundamentals: Kořen obsahu @ no__t-0
+* [Webový kořenový adresář](#web-root)
 
 ### <a name="detailed-errors"></a>Podrobné chyby
 
@@ -364,13 +380,13 @@ WebHost.CreateDefaultBuilder(args)
     .UseStartup<TStartup>()
 ```
 
-### <a name="web-root"></a>Webový kořenový adresář
+### <a name="web-root"></a>Kořenový adresář webu
 
 Nastaví relativní cestu k statickým assetům aplikace.
 
 **Klíč**: Webroot  
 **Typ**: *řetězec*  
-**Výchozí**: Pokud tento parametr nezadáte, výchozí hodnota je "(kořen obsahu)/wwwroot", pokud cesta existuje. Pokud cesta neexistuje, použije se zprostředkovatel souboru no-op.  
+**Výchozí**: Výchozí hodnota je `wwwroot`. Cesta k *obsahu {root}/wwwroot* musí existovat. Pokud cesta neexistuje, použije se zprostředkovatel souborů no-op.  
 **Nastavit pomocí**: `UseWebRoot`  
 **Proměnná prostředí**: `ASPNETCORE_WEBROOT`
 
@@ -378,6 +394,11 @@ Nastaví relativní cestu k statickým assetům aplikace.
 WebHost.CreateDefaultBuilder(args)
     .UseWebRoot("public")
 ```
+
+Další informace naleznete v tématu:
+
+* @no__t – 0Fundamentals: Webový kořenový adresář @ no__t-0
+* [Kořen obsahu](#content-root)
 
 ## <a name="override-configuration"></a>Přepsat konfiguraci
 
@@ -504,7 +525,7 @@ using (var host = WebHost.Start("http://localhost:8080", app => app.Response.Wri
 
 Vytvoří stejný výsledek jako **Start (aplikace RequestDelegate)** , s výjimkou, že aplikace reaguje na `http://localhost:8080`.
 
-**Spustit (akce @ no__t-1IRouteBuilder @ no__t-2 routeBuilder)**
+**Spustit (akce @ no__t-1IRouteBuilder > routeBuilder)**
 
 Použijte instanci `IRouteBuilder` ([Microsoft. AspNetCore. Routing](https://www.nuget.org/packages/Microsoft.AspNetCore.Routing/)) pro použití middlewaru pro směrování:
 
@@ -538,7 +559,7 @@ Použijte následující požadavky prohlížeče s příkladem:
 
 `WaitForShutdown` blokuje až do vystavení přerušení (CTRL-C/SIGINT nebo SIGTERM). Aplikace zobrazí zprávu `Console.WriteLine` a počká, až se příkaz ukončí.
 
-**Start (adresa URL řetězce, akce @ no__t-1IRouteBuilder @ no__t-2 routeBuilder)**
+**Start (adresa URL řetězce, akce @ no__t-1IRouteBuilder > routeBuilder)**
 
 Použijte adresu URL a instanci `IRouteBuilder`:
 
@@ -559,9 +580,9 @@ using (var host = WebHost.Start("http://localhost:8080", router => router
 }
 ```
 
-Vytvoří stejný výsledek jako **Start (Action @ no__t-1IRouteBuilder @ no__t-2 routeBuilder)** , s výjimkou toho, že aplikace reaguje na `http://localhost:8080`.
+Vytvoří stejný výsledek jako **Start (Action @ no__t-1IRouteBuilder > routeBuilder)** , s výjimkou, že aplikace reaguje na `http://localhost:8080`.
 
-**StartWith (akce @ no__t-1IApplicationBuilder @ no__t-2 aplikace)**
+**StartWith (akce @ no__t-1IApplicationBuilder > aplikace)**
 
 Zadejte delegáta pro konfiguraci `IApplicationBuilder`:
 
@@ -582,7 +603,7 @@ using (var host = WebHost.StartWith(app =>
 
 V prohlížeči vytvořte žádost, aby `http://localhost:5000`, aby se zobrazila odpověď "Hello World!". `WaitForShutdown` blokuje až do vystavení přerušení (CTRL-C/SIGINT nebo SIGTERM). Aplikace zobrazí zprávu `Console.WriteLine` a počká, až se příkaz ukončí.
 
-**StartWith (adresa URL řetězce, akce @ no__t-1IApplicationBuilder @ no__t-2)**
+**StartWith (adresa URL řetězce, akce @ no__t-1IApplicationBuilder > aplikace)**
 
 Zadejte adresu URL a delegáta pro konfiguraci `IApplicationBuilder`:
 
@@ -601,7 +622,104 @@ using (var host = WebHost.StartWith("http://localhost:8080", app =>
 }
 ```
 
-Vytvoří stejný výsledek jako **StartWith (Action @ no__t-1IApplicationBuilder @ no__t-2)** , s výjimkou toho, že aplikace reaguje na `http://localhost:8080`.
+Vytvoří stejný výsledek jako **StartWith (Action @ no__t-1IApplicationBuilder > App)** , s výjimkou, že aplikace reaguje na `http://localhost:8080`.
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="iwebhostenvironment-interface"></a>Rozhraní IWebHostEnvironment
+
+Rozhraní `IWebHostEnvironment` poskytuje informace o prostředí hostování webu aplikace. Použijte [Injektáže konstruktoru](xref:fundamentals/dependency-injection) pro získání `IWebHostEnvironment`, aby bylo možné použít jeho vlastnosti a metody rozšíření:
+
+```csharp
+public class CustomFileReader
+{
+    private readonly IWebHostEnvironment _env;
+
+    public CustomFileReader(IWebHostEnvironment env)
+    {
+        _env = env;
+    }
+
+    public string ReadFile(string filePath)
+    {
+        var fileProvider = _env.WebRootFileProvider;
+        // Process the file here
+    }
+}
+```
+
+[Přístup založený na konvenci](xref:fundamentals/environments#environment-based-startup-class-and-methods) je možné použít ke konfiguraci aplikace při spuštění na základě prostředí. Případně můžete vložit `IWebHostEnvironment` do konstruktoru `Startup` pro použití v `ConfigureServices`:
+
+```csharp
+public class Startup
+{
+    public Startup(IWebHostEnvironment env)
+    {
+        HostingEnvironment = env;
+    }
+
+    public IWebHostEnvironment HostingEnvironment { get; }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+        if (HostingEnvironment.IsDevelopment())
+        {
+            // Development configuration
+        }
+        else
+        {
+            // Staging/Production configuration
+        }
+
+        var contentRootPath = HostingEnvironment.ContentRootPath;
+    }
+}
+```
+
+> [!NOTE]
+> Kromě metody rozšíření `IsDevelopment` nabízí `IWebHostEnvironment` metody `IsStaging`, `IsProduction` a `IsEnvironment(string environmentName)`. Další informace naleznete v tématu <xref:fundamentals/environments>.
+
+Službu `IWebHostEnvironment` lze také vložit přímo do metody `Configure` pro nastavení kanálu zpracování:
+
+```csharp
+public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        // In Development, use the Developer Exception Page
+        app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+        // In Staging/Production, route exceptions to /error
+        app.UseExceptionHandler("/error");
+    }
+
+    var contentRootPath = env.ContentRootPath;
+}
+```
+
+`IWebHostEnvironment` se dá vložit do metody `Invoke` při vytváření vlastního [middlewaru](xref:fundamentals/middleware/write):
+
+```csharp
+public async Task Invoke(HttpContext context, IWebHostEnvironment env)
+{
+    if (env.IsDevelopment())
+    {
+        // Configure middleware for Development
+    }
+    else
+    {
+        // Configure middleware for Staging/Production
+    }
+
+    var contentRootPath = env.ContentRootPath;
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 ## <a name="ihostingenvironment-interface"></a>Rozhraní IHostingEnvironment
 
@@ -694,6 +812,77 @@ public async Task Invoke(HttpContext context, IHostingEnvironment env)
 }
 ```
 
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
+## <a name="ihostapplicationlifetime-interface"></a>Rozhraní IHostApplicationLifetime
+
+`IHostApplicationLifetime` umožňuje aktivity po spuštění a vypnutí. Tři vlastnosti rozhraní jsou tokeny zrušení používané k registraci metod @no__t 0, které definují události spuštění a vypnutí.
+
+| Token zrušení    | Aktivováno, když&#8230; |
+| --------------------- | --------------------- |
+| `ApplicationStarted`  | Hostitel byl plně spuštěn. |
+| `ApplicationStopped`  | Hostitel dokončuje řádné vypnutí. Všechny požadavky by se měly zpracovat. Bloky vypnutí, dokud se tato událost nedokončí. |
+| `ApplicationStopping` | Hostitel provádí bezproblémové vypnutí. Žádosti se pořád dají zpracovat. Bloky vypnutí, dokud se tato událost nedokončí. |
+
+```csharp
+public class Startup
+{
+    public void Configure(IApplicationBuilder app, IHostApplicationLifetime appLifetime)
+    {
+        appLifetime.ApplicationStarted.Register(OnStarted);
+        appLifetime.ApplicationStopping.Register(OnStopping);
+        appLifetime.ApplicationStopped.Register(OnStopped);
+
+        Console.CancelKeyPress += (sender, eventArgs) =>
+        {
+            appLifetime.StopApplication();
+            // Don't terminate the process immediately, wait for the Main thread to exit gracefully.
+            eventArgs.Cancel = true;
+        };
+    }
+
+    private void OnStarted()
+    {
+        // Perform post-startup activities here
+    }
+
+    private void OnStopping()
+    {
+        // Perform on-stopping activities here
+    }
+
+    private void OnStopped()
+    {
+        // Perform post-stopped activities here
+    }
+}
+```
+
+`StopApplication` žádosti o ukončení aplikace Následující třída používá `StopApplication` k bezproblémovému vypnutí aplikace, když je volána metoda `Shutdown` třídy:
+
+```csharp
+public class MyClass
+{
+    private readonly IHostApplicationLifetime _appLifetime;
+
+    public MyClass(IHostApplicationLifetime appLifetime)
+    {
+        _appLifetime = appLifetime;
+    }
+
+    public void Shutdown()
+    {
+        _appLifetime.StopApplication();
+    }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 ## <a name="iapplicationlifetime-interface"></a>Rozhraní IApplicationLifetime
 
 [IApplicationLifetime](/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime) umožňuje aktivity po spuštění a vypnutí. Tři vlastnosti rozhraní jsou tokeny zrušení používané k registraci metod @no__t 0, které definují události spuštění a vypnutí.
@@ -756,6 +945,8 @@ public class MyClass
     }
 }
 ```
+
+::: moniker-end
 
 ## <a name="scope-validation"></a>Ověření rámce životnosti
 

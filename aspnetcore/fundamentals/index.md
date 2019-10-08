@@ -5,14 +5,14 @@ description: Seznamte se se základními pojmy pro vytváření ASP.NET Corech a
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/06/2019
+ms.date: 10/07/2019
 uid: fundamentals/index
-ms.openlocfilehash: cff2afd62ed60648dc689d408dde56ecda18c261
-ms.sourcegitcommit: 2d4c1732c4866ed26b83da35f7bc2ad021a9c701
+ms.openlocfilehash: a70d6aa05a2c92d19076b8d6e4ea24d7554368b6
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/09/2019
-ms.locfileid: "70815651"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007116"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core základy
 
@@ -61,7 +61,7 @@ ASP.NET Core obsahuje bohatou sadu integrovaných middleware a zároveň je mož
 
 Další informace naleznete v tématu <xref:fundamentals/middleware/index>.
 
-## <a name="host"></a>Hostitel
+## <a name="host"></a>Host
 
 ASP.NET Core aplikace vytváří *hostitele* při spuštění. Hostitel je objekt, který zapouzdřuje všechny prostředky aplikace, jako například:
 
@@ -81,7 +81,7 @@ Kód pro vytvoření hostitele je v `Program.Main`:
 
 [!code-csharp[](index/snapshots/3.x/Program1.cs)]
 
-Metody `CreateDefaultBuilder` a`ConfigureWebHostDefaults` konfigurují hostitele pomocí běžně používaných možností, jako jsou například následující:
+Metody `CreateDefaultBuilder` a `ConfigureWebHostDefaults` konfigurují hostitele pomocí běžně používaných možností, jako jsou například následující:
 
 * Použití [Kestrelu](#servers) jako webového serveru a povolení integrace do služby IIS.
 * Načtení konfigurace z *appsettings.json*, *appsettings.{ Název prostředí }.json*, proměnných prostředí, argumentů příkazového řádku a dalších zdrojů konfigurace.
@@ -99,7 +99,7 @@ Kód pro vytvoření hostitele je v `Program.Main`:
 
 [!code-csharp[](index/snapshots/2.x/Program1.cs)]
 
-`CreateDefaultBuilder` Metoda Konfiguruje hostitele pomocí běžně používaných možností, jako například následujících:
+Metoda `CreateDefaultBuilder` Konfiguruje hostitele s běžně používanými možnostmi, jako je například následující:
 
 * Použití [Kestrelu](#servers) jako webového serveru a povolení integrace do služby IIS.
 * Načtení konfigurace z *appsettings.json*, *appsettings.{ Název prostředí }.json*, proměnných prostředí, argumentů příkazového řádku a dalších zdrojů konfigurace.
@@ -162,13 +162,13 @@ ASP.NET Core nabízí *Kestrel* jako implementaci serveru pro různé platformy.
 
 Další informace naleznete v tématu <xref:fundamentals/servers/index>.
 
-## <a name="configuration"></a>Konfigurace
+## <a name="configuration"></a>Konfiguraci
 
 ASP.NET Core poskytuje konfigurační framework, který získává nastavení jako dvojice název-hodnota z uspořádané množiny poskytovatelů konfigurace. Existuje široká škála integrovaných poskytovatelů konfigurace, např. pro soubory *.json*, *.xml*, proměnné prostředí a argumenty příkazového řádku. Můžete si také napsat vlastního zprostředkovatele konfigurace.
 
 Jako příklad můžete ve své aplikaci specifikovat konfiguraci s využitím *appsettings.json* a proměnných prostředí. Když je následně požadována hodnota *ConnectionString*, framework ji prvně vyhledá v souboru *appsettings.json*. Pokud je hodnota nalezena v souboru, ale zároveň také v proměnné prostředí, hodnota proměnné prostředí bude mít přednost.
 
-Pro správu důvěrných konfiguračních dat, jako jsou hesla, poskytuje ASP.NET Core [nástroj pro správu tajemství](xref:security/app-secrets). Pro tajemství v produkčním prostředí doporučujeme [Azure Key Vault](xref:security/key-vault-configuration).
+Pro správu důvěrných konfiguračních dat, jako jsou hesla, ASP.NET Core poskytuje [Nástroj Správce tajných klíčů](xref:security/app-secrets). V případě produkčních tajných kódů doporučujeme [Azure Key Vault](xref:security/key-vault-configuration).
 
 Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
@@ -252,36 +252,57 @@ Další informace naleznete v tématu <xref:fundamentals/http-requests>.
 
 ## <a name="content-root"></a>Kořenový adresář obsahu
 
-Kořenový adresář obsahu je základní cesta k privátnímu obsahu používanému aplikací, kterým jsou například soubory Razor. Ve výchozím nastavení je kořenový adresář obsahu shodný se základní cestou spustitelného souboru, který je hostitelem aplikace. Alternativní umístění může být specifikováno při [vytváření hostitele](#host).
+Kořen obsahu je základní cesta k:
+
+* Spustitelný soubor, který hostuje aplikaci ( *. exe*).
+* Kompilovaná sestavení, která tvoří aplikaci ( *. dll*).
+* Soubory s obsahem neobsahující kód, které používá aplikace, například:
+  * Soubory Razor ( *. cshtml*, *. Razor*)
+  * Konfigurační soubory ( *. JSON*, *. XML*)
+  * Datové soubory ( *. DB*)
+* [Webový kořenový adresář](#web-root), obvykle publikovaná složka *wwwroot* .
+
+Během vývoje:
+
+* Kořen obsahu se nastaví jako kořenový adresář projektu.
+* Kořenový adresář projektu slouží k vytvoření:
+  * Cesta k souborům obsahu bez kódu aplikace v kořenovém adresáři projektu.
+  * [Webový kořenový](#web-root)adresář, obvykle složka *wwwroot* v kořenovém adresáři projektu.
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Další informace najdete v tématu [kořenový adresář obsahu](xref:fundamentals/host/generic-host#content-root).
+Alternativní cestu k kořenovému obsahu lze zadat při [sestavování hostitele](#host). Další informace naleznete v tématu <xref:fundamentals/host/generic-host#contentrootpath>.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Další informace najdete v tématu [kořenový adresář obsahu](xref:fundamentals/host/web-host#content-root).
+Alternativní cestu k kořenovému obsahu lze zadat při [sestavování hostitele](#host). Další informace naleznete v tématu <xref:fundamentals/host/web-host#content-root>.
 
 ::: moniker-end
 
 ## <a name="web-root"></a>Kořenový adresář webu
 
-Kořenový adresář webu (označovaný také jako *webroot*) je základní cesta k veřejným, statickým prostředkům, jako jsou CSS styly, JavaScript a soubory obrázků. Middleware pro statické soubory bude ve výchozím nastavení obsluhovat pouze soubory z tohoto kořenového adresáře webu (a jeho podadresářů). Výchozí hodnota kořenového adresáře webu je *{Kořenový adresář obsahu} / wwwroot*, jiné umístění však může být zadáno při [vytváření hostitele](#host).
+Kořenový adresář webu je základní cesta k souborům statických prostředků bez kódu, jako je například:
+
+* Šablony stylů ( *. CSS*)
+* JavaScript ( *. js*)
+* Obrázky ( *. png*, *. jpg*)
+
+Statické soubory jsou obsluhovány ve výchozím nastavení pouze z kořenového adresáře webu (a podadresářů).
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Další informace najdete v článku [Webroot](/aspnet/core/fundamentals/host/generic-host?view=aspnetcore-3.0#webroot) .
+Kořenová cesta webu je ve výchozím nastavení *{root Content}/wwwroot*, ale při [sestavování hostitele](#host)je možné zadat jiný webový kořenový adresář. Další informace naleznete v tématu <xref:fundamentals/host/generic-host#webroot>.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Další informace najdete v tématu [Web root](/aspnet/core/fundamentals/host/web-host#webroot).
+Kořenová cesta webu je ve výchozím nastavení *{root Content}/wwwroot*, ale při [sestavování hostitele](#host)je možné zadat jiný webový kořenový adresář. Další informace najdete v tématu [Web root](xref:fundamentals/host/web-host#web-root).
 
 ::: moniker-end
 
-V Razor souborech ( *.cshtml*) odkazuje symbol vlnovky následované lomítkem `~/` na kořenový adresář webu. Cesty začínající `~/` jsou označovány jako virtuální cesty.
+V souborech Razor ( *. cshtml*) se vlnové lomítko (`~/`) odkazuje na kořenový adresář webu. Cesta začínající řetězcem `~/` je označována jako *virtuální cesta*.
 
 Další informace naleznete v tématu <xref:fundamentals/static-files>.

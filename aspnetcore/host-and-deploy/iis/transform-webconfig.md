@@ -5,14 +5,14 @@ description: Naučte se, jak transformovat soubor Web. config při publikování
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/07/2019
+ms.date: 10/07/2019
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: 32e66007d527f7f7b7cfd88d3bebc9b808251941
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: d28c362a200ad433e316bc1af710231a169a30a4
+ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081450"
+ms.lasthandoff: 10/07/2019
+ms.locfileid: "72007312"
 ---
 # <a name="transform-webconfig"></a>Transformace souboru web.config
 
@@ -27,8 +27,8 @@ Transformace do souboru *Web. config* lze použít automaticky při publikován�
 
 Tyto transformace se vyskytují pro některé z následujících scénářů generování *webu. config* :
 
-* Vygenerováno automaticky `Microsoft.NET.Sdk.Web` sadou SDK.
-* Poskytl vývojář v kořenu obsahu aplikace.
+* Vygenerováno automaticky sadou `Microsoft.NET.Sdk.Web` SDK.
+* Poskytl vývojář v [kořenu obsahu](xref:fundamentals/index#content-root) aplikace.
 
 ## <a name="build-configuration"></a>Konfigurace sestavení
 
@@ -134,9 +134,9 @@ dotnet publish --configuration Release /p:EnvironmentName=Production
 
 Vlastnost MSBuild pro prostředí je `$(EnvironmentName)`.
 
-Pokud publikujete ze sady Visual Studio a použijete profil publikování <xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment>, přečtěte si téma.
+Při publikování ze sady Visual Studio a používání profilu publikování, viz <xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment>.
 
-Proměnná prostředí je automaticky přidána do souboru *Web. config* , pokud je zadán název prostředí. `ASPNETCORE_ENVIRONMENT`
+Proměnná prostředí `ASPNETCORE_ENVIRONMENT` je automaticky přidána do souboru *Web. config* , pokud je zadán název prostředí.
 
 ## <a name="custom"></a>Vlastní
 
@@ -164,7 +164,7 @@ V následujícím příkladu je proměnná prostředí vlastní transformace nas
 </configuration>
 ```
 
-Transformace je použita, pokud `CustomTransformFileName` je vlastnost předána příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
+Transformace je použita, pokud je vlastnost `CustomTransformFileName` předána příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
 
 ```dotnetcli
 dotnet publish --configuration Release /p:CustomTransformFileName=custom.transform
@@ -174,7 +174,7 @@ Vlastnost MSBuild pro název profilu je `$(CustomTransformFileName)`.
 
 ## <a name="prevent-webconfig-transformation"></a>Zabránit transformaci Web. config
 
-Chcete-li zabránit transformaci souboru *Web. config* , nastavte vlastnost `$(IsWebConfigTransformDisabled)`MSBuild:
+Chcete-li zabránit transformaci souboru *Web. config* , nastavte vlastnost MSBuild `$(IsWebConfigTransformDisabled)`:
 
 ```dotnetcli
 dotnet publish /p:IsWebConfigTransformDisabled=true
