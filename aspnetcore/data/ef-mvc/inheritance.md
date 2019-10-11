@@ -1,26 +1,26 @@
 ---
 title: 'Kurz: Implementace dědičnosti – ASP.NET MVC pomocí EF Core'
 description: Tento kurz vám ukáže, jak implementovat dědičnost v datovém modelu pomocí Entity Framework Core v ASP.NET Core aplikaci.
-author: tdykstra
+author: rick-anderson
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 8e092ac47b2fd5fb6f3a0524bf1c559b7c3935c4
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: c10df60a43f5d59f3ce13afd38aad42b88c80516
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080428"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259402"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>Kurz: Implementace dědičnosti – ASP.NET MVC pomocí EF Core
 
 V předchozím kurzu jste zpracovali výjimky souběžnosti. Tento kurz vám ukáže, jak implementovat dědičnost v datovém modelu.
 
-V objektově orientovaném programování můžete použít dědičnost k usnadnění opětovného použití kódu. V `Instructor` tomto kurzu změníte třídy a `Student` tak `Person` , aby byly odvozeny ze základní třídy, která obsahuje vlastnosti `LastName` , jako jsou společné pro instruktory i studenty. Nepřidáte ani neměníte žádné webové stránky, ale změníte část kódu a tyto změny se automaticky projeví v databázi.
+V objektově orientovaném programování můžete použít dědičnost k usnadnění opětovného použití kódu. V tomto kurzu změníte třídy `Instructor` a `Student` tak, aby byly odvozeny od základní třídy `Person`, která obsahuje vlastnosti, jako je například `LastName`, které jsou společné pro instruktory i studenty. Nepřidáte ani neměníte žádné webové stránky, ale změníte část kódu a tyto změny se automaticky projeví v databázi.
 
-V tomto kurzu se naučíte:
+V tomto kurzu:
 
 > [!div class="checklist"]
 > * Mapování dědičnosti na databázi
@@ -30,17 +30,17 @@ V tomto kurzu se naučíte:
 > * Vytváření a aktualizace migrací
 > * Testování implementace
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Požadované součásti
 
 * [Souběžnost popisovačů](concurrency.md)
 
 ## <a name="map-inheritance-to-database"></a>Mapování dědičnosti na databázi
 
-Třídy `Instructor` a`Student` v modelu školních dat obsahují několik vlastností, které jsou identické:
+Třídy `Instructor` a `Student` v modelu školních dat mají identické i několik vlastností:
 
 ![Třídy student a instruktor](inheritance/_static/no-inheritance.png)
 
-Předpokládejme, že chcete eliminovat redundantní kód pro vlastnosti, které jsou sdíleny `Instructor` entitami a. `Student` Nebo chcete napsat službu, která může formátovat názvy bez caring, jestli název pochází od instruktora nebo studenta. Můžete vytvořit `Person` základní třídu, která obsahuje pouze tyto sdílené vlastnosti, `Instructor` a poté nastavit třídy a `Student` dědění z této základní třídy, jak je znázorněno na následujícím obrázku:
+Předpokládejme, že chcete eliminovat redundantní kód pro vlastnosti, které jsou sdíleny entitami `Instructor` a `Student`. Nebo chcete napsat službu, která může formátovat názvy bez caring, jestli název pochází od instruktora nebo studenta. Můžete vytvořit základní třídu `Person`, která obsahuje pouze tyto sdílené vlastnosti, a poté nastavit třídy `Instructor` a `Student` z této základní třídy, jak je znázorněno na následujícím obrázku:
 
 ![Třídy studenta a instruktory odvozené od třídy Person](inheritance/_static/inheritance.png)
 
@@ -60,7 +60,7 @@ Ještě další možností je mapovat všechny neabstraktní typy na jednotlivé
 
 Vzorce dědičnosti TPC a TPH obvykle poskytují lepší výkon než vzory dědičnosti TPT, protože vzory TPT mohou mít za následek složité spojení dotazů.
 
-Tento kurz ukazuje, jak implementovat dědičnosti TPH. TPH je jediný vzorek dědičnosti, který Entity Framework Core podporuje.  To, co uděláte, je vytvořit `Person` třídu, `Instructor` změnit třídy a `Student` , které se mají `Person`odvodit `DbContext`z, přidat novou třídu do a vytvořit migraci.
+Tento kurz ukazuje, jak implementovat dědičnosti TPH. TPH je jediný vzorek dědičnosti, který Entity Framework Core podporuje.  To, co uděláte, je vytvořit třídu `Person`, změnit třídy `Instructor` a `Student` tak, aby byly odvozeny od `Person`, přidat novou třídu do `DbContext` a vytvořit migraci.
 
 > [!TIP]
 > Zvažte uložení kopie projektu před provedením následujících změn.  Pak Pokud narazíte na problémy a potřebujete začít znovu, bude snazší začít z uloženého projektu místo vrácení kroků provedených pro tento kurz nebo přechod zpět na začátek celé řady.
@@ -97,9 +97,9 @@ Uložte změny a sestavte projekt. Pak otevřete okno příkazového řádku ve 
 dotnet ef migrations add Inheritance
 ```
 
-Tento `database update` příkaz ještě nespouštějte. Tento příkaz bude mít za následek ztrátu dat, protože odstraní tabulku instruktora a přejmenuje tabulku student na Person. Aby bylo možné zachovat existující data, je třeba zadat vlastní kód.
+Ještě nespouštějte příkaz `database update`. Tento příkaz bude mít za následek ztrátu dat, protože odstraní tabulku instruktora a přejmenuje tabulku student na Person. Aby bylo možné zachovat existující data, je třeba zadat vlastní kód.
 
-Otevřete *migrace\<nebo časové razítko > _Inheritance. cs* a nahraďte `Up` metodu následujícím kódem:
+Otevřete *migrace/\<timestamp > _Inheritance. cs* a nahraďte metodu `Up` následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Migrations/20170216215525_Inheritance.cs?name=snippet_Up)]
 
@@ -125,16 +125,16 @@ Tento kód má na starosti následující úlohy aktualizace databáze:
 
 (Pokud jste použili GUID místo celého čísla jako typ primárního klíče, hodnoty primárního klíče studenta se nemusejí změnit a některé z těchto kroků by mohly být vynechány.)
 
-`database update` Spusťte příkaz:
+Spusťte příkaz `database update`:
 
 ```dotnetcli
 dotnet ef database update
 ```
 
-(V produkčním systému provedete odpovídající změny `Down` metody v případě, že byste to museli použít pro návrat k předchozí verzi databáze. Pro tento kurz nebudete používat `Down` metodu.)
+(V produkčním systému provedete odpovídající změny metody `Down` v případě, že byste někdy museli použít tuto metodu, abyste se mohli vrátit k předchozí verzi databáze. V tomto kurzu nebudete používat metodu `Down`.)
 
 > [!NOTE]
-> Při provádění změn schématu v databázi, která obsahuje existující data, je možné získat další chyby. Pokud získáte chyby migrace, které nelze vyřešit, můžete buď změnit název databáze v připojovacím řetězci nebo odstranit databázi. V případě nové databáze není k dispozici žádná data k migraci a příkaz Update-Database je pravděpodobnější, že se dokončí bez chyb. Databázi odstraníte tak, že použijete SSOX nebo spustíte `database drop` příkaz CLI.
+> Při provádění změn schématu v databázi, která obsahuje existující data, je možné získat další chyby. Pokud získáte chyby migrace, které nelze vyřešit, můžete buď změnit název databáze v připojovacím řetězci nebo odstranit databázi. V případě nové databáze není k dispozici žádná data k migraci a příkaz Update-Database je pravděpodobnější, že se dokončí bez chyb. Databázi odstraníte tak, že použijete SSOX nebo spustíte příkaz `database drop` CLI.
 
 ## <a name="test-the-implementation"></a>Testování implementace
 
@@ -152,13 +152,13 @@ Klikněte pravým tlačítkem myši na tabulku Person a potom kliknutím na mož
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 Další informace o dědičnosti v Entity Framework Core naleznete v tématu [Dědičnost](/ef/core/modeling/inheritance).
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu se naučíte:
+V tomto kurzu:
 
 > [!div class="checklist"]
 > * Namapovaná dědičnost na databázi
@@ -171,4 +171,4 @@ V tomto kurzu se naučíte:
 Přejděte k dalšímu kurzu, kde se dozvíte, jak zvládnout celou řadu poměrně pokročilých scénářů Entity Framework.
 
 > [!div class="nextstepaction"]
-> [Generace Pokročilá témata](advanced.md)
+> [Další: Pokročilá témata](advanced.md)

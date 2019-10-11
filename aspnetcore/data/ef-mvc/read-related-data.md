@@ -1,19 +1,19 @@
 ---
-title: 'Kurz: Čtení souvisejících dat – ASP.NET MVC pomocí EF Core'
+title: 'Kurz: čtení souvisejících dat – ASP.NET MVC pomocí EF Core'
 description: V tomto kurzu si přečtete a zobrazíte související data – to znamená data, která Entity Framework načíst do vlastností navigace.
-author: tdykstra
+author: rick-anderson
 ms.author: riande
 ms.date: 09/28/2019
 ms.topic: tutorial
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: cb691dce757a72a01bfd29717710d1be590c4150
-ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
+ms.openlocfilehash: 1a16f905669d0192d713cbba9bfc6e3e75008b5d
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71592292"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259423"
 ---
-# <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Čtení souvisejících dat – ASP.NET MVC pomocí EF Core
+# <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: čtení souvisejících dat – ASP.NET MVC pomocí EF Core
 
 V předchozím kurzu jste dokončili model školních dat. V tomto kurzu si přečtete a zobrazíte související data – to znamená data, která Entity Framework načíst do vlastností navigace.
 
@@ -23,7 +23,7 @@ Následující ilustrace znázorňují stránky, se kterými budete pracovat.
 
 ![Stránka indexu instruktorů](read-related-data/_static/instructors-index.png)
 
-V tomto kurzu se naučíte:
+V tomto kurzu:
 
 > [!div class="checklist"]
 > * Naučte se načítat související data
@@ -31,9 +31,9 @@ V tomto kurzu se naučíte:
 > * Vytvoření stránky instruktory
 > * Informace o explicitním načítání
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Požadované součásti
 
-* [Vytvoření složitého datového modelu](complex-data-model.md)
+* [Vytvoření komplexního datového modelu](complex-data-model.md)
 
 ## <a name="learn-how-to-load-related-data"></a>Naučte se načítat související data
 
@@ -47,13 +47,13 @@ Existuje několik způsobů, jak může software pro mapování relačních dat 
 
   ![Příklad samostatných dotazů](read-related-data/_static/separate-queries.png)
 
-* Explicitní načítání. Při prvním načtení entity se nenačte související data. Napíšete kód, který načte související data, pokud je to potřeba. Stejně jako v případě, že se Eager načítá pomocí samostatných dotazů, explicitní načítání vede k více dotazům odesílaných do databáze. Rozdíl je v tom, že při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. V Entity Framework Core 1,1 můžete k provedení explicitního načítání použít metodu `Load`. Příklad:
+* Explicitní načítání. Při prvním načtení entity se nenačte související data. Napíšete kód, který načte související data, pokud je to potřeba. Stejně jako v případě, že se Eager načítá pomocí samostatných dotazů, explicitní načítání vede k více dotazům odesílaných do databáze. Rozdíl je v tom, že při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. V Entity Framework Core 1,1 můžete k provedení explicitního načítání použít metodu `Load`. Například:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 
 * Opožděné načítání. Při prvním načtení entity se nenačte související data. Při prvním pokusu o přístup k navigační vlastnosti je však automaticky načtena data potřebná pro tuto vlastnost navigace. Dotaz se pošle do databáze pokaždé, když se pokusíte získat data z navigační vlastnosti poprvé. Entity Framework Core 1,0 nepodporuje opožděné načítání.
 
-### <a name="performance-considerations"></a>Otázky výkonu
+### <a name="performance-considerations"></a>Požadavky na výkon
 
 Pokud víte, že pro každou načtenou entitu potřebujete související data, Eager načítání často nabízí nejlepší výkon, protože jediný dotaz odeslaný do databáze je obvykle efektivnější než samostatné dotazy pro každou načtenou entitu. Předpokládejme například, že každé oddělení má deset souvisejících kurzů. Eager načtení všech souvisejících dat by způsobilo pouze jeden (JOIN) dotaz a jednu zpáteční cestu do databáze. Samostatný dotaz na kurzy pro každé oddělení by způsobil jedenácté cestování databáze. Další výměna cest k databázi je obzvláště neškodná na výkon, pokud je latence vysoká.
 
@@ -81,7 +81,7 @@ Provedli jste následující změny ve vygenerovaném kódu:
 
 * Změnili jste záhlaví z indexu na kurzy.
 
-* Byl přidán sloupec **číslo** , který zobrazuje `CourseID` hodnotu vlastnosti. Ve výchozím nastavení nejsou primární klíče vygenerované, protože jsou obvykle nevýznamné pro koncové uživatele. V tomto případě je však primární klíč smysluplný a chcete jej zobrazit.
+* Byl přidán sloupec **číslo** , který zobrazuje hodnotu vlastnosti `CourseID`. Ve výchozím nastavení nejsou primární klíče vygenerované, protože jsou obvykle nevýznamné pro koncové uživatele. V tomto případě je však primární klíč smysluplný a chcete jej zobrazit.
 
 * Změnili jste sloupec **oddělení** , aby se zobrazil název oddělení. Kód zobrazí vlastnost `Name` entity oddělení, která je načtena do navigační vlastnosti `Department`:
 
@@ -151,7 +151,7 @@ Následující kód se spustí, když byl vybrán instruktor. Vybraný instrukto
 
 Metoda `Where` vrací kolekci, ale v tomto případě kritéria předaná této metodě mají za následek vrácenou pouze jednu entitu Instructor. Metoda `Single` převede kolekci na jednu entitu instruktora, která vám umožní přístup k vlastnosti `CourseAssignments` dané entity. Vlastnost `CourseAssignments` obsahuje entity `CourseAssignment`, ze kterých chcete pouze související entity `Course`.
 
-Metodu `Single` v kolekci použijete, když víte, že kolekce bude obsahovat pouze jednu položku. Jediná metoda vyvolá výjimku, pokud je kolekce předána prázdná, nebo pokud existuje více než jedna položka. Alternativa je `SingleOrDefault`, která vrací výchozí hodnotu (v tomto případě null), pokud je kolekce prázdná. Nicméně v tomto případě by přesto došlo k výjimce (při pokusu o nalezení vlastnosti `Courses` na odkazu s hodnotou null) a zpráva o výjimce bude méně jasně označovat příčinu problému. Když zavoláte metodu `Single`, můžete také předávat do podmínky WHERE místo volání metody `Where` samostatně:
+Metodu `Single` v kolekci použijete, když víte, že kolekce bude obsahovat pouze jednu položku. Jediná metoda vyvolá výjimku, pokud je kolekce předána prázdná, nebo pokud existuje více než jedna položka. Alternativa je `SingleOrDefault`, která v tomto případě vrátí výchozí hodnotu (v tomto případě hodnotu null), pokud je kolekce prázdná. Nicméně v tomto případě by přesto došlo k výjimce (při pokusu o nalezení vlastnosti `Courses` na odkazu s hodnotou null) a zpráva o výjimce bude méně jasně označovat příčinu problému. Když zavoláte metodu `Single`, můžete také předávat do podmínky WHERE místo volání metody `Where` samostatně:
 
 ```csharp
 .Single(i => i.ID == id.Value)
@@ -169,7 +169,7 @@ V dalším případě se vybraný kurz načte ze seznamu kurzů v modelu zobraze
 
 ### <a name="modify-the-instructor-index-view"></a>Úprava zobrazení indexu instruktorů
 
-V *zobrazeních, instruktorech/index. cshtml*nahraďte kód šablony následujícím kódem. Změny jsou zvýrazněné.
+V *zobrazeních, instruktorech/index. cshtml*nahraďte kód šablony následujícím kódem. Změny jsou zvýrazněny.
 
 [!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=1-64&highlight=1,3-7,15-19,24,26-31,41-54,56)]
 
@@ -179,7 +179,7 @@ V existujícím kódu jste provedli následující změny:
 
 * Změnila se název stránky z **indexu** na **instruktory**.
 
-* Přidání sloupce **Office** , který zobrazí `item.OfficeAssignment.Location` pouze v `item.OfficeAssignment` případě, že není null. (Vzhledem k tomu, že se jedná o relaci typu 1:1, nemusí se jednat o související entitu OfficeAssignment.)
+* Přidání sloupce **Office** , který zobrazí `item.OfficeAssignment.Location` pouze v případě, že `item.OfficeAssignment` není null. (Vzhledem k tomu, že se jedná o relaci typu 1:1, nemusí se jednat o související entitu OfficeAssignment.)
 
   ```html
   @if (item.OfficeAssignment != null)
@@ -190,7 +190,7 @@ V existujícím kódu jste provedli následující změny:
 
 * Přidali jsme sloupec **kurzy** , ve kterém se zobrazují kurzy výukové každým instruktorem. Další informace naleznete v části [explicitní přechod na řádku](xref:mvc/views/razor#explicit-line-transition) syntaxe Razor článku.
 
-* Přidaný kód, který `class="success"` dynamicky přidá `tr` do prvku vybraného instruktora. Tím se nastaví barva pozadí pro vybraný řádek pomocí třídy Bootstrap.
+* Přidaný kód, který dynamicky přidá `class="success"` do prvku `tr` vybraného instruktora. Tím se nastaví barva pozadí pro vybraný řádek pomocí třídy Bootstrap.
 
   ```html
   string selectedRow = "";
@@ -249,7 +249,7 @@ Spusťte aplikaci, přejděte na stránku indexu instruktory nyní a uvidíte, �
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu se naučíte:
+V tomto kurzu:
 
 > [!div class="checklist"]
 > * Zjistili jste, jak načíst související data

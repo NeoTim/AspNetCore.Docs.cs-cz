@@ -5,18 +5,18 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/09/2019
 uid: blazor/routing
-ms.openlocfilehash: 76266aedd4655161f1f50a8beb0936660d452912
-ms.sourcegitcommit: 6d26ab647ede4f8e57465e29b03be5cb130fc872
+ms.openlocfilehash: 8f48112237e6dd3fed88404c53b8d7d9137ef6ff
+ms.sourcegitcommit: 0b8a7571bf7acf85bf16118acb2435001cbe4b5d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "71999811"
+ms.lasthandoff: 10/10/2019
+ms.locfileid: "72236530"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -59,7 +59,7 @@ Pro komponentu lze použít více šablon směrování. Následující komponent
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> Aby adresy URL byly správně přeloženy, musí aplikace zahrnovat značku `<base>` v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor) se základní cestou aplikace zadanou v atributu `href` (`<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
+> Aby adresy URL byly správně přeloženy, musí aplikace zahrnovat značku `<base>` v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor) se základní cestou aplikace zadanou v atributu `href` (`<base href="/">`). Další informace najdete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>Poskytnutí vlastního obsahu, když se nenalezne obsah
 
@@ -85,7 +85,13 @@ Obsah značek `<NotFound>` může obsahovat libovolné položky, jako jsou např
 
 Použijte parametr `AdditionalAssemblies` k určení dalších sestavení pro komponentu `Router`, která se má při hledání směrovatelných komponent vzít v úvahu. Zadaná sestavení jsou kromě @no__tho -0-zadaného sestavení považována za. V následujícím příkladu je `Component1` směrovatelné komponenty definované v odkazované knihovně tříd. Následující příklad `AdditionalAssemblies` vede k podpoře směrování pro `Component1`:
 
-< router AppAssembly = "typeof (program). Assembly "AdditionalAssemblies =" New [] {typeof (Component1). Sestavení} >... </Router>
+```cshtml
+<Router
+    AppAssembly="typeof(Program).Assembly"
+    AdditionalAssemblies="new[] { typeof(Component1).Assembly }>
+    ...
+</Router>
+```
 
 ## <a name="route-parameters"></a>Parametry směrování
 
@@ -108,7 +114,7 @@ V následujícím příkladu trasa k součásti `Users` odpovídá pouze v pří
 
 K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení trasy, která se shodují s invariantní jazykovou verzí, se podívejte na upozornění pod tabulkou, kde najdete další informace.
 
-| Jedinečn | Příklad           | Příklady shody                                                                  | Invariantní<br>culture<br>shoda |
+| Jedinečn | Příklad:           | Příklady shody                                                                  | Invariantní<br>jazykových<br>následujícího |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
 | `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Ne                               |
 | `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano                              |
@@ -135,7 +141,7 @@ V aplikacích Blazor Server jsou výchozí trasy v *_Host. cshtml* `/` (`@page "
 * Dvojitá hvězdička *– veškerá* syntaxe (`**`) pro zachycení cesty mezi více hranicemi složek bez kódování lomítka (`/`).
 * Název parametru trasy `path`.
 
-Další informace naleznete v tématu <xref:fundamentals/routing>.
+Další informace najdete v tématu <xref:fundamentals/routing>.
 
 ## <a name="navlink-component"></a>Komponenta NavLink
 

@@ -1,17 +1,17 @@
 ---
 title: Razor Pages s EF Core ve ASP.NET Core – data související s čtením – 6 z 8
-author: tdykstra
+author: rick-anderson
 description: V tomto kurzu si přečtete a zobrazíte související data – to znamená data, která Entity Framework načíst do vlastností navigace.
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 02b52dee0b661ad26cd6fa9fea08fcea3d7dd9bd
-ms.sourcegitcommit: f62014bb558ff6f8fdaef2e96cb05986e216aacd
+ms.openlocfilehash: 5feed175999bf021cadc7e18f14e00066b50db5b
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/28/2019
-ms.locfileid: "71592303"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259679"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>Razor Pages s EF Core ve ASP.NET Core – data související s čtením – 6 z 8
 
@@ -33,7 +33,7 @@ Na následujících obrázcích je znázorněno hotové stránky pro tento kurz:
 
 Existuje několik způsobů, jak může EF Core načíst související data do navigačních vlastností entity:
 
-* [Eager načítání](/ef/core/querying/related-data#eager-loading). Eager načítání je v případě, že dotaz pro jeden typ entity také načte související entity. Při čtení entity se načtou související data. To obvykle vede k tomu, že se vytvoří dotaz s jedním spojením, který načte všechna potřebná data. EF Core bude vydávat více dotazů pro některé typy načítání Eager. Vystavení více dotazů může být efektivnější než obří jediný dotaz. Eager načítání je zadáno pomocí `Include` metod a. `ThenInclude`
+* [Eager načítání](/ef/core/querying/related-data#eager-loading). Eager načítání je v případě, že dotaz pro jeden typ entity také načte související entity. Při čtení entity se načtou související data. To obvykle vede k tomu, že se vytvoří dotaz s jedním spojením, který načte všechna potřebná data. EF Core bude vydávat více dotazů pro některé typy načítání Eager. Vystavení více dotazů může být efektivnější než obří jediný dotaz. Eager načítání se zadává pomocí metod `Include` a `ThenInclude`.
 
   ![Příklad načtení Eager](read-related-data/_static/eager-loading.png)
  
@@ -42,13 +42,13 @@ Existuje několik způsobů, jak může EF Core načíst související data do n
   * Jeden dotaz pro hlavní dotaz 
   * Jeden dotaz pro každou kolekci "Edge" ve stromu zatížení.
 
-* Oddělte dotazy `Load`pomocí: Data lze načíst v samostatných dotazech a EF Core "opravuje" navigační vlastnosti. "Opravami" se rozumí, že EF Core automaticky naplnit navigační vlastnosti. Samostatné dotazy se `Load` podobají explicitnímu načítání než Eager načítání.
+* Oddělte dotazy pomocí `Load`: data lze načíst v samostatných dotazech a EF Core "" opravuje "navigační vlastnosti. "Opravami" se rozumí, že EF Core automaticky naplnit navigační vlastnosti. Samostatné dotazy s `Load` se podobají explicitnímu načítání než Eager načítání.
 
   ![Příklad samostatných dotazů](read-related-data/_static/separate-queries.png)
 
-  Poznámka: EF Core automaticky opravuje navigační vlastnosti na jakékoli další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
+  Poznámka: EF Core automaticky opravuje navigační vlastnosti pro všechny další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
 
-* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek odeslání více dotazů do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. K provedení explicitního načítání použijte metodu.`Load` Příklad:
+* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek odeslání více dotazů do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. K provedení explicitního načítání použijte metodu `Load`. Například:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 
@@ -56,14 +56,14 @@ Existuje několik způsobů, jak může EF Core načíst související data do n
 
 ## <a name="create-course-pages"></a>Vytvořit stránky kurzu
 
-Entita obsahuje navigační vlastnost, která obsahuje související `Department` entitu. `Course`
+Entita `Course` zahrnuje vlastnost navigace, která obsahuje související entitu `Department`.
 
 ![Samozřejmě. oddělení](read-related-data/_static/dep-crs.png)
 
 Chcete-li zobrazit název přiřazeného oddělení za kurz:
 
-* Načtěte související `Department` entitu `Course.Department` do vlastnosti navigace.
-* Získá název z `Department` `Name` vlastnosti entity.
+* Načtěte související entitu `Department` do navigační vlastnosti `Course.Department`.
+* Získá název z vlastnosti `Name` entity `Department`.
 
 <a name="scaffold"></a>
 
@@ -74,7 +74,7 @@ Chcete-li zobrazit název přiřazeného oddělení za kurz:
 * Postupujte podle pokynů v části [stránky pro studenty](xref:data/ef-rp/intro#scaffold-student-pages) s těmito výjimkami:
 
   * Vytvořte složku *stránky nebo kurzy* .
-  * Použijte `Course` pro třídu modelu.
+  * Pro třídu modelu použijte `Course`.
   * Místo vytvoření nové třídy kontextu použijte existující kontextovou třídu.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
@@ -97,9 +97,9 @@ Chcete-li zobrazit název přiřazeného oddělení za kurz:
 
 ---
 
-* Otevřete *stránky/kurzy/index. cshtml. cs* a prověřte `OnGetAsync` metodu. Modul generování uživatelského rozhraní určený pro `Department` vlastnost navigace Eager načítání. `Include` Metoda určuje Eager načítání.
+* Otevřete *stránky/kurzy/index. cshtml. cs* a prověřte metodu `OnGetAsync`. Modul pro generování uživatelského rozhraní zadaný Eager načítání pro vlastnost navigace `Department`. Metoda `Include` určuje načtení Eager.
 
-* Spusťte aplikaci a vyberte odkaz **kurzy** . Sloupec oddělení zobrazí `DepartmentID`, což není užitečné.
+* Spusťte aplikaci a vyberte odkaz **kurzy** . Sloupec oddělení zobrazuje `DepartmentID`, což není užitečné.
 
 ### <a name="display-the-department-name"></a>Zobrazit název oddělení
 
@@ -107,7 +107,7 @@ Aktualizujte stránky/kurzy/index. cshtml. cs s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu30/Pages/Courses/Index.cshtml.cs?highlight=18,22,24)]
 
-Předchozí kód změní `Course` vlastnost na `Courses` a přidá `AsNoTracking`. `AsNoTracking`zlepšuje výkon, protože vracené entity nejsou sledovány. Entity není nutné sledovat, protože nejsou aktualizovány v aktuálním kontextu.
+Předchozí kód změní vlastnost `Course` na `Courses` a přidá `AsNoTracking`. `AsNoTracking` zvyšuje výkon, protože vracené entity nejsou sledovány. Entity není nutné sledovat, protože nejsou aktualizovány v aktuálním kontextu.
 
 Aktualizovat *stránky/kurzy/index. cshtml* pomocí následujícího kódu.
 
@@ -115,9 +115,9 @@ Aktualizovat *stránky/kurzy/index. cshtml* pomocí následujícího kódu.
 
 V generovaném kódu byly provedeny následující změny:
 
-* Změnila se název `Courses` vlastnostina.`Course`
-* Byl přidán sloupec **číslo** , který zobrazuje `CourseID` hodnotu vlastnosti. Ve výchozím nastavení nejsou primární klíče vygenerované, protože jsou obvykle nevýznamné pro koncové uživatele. V tomto případě je však primární klíč smysluplný.
-* Změnili jste sloupec **oddělení** , aby se zobrazil název oddělení. Kód zobrazí `Name` vlastnost `Department` entity `Department` , která je načtena do navigační vlastnosti:
+* Změnili jste název vlastnosti `Course` na hodnotu `Courses`.
+* Byl přidán sloupec **číslo** , který zobrazuje hodnotu vlastnosti `CourseID`. Ve výchozím nastavení nejsou primární klíče vygenerované, protože jsou obvykle nevýznamné pro koncové uživatele. V tomto případě je však primární klíč smysluplný.
+* Změnili jste sloupec **oddělení** , aby se zobrazil název oddělení. Kód zobrazí vlastnost `Name` entity `Department`, která je načtena do navigační vlastnosti `Department`:
 
   ```html
   @Html.DisplayFor(modelItem => item.Department.Name)
@@ -131,13 +131,13 @@ Spusťte aplikaci a vyberte kartu **kurzy** , abyste zobrazili seznam s názvy o
 
 ### <a name="loading-related-data-with-select"></a>Načítání souvisejících dat pomocí výběru
 
-Metoda načte související data `Include` pomocí metody. `OnGetAsync` `Select` Metoda je alternativou, která načte pouze související data. Pro jednotlivé položky, `Department.Name` například používá vnitřní spojení SQL. U kolekcí používá jiný přístup k databázi, ale proto `Include` operátor na kolekcích.
+Metoda `OnGetAsync` načte související data pomocí metody `Include`. Metoda `Select` je alternativou, která načte pouze související požadovaná data. Pro jednotlivé položky, například `Department.Name` používá vnitřní spojení SQL. U kolekcí používá jiný přístup k databázi, ale proto operátor `Include` v kolekcích.
 
-Následující kód načte související data `Select` metodou:
+Následující kód načte související data s metodou `Select`:
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs?name=snippet_RevisedIndexMethod&highlight=6)]
 
-`CourseViewModel`:
+@No__t-0:
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Models/SchoolViewModels/CourseViewModel.cs?name=snippet)]
 
@@ -148,13 +148,13 @@ Následující kód načte související data `Select` metodou:
 Tato část vygeneruje stránky instruktora a přidá související kurzy a registrace na stránku indexu instruktorů.
 
 <a name="IP"></a>
-![Stránka indexu instruktorů](read-related-data/_static/instructors-index30.png)
+ @ no__t – stránka indexu 2Instructors @ no__t-3
 
 Tato stránka čte a zobrazuje související data následujícími způsoby:
 
-* Seznam instruktorů zobrazuje související data z `OfficeAssignment` entity (Office na předchozím obrázku). Entity `Instructor` a`OfficeAssignment` jsou v relaci typu 1:1 nebo jedna hodnota. Pro `OfficeAssignment` entity se používá Eager načítání. Eager načítání je obvykle efektivnější, pokud je potřeba zobrazit související data. V tomto případě se zobrazí přiřazení kanceláře pro instruktory.
-* Když uživatel vybere instruktora, zobrazí se `Course` související entity. Entity `Instructor` a`Course` jsou v relaci m:n. Eager načítání se používá pro `Course` entity a jejich související `Department` entity. V takovém případě můžou být samostatné dotazy efektivnější, protože potřebujete jenom kurzy pro vybraného instruktora. Tento příklad ukazuje, jak používat Eager načítání pro navigační vlastnosti v entitách, které jsou ve vlastnostech navigace.
-* Když uživatel vybere kurz, zobrazí se související data z `Enrollments` entity. Na předchozím obrázku se zobrazí název a stupeň studenta. Entity `Course` a`Enrollment` jsou v relaci 1: n.
+* Seznam instruktorů zobrazuje související data z entity `OfficeAssignment` (kancelář na předchozím obrázku). Entity `Instructor` a `OfficeAssignment` jsou v relaci jednosměrového a nulového vztahu. Eager načítání se používá pro entity `OfficeAssignment`. Eager načítání je obvykle efektivnější, pokud je potřeba zobrazit související data. V tomto případě se zobrazí přiřazení kanceláře pro instruktory.
+* Když uživatel vybere instruktora, zobrazí se související entity `Course`. Entity `Instructor` a `Course` jsou v relaci m:n. Eager načítání se používá pro entity `Course` a jejich související entity `Department`. V takovém případě můžou být samostatné dotazy efektivnější, protože potřebujete jenom kurzy pro vybraného instruktora. Tento příklad ukazuje, jak používat Eager načítání pro navigační vlastnosti v entitách, které jsou ve vlastnostech navigace.
+* Když uživatel vybere kurz, zobrazí se související data z entity `Enrollments`. Na předchozím obrázku se zobrazí název a stupeň studenta. Entity `Course` a `Enrollment` jsou v relaci 1: n.
 
 ### <a name="create-a-view-model"></a>Vytvoření modelu zobrazení
 
@@ -171,7 +171,7 @@ Vytvořte *SchoolViewModels/InstructorIndexData. cs* s následujícím kódem:
 * Postupujte podle pokynů v [části generování uživatelského rozhraní se stránkami studenta](xref:data/ef-rp/intro#scaffold-student-pages) s následujícími výjimkami:
 
   * Vytvořte složku *Pages/instruktory* .
-  * Použijte `Instructor` pro třídu modelu.
+  * Pro třídu modelu použijte `Instructor`.
   * Místo vytvoření nové třídy kontextu použijte existující kontextovou třídu.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
@@ -200,7 +200,7 @@ Aktualizovat *stránky/instruktory/index. cshtml. cs* s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_all&highlight=2,19-53)]
 
-`OnGetAsync` Metoda přijímá volitelná data směrování pro ID vybraného instruktora.
+Metoda `OnGetAsync` přijímá volitelná data směrování pro ID vybraného instruktora.
 
 Prověřte dotaz v souboru *Pages/instruktors/index. cshtml. cs* :
 
@@ -215,21 +215,21 @@ Kód určuje načítání Eager pro následující navigační vlastnosti:
     * `Course.Enrollments`
       * `Enrollment.Student`
 
-Všimněte si opakování `Include` a `ThenInclude` metod pro `CourseAssignments` a `Course`. Toto opakování je nezbytné pro zadání Eager načítání pro dvě navigační vlastnosti `Course` entity.
+Všimněte si opakování @no__tch metod `Include` a-1 pro `CourseAssignments` a `Course`. Toto opakování je nezbytné pro zadání Eager načítání pro dvě navigační vlastnosti entity `Course`.
 
-Následující kód se spustí při výběru instruktora (`id != null`).
+Následující kód se spustí, když je vybrán instruktor (`id != null`).
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_SelectInstructor)]
 
-Vybraný instruktor se načte ze seznamu instruktorů v modelu zobrazení. `Courses` Vlastnost modelu zobrazení je načtena `Course` s `CourseAssignments` entitami z vlastnosti navigace tohoto instruktora.
+Vybraný instruktor se načte ze seznamu instruktorů v modelu zobrazení. Vlastnost `Courses` modelu zobrazení je načtena s entitami `Course` z navigační vlastnosti `CourseAssignments` tohoto instruktora.
 
-`Where` Metoda vrátí kolekci. Ale v tomto případě filtr vybere jednu entitu. Proto je volána `Instructor` metodapropřevodkolekcena`Single` jedinou entitu. Entita poskytuje přístup `CourseAssignments` k vlastnosti. `Instructor` `CourseAssignments`poskytuje přístup k souvisejícím `Course` entitám.
+Metoda `Where` vrátí kolekci. Ale v tomto případě filtr vybere jednu entitu. Proto je volána metoda `Single` pro převod kolekce na jednu entitu `Instructor`. Entita `Instructor` poskytuje přístup k vlastnosti `CourseAssignments`. `CourseAssignments` poskytuje přístup ke souvisejícím entitám `Course`.
 
 ![M:M instruktory do kurzů](complex-data-model/_static/courseassignment.png)
 
-`Single` Metoda se používá v kolekci, pokud má kolekce pouze jednu položku. `Single` Metoda vyvolá výjimku, pokud je kolekce prázdná nebo je-li k dispozici více než jedna položka. Alternativa je `SingleOrDefault`, která vrací výchozí hodnotu (v tomto případě null), pokud je kolekce prázdná.
+Metoda `Single` se používá v kolekci, pokud má kolekce pouze jednu položku. Metoda `Single` vyvolá výjimku, pokud je kolekce prázdná nebo je-li k dispozici více než jedna položka. Alternativa je `SingleOrDefault`, která v tomto případě vrátí výchozí hodnotu (v tomto případě hodnotu null), pokud je kolekce prázdná.
 
-Následující kód naplní `Enrollments` vlastnost modelu zobrazení, když je vybraný kurz:
+Následující kód naplní vlastnost `Enrollments` modelu zobrazení, když je vybraný kurz:
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_SelectCourse)]
 
@@ -241,15 +241,15 @@ Aktualizovat *stránky/instruktory/index. cshtml* pomocí následujícího kódu
 
 Předchozí kód provede následující změny:
 
-* Aktualizace `page` direktiv z `@page` k `@page "{id:int?}"`. `"{id:int?}"`je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze direktivu `@page` , se vytvoří adresa URL jako následující:
+* Aktualizuje direktivu `page` z `@page` na `@page "{id:int?}"`. `"{id:int?}"` je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Select** pro instruktora, který má pouze direktivu `@page`, vytvoří adresu URL jako následující:
 
   `https://localhost:5001/Instructors?id=2`
 
-  V případě direktivy `@page "{id:int?}"`stránky je adresa URL:
+  Pokud je direktiva stránky `@page "{id:int?}"`, adresa URL je:
 
   `https://localhost:5001/Instructors/2`
 
-* Přidá sloupec **Office** , který se `item.OfficeAssignment.Location` zobrazí pouze `item.OfficeAssignment` v případě, že není null. Vzhledem k tomu, že se jedná o relaci typu 1:1, nemusí se jednat o související entitu OfficeAssignment.
+* Přidá sloupec **Office** , který zobrazí `item.OfficeAssignment.Location` pouze v případě, že `item.OfficeAssignment` není null. Vzhledem k tomu, že se jedná o relaci typu 1:1, nemusí se jednat o související entitu OfficeAssignment.
 
   ```html
   @if (item.OfficeAssignment != null)
@@ -260,7 +260,7 @@ Předchozí kód provede následující změny:
 
 * Přidá sloupec **kurzů** , ve kterém se zobrazují kurzy, které každý instruktor prodlužuje. Další informace o této syntaxi Razor naleznete v tématu [explicitní přechod mezi řádky](xref:mvc/views/razor#explicit-line-transition) .
 
-* Přidá kód, který dynamicky `class="success"` přidá `tr` do prvku vybraného instruktora a kurzu. Tím se nastaví barva pozadí pro vybraný řádek pomocí třídy Bootstrap.
+* Přidá kód, který dynamicky přidá `class="success"` do prvku `tr` vybraného instruktora a kurzu. Tím se nastaví barva pozadí pro vybraný řádek pomocí třídy Bootstrap.
 
   ```html
   string selectedRow = "";
@@ -271,7 +271,7 @@ Předchozí kód provede následující změny:
   <tr class="@selectedRow">
   ```
 
-* Přidá nový hypertextový odkaz označený jako **vybraný**. Tento odkaz pošle vybrané ID instruktoru do `Index` metody a nastaví barvu pozadí.
+* Přidá nový hypertextový odkaz označený jako **vybraný**. Tento odkaz odešle ID vybraného instruktoru do metody `Index` a nastaví barvu pozadí.
 
   ```html
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
@@ -281,7 +281,7 @@ Předchozí kód provede následující změny:
 
 * Přidá tabulku zápisů studentů pro vybraný kurz.
 
-Spusťte aplikaci a vyberte kartu **instruktory** . Stránka zobrazuje `Location` (Office) ze související `OfficeAssignment` entity. Pokud `OfficeAssignment` má hodnotu null, zobrazí se prázdná buňka tabulky.
+Spusťte aplikaci a vyberte kartu **instruktory** . Na stránce se zobrazí `Location` (Office) od související entity `OfficeAssignment`. Pokud je hodnota `OfficeAssignment` null, zobrazí se prázdná buňka tabulky.
 
 Klikněte na odkaz **Vybrat** pro instruktora. Zobrazí se změna stylu řádku a kurzy přiřazené k tomuto instruktorovi.
 
@@ -291,19 +291,19 @@ Vyberte kurz, abyste zobrazili seznam zaregistrovaných studentů a jejich tří
 
 ## <a name="using-single"></a>Použití jednoduchých
 
-Metoda může `Where` předat`Where` podmínku namísto volání metody samostatně: `Single`
+Metoda `Single` může předat podmínku `Where` namísto volání metody `Where` samostatně:
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/IndexSingle.cshtml.cs?name=snippet_single&highlight=21-22,30-31)]
 
-`Single` Použití s podmínkou WHERE je záležitostí osobní preference. Neposkytuje za použití `Where` metody žádné výhody.
+Použití `Single` s podmínkou WHERE je záležitostí osobní preference. Neposkytuje žádné výhody při použití metody `Where`.
 
-## <a name="explicit-loading"></a>explicitní načítání
+## <a name="explicit-loading"></a>Explicitní načítání
 
-Aktuální kód určuje Eager načítání pro `Enrollments` a: `Students`
+Aktuální kód určuje Eager načítání pro `Enrollments` a `Students`:
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Instructors/Index1.cshtml.cs?name=snippet_EagerLoading&highlight=6-9)]
 
-Předpokládejme, že uživatelé zřídka chtějí v kurzu zobrazit registrace. V takovém případě může optimalizace načíst data zápisu pouze v případě, že je požadováno. V této části `OnGetAsync` je aktualizována pro použití explicitního `Enrollments` načítání a `Students`.
+Předpokládejme, že uživatelé zřídka chtějí v kurzu zobrazit registrace. V takovém případě může optimalizace načíst data zápisu pouze v případě, že je požadováno. V této části se `OnGetAsync` aktualizuje tak, aby používalo explicitní načítání `Enrollments` a `Students`.
 
 Aktualizujte *stránky/instruktory/index. cshtml. cs* pomocí následujícího kódu.
 
@@ -311,10 +311,10 @@ Aktualizujte *stránky/instruktory/index. cshtml. cs* pomocí následujícího k
 
 Předchozí kód zruší volání metody *ThenInclude* pro údaje o registraci a studentovi. Pokud je vybrán kurz, explicitní načítání kódu načte:
 
-* `Enrollment` Entity pro vybraný kurz.
-* Entity pro každou `Enrollment`. `Student`
+* Entity `Enrollment` pro vybraný kurz.
+* Entity `Student` pro každý `Enrollment`.
 
-Všimněte si, že předchozí komentáře k `.AsNoTracking()`kódu byly vycházející. Navigační vlastnosti lze explicitně načíst pouze pro sledované entity.
+Všimněte si, že předchozí komentáře kódu `.AsNoTracking()`. Navigační vlastnosti lze explicitně načíst pouze pro sledované entity.
 
 Otestujte aplikaci. V perspektivě uživatele se aplikace chová stejně jako předchozí verze.
 
@@ -324,7 +324,7 @@ V dalším kurzu se dozvíte, jak aktualizovat související data.
 
 >[!div class="step-by-step"]
 >[Předchozí kurz](xref:data/ef-rp/complex-data-model)
->–[Další kurz](xref:data/ef-rp/update-related-data)
+>[Další kurz](xref:data/ef-rp/update-related-data)
 
 ::: moniker-end
 
@@ -332,7 +332,7 @@ V dalším kurzu se dozvíte, jak aktualizovat související data.
 
 V tomto kurzu se budou číst a zobrazovat související data. Související data jsou data, která EF Core načíst do vlastností navigace.
 
-Pokud narazíte na potíže nelze vyřešit, [stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
+Pokud narazíte na problémy, které nemůžete vyřešit, [Stáhněte nebo zobrazte dokončenou aplikaci.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
 Na následujících obrázcích je znázorněno hotové stránky pro tento kurz:
 
@@ -344,7 +344,7 @@ Na následujících obrázcích je znázorněno hotové stránky pro tento kurz:
 
 Existuje několik způsobů, jak může EF Core načíst související data do navigačních vlastností entity:
 
-* [Eager načítání](/ef/core/querying/related-data#eager-loading). Eager načítání je v případě, že dotaz pro jeden typ entity také načte související entity. Při čtení entity se načtou související data. To obvykle vede k tomu, že se vytvoří dotaz s jedním spojením, který načte všechna potřebná data. EF Core bude vydávat více dotazů pro některé typy načítání Eager. Vystavení více dotazů může být efektivnější než u některých dotazů v EF6, kde existoval jeden dotaz. Eager načítání je zadáno pomocí `Include` metod a. `ThenInclude`
+* [Eager načítání](/ef/core/querying/related-data#eager-loading). Eager načítání je v případě, že dotaz pro jeden typ entity také načte související entity. Při čtení entity se načtou související data. To obvykle vede k tomu, že se vytvoří dotaz s jedním spojením, který načte všechna potřebná data. EF Core bude vydávat více dotazů pro některé typy načítání Eager. Vystavení více dotazů může být efektivnější než u některých dotazů v EF6, kde existoval jeden dotaz. Eager načítání se zadává pomocí metod `Include` a `ThenInclude`.
 
   ![Příklad načtení Eager](read-related-data/_static/eager-loading.png)
  
@@ -353,28 +353,28 @@ Existuje několik způsobů, jak může EF Core načíst související data do n
   * Jeden dotaz pro hlavní dotaz 
   * Jeden dotaz pro každou kolekci "Edge" ve stromu zatížení.
 
-* Oddělte dotazy `Load`pomocí: Data lze načíst v samostatných dotazech a EF Core "opravuje" navigační vlastnosti. "opravami" se rozumí, že EF Core automaticky naplnit navigační vlastnosti. Samostatné dotazy se `Load` podobají explicitnímu načítání než Eager načítání.
+* Oddělte dotazy pomocí `Load`: data lze načíst v samostatných dotazech a EF Core "" opravuje "navigační vlastnosti. "opravami" se rozumí, že EF Core automaticky naplnit navigační vlastnosti. Samostatné dotazy s `Load` se podobají explicitnímu načítání než Eager načítání.
 
   ![Příklad samostatných dotazů](read-related-data/_static/separate-queries.png)
 
-  Poznámka: EF Core automaticky opravuje navigační vlastnosti na jakékoli další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
+  Poznámka: EF Core automaticky opravuje navigační vlastnosti pro všechny další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
 
-* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek více dotazů odeslaných do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. K provedení explicitního načítání použijte metodu.`Load` Příklad:
+* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek více dotazů odeslaných do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. K provedení explicitního načítání použijte metodu `Load`. Například:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 
 * [Opožděné načítání](/ef/core/querying/related-data#lazy-loading). [Opožděné načítání bylo přidáno do EF Core ve verzi 2,1](/ef/core/querying/related-data#lazy-loading). Při prvním načtení entity se nenačte související data. Při prvním otevření navigační vlastnosti je automaticky načtena data potřebná pro tuto vlastnost navigace. Dotaz se pošle do databáze při prvním otevření navigační vlastnosti.
 
-* `Select` Operátor načte pouze související požadovaná data.
+* Operátor `Select` načte pouze související požadovaná data.
 
 ## <a name="create-a-course-page-that-displays-department-name"></a>Vytvoří stránku kurzu, která zobrazuje název oddělení.
 
-Entita kurzu obsahuje navigační vlastnost, která obsahuje `Department` entitu. `Department` Entita obsahuje oddělení, ke kterému je kurz přiřazen.
+Entita kurzu obsahuje navigační vlastnost, která obsahuje entitu `Department`. Entita `Department` obsahuje oddělení, ke kterému je kurz přiřazen.
 
 Chcete-li zobrazit název přiřazeného oddělení v seznamu kurzů:
 
-* `Name` Získá vlastnost`Department` z entity.
-* `Department` Entita pochází`Course.Department` z navigační vlastnosti.
+* Načte vlastnost `Name` z entity `Department`.
+* Entita `Department` pochází z navigační vlastnosti `Course.Department`.
 
 ![Samozřejmě. oddělení](read-related-data/_static/dep-crs.png)
 
@@ -384,7 +384,7 @@ Chcete-li zobrazit název přiřazeného oddělení v seznamu kurzů:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
-Postupujte podle pokynů v [generování uživatelského rozhraní modelu student](xref:data/ef-rp/intro#scaffold-the-student-model) a použít `Course` pro třídu modelu.
+Postupujte podle pokynů v [části generátor a model studenta](xref:data/ef-rp/intro#scaffold-the-student-model) a pro třídu modelu použijte `Course`.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -396,17 +396,17 @@ Postupujte podle pokynů v [generování uživatelského rozhraní modelu studen
 
 ---
 
-Předchozí příkaz scaffold `Course` modelu. Otevřete projekt v sadě Visual Studio.
+Předchozí příkaz vygeneruje model `Course`. Otevřete projekt v aplikaci Visual Studio.
 
-Otevřete *stránky/kurzy/index. cshtml. cs* a prověřte `OnGetAsync` metodu. Modul generování uživatelského rozhraní určený pro `Department` vlastnost navigace Eager načítání. `Include` Metoda určuje Eager načítání.
+Otevřete *stránky/kurzy/index. cshtml. cs* a prověřte metodu `OnGetAsync`. Modul pro generování uživatelského rozhraní zadaný Eager načítání pro vlastnost navigace `Department`. Metoda `Include` určuje načtení Eager.
 
-Spusťte aplikaci a vyberte odkaz **kurzy** . Sloupec oddělení zobrazí `DepartmentID`, což není užitečné.
+Spusťte aplikaci a vyberte odkaz **kurzy** . Sloupec oddělení zobrazuje `DepartmentID`, což není užitečné.
 
-Aktualizujte `OnGetAsync` metodu následujícím kódem:
+Aktualizujte metodu `OnGetAsync` s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Index.cshtml.cs?name=snippet_RevisedIndexMethod)]
 
-Předchozí kód přidá `AsNoTracking`. `AsNoTracking`zlepšuje výkon, protože vracené entity nejsou sledovány. Entity nejsou sledovány, protože nejsou aktualizovány v aktuálním kontextu.
+Předchozí kód přidá `AsNoTracking`. `AsNoTracking` zvyšuje výkon, protože vracené entity nejsou sledovány. Entity nejsou sledovány, protože nejsou aktualizovány v aktuálním kontextu.
 
 Aktualizovat *stránky/kurzy/index. cshtml* pomocí následujícího zvýrazněného označení:
 
@@ -415,8 +415,8 @@ Aktualizovat *stránky/kurzy/index. cshtml* pomocí následujícího zvýrazněn
 V generovaném kódu byly provedeny následující změny:
 
 * Změnili jste záhlaví z indexu na kurzy.
-* Byl přidán sloupec **číslo** , který zobrazuje `CourseID` hodnotu vlastnosti. Ve výchozím nastavení nejsou primární klíče vygenerované, protože jsou obvykle nevýznamné pro koncové uživatele. V tomto případě je však primární klíč smysluplný.
-* Změnili jste sloupec **oddělení** , aby se zobrazil název oddělení. Kód zobrazí `Name` vlastnost `Department` entity `Department` , která je načtena do navigační vlastnosti:
+* Byl přidán sloupec **číslo** , který zobrazuje hodnotu vlastnosti `CourseID`. Ve výchozím nastavení nejsou primární klíče vygenerované, protože jsou obvykle nevýznamné pro koncové uživatele. V tomto případě je však primární klíč smysluplný.
+* Změnili jste sloupec **oddělení** , aby se zobrazil název oddělení. Kód zobrazí vlastnost `Name` entity `Department`, která je načtena do navigační vlastnosti `Department`:
 
   ```html
   @Html.DisplayFor(modelItem => item.Department.Name)
@@ -430,17 +430,17 @@ Spusťte aplikaci a vyberte kartu **kurzy** , abyste zobrazili seznam s názvy o
 
 ### <a name="loading-related-data-with-select"></a>Načítání souvisejících dat pomocí výběru
 
-Metoda načte související data `Include` pomocí metody: `OnGetAsync`
+Metoda `OnGetAsync` načte související data pomocí metody `Include`:
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/Index.cshtml.cs?name=snippet_RevisedIndexMethod&highlight=4)]
 
-`Select` Operátor načte pouze související požadovaná data. Pro jednotlivé položky, `Department.Name` například používá vnitřní spojení SQL. U kolekcí používá jiný přístup k databázi, ale proto `Include` operátor na kolekcích.
+Operátor `Select` načte pouze související požadovaná data. Pro jednotlivé položky, například `Department.Name` používá vnitřní spojení SQL. U kolekcí používá jiný přístup k databázi, ale proto operátor `Include` v kolekcích.
 
-Následující kód načte související data `Select` metodou:
+Následující kód načte související data s metodou `Select`:
 
 [!code-csharp[](intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs?name=snippet_RevisedIndexMethod&highlight=4)]
 
-`CourseViewModel`:
+@No__t-0:
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/CourseViewModel.cs?name=snippet)]
 
@@ -451,13 +451,13 @@ Následující kód načte související data `Select` metodou:
 V této části se vytvoří stránka instruktoři.
 
 <a name="IP"></a>
-![Stránka indexu instruktorů](read-related-data/_static/instructors-index.png)
+ @ no__t – stránka indexu 2Instructors @ no__t-3
 
 Tato stránka čte a zobrazuje související data následujícími způsoby:
 
-* Seznam instruktorů zobrazuje související data z `OfficeAssignment` entity (Office na předchozím obrázku). Entity `Instructor` a`OfficeAssignment` jsou v relaci typu 1:1 nebo jedna hodnota. Pro `OfficeAssignment` entity se používá Eager načítání. Eager načítání je obvykle efektivnější, pokud je potřeba zobrazit související data. V tomto případě se zobrazí přiřazení kanceláře pro instruktory.
-* Když uživatel vybere instruktora (Harui na předchozím obrázku), zobrazí se související `Course` entity. Entity `Instructor` a`Course` jsou v relaci m:n. Eager načítání se používá pro `Course` entity a jejich související `Department` entity. V takovém případě můžou být samostatné dotazy efektivnější, protože potřebujete jenom kurzy pro vybraného instruktora. Tento příklad ukazuje, jak používat Eager načítání pro navigační vlastnosti v entitách, které jsou ve vlastnostech navigace.
-* Když uživatel vybere kurz (chemie na předchozím obrázku), zobrazí se související data z `Enrollments` entity. Na předchozím obrázku se zobrazí název a stupeň studenta. Entity `Course` a`Enrollment` jsou v relaci 1: n.
+* Seznam instruktorů zobrazuje související data z entity `OfficeAssignment` (kancelář na předchozím obrázku). Entity `Instructor` a `OfficeAssignment` jsou v relaci jednosměrového a nulového vztahu. Eager načítání se používá pro entity `OfficeAssignment`. Eager načítání je obvykle efektivnější, pokud je potřeba zobrazit související data. V tomto případě se zobrazí přiřazení kanceláře pro instruktory.
+* Když uživatel vybere instruktora (Harui na předchozím obrázku), zobrazí se související entity `Course`. Entity `Instructor` a `Course` jsou v relaci m:n. Eager načítání se používá pro entity `Course` a jejich související entity `Department`. V takovém případě můžou být samostatné dotazy efektivnější, protože potřebujete jenom kurzy pro vybraného instruktora. Tento příklad ukazuje, jak používat Eager načítání pro navigační vlastnosti v entitách, které jsou ve vlastnostech navigace.
+* Když uživatel vybere kurz (chemie na předchozím obrázku), zobrazí se související data z entity `Enrollments`. Na předchozím obrázku se zobrazí název a stupeň studenta. Entity `Course` a `Enrollment` jsou v relaci 1: n.
 
 ### <a name="create-a-view-model-for-the-instructor-index-view"></a>Vytvoření modelu zobrazení pro zobrazení indexu instruktora
 
@@ -471,7 +471,7 @@ Ve složce *SchoolViewModels* vytvořte *InstructorIndexData.cs* s následujíc�
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
-Postupujte podle pokynů v [generování uživatelského rozhraní modelu student](xref:data/ef-rp/intro#scaffold-the-student-model) a použít `Instructor` pro třídu modelu.
+Postupujte podle pokynů v [části generátor a model studenta](xref:data/ef-rp/intro#scaffold-the-student-model) a pro třídu modelu použijte `Instructor`.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -483,14 +483,14 @@ Postupujte podle pokynů v [generování uživatelského rozhraní modelu studen
 
 ---
 
-Předchozí příkaz scaffold `Instructor` modelu. 
+Předchozí příkaz vygeneruje model `Instructor`. 
 Spusťte aplikaci a přejděte na stránku instruktoři.
 
 *Stránky/instruktořis/index. cshtml. cs* nahraďte následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index1.cshtml.cs?name=snippet_all&highlight=2,18-99)]
 
-`OnGetAsync` Metoda přijímá volitelná data směrování pro ID vybraného instruktora.
+Metoda `OnGetAsync` přijímá volitelná data směrování pro ID vybraného instruktora.
 
 Prověřte dotaz v souboru *Pages/instruktors/index. cshtml. cs* :
 
@@ -498,8 +498,8 @@ Prověřte dotaz v souboru *Pages/instruktors/index. cshtml. cs* :
 
 Dotaz obsahuje dvě:
 
-* `OfficeAssignment`: Zobrazuje se v [zobrazení instruktoři](#IP).
-* `CourseAssignments`: Který přináší výukové kurzy.
+* `OfficeAssignment`: zobrazí se v [zobrazení instruktory](#IP).
+* `CourseAssignments`: přináší výukové kurzy.
 
 ### <a name="update-the-instructors-index-page"></a>Aktualizace stránky indexu instruktorů
 
@@ -509,16 +509,16 @@ Aktualizovat *stránky/instruktory/index. cshtml* pomocí následujícího kódu
 
 Předchozí kód provede následující změny:
 
-* Aktualizace `page` direktiv z `@page` k `@page "{id:int?}"`. `"{id:int?}"`je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze direktivu `@page` , se vytvoří adresa URL jako následující:
+* Aktualizuje direktivu `page` z `@page` na `@page "{id:int?}"`. `"{id:int?}"` je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Select** pro instruktora, který má pouze direktivu `@page`, vytvoří adresu URL jako následující:
 
   `http://localhost:1234/Instructors?id=2`
 
-  Pokud je `@page "{id:int?}"`direktiva stránky, předchozí adresa URL:
+  Pokud je direktiva stránky `@page "{id:int?}"`, předchozí adresa URL:
 
   `http://localhost:1234/Instructors/2`
 
 * Nadpis stránky jsou **instruktory**.
-* Přidání sloupce **Office** , který zobrazí `item.OfficeAssignment.Location` pouze v `item.OfficeAssignment` případě, že není null. Vzhledem k tomu, že se jedná o relaci typu 1:1, nemusí se jednat o související entitu OfficeAssignment.
+* Přidání sloupce **Office** , který zobrazí `item.OfficeAssignment.Location` pouze v případě, že `item.OfficeAssignment` není null. Vzhledem k tomu, že se jedná o relaci typu 1:1, nemusí se jednat o související entitu OfficeAssignment.
 
   ```html
   @if (item.OfficeAssignment != null)
@@ -529,7 +529,7 @@ Předchozí kód provede následující změny:
 
 * Přidali jsme sloupec **kurzy** , ve kterém se zobrazují kurzy výukové každým instruktorem. Další informace o této syntaxi Razor naleznete v tématu [explicitní přechod mezi řádky](xref:mvc/views/razor#explicit-line-transition) .
 
-* Přidaný kód, který `class="success"` dynamicky přidá `tr` do prvku vybraného instruktora. Tím se nastaví barva pozadí pro vybraný řádek pomocí třídy Bootstrap.
+* Přidaný kód, který dynamicky přidá `class="success"` do prvku `tr` vybraného instruktora. Tím se nastaví barva pozadí pro vybraný řádek pomocí třídy Bootstrap.
 
   ```html
   string selectedRow = "";
@@ -540,23 +540,23 @@ Předchozí kód provede následující změny:
   <tr class="@selectedRow">
   ```
 
-* Byl přidán nový hypertextový odkaz označený jako **vybraný**. Tento odkaz pošle vybrané ID instruktoru do `Index` metody a nastaví barvu pozadí.
+* Byl přidán nový hypertextový odkaz označený jako **vybraný**. Tento odkaz odešle ID vybraného instruktoru do metody `Index` a nastaví barvu pozadí.
 
   ```html
   <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
   ```
 
-Spusťte aplikaci a vyberte kartu **instruktory** . Stránka zobrazuje `Location` (Office) ze související `OfficeAssignment` entity. Pokud má OfficeAssignment hodnotu null, zobrazí se prázdná buňka tabulky.
+Spusťte aplikaci a vyberte kartu **instruktory** . Na stránce se zobrazí `Location` (Office) od související entity `OfficeAssignment`. Pokud má OfficeAssignment hodnotu null, zobrazí se prázdná buňka tabulky.
 
 Klikněte na odkaz **Vybrat** . Styl řádku se změní.
 
 ### <a name="add-courses-taught-by-selected-instructor"></a>Přidat výukové kurzy podle vybraného instruktora
 
-Aktualizujte metodu na *stránkách/instruktorech/index. cshtml. cs* s následujícím kódem: `OnGetAsync`
+Aktualizujte metodu `OnGetAsync` na *stránkách/instruktorech/index. cshtml. cs* s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_OnGetAsync&highlight=1,8,16-999)]
 
-Přidávání`public int CourseID { get; set; }`
+Přidat `public int CourseID { get; set; }`
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_1&highlight=12)]
 
@@ -564,22 +564,22 @@ Projděte si aktualizovaný dotaz:
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_ThenInclude)]
 
-Předchozí dotaz přidá `Department` entity.
+Předchozí dotaz přidá entity `Department`.
 
-Následující kód se spustí při výběru instruktora (`id != null`). Vybraný instruktor se načte ze seznamu instruktorů v modelu zobrazení. `Courses` Vlastnost modelu zobrazení je načtena `Course` s `CourseAssignments` entitami z vlastnosti navigace tohoto instruktora.
+Následující kód se spustí, když je vybrán instruktor (`id != null`). Vybraný instruktor se načte ze seznamu instruktorů v modelu zobrazení. Vlastnost `Courses` modelu zobrazení je načtena s entitami `Course` z navigační vlastnosti `CourseAssignments` tohoto instruktora.
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_ID)]
 
-`Where` Metoda vrátí kolekci. V předchozí `Where` metodě se vrátí jenom jedna `Instructor` entita. Metoda převede kolekci na jednu `Instructor` entitu. `Single` Entita poskytuje přístup `CourseAssignments` k vlastnosti. `Instructor` `CourseAssignments`poskytuje přístup k souvisejícím `Course` entitám.
+Metoda `Where` vrátí kolekci. V předchozí metodě `Where` je vrácena pouze jedna entita `Instructor`. Metoda `Single` převede kolekci na jednu entitu `Instructor`. Entita `Instructor` poskytuje přístup k vlastnosti `CourseAssignments`. `CourseAssignments` poskytuje přístup ke souvisejícím entitám `Course`.
 
 ![M:M instruktory do kurzů](complex-data-model/_static/courseassignment.png)
 
-`Single` Metoda se používá v kolekci, pokud má kolekce pouze jednu položku. `Single` Metoda vyvolá výjimku, pokud je kolekce prázdná nebo je-li k dispozici více než jedna položka. Alternativa je `SingleOrDefault`, která vrací výchozí hodnotu (v tomto případě null), pokud je kolekce prázdná. Použití `SingleOrDefault` v prázdné kolekci:
+Metoda `Single` se používá v kolekci, pokud má kolekce pouze jednu položku. Metoda `Single` vyvolá výjimku, pokud je kolekce prázdná nebo je-li k dispozici více než jedna položka. Alternativa je `SingleOrDefault`, která v tomto případě vrátí výchozí hodnotu (v tomto případě hodnotu null), pokud je kolekce prázdná. Použití `SingleOrDefault` v prázdné kolekci:
 
-* Výsledkem je výjimka (při pokusu o nalezení `Courses` vlastnosti v odkazu s hodnotou null).
+* Výsledkem je výjimka (při pokusu o nalezení vlastnosti `Courses` v odkazu s hodnotou null).
 * Zpráva o výjimce by byla zřetelně označovat příčinu problému.
 
-Následující kód naplní `Enrollments` vlastnost modelu zobrazení, když je vybraný kurz:
+Následující kód naplní vlastnost `Enrollments` modelu zobrazení, když je vybraný kurz:
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index2.cshtml.cs?name=snippet_courseID)]
 
@@ -595,7 +595,7 @@ Otestujte aplikaci. Na stránce instruktoři klikněte na odkaz **Vybrat** .
 
 V této části se aplikace aktualizuje, aby zobrazovala údaje o studentech pro vybraný kurz.
 
-Aktualizujte dotaz v `OnGetAsync` metodě na *stránkách/instruktorech/index. cshtml. cs* s následujícím kódem:
+Aktualizujte dotaz v metodě `OnGetAsync` na *stránkách/instruktorech/index. cshtml. cs* s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index.cshtml.cs?name=snippet_ThenInclude&highlight=6-9)]
 
@@ -611,19 +611,19 @@ Aktualizujte stránku a vyberte instruktora. Vyberte kurz, abyste zobrazili sezn
 
 ## <a name="using-single"></a>Použití jednoduchých
 
-Metoda může `Where` předat`Where` podmínku namísto volání metody samostatně: `Single`
+Metoda `Single` může předat podmínku `Where` namísto volání metody `Where` samostatně:
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/IndexSingle.cshtml.cs?name=snippet_single&highlight=21-22,30-31)]
 
-Předchozí `Single` přístup neposkytuje oproti použití `Where`žádné výhody. Někteří vývojáři upřednostňují `Single` styl přístupu.
+Předchozí přístup `Single` neposkytuje žádné výhody při použití `Where`. Někteří vývojáři upřednostňují styl přístupu `Single`.
 
-## <a name="explicit-loading"></a>explicitní načítání
+## <a name="explicit-loading"></a>Explicitní načítání
 
-Aktuální kód určuje Eager načítání pro `Enrollments` a: `Students`
+Aktuální kód určuje Eager načítání pro `Enrollments` a `Students`:
 
 [!code-csharp[](intro/samples/cu/Pages/Instructors/Index.cshtml.cs?name=snippet_ThenInclude&highlight=6-9)]
 
-Předpokládejme, že uživatelé zřídka chtějí v kurzu zobrazit registrace. V takovém případě může optimalizace načíst data zápisu pouze v případě, že je požadováno. V této části `OnGetAsync` je aktualizována pro použití explicitního `Enrollments` načítání a `Students`.
+Předpokládejme, že uživatelé zřídka chtějí v kurzu zobrazit registrace. V takovém případě může optimalizace načíst data zápisu pouze v případě, že je požadováno. V této části se `OnGetAsync` aktualizuje tak, aby používalo explicitní načítání `Enrollments` a `Students`.
 
 Aktualizujte `OnGetAsync` pomocí následujícího kódu:
 
@@ -631,22 +631,21 @@ Aktualizujte `OnGetAsync` pomocí následujícího kódu:
 
 Předchozí kód zruší volání metody *ThenInclude* pro údaje o registraci a studentovi. Pokud je vybrán kurz, zvýrazněný kód načte:
 
-* `Enrollment` Entity pro vybraný kurz.
-* Entity pro každou `Enrollment`. `Student`
+* Entity `Enrollment` pro vybraný kurz.
+* Entity `Student` pro každý `Enrollment`.
 
-Všimněte si předcházejících komentářů `.AsNoTracking()`k kódu. Navigační vlastnosti lze explicitně načíst pouze pro sledované entity.
+Všimněte si předcházejících komentářů k kódu `.AsNoTracking()`. Navigační vlastnosti lze explicitně načíst pouze pro sledované entity.
 
 Otestujte aplikaci. V perspektivě uživatelů se aplikace chová stejně jako předchozí verze.
 
 V dalším kurzu se dozvíte, jak aktualizovat související data.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Verze tohoto kurzu pro YouTube (part1)](https://www.youtube.com/watch?v=PzKimUDmrvE)
 * [Verze tohoto kurzu pro YouTube (Část2)](https://www.youtube.com/watch?v=xvDDrIHv5ko)
 
 >[!div class="step-by-step"]
->[Předchozí](xref:data/ef-rp/complex-data-model)
->[Další](xref:data/ef-rp/update-related-data)
+>[Předchozí](xref:data/ef-rp/complex-data-model)@no__t – 1 –[Další](xref:data/ef-rp/update-related-data)
 
 ::: moniker-end

@@ -1,24 +1,24 @@
 ---
-title: 'Kurz: Použití funkcí migrace – ASP.NET MVC s EF Core'
+title: 'Kurz: použití funkcí migrace – ASP.NET MVC s EF Core'
 description: V tomto kurzu začnete používat funkci migrace EF Core pro správu změn datového modelu v aplikaci ASP.NET Core MVC.
-author: tdykstra
+author: rick-anderson
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 3ee95d9b648a90c90d06e33a30b568626a1eb0aa
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 4c96815461898ce9273f953f083143d8b50d406e
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080837"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259416"
 ---
-# <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>Kurz: Použití funkcí migrace – ASP.NET MVC s EF Core
+# <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>Kurz: použití funkcí migrace – ASP.NET MVC s EF Core
 
 V tomto kurzu začnete používat funkci migrace EF Core pro správu změn datového modelu. V pozdějších kurzech přidáte při změně datového modelu další migrace.
 
-V tomto kurzu se naučíte:
+V tomto kurzu:
 
 > [!div class="checklist"]
 > * Další informace o migraci
@@ -28,7 +28,7 @@ V tomto kurzu se naučíte:
 > * Další informace o snímku datového modelu
 > * Použití migrace
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Požadované součásti
 
 * [Řazení, filtrování a stránkování](sort-filter-page.md)
 
@@ -49,7 +49,7 @@ V souboru *appSettings. JSON* změňte název databáze v připojovacím řetěz
 Tato změna nastaví projekt tak, že první migrace vytvoří novou databázi. Tento postup není potřebný k tomu, aby bylo možné začít s migracemi, ale později se dozvíte, proč je to dobrý nápad.
 
 > [!NOTE]
-> Jako alternativu ke změně názvu databáze můžete databázi odstranit. Použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo `database drop` příkaz CLI:
+> Jako alternativu ke změně názvu databáze můžete databázi odstranit. Použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo příkaz `database drop` CLI:
 >
 > ```dotnetcli
 > dotnet ef database drop
@@ -86,17 +86,17 @@ Done. To undo this action, use 'ef migrations remove'
 > [!NOTE]
 > Pokud se zobrazí chybová zpráva *bez nalezeného spustitelného souboru, který odpovídá příkazu "dotnet-EF"* , přečtěte si [Tento Blogový příspěvek](https://thedatafarm.com/data-access/no-executable-found-matching-command-dotnet-ef/) , kde najdete pomoc při řešení potíží
 
-Pokud se zobrazí chybová zpráva "*nelze získat přístup k souboru... ContosoUniversity. dll, protože ho používá jiný proces. ", najděte ikonu IIS Express v oznamovací oblasti systému Windows a klikněte na ni pravým tlačítkem myši a pak klikněte na **ContosoUniversity > Zastavit Web.***
+Pokud se zobrazí chybová zpráva "*nelze získat přístup k souboru... ContosoUniversity. dll, protože ho používá jiný proces.* ", najděte ikonu IIS Express v hlavním panelu systému Windows a klikněte na ni pravým tlačítkem myši a potom klikněte na **ContosoUniversity > zastavit web**.
 
 ## <a name="examine-up-and-down-methods"></a>Projděte si metody směrem nahoru a dolů
 
-Když jste provedli `migrations add` příkaz, EF vygeneroval kód, který vytvoří databázi zcela od začátku. Tento kód se nachází ve složce *migrace* v souboru s názvem  *\<timestamp > _InitialCreate. cs*. Metoda třídy vytvoří tabulky databáze, které odpovídají sadám `Down` entit datového modelu, a metoda je odstraní, jak je znázorněno v následujícím příkladu. `InitialCreate` `Up`
+Když jste provedli příkaz `migrations add`, EF vygeneroval kód, který vytvoří databázi zcela od začátku. Tento kód je ve složce *migraces* v souboru s názvem *\<timestamp > _InitialCreate. cs*. Metoda `Up` třídy `InitialCreate` vytvoří tabulky databáze, které odpovídají sadám entit datového modelu, a metoda `Down` je odstraní, jak je znázorněno v následujícím příkladu.
 
 [!code-csharp[](intro/samples/cu/Migrations/20170215220724_InitialCreate.cs?range=92-118)]
 
-Migrace volá `Up` metodu, která implementuje změny datového modelu pro migraci. Když zadáte příkaz pro vrácení aktualizace, migrace volá `Down` metodu.
+Migrace zavolá metodu `Up`, která implementuje změny datového modelu pro migraci. Když zadáte příkaz pro vrácení aktualizace, migrace zavolá metodu `Down`.
 
-Tento kód je určen pro počáteční migraci, která byla vytvořena při zadání `migrations add InitialCreate` příkazu. Parametr názvu migrace (v příkladu "InitialCreate") se používá pro název souboru a může být libovolný, který chcete. Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí. Můžete třeba pojmenovat pozdější migraci "AddDepartmentTable".
+Tento kód je určen pro počáteční migraci, která byla vytvořena při zadání příkazu `migrations add InitialCreate`. Parametr názvu migrace (v příkladu "InitialCreate") se používá pro název souboru a může být libovolný, který chcete. Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí. Můžete třeba pojmenovat pozdější migraci "AddDepartmentTable".
 
 Pokud jste vytvořili počáteční migraci i v případě, že databáze již existuje, je vytvořen kód pro vytvoření databáze, ale nemusí být spuštěn, protože databáze již odpovídá datovému modelu. Když nasadíte aplikaci do jiného prostředí, kde databáze ještě neexistuje, tento kód se spustí, aby se vytvořila vaše databáze, takže je dobré ho nejdřív otestovat. To je důvod, proč jste změnili název databáze v připojovacím řetězci dříve, takže migrace mohou vytvořit nové od začátku.
 
@@ -104,7 +104,7 @@ Pokud jste vytvořili počáteční migraci i v případě, že databáze již e
 
 Migrace vytvoří *snímek* aktuálního schématu databáze v části *migrations/SchoolContextModelSnapshot. cs*. Když přidáte migraci, EF určí, co se změnilo, porovnáním datového modelu se souborem snímku.
 
-Při odstraňování migrace použijte příkaz pro [Odebrání migrace dotnet EF](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) . `dotnet ef migrations remove`odstraní migraci a zajistí správné resetování snímku.
+Při odstraňování migrace použijte příkaz pro [Odebrání migrace dotnet EF](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) . `dotnet ef migrations remove` odstraní migraci a zajistí správné resetování snímku.
 
 Další informace o tom, jak se soubor snímku používá, najdete [v tématu EF Core migrace v týmových prostředích](/ef/core/managing-schemas/migrations/teams) .
 
@@ -116,7 +116,7 @@ V okně příkazového řádku zadejte následující příkaz, který v něm vy
 dotnet ef database update
 ```
 
-Výstup příkazu je podobný `migrations add` příkazu, s tím rozdílem, že se zobrazí protokoly pro příkazy SQL, které nastaví databázi. Většina protokolů je vynechána v následujícím ukázkovém výstupu. Pokud nechcete, aby se tato úroveň podrobností zobrazovala v protokolových zprávách, můžete změnit úroveň protokolu v souboru *appSettings. Soubor Development. JSON* . Další informace naleznete v tématu <xref:fundamentals/logging/index>.
+Výstup příkazu je podobný příkazu `migrations add` s tím rozdílem, že se zobrazí protokoly pro příkazy SQL, které nastaví databázi. Většina protokolů je vynechána v následujícím ukázkovém výstupu. Pokud nechcete, aby se tato úroveň podrobností zobrazovala v protokolových zprávách, můžete změnit úroveň protokolu v souboru *appSettings. Soubor Development. JSON* . For more information, see <xref:fundamentals/logging/index>.
 
 ```text
 info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
@@ -147,11 +147,11 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 Done.
 ```
 
-Pomocí **Průzkumník objektů systému SQL Server** můžete zkontrolovat databázi jako v prvním kurzu.  Všimnete si přidání \_ \_tabulky EFMigrationsHistory, která uchovává informace o tom, které migrace byly pro databázi aplikovány. Zobrazit data v této tabulce a pro první migraci se zobrazí jeden řádek. (Poslední protokol v předchozím příkladu výstupu rozhraní příkazového řádku ukazuje příkaz INSERT, který tento řádek vytvoří.)
+Pomocí **Průzkumník objektů systému SQL Server** můžete zkontrolovat databázi jako v prvním kurzu.  Všimněte si, že přidáte tabulku \_ @ no__t-1EFMigrationsHistory, která uchovává přehled o tom, které migrace byly pro databázi aplikovány. Zobrazit data v této tabulce a pro první migraci se zobrazí jeden řádek. (Poslední protokol v předchozím příkladu výstupu rozhraní příkazového řádku ukazuje příkaz INSERT, který tento řádek vytvoří.)
 
 Spusťte aplikaci, abyste ověřili, že všechno pořád funguje stejně jako předtím.
 
-![Studenti indexová stránka](migrations/_static/students-index.png)
+![Stránka indexu studentů](migrations/_static/students-index.png)
 
 <a id="pmc"></a>
 
@@ -159,9 +159,9 @@ Spusťte aplikaci, abyste ověřili, že všechno pořád funguje stejně jako p
 
 Nástroje EF pro správu migrací jsou dostupné z .NET Core CLI příkazy nebo z rutin prostředí PowerShell v okně **konzoly Správce balíčků** sady Visual Studio (PMC). V tomto kurzu se dozvíte, jak používat rozhraní příkazového řádku, ale pokud chcete, můžete použít PMC.
 
-Příkazy EF pro příkazy PMC jsou v balíčku [Microsoft. EntityFrameworkCore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools) . Tento balíček je zahrnutý ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), takže nemusíte přidávat odkaz na balíček, pokud vaše aplikace obsahuje odkaz na balíček pro `Microsoft.AspNetCore.App`.
+Příkazy EF pro příkazy PMC jsou v balíčku [Microsoft. EntityFrameworkCore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools) . Tento balíček je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), takže nemusíte přidávat odkaz na balíček, pokud vaše aplikace obsahuje odkaz na balíček `Microsoft.AspNetCore.App`.
 
-**Důležité:** Nejedná se o stejný balíček jako ten, který nainstalujete pro rozhraní příkazového řádku úpravou souboru *. csproj* . Název tohoto typu končí `Tools`na, na rozdíl od názvu balíčku CLI, který `Tools.DotNet`končí.
+**Důležité informace:** Nejedná se o stejný balíček jako ten, který nainstalujete pro rozhraní příkazového řádku úpravou souboru *. csproj* . Název tohoto typu končí na `Tools` na rozdíl od názvu balíčku CLI, který končí v `Tools.DotNet`.
 
 Další informace o příkazech rozhraní příkazového řádku naleznete v tématu [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).
 
@@ -173,7 +173,7 @@ Další informace o příkazech PMC naleznete v tématu [Konzola správce balí�
 
 ## <a name="next-step"></a>Další krok
 
-V tomto kurzu se naučíte:
+V tomto kurzu:
 
 > [!div class="checklist"]
 > * Seznámili jste se s migracemi

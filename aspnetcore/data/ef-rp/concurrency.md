@@ -1,33 +1,33 @@
 ---
-title: Stránky Razor s EF Core v ASP.NET Core - souběžnosti - 8 8
-author: tdykstra
-description: Tento kurz ukazuje, jak řešit konflikty při více uživatelů aktualizovat stejná entita ve stejnou dobu.
+title: Razor Pages s EF Core v ASP.NET Core-Concurrency-8 z 8
+author: rick-anderson
+description: V tomto kurzu se dozvíte, jak řešit konflikty, když více uživatelů aktualizuje stejnou entitu ve stejnou dobu.
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/concurrency
-ms.openlocfilehash: c9cbf8fd3ed85f32b3c166bf2df702fd26df4fc3
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 944e746624bf5fe7c586a521059fa4eb34b0f1e7
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080992"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259391"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>Stránky Razor s EF Core v ASP.NET Core - souběžnosti - 8 8
+# <a name="razor-pages-with-ef-core-in-aspnet-core---concurrency---8-of-8"></a>Razor Pages s EF Core v ASP.NET Core-Concurrency-8 z 8
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Petr Dykstra](https://github.com/tdykstra), a [Jan Macek P](https://twitter.com/thereformedprog)
+[Rick Anderson](https://twitter.com/RickAndMSFT), [Dykstra](https://github.com/tdykstra)a [Jan P Smith](https://twitter.com/thereformedprog)
 
 [!INCLUDE [about the series](../../includes/RP-EF/intro.md)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Tento kurz ukazuje, jak řešit konflikty při více uživateli aktualizovat entitu současně (ve stejnou dobu).
+V tomto kurzu se dozvíte, jak řešit konflikty, když více uživatelů aktualizuje entitu souběžně (ve stejnou dobu).
 
 ## <a name="concurrency-conflicts"></a>Konflikty souběžnosti
 
-Dojde ke konfliktu souběžnosti při:
+Ke konfliktu souběžnosti dojde v těchto případech:
 
-* Uživatel přejde na stránku upravit pro entitu.
+* Uživatel přejde na stránku pro úpravy pro entitu.
 * Jiný uživatel aktualizuje stejnou entitu před zapsáním změny prvního uživatele do databáze.
 
 Pokud detekce souběžnosti není povolená, kdokoli aktualizuje databázi poslední přepsání změn provedených ostatními uživateli. Pokud je toto riziko přijatelné, náklady na programování pro souběžnost můžou převážit výhody.
@@ -40,53 +40,53 @@ Správa zámků má nevýhody. Může být komplexní pro program a může způs
 
 ### <a name="optimistic-concurrency"></a>Optimistická souběžnost
 
-Optimistického řízení souběžnosti umožňuje konfliktů souběžnosti, která se provede, a potom reaguje správně při dělají. Například Jana návštěv stránky pro úpravu oddělení a změny rozpočet anglické oddělení od $350,000.00 0,00 USD.
+Optimistická souběžnost umožňuje konfliktům souběžnosti a pak správné chování při jejich provádění. Jana například navštíví stránku pro úpravy oddělení a změní rozpočet pro anglické oddělení z $350 000,00 na $0,00.
 
 ![Změna rozpočtu na 0](concurrency/_static/change-budget30.png)
 
-Předtím, než Jan klikne **Uložit**, Jan navštíví na stejnou stránku a změny pole Datum zahájení 9/1/2013 z 9/1/2007.
+Předtím, než Jana klikne na **Uložit**, Jan navštíví stejnou stránku a změní pole počáteční datum z 9/1/2007 na 9/1/2013.
 
-![Změna počátečního data a 2013](concurrency/_static/change-date30.png)
+![Změna počátečního data na 2013](concurrency/_static/change-date30.png)
 
 Jana klikne na **Uložit** jako první a projeví se jeho změna, protože prohlížeč zobrazí stránku indexu s nulovou hodnotou rozpočtu.
 
-Jan klikne **Uložit** na stránce Upravit, která stále zobrazuje rozpočtu 350,000.00 $. Co se stane dále, podle toho, jak zpracovávat konflikty souběžnosti:
+Jan klikne na **Uložit** na stránce pro úpravy, která stále zobrazuje rozpočet $350 000,00. Co se stane dále, podle toho, jak zpracovávat konflikty souběžnosti:
 
 * Můžete sledovat, kterou vlastnost uživatel změnil, a aktualizovat pouze odpovídající sloupce v databázi.
 
-  Ve scénáři bude ztracena žádná data. Různé vlastnosti byly aktualizovány dva uživatelé. Při příštím někdo přejde z anglické oddělení, zobrazí se Jana a John's na změny. Tato metoda aktualizace může snížit počet konflikty, ke kterým může dojít ke ztrátě. Tento přístup má některé nevýhody:
+  V tomto scénáři by se neztratila žádná data. Dva uživatelé aktualizovali různé vlastnosti. Když někdo příště prochází v anglickém oddělení, uvidí změny Jana i Jan. Tato metoda aktualizace může snížit počet konfliktů, které by mohly vést ke ztrátě dat. Tento přístup má některé nevýhody:
  
-  * Nelze nedošlo ke ztrátě dat, pokud dojde ke změně konkurenční na stejnou vlastnost.
-  * Není obecně praktické ve webové aplikaci. Vyžaduje udržování významné stavu, aby bylo možné udržovat přehled o všech načtených hodnoty a nové hodnoty. Zachování velké množství stavu může ovlivnit výkon aplikace.
-  * Můžete zvýšit složitost aplikace ve srovnání s detekce souběžnosti s entitou.
+  * Nelze zabránit ztrátě dat, pokud jsou provedeny konkurenční změny stejné vlastnosti.
+  * Většinou není v rámci webové aplikace praktické. Aby bylo možné sledovat všechny načtené hodnoty a nové hodnoty, je nutné zachovat značný stav. Udržování velkých objemů stavu může ovlivnit výkon aplikace.
+  * Může zvýšit složitost aplikace v porovnání s detekcí souběžnosti u entity.
 
-* Můžete nechat John's na změnu Jana změna přepsána.
+* Změnu můžete nechat v případě, že se změní Jan.
 
-  Při příštím někdo přejde z anglické oddělení, zobrazí se 9/1/2013 a počet získaných $350,000.00 hodnotu. Tento přístup se nazývá *Wins, klient* nebo *poslední ve službě Wins* scénář. (Všechny hodnoty z klienta přednost co je v úložišti.) Pokud tak učiníte nemusíte vytvářet kód pro zpracování souběžnosti, Wins, klient probíhá automaticky.
+  Když někdo příště prochází v anglickém oddělení, uvidí 9/1/2013 a načtenou hodnotu $350 000,00. Tento přístup se nazývá *klient WINS* nebo *Poslední ve scénáři služby WINS* . (Všechny hodnoty z klienta mají přednost před tím, co je v úložišti dat.) Pokud neprovedete žádné kódování pro zpracování souběžnosti, dojde k automatickému provedení služby WINS klienta.
 
-* Můžete zabránit tomu, aby se změnila aktualizace od Jan v databázi. Obvykle by aplikace:
+* Můžete zabránit tomu, aby se změnila aktualizace od Jan v databázi. Obvykle by aplikace měla:
 
   * Zobrazí chybovou zprávu.
-  * Zobrazit aktuální stav dat.
-  * Povolit uživateli, který chcete znovu použít změny.
+  * Zobrazí aktuální stav dat.
+  * Povolí uživateli znovu použít změny.
 
-  Tento postup se nazývá *Store Wins* scénář. (Hodnoty úložiště dat přednost hodnoty odeslány klientem.) Implementace služby Wins Store scénář v tomto kurzu. Tato metoda zajišťuje, že se žádné změny přepsán, aniž by uživatel se zobrazí upozornění.
+  To se označuje jako scénář *služby WINS pro Store* . (Hodnoty úložiště dat mají přednost před hodnotami odeslanými klientem.) Scénář služby WINS pro Store implementujete v tomto kurzu. Tato metoda zajistí, že nedojde k přepsání žádné změny bez upozornění uživatele.
 
 ## <a name="conflict-detection-in-ef-core"></a>Zjišťování konfliktů v EF Core
 
-EF Core vyvolá `DbConcurrencyException` výjimky, když detekuje konflikty. Aby bylo možné povolit detekci konfliktů, musí být datový model nakonfigurovaný. Mezi možnosti povolení detekce konfliktů patří následující:
+EF Core vyvolá výjimky `DbConcurrencyException`, když detekuje konflikty. Aby bylo možné povolit detekci konfliktů, musí být datový model nakonfigurovaný. Mezi možnosti povolení detekce konfliktů patří následující:
 
 * Nakonfigurujte EF Core pro zahrnutí původních hodnot sloupců nakonfigurovaných jako [tokeny souběžnosti](/ef/core/modeling/concurrency) v klauzuli WHERE příkazů Update a DELETE.
 
-  Když `SaveChanges` je volána, klauzule WHERE hledá původní hodnoty všech vlastností pokomentovaných s atributem [ConcurrencyCheck](/dotnet/api/system.componentmodel.dataannotations.concurrencycheckattribute) . Příkaz Update nenajde řádek, který se má aktualizovat, pokud se některá z vlastností tokenu souběžnosti změnila od prvního načtení řádku. EF Core interpretuje, že jako konflikt souběžnosti. U databázových tabulek, které mají mnoho sloupců, může tento přístup mít za následek velmi velké klauzule WHERE a může vyžadovat velké množství stavu. Proto se tento přístup obecně nedoporučuje a nejedná se o metodu používanou v tomto kurzu.
+  Když je volána `SaveChanges`, klauzule WHERE hledá původní hodnoty všech vlastností pokomentovaných s atributem [ConcurrencyCheck](/dotnet/api/system.componentmodel.dataannotations.concurrencycheckattribute) . Příkaz Update nenajde řádek, který se má aktualizovat, pokud se některá z vlastností tokenu souběžnosti změnila od prvního načtení řádku. EF Core interpretuje, že jako konflikt souběžnosti. U databázových tabulek, které mají mnoho sloupců, může tento přístup mít za následek velmi velké klauzule WHERE a může vyžadovat velké množství stavu. Proto se tento přístup obecně nedoporučuje a nejedná se o metodu používanou v tomto kurzu.
 
 * V tabulce databáze zahrňte sloupec sledování, který se dá použít k určení, kdy došlo ke změně řádku.
 
-  V databázi SQL Server je `rowversion`datový typ sloupce sledování. `rowversion` Hodnota je sekvenční číslo, které se zvýší pokaždé, když se řádek aktualizuje. V příkazu Update nebo DELETE zahrnuje klauzule WHERE původní hodnotu sloupce sledování (číslo verze původního řádku). Pokud byl aktualizovaný řádek změněn jiným uživatelem, hodnota ve `rowversion` sloupci se liší od původní hodnoty. V takovém případě příkaz Update nebo DELETE nemůže najít řádek, který se má aktualizovat z klauzule WHERE. EF Core vyvolá výjimku souběžnosti, pokud nejsou žádné řádky ovlivněny příkazem Update nebo DELETE.
+  V databázi SQL Server je datový typ sloupce sledování `rowversion`. Hodnota `rowversion` je sekvenční číslo, které se zvýší pokaždé, když se řádek aktualizuje. V příkazu Update nebo DELETE zahrnuje klauzule WHERE původní hodnotu sloupce sledování (číslo verze původního řádku). Pokud byl aktualizovaný řádek změněn jiným uživatelem, hodnota ve sloupci `rowversion` se liší od původní hodnoty. V takovém případě příkaz Update nebo DELETE nemůže najít řádek, který se má aktualizovat z klauzule WHERE. EF Core vyvolá výjimku souběžnosti, pokud nejsou žádné řádky ovlivněny příkazem Update nebo DELETE.
 
 ## <a name="add-a-tracking-property"></a>Přidat vlastnost sledování
 
-V *Models/Department.cs*, přidání vlastnosti sledování do s názvem RowVersion:
+V *modelu/oddělení. cs*přidejte vlastnost sledování s názvem rowversion:
 
 [!code-csharp[](intro/samples/cu30/Models/Department.cs?highlight=26,27)]
 
@@ -100,47 +100,47 @@ modelBuilder.Entity<Department>()
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-U databáze `[Timestamp]` SQL Server je atribut vlastnosti entity definovaný jako bajtové pole:
+U SQL Server databáze je atribut `[Timestamp]` u vlastnosti entity definovaný jako bajtové pole:
 
 * Způsobí, že bude sloupec zahrnut v klauzulích DELETE a UPDATE WHERE.
 * Nastaví typ sloupce v databázi na [rowversion](/sql/t-sql/data-types/rowversion-transact-sql).
 
-Databáze generuje číslo verze sekvenčního řádku, které se zvýší pokaždé, když se řádek aktualizuje. `Delete` V příkazu `Update` nebozahrnujeklauzulehodnotunačtené`Where` verze řádku. Pokud se aktualizovaný řádek od načtení změnil:
+Databáze generuje číslo verze sekvenčního řádku, které se zvýší pokaždé, když se řádek aktualizuje. Klauzule `Where` v příkazu `Update` nebo `Delete` zahrnuje hodnotu načtené verze řádku. Pokud se aktualizovaný řádek od načtení změnil:
 
 * Hodnota verze aktuálního řádku se neshoduje s načtenou hodnotou.
-* Příkazy `Update` nebo `Delete` nenaleznouřádek,protožeklauzulevyhledáváhodnotunačtené`Where` verze řádku.
-* A `DbUpdateConcurrencyException` je vyvolána výjimka.
+* Příkazy `Update` nebo `Delete` nenaleznou řádek, protože klauzule `Where` vyhledává hodnotu načtené verze řádku.
+* Je vyvolána `DbUpdateConcurrencyException`.
 
-Následující kód ukazuje část generovaných EF Core, když se aktualizuje název oddělení T-SQL:
+Následující kód ukazuje část T-SQL vygenerované EF Core, když je název oddělení aktualizovaný:
 
 [!code-sql[](intro/samples/cu30snapshots/8-concurrency/sql.txt?highlight=2-3)]
 
-Předchozí zvýrazněný kód ukazuje `WHERE` obsahující klauzuli `RowVersion`. Pokud se databáze `RowVersion` neshoduje `RowVersion` s parametrem (`@p2`), žádné řádky se neaktualizují.
+Předchozí zvýrazněný kód ukazuje klauzuli `WHERE` obsahující `RowVersion`. Pokud se databáze `RowVersion` nerovná parametru `RowVersion` (`@p2`), neaktualizují se žádné řádky.
 
-Následující zvýrazněný kód ukazuje T-SQL, která ověřuje, že byl aktualizován přesně jeden řádek:
+Následující zvýrazněný kód ukazuje T-SQL, který ověří právě jeden řádek, který byl aktualizován:
 
 [!code-sql[](intro/samples/cu30snapshots/8-concurrency/sql.txt?highlight=4-6)]
 
-[@@ROWCOUNT ](/sql/t-sql/functions/rowcount-transact-sql) vrací počet řádků, které jsou ovlivněny poslední příkaz. Pokud nejsou aktualizovány žádné řádky, EF Core vyvolá `DbUpdateConcurrencyException`.
+[@ @ROWCOUNT](/sql/t-sql/functions/rowcount-transact-sql) vrátí počet řádků ovlivněných posledním příkazem. Pokud nejsou aktualizovány žádné řádky, EF Core vyvolá `DbUpdateConcurrencyException`.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Pro databázi SQLite je `[Timestamp]` atribut vlastnosti entity definovaný jako bajtové pole:
+Pro databázi SQLite je atribut `[Timestamp]` u vlastnosti entity definovaný jako bajtové pole:
 
 * Způsobí, že bude sloupec zahrnut v klauzulích DELETE a UPDATE WHERE.
 * Provede mapování na typ sloupce objektu BLOB.
 
-Když se aktualizuje řádek, triggery databáze aktualizují sloupec RowVersion pomocí nového náhodného bajtového pole. `Delete` V příkazu `Update` orzahrnujeklauzulenačtenou`Where` hodnotu sloupce rowversion. Pokud se aktualizovaný řádek od načtení změnil:
+Když se aktualizuje řádek, triggery databáze aktualizují sloupec RowVersion pomocí nového náhodného bajtového pole. Klauzule `Where` v příkazu `Update` nebo `Delete` zahrnuje načtenou hodnotu sloupce RowVersion. Pokud se aktualizovaný řádek od načtení změnil:
 
 * Hodnota verze aktuálního řádku se neshoduje s načtenou hodnotou.
-* Příkaz `Update` nebo `Delete` nenalezneřádek,protožeklauzulevyhledápůvodní`Where` hodnotu verze řádku.
-* A `DbUpdateConcurrencyException` je vyvolána výjimka.
+* Příkaz `Update` nebo `Delete` nenajde řádek, protože klauzule `Where` hledá původní hodnotu verze řádku.
+* Je vyvolána `DbUpdateConcurrencyException`.
 
 ---
 
 ### <a name="update-the-database"></a>Aktualizace databáze
 
-`RowVersion` Přidáním vlastnosti se změní datový model, který vyžaduje migraci.
+Přidáním vlastnosti `RowVersion` se změní datový model, který vyžaduje migraci.
 
 Sestavte projekt. 
 
@@ -165,7 +165,7 @@ Sestavte projekt.
 Tento příkaz:
 
 * Vytvoří migrační soubor *_RowVersion. cs migrace/{Time razítko}* .
-* Aktualizace *Migrations/SchoolContextModelSnapshot.cs* souboru. Tato aktualizace přidává následující zvýrazněný kód do `BuildModel` metody:
+* Aktualizuje soubor *migrations/SchoolContextModelSnapshot. cs* . Aktualizace přidá následující zvýrazněný kód do metody `BuildModel`:
 
   [!code-csharp[](intro/samples/cu30/Migrations/SchoolContextModelSnapshot.cs?name=snippet_Department&highlight=15-17)]
 
@@ -179,7 +179,7 @@ Tento příkaz:
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* `Migrations/<timestamp>_RowVersion.cs` Otevřete soubor a přidejte zvýrazněný kód:
+* Otevřete soubor `Migrations/<timestamp>_RowVersion.cs` a přidejte zvýrazněný kód:
 
   [!code-csharp[](intro/samples/cu30/MigrationsSQLite/20190722151951_RowVersion.cs?highlight=16-42)]
 
@@ -205,7 +205,7 @@ Tento příkaz:
 * Postupujte podle pokynů v části [stránky pro studenty](xref:data/ef-rp/intro#scaffold-student-pages) s těmito výjimkami:
 
 * Vytvořte složku *stránky nebo oddělení* .  
-* Použijte `Department` pro třídu modelu.
+* Pro třídu modelu použijte `Department`.
   * Místo vytvoření nové třídy kontextu použijte existující kontextovou třídu.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
@@ -232,47 +232,47 @@ Sestavte projekt.
 
 ## <a name="update-the-index-page"></a>Aktualizace stránky indexu
 
-Nástroj pro generování uživatelského rozhraní vytvořil `RowVersion` sloupec pro stránku indexu, ale toto pole by se v produkční aplikaci nezobrazovalo. V tomto kurzu se zobrazí poslední bajt `RowVersion` , který vám ukáže, jak funguje zpracování souběžnosti. Poslední bajt není zaručený jako jedinečný.
+Nástroj pro generování uživatelského rozhraní vytvořil pro stránku indexu sloupec `RowVersion`, ale toto pole by se v produkční aplikaci nezobrazovalo. V tomto kurzu se zobrazí poslední bajt `RowVersion`, aby se zobrazila informace o tom, jak zpracování souběžnosti funguje. Poslední bajt není zaručený jako jedinečný.
 
 Aktualizovat stránku *Pages\Departments\Index.cshtml* :
 
-* Nahraďte indexem oddělení.
-* Změňte kód obsahující `RowVersion` tak, aby zobrazoval pouze poslední bajt pole bajtů.
-* Nahraďte FirstMidName jméno a příjmení.
+* Nahraďte index "odděleními".
+* Změňte kód obsahující `RowVersion` pro zobrazení pouze posledního bajtu bajtového pole.
+* Nahraďte FirstMidName řetězcem FullName.
 
 Následující kód ukazuje aktualizovanou stránku:
 
 [!code-html[](intro/samples/cu30/Pages/Departments/Index.cshtml?highlight=5,8,29,48,51)]
 
-## <a name="update-the-edit-page-model"></a>Aktualizace modelu stránky úpravy
+## <a name="update-the-edit-page-model"></a>Aktualizace modelu úprav stránek
 
 *Pages\Departments\Edit.cshtml.cs* aktualizujte pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_All)]
 
-[Původní](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyentry.originalvalue?view=efcore-2.0#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyEntry_OriginalValue) se aktualizuje `rowVersion` hodnotou z entity, když byla `OnGet` načtena v metodě. EF Core generuje příkazu SQL UPDATE s klauzulí WHERE, který obsahuje původní `RowVersion` hodnotu. Pokud žádné řádky jsou ovlivněny příkazu UPDATE (žádné řádky mít původní `RowVersion` hodnota), `DbUpdateConcurrencyException` je vyvolána výjimka.
+[Původní](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyentry.originalvalue?view=efcore-2.0#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyEntry_OriginalValue) se aktualizuje s hodnotou `rowVersion` z entity, když byla načtena v metodě `OnGet`. EF Core generuje příkaz SQL UPDATE s klauzulí WHERE obsahující původní hodnotu `RowVersion`. Pokud nejsou žádné řádky ovlivněny příkazem UPDATE (žádné řádky nemají původní hodnotu `RowVersion`), je vyvolána výjimka `DbUpdateConcurrencyException`.
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_RowVersion&highlight=17-18)]
 
 V předchozím zvýrazněném kódu:
 
-* Hodnota v `Department.RowVersion` poli je to, co bylo v entitě v okamžiku, kdy byla původně načtena v žádosti o získání stránky pro úpravy. Hodnota je poskytnuta `OnPost` metodě pomocí skrytého pole na stránce Razor, které zobrazuje entitu, kterou chcete upravit. Hodnota skrytého pole je zkopírována `Department.RowVersion` do pořadače modelu.
-* `OriginalValue`je to, co EF Core bude používat v klauzuli WHERE. Předtím, než se spustí zvýrazněný řádek `OriginalValue` kódu, má hodnotu, která byla v `FirstOrDefaultAsync` databázi volána v této metodě, která se může lišit od toho, co bylo zobrazeno na stránce pro úpravy.
-* Zvýrazněný kód zajišťuje, aby EF Core používal původní `RowVersion` hodnotu ze zobrazené `Department` entity v klauzuli WHERE příkazu SQL Update.
+* Hodnota v `Department.RowVersion` je to, co bylo v entitě v okamžiku, kdy byla původně načtena v žádosti o získání stránky pro úpravy. Hodnota je poskytnuta metodě `OnPost` pomocí skrytého pole na stránce Razor, které zobrazuje entitu, kterou chcete upravit. Hodnota skrytého pole je zkopírována do `Department.RowVersion` pomocí pořadače modelu.
+* `OriginalValue` je to, co EF Core bude používat v klauzuli WHERE. Před spuštěním zvýrazněného řádku kódu `OriginalValue` má hodnotu, která byla v databázi, pokud byla v této metodě volána `FirstOrDefaultAsync`, která se může lišit od toho, co bylo zobrazeno na stránce pro úpravy.
+* Zvýrazněný kód zajišťuje, aby EF Core používal původní hodnotu `RowVersion` ze zobrazené entity `Department` v klauzuli WHERE příkazu SQL UPDATE.
 
 Když dojde k chybě souběžnosti, následující zvýrazněný kód Získá hodnoty klienta (hodnoty odeslané do této metody) a hodnoty databáze.
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_TryUpdateModel&highlight=14,23)]
 
-Následující kód přidá vlastní chybovou zprávu pro každý sloupec, který má hodnoty databáze odlišné od odeslání do `OnPostAsync`:
+Následující kód přidá vlastní chybovou zprávu pro každý sloupec, který má hodnoty databáze odlišně od toho, co bylo odesláno do `OnPostAsync`:
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_Error)]
 
-Následující zvýrazněný kód nastaví `RowVersion` hodnotu na novou hodnotu načtenou z databáze. Při příštím kliknutí na tlačítko **Uložit**, pouze souběžnosti chyby, ke kterým dochází, protože poslední zobrazení stránky pro úpravu bude zachycena.
+Následující zvýrazněný kód nastaví hodnotu `RowVersion` na novou hodnotu načtenou z databáze. Až uživatel příště klikne na možnost **Uložit**, bude zachycena pouze chyba souběžnosti, ke kterým dochází od posledního zobrazení stránky pro úpravy.
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Edit.cshtml.cs?name=snippet_TryUpdateModel&highlight=28)]
 
-`ModelState.Remove` Příkazu se totiž `ModelState` má starý `RowVersion` hodnotu. Na stránce Razor `ModelState` hodnota pole má přednost před hodnoty vlastností modelu Pokud jsou obě přítomny.
+Příkaz `ModelState.Remove` je vyžadován, protože `ModelState` má starou hodnotu `RowVersion`. Na stránce Razor má hodnota `ModelState` pro pole přednost před hodnotami vlastností modelu, pokud jsou oba přítomny.
 
 ### <a name="update-the-razor-page"></a>Aktualizace stránky Razor
 
@@ -282,90 +282,90 @@ Aktualizovat *stránky/oddělení/upravit. cshtml* pomocí následujícího kód
 
 Předchozí kód:
 
-* Aktualizace `page` direktiv z `@page` k `@page "{id:int}"`.
-* Přidá verze skryté řádku. `RowVersion` je nutné přidat tak příspěvek zpět váže hodnotu.
+* Aktualizuje direktivu `page` z `@page` na `@page "{id:int}"`.
+* Přidá verzi skrytého řádku. je nutné přidat `RowVersion`, aby příspěvek znovu prováže hodnotu.
 * Zobrazí poslední bajt `RowVersion` pro účely ladění.
-* Nahradí `ViewData` pomocí silných `InstructorNameSL`.
+* Nahradí `ViewData` silným typem `InstructorNameSL`.
 
-### <a name="test-concurrency-conflicts-with-the-edit-page"></a>Testování je v konfliktu s stránky pro úpravu souběžnosti
+### <a name="test-concurrency-conflicts-with-the-edit-page"></a>Souběžnost testů v konfliktu se stránkou pro úpravy
 
-Otevřete dvě instance prohlížeče úpravy na anglické oddělení:
+V anglickém oddělení otevřete dvě instance pro úpravy v angličtině:
 
 * Spusťte aplikaci a vyberte oddělení.
-* Klikněte pravým tlačítkem myši **upravit** hypertextového odkazu pro anglickou oddělení a vyberte **otevřít na nové kartě**.
-* Na první kartě klikněte **upravit** hypertextového odkazu pro anglickou oddělení.
+* Klikněte pravým tlačítkem **na hypertextový** odkaz pro jazykové oddělení a vyberte **otevřít na nové kartě**.
+* Na první kartě klikněte na odkaz **Upravit** pro anglické oddělení.
 
-Záložkách prohlížeče dvě zobrazení stejné informace.
+Dvě karty prohlížeče zobrazují stejné informace.
 
-Změňte název na první záložce prohlížeče a klikněte na tlačítko **Uložit**.
+Změňte název na první kartě prohlížeče a klikněte na **Uložit**.
 
-![Upravit oddělení po změně – stránka 1](concurrency/_static/edit-after-change-130.png)
+![Stránka pro úpravy v oddělení 1 po změně](concurrency/_static/edit-after-change-130.png)
 
-Prohlížeč zobrazí indexovou stránku s změněné hodnoty a aktualizované rowVersion indikátoru. Všimněte si aktualizovanou rowVersion ukazatel, se zobrazí na druhý zpětného odeslání na druhé záložce.
+Prohlížeč zobrazí stránku index se změněnou hodnotou a aktualizovaným indikátorem rowVersion. Všimněte si aktualizovaného indikátoru rowVersion, který se zobrazuje na druhém panelu pro odeslání na druhé kartě.
 
-Změňte jiné pole na druhé záložce prohlížeče.
+Změňte jiné pole na druhé kartě prohlížeče.
 
-![Upravit oddělení po změně – stránka 2](concurrency/_static/edit-after-change-230.png)
+![Stránka pro úpravy v oddělení 2 po změně](concurrency/_static/edit-after-change-230.png)
 
-Klikněte na **Uložit**. Zobrazí se chybové zprávy pro všechna pole, která neodpovídají hodnotám databáze:
+Klikněte na **Save** (Uložit). Zobrazí se chybové zprávy pro všechna pole, která neodpovídají hodnotám databáze:
 
-![Oddělení upravit stránku chybová zpráva](concurrency/_static/edit-error30.png)
+![Chybová zpráva stránky pro úpravu oddělení](concurrency/_static/edit-error30.png)
 
-Toto okno prohlížeče neměli v úmyslu změnit název pole. Zkopírujte a vložte do pole název aktuální hodnotu (jazyky). Karta navýšení kapacity. Ověřování na straně klienta odebere chybová zpráva.
+Toto okno prohlížeče nemá v úmyslu změnit pole název. Zkopírujte a vložte aktuální hodnotu (jazyky) do pole název. Tabulátor. Ověřování na straně klienta odebere chybovou zprávu.
 
-Klikněte na tlačítko **Uložit** znovu. Uložená hodnota, kterou jste zadali na druhé záložce prohlížeče. Zobrazí uložené hodnoty v indexovou stránku.
+Znovu klikněte na **Uložit** . Hodnota, kterou jste zadali na druhé záložce prohlížeče, se uloží. Uložené hodnoty se zobrazí na stránce index.
 
-## <a name="update-the-delete-page"></a>Aktualizovat stránku Delete
+## <a name="update-the-delete-page"></a>Aktualizace stránky pro odstranění
 
 Aktualizujte *stránky/oddělení/odstraňte. cshtml. cs* s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu30/Pages/Departments/Delete.cshtml.cs)]
 
-Na stránce odstranit rozpozná konfliktů souběžnosti, pokud entita změněna po načtení. `Department.RowVersion` verze řádku je, když se entita načetla. EF Core vytvoří příkaz SQL DELETE, obsahuje klauzuli WHERE s `RowVersion`. Pokud vliv na výsledky příkazu SQL odstranit v nulový počet řádků:
+Stránka odstranit detekuje konflikty souběžnosti, když se entita po jejím načtení změnila. `Department.RowVersion` je verze řádku při načtení entity. Když EF Core vytvoří příkaz SQL DELETE, zahrnuje klauzuli WHERE s `RowVersion`. Pokud příkaz SQL DELETE má vliv na nulové řádky:
 
-* Příkaz v příkazu SQL DELETE se v databázi neshoduje `RowVersion`. `RowVersion`
+* @No__t-0 v příkazu SQL DELETE se neshoduje s `RowVersion` v databázi.
 * Je vyvolána výjimka DbUpdateConcurrencyException.
-* `OnGetAsync` volá se `concurrencyError`.
+* `OnGetAsync` se volá s `concurrencyError`.
 
 ### <a name="update-the-delete-razor-page"></a>Aktualizace stránky odstranit Razor
 
-Aktualizace *Pages/Departments/Delete.cshtml* následujícím kódem:
+Aktualizovat *stránky/oddělení/odstranit. cshtml* pomocí následujícího kódu:
 
 [!code-html[](intro/samples/cu30/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
 
 Předchozí kód provede následující změny:
 
-* Aktualizace `page` direktiv z `@page` k `@page "{id:int}"`.
+* Aktualizuje direktivu `page` z `@page` na `@page "{id:int}"`.
 * Přidá chybovou zprávu.
-* Nahradí celý název v FirstMidName **správce** pole.
-* Změny `RowVersion` k zobrazení poslední bajt.
-* Přidá verze skryté řádku. `RowVersion`je nutné přidat, aby postgit přidat zpátky vazby hodnoty.
+* Nahradí FirstMidName pomocí FullName v poli **správce** .
+* Změny `RowVersion` pro zobrazení posledního bajtu.
+* Přidá verzi skrytého řádku. je nutné přidat `RowVersion`, aby postgit přidat zpět váženou hodnotu.
 
 ### <a name="test-concurrency-conflicts"></a>Konflikty testů v souběžnosti
 
-Vytvořte test oddělení.
+Vytvořte testovací oddělení.
 
-Otevřete dvě instance prohlížeče DELETE na oddělení testu:
+V testovacím středisku otevřete dvě instance pro odstraňování těchto prohlížečů:
 
 * Spusťte aplikaci a vyberte oddělení.
-* Klikněte pravým tlačítkem myši **odstranit** hypertextového odkazu pro oddělení test a vyberte **otevřít na nové kartě**.
-* Klikněte na tlačítko **upravit** hypertextového odkazu pro oddělení testu.
+* Klikněte pravým tlačítkem myši na hypertextový odkaz **Odstranit** pro testovací oddělení a vyberte **otevřít na nové kartě**.
+* Klikněte na odkaz **Upravit** pro testovací oddělení.
 
-Záložkách prohlížeče dvě zobrazení stejné informace.
+Dvě karty prohlížeče zobrazují stejné informace.
 
-Rozpočet na první záložce prohlížeče a klikněte na tlačítko **Uložit**.
+Změňte rozpočet na první kartě prohlížeče a klikněte na **Uložit**.
 
-Prohlížeč zobrazí indexovou stránku s změněné hodnoty a aktualizované rowVersion indikátoru. Všimněte si aktualizovanou rowVersion ukazatel, se zobrazí na druhý zpětného odeslání na druhé záložce.
+Prohlížeč zobrazí stránku index se změněnou hodnotou a aktualizovaným indikátorem rowVersion. Všimněte si aktualizovaného indikátoru rowVersion, který se zobrazuje na druhém panelu pro odeslání na druhé kartě.
 
-Odstraňte test oddělení na druhé kartě. Chyba souběžnosti se zobrazuje s aktuálními hodnotami z databáze. Kliknutím na **odstranit** odstraní entitu, není-li `RowVersion` byl updated.department byl odstraněn.
+Odstraňte testovací oddělení z druhé karty. Chyba souběžnosti se zobrazuje s aktuálními hodnotami z databáze. Po kliknutí na **Odstranit** se entita odstraní, pokud se `RowVersion` neaktualizovala. oddělení se odstranilo.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Tokeny souběžnosti v EF Core](/ef/core/modeling/concurrency)
-* [Popisovač souběžnosti v EF Core](/ef/core/saving/concurrency)
+* [Zpracování souběžnosti v EF Core](/ef/core/saving/concurrency)
 * [Ladění zdrojového kódu ASP.NET Core 2. x](https://github.com/aspnet/AspNetCore.Docs/issues/4155)
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 Toto je poslední kurz v řadě. Další témata jsou popsaná v tématu [verze MVC této série kurzů](xref:data/ef-mvc/index).
 
@@ -376,97 +376,97 @@ Toto je poslední kurz v řadě. Další témata jsou popsaná v tématu [verze 
 
 ::: moniker range="< aspnetcore-3.0"
 
-Tento kurz ukazuje, jak řešit konflikty při více uživateli aktualizovat entitu současně (ve stejnou dobu). Pokud narazíte na potíže nelze vyřešit, [stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
+V tomto kurzu se dozvíte, jak řešit konflikty, když více uživatelů aktualizuje entitu souběžně (ve stejnou dobu). Pokud narazíte na problémy, které nemůžete vyřešit, [Stáhněte nebo zobrazte dokončenou aplikaci.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
 ## <a name="concurrency-conflicts"></a>Konflikty souběžnosti
 
-Dojde ke konfliktu souběžnosti při:
+Ke konfliktu souběžnosti dojde v těchto případech:
 
-* Uživatel přejde na stránku upravit pro entitu.
-* Jiný uživatel aktualizuje stejné entity před první uživatel změny jsou zapsána do databáze.
+* Uživatel přejde na stránku pro úpravy pro entitu.
+* Jiný uživatel aktualizuje stejnou entitu před zapsáním změny prvního uživatele do databáze.
 
-Pokud zjišťování souběžnosti není povolena, když dojde k souběžných aktualizací:
+Pokud detekce souběžnosti není povolená, když dojde k souběžným aktualizacím:
 
-* Poslední aktualizace wins. To znamená poslední aktualizace hodnoty se uloží do databáze.
-* První z aktuální aktualizace budou ztraceny.
+* Poslední aktualizace služby WINS. To znamená, že poslední hodnoty aktualizace se uloží do databáze.
+* První z aktuálních aktualizací bude ztracena.
 
 ### <a name="optimistic-concurrency"></a>Optimistická souběžnost
 
-Optimistického řízení souběžnosti umožňuje konfliktů souběžnosti, která se provede, a potom reaguje správně při dělají. Například Jana návštěv stránky pro úpravu oddělení a změny rozpočet anglické oddělení od $350,000.00 0,00 USD.
+Optimistická souběžnost umožňuje konfliktům souběžnosti a pak správné chování při jejich provádění. Jana například navštíví stránku pro úpravy oddělení a změní rozpočet pro anglické oddělení z $350 000,00 na $0,00.
 
 ![Změna rozpočtu na 0](concurrency/_static/change-budget.png)
 
-Předtím, než Jan klikne **Uložit**, Jan navštíví na stejnou stránku a změny pole Datum zahájení 9/1/2013 z 9/1/2007.
+Předtím, než Jana klikne na **Uložit**, Jan navštíví stejnou stránku a změní pole počáteční datum z 9/1/2007 na 9/1/2013.
 
-![Změna počátečního data a 2013](concurrency/_static/change-date.png)
+![Změna počátečního data na 2013](concurrency/_static/change-date.png)
 
-Jan klikne **Uložit** první a zobrazí ji změnit, pokud prohlížeč zobrazí indexovou stránku.
+Jana klikne na **Uložit** a uvidí jeho změnu, když prohlížeč zobrazí stránku rejstřík.
 
-![Změnit na hodnotu nula rozpočtu](concurrency/_static/budget-zero.png)
+![Rozpočet se změnil na nula.](concurrency/_static/budget-zero.png)
 
-Jan klikne **Uložit** na stránce Upravit, která stále zobrazuje rozpočtu 350,000.00 $. Co bude dál se určuje podle způsobu zpracování konfliktů souběžnosti.
+Jan klikne na **Uložit** na stránce pro úpravy, která stále zobrazuje rozpočet $350 000,00. Co se stane dál, určíte tak, jak můžete zpracovávat konflikty souběžnosti.
 
-Optimistického řízení souběžnosti zahrnuje následující možnosti:
+Optimistická souběžnost zahrnuje následující možnosti:
 
-* Můžete sledovat, které vlastnosti uživatele byl změněn a aktualizovat pouze odpovídající sloupce v databázi.
+* Můžete sledovat, kterou vlastnost uživatel změnil, a aktualizovat pouze odpovídající sloupce v databázi.
 
-  Ve scénáři bude ztracena žádná data. Různé vlastnosti byly aktualizovány dva uživatelé. Při příštím někdo přejde z anglické oddělení, zobrazí se Jana a John's na změny. Tato metoda aktualizace může snížit počet konflikty, ke kterým může dojít ke ztrátě. Tento přístup:
+  V tomto scénáři by se neztratila žádná data. Dva uživatelé aktualizovali různé vlastnosti. Když někdo příště prochází v anglickém oddělení, uvidí změny Jana i Jan. Tato metoda aktualizace může snížit počet konfliktů, které by mohly vést ke ztrátě dat. Tento přístup:
  
-  * Nelze nedošlo ke ztrátě dat, pokud dojde ke změně konkurenční na stejnou vlastnost.
-  * Není obecně praktické ve webové aplikaci. Vyžaduje udržování významné stavu, aby bylo možné udržovat přehled o všech načtených hodnoty a nové hodnoty. Zachování velké množství stavu může ovlivnit výkon aplikace.
-  * Můžete zvýšit složitost aplikace ve srovnání s detekce souběžnosti s entitou.
+  * Nelze zabránit ztrátě dat, pokud jsou provedeny konkurenční změny stejné vlastnosti.
+  * Většinou není v rámci webové aplikace praktické. Aby bylo možné sledovat všechny načtené hodnoty a nové hodnoty, je nutné zachovat značný stav. Udržování velkých objemů stavu může ovlivnit výkon aplikace.
+  * Může zvýšit složitost aplikace v porovnání s detekcí souběžnosti u entity.
 
-* Můžete nechat John's na změnu Jana změna přepsána.
+* Změnu můžete nechat v případě, že se změní Jan.
 
-  Při příštím někdo přejde z anglické oddělení, zobrazí se 9/1/2013 a počet získaných $350,000.00 hodnotu. Tento přístup se nazývá *Wins, klient* nebo *poslední ve službě Wins* scénář. (Všechny hodnoty z klienta přednost co je v úložišti.) Pokud tak učiníte nemusíte vytvářet kód pro zpracování souběžnosti, Wins, klient probíhá automaticky.
+  Když někdo příště prochází v anglickém oddělení, uvidí 9/1/2013 a načtenou hodnotu $350 000,00. Tento přístup se nazývá *klient WINS* nebo *Poslední ve scénáři služby WINS* . (Všechny hodnoty z klienta mají přednost před tím, co je v úložišti dat.) Pokud neprovedete žádné kódování pro zpracování souběžnosti, dojde k automatickému provedení služby WINS klienta.
 
-* John's na změnu může zabránit aktualizují v databázi. Obvykle by aplikace:
+* Můžete zabránit tomu, aby se změny od Jan aktualizovaly v databázi. Obvykle by aplikace měla:
 
   * Zobrazí chybovou zprávu.
-  * Zobrazit aktuální stav dat.
-  * Povolit uživateli, který chcete znovu použít změny.
+  * Zobrazí aktuální stav dat.
+  * Povolí uživateli znovu použít změny.
 
-  Tento postup se nazývá *Store Wins* scénář. (Hodnoty úložiště dat přednost hodnoty odeslány klientem.) Implementace služby Wins Store scénář v tomto kurzu. Tato metoda zajišťuje, že se žádné změny přepsán, aniž by uživatel se zobrazí upozornění.
+  To se označuje jako scénář *služby WINS pro Store* . (Hodnoty úložiště dat mají přednost před hodnotami odeslanými klientem.) Scénář služby WINS pro Store implementujete v tomto kurzu. Tato metoda zajistí, že nedojde k přepsání žádné změny bez upozornění uživatele.
 
-## <a name="handling-concurrency"></a>Ošetření souběžnosti 
+## <a name="handling-concurrency"></a>Zpracování souběžnosti 
 
-Když je vlastnost nakonfigurovaný jako [tokenem souběžnosti](/ef/core/modeling/concurrency):
+Když je vlastnost konfigurovaná jako [Token souběžnosti](/ef/core/modeling/concurrency):
 
-* EF Core ověřuje, že vlastnost byl změněn po načtení. Kontrola dochází při [SaveChanges](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechanges?view=efcore-2.0#Microsoft_EntityFrameworkCore_DbContext_SaveChanges) nebo [SaveChangesAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechangesasync?view=efcore-2.0#Microsoft_EntityFrameworkCore_DbContext_SaveChangesAsync_System_Threading_CancellationToken_) je volána.
-* Pokud vlastnost byl změněn po načtení, [DbUpdateConcurrencyException](/dotnet/api/microsoft.entityframeworkcore.dbupdateconcurrencyexception?view=efcore-2.0) je vyvolána výjimka. 
+* EF Core ověří, že se vlastnost po načtení nezměnila. K ověření dochází při volání [metody SaveChanges](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechanges?view=efcore-2.0#Microsoft_EntityFrameworkCore_DbContext_SaveChanges) nebo [SaveChangesAsync](/dotnet/api/microsoft.entityframeworkcore.dbcontext.savechangesasync?view=efcore-2.0#Microsoft_EntityFrameworkCore_DbContext_SaveChangesAsync_System_Threading_CancellationToken_) .
+* Pokud byla vlastnost po načtení změněna, je vyvolána výjimka [DbUpdateConcurrencyException](/dotnet/api/microsoft.entityframeworkcore.dbupdateconcurrencyexception?view=efcore-2.0) . 
 
-Databáze a datový model musí být nakonfigurované pro podporu vyvolání `DbUpdateConcurrencyException`.
+DATABÁZE a datový model musí být nakonfigurovány tak, aby podporovaly aktivační `DbUpdateConcurrencyException`.
 
-### <a name="detecting-concurrency-conflicts-on-a-property"></a>Zjišťování konfliktů souběžnosti u vlastnosti
+### <a name="detecting-concurrency-conflicts-on-a-property"></a>Zjištění konfliktů souběžnosti u vlastnosti
 
-Konflikty souběžnosti lze zjistit pomocí na úrovni vlastnost [atribut ConcurrencyCheck](/dotnet/api/system.componentmodel.dataannotations.concurrencycheckattribute?view=netcore-2.0) atribut. Atribut lze použít na více vlastností v modelu. Další informace najdete v tématu [anotací dat – atribut ConcurrencyCheck](/ef/core/modeling/concurrency#data-annotations).
+Konflikty souběžnosti lze zjistit na úrovni vlastnosti pomocí atributu [ConcurrencyCheck](/dotnet/api/system.componentmodel.dataannotations.concurrencycheckattribute?view=netcore-2.0) . Atribut lze použít na více vlastností modelu. Další informace najdete v tématu [data anotaces – ConcurrencyCheck](/ef/core/modeling/concurrency#data-annotations).
 
-`[ConcurrencyCheck]` Atribut není použit v tomto kurzu.
+Atribut `[ConcurrencyCheck]` se v tomto kurzu nepoužívá.
 
-### <a name="detecting-concurrency-conflicts-on-a-row"></a>Zjišťování konfliktů souběžnosti na řádek
+### <a name="detecting-concurrency-conflicts-on-a-row"></a>Zjištění konfliktů souběžnosti na řádku
 
-K detekci konfliktů souběžnosti [rowversion](/sql/t-sql/data-types/rowversion-transact-sql) sledování sloupec se přidá do modelu.  `rowversion` :
+K detekci konfliktů souběžnosti se do modelu přidá sloupec sledování [rowversion](/sql/t-sql/data-types/rowversion-transact-sql) .  `rowversion`:
 
-* SQL Server je konkrétní. Ostatní databáze neposkytují podobné funkce.
-* Slouží k určení, že entita nebyl změněn od načtení z databáze. 
+* Je SQL Server specifické. Jiné databáze nemusí poskytovat podobnou funkci.
+* Slouží k určení, že entita nebyla od načtení z databáze změněna. 
 
-Databáze generuje sekvenční `rowversion` aktualizovat číslo, které se zvýší pokaždé, když na řádek. V `Update` nebo `Delete` příkazu `Where` klauzule obsahuje hodnotu načtených `rowversion`. Pokud došlo ke změně aktualizuje řádek:
+DATABÁZE generuje pořadové číslo @no__t 0, které se zvýší při každé aktualizaci řádku. Klauzule `Where` v příkazu `Update` nebo `Delete` zahrnuje načtenou hodnotu `rowversion`. Pokud se změnil řádek, který se má aktualizovat:
 
-* `rowversion` neodpovídá hodnotě načtených.
-* `Update` Nebo `Delete` příkazů nelze nalézt řádek, protože `Where` klauzule obsahuje načetly `rowversion`.
-* A `DbUpdateConcurrencyException` je vyvolána výjimka.
+* `rowversion` se neshoduje s načtenou hodnotou.
+* Příkazy `Update` nebo `Delete` nenaleznou řádek, protože klauzule `Where` zahrnuje načtenou `rowversion`.
+* Je vyvolána `DbUpdateConcurrencyException`.
 
-V EF Core, když nebyly aktualizovány žádné řádky pomocí `Update` nebo `Delete` příkaz, je vyvolána výjimka souběžnosti.
+Pokud se v EF Core neaktualizovaly žádné řádky pomocí příkazu `Update` nebo `Delete`, je vyvolána výjimka souběžnosti.
 
-### <a name="add-a-tracking-property-to-the-department-entity"></a>Přidání vlastnosti sledování do entity oddělení
+### <a name="add-a-tracking-property-to-the-department-entity"></a>Přidat vlastnost sledování k entitě oddělení
 
-V *Models/Department.cs*, přidání vlastnosti sledování do s názvem RowVersion:
+V *modelu/oddělení. cs*přidejte vlastnost sledování s názvem rowversion:
 
 [!code-csharp[](intro/samples/cu/Models/Department.cs?name=snippet_Final&highlight=26,27)]
 
-[Časové razítko](/dotnet/api/system.componentmodel.dataannotations.timestampattribute) atribut určuje, že je součástí tohoto sloupce `Where` klauzuli `Update` a `Delete` příkazy. Atribut se nazývá `Timestamp` protože předchozích verzí SQL serveru použít SQL `timestamp` datového typu než SQL `rowversion` typ nahradili jsme ho.
+Atribut [timestamp](/dotnet/api/system.componentmodel.dataannotations.timestampattribute) určuje, že tento sloupec je zahrnutý v klauzuli `Where` příkazů `Update` a `Delete`. Atribut se nazývá `Timestamp`, protože předchozí verze SQL Server používaly datový typ SQL `timestamp` před tím, než je tento typ SQL `rowversion` nahradil.
 
-Rozhraní fluent API můžete také zadat vlastnosti sledování:
+Rozhraní Fluent API může také určovat vlastnost sledování:
 
 ```csharp
 modelBuilder.Entity<Department>()
@@ -474,25 +474,25 @@ modelBuilder.Entity<Department>()
   .IsRowVersion();
 ```
 
-Následující kód ukazuje část generovaných EF Core, když se aktualizuje název oddělení T-SQL:
+Následující kód ukazuje část T-SQL vygenerované EF Core, když je název oddělení aktualizovaný:
 
 [!code-sql[](intro/samples/cu21snapshots/sql.txt?highlight=2-3)]
 
-Předchozí zvýrazněný kód ukazuje `WHERE` obsahující klauzuli `RowVersion`. Pokud databáze `RowVersion` není roven `RowVersion` parametr (`@p2`), jsou aktualizovány žádné řádky.
+Předchozí zvýrazněný kód ukazuje klauzuli `WHERE` obsahující `RowVersion`. Pokud se @no__t DB-0 nerovná parametru `RowVersion` (`@p2`), neaktualizují se žádné řádky.
 
-Následující zvýrazněný kód ukazuje T-SQL, která ověřuje, že byl aktualizován přesně jeden řádek:
+Následující zvýrazněný kód ukazuje T-SQL, který ověří právě jeden řádek, který byl aktualizován:
 
 [!code-sql[](intro/samples/cu21snapshots/sql.txt?highlight=4-6)]
 
-[@@ROWCOUNT ](/sql/t-sql/functions/rowcount-transact-sql) vrací počet řádků, které jsou ovlivněny poslední příkaz. V žádné řádky jsou aktualizovány, vyvolá EF Core `DbUpdateConcurrencyException`.
+[@ @ROWCOUNT](/sql/t-sql/functions/rowcount-transact-sql) vrátí počet řádků ovlivněných posledním příkazem. V žádném řádku se neaktualizuje EF Core vyvolá `DbUpdateConcurrencyException`.
 
-Uvidíte, že v okně výstupu sady Visual Studio generuje EF Core T-SQL.
+V okně výstup aplikace Visual Studio můžete zobrazit EF Core T-SQL.
 
 ### <a name="update-the-db"></a>Aktualizace databáze
 
-Přidávání `RowVersion` změní vlastnost databáze modelu, který vyžaduje migraci.
+Přidáním vlastnosti `RowVersion` se změní model databáze, který vyžaduje migraci.
 
-Sestavte projekt. V příkazovém okně zadejte následující údaje:
+Sestavte projekt. V příkazovém okně zadejte následující:
 
 ```dotnetcli
 dotnet ef migrations add RowVersion
@@ -501,20 +501,20 @@ dotnet ef database update
 
 Předchozí příkazy:
 
-* Přidá *migrace / {čas stamp}_RowVersion.cs* souboru migrace.
-* Aktualizace *Migrations/SchoolContextModelSnapshot.cs* souboru. Tato aktualizace přidává následující zvýrazněný kód do `BuildModel` metody:
+* Přidá migrační soubor *_RowVersion. cs migrace/{Time razítko}* .
+* Aktualizuje soubor *migrations/SchoolContextModelSnapshot. cs* . Aktualizace přidá následující zvýrazněný kód do metody `BuildModel`:
 
   [!code-csharp[](intro/samples/cu/Migrations/SchoolContextModelSnapshot.cs?name=snippet_Department&highlight=14-16)]
 
-* Spuštění migrace k aktualizaci databáze.
+* Spustí migrace, aby se aktualizovala databáze.
 
 <a name="scaffold"></a>
 
-## <a name="scaffold-the-departments-model"></a>Vygenerované uživatelské rozhraní modelu oddělení
+## <a name="scaffold-the-departments-model"></a>Generování uživatelského rozhraní modelu oddělení
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
-Postupujte podle pokynů v [generování uživatelského rozhraní modelu student](xref:data/ef-rp/intro#scaffold-student-pages) a použít `Department` pro třídu modelu.
+Postupujte podle pokynů v [části generátor a model studenta](xref:data/ef-rp/intro#scaffold-student-pages) a pro třídu modelu použijte `Department`.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -526,143 +526,143 @@ Postupujte podle pokynů v [generování uživatelského rozhraní modelu studen
 
 ---
 
-Předchozí příkaz scaffold `Department` modelu. Otevřete projekt v sadě Visual Studio.
+Předchozí příkaz vygeneruje model `Department`. Otevřete projekt v aplikaci Visual Studio.
 
 Sestavte projekt.
 
-### <a name="update-the-departments-index-page"></a>Aktualizace oddělení indexovou stránku
+### <a name="update-the-departments-index-page"></a>Aktualizovat stránku indexu oddělení
 
-Generování uživatelského rozhraní engine vytvoření `RowVersion` by neměl být zobrazen sloupec pro indexovou stránku, ale toto pole. V tomto kurzu, poslední bajt `RowVersion` zobrazí se vám může pomoci souběžnosti. Poslední bajt nemusí být jedinečný. Skutečné aplikace nezobrazily `RowVersion` nebo posledního bajtu `RowVersion`.
+Modul pro generování uživatelského rozhraní vytvořil pro stránku indexu sloupec `RowVersion`, ale toto pole by se nemělo zobrazovat. V tomto kurzu se zobrazí poslední bajt `RowVersion`, který vám pomůže pochopit souběžnost. Poslední bajt není zaručený jako jedinečný. Skutečná aplikace by nezobrazovala `RowVersion` nebo poslední bajt `RowVersion`.
 
-Aktualizace indexovou stránku:
+Aktualizujte stránku indexu:
 
-* Nahraďte indexem oddělení.
-* Nahraďte kód obsahující `RowVersion` s poslední bajt `RowVersion`.
-* Nahraďte FirstMidName jméno a příjmení.
+* Nahraďte index "odděleními".
+* Nahradí značky obsahující `RowVersion` posledním bajtem `RowVersion`.
+* Nahraďte FirstMidName řetězcem FullName.
 
 Následující kód ukazuje aktualizovanou stránku:
 
 [!code-html[](intro/samples/cu/Pages/Departments/Index.cshtml?highlight=5,8,29,47,50)]
 
-### <a name="update-the-edit-page-model"></a>Aktualizace modelu stránky úpravy
+### <a name="update-the-edit-page-model"></a>Aktualizace modelu úprav stránek
 
 *Pages\Departments\Edit.cshtml.cs* aktualizujte pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet)]
 
-Ke zjištění problému souběžnosti, [původní hodnota](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyentry.originalvalue?view=efcore-2.0#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyEntry_OriginalValue) je aktualizován `rowVersion` hodnotu z entity se načetla. EF Core generuje příkazu SQL UPDATE s klauzulí WHERE, který obsahuje původní `RowVersion` hodnotu. Pokud žádné řádky jsou ovlivněny příkazu UPDATE (žádné řádky mít původní `RowVersion` hodnota), `DbUpdateConcurrencyException` je vyvolána výjimka.
+K detekci problému souběžnosti se [původní](/dotnet/api/microsoft.entityframeworkcore.changetracking.propertyentry.originalvalue?view=efcore-2.0#Microsoft_EntityFrameworkCore_ChangeTracking_PropertyEntry_OriginalValue) aktualizuje hodnotou `rowVersion` z entity, kterou načetla. EF Core generuje příkaz SQL UPDATE s klauzulí WHERE obsahující původní hodnotu `RowVersion`. Pokud nejsou žádné řádky ovlivněny příkazem UPDATE (žádné řádky nemají původní hodnotu `RowVersion`), je vyvolána výjimka `DbUpdateConcurrencyException`.
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_rv&highlight=24-999)]
 
-V předchozím kódu `Department.RowVersion` je hodnota, pokud se entita načetla. `OriginalValue` je hodnota v databázi při `FirstOrDefaultAsync` byla volána v této metodě.
+V předchozím kódu `Department.RowVersion` je hodnota, když byla entita načtena. `OriginalValue` je hodnota v databázi, pokud byla v této metodě volána `FirstOrDefaultAsync`.
 
-Následující kód načte hodnoty klienta (hodnoty, publikuje se do této metody) a hodnoty DB:
+Následující kód Získá hodnoty klienta (hodnoty odeslané do této metody) a hodnoty databáze:
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_try&highlight=9,18)]
 
-Následující kód přidá vlastní chybovou zprávu pro každý sloupec, který má hodnoty databáze odlišné od odeslání do `OnPostAsync`:
+Následující kód přidá vlastní chybovou zprávu pro každý sloupec, který má hodnoty databáze odlišně od toho, co bylo odesláno do `OnPostAsync`:
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_err)]
 
-Následující zvýrazněný kód nastaví `RowVersion` z databáze načíst hodnotu na novou hodnotu. Při příštím kliknutí na tlačítko **Uložit**, pouze souběžnosti chyby, ke kterým dochází, protože poslední zobrazení stránky pro úpravu bude zachycena.
+Následující zvýrazněný kód nastaví hodnotu `RowVersion` na novou hodnotu načtenou z databáze. Až uživatel příště klikne na možnost **Uložit**, bude zachycena pouze chyba souběžnosti, ke kterým dochází od posledního zobrazení stránky pro úpravy.
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Edit.cshtml.cs?name=snippet_try&highlight=23)]
 
-`ModelState.Remove` Příkazu se totiž `ModelState` má starý `RowVersion` hodnotu. Na stránce Razor `ModelState` hodnota pole má přednost před hodnoty vlastností modelu Pokud jsou obě přítomny.
+Příkaz `ModelState.Remove` je vyžadován, protože `ModelState` má starou hodnotu `RowVersion`. Na stránce Razor má hodnota `ModelState` pro pole přednost před hodnotami vlastností modelu, pokud jsou oba přítomny.
 
-## <a name="update-the-edit-page"></a>Aktualizace stránky pro úpravu
+## <a name="update-the-edit-page"></a>Aktualizace stránky pro úpravy
 
-Aktualizace *Pages/Departments/Edit.cshtml* následujícím kódem:
+Aktualizovat *stránky/oddělení/upravit. cshtml* pomocí následujícího kódu:
 
 [!code-html[](intro/samples/cu/Pages/Departments/Edit.cshtml?highlight=1,14,16-17,37-39)]
 
 Předchozí kód:
 
-* Aktualizace `page` direktiv z `@page` k `@page "{id:int}"`.
-* Přidá verze skryté řádku. `RowVersion` je nutné přidat tak příspěvek zpět váže hodnotu.
+* Aktualizuje direktivu `page` z `@page` na `@page "{id:int}"`.
+* Přidá verzi skrytého řádku. je nutné přidat `RowVersion`, aby příspěvek znovu prováže hodnotu.
 * Zobrazí poslední bajt `RowVersion` pro účely ladění.
-* Nahradí `ViewData` pomocí silných `InstructorNameSL`.
+* Nahradí `ViewData` silným typem `InstructorNameSL`.
 
-## <a name="test-concurrency-conflicts-with-the-edit-page"></a>Testování je v konfliktu s stránky pro úpravu souběžnosti
+## <a name="test-concurrency-conflicts-with-the-edit-page"></a>Souběžnost testů v konfliktu se stránkou pro úpravy
 
-Otevřete dvě instance prohlížeče úpravy na anglické oddělení:
+V anglickém oddělení otevřete dvě instance pro úpravy v angličtině:
 
 * Spusťte aplikaci a vyberte oddělení.
-* Klikněte pravým tlačítkem myši **upravit** hypertextového odkazu pro anglickou oddělení a vyberte **otevřít na nové kartě**.
-* Na první kartě klikněte **upravit** hypertextového odkazu pro anglickou oddělení.
+* Klikněte pravým tlačítkem **na hypertextový** odkaz pro jazykové oddělení a vyberte **otevřít na nové kartě**.
+* Na první kartě klikněte na odkaz **Upravit** pro anglické oddělení.
 
-Záložkách prohlížeče dvě zobrazení stejné informace.
+Dvě karty prohlížeče zobrazují stejné informace.
 
-Změňte název na první záložce prohlížeče a klikněte na tlačítko **Uložit**.
+Změňte název na první kartě prohlížeče a klikněte na **Uložit**.
 
-![Upravit oddělení po změně – stránka 1](concurrency/_static/edit-after-change-1.png)
+![Stránka pro úpravy v oddělení 1 po změně](concurrency/_static/edit-after-change-1.png)
 
-Prohlížeč zobrazí indexovou stránku s změněné hodnoty a aktualizované rowVersion indikátoru. Všimněte si aktualizovanou rowVersion ukazatel, se zobrazí na druhý zpětného odeslání na druhé záložce.
+Prohlížeč zobrazí stránku index se změněnou hodnotou a aktualizovaným indikátorem rowVersion. Všimněte si aktualizovaného indikátoru rowVersion, který se zobrazuje na druhém panelu pro odeslání na druhé kartě.
 
-Změňte jiné pole na druhé záložce prohlížeče.
+Změňte jiné pole na druhé kartě prohlížeče.
 
-![Upravit oddělení po změně – stránka 2](concurrency/_static/edit-after-change-2.png)
+![Stránka pro úpravy v oddělení 2 po změně](concurrency/_static/edit-after-change-2.png)
 
-Klikněte na **Uložit**. Zobrazí se chybové zprávy pro všechna pole, která se neshodují s hodnotami DB:
+Klikněte na **Save** (Uložit). Zobrazí se chybové zprávy pro všechna pole, která neodpovídají hodnotám databáze:
 
-![Oddělení upravit stránku chybová zpráva](concurrency/_static/edit-error.png)
+![Chybová zpráva stránky pro úpravu oddělení](concurrency/_static/edit-error.png)
 
-Toto okno prohlížeče neměli v úmyslu změnit název pole. Zkopírujte a vložte do pole název aktuální hodnotu (jazyky). Karta navýšení kapacity. Ověřování na straně klienta odebere chybová zpráva.
+Toto okno prohlížeče nemá v úmyslu změnit pole název. Zkopírujte a vložte aktuální hodnotu (jazyky) do pole název. Tabulátor. Ověřování na straně klienta odebere chybovou zprávu.
 
-![Oddělení upravit stránku chybová zpráva](concurrency/_static/cv.png)
+![Chybová zpráva stránky pro úpravu oddělení](concurrency/_static/cv.png)
 
-Klikněte na tlačítko **Uložit** znovu. Uložená hodnota, kterou jste zadali na druhé záložce prohlížeče. Zobrazí uložené hodnoty v indexovou stránku.
+Znovu klikněte na **Uložit** . Hodnota, kterou jste zadali na druhé záložce prohlížeče, se uloží. Uložené hodnoty se zobrazí na stránce index.
 
-## <a name="update-the-delete-page"></a>Aktualizovat stránku Delete
+## <a name="update-the-delete-page"></a>Aktualizace stránky pro odstranění
 
-Aktualizace modelu odstranění stránky s následujícím kódem:
+Aktualizujte odstranit model stránky pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu/Pages/Departments/Delete.cshtml.cs)]
 
-Na stránce odstranit rozpozná konfliktů souběžnosti, pokud entita změněna po načtení. `Department.RowVersion` verze řádku je, když se entita načetla. EF Core vytvoří příkaz SQL DELETE, obsahuje klauzuli WHERE s `RowVersion`. Pokud vliv na výsledky příkazu SQL odstranit v nulový počet řádků:
+Stránka odstranit detekuje konflikty souběžnosti, když se entita po jejím načtení změnila. `Department.RowVersion` je verze řádku při načtení entity. Když EF Core vytvoří příkaz SQL DELETE, zahrnuje klauzuli WHERE s `RowVersion`. Pokud příkaz SQL DELETE má vliv na nulové řádky:
 
-* `RowVersion` v odstranit SQL příkaz neodpovídá `RowVersion` v databázi.
+* @No__t-0 v příkazu SQL DELETE se neshoduje s `RowVersion` v databázi.
 * Je vyvolána výjimka DbUpdateConcurrencyException.
-* `OnGetAsync` volá se `concurrencyError`.
+* `OnGetAsync` se volá s `concurrencyError`.
 
-### <a name="update-the-delete-page"></a>Aktualizovat stránku Delete
+### <a name="update-the-delete-page"></a>Aktualizace stránky pro odstranění
 
-Aktualizace *Pages/Departments/Delete.cshtml* následujícím kódem:
+Aktualizovat *stránky/oddělení/odstranit. cshtml* pomocí následujícího kódu:
 
 [!code-html[](intro/samples/cu/Pages/Departments/Delete.cshtml?highlight=1,10,39,51)]
 
 Předchozí kód provede následující změny:
 
-* Aktualizace `page` direktiv z `@page` k `@page "{id:int}"`.
+* Aktualizuje direktivu `page` z `@page` na `@page "{id:int}"`.
 * Přidá chybovou zprávu.
-* Nahradí celý název v FirstMidName **správce** pole.
-* Změny `RowVersion` k zobrazení poslední bajt.
-* Přidá verze skryté řádku. `RowVersion` je nutné přidat tak příspěvek zpět váže hodnotu.
+* Nahradí FirstMidName pomocí FullName v poli **správce** .
+* Změny `RowVersion` pro zobrazení posledního bajtu.
+* Přidá verzi skrytého řádku. je nutné přidat `RowVersion`, aby příspěvek znovu prováže hodnotu.
 
-### <a name="test-concurrency-conflicts-with-the-delete-page"></a>Konflikty souběžnosti testu se stránkou Delete
+### <a name="test-concurrency-conflicts-with-the-delete-page"></a>Souběžnost testů v konfliktu se stránkou odstranit
 
-Vytvořte test oddělení.
+Vytvořte testovací oddělení.
 
-Otevřete dvě instance prohlížeče DELETE na oddělení testu:
+V testovacím středisku otevřete dvě instance pro odstraňování těchto prohlížečů:
 
 * Spusťte aplikaci a vyberte oddělení.
-* Klikněte pravým tlačítkem myši **odstranit** hypertextového odkazu pro oddělení test a vyberte **otevřít na nové kartě**.
-* Klikněte na tlačítko **upravit** hypertextového odkazu pro oddělení testu.
+* Klikněte pravým tlačítkem myši na hypertextový odkaz **Odstranit** pro testovací oddělení a vyberte **otevřít na nové kartě**.
+* Klikněte na odkaz **Upravit** pro testovací oddělení.
 
-Záložkách prohlížeče dvě zobrazení stejné informace.
+Dvě karty prohlížeče zobrazují stejné informace.
 
-Rozpočet na první záložce prohlížeče a klikněte na tlačítko **Uložit**.
+Změňte rozpočet na první kartě prohlížeče a klikněte na **Uložit**.
 
-Prohlížeč zobrazí indexovou stránku s změněné hodnoty a aktualizované rowVersion indikátoru. Všimněte si aktualizovanou rowVersion ukazatel, se zobrazí na druhý zpětného odeslání na druhé záložce.
+Prohlížeč zobrazí stránku index se změněnou hodnotou a aktualizovaným indikátorem rowVersion. Všimněte si aktualizovaného indikátoru rowVersion, který se zobrazuje na druhém panelu pro odeslání na druhé kartě.
 
-Odstraňte test oddělení na druhé kartě. Došlo k chybě souběžnosti je zobrazení pomocí aktuálních hodnot z databáze. Kliknutím na **odstranit** odstraní entitu, není-li `RowVersion` byl updated.department byl odstraněn.
+Odstraňte testovací oddělení z druhé karty. Chyba souběžnosti se zobrazuje s aktuálními hodnotami z databáze. Po kliknutí na **Odstranit** se entita odstraní, pokud se `RowVersion` neaktualizovala. oddělení se odstranilo.
 
-Zobrazit [dědičnosti](xref:data/ef-mvc/inheritance) o tom, jak dědit datový model.
+Přečtěte si téma [dědičnosti](xref:data/ef-mvc/inheritance) způsobu dědění datového modelu.
 
-### <a name="additional-resources"></a>Další zdroje
+### <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Tokeny souběžnosti v EF Core](/ef/core/modeling/concurrency)
-* [Popisovač souběžnosti v EF Core](/ef/core/saving/concurrency)
+* [Zpracování souběžnosti v EF Core](/ef/core/saving/concurrency)
 * [Verze tohoto kurzu pro YouTube (zpracování konfliktů souběžnosti)](https://youtu.be/EosxHTFgYps)
 * [Verze tohoto kurzu pro YouTube (část 2)](https://www.youtube.com/watch?v=kcxERLnaGO0)
 * [Verze tohoto kurzu pro YouTube (část 3)](https://www.youtube.com/watch?v=d4RbpfvELRs)

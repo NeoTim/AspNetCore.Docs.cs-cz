@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: web-api/http-repl
-ms.openlocfilehash: c845c28210d6defcb70a520f176b64986ae3d4a6
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: bb3757f51487a307ebfb97452b80995f84e95e4b
+ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007442"
+ms.lasthandoff: 10/08/2019
+ms.locfileid: "72037707"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -790,25 +790,25 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Pokud chcete nastavit hlavičku požadavku HTTP, použijte jeden z následujících přístupů:
 
-1. Nastavte inline s požadavkem HTTP. Příklad:
+* Nastavte inline s požadavkem HTTP. Příklad:
 
-  ```console
-  https://localhost:5001/people~ post -h Content-Type=application/json
-  ```
+    ```console
+    https://localhost:5001/people~ post -h Content-Type=application/json
+    ```
+    
+    V případě předchozího přístupu vyžaduje každá samostatná Hlavička požadavku HTTP vlastní možnost `-h`.
 
-  V případě předchozího přístupu vyžaduje každá samostatná Hlavička požadavku HTTP vlastní možnost `-h`.
+* Nastaveno před odesláním požadavku HTTP. Příklad:
 
-1. Nastaveno před odesláním požadavku HTTP. Příklad:
-
-  ```console
-  https://localhost:5001/people~ set header Content-Type application/json
-  ```
-
-  Při nastavování hlavičky před odesláním žádosti zůstane záhlaví nastavené na dobu trvání relace příkazového prostředí. Pokud chcete záhlaví vymazat, zadejte prázdnou hodnotu. Příklad:
-
-  ```console
-  https://localhost:5001/people~ set header Content-Type
-  ```
+    ```console
+    https://localhost:5001/people~ set header Content-Type application/json
+    ```
+    
+    Při nastavování hlavičky před odesláním žádosti zůstane záhlaví nastavené na dobu trvání relace příkazového prostředí. Pokud chcete záhlaví vymazat, zadejte prázdnou hodnotu. Příklad:
+    
+    ```console
+    https://localhost:5001/people~ set header Content-Type
+    ```
 
 ## <a name="test-secured-endpoints"></a>Test zabezpečených koncových bodů
 
