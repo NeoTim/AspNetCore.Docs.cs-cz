@@ -7,19 +7,19 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 10/03/2019
 uid: tutorials/signalr
-ms.openlocfilehash: 843416cf00c9241f8c05b1aba041ebbe7a05cf80
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
-ms.translationtype: HT
+ms.openlocfilehash: 312bde7a5fee5d3af7abc38727024605f916c0d4
+ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037664"
+ms.lasthandoff: 10/11/2019
+ms.locfileid: "72259643"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s nástrojem ASP.NET Core Signal
 
-V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí nástroje Signal. Získáte informace o těchto tématech:
+V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí nástroje Signal. Naučíte se:
 
 > [!div class="checklist"]
-> * Vytvoření webového projektu.
+> * Vytvořte webový projekt.
 > * Přidejte klientskou knihovnu signalizace.
 > * Vytvořte centrum signalizace.
 > * Nakonfigurujte projekt tak, aby používal signál.
@@ -29,7 +29,7 @@ Na konci budete mít funkční chatovací aplikaci:
 
 ![Ukázková aplikace pro Signal](signalr/_static/3.x/signalr-get-started-finished.png)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Požadované součásti
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -39,7 +39,7 @@ Na konci budete mít funkční chatovací aplikaci:
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
@@ -72,7 +72,7 @@ Na konci budete mít funkční chatovací aplikaci:
    code -r SignalRChat
    ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V nabídce vyberte **soubor > nové řešení**.
 
@@ -115,7 +115,7 @@ Knihovna serveru signalizace je součástí sdílené architektury ASP.NET Core 
 * Spusťte následující příkaz, který načte klientskou knihovnu pro signalizaci pomocí LibMan. Než začnete výstup zobrazovat, možná budete muset počkat několik sekund.
 
   ```console
-  libman install @microsoft/signalr@latest -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
+  libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
   ```
 
   Parametry určují následující možnosti:
@@ -131,7 +131,7 @@ Knihovna serveru signalizace je součástí sdílené architektury ASP.NET Core 
   Installed library "@microsoft/signalr@latest" to "wwwroot/js/signalr"
   ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V **terminálu**spusťte následující příkaz, kterým nainstalujete LibMan.
 
@@ -222,7 +222,7 @@ Server signalizace musí být nakonfigurován tak, aby předával požadavky na 
   dotnet watch run -p SignalRChat.csproj
   ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V nabídce vyberte **spustit > spustit bez ladění**.
 

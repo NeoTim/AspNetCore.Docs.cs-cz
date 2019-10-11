@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: 438b3802087e2ac3df4cbe69a700b878c1cbbf63
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
-ms.translationtype: HT
+ms.openlocfilehash: 3e0966bf978c99fc00db7682bea3292306cbb03c
+ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037420"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72179027"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Aplikace Blazor jsou sestavené pomocí *komponent*. Součást je samostatně obsažený blok uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenta obsahuje značky HTML a logiku zpracování potřebnou k vkládání dat nebo reakci na události uživatelského rozhraní. Komponenty jsou flexibilní a odlehčené. Můžou být vnořené, opakovaně používané a sdílené mezi projekty.
 
@@ -192,32 +192,44 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí a
 
 Vlastnost `CaptureUnmatchedValues` u `[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný s `CaptureUnmatchedValues` musí být možné přiřadit z `Dictionary<string, object>` s klíči řetězce. v tomto scénáři jsou také možnosti `IEnumerable<KeyValuePair<string, object>>` nebo `IReadOnlyDictionary<string, object>`.
 
-## <a name="data-binding"></a>Vytváření datových vazeb
+## <a name="data-binding"></a>Datová vazba
 
-Datové vazby na součásti a prvky modelu DOM jsou provedeny atributem [@bind](xref:mvc/views/razor#bind) . Následující příklad váže pole `_italicsCheck` na zaškrtnutý stav zaškrtávacího políčka:
+Datové vazby na součásti a prvky modelu DOM jsou provedeny atributem [@bind](xref:mvc/views/razor#bind) . Následující příklad váže vlastnost `CurrentValue` na hodnotu textového pole:
 
 ```cshtml
-<input type="checkbox" class="form-check-input" id="italicsCheck" 
-    @bind="_italicsCheck" />
+<input @bind="CurrentValue" />
+
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
-Když je políčko zaškrtnuté a políčko je zaškrtnuté, hodnota vlastnosti se aktualizuje na `true` a `false` v uvedeném pořadí.
+Pokud textové pole ztratí fokus, je hodnota vlastnosti aktualizována.
 
-Zaškrtávací políčko se aktualizuje v uživatelském rozhraní pouze v případě, že je komponenta vykreslena, nikoli v reakci na změnu hodnoty vlastnosti. Vzhledem k tomu, že se komponenty vykreslují po spuštění kódu obslužné rutiny události, se v uživatelském rozhraní obvykle projeví aktualizace vlastností.
+Textové pole je aktualizováno v uživatelském rozhraní pouze v případě, že je komponenta vykreslena, nikoli v reakci na změnu hodnoty vlastnosti. Vzhledem k tomu, že se komponenty vykreslují po spuštění kódu obslužné rutiny události, se aktualizace vlastností *obvykle* projeví v uživatelském rozhraní hned po aktivaci obslužné rutiny události.
 
 Použití `@bind` s vlastností `CurrentValue` (`<input @bind="CurrentValue" />`) je v podstatě ekvivalentní následujícímu:
 
 ```cshtml
 <input value="@CurrentValue"
-    @onchange="@((ChangeEventArgs __e) => CurrentValue = __e.Value)" />
+    @onchange="@((ChangeEventArgs __e) => CurrentValue = 
+        __e.Value.ToString())" />
+        
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
-Když je komponenta vykreslena, `value` vstupního prvku pochází z vlastnosti `CurrentValue`. Pokud uživatel zadá do textového pole událost `onchange` a vlastnost `CurrentValue` je nastavena na změněnou hodnotu. Ve skutečnosti je generování kódu trochu složitější, protože `@bind` zpracovává několik případů, kde jsou prováděny převody typů. V zásadě `@bind` přidruží aktuální hodnotu výrazu k atributu `value` a zpracovává změny pomocí registrované obslužné rutiny.
+Když je komponenta vykreslena, `value` vstupního prvku pochází z vlastnosti `CurrentValue`. Když uživatel zadá do textového pole a změní fokus prvku, aktivuje se událost `onchange` a vlastnost `CurrentValue` je nastavena na změněnou hodnotu. Ve skutečnosti je generování kódu složitější, protože `@bind` zpracovává případy, kdy jsou prováděny převody typu. V zásadě `@bind` přidruží aktuální hodnotu výrazu k atributu `value` a zpracovává změny pomocí registrované obslužné rutiny.
 
 Kromě zpracování událostí `onchange` se syntaxí `@bind` může být vlastnost nebo pole svázána s jinými událostmi, a to zadáním atributu [@bind-value](xref:mvc/views/razor#bind) s parametrem `event` ([@bind-value:event](xref:mvc/views/razor#bind)). Následující příklad váže vlastnost `CurrentValue` pro událost `oninput`:
 
 ```cshtml
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
+
+@code {
+    private string CurrentValue { get; set; }
+}
 ```
 
 Na rozdíl od `onchange`, která je aktivována, když prvek ztratí fokus, `oninput` je aktivována při změně hodnoty textového pole.
@@ -445,13 +457,13 @@ Podporované `EventArgs` jsou uvedeny v následující tabulce.
 | Událost | Třída |
 | ----- | ----- |
 | Schránka        | `ClipboardEventArgs` |
-| Přetažení             | `DragEventArgs` &ndash; `DataTransfer` a `DataTransferItem` blokování dat přetažených položek. |
+| Myší             | `DragEventArgs` &ndash; `DataTransfer` a `DataTransferItem` blokování dat přetažených položek. |
 | Chyba            | `ErrorEventArgs` |
 | Vybrána            | `FocusEventArgs` &ndash; nezahrnuje podporu pro `relatedTarget`. |
 | Změna `<input>` | `ChangeEventArgs` |
 | Klávesnice         | `KeyboardEventArgs` |
 | Stisknut            | `MouseEventArgs` |
-| Ukazatele myši    | `PointerEventArgs` |
+| Ukazatel myši    | `PointerEventArgs` |
 | Kolečko myši      | `WheelEventArgs` |
 | Průběh         | `ProgressEventArgs` |
 | Dotykové ovládání            | `TouchEventArgs` &ndash; `TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
@@ -748,7 +760,7 @@ V předchozím příkladu `NotifierService` vyvolá metodu `OnNotify` komponenty
 
 Při vykreslování seznamu prvků nebo komponent a následné změny prvků nebo komponent musí být Blazor rozdílový algoritmus rozhodnout, které z předchozích prvků nebo komponent lze zachovat a jak se mají objekty modelu namapovat. Obvykle je tento proces automatický a může být ignorován, ale existují případy, kdy můžete chtít řídit proces.
 
-Vezměte v úvahu v následujícím příkladu:
+Vezměte v úvahu následující příklad:
 
 ```csharp
 @foreach (var person in People)
@@ -1039,7 +1051,7 @@ Pokud je `IsCompleted` `false`, zaškrtávací políčko se vykreslí jako:
 <input type="checkbox" />
 ```
 
-Další informace naleznete v tématu <xref:mvc/views/razor>.
+Další informace najdete v tématu <xref:mvc/views/razor>.
 
 > [!WARNING]
 > Některé atributy HTML, jako je například [Standard ARIA](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons), nebudou fungovat správně, pokud je typ .NET `bool`. V těchto případech použijte místo `bool` typ @no__t 0.
@@ -1282,7 +1294,7 @@ Komponenta `CascadingValuesParametersTabSet` používá komponentu `TabSet`, kte
 
 [!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
-Podřízené součásti `Tab` nejsou explicitně předány jako parametry `TabSet`. Místo toho jsou podřízené součásti `Tab` součástí podřízeného obsahu `TabSet`. @No__t-0 však stále potřebuje znát každou součást `Tab`, aby mohla vykreslovat hlavičky a aktivní kartu. Chcete-li povolit tuto koordinaci bez nutnosti dalšího kódu, komponenta `TabSet` *může poskytnout sebe sama jako kaskádovou hodnotu* , kterou pak vybraly podřízené komponenty `Tab`.
+Podřízené součásti `Tab` nejsou explicitně předány jako parametry `TabSet`. Místo toho jsou podřízené součásti `Tab` součástí podřízeného obsahu `TabSet`. @No__t-0 však stále potřebuje znát každou součást `Tab`, aby mohla vykreslovat hlavičky a aktivní kartu. Chcete-li povolit tuto koordinaci bez nutnosti dalšího kódu, komponenta `TabSet` *může poskytnout sebe samu jako kaskádovou hodnotu* , kterou pak vybraly podřízené komponenty `Tab`.
 
 součást `TabSet`:
 
@@ -1417,16 +1429,16 @@ builder.AddContent(1, "Second");
 
 Při prvním spuštění kódu, pokud `someFlag` je `true`, tvůrce obdrží:
 
-| Pořadí | type      | Data   |
+| Sequence | Typ      | Data   |
 | :------: | --------- | :----: |
-| 0        | Textový uzel | První  |
-| 1        | Textový uzel | Sekunda |
+| 0,8        | Textový uzel | První  |
+| první        | Textový uzel | Sekunda |
 
 Představte si, že `someFlag` se naplní `false` a kód se znovu vykreslí. Tentokrát Tvůrce získá:
 
-| Pořadí | type       | Data   |
+| Sequence | Typ       | Data   |
 | :------: | ---------- | :----: |
-| 1        | Textový uzel  | Sekunda |
+| první        | Textový uzel  | Sekunda |
 
 Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci @no__t 0 byla odebrána, takže generuje následující skript triviálního *úprav*:
 
@@ -1449,16 +1461,16 @@ builder.AddContent(seq++, "Second");
 
 Teď je první výstup:
 
-| Pořadí | type      | Data   |
+| Sequence | Typ      | Data   |
 | :------: | --------- | :----: |
-| 0        | Textový uzel | První  |
-| 1        | Textový uzel | Sekunda |
+| 0,8        | Textový uzel | První  |
+| první        | Textový uzel | Sekunda |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je ve druhém vykreslování `false` a výstup je následující:
 
-| Pořadí | type      | Data   |
+| Sequence | Typ      | Data   |
 | :------: | --------- | ------ |
-| 0        | Textový uzel | Sekunda |
+| 0,8        | Textový uzel | Sekunda |
 
 Tentokrát rozdílový algoritmus uvidí, že došlo ke *dvěma* změnám, a algoritmus generuje následující skript pro úpravy:
 
@@ -1550,7 +1562,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> Pomocí akce `LocalRedirect` zabráníte útokům v otevřeném přesměrování. Další informace naleznete v tématu <xref:security/preventing-open-redirects>.
+> Pomocí akce `LocalRedirect` zabráníte útokům v otevřeném přesměrování. Další informace najdete v tématu <xref:security/preventing-open-redirects>.
 
 Následující komponenta ukazuje příklad, jak provést počáteční přesměrování, když uživatel vybere jazykovou verzi:
 
@@ -1595,7 +1607,7 @@ V současné době se podporuje omezená sada scénářů lokalizace ASP.NET Cor
 * @no__t – 0 *se* v aplikacích Blazor podporuje.
 * `IHtmlLocalizer<>`, `IViewLocalizer<>` a lokalizace datových poznámek jsou ASP.NET Core scénáře MVC a **nejsou podporovány** v aplikacích Blazor.
 
-Další informace naleznete v tématu <xref:fundamentals/localization>.
+Další informace najdete v tématu <xref:fundamentals/localization>.
 
 ## <a name="scalable-vector-graphics-svg-images"></a>Obrázky ve formátu SVG (Scalable Vector Graphics)
 
