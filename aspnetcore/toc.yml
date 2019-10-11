@@ -507,7 +507,7 @@
         - name: "Referenční dokumentace k\_rozhraní API v JavaScriptu"
           href: /javascript/api/?view=signalr-js-latest
           displayName: signalr
-    - name: Hostování a škálování
+    - name: Hostitel a škálování
       displayName: signalr
       items:
         - name: Přehled
@@ -667,7 +667,7 @@
     - name: Přehled
       displayName: 'azure, deploy, publish'
       uid: host-and-deploy/index
-    - name: Hostování v Azure App Service
+    - name: Azure App Service
       displayName: 'deploy, publish'
       items:
         - name: Přehled
@@ -717,7 +717,7 @@
         - name: Další kroky
           displayName: 'azure, deploy, publish'
           uid: azure/devops/next-steps
-    - name: Hostování ve Windows se službou IIS
+    - name: IIS
       displayName: 'deploy, publish'
       items:
         - name: Přehled
@@ -749,16 +749,16 @@
     - name: HTTP.sys
       displayName: 'deploy, publish, server'
       uid: fundamentals/servers/httpsys
-    - name: Hostování ve službě pro Windows
+    - name: Služba systému Windows
       displayName: 'deploy, publish'
       uid: host-and-deploy/windows-service
-    - name: Hostování v Linuxu na serveru Nginx
+    - name: Linux na serveru Nginx
       displayName: 'deploy, publish'
       uid: host-and-deploy/linux-nginx
-    - name: Hostování v Linuxu na serveru Apache
+    - name: Linux na serveru Apache
       displayName: 'deploy, publish'
       uid: host-and-deploy/linux-apache
-    - name: Hostování v Dockeru
+    - name: Docker
       displayName: 'deploy, publish'
       items:
         - name: Přehled
@@ -779,7 +779,7 @@
     - name: Konfigurace proxy a nástroje pro vyrovnávání zatížení
       displayName: 'deploy, publish'
       uid: host-and-deploy/proxy-load-balancer
-    - name: Hostování ve webové farmě
+    - name: Webová farma
       displayName: 'deploy, publish'
       uid: host-and-deploy/web-farm
     - name: Publikační profily v sadě Visual Studio
