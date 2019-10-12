@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/25/2019
 uid: blazor/get-started
-ms.openlocfilehash: 5aec91eff7de0732a47fec1aafa5e094c89c37a4
-ms.sourcegitcommit: 14b25156e34c82ed0495b4aff5776ac5b1950b5e
+ms.openlocfilehash: ef9113dbfdbbd5920c4358cdac0c77c60f40b7c8
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71295432"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288794"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -34,28 +34,28 @@ Začínáme s Blazor:
 
    # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-   1\. Nainstalujte si nejnovější verzi sady [Visual Studio](https://visualstudio.com/vs/) s úlohou **vývoje ASP.NET a webu** .
+   1 \. Nainstalujte si nejnovější verzi sady [Visual Studio](https://visualstudio.com/vs/) s úlohou **vývoje ASP.NET a webu** .
 
-   2\. Vytvořte nový projekt.
+   2 \. Vytvořte nový projekt.
 
-   3\. Vyberte **aplikaci Blazor**. Vyberte **Další**.
+   3 \. Vyberte **aplikaci Blazor**. Vyberte **Další**.
 
-   4\. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
+   4 \. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **vytvořit**.
 
-   5\. Pro prostředí WebAssembly Blazor vyberte šablonu **aplikace Blazor WebAssembly** . Pro prostředí Blazor serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
+   5 \. Pro prostředí WebAssembly Blazor vyberte šablonu **aplikace Blazor WebAssembly** . Pro prostředí Blazor serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **vytvořit**. Informace o dvou modelech hostování Blazor, *serverech Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
 
-   6\. Stisknutím klávesy **F5** spusťte aplikaci.
+   6 \. Stisknutím klávesy **F5** spusťte aplikaci.
 
    > [!NOTE]
    > Pokud jste nainstalovali rozšíření sady Visual Studio Blazor pro předchozí verzi Preview služby ASP.NET Core Blazor (Preview 6 nebo starší), můžete rozšíření odinstalovat. Instalace šablon Blazor do příkazového prostředí je teď dostačující pro povrchování šablon v aplikaci Visual Studio.
 
    # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-   1\. Nainstalujte [Visual Studio Code](https://code.visualstudio.com/).
+   1 \. Nainstalujte [Visual Studio Code](https://code.visualstudio.com/).
 
-   2\. Nainstalujte nejnovější verzi [ C# pro Visual Studio Code rozšíření](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
+   2 \. Nainstalujte nejnovější verzi [ C# pro Visual Studio Code rozšíření](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
 
-   3\. Pro prostředí WebAssembly Blazor spusťte následující příkaz v příkazovém prostředí:
+   3 \. Pro prostředí WebAssembly Blazor spusťte následující příkaz v příkazovém prostředí:
 
       ```dotnetcli
       dotnet new blazorwasm -o WebApplication1
@@ -67,15 +67,15 @@ Začínáme s Blazor:
       dotnet new blazorserver -o WebApplication1
       ```
 
-      Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
+      Informace o dvou modelech hostování Blazor, *serverech Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
 
-   4\. Otevřete složku *WebApplication1* v Visual Studio Code.
+   4 \. Otevřete složku *WebApplication1* v Visual Studio Code.
 
-   5\. Pro projekt Blazor serveru rozhraní IDE požaduje, abyste přidali prostředky pro sestavení a ladění projektu. Vyberte **Ano**.
+   5 \. Pro projekt Blazor serveru rozhraní IDE požaduje, abyste přidali prostředky pro sestavení a ladění projektu. Vyberte **Ano**.
 
-   6\. Pokud používáte aplikaci serveru Blazor, spusťte aplikaci pomocí ladicího programu Visual Studio Code. Pokud používáte aplikaci WebAssembly Blazor, spusťte `dotnet run` ji ze složky projektu aplikace.
+   6 \. Pokud používáte aplikaci serveru Blazor, spusťte aplikaci pomocí ladicího programu Visual Studio Code. Pokud používáte aplikaci WebAssembly Blazor, spusťte `dotnet run` ze složky projektu aplikace.
 
-   7\. V prohlížeči přejděte na `https://localhost:5001`.
+   7 \. V prohlížeči přejděte na `https://localhost:5001`.
 
    <!--
 
@@ -115,7 +115,7 @@ Začínáme s Blazor:
    dotnet run
    ```
 
-   Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
+   Informace o dvou modelech hostování Blazor, *serverech Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
 
    V prohlížeči přejděte na `https://localhost:5001`.
 
@@ -127,47 +127,47 @@ Na kartách na bočním panelu je k dispozici více stránek:
 * Čítač
 * Načíst data
 
-Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale komponenty Razor poskytují lepší přístup pomocí C#.
+Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale s Blazor můžete použít C#.
 
 *Stránky/čítač. Razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
-Požadavek `/counter` na v prohlížeči, jak je uveden `@page` v direktivě nahoře, způsobí, že `Counter` komponenta vykreslí svůj obsah. Komponenty vykreslí do reprezentace v paměti stromu vykreslování, který lze poté použít k flexibilnímu a efektivnímu způsobu aktualizace uživatelského rozhraní.
+Požadavek na `/counter` v prohlížeči, jak je uvedeno v direktivě `@page` v horní části, způsobí, že komponenta `Counter` vykreslí svůj obsah. Komponenty vykreslí do reprezentace v paměti stromu vykreslování, který lze poté použít k flexibilnímu a efektivnímu způsobu aktualizace uživatelského rozhraní.
 
 Pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** :
 
-* `onclick` Událost je aktivována.
-* `IncrementCount` Metoda je volána.
-* Dojde `currentCount` k zvýšení.
+* Událost `onclick` je aktivována.
+* Je volána metoda `IncrementCount`.
+* Hodnota `currentCount` se zvýší.
 * Komponenta se znovu vykreslí.
 
 Modul runtime porovná nový obsah s předchozím obsahem a na model DOM (Document Object Model) (DOM) použije pouze změněný obsah.
 
-Přidejte komponentu do jiné komponenty pomocí syntaxe jazyka HTML. Například přidejte `Counter` komponentu do domovské stránky aplikace `<Counter />` přidáním elementu do `Index` komponenty.
+Přidejte komponentu do jiné komponenty pomocí syntaxe jazyka HTML. Můžete například přidat komponentu `Counter` do domovské stránky aplikace přidáním prvku `<Counter />` do komponenty `Index`.
 
 *Pages/index. Razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-Spusťte aplikaci. Domovská stránka má vlastní počítadlo poskytované `Counter` komponentou.
+Spusťte aplikaci. Domovská stránka má vlastní čítač poskytovaný komponentou `Counter`.
 
-Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu](xref:blazor/components#child-content), který umožňuje nastavit vlastnosti pro podřízenou komponentu. Chcete-li přidat parametr do `Counter` komponenty, aktualizujte `@code` blok komponenty:
+Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu](xref:blazor/components#child-content), který umožňuje nastavit vlastnosti pro podřízenou komponentu. Chcete-li přidat parametr do součásti `Counter`, aktualizujte blok `@code` komponenty:
 
-* Přidejte veřejnou vlastnost pro `IncrementAmount` `[Parameter]` s atributem.
-* Změňte metodu na `IncrementAmount` použití`currentCount`při zvyšování hodnoty. `IncrementCount`
+* Přidejte veřejnou vlastnost pro `IncrementAmount` s atributem `[Parameter]`.
+* Změňte metodu `IncrementCount` tak, aby při zvyšování hodnoty `currentCount` používala `IncrementAmount`.
 
 *Stránky/čítač. Razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-`IncrementAmount` Zadejte velementu`<Counter>`komponentypomocíatributu. `Index`
+Zadejte `IncrementAmount` v prvku `<Counter>` komponenty `Index` pomocí atributu.
 
 *Pages/index. Razor*:
 
 [!code-cshtml[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-Spusťte aplikaci. Komponenta má vlastní čítač, který se zvýší o deset pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další.** `Index` Komponenta `Counter` ( `/counter` *Counter. Razor*) se stále zvyšuje o jednu.
+Spusťte aplikaci. Komponenta `Index` má vlastní čítač, který se při každém výběru tlačítka pro **kliknutí na tlačítko Další** zvyšuje o 10. Součást `Counter` (*čítač. Razor*) v `/counter` bude nadále zvyšovat o jednu.
 
 ## <a name="next-steps"></a>Další kroky
 

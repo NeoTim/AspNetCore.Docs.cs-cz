@@ -7,27 +7,27 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/19/2019
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 22dde4b05ea20fedb696c6a4b144755a957e8c0d
-ms.sourcegitcommit: 41f2c1a6b316e6e368a4fd27a8b18d157cef91e1
+ms.openlocfilehash: 753afb9def90fd35122182f260f1dd0ce8d2830a
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886378"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288954"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>Vzor možností v ASP.NET Core
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
+Vzor možností používá třídy, které reprezentují skupiny souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
 
-* [Princip oddělení (ISP) nebo](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; scénářů zapouzdření (třídy) závislých na nastavení konfigurace závisí jenom na nastavení konfigurace, která používají.
-* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) &ndash; Nastavení pro různé části aplikace nejsou závislá ani vzájemně nezávislá.
+* [Princip oddělování rozhraní (ISP) nebo zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; scénáře (třídy), které závisí na nastavení konfigurace, závisí jenom na nastavení konfigurace, která používají.
+* [Oddělení](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) potíží, které se týkají &ndash; pro různé části aplikace, není závislé nebo vzájemně nezávisle na sobě.
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -35,32 +35,32 @@ Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/me
 
 ## <a name="options-interfaces"></a>Možnosti rozhraní
 
-<xref:Microsoft.Extensions.Options.IOptionsMonitor%601>slouží k načtení možností a správě oznámení možností pro `TOptions` instance. <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>podporuje následující scénáře:
+<xref:Microsoft.Extensions.Options.IOptionsMonitor%601> slouží k načtení možností a správě oznámení možností pro instance `TOptions`. <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> podporuje následující scénáře:
 
 * Oznámení změny
 * [Pojmenované možnosti](#named-options-support-with-iconfigurenamedoptions)
 * [Znovu Načítatelné konfigurace](#reload-configuration-data-with-ioptionssnapshot)
-* Neplatných selektivních možností<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>()
+* Neplatné selektivní možnosti (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>)
 
-Scénáře po [konfiguraci](#options-post-configuration) umožňují nastavit nebo změnit možnosti po výskytu všech <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurací.
+Scénáře po [konfiguraci](#options-post-configuration) umožňují nastavit nebo změnit možnosti po všech konfiguracích <xref:Microsoft.Extensions.Options.IConfigureOptions%601>.
 
-<xref:Microsoft.Extensions.Options.IOptionsFactory%601>zodpovídá za vytváření nových instancí možností. Má jedinou <xref:Microsoft.Extensions.Options.IOptionsFactory`1.Create*> metodu. Výchozí implementace přebírá všechny <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurace a <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601> a spustí nejprve všechny konfigurace, následované po konfiguraci. Rozlišuje mezi <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a volá pouze příslušné rozhraní.
+<xref:Microsoft.Extensions.Options.IOptionsFactory%601> zodpovídá za vytváření nových instancí možností. Má jednu metodu <xref:Microsoft.Extensions.Options.IOptionsFactory`1.Create*>. Výchozí implementace přebírá všechny zaregistrované <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601> a nejprve spustí všechny konfigurace a poté po konfiguraci. Rozlišuje mezi <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a volá pouze příslušné rozhraní.
 
-<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>je používána <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> pro ukládání instancí `TOptions` do mezipaměti. Zruší platnost instancí možností v monitorování tak, aby se hodnota přepočítala (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryRemove*>). <xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601> Hodnoty lze ručně zavést pomocí <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryAdd*>. Metoda <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.Clear*> se používá v případě, že by měly být všechny pojmenované instance znovu vytvořeny na vyžádání.
+<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601> používá <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> k ukládání instancí `TOptions` do mezipaměti. @No__t-0 zruší platnost instancí možností v monitorování tak, aby se hodnota přepočítala (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryRemove*>). Hodnoty lze ručně zavést pomocí <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryAdd*>. Metoda <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.Clear*> se používá v případě, že by se všechny pojmenované instance měly znovu vytvořit na vyžádání.
 
-<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601>je užitečná ve scénářích, kde by se měly přepočítat možnosti pro každý požadavek. Další informace najdete v části [opětovné načtení konfiguračních dat pomocí IOptionsSnapshot](#reload-configuration-data-with-ioptionssnapshot) .
+<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> je užitečné v situacích, kdy by se měly možnosti Přepočítat při každém požadavku. Další informace najdete v části [opětovné načtení konfiguračních dat pomocí IOptionsSnapshot](#reload-configuration-data-with-ioptionssnapshot) .
 
-<xref:Microsoft.Extensions.Options.IOptions%601>dá se použít k podpoře možností. Nicméně nepodporuje předchozí <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>scénáře. <xref:Microsoft.Extensions.Options.IOptions%601> Můžete pokračovat v používání <xref:Microsoft.Extensions.Options.IOptions%601> existujících architektur a knihoven, které již <xref:Microsoft.Extensions.Options.IOptions%601> rozhraní používají, a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>nevyžadují scénáře, které poskytuje.
+<xref:Microsoft.Extensions.Options.IOptions%601> se dá použít k podpoře možností. @No__t-0 však nepodporuje předchozí scénáře <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>. @No__t-0 můžete dál používat ve stávajících architekturách a knihovnách, které už používají rozhraní <xref:Microsoft.Extensions.Options.IOptions%601> a nevyžadují scénáře, které poskytuje <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>.
 
 ## <a name="general-options-configuration"></a>Konfigurace obecných možností
 
-Konfigurace obecných možností se v ukázkové aplikaci &num;ukazuje jako příklad 1.
+Konfigurace obecných možností se v ukázkové aplikaci ukazuje jako příklad &num;1.
 
-Třída Options musí být neabstraktní s veřejným konstruktorem bez parametrů. Následující třída `MyOptions`má dvě vlastnosti, `Option1` a `Option2`. Nastavení výchozích hodnot je volitelné, ale konstruktor třídy v následujícím příkladu nastaví výchozí hodnotu `Option1`. `Option2`má výchozí hodnotu nastavenou pomocí přímé inicializace vlastnosti (*modely/MyOptions. cs*):
+Třída Options musí být neabstraktní s veřejným konstruktorem bez parametrů. Následující třída `MyOptions` má dvě vlastnosti `Option1` a `Option2`. Nastavení výchozích hodnot je volitelné, ale konstruktor třídy v následujícím příkladu nastaví výchozí hodnotu `Option1`. `Option2` má výchozí hodnotu nastavenou tak, že vlastnost inicializuje přímo (*modely/MyOptions. cs*):
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Models/MyOptions.cs?name=snippet1)]
 
-Třída je přidána do kontejneru služby s <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> konfigurací a je vázána na konfiguraci: `MyOptions`
+Třída `MyOptions` je přidána do kontejneru služby s <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> a je svázána s konfigurací:
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Startup.cs?name=snippet_Example1)]
 
@@ -72,18 +72,18 @@ Následující model stránky používá [vkládání závislostí konstruktoru]
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example1)]
 
-Soubor *appSettings. JSON* v ukázce určuje hodnoty pro `option1` a: `option2`
+Soubor *appSettings. JSON* v ukázce určuje hodnoty pro `option1` a `option2`:
 
 [!code-json[](options/samples/3.x/OptionsSample/appsettings.json?highlight=2-3)]
 
-Při spuštění aplikace vrátí `OnGet` metoda modelu stránky řetězec zobrazující hodnoty třídy možností:
+Když je aplikace spuštěna, metoda `OnGet` modelu stránky vrátí řetězec zobrazující hodnoty třídy možností:
 
 ```html
 option1 = value1_from_json, option2 = -1
 ```
 
 > [!NOTE]
-> Když použijete vlastní <xref:System.Configuration.ConfigurationBuilder> nastavení pro načtení konfigurace možností z konfiguračního souboru, zkontrolujte, jestli je správně nastavená základní cesta:
+> Když pomocí vlastního <xref:System.Configuration.ConfigurationBuilder> načtěte konfiguraci možností ze souboru nastavení, zkontrolujte, jestli je správně nastavená základní cesta:
 >
 > ```csharp
 > var configBuilder = new ConfigurationBuilder()
@@ -94,17 +94,17 @@ option1 = value1_from_json, option2 = -1
 > services.Configure<MyOptions>(config);
 > ```
 >
-> Při načítání konfigurace možností ze souboru s nastavením prostřednictvím <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>je explicitně nutné nastavit základní cestu.
+> Při načítání konfigurace možností ze souboru nastavení prostřednictvím <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> není nutné explicitně nastavit základní cestu.
 
 ## <a name="configure-simple-options-with-a-delegate"></a>Konfigurace jednoduchých možností pomocí delegáta
 
-Konfigurace jednoduchých možností s delegátem je znázorněna jako &num;příklad 2 v ukázkové aplikaci.
+Konfigurace jednoduchých možností s delegátem je znázorněna jako příklad &num;2 v ukázkové aplikaci.
 
-K nastavení hodnot možností použijte delegáta. Ukázková aplikace používá `MyOptionsWithDelegateConfig` třídu (*modely/MyOptionsWithDelegateConfig. cs*):
+K nastavení hodnot možností použijte delegáta. Ukázková aplikace používá třídu `MyOptionsWithDelegateConfig` (*modely/MyOptionsWithDelegateConfig. cs*):
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Models/MyOptionsWithDelegateConfig.cs?name=snippet1)]
 
-V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána druhá služba. Pomocí delegáta konfiguruje vazbu s `MyOptionsWithDelegateConfig`:
+V následujícím kódu je do kontejneru služby přidána druhá služba <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Pomocí delegáta konfiguruje vazbu s `MyOptionsWithDelegateConfig`:
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Startup.cs?name=snippet_Example2)]
 
@@ -116,11 +116,11 @@ V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Opti
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
+Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace najdete v tématu <xref:fundamentals/configuration/index>.
 
-Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidá službu do kontejneru služby. V předchozím příkladu jsou `Option1` hodnoty a `Option2` zadány v souboru `Option1` *appSettings. JSON*, ale hodnoty a `Option2` jsou přepsány nakonfigurovaným delegátem.
+Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá do kontejneru služby službu <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. V předchozím příkladu jsou hodnoty `Option1` a `Option2` zadány v souboru *appSettings. JSON*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
 
-Je-li povolena více než jedna služba konfigurace, je v posledním zdroji konfigurace zadaný *Server WINS* a nastavena hodnota konfigurace. Při spuštění aplikace vrátí `OnGet` metoda modelu stránky řetězec zobrazující hodnoty třídy možností:
+Je-li povolena více než jedna služba konfigurace, je v posledním zdroji konfigurace zadaný *Server WINS* a nastavena hodnota konfigurace. Když je aplikace spuštěna, metoda `OnGet` modelu stránky vrátí řetězec zobrazující hodnoty třídy možností:
 
 ```html
 delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
@@ -128,27 +128,27 @@ delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
 
 ## <a name="suboptions-configuration"></a>Konfigurace podNastavení
 
-Konfigurace dílčích možností je v ukázkové &num;aplikaci znázorněna jako příklad 3.
+Konfigurace dílčích možností se v ukázkové aplikaci ukazuje jako příklad &num;3.
 
 Aplikace by měly vytvořit třídy možností, které se týkají konkrétních skupin scénářů (tříd) v aplikaci. Části aplikace, které vyžadují konfigurační hodnoty, by měly mít přístup jenom k hodnotám konfigurace, které používají.
 
-Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]`. Například `MyOptions.Option1` vlastnost je svázána s klíčem `Option1`, `option1` který je načten z vlastnosti v souboru *appSettings. JSON*.
+Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]`. Například vlastnost `MyOptions.Option1` je vázána na klíč `Option1`, který je načten z vlastnosti `option1` v souboru *appSettings. JSON*.
 
-V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána třetí služba. Váže `MySubOptions` se k části `subsection` souboru *appSettings. JSON* :
+V následujícím kódu je třetí služba <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána do kontejneru služby. Vytvoří vazby `MySubOptions` na oddíl `subsection` souboru *appSettings. JSON* :
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Startup.cs?name=snippet_Example3)]
 
-Metoda rozšíření vyžaduje balíček [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) NuGet. `GetSection` Pokud aplikace používá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo novější), balíček je automaticky zahrnutý.
+Metoda rozšíření `GetSection` vyžaduje balíček [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) NuGet. Pokud aplikace používá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo novější), balíček je automaticky zahrnutý.
 
-Soubor *appSettings. JSON* ukázky definuje `subsection` člena s klíči pro `suboption1` a `suboption2`:
+Soubor *appSettings. JSON* ve vzorci definuje člena `subsection` s klíči pro `suboption1` a `suboption2`:
 
 [!code-json[](options/samples/3.x/OptionsSample/appsettings.json?highlight=4-7)]
 
-Třída definuje `SubOption1` vlastnosti a`SubOption2`, aby obsahovala hodnoty možností (*modely/MySubOptions. cs*): `MySubOptions`
+Třída `MySubOptions` definuje vlastnosti, `SubOption1` a `SubOption2`, aby obsahovaly hodnoty možností (*modely/MySubOptions. cs*):
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Models/MySubOptions.cs?name=snippet1)]
 
-`OnGet` Metoda modelu stránky vrátí řetězec s hodnotami možností (*pages/index. cshtml. cs*):
+Metoda `OnGet` modelu stránky vrací řetězec s hodnotami možností (*pages/index. cshtml. cs*):
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?range=11)]
 
@@ -156,7 +156,7 @@ Třída definuje `SubOption1` vlastnosti a`SubOption2`, aby obsahovala hodnoty m
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example3)]
 
-Při spuštění `OnGet` aplikace vrátí metoda řetězec zobrazující hodnoty třídy dílčích možností:
+Při spuštění aplikace vrátí metoda `OnGet` řetězec zobrazující hodnoty třídy dílčích možností:
 
 ```html
 subOption1 = subvalue1_from_json, subOption2 = 200
@@ -166,7 +166,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 Možnosti poskytované modelem zobrazení nebo vkládáním přímých zobrazení jsou v ukázkové aplikaci znázorněné jako příklad &num;4.
 
-Možnosti lze zadat v modelu zobrazení nebo <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> přímým vložením do zobrazení (Pages */index. cshtml. cs*):
+Možnosti lze zadat v modelu zobrazení nebo vložením <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> přímo do zobrazení (*pages/index. cshtml. cs*):
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?range=9)]
 
@@ -174,7 +174,7 @@ Možnosti lze zadat v modelu zobrazení nebo <xref:Microsoft.Extensions.Options.
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example4)]
 
-Ukázková aplikace ukazuje, jak vložit `IOptionsMonitor<MyOptions>` `@inject` pomocí direktivy:
+Ukázková aplikace ukazuje, jak vložit `IOptionsMonitor<MyOptions>` s direktivou `@inject`:
 
 [!code-cshtml[](options/samples/3.x/OptionsSample/Pages/Index.cshtml?range=1-10&highlight=4)]
 
@@ -186,11 +186,11 @@ Po spuštění aplikace se hodnoty možností zobrazí na vykreslené stránce:
 
 Opětovné načtení konfiguračních dat pomocí <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> je v ukázkové aplikaci znázorněno v příkladu &num;5.
 
-<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601>podporuje opětovné načítání možností s minimální režií zpracování.
+<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> podporuje opětovné načítání možností s minimální režií zpracování.
 
 Možnosti jsou vypočítány jednou za požadavek při otevření a ukládání do mezipaměti po dobu života žádosti.
 
-Následující příklad ukazuje, jak se vytvoří <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> nový po změnách *appSettings. JSON* (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje soubor *appSettings. JSON* , dokud nedojde ke změně souboru a opětovnému načtení konfigurace.
+Následující příklad ukazuje, jak se vytvoří nový <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> po změnách *appSettings. JSON* (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje soubor *appSettings. JSON* , dokud nedojde ke změně souboru a opětovnému načtení konfigurace.
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?range=12)]
 
@@ -198,7 +198,7 @@ Následující příklad ukazuje, jak se vytvoří <xref:Microsoft.Extensions.Op
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example5)]
 
-Následující obrázek ukazuje počáteční `option1` hodnoty a `option2` hodnoty načtené ze souboru *appSettings. JSON* :
+Následující obrázek ukazuje počáteční hodnoty `option1` a `option2` načtené ze souboru *appSettings. JSON* :
 
 ```html
 snapshot option1 = value1_from_json, snapshot option2 = -1
@@ -212,9 +212,9 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 ## <a name="named-options-support-with-iconfigurenamedoptions"></a>Podpora pojmenovaných možností s IConfigureNamedOptions
 
-Pojmenovaná podpora <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> s názvem je znázorněna jako příklad &num;6 v ukázkové aplikaci.
+Pojmenovaná podpora s možností <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> je v ukázkové aplikaci znázorněna jako příklad &num;6.
 
-Podpora pojmenovaných *možností* umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions\<TOptions >. Konfigurace](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metody rozšíření:
+Podpora *pojmenovaných možností* umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions @ no__t-2TOptions >. Konfigurace](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metody rozšíření:
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -233,14 +233,14 @@ named_options_1: option1 = value1_from_json, option2 = -1
 named_options_2: option1 = named_options_2_value1_from_action, option2 = 5
 ```
 
-`named_options_1`hodnoty se poskytují z konfigurace, které se načítají ze souboru *appSettings. JSON* . `named_options_2`hodnoty poskytuje:
+hodnoty `named_options_1` se poskytují z konfigurace, které se načítají ze souboru *appSettings. JSON* . hodnoty `named_options_2` poskytuje:
 
-* Delegát v `ConfigureServices` pro`Option1`. `named_options_2`
-* Výchozí hodnota `Option2` poskytnutá `MyOptions` třídou
+* Delegát `named_options_2` v `ConfigureServices` pro `Option1`.
+* Výchozí hodnota pro `Option2` poskytovaná třídou `MyOptions`.
 
 ## <a name="configure-all-options-with-the-configureall-method"></a>Konfigurace všech možností pomocí metody ConfigureAll
 
-Nakonfigurujte všechny instance možností pomocí <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> metody. Následující kód konfiguruje `Option1` pro všechny instance konfigurace se společnou hodnotou. Do `Startup.ConfigureServices` metody přidejte následující kód ručně:
+Nakonfigurujte všechny instance možností pomocí metody <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*>. Následující kód konfiguruje `Option1` pro všechny instance konfigurace se společnou hodnotou. Přidejte následující kód ručně do metody `Startup.ConfigureServices`:
 
 ```csharp
 services.ConfigureAll<MyOptions>(myOptions => 
@@ -257,11 +257,11 @@ named_options_2: option1 = ConfigureAll replacement value, option2 = 5
 ```
 
 > [!NOTE]
-> Všechny možnosti jsou pojmenované instance. Existující <xref:Microsoft.Extensions.Options.IConfigureOptions%601> instance jsou považovány za `Options.DefaultName` cílení instance, což `string.Empty`je. <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>také implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Výchozí implementace <xref:Microsoft.Extensions.Options.IOptionsFactory%601> pro má logiku odpovídajícím způsobem použít. Pojmenovaná možnost se používá pro cílení na všechny pojmenované instance místo konkrétní pojmenované instance (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> a <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> použití této konvence). `null`
+> Všechny možnosti jsou pojmenované instance. Existující instance <xref:Microsoft.Extensions.Options.IConfigureOptions%601> se považují za cílení na instanci `Options.DefaultName`, která je `string.Empty`. <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> také implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Výchozí implementace <xref:Microsoft.Extensions.Options.IOptionsFactory%601> má logiku odpovídajícím způsobem použít. Pojmenovaná možnost `null` se používá k cílení na všechny pojmenované instance místo konkrétní pojmenované instance (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> a <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> používají tuto konvenci).
 
 ## <a name="optionsbuilder-api"></a>Rozhraní API pro OptionsBuilder
 
-<xref:Microsoft.Extensions.Options.OptionsBuilder%601>se používá ke konfiguraci `TOptions` instancí. `OptionsBuilder`zjednodušuje vytváření pojmenovaných možností, protože je jenom jedním parametrem počátečního `AddOptions<TOptions>(string optionsName)` volání, takže se neobjeví ve všech dalších voláních. Ověřování možností a `ConfigureOptions` přetížení, která přijímají závislosti služby, jsou k dispozici `OptionsBuilder`pouze prostřednictvím.
+<xref:Microsoft.Extensions.Options.OptionsBuilder%601> se používá ke konfiguraci instancí `TOptions`. `OptionsBuilder` zjednodušuje vytváření pojmenovaných možností, protože se jedná pouze o jediný parametr počátečního volání `AddOptions<TOptions>(string optionsName)` namísto zobrazení ve všech následujících voláních. Ověřování možností a přetížení `ConfigureOptions`, které přijímají závislosti služby, jsou k dispozici pouze prostřednictvím `OptionsBuilder`.
 
 ```csharp
 // Options.DefaultName = "" is used.
@@ -275,7 +275,7 @@ services.AddOptions<MyOptions>("optionalName")
 
 K dalším službám můžete přistupovat pomocí injektáže závislosti při konfiguraci možností dvěma způsoby:
 
-* Předejte delegáta konfigurace [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) na [\<OptionsBuilder TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
+* [Nakonfigurujte](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) delegáta konfigurace na [OptionsBuilder @ no__t-2TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder @ no__t-1TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
 
   ```csharp
   services.AddOptions<MyOptions>("optionalName")
@@ -284,13 +284,13 @@ K dalším službám můžete přistupovat pomocí injektáže závislosti při 
               o.Property = DoSomethingWith(s, s2, s3, s4, s5));
   ```
 
-* Vytvořte vlastní typ, který implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601> nebo <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a zaregistruje typ jako službu.
+* Vytvořte vlastní typ, který implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601> nebo <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a zaregistrujte typ jako službu.
 
-Doporučujeme předat delegáta konfigurace, protože [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)vytvoření služby je složitější. Vytvoření vlastního typu je ekvivalentní s tím, k čemu architektura slouží při použití možnosti [Konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*). Volání [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) metody Configure provede přechodný <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>obecný, který má konstruktor, který přijímá obecné zadané typy služeb. 
+Doporučujeme předat delegáta [konfigurace, protože](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)vytvoření služby je složitější. Vytvoření vlastního typu je ekvivalentní s tím, k čemu architektura slouží při použití možnosti [Konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*). Volání metody [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) obsahuje přechodný obecný <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>, který má konstruktor, který přijímá obecné zadané typy služeb. 
 
 ## <a name="options-validation"></a>Ověřování možností
 
-Ověřování možností umožňuje ověřit možnosti při konfiguraci možností. Zavolejte `Validate` na metodu ověřování, která vrátí `true` , pokud jsou možnosti platné `false` , a pokud nejsou platné:
+Ověřování možností umožňuje ověřit možnosti při konfiguraci možností. Volejte `Validate` s metodou ověřování, která vrátí `true`, pokud jsou možnosti platné a `false`, pokud nejsou platné:
 
 ```csharp
 // Registration
@@ -316,24 +316,24 @@ catch (OptionsValidationException e)
 }
 ```
 
-Předchozí příklad nastaví instanci pojmenované možnosti na `optionalOptionsName`. Instance výchozích možností je `Options.DefaultName`.
+Předchozí příklad nastaví instanci pojmenovaných možností na `optionalOptionsName`. Instance výchozích možností je `Options.DefaultName`.
 
 Ověřování se spustí při vytvoření instance Options. Při prvním použití vaší instance možností je zaručeno předání ověření.
 
 > [!IMPORTANT]
 > Ověřování možností nechrání proti změnám možností po počáteční konfiguraci a ověření možností.
 
-`Validate` Metoda`Func<TOptions, bool>`přijímá. Pro úplné přizpůsobení ověřování, implementujte `IValidateOptions<TOptions>`, což umožňuje:
+Metoda `Validate` přijímá hodnotu `Func<TOptions, bool>`. Chcete-li plně přizpůsobit ověřování, implementujte `IValidateOptions<TOptions>`, což umožňuje:
 
-* Ověřování více typů možností:`class ValidateTwo : IValidateOptions<Option1>, IValidationOptions<Option2>`
-* Ověření, které závisí na jiném typu možnosti:`public DependsOnAnotherOptionValidator(IOptionsMonitor<AnotherOption> options)`
+* Ověřování více typů možností: `class ValidateTwo : IValidateOptions<Option1>, IValidationOptions<Option2>`
+* Ověření, které závisí na jiném typu možnosti: `public DependsOnAnotherOptionValidator(IOptionsMonitor<AnotherOption> options)`
 
-`IValidateOptions`ověří
+`IValidateOptions` ověří:
 
 * Konkrétní instance pojmenované možnosti.
-* Všechny možnosti, `name` Pokud `null`je.
+* Všechny možnosti, pokud `name` je `null`.
 
-Vraťte se `ValidateOptionsResult` z vaší implementace rozhraní:
+Vrácení `ValidateOptionsResult` z vaší implementace rozhraní:
 
 ```csharp
 public interface IValidateOptions<TOptions> where TOptions : class
@@ -342,9 +342,10 @@ public interface IValidateOptions<TOptions> where TOptions : class
 }
 ```
 
-Ověřování na základě datových poznámek je k dispozici v balíčku [Microsoft. Extensions. Options.](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) DataAnnotations pomocí <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations*> volání metody `OptionsBuilder<TOptions>`on. `Microsoft.Extensions.Options.DataAnnotations`je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,2 nebo novější).
+Ověřování na základě datových poznámek je k dispozici v balíčku [Microsoft. Extensions. Options. DataAnnotations](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) pomocí volání metody <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations*> v `OptionsBuilder<TOptions>`. `Microsoft.Extensions.Options.DataAnnotations` je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,2 nebo novější).
 
 ```csharp
+using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 
 private class AnnotatedOptions
@@ -390,7 +391,7 @@ Ověření Eager (při spuštění selže) je v budoucí verzi zváženo.
 
 ## <a name="options-post-configuration"></a>Možnosti po konfiguraci
 
-Nastavení po konfiguraci <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601>nastavte na. Po dokončení všech <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurací se spustí po konfiguraci:
+Nastavte po konfiguraci <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601>. Po spuštění všech konfigurací <xref:Microsoft.Extensions.Options.IConfigureOptions%601> se spustí po konfiguraci:
 
 ```csharp
 services.PostConfigure<MyOptions>(myOptions =>
@@ -399,7 +400,7 @@ services.PostConfigure<MyOptions>(myOptions =>
 });
 ```
 
-<xref:Microsoft.Extensions.Options.IPostConfigureOptions`1.PostConfigure*>je k dispozici pro nastavení po konfiguraci s názvem:
+<xref:Microsoft.Extensions.Options.IPostConfigureOptions`1.PostConfigure*> je k dispozici pro nastavení po konfiguraci s názvem:
 
 ```csharp
 services.PostConfigure<MyOptions>("named_options_1", myOptions =>
@@ -408,7 +409,7 @@ services.PostConfigure<MyOptions>("named_options_1", myOptions =>
 });
 ```
 
-Použijte <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> k následné konfiguraci všech instancí konfigurace:
+Po dokončení konfigurace všech instancí konfigurace použijte <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*>:
 
 ```csharp
 services.PostConfigureAll<MyOptions>(myOptions =>
@@ -419,7 +420,7 @@ services.PostConfigureAll<MyOptions>(myOptions =>
 
 ## <a name="accessing-options-during-startup"></a>Přístup k možnostem při spuštění
 
-<xref:Microsoft.Extensions.Options.IOptions%601>a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> lze jej použít v `Startup.Configure`, protože `Configure` služby jsou vytvořeny před spuštěním metody.
+<xref:Microsoft.Extensions.Options.IOptions%601> a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> lze použít v `Startup.Configure`, protože služby jsou vytvořeny před spuštěním metody `Configure`.
 
 ```csharp
 public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> optionsAccessor)
@@ -428,20 +429,20 @@ public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> option
 }
 ```
 
-Nepoužívejte <xref:Microsoft.Extensions.Options.IOptions%601> nebo <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> v `Startup.ConfigureServices`. Stav nekonzistentních možností může existovat v důsledku řazení registrací služby.
+V `Startup.ConfigureServices` Nepoužívejte <xref:Microsoft.Extensions.Options.IOptions%601> ani <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>. Stav nekonzistentních možností může existovat v důsledku řazení registrací služby.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.2"
 
-Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
+Vzor možností používá třídy, které reprezentují skupiny souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
 
-* [Princip oddělení (ISP) nebo](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; scénářů zapouzdření (třídy) závislých na nastavení konfigurace závisí jenom na nastavení konfigurace, která používají.
-* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) &ndash; Nastavení pro různé části aplikace nejsou závislá ani vzájemně nezávislá.
+* [Princip oddělování rozhraní (ISP) nebo zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; scénáře (třídy), které závisí na nastavení konfigurace, závisí jenom na nastavení konfigurace, která používají.
+* [Oddělení](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) potíží, které se týkají &ndash; pro různé části aplikace, není závislé nebo vzájemně nezávisle na sobě.
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -449,32 +450,32 @@ Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/me
 
 ## <a name="options-interfaces"></a>Možnosti rozhraní
 
-<xref:Microsoft.Extensions.Options.IOptionsMonitor%601>slouží k načtení možností a správě oznámení možností pro `TOptions` instance. <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>podporuje následující scénáře:
+<xref:Microsoft.Extensions.Options.IOptionsMonitor%601> slouží k načtení možností a správě oznámení možností pro instance `TOptions`. <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> podporuje následující scénáře:
 
 * Oznámení změny
 * [Pojmenované možnosti](#named-options-support-with-iconfigurenamedoptions)
 * [Znovu Načítatelné konfigurace](#reload-configuration-data-with-ioptionssnapshot)
-* Neplatných selektivních možností<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>()
+* Neplatné selektivní možnosti (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>)
 
-Scénáře po [konfiguraci](#options-post-configuration) umožňují nastavit nebo změnit možnosti po výskytu všech <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurací.
+Scénáře po [konfiguraci](#options-post-configuration) umožňují nastavit nebo změnit možnosti po všech konfiguracích <xref:Microsoft.Extensions.Options.IConfigureOptions%601>.
 
-<xref:Microsoft.Extensions.Options.IOptionsFactory%601>zodpovídá za vytváření nových instancí možností. Má jedinou <xref:Microsoft.Extensions.Options.IOptionsFactory`1.Create*> metodu. Výchozí implementace přebírá všechny <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurace a <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601> a spustí nejprve všechny konfigurace, následované po konfiguraci. Rozlišuje mezi <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a volá pouze příslušné rozhraní.
+<xref:Microsoft.Extensions.Options.IOptionsFactory%601> zodpovídá za vytváření nových instancí možností. Má jednu metodu <xref:Microsoft.Extensions.Options.IOptionsFactory`1.Create*>. Výchozí implementace přebírá všechny zaregistrované <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601> a nejprve spustí všechny konfigurace a poté po konfiguraci. Rozlišuje mezi <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a volá pouze příslušné rozhraní.
 
-<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>je používána <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> pro ukládání instancí `TOptions` do mezipaměti. Zruší platnost instancí možností v monitorování tak, aby se hodnota přepočítala (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryRemove*>). <xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601> Hodnoty lze ručně zavést pomocí <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryAdd*>. Metoda <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.Clear*> se používá v případě, že by měly být všechny pojmenované instance znovu vytvořeny na vyžádání.
+<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601> používá <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> k ukládání instancí `TOptions` do mezipaměti. @No__t-0 zruší platnost instancí možností v monitorování tak, aby se hodnota přepočítala (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryRemove*>). Hodnoty lze ručně zavést pomocí <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryAdd*>. Metoda <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.Clear*> se používá v případě, že by se všechny pojmenované instance měly znovu vytvořit na vyžádání.
 
-<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601>je užitečná ve scénářích, kde by se měly přepočítat možnosti pro každý požadavek. Další informace najdete v části [opětovné načtení konfiguračních dat pomocí IOptionsSnapshot](#reload-configuration-data-with-ioptionssnapshot) .
+<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> je užitečné v situacích, kdy by se měly možnosti Přepočítat při každém požadavku. Další informace najdete v části [opětovné načtení konfiguračních dat pomocí IOptionsSnapshot](#reload-configuration-data-with-ioptionssnapshot) .
 
-<xref:Microsoft.Extensions.Options.IOptions%601>dá se použít k podpoře možností. Nicméně nepodporuje předchozí <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>scénáře. <xref:Microsoft.Extensions.Options.IOptions%601> Můžete pokračovat v používání <xref:Microsoft.Extensions.Options.IOptions%601> existujících architektur a knihoven, které již <xref:Microsoft.Extensions.Options.IOptions%601> rozhraní používají, a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>nevyžadují scénáře, které poskytuje.
+<xref:Microsoft.Extensions.Options.IOptions%601> se dá použít k podpoře možností. @No__t-0 však nepodporuje předchozí scénáře <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>. @No__t-0 můžete dál používat ve stávajících architekturách a knihovnách, které už používají rozhraní <xref:Microsoft.Extensions.Options.IOptions%601> a nevyžadují scénáře, které poskytuje <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>.
 
 ## <a name="general-options-configuration"></a>Konfigurace obecných možností
 
-Konfigurace obecných možností se v ukázkové aplikaci &num;ukazuje jako příklad 1.
+Konfigurace obecných možností se v ukázkové aplikaci ukazuje jako příklad &num;1.
 
-Třída Options musí být neabstraktní s veřejným konstruktorem bez parametrů. Následující třída `MyOptions`má dvě vlastnosti, `Option1` a `Option2`. Nastavení výchozích hodnot je volitelné, ale konstruktor třídy v následujícím příkladu nastaví výchozí hodnotu `Option1`. `Option2`má výchozí hodnotu nastavenou pomocí přímé inicializace vlastnosti (*modely/MyOptions. cs*):
+Třída Options musí být neabstraktní s veřejným konstruktorem bez parametrů. Následující třída `MyOptions` má dvě vlastnosti `Option1` a `Option2`. Nastavení výchozích hodnot je volitelné, ale konstruktor třídy v následujícím příkladu nastaví výchozí hodnotu `Option1`. `Option2` má výchozí hodnotu nastavenou tak, že vlastnost inicializuje přímo (*modely/MyOptions. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Models/MyOptions.cs?name=snippet1)]
 
-Třída je přidána do kontejneru služby s <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> konfigurací a je vázána na konfiguraci: `MyOptions`
+Třída `MyOptions` je přidána do kontejneru služby s <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> a je svázána s konfigurací:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example1)]
 
@@ -486,18 +487,18 @@ Následující model stránky používá [vkládání závislostí konstruktoru]
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example1)]
 
-Soubor *appSettings. JSON* v ukázce určuje hodnoty pro `option1` a: `option2`
+Soubor *appSettings. JSON* v ukázce určuje hodnoty pro `option1` a `option2`:
 
 [!code-json[](options/samples/2.x/OptionsSample/appsettings.json?highlight=2-3)]
 
-Při spuštění aplikace vrátí `OnGet` metoda modelu stránky řetězec zobrazující hodnoty třídy možností:
+Když je aplikace spuštěna, metoda `OnGet` modelu stránky vrátí řetězec zobrazující hodnoty třídy možností:
 
 ```html
 option1 = value1_from_json, option2 = -1
 ```
 
 > [!NOTE]
-> Když použijete vlastní <xref:System.Configuration.ConfigurationBuilder> nastavení pro načtení konfigurace možností z konfiguračního souboru, zkontrolujte, jestli je správně nastavená základní cesta:
+> Když pomocí vlastního <xref:System.Configuration.ConfigurationBuilder> načtěte konfiguraci možností ze souboru nastavení, zkontrolujte, jestli je správně nastavená základní cesta:
 >
 > ```csharp
 > var configBuilder = new ConfigurationBuilder()
@@ -508,17 +509,17 @@ option1 = value1_from_json, option2 = -1
 > services.Configure<MyOptions>(config);
 > ```
 >
-> Při načítání konfigurace možností ze souboru s nastavením prostřednictvím <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>je explicitně nutné nastavit základní cestu.
+> Při načítání konfigurace možností ze souboru nastavení prostřednictvím <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> není nutné explicitně nastavit základní cestu.
 
 ## <a name="configure-simple-options-with-a-delegate"></a>Konfigurace jednoduchých možností pomocí delegáta
 
-Konfigurace jednoduchých možností s delegátem je znázorněna jako &num;příklad 2 v ukázkové aplikaci.
+Konfigurace jednoduchých možností s delegátem je znázorněna jako příklad &num;2 v ukázkové aplikaci.
 
-K nastavení hodnot možností použijte delegáta. Ukázková aplikace používá `MyOptionsWithDelegateConfig` třídu (*modely/MyOptionsWithDelegateConfig. cs*):
+K nastavení hodnot možností použijte delegáta. Ukázková aplikace používá třídu `MyOptionsWithDelegateConfig` (*modely/MyOptionsWithDelegateConfig. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Models/MyOptionsWithDelegateConfig.cs?name=snippet1)]
 
-V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána druhá služba. Pomocí delegáta konfiguruje vazbu s `MyOptionsWithDelegateConfig`:
+V následujícím kódu je do kontejneru služby přidána druhá služba <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Pomocí delegáta konfiguruje vazbu s `MyOptionsWithDelegateConfig`:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example2)]
 
@@ -530,11 +531,11 @@ V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Opti
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
+Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace najdete v tématu <xref:fundamentals/configuration/index>.
 
-Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidá službu do kontejneru služby. V předchozím příkladu jsou `Option1` hodnoty a `Option2` zadány v souboru `Option1` *appSettings. JSON*, ale hodnoty a `Option2` jsou přepsány nakonfigurovaným delegátem.
+Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá do kontejneru služby službu <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. V předchozím příkladu jsou hodnoty `Option1` a `Option2` zadány v souboru *appSettings. JSON*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
 
-Je-li povolena více než jedna služba konfigurace, je v posledním zdroji konfigurace zadaný *Server WINS* a nastavena hodnota konfigurace. Při spuštění aplikace vrátí `OnGet` metoda modelu stránky řetězec zobrazující hodnoty třídy možností:
+Je-li povolena více než jedna služba konfigurace, je v posledním zdroji konfigurace zadaný *Server WINS* a nastavena hodnota konfigurace. Když je aplikace spuštěna, metoda `OnGet` modelu stránky vrátí řetězec zobrazující hodnoty třídy možností:
 
 ```html
 delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
@@ -542,27 +543,27 @@ delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
 
 ## <a name="suboptions-configuration"></a>Konfigurace podNastavení
 
-Konfigurace dílčích možností je v ukázkové &num;aplikaci znázorněna jako příklad 3.
+Konfigurace dílčích možností se v ukázkové aplikaci ukazuje jako příklad &num;3.
 
 Aplikace by měly vytvořit třídy možností, které se týkají konkrétních skupin scénářů (tříd) v aplikaci. Části aplikace, které vyžadují konfigurační hodnoty, by měly mít přístup jenom k hodnotám konfigurace, které používají.
 
-Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]`. Například `MyOptions.Option1` vlastnost je svázána s klíčem `Option1`, `option1` který je načten z vlastnosti v souboru *appSettings. JSON*.
+Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]`. Například vlastnost `MyOptions.Option1` je vázána na klíč `Option1`, který je načten z vlastnosti `option1` v souboru *appSettings. JSON*.
 
-V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána třetí služba. Váže `MySubOptions` se k části `subsection` souboru *appSettings. JSON* :
+V následujícím kódu je třetí služba <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána do kontejneru služby. Vytvoří vazby `MySubOptions` na oddíl `subsection` souboru *appSettings. JSON* :
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example3)]
 
-Metoda rozšíření vyžaduje balíček [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) NuGet. `GetSection` Pokud aplikace používá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo novější), balíček je automaticky zahrnutý.
+Metoda rozšíření `GetSection` vyžaduje balíček [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) NuGet. Pokud aplikace používá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo novější), balíček je automaticky zahrnutý.
 
-Soubor *appSettings. JSON* ukázky definuje `subsection` člena s klíči pro `suboption1` a `suboption2`:
+Soubor *appSettings. JSON* ve vzorci definuje člena `subsection` s klíči pro `suboption1` a `suboption2`:
 
 [!code-json[](options/samples/2.x/OptionsSample/appsettings.json?highlight=4-7)]
 
-Třída definuje `SubOption1` vlastnosti a`SubOption2`, aby obsahovala hodnoty možností (*modely/MySubOptions. cs*): `MySubOptions`
+Třída `MySubOptions` definuje vlastnosti, `SubOption1` a `SubOption2`, aby obsahovaly hodnoty možností (*modely/MySubOptions. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Models/MySubOptions.cs?name=snippet1)]
 
-`OnGet` Metoda modelu stránky vrátí řetězec s hodnotami možností (*pages/index. cshtml. cs*):
+Metoda `OnGet` modelu stránky vrací řetězec s hodnotami možností (*pages/index. cshtml. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?range=11)]
 
@@ -570,7 +571,7 @@ Třída definuje `SubOption1` vlastnosti a`SubOption2`, aby obsahovala hodnoty m
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example3)]
 
-Při spuštění `OnGet` aplikace vrátí metoda řetězec zobrazující hodnoty třídy dílčích možností:
+Při spuštění aplikace vrátí metoda `OnGet` řetězec zobrazující hodnoty třídy dílčích možností:
 
 ```html
 subOption1 = subvalue1_from_json, subOption2 = 200
@@ -580,7 +581,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 Možnosti poskytované modelem zobrazení nebo vkládáním přímých zobrazení jsou v ukázkové aplikaci znázorněné jako příklad &num;4.
 
-Možnosti lze zadat v modelu zobrazení nebo <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> přímým vložením do zobrazení (Pages */index. cshtml. cs*):
+Možnosti lze zadat v modelu zobrazení nebo vložením <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> přímo do zobrazení (*pages/index. cshtml. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?range=9)]
 
@@ -588,7 +589,7 @@ Možnosti lze zadat v modelu zobrazení nebo <xref:Microsoft.Extensions.Options.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example4)]
 
-Ukázková aplikace ukazuje, jak vložit `IOptionsMonitor<MyOptions>` `@inject` pomocí direktivy:
+Ukázková aplikace ukazuje, jak vložit `IOptionsMonitor<MyOptions>` s direktivou `@inject`:
 
 [!code-cshtml[](options/samples/2.x/OptionsSample/Pages/Index.cshtml?range=1-10&highlight=4)]
 
@@ -600,11 +601,11 @@ Po spuštění aplikace se hodnoty možností zobrazí na vykreslené stránce:
 
 Opětovné načtení konfiguračních dat pomocí <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> je v ukázkové aplikaci znázorněno v příkladu &num;5.
 
-<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601>podporuje opětovné načítání možností s minimální režií zpracování.
+<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> podporuje opětovné načítání možností s minimální režií zpracování.
 
 Možnosti jsou vypočítány jednou za požadavek při otevření a ukládání do mezipaměti po dobu života žádosti.
 
-Následující příklad ukazuje, jak se vytvoří <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> nový po změnách *appSettings. JSON* (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje soubor *appSettings. JSON* , dokud nedojde ke změně souboru a opětovnému načtení konfigurace.
+Následující příklad ukazuje, jak se vytvoří nový <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> po změnách *appSettings. JSON* (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje soubor *appSettings. JSON* , dokud nedojde ke změně souboru a opětovnému načtení konfigurace.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?range=12)]
 
@@ -612,7 +613,7 @@ Následující příklad ukazuje, jak se vytvoří <xref:Microsoft.Extensions.Op
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example5)]
 
-Následující obrázek ukazuje počáteční `option1` hodnoty a `option2` hodnoty načtené ze souboru *appSettings. JSON* :
+Následující obrázek ukazuje počáteční hodnoty `option1` a `option2` načtené ze souboru *appSettings. JSON* :
 
 ```html
 snapshot option1 = value1_from_json, snapshot option2 = -1
@@ -626,9 +627,9 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 ## <a name="named-options-support-with-iconfigurenamedoptions"></a>Podpora pojmenovaných možností s IConfigureNamedOptions
 
-Pojmenovaná podpora <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> s názvem je znázorněna jako příklad &num;6 v ukázkové aplikaci.
+Pojmenovaná podpora s možností <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> je v ukázkové aplikaci znázorněna jako příklad &num;6.
 
-Podpora pojmenovaných *možností* umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions\<TOptions >. Konfigurace](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metody rozšíření:
+Podpora *pojmenovaných možností* umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions @ no__t-2TOptions >. Konfigurace](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metody rozšíření:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -647,14 +648,14 @@ named_options_1: option1 = value1_from_json, option2 = -1
 named_options_2: option1 = named_options_2_value1_from_action, option2 = 5
 ```
 
-`named_options_1`hodnoty se poskytují z konfigurace, které se načítají ze souboru *appSettings. JSON* . `named_options_2`hodnoty poskytuje:
+hodnoty `named_options_1` se poskytují z konfigurace, které se načítají ze souboru *appSettings. JSON* . hodnoty `named_options_2` poskytuje:
 
-* Delegát v `ConfigureServices` pro`Option1`. `named_options_2`
-* Výchozí hodnota `Option2` poskytnutá `MyOptions` třídou
+* Delegát `named_options_2` v `ConfigureServices` pro `Option1`.
+* Výchozí hodnota pro `Option2` poskytovaná třídou `MyOptions`.
 
 ## <a name="configure-all-options-with-the-configureall-method"></a>Konfigurace všech možností pomocí metody ConfigureAll
 
-Nakonfigurujte všechny instance možností pomocí <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> metody. Následující kód konfiguruje `Option1` pro všechny instance konfigurace se společnou hodnotou. Do `Startup.ConfigureServices` metody přidejte následující kód ručně:
+Nakonfigurujte všechny instance možností pomocí metody <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*>. Následující kód konfiguruje `Option1` pro všechny instance konfigurace se společnou hodnotou. Přidejte následující kód ručně do metody `Startup.ConfigureServices`:
 
 ```csharp
 services.ConfigureAll<MyOptions>(myOptions => 
@@ -671,11 +672,11 @@ named_options_2: option1 = ConfigureAll replacement value, option2 = 5
 ```
 
 > [!NOTE]
-> Všechny možnosti jsou pojmenované instance. Existující <xref:Microsoft.Extensions.Options.IConfigureOptions%601> instance jsou považovány za `Options.DefaultName` cílení instance, což `string.Empty`je. <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>také implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Výchozí implementace <xref:Microsoft.Extensions.Options.IOptionsFactory%601> pro má logiku odpovídajícím způsobem použít. Pojmenovaná možnost se používá pro cílení na všechny pojmenované instance místo konkrétní pojmenované instance (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> a <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> použití této konvence). `null`
+> Všechny možnosti jsou pojmenované instance. Existující instance <xref:Microsoft.Extensions.Options.IConfigureOptions%601> se považují za cílení na instanci `Options.DefaultName`, která je `string.Empty`. <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> také implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Výchozí implementace <xref:Microsoft.Extensions.Options.IOptionsFactory%601> má logiku odpovídajícím způsobem použít. Pojmenovaná možnost `null` se používá k cílení na všechny pojmenované instance místo konkrétní pojmenované instance (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> a <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> používají tuto konvenci).
 
 ## <a name="optionsbuilder-api"></a>Rozhraní API pro OptionsBuilder
 
-<xref:Microsoft.Extensions.Options.OptionsBuilder%601>se používá ke konfiguraci `TOptions` instancí. `OptionsBuilder`zjednodušuje vytváření pojmenovaných možností, protože je jenom jedním parametrem počátečního `AddOptions<TOptions>(string optionsName)` volání, takže se neobjeví ve všech dalších voláních. Ověřování možností a `ConfigureOptions` přetížení, která přijímají závislosti služby, jsou k dispozici `OptionsBuilder`pouze prostřednictvím.
+<xref:Microsoft.Extensions.Options.OptionsBuilder%601> se používá ke konfiguraci instancí `TOptions`. `OptionsBuilder` zjednodušuje vytváření pojmenovaných možností, protože se jedná pouze o jediný parametr počátečního volání `AddOptions<TOptions>(string optionsName)` namísto zobrazení ve všech následujících voláních. Ověřování možností a přetížení `ConfigureOptions`, které přijímají závislosti služby, jsou k dispozici pouze prostřednictvím `OptionsBuilder`.
 
 ```csharp
 // Options.DefaultName = "" is used.
@@ -689,7 +690,7 @@ services.AddOptions<MyOptions>("optionalName")
 
 K dalším službám můžete přistupovat pomocí injektáže závislosti při konfiguraci možností dvěma způsoby:
 
-* Předejte delegáta konfigurace [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) na [\<OptionsBuilder TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
+* [Nakonfigurujte](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) delegáta konfigurace na [OptionsBuilder @ no__t-2TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder @ no__t-1TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
 
   ```csharp
   services.AddOptions<MyOptions>("optionalName")
@@ -698,13 +699,13 @@ K dalším službám můžete přistupovat pomocí injektáže závislosti při 
               o.Property = DoSomethingWith(s, s2, s3, s4, s5));
   ```
 
-* Vytvořte vlastní typ, který implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601> nebo <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a zaregistruje typ jako službu.
+* Vytvořte vlastní typ, který implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601> nebo <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a zaregistrujte typ jako službu.
 
-Doporučujeme předat delegáta konfigurace, protože [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)vytvoření služby je složitější. Vytvoření vlastního typu je ekvivalentní s tím, k čemu architektura slouží při použití možnosti [Konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*). Volání [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) metody Configure provede přechodný <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>obecný, který má konstruktor, který přijímá obecné zadané typy služeb. 
+Doporučujeme předat delegáta [konfigurace, protože](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)vytvoření služby je složitější. Vytvoření vlastního typu je ekvivalentní s tím, k čemu architektura slouží při použití možnosti [Konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*). Volání metody [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) obsahuje přechodný obecný <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>, který má konstruktor, který přijímá obecné zadané typy služeb. 
 
 ## <a name="options-validation"></a>Ověřování možností
 
-Ověřování možností umožňuje ověřit možnosti při konfiguraci možností. Zavolejte `Validate` na metodu ověřování, která vrátí `true` , pokud jsou možnosti platné `false` , a pokud nejsou platné:
+Ověřování možností umožňuje ověřit možnosti při konfiguraci možností. Volejte `Validate` s metodou ověřování, která vrátí `true`, pokud jsou možnosti platné a `false`, pokud nejsou platné:
 
 ```csharp
 // Registration
@@ -730,24 +731,24 @@ catch (OptionsValidationException e)
 }
 ```
 
-Předchozí příklad nastaví instanci pojmenované možnosti na `optionalOptionsName`. Instance výchozích možností je `Options.DefaultName`.
+Předchozí příklad nastaví instanci pojmenovaných možností na `optionalOptionsName`. Instance výchozích možností je `Options.DefaultName`.
 
 Ověřování se spustí při vytvoření instance Options. Při prvním použití vaší instance možností je zaručeno předání ověření.
 
 > [!IMPORTANT]
 > Ověřování možností nechrání proti změnám možností po počáteční konfiguraci a ověření možností.
 
-`Validate` Metoda`Func<TOptions, bool>`přijímá. Pro úplné přizpůsobení ověřování, implementujte `IValidateOptions<TOptions>`, což umožňuje:
+Metoda `Validate` přijímá hodnotu `Func<TOptions, bool>`. Chcete-li plně přizpůsobit ověřování, implementujte `IValidateOptions<TOptions>`, což umožňuje:
 
-* Ověřování více typů možností:`class ValidateTwo : IValidateOptions<Option1>, IValidationOptions<Option2>`
-* Ověření, které závisí na jiném typu možnosti:`public DependsOnAnotherOptionValidator(IOptionsMonitor<AnotherOption> options)`
+* Ověřování více typů možností: `class ValidateTwo : IValidateOptions<Option1>, IValidationOptions<Option2>`
+* Ověření, které závisí na jiném typu možnosti: `public DependsOnAnotherOptionValidator(IOptionsMonitor<AnotherOption> options)`
 
-`IValidateOptions`ověří
+`IValidateOptions` ověří:
 
 * Konkrétní instance pojmenované možnosti.
-* Všechny možnosti, `name` Pokud `null`je.
+* Všechny možnosti, pokud `name` je `null`.
 
-Vraťte se `ValidateOptionsResult` z vaší implementace rozhraní:
+Vrácení `ValidateOptionsResult` z vaší implementace rozhraní:
 
 ```csharp
 public interface IValidateOptions<TOptions> where TOptions : class
@@ -756,7 +757,7 @@ public interface IValidateOptions<TOptions> where TOptions : class
 }
 ```
 
-Ověřování na základě datových poznámek je k dispozici v balíčku [Microsoft. Extensions. Options.](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) DataAnnotations pomocí <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations*> volání metody `OptionsBuilder<TOptions>`on. `Microsoft.Extensions.Options.DataAnnotations`je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,2 nebo novější).
+Ověřování na základě datových poznámek je k dispozici v balíčku [Microsoft. Extensions. Options. DataAnnotations](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) pomocí volání metody <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations*> v `OptionsBuilder<TOptions>`. `Microsoft.Extensions.Options.DataAnnotations` je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,2 nebo novější).
 
 ```csharp
 using Microsoft.Extensions.DependencyInjection;
@@ -804,7 +805,7 @@ Ověření Eager (při spuštění selže) je v budoucí verzi zváženo.
 
 ## <a name="options-post-configuration"></a>Možnosti po konfiguraci
 
-Nastavení po konfiguraci <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601>nastavte na. Po dokončení všech <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurací se spustí po konfiguraci:
+Nastavte po konfiguraci <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601>. Po spuštění všech konfigurací <xref:Microsoft.Extensions.Options.IConfigureOptions%601> se spustí po konfiguraci:
 
 ```csharp
 services.PostConfigure<MyOptions>(myOptions =>
@@ -813,7 +814,7 @@ services.PostConfigure<MyOptions>(myOptions =>
 });
 ```
 
-<xref:Microsoft.Extensions.Options.IPostConfigureOptions`1.PostConfigure*>je k dispozici pro nastavení po konfiguraci s názvem:
+<xref:Microsoft.Extensions.Options.IPostConfigureOptions`1.PostConfigure*> je k dispozici pro nastavení po konfiguraci s názvem:
 
 ```csharp
 services.PostConfigure<MyOptions>("named_options_1", myOptions =>
@@ -822,7 +823,7 @@ services.PostConfigure<MyOptions>("named_options_1", myOptions =>
 });
 ```
 
-Použijte <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> k následné konfiguraci všech instancí konfigurace:
+Po dokončení konfigurace všech instancí konfigurace použijte <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*>:
 
 ```csharp
 services.PostConfigureAll<MyOptions>(myOptions =>
@@ -833,7 +834,7 @@ services.PostConfigureAll<MyOptions>(myOptions =>
 
 ## <a name="accessing-options-during-startup"></a>Přístup k možnostem při spuštění
 
-<xref:Microsoft.Extensions.Options.IOptions%601>a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> lze jej použít v `Startup.Configure`, protože `Configure` služby jsou vytvořeny před spuštěním metody.
+<xref:Microsoft.Extensions.Options.IOptions%601> a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> lze použít v `Startup.Configure`, protože služby jsou vytvořeny před spuštěním metody `Configure`.
 
 ```csharp
 public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> optionsAccessor)
@@ -842,20 +843,20 @@ public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> option
 }
 ```
 
-Nepoužívejte <xref:Microsoft.Extensions.Options.IOptions%601> nebo <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> v `Startup.ConfigureServices`. Stav nekonzistentních možností může existovat v důsledku řazení registrací služby.
+V `Startup.ConfigureServices` Nepoužívejte <xref:Microsoft.Extensions.Options.IOptions%601> ani <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>. Stav nekonzistentních možností může existovat v důsledku řazení registrací služby.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.1"
 
-Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
+Vzor možností používá třídy, které reprezentují skupiny souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
 
-* [Princip oddělení (ISP) nebo](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; scénářů zapouzdření (třídy) závislých na nastavení konfigurace závisí jenom na nastavení konfigurace, která používají.
-* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) &ndash; Nastavení pro různé části aplikace nejsou závislá ani vzájemně nezávislá.
+* [Princip oddělování rozhraní (ISP) nebo zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; scénáře (třídy), které závisí na nastavení konfigurace, závisí jenom na nastavení konfigurace, která používají.
+* [Oddělení](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) potíží, které se týkají &ndash; pro různé části aplikace, není závislé nebo vzájemně nezávisle na sobě.
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -863,32 +864,32 @@ Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/me
 
 ## <a name="options-interfaces"></a>Možnosti rozhraní
 
-<xref:Microsoft.Extensions.Options.IOptionsMonitor%601>slouží k načtení možností a správě oznámení možností pro `TOptions` instance. <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>podporuje následující scénáře:
+<xref:Microsoft.Extensions.Options.IOptionsMonitor%601> slouží k načtení možností a správě oznámení možností pro instance `TOptions`. <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> podporuje následující scénáře:
 
 * Oznámení změny
 * [Pojmenované možnosti](#named-options-support-with-iconfigurenamedoptions)
 * [Znovu Načítatelné konfigurace](#reload-configuration-data-with-ioptionssnapshot)
-* Neplatných selektivních možností<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>()
+* Neplatné selektivní možnosti (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>)
 
-Scénáře po [konfiguraci](#options-post-configuration) umožňují nastavit nebo změnit možnosti po výskytu všech <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurací.
+Scénáře po [konfiguraci](#options-post-configuration) umožňují nastavit nebo změnit možnosti po všech konfiguracích <xref:Microsoft.Extensions.Options.IConfigureOptions%601>.
 
-<xref:Microsoft.Extensions.Options.IOptionsFactory%601>zodpovídá za vytváření nových instancí možností. Má jedinou <xref:Microsoft.Extensions.Options.IOptionsFactory`1.Create*> metodu. Výchozí implementace přebírá všechny <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurace a <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601> a spustí nejprve všechny konfigurace, následované po konfiguraci. Rozlišuje mezi <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a volá pouze příslušné rozhraní.
+<xref:Microsoft.Extensions.Options.IOptionsFactory%601> zodpovídá za vytváření nových instancí možností. Má jednu metodu <xref:Microsoft.Extensions.Options.IOptionsFactory`1.Create*>. Výchozí implementace přebírá všechny zaregistrované <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601> a nejprve spustí všechny konfigurace a poté po konfiguraci. Rozlišuje mezi <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a <xref:Microsoft.Extensions.Options.IConfigureOptions%601> a volá pouze příslušné rozhraní.
 
-<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601>je používána <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> pro ukládání instancí `TOptions` do mezipaměti. Zruší platnost instancí možností v monitorování tak, aby se hodnota přepočítala (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryRemove*>). <xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601> Hodnoty lze ručně zavést pomocí <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryAdd*>. Metoda <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.Clear*> se používá v případě, že by měly být všechny pojmenované instance znovu vytvořeny na vyžádání.
+<xref:Microsoft.Extensions.Options.IOptionsMonitorCache%601> používá <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> k ukládání instancí `TOptions` do mezipaměti. @No__t-0 zruší platnost instancí možností v monitorování tak, aby se hodnota přepočítala (<xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryRemove*>). Hodnoty lze ručně zavést pomocí <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.TryAdd*>. Metoda <xref:Microsoft.Extensions.Options.IOptionsMonitorCache`1.Clear*> se používá v případě, že by se všechny pojmenované instance měly znovu vytvořit na vyžádání.
 
-<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601>je užitečná ve scénářích, kde by se měly přepočítat možnosti pro každý požadavek. Další informace najdete v části [opětovné načtení konfiguračních dat pomocí IOptionsSnapshot](#reload-configuration-data-with-ioptionssnapshot) .
+<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> je užitečné v situacích, kdy by se měly možnosti Přepočítat při každém požadavku. Další informace najdete v části [opětovné načtení konfiguračních dat pomocí IOptionsSnapshot](#reload-configuration-data-with-ioptionssnapshot) .
 
-<xref:Microsoft.Extensions.Options.IOptions%601>dá se použít k podpoře možností. Nicméně nepodporuje předchozí <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>scénáře. <xref:Microsoft.Extensions.Options.IOptions%601> Můžete pokračovat v používání <xref:Microsoft.Extensions.Options.IOptions%601> existujících architektur a knihoven, které již <xref:Microsoft.Extensions.Options.IOptions%601> rozhraní používají, a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>nevyžadují scénáře, které poskytuje.
+<xref:Microsoft.Extensions.Options.IOptions%601> se dá použít k podpoře možností. @No__t-0 však nepodporuje předchozí scénáře <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>. @No__t-0 můžete dál používat ve stávajících architekturách a knihovnách, které už používají rozhraní <xref:Microsoft.Extensions.Options.IOptions%601> a nevyžadují scénáře, které poskytuje <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>.
 
 ## <a name="general-options-configuration"></a>Konfigurace obecných možností
 
-Konfigurace obecných možností se v ukázkové aplikaci &num;ukazuje jako příklad 1.
+Konfigurace obecných možností se v ukázkové aplikaci ukazuje jako příklad &num;1.
 
-Třída Options musí být neabstraktní s veřejným konstruktorem bez parametrů. Následující třída `MyOptions`má dvě vlastnosti, `Option1` a `Option2`. Nastavení výchozích hodnot je volitelné, ale konstruktor třídy v následujícím příkladu nastaví výchozí hodnotu `Option1`. `Option2`má výchozí hodnotu nastavenou pomocí přímé inicializace vlastnosti (*modely/MyOptions. cs*):
+Třída Options musí být neabstraktní s veřejným konstruktorem bez parametrů. Následující třída `MyOptions` má dvě vlastnosti `Option1` a `Option2`. Nastavení výchozích hodnot je volitelné, ale konstruktor třídy v následujícím příkladu nastaví výchozí hodnotu `Option1`. `Option2` má výchozí hodnotu nastavenou tak, že vlastnost inicializuje přímo (*modely/MyOptions. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Models/MyOptions.cs?name=snippet1)]
 
-Třída je přidána do kontejneru služby s <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> konfigurací a je vázána na konfiguraci: `MyOptions`
+Třída `MyOptions` je přidána do kontejneru služby s <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> a je svázána s konfigurací:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example1)]
 
@@ -900,18 +901,18 @@ Následující model stránky používá [vkládání závislostí konstruktoru]
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example1)]
 
-Soubor *appSettings. JSON* v ukázce určuje hodnoty pro `option1` a: `option2`
+Soubor *appSettings. JSON* v ukázce určuje hodnoty pro `option1` a `option2`:
 
 [!code-json[](options/samples/2.x/OptionsSample/appsettings.json?highlight=2-3)]
 
-Při spuštění aplikace vrátí `OnGet` metoda modelu stránky řetězec zobrazující hodnoty třídy možností:
+Když je aplikace spuštěna, metoda `OnGet` modelu stránky vrátí řetězec zobrazující hodnoty třídy možností:
 
 ```html
 option1 = value1_from_json, option2 = -1
 ```
 
 > [!NOTE]
-> Když použijete vlastní <xref:System.Configuration.ConfigurationBuilder> nastavení pro načtení konfigurace možností z konfiguračního souboru, zkontrolujte, jestli je správně nastavená základní cesta:
+> Když pomocí vlastního <xref:System.Configuration.ConfigurationBuilder> načtěte konfiguraci možností ze souboru nastavení, zkontrolujte, jestli je správně nastavená základní cesta:
 >
 > ```csharp
 > var configBuilder = new ConfigurationBuilder()
@@ -922,17 +923,17 @@ option1 = value1_from_json, option2 = -1
 > services.Configure<MyOptions>(config);
 > ```
 >
-> Při načítání konfigurace možností ze souboru s nastavením prostřednictvím <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>je explicitně nutné nastavit základní cestu.
+> Při načítání konfigurace možností ze souboru nastavení prostřednictvím <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> není nutné explicitně nastavit základní cestu.
 
 ## <a name="configure-simple-options-with-a-delegate"></a>Konfigurace jednoduchých možností pomocí delegáta
 
-Konfigurace jednoduchých možností s delegátem je znázorněna jako &num;příklad 2 v ukázkové aplikaci.
+Konfigurace jednoduchých možností s delegátem je znázorněna jako příklad &num;2 v ukázkové aplikaci.
 
-K nastavení hodnot možností použijte delegáta. Ukázková aplikace používá `MyOptionsWithDelegateConfig` třídu (*modely/MyOptionsWithDelegateConfig. cs*):
+K nastavení hodnot možností použijte delegáta. Ukázková aplikace používá třídu `MyOptionsWithDelegateConfig` (*modely/MyOptionsWithDelegateConfig. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Models/MyOptionsWithDelegateConfig.cs?name=snippet1)]
 
-V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána druhá služba. Pomocí delegáta konfiguruje vazbu s `MyOptionsWithDelegateConfig`:
+V následujícím kódu je do kontejneru služby přidána druhá služba <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Pomocí delegáta konfiguruje vazbu s `MyOptionsWithDelegateConfig`:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example2)]
 
@@ -944,11 +945,11 @@ V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Opti
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
+Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace najdete v tématu <xref:fundamentals/configuration/index>.
 
-Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidá službu do kontejneru služby. V předchozím příkladu jsou `Option1` hodnoty a `Option2` zadány v souboru `Option1` *appSettings. JSON*, ale hodnoty a `Option2` jsou přepsány nakonfigurovaným delegátem.
+Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá do kontejneru služby službu <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. V předchozím příkladu jsou hodnoty `Option1` a `Option2` zadány v souboru *appSettings. JSON*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
 
-Je-li povolena více než jedna služba konfigurace, je v posledním zdroji konfigurace zadaný *Server WINS* a nastavena hodnota konfigurace. Při spuštění aplikace vrátí `OnGet` metoda modelu stránky řetězec zobrazující hodnoty třídy možností:
+Je-li povolena více než jedna služba konfigurace, je v posledním zdroji konfigurace zadaný *Server WINS* a nastavena hodnota konfigurace. Když je aplikace spuštěna, metoda `OnGet` modelu stránky vrátí řetězec zobrazující hodnoty třídy možností:
 
 ```html
 delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
@@ -956,27 +957,27 @@ delegate_option1 = value1_configured_by_delegate, delegate_option2 = 500
 
 ## <a name="suboptions-configuration"></a>Konfigurace podNastavení
 
-Konfigurace dílčích možností je v ukázkové &num;aplikaci znázorněna jako příklad 3.
+Konfigurace dílčích možností se v ukázkové aplikaci ukazuje jako příklad &num;3.
 
 Aplikace by měly vytvořit třídy možností, které se týkají konkrétních skupin scénářů (tříd) v aplikaci. Části aplikace, které vyžadují konfigurační hodnoty, by měly mít přístup jenom k hodnotám konfigurace, které používají.
 
-Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]`. Například `MyOptions.Option1` vlastnost je svázána s klíčem `Option1`, `option1` který je načten z vlastnosti v souboru *appSettings. JSON*.
+Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]`. Například vlastnost `MyOptions.Option1` je vázána na klíč `Option1`, který je načten z vlastnosti `option1` v souboru *appSettings. JSON*.
 
-V následujícím kódu je do kontejneru služby <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána třetí služba. Váže `MySubOptions` se k části `subsection` souboru *appSettings. JSON* :
+V následujícím kódu je třetí služba <xref:Microsoft.Extensions.Options.IConfigureOptions%601> přidána do kontejneru služby. Vytvoří vazby `MySubOptions` na oddíl `subsection` souboru *appSettings. JSON* :
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example3)]
 
-Metoda rozšíření vyžaduje balíček [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) NuGet. `GetSection` Pokud aplikace používá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo novější), balíček je automaticky zahrnutý.
+Metoda rozšíření `GetSection` vyžaduje balíček [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) NuGet. Pokud aplikace používá [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo novější), balíček je automaticky zahrnutý.
 
-Soubor *appSettings. JSON* ukázky definuje `subsection` člena s klíči pro `suboption1` a `suboption2`:
+Soubor *appSettings. JSON* ve vzorci definuje člena `subsection` s klíči pro `suboption1` a `suboption2`:
 
 [!code-json[](options/samples/2.x/OptionsSample/appsettings.json?highlight=4-7)]
 
-Třída definuje `SubOption1` vlastnosti a`SubOption2`, aby obsahovala hodnoty možností (*modely/MySubOptions. cs*): `MySubOptions`
+Třída `MySubOptions` definuje vlastnosti, `SubOption1` a `SubOption2`, aby obsahovaly hodnoty možností (*modely/MySubOptions. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Models/MySubOptions.cs?name=snippet1)]
 
-`OnGet` Metoda modelu stránky vrátí řetězec s hodnotami možností (*pages/index. cshtml. cs*):
+Metoda `OnGet` modelu stránky vrací řetězec s hodnotami možností (*pages/index. cshtml. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?range=11)]
 
@@ -984,7 +985,7 @@ Třída definuje `SubOption1` vlastnosti a`SubOption2`, aby obsahovala hodnoty m
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example3)]
 
-Při spuštění `OnGet` aplikace vrátí metoda řetězec zobrazující hodnoty třídy dílčích možností:
+Při spuštění aplikace vrátí metoda `OnGet` řetězec zobrazující hodnoty třídy dílčích možností:
 
 ```html
 subOption1 = subvalue1_from_json, subOption2 = 200
@@ -994,7 +995,7 @@ subOption1 = subvalue1_from_json, subOption2 = 200
 
 Možnosti poskytované modelem zobrazení nebo vkládáním přímých zobrazení jsou v ukázkové aplikaci znázorněné jako příklad &num;4.
 
-Možnosti lze zadat v modelu zobrazení nebo <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> přímým vložením do zobrazení (Pages */index. cshtml. cs*):
+Možnosti lze zadat v modelu zobrazení nebo vložením <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> přímo do zobrazení (*pages/index. cshtml. cs*):
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?range=9)]
 
@@ -1002,7 +1003,7 @@ Možnosti lze zadat v modelu zobrazení nebo <xref:Microsoft.Extensions.Options.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example4)]
 
-Ukázková aplikace ukazuje, jak vložit `IOptionsMonitor<MyOptions>` `@inject` pomocí direktivy:
+Ukázková aplikace ukazuje, jak vložit `IOptionsMonitor<MyOptions>` s direktivou `@inject`:
 
 [!code-cshtml[](options/samples/2.x/OptionsSample/Pages/Index.cshtml?range=1-10&highlight=4)]
 
@@ -1014,11 +1015,11 @@ Po spuštění aplikace se hodnoty možností zobrazí na vykreslené stránce:
 
 Opětovné načtení konfiguračních dat pomocí <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> je v ukázkové aplikaci znázorněno v příkladu &num;5.
 
-<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601>podporuje opětovné načítání možností s minimální režií zpracování.
+<xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> podporuje opětovné načítání možností s minimální režií zpracování.
 
 Možnosti jsou vypočítány jednou za požadavek při otevření a ukládání do mezipaměti po dobu života žádosti.
 
-Následující příklad ukazuje, jak se vytvoří <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> nový po změnách *appSettings. JSON* (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje soubor *appSettings. JSON* , dokud nedojde ke změně souboru a opětovnému načtení konfigurace.
+Následující příklad ukazuje, jak se vytvoří nový <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> po změnách *appSettings. JSON* (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje soubor *appSettings. JSON* , dokud nedojde ke změně souboru a opětovnému načtení konfigurace.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?range=12)]
 
@@ -1026,7 +1027,7 @@ Následující příklad ukazuje, jak se vytvoří <xref:Microsoft.Extensions.Op
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example5)]
 
-Následující obrázek ukazuje počáteční `option1` hodnoty a `option2` hodnoty načtené ze souboru *appSettings. JSON* :
+Následující obrázek ukazuje počáteční hodnoty `option1` a `option2` načtené ze souboru *appSettings. JSON* :
 
 ```html
 snapshot option1 = value1_from_json, snapshot option2 = -1
@@ -1040,9 +1041,9 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 ## <a name="named-options-support-with-iconfigurenamedoptions"></a>Podpora pojmenovaných možností s IConfigureNamedOptions
 
-Pojmenovaná podpora <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> s názvem je znázorněna jako příklad &num;6 v ukázkové aplikaci.
+Pojmenovaná podpora s možností <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> je v ukázkové aplikaci znázorněna jako příklad &num;6.
 
-Podpora pojmenovaných *možností* umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions\<TOptions >. Konfigurace](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metody rozšíření:
+Podpora *pojmenovaných možností* umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions @ no__t-2TOptions >. Konfigurace](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metody rozšíření:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -1061,14 +1062,14 @@ named_options_1: option1 = value1_from_json, option2 = -1
 named_options_2: option1 = named_options_2_value1_from_action, option2 = 5
 ```
 
-`named_options_1`hodnoty se poskytují z konfigurace, které se načítají ze souboru *appSettings. JSON* . `named_options_2`hodnoty poskytuje:
+hodnoty `named_options_1` se poskytují z konfigurace, které se načítají ze souboru *appSettings. JSON* . hodnoty `named_options_2` poskytuje:
 
-* Delegát v `ConfigureServices` pro`Option1`. `named_options_2`
-* Výchozí hodnota `Option2` poskytnutá `MyOptions` třídou
+* Delegát `named_options_2` v `ConfigureServices` pro `Option1`.
+* Výchozí hodnota pro `Option2` poskytovaná třídou `MyOptions`.
 
 ## <a name="configure-all-options-with-the-configureall-method"></a>Konfigurace všech možností pomocí metody ConfigureAll
 
-Nakonfigurujte všechny instance možností pomocí <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> metody. Následující kód konfiguruje `Option1` pro všechny instance konfigurace se společnou hodnotou. Do `Startup.ConfigureServices` metody přidejte následující kód ručně:
+Nakonfigurujte všechny instance možností pomocí metody <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*>. Následující kód konfiguruje `Option1` pro všechny instance konfigurace se společnou hodnotou. Přidejte následující kód ručně do metody `Startup.ConfigureServices`:
 
 ```csharp
 services.ConfigureAll<MyOptions>(myOptions => 
@@ -1085,11 +1086,11 @@ named_options_2: option1 = ConfigureAll replacement value, option2 = 5
 ```
 
 > [!NOTE]
-> Všechny možnosti jsou pojmenované instance. Existující <xref:Microsoft.Extensions.Options.IConfigureOptions%601> instance jsou považovány za `Options.DefaultName` cílení instance, což `string.Empty`je. <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>také implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Výchozí implementace <xref:Microsoft.Extensions.Options.IOptionsFactory%601> pro má logiku odpovídajícím způsobem použít. Pojmenovaná možnost se používá pro cílení na všechny pojmenované instance místo konkrétní pojmenované instance (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> a <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> použití této konvence). `null`
+> Všechny možnosti jsou pojmenované instance. Existující instance <xref:Microsoft.Extensions.Options.IConfigureOptions%601> se považují za cílení na instanci `Options.DefaultName`, která je `string.Empty`. <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> také implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601>. Výchozí implementace <xref:Microsoft.Extensions.Options.IOptionsFactory%601> má logiku odpovídajícím způsobem použít. Pojmenovaná možnost `null` se používá k cílení na všechny pojmenované instance místo konkrétní pojmenované instance (<xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.ConfigureAll*> a <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> používají tuto konvenci).
 
 ## <a name="optionsbuilder-api"></a>Rozhraní API pro OptionsBuilder
 
-<xref:Microsoft.Extensions.Options.OptionsBuilder%601>se používá ke konfiguraci `TOptions` instancí. `OptionsBuilder`zjednodušuje vytváření pojmenovaných možností, protože je jenom jedním parametrem počátečního `AddOptions<TOptions>(string optionsName)` volání, takže se neobjeví ve všech dalších voláních. Ověřování možností a `ConfigureOptions` přetížení, která přijímají závislosti služby, jsou k dispozici `OptionsBuilder`pouze prostřednictvím.
+<xref:Microsoft.Extensions.Options.OptionsBuilder%601> se používá ke konfiguraci instancí `TOptions`. `OptionsBuilder` zjednodušuje vytváření pojmenovaných možností, protože se jedná pouze o jediný parametr počátečního volání `AddOptions<TOptions>(string optionsName)` namísto zobrazení ve všech následujících voláních. Ověřování možností a přetížení `ConfigureOptions`, které přijímají závislosti služby, jsou k dispozici pouze prostřednictvím `OptionsBuilder`.
 
 ```csharp
 // Options.DefaultName = "" is used.
@@ -1103,7 +1104,7 @@ services.AddOptions<MyOptions>("optionalName")
 
 K dalším službám můžete přistupovat pomocí injektáže závislosti při konfiguraci možností dvěma způsoby:
 
-* Předejte delegáta konfigurace [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) na [\<OptionsBuilder TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
+* [Nakonfigurujte](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) delegáta konfigurace na [OptionsBuilder @ no__t-2TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder @ no__t-1TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
 
   ```csharp
   services.AddOptions<MyOptions>("optionalName")
@@ -1112,13 +1113,13 @@ K dalším službám můžete přistupovat pomocí injektáže závislosti při 
               o.Property = DoSomethingWith(s, s2, s3, s4, s5));
   ```
 
-* Vytvořte vlastní typ, který implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601> nebo <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a zaregistruje typ jako službu.
+* Vytvořte vlastní typ, který implementuje <xref:Microsoft.Extensions.Options.IConfigureOptions%601> nebo <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> a zaregistrujte typ jako službu.
 
-Doporučujeme předat delegáta konfigurace, protože [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)vytvoření služby je složitější. Vytvoření vlastního typu je ekvivalentní s tím, k čemu architektura slouží při použití možnosti [Konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*). Volání [](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) metody Configure provede přechodný <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>obecný, který má konstruktor, který přijímá obecné zadané typy služeb. 
+Doporučujeme předat delegáta [konfigurace, protože](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*)vytvoření služby je složitější. Vytvoření vlastního typu je ekvivalentní s tím, k čemu architektura slouží při použití možnosti [Konfigurovat](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*). Volání metody [Configure](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) obsahuje přechodný obecný <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601>, který má konstruktor, který přijímá obecné zadané typy služeb. 
 
 ## <a name="options-post-configuration"></a>Možnosti po konfiguraci
 
-Nastavení po konfiguraci <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601>nastavte na. Po dokončení všech <xref:Microsoft.Extensions.Options.IConfigureOptions%601> konfigurací se spustí po konfiguraci:
+Nastavte po konfiguraci <xref:Microsoft.Extensions.Options.IPostConfigureOptions%601>. Po spuštění všech konfigurací <xref:Microsoft.Extensions.Options.IConfigureOptions%601> se spustí po konfiguraci:
 
 ```csharp
 services.PostConfigure<MyOptions>(myOptions =>
@@ -1127,7 +1128,7 @@ services.PostConfigure<MyOptions>(myOptions =>
 });
 ```
 
-<xref:Microsoft.Extensions.Options.IPostConfigureOptions`1.PostConfigure*>je k dispozici pro nastavení po konfiguraci s názvem:
+<xref:Microsoft.Extensions.Options.IPostConfigureOptions`1.PostConfigure*> je k dispozici pro nastavení po konfiguraci s názvem:
 
 ```csharp
 services.PostConfigure<MyOptions>("named_options_1", myOptions =>
@@ -1136,7 +1137,7 @@ services.PostConfigure<MyOptions>("named_options_1", myOptions =>
 });
 ```
 
-Použijte <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*> k následné konfiguraci všech instancí konfigurace:
+Po dokončení konfigurace všech instancí konfigurace použijte <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.PostConfigureAll*>:
 
 ```csharp
 services.PostConfigureAll<MyOptions>(myOptions =>
@@ -1147,7 +1148,7 @@ services.PostConfigureAll<MyOptions>(myOptions =>
 
 ## <a name="accessing-options-during-startup"></a>Přístup k možnostem při spuštění
 
-<xref:Microsoft.Extensions.Options.IOptions%601>a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> lze jej použít v `Startup.Configure`, protože `Configure` služby jsou vytvořeny před spuštěním metody.
+<xref:Microsoft.Extensions.Options.IOptions%601> a <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> lze použít v `Startup.Configure`, protože služby jsou vytvořeny před spuštěním metody `Configure`.
 
 ```csharp
 public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> optionsAccessor)
@@ -1156,7 +1157,7 @@ public void Configure(IApplicationBuilder app, IOptionsMonitor<MyOptions> option
 }
 ```
 
-Nepoužívejte <xref:Microsoft.Extensions.Options.IOptions%601> nebo <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> v `Startup.ConfigureServices`. Stav nekonzistentních možností může existovat v důsledku řazení registrací služby.
+V `Startup.ConfigureServices` Nepoužívejte <xref:Microsoft.Extensions.Options.IOptions%601> ani <xref:Microsoft.Extensions.Options.IOptionsMonitor%601>. Stav nekonzistentních možností může existovat v důsledku řazení registrací služby.
 
 ::: moniker-end
 

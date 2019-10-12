@@ -7,15 +7,16 @@ ASP.NET Core nabízí následující výhody:
 * Možnost vyvíjet a spouštět v systémech Windows, macOS a Linux.
 * Architektura zaměřená na open-source a [komunitu](https://live.asp.net/)
 * Integrace [moderní architektury klienta](xref:blazor/index) a vývojových pracovních postupů
+* Podpora hostování služeb vzdáleného volání procedur (RPC) pomocí [gRPC](xref:grpc/index).
 * [Konfigurační systém](xref:fundamentals/configuration/index) založený na prostředí, který je připravený pro cloud.
 * Integrovaná [injektáž závislostí](xref:fundamentals/dependency-injection).
 * Odlehčený, [vysoce výkonný](https://github.com/aspnet/benchmarks), modulární kanál požadavků HTTP
 * Možnost hostování v následujících aplikacích:
   * [Kestrel](xref:fundamentals/servers/kestrel)
-  * [SLUŽBA IIS](xref:host-and-deploy/iis/index)
+  * [SLUŽBU](xref:host-and-deploy/iis/index)
   * [HTTP.sys](xref:fundamentals/servers/httpsys)
   * [Nginx](xref:host-and-deploy/linux-nginx)
-  * [Apache](xref:host-and-deploy/linux-apache)
+  * [Webový](xref:host-and-deploy/linux-apache)
   * [Docker](xref:host-and-deploy/docker/index)
 * [Souběžná Správa verzí](/dotnet/standard/choosing-core-framework-server#a-need-for-side-by-side-of-net-versions-per-application-level).
 * Nabízí nástroje, které usnadňují vývoj moderních webů.

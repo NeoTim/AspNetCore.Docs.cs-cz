@@ -5,28 +5,28 @@ description: Přidání zobrazení do jednoduché ASP.NET Core aplikace MVC
 ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 1c29b59f9306774316ff37eeb57cc441fe5c7370
-ms.sourcegitcommit: 2eb605f4f20ac4dd9de6c3b3e3453e108a357a21
+ms.openlocfilehash: de75c3b0651c0cda6629af786d7db9dc83bc4fef
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/06/2019
-ms.locfileid: "68820079"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288822"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do ASP.NET Core aplikace MVC
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Od [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V této části upravíte `HelloWorldController` třídu tak, aby používala soubory zobrazení [Razor](xref:mvc/views/razor) k čistě zapouzdření procesu generování odpovědí HTML na klienta.
+V této části upravíte třídu `HelloWorldController` tak, aby používala soubory zobrazení [Razor](xref:mvc/views/razor) k čistě zapouzdření procesu generování odpovědí HTML na klienta.
 
 Vytvoříte soubor šablony zobrazení pomocí Razor. Šablony zobrazení založené na Razor mají příponu *. cshtml* . Poskytují elegantní způsob, jak vytvořit výstup HTML pomocí C#.
 
-V současné době metoda vrací řetězec se zprávou, která je pevně zakódována ve třídě Controller. `Index` Ve třídě nahraďte `Index`metodunásledujícímkódem: `HelloWorldController`
+V současné době metoda `Index` vrací řetězec se zprávou, která je pevně zakódována ve třídě Controller. Ve třídě `HelloWorldController` nahraďte metodu `Index` následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_4)]
 
-Předchozí kód volá <xref:Microsoft.AspNetCore.Mvc.Controller.View*> metodu kontroleru. Pomocí šablony zobrazení vygeneruje odpověď HTML. Metody kontroleru (označované také *jako metody akcí*), jako je `Index` například metoda výše, obecně vracejí <xref:Microsoft.AspNetCore.Mvc.IActionResult> výjimku (nebo třídu odvozenou <xref:Microsoft.AspNetCore.Mvc.ActionResult>od), nikoli typ, `string`jako je například.
+Předchozí kód volá metodu <xref:Microsoft.AspNetCore.Mvc.Controller.View*> řadiče. Pomocí šablony zobrazení vygeneruje odpověď HTML. Metody kontroleru (označované také jako *metody akcí*), jako je například metoda `Index` výše, obecně vracejí <xref:Microsoft.AspNetCore.Mvc.IActionResult> (nebo třídu odvozenou od <xref:Microsoft.AspNetCore.Mvc.ActionResult>), nikoli typu, jako je například `string`.
 
 ## <a name="add-a-view"></a>Přidání zobrazení
 
@@ -50,7 +50,7 @@ Předchozí kód volá <xref:Microsoft.AspNetCore.Mvc.Controller.View*> metodu k
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-`Index` Přidejte zobrazení`HelloWorldController`pro.
+Přidejte zobrazení `Index` pro `HelloWorldController`.
 
 * Přidejte novou složku s názvem *views/HelloWorld*.
 * Přidejte nový soubor do složky *views/HelloWorld* name *index. cshtml*.
@@ -59,7 +59,7 @@ Předchozí kód volá <xref:Microsoft.AspNetCore.Mvc.Controller.View*> metodu k
 
 * Klikněte pravým tlačítkem na složku *zobrazení* a pak **přidejte > novou složku** a pojmenujte složku *HelloWorld*.
 * Klikněte pravým tlačítkem na složku *views/HelloWorld* a pak **přidejte > nový soubor**.
-* V **nový soubor** dialogové okno:
+* V dialogovém okně **nový soubor** :
 
   * V levém podokně vyberte **Web** .
   * V prostředním podokně vyberte **prázdný soubor HTML** .
@@ -74,7 +74,7 @@ Obsah zobrazení */souboru Hello/index. cshtml* Razor si nahraďte následujíc�
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
-Přejděte na adresu `https://localhost:{PORT}/HelloWorld`. Metoda v nepříliš velkém rozsahu spustila příkaz `return View();`, který určuje, že metoda má použít soubor šablony zobrazení k vykreslení odpovědi do prohlížeče. `HelloWorldController` `Index` Vzhledem k tomu, že není zadaný název souboru šablony zobrazení, MVC použije výchozí soubor zobrazení. Výchozí soubor zobrazení má stejný název jako metoda (`Index`), takže v */views/HelloWorld/index.cshtml* se používá. Následující obrázek ukazuje řetězec "Hello z naší šablony zobrazení". pevně zakódovaný v zobrazení.
+Přejděte na `https://localhost:{PORT}/HelloWorld`. Metoda `Index` v `HelloWorldController` neudělala velkou hodnotu; spustil příkaz `return View();`, který určuje, že metoda by měla použít soubor šablony zobrazení k vykreslení odpovědi do prohlížeče. Vzhledem k tomu, že není zadaný název souboru šablony zobrazení, MVC použije výchozí soubor zobrazení. Výchozí soubor zobrazení má stejný název jako metoda (`Index`), takže v */views/HelloWorld/index.cshtml* se používá. Následující obrázek ukazuje řetězec "Hello z naší šablony zobrazení". pevně zakódovaný v zobrazení.
 
 ![Okno prohlížeče](~/tutorials/first-mvc-app/adding-view/_static/hell_template.png)
 
@@ -82,22 +82,22 @@ Přejděte na adresu `https://localhost:{PORT}/HelloWorld`. Metoda v nepříliš
 
 Vyberte odkazy nabídky (**MvcMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *views/Shared/_Layout. cshtml* . Otevřete soubor *views/Shared/_Layout. cshtml* .
 
-Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. `@RenderBody()` Najděte řádek. `RenderBody`je zástupný symbol, ve kterém se zobrazí všechny stránky specifické pro zobrazení, *zabalené* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **/Domů/soukromí. cshtml** se `RenderBody` vykreslí v rámci metody.
+Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte řádek `@RenderBody()`. `RenderBody` je zástupný symbol, ve kterém se zobrazí všechny stránky určené pro zobrazení, které jsou *zabaleny* na stránce rozložení. Pokud například vyberete odkaz na **soukromí** , zobrazení **/Domů/soukromí. cshtml** se vykresluje v rámci metody `RenderBody`.
 
 ## <a name="change-the-title-footer-and-menu-link-in-the-layout-file"></a>Změna názvu, zápatí a odkazu v nabídce v souboru rozložení
 
-Obsah souboru *Views\Shared\_layout. cshtml* nahraďte následujícím kódem. Změny jsou zvýrazněny:
+Nahraďte obsah souboru *views/Shared/_Layout. cshtml* následujícím kódem. Změny jsou zvýrazněny:
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Views/Shared/_Layout.cshtml?highlight=6,14,40)]
 
 Předchozí kód provedl následující změny:
 
-* 3 výskyty `MvcMovie` do `Movie App`.
-* Prvek `<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcMovie</a>` ukotvení k `<a class="navbar-brand" asp-controller="Movies" asp-action="Index">Movie App</a>`.
+* 3 výskyty `MvcMovie` do `Movie App`
+* Prvek ukotvení `<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcMovie</a>` do `<a class="navbar-brand" asp-controller="Movies" asp-action="Index">Movie App</a>`.
 
-V předchozím kódu `asp-area=""` byl vynechán [atribut pomocník značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) a hodnota atributu, protože tato aplikace nepoužívá [oblasti](xref:mvc/controllers/areas).
+V předchozím kódu byl vynechán [pomocný atribut značky ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) `asp-area=""`, protože tato aplikace nepoužívá [oblasti](xref:mvc/controllers/areas).
 
-**Poznámka:** `Movies` Kontroler nebyl implementován. V tomto okamžiku `Movie App` není odkaz funkční.
+**Poznámka**: kontroler `Movies` nebyl implementován. V tomto okamžiku není odkaz `Movie App` funkční.
 
 Uložte změny a vyberte odkaz na **ochranu osobních údajů** . Všimněte si, jak se v nadpisu na kartě prohlížeč zobrazuje **Zásada ochrany osobních údajů – aplikace pro video** namísto **zásad ochrany osobních údajů – film MVC**:
 
@@ -113,21 +113,21 @@ Projděte si soubor *views/_ViewStart. cshtml* :
 }
 ```
 
-Soubor *views/_ViewStart. cshtml* přináší do každého zobrazení soubor views */Shared/_Layout. cshtml* . Vlastnost může být použita k nastavení jiného zobrazení rozložení nebo `null` ji lze nastavit tak, aby se nepoužil žádný soubor rozložení. `Layout`
+Soubor *views/_ViewStart. cshtml* přináší do každého zobrazení soubor views */Shared/_Layout. cshtml* . Vlastnost `Layout` lze použít k nastavení jiného zobrazení rozložení nebo ji můžete nastavit na hodnotu `null`, takže nebude použit žádný soubor rozložení.
 
-Změňte název a `<h2>` element zobrazení */Hello/index. cshtml* zobrazení souboru:
+Změňte název a @no__t element-0 zobrazení */HelloWorld/index. cshtml* zobrazit soubor:
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
 
-Název a `<h2>` element se mírně liší, abyste viděli, který bit kódu se zobrazí.
+Název a @no__t element-0 se mírně liší, abyste viděli, který bit kódu se zobrazí.
 
-`ViewData["Title"] = "Movie List";`ve výše uvedeném kódu nastaví `Title` vlastnost `ViewData` slovníku na "seznam filmů". Vlastnost se používá `<title>` v prvku HTML na stránce rozložení: `Title`
+`ViewData["Title"] = "Movie List";` v kódu výše nastaví vlastnost `Title` slovníku `ViewData` na možnost "seznam filmů". Vlastnost `Title` se používá v prvku HTML `<title>` na stránce rozložení:
 
 ```HTML
 <title>@ViewData["Title"] - Movie App</title>
    ```
 
-Uložte změnu a přejděte na `https://localhost:{PORT}/HelloWorld`. Všimněte si, že se změnil název prohlížeče, primární nadpis a sekundární záhlaví. (Pokud nevidíte změny v prohlížeči, můžete zobrazit obsah uložený v mezipaměti. Stisknutím kombinace kláves CTRL + F5 v prohlížeči vynutíte načtení odpovědi ze serveru.) Název prohlížeče se vytvoří se `ViewData["Title"]` sadou, kterou jsme nastavili v šabloně zobrazení *index. cshtml* a další "-filmové aplikace" přidané v souboru rozložení.
+Uložte změnu a přejděte na `https://localhost:{PORT}/HelloWorld`. Všimněte si, že se změnil název prohlížeče, primární nadpis a sekundární záhlaví. (Pokud nevidíte změny v prohlížeči, můžete zobrazit obsah uložený v mezipaměti. Stisknutím kombinace kláves CTRL + F5 v prohlížeči vynutíte načtení odpovědi ze serveru.) Název prohlížeče se vytvoří pomocí `ViewData["Title"]`, kterou nastavíme v šabloně zobrazení *index. cshtml* a další "-filmové aplikace" přidané v souboru rozložení.
 
 Obsah v šabloně zobrazení *index. cshtml* se sloučí s šablonou zobrazení views */Shared/_Layout. cshtml* . Do prohlížeče se pošle jedna odpověď HTML. Šablony rozložení usnadňují provádění změn, které se vztahují na všechny stránky v aplikaci. Další informace najdete v tématu [rozložení](xref:mvc/views/layout).
 
@@ -139,19 +139,19 @@ Náš malý bit "data" (v tomto případě "Hello z naší šablony zobrazení" 
 
 Akce kontroleru se vyvolají v reakci na příchozí požadavek adresy URL. Třída kontroleru je místo, kde je kód vytvořen, který zpracovává příchozí požadavky prohlížeče. Kontroler načítá data ze zdroje dat a rozhoduje o tom, jaký typ reakce se má zpět do prohlížeče poslat zpátky. Šablony zobrazení lze použít z kontroleru k vygenerování a formátování odpovědi HTML do prohlížeče.
 
-Řadiče jsou zodpovědné za poskytování dat vyžadovaných pro šablonu zobrazení, aby vygenerovala odpověď. Osvědčeným postupem: Šablony zobrazení by neměly provádět obchodní logiku ani pracovat s databází přímo. Místo toho by šablona zobrazení měla fungovat jenom s daty, která mu poskytl kontroler. Udržování tohoto "oddělení obav" pomáhá udržet kód čistě, testovatelné a udržovatelný.
+Řadiče jsou zodpovědné za poskytování dat vyžadovaných pro šablonu zobrazení, aby vygenerovala odpověď. Osvědčený postup: šablony **zobrazení by neměly** provádět obchodní logiku ani pracovat s databází přímo. Místo toho by šablona zobrazení měla fungovat jenom s daty, která mu poskytl kontroler. Udržování tohoto "oddělení obav" pomáhá udržet kód čistě, testovatelné a udržovatelný.
 
-V současné `name` době `Welcome` metoda ve `ID` třídě přebírá a parametr a následně výstup hodnot přímo do prohlížeče. `HelloWorldController` Místo toho, aby kontroler tuto odpověď vygeneroval jako řetězec, změňte řadič tak, aby místo něj používal šablonu zobrazení. Šablona zobrazení vygeneruje dynamickou odpověď, což znamená, že pro vygenerování odpovědi musí být z kontroleru předány vhodné bity dat. Provedete to tak, že řadič umístí dynamická data (parametry), která šablona zobrazení potřebuje, `ViewData` ve slovníku, ke kterému může přistupovat šablona zobrazení.
+V současné době metoda `Welcome` v třídě `HelloWorldController` přebírá `name` a parametr `ID` a pak vypíše hodnoty přímo do prohlížeče. Místo toho, aby kontroler tuto odpověď vygeneroval jako řetězec, změňte řadič tak, aby místo něj používal šablonu zobrazení. Šablona zobrazení vygeneruje dynamickou odpověď, což znamená, že pro vygenerování odpovědi musí být z kontroleru předány vhodné bity dat. Provedete to tak, že řadič umístí dynamická data (parametry), která šablona zobrazení potřebuje ve slovníku `ViewData`, ke kterému může mít přístup šablona zobrazení.
 
-V *HelloWorldController.cs*změňte `Welcome` `NumTimes` `ViewData` metodu tak, aby se do slovníku přidala hodnota a.`Message` Slovník je dynamický objekt, což znamená, že `ViewData` lze použít jakýkoliv typ; objekt nemá žádné definované vlastnosti, dokud do něj nevložíte nějaký text. `ViewData` [Systém vazby modelu MVC](xref:mvc/models/model-binding) automaticky mapuje pojmenované parametry (`name` a `numTimes`) z řetězce dotazu v adresním řádku na parametry v metodě. Úplný soubor *HelloWorldController.cs* vypadá takto:
+V *HelloWorldController.cs*změňte metodu `Welcome` tak, aby se do slovníku `ViewData` přidala hodnota `Message` a `NumTimes`. Slovník `ViewData` je dynamický objekt, což znamená, že lze použít jakýkoliv typ; objekt `ViewData` nemá žádné definované vlastnosti, dokud do něj nevložíte nějaký text. [Systém vazby modelu MVC](xref:mvc/models/model-binding) automaticky mapuje pojmenované parametry (`name` a `numTimes`) z řetězce dotazu v adresním řádku na parametry v metodě. Úplný soubor *HelloWorldController.cs* vypadá takto:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_5)]
 
-Objekt `ViewData` Dictionary obsahuje data, která budou předána zobrazení.
+Objekt Dictionary `ViewData` obsahuje data, která se předávají do zobrazení.
 
 Vytvořte šablonu zobrazení Vítejte s názvem *views/HelloWorld/Welcome. cshtml*.
 
-Vytvoříte smyčku v šabloně zobrazení *Welcome. cshtml* , která zobrazí text Hello `NumTimes`. Nahraďte obsah *zobrazení/HelloWorld/Welcome. cshtml* následujícím způsobem:
+Vytvoříte smyčku v šabloně zobrazení *Welcome. cshtml* , která zobrazí text hello `NumTimes`. Nahraďte obsah *zobrazení/HelloWorld/Welcome. cshtml* následujícím způsobem:
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
 
@@ -159,31 +159,31 @@ Uložte změny a přejděte na následující adresu URL:
 
 `https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
-Data jsou přijímána z adresy URL a předána do kontroleru pomocí [pořadače modelu MVC](xref:mvc/models/model-binding) . Kontroler zabalí data do `ViewData` slovníku a předá tento objekt zobrazení. Zobrazení pak data vykreslí jako HTML do prohlížeče.
+Data jsou přijímána z adresy URL a předána do kontroleru pomocí [pořadače modelu MVC](xref:mvc/models/model-binding) . Kontroler zabalí data do slovníku @no__t 0 a předá tento objekt zobrazení. Zobrazení pak data vykreslí jako HTML do prohlížeče.
 
 ![Zobrazení osobních údajů zobrazuje úvodní popisek a frázi Hello Rick zobrazené čtyřikrát](~/tutorials/first-mvc-app/adding-view/_static/rick2.png)
 
-V ukázce výše `ViewData` byl slovník použit k předání dat z kontroleru do zobrazení. Později v tomto kurzu se používá model zobrazení k předávání dat z kontroleru do zobrazení. Přístup k modelu zobrazení pro předávání dat je obecně mnohem upřednostňovaný nad přístupem `ViewData` ke slovníku. Další informace najdete v tématu [kdy použít ViewBag, ViewData nebo TempData](https://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) .
+V ukázce výše byl slovník `ViewData` použit k předání dat z kontroleru do zobrazení. Později v tomto kurzu se používá model zobrazení k předávání dat z kontroleru do zobrazení. Přístup k modelu zobrazení pro předávání dat je obecně mnohem upřednostňovaný prostřednictvím přístupu ke slovníku `ViewData`. Další informace najdete v tématu [kdy použít ViewBag, ViewData nebo TempData](https://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) .
 
 V dalším kurzu se vytvoří databáze filmů.
 
 > [!div class="step-by-step"]
-> [Předchozí](adding-controller.md)Další
-> [](adding-model.md)
+> [Předchozí](adding-controller.md)
+> [Další](adding-model.md)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-V této části upravíte `HelloWorldController` třídu tak, aby používala soubory zobrazení [Razor](xref:mvc/views/razor) k čistě zapouzdření procesu generování odpovědí HTML na klienta.
+V této části upravíte třídu `HelloWorldController` tak, aby používala soubory zobrazení [Razor](xref:mvc/views/razor) k čistě zapouzdření procesu generování odpovědí HTML na klienta.
 
 Vytvoříte soubor šablony zobrazení pomocí Razor. Šablony zobrazení založené na Razor mají příponu *. cshtml* . Poskytují elegantní způsob, jak vytvořit výstup HTML pomocí C#.
 
-V současné době metoda vrací řetězec se zprávou, která je pevně zakódována ve třídě Controller. `Index` Ve třídě nahraďte `Index`metodunásledujícímkódem: `HelloWorldController`
+V současné době metoda `Index` vrací řetězec se zprávou, která je pevně zakódována ve třídě Controller. Ve třídě `HelloWorldController` nahraďte metodu `Index` následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_4)]
 
-Předchozí kód volá <xref:Microsoft.AspNetCore.Mvc.Controller.View*> metodu kontroleru. Pomocí šablony zobrazení vygeneruje odpověď HTML. Metody kontroleru (označované také *jako metody akcí*), jako je `Index` například metoda výše, obecně vracejí <xref:Microsoft.AspNetCore.Mvc.IActionResult> výjimku (nebo třídu odvozenou <xref:Microsoft.AspNetCore.Mvc.ActionResult>od), nikoli typ, `string`jako je například.
+Předchozí kód volá metodu <xref:Microsoft.AspNetCore.Mvc.Controller.View*> řadiče. Pomocí šablony zobrazení vygeneruje odpověď HTML. Metody kontroleru (označované také jako *metody akcí*), jako je například metoda `Index` výše, obecně vracejí <xref:Microsoft.AspNetCore.Mvc.IActionResult> (nebo třídu odvozenou od <xref:Microsoft.AspNetCore.Mvc.ActionResult>), nikoli typu, jako je například `string`.
 
 ## <a name="add-a-view"></a>Přidání zobrazení
 
@@ -207,7 +207,7 @@ Předchozí kód volá <xref:Microsoft.AspNetCore.Mvc.Controller.View*> metodu k
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-`Index` Přidejte zobrazení`HelloWorldController`pro.
+Přidejte zobrazení `Index` pro `HelloWorldController`.
 
 * Přidejte novou složku s názvem *views/HelloWorld*.
 * Přidejte nový soubor do složky *views/HelloWorld* name *index. cshtml*.
@@ -216,7 +216,7 @@ Předchozí kód volá <xref:Microsoft.AspNetCore.Mvc.Controller.View*> metodu k
 
 * Klikněte pravým tlačítkem na složku *zobrazení* a pak **přidejte > novou složku** a pojmenujte složku *HelloWorld*.
 * Klikněte pravým tlačítkem na složku *views/HelloWorld* a pak **přidejte > nový soubor**.
-* V **nový soubor** dialogové okno:
+* V dialogovém okně **nový soubor** :
 
   * V levém podokně vyberte **Web** .
   * V prostředním podokně vyberte **prázdný soubor HTML** .
@@ -231,7 +231,7 @@ Obsah zobrazení */souboru Hello/index. cshtml* Razor si nahraďte následujíc�
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
-Přejděte na adresu `https://localhost:{PORT}/HelloWorld`. Metoda v nepříliš velkém rozsahu spustila příkaz `return View();`, který určuje, že metoda má použít soubor šablony zobrazení k vykreslení odpovědi do prohlížeče. `HelloWorldController` `Index` Vzhledem k tomu, že není zadaný název souboru šablony zobrazení, MVC použije výchozí soubor zobrazení. Výchozí soubor zobrazení má stejný název jako metoda (`Index`), takže v */views/HelloWorld/index.cshtml* se používá. Následující obrázek ukazuje řetězec "Hello z naší šablony zobrazení". pevně zakódovaný v zobrazení.
+Přejděte na `https://localhost:{PORT}/HelloWorld`. Metoda `Index` v `HelloWorldController` neudělala velkou hodnotu; spustil příkaz `return View();`, který určuje, že metoda by měla použít soubor šablony zobrazení k vykreslení odpovědi do prohlížeče. Vzhledem k tomu, že není zadaný název souboru šablony zobrazení, MVC použije výchozí soubor zobrazení. Výchozí soubor zobrazení má stejný název jako metoda (`Index`), takže v */views/HelloWorld/index.cshtml* se používá. Následující obrázek ukazuje řetězec "Hello z naší šablony zobrazení". pevně zakódovaný v zobrazení.
 
 ![Okno prohlížeče](~/tutorials/first-mvc-app/adding-view/_static/hell_template.png)
 
@@ -239,25 +239,25 @@ Přejděte na adresu `https://localhost:{PORT}/HelloWorld`. Metoda v nepříliš
 
 Vyberte odkazy nabídky (**MvcMovie**, **Home**a **Privacy**). Na každé stránce se zobrazuje stejné rozložení nabídky. Rozložení nabídky je implementováno v souboru *views/Shared/_Layout. cshtml* . Otevřete soubor *views/Shared/_Layout. cshtml* .
 
-Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. `@RenderBody()` Najděte řádek. `RenderBody`je zástupný symbol, ve kterém se zobrazí všechny stránky specifické pro zobrazení, *zabalené* na stránce rozložení. Pokud například vyberete odkaz na **ochranu osobních údajů** , zobrazení **/Domů/soukromí. cshtml** se `RenderBody` vykreslí v rámci metody.
+Šablony [rozložení](xref:mvc/views/layout) umožňují určit rozložení kontejneru HTML webu na jednom místě a pak ho použít na více stránek na webu. Najděte řádek `@RenderBody()`. `RenderBody` je zástupný symbol, ve kterém se zobrazí všechny stránky určené pro zobrazení, které jsou *zabaleny* na stránce rozložení. Pokud například vyberete odkaz na **soukromí** , zobrazení **/Domů/soukromí. cshtml** se vykresluje v rámci metody `RenderBody`.
 
 ## <a name="change-the-title-footer-and-menu-link-in-the-layout-file"></a>Změna názvu, zápatí a odkazu v nabídce v souboru rozložení
 
-* V části nadpis a zápatí změňte `MvcMovie` na. `Movie App`
-* Změňte element `<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcMovie</a>` kotvy na `<a class="navbar-brand" asp-controller="Movies" asp-action="Index">Movie App</a>`.
+* V části název a zápatí změňte `MvcMovie` na `Movie App`.
+* Změňte prvek ukotvení `<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MvcMovie</a>` na `<a class="navbar-brand" asp-controller="Movies" asp-action="Index">Movie App</a>`.
 
 Následující kód ukazuje zvýrazněné změny:
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Shared/_Layout.cshtml?highlight=6,24,51)]
 
-V předchozím kódu byl `asp-area` [atribut pomocník značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) vynechán, protože tato aplikace nepoužívá [oblasti](xref:mvc/controllers/areas).
+V předchozím kódu byl [atribut Pomocník pro ukotvení značky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) `asp-area` vynechán, protože tato aplikace nepoužívá [oblasti](xref:mvc/controllers/areas).
 
 <!-- Routing has changed in 2.2, it's going to the last route.
 >[!WARNING]
 > We haven't implemented the `Movies` controller yet, so if you click the `Movie App` link, you get a 404 (Not found) error.
 -->
 
-**Poznámka:** `Movies` Kontroler nebyl implementován. V tomto okamžiku `Movie App` není odkaz funkční.
+**Poznámka**: kontroler `Movies` nebyl implementován. V tomto okamžiku není odkaz `Movie App` funkční.
 
 Uložte změny a vyberte odkaz na **ochranu osobních údajů** . Všimněte si, jak se v nadpisu na kartě prohlížeč zobrazuje **Zásada ochrany osobních údajů – aplikace pro video** namísto **zásad ochrany osobních údajů – film MVC**:
 
@@ -273,21 +273,21 @@ Projděte si soubor *views/_ViewStart. cshtml* :
 }
 ```
 
-Soubor *views/_ViewStart. cshtml* přináší do každého zobrazení soubor views */Shared/_Layout. cshtml* . Vlastnost může být použita k nastavení jiného zobrazení rozložení nebo `null` ji lze nastavit tak, aby se nepoužil žádný soubor rozložení. `Layout`
+Soubor *views/_ViewStart. cshtml* přináší do každého zobrazení soubor views */Shared/_Layout. cshtml* . Vlastnost `Layout` lze použít k nastavení jiného zobrazení rozložení nebo ji můžete nastavit na hodnotu `null`, takže nebude použit žádný soubor rozložení.
 
-Změňte název a `<h2>` element zobrazení */Hello/index. cshtml* zobrazení souboru:
+Změňte název a @no__t element-0 zobrazení */HelloWorld/index. cshtml* zobrazit soubor:
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
 
-Název a `<h2>` element se mírně liší, abyste viděli, který bit kódu se zobrazí.
+Název a @no__t element-0 se mírně liší, abyste viděli, který bit kódu se zobrazí.
 
-`ViewData["Title"] = "Movie List";`ve výše uvedeném kódu nastaví `Title` vlastnost `ViewData` slovníku na "seznam filmů". Vlastnost se používá `<title>` v prvku HTML na stránce rozložení: `Title`
+`ViewData["Title"] = "Movie List";` v kódu výše nastaví vlastnost `Title` slovníku `ViewData` na možnost "seznam filmů". Vlastnost `Title` se používá v prvku HTML `<title>` na stránce rozložení:
 
 ```HTML
 <title>@ViewData["Title"] - Movie App</title>
    ```
 
-Uložte změnu a přejděte na `https://localhost:{PORT}/HelloWorld`. Všimněte si, že se změnil název prohlížeče, primární nadpis a sekundární záhlaví. (Pokud nevidíte změny v prohlížeči, můžete zobrazit obsah uložený v mezipaměti. Stisknutím kombinace kláves CTRL + F5 v prohlížeči vynutíte načtení odpovědi ze serveru.) Název prohlížeče se vytvoří se `ViewData["Title"]` sadou, kterou jsme nastavili v šabloně zobrazení *index. cshtml* a další "-filmové aplikace" přidané v souboru rozložení.
+Uložte změnu a přejděte na `https://localhost:{PORT}/HelloWorld`. Všimněte si, že se změnil název prohlížeče, primární nadpis a sekundární záhlaví. (Pokud nevidíte změny v prohlížeči, můžete zobrazit obsah uložený v mezipaměti. Stisknutím kombinace kláves CTRL + F5 v prohlížeči vynutíte načtení odpovědi ze serveru.) Název prohlížeče se vytvoří pomocí `ViewData["Title"]`, kterou nastavíme v šabloně zobrazení *index. cshtml* a další "-filmové aplikace" přidané v souboru rozložení.
 
 Všimněte si také, jak byl obsah v šabloně zobrazení *index. cshtml* sloučen se šablonou zobrazení *zobrazení/Shared/_Layout. cshtml* a že do prohlížeče byla odeslána jedna odpověď HTML. Šablony rozložení umožňují snadno provádět změny, které se vztahují na všechny stránky aplikace. Další informace najdete v tématu [rozložení](xref:mvc/views/layout).
 
@@ -299,19 +299,19 @@ Náš malý bit "data" (v tomto případě "Hello z naší šablony zobrazení" 
 
 Akce kontroleru se vyvolají v reakci na příchozí požadavek adresy URL. Třída kontroleru je místo, kde je kód vytvořen, který zpracovává příchozí požadavky prohlížeče. Kontroler načítá data ze zdroje dat a rozhoduje o tom, jaký typ reakce se má zpět do prohlížeče poslat zpátky. Šablony zobrazení lze použít z kontroleru k vygenerování a formátování odpovědi HTML do prohlížeče.
 
-Řadiče jsou zodpovědné za poskytování dat vyžadovaných pro šablonu zobrazení, aby vygenerovala odpověď. Osvědčeným postupem: Šablony zobrazení by neměly provádět obchodní logiku ani pracovat s databází přímo. Místo toho by šablona zobrazení měla fungovat jenom s daty, která mu poskytl kontroler. Udržování tohoto "oddělení obav" pomáhá udržet kód čistě, testovatelné a udržovatelný.
+Řadiče jsou zodpovědné za poskytování dat vyžadovaných pro šablonu zobrazení, aby vygenerovala odpověď. Osvědčený postup: šablony **zobrazení by neměly** provádět obchodní logiku ani pracovat s databází přímo. Místo toho by šablona zobrazení měla fungovat jenom s daty, která mu poskytl kontroler. Udržování tohoto "oddělení obav" pomáhá udržet kód čistě, testovatelné a udržovatelný.
 
-V současné `name` době `Welcome` metoda ve `ID` třídě přebírá a parametr a následně výstup hodnot přímo do prohlížeče. `HelloWorldController` Místo toho, aby kontroler tuto odpověď vygeneroval jako řetězec, změňte řadič tak, aby místo něj používal šablonu zobrazení. Šablona zobrazení vygeneruje dynamickou odpověď, což znamená, že pro vygenerování odpovědi musí být z kontroleru předány vhodné bity dat. Provedete to tak, že řadič umístí dynamická data (parametry), která šablona zobrazení potřebuje, `ViewData` ve slovníku, ke kterému může přistupovat šablona zobrazení.
+V současné době metoda `Welcome` v třídě `HelloWorldController` přebírá `name` a parametr `ID` a pak vypíše hodnoty přímo do prohlížeče. Místo toho, aby kontroler tuto odpověď vygeneroval jako řetězec, změňte řadič tak, aby místo něj používal šablonu zobrazení. Šablona zobrazení vygeneruje dynamickou odpověď, což znamená, že pro vygenerování odpovědi musí být z kontroleru předány vhodné bity dat. Provedete to tak, že řadič umístí dynamická data (parametry), která šablona zobrazení potřebuje ve slovníku `ViewData`, ke kterému může mít přístup šablona zobrazení.
 
-V *HelloWorldController.cs*změňte `Welcome` `NumTimes` `ViewData` metodu tak, aby se do slovníku přidala hodnota a.`Message` Slovník je dynamický objekt, což znamená, že `ViewData` lze použít jakýkoliv typ; objekt nemá žádné definované vlastnosti, dokud do něj nevložíte nějaký text. `ViewData` [Systém vazby modelu MVC](xref:mvc/models/model-binding) automaticky mapuje pojmenované parametry (`name` a `numTimes`) z řetězce dotazu v adresním řádku na parametry v metodě. Úplný soubor *HelloWorldController.cs* vypadá takto:
+V *HelloWorldController.cs*změňte metodu `Welcome` tak, aby se do slovníku `ViewData` přidala hodnota `Message` a `NumTimes`. Slovník `ViewData` je dynamický objekt, což znamená, že lze použít jakýkoliv typ; objekt `ViewData` nemá žádné definované vlastnosti, dokud do něj nevložíte nějaký text. [Systém vazby modelu MVC](xref:mvc/models/model-binding) automaticky mapuje pojmenované parametry (`name` a `numTimes`) z řetězce dotazu v adresním řádku na parametry v metodě. Úplný soubor *HelloWorldController.cs* vypadá takto:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_5)]
 
-Objekt `ViewData` Dictionary obsahuje data, která budou předána zobrazení.
+Objekt Dictionary `ViewData` obsahuje data, která se předávají do zobrazení.
 
 Vytvořte šablonu zobrazení Vítejte s názvem *views/HelloWorld/Welcome. cshtml*.
 
-Vytvoříte smyčku v šabloně zobrazení *Welcome. cshtml* , která zobrazí text Hello `NumTimes`. Nahraďte obsah *zobrazení/HelloWorld/Welcome. cshtml* následujícím způsobem:
+Vytvoříte smyčku v šabloně zobrazení *Welcome. cshtml* , která zobrazí text hello `NumTimes`. Nahraďte obsah *zobrazení/HelloWorld/Welcome. cshtml* následujícím způsobem:
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
 
@@ -319,16 +319,16 @@ Uložte změny a přejděte na následující adresu URL:
 
 `https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
-Data jsou přijímána z adresy URL a předána do kontroleru pomocí [pořadače modelu MVC](xref:mvc/models/model-binding) . Kontroler zabalí data do `ViewData` slovníku a předá tento objekt zobrazení. Zobrazení pak data vykreslí jako HTML do prohlížeče.
+Data jsou přijímána z adresy URL a předána do kontroleru pomocí [pořadače modelu MVC](xref:mvc/models/model-binding) . Kontroler zabalí data do slovníku @no__t 0 a předá tento objekt zobrazení. Zobrazení pak data vykreslí jako HTML do prohlížeče.
 
 ![Zobrazení osobních údajů zobrazuje úvodní popisek a frázi Hello Rick zobrazené čtyřikrát](~/tutorials/first-mvc-app/adding-view/_static/rick2.png)
 
-V ukázce výše `ViewData` byl slovník použit k předání dat z kontroleru do zobrazení. Později v tomto kurzu se používá model zobrazení k předávání dat z kontroleru do zobrazení. Přístup k modelu zobrazení pro předávání dat je obecně mnohem upřednostňovaný nad přístupem `ViewData` ke slovníku. Další informace najdete v tématu [kdy použít ViewBag, ViewData nebo TempData](https://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) .
+V ukázce výše byl slovník `ViewData` použit k předání dat z kontroleru do zobrazení. Později v tomto kurzu se používá model zobrazení k předávání dat z kontroleru do zobrazení. Přístup k modelu zobrazení pro předávání dat je obecně mnohem upřednostňovaný prostřednictvím přístupu ke slovníku `ViewData`. Další informace najdete v tématu [kdy použít ViewBag, ViewData nebo TempData](https://www.rachelappel.com/when-to-use-viewbag-viewdata-or-tempdata-in-asp-net-mvc-3-applications/) .
 
 V dalším kurzu se vytvoří databáze filmů.
 
 > [!div class="step-by-step"]
-> [Předchozí](adding-controller.md)Další
-> [](adding-model.md)
+> [Předchozí](adding-controller.md)
+> [Další](adding-model.md)
 
 ::: moniker-end

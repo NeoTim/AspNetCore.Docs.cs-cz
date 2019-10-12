@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 09/26/2019
 uid: performance/performance-best-practices
-ms.openlocfilehash: a2952f5234cdef7f749a1af8dd4adcb887290629
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 3484a0233a0d56811235192c4b64aa9296e72b58
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259770"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72289065"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -21,7 +21,7 @@ Tento článek poskytuje pokyny pro osvědčené postupy výkonu ASP.NET Core.
 
 ## <a name="cache-aggressively"></a>Ukládat do mezipaměti agresivní
 
-Mezipaměť je popsána v několika částech tohoto dokumentu. For more information, see <xref:performance/caching/response>.
+Mezipaměť je popsána v několika částech tohoto dokumentu. Další informace najdete v tématu <xref:performance/caching/response>.
 
 ## <a name="understand-hot-code-paths"></a>Pochopení cest k horkému kódu
 
@@ -72,7 +72,7 @@ Doporučit
 
 * **Volejte všechna** rozhraní API pro přístup k datům asynchronně.
 * **Nečítat více** dat, než je nutné. Zápis dotazů, které vrátí pouze data potřebná pro aktuální požadavek HTTP.
-* **Zvažte ukládání** často používaných dat načtených z databáze nebo vzdálené služby, pokud jsou přijatelné mírně zastaralá data. V závislosti na scénáři použijte [MemoryCache](xref:performance/caching/memory) nebo [DistributedCache](xref:performance/caching/distributed). For more information, see <xref:performance/caching/response>.
+* **Zvažte ukládání** často používaných dat načtených z databáze nebo vzdálené služby, pokud jsou přijatelné mírně zastaralá data. V závislosti na scénáři použijte [MemoryCache](xref:performance/caching/memory) nebo [DistributedCache](xref:performance/caching/distributed). Další informace najdete v tématu <xref:performance/caching/response>.
 * **Minimalizujte** síťové zpáteční cykly. Cílem je načíst požadovaná data v jednom volání namísto několika volání.
 * Při přístupu k datům pro účely jen pro **čtení používejte v** Entity Framework Core [dotazy bez sledování](/ef/core/querying/tracking#no-tracking-queries) . EF Core může vracet výsledky nesledovaných dotazů efektivněji.
 * **Filtrujte a** AGREGUJE dotazy LINQ (například příkazy `.Where`, `.Select` nebo `.Sum`) tak, aby filtrování prováděla databáze.
@@ -179,10 +179,7 @@ Předchozí kód asynchronně načte celý text požadavku HTTP do paměti.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MyFirstController.cs?name=snippet3)]
 
-Předchozí kód asynchronně načte celý text požadavku HTTP do paměti.
-
-> [!WARNING]
-> Pokud je žádost velká, čtení celého textu požadavku HTTP do paměti by mohlo vést k nedostatku paměti (OOM). OOM může mít za následek odepření služby.  Další informace najdete v tématu [zamezení čtení velkých těla žádostí nebo těla reakcí do paměti](#arlb) v tomto dokumentu.
+Předchozí kód asynchronně deserializace tělo požadavku do C# objektu.
 
 ## <a name="prefer-readformasync-over-requestform"></a>Preferovat ReadFormAsync přes Request. Form
 
@@ -267,7 +264,7 @@ Předchozí kód často zachycuje hodnotu null nebo nesprávnou `HttpContext` v 
 
 `HttpContext` je platná, pouze pokud je v kanálu ASP.NET Core aktivní požadavek HTTP. Celý kanál ASP.NET Core je asynchronní řetěz delegátů, který provádí všechny požadavky. Po dokončení `Task` vráceného z tohoto řetězce se recykluje `HttpContext`.
 
-**Neprovádět tyto akce:** Následující příklad používá `async void`:
+**Neprovádět tyto akce:** Následující příklad používá `async void`, který požadavek HTTP dokončí při dosažení prvního `await`:
 
 * Což je **vždy** špatný postup v aplikacích ASP.NET Core.
 * Po dokončení požadavku HTTP přistupuje k `HttpResponse`.

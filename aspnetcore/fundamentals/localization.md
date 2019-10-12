@@ -5,12 +5,12 @@ description: Přečtěte si, jak ASP.NET Core poskytuje služby a middleware pro
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 6dfbeae201a3586dfea6620917083130c4985b22
-ms.sourcegitcommit: dc96d76f6b231de59586fcbb989a7fb5106d26a8
+ms.openlocfilehash: 8398e99af42da48718eea370cffa6ce4be0086ae
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/01/2019
-ms.locfileid: "71703802"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288907"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -32,7 +32,7 @@ Lokalizace aplikace zahrnuje následující:
 
 3. Implementujte strategii pro výběr jazyka nebo kultury pro každý požadavek.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
@@ -76,7 +76,7 @@ Výchozí implementace `IViewLocalizer` vyhledá soubor prostředků na základ�
 
 Soubor prostředků francouzštiny může obsahovat následující:
 
-| Klíč | Value |
+| Key | Hodnota |
 | ----- | ------ |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
@@ -92,8 +92,8 @@ Chcete-li použít sdílený soubor prostředků v zobrazení, zadejte `IHtmlLoc
 
 Chybové zprávy pro dataanotace jsou lokalizovány s `IStringLocalizer<T>`. Když použijete možnost `ResourcesPath = "Resources"`, chybové zprávy v `RegisterViewModel` lze uložit na jednu z následujících cest:
 
-* *Resources/ViewModels.Account.RegisterViewModel.fr.resx*
-* *Resources/ViewModels/Account/RegisterViewModel.fr.resx*
+* *Resources/ViewModels. Account. RegisterViewModel. fr. resx*
+* *Prostředky/ViewModels/účet/RegisterViewModel. fr. resx*
 
 [!code-csharp[](localization/sample/Localization/ViewModels/Account/RegisterViewModel.cs?start=9&end=26)]
 
@@ -130,7 +130,7 @@ Soubor prostředků je užitečný mechanismus pro oddělení lokalizovatelných
 
 1. V **Průzkumník řešení**klikněte pravým tlačítkem na složku, která bude obsahovat soubor prostředků > **přidat** **novou položku** > .
 
-    ![Vnořená kontextová nabídka: V Průzkumník řešení je místní nabídka pro prostředky otevřená. Druhá kontextová nabídka je otevřená pro přidání se zvýrazněným příkazem nová položka.](localization/_static/newi.png)
+    ![Vnořená kontextová nabídka: v Průzkumník řešení je místní nabídka pro prostředky otevřená. Druhá kontextová nabídka je otevřená pro přidání se zvýrazněným příkazem nová položka.](localization/_static/newi.png)
 
 2. V poli **Vyhledat nainstalované šablony** zadejte "Resource" a soubor pojmenujte.
 
@@ -152,15 +152,15 @@ V ukázkovém projektu metoda `ConfigureServices` nastaví `ResourcesPath` na "R
 
 | Název prostředku | Pojmenování teček nebo Path |
 | ------------   | ------------- |
-| Resources/Controllers.HomeController.fr.resx | Tečka  |
-| Prostředky/řadiče/HomeController. fr. resx  | `Path` |
+| Prostředky/řadiče. HomeController. fr. resx | Tečka  |
+| Prostředky/řadiče/HomeController. fr. resx  | Cesta |
 |    |     |
 
 Soubory prostředků používající `@inject IViewLocalizer` v zobrazení Razor následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Soubory prostředků zobrazení Razor napodobují cestu k souboru přidruženého zobrazení. Za předpokladu, že nastavíme `ResourcesPath` na "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
 * Prostředky/zobrazení/domů/o. fr. resx
 
-* Resources/Views.Home.About.fr.resx
+* Prostředky/zobrazení. domů. about. fr. resx
 
 Pokud nepoužijete možnost `ResourcesPath`, soubor *. resx* pro zobrazení by byl umístěn ve stejné složce jako zobrazení.
 
@@ -191,8 +191,8 @@ Při hledání prostředku se lokalizace zapojit do "záložní kultury". Od po�
 
 Představte si, že váš web obdrží žádost o "úvodní" prostředek pomocí kultury "fr-CA". Systém lokalizace vyhledá následující prostředky v uvedeném pořadí a vybere první shodu:
 
-* *Welcome.fr-CA.resx*
-* *Welcome.fr.resx*
+* *Welcome.fr-CA. resx*
+* *Welcome. fr. resx*
 * *Welcome. resx* (Pokud `NeutralResourcesLanguage` je "fr-CA")
 
 Pokud například odeberete označení jazykové verze ". fr" a máte nastavenou jazykovou verzi na francouzštinu, je výchozí soubor prostředků přečten a jsou lokalizovány řetězce. Správce prostředků určí výchozí nebo záložní prostředek, pokud nic nevyhovuje vaší požadované jazykové verzi. Pokud chcete vrátit klíč pouze v případě, že chybí prostředek pro požadovanou jazykovou verzi, nesmíte mít výchozí soubor prostředků.
@@ -279,6 +279,7 @@ Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživ
 
 Předpokládejme, že chcete, aby vaši zákazníci mohli ukládat svůj jazyk a jazykovou verzi do databází. Můžete napsat poskytovatele a vyhledat tyto hodnoty pro uživatele. Následující kód ukazuje, jak přidat vlastního zprostředkovatele:
 
+::: moniker range="< aspnetcore-3.0"
 ```csharp
 private const string enUSCulture = "en-US";
 
@@ -301,6 +302,32 @@ services.Configure<RequestLocalizationOptions>(options =>
     }));
 });
 ```
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+```csharp
+private const string enUSCulture = "en-US";
+
+services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+        new CultureInfo(enUSCulture),
+        new CultureInfo("fr")
+    };
+
+    options.DefaultRequestCulture = new RequestCulture(culture: enUSCulture, uiCulture: enUSCulture);
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+
+    options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async context =>
+    {
+        // My custom request culture logic
+        return new ProviderCultureResult("en");
+    }));
+});
+```
+::: moniker-end
 
 Chcete-li přidat nebo odebrat poskytovatele lokalizace, použijte `RequestLocalizationOptions`.
 
@@ -332,14 +359,14 @@ Mezinárodní využití se často zkracuje na "I18N". Zkratka používá první 
 
 Uvedenými
 
-* Globalizace (G11N): Proces vytvoření aplikace podporuje různé jazyky a oblasti.
-* Lokalizace (L10N): Proces přizpůsobení aplikace pro daný jazyk a oblast.
-* Mezinárodní (I18N): Popisuje globalizaci a lokalizaci.
-* Jazykových Je to jazyk a volitelně také oblast.
-* Neutrální jazyková verze: Jazyková verze, která má zadaný jazyk, ale ne oblast. (například "en", "ES")
-* Konkrétní jazyková verze: Jazyková verze, která má zadaný jazyk a oblast. (například "en-US", "en-GB", "ES-CL")
-* Nadřazená jazyková verze: Neutrální jazyková verze, která obsahuje konkrétní jazykovou verzi. (například "en" je nadřazená jazyková verze "en-US" a "en-GB")
-* Jazyka Národní prostředí je stejné jako jazyková verze.
+* Globalizace (G11N): proces vytvoření aplikace, která podporuje různé jazyky a oblasti.
+* Lokalizace (L10N): proces přizpůsobení aplikace pro daný jazyk a oblast.
+* Mezinárodní (I18N): popisuje globalizaci a lokalizaci.
+* Jazyková verze: Jedná se o jazyk a volitelně i oblast.
+* Neutrální jazyková verze: jazyková verze, která má zadaný jazyk, ale ne oblast. (například "en", "ES")
+* Specifická jazyková verze: jazyková verze, která má zadaný jazyk a oblast. (například "en-US", "en-GB", "ES-CL")
+* Nadřazená jazyková verze: neutrální jazyková verze, která obsahuje konkrétní jazykovou verzi. (například "en" je nadřazená jazyková verze "en-US" a "en-GB")
+* Národní prostředí: národní prostředí je stejné jako jazyková verze.
 
 [!INCLUDE[](~/includes/currency.md)]
 

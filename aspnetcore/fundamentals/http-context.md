@@ -1,27 +1,27 @@
 ---
-title: Přístup k objektu HttpContext v ASP.NET Core
+title: Přístup HttpContext v ASP.NET Core
 author: coderandhiker
-description: Zjistěte, jak získat přístup k objektu HttpContext v ASP.NET Core.
+description: Přečtěte si, jak získat přístup k HttpContext v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/27/2018
+ms.date: 10/11/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 373c036e0839ce51259e23f8503fbe4691b48751
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 888adf6d61e6968127385952e65f942e86b7eb63
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900453"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72288978"
 ---
-# <a name="access-httpcontext-in-aspnet-core"></a>Přístup k objektu HttpContext v ASP.NET Core
+# <a name="access-httpcontext-in-aspnet-core"></a>Přístup HttpContext v ASP.NET Core
 
-Přístup aplikací ASP.NET Core `HttpContext` prostřednictvím [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) rozhraní a jeho výchozí implementace [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor). Pouze je nutné použít `IHttpContextAccessor` když potřebujete přístup k `HttpContext` uvnitř služby.
+ASP.NET Core aplikace přistupují k `HttpContext` prostřednictvím rozhraní [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) a jeho výchozí [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor)implementace. Pokud potřebujete přístup ke `HttpContext` v rámci služby, je nutné použít `IHttpContextAccessor`.
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="use-httpcontext-from-razor-pages"></a>Použití objektu HttpContext ze stránky Razor
+## <a name="use-httpcontext-from-razor-pages"></a>Použít HttpContext z Razor Pages
 
-Stránky Razor [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) zpřístupňuje [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext) vlastnost:
+Razor Pages [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) zpřístupňuje vlastnost [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext) :
 
 ```csharp
 public class AboutModel : PageModel
@@ -37,9 +37,9 @@ public class AboutModel : PageModel
 
 ::: moniker-end
 
-## <a name="use-httpcontext-from-a-razor-view"></a>Použití objektu HttpContext ze zobrazení Razor
+## <a name="use-httpcontext-from-a-razor-view"></a>Použití HttpContext ze zobrazení Razor
 
-Zobrazení syntaxe Razor vystavit `HttpContext` přímo prostřednictvím [RazorPage.Context](/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpage.context#Microsoft_AspNetCore_Mvc_Razor_RazorPage_Context) vlastnost pro zobrazení. Následující příklad načte aktuální uživatelské jméno v intranetu aplikaci pomocí ověřování Windows:
+Zobrazení Razor zpřístupňují `HttpContext` přímo prostřednictvím vlastnosti [RazorPage. Context](/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpage.context#Microsoft_AspNetCore_Mvc_Razor_RazorPage_Context) v zobrazení. Následující příklad načte aktuální uživatelské jméno v intranetové aplikaci pomocí ověřování systému Windows:
 
 ```cshtml
 @{
@@ -47,9 +47,9 @@ Zobrazení syntaxe Razor vystavit `HttpContext` přímo prostřednictvím [Razor
 }
 ```
 
-## <a name="use-httpcontext-from-a-controller"></a>Použití objektu HttpContext z kontroleru
+## <a name="use-httpcontext-from-a-controller"></a>Použití HttpContext z kontroleru
 
-Vystavení řadiče [ControllerBase.HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.httpcontext) vlastnost:
+Řadiče zpřístupňují vlastnost [ControllerBase. HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.httpcontext) :
 
 ```csharp
 public class HomeController : Controller
@@ -64,9 +64,9 @@ public class HomeController : Controller
 }
 ```
 
-## <a name="use-httpcontext-from-middleware"></a>Použití objektu HttpContext z middlewaru
+## <a name="use-httpcontext-from-middleware"></a>Použití HttpContext z middlewaru
 
-Při práci s vlastní middlewarových komponent `HttpContext` je předána do `Invoke` nebo `InvokeAsync` metody a je přístupný, pokud je nakonfigurovaná middleware:
+Při práci s vlastními součástmi middlewaru se `HttpContext` předává do metody `Invoke` nebo `InvokeAsync` a je možné k nim přihlédnout při konfiguraci middlewaru:
 
 ```csharp
 public class MyCustomMiddleware
@@ -78,9 +78,9 @@ public class MyCustomMiddleware
 }
 ```
 
-## <a name="use-httpcontext-from-custom-components"></a>Použití objektu HttpContext z vlastní komponenty
+## <a name="use-httpcontext-from-custom-components"></a>Použití HttpContext z vlastních komponent
 
-Pro jiné rozhraní framework a vlastních součástech, které vyžadují přístup k `HttpContext`, doporučuje se zaregistrovat závislost použití předdefinované [injektáž závislostí](xref:fundamentals/dependency-injection) kontejneru. Poskytuje kontejner vkládání závislostí `IHttpContextAccessor` na všechny třídy, které ji deklarovat v závislosti na jejich konstruktory.
+Pro jiné architektury a vlastní součásti, které vyžadují přístup k `HttpContext`, je doporučený přístup k registraci závislosti pomocí integrovaného kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Kontejner pro vkládání závislostí poskytuje `IHttpContextAccessor` do jakékoliv třídy, které ji deklaruje jako závislost v jejich konstruktorech.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -111,8 +111,8 @@ public void ConfigureServices(IServiceCollection services)
 
 V následujícím příkladu:
 
-* `UserRepository` deklaruje své závislosti na `IHttpContextAccessor`.
-* Při vkládání závislostí řeší řetězec závislostí a vytvoří instanci objektu zadán závislost `UserRepository`.
+* `UserRepository` deklaruje svou závislost na `IHttpContextAccessor`.
+* Závislost je poskytnuta, když injektáže závislosti vyřeší řetěz závislostí a vytvoří instanci `UserRepository`.
 
 ```csharp
 public class UserRepository : IUserRepository
@@ -132,19 +132,19 @@ public class UserRepository : IUserRepository
 }
 ```
 
-## <a name="httpcontext-access-from-a-background-thread"></a>Přístup k objektu HttpContext z vlákna na pozadí
+## <a name="httpcontext-access-from-a-background-thread"></a>HttpContext přístupu z vlákna na pozadí
 
-`HttpContext` není bezpečné pro vlákna. Čtení a zápis vlastnosti `HttpContext` mimo zpracování požadavku může vést `NullReferenceException`.
+`HttpContext` není bezpečná pro přístup z více vláken. Čtení nebo zápis vlastností `HttpContext` mimo zpracování požadavku může mít za následek `NullReferenceException`.
 
 > [!NOTE]
-> Pomocí `HttpContext` mimo zpracování požadavku často vede `NullReferenceException`. Pokud vaše aplikace generuje sporadické `NullReferenceException`s části revize kódu, které spouštějí zpracování na pozadí nebo který pokračovat ve zpracování po dokončení požadavku. Vyhledejte chyby, jako je definování metody kontroleru jako `async void`.
+> Použití `HttpContext` mimo zpracování požadavku často vede k `NullReferenceException`. Pokud vaše aplikace generuje občasné `NullReferenceException`s, Projděte si část kódu, která spouští zpracování na pozadí nebo pokračuje v zpracování po dokončení žádosti. Vyhledejte chyby, jako je například definování metody kontroleru jako `async void`.
 
-Bezpečně provádět práce na pozadí s `HttpContext` dat:
+Chcete-li bezpečně provádět práci na pozadí s daty `HttpContext`:
 
-* Zkopírujte požadovaná data během zpracování požadavku.
-* Zkopírovaná data předejte úlohu na pozadí.
+* Během zpracování žádosti zkopírujte požadovaná data.
+* Předejte zkopírovaná data do úlohy na pozadí.
 
-Aby se zabránilo nebezpečný kód, nikdy předat `HttpContext` do metody, která na pozadí pracovní – předání dat, je nutné místo toho.
+Aby nedocházelo k nebezpečnému kódu, nikdy nepředávejte `HttpContext` do metody, která provádí práci na pozadí, a místo toho předejte data, která potřebujete.
 
 ```csharp
 public class EmailController

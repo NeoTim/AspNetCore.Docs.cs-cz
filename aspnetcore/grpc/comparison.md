@@ -1,19 +1,19 @@
 ---
-title: Porovnání služeb gRPC s rozhraními API HTTP
+title: Porovnání služeb gRPC pomocí rozhraní HTTP API
 author: jamesnk
 description: Přečtěte si, jak gRPC porovnává s rozhraními API HTTP a co doporučuje scénáře.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/25/2019
 uid: grpc/comparison
-ms.openlocfilehash: 935078d890998fe6af366e3f6a7bf21f53c20cf7
-ms.sourcegitcommit: a7813a776809a5029c94aa503ee71994f156231f
+ms.openlocfilehash: 5c3ea7a78401e6483425fa0774b3051b3d20f516
+ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71267719"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72289037"
 ---
-# <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC s rozhraními API HTTP
+# <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
 Od [James Newton – král](https://twitter.com/jamesnk)
 
@@ -55,7 +55,7 @@ Sdílení souboru *.* a klienta mezi serverem a klientem může být vygenerová
 
 Formální specifikace pro HTTP API s JSON neexistuje. Vývojáři připravují nejlepší formát adres URL, příkazů HTTP a kódů odpovědí.
 
-[Specifikace gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) je přednastavená na formát, který musí služba gRPC sledovat. gRPC eliminuje diskusi a šetří čas vývojáře, protože gPRC je konzistentní napříč platformami a implementacemi.
+[Specifikace gRPC](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md) je přednastavená na formát, který musí služba gRPC sledovat. gRPC eliminuje diskusi a šetří čas vývojáře, protože gRPC je konzistentní napříč platformami a implementacemi.
 
 ### <a name="streaming"></a>Streamování
 
@@ -78,9 +78,9 @@ Rozšiřování konečného termínu a zrušení prostřednictvím podřízenýc
 
 gRPC je vhodný pro následující scénáře:
 
-* **Mikroslužby** &ndash; gRPC je navržená pro zajištění nízké latence a komunikace s vysokou propustností. gRPC je ideální pro odlehčené mikroslužby, kde je efektivita nejdůležitější.
-* **Komunikace v reálném čase Point-to-Point** &ndash; gRPC má skvělou podporu pro obousměrné streamování. služby gRPC mohou nabízet zprávy v reálném čase bez cyklického dotazování.
-* **Prostředí Polyglot** &ndash; nástroje gRPC podporují všechny oblíbené vývojové jazyky a vytvářejí gRPC dobrou volbu pro prostředí s více jazyky.
+* **Mikroslužby** &ndash; gRPC jsou navržené pro komunikaci s nízkou latencí a vysokou propustností. gRPC je ideální pro odlehčené mikroslužby, kde je efektivita nejdůležitější.
+* **Komunikace Point-to-point** &ndash; gRPC má vynikající podporu pro obousměrné streamování. služby gRPC mohou nabízet zprávy v reálném čase bez cyklického dotazování.
+* **Prostředí Polyglot** &ndash; gRPC nástrojů podporuje všechny oblíbené vývojové jazyky, takže gRPC vhodná volba pro prostředí s více jazyky.
 * **Omezená prostředí sítě** &ndash; zprávy gRPC jsou serializovány pomocí Protobuf, což je odlehčený formát zprávy. Zpráva gRPC je vždy menší než ekvivalentní zpráva JSON.
 
 ## <a name="grpc-weaknesses"></a>gRPC slabé stránky
@@ -105,9 +105,9 @@ Funkce jako [reflexe serveru](https://github.com/grpc/grpc/blob/master/doc/serve
 
 Další architektury se doporučují přes gRPC v následujících scénářích:
 
-* **Rozhraní API přístupných přes prohlížeč** &ndash; gRPC není v prohlížeči plně podporován. gRPC-web může nabízet podporu prohlížeče, ale má omezení a zavádí proxy serveru.
-* **Vysílat komunikaci v reálném čase** &ndash; gRPC podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy do registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [Návěstí](xref:signalr/introduction) je užitečnou architekturou pro tento scénář. Signalizace má koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
-* **Komunikace mezi procesy** &ndash; Proces musí hostovat server HTTP/2, aby přijímal příchozí volání gRPC. Pro systém Windows je mezi procesy komunikačních [kanálů](/dotnet/standard/io/pipe-operations) rychlá a odlehčená metoda komunikace.
+* **Rozhraní API pro přístup k prohlížeči** &ndash; gRPC není v prohlížeči plně podporované. gRPC-web může nabízet podporu prohlížeče, ale má omezení a zavádí proxy serveru.
+* **Všesměrové vysílání v reálném čase** &ndash; gRPC podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy do registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [Návěstí](xref:signalr/introduction) je užitečnou architekturou pro tento scénář. Signalizace má koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
+* **Komunikace mezi procesy** &ndash; proces musí HOSTOVAT Server HTTP/2, aby přijímal příchozí volání gRPC. Pro systém Windows je mezi procesy komunikačních [kanálů](/dotnet/standard/io/pipe-operations) rychlá a odlehčená metoda komunikace.
 
 ## <a name="additional-resources"></a>Další zdroje
 
