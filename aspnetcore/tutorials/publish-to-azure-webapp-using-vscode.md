@@ -6,12 +6,12 @@ ms.author: riserrad
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: a5d92775d6245494c34bfe691d7ade663b2078d5
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 90ba130f13903cd45eca062c0eca8945eff2e0fa
+ms.sourcegitcommit: 7a2c820692f04bfba04398641b70f27fa15391f5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082398"
+ms.lasthandoff: 10/12/2019
+ms.locfileid: "72290639"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>Publikování aplikace ASP.NET Core do Azure pomocí Visual Studio Code
 
@@ -19,19 +19,19 @@ Od [Ricardo Serradas](https://twitter.com/ricardoserradas)
 
 [!INCLUDE [Azure App Service Preview Notice](../includes/azure-apps-preview-notice.md)]
 
-Poradce při potížích chybu nasazení služby App Service, najdete v článku <xref:test/troubleshoot-azure-iis>.
+Pokud chcete řešit potíže s nasazením App Service, přečtěte si téma <xref:test/troubleshoot-azure-iis>.
 
 ## <a name="intro"></a>Úvodní
 
 V tomto kurzu se naučíte vytvořit aplikaci MVC ASP.Net Core a nasadit ji do Visual Studio Code.
 
-## <a name="set-up"></a>Nastavení
+## <a name="set-up"></a>Nastavit
 
-- Otevřít [bezplatný účet Azure](https://azure.microsoft.com/free/dotnet/) pokud ho nemáte.
+- Pokud ho nemáte, otevřete [bezplatný účet Azure](https://azure.microsoft.com/free/dotnet/) .
 - Nainstalovat [.NET Core SDK](https://dotnet.microsoft.com/download)
 - Nainstalovat [Visual Studio Code](https://code.visualstudio.com/Download)
   - Nainstalovat [ C# rozšíření](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) na Visual Studio Code
-  - Než budete pokračovat, naVisual Studio Code [rozšíření Azure App Service](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice) a nakonfigurujte ho.
+  - Než budete pokračovat, nainstalujte [Azure App Service rozšíření](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice) , které Visual Studio Code a nakonfigurujte.
 
 ## <a name="create-an-aspnet-core-mvc-project"></a>Vytvoření projektu ASP.Net Core MVC
 
@@ -74,14 +74,14 @@ Pokud příkaz níže nefunguje, ověřte, jestli je instalace správně nakonfi
 ### <a name="through-visual-studio-code-interface"></a>Přes Visual Studio Code rozhraní
 
 - Otevřít Visual Studio Code
-- V nabídce vyberte`File > Open Folder`
+- V nabídce vyberte `File > Open Folder`.
 - Vyberte kořen složky, ve které jste vytvořili projekt MVC.
 
 Po otevření složky projektu se zobrazí zpráva oznamující, že chybí požadované prostředky k sestavení a ladění. Pokud je chcete přidat, přijměte ji.
 
 ![Rozhraní Visual Studio Code s načteným projektem](publish-to-azure-webapp-using-vscode/_static/folder-structure-restore-netcore.jpg)
 
-`.vscode` Složka se vytvoří pod strukturou projektu. Bude obsahovat následující soubory:
+V rámci struktury projektu se vytvoří složka `.vscode`. Bude obsahovat následující soubory:
 
 ```cmd
 launch.json
@@ -100,14 +100,14 @@ Vaše webová aplikace začne běžet na nové kartě výchozího prohlížeče.
 
 ![Upozornění na ochranu osobních údajů při místním ladění aplikace](publish-to-azure-webapp-using-vscode/_static/run-webapp-https-warning.jpg)
 
-Pokud chcete relaci ladění zachovat, klikněte `Advanced` na a `Continue to localhost (unsafe)`pak.
+Pokud chcete relaci ladění zachovat, klikněte na `Advanced` a pak `Continue to localhost (unsafe)`.
 
 ## <a name="generate-the-deployment-package-locally"></a>Místní generování balíčku pro nasazení
 
 - Otevřít Visual Studio Code terminálu
-- Pomocí následujícího příkazu vygenerujte `Release` balíček do dílčí složky s názvem: `publish`
+- Pomocí následujícího příkazu vygenerujte balíček `Release` do dílčí složky s názvem `publish`:
   - `dotnet publish -c Release -o ./publish`
-- V rámci `publish` struktury projektu se vytvoří nová složka.
+- Pod strukturou projektu se vytvoří nová složka `publish`.
 
 ![Publikovat strukturu složek](publish-to-azure-webapp-using-vscode/_static/publish-folder.jpg)
 
@@ -117,27 +117,27 @@ Využívá se rozšíření Azure App Service pro Visual Studio Code. k publikov
 
 ### <a name="if-youre-creating-a-new-web-app"></a>Pokud vytváříte novou webovou aplikaci
 
-- Klikněte pravým `publish` tlačítkem na složku a vyberte`Deploy to Web App...`
+- Klikněte pravým tlačítkem na složku `publish` a vyberte `Deploy to Web App...`.
 - Vyberte předplatné, ve kterém chcete vytvořit webovou aplikaci.
-- Vybrali`Create New Web App`
+- Vybrat `Create New Web App`
 - Zadejte název webové aplikace.
 
-Rozšíření vytvoří novou webovou aplikaci a automaticky se do ní zahájí nasazení balíčku. Po dokončení nasazení kliknutím `Browse Website` ověřte nasazení.
+Rozšíření vytvoří novou webovou aplikaci a automaticky se do ní zahájí nasazení balíčku. Po dokončení nasazení ověřte nasazení kliknutím na `Browse Website`.
 
 ![Zpráva o úspěšném nasazení](publish-to-azure-webapp-using-vscode/_static/deployment-succeeded-message.jpg)
 
-Po kliknutí `Browse Website`na něj přejdete pomocí výchozího prohlížeče:
+Po kliknutí na `Browse Website` přejdete na něj pomocí výchozího prohlížeče:
 
 ![Nová webová aplikace se úspěšně nasadila.](publish-to-azure-webapp-using-vscode/_static/new-webapp-deployed.jpg)
 
 ### <a name="if-youre-deploying-to-an-existing-web-app"></a>Pokud provádíte nasazení do existující webové aplikace
 
-- Klikněte pravým `publish` tlačítkem na složku a vyberte`Deploy to Web App...`
+- Klikněte pravým tlačítkem na složku `publish` a vyberte `Deploy to Web App...`.
 - Výběr předplatného, které se nachází v existující webové aplikaci
 - Vyberte webovou aplikaci ze seznamu.
-- Visual Studio Code se vás zeptá, jestli chcete přepsat existující obsah. Kliknutím `Deploy` potvrďte
+- Visual Studio Code se vás zeptá, jestli chcete přepsat existující obsah. Potvrďte kliknutím na `Deploy`.
 
-Rozšíření nasadí aktualizovaný obsah do webové aplikace. Až to bude hotové, `Browse Website` kliknutím ověřte nasazení.
+Rozšíření nasadí aktualizovaný obsah do webové aplikace. Až to bude hotové, kliknutím na `Browse Website` Ověřte nasazení.
 
 ![Existující webová aplikace byla úspěšně nasazena.](publish-to-azure-webapp-using-vscode/_static/existing-webapp-deployed.jpg)
 
