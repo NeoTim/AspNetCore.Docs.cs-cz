@@ -5,12 +5,12 @@ description: Vysvětluje práci s databází a ASP.NET Core.
 ms.author: riande
 ms.date: 7/22/2019
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 87d27b60940826e21b060f2e07d344b30ff75b27
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: b5acb573f8fa39e5300ecdb359113d8697d78934
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259793"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334233"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>Práce s databází a ASP.NET Core
 
@@ -38,7 +38,7 @@ Objekt `RazorPagesMovieContext` zpracovává úlohu připojení k databázi a ma
 
 Hodnota názvu pro databázi (`Database={Database name}`) bude pro vygenerovaný kód odlišná. Hodnota name je libovolná.
 
-[!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json)]
+[!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json?highlight=10-12)]
 
 # <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -52,7 +52,7 @@ Při nasazení aplikace do testovacího nebo provozního serveru lze použít pr
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory s hodnotou `*.mdf` v adresáři `C:/Users/<user/>`.
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory s hodnotou `*.mdf` v adresáři `C:\Users\<user>\`.
 
 <a name="ssox"></a>
 * V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
@@ -109,8 +109,8 @@ Následující kód ukazuje aktualizovaný soubor *program.cs* .
 
 Pokud se nespustí `Update-Database`, dojde k následující výjimce:
 
-`SqlException: Cannot open database "RazorPagesMovieContext-" requested by the login. The login failed.`
-`Login failed for user 'user name'.`
+> `SqlException: Cannot open database "RazorPagesMovieContext-" requested by the login. The login failed.`
+> `Login failed for user 'user name'.`
 
 ### <a name="test-the-app"></a>Testování aplikace
 
@@ -138,7 +138,7 @@ Aplikace zobrazuje dosazený data.
 
 V dalším kurzu dojde k vylepšení prezentace dat.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 > [!div class="step-by-step"]
 > [Předchozí: vygenerované Razor Pages](xref:tutorials/razor-pages/page)
@@ -292,7 +292,7 @@ Aplikace zobrazuje dosazený data:
 
 V dalším kurzu se vyčistí prezentace dat.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/A_5ff11sDHY)
 

@@ -1,0 +1,2 @@
+> [!NOTE]
+> Před ASP.NET Core 3,0 webové aplikace napíše jeden protokol typu `LogLevel.Warning` na žádost, pokud není požadovaná jazyková verze podporovaná. Protokolování jedné `LogLevel.Warning` na žádost může udělat velké soubory protokolu s redundantními informacemi. Toto chování bylo změněno v ASP.NET 3,0. @No__t-0 zapisuje protokol typu `LogLevel.Debug`, což snižuje velikost provozních protokolů.

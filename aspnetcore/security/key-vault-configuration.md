@@ -5,14 +5,14 @@ description: Naučte se používat zprostředkovatele konfigurace Azure Key Vaul
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 10/14/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: cc3894df4df169d941f54ef3dfad5d3e6f798aad
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: c8e76068dbcf2a59a15fa75a1fc5aa0032e6acc5
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007404"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72334197"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace Azure Key Vault v ASP.NET Core
 
@@ -25,7 +25,7 @@ Tento dokument vysvětluje, jak pomocí poskytovatele konfigurace [Microsoft Azu
 
 Tento scénář je k dispozici pro aplikace cílené na ASP.NET Core 2,1 nebo novější.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="packages"></a>Balíčky
 
@@ -76,7 +76,7 @@ Pokud jsou tyto tajné klíče uložené v Azure Key Vault [tajné úložiště 
 
 ## <a name="secret-storage-in-the-production-environment-with-azure-key-vault"></a>Tajné úložiště v produkčním prostředí pomocí Azure Key Vault
 
-Pokyny poskytované [Quickstart: Nastavení a načtení tajného klíče z Azure Key Vault pomocí rozhraní příkazového řádku Azure CLI @ no__t-0 se shrnuje tady pro vytvoření Azure Key Vault a ukládání tajných kódů používaných ukázkovou aplikací. Další podrobnosti najdete v tématu.
+Pokyny poskytované [rychlým startem: nastavení a načtení tajného klíče z Azure Key Vault pomocí](/azure/key-vault/quick-create-cli) rozhraní příkazového řádku Azure najdete zde shrnuté pro vytvoření Azure Key Vault a ukládání tajných kódů používaných ukázkovou aplikací. Další podrobnosti najdete v tématu.
 
 1. Otevřete Azure Cloud Shell pomocí jedné z následujících metod v [Azure Portal](https://portal.azure.com/):
 
@@ -141,8 +141,8 @@ Ukázková aplikace používá ID aplikace a certifikát X. 509, pokud je přík
 
 Ukázková aplikace `Certificate` získá své konfigurační hodnoty z `IConfigurationRoot` se stejným názvem, jako má název tajného kódu:
 
-* Hodnoty, které nejsou hierarchicky: Hodnota pro `SecretName` se získá s `config["SecretName"]`.
-* Hierarchické hodnoty (oddíly): Použijte notaci `:` (dvojtečky) nebo metodu rozšíření `GetSection`. K získání hodnoty konfigurace použijte některý z těchto přístupů:
+* Hodnoty, které nejsou hierarchicky: hodnota pro `SecretName` se získá s `config["SecretName"]`.
+* Hierarchické hodnoty (oddíly): použijte notaci `:` (dvojtečky) nebo metodu rozšíření `GetSection`. K získání hodnoty konfigurace použijte některý z těchto přístupů:
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
@@ -156,7 +156,7 @@ Příklady hodnot:
 * ID aplikace: `627e911e-43cc-61d4-992e-12db9c81b413`
 * Kryptografický otisk certifikátu: `fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-*appsettings.json*:
+*appSettings. JSON*:
 
 [!code-json[](key-vault-configuration/sample/appsettings.json)]
 
@@ -189,6 +189,16 @@ Ukázková aplikace:
 * Instance `KeyVaultClient` se používá s výchozí implementací `IKeyVaultSecretManager`, která načte všechny tajné hodnoty a nahradí dvojité spojovníky (`--`) dvojtečkami (`:`) v názvech klíčů.
 
 [!code-csharp[](key-vault-configuration/sample/Program.cs?name=snippet2&highlight=13-21)]
+
+Ukázková hodnota názvu trezoru klíčů: `contosovault`
+    
+*appSettings. JSON*:
+
+```json
+{
+  "KeyVaultName": "Key Vault Name"
+}
+```
 
 Když aplikaci spouštíte, zobrazí se na webové stránce načtené tajné hodnoty. Ve vývojovém prostředí mají tajné hodnoty příponu `_dev`, protože jsou k dispozici prostřednictvím uživatelských tajných klíčů. V produkčním prostředí se hodnoty načítají s příponou @no__t 0, protože jsou k dispozici v Azure Key Vault.
 
@@ -258,7 +268,7 @@ Při implementaci tohoto přístupu:
 
 Zprostředkovatel je schopný číst konfigurační hodnoty do pole pro vazbu k poli POCO.
 
-Při čtení ze zdroje konfigurace, který umožňuje klíčům obsahovat oddělovače dvojtečky (`:`), se pro odlišení klíčů, které tvoří pole (`:0:`, `:1:`, používá číselný segment klíče... `:{n}:`). Další informace najdete v tématu [Configuration: Navažte pole na třídu @ no__t-0.
+Při čtení ze zdroje konfigurace, který umožňuje klíčům obsahovat oddělovače dvojtečky (`:`), se pro odlišení klíčů, které tvoří pole (`:0:`, `:1:`, používá číselný segment klíče... `:{n}:`). Další informace najdete v tématu [Konfigurace: vytvoření vazby pole ke třídě](xref:fundamentals/configuration/index#bind-an-array-to-a-class).
 
 Klíče Azure Key Vault nemůžou jako oddělovač použít dvojtečku. Přístup popsaný v tomto tématu používá dvojité pomlčky (`--`) jako oddělovač pro hierarchické hodnoty (oddíly). Klíče polí jsou uloženy v Azure Key Vault s dvojitými pomlčkami a segmenty číselných klíčů (`--0--`, `--1--`, &hellip; `--{n}--`).
 
@@ -287,7 +297,7 @@ Projděte si následující konfiguraci poskytovatele protokolování [Serilog](
 
 Konfigurace zobrazená v předchozím souboru JSON je uložená v Azure Key Vault s použitím dvojité pomlčky (`--`) Notation a číselných segmentů:
 
-| Klíč | Value |
+| Key | Hodnota |
 | --- | ----- |
 | `Serilog--WriteTo--0--Name` | `AzureTableStorage` |
 | `Serilog--WriteTo--0--Args--storageTableName` | `logs` |
@@ -323,9 +333,9 @@ Když se aplikaci nepovede načíst konfiguraci pomocí poskytovatele, do [ASP.N
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/configuration/index>
-* @no__t 0Microsoft Azure: Key Vault @ no__t-0
-* @no__t 0Microsoft Azure: Dokumentace k Key Vault @ no__t-0
+* [Microsoft Azure: Key Vault](https://azure.microsoft.com/services/key-vault/)
+* [Microsoft Azure: dokumentace Key Vault](/azure/key-vault/)
 * [Postup generování a přenosu klíčů chráněných HSM pro Azure Key Vault](/azure/key-vault/key-vault-hsm-protected-keys)
 * [KeyVaultClient – třída](/dotnet/api/microsoft.azure.keyvault.keyvaultclient)
-* [Rychlý start: Nastavení a načtení tajného klíče z Azure Key Vault pomocí webové aplikace .NET @ no__t-0
-* [Kurz: Jak používat Azure Key Vault s virtuálním počítačem Azure s Windows v. NET @ no__t-0
+* [Rychlý Start: nastavení a načtení tajného klíče z Azure Key Vault pomocí webové aplikace .NET](/azure/key-vault/quick-create-net)
+* [Kurz: použití Azure Key Vault s virtuálním počítačem Azure s Windows v .NET](/azure/key-vault/tutorial-net-windows-virtual-machine)

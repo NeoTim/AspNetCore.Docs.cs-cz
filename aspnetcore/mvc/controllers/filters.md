@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: ed48c2074360768b8d8c5af7057b353b00592394
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: 0c3597f24e02af40517e12a86127b140ed4fb550
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037691"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333924"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -130,10 +130,10 @@ V důsledku vnořování filtru je *po* kódu spuštěn v obráceném pořadí *
   
 Následující příklad ilustruje pořadí, ve kterém jsou metody filtru volány pro filtry synchronních akcí.
 
-| Pořadí | Rozsah filtru | Filter – metoda |
+| Sequence | Rozsah filtru | Filter – metoda |
 |:--------:|:------------:|:-------------:|
-| 1 | Globální | `OnActionExecuting` |
-| 2 | Kontrolér | `OnActionExecuting` |
+| první | Globální | `OnActionExecuting` |
+| odst | Kontrolér | `OnActionExecuting` |
 | 3 | Metoda | `OnActionExecuting` |
 | 4 | Metoda | `OnActionExecuted` |
 | 5 | Kontrolér | `OnActionExecuted` |
@@ -158,7 +158,7 @@ Například v ukázce stahování se při spuštění použije globálně `MySam
 
 @No__t-0:
 
-* Aplikuje na akci `FilterTest2` `SampleActionFilterAttribute` (`[SampleActionFilter]`):
+* Aplikuje na akci `FilterTest2` `SampleActionFilterAttribute` (`[SampleActionFilter]`).
 * Přepisuje `OnActionExecuting` a `OnActionExecuted`.
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/TestController.cs?name=snippet)]
@@ -190,14 +190,14 @@ Vlastnost `Order` lze nastavit pomocí parametru konstruktoru:
 
 Vezměte v úvahu stejné 3 filtry akcí, které jsou uvedené v předchozím příkladu. Pokud se vlastnost `Order` řadiče a globální filtry nastaví na 1 a 2 v uvedeném pořadí, pořadí spouštění se vrátí zpět.
 
-| Pořadí | Rozsah filtru | vlastnost `Order` | Filter – metoda |
+| Sequence | Rozsah filtru | vlastnost `Order` | Filter – metoda |
 |:--------:|:------------:|:-----------------:|:-------------:|
-| 1 | Metoda | 0 | `OnActionExecuting` |
-| 2 | Kontrolér | 1  | `OnActionExecuting` |
-| 3 | Globální | 2  | `OnActionExecuting` |
-| 4 | Globální | 2  | `OnActionExecuted` |
-| 5 | Kontrolér | 1  | `OnActionExecuted` |
-| 6 | Metoda | 0  | `OnActionExecuted` |
+| první | Metoda | 0,8 | `OnActionExecuting` |
+| odst | Kontrolér | první  | `OnActionExecuting` |
+| 3 | Globální | odst  | `OnActionExecuting` |
+| 4 | Globální | odst  | `OnActionExecuted` |
+| 5 | Kontrolér | první  | `OnActionExecuted` |
+| 6 | Metoda | 0,8  | `OnActionExecuted` |
 
 Vlastnost `Order` Přepisuje obor při určování pořadí, ve kterém jsou filtry spouštěny. Filtry jsou seřazené podle pořadí, pak se k přerušení vztahů používá obor. Všechny předdefinované filtry implementují `IOrderedFilter` a nastaví výchozí hodnotu `Order` na 0. Pro předdefinované filtry rozsah určuje pořadí, pokud `Order` není nastaveno na nenulovou hodnotu.
 
@@ -427,8 +427,8 @@ Preferovat middleware pro zpracování výjimek. Filtry výjimek použijte pouze
 Filtry výsledků:
 
 * Implementace rozhraní:
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> Nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> Nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter>
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter>
 * Jejich spuštění obklopuje provádění výsledků akcí.
 
 ### <a name="iresultfilter-and-iasyncresultfilter"></a>IResultFilter a IAsyncResultFilter
@@ -449,18 +449,7 @@ Metoda <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuting*?d
 * Zabraňte provádění výsledků akce a dalších filtrů.
 * Být považována za selhání namísto úspěšného výsledku.
 
-Při spuštění metody <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuted*?displayProperty=fullName>:
-
-* Odpověď byla pravděpodobně odeslána klientovi a nelze ji změnit.
-* Pokud byla vyvolána výjimka, tělo odpovědi nebude odesláno.
-
-<!-- Review preceding "If an exception was thrown: Original 
-When the OnResultExecuted method runs, the response has likely been sent to the client and cannot be changed further (unless an exception was thrown).
-
-SHould that be , 
-If an exception was thrown **IN THE RESULT FILTER**, the response body is not sent.
-
- -->
+Při spuštění metody <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuted*?displayProperty=fullName> je odpověď pravděpodobně již odeslána klientovi. Pokud byla odpověď již odeslána klientovi, nelze ji dále změnit.
 
 `ResultExecutedContext.Canceled` je nastavená na `true`, pokud je spuštění výsledku akce od sebe krátkým jiným filtrem.
 
@@ -494,7 +483,7 @@ Například následující filtr vždy spustí a nastaví výsledek akce (<xref:
 Předchozí kód lze otestovat spuštěním [ukázky stahování](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample):
 
 * Vyvolejte vývojářské nástroje F12.
-* Přejděte na `https://localhost:5001/Sample/HeaderWithFactory`
+* Přejděte na `https://localhost:5001/Sample/HeaderWithFactory`.
 
 Vývojářské nástroje F12 zobrazují následující hlavičky odpovědí přidané ukázkovým kódem:
 
@@ -532,7 +521,7 @@ Filtry prostředků fungují jako [middleware](xref:fundamentals/middleware/inde
 
 Chcete-li použít middleware jako filtr, vytvořte typ s metodou `Configure`, která určuje middleware, který se má vložit do kanálu filtru. Následující příklad používá middleware Localization k vytvoření aktuální jazykové verze pro požadavek:
 
-[!code-csharp[](./filters/sample/FiltersSample/Filters/LocalizationPipeline.cs?name=snippet_MiddlewareFilter&highlight=3,21)]
+[!code-csharp[](./filters/sample/FiltersSample/Filters/LocalizationPipeline.cs?name=snippet_MiddlewareFilter&highlight=3,22)]
 
 Pro spuštění middlewaru použijte <xref:Microsoft.AspNetCore.Mvc.MiddlewareFilterAttribute>:
 
@@ -542,5 +531,5 @@ Filtry middlewaru jsou spouštěny ve stejné fázi kanálu filtru jako filtry p
 
 ## <a name="next-actions"></a>Další akce
 
-* Viz [metody filtru pro Razor Pages](xref:razor-pages/filter)
+* Viz [metody filtru pro Razor Pages](xref:razor-pages/filter).
 * Pro experimentování s filtry, [stažení, otestování a úpravy ukázky GitHubu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).

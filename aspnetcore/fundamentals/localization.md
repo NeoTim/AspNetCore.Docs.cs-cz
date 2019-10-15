@@ -5,18 +5,16 @@ description: Přečtěte si, jak ASP.NET Core poskytuje služby a middleware pro
 ms.author: riande
 ms.date: 01/14/2017
 uid: fundamentals/localization
-ms.openlocfilehash: 8398e99af42da48718eea370cffa6ce4be0086ae
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 9ed133c93a9ec95c63869b710d120eca9fda1b6e
+ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288907"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72333707"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Damien Bowden](https://twitter.com/damien_bod), [Bart Calixto](https://twitter.com/bartmax), [Nadeem Afana](https://afana.me/)a [Hisham bin](https://twitter.com/hishambinateya) Ateya
-
-Až do chvíle, kdy se tento dokument aktualizuje ASP.NET Core 3,0, přečtěte si téma [co je nového v lokalizaci v ASP.NET Core 3,0](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0).
 
 Vytvoření vícejazyčného webu pomocí ASP.NET Core umožní vašemu webu oslovit širší cílovou skupinu. ASP.NET Core poskytuje služby a middleware pro lokalizaci do různých jazyků a kultur.
 
@@ -275,6 +273,31 @@ Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživ
 
 6. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
 
+::: moniker range=">= aspnetcore-3.0"
+### <a name="the-content-language-http-header"></a>Hlavička protokolu HTTP v jazykovém obsahu
+
+Hlavička entity [jazyka obsahu](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) :
+
+ - Slouží k popisu jazyků, které jsou určené pro cílovou skupinu.
+ - Umožňuje uživateli rozlišovat podle vlastního preferovaného jazyka uživatelů.
+
+Záhlaví entit se používají v požadavcích HTTP i v odpovědích.
+
+V ASP.NET Core 3,0 lze přidat záhlaví `Content-Language` nastavením vlastnosti `ApplyCurrentCultureToResponseHeaders`.
+
+Přidává se hlavička `Content-Language`:
+
+ - Umožňuje RequestLocalizationMiddleware nastavit hlavičku `Content-Language` pomocí `CurrentUICulture`.
+ - Eliminuje nutnost nastavit hlavičku odpovědi `Content-Language` explicitně.
+
+```csharp
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    ApplyCurrentCultureToResponseHeaders = true
+});
+```
+::: moniker-end
+
 ### <a name="use-a-custom-provider"></a>Použití vlastního zprostředkovatele
 
 Předpokládejme, že chcete, aby vaši zákazníci mohli ukládat svůj jazyk a jazykovou verzi do databází. Můžete napsat poskytovatele a vyhledat tyto hodnoty pro uživatele. Následující kód ukazuje, jak přidat vlastního zprostředkovatele:
@@ -368,7 +391,11 @@ Uvedenými
 * Nadřazená jazyková verze: neutrální jazyková verze, která obsahuje konkrétní jazykovou verzi. (například "en" je nadřazená jazyková verze "en-US" a "en-GB")
 * Národní prostředí: národní prostředí je stejné jako jazyková verze.
 
-[!INCLUDE[](~/includes/currency.md)]
+[!INCLUDE[](~/includes/localization/currency.md)]
+
+::: moniker range=">= aspnetcore-3.0"
+[!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další zdroje
 
@@ -378,3 +405,4 @@ Uvedenými
 * [Prostředky v souborech. resx](/dotnet/framework/resources/working-with-resx-files-programmatically)
 * [Sada nástrojů pro vícejazyčné aplikace od Microsoftu](https://marketplace.visualstudio.com/items?itemName=MultilingualAppToolkit.MultilingualAppToolkit-18308)
 * [Lokalizace & – obecné typy](https://github.com/hishamco/hishambinateya.com/blob/master/Posts/localization-and-generics.md)
+* [Co je nového v lokalizaci v ASP.NET Core 3,0](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)
