@@ -5,14 +5,14 @@ description: Sestavte aplikaci pro Blazor krok za krokem.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/14/2019
+ms.date: 10/15/2019
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 1c0492106b888665c23932f16cc83d22947956d2
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: c357b324905ee3a4c9f4bd167dbbcacaf7e1bc76
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334051"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391210"
 ---
 # <a name="build-your-first-blazor-app"></a>Vytvoření první aplikace v Blazor
 

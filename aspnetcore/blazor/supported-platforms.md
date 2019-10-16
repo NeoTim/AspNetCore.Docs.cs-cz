@@ -5,18 +5,18 @@ description: Přečtěte si o podporovaných platformách ASP.NET Core Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: blazor/supported-platforms
-ms.openlocfilehash: b769ee175cde7c9a613d7fb70949de129ca428d3
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 4e86bd6967a747a59c99a515c1c838cc2c21770f
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211564"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391220"
 ---
 # <a name="aspnet-core-blazor-supported-platforms"></a>Podporované platformy ASP.NET Core Blazor
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -24,27 +24,27 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-| Browser                          | Version               |
+| Prohlížeee                          | Version               |
 | -------------------------------- | :-------------------: |
 | Microsoft Edge                   | Aktivní               |
 | Mozilla Firefox                  | Aktivní               |
 | Google Chrome, včetně Androidu | Aktivní               |
 | Safari, včetně iOS            | Aktivní               |
-| Microsoft Internet Explorer      | Nepodporováno&dagger; |
+| Microsoft Internet Explorer      | Nepodporováno @ no__t-0 |
 
-&dagger;Aplikace Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
+@no__t – 0Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
 
 ### <a name="blazor-server"></a>Blazor Server
 
-| Browser                          | Version    |
+| Prohlížeee                          | Version    |
 | -------------------------------- | :--------: |
 | Microsoft Edge                   | Aktivní    |
 | Mozilla Firefox                  | Aktivní    |
 | Google Chrome, včetně Androidu | Aktivní    |
 | Safari, včetně iOS            | Aktivní    |
-| Microsoft Internet Explorer      | 11&dagger; |
+| Microsoft Internet Explorer      | 11 @ no__t-0 |
 
-&dagger;Jsou vyžadovány další obslužné nabídky (například příslibů lze přidat prostřednictvím [Polyfill.IO](https://polyfill.io/v3/) sady).
+@no__t – jsou požadovány 0Additional (například příslibů lze přidat prostřednictvím sady [Polyfill.IO](https://polyfill.io/v3/) ).
 
 ## <a name="additional-resources"></a>Další zdroje
 

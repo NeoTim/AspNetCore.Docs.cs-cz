@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: 3e0966bf978c99fc00db7682bea3292306cbb03c
-ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.openlocfilehash: a71bbf3921417cbd23aeb14d0d78ad8354d6e93a
+ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179027"
+ms.lasthandoff: 10/15/2019
+ms.locfileid: "72378692"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -692,7 +692,7 @@ Odkazy na součásti poskytují způsob, jak odkazovat na instanci komponenty, a
 Při vykreslení komponenty se v poli `loginDialog` naplní instance podřízené komponenty `MyLoginDialog`. Pak můžete vyvolat metody .NET v instanci komponenty.
 
 > [!IMPORTANT]
-> Proměnná `loginDialog` je naplněna pouze po vykreslení komponenty a její výstup obsahuje prvek `MyLoginDialog`. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte metody `OnAfterRenderAsync` nebo `OnAfterRender`.
+> Proměnná `loginDialog` je naplněna pouze po vykreslení komponenty a její výstup obsahuje prvek `MyLoginDialog`. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [metody OnAfterRenderAsync nebo OnAfterRender](#lifecycle-methods).
 
 Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachycení odkazů na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není to funkce [interoperability JavaScriptu](xref:blazor/javascript-interop) . Odkazy na součásti nejsou předány kódu JavaScriptu @ no__t-0they're, který se používá pouze v kódu .NET.
 
@@ -841,6 +841,9 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
+> [!NOTE]
+> Asynchronní práce během inicializace komponenty se musí vyskytnout během události `OnInitializedAsync` životního cyklu.
+
 Pro synchronní operaci použijte `OnInitialized`:
 
 ```csharp
@@ -859,6 +862,9 @@ protected override async Task OnParametersSetAsync()
 }
 ```
 
+> [!NOTE]
+> Asynchronní práce při aplikování parametrů a hodnot vlastností musí nastat během události `OnParametersSetAsync` životního cyklu.
+
 ```csharp
 protected override void OnParametersSet()
 {
@@ -868,7 +874,7 @@ protected override void OnParametersSet()
 
 `OnAfterRenderAsync` a `OnAfterRender` jsou volány po dokončení vykreslování součásti. V tuto chvíli se naplní odkazy na element a komponentu. Tuto fázi použijte k provedení dalších kroků inicializace pomocí vykresleného obsahu, jako je například aktivace knihoven JavaScript třetích stran, které pracují s vykreslenými prvky modelu DOM.
 
-`OnAfterRender` *se nevolá při předvykreslování na serveru.*
+*při předvykreslování na serveru se nevolá* `OnAfterRender`.
 
 Parametr `firstRender` pro `OnAfterRenderAsync` a `OnAfterRender` je:
 
@@ -884,6 +890,9 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
     }
 }
 ```
+
+> [!NOTE]
+> Asynchronní práce ihned po vykreslení musí nastat během události životního cyklu `OnAfterRenderAsync`.
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)

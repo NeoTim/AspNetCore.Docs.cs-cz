@@ -5,18 +5,18 @@ description: Naučte se řídit linker zprostředkujícího jazyka (IL) při ses
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: d3dd69e263e88ca1fc301eefc0da186a023aa96f
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: a7e59e63c163986c40155e230dc644028e78e5fd
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211595"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391450"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -29,7 +29,7 @@ Ovládací prvek propojuje sestavení pomocí některého z následujících př
 
 ## <a name="disable-linking-with-a-msbuild-property"></a>Zakázat propojení s vlastností MSBuild
 
-Propojení je ve výchozím nastavení povoleno v režimu vydání, když je sestavena aplikace, která zahrnuje publikování. Chcete-li zakázat propojování pro všechna sestavení `BlazorLinkOnBuild` , nastavte vlastnost `false` MSBuild na hodnotu v souboru projektu:
+Propojení je ve výchozím nastavení povoleno v režimu vydání, když je sestavena aplikace, která zahrnuje publikování. Chcete-li zakázat propojování pro všechna sestavení, nastavte vlastnost MSBuild `BlazorLinkOnBuild` na hodnotu `false` v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -79,4 +79,4 @@ Propojení je ve výchozím nastavení povoleno v režimu vydání, když je ses
 </linker>
 ```
 
-Další informace najdete v tématu [linkeru Il: Syntaxe popisovače](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor)XML
+Další informace naleznete v tématu [linkeru Il: syntaxe popisovače XML](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).

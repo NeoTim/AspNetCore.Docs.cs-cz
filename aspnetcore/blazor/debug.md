@@ -5,14 +5,14 @@ description: Naučte se ladit aplikace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: blazor/debug
-ms.openlocfilehash: 3519479d8058f013de23cc9cfa0f5574cd158053
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 9fc3f1d2dd7dc79d2ba3d64bff6e0f92ac2cf6dc
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71207207"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391187"
 ---
 # <a name="debug-aspnet-core-blazor"></a>Ladění ASP.NET Core Blazor
 
@@ -25,13 +25,13 @@ Pro ladění Blazorch aplikací WebAssembly běžících na WebAssembly v Chrome
 Možnosti ladicího programu jsou omezené. K dispozici jsou tyto scénáře:
 
 * Nastavení a odebrání zarážek.
-* Jednoduchý krok (`F10`) prostřednictvím kódu nebo obnovení kódu (`F8`).
-* V zobrazení *místních* hodnot Sledujte hodnoty jakýchkoli místních proměnných typu `int`, `string`a `bool`.
+* Jeden krok (`F10`) prostřednictvím kódu nebo obnovení (`F8`) provádění kódu.
+* V zobrazení *místních* hodnot Sledujte hodnoty všech místních proměnných typu `int`, `string` a `bool`.
 * Podívejte se do zásobníku volání, včetně řetězů volání, které přecházejí z JavaScriptu do .NET a z .NET do JavaScriptu.
 
 *Nemůžete*:
 
-* Sledujte hodnoty všech národních prostředí, která nejsou `int`, `string`nebo `bool`.
+* Sledujte hodnoty všech národních prostředí, která nejsou `int`, `string` nebo `bool`.
 * Sledujte hodnoty jakýchkoli vlastností nebo polí třídy.
 * Pokud chcete zobrazit jejich hodnoty, najeďte myší na proměnné.
 * Vyhodnoťte výrazy v konzole.
@@ -49,16 +49,16 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
 ## <a name="procedure"></a>Postup
 
-1. Spusťte aplikaci Blazor WebAssembly v `Debug` konfiguraci. Předat možnost příkazu [dotnet Run](/dotnet/core/tools/dotnet-run) : `dotnet run --configuration Debug`. `--configuration Debug`
+1. Spusťte aplikaci Blazor WebAssembly v konfiguraci `Debug`. Předejte možnost `--configuration Debug` do příkazu [dotnet Run](/dotnet/core/tools/dotnet-run) : `dotnet run --configuration Debug`.
 1. Přihlaste se k aplikaci v prohlížeči.
 1. Umístěte fokus klávesnice na aplikaci, ne na panel nástroje pro vývojáře. Panel nástrojů pro vývojáře lze zavřít při zahájení ladění.
 1. Vyberte následující klávesovou zkratku specifickou pro Blazor:
-   * `Shift+Alt+D`v systému Windows/Linux
-   * `Shift+Cmd+D`v macOS
+   * `Shift+Alt+D` v systému Windows/Linux
+   * `Shift+Cmd+D` v macOS
 1. Postupujte podle kroků uvedených na obrazovce a restartujte prohlížeč se zapnutým vzdáleným laděním.
 1. Znovu vyberte následující klávesovou zkratku Blazor, abyste mohli spustit ladicí relaci:
-   * `Shift+Alt+D`v systému Windows/Linux
-   * `Shift+Cmd+D`v macOS
+   * `Shift+Alt+D` v systému Windows/Linux
+   * `Shift+Cmd+D` v macOS
 
 ## <a name="enable-remote-debugging"></a>Povolit vzdálené ladění
 
@@ -66,7 +66,7 @@ Pokud je vzdálené ladění zakázané, **nemůžete najít** chybovou stránku
 
 ## <a name="debug-the-app"></a>Ladění aplikace
 
-Po spuštění aplikace Chrome se zapnutým vzdáleným laděním otevře klávesovou zkratku ladění novou kartu ladicího programu. Po chvíli se na kartě **zdroje** zobrazí seznam sestavení .NET v aplikaci. Rozbalte jednotlivá sestavení a vyhledejte zdrojové soubory *. cs*/ *. Razor* k dispozici pro ladění. Nastavte zarážky, přepněte zpět na kartu aplikace a zarážky se spustí při spuštění kódu. Po stisknutí zarážky krok za běhu (`F10`) prostřednictvím kódu nebo obnovení kódu (`F8`) normálně.
+Po spuštění aplikace Chrome se zapnutým vzdáleným laděním otevře klávesovou zkratku ladění novou kartu ladicího programu. Po chvíli se na kartě **zdroje** zobrazí seznam sestavení .NET v aplikaci. Rozbalte jednotlivá sestavení a vyhledejte soubory *. cs*/ *. Razor* , které jsou k dispozici pro ladění. Nastavte zarážky, přepněte zpět na kartu aplikace a zarážky se spustí při spuštění kódu. Po dosažení zarážky, krok za běhu (`F10`) prostřednictvím kódu nebo obnovení kódu (`F8`) normálního spuštění kódu.
 
 Blazor poskytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Při stisknutí klávesových zkratek ladění Blazor odkazuje na rozhraní Chrome DevTools na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
 
@@ -78,4 +78,4 @@ Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zko
 
 Pokud pracujete s chybami, může vám následující Tip:
 
-Na kartě **ladicí program** otevřete nástroje pro vývojáře v prohlížeči. V konzole nástroje spusťte `localStorage.clear()` příkaz k odebrání všech zarážek.
+Na kartě **ladicí program** otevřete nástroje pro vývojáře v prohlížeči. V konzole spusťte `localStorage.clear()` a odeberte všechny zarážky.

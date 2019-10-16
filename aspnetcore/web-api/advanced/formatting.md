@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 8/22/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 0dd8b3b5ec58a199db086c4c0b0f057d26afd589
-ms.sourcegitcommit: 7a2c820692f04bfba04398641b70f27fa15391f5
+ms.openlocfilehash: 78fe620ea8fdd681a276253f77939bcb2a56ebb9
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72290629"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391281"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -219,16 +219,16 @@ Další informace najdete v tématu [filtry](xref:mvc/controllers/filters).
 
 ### <a name="special-case-formatters"></a>Formátování speciálních případů
 
-Některé speciální případy jsou implementovány pomocí integrovaných formátovacích modulů. Ve výchozím nastavení jsou návratové typy `string` formátovány jako *textové/jednoduché* (*text/HTML* , pokud jsou požadovány prostřednictvím hlavičky `Accept`). Toto chování lze odstranit odebráním <xref:Microsoft.AspNetCore.Mvc.Formatters.TextOutputFormatter>. Formátovací moduly jsou odebrány v metodě `Configure`. Akce, které mají návratový typ Object, vrátí `204 No Content` při vrácení `null`. Toto chování lze odstranit odebráním <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter>. Následující kód odstraní `TextOutputFormatter` a `HttpNoContentOutputFormatter`.
+Některé speciální případy jsou implementovány pomocí integrovaných formátovacích modulů. Ve výchozím nastavení jsou návratové typy `string` formátovány jako *textové/jednoduché* (*text/HTML* , pokud jsou požadovány prostřednictvím hlavičky `Accept`). Toto chování lze odstranit odebráním <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter>. Formátovací moduly jsou odebrány v metodě `ConfigureServices`. Akce, které mají návratový typ Object, vrátí `204 No Content` při vrácení `null`. Toto chování lze odstranit odebráním <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter>. Následující kód odstraní `StringOutputFormatter` a `HttpNoContentOutputFormatter`.
 
 ::: moniker range=">= aspnetcore-3.0"
-[!code-csharp[](./formatting/3.0sample/StartupTextOutputFormatter.cs?name=snippet)]
+[!code-csharp[](./formatting/3.0sample/StartupStringOutputFormatter.cs?name=snippet)]
 ::: moniker-end
 ::: moniker range="< aspnetcore-3.0"
-[!code-csharp[](./formatting/sample/StartupTextOutputFormatter.cs?name=snippet)]
+[!code-csharp[](./formatting/sample/StartupStringOutputFormatter.cs?name=snippet)]
 ::: moniker-end
 
-Bez `TextOutputFormatter` `string` návratové typy vrátí `406 Not Acceptable`. Pokud formátovací modul XML existuje, formátuje návratové typy `string`, pokud je odebráno `TextOutputFormatter`.
+Bez `StringOutputFormatter`, předdefinované formáty formátování JSON `string` návratové typy. Pokud je předdefinovaný formátovací modul JSON odebraný a je k dispozici formátovací modul XML, formát formátovacích souborů XML `string` návratových typů. V opačném případě návratové typy `string` vrátí `406 Not Acceptable`.
 
 Bez `HttpNoContentOutputFormatter` jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Příklad:
 

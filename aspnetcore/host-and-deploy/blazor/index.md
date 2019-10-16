@@ -5,14 +5,14 @@ description: Objevte, jak hostovat a nasazovat aplikace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/15/2019
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 1cfe87c7194b34c2461429225c560f9e689168ae
-ms.sourcegitcommit: 79eeb17604b536e8f34641d1e6b697fb9a2ee21f
+ms.openlocfilehash: 271135a0ebe67d31fd8e2bcf672e723814727147
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/24/2019
-ms.locfileid: "71211698"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391343"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>Hostování a nasazení ASP.NET Core Blazor
 
@@ -26,9 +26,9 @@ Aplikace jsou publikované pro nasazení v konfiguraci vydání.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. V navigačním panelu vyberte **sestavení** > **publikovat {aplikace}** .
+1. V navigačním panelu vyberte **Build** > **publikovat aplikaci {Application}** .
 1. Vyberte *cíl publikování*. Chcete-li publikovat místně, vyberte **Složka**.
-1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte tlačítko **Publikovat**.
+1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte tlačítko **publikovat** .
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -50,40 +50,40 @@ Prostředky ve složce jsou nasazeny na webový server. Nasazení může být ru
 
 *Základní cesta aplikace* je kořenová cesta URL aplikace. Vezměte v úvahu následující hlavní aplikace a aplikace Blazor:
 
-* Je volána `MyApp`hlavní aplikace:
-  * Aplikace se fyzicky nachází v *\\d: MyApp*.
-  * Žádosti jsou přijímány `https://www.contoso.com/{MYAPP RESOURCE}`na adrese.
-* Volaná `CoolApp` aplikace Blazor je dílčí `MyApp`aplikace:
-  * Dílčí aplikace je fyzicky umístěná v *d:\\MyApp\\CoolApp*.
-  * Žádosti jsou přijímány `https://www.contoso.com/CoolApp/{COOLAPP RESOURCE}`na adrese.
+* Hlavní aplikace se nazývá `MyApp`:
+  * Aplikace se fyzicky nachází v *d: \\MyApp*.
+  * Žádosti jsou přijímány na `https://www.contoso.com/{MYAPP RESOURCE}`.
+* Blazor aplikace s názvem `CoolApp` je dílčí aplikace `MyApp`:
+  * Dílčí aplikace je fyzicky umístěná v *d: \\MyApp @ no__t-2CoolApp*.
+  * Žádosti jsou přijímány na `https://www.contoso.com/CoolApp/{COOLAPP RESOURCE}`.
 
-Bez zadání další konfigurace pro `CoolApp`nemůže podaplikace v tomto scénáři znát, kde se nachází na serveru. Aplikace například nemůže sestavovat správné relativní adresy URL k prostředkům bez vědomí, že se nachází v relativní cestě `/CoolApp/`URL.
+Bez zadání další konfigurace pro `CoolApp` nemá dílčí aplikace v tomto scénáři žádné znalosti o tom, kde se nachází na serveru. Aplikace například nemůže sestavovat správné relativní adresy URL ke svým prostředkům bez vědomí, že se nachází na relativní cestě URL `/CoolApp/`.
 
-Chcete-li zadat konfiguraci `https://www.contoso.com/CoolApp/`pro základní cestu aplikace Blazor `<base>` , je `href` atribut značky nastaven na relativní kořenovou cestu v souboru *wwwroot/index.html* :
+Chcete-li zadat konfiguraci pro základní cestu aplikace Blazor `https://www.contoso.com/CoolApp/`, je atribut `href` značky `<base>` nastaven na relativní kořenovou cestu v souboru *wwwroot/index.html* :
 
 ```html
 <base href="/CoolApp/">
 ```
 
-Když zadáte relativní cestu URL, komponenta, která není v kořenovém adresáři, může vytvářet adresy URL relativní k kořenové cestě aplikace. Komponenty na různých úrovních adresářové struktury můžou vytvářet odkazy na jiné prostředky v umístění v rámci aplikace. Základní cesta aplikace se také používá k zachycení hypertextového odkazu, kde `href` cíl odkazu je v rámci základní cesty k umístění&mdash;identifikátoru URI aplikace, Blazor směrovač zpracovává interní navigaci.
+Když zadáte relativní cestu URL, komponenta, která není v kořenovém adresáři, může vytvářet adresy URL relativní k kořenové cestě aplikace. Komponenty na různých úrovních adresářové struktury můžou vytvářet odkazy na jiné prostředky v umístění v rámci aplikace. Základní cesta aplikace se také používá k zachycení hypertextového odkazu, kde je `href` cíl odkazu v rámci základní cesty identifikátoru URI aplikace @ no__t-1The Blazor router zpracovává interní navigaci.
 
 V mnoha hostitelských scénářích je relativní cesta URL k aplikaci kořenem aplikace. V těchto případech je základní cestou k relativní adrese URL aplikace lomítko (`<base href="/" />`), což je výchozí konfigurace aplikace Blazor. V jiných scénářích hostování, jako jsou stránky GitHubu a podaplikace služby IIS, musí být základní cesta aplikace nastavená na relativní cestu URL serveru k aplikaci.
 
-Chcete-li nastavit základní cestu aplikace, aktualizujte `<base>` značku `<head>` v rámci prvků značek souboru *wwwroot/index.html* . Nastavte hodnotu `/{RELATIVE URL PATH}/`atributuna (vyžaduje se koncové lomítko), kde `{RELATIVE URL PATH}` je úplná relativní cesta URL aplikace. `href`
+Chcete-li nastavit základní cestu aplikace, aktualizujte značku `<base>` v rámci prvků značky `<head>` souboru *wwwroot/index.html* . Nastavte hodnotu atributu `href` na `/{RELATIVE URL PATH}/` (vyžaduje se koncové lomítko), kde `{RELATIVE URL PATH}` je úplná relativní cesta URL aplikace.
 
-Pro aplikaci, která má nekořenovou cestu relativní adresy URL (například `<base href="/CoolApp/">`), aplikace *při místním spuštění*nenalezne své prostředky. Chcete-li tento problém překonat při místním vývoji a testování, můžete dodat *základní argument Path* , který odpovídá `href` hodnotě `<base>` značky za běhu. Pokud chcete předat základní argument Path při místním spuštění aplikace, spusťte `dotnet run` příkaz z adresáře aplikace `--pathbase` s možností:
+Pro aplikaci, která má nekořenovou cestu relativní adresy URL (například `<base href="/CoolApp/">`), aplikace *při místním spuštění*nenalezne své prostředky. Chcete-li vyřešit tento problém během místního vývoje a testování, můžete dodat *základní argument Path* , který odpovídá hodnotě `href` značky `<base>` za běhu. Pokud chcete předat základní argument Path při místním spuštění aplikace, spusťte příkaz `dotnet run` z adresáře aplikace s možností `--pathbase`:
 
 ```dotnetcli
 dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}
 ```
 
-Pro aplikaci s relativní cestou `/CoolApp/` URL (`<base href="/CoolApp/">`) je tento příkaz:
+V případě aplikace s relativní cestou URL `/CoolApp/` (`<base href="/CoolApp/">`) je tento příkaz:
 
 ```dotnetcli
 dotnet run --pathbase=/CoolApp
 ```
 
-Aplikace odpoví místně na adrese `http://localhost:port/CoolApp`.
+Aplikace odpoví místně na `http://localhost:port/CoolApp`.
 
 ## <a name="deployment"></a>Nasazení
 

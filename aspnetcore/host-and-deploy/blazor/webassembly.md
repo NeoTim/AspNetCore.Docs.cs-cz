@@ -5,14 +5,14 @@ description: Naučte se hostovat a nasazovat aplikaci Blazor pomocí ASP.NET Cor
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 10/15/2019
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: a0a11f3aed9035000e79844fbec7cdd17b73fdaa
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 8ff3f7b089b7aec6b1a6be2c85f24cfb9674b684
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007333"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391320"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -44,7 +44,7 @@ Pokud se výchozí dokument aplikace požaduje pomocí panelu Adresa v prohlíž
 1. *index. html* se v aplikaci zabootstrap.
 1. Blazor směrovač se načte a komponenta Razor `Main` se vykreslí.
 
-Na hlavní stránce můžete vybrat odkaz na součást `About` v klientovi, protože směrovač Blazor zastaví v prohlížeči žádost o `www.contoso.com` pro `About` a obsluhu samotné vykreslené součásti `About`. Všechny požadavky na vnitřní koncové body *v aplikaci Blazor WebAssembly* fungují stejným způsobem: Požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu. Směrovač zpracovává požadavky interně.
+Na hlavní stránce můžete vybrat odkaz na součást `About` v klientovi, protože směrovač Blazor zastaví v prohlížeči žádost o `www.contoso.com` pro `About` a obsluhu samotné vykreslené součásti `About`. Všechny požadavky na vnitřní koncové body *v aplikaci Blazor WebAssembly* fungují stejným způsobem: požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu. Směrovač zpracovává požadavky interně.
 
 Pokud se žádost provede pomocí panelu Adresa v prohlížeči `www.contoso.com/About`, požadavek se nezdařil. Žádný takový prostředek na internetovém hostiteli aplikace neexistuje, takže se vrátí odpověď *404 – Nenalezeno* .
 
@@ -74,16 +74,16 @@ Služba IIS je schopným statickým souborovým serverem pro aplikace Blazor. Ch
 
 Publikované assety se vytvoří ve složce */bin/Release/{Target Framework}/Publish* . Hostovat obsah složky pro *publikování* na webovém serveru nebo v hostitelské službě.
 
-#### <a name="webconfig"></a>web.config
+#### <a name="webconfig"></a>Web. config
 
 Při publikování projektu Blazor se vytvoří soubor *Web. config* s následující konfigurací služby IIS:
 
 * Typy MIME jsou nastaveny pro následující přípony souborů:
-  * *.dll* &ndash; `application/octet-stream`
-  * *.json* &ndash; `application/json`
-  * *.wasm* &ndash; `application/wasm`
-  * *.woff* &ndash; `application/font-woff`
-  * *.woff2* &ndash; `application/font-woff`
+  * *. dll* &ndash; `application/octet-stream`
+  * *. json* &ndash; `application/json`
+  * *. wasm* &ndash; `application/wasm`
+  * *. woff* &ndash; `application/font-woff`
+  * *. woff2* &ndash; `application/font-woff`
 * Pro následující typy MIME je povolena komprese protokolu HTTP:
   * `application/octet-stream`
   * `application/wasm`
@@ -137,7 +137,7 @@ Pokud je samostatná aplikace hostovaná jako dílčí aplikace služby IIS, pro
 
 Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [Konfigurace základní cesty aplikace](xref:host-and-deploy/blazor/index#app-base-path). Nastavte základní cestu aplikace v souboru *index. html* aplikace na alias služby IIS, který se používá při konfiguraci dílčí aplikace v IIS.
 
-#### <a name="troubleshooting"></a>Řešení potíží
+#### <a name="troubleshooting"></a>Poradce při potížích
 
 Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, soubor *Web. config* nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web neobsluhuje statické soubory Blazor.
 
@@ -196,7 +196,7 @@ Při použití webu projektu místo webu organizace přidejte nebo aktualizujte 
 
 [Aplikace Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) můžou přijmout následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí.
 
-### <a name="content-root"></a>Kořenový adresář obsahu
+### <a name="content-root"></a>Kořen obsahu
 
 Argument `--contentroot` nastavuje absolutní cestu k adresáři, který obsahuje soubory obsahu aplikace ([kořen obsahu](xref:fundamentals/index#content-root)). V následujících příkladech je `/content-root-path` kořenová cesta obsahu aplikace.
 
@@ -267,4 +267,4 @@ Argument `--urls` nastavuje IP adresy nebo adresy hostitelů s porty a protokoly
 
 ## <a name="configure-the-linker"></a>Konfigurace Linkeru
 
-Blazor provádí propojení podle jazyka IL (Intermediate Language) na každém sestavení pro odebrání zbytečného IL z výstupních sestavení. Propojení sestavení lze řídit při sestavování. Další informace naleznete v tématu <xref:host-and-deploy/blazor/configure-linker>.
+Blazor provádí propojení podle jazyka IL (Intermediate Language) na každém sestavení pro odebrání zbytečného IL z výstupních sestavení. Propojení sestavení lze řídit při sestavování. Další informace najdete v tématu <xref:host-and-deploy/blazor/configure-linker>.

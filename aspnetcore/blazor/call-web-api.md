@@ -5,14 +5,14 @@ description: Naučte se volat webové rozhraní API z aplikace Blazor pomocí po
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/05/2019
+ms.date: 10/15/2019
 uid: blazor/call-web-api
-ms.openlocfilehash: 3d70af2226eb29870458a5fd3c2bbbc3ee5c14ce
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: b08fdf5c2f9a523314b1744a33087eb64fa4c14a
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037434"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72390839"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>Volání webového rozhraní API z ASP.NET Core Blazor
 
@@ -22,9 +22,9 @@ Od [Luke Latham](https://github.com/guardrex), [Daniel Skořepa](https://github.
 
 Blazor aplikace WebAssembly volají webová rozhraní API pomocí předem nakonfigurované služby `HttpClient`. Požadavky na sestavení, které mohou zahrnovat možnosti [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu, použití pomocníků Blazor JSON nebo <xref:System.Net.Http.HttpRequestMessage>.
 
-Serverové aplikace Blazor volají webová rozhraní API s využitím instancí <xref:System.Net.Http.HttpClient> obvykle vytvořených pomocí <xref:System.Net.Http.IHttpClientFactory>. Další informace naleznete v tématu <xref:fundamentals/http-requests>.
+Serverové aplikace Blazor volají webová rozhraní API s využitím instancí <xref:System.Net.Http.HttpClient> obvykle vytvořených pomocí <xref:System.Net.Http.IHttpClientFactory>. Další informace najdete v tématu <xref:fundamentals/http-requests>.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Příklady Blazor WebAssembly najdete v následujících součástech v ukázkové aplikaci:
 
@@ -200,7 +200,7 @@ Dodejte možnosti žádosti do základního [rozhraní API pro načtení](https:
 }
 ```
 
-Další informace o možnostech načtení rozhraní API najdete v tématu [MDN web Docs: WindowOrWorkerGlobalScope.fetch():Parameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters).
+Další informace o možnostech načtení rozhraní API naleznete v tématu [MDN web Docs: WindowOrWorkerGlobalScope. Fetch ():P arameters](https://developer.mozilla.org/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters).
 
 Při odesílání přihlašovacích údajů (autorizační soubory cookie/hlavičky) na žádosti CORS musí být hlavička `Authorization` povolená zásadami CORS.
 

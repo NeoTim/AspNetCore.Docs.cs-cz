@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/13/2019
 uid: security/cors
-ms.openlocfilehash: 13f22b59a8d066981133508cceccd941e2ec4505
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 3a51d365626c858ad48298a1108e37eba9050fe7
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334185"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391298"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolit žádosti mezi zdroji (CORS) v ASP.NET Core
 
@@ -73,6 +73,10 @@ Metoda <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> může 
 Poznámka: adresa URL nesmí **obsahovat koncové** lomítko (`/`). Pokud adresa URL končí `/`, porovnávání vrátí `false` a nevrátí se žádné záhlaví.
 
 ::: moniker range=">= aspnetcore-3.0"
+
+<a name="acpall"></a>
+
+### <a name="apply-cors-policies-to-all-endpoints"></a>Použití zásad CORS u všech koncových bodů
 
 Následující kód aplikuje zásady CORS na všechny koncové body aplikací prostřednictvím middlewaru CORS:
 ```csharp

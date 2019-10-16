@@ -5,14 +5,14 @@ description: Přečtěte si o scénářích ověřování a autorizace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/05/2019
+ms.date: 10/15/2019
 uid: security/blazor/index
-ms.openlocfilehash: 1fcd54e954d09e66b8bb1c9a51ef56193f3acf93
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 85a6a32ea068e6cd00ebb71bdf7fe0bd06b77618
+ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007434"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72391317"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
@@ -251,7 +251,7 @@ Pomocí komponent `AuthorizeRouteView` a `CascadingAuthenticationState` nastavte
 </Router>
 ```
 
-## <a name="authorization"></a>Authorization
+## <a name="authorization"></a>Autorizace
 
 Po ověření uživatele se uplatní *autorizační* pravidla, která řídí, co může uživatel dělat.
 
@@ -313,7 +313,7 @@ U ověřování na základě rolí použijte parametr `Roles`:
 </AuthorizeView>
 ```
 
-Další informace naleznete v tématu <xref:security/authorization/roles>.
+Další informace najdete v tématu <xref:security/authorization/roles>.
 
 Pro autorizaci založenou na zásadách použijte parametr `Policy`:
 
@@ -323,7 +323,7 @@ Pro autorizaci založenou na zásadách použijte parametr `Policy`:
 </AuthorizeView>
 ```
 
-Ověřování na základě deklarací identity je zvláštní případ ověřování na základě zásad. Můžete například definovat zásadu, která vyžaduje, aby uživatelé měli určitou deklaraci identity. Další informace naleznete v tématu <xref:security/authorization/policies>.
+Ověřování na základě deklarací identity je zvláštní případ ověřování na základě zásad. Můžete například definovat zásadu, která vyžaduje, aby uživatelé měli určitou deklaraci identity. Další informace najdete v tématu <xref:security/authorization/policies>.
 
 Tato rozhraní API se dají použít buď v Blazor serveru, nebo v aplikacích Blazor WebAssembly.
 
@@ -493,7 +493,7 @@ V aplikacích Blazor WebAssembly lze kontroly autorizace obejít, protože všec
 
 Běžné chyby:
 
-* **Authorization vyžaduje kaskádový parametr typu Task @ no__t-1AuthenticationState >. Zvažte použití CascadingAuthenticationState k zadání tohoto.**
+* **Autorizace vyžaduje kaskádový parametr typu Task @ no__t-1AuthenticationState >. Zvažte použití CascadingAuthenticationState k zadání.**
 
 * **pro `authenticationStateTask` je přijata hodnota `null`.**
 
