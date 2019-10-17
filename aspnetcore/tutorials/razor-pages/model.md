@@ -5,12 +5,12 @@ description: Zjistěte, jak přidat třídy pro správu filmů v databázi pomoc
 ms.author: riande
 ms.date: 9/22/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: c101fe4aee9a1fbf28d66a8527e3c199194d73fe
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 4f8b80cb51bd10eb3b136a780dc123c41d61c0a5
+ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334181"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72519075"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace Razor Pages v ASP.NET Core
 
@@ -196,9 +196,9 @@ Předchozí příkazy generují následující upozornění: pro desetinný slou
 
 Toto upozornění můžete ignorovat, bude opraveno v pozdějším kurzu.
 
-Příkaz `ef migrations add InitialCreate` generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext` (v souboru *RazorPagesMovieContext.cs* ). K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.
+Příkaz migrace generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext`. K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.
 
-Příkaz `ef database update` spustí metodu `Up` v souboru *migrations/\<time-razítko > _InitialCreate. cs* . Metoda `Up` vytvoří databázi.
+Příkaz `update` spustí metodu `Up` v migracích, které nebyly aplikovány. V tomto případě `update` spustí metodu `Up` v souboru *migrations/\<time >-_InitialCreate. cs* , ve kterém se vytvoří databáze.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -229,10 +229,6 @@ Projděte si metodu `Up`.
 Projděte si metodu `Up`.
 
 ---
-
-Příkaz `Add-Migration` generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `RazorPagesMovieContext` (v souboru *data/RazorPagesMovieContext. cs* ). K pojmenování migrace se používá argument `Initial`. Můžete použít libovolný název, ale podle konvence je použit název, který popisuje migraci. Další informace najdete v tématu <xref:data/ef-mvc/migrations>.
-
-Příkaz `Update-Database` spustí metodu `Up` v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.
 
 <a name="test"></a>
 
@@ -427,6 +423,10 @@ Add-Migration Initial
 Update-Database
 ```
 
+Příkaz `Add-Migration` generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext` (v souboru *RazorPagesMovieContext.cs* ). K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je použit název, který popisuje migraci. Další informace najdete v tématu <xref:data/ef-mvc/migrations>.
+
+Příkaz `Update-Database` spustí metodu `Up` v souboru *migrations/\<time-razítko > _InitialCreate. cs* . Metoda `Up` vytvoří databázi.
+
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
@@ -436,14 +436,8 @@ Update-Database
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
 ---
-
-Předchozí příkazy generují následující upozornění: pro desetinný sloupec ' Price ' pro typ entity ' video ' nebyl zadán žádný typ ' Price '. To způsobí, že se hodnoty tiše zkrátí, pokud se nevejdou do výchozí přesnosti a rozsahu. Explicitně zadejte typ sloupce SQL serveru, který může obsahovat všechny hodnoty pomocí ' HasColumnType () '.
-
-Toto upozornění můžete ignorovat, bude opraveno v pozdějším kurzu.
-
-Příkaz `ef migrations add InitialCreate` generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext` (v souboru *RazorPagesMovieContext.cs* ). K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.
-
-Příkaz `ef database update` spustí metodu `Up` v souboru *migrations/\<time-razítko > _InitialCreate. cs* . Metoda `Up` vytvoří databázi.
+> [!NOTE]
+> Předchozí příkazy generují následující upozornění:*pro desetinný sloupec ' Price ' pro typ entity ' video ' nebyl zadán žádný typ ' Price '. To způsobí, že se hodnoty tiše zkrátí, pokud se nevejdou do výchozí přesnosti a rozsahu. Explicitně zadejte typ sloupce SQL serveru, který může obsahovat všechny hodnoty pomocí ' HasColumnType () '.* Toto upozornění můžete ignorovat, bude opraveno v pozdějším kurzu.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -474,10 +468,6 @@ Projděte si metodu `Up`.
 Projděte si metodu `Up`.
 
 ---
-
-Příkaz `Add-Migration` generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `RazorPagesMovieContext` (v souboru *data/RazorPagesMovieContext. cs* ). K pojmenování migrace se používá argument `Initial`. Můžete použít libovolný název, ale podle konvence je použit název, který popisuje migraci. Další informace najdete v tématu <xref:data/ef-mvc/migrations>.
-
-Příkaz `Update-Database` spustí metodu `Up` v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.
 
 <a name="test"></a>
 
