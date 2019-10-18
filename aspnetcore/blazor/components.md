@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/05/2019
 uid: blazor/components
-ms.openlocfilehash: a71bbf3921417cbd23aeb14d0d78ad8354d6e93a
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: cd48111e8d601fc67e8a938fcdd686759a9ddeca
+ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378692"
+ms.lasthandoff: 10/17/2019
+ms.locfileid: "72531114"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -37,8 +37,8 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 
 Členy součásti lze použít jako součást logiky vykreslování komponenty pomocí C# výrazů, které začínají na `@`. Například C# pole se vykreslí pomocí prefixování `@` na název pole. Následující příklad vyhodnocuje a vykresluje:
 
-* `_headingFontStyle` pro hodnotu vlastnosti CSS pro `font-style`.
-* `_headingText` k obsahu prvku `<h1>`.
+* `_headingFontStyle` k hodnotě vlastnosti CSS pro `font-style`.
+* `_headingText` k obsahu `<h1>` elementu.
 
 ```cshtml
 <h1 style="font-style:@_headingFontStyle">@_headingText</h1>
@@ -81,11 +81,11 @@ Vazba atributu rozlišuje velká a malá písmena. Například `@bind` je platn�
 
 Následující kód v *indexu. Razor* vykreslí instanci `HeadingComponent`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/Index.razor?name=snippet_HeadingComponent)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/Index.razor?name=snippet_HeadingComponent)]
 
 *Components/HeadingComponent. Razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/HeadingComponent.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/HeadingComponent.razor)]
 
 Pokud komponenta obsahuje element HTML s velkým prvním písmenem, které neodpovídá názvu komponenty, je vygenerováno upozornění označující, že element má neočekávaný název. Přidání příkazu `@using` pro obor názvů součásti zpřístupňuje komponentu, což odstraní upozornění.
 
@@ -95,13 +95,13 @@ Komponenty mohou mít *parametry komponenty*, které jsou definovány pomocí ve
 
 *Components/ChildComponent. Razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=11-12)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=11-12)]
 
 V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Title` `ChildComponent`.
 
 *Stránky/ParentComponent. Razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=5-6)]
 
 ## <a name="child-content"></a>Podřízený obsah
 
@@ -111,7 +111,7 @@ V následujícím příkladu má `ChildComponent` vlastnost `ChildContent`, kter
 
 *Components/ChildComponent. Razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=3,14-15)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
 > Vlastnost, která přijímá obsah `RenderFragment`, musí mít název `ChildContent` podle konvence.
@@ -120,7 +120,7 @@ Následující `ParentComponent` může poskytnout obsah pro vykreslování `Chi
 
 *Stránky/ParentComponent. Razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=7-8)]
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>Seskupováním atributů a libovolné parametry
 
@@ -190,7 +190,7 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí a
 }
 ```
 
-Vlastnost `CaptureUnmatchedValues` u `[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný s `CaptureUnmatchedValues` musí být možné přiřadit z `Dictionary<string, object>` s klíči řetězce. v tomto scénáři jsou také možnosti `IEnumerable<KeyValuePair<string, object>>` nebo `IReadOnlyDictionary<string, object>`.
+Vlastnost `CaptureUnmatchedValues` v `[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný s `CaptureUnmatchedValues` musí být možné přiřadit z `Dictionary<string, object>` s klíči řetězce. v tomto scénáři jsou také možnosti `IEnumerable<KeyValuePair<string, object>>` nebo `IReadOnlyDictionary<string, object>`.
 
 ## <a name="data-binding"></a>Datová vazba
 
@@ -513,11 +513,11 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
 
 @No__t-0 v ukázkové aplikaci ukazuje, jak je nastavená obslužná rutina `onclick` tlačítka pro příjem delegáta `EventCallback` z `ParentComponent` ukázky. @No__t-0 se zadává pomocí `MouseEventArgs`, který je vhodný pro událost `onclick` z periferního zařízení:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ChildComponent.razor?highlight=5-7,17-18)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
 @No__t-0 nastaví `EventCallback<T>` dítěte na jeho metodu `ShowMessage`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/ParentComponent.razor?name=snippet_ParentComponent&highlight=6,16-19)]
 
 Když je vybráno tlačítko v `ChildComponent`:
 
@@ -968,7 +968,7 @@ Když je zkompilován soubor Razor s direktivou `@page`, vygenerovaná Třída p
 
 Pro komponentu lze použít více šablon směrování. Následující komponenta reaguje na požadavky na `/BlazorRoute` a `/DifferentBlazorRoute`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 ## <a name="route-parameters"></a>Parametry směrování
 
@@ -976,7 +976,7 @@ Komponenty mohou přijímat parametry tras z šablony trasy uvedené v direktiv�
 
 *Komponenta parametru směrování*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
 
 Volitelné parametry nejsou podporované, takže se v předchozím příkladu použijí dvě direktivy `@page`. První umožňuje navigaci na součást bez parametru. Druhá direktiva `@page` přijímá parametr trasy `{text}` a přiřazuje hodnotu vlastnosti `Text`.
 
@@ -988,11 +988,11 @@ Soubory součástí kombinují značky HTML C# a zpracovávají kód ve stejném
 
 *Stránky/BlazorRocks. Razor*:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/BlazorRocks.razor?name=snippet_BlazorRocks)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRocks.razor?name=snippet_BlazorRocks)]
 
 *BlazorRocksBase.cs*:
 
-[!code-csharp[](common/samples/3.x/BlazorSample/Pages/BlazorRocksBase.cs)]
+[!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRocksBase.cs)]
 
 Základní třída by měla být odvozena od `ComponentBase`.
 
@@ -1096,7 +1096,7 @@ Komponenta se šablonou je definována zadáním jednoho nebo více parametrů s
 
 součást `TableTemplate`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TableTemplate.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
 
 Při použití komponenty se šablonou lze parametry šablony zadat pomocí podřízených prvků, které odpovídají názvům parametrů (`TableHeader` a `RowTemplate` v následujícím příkladu):
 
@@ -1149,7 +1149,7 @@ Alternativně lze zadat atribut `Context` u prvku součásti. Zadaný atribut `C
 
 Komponenty se šablonami jsou často typu obecně typované. Například obecná komponenta `ListViewTemplate` může být použita k vykreslování hodnot `IEnumerable<T>`. Chcete-li definovat obecné komponenty, použijte direktivu [@typeparam](xref:mvc/views/razor#typeparam) pro určení parametrů typu:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/ListViewTemplate.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 
 Pokud používáte komponenty s obecným typem, je parametr typu odvozený, pokud je to možné:
 
@@ -1297,23 +1297,23 @@ Kaskádové parametry také umožňují komponentám spolupracovat napříč hie
 
 Ukázková aplikace obsahuje rozhraní `ITab`, které karty implementují:
 
-[!code-csharp[](common/samples/3.x/BlazorSample/UIInterfaces/ITab.cs)]
+[!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/UIInterfaces/ITab.cs)]
 
 Komponenta `CascadingValuesParametersTabSet` používá komponentu `TabSet`, která obsahuje několik součástí `Tab`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
 Podřízené součásti `Tab` nejsou explicitně předány jako parametry `TabSet`. Místo toho jsou podřízené součásti `Tab` součástí podřízeného obsahu `TabSet`. @No__t-0 však stále potřebuje znát každou součást `Tab`, aby mohla vykreslovat hlavičky a aktivní kartu. Chcete-li povolit tuto koordinaci bez nutnosti dalšího kódu, komponenta `TabSet` *může poskytnout sebe samu jako kaskádovou hodnotu* , kterou pak vybraly podřízené komponenty `Tab`.
 
 součást `TabSet`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/TabSet.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TabSet.razor)]
 
 Podřízené komponenty `Tab` zachytí obsahující `TabSet` jako kaskádový parametr, takže součásti `Tab` přidají sebe sama do `TabSet` a koordinují, na které kartě je aktivní.
 
 součást `Tab`:
 
-[!code-cshtml[](common/samples/3.x/BlazorSample/Components/Tab.razor)]
+[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/Tab.razor)]
 
 ## <a name="razor-templates"></a>Šablony Razor
 
