@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/08/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: a610c42d75864259b609e11b8bf0776c5ab8e507
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: bff526e196ecc378d4687e1c38188977aeeccfd9
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288847"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589878"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
 [Dykstra](https://github.com/tdykstra/), [Luke Latham](https://github.com/guardrex)a [Steve Smith](https://ardalis.com/)
 
-Tento článek se věnuje běžným přístupům ke zpracování chyb v aplikacích ASP.NET Core.
+Tento článek se věnuje běžným přístupům ke zpracování chyb v ASP.NET Core Web Apps. Přečtěte si téma <xref:web-api/handle-errors> pro webová rozhraní API.
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/error-handling/samples). ([Stažení](xref:index#how-to-download-a-sample).) Tento článek obsahuje pokyny, jak nastavit direktivy preprocesoru (`#if`, `#endif`, `#define`) v ukázkové aplikaci pro povolení různých scénářů.
 

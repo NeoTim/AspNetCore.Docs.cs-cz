@@ -1,20 +1,22 @@
 ---
-title: ASP.NET Core směrování Blazor
+title: Směrování Blazor ASP.NET Core
 author: guardrex
 description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLink.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/routing
-ms.openlocfilehash: d9f81c8aa2cf07f8bfaede65efcb7328088f55b9
-ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
+ms.openlocfilehash: d4b76c00f79f333884fa7e30b27eadc6e36de287
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72531147"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589937"
 ---
-# <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
+# <a name="aspnet-core-opno-locblazor-routing"></a>Směrování Blazor ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex)
 
@@ -24,11 +26,11 @@ Naučte se směrovat požadavky a používat komponentu `NavLink` k vytváření
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>Integrace směrování ASP.NET Core Endpoint
 
-Server Blazor je integrovaný do [Směrování koncového bodu ASP.NET Core](xref:fundamentals/routing). ASP.NET Core aplikace je nakonfigurovaná tak, aby přijímala příchozí připojení pro interaktivní součásti s `MapBlazorHub` v `Startup.Configure`:
+Blazor Server je integrovaný do [Směrování koncového bodu ASP.NET Core](xref:fundamentals/routing). ASP.NET Core aplikace je nakonfigurovaná tak, aby přijímala příchozí připojení pro interaktivní součásti s `MapBlazorHub` v `Startup.Configure`:
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-Nejtypickou konfigurací je směrování všech požadavků na stránku Razor, která funguje jako hostitel pro součást aplikace Blazor Server na straně serveru. Podle konvence se stránka *hostitele* obvykle nazývá *_Host. cshtml*. Trasa zadaná v hostitelském souboru se nazývá *záložní trasa* , protože v porovnání s trasou funguje s nízkou prioritou. Záložní trasa se bere v úvahu v případě, že se jiné trasy neshodují. Díky tomu může aplikace používat jiné řadiče a stránky bez narušování aplikace Blazor Server.
+Nejtypickou konfigurací je směrování všech požadavků na stránku Razor, která funguje jako hostitel pro součást aplikace Blazor Server na straně serveru. Podle konvence se stránka *hostitele* obvykle nazývá *_Host. cshtml*. Trasa zadaná v hostitelském souboru se nazývá *záložní trasa* , protože v porovnání s trasou funguje s nízkou prioritou. Záložní trasa se bere v úvahu v případě, že se jiné trasy neshodují. To umožňuje aplikaci používat jiné řadiče a stránky, aniž by došlo ke kolizi s aplikací Blazor serveru.
 
 ## <a name="route-templates"></a>Šablony směrování
 
@@ -52,14 +54,14 @@ Za běhu součást `RouteView`:
 * Přijímá `RouteData` od `Router` spolu s požadovanými parametry.
 * Vykreslí určenou komponentu pomocí jejího rozložení (nebo volitelného výchozího rozložení) pomocí zadaných parametrů.
 
-Volitelně můžete zadat parametr `DefaultLayout` s třídou rozložení, která se má použít pro součásti, které neurčují rozložení. Výchozí šablony Blazor určují součást `MainLayout`. *MainLayout. Razor* se nachází ve *sdílené* složce projektu šablony. Další informace o rozloženích naleznete v tématu <xref:blazor/layouts>.
+Volitelně můžete zadat parametr `DefaultLayout` s třídou rozložení, která se má použít pro součásti, které neurčují rozložení. Výchozí Blazor šablony určují komponentu `MainLayout`. *MainLayout. Razor* se nachází ve *sdílené* složce projektu šablony. Další informace o rozloženích naleznete v tématu <xref:blazor/layouts>.
 
 Pro komponentu lze použít více šablon směrování. Následující komponenta reaguje na požadavky na `/BlazorRoute` a `/DifferentBlazorRoute`:
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
 
 > [!IMPORTANT]
-> Aby adresy URL byly správně přeloženy, musí aplikace zahrnovat značku `<base>` v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor) se základní cestou aplikace zadanou v atributu `href` (`<base href="/">`). Další informace najdete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
+> Aby adresy URL byly správně přeloženy, musí aplikace zahrnovat značku `<base>` v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *Page/_Host. cshtml* (Blazor Server) se základní cestou aplikace zadanou v atributu `href` (`<base href="/">`). Další informace najdete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>Poskytnutí vlastního obsahu, když se nenalezne obsah
 
@@ -79,11 +81,11 @@ V souboru *App. Razor* nastavte vlastní obsah v parametru šablony `NotFound` k
 </Router>
 ```
 
-Obsah značek `<NotFound>` může obsahovat libovolné položky, jako jsou například jiné interaktivní součásti. Pokud chcete použít výchozí rozložení pro @no__t obsahu s hodnotou 0, přečtěte si téma <xref:blazor/layouts>.
+Obsah značek `<NotFound>` může obsahovat libovolné položky, jako jsou například jiné interaktivní součásti. Chcete-li použít výchozí rozložení pro `NotFound` obsahu, přečtěte si téma <xref:blazor/layouts>.
 
 ## <a name="route-to-components-from-multiple-assemblies"></a>Směrování na součásti z více sestavení
 
-Použijte parametr `AdditionalAssemblies` k určení dalších sestavení pro komponentu `Router`, která se má při hledání směrovatelných komponent vzít v úvahu. Zadaná sestavení jsou kromě @no__tho -0-zadaného sestavení považována za. V následujícím příkladu je `Component1` směrovatelné komponenty definované v odkazované knihovně tříd. Následující příklad `AdditionalAssemblies` vede k podpoře směrování pro `Component1`:
+Použijte parametr `AdditionalAssemblies` k určení dalších sestavení pro komponentu `Router`, která se má při hledání směrovatelných komponent vzít v úvahu. Zadaná sestavení jsou kromě `AppAssembly`ho zadaného sestavení považována za. V následujícím příkladu je `Component1` směrovatelné komponenty definované v odkazované knihovně tříd. Následující příklad `AdditionalAssemblies` vede k podpoře směrování pro `Component1`:
 
 ```cshtml
 <Router
@@ -130,7 +132,7 @@ K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení t
 
 ### <a name="routing-with-urls-that-contain-dots"></a>Směrování s adresami URL, které obsahují tečky
 
-V aplikacích Blazor Server jsou výchozí trasy v *_Host. cshtml* `/` (`@page "/"`). Adresa URL požadavku, která obsahuje tečku (`.`), není shodná s výchozí cestou, protože adresa URL se zobrazí pro vyžádání souboru. Aplikace Blazor vrací odpověď na *404, která nebyla nalezena* pro statický soubor, který neexistuje. Chcete-li použít trasy, které obsahují tečku, nakonfigurujte *_Host. cshtml* s následující šablonou směrování:
+V Blazor serverových aplikacích je výchozí trasa v *_Host. cshtml* `/` (`@page "/"`). Adresa URL požadavku, která obsahuje tečku (`.`), není shodná s výchozí cestou, protože adresa URL se zobrazí pro vyžádání souboru. @No__t_0 aplikace vrátí odpověď na *404, která nebyla nalezena* pro statický soubor, který neexistuje. Chcete-li použít trasy, které obsahují tečku, nakonfigurujte *_Host. cshtml* s následující šablonou směrování:
 
 ```cshtml
 @page "/{**path}"
@@ -151,7 +153,7 @@ Následující součást `NavMenu` vytvoří navigační panel [bootstrap](https
 
 [!code-cshtml[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
-Existují dvě možnosti @no__t 0, které lze přiřadit k atributu `Match` prvku `<NavLink>`:
+Existují dvě `NavLinkMatch` možnosti, které lze přiřadit k atributu `Match` elementu `<NavLink>`:
 
 * `NavLinkMatch.All` &ndash; `NavLink` je aktivní, pokud odpovídá celé aktuální adrese URL.
 * `NavLinkMatch.Prefix` (*výchozí*) &ndash; `NavLink` je aktivní, pokud odpovídá libovolné předponě aktuální adresy URL.
@@ -177,7 +179,7 @@ Pro práci s identifikátory URI a navigací v C# kódu použijte `Microsoft.Asp
 | Člen | Popis |
 | ------ | ----------- |
 | `Uri` | Získá aktuální absolutní identifikátor URI. |
-| `BaseUri` | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle `BaseUri` odpovídá atributu `href` na `<base>` elementu dokumentu v *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor). |
+| `BaseUri` | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle `BaseUri` odpovídá atributu `href` na `<base>` elementu dokumentu v *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server). |
 | `NavigateTo` | Přejde k zadanému identifikátoru URI. Pokud je `forceLoad` `true`:<ul><li>Směrování na straně klienta se nepoužívá.</li><li>Prohlížeč je nucen načíst novou stránku ze serveru, bez ohledu na to, zda je identifikátor URI obvykle zpracováván směrovačem na straně klienta.</li></ul> |
 | `LocationChanged` | Událost, která se aktivuje, když se změní navigační umístění |
 | `ToAbsoluteUri` | Převede relativní identifikátor URI na absolutní identifikátor URI. |

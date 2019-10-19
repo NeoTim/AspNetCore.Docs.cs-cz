@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 09/25/2019
 uid: grpc/comparison
-ms.openlocfilehash: 5c3ea7a78401e6483425fa0774b3051b3d20f516
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 52b057876481bd9be4f83d93b1f05081ed19660f
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72289037"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "72589977"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
@@ -26,12 +26,12 @@ Následující tabulka nabízí vysoké srovnání funkcí mezi gRPC a rozhraní
 | Funkce          | gRPC                                               | HTTP API s JSON           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | Kontrakt         | Požadováno ( *.* )                                | Volitelné (OpenAPI)            |
-| Přepravu        | HTTP/2                                             | HTTP                          |
+| Protokol         | HTTP/2                                             | HTTP                          |
 | Délka          | [Protobuf (malý, binární)](#performance)           | JSON (velký, lidský čitelný)  |
-| Prescriptiveness | [Striktní specifikace](#strict-specification)      | Spojování. Všechny požadavky HTTP jsou platné.      |
+| Prescriptiveness | [Striktní specifikace](#strict-specification)      | Spojování. Všechny požadavky HTTP jsou platné.     |
 | Streamování        | [Klient, server, obousměrné](#streaming)       | Klient, Server                |
 | Podpora prohlížeče  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano                           |
-| Zabezpečení         | Přenos (HTTPS)                                  | Přenos (HTTPS)             |
+| Zabezpečení         | Přenos (TLS)                                    | Přenos (TLS)               |
 | Generování kódu klienta | [Ano](#code-generation)                      | OpenAPI + nástroje třetích stran |
 
 ## <a name="grpc-strengths"></a>gRPC síly
