@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
-ms.openlocfilehash: 8f0d9dd980fa3281f30dc29d329d10ccd352ae72
-ms.sourcegitcommit: 994da92edb0abf856b1655c18880028b15a28897
+ms.openlocfilehash: 596eca0f510387a18472eb353672980e0a8e0d24
+ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71278701"
+ms.lasthandoff: 10/21/2019
+ms.locfileid: "72698002"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>Migrace služeb gRPC z C-Core na ASP.NET Core
 
@@ -23,13 +23,13 @@ Z důvodu implementace podkladového zásobníku ne všechny funkce fungují ste
 
 Ve výchozím nastavení jsou ve ASP.NET Core stacku služby gRPC vytvořeny s [vymezenou životností](xref:fundamentals/dependency-injection#service-lifetimes). Naproti tomu gRPC C-Core se ve výchozím nastavení váže ke službě s [životností singleton](xref:fundamentals/dependency-injection#service-lifetimes).
 
-Vymezená doba života umožňuje implementaci služby vyřešit další služby s vymezenými životnostmi. Například rozsah životnosti lze také vyřešit `DbContext` z kontejneru di prostřednictvím injektáže konstruktoru. Použití oboru platnosti:
+Vymezená doba života umožňuje implementaci služby vyřešit další služby s vymezenými životnostmi. Například vymezená doba života může také vyřešit `DbContext` z kontejneru DI prostřednictvím injektáže konstruktoru. Použití oboru platnosti:
 
 * Nová instance implementace služby je vytvořena pro každý požadavek.
 * Není možné sdílet stav mezi požadavky prostřednictvím členů instance v typu implementace.
 * Očekává se, že se sdílené stavy ukládají do služby s jedním prvkem v kontejneru DI. Uložené sdílené stavy jsou vyřešeny v konstruktoru implementace služby gRPC.
 
-Další informace o životních cyklech služby najdete <xref:fundamentals/dependency-injection#service-lifetimes>v tématu.
+Další informace o životních cyklech služby najdete v tématu <xref:fundamentals/dependency-injection#service-lifetimes>.
 
 ### <a name="add-a-singleton-service"></a>Přidání služby s jedním prvkem
 
@@ -47,16 +47,16 @@ Nicméně implementace služby s životností singleton již není schopna přek
 
 ## <a name="configure-grpc-services-options"></a>Konfigurace možností služeb gRPC Services
 
-`grpc.max_receive_message_length` V aplikacích založených na jazyce C jsou nastavení, jako jsou a `grpc.max_send_message_length` , nakonfigurována `ChannelOption` při [vytváření instance serveru](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__).
+V aplikacích založených na jazyce C jsou nastavení, jako je například `grpc.max_receive_message_length` a `grpc.max_send_message_length`, konfigurována s `ChannelOption` při [vytváření instance serveru](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__).
 
-V ASP.NET Core poskytuje gRPC konfiguraci prostřednictvím `GrpcServiceOptions` typu. Například maximální velikost příchozích zpráv služby gRPC lze nakonfigurovat prostřednictvím `AddGrpc`. Následující příklad změní výchozí nastavení `ReceiveMaxMessageSize` 4 MB na 16 MB:
+V ASP.NET Core poskytuje gRPC konfiguraci prostřednictvím `GrpcServiceOptions` typu. Například maximální velikost příchozích zpráv služby gRPC je možné nakonfigurovat prostřednictvím `AddGrpc`. Následující příklad změní výchozí `MaxReceiveMessageSize` 4 MB na 16 MB:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddGrpc(options =>
     {
-        options.ReceiveMaxMessageSize = 16 * 1024 * 1024; // 16 MB
+        options.MaxReceiveMessageSize = 16 * 1024 * 1024; // 16 MB
     });
 }
 ```
@@ -65,7 +65,7 @@ Další informace o konfiguraci najdete v tématu <xref:grpc/configuration>.
 
 ## <a name="logging"></a>protokolování
 
-Základní aplikace založené na jazyce C jsou závislé `GrpcEnvironment` na [konfiguraci protokolovacího](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_) nástroje pro účely ladění. ASP.NET Core Stack tuto funkci poskytuje prostřednictvím [rozhraní API protokolování](xref:fundamentals/logging/index). Například protokolovací nástroj může být přidán do služby gRPC prostřednictvím injektáže konstruktoru:
+Aplikace založené na základních jazycích v jazyce C spoléhají na `GrpcEnvironment` ke [konfiguraci protokolovacího](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_) nástroje pro účely ladění. ASP.NET Core Stack tuto funkci poskytuje prostřednictvím [rozhraní API protokolování](xref:fundamentals/logging/index). Například protokolovací nástroj může být přidán do služby gRPC prostřednictvím injektáže konstruktoru:
 
 ```csharp
 public class GreeterService : Greeter.GreeterBase

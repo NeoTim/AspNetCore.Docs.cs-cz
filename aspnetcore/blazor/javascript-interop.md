@@ -5,14 +5,14 @@ description: Naučte se volat funkce JavaScriptu z metod .NET a .NET z JavaScrip
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 10/16/2019
 uid: blazor/javascript-interop
-ms.openlocfilehash: a8c3a0951761faab1c11507834aeef2507388d71
-ms.sourcegitcommit: ce2bfb01f2cc7dd83f8a97da0689d232c71bcdc4
+ms.openlocfilehash: b157e16918975cd522318a02f21824d9a0198b11
+ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72531128"
+ms.lasthandoff: 10/21/2019
+ms.locfileid: "72697929"
 ---
 # <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core interoperability JavaScriptu pro Blazor
 
@@ -38,9 +38,9 @@ Pro aplikace Blazor serveru:
 
 Následující příklad je založen na [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder), experimentálním dekodéru založeném na JavaScriptu. Příklad ukazuje, jak vyvolat funkci JavaScriptu z C# metody. Funkce JavaScriptu přijímá bajtové pole z C# metody, dekóduje pole a vrátí text do komponenty k zobrazení.
 
-Uvnitř `<head>`ho prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci, která používá `TextDecoder` k dekódování předaného pole:
+Uvnitř `<head>`ho prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci javascriptu, která používá `TextDecoder` k dekódování předaného pole a vrácení dekódovaných hodnot:
 
-[!code-html[](javascript-interop/samples_snapshot/index-script.html)]
+[!code-html[](javascript-interop/samples_snapshot/index-script-convertarray.html)]
 
 Kód jazyka JavaScript, jako je například kód zobrazený v předchozím příkladu, lze také načíst ze souboru JavaScriptu ( *. js*) s odkazem na soubor skriptu:
 
@@ -50,10 +50,12 @@ Kód jazyka JavaScript, jako je například kód zobrazený v předchozím pří
 
 Následující součást:
 
-* Vyvolá funkci jazyka JavaScript `ConvertArray` pomocí `JsRuntime`, je-li vybráno tlačítko komponenty (**převést pole**).
+* Vyvolá funkci `convertArray` JavaScript pomocí `JSRuntime` při výběru tlačítka komponenty (**převést pole**).
 * Po volání funkce JavaScriptu je předané pole převedeno na řetězec. Řetězec se vrátí do komponenty pro zobrazení.
 
 [!code-cshtml[](javascript-interop/samples_snapshot/call-js-example.razor?highlight=2,34-35)]
+
+##  <a name="use-of-ijsruntime"></a>Použití IJSRuntime
 
 Chcete-li použít abstrakci `IJSRuntime`, přijímají některé z následujících přístupů:
 
@@ -61,9 +63,17 @@ Chcete-li použít abstrakci `IJSRuntime`, přijímají některé z následujíc
 
   [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
+  Uvnitř `<head>`ho prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci `handleTickerChanged` JavaScript. Funkce je volána pomocí `IJSRuntime.InvokeVoidAsync` a nevrací hodnotu:
+
+  [!code-html[](javascript-interop/samples_snapshot/index-script-handleTickerChanged1.html)]
+
 * Vložit abstrakci `IJSRuntime` do třídy ( *. cs*):
 
   [!code-csharp[](javascript-interop/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
+
+  Uvnitř `<head>`ho prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci `handleTickerChanged` JavaScript. Funkce je volána pomocí `JSRuntime.InvokeAsync` a vrací hodnotu:
+
+  [!code-html[](javascript-interop/samples_snapshot/index-script-handleTickerChanged2.html)]
 
 * Pro generování dynamického obsahu pomocí [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)použijte atribut `[Inject]`:
 
