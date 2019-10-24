@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/14/2019
 uid: test/integration-tests
-ms.openlocfilehash: 863b95230d376d050c34a9ed585b7696e649cb05
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: c0fede8f9f46d1b10502055d8e1fe7caa48cf351
+ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378708"
+ms.lasthandoff: 10/22/2019
+ms.locfileid: "72779232"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -126,13 +126,13 @@ Pokud není [prostředí](xref:fundamentals/environments) SUT nastaveno, prostř
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>Základní testy s výchozím WebApplicationFactory
 
-[WebApplicationFactory @ no__t-1TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint` je třída vstupního bodu SUT, obvykle třída `Startup`.
+[WebApplicationFactory \<TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) se používá k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint` je třída vstupního bodu SUT, obvykle třída `Startup`.
 
 Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)( *Class* ) k označení třídy obsahuje testy a poskytování instancí sdíleného objektu napříč testy ve třídě.
 
 ### <a name="basic-test-of-app-endpoints"></a>Základní test koncových bodů aplikace
 
-Následující testovací třída, `BasicTests`, používá `WebApplicationFactory` k zavedení SUT a poskytnutí [HttpClient](/dotnet/api/system.net.http.httpclient) testovací metodě, `Get_EndpointsReturnSuccessAndCorrectContentType`. Metoda zkontroluje, zda je kód stavu odpovědi úspěšný (stavové kódy v rozsahu 200-299) a hlavička `Content-Type` je `text/html; charset=utf-8` pro několik stránek aplikace.
+Následující testovací třída, `BasicTests`, používá `WebApplicationFactory` k zavedení SUT a poskytnutí [HttpClient](/dotnet/api/system.net.http.httpclient) testovací metodě `Get_EndpointsReturnSuccessAndCorrectContentType`. Metoda zkontroluje, zda je kód stavu odpovědi úspěšný (stavové kódy v rozsahu 200-299) a hlavička `Content-Type` je `text/html; charset=utf-8` pro několik stránek aplikace.
 
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient`, která se automaticky sleduje a zpracovává soubory cookie.
 
@@ -148,7 +148,7 @@ V SUT stránka `/SecurePage` používá [AuthorizePage](/dotnet/api/microsoft.ex
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
 
-V testu `Get_SecurePageRequiresAnAuthenticatedUser` je [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) nastaveno na zakázat přesměrování nastavením [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) na `false`:
+V `Get_SecurePageRequiresAnAuthenticatedUser` testu je [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) nastaveno na zakázat přesměrování nastavením [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) na hodnotu `false`:
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet2)]
 
@@ -175,7 +175,7 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
 
    Chcete-li se připojit k jiné databázi než databáze v paměti, změňte volání `UseInMemoryDatabase` pro připojení kontextu k jiné databázi. Použití testovací databáze SQL Server:
 
-   * V souboru projektu se odkázat na balíček NuGet [Microsoft. EntityFrameworkCore. SqlServer] https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/).
+   * V souboru projektu se odkázat na balíček NuGet [Microsoft. EntityFrameworkCore. SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/) .
    * Zavolá `UseSqlServer` s připojovacím řetězcem k databázi.
 
    ```csharp
@@ -205,7 +205,7 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
 Pomocné metody rozšíření `SendAsync` (*helpers/HttpClientExtensions. cs*) a pomocná metoda `GetDocumentAsync` (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti padělání pomocí následující metody:
 
 * `GetDocumentAsync` &ndash; přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument`. `GetDocumentAsync` používá továrnu, která připraví *virtuální odpověď* na základě původní `HttpResponseMessage`. Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
-* @no__t – 0 metody rozšíření pro `HttpClient` pro vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML (`IHtmlFormElement`) a následující:
+* `SendAsync` metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML (`IHtmlFormElement`) a následující:
   * Tlačítko Odeslat ve formuláři (`IHtmlElement`)
   * Kolekce hodnot formulářů (`IEnumerable<KeyValuePair<string, string>>`)
   * Tlačítko Odeslat (`IHtmlElement`) a hodnoty formuláře (`IEnumerable<KeyValuePair<string, string>>`)
@@ -219,7 +219,7 @@ Pokud je v rámci testovací metody vyžadována další konfigurace, [WithWebHo
 
 Testovací metoda `Post_DeleteMessageHandler_ReturnsRedirectToRoot` [ukázkové aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) demonstruje použití `WithWebHostBuilder`. Tento test provede v databázi odstranění záznamu aktivací formuláře v SUT.
 
-Vzhledem k tomu, že jiný test ve třídě `IndexPageTests` provádí operaci, která odstraní všechny záznamy v databázi a může běžet před metodou `Post_DeleteMessageHandler_ReturnsRedirectToRoot`, databáze je v této testovací metodě znovu dosazený, aby se zajistilo, že SUT k odstranění bude přítomen záznam. Výběr prvního tlačítka pro odstranění @no__tového formuláře-0 v SUT se simuluje v požadavku na SUT:
+Vzhledem k tomu, že jiný test ve třídě `IndexPageTests` provádí operaci, která odstraní všechny záznamy v databázi a může běžet před `Post_DeleteMessageHandler_ReturnsRedirectToRoot` metodou, databáze je v této testovací metodě znovu dosazený, aby se zajistilo, že SUT k odstranění bude přítomen záznam. Výběr prvního tlačítka pro odstranění `messages`ového formuláře v SUT se simuluje v požadavku na SUT:
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet3)]
 
@@ -341,7 +341,7 @@ SUT je Razor Pages systém zpráv s následujícími charakteristikami:
 * Zprávy se ukládají&#8224;pomocí [databáze Entity Framework v paměti](/ef/core/providers/in-memory/).
 * Aplikace obsahuje vrstvu pro přístup k datům (DAL) ve své třídě kontext databáze `AppDbContext` (*data/AppDbContext. cs*).
 * Pokud je databáze při spuštění aplikace prázdná, úložiště zpráv se inicializuje se třemi zprávami.
-* Aplikace obsahuje @no__t – 0, ke kterému může mít pøístup jenom ověřený uživatel.
+* Aplikace obsahuje `/SecurePage`, ke kterým může mít pøístup jenom ověřený uživatel.
 
 &#8224;Téma EF, [test s pamětí](/ef/core/miscellaneous/testing/in-memory), vysvětluje, jak používat databázi v paměti pro testy pomocí MSTest. Toto téma používá testovací rozhraní [xUnit](https://xunit.github.io/) . Koncepty testů a testovací implementace v různých testovacích architekturách jsou podobné, ale nejsou totožné.
 
@@ -473,13 +473,13 @@ Pokud není [prostředí](xref:fundamentals/environments) SUT nastaveno, prostř
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>Základní testy s výchozím WebApplicationFactory
 
-[WebApplicationFactory @ no__t-1TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint` je třída vstupního bodu SUT, obvykle třída `Startup`.
+[WebApplicationFactory \<TEntryPoint >](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) se používá k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint` je třída vstupního bodu SUT, obvykle třída `Startup`.
 
 Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)( *Class* ) k označení třídy obsahuje testy a poskytování instancí sdíleného objektu napříč testy ve třídě.
 
 ### <a name="basic-test-of-app-endpoints"></a>Základní test koncových bodů aplikace
 
-Následující testovací třída, `BasicTests`, používá `WebApplicationFactory` k zavedení SUT a poskytnutí [HttpClient](/dotnet/api/system.net.http.httpclient) testovací metodě, `Get_EndpointsReturnSuccessAndCorrectContentType`. Metoda zkontroluje, zda je kód stavu odpovědi úspěšný (stavové kódy v rozsahu 200-299) a hlavička `Content-Type` je `text/html; charset=utf-8` pro několik stránek aplikace.
+Následující testovací třída, `BasicTests`, používá `WebApplicationFactory` k zavedení SUT a poskytnutí [HttpClient](/dotnet/api/system.net.http.httpclient) testovací metodě `Get_EndpointsReturnSuccessAndCorrectContentType`. Metoda zkontroluje, zda je kód stavu odpovědi úspěšný (stavové kódy v rozsahu 200-299) a hlavička `Content-Type` je `text/html; charset=utf-8` pro několik stránek aplikace.
 
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient`, která se automaticky sleduje a zpracovává soubory cookie.
 
@@ -495,7 +495,7 @@ V SUT stránka `/SecurePage` používá [AuthorizePage](/dotnet/api/microsoft.ex
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
 
-V testu `Get_SecurePageRequiresAnAuthenticatedUser` je [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) nastaveno na zakázat přesměrování nastavením [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) na `false`:
+V `Get_SecurePageRequiresAnAuthenticatedUser` testu je [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) nastaveno na zakázat přesměrování nastavením [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) na hodnotu `false`:
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet2)]
 
@@ -535,7 +535,7 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
 Pomocné metody rozšíření `SendAsync` (*helpers/HttpClientExtensions. cs*) a pomocná metoda `GetDocumentAsync` (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti padělání pomocí následující metody:
 
 * `GetDocumentAsync` &ndash; přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument`. `GetDocumentAsync` používá továrnu, která připraví *virtuální odpověď* na základě původní `HttpResponseMessage`. Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
-* @no__t – 0 metody rozšíření pro `HttpClient` pro vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML (`IHtmlFormElement`) a následující:
+* `SendAsync` metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML (`IHtmlFormElement`) a následující:
   * Tlačítko Odeslat ve formuláři (`IHtmlElement`)
   * Kolekce hodnot formulářů (`IEnumerable<KeyValuePair<string, string>>`)
   * Tlačítko Odeslat (`IHtmlElement`) a hodnoty formuláře (`IEnumerable<KeyValuePair<string, string>>`)
@@ -549,7 +549,7 @@ Pokud je v rámci testovací metody vyžadována další konfigurace, [WithWebHo
 
 Testovací metoda `Post_DeleteMessageHandler_ReturnsRedirectToRoot` [ukázkové aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) demonstruje použití `WithWebHostBuilder`. Tento test provede v databázi odstranění záznamu aktivací formuláře v SUT.
 
-Vzhledem k tomu, že jiný test ve třídě `IndexPageTests` provádí operaci, která odstraní všechny záznamy v databázi a může běžet před metodou `Post_DeleteMessageHandler_ReturnsRedirectToRoot`, databáze je v této testovací metodě znovu dosazený, aby se zajistilo, že SUT k odstranění bude přítomen záznam. Výběr prvního tlačítka pro odstranění @no__tového formuláře-0 v SUT se simuluje v požadavku na SUT:
+Vzhledem k tomu, že jiný test ve třídě `IndexPageTests` provádí operaci, která odstraní všechny záznamy v databázi a může běžet před `Post_DeleteMessageHandler_ReturnsRedirectToRoot` metodou, databáze je v této testovací metodě znovu dosazený, aby se zajistilo, že SUT k odstranění bude přítomen záznam. Výběr prvního tlačítka pro odstranění `messages`ového formuláře v SUT se simuluje v požadavku na SUT:
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet3)]
 
@@ -681,7 +681,7 @@ SUT je Razor Pages systém zpráv s následujícími charakteristikami:
 * Zprávy se ukládají&#8224;pomocí [databáze Entity Framework v paměti](/ef/core/providers/in-memory/).
 * Aplikace obsahuje vrstvu pro přístup k datům (DAL) ve své třídě kontext databáze `AppDbContext` (*data/AppDbContext. cs*).
 * Pokud je databáze při spuštění aplikace prázdná, úložiště zpráv se inicializuje se třemi zprávami.
-* Aplikace obsahuje @no__t – 0, ke kterému může mít pøístup jenom ověřený uživatel.
+* Aplikace obsahuje `/SecurePage`, ke kterým může mít pøístup jenom ověřený uživatel.
 
 &#8224;Téma EF, [test s pamětí](/ef/core/miscellaneous/testing/in-memory), vysvětluje, jak používat databázi v paměti pro testy pomocí MSTest. Toto téma používá testovací rozhraní [xUnit](https://xunit.github.io/) . Koncepty testů a testovací implementace v různých testovacích architekturách jsou podobné, ale nejsou totožné.
 
