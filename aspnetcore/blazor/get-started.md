@@ -5,14 +5,14 @@ description: Začněte s Blazor vytvořením aplikace Blazor pomocí nástrojů 
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 10/21/2019
 uid: blazor/get-started
-ms.openlocfilehash: fc368be5eb2e5d8f7c80071dc86a02ae986a685f
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 80ff7b42a44e722dd27bc4fde53a066863448e10
+ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391057"
+ms.lasthandoff: 10/22/2019
+ms.locfileid: "72779127"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -46,7 +46,7 @@ Začínáme s Blazor:
 
    5 \. Pro prostředí WebAssembly Blazor vyberte šablonu **aplikace Blazor WebAssembly** . Pro prostředí Blazor serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **vytvořit**. Informace o dvou modelech hostování Blazor, *serverech Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
 
-   6 \. Stisknutím klávesy **F5** spusťte aplikaci.
+   6 \. Spusťte aplikaci stisknutím klávesy **Ctrl** +**F5** .
 
    > [!NOTE]
    > Pokud jste nainstalovali rozšíření sady Visual Studio Blazor pro předchozí verzi Preview služby ASP.NET Core Blazor (Preview 6 nebo starší), můžete rozšíření odinstalovat. Instalace šablon Blazor do příkazového prostředí je teď dostačující pro povrchování šablon v aplikaci Visual Studio.
