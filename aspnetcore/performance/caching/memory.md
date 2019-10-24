@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 8/22/2019
 uid: performance/caching/memory
-ms.openlocfilehash: aa39503f034cf46fa4317a1f3cbb8d130afd1b8c
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: d6b2aa363c552fdbda7f6e9ec5d476768c17d8a5
+ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333742"
+ms.lasthandoff: 10/22/2019
+ms.locfileid: "72779183"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť v paměti v ASP.NET Core
 
@@ -33,15 +33,15 @@ Mezipaměť v paměti může ukládat libovolný objekt. Rozhraní distribuovan�
 
 ## <a name="systemruntimecachingmemorycache"></a>System. Runtime. Caching/MemoryCache
 
-<xref:System.Runtime.Caching> @ no__t-1 @ no__t-2 ([balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
+<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache> ([balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
 
 * .NET Standard 2,0 nebo novější.
 * Jakákoli [implementace .NET](/dotnet/standard/net-standard#net-implementation-support) , která cílí na .NET Standard 2,0 nebo novější. Například ASP.NET Core 2,0 nebo novější.
 * .NET Framework 4,5 nebo novější.
 
-[Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/ @ no__t-2 (popsané v tomto článku) se doporučují přes `System.Runtime.Caching` @ no__t-4 @ no__t-5, protože je lépe integrovaná do ASP.NET Core. Například `IMemoryCache` funguje nativně s [vkládáním závislostí](xref:fundamentals/dependency-injection)ASP.NET Core.
+[Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (popsaná v tomto článku) se doporučuje nad `System.Runtime.Caching`/`MemoryCache`, protože je lépe integrovaná do ASP.NET Core. Například `IMemoryCache` funguje nativně s [vkládáním závislostí](xref:fundamentals/dependency-injection)ASP.NET Core.
 
-Při přenosu kódu z ASP.NET 4. x do ASP.NET Core použijte `System.Runtime.Caching` @ no__t-1 @ no__t-2 jako most kompatibility.
+Použijte `System.Runtime.Caching`/`MemoryCache` jako most kompatibility při přenosu kódu z ASP.NET 4. x do ASP.NET Core.
 
 ## <a name="cache-guidelines"></a>Pokyny pro mezipaměť
 
@@ -56,6 +56,7 @@ Při přenosu kódu z ASP.NET 4. x do ASP.NET Core použijte `System.Runtime.Cac
 > [!WARNING]
 > Použití *sdílené* mezipaměti paměti z [Injektáže závislosti](xref:fundamentals/dependency-injection) a volání `SetSize`, `Size` nebo `SizeLimit` pro omezení velikosti mezipaměti může způsobit selhání aplikace. Pokud je u mezipaměti nastaveno omezení velikosti, všechny položky musí při přidávání určovat velikost. To může vést k problémům, protože vývojáři nemusí mít úplnou kontrolu nad tím, co používá sdílenou mezipaměť. Entity Framework Core například používá sdílenou mezipaměť a neurčuje velikost. Pokud aplikace nastaví omezení velikosti mezipaměti a používá EF Core, aplikace vyvolá `InvalidOperationException`.
 > Při použití `SetSize`, `Size` nebo `SizeLimit` k omezení mezipaměti, vytvořte pro ukládání do mezipaměti typ singleton. Další informace a příklad najdete v tématu [použití setSize, Size a SizeLimit k omezení velikosti mezipaměti](#use-setsize-size-and-sizelimit-to-limit-cache-size).
+> Sdílená mezipaměť je jedna sdílená jinými architekturami nebo knihovnami. EF Core například používá sdílenou mezipaměť a neurčuje velikost. 
 
 Mezipaměť v paměti je *Služba* , na kterou se odkazuje z aplikace pomocí [Injektáže závislostí](xref:fundamentals/dependency-injection). Vyžádat instanci `IMemoryCache` v konstruktoru:
 
@@ -174,7 +175,7 @@ Použití `CancellationTokenSource` umožňuje vyřazení více položek mezipam
 * Když se jedna položka mezipaměti používá k vytvoření jiného, podřízená položka zkopíruje tokeny vypršení platnosti nadřazené položky a nastavení vypršení platnosti na základě času. K podřízenému objektu nevypršela platnost ručním odebráním nebo aktualizací nadřazené položky.
 
 * Pomocí <xref:Microsoft.Extensions.Caching.Memory.ICacheEntry.PostEvictionCallbacks> můžete nastavit zpětná volání, která budou aktivována po vyřazení položky mezipaměti z mezipaměti.
-* Pro většinu aplikací je `IMemoryCache` povolený. Například volání `AddMvc`, `AddControllersWithViews`, `AddRazorPages`, `AddMvcCore().AddRazorViewEngine` a mnoha dalších @no__t metod v `ConfigureServices`, umožňuje `IMemoryCache`. Pro aplikace, které nevolají jednu z předchozích metod `Add{Service}`, může být nutné volat <xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddMemoryCache*> v `ConfigureServices`.
+* Pro většinu aplikací je `IMemoryCache` povolený. Například volání `AddMvc`, `AddControllersWithViews`, `AddRazorPages`, `AddMvcCore().AddRazorViewEngine`a mnoha dalších `Add{Service}` metod v `ConfigureServices`umožňuje `IMemoryCache`. Pro aplikace, které nevolají jednu z předchozích metod `Add{Service}`, může být nutné volat <xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddMemoryCache*> v `ConfigureServices`.
 
 ## <a name="additional-resources"></a>Další zdroje
 
@@ -206,15 +207,15 @@ Mezipaměť v paměti může ukládat libovolný objekt. Rozhraní distribuovan�
 
 ## <a name="systemruntimecachingmemorycache"></a>System. Runtime. Caching/MemoryCache
 
-<xref:System.Runtime.Caching> @ no__t-1 @ no__t-2 ([balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
+<xref:System.Runtime.Caching>/<xref:System.Runtime.Caching.MemoryCache> ([balíček NuGet](https://www.nuget.org/packages/System.Runtime.Caching/)) se dá použít s:
 
 * .NET Standard 2,0 nebo novější.
 * Jakákoli [implementace .NET](/dotnet/standard/net-standard#net-implementation-support) , která cílí na .NET Standard 2,0 nebo novější. Například ASP.NET Core 2,0 nebo novější.
 * .NET Framework 4,5 nebo novější.
 
-[Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/ @ no__t-2 (popsané v tomto článku) se doporučují přes `System.Runtime.Caching` @ no__t-4 @ no__t-5, protože je lépe integrovaná do ASP.NET Core. Například `IMemoryCache` funguje nativně s [vkládáním závislostí](xref:fundamentals/dependency-injection)ASP.NET Core.
+[Microsoft. Extensions. Caching. Memory](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Memory/)/`IMemoryCache` (popsaná v tomto článku) se doporučuje nad `System.Runtime.Caching`/`MemoryCache`, protože je lépe integrovaná do ASP.NET Core. Například `IMemoryCache` funguje nativně s [vkládáním závislostí](xref:fundamentals/dependency-injection)ASP.NET Core.
 
-Při přenosu kódu z ASP.NET 4. x do ASP.NET Core použijte `System.Runtime.Caching` @ no__t-1 @ no__t-2 jako most kompatibility.
+Použijte `System.Runtime.Caching`/`MemoryCache` jako most kompatibility při přenosu kódu z ASP.NET 4. x do ASP.NET Core.
 
 ## <a name="cache-guidelines"></a>Pokyny pro mezipaměť
 
