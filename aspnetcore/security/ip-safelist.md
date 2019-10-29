@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 08/31/2018
 uid: security/ip-safelist
-ms.openlocfilehash: 02e44135ab1742d44691cfda8c4167f21d6efa4e
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: ca5b0f8088773027f7403120247cbeca8900bcf5
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975649"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034346"
 ---
 # <a name="client-ip-safelist-for-aspnet-core"></a>IP adresa klienta Safelist pro ASP.NET Core
 
@@ -25,7 +25,7 @@ Tento článek ukazuje tři způsoby implementace IP Safelist (označované tak�
 
 V každém případě je řetězec, který obsahuje schválené IP adresy klienta, uložen v nastavení aplikace. Middleware nebo filtr analyzuje řetězec na seznam a kontroluje, jestli je vzdálená IP adresa v seznamu. V takovém případě se vrátí stavový kód HTTP 403 zakázáno.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/ip-safelist/samples/2.x/ClientIpAspNetCore) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="the-safelist"></a>Safelist
 
@@ -35,7 +35,7 @@ Seznam je nakonfigurovaný v souboru *appSettings. JSON* . Jedná se o střední
 
 ## <a name="middleware"></a>Middleware
 
-`Configure` Metoda přidá middleware a předá do něj řetězec Safelist v parametru konstruktoru.
+Metoda `Configure` přidá middleware a předá do něj řetězec Safelist v parametru konstruktoru.
 
 [!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Startup.cs?name=snippet_Configure&highlight=10)]
 
@@ -47,7 +47,7 @@ Middleware analyzuje řetězec do pole a hledá v poli vzdálenou IP adresu. Pok
 
 Pokud chcete Safelist jenom pro konkrétní řadiče nebo metody akcí, použijte filtr akcí. Tady je příklad: 
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Filters/ClientIdCheckFilter.cs)]
+[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Filters/ClientIpCheckFilter.cs)]
 
 Filtr akce se přidá do kontejneru služby.
 
@@ -57,13 +57,13 @@ Filtr je pak možné použít na řadiči nebo metodě akce.
 
 [!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Controllers/ValuesController.cs?name=snippet_Filter&highlight=1)]
 
-V ukázkové aplikaci se filtr aplikuje na `Get` metodu. Takže když aplikaci otestujete odesláním `Get` požadavku rozhraní API, atribut ověří IP adresu klienta. Při testování voláním rozhraní API pomocí jakékoli jiné metody HTTP middleware ověřuje IP adresu klienta.
+V ukázkové aplikaci se filtr aplikuje na metodu `Get`. Takže když aplikaci otestujete odesláním požadavku rozhraní API `Get`, atribut ověřuje IP adresu klienta. Při testování voláním rozhraní API pomocí jakékoli jiné metody HTTP middleware ověřuje IP adresu klienta.
 
 ## <a name="razor-pages-filter"></a>Filtr Razor Pages 
 
 Pokud chcete Safelist pro aplikaci Razor Pages, použijte filtr Razor Pages. Tady je příklad: 
 
-[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Filters/ClientIdCheckPageFilter.cs)]
+[!code-csharp[](ip-safelist/samples/2.x/ClientIpAspNetCore/Filters/ClientIpCheckPageFilter.cs)]
 
 Tento filtr je povolen přidáním do kolekce filtry MVC.
 
@@ -71,6 +71,6 @@ Tento filtr je povolen přidáním do kolekce filtry MVC.
 
 Když aplikaci spustíte a požádáte o stránku Razor, filtr Razor Pages ověřuje IP adresu klienta.
 
-## <a name="next-steps"></a>Další postup
+## <a name="next-steps"></a>Další kroky
 
 [Přečtěte si další informace o ASP.NET Core middlewaru](xref:fundamentals/middleware/index).

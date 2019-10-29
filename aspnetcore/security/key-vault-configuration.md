@@ -5,14 +5,14 @@ description: Naučte se používat zprostředkovatele konfigurace Azure Key Vaul
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/14/2019
+ms.date: 10/27/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: c8e76068dbcf2a59a15fa75a1fc5aa0032e6acc5
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: acc3a77cdeb3ba73d8467d465128106e461efa7c
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334197"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034332"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace Azure Key Vault v ASP.NET Core
 
@@ -72,7 +72,7 @@ dotnet user-secrets set "SecretName" "secret_value_1_dev"
 dotnet user-secrets set "Section:SecretName" "secret_value_2_dev"
 ```
 
-Pokud jsou tyto tajné klíče uložené v Azure Key Vault [tajné úložiště v produkčním prostředí s Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) oddílem, přípona `_dev` se změní na `_prod`. Přípona poskytuje vizuální hromádku ve výstupu aplikace, která označuje zdroj hodnot konfigurace.
+Pokud jsou tyto tajné klíče uložené v Azure Key Vault v [tajném úložišti v produkčním prostředí s Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) oddílem, `_dev` přípona se změní na `_prod`. Přípona poskytuje vizuální hromádku ve výstupu aplikace, která označuje zdroj hodnot konfigurace.
 
 ## <a name="secret-storage-in-the-production-environment-with-azure-key-vault"></a>Tajné úložiště v produkčním prostředí pomocí Azure Key Vault
 
@@ -104,7 +104,7 @@ Pokyny poskytované [rychlým startem: nastavení a načtení tajného klíče z
 
    Názvy tajných kódů Azure Key Vault jsou omezené na alfanumerické znaky a pomlčky. Hierarchické hodnoty (konfigurační oddíly) používají jako oddělovač `--` (dvě pomlčky). Dvojtečky, které se obvykle používají k vymezení oddílu z podklíče v [konfiguraci ASP.NET Core](xref:fundamentals/configuration/index), nejsou povoleny v tajných názvech trezoru klíčů. Proto se při načtení tajných klíčů do konfigurace aplikace použijí dvě pomlčky, které jsou v případě dvojtečky zahozeny.
 
-   Následující tajné klíče jsou pro použití s ukázkovou aplikací. Hodnoty zahrnují příponu `_prod`, aby se lišily od hodnot přípony `_dev` načtených ve vývojovém prostředí od uživatelských tajných kódů. Nahraďte `{KEY VAULT NAME}` názvem trezoru klíčů, který jste vytvořili v předchozím kroku:
+   Následující tajné klíče jsou pro použití s ukázkovou aplikací. Mezi hodnoty patří `_prod` přípona pro odlišení od hodnot `_dev` přípony načtených ve vývojovém prostředí od uživatelských tajných kódů. Nahraďte `{KEY VAULT NAME}` názvem trezoru klíčů, který jste vytvořili v předchozím kroku:
 
    ```azure-cli
    az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "SecretName" --value "secret_value_1_prod"
@@ -141,7 +141,7 @@ Ukázková aplikace používá ID aplikace a certifikát X. 509, pokud je přík
 
 Ukázková aplikace `Certificate` získá své konfigurační hodnoty z `IConfigurationRoot` se stejným názvem, jako má název tajného kódu:
 
-* Hodnoty, které nejsou hierarchicky: hodnota pro `SecretName` se získá s `config["SecretName"]`.
+* Hodnoty, které nejsou hierarchicky: hodnota pro `SecretName` je získána pomocí `config["SecretName"]`.
 * Hierarchické hodnoty (oddíly): použijte notaci `:` (dvojtečky) nebo metodu rozšíření `GetSection`. K získání hodnoty konfigurace použijte některý z těchto přístupů:
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
@@ -174,7 +174,7 @@ Nasaďte ukázkovou aplikaci do Azure App Service.
 
 Aplikace nasazená do Azure App Service se při vytvoření služby automaticky zaregistruje ve službě Azure AD. Získejte ID objektu z nasazení pro použití v následujícím příkazu. ID objektu se zobrazí v Azure Portal na panelu **identita** App Service.
 
-Pomocí rozhraní příkazového řádku Azure a ID objektu aplikace poskytněte aplikaci s oprávněním @no__t 0 a `get` pro přístup k trezoru klíčů:
+Pomocí rozhraní příkazového řádku Azure a ID objektu aplikace poskytněte aplikaci `list` a `get` oprávnění pro přístup k trezoru klíčů:
 
 ```azure-cli
 az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secret-permissions get list
@@ -200,9 +200,11 @@ Ukázková hodnota názvu trezoru klíčů: `contosovault`
 }
 ```
 
-Když aplikaci spouštíte, zobrazí se na webové stránce načtené tajné hodnoty. Ve vývojovém prostředí mají tajné hodnoty příponu `_dev`, protože jsou k dispozici prostřednictvím uživatelských tajných klíčů. V produkčním prostředí se hodnoty načítají s příponou @no__t 0, protože jsou k dispozici v Azure Key Vault.
+Když aplikaci spouštíte, zobrazí se na webové stránce načtené tajné hodnoty. Ve vývojovém prostředí mají tajné hodnoty příponu `_dev`, protože jsou poskytovány uživatelskými tajemstvími. V produkčním prostředí se hodnoty načítají s příponou `_prod`, protože jsou k dispozici v Azure Key Vault.
 
 Pokud se zobrazí chyba `Access denied`, potvrďte, že je aplikace zaregistrovaná ve službě Azure AD a poskytuje přístup k trezoru klíčů. Potvrďte, že jste službu restartovali v Azure.
+
+Informace o používání zprostředkovatele se spravovanou identitou a kanálem Azure DevOps najdete v tématu [vytvoření připojení služby Azure Resource Manager k virtuálnímu počítači s identitou spravované služby](/azure/devops/pipelines/library/connect-to-azure#create-an-azure-resource-manager-service-connection-to-a-vm-with-a-managed-service-identity).
 
 ## <a name="use-a-key-name-prefix"></a>Použít předponu názvu klíče
 
@@ -259,7 +261,7 @@ Při implementaci tohoto přístupu:
 
 1. Verze `5000` (s pomlčkou), je z názvu klíče odstraněna. V celé aplikaci čtení konfigurace pomocí klíče `AppSecret` načte tajnou hodnotu.
 
-1. Pokud je verze aplikace v souboru projektu změněna na `5.1.0.0` a aplikace je znovu spuštěna, vrátí tajná hodnota `5.1.0.0_secret_value_dev` ve vývojovém prostředí a `5.1.0.0_secret_value_prod` v produkčním prostředí.
+1. Pokud se verze aplikace v souboru projektu změní na `5.1.0.0` a aplikace se spustí znovu, vrátí se hodnota tajného klíče `5.1.0.0_secret_value_dev` ve vývojovém prostředí a `5.1.0.0_secret_value_prod` v produkčním prostředí.
 
 > [!NOTE]
 > Můžete také poskytnout vlastní implementaci `KeyVaultClient` pro `AddAzureKeyVault`. Vlastní klient umožňuje v rámci aplikace sdílet jednu instanci klienta.

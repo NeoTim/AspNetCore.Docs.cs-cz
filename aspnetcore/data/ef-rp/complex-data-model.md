@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 2461bc398cd237dac04f4eb8832c70290663ff56
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 1244b2e23a842538ff2fca01a513317a690afe7c
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259487"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034035"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>Razor Pages s EF Core v ASP.NET Core-datový model 5 z 8
 
@@ -59,7 +59,7 @@ Předchozí kód přidá vlastnost `FullName` a přidá následující atributy 
 
 Pro data o registraci studenta aktuálně zobrazují všechny stránky denní dobu a datum, i když se jedná o relevantní datum. Pomocí atributů datových poznámek můžete vytvořit jednu změnu kódu, která bude opravovat formát zobrazení na každé stránce, která zobrazuje data. 
 
-Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) Určuje datový typ, který je konkrétnější než vnitřní typ databáze. V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas. [Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. Atribut `DataType` může také aplikaci povolit automatické poskytování funkcí specifických pro typ. Například:
+Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) Určuje datový typ, který je konkrétnější než vnitřní typ databáze. V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas. [Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. Atribut `DataType` může také aplikaci povolit automatické poskytování funkcí specifických pro typ. Příklad:
 
 * Propojení `mailto:` se automaticky vytvoří pro `DataType.EmailAddress`.
 * Selektor data je k dispozici pro `DataType.Date` ve většině prohlížečů.
@@ -124,7 +124,7 @@ Atributy mohou řídit způsob, jakým jsou třídy a vlastnosti mapovány na da
 
 Při vytvoření databáze se názvy vlastností v modelu používají pro názvy sloupců (s výjimkou případů, kdy se používá atribut `Column`). Model `Student` používá pro pole první název `FirstMidName`, protože pole může obsahovat také prostřední jméno.
 
-Pomocí atributu `[Column]` se v datovém modelu `Student.FirstMidName` mapuje do sloupce `FirstName` tabulky `Student`. Přidání atributu `Column` změní model zálohování `SchoolContext`. Model zálohování `SchoolContext` se již neshoduje s databází. Tato nesrovnalost bude vyřešena přidáním migrace později v tomto kurzu.
+Pomocí atributu `[Column]` `Student.FirstMidName` v datovém modelu mapuje na sloupec `FirstName` tabulky `Student`. Přidání atributu `Column` změní model zálohování `SchoolContext`. Model zálohování `SchoolContext` se již neshoduje s databází. Tato nesrovnalost bude vyřešena přidáním migrace později v tomto kurzu.
 
 ### <a name="the-required-attribute"></a>Požadovaný atribut
 
@@ -272,7 +272,7 @@ Vytvořte *modely/OfficeAssignment. cs* s následujícím kódem:
 
 Atribut `[Key]` slouží k identifikaci vlastnosti jako primárního klíče (PK), pokud je název vlastnosti něco jiného než classnameID nebo ID.
 
-Mezi entitami `Instructor` a `OfficeAssignment` existuje vztah 1:1 nebo 1:1. Přiřazení kanceláře existuje jenom ve vztahu k instruktorovi, ke kterému je přiřazený. @No__t-0 PK je také jeho cizí klíč (FK) k entitě `Instructor`.
+Mezi entitami `Instructor` a `OfficeAssignment` existuje vztah 1:1 nebo 1:1. Přiřazení kanceláře existuje jenom ve vztahu k instruktorovi, ke kterému je přiřazený. `OfficeAssignment` PK je také jeho cizí klíč (FK) k entitě `Instructor`.
 
 EF Core nemůže automaticky rozpoznat `InstructorID` jako PK `OfficeAssignment`, protože `InstructorID` nedodržuje konvence pojmenování ID nebo classnameID. Proto se atribut `Key` používá k identifikaci `InstructorID` jako PK:
 
@@ -310,7 +310,7 @@ Pokud je vlastnost FK `DepartmentID` obsažena v datovém modelu, není nutné p
 
 ### <a name="the-databasegenerated-attribute"></a>Atribut DatabaseGenerated
 
-Atribut `[DatabaseGenerated(DatabaseGeneratedOption.None)]` určuje, že se má v rámci aplikace poskytnout PK místo vygenerované databází.
+Atribut `[DatabaseGenerated(DatabaseGeneratedOption.None)]` určuje, zda je v rámci aplikace poskytnuta PK místo vygenerovaného databází.
 
 ```csharp
 [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -508,7 +508,7 @@ Některé atributy používané v tomto kurzu se používají pro:
 
 * Pouze ověření (například `MinimumLength`).
 * Pouze EF Core konfigurace (například `HasKey`).
-* Konfigurace ověření a EF Core (například `[StringLength(50)]`).
+* Konfigurace ověřování a EF Core (například `[StringLength(50)]`).
 
 Další informace o atributech vs. Fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/).
 
@@ -625,7 +625,7 @@ Chcete-li vynutit EF Core vytvoření nové databáze, vyřaďte a aktualizujte 
 
 ---
 
-Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize`. @No__t-0 naplní novou databázi.
+Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize`. `DbInitializer.Initialize` naplní novou databázi.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -682,7 +682,7 @@ Ve třídě migrace `ComplexDataModel` aktualizujte metodu `Up`:
 
 Přidejte následující zvýrazněný kód. Nový kód přejde za blok `.CreateTable( name: "Department"`:
 
-[! Code-CSharp [] (Úvod/Samples/cu30snapshots/5-Complex/migrations/ComplexDataModel. cs? Name = snippet_CreateDefaultValue & zvýraznění = 23-31)]
+[!code-csharp[](intro/samples/cu30snapshots/5-complex/Migrations/ComplexDataModel.cs?name=snippet_CreateDefaultValue&highlight=23-31)]
 
 S předchozími změnami existující řádky `Course` budou po spuštění metody `ComplexDataModel.Up` souviset s oddělením "dočasného".
 
@@ -711,7 +711,7 @@ Vzhledem k tomu, že metoda `DbInitializer.Initialize` je navržená tak, aby fu
 
 ---
 
-Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize`. @No__t-0 naplní novou databázi.
+Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize`. `DbInitializer.Initialize` naplní novou databázi.
 
 ## <a name="next-steps"></a>Další kroky
 
@@ -749,7 +749,7 @@ Aktualizujte *modely/student. cs* následujícím zvýrazněným kódem:
 
 [!code-csharp[](intro/samples/cu21/Models/Student.cs?name=snippet_DataType&highlight=3,12-13)]
 
-Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) Určuje datový typ, který je konkrétnější než vnitřní typ databáze. V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas. [Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. Atribut `DataType` může také aplikaci povolit automatické poskytování funkcí specifických pro typ. Například:
+Atribut [DataType](/dotnet/api/system.componentmodel.dataannotations.datatypeattribute?view=netframework-4.7.1) Určuje datový typ, který je konkrétnější než vnitřní typ databáze. V tomto případě by se měla zobrazit pouze datum, nikoli datum a čas. [Výčet DataType](/dotnet/api/system.componentmodel.dataannotations.datatype?view=netframework-4.7.1) poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress atd. Atribut `DataType` může také aplikaci povolit automatické poskytování funkcí specifických pro typ. Příklad:
 
 * Propojení `mailto:` se automaticky vytvoří pro `DataType.EmailAddress`.
 * Selektor data je k dispozici pro `DataType.Date` ve většině prohlížečů.
@@ -950,9 +950,9 @@ Vytvořte *modely/OfficeAssignment. cs* s následujícím kódem:
 
 Atribut `[Key]` slouží k identifikaci vlastnosti jako primárního klíče (PK), pokud je název vlastnosti něco jiného než classnameID nebo ID.
 
-Mezi entitami `Instructor` a `OfficeAssignment` existuje vztah 1:1 nebo 1:1. Přiřazení kanceláře existuje jenom ve vztahu k instruktorovi, ke kterému je přiřazený. @No__t-0 PK je také jeho cizí klíč (FK) k entitě `Instructor`. EF Core nemůže automaticky rozpoznat `InstructorID` jako PK v `OfficeAssignment` z těchto důvodů:
+Mezi entitami `Instructor` a `OfficeAssignment` existuje vztah 1:1 nebo 1:1. Přiřazení kanceláře existuje jenom ve vztahu k instruktorovi, ke kterému je přiřazený. `OfficeAssignment` PK je také jeho cizí klíč (FK) k entitě `Instructor`. EF Core nemůže automaticky rozpoznat `InstructorID` jako PK v `OfficeAssignment` z těchto důvodů:
 
-* @no__t – 0 nedodržuje konvence pojmenování ID nebo classnameID.
+* `InstructorID` nedodržuje konvence pojmenování ID nebo classnameID.
 
 Proto se atribut `Key` používá k identifikaci `InstructorID` jako PK:
 
@@ -970,14 +970,14 @@ Navigační vlastnost `OfficeAssignment` pro entitu `Instructor` má hodnotu nul
 * Typy odkazů (například třídy mohou mít hodnotu null).
 * Instruktor nemusí mít přiřazení kanceláře.
 
-Entita `OfficeAssignment` má vlastnost navigace, která není @no__t null, protože:
+Entita `OfficeAssignment` má vlastnost navigace `Instructor`, která není null, protože:
 
 * `InstructorID` je nepovoluje hodnotu null.
 * Přiřazení kanceláře nemůže existovat bez instruktora.
 
 Pokud má entita `Instructor` související entitu `OfficeAssignment`, má Každá entita odkaz na druhou vlastnost v její navigační vlastnosti.
 
-Atribut `[Required]` lze použít pro navigační vlastnost `Instructor`:
+Atribut `[Required]` lze použít pro `Instructor` navigační vlastnost:
 
 ```csharp
 [Required]
@@ -1007,7 +1007,7 @@ Pokud je vlastnost FK `DepartmentID` obsažena v datovém modelu, není nutné p
 
 ### <a name="the-databasegenerated-attribute"></a>Atribut DatabaseGenerated
 
-Atribut `[DatabaseGenerated(DatabaseGeneratedOption.None)]` určuje, že se má v rámci aplikace poskytnout PK místo vygenerované databází.
+Atribut `[DatabaseGenerated(DatabaseGeneratedOption.None)]` určuje, zda je v rámci aplikace poskytnuta PK místo vygenerovaného databází.
 
 ```csharp
 [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -1216,7 +1216,7 @@ Některé atributy použité v tomto kurzu se používají pro:
 
 * Pouze ověření (například `MinimumLength`).
 * Pouze EF Core konfigurace (například `HasKey`).
-* Konfigurace ověření a EF Core (například `[StringLength(50)]`).
+* Konfigurace ověřování a EF Core (například `[StringLength(50)]`).
 
 Další informace o atributech vs. Fluent API najdete v tématu [metody konfigurace](/ef/core/modeling/).
 
@@ -1310,7 +1310,7 @@ dotnet ef database update
 
 ---
 
-Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize`. @No__t-0 naplní novou databázi.
+Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize`. `DbInitializer.Initialize` naplní novou databázi.
 
 Otevřete databázi v SSOX:
 
@@ -1367,12 +1367,13 @@ Produkční aplikace by:
 
 Další kurz se zabývá souvisejícími daty.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze tohoto kurzu pro YouTube (část 1)](https://www.youtube.com/watch?v=0n2f0ObgCoA)
 * [Verze tohoto kurzu pro YouTube (část 2)](https://www.youtube.com/watch?v=Je0Z5K1TNmY)
 
 > [!div class="step-by-step"]
-> [Předchozí](xref:data/ef-rp/migrations)@no__t – 1 –[Další](xref:data/ef-rp/read-related-data)
+> [Předchozí](xref:data/ef-rp/migrations)
+> [Další](xref:data/ef-rp/read-related-data)
 
 ::: moniker-end

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: 072f9bbdcf7171ede63383b085f9f0f030bf1076
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: be67c129af4f071d10719e0bbf121de761dde9f4
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391172"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73033996"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core modely hostování Blazor
 
@@ -66,7 +66,7 @@ Aplikace ASP.NET Core odkazuje na třídu `Startup` aplikace, která má přidat
 * Služby na straně serveru.
 * Aplikace do kanálu pro zpracování požadavků.
 
-Skript *blazor. Server. js* @ no__t-1 vytvoří připojení klienta. Je zodpovědností aplikace zachovat a obnovit stav aplikace podle potřeby (například v případě ztraceného síťového připojení).
+Skript *blazor. Server. js*&dagger; vytvoří připojení klienta. Je zodpovědností aplikace zachovat a obnovit stav aplikace podle potřeby (například v případě ztraceného síťového připojení).
 
 Model hostování serveru Blazor nabízí několik výhod:
 
@@ -228,7 +228,7 @@ Konfigurace klienta signalizace v souboru *Pages/_Host. cshtml* :
 <script>
   Blazor.start({
     configureSignalR: function (builder) {
-      builder.configureLogging(2); // LogLevel.Information
+      builder.configureLogging("information"); // LogLevel.Information
     }
   });
 </script>

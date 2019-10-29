@@ -5,12 +5,12 @@ description: Vysvětluje Razor Pages generovaného pomocí uživatelského rozhr
 ms.author: riande
 ms.date: 08/17/2019
 uid: tutorials/razor-pages/page
-ms.openlocfilehash: 939ed5c3cdf33d8d99712e3166d8d07d3bac719f
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 594fd6186cc73aa054fc9a1478850fa01e481ef2
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334087"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034201"
 ---
 # <a name="scaffolded-razor-pages-in-aspnet-core"></a>Vygenerované Razor Pages v ASP.NET Core
 
@@ -28,11 +28,11 @@ Projděte si model stránky *stránky/filmy/index. cshtml. cs* :
 
 [!code-csharp[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs)]
 
-Razor Pages jsou odvozeny z `PageModel`. Podle konvence se @no__t třída odvozená od @no__t označuje jako-1. Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání `RazorPagesMovieContext` na stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování pomocí Entity Framework naleznete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
+Razor Pages jsou odvozeny z `PageModel`. Podle konvence je třída odvozená od `PageModel`volána `<PageName>Model`. Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání `RazorPagesMovieContext` na stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování pomocí Entity Framework naleznete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
 
 Když je vytvořena žádost pro stránku, metoda `OnGetAsync` vrátí seznam filmů na stránku Razor. pro inicializaci stavu stránky je volána hodnota `OnGetAsync` nebo `OnGet`. V takovém případě `OnGetAsync` načte seznam filmů a zobrazí je.
 
-Když `OnGet` vrátí `void` nebo `OnGetAsync` vrátí hodnotu @ no__t-3, není použit žádný návratový příkaz. Pokud je návratový typ `IActionResult` nebo `Task<IActionResult>`, je nutné poskytnout návratový příkaz. Například metoda *Pages/video/Create. cshtml. cs* `OnPostAsync`:
+Když `OnGet` vrátí `void` nebo `OnGetAsync` vrátí`Task`, není použit žádný návratový příkaz. Pokud je návratový typ `IActionResult` nebo `Task<IActionResult>`, je nutné poskytnout návratový příkaz. Například metoda *Pages/video/Create. cshtml. cs* `OnPostAsync`:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
@@ -49,10 +49,10 @@ Direktiva `@page` Razor vytvoří soubor akce MVC, což znamená, že může zpr
 Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
 
 ```cshtml
-@Html.DisplayNameFor(model => model.Movie[0].Title))
+@Html.DisplayNameFor(model => model.Movie[0].Title)
 ```
 
-Pomocný objekt HTML `DisplayNameFor` kontroluje vlastnost `Title`, na kterou se odkazuje ve výrazu lambda, aby bylo možné zjistit zobrazované jméno. Výraz lambda je zkontrolován namísto vyhodnocení. To znamená, že nedojde k porušení přístupu, když `model`, `model.Movie` nebo `model.Movie[0]` je `null` nebo prázdné. Při vyhodnocování výrazu lambda (například s `@Html.DisplayFor(modelItem => item.Title)`) jsou vyhodnocovány hodnoty vlastností modelu.
+Pomocný objekt HTML `DisplayNameFor` kontroluje vlastnost `Title`, na kterou se odkazuje ve výrazu lambda, aby bylo možné zjistit zobrazované jméno. Výraz lambda je zkontrolován namísto vyhodnocení. To znamená, že při `model`, `model.Movie`nebo `model.Movie[0]` není toto porušení přístupu `null` nebo je prázdné. Při vyhodnocování výrazu lambda (například s `@Html.DisplayFor(modelItem => item.Title)`) jsou vyhodnocovány hodnoty vlastností modelu.
 
 <a name="md"></a>
 
@@ -60,7 +60,7 @@ Pomocný objekt HTML `DisplayNameFor` kontroluje vlastnost `Title`, na kterou se
 
 [!code-cshtml[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
 
-Direktiva `@model` určuje typ modelu předaného na stránku Razor. V předchozím příkladu čára `@model` zpřístupňuje na stránce Razor třídu odvozenou @no__t -1. Model se používá v [pomocníkech HTML](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) `@Html.DisplayNameFor` a `@Html.DisplayFor` na stránce.
+Direktiva `@model` určuje typ modelu předaného na stránku Razor. V předchozím příkladu `@model` řádek zpřístupňuje třídu odvozenou `PageModel`, která je k dispozici na stránce Razor. Model se používá v [pomocníkech HTML](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) `@Html.DisplayNameFor` a `@Html.DisplayFor` na stránce.
 
 ### <a name="the-layout-page"></a>Stránka rozložení
 
@@ -96,7 +96,7 @@ changing in in the next step.
 
 ### <a name="update-the-layout"></a>Aktualizovat rozložení
 
-Změňte prvek `<title>` v souboru *Pages/Shared/_Layout. cshtml* pro zobrazení **filmu** místo **RazorPagesMovie**.
+Změňte `<title>` prvek v souboru *Pages/Shared/_Layout. cshtml* pro zobrazení **filmu** místo **RazorPagesMovie**.
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie30/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
 
@@ -133,9 +133,9 @@ Projděte si model stránky *stránky/filmy/vytvořit. cshtml. cs* :
 
 [!code-csharp[](razor-pages-start/snapshot_sample3/RazorPagesMovie30/Pages/Movies/Create.cshtml.cs?name=snippetALL)]
 
-Metoda `OnGet` inicializuje libovolný stav potřebný pro stránku. Stránka pro vytvoření nemá žádný stav k inicializaci, takže se vrátí `Page`. Později v tomto kurzu se zobrazí příklad @no__t stav inicializace – 0. Metoda `Page` vytvoří objekt `PageResult`, který vykresluje stránku *Create. cshtml* .
+Metoda `OnGet` inicializuje libovolný stav potřebný pro stránku. Stránka pro vytvoření nemá žádný stav k inicializaci, takže se vrátí `Page`. Později v tomto kurzu se zobrazí příklad `OnGet` stav inicializace. Metoda `Page` vytvoří objekt `PageResult`, který vykresluje stránku *Create. cshtml* .
 
-Vlastnost `Movie` používá atribut `[BindProperty]` k výslovným souhlasům s [vazbou modelu](xref:mvc/models/model-binding). Když formulář vytvořit odešle hodnoty formuláře, modul runtime ASP.NET Core váže odeslané hodnoty k modelu `Movie`.
+Vlastnost `Movie` používá atribut `[BindProperty]` pro přihlášení k [modelu vazby](xref:mvc/models/model-binding). Když formulář vytvořit odešle hodnoty formuláře, modul runtime ASP.NET Core váže odeslané hodnoty k modelu `Movie`.
 
 Metoda `OnPostAsync` se spustí, když stránka publikuje data formuláře:
 
@@ -221,11 +221,11 @@ Projděte si model stránky *stránky/filmy/index. cshtml. cs* :
 
 [!code-csharp[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml.cs)]
 
-Razor Pages jsou odvozeny z `PageModel`. Podle konvence se @no__t třída odvozená od @no__t označuje jako-1. Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání `RazorPagesMovieContext` na stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování pomocí Entity Framework naleznete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
+Razor Pages jsou odvozeny z `PageModel`. Podle konvence je třída odvozená od `PageModel`volána `<PageName>Model`. Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) k přidání `RazorPagesMovieContext` na stránku. Všechny vygenerované stránky následují tento model. Další informace o asynchronním programování pomocí Entity Framework naleznete v tématu [asynchronní kód](xref:data/ef-rp/intro#asynchronous-code) .
 
 Když je vytvořena žádost pro stránku, metoda `OnGetAsync` vrátí seznam filmů na stránku Razor. `OnGetAsync` nebo `OnGet` je volána na stránce Razor pro inicializaci stavu stránky. V takovém případě `OnGetAsync` načte seznam filmů a zobrazí je.
 
-Když `OnGet` vrátí `void` nebo `OnGetAsync` vrátí hodnotu @ no__t-3, nepoužije se žádná návratová metoda. Pokud je návratový typ `IActionResult` nebo `Task<IActionResult>`, je nutné poskytnout návratový příkaz. Například metoda *Pages/video/Create. cshtml. cs* `OnPostAsync`:
+Když `OnGet` vrátí `void` nebo `OnGetAsync` vrátí`Task`, není použita žádná návratová metoda. Pokud je návratový typ `IActionResult` nebo `Task<IActionResult>`, je nutné poskytnout návratový příkaz. Například metoda *Pages/video/Create. cshtml. cs* `OnPostAsync`:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml.cs?name=snippet)]
 
@@ -240,10 +240,10 @@ Direktiva `@page` Razor vytvoří soubor na akci MVC, což znamená, že může 
 Prověřte výraz lambda použitý v následujícím Pomocníkovi HTML:
 
 ```cshtml
-@Html.DisplayNameFor(model => model.Movie[0].Title))
+@Html.DisplayNameFor(model => model.Movie[0].Title)
 ```
 
-Pomocný objekt HTML `DisplayNameFor` kontroluje vlastnost `Title`, na kterou se odkazuje ve výrazu lambda, aby bylo možné zjistit zobrazované jméno. Výraz lambda je zkontrolován namísto vyhodnocení. To znamená, že nedojde k porušení přístupu, když `model`, `model.Movie` nebo `model.Movie[0]` jsou `null` nebo prázdné. Při vyhodnocování výrazu lambda (například s `@Html.DisplayFor(modelItem => item.Title)`) jsou vyhodnocovány hodnoty vlastností modelu.
+Pomocný objekt HTML `DisplayNameFor` kontroluje vlastnost `Title`, na kterou se odkazuje ve výrazu lambda, aby bylo možné zjistit zobrazované jméno. Výraz lambda je zkontrolován namísto vyhodnocení. To znamená, že při `model`, `model.Movie`nebo `model.Movie[0]` nejsou `null` nebo jsou prázdné žádné porušení přístupu. Při vyhodnocování výrazu lambda (například s `@Html.DisplayFor(modelItem => item.Title)`) jsou vyhodnocovány hodnoty vlastností modelu.
 
 <a name="md"></a>
 
@@ -251,7 +251,7 @@ Pomocný objekt HTML `DisplayNameFor` kontroluje vlastnost `Title`, na kterou se
 
 [!code-cshtml[](razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?range=1-2&highlight=2)]
 
-Direktiva `@model` určuje typ modelu předaného na stránku Razor. V předchozím příkladu čára `@model` zpřístupňuje na stránce Razor třídu odvozenou @no__t -1. Model se používá v [pomocníkech HTML](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) `@Html.DisplayNameFor` a `@Html.DisplayFor` na stránce.
+Direktiva `@model` určuje typ modelu předaného na stránku Razor. V předchozím příkladu `@model` řádek zpřístupňuje třídu odvozenou `PageModel`, která je k dispozici na stránce Razor. Model se používá v [pomocníkech HTML](/aspnet/mvc/overview/older-versions-1/views/creating-custom-html-helpers-cs#understanding-html-helpers) `@Html.DisplayNameFor` a `@Html.DisplayFor` na stránce.
 
 ### <a name="the-layout-page"></a>Stránka rozložení
 
@@ -282,7 +282,7 @@ changing in in the next step.
 
 ### <a name="update-the-layout"></a>Aktualizovat rozložení
 
-Změňte prvek `<title>` v souboru *Pages/Shared/_Layout. cshtml* pro zobrazení **filmu** místo **RazorPagesMovie**.
+Změňte `<title>` prvek v souboru *Pages/Shared/_Layout. cshtml* pro zobrazení **filmu** místo **RazorPagesMovie**.
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Shared/_Layout.cshtml?range=1-6&highlight=6)]
 
@@ -321,7 +321,7 @@ Projděte si model stránky *stránky/filmy/vytvořit. cshtml. cs* :
 
 Metoda `OnGet` inicializuje libovolný stav potřebný pro stránku. Stránka pro vytvoření nemá žádný stav k inicializaci, takže se vrátí `Page`. Později v tomto kurzu vidíte stav inicializace metody `OnGet`. Metoda `Page` vytvoří objekt `PageResult`, který vykresluje stránku *Create. cshtml* .
 
-Vlastnost `Movie` používá atribut `[BindProperty]` k výslovným souhlasům s [vazbou modelu](xref:mvc/models/model-binding). Když formulář vytvořit odešle hodnoty formuláře, modul runtime ASP.NET Core váže odeslané hodnoty k modelu `Movie`.
+Vlastnost `Movie` používá atribut `[BindProperty]` pro přihlášení k [modelu vazby](xref:mvc/models/model-binding). Když formulář vytvořit odešle hodnoty formuláře, modul runtime ASP.NET Core váže odeslané hodnoty k modelu `Movie`.
 
 Metoda `OnPostAsync` se spustí, když stránka publikuje data formuláře:
 

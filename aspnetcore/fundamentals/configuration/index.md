@@ -5,14 +5,14 @@ description: Naučte se, jak pomocí konfiguračního rozhraní API nakonfigurov
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/18/2019
+ms.date: 10/24/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 0a9b1a1a08617ef4ca8a36295cec8910ec111acd
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: 263f9f7c4c800a74b745fd636196e1e135afc91b
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589903"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73033918"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -178,7 +178,7 @@ Konfigurační klíče přijímají následující konvence:
   * V rozhraní API pro konfiguraci funguje oddělovač dvojtečky (`:`) na všech platformách.
   * V proměnných prostředí nemusí oddělovač dvojtečky fungovat na všech platformách. Dvojité podtržítko (`__`) je podporováno všemi platformami a je automaticky převedeno na dvojtečku.
   * V Azure Key Vault hierarchické klíče používají `--` (dvě pomlčky) jako oddělovač. Pokud jsou tajné klíče načteny do konfigurace aplikace, je nutné zadat kód, který nahradí pomlčky dvojtečkou.
-* @No__t_0 podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích. Vazba pole je popsána v tématu [vazba pole na oddíl třídy](#bind-an-array-to-a-class) .
+* <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích. Vazba pole je popsána v tématu [vazba pole na oddíl třídy](#bind-an-array-to-a-class) .
 
 ### <a name="values"></a>Hodnoty
 
@@ -305,7 +305,7 @@ Konfigurace zadaná do aplikace v `ConfigureAppConfiguration` je dostupná běhe
 
 ## <a name="command-line-configuration-provider"></a>Zprostředkovatel konfigurace příkazového řádku
 
-@No__t_0 načítá konfiguraci z párů klíč-hodnota argumentu klíč-hodnota za běhu.
+<xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> načítá konfiguraci z párů klíč-hodnota argumentu klíč-hodnota za běhu.
 
 Chcete-li aktivovat konfiguraci příkazového řádku, je jako instance <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> volána metoda rozšíření <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.
 
@@ -415,7 +415,7 @@ Po spuštění předchozího příkazu obsahuje konfigurace hodnoty uvedené v n
 
 ## <a name="environment-variables-configuration-provider"></a>Poskytovatel konfigurace proměnných prostředí
 
-@No__t_0 načte konfiguraci z páru klíč-hodnota proměnné prostředí za běhu.
+<xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> načte konfiguraci z páru klíč-hodnota proměnné prostředí za běhu.
 
 Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.
 
@@ -475,7 +475,7 @@ FilteredConfiguration = _config.AsEnumerable();
 
 ### <a name="prefixes"></a>Předpony
 
-Proměnné prostředí načtené do konfigurace aplikace jsou filtrovány při zadání předpony metody `AddEnvironmentVariables`. Chcete-li například filtrovat proměnné prostředí v `CUSTOM_` předpony, zadejte předponu do poskytovatele konfigurace:
+Proměnné prostředí načtené do konfigurace aplikace jsou filtrovány při zadání předpony metody `AddEnvironmentVariables`. Chcete-li například filtrovat proměnné prostředí v `CUSTOM_`předpony, zadejte předponu do poskytovatele konfigurace:
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -520,7 +520,7 @@ Když je proměnná prostředí zjištěna a načtena do konfigurace se všemi �
 
 ### <a name="ini-configuration-provider"></a>Poskytovatel konfigurace INI
 
-@No__t_0 načte konfiguraci z párů klíč-hodnota souboru INI za běhu.
+<xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> načte konfiguraci z párů klíč-hodnota souboru INI za běhu.
 
 Chcete-li aktivovat konfiguraci souboru INI, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.
 
@@ -530,20 +530,17 @@ Přetížení umožňují zadat:
 
 * Zda je soubor nepovinný.
 * Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.
-* @No__t_0, který se používá pro přístup k souboru.
+* <xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.
 
 Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
 {
-    config.SetBasePath(Directory.GetCurrentDirectory());
     config.AddIniFile(
         "config.ini", optional: true, reloadOnChange: true);
 })
 ```
-
-Základní cesta je nastavena s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.
 
 Obecný příklad konfiguračního souboru INI:
 
@@ -572,7 +569,7 @@ Předchozí konfigurační soubor načte následující klíče pomocí `value`:
 
 ### <a name="json-configuration-provider"></a>Zprostředkovatel konfigurace JSON
 
-@No__t_0 načítá konfiguraci z párů klíč-hodnota souboru JSON během běhu.
+<xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru JSON během běhu.
 
 Chcete-li aktivovat konfiguraci souboru JSON, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.
 
@@ -580,7 +577,7 @@ Přetížení umožňují zadat:
 
 * Zda je soubor nepovinný.
 * Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.
-* @No__t_0, který se používá pro přístup k souboru.
+* <xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.
 
 `AddJsonFile` se automaticky volá dvakrát při inicializaci nového tvůrce hostitele pomocí `CreateDefaultBuilder`. Metoda je volána pro načtení konfigurace z:
 
@@ -602,13 +599,10 @@ Při sestavování hostitele zavolá `ConfigureAppConfiguration`, aby se určila
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
 {
-    config.SetBasePath(Directory.GetCurrentDirectory());
     config.AddJsonFile(
         "config.json", optional: true, reloadOnChange: true);
 })
 ```
-
-Základní cesta je nastavena s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.
 
 **Příklad**
 
@@ -626,7 +620,7 @@ Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuil
 
 ### <a name="xml-configuration-provider"></a>Poskytovatel konfigurace XML
 
-@No__t_0 načítá konfiguraci z párů klíč-hodnota souboru XML za běhu.
+<xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru XML za běhu.
 
 Chcete-li aktivovat konfiguraci souboru XML, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.
 
@@ -634,7 +628,7 @@ Přetížení umožňují zadat:
 
 * Zda je soubor nepovinný.
 * Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.
-* @No__t_0, který se používá pro přístup k souboru.
+* <xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.
 
 Kořenový uzel konfiguračního souboru je ignorován, pokud jsou vytvořeny páry klíč-hodnota konfigurace. Nezadávejte definici typu dokumentu (DTD) nebo obor názvů v souboru.
 
@@ -643,13 +637,10 @@ Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `Conf
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
 {
-    config.SetBasePath(Directory.GetCurrentDirectory());
     config.AddXmlFile(
         "config.xml", optional: true, reloadOnChange: true);
 })
 ```
-
-Základní cesta je nastavena s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.
 
 Konfigurační soubory XML mohou používat odlišné názvy elementů pro opakující se oddíly:
 
@@ -716,9 +707,9 @@ Předchozí konfigurační soubor načte následující klíče pomocí `value`:
 
 ## <a name="key-per-file-configuration-provider"></a>Poskytovatel konfigurace klíče na soubor
 
-@No__t_0 používá soubory adresáře jako konfigurační páry klíč-hodnota. Klíč je název souboru. Hodnota obsahuje obsah souboru. Poskytovatel konfigurace klíče na soubor se používá ve scénářích hostování Docker.
+<xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> používá soubory adresáře jako konfigurační páry klíč-hodnota. Klíč je název souboru. Hodnota obsahuje obsah souboru. Poskytovatel konfigurace klíče na soubor se používá ve scénářích hostování Docker.
 
-Chcete-li aktivovat konfiguraci klíče na soubor, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>. @No__t_0 souborů musí být absolutní cesta.
+Chcete-li aktivovat konfiguraci klíče na soubor, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>. `directoryPath` souborů musí být absolutní cesta.
 
 Přetížení umožňují zadat:
 
@@ -732,18 +723,15 @@ Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `Conf
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
 {
-    config.SetBasePath(Directory.GetCurrentDirectory());
     var path = Path.Combine(
         Directory.GetCurrentDirectory(), "path/to/files");
     config.AddKeyPerFile(directoryPath: path, optional: true);
 })
 ```
 
-Základní cesta je nastavena s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>.
-
 ## <a name="memory-configuration-provider"></a>Poskytovatel konfigurace paměti
 
-@No__t_0 používá kolekci v paměti jako konfigurační páry klíč-hodnota.
+<xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> používá kolekci v paměti jako konfigurační páry klíč-hodnota.
 
 Chcete-li aktivovat konfiguraci kolekce v paměti, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.
 
@@ -846,7 +834,7 @@ Chcete-li vrátit <xref:Microsoft.Extensions.Configuration.IConfigurationSection
 var configSection = _config.GetSection("section1");
 ```
 
-@No__t_0 nemá hodnotu, jenom klíč a cestu.
+`configSection` nemá hodnotu, jenom klíč a cestu.
 
 Podobně pokud chcete získat hodnoty pro klíče v `section2:subsection0`, zavolejte `GetSection` a zadejte cestu k oddílu:
 
@@ -998,7 +986,7 @@ TvShow = tvShow;
 
 *Ukázková aplikace ukazuje koncepty popsané v této části.*
 
-@No__t_0 podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích. Libovolný formát pole, který zveřejňuje numerický klíčový segment (`:0:`, `:1:`, &hellip; `:{n}:`), je schopný vytvořit vazbu pole k poli třídy POCO.
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích. Libovolný formát pole, který zveřejňuje numerický klíčový segment (`:0:`, `:1:`, &hellip; `:{n}:`), je schopný vytvořit vazbu pole k poli třídy POCO.
 
 > [!NOTE]
 > Vazba je poskytována podle konvence. Vlastní poskytovatelé konfigurace nejsou k implementaci vazby pole potřeba.
@@ -1019,13 +1007,13 @@ Tyto klíče a hodnoty se načtou do ukázkové aplikace pomocí poskytovatele k
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,23)]
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,22)]
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,23)]
+[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,22)]
 
 ::: moniker-end
 
@@ -1203,7 +1191,7 @@ Metoda rozšíření `AddEFConfiguration` umožňuje přidání zdroje konfigura
 
 Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *program.cs*:
 
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=30-31)]
+[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
 
 ::: moniker-end
 
@@ -1239,7 +1227,7 @@ Metoda rozšíření `AddEFConfiguration` umožňuje přidání zdroje konfigura
 
 Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *program.cs*:
 
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=30-31)]
+[!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
 
 ::: moniker-end
 

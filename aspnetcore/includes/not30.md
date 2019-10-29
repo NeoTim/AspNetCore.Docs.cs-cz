@@ -1,0 +1,1 @@
+> Upozornění: Toto téma se neaktualizovalo na ASP.NET Core 3,0.

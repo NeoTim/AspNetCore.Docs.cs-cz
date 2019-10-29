@@ -5,14 +5,14 @@ description: Pokud používáte službu IIS v systému Windows Server, můžete 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/10/2019
+ms.date: 10/26/2019
 uid: host-and-deploy/iis/development-time-iis-support
-ms.openlocfilehash: e5da4f7202bf31e65c366d6f7de54212f5b0fed7
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 2d2c8d8e4b39d18a3a727e2a2bdef3be566897c1
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259797"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034148"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Podpora služby IIS v době vývoje v aplikaci Visual Studio pro ASP.NET Core
 
@@ -20,7 +20,7 @@ Od [sourabh Shirhatti](https://twitter.com/sshirhatti) a [Luke Latham](https://g
 
 Tento článek popisuje podporu sady [Visual Studio](https://visualstudio.microsoft.com) pro ladění ASP.NET Core aplikací běžících na Windows serveru se službou IIS. Toto téma vás provede povolením tohoto scénáře a nastavením projektu.
 
-## <a name="prerequisites"></a>Požadované součásti
+## <a name="prerequisites"></a>Požadavky
 
 * [Visual Studio pro Windows](https://visualstudio.microsoft.com/downloads/)
 * **ASP.NET a webové vývojové** úlohy
@@ -58,7 +58,7 @@ Služba IIS musí mít nakonfigurovaný web s následujícím:
 
 Pro nový projekt, který vyžaduje protokol HTTPS, zaškrtněte políčko pro **konfiguraci HTTPS** v okně **vytvořit novou ASP.NET Core webovou aplikaci** . Zaškrtnutím políčka přidáte [Přesměrování protokolu HTTPS a HSTS middleware](xref:security/enforcing-ssl) do aplikace, když se vytvoří.
 
-U existujícího projektu, který vyžaduje protokol HTTPS, použijte přesměrování HTTPS a HSTS middleware v `Startup.Configure`. For more information, see <xref:security/enforcing-ssl>.
+U existujícího projektu, který vyžaduje protokol HTTPS, použijte přesměrování HTTPS a HSTS middleware v `Startup.Configure`. Další informace najdete v tématu <xref:security/enforcing-ssl>.
 
 Pro projekt, který používá protokol HTTP, [přesměrování https a middleware HSTS](xref:security/enforcing-ssl) nejsou přidány do aplikace. Není nutná žádná konfigurace aplikace.
 
@@ -149,10 +149,9 @@ Pokud se používá nedůvěryhodný vývojový certifikát, prohlížeč může
 > [!NOTE]
 > Ladění konfigurace sestavení pro vydání pomocí [pouze můj kód](/visualstudio/debugger/just-my-code) a optimalizace kompilátoru mají za následek zhoršené prostředí. Například body přerušení nejsou k dispozice.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Začínáme ve službě IIS pomocí Správce služby IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
-* [Hostování ASP.NET Core ve Windows se službou IIS](xref:host-and-deploy/iis/index)
-* [Seznámení s modulem ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
-* [Odkaz na konfiguraci modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module)
-* [Vynutilit HTTPS](xref:security/enforcing-ssl)
+* <xref:host-and-deploy/iis/index>
+* <xref:host-and-deploy/aspnet-core-module>
+* <xref:security/enforcing-ssl>

@@ -5,14 +5,14 @@ description: Naučte se konfigurovat modul ASP.NET Core pro hostování ASP.NET 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/13/2019
+ms.date: 10/24/2019
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 917ee462a8f9592120685b53d059a661cb4a7452
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 42ff4438738931fde70e123031412bcfc8a83efb
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333896"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034216"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -91,6 +91,8 @@ Chcete-li nakonfigurovat aplikaci pro hostování mimo procesy, nastavte hodnotu
 
 Hostování v rámci procesu je nastaveno pomocí `InProcess`, což je výchozí hodnota.
 
+Hodnota `<AspNetCoreHostingModel>` rozlišuje malá a velká písmena, takže `inprocess` a `outofprocess` jsou platné hodnoty.
+
 Místo HTTP serveru IIS (`IISHttpServer`) se používá server [Kestrel](xref:fundamentals/servers/kestrel) .
 
 Pro mimoprocesové aplikace [CreateDefaultBuilder](xref:fundamentals/host/generic-host#default-builder-settings) volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> do:
@@ -106,7 +108,7 @@ V případě IIS Express modul neprovádí recyklaci pracovního procesu, ale m�
 
 ### <a name="process-name"></a>Název procesu
 
-sestavy `Process.GetCurrentProcess().ProcessName` `w3wp` @ no__t-2 @ no__t-3 (v procesu) nebo `dotnet` (mimo proces).
+sestavy `Process.GetCurrentProcess().ProcessName` `w3wp`/`iisexpress` (v procesu) nebo `dotnet` (mimo proces).
 
 Mnoho nativních modulů, jako je ověřování systému Windows, zůstane aktivní. Další informace o aktivních modulech služby IIS pomocí modulu ASP.NET Core najdete v tématu <xref:host-and-deploy/iis/modules>.
 
@@ -138,7 +140,7 @@ Následující soubor *Web. config* je publikován pro [nasazení závislé na r
                   arguments=".\MyApp.dll"
                   stdoutLogEnabled="false"
                   stdoutLogFile=".\logs\stdout"
-                  hostingModel="InProcess" />
+                  hostingModel="inprocess" />
     </system.webServer>
   </location>
 </configuration>
@@ -157,7 +159,7 @@ Následující soubor *Web. config* je publikován pro [samostatně uzavřené n
       <aspNetCore processPath=".\MyApp.exe"
                   stdoutLogEnabled="false"
                   stdoutLogFile=".\logs\stdout"
-                  hostingModel="InProcess" />
+                  hostingModel="inprocess" />
     </system.webServer>
   </location>
 </configuration>
@@ -165,7 +167,7 @@ Následující soubor *Web. config* je publikován pro [samostatně uzavřené n
 
 Vlastnost <xref:System.Configuration.SectionInformation.InheritInChildApplications*> je nastavena na hodnotu `false` k označení toho, že nastavení zadaná v rámci [> prvku \<location](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) nejsou děděna aplikacemi, které se nacházejí v podadresáři aplikace.
 
-Když se aplikace nasadí do [Azure App Service](https://azure.microsoft.com/services/app-service/), cesta `stdoutLogFile` je nastavená na `\\?\%home%\LogFiles\stdout`. Cesta ukládá protokoly stdout do složky *soubory protokolů* , což je umístění, které služba automaticky vytvořila.
+Když se aplikace nasadí do [Azure App Service](https://azure.microsoft.com/services/app-service/), `stdoutLogFile`á cesta je nastavená na `\\?\%home%\LogFiles\stdout`. Cesta ukládá protokoly stdout do složky *soubory protokolů* , což je umístění, které služba automaticky vytvořila.
 
 Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-deploy/iis/index#sub-applications>.
 
@@ -176,28 +178,28 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 | `arguments` | <p>Volitelný řetězcový atribut.</p><p>Argumenty ke spustitelnému souboru určenému v **processPath**.</p> | |
 | `disableStartUpErrorPage` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, stránka **502,5 – selhání procesu** se potlačí a stavová stránka 502 konfigurovaná v *souboru Web. config* má přednost.</p> | `false` |
 | `forwardWindowsAuthToken` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, token se přepošle podřízenému procesu, který naslouchá na% ASPNETCORE_PORT% jako hlavička MS-ASPNETCORE-WINAUTHTOKEN na vyžádání. Je zodpovědností za tento proces volání CloseHandle na tento token na žádost.</p> | `true` |
-| `hostingModel` | <p>Volitelný řetězcový atribut.</p><p>Určuje model hostování jako vnitroprocesové (`InProcess`) nebo mimo proces (`OutOfProcess`).</p> | `InProcess` |
-| `processesPerApplication` | <p>Volitelný celočíselný atribut</p><p>Určuje počet instancí procesu určeného v nastavení **processPath** , které lze v rámci aplikace vystavit.</p><p>@no__t – 0For hostování v procesu, hodnota je omezená na `1`.</p><p>Nastavení `processesPerApplication` se nedoporučuje. Tento atribut bude v budoucí verzi odebrán.</p> | Výchozí: `1`<br>Minimum: `1`<br>Max: `100` @ no__t-1 |
+| `hostingModel` | <p>Volitelný řetězcový atribut.</p><p>Určuje model hostování jako vnitroprocesové (`InProcess`/`inprocess`) nebo mimo proces (`OutOfProcess`/`outofprocess`).</p> | `InProcess`<br>`inprocess` |
+| `processesPerApplication` | <p>Volitelný celočíselný atribut</p><p>Určuje počet instancí procesu určeného v nastavení **processPath** , které lze v rámci aplikace vystavit.</p><p>&dagger;pro hostování v rámci procesu je hodnota omezená na `1`.</p><p>Nastavení `processesPerApplication` se nedoporučuje. Tento atribut bude v budoucí verzi odebrán.</p> | Výchozí: `1`<br>Minimum: `1`<br>Max: `100`&dagger; |
 | `processPath` | <p>Povinný atribut řetězce.</p><p>Cesta ke spustitelnému souboru, který spouští proces naslouchající na požadavky HTTP. Jsou podporovány relativní cesty. Pokud cesta začíná na `.`, bude cesta považována za relativní vzhledem k kořenu webu.</p> | |
 | `rapidFailsPerMinute` | <p>Volitelný celočíselný atribut</p><p>Určuje, kolikrát je povoleno selhání procesu určeného v **processPath** za minutu. Pokud je tento limit překročen, modul ukončí spuštění procesu po zbytek minuty.</p><p>Nepodporováno v hostování v rámci procesu.</p> | Výchozí: `10`<br>Minimum: `0`<br>Max: `100` |
 | `requestTimeout` | <p>Volitelný atribut TimeSpan.</p><p>Určuje dobu, po kterou modul ASP.NET Core čeká na odezvu od procesu, na kterém naslouchá% ASPNETCORE_PORT%.</p><p>Ve verzích modulu ASP.NET Core, které byly dodávány s vydáním ASP.NET Core 2,1 nebo vyšší, je `requestTimeout` zadáno v hodinách, minutách a sekundách.</p><p>Neplatí pro hostování v procesu. Pro hostování v rámci procesu modul čeká, až aplikace zpracuje požadavek.</p><p>Platné hodnoty segmentů minut a sekund řetězce jsou v rozsahu 0-59. Při použití hodnoty **60** v hodnotě minut nebo sekund dojde k chybě systému *500 – interní chyba serveru*.</p> | Výchozí: `00:02:00`<br>Minimum: `00:00:00`<br>Max: `360:00:00` |
 | `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *App_offline. htm* .</p> | Výchozí: `10`<br>Minimum: `0`<br>Max: `600` |
 | `startupTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, kterou modul počká, než spustitelný soubor spustí proces, který na portu naslouchá. Pokud je tento časový limit překročen, modul proces ukončuje. Modul se pokusí znovu spustit proces, když obdrží novou žádost, a pokračuje v pokusu o restartování procesu u dalších příchozích požadavků, pokud se nepodaří spustit **rapidFailsPerMinute** počet pokusů během poslední minuty.</p><p>Hodnota 0 (nula **) není považována za** nekonečný časový limit.</p> | Výchozí: `120`<br>Minimum: `0`<br>Max: `3600` |
 | `stdoutLogEnabled` | <p>Volitelný atribut typu Boolean.</p><p>Je-li nastavena hodnota true, **stdout** a **stderr** pro proces zadaný v **processPath** budou přesměrovány do souboru zadaného v **stdoutLogFile**.</p> | `false` |
-| `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Všechny cesty začínající na `.` jsou relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Při vytvoření souboru protokolu se v modulu vytvoří všechny složky, které jsou v cestě zadané. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru ( *. log*). Pokud je jako hodnota zadána hodnota `.\logs\stdout`, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
+| `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Všechny cesty začínající na `.` jsou relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Při vytvoření souboru protokolu se v modulu vytvoří všechny složky, které jsou v cestě zadané. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru ( *. log*). Pokud je jako hodnota zadána `.\logs\stdout`, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
 
 ### <a name="set-environment-variables"></a>Nastavení proměnných prostředí
 
 Proměnné prostředí lze zadat pro proces v atributu `processPath`. Zadejte proměnnou prostředí s podřízeným prvkem `<environmentVariable>` elementu kolekce `<environmentVariables>`. Proměnné prostředí nastavené v této části mají přednost před proměnnými prostředí systému.
 
-Následující příklad nastaví dvě proměnné prostředí v *souboru Web. config*. `ASPNETCORE_ENVIRONMENT` nakonfiguruje prostředí aplikace na `Development`. Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR` je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
+Následující příklad nastaví dvě proměnné prostředí v *souboru Web. config*. `ASPNETCORE_ENVIRONMENT` nakonfiguruje prostředí aplikace tak, aby bylo `Development`. Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR` je příklad uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
 
 ```xml
 <aspNetCore processPath="dotnet"
       arguments=".\MyApp.dll"
       stdoutLogEnabled="false"
-      stdoutLogFile="\\?\%home%\LogFiles\stdout"
-      hostingModel="InProcess">
+      stdoutLogFile=".\logs\stdout"
+      hostingModel="inprocess">
   <environmentVariables>
     <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Development" />
     <environmentVariable name="CONFIG_DIR" value="f:\application_config" />
@@ -215,7 +217,7 @@ Následující příklad nastaví dvě proměnné prostředí v *souboru Web. co
 > ```
 
 > [!WARNING]
-> Nastavte pouze proměnnou prostředí `ASPNETCORE_ENVIRONMENT` na `Development` na pracovních a testovacích serverech, které nejsou přístupné pro nedůvěryhodné sítě, jako je například Internet.
+> Nastavte pouze proměnnou prostředí `ASPNETCORE_ENVIRONMENT`, aby `Development` na pracovních a testovacích serverech, které nejsou přístupné nedůvěryhodným sítím, jako je například Internet.
 
 ## <a name="app_offlinehtm"></a>App_offline. htm
 
@@ -243,22 +245,30 @@ Modul ASP.NET Core přesměruje výstup konzoly stdout a stderr na disk, pokud j
 
 Protokoly nejsou otočeny, pokud nedochází k recyklování/restartování procesu. Je zodpovědností hostitele omezit místo na disku, které používají protokoly.
 
-Použití protokolu stdout se doporučuje jenom při řešení problémů se spouštěním aplikací. Nepoužívejte protokol stdout pro obecné účely protokolování aplikace. Pro rutinu protokolování v aplikaci ASP.NET Core použijte knihovnu protokolování, která omezuje velikost souboru protokolu a otočí protokoly. Další informace najdete v tématu [Zprostředkovatelé protokolování třetích stran](xref:fundamentals/logging/index#third-party-logging-providers).
+Použití protokolu stdout se doporučuje pouze při řešení potíží se spouštěním aplikací při hostování služby IIS nebo při použití [podpory v době vývoje služby IIS se sadou Visual Studio](xref:host-and-deploy/iis/development-time-iis-support), nikoli při ladění místně a při spuštění aplikace s IIS Express.
 
-Časové razítko a Přípona souboru se automaticky přidají při vytvoření souboru protokolu. Název souboru protokolu se skládá připojením časového razítka, ID procesu a přípony souboru ( *. log*) k poslednímu segmentu cesty `stdoutLogFile` (obvykle *stdout*), oddělený podtržítky. Pokud cesta `stdoutLogFile` končí na *stdout*, protokol pro aplikaci s číslem PID 1934 vytvořeným v 2/5/2018 v 19:42:32 má název souboru *stdout_20180205194132_1934. log*.
+Nepoužívejte protokol stdout pro obecné účely protokolování aplikace. Pro rutinu protokolování v aplikaci ASP.NET Core použijte knihovnu protokolování, která omezuje velikost souboru protokolu a otočí protokoly. Další informace najdete v tématu [Zprostředkovatelé protokolování třetích stran](xref:fundamentals/logging/index#third-party-logging-providers).
+
+Časové razítko a Přípona souboru se automaticky přidají při vytvoření souboru protokolu. Název souboru protokolu se skládá připojením časového razítka, ID procesu a přípony souboru ( *. log*) k poslednímu segmentu cesty `stdoutLogFile` (obvykle *stdout*), oddělený podtržítky. Pokud `stdoutLogFile` cesta končí na *stdout*, protokol pro aplikaci s číslem PID 1934 vytvořeným v 2/5/2018 v 19:42:32 má název souboru *stdout_20180205194132_1934. log*.
 
 Pokud je hodnota `stdoutLogEnabled` false, budou chyby, ke kterým dojde při spuštění aplikace, zachyceny a generovány do protokolu událostí až do 30 KB. Po spuštění budou všechny další protokoly zahozeny.
 
-Následující vzorový @no__t element-0 v souboru *Web. config* nakonfiguruje protokolování stdout pro aplikaci hostovanou v Azure App Service. Místní cesta nebo cesta ke sdílené síťové složce je přijatelná pro místní protokolování. Potvrďte, že identita uživatele fondu aplikací má oprávnění k zápisu do zadané cesty.
+Následující vzorový `aspNetCore` prvek nakonfiguruje protokolování stdout na relativní cestě `.\log\`. Potvrďte, že identita uživatele fondu aplikací má oprávnění k zápisu do zadané cesty.
 
 ```xml
 <aspNetCore processPath="dotnet"
     arguments=".\MyApp.dll"
     stdoutLogEnabled="true"
-    stdoutLogFile="\\?\%home%\LogFiles\stdout"
-    hostingModel="InProcess">
+    stdoutLogFile=".\logs\stdout"
+    hostingModel="inprocess">
 </aspNetCore>
 ```
+
+Když publikujete aplikaci pro nasazení Azure App Service, Webová sada SDK nastaví hodnotu `stdoutLogFile` na `\\?\%home%\LogFiles\stdout`. Pro aplikace hostované v Azure App Service je předdefinovaná proměnná prostředí `%home`.
+
+Chcete-li vytvořit pravidla filtru protokolování, přečtěte si část [Konfigurace](xref:fundamentals/logging/index#log-filtering) a [filtrování protokolů](xref:fundamentals/logging/index#log-filtering) v dokumentaci ASP.NET Core protokolování.
+
+Další informace o formátech cest najdete v tématu [formáty souborů cest v systémech Windows](/dotnet/standard/io/file-path-formats).
 
 ## <a name="enhanced-diagnostic-logs"></a>Rozšířené diagnostické protokoly
 
@@ -269,7 +279,7 @@ Modul ASP.NET Core lze nakonfigurovat tak, aby poskytoval rozšířené diagnost
     arguments=".\MyApp.dll"
     stdoutLogEnabled="false"
     stdoutLogFile="\\?\%home%\LogFiles\stdout"
-    hostingModel="InProcess">
+    hostingModel="inprocess">
   <handlerSettings>
     <handlerSetting name="debugFile" value=".\logs\aspnetcore-debug.log" />
     <handlerSetting name="debugLevel" value="FILE,TRACE" />
@@ -296,8 +306,8 @@ Umístění (je povoleno více umístění):
 
 Nastavení obslužné rutiny lze také poskytnout pomocí proměnných prostředí:
 
-* `ASPNETCORE_MODULE_DEBUG_FILE` &ndash; cesta k souboru protokolu ladění. (Výchozí: *aspnetcore-Debug. log*)
-* nastavení úrovně ladění `ASPNETCORE_MODULE_DEBUG` &ndash;.
+* `ASPNETCORE_MODULE_DEBUG_FILE` &ndash; cestu k souboru protokolu ladění. (Výchozí: *aspnetcore-Debug. log*)
+* `ASPNETCORE_MODULE_DEBUG` &ndash; nastavení úrovně ladění.
 
 > [!WARNING]
 > Nenechávejte **protokolování** ladění povolené v nasazení po delší dobu, než je potřeba k řešení problému. Velikost protokolu není omezená. Když necháte protokol ladění povolený, může dojít k vyčerpání dostupného místa na disku a selhání serveru nebo služby App Service.
@@ -315,7 +325,7 @@ Nakonfigurujte velikost spravovaného zásobníku pomocí nastavení `stackSize`
     arguments=".\MyApp.dll"
     stdoutLogEnabled="false"
     stdoutLogFile="\\?\%home%\LogFiles\stdout"
-    hostingModel="InProcess">
+    hostingModel="inprocess">
   <handlerSettings>
     <handlerSetting name="stackSize" value="2097152" />
   </handlerSettings>
@@ -334,7 +344,7 @@ Párovací token se používá k zajištění, že žádosti přijaté službou 
 
 Instalační služba modulu ASP.NET Core se spouští s oprávněními účtu **TrustedInstaller** . Vzhledem k tomu, že účet místního systému nemá oprávnění k úpravám pro cestu ke sdílené složce, kterou používá sdílená konfigurace služby IIS, vyvolá Instalační program chybu odepření přístupu při pokusu o konfiguraci nastavení modulu v souboru *ApplicationHost. config* v sdílená složka.
 
-Pokud používáte sdílenou konfiguraci služby IIS na stejném počítači jako instalaci služby IIS, spusťte instalační program sady prostředků ASP.NET Core s parametrem `OPT_NO_SHARED_CONFIG_CHECK` nastaveným na `1`:
+Pokud používáte sdílenou konfiguraci IIS na stejném počítači jako instalaci služby IIS, spusťte instalační program sady prostředků ASP.NET Core s parametrem `OPT_NO_SHARED_CONFIG_CHECK` nastaveným na `1`:
 
 ```console
 dotnet-hosting-{VERSION}.exe OPT_NO_SHARED_CONFIG_CHECK=1
@@ -356,7 +366,7 @@ Postup určení verze nainstalovaného modulu ASP.NET Core:
 1. Klikněte na soubor pravým tlačítkem a v místní nabídce vyberte **vlastnosti** .
 1. Vyberte kartu **Podrobnosti** . **Verze souboru** a **verze produktu** reprezentují nainstalovanou verzi modulu.
 
-Protokoly instalačních balíčků pro modul se nacházejí v *C: \\Users @ no__t-2% username% \\AppData @ no__t-4Local @ no__t-5Temp*. Soubor má název *dd_DotNetCoreWinSvrHosting__ @ no__t-7timestamp > _000_AspNetCoreModule_x64. log*.
+Protokoly instalačních balíčků pro modul jsou k dispozici v *C:\\uživatelé\\% username%\\data\\místní\\Temp*. Soubor má název *dd_DotNetCoreWinSvrHosting__\<časové razítko > _000_AspNetCoreModule_x64. log*.
 
 ## <a name="module-schema-and-configuration-file-locations"></a>Umístění souboru modulu, schématu a konfiguračního souboru
 
@@ -442,6 +452,8 @@ Chcete-li nakonfigurovat aplikaci pro hostování v rámci procesu, přidejte do
 
 Model hostování v rámci procesu není podporován pro aplikace ASP.NET Core, které cílí na .NET Framework.
 
+Hodnota `<AspNetCoreHostingModel>` rozlišuje malá a velká písmena, takže `inprocess` a `outofprocess` jsou platné hodnoty.
+
 Pokud se v souboru nenachází vlastnost `<AspNetCoreHostingModel>`, výchozí hodnota je `OutOfProcess`.
 
 Následující vlastnosti platí při hostování v procesu:
@@ -494,6 +506,8 @@ Chcete-li nakonfigurovat aplikaci pro hostování mimo procesy, použijte někte
 </PropertyGroup>
 ```
 
+Hodnota rozlišuje malá a velká písmena, takže `inprocess` a `outofprocess` platné hodnoty.
+
 Místo HTTP serveru IIS (`IISHttpServer`) se používá server [Kestrel](xref:fundamentals/servers/kestrel) .
 
 Pro mimoprocesové aplikace [CreateDefaultBuilder](xref:fundamentals/host/web-host#set-up-a-host) volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> do:
@@ -509,7 +523,7 @@ V případě IIS Express modul neprovádí recyklaci pracovního procesu, ale m�
 
 ### <a name="process-name"></a>Název procesu
 
-sestavy `Process.GetCurrentProcess().ProcessName` `w3wp` @ no__t-2 @ no__t-3 (v procesu) nebo `dotnet` (mimo proces).
+sestavy `Process.GetCurrentProcess().ProcessName` `w3wp`/`iisexpress` (v procesu) nebo `dotnet` (mimo proces).
 
 Mnoho nativních modulů, jako je ověřování systému Windows, zůstane aktivní. Další informace o aktivních modulech služby IIS pomocí modulu ASP.NET Core najdete v tématu <xref:host-and-deploy/iis/modules>.
 
@@ -541,7 +555,7 @@ Následující soubor *Web. config* je publikován pro [nasazení závislé na r
                   arguments=".\MyApp.dll"
                   stdoutLogEnabled="false"
                   stdoutLogFile=".\logs\stdout"
-                  hostingModel="InProcess" />
+                  hostingModel="inprocess" />
     </system.webServer>
   </location>
 </configuration>
@@ -560,7 +574,7 @@ Následující soubor *Web. config* je publikován pro [samostatně uzavřené n
       <aspNetCore processPath=".\MyApp.exe"
                   stdoutLogEnabled="false"
                   stdoutLogFile=".\logs\stdout"
-                  hostingModel="InProcess" />
+                  hostingModel="inprocess" />
     </system.webServer>
   </location>
 </configuration>
@@ -568,7 +582,7 @@ Následující soubor *Web. config* je publikován pro [samostatně uzavřené n
 
 Vlastnost <xref:System.Configuration.SectionInformation.InheritInChildApplications*> je nastavena na hodnotu `false` k označení toho, že nastavení zadaná v rámci [> prvku \<location](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) nejsou děděna aplikacemi, které se nacházejí v podadresáři aplikace.
 
-Když se aplikace nasadí do [Azure App Service](https://azure.microsoft.com/services/app-service/), cesta `stdoutLogFile` je nastavená na `\\?\%home%\LogFiles\stdout`. Cesta ukládá protokoly stdout do složky *soubory protokolů* , což je umístění, které služba automaticky vytvořila.
+Když se aplikace nasadí do [Azure App Service](https://azure.microsoft.com/services/app-service/), `stdoutLogFile`á cesta je nastavená na `\\?\%home%\LogFiles\stdout`. Cesta ukládá protokoly stdout do složky *soubory protokolů* , což je umístění, které služba automaticky vytvořila.
 
 Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-deploy/iis/index#sub-applications>.
 
@@ -579,28 +593,28 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 | `arguments` | <p>Volitelný řetězcový atribut.</p><p>Argumenty ke spustitelnému souboru určenému v **processPath**.</p> | |
 | `disableStartUpErrorPage` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, stránka **502,5 – selhání procesu** se potlačí a stavová stránka 502 konfigurovaná v *souboru Web. config* má přednost.</p> | `false` |
 | `forwardWindowsAuthToken` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, token se přepošle podřízenému procesu, který naslouchá na% ASPNETCORE_PORT% jako hlavička MS-ASPNETCORE-WINAUTHTOKEN na vyžádání. Je zodpovědností za tento proces volání CloseHandle na tento token na žádost.</p> | `true` |
-| `hostingModel` | <p>Volitelný řetězcový atribut.</p><p>Určuje model hostování jako vnitroprocesové (`InProcess`) nebo mimo proces (`OutOfProcess`).</p> | `OutOfProcess` |
-| `processesPerApplication` | <p>Volitelný celočíselný atribut</p><p>Určuje počet instancí procesu určeného v nastavení **processPath** , které lze v rámci aplikace vystavit.</p><p>@no__t – 0For hostování v procesu, hodnota je omezená na `1`.</p><p>Nastavení `processesPerApplication` se nedoporučuje. Tento atribut bude v budoucí verzi odebrán.</p> | Výchozí: `1`<br>Minimum: `1`<br>Max: `100` @ no__t-1 |
+| `hostingModel` | <p>Volitelný řetězcový atribut.</p><p>Určuje model hostování jako vnitroprocesové (`InProcess`/`inprocess`) nebo mimo proces (`OutOfProcess`/`outofprocess`).</p> | `OutOfProcess`<br>`outofprocess` |
+| `processesPerApplication` | <p>Volitelný celočíselný atribut</p><p>Určuje počet instancí procesu určeného v nastavení **processPath** , které lze v rámci aplikace vystavit.</p><p>&dagger;pro hostování v rámci procesu je hodnota omezená na `1`.</p><p>Nastavení `processesPerApplication` se nedoporučuje. Tento atribut bude v budoucí verzi odebrán.</p> | Výchozí: `1`<br>Minimum: `1`<br>Max: `100`&dagger; |
 | `processPath` | <p>Povinný atribut řetězce.</p><p>Cesta ke spustitelnému souboru, který spouští proces naslouchající na požadavky HTTP. Jsou podporovány relativní cesty. Pokud cesta začíná na `.`, bude cesta považována za relativní vzhledem k kořenu webu.</p> | |
 | `rapidFailsPerMinute` | <p>Volitelný celočíselný atribut</p><p>Určuje, kolikrát je povoleno selhání procesu určeného v **processPath** za minutu. Pokud je tento limit překročen, modul ukončí spuštění procesu po zbytek minuty.</p><p>Nepodporováno v hostování v rámci procesu.</p> | Výchozí: `10`<br>Minimum: `0`<br>Max: `100` |
 | `requestTimeout` | <p>Volitelný atribut TimeSpan.</p><p>Určuje dobu, po kterou modul ASP.NET Core čeká na odezvu od procesu, na kterém naslouchá% ASPNETCORE_PORT%.</p><p>Ve verzích modulu ASP.NET Core, které byly dodávány s vydáním ASP.NET Core 2,1 nebo vyšší, je `requestTimeout` zadáno v hodinách, minutách a sekundách.</p><p>Neplatí pro hostování v procesu. Pro hostování v rámci procesu modul čeká, až aplikace zpracuje požadavek.</p><p>Platné hodnoty segmentů minut a sekund řetězce jsou v rozsahu 0-59. Při použití hodnoty **60** v hodnotě minut nebo sekund dojde k chybě systému *500 – interní chyba serveru*.</p> | Výchozí: `00:02:00`<br>Minimum: `00:00:00`<br>Max: `360:00:00` |
 | `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *App_offline. htm* .</p> | Výchozí: `10`<br>Minimum: `0`<br>Max: `600` |
 | `startupTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, kterou modul počká, než spustitelný soubor spustí proces, který na portu naslouchá. Pokud je tento časový limit překročen, modul proces ukončuje. Modul se pokusí znovu spustit proces, když obdrží novou žádost, a pokračuje v pokusu o restartování procesu u dalších příchozích požadavků, pokud se nepodaří spustit **rapidFailsPerMinute** počet pokusů během poslední minuty.</p><p>Hodnota 0 (nula **) není považována za** nekonečný časový limit.</p> | Výchozí: `120`<br>Minimum: `0`<br>Max: `3600` |
 | `stdoutLogEnabled` | <p>Volitelný atribut typu Boolean.</p><p>Je-li nastavena hodnota true, **stdout** a **stderr** pro proces zadaný v **processPath** budou přesměrovány do souboru zadaného v **stdoutLogFile**.</p> | `false` |
-| `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Všechny cesty začínající na `.` jsou relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Při vytvoření souboru protokolu se v modulu vytvoří všechny složky, které jsou v cestě zadané. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru ( *. log*). Pokud je jako hodnota zadána hodnota `.\logs\stdout`, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
+| `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Všechny cesty začínající na `.` jsou relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Při vytvoření souboru protokolu se v modulu vytvoří všechny složky, které jsou v cestě zadané. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru ( *. log*). Pokud je jako hodnota zadána `.\logs\stdout`, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
 
 ### <a name="setting-environment-variables"></a>Nastavení proměnných prostředí
 
 Proměnné prostředí lze zadat pro proces v atributu `processPath`. Zadejte proměnnou prostředí s podřízeným prvkem `<environmentVariable>` elementu kolekce `<environmentVariables>`. Proměnné prostředí nastavené v této části mají přednost před proměnnými prostředí systému.
 
-Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIRONMENT` nakonfiguruje prostředí aplikace na `Development`. Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR` je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
+Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIRONMENT` nakonfiguruje prostředí aplikace tak, aby bylo `Development`. Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR` je příklad uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
 
 ```xml
 <aspNetCore processPath="dotnet"
       arguments=".\MyApp.dll"
       stdoutLogEnabled="false"
-      stdoutLogFile="\\?\%home%\LogFiles\stdout"
-      hostingModel="InProcess">
+      stdoutLogFile=".\logs\stdout"
+      hostingModel="inprocess">
   <environmentVariables>
     <environmentVariable name="ASPNETCORE_ENVIRONMENT" value="Development" />
     <environmentVariable name="CONFIG_DIR" value="f:\application_config" />
@@ -618,7 +632,7 @@ Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIR
 > ```
 
 > [!WARNING]
-> Nastavte pouze proměnnou prostředí `ASPNETCORE_ENVIRONMENT` na `Development` na pracovních a testovacích serverech, které nejsou přístupné pro nedůvěryhodné sítě, jako je například Internet.
+> Nastavte pouze proměnnou prostředí `ASPNETCORE_ENVIRONMENT`, aby `Development` na pracovních a testovacích serverech, které nejsou přístupné nedůvěryhodným sítím, jako je například Internet.
 
 ## <a name="app_offlinehtm"></a>App_offline. htm
 
@@ -646,22 +660,28 @@ Modul ASP.NET Core přesměruje výstup konzoly stdout a stderr na disk, pokud j
 
 Protokoly nejsou otočeny, pokud nedochází k recyklování/restartování procesu. Je zodpovědností hostitele omezit místo na disku, které používají protokoly.
 
-Použití protokolu stdout se doporučuje jenom při řešení problémů se spouštěním aplikací. Nepoužívejte protokol stdout pro obecné účely protokolování aplikace. Pro rutinu protokolování v aplikaci ASP.NET Core použijte knihovnu protokolování, která omezuje velikost souboru protokolu a otočí protokoly. Další informace najdete v tématu [Zprostředkovatelé protokolování třetích stran](xref:fundamentals/logging/index#third-party-logging-providers).
+Použití protokolu stdout se doporučuje pouze při řešení potíží se spouštěním aplikací při hostování služby IIS nebo při použití [podpory v době vývoje služby IIS se sadou Visual Studio](xref:host-and-deploy/iis/development-time-iis-support), nikoli při ladění místně a při spuštění aplikace s IIS Express.
 
-Časové razítko a Přípona souboru se automaticky přidají při vytvoření souboru protokolu. Název souboru protokolu se skládá připojením časového razítka, ID procesu a přípony souboru ( *. log*) k poslednímu segmentu cesty `stdoutLogFile` (obvykle *stdout*), oddělený podtržítky. Pokud cesta `stdoutLogFile` končí na *stdout*, protokol pro aplikaci s číslem PID 1934 vytvořeným v 2/5/2018 v 19:42:32 má název souboru *stdout_20180205194132_1934. log*.
+Nepoužívejte protokol stdout pro obecné účely protokolování aplikace. Pro rutinu protokolování v aplikaci ASP.NET Core použijte knihovnu protokolování, která omezuje velikost souboru protokolu a otočí protokoly. Další informace najdete v tématu [Zprostředkovatelé protokolování třetích stran](xref:fundamentals/logging/index#third-party-logging-providers).
+
+Časové razítko a Přípona souboru se automaticky přidají při vytvoření souboru protokolu. Název souboru protokolu se skládá připojením časového razítka, ID procesu a přípony souboru ( *. log*) k poslednímu segmentu cesty `stdoutLogFile` (obvykle *stdout*), oddělený podtržítky. Pokud `stdoutLogFile` cesta končí na *stdout*, protokol pro aplikaci s číslem PID 1934 vytvořeným v 2/5/2018 v 19:42:32 má název souboru *stdout_20180205194132_1934. log*.
 
 Pokud je hodnota `stdoutLogEnabled` false, budou chyby, ke kterým dojde při spuštění aplikace, zachyceny a generovány do protokolu událostí až do 30 KB. Po spuštění budou všechny další protokoly zahozeny.
 
-Následující vzorový prvek `aspNetCore` nakonfiguruje protokolování stdout pro aplikaci hostovanou v Azure App Service. Místní cesta nebo cesta ke sdílené síťové složce je přijatelná pro místní protokolování. Potvrďte, že identita uživatele fondu aplikací má oprávnění k zápisu do zadané cesty.
+Následující vzorový `aspNetCore` prvek nakonfiguruje protokolování stdout na relativní cestě `.\log\`. Potvrďte, že identita uživatele fondu aplikací má oprávnění k zápisu do zadané cesty.
 
 ```xml
 <aspNetCore processPath="dotnet"
     arguments=".\MyApp.dll"
     stdoutLogEnabled="true"
-    stdoutLogFile="\\?\%home%\LogFiles\stdout"
-    hostingModel="InProcess">
+    stdoutLogFile=".\logs\stdout"
+    hostingModel="inprocess">
 </aspNetCore>
 ```
+
+Když publikujete aplikaci pro nasazení Azure App Service, Webová sada SDK nastaví hodnotu `stdoutLogFile` na `\\?\%home%\LogFiles\stdout`. Pro aplikace hostované v Azure App Service je předdefinovaná proměnná prostředí `%home`.
+
+Další informace o formátech cest najdete v tématu [formáty souborů cest v systémech Windows](/dotnet/standard/io/file-path-formats).
 
 ## <a name="enhanced-diagnostic-logs"></a>Rozšířené diagnostické protokoly
 
@@ -672,7 +692,7 @@ Modul ASP.NET Core lze nakonfigurovat tak, aby poskytoval rozšířené diagnost
     arguments=".\MyApp.dll"
     stdoutLogEnabled="false"
     stdoutLogFile="\\?\%home%\LogFiles\stdout"
-    hostingModel="InProcess">
+    hostingModel="inprocess">
   <handlerSettings>
     <handlerSetting name="debugFile" value=".\logs\aspnetcore-debug.log" />
     <handlerSetting name="debugLevel" value="FILE,TRACE" />
@@ -699,8 +719,8 @@ Umístění (je povoleno více umístění):
 
 Nastavení obslužné rutiny lze také poskytnout pomocí proměnných prostředí:
 
-* `ASPNETCORE_MODULE_DEBUG_FILE` &ndash; cesta k souboru protokolu ladění. (Výchozí: *aspnetcore-Debug. log*)
-* nastavení úrovně ladění `ASPNETCORE_MODULE_DEBUG` &ndash;.
+* `ASPNETCORE_MODULE_DEBUG_FILE` &ndash; cestu k souboru protokolu ladění. (Výchozí: *aspnetcore-Debug. log*)
+* `ASPNETCORE_MODULE_DEBUG` &ndash; nastavení úrovně ladění.
 
 > [!WARNING]
 > Nenechávejte **protokolování** ladění povolené v nasazení po delší dobu, než je potřeba k řešení problému. Velikost protokolu není omezená. Když necháte protokol ladění povolený, může dojít k vyčerpání dostupného místa na disku a selhání serveru nebo služby App Service.
@@ -719,7 +739,7 @@ Párovací token se používá k zajištění, že žádosti přijaté službou 
 
 Instalační služba modulu ASP.NET Core se spouští s oprávněními účtu **TrustedInstaller** . Vzhledem k tomu, že účet místního systému nemá oprávnění k úpravám pro cestu ke sdílené složce, kterou používá sdílená konfigurace služby IIS, vyvolá Instalační program chybu odepření přístupu při pokusu o konfiguraci nastavení modulu v souboru *ApplicationHost. config* v sdílená složka.
 
-Pokud používáte sdílenou konfiguraci služby IIS na stejném počítači jako instalaci služby IIS, spusťte instalační program sady prostředků ASP.NET Core s parametrem `OPT_NO_SHARED_CONFIG_CHECK` nastaveným na `1`:
+Pokud používáte sdílenou konfiguraci IIS na stejném počítači jako instalaci služby IIS, spusťte instalační program sady prostředků ASP.NET Core s parametrem `OPT_NO_SHARED_CONFIG_CHECK` nastaveným na `1`:
 
 ```console
 dotnet-hosting-{VERSION}.exe OPT_NO_SHARED_CONFIG_CHECK=1
@@ -741,7 +761,7 @@ Postup určení verze nainstalovaného modulu ASP.NET Core:
 1. Klikněte na soubor pravým tlačítkem a v místní nabídce vyberte **vlastnosti** .
 1. Vyberte kartu **Podrobnosti** . **Verze souboru** a **verze produktu** reprezentují nainstalovanou verzi modulu.
 
-Protokoly instalačních balíčků pro modul se nacházejí v *C: \\Users @ no__t-2% username% \\AppData @ no__t-4Local @ no__t-5Temp*. Soubor má název *dd_DotNetCoreWinSvrHosting__ @ no__t-7timestamp > _000_AspNetCoreModule_x64. log*.
+Protokoly instalačních balíčků pro modul jsou k dispozici v *C:\\uživatelé\\% username%\\data\\místní\\Temp*. Soubor má název *dd_DotNetCoreWinSvrHosting__\<časové razítko > _000_AspNetCoreModule_x64. log*.
 
 ## <a name="module-schema-and-configuration-file-locations"></a>Umístění souboru modulu, schématu a konfiguračního souboru
 
@@ -869,7 +889,7 @@ Následující soubor *Web. config* je publikován pro [samostatně uzavřené n
 </configuration>
 ```
 
-Když se aplikace nasadí do [Azure App Service](https://azure.microsoft.com/services/app-service/), cesta `stdoutLogFile` je nastavená na `\\?\%home%\LogFiles\stdout`. Cesta ukládá protokoly stdout do složky *soubory protokolů* , což je umístění, které služba automaticky vytvořila.
+Když se aplikace nasadí do [Azure App Service](https://azure.microsoft.com/services/app-service/), `stdoutLogFile`á cesta je nastavená na `\\?\%home%\LogFiles\stdout`. Cesta ukládá protokoly stdout do složky *soubory protokolů* , což je umístění, které služba automaticky vytvořila.
 
 Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-deploy/iis/index#sub-applications>.
 
@@ -887,16 +907,16 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 | `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *App_offline. htm* .</p> | Výchozí: `10`<br>Minimum: `0`<br>Max: `600` |
 | `startupTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, kterou modul počká, než spustitelný soubor spustí proces, který na portu naslouchá. Pokud je tento časový limit překročen, modul proces ukončuje. Modul se pokusí znovu spustit proces, když obdrží novou žádost, a pokračuje v pokusu o restartování procesu u dalších příchozích požadavků, pokud se nepodaří spustit **rapidFailsPerMinute** počet pokusů během poslední minuty.</p><p>Hodnota 0 (nula **) není považována za** nekonečný časový limit.</p> | Výchozí: `120`<br>Minimum: `0`<br>Max: `3600` |
 | `stdoutLogEnabled` | <p>Volitelný atribut typu Boolean.</p><p>Je-li nastavena hodnota true, **stdout** a **stderr** pro proces zadaný v **processPath** budou přesměrovány do souboru zadaného v **stdoutLogFile**.</p> | `false` |
-| `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Všechny cesty začínající na `.` jsou relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Aby modul vytvořil soubor protokolu, musí existovat všechny složky, které jsou v cestě k dispozici. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru ( *. log*). Pokud je jako hodnota zadána hodnota `.\logs\stdout`, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
+| `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Všechny cesty začínající na `.` jsou relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Aby modul vytvořil soubor protokolu, musí existovat všechny složky, které jsou v cestě k dispozici. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru ( *. log*). Pokud je jako hodnota zadána `.\logs\stdout`, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
 
 ### <a name="setting-environment-variables"></a>Nastavení proměnných prostředí
 
 Proměnné prostředí lze zadat pro proces v atributu `processPath`. Zadejte proměnnou prostředí s podřízeným prvkem `<environmentVariable>` elementu kolekce `<environmentVariables>`.
 
 > [!WARNING]
-> Proměnné prostředí nastavené v této části jsou v konfliktu se sadou proměnných prostředí systému se stejným názvem. Pokud je proměnná prostředí nastavena v souboru *Web. config* i na úrovni systému systému Windows, bude hodnota ze souboru *Web. config* připojena k hodnotě proměnné prostředí systému (například `ASPNETCORE_ENVIRONMENT: Development;Development`), která brání aplikaci. začátek.
+> Proměnné prostředí nastavené v této části jsou v konfliktu se sadou proměnných prostředí systému se stejným názvem. Pokud je proměnná prostředí nastavena v souboru *Web. config* i na úrovni systému systému Windows, bude hodnota ze souboru *Web. config* připojena k hodnotě proměnné prostředí systému (například `ASPNETCORE_ENVIRONMENT: Development;Development`), která brání aplikaci z začátek.
 
-Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIRONMENT` nakonfiguruje prostředí aplikace na `Development`. Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR` je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
+Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIRONMENT` nakonfiguruje prostředí aplikace tak, aby bylo `Development`. Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR` je příklad uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -911,7 +931,7 @@ Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIR
 ```
 
 > [!WARNING]
-> Nastavte pouze proměnnou prostředí `ASPNETCORE_ENVIRONMENT` na `Development` na pracovních a testovacích serverech, které nejsou přístupné pro nedůvěryhodné sítě, jako je například Internet.
+> Nastavte pouze proměnnou prostředí `ASPNETCORE_ENVIRONMENT`, aby `Development` na pracovních a testovacích serverech, které nejsou přístupné nedůvěryhodným sítím, jako je například Internet.
 
 ## <a name="app_offlinehtm"></a>App_offline. htm
 
@@ -931,23 +951,27 @@ Modul ASP.NET Core přesměruje výstup konzoly stdout a stderr na disk, pokud j
 
 Protokoly nejsou otočeny, pokud nedochází k recyklování/restartování procesu. Je zodpovědností hostitele omezit místo na disku, které používají protokoly.
 
-Použití protokolu stdout se doporučuje jenom při řešení problémů se spouštěním aplikací. Nepoužívejte protokol stdout pro obecné účely protokolování aplikace. Pro rutinu protokolování v aplikaci ASP.NET Core použijte knihovnu protokolování, která omezuje velikost souboru protokolu a otočí protokoly. Další informace najdete v tématu [Zprostředkovatelé protokolování třetích stran](xref:fundamentals/logging/index#third-party-logging-providers).
+Použití protokolu stdout se doporučuje pouze při řešení potíží se spouštěním aplikací při hostování služby IIS nebo při použití [podpory v době vývoje služby IIS se sadou Visual Studio](xref:host-and-deploy/iis/development-time-iis-support), nikoli při ladění místně a při spuštění aplikace s IIS Express.
 
-Časové razítko a Přípona souboru se automaticky přidají při vytvoření souboru protokolu. Název souboru protokolu se skládá připojením časového razítka, ID procesu a přípony souboru ( *. log*) k poslednímu segmentu cesty `stdoutLogFile` (obvykle *stdout*), oddělený podtržítky. Pokud cesta `stdoutLogFile` končí na *stdout*, protokol pro aplikaci s číslem PID 1934 vytvořeným v 2/5/2018 v 19:42:32 má název souboru *stdout_20180205194132_1934. log*.
+Nepoužívejte protokol stdout pro obecné účely protokolování aplikace. Pro rutinu protokolování v aplikaci ASP.NET Core použijte knihovnu protokolování, která omezuje velikost souboru protokolu a otočí protokoly. Další informace najdete v tématu [Zprostředkovatelé protokolování třetích stran](xref:fundamentals/logging/index#third-party-logging-providers).
 
-Následující vzorový prvek `aspNetCore` nakonfiguruje protokolování stdout pro aplikaci hostovanou v Azure App Service. Místní cesta nebo cesta ke sdílené síťové složce je přijatelná pro místní protokolování. Potvrďte, že identita uživatele fondu aplikací má oprávnění k zápisu do zadané cesty.
+Časové razítko a Přípona souboru se automaticky přidají při vytvoření souboru protokolu. Název souboru protokolu se skládá připojením časového razítka, ID procesu a přípony souboru ( *. log*) k poslednímu segmentu cesty `stdoutLogFile` (obvykle *stdout*), oddělený podtržítky. Pokud `stdoutLogFile` cesta končí na *stdout*, protokol pro aplikaci s číslem PID 1934 vytvořeným v 2/5/2018 v 19:42:32 má název souboru *stdout_20180205194132_1934. log*.
+
+Následující vzorový `aspNetCore` prvek nakonfiguruje protokolování stdout na relativní cestě `.\log\`. Potvrďte, že identita uživatele fondu aplikací má oprávnění k zápisu do zadané cesty.
 
 ```xml
 <aspNetCore processPath="dotnet"
     arguments=".\MyApp.dll"
     stdoutLogEnabled="true"
-    stdoutLogFile="\\?\%home%\LogFiles\stdout">
+    stdoutLogFile=".\logs\stdout">
 </aspNetCore>
 ```
 
-Složky v cestě zadané pro hodnotu `<handlerSetting>` (*protokoly* v předchozím příkladu) se nevytváří modulem automaticky a měly by být v nasazení předběžně existující. Fond aplikací musí mít oprávnění k zápisu do umístění, kam se zapisují protokoly (k poskytnutí oprávnění k zápisu použijte `IIS AppPool\<app_pool_name>`).
+Když publikujete aplikaci pro nasazení Azure App Service, Webová sada SDK nastaví hodnotu `stdoutLogFile` na `\\?\%home%\LogFiles\stdout`. Pro aplikace hostované v Azure App Service je předdefinovaná proměnná prostředí `%home`.
 
-Příklad prvku `aspNetCore` v souboru *Web. config* naleznete v tématu [Konfigurace pomocí souboru Web. config](#configuration-with-webconfig) .
+Chcete-li vytvořit pravidla filtru protokolování, přečtěte si část [Konfigurace](xref:fundamentals/logging/index#log-filtering) a [filtrování protokolů](xref:fundamentals/logging/index#log-filtering) v dokumentaci ASP.NET Core protokolování.
+
+Další informace o formátech cest najdete v tématu [formáty souborů cest v systémech Windows](/dotnet/standard/io/file-path-formats).
 
 ## <a name="proxy-configuration-uses-http-protocol-and-a-pairing-token"></a>Konfigurace proxy serveru používá protokol HTTP a token párování.
 
@@ -975,7 +999,7 @@ Postup určení verze nainstalovaného modulu ASP.NET Core:
 1. Klikněte na soubor pravým tlačítkem a v místní nabídce vyberte **vlastnosti** .
 1. Vyberte kartu **Podrobnosti** . **Verze souboru** a **verze produktu** reprezentují nainstalovanou verzi modulu.
 
-Protokoly instalačních balíčků pro modul se nacházejí v *C: \\Users @ no__t-2% username% \\AppData @ no__t-4Local @ no__t-5Temp*. Soubor má název *dd_DotNetCoreWinSvrHosting__ @ no__t-7timestamp > _000_AspNetCoreModule_x64. log*.
+Protokoly instalačních balíčků pro modul jsou k dispozici v *C:\\uživatelé\\% username%\\data\\místní\\Temp*. Soubor má název *dd_DotNetCoreWinSvrHosting__\<časové razítko > _000_AspNetCoreModule_x64. log*.
 
 ## <a name="module-schema-and-configuration-file-locations"></a>Umístění souboru modulu, schématu a konfiguračního souboru
 

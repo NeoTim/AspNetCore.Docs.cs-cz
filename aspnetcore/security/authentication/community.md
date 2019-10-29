@@ -1,31 +1,30 @@
 ---
-title: Možnosti ověřování z komunity OSS pro ASP.NET Core
+title: Možnosti ověřování komunity OSS pro ASP.NET Core
 author: rick-anderson
-description: Objevte možnosti ověřování open source pro ASP.NET Core.
+description: Zjistí možnosti Open Source ověřování pro ASP.NET Core.
 ms.author: riande
-ms.date: 02/15/2019
+ms.date: 10/28/2019
 uid: security/authentication/community
-ms.openlocfilehash: e25df794bdff8f904382e7a299755ae4c23b892e
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 68c32515b7d789db86f60cd011632da5c1244c1f
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898344"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034245"
 ---
-# <a name="community-oss-authentication-options-for-aspnet-core"></a>Možnosti ověřování z komunity OSS pro ASP.NET Core
+# <a name="community-oss-authentication-options-for-aspnet-core"></a>Možnosti ověřování komunity OSS pro ASP.NET Core
 
-Tato stránka obsahuje možnosti ověřování poskytované komunitou open source pro ASP.NET Core. Tato stránka se pravidelně aktualizuje jako nového zprostředkovatele k dispozici.
+Tato stránka obsahuje otevřené možnosti ověřování zdrojového kódu pro ASP.NET Core poskytované komunitou. Tato stránka se pravidelně aktualizuje, protože budou k dispozici Noví zprostředkovatelé.
 
-## <a name="oss-authentication-providers"></a>Zprostředkovatelé ověřování OSS
+## <a name="oss-authentication-providers"></a>Poskytovatelé ověřování OSS
 
-Následující seznam je seřazen podle abecedy.
+Níže uvedený seznam je seřazený podle abecedy.
 
 | Name | Popis |
 | ---- | ----------- |
-| [AspNet.Security.OpenIdConnect.Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server) | ASOS je nízké úrovně, první protokolu OpenID Connect serveru rozhraní pro ASP.NET Core a OWIN a Katana. |
-| [Cierge](https://github.com/pwdless/Cierge) | Cierge je server OpenID Connect, který se stará o registraci uživatele, přihlášení, profily, Správa a přihlašování přes sociální sítě. |
-| [Gluu Server](https://gluu.org/) | Organizace, budete mít, opensourcový software pro identity, správy přístupu (IAM) a jednotné přihlašování (SSO). Další informace najdete v tématu [dokumentaci k produktu Gluu](https://gluu.org/docs/). |
-| [IdentityServer](https://identityserver.io/) | IdentityServer je platforma OpenID Connect a OAuth 2.0 pro ASP.NET Core, oficiální certifikaci na nadací OpenID a v části zásady správného řízení .NET Foundation. Další informace najdete v tématu [Vítá vás IdentityServer4 (dokumentace)](https://identityserver4.readthedocs.io/en/latest/). |
-| [OpenIddict](https://github.com/openiddict/openiddict-core) | OpenIddict je snadno použitelné server OpenID Connect pro ASP.NET Core. |
+| [AspNet. Security. OpenIdConnect. Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server) | ASOS je serverová architektura nižší úrovně OpenID Connect serveru pro ASP.NET Core a OWIN/Katana. |
+| [Server Gluu](https://gluu.org/) | Enterprise readed, open source software pro identitu, správu přístupu (IAM) a jednotné přihlašování (SSO). Další informace najdete v [dokumentaci k produktu Gluu](https://gluu.org/docs/). |
+| [IdentityServer](https://identityserver.io/) | IdentityServer je rozhraní OpenID Connect a OAuth 2,0 Framework pro ASP.NET Core, úředně certifikováno OpenID Foundation a v rámci zásad správného řízení rozhraní .NET Foundation. Další informace najdete v tématu [Vítá vás IdentityServer4 (dokumentace)](https://identityserver4.readthedocs.io/en/latest/). |
+| [OpenIddict](https://github.com/openiddict/openiddict-core) | OpenIddict je snadno použitelný Server OpenID Connect pro ASP.NET Core. |
 
-Přidání poskytovatele, [upravit tuto stránku](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Faspnet%2FDocs%2Fedit%2Fmaster%2Faspnetcore%2Fsecurity%2Fauthentication%2Fcommunity.md).
+Chcete-li přidat poskytovatele, [upravte tuto stránku](https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2Faspnet%2FDocs%2Fedit%2Fmaster%2Faspnetcore%2Fsecurity%2Fauthentication%2Fcommunity.md).

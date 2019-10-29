@@ -2,17 +2,16 @@
 title: Opakovaně použitelné uživatelské rozhraní Razor v knihovnách tříd s ASP.NET Core
 author: Rick-Anderson
 description: Vysvětluje, jak vytvořit opakovaně použitelné uživatelské rozhraní Razor pomocí částečných zobrazení v knihovně tříd v ASP.NET Core.
-monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 10/08/2019
+ms.date: 10/26/2019
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: dcd24f7dafd198f88cdf84d1ab67c84f45428a95
-ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.openlocfilehash: ff12eea5406c4f5392a466728741000e3dd16fc1
+ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179337"
+ms.lasthandoff: 10/29/2019
+ms.locfileid: "73034223"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelného uživatelského rozhraní pomocí projektu knihovny tříd Razor v ASP.NET Core
 
@@ -28,13 +27,12 @@ Zobrazení Razor, stránky, řadiče, modely stránek, [komponenty Razor](xref:b
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V nabídce **soubor** v aplikaci Visual Studio vyberte **Nový** **projekt**>.
-* Vyberte **ASP.NET Core webové aplikace**.
-* Pojmenujte knihovnu (například "RazorClassLib") > **OK**. Aby nedošlo ke kolizi názvů souborů s vygenerovanou knihovnou zobrazení, ujistěte se, že název knihovny nekončí `.Views`.
-* Ověřte, zda je vybrána **ASP.NET Core 3,0** nebo novější.
-* Vyberte **knihovnu tříd Razor** > **OK**.
+* V aplikaci Visual Studio vyberte **vytvořit nový nový projekt**.
+* > **Další**vyberte **knihovnu tříd Razor** .
+* Pojmenujte knihovnu (například "RazorClassLib"), > **vytvořit**. Aby nedošlo ke kolizi názvů souborů s vygenerovanou knihovnou zobrazení, ujistěte se, že název knihovny nekončí `.Views`.
+* Pokud potřebujete podporovat zobrazení, vyberte možnost **stránky podpory a zobrazení** . Ve výchozím nastavení jsou podporovány pouze Razor Pages. Vyberte **vytvořit**.
 
-Šablona knihovny tříd Razor (RCL) je ve výchozím nastavení standardně pro vývoj komponent Razor. Možnost šablony v aplikaci Visual Studio poskytuje podporu šablon pro stránky a zobrazení.
+Šablona knihovny tříd Razor (RCL) je ve výchozím nastavení standardně pro vývoj komponent Razor. Možnost **stránky podpory a zobrazení** podporuje stránky a zobrazení.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -121,15 +119,15 @@ Zahrnutí souborů TypeScriptu do RCL:
 1. Přidejte cíl TypeScript jako závislost `ResolveCurrentProjectStaticWebAssets` a přidejte následující cíl do `PropertyGroup` v souboru projektu:
 
    ```xml
-  <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
-    CompileTypeScript;
-    $(ResolveCurrentProjectStaticWebAssetsInputs)
-  </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+   <ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
+     CompileTypeScript;
+     $(ResolveCurrentProjectStaticWebAssetsInputs)
+   </ResolveCurrentProjectStaticWebAssetsInputsDependsOn>
    ```
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>Využití obsahu z odkazovaného RCL
 
-Soubory zahrnuté ve složce *wwwroot* v RCL jsou zpřístupněné aplikacím s předponou `_content/{LIBRARY NAME}/`. Například knihovna s názvem *Razor. Class. lib* má za následek cestu k statickému obsahu v `_content/Razor.Class.Lib/`.
+Soubory zahrnuté ve složce *wwwroot* v RCL jsou zpřístupněné aplikacím, které jsou v předponě `_content/{LIBRARY NAME}/`. Například knihovna s názvem *Razor. Class. lib* má za následek cestu k statickému obsahu v `_content/Razor.Class.Lib/`.
 
 Vybírající aplikace odkazuje na statické prostředky poskytované knihovnou s `<script>`, `<style>`, `<img>` a dalšími značkami HTML. Vybírající aplikace musí mít povolenou [podporu statických souborů](xref:fundamentals/static-files) v `Startup.Configure`:
 
