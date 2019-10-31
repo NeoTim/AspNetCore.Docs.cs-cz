@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/react
-ms.openlocfilehash: 0e61c5b3e31a0b050d356b8f8e16306dc1e2a7f3
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: bbe5328bfa5b4187989a00c3c94e98dabc5d032a
+ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080418"
+ms.lasthandoff: 10/31/2019
+ms.locfileid: "73190513"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>Použijte šablonu projektu reakce s ASP.NET Core
 
@@ -20,11 +20,13 @@ Aktualizovaná šablona projektu reakce poskytuje pohodlný výchozí bod pro AS
 
 Šablona je ekvivalentní k vytváření ASP.NET Core projektu, který se má chovat jako back-end rozhraní API, a standardní projekt CRA reaguje na fungování jako uživatelské rozhraní, ale s pohodlíou hostování v jediném projektu aplikace, který je možné sestavit a publikovat jako jeden celek.
 
+Šablona projektu reakce není určena pro vykreslování na straně serveru (SSR). Pro SSR, který reaguje a Node. js, zvažte [Další. js](https://github.com/zeit/next.js/) nebo [Razzle](https://github.com/jaredpalmer/razzle).
+
 ## <a name="create-a-new-app"></a>Vytvoření nové aplikace
 
 Pokud máte nainstalovanou ASP.NET Core 2,1, není nutné instalovat šablonu projektu reakce.
 
-Vytvoří nový projekt z příkazového řádku pomocí příkazu `dotnet new react` v prázdném adresáři. Například následující příkazy vytvoří aplikaci v adresáři *My-New-App* a přepne do tohoto adresáře:
+Vytvoření nového projektu z příkazového řádku pomocí příkazu `dotnet new react` v prázdném adresáři. Například následující příkazy vytvoří aplikaci v adresáři *My-New-App* a přepne do tohoto adresáře:
 
 ```dotnetcli
 dotnet new react -o my-new-app
@@ -41,7 +43,7 @@ Proces sestavení obnoví závislosti npm při prvním spuštění, což může 
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-Ujistěte se, že máte proměnnou prostředí `ASPNETCORE_Environment` s názvem s `Development`hodnotou. V systému Windows (v případě výzev mimo PowerShell) spusťte `SET ASPNETCORE_Environment=Development`příkaz. V systému Linux nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
+Ujistěte se, že máte proměnnou prostředí nazvanou `ASPNETCORE_Environment` s hodnotou `Development`. V systému Windows (v případě výzev mimo PowerShell) spusťte `SET ASPNETCORE_Environment=Development`. V systému Linux nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
 
 Spusťte [sestavení dotnet](/dotnet/core/tools/dotnet-build) pro správné ověření sestavení vaší aplikace. Při prvním spuštění proces sestavení obnoví závislosti NPM, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
@@ -78,7 +80,7 @@ Můžete použít standardní [ASP.NET Core hostování a metody nasazení](xref
 
 Projekt je nakonfigurován tak, aby spouštěl svou vlastní instanci CRA vývojového serveru na pozadí, když se aplikace ASP.NET Core spustí v režimu vývoje. To je užitečné, protože to znamená, že nemusíte spouštět samostatný server ručně.
 
-Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte C# kód a ASP.NET Core aplikace se musí restartovat, server CRA se restartuje. Spuštění zálohování vyžaduje několik sekund. Pokud provádíte časté C# úpravy kódu a nechcete čekat na RESTARTOVÁNÍ serveru CRA, spusťte server CRA externě, nezávisle na procesu ASP.NET Core. Postup:
+Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte C# kód a ASP.NET Core aplikace se musí restartovat, server CRA se restartuje. Spuštění zálohování vyžaduje několik sekund. Pokud provádíte časté C# úpravy kódu a nechcete čekat na RESTARTOVÁNÍ serveru CRA, spusťte server CRA externě, nezávisle na procesu ASP.NET Core. Provedete to takto:
 
 1. Do podadresáře *clientapp* přidejte soubor *. env* s následujícím nastavením:
 

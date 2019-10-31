@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 uid: mvc/controllers/filters
-ms.openlocfilehash: 0c3597f24e02af40517e12a86127b140ed4fb550
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 6a83b8e85b68a9b8796aeed2fd39108dbeed3266
+ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333924"
+ms.lasthandoff: 10/31/2019
+ms.locfileid: "73190533"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -146,8 +146,8 @@ Tato posloupnost zobrazuje:
 
 ### <a name="controller-and-razor-page-level-filters"></a>Filtry na úrovni ovladače a stránky Razor
 
-Každý kontroler, který dědí ze základní třídy <xref:Microsoft.AspNetCore.Mvc.Controller>, zahrnuje metody [Controller. OnActionExecuting](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuting*), [Controller. OnActionExecutionAsync](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecutionAsync*)a [Controller. OnActionExecuted](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuted*)
- @ no__t-5. Tyto metody:
+Každý kontroler, který dědí z <xref:Microsoft.AspNetCore.Mvc.Controller> základní třídy, zahrnuje metody [Controller. OnActionExecuting](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuting*), [Controller. OnActionExecutionAsync](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecutionAsync*)a [Controller. OnActionExecuted](xref:Microsoft.AspNetCore.Mvc.Controller.OnActionExecuted*)
+`OnActionExecuted`. Tyto metody:
 
 * Zabalte filtry, které se spouštějí pro danou akci.
 * `OnActionExecuting` se volá před jakýmikoli filtry akce.
@@ -156,14 +156,14 @@ Každý kontroler, který dědí ze základní třídy <xref:Microsoft.AspNetCor
 
 Například v ukázce stahování se při spuštění použije globálně `MySampleActionFilter`.
 
-@No__t-0:
+`TestController`:
 
-* Aplikuje na akci `FilterTest2` `SampleActionFilterAttribute` (`[SampleActionFilter]`).
+* Aplikuje `SampleActionFilterAttribute` (`[SampleActionFilter]`) na akci `FilterTest2`.
 * Přepisuje `OnActionExecuting` a `OnActionExecuted`.
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/TestController.cs?name=snippet)]
 
-Přechod na @no__t – 0 spustí následující kód:
+Při přechodu na `https://localhost:5001/Test/FilterTest2` se spustí následující kód:
 
 * `TestController.OnActionExecuting`
   * `MySampleActionFilter.OnActionExecuting`
@@ -177,7 +177,7 @@ Razor Pages najdete v tématu [implementace filtrů stránek Razor pomocí přep
 
 ### <a name="overriding-the-default-order"></a>Přepsání výchozího pořadí
 
-Výchozí sekvenci spuštění lze přepsat implementací <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter>. `IOrderedFilter` zpřístupňuje vlastnost <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter.Order>, která má přednost před rozsahem, aby bylo možné určit pořadí spouštění. Filtr s nižší hodnotou @no__t 0:
+Výchozí sekvenci spuštění lze přepsat implementací <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter>. `IOrderedFilter` zpřístupňuje vlastnost <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter.Order>, která má přednost před rozsahem, aby bylo možné určit pořadí spouštění. Filtr s nižší hodnotou `Order`:
 
 * Spustí *před* kódem filtr s vyšší hodnotou `Order`.
 * Spustí *za* kódem filtru s vyšší hodnotou `Order`.
@@ -209,12 +209,12 @@ Kanál filtru může být v krátkém okruhu nastavením vlastnosti <xref:Micros
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/ShortCircuitingResourceFilterAttribute.cs?name=snippet)]
 
-V následujícím kódu, jak `ShortCircuitingResourceFilter` a filtr `AddHeader` cílí na metodu akce `SomeResource`. @No__t-0:
+V následujícím kódu, jak `ShortCircuitingResourceFilter` a filtr `AddHeader` cílí na metodu akce `SomeResource`. `ShortCircuitingResourceFilter`:
 
 * Nejprve se spustí, protože se jedná o filtr prostředku a `AddHeader` je filtr akcí.
 * Krátké okruhy zbývajícího kanálu.
 
-Proto se filtr `AddHeader` nikdy nespustí pro akci `SomeResource`. Toto chování by bylo stejné, pokud byly oba filtry aplikovány na úrovni metody akce za předpokladu, `ShortCircuitingResourceFilter` běželo jako první. @No__t-0 se nejprve spustí z důvodu jeho typu filtru nebo explicitním použitím vlastnosti `Order`.
+Proto se filtr `AddHeader` nikdy nespustí pro akci `SomeResource`. Toto chování by bylo stejné, pokud byly oba filtry aplikovány na úrovni metody akce za předpokladu, `ShortCircuitingResourceFilter` běželo jako první. `ShortCircuitingResourceFilter` se nejprve spustí z důvodu jeho typu filtru nebo explicitním použitím vlastnosti `Order`.
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
@@ -245,7 +245,7 @@ Protokolovací nástroje jsou k dispozici z DI. Ale nevytvářejte a používejt
 
 ### <a name="servicefilterattribute"></a>ServiceFilterAttribute
 
-Typy implementace filtru služby jsou registrovány v `ConfigureServices`. @No__t-0 načte instanci filtru z DI.
+Typy implementace filtru služby jsou registrovány v `ConfigureServices`. <xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute> načte instanci filtru z DI.
 
 Následující kód ukazuje `AddHeaderResultServiceFilter`:
 
@@ -349,7 +349,7 @@ Následující kód ukazuje filtr vzorové akce:
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/MySampleActionFilter.cs?name=snippet_ActionFilter)]
 
-@No__t-0 poskytuje následující vlastnosti:
+<xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext> poskytuje následující vlastnosti:
 
 * <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext.ActionArguments> – povolí čtení vstupů do metody akce.
 * <xref:Microsoft.AspNetCore.Mvc.Controller> – povoluje manipulaci s instancí kontroleru.
@@ -360,7 +360,7 @@ Vyvolání výjimky v metodě akce:
 * Zabraňuje spuštění dalších filtrů.
 * Na rozdíl od nastavení `Result` se místo úspěšného výsledku považuje za selhání.
 
-@No__t-0 poskytuje `Controller` a `Result` a následující vlastnosti:
+<xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext> poskytuje `Controller` a `Result` a následující vlastnosti:
 
 * <xref:System.Web.Mvc.ActionExecutedContext.Canceled>-true, pokud provádění akce bylo zkráceno jiným filtrem.
 * <xref:System.Web.Mvc.ActionExecutedContext.Exception>-nenulová, pokud akce nebo filtr dříve spuštěných akcí vyvolaly výjimku. Nastavení této vlastnosti na hodnotu null:
@@ -404,7 +404,7 @@ Filtry výjimek:
 
 Následující ukázkový filtr výjimek používá vlastní zobrazení chyb pro zobrazení podrobností o výjimkách, ke kterým dochází při vývoji aplikace:
 
-[!code-csharp[](./filters/sample/FiltersSample/Filters/CustomExceptionFilterAttribute.cs?name=snippet_ExceptionFilter&highlight=16-19)]
+[!code-csharp[](./filters/sample/FiltersSample/Filters/CustomExceptionFilter.cs?name=snippet_ExceptionFilter&highlight=16-19)]
 
 Filtry výjimek:
 
@@ -513,7 +513,7 @@ Následující kód ukazuje tři přístupy k použití `[SampleActionFilter]`:
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/HomeController.cs?name=snippet&highlight=1)]
 
-V předchozím kódu je upravení metoda s `[SampleActionFilter]` upřednostňovaným přístupem k použití `SampleActionFilter`.
+V předchozím kódu upravení metoda s `[SampleActionFilter]` je upřednostňovaným přístupem k použití `SampleActionFilter`.
 
 ## <a name="using-middleware-in-the-filter-pipeline"></a>Použití middlewaru v kanálu filtru
 
