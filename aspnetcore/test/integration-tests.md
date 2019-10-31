@@ -5,18 +5,18 @@ description: Přečtěte si, jak testy integrace zajišťují, aby komponenty ap
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/14/2019
+ms.date: 10/28/2019
 uid: test/integration-tests
-ms.openlocfilehash: c0fede8f9f46d1b10502055d8e1fe7caa48cf351
-ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
+ms.openlocfilehash: 33f3e29bc649fa65efdff0c47e54a83662005577
+ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/22/2019
-ms.locfileid: "72779232"
+ms.lasthandoff: 10/30/2019
+ms.locfileid: "73143362"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
-Od [Luke Latham](https://github.com/guardrex) a [Steve Smith](https://ardalis.com/)
+[Luke Latham](https://github.com/guardrex), [Javier Calvarro Nelson](https://github.com/javiercn), [Steve Smith](https://ardalis.com/)a [Jos Van der dlaždicí](https://jvandertil.nl)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -130,8 +130,6 @@ Pokud není [prostředí](xref:fundamentals/environments) SUT nastaveno, prostř
 
 Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)( *Class* ) k označení třídy obsahuje testy a poskytování instancí sdíleného objektu napříč testy ve třídě.
 
-### <a name="basic-test-of-app-endpoints"></a>Základní test koncových bodů aplikace
-
 Následující testovací třída, `BasicTests`, používá `WebApplicationFactory` k zavedení SUT a poskytnutí [HttpClient](/dotnet/api/system.net.http.httpclient) testovací metodě `Get_EndpointsReturnSuccessAndCorrectContentType`. Metoda zkontroluje, zda je kód stavu odpovědi úspěšný (stavové kódy v rozsahu 200-299) a hlavička `Content-Type` je `text/html; charset=utf-8` pro několik stránek aplikace.
 
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient`, která se automaticky sleduje a zpracovává soubory cookie.
@@ -139,25 +137,6 @@ Následující testovací třída, `BasicTests`, používá `WebApplicationFacto
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet1)]
 
 Ve výchozím nastavení se soubory cookie, které nejsou nezbytné, nezachovají mezi požadavky, pokud je povolená [zásada pro vyjádření souhlasu GDPR](xref:security/gdpr) . Chcete-li zachovat soubory cookie, které nejsou nezbytné, například ty, které používá poskytovatel TempData, označte je jako nezbytné v testech. Pokyny k označení souboru cookie jako nezbytného najdete v tématu [základní soubory cookie](xref:security/gdpr#essential-cookies).
-
-### <a name="test-a-secure-endpoint"></a>Testování zabezpečeného koncového bodu
-
-Další test ve třídě `BasicTests` kontroluje, zda zabezpečený koncový bod přesměruje neověřeného uživatele na přihlašovací stránku aplikace.
-
-V SUT stránka `/SecurePage` používá [AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) konvenci pro použití [AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter) na stránku. Další informace najdete v tématu [Razor Pages autorizačních konvencí](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page).
-
-[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
-
-V `Get_SecurePageRequiresAnAuthenticatedUser` testu je [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) nastaveno na zakázat přesměrování nastavením [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) na hodnotu `false`:
-
-[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet2)]
-
-Když klientovi zakážete postup přesměrování, můžete provést následující kontroly:
-
-* Stavový kód vrácený SUT může být zkontrolován na základě očekávaného výsledku [HttpStatusCode. Redirect](/dotnet/api/system.net.httpstatuscode) , nikoli konečného stavového kódu po přesměrování na přihlašovací stránku, která by byla [HttpStatusCode. ok](/dotnet/api/system.net.httpstatuscode).
-* Hodnota hlavičky `Location` v hlavičkách odpovědi je zaškrtnuta, aby se ověřilo, že začíná na `http://localhost/Identity/Account/Login`, nikoli na poslední reakci na přihlašovací stránce, kde by neexistovala hlavička `Location`.
-
-Další informace o `WebApplicationFactoryClientOptions` najdete v části [Možnosti klienta](#client-options) .
 
 ## <a name="customize-webapplicationfactory"></a>Přizpůsobení WebApplicationFactory
 
@@ -190,7 +169,7 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
 
    [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet1)]
 
-   Klient ukázkové aplikace je nakonfigurován tak, aby zabránil `HttpClient` od následujících přesměrování. Jak je vysvětleno v části [test zabezpečeného koncového bodu](#test-a-secure-endpoint) , to umožňuje testům zkontrolovat výsledek první odpovědi aplikace. První odpověď je přesměrování v mnoha těchto testech s hlavičkou `Location`.
+   Klient ukázkové aplikace je nakonfigurován tak, aby zabránil `HttpClient` od následujících přesměrování. Jak je vysvětleno dále v části [model ověřování](#mock-authentication) , umožňuje testům kontrolovat výsledek první odpovědi aplikace. První odpověď je přesměrování v mnoha těchto testech s hlavičkou `Location`.
 
 3. Typický test používá `HttpClient` a pomocné metody pro zpracování žádosti a odpovědi:
 
@@ -297,6 +276,50 @@ Označení vytvářené během provádění testu odráží text citace dodaný 
     Mr. Scarman, and time is my business.">
 ```
 
+## <a name="mock-authentication"></a>Modely ověřování
+
+Testy ve třídě `AuthTests` zkontrolují zabezpečený koncový bod:
+
+* Přesměruje neověřeného uživatele na přihlašovací stránku aplikace.
+* Vrátí obsah pro ověřeného uživatele.
+
+V SUT stránka `/SecurePage` používá [AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) konvenci pro použití [AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter) na stránku. Další informace najdete v tématu [Razor Pages autorizačních konvencí](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page).
+
+[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
+
+V `Get_SecurePageRedirectsAnUnauthenticatedUser` testu je [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) nastaveno na zakázat přesměrování nastavením [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) na hodnotu `false`:
+
+[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet2)]
+
+Když klientovi zakážete postup přesměrování, můžete provést následující kontroly:
+
+* Stavový kód vrácený SUT může být zkontrolován na základě očekávaného výsledku [HttpStatusCode. Redirect](/dotnet/api/system.net.httpstatuscode) , nikoli konečného stavového kódu po přesměrování na přihlašovací stránku, která by byla [HttpStatusCode. ok](/dotnet/api/system.net.httpstatuscode).
+* Hodnota hlavičky `Location` v hlavičkách odpovědi je zaškrtnuta, aby se ověřilo, že začíná na `http://localhost/Identity/Account/Login`, nikoli na poslední reakci na přihlašovací stránce, kde by neexistovala hlavička `Location`.
+
+Testovací aplikace může napodobovat <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> v [ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices) , aby bylo možné testovat aspekty ověřování a autorizace. Minimální scénář vrátí [AuthenticateResult. Success](xref:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success*):
+
+[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet4&highlight=11-18)]
+
+`TestAuthHandler` je volána k ověření uživatele, když je schéma ověřování nastaveno na `Test` v případě, že je `AddAuthentication` zaregistrován pro `ConfigureTestServices`:
+
+[!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet3&highlight=7-12)]
+
+Další informace o `WebApplicationFactoryClientOptions` najdete v části [Možnosti klienta](#client-options) .
+
+## <a name="set-the-environment"></a>Nastavení prostředí
+
+Ve výchozím nastavení je hostitel a prostředí aplikace SUT nakonfigurovaná tak, aby používala vývojové prostředí. Přepsání prostředí SUT:
+
+* Nastavte proměnnou prostředí `ASPNETCORE_ENVIRONMENT` (například `Staging`, `Production`nebo jinou vlastní hodnotu, jako je například `Testing`).
+* V testovací aplikaci můžete přepsat `CreateHostBuilder` pro čtení proměnných prostředí s předponou `ASPNETCORE`.
+
+```csharp
+protected override IHostBuilder CreateHostBuilder() => 
+    base.CreateHostBuilder()
+        .ConfigureHostConfiguration(
+            config => config.AddEnvironmentVariables("ASPNETCORE"));
+```
+
 ## <a name="how-the-test-infrastructure-infers-the-app-content-root-path"></a>Jak testovací infrastruktura odvodí kořenovou cestu obsahu aplikace
 
 Konstruktor `WebApplicationFactory` odvodí [kořenovou cestu obsahu](xref:fundamentals/index#content-root) aplikace hledáním [WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute) na sestavení obsahujícího integrační testy s klíčem, který se rovná sestavení `TEntryPoint` `System.Reflection.Assembly.FullName`. V případě, že atribut se správným klíčem nebyl nalezen, `WebApplicationFactory` se vrátí k hledání souboru řešení ( *. sln*) a připojí název sestavení `TEntryPoint` k adresáři řešení. Kořenový adresář aplikace (kořenová cesta obsahu) se používá ke zjišťování zobrazení a souborů obsahu.
@@ -353,8 +376,9 @@ Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject
 
 | Testovací adresář aplikace | Popis |
 | ------------------ | ----------- |
-| *BasicTests* | *BasicTests.cs* obsahuje testovací metody pro směrování, přístup k zabezpečené stránce neověřeného uživatele a získání profilu uživatele GitHubu a kontrolu přihlášení uživatele v profilu. |
-| *IntegrationTests* | *IndexPageTests.cs* obsahuje testy integrace pro stránku indexu pomocí vlastní třídy `WebApplicationFactory`. |
+| *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem pomocí <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>.</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
+| *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |
+| *IntegrationTests* | Obsahuje testy integrace pro stránku index s použitím vlastní třídy `WebApplicationFactory`. |
 | *Pomocné programy a pomůcky* | <ul><li>*Utilities.cs* obsahuje metodu `InitializeDbForTests` použitou k osazení databáze pomocí testovacích dat.</li><li>*HtmlHelpers.cs* poskytuje metodu, která vrátí AngleSharp `IHtmlDocument` pro použití testovacími metodami.</li><li>*HttpClientExtensions.cs* poskytují přetížení pro `SendAsync` pro odesílání požadavků do SUT.</li></ul> |
 
 Testovací rozhraní je [xUnit](https://xunit.github.io/). Integrační testy se provádějí pomocí [Microsoft. AspNetCore. TestHost](/dotnet/api/microsoft.aspnetcore.testhost), který zahrnuje [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver). Vzhledem k tomu, že se balíček [Microsoft. AspNetCore. Mvc.](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing) test používá ke konfiguraci hostitelského a testovacího serveru, balíčky `TestHost` a `TestServer` nevyžadují přímé odkazy na balíčky v souboru projektu testovací aplikace nebo v konfiguraci vývojáře v testu. aplikace.
@@ -477,8 +501,6 @@ Pokud není [prostředí](xref:fundamentals/environments) SUT nastaveno, prostř
 
 Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)( *Class* ) k označení třídy obsahuje testy a poskytování instancí sdíleného objektu napříč testy ve třídě.
 
-### <a name="basic-test-of-app-endpoints"></a>Základní test koncových bodů aplikace
-
 Následující testovací třída, `BasicTests`, používá `WebApplicationFactory` k zavedení SUT a poskytnutí [HttpClient](/dotnet/api/system.net.http.httpclient) testovací metodě `Get_EndpointsReturnSuccessAndCorrectContentType`. Metoda zkontroluje, zda je kód stavu odpovědi úspěšný (stavové kódy v rozsahu 200-299) a hlavička `Content-Type` je `text/html; charset=utf-8` pro několik stránek aplikace.
 
 [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) vytvoří instanci `HttpClient`, která se automaticky sleduje a zpracovává soubory cookie.
@@ -486,25 +508,6 @@ Následující testovací třída, `BasicTests`, používá `WebApplicationFacto
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet1)]
 
 Ve výchozím nastavení se soubory cookie, které nejsou nezbytné, nezachovají mezi požadavky, pokud je povolená [zásada pro vyjádření souhlasu GDPR](xref:security/gdpr) . Chcete-li zachovat soubory cookie, které nejsou nezbytné, například ty, které používá poskytovatel TempData, označte je jako nezbytné v testech. Pokyny k označení souboru cookie jako nezbytného najdete v tématu [základní soubory cookie](xref:security/gdpr#essential-cookies).
-
-### <a name="test-a-secure-endpoint"></a>Testování zabezpečeného koncového bodu
-
-Další test ve třídě `BasicTests` kontroluje, zda zabezpečený koncový bod přesměruje neověřeného uživatele na přihlašovací stránku aplikace.
-
-V SUT stránka `/SecurePage` používá [AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) konvenci pro použití [AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter) na stránku. Další informace najdete v tématu [Razor Pages autorizačních konvencí](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page).
-
-[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
-
-V `Get_SecurePageRequiresAnAuthenticatedUser` testu je [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) nastaveno na zakázat přesměrování nastavením [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) na hodnotu `false`:
-
-[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/BasicTests.cs?name=snippet2)]
-
-Když klientovi zakážete postup přesměrování, můžete provést následující kontroly:
-
-* Stavový kód vrácený SUT může být zkontrolován na základě očekávaného výsledku [HttpStatusCode. Redirect](/dotnet/api/system.net.httpstatuscode) , nikoli konečného stavového kódu po přesměrování na přihlašovací stránku, která by byla [HttpStatusCode. ok](/dotnet/api/system.net.httpstatuscode).
-* Hodnota hlavičky `Location` v hlavičkách odpovědi je zaškrtnuta, aby se ověřilo, že začíná na `http://localhost/Identity/Account/Login`, nikoli na poslední reakci na přihlašovací stránce, kde by neexistovala hlavička `Location`.
-
-Další informace o `WebApplicationFactoryClientOptions` najdete v části [Možnosti klienta](#client-options) .
 
 ## <a name="customize-webapplicationfactory"></a>Přizpůsobení WebApplicationFactory
 
@@ -520,7 +523,7 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/IndexPageTests.cs?name=snippet1)]
 
-   Klient ukázkové aplikace je nakonfigurován tak, aby zabránil `HttpClient` od následujících přesměrování. Jak je vysvětleno v části [test zabezpečeného koncového bodu](#test-a-secure-endpoint) , to umožňuje testům zkontrolovat výsledek první odpovědi aplikace. První odpověď je přesměrování v mnoha těchto testech s hlavičkou `Location`.
+   Klient ukázkové aplikace je nakonfigurován tak, aby zabránil `HttpClient` od následujících přesměrování. Jak je vysvětleno dále v části [model ověřování](#mock-authentication) , umožňuje testům kontrolovat výsledek první odpovědi aplikace. První odpověď je přesměrování v mnoha těchto testech s hlavičkou `Location`.
 
 3. Typický test používá `HttpClient` a pomocné metody pro zpracování žádosti a odpovědi:
 
@@ -627,6 +630,50 @@ Označení vytvářené během provádění testu odráží text citace dodaný 
     Mr. Scarman, and time is my business.">
 ```
 
+## <a name="mock-authentication"></a>Modely ověřování
+
+Testy ve třídě `AuthTests` zkontrolují zabezpečený koncový bod:
+
+* Přesměruje neověřeného uživatele na přihlašovací stránku aplikace.
+* Vrátí obsah pro ověřeného uživatele.
+
+V SUT stránka `/SecurePage` používá [AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) konvenci pro použití [AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter) na stránku. Další informace najdete v tématu [Razor Pages autorizačních konvencí](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page).
+
+[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
+
+V `Get_SecurePageRedirectsAnUnauthenticatedUser` testu je [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) nastaveno na zakázat přesměrování nastavením [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) na hodnotu `false`:
+
+[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet2)]
+
+Když klientovi zakážete postup přesměrování, můžete provést následující kontroly:
+
+* Stavový kód vrácený SUT může být zkontrolován na základě očekávaného výsledku [HttpStatusCode. Redirect](/dotnet/api/system.net.httpstatuscode) , nikoli konečného stavového kódu po přesměrování na přihlašovací stránku, která by byla [HttpStatusCode. ok](/dotnet/api/system.net.httpstatuscode).
+* Hodnota hlavičky `Location` v hlavičkách odpovědi je zaškrtnuta, aby se ověřilo, že začíná na `http://localhost/Identity/Account/Login`, nikoli na poslední reakci na přihlašovací stránce, kde by neexistovala hlavička `Location`.
+
+Testovací aplikace může napodobovat <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> v [ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices) , aby bylo možné testovat aspekty ověřování a autorizace. Minimální scénář vrátí [AuthenticateResult. Success](xref:Microsoft.AspNetCore.Authentication.AuthenticateResult.Success*):
+
+[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet4&highlight=11-18)]
+
+`TestAuthHandler` je volána k ověření uživatele, když je schéma ověřování nastaveno na `Test` v případě, že je `AddAuthentication` zaregistrován pro `ConfigureTestServices`:
+
+[!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/IntegrationTests/AuthTests.cs?name=snippet3&highlight=7-12)]
+
+Další informace o `WebApplicationFactoryClientOptions` najdete v části [Možnosti klienta](#client-options) .
+
+## <a name="set-the-environment"></a>Nastavení prostředí
+
+Ve výchozím nastavení je hostitel a prostředí aplikace SUT nakonfigurovaná tak, aby používala vývojové prostředí. Přepsání prostředí SUT:
+
+* Nastavte proměnnou prostředí `ASPNETCORE_ENVIRONMENT` (například `Staging`, `Production`nebo jinou vlastní hodnotu, jako je například `Testing`).
+* V testovací aplikaci můžete přepsat `CreateHostBuilder` pro čtení proměnných prostředí s předponou `ASPNETCORE`.
+
+```csharp
+protected override IHostBuilder CreateHostBuilder() => 
+    base.CreateHostBuilder()
+        .ConfigureHostConfiguration(
+            config => config.AddEnvironmentVariables("ASPNETCORE"));
+```
+
 ## <a name="how-the-test-infrastructure-infers-the-app-content-root-path"></a>Jak testovací infrastruktura odvodí kořenovou cestu obsahu aplikace
 
 Konstruktor `WebApplicationFactory` odvodí [kořenovou cestu obsahu](xref:fundamentals/index#content-root) aplikace hledáním [WebApplicationFactoryContentRootAttribute](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactorycontentrootattribute) na sestavení obsahujícího integrační testy s klíčem, který se rovná sestavení `TEntryPoint` `System.Reflection.Assembly.FullName`. V případě, že atribut se správným klíčem nebyl nalezen, `WebApplicationFactory` se vrátí k hledání souboru řešení ( *. sln*) a připojí název sestavení `TEntryPoint` k adresáři řešení. Kořenový adresář aplikace (kořenová cesta obsahu) se používá ke zjišťování zobrazení a souborů obsahu.
@@ -693,8 +740,9 @@ Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject
 
 | Testovací adresář aplikace | Popis |
 | ------------------ | ----------- |
-| *BasicTests* | *BasicTests.cs* obsahuje testovací metody pro směrování, přístup k zabezpečené stránce neověřeného uživatele a získání profilu uživatele GitHubu a kontrolu přihlášení uživatele v profilu. |
-| *IntegrationTests* | *IndexPageTests.cs* obsahuje testy integrace pro stránku indexu pomocí vlastní třídy `WebApplicationFactory`. |
+| *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem pomocí <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>.</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
+| *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |
+| *IntegrationTests* | Obsahuje testy integrace pro stránku index s použitím vlastní třídy `WebApplicationFactory`. |
 | *Pomocné programy a pomůcky* | <ul><li>*Utilities.cs* obsahuje metodu `InitializeDbForTests` použitou k osazení databáze pomocí testovacích dat.</li><li>*HtmlHelpers.cs* poskytuje metodu, která vrátí AngleSharp `IHtmlDocument` pro použití testovacími metodami.</li><li>*HttpClientExtensions.cs* poskytují přetížení pro `SendAsync` pro odesílání požadavků do SUT.</li></ul> |
 
 Testovací rozhraní je [xUnit](https://xunit.github.io/). Integrační testy se provádějí pomocí [Microsoft. AspNetCore. TestHost](/dotnet/api/microsoft.aspnetcore.testhost), který zahrnuje [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver). Vzhledem k tomu, že se balíček [Microsoft. AspNetCore. Mvc.](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing) test používá ke konfiguraci hostitelského a testovacího serveru, balíčky `TestHost` a `TestServer` nevyžadují přímé odkazy na balíčky v souboru projektu testovací aplikace nebo v konfiguraci vývojáře v testu. aplikace.
@@ -712,6 +760,6 @@ Ukázková aplikace se dosazuje do databáze se třemi zprávami v *Utilities.cs
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Testování částí](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
-* [Testy jednotek stránek Razor](xref:test/razor-pages-tests)
-* [Middleware](xref:fundamentals/middleware/index)
-* [Testovací kontrolery](xref:mvc/controllers/testing)
+* <xref:test/razor-pages-tests>
+* <xref:fundamentals/middleware/index>
+* <xref:mvc/controllers/testing>

@@ -5,14 +5,14 @@ description: Naučte se, jak pomocí konfiguračního rozhraní API nakonfigurov
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/24/2019
+ms.date: 10/29/2019
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 263f9f7c4c800a74b745fd636196e1e135afc91b
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: c63609cfb91a1668b8e125c54fcfecf5f4ec259b
+ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73033918"
+ms.lasthandoff: 10/30/2019
+ms.locfileid: "73143358"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -296,6 +296,18 @@ Chcete-li poskytnout konfiguraci aplikace, kterou lze přepsat pomocí argument�
 {
     // Call other providers here
     config.AddCommandLine(args);
+})
+```
+
+### <a name="remove-providers-added-by-createdefaultbuilder"></a>Odebrat poskytovatele přidaných pomocí CreateDefaultBuilder
+
+Chcete-li odebrat poskytovatele přidaných pomocí `CreateDefaultBuilder`[, zavolejte nejprve](/dotnet/api/system.collections.generic.icollection-1.clear) na [IConfigurationBuilder. sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) :
+
+```csharp
+.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    config.Sources.Clear();
+    // Add providers here
 })
 ```
 

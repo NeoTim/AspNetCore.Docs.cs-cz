@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tento kurz ukazuje integraci ověřování uživatelů účtu Google do existující aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 10/28/2019
+ms.date: 10/30/2019
 uid: security/authentication/google-logins
-ms.openlocfilehash: 663029ecab99efd4f63f8deca026957c19c64710
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 83f45143eca1be43410880bfd875a3fce1d2e9c9
+ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034310"
+ms.lasthandoff: 10/30/2019
+ms.locfileid: "73143450"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>Nastavení externího přihlášení Google v ASP.NET Core
 
@@ -45,7 +45,7 @@ Přihlašovací údaje a využití rozhraní API můžete spravovat v [konzole A
 
 Přidejte službu Google pro `Startup.ConfigureServices`:
 
-[!code-csharp[](~/security/authentication/social/social-code/3.x/StartupGoogle3x.cs?name=snippet_ConfigureServices&highlight=10-18)]
+[!code-csharp[](~/security/authentication/social/social-code/3.x/StartupGoogle3x.cs?highlight=11-19)]
 
 [!INCLUDE [default settings configuration](includes/default-settings2-2.md)]
 
