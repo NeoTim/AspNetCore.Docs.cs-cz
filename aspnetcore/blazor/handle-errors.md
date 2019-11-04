@@ -5,14 +5,14 @@ description: Zjistěte, jak ASP.NET Core Blazor, jak Blazor spravuje neošetřen
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 10/31/2019
 uid: blazor/handle-errors
-ms.openlocfilehash: fb4c7cacfe8be2417d6009cfc722595d0d91d530
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: afcaa4d926c3e5f0a018897ce4b67b54574dae77
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288843"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73426994"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
 
@@ -29,7 +29,7 @@ Blazor Server je stavový systém. I když uživatelé pracují s aplikací, udr
 
 Pokud uživatel otevře aplikaci na více kartách prohlížeče, má několik nezávislých okruhů.
 
-Blazor považuje většinu neošetřených výjimek za závažné v okruhu, ve kterém se vyskytují. Pokud je okruh ukončen z důvodu neošetřené výjimky, uživatel může pokračovat v interakci s aplikací pouze tak, že znovu načte stránku, aby vytvořila nový okruh. Nejsou ovlivněny okruhy mimo tu, která je ukončená, což jsou okruhy pro ostatní uživatele nebo jiné karty prohlížeče. Tento scénář je podobný jako desktopová aplikace, u které došlo k chybě aplikace @ no__t-0the, která by mohla být restartována, ale ostatní aplikace to neovlivnily.
+Blazor považuje většinu neošetřených výjimek za závažné v okruhu, ve kterém se vyskytují. Pokud je okruh ukončen z důvodu neošetřené výjimky, uživatel může pokračovat v interakci s aplikací pouze tak, že znovu načte stránku, aby vytvořila nový okruh. Nejsou ovlivněny okruhy mimo tu, která je ukončená, což jsou okruhy pro ostatní uživatele nebo jiné karty prohlížeče. Tento scénář je podobný aplikaci klasické pracovní plochy, která selže,&mdash;je nutné restartovat aplikaci, ale ostatní aplikace to neovlivnily.
 
 Okruh se ukončí, když dojde k neošetřené výjimce z následujících důvodů:
 
@@ -48,7 +48,7 @@ V produkčním prostředí nevykresluje zprávy o výjimkách rozhraní nebo tra
 
 ## <a name="log-errors-with-a-persistent-provider"></a>Protokolovat chyby trvalého poskytovatele
 
-Pokud dojde k neošetřené výjimce, zaznamená se výjimka do @no__t instancí-0 nakonfigurovaných v kontejneru služby. Ve výchozím nastavení se aplikace Blazor do výstupu konzoly přihlásí pomocí zprostředkovatele protokolování konzoly. Zvažte možnost protokolování do trvalého umístění u poskytovatele, který spravuje velikost protokolu a rotaci protokolů. Další informace najdete v tématu <xref:fundamentals/logging/index>.
+Pokud dojde k neošetřené výjimce, zaznamená se výjimka do <xref:Microsoft.Extensions.Logging.ILogger> instancí nakonfigurovaných v kontejneru služby. Ve výchozím nastavení se aplikace Blazor do výstupu konzoly přihlásí pomocí zprostředkovatele protokolování konzoly. Zvažte možnost protokolování do trvalého umístění u poskytovatele, který spravuje velikost protokolu a rotaci protokolů. Další informace najdete v tématu <xref:fundamentals/logging/index>.
 
 Během vývoje Blazor obvykle odesílá úplné podrobnosti o výjimkách do konzoly prohlížeče, aby bylo možné v ladění. V produkčním prostředí jsou podrobné chyby v konzole prohlížeče ve výchozím nastavení zakázané, což znamená, že se do klientů neodesílají chyby, ale úplné podrobnosti o výjimce se pořád protokolují na straně serveru. Další informace najdete v tématu <xref:fundamentals/error-handling>.
 
@@ -75,9 +75,9 @@ Předchozí neošetřené výjimky jsou popsány v následujících částech to
 Když Blazor vytvoří instanci komponenty:
 
 * Je vyvolán konstruktor součásti.
-* Jsou vyvolány konstruktory jakékoliv nejednoznačné služby DI Services dodávané konstruktoru komponenty prostřednictvím direktivy [@inject](xref:blazor/dependency-injection#request-a-service-in-a-component) nebo atributu [[vložení]](xref:blazor/dependency-injection#request-a-service-in-a-component) . 
+* Konstruktory jakékoliv nejednoznačné služby DI Services dodávané konstruktoru komponenty prostřednictvím direktivy [@inject](xref:blazor/dependency-injection#request-a-service-in-a-component) nebo atributu [[vložení]](xref:blazor/dependency-injection#request-a-service-in-a-component) jsou vyvolány. 
 
-Okruh se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter pro jakoukoliv vlastnost `[Inject]` vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Okruh se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter pro jakoukoliv `[Inject]` vlastnost vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
 ### <a name="lifecycle-methods"></a>Metody životního cyklu
 
@@ -147,7 +147,7 @@ Při zpracování chyb pomocí `InvokeAsync<T>` platí následující podmínky:
 Podobně kód JavaScriptu může iniciovat volání metod .NET, které jsou označeny [atributem [JSInvokable]](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions). Pokud tyto metody rozhraní .NET vyvolají neošetřenou výjimku:
 
 * Výjimka není pro okruh považována za závažnou.
-* @No__t-0 na straně JavaScriptu je odmítnut.
+* `Promise` na straně JavaScriptu se zamítlo.
 
 Máte možnost použít kód pro zpracování chyb na straně .NET nebo na straně JavaScriptu volání metody.
 
@@ -174,9 +174,9 @@ Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí s
 
 Komponenty Blazor lze předem vykreslovat pomocí `Html.RenderComponentAsync`, aby se jejich vykreslené značky HTML vracely jako součást počátečního požadavku HTTP uživatele. Funguje to takto:
 
-* Vytváří se nový okruh obsahující všechny předem vydané komponenty, které jsou součástí stejné stránky.
+* Vytváření nového okruhu pro všechny předem vykreslené komponenty, které jsou součástí stejné stránky.
 * Generování počátečního kódu HTML.
-* Okruh se považuje za `disconnected`, dokud prohlížeč uživatele nevytvoří připojení ke stejnému serveru, aby obnovil činnost daného okruhu.
+* Okruh se považuje za `disconnected`, dokud prohlížeč uživatele nevytvoří připojení ke stejnému serveru pomocí signalizace. Po navázání spojení se v okruhu obnoví interakce mezi aktivitami a kód HTML značek se aktualizuje.
 
 Pokud nějaká komponenta vyvolá neošetřenou výjimku při předvykreslování, například během metody životního cyklu nebo v logice vykreslování:
 

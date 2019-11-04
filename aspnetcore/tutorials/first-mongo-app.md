@@ -1,5 +1,5 @@
 ---
-title: Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
+title: Vytvoření webového rozhraní API pomocí ASP.NET Core a MongoDB
 author: prkhandelwal
 description: V tomto kurzu se dozvíte, jak vytvořit webové rozhraní API ASP.NET Core pomocí databáze NoSQL v databázi MongoDB.
 monikerRange: '>= aspnetcore-2.1'
@@ -7,31 +7,31 @@ ms.author: scaddie
 ms.custom: mvc, seodec18
 ms.date: 08/17/2019
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: acf2ded8b92a8f77678af7b772ac2a69264a642c
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 42c0efcd914eaa54134827cdf3bd6bd599d512b2
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082376"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73427003"
 ---
-# <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core využívající databázi MongoDB
+# <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core a MongoDB
 
-Podle [Pratik Khandelwal](https://twitter.com/K2Prk) a [Scott Addie](https://twitter.com/Scott_Addie)
+Od [Pratik Khandelwal](https://twitter.com/K2Prk) a [Scott Addie](https://twitter.com/Scott_Addie)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Tento kurz vytvoří webového rozhraní API, který provádí operace vytvoření, čtení, aktualizace a odstranění (CRUD) [MongoDB](https://www.mongodb.com/what-is-mongodb) databáze NoSQL.
+V tomto kurzu se vytvoří webové rozhraní API, které provádí operace vytvoření, čtení, aktualizace a odstranění (CRUD) v databázi [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL.
 
 V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
-> * Nakonfigurovat MongoDB
+> * Konfigurace MongoDB
 > * Vytvoření databáze MongoDB
-> * Definování kolekce MongoDB a schématu
-> * Provádění operací MongoDB CRUD z webového rozhraní API
+> * Definování kolekce a schématu MongoDB
+> * Provádění operací CRUD MongoDB z webového rozhraní API
 > * Přizpůsobení serializace JSON
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -45,7 +45,7 @@ V tomto kurzu se naučíte:
 
 * [.NET Core SDK 3,0 nebo novější](https://www.microsoft.com/net/download/all)
 * [Visual Studio Code](https://code.visualstudio.com/download)
-* [C# pro Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [C#pro Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 * [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
@@ -56,34 +56,34 @@ V tomto kurzu se naučíte:
 
 ---
 
-## <a name="configure-mongodb"></a>Nakonfigurovat MongoDB
+## <a name="configure-mongodb"></a>Konfigurace MongoDB
 
-Pokud používáte Windows, MongoDB se nainstaluje ve výchozím nastavení v *C\\:\\Program Files MongoDB* . Přidejte *C:\\Program Files\\MongoDB\\server\\version_number>\\bin do proměnné prostředí.\<* `Path` Tato změna umožňuje MongoDB přístup z libovolného místa na vývojovém počítači.
+Pokud používáte systém Windows, MongoDB je nainstalován v *C:\\Program Files\\MongoDB* ve výchozím nastavení. Přidejte *C:\\Program Files\\MongoDB\\Server\\\<version_number >\\bin* do proměnné prostředí `Path`. Tato změna umožňuje přístup k MongoDB odkudkoli na svém vývojovém počítači.
 
-Použití prostředí mongo v následujících krocích k vytvoření databáze, ujistěte se, kolekce a ukládat dokumenty. Další informace o příkazech prostředí mongo naleznete v tématu [práce s mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).
+Pomocí prostředí Mongo v následujících krocích můžete vytvořit databázi, vytvořit kolekce a uložit dokumenty. Další informace o příkazech prostředí Mongo najdete v tématu [práce s prostředím Mongo](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).
 
-1. Vyberte adresář na vývojovém počítači pro ukládání dat. Například *\\C: BooksData* ve Windows. Vytvořte adresář, pokud neexistuje. Prostředí mongo nebude vytvářet nové adresáře.
-1. Otevřete příkazové okno. Spusťte následující příkaz pro připojení k MongoDB na výchozím portu 27017. Nezapomeňte nahradit `<data_directory_path>` s adresáři, kterou jste zvolili v předchozím kroku.
+1. Pro uložení dat vyberte adresář na vývojovém počítači. Například *C:\\BooksData* ve Windows. Pokud adresář neexistuje, vytvořte ho. Prostředí Mongo nevytváří nové adresáře.
+1. Otevřete příkazové prostředí. Spusťte následující příkaz pro připojení k MongoDB na výchozím portu 27017. Nezapomeňte nahradit `<data_directory_path>` adresářem, který jste zvolili v předchozím kroku.
 
    ```console
    mongod --dbpath <data_directory_path>
    ```
 
-1. Otevřete jiná instance příkazového prostředí. Připojení k databázi testu výchozí spuštěním následujícího příkazu:
+1. Otevřete jinou instanci příkazového prostředí. Připojte se k výchozí testovací databázi spuštěním následujícího příkazu:
 
    ```console
    mongo
    ```
 
-1. Spuštěním následujícího příkazu v příkazovém řádku:
+1. V příkazovém prostředí spusťte následující příkaz:
 
    ```console
    use BookstoreDb
    ```
 
-   Pokud ještě neexistuje, databázi s názvem *BookstoreDb* se vytvoří. Pokud databáze neexistuje, je připojení otevřené transakce.
+   Pokud ještě neexistuje, vytvoří se databáze s názvem *BookstoreDb* . Pokud databáze existuje, připojení je otevřeno pro transakce.
 
-1. Vytvoření `Books` kolekce pomocí následujícího příkazu:
+1. Pomocí následujícího příkazu vytvořte kolekci `Books`:
 
    ```console
    db.createCollection('Books')
@@ -95,7 +95,7 @@ Použití prostředí mongo v následujících krocích k vytvoření databáze,
    { "ok" : 1 }
    ```
 
-1. Definovat schéma pro `Books` kolekce a vložte dva dokumenty pomocí následujícího příkazu:
+1. Definujte schéma pro kolekci `Books` a vložte dva dokumenty pomocí následujícího příkazu:
 
    ```console
    db.Books.insertMany([{'Name':'Design Patterns','Price':54.93,'Category':'Computers','Author':'Ralph Johnson'}, {'Name':'Clean Code','Price':43.15,'Category':'Computers','Author':'Robert C. Martin'}])
@@ -141,11 +141,11 @@ Použití prostředí mongo v následujících krocích k vytvoření databáze,
    }
    ```
 
-   Přidá automaticky generované schéma `_id` vlastnost typu `ObjectId` pro každý dokument.
+   Schéma přidá do každého dokumentu automaticky generovanou vlastnost `_id` typu `ObjectId`.
 
-Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.NET Core.
+Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového rozhraní API.
 
-## <a name="create-the-aspnet-core-web-api-project"></a>Vytvoření projektu webové rozhraní API ASP.NET Core
+## <a name="create-the-aspnet-core-web-api-project"></a>Vytvoření projektu webového rozhraní API ASP.NET Core
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -153,7 +153,7 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 1. Vyberte ASP.NET Core typ projektu **webové aplikace** a vyberte **Další**.
 1. Pojmenujte projekt *BooksApi*a vyberte **vytvořit**.
 1. Vyberte cílové rozhraní **.NET Core** a **ASP.NET Core 3,0**. Vyberte šablonu projektu **rozhraní API** a vyberte **vytvořit**.
-1. Navštivte galerii [NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) pro určení nejnovější stabilní verze ovladače .NET pro MongoDB. V **Konzola správce balíčků** okno, přejděte do kořenového adresáře projektu. Spusťte následující příkaz k instalaci ovladače .NET pro MongoDB:
+1. Navštivte [galerii NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) a určete nejnovější stabilní verzi ovladače .NET pro MongoDB. V okně **konzoly Správce balíčků** přejděte do kořenového adresáře projektu. Spuštěním následujícího příkazu nainstalujte ovladač .NET pro MongoDB:
 
    ```powershell
    Install-Package MongoDB.Driver -Version {VERSION}
@@ -161,17 +161,17 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-1. V příkazovém řádku spusťte následující příkazy:
+1. V příkazovém prostředí spusťte následující příkazy:
 
    ```dotnetcli
    dotnet new webapi -o BooksApi
    code BooksApi
    ```
 
-   Nový ASP.NET Core webové rozhraní API projekt cílí na .NET Core je generována a otevřít ve Visual Studio Code.
+   Vygeneruje se nový projekt ASP.NET Core webového rozhraní API cílící na .NET Core a otevře se v Visual Studio Code.
 
-1. Až se ikona plamene u OmniSharp stavového řádku změní na zelenou **, dialogové okno požádá o požadované prostředky k sestavení a ladění chybí v ' BooksApi '. Přidat je?** . Vyberte **Ano**.
-1. Navštivte galerii [NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) pro určení nejnovější stabilní verze ovladače .NET pro MongoDB. Otevřít **integrovaný terminál** a přejděte do kořenového adresáře projektu. Spusťte následující příkaz k instalaci ovladače .NET pro MongoDB:
+1. Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' BooksApi '. Přidat je?** . Vyberte **Ano**.
+1. Navštivte [galerii NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) a určete nejnovější stabilní verzi ovladače .NET pro MongoDB. Otevřete **integrovaný terminál** a přejděte do kořenového adresáře projektu. Spuštěním následujícího příkazu nainstalujte ovladač .NET pro MongoDB:
 
    ```dotnetcli
    dotnet add BooksApi.csproj package MongoDB.Driver -v {VERSION}
@@ -179,11 +179,11 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-1. Přejít na **soubor** > **nové řešení** > **.NET Core** > aplikace
+1. Přejít na **soubor** > **nové řešení** > > **aplikaci** **.NET Core** .
 1. Vyberte šablonu projektu **ASP.NET Core webového rozhraní API** C# a vyberte **Další**.
 1. V rozevíracím seznamu **cílové rozhraní** vyberte **.NET Core 3,0** a vyberte **Další**.
 1. Jako **název projektu**zadejte *BooksApi* a vyberte **vytvořit**.
-1. V **řešení** panel, klikněte pravým tlačítkem projekt **závislosti** uzel a vyberte možnost **přidat balíčky**.
+1. Na panelu **řešení** klikněte pravým tlačítkem myši na uzel **závislosti** projektu a vyberte možnost **Přidat balíčky**.
 1. Do vyhledávacího pole zadejte *MongoDB. Driver* , vyberte balíček *MongoDB. Driver* a vyberte **Přidat balíček**.
 1. V dialogu pro **přijetí licence** vyberte tlačítko **přijmout** .
 
@@ -191,8 +191,8 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
 ## <a name="add-an-entity-model"></a>Přidání modelu entity
 
-1. Přidat *modely* adresáře do kořenového adresáře projektu.
-1. Přidat `Book` třídu *modely* adresáře s následujícím kódem:
+1. Přidejte adresář *modelů* do kořenového adresáře projektu.
+1. Přidejte třídu `Book` do adresáře *modelů* pomocí následujícího kódu:
 
    ```csharp
    using MongoDB.Bson;
@@ -222,9 +222,9 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
    * Je vyžadován pro mapování objektu modulu CLR (Common Language Runtime) na kolekci MongoDB.
    * Je opatřen s poznámkami [[BsonId]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) k označení této vlastnosti jako primárního klíče dokumentu.
-   * Je opatřen s poznámkami [[BsonRepresentation (BsonType. objectID)]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) , aby bylo možné předat parametr `string` jako typ namísto struktury [objectID](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) . Mongo zpracovává převod z `string` na. `ObjectId`
+   * Je opatřen s poznámkami [[BsonRepresentation (BsonType. objectID)]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) , aby bylo možné předat parametr jako typ `string` namísto struktury [objectID](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) . Mongo zpracovává převod z `string` na `ObjectId`.
 
-   Vlastnost je označena atributem [[BsonElement].](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) `BookName` Hodnota `Name` atributu představuje název vlastnosti v kolekci MongoDB.
+   Vlastnost `BookName` je označena atributem [[BsonElement]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) . Hodnota atributu `Name` představuje název vlastnosti v kolekci MongoDB.
 
 ## <a name="add-a-configuration-model"></a>Přidat konfigurační model
 
@@ -236,75 +236,75 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Models/BookstoreDatabaseSettings.cs)]
 
-   Předchozí `BookstoreDatabaseSettings` třída se používá k uložení hodnot `BookstoreDatabaseSettings` vlastností souboru *appSettings. JSON* . Názvy JSON a C# Property jsou pojmenovány stejně, aby bylo možné zjednodušit proces mapování.
+   Předchozí třída `BookstoreDatabaseSettings` slouží k uložení hodnot vlastností `BookstoreDatabaseSettings` souboru *appSettings. JSON* . Názvy JSON a C# Property jsou pojmenovány stejně, aby bylo možné zjednodušit proces mapování.
 
-1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices`:
+1. Přidejte do `Startup.ConfigureServices`následující zvýrazněný kód:
 
    [!code-csharp[](first-mongo-app/samples_snapshot/3.x/SampleApp/Startup.ConfigureServices.AddDbSettings.cs?highlight=3-7)]
 
    V předchozím kódu:
 
-   * Instance konfigurace, na kterou se váže `BookstoreDatabaseSettings` sekce souboru *appSettings. JSON* , se registruje v kontejneru injektáže (di). Například `BookstoreDatabaseSettings` vlastnost`ConnectionString`objektu je naplněna vlastnostívsouboruappSettings.`BookstoreDatabaseSettings:ConnectionString` JSON.
-   * Rozhraní je zaregistrované v di s [životností služby](xref:fundamentals/dependency-injection#service-lifetimes)typu singleton. `IBookstoreDatabaseSettings` Při vložení se instance rozhraní překládá na `BookstoreDatabaseSettings` objekt.
+   * Instance konfigurace, na kterou se vazba oddílu `BookstoreDatabaseSettings` souboru *appSettings. JSON* váže, se zaregistruje v kontejneru vkládání závislostí (di). Například vlastnost `ConnectionString` objektu `BookstoreDatabaseSettings` je naplněna vlastností `BookstoreDatabaseSettings:ConnectionString` v souboru *appSettings. JSON*.
+   * Rozhraní `IBookstoreDatabaseSettings` je registrováno v DI s [životností služby](xref:fundamentals/dependency-injection#service-lifetimes)typu singleton. Při vložení se instance rozhraní přeloží na objekt `BookstoreDatabaseSettings`.
 
-1. Pro vyřešení `BookstoreDatabaseSettings` odkazů a `IBookstoreDatabaseSettings` přidejte následující kód na začátek *Startup.cs* :
+1. Do horní části *Startup.cs* přidejte následující kód pro vyřešení `BookstoreDatabaseSettings` a `IBookstoreDatabaseSettings`ch odkazů:
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Startup.cs?name=snippet_UsingBooksApiModels)]
 
 ## <a name="add-a-crud-operations-service"></a>Přidání služby operace CRUD
 
-1. Přidat *služby* adresáře do kořenového adresáře projektu.
-1. Přidat `BookService` třídu *služby* adresáře s následujícím kódem:
+1. Přidejte adresář *služeb* do kořenového adresáře projektu.
+1. Do adresáře *služby* přidejte třídu `BookService` s následujícím kódem:
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   V předchozím kódu `IBookstoreDatabaseSettings` je instance načtena z di přes injektáže konstruktoru. Tento postup poskytuje přístup k hodnotám konfigurace *appSettings. JSON* , které byly přidány do oddílu [přidat konfigurační model](#add-a-configuration-model) .
+   V předchozím kódu je instance `IBookstoreDatabaseSettings` načtena z DI prostřednictvím injektáže konstruktoru. Tento postup poskytuje přístup k hodnotám konfigurace *appSettings. JSON* , které byly přidány do oddílu [přidat konfigurační model](#add-a-configuration-model) .
 
-1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices`:
+1. Přidejte do `Startup.ConfigureServices`následující zvýrazněný kód:
 
    [!code-csharp[](first-mongo-app/samples_snapshot/3.x/SampleApp/Startup.ConfigureServices.AddSingletonService.cs?highlight=9)]
 
-   V předchozím kódu `BookService` je třída registrována pomocí příkazu di k podpoře injektáže konstruktoru v rámci využívání tříd. Doba životnosti služby singleton je nejvhodnější, `BookService` protože používá přímou závislost na `MongoClient`. Podle `MongoClient` oficiálních [zásad opětovného použití pro klienty Mongo](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)by se měla registrovat v di s životností služby typu singleton.
+   V předchozím kódu je třída `BookService` zaregistrována pomocí příkazu DI k podpoře injektáže konstruktoru v rámci využívání tříd. Životnost služby typu Singleton je nejvhodnější, protože `BookService` přebírá přímo závislost na `MongoClient`. Podle oficiálních `MongoClient` [pokynů pro opětovné použití klienta Mongo](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)by mělo být zaregistrováno v di s životností služby typu singleton.
 
-1. Přidejte následující kód na začátek *Startup.cs* k vyřešení `BookService` odkazu:
+1. Přidejte následující kód na začátek *Startup.cs* k vyřešení odkazu `BookService`:
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Startup.cs?name=snippet_UsingBooksApiServices)]
 
-`BookService` Třída používá následující `MongoDB.Driver` členy k provádění operací CRUD proti databázi:
+Třída `BookService` používá následující `MongoDB.Driver` členů k provádění operací CRUD proti databázi:
 
-* [MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; Přečte instanci serveru pro provádění databázových operací. Konstruktor Tato třída poskytuje připojovacího řetězce MongoDB:
+* [MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; přečte instanci serveru pro provádění databázových operací. K konstruktoru této třídy je poskytnutý připojovací řetězec MongoDB:
 
   [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceConstructor&highlight=3)]
 
-* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; Představuje databázi Mongo pro provádění operací. V tomto kurzu se používá obecná metoda [GetCollection\<TDocument > (Collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) na rozhraní pro získání přístupu k datům v určité kolekci. Provede operace CRUD proti kolekci po volání této metody. V `GetCollection<TDocument>(collection)` volání metody:
+* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; představuje databázi Mongo pro provádění operací. V tomto kurzu se používá obecná metoda [GetCollection\<TDocument > (Collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) na rozhraní pro získání přístupu k datům v určité kolekci. Provede operace CRUD proti kolekci po volání této metody. Ve volání metody `GetCollection<TDocument>(collection)`:
 
   * `collection` představuje název kolekce.
-  * `TDocument` představuje typ objektu CLR uložená v kolekci.
+  * `TDocument` představuje typ objektu CLR uložený v kolekci.
 
-`GetCollection<TDocument>(collection)`Vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou vyvolány následující metody na kolekci:
+`GetCollection<TDocument>(collection)` vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou v kolekci vyvolány následující metody:
 
-* [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; Odstraní jeden dokument, který odpovídá zadaným kritériím hledání.
-* [Hledání\<TDocument >](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; vrátí všechny dokumenty v kolekci, které odpovídají zadaným kritériím hledání.
+* [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; odstraní jeden dokument, který odpovídá zadaným kritériím hledání.
+* [Find\<TDocument >](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; vrátí všechny dokumenty v kolekci, které odpovídají zadaným kritériím hledání.
 * [InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm) &ndash; Vloží zadaný objekt jako nový dokument v kolekci.
-* [ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; Nahradí jediný dokument, který odpovídá zadaným kritériím hledání, zadaným objektem.
+* [ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; nahradí jediný dokument, který odpovídá zadaným kritériím vyhledávání, zadaným objektem.
 
 ## <a name="add-a-controller"></a>Přidání kontroleru
 
-Přidat `BooksController` třídu *řadiče* adresáře s následujícím kódem:
+Přidejte třídu `BooksController` do adresáře *Controllers* následujícím kódem:
 
 [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Controllers/BooksController.cs)]
 
-Předchozí kontroler web API:
+Předchozí kontroler webového rozhraní API:
 
-* Používá `BookService` pro provádění operací CRUD.
-* Obsahuje metody akce, který podporuje požadavky GET, POST, PUT a DELETE HTTP.
-* <xref:System.Web.Http.ApiController.CreatedAtRoute*> Volání`Create` v metodě Action vrátí odpověď [http 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) . Stavový kód 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru. `CreatedAtRoute`přidá `Location` také hlavičku do odpovědi. `Location` Hlavička Určuje identifikátor URI nově vytvořené knihy.
+* Používá třídu `BookService` k provádění operací CRUD.
+* Obsahuje metody akcí, které podporují požadavky HTTP GET, POST, PUT a DELETE.
+* Volá <xref:System.Web.Http.ApiController.CreatedAtRoute*> v metodě `Create` akce, která vrátí odpověď [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) . Stavový kód 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru. `CreatedAtRoute` také přidá hlavičku `Location` k odpovědi. Hlavička `Location` Určuje identifikátor URI nově vytvořené knihy.
 
 ## <a name="test-the-web-api"></a>Testování webového rozhraní API
 
 1. Sestavte a spusťte aplikaci.
 
-1. Přejděte na `http://localhost:<port>/api/books` k otestování metody `Get` akce bez parametrů řadiče. Zobrazí se následující odpověď JSON:
+1. Přejděte na `http://localhost:<port>/api/books` a otestujte metodu `Get` akci bez parametrů řadiče. Zobrazí se následující odpověď JSON:
 
    ```json
    [
@@ -325,7 +325,7 @@ Předchozí kontroler web API:
    ]
    ```
 
-1. Přejděte na `http://localhost:<port>/api/books/{id here}` k otestování metody `Get` akce, která je přetížena řadičem. Zobrazí se následující odpověď JSON:
+1. Přejděte na `http://localhost:<port>/api/books/{id here}` pro otestování metody `Get` akce, která je přetížena řadičem. Zobrazí se následující odpověď JSON:
 
    ```json
    {
@@ -342,25 +342,25 @@ Předchozí kontroler web API:
 Existují dvě podrobnosti o tom, jak můžete změnit informace o odpovědích JSON vrácených v části [Test webového rozhraní API](#test-the-web-api) :
 
 * Názvy vlastností výchozí ve stylu CamelCase velká a malá písmena by se měly změnit tak, aby odpovídaly názvu vlastností objektu CLR na velká písmena Pascal.
-* Vlastnost by měla být vrácena jako `Name`. `bookName`
+* Vlastnost `bookName` by měla být vrácena jako `Name`.
 
 Chcete-li splnit předchozí požadavky, proveďte následující změny:
 
 1. JSON.NET se odebral ze sdílené architektury ASP.NET. Přidejte odkaz na balíček [Microsoft. AspNetCore. Mvc. NewtonsoftJson](https://nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson).
 
-1. V `Startup.ConfigureServices`, řetězení následujícího zvýrazněného kódu `AddMvc` k volání metody:
+1. V `Startup.ConfigureServices`zřetězit následující zvýrazněný kód na volání metody `AddMvc`:
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=12)]
 
-   V předchozí změně názvy vlastností v serializovaných odpovědích JSON webového rozhraní API odpovídají jejich odpovídajícím názvům vlastností v typu objektu CLR. Například `Book` vlastnost`Author` třídy je serializována jako `Author`.
+   V předchozí změně názvy vlastností v serializovaných odpovědích JSON webového rozhraní API odpovídají jejich odpovídajícím názvům vlastností v typu objektu CLR. Například vlastnost `Author` `Book` třídy je serializována jako `Author`.
 
-1. V části *Models/Book. cs*poznámku k `BookName` vlastnosti s následujícím atributem [[JsonProperty]](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) :
+1. V části *Models/Book. cs*přihlaste k vlastnosti `BookName` následující atribut [[JsonProperty]](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) :
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Models/Book.cs?name=snippet_BookNameProperty&highlight=2)]
 
-   `[JsonProperty]` Hodnotaatributupředstavujenázevvlastnostivserializovanéodpovědi`Name` JSON webového rozhraní API.
+   Hodnota atributu `[JsonProperty]` `Name` představuje název vlastnosti v serializované odpovědi JSON webového rozhraní API.
 
-1. Přidejte následující kód na začátek *modelů/Book. cs* pro vyřešení odkazu na `[JsonProperty]` atribut:
+1. Přidejte následující kód na začátek *modelů/Book. cs* pro vyřešení reference `[JsonProperty]` atributu:
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Models/Book.cs?name=snippet_NewtonsoftJsonImport)]
 
@@ -370,18 +370,18 @@ Chcete-li splnit předchozí požadavky, proveďte následující změny:
 
 ::: moniker range="< aspnetcore-3.0"
 
-Tento kurz vytvoří webového rozhraní API, který provádí operace vytvoření, čtení, aktualizace a odstranění (CRUD) [MongoDB](https://www.mongodb.com/what-is-mongodb) databáze NoSQL.
+V tomto kurzu se vytvoří webové rozhraní API, které provádí operace vytvoření, čtení, aktualizace a odstranění (CRUD) v databázi [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL.
 
 V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
-> * Nakonfigurovat MongoDB
+> * Konfigurace MongoDB
 > * Vytvoření databáze MongoDB
-> * Definování kolekce MongoDB a schématu
-> * Provádění operací MongoDB CRUD z webového rozhraní API
+> * Definování kolekce a schématu MongoDB
+> * Provádění operací CRUD MongoDB z webového rozhraní API
 > * Přizpůsobení serializace JSON
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-mongo-app/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -395,7 +395,7 @@ V tomto kurzu se naučíte:
 
 * [.NET Core SDK 2,2](https://www.microsoft.com/net/download/all)
 * [Visual Studio Code](https://code.visualstudio.com/download)
-* [C# pro Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
+* [C#pro Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 * [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
@@ -406,34 +406,34 @@ V tomto kurzu se naučíte:
 
 ---
 
-## <a name="configure-mongodb"></a>Nakonfigurovat MongoDB
+## <a name="configure-mongodb"></a>Konfigurace MongoDB
 
-Pokud používáte Windows, MongoDB se nainstaluje ve výchozím nastavení v *C\\:\\Program Files MongoDB* . Přidejte *C:\\Program Files\\MongoDB\\server\\version_number>\\bin do proměnné prostředí.\<* `Path` Tato změna umožňuje MongoDB přístup z libovolného místa na vývojovém počítači.
+Pokud používáte systém Windows, MongoDB je nainstalován v *C:\\Program Files\\MongoDB* ve výchozím nastavení. Přidejte *C:\\Program Files\\MongoDB\\Server\\\<version_number >\\bin* do proměnné prostředí `Path`. Tato změna umožňuje přístup k MongoDB odkudkoli na svém vývojovém počítači.
 
-Použití prostředí mongo v následujících krocích k vytvoření databáze, ujistěte se, kolekce a ukládat dokumenty. Další informace o příkazech prostředí mongo naleznete v tématu [práce s mongo Shell](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).
+Pomocí prostředí Mongo v následujících krocích můžete vytvořit databázi, vytvořit kolekce a uložit dokumenty. Další informace o příkazech prostředí Mongo najdete v tématu [práce s prostředím Mongo](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).
 
-1. Vyberte adresář na vývojovém počítači pro ukládání dat. Například *\\C: BooksData* ve Windows. Vytvořte adresář, pokud neexistuje. Prostředí mongo nebude vytvářet nové adresáře.
-1. Otevřete příkazové okno. Spusťte následující příkaz pro připojení k MongoDB na výchozím portu 27017. Nezapomeňte nahradit `<data_directory_path>` s adresáři, kterou jste zvolili v předchozím kroku.
+1. Pro uložení dat vyberte adresář na vývojovém počítači. Například *C:\\BooksData* ve Windows. Pokud adresář neexistuje, vytvořte ho. Prostředí Mongo nevytváří nové adresáře.
+1. Otevřete příkazové prostředí. Spusťte následující příkaz pro připojení k MongoDB na výchozím portu 27017. Nezapomeňte nahradit `<data_directory_path>` adresářem, který jste zvolili v předchozím kroku.
 
    ```console
    mongod --dbpath <data_directory_path>
    ```
 
-1. Otevřete jiná instance příkazového prostředí. Připojení k databázi testu výchozí spuštěním následujícího příkazu:
+1. Otevřete jinou instanci příkazového prostředí. Připojte se k výchozí testovací databázi spuštěním následujícího příkazu:
 
    ```console
    mongo
    ```
 
-1. Spuštěním následujícího příkazu v příkazovém řádku:
+1. V příkazovém prostředí spusťte následující příkaz:
 
    ```console
    use BookstoreDb
    ```
 
-   Pokud ještě neexistuje, databázi s názvem *BookstoreDb* se vytvoří. Pokud databáze neexistuje, je připojení otevřené transakce.
+   Pokud ještě neexistuje, vytvoří se databáze s názvem *BookstoreDb* . Pokud databáze existuje, připojení je otevřeno pro transakce.
 
-1. Vytvoření `Books` kolekce pomocí následujícího příkazu:
+1. Pomocí následujícího příkazu vytvořte kolekci `Books`:
 
    ```console
    db.createCollection('Books')
@@ -445,7 +445,7 @@ Použití prostředí mongo v následujících krocích k vytvoření databáze,
    { "ok" : 1 }
    ```
 
-1. Definovat schéma pro `Books` kolekce a vložte dva dokumenty pomocí následujícího příkazu:
+1. Definujte schéma pro kolekci `Books` a vložte dva dokumenty pomocí následujícího příkazu:
 
    ```console
    db.Books.insertMany([{'Name':'Design Patterns','Price':54.93,'Category':'Computers','Author':'Ralph Johnson'}, {'Name':'Clean Code','Price':43.15,'Category':'Computers','Author':'Robert C. Martin'}])
@@ -491,11 +491,11 @@ Použití prostředí mongo v následujících krocích k vytvoření databáze,
    }
    ```
 
-   Přidá automaticky generované schéma `_id` vlastnost typu `ObjectId` pro každý dokument.
+   Schéma přidá do každého dokumentu automaticky generovanou vlastnost `_id` typu `ObjectId`.
 
-Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.NET Core.
+Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového rozhraní API.
 
-## <a name="create-the-aspnet-core-web-api-project"></a>Vytvoření projektu webové rozhraní API ASP.NET Core
+## <a name="create-the-aspnet-core-web-api-project"></a>Vytvoření projektu webového rozhraní API ASP.NET Core
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -503,7 +503,7 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 1. Vyberte ASP.NET Core typ projektu **webové aplikace** a vyberte **Další**.
 1. Pojmenujte projekt *BooksApi*a vyberte **vytvořit**.
 1. Vyberte cílové rozhraní **.NET Core** a **ASP.NET Core 2,2**. Vyberte šablonu projektu **rozhraní API** a vyberte **vytvořit**.
-1. Navštivte galerii [NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) pro určení nejnovější stabilní verze ovladače .NET pro MongoDB. V **Konzola správce balíčků** okno, přejděte do kořenového adresáře projektu. Spusťte následující příkaz k instalaci ovladače .NET pro MongoDB:
+1. Navštivte [galerii NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) a určete nejnovější stabilní verzi ovladače .NET pro MongoDB. V okně **konzoly Správce balíčků** přejděte do kořenového adresáře projektu. Spuštěním následujícího příkazu nainstalujte ovladač .NET pro MongoDB:
 
    ```powershell
    Install-Package MongoDB.Driver -Version {VERSION}
@@ -511,17 +511,17 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-1. V příkazovém řádku spusťte následující příkazy:
+1. V příkazovém prostředí spusťte následující příkazy:
 
    ```dotnetcli
    dotnet new webapi -o BooksApi
    code BooksApi
    ```
 
-   Nový ASP.NET Core webové rozhraní API projekt cílí na .NET Core je generována a otevřít ve Visual Studio Code.
+   Vygeneruje se nový projekt ASP.NET Core webového rozhraní API cílící na .NET Core a otevře se v Visual Studio Code.
 
-1. Až se ikona plamene u OmniSharp stavového řádku změní na zelenou **, dialogové okno požádá o požadované prostředky k sestavení a ladění chybí v ' BooksApi '. Přidat je?** . Vyberte **Ano**.
-1. Navštivte galerii [NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) pro určení nejnovější stabilní verze ovladače .NET pro MongoDB. Otevřít **integrovaný terminál** a přejděte do kořenového adresáře projektu. Spusťte následující příkaz k instalaci ovladače .NET pro MongoDB:
+1. Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' BooksApi '. Přidat je?** . Vyberte **Ano**.
+1. Navštivte [galerii NuGet: MongoDB. Driver](https://www.nuget.org/packages/MongoDB.Driver/) a určete nejnovější stabilní verzi ovladače .NET pro MongoDB. Otevřete **integrovaný terminál** a přejděte do kořenového adresáře projektu. Spuštěním následujícího příkazu nainstalujte ovladač .NET pro MongoDB:
 
    ```dotnetcli
    dotnet add BooksApi.csproj package MongoDB.Driver -v {VERSION}
@@ -529,11 +529,11 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-1. Přejít na **soubor** > **nové řešení** > **.NET Core** > aplikace
+1. Přejít na **soubor** > **nové řešení** > > **aplikaci** **.NET Core** .
 1. Vyberte šablonu projektu **ASP.NET Core webového rozhraní API** C# a vyberte **Další**.
 1. V rozevíracím seznamu **cílové rozhraní** vyberte **.NET Core 2,2** a vyberte **Další**.
 1. Jako **název projektu**zadejte *BooksApi* a vyberte **vytvořit**.
-1. V **řešení** panel, klikněte pravým tlačítkem projekt **závislosti** uzel a vyberte možnost **přidat balíčky**.
+1. Na panelu **řešení** klikněte pravým tlačítkem myši na uzel **závislosti** projektu a vyberte možnost **Přidat balíčky**.
 1. Do vyhledávacího pole zadejte *MongoDB. Driver* , vyberte balíček *MongoDB. Driver* a vyberte **Přidat balíček**.
 1. V dialogu pro **přijetí licence** vyberte tlačítko **přijmout** .
 
@@ -541,8 +541,8 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
 ## <a name="add-an-entity-model"></a>Přidání modelu entity
 
-1. Přidat *modely* adresáře do kořenového adresáře projektu.
-1. Přidat `Book` třídu *modely* adresáře s následujícím kódem:
+1. Přidejte adresář *modelů* do kořenového adresáře projektu.
+1. Přidejte třídu `Book` do adresáře *modelů* pomocí následujícího kódu:
 
    ```csharp
    using MongoDB.Bson;
@@ -572,9 +572,9 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
    * Je vyžadován pro mapování objektu modulu CLR (Common Language Runtime) na kolekci MongoDB.
    * Je opatřen s poznámkami [[BsonId]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonIdAttribute.htm) k označení této vlastnosti jako primárního klíče dokumentu.
-   * Je opatřen s poznámkami [[BsonRepresentation (BsonType. objectID)]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) , aby bylo možné předat parametr `string` jako typ namísto struktury [objectID](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) . Mongo zpracovává převod z `string` na. `ObjectId`
+   * Je opatřen s poznámkami [[BsonRepresentation (BsonType. objectID)]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonRepresentationAttribute.htm) , aby bylo možné předat parametr jako typ `string` namísto struktury [objectID](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_ObjectId.htm) . Mongo zpracovává převod z `string` na `ObjectId`.
 
-   Vlastnost je označena atributem [[BsonElement].](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) `BookName` Hodnota `Name` atributu představuje název vlastnosti v kolekci MongoDB.
+   Vlastnost `BookName` je označena atributem [[BsonElement]](https://api.mongodb.com/csharp/current/html/T_MongoDB_Bson_Serialization_Attributes_BsonElementAttribute.htm) . Hodnota atributu `Name` představuje název vlastnosti v kolekci MongoDB.
 
 ## <a name="add-a-configuration-model"></a>Přidat konfigurační model
 
@@ -586,75 +586,75 @@ Databáze je připravena. Můžete začít vytvářet webové rozhraní API ASP.
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Models/BookstoreDatabaseSettings.cs)]
 
-   Předchozí `BookstoreDatabaseSettings` třída se používá k uložení hodnot `BookstoreDatabaseSettings` vlastností souboru *appSettings. JSON* . Názvy JSON a C# Property jsou pojmenovány stejně, aby bylo možné zjednodušit proces mapování.
+   Předchozí třída `BookstoreDatabaseSettings` slouží k uložení hodnot vlastností `BookstoreDatabaseSettings` souboru *appSettings. JSON* . Názvy JSON a C# Property jsou pojmenovány stejně, aby bylo možné zjednodušit proces mapování.
 
-1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices`:
+1. Přidejte do `Startup.ConfigureServices`následující zvýrazněný kód:
 
    [!code-csharp[](first-mongo-app/samples_snapshot/2.x/SampleApp/Startup.ConfigureServices.AddDbSettings.cs?highlight=3-7)]
 
    V předchozím kódu:
 
-   * Instance konfigurace, na kterou se váže `BookstoreDatabaseSettings` sekce souboru *appSettings. JSON* , se registruje v kontejneru injektáže (di). Například `BookstoreDatabaseSettings` vlastnost`ConnectionString`objektu je naplněna vlastnostívsouboruappSettings.`BookstoreDatabaseSettings:ConnectionString` JSON.
-   * Rozhraní je zaregistrované v di s [životností služby](xref:fundamentals/dependency-injection#service-lifetimes)typu singleton. `IBookstoreDatabaseSettings` Při vložení se instance rozhraní překládá na `BookstoreDatabaseSettings` objekt.
+   * Instance konfigurace, na kterou se vazba oddílu `BookstoreDatabaseSettings` souboru *appSettings. JSON* váže, se zaregistruje v kontejneru vkládání závislostí (di). Například vlastnost `ConnectionString` objektu `BookstoreDatabaseSettings` je naplněna vlastností `BookstoreDatabaseSettings:ConnectionString` v souboru *appSettings. JSON*.
+   * Rozhraní `IBookstoreDatabaseSettings` je registrováno v DI s [životností služby](xref:fundamentals/dependency-injection#service-lifetimes)typu singleton. Při vložení se instance rozhraní přeloží na objekt `BookstoreDatabaseSettings`.
 
-1. Pro vyřešení `BookstoreDatabaseSettings` odkazů a `IBookstoreDatabaseSettings` přidejte následující kód na začátek *Startup.cs* :
+1. Do horní části *Startup.cs* přidejte následující kód pro vyřešení `BookstoreDatabaseSettings` a `IBookstoreDatabaseSettings`ch odkazů:
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Startup.cs?name=snippet_UsingBooksApiModels)]
 
 ## <a name="add-a-crud-operations-service"></a>Přidání služby operace CRUD
 
-1. Přidat *služby* adresáře do kořenového adresáře projektu.
-1. Přidat `BookService` třídu *služby* adresáře s následujícím kódem:
+1. Přidejte adresář *služeb* do kořenového adresáře projektu.
+1. Do adresáře *služby* přidejte třídu `BookService` s následujícím kódem:
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   V předchozím kódu `IBookstoreDatabaseSettings` je instance načtena z di přes injektáže konstruktoru. Tento postup poskytuje přístup k hodnotám konfigurace *appSettings. JSON* , které byly přidány do oddílu [přidat konfigurační model](#add-a-configuration-model) .
+   V předchozím kódu je instance `IBookstoreDatabaseSettings` načtena z DI prostřednictvím injektáže konstruktoru. Tento postup poskytuje přístup k hodnotám konfigurace *appSettings. JSON* , které byly přidány do oddílu [přidat konfigurační model](#add-a-configuration-model) .
 
-1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices`:
+1. Přidejte do `Startup.ConfigureServices`následující zvýrazněný kód:
 
    [!code-csharp[](first-mongo-app/samples_snapshot/2.x/SampleApp/Startup.ConfigureServices.AddSingletonService.cs?highlight=9)]
 
-   V předchozím kódu `BookService` je třída registrována pomocí příkazu di k podpoře injektáže konstruktoru v rámci využívání tříd. Doba životnosti služby singleton je nejvhodnější, `BookService` protože používá přímou závislost na `MongoClient`. Podle `MongoClient` oficiálních [zásad opětovného použití pro klienty Mongo](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)by se měla registrovat v di s životností služby typu singleton.
+   V předchozím kódu je třída `BookService` zaregistrována pomocí příkazu DI k podpoře injektáže konstruktoru v rámci využívání tříd. Životnost služby typu Singleton je nejvhodnější, protože `BookService` přebírá přímo závislost na `MongoClient`. Podle oficiálních `MongoClient` [pokynů pro opětovné použití klienta Mongo](https://mongodb.github.io/mongo-csharp-driver/2.8/reference/driver/connecting/#re-use)by mělo být zaregistrováno v di s životností služby typu singleton.
 
-1. Přidejte následující kód na začátek *Startup.cs* k vyřešení `BookService` odkazu:
+1. Přidejte následující kód na začátek *Startup.cs* k vyřešení odkazu `BookService`:
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Startup.cs?name=snippet_UsingBooksApiServices)]
 
-`BookService` Třída používá následující `MongoDB.Driver` členy k provádění operací CRUD proti databázi:
+Třída `BookService` používá následující `MongoDB.Driver` členů k provádění operací CRUD proti databázi:
 
-* [MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; Přečte instanci serveru pro provádění databázových operací. Konstruktor Tato třída poskytuje připojovacího řetězce MongoDB:
+* [MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; přečte instanci serveru pro provádění databázových operací. K konstruktoru této třídy je poskytnutý připojovací řetězec MongoDB:
 
   [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceConstructor&highlight=3)]
 
-* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; Představuje databázi Mongo pro provádění operací. V tomto kurzu se používá obecná metoda [GetCollection\<TDocument > (Collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) na rozhraní pro získání přístupu k datům v určité kolekci. Provede operace CRUD proti kolekci po volání této metody. V `GetCollection<TDocument>(collection)` volání metody:
+* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; představuje databázi Mongo pro provádění operací. V tomto kurzu se používá obecná metoda [GetCollection\<TDocument > (Collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) na rozhraní pro získání přístupu k datům v určité kolekci. Provede operace CRUD proti kolekci po volání této metody. Ve volání metody `GetCollection<TDocument>(collection)`:
 
   * `collection` představuje název kolekce.
-  * `TDocument` představuje typ objektu CLR uložená v kolekci.
+  * `TDocument` představuje typ objektu CLR uložený v kolekci.
 
-`GetCollection<TDocument>(collection)`Vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou vyvolány následující metody na kolekci:
+`GetCollection<TDocument>(collection)` vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou v kolekci vyvolány následující metody:
 
-* [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; Odstraní jeden dokument, který odpovídá zadaným kritériím hledání.
-* [Hledání\<TDocument >](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; vrátí všechny dokumenty v kolekci, které odpovídají zadaným kritériím hledání.
+* [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; odstraní jeden dokument, který odpovídá zadaným kritériím hledání.
+* [Find\<TDocument >](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; vrátí všechny dokumenty v kolekci, které odpovídají zadaným kritériím hledání.
 * [InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm) &ndash; Vloží zadaný objekt jako nový dokument v kolekci.
-* [ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; Nahradí jediný dokument, který odpovídá zadaným kritériím hledání, zadaným objektem.
+* [ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; nahradí jediný dokument, který odpovídá zadaným kritériím vyhledávání, zadaným objektem.
 
 ## <a name="add-a-controller"></a>Přidání kontroleru
 
-Přidat `BooksController` třídu *řadiče* adresáře s následujícím kódem:
+Přidejte třídu `BooksController` do adresáře *Controllers* následujícím kódem:
 
 [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Controllers/BooksController.cs)]
 
-Předchozí kontroler web API:
+Předchozí kontroler webového rozhraní API:
 
-* Používá `BookService` pro provádění operací CRUD.
-* Obsahuje metody akce, který podporuje požadavky GET, POST, PUT a DELETE HTTP.
-* <xref:System.Web.Http.ApiController.CreatedAtRoute*> Volání`Create` v metodě Action vrátí odpověď [http 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) . Stavový kód 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru. `CreatedAtRoute`přidá `Location` také hlavičku do odpovědi. `Location` Hlavička Určuje identifikátor URI nově vytvořené knihy.
+* Používá třídu `BookService` k provádění operací CRUD.
+* Obsahuje metody akcí, které podporují požadavky HTTP GET, POST, PUT a DELETE.
+* Volá <xref:System.Web.Http.ApiController.CreatedAtRoute*> v metodě `Create` akce, která vrátí odpověď [HTTP 201](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) . Stavový kód 201 je standardní odpověď pro metodu HTTP POST, která vytvoří nový prostředek na serveru. `CreatedAtRoute` také přidá hlavičku `Location` k odpovědi. Hlavička `Location` Určuje identifikátor URI nově vytvořené knihy.
 
 ## <a name="test-the-web-api"></a>Testování webového rozhraní API
 
 1. Sestavte a spusťte aplikaci.
 
-1. Přejděte na `http://localhost:<port>/api/books` k otestování metody `Get` akce bez parametrů řadiče. Zobrazí se následující odpověď JSON:
+1. Přejděte na `http://localhost:<port>/api/books` a otestujte metodu `Get` akci bez parametrů řadiče. Zobrazí se následující odpověď JSON:
 
    ```json
    [
@@ -675,7 +675,7 @@ Předchozí kontroler web API:
    ]
    ```
 
-1. Přejděte na `http://localhost:<port>/api/books/{id here}` k otestování metody `Get` akce, která je přetížena řadičem. Zobrazí se následující odpověď JSON:
+1. Přejděte na `http://localhost:<port>/api/books/{id here}` pro otestování metody `Get` akce, která je přetížena řadičem. Zobrazí se následující odpověď JSON:
 
    ```json
    {
@@ -692,23 +692,23 @@ Předchozí kontroler web API:
 Existují dvě podrobnosti o tom, jak můžete změnit informace o odpovědích JSON vrácených v části [Test webového rozhraní API](#test-the-web-api) :
 
 * Názvy vlastností výchozí ve stylu CamelCase velká a malá písmena by se měly změnit tak, aby odpovídaly názvu vlastností objektu CLR na velká písmena Pascal.
-* Vlastnost by měla být vrácena jako `Name`. `bookName`
+* Vlastnost `bookName` by měla být vrácena jako `Name`.
 
 Chcete-li splnit předchozí požadavky, proveďte následující změny:
 
-1. V `Startup.ConfigureServices`, řetězení následujícího zvýrazněného kódu `AddMvc` k volání metody:
+1. V `Startup.ConfigureServices`zřetězit následující zvýrazněný kód na volání metody `AddMvc`:
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=12)]
 
-   V předchozí změně názvy vlastností v serializovaných odpovědích JSON webového rozhraní API odpovídají jejich odpovídajícím názvům vlastností v typu objektu CLR. Například `Book` vlastnost`Author` třídy je serializována jako `Author`.
+   V předchozí změně názvy vlastností v serializovaných odpovědích JSON webového rozhraní API odpovídají jejich odpovídajícím názvům vlastností v typu objektu CLR. Například vlastnost `Author` `Book` třídy je serializována jako `Author`.
 
-1. V části *Models/Book. cs*poznámku k `BookName` vlastnosti s následujícím atributem [[JsonProperty]](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) :
+1. V části *Models/Book. cs*přihlaste k vlastnosti `BookName` následující atribut [[JsonProperty]](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_JsonPropertyAttribute.htm) :
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Models/Book.cs?name=snippet_BookNameProperty&highlight=2)]
 
-   `[JsonProperty]` Hodnotaatributupředstavujenázevvlastnostivserializovanéodpovědi`Name` JSON webového rozhraní API.
+   Hodnota atributu `[JsonProperty]` `Name` představuje název vlastnosti v serializované odpovědi JSON webového rozhraní API.
 
-1. Přidejte následující kód na začátek *modelů/Book. cs* pro vyřešení odkazu na `[JsonProperty]` atribut:
+1. Přidejte následující kód na začátek *modelů/Book. cs* pro vyřešení reference `[JsonProperty]` atributu:
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Models/Book.cs?name=snippet_NewtonsoftJsonImport)]
 
@@ -716,9 +716,13 @@ Chcete-li splnit předchozí požadavky, proveďte následující změny:
 
 ::: moniker-end
 
-## <a name="next-steps"></a>Další postup
+## <a name="add-authentication-support-to-a-web-api"></a>Přidání podpory ověřování do webového rozhraní API
 
-Další informace o vytváření webových rozhraní API ASP.NET Core naleznete na následujících odkazech:
+[!INCLUDE[](~/includes/IdentityServer4.md)]
+
+## <a name="next-steps"></a>Další kroky
+
+Další informace o vytváření ASP.NET Core webových rozhraní API najdete v následujících zdrojích informací:
 
 * [YouTube verze tohoto článku](https://www.youtube.com/watch?v=7uJt_sOenyo&feature=youtu.be)
 * <xref:web-api/index>

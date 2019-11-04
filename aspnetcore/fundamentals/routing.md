@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/24/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 8b4da4e1e262ec82225413d0338b3492d0b5e152
-ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
+ms.openlocfilehash: be4493cc927bd5437a2c9dab00b6a555756195bb
+ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/31/2019
-ms.locfileid: "73190500"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73416139"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -127,7 +127,7 @@ Metody poskytované <xref:Microsoft.AspNetCore.Routing.LinkGenerator> podporují
 >
 > * Používejte <xref:Microsoft.AspNetCore.Routing.LinkGenerator> s opatrností v middleware v kombinaci s `Map` nebo `MapWhen`. `Map*` změní základní cestu spouštěné žádosti, která má vliv na výstup generace propojení. Všechna rozhraní <xref:Microsoft.AspNetCore.Routing.LinkGenerator> API umožňují zadat základní cestu. Vždy zadat prázdnou základní cestu pro vrácení zpět `Map*`vlivu na generování propojení.
 
-## <a name="differences-from-earlier-versions-of-routing"></a>Rozdíly oproti starším verzím směrování
+## <a name="endpoint-routing-differences-from-earlier-versions-of-routing"></a>Rozdíly v směrování koncových bodů ze starších verzí směrování
 
 Mezi směrováním koncových bodů a verzemi směrování starších než v ASP.NET Core 2,2 existuje několik rozdílů:
 

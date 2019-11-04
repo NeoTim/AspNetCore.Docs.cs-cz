@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/29/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 6f2d62600da828261ecfc3a1df688ce914eccf33
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: abb55ea12583374639f28945037cb6aa41a5a32d
+ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72590018"
+ms.lasthandoff: 11/01/2019
+ms.locfileid: "73427043"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -290,7 +290,7 @@ Předchozí příkazy:
 
 * Přidejte balíčky NuGet vyžadované pro generování uživatelského rozhraní.
 * Nainstaluje modul generování uživatelského rozhraní (`dotnet-aspnet-codegenerator`).
-* @No__t_0 generování uživatelského rozhraní.
+* `TodoItemsController`generování uživatelského rozhraní.
 
 ---
 
@@ -412,7 +412,7 @@ V následující metodě `GetTodoItem` `"{id}"` je zástupnou proměnnou pro jed
 
 Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult \<T > typ](xref:web-api/action-return-types#actionresultt-type). ASP.NET Core automaticky serializovat objekt do formátu [JSON](https://www.json.org/) a zapíše JSON do textu zprávy s odpovědí. Kód odpovědi pro tento návratový typ je 200, za předpokladu, že neexistují žádné neošetřené výjimky. Neošetřené výjimky jsou přeloženy na 5xx chyby.
 
-návratové typy `ActionResult` mohou představovat široké spektrum stavových kódů HTTP. @No__t_0 může například vracet dvě různé stavové hodnoty:
+návratové typy `ActionResult` mohou představovat široké spektrum stavových kódů HTTP. `GetTodoItem` může například vracet dvě různé stavové hodnoty:
 
 * Pokud žádná položka neodpovídá požadovanému ID, vrátí metoda kód chyby 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) .
 * V opačném případě metoda vrátí 200 text odpovědi JSON. Vrácení `item` způsobí odpověď HTTP 200.
@@ -451,7 +451,7 @@ Projděte si metodu `DeleteTodoItem`:
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Controllers/TodoItemsController.cs?name=snippet_Delete)]
 
-@No__t_0 odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).
+`DeleteTodoItem` odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).
 
 ### <a name="test-the-deletetodoitem-method"></a>Test metody DeleteTodoItem
 
@@ -732,7 +732,7 @@ V následující metodě `GetTodoItem` `"{id}"` je zástupnou proměnnou pro jed
 
 Návratový typ `GetTodoItems` a `GetTodoItem` metody je [ActionResult \<T > typ](xref:web-api/action-return-types#actionresultt-type). ASP.NET Core automaticky serializovat objekt do formátu [JSON](https://www.json.org/) a zapíše JSON do textu zprávy s odpovědí. Kód odpovědi pro tento návratový typ je 200, za předpokladu, že neexistují žádné neošetřené výjimky. Neošetřené výjimky jsou přeloženy na 5xx chyby.
 
-návratové typy `ActionResult` mohou představovat široké spektrum stavových kódů HTTP. @No__t_0 může například vracet dvě různé stavové hodnoty:
+návratové typy `ActionResult` mohou představovat široké spektrum stavových kódů HTTP. `GetTodoItem` může například vracet dvě různé stavové hodnoty:
 
 * Pokud žádná položka neodpovídá požadovanému ID, vrátí metoda kód chyby 404 [NotFound](/dotnet/api/microsoft.aspnetcore.mvc.controllerbase.notfound) .
 * V opačném případě metoda vrátí 200 text odpovědi JSON. Vrácení `item` způsobí odpověď HTTP 200.
@@ -850,7 +850,7 @@ Přidejte následující metodu `DeleteTodoItem`:
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController.cs?name=snippet_Delete)]
 
-@No__t_0 odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).
+`DeleteTodoItem` odpověď je [204 (žádný obsah)](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html).
 
 ### <a name="test-the-deletetodoitem-method"></a>Test metody DeleteTodoItem
 
@@ -901,7 +901,7 @@ jQuery pošle požadavek HTTP POST s položkou k žádosti v textu požadavku. M
 
 ### <a name="update-a-to-do-item"></a>Aktualizace položky úkolů
 
-Aktualizace položky úkolů je podobná přidání. @No__t_0 se změní, aby se přidal jedinečný identifikátor položky a `type` je `PUT`.
+Aktualizace položky úkolů je podobná přidání. `url` se změní, aby se přidal jedinečný identifikátor položky a `type` je `PUT`.
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_AjaxPut)]
 
@@ -917,7 +917,7 @@ Odstranění položky úkolů je provedeno nastavením `type` v volání jazyka 
 
 ## <a name="add-authentication-support-to-a-web-api"></a>Přidání podpory ověřování do webového rozhraní API
 
-Viz kurz k [IdentityServer4](https://identityserver4.readthedocs.io/en/latest/quickstarts/0_overview.html) .
+[!INCLUDE[](~/includes/IdentityServer4.md)]
 
 ## <a name="additional-resources"></a>Další zdroje
 
