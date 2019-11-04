@@ -5,12 +5,12 @@ description: Objevte články na základě ASP.NET Core projektů vytvořených 
 ms.author: riande
 ms.date: 11/30/2017
 uid: security/authentication/individual
-ms.openlocfilehash: cf548417268a8587787471b9ed91c0ed109fbee9
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 91c5665dc50124b3ba09bdcfbf3ba501f684c604
+ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080705"
+ms.lasthandoff: 11/04/2019
+ms.locfileid: "73463033"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>Články založené na ASP.NET Core projektech vytvořených pomocí individuálních uživatelských účtů
 
@@ -42,7 +42,7 @@ Podívejte se na [Tento problém GitHubu](https://github.com/aspnet/AspNetCore/i
 
 ## <a name="no-authentication"></a>Bez ověřování
 
-Ověřování je zadáno v .NET Core CLI s `-au` možností. V aplikaci Visual Studio je k dispozici dialog **Změna ověřování** pro nové webové aplikace. Výchozí pro nové webové aplikace v aplikaci Visual Studio není **ověřování**.
+Ověřování je zadáno v .NET Core CLI s možností `-au`. V aplikaci Visual Studio je k dispozici dialog **Změna ověřování** pro nové webové aplikace. Výchozí pro nové webové aplikace v aplikaci Visual Studio není **ověřování**.
 
 Projekty vytvořené bez ověřování:
 
@@ -53,7 +53,7 @@ Projekty vytvořené bez ověřování:
 
 ## <a name="windows-authentication"></a>Ověřování systému Windows
 
-Ověřování systému Windows je zadáno pro nové webové aplikace v .NET Core CLI s `-au Windows` možností. V aplikaci Visual Studio je v dialogovém okně pro **změnu ověřování** k dispozici možnost **ověřování systému Windows** .
+Ověřování systému Windows je zadáno pro nové webové aplikace v .NET Core CLI s možností `-au Windows`. V aplikaci Visual Studio je v dialogovém okně pro **změnu ověřování** k dispozici možnost **ověřování systému Windows** .
 
 Pokud je vybraná možnost ověřování systému Windows, aplikace je nakonfigurovaná tak, aby používala [modul služby IIS pro ověřování systému Windows](xref:host-and-deploy/iis/modules). Ověřování systému Windows je určeno pro intranetové weby.
 
@@ -61,6 +61,5 @@ Pokud je vybraná možnost ověřování systému Windows, aplikace je nakonfigu
 
 V následujících článcích se dozvíte, jak používat kód vygenerovaný v ASP.NET Core šablonách, které používají jednotlivé uživatelské účty:
 
-* [Dvoufaktorové ověřování přes SMS](xref:security/authentication/2fa)
 * [Potvrzení účtu a obnovení hesla v ASP.NET Core](xref:security/authentication/accconfirm)
 * [Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací](xref:security/authorization/secure-data)

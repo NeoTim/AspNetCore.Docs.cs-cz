@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 10/10/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 61324cdd5b574ea8a12a1be5846a25c311ab4499
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 0da5a4cf0d9cc15fee6417d143cfc9e9f1e4509c
+ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259666"
+ms.lasthandoff: 11/04/2019
+ms.locfileid: "73463064"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření klienta a serveru gRPC v ASP.NET Core
 
@@ -30,7 +30,7 @@ V tomto kurzu:
 > * Vytvořte klienta gRPC.
 > * Otestujte službu gRPC Client pomocí služby gRPC Greeter.
 
-## <a name="prerequisites"></a>Požadované součásti
+## <a name="prerequisites"></a>Požadavky
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -56,10 +56,10 @@ V tomto kurzu:
   ![\* * Vytvořit nový projekt * * dialog](~/tutorials/grpc/grpc-start/static/cnp.png)
 
 * Pojmenujte projekt **GrpcGreeter**. Je důležité pojmenovat projekt *GrpcGreeter* , aby se obory názvů shodovaly při kopírování a vkládání kódu.
-* Vyberte **Vytvořit**.
+* Vyberte **vytvořit**.
 * V dialogovém okně **vytvořit novou službu gRPC** :
   * Je vybraná Šablona **služby gRPC** .
-  * Vyberte **Vytvořit**.
+  * Vyberte **vytvořit**.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -135,8 +135,8 @@ Soubory projektu *GrpcGreeter* :
 
 * *pozdrav. proto* &ndash; v souboru to znamená, že soubor *...* dedefinuje `Greeter` gRPC a slouží k vygenerování prostředků serveru gRPC. Další informace najdete v tématu [Úvod do gRPC](xref:grpc/index).
 * Složka *Services* : obsahuje implementaci služby `Greeter`.
-* *appSettings. json* &ndash; obsahuje konfigurační data, jako je například protokol, který používá Kestrel. For more information, see <xref:fundamentals/configuration/index>.
-* *Program.cs* &ndash; obsahuje vstupní bod pro službu gRPC. For more information, see <xref:fundamentals/host/generic-host>.
+* *appSettings. json* &ndash; obsahuje konfigurační data, jako je například protokol, který používá Kestrel. Další informace najdete v tématu <xref:fundamentals/configuration/index>.
+* *Program.cs* &ndash; obsahuje vstupní bod pro službu gRPC. Další informace najdete v tématu <xref:fundamentals/host/generic-host>.
 * *Startup.cs* &ndash; obsahuje kód, který nakonfiguruje chování aplikace. Další informace najdete v tématu [spuštění aplikace](xref:fundamentals/startup).
 
 ## <a name="create-the-grpc-client-in-a-net-console-app"></a>Vytvoření klienta gRPC v konzolové aplikaci .NET
@@ -255,8 +255,8 @@ Aktualizujte soubor *program.cs* klienta gRPC pomocí následujícího kódu:
 
 Klient s pozdravem vytvořil:
 
-* Vytvoření instance `HttpClient` obsahující informace pro vytvoření připojení ke službě gRPC.
-* Vytvoření gRPC kanálu a klienta Greeter pomocí `HttpClient`:
+* Vytvoření instance `GrpcChannel` obsahující informace pro vytvoření připojení ke službě gRPC.
+* Použití `GrpcChannel` k vytvoření klienta Greeter:
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeterClient/Program.cs?name=snippet&highlight=3-5)]
 
@@ -313,7 +313,7 @@ info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
 ```
 
 > [!NOTE]
-> Kód v tomto článku vyžaduje k zabezpečení služby gRPC ASP.NET Core certifikát pro vývoj HTTPS. Pokud se klient nezdařil s @no__t zpráva-0, vývojový certifikát není důvěryhodný. Pokyny k vyřešení tohoto problému naleznete v tématu [Trust ASP.NET Core certifikát pro vývoj https ve Windows a MacOS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos).
+> Kód v tomto článku vyžaduje k zabezpečení služby gRPC ASP.NET Core certifikát pro vývoj HTTPS. Pokud se klient nezdařil s `The remote certificate is invalid according to the validation procedure.`zprávy, vývojový certifikát není důvěryhodný. Pokyny k vyřešení tohoto problému naleznete v tématu [Trust ASP.NET Core certifikát pro vývoj https ve Windows a MacOS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos).
 
 [!INCLUDE[](~/includes/gRPCazure.md)]
 

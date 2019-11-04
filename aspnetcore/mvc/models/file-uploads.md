@@ -5,14 +5,14 @@ description: Jak používat vazbu modelu a streamování k nahrávání souborů
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/02/2019
+ms.date: 10/31/2019
 uid: mvc/models/file-uploads
-ms.openlocfilehash: de8bfee22e39dfc5a6ed254cf0555887891d4590
-ms.sourcegitcommit: d81912782a8b0bd164f30a516ad80f8defb5d020
+ms.openlocfilehash: 04e7533aa190a4875d3f66e8665fec16abec48b3
+ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179308"
+ms.lasthandoff: 11/04/2019
+ms.locfileid: "73462937"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -34,13 +34,12 @@ Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďt
 
 Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, jsou:
 
-* Nahrajte soubory do vyhrazené oblasti pro nahrání souborů v systému, nejlépe pro nesystémovou jednotku. Použití vyhrazeného umístění usnadňuje omezení zabezpečení pro nahrané soubory. Zakažte oprávnění EXECUTE pro umístění pro nahrání souboru. &dagger;
-* Neuchovávat nahrané soubory ve stejném adresářovém stromu jako aplikace. &dagger;
-* Použijte název bezpečného souboru určený aplikací. Nepoužívejte název souboru poskytnutý uživatelem nebo nedůvěryhodného názvu nahraného souboru. &dagger; Chcete-li zobrazit nedůvěryhodný název souboru v uživatelském rozhraní nebo v zprávě protokolování, HTML hodnotu zakódovat.
-* Povoluje pouze konkrétní sadu schválených přípon souborů. &dagger;
-* Ověřte podpis formátu souboru, abyste zabránili uživateli v nahrávání maskovaných souborů. &dagger; například nepovolíte uživateli odeslat soubor *. exe* s příponou *. txt* .
-* Ověřte, zda jsou na serveru provedeny také kontroly na straně klienta. &dagger; kontroly na straně klienta se snadno obejít.
-* Ověřte velikost nahraného souboru a zabraňte nahrávání, které jsou větší, než se očekávalo. &dagger;
+* Nahrajte soubory do vyhrazené oblasti pro nahrávání souborů, nejlépe do nesystémové jednotky. Vyhrazené umístění usnadňuje omezení zabezpečení pro nahrané soubory. Zakažte oprávnění EXECUTE pro umístění pro nahrání souboru. &dagger;
+* Neuchovávat nahrané soubory ve stejném adresářovém stromu jako aplikace.&dagger;
+* Použijte název bezpečného souboru určený aplikací. Nepoužívejte název souboru poskytnutý uživatelem nebo nedůvěryhodného názvu nahraného souboru.&dagger; při zobrazení kódování HTML kódovat název nedůvěryhodného souboru. Například protokolování názvu souboru nebo zobrazení v uživatelském rozhraní (Razor automaticky kóduje výstup HTML).
+* Povolte pro specifikaci návrhu aplikace jenom schválené přípony souborů.&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
+* Ověřte, zda jsou na serveru provedeny kontroly na straně klienta.&dagger; kontroly na straně klienta se snadno obejít.
+* Ověřte velikost nahraného souboru. Nastavte limit maximální velikosti, aby se zabránilo velkým nahrávání.&dagger;
 * Pokud by soubory neměly být přepsány nahraným souborem se stejným názvem, před nahráním souboru ověřte název souboru proti databázi nebo fyzickému úložišti.
 * **Před uložením souboru spusťte v nahraném obsahu skener virů nebo malwaru.**
 
@@ -212,8 +211,20 @@ V případě, že vstupní prvek `files` podporuje nahrávání více souborů, 
 
 Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby modelu](xref:mvc/models/model-binding) pomocí <xref:Microsoft.AspNetCore.Http.IFormFile>. Ukázková aplikace ukazuje více ukládání souborů do vyrovnávací paměti pro scénáře databáze a fyzických úložišť.
 
+<a name="filename"></a>
+
 > [!WARNING]
-> Nespoléhá se ani na nedůvěryhodnou vlastnost `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> bez ověření. Vlastnost `FileName` by měla být použita pouze pro účely zobrazení a pouze po kódování hodnoty HTML.
+> Nepoužívejte **vlastnost** `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> jinou než pro zobrazení a protokolování. Při zobrazení nebo protokolování je název souboru kódován HTML. Útočník může poskytnout škodlivý název souboru, včetně úplných cest nebo relativních cest. Aplikace by měly:
+>
+> * Odeberte cestu z názvu souboru zadaného uživatelem.
+> * Uložte název souboru s příponou PATH s kódováním HTML pro uživatelské rozhraní nebo protokolování.
+> * Vygenerujte nový náhodný název souboru pro úložiště.
+>
+> Následující kód odstraní cestu z názvu souboru:
+>
+> ```csharp
+> string untrustedFileName = Path.GetFileName(pathName);
+> ```
 >
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
@@ -222,11 +233,11 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 
 Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
-* Jeden @no__t – 0.
+* Jeden <xref:Microsoft.AspNetCore.Http.IFormFile>.
 * Kterákoli z následujících kolekcí, které reprezentují několik souborů:
   * <xref:Microsoft.AspNetCore.Http.IFormFileCollection>
   * <xref:System.Collections.IEnumerable>\<<xref:Microsoft.AspNetCore.Http.IFormFile>>
-  * [Seznam](xref:System.Collections.Generic.List`1)\< @ no__t-2 @ no__t-3
+  * [Seznam](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>>
 
 > [!NOTE]
 > Vazba odpovídá souborům formuláře podle názvu. Například hodnota HTML `name` v `<input type="file" name="formFile">` se musí shodovat s C# parametrem nebo vazbou vlastnosti (`FormFile`). Další informace naleznete v části [název atributu matched na název parametru metody post](#match-name-attribute-value-to-parameter-name-of-post-method) .
@@ -399,7 +410,7 @@ Počáteční odpověď stránky načte formulář a uloží token proti paděl�
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Filters/Antiforgery.cs?name=snippet_GenerateAntiforgeryTokenCookieAttribute)]
 
-@No__t-0 se používá k zakázání vazby modelu:
+`DisableFormValueModelBindingAttribute` slouží k zakázání vazby modelu:
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Filters/ModelBinding.cs?name=snippet_DisableFormValueModelBindingAttribute)]
 
@@ -425,7 +436,7 @@ V ukázkové aplikaci jsou kontroly ověřování zpracovávány `FileHelpers.Pr
 
 ## <a name="validation"></a>Ověřování
 
-Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol uložených do vyrovnávací paměti <xref:Microsoft.AspNetCore.Http.IFormFile> a streamovaná nahrávání souborů. Pro zpracování @no__t ukládání souborů s vyrovnávací pamětí v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *Utilities/Helper. cs* . Pro zpracování streamované soubory si Projděte metodu `ProcessStreamedFile` ve stejném souboru.
+Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol uložených do vyrovnávací paměti <xref:Microsoft.AspNetCore.Http.IFormFile> a streamovaná nahrávání souborů. Pro zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *. cs nástrojů Utilities/App.* Pro zpracování streamované soubory si Projděte metodu `ProcessStreamedFile` ve stejném souboru.
 
 > [!WARNING]
 > Metody zpracování ověřování, které jsou znázorněné v ukázkové aplikaci, nekontrolují obsah nahraných souborů. Ve většině produkčních scénářů se v souboru používá rozhraní API pro skenování virů nebo malwaru, než je soubor dostupný uživatelům nebo jiným systémům.
@@ -519,7 +530,7 @@ V ukázkové aplikaci je velikost souboru omezená na 2 MB (uvedené v bajtech).
 }
 ```
 
-@No__t-0 je vložen do tříd `PageModel`:
+`FileSizeLimit` je vložen do tříd `PageModel`:
 
 ```csharp
 public class BufferedSingleFileUploadPhysicalModel : PageModel
@@ -546,7 +557,7 @@ if (formFile.Length > _fileSizeLimit)
 
 ### <a name="match-name-attribute-value-to-parameter-name-of-post-method"></a>Porovnává hodnotu atributu name s parametrem název metody POST
 
-V nestandardních formulářích, které odesílají data formuláře nebo přímo využívají @no__t JavaScriptu, se název zadaný v prvku formuláře nebo `FormData` musí shodovat s názvem parametru v akci kontroleru.
+V nestandardních formulářích, které PUBLIKují data formuláře nebo přímo používají `FormData` JavaScriptu, musí název zadaný v prvku formuláře nebo `FormData` odpovídat názvu parametru v akci kontroleru.
 
 V následujícím příkladu:
 
@@ -675,7 +686,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-@No__t-0 lze také použít pomocí direktivy [@attribute](xref:mvc/views/razor#attribute) Razor:
+`RequestSizeLimitAttribute` lze také použít pomocí direktivy [@attribute](xref:mvc/views/razor#attribute) Razor:
 
 ```cshtml
 @attribute [RequestSizeLimitAttribute(52428800)]
@@ -748,13 +759,12 @@ Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďt
 
 Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, jsou:
 
-* Nahrajte soubory do vyhrazené oblasti pro nahrání souborů v systému, nejlépe pro nesystémovou jednotku. Použití vyhrazeného umístění usnadňuje omezení zabezpečení pro nahrané soubory. Zakažte oprávnění EXECUTE pro umístění pro nahrání souboru. &dagger;
-* Neuchovávat nahrané soubory ve stejném adresářovém stromu jako aplikace. &dagger;
-* Použijte název bezpečného souboru určený aplikací. Nepoužívejte název souboru poskytnutý uživatelem nebo nedůvěryhodného názvu nahraného souboru. &dagger; Chcete-li zobrazit nedůvěryhodný název souboru v uživatelském rozhraní nebo v zprávě protokolování, HTML hodnotu zakódovat.
-* Povoluje pouze konkrétní sadu schválených přípon souborů. &dagger;
-* Ověřte podpis formátu souboru, abyste zabránili uživateli v nahrávání maskovaných souborů. &dagger; například nepovolíte uživateli odeslat soubor *. exe* s příponou *. txt* .
-* Ověřte, zda jsou na serveru provedeny také kontroly na straně klienta. &dagger; kontroly na straně klienta se snadno obejít.
-* Ověřte velikost nahraného souboru a zabraňte nahrávání, které jsou větší, než se očekávalo. &dagger;
+* Nahrajte soubory do vyhrazené oblasti pro nahrávání souborů, nejlépe do nesystémové jednotky. Vyhrazené umístění usnadňuje omezení zabezpečení pro nahrané soubory. Zakažte oprávnění EXECUTE pro umístění pro nahrání souboru. &dagger;
+* Neuchovávat nahrané soubory ve stejném adresářovém stromu jako aplikace.&dagger;
+* Použijte název bezpečného souboru určený aplikací. Nepoužívejte název souboru poskytnutý uživatelem nebo nedůvěryhodného názvu nahraného souboru.&dagger; při zobrazení kódování HTML kódovat název nedůvěryhodného souboru. Například protokolování názvu souboru nebo zobrazení v uživatelském rozhraní (Razor automaticky kóduje výstup HTML).
+* Povolte pro specifikaci návrhu aplikace jenom schválené přípony souborů.&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
+* Ověřte, zda jsou na serveru provedeny kontroly na straně klienta.&dagger; kontroly na straně klienta se snadno obejít.
+* Ověřte velikost nahraného souboru. Nastavte limit maximální velikosti, aby se zabránilo velkým nahrávání.&dagger;
 * Pokud by soubory neměly být přepsány nahraným souborem se stejným názvem, před nahráním souboru ověřte název souboru proti databázi nebo fyzickému úložišti.
 * **Před uložením souboru spusťte v nahraném obsahu skener virů nebo malwaru.**
 
@@ -926,8 +936,20 @@ V případě, že vstupní prvek `files` podporuje nahrávání více souborů, 
 
 Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby modelu](xref:mvc/models/model-binding) pomocí <xref:Microsoft.AspNetCore.Http.IFormFile>. Ukázková aplikace ukazuje více ukládání souborů do vyrovnávací paměti pro scénáře databáze a fyzických úložišť.
 
+<a name="filename2"></a>
+
 > [!WARNING]
-> Nespoléhá se ani na nedůvěryhodnou vlastnost `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> bez ověření. Vlastnost `FileName` by měla být použita pouze pro účely zobrazení a pouze po kódování hodnoty HTML.
+> Nepoužívejte **vlastnost** `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> jinou než pro zobrazení a protokolování. Při zobrazení nebo protokolování je název souboru kódován HTML. Útočník může poskytnout škodlivý název souboru, včetně úplných cest nebo relativních cest. Aplikace by měly:
+>
+> * Odeberte cestu z názvu souboru zadaného uživatelem.
+> * Uložte název souboru s příponou PATH s kódováním HTML pro uživatelské rozhraní nebo protokolování.
+> * Vygenerujte nový náhodný název souboru pro úložiště.
+>
+> Následující kód odstraní cestu z názvu souboru:
+>
+> ```csharp
+> string untrustedFileName = Path.GetFileName(pathName);
+> ```
 >
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
@@ -936,11 +958,11 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 
 Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
-* Jeden @no__t – 0.
+* Jeden <xref:Microsoft.AspNetCore.Http.IFormFile>.
 * Kterákoli z následujících kolekcí, které reprezentují několik souborů:
   * <xref:Microsoft.AspNetCore.Http.IFormFileCollection>
   * <xref:System.Collections.IEnumerable>\<<xref:Microsoft.AspNetCore.Http.IFormFile>>
-  * [Seznam](xref:System.Collections.Generic.List`1)\< @ no__t-2 @ no__t-3
+  * [Seznam](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>>
 
 > [!NOTE]
 > Vazba odpovídá souborům formuláře podle názvu. Například hodnota HTML `name` v `<input type="file" name="formFile">` se musí shodovat s C# parametrem nebo vazbou vlastnosti (`FormFile`). Další informace naleznete v části [název atributu matched na název parametru metody post](#match-name-attribute-value-to-parameter-name-of-post-method) .
@@ -1113,7 +1135,7 @@ Počáteční odpověď stránky načte formulář a uloží token proti paděl�
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Filters/Antiforgery.cs?name=snippet_GenerateAntiforgeryTokenCookieAttribute)]
 
-@No__t-0 se používá k zakázání vazby modelu:
+`DisableFormValueModelBindingAttribute` slouží k zakázání vazby modelu:
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Filters/ModelBinding.cs?name=snippet_DisableFormValueModelBindingAttribute)]
 
@@ -1139,7 +1161,7 @@ V ukázkové aplikaci jsou kontroly ověřování zpracovávány `FileHelpers.Pr
 
 ## <a name="validation"></a>Ověřování
 
-Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol uložených do vyrovnávací paměti <xref:Microsoft.AspNetCore.Http.IFormFile> a streamovaná nahrávání souborů. Pro zpracování @no__t ukládání souborů s vyrovnávací pamětí v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *Utilities/Helper. cs* . Pro zpracování streamované soubory si Projděte metodu `ProcessStreamedFile` ve stejném souboru.
+Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol uložených do vyrovnávací paměti <xref:Microsoft.AspNetCore.Http.IFormFile> a streamovaná nahrávání souborů. Pro zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *. cs nástrojů Utilities/App.* Pro zpracování streamované soubory si Projděte metodu `ProcessStreamedFile` ve stejném souboru.
 
 > [!WARNING]
 > Metody zpracování ověřování, které jsou znázorněné v ukázkové aplikaci, nekontrolují obsah nahraných souborů. Ve většině produkčních scénářů se v souboru používá rozhraní API pro skenování virů nebo malwaru, než je soubor dostupný uživatelům nebo jiným systémům.
@@ -1233,7 +1255,7 @@ V ukázkové aplikaci je velikost souboru omezená na 2 MB (uvedené v bajtech).
 }
 ```
 
-@No__t-0 je vložen do tříd `PageModel`:
+`FileSizeLimit` je vložen do tříd `PageModel`:
 
 ```csharp
 public class BufferedSingleFileUploadPhysicalModel : PageModel
@@ -1260,7 +1282,7 @@ if (formFile.Length > _fileSizeLimit)
 
 ### <a name="match-name-attribute-value-to-parameter-name-of-post-method"></a>Porovnává hodnotu atributu name s parametrem název metody POST
 
-V nestandardních formulářích, které odesílají data formuláře nebo přímo využívají @no__t JavaScriptu, se název zadaný v prvku formuláře nebo `FormData` musí shodovat s názvem parametru v akci kontroleru.
+V nestandardních formulářích, které PUBLIKují data formuláře nebo přímo používají `FormData` JavaScriptu, musí název zadaný v prvku formuláře nebo `FormData` odpovídat názvu parametru v akci kontroleru.
 
 V následujícím příkladu:
 
