@@ -4,14 +4,14 @@ author: rick-anderson
 description: Naučte se, jak ukládat data do mezipaměti v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 8/22/2019
+ms.date: 11/2/2019
 uid: performance/caching/memory
-ms.openlocfilehash: d6b2aa363c552fdbda7f6e9ec5d476768c17d8a5
-ms.sourcegitcommit: 810d5831169770ee240d03207d6671dabea2486e
+ms.openlocfilehash: 1114d154ed1af09958df63ae718712177bbf6db0
+ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/22/2019
-ms.locfileid: "72779183"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73611448"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť v paměti v ASP.NET Core
 
@@ -158,15 +158,18 @@ Další informace najdete v tématu [Compact source na GitHubu](https://github.c
 
 ## <a name="cache-dependencies"></a>Závislosti mezipaměti
 
-Následující příklad ukazuje, jak vyprší platnost položky mezipaměti, pokud vyprší platnost závislé položky. Do položky uložené v mezipaměti se přidá `CancellationChangeToken`. Když je na `CancellationTokenSource` volána hodnota `Cancel`, jsou obě položky mezipaměti vyřazeny.
+Následující příklad ukazuje, jak vyprší platnost položky mezipaměti, pokud vyprší platnost závislé položky. Do položky uložené v mezipaměti se přidá <xref:Microsoft.Extensions.Primitives.CancellationChangeToken>. Když je na `CancellationTokenSource` volána hodnota `Cancel`, jsou obě položky mezipaměti vyřazeny.
 
 [!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ed)]
 
-Použití `CancellationTokenSource` umožňuje vyřazení více položek mezipaměti jako skupiny. Pomocí vzoru `using` v kódu výše budou položky mezipaměti vytvořené uvnitř bloku `using` dědit triggery a nastavení vypršení platnosti.
+Použití <xref:System.Threading.CancellationTokenSource> umožňuje vyřazení více položek mezipaměti jako skupiny. Pomocí vzoru `using` v kódu výše budou položky mezipaměti vytvořené uvnitř bloku `using` dědit triggery a nastavení vypršení platnosti.
 
 ## <a name="additional-notes"></a>Další poznámky
 
-* K vypršení platnosti nedojde na pozadí. Neexistuje žádný časovač, který aktivně hledá neplatné položky v mezipaměti. Jakákoli aktivita v mezipaměti (`Get`, `Set` `Remove`) může aktivovat kontrolu na pozadí pro položky s vypršenou platností. Časovač na `CancellationTokenSource` (`CancelAfter`) by taky odebral položku a aktivoval kontrolu pro položky, jejichž platnost vypršela. Například místo použití `SetAbsoluteExpiration(TimeSpan.FromHours(1))` použijte pro registrovaný token `CancellationTokenSource.CancelAfter(TimeSpan.FromHours(1))`. Když se tento token aktivuje, okamžitě odstraní položku a aktivuje zpětná volání vyřazení. Další informace najdete v [tomto problému GitHubu](https://github.com/aspnet/Caching/issues/248).
+* K vypršení platnosti nedojde na pozadí. Neexistuje žádný časovač, který aktivně hledá neplatné položky v mezipaměti. Jakákoli aktivita v mezipaměti (`Get`, `Set` `Remove`) může aktivovat kontrolu na pozadí pro položky s vypršenou platností. Časovač na `CancellationTokenSource` (<xref:System.Threading.CancellationTokenSource.CancelAfter*>) také odstraní položku a aktivuje kontrolu pro položky, jejichž platnost vypršela. Následující příklad používá [CancellationTokenSource (TimeSpan)](/dotnet/api/system.threading.cancellationtokensource.-ctor) pro registrovaný token. Když se tento token aktivuje, okamžitě odstraní položku a aktivuje zpětná volání vyřazení:
+
+[!code-csharp[](memory/3.0sample/WebCacheSample/Controllers/HomeController.cs?name=snippet_ae)]
+
 * Při použití zpětného volání k naplnění položky mezipaměti:
 
   * Více požadavků může najít hodnotu klíče uloženou v mezipaměti jako prázdné, protože zpětné volání nebylo dokončeno.
@@ -327,7 +330,7 @@ Další informace najdete v tématu [Compact source na GitHubu](https://github.c
 
 ## <a name="cache-dependencies"></a>Závislosti mezipaměti
 
-Následující příklad ukazuje, jak vyprší platnost položky mezipaměti, pokud vyprší platnost závislé položky. Do položky uložené v mezipaměti se přidá `CancellationChangeToken`. Když je na `CancellationTokenSource` volána hodnota `Cancel`, jsou obě položky mezipaměti vyřazeny.
+Následující příklad ukazuje, jak vyprší platnost položky mezipaměti, pokud vyprší platnost závislé položky. Do položky uložené v mezipaměti se přidá <xref:Microsoft.Extensions.Primitives.CancellationChangeToken>. Když je na `CancellationTokenSource` volána hodnota `Cancel`, jsou obě položky mezipaměti vyřazeny.
 
 [!code-csharp[](memory/sample/WebCache/Controllers/HomeController.cs?name=snippet_ed)]
 

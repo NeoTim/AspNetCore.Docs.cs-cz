@@ -4,14 +4,14 @@ author: rick-anderson
 description: Naučte se, jak používat ukládání odpovědí do mezipaměti pro menší požadavky na šířku pásma a zvýšit výkon aplikací ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 10/15/2019
+ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: 4ebac97689347245d25e0954b33729d78dd1b516
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: a456e97053fea7c9ee9ec634ae9b7bbd52febe7f
+ms.sourcegitcommit: 09f4a5ded39cc8204576fe801d760bd8b611f3aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378835"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73611471"
 ---
 # <a name="response-caching-in-aspnet-core"></a>Ukládání odpovědí do mezipaměti v ASP.NET Core
 
@@ -21,7 +21,9 @@ ms.locfileid: "72378835"
 
 Ukládání odpovědí do mezipaměti snižuje počet požadavků, které klient nebo proxy vytvoří na webový server. Ukládání odpovědí do mezipaměti také snižuje množství práce, které webový Server provede k vygenerování odpovědi. Ukládání odpovědí do mezipaměti je řízeno hlavičkami, které určují, jak má klient, proxy a middleware ukládat odpovědi do mezipaměti.
 
-[Atribut ResponseCache](#responsecache-attribute) se účastní nastavení hlaviček ukládání odpovědí do mezipaměti, které mohou klienti dodržovat při ukládání odpovědí do mezipaměti. [Middleware pro ukládání odpovědí](xref:performance/caching/middleware) do mezipaměti lze použít k ukládání odpovědí na server do mezipaměti. Middleware může pomocí vlastností <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> ovlivnit chování ukládání do mezipaměti na straně serveru.
+[Atribut ResponseCache](#responsecache-attribute) se účastní nastavení hlaviček ukládání odpovědí do mezipaměti. Klienti a zprostředkující proxy servery by měly dodržovat hlavičky pro ukládání odpovědí do mezipaměti v rámci [specifikace ukládání do mezipaměti HTTP 1,1](https://tools.ietf.org/html/rfc7234).
+
+Pro ukládání do mezipaměti na straně serveru, které následuje za specifikací mezipaměti HTTP 1,1, použijte [middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware). Middleware může pomocí vlastností <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> ovlivnit chování ukládání do mezipaměti na straně serveru.
 
 ## <a name="http-based-response-caching"></a>Ukládání odpovědí na základě protokolu HTTP
 
@@ -50,9 +52,9 @@ Další hlavičky mezipaměti, které hrají roli v mezipaměti, jsou uvedeny v 
 
 [Specifikace ukládání do mezipaměti protokolu HTTP 1,1 pro hlavičku Cache-Control](https://tools.ietf.org/html/rfc7234#section-5.2) vyžaduje mezipaměť, aby bylo možné akceptovat platnou hlavičku `Cache-Control` odeslanou klientem. Klient může vytvořit požadavky s hlavičkou `no-cache` a vynutit, aby server vygeneroval novou odpověď pro každý požadavek.
 
-Vždy, když je potřeba, aby se @no__t hlaviček požadavků-0, mělo by to smysl, pokud považujete cíl ukládání HTTP do mezipaměti. V rámci oficiální specifikace je ukládání do mezipaměti určeno ke snížení latence a zatížení sítě při požadavcích na požadavky v síti klientů, proxy serverů a serverů. To není nutně způsob, jak řídit zatížení na zdrojovém serveru.
+Používání hlaviček požadavků klienta `Cache-Control` vždy dává smysl, pokud považujete cíl ukládání HTTP do mezipaměti. V rámci oficiální specifikace je ukládání do mezipaměti určeno ke snížení latence a zatížení sítě při požadavcích na požadavky v síti klientů, proxy serverů a serverů. To není nutně způsob, jak řídit zatížení na zdrojovém serveru.
 
-Při použití [middleware pro ukládání odpovědí](xref:performance/caching/middleware) do mezipaměti není k dispozici žádné vývojářské řízení, protože middleware dodržuje oficiální specifikaci ukládání do mezipaměti. [Plánovaná vylepšení middlewaru](https://github.com/aspnet/AspNetCore/issues/2612) jsou příležitostí ke konfiguraci middlewaru pro ignorování hlavičky @no__t 1 žádosti při rozhodování o obsluze odpovědi v mezipaměti. Plánovaná vylepšení poskytují možnost lepšího řízení zatížení serveru.
+Při použití [middleware pro ukládání odpovědí](xref:performance/caching/middleware) do mezipaměti není k dispozici žádné vývojářské řízení, protože middleware dodržuje oficiální specifikaci ukládání do mezipaměti. [Plánovaná vylepšení middlewaru](https://github.com/aspnet/AspNetCore/issues/2612) jsou příležitostí ke konfiguraci middlewaru pro ignorování hlavičky `Cache-Control` požadavku při rozhodování o obsluze odpovědi v mezipaměti. Plánovaná vylepšení poskytují možnost lepšího řízení zatížení serveru.
 
 ## <a name="other-caching-technology-in-aspnet-core"></a>Další technologie pro ukládání do mezipaměti v ASP.NET Core
 
@@ -82,7 +84,7 @@ Další informace najdete v tématu <xref:mvc/views/tag-helpers/builtin-th/distr
 
 ## <a name="responsecache-attribute"></a>ResponseCache – atribut
 
-@No__t-0 určuje parametry potřebné pro nastavení příslušných hlaviček v ukládání odpovědí do mezipaměti.
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> Určuje parametry potřebné pro nastavení příslušných hlaviček v ukládání odpovědí do mezipaměti.
 
 > [!WARNING]
 > Zakáže ukládání do mezipaměti pro obsah, který obsahuje informace pro ověřené klienty. Ukládání do mezipaměti by mělo být povolené jenom pro obsah, který se nemění v závislosti na identitě uživatele nebo na tom, jestli je uživatel přihlášený.
@@ -99,7 +101,7 @@ Pro nastavení vlastnosti <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQuer
 
 První požadavek vrací Server a ukládá do mezipaměti v middlewaru. Druhý požadavek vrací middleware, protože řetězec dotazu odpovídá předchozímu požadavku. Třetí žádost není v mezipaměti middlewaru, protože hodnota řetězce dotazu neodpovídá předchozí žádosti.
 
-@No__t-0 se používá ke konfiguraci a vytvoření (přes <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>) a `Microsoft.AspNetCore.Mvc.Internal.ResponseCacheFilter`. @No__t-0 provede práci aktualizace odpovídajících hlaviček protokolu HTTP a funkcí odpovědi. Filtr:
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> se používá ke konfiguraci a vytvoření (prostřednictvím <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>) `Microsoft.AspNetCore.Mvc.Internal.ResponseCacheFilter`. `ResponseCacheFilter` provádí aktualizaci příslušných hlaviček protokolu HTTP a funkcí odpovědi. Filtr:
 
 * Odebere všechna existující záhlaví pro `Vary`, `Cache-Control` a `Pragma`.
 * Zapíše příslušná záhlaví na základě vlastností nastavených v <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>.
@@ -120,7 +122,7 @@ Vary: User-Agent
 
 ### <a name="nostore-and-locationnone"></a>Úložiště a umístění. žádné
 
-@no__t – 0 Přepisuje většinu ostatních vlastností. Když je tato vlastnost nastavená na `true`, hlavička `Cache-Control` je nastavená na `no-store`. Pokud je hodnota <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> nastavená na `None`:
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> Přepisuje většinu dalších vlastností. Když je tato vlastnost nastavená na `true`, hlavička `Cache-Control` je nastavená na `no-store`. Pokud je hodnota <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> nastavená na `None`:
 
 * hodnota `Cache-Control` je nastavena na hodnotu `no-store,no-cache`.
 * hodnota `Pragma` je nastavena na hodnotu `no-cache`.
@@ -140,10 +142,15 @@ Pragma: no-cache
 
 ### <a name="location-and-duration"></a>Umístění a doba trvání
 
-Chcete-li povolit ukládání do mezipaměti, <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> musí být nastaven na kladnou hodnotu a <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> musí být buď `Any` (výchozí) nebo `Client`. V tomto případě je záhlaví `Cache-Control` nastaveno na hodnotu umístění následovanou `max-age` odpovědi.
+Chcete-li povolit ukládání do mezipaměti, <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> musí být nastaven na kladnou hodnotu a <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> musí být buď `Any` (výchozí) nebo `Client`. Rozhraní nastaví hlavičku `Cache-Control` na hodnotu umístění následovanou `max-age` odpovědi.
 
-> [!NOTE]
-> <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> možnosti `Any` a `Client` se přeloží do hodnot hlaviček `Cache-Control` `public` a `private` v uvedeném pořadí. Jak bylo uvedeno dříve, nastavení <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> na `None` nastaví hlavičku `Cache-Control` a `Pragma` na `no-cache`.
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> možnosti `Any` a `Client` se přeloží do hodnot hlaviček `Cache-Control` `public` a `private` v uvedeném pořadí. Jak je uvedeno v části [úložiště a umístění. None](#nostore-and-locationnone) , nastavení <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> pro `None` nastaví `Cache-Control` a `Pragma` hlavičky na `no-cache`.
+
+`Location.Any` (`Cache-Control` nastavené na `public`) znamená, že *klient nebo jakýkoli zprostředkující proxy server* můžou hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
+
+`Location.Client` (`Cache-Control` nastavená na `private`) znamená, že hodnotu může ukládat *jenom klient* . Žádná mezimezipaměť by neměla hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
+
+Řídicí hlavičky mezipaměti pouze poskytují pokyny klientům a zprostředkujícím proxy serverům, kdy a jak ukládat odpovědi do mezipaměti. Není nijak zaručeno, že klienti a proxy budou respektovat [specifikace mezipaměti HTTP 1,1](https://tools.ietf.org/html/rfc7234). [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) bude vždycky postupovat podle pravidel pro ukládání do mezipaměti, která jsou stanovená specifikací
 
 Následující příklad ukazuje model stránky Cache3 z ukázkové aplikace a záhlaví vytvořená nastavením <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> a ponechte výchozí hodnotu <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location>:
 
@@ -167,11 +174,11 @@ Model stránky Cache4 ukázkové aplikace odkazuje na profil mezipaměti `Defaul
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Pages/Cache4.cshtml.cs?name=snippet)]
 
-@No__t-0 se dá použít pro:
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> lze použít pro:
 
 * Obslužné rutiny stránky Razor (třídy) &ndash; atributy nelze použít na metody obslužné rutiny.
 * Řadiče MVC (třídy).
-* Akce (metody) MVC @no__t – 0 atributy na úrovni metody přepíší nastavení zadané v atributech na úrovni třídy.
+* Akce (metody) MVC &ndash; atributy na úrovni metody přepíšou nastavení zadaná v atributech na úrovni třídy.
 
 Výsledná hlavička použitá pro odpověď stránky Cache4 profil mezipaměti `Default30`:
 
