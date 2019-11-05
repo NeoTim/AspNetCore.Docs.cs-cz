@@ -6,16 +6,16 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 08/19/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: bb375cf380175daf2399f3b56f543819ee5692b8
-ms.sourcegitcommit: 07cd66e367d080acb201c7296809541599c947d1
+ms.openlocfilehash: 1e646aabb4e384e6906575e7beaa680e91f968a0
+ms.sourcegitcommit: e5d4768aaf85703effb4557a520d681af8284e26
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/17/2019
-ms.locfileid: "71039246"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73616580"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
-`Microsoft.AspNetCore.Authentication.Certificate`obsahuje implementaci podobnou [ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) pro ASP.NET Core. Ověřování certifikátu se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Přesněji platí, že se jedná o obslužnou rutinu ověřování, která certifikát ověřuje, a pak poskytuje událost, kde můžete tento certifikát vyřešit na `ClaimsPrincipal`. 
+`Microsoft.AspNetCore.Authentication.Certificate` obsahuje implementaci podobnou [ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) pro ASP.NET Core. Ověřování certifikátu se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Přesněji platí, že se jedná o obslužnou rutinu ověřování, která certifikát ověřuje, a pak poskytuje událost, na kterou můžete tento certifikát vyřešit `ClaimsPrincipal`. 
 
 [Nakonfigurujte hostitele](#configure-your-host-to-require-certificates) pro ověřování certifikátů, jako IIS, Kestrel, Azure Web Apps nebo cokoli jiného, co používáte.
 
@@ -32,11 +32,11 @@ Alternativou k ověřování certifikátů v prostředích, kde se používají 
 
 Získejte certifikát HTTPS, použijte ho a [Nakonfigurujte hostitele](#configure-your-host-to-require-certificates) tak, aby vyžadoval certifikáty.
 
-Do webové aplikace přidejte odkaz na `Microsoft.AspNetCore.Authentication.Certificate` balíček. Potom v `Startup.Configure` metodě zavolejte `app.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).UseCertificateAuthentication(...);` s vašimi možnostmi `OnCertificateValidated` a poskytněte delegátovi, aby provedl dodatečné ověřování klientského certifikátu odeslaného pomocí požadavků. Zapněte tyto informace do `ClaimsPrincipal` a nastavte ji `context.Principal` na vlastnost.
+Do webové aplikace přidejte odkaz na balíček `Microsoft.AspNetCore.Authentication.Certificate`. Potom v metodě `Startup.ConfigureServices` volejte `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).UseCertificateAuthentication(...);` s vašimi možnostmi a poskytněte delegátovi `OnCertificateValidated`, aby provedl dodatečné ověřování klientského certifikátu odeslaného pomocí požadavků. Zapněte tyto informace do `ClaimsPrincipal` a nastavte ji na vlastnost `context.Principal`.
 
-Pokud se ověření nepovede, vrátí `403 (Forbidden)` Tato obslužná rutina odpověď `401 (Unauthorized)`místo toho, jak byste mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
+Pokud se ověření nepovede, vrátí tato obslužná rutina místo `401 (Unauthorized)``403 (Forbidden)` odpověď, jak byste to mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
 
-Přidejte `app.UseAuthentication();` také`Startup.Configure` do metody. V opačném případě nebude vlastnost HttpContext. User nastavena na `ClaimsPrincipal` hodnotu vytvořeno z certifikátu. Příklad:
+Přidejte také `app.UseAuthentication();` do metody `Startup.Configure`. V opačném případě vlastnost HttpContext. User nebude nastavena na `ClaimsPrincipal` vytvořenou z certifikátu. Příklad:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -59,7 +59,7 @@ Předchozí příklad ukazuje výchozí způsob, jak přidat ověřování certi
 
 ## <a name="configure-certificate-validation"></a>Konfigurace ověření certifikátu
 
-`CertificateAuthenticationOptions` Obslužná rutina obsahuje některá Vestavěná ověření, která jsou minimálními ověřeními, které byste měli provést na certifikátu. Každé z těchto nastavení je ve výchozím nastavení povoleno.
+Obslužná rutina `CertificateAuthenticationOptions` obsahuje některá Vestavěná ověření, která jsou minimálními ověřeními, která byste měli provést na certifikátu. Každé z těchto nastavení je ve výchozím nastavení povoleno.
 
 ### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = Chained, SelfSigned nebo All (zřetězené | SelfSigned)
 
@@ -95,10 +95,10 @@ To není možné. Zapamatujte si, že výměna certifikátu se dokončila, když
 
 Obslužná rutina má dvě události:
 
-* `OnAuthenticationFailed`&ndash; Volá se, pokud dojde k výjimce během ověřování a umožňuje reagovat.
-* `OnCertificateValidated`&ndash; Volá se po ověření certifikátu. vytvořil se ověření a vytvořil se výchozí objekt zabezpečení. Tato událost umožňuje provádět vlastní ověřování a rozšíření nebo nahrazení objektu zabezpečení. Příklady zahrnují:
+* `OnAuthenticationFailed` &ndash; volána, pokud dojde k výjimce během ověřování a umožní vám reagovat.
+* `OnCertificateValidated` &ndash; voláno po ověření certifikátu, bylo úspěšně vytvořeno ověření a výchozí objekt zabezpečení. Tato událost umožňuje provádět vlastní ověřování a rozšíření nebo nahrazení objektu zabezpečení. Příklady zahrnují:
   * Určení, jestli se pro vaše služby ví certifikát.
-  * Sestavování vlastního objektu zabezpečení. Vezměte v `Startup.ConfigureServices`úvahu následující příklad:
+  * Sestavování vlastního objektu zabezpečení. Vezměte v úvahu následující příklad v `Startup.ConfigureServices`:
 
 ```csharp
 services.AddAuthentication(
@@ -132,9 +132,9 @@ services.AddAuthentication(
     });
 ```
 
-Pokud zjistíte, že příchozí certifikát nesplňuje vaše dodatečné ověření, `context.Fail("failure reason")` zavolejte důvod selhání.
+Pokud zjistíte, že příchozí certifikát nesplňuje vaše dodatečné ověření, zavolejte `context.Fail("failure reason")` s důvodem selhání.
 
-Pro reálné funkce pravděpodobně budete chtít volat službu registrovanou v injektáže závislosti, který se připojuje k databázi nebo jinému typu úložiště uživatele. Ke službě získáte přístup pomocí kontextu předaného do vašeho delegáta. Vezměte v `Startup.ConfigureServices`úvahu následující příklad:
+Pro reálné funkce pravděpodobně budete chtít volat službu registrovanou v injektáže závislosti, který se připojuje k databázi nebo jinému typu úložiště uživatele. Ke službě získáte přístup pomocí kontextu předaného do vašeho delegáta. Vezměte v úvahu následující příklad v `Startup.ConfigureServices`:
 
 ```csharp
 services.AddAuthentication(
@@ -177,7 +177,7 @@ services.AddAuthentication(
     });
 ```
 
-V koncepčním případě je ověření certifikátu v takovém případě oprávnění. Přidání kontroly, například vystavitele nebo kryptografického otisku v zásadách autorizace, nikoli uvnitř `OnCertificateValidated`, je naprosto přijatelné.
+V koncepčním případě je ověření certifikátu v takovém případě oprávnění. Přidání kontroly, například vystavitele nebo kryptografického otisku v zásadách autorizace místo v rámci `OnCertificateValidated`, je naprosto přijatelné.
 
 ## <a name="configure-your-host-to-require-certificates"></a>Konfigurace hostitele pro vyžadování certifikátů
 

@@ -5,14 +5,14 @@ description: Pochopení modelů hostování serverů Blazor a Blazor pro WebAsse
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/03/2019
 uid: blazor/hosting-models
-ms.openlocfilehash: be67c129af4f071d10719e0bbf121de761dde9f4
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: d1b9e6ab7ba93c00a569be309f2334df9e3f4140
+ms.sourcegitcommit: e5d4768aaf85703effb4557a520d681af8284e26
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73033996"
+ms.lasthandoff: 11/05/2019
+ms.locfileid: "73616593"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core modely hostování Blazor
 
@@ -146,6 +146,22 @@ Když klient zjistí, že došlo ke ztrátě připojení, zobrazí se uživateli
 
 Aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před vytvořením připojení klienta k serveru předvedlo uživatelské rozhraní na serveru. To je nastavené na stránce *_Host. cshtml* Razor:
 
+::: moniker range=">= aspnetcore-3.1"
+
+```cshtml
+<body>
+    <app>
+      <component type="typeof(App)" render-mode="ServerPrerendered" />
+    </app>
+
+    <script src="_framework/blazor.server.js"></script>
+</body>
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
+
 ```cshtml
 <body>
     <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
@@ -154,10 +170,24 @@ Aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před
 </body>
 ```
 
+::: moniker-end
+
 `RenderMode` nakonfiguruje, jestli součást:
 
 * Je předem vykreslen na stránku.
 * Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor z uživatelského agenta.
+
+::: moniker range=">= aspnetcore-3.1"
+
+| `RenderMode`        | Popis |
+| ------------------- | ----------- |
+| `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Po spuštění agenta uživatele se tato značka používá ke spuštění aplikace v Blazor. |
+| `Server`            | Vykreslí značku pro aplikaci Blazor serveru. Výstup komponenty není zahrnutý. Po spuštění agenta uživatele se tato značka používá ke spuštění aplikace v Blazor. |
+| `Static`            | Vykreslí komponentu do statického HTML. |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
 
 | `RenderMode`        | Popis |
 | ------------------- | ----------- |
@@ -165,9 +195,65 @@ Aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před
 | `Server`            | Vykreslí značku pro aplikaci Blazor serveru. Výstup komponenty není zahrnutý. Po spuštění agenta uživatele se tato značka používá ke spuštění aplikace v Blazor. Parametry nejsou podporovány. |
 | `Static`            | Vykreslí komponentu do statického HTML. Jsou podporovány parametry. |
 
+::: moniker-end
+
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-Klient se znovu připojí k serveru se stejným stavem, který se použil k proprerender aplikace. Pokud je stav aplikace stále v paměti, stav součásti nebude po navázání připojení k signalizaci znovu vykreslen.
+Když je `ServerPrerendered``RenderMode`, komponenta se zpočátku generuje jako součást stránky staticky. Jakmile prohlížeč vytvoří připojení zpátky k serveru, komponenta se *znovu*vykreslí a komponenta je teď interaktivní. Pokud je k dispozici [Metoda životního cyklu](xref:blazor/components#lifecycle-methods) pro inicializaci komponenty (`OnInitialized{Async}`), metoda je provedena *dvakrát*:
+
+* Když se komponenta předem vykreslí.
+* Po navázání připojení k serveru.
+
+Výsledkem může být znatelné změny v datech zobrazených v uživatelském rozhraní, když je komponenta nakonec vykreslena.
+
+Abyste se vyhnuli scénáři dvojího vykreslování v aplikaci Blazor serveru:
+
+* Předejte identifikátor, který se dá použít k ukládání stavu do mezipaměti během předgenerování a načtení stavu po restartování aplikace.
+* Použijte identifikátor při předvykreslování k uložení stavu součásti.
+* Pro načtení stavu uloženého v mezipaměti použijte identifikátor po předvykreslování.
+
+Následující kód demonstruje aktualizované `WeatherForecastService` v serverové aplikaci Blazor založené na šablonách, které brání dvojímu vykreslení:
+
+```csharp
+public class WeatherForecastService
+{
+    private static readonly string[] Summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild",
+        "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+    
+    public WeatherForecastService(IMemoryCache memoryCache)
+    {
+        MemoryCache = memoryCache;
+    }
+    
+    public IMemoryCache MemoryCache { get; }
+
+    public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
+    {
+        return MemoryCache.GetOrCreateAsync(startDate, async e =>
+        {
+            e.SetOptions(new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = 
+                    TimeSpan.FromSeconds(30)
+            });
+
+            var rng = new Random();
+
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = startDate.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            }).ToArray();
+        });
+    }
+}
+```
 
 ### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Vykreslovat stavově interaktivní komponenty ze stránek a zobrazení Razor
 
@@ -181,15 +267,63 @@ Při vykreslení stránky nebo zobrazení:
 
 Následující stránka Razor vykreslí součást `Counter`:
 
+::: moniker range=">= aspnetcore-3.1"
+
+```cshtml
+<h1>My Razor Page</h1>
+
+<component type="typeof(Counter)" render-mode="ServerPrerendered" 
+    param-InitialValue="InitialValue" />
+
+@code {
+    [BindProperty(SupportsGet=true)]
+    public int InitialValue { get; set; }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
+
 ```cshtml
 <h1>My Razor Page</h1>
 
 @(await Html.RenderComponentAsync<Counter>(RenderMode.ServerPrerendered))
+
+@code {
+    [BindProperty(SupportsGet=true)]
+    public int InitialValue { get; set; }
+}
 ```
+
+::: moniker-end
 
 ### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Vykreslování neinteraktivních komponent ze stránek a zobrazení Razor
 
 Na následující stránce Razor je součást `MyComponent` staticky vykreslena s počáteční hodnotou zadanou pomocí formuláře:
+
+::: moniker range=">= aspnetcore-3.1"
+
+```cshtml
+<h1>My Razor Page</h1>
+
+<form>
+    <input type="number" asp-for="InitialValue" />
+    <button type="submit">Set initial value</button>
+</form>
+
+<component type="typeof(Counter)" render-mode="Static" 
+    param-InitialValue="InitialValue" />
+
+@code {
+    [BindProperty(SupportsGet=true)]
+    public int InitialValue { get; set; }
+}
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -207,6 +341,8 @@ Na následující stránce Razor je součást `MyComponent` staticky vykreslena 
     public int InitialValue { get; set; }
 }
 ```
+
+::: moniker-end
 
 Vzhledem k tomu, že je `MyComponent` staticky vykreslen, součást nemůže být interaktivní.
 
