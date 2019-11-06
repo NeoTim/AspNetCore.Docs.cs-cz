@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/05/2019
 uid: performance/memory
-ms.openlocfilehash: 48397e9fe7da912c1930f17fb86b686f0a20c60e
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 8f6b47ecde6f265bfb9437234b89f11f7d235869
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/06/2019
-ms.locfileid: "73638239"
+ms.locfileid: "73660019"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>Správa paměti a uvolňování paměti (GC) v ASP.NET Core
 
@@ -70,7 +70,7 @@ Pokud se hodnota paměti Správce úloh zvětšuje na neomezenou dobu a nikdy ne
 
 [Ukázková aplikace MemoryLeak](https://github.com/sebastienros/memoryleak) je k dispozici na GitHubu. Aplikace MemoryLeak:
 
-* Zahrnuje diagnostický kontroler, který pro aplikaci shromáždí tine paměť a data GC.
+* Obsahuje diagnostický kontroler, který shromažďuje data paměti a GC v reálném čase pro aplikaci.
 * Má stránku index, která zobrazuje data paměti a GC. Stránka index se aktualizuje každou sekundu.
 * Obsahuje kontroler rozhraní API, který poskytuje různé vzory zatížení paměti.
 * Nástroj není podporovaným nástrojem, ale dá se použít k zobrazení vzorců využití paměti aplikací ASP.NET Core.
@@ -114,7 +114,7 @@ Následující graf se seřizuje s maximální propustností, kterou může poč
 
 Předchozí graf znázorňuje:
 
-* 22 RPS
+* 22K RPS
 * Kolekce GC pro generaci 0 se probíhají několikrát za sekundu.
 * Kolekce 1. generace se spouštějí, protože aplikace přidělila mnohem více paměti za sekundu.
 * Pracovní sada je konstanta o velikosti přibližně 500 MB.

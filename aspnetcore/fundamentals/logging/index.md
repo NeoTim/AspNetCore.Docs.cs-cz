@@ -5,14 +5,14 @@ description: Naučte se používat protokolovací rozhraní poskytovanou balíč
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/08/2019
+ms.date: 11/05/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 697e6cf0cd1b51ad6c2942e21bc084d1fe6bfa4e
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 2cb19d251ad69ebd7d18480c14857e948c69b747
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259733"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73659962"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -48,12 +48,12 @@ V konzolové aplikaci, která není hostitelem, zavolejte při vytváření `Log
 
 Výchozí ASP.NET Core šablony projektů volají <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>, které přidávají následující zprostředkovatele protokolování:
 
-* Stromu
-* Ladění
+* Konzola
+* Ladit
 * EventSource
 * Protokol událostí (pouze při spuštění v systému Windows)
 
-Výchozí poskytovatele můžete nahradit vašimi vlastními možnostmi. Zavolejte <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A> a přidejte poskytovatele, které chcete.
+Výchozí poskytovatele můžete nahradit vašimi vlastními možnostmi. Zavolejte <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>a přidejte poskytovatele, které chcete.
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_AddProvider&highlight=5)]
 
@@ -69,13 +69,13 @@ Předchozí kód vyžaduje odkazy na `Microsoft.Extensions.Logging` a `Microsoft
 
 Výchozí šablona projektu volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, která přidává následující zprostředkovatele protokolování:
 
-* Stromu
-* Ladění
+* Konzola
+* Ladit
 * EventSource (počínaje ASP.NET Core 2,2)
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
 
-Pokud používáte `CreateDefaultBuilder`, můžete výchozí poskytovatele nahradit vašimi vlastními možnostmi. Zavolejte <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A> a přidejte poskytovatele, které chcete.
+Pokud používáte `CreateDefaultBuilder`, můžete výchozí poskytovatele nahradit vašimi vlastními možnostmi. Zavolejte <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>a přidejte poskytovatele, které chcete.
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=18-22)]
 
@@ -85,7 +85,7 @@ Přečtěte si další informace o [integrovaných poskytovatelích protokolová
 
 ## <a name="create-logs"></a>Vytvořit protokoly
 
-Chcete-li vytvořit protokoly, použijte objekt <xref:Microsoft.Extensions.Logging.ILogger%601>. Ve webové aplikaci nebo v hostované službě získáte @no__t 0 od injektáže závislosti (DI). V nehostitelských konzolových aplikacích použijte `LoggerFactory` a vytvořte `ILogger`.
+K vytváření protokolů použijte objekt <xref:Microsoft.Extensions.Logging.ILogger%601>. Ve webové aplikaci nebo v hostované službě získáte `ILogger` od injektáže závislosti (DI). V nehostitelských konzolových aplikacích použijte `LoggerFactory` a vytvořte `ILogger`.
 
 Následující ASP.NET Core příklad vytvoří protokolovací nástroj s `TodoApiSample.Pages.AboutModel` jako kategorie. *Kategorie* protokolu je řetězec, který je spojený s každým protokolem. Instance `ILogger<T>` poskytnutá nástrojem DI vytvoří protokoly, které mají plně kvalifikovaný název typu `T` jako kategorie. 
 
@@ -131,6 +131,69 @@ Pokud chcete zapisovat protokoly ve třídě `Program` ASP.NET Core aplikace, Z�
 
 [!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
 
+Protokolování během konstrukce hostitele není přímo podporováno. Lze však použít samostatný protokolovací nástroj. V následujícím příkladu se k přihlášení `CreateHostBuilder`používá protokolovací nástroj [Serilog](https://serilog.net/) . `AddSerilog` používá statickou konfiguraci určenou v `Log.Logger`:
+
+```csharp
+using System;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateHostBuilder(args).Build().Run();
+    }
+
+    public static IHostBuilder CreateHostBuilder(string[] args)
+    {
+        var builtConfig = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddCommandLine(args)
+            .Build();
+
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(builtConfig["Logging:FilePath"])
+            .CreateLogger();
+
+        try
+        {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddRazorPages();
+                })
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddConfiguration(builtConfig);
+                })
+                .ConfigureLogging(logging =>
+                {   
+                    logging.AddSerilog();
+                })
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Host builder error");
+
+            throw;
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
+}
+```
+
 ### <a name="create-logs-in-the-startup-class"></a>Vytvořit protokoly ve spouštěcí třídě
 
 Pokud chcete zapisovat protokoly v metodě `Startup.Configure` ASP.NET Core aplikace, zahrňte do signatury metody parametr `ILogger`:
@@ -167,6 +230,66 @@ Chcete-li zapisovat protokoly ve třídě `Startup`, zahrňte do signatury konst
 Chcete-li zapisovat protokoly ve třídě `Program`, Získejte instanci `ILogger` od DI:
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
+
+Protokolování během konstrukce hostitele není přímo podporováno. Lze však použít samostatný protokolovací nástroj. V následujícím příkladu se k přihlášení `CreateWebHostBuilder`používá protokolovací nástroj [Serilog](https://serilog.net/) . `AddSerilog` používá statickou konfiguraci určenou v `Log.Logger`:
+
+```csharp
+using System;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        CreateWebHostBuilder(args).Build().Run();
+    }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+    {
+        var builtConfig = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddCommandLine(args)
+            .Build();
+
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(builtConfig["Logging:FilePath"])
+            .CreateLogger();
+
+        try
+        {
+            return WebHost.CreateDefaultBuilder(args)
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddMvc();
+                })
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddConfiguration(builtConfig);
+                })
+                .ConfigureLogging(logging =>
+                {
+                    logging.AddSerilog();
+                })
+                .UseStartup<Startup>();
+        }
+        catch (Exception ex)
+        {
+            Log.Fatal(ex, "Host builder error");
+
+            throw;
+        }
+        finally
+        {
+            Log.CloseAndFlush();
+        }
+    }
+}
+```
 
 ::: moniker-end
 
@@ -210,7 +333,7 @@ Vlastnost `Logging` může mít `LogLevel` a vlastnosti zprostředkovatele proto
 
 Vlastnost `LogLevel` v části `Logging` určuje minimální [úroveň](#log-level) protokolování pro vybrané kategorie. V příkladu jsou `System` a `Microsoft` kategorie v protokolu `Information` a všechny ostatní přihlášeny na úrovni `Debug`.
 
-Další vlastnosti v části `Logging` zadejte poskytovatele protokolování. Příklad je pro poskytovatele konzoly. Pokud zprostředkovatel podporuje [obory protokolů](#log-scopes), `IncludeScopes` označuje, zda jsou povoleny. Vlastnost zprostředkovatele (například `Console` v příkladu) může také určovat vlastnost `LogLevel`. @no__t – 0 v rámci zprostředkovatele Určuje úrovně, které se mají protokolovat pro daného poskytovatele.
+Další vlastnosti v části `Logging` zadejte poskytovatele protokolování. Příklad je pro poskytovatele konzoly. Pokud zprostředkovatel podporuje [obory protokolů](#log-scopes), `IncludeScopes` označuje, zda jsou povoleny. Vlastnost zprostředkovatele (například `Console` v příkladu) může také určovat vlastnost `LogLevel`. `LogLevel` pod poskytovatelem Určuje úrovně, které se mají protokolovat pro daného poskytovatele.
 
 Pokud jsou úrovně zadány v `Logging.{providername}.LogLevel`, přepíše cokoli nastavené v `Logging.LogLevel`.
 
@@ -314,7 +437,7 @@ Rozhraní `ILogger` a `ILoggerFactory` jsou v [Microsoft. Extensions. Loggings. 
 
 Je-li vytvořen objekt `ILogger`, je pro něj zadána *kategorie* . Tato kategorie je součástí každé zprávy protokolu vytvořené touto instancí `ILogger`. Kategorie může být libovolný řetězec, ale konvence používá název třídy, jako je například "TodoApi. Controllers. TodoController".
 
-@No__t-0 použijte k získání instance `ILogger`, která jako kategorii používá plně kvalifikovaný název typu `T`:
+Pomocí `ILogger<T>` získat `ILogger` instanci, která jako kategorii používá plně kvalifikovaný název typu `T`:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -346,7 +469,7 @@ Chcete-li explicitně zadat kategorii, zavolejte `ILoggerFactory.CreateLogger`:
 
 ## <a name="log-level"></a>Úroveň protokolování
 
-Každý protokol Určuje hodnotu @no__t 0. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat protokol `Information`, pokud metoda končí normálně, a protokol `Warning`, když metoda vrátí stavový kód 404, který *nebyl nalezen* .
+Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat protokol `Information`, pokud metoda končí normálně, a protokol `Warning`, když metoda vrátí stavový kód 404, který *nebyl nalezen* .
 
 Následující kód vytvoří protokoly `Information` a `Warning`:
 
@@ -392,7 +515,7 @@ ASP.NET Core definuje následující úrovně protokolu seřazené od nejnižš�
 
   Chyby, které vyžadují okamžitou pozornost. Příklady: scénáře ztráty dat, nedostatek místa na disku.
 
-Úroveň protokolu můžete použít k určení, kolik výstupu protokolu se zapisuje do konkrétního úložného média nebo okna pro zobrazení. Například:
+Úroveň protokolu můžete použít k určení, kolik výstupu protokolu se zapisuje do konkrétního úložného média nebo okna pro zobrazení. Příklad:
 
 * V produkčním prostředí:
   * Přihlášení na úrovni `Trace` až `Information` vytvoří velké množství podrobných zpráv protokolu. Pokud chcete řídit náklady a nepřekračuje limity úložiště dat, protokolujte `Trace` prostřednictvím zpráv na úrovni `Information` až po úložiště dat s nízkým objemem dat s nízkou úrovní nákladů.
@@ -403,7 +526,7 @@ ASP.NET Core definuje následující úrovně protokolu seřazené od nejnižš�
 
 Část [filtrování protokolu](#log-filtering) dále v tomto článku vysvětluje, jak řídit, které úrovně protokolu zprostředkovateli zpracovává.
 
-ASP.NET Core zapisuje protokoly pro události rozhraní .NET Framework. Příklady protokolů výše v tomto článku vyloučily protokoly @no__t úroveň 0, takže se nevytvořily žádné protokoly úrovní `Debug` ani `Trace`. Tady je příklad protokolů konzoly vytvořených spuštěním ukázkové aplikace nakonfigurované tak, aby zobrazovaly protokoly `Debug`:
+ASP.NET Core zapisuje protokoly pro události rozhraní .NET Framework. Příklady protokolů výše v tomto článku vyloučily protokoly pod úrovní `Information`, takže se nevytvořily žádné `Debug` ani protokoly úrovní `Trace`. Tady je příklad protokolů konzoly vytvořených spuštěním ukázkové aplikace nakonfigurované tak, aby zobrazovaly protokoly `Debug`:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -548,7 +671,7 @@ Protokolovací rozhraní funguje tímto způsobem, aby zprostředkovatelé proto
 _logger.LogInformation("Getting item {Id} at {RequestTime}", id, DateTime.Now);
 ```
 
-Pokud odesíláte protokoly do Azure Table Storage, Každá entita tabulky Azure může mít vlastnosti `ID` a `RequestTime`, což zjednodušuje dotazy na data protokolu. Dotaz může najít všechny protokoly v rámci určitého rozsahu @no__t 0, aniž by došlo k analýze času v textové zprávě.
+Pokud odesíláte protokoly do Azure Table Storage, Každá entita tabulky Azure může mít vlastnosti `ID` a `RequestTime`, což zjednodušuje dotazy na data protokolu. Dotaz může najít všechny protokoly v rámci určitého rozsahu `RequestTime`, aniž by bylo potřeba analyzovat časový limit textové zprávy.
 
 ## <a name="logging-exceptions"></a>Protokolování výjimek
 
@@ -623,16 +746,16 @@ Druhý `AddFilter` určuje poskytovatele ladění pomocí jeho názvu typu. Prvn
 
 Konfigurační data a kód `AddFilter` uvedené v předchozích příkladech vytvoří pravidla uvedená v následující tabulce. Prvních šest přicházejí z příkladu konfigurace a poslední dva pocházejí z příkladu kódu.
 
-| Číslo | Zprostředkovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
+| Číslo | Zprostředkovatele      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| 1      | Ladění         | Všechny kategorie                          | Informace       |
-| 2      | Stromu       | Microsoft. AspNetCore. Mvc. Razor. Internal | Upozornění           |
-| 3      | Stromu       | Microsoft. AspNetCore. Mvc. Razor. Razor    | Ladění             |
-| 4      | Stromu       | Microsoft. AspNetCore. Mvc. Razor          | Chyba             |
-| 5      | Stromu       | Všechny kategorie                          | Informace       |
-| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladění             |
-| 7      | Všichni poskytovatelé | Systému                                  | Ladění             |
-| 8      | Ladění         | Microsoft                               | Trasování             |
+| první      | Ladit         | Všechny kategorie                          | Informace o       |
+| odst      | Konzola       | Microsoft. AspNetCore. Mvc. Razor. Internal | Upozornění           |
+| 3      | Konzola       | Microsoft. AspNetCore. Mvc. Razor. Razor    | Ladit             |
+| 4      | Konzola       | Microsoft. AspNetCore. Mvc. Razor          | Chyba             |
+| 5      | Konzola       | Všechny kategorie                          | Informace o       |
+| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
+| čl      | Všichni poskytovatelé | Systém                                  | Ladit             |
+| 8      | Ladit         | Microsoft                               | Přehled             |
 
 Když se vytvoří objekt `ILogger`, objekt `ILoggerFactory` vybere jedno pravidlo pro každého poskytovatele, které se použije pro tento protokolovací nástroj. Všechny zprávy napsané instancí `ILogger` jsou filtrovány na základě vybraných pravidel. V dostupných pravidlech se vybere nejpřesnější pravidlo pro jednotlivé dvojice zprostředkovatel a kategorie.
 
@@ -648,14 +771,14 @@ Pomocí předchozího seznamu pravidel Předpokládejme, že vytvoříte objekt 
 * Pro poskytovatele ladění platí pravidla 1, 6 a 8. Pravidlo 8 je nejvíce specifické, takže je to ten vybraný.
 * Pro poskytovatele konzoly platí pravidla 3, 4, 5 a 6. Pravidlo 3 je nejvíce specifické.
 
-Výsledná instance `ILogger` odesílá do poskytovatele ladění protokoly `Trace` a vyšší úrovně. Do poskytovatele konzoly se odesílají protokoly @no__t úrovně 0 a vyšší.
+Výsledná instance `ILogger` odesílá do poskytovatele ladění protokoly `Trace` a vyšší úrovně. Do poskytovatele konzoly se odešlou protokoly `Debug` úrovně a vyšší.
 
 ### <a name="provider-aliases"></a>Aliasy zprostředkovatele
 
 Každý zprostředkovatel definuje *alias* , který lze použít v konfiguraci místo plně kvalifikovaného názvu typu.  Pro předdefinované poskytovatele použijte následující aliasy:
 
-* Stromu
-* Ladění
+* Konzola
+* Ladit
 * EventSource
 * EventLog
 * TraceSource
@@ -683,7 +806,7 @@ Pokud nenastavíte explicitně minimální úroveň, výchozí hodnota je `Infor
 
 ### <a name="filter-functions"></a>Funkce filtru
 
-Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemají pravidla přiřazena pomocí konfigurace nebo kódu. Kód ve funkci má přístup k typu poskytovatele, kategorii a úrovni protokolu. Například:
+Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemají pravidla přiřazena pomocí konfigurace nebo kódu. Kód ve funkci má přístup k typu poskytovatele, kategorii a úrovni protokolu. Příklad:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -701,7 +824,7 @@ Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemaj�
 
 Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core s poznámkami o tom, jaké protokoly se mají od nich očekávat:
 
-| Category                            | Poznámky |
+| Kategorie                            | Poznámky |
 | ----------------------------------- | ----- |
 | Microsoft. AspNetCore                | Obecná diagnostika ASP.NET Core. |
 | Microsoft. AspNetCore. DataProtection | Které klíče byly zváženy, nalezeny a použity. |
@@ -717,7 +840,7 @@ Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core 
 
  *Obor* může seskupit sadu logických operací. Toto seskupení lze použít pro připojení stejných dat ke každému protokolu, který je vytvořen jako součást sady. Každý protokol vytvořený jako součást zpracování transakce může například zahrnovat ID transakce.
 
-Obor je typ @no__t 0, který je vrácený metodou <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> a trvá, dokud nebude uvolněn. Použijte rozsah vybalením volání protokolovacího nástroje v bloku `using`:
+Obor je typ `IDisposable`, který je vrácen metodou <xref:Microsoft.Extensions.Logging.ILogger.BeginScope*> a trvá, dokud nebude uvolněn. Použijte rozsah vybalením volání protokolovacího nástroje v bloku `using`:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -767,7 +890,7 @@ warn: TodoApiSample.Controllers.TodoController[4000]
 
 ASP.NET Core dodává následující poskytovatele:
 
-* [Stromu](#console-provider)
+* [Console](#console-provider)
 * [Ladí](#debug-provider)
 * [EventSource](#eventsource-provider)
 * [EventLog](#windows-eventlog-provider)
@@ -885,9 +1008,9 @@ Když nasadíte aplikaci do App Service, aplikace respektuje nastavení v část
 * **Protokolování aplikace (systém souborů)**
 * **Protokolování aplikace (BLOB)**
 
-Výchozí umístění souborů protokolu je ve složce *D: \\home @ no__t-2LogFiles @ no__t-3Application* a výchozí název souboru je *Diagnostics-YYYYMMDD. txt*. Výchozí omezení velikosti souboru je 10 MB a výchozí maximální počet uchovávaných souborů je 2. Výchozí název objektu BLOB je *{App-Name} {timestamp}/yyyy/MM/DD/hh/{GUID}-applicationLog.txt*.
+Výchozí umístění souborů protokolu je ve složce *D:\\home\\* soubory protokolu\\složka aplikace a výchozí název souboru je *Diagnostics-YYYYMMDD. txt*. Výchozí omezení velikosti souboru je 10 MB a výchozí maximální počet uchovávaných souborů je 2. Výchozí název objektu BLOB je *{App-Name} {timestamp}/yyyy/MM/DD/hh/{GUID}-applicationLog.txt*.
 
-Zprostředkovatel funguje pouze v případě, že projekt běží v prostředí Azure. Nemá žádný vliv, pokud se projekt spouští místně @ no__t-0it nepíše do místních souborů nebo místního vývojového úložiště pro objekty blob.
+Zprostředkovatel funguje pouze v případě, že projekt běží v prostředí Azure. Nemá žádný vliv, pokud se projekt spouští místně&mdash;nepíše do místních souborů nebo místního vývojového úložiště pro objekty blob.
 
 #### <a name="azure-log-streaming"></a>Streamování protokolů Azure
 
@@ -903,7 +1026,7 @@ Konfigurace streamování protokolů Azure:
 * Nastavte **protokolování aplikace (systém souborů)** na **zapnuto**.
 * Vyberte **úroveň**protokolu.
 
-Pokud chcete zobrazit zprávy aplikace, přejděte na stránku **streamu protokolu** . Protokolují ho aplikace přes rozhraní @no__t 0.
+Pokud chcete zobrazit zprávy aplikace, přejděte na stránku **streamu protokolu** . Jsou protokolovány aplikací prostřednictvím rozhraní `ILogger`.
 
 ### <a name="azure-application-insights-trace-logging"></a>Protokolování trasování Azure Application Insights
 
@@ -911,9 +1034,9 @@ Balíček poskytovatele [Microsoft. Extensions. Logging. ApplicationInsights](ht
 
 Zprostředkovatel protokolování je zahrnutý jako závislost na [Microsoft. ApplicationInsights. AspNetCore](https://www.nuget.org/packages/Microsoft.ApplicationInsights.AspNetCore), což je balíček, který poskytuje veškerou dostupnou telemetrii pro ASP.NET Core. Pokud použijete tento balíček, nemusíte instalovat balíček poskytovatele.
 
-Nepoužívejte balíček [Microsoft. ApplicationInsights. Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) @ no__t-1that's pro ASP.NET 4. x.
+Nepoužívejte balíček [Microsoft. ApplicationInsights. Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) , který je k dis&mdash;pro ASP.NET 4. x.
 
-Další informace najdete v následujících materiálech:
+Další informace naleznete v následujících materiálech:
 
 * [Přehled Application Insights](/azure/application-insights/app-insights-overview)
 * [Application Insights pro ASP.NET Core aplikace](/azure/azure-monitor/app/asp-net-core) – začněte zde, pokud chcete implementovat celou řadu Application Insights telemetrie spolu s protokolováním.
@@ -945,6 +1068,6 @@ Použití architektury třetí strany se podobá použití jednoho z vestavěný
 
 Další informace najdete v dokumentaci pro každého poskytovatele. Microsoft nepodporuje zprostředkovatele protokolování třetích stran.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/logging/loggermessage>

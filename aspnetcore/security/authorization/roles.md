@@ -1,28 +1,28 @@
 ---
-title: Autorizace na základě rolí v ASP.NET Core
+title: Ověřování na základě rolí v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak omezit přístup kontroleru a akce ASP.NET Core předáním role atribut Authorize.
+description: Zjistěte, jak omezit ASP.NET Core kontroler a přístup k akcím předáním rolí do autorizačního atributu.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/roles
-ms.openlocfilehash: 0e01e1976e2721ca64720a67c6341661f646395c
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 28aa3df6aa661d0b762df78fe611cd827af43f75
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900333"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73660055"
 ---
-# <a name="role-based-authorization-in-aspnet-core"></a>Autorizace na základě rolí v ASP.NET Core
+# <a name="role-based-authorization-in-aspnet-core"></a>Ověřování na základě rolí v ASP.NET Core
 
 <a name="security-authorization-role-based"></a>
 
-Když se vytvoří identitu, která může patřit do jedné nebo více rolí. Například Tracy může patřit do role správce a uživatele, zatímco Scott lze přiřadit pouze k roli uživatele. Způsob vytvoření a správa těchto rolí závisí na záložním úložišti proces autorizace. Role jsou vystaveny pro vývojáře prostřednictvím [IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole) metodu [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal) třídy.
+Při vytvoření identity může patřit k jedné nebo více rolím. Tracy může například patřit rolím Správce a uživatele, zatímco Scott může patřit pouze do role uživatele. Způsob vytváření a správy těchto rolí závisí na záložním úložišti procesu autorizace. Role jsou k dispozici vývojářům prostřednictvím metody [IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole) třídy [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal) .
 
-## <a name="adding-role-checks"></a>Přidání kontroly role
+## <a name="adding-role-checks"></a>Přidávání kontrol rolí
 
-Kontroly autorizace na základě rolí jsou deklarativní&mdash;vývojář vloží je do jejich kód proti kontroler nebo akce v kontroleru, zadání role, které aktuální uživatel musí být členem skupiny pro přístup k požadovanému prostředku.
+Kontroly autorizace na základě rolí jsou deklarativní&mdash;vývojář je vloží do svého kódu, proti kontroleru nebo akci v rámci kontroleru, přičemž určení rolí, které musí být aktuálním uživatelem členem, aby bylo možné získat přístup k požadovanému prostředku.
 
-Například následující kód omezuje přístup na všechny akce na `AdministrationController` uživatelům, kteří jsou členy `Administrator` role:
+Následující kód například omezuje přístup k jakýmkoli akcím v `AdministrationController` uživatelům, kteří jsou členy role `Administrator`:
 
 ```csharp
 [Authorize(Roles = "Administrator")]
@@ -31,7 +31,7 @@ public class AdministrationController : Controller
 }
 ```
 
-Můžete určit víc rolí jako seznam oddělený čárkami:
+Jako seznam oddělený čárkami můžete zadat více rolí:
 
 ```csharp
 [Authorize(Roles = "HRManager,Finance")]
@@ -40,9 +40,9 @@ public class SalaryController : Controller
 }
 ```
 
-Tento kontroler by přístupný pouze uživatelé, kteří jsou členy z `HRManager` role nebo `Finance` role.
+Tento kontroler by měl být přístupný jenom uživatelům, kteří jsou členy role `HRManager` nebo role `Finance`.
 
-Pokud použijete víc atributů uživatele s přístupem k musí být členem všech rolí zadaný; Následující ukázka vyžaduje, že uživatel musí být členem obou `PowerUser` a `ControlPanelUser` role.
+Pokud použijete více atributů, musí být přistupující uživatel členem všech zadaných rolí. Následující ukázka vyžaduje, aby uživatel byl členem role `PowerUser` i `ControlPanelUser`.
 
 ```csharp
 [Authorize(Roles = "PowerUser")]
@@ -52,7 +52,7 @@ public class ControlPanelController : Controller
 }
 ```
 
-Dále můžete omezit přístup s použitím atributů autorizace další role na úrovni akce:
+Přístup můžete dále omezit použitím atributů autorizace další role na úrovni akce:
 
 ```csharp
 [Authorize(Roles = "Administrator, PowerUser")]
@@ -69,9 +69,9 @@ public class ControlPanelController : Controller
 }
 ```
 
-V předchozím kódu fragmentu členů `Administrator` role nebo `PowerUser` role kontroleru přístup a `SetTime` akce, ale jen členové `Administrator` role přístup `ShutDown` akce.
+V předchozím fragmentu kódu mohou členové role `Administrator` nebo role `PowerUser` získat přístup k řadiči a akci `SetTime`, ale k akci `ShutDown` mají přístup pouze členové role `Administrator`.
 
-Můžete také uzamknout řadiči, ale povolit anonymní, neověření přístup k jednotlivým akcím.
+Můžete také Uzamknout kontroler, ale povolit anonymní a neověřený přístup k jednotlivým akcím.
 
 ```csharp
 [Authorize]
@@ -90,10 +90,10 @@ public class ControlPanelController : Controller
 
 ::: moniker range=">= aspnetcore-2.0"
 
-Pro stránky Razor `AuthorizeAttribute` lze použít buď:
+V případě Razor Pages lze `AuthorizeAttribute` použít buď takto:
 
-* Použití [konvence](xref:razor-pages/razor-pages-conventions#page-model-action-conventions), nebo
-* Použití `AuthorizeAttribute` k `PageModel` instance:
+* Pomocí [konvence](xref:razor-pages/razor-pages-conventions#page-model-action-conventions)nebo
+* Použití `AuthorizeAttribute` na instanci `PageModel`:
 
 ```csharp
 [Authorize(Policy = "RequireAdministratorRole")]
@@ -106,15 +106,32 @@ public class UpdateModel : PageModel
 ```
 
 > [!IMPORTANT]
-> Atributy, včetně filtru `AuthorizeAttribute`, lze použít pouze na PageModel a nejde použít u metody obslužné rutiny konkrétní stránky.
+> Atributy filtru, včetně `AuthorizeAttribute`, lze použít pouze na PageModel a nelze je použít na konkrétní metody obslužné rutiny stránky.
 ::: moniker-end
 
 <a name="security-authorization-role-policy"></a>
 
 ## <a name="policy-based-role-checks"></a>Kontroly rolí na základě zásad
 
-Požadavky na role se dají vyjádřit také pomocí nové zásady syntaxe, kde vývojáři zaregistruje jako součást konfigurace služby ověření zásad při spuštění. K tomuto obvykle dochází u `ConfigureServices()` ve vašich *Startup.cs* souboru.
+Požadavky role lze také vyjádřit pomocí nové syntaxe zásad, kde vývojář při spuštění zaregistruje zásadu při spuštění jako součást konfigurace autorizační služby. K tomu obvykle dochází v `ConfigureServices()` v souboru *Startup.cs* .
 
+::: moniker range=">= aspnetcore-3.0"
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllersWithViews();
+    services.AddRazorPages();
+
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("RequireAdministratorRole",
+             policy => policy.RequireRole("Administrator"));
+    });
+}
+```
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
@@ -127,8 +144,9 @@ public void ConfigureServices(IServiceCollection services)
     });
 }
 ```
+::: moniker-end
 
-Zásady se aplikují pomocí `Policy` vlastnost `AuthorizeAttribute` atribut:
+Zásady se aplikují pomocí vlastnosti `Policy` u atributu `AuthorizeAttribute`:
 
 ```csharp
 [Authorize(Policy = "RequireAdministratorRole")]
@@ -138,17 +156,24 @@ public IActionResult Shutdown()
 }
 ```
 
-Pokud chcete zadat víc rolí povolené v požadavku, můžete je zadat jako parametry `RequireRole` metody:
+Pokud chcete v požadavku zadat více povolených rolí, můžete je zadat jako parametry `RequireRole` metody:
 
 ```csharp
 options.AddPolicy("ElevatedRights", policy =>
                   policy.RequireRole("Administrator", "PowerUser", "BackupAdministrator"));
 ```
 
-Tento příklad povolí uživatelům patřícím do `Administrator`, `PowerUser` nebo `BackupAdministrator` role.
+Tento příklad autorizuje uživatele, kteří patří do rolí `Administrator`, `PowerUser` nebo `BackupAdministrator`.
 
-### <a name="add-role-services-to-identity"></a>Přidání služby Role na identitu
+### <a name="add-role-services-to-identity"></a>Přidání služeb role k identitě
 
-Připojit [kliknutím na Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) přidat služby rolí:
+Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:
 
-[!code-csharp[](roles/samples/Startup.cs?name=snippet&highlight=7)]
+::: moniker range=">= aspnetcore-3.0"
+[!code-csharp[](roles/samples/3_0/Startup.cs?name=snippet&highlight=7)]
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+[!code-csharp[](roles/samples/2_2/Startup.cs?name=snippet&highlight=7)]
+::: moniker-end
+
