@@ -1,28 +1,28 @@
 ---
-title: Autorizace na základě rolí v ASP.NET Core
+title: Ověřování na základě rolí v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak omezit přístup kontroleru a akce ASP.NET Core předáním role atribut Authorize.
+description: Zjistěte, jak omezit ASP.NET Core kontroler a přístup k akcím předáním rolí do autorizačního atributu.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/roles
-ms.openlocfilehash: 0e01e1976e2721ca64720a67c6341661f646395c
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 28aa3df6aa661d0b762df78fe611cd827af43f75
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900333"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73660055"
 ---
-# <a name="role-based-authorization-in-aspnet-core"></a><span data-ttu-id="eeb8a-103">Autorizace na základě rolí v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="eeb8a-103">Role-based authorization in ASP.NET Core</span></span>
+# <a name="role-based-authorization-in-aspnet-core"></a><span data-ttu-id="f31f4-103">Ověřování na základě rolí v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="f31f4-103">Role-based authorization in ASP.NET Core</span></span>
 
 <a name="security-authorization-role-based"></a>
 
-<span data-ttu-id="eeb8a-104">Když se vytvoří identitu, která může patřit do jedné nebo více rolí.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-104">When an identity is created it may belong to one or more roles.</span></span> <span data-ttu-id="eeb8a-105">Například Tracy může patřit do role správce a uživatele, zatímco Scott lze přiřadit pouze k roli uživatele.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-105">For example, Tracy may belong to the Administrator and User roles whilst Scott may only belong to the User role.</span></span> <span data-ttu-id="eeb8a-106">Způsob vytvoření a správa těchto rolí závisí na záložním úložišti proces autorizace.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-106">How these roles are created and managed depends on the backing store of the authorization process.</span></span> <span data-ttu-id="eeb8a-107">Role jsou vystaveny pro vývojáře prostřednictvím [IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole) metodu [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal) třídy.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-107">Roles are exposed to the developer through the [IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole) method on the [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal) class.</span></span>
+<span data-ttu-id="f31f4-104">Při vytvoření identity může patřit k jedné nebo více rolím.</span><span class="sxs-lookup"><span data-stu-id="f31f4-104">When an identity is created it may belong to one or more roles.</span></span> <span data-ttu-id="f31f4-105">Tracy může například patřit rolím Správce a uživatele, zatímco Scott může patřit pouze do role uživatele.</span><span class="sxs-lookup"><span data-stu-id="f31f4-105">For example, Tracy may belong to the Administrator and User roles whilst Scott may only belong to the User role.</span></span> <span data-ttu-id="f31f4-106">Způsob vytváření a správy těchto rolí závisí na záložním úložišti procesu autorizace.</span><span class="sxs-lookup"><span data-stu-id="f31f4-106">How these roles are created and managed depends on the backing store of the authorization process.</span></span> <span data-ttu-id="f31f4-107">Role jsou k dispozici vývojářům prostřednictvím metody [IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole) třídy [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal) .</span><span class="sxs-lookup"><span data-stu-id="f31f4-107">Roles are exposed to the developer through the [IsInRole](/dotnet/api/system.security.principal.genericprincipal.isinrole) method on the [ClaimsPrincipal](/dotnet/api/system.security.claims.claimsprincipal) class.</span></span>
 
-## <a name="adding-role-checks"></a><span data-ttu-id="eeb8a-108">Přidání kontroly role</span><span class="sxs-lookup"><span data-stu-id="eeb8a-108">Adding role checks</span></span>
+## <a name="adding-role-checks"></a><span data-ttu-id="f31f4-108">Přidávání kontrol rolí</span><span class="sxs-lookup"><span data-stu-id="f31f4-108">Adding role checks</span></span>
 
-<span data-ttu-id="eeb8a-109">Kontroly autorizace na základě rolí jsou deklarativní&mdash;vývojář vloží je do jejich kód proti kontroler nebo akce v kontroleru, zadání role, které aktuální uživatel musí být členem skupiny pro přístup k požadovanému prostředku.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-109">Role-based authorization checks are declarative&mdash;the developer embeds them within their code, against a controller or an action within a controller, specifying roles which the current user must be a member of to access the requested resource.</span></span>
+<span data-ttu-id="f31f4-109">Kontroly autorizace na základě rolí jsou deklarativní&mdash;vývojář je vloží do svého kódu, proti kontroleru nebo akci v rámci kontroleru, přičemž určení rolí, které musí být aktuálním uživatelem členem, aby bylo možné získat přístup k požadovanému prostředku.</span><span class="sxs-lookup"><span data-stu-id="f31f4-109">Role-based authorization checks are declarative&mdash;the developer embeds them within their code, against a controller or an action within a controller, specifying roles which the current user must be a member of to access the requested resource.</span></span>
 
-<span data-ttu-id="eeb8a-110">Například následující kód omezuje přístup na všechny akce na `AdministrationController` uživatelům, kteří jsou členy `Administrator` role:</span><span class="sxs-lookup"><span data-stu-id="eeb8a-110">For example, the following code limits access to any actions on the `AdministrationController` to users who are a member of the `Administrator` role:</span></span>
+<span data-ttu-id="f31f4-110">Následující kód například omezuje přístup k jakýmkoli akcím v `AdministrationController` uživatelům, kteří jsou členy role `Administrator`:</span><span class="sxs-lookup"><span data-stu-id="f31f4-110">For example, the following code limits access to any actions on the `AdministrationController` to users who are a member of the `Administrator` role:</span></span>
 
 ```csharp
 [Authorize(Roles = "Administrator")]
@@ -31,7 +31,7 @@ public class AdministrationController : Controller
 }
 ```
 
-<span data-ttu-id="eeb8a-111">Můžete určit víc rolí jako seznam oddělený čárkami:</span><span class="sxs-lookup"><span data-stu-id="eeb8a-111">You can specify multiple roles as a comma separated list:</span></span>
+<span data-ttu-id="f31f4-111">Jako seznam oddělený čárkami můžete zadat více rolí:</span><span class="sxs-lookup"><span data-stu-id="f31f4-111">You can specify multiple roles as a comma separated list:</span></span>
 
 ```csharp
 [Authorize(Roles = "HRManager,Finance")]
@@ -40,9 +40,9 @@ public class SalaryController : Controller
 }
 ```
 
-<span data-ttu-id="eeb8a-112">Tento kontroler by přístupný pouze uživatelé, kteří jsou členy z `HRManager` role nebo `Finance` role.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-112">This controller would be only accessible by users who are members of the `HRManager` role or the `Finance` role.</span></span>
+<span data-ttu-id="f31f4-112">Tento kontroler by měl být přístupný jenom uživatelům, kteří jsou členy role `HRManager` nebo role `Finance`.</span><span class="sxs-lookup"><span data-stu-id="f31f4-112">This controller would be only accessible by users who are members of the `HRManager` role or the `Finance` role.</span></span>
 
-<span data-ttu-id="eeb8a-113">Pokud použijete víc atributů uživatele s přístupem k musí být členem všech rolí zadaný; Následující ukázka vyžaduje, že uživatel musí být členem obou `PowerUser` a `ControlPanelUser` role.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-113">If you apply multiple attributes then an accessing user must be a member of all the roles specified; the following sample requires that a user must be a member of both the `PowerUser` and `ControlPanelUser` role.</span></span>
+<span data-ttu-id="f31f4-113">Pokud použijete více atributů, musí být přistupující uživatel členem všech zadaných rolí. Následující ukázka vyžaduje, aby uživatel byl členem role `PowerUser` i `ControlPanelUser`.</span><span class="sxs-lookup"><span data-stu-id="f31f4-113">If you apply multiple attributes then an accessing user must be a member of all the roles specified; the following sample requires that a user must be a member of both the `PowerUser` and `ControlPanelUser` role.</span></span>
 
 ```csharp
 [Authorize(Roles = "PowerUser")]
@@ -52,7 +52,7 @@ public class ControlPanelController : Controller
 }
 ```
 
-<span data-ttu-id="eeb8a-114">Dále můžete omezit přístup s použitím atributů autorizace další role na úrovni akce:</span><span class="sxs-lookup"><span data-stu-id="eeb8a-114">You can further limit access by applying additional role authorization attributes at the action level:</span></span>
+<span data-ttu-id="f31f4-114">Přístup můžete dále omezit použitím atributů autorizace další role na úrovni akce:</span><span class="sxs-lookup"><span data-stu-id="f31f4-114">You can further limit access by applying additional role authorization attributes at the action level:</span></span>
 
 ```csharp
 [Authorize(Roles = "Administrator, PowerUser")]
@@ -69,9 +69,9 @@ public class ControlPanelController : Controller
 }
 ```
 
-<span data-ttu-id="eeb8a-115">V předchozím kódu fragmentu členů `Administrator` role nebo `PowerUser` role kontroleru přístup a `SetTime` akce, ale jen členové `Administrator` role přístup `ShutDown` akce.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-115">In the previous code snippet members of the `Administrator` role or the `PowerUser` role can access the controller and the `SetTime` action, but only members of the `Administrator` role can access the `ShutDown` action.</span></span>
+<span data-ttu-id="f31f4-115">V předchozím fragmentu kódu mohou členové role `Administrator` nebo role `PowerUser` získat přístup k řadiči a akci `SetTime`, ale k akci `ShutDown` mají přístup pouze členové role `Administrator`.</span><span class="sxs-lookup"><span data-stu-id="f31f4-115">In the previous code snippet members of the `Administrator` role or the `PowerUser` role can access the controller and the `SetTime` action, but only members of the `Administrator` role can access the `ShutDown` action.</span></span>
 
-<span data-ttu-id="eeb8a-116">Můžete také uzamknout řadiči, ale povolit anonymní, neověření přístup k jednotlivým akcím.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-116">You can also lock down a controller but allow anonymous, unauthenticated access to individual actions.</span></span>
+<span data-ttu-id="f31f4-116">Můžete také Uzamknout kontroler, ale povolit anonymní a neověřený přístup k jednotlivým akcím.</span><span class="sxs-lookup"><span data-stu-id="f31f4-116">You can also lock down a controller but allow anonymous, unauthenticated access to individual actions.</span></span>
 
 ```csharp
 [Authorize]
@@ -90,10 +90,10 @@ public class ControlPanelController : Controller
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="eeb8a-117">Pro stránky Razor `AuthorizeAttribute` lze použít buď:</span><span class="sxs-lookup"><span data-stu-id="eeb8a-117">For Razor Pages, the `AuthorizeAttribute` can be applied by either:</span></span>
+<span data-ttu-id="f31f4-117">V případě Razor Pages lze `AuthorizeAttribute` použít buď takto:</span><span class="sxs-lookup"><span data-stu-id="f31f4-117">For Razor Pages, the `AuthorizeAttribute` can be applied by either:</span></span>
 
-* <span data-ttu-id="eeb8a-118">Použití [konvence](xref:razor-pages/razor-pages-conventions#page-model-action-conventions), nebo</span><span class="sxs-lookup"><span data-stu-id="eeb8a-118">Using a [convention](xref:razor-pages/razor-pages-conventions#page-model-action-conventions), or</span></span>
-* <span data-ttu-id="eeb8a-119">Použití `AuthorizeAttribute` k `PageModel` instance:</span><span class="sxs-lookup"><span data-stu-id="eeb8a-119">Applying the `AuthorizeAttribute` to the `PageModel` instance:</span></span>
+* <span data-ttu-id="f31f4-118">Pomocí [konvence](xref:razor-pages/razor-pages-conventions#page-model-action-conventions)nebo</span><span class="sxs-lookup"><span data-stu-id="f31f4-118">Using a [convention](xref:razor-pages/razor-pages-conventions#page-model-action-conventions), or</span></span>
+* <span data-ttu-id="f31f4-119">Použití `AuthorizeAttribute` na instanci `PageModel`:</span><span class="sxs-lookup"><span data-stu-id="f31f4-119">Applying the `AuthorizeAttribute` to the `PageModel` instance:</span></span>
 
 ```csharp
 [Authorize(Policy = "RequireAdministratorRole")]
@@ -106,15 +106,32 @@ public class UpdateModel : PageModel
 ```
 
 > [!IMPORTANT]
-> <span data-ttu-id="eeb8a-120">Atributy, včetně filtru `AuthorizeAttribute`, lze použít pouze na PageModel a nejde použít u metody obslužné rutiny konkrétní stránky.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-120">Filter attributes, including `AuthorizeAttribute`, can only be applied to PageModel and cannot be applied to specific page handler methods.</span></span>
+> <span data-ttu-id="f31f4-120">Atributy filtru, včetně `AuthorizeAttribute`, lze použít pouze na PageModel a nelze je použít na konkrétní metody obslužné rutiny stránky.</span><span class="sxs-lookup"><span data-stu-id="f31f4-120">Filter attributes, including `AuthorizeAttribute`, can only be applied to PageModel and cannot be applied to specific page handler methods.</span></span>
 ::: moniker-end
 
 <a name="security-authorization-role-policy"></a>
 
-## <a name="policy-based-role-checks"></a><span data-ttu-id="eeb8a-121">Kontroly rolí na základě zásad</span><span class="sxs-lookup"><span data-stu-id="eeb8a-121">Policy based role checks</span></span>
+## <a name="policy-based-role-checks"></a><span data-ttu-id="f31f4-121">Kontroly rolí na základě zásad</span><span class="sxs-lookup"><span data-stu-id="f31f4-121">Policy based role checks</span></span>
 
-<span data-ttu-id="eeb8a-122">Požadavky na role se dají vyjádřit také pomocí nové zásady syntaxe, kde vývojáři zaregistruje jako součást konfigurace služby ověření zásad při spuštění.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-122">Role requirements can also be expressed using the new Policy syntax, where a developer registers a policy at startup as part of the Authorization service configuration.</span></span> <span data-ttu-id="eeb8a-123">K tomuto obvykle dochází u `ConfigureServices()` ve vašich *Startup.cs* souboru.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-123">This normally occurs in `ConfigureServices()` in your *Startup.cs* file.</span></span>
+<span data-ttu-id="f31f4-122">Požadavky role lze také vyjádřit pomocí nové syntaxe zásad, kde vývojář při spuštění zaregistruje zásadu při spuštění jako součást konfigurace autorizační služby.</span><span class="sxs-lookup"><span data-stu-id="f31f4-122">Role requirements can also be expressed using the new Policy syntax, where a developer registers a policy at startup as part of the Authorization service configuration.</span></span> <span data-ttu-id="f31f4-123">K tomu obvykle dochází v `ConfigureServices()` v souboru *Startup.cs* .</span><span class="sxs-lookup"><span data-stu-id="f31f4-123">This normally occurs in `ConfigureServices()` in your *Startup.cs* file.</span></span>
 
+::: moniker range=">= aspnetcore-3.0"
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddControllersWithViews();
+    services.AddRazorPages();
+
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("RequireAdministratorRole",
+             policy => policy.RequireRole("Administrator"));
+    });
+}
+```
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
@@ -127,8 +144,9 @@ public void ConfigureServices(IServiceCollection services)
     });
 }
 ```
+::: moniker-end
 
-<span data-ttu-id="eeb8a-124">Zásady se aplikují pomocí `Policy` vlastnost `AuthorizeAttribute` atribut:</span><span class="sxs-lookup"><span data-stu-id="eeb8a-124">Policies are applied using the `Policy` property on the `AuthorizeAttribute` attribute:</span></span>
+<span data-ttu-id="f31f4-124">Zásady se aplikují pomocí vlastnosti `Policy` u atributu `AuthorizeAttribute`:</span><span class="sxs-lookup"><span data-stu-id="f31f4-124">Policies are applied using the `Policy` property on the `AuthorizeAttribute` attribute:</span></span>
 
 ```csharp
 [Authorize(Policy = "RequireAdministratorRole")]
@@ -138,17 +156,24 @@ public IActionResult Shutdown()
 }
 ```
 
-<span data-ttu-id="eeb8a-125">Pokud chcete zadat víc rolí povolené v požadavku, můžete je zadat jako parametry `RequireRole` metody:</span><span class="sxs-lookup"><span data-stu-id="eeb8a-125">If you want to specify multiple allowed roles in a requirement then you can specify them as parameters to the `RequireRole` method:</span></span>
+<span data-ttu-id="f31f4-125">Pokud chcete v požadavku zadat více povolených rolí, můžete je zadat jako parametry `RequireRole` metody:</span><span class="sxs-lookup"><span data-stu-id="f31f4-125">If you want to specify multiple allowed roles in a requirement then you can specify them as parameters to the `RequireRole` method:</span></span>
 
 ```csharp
 options.AddPolicy("ElevatedRights", policy =>
                   policy.RequireRole("Administrator", "PowerUser", "BackupAdministrator"));
 ```
 
-<span data-ttu-id="eeb8a-126">Tento příklad povolí uživatelům patřícím do `Administrator`, `PowerUser` nebo `BackupAdministrator` role.</span><span class="sxs-lookup"><span data-stu-id="eeb8a-126">This example authorizes users who belong to the `Administrator`, `PowerUser` or `BackupAdministrator` roles.</span></span>
+<span data-ttu-id="f31f4-126">Tento příklad autorizuje uživatele, kteří patří do rolí `Administrator`, `PowerUser` nebo `BackupAdministrator`.</span><span class="sxs-lookup"><span data-stu-id="f31f4-126">This example authorizes users who belong to the `Administrator`, `PowerUser` or `BackupAdministrator` roles.</span></span>
 
-### <a name="add-role-services-to-identity"></a><span data-ttu-id="eeb8a-127">Přidání služby Role na identitu</span><span class="sxs-lookup"><span data-stu-id="eeb8a-127">Add Role services to Identity</span></span>
+### <a name="add-role-services-to-identity"></a><span data-ttu-id="f31f4-127">Přidání služeb role k identitě</span><span class="sxs-lookup"><span data-stu-id="f31f4-127">Add Role services to Identity</span></span>
 
-<span data-ttu-id="eeb8a-128">Připojit [kliknutím na Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) přidat služby rolí:</span><span class="sxs-lookup"><span data-stu-id="eeb8a-128">Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:</span></span>
+<span data-ttu-id="f31f4-128">Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:</span><span class="sxs-lookup"><span data-stu-id="f31f4-128">Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:</span></span>
 
-[!code-csharp[](roles/samples/Startup.cs?name=snippet&highlight=7)]
+::: moniker range=">= aspnetcore-3.0"
+[!code-csharp[](roles/samples/3_0/Startup.cs?name=snippet&highlight=7)]
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+[!code-csharp[](roles/samples/2_2/Startup.cs?name=snippet&highlight=7)]
+::: moniker-end
+
