@@ -5,14 +5,14 @@ description: Přečtěte si, jak ASP.NET Core implementuje vkládání závislos
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/12/2019
+ms.date: 11/05/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: b07ed6d1c23454c95778a5942de615684b70bc36
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: c46e7322e86c2836a15bd0720995a8634bb185be
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589892"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634015"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -125,7 +125,7 @@ V ukázkové aplikaci je `IMyDependency` služba zaregistrovaná u konkrétního
 ::: moniker-end
 
 > [!NOTE]
-> Jednotlivé metody rozšíření `services.Add{SERVICE_NAME}` přidávají (a případně nakonfigurují) služby. @No__t_0 například přidá služby Razor Pages a MVC vyžaduje. Doporučujeme, aby aplikace dodržovaly tuto konvenci. Do oboru názvů [Microsoft. Extensions. DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) umístěte metody rozšíření pro zapouzdření skupin registrací služby.
+> Jednotlivé metody rozšíření `services.Add{SERVICE_NAME}` přidávají (a případně nakonfigurují) služby. `services.AddMvc()` například přidá služby Razor Pages a MVC vyžaduje. Doporučujeme, aby aplikace dodržovaly tuto konvenci. Do oboru názvů [Microsoft. Extensions. DependencyInjection](/dotnet/api/microsoft.extensions.dependencyinjection) umístěte metody rozšíření pro zapouzdření skupin registrací služby.
 
 Pokud konstruktor služby vyžaduje [vestavěný typ](/dotnet/csharp/language-reference/keywords/built-in-types-table), například `string`, může být typ vložen pomocí [Konfigurace](xref:fundamentals/configuration/index) nebo [vzoru možností](xref:fundamentals/configuration/options):
 
@@ -396,7 +396,7 @@ V `Startup.ConfigureServices` je každý typ přidán do kontejneru podle jeho p
 
 Služba `IOperationSingletonInstance` používá specifickou instanci se známým ID `Guid.Empty`. Je jasné, že pokud se tento typ používá (jeho identifikátor GUID je všechny nuly).
 
-Ukázková aplikace ukazuje dobu života objektu v rámci a mezi jednotlivými požadavky. @No__t_0 ukázkové aplikace požaduje každý typ `IOperation` a `OperationService`. Na stránce se pak zobrazí všechny hodnoty `OperationId` třídy modelu stránky a hodnot služby prostřednictvím přiřazení vlastností:
+Ukázková aplikace ukazuje dobu života objektu v rámci a mezi jednotlivými požadavky. `IndexModel` ukázkové aplikace požaduje každý typ `IOperation` a `OperationService`. Na stránce se pak zobrazí všechny hodnoty `OperationId` třídy modelu stránky a hodnot služby prostřednictvím přiřazení vlastností:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -571,7 +571,7 @@ Obecně platí, že aplikace by tyto vlastnosti neměla používat přímo. Mís
 Osvědčené postupy:
 
 * Navrhněte služby pro použití injektáže závislosti k získání jejich závislostí.
-* Vyhněte se stavovým a statickým voláním metody.
+* Vyhněte se stavovým, statickým třídám a členům. Navrhněte aplikace, aby místo toho používaly služby s jedním prvkem, což se vyhne vytváření globálního stavu.
 * Vyhněte se přímému vytváření instancí závislých tříd v rámci služeb. Přímá instance Couples kód na konkrétní implementaci.
 * Vytvářejte třídy aplikací malými, dobře faktoringně a snadno testované.
 

@@ -3,14 +3,14 @@ title: Přidání modelu do aplikace Razor Pages v ASP.NET Core
 author: rick-anderson
 description: Zjistěte, jak přidat třídy pro správu filmů v databázi pomocí Entity Framework Core (EF Core).
 ms.author: riande
-ms.date: 9/22/2019
+ms.date: 11/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 4f8b80cb51bd10eb3b136a780dc123c41d61c0a5
-ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
+ms.openlocfilehash: 312b3d4eb13eb04453bf0c3256fc362918157a45
+ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72519075"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73634185"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace Razor Pages v ASP.NET Core
 
@@ -18,7 +18,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V této části jsou přidány třídy pro správu filmů v databázi. Tyto třídy se používají s [Entity Framework Core](/ef/core) (EF Core) pro práci s databází. EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje přístup k datům.
+V této části jsou přidány třídy pro správu filmů v [databázi SQLite](https://www.sqlite.org/index.html)pro různé platformy. Aplikace vytvořené pomocí šablony ASP.NET Core používají databázi SQLite. Třídy modelu aplikace se používají s [Entity Framework Core (EF Core)](/ef/core) ([poskytovatel databáze SQLite EF Core](/ef/core/providers/sqlite)) pro práci s databází. EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje přístup k datům.
 
 Třídy modelu se označují jako třídy POCO (z "objektů CLR v prostém Old"), protože nemají žádnou závislost na EF Core. Definují vlastnosti dat, která jsou uložena v databázi.
 
@@ -198,7 +198,7 @@ Toto upozornění můžete ignorovat, bude opraveno v pozdějším kurzu.
 
 Příkaz migrace generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext`. K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.
 
-Příkaz `update` spustí metodu `Up` v migracích, které nebyly aplikovány. V tomto případě `update` spustí metodu `Up` v souboru *migrations/\<time >-_InitialCreate. cs* , ve kterém se vytvoří databáze.
+Příkaz `update` spustí metodu `Up` v migracích, které nebyly aplikovány. V tomto případě `update` spustí metodu `Up` v části *migrace/\<časového razítka > souboru _InitialCreate. cs* , čímž se vytvoří databáze.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -267,7 +267,7 @@ Další kurz vysvětluje soubory vytvořené pomocí generování uživatelskéh
 <!--  ::: moniker previous version   -->
 ::: moniker range="< aspnetcore-3.0"
 
-V této části jsou přidány třídy pro správu filmů v databázi. Tyto třídy se používají s [Entity Framework Core](/ef/core) (EF Core) pro práci s databází. EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje přístup k datům.
+V této části jsou přidány třídy pro správu filmů v [databázi SQLite](https://www.sqlite.org/index.html)pro různé platformy. Aplikace vytvořené pomocí šablony ASP.NET Core používají databázi SQLite. Třídy modelu aplikace se používají s [Entity Framework Core (EF Core)](/ef/core) ([poskytovatel databáze SQLite EF Core](/ef/core/providers/sqlite)) pro práci s databází. EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje přístup k datům.
 
 Třídy modelu se označují jako třídy POCO (z "objektů CLR v prostém Old"), protože nemají žádnou závislost na EF Core. Definují vlastnosti dat, která jsou uložena v databázi.
 
@@ -425,7 +425,7 @@ Update-Database
 
 Příkaz `Add-Migration` generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext` (v souboru *RazorPagesMovieContext.cs* ). K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je použit název, který popisuje migraci. Další informace najdete v tématu <xref:data/ef-mvc/migrations>.
 
-Příkaz `Update-Database` spustí metodu `Up` v souboru *migrations/\<time-razítko > _InitialCreate. cs* . Metoda `Up` vytvoří databázi.
+Příkaz `Update-Database` spustí metodu `Up` v souboru s *časovou známkou Migration/\<> _InitialCreate. cs* . Metoda `Up` vytvoří databázi.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
