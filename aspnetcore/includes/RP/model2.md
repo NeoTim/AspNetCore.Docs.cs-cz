@@ -2,11 +2,11 @@
 
 ### <a name="add-a-database-context-class"></a>Přidat třídu kontextu databáze
 
-V projektu RazorPagesMovie vytvořte novou složku s názvem *data*. Do složky `RazorPagesMovieContext` *data* přidejte následující třídu:
+V projektu RazorPagesMovie vytvořte novou složku s názvem *data*. Do složky *data* přidejte následující třídu `RazorPagesMovieContext`:
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
-Předchozí kód vytvoří `DbSet` vlastnost pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
+Předchozí kód vytvoří vlastnost `DbSet` pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
 
 <a name="cs"></a>
 
@@ -24,16 +24,16 @@ Do souboru *appSettings. JSON* přidejte připojovací řetězec, jak ukazuje n�
 
 <a name="reg"></a>
 
-### <a name="register-the-database-context"></a>Zaregistrujte kontext databáze
+### <a name="register-the-database-context"></a>Registrace kontextu databáze
 
-Do horní části `using` *Startup.cs*přidejte následující příkazy:
+Do horní části *Startup.cs*přidejte následující příkazy `using`:
 
 ```csharp
 using RazorPagesMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-Zaregistrujte kontext databáze pomocí kontejneru pro `Startup.ConfigureServices` [vkládání závislostí](xref:fundamentals/dependency-injection) v.
+Zaregistrujte kontext databáze pomocí kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) v `Startup.ConfigureServices`.
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -53,22 +53,23 @@ dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
 
-`Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíček je vyžadován pro generování uživatelského rozhraní.
+Pro generování uživatelského rozhraní se vyžaduje balíček `Microsoft.VisualStudio.Web.CodeGeneration.Design`.
 
 <a name="reg"></a>
 
-### <a name="register-the-database-context"></a>Zaregistrujte kontext databáze
+### <a name="register-the-database-context"></a>Registrace kontextu databáze
 
-Do horní části `using` *Startup.cs*přidejte následující příkazy:
+Do horní části *Startup.cs*přidejte následující příkazy `using`:
 
 ```csharp
 using RazorPagesMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-Zaregistrujte kontext databáze pomocí kontejneru pro `Startup.ConfigureServices` [vkládání závislostí](xref:fundamentals/dependency-injection) v.
+Zaregistrujte kontext databáze pomocí kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) v `Startup.ConfigureServices`.
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 Sestavte projekt jako kontrolu chyb.
+
 ::: moniker-end
