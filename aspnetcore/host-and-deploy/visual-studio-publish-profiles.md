@@ -1,20 +1,20 @@
 ---
-title: Publikační profily sady Visual Studio pro nasazení aplikace ASP.NET Core
+title: Publikační profily sady Visual Studio (. pubxml) pro nasazení aplikace ASP.NET Core
 author: rick-anderson
 description: Naučte se vytvářet profily publikování v aplikaci Visual Studio a používat je ke správě ASP.NET Core nasazení aplikací do různých cílů.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/12/2019
+ms.date: 11/07/2019
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: a3d6cc450e42d7eb6b694cd4985828ce52fa7519
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 274dd2cd528d3766aa07f69aac3470a131c79ffe
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72333766"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799354"
 ---
-# <a name="visual-studio-publish-profiles-for-aspnet-core-app-deployment"></a>Publikační profily sady Visual Studio pro nasazení aplikace ASP.NET Core
+# <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>Publikační profily sady Visual Studio (. pubxml) pro nasazení aplikace ASP.NET Core
 
 Od [Sayed Ibrahim Hashimi](https://github.com/sayedihashimi) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -28,7 +28,7 @@ Příkaz `dotnet new mvc` vytvoří soubor projektu obsahující následující 
 </Project>
 ```
 
-Předchozí atribut `Sdk` elementu `<Project>` importuje [vlastnosti](/visualstudio/msbuild/msbuild-properties) a [cíle](/visualstudio/msbuild/msbuild-targets) nástroje MSBuild z *$ (MSBuildSDKsPath) \Microsoft.NET.SDK.Web\Sdk\Sdk.props* a *$ (MSBuildSDKsPath) \Microsoft.NET.SDK.Web\Sdk\ Sada SDK. targets*, v uvedeném pořadí. Výchozí umístění pro `$(MSBuildSDKsPath)` (v rámci sady Visual Studio 2019 Enterprise) je složka *% ProgramFiles (x86)% \ Microsoft Visual Studio\2019\Enterprise\MSBuild\Sdks* .
+Předchozí atribut `Sdk` elementu `<Project>` importuje [vlastnosti](/visualstudio/msbuild/msbuild-properties) a [cíle](/visualstudio/msbuild/msbuild-targets) nástroje MSBuild z *$ (MSBuildSDKsPath) \Microsoft.NET.SDK.Web\Sdk\Sdk.props* a *$ (MSBuildSDKsPath) \Microsoft.NET.SDK.Web\Sdk\ Sada SDK. targets*, v uvedeném pořadí. Výchozím umístěním pro `$(MSBuildSDKsPath)` (se sadou Visual Studio 2019 Enterprise) je složka *% ProgramFiles (x86)% \ Microsoft Visual Studio\2019\Enterprise\MSBuild\Sdks* .
 
 `Microsoft.NET.Sdk.Web` (webová sada SDK) závisí na jiných sadách SDK, včetně `Microsoft.NET.Sdk` (.NET Core SDK) a `Microsoft.NET.Sdk.Razor` ([Razor SDK](xref:razor-pages/sdk)). Naimportují se vlastnosti a cíle nástroje MSBuild přidružené ke každé závislé sadě SDK. Cíle publikování importují odpovídající sadu cílů na základě používané metody publikování.
 
@@ -66,7 +66,7 @@ Při výběru tlačítka **publikovat** v aplikaci Visual Studio nebo při publi
 * Položky publikování jsou vypočítány (soubory, které jsou nutné k publikování).
 * Projekt je publikován (vypočítané soubory jsou zkopírovány do umístění pro publikování).
 
-Když ASP.NET Core projekt odkazuje na `Microsoft.NET.Sdk.Web` v souboru projektu, soubor *App_offline. htm* se umístí do kořenového adresáře webové aplikace. Když je soubor přítomen, modul ASP.NET Core aplikaci řádně ukončí a během nasazování zachová soubor *App_offline. htm* . Další informace najdete v referenčních informacích k [konfiguraci modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
+Pokud ASP.NET Core projekt odkazuje `Microsoft.NET.Sdk.Web` v souboru projektu, je soubor *App_offline. htm* umístěn v kořenu adresáře webové aplikace. Když je soubor přítomen, modul ASP.NET Core aplikaci řádně ukončí a během nasazování zachová soubor *App_offline. htm* . Další informace najdete v referenčních informacích k [konfiguraci modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
 
 ## <a name="basic-command-line-publishing"></a>Základní publikování z příkazového řádku
 
@@ -96,7 +96,7 @@ Copyright (C) Microsoft Corporation. All rights reserved.
   Web1 -> C:\Webs\Web1\bin\Debug\{TARGET FRAMEWORK MONIKER}\publish\
 ```
 
-Výchozí formát složky pro publikování je *bin\Debug @ no__t-1 {MONIKER rozhraní Target Framework} \publish @ no__t-2*. Například *bin\Debug\netcoreapp2.2\publish @ no__t-1*.
+Výchozí formát složky pro publikování je *bin\Debug\\{Target Framework MONIKER} \publish\\* . Například *bin\Debug\netcoreapp2.2\publish\\* .
 
 Následující příkaz určuje `Release` sestavení a adresář pro publikování:
 
@@ -104,7 +104,7 @@ Následující příkaz určuje `Release` sestavení a adresář pro publikován
 dotnet publish -c Release -o C:\MyWebs\test
 ```
 
-Příkaz `dotnet publish` volá nástroj MSBuild, který vyvolá cíl `Publish`. Všechny parametry předané do `dotnet publish` jsou předány do nástroje MSBuild. Parametry `-c` a `-o` jsou mapovány na vlastnosti `Configuration` a @no__t v nástroji MSBuild.
+Příkaz `dotnet publish` volá nástroj MSBuild, který vyvolá cíl `Publish`. Všechny parametry předané do `dotnet publish` jsou předány do nástroje MSBuild. Parametry `-c` a `-o` se mapují na vlastnosti `Configuration` a `OutputPath` v nástroji MSBuild.
 
 Vlastnosti nástroje MSBuild lze předat pomocí některého z následujících formátů:
 
@@ -139,7 +139,7 @@ Zobrazí se karta **publikovat** stránky možnosti aplikace. Pokud projekt nem�
 
 K určení nejvhodnějšího cíle publikování si přečtěte téma [co jsou možnosti publikování správné](/visualstudio/ide/not-in-toc/web-publish-options).
 
-Když je vybraná možnost cíl publikování **složky** , zadejte cestu ke složce pro uložení publikovaných prostředků. Výchozí cesta ke složce je *bin @ no__t-1 {konfigurace projektu} \\ {Target Framework MONIKER} \publish @ no__t-3*. Například *bin\Release\netcoreapp2.2\publish @ no__t-1*. Kliknutím na tlačítko **vytvořit profil** dokončíte.
+Když je vybraná možnost cíl publikování **složky** , zadejte cestu ke složce pro uložení publikovaných prostředků. Výchozí cesta ke složce je *bin\\{Project Configuration}\\{Target Framework MONIKER} \publish\\* . Například *bin\Release\netcoreapp2.2\publish\\* . Kliknutím na tlačítko **vytvořit profil** dokončíte.
 
 Po vytvoření profilu publikování se změní obsah karty **publikovat** . Nově vytvořený profil se zobrazí v rozevíracím seznamu. V rozevíracím seznamu vyberte **vytvořit nový profil** a vytvořte další nový profil.
 
@@ -376,7 +376,7 @@ Následující prvek `<MsDeploySkipRules>` vyloučí všechny soubory ze složky
 </ItemGroup>
 ```
 
-@no__t – 0 neodstraní cíle *přeskočení* z webu nasazení. `<Content>` cílové soubory a složky jsou odstraněny z lokality nasazení. Předpokládejme například, že nasazená webová aplikace obsahovala následující soubory:
+`<MsDeploySkipRules>` neodstraní cíle *přeskočení* z webu nasazení. `<Content>` cílové soubory a složky jsou odstraněny z lokality nasazení. Předpokládejme například, že nasazená webová aplikace obsahovala následující soubory:
 
 * *Views/Home/About1. cshtml*
 * *Views/Home/About2. cshtml*
@@ -452,7 +452,7 @@ Následující příklad elementu `<ItemGroup>` ukazuje kopírování složky na
 Předchozí kód:
 
 * Lze přidat do souboru *. csproj* nebo do profilu publikování. Pokud je přidán do souboru *. csproj* , je zahrnut do každého profilu publikování v projektu.
-* Deklaruje položku `_CustomFiles` pro ukládání souborů, které odpovídají vzoru rozexpanzení atributu `Include`. Složka *imagí* , na kterou se odkazuje ve vzoru, je umístěna mimo adresář projektu. [Rezervovaná vlastnost](/visualstudio/msbuild/msbuild-reserved-and-well-known-properties)s názvem `$(MSBuildProjectDirectory)` se překládá na absolutní cestu souboru projektu.
+* Deklaruje `_CustomFiles` položku pro ukládání souborů, které odpovídají vzoru rozexpanzení atributu `Include`. Složka *imagí* , na kterou se odkazuje ve vzoru, je umístěna mimo adresář projektu. [Rezervovaná vlastnost](/visualstudio/msbuild/msbuild-reserved-and-well-known-properties)s názvem `$(MSBuildProjectDirectory)` se překládá na absolutní cestu souboru projektu.
 * Poskytuje seznam souborů pro položku `DotNetPublishFiles`. Ve výchozím nastavení je prvek `<DestinationRelativePath>` položky prázdný. Výchozí hodnota je přepsána ve značce a používá [dobře známá metadata položky](/visualstudio/msbuild/msbuild-well-known-item-metadata) , například `%(RecursiveDir)`. Vnitřní text představuje složku *wwwroot/image* publikovaného webu.
 
 ### <a name="selective-file-inclusion"></a>Zahrnutí selektivních souborů

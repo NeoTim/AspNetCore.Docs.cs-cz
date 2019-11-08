@@ -3,14 +3,14 @@ title: Přehled ASP.NET Core MVC
 author: ardalis
 description: Přečtěte si, jak ASP.NET Core MVC je bohatá architektura pro vytváření webových aplikací a rozhraní API pomocí vzorového vzoru pro zobrazení modelu.
 ms.author: riande
-ms.date: 08/01/2019
+ms.date: 11/07/2019
 uid: mvc/overview
-ms.openlocfilehash: 7f09751850cbfa7bb3dc79656d4530445a9767b1
-ms.sourcegitcommit: 3204bc89ae6354b61ee0a9b2770ebe5214b7790c
+ms.openlocfilehash: 4f4ea3da8563cabaaa6183c6835c2f1eb8c387b4
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/01/2019
-ms.locfileid: "68707812"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799486"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -20,7 +20,7 @@ ASP.NET Core MVC je bohatá architektura pro vytváření webových aplikací a 
 
 ## <a name="what-is-the-mvc-pattern"></a>Co je vzor MVC?
 
-Architektonický vzor architektury MVC (Model-View-Controller) odděluje aplikaci do tří hlavních skupin součástí: Modely, zobrazení a řadiče. Tento model pomáhá dosáhnout [oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns). Pomocí tohoto modelu jsou požadavky uživatelů směrovány na kontroler, který je zodpovědný za práci s modelem pro provádění akcí uživatele nebo načtení výsledků dotazů. Kontroler zvolí zobrazení, které se zobrazí uživateli, a poskytne mu veškerá data modelu, která vyžaduje.
+Architektonický vzor architektury MVC (Model-View-Controller) odděluje aplikaci do tří hlavních skupin komponent: modelů, zobrazení a řadičů. Tento model pomáhá dosáhnout [oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns). Pomocí tohoto modelu jsou požadavky uživatelů směrovány na kontroler, který je zodpovědný za práci s modelem pro provádění akcí uživatele nebo načtení výsledků dotazů. Kontroler zvolí zobrazení, které se zobrazí uživateli, a poskytne mu veškerá data modelu, která vyžaduje.
 
 Následující diagram znázorňuje tři hlavní komponenty a odkazy na ostatní:
 
@@ -62,7 +62,7 @@ ASP.NET Core MVC zahrnuje následující:
 * [Směrování](#routing)
 * [Vazby modelu](#model-binding)
 * [Ověření modelu](#model-validation)
-* [Injektáž závislostí](../fundamentals/dependency-injection.md)
+* [Vkládání závislostí](../fundamentals/dependency-injection.md)
 * [Filtry](#filters)
 * [Oblasti](#areas)
 * [Webová rozhraní API](#web-apis)
@@ -76,7 +76,7 @@ ASP.NET Core MVC zahrnuje následující:
 
 ASP.NET Core MVC je postavená na [směrování ASP.NET Core](../fundamentals/routing.md), což je výkonná součást pro mapování adres URL, která umožňuje vytvářet aplikace s srozumitelnými a Prohledávatelnými adresami URL. To vám umožní definovat vzory názvů adres URL vaší aplikace, které dobře fungují pro optimalizaci vyhledávačů (SEO) a pro vytváření odkazů, bez ohledu na to, jak se soubory na webovém serveru uspořádají. Trasy můžete definovat pomocí vhodné syntaxe šablony směrování, která podporuje omezení hodnoty směrování, výchozí hodnoty a volitelné hodnoty.
 
-*Směrování založené* na konvencích umožňuje globálně definovat formáty adres URL, které vaše aplikace přijímá, a způsob, jakým se každý z těchto formátů mapuje na konkrétní metodu akce v daném kontroleru. Po přijetí příchozího požadavku směrovací modul analyzuje adresu URL a porovná ji s jedním z definovaných formátů adres URL a potom zavolá metodu akce přidruženého kontroleru.
+*Směrování založené na konvencích* umožňuje globálně definovat formáty adres URL, které vaše aplikace přijímá, a způsob, jakým se každý z těchto formátů mapuje na konkrétní metodu akce v daném kontroleru. Po přijetí příchozího požadavku směrovací modul analyzuje adresu URL a porovná ji s jedním z definovaných formátů adres URL a potom zavolá metodu akce přidruženého kontroleru.
 
 ```csharp
 routes.MapRoute(name: "Default", template: "{controller=Home}/{action=Index}/{id?}");
@@ -145,7 +145,7 @@ Rozhraní zpracovává ověřování dat žádostí na straně klienta i serveru
 
 ASP.NET Core obsahuje integrovanou podporu pro [vkládání závislostí (di)](../fundamentals/dependency-injection.md). V ASP.NET Core MVC můžou [řadiče](controllers/dependency-injection.md) požadovat služby potřebné prostřednictvím svých konstruktorů, takže by mohli postupovat podle [principu explicitní závislosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 
-Aplikace může také používat [vkládání závislostí v souborech zobrazení](views/dependency-injection.md)pomocí `@inject` direktivy:
+Aplikace může také používat [vkládání závislostí v souborech zobrazení](views/dependency-injection.md)pomocí direktivy `@inject`:
 
 ```cshtml
 @inject SomeService ServiceName
@@ -163,7 +163,7 @@ Aplikace může také používat [vkládání závislostí v souborech zobrazen�
 
 ### <a name="filters"></a>Filtry
 
-[Filtry](controllers/filters.md) , které vývojářům pomůžou zapouzdřit věci mimo průřez, jako je zpracování výjimek nebo autorizace. Filtry umožňují spuštění vlastní logiky před a po zpracování pro metody akcí a lze je nakonfigurovat tak, aby běžely v určitých bodech v rámci kanálu spuštění pro daný požadavek. Filtry lze použít u řadičů nebo akcí jako atributů (nebo je lze spustit globálně). V rámci rozhraní je zahrnuto několik filtrů (například `Authorize`). `[Authorize]`je atribut, který se používá k vytváření ověřovacích filtrů MVC.
+[Filtry](controllers/filters.md) , které vývojářům pomůžou zapouzdřit věci mimo průřez, jako je zpracování výjimek nebo autorizace. Filtry umožňují spuštění vlastní logiky před a po zpracování pro metody akcí a lze je nakonfigurovat tak, aby běžely v určitých bodech v rámci kanálu spuštění pro daný požadavek. Filtry lze použít u řadičů nebo akcí jako atributů (nebo je lze spustit globálně). V rámci rozhraní je zahrnuto několik filtrů (například `Authorize`). `[Authorize]` je atribut, který slouží k vytváření ověřovacích filtrů MVC.
 
 ```csharp
 [Authorize]
@@ -218,9 +218,9 @@ Například následující zobrazení vykresluje model typu `IEnumerable<Product
 
 ### <a name="tag-helpers"></a>Pomocné rutiny značek
 
-[Pomocník značek](views/tag-helpers/intro.md) povolit kód na straně serveru, který se účastní vytváření a vykreslování prvků HTML v souborech Razor. Můžete použít pomocníka značek k definování vlastních značek ( `<environment>`například) nebo k úpravě chování existujících značek ( `<label>`například). Přihlaste se k určitým prvkům na základě názvu elementu a jeho atributů pomocí rutiny tag. Poskytují výhody vykreslování na straně serveru a zároveň zachovává prostředí pro úpravy HTML.
+[Pomocník značek](views/tag-helpers/intro.md) povolit kód na straně serveru, který se účastní vytváření a vykreslování prvků HTML v souborech Razor. Můžete použít pomocníka značek k definování vlastních značek (například `<environment>`) nebo k úpravě chování existujících značek (například `<label>`). Přihlaste se k určitým prvkům na základě názvu elementu a jeho atributů pomocí rutiny tag. Poskytují výhody vykreslování na straně serveru a zároveň zachovává prostředí pro úpravy HTML.
 
-K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako je vytváření formulářů, odkazů, načítání assetů a ještě více dostupných ve veřejných úložištích GitHub a jako balíčky NuGet. Pomocníky značek jsou vytvořeny v C#a jsou cíleny na prvky HTML na základě názvu elementu, názvu atributu nebo nadřazené značky. Například integrovaný LinkTagHelper lze použít k vytvoření odkazu na `Login` akci `AccountsController`pro:
+K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako je vytváření formulářů, odkazů, načítání assetů a ještě více dostupných ve veřejných úložištích GitHub a jako balíčky NuGet. Pomocníky značek jsou vytvořeny v C#a jsou cíleny na prvky HTML na základě názvu elementu, názvu atributu nebo nadřazené značky. Například integrovaný LinkTagHelper lze použít k vytvoření odkazu na akci `Login` `AccountsController`:
 
 ```cshtml
 <p>
@@ -229,7 +229,7 @@ K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako
 </p>
 ```
 
-`EnvironmentTagHelper` Dá se použít k zahrnutí různých skriptů do vašich zobrazení (například RAW nebo minifikovaného) na základě běhového prostředí, jako je vývoj, příprava nebo produkce:
+`EnvironmentTagHelper` lze použít k zahrnutí různých skriptů do vašich zobrazení (například RAW nebo minifikovaného) na základě běhového prostředí, jako je vývoj, příprava nebo produkce:
 
 ```cshtml
 <environment names="Development">
@@ -247,10 +247,15 @@ Značky pomocníků poskytují prostředí pro vývoj ve formátu HTML a bohatou
 
 ### <a name="view-components"></a>Zobrazit součásti
 
-[Zobrazit komponenty](views/view-components.md) umožňují zabalit logiku vykreslování a znovu ji použít v celé aplikaci. Jsou podobné částečným [zobrazením](views/partial.md), ale s přidruženou logikou.
+[Zobrazit komponenty](views/view-components.md) umožňují zabalit logiku vykreslování a znovu ji použít v celé aplikaci. Jsou podobné [částečným zobrazením](views/partial.md), ale s přidruženou logikou.
 
 ## <a name="compatibility-version"></a>Kompatibilita – verze
 
-<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
+Metoda <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
 
-Další informace naleznete v tématu <xref:mvc/compatibility-version>.
+Další informace najdete v tématu <xref:mvc/compatibility-version>.
+
+## <a name="additional-resources"></a>Další zdroje
+
+* [MyTested. AspNetCore. Mvc-Fluent test Library pro ASP.NET Core Mvc](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; knihovnu testování jednotek se silnými typy a poskytuje rozhraní Fluent pro testování MVC a webových aplikací API. (*Společnost Microsoft nespravuje ani nepodporuje.* )
+

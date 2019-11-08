@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: 500824807307840a9279dd00c2fe632835737c2d
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 6d0d9b5467d9d27b936a17fa86f73e7d8123b75b
+ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080796"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73760967"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>Vlastní poskytovatelé úložiště pro ASP.NET Core identity
 
@@ -49,15 +49,15 @@ Následující diagram znázorňuje, jak webová aplikace komunikuje s manažery
 
 Chcete-li vytvořit vlastního poskytovatele úložiště, vytvořte zdroj dat, vrstvu přístupu k datům a třídy úložiště, které pracují s touto vrstvou přístupu k datům (zelená a šedá pole v diagramu výše). Nemusíte přizpůsobovat manažery ani kód vaší aplikace, který s nimi komunikuje (modré čtverečky výše).
 
-Při vytváření nové instance `UserManager` nebo `RoleManager` zadání typu třídy uživatele a předání instance třídy úložiště jako argumentu. Tento přístup umožňuje zapojit přizpůsobené třídy do ASP.NET Core. 
+Při vytváření nové instance `UserManager` nebo `RoleManager` zadejte typ třídy uživatele a předejte instanci třídy úložiště jako argument. Tento přístup umožňuje zapojit přizpůsobené třídy do ASP.NET Core. 
 
-Změna [Konfigurace aplikace na použití nového poskytovatele úložiště](#reconfigure-app-to-use-a-new-storage-provider) ukazuje, jak vytvářet instance `UserManager` a `RoleManager` s přizpůsobeným úložištěm.
+[Překonfigurování aplikace na použití nového poskytovatele úložiště](#reconfigure-app-to-use-a-new-storage-provider) ukazuje, jak vytvořit instanci `UserManager` a `RoleManager` s přizpůsobeným úložištěm.
 
 ## <a name="aspnet-core-identity-stores-data-types"></a>ASP.NET Core identity ukládá datové typy
 
 [ASP.NET Core](https://github.com/aspnet/identity) datové typy identity jsou podrobně popsány v následujících částech:
 
-### <a name="users"></a>Uživatelé
+### <a name="users"></a>Mohou
 
 Registrovaní uživatelé vašeho webu. Typ [IdentityUser](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser) může být rozšířen nebo použit jako příklad pro vlastní typ. K implementaci vlastního řešení úložiště identity není nutné dědit z konkrétního typu.
 
@@ -105,25 +105,25 @@ Ukládá a načítá přihlašovací informace uživatele (například externíh
 
 Ukládá a načítá, které role jsou přiřazeny uživatelům. [Příklad](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
-**POPISEK** Implementujte jenom třídy, které chcete ve své aplikaci použít.
+**Tip:** Implementujte jenom třídy, které chcete ve své aplikaci použít.
 
 Ve třídách pro přístup k datům poskytněte kód pro provádění operací s daty pro svůj mechanismus trvalosti. Například v rámci vlastního zprostředkovatele můžete mít následující kód k vytvoření nového uživatele ve třídě *úložiště* :
 
 [!code-csharp[](identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs?name=createuser&highlight=7)]
 
-Logika implementace pro vytvoření uživatele je v metodě, která `_usersTable.CreateAsync` je znázorněna níže.
+Logika implementace pro vytvoření uživatele je v metodě `_usersTable.CreateAsync`, která je uvedená níže.
 
 ## <a name="customize-the-user-class"></a>Přizpůsobení třídy uživatele
 
 Při implementaci poskytovatele úložiště vytvořte třídu uživatele, která je ekvivalentní [třídě IdentityUser](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser).
 
-Třída uživatele musí obsahovat `Id` minimálně `UserName` vlastnost a.
+Třída uživatele musí obsahovat minimálně `Id` a vlastnost `UserName`.
 
-Třída definuje vlastnosti `UserManager` , které volání při provádění požadovaných operací. `IdentityUser` Výchozí typ `Id` vlastnosti je řetězec, ale můžete dědit z `IdentityUser<TKey, TUserClaim, TUserRole, TUserLogin, TUserToken>` a zadat jiný typ. Rozhraní očekává, že implementace úložiště zpracovává převody datových typů.
+Třída `IdentityUser` definuje vlastnosti, které `UserManager` volá při provádění požadovaných operací. Výchozí typ `Id` vlastnosti je řetězec, ale můžete dědit z `IdentityUser<TKey, TUserClaim, TUserRole, TUserLogin, TUserToken>` a zadat jiný typ. Rozhraní očekává, že implementace úložiště zpracovává převody datových typů.
 
 ## <a name="customize-the-user-store"></a>Přizpůsobení úložiště uživatele
 
-`UserStore` Vytvořte třídu, která poskytuje metody pro všechny operace s daty na uživateli. Tato třída je ekvivalentní třídě [UserStore&lt;TUser&gt; ](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.userstore-1) . Ve vaší `UserStore` třídě implementujte `IUserStore<TUser>` a volitelné požadované rozhraní. Můžete vybrat, která volitelná rozhraní se implementují na základě funkcí poskytovaných ve vaší aplikaci.
+Vytvořte třídu `UserStore`, která poskytuje metody pro všechny operace s daty na uživateli. Tato třída je ekvivalentem třídy [UserStore&lt;TUser&gt;](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.userstore-1) . Ve vaší třídě `UserStore` implementujte `IUserStore<TUser>` a požadovaná volitelné rozhraní. Můžete vybrat, která volitelná rozhraní se implementují na základě funkcí poskytovaných ve vaší aplikaci.
 
 ### <a name="optional-interfaces"></a>Volitelná rozhraní
 
@@ -138,36 +138,36 @@ Třída definuje vlastnosti `UserManager` , které volání při provádění po
 * [IUserTwoFactorStore](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactorstore-1)
 * [IUserLockoutStore](/dotnet/api/microsoft.aspnetcore.identity.iuserlockoutstore-1)
 
-Volitelná rozhraní dědí z `IUserStore<TUser>`. V [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)uvidíte částečně implementované úložiště ukázkových uživatelů.
+Volitelná rozhraní dědí od `IUserStore<TUser>`. V [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)uvidíte částečně implementované úložiště ukázkových uživatelů.
 
-V rámci `UserStore` třídy použijete třídy pro přístup k datům, které jste vytvořili k provádění operací. Tyto jsou předány pomocí injektáže závislostí. Například v SQL Server s implementací dapperem `UserStore` `CreateAsync` má třída metodu, `DapperUsersTable` která používá instanci pro vložení nového záznamu:
+V rámci třídy `UserStore` používáte třídy pro přístup k datům, které jste vytvořili k provádění operací. Tyto jsou předány pomocí injektáže závislostí. Například v SQL Server s implementací Dapperem má třída `UserStore` metodu `CreateAsync`, která používá instanci `DapperUsersTable` k vložení nového záznamu:
 
 [!code-csharp[](identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/DapperUsersTable.cs?name=createuser&highlight=7)]
 
 ### <a name="interfaces-to-implement-when-customizing-user-store"></a>Rozhraní k implementaci při přizpůsobení úložiště uživatele
 
 * **IUserStore**  
- Rozhraní [&lt;TUser&gt; IUserStore](/dotnet/api/microsoft.aspnetcore.identity.iuserstore-1) je jediné rozhraní, které musíte implementovat v úložišti uživatele. Definuje metody pro vytváření, aktualizaci, odstraňování a načítání uživatelů.
+ Rozhraní [&gt;IUserStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iuserstore-1) je jediné rozhraní, které musíte implementovat v úložišti uživatele. Definuje metody pro vytváření, aktualizaci, odstraňování a načítání uživatelů.
 * **IUserClaimStore**  
- Rozhraní [&lt;TUser&gt; IUserClaimStore](/dotnet/api/microsoft.aspnetcore.identity.iuserclaimstore-1) definuje metody, které implementujete pro povolení deklarací identity uživatelů. Obsahuje metody pro přidání, odebrání a načtení deklarací identity uživatelů.
+ Rozhraní [&gt;IUserClaimStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iuserclaimstore-1) definuje metody, které implementujete pro povolení deklarací identity uživatelů. Obsahuje metody pro přidání, odebrání a načtení deklarací identity uživatelů.
 * **IUserLoginStore**  
- [IUserLoginStore&lt;TUser&gt; ](/dotnet/api/microsoft.aspnetcore.identity.iuserloginstore-1) definuje metody, které implementujete, aby bylo možné povolit externí poskytovatele ověřování. Obsahuje metody pro přidání, odebrání a načtení přihlášení uživatelů a metodu pro načtení uživatele na základě přihlašovacích údajů.
+ [&gt;IUserLoginStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iuserloginstore-1) definuje metody, které implementujete, aby bylo možné povolit externí poskytovatele ověřování. Obsahuje metody pro přidání, odebrání a načtení přihlášení uživatelů a metodu pro načtení uživatele na základě přihlašovacích údajů.
 * **IUserRoleStore**  
- Rozhraní [&lt;TUser&gt; IUserRoleStore](/dotnet/api/microsoft.aspnetcore.identity.iuserrolestore-1) definuje metody, které implementujete k namapování uživatele na roli. Obsahuje metody pro přidání, odebrání a načtení rolí uživatele a metodu, která zkontroluje, jestli je uživatel přiřazený k roli.
+ Rozhraní [&gt;IUserRoleStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iuserrolestore-1) definuje metody, které implementujete k namapování uživatele na roli. Obsahuje metody pro přidání, odebrání a načtení rolí uživatele a metodu, která zkontroluje, jestli je uživatel přiřazený k roli.
 * **IUserPasswordStore**  
- Rozhraní [&lt;TUser&gt; IUserPasswordStore](/dotnet/api/microsoft.aspnetcore.identity.iuserpasswordstore-1) definuje metody, které implementujete pro zachování hesel hash. Obsahuje metody pro získání a nastavení hash hesla a metodu, která označuje, jestli uživatel nastavil heslo.
+ Rozhraní [&gt;IUserPasswordStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iuserpasswordstore-1) definuje metody, které implementujete pro zachování hesel hash. Obsahuje metody pro získání a nastavení hash hesla a metodu, která označuje, jestli uživatel nastavil heslo.
 * **IUserSecurityStampStore**  
- Rozhraní [&lt;TUser&gt; IUserSecurityStampStore](/dotnet/api/microsoft.aspnetcore.identity.iusersecuritystampstore-1) definuje metody, které implementujete pro použití bezpečnostního razítka pro označení, zda se změnily informace o účtu uživatele. Toto razítko se aktualizuje, když uživatel změní heslo, nebo přidá nebo odebere přihlášení. Obsahuje metody pro získání a nastavení razítka zabezpečení.
+ Rozhraní [&gt;IUserSecurityStampStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iusersecuritystampstore-1) definuje metody, které implementujete pro použití bezpečnostního razítka k označení, zda se změnily informace o účtu uživatele. Toto razítko se aktualizuje, když uživatel změní heslo, nebo přidá nebo odebere přihlášení. Obsahuje metody pro získání a nastavení razítka zabezpečení.
 * **IUserTwoFactorStore**  
- Rozhraní [IUserTwoFactorStore&lt;TUser&gt; ](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactorstore-1) definuje metody, které implementujete pro podporu dvojúrovňového ověřování. Obsahuje metody pro získání a nastavení, zda je pro uživatele povoleno dvojúrovňové ověřování.
+ Rozhraní [&gt;IUserTwoFactorStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactorstore-1) definuje metody, které implementujete pro podporu dvojúrovňového ověřování. Obsahuje metody pro získání a nastavení, zda je pro uživatele povoleno dvojúrovňové ověřování.
 * **IUserPhoneNumberStore**  
- Rozhraní [&lt;TUser&gt; IUserPhoneNumberStore](/dotnet/api/microsoft.aspnetcore.identity.iuserphonenumberstore-1) definuje metody, které implementujete pro ukládání uživatelských telefonních čísel. Obsahuje metody pro získání a nastavení telefonního čísla a zda je telefonní číslo potvrzené.
+ Rozhraní [&gt;IUserPhoneNumberStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iuserphonenumberstore-1) definuje metody, které implementujete pro ukládání uživatelských telefonních čísel. Obsahuje metody pro získání a nastavení telefonního čísla a zda je telefonní číslo potvrzené.
 * **IUserEmailStore**  
- Rozhraní [&lt;TUser&gt; IUserEmailStore](/dotnet/api/microsoft.aspnetcore.identity.iuseremailstore-1) definuje metody, které implementujete pro ukládání e-mailových adres uživatele. Obsahuje metody pro získání a nastavení e-mailové adresy a toho, jestli se e-mail potvrdí.
+ Rozhraní [&gt;IUserEmailStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iuseremailstore-1) definuje metody, které implementujete pro ukládání e-mailových adres uživatele. Obsahuje metody pro získání a nastavení e-mailové adresy a toho, jestli se e-mail potvrdí.
 * **IUserLockoutStore**  
- Rozhraní [&lt;TUser&gt; IUserLockoutStore](/dotnet/api/microsoft.aspnetcore.identity.iuserlockoutstore-1) definuje metody, které implementujete pro ukládání informací o zamykání účtu. Obsahuje metody pro sledování neúspěšných pokusů o přístup a uzamčení.
+ Rozhraní [&gt;IUserLockoutStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iuserlockoutstore-1) definuje metody, které implementujete pro ukládání informací o zamykání účtu. Obsahuje metody pro sledování neúspěšných pokusů o přístup a uzamčení.
 * **IQueryableUserStore**  
- Rozhraní [IQueryableUserStore&lt;TUser&gt; ](/dotnet/api/microsoft.aspnetcore.identity.iqueryableuserstore-1) definuje členy, které implementujete k poskytnutí úložiště uživatele Queryable.
+ Rozhraní [&gt;IQueryableUserStore&lt;TUser](/dotnet/api/microsoft.aspnetcore.identity.iqueryableuserstore-1) definuje členy, které implementujete k poskytnutí úložiště uživatele Queryable.
 
 Implementujete pouze rozhraní, která jsou potřebná v aplikaci. Příklad:
 
@@ -185,11 +185,11 @@ public class UserStore : IUserStore<IdentityUser>,
 
 ### <a name="identityuserclaim-identityuserlogin-and-identityuserrole"></a>IdentityUserClaim, IdentityUserLogin a IdentityUserRole
 
-Obor názvů obsahuje implementace tříd [IdentityUserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1), [IdentityUserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)a IdentityUserRole. [](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1) `Microsoft.AspNet.Identity.EntityFramework` Pokud tyto funkce používáte, možná budete chtít vytvořit vlastní verze těchto tříd a definovat vlastnosti pro vaši aplikaci. V některých případech je ale při provádění základních operací (například přidání nebo odebrání deklarace identity uživatele) efektivnější tyto entity nečítat do paměti. Místo toho mohou třídy úložiště back-end provádět tyto operace přímo na zdroji dat. Například `UserStore.GetClaimsAsync` metoda může `userClaimTable.FindByUserId(user.Id)` volat metodu pro provedení dotazu přímo v této tabulce a vrácení seznamu deklarací.
+Obor názvů `Microsoft.AspNet.Identity.EntityFramework` obsahuje implementace tříd [IdentityUserClaim](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserclaim-1), [IdentityUserLogin](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)a [IdentityUserRole](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.identityuserrole-1) . Pokud tyto funkce používáte, možná budete chtít vytvořit vlastní verze těchto tříd a definovat vlastnosti pro vaši aplikaci. V některých případech je ale při provádění základních operací (například přidání nebo odebrání deklarace identity uživatele) efektivnější tyto entity nečítat do paměti. Místo toho mohou třídy úložiště back-end provádět tyto operace přímo na zdroji dat. Například metoda `UserStore.GetClaimsAsync` může volat metodu `userClaimTable.FindByUserId(user.Id)` a spustit dotaz přímo v této tabulce a vrátit seznam deklarací.
 
 ## <a name="customize-the-role-class"></a>Přizpůsobení třídy role
 
-Při implementaci poskytovatele úložiště rolí můžete vytvořit vlastní typ role. Nevyžaduje implementaci konkrétního rozhraní, ale musí mít `Id` a obvykle `Name` mít vlastnost.
+Při implementaci poskytovatele úložiště rolí můžete vytvořit vlastní typ role. Nevyžaduje implementaci konkrétního rozhraní, ale musí mít `Id` a obvykle má vlastnost `Name`.
 
 Následuje příklad třídy role:
 
@@ -197,22 +197,22 @@ Následuje příklad třídy role:
 
 ## <a name="customize-the-role-store"></a>Přizpůsobení úložiště rolí
 
-Můžete vytvořit `RoleStore` třídu, která poskytuje metody pro všechny operace s daty v rolích. Tato třída je ekvivalentní třídě [RoleStore&lt;TRole&gt; ](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.rolestore-1) . Ve třídě implementujete a volitelně `IQueryableRoleStore<TRole>`rozhraní. `IRoleStore<TRole>` `RoleStore`
+Můžete vytvořit třídu `RoleStore`, která poskytuje metody pro všechny operace s daty v rolích. Tato třída je ekvivalentem třídy [RoleStore&lt;TRole&gt;](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.rolestore-1) . Ve třídě `RoleStore` implementujete `IRoleStore<TRole>` a případně rozhraní `IQueryableRoleStore<TRole>`.
 
 * **IRoleStore&lt;TRole&gt;**  
- Rozhraní [IRoleStore&lt;TRole&gt; ](/dotnet/api/microsoft.aspnetcore.identity.irolestore-1) definuje metody, které mají být implementovány ve třídě úložiště rolí. Obsahuje metody pro vytváření, aktualizaci, odstraňování a načítání rolí.
+ Rozhraní [&gt;IRoleStore&lt;TRole](/dotnet/api/microsoft.aspnetcore.identity.irolestore-1) definuje metody, které se mají implementovat do třídy úložiště rolí. Obsahuje metody pro vytváření, aktualizaci, odstraňování a načítání rolí.
 * **RoleStore&lt;TRole&gt;**  
- Chcete- `RoleStore`li přizpůsobit, vytvořte třídu, která `IRoleStore<TRole>` implementuje rozhraní. 
+ Chcete-li přizpůsobit `RoleStore`, vytvořte třídu, která implementuje rozhraní `IRoleStore<TRole>`. 
 
 ## <a name="reconfigure-app-to-use-a-new-storage-provider"></a>Překonfigurujte aplikaci tak, aby používala nového poskytovatele úložiště.
 
 Po implementaci poskytovatele úložiště můžete aplikaci nakonfigurovat tak, aby ji používala. Pokud vaše aplikace použila výchozího poskytovatele, nahraďte ji vlastním poskytovatelem.
 
-1. Odeberte balíček `Microsoft.AspNetCore.EntityFramework.Identity` NuGet.
+1. Odeberte balíček NuGet `Microsoft.AspNetCore.EntityFramework.Identity`.
 1. Pokud se poskytovatel úložiště nachází v samostatném projektu nebo balíčku, přidejte na něj odkaz.
-1. Nahraďte všechny odkazy `Microsoft.AspNetCore.EntityFramework.Identity` na pomocí příkazu Using pro obor názvů vašeho poskytovatele úložiště.
-1. `ConfigureServices` V metodě`AddIdentity` změňte metodu tak, aby používala vaše vlastní typy. Pro tento účel můžete vytvořit vlastní metody rozšíření. Příklad najdete v tématu [IdentityServiceCollectionExtensions](https://github.com/aspnet/Identity/blob/rel/1.1.0/src/Microsoft.AspNetCore.Identity/IdentityServiceCollectionExtensions.cs) .
-1. Pokud používáte role, aktualizujte `RoleManager` , aby se použila vaše `RoleStore` třída.
+1. Nahraďte všechny odkazy na `Microsoft.AspNetCore.EntityFramework.Identity` pomocí příkazu Using pro obor názvů vašeho poskytovatele úložiště.
+1. V metodě `ConfigureServices` změňte metodu `AddIdentity` tak, aby používala vaše vlastní typy. Pro tento účel můžete vytvořit vlastní metody rozšíření. Příklad najdete v tématu [IdentityServiceCollectionExtensions](https://github.com/aspnet/Identity/blob/rel/1.1.0/src/Microsoft.AspNetCore.Identity/IdentityServiceCollectionExtensions.cs) .
+1. Pokud používáte role, aktualizujte `RoleManager` pro použití vaší třídy `RoleStore`.
 1. Aktualizujte připojovací řetězec a přihlašovací údaje na konfiguraci vaší aplikace.
 
 Příklad:
@@ -238,4 +238,4 @@ public void ConfigureServices(IServiceCollection services)
 ## <a name="references"></a>Odkazy
 
 * [Vlastní poskytovatelé úložiště pro identitu ASP.NET 4. x](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
-* [ASP.NET Core identity](https://github.com/aspnet/identity) &ndash; Toto úložiště obsahuje odkazy na komunitní poskytovatele uchovávaného úložiště.
+* [ASP.NET Core Identity](https://github.com/aspnet/AspNetCore/tree/master/src/Identity) &ndash; toto úložiště obsahuje odkazy na spravované poskytovatele obchodů v komunitě.

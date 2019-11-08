@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 09/26/2019
 uid: performance/performance-best-practices
-ms.openlocfilehash: 3484a0233a0d56811235192c4b64aa9296e72b58
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 1cd4ca6fccfee674f46e87ba051e049f7daa5b66
+ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72289065"
+ms.lasthandoff: 11/07/2019
+ms.locfileid: "73799514"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -90,12 +90,12 @@ Problémy s dotazy se dají zjistit tak, že si prohlédnete čas strávený př
 
 ## <a name="pool-http-connections-with-httpclientfactory"></a>Připojení fondů HTTP k HttpClientFactory
 
-I když [HttpClient](/dotnet/api/system.net.http.httpclient) implementuje rozhraní `IDisposable`, je navrženo pro opakované použití. Uzavřené @no__t – 0 instance ponechají po krátkou dobu otevřené sokety ve stavu `TIME_WAIT`. Pokud se často používá cesta kódu, která vytváří a odstraňuje objekty `HttpClient`, může aplikace vyčerpat dostupné sokety. [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) byl představen v ASP.NET Core 2,1 jako řešení tohoto problému. Zpracovává připojení HTTP ve fondu za účelem optimalizace výkonu a spolehlivosti.
+I když [HttpClient](/dotnet/api/system.net.http.httpclient) implementuje rozhraní `IDisposable`, je navrženo pro opakované použití. Uzavřené instance `HttpClient` nechají po krátkou dobu otevřené sokety ve stavu `TIME_WAIT`. Pokud se často používá cesta kódu, která vytváří a odstraňuje objekty `HttpClient`, může aplikace vyčerpat dostupné sokety. [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) byl představen v ASP.NET Core 2,1 jako řešení tohoto problému. Zpracovává připojení HTTP ve fondu za účelem optimalizace výkonu a spolehlivosti.
 
 Doporučit
 
 * **Nevytvářejte a odstraňujte** instance `HttpClient` přímo.
-* K načtení instancí @no__t- **2 použijte** [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) . Další informace najdete v tématu [použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests).
+* **Pomocí** [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) načtěte instance `HttpClient`. Další informace najdete v tématu [použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests).
 
 ## <a name="keep-common-code-paths-fast"></a>Rychlé udržování běžných cest kódu
 
@@ -233,7 +233,7 @@ ASP.NET Core 3,0 používá ve výchozím nastavení <xref:System.Text.Json> pro
 
 ## <a name="do-not-store-ihttpcontextaccessorhttpcontext-in-a-field"></a>Do pole neukládejte IHttpContextAccessor. HttpContext.
 
-[IHttpContextAccessor. HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) vrátí `HttpContext` aktivního požadavku při přístupu z vlákna požadavku. @No__t- **0 by neměl** být uložen v poli nebo proměnné.
+[IHttpContextAccessor. HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) vrátí `HttpContext` aktivního požadavku při přístupu z vlákna požadavku. `IHttpContextAccessor.HttpContext` **by neměl** být uložen v poli nebo proměnné.
 
 **Neprovádět tyto akce:** Následující příklad uloží `HttpContext` do pole a pak se pokusí o pozdější použití.
 
@@ -292,9 +292,11 @@ Předchozí kód často zachycuje hodnotu null nebo nesprávnou `HttpContext` v 
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetFirstController.cs?name=snippet2)]
 
+Úlohy na pozadí by se měly implementovat jako hostované služby. Další informace najdete v tématu [úlohy na pozadí s hostovanými službami](xref:fundamentals/host/hosted-services).
+
 ## <a name="do-not-capture-services-injected-into-the-controllers-on-background-threads"></a>Nezachytávat služby vložené do řadičů v vláknech na pozadí
 
-**Neprovádět tyto akce:** Následující příklad ukazuje, že uzavření zachytí `DbContext` z parametru akce `Controller`. Toto je špatný postup.  Pracovní položka by mohla běžet mimo rozsah požadavku. @No__t-0 je vymezen na žádost, výsledkem je `ObjectDisposedException`.
+**Neprovádět tyto akce:** Následující příklad ukazuje, že uzavření zachytí `DbContext` z parametru akce `Controller`. Toto je špatný postup.  Pracovní položka by mohla běžet mimo rozsah požadavku. `ContosoDbContext` je vymezen na žádost, což vede k `ObjectDisposedException`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetSecondController.cs?name=snippet1)]
 
@@ -325,7 +327,7 @@ ASP.NET Core neukládá obsah odpovědi HTTP do vyrovnávací paměti. Při prvn
 
 [!code-csharp[](performance-best-practices/samples/3.0/Startup22.cs?name=snippet1)]
 
-V předchozím kódu `context.Response.Headers["test"] = "test value";` vyvolá výjimku, pokud `next()` zapisuje do odpovědi.
+V předchozím kódu `context.Response.Headers["test"] = "test value";` vyvolá výjimku, pokud `next()` zapsána do odpovědi.
 
 **Postupujte takto:** Následující příklad zkontroluje, zda byla před úpravou hlaviček spuštěna odpověď protokolu HTTP.
 
