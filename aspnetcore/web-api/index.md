@@ -7,24 +7,24 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2019
 uid: web-api/index
-ms.openlocfilehash: aab9b848eb6e69055b019c9253c716898e9847e2
-ms.sourcegitcommit: a11f09c10ef3d4eeab7ae9ce993e7f30427741c1
+ms.openlocfilehash: 122de0a225668a7523eec900e2ad8fdac56d7886
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149351"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73897014"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytváření webových rozhraní API pomocí ASP.NET Core
 
 [Scott Addie](https://github.com/scottaddie) a [Dykstra](https://github.com/tdykstra)
 
-ASP.NET Core podporuje vytváření služeb RESTful, označovaných také jako webová rozhraní API C#, pomocí. Webové rozhraní API zpracovává žádosti pomocí řadičů. *Řadiče* ve webovém rozhraní API jsou třídy, které jsou `ControllerBase`odvozeny z. V tomto článku se dozvíte, jak používat řadiče pro zpracování požadavků webového rozhraní API.
+ASP.NET Core podporuje vytváření služeb RESTful, označovaných také jako webová rozhraní API C#, pomocí. Webové rozhraní API zpracovává žádosti pomocí řadičů. *Řadiče* ve webovém rozhraní API jsou třídy, které jsou odvozeny z `ControllerBase`. V tomto článku se dozvíte, jak používat řadiče pro zpracování požadavků webového rozhraní API.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
 
 ## <a name="controllerbase-class"></a>ControllerBase – třída
 
-Webové rozhraní API se skládá z jedné nebo více tříd kontroleru, které <xref:Microsoft.AspNetCore.Mvc.ControllerBase>jsou odvozeny z. Šablona projektu webového rozhraní API poskytuje kontroler Starter:
+Webové rozhraní API se skládá z jedné nebo více tříd kontroleru odvozených z <xref:Microsoft.AspNetCore.Mvc.ControllerBase>. Šablona projektu webového rozhraní API poskytuje kontroler Starter:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -38,9 +38,9 @@ Webové rozhraní API se skládá z jedné nebo více tříd kontroleru, které 
 
 ::: moniker-end
 
-Nevytvářejte kontroler webového rozhraní API odvozením z <xref:Microsoft.AspNetCore.Mvc.Controller> třídy. `Controller`je odvozen z `ControllerBase` a přidává podporu pro zobrazení, aby bylo možné zpracovávat webové stránky, nikoli požadavky webového rozhraní API. Toto pravidlo má výjimku: Pokud plánujete použít stejný kontroler pro obě zobrazení a webová rozhraní API, odvodit je od `Controller`.
+Nevytvářejte kontroler webového rozhraní API odvozením z třídy <xref:Microsoft.AspNetCore.Mvc.Controller>. `Controller` se odvozují z `ControllerBase` a přidává podporu pro zobrazení, takže je možné zpracovávat webové stránky, nikoli požadavky webového rozhraní API. Toto pravidlo má výjimku: Pokud plánujete použít stejný kontroler pro obě zobrazení a webová rozhraní API, odvozuje je od `Controller`.
 
-`ControllerBase` Třída poskytuje mnoho vlastností a metod, které jsou užitečné pro zpracování požadavků HTTP. Například `ControllerBase.CreatedAtAction` vrátí stavový kód 201:
+Třída `ControllerBase` poskytuje mnoho vlastností a metod, které jsou užitečné pro zpracování požadavků HTTP. `ControllerBase.CreatedAtAction` například vrátí stavový kód 201:
 
 [!code-csharp[](index/samples/2.x/Controllers/PetsController.cs?name=snippet_400And201&highlight=10)]
 
@@ -58,7 +58,7 @@ Seznam všech dostupných metod a vlastností naleznete v tématu <xref:Microsof
 
 ## <a name="attributes"></a>Atributy
 
-<xref:Microsoft.AspNetCore.Mvc> Obor názvů poskytuje atributy, které lze použít ke konfiguraci chování řadičů webového rozhraní API a metod akcí. Následující příklad používá atributy k určení podporovaného příkazu akce HTTP a všech známých stavových kódů HTTP, které by mohly být vráceny:
+Obor názvů <xref:Microsoft.AspNetCore.Mvc> poskytuje atributy, které lze použít ke konfiguraci chování řadičů webového rozhraní API a metod akcí. Následující příklad používá atributy k určení podporovaného příkazu akce HTTP a všech známých stavových kódů HTTP, které by mohly být vráceny:
 
 [!code-csharp[](index/samples/2.x/Controllers/PetsController.cs?name=snippet_400And201&highlight=1-3)]
 
@@ -68,11 +68,11 @@ Tady je několik příkladů atributů, které jsou k dispozici.
 |---------|-----|
 |[Cestě](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)      |Určuje vzor adresy URL pro kontroler nebo akci.|
 |[Zapisovat](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)        |Určuje předponu a vlastnosti, které se mají zahrnout do vazby modelu.|
-|[[HttpGet]](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)  |Identifikuje akci, která podporuje příkaz akce HTTP GET.|
+|[HttpGet](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)  |Identifikuje akci, která podporuje příkaz akce HTTP GET.|
 |[Spotřebovává](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)|Určuje datové typy, které akce akceptuje.|
 |[Uslyší](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)|Určuje datové typy, které akce vrátí.|
 
-Seznam, který obsahuje dostupné atributy, najdete v tématu <xref:Microsoft.AspNetCore.Mvc> obor názvů.
+Seznam, který obsahuje dostupné atributy, najdete v oboru názvů <xref:Microsoft.AspNetCore.Mvc>.
 
 ## <a name="apicontroller-attribute"></a>ApiController – atribut
 
@@ -88,7 +88,7 @@ Tyto funkce vyžadují [kompatibilitu verze](xref:mvc/compatibility-version) 2,1
 
 ### <a name="attribute-on-specific-controllers"></a>Atribut na určitých řadičích
 
-`[ApiController]` Atribut lze použít pro konkrétní řadiče, jako v následujícím příkladu, ze šablony projektu:
+Atribut `[ApiController]` lze použít pro konkrétní řadiče, jako v následujícím příkladu, ze šablony projektu:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -104,7 +104,7 @@ Tyto funkce vyžadují [kompatibilitu verze](xref:mvc/compatibility-version) 2,1
 
 ### <a name="attribute-on-multiple-controllers"></a>Atribut na více řadičích
 
-Jedním z přístupů k použití atributu na více než jednom řadiči je vytvoření vlastní třídy základního kontroleru s poznámkou s `[ApiController]` atributem. Následující příklad ukazuje vlastní základní třídu a řadič, který je z něj odvozen:
+Jedním z přístupů k použití atributu na více než jednom řadiči je vytvoření vlastní třídy základního kontroleru s poznámkou s atributem `[ApiController]`. Následující příklad ukazuje vlastní základní třídu a řadič, který je z něj odvozen:
 
 [!code-csharp[](index/samples/2.x/Controllers/MyControllerBase.cs?name=snippet_MyControllerBase)]
 
@@ -124,7 +124,7 @@ Jedním z přístupů k použití atributu na více než jednom řadiči je vytv
 
 ### <a name="attribute-on-an-assembly"></a>Atribut na sestavení
 
-Pokud je [verze kompatibility](xref:mvc/compatibility-version) nastavena na 2,2 nebo novější, `[ApiController]` atribut lze použít na sestavení. Anotace tímto způsobem aplikuje chování webového rozhraní API na všechny řadiče v sestavení. Neexistuje žádný způsob, jak odhlásit jednotlivé řadiče. Použijte atribut na úrovni sestavení pro deklaraci oboru názvů obklopující `Startup` třídu:
+Je-li [verze kompatibility](xref:mvc/compatibility-version) nastavena na 2,2 nebo vyšší, lze atribut `[ApiController]` použít na sestavení. Anotace tímto způsobem aplikuje chování webového rozhraní API na všechny řadiče v sestavení. Neexistuje žádný způsob, jak odhlásit jednotlivé řadiče. Použijte atribut na úrovni sestavení pro deklaraci oboru názvů obklopující třídu `Startup`:
 
 ```csharp
 [assembly: ApiController]
@@ -141,13 +141,13 @@ namespace WebApiSample
 
 ## <a name="attribute-routing-requirement"></a>Požadavek na směrování atributu
 
-`[ApiController]` Atribut dělá směrování požadavku. Příklad:
+Atribut `[ApiController]` dělá směrování požadavku. Příklad:
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](index/samples/3.x/Controllers/WeatherForecastController.cs?name=snippet_ControllerSignature&highlight=2)]
 
-Akce jsou nepřístupné prostřednictvím [konvenčních tras](xref:mvc/controllers/routing#conventional-routing) definovaných <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*>pomocí `UseEndpoints`, <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> nebo `Startup.Configure`v.
+Akce jsou nepřístupné prostřednictvím [konvenčních tras](xref:mvc/controllers/routing#conventional-routing) definovaných `UseEndpoints`, <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*>nebo <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> v `Startup.Configure`.
 
 ::: moniker-end
 
@@ -155,13 +155,13 @@ Akce jsou nepřístupné prostřednictvím [konvenčních tras](xref:mvc/control
 
 [!code-csharp[](index/samples/2.x/Controllers/ValuesController.cs?name=snippet_ControllerSignature&highlight=1)]
 
-Akce jsou nepřístupné prostřednictvím [konvenčních tras](xref:mvc/controllers/routing#conventional-routing) <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> definovaných <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> v `Startup.Configure`nebo.
+Akce jsou nepřístupné prostřednictvím [konvenčních tras](xref:mvc/controllers/routing#conventional-routing) definovaných <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> nebo <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> v `Startup.Configure`.
 
 ::: moniker-end
 
-### <a name="automatic-http-400-responses"></a>Automatické odpovědi HTTP 400
+## <a name="automatic-http-400-responses"></a>Automatické odpovědi HTTP 400
 
-`[ApiController]` Atribut způsobuje chyby ověření modelu automaticky a odpověď HTTP 400. V důsledku toho následující kód není zbytečný v metodě akce:
+Atribut `[ApiController]` způsobuje, že chyby ověření modelu automaticky aktivují odpověď HTTP 400. V důsledku toho následující kód není zbytečný v metodě akce:
 
 ```csharp
 if (!ModelState.IsValid)
@@ -170,11 +170,11 @@ if (!ModelState.IsValid)
 }
 ```
 
-ASP.NET Core MVC používá <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> filtr akcí k provedení předchozí kontroly.
+ASP.NET Core MVC používá filtr akcí <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> k provedení předchozí kontroly.
 
 ### <a name="default-badrequest-response"></a>Výchozí odpověď důvodu chybného požadavku
 
-V případě kompatibility verze 2,1 je <xref:Microsoft.AspNetCore.Mvc.SerializableError>výchozí typ odpovědi pro odpověď HTTP 400. Následující text žádosti je příkladem serializovaného typu:
+V případě kompatibility verze 2,1 je výchozí typ odpovědi pro odpověď HTTP 400 <xref:Microsoft.AspNetCore.Mvc.SerializableError>. Následující text žádosti je příkladem serializovaného typu:
 
 ```json
 {
@@ -202,7 +202,7 @@ V případě kompatibility verze 2,2 nebo novější je <xref:Microsoft.AspNetCo
 }
 ```
 
-`ValidationProblemDetails` Typ:
+Typ `ValidationProblemDetails`:
 
 * Poskytuje strojově čitelný formát pro zadávání chyb v odpovědích webového rozhraní API.
 * Vyhovuje [specifikaci RFC 7807](https://tools.ietf.org/html/rfc7807).
@@ -215,7 +215,7 @@ Přečtěte si, [Jak protokolovat automatické odpovědi 400 na chyby ověření
 
 ### <a name="disable-automatic-400-response"></a>Zakázat automatickou odpověď 400
 
-Chcete-li zakázat automatické chování 400, nastavte <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> vlastnost na `true`hodnotu. Do `Startup.ConfigureServices`následujícího pole přidejte následující zvýrazněný kód:
+Chcete-li zakázat automatické chování 400, nastavte vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> na hodnotu `true`. Do `Startup.ConfigureServices`přidejte následující zvýrazněný kód:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -235,7 +235,7 @@ Zdrojový atribut vazby definuje umístění, kde je nalezena hodnota parametru 
 
 |Atribut|Zdroj vazby |
 |---------|---------|
-|[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)     | Text požadavku |
+|[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)     | Text žádosti |
 |[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)     | Data formuláře v textu žádosti |
 |[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) | Hlavička žádosti |
 |[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)   | Parametr řetězce dotazu žádosti |
@@ -243,42 +243,42 @@ Zdrojový atribut vazby definuje umístění, kde je nalezena hodnota parametru 
 |[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) | Služba požadavku byla vložena jako parametr akce. |
 
 > [!WARNING]
-> Nepoužívejte `[FromRoute]` , pokud hodnoty mohou `%2f` obsahovat (to `/`znamená). `%2f`nedá se odsekvencit na `/`. Použijte `[FromQuery]` , pokud hodnota může obsahovat `%2f`.
+> Nepoužívejte `[FromRoute]`, pokud hodnoty mohou obsahovat `%2f` (`/`). `%2f` nebude `/`. Použijte `[FromQuery]`, pokud hodnota může obsahovat `%2f`.
 
-Bez atributů nebo `[FromQuery]`atributů vazby, ASP.NET Core modul runtime se pokusí použít komplexní pořadač objektového modelu. `[ApiController]` Pořadač komplexního objektového modelu získává data od zprostředkovatelů hodnot v definovaném pořadí.
+Bez atributu `[ApiController]` nebo vazby zdrojových atributů jako `[FromQuery]`se ASP.NET Core modul runtime pokusí použít komplexní pořadač objektového modelu. Pořadač komplexního objektového modelu získává data od zprostředkovatelů hodnot v definovaném pořadí.
 
-V následujícím příkladu `[FromQuery]` atribut označuje `discontinuedOnly` , že hodnota parametru je uvedena v řetězci dotazu adresy URL požadavku:
+V následujícím příkladu atribut `[FromQuery]` označuje, že hodnota parametru `discontinuedOnly` je uvedena v řetězci dotazu adresy URL požadavku:
 
 [!code-csharp[](index/samples/2.x/Controllers/ProductsController.cs?name=snippet_BindingSourceAttributes&highlight=3)]
 
-`[ApiController]` Atribut použije odvozená pravidla pro výchozí zdroje dat parametrů akce. Tato pravidla vám umožní určit ruční identifikaci zdrojů vazby použitím atributů u parametrů akce. Pravidla odvození zdroje vazby se chovají následujícím způsobem:
+Atribut `[ApiController]` aplikuje odvozená pravidla pro výchozí zdroje dat parametrů akce. Tato pravidla vám umožní určit ruční identifikaci zdrojů vazby použitím atributů u parametrů akce. Pravidla odvození zdroje vazby se chovají následujícím způsobem:
 
-* `[FromBody]`je odvozený pro parametry komplexního typu. Výjimka na `[FromBody]` odvozený pravidlo je jakýkoli komplexní, vestavěný typ se speciálním významem, <xref:Microsoft.AspNetCore.Http.IFormCollection> například a <xref:System.Threading.CancellationToken>. Kód odvození zdroje vazby ignoruje tyto speciální typy.
-* `[FromForm]`je odvozený pro parametry akce typu <xref:Microsoft.AspNetCore.Http.IFormFile> a. <xref:Microsoft.AspNetCore.Http.IFormFileCollection> Není odvozený pro žádné jednoduché nebo uživatelsky definované typy.
-* `[FromRoute]`je odvozen pro všechny názvy parametrů akce, které odpovídají parametru v šabloně trasy. Když parametr akce odpovídá víc než jedna trasa, bude se brát v úvahu `[FromRoute]`jakákoli hodnota trasy.
-* `[FromQuery]`je odvozen pro všechny ostatní parametry akce.
+* `[FromBody]` je odvozený pro parametry komplexního typu. Výjimka pro pravidlo odvození `[FromBody]` je jakékoli komplexní, vestavěný typ se speciálním významem, jako je například <xref:Microsoft.AspNetCore.Http.IFormCollection> a <xref:System.Threading.CancellationToken>. Kód odvození zdroje vazby ignoruje tyto speciální typy.
+* `[FromForm]` je odvozeno od parametrů akce typu <xref:Microsoft.AspNetCore.Http.IFormFile> a <xref:Microsoft.AspNetCore.Http.IFormFileCollection>. Není odvozený pro žádné jednoduché nebo uživatelsky definované typy.
+* `[FromRoute]` se odvozuje pro všechny názvy parametrů akcí, které odpovídají parametru v šabloně směrování. Pokud parametr akce odpovídá víc než jedna trasa, hodnota trasy se považuje za `[FromRoute]`.
+* `[FromQuery]` se odvozuje pro všechny ostatní parametry akce.
 
 ### <a name="frombody-inference-notes"></a>Poznámky k odvozování FromBody
 
-`[FromBody]`není odvozen pro jednoduché typy, jako například `string` nebo. `int` Proto by měl být atributpoužitprojednoduchétypy,pokudjetatofunkcepotřebná.`[FromBody]`
+`[FromBody]` nejsou odvozené pro jednoduché typy, jako je `string` nebo `int`. Proto by měl atribut `[FromBody]` použít pro jednoduché typy, pokud je tato funkce potřebná.
 
 Pokud má akce více než jeden parametr vázaný z těla požadavku, je vyvolána výjimka. Například všechny následující signatury metody Action způsobují výjimku:
 
-* `[FromBody]`odvozeno v obou případech, protože se jedná o komplexní typy.
+* `[FromBody]` odvozená v obou případech, protože se jedná o komplexní typy.
 
   ```csharp
   [HttpPost]
   public IActionResult Action1(Product product, Order order)
   ```
 
-* `[FromBody]`atribut na jednom, odvozený na druhém, protože se jedná o komplexní typ.
+* `[FromBody]` atribut na jednom, odvozený na druhém, protože se jedná o komplexní typ.
 
   ```csharp
   [HttpPost]
   public IActionResult Action2(Product product, [FromBody] Order order)
   ```
 
-* `[FromBody]`atribut na obou.
+* atribut `[FromBody]` v obou.
 
   ```csharp
   [HttpPost]
@@ -288,13 +288,13 @@ Pokud má akce více než jeden parametr vázaný z těla požadavku, je vyvolá
 ::: moniker range="= aspnetcore-2.1"
 
 > [!NOTE]
-> V ASP.NET Core 2,1 jsou parametry typu kolekce, jako jsou seznamy a pole, nesprávně odvozeny jako `[FromQuery]`. `[FromBody]` Atribut by měl být použit pro tyto parametry, pokud mají být vázány z textu žádosti. Toto chování se opravuje v ASP.NET Core 2,2 nebo novějším, kde jsou parametry typu kolekce odvoditelné z těla ve výchozím nastavení.
+> V ASP.NET Core 2,1 jsou parametry typu kolekce, jako jsou seznamy a pole, nesprávně odvozeny jako `[FromQuery]`. Atribut `[FromBody]` by měl být použit pro tyto parametry, pokud mají být vázány z textu žádosti. Toto chování se opravuje v ASP.NET Core 2,2 nebo novějším, kde jsou parametry typu kolekce odvoditelné z těla ve výchozím nastavení.
 
 ::: moniker-end
 
 ### <a name="disable-inference-rules"></a>Zakázat odvození pravidel
 
-Chcete-li zakázat odvození zdroje vazby <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> , `true`nastavte na. Do `Startup.ConfigureServices`tohoto pole přidejte následující kód:
+Chcete-li zakázat odvození zdroje vazby, nastavte <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> na `true`. Do `Startup.ConfigureServices`přidejte následující kód:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -310,9 +310,9 @@ Chcete-li zakázat odvození zdroje vazby <xref:Microsoft.AspNetCore.Mvc.ApiBeha
 
 ## <a name="multipartform-data-request-inference"></a>Multipart/form-odvození požadavku na data
 
-Atribut použije odvození pravidla, pokud je parametr Action opatřen poznámkou s atributem [[FromForm].](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) `[ApiController]` Typ `multipart/form-data` obsahu žádosti je odvozený.
+Atribut `[ApiController]` aplikuje odvození pravidla, pokud je parametr Action opatřen poznámkou s atributem [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) . Je odvozený typ obsahu žádosti o `multipart/form-data`.
 
-Chcete-li zakázat výchozí chování, nastavte <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> vlastnost na `true` hodnotu `Startup.ConfigureServices`v:
+Chcete-li zakázat výchozí chování, nastavte vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> na `true` v `Startup.ConfigureServices`:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -328,13 +328,13 @@ Chcete-li zakázat výchozí chování, nastavte <xref:Microsoft.AspNetCore.Mvc.
 
 ## <a name="problem-details-for-error-status-codes"></a>Podrobnosti o problémech stavových kódů chyb
 
-Pokud je verze kompatibility 2,2 nebo novější, MVC transformuje výsledek chyby (výsledek s kódem stavu 400 nebo vyšší) na výsledek <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>. Typ je založen na [specifikaci RFC 7807](https://tools.ietf.org/html/rfc7807) pro poskytování podrobností o chybě čitelné počítačem v odpovědi HTTP. `ProblemDetails`
+Pokud je verze kompatibility 2,2 nebo novější, MVC transformuje výsledek chyby (výsledek s kódem stavu 400 nebo vyšší) na výsledek s <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>. `ProblemDetails` typ je založen na [specifikaci RFC 7807](https://tools.ietf.org/html/rfc7807) pro poskytování podrobností o chybě čitelné počítačem v odpovědi HTTP.
 
 V akci kontroleru zvažte následující kód:
 
 [!code-csharp[](index/samples/2.x/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
 
-Metoda vytvoří stavový kód HTTP 404 `ProblemDetails` s tělem. `NotFound` Příklad:
+Metoda `NotFound` generuje stavový kód HTTP 404 s `ProblemDetails` tělo. Příklad:
 
 ```json
 {
@@ -347,7 +347,7 @@ Metoda vytvoří stavový kód HTTP 404 `ProblemDetails` s tělem. `NotFound` P�
 
 ### <a name="disable-problemdetails-response"></a>Zakázat odpověď ProblemDetails
 
-Automatické vytváření `ProblemDetails` instance je zakázáno, <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors*> Pokud je vlastnost nastavena na `true`hodnotu. Do `Startup.ConfigureServices`tohoto pole přidejte následující kód:
+Automatické vytváření instance `ProblemDetails` je zakázáno, pokud je vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors*> nastavena na `true`. Do `Startup.ConfigureServices`přidejte následující kód:
 
 ::: moniker range=">= aspnetcore-3.0"
 

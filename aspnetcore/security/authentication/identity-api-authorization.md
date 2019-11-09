@@ -5,14 +5,14 @@ description: Používejte identitu s jednou stránkou, která je hostovaná v ap
 monikerRange: '>= aspnetcore-3.0'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/29/2019
+ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 5ed5fb61e5989b291523332c6a2ec332f9ca0f6b
-ms.sourcegitcommit: e5d4768aaf85703effb4557a520d681af8284e26
+ms.openlocfilehash: f58d92634ce1ef6110533d56c40b7520dda90514
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/05/2019
-ms.locfileid: "73616610"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73897038"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
@@ -182,6 +182,30 @@ services.Configure<JwtBearerOptions>(
         ...
     });
 ```
+
+Obslužná rutina JWT rozhraní API vyvolává události, které umožňují řízení procesu ověřování pomocí `JwtBearerEvents`. Pro zajištění podpory pro autorizaci rozhraní API `AddIdentityServerJwt` registrovat vlastní obslužné rutiny událostí.
+
+Chcete-li přizpůsobit zpracování události, zabalte existující obslužnou rutinu události s další logikou podle potřeby. Příklad:
+
+```csharp
+services.Configure<JwtBearerOptions>(
+    IdentityServerJwtConstants.IdentityServerJwtBearerScheme,
+    options =>
+    {
+        var onTokenValidated = options.Events.OnTokenValidated;       
+        
+        options.Events.OnTokenValidated = async context =>
+        {
+            await onTokenValidated(context);
+            ...
+        }
+    });
+```
+
+V předchozím kódu je obslužná rutina události `OnTokenValidated` nahrazena vlastní implementací. Tato implementace:
+
+1. Volá původní implementaci poskytovanou podporou autorizace rozhraní API.
+1. Spusťte vlastní logiku.
 
 ## <a name="protect-a-client-side-route-angular"></a>Ochrana trasy na straně klienta (úhlové)
 
