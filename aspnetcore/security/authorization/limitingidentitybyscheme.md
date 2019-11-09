@@ -1,24 +1,23 @@
 ---
-title: Autorizovat s konkrétní schéma v ASP.NET Core
+title: Autorizovat pomocí konkrétního schématu v ASP.NET Core
 author: rick-anderson
-description: Tento článek vysvětluje, jak omezit identity na konkrétní schéma při práci s několika metod ověřování.
+description: Tento článek vysvětluje, jak omezit identitu na konkrétní schéma při práci s více metodami ověřování.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 10/22/2018
+ms.date: 11/08/2019
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 778bb61f472ab2e76f85da5999d3c79238188f19
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 38da80519b9d5d097c24d38b5a37503174629fc4
+ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903003"
+ms.lasthandoff: 11/09/2019
+ms.locfileid: "73896969"
 ---
-# <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a><span data-ttu-id="1f453-103">Autorizovat s konkrétní schéma v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="1f453-103">Authorize with a specific scheme in ASP.NET Core</span></span>
+# <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a><span data-ttu-id="87fa9-103">Autorizovat pomocí konkrétního schématu v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="87fa9-103">Authorize with a specific scheme in ASP.NET Core</span></span>
 
-<span data-ttu-id="1f453-104">V některých případech, například jednostránkové aplikace (SPA) je běžné použití více metod ověřování.</span><span class="sxs-lookup"><span data-stu-id="1f453-104">In some scenarios, such as Single Page Applications (SPAs), it's common to use multiple authentication methods.</span></span> <span data-ttu-id="1f453-105">Aplikace může například používat ověřování na základě souborů cookie pro přihlášení a ověřování nosného tokenu JWT pro požadavky jazyka JavaScript.</span><span class="sxs-lookup"><span data-stu-id="1f453-105">For example, the app may use cookie-based authentication to log in and JWT bearer authentication for JavaScript requests.</span></span> <span data-ttu-id="1f453-106">V některých případech se aplikace může mít více instancí obslužnou rutinu ověřování.</span><span class="sxs-lookup"><span data-stu-id="1f453-106">In some cases, the app may have multiple instances of an authentication handler.</span></span> <span data-ttu-id="1f453-107">Například dvě obslužné rutiny souborů cookie kde jedna obsahuje základní identitu a jedno se vytvoří při aktivaci služby Multi-Factor authentication (MFA).</span><span class="sxs-lookup"><span data-stu-id="1f453-107">For example, two cookie handlers where one contains a basic identity and one is created when a multi-factor authentication (MFA) has been triggered.</span></span> <span data-ttu-id="1f453-108">Vícefaktorové ověřování můžou být vyvolány, protože uživatel si vyžádal operace, která vyžaduje dodatečné zabezpečení.</span><span class="sxs-lookup"><span data-stu-id="1f453-108">MFA may be triggered because the user requested an operation that requires extra security.</span></span>
+<span data-ttu-id="87fa9-104">V některých scénářích, jako jsou například jednostránkové aplikace (jednostránkové), je běžné použít více metod ověřování.</span><span class="sxs-lookup"><span data-stu-id="87fa9-104">In some scenarios, such as Single Page Applications (SPAs), it's common to use multiple authentication methods.</span></span> <span data-ttu-id="87fa9-105">Aplikace může například použít ověřování pomocí souborů cookie k přihlášení a ověření nosiče JWT pro požadavky JavaScriptu.</span><span class="sxs-lookup"><span data-stu-id="87fa9-105">For example, the app may use cookie-based authentication to log in and JWT bearer authentication for JavaScript requests.</span></span> <span data-ttu-id="87fa9-106">V některých případech může aplikace mít několik instancí obslužné rutiny ověřování.</span><span class="sxs-lookup"><span data-stu-id="87fa9-106">In some cases, the app may have multiple instances of an authentication handler.</span></span> <span data-ttu-id="87fa9-107">Například dva obslužné rutiny souborů cookie, kde jedna obsahuje základní identitu a která je vytvořena, když byla aktivována aplikace Multi-Factor Authentication (MFA).</span><span class="sxs-lookup"><span data-stu-id="87fa9-107">For example, two cookie handlers where one contains a basic identity and one is created when a multi-factor authentication (MFA) has been triggered.</span></span> <span data-ttu-id="87fa9-108">Vícefaktorové ověřování může být aktivováno, protože uživatel požadoval operaci, která vyžaduje dodatečné zabezpečení.</span><span class="sxs-lookup"><span data-stu-id="87fa9-108">MFA may be triggered because the user requested an operation that requires extra security.</span></span>
 
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[<span data-ttu-id="1f453-109">ASP.NET Core 2.x</span><span class="sxs-lookup"><span data-stu-id="1f453-109">ASP.NET Core 2.x</span></span>](#tab/aspnetcore2x)
-
-<span data-ttu-id="1f453-110">Schéma ověřování má název, pokud je nakonfigurovaná služba ověřování během ověřování.</span><span class="sxs-lookup"><span data-stu-id="1f453-110">An authentication scheme is named when the authentication service is configured during authentication.</span></span> <span data-ttu-id="1f453-111">Příklad:</span><span class="sxs-lookup"><span data-stu-id="1f453-111">For example:</span></span>
+<span data-ttu-id="87fa9-109">Schéma ověřování se jmenuje, když je ověřovací služba nakonfigurovaná během ověřování.</span><span class="sxs-lookup"><span data-stu-id="87fa9-109">An authentication scheme is named when the authentication service is configured during authentication.</span></span> <span data-ttu-id="87fa9-110">Příklad:</span><span class="sxs-lookup"><span data-stu-id="87fa9-110">For example:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -36,50 +35,14 @@ public void ConfigureServices(IServiceCollection services)
         });
 ```
 
-<span data-ttu-id="1f453-112">V předchozím kódu byly přidány dva ověřování obslužných rutin: jednu pro soubory cookie a jednu pro nosiče.</span><span class="sxs-lookup"><span data-stu-id="1f453-112">In the preceding code, two authentication handlers have been added: one for cookies and one for bearer.</span></span>
+<span data-ttu-id="87fa9-111">V předchozím kódu byly přidány dvě obslužné rutiny ověřování: jeden pro soubory cookie a jeden pro nosič.</span><span class="sxs-lookup"><span data-stu-id="87fa9-111">In the preceding code, two authentication handlers have been added: one for cookies and one for bearer.</span></span>
 
 >[!NOTE]
-><span data-ttu-id="1f453-113">Určení výchozí schéma vede `HttpContext.User` nastavenou na tuto identitu.</span><span class="sxs-lookup"><span data-stu-id="1f453-113">Specifying the default scheme results in the `HttpContext.User` property being set to that identity.</span></span> <span data-ttu-id="1f453-114">Pokud toto chování není žádoucí, zakažte vyvoláním konstruktor bez parametrů formu `AddAuthentication`.</span><span class="sxs-lookup"><span data-stu-id="1f453-114">If that behavior isn't desired, disable it by invoking the parameterless form of `AddAuthentication`.</span></span>
+><span data-ttu-id="87fa9-112">Zadáním výchozího schématu dojde k nastavení vlastnosti `HttpContext.User` na tuto identitu.</span><span class="sxs-lookup"><span data-stu-id="87fa9-112">Specifying the default scheme results in the `HttpContext.User` property being set to that identity.</span></span> <span data-ttu-id="87fa9-113">Pokud toto chování nepřejete, zakažte ho tak, že vyvoláte neparametrovou podobu `AddAuthentication`.</span><span class="sxs-lookup"><span data-stu-id="87fa9-113">If that behavior isn't desired, disable it by invoking the parameterless form of `AddAuthentication`.</span></span>
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[<span data-ttu-id="1f453-115">ASP.NET Core 1.x</span><span class="sxs-lookup"><span data-stu-id="1f453-115">ASP.NET Core 1.x</span></span>](#tab/aspnetcore1x)
+## <a name="selecting-the-scheme-with-the-authorize-attribute"></a><span data-ttu-id="87fa9-114">Výběr schématu pomocí atributu autorizovat</span><span class="sxs-lookup"><span data-stu-id="87fa9-114">Selecting the scheme with the Authorize attribute</span></span>
 
-<span data-ttu-id="1f453-116">Schémata ověřování jsou pojmenovány při ověřování middlewares se nastavily při ověřování.</span><span class="sxs-lookup"><span data-stu-id="1f453-116">Authentication schemes are named when authentication middlewares are configured during authentication.</span></span> <span data-ttu-id="1f453-117">Příklad:</span><span class="sxs-lookup"><span data-stu-id="1f453-117">For example:</span></span>
-
-```csharp
-public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-{
-    // Code omitted for brevity
-
-    app.UseCookieAuthentication(new CookieAuthenticationOptions()
-    {
-        AuthenticationScheme = "Cookie",
-        LoginPath = "/Account/Unauthorized/",
-        AccessDeniedPath = "/Account/Forbidden/",
-        AutomaticAuthenticate = false
-    });
-    
-    app.UseJwtBearerAuthentication(new JwtBearerOptions()
-    {
-        AuthenticationScheme = "Bearer",
-        AutomaticAuthenticate = false,
-        Audience = "http://localhost:5001/",
-        Authority = "http://localhost:5000/",
-        RequireHttpsMetadata = false
-    });
-```
-
-<span data-ttu-id="1f453-118">V předchozím kódu byly přidány dva middlewares ověřování: jednu pro soubory cookie a jednu pro nosiče.</span><span class="sxs-lookup"><span data-stu-id="1f453-118">In the preceding code, two authentication middlewares have been added: one for cookies and one for bearer.</span></span>
-
->[!NOTE]
-><span data-ttu-id="1f453-119">Určení výchozí schéma vede `HttpContext.User` nastavenou na tuto identitu.</span><span class="sxs-lookup"><span data-stu-id="1f453-119">Specifying the default scheme results in the `HttpContext.User` property being set to that identity.</span></span> <span data-ttu-id="1f453-120">Pokud toto chování není žádoucí, zakázat nastavením `AuthenticationOptions.AutomaticAuthenticate` vlastnost `false`.</span><span class="sxs-lookup"><span data-stu-id="1f453-120">If that behavior isn't desired, disable it by setting the `AuthenticationOptions.AutomaticAuthenticate` property to `false`.</span></span>
-
----
-
-## <a name="selecting-the-scheme-with-the-authorize-attribute"></a><span data-ttu-id="1f453-121">Výběr schématu s atributem Authorize</span><span class="sxs-lookup"><span data-stu-id="1f453-121">Selecting the scheme with the Authorize attribute</span></span>
-
-<span data-ttu-id="1f453-122">Přejme během autorizace aplikace udává, že obslužná rutina, který se má použít.</span><span class="sxs-lookup"><span data-stu-id="1f453-122">At the point of authorization, the app indicates the handler to be used.</span></span> <span data-ttu-id="1f453-123">Vyberte obslužnou rutinu, pomocí kterého aplikace předáním čárkami oddělený seznam režimů ověřování k ověření `[Authorize]`.</span><span class="sxs-lookup"><span data-stu-id="1f453-123">Select the handler with which the app will authorize by passing a comma-delimited list of authentication schemes to `[Authorize]`.</span></span> <span data-ttu-id="1f453-124">`[Authorize]` Atribut určuje schéma ověřování nebo použití bez ohledu na to, jestli je nakonfigurovaná výchozí schémata.</span><span class="sxs-lookup"><span data-stu-id="1f453-124">The `[Authorize]` attribute specifies the authentication scheme or schemes to use regardless of whether a default is configured.</span></span> <span data-ttu-id="1f453-125">Příklad:</span><span class="sxs-lookup"><span data-stu-id="1f453-125">For example:</span></span>
-
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[<span data-ttu-id="1f453-126">ASP.NET Core 2.x</span><span class="sxs-lookup"><span data-stu-id="1f453-126">ASP.NET Core 2.x</span></span>](#tab/aspnetcore2x)
+<span data-ttu-id="87fa9-115">V bodě autorizace aplikace označuje obslužnou rutinu, která se má použít.</span><span class="sxs-lookup"><span data-stu-id="87fa9-115">At the point of authorization, the app indicates the handler to be used.</span></span> <span data-ttu-id="87fa9-116">Vyberte obslužnou rutinu, se kterou bude aplikace autorizována předáním seznamu schémat ověřování oddělených čárkami, které se mají `[Authorize]`.</span><span class="sxs-lookup"><span data-stu-id="87fa9-116">Select the handler with which the app will authorize by passing a comma-delimited list of authentication schemes to `[Authorize]`.</span></span> <span data-ttu-id="87fa9-117">Atribut `[Authorize]` Určuje schéma ověřování nebo schémata, které se mají použít bez ohledu na to, jestli je nakonfigurovaná výchozí hodnota.</span><span class="sxs-lookup"><span data-stu-id="87fa9-117">The `[Authorize]` attribute specifies the authentication scheme or schemes to use regardless of whether a default is configured.</span></span> <span data-ttu-id="87fa9-118">Příklad:</span><span class="sxs-lookup"><span data-stu-id="87fa9-118">For example:</span></span>
 
 ```csharp
 [Authorize(AuthenticationSchemes = AuthSchemes)]
@@ -92,24 +55,7 @@ public class MixedController : Controller
         JwtBearerDefaults.AuthenticationScheme;
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[<span data-ttu-id="1f453-127">ASP.NET Core 1.x</span><span class="sxs-lookup"><span data-stu-id="1f453-127">ASP.NET Core 1.x</span></span>](#tab/aspnetcore1x)
-
-```csharp
-[Authorize(ActiveAuthenticationSchemes = AuthSchemes)]
-public class MixedController : Controller
-    // Requires the following imports:
-    // using Microsoft.AspNetCore.Authentication.Cookies;
-    // using Microsoft.AspNetCore.Authentication.JwtBearer;
-    private const string AuthSchemes =
-        CookieAuthenticationDefaults.AuthenticationScheme + "," +
-        JwtBearerDefaults.AuthenticationScheme;
-```
-
----
-
-<span data-ttu-id="1f453-128">V předchozím příkladu se souborem cookie nebo nosiče obslužné rutiny spustit a mít možnost vytvořit a připojit identitu pro aktuálního uživatele.</span><span class="sxs-lookup"><span data-stu-id="1f453-128">In the preceding example, both the cookie and bearer handlers run and have a chance to create and append an identity for the current user.</span></span> <span data-ttu-id="1f453-129">Zadáním jednoho schéma pouze odpovídající obslužná rutina se spustí.</span><span class="sxs-lookup"><span data-stu-id="1f453-129">By specifying a single scheme only, the corresponding handler runs.</span></span>
-
-# <a name="aspnet-core-2xtabaspnetcore2x"></a>[<span data-ttu-id="1f453-130">ASP.NET Core 2.x</span><span class="sxs-lookup"><span data-stu-id="1f453-130">ASP.NET Core 2.x</span></span>](#tab/aspnetcore2x)
+<span data-ttu-id="87fa9-119">V předchozím příkladu jsou oba obslužné rutiny cookie a nosiče a mají možnost vytvořit a připojit identitu pro aktuálního uživatele.</span><span class="sxs-lookup"><span data-stu-id="87fa9-119">In the preceding example, both the cookie and bearer handlers run and have a chance to create and append an identity for the current user.</span></span> <span data-ttu-id="87fa9-120">Zadáním jediného schématu se spustí odpovídající obslužná rutina.</span><span class="sxs-lookup"><span data-stu-id="87fa9-120">By specifying a single scheme only, the corresponding handler runs.</span></span>
 
 ```csharp
 [Authorize(AuthenticationSchemes = 
@@ -117,21 +63,11 @@ public class MixedController : Controller
 public class MixedController : Controller
 ```
 
-# <a name="aspnet-core-1xtabaspnetcore1x"></a>[<span data-ttu-id="1f453-131">ASP.NET Core 1.x</span><span class="sxs-lookup"><span data-stu-id="1f453-131">ASP.NET Core 1.x</span></span>](#tab/aspnetcore1x)
+<span data-ttu-id="87fa9-121">V předchozím kódu se spouští jenom obslužná rutina se schématem "nosič".</span><span class="sxs-lookup"><span data-stu-id="87fa9-121">In the preceding code, only the handler with the "Bearer" scheme runs.</span></span> <span data-ttu-id="87fa9-122">Všechny identity založené na souborech cookie se ignorují.</span><span class="sxs-lookup"><span data-stu-id="87fa9-122">Any cookie-based identities are ignored.</span></span>
 
-```csharp
-[Authorize(ActiveAuthenticationSchemes = 
-    JwtBearerDefaults.AuthenticationScheme)]
-public class MixedController : Controller
-```
+## <a name="selecting-the-scheme-with-policies"></a><span data-ttu-id="87fa9-123">Výběr schématu pomocí zásad</span><span class="sxs-lookup"><span data-stu-id="87fa9-123">Selecting the scheme with policies</span></span>
 
----
-
-<span data-ttu-id="1f453-132">V předchozím kódu pouze obslužná rutina se schématem "Nosiče" se spustí.</span><span class="sxs-lookup"><span data-stu-id="1f453-132">In the preceding code, only the handler with the "Bearer" scheme runs.</span></span> <span data-ttu-id="1f453-133">Jsou ignorovány všechny identity na základě souboru cookie.</span><span class="sxs-lookup"><span data-stu-id="1f453-133">Any cookie-based identities are ignored.</span></span>
-
-## <a name="selecting-the-scheme-with-policies"></a><span data-ttu-id="1f453-134">Výběr schématu se zásadami</span><span class="sxs-lookup"><span data-stu-id="1f453-134">Selecting the scheme with policies</span></span>
-
-<span data-ttu-id="1f453-135">Pokud chcete zadat požadované schémata v [zásady](xref:security/authorization/policies), můžete nastavit `AuthenticationSchemes` kolekce při přidání zásady:</span><span class="sxs-lookup"><span data-stu-id="1f453-135">If you prefer to specify the desired schemes in [policy](xref:security/authorization/policies), you can set the `AuthenticationSchemes` collection when adding your policy:</span></span>
+<span data-ttu-id="87fa9-124">Pokud upřednostňujete určení požadovaných schémat v [zásadách](xref:security/authorization/policies), můžete nastavit kolekci `AuthenticationSchemes` při přidávání zásady:</span><span class="sxs-lookup"><span data-stu-id="87fa9-124">If you prefer to specify the desired schemes in [policy](xref:security/authorization/policies), you can set the `AuthenticationSchemes` collection when adding your policy:</span></span>
 
 ```csharp
 services.AddAuthorization(options =>
@@ -145,7 +81,7 @@ services.AddAuthorization(options =>
 });
 ```
 
-<span data-ttu-id="1f453-136">V předchozím příkladu spuštěno "Over18" zásady pouze u identity vytvoří "Nosiče" obslužnou rutinou.</span><span class="sxs-lookup"><span data-stu-id="1f453-136">In the preceding example, the "Over18" policy only runs against the identity created by the "Bearer" handler.</span></span> <span data-ttu-id="1f453-137">Použijte zásady tak, že nastavíte `[Authorize]` atributu `Policy` vlastnost:</span><span class="sxs-lookup"><span data-stu-id="1f453-137">Use the policy by setting the `[Authorize]` attribute's `Policy` property:</span></span>
+<span data-ttu-id="87fa9-125">V předchozím příkladu se zásada "Over18" spouští pouze proti identitě vytvořené obslužnou rutinou "nosiče".</span><span class="sxs-lookup"><span data-stu-id="87fa9-125">In the preceding example, the "Over18" policy only runs against the identity created by the "Bearer" handler.</span></span> <span data-ttu-id="87fa9-126">Pomocí zásady nastavte vlastnost `Policy` atributu `[Authorize]`:</span><span class="sxs-lookup"><span data-stu-id="87fa9-126">Use the policy by setting the `[Authorize]` attribute's `Policy` property:</span></span>
 
 ```csharp
 [Authorize(Policy = "Over18")]
@@ -154,11 +90,11 @@ public class RegistrationController : Controller
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="use-multiple-authentication-schemes"></a><span data-ttu-id="1f453-138">Použití více schémat ověřování</span><span class="sxs-lookup"><span data-stu-id="1f453-138">Use multiple authentication schemes</span></span>
+## <a name="use-multiple-authentication-schemes"></a><span data-ttu-id="87fa9-127">Použití několika schémat ověřování</span><span class="sxs-lookup"><span data-stu-id="87fa9-127">Use multiple authentication schemes</span></span>
 
-<span data-ttu-id="1f453-139">Některé aplikace může potřebovat pro podporu více typů ověřování.</span><span class="sxs-lookup"><span data-stu-id="1f453-139">Some apps may need to support multiple types of authentication.</span></span> <span data-ttu-id="1f453-140">Vaše aplikace může například ověřovat uživatele ze služby Azure Active Directory a z databáze uživatelů.</span><span class="sxs-lookup"><span data-stu-id="1f453-140">For example, your app might authenticate users from Azure Active Directory and from a users database.</span></span> <span data-ttu-id="1f453-141">Dalším příkladem je aplikace, která ověřuje uživatele z Active Directory Federation Services a Azure Active Directory B2C.</span><span class="sxs-lookup"><span data-stu-id="1f453-141">Another example is an app that authenticates users from both Active Directory Federation Services and Azure Active Directory B2C.</span></span> <span data-ttu-id="1f453-142">V tomto případě aplikace by měla přijímat nosný token JWT z několika vystavitelů.</span><span class="sxs-lookup"><span data-stu-id="1f453-142">In this case, the app should accept a JWT bearer token from several issuers.</span></span>
+<span data-ttu-id="87fa9-128">Některé aplikace můžou potřebovat podporu více typů ověřování.</span><span class="sxs-lookup"><span data-stu-id="87fa9-128">Some apps may need to support multiple types of authentication.</span></span> <span data-ttu-id="87fa9-129">Vaše aplikace může například ověřovat uživatele z Azure Active Directory a z databáze uživatelů.</span><span class="sxs-lookup"><span data-stu-id="87fa9-129">For example, your app might authenticate users from Azure Active Directory and from a users database.</span></span> <span data-ttu-id="87fa9-130">Dalším příkladem je aplikace, která ověřuje uživatele z Active Directory Federation Services (AD FS) i Azure Active Directory B2C.</span><span class="sxs-lookup"><span data-stu-id="87fa9-130">Another example is an app that authenticates users from both Active Directory Federation Services and Azure Active Directory B2C.</span></span> <span data-ttu-id="87fa9-131">V takovém případě by měla aplikace přijmout nosný token JWT od několika vystavitelů.</span><span class="sxs-lookup"><span data-stu-id="87fa9-131">In this case, the app should accept a JWT bearer token from several issuers.</span></span>
 
-<span data-ttu-id="1f453-143">Přidáte všechna schémata ověřování, které chcete přijmout.</span><span class="sxs-lookup"><span data-stu-id="1f453-143">Add all authentication schemes you'd like to accept.</span></span> <span data-ttu-id="1f453-144">Například následující kód na `Startup.ConfigureServices` přidá dva režimy ověřování nosiče JWT s jinou vydavatelů:</span><span class="sxs-lookup"><span data-stu-id="1f453-144">For example, the following code in `Startup.ConfigureServices` adds two JWT bearer authentication schemes with different issuers:</span></span>
+<span data-ttu-id="87fa9-132">Přidejte všechna schémata ověřování, která chcete přijmout.</span><span class="sxs-lookup"><span data-stu-id="87fa9-132">Add all authentication schemes you'd like to accept.</span></span> <span data-ttu-id="87fa9-133">Například následující kód v `Startup.ConfigureServices` přidá dvě ověřovací schémata JWT Bearer s různými vystaviteli:</span><span class="sxs-lookup"><span data-stu-id="87fa9-133">For example, the following code in `Startup.ConfigureServices` adds two JWT bearer authentication schemes with different issuers:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -180,9 +116,9 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 > [!NOTE]
-> <span data-ttu-id="1f453-145">Pouze jeden ověřování nosného tokenu JWT je registrovaný pomocí výchozího schématu ověřování `JwtBearerDefaults.AuthenticationScheme`.</span><span class="sxs-lookup"><span data-stu-id="1f453-145">Only one JWT bearer authentication is registered with the default authentication scheme `JwtBearerDefaults.AuthenticationScheme`.</span></span> <span data-ttu-id="1f453-146">Další ověření musí být registrována pomocí jedinečného ověřování schématu.</span><span class="sxs-lookup"><span data-stu-id="1f453-146">Additional authentication has to be registered with a unique authentication scheme.</span></span>
+> <span data-ttu-id="87fa9-134">U výchozího `JwtBearerDefaults.AuthenticationScheme`schématu ověřování je zaregistrováno pouze jedno ověření nosiče JWT.</span><span class="sxs-lookup"><span data-stu-id="87fa9-134">Only one JWT bearer authentication is registered with the default authentication scheme `JwtBearerDefaults.AuthenticationScheme`.</span></span> <span data-ttu-id="87fa9-135">Další ověřování musí být registrováno pomocí jedinečného schématu ověřování.</span><span class="sxs-lookup"><span data-stu-id="87fa9-135">Additional authentication has to be registered with a unique authentication scheme.</span></span>
 
-<span data-ttu-id="1f453-147">Dalším krokem je aktualizace výchozích zásad autorizace tak, aby přijímal obou režimů ověřování.</span><span class="sxs-lookup"><span data-stu-id="1f453-147">The next step is to update the default authorization policy to accept both authentication schemes.</span></span> <span data-ttu-id="1f453-148">Příklad:</span><span class="sxs-lookup"><span data-stu-id="1f453-148">For example:</span></span>
+<span data-ttu-id="87fa9-136">Dalším krokem je aktualizace výchozích zásad autorizace pro přijímání obou ověřovacích schémat.</span><span class="sxs-lookup"><span data-stu-id="87fa9-136">The next step is to update the default authorization policy to accept both authentication schemes.</span></span> <span data-ttu-id="87fa9-137">Příklad:</span><span class="sxs-lookup"><span data-stu-id="87fa9-137">For example:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -201,6 +137,6 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-<span data-ttu-id="1f453-149">Jako výchozí zásady autorizace je přepsána, je možné použít `[Authorize]` atribut v zařízení.</span><span class="sxs-lookup"><span data-stu-id="1f453-149">As the default authorization policy is overridden, it's possible to use the `[Authorize]` attribute in controllers.</span></span> <span data-ttu-id="1f453-150">Kontrolér přijímá požadavky pak pomocí tokenů JWT vydaného vystavitele první nebo druhé.</span><span class="sxs-lookup"><span data-stu-id="1f453-150">The controller then accepts requests with JWT issued by the first or second issuer.</span></span>
+<span data-ttu-id="87fa9-138">Vzhledem k tomu, že výchozí zásada autorizace je přepsána, je možné použít atribut `[Authorize]` v řadičích.</span><span class="sxs-lookup"><span data-stu-id="87fa9-138">As the default authorization policy is overridden, it's possible to use the `[Authorize]` attribute in controllers.</span></span> <span data-ttu-id="87fa9-139">Kontroler pak přijme žádosti s tokenem JWT vydaným prvním nebo druhým vystavitelem.</span><span class="sxs-lookup"><span data-stu-id="87fa9-139">The controller then accepts requests with JWT issued by the first or second issuer.</span></span>
 
 ::: moniker-end
