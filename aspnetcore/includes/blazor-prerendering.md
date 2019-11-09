@@ -22,10 +22,9 @@ Chcete-li spojit volání interoperability JavaScriptu až po navázání spojen
 }
 ```
 
-Pro předchozí příklad kódu poskytněte funkci `setElementText` JavaScriptu uvnitř elementu `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor). Funkce je volána pomocí `IJSRuntime.InvokeVoidAsync` a nevrací hodnotu:
+Pro předchozí příklad kódu poskytněte `setElementText` funkci JavaScriptu uvnitř elementu `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *pages/_Host. cshtml* (Blazor Server). Funkce je volána pomocí `IJSRuntime.InvokeVoidAsync` a nevrací hodnotu:
 
 ```html
-<!--  -->
 <script>
   window.setElementText = (element, text) => element.innerText = text;
 </script>
@@ -71,7 +70,7 @@ Set value via JS interop call:
 }
 ```
 
-Pro předchozí příklad kódu poskytněte funkci `setElementText` JavaScriptu uvnitř elementu `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor). Funkce je volána pomocí `IJSRuntime.InvokeAsync` a vrací hodnotu:
+Pro předchozí příklad kódu poskytněte `setElementText` funkci JavaScriptu uvnitř elementu `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *pages/_Host. cshtml* (Blazor Server). Funkce je volána pomocí `IJSRuntime.InvokeAsync` a vrací hodnotu:
 
 ```html
 <script>
