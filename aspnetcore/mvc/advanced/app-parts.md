@@ -3,14 +3,14 @@ title: Části aplikace v ASP.NET Core
 author: rick-anderson
 description: Sdílení řadičů, zobrazení, Razor Pages a dalších prvků aplikace v ASP.NET Core
 ms.author: riande
-ms.date: 11/7/2019
+ms.date: 11/10/2019
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: ff6afa1852a3ee97fc4dbbae970dd746ec92f74c
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 92c408adfad8af3dfd2572b625ae28ef24f64948
+ms.sourcegitcommit: a7bbe3890befead19440075b05b9674351f98872
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799468"
+ms.lasthandoff: 11/10/2019
+ms.locfileid: "73905768"
 ---
 # <a name="share-controllers-views-razor-pages-and-more-with-application-parts-in-aspnet-core"></a>Sdílení řadičů, zobrazení, Razor Pages a dalších prvků aplikace v ASP.NET Core
 
@@ -132,7 +132,7 @@ View Components:
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-3.0"
+::: moniker range="< aspnetcore-3.0"
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT)
 
