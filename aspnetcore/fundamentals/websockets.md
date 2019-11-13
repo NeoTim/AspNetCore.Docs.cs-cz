@@ -5,14 +5,16 @@ description: Naučte se, jak začít s objekty WebSockets v ASP.NET Core.
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/10/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: 098e6826d6f7114baceb9578dc6d9883eb83f0aa
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: fc07d572116f8eea2b30ea6cf80324e5c66f994c
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589709"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963175"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>Podpora WebSockets v ASP.NET Core
 
@@ -22,11 +24,11 @@ Tento článek vysvětluje, jak začít s objekty WebSockets v ASP.NET Core. [We
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)). [Jak spustit](#sample-app).
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
-[ASP.NET Core Signal](xref:signalr/introduction) je knihovna, která zjednodušuje přidávání webových funkcí v reálném čase do aplikací. Pokud je to možné, používá objekty WebSocket.
+[ASP.NET Core SignalR](xref:signalr/introduction) je knihovna, která zjednodušuje přidávání webových funkcí v reálném čase do aplikací. Pokud je to možné, používá objekty WebSocket.
 
-Pro většinu aplikací doporučujeme signalizaci pro nezpracované objekty WebSockets. Signál poskytuje záložní přenos pro prostředí, kde nejsou k dispozici objekty WebSockets. Poskytuje také jednoduchý model aplikace pro vzdálené volání procedur. Ve většině scénářů nemá Signal v porovnání s nezpracovanými objekty WebSocket žádný významný nevýhodný výkon.
+Pro většinu aplikací doporučujeme SignalR přes nezpracované objekty WebSockets. SignalR poskytuje záložní přenos pro prostředí, kde nejsou k dispozici objekty WebSockets. Poskytuje také jednoduchý model aplikace pro vzdálené volání procedur. Ve většině scénářů SignalR nemá v porovnání s nezpracovanými objekty WebSocket žádný významný nevýhodný výkon.
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -182,7 +184,7 @@ Povolení podpory protokolu WebSocket v systému Windows 8 nebo novějším:
 > [!NOTE]
 > Při použití IIS Express se tyto kroky nevyžadují.
 
-1. Přejděte na **Ovládací panely** > **programy** >  programy**a funkce** > **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
+1. Přejděte na **Ovládací panely** > **programy** > **programy a funkce** > **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
 1. Otevřete následující uzly: **Internetová informační služba**  > **webové služby**  > **funkce pro vývoj aplikací**.
 1. Vyberte funkci **protokolu WebSocket** . Vyberte **OK**.
 

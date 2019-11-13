@@ -1,20 +1,23 @@
 ---
 title: Úvod do ASP.NET Core Blazor
 author: guardrex
-description: Prozkoumejte ASP.NET Core Blazor, způsob sestavení interaktivního webového uživatelského rozhraní na straně klienta pomocí .NET v aplikaci ASP.NET Core.
+description: Prozkoumejte ASP.NET Core Blazor, způsob sestavení interaktivního webového uživatelského rozhraní na straně klienta s .NET v aplikaci ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 10/31/2019
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- SignalR
 uid: blazor/index
-ms.openlocfilehash: c2574c1250cf94e89dd5476b6174620d83546236
-ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
+ms.openlocfilehash: 8b656a7461c78475432722540ad628258cfe19c4
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73427031"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962917"
 ---
-# <a name="introduction-to-aspnet-core-blazor"></a>Úvod do ASP.NET Core Blazor
+# <a name="introduction-to-aspnet-core-opno-locblazor"></a>Úvod do ASP.NET Core Blazor
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
@@ -37,7 +40,7 @@ Použití rozhraní .NET pro vývoj webů na straně klienta nabízí následuj�
 
 ## <a name="components"></a>Komponenty
 
-Aplikace Blazor jsou založené na *komponentách*. Komponenta v Blazor je prvek uživatelského rozhraní, jako je například stránka, dialog nebo formulář pro zadávání dat.
+aplikace Blazor jsou založené na *komponentách*. Součást v Blazor je prvek uživatelského rozhraní, jako je například stránka, dialog nebo formulář pro zadávání dat.
 
 Komponenty jsou třídy .NET integrované do sestavení .NET, která:
 
@@ -101,23 +104,23 @@ Pokud se tato komponenta používá v aplikaci, IntelliSense v [aplikaci Visual 
 
 Komponenty vykreslí do reprezentace v paměti model DOM (Document Object Model) v prohlížeči (DOM), která se nazývá *strom vykreslování*, který se používá k aktualizaci uživatelského rozhraní flexibilním a efektivním způsobem.
 
-## <a name="blazor-webassembly"></a>Blazor WebAssembly
+## <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor WebAssembly je jediná stránka architektury aplikace pro vytváření interaktivních webových aplikací na straně klienta s .NET. Blazor WebAssembly používá otevřené webové standardy bez modulů plug-in a Code transpilation a funguje ve všech moderních webových prohlížečích, včetně mobilních prohlížečů.
+Blazor WebAssembly je jednostránková architektura aplikací pro vytváření interaktivních webových aplikací na straně klienta s .NET. Blazor webové sestavení používá open Web Standards bez modulů plug-in a transpilation kódu a funguje ve všech moderních webových prohlížečích, včetně mobilních prohlížečů.
 
 Spouštění kódu .NET ve webových prohlížečích je umožněno webovým [sestavením](https://webassembly.org) (zkráceným *wasm*). WebAssembly je formát kompaktního bajtu optimalizovaného pro rychlé stažení a maximální rychlost spuštění. WebAssembly je otevřený webový standard a podporuje se ve webových prohlížečích bez modulů plug-in.
 
 Kód webového sestavení má přístup k úplným funkcím prohlížeče prostřednictvím JavaScriptu, označovanému jako *interoperabilita JavaScriptu* (nebo *zprostředkovatel komunikace s JavaScriptem*). Kód .NET spuštěný pomocí webového sestavení v prohlížeči se spouští v izolovaném prostoru JavaScript v prohlížeči s ochranou, že izolovaný prostor poskytuje proti škodlivým akcím v klientském počítači.
 
-![Blazor WebAssembly spouští kód .NET v prohlížeči pomocí WebAssembly.](index/_static/blazor-webassembly.png)
+![[! Evřít. NO-LOC (Blazor)] WebAssembly spouští kód .NET v prohlížeči pomocí WebAssembly.](index/_static/blazor-webassembly.png)
 
-Když je aplikace Blazor WebAssembly sestavená a spuštěná v prohlížeči:
+Při sestavení a spuštění aplikace Blazor WebAssembly v prohlížeči:
 
 * C#soubory kódu a soubory Razor jsou kompilovány do sestavení .NET.
 * Sestavení a modul runtime .NET se stáhnou do prohlížeče.
-* Blazor WebAssembly spustí modul .NET runtime a nakonfiguruje modul runtime, aby načetl sestavení pro aplikaci. Modul runtime WebAssembly Blazor používá zprostředkovatele komunikace s JavaScriptem pro zpracování volání modelu DOM a volání rozhraní API prohlížeče.
+* Blazor WebAssembly spustí modul runtime .NET a nakonfiguruje modul runtime, aby načetl sestavení pro aplikaci. Modul runtime Blazorho webového sestavení používá zprostředkovatele komunikace s JavaScriptem pro zpracování volání modelu DOM a volání rozhraní API prohlížeče.
 
 Velikost publikované aplikace, její *Velikost datové části*, je důležitým faktorem výkonu pro useability aplikace. Stažení velké aplikace může trvat poměrně dlouhou dobu, než se stáhne do prohlížeče, což snižuje činnost koncového uživatele. Blazor WebAssembly optimalizuje velikost datové části, aby se snížila doba stahování:
 
@@ -125,15 +128,15 @@ Velikost publikované aplikace, její *Velikost datové části*, je důležitý
 * Odpovědi HTTP jsou komprimovány.
 * Modul runtime .NET a sestavení jsou ukládány do mezipaměti v prohlížeči.
 
-## <a name="blazor-server"></a>Blazor Server
+## <a name="opno-locblazor-server"></a>Server Blazor
 
-Blazor odpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Server poskytuje podporu pro hostování komponent Razor na serveru v aplikaci ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes připojení k [signalizaci](xref:signalr/introduction) .
+Blazor odpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Server poskytuje podporu pro hostování komponent Razor na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní jsou zpracovávány prostřednictvím [SignalRho](xref:signalr/introduction) připojení.
 
 Modul runtime zpracovává odeslání událostí uživatelského rozhraní z prohlížeče na server a po spuštění komponent aplikuje aktualizace uživatelského rozhraní odeslané serverem zpátky do prohlížeče.
 
-Připojení, které používá server Blazor ke komunikaci s prohlížečem, slouží také ke zpracování volání interoperability JavaScriptu.
+Připojení, které používá Blazor Server ke komunikaci s prohlížečem, slouží také ke zpracování volání interoperability JavaScriptu.
 
-![Blazor Server spouští na serveru .NET code a komunikuje s model DOM (Document Object Model) v klientovi přes připojení k signalizaci.](index/_static/blazor-server.png)
+![[! Evřít. NO-LOC (Blazor)] Server spouští .NET kód na serveru a komunikuje s model DOM (Document Object Model) na klientovi přes [! Evřít. Připojení NO-LOC (Signal)]](index/_static/blazor-server.png)
 
 ## <a name="javascript-interop"></a>Interoperabilita JavaScriptu
 
@@ -152,4 +155,4 @@ Rozhraní API, která nejsou platná v rámci webového prohlížeče (napříkl
 * [Průvodce jazykem C#](/dotnet/csharp/)
 * <xref:mvc/views/razor>
 * [KÓDU](https://www.w3.org/html/)
-* Komunitní odkazy na [Super Blazor](https://github.com/AdrienTorris/awesome-blazor)
+* [Super Blazor](https://github.com/AdrienTorris/awesome-blazor) komunitní odkazy

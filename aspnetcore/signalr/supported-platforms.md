@@ -1,24 +1,26 @@
 ---
-title: Podporované platformy pro přijímače ASP.NET Core
+title: Podporované platformy ASP.NET Core SignalR
 author: bradygaster
-description: Přečtěte si o podporovaných platformách pro ASP.NET Core Signal.
+description: Přečtěte si o podporovaných platformách pro ASP.NET Core SignalR.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/01/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: 1be7a307710e6e522c0088fd1ca01da11a13eda1
-ms.sourcegitcommit: 77c8be22d5e88dd710f42c739748869f198865dd
+ms.openlocfilehash: 86ba5b1aec230d78c1a0e1709187e129df6cb4cc
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73426969"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963732"
 ---
-# <a name="aspnet-core-signalr-supported-platforms"></a>Podporované platformy pro přijímače ASP.NET Core
+# <a name="aspnet-core-opno-locsignalr-supported-platforms"></a>Podporované platformy ASP.NET Core SignalR
 
 ## <a name="server-system-requirements"></a>Požadavky na systém serveru
 
-Návěstí pro ASP.NET Core podporuje jakoukoli serverovou platformu, která ASP.NET Core podporuje.
+SignalR pro ASP.NET Core podporuje jakoukoli serverovou platformu, která ASP.NET Core podporuje.
 
 ## <a name="javascript-client"></a>Klient JavaScriptu
 
@@ -36,7 +38,7 @@ Návěstí pro ASP.NET Core podporuje jakoukoli serverovou platformu, která ASP
 
 ## <a name="net-client"></a>Klient .NET
 
-[Klient .NET](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) běží na libovolné platformě podporované nástrojem ASP.NET Core. [Vývojáři Xamarin můžou například použít signalizaci](https://github.com/aspnet/Announcements/issues/305) pro sestavování aplikací pro Android pomocí Xamarin. Android 8.4.0.1 a novějších aplikací pro iOS pomocí Xamarin. iOS 11.14.0.4 a novějších.
+[Klient .NET](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) běží na libovolné platformě podporované nástrojem ASP.NET Core. [Vývojáři Xamarin můžou například použít SignalR](https://github.com/aspnet/Announcements/issues/305) pro sestavování aplikací pro Android pomocí aplikací Xamarin. Android 8.4.0.1 a novějších a iOS s použitím Xamarin. iOS 11.14.0.4 a novějších.
 
 Pokud server používá službu IIS, přenos pomocí protokolu WebSockets vyžaduje službu IIS 8,0 nebo novější v systému Windows Server 2012 nebo novějším. Další přenosy jsou podporované na všech platformách.
 

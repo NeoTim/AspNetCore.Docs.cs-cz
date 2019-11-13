@@ -1,39 +1,41 @@
 ---
 title: Správa stavu ASP.NET Core Blazor
 author: guardrex
-description: Přečtěte si, jak zachovat stav v aplikacích Blazor serveru.
+description: Přečtěte si, jak zachovat stav v aplikacích Blazor Server.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/state-management
-ms.openlocfilehash: 67042fa9b86125fe95d877dbce246abeb6f35dd0
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 408d44a3f2e81a165e8b786c6d2efc9329082e30
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391266"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962830"
 ---
-# <a name="aspnet-core-blazor-state-management"></a>Správa stavu ASP.NET Core Blazor
+# <a name="aspnet-core-opno-locblazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor Server je stavová architektura aplikace. Ve většině případů aplikace udržuje průběžné připojení k serveru. Stav uživatele je uložený v paměti serveru v *okruhu*. 
+Server Blazor je stavová architektura aplikace. Ve většině případů aplikace udržuje průběžné připojení k serveru. Stav uživatele je uložený v paměti serveru v *okruhu*. 
 
 Příkladem stavu drženého pro okruh uživatele jsou:
 
-* Vykreslené uživatelské rozhraní @ no__t-0the a hierarchie instancí komponent a jejich poslední výstup vykreslování.
+* Vykreslené uživatelské rozhraní&mdash;hierarchii instancí komponent a jejich poslední výstup vykreslování.
 * Hodnoty všech polí a vlastností v instancích součástí.
 * Data uchovávaná v instancích služby pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) , která jsou vymezena okruhu.
 
 > [!NOTE]
-> Tento článek řeší trvalost stavu v aplikacích Blazor serveru. Blazor aplikace WebAssembly můžou využít [trvalost stavu na straně klienta v prohlížeči](#client-side-in-the-browser) , ale kromě rozsahu tohoto článku vyžadují vlastní řešení nebo balíčky třetích stran.
+> Tento článek řeší trvalost stavu v Blazor serverových aplikacích. Blazor aplikace WebAssembly můžou využít [trvalost stavu na straně klienta v prohlížeči](#client-side-in-the-browser) , ale kromě rozsahu tohoto článku vyžadují vlastní řešení nebo balíčky třetích stran.
 
-## <a name="blazor-circuits"></a>Okruhy Blazor
+## <a name="opno-locblazor-circuits"></a>okruhy Blazor
 
-Pokud se uživateli vyskytne Dočasná ztráta síťového připojení, Blazor se pokusí znovu připojit uživatele k původnímu okruhu, aby mohli i nadále používat aplikaci. Ale opětovné připojení uživatele k původnímu okruhu v paměti serveru není vždycky možné:
+Pokud dojde ke ztrátě dočasného připojení k síti, Blazor se pokusí uživatele znovu připojit k původnímu okruhu, aby mohli i nadále používat aplikaci. Ale opětovné připojení uživatele k původnímu okruhu v paměti serveru není vždycky možné:
 
 * Server nemůže trvale zachovávat odpojený okruh. Server musí uvolnit odpojený okruh po vypršení časového limitu nebo v případě, že je server pod tlakem paměti.
 * V prostředích s více servery nasazení s vyrovnáváním zatížení můžou všechny požadavky na zpracování serveru být v daném okamžiku nedostupné. Jednotlivé servery můžou selhat nebo automaticky odebrat, pokud už nepotřebujete pro zpracování celkového objemu požadavků. Původní server nemusí být k dispozici, když se uživatel pokusí znovu připojit.
@@ -50,12 +52,12 @@ V některých scénářích je žádoucí zachovat stav napříč okruhy. Aplika
 
 Obecně platí, že udržování stavu napříč okruhy se vztahuje na scénáře, kdy uživatelé aktivně vytvářejí data, nikoli jenom čtení dat, která už existují.
 
-Chcete-li zachovat stav nad rámec jednoho okruhu, *neukládejte pouze data v paměti serveru*. Aplikace musí uchovávat data do jiného umístění úložiště. Trvalost stavu není automatickým @ no__t-0you nutné provést kroky při vývoji aplikace pro implementaci stavového uchovávání dat.
+Chcete-li zachovat stav nad rámec jednoho okruhu, *neukládejte pouze data v paměti serveru*. Aplikace musí uchovávat data do jiného umístění úložiště. Trvalost stavu není automaticky&mdash;musíte provést kroky při vývoji aplikace pro implementaci stavového uchovávání dat.
 
 Trvalost dat se obvykle vyžaduje jenom pro stav vysoké hodnoty, který uživatelé vynaložené úsilím vytvořit. V následujících příkladech trvalého stavu ušetříte čas nebo pomůcky při komerčních činnostech:
 
-* WebForm ve více krocích @no__t – 0 je časově náročné, aby uživatel znovu zadal data pro několik dokončených kroků procesu s více kroky, pokud je jejich stav ztraceno. Uživatel ztratí stav v tomto scénáři, pokud přechází z formuláře s více kroky a později se vrátí do formuláře.
-* Nákupní košík @no__t – 0 veškerá komerční součást aplikace, která představuje potenciální tržby, může být zachována. Uživatel, který ztratí svůj stav, a tedy i jeho nákupní košík, může koupit méně produktů nebo služeb při návratu do webu později.
+* Webformu ve více krocích &ndash; pro uživatele časově náročné, aby znovu zadal data pro několik dokončených kroků procesu s více kroky, pokud dojde ke ztrátě jejich stavu. Uživatel ztratí stav v tomto scénáři, pokud přechází z formuláře s více kroky a později se vrátí do formuláře.
+* Nákupní košík &ndash; všech komerčních důležitých komponent aplikace, které představují potenciální výnosy, se dají udržovat. Uživatel, který ztratí svůj stav, a tedy i jeho nákupní košík, může koupit méně produktů nebo služeb při návratu do webu později.
 
 Obvykle není nutné zachovávat snadno-znovu vytvořený stav, jako je například uživatelské jméno zadané do přihlašovacího dialogu, který nebyl odeslán.
 
@@ -64,7 +66,7 @@ Obvykle není nutné zachovávat snadno-znovu vytvořený stav, jako je napřík
 
 ## <a name="where-to-persist-state"></a>Kam zachovat stav
 
-V serverové aplikaci Blazor existují tři společná umístění pro zachování stavu. Každý přístup nejlépe vyhovuje různým scénářům a má odlišná omezení:
+Existují tři společná umístění pro trvalý stav v aplikaci Blazor Server. Každý přístup nejlépe vyhovuje různým scénářům a má odlišná omezení:
 
 * [Na straně serveru v databázi](#server-side-in-a-database)
 * [Adresa URL](#url)
@@ -93,7 +95,7 @@ Pro přechodná data představující stav navigace modelujte data jako součás
 Obsah panelu Adresa prohlížeče se zachová:
 
 * Pokud uživatel ručně znovu načte stránku.
-* Pokud dojde k nedostupnosti webového serveru @ no__t-0the, bude uživatel muset znovu načíst stránku, aby se mohl připojit k jinému serveru.
+* Pokud dojde k nedostupnosti webového serveru&mdash;bude uživatel muset stránku znovu načíst, aby se mohl připojit k jinému serveru.
 
 Informace o definování vzorů adres URL pomocí direktivy `@page` naleznete v tématu <xref:blazor/routing>.
 
@@ -102,7 +104,7 @@ Informace o definování vzorů adres URL pomocí direktivy `@page` naleznete v 
 Pro přechodná data, která uživatel aktivně vytváří, je běžným záložním úložištěm kolekce `localStorage` a `sessionStorage` prohlížeče. Pokud dojde k opuštění okruhu, nepotřebuje aplikace spravovat nebo vymazat uložený stav, což je výhodou pro úložiště na straně serveru.
 
 > [!NOTE]
-> "Klientská strana" v této části odkazuje na scénáře na straně klienta v prohlížeči, nikoli na [Blazor model hostování WebAssembly](xref:blazor/hosting-models#blazor-webassembly). `localStorage` a `sessionStorage` lze použít v aplikacích Blazor WebAssembly, ale pouze psaním vlastního kódu nebo pomocí balíčku třetí strany.
+> "Klientská strana" v této části odkazuje na scénáře na straně klienta v prohlížeči, nikoli na [model hostováníBlazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly). `localStorage` a `sessionStorage` lze použít v aplikacích Blazor WebAssembly, ale pouze psaním vlastního kódu nebo pomocí balíčku třetí strany.
 
 `localStorage` a `sessionStorage` se liší následujícím způsobem:
 
@@ -120,7 +122,7 @@ Upozornění pro použití úložiště prohlížeče:
 
 * Podobně jako při použití databáze na straně serveru je načítání a ukládání dat asynchronní.
 * Na rozdíl od databáze na straně serveru není úložiště během předgenerování k dispozici, protože požadovaná stránka v prohlížeči neexistuje během fáze předvykreslování.
-* Úložiště několika kilobajtů dat je pro aplikace Blazor serveru přijatelné. Po několika kilobajtech je potřeba vzít v úvahu dopad na výkon, protože data se načítají a ukládají v síti.
+* Úložiště několika kilobajtů dat je pro Blazor serverových aplikací přijatelné. Po několika kilobajtech je potřeba vzít v úvahu dopad na výkon, protože data se načítají a ukládají v síti.
 * Uživatelé můžou data zobrazit nebo s nimi manipulovat. [Ochrana dat](xref:security/data-protection/introduction) ASP.NET Core může riziko zmírnit.
 
 ## <a name="third-party-browser-storage-solutions"></a>Řešení úložiště v prohlížeči třetích stran
@@ -140,7 +142,7 @@ Příkladem balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-p
 
 Instalace balíčku `Microsoft.AspNetCore.ProtectedBrowserStorage`:
 
-1. V projektu aplikace Blazor Server přidejte odkaz na balíček do [Microsoft. AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).
+1. V projektu Blazor server aplikace přidejte odkaz na balíček do [Microsoft. AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).
 1. V HTML nejvyšší úrovně (například v souboru *Pages/_Host. cshtml* ve výchozí šabloně projektu) přidejte následující značku `<script>`:
 
    ```html
@@ -181,7 +183,7 @@ private async Task IncrementCount()
 
 Ve větších a realističtějších aplikacích je ukládání jednotlivých polí nepravděpodobné. Pro aplikace je pravděpodobnější ukládání celých objektů modelu, které zahrnují komplexní stav. `ProtectedSessionStore` automaticky serializace a deserializace dat JSON.
 
-V předchozím příkladu kódu se data `currentCount` ukládají jako `sessionStorage['count']` v prohlížeči uživatele. Data nejsou uložená ve formátu prostého textu, ale jsou chráněná pomocí [ochrany dat](xref:security/data-protection/introduction)ASP.NET Core. Zašifrovaná data lze zobrazit, pokud je v konzole pro vývojáře v prohlížeči vyhodnocena hodnota `sessionStorage['count']`.
+V předchozím příkladu kódu se `currentCount` data ukládají jako `sessionStorage['count']` v prohlížeči uživatele. Data nejsou uložená ve formátu prostého textu, ale jsou chráněná pomocí [ochrany dat](xref:security/data-protection/introduction)ASP.NET Core. Zašifrovaná data lze zobrazit, pokud je `sessionStorage['count']` vyhodnocována v konzole pro vývojáře v prohlížeči.
 
 Chcete-li obnovit data `currentCount`, pokud se uživatel vrátí do komponenty `Counter` později (včetně toho, jestli se nachází na zcela novém okruhu), použijte `ProtectedSessionStore.GetAsync`:
 
@@ -205,7 +207,7 @@ Pokud parametry komponenty obsahují navigační stav, volejte `ProtectedSession
 
 Vzhledem k tomu, že je úložiště prohlížeče asynchronní (přístup prostřednictvím připojení k síti), je vždy časový interval, než se data načtou a budou k dispozici pro použití komponentou. Nejlepších výsledků dosáhnete, když při načítání vykreslíte zprávu o stavu načítání, místo aby se zobrazila prázdná nebo výchozí data.
 
-Jednou z možností je sledovat, jestli jsou data @no__t – 0 (pořád se načítá), nebo ne. Ve výchozí součásti `Counter` je počet uchováván v `int`. Nastavit `currentCount` s možnou hodnotou null přidáním otazníku (`?`) do typu (`int`):
+Jedním z těchto způsobů je sledovat, jestli se data `null` (pořád se načítají), nebo ne. Ve výchozí součásti `Counter` je počet uchováván v `int`. Nastavit `currentCount` s možnou hodnotou null přidáním otazníku (`?`) do typu (`int`):
 
 ```csharp
 private int? currentCount;
@@ -239,7 +241,7 @@ Při předvykreslování nejsou k dispozici `localStorage` nebo `sessionStorage`
 
 Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předběžné vykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah, dokud nebude k dispozici `localStorage` nebo `sessionStorage`.
 
-Chcete-li zakázat předběžné vykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte volání `Html.RenderComponentAsync<App>(RenderMode.Server)`.
+Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte volání na `Html.RenderComponentAsync<App>(RenderMode.Server)`.
 
 Předběžné vykreslování může být užitečné pro jiné stránky, které nepoužívají `localStorage` nebo `sessionStorage`. Aby bylo možné předvykreslování povolit, odložte operaci načtení, dokud se prohlížeč nepřipojí k okruhu. Následuje příklad uložení hodnoty čítače:
 

@@ -1,43 +1,45 @@
 ---
-title: Redis propojovacího rozhraní pro horizontální navýšení kapacity funkce SignalR technologie ASP.NET Core
+title: Redis pro SignalR horizontální navýšení kapacity ASP.NET Core
 author: bradygaster
-description: Zjistěte, jak nastavit propojovací rozhraní Redis umožňuje škálování aplikace SignalR technologie ASP.NET Core.
+description: Naučte se, jak nastavit Rediselné rozšíření pro ASP.NET Core SignalR aplikaci.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/28/2018
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/redis-backplane
-ms.openlocfilehash: adf9bbce1353fd811a4044e173533f76bc4193de
-ms.sourcegitcommit: 4ef0362ef8b6e5426fc5af18f22734158fe587e1
+ms.openlocfilehash: 379d46fcaabb8eb0d04e521a5ad698229f947b7c
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/17/2019
-ms.locfileid: "67152910"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963921"
 ---
-# <a name="set-up-a-redis-backplane-for-aspnet-core-signalr-scale-out"></a>Nastavit propojovací rozhraní Redis pro horizontální navýšení kapacity funkce SignalR technologie ASP.NET Core
+# <a name="set-up-a-redis-backplane-for-aspnet-core-opno-locsignalr-scale-out"></a>Nastavení ASP.NET Coreho plánu pro SignalR škálování na více instancí Redis
 
-Podle [Andrew Stanton sestry](https://twitter.com/anurse), [Brady Gaster](https://twitter.com/bradygaster), a [Petr Dykstra](https://github.com/tdykstra),
+Autor [: Andrew Stanton – sestry](https://twitter.com/anurse), [Brady gastera](https://twitter.com/bradygaster)a [Dykstra](https://github.com/tdykstra);
 
-Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https://redis.io/) server pro horizontální navýšení kapacity aplikace SignalR technologie ASP.NET Core.
+Tento článek vysvětluje SignalRspecifické aspekty nastavení serveru [Redis](https://redis.io/) pro použití pro horizontální navýšení SignalR aplikace ASP.NET Core.
 
-## <a name="set-up-a-redis-backplane"></a>Nastavit propojovací rozhraní Redis
+## <a name="set-up-a-redis-backplane"></a>Nastavení Redisho plánu
 
-* Nasazení serveru Redis.
+* Nasazení serveru Redis
 
   > [!IMPORTANT] 
-  > Pro použití v produkčním prostředí se doporučuje propojovacího rozhraní Redis pouze v případě, že běží ve stejném datovém centru jako aplikace SignalR. V opačném případě latence sítě snižuje výkon. Pokud vaše aplikace SignalR běží v cloudu Azure, doporučujeme namísto Redis propojovací rozhraní služby Azure SignalR. Můžete použít službu Azure Redis Cache pro vývojové a testovací prostředí.
+  > Pro produkční použití se doporučuje Redisý plán, který je spuštěný ve stejném datovém centru jako aplikace SignalR. V opačném případě latence sítě snižuje výkon. Pokud je vaše aplikace SignalR spuštěná v cloudu Azure, doporučujeme místo plánu Redise použít službu Azure SignalR. Službu Azure Redis Cache můžete použít pro vývojová a testovací prostředí.
 
   Další informace naleznete v následujících materiálech:
 
   * <xref:signalr/scale>
-  * [Dokumentace ke službě redis](https://redis.io/)
-  * [Dokumentace ke službě Azure Redis Cache](https://docs.microsoft.com/azure/redis-cache/)
+  * [Dokumentace k Redis](https://redis.io/)
+  * [Dokumentace k Azure Redis Cache](https://docs.microsoft.com/azure/redis-cache/)
 
 ::: moniker range="= aspnetcore-2.1"
 
-* V aplikaci SignalR, nainstalujte `Microsoft.AspNetCore.SignalR.Redis` balíček NuGet. (K dispozici je také `Microsoft.AspNetCore.SignalR.StackExchangeRedis` balíček, ale, že jeden je pro ASP.NET Core 2.2 a novější.)
+* V aplikaci SignalR nainstalujte balíček NuGet `Microsoft.AspNetCore.SignalR.Redis`. (K dispozici je také balíček `Microsoft.AspNetCore.SignalR.StackExchangeRedis`, ale ten je určen pro ASP.NET Core 2,2 a novější.)
 
-* V `Startup.ConfigureServices` metody, volání `AddRedis` po `AddSignalR`:
+* V metodě `Startup.ConfigureServices` volejte `AddRedis` po `AddSignalR`:
 
   ```csharp
   services.AddSignalR().AddRedis("<your_Redis_connection_string>");
@@ -45,9 +47,9 @@ Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https:
 
 * Podle potřeby nakonfigurujte možnosti:
  
-  Většinu možností lze nastavit v připojovacím řetězci nebo v [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) objektu. Možnosti zadané v `ConfigurationOptions` přepsat ty nastavit v připojovacím řetězci.
+  Většinu možností lze nastavit v připojovacím řetězci nebo v objektu [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) . Možnosti zadané v `ConfigurationOptions` přepíší ty nastavené v připojovacím řetězci.
 
-  Následující příklad ukazuje, jak nastavit možnosti `ConfigurationOptions` objektu. V tomto příkladu přidá předponu kanál tak, aby stejné instance Redis může sdílet více aplikací, jak je popsáno v následujícím kroku.
+  Následující příklad ukazuje, jak nastavit možnosti v objektu `ConfigurationOptions`. Tento příklad přidá předponu kanálu, aby více aplikací mohl sdílet stejnou instanci Redis, jak je vysvětleno v následujícím kroku.
 
   ```csharp
   services.AddSignalR()
@@ -56,18 +58,18 @@ Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https:
     });
   ```
 
-  V předchozím kódu `options.Configuration` je inicializována s cokoli, co byl zadán v připojovacím řetězci.
+  V předchozím kódu je `options.Configuration` inicializován s jakýmkoli parametrem v připojovacím řetězci.
 
 ::: moniker-end
 
 ::: moniker range="> aspnetcore-2.1"
 
-* V aplikaci SignalR nainstalujte některou z následujících balíčků NuGet:
+* V aplikaci SignalR nainstalujte jeden z následujících balíčků NuGet:
 
-  * `Microsoft.AspNetCore.SignalR.StackExchangeRedis` -Závisí na StackExchange.Redis 2.X.X. Toto je doporučený balíček pro ASP.NET Core 2.2 a novější.
-  * `Microsoft.AspNetCore.SignalR.Redis` -Závisí na StackExchange.Redis 1.X.X. Tento balíček nebudou přenosů v ASP.NET Core 3.0.
+  * `Microsoft.AspNetCore.SignalR.StackExchangeRedis` – závisí na StackExchange. Redis 2. X.X. Toto je doporučený balíček pro ASP.NET Core 2,2 a novější.
+  * `Microsoft.AspNetCore.SignalR.Redis` – závisí na StackExchange. Redis 1. X.X. Tento balíček nebude expedován v ASP.NET Core 3,0.
 
-* V `Startup.ConfigureServices` metody, volání `AddStackExchangeRedis` po `AddSignalR`:
+* V metodě `Startup.ConfigureServices` volejte `AddStackExchangeRedis` po `AddSignalR`:
 
   ```csharp
   services.AddSignalR().AddStackExchangeRedis("<your_Redis_connection_string>");
@@ -75,9 +77,9 @@ Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https:
 
 * Podle potřeby nakonfigurujte možnosti:
  
-  Většinu možností lze nastavit v připojovacím řetězci nebo v [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) objektu. Možnosti zadané v `ConfigurationOptions` přepsat ty nastavit v připojovacím řetězci.
+  Většinu možností lze nastavit v připojovacím řetězci nebo v objektu [ConfigurationOptions](https://stackexchange.github.io/StackExchange.Redis/Configuration#configuration-options) . Možnosti zadané v `ConfigurationOptions` přepíší ty nastavené v připojovacím řetězci.
 
-  Následující příklad ukazuje, jak nastavit možnosti `ConfigurationOptions` objektu. V tomto příkladu přidá předponu kanál tak, aby stejné instance Redis může sdílet více aplikací, jak je popsáno v následujícím kroku.
+  Následující příklad ukazuje, jak nastavit možnosti v objektu `ConfigurationOptions`. Tento příklad přidá předponu kanálu, aby více aplikací mohl sdílet stejnou instanci Redis, jak je vysvětleno v následujícím kroku.
 
   ```csharp
   services.AddSignalR()
@@ -86,36 +88,36 @@ Tento článek vysvětluje aspekty SignalR konkrétní nastavení [Redis](https:
     });
   ```
 
-  V předchozím kódu `options.Configuration` je inicializována s cokoli, co byl zadán v připojovacím řetězci.
+  V předchozím kódu je `options.Configuration` inicializován s jakýmkoli parametrem v připojovacím řetězci.
 
-  Informace o možnostech Redis, najdete v článku [StackExchange Redis dokumentaci](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).
+  Informace o možnostech Redis najdete v [dokumentaci k stackexchange Redis](https://stackexchange.github.io/StackExchange.Redis/Configuration.html).
 
 ::: moniker-end
 
-* Pokud používáte jeden server Redis pro více aplikací SignalR, použijte předponu jiný kanál pro každou aplikaci SignalR.
+* Pokud pro více SignalR aplikací používáte jeden server Redis, použijte pro každou aplikaci SignalR jinou předponu kanálu.
 
-  Nastavení kanálu předponu izoluje jedna aplikace SignalR od ostatních, které používají jiný kanál předpony. Pokud nechcete přiřadit odlišné předpony, zpráv odesílaných z jedné aplikace do všech svých vlastních klientů přejdete na všechny klienty ze všech aplikací, které používají Redis server jako propojovací rozhraní.
+  Nastavení prefixu kanálu izoluje jednu SignalR aplikaci od ostatních, která používá jiné předpony kanálů. Pokud nepřiřazujete jiné předpony, zpráva odeslaná z jedné aplikace všem svým vlastním klientům přejde ke všem klientům všech aplikací, které používají server Redis jako replánování.
 
-* Konfigurace vašeho serveru farmy Vyrovnávání zatížení softwaru pro rychlé relace. Tady je několik příkladů dokumentace o tom, jak to udělat:
+* Nakonfigurujte software pro vyrovnávání zatížení serverové farmy pro rychlé relace. Tady je několik příkladů dokumentace k tomu, jak to udělat:
 
-  * [SLUŽBA IIS](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)
+  * [SLUŽBU](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)
   * [HAProxy](https://www.haproxy.com/blog/load-balancing-affinity-persistence-sticky-sessions-what-you-need-to-know/)
-  * [Server Nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#sticky)
+  * [Nginx](https://docs.nginx.com/nginx/admin-guide/load-balancer/http-load-balancer/#sticky)
   * [pfSense](https://www.netgate.com/docs/pfsense/loadbalancing/inbound-load-balancing.html#sticky-connections)
 
-## <a name="redis-server-errors"></a>Chyby serveru redis
+## <a name="redis-server-errors"></a>Chyby serveru Redis
 
-Když Redis server přestane fungovat, SignalR vyvolá výjimky, které označují, že se nebudou doručovat zprávy. Některé typické výjimka zprávy:
+Když dojde k výpadku serveru Redis, SignalR vyvolá výjimky, které naznačují, že se zprávy nebudou doručovat. Některé typické zprávy o výjimce:
 
-* *Neúspěšné zapisované zprávě*
-* *Nepovedlo se vyvolat metodu rozbočovače na "MethodName.*
-* *Připojení k Redis se nezdařilo*
+* *Zpráva se nepodařilo zapsat.*
+* *Nepovedlo se vyvolat metodu centra ' MethodName '*
+* *Připojení k Redis se nezdařilo.*
 
-Funkce SignalR nemá vyrovnávací paměť zprávy k odeslání je při přechodu serveru zpět. Všechny zprávy odeslané při odstávce serveru Redis se ztratí.
+SignalR neukládá zprávy do vyrovnávací paměti k odeslání při zálohování serveru. Všechny zprávy odeslané během výpadku serveru Redis jsou ztraceny.
 
-SignalR automaticky znovu připojí, když Redis server je opět k dispozici.
+SignalR se automaticky znovu připojí, když je server Redis k dispozici.
 
-### <a name="custom-behavior-for-connection-failures"></a>Vlastní chování pro chyby připojení
+### <a name="custom-behavior-for-connection-failures"></a>Vlastní chování při selhání připojení
 
 Tady je příklad, který ukazuje, jak zpracovávat události selhání připojení Redis.
 
@@ -184,15 +186,15 @@ services.AddSignalR()
 
 ::: moniker-end
 
-## <a name="redis-clustering"></a>Clustering redis
+## <a name="redis-clustering"></a>Clustering Redis
 
-[Redis Clustering](https://redis.io/topics/cluster-spec) představuje metodu pro dosažení vysoké dostupnosti s využitím více serverů Redis. Vytváření clusterů není oficiálně podporován, ale může fungovat.
+[Clustering Redis](https://redis.io/topics/cluster-spec) je metoda pro dosažení vysoké dostupnosti pomocí více serverů Redis. Clustering není oficiálně podporovaný, ale může fungovat.
 
 ## <a name="next-steps"></a>Další kroky
 
 Další informace naleznete v následujících materiálech:
 
 * <xref:signalr/scale>
-* [Dokumentace ke službě redis](https://redis.io/documentation)
-* [Dokumentace ke službě StackExchange Redis](https://stackexchange.github.io/StackExchange.Redis/)
-* [Dokumentace ke službě Azure Redis Cache](https://docs.microsoft.com/azure/redis-cache/)
+* [Dokumentace k Redis](https://redis.io/documentation)
+* [Dokumentace k Redis pro StackExchange](https://stackexchange.github.io/StackExchange.Redis/)
+* [Dokumentace k Azure Redis Cache](https://docs.microsoft.com/azure/redis-cache/)

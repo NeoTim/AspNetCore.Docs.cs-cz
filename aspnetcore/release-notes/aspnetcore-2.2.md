@@ -4,14 +4,16 @@ author: rick-anderson
 description: Seznamte se s novými funkcemi v ASP.NET Core 2,2.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2018
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: 88a202d85c4d4ed7a395dba78feea29ef4637732
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: fca653158c95e7c1a11f25f4076830fe3e7e93ae
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975715"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963126"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2,2
 
@@ -25,11 +27,11 @@ Další informace naleznete v následujících materiálech:
 
 * <xref:web-api/advanced/analyzers>
 * <xref:web-api/advanced/conventions>
-* [ASP.NET Core 2.2.0-preview1: OpenAPI analyzátory & konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
+* [ASP.NET Core 2.2.0-preview1: analyzátory OpenAPI & konvence](https://blogs.msdn.microsoft.com/webdev/2018/08/23/asp-net-core-2-20-preview1-open-api-analyzers-conventions/)
 
 ## <a name="problem-details-support"></a>Podpora podrobností o problému
 
-Zavedl `ProblemDetails`se ASP.NET Core 2,1 na základě specifikace [RFC 7807](https://tools.ietf.org/html/rfc7807) pro přenos podrobností o chybě s odpovědí HTTP. V 2,2 `ProblemDetails` je standardní odezva na kódy chyb klienta v řadičích s `ApiControllerAttribute`atributem. Vrácení stavového kódu chyby klienta (4xx) nyní `ProblemDetails` vrací tělo. `IActionResult` Výsledek také obsahuje ID korelace, které lze použít ke korelaci chyby pomocí protokolů požadavků. V případě chyb `ProducesResponseType` klienta se jako typ `ProblemDetails` odpovědi použije výchozí hodnota. To je dokumentováno ve výstupu OpenAPI/Swagger vygenerovaném pomocí NSwag nebo swashbuckle. AspNetCore.
+ASP.NET Core 2,1 zavedl `ProblemDetails`na základě specifikace [RFC 7807](https://tools.ietf.org/html/rfc7807) pro překonání podrobností o chybě pomocí odpovědi HTTP. V 2,2 je `ProblemDetails` standardní odpověď pro kódy chyb klienta v řadičích s `ApiControllerAttribute`. `IActionResult` vrácení stavového kódu chyby klienta (4xx) nyní vrací tělo `ProblemDetails`. Výsledek také obsahuje ID korelace, které lze použít ke korelaci chyby pomocí protokolů požadavků. V případě chyb klienta `ProducesResponseType` ve výchozím nastavení jako typ odpovědi používá `ProblemDetails`. To je dokumentováno ve výstupu OpenAPI/Swagger vygenerovaném pomocí NSwag nebo swashbuckle. AspNetCore.
 
 ## <a name="endpoint-routing"></a>Směrování koncových bodů
 
@@ -38,7 +40,7 @@ ASP.NET Core 2,2 používá pro lepší odesílání žádostí nový systém *S
 Další informace naleznete v následujících materiálech:
 
 * [Směrování koncových bodů v 2,2](https://blogs.msdn.microsoft.com/webdev/2018/08/27/asp-net-core-2-2-0-preview1-endpoint-routing/)
-* [Transformátory parametrů trasy](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx) (viz část **Směrování** )
+* [Transformátory parametrů směrování](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx) (viz část **Směrování** )
 * [Rozdíly mezi směrováním na základě IRouter a koncových bodů](xref:fundamentals/routing?view=aspnetcore-2.2#differences-from-earlier-versions-of-routing)
 
 ## <a name="health-checks"></a>Kontroly stavu
@@ -63,7 +65,7 @@ Další informace najdete v tématu [Podpora protokolu HTTP/2](xref:fundamentals
 
 ## <a name="kestrel-configuration"></a>Konfigurace Kestrel
 
-V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel`. V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrací pro vnitroprocesové hostování v rámci procesu. Další informace naleznete v následujících materiálech:
+V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel`. V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrace pro vnitroprocesové hostování. Další informace naleznete v následujících materiálech:
 
 * [Zmírnit konflikt UseIIS](https://github.com/aspnet/KestrelHttpServer/issues/2760)
 * [Konfigurace možností serveru Kestrel pomocí ConfigureKestrel](xref:fundamentals/servers/kestrel?view=aspnetcore-2.2#how-to-use-kestrel-in-aspnet-core-apps)
@@ -74,15 +76,15 @@ V dřívějších verzích ASP.NET Core služba IIS slouží jako reverzní prox
 
 Další informace najdete v tématu [vnitroprocesové hostování pro službu IIS](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model).
 
-## <a name="signalr-java-client"></a>Klient pro signalizaci Java
+## <a name="opno-locsignalr-java-client"></a>SignalR klient Java
 
-ASP.NET Core 2,2 zavádí klienta Java pro signalizaci. Tento klient podporuje připojení k serveru ASP.NET Core signalizace z kódu Java, včetně aplikací pro Android.
+ASP.NET Core 2,2 zavádí klienta Java pro SignalR. Tento klient podporuje připojení k serveru ASP.NET Core SignalR z kódu Java, včetně aplikací pro Android.
 
-Další informace najdete v tématu [ASP.NET Core klienta Java Signal](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2).
+Další informace najdete v tématu [ASP.NET Core SignalR klient Java](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2).
 
 ## <a name="cors-improvements"></a>Vylepšení CORS
 
-V `Accept`dřívějších verzích ASP.NET Core middleware CORS povoluje posílání hlaviček `Content-Language`, `Accept-Language`a `Origin` , a to bez ohledu na hodnoty nakonfigurované v. `CorsPolicy.Headers` V 2,2 se shoda zásad middlewaru CORS dá provést jenom v `Access-Control-Request-Headers` případě, že se záhlaví navzájem přesně shodují se záhlavími uvedenými v. `WithHeaders`
+V dřívějších verzích ASP.NET Core middleware CORS povoluje posílání `Accept`, `Accept-Language`, `Content-Language`a `Origin` hlaviček bez ohledu na hodnoty nakonfigurované v `CorsPolicy.Headers`. V 2,2 se shoda zásad middlewaru CORS dá provést jenom v případě, že hlavičky odeslané v `Access-Control-Request-Headers` přesně odpovídají hlavičkám uvedeným v `WithHeaders`.
 
 Další informace najdete v tématu [middleware CORS](xref:security/cors?view=aspnetcore-2.2#set-the-allowed-request-headers).
 
@@ -100,16 +102,16 @@ Další informace najdete v tématu [middleware pro kompresi odpovědí podporuj
 
 ## <a name="validation-performance"></a>Výkon ověřování
 
-Systém ověřování MVC je navržený tak, aby byl rozšiřitelný a flexibilní, což vám umožní určit na základě jednotlivých požadavků, které validátory se vztahují na daný model. To je skvělé pro vytváření komplexních zprostředkovatelů ověřování. V nejběžnějším případě však aplikace používá pouze předdefinované validátory a nevyžaduje tuto dodatečnou flexibilitu. Předdefinované Validátory zahrnují dataanotace, jako jsou [povinné] a [StringLength] `IValidatableObject`a.
+Systém ověřování MVC je navržený tak, aby byl rozšiřitelný a flexibilní, což vám umožní určit na základě jednotlivých požadavků, které validátory se vztahují na daný model. To je skvělé pro vytváření komplexních zprostředkovatelů ověřování. V nejběžnějším případě však aplikace používá pouze předdefinované validátory a nevyžaduje tuto dodatečnou flexibilitu. Předdefinované Validátory zahrnují dataanotace, jako jsou [povinné] a [StringLength], a `IValidatableObject`.
 
-V ASP.NET Core 2,2 může MVC ověřování pomocí krátkého okruhu, pokud zjistí, že daný graf modelu nevyžaduje ověření. Při ověřování modelů, které nemohou nebo nemají žádné validátory, se výsledky ověřování přeskočí. To zahrnuje objekty, jako jsou například kolekce primitivních objektů ( `byte[]`například `string[]`, `Dictionary<string, string>`,) nebo grafy složitých objektů bez mnoha validátorů.
+V ASP.NET Core 2,2 může MVC ověřování pomocí krátkého okruhu, pokud zjistí, že daný graf modelu nevyžaduje ověření. Při ověřování modelů, které nemohou nebo nemají žádné validátory, se výsledky ověřování přeskočí. To zahrnuje objekty, jako jsou například kolekce primitivních objektů (například `byte[]`, `string[]`, `Dictionary<string, string>`) nebo složité grafy objektů bez mnoha validátorů.
 
 ## <a name="http-client-performance"></a>Výkon klienta HTTP
 
-V ASP.NET Core 2,2 se zvýšil výkon `SocketsHttpHandler` tím, že se zmenší kolize uzamčení fondu připojení. V případě aplikací, které provedou mnoho odchozích požadavků HTTP, jako jsou například některé architektury mikroslužeb, je propustnost vylepšena. V případě `HttpClient` zátěže je možné zvýšit propustnost až 60% v systémech Linux a 20% ve Windows.
+V ASP.NET Core 2,2 se zvýšil výkon `SocketsHttpHandler` snižováním kolizí zámků ve fondu připojení. V případě aplikací, které provedou mnoho odchozích požadavků HTTP, jako jsou například některé architektury mikroslužeb, je propustnost vylepšena. V případě zátěže je možné `HttpClient` propustnost zlepšit až 60% v systémech Linux a 20% ve Windows.
 
 Další informace najdete v [žádosti o přijetí změn, která provedla toto zlepšení](https://github.com/dotnet/corefx/pull/32568).
 
 ## <a name="additional-information"></a>Další informace
 
-Úplný seznam změn najdete v poznámkách k [verzi pro ASP.NET Core 2,2](https://github.com/aspnet/Home/releases/tag/2.2.0).
+Úplný seznam změn najdete v [poznámkách k verzi pro ASP.NET Core 2,2](https://github.com/aspnet/Home/releases/tag/2.2.0).

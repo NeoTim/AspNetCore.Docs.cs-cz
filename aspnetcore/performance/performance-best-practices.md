@@ -4,14 +4,16 @@ author: mjrousos
 description: Tipy pro zvýšení výkonu v aplikacích ASP.NET Core a předcházení běžným problémům s výkonem.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 09/26/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 1cd4ca6fccfee674f46e87ba051e049f7daa5b66
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 279bf352580e5e45fc005e800ee536871210409b
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799514"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963248"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -44,7 +46,7 @@ Běžný problém s výkonem v ASP.NET Core aplikace blokuje volání, která by
 * Asynchronní volání rozhraní API pro operace s daty a dlouhotrvajících operací.
 * Provede asynchronní akce stránky kontroleru/Razor. Celý zásobník volání je asynchronní, aby bylo možné využívat vzory [Async/await](/dotnet/csharp/programming-guide/concepts/async/) .
 
-Profiler, například [PerfView](https://github.com/Microsoft/perfview), lze použít k nalezení často přidaných vláken do [fondu vláken](/windows/desktop/procthread/thread-pools). Událost `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` indikuje vlákno přidané do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
+Profiler, například [PerfView](https://github.com/Microsoft/perfview), lze použít k nalezení často přidaných vláken do [fondu vláken](/windows/desktop/procthread/thread-pools). Událost `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` označuje vlákno přidané do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
 
 ## <a name="minimize-large-object-allocations"></a>Minimalizace přidělení velkých objektů
 
@@ -53,7 +55,7 @@ Profiler, například [PerfView](https://github.com/Microsoft/perfview), lze pou
 Doporučit
 
 * **Zvažte ukládání** velkých často používaných objektů do mezipaměti. Ukládání velkých objektů do mezipaměti brání nákladným přidělením.
-* **Do vyrovnávací paměti fondu** přiřadíte pomocí [`ArrayPool<T>`](/dotnet/api/system.buffers.arraypool-1) pro ukládání velkých polí.
+* Využijte vyrovnávací **paměti fondu pomocí** [`ArrayPool<T>`](/dotnet/api/system.buffers.arraypool-1) k uložení velkých polí.
 * **Nepřiřazujte** mnoho nenáročnéch velkých objektů na [cesty horkého kódu](#understand-hot-code-paths).
 
 Problémy s pamětí, jako je například předchozí, lze diagnostikovat podle statistik uvolňování paměti (GC) v [PerfView](https://github.com/Microsoft/perfview) a prověřování:
@@ -75,7 +77,7 @@ Doporučit
 * **Zvažte ukládání** často používaných dat načtených z databáze nebo vzdálené služby, pokud jsou přijatelné mírně zastaralá data. V závislosti na scénáři použijte [MemoryCache](xref:performance/caching/memory) nebo [DistributedCache](xref:performance/caching/distributed). Další informace najdete v tématu <xref:performance/caching/response>.
 * **Minimalizujte** síťové zpáteční cykly. Cílem je načíst požadovaná data v jednom volání namísto několika volání.
 * Při přístupu k datům pro účely jen pro **čtení používejte v** Entity Framework Core [dotazy bez sledování](/ef/core/querying/tracking#no-tracking-queries) . EF Core může vracet výsledky nesledovaných dotazů efektivněji.
-* **Filtrujte a** AGREGUJE dotazy LINQ (například příkazy `.Where`, `.Select` nebo `.Sum`) tak, aby filtrování prováděla databáze.
+* **Filtrujte a** AGREGUJE dotazy LINQ (například pomocí `.Where`, `.Select`nebo `.Sum` příkazy) tak, aby se filtrování provádělo v databázi.
 * **Vezměte v** úvahu, že EF Core řeší některé operátory pro dotazování v klientovi, což může vést k neefektivnímu provádění dotazů. Další informace najdete v tématu [problémy s výkonem Hodnocení klientů](/ef/core/querying/client-eval#client-evaluation-performance-issues).
 * **Nepoužívejte dotazy** projekce na kolekcích, což může vést k provádění dotazů SQL N + 1. Další informace najdete v tématu [optimalizace korelačních poddotazů](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries).
 
@@ -90,7 +92,7 @@ Problémy s dotazy se dají zjistit tak, že si prohlédnete čas strávený př
 
 ## <a name="pool-http-connections-with-httpclientfactory"></a>Připojení fondů HTTP k HttpClientFactory
 
-I když [HttpClient](/dotnet/api/system.net.http.httpclient) implementuje rozhraní `IDisposable`, je navrženo pro opakované použití. Uzavřené instance `HttpClient` nechají po krátkou dobu otevřené sokety ve stavu `TIME_WAIT`. Pokud se často používá cesta kódu, která vytváří a odstraňuje objekty `HttpClient`, může aplikace vyčerpat dostupné sokety. [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) byl představen v ASP.NET Core 2,1 jako řešení tohoto problému. Zpracovává připojení HTTP ve fondu za účelem optimalizace výkonu a spolehlivosti.
+I když [HttpClient](/dotnet/api/system.net.http.httpclient) implementuje rozhraní `IDisposable`, je navrženo pro opakované použití. Uzavřené instance `HttpClient` nechají po krátkou dobu otevřené sokety ve stavu `TIME_WAIT`. Pokud se často používá cesta kódu, která vytvoří a uvolní `HttpClient` objekty, může aplikace vyčerpat dostupné sokety. [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) byl představen v ASP.NET Core 2,1 jako řešení tohoto problému. Zpracovává připojení HTTP ve fondu za účelem optimalizace výkonu a spolehlivosti.
 
 Doporučit
 
@@ -117,7 +119,7 @@ Doporučit
 
 * **Nečekejte** na dokončení dlouhotrvajících úloh jako součást běžného zpracování požadavků protokolu HTTP.
 * **Vezměte v** úvahu zpracování dlouho běžících požadavků se [službami na pozadí](xref:fundamentals/host/hosted-services) nebo mimo proces s [funkcí Azure Functions](/azure/azure-functions/). Dokončení práce mimo proces je zvláště užitečné pro úlohy náročné na procesor.
-* K asynchronní komunikaci s **klienty použijte možnosti** komunikace v reálném čase, jako je například [signaler](xref:signalr/introduction).
+* **Používejte možnosti** komunikace v reálném čase, například [SignalR](xref:signalr/introduction), ke komunikaci s klienty asynchronně.
 
 ## <a name="minify-client-assets"></a>Prostředky klienta minimalizuje
 
@@ -183,10 +185,10 @@ Předchozí kód asynchronně deserializace tělo požadavku do C# objektu.
 
 ## <a name="prefer-readformasync-over-requestform"></a>Preferovat ReadFormAsync přes Request. Form
 
-Místo `HttpContext.Request.Form` použijte `HttpContext.Request.ReadFormAsync`.
-`HttpContext.Request.Form` se dá bezpečně přečíst jenom při splnění následujících podmínek:
+Místo `HttpContext.Request.Form`použijte `HttpContext.Request.ReadFormAsync`.
+`HttpContext.Request.Form` lze bezpečně číst pouze s následujícími podmínkami:
 
-* Formulář byl přečten voláním `ReadFormAsync` a
+* Formulář byl přečten voláním `ReadFormAsync`a
 * Hodnota formuláře v mezipaměti je načítána pomocí `HttpContext.Request.Form`
 
 **Neprovádět tyto akce:** Následující příklad používá `HttpContext.Request.Form`.  `HttpContext.Request.Form` používá [synchronizaci přes Async](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
@@ -194,7 +196,7 @@ Místo `HttpContext.Request.Form` použijte `HttpContext.Request.ReadFormAsync`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MySecondController.cs?name=snippet1)]
 
-**Postupujte takto:** Následující příklad používá `HttpContext.Request.ReadFormAsync` pro asynchronní čtení těla formuláře.
+**Postupujte takto:** Následující příklad používá `HttpContext.Request.ReadFormAsync` k asynchronnímu čtení těla formuláře.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MySecondController.cs?name=snippet2)]
 
@@ -229,11 +231,11 @@ ASP.NET Core 3,0 používá ve výchozím nastavení <xref:System.Text.Json> pro
 
 * Čte a zapisuje JSON asynchronně.
 * Je optimalizován pro text v kódování UTF-8.
-* Obvykle vyšší výkon než `Newtonsoft.Json`.
+* Obvykle je vyšší výkon než `Newtonsoft.Json`.
 
 ## <a name="do-not-store-ihttpcontextaccessorhttpcontext-in-a-field"></a>Do pole neukládejte IHttpContextAccessor. HttpContext.
 
-[IHttpContextAccessor. HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) vrátí `HttpContext` aktivního požadavku při přístupu z vlákna požadavku. `IHttpContextAccessor.HttpContext` **by neměl** být uložen v poli nebo proměnné.
+[IHttpContextAccessor. HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) vrací `HttpContext` aktivní žádosti při přístupu z vlákna požadavku. `IHttpContextAccessor.HttpContext` **by neměl** být uložen v poli nebo proměnné.
 
 **Neprovádět tyto akce:** Následující příklad uloží `HttpContext` do pole a pak se pokusí o pozdější použití.
 
@@ -243,14 +245,14 @@ Předchozí kód často zachycuje hodnotu null nebo nesprávnou `HttpContext` v 
 
 **Postupujte takto:** Následující příklad:
 
-* Uloží v poli <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor>.
+* Uloží <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> do pole.
 * Používá pole `HttpContext` ve správné době a kontroluje `null`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/MyType.cs?name=snippet2)]
 
 ## <a name="do-not-access-httpcontext-from-multiple-threads"></a>Nepřistupovat k HttpContext z více vláken
 
-`HttpContext` není bezpečná pro přístup *z více vláken* . Přístup `HttpContext` z více vláken paralelně může způsobit nedefinované chování, například zablokování, zhroucení a poškození dat.
+`HttpContext` není bezpečný pro přístup *z více vláken* . Přístup k `HttpContext` z více vláken paralelně může způsobit nedefinované chování, jako je například zablokování, zhroucení a poškození dat.
 
 **Neprovádět tyto akce:** Následující příklad vytvoří tři paralelní požadavky a zaznamená příchozí cestu požadavku před a za odchozí požadavek HTTP. Cesta k požadavku je k dispozici z více vláken, potenciálně paralelně.
 
@@ -262,9 +264,9 @@ Předchozí kód často zachycuje hodnotu null nebo nesprávnou `HttpContext` v 
 
 ## <a name="do-not-use-the-httpcontext-after-the-request-is-complete"></a>Nepoužívat HttpContext po dokončení žádosti
 
-`HttpContext` je platná, pouze pokud je v kanálu ASP.NET Core aktivní požadavek HTTP. Celý kanál ASP.NET Core je asynchronní řetěz delegátů, který provádí všechny požadavky. Po dokončení `Task` vráceného z tohoto řetězce se recykluje `HttpContext`.
+`HttpContext` je platná, pouze pokud je v kanálu ASP.NET Core aktivní požadavek HTTP. Celý kanál ASP.NET Core je asynchronní řetěz delegátů, který provádí všechny požadavky. Až se `Task` vrátí z tohoto řetězce, `HttpContext` se recykluje.
 
-**Neprovádět tyto akce:** Následující příklad používá `async void`, který požadavek HTTP dokončí při dosažení prvního `await`:
+**Neprovádět tyto akce:** V následujícím příkladu se používá `async void`, který po dosažení prvního `await` dokončí požadavek HTTP:
 
 * Což je **vždy** špatný postup v aplikacích ASP.NET Core.
 * Po dokončení požadavku HTTP přistupuje k `HttpResponse`.
@@ -296,7 +298,7 @@ Předchozí kód často zachycuje hodnotu null nebo nesprávnou `HttpContext` v 
 
 ## <a name="do-not-capture-services-injected-into-the-controllers-on-background-threads"></a>Nezachytávat služby vložené do řadičů v vláknech na pozadí
 
-**Neprovádět tyto akce:** Následující příklad ukazuje, že uzavření zachytí `DbContext` z parametru akce `Controller`. Toto je špatný postup.  Pracovní položka by mohla běžet mimo rozsah požadavku. `ContosoDbContext` je vymezen na žádost, což vede k `ObjectDisposedException`.
+**Neprovádět tyto akce:** Následující příklad ukazuje, že uzavření zachytí `DbContext` z parametru `Controller` akce. Toto je špatný postup.  Pracovní položka by mohla běžet mimo rozsah požadavku. `ContosoDbContext` je vymezen na žádost, což vede k `ObjectDisposedException`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetSecondController.cs?name=snippet1)]
 

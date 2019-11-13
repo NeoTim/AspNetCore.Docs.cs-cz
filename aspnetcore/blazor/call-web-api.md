@@ -1,28 +1,30 @@
 ---
 title: Volání webového rozhraní API z ASP.NET Core Blazor
 author: guardrex
-description: Naučte se volat webové rozhraní API z aplikace Blazor pomocí pomocníků JSON, včetně vytváření žádostí o sdílení prostředků mezi zdroji (CORS).
+description: Naučte se volat webové rozhraní API z Blazor aplikace pomocí pomocníků JSON, včetně vytváření žádostí o sdílení prostředků mezi zdroji (CORS).
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/call-web-api
-ms.openlocfilehash: b08fdf5c2f9a523314b1744a33087eb64fa4c14a
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: b5c57317005d0072410542bad322458b1cb3f5ee
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72390839"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962717"
 ---
-# <a name="call-a-web-api-from-aspnet-core-blazor"></a>Volání webového rozhraní API z ASP.NET Core Blazor
+# <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>Volání webového rozhraní API z ASP.NET Core Blazor
 
 Od [Luke Latham](https://github.com/guardrex), [Daniel Skořepa](https://github.com/danroth27)a [Juan de la Cruz](https://github.com/juandelacruz23)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor aplikace WebAssembly volají webová rozhraní API pomocí předem nakonfigurované služby `HttpClient`. Požadavky na sestavení, které mohou zahrnovat možnosti [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu, použití pomocníků Blazor JSON nebo <xref:System.Net.Http.HttpRequestMessage>.
+Blazor aplikace WebAssembly volají webová rozhraní API pomocí předkonfigurované služby `HttpClient`. Vytvářené požadavky, které mohou zahrnovat možnosti [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu, pomocí Blazor pomocníků JSON nebo s <xref:System.Net.Http.HttpRequestMessage>.
 
-Serverové aplikace Blazor volají webová rozhraní API s využitím instancí <xref:System.Net.Http.HttpClient> obvykle vytvořených pomocí <xref:System.Net.Http.IHttpClientFactory>. Další informace najdete v tématu <xref:fundamentals/http-requests>.
+Blazor serverové aplikace volají webová rozhraní API pomocí instancí <xref:System.Net.Http.HttpClient> obvykle vytvořených pomocí <xref:System.Net.Http.IHttpClientFactory>. Další informace najdete v tématu <xref:fundamentals/http-requests>.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
@@ -33,7 +35,7 @@ Příklady Blazor WebAssembly najdete v následujících součástech v ukázkov
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient a pomocníky JSON
 
-V aplikacích Blazor WebAssembly je [HttpClient](xref:fundamentals/http-requests) k dispozici jako předkonfigurovaná služba pro zpracování požadavků zpět na zdrojový server. Chcete-li použít pomocníky JSON `HttpClient`, přidejte odkaz na balíček do `Microsoft.AspNetCore.Blazor.HttpClient`. `HttpClient` a pomocníky JSON se také používají k volání koncových bodů webového rozhraní API třetích stran. `HttpClient` je implementováno pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) prohlížeče a podléhá jeho omezením, včetně vynucení stejných zásad původu.
+V Blazor aplikace WebAssembly je [HttpClient](xref:fundamentals/http-requests) k dispozici jako předkonfigurovaná služba pro podání požadavků zpět na zdrojový server. Pokud chcete použít `HttpClient` pomocníků JSON, přidejte odkaz na balíček do `Microsoft.AspNetCore.Blazor.HttpClient`. `HttpClient` a pomocníky JSON se také používají k volání koncových bodů webového rozhraní API třetích stran. `HttpClient` je implementováno pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) prohlížeče a podléhá jeho omezením, včetně vynucení stejných zásad původu.
 
 Základní adresa klienta je nastavena na adresu původního serveru. Vložení instance `HttpClient` pomocí direktivy `@inject`:
 
@@ -42,7 +44,7 @@ Základní adresa klienta je nastavena na adresu původního serveru. Vložení 
 @inject HttpClient Http
 ```
 
-V následujících příkladech zpracovává webové rozhraní API TODO operace vytvoření, čtení, aktualizace a odstranění (CRUD). Příklady jsou založené na třídě @no__t 0, která ukládá:
+V následujících příkladech zpracovává webové rozhraní API TODO operace vytvoření, čtení, aktualizace a odstranění (CRUD). Příklady jsou založeny na `TodoItem` třídě, která ukládá:
 
 * ID (`Id`, `long`) &ndash; jedinečné ID položky.
 * Název (`Name`, `string`) &ndash; název položky.
@@ -61,7 +63,7 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
 
 * `GetJsonAsync` &ndash; pošle požadavek HTTP GET a analyzuje tělo odpovědi JSON pro vytvoření objektu.
 
-  V následujícím kódu se zobrazí `_todoItems` komponentou. Po dokončení vykreslování součásti ([OnInitializedAsync](xref:blazor/components#lifecycle-methods)) se aktivuje metoda `GetTodoItems`. Kompletní příklad najdete v ukázkové aplikaci.
+  V následujícím kódu jsou `_todoItems` zobrazeny komponentou. Po dokončení vykreslování součásti ([OnInitializedAsync](xref:blazor/components#lifecycle-methods)) se aktivuje metoda `GetTodoItems`. Kompletní příklad najdete v ukázkové aplikaci.
 
   ```cshtml
   @using System.Net.Http
@@ -99,7 +101,7 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
 
 * `PutJsonAsync` &ndash; pošle požadavek HTTP PUT, včetně obsahu kódovaného JSON.
 
-  V následujícím kódu @no__t hodnoty-0 pro `Name` a `IsCompleted` poskytují vázané prvky součásti. @No__t položky-0 je nastavena, když je položka vybrána v jiné části uživatelského rozhraní a je volána `EditItem`. Metoda `SaveItem` se aktivuje tak, že se vybere element Save `<button>`. Kompletní příklad najdete v ukázkové aplikaci.
+  V následujícím kódu `_editItem` hodnoty pro `Name` a `IsCompleted` poskytují vázané prvky komponenty. `Id` položky je nastavena, když je položka vybrána v jiné části uživatelského rozhraní a `EditItem` je volána. Metoda `SaveItem` se aktivuje tak, že se vybere element Save `<button>`. Kompletní příklad najdete v ukázkové aplikaci.
 
   ```cshtml
   @using System.Net.Http
@@ -153,7 +155,7 @@ Pokud chcete jiným webům umožnit, aby vaše aplikace provedla požadavky na s
 
 ## <a name="httpclient-and-httprequestmessage-with-fetch-api-request-options"></a>HttpClient a zprávy HttpRequestMessage s možnostmi žádosti o rozhraní API pro načtení
 
-Při spuštění na WebAssembly v Blazor aplikaci WebAssembly použijte [HttpClient](xref:fundamentals/http-requests) a <xref:System.Net.Http.HttpRequestMessage> k přizpůsobení požadavků. Můžete například zadat identifikátor URI žádosti, metodu HTTP a všechny požadované hlavičky požadavků.
+Při spuštění na WebAssembly v Blazor aplikaci WebAssembly použijte k přizpůsobení žádostí [HttpClient](xref:fundamentals/http-requests) a <xref:System.Net.Http.HttpRequestMessage>. Můžete například zadat identifikátor URI žádosti, metodu HTTP a všechny požadované hlavičky požadavků.
 
 Dodejte možnosti žádosti do základního [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu pomocí vlastnosti `WebAssemblyHttpMessageHandler.FetchArgs` na žádosti. Jak je znázorněno v následujícím příkladu, vlastnost `credentials` je nastavena na některou z následujících hodnot:
 

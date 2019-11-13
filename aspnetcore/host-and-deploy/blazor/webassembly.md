@@ -1,38 +1,40 @@
 ---
 title: Hostování a nasazení ASP.NET Core Blazor WebAssembly
 author: guardrex
-description: Naučte se hostovat a nasazovat aplikaci Blazor pomocí ASP.NET Core, stránek Content Delivery Networks (CDN), souborových serverů a GitHubu.
+description: Naučte se hostovat a nasazovat Blazor aplikace s využitím ASP.NET Core, sítí pro doručování obsahu (CDN), souborových serverů a stránek GitHubu.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 943dbb772d9a7bcb337012c126828d1ab4eb545c
-ms.sourcegitcommit: 383017d7060a6d58f6a79cf4d7335d5b4b6c5659
+ms.openlocfilehash: 0fcefc3f1e51beb7cc29aef6dd4f4b8557e61965
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72816061"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963637"
 ---
-# <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
+# <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
 Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-S [modelem hostování WebAssembly Blazor](xref:blazor/hosting-models#blazor-webassembly):
+Pomocí [modelu hostováníBlazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly):
 
-* Do prohlížeče se stáhnou aplikace Blazor, její závislosti a modul runtime .NET.
+* Aplikace Blazor, její závislosti a modul runtime .NET se stáhnou do prohlížeče.
 * Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče.
 
 Podporují se tyto strategie nasazení:
 
-* Aplikace Blazor obsluhuje aplikaci ASP.NET Core. Tato strategie je popsaná v části [hostované nasazení s ASP.NET Core](#hosted-deployment-with-aspnet-core) .
-* Aplikace Blazor je umístěna na statický hostující webový server nebo službu, kde rozhraní .NET se nepoužívá k obsluze aplikace Blazor. Tato strategie je popsaná v části [samostatné nasazení](#standalone-deployment) , která obsahuje informace o hostování aplikace Blazor WebAssembly jako dílčí aplikace služby IIS.
+* Aplikace Blazor obsluhuje ASP.NET Core aplikace. Tato strategie je popsaná v části [hostované nasazení s ASP.NET Core](#hosted-deployment-with-aspnet-core) .
+* Aplikace Blazor je umístěna na statický hostující webový server nebo službu, kde rozhraní .NET se nepoužívá k obsluze aplikace Blazor. Tato strategie je popsaná v části [samostatné nasazení](#standalone-deployment) , která obsahuje informace o hostování aplikace Blazor WebAssembly jako dílčí aplikace IIS.
 
 ## <a name="rewrite-urls-for-correct-routing"></a>Přepište adresy URL pro správné směrování.
 
-Požadavky směrování na součásti stránky v aplikaci Blazor WebAssembly nejsou stejně jednoduché jako požadavky směrování na serveru Blazor a v hostované aplikaci. Zvažte Blazor aplikaci WebAssembly se dvěma komponentami:
+Žádosti o směrování pro součásti stránky v Blazor aplikaci WebAssembly nejsou tak jednoduché jako požadavky směrování na serveru Blazor a v hostované aplikaci. Zvažte Blazor aplikaci WebAssembly se dvěma komponentami:
 
 * *Main. razor* &ndash; načte do kořenového adresáře aplikace a obsahuje odkaz na komponentu `About` (`href="About"`).
 * *O komponentě. razor* &ndash; `About`.
@@ -42,9 +44,9 @@ Pokud se výchozí dokument aplikace požaduje pomocí panelu Adresa v prohlíž
 1. Prohlížeč vytvoří požadavek.
 1. Vrátí se výchozí stránka, což je obvykle *index. html*.
 1. *index. html* se v aplikaci zabootstrap.
-1. Blazor směrovač se načte a komponenta Razor `Main` se vykreslí.
+1. dojde k načtení směrovače Blazora vykreslí se komponenta Razor `Main`.
 
-Na hlavní stránce můžete vybrat odkaz na součást `About` v klientovi, protože směrovač Blazor zastaví v prohlížeči žádost o `www.contoso.com` pro `About` a obsluhu samotné vykreslené součásti `About`. Všechny požadavky na vnitřní koncové body *v aplikaci Blazor WebAssembly* fungují stejným způsobem: požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu. Směrovač zpracovává požadavky interně.
+Na hlavní stránce vyberte odkaz na součást `About` pracuje na klientovi, protože Blazor směrovač zastaví, aby se v prohlížeči odeslala žádost `www.contoso.com` pro `About` a spolupracuje přímo vykreslená `About` komponenta. Všechny požadavky na vnitřní koncové body *v aplikaci Blazor WebAssembly* fungují stejným způsobem: požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu. Směrovač zpracovává požadavky interně.
 
 Pokud se žádost provede pomocí panelu Adresa v prohlížeči `www.contoso.com/About`, požadavek se nezdařil. Žádný takový prostředek na internetovém hostiteli aplikace neexistuje, takže se vrátí odpověď *404 – Nenalezeno* .
 
@@ -54,9 +56,9 @@ Při nasazování na server služby IIS můžete použít modul pro přepis adre
 
 ## <a name="hosted-deployment-with-aspnet-core"></a>Hostované nasazení s ASP.NET Core
 
-*Hostované nasazení* obsluhuje aplikaci Blazor WebAssembly pro prohlížeče z [aplikace ASP.NET Core](xref:index) , která běží na webovém serveru.
+*Hostované nasazení* slouží jako aplikace Blazor WebAssembly pro prohlížeče z [aplikace ASP.NET Core](xref:index) , která běží na webovém serveru.
 
-Aplikace Blazor je součástí aplikace ASP.NET Core v publikovaném výstupu, takže se tyto dvě aplikace nasazují dohromady. Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core. V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu **aplikace Blazor WebAssembly** (šablona `blazorwasm` při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) s vybranou možností **Hosted** .
+Aplikace Blazor je součástí ASP.NET Core aplikace v publikovaném výstupu, takže se tyto dvě aplikace nasazují dohromady. Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core. V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu **aplikaceBlazor WebAssembly** (šablona`blazorwasm` při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) s vybranou možností **Hosted** .
 
 Další informace o ASP.NET Core hostování a nasazení aplikací najdete v tématu <xref:host-and-deploy/index>.
 
@@ -64,19 +66,19 @@ Informace o nasazení do Azure App Service najdete v tématu <xref:tutorials/pub
 
 ## <a name="standalone-deployment"></a>Samostatné nasazení
 
-*Samostatné nasazení* obsluhuje aplikaci Blazor WebAssembly jako sadu statických souborů, které jsou požadovány přímo klienty. Libovolný statický souborový server může obsluhovat aplikaci Blazor.
+*Samostatné nasazení* obsluhuje Blazor aplikaci WebAssembly jako sadu statických souborů, které jsou požadovány přímo klienty. Každý statický souborový server může sloužit jako aplikace Blazor.
 
 Samostatné prostředky nasazení se publikují do složky *bin/Release/{Target Framework}/PUBLISH/{Assembly Name}/DIST* .
 
 ### <a name="iis"></a>IIS
 
-Služba IIS je schopným statickým souborovým serverem pro aplikace Blazor. Chcete-li nakonfigurovat službu IIS na hostování Blazor, přečtěte si téma [vytvoření statického webu ve službě IIS](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis).
+Služba IIS je schopným statickým souborovým serverem pro Blazor aplikace. Chcete-li nakonfigurovat službu IIS na hostování Blazor, přečtěte si téma [vytvoření statického webu ve službě IIS](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis).
 
 Publikované assety se vytvoří ve složce */bin/Release/{Target Framework}/Publish* . Hostovat obsah složky pro *publikování* na webovém serveru nebo v hostitelské službě.
 
 #### <a name="webconfig"></a>Web. config
 
-Při publikování projektu Blazor se vytvoří soubor *Web. config* s následující konfigurací služby IIS:
+Při publikování Blazor projektu se vytvoří soubor *Web. config* s následující konfigurací služby IIS:
 
 * Typy MIME jsou nastaveny pro následující přípony souborů:
   * *. dll* &ndash; `application/octet-stream`
@@ -145,12 +147,12 @@ Další informace o řešení potíží s nasazeními do služby IIS najdete v t
 
 ### <a name="azure-storage"></a>Azure Storage
 
-Hostování statického souboru [Azure Storage](/azure/storage/) umožňuje hostování aplikace bez serveru. Podporují se názvy vlastních domén, Azure Content Delivery Network (CDN) a HTTPS.
+Hostování [Azure Storage](/azure/storage/) statických souborů umožňuje hostování aplikace bez Blazor serveru. Podporují se názvy vlastních domén, Azure Content Delivery Network (CDN) a HTTPS.
 
 Když je u služby BLOB Service povolené hostování statických webů v účtu úložiště:
 
 * Nastavte **název dokumentu indexu** na `index.html`.
-* Nastavte **cestu k chybovému dokumentu** na `index.html`. Komponenty Razor a jiné nesouborové koncové body se neukládají na fyzických cestách se statickým obsahem uloženým ve službě BLOB Service. Když se obdrží požadavek na jeden z těchto prostředků, který by měl směrovač Blazor zpracovat, Chyba *404 –* chyba, kterou vygenerovala služba BLOB Service, směruje požadavek na **cestu k chybovému dokumentu**. Vrátí se objekt BLOB *index. html* a Blazor směrovač načte a zpracuje cestu.
+* Nastavte **cestu k chybovému dokumentu** na `index.html`. Komponenty Razor a jiné nesouborové koncové body se neukládají na fyzických cestách se statickým obsahem uloženým ve službě BLOB Service. Když se obdrží žádost o jeden z těchto prostředků, kterou by měl směrovač Blazor zpracovat, Chyba *404 –* chyba, kterou vygenerovala služba BLOB Service, směruje požadavek na **cestu k chybovému dokumentu**. Vrátí se objekt BLOB *index. html* a Blazor směrovač načte a zpracuje cestu.
 
 Další informace najdete v tématu [statické hostování webů v Azure Storage](/azure/storage/blobs/storage-blob-static-website).
 
@@ -176,7 +178,7 @@ Další informace o konfiguraci webového serveru Nginx v produkčním prostřed
 
 ### <a name="nginx-in-docker"></a>Nginx v Docker
 
-Pokud chcete hostovat Blazor v Docker pomocí Nginx, nastavte souboru Dockerfile pro použití image Nginx založené na Alpine. Aktualizujte souboru Dockerfile a zkopírujte soubor *Nginx. config* do kontejneru.
+Pokud chcete hostovat Blazor v Docker pomocí Nginx, nastavte souboru Dockerfile na použití Nginx image založené na Alpine. Aktualizujte souboru Dockerfile a zkopírujte soubor *Nginx. config* do kontejneru.
 
 Do souboru Dockerfile přidejte jeden řádek, jak je znázorněno v následujícím příkladu:
 
@@ -188,7 +190,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ### <a name="apache"></a>Webový
 
-Nasazení aplikace Blazor WebAssembly na CentOS 7 nebo novější:
+Nasazení aplikace Blazor WebAssembly do CentOS 7 nebo novější:
 
 1. Vytvořte konfigurační soubor Apache. Následující příklad je zjednodušený konfigurační soubor (*blazorapp. config*):
 
@@ -242,7 +244,7 @@ Při použití webu projektu místo webu organizace přidejte nebo aktualizujte 
 
 ## <a name="host-configuration-values"></a>Hodnoty konfigurace hostitele
 
-[Aplikace Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) můžou přijmout následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí.
+[aplikaceBlazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) můžou přijmout následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí.
 
 ### <a name="content-root"></a>Kořen obsahu
 
@@ -315,4 +317,4 @@ Argument `--urls` nastavuje IP adresy nebo adresy hostitelů s porty a protokoly
 
 ## <a name="configure-the-linker"></a>Konfigurace Linkeru
 
-Blazor provádí propojení podle jazyka IL (Intermediate Language) na každém sestavení pro odebrání zbytečného IL z výstupních sestavení. Propojení sestavení lze řídit při sestavování. Další informace najdete v tématu <xref:host-and-deploy/blazor/configure-linker>.
+Blazor provádí propojení v prostředním jazyce (IL) pro každé sestavení, aby se odebralo zbytečné IL z výstupních sestavení. Propojení sestavení lze řídit při sestavování. Další informace najdete v tématu <xref:host-and-deploy/blazor/configure-linker>.

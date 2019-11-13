@@ -6,13 +6,15 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 08/23/2019
+no-loc:
+- Blazor
 uid: razor-pages/sdk
-ms.openlocfilehash: 606d2bdca3fa4fb1c81df73ac697d2175c3ab633
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 2fbdf95d02d7918236981c7fee8ebcbedf5c55e1
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334040"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963264"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
@@ -20,7 +22,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ## <a name="overview"></a>Přehled
 
-@No__t-0 zahrnuje sadu `Microsoft.NET.Sdk.Razor` MSBuild SDK (Razor SDK). Sada Razor SDK:
+[!INCLUDE[](~/includes/2.1-SDK.md)] obsahuje sadu `Microsoft.NET.Sdk.Razor` MSBuild SDK (Razor SDK). Sada Razor SDK:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -139,7 +141,7 @@ Sada Razor SDK definuje dva primární cíle:
 
 ### <a name="runtime-compilation-of-razor-views"></a>Běhová kompilace zobrazení Razor
 
-* Ve výchozím nastavení sada Razor SDK nepublikuje referenční sestavení, která jsou nutná k provedení kompilace za běhu. Výsledkem je selhání kompilace, když aplikační model spoléhá na kompilaci za běhu @ no__t-0for, aplikace používá vložená zobrazení nebo změny zobrazení po publikování aplikace. Pokud chcete pokračovat v publikování referenčních sestavení, nastavte `CopyRefAssembliesToPublishDirectory` na `true`.
+* Ve výchozím nastavení sada Razor SDK nepublikuje referenční sestavení, která jsou nutná k provedení kompilace za běhu. Výsledkem je selhání kompilace, když aplikační model spoléhá na kompilaci modulu runtime&mdash;například aplikace používá vložená zobrazení nebo změny zobrazení po publikování aplikace. Pokud chcete pokračovat v publikování referenčních sestavení, nastavte `CopyRefAssembliesToPublishDirectory` na `true`.
 
 * V případě webové aplikace zajistěte, aby vaše aplikace byla cílena na sadu `Microsoft.NET.Sdk.Web` SDK.
 

@@ -1,20 +1,22 @@
 ---
-title: Ladění ASP.NET Core Blazor
+title: Blazor ASP.NET Core ladění
 author: guardrex
 description: Naučte se ladit aplikace Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/debug
-ms.openlocfilehash: 9fc3f1d2dd7dc79d2ba3d64bff6e0f92ac2cf6dc
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 3096ad9b3a6904804f239d61f374adcd4d851978
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391187"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963138"
 ---
-# <a name="debug-aspnet-core-blazor"></a>Ladění ASP.NET Core Blazor
+# <a name="debug-aspnet-core-opno-locblazor"></a>Blazor ASP.NET Core ladění
 
 [Daniel Skořepa](https://github.com/danroth27)
 
@@ -52,27 +54,27 @@ Ladění vyžaduje některý z následujících prohlížečů:
 1. Spusťte aplikaci Blazor WebAssembly v konfiguraci `Debug`. Předejte možnost `--configuration Debug` do příkazu [dotnet Run](/dotnet/core/tools/dotnet-run) : `dotnet run --configuration Debug`.
 1. Přihlaste se k aplikaci v prohlížeči.
 1. Umístěte fokus klávesnice na aplikaci, ne na panel nástroje pro vývojáře. Panel nástrojů pro vývojáře lze zavřít při zahájení ladění.
-1. Vyberte následující klávesovou zkratku specifickou pro Blazor:
+1. Vyberte následující klávesovou zkratku určenou pro Blazor:
    * `Shift+Alt+D` v systému Windows/Linux
    * `Shift+Cmd+D` v macOS
 1. Postupujte podle kroků uvedených na obrazovce a restartujte prohlížeč se zapnutým vzdáleným laděním.
-1. Znovu vyberte následující klávesovou zkratku Blazor, abyste mohli spustit ladicí relaci:
+1. Po opětovném spuštění relace ladění vyberte následující klávesovou zkratku Blazor:
    * `Shift+Alt+D` v systému Windows/Linux
    * `Shift+Cmd+D` v macOS
 
 ## <a name="enable-remote-debugging"></a>Povolit vzdálené ladění
 
-Pokud je vzdálené ladění zakázané, **nemůžete najít** chybovou stránku karty prohlížeče, která je vygenerovaná v Chrome. Chybová stránka obsahuje pokyny pro spuštění aplikace Chrome s otevřeným portem pro ladění, aby se proxy server Blazor pro ladění mohl připojit k aplikaci. *Zavřete všechny instance Chrome* a restartujte Chrome podle pokynů.
+Pokud je vzdálené ladění zakázané, **nemůžete najít** chybovou stránku karty prohlížeče, která je vygenerovaná v Chrome. Chybová stránka obsahuje pokyny pro spuštění Chrome s otevřeným portem pro ladění, aby se proxy Blazor ladicího programu mohl připojit k aplikaci. *Zavřete všechny instance Chrome* a restartujte Chrome podle pokynů.
 
 ## <a name="debug-the-app"></a>Ladění aplikace
 
 Po spuštění aplikace Chrome se zapnutým vzdáleným laděním otevře klávesovou zkratku ladění novou kartu ladicího programu. Po chvíli se na kartě **zdroje** zobrazí seznam sestavení .NET v aplikaci. Rozbalte jednotlivá sestavení a vyhledejte soubory *. cs*/ *. Razor* , které jsou k dispozici pro ladění. Nastavte zarážky, přepněte zpět na kartu aplikace a zarážky se spustí při spuštění kódu. Po dosažení zarážky, krok za běhu (`F10`) prostřednictvím kódu nebo obnovení kódu (`F8`) normálního spuštění kódu.
 
-Blazor poskytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Při stisknutí klávesových zkratek ladění Blazor odkazuje na rozhraní Chrome DevTools na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
+Blazor poskytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Při Blazor stisknutí klávesových zkratek ladění DevTools odkazuje na rozhraní Chrome na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
 
 ## <a name="browser-source-maps"></a>Mapy zdroje prohlížeče
 
-Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zkompilované soubory zpátky na původní zdrojové soubory a často se používají pro ladění na straně klienta. Blazor se ale v tuto chvíli C# nemapuje přímo na JavaScript/WASM. Místo toho Blazor provede interpretaci IL v prohlížeči, takže zdrojová mapování nejsou relevantní.
+Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zkompilované soubory zpátky na původní zdrojové soubory a často se používají pro ladění na straně klienta. Blazor ale v tuto chvíli není C# přímo namapována na JavaScript/WASM. Místo toho Blazor provede interpretaci IL v prohlížeči, takže zdrojová mapování nejsou relevantní.
 
 ## <a name="troubleshooting-tip"></a>Tip Poradce při potížích
 

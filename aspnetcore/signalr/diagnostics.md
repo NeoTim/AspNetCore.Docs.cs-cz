@@ -1,208 +1,210 @@
 ---
-title: Protokolování a Diagnostika v knihovně SignalR technologie ASP.NET Core
+title: Protokolování a diagnostika v ASP.NET Core SignalR
 author: anurse
-description: Zjistěte, jak shromažďovat diagnostické z vaší aplikace SignalR technologie ASP.NET Core.
+description: Naučte se shromažďovat diagnostiku z vaší aplikace ASP.NET Core SignalR.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: signalr
-ms.date: 06/19/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 69dbd057b3dcadeb3ca5d94ede1234530fb447db
-ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
+ms.openlocfilehash: c5bd2ac27f8ca486b0d75aed8439747f72448625
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67313700"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963849"
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a Diagnostika v knihovně SignalR technologie ASP.NET Core
+# <a name="logging-and-diagnostics-in-aspnet-core-opno-locsignalr"></a>Protokolování a diagnostika v ASP.NET Core SignalR
 
-Podle [Andrew Stanton sestry](https://twitter.com/anurse)
+Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
-Tento článek obsahuje pokyny pro shromažďování diagnostiky z vaší aplikace ASP.NET Core SignalR k řešení potíží.
+Tento článek poskytuje pokyny pro shromažďování diagnostických informací z vaší aplikace ASP.NET Core SignalR, které vám pomůžou při řešení problémů.
 
 ## <a name="server-side-logging"></a>Protokolování na straně serveru
 
 > [!WARNING]
-> Protokoly na straně serveru může obsahovat citlivé informace z vaší aplikace. **Nikdy** odeslání nezpracovaných protokolů z produkčních aplikací na veřejných fórech jako GitHub.
+> Protokoly na straně serveru můžou obsahovat citlivé informace z vaší aplikace. **Nikdy** nezveřejňujte nezpracované protokoly z produkčních aplikací do veřejných fór, jako je GitHub.
 
-Protože SignalR je součástí ASP.NET Core, používá ASP.NET Core protokolování systému. Ve výchozí konfiguraci SignalR protokoly velmi málo informací, ale to může nakonfigurovat. Naleznete v dokumentaci [ASP.NET Core protokolování](xref:fundamentals/logging/index#configuration) podrobné informace o konfiguraci protokolování ASP.NET Core.
+Vzhledem k tomu, že SignalR je součástí ASP.NET Core, používá systém protokolování ASP.NET Core. Ve výchozí konfiguraci SignalR protokolovat velmi málo informací, ale to může být nakonfigurováno. Podrobnosti o konfiguraci ASP.NET Core protokolování najdete v dokumentaci k [protokolování ASP.NET Core](xref:fundamentals/logging/index#configuration) .
 
-Funkce SignalR používá dvě kategorie protokolovacího nástroje:
+SignalR používá dvě kategorie protokolovacího nástroje:
 
-* `Microsoft.AspNetCore.SignalR` &ndash; související s protokoly centra protokolů aktivace rozbočovače, volání metod a dalších aktivit související s centrem.
-* `Microsoft.AspNetCore.Http.Connections` &ndash; pro protokoly související s přenosy, jako jsou protokoly Websocket, dlouhé dotazování a Server-Sent události a nízké úrovně infrastruktuře SignalR.
+* `Microsoft.AspNetCore.SignalR` &ndash; protokolů souvisejících s protokoly hub, aktivací Center, voláním metod a dalšími aktivitami souvisejícími s centrem.
+* `Microsoft.AspNetCore.Http.Connections` &ndash; pro protokoly týkající se přenosů, jako jsou WebSockets, dlouhé cyklické dotazování a serverové události a infrastruktura nízké úrovně SignalR.
 
-Pokud chcete povolit podrobné protokoly ze systému SignalR, nakonfigurujte oba předchozí předpon `Debug` úrovni v vaše *appsettings.json* souboru tak, že přidáte následující položky, které chcete `LogLevel` v dílčím oddílu `Logging`:
+Pokud chcete povolit podrobné protokoly z SignalR, nakonfigurujte obě předchozí předpony na úroveň `Debug` v souboru *appSettings. JSON* přidáním následujících položek do dílčí části `LogLevel` v `Logging`:
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
-Můžete to taky nakonfigurovat v kódu ve vaší `CreateWebHostBuilder` metody:
+Tuto možnost lze také nakonfigurovat v kódu v metodě `CreateWebHostBuilder`:
 
 [!code-csharp[](diagnostics/logging-config-code.cs?highlight=5-6)]
 
-Pokud nepoužíváte konfiguraci na základě JSON, nastavte následující hodnoty konfigurace v konfiguraci systému:
+Pokud nepoužíváte konfiguraci založenou na formátu JSON, nastavte v konfiguračním systému následující konfigurační hodnoty:
 
 * `Logging:LogLevel:Microsoft.AspNetCore.SignalR` = `Debug`
 * `Logging:LogLevel:Microsoft.AspNetCore.Http.Connections` = `Debug`
 
-Dokumentaci k systému konfigurace a určit, jak zadat vnořené konfigurační hodnoty. Při použití proměnných prostředí, například dvě `_` znaky se používají místo `:` (například `Logging__LogLevel__Microsoft.AspNetCore.SignalR`).
+Informace o tom, jak zadat hodnoty vnořených konfigurací, najdete v dokumentaci ke konfiguračnímu systému. Například při použití proměnných prostředí se místo `:` používá dva `_` znaky (například `Logging__LogLevel__Microsoft.AspNetCore.SignalR`).
 
-Doporučujeme použít `Debug` úroveň při shromažďování podrobnější diagnostiku pro aplikaci. `Trace` Úroveň vytváří velmi nízké úrovně diagnostiky a je málokdy potřeba diagnostikovat problémy ve vaší aplikaci.
+Při shromažďování podrobnějších diagnostických informací pro vaši aplikaci doporučujeme použít `Debug` úroveň. Úroveň `Trace` vytváří vysoce nízkou diagnostiku a je zřídka nutná pro diagnostiku problémů ve vaší aplikaci.
 
-## <a name="access-server-side-logs"></a>Zobrazení protokolů na straně serveru
+## <a name="access-server-side-logs"></a>Přístup k protokolům na straně serveru
 
-Jak získat přístup k serverové protokoly, závisí na prostředí, ve kterém spouštíte.
+Způsob přístupu ke protokolům na straně serveru závisí na prostředí, ve kterém používáte.
 
-### <a name="as-a-console-app-outside-iis"></a>Jako konzolové aplikace mimo službu IIS
+### <a name="as-a-console-app-outside-iis"></a>Jako Konzolová aplikace mimo IIS
 
-Pokud máte spuštěný v konzolové aplikaci, [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console-provider) by měl být ve výchozím nastavení povolené. Funkce SignalR protokoly se zobrazí v konzole.
+Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console-provider) . protokoly SignalR se zobrazí v konzole nástroje.
 
-### <a name="within-iis-express-from-visual-studio"></a>V rámci služby IIS Express ze sady Visual Studio
+### <a name="within-iis-express-from-visual-studio"></a>V rámci IIS Express ze sady Visual Studio
 
-Visual Studio zobrazí ve výstupu protokolu v **výstup** okna. Vyberte **Webový Server ASP.NET Core** rozevírací seznam možností.
+Visual Studio zobrazí výstup protokolu v okně **výstup** . Vyberte možnost rozevíracího seznamu **ASP.NET Core webového serveru** .
 
 ### <a name="azure-app-service"></a>Azure App Service
 
-Povolit **protokolování aplikace (systém souborů)** možnost **diagnostické protokoly** části portálu služby Azure App Service a nakonfigurovat **úroveň** k `Verbose`. Protokoly by měly mít k dispozici na **streamování protokolů** služby a v protokolech systému souborů služby App Service. Další informace najdete v tématu [streamování protokolů Azure](xref:fundamentals/logging/index#azure-log-streaming).
+V části **diagnostické protokoly** na portálu Azure App Service povolte možnost **protokolování aplikace (systém souborů)** a nakonfigurujte **úroveň** na `Verbose`. Protokoly by měly být dostupné ze služby **streamování protokolů** a v protokolech v systému souborů App Service. Další informace najdete v tématu [streamování protokolů Azure](xref:fundamentals/logging/index#azure-log-streaming).
 
 ### <a name="other-environments"></a>Další prostředí
 
-Pokud je aplikace nasazena do jiného prostředí (například Docker, Kubernetes nebo služby Windows), přečtěte si téma <xref:fundamentals/logging/index> Další informace o tom, jak konfigurovat protokolování zprostředkovatele vhodná pro prostředí.
+Pokud je aplikace nasazená do jiného prostředí (například Docker, Kubernetes nebo Windows), přečtěte si téma <xref:fundamentals/logging/index>, kde najdete další informace o tom, jak nakonfigurovat zprostředkovatele protokolování vhodné pro prostředí.
 
-## <a name="javascript-client-logging"></a>Protokolování javascriptový klient
+## <a name="javascript-client-logging"></a>Protokolování klienta JavaScript
 
 > [!WARNING]
-> Protokoly na straně klienta mohou obsahovat citlivé informace z vaší aplikace. **Nikdy** odeslání nezpracovaných protokolů z produkčních aplikací na veřejných fórech jako GitHub.
+> Protokoly na straně klienta můžou obsahovat citlivé informace z vaší aplikace. **Nikdy** nezveřejňujte nezpracované protokoly z produkčních aplikací do veřejných fór, jako je GitHub.
 
-Při použití Javascriptového klienta, můžete nakonfigurovat pomocí možnosti protokolování `configureLogging` metodu na `HubConnectionBuilder`:
+Při použití klienta JavaScriptu můžete nakonfigurovat možnosti protokolování pomocí metody `configureLogging` v `HubConnectionBuilder`:
 
 [!code-javascript[](diagnostics/logging-config-js.js?highlight=3)]
 
-Chcete-li zakázat protokolování úplně, zadejte `signalR.LogLevel.None` v `configureLogging` metody.
+Pokud chcete protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v metodě `configureLogging`.
 
-Následující tabulka uvádí dostupné úrovně protokolu klientovi JavaScript. Nastavení úrovně protokolu na jednu z těchto hodnot povolí protokolování na této úrovni ve všech úrovních nad ním v tabulce.
+V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta jazyka JavaScript. Nastavením úrovně protokolu na jednu z těchto hodnot povolíte protokolování na této úrovni a všechny úrovně nad ním v tabulce.
 
-| Level | Popis |
+| Obsah | Popis |
 | ----- | ----------- |
-| `None` | Jsou zaznamenány žádné zprávy. |
-| `Critical` | Zprávy, které indikují chybu celé aplikace. |
-| `Error` | Zprávy, které indikují chybu aktuální operaci. |
-| `Warning` | Zprávy, které označují méně závažné potíže. |
+| `None` | Nejsou protokolovány žádné zprávy. |
+| `Critical` | Zprávy indikující selhání v celé aplikaci. |
+| `Error` | Zprávy indikující selhání aktuální operace. |
+| `Warning` | Zprávy, které indikují méně závažnou chybu. |
 | `Information` | Informační zprávy. |
-| `Debug` | Diagnostické zprávy je užitečné pro ladění. |
-| `Trace` | Velmi podrobné diagnostické zprávy, které jsou navržené pro diagnostiku specifické problémy. |
+| `Debug` | Diagnostické zprávy užitečné pro ladění. |
+| `Trace` | Velmi podrobné diagnostické zprávy navržené pro diagnostiku konkrétních problémů. |
 
-Jakmile nakonfigurujete úroveň podrobností, protokoly se zapíšou do konzoly prohlížeče (nebo standardní výstup v aplikaci NodeJS).
+Po nakonfigurování podrobností se protokoly zapíší do konzoly prohlížeče (nebo standardního výstupu v aplikaci NodeJS).
 
-Pokud chcete odeslat protokoly do vlastního protokolování systému, můžete poskytnout implementaci objektu jazyka JavaScript `ILogger` rozhraní. Je jedinou metodou, kterou je potřeba implementovat `log`, který by úroveň události a zprávy přidružené k události. Příklad:
+Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující rozhraní `ILogger`. Jedinou metodou, kterou je třeba implementovat, je `log`, která přebírá úroveň události a zprávu spojenou s událostí. Příklad:
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
-## <a name="net-client-logging"></a>.NET client protokolování
+## <a name="net-client-logging"></a>Protokolování klienta .NET
 
 > [!WARNING]
-> Protokoly na straně klienta mohou obsahovat citlivé informace z vaší aplikace. **Nikdy** odeslání nezpracovaných protokolů z produkčních aplikací na veřejných fórech jako GitHub.
+> Protokoly na straně klienta můžou obsahovat citlivé informace z vaší aplikace. **Nikdy** nezveřejňujte nezpracované protokoly z produkčních aplikací do veřejných fór, jako je GitHub.
 
-Pokud chcete získat protokoly z klienta .NET, můžete použít `ConfigureLogging` metodu na `HubConnectionBuilder`. Tento postup funguje stejným způsobem jako `ConfigureLogging` metoda `WebHostBuilder` a `HostBuilder`. Můžete nakonfigurovat stejní poskytovatelé protokolování, které můžete použít v ASP.NET Core. Ale musíte ručně nainstalovat a povolit protokolování jednotlivých poskytovatelů balíčky NuGet.
+Chcete-li získat protokoly z klienta rozhraní .NET, můžete použít metodu `ConfigureLogging` v `HubConnectionBuilder`. To funguje stejným způsobem jako metoda `ConfigureLogging` v `WebHostBuilder` a `HostBuilder`. Můžete nakonfigurovat stejné poskytovatele protokolování, které používáte v ASP.NET Core. Je však nutné ručně nainstalovat a povolit balíčky NuGet pro jednotlivé zprostředkovatele protokolování.
 
 ### <a name="console-logging"></a>Protokolování konzoly
 
-Chcete-li povolit protokolování konzoly, přidejte [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) balíčku. Potom použijte `AddConsole` metoda konfigurace protokolovací nástroj konzoly:
+Aby bylo možné povolit protokolování konzoly, přidejte balíček [Microsoft. Extensions. Logging. Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) . Pak použijte metodu `AddConsole` ke konfiguraci protokolovacího nástroje konzoly:
 
 [!code-csharp[](diagnostics/net-client-console-log.cs?highlight=6)]
 
-### <a name="debug-output-window-logging"></a>Protokolování okna výstup ladění
+### <a name="debug-output-window-logging"></a>Protokolování výstupního okna ladění
 
-Můžete taky nakonfigurovat protokoly a přejděte **výstup** okna v sadě Visual Studio. Instalace [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) balíček a použít `AddDebug` metody:
+Můžete také nakonfigurovat protokoly pro přechod do okna **výstup** v aplikaci Visual Studio. Nainstalujte balíček [Microsoft. Extensions. Logging. Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) a použijte metodu `AddDebug`:
 
 [!code-csharp[](diagnostics/net-client-debug-log.cs?highlight=6)]
 
-### <a name="other-logging-providers"></a>Ostatní zprostředkovatelé protokolování
+### <a name="other-logging-providers"></a>Další zprostředkovatelé protokolování
 
-Funkce SignalR podporuje jiných poskytovatelů protokolování, jako je například Serilog, Seq, NLog nebo jakémkoli jiném systému protokolování, která se integruje s `Microsoft.Extensions.Logging`. Pokud váš systém protokolování poskytuje `ILoggerProvider`, můžete ho zaregistrovat `AddProvider`:
+SignalR podporuje jiné poskytovatele protokolování, jako je Serilog, SEQ, NLog nebo jakýkoli jiný systém protokolování, který se integruje s `Microsoft.Extensions.Logging`. Pokud váš systém protokolování poskytuje `ILoggerProvider`, můžete ho zaregistrovat pomocí `AddProvider`:
 
 [!code-csharp[](diagnostics/net-client-custom-log.cs?highlight=6)]
 
-### <a name="control-verbosity"></a>Podrobnosti ovládacího prvku
+### <a name="control-verbosity"></a>Podrobnost ovládacího prvku
 
-Pokud se přihlašujete z jiných míst ve své aplikaci, změna výchozí úrovně do `Debug` může být příliš podrobné. Filtr můžete nakonfigurovat úroveň protokolování pro protokoly SignalR. To můžete udělat v kódu, téměř stejným způsobem jako na serveru:
+Pokud se přihlašujete z jiných míst v aplikaci, Změna výchozí úrovně na `Debug` může být příliš podrobná. Pomocí filtru můžete nakonfigurovat úroveň protokolování pro protokoly SignalR. To lze provést v kódu, podobně jako na serveru:
 
 [!code-csharp[Controlling verbosity in .NET client](diagnostics/logging-config-client-code.cs?highlight=9-10)]
 
 ## <a name="network-traces"></a>Trasování sítě
 
 > [!WARNING]
-> Trasování sítě obsahuje úplný obsah všechny zprávy odeslané aplikací. **Nikdy** odeslání nezpracovaná síťových trasování z produkčních aplikací na veřejných fórech jako GitHub.
+> Trasování sítě obsahuje úplný obsah každé zprávy odesílané vaší aplikací. **Nikdy** nezveřejňujte nezpracované síťové trasování z produkčních aplikací do veřejných fór, jako je GitHub.
 
-Pokud narazíte na problém, trasování sítě někdy poskytnout velké množství užitečných informací. To je zvlášť užitečné, pokud se chystáte založit problém na našem sledování problémů.
+Pokud narazíte na problém, trasování sítě může někdy poskytnout spoustu užitečných informací. To je užitečné hlavně v případě, že se chystáte zaslat problém do souboru sledování problémů.
 
-## <a name="collect-a-network-trace-with-fiddler-preferred-option"></a>Shromažďovat trasování pomocí fiddleru provedete (upřednostňovanou možnost ověřování) v síti
+## <a name="collect-a-network-trace-with-fiddler-preferred-option"></a>Shromáždění trasování sítě pomocí Fiddler (upřednostňovaná možnost)
 
-Tato metoda se dá použít pro všechny aplikace.
+Tato metoda se používá pro všechny aplikace.
 
-Fiddler je velmi výkonný nástroj pro shromažďování trasování protokolu HTTP. Nainstalujte ji z [telerik.com/fiddler](https://www.telerik.com/fiddler), spusťte jej a pak spusťte aplikaci a reprodukujte problém. Fiddler je k dispozici pro Windows a jsou beta verze pro macOS a Linux.
+Fiddler je vysoce výkonný nástroj pro shromažďování trasování HTTP. Nainstalujte si ho z [Telerik.com/Fiddler](https://www.telerik.com/fiddler), spusťte ho a pak spusťte aplikaci a pokuste se problém reprodukování. Fiddler je k dispozici pro Windows a pro macOS a Linux jsou k dispozici beta verze.
 
-Pokud se připojíte pomocí protokolu HTTPS, existuje několik kroků navíc zajistěte, aby že Fiddler můžete dešifrování provozu HTTPS. Další podrobnosti najdete v tématu [dokumentace k aplikaci Fiddler](https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS).
+Pokud se připojujete pomocí protokolu HTTPS, je potřeba provést několik kroků navíc, abyste zajistili, že Fiddler dokáže dešifrovat přenosy HTTPS. Další podrobnosti najdete v [dokumentaci k Fiddler](https://docs.telerik.com/fiddler/Configure-Fiddler/Tasks/DecryptHTTPS).
 
-Jakmile jste shromážděné trasování, můžete to taky trasování výběrem **souboru** > **Uložit** > **všechny relace** z řádku nabídek.
+Po shromáždění trasování můžete trasování exportovat výběrem možnosti **soubor** > **Uložit** > **všechny relace** z řádku nabídek.
 
-![Export všech relacích z Fiddleru](diagnostics/fiddler-export.png)
+![Exportují se všechny relace z Fiddler.](diagnostics/fiddler-export.png)
 
-## <a name="collect-a-network-trace-with-tcpdump-macos-and-linux-only"></a>Shromažďovat trasování v síti s tcpdump (macOS a Linux jenom)
+## <a name="collect-a-network-trace-with-tcpdump-macos-and-linux-only"></a>Shromažďovat trasování sítě pomocí tcpdump (jenom macOS a Linux)
 
-Tato metoda se dá použít pro všechny aplikace.
+Tato metoda se používá pro všechny aplikace.
 
-Můžete shromažďovat nezpracovaná TCP trasování pomocí tcpdump spuštěním následujícího příkazu z příkazového prostředí. Musíte být `root` nebo příkazu u předpony `sudo` Pokud dojde k chybě oprávnění:
+Nezpracované trasování TCP můžete shromažďovat pomocí tcpdump spuštěním následujícího příkazu z příkazového prostředí. Pokud se zobrazí chyba oprávnění, možná budete muset `root` nebo prefixovat příkaz s `sudo`.
 
 ```console
 tcpdump -i [interface] -w trace.pcap
 ```
 
-Nahraďte `[interface]` se síťovým rozhraním, kterou chcete zachytit na. To je obvykle něco jako `/dev/eth0` (pro standardní rozhraní sítě Ethernet) nebo `/dev/lo0` (pro přenos localhost). Další informace najdete v tématu `tcpdump` man stránku v systému hostitele.
+Nahraďte `[interface]` síťovým rozhraním, na kterém chcete zachytit. Obvykle se jedná o něco podobného jako `/dev/eth0` (pro standardní rozhraní sítě Ethernet) nebo `/dev/lo0` (pro přenosy v localhost). Další informace najdete na stránce `tcpdump` Man v hostitelském systému.
 
-## <a name="collect-a-network-trace-in-the-browser"></a>Shromažďovat trasování sítě v prohlížeči
+## <a name="collect-a-network-trace-in-the-browser"></a>Shromáždění trasování sítě v prohlížeči
 
-Tato metoda funguje jenom pro aplikace založené na prohlížeči.
+Tato metoda funguje pouze pro aplikace založené na prohlížeči.
 
-Většina nástrojů pro vývojáře prohlížeče mít kartu "Sítě", která umožňuje zaznamenat síťové aktivity mezi prohlížečem a serveru. Toto trasování však nezahrnují zprávy protokolu WebSocket a Server-Sent událostí. Pokud používáte tyto přenosy, pomocí nástroje, jako jsou nástroje Fiddler nebo TcpDump (popsaných níže) není lepším řešením.
+Většina prohlížečů Vývojářské nástroje mít kartu síť, která umožňuje zachytit síťovou aktivitu mezi prohlížečem a serverem. Tato trasování ale neobsahují zprávy protokolu WebSocket a události odeslané serverem. Pokud používáte tyto přenosy, je lepší přístup pomocí nástroje, jako je například Fiddler nebo TcpDump (popsané níže).
 
 ### <a name="microsoft-edge-and-internet-explorer"></a>Microsoft Edge a Internet Explorer
 
-(Pokyny jsou stejné pro Edge a Internet Explorer)
+(Pokyny jsou pro aplikaci Edge i Internet Explorer stejné.)
 
-1. Stisknutím klávesy F12 otevřete Nástroje pro vývojáře
-2. Klikněte na kartu síť
-3. Aktualizujte stránku (v případě potřeby) a reprodukujte problém
-4. Klikněte na ikonu Uložit na panelu nástrojů pro export trasování jako soubor "HAR":
+1. Stisknutím klávesy F12 otevřete nástroje pro vývoj.
+2. Klikněte na kartu síť.
+3. Aktualizujte stránku (Pokud je to potřeba) a reprodukování problému.
+4. Kliknutím na ikonu Uložit na panelu nástrojů exportujte trasování jako soubor "HAR":
 
-![Uložení ikonu na vývoj pro Microsoft Edge nástroje síťové karty](diagnostics/ie-edge-har-export.png)
+![Ikona uložit na kartě síť nástrojů Microsoft Edge pro vývoj](diagnostics/ie-edge-har-export.png)
 
 ### <a name="google-chrome"></a>Google Chrome
 
-1. Stisknutím klávesy F12 otevřete Nástroje pro vývojáře
-2. Klikněte na kartu síť
-3. Aktualizujte stránku (v případě potřeby) a reprodukujte problém
-4. Klikněte pravým tlačítkem myši klikněte na libovolné místo v seznamu požadavků a zvolte možnost "Uložit jako HAR s obsahem":
+1. Stisknutím klávesy F12 otevřete nástroje pro vývoj.
+2. Klikněte na kartu síť.
+3. Aktualizujte stránku (Pokud je to potřeba) a reprodukování problému.
+4. Klikněte pravým tlačítkem na libovolné místo v seznamu požadavků a vyberte Uložit jako HAR s obsahem:
 
-![Možnost "Uložit jako HAR s obsahem" Google Chrome Dev Tools síťové kartě](diagnostics/chrome-har-export.png)
+![Možnost Uložit jako HAR s obsahem na kartě síť Google Chrome dev Tools](diagnostics/chrome-har-export.png)
 
 ### <a name="mozilla-firefox"></a>Mozilla Firefox
 
-1. Stisknutím klávesy F12 otevřete Nástroje pro vývojáře
-2. Klikněte na kartu síť
-3. Aktualizujte stránku (v případě potřeby) a reprodukujte problém
-4. Klikněte pravým tlačítkem myši klikněte na libovolné místo v seznamu požadavků a zvolte možnost "Uložit všechny jako HAR"
+1. Stisknutím klávesy F12 otevřete nástroje pro vývoj.
+2. Klikněte na kartu síť.
+3. Aktualizujte stránku (Pokud je to potřeba) a reprodukování problému.
+4. Klikněte pravým tlačítkem na libovolné místo v seznamu požadavků a vyberte Uložit vše jako HAR.
 
-![Možnost "Uložit vše jako HAR" Mozilla Firefox Dev Tools síťové kartě](diagnostics/firefox-har-export.png)
+![Možnost Uložit vše jako HAR na kartě síť Mozilla Firefox nástroje pro vývojáře](diagnostics/firefox-har-export.png)
 
-## <a name="attach-diagnostics-files-to-github-issues"></a>Připojit soubory diagnostiky problémů Githubu
+## <a name="attach-diagnostics-files-to-github-issues"></a>Připojení diagnostických souborů k problémům GitHubu
 
-Soubory diagnostiky můžete připojit na problémy Githubu je přejmenováním mají `.txt` rozšíření a pak přetažení je k problému.
+Diagnostické soubory můžete k problémům s GitHubem připojit tak, že je přejmenujete, aby měly rozšíření `.txt` a pak je přetáhnete na problém.
 
 > [!NOTE]
-> Prosím není vložte obsah souborů protokolu nebo trasování sítě do problém na Githubu. Tyto protokoly a trasování může mít poměrně značnou a Githubu je obvykle zkrátí.
+> Do problému GitHubu prosím nevložíme obsah souborů protokolu ani trasování sítě. Tyto protokoly a trasování můžou být poměrně velké a GitHub je obvykle ořízne.
 
-![Přetahování souborů protokolů do problém na Githubu](diagnostics/attaching-diagnostics-files.png)
+![Přetahování souborů protokolů na problém GitHubu](diagnostics/attaching-diagnostics-files.png)
 
 ## <a name="additional-resources"></a>Další zdroje
 

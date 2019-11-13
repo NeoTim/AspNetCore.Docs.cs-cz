@@ -1,20 +1,22 @@
 ---
 title: Podporované platformy ASP.NET Core Blazor
 author: guardrex
-description: Přečtěte si o podporovaných platformách ASP.NET Core Blazor.
+description: Přečtěte si o podporovaných platformách pro ASP.NET Core Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
+no-loc:
+- Blazor
 uid: blazor/supported-platforms
-ms.openlocfilehash: 4e86bd6967a747a59c99a515c1c838cc2c21770f
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: de51296cc8785474e1c1406cfd5d4e5bd4050172
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391220"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962733"
 ---
-# <a name="aspnet-core-blazor-supported-platforms"></a>Podporované platformy ASP.NET Core Blazor
+# <a name="aspnet-core-opno-locblazor-supported-platforms"></a>Podporované platformy ASP.NET Core Blazor
 
 Od [Luke Latham](https://github.com/guardrex)
 
@@ -22,7 +24,7 @@ Od [Luke Latham](https://github.com/guardrex)
 
 ## <a name="browser-requirements"></a>Požadavky prohlížeče
 
-### <a name="blazor-webassembly"></a>Blazor WebAssembly
+### <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
 
 | Prohlížeee                          | Version               |
 | -------------------------------- | :-------------------: |
@@ -30,11 +32,11 @@ Od [Luke Latham](https://github.com/guardrex)
 | Mozilla Firefox                  | Aktivní               |
 | Google Chrome, včetně Androidu | Aktivní               |
 | Safari, včetně iOS            | Aktivní               |
-| Microsoft Internet Explorer      | Nepodporováno @ no__t-0 |
+| Microsoft Internet Explorer      | Nepodporováno&dagger; |
 
-@no__t – 0Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
+&dagger;Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
 
-### <a name="blazor-server"></a>Blazor Server
+### <a name="opno-locblazor-server"></a>Server Blazor
 
 | Prohlížeee                          | Version    |
 | -------------------------------- | :--------: |
@@ -42,9 +44,9 @@ Od [Luke Latham](https://github.com/guardrex)
 | Mozilla Firefox                  | Aktivní    |
 | Google Chrome, včetně Androidu | Aktivní    |
 | Safari, včetně iOS            | Aktivní    |
-| Microsoft Internet Explorer      | 11 @ no__t-0 |
+| Microsoft Internet Explorer      | 11&dagger; |
 
-@no__t – jsou požadovány 0Additional (například příslibů lze přidat prostřednictvím sady [Polyfill.IO](https://polyfill.io/v3/) ).
+&dagger;vyžadovány další obslužné nabídky (například příslibů lze přidat prostřednictvím [Polyfill.IO](https://polyfill.io/v3/) sady).
 
 ## <a name="additional-resources"></a>Další zdroje
 

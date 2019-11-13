@@ -1,34 +1,36 @@
 ---
-title: Vytvoření první aplikace v Blazor
+title: Vytvoření první aplikace Blazor
 author: guardrex
-description: Sestavte aplikaci pro Blazor krok za krokem.
+description: Sestavte Blazor aplikaci krok za krokem.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/31/2019
+no-loc:
+- Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: cc7caa1ee01e0282024895ab35c5b9933b1504d0
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 646e14060b88fc2a0fefc2f7a5ebb1c15ac39b79
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416167"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963702"
 ---
-# <a name="build-your-first-blazor-app"></a>Vytvoření první aplikace v Blazor
+# <a name="build-your-first-opno-locblazor-app"></a>Vytvoření první aplikace Blazor
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-V tomto kurzu se dozvíte, jak vytvořit a upravit aplikaci v Blazor.
+V tomto kurzu se dozvíte, jak vytvořit a upravit aplikaci Blazor.
 
-Podle pokynů v článku <xref:blazor/get-started> vytvořte projekt Blazor pro tento kurz. Pojmenujte projekt *ToDoList*.
+Pokud chcete vytvořit projekt Blazor pro tento kurz, postupujte podle pokynů v článku o <xref:blazor/get-started>. Pojmenujte projekt *ToDoList*.
 
 ## <a name="build-components"></a>Komponenty sestavení
 
 1. Ve složce *Pages (stránky* ) přejděte na jednotlivé tři stránky aplikace: domů, čítač a načíst data. Tyto stránky jsou implementovány pomocí indexu souborů komponent Razor *. Razor*, *Counter. Razor*a *FetchData. Razor*.
 
-1. Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu. Pomocí Blazor můžete místo toho napsat C# .
+1. Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu. Pomocí Blazormůžete místo toho napsat C# .
 
 1. Projděte si implementaci součásti `Counter` v souboru *Counter. Razor* .
 
@@ -38,7 +40,7 @@ Podle pokynů v článku <xref:blazor/get-started> vytvořte projekt Blazor pro 
 
    Uživatelské rozhraní komponenty `Counter` je definováno pomocí jazyka HTML. Dynamická logika vykreslování (například smyčky, podmíněné výrazy, výrazy) se přidá pomocí vložené C# syntaxe s názvem [Razor](xref:mvc/views/razor). Logika značek HTML a C# vykreslování jsou v době sestavení převedena na třídu komponenty. Název generované třídy .NET se shoduje s názvem souboru.
 
-   Členy třídy komponenty jsou definovány v bloku `@code`. V bloku `@code` jsou pro zpracování událostí nebo pro definování jiné logiky komponent určeny stav součásti (vlastnosti, pole) a metody. Tyto členy se pak používají jako součást logiky vykreslování komponenty a pro zpracování událostí.
+   Členy třídy komponenty jsou definovány v `@code`ovém bloku. V bloku `@code` jsou pro zpracování událostí nebo pro definování jiné logiky komponent určeny stav součásti (vlastnosti, pole) a metody. Tyto členy se pak používají jako součást logiky vykreslování komponenty a pro zpracování událostí.
 
    Když je vybrané tlačítko pro **kliknutí na mou adresu** :
 
@@ -59,7 +61,7 @@ Zahrnutí komponenty do jiné komponenty pomocí syntaxe jazyka HTML.
 
 1. Přidejte komponentu `Counter` do komponenty `Index` aplikace přidáním prvku `<Counter />` do součásti `Index` (*index. Razor*).
 
-   Pokud pro toto prostředí používáte Blazor WebAssembly, komponenta `Index` používá komponentu `SurveyPrompt`. Nahraďte prvek `<SurveyPrompt>` prvkem `<Counter />`. Pokud pro toto prostředí používáte aplikaci Blazor Server, přidejte do komponenty `Index` prvek `<Counter />`:
+   Pokud pro toto prostředí používáte Blazor WebAssembly, používá součást `Index` `SurveyPrompt` komponentu. Nahraďte prvek `<SurveyPrompt>` prvkem `<Counter />`. Pokud pro toto prostředí používáte aplikaci Blazor serveru, přidejte `<Counter />` prvek do `Index` komponenty:
 
    *Pages/index. Razor*:
 
@@ -74,7 +76,7 @@ Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pom
 1. Aktualizujte kód `@code` C# komponenty:
 
    * Přidejte vlastnost Public `IncrementAmount` s atributem `[Parameter]`.
-   * Změňte metodu `IncrementCount` tak, aby při zvyšování hodnoty `currentCount` používala `IncrementAmount`.
+   * Změňte metodu `IncrementCount` na použití `IncrementAmount` při zvyšování hodnoty `currentCount`.
 
    *Stránky/čítač. Razor*:
 
@@ -99,9 +101,9 @@ Direktiva `@page` v horní části souboru *Counter. Razor* určuje, že kompone
 
 ## <a name="dependency-injection"></a>Injektáž závislostí
 
-### <a name="blazor-server-experience"></a>Prostředí serveru Blazor
+### <a name="opno-locblazor-server-experience"></a>prostředí serveru Blazor
 
-Pokud pracujete s aplikací serveru Blazor, je služba `WeatherForecastService` v `Startup.ConfigureServices` registrována jako typ [singleton](xref:fundamentals/dependency-injection#service-lifetimes) . Instance služby je k dispozici v celé aplikaci prostřednictvím [Injektáže závislosti (di)](xref:fundamentals/dependency-injection):
+Pokud pracujete s aplikací Blazor serveru, služba `WeatherForecastService` je v `Startup.ConfigureServices`registrovaná jako typ [singleton](xref:fundamentals/dependency-injection#service-lifetimes) . Instance služby je k dispozici v celé aplikaci prostřednictvím [Injektáže závislosti (di)](xref:fundamentals/dependency-injection):
 
 [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
@@ -115,9 +117,9 @@ Komponenta `FetchData` používá vloženou službu jako `ForecastService` k na�
 
 [!code-cshtml[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-### <a name="blazor-webassembly-experience"></a>Prostředí WebAssembly Blazor
+### <a name="opno-locblazor-webassembly-experience"></a>Blazor prostředí WebAssembly
 
-Pokud pracujete s aplikací Blazor WebAssembly, je `HttpClient` vloženo pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* .
+Pokud pracujete s Blazor aplikace WebAssembly, `HttpClient` je vloženo pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* .
 
 *Stránky/FetchData. Razor*:
 

@@ -1,50 +1,52 @@
 ---
-title: Správa uživatelů a skupin v knihovně SignalR
+title: Správa uživatelů a skupin v SignalR
 author: bradygaster
-description: Přehled ASP.NET Core SignalR uživatelů a skupin správy.
+description: Přehled ASP.NET Core SignalR správy uživatelů a skupin.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 06/04/2018
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/groups
-ms.openlocfilehash: 180f8b4551eea39cc340bf1d250f4575cb5f71ed
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.openlocfilehash: 59e90042ecbaf936602643bbdc3965e036426b26
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087432"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963813"
 ---
-# <a name="manage-users-and-groups-in-signalr"></a>Správa uživatelů a skupin v knihovně SignalR
+# <a name="manage-users-and-groups-in-opno-locsignalr"></a>Správa uživatelů a skupin v SignalR
 
-Podle [Brennan Conroy](https://github.com/BrennanConroy)
+Od [Brennan Conroy](https://github.com/BrennanConroy)
 
-Funkce SignalR umožňuje zprávy k odeslání do všech připojení, které jsou spojené s konkrétním uživatelem, jakož i pojmenovaným skupinám připojení.
+SignalR umožňuje odesílání zpráv do všech připojení přidružených ke konkrétnímu uživateli a k pojmenovaným skupinám připojení.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="users-in-signalr"></a>Uživatelé v knihovně SignalR
+## <a name="users-in-opno-locsignalr"></a>Uživatelé v SignalR
 
-Funkce SignalR umožňuje odesílání zpráv do všech připojení, které jsou spojené s konkrétním uživatelem. Ve výchozím nastavení, používá SignalR `ClaimTypes.NameIdentifier` z `ClaimsPrincipal` přidružené k připojení jako identifikátor uživatele. Jeden uživatel může mít více připojení k aplikaci s knihovnou SignalR. Například může být připojen uživatel na svém počítači, stejně jako svůj telefon. Každé zařízení má samostatného připojení SignalR, ale jsou všechny související se stejným uživatelem. Pokud je uživateli odeslána zpráva, všechna připojení přidružená k tomuto uživateli zobrazí zpráva. Identifikátor uživatele pro připojení je přístupný `Context.UserIdentifier` vlastnosti v centru.
+SignalR umožňuje odesílat zprávy všem připojením přidruženým ke konkrétnímu uživateli. Ve výchozím nastavení SignalR používá `ClaimTypes.NameIdentifier` z `ClaimsPrincipal` přidruženého k připojení jako identifikátor uživatele. Jeden uživatel může mít několik připojení k aplikaci SignalR. Například uživatel může být připojen na svém počítači a také na telefonu. Každé zařízení má samostatné SignalR připojení, ale všechny jsou přidružené ke stejnému uživateli. Pokud se uživateli pošle zpráva, zobrazí se tato zpráva u všech připojení přidružených k tomuto uživateli. K identifikátoru uživatele pro připojení lze použít vlastnost `Context.UserIdentifier` ve vašem centru.
 
-Odeslání zprávy do konkrétního uživatele tím, že předáte identifikátor uživatele, který `User` fungovat ve své metodě rozbočovače, jak je znázorněno v následujícím příkladu:
+Odeslat zprávu konkrétnímu uživateli předáním identifikátoru uživatele do funkce `User` v metodě hub, jak je znázorněno v následujícím příkladu:
 
 > [!NOTE]
-> Identifikátor uživatele je velká a malá písmena.
+> Identifikátor uživatele rozlišuje velká a malá písmena.
 
 [!code-csharp[Configure service](groups/sample/hubs/chathub.cs?range=29-32)]
 
-## <a name="groups-in-signalr"></a>Skupinami v knihovně SignalR
+## <a name="groups-in-opno-locsignalr"></a>Skupiny v SignalR
 
-Skupina je kolekce připojení přidružená k názvu. Pro všechna připojení ve skupině nelze odesílat zprávy. Skupiny jsou doporučeným způsobem, jak odesílat připojení nebo více připojení, protože tyto skupiny jsou spravována aplikací. Připojení může být členem více skupin. Díky tomu skupiny ideální pro něco jako je chatovací aplikaci, kde každý prostor může být reprezentována jako skupinu. Připojení může být přidán či odebrán ze skupiny přes `AddToGroupAsync` a `RemoveFromGroupAsync` metody.
+Skupina je kolekcí připojení přidružených k názvu. Zprávy je možné odesílat do všech připojení ve skupině. Skupiny jsou doporučeným způsobem, jak odeslat připojení nebo více připojení, protože skupiny jsou spravovány aplikací. Připojení může být členem více skupin. Díky tomu jsou skupiny ideální pro něco podobného aplikaci Chat, kde každou místnost lze reprezentovat jako skupinu. Do skupin můžete přidat nebo odebrat připojení prostřednictvím `AddToGroupAsync` a `RemoveFromGroupAsync`ch metod.
 
 [!code-csharp[Hub methods](groups/sample/hubs/chathub.cs?range=15-27)]
 
-Členství ve skupině se nezachová při opětovném navázání připojení. Připojení je potřeba znovu vstoupit skupině znovu zřízeno. Není možné počet členů skupiny, protože tyto informace není k dispozici v případě, že aplikace je škálovaný na více serverů.
+Členství ve skupině se nezachová, když se připojení znovu připojí. Připojení se musí znovu připojit ke skupině, když je znovu navázána. Není možné spočítat členy skupiny, protože tyto informace nejsou k dispozici, pokud je aplikace škálovaná na více serverů.
 
-Chcete-li chránit přístup k prostředkům a používání skupin, použijte [ověřování a autorizace](xref:signalr/authn-and-authz) funkce v ASP.NET Core. Pokud pouze přidáte uživatele do skupiny při přihlašovací údaje jsou platné pro tuto skupinu, zprávy odeslané do této skupiny přejdete jenom na autorizované uživatele. Skupiny však nejsou funkce zabezpečení. Ověřování deklarací identity má funkce, které skupiny tomu tak není, jako je například vypršení platnosti a odvolání. Pokud se odvolat oprávnění uživatele pro přístup ke skupině, budete muset ručně zjišťovat a odebrat ze skupiny.
+K ochraně přístupu k prostředkům při používání skupin použijte funkci [ověřování a autorizace](xref:signalr/authn-and-authz) v ASP.NET Core. Pokud přidáte uživatele do skupiny pouze v případě, že jsou pověření platná pro tuto skupinu, zprávy odeslané do této skupiny budou přecházet pouze autorizovaným uživatelům. Skupiny ale nejsou funkcí zabezpečení. Deklarace identity ověřování mají funkce, které skupiny nemají, například vypršení platnosti a odvolání. Pokud je oprávnění uživatele k přístupu ke skupině odvoláno, musíte je ručně zjistit a odebrat ze skupiny.
 
 > [!NOTE]
-> Názvy skupin rozlišují malá a velká písmena.
+> V názvech skupin se rozlišují malá a velká písmena.
 
 ## <a name="related-resources"></a>Související prostředky
 

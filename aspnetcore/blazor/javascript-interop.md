@@ -1,26 +1,28 @@
 ---
-title: ASP.NET Core interoperability JavaScriptu pro Blazor
+title: Zprostředkovatel komunikace s ASP.NET Core Blazor JavaScript
 author: guardrex
-description: Naučte se volat funkce JavaScriptu z metod .NET a .NET z JavaScriptu v aplikacích Blazor.
+description: Naučte se volat funkce jazyka JavaScript z metod .NET a .NET z JavaScriptu v aplikacích Blazor.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/16/2019
+no-loc:
+- Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: b157e16918975cd522318a02f21824d9a0198b11
-ms.sourcegitcommit: eb4fcdeb2f9e8413117624de42841a4997d1d82d
+ms.openlocfilehash: 76437ef00e00f5de1b995b4f0b1a09e5876dff8f
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/21/2019
-ms.locfileid: "72697929"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73962832"
 ---
-# <a name="aspnet-core-blazor-javascript-interop"></a>ASP.NET Core interoperability JavaScriptu pro Blazor
+# <a name="aspnet-core-opno-locblazor-javascript-interop"></a>Zprostředkovatel komunikace s ASP.NET Core Blazor JavaScript
 
 [Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Skořepa](https://github.com/danroth27)a [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Aplikace Blazor může vyvolat funkce JavaScriptu z metod .NET a .NET z kódu JavaScriptu.
+Blazor aplikace může vyvolat JavaScriptové funkce z metod .NET a .NET z kódu JavaScriptu.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
@@ -30,7 +32,7 @@ Existují situace, kdy je pro volání funkce JavaScriptu vyžadován kód .NET.
 
 Chcete-li volat do JavaScriptu z rozhraní .NET, použijte abstrakci `IJSRuntime`. Metoda `InvokeAsync<T>` přebírá identifikátor pro funkci JavaScriptu, kterou chcete vyvolat, spolu s libovolným počtem argumentů serializovatelných pomocí JSON. Identifikátor funkce je relativní vzhledem k globálnímu oboru (`window`). Pokud chcete volat `window.someScope.someFunction`, identifikátor je `someScope.someFunction`. Před voláním funkce není nutné ji registrovat. Návratový typ `T` musí být také serializovatelný jako JSON.
 
-Pro aplikace Blazor serveru:
+Pro aplikace Blazor Server:
 
 * Aplikace Blazor serveru zpracovává více žádostí uživatele. Nevolejte `JSRuntime.Current` v součásti pro vyvolání funkcí jazyka JavaScript.
 * Vložení abstrakce `IJSRuntime` a použití vloženého objektu k vystavení volání interoperability JavaScript.
@@ -38,7 +40,7 @@ Pro aplikace Blazor serveru:
 
 Následující příklad je založen na [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder), experimentálním dekodéru založeném na JavaScriptu. Příklad ukazuje, jak vyvolat funkci JavaScriptu z C# metody. Funkce JavaScriptu přijímá bajtové pole z C# metody, dekóduje pole a vrátí text do komponenty k zobrazení.
 
-Uvnitř `<head>`ho prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci javascriptu, která používá `TextDecoder` k dekódování předaného pole a vrácení dekódovaných hodnot:
+Uvnitř prvku `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *pages/_Host. cshtml* (Blazor Server) zadejte funkci javascriptu, která používá `TextDecoder` k dekódování předaného pole a vrácení dekódovaný hodnoty:
 
 [!code-html[](javascript-interop/samples_snapshot/index-script-convertarray.html)]
 
@@ -63,7 +65,7 @@ Chcete-li použít abstrakci `IJSRuntime`, přijímají některé z následujíc
 
   [!code-cshtml[](javascript-interop/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  Uvnitř `<head>`ho prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci `handleTickerChanged` JavaScript. Funkce je volána pomocí `IJSRuntime.InvokeVoidAsync` a nevrací hodnotu:
+  Uvnitř prvku `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *pages/_Host. cshtml* (Blazor Server) zadejte funkci JavaScriptu pro `handleTickerChanged`. Funkce je volána pomocí `IJSRuntime.InvokeVoidAsync` a nevrací hodnotu:
 
   [!code-html[](javascript-interop/samples_snapshot/index-script-handleTickerChanged1.html)]
 
@@ -71,7 +73,7 @@ Chcete-li použít abstrakci `IJSRuntime`, přijímají některé z následujíc
 
   [!code-csharp[](javascript-interop/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-  Uvnitř `<head>`ho prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server) zadejte funkci `handleTickerChanged` JavaScript. Funkce je volána pomocí `JSRuntime.InvokeAsync` a vrací hodnotu:
+  Uvnitř prvku `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *pages/_Host. cshtml* (Blazor Server) zadejte funkci JavaScriptu pro `handleTickerChanged`. Funkce je volána pomocí `JSRuntime.InvokeAsync` a vrací hodnotu:
 
   [!code-html[](javascript-interop/samples_snapshot/index-script-handleTickerChanged2.html)]
 
@@ -91,7 +93,7 @@ V ukázkové aplikaci na straně klienta, která doprovází toto téma, jsou k 
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-Umístěte značku `<script>`, která odkazuje na soubor JavaScriptu v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor).
+Umístěte značku `<script>`, která odkazuje na soubor JavaScriptu v souboru *wwwroot/index.html* (Blazor sestavení) nebo *stránky/_Host. cshtml* (ServerBlazor).
 
 *wwwroot/index.html* (Blazor WebAssembly):
 
@@ -105,7 +107,7 @@ Neumísťujte značku `<script>` do souboru komponenty, protože značku `<scrip
 
 Metody .NET spolupracuje s funkcemi JavaScriptu v souboru *exampleJsInterop. js* voláním `IJSRuntime.InvokeAsync<T>`.
 
-Abstrakce `IJSRuntime` je asynchronní, což umožňuje scénáře serveru Blazor. Pokud je aplikace Blazor WebAssembly App a chcete vyvolat funkci JavaScriptu synchronně, přetypování downcast na `IJSInProcessRuntime` a volat místo toho `Invoke<T>`. Doporučujeme, aby většina knihoven JavaScript Interop používala asynchronní rozhraní API, aby se zajistilo, že jsou knihovny dostupné ve všech scénářích.
+Abstrakce `IJSRuntime` je asynchronní, aby umožňovala scénáře Blazor serveru. Pokud je aplikace Blazor aplikace WebAssembly a chcete vyvolat funkci JavaScriptu synchronně, přetypování downcast na `IJSInProcessRuntime` a místo toho volat `Invoke<T>`. Doporučujeme, aby většina knihoven JavaScript Interop používala asynchronní rozhraní API, aby se zajistilo, že jsou knihovny dostupné ve všech scénářích.
 
 Ukázková aplikace zahrnuje komponentu k předvedení interoperability JavaScriptu. Součást:
 
@@ -125,7 +127,7 @@ Ukázková aplikace zahrnuje komponentu k předvedení interoperability JavaScri
 
 Funkce jazyka JavaScript, které vracejí [typ void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) nebo [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) , se nazývají `IJSRuntime.InvokeVoidAsync`.
 
-## <a name="detect-when-a-blazor-app-is-prerendering"></a>Rozpoznat, kdy se předchází aplikace Blazor
+## <a name="detect-when-a-opno-locblazor-app-is-prerendering"></a>Rozpoznat, kdy se předchází aplikace Blazor
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
@@ -190,7 +192,7 @@ Metoda je volána přímo na objektu. Následující příklad předpokládá, �
 
 ### <a name="static-net-method-call"></a>Statické volání metody .NET
 
-Chcete-li vyvolat statickou metodu .NET z JavaScriptu, použijte funkce `DotNet.invokeMethod` nebo `DotNet.invokeMethodAsync`. Předejte identifikátor statické metody, kterou chcete volat, název sestavení obsahující funkce a všechny argumenty. Asynchronní verze je preferována pro podporu scénářů Blazor serveru. Pro vyvolání metody .NET z JavaScriptu musí být metoda .NET veřejná, statická a mít atribut `[JSInvokable]`. Ve výchozím nastavení je identifikátor metody název metody, ale můžete zadat jiný identifikátor pomocí konstruktoru `JSInvokableAttribute`. Volání otevřených obecných metod není aktuálně podporováno.
+Chcete-li vyvolat statickou metodu .NET z JavaScriptu, použijte funkce `DotNet.invokeMethod` nebo `DotNet.invokeMethodAsync`. Předejte identifikátor statické metody, kterou chcete volat, název sestavení obsahující funkce a všechny argumenty. Asynchronní verze je preferována k podpoře Blazorch scénářů serveru. Pro vyvolání metody .NET z JavaScriptu musí být metoda .NET veřejná, statická a mít atribut `[JSInvokable]`. Ve výchozím nastavení je identifikátor metody název metody, ale můžete zadat jiný identifikátor pomocí konstruktoru `JSInvokableAttribute`. Volání otevřených obecných metod není aktuálně podporováno.
 
 Ukázková aplikace obsahuje C# metodu pro vrácení pole `int`. Atribut `JSInvokable` se aplikuje na metodu.
 
@@ -264,7 +266,7 @@ Další informace najdete v tématu <xref:blazor/class-libraries>.
 
 ## <a name="harden-js-interop-calls"></a>Volání interoperability pro posílení JS
 
-Interoperabilita JS může selhat kvůli chybám sítě a měla by být považována za nespolehlivou. Ve výchozím nastavení se aplikace serveru Blazor vyprší voláním interoperability JS na serveru po jedné minutě. Pokud aplikace může tolerovat více agresivního časového limitu, například 10 sekund, nastavte časový limit pomocí jednoho z následujících přístupů:
+Interoperabilita JS může selhat kvůli chybám sítě a měla by být považována za nespolehlivou. Ve výchozím nastavení aplikace Blazor serveru vyprší voláním interoperability JS na serveru po jedné minutě. Pokud aplikace může tolerovat více agresivního časového limitu, například 10 sekund, nastavte časový limit pomocí jednoho z následujících přístupů:
 
 * V globálním `Startup.ConfigureServices` zadejte časový limit:
 

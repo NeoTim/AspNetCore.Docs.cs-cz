@@ -1,34 +1,36 @@
 ---
-title: Začínáme s nástrojem ASP.NET Core Signal
+title: Začínáme s ASP.NET Core SignalR
 author: bradygaster
-description: V tomto kurzu vytvoříte aplikaci Chat, která používá nástroj ASP.NET Core Signal.
+description: V tomto kurzu vytvoříte aplikaci Chat, která používá ASP.NET Core SignalR.
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 10/03/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: 078f1875d22a90f90575826e6f212205cd4b3d5b
-ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
+ms.openlocfilehash: 962cc0318ebbfc7fac16ca0947a2e3e83e51665c
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72519149"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73964032"
 ---
-# <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s nástrojem ASP.NET Core Signal
+# <a name="tutorial-get-started-with-aspnet-core-opno-locsignalr"></a>Kurz: Začínáme s ASP.NET Core SignalR
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí nástroje Signal. Získáte informace o následujících postupech:
+V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí SignalR. Získáte informace o následujících postupech:
 
 > [!div class="checklist"]
 > * Vytvořte webový projekt.
-> * Přidejte klientskou knihovnu signalizace.
-> * Vytvořte centrum signalizace.
-> * Nakonfigurujte projekt tak, aby používal signál.
+> * Přidejte klientskou knihovnu SignalR.
+> * Vytvořte centrum SignalR.
+> * Nakonfigurujte projekt tak, aby používal SignalR.
 > * Přidejte kód, který odesílá zprávy od libovolného klienta ke všem připojeným klientům.
 
 Na konci budete mít funkční chatovací aplikaci:
 
-![Ukázková aplikace pro Signal](signalr/_static/3.x/signalr-get-started-finished.png)
+![[! Evřít. Ukázková aplikace NO-LOC (Signal)]](signalr/_static/3.x/signalr-get-started-finished.png)
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -85,9 +87,9 @@ Na konci budete mít funkční chatovací aplikaci:
 
 ---
 
-## <a name="add-the-signalr-client-library"></a>Přidat klientskou knihovnu signálů
+## <a name="add-the-opno-locsignalr-client-library"></a>Přidání klientské knihovny SignalR
 
-Knihovna serveru signalizace je součástí sdílené architektury ASP.NET Core 3,0. Klientská knihovna pro JavaScript není automaticky obsažena v projektu. Pro tento kurz použijte Správce knihovny (LibMan) k získání klientské knihovny z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může doručovat cokoli, co najdete v NPM, správce balíčků Node. js.
+Knihovna SignalR serveru je součástí sdílené architektury ASP.NET Core 3,0. Klientská knihovna pro JavaScript není automaticky obsažena v projektu. Pro tento kurz použijte Správce knihovny (LibMan) k získání klientské knihovny z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může doručovat cokoli, co najdete v NPM, správce balíčků Node. js.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
@@ -113,7 +115,7 @@ Knihovna serveru signalizace je součástí sdílené architektury ASP.NET Core 
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli
   ```
 
-* Spusťte následující příkaz, který načte klientskou knihovnu pro signalizaci pomocí LibMan. Než začnete výstup zobrazovat, možná budete muset počkat několik sekund.
+* Spusťte následující příkaz, který načte knihovnu klienta SignalR pomocí LibMan. Než začnete výstup zobrazovat, možná budete muset počkat několik sekund.
 
   ```console
   libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
@@ -142,7 +144,7 @@ Knihovna serveru signalizace je součástí sdílené architektury ASP.NET Core 
 
 * Přejděte do složky projektu (ta, která obsahuje soubor *SignalRChat. csproj* ).
 
-* Spusťte následující příkaz, který načte klientskou knihovnu pro signalizaci pomocí LibMan.
+* Spusťte následující příkaz, který načte knihovnu klienta SignalR pomocí LibMan.
 
   ```console
   libman install @microsoft/signalr@latest -p unpkg -d wwwroot/js/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js
@@ -163,7 +165,7 @@ Knihovna serveru signalizace je součástí sdílené architektury ASP.NET Core 
 
 ---
 
-## <a name="create-a-signalr-hub"></a>Vytvoření centra signalizace
+## <a name="create-a-opno-locsignalr-hub"></a>Vytvoření centra SignalR
 
 *Centrum* je třída, která slouží jako kanál vysoké úrovně, který zpracovává komunikaci mezi klientem a serverem.
 
@@ -173,21 +175,21 @@ Knihovna serveru signalizace je součástí sdílené architektury ASP.NET Core 
 
   [!code-csharp[ChatHub](signalr/sample-snapshot/3.x/ChatHub.cs)]
 
-  Třída `ChatHub` dědí z třídy Signaler `Hub`. Třída `Hub` spravuje připojení, skupiny a zasílání zpráv.
+  Třída `ChatHub` dědí z třídy `Hub` SignalR. Třída `Hub` spravuje připojení, skupiny a zasílání zpráv.
 
-  Metodu `SendMessage` lze volat připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. Kód signalizace je asynchronní pro zajištění maximální škálovatelnosti.
+  Metodu `SendMessage` lze volat připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. SignalR kód je asynchronní pro zajištění maximální škálovatelnosti.
 
-## <a name="configure-signalr"></a>Konfigurovat signál
+## <a name="configure-opno-locsignalr"></a>Konfigurace SignalR
 
-Server signalizace musí být nakonfigurován tak, aby předával požadavky na signalizaci.
+SignalR Server musí být nakonfigurován tak, aby předával žádosti SignalR SignalR.
 
 * Do souboru *Startup.cs* přidejte následující zvýrazněný kód.
 
   [!code-csharp[Startup](signalr/sample-snapshot/3.x/Startup.cs?highlight=11,28,55)]
 
-  Tyto změny přidávají signál k systémům injektáže a směrování závislostí ASP.NET Core.
+  Tyto změny přidávají SignalR k systémům injektáže a směrování závislostí ASP.NET Core.
 
-## <a name="add-signalr-client-code"></a>Přidat kód klienta signalizace
+## <a name="add-opno-locsignalr-client-code"></a>Přidat kód SignalR klienta
 
 * Nahraďte obsah v *Pages\Index.cshtml* následujícím kódem:
 
@@ -196,8 +198,8 @@ Server signalizace musí být nakonfigurován tak, aby předával požadavky na 
   Předchozí kód:
 
   * Vytvoří textová pole pro text jméno a zprávu a tlačítko Odeslat.
-  * Vytvoří seznam s `id="messagesList"` pro zobrazení zpráv, které byly přijaty z centra signalizace.
-  * Obsahuje odkazy na skripty pro signál a kód aplikace *chat. js* , který vytvoříte v dalším kroku.
+  * Vytvoří seznam s `id="messagesList"` pro zobrazování zpráv přijatých z centra SignalR.
+  * Obsahuje odkazy na skripty SignalR a kód aplikace *chat. js* , který vytvoříte v dalším kroku.
 
 * Ve složce *wwwroot/js* vytvořte soubor *chat. js* s následujícím kódem:
 
@@ -235,11 +237,11 @@ Server signalizace musí být nakonfigurován tak, aby předával požadavky na 
 
   Název a zpráva se okamžitě zobrazí na obou stránkách.
 
-  ![Ukázková aplikace pro Signal](signalr/_static/3.x/signalr-get-started-finished.png)
+  ![[! Evřít. Ukázková aplikace NO-LOC (Signal)]](signalr/_static/3.x/signalr-get-started-finished.png)
 
 > [!TIP]
 > * Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že umístíte *signál. js* do jiné složky než směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.
->   @no__t -0signalr. js se nenašla chyba @ no__t-1.
+>   Chyba ![signaler. js nebyla nalezena](signalr/_static/3.x/f12-console.png)
 > * Pokud se zobrazí chyba ERR_SPDY_INADEQUATE_TRANSPORT_SECURITY v Chrome, spusťte tyto příkazy a aktualizujte svůj vývojový certifikát:
 >
 >   ```dotnetcli
@@ -249,24 +251,24 @@ Server signalizace musí být nakonfigurován tak, aby předával požadavky na 
 
 ## <a name="next-steps"></a>Další kroky
 
-Další informace o signalizaci najdete v úvodu:
+Další informace o SignalRnajdete v úvodu:
 
 > [!div class="nextstepaction"]
-> [Úvod k signalizaci ASP.NET Core](xref:signalr/introduction)
+> [Úvod do ASP.NET Core SignalR](xref:signalr/introduction)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí nástroje Signal. Získáte informace o následujících postupech:   
+V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí SignalR. Získáte informace o následujících postupech: 
 
 > [!div class="checklist"]  
 > * Vytvořte webový projekt.   
-> * Přidejte klientskou knihovnu signalizace. 
-> * Vytvořte centrum signalizace.   
-> * Nakonfigurujte projekt tak, aby používal signál.   
+> * Přidejte klientskou knihovnu SignalR.   
+> * Vytvořte centrum SignalR. 
+> * Nakonfigurujte projekt tak, aby používal SignalR. 
 > * Přidejte kód, který odesílá zprávy od libovolného klienta ke všem připojeným klientům.  
-Na konci budete mít funkční chatovací aplikaci: ![SignalR Sample App @ no__t-1 
+Na konci budete mít funkční chatovací aplikaci: ![[! Evřít. Ukázková aplikace bez LOKÁTORu (Signal)]](signalr/_static/2.x/signalr-get-started-finished.png)   
 
 ## <a name="prerequisites"></a>Požadavky    
 
@@ -323,9 +325,9 @@ Na konci budete mít funkční chatovací aplikaci: ![SignalR Sample App @ no__t
 
 --- 
 
-## <a name="add-the-signalr-client-library"></a>Přidat klientskou knihovnu signálů   
+## <a name="add-the-opno-locsignalr-client-library"></a>Přidání klientské knihovny SignalR 
 
-Knihovna serveru signalizace je obsažená v `Microsoft.AspNetCore.App` Metapackage. Klientská knihovna pro JavaScript není automaticky obsažena v projektu. Pro tento kurz použijte Správce knihovny (LibMan) k získání klientské knihovny z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může doručovat cokoli, co najdete v NPM, správce balíčků Node. js.    
+Knihovna SignalR serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. Klientská knihovna pro JavaScript není automaticky obsažena v projektu. Pro tento kurz použijte Správce knihovny (LibMan) k získání klientské knihovny z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může doručovat cokoli, co najdete v NPM, správce balíčků Node. js.  
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)  
 
@@ -353,7 +355,7 @@ Knihovna serveru signalizace je obsažená v `Microsoft.AspNetCore.App` Metapack
   dotnet tool install -g Microsoft.Web.LibraryManager.Cli   
   ```   
 
-* Spusťte následující příkaz, který načte klientskou knihovnu pro signalizaci pomocí LibMan. Než začnete výstup zobrazovat, možná budete muset počkat několik sekund.   
+* Spusťte následující příkaz, který načte knihovnu klienta SignalR pomocí LibMan. Než začnete výstup zobrazovat, možná budete muset počkat několik sekund. 
 
   ```console    
   libman install @aspnet/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js    
@@ -382,7 +384,7 @@ Knihovna serveru signalizace je obsažená v `Microsoft.AspNetCore.App` Metapack
 
 * Přejděte do složky projektu (ta, která obsahuje soubor *SignalRChat. csproj* ). 
 
-* Spusťte následující příkaz, který načte klientskou knihovnu pro signalizaci pomocí LibMan.  
+* Spusťte následující příkaz, který načte knihovnu klienta SignalR pomocí LibMan.    
 
   ```console    
   libman install @aspnet/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js    
@@ -403,7 +405,7 @@ Knihovna serveru signalizace je obsažená v `Microsoft.AspNetCore.App` Metapack
 
 --- 
 
-## <a name="create-a-signalr-hub"></a>Vytvoření centra signalizace 
+## <a name="create-a-opno-locsignalr-hub"></a>Vytvoření centra SignalR   
 
 *Centrum* je třída, která slouží jako kanál vysoké úrovně, který zpracovává komunikaci mezi klientem a serverem.   
 
@@ -413,21 +415,21 @@ Knihovna serveru signalizace je obsažená v `Microsoft.AspNetCore.App` Metapack
 
   [!code-csharp[Startup](signalr/sample-snapshot/2.x/ChatHub.cs)]   
 
-  Třída `ChatHub` dědí z třídy Signaler `Hub`. Třída `Hub` spravuje připojení, skupiny a zasílání zpráv.    
+  Třída `ChatHub` dědí z třídy `Hub` SignalR. Třída `Hub` spravuje připojení, skupiny a zasílání zpráv.  
 
-  Metodu `SendMessage` lze volat připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. Kód signalizace je asynchronní pro zajištění maximální škálovatelnosti.  
+  Metodu `SendMessage` lze volat připojeným klientem pro odeslání zprávy všem klientům. JavaScriptový kód klienta, který volá metodu, je uveden dále v tomto kurzu. SignalR kód je asynchronní pro zajištění maximální škálovatelnosti.    
 
-## <a name="configure-signalr"></a>Konfigurovat signál    
+## <a name="configure-opno-locsignalr"></a>Konfigurace SignalR  
 
-Server signalizace musí být nakonfigurován tak, aby předával požadavky na signalizaci.  
+SignalR Server musí být nakonfigurován tak, aby předával žádosti SignalR SignalR.    
 
 * Do souboru *Startup.cs* přidejte následující zvýrazněný kód.  
 
   [!code-csharp[Startup](signalr/sample-snapshot/2.x/Startup.cs?highlight=7,33,52-55)]  
 
-  Tyto změny přidávají signál do systému vkládání závislostí ASP.NET Core a do kanálu middlewaru.    
+  Tyto změny přidají SignalR do systému vkládání závislostí ASP.NET Core a kanálu middlewaru.  
 
-## <a name="add-signalr-client-code"></a>Přidat kód klienta signalizace  
+## <a name="add-opno-locsignalr-client-code"></a>Přidat kód SignalR klienta    
 
 * Nahraďte obsah v *Pages\Index.cshtml* následujícím kódem:  
 
@@ -436,8 +438,8 @@ Server signalizace musí být nakonfigurován tak, aby předával požadavky na 
   Předchozí kód:   
 
   * Vytvoří textová pole pro text jméno a zprávu a tlačítko Odeslat.  
-  * Vytvoří seznam s `id="messagesList"` pro zobrazení zpráv, které byly přijaty z centra signalizace. 
-  * Obsahuje odkazy na skripty pro signál a kód aplikace *chat. js* , který vytvoříte v dalším kroku.  
+  * Vytvoří seznam s `id="messagesList"` pro zobrazování zpráv přijatých z centra SignalR.   
+  * Obsahuje odkazy na skripty SignalR a kód aplikace *chat. js* , který vytvoříte v dalším kroku.    
 
 * Ve složce *wwwroot/js* vytvořte soubor *chat. js* s následujícím kódem:  
 
@@ -475,11 +477,11 @@ Server signalizace musí být nakonfigurován tak, aby předával požadavky na 
 
   Název a zpráva se okamžitě zobrazí na obou stránkách.   
 
-  ![Ukázková aplikace pro Signal](signalr/_static/2.x/signalr-get-started-finished.png)   
+  ![[! Evřít. Ukázková aplikace NO-LOC (Signal)]](signalr/_static/2.x/signalr-get-started-finished.png) 
 
 > [!TIP]    
 > Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že umístíte *signál. js* do jiné složky než směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.   
-> @no__t -0signalr. js se nenašla chyba @ no__t-1.    
+> Chyba ![signaler. js nebyla nalezena](signalr/_static/2.x/f12-console.png)    
 ## <a name="additional-resources"></a>Další zdroje 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=iKlVmu-r0JQ)   
 
@@ -489,12 +491,12 @@ V tomto kurzu jste zjistili, jak:
 
 > [!div class="checklist"]  
 > * Vytvořte projekt webové aplikace.   
-> * Přidejte klientskou knihovnu signalizace. 
-> * Vytvořte centrum signalizace.   
-> * Nakonfigurujte projekt tak, aby používal signál.   
+> * Přidejte klientskou knihovnu SignalR.   
+> * Vytvořte centrum SignalR. 
+> * Nakonfigurujte projekt tak, aby používal SignalR. 
 > * Přidejte kód, který používá centrum k posílání zpráv od libovolného klienta ke všem připojeným klientům.   
-Další informace o signalizaci najdete v úvodu:  
+Další informace o SignalRnajdete v úvodu:    
 > [!div class="nextstepaction"] 
-> [Úvod k signalizaci ASP.NET Core](xref:signalr/introduction) 
+> [Úvod do ASP.NET Core SignalR](xref:signalr/introduction)   
 ::: moniker-end
 

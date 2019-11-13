@@ -5,14 +5,14 @@ description: Jak používat vazbu modelu a streamování k nahrávání souborů
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 11/04/2019
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 04e7533aa190a4875d3f66e8665fec16abec48b3
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: b57ad4fe62de38085c11d7026d278cc6e0c565ce
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73462937"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963161"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -34,7 +34,7 @@ Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďt
 
 Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, jsou:
 
-* Nahrajte soubory do vyhrazené oblasti pro nahrávání souborů, nejlépe do nesystémové jednotky. Vyhrazené umístění usnadňuje omezení zabezpečení pro nahrané soubory. Zakažte oprávnění EXECUTE pro umístění pro nahrání souboru. &dagger;
+* Nahrajte soubory do vyhrazené oblasti pro nahrávání souborů, nejlépe do nesystémové jednotky. Vyhrazené umístění usnadňuje omezení zabezpečení pro nahrané soubory. Zakažte oprávnění EXECUTE pro umístění pro nahrání souboru.&dagger;
 * Neuchovávat nahrané soubory ve stejném adresářovém stromu jako aplikace.&dagger;
 * Použijte název bezpečného souboru určený aplikací. Nepoužívejte název souboru poskytnutý uživatelem nebo nedůvěryhodného názvu nahraného souboru.&dagger; při zobrazení kódování HTML kódovat název nedůvěryhodného souboru. Například protokolování názvu souboru nebo zobrazení v uživatelském rozhraní (Razor automaticky kóduje výstup HTML).
 * Povolte pro specifikaci návrhu aplikace jenom schválené přípony souborů.&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
@@ -43,7 +43,7 @@ Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, js
 * Pokud by soubory neměly být přepsány nahraným souborem se stejným názvem, před nahráním souboru ověřte název souboru proti databázi nebo fyzickému úložišti.
 * **Před uložením souboru spusťte v nahraném obsahu skener virů nebo malwaru.**
 
-Ukázková aplikace &dagger;The ukazuje přístup, který splňuje kritéria.
+&dagger;ukázková aplikace ukazuje přístup, který splňuje kritéria.
 
 > [!WARNING]
 > Nahrávání škodlivého kódu do systému je často prvním krokem ke spuštění kódu, který může:
@@ -91,7 +91,7 @@ Dva obecné přístupy k nahrávání souborů jsou ukládání do vyrovnávací
 
 **Do vyrovnávací paměti**
 
-Celý soubor se přečte do <xref:Microsoft.AspNetCore.Http.IFormFile>, což je C# reprezentace souboru, který se používá ke zpracování nebo uložení souboru.
+Celý soubor je čten do <xref:Microsoft.AspNetCore.Http.IFormFile>, což je C# reprezentace souboru používaného ke zpracování nebo uložení souboru.
 
 Prostředky (disk, paměť) používané při nahrávání souborů závisí na počtu a velikosti souběžných nahrávání souborů. Pokud se aplikace pokusí do vyrovnávací paměti příliš mnoho nahrávání, dojde k selhání lokality, když dojde k vynechání paměti nebo místa na disku. Pokud velikost nebo frekvence nahrávání souborů vyčerpá prostředky aplikace, použijte streamování.
 
@@ -203,7 +203,7 @@ Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kte
 
 Aby bylo možné podporovat nahrávání souborů, musí formuláře HTML určovat typ kódování (`enctype`) `multipart/form-data`.
 
-V případě, že vstupní prvek `files` podporuje nahrávání více souborů, zadejte atribut `multiple` pro element `<input>`:
+Pro `files` vstupní prvek, který podporuje nahrávání více souborů, poskytněte `multiple` atribut `<input>` elementu:
 
 ```cshtml
 <input asp-for="FileUpload.FormFiles" type="file" multiple>
@@ -231,7 +231,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > * [Důležité informace o zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
-Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
+Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Http.IFormFile>může metoda Action přijmout:
 
 * Jeden <xref:Microsoft.AspNetCore.Http.IFormFile>.
 * Kterákoli z následujících kolekcí, které reprezentují několik souborů:
@@ -240,7 +240,7 @@ Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Ht
   * [Seznam](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>>
 
 > [!NOTE]
-> Vazba odpovídá souborům formuláře podle názvu. Například hodnota HTML `name` v `<input type="file" name="formFile">` se musí shodovat s C# parametrem nebo vazbou vlastnosti (`FormFile`). Další informace naleznete v části [název atributu matched na název parametru metody post](#match-name-attribute-value-to-parameter-name-of-post-method) .
+> Vazba odpovídá souborům formuláře podle názvu. Například hodnota `name` HTML v `<input type="file" name="formFile">` musí odpovídat vázanému C# parametru nebo vlastnosti (`FormFile`). Další informace naleznete v části [název atributu matched na název parametru metody post](#match-name-attribute-value-to-parameter-name-of-post-method) .
 
 Následující příklad:
 
@@ -292,21 +292,21 @@ foreach (var formFile in files)
 }
 ```
 
-Cesta předaná <xref:System.IO.FileStream> *musí* zahrnovat název souboru. Pokud není zadán název souboru, je při spuštění vyvolána hodnota <xref:System.UnauthorizedAccessException>.
+Cesta předaná <xref:System.IO.FileStream> *musí* zahrnovat název souboru. Pokud není zadán název souboru, <xref:System.UnauthorizedAccessException> je vyvolána za běhu.
 
-Soubory odeslané pomocí techniky <xref:Microsoft.AspNetCore.Http.IFormFile> jsou uloženy do vyrovnávací paměti nebo na disku na serveru před zpracováním. V rámci metody Action je obsah <xref:Microsoft.AspNetCore.Http.IFormFile> přístupný jako <xref:System.IO.Stream>. Kromě místního systému souborů je možné soubory ukládat do síťové sdílené složky nebo do služby úložiště souborů, jako je [Azure Blob Storage](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs).
+Soubory odeslané pomocí <xref:Microsoft.AspNetCore.Http.IFormFile> techniky jsou uloženy do vyrovnávací paměti nebo na disku na serveru před zpracováním. V rámci metody Action je obsah <xref:Microsoft.AspNetCore.Http.IFormFile> přístupný jako <xref:System.IO.Stream>. Kromě místního systému souborů je možné soubory ukládat do síťové sdílené složky nebo do služby úložiště souborů, jako je [Azure Blob Storage](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs).
 
 Další příklad, který projde několik souborů pro nahrání a používá bezpečné názvy souborů, najdete v ukázkové aplikaci v části *Pages/BufferedMultipleFileUploadPhysical. cshtml. cs* .
 
 > [!WARNING]
-> [Path. GetTempFileName](xref:System.IO.Path.GetTempFileName*) vyvolá výjimku <xref:System.IO.IOException>, pokud jsou vytvořeny více než 65 535 souborů bez odstranění předchozích dočasných souborů. Limit 65 535 souborů je omezen na server. Další informace o tomto limitu pro operační systém Windows najdete v následujících tématech:
+> [Cesta. GetTempFileName](xref:System.IO.Path.GetTempFileName*) vyvolá <xref:System.IO.IOException>, pokud je vytvořeno více než 65 535 souborů, aniž by bylo nutné odstraňovat předchozí dočasné soubory. Limit 65 535 souborů je omezen na server. Další informace o tomto limitu pro operační systém Windows najdete v následujících tématech:
 >
 > * [GetTempFileNameA – funkce](/windows/desktop/api/fileapi/nf-fileapi-gettempfilenamea#remarks)
 > * <xref:System.IO.Path.GetTempFileName*>
 
 ### <a name="upload-small-files-with-buffered-model-binding-to-a-database"></a>Nahrávání malých souborů s vazbou modelu s vyrovnávací pamětí do databáze
 
-Chcete-li uložit data binárního souboru do databáze pomocí [Entity Framework](/ef/core/index), definujte v entitě vlastnost pole <xref:System.Byte>:
+Chcete-li uložit data binárního souboru do databáze pomocí [Entity Framework](/ef/core/index), definujte v entitě vlastnost <xref:System.Byte> pole:
 
 ```csharp
 public class AppFile
@@ -340,7 +340,7 @@ public class BufferedSingleFileUploadDb
 > [!NOTE]
 > <xref:Microsoft.AspNetCore.Http.IFormFile> lze použít přímo jako parametr metody akce nebo jako vlastnost vázaného modelu. Předchozí příklad používá vlastnost vázaného modelu.
 
-Ve formuláři Razor Pages se používá `FileUpload`:
+`FileUpload` se používá ve formuláři Razor Pages:
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -395,7 +395,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 > [!WARNING]
 > Při ukládání binárních dat do relačních databází buďte opatrní, protože to může mít nepříznivý vliv na výkon.
 >
-> Nespoléhá se ani na nedůvěryhodnou vlastnost `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> bez ověření. Vlastnost `FileName` by měla být použita pouze pro účely zobrazení a pouze po kódování HTML.
+> Nespoléhá se na nebo důvěřujete vlastnosti `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> bez ověření. Vlastnost `FileName` by měla být použita pouze pro účely zobrazení a pouze po kódování HTML.
 >
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
@@ -404,7 +404,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
-Následující příklad ukazuje, jak použít JavaScript ke streamování souboru do akce kontroleru. Token proti padělání souboru se generuje pomocí vlastního atributu filtru a předává se do hlaviček protokolu HTTP klienta místo v textu žádosti. Vzhledem k tomu, že metoda akce zpracovává nahraná data přímo, vazba modelu formuláře je zakázána jiným vlastním filtrem. V rámci akce je obsah formuláře čten pomocí `MultipartReader`, který čte každou jednotlivou `MultipartSection`, zpracovává soubor nebo ukládá obsah podle potřeby. Po načtení oddílů s více částmi provede akce vlastní vazbu modelu.
+Následující příklad ukazuje, jak použít JavaScript ke streamování souboru do akce kontroleru. Token proti padělání souboru se generuje pomocí vlastního atributu filtru a předává se do hlaviček protokolu HTTP klienta místo v textu žádosti. Vzhledem k tomu, že metoda akce zpracovává nahraná data přímo, vazba modelu formuláře je zakázána jiným vlastním filtrem. V rámci akce je obsah formuláře čten pomocí `MultipartReader`, který čte jednotlivé `MultipartSection`y, zpracovává soubor nebo ukládá obsah podle potřeby. Po načtení oddílů s více částmi provede akce vlastní vazbu modelu.
 
 Počáteční odpověď stránky načte formulář a uloží token proti padělání do souboru cookie (prostřednictvím atributu `GenerateAntiforgeryTokenCookieAttribute`). Atribut používá ASP.NET Core integrovanou [podporu proti padělání](xref:security/anti-request-forgery) pro nastavení souboru cookie s tokenem žádosti:
 
@@ -414,13 +414,13 @@ Počáteční odpověď stránky načte formulář a uloží token proti paděl�
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Filters/ModelBinding.cs?name=snippet_DisableFormValueModelBindingAttribute)]
 
-V ukázkové aplikaci `GenerateAntiforgeryTokenCookieAttribute` a `DisableFormValueModelBindingAttribute` se aplikují jako filtry pro modely stránky aplikace `/StreamedSingleFileUploadDb` a `/StreamedSingleFileUploadPhysical` v `Startup.ConfigureServices` pomocí [konvencí Razor Pages](xref:razor-pages/razor-pages-conventions):
+V ukázkové aplikaci jsou `GenerateAntiforgeryTokenCookieAttribute` a `DisableFormValueModelBindingAttribute` použity jako filtry pro modely stránky aplikace `/StreamedSingleFileUploadDb` a `/StreamedSingleFileUploadPhysical` v `Startup.ConfigureServices` pomocí [Razor Pagesch konvencí](xref:razor-pages/razor-pages-conventions):
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Startup.cs?name=snippet_AddRazorPages&highlight=8-11,17-20)]
 
-Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou svázané z formuláře, se nezobrazují (budou pokračovat v práci s dotazem, trasou a hlavičkou). Metoda Action funguje přímo s vlastností `Request`. Pro čtení jednotlivých oddílů se používá `MultipartReader`. Data klíč/hodnota jsou uložena v `KeyValueAccumulator`. Po načtení oddílů s více částmi se obsah `KeyValueAccumulator` použije pro svázání dat formuláře s typem modelu.
+Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou svázané z formuláře, se nezobrazují (budou pokračovat v práci s dotazem, trasou a hlavičkou). Metoda Action pracuje přímo s vlastností `Request`. Pro čtení jednotlivých oddílů se používá `MultipartReader`. Data klíč/hodnota se ukládají do `KeyValueAccumulator`. Po načtení oddílů s více částmi se obsah `KeyValueAccumulator` používá k vytvoření vazby dat formuláře k typu modelu.
 
-Kompletní metoda `StreamingController.UploadDatabase` pro streamování do databáze s EF Core:
+Kompletní metoda `StreamingController.UploadDatabase` pro streamování do databáze pomocí EF Core:
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadDatabase)]
 
@@ -428,7 +428,7 @@ Kompletní metoda `StreamingController.UploadDatabase` pro streamování do data
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Utilities/MultipartRequestHelper.cs)]
 
-Úplná metoda `StreamingController.UploadPhysical` pro streamování do fyzického umístění:
+Kompletní metoda `StreamingController.UploadPhysical` pro streamování do fyzického umístění:
 
 [!code-csharp[](file-uploads/samples/3.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadPhysical)]
 
@@ -436,7 +436,7 @@ V ukázkové aplikaci jsou kontroly ověřování zpracovávány `FileHelpers.Pr
 
 ## <a name="validation"></a>Ověřování
 
-Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol uložených do vyrovnávací paměti <xref:Microsoft.AspNetCore.Http.IFormFile> a streamovaná nahrávání souborů. Pro zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *. cs nástrojů Utilities/App.* Pro zpracování streamované soubory si Projděte metodu `ProcessStreamedFile` ve stejném souboru.
+Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol <xref:Microsoft.AspNetCore.Http.IFormFile> vyrovnávací paměti a nahrávání souborů v datových proudech. Pro zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *. cs nástrojů Utilities/App.* Pro zpracování streamované soubory si přečtěte část `ProcessStreamedFile` metoda ve stejném souboru.
 
 > [!WARNING]
 > Metody zpracování ověřování, které jsou znázorněné v ukázkové aplikaci, nekontrolují obsah nahraných souborů. Ve většině produkčních scénářů se v souboru používá rozhraní API pro skenování virů nebo malwaru, než je soubor dostupný uživatelům nebo jiným systémům.
@@ -514,7 +514,7 @@ Razor automaticky kóduje hodnoty vlastností pro zobrazení. Následující kó
 }
 ```
 
-Mimo Razor, vždy <xref:System.Net.WebUtility.HtmlEncode*> obsah názvu souboru z požadavku uživatele.
+Mimo Razor je vždy <xref:System.Net.WebUtility.HtmlEncode*> obsahu názvu souboru z požadavku uživatele.
 
 Mnoho implementací musí zahrnovat kontrolu, že soubor existuje. v opačném případě je soubor přepsán souborem se stejným názvem. Poskytněte další logiku pro splnění specifikací vaší aplikace.
 
@@ -561,7 +561,7 @@ V nestandardních formulářích, které PUBLIKují data formuláře nebo přím
 
 V následujícím příkladu:
 
-* Při použití elementu `<input>` je atribut `name` nastaven na hodnotu `battlePlans`:
+* Při použití prvku `<input>` je atribut `name` nastaven na hodnotu `battlePlans`:
 
   ```html
   <input type="file" name="battlePlans" multiple>
@@ -577,7 +577,7 @@ V následujícím příkladu:
   }
   ```
 
-Pro parametr C# metody použijte stejný název (`battlePlans`):
+Použijte pro parametr C# metody (`battlePlans`) shodný název:
 
 * Pro Razor Pages metodu obslužné rutiny stránky s názvem `Upload`:
 
@@ -595,7 +595,7 @@ Pro parametr C# metody použijte stejný název (`battlePlans`):
 
 ### <a name="multipart-body-length-limit"></a>Omezení délky těla částí
 
-<xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastaví limit délky jednotlivých částí části. Oddíly formuláře, které překračují toto omezení, vyvolávají při analýze <xref:System.IO.InvalidDataException>. Výchozí hodnota je 134 217 728 (128 MB). Upravte limit pomocí nastavení <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> v `Startup.ConfigureServices`:
+<xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastaví limit délky jednotlivých částí části. Oddíly formuláře, které překračují toto omezení, vyvolávají při analýze <xref:System.IO.InvalidDataException>. Výchozí hodnota je 134 217 728 (128 MB). Upravte limit pomocí <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastavení v `Startup.ConfigureServices`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -739,7 +739,11 @@ Chyba připojení a připojení k serveru pro resetování pravděpodobně zname
 
 ### <a name="null-reference-exception-with-iformfile"></a>Výjimka odkazu s hodnotou null s IFormFile
 
-Pokud kontroler přijímá odeslané soubory pomocí <xref:Microsoft.AspNetCore.Http.IFormFile>, ale hodnota je `null`, potvrďte, že formulář HTML určuje hodnotu `enctype` `multipart/form-data`. Pokud tento atribut není nastaven u elementu `<form>`, odeslání souboru neproběhne a všechny vázané argumenty <xref:Microsoft.AspNetCore.Http.IFormFile> jsou `null`. Ujistěte se také, že [nahrávání názvů v datech formuláře odpovídá pojmenování aplikace](#match-name-attribute-value-to-parameter-name-of-post-method).
+Pokud kontroler přijímá odeslané soubory pomocí <xref:Microsoft.AspNetCore.Http.IFormFile>, ale hodnota je `null`, potvrďte, že formulář HTML určuje `enctype` hodnotu `multipart/form-data`. Pokud tento atribut není nastaven u prvku `<form>`, k odeslání souboru nedochází a všechny vázané argumenty <xref:Microsoft.AspNetCore.Http.IFormFile> jsou `null`. Ujistěte se také, že [nahrávání názvů v datech formuláře odpovídá pojmenování aplikace](#match-name-attribute-value-to-parameter-name-of-post-method).
+
+### <a name="stream-was-too-long"></a>Proud je příliš dlouhý.
+
+Příklady v tomto tématu se spoléhají na <xref:System.IO.MemoryStream> pro uložení obsahu nahraného souboru. Omezení velikosti `MemoryStream` je `int.MaxValue`. Pokud scénář nahrávání souborů aplikace vyžaduje, aby obsah souboru byl větší než 50 MB, použijte alternativní přístup, který nespoléhá na jednu `MemoryStream` pro uchovávání obsahu nahraného souboru.
 
 ::: moniker-end
 
@@ -759,7 +763,7 @@ Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďt
 
 Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, jsou:
 
-* Nahrajte soubory do vyhrazené oblasti pro nahrávání souborů, nejlépe do nesystémové jednotky. Vyhrazené umístění usnadňuje omezení zabezpečení pro nahrané soubory. Zakažte oprávnění EXECUTE pro umístění pro nahrání souboru. &dagger;
+* Nahrajte soubory do vyhrazené oblasti pro nahrávání souborů, nejlépe do nesystémové jednotky. Vyhrazené umístění usnadňuje omezení zabezpečení pro nahrané soubory. Zakažte oprávnění EXECUTE pro umístění pro nahrání souboru.&dagger;
 * Neuchovávat nahrané soubory ve stejném adresářovém stromu jako aplikace.&dagger;
 * Použijte název bezpečného souboru určený aplikací. Nepoužívejte název souboru poskytnutý uživatelem nebo nedůvěryhodného názvu nahraného souboru.&dagger; při zobrazení kódování HTML kódovat název nedůvěryhodného souboru. Například protokolování názvu souboru nebo zobrazení v uživatelském rozhraní (Razor automaticky kóduje výstup HTML).
 * Povolte pro specifikaci návrhu aplikace jenom schválené přípony souborů.&dagger; <!-- * Check the file format signature to prevent a user from uploading a masqueraded file.&dagger; For example, don't permit a user to upload an *.exe* file with a *.txt* extension. Add this back when we get instructions how to do this.  -->
@@ -768,7 +772,7 @@ Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, js
 * Pokud by soubory neměly být přepsány nahraným souborem se stejným názvem, před nahráním souboru ověřte název souboru proti databázi nebo fyzickému úložišti.
 * **Před uložením souboru spusťte v nahraném obsahu skener virů nebo malwaru.**
 
-Ukázková aplikace &dagger;The ukazuje přístup, který splňuje kritéria.
+&dagger;ukázková aplikace ukazuje přístup, který splňuje kritéria.
 
 > [!WARNING]
 > Nahrávání škodlivého kódu do systému je často prvním krokem ke spuštění kódu, který může:
@@ -816,7 +820,7 @@ Dva obecné přístupy k nahrávání souborů jsou ukládání do vyrovnávací
 
 **Do vyrovnávací paměti**
 
-Celý soubor se přečte do <xref:Microsoft.AspNetCore.Http.IFormFile>, což je C# reprezentace souboru, který se používá ke zpracování nebo uložení souboru.
+Celý soubor je čten do <xref:Microsoft.AspNetCore.Http.IFormFile>, což je C# reprezentace souboru používaného ke zpracování nebo uložení souboru.
 
 Prostředky (disk, paměť) používané při nahrávání souborů závisí na počtu a velikosti souběžných nahrávání souborů. Pokud se aplikace pokusí do vyrovnávací paměti příliš mnoho nahrávání, dojde k selhání lokality, když dojde k vynechání paměti nebo místa na disku. Pokud velikost nebo frekvence nahrávání souborů vyčerpá prostředky aplikace, použijte streamování.
 
@@ -928,7 +932,7 @@ Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kte
 
 Aby bylo možné podporovat nahrávání souborů, musí formuláře HTML určovat typ kódování (`enctype`) `multipart/form-data`.
 
-V případě, že vstupní prvek `files` podporuje nahrávání více souborů, zadejte atribut `multiple` pro element `<input>`:
+Pro `files` vstupní prvek, který podporuje nahrávání více souborů, poskytněte `multiple` atribut `<input>` elementu:
 
 ```cshtml
 <input asp-for="FileUpload.FormFiles" type="file" multiple>
@@ -956,7 +960,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > * [Důležité informace o zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
-Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
+Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Http.IFormFile>může metoda Action přijmout:
 
 * Jeden <xref:Microsoft.AspNetCore.Http.IFormFile>.
 * Kterákoli z následujících kolekcí, které reprezentují několik souborů:
@@ -965,7 +969,7 @@ Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Ht
   * [Seznam](xref:System.Collections.Generic.List`1)\<<xref:Microsoft.AspNetCore.Http.IFormFile>>
 
 > [!NOTE]
-> Vazba odpovídá souborům formuláře podle názvu. Například hodnota HTML `name` v `<input type="file" name="formFile">` se musí shodovat s C# parametrem nebo vazbou vlastnosti (`FormFile`). Další informace naleznete v části [název atributu matched na název parametru metody post](#match-name-attribute-value-to-parameter-name-of-post-method) .
+> Vazba odpovídá souborům formuláře podle názvu. Například hodnota `name` HTML v `<input type="file" name="formFile">` musí odpovídat vázanému C# parametru nebo vlastnosti (`FormFile`). Další informace naleznete v části [název atributu matched na název parametru metody post](#match-name-attribute-value-to-parameter-name-of-post-method) .
 
 Následující příklad:
 
@@ -1017,21 +1021,21 @@ foreach (var formFile in files)
 }
 ```
 
-Cesta předaná <xref:System.IO.FileStream> *musí* zahrnovat název souboru. Pokud není zadán název souboru, je při spuštění vyvolána hodnota <xref:System.UnauthorizedAccessException>.
+Cesta předaná <xref:System.IO.FileStream> *musí* zahrnovat název souboru. Pokud není zadán název souboru, <xref:System.UnauthorizedAccessException> je vyvolána za běhu.
 
-Soubory odeslané pomocí techniky <xref:Microsoft.AspNetCore.Http.IFormFile> jsou uloženy do vyrovnávací paměti nebo na disku na serveru před zpracováním. V rámci metody Action je obsah <xref:Microsoft.AspNetCore.Http.IFormFile> přístupný jako <xref:System.IO.Stream>. Kromě místního systému souborů je možné soubory ukládat do síťové sdílené složky nebo do služby úložiště souborů, jako je [Azure Blob Storage](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs).
+Soubory odeslané pomocí <xref:Microsoft.AspNetCore.Http.IFormFile> techniky jsou uloženy do vyrovnávací paměti nebo na disku na serveru před zpracováním. V rámci metody Action je obsah <xref:Microsoft.AspNetCore.Http.IFormFile> přístupný jako <xref:System.IO.Stream>. Kromě místního systému souborů je možné soubory ukládat do síťové sdílené složky nebo do služby úložiště souborů, jako je [Azure Blob Storage](/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs).
 
 Další příklad, který projde několik souborů pro nahrání a používá bezpečné názvy souborů, najdete v ukázkové aplikaci v části *Pages/BufferedMultipleFileUploadPhysical. cshtml. cs* .
 
 > [!WARNING]
-> [Path. GetTempFileName](xref:System.IO.Path.GetTempFileName*) vyvolá výjimku <xref:System.IO.IOException>, pokud jsou vytvořeny více než 65 535 souborů bez odstranění předchozích dočasných souborů. Limit 65 535 souborů je omezen na server. Další informace o tomto limitu pro operační systém Windows najdete v následujících tématech:
+> [Cesta. GetTempFileName](xref:System.IO.Path.GetTempFileName*) vyvolá <xref:System.IO.IOException>, pokud je vytvořeno více než 65 535 souborů, aniž by bylo nutné odstraňovat předchozí dočasné soubory. Limit 65 535 souborů je omezen na server. Další informace o tomto limitu pro operační systém Windows najdete v následujících tématech:
 >
 > * [GetTempFileNameA – funkce](/windows/desktop/api/fileapi/nf-fileapi-gettempfilenamea#remarks)
 > * <xref:System.IO.Path.GetTempFileName*>
 
 ### <a name="upload-small-files-with-buffered-model-binding-to-a-database"></a>Nahrávání malých souborů s vazbou modelu s vyrovnávací pamětí do databáze
 
-Chcete-li uložit data binárního souboru do databáze pomocí [Entity Framework](/ef/core/index), definujte v entitě vlastnost pole <xref:System.Byte>:
+Chcete-li uložit data binárního souboru do databáze pomocí [Entity Framework](/ef/core/index), definujte v entitě vlastnost <xref:System.Byte> pole:
 
 ```csharp
 public class AppFile
@@ -1065,7 +1069,7 @@ public class BufferedSingleFileUploadDb
 > [!NOTE]
 > <xref:Microsoft.AspNetCore.Http.IFormFile> lze použít přímo jako parametr metody akce nebo jako vlastnost vázaného modelu. Předchozí příklad používá vlastnost vázaného modelu.
 
-Ve formuláři Razor Pages se používá `FileUpload`:
+`FileUpload` se používá ve formuláři Razor Pages:
 
 ```cshtml
 <form enctype="multipart/form-data" method="post">
@@ -1120,7 +1124,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 > [!WARNING]
 > Při ukládání binárních dat do relačních databází buďte opatrní, protože to může mít nepříznivý vliv na výkon.
 >
-> Nespoléhá se ani na nedůvěryhodnou vlastnost `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> bez ověření. Vlastnost `FileName` by měla být použita pouze pro účely zobrazení a pouze po kódování HTML.
+> Nespoléhá se na nebo důvěřujete vlastnosti `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> bez ověření. Vlastnost `FileName` by měla být použita pouze pro účely zobrazení a pouze po kódování HTML.
 >
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
@@ -1129,7 +1133,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
-Následující příklad ukazuje, jak použít JavaScript ke streamování souboru do akce kontroleru. Token proti padělání souboru se generuje pomocí vlastního atributu filtru a předává se do hlaviček protokolu HTTP klienta místo v textu žádosti. Vzhledem k tomu, že metoda akce zpracovává nahraná data přímo, vazba modelu formuláře je zakázána jiným vlastním filtrem. V rámci akce je obsah formuláře čten pomocí `MultipartReader`, který čte každou jednotlivou `MultipartSection`, zpracovává soubor nebo ukládá obsah podle potřeby. Po načtení oddílů s více částmi provede akce vlastní vazbu modelu.
+Následující příklad ukazuje, jak použít JavaScript ke streamování souboru do akce kontroleru. Token proti padělání souboru se generuje pomocí vlastního atributu filtru a předává se do hlaviček protokolu HTTP klienta místo v textu žádosti. Vzhledem k tomu, že metoda akce zpracovává nahraná data přímo, vazba modelu formuláře je zakázána jiným vlastním filtrem. V rámci akce je obsah formuláře čten pomocí `MultipartReader`, který čte jednotlivé `MultipartSection`y, zpracovává soubor nebo ukládá obsah podle potřeby. Po načtení oddílů s více částmi provede akce vlastní vazbu modelu.
 
 Počáteční odpověď stránky načte formulář a uloží token proti padělání do souboru cookie (prostřednictvím atributu `GenerateAntiforgeryTokenCookieAttribute`). Atribut používá ASP.NET Core integrovanou [podporu proti padělání](xref:security/anti-request-forgery) pro nastavení souboru cookie s tokenem žádosti:
 
@@ -1139,13 +1143,13 @@ Počáteční odpověď stránky načte formulář a uloží token proti paděl�
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Filters/ModelBinding.cs?name=snippet_DisableFormValueModelBindingAttribute)]
 
-V ukázkové aplikaci `GenerateAntiforgeryTokenCookieAttribute` a `DisableFormValueModelBindingAttribute` se aplikují jako filtry pro modely stránky aplikace `/StreamedSingleFileUploadDb` a `/StreamedSingleFileUploadPhysical` v `Startup.ConfigureServices` pomocí [konvencí Razor Pages](xref:razor-pages/razor-pages-conventions):
+V ukázkové aplikaci jsou `GenerateAntiforgeryTokenCookieAttribute` a `DisableFormValueModelBindingAttribute` použity jako filtry pro modely stránky aplikace `/StreamedSingleFileUploadDb` a `/StreamedSingleFileUploadPhysical` v `Startup.ConfigureServices` pomocí [Razor Pagesch konvencí](xref:razor-pages/razor-pages-conventions):
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Startup.cs?name=snippet_AddMvc&highlight=8-11,17-20)]
 
-Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou svázané z formuláře, se nezobrazují (budou pokračovat v práci s dotazem, trasou a hlavičkou). Metoda Action funguje přímo s vlastností `Request`. Pro čtení jednotlivých oddílů se používá `MultipartReader`. Data klíč/hodnota jsou uložena v `KeyValueAccumulator`. Po načtení oddílů s více částmi se obsah `KeyValueAccumulator` použije pro svázání dat formuláře s typem modelu.
+Vzhledem k tomu, že vazba modelu nepřečte formulář, parametry, které jsou svázané z formuláře, se nezobrazují (budou pokračovat v práci s dotazem, trasou a hlavičkou). Metoda Action pracuje přímo s vlastností `Request`. Pro čtení jednotlivých oddílů se používá `MultipartReader`. Data klíč/hodnota se ukládají do `KeyValueAccumulator`. Po načtení oddílů s více částmi se obsah `KeyValueAccumulator` používá k vytvoření vazby dat formuláře k typu modelu.
 
-Kompletní metoda `StreamingController.UploadDatabase` pro streamování do databáze s EF Core:
+Kompletní metoda `StreamingController.UploadDatabase` pro streamování do databáze pomocí EF Core:
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadDatabase)]
 
@@ -1153,7 +1157,7 @@ Kompletní metoda `StreamingController.UploadDatabase` pro streamování do data
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Utilities/MultipartRequestHelper.cs)]
 
-Úplná metoda `StreamingController.UploadPhysical` pro streamování do fyzického umístění:
+Kompletní metoda `StreamingController.UploadPhysical` pro streamování do fyzického umístění:
 
 [!code-csharp[](file-uploads/samples/2.x/SampleApp/Controllers/StreamingController.cs?name=snippet_UploadPhysical)]
 
@@ -1161,7 +1165,7 @@ V ukázkové aplikaci jsou kontroly ověřování zpracovávány `FileHelpers.Pr
 
 ## <a name="validation"></a>Ověřování
 
-Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol uložených do vyrovnávací paměti <xref:Microsoft.AspNetCore.Http.IFormFile> a streamovaná nahrávání souborů. Pro zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *. cs nástrojů Utilities/App.* Pro zpracování streamované soubory si Projděte metodu `ProcessStreamedFile` ve stejném souboru.
+Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol <xref:Microsoft.AspNetCore.Http.IFormFile> vyrovnávací paměti a nahrávání souborů v datových proudech. Pro zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *. cs nástrojů Utilities/App.* Pro zpracování streamované soubory si přečtěte část `ProcessStreamedFile` metoda ve stejném souboru.
 
 > [!WARNING]
 > Metody zpracování ověřování, které jsou znázorněné v ukázkové aplikaci, nekontrolují obsah nahraných souborů. Ve většině produkčních scénářů se v souboru používá rozhraní API pro skenování virů nebo malwaru, než je soubor dostupný uživatelům nebo jiným systémům.
@@ -1239,7 +1243,7 @@ Razor automaticky kóduje hodnoty vlastností pro zobrazení. Následující kó
 }
 ```
 
-Mimo Razor, vždy <xref:System.Net.WebUtility.HtmlEncode*> obsah názvu souboru z požadavku uživatele.
+Mimo Razor je vždy <xref:System.Net.WebUtility.HtmlEncode*> obsahu názvu souboru z požadavku uživatele.
 
 Mnoho implementací musí zahrnovat kontrolu, že soubor existuje. v opačném případě je soubor přepsán souborem se stejným názvem. Poskytněte další logiku pro splnění specifikací vaší aplikace.
 
@@ -1286,7 +1290,7 @@ V nestandardních formulářích, které PUBLIKují data formuláře nebo přím
 
 V následujícím příkladu:
 
-* Při použití elementu `<input>` je atribut `name` nastaven na hodnotu `battlePlans`:
+* Při použití prvku `<input>` je atribut `name` nastaven na hodnotu `battlePlans`:
 
   ```html
   <input type="file" name="battlePlans" multiple>
@@ -1302,7 +1306,7 @@ V následujícím příkladu:
   }
   ```
 
-Pro parametr C# metody použijte stejný název (`battlePlans`):
+Použijte pro parametr C# metody (`battlePlans`) shodný název:
 
 * Pro Razor Pages metodu obslužné rutiny stránky s názvem `Upload`:
 
@@ -1320,7 +1324,7 @@ Pro parametr C# metody použijte stejný název (`battlePlans`):
 
 ### <a name="multipart-body-length-limit"></a>Omezení délky těla částí
 
-<xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastaví limit délky jednotlivých částí části. Oddíly formuláře, které překračují toto omezení, vyvolávají při analýze <xref:System.IO.InvalidDataException>. Výchozí hodnota je 134 217 728 (128 MB). Upravte limit pomocí nastavení <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> v `Startup.ConfigureServices`:
+<xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastaví limit délky jednotlivých částí části. Oddíly formuláře, které překračují toto omezení, vyvolávají při analýze <xref:System.IO.InvalidDataException>. Výchozí hodnota je 134 217 728 (128 MB). Upravte limit pomocí <xref:Microsoft.AspNetCore.Http.Features.FormOptions.MultipartBodyLengthLimit> nastavení v `Startup.ConfigureServices`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -1457,7 +1461,11 @@ Chyba připojení a připojení k serveru pro resetování pravděpodobně zname
 
 ### <a name="null-reference-exception-with-iformfile"></a>Výjimka odkazu s hodnotou null s IFormFile
 
-Pokud kontroler přijímá odeslané soubory pomocí <xref:Microsoft.AspNetCore.Http.IFormFile>, ale hodnota je `null`, potvrďte, že formulář HTML určuje hodnotu `enctype` `multipart/form-data`. Pokud tento atribut není nastaven u elementu `<form>`, odeslání souboru neproběhne a všechny vázané argumenty <xref:Microsoft.AspNetCore.Http.IFormFile> jsou `null`. Ujistěte se také, že [nahrávání názvů v datech formuláře odpovídá pojmenování aplikace](#match-name-attribute-value-to-parameter-name-of-post-method).
+Pokud kontroler přijímá odeslané soubory pomocí <xref:Microsoft.AspNetCore.Http.IFormFile>, ale hodnota je `null`, potvrďte, že formulář HTML určuje `enctype` hodnotu `multipart/form-data`. Pokud tento atribut není nastaven u prvku `<form>`, k odeslání souboru nedochází a všechny vázané argumenty <xref:Microsoft.AspNetCore.Http.IFormFile> jsou `null`. Ujistěte se také, že [nahrávání názvů v datech formuláře odpovídá pojmenování aplikace](#match-name-attribute-value-to-parameter-name-of-post-method).
+
+### <a name="stream-was-too-long"></a>Proud je příliš dlouhý.
+
+Příklady v tomto tématu se spoléhají na <xref:System.IO.MemoryStream> pro uložení obsahu nahraného souboru. Omezení velikosti `MemoryStream` je `int.MaxValue`. Pokud scénář nahrávání souborů aplikace vyžaduje, aby obsah souboru byl větší než 50 MB, použijte alternativní přístup, který nespoléhá na jednu `MemoryStream` pro uchovávání obsahu nahraného souboru.
 
 ::: moniker-end
 

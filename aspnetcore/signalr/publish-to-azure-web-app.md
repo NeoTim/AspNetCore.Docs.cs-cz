@@ -1,92 +1,94 @@
 ---
-title: Publikování ASP.NET Core SignalR aplikace do Azure App Service
+title: Publikování SignalR aplikace ASP.NET Core do Azure App Service
 author: bradygaster
-description: Zjistěte, jak publikovat aplikaci funkce SignalR technologie ASP.NET Core do služby Azure App Service.
+description: Naučte se publikovat ASP.NET Core SignalR aplikaci do Azure App Service.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 06/26/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/publish-to-azure-web-app
-ms.openlocfilehash: 87a9c93add373b24e3c473912cdbfcc00bbebf7e
-ms.sourcegitcommit: 9bb29f9ba6f0645ee8b9cabda07e3a5aa52cd659
+ms.openlocfilehash: d03a007ca883b3d0391b848e3e92c90469ee640a
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67406103"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963923"
 ---
-# <a name="publish-an-aspnet-core-signalr-app-to-azure-app-service"></a>Publikování ASP.NET Core SignalR aplikace do Azure App Service
+# <a name="publish-an-aspnet-core-opno-locsignalr-app-to-azure-app-service"></a>Publikování SignalR aplikace ASP.NET Core do Azure App Service
 
-Podle [Brady Gaster](https://twitter.com/bradygaster)
+Od [Brady gastera](https://twitter.com/bradygaster)
 
-[Azure App Service](/azure/app-service/app-service-web-overview) je [Microsoft cloud computingu](https://azure.microsoft.com/) služba platformy pro hostování webových aplikací, včetně ASP.NET Core.
+[Azure App Service](/azure/app-service/app-service-web-overview) je platforma [cloud computingu od Microsoftu](https://azure.microsoft.com/) pro hostování webových aplikací, včetně ASP.NET Core.
 
 > [!NOTE]
-> Tento článek se týká publikování aplikace SignalR technologie ASP.NET Core v sadě Visual Studio. Další informace najdete v tématu [služby SignalR pro Azure](https://azure.microsoft.com/services/signalr-service).
+> Tento článek popisuje publikování ASP.NET Core SignalR aplikace ze sady Visual Studio. Další informace najdete v tématu [SignalR Service pro Azure](https://azure.microsoft.com/services/signalr-service).
 
 ## <a name="publish-the-app"></a>Publikování aplikace
 
-Tento článek se týká publikování pomocí nástrojů v sadě Visual Studio. Visual Studio Code uživatelé můžou používat [rozhraní příkazového řádku Azure](/cli/azure) příkazy k publikování aplikací do Azure. Další informace najdete v tématu [publikování aplikace ASP.NET Core do Azure pomocí nástrojů příkazového řádku](/azure/app-service/app-service-web-get-started-dotnet).
+Tento článek popisuje publikování pomocí nástrojů v aplikaci Visual Studio. Visual Studio Code uživatelé můžou k publikování aplikací do Azure použít příkazy rozhraní příkazového [řádku Azure](/cli/azure) . Další informace najdete v tématu [publikování aplikace ASP.NET Core do Azure pomocí nástrojů příkazového řádku](/azure/app-service/app-service-web-get-started-dotnet).
 
-1. Klikněte pravým tlačítkem na projekt v **Průzkumníka řešení** a vyberte **publikovat**.
+1. V **Průzkumník řešení** klikněte pravým tlačítkem na projekt a vyberte **publikovat**.
 
-1. Ujistěte se, že **služby App Service** a **vytvořit nový** jsou vybrány v **vyberte cíl publikování** dialogového okna.
+1. Potvrďte, že je vybrána možnost **App Service** a **vytvořit novou** v dialogovém okně **vybrat cíl publikování** .
 
-1. Vyberte **vytvořit profil** z **publikovat** tlačítko rozevíracího seznamu.
+1. V rozevíracím seznamu tlačítko pro **publikování** vyberte **vytvořit profil** .
 
-   Zadejte informace uvedené v následující tabulce v **vytvořit službu App Service** dialogového okna a vyberte **vytvořit**.
+   Zadejte informace popsané v následující tabulce v dialogovém okně **vytvořit App Service** a vyberte **vytvořit**.
 
-   | Položka               | Popis |
+   | Položkami               | Popis |
    | ------------------ | ----------- |
-   | **Název**           | Jedinečný název aplikace. |
-   | **Předplatné**   | Předplatné Azure, které aplikace používá. |
-   | **Skupina prostředků** | Skupina souvisejících prostředků, do kterých patří aplikace. |
-   | **Plán hostování**   | Cenový plán pro webovou aplikaci. |
+   | **Jméno**           | Jedinečný název aplikace |
+   | **Formě**   | Předplatné Azure, které aplikace používá. |
+   | **Skupina prostředků** | Skupina souvisejících prostředků, ke kterým aplikace patří. |
+   | **Plán hostování**   | Cenový tarif webové aplikace |
 
-1. Vyberte **služby Azure SignalR** v **závislosti** > **přidat** rozevíracího seznamu:
+1. Vyberte **službu Azure SignalR** v rozevíracím seznamu > **Přidat** seznam **závislostí** :
 
-   ![Oblast závislosti zobrazuje v rozevíracím seznamu Přidat výběr služby Azure SignalR](publish-to-azure-web-app/_static/signalr-service-dependency.png)
+   ![Oblast závislosti zobrazující výběr Azure [! Evřít. Služba NO-LOC (Signal)] v rozevíracím seznamu přidat](publish-to-azure-web-app/_static/signalr-service-dependency.png)
 
-1. V **služby Azure SignalR** dialogového okna, vyberte **vytvořit novou instanci služby Azure SignalR**.
+1. V dialogovém okně **Azure SignalR Service** vyberte **vytvořit novou instanci služby Azure SignalR** .
 
-1. Zadejte **název**, **skupiny prostředků**, a **umístění**. Vraťte se **služby Azure SignalR** dialogového okna a vyberte **přidat**.
+1. Zadejte **název**, **skupinu prostředků**a **umístění**. Vraťte se do dialogového okna **Azure SignalR Service** a vyberte **Přidat**.
 
 Visual Studio dokončí následující úkoly:
 
 * Vytvoří profil publikování obsahující nastavení publikování.
-* Vytvoří *webové aplikace Azure* pomocí zadané podrobnosti.
-* Publikuje aplikace.
-* Spustí se prohlížeč, který načte webové aplikace.
+* Vytvoří *webovou aplikaci Azure* s poskytnutými podrobnostmi.
+* Publikuje aplikaci.
+* Spustí prohlížeč, který načte webovou aplikaci.
 
-Formát adresy URL aplikace je `{APP SERVICE NAME}.azurewebsites.net`. Například aplikaci s názvem `SignalRChatApp` má adresu URL `https://signalrchatapp.azurewebsites.net`.
+Formát adresy URL aplikace je `{APP SERVICE NAME}.azurewebsites.net`. Například aplikace s názvem `SignalRChatApp` má adresu URL `https://signalrchatapp.azurewebsites.net`.
 
-Pokud HTTP *502.2 – Chybná brána* dojde k chybě při nasazování aplikace, která cílí na verzi .NET Core ve verzi preview, najdete v článku [verze preview nasazení ASP.NET Core do služby Azure App Service](xref:host-and-deploy/azure-apps/index#deploy-aspnet-core-preview-release-to-azure-app-service) k jeho vyřešení.
+Pokud při nasazování aplikace, která cílí na verzi Preview .NET Core, dojde k chybě HTTP *502,2 – chyba brány* , přečtěte si téma [nasazení ASP.NET Core verze Preview a Azure App Service](xref:host-and-deploy/azure-apps/index#deploy-aspnet-core-preview-release-to-azure-app-service) k jejich vyřešení.
 
-## <a name="configure-the-app-in-azure-app-service"></a>Konfigurace aplikace ve službě Azure App Service
+## <a name="configure-the-app-in-azure-app-service"></a>Konfigurace aplikace v Azure App Service
 
 > [!NOTE]
-> *Tato část platí jenom pro aplikace bez použití služby Azure SignalR.*
+> *Tato část platí jenom pro aplikace, které nepoužívají službu Azure SignalR.*
 >
-> Pokud aplikace využívá služby Azure SignalR, App Service nevyžaduje konfiguraci spřažení požádat o směrování žádostí na aplikace a webové sokety popsané v této části. Klienti se připojí ke službě Azure SignalR, nikoli přímo do aplikace jejich webové sokety.
+> Pokud aplikace používá službu Azure SignalR, App Service nevyžaduje konfiguraci spřažení (ARR) žádostí o aplikace a webové sokety popsané v této části. Klienti připojují své webové sokety ke službě Azure SignalR, nikoli přímo do aplikace.
 
 U aplikací hostovaných bez služby Azure SignalR povolte:
 
-* [Spřažení směrování žádostí na aplikace](https://azure.github.io/AppService/2016/05/16/Disable-Session-affinity-cookie-(ARR-cookie)-for-Azure-web-apps.html) pro směrování požadavků od uživatele zpět na stejnou instanci služby App Service. Ve výchozím nastavení **na**.
-* [Webové sokety](xref:fundamentals/websockets) umožňující webové sokety přenosu do funkce. Ve výchozím nastavení **vypnout**.
+* [Spřažení ARR](https://azure.github.io/AppService/2016/05/16/Disable-Session-affinity-cookie-(ARR-cookie)-for-Azure-web-apps.html) pro směrování požadavků od uživatele zpět do stejné instance App Service. Výchozí nastavení je **zapnuto**.
+* [Webové sokety](xref:fundamentals/websockets) , které umožňují přenos webových soketů do funkce. Výchozí nastavení je **vypnuté**.
 
-1. Na webu Azure Portal, přejděte do webové aplikace v **App Services**.
-1. Otevřít **konfigurace** > **obecné nastavení**.
-1. Nastavte **webové sokety** k **na**.
-1. Ověřte, že **spřažení směrování žádostí na aplikace** je nastavena na **na**.
+1. V Azure Portal přejděte do webové aplikace v **App Services**.
+1. Otevřete > konfigurace **Obecné nastavení**.
+1. Nastavte **webové sokety** na **zapnuto**.
+1. Ověřte, zda je **spřažení ARR** nastaveno **na hodnotu Zapnuto**.
 
-## <a name="app-service-plan-limits"></a>Omezení plánu služby App Service
+## <a name="app-service-plan-limits"></a>Omezení plánu App Service
 
-Webové sokety a ostatní přenosy jsou omezené podle plánu služby App Service vybrali. Další informace najdete v tématu *Azure Cloud Services omezuje* a *limity služby App Service* oddíly [předplatného Azure a limity, kvóty a omezení](/azure/azure-subscription-service-limits#app-service-limits) článek.
+Webové sokety a další přenosy jsou omezené na základě vybraného plánu App Service. Další informace najdete v částech omezení *App Service* a omezení služby *Azure Cloud Services* v článku omezení pro [předplatné a službu Azure a omezení služby, kvóty a omezení](/azure/azure-subscription-service-limits#app-service-limits) .
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Novinky služby Azure SignalR](/azure/azure-signalr/signalr-overview)
+* [Co je služba Azure SignalR?](/azure/azure-signalr/signalr-overview)
 * <xref:signalr/introduction>
 * <xref:host-and-deploy/index>
 * <xref:tutorials/publish-to-azure-webapp-using-vs>
 * [Publikování aplikace ASP.NET Core do Azure pomocí nástrojů příkazového řádku](/azure/app-service/app-service-web-get-started-dotnet)
-* [Hostitelství a nasazení aplikací v ASP.NET Core ve verzi Preview v Azure](xref:host-and-deploy/azure-apps/index#deploy-aspnet-core-preview-release-to-azure-app-service)
+* [Hostování a nasazení aplikací ASP.NET Core Preview v Azure](xref:host-and-deploy/azure-apps/index#deploy-aspnet-core-preview-release-to-azure-app-service)
