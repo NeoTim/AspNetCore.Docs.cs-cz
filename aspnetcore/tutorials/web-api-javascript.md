@@ -4,13 +4,13 @@ author: rick-anderson
 description: Naučte se volat ASP.NET Core webového rozhraní API pomocí JavaScriptu.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 08/27/2019
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: bbe261307f6f68af002cb98cc4895888ade7f61c
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: 0070816149d64fc1d71d453eb0f135050c78597a
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
+ms.lasthandoff: 11/13/2019
 ms.locfileid: "72378707"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>Kurz: volání ASP.NET Core webového rozhraní API pomocí JavaScriptu
@@ -18,6 +18,14 @@ ms.locfileid: "72378707"
 Od [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V tomto kurzu se dozvíte, jak volat ASP.NET Core webového rozhraní API s JavaScriptem pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API).
+
+::: moniker range="< aspnetcore-3.0"
+
+Pro ASP.NET Core 2,2 se podívejte na verzi 2,2 [volání webového rozhraní API pomocí JavaScriptu](xref:tutorials/first-web-api#call-the-web-api-with-javascript).
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -49,7 +57,7 @@ Nejjednodušší volání `fetch` přijímá jeden parametr reprezentující tra
 Pro místní testování stránky HTML může být nutné změnit nastavení spouštění ASP.NET Core projektu:
 
 1. Otevřete *Properties\launchSettings.JSON*.
-1. Odebráním vlastnosti `launchUrl` vynutíte otevření aplikace v *indexu. html*@no__t – výchozí soubor projektu 2the.
+1. Odebráním vlastnosti `launchUrl` vynutíte otevření aplikace v *indexu. html* &mdash;the výchozí soubor projektu.
 
 Tato ukázka volá všechny metody CRUD webového rozhraní API. Následují vysvětlení požadavků webového rozhraní API.
 
@@ -59,7 +67,7 @@ V následujícím kódu se pošle požadavek HTTP GET do trasy *API/TodoItems* :
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_GetItems)]
 
-Když webové rozhraní API vrátí úspěšný kód stavu, vyvolá se funkce `_displayItems`. Každá položka úkolů v parametru pole přijatém `_displayItems` je přidána do tabulky s tlačítky **Upravit** a **Odstranit** . Pokud se požadavek webového rozhraní API nepovede, do konzoly prohlížeče se zaprotokoluje chyba.
+Když webové rozhraní API vrátí úspěšný kód stavu, vyvolá se funkce `_displayItems`. Každá položka k tomuto účelu v parametru Array Accept `_displayItems` je přidána do tabulky s tlačítky **Upravit** a **Odstranit** . Pokud se požadavek webového rozhraní API nepovede, do konzoly prohlížeče se zaprotokoluje chyba.
 
 ### <a name="add-a-to-do-item"></a>Přidat položku úkolů
 
@@ -67,9 +75,9 @@ V následujícím kódu:
 
 * Proměnná `item` je deklarována k sestavení řetězcové literálové reprezentace položky.
 * Požadavek na načtení je nakonfigurovaný s následujícími možnostmi:
-  * `method` @ no__t-1specifies příkaz POST HTTP Action.
-  * `body` @ no__t-1specifies reprezentace textu žádosti ve formátu JSON. KÓD JSON je vytvořen předáním literálu objektu uloženého v `item` do funkce [JSON. stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) .
-  * `headers` @ no__t-1specifies hlavičky žádosti HTTP `Accept` a `Content-Type`. Obě hlavičky jsou nastavené na `application/json` a určují typ média, který se přijímá a pošle v uvedeném pořadí.
+    * `method`&mdash;určuje operaci POST HTTP Action.
+    * `body`&mdash;určuje reprezentaci textu žádosti ve formátu JSON. KÓD JSON je vytvořen předáním literálu objektu uloženého v `item` do funkce [JSON. stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) .
+    * `headers`&mdash;Určuje hlavičku požadavku HTTP `Accept` a `Content-Type`. Obě hlavičky jsou nastavené na `application/json` a určují typ média, který se přijímá a pošle v uvedeném pořadí.
 * Požadavek HTTP POST se odešle do trasy *API/TodoItems* .
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_AddItem)]
@@ -95,3 +103,5 @@ Přejděte k dalšímu kurzu, kde se dozvíte, jak vygenerovat stránky s usnadn
 
 > [!div class="nextstepaction"]
 > <xref:tutorials/get-started-with-swashbuckle>
+
+::: moniker-end
