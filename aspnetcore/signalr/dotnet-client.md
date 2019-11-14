@@ -1,30 +1,32 @@
 ---
-title: Klient .NET pro signalizaci ASP.NET Core
+title: Klient rozhraní ASP.NET Core SignalR .NET
 author: bradygaster
-description: Informace o klientovi .NET signalizace ASP.NET Core
+description: Informace o ASP.NET Core SignalR klientovi .NET
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 09/13/2019
+ms.date: 11/12/2019
+no-loc:
+- SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 4419799ef11469413f813843a9d02ac0223d30c6
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 28e8fcf808406cd0251ba94e2ef97ab04841fcd0
+ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081281"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73963970"
 ---
-# <a name="aspnet-core-signalr-net-client"></a>Klient .NET pro signalizaci ASP.NET Core
+# <a name="aspnet-core-opno-locsignalr-net-client"></a>Klient rozhraní ASP.NET Core SignalR .NET
 
-Klientská knihovna .NET pro signalizaci ASP.NET Core umožňuje komunikaci s centry signalizace z aplikací .NET.
+Klientská knihovna ASP.NET Core SignalR .NET umožňuje komunikaci s SignalRmi rozbočovači z aplikací .NET.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Ukázka kódu v tomto článku je aplikace WPF, která používá klienta .NET ASP.NET Coreového signalizace.
+Ukázka kódu v tomto článku je aplikace WPF, která používá klienta ASP.NET Core SignalR .NET.
 
-## <a name="install-the-signalr-net-client-package"></a>Instalace balíčku klienta rozhraní .NET pro signál
+## <a name="install-the-opno-locsignalr-net-client-package"></a>Instalace balíčku klienta SignalR .NET
 
-Pro klienty rozhraní .NET se vyžaduje balíček [Microsoft. AspNetCore. Signal. Client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) , aby se mohl připojit k rozbočovačům pro signály.
+[Microsoft. AspNetCore.SignalR. ](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)Pro klienty rozhraní .NET se vyžaduje balíček klienta, aby se mohl připojit k rozbočovačům SignalR.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -44,9 +46,9 @@ dotnet add package Microsoft.AspNetCore.SignalR.Client
 
 ---
 
-## <a name="connect-to-a-hub"></a>Připojení k rozbočovači
+## <a name="connect-to-a-hub"></a>Připojení k centru
 
-K navázání připojení vytvořte `HubConnectionBuilder` volání `Build`a. Adresa URL centra, protokol, typ přenosu, úroveň protokolu, hlavičky a další možnosti se dají nakonfigurovat při sestavování připojení. Proveďte konfiguraci libovolných požadovaných možností tak, že `HubConnectionBuilder` do `Build`nástroje vložíte jakoukoli z těchto metod. Spusťte připojení pomocí `StartAsync`.
+K navázání připojení vytvořte `HubConnectionBuilder` a zavolejte `Build`. Adresa URL centra, protokol, typ přenosu, úroveň protokolu, hlavičky a další možnosti se dají nakonfigurovat při sestavování připojení. Proveďte konfiguraci požadovaných možností tak, že do `Build`vložíte libovolnou z `HubConnectionBuilder`ch metod. Spusťte připojení pomocí `StartAsync`.
 
 [!code-csharp[Build hub connection](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_MainWindowClass&highlight=15-17,39)]
 
@@ -56,7 +58,7 @@ K navázání připojení vytvořte `HubConnectionBuilder` volání `Build`a. Ad
 
 ### <a name="automatically-reconnect"></a>Automaticky znovu připojit
 
-Lze nakonfigurovat pro automatické opětovné připojení `WithAutomaticReconnect` pomocí metody na <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>. <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection> Ve výchozím nastavení se automaticky znovu nepřipojí.
+<xref:Microsoft.AspNetCore.SignalR.Client.HubConnection> lze nakonfigurovat tak, aby se automaticky znovu připojoval pomocí metody `WithAutomaticReconnect` na <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>. Ve výchozím nastavení se automaticky znovu nepřipojí.
 
 ```csharp
 HubConnection connection= new HubConnectionBuilder()
@@ -65,9 +67,9 @@ HubConnection connection= new HubConnectionBuilder()
     .Build();
 ```
 
-Bez parametrů nakonfiguruje `WithAutomaticReconnect()` klienta, aby čekal na 0, 2, 10 a 30 sekund, než se pokusí o každý pokus o opětovné připojení, který se zastaví po čtyřech pokusech o selhání.
+Bez parametrů `WithAutomaticReconnect()` nakonfiguruje klienta tak, aby počkal na 0, 2, 10 a 30 sekund, než se pokusí o každý pokus o opětovné připojení, který se zastaví po čtyřech pokusech o selhání.
 
-Před zahájením jakýchkoli pokusů o `HubConnection` opětovné připojení přejde `HubConnectionState.Reconnecting` na stav a aktivuje `Reconnecting` událost.  Díky tomu můžete uživatelům upozornit, že připojení bylo ztraceno, a zakázat prvky uživatelského rozhraní. Neinteraktivní aplikace můžou spouštět zařazování zpráv do fronty nebo jejich vyřazení.
+Než začnete s jinými pokusy o připojení, `HubConnection` přejde do stavu `HubConnectionState.Reconnecting` a aktivuje událost `Reconnecting`.  Díky tomu můžete uživatelům upozornit, že připojení bylo ztraceno, a zakázat prvky uživatelského rozhraní. Neinteraktivní aplikace můžou spouštět zařazování zpráv do fronty nebo jejich vyřazení.
 
 ```csharp
 connection.Reconnecting += error =>
@@ -81,12 +83,12 @@ connection.Reconnecting += error =>
 };
 ```
 
-Pokud se klient úspěšně znovu připojí během prvních čtyř pokusů, `HubConnection` převede se zpátky `Connected` do stavu a aktivuje se `Reconnected` událost. To poskytuje možnost informovat uživatele o opětovném vytvoření připojení a vyřazení všech zpráv ve frontě.
+Pokud se klient úspěšně připojí během prvních čtyř pokusů, `HubConnection` přejde zpět do stavu `Connected` a aktivuje událost `Reconnected`. To poskytuje možnost informovat uživatele o opětovném vytvoření připojení a vyřazení všech zpráv ve frontě.
 
-Vzhledem k tomu, že připojení je zcela nového na serveru, `ConnectionId` bude `Reconnected` k dispozici pro obslužné rutiny událostí nový.
+Vzhledem k tomu, že připojení na serveru zcela začíná, bude k dispozici nový `ConnectionId` obslužným rutinám událostí `Reconnected`.
 
 > [!WARNING]
-> Parametr obslužné rutiny `HubConnection`událostibude mít hodnotu null, pokud byl nakonfigurován tak, aby [přeskočil vyjednávání.](xref:signalr/configuration#configure-client-options) `Reconnected` `connectionId`
+> Parametr `connectionId` obslužné rutiny události `Reconnected` bude mít hodnotu null, pokud byl `HubConnection` nakonfigurován na [přeskočení vyjednávání](xref:signalr/configuration#configure-client-options).
 
 ```csharp
 connection.Reconnected += connectionId =>
@@ -100,7 +102,7 @@ connection.Reconnected += connectionId =>
 };
 ```
 
-`WithAutomaticReconnect()`neprovede konfiguraci `HubConnection` pro opakování počátečního spuštění, takže chyby spuštění je nutné zpracovat ručně:
+`WithAutomaticReconnect()` nenastaví `HubConnection` na opakování počátečního spuštění, takže chyby spuštění je nutné zpracovat ručně:
 
 ```csharp
 public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, CancellationToken token)
@@ -128,7 +130,7 @@ public static async Task<bool> ConnectWithRetryAsync(HubConnection connection, C
 }
 ```
 
-Pokud se klient úspěšně znovu nepřipojí během prvních čtyř pokusů, `HubConnection` přejde `Disconnected` do stavu a aktivuje <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> událost. To vám umožní se pokusit o ruční restartování připojení nebo informování uživatelů o trvalé ztrátě připojení.
+Pokud se klient úspěšně znovu nepřipojí během prvních čtyř pokusů, `HubConnection` přejde do stavu `Disconnected` a aktivuje událost <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed>. To vám umožní se pokusit o ruční restartování připojení nebo informování uživatelů o trvalé ztrátě připojení.
 
 ```csharp
 connection.Closed += error =>
@@ -141,7 +143,7 @@ connection.Closed += error =>
 };
 ```
 
-Aby bylo možné nakonfigurovat vlastní počet pokusů o opětovné připojení před odpojením nebo změnou časování pro opětovné připojení, přijme `WithAutomaticReconnect` pole čísel představující zpoždění v milisekundách, které se má počkat, než se spustí pokus o opětovné připojení.
+Aby bylo možné nakonfigurovat vlastní počet pokusů o opětovné připojení před odpojením nebo změnou časování opakovaného připojení, `WithAutomaticReconnect` akceptuje pole čísel představujících zpoždění v milisekundách, které budou čekat před zahájením každého pokusu o opětovné připojení.
 
 ```csharp
 HubConnection connection= new HubConnectionBuilder()
@@ -152,7 +154,7 @@ HubConnection connection= new HubConnectionBuilder()
     // .WithAutomaticReconnect(new[] { TimeSpan.Zero, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(30) }) yields the default behavior.
 ```
 
-V předchozím příkladu se nakonfiguruje tak, `HubConnection` aby se při pokusu o opětovné připojení ihned po ztrátě připojení spouštěla znovu. To platí také pro výchozí konfiguraci.
+V předchozím příkladu se nakonfiguruje `HubConnection`, aby se začaly znovu připojovat hned po ztrátě připojení. To platí také pro výchozí konfiguraci.
 
 Pokud se při prvním pokusu o opětovné připojení nepovede, druhý pokus o opětovné připojení se spustí hned a místo toho bude čekat 2 sekundy, jako by to bylo ve výchozí konfiguraci.
 
@@ -160,11 +162,11 @@ Pokud se druhý pokus o opětovné připojení nepovede, spustí se třetí poku
 
 Vlastní chování se potom odliší od výchozího chování tím, že se zastaví po neúspěšném pokusu o třetí připojení. Ve výchozí konfiguraci se za dalších 30 sekund pokusí jeden pokus o nové připojení.
 
-Pokud chcete ještě větší kontrolu nad časováním a počtem automatických pokusů o opětovné připojení `WithAutomaticReconnect` , je třeba přijmout objekt `IRetryPolicy` implementující rozhraní, které má jedinou metodu `NextRetryDelay`s názvem.
+Pokud chcete ještě větší kontrolu nad časováním a počtem automatických pokusů o opětovné připojení, `WithAutomaticReconnect` akceptuje objekt implementující rozhraní `IRetryPolicy`, které má jedinou metodu s názvem `NextRetryDelay`.
 
-`NextRetryDelay`přijímá jeden argument s typem `RetryContext`. `ElapsedTime` Mátři`Exception` vlastnosti: `PreviousRetryCount` ,`TimeSpan` a `RetryReason` , kteréjsouavuvedenémpořadí.`long` `RetryContext` Před prvním pokusem o opětovné připojení budou `PreviousRetryCount` obě `ElapsedTime` i nulové a `RetryReason` bude to výjimka, která způsobila ztrátu připojení. Po každém neúspěšném pokusu o `PreviousRetryCount` opakování se bude aktualizovat o jednu, `ElapsedTime` aby odrážela dobu strávenou opětovným připojením, a `RetryReason` bude výjimkou, která způsobila selhání posledního pokusu o opětovné připojení.
+`NextRetryDelay` přijímá jeden argument typu `RetryContext`. `RetryContext` má tři vlastnosti: `PreviousRetryCount`, `ElapsedTime` a `RetryReason`, které jsou `long`, `TimeSpan` a `Exception`. Před prvním pokusem o opětovné připojení budou `PreviousRetryCount` i `ElapsedTime` nula a `RetryReason` bude výjimka, která způsobila ztrátu připojení. Po každém neúspěšném pokusu o opakování se `PreviousRetryCount` zvýší o jednu, `ElapsedTime` se aktualizuje tak, aby odrážela dobu strávenou opětovným připojením, a `RetryReason` bude výjimka, která způsobila selhání posledního pokusu o opětovné připojení.
 
-`NextRetryDelay`musí vracet buď hodnotu TimeSpan představující čas čekání před dalším pokusem o opětovné připojení, nebo `null` by se `HubConnection` mělo zastavit opětovné připojení.
+`NextRetryDelay` musí vracet hodnotu TimeSpan představující čas čekání před dalším pokusem o opětovné připojení nebo `null`, pokud by se `HubConnection` mělo zastavit opětovné připojení.
 
 ```csharp
 public class RandomRetryPolicy : IRetryPolicy
@@ -204,13 +206,13 @@ Případně můžete napsat kód, který znovu připojí klienta ručně, jak je
 ::: moniker range="< aspnetcore-3.0"
 
 > [!WARNING]
-> Před 3,0 se klient .NET pro signál nepřipojí automaticky znovu. Musíte napsat kód, který se znovu připojit klientu ručně.
+> Před 3,0 se klient .NET pro SignalR automaticky znovu nepřipojí. Musíte napsat kód, který bude znovu připojit klienta ručně.
 
 ::: moniker-end
 
-K reakci na ztracené připojení použijte událost.<xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed> Můžete například chtít automatizovat opětovné připojení.
+K reakci na ztracené připojení použijte událost <xref:Microsoft.AspNetCore.SignalR.Client.HubConnection.Closed>. Můžete například chtít automatizovat opětovné připojení.
 
-Událost vyžaduje delegáta, který `Task`vrací, což umožňuje spuštění asynchronního kódu bez použití `async void`. `Closed` Pro uspokojení signatury delegáta v `Closed` obslužné rutině události, která běží synchronně `Task.CompletedTask`, vraťte:
+Událost `Closed` vyžaduje delegáta, který vrací `Task`, což umožňuje spuštění asynchronního kódu bez použití `async void`. Pro uspokojení signatury delegáta v `Closed` obslužné rutiny události, která běží synchronně, vraťte `Task.CompletedTask`:
 
 ```csharp
 connection.Closed += (error) => {
@@ -221,36 +223,36 @@ connection.Closed += (error) => {
 
 Hlavním důvodem pro asynchronní podporu je, že můžete připojení restartovat. Spuštění připojení je asynchronní akce.
 
-`Closed` V obslužné rutině, která restartuje připojení, zvažte možnost počkat na určité náhodné zpoždění, aby se zabránilo přetížení serveru, jak je znázorněno v následujícím příkladu:
+V obslužné rutině `Closed`, která restartuje připojení, zvažte možnost počkat na určité náhodné zpoždění, aby se zabránilo přetížení serveru, jak je znázorněno v následujícím příkladu:
 
 [!code-csharp[Use Closed event handler to automate reconnection](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ClosedRestart)]
 
-## <a name="call-hub-methods-from-client"></a>Volání metod rozbočovače na z klienta
+## <a name="call-hub-methods-from-client"></a>Volání metod centra z klienta
 
-`InvokeAsync`volá metody v centru. Předat název metody centra a všechny argumenty definované v metodě hub pro `InvokeAsync`. Signál je asynchronní, takže použijte `async` a `await` při volání.
+`InvokeAsync` volá metody v centru. Předejte název metody centra a všechny argumenty definované v metodě hub pro `InvokeAsync`. SignalR je asynchronní, takže při volání použijte `async` a `await`.
 
 [!code-csharp[InvokeAsync method](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_InvokeAsync)]
 
-Metoda vrátí hodnotu, `Task` která je dokončena, když metoda serveru vrátí hodnotu. `InvokeAsync` Návratová hodnota, pokud existuje, je k dispozici jako výsledek `Task`. Jakékoli výjimky vyvolané metodou na serveru vyvolávají chybu `Task`. Použijte `await` syntaxi pro čekání na dokončení metody serveru a `try...catch` syntaxi pro zpracování chyb.
+Metoda `InvokeAsync` vrátí `Task`, která se dokončí při návratu metody serveru. Návratová hodnota, pokud existuje, je k dispozici jako výsledek `Task`. Jakékoli výjimky vyvolané metodou na serveru vyvolávají chybu `Task`. Pomocí syntaxe `await` můžete počkat na dokončení metody serveru a `try...catch` syntaxi pro zpracování chyb.
 
-Metoda vrátí, `Task` která se dokončí při odeslání zprávy na server. `SendAsync` Žádná návratová hodnota není k dispozici, protože `Task` nečeká na dokončení metody serveru. Jakékoli výjimky vyvolané u klienta při odeslání zprávy způsobují chybu `Task`. Použijte `await` syntaxi `try...catch` a ke zpracování chyb odesílání.
+Metoda `SendAsync` vrátí `Task`, který se dokončí při odeslání zprávy na server. Není zadána žádná návratová hodnota, protože tato `Task` nečekají na dokončení metody serveru. Jakékoli výjimky vyvolané u klienta při posílání zprávy vytvoří `Task`s chybou. K zpracování chyb odeslání použijte syntaxi `await` a `try...catch`.
 
 > [!NOTE]
-> Pokud používáte službu Azure Signaler v režimu bez *serveru*, nemůžete volat metody centra z klienta. Další informace najdete v dokumentaci ke [službě signaler](/azure/azure-signalr/signalr-concept-serverless-development-config).
+> Pokud používáte službu Azure SignalR v režimu bez *serveru*, nemůžete volat metody centra z klienta. Další informace najdete v dokumentaci ke [služběSignalR](/azure/azure-signalr/signalr-concept-serverless-development-config).
 
-## <a name="call-client-methods-from-hub"></a>Volání metody klienta od rozbočovače
+## <a name="call-client-methods-from-hub"></a>Volání metod klienta z centra
 
-Definujte metody, které volání centra `connection.On` použije po sestavení, ale před zahájením připojení.
+Definujte metody, které centrum volá pomocí `connection.On` po sestavení, ale před spuštěním připojení.
 
 [!code-csharp[Define client methods](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ConnectionOn)]
 
-Předchozí kód v aplikaci `connection.On` se spustí, když kód na straně serveru volá `SendAsync` metodu.
+Předchozí kód v `connection.On` se spustí, když kód na straně serveru volá metodu `SendAsync`.
 
 [!code-csharp[Call client method](dotnet-client/sample/signalrchat/hubs/chathub.cs?name=snippet_SendMessage)]
 
-## <a name="error-handling-and-logging"></a>Protokolování a zpracování chyb
+## <a name="error-handling-and-logging"></a>Zpracování chyb a protokolování
 
-Zpracování chyb pomocí příkazu try-catch. `Exception` Zkontrolujte objekt a určete správnou akci, která se má provést po výskytu chyby.
+Zpracování chyb pomocí příkazu try-catch. Zkontrolujte objekt `Exception` a určete správnou akci, která se má provést po výskytu chyby.
 
 [!code-csharp[Logging](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ErrorHandling)]
 
@@ -259,4 +261,4 @@ Zpracování chyb pomocí příkazu try-catch. `Exception` Zkontrolujte objekt a
 * [Centra](xref:signalr/hubs)
 * [Klient JavaScriptu](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
-* [Dokumentace ke službě Azure Signaler bez serveru](/azure/azure-signalr/signalr-concept-serverless-development-config)
+* [Dokumentace k serveru služby Azure SignalR bez serveru](/azure/azure-signalr/signalr-concept-serverless-development-config)
