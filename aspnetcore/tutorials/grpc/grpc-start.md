@@ -2,16 +2,15 @@
 title: Vytvoření klienta a serveru .NET Core gRPC v ASP.NET Core
 author: juntaoluo
 description: V tomto kurzu se dozvíte, jak vytvořit službu gRPC a klienta gRPC na ASP.NET Core. Naučte se, jak vytvořit projekt služby gRPC, upravit soubor. a přidat volání duplexního streamování.
-monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
-ms.date: 10/10/2019
+ms.date: 11/12/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: 0da5a4cf0d9cc15fee6417d143cfc9e9f1e4509c
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: e5373d9abb9a770132e756843dbd15534dbe3356
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73463064"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74116136"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření klienta a serveru gRPC v ASP.NET Core
 
@@ -50,7 +49,7 @@ V tomto kurzu:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Spusťte aplikaci Visual Studio a vyberte možnost **vytvořit nový projekt**. Případně vyberte v nabídce **soubor** v aplikaci Visual Studio **Nový** **projekt** > .
+* Spusťte aplikaci Visual Studio a vyberte možnost **vytvořit nový projekt**. Případně můžete v nabídce **soubor** sady Visual Studio vybrat **Nový** > **projekt**.
 * V dialogovém okně **vytvořit nový projekt** vyberte **Služba GRPC** a vyberte **Další**:
 
   ![\* * Vytvořit nový projekt * * dialog](~/tutorials/grpc/grpc-start/static/cnp.png)
@@ -64,7 +63,7 @@ V tomto kurzu:
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
-* Změňte adresáře (`cd`) do složky, která bude obsahovat projekt.
+* Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 * Spusťte následující příkazy:
 
   ```dotnetcli
@@ -97,21 +96,7 @@ V aplikaci Visual Studio vyberte **soubor** > **otevřít**a potom vyberte soubo
 
 ### <a name="run-the-service"></a>Spuštění služby
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
-
-* Stisknutím `Ctrl+F5` spustíte službu gRPC bez ladicího programu.
-
-  Visual Studio spouští službu z příkazového řádku.
-
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
-
-* Spusťte projekt gRPC Greeter *GrpcGreeter* z příkazového řádku pomocí `dotnet run`.
-
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
-
-* Spusťte projekt gRPC Greeter *GrpcGreeter* z příkazového řádku pomocí `dotnet run`.
-
----
+  [!INCLUDE[](~/includes/run-the-app.md)]
 
 Protokoly zobrazují službu, která naslouchá na `https://localhost:5001`.
 
@@ -133,7 +118,7 @@ info: Microsoft.Hosting.Lifetime[0]
 
 Soubory projektu *GrpcGreeter* :
 
-* *pozdrav. proto* &ndash; v souboru to znamená, že soubor *...* dedefinuje `Greeter` gRPC a slouží k vygenerování prostředků serveru gRPC. Další informace najdete v tématu [Úvod do gRPC](xref:grpc/index).
+* *pozdrav.* v tomto případě &ndash; soubor *......* "definuje `Greeter` gRPC a slouží ke generování prostředků serveru gRPC. Další informace najdete v tématu [Úvod do gRPC](xref:grpc/index).
 * Složka *Services* : obsahuje implementaci služby `Greeter`.
 * *appSettings. json* &ndash; obsahuje konfigurační data, jako je například protokol, který používá Kestrel. Další informace najdete v tématu <xref:fundamentals/configuration/index>.
 * *Program.cs* &ndash; obsahuje vstupní bod pro službu gRPC. Další informace najdete v tématu <xref:fundamentals/host/generic-host>.
@@ -150,7 +135,7 @@ Soubory projektu *GrpcGreeter* :
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
-* Změňte adresáře (`cd`) do složky, která bude obsahovat projekt.
+* Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 * Spusťte následující příkazy:
 
   ```dotnetcli
@@ -170,7 +155,7 @@ Projekt klienta gRPC vyžaduje následující balíčky:
 
 * [Grpc .NET. Client](https://www.nuget.org/packages/Grpc.Net.Client), který obsahuje klienta .NET Core.
 * [Google. Protobuf](https://www.nuget.org/packages/Google.Protobuf/), který obsahuje rozhraní API pro zprávy C#Protobuf pro.
-* [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/), které obsahují C# podporu nástrojů pro soubory protobuf. Balíček nástrojů se za běhu nevyžaduje, takže je tato závislost označená pomocí `PrivateAssets="All"`.
+* [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/), které obsahují C# podporu nástrojů pro soubory protobuf. Balíček nástrojů se za běhu nevyžaduje, takže je tato závislost označená jako `PrivateAssets="All"`.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -235,7 +220,7 @@ dotnet add GrpcGreeterClient.csproj package Grpc.Tools
 
   ---
 
-* Přidejte skupinu položek s prvkem `<Protobuf>`, který odkazuje na soubor *Greeting.* dekáže:
+* Přidejte skupinu položek s `<Protobuf>` prvkem, který odkazuje na soubor *Greeting.* dekáže:
 
   ```xml
   <ItemGroup>
@@ -268,8 +253,8 @@ Klient Greeter volá asynchronní metodu `SayHello`. Zobrazí se výsledek volá
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V případě služby Greeter stiskněte `Ctrl+F5` a spusťte tak server bez ladicího programu.
-* V projektu `GrpcGreeterClient` spusťte stisknutím `Ctrl+F5` klienta bez ladicího programu.
+* V případě služby Greeter stiskněte `Ctrl+F5` a spusťte server bez ladicího programu.
+* V projektu `GrpcGreeterClient` stisknutím `Ctrl+F5` spusťte klienta bez ladicího programu.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 

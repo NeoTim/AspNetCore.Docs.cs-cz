@@ -5,14 +5,14 @@ description: Naučte se, jak nastavit kontroly stavu pro infrastrukturu ASP.NET 
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/03/2019
+ms.date: 11/13/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: c7cf1c432d2186f0e2f9f5082e8a2229d8a5ef8f
-ms.sourcegitcommit: 9e85c2562df5e108d7933635c830297f484bb775
+ms.openlocfilehash: 4a4606a58178018f0d71d467d4c8b6c9982c09dc
+ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/04/2019
-ms.locfileid: "73463015"
+ms.lasthandoff: 11/15/2019
+ms.locfileid: "74115991"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Kontroly stavu v ASP.NET Core
 
@@ -150,9 +150,43 @@ services.AddHealthChecks()
         HealthCheckResult.Healthy("Example is OK!"), tags: new[] { "example" });
 ```
 
+Zavolejte <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck*> k předání argumenty do implementace kontroly stavu. V následujícím příkladu `TestHealthCheckWithArgs` přijímá celočíselnou hodnotu a řetězec, který se použije při volání <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck.CheckHealthAsync*>:
+
+```csharp
+private class TestHealthCheckWithArgs : IHealthCheck
+{
+    public TestHealthCheckWithArgs(int i, string s)
+    {
+        I = i;
+        S = s;
+    }
+
+    public int I { get; set; }
+
+    public string S { get; set; }
+
+    public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, 
+        CancellationToken cancellationToken = default)
+    {
+        ...
+    }
+}
+```
+
+`TestHealthCheckWithArgs` je zaregistrován voláním `AddTypeActivatedCheck` s celým číslem a řetězcem předaným do implementace:
+
+```csharp
+services.AddHealthChecks()
+    .AddTypeActivatedCheck<TestHealthCheckWithArgs>(
+        "test", 
+        failureStatus: HealthStatus.Degraded, 
+        tags: new[] { "example" }, 
+        args: new object[] { 5, "string" });
+```
+
 ## <a name="use-health-checks-routing"></a>Použití směrování kontrol stavu
 
-V `Startup.Configure` volejte `MapHealthChecks` na Tvůrci koncových bodů s adresou URL koncového bodu nebo relativní cestou:
+V `Startup.Configure`volejte `MapHealthChecks` v Tvůrci koncových bodů s adresou URL koncového bodu nebo relativní cestou:
 
 ```csharp
 app.UseEndpoints(endpoints =>
