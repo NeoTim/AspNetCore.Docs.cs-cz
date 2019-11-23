@@ -45,8 +45,8 @@ Každý typ filtru se spustí v jiné fázi kanálu filtru:
 * [Filtry prostředků](#resource-filters):
 
   * Spusťte po autorizaci.  
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResourceFilter.OnResourceExecuting*> může spustit kód před ostatními kanály filtru. Například `OnResourceExecuting` může spustit kód před vytvořením vazby modelu.
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResourceFilter.OnResourceExecuted*> může spustit kód po dokončení zbývající části kanálu.
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResourceFilter.OnResourceExecuting*> může spustit kód před zbytek kanálu filtru. `OnResourceExecuting` například může spustit kód před vytvořením vazby modelu.
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResourceFilter.OnResourceExecuted*> může po dokončení zbývající části kanálu spustit kód.
 
 * [Filtry akcí](#action-filters) mohou spustit kód bezprostředně před a po volání jednotlivé metody akce. Lze je použít k manipulaci s argumenty předaných do akce a výsledek vráceného z akce. Filtry **akcí nejsou v Razor Pages podporovány.**
 
@@ -70,13 +70,13 @@ Asynchronní filtry definují metodu `On-Stage-ExecutionAsync`:
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/SampleAsyncActionFilter.cs?name=snippet)]
 
-V předchozím kódu `SampleAsyncActionFilter` má <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate> (`next`), který provádí metodu Action.  Každá z metod `On-Stage-ExecutionAsync` vezme `FilterType-ExecutionDelegate`, který provádí fázi zřetězení filtru.
+V předchozím kódu `SampleAsyncActionFilter` má <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate> (`next`), který provádí metodu Action.  Každá z metod `On-Stage-ExecutionAsync` převezme `FilterType-ExecutionDelegate`, který provádí fázi zřetězení filtru.
 
 ### <a name="multiple-filter-stages"></a>Několik fází filtru
 
-Rozhraní pro více fází filtru lze implementovat v rámci jedné třídy. Například třída <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute> implementuje `IActionFilter`, `IResultFilter` a jejich asynchronní ekvivalenty.
+Rozhraní pro více fází filtru lze implementovat v rámci jedné třídy. Například třída <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute> implementuje `IActionFilter`, `IResultFilter`a jejich asynchronní ekvivalenty.
 
-Implementujte **buď** synchronní, nebo asynchronní verzi rozhraní filtru, **nikoli** obojí. Modul runtime nejprve kontroluje, zda filtr implementuje asynchronní rozhraní a v takovém případě jej zavolá. V takovém případě volá metody synchronního rozhraní. Pokud jsou asynchronní i synchronní rozhraní implementovány v jedné třídě, je volána pouze asynchronní metoda. Při použití abstraktních tříd, jako je <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>, přepište pouze synchronní metody nebo asynchronní metodu pro každý typ filtru.
+Implementujte **buď** synchronní, nebo asynchronní verzi rozhraní filtru, **nikoli** obojí. Modul runtime nejprve kontroluje, zda filtr implementuje asynchronní rozhraní a v takovém případě jej zavolá. V takovém případě volá metody synchronního rozhraní. Pokud jsou asynchronní i synchronní rozhraní implementovány v jedné třídě, je volána pouze asynchronní metoda. Při použití abstraktních tříd, jako <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>, přepište pouze synchronní metody nebo asynchronní metodu pro každý typ filtru.
 
 ### <a name="built-in-filter-attributes"></a>Předdefinované atributy filtru
 
@@ -86,7 +86,7 @@ ASP.NET Core obsahuje integrované filtry založené na atributech, které mohou
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/AddHeaderAttribute.cs?name=snippet)]
 
-Atributy umožňují filtrům přijímat argumenty, jak je znázorněno v předchozím příkladu. Použijte `AddHeaderAttribute` na metodu Controller nebo Action a zadejte název a hodnotu hlavičky HTTP:
+Atributy umožňují filtrům přijímat argumenty, jak je znázorněno v předchozím příkladu. Použijte `AddHeaderAttribute` pro metodu Controller nebo Action a zadejte název a hodnotu hlavičky HTTP:
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
@@ -132,8 +132,8 @@ Následující příklad ilustruje pořadí, ve kterém jsou metody filtru volá
 
 | Sequence | Rozsah filtru | Filter – metoda |
 |:--------:|:------------:|:-------------:|
-| první | Globální | `OnActionExecuting` |
-| odst | Kontrolér | `OnActionExecuting` |
+| 1 | Globální | `OnActionExecuting` |
+| 2 | Kontrolér | `OnActionExecuting` |
 | 3 | Metoda | `OnActionExecuting` |
 | 4 | Metoda | `OnActionExecuted` |
 | 5 | Kontrolér | `OnActionExecuted` |
@@ -150,11 +150,11 @@ Každý kontroler, který dědí z <xref:Microsoft.AspNetCore.Mvc.Controller> z�
 `OnActionExecuted`. Tyto metody:
 
 * Zabalte filtry, které se spouštějí pro danou akci.
-* `OnActionExecuting` se volá před jakýmikoli filtry akce.
+* `OnActionExecuting` se volá před všemi filtry akce.
 * `OnActionExecuted` se volá po všech filtrech akcí.
-* `OnActionExecutionAsync` se volá před jakýmikoli filtry akce. Kód v filtru po `next` se spustí po metodě Action.
+* `OnActionExecutionAsync` se volá před všemi filtry akce. Kód v filtru po `next` spustí po metodě Action.
 
-Například v ukázce stahování se při spuštění použije globálně `MySampleActionFilter`.
+Například v ukázce stahování se `MySampleActionFilter` aplikuje globálně při spuštění.
 
 `TestController`:
 
@@ -180,7 +180,7 @@ Razor Pages najdete v tématu [implementace filtrů stránek Razor pomocí přep
 Výchozí sekvenci spuštění lze přepsat implementací <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter>. `IOrderedFilter` zpřístupňuje vlastnost <xref:Microsoft.AspNetCore.Mvc.Filters.IOrderedFilter.Order>, která má přednost před rozsahem, aby bylo možné určit pořadí spouštění. Filtr s nižší hodnotou `Order`:
 
 * Spustí *před* kódem filtr s vyšší hodnotou `Order`.
-* Spustí *za* kódem filtru s vyšší hodnotou `Order`.
+* Spustí *za* kódem filtru s vyšší `Order` hodnotou.
 
 Vlastnost `Order` lze nastavit pomocí parametru konstruktoru:
 
@@ -188,18 +188,18 @@ Vlastnost `Order` lze nastavit pomocí parametru konstruktoru:
 [MyFilter(Name = "Controller Level Attribute", Order=1)]
 ```
 
-Vezměte v úvahu stejné 3 filtry akcí, které jsou uvedené v předchozím příkladu. Pokud se vlastnost `Order` řadiče a globální filtry nastaví na 1 a 2 v uvedeném pořadí, pořadí spouštění se vrátí zpět.
+Vezměte v úvahu stejné 3 filtry akcí, které jsou uvedené v předchozím příkladu. Je-li vlastnost `Order` řadiče a globálních filtrů nastavena na hodnotu 1 a 2 v uvedeném pořadí, je pořadí spuštění obrácené.
 
-| Sequence | Rozsah filtru | vlastnost `Order` | Filter – metoda |
+| Sequence | Rozsah filtru | `Order` – vlastnost | Filter – metoda |
 |:--------:|:------------:|:-----------------:|:-------------:|
-| první | Metoda | 0,8 | `OnActionExecuting` |
-| odst | Kontrolér | první  | `OnActionExecuting` |
-| 3 | Globální | odst  | `OnActionExecuting` |
-| 4 | Globální | odst  | `OnActionExecuted` |
-| 5 | Kontrolér | první  | `OnActionExecuted` |
-| 6 | Metoda | 0,8  | `OnActionExecuted` |
+| 1 | Metoda | 0 | `OnActionExecuting` |
+| 2 | Kontrolér | 1  | `OnActionExecuting` |
+| 3 | Globální | 2  | `OnActionExecuting` |
+| 4 | Globální | 2  | `OnActionExecuted` |
+| 5 | Kontrolér | 1  | `OnActionExecuted` |
+| 6 | Metoda | 0  | `OnActionExecuted` |
 
-Vlastnost `Order` Přepisuje obor při určování pořadí, ve kterém jsou filtry spouštěny. Filtry jsou seřazené podle pořadí, pak se k přerušení vztahů používá obor. Všechny předdefinované filtry implementují `IOrderedFilter` a nastaví výchozí hodnotu `Order` na 0. Pro předdefinované filtry rozsah určuje pořadí, pokud `Order` není nastaveno na nenulovou hodnotu.
+Vlastnost `Order` Přepisuje obor při určování pořadí, ve kterém jsou filtry spouštěny. Filtry jsou seřazené podle pořadí, pak se k přerušení vztahů používá obor. Všechny předdefinované filtry implementují `IOrderedFilter` a nastaví výchozí hodnotu `Order` na 0. Pro předdefinované filtry rozsah určuje pořadí, pokud není `Order` nastaveno na nenulovou hodnotu.
 
 ## <a name="cancellation-and-short-circuiting"></a>Zrušení a zkrácení okruhů
 
@@ -209,12 +209,12 @@ Kanál filtru může být v krátkém okruhu nastavením vlastnosti <xref:Micros
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/ShortCircuitingResourceFilterAttribute.cs?name=snippet)]
 
-V následujícím kódu, jak `ShortCircuitingResourceFilter` a filtr `AddHeader` cílí na metodu akce `SomeResource`. `ShortCircuitingResourceFilter`:
+V následujícím kódu, jak `ShortCircuitingResourceFilter`, tak filtr `AddHeader` cílovou metodu `SomeResource` akce. `ShortCircuitingResourceFilter`:
 
 * Nejprve se spustí, protože se jedná o filtr prostředku a `AddHeader` je filtr akcí.
 * Krátké okruhy zbývajícího kanálu.
 
-Proto se filtr `AddHeader` nikdy nespustí pro akci `SomeResource`. Toto chování by bylo stejné, pokud byly oba filtry aplikovány na úrovni metody akce za předpokladu, `ShortCircuitingResourceFilter` běželo jako první. `ShortCircuitingResourceFilter` se nejprve spustí z důvodu jeho typu filtru nebo explicitním použitím vlastnosti `Order`.
+Proto filtr `AddHeader` pro akci `SomeResource` nikdy neběží. Toto chování by bylo stejné, pokud byly oba filtry aplikovány na úrovni metody akce, a to za předpokladu, že `ShortCircuitingResourceFilter` běžela jako první. `ShortCircuitingResourceFilter` se nejprve spustí z důvodu jeho typu filtru nebo explicitním použitím vlastnosti `Order`.
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
@@ -234,7 +234,7 @@ Následující filtry podporují závislosti konstruktoru poskytované od DI:
 
 * <xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute>
 * <xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute>
-* <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory> implementováno u atributu.
+* <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory> implementované na atribut.
 
 Předchozí filtry lze použít pro metodu kontroleru nebo akce:
 
@@ -251,15 +251,15 @@ Následující kód ukazuje `AddHeaderResultServiceFilter`:
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/LoggingAddHeaderFilter.cs?name=snippet_ResultFilter)]
 
-V následujícím kódu je `AddHeaderResultServiceFilter` přidáno do kontejneru DI:
+V následujícím kódu je `AddHeaderResultServiceFilter` přidána do kontejneru DI:
 
 [!code-csharp[](./filters/sample/FiltersSample/Startup.cs?name=snippet_ConfigureServices&highlight=4)]
 
-V následujícím kódu atribut `ServiceFilter` načte instanci filtru `AddHeaderResultServiceFilter` z DI:
+V následujícím kódu atribut `ServiceFilter` načte instanci `AddHeaderResultServiceFilter` filtru z DI:
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/HomeController.cs?name=snippet_ServiceFilter&highlight=1)]
 
-Při použití `ServiceFilterAttribute` se nastavuje [ServiceFilterAttribute. IsReusable](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute.IsReusable):
+Při použití `ServiceFilterAttribute`se nastavuje [ServiceFilterAttribute. IsReusable](xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute.IsReusable):
 
 * Poskytuje nápovědu, že se instance filtru *dá* znovu použít mimo rozsah požadavku, který byl vytvořen v rámci. Modul runtime ASP.NET Core nezaručuje:
 
@@ -268,18 +268,18 @@ Při použití `ServiceFilterAttribute` se nastavuje [ServiceFilterAttribute. Is
 
 * Neměl by se používat s filtrem, který závisí na službách s jinou životností než singleton.
 
- <xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute> implementuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>. `IFilterFactory` zpřístupňuje metodu <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory.CreateInstance*> pro vytvoření instance <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>. `CreateInstance` načte zadaný typ z DI.
+ <xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute> implementuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>. `IFilterFactory` zpřístupňuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory.CreateInstance*> metodu pro vytvoření instance <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>. `CreateInstance` načte zadaný typ z DI.
 
 ### <a name="typefilterattribute"></a>TypeFilterAttribute
 
-<xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute> se podobá <xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute>, ale jeho typ není vyřešen přímo z kontejneru DI. Vytvoří instanci typu pomocí <xref:Microsoft.Extensions.DependencyInjection.ObjectFactory?displayProperty=fullName>.
+<xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute> je podobná <xref:Microsoft.AspNetCore.Mvc.ServiceFilterAttribute>, ale její typ není vyřešen přímo z kontejneru DI. Vytvoří instanci typu pomocí <xref:Microsoft.Extensions.DependencyInjection.ObjectFactory?displayProperty=fullName>.
 
-Protože typy `TypeFilterAttribute` nejsou vyřešeny přímo z kontejneru DI:
+Vzhledem k tomu, že typy `TypeFilterAttribute` nejsou vyřešeny přímo z kontejneru DI:
 
-* Typy, na které se odkazuje pomocí `TypeFilterAttribute`, není nutné registrovat v kontejneru DI.  Mají své závislosti splněné kontejnerem DI.
-* `TypeFilterAttribute` může volitelně přijmout argumenty konstruktoru pro daný typ.
+* Typy, na které se odkazuje pomocí `TypeFilterAttribute`, nemusejí být registrovány v kontejneru DI.  Mají své závislosti splněné kontejnerem DI.
+* `TypeFilterAttribute` může volitelně přijímat argumenty konstruktoru pro daný typ.
 
-Při použití `TypeFilterAttribute` se nastavuje [TypeFilterAttribute. IsReusable](xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute.IsReusable):
+Při použití `TypeFilterAttribute`se nastavuje [TypeFilterAttribute. IsReusable](xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute.IsReusable):
 * Poskytuje nápovědu, že se instance filtru *dá* znovu použít mimo rozsah požadavku, který byl vytvořen v rámci. Modul runtime ASP.NET Core neposkytuje žádné záruky, že se vytvoří jediná instance filtru.
 
 * Neměl by se používat s filtrem, který závisí na službách s jinou životností než singleton.
@@ -352,32 +352,32 @@ Následující kód ukazuje filtr vzorové akce:
 <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext> poskytuje následující vlastnosti:
 
 * <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext.ActionArguments> – povolí čtení vstupů do metody akce.
-* <xref:Microsoft.AspNetCore.Mvc.Controller> – povoluje manipulaci s instancí kontroleru.
-* <xref:System.Web.Mvc.ActionExecutingContext.Result>-Nastavuje se krátkodobé pookruhy `Result` metody akce a následné filtry akcí.
+* <xref:Microsoft.AspNetCore.Mvc.Controller> – povolí manipulaci s instancí kontroleru.
+* <xref:System.Web.Mvc.ActionExecutingContext.Result> – nastavení `Result` provádění krátkých okruhů metodou Action a následnými filtry akcí.
 
 Vyvolání výjimky v metodě akce:
 
 * Zabraňuje spuštění dalších filtrů.
-* Na rozdíl od nastavení `Result` se místo úspěšného výsledku považuje za selhání.
+* Na rozdíl od nastavení `Result`se místo úspěšného výsledku považuje za selhání.
 
 <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext> poskytuje `Controller` a `Result` a následující vlastnosti:
 
-* <xref:System.Web.Mvc.ActionExecutedContext.Canceled>-true, pokud provádění akce bylo zkráceno jiným filtrem.
-* <xref:System.Web.Mvc.ActionExecutedContext.Exception>-nenulová, pokud akce nebo filtr dříve spuštěných akcí vyvolaly výjimku. Nastavení této vlastnosti na hodnotu null:
+* <xref:System.Web.Mvc.ActionExecutedContext.Canceled> – hodnota true, pokud provádění akce bylo zkráceno jiným filtrem.
+* <xref:System.Web.Mvc.ActionExecutedContext.Exception> – nenulová, pokud akce nebo filtr dříve spuštěných akcí vyvolaly výjimku. Nastavení této vlastnosti na hodnotu null:
 
   * Efektivně zpracovává výjimku.
   * `Result` se spustí, jako kdyby byla vrácena z metody Action.
 
-Pro `IAsyncActionFilter` volání <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate>:
+Pro `IAsyncActionFilter`volání <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate>:
 
 * Provede všechny následné filtry akcí a metodu Action.
 * Vrátí `ActionExecutedContext`.
 
-Do krátkodobého okruhu, přiřaďte <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext.Result?displayProperty=fullName> do instance výsledku a Nevolejte `next` (`ActionExecutionDelegate`).
+Do krátkodobého okruhu, přiřaďte <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext.Result?displayProperty=fullName> k instanci výsledku a Nevolejte `next` (`ActionExecutionDelegate`).
 
-Rozhraní poskytuje abstraktní <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>, které lze roztřídit.
+Rozhraní poskytuje abstraktní <xref:Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute>, které mohou být roztříděné.
 
-Filtr akcí `OnActionExecuting` lze použít k těmto akcím:
+Filtr akce `OnActionExecuting` lze použít k těmto akcím:
 
 * Ověří stav modelu.
 * Pokud je stav neplatný, vrátí se chyba.
@@ -386,12 +386,12 @@ Filtr akcí `OnActionExecuting` lze použít k těmto akcím:
 
 Metoda `OnActionExecuted` se spouští po metodě Action:
 
-* A mohou zobrazit výsledky akce pomocí vlastnosti <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext.Result> a manipulovat s nimi.
+* A mohou zobrazit výsledky akce a manipulovat s nimi prostřednictvím vlastnosti <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext.Result>.
 * <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext.Canceled> je nastavena na hodnotu true, pokud bylo provedení akce zkráceno jiným filtrem.
-* <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext.Exception> je nastavena na hodnotu, která není null, pokud akce nebo filtr následné akce vyvolaly výjimku. Nastavení `Exception` na hodnotu null:
+* <xref:Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext.Exception> je nastavena na hodnotu jinou než null, pokud akce nebo filtr následné akce vyvolaly výjimku. Nastavení `Exception` na hodnotu null:
 
   * Efektivně zpracovává výjimku.
-  * `ActionExecutedContext.Result` se spustí, jako kdyby byl normálně vrácen z metody Action.
+  * `ActionExecutedContext.Result` se spustí, jako kdyby byl vrácen normálně z metody Action.
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/ValidateModelAttribute.cs?name=snippet2&higlight=12-99)]
 
@@ -413,7 +413,7 @@ Filtry výjimek:
 * Zpracování neošetřených výjimek, ke kterým dochází při vytváření stránky nebo kontroléru Razor, [vázání modelů](xref:mvc/models/model-binding), filtrů akcí nebo metod akcí.
 * **Nezachycujte** výjimky, ke kterým dochází v filtrech prostředků, výsledných filtrech nebo v důsledku provádění výsledků MVC.
 
-Chcete-li zpracovat výjimku, nastavte vlastnost <xref:System.Web.Mvc.ExceptionContext.ExceptionHandled> na hodnotu `true` nebo zapište odpověď. Tím se zastaví šíření výjimky. Filtr výjimek nemůže vypnout výjimku na "úspěch". To může provést pouze filtr akcí.
+Chcete-li zpracovat výjimku, nastavte vlastnost <xref:System.Web.Mvc.ExceptionContext.ExceptionHandled> na `true` nebo zapište odpověď. Tím se zastaví šíření výjimky. Filtr výjimek nemůže vypnout výjimku na "úspěch". To může provést pouze filtr akcí.
 
 Filtry výjimek:
 
@@ -427,8 +427,8 @@ Preferovat middleware pro zpracování výjimek. Filtry výjimek použijte pouze
 Filtry výsledků:
 
 * Implementace rozhraní:
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter>
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> Nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> Nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter>
 * Jejich spuštění obklopuje provádění výsledků akcí.
 
 ### <a name="iresultfilter-and-iasyncresultfilter"></a>IResultFilter a IAsyncResultFilter
@@ -437,14 +437,14 @@ Následující kód ukazuje filtr výsledků, který přidá hlavičku protokolu
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/LoggingAddHeaderFilter.cs?name=snippet_ResultFilter)]
 
-Typ výsledku, který se má provést, závisí na akci. Akce, která vrací zobrazení, by zahrnovala všechny zpracování Razor jako součást <xref:Microsoft.AspNetCore.Mvc.ViewResult> prováděných. Metoda rozhraní API může provést určitou serializaci v rámci provádění výsledku. Přečtěte si další informace o [výsledcích akcí](xref:mvc/controllers/actions).
+Typ výsledku, který se má provést, závisí na akci. Akce vracející zobrazení zahrnuje všechny zpracování Razor jako součást prováděné <xref:Microsoft.AspNetCore.Mvc.ViewResult>. Metoda rozhraní API může provést určitou serializaci v rámci provádění výsledku. Přečtěte si další informace o [výsledcích akcí](xref:mvc/controllers/actions).
 
 Filtry výsledků se spustí pouze v případě, že akce nebo filtr akcí vytvoří výsledek akce. Filtry výsledků nejsou provedeny v těchto případech:
 
 * Filtr autorizace nebo filtr prostředků pro krátké okruhy kanálu.
 * Filtr výjimek zpracovává výjimku tím, že vyprodukuje výsledek akce.
 
-Metoda <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuting*?displayProperty=fullName> umožňuje krátkodobé vykonání výsledku akce a následných filtrů výsledků nastavením <xref:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext.Cancel?displayProperty=fullName> na `true`. Zapište do objektu Response v případě krátkého okruhu, abyste se vyhnuli vygenerování prázdné odpovědi. Vyvolání výjimky v `IResultFilter.OnResultExecuting` bude:
+Metoda <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnResultExecuting*?displayProperty=fullName> může krátkodobé vykonání výsledku akce a následných filtrů výsledků nastavením <xref:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext.Cancel?displayProperty=fullName> na `true`. Zapište do objektu Response v případě krátkého okruhu, abyste se vyhnuli vygenerování prázdné odpovědi. Vyvolání výjimky v `IResultFilter.OnResultExecuting` bude:
 
 * Zabraňte provádění výsledků akce a dalších filtrů.
 * Být považována za selhání namísto úspěšného výsledku.
@@ -453,37 +453,37 @@ Při spuštění metody <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter.OnR
 
 `ResultExecutedContext.Canceled` je nastavená na `true`, pokud je spuštění výsledku akce od sebe krátkým jiným filtrem.
 
-`ResultExecutedContext.Exception` je nastavena na hodnotu, která není null, pokud výsledek akce nebo následný filtr výsledků vyvolal výjimku. Nastavení `Exception` na hodnotu null efektivně zpracovává výjimku a zabraňuje výjimce v jejím opětovném vyvolání pomocí ASP.NET Core později v kanálu. Neexistuje žádný spolehlivý způsob, jak zapisovat data do odpovědi při zpracování výjimky ve filtru výsledků. Pokud byly hlavičky vyprázdněny do klienta, pokud výsledek akce vyvolá výjimku, neexistuje žádný spolehlivý mechanismus pro odeslání kódu chyby.
+`ResultExecutedContext.Exception` je nastavena na hodnotu jinou než null, pokud výsledek akce nebo následný filtr výsledků vyvolal výjimku. Nastavení `Exception` na hodnotu null efektivně zpracovává výjimku a brání výjimce znovu vyvolat pomocí ASP.NET Core později v kanálu. Neexistuje žádný spolehlivý způsob, jak zapisovat data do odpovědi při zpracování výjimky ve filtru výsledků. Pokud byly hlavičky vyprázdněny do klienta, pokud výsledek akce vyvolá výjimku, neexistuje žádný spolehlivý mechanismus pro odeslání kódu chyby.
 
-U <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter> volání `await next` na <xref:Microsoft.AspNetCore.Mvc.Filters.ResultExecutionDelegate> provede všechny následné filtry výsledků a výsledek akce. Do krátkodobého okruhu nastavte [ResultExecutingContext. Cancel](xref:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext.Cancel) na `true` a nevolejte `ResultExecutionDelegate`:
+U <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>volání `await next` na <xref:Microsoft.AspNetCore.Mvc.Filters.ResultExecutionDelegate> provede všechny následné filtry výsledků a výsledek akce. Do krátkodobého okruhu nastavte [ResultExecutingContext. Cancel](xref:Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext.Cancel) na `true` a nevolejte `ResultExecutionDelegate`:
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/MyAsyncResponseFilter.cs?name=snippet)]
 
-Rozhraní poskytuje abstraktní `ResultFilterAttribute`, které lze roztřídit. Dříve uvedená třída [AddHeaderAttribute](#add-header-attribute) je příkladem atributu filtru výsledků.
+Rozhraní poskytuje abstraktní `ResultFilterAttribute`, které mohou být roztříděné. Dříve uvedená třída [AddHeaderAttribute](#add-header-attribute) je příkladem atributu filtru výsledků.
 
 ### <a name="ialwaysrunresultfilter-and-iasyncalwaysrunresultfilter"></a>IAlwaysRunResultFilter a IAsyncAlwaysRunResultFilter
 
-Rozhraní <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> a <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter> deklaruje implementaci <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter>, která je spuštěna pro všechny výsledky akce. To zahrnuje výsledky akcí, které vytvořil:
+Rozhraní <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> a <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter> deklarují <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> implementaci, která se spouští pro všechny výsledky akcí. To zahrnuje výsledky akcí, které vytvořil:
 
 * Filtry autorizace a filtry prostředků, které mají krátký okruh.
 * Filtry výjimek.
 
-Například následující filtr vždy spustí a nastaví výsledek akce (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>) s *422 nezpracovaným* kódem stavu entity, když se domlouvání obsahu nezdaří:
+Například následující filtr vždy spustí a nastaví výsledek akce (<xref:Microsoft.AspNetCore.Mvc.ObjectResult>) s *422 nezpracovaným* stavovým kódem entity, pokud se nezdaří vyjednávání obsahu:
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/UnprocessableResultFilter.cs?name=snippet)]
 
 ### <a name="ifilterfactory"></a>IFilterFactory
 
-<xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory> implementuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>. Proto může být instance `IFilterFactory` použita jako instance `IFilterMetadata` kdekoli v kanálu filtru. Když se modul runtime připraví k vyvolání filtru, pokusí se ho přetypovat na `IFilterFactory`. Pokud je toto přetypování úspěšné, je volána metoda <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory.CreateInstance*> k vytvoření instance `IFilterMetadata`, která je vyvolána. To poskytuje flexibilní návrh, protože přesný kanál filtru není nutné nastavit explicitně při spuštění aplikace.
+<xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory> implementuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>. Proto může být instance `IFilterFactory` použita jako instance `IFilterMetadata` kdekoli v kanálu filtru. Když se modul runtime připraví k vyvolání filtru, pokusí se ho přetypovat na `IFilterFactory`. Pokud je toto přetypování úspěšné, je volána metoda <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory.CreateInstance*> pro vytvoření instance `IFilterMetadata`, která je vyvolána. To poskytuje flexibilní návrh, protože přesný kanál filtru není nutné nastavit explicitně při spuštění aplikace.
 
-`IFilterFactory` se dá implementovat pomocí implementace vlastního atributu jako jiný přístup k vytváření filtrů:
+`IFilterFactory` lze implementovat pomocí implementace vlastních atributů jako jiný přístup k vytváření filtrů:
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/AddHeaderWithFactoryAttribute.cs?name=snippet_IFilterFactory&highlight=1,4,5,6,7)]
 
 Předchozí kód lze otestovat spuštěním [ukázky stahování](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample):
 
 * Vyvolejte vývojářské nástroje F12.
-* Přejděte na `https://localhost:5001/Sample/HeaderWithFactory`.
+* Přejděte na adresu `https://localhost:5001/Sample/HeaderWithFactory`.
 
 Vývojářské nástroje F12 zobrazují následující hlavičky odpovědí přidané ukázkovým kódem:
 
@@ -491,7 +491,7 @@ Vývojářské nástroje F12 zobrazují následující hlavičky odpovědí při
 * **globaladdheader:** `Result filter added to MvcOptions.Filters`
 * **interní:** `My header`
 
-Předchozí kód vytvoří hlavičku odpovědi **internal:** `My header`.
+Předchozí kód vytvoří hlavičku **interního:** `My header` Response.
 
 ### <a name="ifilterfactory-implemented-on-an-attribute"></a>IFilterFactory implementované u atributu
 
@@ -505,7 +505,7 @@ Filtry, které implementují `IFilterFactory`, jsou užitečné pro filtry, kter
 * Nevyžadovat předávání parametrů
 * Musí mít závislosti konstruktoru, které musí vyplnit DI.
 
-<xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute> implementuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>. `IFilterFactory` zpřístupňuje metodu <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory.CreateInstance*> pro vytvoření instance <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>. `CreateInstance` načte zadaný typ z kontejneru Services (DI).
+<xref:Microsoft.AspNetCore.Mvc.TypeFilterAttribute> implementuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>. `IFilterFactory` zpřístupňuje <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory.CreateInstance*> metodu pro vytvoření instance <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterMetadata>. `CreateInstance` načte zadaný typ z kontejneru Services (DI).
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/SampleActionFilterAttribute.cs?name=snippet_TypeFilterAttribute&highlight=1,3,7)]
 
@@ -519,11 +519,11 @@ V předchozím kódu upravení metoda s `[SampleActionFilter]` je upřednostňov
 
 Filtry prostředků fungují jako [middleware](xref:fundamentals/middleware/index) v tom, že obklopují provádění všech položek, které jsou později v kanálu. Filtry se ale liší od middlewaru v tom, že jsou součástí modulu ASP.NET Core Runtime, což znamená, že mají přístup k ASP.NET Core kontextu a konstrukcí.
 
-Chcete-li použít middleware jako filtr, vytvořte typ s metodou `Configure`, která určuje middleware, který se má vložit do kanálu filtru. Následující příklad používá middleware Localization k vytvoření aktuální jazykové verze pro požadavek:
+Chcete-li použít middleware jako filtr, vytvořte typ s `Configure` metodou, která určuje middleware pro vložení do kanálu filtru. Následující příklad používá middleware Localization k vytvoření aktuální jazykové verze pro požadavek:
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/LocalizationPipeline.cs?name=snippet_MiddlewareFilter&highlight=3,22)]
 
-Pro spuštění middlewaru použijte <xref:Microsoft.AspNetCore.Mvc.MiddlewareFilterAttribute>:
+Pomocí <xref:Microsoft.AspNetCore.Mvc.MiddlewareFilterAttribute> spusťte middleware:
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/HomeController.cs?name=snippet_MiddlewareFilter&highlight=2)]
 

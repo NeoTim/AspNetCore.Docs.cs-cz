@@ -14,7 +14,7 @@ ms.locfileid: "72334116"
 ---
 # <a name="update-the-generated-pages-in-an-aspnet-core-app"></a>Aktualizovat vygenerované stránky v aplikaci ASP.NET Core
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -34,13 +34,13 @@ V dalším kurzu jsou uvedena tato [Anotace](/aspnet/mvc/overview/older-versions
 
 Přejděte na stránky a filmy a najeďte myší na odkaz pro **Úpravy** a zobrazte tak cílovou adresu URL.
 
-![Zobrazí se okno prohlížeče s myší přes odkaz upravit a adresa URL odkazu http://localhost:1234/Movies/Edit/5.](~/tutorials/razor-pages/da1/edit7.png)
+![Zobrazí se okno prohlížeče s myší přes odkaz upravit a adresa URL odkazu http://localhost:1234/Movies/Edit/5](~/tutorials/razor-pages/da1/edit7.png)
 
 Odkazy **Upravit**, **Podrobnosti**a **Odstranit** jsou generovány [pomocníkem značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) v souboru *Pages/Movies/index. cshtml* .
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
-[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML. V předchozím kódu `AnchorTagHelper` dynamicky generuje hodnotu atributu HTML `href` ze stránky Razor (trasa je relativní), `asp-page` a ID trasy (`asp-route-id`). Další informace najdete v tématu [generování adresy URL pro stránky](xref:razor-pages/index#url-generation-for-pages) .
+[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML. V předchozím kódu `AnchorTagHelper` dynamicky generuje hodnotu atributu HTML `href` ze stránky Razor (trasa je relativní), `asp-page`a ID trasy (`asp-route-id`). Další informace najdete v tématu [generování adresy URL pro stránky](xref:razor-pages/index#url-generation-for-pages) .
 
 Pomocí **zobrazení zdroje** z oblíbeného prohlížeče Prohlédněte vygenerovaný kód. Část vygenerovaného kódu HTML je zobrazena níže:
 
@@ -66,7 +66,7 @@ Aktualizujte Razor Pages upravit, podrobnosti a odstranit, aby se použila šabl
 </td>
 ```
 
-Požadavek na stránku se šablonou trasy {ID: int}, která **nezahrnuje celé** číslo, vrátí chybu HTTP 404 (Nenalezeno). Například `http://localhost:5000/Movies/Details` vrátí chybu 404. Pokud chcete ID nastavit jako volitelné, přidejte `?` do omezení trasy:
+Požadavek na stránku se šablonou trasy {ID: int}, která **nezahrnuje celé** číslo, vrátí chybu HTTP 404 (Nenalezeno). `http://localhost:5000/Movies/Details` například vrátí chybu 404. Pokud chcete ID nastavit jako volitelné, přidejte `?` k omezení trasy:
 
  ```cshtml
 @page "{id:int?}"
@@ -74,21 +74,21 @@ Požadavek na stránku se šablonou trasy {ID: int}, která **nezahrnuje celé**
 
 Otestování chování `@page "{id:int?}"`:
 
-* Nastavte direktivu Page na *Pages/video/details. cshtml* na `@page "{id:int?}"`.
+* Nastavte direktivu stránky na stránce *stránky/filmy/podrobnosti. cshtml* na `@page "{id:int?}"`.
 * Nastavte bod přerušení v `public async Task<IActionResult> OnGetAsync(int? id)` (na *stránkách/filmech/details. cshtml. cs*).
-* Přejděte na `https://localhost:5001/Movies/Details/`.
+* Přejděte na adresu `https://localhost:5001/Movies/Details/`.
 
-U direktivy `@page "{id:int}"` není bod přerušení nikdy úspěšný. Modul směrování vrátí HTTP 404. Pomocí `@page "{id:int?}"` vrátí metoda `OnGetAsync` `NotFound` (HTTP 404).
+U direktivy `@page "{id:int}"` není bod přerušení nikdy úspěšný. Modul směrování vrátí HTTP 404. Pomocí `@page "{id:int?}"`vrátí `OnGetAsync` metoda `NotFound` (HTTP 404).
 
 ### <a name="review-concurrency-exception-handling"></a>Kontrola zpracování výjimek souběžnosti
 
-Zkontrolujte metodu `OnPostAsync` v souboru *Pages/Movies/Edit. cshtml. cs* :
+Zkontrolujte metodu `OnPostAsync` v souboru *Pages/video/Edit. cshtml. cs* :
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Edit.cshtml.cs?name=snippet)]
 
 Předchozí kód detekuje výjimky souběžnosti, když jeden klient odstraní film a druhý klient odešle změny do filmu.
 
-Chcete-li otestovat blok `catch`:
+Otestování `catch` bloku:
 
 * Nastavit zarážku na `catch (DbUpdateConcurrencyException)`
 * Vyberte **Upravit** pro film, proveďte změny, ale nezadávejte možnost **Uložit**.
@@ -106,7 +106,7 @@ Prověřte soubory *Pages/video/Edit. cshtml. cs* :
 Když se na stránce filmy/úpravy provede požadavek HTTP GET (například `http://localhost:5000/Movies/Edit/2`):
 
 * Metoda `OnGetAsync` načte film z databáze a vrátí metodu `Page`.
-* Metoda `Page` vykresluje stránku *stránky/filmy/upravit. cshtml* Razor. Soubor *Pages/video/Edit. cshtml* obsahuje direktivu modelu (`@model RazorPagesMovie.Pages.Movies.EditModel`), která umožňuje, aby byl model filmu k dispozici na stránce.
+* Metoda `Page` vykresluje stránku *stránky/filmy/upravit. cshtml* Razor. Soubor *Pages/video/Edit. cshtml* obsahuje direktivu modelu (`@model RazorPagesMovie.Pages.Movies.EditModel`), která umožňuje, aby byl model filmu na stránce dostupný.
 * Formulář pro úpravy se zobrazí s hodnotami z filmu.
 
 Když se publikuje video/úprava stránky:
@@ -121,9 +121,9 @@ Když se publikuje video/úprava stránky:
 * Pokud dojde k chybám ve stavu modelu (například `ReleaseDate` nelze převést na datum), formulář se znovu zobrazí u odeslaných hodnot.
 * Pokud nedochází k žádným chybám modelu, je film uložený.
 
-Metody HTTP GET v indexech, vytváření a odstraňování stránek Razor následují podobně jako vzor. Metoda HTTP POST `OnPostAsync` na stránce vytvořit Razor následuje po podobném vzoru jako metoda `OnPostAsync` na stránce Upravit Razor.
+Metody HTTP GET v indexech, vytváření a odstraňování stránek Razor následují podobně jako vzor. Metoda HTTP POST `OnPostAsync` na stránce vytvořit Razor následuje podobný vzor jako metoda `OnPostAsync` na stránce Upravit Razor.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 > [!div class="step-by-step"]
 > [Předchozí: práce s databází](xref:tutorials/razor-pages/sql)
@@ -149,13 +149,13 @@ V dalším kurzu jsou uvedena tato [Anotace](/aspnet/mvc/overview/older-versions
 
 Přejděte na stránky a filmy a najeďte myší na odkaz pro **Úpravy** a zobrazte tak cílovou adresu URL.
 
-![Zobrazí se okno prohlížeče s myší přes odkaz upravit a adresa URL odkazu http://localhost:1234/Movies/Edit/5.](~/tutorials/razor-pages/da1/edit7.png)
+![Zobrazí se okno prohlížeče s myší přes odkaz upravit a adresa URL odkazu http://localhost:1234/Movies/Edit/5](~/tutorials/razor-pages/da1/edit7.png)
 
 Odkazy **Upravit**, **Podrobnosti**a **Odstranit** jsou generovány [pomocníkem značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) v souboru *Pages/Movies/index. cshtml* .
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
-[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML. V předchozím kódu `AnchorTagHelper` dynamicky generuje hodnotu atributu HTML `href` ze stránky Razor (trasa je relativní), `asp-page` a ID trasy (`asp-route-id`). Další informace najdete v tématu [generování adresy URL pro stránky](xref:razor-pages/index#url-generation-for-pages) .
+[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML. V předchozím kódu `AnchorTagHelper` dynamicky generuje hodnotu atributu HTML `href` ze stránky Razor (trasa je relativní), `asp-page`a ID trasy (`asp-route-id`). Další informace najdete v tématu [generování adresy URL pro stránky](xref:razor-pages/index#url-generation-for-pages) .
 
 Pomocí **zobrazení zdroje** z oblíbeného prohlížeče Prohlédněte vygenerovaný kód. Část vygenerovaného kódu HTML je zobrazena níže:
 
@@ -179,7 +179,7 @@ Aktualizujte Razor Pages upravit, podrobnosti a odstranit, aby se použila šabl
 </td>
 ```
 
-Požadavek na stránku se šablonou trasy {ID: int}, která **nezahrnuje celé** číslo, vrátí chybu HTTP 404 (Nenalezeno). Například `http://localhost:5000/Movies/Details` vrátí chybu 404. Pokud chcete ID nastavit jako volitelné, přidejte `?` do omezení trasy:
+Požadavek na stránku se šablonou trasy {ID: int}, která **nezahrnuje celé** číslo, vrátí chybu HTTP 404 (Nenalezeno). `http://localhost:5000/Movies/Details` například vrátí chybu 404. Pokud chcete ID nastavit jako volitelné, přidejte `?` k omezení trasy:
 
  ```cshtml
 @page "{id:int?}"
@@ -187,21 +187,21 @@ Požadavek na stránku se šablonou trasy {ID: int}, která **nezahrnuje celé**
 
 Otestování chování `@page "{id:int?}"`:
 
-* Nastavte direktivu Page na *Pages/video/details. cshtml* na `@page "{id:int?}"`.
+* Nastavte direktivu stránky na stránce *stránky/filmy/podrobnosti. cshtml* na `@page "{id:int?}"`.
 * Nastavte bod přerušení v `public async Task<IActionResult> OnGetAsync(int? id)` (na *stránkách/filmech/details. cshtml. cs*).
-* Přejděte na `https://localhost:5001/Movies/Details/`.
+* Přejděte na adresu `https://localhost:5001/Movies/Details/`.
 
-U direktivy `@page "{id:int}"` není bod přerušení nikdy úspěšný. Modul směrování vrátí HTTP 404. Pomocí `@page "{id:int?}"` vrátí metoda `OnGetAsync` `NotFound` (HTTP 404).
+U direktivy `@page "{id:int}"` není bod přerušení nikdy úspěšný. Modul směrování vrátí HTTP 404. Pomocí `@page "{id:int?}"`vrátí `OnGetAsync` metoda `NotFound` (HTTP 404).
 
 ### <a name="review-concurrency-exception-handling"></a>Kontrola zpracování výjimek souběžnosti
 
-Zkontrolujte metodu `OnPostAsync` v souboru *Pages/Movies/Edit. cshtml. cs* :
+Zkontrolujte metodu `OnPostAsync` v souboru *Pages/video/Edit. cshtml. cs* :
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Edit.cshtml.cs?name=snippet)]
 
 Předchozí kód detekuje výjimky souběžnosti, když jeden klient odstraní film a druhý klient odešle změny do filmu.
 
-Chcete-li otestovat blok `catch`:
+Otestování `catch` bloku:
 
 * Nastavit zarážku na `catch (DbUpdateConcurrencyException)`
 * Vyberte **Upravit** pro film, proveďte změny, ale nezadávejte možnost **Uložit**.
@@ -219,7 +219,7 @@ Prověřte soubory *Pages/video/Edit. cshtml. cs* :
 Když se na stránce filmy/úpravy provede požadavek HTTP GET (například `http://localhost:5000/Movies/Edit/2`):
 
 * Metoda `OnGetAsync` načte film z databáze a vrátí metodu `Page`. 
-* Metoda `Page` vykresluje stránku *stránky/filmy/upravit. cshtml* Razor. Soubor *Pages/video/Edit. cshtml* obsahuje direktivu modelu (`@model RazorPagesMovie.Pages.Movies.EditModel`), která umožňuje, aby byl model filmu k dispozici na stránce.
+* Metoda `Page` vykresluje stránku *stránky/filmy/upravit. cshtml* Razor. Soubor *Pages/video/Edit. cshtml* obsahuje direktivu modelu (`@model RazorPagesMovie.Pages.Movies.EditModel`), která umožňuje, aby byl model filmu na stránce dostupný.
 * Formulář pro úpravy se zobrazí s hodnotami z filmu.
 
 Když se publikuje video/úprava stránky:
@@ -234,11 +234,11 @@ Když se publikuje video/úprava stránky:
 * Pokud dojde k chybám ve stavu modelu (například `ReleaseDate` nelze převést na datum), zobrazí se formulář s odeslanými hodnotami.
 * Pokud nedochází k žádným chybám modelu, je film uložený.
 
-Metody HTTP GET v indexech, vytváření a odstraňování stránek Razor následují podobně jako vzor. Metoda HTTP POST `OnPostAsync` na stránce vytvořit Razor následuje po podobném vzoru jako metoda `OnPostAsync` na stránce Upravit Razor.
+Metody HTTP GET v indexech, vytváření a odstraňování stránek Razor následují podobně jako vzor. Metoda HTTP POST `OnPostAsync` na stránce vytvořit Razor následuje podobný vzor jako metoda `OnPostAsync` na stránce Upravit Razor.
 
 Hledání se přidá v dalším kurzu.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/yLnnleREMtQ)
 

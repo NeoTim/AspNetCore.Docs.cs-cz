@@ -18,7 +18,7 @@ ms.locfileid: "72259416"
 
 V tomto kurzu začnete používat funkci migrace EF Core pro správu změn datového modelu. V pozdějších kurzech přidáte při změně datového modelu další migrace.
 
-V tomto kurzu:
+V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
 > * Další informace o migraci
@@ -28,7 +28,7 @@ V tomto kurzu:
 > * Další informace o snímku datového modelu
 > * Použití migrace
 
-## <a name="prerequisites"></a>Požadované součásti
+## <a name="prerequisites"></a>Požadavky
 
 * [Řazení, filtrování a stránkování](sort-filter-page.md)
 
@@ -90,11 +90,11 @@ Pokud se zobrazí chybová zpráva "*nelze získat přístup k souboru... Contos
 
 ## <a name="examine-up-and-down-methods"></a>Projděte si metody směrem nahoru a dolů
 
-Když jste provedli příkaz `migrations add`, EF vygeneroval kód, který vytvoří databázi zcela od začátku. Tento kód je ve složce *migraces* v souboru s názvem *\<timestamp > _InitialCreate. cs*. Metoda `Up` třídy `InitialCreate` vytvoří tabulky databáze, které odpovídají sadám entit datového modelu, a metoda `Down` je odstraní, jak je znázorněno v následujícím příkladu.
+Když jste provedli příkaz `migrations add`, EF vygeneroval kód, který vytvoří databázi zcela od začátku. Tento kód je ve složce *migraces* v souboru s názvem *\<časové razítko > _InitialCreate. cs*. Metoda `Up` třídy `InitialCreate` vytvoří tabulky databáze, které odpovídají sadám entit datového modelu, a metoda `Down` je odstraní, jak je znázorněno v následujícím příkladu.
 
 [!code-csharp[](intro/samples/cu/Migrations/20170215220724_InitialCreate.cs?range=92-118)]
 
-Migrace zavolá metodu `Up`, která implementuje změny datového modelu pro migraci. Když zadáte příkaz pro vrácení aktualizace, migrace zavolá metodu `Down`.
+Migrace zavolá metodu `Up` pro implementaci změn datového modelu pro migraci. Když zadáte příkaz pro vrácení aktualizace, migrace zavolá metodu `Down`.
 
 Tento kód je určen pro počáteční migraci, která byla vytvořena při zadání příkazu `migrations add InitialCreate`. Parametr názvu migrace (v příkladu "InitialCreate") se používá pro název souboru a může být libovolný, který chcete. Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí. Můžete třeba pojmenovat pozdější migraci "AddDepartmentTable".
 
@@ -116,7 +116,7 @@ V okně příkazového řádku zadejte následující příkaz, který v něm vy
 dotnet ef database update
 ```
 
-Výstup příkazu je podobný příkazu `migrations add` s tím rozdílem, že se zobrazí protokoly pro příkazy SQL, které nastaví databázi. Většina protokolů je vynechána v následujícím ukázkovém výstupu. Pokud nechcete, aby se tato úroveň podrobností zobrazovala v protokolových zprávách, můžete změnit úroveň protokolu v souboru *appSettings. Soubor Development. JSON* . For more information, see <xref:fundamentals/logging/index>.
+Výstup příkazu je podobný příkazu `migrations add`, s tím rozdílem, že se zobrazí protokoly pro příkazy SQL, které nastaví databázi. Většina protokolů je vynechána v následujícím ukázkovém výstupu. Pokud nechcete, aby se tato úroveň podrobností zobrazovala v protokolových zprávách, můžete změnit úroveň protokolu v souboru *appSettings. Soubor Development. JSON* . Další informace najdete v tématu <xref:fundamentals/logging/index>.
 
 ```text
 info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
@@ -147,11 +147,11 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 Done.
 ```
 
-Pomocí **Průzkumník objektů systému SQL Server** můžete zkontrolovat databázi jako v prvním kurzu.  Všimněte si, že přidáte tabulku \_ @ no__t-1EFMigrationsHistory, která uchovává přehled o tom, které migrace byly pro databázi aplikovány. Zobrazit data v této tabulce a pro první migraci se zobrazí jeden řádek. (Poslední protokol v předchozím příkladu výstupu rozhraní příkazového řádku ukazuje příkaz INSERT, který tento řádek vytvoří.)
+Pomocí **Průzkumník objektů systému SQL Server** můžete zkontrolovat databázi jako v prvním kurzu.  Všimněte si přidání \_\_tabulce EFMigrationsHistory, která sleduje, které migrace byly pro databázi aplikovány. Zobrazit data v této tabulce a pro první migraci se zobrazí jeden řádek. (Poslední protokol v předchozím příkladu výstupu rozhraní příkazového řádku ukazuje příkaz INSERT, který tento řádek vytvoří.)
 
 Spusťte aplikaci, abyste ověřili, že všechno pořád funguje stejně jako předtím.
 
-![Stránka indexu studentů](migrations/_static/students-index.png)
+![Studenti indexová stránka](migrations/_static/students-index.png)
 
 <a id="pmc"></a>
 
@@ -159,9 +159,9 @@ Spusťte aplikaci, abyste ověřili, že všechno pořád funguje stejně jako p
 
 Nástroje EF pro správu migrací jsou dostupné z .NET Core CLI příkazy nebo z rutin prostředí PowerShell v okně **konzoly Správce balíčků** sady Visual Studio (PMC). V tomto kurzu se dozvíte, jak používat rozhraní příkazového řádku, ale pokud chcete, můžete použít PMC.
 
-Příkazy EF pro příkazy PMC jsou v balíčku [Microsoft. EntityFrameworkCore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools) . Tento balíček je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), takže nemusíte přidávat odkaz na balíček, pokud vaše aplikace obsahuje odkaz na balíček `Microsoft.AspNetCore.App`.
+Příkazy EF pro příkazy PMC jsou v balíčku [Microsoft. EntityFrameworkCore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools) . Tento balíček je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), takže nemusíte přidávat odkaz na balíček, pokud vaše aplikace obsahuje odkaz na balíček pro `Microsoft.AspNetCore.App`.
 
-**Důležité informace:** Nejedná se o stejný balíček jako ten, který nainstalujete pro rozhraní příkazového řádku úpravou souboru *. csproj* . Název tohoto typu končí na `Tools` na rozdíl od názvu balíčku CLI, který končí v `Tools.DotNet`.
+**Důležité informace:** Nejedná se o stejný balíček jako ten, který nainstalujete pro rozhraní příkazového řádku úpravou souboru *. csproj* . Název tohoto typu končí v `Tools`, na rozdíl od názvu balíčku CLI, který končí v `Tools.DotNet`.
 
 Další informace o příkazech rozhraní příkazového řádku naleznete v tématu [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).
 
@@ -173,7 +173,7 @@ Další informace o příkazech PMC naleznete v tématu [Konzola správce balí�
 
 ## <a name="next-step"></a>Další krok
 
-V tomto kurzu:
+V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
 > * Seznámili jste se s migracemi

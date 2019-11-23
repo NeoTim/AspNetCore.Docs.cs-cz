@@ -1,7 +1,7 @@
 ---
-title: Přidání modelu do aplikace Razor Pages v ASP.NET Core
+title: Přidání modelu do aplikace v ASP.NET Core Razor Pages
 author: rick-anderson
-description: Zjistěte, jak přidat třídy pro správu filmů v databázi pomocí Entity Framework Core (EF Core).
+description: Objevte, jak přidat třídy pro správu filmy v databázi pomocí Entity Framework Core (jádro EF).
 ms.author: riande
 ms.date: 11/05/2019
 uid: tutorials/razor-pages/model
@@ -12,15 +12,15 @@ ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/07/2019
 ms.locfileid: "73761220"
 ---
-# <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace Razor Pages v ASP.NET Core
+# <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 V této části jsou přidány třídy pro správu filmů v [databázi SQLite](https://www.sqlite.org/index.html)pro různé platformy. Aplikace vytvořené pomocí šablony ASP.NET Core používají databázi SQLite. Třídy modelu aplikace se používají s [Entity Framework Core (EF Core)](/ef/core) ([poskytovatel databáze SQLite EF Core](/ef/core/providers/sqlite)) pro práci s databází. EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje přístup k datům.
 
-Třídy modelu se označují jako třídy POCO (z "objektů CLR v prostém Old"), protože nemají žádnou závislost na EF Core. Definují vlastnosti dat, která jsou uložena v databázi.
+Modelu třídy jsou označovány jako POCO třídy (od "prostý staré CLR objekty"), protože nemají žádné závislosti na EF Core. Definují vlastnosti data, která jsou uložena v databázi.
 
 [!INCLUDE[View or download sample code](~/includes/rp/download.md)]
 
@@ -28,16 +28,16 @@ Třídy modelu se označují jako třídy POCO (z "objektů CLR v prostém Old")
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Klikněte pravým tlačítkem na projekt **RazorPagesMovie** > **přidat** **novou složku** > . Pojmenujte *modely*složek.
+Klikněte pravým tlačítkem myši **RazorPagesMovie** Projekt > **přidat** > **novou složku**. Název složky *modely*.
 
-Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat** **třídu** > . Pojmenujte **film**třídy.
+Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **třídy**. Název třídy **filmu**.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* Přidejte složku s názvem *modely*.
-* Přidejte třídu do složky *modely* s názvem *Movie.cs*.
+* Přidat složku s názvem *modely*.
+* Přidat třídu *modely* složku s názvem *Movie.cs*.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
@@ -45,13 +45,13 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat** **tříd
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* V Průzkumník řešení klikněte pravým tlačítkem na projekt **RazorPagesMovie** a vyberte **přidat** **novou složku** > . Pojmenujte *modely*složek.
-* Klikněte pravým tlačítkem na složku *modely* a pak vyberte **přidat** **nový soubor**>.
-* V dialogovém okně **nový soubor** :
+* V Průzkumníku řešení klikněte pravým tlačítkem myši **RazorPagesMovie** projektu a pak vyberte **přidat** > **novou složku**. Název složky *modely*.
+* Klikněte pravým tlačítkem na složku *modely* a pak vyberte **Přidat** > **nový soubor**.
+* V **nový soubor** dialogové okno:
 
-  * V levém podokně vyberte **Obecné** .
+  * Vyberte **Obecné** v levém podokně.
   * V prostředním podokně vyberte **prázdnou třídu** .
-  * Pojmenujte **film** třídy a vyberte **Nový**.
+  * Název třídy **film** a vyberte **nový**.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
@@ -59,43 +59,43 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat** **tříd
 
 ---
 
-Sestavte projekt, aby se ověřilo, že nedošlo k chybám kompilace.
+Sestavte projekt a ověřte, že nejsou žádné chyby během kompilace.
 
-## <a name="scaffold-the-movie-model"></a>Generování uživatelského rozhraní modelu filmů
+## <a name="scaffold-the-movie-model"></a>Vygenerované uživatelské rozhraní Video modelu
 
-V této části je model filmu vygenerovaný. To znamená, že nástroj pro generování uživatelského rozhraní vytváří stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model filmu.
+V této části je automaticky generovaný model video. To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Vytvořit *stránky nebo složky filmů* :
+Vytvoření *stránek/filmy* složky:
 
-* Klikněte pravým tlačítkem na složku *stránky* > **přidat** **novou složku**>.
-* Pojmenovat *filmy* ve složce
+* Klikněte pravým tlačítkem na složku *stránky* > **Přidat** > **novou složku**.
+* Název složky *filmy*
 
-Klikněte pravým tlačítkem na složku *stránky nebo filmy* > **Přidat** **novou vygenerované položky**>.
+Klikněte pravým tlačítkem na složku *stránky nebo filmy* > **Přidat** > **Nová vygenerovaná položka**.
 
-![Obrázek z předchozích instrukcí.](model/_static/sca.png)
+![Image z předchozích kroků.](model/_static/sca.png)
 
 V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte **Razor Pages pomocí Entity Framework (CRUD)** > **Přidat**.
 
-![Obrázek z předchozích instrukcí.](model/_static/add_scaffold.png)
+![Image z předchozích kroků.](model/_static/add_scaffold.png)
 
-Dokončete dialog **přidat Razor Pages pomocí Entity Framework (CRUD)** :
+Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogové okno:
 
-* V rozevíracím seznamu **třída modelu** vyberte **video (RazorPagesMovie. Models)** .
-* V řádku **Třída kontextu dat** vyberte znaménko **+** (plus) a změňte vygenerovaný název z RazorPagesMovie. **Modely**. RazorPagesMovieContext na RazorPagesMovie. **Data**. RazorPagesMovieContext. [Tato změna](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) se nevyžaduje. Vytvoří třídu kontextu databáze se správným oborem názvů.
+* V **třída modelu** rozevírací seznam, vyberte **Movie (RazorPagesMovie.Models)** .
+* V řádku **Třída kontextu dat** vyberte symbol **+** (plus) a změňte vygenerovaný název z RazorPagesMovie. **Modely**. RazorPagesMovieContext na RazorPagesMovie. **Data**. RazorPagesMovieContext. [Tato změna](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) se nevyžaduje. Vytvoří třídu kontextu databáze se správným oborem názvů.
 * Vyberte **Přidat**.
 
-![Obrázek z předchozích instrukcí.](model/_static/3/arp.png)
+![Image z předchozích kroků.](model/_static/3/arp.png)
 
-Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se používá pro připojení k místní databázi.
+*Appsettings.json* souboru aktualizovali připojovací řetězec použitý pro připojení k místní databázi.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
 
-* Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).
+* Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
 
   ```dotnetcli
@@ -108,7 +108,7 @@ Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se p
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **Pro MacOS a Linux**: spusťte následující příkaz:
+* **Pro macOS a Linux**: spusťte následující příkaz:
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -120,7 +120,7 @@ Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se p
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).
+* Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
 
   ```dotnetcli
@@ -139,26 +139,26 @@ Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se p
 
 ---
 
-### <a name="files-created"></a>Vytvořené soubory
+### <a name="files-created"></a>Soubory vytvořené
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Proces generování uživatelského rozhraní vytváří a aktualizuje následující soubory:
+Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následující soubory:
 
-* *Stránky/filmy*: vytvořit, odstranit, podrobnosti, upravit a index.
-* *Data/RazorPagesMovieContext. cs*
+* *Stránky/filmy*: vytvoření, odstranění, podrobností, úpravy a Index.
+* *Data/RazorPagesMovieContext.cs*
 
-### <a name="updated"></a>Aktualizuj
+### <a name="updated"></a>Datum aktualizace
 
 * *Startup.cs*
 
-Vytvořené a aktualizované soubory jsou vysvětleny v další části.
+Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 Proces generování uživatelského rozhraní vytvoří následující soubory:
 
-* *Stránky/filmy*: vytvořit, odstranit, podrobnosti, upravit a index.
+* *Stránky/filmy*: vytvoření, odstranění, podrobností, úpravy a Index.
 
 Vytvořené soubory jsou vysvětleny v další části.
 
@@ -166,20 +166,20 @@ Vytvořené soubory jsou vysvětleny v další části.
 
 <a name="pmc"></a>
 
-## <a name="initial-migration"></a>Počáteční migrace
+## <a name="initial-migration"></a>Počáteční migraci
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V této části se používá konzola správce balíčků (PMC) k těmto akcím:
+V této části konzoly Správce balíčků (PMC) umožňuje:
 
-* Přidejte počáteční migraci.
-* Aktualizujte databázi pomocí prvotní migrace.
+* Přidáte počáteční migraci.
+* Aktualizujte počáteční migraci databáze.
 
-V nabídce **nástroje** vyberte **správce balíčků NuGet** > **Konzola správce balíčků**.
+V nabídce **nástroje** vyberte **správce balíčků NuGet** > **konzolu Správce balíčků**.
 
-  ![PMC – nabídka](../first-mvc-app/adding-model/_static/pmc.png)
+  ![PMC nabídky](../first-mvc-app/adding-model/_static/pmc.png)
 
-Do PMC zadejte následující příkazy:
+V konzole PMC zadejte následující příkazy:
 
 ```PMC
 Add-Migration InitialCreate
@@ -200,37 +200,37 @@ Předchozí příkazy generují následující upozornění: pro desetinný slou
 
 Toto upozornění můžete ignorovat, bude opraveno v pozdějším kurzu.
 
-Příkaz migrace generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext`. K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.
+Příkaz migrace generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext`. `InitialCreate` Argument se používá k pojmenování migrace. Můžete použít libovolný název, ale podle konvence vybraný název, který popisuje migraci.
 
-Příkaz `update` spustí metodu `Up` v migracích, které nebyly aplikovány. V tomto případě `update` spustí metodu `Up` v části *migrace/\<časového razítka > souboru _InitialCreate. cs* , čímž se vytvoří databáze.
+Příkaz `update` spustí metodu `Up` v migracích, které nebyly aplikovány. V takovém případě `update` spustí metodu `Up` v části *migrace/\<časového razítka > souboru _InitialCreate. cs* , který vytvoří databázi.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-### <a name="examine-the-context-registered-with-dependency-injection"></a>Kontrola kontextu zaregistrovaného vkládáním závislostí
+### <a name="examine-the-context-registered-with-dependency-injection"></a>Prozkoumání kontextu registrovaný pomocí vkládání závislostí
 
-ASP.NET Core je sestaven s [vkládáním závislostí](xref:fundamentals/dependency-injection). Služby (například kontext EF Core DB) jsou registrovány pomocí injektáže závislosti při spuštění aplikace. Komponenty, které vyžadují tyto služby (například Razor Pages), poskytují tyto služby prostřednictvím parametrů konstruktoru. Kód konstruktoru, který získá instanci kontextu databáze, je uveden dále v tomto kurzu.
+ASP.NET Core využívá rozhraní [injektáž závislostí](xref:fundamentals/dependency-injection). Služby (například kontext EF Core databáze) jsou registrované pomocí vkládání závislostí při spuštění aplikace. Komponenty, které vyžadují tyto služby (například stránky Razor) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru. Později v tomto kurzu se zobrazí kód konstruktor, který získá instanci kontext databáze.
 
-Nástroj pro generování uživatelského rozhraní automaticky vytvořil kontext databáze a zaregistroval ho pomocí kontejneru pro vkládání závislostí.
+Nástroj pro generování uživatelského rozhraní automaticky vytvoří kontext databáze a zaregistrovaného kontejneru pro vkládání závislostí.
 
-Projděte si metodu `Startup.ConfigureServices`. Zvýrazněný řádek byl přidán do modulu generování uživatelského rozhraní:
+Zkontrolujte `Startup.ConfigureServices` metody. Zvýrazněný řádek byl přidán modulem scaffolder:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
-Souřadnice `RazorPagesMovieContext` EF Core funkce (vytváření, čtení, aktualizace, odstranění atd.) pro model `Movie`. Kontext dat (`RazorPagesMovieContext`) je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext dat určuje, které entity jsou zahrnuty v datovém modelu.
+`RazorPagesMovieContext` Souřadnice funkce EF Core (vytvoření, čtení, aktualizace, odstranění atd.) pro `Movie` modelu. Kontext dat (`RazorPagesMovieContext`) je odvozen z [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext dat určuje entit, které jsou zahrnuty v datovém modelu.
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
-Předchozí kód vytvoří vlastnost [`DbSet<Movie>`](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá databázové tabulce. Entita odpovídá řádku v tabulce.
+Předchozí kód vytvoří vlastnost [`DbSet<Movie>`](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky. Entita odpovídající řádek v tabulce.
 
-Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .
+Název připojovacího řetězce je předán v rámci voláním metody na [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) objektu. Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) načte připojovací řetězec z *appsettings.json* souboru.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Projděte si metodu `Up`.
+Zkontrolujte `Up` metody.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Projděte si metodu `Up`.
+Zkontrolujte `Up` metody.
 
 ---
 
@@ -238,33 +238,33 @@ Projděte si metodu `Up`.
 
 ### <a name="test-the-app"></a>Testování aplikace
 
-* Spusťte aplikaci a přidejte `/Movies` k adrese URL v prohlížeči (`http://localhost:port/movies`).
+* Spusťte aplikaci a připojit `/Movies` na adresu URL v prohlížeči (`http://localhost:port/movies`).
 
-Pokud se zobrazí chyba:
+Pokud dojde k chybě:
 
 ```console
 SqlException: Cannot open database "RazorPagesMovieContext-GUID" requested by the login. The login failed.
 Login failed for user 'User-name'.
 ```
 
-Nezmeškali jste [Krok migrace](#pmc).
+Je provedena [kroku migrace](#pmc).
 
-* Otestujte odkaz pro **Vytvoření** .
+* Test **vytvořit** odkaz.
 
-  ![Vytvořit stránku](model/_static/conan.png)
+  ![Vytvoření stránky](model/_static/conan.png)
 
   > [!NOTE]
-  > V poli `Price` možná nebudete moct zadat desítkové čárky. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
+  > Není možné zadat desetinné čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") desetinné čárky a USA retweetovat neanglické formáty kalendářního data, aplikace musí být globalizována. Globalizace pokyny najdete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
 
-* Otestujte odkazy **Upravit**, **Podrobnosti**a **Odstranit** .
+* Test **upravit**, **podrobnosti**, a **odstranit** odkazy.
 
-Další kurz vysvětluje soubory vytvořené pomocí generování uživatelského rozhraní.
+V dalším kurzu vysvětluje souborů vytvořených databázovým generování uživatelského rozhraní.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 > [!div class="step-by-step"]
-> [Předchozí:](xref:tutorials/razor-pages/razor-pages-start)začátek 
-> [Další: vygenerované Razor Pages](xref:tutorials/razor-pages/page)
+> [Předchozí: Začínáme](xref:tutorials/razor-pages/razor-pages-start)
+> [Další: generované uživatelské rozhraní pro stránky Razor](xref:tutorials/razor-pages/page)
 
 ::: moniker-end
 
@@ -273,7 +273,7 @@ Další kurz vysvětluje soubory vytvořené pomocí generování uživatelskéh
 
 V této části jsou přidány třídy pro správu filmů v [databázi SQLite](https://www.sqlite.org/index.html)pro různé platformy. Aplikace vytvořené pomocí šablony ASP.NET Core používají databázi SQLite. Třídy modelu aplikace se používají s [Entity Framework Core (EF Core)](/ef/core) ([poskytovatel databáze SQLite EF Core](/ef/core/providers/sqlite)) pro práci s databází. EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje přístup k datům.
 
-Třídy modelu se označují jako třídy POCO (z "objektů CLR v prostém Old"), protože nemají žádnou závislost na EF Core. Definují vlastnosti dat, která jsou uložena v databázi.
+Modelu třídy jsou označovány jako POCO třídy (od "prostý staré CLR objekty"), protože nemají žádné závislosti na EF Core. Definují vlastnosti data, která jsou uložena v databázi.
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
@@ -281,16 +281,16 @@ Třídy modelu se označují jako třídy POCO (z "objektů CLR v prostém Old")
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Klikněte pravým tlačítkem na projekt **RazorPagesMovie** > **přidat** **novou složku** > . Pojmenujte *modely*složek.
+Klikněte pravým tlačítkem myši **RazorPagesMovie** Projekt > **přidat** > **novou složku**. Název složky *modely*.
 
-Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat** **třídu** > . Pojmenujte **film**třídy.
+Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **třídy**. Název třídy **filmu**.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* Přidejte složku s názvem *modely*.
-* Přidejte třídu do složky *modely* s názvem *Movie.cs*.
+* Přidat složku s názvem *modely*.
+* Přidat třídu *modely* složku s názvem *Movie.cs*.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
@@ -298,13 +298,13 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat** **tříd
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* V Průzkumník řešení klikněte pravým tlačítkem na projekt **RazorPagesMovie** a vyberte **přidat** **novou složku** > . Pojmenujte *modely*složek.
-* Klikněte pravým tlačítkem na složku *modely* a pak vyberte **přidat** **nový soubor**>.
-* V dialogovém okně **nový soubor** :
+* V Průzkumníku řešení klikněte pravým tlačítkem myši **RazorPagesMovie** projektu a pak vyberte **přidat** > **novou složku**. Název složky *modely*.
+* Klikněte pravým tlačítkem na složku *modely* a pak vyberte **Přidat** > **nový soubor**.
+* V **nový soubor** dialogové okno:
 
-  * V levém podokně vyberte **Obecné** .
+  * Vyberte **Obecné** v levém podokně.
   * V prostředním podokně vyberte **prázdnou třídu** .
-  * Pojmenujte **film** třídy a vyberte **Nový**.
+  * Název třídy **film** a vyberte **nový**.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
@@ -312,47 +312,47 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **Přidat** **tříd
 
 ---
 
-Sestavte projekt, aby se ověřilo, že nedošlo k chybám kompilace.
+Sestavte projekt a ověřte, že nejsou žádné chyby během kompilace.
 
-## <a name="scaffold-the-movie-model"></a>Generování uživatelského rozhraní modelu filmů
+## <a name="scaffold-the-movie-model"></a>Vygenerované uživatelské rozhraní Video modelu
 
-V této části je model filmu vygenerovaný. To znamená, že nástroj pro generování uživatelského rozhraní vytváří stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model filmu.
+V této části je automaticky generovaný model video. To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Vytvořit *stránky nebo složky filmů* :
+Vytvoření *stránek/filmy* složky:
 
-* Klikněte pravým tlačítkem na složku *stránky* > **přidat** **novou složku**>.
-* Pojmenovat *filmy* ve složce
+* Klikněte pravým tlačítkem na složku *stránky* > **Přidat** > **novou složku**.
+* Název složky *filmy*
 
-Klikněte pravým tlačítkem na složku *stránky nebo filmy* > **Přidat** **novou vygenerované položky**>.
+Klikněte pravým tlačítkem na složku *stránky nebo filmy* > **Přidat** > **Nová vygenerovaná položka**.
 
-![Obrázek z předchozích instrukcí.](model/_static/sca.png)
+![Image z předchozích kroků.](model/_static/sca.png)
 
 V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte **Razor Pages pomocí Entity Framework (CRUD)** > **Přidat**.
 
-![Obrázek z předchozích instrukcí.](model/_static/add_scaffold.png)
+![Image z předchozích kroků.](model/_static/add_scaffold.png)
 
-Dokončete dialog **přidat Razor Pages pomocí Entity Framework (CRUD)** :
+Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogové okno:
 <!-- In the next section, change 
 (plus) sign and accept the generated name 
 to use Data, it should not use models. That will make the namespace the same for the VS version and the CLI version
 -->
 
-* V rozevíracím seznamu **třída modelu** vyberte **video (RazorPagesMovie. Models)** .
-* V řádku **Třída kontextu dat** vyberte znaménko **+** (plus) a přijměte vygenerovaný název **RazorPagesMovie. Models. RazorPagesMovieContext**.
+* V **třída modelu** rozevírací seznam, vyberte **Movie (RazorPagesMovie.Models)** .
+* V **třída kontextu dat** řádek, vyberte **+** (plus) podepsat a přijměte vygenerovaný název **RazorPagesMovie.Models.RazorPagesMovieContext**.
 * Vyberte **Přidat**.
 
-![Obrázek z předchozích instrukcí.](model/_static/arp.png)
+![Image z předchozích kroků.](model/_static/arp.png)
 
-Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se používá pro připojení k místní databázi.
+*Appsettings.json* souboru aktualizovali připojovací řetězec použitý pro připojení k místní databázi.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
 
-* Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).
+* Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
 
   ```dotnetcli
@@ -365,7 +365,7 @@ Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se p
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages\Movies --referenceScriptLibraries
   ```
 
-* **Pro MacOS a Linux**: spusťte následující příkaz:
+* **Pro macOS a Linux**: spusťte následující příkaz:
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
@@ -375,7 +375,7 @@ Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se p
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).
+* Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
 * Nainstalujte nástroj pro generování uživatelského rozhraní:
 
   ```dotnetcli
@@ -392,44 +392,44 @@ Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se p
 
 ---
 
-Proces generování uživatelského rozhraní vytváří a aktualizuje následující soubory:
+Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následující soubory:
 
-### <a name="files-created"></a>Vytvořené soubory
+### <a name="files-created"></a>Soubory vytvořené
 
-* *Stránky/filmy*: vytvořit, odstranit, podrobnosti, upravit a index.
-* *Data/RazorPagesMovieContext. cs*
+* *Stránky/filmy*: vytvoření, odstranění, podrobností, úpravy a Index.
+* *Data/RazorPagesMovieContext.cs*
 
-### <a name="file-updated"></a>Soubor aktualizován
+### <a name="file-updated"></a>Aktualizovat soubor
 
 * *Startup.cs*
 
-Vytvořené a aktualizované soubory jsou vysvětleny v další části.
+Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
 
 <a name="pmc"></a>
 
-## <a name="initial-migration"></a>Počáteční migrace
+## <a name="initial-migration"></a>Počáteční migraci
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V této části se používá konzola správce balíčků (PMC) k těmto akcím:
+V této části konzoly Správce balíčků (PMC) umožňuje:
 
-* Přidejte počáteční migraci.
-* Aktualizujte databázi pomocí prvotní migrace.
+* Přidáte počáteční migraci.
+* Aktualizujte počáteční migraci databáze.
 
-V nabídce **nástroje** vyberte **správce balíčků NuGet** > **Konzola správce balíčků**.
+V nabídce **nástroje** vyberte **správce balíčků NuGet** > **konzolu Správce balíčků**.
 
-  ![PMC – nabídka](../first-mvc-app/adding-model/_static/pmc.png)
+  ![PMC nabídky](../first-mvc-app/adding-model/_static/pmc.png)
 
-Do PMC zadejte následující příkazy:
+V konzole PMC zadejte následující příkazy:
 
 ```Powershell
 Add-Migration Initial
 Update-Database
 ```
 
-Příkaz `Add-Migration` generuje kód pro vytvoření počátečního schématu databáze. Schéma je založené na modelu určeném v `DbContext` (v souboru *RazorPagesMovieContext.cs* ). K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je použit název, který popisuje migraci. Další informace najdete v tématu <xref:data/ef-mvc/migrations>.
+`Add-Migration` Příkaz vygeneruje kód pro vytvoření schématu počáteční databáze. Schéma je založené na modelu určeném v `DbContext` (v souboru *RazorPagesMovieContext.cs* ). K pojmenování migrace se používá argument `InitialCreate`. Můžete použít libovolný název, ale podle konvence je název, který popisuje migraci použít. Další informace najdete v tématu <xref:data/ef-mvc/migrations>.
 
-Příkaz `Update-Database` spustí metodu `Up` v souboru s *časovou známkou Migration/\<> _InitialCreate. cs* . Metoda `Up` vytvoří databázi.
+`Update-Database` Příkaz spustí `Up` metoda ve *migrace /\<časové razítko > _InitialCreate.cs* souboru. `Up` Metoda vytvoří databázi.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -445,31 +445,31 @@ Příkaz `Update-Database` spustí metodu `Up` v souboru s *časovou známkou Mi
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-### <a name="examine-the-context-registered-with-dependency-injection"></a>Kontrola kontextu zaregistrovaného vkládáním závislostí
+### <a name="examine-the-context-registered-with-dependency-injection"></a>Prozkoumání kontextu registrovaný pomocí vkládání závislostí
 
-ASP.NET Core je sestaven s [vkládáním závislostí](xref:fundamentals/dependency-injection). Služby (například kontext EF Core DB) jsou registrovány pomocí injektáže závislosti při spuštění aplikace. Komponenty, které vyžadují tyto služby (například Razor Pages), poskytují tyto služby prostřednictvím parametrů konstruktoru. Kód konstruktoru, který získá instanci kontextu databáze, je uveden dále v tomto kurzu.
+ASP.NET Core využívá rozhraní [injektáž závislostí](xref:fundamentals/dependency-injection). Služby (například kontext EF Core databáze) jsou registrované pomocí vkládání závislostí při spuštění aplikace. Komponenty, které vyžadují tyto služby (například stránky Razor) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru. Později v tomto kurzu se zobrazí kód konstruktor, který získá instanci kontext databáze.
 
-Nástroj pro generování uživatelského rozhraní automaticky vytvořil kontext databáze a zaregistroval ho pomocí kontejneru pro vkládání závislostí.
+Nástroj pro generování uživatelského rozhraní automaticky vytvoří kontext databáze a zaregistrovaného kontejneru pro vkládání závislostí.
 
-Projděte si metodu `Startup.ConfigureServices`. Zvýrazněný řádek byl přidán do modulu generování uživatelského rozhraní:
+Zkontrolujte `Startup.ConfigureServices` metody. Zvýrazněný řádek byl přidán modulem scaffolder:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-Souřadnice `RazorPagesMovieContext` EF Core funkce (vytváření, čtení, aktualizace, odstranění atd.) pro model `Movie`. Kontext dat (`RazorPagesMovieContext`) je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext dat určuje, které entity jsou zahrnuty v datovém modelu.
+`RazorPagesMovieContext` Souřadnice funkce EF Core (vytvoření, čtení, aktualizace, odstranění atd.) pro `Movie` modelu. Kontext dat (`RazorPagesMovieContext`) je odvozen z [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext dat určuje entit, které jsou zahrnuty v datovém modelu.
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
 
-Předchozí kód vytvoří vlastnost [`DbSet<Movie>`](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá databázové tabulce. Entita odpovídá řádku v tabulce.
+Předchozí kód vytvoří vlastnost [`DbSet<Movie>`](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky. Entita odpovídající řádek v tabulce.
 
-Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .
+Název připojovacího řetězce je předán v rámci voláním metody na [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) objektu. Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) načte připojovací řetězec z *appsettings.json* souboru.
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Projděte si metodu `Up`.
+Zkontrolujte `Up` metody.
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Projděte si metodu `Up`.
+Zkontrolujte `Up` metody.
 
 ---
 
@@ -477,32 +477,32 @@ Projděte si metodu `Up`.
 
 ### <a name="test-the-app"></a>Testování aplikace
 
-* Spusťte aplikaci a přidejte `/Movies` k adrese URL v prohlížeči (`http://localhost:port/movies`).
+* Spusťte aplikaci a připojit `/Movies` na adresu URL v prohlížeči (`http://localhost:port/movies`).
 
-Pokud se zobrazí chyba:
+Pokud dojde k chybě:
 
 ```console
 SqlException: Cannot open database "RazorPagesMovieContext-GUID" requested by the login. The login failed.
 Login failed for user 'User-name'.
 ```
 
-Nezmeškali jste [Krok migrace](#pmc).
+Je provedena [kroku migrace](#pmc).
 
-* Otestujte odkaz pro **Vytvoření** .
+* Test **vytvořit** odkaz.
 
-  ![Vytvořit stránku](model/_static/conan.png)
+  ![Vytvoření stránky](model/_static/conan.png)
 
   > [!NOTE]
-  > V poli `Price` možná nebudete moct zadat desítkové čárky. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
+  > Není možné zadat desetinné čárky v `Price` pole. Pro podporu [k ověřování jQuery](https://jqueryvalidation.org/) pro neanglická národní prostředí, které používají čárkou (",") desetinné čárky a USA retweetovat neanglické formáty kalendářního data, aplikace musí být globalizována. Globalizace pokyny najdete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
 
-* Otestujte odkazy **Upravit**, **Podrobnosti**a **Odstranit** .
+* Test **upravit**, **podrobnosti**, a **odstranit** odkazy.
 
-Další kurz vysvětluje soubory vytvořené pomocí generování uživatelského rozhraní.
+V dalším kurzu vysvětluje souborů vytvořených databázovým generování uživatelského rozhraní.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 > [!div class="step-by-step"]
-> [Předchozí:](xref:tutorials/razor-pages/razor-pages-start)začátek 
-> [Další: vygenerované Razor Pages](xref:tutorials/razor-pages/page)
+> [Předchozí: Začínáme](xref:tutorials/razor-pages/razor-pages-start)
+> [Další: generované uživatelské rozhraní pro stránky Razor](xref:tutorials/razor-pages/page)
 
 ::: moniker-end

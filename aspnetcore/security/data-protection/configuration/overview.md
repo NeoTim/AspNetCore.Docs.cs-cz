@@ -25,13 +25,13 @@ V těchto scénářích nabízí systém ochrany dat bohatá rozhraní API pro k
 > [!WARNING]
 > Podobně jako u konfiguračních souborů by měl být datový Prstenový kanál ochrany dat chráněný pomocí příslušných oprávnění. Můžete zvolit šifrování klíčů v klidovém umístění, ale nebrání útočníkům v vytváření nových klíčů. V důsledku toho je zabezpečení vaší aplikace ovlivněno. Umístění úložiště nakonfigurované s ochranou dat by mělo mít přístup omezený jenom na samotnou aplikaci, podobně jako při ochraně konfiguračních souborů. Pokud se například rozhodnete, že budete svůj klíč Ring ukládat na disk, použijte oprávnění systému souborů. Zajistěte, aby byla ve vaší webové aplikaci při čtení, zápisu a vytváření přístupu k tomuto adresáři pouze identita, pod kterou vaše webová aplikace běží. Pokud používáte Azure Blob Storage, měla by mít možnost číst, zapisovat nebo vytvářet nové položky v úložišti objektů BLOB atd.
 >
-> Metoda rozšíření [AddDataProtection](/dotnet/api/microsoft.extensions.dependencyinjection.dataprotectionservicecollectionextensions.adddataprotection) vrátí [IDataProtectionBuilder](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionbuilder). `IDataProtectionBuilder` zveřejňuje metody rozšíření, které lze řetězit a nakonfigurovat tak možnosti ochrany dat.
+> Metoda rozšíření [AddDataProtection](/dotnet/api/microsoft.extensions.dependencyinjection.dataprotectionservicecollectionextensions.adddataprotection) vrátí [IDataProtectionBuilder](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionbuilder). `IDataProtectionBuilder` zveřejňuje metody rozšíření, které lze řetězit ke konfiguraci možností ochrany dat.
 
 ::: moniker range=">= aspnetcore-2.1"
 
 ## <a name="protectkeyswithazurekeyvault"></a>ProtectKeysWithAzureKeyVault
 
-Pokud chcete ukládat klíče v [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), nakonfigurujte systém pomocí [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) ve třídě `Startup`:
+Chcete-li uložit klíče v [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), nakonfigurujte systém pomocí [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) ve třídě `Startup`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -42,15 +42,15 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Nastavte umístění úložiště Key Ring (například [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)). Umístění musí být nastaveno, protože volání `ProtectKeysWithAzureKeyVault` implementuje rozhraní [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) , které zakáže automatickou konfiguraci ochrany dat včetně umístění úložiště klíčů. Předchozí příklad používá službu Azure Blob Storage k uchování služby Key Ring. Další informace najdete v tématu poskytovatelé úložiště @no__t 0Key: Azure Storage @ no__t-0. Klíčového ringu můžete také zachovat místně pomocí [PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system).
+Nastavte umístění úložiště Key Ring (například [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)). Umístění musí být nastavené, protože volání `ProtectKeysWithAzureKeyVault` implementuje [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) , která zakáže automatické nastavení ochrany dat včetně umístění úložiště klíčů. Předchozí příklad používá službu Azure Blob Storage k uchování služby Key Ring. Další informace najdete v tématu [Zprostředkovatelé úložiště klíčů: Azure Storage](xref:security/data-protection/implementation/key-storage-providers#azure-storage). Klíčového ringu můžete také zachovat místně pomocí [PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system).
 
-@No__t-0 je identifikátor klíče trezoru klíčů, který se používá pro šifrování klíče. Například klíč vytvořený v trezoru klíčů s názvem `dataprotection` v `contosokeyvault` má identifikátor klíče `https://contosokeyvault.vault.azure.net/keys/dataprotection/`. Poskytněte aplikaci oprávnění k **rozbalení klíče** a **zabalení klíče** do trezoru klíčů.
+`keyIdentifier` je identifikátor klíče trezoru klíčů, který se používá pro šifrování klíče. Například klíč vytvořený v trezoru klíčů s názvem `dataprotection` v `contosokeyvault` obsahuje identifikátor klíče `https://contosokeyvault.vault.azure.net/keys/dataprotection/`. Poskytněte aplikaci oprávnění k **rozbalení klíče** a **zabalení klíče** do trezoru klíčů.
 
-přetížení `ProtectKeysWithAzureKeyVault`:
+`ProtectKeysWithAzureKeyVault` přetížení:
 
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, KeyVaultClient, String)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_Microsoft_Azure_KeyVault_KeyVaultClient_System_String_) umožňuje použití [KeyVaultClient](/dotnet/api/microsoft.azure.keyvault.keyvaultclient) k tomu, aby systém ochrany dat mohl používat Trezor klíčů.
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, String, String, X509Certificate2)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_Security_Cryptography_X509Certificates_X509Certificate2_) umožňuje použití `ClientId` a [certifikátu x509](/dotnet/api/system.security.cryptography.x509certificates.x509certificate2) k tomu, aby systém ochrany dat mohl používat Trezor klíčů.
-* [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, String, String, String)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_String_) umožňuje použití `ClientId` a `ClientSecret`, aby systém ochrany dat mohl používat Trezor klíčů.
+* [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, String, String, String)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_String_) umožňuje použití `ClientId` a `ClientSecret` k tomu, aby systém ochrany dat mohl používat Trezor klíčů.
 
 ::: moniker-end
 
@@ -71,7 +71,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="protectkeyswith"></a>ProtectKeysWith\*
 
-Systém můžete nakonfigurovat tak, aby chránil klíče v klidovém režimu, a to voláním kterékoli z konfiguračních rozhraní API [ProtectKeysWith @ no__t-1](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions) . Vezměte v úvahu následující příklad, který ukládá klíče do sdílené složky UNC a šifruje tyto klíče v klidovém formátu pomocí konkrétního certifikátu X. 509:
+Systém můžete nakonfigurovat tak, aby chránil klíče v klidovém režimu, a to voláním libovolného rozhraní API pro konfiguraci [ProtectKeysWith\*](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions) . Vezměte v úvahu následující příklad, který ukládá klíče do sdílené složky UNC a šifruje tyto klíče v klidovém formátu pomocí konkrétního certifikátu X. 509:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -166,18 +166,18 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="per-application-isolation"></a>Izolace podle aplikace
 
-Když je systém ochrany dat poskytovaný ASP.NET Core hostitelem, automaticky izoluje aplikace od sebe navzájem, i když tyto aplikace běží pod stejným účtem pracovního procesu a používají stejný hlavní materiál klíčů. To se trochu podobá modifikátoru IsolateApps z elementu System. Web `<machineKey>`.
+Když je systém ochrany dat poskytovaný ASP.NET Core hostitelem, automaticky izoluje aplikace od sebe navzájem, i když tyto aplikace běží pod stejným účtem pracovního procesu a používají stejný hlavní materiál klíčů. To je trochu podobné modifikátoru IsolateApps z prvku System. Web `<machineKey>`.
 
-Izolační mechanismus funguje tak, že zvažuje jednotlivé aplikace na místním počítači jako jedinečného tenanta, takže <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> root pro libovolnou aplikaci automaticky zahrnuje ID aplikace jako diskriminátor. Jedinečným ID aplikace je fyzická cesta aplikace:
+Mechanismus izolace funguje tak, že zvažuje jednotlivé aplikace na místním počítači jako jedinečného tenanta, takže <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> root pro všechny dané aplikace automaticky zahrnuje ID aplikace jako diskriminátor. Jedinečným ID aplikace je fyzická cesta aplikace:
 
 * Pro aplikace hostované ve službě IIS je jedinečným ID fyzická cesta k aplikaci služby IIS. Pokud je aplikace nasazená ve webové farmě, je tato hodnota stabilní za předpokladu, že prostředí služby IIS se konfigurují podobně napříč všemi počítači ve webové farmě.
 * Pro samoobslužné aplikace běžící na [serveru Kestrel](xref:fundamentals/servers/index#kestrel)je jedinečné ID fyzickou cestou k aplikaci na disku.
 
-Jedinečný identifikátor je navržený tak, aby předržel sadu @ no__t-0both jednotlivé aplikace a samotného počítače.
+Jedinečný identifikátor je navržený tak, aby se předržel&mdash;obě jednotlivé aplikace i samotný počítač.
 
 Tento mechanismus izolace předpokládá, že aplikace nejsou škodlivé. Škodlivá aplikace může vždycky ovlivnit jakoukoli jinou aplikaci spuštěnou v rámci stejného účtu pracovního procesu. Ve sdíleném hostitelském prostředí, kde jsou aplikace vzájemně nedůvěryhodné, by měl poskytovatel hostingu podniknout kroky k zajištění izolace na úrovni operačního systému mezi aplikacemi, včetně oddělení základních úložišť klíčů aplikací.
 
-Pokud není systém ochrany dat poskytovaný ASP.NET Corem hostitelem (například při vytvoření instance prostřednictvím konkrétního typu `DataProtectionProvider`), je ve výchozím nastavení zakázána izolace aplikace. Pokud je izolace aplikace zakázaná, můžou všechny aplikace, které používá stejný materiál klíče, sdílet datové části, pokud poskytují vhodné [účely](xref:security/data-protection/consumer-apis/purpose-strings). Pokud chcete v tomto prostředí poskytnout izolaci aplikace, zavolejte metodu [SetApplicationName](#setapplicationname) na objekt konfigurace a zadejte jedinečný název pro každou aplikaci.
+Pokud není systém ochrany dat poskytovaný ASP.NET Corem hostitelem (například pokud ho vytvoříte pomocí `DataProtectionProvider` konkrétního typu), je ve výchozím nastavení zakázána izolace aplikace. Pokud je izolace aplikace zakázaná, můžou všechny aplikace, které používá stejný materiál klíče, sdílet datové části, pokud poskytují vhodné [účely](xref:security/data-protection/consumer-apis/purpose-strings). Pokud chcete v tomto prostředí poskytnout izolaci aplikace, zavolejte metodu [SetApplicationName](#setapplicationname) na objekt konfigurace a zadejte jedinečný název pro každou aplikaci.
 
 ## <a name="changing-algorithms-with-usecryptographicalgorithms"></a>Změna algoritmů pomocí UseCryptographicAlgorithms
 
@@ -213,7 +213,7 @@ services.AddDataProtection()
 
 Výchozí EncryptionAlgorithm je AES-256-CBC a výchozí ValidationAlgorithm je HMACSHA256. Výchozí zásady může nastavit správce systému pomocí [zásad pro celé počítače](xref:security/data-protection/configuration/machine-wide-policy), ale explicitní volání `UseCryptographicAlgorithms` přepisuje výchozí zásady.
 
-Volání @no__t – 0 umožňuje zadat požadovaný algoritmus z předdefinovaného předdefinovaného seznamu. Nemusíte si dělat starosti s implementací algoritmu. Ve výše uvedeném scénáři se systém ochrany dat při spuštění ve Windows pokusí použít implementaci CNG pro AES. V opačném případě se vrátí do spravované třídy [System. Security. Cryptography. AES](/dotnet/api/system.security.cryptography.aes) .
+Volání `UseCryptographicAlgorithms` umožňuje zadat požadovaný algoritmus z předdefinovaného předdefinovaného seznamu. Nemusíte si dělat starosti s implementací algoritmu. Ve výše uvedeném scénáři se systém ochrany dat při spuštění ve Windows pokusí použít implementaci CNG pro AES. V opačném případě se vrátí do spravované třídy [System. Security. Cryptography. AES](/dotnet/api/system.security.cryptography.aes) .
 
 Implementaci můžete zadat ručně prostřednictvím volání [UseCustomCryptographicAlgorithms](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.usecustomcryptographicalgorithms).
 
@@ -266,7 +266,7 @@ serviceCollection.AddDataProtection()
 
 ::: moniker-end
 
-Obecně platí, že vlastnosti \*Type musí odkazovat na konkrétní instantiable (prostřednictvím veřejného konstruktoru bez parametrů) [SymmetricAlgorithm](/dotnet/api/system.security.cryptography.symmetricalgorithm) a [KeyedHashAlgorithm](/dotnet/api/system.security.cryptography.keyedhashalgorithm), i když systémové speciální případy některé hodnoty jako `typeof(Aes)` pro obtíž.
+Obecně musí vlastnosti \*ho typu odkazovat na konkrétní instantiable (prostřednictvím veřejného konstruktoru bez parametrů) [SymmetricAlgorithm](/dotnet/api/system.security.cryptography.symmetricalgorithm) a [KeyedHashAlgorithm](/dotnet/api/system.security.cryptography.keyedhashalgorithm), i když systémové speciální případy některé hodnoty jako `typeof(Aes)` pro usnadnění přístupu.
 
 > [!NOTE]
 > SymmetricAlgorithm musí mít délku klíče s ≥ 128 bity a blokovou velikostí ≥ 64 bitů a musí podporovat šifrování v režimu CBC s odsazením PKCS #7. KeyedHashAlgorithm musí mít velikost Digest > = 128 bitů a musí podporovat klíče délky rovnající se délce Digest algoritmu hash. KeyedHashAlgorithm není striktně vyžadováno pro HMAC.
@@ -322,7 +322,7 @@ services.AddDataProtection()
 ::: moniker-end
 
 > [!NOTE]
-> Algoritmus symetrického šifrování bloku musí mít délku klíče > = 128 bitů, velikost bloku > = 64 bitů a musí podporovat šifrování v CBC s odsazením PKCS #7. Algoritmus hash musí mít velikost Digest > = 128 bitů a musí podporovat otevření pomocí příznaku @ no__t-0ALG @ no__t-1HANDLE @ no__t-2HMAC @ no__t-3FLAG. Vlastnosti \*Provider lze nastavit na hodnotu null, aby pro zadaný algoritmus používaly výchozího zprostředkovatele. Další informace najdete v dokumentaci k [BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx) .
+> Algoritmus symetrického šifrování bloku musí mít délku klíče > = 128 bitů, velikost bloku > = 64 bitů a musí podporovat šifrování v CBC s odsazením PKCS #7. Algoritmus hash musí mít velikost algoritmu Digest > = 128 bitů a musí podporovat otevření pomocí příznaku SYMETRICKÝMI\_ALG\_popisovače\_HMAC\_. Vlastnosti poskytovatele \*lze nastavit na hodnotu null pro použití výchozího poskytovatele pro zadaný algoritmus. Další informace najdete v dokumentaci k [BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx) .
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -382,7 +382,7 @@ Při hostování v kontejneru [Docker](/dotnet/standard/microservices-architectu
 
 Pro ukládání klíčů by měly být použity pouze verze Redis podporující [Trvalost dat Redis](/azure/azure-cache-for-redis/cache-how-to-premium-persistence) . [Úložiště objektů BLOB v Azure](/azure/storage/blobs/storage-blobs-introduction) je trvalé a dá se použít k ukládání klíčů. Další informace najdete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore/issues/13476).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:security/data-protection/configuration/non-di-scenarios>
 * <xref:security/data-protection/configuration/machine-wide-policy>

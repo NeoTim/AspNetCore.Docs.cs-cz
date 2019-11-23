@@ -70,7 +70,7 @@ dotnet dev-certs https --trust
 
 Předchozí příkaz zobrazí následující zprávu:
 
-@no__t – 0Trusting certifikát vývoje HTTPS byl požadován. Pokud certifikát ještě nedůvěřuje, spustíme následující příkaz: * `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`.
+*Byl požadován vztah důvěryhodnosti s vývojovým certifikátem https. Pokud certifikát ještě nedůvěřuje, spustíme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`
 
 Tento příkaz vás může vyzvat k zadání hesla pro instalaci certifikátu do systémového řetězce klíčů. Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, zadejte své heslo.
 
@@ -91,7 +91,7 @@ cd aspnetcoreapp
 dotnet watch run
 ```
 
-Jakmile příkazové prostředí indikuje, že aplikace začala, přejděte do [https://localhost:5001](https://localhost:5001).
+Jakmile se v příkazovém prostředí ukáže, že je aplikace spuštěná, přejděte do [https://localhost:5001](https://localhost:5001).
 
 ## <a name="edit-a-razor-page"></a>Úprava stránky Razor
 

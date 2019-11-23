@@ -15,7 +15,7 @@ ms.locfileid: "72822383"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole na stránku Razor v ASP.NET Core
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -35,13 +35,13 @@ Automatické ověření schématu nebo modelu v synchronizaci usnadňuje vyhled�
 
 ## <a name="adding-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti hodnocení do modelu videa
 
-Otevřete soubor *Models/video. cs* a přidejte vlastnost `Rating`:
+Otevřete soubor *Models/Movie. cs* a přidejte vlastnost `Rating`:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 Sestavte aplikaci.
 
-Upravit *stránky/filmy/index. cshtml*a přidat pole `Rating`:
+Upravte *stránky/filmy/index. cshtml*a přidejte `Rating` pole:
 
 <a name="addrat"></a>
 
@@ -50,14 +50,14 @@ Upravit *stránky/filmy/index. cshtml*a přidat pole `Rating`:
 Aktualizujte následující stránky:
 
 * Přidejte pole `Rating` na stránky odstranit a podrobnosti.
-* Aktualizace [Create. cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) s polem `Rating`.
+* Aktualizujte [vytvořit. cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) pomocí pole `Rating`.
 * Přidejte pole `Rating` na stránku pro úpravy.
 
 Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Spuštění aplikace bez aktualizace databáze vyvolá `SqlException`:
 
 `SqlException: Invalid column name 'Rating'.`
 
-Výjimka `SqlException` je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů databáze. (K dispozici není žádný sloupec `Rating` v tabulce databáze.)
+Výjimka `SqlException` je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů v databázi. (V tabulce databáze nejsou žádné `Rating` sloupce.)
 
 K řešení této chyby je potřeba několik přístupů:
 
@@ -84,7 +84,7 @@ Sestavte řešení.
 ### <a name="add-a-migration-for-the-rating-field"></a>Přidání migrace pro pole hodnocení
 
 V nabídce **nástroje** vyberte **správce balíčků NuGet > konzolu Správce balíčků**.
-Do PMC zadejte následující příkazy:
+V konzole PMC zadejte následující příkazy:
 
 ```powershell
 Add-Migration Rating
@@ -116,7 +116,7 @@ Další možností je odstranit databázi a použít migrace k opětovnému vytv
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 ### <a name="drop-and-re-create-the-database"></a>Vyřazení a opětovné vytvoření databáze
 
@@ -132,9 +132,9 @@ dotnet ef database update
 
 ---
 
-Spusťte aplikaci a ověřte, že je možné vytvořit nebo upravit/zobrazit filmy pomocí pole `Rating`. Pokud databáze není osazena, nastavte bod přerušení v metodě `SeedData.Initialize`.
+Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí pole `Rating`. Pokud databáze není osazena, nastavte v metodě `SeedData.Initialize` bod přerušení.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/3i7uMxiGGR8)
 
@@ -162,27 +162,27 @@ Automatické ověření schématu nebo modelu v synchronizaci usnadňuje vyhled�
 
 ## <a name="adding-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti hodnocení do modelu videa
 
-Otevřete soubor *Models/video. cs* a přidejte vlastnost `Rating`:
+Otevřete soubor *Models/Movie. cs* a přidejte vlastnost `Rating`:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 Sestavte aplikaci.
 
-Upravit *stránky/filmy/index. cshtml*a přidat pole `Rating`:
+Upravte *stránky/filmy/index. cshtml*a přidejte `Rating` pole:
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexRating.cshtml?highlight=40-42,61-63)]
 
 Aktualizujte následující stránky:
 
 * Přidejte pole `Rating` na stránky odstranit a podrobnosti.
-* Aktualizace [Create. cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) s polem `Rating`.
+* Aktualizujte [vytvořit. cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) pomocí pole `Rating`.
 * Přidejte pole `Rating` na stránku pro úpravy.
 
-Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud je teď aplikace spuštěná, vyvolá se `SqlException`:
+Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud je teď aplikace spuštěná, vyvolá `SqlException`:
 
 `SqlException: Invalid column name 'Rating'.`
 
-Tato chyba je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů databáze. (K dispozici není žádný sloupec `Rating` v tabulce databáze.)
+Tato chyba je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů databáze. (V tabulce databáze nejsou žádné `Rating` sloupce.)
 
 K řešení této chyby je potřeba několik přístupů:
 
@@ -209,7 +209,7 @@ Sestavte řešení.
 ### <a name="add-a-migration-for-the-rating-field"></a>Přidání migrace pro pole hodnocení
 
 V nabídce **nástroje** vyberte **správce balíčků NuGet > konzolu Správce balíčků**.
-Do PMC zadejte následující příkazy:
+V konzole PMC zadejte následující příkazy:
 
 ```powershell
 Add-Migration Rating
@@ -241,7 +241,7 @@ Další možností je odstranit databázi a použít migrace k opětovnému vytv
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 ### <a name="drop-and-re-create-the-database"></a>Vyřazení a opětovné vytvoření databáze
 
@@ -255,9 +255,9 @@ dotnet ef database update
 
 ---
 
-Spusťte aplikaci a ověřte, že je možné vytvořit nebo upravit/zobrazit filmy pomocí pole `Rating`. Pokud databáze není osazena, nastavte bod přerušení v metodě `SeedData.Initialize`.
+Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí pole `Rating`. Pokud databáze není osazena, nastavte v metodě `SeedData.Initialize` bod přerušení.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/3i7uMxiGGR8)
 

@@ -145,7 +145,7 @@ Pro aplikaci vytvořte konfigurační soubor s názvem *helloapp. conf*:
 Blok `VirtualHost` se může objevit několikrát, v jednom nebo více souborech na serveru. V předchozím konfiguračním souboru akceptuje Apache veřejný provoz na portu 80. Doména `www.example.com` se zpracovává a alias `*.example.com` se překládá na stejný web. Další informace najdete v tématu [Podpora virtuálních hostitelů založených na názvech](https://httpd.apache.org/docs/current/vhosts/name-based.html) . Žádosti jsou proxy servery v kořenovém adresáři na port 5000 serveru na adrese 127.0.0.1. Pro obousměrnou komunikaci se vyžadují `ProxyPass` a `ProxyPassReverse`. Pokud chcete změnit IP adresu/port Kestrel, přečtěte si téma [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
-> Nepovedlo se zadat správnou [direktivu servername](https://httpd.apache.org/docs/current/mod/core.html#servername) v bloku **VirtualHost** k vystavení ohrožení zabezpečení vaší aplikace. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
+> Nepovedlo se zadat správnou [direktivu servername](https://httpd.apache.org/docs/current/mod/core.html#servername) v bloku **VirtualHost** k vystavení ohrožení zabezpečení vaší aplikace. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Zobrazit [rfc7230 části-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) Další informace.
 
 Protokolování lze nakonfigurovat na `VirtualHost` pomocí direktiv `ErrorLog` a `CustomLog`. `ErrorLog` je umístění, kde Server protokoluje chyby, a `CustomLog` nastaví název souboru a formát souboru protokolu. V tomto případě se jedná o případ, kdy se zaprotokolují informace o žádosti. Pro každý požadavek je k dispozici jeden řádek.
 
@@ -162,7 +162,7 @@ sudo systemctl restart httpd
 sudo systemctl enable httpd
 ```
 
-## <a name="monitor-the-app"></a>Monitorování aplikace
+## <a name="monitor-the-app"></a>Sledování aplikace
 
 Apache je teď nastavený tak, aby předal požadavky na `http://localhost:80` do ASP.NET Core aplikace běžící na Kestrel na `http://127.0.0.1:5000`. Apache ale není nastavené na správu procesu Kestrel. K zahájení a monitorování základní webové aplikace můžete použít *systém* a vytvořit soubor služby. *systém* je systémem init, který poskytuje mnoho výkonných funkcí pro spouštění, zastavování a správu procesů.
 
@@ -247,7 +247,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a>Zobrazit protokoly
+### <a name="view-logs"></a>Zobrazení protokolů
 
 Vzhledem k tomu, že webová aplikace používající Kestrel je spravovaná pomocí *systému*, události a procesy se zaznamenávají do centralizovaného deníku. Tento deník ale obsahuje položky pro všechny služby a procesy spravované *systémem*. Chcete-li zobrazit položky specifické pro `kestrel-helloapp.service`, použijte následující příkaz:
 
@@ -263,13 +263,13 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="data-protection"></a>Ochrana dat
 
-[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
+[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud není nakonfigurovaná ochrana dat, jsou klíče uložené v paměti a při restartování aplikace.
 
-Pokud se klíčového prstence při restartu aplikace uloží do paměti:
+Pokud kanál klíče jsou uloženy v paměti, při restartování aplikace:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené.
-* Uživatelé se musí znovu přihlásit na svůj další požadavek.
-* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
+* Všechny tokeny ověřování na základě souborů cookie nejsou zneplatněny.
+* Uživatelé se musí znovu přihlásit v jejich další požadavek.
+* Všechna data chráněná pomocí aktualizační kanál, který klíč můžete už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [soubory cookie v ASP.NET Core MVC TempData](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete nakonfigurovat ochranu dat, aby zachovala a zašifroval klíč Ring, přečtěte si:
 
@@ -419,7 +419,7 @@ Přidejte `Header set X-Content-Type-Options "nosniff"`řádku. Uložte soubor. 
 
 ### <a name="load-balancing"></a>Vyrovnávání zatížení
 
-Tento příklad ukazuje, jak nastavit a nakonfigurovat Apache na CentOS 7 a Kestrel na stejném počítači instance. Aby nedošlo k jednomu bodu selhání; použití *mod_proxy_balancer* a úpravy **VirtualHost** by umožňovalo spravovat více instancí webových aplikací za proxy server Apache.
+Tento příklad ukazuje, jak nastavit a nakonfigurovat Apache na CentOS 7 a Kestrel na stejném počítači instance. Aby nedošlo k jednomu bodu selhání; použití *mod_proxy_balancer* a úpravou **VirtualHost** by umožňovalo spravovat více instancí webových aplikací za proxy server Apache.
 
 ```bash
 sudo yum install mod_proxy_balancer
@@ -465,7 +465,7 @@ V konfiguračním souboru uvedeném níže je další instance `helloapp` nastav
 
 ### <a name="rate-limits"></a>Omezení přenosové rychlosti
 
-Pomocí *mod_ratelimit*, který je součástí modulu *httpd* , lze omezit šířku pásma klientů:
+Pomocí *mod_ratelimit*, který je součástí modulu *httpd* , může být omezena šířka pásma klientů:
 
 ```bash
 sudo nano /etc/httpd/conf.d/ratelimit.conf
@@ -489,7 +489,7 @@ Výchozí nastavení proxy serveru obvykle omezují pole hlaviček požadavku na
 > [!WARNING]
 > Pokud není potřeba, nezvyšte výchozí hodnotu `LimitRequestFieldSize`. Zvýšení hodnoty zvyšuje riziko přetečení vyrovnávací paměti (přetečení) a útok DoS (Denial of Service) uživateli se zlými úmysly.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites)
 * <xref:test/troubleshoot>

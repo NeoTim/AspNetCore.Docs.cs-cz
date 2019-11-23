@@ -3,7 +3,7 @@
 Ukázková aplikace ukazuje, jak:
 
 * Získá jméno a příjmení uživatele z Google a uloží deklarace identity s hodnotami poskytnutými Google.
-* Uložte token Google Access do @no__t uživatele-0.
+* Uložte token Google Access do `AuthenticationProperties`uživatele.
 
 Použití ukázkové aplikace:
 

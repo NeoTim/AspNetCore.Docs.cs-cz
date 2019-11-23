@@ -14,11 +14,11 @@ ms.locfileid: "72334079"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>Přidání ověřování do ASP.NET Core aplikace MVC
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V této části:
 
-* Logika ověření se přidá do modelu `Movie`.
+* Logika ověřování se přidá do modelu `Movie`.
 * Ujistěte se, že se ověřovací pravidla vynutila pokaždé, když uživatel vytvoří nebo upraví film.
 
 ## <a name="keeping-things-dry"></a>Udržování věcí v SUŠINě
@@ -41,9 +41,9 @@ Klepnutím na odkaz **vytvořit nový** přidejte nový film. Vyplňte formulá�
 
 Všimněte si, jak formulář automaticky vygeneroval příslušnou chybovou zprávu ověřování v každém poli, které obsahuje neplatnou hodnotu. Chyby se vynutily na straně klienta (pomocí JavaScriptu a jQuery) a na straně serveru (Pokud uživatel má zakázaný JavaScript).
 
-Významnou výhodou je, že nemusíte změnit jeden řádek kódu ve třídě `MoviesController` nebo v zobrazení *vytvořit. cshtml* , aby bylo možné toto uživatelské rozhraní pro ověřování povolit. Kontroler a zobrazení, které jste vytvořili dříve v tomto kurzu, automaticky vybrala ověřovací pravidla, která jste zadali pomocí atributů ověřování ve vlastnostech třídy modelu `Movie`. Ověření testu pomocí metody akce `Edit` a použije se stejné ověřování.
+Významnou výhodou je, že nemusíte změnit jeden řádek kódu ve třídě `MoviesController` nebo v zobrazení *vytvořit. cshtml* , aby bylo možné toto uživatelské rozhraní pro ověřování povolit. Kontroler a zobrazení, které jste vytvořili dříve v tomto kurzu, automaticky vybrala ověřovací pravidla, která jste zadali pomocí atributů ověřování ve vlastnostech třídy `Movie` modelu. Ověření testu pomocí metody `Edit` akce a je použito stejné ověřování.
 
-Data formuláře se neodesílají na server, dokud nedojde k žádným chybám při ověřování na straně klienta. To můžete ověřit tak, že umístíte bod přerušení do metody `HTTP Post` pomocí [nástroje Fiddler](https://www.telerik.com/fiddler) nebo [vývojářských nástrojů F12](/microsoft-edge/devtools-guide).
+Data formuláře se neodesílají na server, dokud nedojde k žádným chybám při ověřování na straně klienta. To můžete ověřit tak, že umístíte bod přerušení do metody `HTTP Post`, pomocí [nástroje Fiddler](https://www.telerik.com/fiddler) nebo [vývojářských nástrojů F12](/microsoft-edge/devtools-guide).
 
 ## <a name="how-validation-works"></a>Jak funguje ověřování
 
@@ -51,9 +51,9 @@ Můžete se setkat s tím, jak se ověřovací uživatelské rozhraní vygenerov
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc//sample/MvcMovie/Controllers/MoviesController.cs?name=snippetCreate)]
 
-První metoda akce (HTTP GET) `Create` zobrazí počáteční formulář pro vytvoření. Druhá verze (`[HttpPost]`) zpracovává příspěvek formuláře. Druhá metoda `Create` (verze `[HttpPost]`) volá `ModelState.IsValid`, aby zkontrolovala, zda film obsahuje chyby ověřování. Volání této metody vyhodnotí všechny atributy ověřování, které byly aplikovány na objekt. Pokud objekt obsahuje chyby ověřování, metoda `Create` znovu zobrazí formulář. Pokud nejsou k dispozici žádné chyby, metoda uloží nový film do databáze. V našem příkladu filmu není formulář na straně klienta publikovaný na serveru, když se zjistily chyby ověřování. Druhá metoda `Create` se nikdy nevolá, když dojde k chybám ověřování na straně klienta. Zakážete-li jazyk JavaScript v prohlížeči, bude ověřování klienta zakázáno a můžete otestovat metodu HTTP POST `Create` `ModelState.IsValid` zjišťování chyb ověřování.
+První metoda (HTTP GET) `Create` akce zobrazí počáteční formulář pro vytvoření. Druhá verze (`[HttpPost]`) zpracovává příspěvek formuláře. Druhá metoda `Create` (verze `[HttpPost]`) volá `ModelState.IsValid`, aby zkontrolovala, zda film obsahuje chyby ověřování. Volání této metody vyhodnotí všechny atributy ověřování, které byly aplikovány na objekt. Pokud objekt obsahuje chyby ověřování, metoda `Create` znovu zobrazí formulář. Pokud nejsou k dispozici žádné chyby, metoda uloží nový film do databáze. V našem příkladu filmu není formulář na straně klienta publikovaný na serveru, když se zjistily chyby ověřování. Druhá metoda `Create` se nikdy nevolá, když dojde k chybám ověřování na straně klienta. Zakážete-li jazyk JavaScript v prohlížeči, bude ověřování klienta zakázáno a můžete otestovat metodu HTTP POST `Create` `ModelState.IsValid` zjistit chyby ověřování.
 
-Můžete nastavit bod přerušení v metodě @no__t 0 a ověřit, zda metoda není nikdy volána, ověřování na straně klienta nebude odesílat data formuláře, pokud jsou zjištěny chyby ověřování. Pokud v prohlížeči zakážete JavaScript, pak formulář odešle s chybami, bude k dispozice bod přerušení. Pořád se vám zobrazí úplné ověření bez JavaScriptu. 
+Můžete nastavit bod přerušení v metodě `[HttpPost] Create` a ověřit, zda metoda není nikdy volána, ověřování na straně klienta nebude odesílat data formuláře, pokud jsou zjištěny chyby ověřování. Pokud v prohlížeči zakážete JavaScript, pak formulář odešle s chybami, bude k dispozice bod přerušení. Pořád se vám zobrazí úplné ověření bez JavaScriptu. 
 
 Následující obrázek ukazuje, jak zakázat JavaScript v prohlížeči FireFox.
 
@@ -75,19 +75,19 @@ Předchozí kód je používán metodami akcí k zobrazení počátečního form
 
 [Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) používá atributy [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) a vytváří atributy HTML potřebné k ověření jQuery na straně klienta. [Pomocník pro ověřování značek](xref:mvc/views/working-with-forms#the-validation-tag-helpers) zobrazí chyby ověřování. Další informace najdete v tématu [ověření](xref:mvc/models/validation) .
 
-To je skvělé, že tento přístup není tím, že kontroler ani šablona zobrazení `Create` neví žádné informace o skutečných ověřovacích pravidlech a o tom, jaké jsou zobrazené chybové zprávy. Ověřovací pravidla a řetězce chyb jsou zadány pouze ve třídě `Movie`. Tato pravidla ověřování se automaticky aplikují na zobrazení `Edit` a na všechny další šablony zobrazení, které můžete vytvořit, když tento model upravíte.
+To je prakticky Skvělé o tomto přístupu, protože řadič ani šablona zobrazení `Create` neví žádné informace o skutečných ověřovacích pravidlech, která se vynucuje, nebo o konkrétních zobrazených chybových zprávách. Ověřovací pravidla a řetězce chyb jsou určeny pouze ve třídě `Movie`. Tato pravidla ověřování se automaticky aplikují na `Edit` zobrazení a na všechny další šablony zobrazení, které můžete vytvořit, když tento model upravíte.
 
 Pokud potřebujete změnit logiku ověřování, můžete tak učinit přesně na jednom místě přidáním ověřovacích atributů do modelu (v tomto příkladu třída `Movie`). Nemusíte se starat o různé části aplikace, které jsou nekonzistentní s tím, jak se pravidla uplatňují – veškerá logika ověřování bude definovaná na jednom místě a bude se používat všude. Tím se kód neustále čistí a usnadňuje se jeho údržba a vývoj. A to znamená, že budete plně dodržovat zásadu SUCHÉho.
 
 ## <a name="using-datatype-attributes"></a>Použití atributů DataType
 
-Otevřete soubor *Movie.cs* a prověřte třídu `Movie`. Obor názvů `System.ComponentModel.DataAnnotations` poskytuje kromě předdefinované sady ověřovacích atributů i atributy formátování. Pro datum vydání a pole s cenami již jsme použili hodnotu výčtu `DataType`. Následující kód ukazuje vlastnosti `ReleaseDate` a `Price` s odpovídajícím atributem `DataType`.
+Otevřete soubor *Movie.cs* a prověřte třídu `Movie`. Obor názvů `System.ComponentModel.DataAnnotations` poskytuje kromě předdefinované sady ověřovacích atributů také atributy formátování. Pro datum vydání a pole s cenami již jsme použili hodnotu výčtu `DataType`. Následující kód ukazuje vlastnosti `ReleaseDate` a `Price` s odpovídajícím atributem `DataType`.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc//sample/MvcMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
 
-Atributy `DataType` poskytují pouze pomocné parametry pro modul zobrazení k formátování dat (a poskytování prvků nebo atributů, jako je například `<a>` pro URL a `<a href="mailto:EmailAddress.com">` pro e-mail. K ověření formátu dat můžete použít atribut `RegularExpression`. Atribut `DataType` slouží k určení datového typu, který je konkrétnější než vnitřní typ databáze, nejedná se o atributy ověřování. V tomto případě chceme sledovat pouze datum, nikoli čas. Výčet `DataType` poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. Atribut `DataType` může aplikaci povolit také automatické poskytování funkcí specifických pro typ. Například odkaz `mailto:` lze vytvořit pro `DataType.EmailAddress` a selektor data lze pro `DataType.Date` zadat v prohlížečích, které podporují HTML5. Atributy `DataType` emitují atributy HTML 5 `data-` (vyslovované datové přerušované), které mohou prohlížeče HTML 5 pochopit. Atributy `DataType` **neposkytují žádné** ověřování.
+Atributy `DataType` poskytují pouze pomocné parametry pro modul zobrazení k formátování dat (a poskytování prvků nebo atributů, jako je například `<a>` pro adresu URL a `<a href="mailto:EmailAddress.com">` pro e-maily. K ověření formátu dat lze použít atribut `RegularExpression`. Atribut `DataType` slouží k zadání datového typu, který je konkrétnější než vnitřní typ databáze, ale nejedná se o atributy ověřování. V tomto případě chceme sledovat pouze datum, nikoli čas. Výčet `DataType` poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. Atribut `DataType` může také povolit aplikaci automatické poskytování funkcí specifických pro typ. Například odkaz `mailto:` lze vytvořit pro `DataType.EmailAddress`a selektor data lze zadat pro `DataType.Date` v prohlížečích, které podporují HTML5. Atributy `DataType` emitují atributy HTML 5 `data-` (vyslovované datové pomlčky), které mohou prohlížeče HTML 5 pochopit. Atributy `DataType` **neposkytují žádné** ověřování.
 
-`DataType.Date` neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech na základě `CultureInfo` serveru.
+`DataType.Date` neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech na základě `CultureInfo`serveru.
 
 Atribut `DisplayFormat` slouží k explicitnímu zadání formátu data:
 
@@ -96,30 +96,30 @@ Atribut `DisplayFormat` slouží k explicitnímu zadání formátu data:
 public DateTime ReleaseDate { get; set; }
 ```
 
-Nastavení `ApplyFormatInEditMode` určuje, že formátování by se mělo použít i v případě, že se hodnota zobrazí v textovém poli pro úpravy. (Pro některá pole (například pro hodnoty měny možná nebudete chtít), v textovém poli pro úpravy pravděpodobně nebudete chtít symbol měny.)
+Nastavení `ApplyFormatInEditMode` určuje, zda má být formátování použito také v případě, že je hodnota zobrazena v textovém poli pro úpravy. (Pro některá pole (například pro hodnoty měny možná nebudete chtít), v textovém poli pro úpravy pravděpodobně nebudete chtít symbol měny.)
 
-Můžete použít atribut `DisplayFormat` samotný, ale obecně je vhodné použít atribut `DataType`. Atribut `DataType` předává sémantiku dat na rozdíl od způsobu vykreslování na obrazovce a poskytuje následující výhody, které nezískáte pomocí DisplayFormat:
+Atribut `DisplayFormat` lze použít samostatně, ale obecně je vhodné použít atribut `DataType`. Atribut `DataType` předává sémantiku dat na rozdíl od způsobu vykreslování na obrazovce a poskytuje následující výhody, které nezískáte pomocí DisplayFormat:
 
 * Prohlížeč může povolit funkce HTML5 (například pro zobrazení ovládacího prvku kalendáře, symbolu měny odpovídající národním prostředí, e-mailových odkazů atd.)
 
 * Ve výchozím nastavení bude prohlížeč data vykreslovat pomocí správného formátu na základě vašeho národního prostředí.
 
-* Atribut `DataType` umožňuje MVC zvolit šablonu pravého pole pro vykreslení dat (`DisplayFormat`, pokud se používá samostatně, používá šablonu řetězce).
+* Atribut `DataType` umožňuje MVC zvolit šablonu pravého pole pro vykreslení dat (`DisplayFormat` Pokud se používá samostatně, používá šablonu řetězce).
 
 > [!NOTE]
 > ověřování jQuery nefunguje s atributem `Range` a `DateTime`. Například následující kód bude zobrazovat chybu ověřování na straně klienta, a to i v případě, že je datum v zadaném rozsahu:
 >
 > `[Range(typeof(DateTime), "1/1/1966", "1/1/2020")]`
 
-Pro použití atributu `Range` s `DateTime` bude nutné zakázat ověření data jQuery. Obvykle není dobrým zvykem při kompilování pevných dat ve vašich modelech, takže použijte atribut `Range` a `DateTime` se nedoporučuje.
+Chcete-li použít atribut `Range` s `DateTime`, bude nutné zakázat ověření data jQuery. Obvykle není dobrým zvykem při kompilování pevných dat ve vašich modelech, takže použijte atribut `Range` a `DateTime` se nedoporučuje.
 
 Následující kód ukazuje kombinování atributů na jednom řádku:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/MovieDateRatingDAmult.cs?name=snippet1)]
 
-V další části této série si projdeme aplikaci a provedeme některá vylepšení automaticky generovaných metod `Details` a `Delete`.
+V další části této série si projdeme aplikaci a provedeme některá vylepšení automaticky generovaných `Details` a `Delete`ch metod.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Práce s formuláři](xref:mvc/views/working-with-forms)
 * [Globalizace a lokalizace](xref:fundamentals/localization)

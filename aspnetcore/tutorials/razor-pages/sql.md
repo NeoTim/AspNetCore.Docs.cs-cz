@@ -14,7 +14,7 @@ ms.locfileid: "72334233"
 ---
 # <a name="work-with-a-database-and-aspnet-core"></a>Práce s databází a ASP.NET Core
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Jan Audette](https://twitter.com/joeaudette)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT) a [Joe Audette](https://twitter.com/joeaudette)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -26,7 +26,7 @@ Objekt `RazorPagesMovieContext` zpracovává úlohu připojení k databázi a ma
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -40,7 +40,7 @@ Hodnota názvu pro databázi (`Database={Database name}`) bude pro vygenerovaný
 
 [!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json?highlight=10-12)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-10)]
 
@@ -52,7 +52,7 @@ Při nasazení aplikace do testovacího nebo provozního serveru lze použít pr
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory s hodnotou `*.mdf` v adresáři `C:\Users\<user>\`.
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory `*.mdf` v adresáři `C:\Users\<user>\`.
 
 <a name="ssox"></a>
 * V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
@@ -65,22 +65,22 @@ LocalDB je zjednodušená verze databázového stroje SQL Server Express, který
 
   ![Tabulky filmů otevřené v Návrháři](sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF pro primární klíč vytvoří vlastnost s názvem `ID`.
+Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF vytvoří vlastnost s názvem `ID` pro primární klíč.
 
 * Klikněte pravým tlačítkem na tabulku `Movie` a vyberte **Zobrazit data**:
 
   ![Tabulka videa otevřená zobrazující data tabulky](sql/_static/vd22.png)
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
 ---
 
-## <a name="seed-the-database"></a>Dosazení databáze
+## <a name="seed-the-database"></a>Přidání dat do databáze
 
-Vytvořte novou třídu s názvem `SeedData` ve složce *modely* pomocí následujícího kódu:
+Vytvořte novou třídu s názvem `SeedData` ve složce *modely* s následujícím kódem:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedData.cs?name=snippet_1)]
 
@@ -97,17 +97,17 @@ if (context.Movie.Any())
 
 ### <a name="add-the-seed-initializer"></a>Přidat inicializátor počáteční hodnoty
 
-V *program.cs*upravte metodu `Main` a proveďte následující:
+V *Program.cs*, změnit `Main` metoda můžete provádět následující:
 
-* Získá instanci kontextu databáze z kontejneru vkládání závislostí.
+* Instance kontextu databáze získáte z kontejneru pro vkládání závislostí.
 * Zavolejte metodu počáteční hodnoty a předejte jí kontext.
 * Vyřazení kontextu, když se dokončí metoda počáteční hodnoty.
 
-Následující kód ukazuje aktualizovaný soubor *program.cs* .
+Následující kód ukazuje aktualizovaný *Program.cs* souboru.
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Program.cs)]
 
-Pokud se nespustí `Update-Database`, dojde k následující výjimce:
+Pokud `Update-Database` nebyl spuštěn, dojde k následující výjimce:
 
 > `SqlException: Cannot open database "RazorPagesMovieContext-" requested by the login. The login failed.`
 > `Login failed for user 'user name'.`
@@ -128,7 +128,7 @@ Pokud se nespustí `Update-Database`, dojde k následující výjimce:
     * Pokud jste spustili VS v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění.
     * Pokud jste spustili VS v režimu ladění, ukončete ladicí program a stiskněte klávesu F5.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 Odstraní všechny záznamy v databázi (takže se metoda počáteční hodnoty spustí). Zastavením a spuštěním aplikace dosadíte databázi.
 
@@ -138,11 +138,11 @@ Aplikace zobrazuje dosazený data.
 
 V dalším kurzu dojde k vylepšení prezentace dat.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 > [!div class="step-by-step"]
 > [Předchozí: vygenerované Razor Pages](xref:tutorials/razor-pages/page)
-> [Next: aktualizace stránek](xref:tutorials/razor-pages/da1)
+> [Další: aktualizace stránek](xref:tutorials/razor-pages/da1)
 
 ::: moniker-end
 
@@ -156,15 +156,15 @@ Objekt `RazorPagesMovieContext` zpracovává úlohu připojení k databázi a ma
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=15-18)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
 ---
 
-Další informace o metodách používaných v `ConfigureServices` naleznete v tématu:
+Další informace o metodách používaných v `ConfigureServices`najdete v tématech:
 
-* [Podpora obecné nařízení o ochraně osobních údajů v rámci EU (GDPR) v ASP.NET Core](xref:security/gdpr) pro `CookiePolicyOptions`.
+* [Podpora GDPR (EU obecné nařízení o ochraně osobních údajů) v ASP.NET Core](xref:security/gdpr) pro `CookiePolicyOptions`.
 * [SetCompatibilityVersion](xref:mvc/compatibility-version)
 
 [Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj získá připojovací řetězec ze souboru *appSettings. JSON* .
@@ -191,7 +191,7 @@ Při nasazení aplikace do testovacího nebo provozního serveru lze použít pr
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory s hodnotou `*.mdf` v adresáři `C:/Users/<user/>`.
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory `*.mdf` v adresáři `C:/Users/<user/>`.
 
 <a name="ssox"></a>
 * V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
@@ -204,7 +204,7 @@ LocalDB je zjednodušená verze databázového stroje SQL Server Express, který
 
   ![Tabulka videí otevřená v Návrháři](sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF pro primární klíč vytvoří vlastnost s názvem `ID`.
+Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF vytvoří vlastnost s názvem `ID` pro primární klíč.
 
 * Klikněte pravým tlačítkem na tabulku `Movie` a vyberte **Zobrazit data**:
 
@@ -222,9 +222,9 @@ Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF pro primá
 
 ---
 
-## <a name="seed-the-database"></a>Dosazení databáze
+## <a name="seed-the-database"></a>Přidání dat do databáze
 
-Vytvořte novou třídu s názvem `SeedData` ve složce *modely* pomocí následujícího kódu:
+Vytvořte novou třídu s názvem `SeedData` ve složce *modely* s následujícím kódem:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedData.cs?name=snippet_1)]
 
@@ -241,17 +241,17 @@ if (context.Movie.Any())
 
 ### <a name="add-the-seed-initializer"></a>Přidat inicializátor počáteční hodnoty
 
-V *program.cs*upravte metodu `Main` a proveďte následující:
+V *Program.cs*, změnit `Main` metoda můžete provádět následující:
 
-* Získá instanci kontextu databáze z kontejneru vkládání závislostí.
+* Instance kontextu databáze získáte z kontejneru pro vkládání závislostí.
 * Zavolejte metodu počáteční hodnoty a předejte jí kontext.
 * Vyřazení kontextu, když se dokončí metoda počáteční hodnoty.
 
-Následující kód ukazuje aktualizovaný soubor *program.cs* .
+Následující kód ukazuje aktualizovaný *Program.cs* souboru.
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Program.cs)]
 
-Produkční aplikace by nevolala `Database.Migrate`. Přidá se k předchozímu kódu, aby se zabránilo následující výjimce při `Update-Database` nebyl spuštěn:
+Produkční aplikace by nevolala `Database.Migrate`. Přidá se k předchozímu kódu, aby se zabránilo následující výjimce, když `Update-Database` nebyl spuštěn:
 
 SqlException: Nelze otevřít databázi "RazorPagesMovieContext-21" požadovanou pro přihlášení. Přihlášení se nezdařilo.
 Přihlášení uživatele "uživatelské jméno" se nezdařilo.
@@ -292,12 +292,12 @@ Aplikace zobrazuje dosazený data:
 
 V dalším kurzu se vyčistí prezentace dat.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/A_5ff11sDHY)
 
 > [!div class="step-by-step"]
 > [Předchozí: vygenerované Razor Pages](xref:tutorials/razor-pages/page)
-> [Next: aktualizace stránek](xref:tutorials/razor-pages/da1)
+> [Další: aktualizace stránek](xref:tutorials/razor-pages/da1)
 
 ::: moniker-end

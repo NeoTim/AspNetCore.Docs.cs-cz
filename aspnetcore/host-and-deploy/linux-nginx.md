@@ -63,7 +63,7 @@ Zkopírujte aplikaci ASP.NET Core na server pomocí nástroje, který se integru
 > [!NOTE]
 > V rámci scénáře nasazení v produkčním prostředí provádí pracovní postup průběžné integrace publikování aplikace a zkopírování prostředků na server.
 
-Otestujte aplikaci:
+Testování aplikace:
 
 1. Z příkazového řádku spusťte aplikaci: `dotnet <app_assembly>.dll`.
 1. V prohlížeči přejděte na `http://<serveraddress>:<port>` a ověřte, že aplikace funguje na Linux místně.
@@ -155,7 +155,7 @@ server {
 S předchozím konfiguračním souborem a výchozím serverem Nginx přijímá veřejný provoz na portu 80 s hlavičkou hostitele `example.com` nebo `*.example.com`. Požadavky, které se neshodují s těmito hostiteli, se nebudou přesílat na Kestrel. Nginx přepošle požadavky na Kestrel na `http://localhost:5000`. Další informace najdete v tématu [jak Nginx zpracovává požadavek](https://nginx.org/docs/http/request_processing.html) . Pokud chcete změnit IP adresu/port Kestrel, přečtěte si téma [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
-> Nepovedlo se určit správnou [direktivu název_serveru](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace vystavuje chybám zabezpečení. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
+> Nepovedlo se určit správnou [direktivu server_name](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace zpřístupňuje bezpečnostním hrozbám. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Zobrazit [rfc7230 části-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) Další informace.
 
 Po navázání konfigurace nginx spusťte `sudo nginx -t` a ověřte syntaxi konfiguračních souborů. Pokud je test konfiguračního souboru úspěšný, vynutí Nginx, aby se změny vybraly spuštěním `sudo nginx -s reload`.
 
@@ -168,7 +168,7 @@ Pokud aplikace běží na serveru, ale neodpoví přes Internet, zkontrolujte br
 
 Po dokončení testování aplikace ukončete aplikaci pomocí `Ctrl+C` na příkazovém řádku.
 
-## <a name="monitor-the-app"></a>Monitorování aplikace
+## <a name="monitor-the-app"></a>Sledování aplikace
 
 Server je nastavený tak, aby předal požadavky na `http://<serveraddress>:80` do ASP.NET Core aplikace běžící na Kestrel na `http://127.0.0.1:5000`. Nginx ale není nastavené na správu procesu Kestrel. *systém* lze použít k vytvoření souboru služby ke spuštění a sledování základní webové aplikace. *systém* je systémem init, který poskytuje mnoho výkonných funkcí pro spouštění, zastavování a správu procesů. 
 
@@ -211,7 +211,7 @@ Pomocí `TimeoutStopSec` můžete nastavit dobu, po kterou se má čekat na vypn
 TimeoutStopSec=90
 ```
 
-Linux má systém souborů s rozlišováním velkých a malých písmen. Když nanastavíte ASPNETCORE_ENVIRONMENT na "produkční", výsledky hledání konfiguračního souboru *appSettings. Produkční. JSON*, nikoli *appSettings. produkční. JSON*.
+Linux má systém souborů s rozlišováním velkých a malých písmen. Když se nastaví ASPNETCORE_ENVIRONMENT k produkci, vyhledá se konfigurační soubor *appSettings. Produkční. JSON*, nikoli *appSettings. produkční. JSON*.
 
 Některé hodnoty (například připojovací řetězce SQL) musí být uvozené řídicími znaky, aby poskytovatelé konfigurace mohli číst proměnné prostředí. Pomocí následujícího příkazu vygenerujte správně uvozenou hodnotu pro použití v konfiguračním souboru:
 
@@ -256,7 +256,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a>Zobrazit protokoly
+### <a name="view-logs"></a>Zobrazení protokolů
 
 Vzhledem k tomu, že je webová aplikace používající Kestrel spravovaná pomocí `systemd`, všechny události a procesy se zaprotokolují do centralizovaného deníku. Tento deník ale obsahuje všechny položky pro všechny služby a procesy spravované pomocí `systemd`. Chcete-li zobrazit položky specifické pro `kestrel-helloapp.service`, použijte následující příkaz:
 
@@ -272,13 +272,13 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="data-protection"></a>Ochrana dat
 
-[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
+[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud není nakonfigurovaná ochrana dat, jsou klíče uložené v paměti a při restartování aplikace.
 
-Pokud se klíčového prstence při restartu aplikace uloží do paměti:
+Pokud kanál klíče jsou uloženy v paměti, při restartování aplikace:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené.
-* Uživatelé se musí znovu přihlásit na svůj další požadavek.
-* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
+* Všechny tokeny ověřování na základě souborů cookie nejsou zneplatněny.
+* Uživatelé se musí znovu přihlásit v jejich další požadavek.
+* Všechna data chráněná pomocí aktualizační kanál, který klíč můžete už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [soubory cookie v ASP.NET Core MVC TempData](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete nakonfigurovat ochranu dat, aby zachovala a zašifroval klíč Ring, přečtěte si:
 
@@ -326,7 +326,7 @@ sudo ufw enable
 
 #### <a name="change-the-nginx-response-name"></a>Změnit název odpovědi Nginx
 
-Upravit *Src/http/ngx_http_header_filter_module. c*:
+Edit *src/http/ngx_http_header_filter_module.c*:
 
 ```
 static char ngx_http_server_string[] = "Server: Web Server" CRLF;
@@ -394,7 +394,7 @@ sudo nano /etc/nginx/nginx.conf
 
 Přidejte `add_header X-Content-Type-Options "nosniff";` řádku a uložte soubor a pak restartujte Nginx.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites)
 * [Nginx: binární verze: oficiální balíčky Debian/Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)

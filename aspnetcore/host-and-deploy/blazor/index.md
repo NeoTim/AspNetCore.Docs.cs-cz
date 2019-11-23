@@ -28,7 +28,7 @@ Aplikace jsou publikované pro nasazení v konfiguraci vydání.
 
 1. V navigačním panelu vyberte **Build** > **publikovat aplikaci {Application}** .
 1. Vyberte *cíl publikování*. Chcete-li publikovat místně, vyberte **Složka**.
-1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte tlačítko **publikovat** .
+1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte tlačítko **Publikovat**.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
@@ -51,13 +51,13 @@ Prostředky ve složce jsou nasazeny na webový server. Nasazení může být ru
 *Základní cesta aplikace* je kořenová cesta URL aplikace. Vezměte v úvahu následující hlavní aplikace a aplikace Blazor:
 
 * Hlavní aplikace se nazývá `MyApp`:
-  * Aplikace se fyzicky nachází v *d: \\MyApp*.
+  * Aplikace se fyzicky nachází v *d:\\MyApp*.
   * Žádosti jsou přijímány na `https://www.contoso.com/{MYAPP RESOURCE}`.
 * Blazor aplikace s názvem `CoolApp` je dílčí aplikace `MyApp`:
-  * Dílčí aplikace je fyzicky umístěná v *d: \\MyApp @ no__t-2CoolApp*.
+  * Dílčí aplikace je fyzicky umístěná v *d:\\MyApp\\CoolApp*.
   * Žádosti jsou přijímány na `https://www.contoso.com/CoolApp/{COOLAPP RESOURCE}`.
 
-Bez zadání další konfigurace pro `CoolApp` nemá dílčí aplikace v tomto scénáři žádné znalosti o tom, kde se nachází na serveru. Aplikace například nemůže sestavovat správné relativní adresy URL ke svým prostředkům bez vědomí, že se nachází na relativní cestě URL `/CoolApp/`.
+Bez zadání další konfigurace pro `CoolApp`nemá dílčí aplikace v tomto scénáři žádné znalosti o tom, kde se nachází na serveru. Aplikace například nemůže vytvořit správné relativní adresy URL ke svým prostředkům bez vědomí, že se nachází na relativní cestě URL `/CoolApp/`.
 
 Chcete-li zadat konfiguraci pro základní cestu aplikace Blazor `https://www.contoso.com/CoolApp/`, je atribut `href` značky `<base>` nastaven na relativní kořenovou cestu v souboru *wwwroot/index.html* :
 
@@ -65,19 +65,19 @@ Chcete-li zadat konfiguraci pro základní cestu aplikace Blazor `https://www.co
 <base href="/CoolApp/">
 ```
 
-Když zadáte relativní cestu URL, komponenta, která není v kořenovém adresáři, může vytvářet adresy URL relativní k kořenové cestě aplikace. Komponenty na různých úrovních adresářové struktury můžou vytvářet odkazy na jiné prostředky v umístění v rámci aplikace. Základní cesta aplikace se také používá k zachycení hypertextového odkazu, kde je `href` cíl odkazu v rámci základní cesty identifikátoru URI aplikace @ no__t-1The Blazor router zpracovává interní navigaci.
+Když zadáte relativní cestu URL, komponenta, která není v kořenovém adresáři, může vytvářet adresy URL relativní k kořenové cestě aplikace. Komponenty na různých úrovních adresářové struktury můžou vytvářet odkazy na jiné prostředky v umístění v rámci aplikace. Základní cesta aplikace se také používá k zachycení hypertextového odkazu, kde `href` cíl odkazu se nachází v rámci základní cesty k umístění identifikátoru URI aplikace&mdash;směrovač Blazor zpracovává interní navigaci.
 
 V mnoha hostitelských scénářích je relativní cesta URL k aplikaci kořenem aplikace. V těchto případech je základní cestou k relativní adrese URL aplikace lomítko (`<base href="/" />`), což je výchozí konfigurace aplikace Blazor. V jiných scénářích hostování, jako jsou stránky GitHubu a podaplikace služby IIS, musí být základní cesta aplikace nastavená na relativní cestu URL serveru k aplikaci.
 
-Chcete-li nastavit základní cestu aplikace, aktualizujte značku `<base>` v rámci prvků značky `<head>` souboru *wwwroot/index.html* . Nastavte hodnotu atributu `href` na `/{RELATIVE URL PATH}/` (vyžaduje se koncové lomítko), kde `{RELATIVE URL PATH}` je úplná relativní cesta URL aplikace.
+Chcete-li nastavit základní cestu aplikace, aktualizujte značku `<base>` v rámci `<head>` prvků značek souboru *wwwroot/index.html* . Nastavte hodnotu atributu `href` na `/{RELATIVE URL PATH}/` (vyžaduje se koncové lomítko), kde `{RELATIVE URL PATH}` je úplná relativní cesta URL aplikace.
 
-Pro aplikaci, která má nekořenovou cestu relativní adresy URL (například `<base href="/CoolApp/">`), aplikace *při místním spuštění*nenalezne své prostředky. Chcete-li vyřešit tento problém během místního vývoje a testování, můžete dodat *základní argument Path* , který odpovídá hodnotě `href` značky `<base>` za běhu. Pokud chcete předat základní argument Path při místním spuštění aplikace, spusťte příkaz `dotnet run` z adresáře aplikace s možností `--pathbase`:
+Pro aplikaci, která má nekořenovou cestu relativní adresy URL (například `<base href="/CoolApp/">`), aplikace *při místním spuštění*nenalezne své prostředky. Chcete-li vyřešit tento problém během místního vývoje a testování, můžete dodat *základní argument Path* , který odpovídá hodnotě `href` `<base>` značce za běhu. Pokud chcete předat základní argument Path při místním spuštění aplikace, spusťte příkaz `dotnet run` z adresáře aplikace s možností `--pathbase`:
 
 ```dotnetcli
 dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}
 ```
 
-V případě aplikace s relativní cestou URL `/CoolApp/` (`<base href="/CoolApp/">`) je tento příkaz:
+Pro aplikaci s relativní cestou URL `/CoolApp/` (`<base href="/CoolApp/">`) je tento příkaz:
 
 ```dotnetcli
 dotnet run --pathbase=/CoolApp

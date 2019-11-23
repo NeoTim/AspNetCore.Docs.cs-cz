@@ -22,7 +22,7 @@ Tím, že [Dykstra](https://github.com/tdykstra), [Jan P Smith](https://twitter.
 
 V tomto kurzu se seznámíte s funkcí migrace EF Core pro správu změn datového modelu.
 
-Při vývoji nové aplikace se datový model často mění. Pokaždé, když se model změní, model se nesynchronizuje s databází. Tato série kurzů začala konfigurací Entity Framework vytvořit databázi, pokud neexistuje. Pokaždé, když se datový model změní, je nutné odstranit databázi. Při příštím spuštění aplikace volání `EnsureCreated` znovu vytvoří databázi, aby odpovídala novému datovému modelu. Třída `DbInitializer` potom spustí příkaz k osazení nové databáze.
+Při vývoji nové aplikace se datový model často mění. Pokaždé, když se model změní, model se nesynchronizuje s databází. Tato série kurzů začala konfigurací Entity Framework vytvořit databázi, pokud neexistuje. Pokaždé, když se datový model změní, je nutné odstranit databázi. Při příštím spuštění aplikace volání `EnsureCreated` znovu vytvoří databázi tak, aby odpovídala novému datovému modelu. Třída `DbInitializer` pak spouští k osazení nové databáze.
 
 Tento přístup k uchování databáze v synchronizaci s datovým modelem funguje dobře, dokud aplikaci nenainstalujete do produkčního prostředí. Když je aplikace spuštěná v produkčním prostředí, obvykle ukládá data, která je potřeba zachovat. Aplikace nemůže začít s testovací databází pokaždé, když je provedena změna (například přidání nového sloupce). Funkce migrace EF Core vyřeší tento problém tím, že umožňuje EF Core aktualizovat schéma databáze místo vytvoření nové databáze.
 
@@ -82,14 +82,14 @@ dotnet ef database update
 
 ## <a name="up-and-down-methods"></a>Metody nahoru a dolů
 
-Příkaz EF Core `migrations add` vygeneroval kód pro vytvoření databáze. Tento kód migrace je v souboru *_InitialCreate. cs migraces @ no__t-1timestamp >* . Metoda `Up` třídy `InitialCreate` vytvoří tabulky databáze, které odpovídají sadám entit datového modelu. Metoda `Down` je odstraní, jak je znázorněno v následujícím příkladu:
+Příkaz EF Core `migrations add` vygeneroval kód pro vytvoření databáze. Tento kód migrace se nachází v části *migrace\<časové razítko > souboru _InitialCreate. cs* . Metoda `Up` třídy `InitialCreate` vytvoří tabulky databáze, které odpovídají sadám entit datového modelu. Metoda `Down` je odstraní, jak je znázorněno v následujícím příkladu:
 
 [!code-csharp[](intro/samples/cu30/Migrations/20190731193522_InitialCreate.cs)]
 
 Předchozí kód je určen pro počáteční migraci. Kód:
 
 * Byl vygenerován příkazem `migrations add InitialCreate`. 
-* Se spustí příkazem `database update`.
+* Je proveden pomocí příkazu `database update`.
 * Vytvoří databázi pro datový model určený třídou kontextu databáze.
 
 Pro název souboru se používá parametr názvu migrace (v příkladu "InitialCreate"). Název migrace může být libovolný platný název souboru. Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí. Například migrace, která přidala tabulku oddělení, se může jmenovat "AddDepartmentTable".
@@ -97,7 +97,7 @@ Pro název souboru se používá parametr názvu migrace (v příkladu "InitialC
 ## <a name="the-migrations-history-table"></a>Tabulka historie migrace
 
 * K prozkoumání databáze použijte SSOX nebo nástroj SQLite.
-* Všimněte si přidání tabulky `__EFMigrationsHistory`. Tabulka `__EFMigrationsHistory` udržuje přehled o tom, které migrace byly pro databázi aplikovány.
+* Všimněte si přidání `__EFMigrationsHistory` tabulky. V tabulce `__EFMigrationsHistory` je sledováno, které migrace byly pro databázi aplikovány.
 * Zobrazit data v tabulce `__EFMigrationsHistory`. Zobrazuje jeden řádek pro první migraci.
 
 ## <a name="the-data-model-snapshot"></a>Snímek datového modelu
@@ -108,7 +108,7 @@ Vzhledem k tomu, že soubor snímku sleduje stav datového modelu, nelze migraci
 
 ## <a name="remove-ensurecreated"></a>Odebrat EnsureCreated
 
-Tato řada kurzů začala pomocí `EnsureCreated`. @no__t – 0 nevytvoří tabulku historie migrace a nedá se použít s migracemi. Je navržená pro testování nebo rychlé vytváření prototypů, kde se databáze vynechává a často se znovu vytvoří.
+Tato řada kurzů začala pomocí `EnsureCreated`. `EnsureCreated` nevytvoří tabulku historie migrace a nedá se použít s migracemi. Je navržená pro testování nebo rychlé vytváření prototypů, kde se databáze vynechává a často se znovu vytvoří.
 
 Od tohoto okamžiku budou kurzy používat migrace.
 
@@ -121,7 +121,7 @@ Spusťte aplikaci a ověřte, že je databáze osazená.
 
 ## <a name="applying-migrations-in-production"></a>Použití migrace v produkčním prostředí
 
-Doporučujeme, aby **provozní aplikace** nevolaly funkci [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace. `Migrate` by se nemělo volat z aplikace, která je nasazená na serverovou farmu. Pokud je aplikace škálovaná na více instancí serveru, je obtížné zajistit, aby aktualizace schématu databáze neprobíhaly na více serverech nebo byly v konfliktu s přístupem pro čtení a zápis.
+Doporučujeme, aby **provozní aplikace** nevolaly funkci [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace. `Migrate` by se neměla volat z aplikace, která je nasazená na serverovou farmu. Pokud je aplikace škálovaná na více instancí serveru, je obtížné zajistit, aby aktualizace schématu databáze neprobíhaly na více serverech nebo byly v konfliktu s přístupem pro čtení a zápis.
 
 Migrace databáze by se měla provádět v rámci nasazení a řízeným způsobem. Přístupy k migraci do produkční databáze zahrnují:
 
@@ -138,12 +138,12 @@ The login failed.
 Login failed for user 'user name'.
 ```
 
-Řešením může být spuštění `dotnet ef database update` v příkazovém řádku.
+Řešení může být spuštěno `dotnet ef database update` v příkazovém řádku.
 
 ### <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [EF Core CLI](/ef/core/miscellaneous/cli/dotnet).
-* [Konzola správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
+* [Konzola Správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
 
 ## <a name="next-steps"></a>Další kroky
 
@@ -220,11 +220,11 @@ dotnet ef database update
 
 ### <a name="examine-the-up-and-down-methods"></a>Projděte si metody nahoru a dolů.
 
-Příkaz EF Core `migrations add` vygeneroval kód pro vytvoření databáze. Tento kód migrace je v souboru *_InitialCreate. cs migraces @ no__t-1timestamp >* . Metoda `Up` třídy `InitialCreate` vytvoří tabulky databáze, které odpovídají sadám entit datového modelu. Metoda `Down` je odstraní, jak je znázorněno v následujícím příkladu:
+Příkaz EF Core `migrations add` vygeneroval kód pro vytvoření databáze. Tento kód migrace se nachází v části *migrace\<časové razítko > souboru _InitialCreate. cs* . Metoda `Up` třídy `InitialCreate` vytvoří tabulky databáze, které odpovídají sadám entit datového modelu. Metoda `Down` je odstraní, jak je znázorněno v následujícím příkladu:
 
 [!code-csharp[](intro/samples/cu21/Migrations/20180626224812_InitialCreate.cs?range=7-24,77-88)]
 
-Migrace zavolá metodu `Up`, která implementuje změny datového modelu pro migraci. Když zadáte příkaz pro vrácení aktualizace, migrace zavolá metodu `Down`.
+Migrace zavolá metodu `Up` pro implementaci změn datového modelu pro migraci. Když zadáte příkaz pro vrácení aktualizace, migrace zavolá metodu `Down`.
 
 Předchozí kód je určen pro počáteční migraci. Tento kód byl vytvořen při spuštění příkazu `migrations add InitialCreate`. Pro název souboru se používá parametr názvu migrace (v příkladu "InitialCreate"). Název migrace může být libovolný platný název souboru. Nejlepší je zvolit slovo nebo frázi, která shrnuje, co se v migraci provádí. Například migrace, která přidala tabulku oddělení, se může jmenovat "AddDepartmentTable".
 
@@ -261,7 +261,7 @@ Příkaz odebrat migrace odstraní migraci a zajistí správné resetování sn�
 
 ### <a name="remove-ensurecreated-and-test-the-app"></a>Odebrání EnsureCreated a testování aplikace
 
-Pro prvotní vývoj byl použit `EnsureCreated`. V tomto kurzu se používají migrace. `EnsureCreated` má následující omezení:
+Pro prvotní vývoj se použil `EnsureCreated`. V tomto kurzu se používají migrace. `EnsureCreated` má následující omezení:
 
 * Vynechá migrace a vytvoří databázi a schéma.
 * Nevytváří tabulku migrace.
@@ -278,20 +278,20 @@ Spusťte aplikaci a ověřte, že je tato databáze osazená.
 
 ### <a name="inspect-the-database"></a>Kontrola databáze
 
-K prozkoumání databáze použijte **Průzkumník objektů systému SQL Server** . Všimněte si přidání tabulky `__EFMigrationsHistory`. Tabulka `__EFMigrationsHistory` udržuje přehled o tom, které migrace byly pro databázi aplikovány. Zobrazit data v tabulce `__EFMigrationsHistory` zobrazuje jeden řádek pro první migraci. Poslední přihlášení v předchozím příkladu výstupu CLI ukazuje příkaz INSERT, který tento řádek vytvoří.
+K prozkoumání databáze použijte **Průzkumník objektů systému SQL Server** . Všimněte si přidání `__EFMigrationsHistory` tabulky. Tabulka `__EFMigrationsHistory` uchovává přehled o tom, které migrace byly pro databázi aplikovány. Umožňuje zobrazit data v tabulce `__EFMigrationsHistory`, která pro první migraci zobrazuje jeden řádek. Poslední přihlášení v předchozím příkladu výstupu CLI ukazuje příkaz INSERT, který tento řádek vytvoří.
 
 Spusťte aplikaci a ověřte, že vše funguje.
 
 ## <a name="applying-migrations-in-production"></a>Použití migrace v produkčním prostředí
 
-Doporučujeme **, aby produkční** aplikace nevolaly metodu [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace. `Migrate` by se nemělo volat z aplikace v serverové farmě. Například pokud je aplikace nasazená v cloudu s možností škálování na více instancí (spouští se víc instancí aplikace).
+Doporučujeme **, aby produkční** aplikace nevolaly metodu [Database. migrace](/dotnet/api/microsoft.entityframeworkcore.relationaldatabasefacadeextensions.migrate?view=efcore-2.0#Microsoft_EntityFrameworkCore_RelationalDatabaseFacadeExtensions_Migrate_Microsoft_EntityFrameworkCore_Infrastructure_DatabaseFacade_) při spuštění aplikace. `Migrate` by se neměla volat z aplikace v serverové farmě. Například pokud je aplikace nasazená v cloudu s možností škálování na více instancí (spouští se víc instancí aplikace).
 
 Migrace databáze by se měla provádět v rámci nasazení a řízeným způsobem. Přístupy k migraci do produkční databáze zahrnují:
 
 * Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.
 * Spuštění `dotnet ef database update` ze kontrolovaného prostředí.
 
-EF Core používá tabulku `__MigrationsHistory` k zjištění, jestli je potřeba některé migrace spustit. Pokud je databáze aktuální, nespustí se žádná migrace.
+EF Core používá tabulku `__MigrationsHistory` a zjistí, jestli je potřeba spustit nějaké migrace. Pokud je databáze aktuální, nespustí se žádná migrace.
 
 ## <a name="troubleshooting"></a>Odstraňování potíží
 
@@ -312,12 +312,13 @@ Login failed for user 'user name'.
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=OWSUuMLKTJo)
 * [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).
-* [Konzola správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
+* [Konzola Správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
 
 
 
 > [!div class="step-by-step"]
-> [Předchozí](xref:data/ef-rp/sort-filter-page)@no__t – 1 –[Další](xref:data/ef-rp/complex-data-model)
+> [Předchozí](xref:data/ef-rp/sort-filter-page)
+> [Další](xref:data/ef-rp/complex-data-model)
 
 ::: moniker-end
 

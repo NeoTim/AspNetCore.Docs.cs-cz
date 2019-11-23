@@ -35,7 +35,7 @@ info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 ```
 
-Klient .NET Core musí v adrese serveru použít `https`, aby bylo možné volat pomocí zabezpečeného připojení:
+Klient .NET Core musí v adrese serveru použít `https` k zajištění volání s zabezpečeným připojením:
 
 ```csharp
 static async Task Main(string[] args)
@@ -92,7 +92,7 @@ var client = new Greet.GreeterClient(channel);
 
 Kestrel nepodporuje HTTP/2 s TLS v macOS a ve starších verzích Windows, jako je Windows 7. ASP.NET Core šablona a ukázky gRPC standardně používají protokol TLS. Při pokusu o spuštění serveru gRPC se zobrazí následující chybová zpráva:
 
-> Nepovedlo se vytvořit připojení k https://localhost:5001 na rozhraní zpětné smyčky IPv4: HTTP/2 přes TLS se v macOS nepodporuje kvůli chybějící podpoře ALPN.
+> Nepovedlo se vytvořit připojení k https://localhost:5001 na rozhraní IPv4 zpětné smyčky: HTTP/2 přes TLS se v macOS nepodporuje kvůli chybějící podpoře ALPN.
 
 Pokud chcete tento problém obejít, nakonfigurujte Kestrel a klienta gRPC na použití HTTP/2 *bez* TLS. To byste měli udělat jenom během vývoje. Nepoužíváte-li protokol TLS, budou zasílány zprávy gRPC bez šifrování.
 
@@ -129,7 +129,7 @@ generování kódu gRPC konkrétní klienti a základní třídy služby vyžadu
 
 Další informace o generování prostředků gRPC C# naleznete v tématu <xref:grpc/basics>.
 
-Ve výchozím nastavení vygeneruje odkaz `<Protobuf>` konkrétního klienta a základní třídu služby. Pomocí atributu `GrpcServices` elementu reference lze omezit C# generování prostředků. Platné možnosti `GrpcServices` jsou následující:
+Ve výchozím nastavení vygeneruje odkaz `<Protobuf>` konkrétního klienta a základní třídu služby. Atribut `GrpcServices` elementu reference lze použít k omezení C# generování prostředků. Platné možnosti `GrpcServices`:
 
 * `Both` (výchozí, není-li k dispozici)
 * `Server`
@@ -161,9 +161,9 @@ Projekty WPF mají [známý problém](https://github.com/dotnet/wpf/issues/810) 
 Tento problém můžete vyřešit pomocí těchto potíží:
 
 1. Vytvořte nový projekt knihovny tříd .NET Core.
-2. V novém projektu přidejte odkazy pro povolení [ C# generování kódu z *@no__t -3.* a soubory](xref:grpc/basics#generated-c-assets):
+2. V novém projektu přidejte odkazy pro povolení [ C# generování kódu z *\*. proto* soubory](xref:grpc/basics#generated-c-assets):
     * Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .
-    * Přidejte *@no__t -1.* Files do skupiny položek `<Protobuf>`.
+    * Do *skupiny položek přidejte \** soubory..`<Protobuf>` .
 3. V aplikaci WPF přidejte odkaz na nový projekt.
 
 Aplikace WPF může použít gRPC generované typy z nového projektu knihovny tříd.

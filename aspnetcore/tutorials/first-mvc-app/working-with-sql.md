@@ -16,7 +16,7 @@ ms.locfileid: "72289079"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Objekt `MvcMovieContext` zpracovává úlohu připojení k databázi a mapování objektů `Movie` na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [vkládání závislostí](xref:fundamentals/dependency-injection) v metodě `ConfigureServices` v souboru *Startup.cs* :
 
@@ -28,7 +28,7 @@ Objekt `MvcMovieContext` zpracovává úlohu připojení k databázi a mapován�
 
 [!code-json[](start-mvc/sample/MvcMovie/appsettings.json?highlight=2&range=8-10)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_UseSqlite&highlight=5-6)]
 
@@ -44,27 +44,27 @@ Při nasazení aplikace do testovacího nebo provozního serveru lze použít pr
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory *. mdf* v adresáři *C:/Users/{User}* .
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory *. mdf* v adresáři *C:/Users/{User}* .
 
 * V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
 
   ![Nabídka Zobrazit](working-with-sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem na tabulku `Movie` **> návrháře zobrazení**
+* Klikněte pravým tlačítkem na `Movie` tabulce **> návrháře zobrazení**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/design.png)
 
   ![Tabulka videí otevřená v Návrháři](working-with-sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primárního klíče.
+Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primární klíč.
 
-* Klikněte pravým tlačítkem na tabulku `Movie` **> zobrazit data.**
+* Klikněte pravým tlačítkem na `Movie` tabulce **> zobrazit data.**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/ssox2.png)
 
   ![Tabulka videa otevřená zobrazující data tabulky](working-with-sql/_static/vd22.png)
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
@@ -72,9 +72,9 @@ Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vyt
 ---
 <!-- End of VS tabs -->
 
-## <a name="seed-the-database"></a>Dosazení databáze
+## <a name="seed-the-database"></a>Přidání dat do databáze
 
-Ve složce *modely* vytvořte novou třídu s názvem `SeedData`. Vygenerovaný kód nahraďte následujícím kódem:
+Vytvořte novou třídu s názvem `SeedData` ve složce *modely* . Vygenerovaný kód nahraďte následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Models/SeedData.cs?name=snippet_1)]
 
@@ -111,7 +111,7 @@ Testování aplikace
     * Pokud jste spustili VS v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění.
     * Pokud jste spustili VS v režimu ladění, ukončete ladicí program a stiskněte klávesu F5.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 Odstraní všechny záznamy v databázi (takže se metoda počáteční hodnoty spustí). Zastavením a spuštěním aplikace dosadíte databázi.
 
@@ -128,7 +128,7 @@ Aplikace zobrazuje dosazený data.
 
 ::: moniker range="< aspnetcore-3.0"
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Objekt `MvcMovieContext` zpracovává úlohu připojení k databázi a mapování objektů `Movie` na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [vkládání závislostí](xref:fundamentals/dependency-injection) v metodě `ConfigureServices` v souboru *Startup.cs* :
 
@@ -140,7 +140,7 @@ Objekt `MvcMovieContext` zpracovává úlohu připojení k databázi a mapován�
 
 [!code-json[](start-mvc/sample/MvcMovie/appsettings.json?highlight=2&range=8-10)]
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -156,27 +156,27 @@ Když nasadíte aplikaci na testovací nebo provozní server, můžete k nastave
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory *. mdf* v adresáři *C:/Users/{User}* .
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB soubory *. mdf* v adresáři *C:/Users/{User}* .
 
 * V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
 
   ![Nabídka Zobrazit](working-with-sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem na tabulku `Movie` **> návrháře zobrazení**
+* Klikněte pravým tlačítkem na `Movie` tabulce **> návrháře zobrazení**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/design.png)
 
   ![Tabulka videí otevřená v Návrháři](working-with-sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primárního klíče.
+Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primární klíč.
 
-* Klikněte pravým tlačítkem na tabulku `Movie` **> zobrazit data.**
+* Klikněte pravým tlačítkem na `Movie` tabulce **> zobrazit data.**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/ssox2.png)
 
   ![Tabulka videa otevřená zobrazující data tabulky](working-with-sql/_static/vd22.png)
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/rp/sqlite.md)]
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
@@ -184,9 +184,9 @@ Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vyt
 ---
 <!-- End of VS tabs -->
 
-## <a name="seed-the-database"></a>Dosazení databáze
+## <a name="seed-the-database"></a>Přidání dat do databáze
 
-Ve složce *modely* vytvořte novou třídu s názvem `SeedData`. Vygenerovaný kód nahraďte následujícím kódem:
+Vytvořte novou třídu s názvem `SeedData` ve složce *modely* . Vygenerovaný kód nahraďte následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/SeedData.cs?name=snippet_1)]
 
@@ -223,7 +223,7 @@ Testování aplikace
     * Pokud jste spustili VS v režimu bez ladění, stiskněte klávesu F5 ke spuštění v režimu ladění.
     * Pokud jste spustili VS v režimu ladění, ukončete ladicí program a stiskněte klávesu F5.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
 
 Odstraní všechny záznamy v databázi (takže se metoda počáteční hodnoty spustí). Zastavením a spuštěním aplikace dosadíte databázi.
 

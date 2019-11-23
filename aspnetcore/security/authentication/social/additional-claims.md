@@ -16,13 +16,13 @@ ms.locfileid: "72378888"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>Trvalé další deklarace identity a tokeny od externích zprostředkovatelů v ASP.NET Core
 
-Od [Luke Latham](https://github.com/guardrex)
+Podle [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 Aplikace ASP.NET Core může navázat další deklarace identity a tokeny od externích zprostředkovatelů ověřování, jako je Facebook, Google, Microsoft a Twitter. Každý zprostředkovatel odhalí různé informace o uživatelích na své platformě, ale vzor pro příjem a transformaci uživatelských dat do dalších deklarací identity je stejný.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -47,14 +47,14 @@ Ukázková aplikace nakonfiguruje poskytovatele ověřování Google pomocí ID 
 
 Zadejte seznam oprávnění, která se mají načíst ze zprostředkovatele, zadáním <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>. V následující tabulce jsou uvedeny obory ověřování pro běžné externí zprostředkovatele.
 
-| Zprostředkovatele  | Rozsah                                                            |
+| Zprostředkovatel  | Obor                                                            |
 | --------- | ---------------------------------------------------------------- |
-| přes  | `https://www.facebook.com/dialog/oauth`                          |
-| internetového    | `https://www.googleapis.com/auth/userinfo.profile`               |
+| Facebook  | `https://www.facebook.com/dialog/oauth`                          |
+| Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
 | Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
-V ukázkové aplikaci je obor Google `userinfo.profile` automaticky přidán rozhraním, když je <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> volána na <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>. Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu je přidaný obor Google `https://www.googleapis.com/auth/user.birthday.read`, aby bylo možné načíst narozeniny uživatele:
+V ukázkové aplikaci je obor Google `userinfo.profile` automaticky přidán rozhraním, když je <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> na <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>volána. Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu je přidaný rozsah Google `https://www.googleapis.com/auth/user.birthday.read`, aby bylo možné načíst narozeniny uživatele:
 
 ```csharp
 options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
@@ -62,15 +62,15 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ## <a name="map-user-data-keys-and-create-claims"></a>Mapování klíčů uživatelských dat a vytváření deklarací
 
-V možnostech poskytovatele zadejte <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> nebo <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> pro každý klíč nebo podklíč v datech uživatele JSON externího poskytovatele, aby se identita aplikace četla při přihlášení. Další informace o typech deklarací identity najdete v tématu <xref:System.Security.Claims.ClaimTypes>.
+V možnostech poskytovatele určete <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> nebo <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> pro každý klíč nebo podklíč v datech uživatele JSON externího poskytovatele, aby se identita aplikace četla při přihlášení. Další informace o typech deklarací identity naleznete v tématu <xref:System.Security.Claims.ClaimTypes>.
 
-Ukázková aplikace vytvoří deklarace národního prostředí (`urn:google:locale`) a obrázku (`urn:google:picture`) z klíčů `locale` a `picture` v datech uživatelů Google:
+Ukázková aplikace vytvoří deklarace národního prostředí (`urn:google:locale`) a obrázku (`urn:google:picture`) z `locale` a `picture` klíčů v datech uživatelů Google:
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-V `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` se do aplikace přihlásí <xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) pomocí <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>. Během procesu přihlašování může <xref:Microsoft.AspNetCore.Identity.UserManager%601> ukládat deklarace identity `ApplicationUser` pro uživatelská data, která jsou k dispozici v <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>.
+V `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync`se do aplikace pomocí <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>přihlašuje <xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`). Během procesu přihlašování může <xref:Microsoft.AspNetCore.Identity.UserManager%601> ukládat deklarace identity `ApplicationUser` pro uživatelská data, která jsou k dispozici v <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>.
 
-V ukázkové aplikaci `OnPostConfirmationAsync` (*account/ExternalLogin. cshtml. cs*) vytvoří deklarace národního prostředí (`urn:google:locale`) a obrázku (`urn:google:picture`) pro přihlášený `ApplicationUser`, včetně deklarace pro <xref:System.Security.Claims.ClaimTypes.GivenName>:
+V ukázkové aplikaci `OnPostConfirmationAsync` (*account/ExternalLogin. cshtml. cs*) vytvoří deklarace národního prostředí (`urn:google:locale`) a obrázku (`urn:google:picture`) pro přihlášený `ApplicationUser`, včetně deklarace identity pro <xref:System.Security.Claims.ClaimTypes.GivenName>:
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -82,17 +82,17 @@ Ve výchozím nastavení jsou deklarace identity uživatele uloženy v ověřova
 Pokud se pro zpracování uživatelských požadavků vyžaduje velké množství uživatelských dat:
 
 * Omezte počet a velikost deklarací identity uživatelů pro zpracování žádostí jenom na to, co aplikace vyžaduje.
-* Pro uložení identity mezi požadavky použijte vlastní <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> pro @no__t middlewaru ověřování souborů cookie-1. Zachovat velké množství informací o identitě na serveru, zatímco do klienta odesílá jenom malý klíč identifikátoru relace.
+* Pro uložení identity mezi požadavky použijte vlastní <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> pro <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> middlewaru ověřování souborů cookie. Zachovat velké množství informací o identitě na serveru, zatímco do klienta odesílá jenom malý klíč identifikátoru relace.
 
 ## <a name="save-the-access-token"></a>Uložení přístupového tokenu
 
-@no__t – 0 definuje, jestli se po úspěšné autorizaci mají v <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> ukládat tokeny přístupu a aktualizace. `SaveTokens` je ve výchozím nastavení nastavená na `false`, aby se snížila velikost konečného ověřovacího souboru cookie.
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> definuje, jestli se po úspěšné autorizaci mají v <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> ukládat tokeny pro přístup a aktualizaci. `SaveTokens` je ve výchozím nastavení nastavená na `false`, aby se snížila velikost konečného ověřovacího souboru cookie.
 
 Ukázková aplikace nastaví hodnotu `SaveTokens` na `true` v <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>:
 
 [!code-csharp[](additional-claims/samples/3.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=15)]
 
-Když se spustí `OnPostConfirmationAsync`, uložte přístupový token ([ExternalLoginInfo. AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)) od externího poskytovatele v `AuthenticationProperties` `ApplicationUser`.
+Když se `OnPostConfirmationAsync` spustí, uložte přístupový token ([ExternalLoginInfo. AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)) od externího poskytovatele do `AuthenticationProperties``ApplicationUser`.
 
 Ukázková aplikace uloží přístupový token do `OnPostConfirmationAsync` (registrace nového uživatele) a `OnGetCallbackAsync` (dřív registrovaný uživatel) v *účtu/ExternalLogin. cshtml. cs*:
 
@@ -108,7 +108,7 @@ Chcete-li předvést, jak přidat vlastní token, který je uložen jako součá
 
 Rozhraní poskytuje běžné akce a metody rozšíření pro vytváření a přidávání deklarací identity do kolekce. Další informace najdete v tématu <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions> a <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionUniqueExtensions>.
 
-Uživatelé mohou definovat vlastní akce odvozením z <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> a implementací abstraktní metody <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*>.
+Uživatelé mohou definovat vlastní akce odvozením z <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> a implementací abstraktních <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*>ch metod.
 
 Další informace najdete v tématu <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>.
 
@@ -162,7 +162,7 @@ Authentication Properties
 
 Aplikace ASP.NET Core může navázat další deklarace identity a tokeny od externích zprostředkovatelů ověřování, jako je Facebook, Google, Microsoft a Twitter. Každý zprostředkovatel odhalí různé informace o uživatelích na své platformě, ale vzor pro příjem a transformaci uživatelských dat do dalších deklarací identity je stejný.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -187,14 +187,14 @@ Ukázková aplikace nakonfiguruje poskytovatele ověřování Google pomocí ID 
 
 Zadejte seznam oprávnění, která se mají načíst ze zprostředkovatele, zadáním <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>. V následující tabulce jsou uvedeny obory ověřování pro běžné externí zprostředkovatele.
 
-| Zprostředkovatele  | Rozsah                                                            |
+| Zprostředkovatel  | Obor                                                            |
 | --------- | ---------------------------------------------------------------- |
-| přes  | `https://www.facebook.com/dialog/oauth`                          |
-| internetového    | `https://www.googleapis.com/auth/userinfo.profile`               |
+| Facebook  | `https://www.facebook.com/dialog/oauth`                          |
+| Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
 | Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
-V ukázkové aplikaci je obor Google `userinfo.profile` automaticky přidán rozhraním, když je <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> volána na <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>. Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu je přidaný obor Google `https://www.googleapis.com/auth/user.birthday.read`, aby bylo možné načíst narozeniny uživatele:
+V ukázkové aplikaci je obor Google `userinfo.profile` automaticky přidán rozhraním, když je <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> na <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>volána. Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu je přidaný rozsah Google `https://www.googleapis.com/auth/user.birthday.read`, aby bylo možné načíst narozeniny uživatele:
 
 ```csharp
 options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
@@ -202,15 +202,15 @@ options.Scope.Add("https://www.googleapis.com/auth/user.birthday.read");
 
 ## <a name="map-user-data-keys-and-create-claims"></a>Mapování klíčů uživatelských dat a vytváření deklarací
 
-V možnostech poskytovatele zadejte <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> nebo <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> pro každý klíč nebo podklíč v datech uživatele JSON externího poskytovatele, aby se identita aplikace četla při přihlášení. Další informace o typech deklarací identity najdete v tématu <xref:System.Security.Claims.ClaimTypes>.
+V možnostech poskytovatele určete <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonKey*> nebo <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions.MapJsonSubKey*> pro každý klíč nebo podklíč v datech uživatele JSON externího poskytovatele, aby se identita aplikace četla při přihlášení. Další informace o typech deklarací identity naleznete v tématu <xref:System.Security.Claims.ClaimTypes>.
 
-Ukázková aplikace vytvoří deklarace národního prostředí (`urn:google:locale`) a obrázku (`urn:google:picture`) z klíčů `locale` a `picture` v datech uživatelů Google:
+Ukázková aplikace vytvoří deklarace národního prostředí (`urn:google:locale`) a obrázku (`urn:google:picture`) z `locale` a `picture` klíčů v datech uživatelů Google:
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=13-14)]
 
-V `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync` se do aplikace přihlásí <xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`) pomocí <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>. Během procesu přihlašování může <xref:Microsoft.AspNetCore.Identity.UserManager%601> ukládat deklarace identity `ApplicationUser` pro uživatelská data, která jsou k dispozici v <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>.
+V `Microsoft.AspNetCore.Identity.UI.Pages.Account.Internal.ExternalLoginModel.OnPostConfirmationAsync`se do aplikace pomocí <xref:Microsoft.AspNetCore.Identity.SignInManager%601.SignInAsync*>přihlašuje <xref:Microsoft.AspNetCore.Identity.IdentityUser> (`ApplicationUser`). Během procesu přihlašování může <xref:Microsoft.AspNetCore.Identity.UserManager%601> ukládat deklarace identity `ApplicationUser` pro uživatelská data, která jsou k dispozici v <xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.Principal*>.
 
-V ukázkové aplikaci `OnPostConfirmationAsync` (*account/ExternalLogin. cshtml. cs*) vytvoří deklarace národního prostředí (`urn:google:locale`) a obrázku (`urn:google:picture`) pro přihlášený `ApplicationUser`, včetně deklarace pro <xref:System.Security.Claims.ClaimTypes.GivenName>:
+V ukázkové aplikaci `OnPostConfirmationAsync` (*account/ExternalLogin. cshtml. cs*) vytvoří deklarace národního prostředí (`urn:google:locale`) a obrázku (`urn:google:picture`) pro přihlášený `ApplicationUser`, včetně deklarace identity pro <xref:System.Security.Claims.ClaimTypes.GivenName>:
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Areas/Identity/Pages/Account/ExternalLogin.cshtml.cs?name=snippet_OnPostConfirmationAsync&highlight=35-51)]
 
@@ -222,17 +222,17 @@ Ve výchozím nastavení jsou deklarace identity uživatele uloženy v ověřova
 Pokud se pro zpracování uživatelských požadavků vyžaduje velké množství uživatelských dat:
 
 * Omezte počet a velikost deklarací identity uživatelů pro zpracování žádostí jenom na to, co aplikace vyžaduje.
-* Pro uložení identity mezi požadavky použijte vlastní <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> pro @no__t middlewaru ověřování souborů cookie-1. Zachovat velké množství informací o identitě na serveru, zatímco do klienta odesílá jenom malý klíč identifikátoru relace.
+* Pro uložení identity mezi požadavky použijte vlastní <xref:Microsoft.AspNetCore.Authentication.Cookies.ITicketStore> pro <xref:Microsoft.AspNetCore.Authentication.Cookies.CookieAuthenticationOptions.SessionStore> middlewaru ověřování souborů cookie. Zachovat velké množství informací o identitě na serveru, zatímco do klienta odesílá jenom malý klíč identifikátoru relace.
 
 ## <a name="save-the-access-token"></a>Uložení přístupového tokenu
 
-@no__t – 0 definuje, jestli se po úspěšné autorizaci mají v <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> ukládat tokeny přístupu a aktualizace. `SaveTokens` je ve výchozím nastavení nastavená na `false`, aby se snížila velikost konečného ověřovacího souboru cookie.
+<xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.SaveTokens*> definuje, jestli se po úspěšné autorizaci mají v <xref:Microsoft.AspNetCore.Http.Authentication.AuthenticationProperties> ukládat tokeny pro přístup a aktualizaci. `SaveTokens` je ve výchozím nastavení nastavená na `false`, aby se snížila velikost konečného ověřovacího souboru cookie.
 
 Ukázková aplikace nastaví hodnotu `SaveTokens` na `true` v <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>:
 
 [!code-csharp[](additional-claims/samples/2.x/ClaimsSample/Startup.cs?name=snippet_AddGoogle&highlight=15)]
 
-Když se spustí `OnPostConfirmationAsync`, uložte přístupový token ([ExternalLoginInfo. AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)) od externího poskytovatele v `AuthenticationProperties` `ApplicationUser`.
+Když se `OnPostConfirmationAsync` spustí, uložte přístupový token ([ExternalLoginInfo. AuthenticationTokens](xref:Microsoft.AspNetCore.Identity.ExternalLoginInfo.AuthenticationTokens*)) od externího poskytovatele do `AuthenticationProperties``ApplicationUser`.
 
 Ukázková aplikace uloží přístupový token do `OnPostConfirmationAsync` (registrace nového uživatele) a `OnGetCallbackAsync` (dřív registrovaný uživatel) v *účtu/ExternalLogin. cshtml. cs*:
 
@@ -248,7 +248,7 @@ Chcete-li předvést, jak přidat vlastní token, který je uložen jako součá
 
 Rozhraní poskytuje běžné akce a metody rozšíření pro vytváření a přidávání deklarací identity do kolekce. Další informace najdete v tématu <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionMapExtensions> a <xref:Microsoft.AspNetCore.Authentication.ClaimActionCollectionUniqueExtensions>.
 
-Uživatelé mohou definovat vlastní akce odvozením z <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> a implementací abstraktní metody <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*>.
+Uživatelé mohou definovat vlastní akce odvozením z <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> a implementací abstraktních <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*>ch metod.
 
 Další informace najdete v tématu <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>.
 
@@ -298,6 +298,6 @@ Authentication Properties
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [ASPNET/AspNetCore Engineering SocialSample app](https://github.com/aspnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample) &ndash; propojená ukázková aplikace je na technické větvi `master` [úložiště GitHub/AspNetCore](https://github.com/aspnet/AspNetCore) . Větev `master` obsahuje kód v části aktivní vývoj pro další verzi ASP.NET Core. Pokud chcete zobrazit verzi ukázkové aplikace pro vydanou verzi ASP.NET Core, použijte rozevírací seznam **větev** a vyberte větev vydané verze (například `release/{X.Y}`).
+* &ndash; [aplikace ASPNET/AspNetCore Engineering SocialSample](https://github.com/aspnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample) , která je propojená ukázková aplikace, je na `master` technické větvi [úložiště ASPNET/AspNetCore](https://github.com/aspnet/AspNetCore) . Větev `master` obsahuje kód v části aktivní vývoj pro další verzi ASP.NET Core. Pokud chcete zobrazit verzi ukázkové aplikace pro vydanou verzi ASP.NET Core, použijte rozevírací seznam **větev** a vyberte větev vydané verze (například `release/{X.Y}`).
