@@ -1,30 +1,30 @@
 ---
-title: Vytváření webových rozhraní API pomocí ASP.NET Core
+title: Create web APIs with ASP.NET Core
 author: scottaddie
-description: Seznamte se se základy vytváření webového rozhraní API v ASP.NET Core.
+description: Learn the basics of creating a web API in ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 09/12/2019
+ms.date: 11/22/2019
 uid: web-api/index
-ms.openlocfilehash: 122de0a225668a7523eec900e2ad8fdac56d7886
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: 3f52e4ce2d26902324ab30e0bda7ed8a4942daa0
+ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73897014"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74412040"
 ---
-# <a name="create-web-apis-with-aspnet-core"></a><span data-ttu-id="e4321-103">Vytváření webových rozhraní API pomocí ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="e4321-103">Create web APIs with ASP.NET Core</span></span>
+# <a name="create-web-apis-with-aspnet-core"></a><span data-ttu-id="da033-103">Create web APIs with ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="da033-103">Create web APIs with ASP.NET Core</span></span>
 
-<span data-ttu-id="e4321-104">[Scott Addie](https://github.com/scottaddie) a [Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="e4321-104">By [Scott Addie](https://github.com/scottaddie) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
+<span data-ttu-id="da033-104">By [Scott Addie](https://github.com/scottaddie) and [Tom Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="da033-104">By [Scott Addie](https://github.com/scottaddie) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
 
-<span data-ttu-id="e4321-105">ASP.NET Core podporuje vytváření služeb RESTful, označovaných také jako webová rozhraní API C#, pomocí.</span><span class="sxs-lookup"><span data-stu-id="e4321-105">ASP.NET Core supports creating RESTful services, also known as web APIs, using C#.</span></span> <span data-ttu-id="e4321-106">Webové rozhraní API zpracovává žádosti pomocí řadičů.</span><span class="sxs-lookup"><span data-stu-id="e4321-106">To handle requests, a web API uses controllers.</span></span> <span data-ttu-id="e4321-107">*Řadiče* ve webovém rozhraní API jsou třídy, které jsou odvozeny z `ControllerBase`.</span><span class="sxs-lookup"><span data-stu-id="e4321-107">*Controllers* in a web API are classes that derive from `ControllerBase`.</span></span> <span data-ttu-id="e4321-108">V tomto článku se dozvíte, jak používat řadiče pro zpracování požadavků webového rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="e4321-108">This article shows how to use controllers for handling web API requests.</span></span>
+<span data-ttu-id="da033-105">ASP.NET Core supports creating RESTful services, also known as web APIs, using C#.</span><span class="sxs-lookup"><span data-stu-id="da033-105">ASP.NET Core supports creating RESTful services, also known as web APIs, using C#.</span></span> <span data-ttu-id="da033-106">To handle requests, a web API uses controllers.</span><span class="sxs-lookup"><span data-stu-id="da033-106">To handle requests, a web API uses controllers.</span></span> <span data-ttu-id="da033-107">*Controllers* in a web API are classes that derive from `ControllerBase`.</span><span class="sxs-lookup"><span data-stu-id="da033-107">*Controllers* in a web API are classes that derive from `ControllerBase`.</span></span> <span data-ttu-id="da033-108">This article shows how to use controllers for handling web API requests.</span><span class="sxs-lookup"><span data-stu-id="da033-108">This article shows how to use controllers for handling web API requests.</span></span>
 
-<span data-ttu-id="e4321-109">[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples).</span><span class="sxs-lookup"><span data-stu-id="e4321-109">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples).</span></span> <span data-ttu-id="e4321-110">([Stažení](xref:index#how-to-download-a-sample)).</span><span class="sxs-lookup"><span data-stu-id="e4321-110">([How to download](xref:index#how-to-download-a-sample)).</span></span>
+<span data-ttu-id="da033-109">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples).</span><span class="sxs-lookup"><span data-stu-id="da033-109">[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples).</span></span> <span data-ttu-id="da033-110">([How to download](xref:index#how-to-download-a-sample)).</span><span class="sxs-lookup"><span data-stu-id="da033-110">([How to download](xref:index#how-to-download-a-sample)).</span></span>
 
-## <a name="controllerbase-class"></a><span data-ttu-id="e4321-111">ControllerBase – třída</span><span class="sxs-lookup"><span data-stu-id="e4321-111">ControllerBase class</span></span>
+## <a name="controllerbase-class"></a><span data-ttu-id="da033-111">ControllerBase class</span><span class="sxs-lookup"><span data-stu-id="da033-111">ControllerBase class</span></span>
 
-<span data-ttu-id="e4321-112">Webové rozhraní API se skládá z jedné nebo více tříd kontroleru odvozených z <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span><span class="sxs-lookup"><span data-stu-id="e4321-112">A web API consists of one or more controller classes that derive from <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span> <span data-ttu-id="e4321-113">Šablona projektu webového rozhraní API poskytuje kontroler Starter:</span><span class="sxs-lookup"><span data-stu-id="e4321-113">The web API project template provides a starter controller:</span></span>
+<span data-ttu-id="da033-112">A web API consists of one or more controller classes that derive from <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span><span class="sxs-lookup"><span data-stu-id="da033-112">A web API consists of one or more controller classes that derive from <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span> <span data-ttu-id="da033-113">The web API project template provides a starter controller:</span><span class="sxs-lookup"><span data-stu-id="da033-113">The web API project template provides a starter controller:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -34,61 +34,61 @@ ms.locfileid: "73897014"
 
 ::: moniker range="<= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Controllers/ValuesController.cs?name=snippet_ControllerSignature&highlight=3)]
+[!code-csharp[](index/samples/2.x/2.2/Controllers/ValuesController.cs?name=snippet_ControllerSignature&highlight=3)]
 
 ::: moniker-end
 
-<span data-ttu-id="e4321-114">Nevytvářejte kontroler webového rozhraní API odvozením z třídy <xref:Microsoft.AspNetCore.Mvc.Controller>.</span><span class="sxs-lookup"><span data-stu-id="e4321-114">Don't create a web API controller by deriving from the <xref:Microsoft.AspNetCore.Mvc.Controller> class.</span></span> <span data-ttu-id="e4321-115">`Controller` se odvozují z `ControllerBase` a přidává podporu pro zobrazení, takže je možné zpracovávat webové stránky, nikoli požadavky webového rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="e4321-115">`Controller` derives from `ControllerBase` and adds support for views, so it's for handling web pages, not web API requests.</span></span> <span data-ttu-id="e4321-116">Toto pravidlo má výjimku: Pokud plánujete použít stejný kontroler pro obě zobrazení a webová rozhraní API, odvozuje je od `Controller`.</span><span class="sxs-lookup"><span data-stu-id="e4321-116">There's an exception to this rule: if you plan to use the same controller for both views and web APIs, derive it from `Controller`.</span></span>
+<span data-ttu-id="da033-114">Don't create a web API controller by deriving from the <xref:Microsoft.AspNetCore.Mvc.Controller> class.</span><span class="sxs-lookup"><span data-stu-id="da033-114">Don't create a web API controller by deriving from the <xref:Microsoft.AspNetCore.Mvc.Controller> class.</span></span> <span data-ttu-id="da033-115">`Controller` derives from `ControllerBase` and adds support for views, so it's for handling web pages, not web API requests.</span><span class="sxs-lookup"><span data-stu-id="da033-115">`Controller` derives from `ControllerBase` and adds support for views, so it's for handling web pages, not web API requests.</span></span> <span data-ttu-id="da033-116">There's an exception to this rule: if you plan to use the same controller for both views and web APIs, derive it from `Controller`.</span><span class="sxs-lookup"><span data-stu-id="da033-116">There's an exception to this rule: if you plan to use the same controller for both views and web APIs, derive it from `Controller`.</span></span>
 
-<span data-ttu-id="e4321-117">Třída `ControllerBase` poskytuje mnoho vlastností a metod, které jsou užitečné pro zpracování požadavků HTTP.</span><span class="sxs-lookup"><span data-stu-id="e4321-117">The `ControllerBase` class provides many properties and methods that are useful for handling HTTP requests.</span></span> <span data-ttu-id="e4321-118">`ControllerBase.CreatedAtAction` například vrátí stavový kód 201:</span><span class="sxs-lookup"><span data-stu-id="e4321-118">For example, `ControllerBase.CreatedAtAction` returns a 201 status code:</span></span>
+<span data-ttu-id="da033-117">The `ControllerBase` class provides many properties and methods that are useful for handling HTTP requests.</span><span class="sxs-lookup"><span data-stu-id="da033-117">The `ControllerBase` class provides many properties and methods that are useful for handling HTTP requests.</span></span> <span data-ttu-id="da033-118">For example, `ControllerBase.CreatedAtAction` returns a 201 status code:</span><span class="sxs-lookup"><span data-stu-id="da033-118">For example, `ControllerBase.CreatedAtAction` returns a 201 status code:</span></span>
 
-[!code-csharp[](index/samples/2.x/Controllers/PetsController.cs?name=snippet_400And201&highlight=10)]
+[!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_400And201&highlight=10)]
 
-<span data-ttu-id="e4321-119">Zde je několik příkladů metod, které `ControllerBase` poskytuje.</span><span class="sxs-lookup"><span data-stu-id="e4321-119">Here are some more examples of methods that `ControllerBase` provides.</span></span>
+<span data-ttu-id="da033-119">Here are some more examples of methods that `ControllerBase` provides.</span><span class="sxs-lookup"><span data-stu-id="da033-119">Here are some more examples of methods that `ControllerBase` provides.</span></span>
 
-|<span data-ttu-id="e4321-120">Metoda</span><span class="sxs-lookup"><span data-stu-id="e4321-120">Method</span></span>   |<span data-ttu-id="e4321-121">Poznámky</span><span class="sxs-lookup"><span data-stu-id="e4321-121">Notes</span></span>    |
+|<span data-ttu-id="da033-120">Metoda</span><span class="sxs-lookup"><span data-stu-id="da033-120">Method</span></span>   |<span data-ttu-id="da033-121">Poznámky</span><span class="sxs-lookup"><span data-stu-id="da033-121">Notes</span></span>    |
 |---------|---------|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>| <span data-ttu-id="e4321-122">Vrátí stavový kód 400.</span><span class="sxs-lookup"><span data-stu-id="e4321-122">Returns 400 status code.</span></span>|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound*>|<span data-ttu-id="e4321-123">Vrátí stavový kód 404.</span><span class="sxs-lookup"><span data-stu-id="e4321-123">Returns 404 status code.</span></span>|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.PhysicalFile*>|<span data-ttu-id="e4321-124">Vrátí soubor.</span><span class="sxs-lookup"><span data-stu-id="e4321-124">Returns a file.</span></span>|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*>|<span data-ttu-id="e4321-125">Vyvolá [vazbu modelu](xref:mvc/models/model-binding).</span><span class="sxs-lookup"><span data-stu-id="e4321-125">Invokes [model binding](xref:mvc/models/model-binding).</span></span>|
-|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryValidateModel*>|<span data-ttu-id="e4321-126">Vyvolá [ověření modelu](xref:mvc/models/validation).</span><span class="sxs-lookup"><span data-stu-id="e4321-126">Invokes [model validation](xref:mvc/models/validation).</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest%2A>| <span data-ttu-id="da033-122">Returns 400 status code.</span><span class="sxs-lookup"><span data-stu-id="da033-122">Returns 400 status code.</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A>|<span data-ttu-id="da033-123">Returns 404 status code.</span><span class="sxs-lookup"><span data-stu-id="da033-123">Returns 404 status code.</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.PhysicalFile%2A>|<span data-ttu-id="da033-124">Returns a file.</span><span class="sxs-lookup"><span data-stu-id="da033-124">Returns a file.</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync%2A>|<span data-ttu-id="da033-125">Invokes [model binding](xref:mvc/models/model-binding).</span><span class="sxs-lookup"><span data-stu-id="da033-125">Invokes [model binding](xref:mvc/models/model-binding).</span></span>|
+|<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryValidateModel%2A>|<span data-ttu-id="da033-126">Invokes [model validation](xref:mvc/models/validation).</span><span class="sxs-lookup"><span data-stu-id="da033-126">Invokes [model validation](xref:mvc/models/validation).</span></span>|
 
-<span data-ttu-id="e4321-127">Seznam všech dostupných metod a vlastností naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span><span class="sxs-lookup"><span data-stu-id="e4321-127">For a list of all available methods and properties, see <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span>
+<span data-ttu-id="da033-127">For a list of all available methods and properties, see <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span><span class="sxs-lookup"><span data-stu-id="da033-127">For a list of all available methods and properties, see <xref:Microsoft.AspNetCore.Mvc.ControllerBase>.</span></span>
 
-## <a name="attributes"></a><span data-ttu-id="e4321-128">Atributy</span><span class="sxs-lookup"><span data-stu-id="e4321-128">Attributes</span></span>
+## <a name="attributes"></a><span data-ttu-id="da033-128">Atributy</span><span class="sxs-lookup"><span data-stu-id="da033-128">Attributes</span></span>
 
-<span data-ttu-id="e4321-129">Obor názvů <xref:Microsoft.AspNetCore.Mvc> poskytuje atributy, které lze použít ke konfiguraci chování řadičů webového rozhraní API a metod akcí.</span><span class="sxs-lookup"><span data-stu-id="e4321-129">The <xref:Microsoft.AspNetCore.Mvc> namespace provides attributes that can be used to configure the behavior of web API controllers and action methods.</span></span> <span data-ttu-id="e4321-130">Následující příklad používá atributy k určení podporovaného příkazu akce HTTP a všech známých stavových kódů HTTP, které by mohly být vráceny:</span><span class="sxs-lookup"><span data-stu-id="e4321-130">The following example uses attributes to specify the supported HTTP action verb and any known HTTP status codes that could be returned:</span></span>
+<span data-ttu-id="da033-129">The <xref:Microsoft.AspNetCore.Mvc> namespace provides attributes that can be used to configure the behavior of web API controllers and action methods.</span><span class="sxs-lookup"><span data-stu-id="da033-129">The <xref:Microsoft.AspNetCore.Mvc> namespace provides attributes that can be used to configure the behavior of web API controllers and action methods.</span></span> <span data-ttu-id="da033-130">The following example uses attributes to specify the supported HTTP action verb and any known HTTP status codes that could be returned:</span><span class="sxs-lookup"><span data-stu-id="da033-130">The following example uses attributes to specify the supported HTTP action verb and any known HTTP status codes that could be returned:</span></span>
 
-[!code-csharp[](index/samples/2.x/Controllers/PetsController.cs?name=snippet_400And201&highlight=1-3)]
+[!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_400And201&highlight=1-3)]
 
-<span data-ttu-id="e4321-131">Tady je několik příkladů atributů, které jsou k dispozici.</span><span class="sxs-lookup"><span data-stu-id="e4321-131">Here are some more examples of attributes that are available.</span></span>
+<span data-ttu-id="da033-131">Here are some more examples of attributes that are available.</span><span class="sxs-lookup"><span data-stu-id="da033-131">Here are some more examples of attributes that are available.</span></span>
 
-|<span data-ttu-id="e4321-132">Atribut</span><span class="sxs-lookup"><span data-stu-id="e4321-132">Attribute</span></span>|<span data-ttu-id="e4321-133">Poznámky</span><span class="sxs-lookup"><span data-stu-id="e4321-133">Notes</span></span>|
+|<span data-ttu-id="da033-132">Atribut</span><span class="sxs-lookup"><span data-stu-id="da033-132">Attribute</span></span>|<span data-ttu-id="da033-133">Poznámky</span><span class="sxs-lookup"><span data-stu-id="da033-133">Notes</span></span>|
 |---------|-----|
-|<span data-ttu-id="e4321-134">[Cestě](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)</span><span class="sxs-lookup"><span data-stu-id="e4321-134">[[Route]](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)</span></span>      |<span data-ttu-id="e4321-135">Určuje vzor adresy URL pro kontroler nebo akci.</span><span class="sxs-lookup"><span data-stu-id="e4321-135">Specifies URL pattern for a controller or action.</span></span>|
-|<span data-ttu-id="e4321-136">[Zapisovat](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)</span><span class="sxs-lookup"><span data-stu-id="e4321-136">[[Bind]](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)</span></span>        |<span data-ttu-id="e4321-137">Určuje předponu a vlastnosti, které se mají zahrnout do vazby modelu.</span><span class="sxs-lookup"><span data-stu-id="e4321-137">Specifies prefix and properties to include for model binding.</span></span>|
-|<span data-ttu-id="e4321-138">[HttpGet](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)</span><span class="sxs-lookup"><span data-stu-id="e4321-138">[[HttpGet]](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)</span></span>  |<span data-ttu-id="e4321-139">Identifikuje akci, která podporuje příkaz akce HTTP GET.</span><span class="sxs-lookup"><span data-stu-id="e4321-139">Identifies an action that supports the HTTP GET action verb.</span></span>|
-|<span data-ttu-id="e4321-140">[Spotřebovává](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)</span><span class="sxs-lookup"><span data-stu-id="e4321-140">[[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)</span></span>|<span data-ttu-id="e4321-141">Určuje datové typy, které akce akceptuje.</span><span class="sxs-lookup"><span data-stu-id="e4321-141">Specifies data types that an action accepts.</span></span>|
-|<span data-ttu-id="e4321-142">[Uslyší](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)</span><span class="sxs-lookup"><span data-stu-id="e4321-142">[[Produces]](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)</span></span>|<span data-ttu-id="e4321-143">Určuje datové typy, které akce vrátí.</span><span class="sxs-lookup"><span data-stu-id="e4321-143">Specifies data types that an action returns.</span></span>|
+|<span data-ttu-id="da033-134">[[Route]](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)</span><span class="sxs-lookup"><span data-stu-id="da033-134">[[Route]](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)</span></span>      |<span data-ttu-id="da033-135">Specifies URL pattern for a controller or action.</span><span class="sxs-lookup"><span data-stu-id="da033-135">Specifies URL pattern for a controller or action.</span></span>|
+|<span data-ttu-id="da033-136">[[Bind]](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)</span><span class="sxs-lookup"><span data-stu-id="da033-136">[[Bind]](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)</span></span>        |<span data-ttu-id="da033-137">Specifies prefix and properties to include for model binding.</span><span class="sxs-lookup"><span data-stu-id="da033-137">Specifies prefix and properties to include for model binding.</span></span>|
+|<span data-ttu-id="da033-138">[[HttpGet]](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)</span><span class="sxs-lookup"><span data-stu-id="da033-138">[[HttpGet]](<xref:Microsoft.AspNetCore.Mvc.HttpGetAttribute>)</span></span>  |<span data-ttu-id="da033-139">Identifies an action that supports the HTTP GET action verb.</span><span class="sxs-lookup"><span data-stu-id="da033-139">Identifies an action that supports the HTTP GET action verb.</span></span>|
+|<span data-ttu-id="da033-140">[[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)</span><span class="sxs-lookup"><span data-stu-id="da033-140">[[Consumes]](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>)</span></span>|<span data-ttu-id="da033-141">Specifies data types that an action accepts.</span><span class="sxs-lookup"><span data-stu-id="da033-141">Specifies data types that an action accepts.</span></span>|
+|<span data-ttu-id="da033-142">[[Produces]](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)</span><span class="sxs-lookup"><span data-stu-id="da033-142">[[Produces]](<xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>)</span></span>|<span data-ttu-id="da033-143">Specifies data types that an action returns.</span><span class="sxs-lookup"><span data-stu-id="da033-143">Specifies data types that an action returns.</span></span>|
 
-<span data-ttu-id="e4321-144">Seznam, který obsahuje dostupné atributy, najdete v oboru názvů <xref:Microsoft.AspNetCore.Mvc>.</span><span class="sxs-lookup"><span data-stu-id="e4321-144">For a list that includes the available attributes, see the <xref:Microsoft.AspNetCore.Mvc> namespace.</span></span>
+<span data-ttu-id="da033-144">For a list that includes the available attributes, see the <xref:Microsoft.AspNetCore.Mvc> namespace.</span><span class="sxs-lookup"><span data-stu-id="da033-144">For a list that includes the available attributes, see the <xref:Microsoft.AspNetCore.Mvc> namespace.</span></span>
 
-## <a name="apicontroller-attribute"></a><span data-ttu-id="e4321-145">ApiController – atribut</span><span class="sxs-lookup"><span data-stu-id="e4321-145">ApiController attribute</span></span>
+## <a name="apicontroller-attribute"></a><span data-ttu-id="da033-145">ApiController attribute</span><span class="sxs-lookup"><span data-stu-id="da033-145">ApiController attribute</span></span>
 
-<span data-ttu-id="e4321-146">Atribut [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) lze použít pro třídu kontroleru a povolit následující dogmatickým chování specifické pro rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="e4321-146">The [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute can be applied to a controller class to enable the following opinionated, API-specific behaviors:</span></span>
+<span data-ttu-id="da033-146">The [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute can be applied to a controller class to enable the following opinionated, API-specific behaviors:</span><span class="sxs-lookup"><span data-stu-id="da033-146">The [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) attribute can be applied to a controller class to enable the following opinionated, API-specific behaviors:</span></span>
 
-* [<span data-ttu-id="e4321-147">Požadavek na směrování atributu</span><span class="sxs-lookup"><span data-stu-id="e4321-147">Attribute routing requirement</span></span>](#attribute-routing-requirement)
-* [<span data-ttu-id="e4321-148">Automatické odpovědi HTTP 400</span><span class="sxs-lookup"><span data-stu-id="e4321-148">Automatic HTTP 400 responses</span></span>](#automatic-http-400-responses)
-* [<span data-ttu-id="e4321-149">Odvození zdrojového parametru vazby</span><span class="sxs-lookup"><span data-stu-id="e4321-149">Binding source parameter inference</span></span>](#binding-source-parameter-inference)
-* [<span data-ttu-id="e4321-150">Multipart/form-odvození požadavku na data</span><span class="sxs-lookup"><span data-stu-id="e4321-150">Multipart/form-data request inference</span></span>](#multipartform-data-request-inference)
-* [<span data-ttu-id="e4321-151">Podrobnosti o problémech stavových kódů chyb</span><span class="sxs-lookup"><span data-stu-id="e4321-151">Problem details for error status codes</span></span>](#problem-details-for-error-status-codes)
+* [<span data-ttu-id="da033-147">Attribute routing requirement</span><span class="sxs-lookup"><span data-stu-id="da033-147">Attribute routing requirement</span></span>](#attribute-routing-requirement)
+* [<span data-ttu-id="da033-148">Automatic HTTP 400 responses</span><span class="sxs-lookup"><span data-stu-id="da033-148">Automatic HTTP 400 responses</span></span>](#automatic-http-400-responses)
+* [<span data-ttu-id="da033-149">Binding source parameter inference</span><span class="sxs-lookup"><span data-stu-id="da033-149">Binding source parameter inference</span></span>](#binding-source-parameter-inference)
+* [<span data-ttu-id="da033-150">Multipart/form-data request inference</span><span class="sxs-lookup"><span data-stu-id="da033-150">Multipart/form-data request inference</span></span>](#multipartform-data-request-inference)
+* [<span data-ttu-id="da033-151">Problem details for error status codes</span><span class="sxs-lookup"><span data-stu-id="da033-151">Problem details for error status codes</span></span>](#problem-details-for-error-status-codes)
 
-<span data-ttu-id="e4321-152">Tyto funkce vyžadují [kompatibilitu verze](xref:mvc/compatibility-version) 2,1 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="e4321-152">These features require a [compatibility version](xref:mvc/compatibility-version) of 2.1 or later.</span></span>
+<span data-ttu-id="da033-152">These features require a [compatibility version](xref:mvc/compatibility-version) of 2.1 or later.</span><span class="sxs-lookup"><span data-stu-id="da033-152">These features require a [compatibility version](xref:mvc/compatibility-version) of 2.1 or later.</span></span>
 
-### <a name="attribute-on-specific-controllers"></a><span data-ttu-id="e4321-153">Atribut na určitých řadičích</span><span class="sxs-lookup"><span data-stu-id="e4321-153">Attribute on specific controllers</span></span>
+### <a name="attribute-on-specific-controllers"></a><span data-ttu-id="da033-153">Attribute on specific controllers</span><span class="sxs-lookup"><span data-stu-id="da033-153">Attribute on specific controllers</span></span>
 
-<span data-ttu-id="e4321-154">Atribut `[ApiController]` lze použít pro konkrétní řadiče, jako v následujícím příkladu, ze šablony projektu:</span><span class="sxs-lookup"><span data-stu-id="e4321-154">The `[ApiController]` attribute can be applied to specific controllers, as in the following example from the project template:</span></span>
+<span data-ttu-id="da033-154">The `[ApiController]` attribute can be applied to specific controllers, as in the following example from the project template:</span><span class="sxs-lookup"><span data-stu-id="da033-154">The `[ApiController]` attribute can be applied to specific controllers, as in the following example from the project template:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -98,15 +98,15 @@ ms.locfileid: "73897014"
 
 ::: moniker range="<= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Controllers/ValuesController.cs?name=snippet_ControllerSignature&highlight=2)]
+[!code-csharp[](index/samples/2.x/2.2/Controllers/ValuesController.cs?name=snippet_ControllerSignature&highlight=2)]
 
 ::: moniker-end
 
-### <a name="attribute-on-multiple-controllers"></a><span data-ttu-id="e4321-155">Atribut na více řadičích</span><span class="sxs-lookup"><span data-stu-id="e4321-155">Attribute on multiple controllers</span></span>
+### <a name="attribute-on-multiple-controllers"></a><span data-ttu-id="da033-155">Attribute on multiple controllers</span><span class="sxs-lookup"><span data-stu-id="da033-155">Attribute on multiple controllers</span></span>
 
-<span data-ttu-id="e4321-156">Jedním z přístupů k použití atributu na více než jednom řadiči je vytvoření vlastní třídy základního kontroleru s poznámkou s atributem `[ApiController]`.</span><span class="sxs-lookup"><span data-stu-id="e4321-156">One approach to using the attribute on more than one controller is to create a custom base controller class annotated with the `[ApiController]` attribute.</span></span> <span data-ttu-id="e4321-157">Následující příklad ukazuje vlastní základní třídu a řadič, který je z něj odvozen:</span><span class="sxs-lookup"><span data-stu-id="e4321-157">The following example shows a custom base class and a controller that derives from it:</span></span>
+<span data-ttu-id="da033-156">One approach to using the attribute on more than one controller is to create a custom base controller class annotated with the `[ApiController]` attribute.</span><span class="sxs-lookup"><span data-stu-id="da033-156">One approach to using the attribute on more than one controller is to create a custom base controller class annotated with the `[ApiController]` attribute.</span></span> <span data-ttu-id="da033-157">The following example shows a custom base class and a controller that derives from it:</span><span class="sxs-lookup"><span data-stu-id="da033-157">The following example shows a custom base class and a controller that derives from it:</span></span>
 
-[!code-csharp[](index/samples/2.x/Controllers/MyControllerBase.cs?name=snippet_MyControllerBase)]
+[!code-csharp[](index/samples/2.x/2.2/Controllers/MyControllerBase.cs?name=snippet_MyControllerBase)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -116,15 +116,15 @@ ms.locfileid: "73897014"
 
 ::: moniker range="<= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Controllers/PetsController.cs?name=snippet_Inherit)]
+[!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_Inherit)]
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 
-### <a name="attribute-on-an-assembly"></a><span data-ttu-id="e4321-158">Atribut na sestavení</span><span class="sxs-lookup"><span data-stu-id="e4321-158">Attribute on an assembly</span></span>
+### <a name="attribute-on-an-assembly"></a><span data-ttu-id="da033-158">Attribute on an assembly</span><span class="sxs-lookup"><span data-stu-id="da033-158">Attribute on an assembly</span></span>
 
-<span data-ttu-id="e4321-159">Je-li [verze kompatibility](xref:mvc/compatibility-version) nastavena na 2,2 nebo vyšší, lze atribut `[ApiController]` použít na sestavení.</span><span class="sxs-lookup"><span data-stu-id="e4321-159">If [compatibility version](xref:mvc/compatibility-version) is set to 2.2 or later, the `[ApiController]` attribute can be applied to an assembly.</span></span> <span data-ttu-id="e4321-160">Anotace tímto způsobem aplikuje chování webového rozhraní API na všechny řadiče v sestavení.</span><span class="sxs-lookup"><span data-stu-id="e4321-160">Annotation in this manner applies web API behavior to all controllers in the assembly.</span></span> <span data-ttu-id="e4321-161">Neexistuje žádný způsob, jak odhlásit jednotlivé řadiče.</span><span class="sxs-lookup"><span data-stu-id="e4321-161">There's no way to opt out for individual controllers.</span></span> <span data-ttu-id="e4321-162">Použijte atribut na úrovni sestavení pro deklaraci oboru názvů obklopující třídu `Startup`:</span><span class="sxs-lookup"><span data-stu-id="e4321-162">Apply the assembly-level attribute to the namespace declaration surrounding the `Startup` class:</span></span>
+<span data-ttu-id="da033-159">If [compatibility version](xref:mvc/compatibility-version) is set to 2.2 or later, the `[ApiController]` attribute can be applied to an assembly.</span><span class="sxs-lookup"><span data-stu-id="da033-159">If [compatibility version](xref:mvc/compatibility-version) is set to 2.2 or later, the `[ApiController]` attribute can be applied to an assembly.</span></span> <span data-ttu-id="da033-160">Annotation in this manner applies web API behavior to all controllers in the assembly.</span><span class="sxs-lookup"><span data-stu-id="da033-160">Annotation in this manner applies web API behavior to all controllers in the assembly.</span></span> <span data-ttu-id="da033-161">There's no way to opt out for individual controllers.</span><span class="sxs-lookup"><span data-stu-id="da033-161">There's no way to opt out for individual controllers.</span></span> <span data-ttu-id="da033-162">Apply the assembly-level attribute to the namespace declaration surrounding the `Startup` class:</span><span class="sxs-lookup"><span data-stu-id="da033-162">Apply the assembly-level attribute to the namespace declaration surrounding the `Startup` class:</span></span>
 
 ```csharp
 [assembly: ApiController]
@@ -139,29 +139,29 @@ namespace WebApiSample
 
 ::: moniker-end
 
-## <a name="attribute-routing-requirement"></a><span data-ttu-id="e4321-163">Požadavek na směrování atributu</span><span class="sxs-lookup"><span data-stu-id="e4321-163">Attribute routing requirement</span></span>
+## <a name="attribute-routing-requirement"></a><span data-ttu-id="da033-163">Attribute routing requirement</span><span class="sxs-lookup"><span data-stu-id="da033-163">Attribute routing requirement</span></span>
 
-<span data-ttu-id="e4321-164">Atribut `[ApiController]` dělá směrování požadavku.</span><span class="sxs-lookup"><span data-stu-id="e4321-164">The `[ApiController]` attribute makes attribute routing a requirement.</span></span> <span data-ttu-id="e4321-165">Příklad:</span><span class="sxs-lookup"><span data-stu-id="e4321-165">For example:</span></span>
+<span data-ttu-id="da033-164">The `[ApiController]` attribute makes attribute routing a requirement.</span><span class="sxs-lookup"><span data-stu-id="da033-164">The `[ApiController]` attribute makes attribute routing a requirement.</span></span> <span data-ttu-id="da033-165">Příklad:</span><span class="sxs-lookup"><span data-stu-id="da033-165">For example:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](index/samples/3.x/Controllers/WeatherForecastController.cs?name=snippet_ControllerSignature&highlight=2)]
 
-<span data-ttu-id="e4321-166">Akce jsou nepřístupné prostřednictvím [konvenčních tras](xref:mvc/controllers/routing#conventional-routing) definovaných `UseEndpoints`, <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*>nebo <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> v `Startup.Configure`.</span><span class="sxs-lookup"><span data-stu-id="e4321-166">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by `UseEndpoints`, <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*>, or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> in `Startup.Configure`.</span></span>
+<span data-ttu-id="da033-166">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by `UseEndpoints`, <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A>, or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> in `Startup.Configure`.</span><span class="sxs-lookup"><span data-stu-id="da033-166">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by `UseEndpoints`, <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A>, or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> in `Startup.Configure`.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Controllers/ValuesController.cs?name=snippet_ControllerSignature&highlight=1)]
+[!code-csharp[](index/samples/2.x/2.2/Controllers/ValuesController.cs?name=snippet_ControllerSignature&highlight=1)]
 
-<span data-ttu-id="e4321-167">Akce jsou nepřístupné prostřednictvím [konvenčních tras](xref:mvc/controllers/routing#conventional-routing) definovaných <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> nebo <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> v `Startup.Configure`.</span><span class="sxs-lookup"><span data-stu-id="e4321-167">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> in `Startup.Configure`.</span></span>
+<span data-ttu-id="da033-167">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> in `Startup.Configure`.</span><span class="sxs-lookup"><span data-stu-id="da033-167">Actions are inaccessible via [conventional routes](xref:mvc/controllers/routing#conventional-routing) defined by <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc%2A> or <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute%2A> in `Startup.Configure`.</span></span>
 
 ::: moniker-end
 
-## <a name="automatic-http-400-responses"></a><span data-ttu-id="e4321-168">Automatické odpovědi HTTP 400</span><span class="sxs-lookup"><span data-stu-id="e4321-168">Automatic HTTP 400 responses</span></span>
+## <a name="automatic-http-400-responses"></a><span data-ttu-id="da033-168">Automatic HTTP 400 responses</span><span class="sxs-lookup"><span data-stu-id="da033-168">Automatic HTTP 400 responses</span></span>
 
-<span data-ttu-id="e4321-169">Atribut `[ApiController]` způsobuje, že chyby ověření modelu automaticky aktivují odpověď HTTP 400.</span><span class="sxs-lookup"><span data-stu-id="e4321-169">The `[ApiController]` attribute makes model validation errors automatically trigger an HTTP 400 response.</span></span> <span data-ttu-id="e4321-170">V důsledku toho následující kód není zbytečný v metodě akce:</span><span class="sxs-lookup"><span data-stu-id="e4321-170">Consequently, the following code is unnecessary in an action method:</span></span>
+<span data-ttu-id="da033-169">The `[ApiController]` attribute makes model validation errors automatically trigger an HTTP 400 response.</span><span class="sxs-lookup"><span data-stu-id="da033-169">The `[ApiController]` attribute makes model validation errors automatically trigger an HTTP 400 response.</span></span> <span data-ttu-id="da033-170">Consequently, the following code is unnecessary in an action method:</span><span class="sxs-lookup"><span data-stu-id="da033-170">Consequently, the following code is unnecessary in an action method:</span></span>
 
 ```csharp
 if (!ModelState.IsValid)
@@ -170,11 +170,11 @@ if (!ModelState.IsValid)
 }
 ```
 
-<span data-ttu-id="e4321-171">ASP.NET Core MVC používá filtr akcí <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> k provedení předchozí kontroly.</span><span class="sxs-lookup"><span data-stu-id="e4321-171">ASP.NET Core MVC uses the <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> action filter to do the preceding check.</span></span>
+<span data-ttu-id="da033-171">ASP.NET Core MVC uses the <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> action filter to do the preceding check.</span><span class="sxs-lookup"><span data-stu-id="da033-171">ASP.NET Core MVC uses the <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter> action filter to do the preceding check.</span></span>
 
-### <a name="default-badrequest-response"></a><span data-ttu-id="e4321-172">Výchozí odpověď důvodu chybného požadavku</span><span class="sxs-lookup"><span data-stu-id="e4321-172">Default BadRequest response</span></span>
+### <a name="default-badrequest-response"></a><span data-ttu-id="da033-172">Default BadRequest response</span><span class="sxs-lookup"><span data-stu-id="da033-172">Default BadRequest response</span></span>
 
-<span data-ttu-id="e4321-173">V případě kompatibility verze 2,1 je výchozí typ odpovědi pro odpověď HTTP 400 <xref:Microsoft.AspNetCore.Mvc.SerializableError>.</span><span class="sxs-lookup"><span data-stu-id="e4321-173">With a compatibility version of 2.1, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.SerializableError>.</span></span> <span data-ttu-id="e4321-174">Následující text žádosti je příkladem serializovaného typu:</span><span class="sxs-lookup"><span data-stu-id="e4321-174">The following request body is an example of the serialized type:</span></span>
+<span data-ttu-id="da033-173">With a compatibility version of 2.1, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.SerializableError>.</span><span class="sxs-lookup"><span data-stu-id="da033-173">With a compatibility version of 2.1, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.SerializableError>.</span></span> <span data-ttu-id="da033-174">The following request body is an example of the serialized type:</span><span class="sxs-lookup"><span data-stu-id="da033-174">The following request body is an example of the serialized type:</span></span>
 
 ```json
 {
@@ -186,7 +186,7 @@ if (!ModelState.IsValid)
 
 ::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="e4321-175">V případě kompatibility verze 2,2 nebo novější je <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>výchozí typ odpovědi pro odpověď HTTP 400.</span><span class="sxs-lookup"><span data-stu-id="e4321-175">With a compatibility version of 2.2 or later, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>.</span></span> <span data-ttu-id="e4321-176">Následující text žádosti je příkladem serializovaného typu:</span><span class="sxs-lookup"><span data-stu-id="e4321-176">The following request body is an example of the serialized type:</span></span>
+<span data-ttu-id="da033-175">With a compatibility version of 2.2 or later, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>.</span><span class="sxs-lookup"><span data-stu-id="da033-175">With a compatibility version of 2.2 or later, the default response type for an HTTP 400 response is <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>.</span></span> <span data-ttu-id="da033-176">The following request body is an example of the serialized type:</span><span class="sxs-lookup"><span data-stu-id="da033-176">The following request body is an example of the serialized type:</span></span>
 
 ```json
 {
@@ -202,20 +202,20 @@ if (!ModelState.IsValid)
 }
 ```
 
-<span data-ttu-id="e4321-177">Typ `ValidationProblemDetails`:</span><span class="sxs-lookup"><span data-stu-id="e4321-177">The `ValidationProblemDetails` type:</span></span>
+<span data-ttu-id="da033-177">The `ValidationProblemDetails` type:</span><span class="sxs-lookup"><span data-stu-id="da033-177">The `ValidationProblemDetails` type:</span></span>
 
-* <span data-ttu-id="e4321-178">Poskytuje strojově čitelný formát pro zadávání chyb v odpovědích webového rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="e4321-178">Provides a machine-readable format for specifying errors in web API responses.</span></span>
-* <span data-ttu-id="e4321-179">Vyhovuje [specifikaci RFC 7807](https://tools.ietf.org/html/rfc7807).</span><span class="sxs-lookup"><span data-stu-id="e4321-179">Complies with the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807).</span></span>
+* <span data-ttu-id="da033-178">Provides a machine-readable format for specifying errors in web API responses.</span><span class="sxs-lookup"><span data-stu-id="da033-178">Provides a machine-readable format for specifying errors in web API responses.</span></span>
+* <span data-ttu-id="da033-179">Complies with the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807).</span><span class="sxs-lookup"><span data-stu-id="da033-179">Complies with the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807).</span></span>
 
 ::: moniker-end
 
-### <a name="log-automatic-400-responses"></a><span data-ttu-id="e4321-180">Protokolovat automatické odpovědi 400</span><span class="sxs-lookup"><span data-stu-id="e4321-180">Log automatic 400 responses</span></span>
+### <a name="log-automatic-400-responses"></a><span data-ttu-id="da033-180">Log automatic 400 responses</span><span class="sxs-lookup"><span data-stu-id="da033-180">Log automatic 400 responses</span></span>
 
-<span data-ttu-id="e4321-181">Přečtěte si, [Jak protokolovat automatické odpovědi 400 na chyby ověření modelu (ASPNET/AspNetCore. Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).</span><span class="sxs-lookup"><span data-stu-id="e4321-181">See [How to log automatic 400 responses on model validation errors (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).</span></span>
+<span data-ttu-id="da033-181">See [How to log automatic 400 responses on model validation errors (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).</span><span class="sxs-lookup"><span data-stu-id="da033-181">See [How to log automatic 400 responses on model validation errors (aspnet/AspNetCore.Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).</span></span>
 
-### <a name="disable-automatic-400-response"></a><span data-ttu-id="e4321-182">Zakázat automatickou odpověď 400</span><span class="sxs-lookup"><span data-stu-id="e4321-182">Disable automatic 400 response</span></span>
+### <a name="disable-automatic-400-response"></a><span data-ttu-id="da033-182">Disable automatic 400 response</span><span class="sxs-lookup"><span data-stu-id="da033-182">Disable automatic 400 response</span></span>
 
-<span data-ttu-id="e4321-183">Chcete-li zakázat automatické chování 400, nastavte vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> na hodnotu `true`.</span><span class="sxs-lookup"><span data-stu-id="e4321-183">To disable the automatic 400 behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> property to `true`.</span></span> <span data-ttu-id="e4321-184">Do `Startup.ConfigureServices`přidejte následující zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="e4321-184">Add the following highlighted code in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="da033-183">To disable the automatic 400 behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> property to `true`.</span><span class="sxs-lookup"><span data-stu-id="da033-183">To disable the automatic 400 behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressModelStateInvalidFilter> property to `true`.</span></span> <span data-ttu-id="da033-184">Add the following highlighted code in `Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="da033-184">Add the following highlighted code in `Startup.ConfigureServices`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -223,62 +223,68 @@ if (!ModelState.IsValid)
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,7)]
+[!code-csharp[](index/samples/2.x/2.2/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,7)]
 
 ::: moniker-end
 
-## <a name="binding-source-parameter-inference"></a><span data-ttu-id="e4321-185">Odvození zdrojového parametru vazby</span><span class="sxs-lookup"><span data-stu-id="e4321-185">Binding source parameter inference</span></span>
+::: moniker range="= aspnetcore-2.1"
 
-<span data-ttu-id="e4321-186">Zdrojový atribut vazby definuje umístění, kde je nalezena hodnota parametru akce.</span><span class="sxs-lookup"><span data-stu-id="e4321-186">A binding source attribute defines the location at which an action parameter's value is found.</span></span> <span data-ttu-id="e4321-187">Existují následující zdrojové atributy vazby:</span><span class="sxs-lookup"><span data-stu-id="e4321-187">The following binding source attributes exist:</span></span>
+[!code-csharp[](index/samples/2.x/2.1/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=1,5)]
 
-|<span data-ttu-id="e4321-188">Atribut</span><span class="sxs-lookup"><span data-stu-id="e4321-188">Attribute</span></span>|<span data-ttu-id="e4321-189">Zdroj vazby</span><span class="sxs-lookup"><span data-stu-id="e4321-189">Binding source</span></span> |
+::: moniker-end
+
+## <a name="binding-source-parameter-inference"></a><span data-ttu-id="da033-185">Binding source parameter inference</span><span class="sxs-lookup"><span data-stu-id="da033-185">Binding source parameter inference</span></span>
+
+<span data-ttu-id="da033-186">A binding source attribute defines the location at which an action parameter's value is found.</span><span class="sxs-lookup"><span data-stu-id="da033-186">A binding source attribute defines the location at which an action parameter's value is found.</span></span> <span data-ttu-id="da033-187">The following binding source attributes exist:</span><span class="sxs-lookup"><span data-stu-id="da033-187">The following binding source attributes exist:</span></span>
+
+|<span data-ttu-id="da033-188">Atribut</span><span class="sxs-lookup"><span data-stu-id="da033-188">Attribute</span></span>|<span data-ttu-id="da033-189">Binding source</span><span class="sxs-lookup"><span data-stu-id="da033-189">Binding source</span></span> |
 |---------|---------|
-|<span data-ttu-id="e4321-190">[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)</span><span class="sxs-lookup"><span data-stu-id="e4321-190">[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)</span></span>     | <span data-ttu-id="e4321-191">Text žádosti</span><span class="sxs-lookup"><span data-stu-id="e4321-191">Request body</span></span> |
-|<span data-ttu-id="e4321-192">[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)</span><span class="sxs-lookup"><span data-stu-id="e4321-192">[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)</span></span>     | <span data-ttu-id="e4321-193">Data formuláře v textu žádosti</span><span class="sxs-lookup"><span data-stu-id="e4321-193">Form data in the request body</span></span> |
-|<span data-ttu-id="e4321-194">[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)</span><span class="sxs-lookup"><span data-stu-id="e4321-194">[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)</span></span> | <span data-ttu-id="e4321-195">Hlavička žádosti</span><span class="sxs-lookup"><span data-stu-id="e4321-195">Request header</span></span> |
-|<span data-ttu-id="e4321-196">[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)</span><span class="sxs-lookup"><span data-stu-id="e4321-196">[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)</span></span>   | <span data-ttu-id="e4321-197">Parametr řetězce dotazu žádosti</span><span class="sxs-lookup"><span data-stu-id="e4321-197">Request query string parameter</span></span> |
-|<span data-ttu-id="e4321-198">[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)</span><span class="sxs-lookup"><span data-stu-id="e4321-198">[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)</span></span>   | <span data-ttu-id="e4321-199">Směrovat data z aktuální žádosti</span><span class="sxs-lookup"><span data-stu-id="e4321-199">Route data from the current request</span></span> |
-|<span data-ttu-id="e4321-200">[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices)</span><span class="sxs-lookup"><span data-stu-id="e4321-200">[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices)</span></span> | <span data-ttu-id="e4321-201">Služba požadavku byla vložena jako parametr akce.</span><span class="sxs-lookup"><span data-stu-id="e4321-201">The request service injected as an action parameter</span></span> |
+|<span data-ttu-id="da033-190">[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)</span><span class="sxs-lookup"><span data-stu-id="da033-190">[[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)</span></span>     | <span data-ttu-id="da033-191">Request body</span><span class="sxs-lookup"><span data-stu-id="da033-191">Request body</span></span> |
+|<span data-ttu-id="da033-192">[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)</span><span class="sxs-lookup"><span data-stu-id="da033-192">[[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)</span></span>     | <span data-ttu-id="da033-193">Form data in the request body</span><span class="sxs-lookup"><span data-stu-id="da033-193">Form data in the request body</span></span> |
+|<span data-ttu-id="da033-194">[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)</span><span class="sxs-lookup"><span data-stu-id="da033-194">[[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute)</span></span> | <span data-ttu-id="da033-195">Request header</span><span class="sxs-lookup"><span data-stu-id="da033-195">Request header</span></span> |
+|<span data-ttu-id="da033-196">[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)</span><span class="sxs-lookup"><span data-stu-id="da033-196">[[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)</span></span>   | <span data-ttu-id="da033-197">Request query string parameter</span><span class="sxs-lookup"><span data-stu-id="da033-197">Request query string parameter</span></span> |
+|<span data-ttu-id="da033-198">[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)</span><span class="sxs-lookup"><span data-stu-id="da033-198">[[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)</span></span>   | <span data-ttu-id="da033-199">Route data from the current request</span><span class="sxs-lookup"><span data-stu-id="da033-199">Route data from the current request</span></span> |
+|<span data-ttu-id="da033-200">[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices)</span><span class="sxs-lookup"><span data-stu-id="da033-200">[[FromServices]](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices)</span></span> | <span data-ttu-id="da033-201">The request service injected as an action parameter</span><span class="sxs-lookup"><span data-stu-id="da033-201">The request service injected as an action parameter</span></span> |
 
 > [!WARNING]
-> <span data-ttu-id="e4321-202">Nepoužívejte `[FromRoute]`, pokud hodnoty mohou obsahovat `%2f` (`/`).</span><span class="sxs-lookup"><span data-stu-id="e4321-202">Don't use `[FromRoute]` when values might contain `%2f` (that is `/`).</span></span> <span data-ttu-id="e4321-203">`%2f` nebude `/`.</span><span class="sxs-lookup"><span data-stu-id="e4321-203">`%2f` won't be unescaped to `/`.</span></span> <span data-ttu-id="e4321-204">Použijte `[FromQuery]`, pokud hodnota může obsahovat `%2f`.</span><span class="sxs-lookup"><span data-stu-id="e4321-204">Use `[FromQuery]` if the value might contain `%2f`.</span></span>
+> <span data-ttu-id="da033-202">Don't use `[FromRoute]` when values might contain `%2f` (that is `/`).</span><span class="sxs-lookup"><span data-stu-id="da033-202">Don't use `[FromRoute]` when values might contain `%2f` (that is `/`).</span></span> <span data-ttu-id="da033-203">`%2f` won't be unescaped to `/`.</span><span class="sxs-lookup"><span data-stu-id="da033-203">`%2f` won't be unescaped to `/`.</span></span> <span data-ttu-id="da033-204">Use `[FromQuery]` if the value might contain `%2f`.</span><span class="sxs-lookup"><span data-stu-id="da033-204">Use `[FromQuery]` if the value might contain `%2f`.</span></span>
 
-<span data-ttu-id="e4321-205">Bez atributu `[ApiController]` nebo vazby zdrojových atributů jako `[FromQuery]`se ASP.NET Core modul runtime pokusí použít komplexní pořadač objektového modelu.</span><span class="sxs-lookup"><span data-stu-id="e4321-205">Without the `[ApiController]` attribute or binding source attributes like `[FromQuery]`, the ASP.NET Core runtime attempts to use the complex object model binder.</span></span> <span data-ttu-id="e4321-206">Pořadač komplexního objektového modelu získává data od zprostředkovatelů hodnot v definovaném pořadí.</span><span class="sxs-lookup"><span data-stu-id="e4321-206">The complex object model binder pulls data from value providers in a defined order.</span></span>
+<span data-ttu-id="da033-205">Without the `[ApiController]` attribute or binding source attributes like `[FromQuery]`, the ASP.NET Core runtime attempts to use the complex object model binder.</span><span class="sxs-lookup"><span data-stu-id="da033-205">Without the `[ApiController]` attribute or binding source attributes like `[FromQuery]`, the ASP.NET Core runtime attempts to use the complex object model binder.</span></span> <span data-ttu-id="da033-206">The complex object model binder pulls data from value providers in a defined order.</span><span class="sxs-lookup"><span data-stu-id="da033-206">The complex object model binder pulls data from value providers in a defined order.</span></span>
 
-<span data-ttu-id="e4321-207">V následujícím příkladu atribut `[FromQuery]` označuje, že hodnota parametru `discontinuedOnly` je uvedena v řetězci dotazu adresy URL požadavku:</span><span class="sxs-lookup"><span data-stu-id="e4321-207">In the following example, the `[FromQuery]` attribute indicates that the `discontinuedOnly` parameter value is provided in the request URL's query string:</span></span>
+<span data-ttu-id="da033-207">In the following example, the `[FromQuery]` attribute indicates that the `discontinuedOnly` parameter value is provided in the request URL's query string:</span><span class="sxs-lookup"><span data-stu-id="da033-207">In the following example, the `[FromQuery]` attribute indicates that the `discontinuedOnly` parameter value is provided in the request URL's query string:</span></span>
 
-[!code-csharp[](index/samples/2.x/Controllers/ProductsController.cs?name=snippet_BindingSourceAttributes&highlight=3)]
+[!code-csharp[](index/samples/2.x/2.2/Controllers/ProductsController.cs?name=snippet_BindingSourceAttributes&highlight=3)]
 
-<span data-ttu-id="e4321-208">Atribut `[ApiController]` aplikuje odvozená pravidla pro výchozí zdroje dat parametrů akce.</span><span class="sxs-lookup"><span data-stu-id="e4321-208">The `[ApiController]` attribute applies inference rules for the default data sources of action parameters.</span></span> <span data-ttu-id="e4321-209">Tato pravidla vám umožní určit ruční identifikaci zdrojů vazby použitím atributů u parametrů akce.</span><span class="sxs-lookup"><span data-stu-id="e4321-209">These rules save you from having to identify binding sources manually by applying attributes to the action parameters.</span></span> <span data-ttu-id="e4321-210">Pravidla odvození zdroje vazby se chovají následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="e4321-210">The binding source inference rules behave as follows:</span></span>
+<span data-ttu-id="da033-208">The `[ApiController]` attribute applies inference rules for the default data sources of action parameters.</span><span class="sxs-lookup"><span data-stu-id="da033-208">The `[ApiController]` attribute applies inference rules for the default data sources of action parameters.</span></span> <span data-ttu-id="da033-209">These rules save you from having to identify binding sources manually by applying attributes to the action parameters.</span><span class="sxs-lookup"><span data-stu-id="da033-209">These rules save you from having to identify binding sources manually by applying attributes to the action parameters.</span></span> <span data-ttu-id="da033-210">The binding source inference rules behave as follows:</span><span class="sxs-lookup"><span data-stu-id="da033-210">The binding source inference rules behave as follows:</span></span>
 
-* <span data-ttu-id="e4321-211">`[FromBody]` je odvozený pro parametry komplexního typu.</span><span class="sxs-lookup"><span data-stu-id="e4321-211">`[FromBody]` is inferred for complex type parameters.</span></span> <span data-ttu-id="e4321-212">Výjimka pro pravidlo odvození `[FromBody]` je jakékoli komplexní, vestavěný typ se speciálním významem, jako je například <xref:Microsoft.AspNetCore.Http.IFormCollection> a <xref:System.Threading.CancellationToken>.</span><span class="sxs-lookup"><span data-stu-id="e4321-212">An exception to the `[FromBody]` inference rule is any complex, built-in type with a special meaning, such as <xref:Microsoft.AspNetCore.Http.IFormCollection> and <xref:System.Threading.CancellationToken>.</span></span> <span data-ttu-id="e4321-213">Kód odvození zdroje vazby ignoruje tyto speciální typy.</span><span class="sxs-lookup"><span data-stu-id="e4321-213">The binding source inference code ignores those special types.</span></span>
-* <span data-ttu-id="e4321-214">`[FromForm]` je odvozeno od parametrů akce typu <xref:Microsoft.AspNetCore.Http.IFormFile> a <xref:Microsoft.AspNetCore.Http.IFormFileCollection>.</span><span class="sxs-lookup"><span data-stu-id="e4321-214">`[FromForm]` is inferred for action parameters of type <xref:Microsoft.AspNetCore.Http.IFormFile> and <xref:Microsoft.AspNetCore.Http.IFormFileCollection>.</span></span> <span data-ttu-id="e4321-215">Není odvozený pro žádné jednoduché nebo uživatelsky definované typy.</span><span class="sxs-lookup"><span data-stu-id="e4321-215">It's not inferred for any simple or user-defined types.</span></span>
-* <span data-ttu-id="e4321-216">`[FromRoute]` se odvozuje pro všechny názvy parametrů akcí, které odpovídají parametru v šabloně směrování.</span><span class="sxs-lookup"><span data-stu-id="e4321-216">`[FromRoute]` is inferred for any action parameter name matching a parameter in the route template.</span></span> <span data-ttu-id="e4321-217">Pokud parametr akce odpovídá víc než jedna trasa, hodnota trasy se považuje za `[FromRoute]`.</span><span class="sxs-lookup"><span data-stu-id="e4321-217">When more than one route matches an action parameter, any route value is considered `[FromRoute]`.</span></span>
-* <span data-ttu-id="e4321-218">`[FromQuery]` se odvozuje pro všechny ostatní parametry akce.</span><span class="sxs-lookup"><span data-stu-id="e4321-218">`[FromQuery]` is inferred for any other action parameters.</span></span>
+* <span data-ttu-id="da033-211">`[FromBody]` is inferred for complex type parameters.</span><span class="sxs-lookup"><span data-stu-id="da033-211">`[FromBody]` is inferred for complex type parameters.</span></span> <span data-ttu-id="da033-212">An exception to the `[FromBody]` inference rule is any complex, built-in type with a special meaning, such as <xref:Microsoft.AspNetCore.Http.IFormCollection> and <xref:System.Threading.CancellationToken>.</span><span class="sxs-lookup"><span data-stu-id="da033-212">An exception to the `[FromBody]` inference rule is any complex, built-in type with a special meaning, such as <xref:Microsoft.AspNetCore.Http.IFormCollection> and <xref:System.Threading.CancellationToken>.</span></span> <span data-ttu-id="da033-213">The binding source inference code ignores those special types.</span><span class="sxs-lookup"><span data-stu-id="da033-213">The binding source inference code ignores those special types.</span></span>
+* <span data-ttu-id="da033-214">`[FromForm]` is inferred for action parameters of type <xref:Microsoft.AspNetCore.Http.IFormFile> and <xref:Microsoft.AspNetCore.Http.IFormFileCollection>.</span><span class="sxs-lookup"><span data-stu-id="da033-214">`[FromForm]` is inferred for action parameters of type <xref:Microsoft.AspNetCore.Http.IFormFile> and <xref:Microsoft.AspNetCore.Http.IFormFileCollection>.</span></span> <span data-ttu-id="da033-215">It's not inferred for any simple or user-defined types.</span><span class="sxs-lookup"><span data-stu-id="da033-215">It's not inferred for any simple or user-defined types.</span></span>
+* <span data-ttu-id="da033-216">`[FromRoute]` is inferred for any action parameter name matching a parameter in the route template.</span><span class="sxs-lookup"><span data-stu-id="da033-216">`[FromRoute]` is inferred for any action parameter name matching a parameter in the route template.</span></span> <span data-ttu-id="da033-217">When more than one route matches an action parameter, any route value is considered `[FromRoute]`.</span><span class="sxs-lookup"><span data-stu-id="da033-217">When more than one route matches an action parameter, any route value is considered `[FromRoute]`.</span></span>
+* <span data-ttu-id="da033-218">`[FromQuery]` is inferred for any other action parameters.</span><span class="sxs-lookup"><span data-stu-id="da033-218">`[FromQuery]` is inferred for any other action parameters.</span></span>
 
-### <a name="frombody-inference-notes"></a><span data-ttu-id="e4321-219">Poznámky k odvozování FromBody</span><span class="sxs-lookup"><span data-stu-id="e4321-219">FromBody inference notes</span></span>
+### <a name="frombody-inference-notes"></a><span data-ttu-id="da033-219">FromBody inference notes</span><span class="sxs-lookup"><span data-stu-id="da033-219">FromBody inference notes</span></span>
 
-<span data-ttu-id="e4321-220">`[FromBody]` nejsou odvozené pro jednoduché typy, jako je `string` nebo `int`.</span><span class="sxs-lookup"><span data-stu-id="e4321-220">`[FromBody]` isn't inferred for simple types such as `string` or `int`.</span></span> <span data-ttu-id="e4321-221">Proto by měl atribut `[FromBody]` použít pro jednoduché typy, pokud je tato funkce potřebná.</span><span class="sxs-lookup"><span data-stu-id="e4321-221">Therefore, the `[FromBody]` attribute should be used for simple types when that functionality is needed.</span></span>
+<span data-ttu-id="da033-220">`[FromBody]` isn't inferred for simple types such as `string` or `int`.</span><span class="sxs-lookup"><span data-stu-id="da033-220">`[FromBody]` isn't inferred for simple types such as `string` or `int`.</span></span> <span data-ttu-id="da033-221">Therefore, the `[FromBody]` attribute should be used for simple types when that functionality is needed.</span><span class="sxs-lookup"><span data-stu-id="da033-221">Therefore, the `[FromBody]` attribute should be used for simple types when that functionality is needed.</span></span>
 
-<span data-ttu-id="e4321-222">Pokud má akce více než jeden parametr vázaný z těla požadavku, je vyvolána výjimka.</span><span class="sxs-lookup"><span data-stu-id="e4321-222">When an action has more than one parameter bound from the request body, an exception is thrown.</span></span> <span data-ttu-id="e4321-223">Například všechny následující signatury metody Action způsobují výjimku:</span><span class="sxs-lookup"><span data-stu-id="e4321-223">For example, all of the following action method signatures cause an exception:</span></span>
+<span data-ttu-id="da033-222">When an action has more than one parameter bound from the request body, an exception is thrown.</span><span class="sxs-lookup"><span data-stu-id="da033-222">When an action has more than one parameter bound from the request body, an exception is thrown.</span></span> <span data-ttu-id="da033-223">For example, all of the following action method signatures cause an exception:</span><span class="sxs-lookup"><span data-stu-id="da033-223">For example, all of the following action method signatures cause an exception:</span></span>
 
-* <span data-ttu-id="e4321-224">`[FromBody]` odvozená v obou případech, protože se jedná o komplexní typy.</span><span class="sxs-lookup"><span data-stu-id="e4321-224">`[FromBody]` inferred on both because they're complex types.</span></span>
+* <span data-ttu-id="da033-224">`[FromBody]` inferred on both because they're complex types.</span><span class="sxs-lookup"><span data-stu-id="da033-224">`[FromBody]` inferred on both because they're complex types.</span></span>
 
   ```csharp
   [HttpPost]
   public IActionResult Action1(Product product, Order order)
   ```
 
-* <span data-ttu-id="e4321-225">`[FromBody]` atribut na jednom, odvozený na druhém, protože se jedná o komplexní typ.</span><span class="sxs-lookup"><span data-stu-id="e4321-225">`[FromBody]` attribute on one, inferred on the other because it's a complex type.</span></span>
+* <span data-ttu-id="da033-225">`[FromBody]` attribute on one, inferred on the other because it's a complex type.</span><span class="sxs-lookup"><span data-stu-id="da033-225">`[FromBody]` attribute on one, inferred on the other because it's a complex type.</span></span>
 
   ```csharp
   [HttpPost]
   public IActionResult Action2(Product product, [FromBody] Order order)
   ```
 
-* <span data-ttu-id="e4321-226">atribut `[FromBody]` v obou.</span><span class="sxs-lookup"><span data-stu-id="e4321-226">`[FromBody]` attribute on both.</span></span>
+* <span data-ttu-id="da033-226">`[FromBody]` attribute on both.</span><span class="sxs-lookup"><span data-stu-id="da033-226">`[FromBody]` attribute on both.</span></span>
 
   ```csharp
   [HttpPost]
@@ -288,13 +294,13 @@ if (!ModelState.IsValid)
 ::: moniker range="= aspnetcore-2.1"
 
 > [!NOTE]
-> <span data-ttu-id="e4321-227">V ASP.NET Core 2,1 jsou parametry typu kolekce, jako jsou seznamy a pole, nesprávně odvozeny jako `[FromQuery]`.</span><span class="sxs-lookup"><span data-stu-id="e4321-227">In ASP.NET Core 2.1, collection type parameters such as lists and arrays are incorrectly inferred as `[FromQuery]`.</span></span> <span data-ttu-id="e4321-228">Atribut `[FromBody]` by měl být použit pro tyto parametry, pokud mají být vázány z textu žádosti.</span><span class="sxs-lookup"><span data-stu-id="e4321-228">The `[FromBody]` attribute should be used for these parameters if they are to be bound from the request body.</span></span> <span data-ttu-id="e4321-229">Toto chování se opravuje v ASP.NET Core 2,2 nebo novějším, kde jsou parametry typu kolekce odvoditelné z těla ve výchozím nastavení.</span><span class="sxs-lookup"><span data-stu-id="e4321-229">This behavior is corrected in ASP.NET Core 2.2 or later, where collection type parameters are inferred to be bound from the body by default.</span></span>
+> <span data-ttu-id="da033-227">In ASP.NET Core 2.1, collection type parameters such as lists and arrays are incorrectly inferred as `[FromQuery]`.</span><span class="sxs-lookup"><span data-stu-id="da033-227">In ASP.NET Core 2.1, collection type parameters such as lists and arrays are incorrectly inferred as `[FromQuery]`.</span></span> <span data-ttu-id="da033-228">The `[FromBody]` attribute should be used for these parameters if they are to be bound from the request body.</span><span class="sxs-lookup"><span data-stu-id="da033-228">The `[FromBody]` attribute should be used for these parameters if they are to be bound from the request body.</span></span> <span data-ttu-id="da033-229">This behavior is corrected in ASP.NET Core 2.2 or later, where collection type parameters are inferred to be bound from the body by default.</span><span class="sxs-lookup"><span data-stu-id="da033-229">This behavior is corrected in ASP.NET Core 2.2 or later, where collection type parameters are inferred to be bound from the body by default.</span></span>
 
 ::: moniker-end
 
-### <a name="disable-inference-rules"></a><span data-ttu-id="e4321-230">Zakázat odvození pravidel</span><span class="sxs-lookup"><span data-stu-id="e4321-230">Disable inference rules</span></span>
+### <a name="disable-inference-rules"></a><span data-ttu-id="da033-230">Disable inference rules</span><span class="sxs-lookup"><span data-stu-id="da033-230">Disable inference rules</span></span>
 
-<span data-ttu-id="e4321-231">Chcete-li zakázat odvození zdroje vazby, nastavte <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> na `true`.</span><span class="sxs-lookup"><span data-stu-id="e4321-231">To disable binding source inference, set <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> to `true`.</span></span> <span data-ttu-id="e4321-232">Do `Startup.ConfigureServices`přidejte následující kód:</span><span class="sxs-lookup"><span data-stu-id="e4321-232">Add the following code in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="da033-231">To disable binding source inference, set <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> to `true`.</span><span class="sxs-lookup"><span data-stu-id="da033-231">To disable binding source inference, set <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressInferBindingSourcesForParameters> to `true`.</span></span> <span data-ttu-id="da033-232">Add the following code in `Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="da033-232">Add the following code in `Startup.ConfigureServices`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -302,17 +308,23 @@ if (!ModelState.IsValid)
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,6)]
+[!code-csharp[](index/samples/2.x/2.2/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,6)]
 
 ::: moniker-end
 
-## <a name="multipartform-data-request-inference"></a><span data-ttu-id="e4321-233">Multipart/form-odvození požadavku na data</span><span class="sxs-lookup"><span data-stu-id="e4321-233">Multipart/form-data request inference</span></span>
+::: moniker range="= aspnetcore-2.1"
 
-<span data-ttu-id="e4321-234">Atribut `[ApiController]` aplikuje odvození pravidla, pokud je parametr Action opatřen poznámkou s atributem [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) .</span><span class="sxs-lookup"><span data-stu-id="e4321-234">The `[ApiController]` attribute applies an inference rule when an action parameter is annotated with the [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) attribute.</span></span> <span data-ttu-id="e4321-235">Je odvozený typ obsahu žádosti o `multipart/form-data`.</span><span class="sxs-lookup"><span data-stu-id="e4321-235">The `multipart/form-data` request content type is inferred.</span></span>
+[!code-csharp[](index/samples/2.x/2.1/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=1,4)]
 
-<span data-ttu-id="e4321-236">Chcete-li zakázat výchozí chování, nastavte vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> na `true` v `Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="e4321-236">To disable the default behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> property to `true` in `Startup.ConfigureServices`:</span></span>
+::: moniker-end
+
+## <a name="multipartform-data-request-inference"></a><span data-ttu-id="da033-233">Multipart/form-data request inference</span><span class="sxs-lookup"><span data-stu-id="da033-233">Multipart/form-data request inference</span></span>
+
+<span data-ttu-id="da033-234">The `[ApiController]` attribute applies an inference rule when an action parameter is annotated with the [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) attribute.</span><span class="sxs-lookup"><span data-stu-id="da033-234">The `[ApiController]` attribute applies an inference rule when an action parameter is annotated with the [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) attribute.</span></span> <span data-ttu-id="da033-235">The `multipart/form-data` request content type is inferred.</span><span class="sxs-lookup"><span data-stu-id="da033-235">The `multipart/form-data` request content type is inferred.</span></span>
+
+<span data-ttu-id="da033-236">To disable the default behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> property to `true` in `Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="da033-236">To disable the default behavior, set the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressConsumesConstraintForFormFileParameters> property to `true` in `Startup.ConfigureServices`:</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -320,21 +332,29 @@ if (!ModelState.IsValid)
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,5)]
+[!code-csharp[](index/samples/2.x/2.2/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,5)]
 
 ::: moniker-end
 
-## <a name="problem-details-for-error-status-codes"></a><span data-ttu-id="e4321-237">Podrobnosti o problémech stavových kódů chyb</span><span class="sxs-lookup"><span data-stu-id="e4321-237">Problem details for error status codes</span></span>
+::: moniker range="= aspnetcore-2.1"
 
-<span data-ttu-id="e4321-238">Pokud je verze kompatibility 2,2 nebo novější, MVC transformuje výsledek chyby (výsledek s kódem stavu 400 nebo vyšší) na výsledek s <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.</span><span class="sxs-lookup"><span data-stu-id="e4321-238">When the compatibility version is 2.2 or later, MVC transforms an error result (a result with status code 400 or higher) to a result with <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.</span></span> <span data-ttu-id="e4321-239">`ProblemDetails` typ je založen na [specifikaci RFC 7807](https://tools.ietf.org/html/rfc7807) pro poskytování podrobností o chybě čitelné počítačem v odpovědi HTTP.</span><span class="sxs-lookup"><span data-stu-id="e4321-239">The `ProblemDetails` type is based on the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807) for providing machine-readable error details in an HTTP response.</span></span>
+[!code-csharp[](index/samples/2.x/2.1/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=1,3)]
 
-<span data-ttu-id="e4321-240">V akci kontroleru zvažte následující kód:</span><span class="sxs-lookup"><span data-stu-id="e4321-240">Consider the following code in a controller action:</span></span>
+::: moniker-end
 
-[!code-csharp[](index/samples/2.x/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
+::: moniker range=">= aspnetcore-2.2"
 
-<span data-ttu-id="e4321-241">Metoda `NotFound` generuje stavový kód HTTP 404 s `ProblemDetails` tělo.</span><span class="sxs-lookup"><span data-stu-id="e4321-241">The `NotFound` method produces an HTTP 404 status code with a `ProblemDetails` body.</span></span> <span data-ttu-id="e4321-242">Příklad:</span><span class="sxs-lookup"><span data-stu-id="e4321-242">For example:</span></span>
+## <a name="problem-details-for-error-status-codes"></a><span data-ttu-id="da033-237">Problem details for error status codes</span><span class="sxs-lookup"><span data-stu-id="da033-237">Problem details for error status codes</span></span>
+
+<span data-ttu-id="da033-238">When the compatibility version is 2.2 or later, MVC transforms an error result (a result with status code 400 or higher) to a result with <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.</span><span class="sxs-lookup"><span data-stu-id="da033-238">When the compatibility version is 2.2 or later, MVC transforms an error result (a result with status code 400 or higher) to a result with <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.</span></span> <span data-ttu-id="da033-239">The `ProblemDetails` type is based on the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807) for providing machine-readable error details in an HTTP response.</span><span class="sxs-lookup"><span data-stu-id="da033-239">The `ProblemDetails` type is based on the [RFC 7807 specification](https://tools.ietf.org/html/rfc7807) for providing machine-readable error details in an HTTP response.</span></span>
+
+<span data-ttu-id="da033-240">Consider the following code in a controller action:</span><span class="sxs-lookup"><span data-stu-id="da033-240">Consider the following code in a controller action:</span></span>
+
+[!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
+
+<span data-ttu-id="da033-241">The `NotFound` method produces an HTTP 404 status code with a `ProblemDetails` body.</span><span class="sxs-lookup"><span data-stu-id="da033-241">The `NotFound` method produces an HTTP 404 status code with a `ProblemDetails` body.</span></span> <span data-ttu-id="da033-242">Příklad:</span><span class="sxs-lookup"><span data-stu-id="da033-242">For example:</span></span>
 
 ```json
 {
@@ -345,9 +365,11 @@ if (!ModelState.IsValid)
 }
 ```
 
-### <a name="disable-problemdetails-response"></a><span data-ttu-id="e4321-243">Zakázat odpověď ProblemDetails</span><span class="sxs-lookup"><span data-stu-id="e4321-243">Disable ProblemDetails response</span></span>
+### <a name="disable-problemdetails-response"></a><span data-ttu-id="da033-243">Disable ProblemDetails response</span><span class="sxs-lookup"><span data-stu-id="da033-243">Disable ProblemDetails response</span></span>
 
-<span data-ttu-id="e4321-244">Automatické vytváření instance `ProblemDetails` je zakázáno, pokud je vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors*> nastavena na `true`.</span><span class="sxs-lookup"><span data-stu-id="e4321-244">The automatic creation of a `ProblemDetails` instance is disabled when the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors*> property is set to `true`.</span></span> <span data-ttu-id="e4321-245">Do `Startup.ConfigureServices`přidejte následující kód:</span><span class="sxs-lookup"><span data-stu-id="e4321-245">Add the following code in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="da033-244">The automatic creation of a `ProblemDetails` instance is disabled when the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> property is set to `true`.</span><span class="sxs-lookup"><span data-stu-id="da033-244">The automatic creation of a `ProblemDetails` instance is disabled when the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> property is set to `true`.</span></span> <span data-ttu-id="da033-245">Add the following code in `Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="da033-245">Add the following code in `Startup.ConfigureServices`:</span></span>
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -355,13 +377,13 @@ if (!ModelState.IsValid)
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.2"
+::: moniker range="= aspnetcore-2.2"
 
-[!code-csharp[](index/samples/2.x/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,8)]
+[!code-csharp[](index/samples/2.x/2.2/Startup.cs?name=snippet_ConfigureApiBehaviorOptions&highlight=3,8)]
 
 ::: moniker-end
 
-## <a name="additional-resources"></a><span data-ttu-id="e4321-246">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="e4321-246">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="da033-246">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="da033-246">Additional resources</span></span>
 
 * <xref:web-api/action-return-types>
 * <xref:web-api/handle-errors>
