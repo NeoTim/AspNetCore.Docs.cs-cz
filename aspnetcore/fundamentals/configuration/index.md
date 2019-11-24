@@ -16,7 +16,7 @@ ms.locfileid: "73634077"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
-Od [Luke Latham](https://github.com/guardrex)
+Podle [Luke Latham](https://github.com/guardrex)
 
 Konfigurace aplikací v ASP.NET Core je založená na páru klíč-hodnota vytvořených *poskytovateli konfigurací*. Poskytovatelé konfigurace čtou konfigurační data do párů klíč-hodnota z nejrůznějších zdrojů konfigurace:
 
@@ -49,11 +49,11 @@ using Microsoft.Extensions.Configuration;
 
 *Vzor možností* je rozšíření konceptů konfigurace popsaných v tomto tématu. Možnosti používají třídy pro reprezentaci skupin souvisejících nastavení. Další informace najdete v tématu <xref:fundamentals/configuration/options>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="host-versus-app-configuration"></a>Konfigurace versus konfigurace aplikace
 
-Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spuštěný. Hostitel zodpovídá za spuštění aplikace a správu životního cyklu. Aplikace i hostitel se konfigurují pomocí zprostředkovatelů konfigurace popsaných v tomto tématu. V konfiguraci aplikace jsou také zahrnuty páry klíč-hodnota konfigurace hostitele. Další informace o tom, jak se používají poskytovatelé konfigurace, když je hostitel sestavený a jak zdroje konfigurace ovlivňují konfiguraci hostitele, najdete v tématu <xref:fundamentals/index#host>.
+Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spuštěný. Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací. Aplikace i hostitel se konfigurují pomocí zprostředkovatelů konfigurace popsaných v tomto tématu. V konfiguraci aplikace jsou také zahrnuty páry klíč-hodnota konfigurace hostitele. Další informace o tom, jak se používají poskytovatelé konfigurace, když je hostitel sestavený a jak zdroje konfigurace ovlivňují konfiguraci hostitele, najdete v tématu <xref:fundamentals/index#host>.
 
 ## <a name="default-configuration"></a>Výchozí konfigurace
 
@@ -187,11 +187,11 @@ Konfigurační hodnoty přijímají následující konvence:
 * Hodnoty jsou řetězce.
 * Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.
 
-## <a name="providers"></a>Dodavateli
+## <a name="providers"></a>Poskytovatelé
 
 V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.
 
-| Zprostředkovatele | Poskytuje konfiguraci z &hellip; |
+| Poskytovatel | Poskytuje konfiguraci z&hellip; |
 | -------- | ----------------------------------- |
 | [Poskytovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) (témata*zabezpečení* ) | Azure Key Vault |
 | [Poskytovatel konfigurace Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace Azure) | Konfigurace aplikace Azure |
@@ -221,7 +221,7 @@ Předchozí sekvence zprostředkovatelů se používá, když inicializujete nov
 
 ## <a name="configure-the-host-builder-with-configurehostconfiguration"></a>Konfigurace tvůrce hostitele pomocí ConfigureHostConfiguration
 
-Chcete-li nakonfigurovat tvůrce hostitele, zavolejte <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> a zadejte konfiguraci. `ConfigureHostConfiguration` slouží k inicializaci <xref:Microsoft.Extensions.Hosting.IHostEnvironment> pro pozdější použití v procesu sestavení. `ConfigureHostConfiguration` se dá volat víckrát s přičítáním výsledků.
+Chcete-li nakonfigurovat tvůrce hostitele, zavolejte <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> a zadejte konfiguraci. `ConfigureHostConfiguration` slouží k inicializaci <xref:Microsoft.Extensions.Hosting.IHostEnvironment> pro pozdější použití v procesu sestavení. `ConfigureHostConfiguration` lze volat vícekrát pomocí aditivních výsledků.
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -319,7 +319,7 @@ Konfigurace zadaná do aplikace v `ConfigureAppConfiguration` je dostupná běhe
 
 <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> načítá konfiguraci z párů klíč-hodnota argumentu klíč-hodnota za běhu.
 
-Chcete-li aktivovat konfiguraci příkazového řádku, je jako instance <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> volána metoda rozšíření <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.
+Chcete-li aktivovat konfiguraci příkazového řádku, je jako instance <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>volána metoda rozšíření <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.
 
 `AddCommandLine` je automaticky volána, když je volána `CreateDefaultBuilder(string [])`. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
 
@@ -352,15 +352,15 @@ Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuil
 1. Po spuštění aplikace otevřete v aplikaci prohlížeč na `http://localhost:5000`.
 1. Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro argument příkazového řádku konfigurace, který je k dispozici pro `dotnet run`.
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 Hodnota musí následovat po znaménku rovná se (`=`), nebo klíč musí obsahovat předponu (`--` nebo `/`), pokud se hodnota řídí mezerou. Hodnota není povinná, pokud se používá znaménko rovná se (například `CommandLineKey=`).
 
 | Klíčová předpona               | Příklad                                                |
 | ------------------------ | ------------------------------------------------------ |
 | Bez předpony                | `CommandLineKey1=value1`                               |
-| Dvě pomlčky (`--`)        | `--CommandLineKey2=value2` `--CommandLineKey2 value2` |
-| Lomítko (`/`)      | `/CommandLineKey3=value3` `/CommandLineKey3 value3`   |
+| Dvě pomlčky (`--`)        | `--CommandLineKey2=value2`, `--CommandLineKey2 value2` |
+| Lomítko (`/`)      | `/CommandLineKey3=value3`, `/CommandLineKey3 value3`   |
 
 V rámci stejného příkazu Nekombinujte páry klíč-hodnota argumentu příkazového řádku, které používají symbol rovná se s páry klíč-hodnota, které používají mezeru.
 
@@ -374,7 +374,7 @@ dotnet run CommandLineKey1= CommandLineKey2=value2
 
 ### <a name="switch-mappings"></a>Mapování přepínačů
 
-Mapování přepínačů povolují logiku nahrazení názvu klíče. Při ručním sestavování konfigurace pomocí <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> můžete do metody <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> zadat slovník přepínačů pro nahrazení.
+Mapování přepínačů povolují logiku nahrazení názvu klíče. Při ručním sestavování konfigurace pomocí <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>můžete do metody <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> zadat slovník přepínačů pro nahrazení.
 
 Při použití slovníku mapování přepínačů je slovník zaškrtnut pro klíč, který odpovídá klíči poskytnutému argumentem příkazového řádku. Pokud se klíč příkazového řádku nachází ve slovníku, vrátí se hodnota slovníku (nahrazení klíče) zpět, aby se v konfiguraci aplikace nastavil pár klíč-hodnota. Mapování přepínačů je vyžadováno pro jakýkoliv klíč příkazového řádku s jedním spojovníkem (`-`).
 
@@ -407,7 +407,7 @@ Pro aplikace, které používají mapování přepínačů, by volání `CreateD
 
 Po vytvoření slovníku mapování přepínačů obsahuje data uvedená v následující tabulce.
 
-| Key       | Hodnota             |
+| Klíč       | Hodnota             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -420,7 +420,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 Po spuštění předchozího příkazu obsahuje konfigurace hodnoty uvedené v následující tabulce.
 
-| Key               | Hodnota    |
+| Klíč               | Hodnota    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
@@ -474,7 +474,7 @@ Pokud potřebujete zadat konfiguraci aplikace z dalších proměnných prostřed
 
 Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání `AddEnvironmentVariables`.
 
-1. Spusťte ukázkovou aplikaci. Otevřete v aplikaci prohlížeč na `http://localhost:5000`.
+1. Spuštění ukázkové aplikace. Otevřete v aplikaci prohlížeč na `http://localhost:5000`.
 1. Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro proměnnou prostředí `ENVIRONMENT`. Hodnota odráží prostředí, ve kterém je aplikace spuštěná, obvykle `Development` při místním spuštění.
 
 Chcete-li zachovat seznam proměnných prostředí vygenerovaných aplikací v krátkém prostředí, aplikace filtruje proměnné prostředí. Podívejte se na soubor *pages/index. cshtml. cs* ukázkové aplikace.
@@ -501,9 +501,9 @@ Když je vytvořen tvůrce hostitele, konfigurace hostitele je poskytována prom
 
 **Předpony připojovacího řetězce**
 
-Rozhraní API pro konfiguraci má speciální pravidla zpracování pro čtyři proměnné prostředí připojovacích řetězců, které se podílejí na konfiguraci připojovacích řetězců Azure pro prostředí aplikace. Proměnné prostředí s předponami, které jsou uvedeny v tabulce, se načtou do aplikace, pokud není k `AddEnvironmentVariables` zadána žádná předpona.
+Rozhraní API pro konfiguraci má speciální pravidla zpracování pro čtyři proměnné prostředí připojovacích řetězců, které se podílejí na konfiguraci připojovacích řetězců Azure pro prostředí aplikace. Proměnné prostředí s předponami, které jsou uvedeny v tabulce, se načtou do aplikace, pokud není k `AddEnvironmentVariables`zadána žádná předpona.
 
-| Předpona připojovacího řetězce | Zprostředkovatele |
+| Předpona připojovacího řetězce | Poskytovatel |
 | ------------------------ | -------- |
 | `CUSTOMCONNSTR_` | Vlastní zprostředkovatel |
 | `MYSQLCONNSTR_` | [MySQL](https://www.mysql.com/) |
@@ -620,13 +620,13 @@ Při sestavování hostitele zavolá `ConfigureAppConfiguration`, aby se určila
 
 Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje dvě volání `AddJsonFile`. Konfigurace je načtena z souboru *appSettings. JSON* a *appSettings. { Environment}. JSON*.
 
-1. Spusťte ukázkovou aplikaci. Otevřete v aplikaci prohlížeč na `http://localhost:5000`.
+1. Spuštění ukázkové aplikace. Otevřete v aplikaci prohlížeč na `http://localhost:5000`.
 1. Všimněte si, že výstup obsahuje páry klíč-hodnota pro konfiguraci uvedenou v tabulce v závislosti na prostředí. Konfigurační klíče protokolování používají dvojtečku (`:`) jako hierarchický oddělovač.
 
-| Key                        | Hodnota vývoje | Produkční hodnota |
+| Klíč                        | Hodnota vývoje | Produkční hodnota |
 | -------------------------- | :---------------: | :--------------: |
-| Protokolování: LogLevel: systém    | Informace o       | Informace o      |
-| Protokolování: LogLevel: Microsoft | Informace o       | Informace o      |
+| Protokolování: LogLevel: systém    | Information       | Information      |
+| Logging:LogLevel:Microsoft | Information       | Information      |
 | Protokolování: LogLevel: výchozí   | Ladit             | Chyba            |
 | AllowedHosts               | *                 | *                |
 
@@ -695,9 +695,9 @@ Opakující se prvky, které používají stejný název elementu fungují, poku
 
 Předchozí konfigurační soubor načte následující klíče pomocí `value`:
 
-* oddíl: section0: Key: Key0
-* oddíl: section0: Key: klíč1
-* oddíl: Section1: Key: Key0
+* section:section0:key:key0
+* section:section0:key:key1
+* section:section1:key:key0
 * oddíl: Section1: Key: klíč1
 
 Atributy lze použít k zadávání hodnot:
@@ -773,7 +773,7 @@ Slovník se používá s voláním `AddInMemoryCollection` k poskytnutí konfigu
 
 ## <a name="getvalue"></a>GetValue
 
-[ConfigurationBinder. GetValue \<T >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ nekolekce. Přetížení přijímá výchozí hodnotu.
+[ConfigurationBinder. GetValue\<t >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ nekolekce. Přetížení přijímá výchozí hodnotu.
 
 Následující příklad:
 
@@ -871,7 +871,7 @@ var configSection = _config.GetSection("section2");
 var children = configSection.GetChildren();
 ```
 
-### <a name="exists"></a>Neexistuje
+### <a name="exists"></a>Existuje
 
 Použijte [ConfigurationExtensions. existuje](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) k určení, zda konfigurační oddíl existuje:
 
@@ -917,13 +917,13 @@ V části `starship` souboru *Starship. JSON* se vytvoří konfigurace, když uk
 
 Vytvoří se následující páry klíč-hodnota konfigurace:
 
-| Key                   | Hodnota                                             |
+| Klíč                   | Hodnota                                             |
 | --------------------- | ------------------------------------------------- |
 | Starship: název         | USS Enterprise                                    |
-| Starship: Registry     | 1701                                          |
+| Starship: Registry     | NCC-1701                                          |
 | Starship: třída        | Založen                                      |
 | Starship: délka       | 304,8                                             |
-| Starship: vyřazení z provozu | False                                             |
+| Starship: vyřazení z provozu | Nepravda                                             |
 | Patka             | Paramount Pictures Corp. https://www.paramount.com |
 
 Ukázková aplikace volá `GetSection` s klíčem `starship`. Páry klíč-hodnota `starship` jsou izolované. Metoda `Bind` je volána v podsekci předávání instance `Starship` třídy. Po vytvoření vazby hodnot instance je instance přiřazena k vlastnosti pro vykreslování:
@@ -980,7 +980,7 @@ _config.GetSection("tvshow").Bind(tvShow);
 TvShow = tvShow;
 ```
 
-[ConfigurationBinder. Get \<T >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) váže a vrátí zadaný typ. `Get<T>` je pohodlnější než použití `Bind`. Následující kód ukazuje, jak použít `Get<T>` s předchozím příkladem, který umožňuje, aby se vázaná instance přímo přiřadila k vlastnosti používané pro vykreslování:
+[ConfigurationBinder. Get >\<t](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) vytvoří vazby a vrátí zadaný typ. `Get<T>` je pohodlnější než použití `Bind`. Následující kód ukazuje, jak použít `Get<T>` s předchozím příkladem, který umožňuje, aby se vázaná instance přímo přiřadila k vlastnosti používané pro vykreslování:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -1007,7 +1007,7 @@ TvShow = tvShow;
 
 Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tabulce.
 
-| Key             | Hodnota  |
+| Klíč             | Hodnota  |
 | :-------------: | :----: |
 | pole: položky: 0 | value0 |
 | pole: položky: 1 | Hodnota1 |
@@ -1052,7 +1052,7 @@ var arrayExample = new ArrayExample();
 _config.GetSection("array").Bind(arrayExample);
 ```
 
-Lze také použít syntaxi [ConfigurationBinder. Get \<T >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) , která má za následek kompaktnější kód:
+[ConfigurationBinder.\<Get >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntaxe, která je také možné použít, což má za následek kompaktnější kód:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -1070,17 +1070,17 @@ Vázaný objekt, instance `ArrayExample`, obdrží data pole z konfigurace.
 
 | Index `ArrayExample.Entries` | Hodnota `ArrayExample.Entries` |
 | :--------------------------: | :--------------------------: |
-| 0,8                            | value0                       |
-| první                            | Hodnota1                       |
-| odst                            | Argument                       |
+| 0                            | value0                       |
+| 1                            | Hodnota1                       |
+| 2                            | Argument                       |
 | 3                            | value4                       |
 | 4                            | value5                       |
 
 Index &num;3 ve vázaném objektu obsahuje konfigurační data pro konfigurační klíč `array:4` a jeho hodnotu `value4`. Když jsou data konfigurace obsahující pole svázána, indexy pole v konfiguračních klíčích slouží pouze k iterování konfiguračních dat při vytváření objektu. Hodnotu null nelze uchovat v konfiguračních datech a v vázaném objektu není vytvořena položka s hodnotou null, pokud pole v konfiguračních klíčích přeskočí jeden nebo více indexů.
 
-Chybějící položka konfigurace pro index &num;3 lze zadat před vytvořením vazby na instanci `ArrayExample` pomocí jakéhokoli poskytovatele konfigurace, který vytváří správnou dvojici klíč-hodnota v konfiguraci. Pokud ukázka zahrnovala dalšího poskytovatele konfigurace JSON s chybějící dvojicí klíč-hodnota, `ArrayExample.Entries` odpovídá kompletnímu poli konfigurace:
+Chybějící položka konfigurace pro index &num;3 může být zadána před vytvořením vazby na instanci `ArrayExample` pomocí jakéhokoli poskytovatele konfigurace, který vytváří správnou dvojici klíč-hodnota v konfiguraci. Pokud ukázka zahrnovala dalšího poskytovatele konfigurace JSON s chybějící dvojicí klíč-hodnota, `ArrayExample.Entries` odpovídá kompletnímu poli konfigurace:
 
-*missing_value. JSON*:
+*missing_value.json*:
 
 ```json
 {
@@ -1097,17 +1097,17 @@ config.AddJsonFile(
 
 Pár klíč-hodnota zobrazený v tabulce je načten do konfigurace.
 
-| Key             | Hodnota  |
+| Klíč             | Hodnota  |
 | :-------------: | :----: |
 | pole: položky: 3 | hodnota3 |
 
-Je-li instance třídy `ArrayExample` vázána poté, co Poskytovatel konfigurace JSON zahrne položku pro indexovou &num;3, pole `ArrayExample.Entries` obsahuje hodnotu.
+Pokud je instance třídy `ArrayExample` vázána poté, co Poskytovatel konfigurace JSON obsahuje položku pro index &num;3, pole `ArrayExample.Entries` obsahuje hodnotu.
 
 | Index `ArrayExample.Entries` | Hodnota `ArrayExample.Entries` |
 | :--------------------------: | :--------------------------: |
-| 0,8                            | value0                       |
-| první                            | Hodnota1                       |
-| odst                            | Argument                       |
+| 0                            | value0                       |
+| 1                            | Hodnota1                       |
+| 2                            | Argument                       |
 | 3                            | hodnota3                       |
 | 4                            | value4                       |
 | 5                            | value5                       |
@@ -1130,12 +1130,12 @@ Pokud soubor JSON obsahuje pole, jsou vytvořeny konfigurační klíče pro prvk
 
 Zprostředkovatel konfigurace JSON načte konfigurační data do následujících párů klíč-hodnota:
 
-| Key                     | Hodnota  |
+| Klíč                     | Hodnota  |
 | ----------------------- | :----: |
-| json_array: klíč          | Hodnotaa |
-| json_array: dílčí oddíl: 0 | Hodnotab |
-| json_array: pododdíl: 1 | valueC |
-| json_array: pododdíl: 2 | s |
+| json_array:key          | Hodnotaa |
+| json_array: pododdíl: 0 | Hodnotab |
+| json_array:subsection:1 | valueC |
+| json_array:subsection:2 | s |
 
 V ukázkové aplikaci je k dispozici následující třída POCO, která umožňuje vytvořit vazby mezi konfiguračními páry klíč-hodnota:
 
@@ -1155,9 +1155,9 @@ Po vytvoření vazby obsahuje `JsonArrayExample.Key` hodnotu `valueA`. Hodnoty p
 
 | Index `JsonArrayExample.Subsection` | Hodnota `JsonArrayExample.Subsection` |
 | :---------------------------------: | :---------------------------------: |
-| 0,8                                   | Hodnotab                              |
-| první                                   | valueC                              |
-| odst                                   | s                              |
+| 0                                   | Hodnotab                              |
+| 1                                   | valueC                              |
+| 2                                   | s                              |
 
 ## <a name="custom-configuration-provider"></a>Vlastní poskytovatel konfigurace
 
@@ -1179,7 +1179,7 @@ Definujte entitu `EFConfigurationValue` pro ukládání konfiguračních hodnot 
 
 Přidejte `EFConfigurationContext` pro uložení a přístup k nakonfigurovaným hodnotám.
 
-*EFConfigurationProvider/EFConfigurationContext. cs*:
+*EFConfigurationProvider/EFConfigurationContext.cs*:
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
@@ -1215,7 +1215,7 @@ Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *
 
 Přidejte `EFConfigurationContext` pro uložení a přístup k nakonfigurovaným hodnotám.
 
-*EFConfigurationProvider/EFConfigurationContext. cs*:
+*EFConfigurationProvider/EFConfigurationContext.cs*:
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
@@ -1315,8 +1315,8 @@ V zobrazení MVC:
 
 ## <a name="add-configuration-from-an-external-assembly"></a>Přidat konfiguraci z externího sestavení
 
-Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídy aplikace. Další informace najdete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
+Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace. Další informace najdete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * <xref:fundamentals/configuration/options>

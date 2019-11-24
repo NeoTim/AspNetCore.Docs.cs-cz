@@ -63,7 +63,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Další informace o konfiguraci najdete v tématu <xref:grpc/configuration>.
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Aplikace založené na základních jazycích v jazyce C spoléhají na `GrpcEnvironment` ke [konfiguraci protokolovacího](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_) nástroje pro účely ladění. ASP.NET Core Stack tuto funkci poskytuje prostřednictvím [rozhraní API protokolování](xref:fundamentals/logging/index). Například protokolovací nástroj může být přidán do služby gRPC prostřednictvím injektáže konstruktoru:
 
@@ -102,7 +102,7 @@ rozdíly v gRPC zachytávací z ASP.NET Core middlewaru:
   * Funguje se základními zprávami HTTP/2.
   * Může přistupovat jenom k bajtům z datových proudů požadavků a odpovědí.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * <xref:grpc/index>
 * <xref:grpc/basics>

@@ -24,7 +24,7 @@ Do souboru *appSettings. JSON* přidejte připojovací řetězec, jak ukazuje n�
 
 <a name="reg"></a>
 
-### <a name="register-the-database-context"></a>Registrace kontextu databáze
+### <a name="register-the-database-context"></a>Zaregistrujte kontext databáze
 
 Do horní části *Startup.cs*přidejte následující příkazy `using`:
 
@@ -57,7 +57,7 @@ Pro generování uživatelského rozhraní se vyžaduje balíček `Microsoft.Vis
 
 <a name="reg"></a>
 
-### <a name="register-the-database-context"></a>Registrace kontextu databáze
+### <a name="register-the-database-context"></a>Zaregistrujte kontext databáze
 
 Do horní části *Startup.cs*přidejte následující příkazy `using`:
 
