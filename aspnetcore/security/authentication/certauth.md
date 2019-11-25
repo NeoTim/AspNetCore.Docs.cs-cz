@@ -4,14 +4,14 @@ author: blowdart
 description: Přečtěte si, jak nakonfigurovat ověřování certifikátů v ASP.NET Core pro IIS a HTTP. sys.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
-ms.date: 11/07/2019
+ms.date: 11/14/2019
 uid: security/authentication/certauth
-ms.openlocfilehash: 0062bc0d7688ebcc67f8240da7166d89493f6639
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: 2ed3e88adf3bdb7528f47492b6eb5792f99f20d8
+ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73897036"
+ms.lasthandoff: 11/18/2019
+ms.locfileid: "74155003"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
@@ -98,7 +98,7 @@ Obslužná rutina má dvě události:
 * `OnAuthenticationFailed` &ndash; volána, pokud dojde k výjimce během ověřování a umožní vám reagovat.
 * `OnCertificateValidated` &ndash; voláno po ověření certifikátu, bylo úspěšně vytvořeno ověření a výchozí objekt zabezpečení. Tato událost umožňuje provádět vlastní ověřování a rozšíření nebo nahrazení objektu zabezpečení. Příklady zahrnují:
   * Určení, jestli se pro vaše služby ví certifikát.
-  * Sestavování vlastního objektu zabezpečení. Vezměte v úvahu následující příklad v `Startup.ConfigureServices`:
+  * Sestavování vlastního objektu zabezpečení. Vezměte v úvahu následující příklad `Startup.ConfigureServices`:
 
 ```csharp
 services.AddAuthentication(
@@ -134,7 +134,7 @@ services.AddAuthentication(
 
 Pokud zjistíte, že příchozí certifikát nesplňuje vaše dodatečné ověření, zavolejte `context.Fail("failure reason")` s důvodem selhání.
 
-Pro reálné funkce pravděpodobně budete chtít volat službu registrovanou v injektáže závislosti, který se připojuje k databázi nebo jinému typu úložiště uživatele. Ke službě získáte přístup pomocí kontextu předaného do vašeho delegáta. Vezměte v úvahu následující příklad v `Startup.ConfigureServices`:
+Pro reálné funkce pravděpodobně budete chtít volat službu registrovanou v injektáže závislosti, který se připojuje k databázi nebo jinému typu úložiště uživatele. Ke službě získáte přístup pomocí kontextu předaného do vašeho delegáta. Vezměte v úvahu následující příklad `Startup.ConfigureServices`:
 
 ```csharp
 services.AddAuthentication(
@@ -204,6 +204,9 @@ public static IHostBuilder CreateHostBuilder(string[] args)
                 });
 }
 ```
+
+> [!NOTE]
+> Koncové body vytvořené voláním <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> **před** voláním <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureHttpsDefaults*> nebudou použity výchozí hodnoty.
 
 ### <a name="iis"></a>IIS
 

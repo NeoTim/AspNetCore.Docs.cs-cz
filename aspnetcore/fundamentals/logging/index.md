@@ -5,14 +5,14 @@ description: Naučte se používat protokolovací rozhraní poskytovanou balíč
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/13/2019
+ms.date: 11/19/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: eda5c9c0372e47f5670cf097b5db80ec227bcb47
-ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
+ms.openlocfilehash: b23e64077290f0f613e904651e4bb640fcbba95d
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2019
-ms.locfileid: "74115950"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289094"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -28,7 +28,7 @@ Kód protokolování pro aplikace bez obecného hostitele se liší v způsobu [
 
 ::: moniker-end
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="add-providers"></a>Přidat zprostředkovatele
 
@@ -311,8 +311,6 @@ Konfigurace zprostředkovatele protokolování je poskytována jedním nebo víc
 
 Například konfigurace protokolování je běžně poskytována v části `Logging` souborů nastavení aplikace. Následující příklad ukazuje obsah typického *appSettings. Soubor Development. JSON* :
 
-::: moniker range=">= aspnetcore-2.1"
-
 ```json
 {
   "Logging": {
@@ -337,7 +335,7 @@ Další vlastnosti v části `Logging` zadejte poskytovatele protokolování. P�
 
 Pokud jsou v `Logging.{providername}.LogLevel`úrovně zadané, přepisují cokoli nastavené v `Logging.LogLevel`.
 
-::: moniker-end
+Rozhraní API pro protokolování neobsahuje scénář pro změnu úrovní protokolu, když je aplikace spuštěná. Někteří poskytovatelé konfigurace ale mohou znovu načíst konfiguraci, která se projeví okamžitě při konfiguraci protokolování. Například [Poskytovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider), který je přidán pomocí `CreateDefaultBuilder` ke čtení souborů nastavení, znovu načte konfiguraci protokolování do výchozího nastavení. Pokud se konfigurace v kódu změní, když je aplikace spuštěná, může aplikace volat [IConfigurationRoot. Load](xref:Microsoft.Extensions.Configuration.IConfigurationRoot.Reload*) , aby se aktualizovala konfigurace protokolování aplikace.
 
 Informace o implementaci zprostředkovatelů konfigurace najdete v tématu <xref:fundamentals/configuration/index>.
 
@@ -469,7 +467,7 @@ Chcete-li explicitně zadat kategorii, zavolejte `ILoggerFactory.CreateLogger`:
 
 ## <a name="log-level"></a>Úroveň protokolování
 
-Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat protokol `Information`, když metoda končí normálně, a protokol `Warning`, když metoda vrátí stavový kód 404, který *nebyl nalezen* .
+Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat `Information` protokol, pokud metoda končí normálně `Warning` a protokol, když metoda vrátí stavový kód *404 Nenalezeno*.
 
 Následující kód vytvoří protokoly `Information` a `Warning`:
 
@@ -706,7 +704,7 @@ Chcete-li potlačit všechny protokoly, zadejte `LogLevel.None` jako minimální
 
 ### <a name="create-filter-rules-in-configuration"></a>Vytvořit pravidla filtru v konfiguraci
 
-Kód šablony projektu volá `CreateDefaultBuilder` k nastavení protokolování pro konzolu a zprostředkovatele ladění. Metoda `CreateDefaultBuilder` nastaví protokolování tak, aby hledalo konfiguraci v `Logging` oddílu, jak je vysvětleno [výše v tomto článku](#configuration).
+Kód šablony projektu volá `CreateDefaultBuilder` pro nastavení protokolování pro poskytovatele konzoly, ladění a EventSource (ASP.NET Core 2,2 nebo novější). Metoda `CreateDefaultBuilder` nastaví protokolování tak, aby hledalo konfiguraci v `Logging` oddílu, jak je vysvětleno [výše v tomto článku](#configuration).
 
 Konfigurační data určují minimální úrovně protokolu podle poskytovatele a kategorie, jako v následujícím příkladu:
 
@@ -746,15 +744,15 @@ Druhý `AddFilter` Určuje poskytovatele ladění pomocí jeho názvu typu. Prvn
 
 Konfigurační data a kód `AddFilter` zobrazené v předchozích příkladech vytvoří pravidla uvedená v následující tabulce. Prvních šest přicházejí z příkladu konfigurace a poslední dva pocházejí z příkladu kódu.
 
-| Číslo | Zprostředkovatele      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
+| Číslo | Poskytovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| první      | Ladit         | Všechny kategorie                          | Informace o       |
-| odst      | Konzola       | Microsoft. AspNetCore. Mvc. Razor. Internal | Upozornění           |
-| 3      | Konzola       | Microsoft. AspNetCore. Mvc. Razor. Razor    | Ladit             |
-| 4      | Konzola       | Microsoft. AspNetCore. Mvc. Razor          | Chyba             |
-| 5      | Konzola       | Všechny kategorie                          | Informace o       |
+| 1      | Ladit         | Všechny kategorie                          | Information       |
+| 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
+| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
+| 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
+| 5      | Konzola       | Všechny kategorie                          | Information       |
 | 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
-| čl      | Všichni poskytovatelé | Systém                                  | Ladit             |
+| 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
 | 8      | Ladit         | Microsoft                               | Přehled             |
 
 Když se vytvoří objekt `ILogger`, vybere objekt `ILoggerFactory` jedno pravidlo pro každého poskytovatele, které se použije pro tento protokolovací nástroj. Všechny zprávy napsané instancí `ILogger` jsou filtrovány na základě vybraných pravidel. V dostupných pravidlech se vybere nejpřesnější pravidlo pro jednotlivé dvojice zprostředkovatel a kategorie.
@@ -826,15 +824,15 @@ Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core 
 
 | Kategorie                            | Poznámky |
 | ----------------------------------- | ----- |
-| Microsoft. AspNetCore                | Obecná diagnostika ASP.NET Core. |
-| Microsoft. AspNetCore. DataProtection | Které klíče byly zváženy, nalezeny a použity. |
-| Microsoft. AspNetCore. HostFiltering  | Hostitelé povoleni. |
-| Microsoft. AspNetCore. hosting        | Doba, po kterou trvalo dokončení požadavků HTTP a čas jejich spuštění. Která hostující spouštěcí sestavení byla načtena. |
-| Microsoft. AspNetCore. Mvc            | Diagnostika MVC a Razor Vazba modelů, spuštění filtru, zobrazení kompilace, výběr akce. |
-| Microsoft. AspNetCore. Routing        | Informace o shodě trasy. |
-| Microsoft. AspNetCore. Server         | Připojení – spouštění, zastavování a udržování reakcí na Alive. Informace o certifikátu HTTPS |
-| Microsoft. AspNetCore. StaticFiles    | Soubory byly obsluhovány. |
-| Microsoft. EntityFrameworkCore       | Obecná diagnostika Entity Framework Core. Databázová aktivita a konfigurace, detekce změn, migrace. |
+| Microsoft.AspNetCore                | Obecná diagnostika ASP.NET Core. |
+| Microsoft.AspNetCore.DataProtection | Které klíče byly zváženy, nalezeny a použity. |
+| Microsoft.AspNetCore.HostFiltering  | Hostitelé povoleni. |
+| Microsoft.AspNetCore.Hosting        | Doba, po kterou trvalo dokončení požadavků HTTP a čas jejich spuštění. Která hostující spouštěcí sestavení byla načtena. |
+| Microsoft.AspNetCore.Mvc            | Diagnostika MVC a Razor Vazba modelů, spuštění filtru, zobrazení kompilace, výběr akce. |
+| Microsoft.AspNetCore.Routing        | Informace o shodě trasy. |
+| Microsoft.AspNetCore.Server         | Připojení – spouštění, zastavování a udržování reakcí na Alive. Informace o certifikátu HTTPS |
+| Microsoft.AspNetCore.StaticFiles    | Soubory byly obsluhovány. |
+| Microsoft.EntityFrameworkCore       | Obecná diagnostika Entity Framework Core. Databázová aktivita a konfigurace, detekce změn, migrace. |
 
 ## <a name="log-scopes"></a>Rozsahy protokolů
 
@@ -891,7 +889,7 @@ warn: TodoApiSample.Controllers.TodoController[4000]
 ASP.NET Core dodává následující poskytovatele:
 
 * [Console](#console-provider)
-* [Ladí](#debug-provider)
+* [Ladění](#debug-provider)
 * [EventSource](#event-source-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
@@ -993,16 +991,16 @@ Shromažďování trasování z aplikace pomocí trasovacích nástrojů dotnet:
 
    | Klíčové slovo | Popis |
    | :-----: | ----------- |
-   | první       | Protokoluje meta události týkající se `LoggingEventSource`. Neprotokoluje události z `ILogger`). |
-   | odst       | Zapíná událost `Message` při volání `ILogger.Log()`. Poskytuje informace v programovém (neformátovaném) způsobu. |
+   | 1       | Protokoluje meta události týkající se `LoggingEventSource`. Neprotokoluje události z `ILogger`). |
+   | 2       | Zapíná událost `Message` při volání `ILogger.Log()`. Poskytuje informace v programovém (neformátovaném) způsobu. |
    | 4       | Zapíná událost `FormatMessage` při volání `ILogger.Log()`. Poskytuje formátovanou verzi řetězce informací. |
    | 8       | Zapíná událost `MessageJson` při volání `ILogger.Log()`. Poskytuje reprezentace argumentů ve formátu JSON. |
 
    | Úroveň události | Popis     |
    | :---------: | --------------- |
-   | 0,8           | `LogAlways`     |
-   | první           | `Critical`      |
-   | odst           | `Error`         |
+   | 0           | `LogAlways`     |
+   | 1           | `Critical`      |
+   | 2           | `Error`         |
    | 3           | `Warning`       |
    | 4           | `Informational` |
    | 5           | `Verbose`       |
@@ -1081,7 +1079,7 @@ Balíček poskytovatele není zahrnutý ve sdíleném rozhraní. Chcete-li použ
 
 ::: moniker-end
 
-::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
+::: moniker range="< aspnetcore-3.0"
 
 Balíček poskytovatele není zahrnutý ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app). Pokud cílíte .NET Framework nebo odkazování na `Microsoft.AspNetCore.App` Metapackage, přidejte do projektu balíček poskytovatele. 
 
@@ -1130,7 +1128,7 @@ Konfigurace streamování protokolů Azure:
 
 * Na stránce portálu vaší aplikace přejděte na stránku **protokoly App Service** .
 * Nastavte **protokolování aplikace (systém souborů)** na **zapnuto**.
-* Vyberte **úroveň**protokolu.
+* Vyberte **úroveň**protokolu. Toto nastavení platí jenom pro streamování protokolů Azure, ne pro jiné poskytovatele protokolování v aplikaci.
 
 Pokud chcete zobrazit zprávy aplikace, přejděte na stránku **streamu protokolu** . Jsou protokolovány aplikací prostřednictvím rozhraní `ILogger`.
 
@@ -1157,7 +1155,7 @@ Protokolovací architektury třetích stran, které pracují s ASP.NET Core:
 * [elmah.IO](https://elmah.io/) ([úložiště GitHub](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
 * [GELF](https://docs.graylog.org/en/2.3/pages/gelf.html) ([úložiště GitHub](https://github.com/mattwcole/gelf-extensions-logging))
 * [JSNLog](https://jsnlog.com/) ([úložiště GitHub](https://github.com/mperdeck/jsnlog))
-* [KissLog.NET](https://kisslog.net/) ([úložiště GitHub](https://github.com/catalingavan/KissLog-net))
+* [KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))
 * [Log4Net](https://logging.apache.org/log4net/) ([úložiště GitHub](https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore))
 * [Loggr](https://loggr.net/) ([úložiště GitHub](https://github.com/imobile3/Loggr.Extensions.Logging))
 * [NLOG](https://nlog-project.org/) ([úložiště GitHub](https://github.com/NLog/NLog.Extensions.Logging))

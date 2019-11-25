@@ -5,17 +5,17 @@ description: Naučte se hostovat a nasazovat aplikace Blazor serveru pomocí ASP
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 11/21/2019
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: ad83c57f55c75d4a49656fa5d7046c32b0f049ff
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: b688d000f26c9b230d9fdee8423b3194145fe1aa
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963572"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317300"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>Hostování a nasazení serveru Blazor
 
@@ -55,11 +55,55 @@ aplikace Blazor serveru používají ke komunikaci s prohlížečem ASP.NET Core
 
 Blazor funguje nejlépe při použití WebSockets jako SignalR přenosů z důvodu nižší latence, spolehlivosti a [zabezpečení](xref:signalr/security). Dlouhé cyklické dotazování používá SignalR, když nejsou objekty WebSocket dostupné, nebo když je aplikace explicitně nakonfigurovaná tak, aby používala dlouhé cyklické dotazování. Při nasazování do Azure App Service nakonfigurujte aplikaci tak, aby používala objekty WebSocket v nastaveních Azure Portal služby. Podrobnosti o konfiguraci aplikace pro Azure App Service najdete v tématu [SignalR pokyny pro publikování](xref:signalr/publish-to-azure-web-app).
 
+#### <a name="azure-opno-locsignalr-service"></a>Služba Azure SignalR
+
 Pro Blazor serverových aplikací doporučujeme používat [službu Azure SignalR](/azure/azure-signalr) . Služba umožňuje horizontální navýšení kapacity aplikace Blazor serveru na velký počet souběžných připojení SignalR. Kromě toho je globální dosahování a vysoce výkonná datová centra služby SignalR významně pomáhají při snižování latence z důvodu geografické oblasti. Konfigurace aplikace (a volitelně zřízení) služby Azure SignalR:
 
-* Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro aplikaci Blazor Server.
-* Přidejte do profilu závislost **služby Azure SignalR** . Pokud předplatné Azure nemá stávající instanci služby Azure SignalR, která se má přiřadit k aplikaci, vyberte **vytvořit novou instanci služby azure SignalR** a zřídit novou instanci služby.
-* Publikujte aplikaci do Azure.
+1. Povolte službě podporovat *rychlé relace*, kde se klienti [při předvykreslování přesměrují zpátky na stejný server](xref:blazor/hosting-models#reconnection-to-the-same-server). Nastavte možnost `ServerStickyMode` nebo hodnotu konfigurace na `Required`. Aplikace obvykle vytváří konfiguraci pomocí **jednoho** z následujících přístupů:
+
+   * `Startup.ConfigureServices`:
+  
+     ```csharp
+     services.AddSignalR().AddAzureSignalR(options =>
+     {
+         options.ServerStickyMode = 
+             Microsoft.Azure.SignalR.ServerStickyMode.Required;
+     });
+     ```
+
+   * Konfigurace (použijte **jeden** z následujících přístupů):
+  
+     * *appsettings.json*:
+
+       ```json
+       "Azure:SignalR:ServerStickyMode": "Required"
+       ```
+
+     * **Konfigurace** app Service > **nastavení aplikace** v Azure Portal (**název**: `Azure:SignalR:ServerStickyMode`, **hodnota**: `Required`).
+
+1. Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro aplikaci Blazor Server.
+1. Přidejte do profilu závislost **služby Azure SignalR** . Pokud předplatné Azure nemá stávající instanci služby Azure SignalR, která se má přiřadit k aplikaci, vyberte **vytvořit novou instanci služby azure SignalR** a zřídit novou instanci služby.
+1. Publikujte aplikaci do Azure.
+
+#### <a name="iis"></a>IIS
+
+Při použití služby IIS jsou v rámci směrování žádostí na aplikace povoleny rychlé relace. Další informace najdete v tématu [Vyrovnávání zatížení HTTP pomocí směrování žádostí na aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).
+
+#### <a name="kubernetes"></a>Kubernetes
+
+Vytvořte definici příchozího přenosu dat s následujícími [Kubernetes poznámkami pro rychlé relace](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/):
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: <ingress-name>
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "affinity"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "14400"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "14400"
+```
 
 ### <a name="measure-network-latency"></a>Měření latence sítě
 

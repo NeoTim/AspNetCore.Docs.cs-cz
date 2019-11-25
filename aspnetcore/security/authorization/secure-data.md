@@ -1,77 +1,77 @@
 ---
-title: Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
+title: Create an ASP.NET Core app with user data protected by authorization
 author: rick-anderson
-description: Naučte se, jak vytvořit aplikaci Razor Pages s uživatelskými daty chráněnými autorizací. Zahrnuje protokol HTTPS, ověřování, zabezpečení ASP.NET Core identitu.
+description: Learn how to create a Razor Pages app with user data protected by authorization. Includes HTTPS, authentication, security, ASP.NET Core Identity.
 ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 6e2f785a6dc014884f105766686f284cb2685530
-ms.sourcegitcommit: 383017d7060a6d58f6a79cf4d7335d5b4b6c5659
+ms.openlocfilehash: 65c72d4dd457f85451796c5713bedebafec7a7de
+ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72816149"
+ms.lasthandoff: 11/20/2019
+ms.locfileid: "74239837"
 ---
-# <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
+# <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Create an ASP.NET Core app with user data protected by authorization
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Jan Audette](https://twitter.com/joeaudette)
+By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Joe Audette](https://twitter.com/joeaudette)
 
 ::: moniker range="<= aspnetcore-1.1"
 
-Podívejte se na [Tento PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) pro ASP.NET Core verzi MVC. Verze tohoto kurzu ASP.NET Core 1,1 je v [této](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data) složce. Ukázka 1,1 ASP.NET Core je v [ukázkách](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2).
+See [this PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) for the ASP.NET Core MVC version. The ASP.NET Core 1.1 version of this tutorial is in [this](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data) folder. The 1.1 ASP.NET Core sample is in the [samples](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2).
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-Zobrazit [Tento PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_July16_18.pdf)
+See [this pdf](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_July16_18.pdf)
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V tomto kurzu se dozvíte, jak vytvořit webovou aplikaci ASP.NET Core s uživatelskými daty chráněnými autorizací. Zobrazuje seznam kontaktů ověřovaných (registrovaných) uživatelů. Existují tři skupiny zabezpečení:
+This tutorial shows how to create an ASP.NET Core web app with user data protected by authorization. It displays a list of contacts that authenticated (registered) users have created. There are three security groups:
 
-* **Registrovaní uživatelé** můžou zobrazit všechna schválená data a můžou upravovat nebo odstraňovat vlastní data.
-* **Manažeři** mohou schvalovat nebo odmítat kontaktní data. Uživatelé vidí jenom schválené kontakty.
-* **Správci** mohou schvalovat nebo odmítat a upravovat nebo odstraňovat jakákoli data.
+* **Registered users** can view all the approved data and can edit/delete their own data.
+* **Managers** can approve or reject contact data. Only approved contacts are visible to users.
+* **Administrators** can approve/reject and edit/delete any data.
 
-Obrázky v tomto dokumentu se přesně neshodují s nejnovějšími šablonami.
+The images in this document don't exactly match the latest templates.
 
-Na následujícím obrázku je uživatel Rick (`rick@example.com`) přihlášen. Rick může zobrazit pouze schválené kontakty a **upravovat**/**Odstranit**/**vytvořit nové** odkazy na své kontakty. Jenom poslední záznam vytvořený pomocí Rick zobrazí odkazy pro **Úpravy** a **odstranění** . Ostatní uživatelé uvidí poslední záznam, dokud správce nebo správce nezmění stav na schváleno.
+In the following image, user Rick (`rick@example.com`) is signed in. Rick can only view approved contacts and **Edit**/**Delete**/**Create New** links for his contacts. Only the last record, created by Rick, displays **Edit** and **Delete** links. Other users won't see the last record until a manager or administrator changes the status to "Approved".
 
-![Snímek obrazovky zobrazující přihlášený Rick](secure-data/_static/rick.png)
+![Screenshot showing Rick signed in](secure-data/_static/rick.png)
 
-Na následujícím obrázku je `manager@contoso.com` přihlásit se a v roli manažera:
+In the following image, `manager@contoso.com` is signed in and in the manager's role:
 
-![Snímek obrazovky zobrazující přihlášený manager@contoso.com](secure-data/_static/manager1.png)
+![Screenshot showing manager@contoso.com signed in](secure-data/_static/manager1.png)
 
-Následující obrázek ukazuje zobrazení podrobností o kontaktu pro správce:
+The following image shows the managers details view of a contact:
 
-![Zobrazení kontaktu manažera](secure-data/_static/manager.png)
+![Manager's view of a contact](secure-data/_static/manager.png)
 
-Tlačítka **schválení** a **odmítnutí** se zobrazují pouze pro manažery a správce.
+The **Approve** and **Reject** buttons are only displayed for managers and administrators.
 
-Na následujícím obrázku je `admin@contoso.com` přihlásit se a v roli správce:
+In the following image, `admin@contoso.com` is signed in and in the administrator's role:
 
-![Snímek obrazovky zobrazující přihlášený admin@contoso.com](secure-data/_static/admin.png)
+![Screenshot showing admin@contoso.com signed in](secure-data/_static/admin.png)
 
-Správce má všechna oprávnění. Může číst, upravovat a odstraňovat jakékoli kontakty a měnit stav kontaktů.
+The administrator has all privileges. She can read/edit/delete any contact and change the status of contacts.
 
-Aplikace byla vytvořena pomocí [generování uživatelského rozhraní](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) následujícího modelu `Contact`:
+The app was created by [scaffolding](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) the following `Contact` model:
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-Ukázka obsahuje následující obslužné rutiny autorizace:
+The sample contains the following authorization handlers:
 
-* `ContactIsOwnerAuthorizationHandler`: zajišťuje, aby uživatel mohl upravovat pouze svá data.
-* `ContactManagerAuthorizationHandler`: umožňuje správcům schvalovat nebo odmítat kontakty.
-* `ContactAdministratorsAuthorizationHandler`: umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
+* `ContactIsOwnerAuthorizationHandler`: Ensures that a user can only edit their data.
+* `ContactManagerAuthorizationHandler`: Allows managers to approve or reject contacts.
+* `ContactAdministratorsAuthorizationHandler`: Allows administrators to approve or reject contacts and to edit/delete contacts.
 
 ## <a name="prerequisites"></a>Požadavky
 
-Tento kurz je pokročilý. Měli byste být obeznámeni s:
+This tutorial is advanced. You should be familiar with:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
 * [Ověřování](xref:security/authentication/identity)
@@ -79,258 +79,260 @@ Tento kurz je pokročilý. Měli byste být obeznámeni s:
 * [Autorizace](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
-## <a name="the-starter-and-completed-app"></a>Úvodní a dokončená aplikace
+## <a name="the-starter-and-completed-app"></a>The starter and completed app
 
-[Stáhněte](xref:index#how-to-download-a-sample) [dokončenou](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) aplikaci. [Otestujte](#test-the-completed-app) dokončenou aplikaci, abyste se seznámili se svými funkcemi zabezpečení.
+[Download](xref:index#how-to-download-a-sample) the [completed](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) app. [Test](#test-the-completed-app) the completed app so you become familiar with its security features.
 
-### <a name="the-starter-app"></a>Úvodní aplikace
+### <a name="the-starter-app"></a>The starter app
 
-[Stáhněte](xref:index#how-to-download-a-sample) si [úvodní](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) aplikaci.
+[Download](xref:index#how-to-download-a-sample) the [starter](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) app.
 
-Spusťte aplikaci, klepněte na odkaz **ContactManager** a ověřte, že můžete vytvořit, upravit a odstranit kontakt.
+Run the app, tap the **ContactManager** link, and verify you can create, edit, and delete a contact.
 
-## <a name="secure-user-data"></a>Zabezpečená uživatelská data
+## <a name="secure-user-data"></a>Secure user data
 
-V následujících částech najdete všechny hlavní kroky k vytvoření aplikace zabezpečených uživatelských dat. Může to být užitečné pro odkazování na dokončený projekt.
+The following sections have all the major steps to create the secure user data app. You may find it helpful to refer to the completed project.
 
-### <a name="tie-the-contact-data-to-the-user"></a>Spojit kontaktní údaje s uživatelem
+### <a name="tie-the-contact-data-to-the-user"></a>Tie the contact data to the user
 
-Pomocí ID uživatele [Identity](xref:security/authentication/identity) ASP.NET zajistěte, aby mohli uživatelé upravovat data, ale ne jiná data uživatelů. Do modelu `Contact` přidejte `OwnerID` a `ContactStatus`:
+Use the ASP.NET [Identity](xref:security/authentication/identity) user ID to ensure users can edit their data, but not other users data. Add `OwnerID` and `ContactStatus` to the `Contact` model:
 
 [!code-csharp[](secure-data/samples/final3/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID` je ID uživatele z tabulky `AspNetUser` v databázi [identity](xref:security/authentication/identity) . Pole `Status` určuje, zda je kontakt viditelný pro obecné uživatele.
+`OwnerID` is the user's ID from the `AspNetUser` table in the [Identity](xref:security/authentication/identity) database. The `Status` field determines if a contact is viewable by general users.
 
-Vytvořte novou migraci a aktualizujte databázi:
+Create a new migration and update the database:
 
 ```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>Přidání služeb role k identitě
+### <a name="add-role-services-to-identity"></a>Add Role services to Identity
 
-Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:
+Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet2&highlight=9)]
 
-### <a name="require-authenticated-users"></a>Vyžadovat ověřené uživatele
+### <a name="require-authenticated-users"></a>Require authenticated users
 
-Nastavte výchozí zásadu ověřování tak, aby vyžadovala ověření uživatelů:
+Set the default authentication policy to require users to be authenticated:
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet&highlight=15-99)] 
 
- Ověřování na úrovni této stránky, řadiče nebo metody akce lze odhlásit pomocí atributu `[AllowAnonymous]`. Nastavení výchozích zásad ověřování, aby vyžadovaly ověření uživatelů, chrání nově přidané Razor Pages a řadiče. Pokud je ve výchozím nastavení vyžadováno ověřování, je bezpečnější než spoléhání na nové řadiče a Razor Pages pro zahrnutí atributu `[Authorize]`.
+ You can opt out of authentication at the Razor Page, controller, or action method level with the `[AllowAnonymous]` attribute. Setting the default authentication policy to require users to be authenticated protects newly added Razor Pages and controllers. Having authentication required by default is more secure than relying on new controllers and Razor Pages to include the `[Authorize]` attribute.
 
-Přidejte [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) na stránky rejstřík a soukromí, aby anonymní uživatelé mohli získat informace o lokalitě před jejich registrací.
+Add [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) to the Index and Privacy pages so anonymous users can get information about the site before they register.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Index.cshtml.cs?highlight=1,7)]
 
-### <a name="configure-the-test-account"></a>Konfigurace testovacího účtu
+### <a name="configure-the-test-account"></a>Configure the test account
 
-Třída `SeedData` vytvoří dva účty: správce a manažer. Pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets) nastavte heslo pro tyto účty. Nastavte heslo z adresáře projektu (adresář obsahující *program.cs*):
+The `SeedData` class creates two accounts: administrator and manager. Use the [Secret Manager tool](xref:security/app-secrets) to set a password for these accounts. Set the password from the project directory (the directory containing *Program.cs*):
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
-Pokud není zadáno silné heslo, je vyvolána výjimka při volání `SeedData.Initialize`.
+If a strong password is not specified, an exception is thrown when `SeedData.Initialize` is called.
 
-Aktualizujte `Main` pro použití testovacího hesla:
+Update `Main` to use the test password:
 
 [!code-csharp[](secure-data/samples/final3/Program.cs?name=snippet)]
 
-### <a name="create-the-test-accounts-and-update-the-contacts"></a>Vytvoření testovacích účtů a aktualizace kontaktů
+### <a name="create-the-test-accounts-and-update-the-contacts"></a>Create the test accounts and update the contacts
 
-Aktualizujte metodu `Initialize` ve třídě `SeedData` k vytvoření testovacích účtů:
+Update the `Initialize` method in the `SeedData` class to create the test accounts:
 
 [!code-csharp[](secure-data/samples/final3/Data/SeedData.cs?name=snippet_Initialize)]
 
-Přidejte do kontaktů ID uživatele a `ContactStatus` správce. Poznamenejte si jednu z kontaktů "odeslané" a jednu "zamítnutou". Přidejte ke všem kontaktům ID a stav uživatele. Zobrazí se pouze jeden kontakt:
+Add the administrator user ID and `ContactStatus` to the contacts. Make one of the contacts "Submitted" and one "Rejected". Add the user ID and status to all the contacts. Only one contact is shown:
 
 [!code-csharp[](secure-data/samples/final3/Data/SeedData.cs?name=snippet1&highlight=17,18)]
 
-## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>Vytváření obslužných rutin autorizace vlastníka, správce a správce
+## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>Create owner, manager, and administrator authorization handlers
 
-Ve složce pro *autorizaci* vytvořte třídu `ContactIsOwnerAuthorizationHandler`. `ContactIsOwnerAuthorizationHandler` ověří, že uživatel pracuje na prostředku, který je vlastníkem prostředku.
+Create a `ContactIsOwnerAuthorizationHandler` class in the *Authorization* folder. The `ContactIsOwnerAuthorizationHandler` verifies that the user acting on a resource owns the resource.
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 
-`ContactIsOwnerAuthorizationHandler` volá [kontext. Úspěšné](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) , pokud je aktuální ověřený uživatel vlastníkem kontaktu. Obslužné rutiny autorizace obecně:
+The `ContactIsOwnerAuthorizationHandler` calls [context.Succeed](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) if the current authenticated user is the contact owner. Authorization handlers generally:
 
-* Vrátí `context.Succeed`, pokud jsou splněny požadavky.
-* Vrátí `Task.CompletedTask`, pokud nejsou splněny požadavky. `Task.CompletedTask` není úspěch nebo neúspěch&mdash;umožňuje spuštění dalších obslužných rutin autorizace.
+* Return `context.Succeed` when the requirements are met.
+* Return `Task.CompletedTask` when requirements aren't met. `Task.CompletedTask` is not success or failure&mdash;it allows other authorization handlers to run.
 
-Pokud potřebujete explicitně selhat, vraťte [kontext. Selhání](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
+If you need to explicitly fail, return [context.Fail](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
 
-Aplikace umožňuje vlastníkům kontaktů upravit/odstranit/vytvořit vlastní data. `ContactIsOwnerAuthorizationHandler` nemusí kontrolovat operaci předanou parametrem požadavku.
+The app allows contact owners to edit/delete/create their own data. `ContactIsOwnerAuthorizationHandler` doesn't need to check the operation passed in the requirement parameter.
 
-### <a name="create-a-manager-authorization-handler"></a>Vytvoření obslužné rutiny autorizace Správce
+### <a name="create-a-manager-authorization-handler"></a>Create a manager authorization handler
 
-Ve složce pro *autorizaci* vytvořte třídu `ContactManagerAuthorizationHandler`. `ContactManagerAuthorizationHandler` ověří uživatele, který pracuje na prostředku, jako správce. Pouze správci mohou schvalovat nebo odmítat změny v obsahu (nové nebo změněné).
+Create a `ContactManagerAuthorizationHandler` class in the *Authorization* folder. The `ContactManagerAuthorizationHandler` verifies the user acting on the resource is a manager. Only managers can approve or reject content changes (new or changed).
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactManagerAuthorizationHandler.cs)]
 
-### <a name="create-an-administrator-authorization-handler"></a>Vytvoření obslužné rutiny autorizace Správce
+### <a name="create-an-administrator-authorization-handler"></a>Create an administrator authorization handler
 
-Ve složce pro *autorizaci* vytvořte třídu `ContactAdministratorsAuthorizationHandler`. `ContactAdministratorsAuthorizationHandler` ověří uživatele, který pracuje na prostředku, jako správce. Správce může provádět všechny operace.
+Create a `ContactAdministratorsAuthorizationHandler` class in the *Authorization* folder. The `ContactAdministratorsAuthorizationHandler` verifies the user acting on the resource is an administrator. Administrator can do all operations.
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactAdministratorsAuthorizationHandler.cs)]
 
-## <a name="register-the-authorization-handlers"></a>Registrace obslužných rutin autorizace
+## <a name="register-the-authorization-handlers"></a>Register the authorization handlers
 
-Služby používající Entity Framework Core musí být registrovány pro [vkládání závislostí](xref:fundamentals/dependency-injection) pomocí [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). `ContactIsOwnerAuthorizationHandler` používá ASP.NET Core [identity](xref:security/authentication/identity), která je postavená na Entity Framework Core. Zaregistrujte obslužné rutiny s kolekcí služeb, aby byly k dispozici pro `ContactsController` prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection). Do konce `ConfigureServices`přidejte následující kód:
+Services using Entity Framework Core must be registered for [dependency injection](xref:fundamentals/dependency-injection) using [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). The `ContactIsOwnerAuthorizationHandler` uses ASP.NET Core [Identity](xref:security/authentication/identity), which is built on Entity Framework Core. Register the handlers with the service collection so they're available to the `ContactsController` through [dependency injection](xref:fundamentals/dependency-injection). Add the following code to the end of `ConfigureServices`:
 
 [!code-csharp[](secure-data/samples/final3/Startup.cs?name=snippet_defaultPolicy&highlight=23-99)]
 
-`ContactAdministratorsAuthorizationHandler` a `ContactManagerAuthorizationHandler` jsou přidány jako singleton. Jsou to jednoznačné, protože nepoužívají EF a všechny potřebné informace jsou v parametru `Context` `HandleRequirementAsync` metody.
+`ContactAdministratorsAuthorizationHandler` and `ContactManagerAuthorizationHandler` are added as singletons. They're singletons because they don't use EF and all the information needed is in the `Context` parameter of the `HandleRequirementAsync` method.
 
-## <a name="support-authorization"></a>Autorizace podpory
+## <a name="support-authorization"></a>Support authorization
 
-V této části aktualizujete Razor Pages a přidáte třídu požadavků na operace.
+In this section, you update the Razor Pages and add an operations requirements class.
 
-### <a name="review-the-contact-operations-requirements-class"></a>Kontrola třídy požadavků na operace kontaktů
+### <a name="review-the-contact-operations-requirements-class"></a>Review the contact operations requirements class
 
-Zkontrolujte třídu `ContactOperations`. Tato třída obsahuje požadavky, které aplikace podporuje:
+Review the `ContactOperations` class. This class contains the requirements the app supports:
 
 [!code-csharp[](secure-data/samples/final3/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Vytvoření základní třídy pro kontakty Razor Pages
+### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Create a base class for the Contacts Razor Pages
 
-Vytvořte základní třídu, která obsahuje služby používané v Razor Pages kontaktů. Základní třída umístí inicializační kód do jednoho umístění:
+Create a base class that contains the services used in the contacts Razor Pages. The base class puts the initialization code in one location:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/DI_BasePageModel.cs)]
 
-Předchozí kód:
+The preceding code:
 
-* Přidá službu `IAuthorizationService` pro přístup k obslužným rutinám autorizace.
-* Přidá službu identity `UserManager`.
-* Přidejte `ApplicationDbContext`.
+* Adds the `IAuthorizationService` service to access to the authorization handlers.
+* Adds the Identity `UserManager` service.
+* Add the `ApplicationDbContext`.
 
-### <a name="update-the-createmodel"></a>Aktualizace CreateModel
+### <a name="update-the-createmodel"></a>Update the CreateModel
 
-Aktualizujte konstruktor Create Page model tak, aby používal základní třídu `DI_BasePageModel`:
+Update the create page model constructor to use the `DI_BasePageModel` base class:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Create.cshtml.cs?name=snippetCtor)]
 
-Aktualizujte metodu `CreateModel.OnPostAsync` na:
+Update the `CreateModel.OnPostAsync` method to:
 
-* Přidejte ID uživatele do modelu `Contact`.
-* Voláním obslužné rutiny autorizace ověřte, zda má uživatel oprávnění k vytváření kontaktů.
+* Add the user ID to the `Contact` model.
+* Call the authorization handler to verify the user has permission to create contacts.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Create.cshtml.cs?name=snippet_Create)]
 
-### <a name="update-the-indexmodel"></a>Aktualizace IndexModel
+### <a name="update-the-indexmodel"></a>Update the IndexModel
 
-Aktualizujte metodu `OnGetAsync`, aby se pro obecné uživatele zobrazovaly jenom schválené kontakty:
+Update the `OnGetAsync` method so only approved contacts are shown to general users:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Index.cshtml.cs?name=snippet)]
 
-### <a name="update-the-editmodel"></a>Aktualizace EditModel
+### <a name="update-the-editmodel"></a>Update the EditModel
 
-Přidejte obslužnou rutinu autorizace pro ověření, že uživatel vlastní kontakt. Vzhledem k tomu, že se ověřuje autorizace prostředků, atribut `[Authorize]` není dostatečný. Aplikace nemá při vyhodnocování atributů přístup k prostředku. Ověřování na základě prostředků musí být nezbytné. Kontroly musí být provedeny, jakmile aplikace má přístup k prostředku, a to buď načtením v modelu stránky, nebo jejich načtením v rámci samotné obslužné rutiny. K prostředku často přistupujete předáním klíče prostředku.
+Add an authorization handler to verify the user owns the contact. Because resource authorization is being validated, the `[Authorize]` attribute is not enough. The app doesn't have access to the resource when attributes are evaluated. Resource-based authorization must be imperative. Checks must be performed once the app has access to the resource, either by loading it in the page model or by loading it within the handler itself. You frequently access the resource by passing in the resource key.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Edit.cshtml.cs?name=snippet)]
 
-### <a name="update-the-deletemodel"></a>Aktualizace DeleteModel
+### <a name="update-the-deletemodel"></a>Update the DeleteModel
 
-Aktualizujte odstranit model stránky tak, aby používal obslužnou rutinu autorizace k ověření, jestli má uživatel oprávnění k odstranění kontaktu.
+Update the delete page model to use the authorization handler to verify the user has delete permission on the contact.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Delete.cshtml.cs?name=snippet)]
 
-## <a name="inject-the-authorization-service-into-the-views"></a>Vložení autorizační služby do zobrazení
+## <a name="inject-the-authorization-service-into-the-views"></a>Inject the authorization service into the views
 
-V současné době uživatelské rozhraní zobrazuje odkazy upravit a odstranit pro kontakty, které uživatel nemůže upravovat.
+Currently, the UI shows edit and delete links for contacts the user can't modify.
 
-Vložení autorizační služby do souboru *Pages/_ViewImports. cshtml* , aby bylo dostupné pro všechna zobrazení:
+Inject the authorization service in the *Pages/_ViewImports.cshtml* file so it's available to all views:
 
 [!code-cshtml[](secure-data/samples/final3/Pages/_ViewImports.cshtml?highlight=6-99)]
 
-Předchozí kód přidá několik příkazů `using`.
+The preceding markup adds several `using` statements.
 
-Aktualizujte odkazy pro **Úpravy** a **odstranění** na *stránkách/kontakty/index. cshtml* , aby byly vygenerovány pouze pro uživatele s příslušnými oprávněními:
+Update the **Edit** and **Delete** links in *Pages/Contacts/Index.cshtml* so they're only rendered for users with the appropriate permissions:
 
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> Skrytím odkazů uživatelů, kteří nemají oprávnění ke změně dat, nebude aplikace zabezpečená. Skrytím odkazů je aplikace uživatelsky přívětivější zobrazením pouze platných odkazů. Uživatelé mohou napadení vygenerovaných adres URL vyvolávat a vyvolat operace úpravy a odstranění na data, která nevlastní. Aby bylo možné zabezpečit data, musí stránka nebo kontroler Razor vymáhat kontroly přístupu.
+> Hiding links from users that don't have permission to change data doesn't secure the app. Hiding links makes the app more user-friendly by displaying only valid links. Users can hack the generated URLs to invoke edit and delete operations on data they don't own. The Razor Page or controller must enforce access checks to secure the data.
 
-### <a name="update-details"></a>Aktualizovat podrobnosti
+### <a name="update-details"></a>Update Details
 
-Aktualizujte zobrazení podrobností tak, aby manažeři mohli schvalovat nebo odmítat kontakty:
+Update the details view so managers can approve or reject contacts:
 
 [!code-cshtml[](secure-data/samples/final3/Pages/Contacts/Details.cshtml?name=snippet)]
 
-Aktualizujte model stránky podrobností:
+Update the details page model:
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Details.cshtml.cs?name=snippet)]
 
-## <a name="add-or-remove-a-user-to-a-role"></a>Přidání nebo odebrání uživatele k roli
+## <a name="add-or-remove-a-user-to-a-role"></a>Add or remove a user to a role
 
-Informace o [tomto problému najdete zde](https://github.com/aspnet/AspNetCore.Docs/issues/8502) :
+See [this issue](https://github.com/aspnet/AspNetCore.Docs/issues/8502) for information on:
 
-* Odebírají se oprávnění od uživatele. Například ztlumení uživatele v aplikaci chatu.
-* Přidávání oprávnění uživateli.
+* Removing privileges from a user. For example, muting a user in a chat app.
+* Adding privileges to a user.
 
-## <a name="differences-between-challenge-vs-forbid"></a>Rozdíly mezi výzvou a nezakazují
+<a name="challenge"></a>
 
-Tato aplikace nastaví výchozí zásadu, která bude [vyžadovat ověřené uživatele](#require-authenticated-users). Následující kód povoluje anonymní uživatele. Anonymní uživatelé mají povoleno zobrazovat rozdíly mezi výzvou a zakázáním.
+## <a name="differences-between-challenge-and-forbid"></a>Differences between Challenge and Forbid
+
+This app sets the default policy to [require authenticated users](#require-authenticated-users). The following code allows anonymous users. Anonymous users are allowed to show the differences between Challenge vs Forbid.
 
 [!code-csharp[](secure-data/samples/final3/Pages/Contacts/Details2.cshtml.cs?name=snippet)]
 
-V předchozím kódu:
+In the preceding code:
 
-* Pokud uživatel **není ověřen,** je vrácena `ChallengeResult`. Po vrácení `ChallengeResult` se uživatel přesměruje na přihlašovací stránku.
-* Když je uživatel ověřený, ale není autorizovaný, vrátí se `ForbidResult`. Po vrácení `ForbidResult` se uživatel přesměruje na stránku přístup byl odepřen.
+* When the user is **not** authenticated, a `ChallengeResult` is returned. When a `ChallengeResult` is returned, the user is redirected to the sign-in page.
+* When the user is authenticated, but not authorized, a `ForbidResult` is returned. When a `ForbidResult` is returned, the user is redirected to the access denied page.
 
-## <a name="test-the-completed-app"></a>Testování dokončené aplikace
+## <a name="test-the-completed-app"></a>Test the completed app
 
-Pokud jste ještě nenastavili heslo pro osazené uživatelské účty, nastavte heslo pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets#secret-manager) :
+If you haven't already set a password for seeded user accounts, use the [Secret Manager tool](xref:security/app-secrets#secret-manager) to set a password:
 
-* Vyberte silné heslo: použijte osm nebo více znaků a alespoň jedno velké písmeno, číslici a symbol. `Passw0rd!` například splňuje požadavky na silné heslo.
-* Spusťte následující příkaz ze složky projektu, kde `<PW>` je heslo:
+* Choose a strong password: Use eight or more characters and at least one upper-case character, number, and symbol. For example, `Passw0rd!` meets the strong password requirements.
+* Execute the following command from the project's folder, where `<PW>` is the password:
 
   ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-Pokud má aplikace kontakty:
+If the app has contacts:
 
-* Odstraní všechny záznamy v `Contact` tabulce.
-* Restartujte aplikaci a dosadíte databázi.
+* Delete all of the records in the `Contact` table.
+* Restart the app to seed the database.
 
-Snadný způsob, jak otestovat dokončenou aplikaci, je spustit tři různé prohlížeče (nebo relace anonymním/InPrivate). V jednom prohlížeči Zaregistrujte nového uživatele (například `test@example.com`). Přihlaste se ke každému prohlížeči pomocí jiného uživatele. Ověřte následující operace:
+An easy way to test the completed app is to launch three different browsers (or incognito/InPrivate sessions). In one browser, register a new user (for example, `test@example.com`). Sign in to each browser with a different user. Verify the following operations:
 
-* Registrovaní uživatelé mohou zobrazit všechna schválená kontaktní data.
-* Registrovaní uživatelé můžou upravovat nebo odstraňovat svá vlastní data.
-* Manažeři mohou schvalovat nebo odmítat kontaktní data. Zobrazení `Details` zobrazuje tlačítka **schválení** a **odmítnutí** .
-* Správci mohou schvalovat nebo odmítat a upravovat nebo odstraňovat všechna data.
+* Registered users can view all of the approved contact data.
+* Registered users can edit/delete their own data.
+* Managers can approve/reject contact data. The `Details` view shows **Approve** and **Reject** buttons.
+* Administrators can approve/reject and edit/delete all data.
 
-| Uživatel                | Podsazený aplikací | Možnosti                                  |
+| Uživatel                | Seeded by the app | Možnosti                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
-| manager@contoso.com | Ano               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
-| admin@contoso.com   | Ano               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
+| test@example.com    | Ne                | Edit/delete the own data.                |
+| manager@contoso.com | Ano               | Approve/reject and edit/delete own data. |
+| admin@contoso.com   | Ano               | Approve/reject and edit/delete all data. |
 
-V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstranění a úpravy v kontaktní osobě správce. Vložením těchto odkazů do prohlížeče testovacího uživatele ověříte, že testovací uživatel nemůže tyto operace provést.
+Create a contact in the administrator's browser. Copy the URL for delete and edit from the administrator contact. Paste these links into the test user's browser to verify the test user can't perform these operations.
 
-## <a name="create-the-starter-app"></a>Vytvoření úvodní aplikace
+## <a name="create-the-starter-app"></a>Create the starter app
 
-* Vytvoření aplikace Razor Pages s názvem "ContactManager"
-  * Vytvořte aplikaci pomocí **individuálních uživatelských účtů**.
-  * Pojmenujte ho "ContactManager", aby se obor názvů shodoval s oborem názvů použitým v ukázce.
-  * `-uld` určuje LocalDB místo SQLite.
+* Create a Razor Pages app named "ContactManager"
+  * Create the app with **Individual User Accounts**.
+  * Name it "ContactManager" so the namespace matches the namespace used in the sample.
+  * `-uld` specifies LocalDB instead of SQLite
 
   ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* Přidat *modely/kontakt. cs*:
+* Add *Models/Contact.cs*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-* Generování `Contact` modelu.
-* Vytvořit počáteční migraci a aktualizovat databázi:
+* Scaffold the `Contact` model.
+* Create initial migration and update the database:
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -341,71 +343,71 @@ dotnet ef migrations add initial
 dotnet ef database update
 ```
 
-Pokud dojde k chybě s příkazem `dotnet aspnet-codegenerator razorpage`, přečtěte si [Tento problém GitHub](https://github.com/aspnet/Scaffolding/issues/984).
+If you experience a bug with the `dotnet aspnet-codegenerator razorpage` command, see [this GitHub issue](https://github.com/aspnet/Scaffolding/issues/984).
 
-* Aktualizujte kotvu **ContactManager** v souboru *Pages/Shared/_Layout. cshtml* :
+* Update the **ContactManager** anchor in the *Pages/Shared/_Layout.cshtml* file:
 
  ```cshtml
 <a class="navbar-brand" asp-area="" asp-page="/Contacts/Index">ContactManager</a>
   ```
 
-* Testování aplikace vytvořením, úpravou a odstraněním kontaktu
+* Test the app by creating, editing, and deleting a contact
 
-### <a name="seed-the-database"></a>Dosazení databáze
+### <a name="seed-the-database"></a>Seed the database
 
-Do složky *data* přidejte třídu [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs) :
+Add the [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs) class to the *Data* folder:
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
-Volat `SeedData.Initialize` z `Main`:
+Call `SeedData.Initialize` from `Main`:
 
 [!code-csharp[](secure-data/samples/starter3/Program.cs)]
 
-Otestujte, že aplikace dosazený databázi. Pokud je ve službě Contact DB nějaký řádek, metoda počáteční hodnoty se nespustí.
+Test that the app seeded the database. If there are any rows in the contact DB, the seed method doesn't run.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 < aspnetcore-3.0"
 
-V tomto kurzu se dozvíte, jak vytvořit webovou aplikaci ASP.NET Core s uživatelskými daty chráněnými autorizací. Zobrazuje seznam kontaktů ověřovaných (registrovaných) uživatelů. Existují tři skupiny zabezpečení:
+This tutorial shows how to create an ASP.NET Core web app with user data protected by authorization. It displays a list of contacts that authenticated (registered) users have created. There are three security groups:
 
-* **Registrovaní uživatelé** můžou zobrazit všechna schválená data a můžou upravovat nebo odstraňovat vlastní data.
-* **Manažeři** mohou schvalovat nebo odmítat kontaktní data. Uživatelé vidí jenom schválené kontakty.
-* **Správci** mohou schvalovat nebo odmítat a upravovat nebo odstraňovat jakákoli data.
+* **Registered users** can view all the approved data and can edit/delete their own data.
+* **Managers** can approve or reject contact data. Only approved contacts are visible to users.
+* **Administrators** can approve/reject and edit/delete any data.
 
-Na následujícím obrázku je uživatel Rick (`rick@example.com`) přihlášen. Rick může zobrazit pouze schválené kontakty a **upravovat**/**Odstranit**/**vytvořit nové** odkazy na své kontakty. Jenom poslední záznam vytvořený pomocí Rick zobrazí odkazy pro **Úpravy** a **odstranění** . Ostatní uživatelé uvidí poslední záznam, dokud správce nebo správce nezmění stav na schváleno.
+In the following image, user Rick (`rick@example.com`) is signed in. Rick can only view approved contacts and **Edit**/**Delete**/**Create New** links for his contacts. Only the last record, created by Rick, displays **Edit** and **Delete** links. Other users won't see the last record until a manager or administrator changes the status to "Approved".
 
-![Snímek obrazovky zobrazující přihlášený Rick](secure-data/_static/rick.png)
+![Screenshot showing Rick signed in](secure-data/_static/rick.png)
 
-Na následujícím obrázku je `manager@contoso.com` přihlásit se a v roli manažera:
+In the following image, `manager@contoso.com` is signed in and in the manager's role:
 
-![Snímek obrazovky zobrazující přihlášený manager@contoso.com](secure-data/_static/manager1.png)
+![Screenshot showing manager@contoso.com signed in](secure-data/_static/manager1.png)
 
-Následující obrázek ukazuje zobrazení podrobností o kontaktu pro správce:
+The following image shows the managers details view of a contact:
 
-![Zobrazení kontaktu manažera](secure-data/_static/manager.png)
+![Manager's view of a contact](secure-data/_static/manager.png)
 
-Tlačítka **schválení** a **odmítnutí** se zobrazují pouze pro manažery a správce.
+The **Approve** and **Reject** buttons are only displayed for managers and administrators.
 
-Na následujícím obrázku je `admin@contoso.com` přihlásit se a v roli správce:
+In the following image, `admin@contoso.com` is signed in and in the administrator's role:
 
-![Snímek obrazovky zobrazující přihlášený admin@contoso.com](secure-data/_static/admin.png)
+![Screenshot showing admin@contoso.com signed in](secure-data/_static/admin.png)
 
-Správce má všechna oprávnění. Může číst, upravovat a odstraňovat jakékoli kontakty a měnit stav kontaktů.
+The administrator has all privileges. She can read/edit/delete any contact and change the status of contacts.
 
-Aplikace byla vytvořena pomocí [generování uživatelského rozhraní](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) následujícího modelu `Contact`:
+The app was created by [scaffolding](xref:tutorials/first-mvc-app/adding-model#scaffold-the-movie-model) the following `Contact` model:
 
 [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-Ukázka obsahuje následující obslužné rutiny autorizace:
+The sample contains the following authorization handlers:
 
-* `ContactIsOwnerAuthorizationHandler`: zajišťuje, aby uživatel mohl upravovat pouze svá data.
-* `ContactManagerAuthorizationHandler`: umožňuje správcům schvalovat nebo odmítat kontakty.
-* `ContactAdministratorsAuthorizationHandler`: umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
+* `ContactIsOwnerAuthorizationHandler`: Ensures that a user can only edit their data.
+* `ContactManagerAuthorizationHandler`: Allows managers to approve or reject contacts.
+* `ContactAdministratorsAuthorizationHandler`: Allows administrators to approve or reject contacts and to edit/delete contacts.
 
 ## <a name="prerequisites"></a>Požadavky
 
-Tento kurz je pokročilý. Měli byste být obeznámeni s:
+This tutorial is advanced. You should be familiar with:
 
 * [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
 * [Ověřování](xref:security/authentication/identity)
@@ -413,251 +415,251 @@ Tento kurz je pokročilý. Měli byste být obeznámeni s:
 * [Autorizace](xref:security/authorization/introduction)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
-## <a name="the-starter-and-completed-app"></a>Úvodní a dokončená aplikace
+## <a name="the-starter-and-completed-app"></a>The starter and completed app
 
-[Stáhněte](xref:index#how-to-download-a-sample) [dokončenou](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) aplikaci. [Otestujte](#test-the-completed-app) dokončenou aplikaci, abyste se seznámili se svými funkcemi zabezpečení.
+[Download](xref:index#how-to-download-a-sample) the [completed](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) app. [Test](#test-the-completed-app) the completed app so you become familiar with its security features.
 
-### <a name="the-starter-app"></a>Úvodní aplikace
+### <a name="the-starter-app"></a>The starter app
 
-[Stáhněte](xref:index#how-to-download-a-sample) si [úvodní](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) aplikaci.
+[Download](xref:index#how-to-download-a-sample) the [starter](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) app.
 
-Spusťte aplikaci, klepněte na odkaz **ContactManager** a ověřte, že můžete vytvořit, upravit a odstranit kontakt.
+Run the app, tap the **ContactManager** link, and verify you can create, edit, and delete a contact.
 
-## <a name="secure-user-data"></a>Zabezpečená uživatelská data
+## <a name="secure-user-data"></a>Secure user data
 
-V následujících částech najdete všechny hlavní kroky k vytvoření aplikace zabezpečených uživatelských dat. Může to být užitečné pro odkazování na dokončený projekt.
+The following sections have all the major steps to create the secure user data app. You may find it helpful to refer to the completed project.
 
-### <a name="tie-the-contact-data-to-the-user"></a>Spojit kontaktní údaje s uživatelem
+### <a name="tie-the-contact-data-to-the-user"></a>Tie the contact data to the user
 
-Pomocí ID uživatele [Identity](xref:security/authentication/identity) ASP.NET zajistěte, aby mohli uživatelé upravovat data, ale ne jiná data uživatelů. Do modelu `Contact` přidejte `OwnerID` a `ContactStatus`:
+Use the ASP.NET [Identity](xref:security/authentication/identity) user ID to ensure users can edit their data, but not other users data. Add `OwnerID` and `ContactStatus` to the `Contact` model:
 
 [!code-csharp[](secure-data/samples/final2.1/Models/Contact.cs?name=snippet1&highlight=5-6,16-999)]
 
-`OwnerID` je ID uživatele z tabulky `AspNetUser` v databázi [identity](xref:security/authentication/identity) . Pole `Status` určuje, zda je kontakt viditelný pro obecné uživatele.
+`OwnerID` is the user's ID from the `AspNetUser` table in the [Identity](xref:security/authentication/identity) database. The `Status` field determines if a contact is viewable by general users.
 
-Vytvořte novou migraci a aktualizujte databázi:
+Create a new migration and update the database:
 
 ```dotnetcli
 dotnet ef migrations add userID_Status
 dotnet ef database update
 ```
 
-### <a name="add-role-services-to-identity"></a>Přidání služeb role k identitě
+### <a name="add-role-services-to-identity"></a>Add Role services to Identity
 
-Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:
+Append [AddRoles](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) to add Role services:
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet2&highlight=12)]
 
-### <a name="require-authenticated-users"></a>Vyžadovat ověřené uživatele
+### <a name="require-authenticated-users"></a>Require authenticated users
 
-Nastavte výchozí zásadu ověřování tak, aby vyžadovala ověření uživatelů:
+Set the default authentication policy to require users to be authenticated:
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet&highlight=17-99)] 
 
- Ověřování na úrovni této stránky, řadiče nebo metody akce lze odhlásit pomocí atributu `[AllowAnonymous]`. Nastavení výchozích zásad ověřování, aby vyžadovaly ověření uživatelů, chrání nově přidané Razor Pages a řadiče. Pokud je ve výchozím nastavení vyžadováno ověřování, je bezpečnější než spoléhání na nové řadiče a Razor Pages pro zahrnutí atributu `[Authorize]`.
+ You can opt out of authentication at the Razor Page, controller, or action method level with the `[AllowAnonymous]` attribute. Setting the default authentication policy to require users to be authenticated protects newly added Razor Pages and controllers. Having authentication required by default is more secure than relying on new controllers and Razor Pages to include the `[Authorize]` attribute.
 
-Přidejte [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) na stránky rejstřík, o a kontakt, aby anonymní uživatelé mohli získat informace o lokalitě před jejich registrací.
+Add [AllowAnonymous](/dotnet/api/microsoft.aspnetcore.authorization.allowanonymousattribute) to the Index, About, and Contact pages so anonymous users can get information about the site before they register.
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Index.cshtml.cs?highlight=1,6)]
 
-### <a name="configure-the-test-account"></a>Konfigurace testovacího účtu
+### <a name="configure-the-test-account"></a>Configure the test account
 
-Třída `SeedData` vytvoří dva účty: správce a manažer. Pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets) nastavte heslo pro tyto účty. Nastavte heslo z adresáře projektu (adresář obsahující *program.cs*):
+The `SeedData` class creates two accounts: administrator and manager. Use the [Secret Manager tool](xref:security/app-secrets) to set a password for these accounts. Set the password from the project directory (the directory containing *Program.cs*):
 
 ```dotnetcli
 dotnet user-secrets set SeedUserPW <PW>
 ```
 
-Pokud není zadáno silné heslo, je vyvolána výjimka při volání `SeedData.Initialize`.
+If a strong password is not specified, an exception is thrown when `SeedData.Initialize` is called.
 
-Aktualizujte `Main` pro použití testovacího hesla:
+Update `Main` to use the test password:
 
 [!code-csharp[](secure-data/samples/final2.1/Program.cs?name=snippet)]
 
-### <a name="create-the-test-accounts-and-update-the-contacts"></a>Vytvoření testovacích účtů a aktualizace kontaktů
+### <a name="create-the-test-accounts-and-update-the-contacts"></a>Create the test accounts and update the contacts
 
-Aktualizujte metodu `Initialize` ve třídě `SeedData` k vytvoření testovacích účtů:
+Update the `Initialize` method in the `SeedData` class to create the test accounts:
 
 [!code-csharp[](secure-data/samples/final2.1/Data/SeedData.cs?name=snippet_Initialize)]
 
-Přidejte do kontaktů ID uživatele a `ContactStatus` správce. Poznamenejte si jednu z kontaktů "odeslané" a jednu "zamítnutou". Přidejte ke všem kontaktům ID a stav uživatele. Zobrazí se pouze jeden kontakt:
+Add the administrator user ID and `ContactStatus` to the contacts. Make one of the contacts "Submitted" and one "Rejected". Add the user ID and status to all the contacts. Only one contact is shown:
 
 [!code-csharp[](secure-data/samples/final2.1/Data/SeedData.cs?name=snippet1&highlight=17,18)]
 
-## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>Vytváření obslužných rutin autorizace vlastníka, správce a správce
+## <a name="create-owner-manager-and-administrator-authorization-handlers"></a>Create owner, manager, and administrator authorization handlers
 
-Vytvořte složku *autorizace* a v ní vytvořte třídu `ContactIsOwnerAuthorizationHandler`. `ContactIsOwnerAuthorizationHandler` ověří, že uživatel pracuje na prostředku, který je vlastníkem prostředku.
+Create an *Authorization* folder and create a `ContactIsOwnerAuthorizationHandler` class in it. The `ContactIsOwnerAuthorizationHandler` verifies that the user acting on a resource owns the resource.
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactIsOwnerAuthorizationHandler.cs)]
 
-`ContactIsOwnerAuthorizationHandler` volá [kontext. Úspěšné](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) , pokud je aktuální ověřený uživatel vlastníkem kontaktu. Obslužné rutiny autorizace obecně:
+The `ContactIsOwnerAuthorizationHandler` calls [context.Succeed](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.succeed#Microsoft_AspNetCore_Authorization_AuthorizationHandlerContext_Succeed_Microsoft_AspNetCore_Authorization_IAuthorizationRequirement_) if the current authenticated user is the contact owner. Authorization handlers generally:
 
-* Vrátí `context.Succeed`, pokud jsou splněny požadavky.
-* Vrátí `Task.CompletedTask`, pokud nejsou splněny požadavky. `Task.CompletedTask` není úspěch nebo neúspěch&mdash;umožňuje spuštění dalších obslužných rutin autorizace.
+* Return `context.Succeed` when the requirements are met.
+* Return `Task.CompletedTask` when requirements aren't met. `Task.CompletedTask` is not success or failure&mdash;it allows other authorization handlers to run.
 
-Pokud potřebujete explicitně selhat, vraťte [kontext. Selhání](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
+If you need to explicitly fail, return [context.Fail](/dotnet/api/microsoft.aspnetcore.authorization.authorizationhandlercontext.fail).
 
-Aplikace umožňuje vlastníkům kontaktů upravit/odstranit/vytvořit vlastní data. `ContactIsOwnerAuthorizationHandler` nemusí kontrolovat operaci předanou parametrem požadavku.
+The app allows contact owners to edit/delete/create their own data. `ContactIsOwnerAuthorizationHandler` doesn't need to check the operation passed in the requirement parameter.
 
-### <a name="create-a-manager-authorization-handler"></a>Vytvoření obslužné rutiny autorizace Správce
+### <a name="create-a-manager-authorization-handler"></a>Create a manager authorization handler
 
-Ve složce pro *autorizaci* vytvořte třídu `ContactManagerAuthorizationHandler`. `ContactManagerAuthorizationHandler` ověří uživatele, který pracuje na prostředku, jako správce. Pouze správci mohou schvalovat nebo odmítat změny v obsahu (nové nebo změněné).
+Create a `ContactManagerAuthorizationHandler` class in the *Authorization* folder. The `ContactManagerAuthorizationHandler` verifies the user acting on the resource is a manager. Only managers can approve or reject content changes (new or changed).
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactManagerAuthorizationHandler.cs)]
 
-### <a name="create-an-administrator-authorization-handler"></a>Vytvoření obslužné rutiny autorizace Správce
+### <a name="create-an-administrator-authorization-handler"></a>Create an administrator authorization handler
 
-Ve složce pro *autorizaci* vytvořte třídu `ContactAdministratorsAuthorizationHandler`. `ContactAdministratorsAuthorizationHandler` ověří uživatele, který pracuje na prostředku, jako správce. Správce může provádět všechny operace.
+Create a `ContactAdministratorsAuthorizationHandler` class in the *Authorization* folder. The `ContactAdministratorsAuthorizationHandler` verifies the user acting on the resource is an administrator. Administrator can do all operations.
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactAdministratorsAuthorizationHandler.cs)]
 
-## <a name="register-the-authorization-handlers"></a>Registrace obslužných rutin autorizace
+## <a name="register-the-authorization-handlers"></a>Register the authorization handlers
 
-Služby používající Entity Framework Core musí být registrovány pro [vkládání závislostí](xref:fundamentals/dependency-injection) pomocí [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). `ContactIsOwnerAuthorizationHandler` používá ASP.NET Core [identity](xref:security/authentication/identity), která je postavená na Entity Framework Core. Zaregistrujte obslužné rutiny s kolekcí služeb, aby byly k dispozici pro `ContactsController` prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection). Do konce `ConfigureServices`přidejte následující kód:
+Services using Entity Framework Core must be registered for [dependency injection](xref:fundamentals/dependency-injection) using [AddScoped](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectionserviceextensions). The `ContactIsOwnerAuthorizationHandler` uses ASP.NET Core [Identity](xref:security/authentication/identity), which is built on Entity Framework Core. Register the handlers with the service collection so they're available to the `ContactsController` through [dependency injection](xref:fundamentals/dependency-injection). Add the following code to the end of `ConfigureServices`:
 
 [!code-csharp[](secure-data/samples/final2.1/Startup.cs?name=snippet_defaultPolicy&highlight=27-99)]
 
-`ContactAdministratorsAuthorizationHandler` a `ContactManagerAuthorizationHandler` jsou přidány jako singleton. Jsou to jednoznačné, protože nepoužívají EF a všechny potřebné informace jsou v parametru `Context` `HandleRequirementAsync` metody.
+`ContactAdministratorsAuthorizationHandler` and `ContactManagerAuthorizationHandler` are added as singletons. They're singletons because they don't use EF and all the information needed is in the `Context` parameter of the `HandleRequirementAsync` method.
 
-## <a name="support-authorization"></a>Autorizace podpory
+## <a name="support-authorization"></a>Support authorization
 
-V této části aktualizujete Razor Pages a přidáte třídu požadavků na operace.
+In this section, you update the Razor Pages and add an operations requirements class.
 
-### <a name="review-the-contact-operations-requirements-class"></a>Kontrola třídy požadavků na operace kontaktů
+### <a name="review-the-contact-operations-requirements-class"></a>Review the contact operations requirements class
 
-Zkontrolujte třídu `ContactOperations`. Tato třída obsahuje požadavky, které aplikace podporuje:
+Review the `ContactOperations` class. This class contains the requirements the app supports:
 
 [!code-csharp[](secure-data/samples/final2.1/Authorization/ContactOperations.cs)]
 
-### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Vytvoření základní třídy pro kontakty Razor Pages
+### <a name="create-a-base-class-for-the-contacts-razor-pages"></a>Create a base class for the Contacts Razor Pages
 
-Vytvořte základní třídu, která obsahuje služby používané v Razor Pages kontaktů. Základní třída umístí inicializační kód do jednoho umístění:
+Create a base class that contains the services used in the contacts Razor Pages. The base class puts the initialization code in one location:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/DI_BasePageModel.cs)]
 
-Předchozí kód:
+The preceding code:
 
-* Přidá službu `IAuthorizationService` pro přístup k obslužným rutinám autorizace.
-* Přidá službu identity `UserManager`.
-* Přidejte `ApplicationDbContext`.
+* Adds the `IAuthorizationService` service to access to the authorization handlers.
+* Adds the Identity `UserManager` service.
+* Add the `ApplicationDbContext`.
 
-### <a name="update-the-createmodel"></a>Aktualizace CreateModel
+### <a name="update-the-createmodel"></a>Update the CreateModel
 
-Aktualizujte konstruktor Create Page model tak, aby používal základní třídu `DI_BasePageModel`:
+Update the create page model constructor to use the `DI_BasePageModel` base class:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Create.cshtml.cs?name=snippetCtor)]
 
-Aktualizujte metodu `CreateModel.OnPostAsync` na:
+Update the `CreateModel.OnPostAsync` method to:
 
-* Přidejte ID uživatele do modelu `Contact`.
-* Voláním obslužné rutiny autorizace ověřte, zda má uživatel oprávnění k vytváření kontaktů.
+* Add the user ID to the `Contact` model.
+* Call the authorization handler to verify the user has permission to create contacts.
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Create.cshtml.cs?name=snippet_Create)]
 
-### <a name="update-the-indexmodel"></a>Aktualizace IndexModel
+### <a name="update-the-indexmodel"></a>Update the IndexModel
 
-Aktualizujte metodu `OnGetAsync`, aby se pro obecné uživatele zobrazovaly jenom schválené kontakty:
+Update the `OnGetAsync` method so only approved contacts are shown to general users:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml.cs?name=snippet)]
 
-### <a name="update-the-editmodel"></a>Aktualizace EditModel
+### <a name="update-the-editmodel"></a>Update the EditModel
 
-Přidejte obslužnou rutinu autorizace pro ověření, že uživatel vlastní kontakt. Vzhledem k tomu, že se ověřuje autorizace prostředků, atribut `[Authorize]` není dostatečný. Aplikace nemá při vyhodnocování atributů přístup k prostředku. Ověřování na základě prostředků musí být nezbytné. Kontroly musí být provedeny, jakmile aplikace má přístup k prostředku, a to buď načtením v modelu stránky, nebo jejich načtením v rámci samotné obslužné rutiny. K prostředku často přistupujete předáním klíče prostředku.
+Add an authorization handler to verify the user owns the contact. Because resource authorization is being validated, the `[Authorize]` attribute is not enough. The app doesn't have access to the resource when attributes are evaluated. Resource-based authorization must be imperative. Checks must be performed once the app has access to the resource, either by loading it in the page model or by loading it within the handler itself. You frequently access the resource by passing in the resource key.
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Edit.cshtml.cs?name=snippet)]
 
-### <a name="update-the-deletemodel"></a>Aktualizace DeleteModel
+### <a name="update-the-deletemodel"></a>Update the DeleteModel
 
-Aktualizujte odstranit model stránky tak, aby používal obslužnou rutinu autorizace k ověření, jestli má uživatel oprávnění k odstranění kontaktu.
+Update the delete page model to use the authorization handler to verify the user has delete permission on the contact.
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Delete.cshtml.cs?name=snippet)]
 
-## <a name="inject-the-authorization-service-into-the-views"></a>Vložení autorizační služby do zobrazení
+## <a name="inject-the-authorization-service-into-the-views"></a>Inject the authorization service into the views
 
-V současné době uživatelské rozhraní zobrazuje odkazy upravit a odstranit pro kontakty, které uživatel nemůže upravovat.
+Currently, the UI shows edit and delete links for contacts the user can't modify.
 
-Vložení autorizační služby do souboru *views/_ViewImports. cshtml* , aby bylo dostupné pro všechna zobrazení:
+Inject the authorization service in the *Views/_ViewImports.cshtml* file so it's available to all views:
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/_ViewImports.cshtml?highlight=6-99)]
 
-Předchozí kód přidá několik příkazů `using`.
+The preceding markup adds several `using` statements.
 
-Aktualizujte odkazy pro **Úpravy** a **odstranění** na *stránkách/kontakty/index. cshtml* , aby byly vygenerovány pouze pro uživatele s příslušnými oprávněními:
+Update the **Edit** and **Delete** links in *Pages/Contacts/Index.cshtml* so they're only rendered for users with the appropriate permissions:
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Index.cshtml?highlight=34-36,62-999)]
 
 > [!WARNING]
-> Skrytím odkazů uživatelů, kteří nemají oprávnění ke změně dat, nebude aplikace zabezpečená. Skrytím odkazů je aplikace uživatelsky přívětivější zobrazením pouze platných odkazů. Uživatelé mohou napadení vygenerovaných adres URL vyvolávat a vyvolat operace úpravy a odstranění na data, která nevlastní. Aby bylo možné zabezpečit data, musí stránka nebo kontroler Razor vymáhat kontroly přístupu.
+> Hiding links from users that don't have permission to change data doesn't secure the app. Hiding links makes the app more user-friendly by displaying only valid links. Users can hack the generated URLs to invoke edit and delete operations on data they don't own. The Razor Page or controller must enforce access checks to secure the data.
 
-### <a name="update-details"></a>Aktualizovat podrobnosti
+### <a name="update-details"></a>Update Details
 
-Aktualizujte zobrazení podrobností tak, aby manažeři mohli schvalovat nebo odmítat kontakty:
+Update the details view so managers can approve or reject contacts:
 
 [!code-cshtml[](secure-data/samples/final2.1/Pages/Contacts/Details.cshtml?name=snippet)]
 
-Aktualizujte model stránky podrobností:
+Update the details page model:
 
 [!code-csharp[](secure-data/samples/final2.1/Pages/Contacts/Details.cshtml.cs?name=snippet)]
 
-## <a name="add-or-remove-a-user-to-a-role"></a>Přidání nebo odebrání uživatele k roli
+## <a name="add-or-remove-a-user-to-a-role"></a>Add or remove a user to a role
 
-Informace o [tomto problému najdete zde](https://github.com/aspnet/AspNetCore.Docs/issues/8502) :
+See [this issue](https://github.com/aspnet/AspNetCore.Docs/issues/8502) for information on:
 
-* Odebírají se oprávnění od uživatele. Například ztlumení uživatele v aplikaci chatu.
-* Přidávání oprávnění uživateli.
+* Removing privileges from a user. For example, muting a user in a chat app.
+* Adding privileges to a user.
 
-## <a name="test-the-completed-app"></a>Testování dokončené aplikace
+## <a name="test-the-completed-app"></a>Test the completed app
 
-Pokud jste ještě nenastavili heslo pro osazené uživatelské účty, nastavte heslo pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets#secret-manager) :
+If you haven't already set a password for seeded user accounts, use the [Secret Manager tool](xref:security/app-secrets#secret-manager) to set a password:
 
-* Vyberte silné heslo: použijte osm nebo více znaků a alespoň jedno velké písmeno, číslici a symbol. `Passw0rd!` například splňuje požadavky na silné heslo.
-* Spusťte následující příkaz ze složky projektu, kde `<PW>` je heslo:
+* Choose a strong password: Use eight or more characters and at least one upper-case character, number, and symbol. For example, `Passw0rd!` meets the strong password requirements.
+* Execute the following command from the project's folder, where `<PW>` is the password:
 
   ```dotnetcli
   dotnet user-secrets set SeedUserPW <PW>
   ```
 
-* Zrušení a aktualizace databáze
+* Drop and update the Database
 
   ```dotnetcli
   dotnet ef database drop -f
   dotnet ef database update  
   ```
 
-* Restartujte aplikaci a dosadíte databázi.
+* Restart the app to seed the database.
 
-Snadný způsob, jak otestovat dokončenou aplikaci, je spustit tři různé prohlížeče (nebo relace anonymním/InPrivate). V jednom prohlížeči Zaregistrujte nového uživatele (například `test@example.com`). Přihlaste se ke každému prohlížeči pomocí jiného uživatele. Ověřte následující operace:
+An easy way to test the completed app is to launch three different browsers (or incognito/InPrivate sessions). In one browser, register a new user (for example, `test@example.com`). Sign in to each browser with a different user. Verify the following operations:
 
-* Registrovaní uživatelé mohou zobrazit všechna schválená kontaktní data.
-* Registrovaní uživatelé můžou upravovat nebo odstraňovat svá vlastní data.
-* Manažeři mohou schvalovat nebo odmítat kontaktní data. Zobrazení `Details` zobrazuje tlačítka **schválení** a **odmítnutí** .
-* Správci mohou schvalovat nebo odmítat a upravovat nebo odstraňovat všechna data.
+* Registered users can view all of the approved contact data.
+* Registered users can edit/delete their own data.
+* Managers can approve/reject contact data. The `Details` view shows **Approve** and **Reject** buttons.
+* Administrators can approve/reject and edit/delete all data.
 
-| Uživatel                | Podsazený aplikací | Možnosti                                  |
+| Uživatel                | Seeded by the app | Možnosti                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
-| manager@contoso.com | Ano               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
-| admin@contoso.com   | Ano               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
+| test@example.com    | Ne                | Edit/delete the own data.                |
+| manager@contoso.com | Ano               | Approve/reject and edit/delete own data. |
+| admin@contoso.com   | Ano               | Approve/reject and edit/delete all data. |
 
-V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstranění a úpravy v kontaktní osobě správce. Vložením těchto odkazů do prohlížeče testovacího uživatele ověříte, že testovací uživatel nemůže tyto operace provést.
+Create a contact in the administrator's browser. Copy the URL for delete and edit from the administrator contact. Paste these links into the test user's browser to verify the test user can't perform these operations.
 
-## <a name="create-the-starter-app"></a>Vytvoření úvodní aplikace
+## <a name="create-the-starter-app"></a>Create the starter app
 
-* Vytvoření aplikace Razor Pages s názvem "ContactManager"
-  * Vytvořte aplikaci pomocí **individuálních uživatelských účtů**.
-  * Pojmenujte ho "ContactManager", aby se obor názvů shodoval s oborem názvů použitým v ukázce.
-  * `-uld` určuje LocalDB místo SQLite.
+* Create a Razor Pages app named "ContactManager"
+  * Create the app with **Individual User Accounts**.
+  * Name it "ContactManager" so the namespace matches the namespace used in the sample.
+  * `-uld` specifies LocalDB instead of SQLite
 
   ```dotnetcli
   dotnet new webapp -o ContactManager -au Individual -uld
   ```
 
-* Přidat *modely/kontakt. cs*:
+* Add *Models/Contact.cs*:
 
   [!code-csharp[](secure-data/samples/starter2.1/Models/Contact.cs?name=snippet1)]
 
-* Generování `Contact` modelu.
-* Vytvořit počáteční migraci a aktualizovat databázi:
+* Scaffold the `Contact` model.
+* Create initial migration and update the database:
 
   ```dotnetcli
   dotnet aspnet-codegenerator razorpage -m Contact -udl -dc ApplicationDbContext -outDir Pages\Contacts --referenceScriptLibraries
@@ -666,23 +668,23 @@ V prohlížeči správce vytvořte kontakt. Zkopírujte adresu URL pro odstraně
   dotnet ef database update
   ```
 
-* Aktualizujte kotvu **ContactManager** v souboru *Pages/_Layout. cshtml* :
+* Update the **ContactManager** anchor in the *Pages/_Layout.cshtml* file:
 
   ```cshtml
   <a asp-page="/Contacts/Index" class="navbar-brand">ContactManager</a>
   ```
 
-* Testování aplikace vytvořením, úpravou a odstraněním kontaktu
+* Test the app by creating, editing, and deleting a contact
 
-### <a name="seed-the-database"></a>Dosazení databáze
+### <a name="seed-the-database"></a>Seed the database
 
-Do složky *data* přidejte třídu [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs) .
+Add the [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs) class to the *Data* folder.
 
-Volat `SeedData.Initialize` z `Main`:
+Call `SeedData.Initialize` from `Main`:
 
 [!code-csharp[](secure-data/samples/starter2.1/Program.cs?name=snippet)]
 
-Otestujte, že aplikace dosazený databázi. Pokud je ve službě Contact DB nějaký řádek, metoda počáteční hodnoty se nespustí.
+Test that the app seeded the database. If there are any rows in the contact DB, the seed method doesn't run.
 
 ::: moniker-end
 
@@ -690,7 +692,7 @@ Otestujte, že aplikace dosazený databázi. Pokud je ve službě Contact DB ně
 
 ### <a name="additional-resources"></a>Další zdroje
 
-* [Vytvoření webové aplikace .NET Core a SQL Database v Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
-* [ASP.NET Core autorizačního prostředí](https://github.com/blowdart/AspNetAuthorizationWorkshop). Tato laboratoř obsahuje další podrobnosti o funkcích zabezpečení, které jsou představené v tomto kurzu.
+* [Build a .NET Core and SQL Database web app in Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
+* [ASP.NET Core Authorization Lab](https://github.com/blowdart/AspNetAuthorizationWorkshop). This lab goes into more detail on the security features introduced in this tutorial.
 * <xref:security/authorization/introduction>
-* [Vlastní autorizace na základě zásad](xref:security/authorization/policies)
+* [Custom policy-based authorization](xref:security/authorization/policies)

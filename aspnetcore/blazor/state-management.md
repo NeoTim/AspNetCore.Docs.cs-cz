@@ -9,12 +9,12 @@ ms.date: 10/15/2019
 no-loc:
 - Blazor
 uid: blazor/state-management
-ms.openlocfilehash: 408d44a3f2e81a165e8b786c6d2efc9329082e30
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 38ee5fccdf476f08c9f39d01b53c81b48eea04bf
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962830"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317186"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -74,7 +74,7 @@ Existují tři společná umístění pro trvalý stav v aplikaci Blazor Server.
 
 ### <a name="server-side-in-a-database"></a>Na straně serveru v databázi
 
-Pro trvalá trvalá data nebo pro všechna data, která musí být rozložená na více uživatelů nebo zařízení, je k nejlepší možnost databáze na straně serveru téměř určitě. Mezi možnosti patří:
+Pro trvalá trvalá data nebo pro všechna data, která musí být rozložená na více uživatelů nebo zařízení, je k nejlepší možnost databáze na straně serveru téměř určitě. Vaše možnosti jsou:
 
 * Relační databáze SQL
 * Úložiště hodnot klíčů
@@ -101,22 +101,22 @@ Informace o definování vzorů adres URL pomocí direktivy `@page` naleznete v 
 
 ### <a name="client-side-in-the-browser"></a>Klientská strana v prohlížeči
 
-Pro přechodná data, která uživatel aktivně vytváří, je běžným záložním úložištěm kolekce `localStorage` a `sessionStorage` prohlížeče. Pokud dojde k opuštění okruhu, nepotřebuje aplikace spravovat nebo vymazat uložený stav, což je výhodou pro úložiště na straně serveru.
+Pro přechodná data, která uživatel aktivně vytváří, je běžným záložním úložištěm `localStorage` a `sessionStorage` kolekce v prohlížeči. Pokud dojde k opuštění okruhu, nepotřebuje aplikace spravovat nebo vymazat uložený stav, což je výhodou pro úložiště na straně serveru.
 
 > [!NOTE]
 > "Klientská strana" v této části odkazuje na scénáře na straně klienta v prohlížeči, nikoli na [model hostováníBlazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly). `localStorage` a `sessionStorage` lze použít v aplikacích Blazor WebAssembly, ale pouze psaním vlastního kódu nebo pomocí balíčku třetí strany.
 
 `localStorage` a `sessionStorage` se liší následujícím způsobem:
 
-* `localStorage` je vymezen v prohlížeči uživatele. Pokud uživatel stránku znovu načte nebo zavře a znovu otevře prohlížeč, stav přetrvává. Pokud uživatel otevře více karet prohlížeče, stav se sdílí napříč kartami. Data přetrvají v `localStorage`, dokud je výslovně nevymažete.
-* `sessionStorage` je vymezen na kartě prohlížeče uživatele. Pokud uživatel znovu načte kartu, stav se přetrvá. Pokud uživatel zavře kartu nebo prohlížeč, dojde ke ztrátě stavu. Pokud uživatel otevře více karet prohlížeče, každá karta má svou vlastní nezávislou verzi dat.
+* `localStorage` je vymezen v prohlížeči uživatele. Pokud uživatel stránku znovu načte nebo zavře a znovu otevře prohlížeč, stav přetrvává. Pokud uživatel otevře více karet prohlížeče, stav se sdílí napříč kartami. Data v `localStorage` přetrvají, dokud je explicitně neodstraníte.
+* `sessionStorage` je vymezen na kartu prohlížeče uživatele. Pokud uživatel znovu načte kartu, stav se přetrvá. Pokud uživatel zavře kartu nebo prohlížeč, dojde ke ztrátě stavu. Pokud uživatel otevře více karet prohlížeče, každá karta má svou vlastní nezávislou verzi dat.
 
-Obecně je `sessionStorage` bezpečnější použít. `sessionStorage` vylučuje riziko, že uživatel otevře více karet a dojde k následujícímu:
+Obecně je `sessionStorage` bezpečnější použít. `sessionStorage` se vyhnete riziku, že uživatel otevře více karet a narazí na následující:
 
 * Chyby v úložišti stavů napříč kartami.
 * Matoucí chování, když karta Přepisuje stav jiných karet.
 
-`localStorage` je lepší volbou v případě, že aplikace musí zachovat stav v celém zavření a znovu otevřít prohlížeč.
+`localStorage` je lepší volbou v případě, že aplikace musí zachovat stav v rámci zavírání a znovu otevřít prohlížeč.
 
 Upozornění pro použití úložiště prohlížeče:
 
@@ -133,10 +133,10 @@ Je vhodné zvážit výběr balíčku, který transparentně používá [ochranu
 
 ## <a name="protected-browser-storage-experimental-package"></a>Experimentální balíček chráněného úložiště prohlížeče
 
-Příkladem balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-protection/introduction) pro `localStorage` a `sessionStorage`, je [Microsoft. AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).
+Příklad balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-protection/introduction) pro `localStorage` a `sessionStorage` je [Microsoft. AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).
 
 > [!WARNING]
-> `Microsoft.AspNetCore.ProtectedBrowserStorage` je nepodporovaný experimentální balíček nevhodný pro produkční použití v tuto chvíli.
+> `Microsoft.AspNetCore.ProtectedBrowserStorage` je nepodporovaný experimentální balíček nevhodný pro použití v produkčním prostředí.
 
 ### <a name="installation"></a>Instalace
 
@@ -149,7 +149,7 @@ Instalace balíčku `Microsoft.AspNetCore.ProtectedBrowserStorage`:
    <script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
    ```
 
-1. V metodě `Startup.ConfigureServices` zavolejte `AddProtectedBrowserStorage` a přidejte do kolekce služeb služby `localStorage` a `sessionStorage`:
+1. V metodě `Startup.ConfigureServices` volejte `AddProtectedBrowserStorage` a přidejte `localStorage` a `sessionStorage` služby do kolekce služeb:
 
    ```csharp
    services.AddProtectedBrowserStorage();
@@ -162,7 +162,7 @@ V každé součásti, která vyžaduje načtení nebo uložení dat do úložiš
 * `ProtectedLocalStorage`
 * `ProtectedSessionStorage`
 
-Volba závisí na tom, které záložní úložiště chcete použít. V následujícím příkladu je použit `sessionStorage`:
+Volba závisí na tom, které záložní úložiště chcete použít. V následujícím příkladu se používá `sessionStorage`:
 
 ```cshtml
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -171,7 +171,7 @@ Volba závisí na tom, které záložní úložiště chcete použít. V násled
 
 Příkaz `@using` lze umístit do souboru *_Imports. Razor* místo do součásti. Použití souboru *_Imports. Razor* zpřístupňuje obor názvů pro větší segmenty aplikace nebo celé aplikace.
 
-Chcete-li zachovat hodnotu `currentCount` v komponentě `Counter` šablony projektu, upravte metodu `IncrementCount` tak, aby používala `ProtectedSessionStore.SetAsync`:
+Chcete-li zachovat hodnotu `currentCount` v součásti `Counter` šablony projektu, upravte metodu `IncrementCount` na použití `ProtectedSessionStore.SetAsync`:
 
 ```csharp
 private async Task IncrementCount()
@@ -181,11 +181,11 @@ private async Task IncrementCount()
 }
 ```
 
-Ve větších a realističtějších aplikacích je ukládání jednotlivých polí nepravděpodobné. Pro aplikace je pravděpodobnější ukládání celých objektů modelu, které zahrnují komplexní stav. `ProtectedSessionStore` automaticky serializace a deserializace dat JSON.
+Ve větších a realističtějších aplikacích je ukládání jednotlivých polí nepravděpodobné. Pro aplikace je pravděpodobnější ukládání celých objektů modelu, které zahrnují komplexní stav. `ProtectedSessionStore` automaticky serializovat a deserializovat data JSON.
 
 V předchozím příkladu kódu se `currentCount` data ukládají jako `sessionStorage['count']` v prohlížeči uživatele. Data nejsou uložená ve formátu prostého textu, ale jsou chráněná pomocí [ochrany dat](xref:security/data-protection/introduction)ASP.NET Core. Zašifrovaná data lze zobrazit, pokud je `sessionStorage['count']` vyhodnocována v konzole pro vývojáře v prohlížeči.
 
-Chcete-li obnovit data `currentCount`, pokud se uživatel vrátí do komponenty `Counter` později (včetně toho, jestli se nachází na zcela novém okruhu), použijte `ProtectedSessionStore.GetAsync`:
+Chcete-li obnovit `currentCount` data v případě, že se uživatel vrátí do `Counter` komponenty později (včetně, pokud jsou na zcela novém okruhu), použijte `ProtectedSessionStore.GetAsync`:
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -194,7 +194,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-Pokud parametry komponenty obsahují navigační stav, volejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v `OnParametersSetAsync`, ne `OnInitializedAsync`. `OnInitializedAsync` se volá pouze jednou při prvním vytvoření instance komponenty. `OnInitializedAsync` se nevolá znovu později, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce.
+Pokud parametry komponenty obsahují navigační stav, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v `OnParametersSetAsync`, nikoli `OnInitializedAsync`. `OnInitializedAsync` se volá pouze jednou při prvním vytvoření instance komponenty. `OnInitializedAsync` se později nevolá, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce.
 
 > [!WARNING]
 > Příklady v této části fungují pouze v případě, že server nemá povolené předvykreslování. Pokud je povoleno předvykreslování, je vygenerována chyba podobná této:
@@ -235,15 +235,25 @@ Během předvykreslování:
 * Interaktivní připojení k prohlížeči uživatele neexistuje.
 * Prohlížeč ještě nemá stránku, ve které může spustit kód jazyka JavaScript.
 
-Při předvykreslování nejsou k dispozici `localStorage` nebo `sessionStorage`. Pokud se komponenta pokusí o interakci s úložištěm, je vygenerována chyba podobná této:
+`localStorage` nebo `sessionStorage` nejsou během předvykreslování k dispozici. Pokud se komponenta pokusí o interakci s úložištěm, je vygenerována chyba podobná této:
 
 > V tuto chvíli nelze vydat volání interoperability JavaScriptu. Důvodem je to, že se komponenta předem vykreslí.
 
-Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předběžné vykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah, dokud nebude k dispozici `localStorage` nebo `sessionStorage`.
+Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předvykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah, dokud nebudou k dispozici `localStorage` nebo `sessionStorage`.
+
+::: moniker range=">= aspnetcore-3.1"
+
+Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte volání `render-mode` pomocníka značky `Component` na `Server`.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
 
 Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte volání na `Html.RenderComponentAsync<App>(RenderMode.Server)`.
 
-Předběžné vykreslování může být užitečné pro jiné stránky, které nepoužívají `localStorage` nebo `sessionStorage`. Aby bylo možné předvykreslování povolit, odložte operaci načtení, dokud se prohlížeč nepřipojí k okruhu. Následuje příklad uložení hodnoty čítače:
+::: moniker-end
+
+Předvykreslování může být užitečné pro jiné stránky, které nepoužívají `localStorage` ani `sessionStorage`. Aby bylo možné předvykreslování povolit, odložte operaci načtení, dokud se prohlížeč nepřipojí k okruhu. Následuje příklad uložení hodnoty čítače:
 
 ```cshtml
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -284,7 +294,7 @@ Předběžné vykreslování může být užitečné pro jiné stránky, které 
 
 Pokud mnoho komponent spoléhá na úložiště založené na prohlížeči, často se kód zprostředkovatele stavu znovu implementuje vytvořením duplicit kódu. Jednou z možností, jak zabránit duplikaci kódu, je vytvoření *nadřazené komponenty poskytovatele stavu* , která zapouzdřuje logiku poskytovatele stavu. Podřízené komponenty mohou pracovat s trvalými daty bez ohledu na mechanismus trvalosti stavu.
 
-V následujícím příkladu komponenty `CounterStateProvider` jsou data čítače trvalá:
+V následujícím příkladu `CounterStateProvider` komponenty jsou data čítače trvalá:
 
 ```cshtml
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
@@ -324,7 +334,7 @@ else
 
 Komponenta `CounterStateProvider` zpracovává fázi načítání tím, že nevykresluje svůj podřízený obsah, dokud není načítání dokončeno.
 
-Chcete-li použít komponentu `CounterStateProvider`, zabalte instanci součásti kolem jakékoli jiné součásti, která vyžaduje přístup ke stavu čítače. Pokud chcete, aby byl stav přístupný pro všechny součásti aplikace, zabalte součást `CounterStateProvider` kolem `Router` v součásti `App` (*App. Razor*):
+Chcete-li použít komponentu `CounterStateProvider`, zabalte instanci součásti kolem jakékoli jiné komponenty, která vyžaduje přístup ke stavu čítače. Chcete-li zpřístupnit stav pro všechny součásti aplikace, zabalte `CounterStateProvider` komponentu kolem `Router` v součásti `App` (*App. Razor*):
 
 ```cshtml
 <CounterStateProvider>
@@ -355,9 +365,9 @@ Zabalené komponenty obdrží a můžou upravovat trvalý stav čítače. Násle
 }
 ```
 
-Předchozí komponenta není nutná k interakci s `ProtectedBrowserStorage` ani nefunguje se fází "načítání".
+Předchozí komponenta není nutná k interakci s `ProtectedBrowserStorage`, ani nefunguje se fází "načítání".
 
-Pokud chcete řešit předběžné vykreslování, jak je popsáno výše, `CounterStateProvider` se dá změnit tak, aby všechny komponenty, které data čítače spotřebují automaticky, fungovaly s předvykreslováním. Podrobnosti najdete v části o [předvykreslování popisovače](#handle-prerendering) .
+Chcete-li se vypořádat s předem popsaným způsobem, `CounterStateProvider` lze změnit tak, aby všechny komponenty, které data čítače spotřebují automaticky, pracovaly s předvykreslováním. Podrobnosti najdete v části o [předvykreslování popisovače](#handle-prerendering) .
 
 Obecně se doporučuje model *nadřazené komponenty zprostředkovatele stavu* :
 

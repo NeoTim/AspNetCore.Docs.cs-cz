@@ -4,25 +4,25 @@ author: bradygaster
 description: V tomto kurzu vytvoříte aplikaci Chat, která používá ASP.NET Core SignalR.
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: ac727ed0517a8b30fd8194c010576fdd74a5950a
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 55ebdbfa4556deca74a6cdf0638307425cd1a01a
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/13/2019
-ms.locfileid: "74052860"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317489"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-opno-locsignalr"></a>Kurz: Začínáme s ASP.NET Core SignalR
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí SignalR. Získáte informace o následujících postupech:
+V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí SignalR. Získáte informace o těchto tématech:
 
 > [!div class="checklist"]
-> * Vytvořte webový projekt.
+> * Vytvoření webového projektu.
 > * Přidejte klientskou knihovnu SignalR.
 > * Vytvořte centrum SignalR.
 > * Nakonfigurujte projekt tak, aby používal SignalR.
@@ -93,7 +93,7 @@ Knihovna SignalR serveru je součástí sdílené architektury ASP.NET Core 3,0.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
-* V **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt a vyberte **Přidat** > **Klientská knihovna**.
+* V **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt a vyberte **Přidat** > **knihovny na straně klienta**.
 
 * V dialogovém okně **přidat knihovnu na straně klienta** vyberte pro **poskytovatele** možnost **unpkg**.
 
@@ -253,10 +253,10 @@ SignalR Server musí být nakonfigurován tak, aby předával žádosti SignalR 
 
 ::: moniker range="< aspnetcore-3.0"
 
-V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí SignalR. Získáte informace o následujících postupech: 
+V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí SignalR. Získáte informace o těchto tématech: 
 
 > [!div class="checklist"]  
-> * Vytvořte webový projekt.   
+> * Vytvoření webového projektu.   
 > * Přidejte klientskou knihovnu SignalR.   
 > * Vytvořte centrum SignalR. 
 > * Nakonfigurujte projekt tak, aby používal SignalR. 
@@ -324,11 +324,11 @@ Knihovna SignalR serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. 
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)  
 
-* V **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt a vyberte **Přidat** > **Klientská knihovna**.  
+* V **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt a vyberte **Přidat** > **knihovny na straně klienta**.  
 
 * V dialogovém okně **přidat knihovnu na straně klienta** vyberte pro **poskytovatele** možnost **unpkg**. 
 
-* V případě **knihovny**zadejte `@aspnet/signalr@1` a vyberte nejnovější verzi, která není ve verzi Preview. 
+* V případě **knihovny**zadejte `@microsoft/signalr@3`a vyberte nejnovější verzi, která není ve verzi Preview.  
 
   ![Dialogové okno Přidat knihovnu na straně klienta – výběr knihovny](signalr/_static/2.x/libman1.png)   
 
@@ -351,7 +351,7 @@ Knihovna SignalR serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. 
 * Spusťte následující příkaz, který načte knihovnu klienta SignalR pomocí LibMan. Než začnete výstup zobrazovat, možná budete muset počkat několik sekund. 
 
   ```console    
-  libman install @aspnet/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js    
+  libman install @microsoft/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js 
   ```   
 
   Parametry určují následující možnosti: 
@@ -364,7 +364,7 @@ Knihovna SignalR serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. 
   ```console    
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk   
   wwwroot/lib/signalr/dist/browser/signalr.min.js written to disk   
-  Installed library "@aspnet/signalr@1.0.3" to "wwwroot/lib/signalr"    
+  Installed library "@microsoft/signalr@3.0.1" to "wwwroot/lib/signalr" 
   ```   
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)   
@@ -380,7 +380,7 @@ Knihovna SignalR serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. 
 * Spusťte následující příkaz, který načte knihovnu klienta SignalR pomocí LibMan.    
 
   ```console    
-  libman install @aspnet/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js    
+  libman install @microsoft/signalr -p unpkg -d wwwroot/lib/signalr --files dist/browser/signalr.js --files dist/browser/signalr.min.js 
   ```   
 
   Parametry určují následující možnosti: 
@@ -393,7 +393,7 @@ Knihovna SignalR serveru je obsažena v `Microsoft.AspNetCore.App` Metapackage. 
   ```console    
   wwwroot/lib/signalr/dist/browser/signalr.js written to disk   
   wwwroot/lib/signalr/dist/browser/signalr.min.js written to disk   
-  Installed library "@aspnet/signalr@1.0.3" to "wwwroot/lib/signalr"    
+  Installed library "@microsoft/signalr@3.x.x" to "wwwroot/lib/signalr" 
   ```   
 
 --- 
@@ -454,17 +454,17 @@ SignalR Server musí být nakonfigurován tak, aby předával žádosti SignalR 
 
 * V integrovaném terminálu spusťte následující příkaz:    
 
-  ```dotnetcli  
-  dotnet run -p SignalRChat.csproj  
-  ```   
+  ```dotnetcli
+  dotnet run -p SignalRChat.csproj
+  ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)   
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* V nabídce vyberte **spustit > spustit bez ladění**.  
+* V nabídce vyberte **spustit > spustit bez ladění**.
 
---- 
+---
 
-* Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.    
+* Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.
 
 * Zvolte buď prohlížeč, zadejte jméno a zprávu a klikněte na tlačítko **Odeslat zprávu** .  
 
@@ -475,7 +475,7 @@ SignalR Server musí být nakonfigurován tak, aby předával žádosti SignalR 
 > [!TIP]    
 > Pokud aplikace nefunguje, otevřete nástroje pro vývojáře v prohlížeči (F12) a pokračujte na konzolu. Můžou se zobrazit chyby týkající se kódu HTML a JavaScriptu. Předpokládejme například, že umístíte *signál. js* do jiné složky než směrovaná. V takovém případě odkaz na tento soubor nebude fungovat a v konzole se zobrazí chyba 404.   
 > Chyba ![signaler. js nebyla nalezena](signalr/_static/2.x/f12-console.png)    
-## <a name="additional-resources"></a>Další zdroje 
+## <a name="additional-resources"></a>Další zdroje informací: 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=iKlVmu-r0JQ)   
 
 ::: moniker-end

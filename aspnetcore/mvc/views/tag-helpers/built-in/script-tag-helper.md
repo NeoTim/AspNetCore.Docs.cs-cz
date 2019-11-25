@@ -6,12 +6,12 @@ description: Seznamte se s atributy pomocníka značky skriptu ASP.NET Core a ro
 ms.custom: mvc
 ms.date: 12/18/2018
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
-ms.openlocfilehash: 5f2fb8a45048804afa8aff2989cd53489e45a33b
-ms.sourcegitcommit: fae6f0e253f9d62d8f39de5884d2ba2b4b2a6050
+ms.openlocfilehash: c3d9148bd62dcc045873cc3a72884ae458349d70
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71256496"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317124"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>Pomocník značek Script v ASP.NET Core
 
@@ -23,45 +23,30 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Pomocná značka skriptu umožňuje zadat síť CDN pro soubor skriptu a zálohu, pokud CDN není k dispozici. Pomocník značek Script poskytuje výkonnou výhodu sítě CDN s odolností místního hostování.
 
-Následující kód Razor ukazuje `script` prvek souboru rozložení vytvořeného pomocí šablony ASP.NET Core webové aplikace:
+Následující kód Razor ukazuje `script` element s Fallback:
 
-[!code-html[](link-tag-helper/sample/_Layout.cshtml?name=snippet2)]
-
-Následující text je podobný vykreslenému HTML z předchozího kódu (v nevývojovém prostředí):
-
-[!code-csharp[](link-tag-helper/sample/HtmlPage2.html)]
-
-V předchozím kódu pomocník značky skriptu vygeneroval druhý element Script ( `<script>  (window.jQuery || document.write(`), který testuje pro. `window.jQuery` Pokud `window.jQuery` se nenajde, `document.write(` spustí a vytvoří skript. 
+```HTML
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+        asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+        asp-fallback-test="window.jQuery"
+        crossorigin="anonymous"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+</script>
+```
 
 ## <a name="commonly-used-script-tag-helper-attributes"></a>Běžně používané pomocné atributy značek skriptů
 
 Viz [Pomocník značek Script](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) pro všechny pomocné atributy, vlastnosti a metody značky skriptu.
 
-### <a name="href"></a>href
+### <a name="asp-fallback-test"></a>ASP – Fallback-test
 
-Upřednostňovaná adresa propojeného prostředku Adresa je předána na vygenerovaný kód HTML ve všech případech.
+Metoda skriptu definovaná v primárním skriptu pro použití pro záložní test. Další informace najdete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackTestExpression>.
 
-### <a name="asp-fallback-href"></a>ASP – Fallback – href
+### <a name="asp-fallback-src"></a>ASP – Fallback – src
 
-Adresa URL šablony stylů CSS, na kterou se má přejít v případě, že primární adresa URL není úspěšná
+Adresa URL značky skriptu, na kterou se má přejít v případě, že primární z nich selhala Další informace najdete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackSrc>.
 
-### <a name="asp-fallback-test-class"></a>ASP – Fallback-test-třída
-
-Název třídy definovaný v šabloně stylů, která se má použít pro záložní test. Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestClass>.
-
-### <a name="asp-fallback-test-property"></a>ASP – Fallback-test-vlastnost
-
-Název vlastnosti CSS, který má být použit pro záložní test. Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestProperty>.
-
-### <a name="asp-fallback-test-value"></a>ASP – Fallback-test-hodnota
-
-Hodnota vlastnosti CSS, která má být použita pro záložní test. Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestValue>.
-
-### <a name="asp-fallback-test-value"></a>ASP – Fallback-test-hodnota
-
-Hodnota vlastnosti CSS, která má být použita pro záložní test. Další informace najdete v tématu.<xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestValue>
-
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * <xref:mvc/views/tag-helpers/intro>
 * <xref:mvc/controllers/areas>

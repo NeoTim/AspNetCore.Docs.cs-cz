@@ -8,8 +8,6 @@
 
 **[Pomocník značek prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)**
 
-**[FormActionTagHelper](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
-
 **[Pomocník značek formuláře](xref:mvc/views/working-with-forms#the-form-tag-helper)**
 
 **[Pomocná rutina značky akce formuláře](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
@@ -20,13 +18,11 @@
 
 **[Pomocník značek Label](xref:mvc/views/working-with-forms#the-label-tag-helper)**
 
-**[LinkTagHelper](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
-
-[comment]: **[OptionTagHelper](xref:mvc/views/tag-helpers/builtin-th/option-tag-helper)**
-
-**[ScriptTagHelper](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
+**[Pomocník značek odkazů](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
 
 **[Pomocník s částečnou značkou](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)**
+
+**[Pomocník značek Script](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
 
 **[Vybrat pomocníka značek](xref:mvc/views/working-with-forms#the-select-tag-helper)**
 

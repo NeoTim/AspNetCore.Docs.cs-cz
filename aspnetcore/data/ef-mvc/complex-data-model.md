@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: 313d951ccdd45ae1209ffd9612d24738822fbed8
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: b8b1ade4c8c29d34200bf8c0944cff6adec0bb95
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259607"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74288952"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>Kurz: vytvoření složitého datového modelu – ASP.NET MVC pomocí EF Core
 
@@ -22,7 +22,7 @@ Až budete hotovi, třídy entit vytvoří dokončený datový model, který je 
 
 ![Diagram entit](complex-data-model/_static/diagram.png)
 
-V tomto kurzu:
+V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
 > * Přizpůsobení datového modelu
@@ -38,7 +38,7 @@ V tomto kurzu:
 > * Změna připojovacího řetězce
 > * Aktualizace databáze
 
-## <a name="prerequisites"></a>Požadované součásti
+## <a name="prerequisites"></a>Požadavky
 
 * [Použití migrace EF Core](migrations.md)
 
@@ -48,13 +48,13 @@ V této části se dozvíte, jak přizpůsobit datový model pomocí atributů, 
 
 ### <a name="the-datatype-attribute"></a>Atribut DataType
 
-Pro data o registraci studenta se aktuálně zobrazují všechny webové stránky, které jsou aktuálně současně s datem, i když jsou pro toto pole k disstará data. Pomocí atributů datových poznámek můžete vytvořit jednu změnu kódu, která bude opravovat formát zobrazení v každém zobrazení, které zobrazuje data. Chcete-li zobrazit příklad toho, jak to provést, přidáte atribut do vlastnosti `EnrollmentDate` ve třídě `Student`.
+Pro data o registraci studenta se aktuálně zobrazují všechny webové stránky, které jsou aktuálně současně s datem, i když jsou pro toto pole k disstará data. Pomocí atributů datových poznámek můžete vytvořit jednu změnu kódu, která bude opravovat formát zobrazení v každém zobrazení, které zobrazuje data. Chcete-li zobrazit příklad, jak to provést, přidáte atribut do vlastnosti `EnrollmentDate` ve třídě `Student`.
 
-V *modelech/student. cs*přidejte příkaz `using` pro obor názvů `System.ComponentModel.DataAnnotations` a přidejte atributy `DataType` a `DisplayFormat` do vlastnosti `EnrollmentDate`, jak je znázorněno v následujícím příkladu:
+V *modelech/student. cs*přidejte příkaz `using` pro obor názvů `System.ComponentModel.DataAnnotations` a přidejte `DataType` a `DisplayFormat` atributů do vlastnosti `EnrollmentDate`, jak je znázorněno v následujícím příkladu:
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_DataType&highlight=3,12-13)]
 
-Atribut `DataType` slouží k zadání datového typu, který je konkrétnější než vnitřní typ databáze. V tomto případě chceme sledovat pouze datum, nikoli datum a čas. Výčet `DataType` poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. Atribut `DataType` může aplikaci povolit také automatické poskytování funkcí specifických pro typ. Například odkaz `mailto:` lze vytvořit pro `DataType.EmailAddress` a selektor data lze pro `DataType.Date` zadat v prohlížečích, které podporují HTML5. Atribut `DataType` emituje atributy HTML 5 `data-` (vyslovení data Přerušované čárky), které mohou prohlížeče HTML 5 pochopit. Atributy `DataType` neposkytují žádné ověření.
+Atribut `DataType` slouží k zadání datového typu, který je konkrétnější než vnitřní typ databáze. V tomto případě chceme sledovat pouze datum, nikoli datum a čas. Výčet `DataType` poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. Atribut `DataType` může také povolit aplikaci automatické poskytování funkcí specifických pro typ. Například odkaz `mailto:` lze vytvořit pro `DataType.EmailAddress`a selektor data lze zadat pro `DataType.Date` v prohlížečích, které podporují HTML5. Atribut `DataType` emituje atributy HTML 5 `data-` (vyslovované datové přerušované), které mohou prohlížeče HTML 5 pochopit. Atributy `DataType` neposkytují žádné ověřování.
 
 `DataType.Date` neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech na základě objektu CultureInfo serveru.
 
@@ -64,15 +64,15 @@ Atribut `DisplayFormat` slouží k explicitnímu zadání formátu data:
 [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 ```
 
-Nastavení `ApplyFormatInEditMode` určuje, že formátování by se mělo použít i v případě, že se hodnota zobrazí v textovém poli pro úpravy. (Možná nebudete chtít, aby se pro některá pole, například pro hodnoty měny, nemuseli v textovém poli pro úpravy chtít symbol měny.)
+Nastavení `ApplyFormatInEditMode` určuje, zda má být formátování použito také v případě, že je hodnota zobrazena v textovém poli pro úpravy. (Možná nebudete chtít, aby se pro některá pole, například pro hodnoty měny, nemuseli v textovém poli pro úpravy chtít symbol měny.)
 
-Můžete použít atribut `DisplayFormat` samotný, ale obecně je vhodné použít atribut `DataType` také. Atribut `DataType` předává sémantiku dat na rozdíl od způsobu vykreslování na obrazovce a poskytuje následující výhody, které nezískáte pomocí `DisplayFormat`:
+Můžete použít atribut `DisplayFormat` sám o sobě, ale obecně je vhodné použít atribut `DataType` také. Atribut `DataType` předává sémantiku dat na rozdíl od způsobu vykreslování na obrazovce a poskytuje následující výhody, které nezískáte pomocí `DisplayFormat`:
 
 * Prohlížeč může povolit funkce HTML5 (například pro zobrazení ovládacího prvku kalendáře, symbolu měny odpovídající národním prostředí, e-mailových odkazů, některých ověření vstupu na straně klienta atd.).
 
 * Ve výchozím nastavení bude prohlížeč data vykreslovat pomocí správného formátu na základě vašeho národního prostředí.
 
-Další informace najdete v dokumentaci k [pomocníka značek \<input >](../../mvc/views/working-with-forms.md#the-input-tag-helper).
+Další informace najdete v dokumentaci k [pomocníka značek\<input >](../../mvc/views/working-with-forms.md#the-input-tag-helper).
 
 Spusťte aplikaci, klikněte na stránku indexu studentů a Všimněte si, že časy se už nezobrazuje pro data registrace. Totéž platí pro všechna zobrazení, která používají model studenta.
 
@@ -80,13 +80,13 @@ Spusťte aplikaci, klikněte na stránku indexu studentů a Všimněte si, že �
 
 ### <a name="the-stringlength-attribute"></a>Atribut StringLength
 
-Můžete také zadat pravidla ověřování dat a chybové zprávy ověřování pomocí atributů. Atribut `StringLength` nastavuje maximální délku v databázi a poskytuje ověřování na straně klienta a na straně serveru pro ASP.NET Core MVC. V tomto atributu můžete také zadat minimální délku řetězce, ale minimální hodnota nemá žádný vliv na schéma databáze.
+Můžete také zadat pravidla ověřování dat a chybové zprávy ověřování pomocí atributů. Atribut `StringLength` nastaví maximální délku v databázi a poskytuje ověřování na straně klienta a na straně serveru pro ASP.NET Core MVC. V tomto atributu můžete také zadat minimální délku řetězce, ale minimální hodnota nemá žádný vliv na schéma databáze.
 
-Předpokládejme, že chcete zajistit, aby uživatelé nezadali více než 50 znaků pro název. Chcete-li toto omezení přidat, přidejte `StringLength` atributů do vlastností `LastName` a `FirstMidName`, jak je znázorněno v následujícím příkladu:
+Předpokládejme, že chcete zajistit, aby uživatelé nezadali více než 50 znaků pro název. Chcete-li přidat toto omezení, přidejte `StringLength` atributy do vlastností `LastName` a `FirstMidName`, jak je znázorněno v následujícím příkladu:
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_StringLength&highlight=10,12)]
 
-Atribut `StringLength` nezabrání uživateli v zadání prázdného místa pro název. Pomocí atributu `RegularExpression` můžete použít omezení na vstup. Například následující kód vyžaduje, aby první znak byl velkými písmeny a aby zbývající znaky byly abecedně:
+Atribut `StringLength` nezabrání uživateli v zadání prázdného místa pro název. Můžete použít atribut `RegularExpression` pro použití omezení na vstup. Například následující kód vyžaduje, aby první znak byl velkými písmeny a aby zbývající znaky byly abecedně:
 
 ```csharp
 [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
@@ -106,7 +106,7 @@ dotnet ef migrations add MaxLengthOnNames
 dotnet ef database update
 ```
 
-Příkaz `migrations add` se upozorní na to, že může dojít ke ztrátě dat, protože změna způsobí, že maximální délka bude kratší pro dva sloupce.  Migrace vytvoří soubor s názvem *\<timeStamp > _MaxLengthOnNames. cs*. Tento soubor obsahuje kód v metodě `Up`, která bude aktualizovat databázi tak, aby odpovídala aktuálnímu datovému modelu. Příkaz `database update` spustil tento kód.
+Příkaz `migrations add` upozorní na to, že může dojít ke ztrátě dat, protože změna činí maximální délku pro dva sloupce.  Migrace vytvoří soubor s názvem *\<časové razítko > _MaxLengthOnNames. cs*. Tento soubor obsahuje kód v metodě `Up`, který bude aktualizovat databázi tak, aby odpovídala aktuálnímu datovému modelu. Příkaz `database update` spustil tento kód.
 
 Časové razítko s předponou názvu souboru migrace se používá Entity Framework k seřazení migrace. Před spuštěním příkazu Update-Database můžete vytvořit více migrací a všechny migrace pak budou aplikovány v pořadí, ve kterém byly vytvořeny.
 
@@ -114,11 +114,11 @@ Spusťte aplikaci, vyberte kartu **Students** , klikněte na **vytvořit novou**
 
 ### <a name="the-column-attribute"></a>Atribut Column
 
-Můžete také použít atributy pro řízení způsobu, jakým jsou třídy a vlastnosti namapovány na databázi. Předpokládejme, že jste použili název `FirstMidName` pro pole jméno a příjmení, protože pole může obsahovat také prostřední jméno. Ale chcete, aby sloupec databáze byl pojmenován `FirstName`, protože uživatelé, kteří budou psát ad hoc dotazy na databázi, jsou zvyklí na tento název. Chcete-li toto mapování provést, můžete použít atribut `Column`.
+Můžete také použít atributy pro řízení způsobu, jakým jsou třídy a vlastnosti namapovány na databázi. Předpokládejme, že jste použili název `FirstMidName` pro pole jméno a příjmení, protože pole může obsahovat také prostřední jméno. Ale chcete, aby se sloupec databáze jmenoval `FirstName`, protože uživatelé, kteří budou psát ad hoc dotazy na databázi, jsou zvyklí na tento název. Chcete-li toto mapování provést, můžete použít atribut `Column`.
 
-Atribut `Column` určuje, že při vytvoření databáze bude sloupec tabulky `Student`, který se mapuje na vlastnost `FirstMidName`, pojmenován `FirstName`. Jinými slovy, pokud váš kód odkazuje na `Student.FirstMidName`, data budou pocházet ze sloupce `FirstName` tabulky `Student` nebo je aktualizovat. Pokud neurčíte názvy sloupců, budou mít stejný název jako název vlastnosti.
+Atribut `Column` určuje, že při vytvoření databáze bude sloupec `Student` tabulky, která je mapována na vlastnost `FirstMidName`, pojmenován `FirstName`. Jinými slovy, pokud váš kód odkazuje na `Student.FirstMidName`, data budou pocházet z nebo aktualizována ve sloupci `FirstName` tabulky `Student`. Pokud neurčíte názvy sloupců, budou mít stejný název jako název vlastnosti.
 
-V souboru *student.cs* přidejte příkaz `using` pro `System.ComponentModel.DataAnnotations.Schema` a přidejte atribut název sloupce do vlastnosti `FirstMidName`, jak je znázorněno v následujícím zvýrazněném kódu:
+V souboru *student.cs* přidejte příkaz `using` pro `System.ComponentModel.DataAnnotations.Schema` a přidejte atribut název sloupce do vlastnosti `FirstMidName`, jak ukazuje následující zvýrazněný kód:
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_Column&highlight=4,14)]
 
@@ -147,29 +147,30 @@ Před použitím prvních dvou migrací byly sloupce názvu typu nvarchar (MAX).
 
 ![Entita studenta](complex-data-model/_static/student-entity.png)
 
-V *modelu/student. cs*nahraďte kód, který jste přidali dříve, následujícím kódem. Změny jsou zvýrazněny.
+V *modelu/student. cs*nahraďte kód, který jste přidali dříve, následujícím kódem. Změny jsou zvýrazněné.
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_BeforeInheritance&highlight=11,13,15,18,22,24-31)]
 
 ### <a name="the-required-attribute"></a>Požadovaný atribut
 
-Atribut `Required` zpřístupňuje vlastnosti název povinná pole. Atribut `Required` není potřebný pro typy, které nejsou null, jako jsou například typy hodnot (DateTime, int, Double, float atd.). Typy, které nemůžou mít hodnotu null, se automaticky považují za povinná pole.
+Atribut `Required` vytváří pole vlastnosti názvu Required. Atribut `Required` není potřebný pro typy, které neumožňují hodnotu null, jako jsou například typy hodnot (DateTime, int, Double, float atd.). Typy, které nemůžou mít hodnotu null, se automaticky považují za povinná pole.
 
-Můžete odebrat atribut `Required` a nahradit ho parametrem minimální délky pro atribut `StringLength`:
+Atribut `Required` musí být použit s `MinimumLength` pro vymáhání `MinimumLength`.
 
 ```csharp
 [Display(Name = "Last Name")]
-[StringLength(50, MinimumLength=1)]
+[Required]
+[StringLength(50, MinimumLength=2)]
 public string LastName { get; set; }
 ```
 
 ### <a name="the-display-attribute"></a>Atribut zobrazení
 
-Atribut `Display` určuje, že titulek pro textová pole by měl být "jméno", "příjmení", "celé jméno" a "datum zápisu" místo názvu vlastnosti v každé instanci (což nemá mezeru dělená slova).
+Atribut `Display` určuje, že titulek pro textová pole by měl být "křestní jméno", "příjmení", "celé jméno" a "datum zápisu" místo názvu vlastnosti v každé instanci (která nemá mezeru dělit slova).
 
 ### <a name="the-fullname-calculated-property"></a>Vypočítaná vlastnost FullName
 
-`FullName` je vypočtená vlastnost, která vrací hodnotu, která je vytvořena zřetězením dvou dalších vlastností. Proto má pouze přistupující objekt get a v databázi nebude vygenerován žádný sloupec `FullName`.
+`FullName` je vypočtená vlastnost, která vrací hodnotu, která je vytvořena zřetězením dvou dalších vlastností. Proto má pouze přistupující objekt get a v databázi nebude vygenerován žádný `FullName` sloupec.
 
 ## <a name="create-instructor-entity"></a>Vytvořit entitu instruktora
 
@@ -181,7 +182,7 @@ Vytvořte *modely/Instructor. cs*a nahraďte kód šablony následujícím kóde
 
 Všimněte si, že několik vlastností je stejné v entitách student a instruktor. V kurzu [Implementace dědičnosti](inheritance.md) níže v této sérii můžete tento kód Refaktorovat, aby se vyloučila redundance.
 
-Můžete umístit více atributů na jeden řádek, takže můžete také napsat `HireDate` atributů následujícím způsobem:
+Můžete umístit více atributů na jeden řádek, takže můžete také zapsat `HireDate` atributy následujícím způsobem:
 
 ```csharp
 [DataType(DataType.Date),Display(Name = "Hire Date"),DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -199,9 +200,9 @@ public ICollection<CourseAssignment> CourseAssignments { get; set; }
 
 Pokud navigační vlastnost může obsahovat více entit, musí být její typ seznam, ve kterém je možné přidávat, odstraňovat a aktualizovat položky.  Můžete zadat `ICollection<T>` nebo typ, jako je například `List<T>` nebo `HashSet<T>`. Pokud zadáte `ICollection<T>`, EF vytvoří ve výchozím nastavení kolekci `HashSet<T>`.
 
-Důvod, proč jsou tyto entity `CourseAssignment`, jsou vysvětleny níže v části o relacích m:n.
+Důvod, proč jsou tyto entity `CourseAssignment`, jsou vysvětleny níže v části o relacích n:n.
 
-Společnosti Contoso vysokých obchodních pravidel, že instruktor může mít jenom jednu kancelář, takže vlastnost `OfficeAssignment` obsahuje jednu entitu OfficeAssignment (která může mít hodnotu null, pokud není přiřazená žádná sada Office).
+Obchodní pravidla společnosti Contoso vysokých firem, že instruktor může mít jenom jednu kancelář, takže vlastnost `OfficeAssignment` obsahuje jednu entitu OfficeAssignment (která může být null, pokud není přiřazená žádná sada Office).
 
 ```csharp
 public OfficeAssignment OfficeAssignment { get; set; }
@@ -217,38 +218,38 @@ Vytvořte *modely/OfficeAssignment. cs* s následujícím kódem:
 
 ### <a name="the-key-attribute"></a>Klíčový atribut
 
-Mezi instruktorem a entitami OfficeAssignment existuje vztah 1:1 nebo jedna. Přiřazení kanceláře existuje pouze ve vztahu k instruktorovi, kterému je přiřazeno, a proto jeho primární klíč je také cizí klíč k entitě instruktor. Entity Framework ale nemůžou automaticky rozpoznat InstructorID jako primární klíč této entity, protože jeho název nedodržuje zásady vytváření názvů classnameID. Proto atribut `Key` slouží k jeho identifikaci jako klíč:
+Mezi instruktorem a entitami OfficeAssignment existuje vztah 1:1 nebo jedna. Přiřazení kanceláře existuje pouze ve vztahu k instruktorovi, kterému je přiřazeno, a proto jeho primární klíč je také cizí klíč k entitě instruktor. Entity Framework ale nemůžou automaticky rozpoznat InstructorID jako primární klíč této entity, protože jeho název nedodržuje zásady vytváření názvů classnameID. Proto atribut `Key` slouží k identifikaci jako klíč:
 
 ```csharp
 [Key]
 public int InstructorID { get; set; }
 ```
 
-Můžete také použít atribut `Key`, pokud má entita svůj vlastní primární klíč, ale chcete vlastnost pojmenovat jinou než classnameID nebo ID.
+Atribut `Key` můžete použít také v případě, že má entita svůj vlastní primární klíč, ale chcete vlastnost pojmenovat jinou než classnameID nebo ID.
 
 Ve výchozím nastavení EF považuje klíč za generovaný nedatabází, protože sloupec je určen pro identifikaci vztahu.
 
 ### <a name="the-instructor-navigation-property"></a>Navigační vlastnost instruktora
 
-Entita instruktora má povolenou vlastnost OfficeAssignment-0 s možnou @no__t hodnotou null (protože instruktor nemusí mít přiřazený Office) a entita má vlastnost navigace, která nemůže mít hodnotu null `Instructor` (protože přiřazení sady Office nemůže existovat bez instruktor--`InstructorID` je jiný než null. Pokud má entita instruktora související entitu OfficeAssignment, bude mít Každá entita odkaz na jinou entitu v její navigační vlastnosti.
+Entita instruktora má `OfficeAssignment` navigační vlastnost s možnou hodnotou null (protože instruktor nemusí mít přiřazený Office) a entita OfficeAssignment má vlastnost navigace, která nemůže mít hodnotu null `Instructor` (protože přiřazení kanceláře nemůže existovat bez typu instruktor--`InstructorID` nemůže mít hodnotu null). Pokud má entita instruktora související entitu OfficeAssignment, bude mít Každá entita odkaz na jinou entitu v její navigační vlastnosti.
 
-Můžete umístit atribut `[Required]` do navigační vlastnosti instruktora a určit tak, že musí existovat související instruktor, ale nemusíte to dělat, protože cizí klíč `InstructorID` (což je také klíč k této tabulce) může mít hodnotu null.
+Můžete umístit atribut `[Required]` do navigační vlastnosti instruktora a určit tak, že se musí jednat o související instruktor, ale nemusíte to dělat, protože `InstructorID` cizí klíč (což je také klíč k této tabulce), který není null.
 
 ## <a name="modify-course-entity"></a>Upravit entitu kurzu
 
 ![Entita kurzu](complex-data-model/_static/course-entity.png)
 
-V *modelu/Course. cs*nahraďte kód, který jste přidali dříve, následujícím kódem. Změny jsou zvýrazněny.
+V *modelu/Course. cs*nahraďte kód, který jste přidali dříve, následujícím kódem. Změny jsou zvýrazněné.
 
 [!code-csharp[](intro/samples/cu/Models/Course.cs?name=snippet_Final&highlight=2,10,13,16,19,21,23)]
 
-Entita kurzu má vlastnost cizího klíče `DepartmentID`, která odkazuje na související entitu oddělení a má vlastnost navigace `Department`.
+Entita kurzu má vlastnost cizího klíče `DepartmentID` která odkazuje na související entitu oddělení a má `Department` navigační vlastnost.
 
-Entity Framework nevyžaduje, abyste do datového modelu přidali vlastnost cizího klíče, když máte vlastnost navigace pro související entitu.  EF v databázi automaticky vytvoří cizí klíče bez ohledu na to, kde jsou potřeba, a vytvoří pro ně [vlastnosti stínu](/ef/core/modeling/shadow-properties) . Ale při používání cizího klíče v datovém modelu může být aktualizace jednodušší a efektivnější. Když například načtete entitu kurzu, která se má upravit, entita oddělení má hodnotu null, pokud ji nenačtete, takže když aktualizujete entitu kurzu, budete muset nejdřív načíst entitu oddělení. Pokud je v datovém modelu zahrnutá vlastnost cizího klíče `DepartmentID`, nepotřebujete před aktualizací načíst entitu oddělení.
+Entity Framework nevyžaduje, abyste do datového modelu přidali vlastnost cizího klíče, když máte vlastnost navigace pro související entitu.  EF v databázi automaticky vytvoří cizí klíče bez ohledu na to, kde jsou potřeba, a vytvoří pro ně [vlastnosti stínu](/ef/core/modeling/shadow-properties) . Ale při používání cizího klíče v datovém modelu může být aktualizace jednodušší a efektivnější. Když například načtete entitu kurzu, která se má upravit, entita oddělení má hodnotu null, pokud ji nenačtete, takže když aktualizujete entitu kurzu, budete muset nejdřív načíst entitu oddělení. Pokud je v datovém modelu zahrnutá vlastnost cizího klíče `DepartmentID`, nemusíte před aktualizací načítat entitu oddělení.
 
 ### <a name="the-databasegenerated-attribute"></a>Atribut DatabaseGenerated
 
-Atribut `DatabaseGenerated` s parametrem `None` u vlastnosti `CourseID` určuje, že uživatel zadá hodnoty primárního klíče místo vygenerovaného databází.
+Atribut `DatabaseGenerated` s parametrem `None` u vlastnosti `CourseID` určuje, že uživatel bude poskytovat hodnoty primárního klíče, a ne vygenerované databází.
 
 ```csharp
 [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -264,20 +265,20 @@ Atribut `DatabaseGenerated` lze také použít ke generování výchozích hodno
 
 Vlastnosti cizího klíče a navigační vlastnosti v entitě kurzu odrážejí následující vztahy:
 
-Kurz se přiřadí jednomu oddělení, takže existuje @no__t cizí klíč a vlastnost navigace `Department` z výše uvedených důvodů.
+Kurz se přiřadí jednomu oddělení, takže je `DepartmentID` cizí klíč a vlastnost navigace `Department` z výše uvedených důvodů.
 
 ```csharp
 public int DepartmentID { get; set; }
 public Department Department { get; set; }
 ```
 
-V rámci kurzu může být zaregistrované několik studentů, takže navigační vlastnost `Enrollments` je kolekce:
+Kurz může mít zaregistrovaný libovolný počet studentů, takže navigační vlastnost `Enrollments` je kolekce:
 
 ```csharp
 public ICollection<Enrollment> Enrollments { get; set; }
 ```
 
-Kurz může být výukou více instruktory, takže navigační vlastnost `CourseAssignments` je kolekce (typ `CourseAssignment` je vysvětlen [později](#many-to-many-relationships)):
+Kurz může být výukou více instruktory, takže `CourseAssignments` navigační vlastnost je kolekce (typ `CourseAssignment` je vysvětlen [později](#many-to-many-relationships)):
 
 ```csharp
 public ICollection<CourseAssignment> CourseAssignments { get; set; }
@@ -300,13 +301,13 @@ Dříve jste použili atribut `Column` ke změně mapování názvu sloupce. V k
 public decimal Budget { get; set; }
 ```
 
-Mapování sloupce není obecně vyžadováno, protože Entity Framework zvolí vhodný SQL Server datový typ založený na typu CLR, který definujete pro vlastnost. Typ CLR `decimal` se mapuje na typ SQL Server `decimal`. Ale v tomto případě víte, že se ve sloupci budou držet peněžní částky, a datový typ Money je pro to vhodnější.
+Mapování sloupce není obecně vyžadováno, protože Entity Framework zvolí vhodný SQL Server datový typ založený na typu CLR, který definujete pro vlastnost. Typ CLR `decimal` namapuje na typ `decimal` SQL Server. Ale v tomto případě víte, že se ve sloupci budou držet peněžní částky, a datový typ Money je pro to vhodnější.
 
 ### <a name="foreign-key-and-navigation-properties"></a>Vlastnosti cizích klíčů a navigace
 
 Vlastnosti cizího klíče a navigace odrážejí následující vztahy:
 
-Oddělení může nebo nemusí mít správce a správce je vždy instruktorem. Proto je vlastnost `InstructorID` zahrnutá jako cizí klíč k entitě Instructor a otazník se přidá za označení typu `int` k označení vlastnosti jako Nullable. Navigační vlastnost má název `Administrator`, ale obsahuje entitu instruktora:
+Oddělení může nebo nemusí mít správce a správce je vždy instruktorem. Proto je vlastnost `InstructorID` obsažena jako cizí klíč pro entitu instruktor a otazník je přidána za označení `int` typu k označení vlastnosti jako Nullable. Navigační vlastnost má název `Administrator`, ale obsahuje entitu instruktora:
 
 ```csharp
 public int? InstructorID { get; set; }
@@ -320,7 +321,7 @@ public ICollection<Course> Courses { get; set; }
 ```
 
 > [!NOTE]
-> Podle konvence Entity Framework umožňuje odstranit Kaskádové odstraňování cizích klíčů, které neumožňují hodnotu null, a pro relace m:n. Výsledkem může být cyklická kaskádová odstranění pravidel, která způsobí výjimku při pokusu o přidání migrace. Pokud jste například nedefinovali vlastnost oddělení. InstructorID jako Nullable, EF by nakonfigurovala pravidlo kaskádového odstranění, které odstraní oddělení, když odstraníte instruktora, což nevede k tomu, co chcete mít. Pokud vaše obchodní pravidla vyžadují, aby vlastnost `InstructorID` nebyla null, museli byste pomocí následujícího příkazu rozhraní API Fluent zakázat kaskádové odstranění v relaci:
+> Podle konvence Entity Framework umožňuje odstranit Kaskádové odstraňování cizích klíčů, které neumožňují hodnotu null, a pro relace m:n. Výsledkem může být cyklická kaskádová odstranění pravidel, která způsobí výjimku při pokusu o přidání migrace. Pokud jste například nedefinovali vlastnost oddělení. InstructorID jako Nullable, EF by nakonfigurovala pravidlo kaskádového odstranění, které odstraní oddělení, když odstraníte instruktora, což nevede k tomu, co chcete mít. Pokud vaše obchodní pravidla vyžadují, aby vlastnost `InstructorID` nebyla null, je nutné použít následující příkaz rozhraní API Fluent k zakázání kaskádových odstranění v relaci:
 >
 > ```csharp
 > modelBuilder.Entity<Department>()
@@ -341,14 +342,14 @@ V *modelů/zápisu. cs*nahraďte kód, který jste přidali dříve, pomocí ná
 
 Vlastnosti cizího klíče a vlastnosti navigace odrážejí následující vztahy:
 
-Záznam zápisu je pro jeden kurz, takže existuje vlastnost cizího klíče `CourseID` a vlastnost navigace `Course`:
+Záznam zápisu je pro jeden kurz, takže existuje `CourseID` vlastnost cizího klíče a vlastnost navigace `Course`:
 
 ```csharp
 public int CourseID { get; set; }
 public Course Course { get; set; }
 ```
 
-Záznam zápisu je určen pro jednoho studenta, takže existuje vlastnost cizího klíče `StudentID` a vlastnost navigace `Student`:
+Záznam zápisu je určen pro jednoho studenta, takže existuje `StudentID` vlastnost cizího klíče a `Student` navigační vlastnost:
 
 ```csharp
 public int StudentID { get; set; }
@@ -385,7 +386,7 @@ V databázi je vyžadována tabulka JOIN pro relaci n:n typu n:1 a musí být re
 
 Vzhledem k tomu, že cizí klíče neumožňují hodnotu null a společně jednoznačně identifikují každý řádek tabulky, není nutné používat samostatný primární klíč. Vlastnosti *InstructorID* a *CourseID* by měly fungovat jako složený primární klíč. Jediným způsobem, jak identifikovat složené primární klíče k EF, je použití *rozhraní Fluent API* (nemůže být provedeno pomocí atributů). V další části se dozvíte, jak nakonfigurovat složený primární klíč.
 
-Složený klíč zajišťuje, že i když můžete mít více řádků pro jeden kurz a více řádků pro jednoho instruktora, nemůžete mít pro stejný instruktor a kurz více řádků. Entita spojení `Enrollment` definuje vlastní primární klíč, takže je možné duplikovat toto řazení. Aby tyto duplicity nedocházelo, mohli byste do polí cizího klíče přidat jedinečný index nebo nakonfigurovat `Enrollment` s primárním kombinovaným klíčem podobným `CourseAssignment`. Další informace najdete v tématu [indexy](/ef/core/modeling/indexes).
+Složený klíč zajišťuje, že i když můžete mít více řádků pro jeden kurz a více řádků pro jednoho instruktora, nemůžete mít pro stejný instruktor a kurz více řádků. Entita `Enrollment` JOIN definuje svůj vlastní primární klíč, takže je možné duplicity tohoto řazení provést. Aby tyto duplicity nedocházelo, mohli byste do polí cizího klíče přidat jedinečný index nebo `Enrollment` nakonfigurovat primární složený klíč podobný `CourseAssignment`. Další informace najdete v tématu [indexy](/ef/core/modeling/indexes).
 
 ## <a name="update-the-database-context"></a>Aktualizace kontextu databáze
 
@@ -408,7 +409,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-V tomto kurzu používáte rozhraní Fluent API jenom pro mapování databáze, které nemůžete s atributy dělat. Rozhraní Fluent API ale můžete použít i k určení většiny pravidel formátování, ověřování a mapování, která můžete provádět pomocí atributů. Některé atributy, jako je například `MinimumLength`, nelze použít s rozhraním API Fluent. Jak již bylo uvedeno výše, `MinimumLength` nezmění schéma, používá pouze pravidlo ověřování na straně klienta a serveru.
+V tomto kurzu používáte rozhraní Fluent API jenom pro mapování databáze, které nemůžete s atributy dělat. Rozhraní Fluent API ale můžete použít i k určení většiny pravidel formátování, ověřování a mapování, která můžete provádět pomocí atributů. Některé atributy, jako je `MinimumLength`, se nedají použít s rozhraním API Fluent. Jak již bylo zmíněno dříve, `MinimumLength` nemění schéma, používá pouze pravidlo ověřování na straně klienta a serveru.
 
 Někteří vývojáři dávají přednost použití rozhraní Fluent API, aby mohli zachovat třídy entit "vyčistit". V případě potřeby můžete kombinovat atributy a rozhraní API Fluent a existuje několik úprav, které je možné provést jenom pomocí rozhraní Fluent API, ale obecně doporučujeme zvolit jednu z těchto dvou přístupů a použít ji konzistentně co nejvíce. Pokud použijete obojí, mějte na paměti, že pokud dojde ke konfliktu, rozhraní Fluent API Přepisuje atributy.
 
@@ -420,7 +421,7 @@ Následující ilustrace znázorňuje diagram, který nástroje Entity Framework
 
 ![Diagram entit](complex-data-model/_static/diagram.png)
 
-Kromě řádků relace 1:1 (1 až \*) uvidíte tu čáru relace 1:1 a OfficeAssignment (1 – 0.. 1) mezi entitami instruktor a a řádkem relace nula-a 1:1 (0.. 1 do *) mezi. Entity instruktor a oddělení.
+Kromě řádků relace 1:1 (1 až \*) se tady můžete podívat na řádek relace 1:1 (1 – 0.1) mezi entitami instruktor a OfficeAssignment a řádkem relace 0.. 1 – n mezi entitami instruktora a oddělení (0.. 1 až *).
 
 ## <a name="seed-database-with-test-data"></a>Počáteční databáze s testovacími daty
 
@@ -428,7 +429,7 @@ Nahraďte kód v souboru *data/DbInitializer. cs* následujícím kódem, aby by
 
 [!code-csharp[](intro/samples/cu/Data/DbInitializer.cs?name=snippet_Final)]
 
-Jak jste viděli v prvním kurzu, většina tohoto kódu jednoduše vytvoří nové objekty entity a načte vzorová data do vlastností podle potřeby pro testování. Všimněte si, jak jsou zpracovávány relace m:n: kód vytvoří relace vytvořením entit v sadách entit `Enrollments` a `CourseAssignment`.
+Jak jste viděli v prvním kurzu, většina tohoto kódu jednoduše vytvoří nové objekty entity a načte vzorová data do vlastností podle potřeby pro testování. Všimněte si, jak jsou zpracovávány relace m:n: kód vytvoří relace vytvořením entit v `Enrollments` a `CourseAssignment` spojí sady entit.
 
 ## <a name="add-a-migration"></a>Přidání migrace
 
@@ -445,13 +446,13 @@ An operation was scaffolded that may result in the loss of data. Please review t
 Done. To undo this action, use 'ef migrations remove'
 ```
 
-Pokud jste se v tomto okamžiku pokusili spustit příkaz `database update` (ještě to neuděláte), zobrazí se následující chyba:
+Pokud jste se v tomto okamžiku pokusili spustit příkaz `database update`, měli byste obdržet následující chybu:
 
-> Příkaz ALTER TABLE je v konfliktu s omezením CIZÍho klíče "FK_dbo". Course_dbo. Department_DepartmentID". Ke konfliktu došlo v databázi "ContosoUniversity", tabulce "dbo". Oddělení ", sloupec" DepartmentID ".
+> Příkaz ALTER TABLE je v konfliktu s omezením CIZÍho klíče FK_dbo. Course_dbo. Department_DepartmentID ". Ke konfliktu došlo v databázi "ContosoUniversity", tabulce "dbo". Oddělení ", sloupec" DepartmentID ".
 
-Při provádění migrace s existujícími daty je někdy potřeba vložit do databáze zástupná data, aby bylo možné splnit omezení cizího klíče. Vygenerovaný kód v metodě `Up` přidá do tabulky kurzů DepartmentID cizí klíč, který nemůže mít hodnotu null. Pokud se v tabulce kurzu již nacházejí řádky, když je kód spuštěn, operace `AddColumn` se nezdařila, protože SQL Server neví, jakou hodnotu umístit do sloupce, který nemůže mít hodnotu null. Pro účely tohoto kurzu spustíte migraci na nové databázi, ale v produkční aplikaci, kterou byste museli udělat, aby migrace zpracovala existující data, takže následující pokyny ukazují příklad toho, jak to udělat.
+Při provádění migrace s existujícími daty je někdy potřeba vložit do databáze zástupná data, aby bylo možné splnit omezení cizího klíče. Generovaný kód v metodě `Up` přidá do tabulky Course DepartmentID cizí klíč, který nemůže mít hodnotu null. Pokud se v tabulce kurzu již nacházejí řádky, když je kód spuštěn, operace `AddColumn` nebude úspěšná, protože SQL Server neví, jakou hodnotu umístit do sloupce, který nemůže mít hodnotu null. Pro účely tohoto kurzu spustíte migraci na nové databázi, ale v produkční aplikaci, kterou byste museli udělat, aby migrace zpracovala existující data, takže následující pokyny ukazují příklad toho, jak to udělat.
 
-Pokud chcete, aby tato migrace fungovala se stávajícími daty, je nutné změnit kód tak, aby nový sloupec poskytoval výchozí hodnotu, a vytvořit oddělení zástupných procedur s názvem "Temp", které bude fungovat jako výchozí oddělení. V důsledku toho budou existující řádky kurzu v souvislosti s oddělením "dočasné" po spuštění metody `Up`.
+Pokud chcete, aby tato migrace fungovala se stávajícími daty, je nutné změnit kód tak, aby nový sloupec poskytoval výchozí hodnotu, a vytvořit oddělení zástupných procedur s názvem "Temp", které bude fungovat jako výchozí oddělení. V důsledku toho budou existující řádky kurzu po spuštění metody `Up` v relaci k "dočasnému" oddělení.
 
 * Otevřete soubor *{timestamp} _ComplexDataModel. cs* .
 
@@ -469,7 +470,7 @@ Uložte změny a sestavte projekt.
 
 ## <a name="change-the-connection-string"></a>Změna připojovacího řetězce
 
-Nyní máte nový kód ve třídě `DbInitializer`, která přidá počáteční data pro nové entity do prázdné databáze. Chcete-li, aby EF vytvořil novou prázdnou databázi, změňte název databáze v připojovacím řetězci v souboru *appSettings. JSON* na ContosoUniversity3 nebo na jiný název, který jste nepoužili na počítači, který používáte.
+Nyní máte nový kód ve třídě `DbInitializer`, který přidá počáteční data pro nové entity do prázdné databáze. Chcete-li, aby EF vytvořil novou prázdnou databázi, změňte název databáze v připojovacím řetězci v souboru *appSettings. JSON* na ContosoUniversity3 nebo na jiný název, který jste nepoužili na počítači, který používáte.
 
 ```json
 {
@@ -489,13 +490,13 @@ Uložte změnu do souboru *appSettings. JSON*.
 
 ## <a name="update-the-database"></a>Aktualizace databáze
 
-Po změně názvu databáze nebo odstranění databáze spusťte v příkazovém okně příkaz `database update` a spusťte tak migrace.
+Poté, co jste změnili název databáze nebo odstranili databázi, spusťte příkaz `database update` v příkazovém okně a spusťte tak migrace.
 
 ```dotnetcli
 dotnet ef database update
 ```
 
-Spusťte aplikaci, která způsobí spuštění metody `DbInitializer.Initialize` a naplňte ji do nové databáze.
+Spusťte aplikaci, aby byla metoda `DbInitializer.Initialize` spuštěna a naplnila novou databázi.
 
 Otevřete databázi v SSOX jako dříve a rozbalte uzel **tabulky** , abyste viděli, že se vytvořily všechny tabulky. (Pokud máte stále SSOX otevřený ze staršího času, klikněte na tlačítko **aktualizovat** .)
 
@@ -513,7 +514,7 @@ Klikněte pravým tlačítkem na tabulku **CourseAssignment** a vyberte **Zobraz
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu:
+V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
 > * Přizpůsobení datového modelu

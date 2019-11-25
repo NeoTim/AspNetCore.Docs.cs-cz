@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/11/2018
 uid: fundamentals/httpcontext
-ms.openlocfilehash: 888adf6d61e6968127385952e65f942e86b7eb63
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: 0bf40f9cd2554f5ba01ccc06001fa4f1940d51a5
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288978"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289053"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>Přístup HttpContext v ASP.NET Core
 
-ASP.NET Core aplikace přistupují k `HttpContext` prostřednictvím rozhraní [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) a jeho výchozí [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor)implementace. Pokud potřebujete přístup ke `HttpContext` v rámci služby, je nutné použít `IHttpContextAccessor`.
+Aplikace ASP.NET Core přistupují k `HttpContext` prostřednictvím rozhraní [IHttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.ihttpcontextaccessor) a jeho výchozí [HttpContextAccessor](/dotnet/api/microsoft.aspnetcore.http.httpcontextaccessor)implementace. Je potřeba použít `IHttpContextAccessor` jenom v případě, že potřebujete přístup k `HttpContext` v rámci služby.
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -66,7 +66,7 @@ public class HomeController : Controller
 
 ## <a name="use-httpcontext-from-middleware"></a>Použití HttpContext z middlewaru
 
-Při práci s vlastními součástmi middlewaru se `HttpContext` předává do metody `Invoke` nebo `InvokeAsync` a je možné k nim přihlédnout při konfiguraci middlewaru:
+Při práci s vlastními součástmi middlewaru se `HttpContext` předává do metody `Invoke` nebo `InvokeAsync` a lze k nim přihlédnout, pokud je nakonfigurován middleware:
 
 ```csharp
 public class MyCustomMiddleware
@@ -80,7 +80,7 @@ public class MyCustomMiddleware
 
 ## <a name="use-httpcontext-from-custom-components"></a>Použití HttpContext z vlastních komponent
 
-Pro jiné architektury a vlastní součásti, které vyžadují přístup k `HttpContext`, je doporučený přístup k registraci závislosti pomocí integrovaného kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Kontejner pro vkládání závislostí poskytuje `IHttpContextAccessor` do jakékoliv třídy, které ji deklaruje jako závislost v jejich konstruktorech.
+Pro jiné architektury a vlastní součásti, které vyžadují přístup k `HttpContext`, je doporučený přístup k registraci závislosti pomocí integrovaného kontejneru [Injektáže v závislosti](xref:fundamentals/dependency-injection) . Kontejner pro vkládání závislostí poskytuje `IHttpContextAccessor` do jakékoliv třídy, které ji deklaruje jako závislost v jejich konstruktorech.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -134,22 +134,22 @@ public class UserRepository : IUserRepository
 
 ## <a name="httpcontext-access-from-a-background-thread"></a>HttpContext přístupu z vlákna na pozadí
 
-`HttpContext` není bezpečná pro přístup z více vláken. Čtení nebo zápis vlastností `HttpContext` mimo zpracování požadavku může mít za následek `NullReferenceException`.
+`HttpContext` není bezpečný pro přístup z více vláken. Čtení nebo zápis vlastností `HttpContext` mimo zpracování požadavku může mít za následek `NullReferenceException`.
 
 > [!NOTE]
 > Použití `HttpContext` mimo zpracování požadavku často vede k `NullReferenceException`. Pokud vaše aplikace generuje občasné `NullReferenceException`s, Projděte si část kódu, která spouští zpracování na pozadí nebo pokračuje v zpracování po dokončení žádosti. Vyhledejte chyby, jako je například definování metody kontroleru jako `async void`.
 
-Chcete-li bezpečně provádět práci na pozadí s daty `HttpContext`:
+Bezpečné provádění práce na pozadí s `HttpContext`mi daty:
 
 * Během zpracování žádosti zkopírujte požadovaná data.
 * Předejte zkopírovaná data do úlohy na pozadí.
 
-Aby nedocházelo k nebezpečnému kódu, nikdy nepředávejte `HttpContext` do metody, která provádí práci na pozadí, a místo toho předejte data, která potřebujete.
+Aby nedocházelo k nebezpečnému kódu, nikdy předejte `HttpContext` do metody, která provádí práci na pozadí – předejte data, která potřebujete.
 
 ```csharp
-public class EmailController
+public class EmailController : Controller
 {
-    public ActionResult SendEmail(string email)
+    public IActionResult SendEmail(string email)
     {
         var correlationId = HttpContext.Request.Headers["x-correlation-id"].ToString();
 

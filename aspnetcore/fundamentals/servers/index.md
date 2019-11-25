@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: fundamentals/servers/index
-ms.openlocfilehash: e542dd4506eb77f949c0c87bea3044397bbb1b8f
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: d46793ef54c99fe609b5983c5a658fb7b20032fa
+ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799396"
+ms.lasthandoff: 11/21/2019
+ms.locfileid: "74289066"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementace webového serveru v ASP.NET Core
 
@@ -22,7 +22,7 @@ Aplikace ASP.NET Core běží s implementací vnitroprocesového serveru HTTP. I
 
 ## <a name="kestrel"></a>Kestrel
 
-Kestrel je výchozí webový server zahrnutý v ASP.NET Core šablonách projektů.
+Kestrel je výchozí webový server určený ASP.NET Core šablonami projektů.
 
 Použijte Kestrel:
 
@@ -124,7 +124,7 @@ Informace o tom, jak používat Nginx v systému Linux jako reverzní proxy serv
 
 ### <a name="apache-with-kestrel"></a>Apache s Kestrel
 
-Informace o tom, jak používat Apache v systému Linux jako reverzní proxy server pro Kestrel, najdete v článku <xref:host-and-deploy/linux-apache>.
+Informace o tom, jak používat Apache v systému Linux jako reverzní proxy server pro Kestrel, najdete v tématu <xref:host-and-deploy/linux-apache>.
 
 ## <a name="httpsys"></a>HTTP.sys
 
@@ -140,25 +140,25 @@ Pokyny k konfiguraci HTTP. sys najdete v tématu <xref:fundamentals/servers/http
 
 ## <a name="aspnet-core-server-infrastructure"></a>Serverová infrastruktura ASP.NET Core
 
-<xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> k dispozici v metodě `Startup.Configure` zpřístupňuje vlastnost <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ServerFeatures> typu <xref:Microsoft.AspNetCore.Http.Features.IFeatureCollection>. Kestrel a HTTP. sys zveřejňují jenom jednu funkci, <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>, ale jiné implementace serveru můžou vystavovat další funkce.
+<xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> k dispozici v metodě `Startup.Configure` zpřístupňuje vlastnost <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ServerFeatures> typu <xref:Microsoft.AspNetCore.Http.Features.IFeatureCollection>. Kestrel a HTTP. sys zveřejňují jenom jednu funkci, <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>, ale různé implementace serveru můžou vystavovat další funkce.
 
-`IServerAddressesFeature` se dá použít k zjištění, který port má implementace serveru vázaná za běhu.
+`IServerAddressesFeature` lze použít k zjištění, který port má implementace serveru svázána za běhu.
 
 ## <a name="custom-servers"></a>Vlastní servery
 
-Pokud vestavěné servery nesplňují požadavky aplikace, je možné vytvořit vlastní implementaci serveru. [Průvodce rozhraním Open Web Interface for .NET (Owin)](xref:fundamentals/owin) ukazuje, jak vytvořit implementaci <xref:Microsoft.AspNetCore.Hosting.Server.IServer> založenou na [Nowin](https://github.com/Bobris/Nowin). Jenom rozhraní funkcí, které aplikace používá, vyžaduje implementaci, i když minimálně <xref:Microsoft.AspNetCore.Http.Features.IHttpRequestFeature> a <xref:Microsoft.AspNetCore.Http.Features.IHttpResponseFeature> musí být podporované.
+Pokud vestavěné servery nesplňují požadavky aplikace, je možné vytvořit vlastní implementaci serveru. [Průvodce rozhraním Open Web Interface for .NET (Owin)](xref:fundamentals/owin) ukazuje, jak napsat implementaci <xref:Microsoft.AspNetCore.Hosting.Server.IServer> založenou na [Nowin](https://github.com/Bobris/Nowin). Jenom rozhraní funkcí, které aplikace používá, vyžaduje implementaci, i když na minimální <xref:Microsoft.AspNetCore.Http.Features.IHttpRequestFeature> a <xref:Microsoft.AspNetCore.Http.Features.IHttpResponseFeature> musí být podporované.
 
 ## <a name="server-startup"></a>Spuštění serveru
 
 Server se spustí, když integrované vývojové prostředí (IDE) nebo editor spustí aplikaci:
 
-* Spouštěcí profily sady [Visual Studio](https://visualstudio.microsoft.com) &ndash; můžete použít ke spuštění aplikace a serveru pomocí modulu [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)/[ASP.NET Core](xref:host-and-deploy/aspnet-core-module) nebo konzoly.
-* [Visual Studio Code](https://code.visualstudio.com/) &ndash; aplikace a Server jsou spouštěny pomocí [omnisharp](https://github.com/OmniSharp/omnisharp-vscode), který aktivuje ladicí program CoreCLR.
+* K spuštění aplikace a serveru pomocí modulu [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)/[ASP.NET Core](xref:host-and-deploy/aspnet-core-module) nebo konzoly můžete použít profily spuštění sady [Visual Studio](https://visualstudio.microsoft.com) &ndash;.
+* [Visual Studio Code](https://code.visualstudio.com/) &ndash; aplikace a Server spouští [omnisharp](https://github.com/OmniSharp/omnisharp-vscode), který aktivuje ladicí program CoreCLR.
 * [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/) &ndash; aplikace a Server jsou spouštěny pomocí [ladicího programu mono v tichém režimu](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/).
 
 Při spuštění aplikace z příkazového řádku ve složce projektu spustí [dotnet spuštění](/dotnet/core/tools/dotnet-run) aplikace a serveru (jenom Kestrel a http. sys). Konfigurace je určena možností `-c|--configuration`, která je nastavena na hodnotu `Debug` (výchozí) nebo `Release`.
 
-Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s `dotnet run` nebo pomocí ladicího programu, který je integrovaný do nástrojů, jako je například Visual Studio. Pokud jsou v souboru *launchSettings. JSON* přítomné spouštěcí profily, použijte možnost `--launch-profile {PROFILE NAME}` s příkazem`dotnet run` nebo vyberte profil v aplikaci Visual Studio. Další informace najdete v tématu věnovaném vytváření balíčků [dotnet](/dotnet/core/tools/dotnet-run) a [balíčku pro distribuci .NET Core](/dotnet/core/build/distribution-packaging).
+Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s `dotnet run` nebo pomocí ladicího programu, který je integrovaný do nástrojů, jako je například Visual Studio. Pokud jsou v souboru *launchSettings. JSON* přítomné spouštěcí profily, použijte možnost `--launch-profile {PROFILE NAME}` s příkazem `dotnet run` nebo vyberte profil v aplikaci Visual Studio. Další informace najdete v tématu věnovaném vytváření balíčků [dotnet](/dotnet/core/tools/dotnet-run) a [balíčku pro distribuci .NET Core](/dotnet/core/build/distribution-packaging).
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
@@ -176,10 +176,10 @@ Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s
   * Windows Server 2016/Windows 10 nebo novější
   * Cílová architektura: neplatí pro nasazení HTTP. sys.
 * [Služba IIS (v rámci procesu)](xref:host-and-deploy/iis/index#http2-support)
-  * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
+  * Windows Server 2016 nebo Windows 10 nebo novější; IIS 10 nebo novější.
   * Cílová architektura: .NET Core 2,2 nebo novější
 * [Služba IIS (mimo jiné procesy)](xref:host-and-deploy/iis/index#http2-support)
-  * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
+  * Windows Server 2016 nebo Windows 10 nebo novější; IIS 10 nebo novější.
   * Veřejná připojení hraničních serverů používají HTTP/2, ale připojení reverzního proxy serveru k Kestrel používá protokol HTTP/1.1.
   * Cílová architektura: neplatí pro nasazení mimo procesy služby IIS.
 
@@ -193,7 +193,7 @@ Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s
   * Windows Server 2016/Windows 10 nebo novější
   * Cílová architektura: neplatí pro nasazení HTTP. sys.
 * [Služba IIS (mimo jiné procesy)](xref:host-and-deploy/iis/index#http2-support)
-  * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
+  * Windows Server 2016 nebo Windows 10 nebo novější; IIS 10 nebo novější.
   * Veřejná připojení hraničních serverů používají HTTP/2, ale připojení reverzního proxy serveru k Kestrel používá protokol HTTP/1.1.
   * Cílová architektura: neplatí pro nasazení mimo procesy služby IIS.
 

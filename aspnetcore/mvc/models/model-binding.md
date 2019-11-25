@@ -4,14 +4,14 @@ author: rick-anderson
 description: Přečtěte si, jak vazba modelu v ASP.NET Core funguje a jak přizpůsobit jeho chování.
 ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
-ms.date: 05/31/2019
+ms.date: 11/15/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: aeb2da7e11df1eab5a17e2ae0a3971420c9383b4
-ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
+ms.openlocfilehash: a025419a5b4d2c2e3e5c5a7850df281ddd3164ea
+ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/31/2019
-ms.locfileid: "73190591"
+ms.lasthandoff: 11/18/2019
+ms.locfileid: "74155039"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
@@ -40,7 +40,7 @@ A aplikace obdrží požadavek s touto adresou URL:
 http://contoso.com/api/pets/2?DogsOnly=true
 ```
 
-Vazba modelu bude provedená, i když následující kroky potom, co systém směrování vybere metodu akce:
+Vazba modelu projde následujícím postupem a poté, co systém směrování vybere metodu akce:
 
 * Najde první parametr `GetByID`, celé číslo s názvem `id`.
 * Vyhledá z dostupných zdrojů v požadavku HTTP a v datech směrování najde `id` = "2".
@@ -185,7 +185,7 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 
 Aby bylo možné vytvořit vazby komplexního typu, musí mít veřejný výchozí konstruktor a veřejné vlastnosti s možností zápisu. Když dojde k vazbě modelu, instance třídy je vytvořena pomocí veřejného výchozího konstruktoru. 
 
-Pro každou vlastnost komplexního typu vyhledává vazba modelu zdroje pro *předponu vzoru názvu. property_name*. Pokud se nic nenajde, vyhledá jenom *Property_Name* bez předpony.
+Pro každou vlastnost komplexního typu vyhledá vazba modelu ve zdrojích *předponu vzoru názvu. property_name*. Pokud není nic nalezeno, vyhledá pouze *Property_Name* bez předpony.
 
 Pro svázání s parametrem je předpona názvem parametru. Pro vazbu na veřejnou vlastnost `PageModel` je předpona název veřejné vlastnosti. Některé atributy mají vlastnost `Prefix`, která umožňuje přepsat výchozí použití parametru nebo názvu vlastnosti.
 
@@ -279,7 +279,7 @@ Atribut `[Bind]` lze použít k ochraně před přeúčtováním ve scénáříc
 
 ## <a name="collections"></a>Kolekce
 
-Pro cíle, které jsou kolekcemi jednoduchých typů, vazba modelu vyhledá shody s *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
+Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
 
 * Předpokládejme, že parametr, který má být svázán, je pole s názvem `selectedCourses`:
 
@@ -324,7 +324,7 @@ Pro cíle, které jsou kolekcemi jednoduchých typů, vazba modelu vyhledá shod
 
 ## <a name="dictionaries"></a>slovníky
 
-U `Dictionary`ch cílů vyhledá vazba modelu shody *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
+U `Dictionary`ch cílů vyhledá vazba modelu shody pro *parameter_name* nebo *Property_Name*. Pokud se nenajde žádná shoda, vyhledá jeden z podporovaných formátů bez předpony. Příklad:
 
 * Předpokládejme, že cílový parametr je `Dictionary<int, string>` s názvem `selectedCourses`:
 

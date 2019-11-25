@@ -5,22 +5,24 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/21/2019
+ms.date: 11/21/2019
+no-loc:
+- Blazor
 uid: blazor/components
-ms.openlocfilehash: 8c228b168cdbd58928ef3f57ff26bc86e8dfc1ba
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 267a6f5aa96feeecc280238abbef86949750b07e
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73033984"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317203"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
-Aplikace Blazor jsou sestavené pomocí *komponent*. Součást je samostatně obsažený blok uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenta obsahuje značky HTML a logiku zpracování potřebnou k vkládání dat nebo reakci na události uživatelského rozhraní. Komponenty jsou flexibilní a odlehčené. Můžou být vnořené, opakovaně používané a sdílené mezi projekty.
+aplikace Blazor jsou sestaveny pomocí *komponent*. Součást je samostatně obsažený blok uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenta obsahuje značky HTML a logiku zpracování potřebnou k vkládání dat nebo reakci na události uživatelského rozhraní. Komponenty jsou flexibilní a odlehčené. Můžou být vnořené, opakovaně používané a sdílené mezi projekty.
 
 ## <a name="component-classes"></a>Třídy komponent
 
@@ -30,12 +32,12 @@ Název součásti musí začínat velkým znakem. Například *MyCoolComponent. 
 
 Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynamická logika vykreslování (například smyčky, podmíněné výrazy, výrazy) se přidá pomocí vložené C# syntaxe s názvem [Razor](xref:mvc/views/razor). Při kompilaci aplikace jsou značky kódu HTML a C# vykreslovací logiky převedeny na třídu součásti. Název generované třídy se shoduje s názvem souboru.
 
-Členy třídy komponenty jsou definovány v bloku `@code`. V bloku `@code` je stav součásti (vlastnosti, pole) zadán pomocí metod pro zpracování událostí nebo pro definování jiné logiky komponent. Je přípustný více než jeden blok `@code`.
+Členy třídy komponenty jsou definovány v `@code`ovém bloku. V bloku `@code` je stav součásti (vlastnosti, pole) zadán pomocí metod pro zpracování událostí nebo pro definování jiné logiky komponent. Je přípustný více než jeden blok `@code`.
 
 > [!NOTE]
-> V předchozích verzích Preview ASP.NET Core 3,0 byly `@functions` bloků použity pro stejný účel jako bloky `@code` v součástech Razor. bloky `@functions` nadále fungují v součástech Razor, ale doporučujeme použít blok `@code` v ASP.NET Core 3,0 Preview 6 nebo novějším.
+> V předchozích verzích Preview ASP.NET Core 3,0 byly `@functions` bloky použity pro stejný účel jako `@code` bloky v součástech Razor. bloky `@functions` nadále fungují v součástech Razor, ale doporučujeme použít blok `@code` v ASP.NET Core 3,0 Preview 6 nebo novějším.
 
-Členy součásti lze použít jako součást logiky vykreslování komponenty pomocí C# výrazů, které začínají na `@`. Například C# pole se vykreslí pomocí prefixování `@` na název pole. Následující příklad vyhodnocuje a vykresluje:
+Členy součásti lze použít jako součást logiky vykreslování komponenty pomocí C# výrazů, které začínají na `@`. Například C# pole se vykreslí pomocí předpony `@` názvu pole. Následující příklad vyhodnocuje a vykresluje:
 
 * `_headingFontStyle` k hodnotě vlastnosti CSS pro `font-style`.
 * `_headingText` k obsahu `<h1>` elementu.
@@ -49,9 +51,9 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 }
 ```
 
-Po prvním vykreslení komponenty vygeneruje komponenta znovu svůj strom vykreslování v reakci na události. Blazor pak porovná nový strom vykreslování s předchozí a použije všechny změny v model DOM (Document Object Model) v prohlížeči (DOM).
+Po prvním vykreslení komponenty vygeneruje komponenta znovu svůj strom vykreslování v reakci na události. Blazor pak porovná nový strom vykreslování s předchozí a použije všechny úpravy v prohlížeči model DOM (Document Object Model) (DOM).
 
-Komponenty jsou běžné C# třídy a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, jsou obvykle umístěny ve složce *stránky* . Komponenty mimo stránku jsou často umístěny ve *sdílené* složce nebo vlastní složce přidané do projektu. Chcete-li použít vlastní složku, přidejte obor názvů vlastní složky do nadřazené komponenty nebo do souboru *_Imports. Razor* aplikace. Například následující obor názvů zpřístupňuje komponenty ve složce *Components* , když je kořenový obor názvů aplikace `WebApplication`:
+Komponenty jsou běžné C# třídy a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, jsou obvykle umístěny ve složce *stránky* . Komponenty mimo stránku jsou často umístěny ve *sdílené* složce nebo vlastní složce přidané do projektu. Chcete-li použít vlastní složku, přidejte obor názvů vlastní složky buď do nadřazené komponenty, nebo do souboru *_Imports. Razor* aplikace. Například následující obor názvů zpřístupňuje komponenty ve složce *Components* , když je kořenový obor názvů aplikace `WebApplication`:
 
 ```cshtml
 @using WebApplication.Components
@@ -61,25 +63,68 @@ Komponenty jsou běžné C# třídy a lze je umístit kamkoli v rámci projektu.
 
 Použijte komponenty se stávajícími Razor Pages a MVC aplikacemi. Aby bylo možné použít součásti Razor, není nutné přepsat existující stránky ani zobrazení. Po vykreslení stránky nebo zobrazení jsou komponenty předem vygenerovány ve stejnou dobu.
 
-Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte pomocnou metodu HTML `RenderComponentAsync<TComponent>`:
+::: moniker range=">= aspnetcore-3.1"
+
+Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte pomocníka značky `Component`:
 
 ```cshtml
-<div id="MyComponent">
-    @(await Html.RenderComponentAsync<MyComponent>(RenderMode.ServerPrerendered))
-</div>
+<component type="typeof(Counter)" render-mode="ServerPrerendered" 
+    param-IncrementAmount="10" />
 ```
+
+`RenderMode` nakonfiguruje, jestli součást:
+
+* Je předem vykreslen na stránku.
+* Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor od uživatelského agenta.
+
+| `RenderMode`        | Popis |
+| ------------------- | ----------- |
+| `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro aplikaci Blazor Server. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. |
+| `Server`            | Vykreslí značku pro aplikaci Blazor serveru. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. |
+| `Static`            | Vykreslí komponentu do statického HTML. |
 
 I když stránky a zobrazení mohou používat komponenty, není tato konverzace pravdivá. Komponenty nemůžou používat scénáře zobrazení a stránky, jako jsou například částečná zobrazení a oddíly. Chcete-li použít logiku z částečného zobrazení v komponentě, rozložte logiku částečného zobrazení do komponenty.
 
-Další informace o tom, jak se komponenty vykreslují a stav komponenty se spravuje v aplikacích Blazor Server, najdete v článku o <xref:blazor/hosting-models>.
+Vykreslování součástí serveru ze statické stránky HTML není podporováno.
+
+Další informace o vykreslování komponent, stavu komponent a pomocníka značek `Component` naleznete v tématu <xref:blazor/hosting-models>.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.1"
+
+Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte pomocnou metodu `RenderComponentAsync<TComponent>` HTML:
+
+```cshtml
+@(await Html.RenderComponentAsync<MyComponent>(RenderMode.ServerPrerendered))
+```
+
+`RenderMode` nakonfiguruje, jestli součást:
+
+* Je předem vykreslen na stránku.
+* Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor od uživatelského agenta.
+
+| `RenderMode`        | Popis |
+| ------------------- | ----------- |
+| `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro aplikaci Blazor Server. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. Parametry nejsou podporovány. |
+| `Server`            | Vykreslí značku pro aplikaci Blazor serveru. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. Parametry nejsou podporovány. |
+| `Static`            | Vykreslí komponentu do statického HTML. Jsou podporovány parametry. |
+
+I když stránky a zobrazení mohou používat komponenty, není tato konverzace pravdivá. Komponenty nemůžou používat scénáře zobrazení a stránky, jako jsou například částečná zobrazení a oddíly. Chcete-li použít logiku z částečného zobrazení v komponentě, rozložte logiku částečného zobrazení do komponenty.
+
+Vykreslování součástí serveru ze statické stránky HTML není podporováno.
+
+Další informace o tom, jak se komponenty vykreslují, stav komponent a pomocníka `RenderComponentAsync` HTML, najdete v článku <xref:blazor/hosting-models>.
+
+::: moniker-end
 
 ## <a name="use-components"></a>Použití komponent
 
 Komponenty mohou zahrnovat další komponenty deklarováním pomocí syntaxe elementu HTML. Označení pro použití komponenty vypadá jako značka HTML, kde název značky je typ komponenty.
 
-Vazba atributu rozlišuje velká a malá písmena. Například `@bind` je platný a `@Bind` je neplatné.
+Vazba atributu rozlišuje velká a malá písmena. Například `@bind` je platný a `@Bind` je neplatný.
 
-Následující kód v *indexu. Razor* vykreslí instanci `HeadingComponent`:
+Následující kód v *indexu. Razor* vykresluje instanci `HeadingComponent`:
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/Index.razor?name=snippet_HeadingComponent)]
 
@@ -107,7 +152,7 @@ V následujícím příkladu `ParentComponent` nastaví hodnotu vlastnosti `Titl
 
 Komponenty mohou nastavit obsah jiné součásti. Součást přiřazení poskytuje obsah mezi značkami, které určují přijímací komponentu.
 
-V následujícím příkladu má `ChildComponent` vlastnost `ChildContent`, která představuje `RenderFragment`, která představuje segment uživatelského rozhraní, které se má vykreslit. Hodnota `ChildContent` je umístěna v označení komponenty, kde má být obsah vykreslen. Hodnota `ChildContent` je přijímána z nadřazené komponenty a vykreslena v `panel-body` panelu Bootstrap.
+V následujícím příkladu má `ChildComponent` vlastnost `ChildContent`, která představuje `RenderFragment`, která představuje segment uživatelského rozhraní pro vykreslení. Hodnota `ChildContent` je umístěna v označení komponenty, kde má být obsah vykreslen. Hodnota `ChildContent` je přijímána z nadřazené komponenty a vykreslena v `panel-body`panelu Bootstrap.
 
 *Components/ChildComponent. Razor*:
 
@@ -116,7 +161,7 @@ V následujícím příkladu má `ChildComponent` vlastnost `ChildContent`, kter
 > [!NOTE]
 > Vlastnost, která přijímá obsah `RenderFragment`, musí mít název `ChildContent` podle konvence.
 
-Následující `ParentComponent` může poskytnout obsah pro vykreslování `ChildComponent` umístěním obsahu uvnitř značek `<ChildComponent>`.
+Následující `ParentComponent` mohou poskytnout obsah pro vykreslování `ChildComponent` umístěním obsahu do značek `<ChildComponent>`.
 
 *Stránky/ParentComponent. Razor*:
 
@@ -124,9 +169,9 @@ Následující `ParentComponent` může poskytnout obsah pro vykreslování `Chi
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>Seskupováním atributů a libovolné parametry
 
-Komponenty mohou kromě deklarovaných parametrů komponenty zachytit a vykreslovat další atributy. Další atributy mohou být zachyceny ve slovníku a poté *splatted* na prvek při vykreslení komponenty pomocí direktivy [@attributes](xref:mvc/views/razor#attributes) Razor. Tento scénář je užitečný při definování komponenty, která vytváří prvek značky, který podporuje nejrůznější přizpůsobení. Například může být zdlouhavé definovat atributy samostatně pro `<input>`, který podporuje mnoho parametrů.
+Komponenty mohou kromě deklarovaných parametrů komponenty zachytit a vykreslovat další atributy. Další atributy mohou být zachyceny ve slovníku a poté *splatted* na prvek při vykreslení komponenty pomocí direktivy [@attributes](xref:mvc/views/razor#attributes) Razor. Tento scénář je užitečný při definování komponenty, která vytváří prvek značky, který podporuje nejrůznější přizpůsobení. Například může být zdlouhavé definovat atributy samostatně pro `<input>`, které podporují mnoho parametrů.
 
-V následujícím příkladu první prvek `<input>` (`id="useIndividualParams"`) používá jednotlivé parametry komponenty, zatímco druhý prvek `<input>` (`id="useAttributesDict"`) používá atribut seskupováním:
+V následujícím příkladu první `<input>` element (`id="useIndividualParams"`) používá jednotlivé parametry komponenty, zatímco druhý `<input>` element (`id="useAttributesDict"`) používá atribut seskupováním:
 
 ```cshtml
 <input id="useIndividualParams"
@@ -165,7 +210,7 @@ V následujícím příkladu první prvek `<input>` (`id="useIndividualParams"`)
 
 Typ parametru musí implementovat `IEnumerable<KeyValuePair<string, object>>` s klíči řetězce. Použití `IReadOnlyDictionary<string, object>` je také možností v tomto scénáři.
 
-Vykreslené prvky `<input>` pomocí obou přístupů jsou identické:
+Vykreslené `<input>` prvky pomocí obou přístupů jsou identické:
 
 ```html
 <input id="useIndividualParams"
@@ -190,7 +235,7 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí a
 }
 ```
 
-Vlastnost `CaptureUnmatchedValues` v `[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný s `CaptureUnmatchedValues` musí být možné přiřadit z `Dictionary<string, object>` s klíči řetězce. v tomto scénáři jsou také možnosti `IEnumerable<KeyValuePair<string, object>>` nebo `IReadOnlyDictionary<string, object>`.
+Vlastnost `CaptureUnmatchedValues` v `[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues`. Typ vlastnosti používaný u `CaptureUnmatchedValues` musí být možné přiřadit z `Dictionary<string, object>` pomocí řetězcových klíčů. v tomto scénáři jsou také možnosti `IEnumerable<KeyValuePair<string, object>>` nebo `IReadOnlyDictionary<string, object>`.
 
 Pozice `@attributes` relativní k pozici atributů elementu je důležitá. Když `@attributes` jsou splattedy na elementu, atributy jsou zpracovávány zprava doleva (poslední až první). Vezměte v úvahu následující příklad komponenty, která využívá `Child` komponentu:
 
@@ -238,9 +283,9 @@ Vykreslený `<div>` v komponentě `Parent` obsahuje `extra="10"` při předání
 <div extra="10" />
 ```
 
-## <a name="data-binding"></a>Datová vazba
+## <a name="data-binding"></a>Vytváření datových vazeb
 
-Datové vazby na součásti a prvky modelu DOM jsou provedeny atributem [@bind](xref:mvc/views/razor#bind) . Následující příklad váže vlastnost `CurrentValue` na hodnotu textového pole:
+Datové vazby na součásti a prvky modelu DOM jsou provedeny atributem [@bind](xref:mvc/views/razor#bind) . Následující příklad váže vlastnost `CurrentValue` k hodnotě v textovém poli:
 
 ```cshtml
 <input @bind="CurrentValue" />
@@ -254,7 +299,7 @@ Pokud textové pole ztratí fokus, je hodnota vlastnosti aktualizována.
 
 Textové pole je aktualizováno v uživatelském rozhraní pouze v případě, že je komponenta vykreslena, nikoli v reakci na změnu hodnoty vlastnosti. Vzhledem k tomu, že se komponenty vykreslují po spuštění kódu obslužné rutiny události, se aktualizace vlastností *obvykle* projeví v uživatelském rozhraní hned po aktivaci obslužné rutiny události.
 
-Použití `@bind` s vlastností `CurrentValue` (`<input @bind="CurrentValue" />`) je v podstatě ekvivalentní následujícímu:
+Použití `@bind` s vlastností `CurrentValue` (`<input @bind="CurrentValue" />`) je v podstatě ekvivalentem následujícího:
 
 ```cshtml
 <input value="@CurrentValue"
@@ -266,9 +311,9 @@ Použití `@bind` s vlastností `CurrentValue` (`<input @bind="CurrentValue" />`
 }
 ```
 
-Když je komponenta vykreslena, `value` vstupního prvku pochází z vlastnosti `CurrentValue`. Když uživatel zadá do textového pole a změní fokus prvku, aktivuje se událost `onchange` a vlastnost `CurrentValue` je nastavena na změněnou hodnotu. Ve skutečnosti je generování kódu složitější, protože `@bind` zpracovává případy, kdy jsou prováděny převody typu. V zásadě `@bind` přidruží aktuální hodnotu výrazu k atributu `value` a zpracovává změny pomocí registrované obslužné rutiny.
+Při vykreslení komponenty se `value` vstupního elementu dostane z vlastnosti `CurrentValue`. Pokud uživatel zadá do textového pole a změní fokus prvku, je vyvolána událost `onchange` a vlastnost `CurrentValue` je nastavena na změněnou hodnotu. Ve skutečnosti je generování kódu složitější, protože `@bind` zpracovává případy, kde jsou prováděny převody typů. V zásadě `@bind` přidruží aktuální hodnotu výrazu k atributu `value` a zpracovává změny pomocí registrované obslužné rutiny.
 
-Kromě zpracování událostí `onchange` se syntaxí `@bind` může být vlastnost nebo pole svázána s jinými událostmi, a to zadáním atributu [@bind-value](xref:mvc/views/razor#bind) s parametrem `event` ([@bind-value:event](xref:mvc/views/razor#bind)). Následující příklad váže vlastnost `CurrentValue` pro událost `oninput`:
+Kromě zpracování `onchange`ch událostí pomocí syntaxe `@bind` lze vlastnost nebo pole svázat pomocí jiných událostí zadáním atributu [@bind-value](xref:mvc/views/razor#bind) s parametrem `event` ([@bind-value:event](xref:mvc/views/razor#bind)). Následující příklad váže vlastnost `CurrentValue` pro událost `oninput`:
 
 ```cshtml
 <input @bind-value="CurrentValue" @bind-value:event="oninput" />
@@ -278,7 +323,7 @@ Kromě zpracování událostí `onchange` se syntaxí `@bind` může být vlastn
 }
 ```
 
-Na rozdíl od `onchange`, která je aktivována, když prvek ztratí fokus, `oninput` je aktivována při změně hodnoty textového pole.
+Na rozdíl od `onchange`, která je aktivována, když prvek ztratí fokus, `oninput` při změně hodnoty textového pole aktivována.
 
 **Hodnoty, které nelze analyzovat**
 
@@ -296,23 +341,23 @@ Vezměte v úvahu následující scénář:
       public int MyProperty { get; set; } = 123;
   }
   ```
-* Uživatel aktualizuje hodnotu prvku tak, aby na stránce `123.45` a změnil fokus prvku.
+* Uživatel aktualizuje hodnotu prvku tak, aby `123.45` na stránce a změnil fokus prvku.
 
 V předchozím scénáři je hodnota elementu vrácena na `123`. Pokud je hodnota `123.45` zamítnuta ve prospěch původní hodnoty `123`, uživateli se rozumí, že jejich hodnota nebyla přijata.
 
-Ve výchozím nastavení se vazba vztahuje na událost `onchange` elementu (`@bind="{PROPERTY OR FIELD}"`). K nastavení jiné události použijte `@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}`. U události `oninput` (`@bind-value:event="oninput"`) dojde k opětovnému nastavování po stisku klávesových zkratek, které zavádí neanalyzovatelné hodnoty. Při cílení na událost `oninput` s typem svázaným `int` je uživateli zabráněno v psaní `.`ho znaku. Znak `.` je okamžitě odebrán, takže uživatel obdrží okamžitou zpětnou vazbu, že jsou povolena pouze celá čísla. K dispozici jsou situace, kdy vrácení hodnoty na událost `oninput` není ideální, například pokud by měl uživatel povoleno vymazat neanalyzovatelné hodnoty `<input>`. K alternativám patří:
+Ve výchozím nastavení se vazba vztahuje na událost `onchange` elementu (`@bind="{PROPERTY OR FIELD}"`). K nastavení jiné události použijte `@bind-value="{PROPERTY OR FIELD}" @bind-value:event={EVENT}`. Pro událost `oninput` (`@bind-value:event="oninput"`) dojde k reverzi po stisknutí klávesy, která zavádí neanalyzovatelné hodnoty. Při cílení na událost `oninput` s typem svázaným `int`je uživateli zabráněno v psaní `.`ho znaku. Znak `.` je okamžitě odebrán, takže uživatel obdrží okamžitou zpětnou vazbu, že jsou povolena pouze celá čísla. Existují situace, kdy se hodnota `oninput` události nedoporučuje, například pokud by měl být uživatel povolen k vymazání neanalyzovatelné `<input>` hodnoty. K alternativám patří:
 
-* Nepoužívejte událost `oninput`. Použijte výchozí událost `onchange` (`@bind="{PROPERTY OR FIELD}"`), kde neplatnou hodnotu vrátí, dokud prvek neztratí fokus.
-* Vytvořte propojení s typem s možnou hodnotou null, například `int?` nebo `string` a poskytněte vlastní logiku pro zpracování neplatných položek.
-* Použijte [součást ověřování formuláře](xref:blazor/forms-validation), například `InputNumber` nebo `InputDate`. Komponenty ověřování formuláře mají integrovanou podporu pro správu neplatných vstupů. Součásti pro ověření formuláře:
-  * Povolí uživateli zadání neplatných vstupů a přijetí chyb ověřování na přidružených `EditContext`.
+* Nepoužívejte událost `oninput`. Použijte výchozí `onchange` událost (`@bind="{PROPERTY OR FIELD}"`), kde neplatnou hodnotu vrátí, dokud prvek neztratí fokus.
+* Vytvořte propojení s typem s možnou hodnotou null, například `int?` nebo `string`, a poskytněte vlastní logiku pro zpracování neplatných položek.
+* Použijte [komponentu ověřování formuláře](xref:blazor/forms-validation), například `InputNumber` nebo `InputDate`. Komponenty ověřování formuláře mají integrovanou podporu pro správu neplatných vstupů. Součásti pro ověření formuláře:
+  * Povolí uživateli zadání neplatných vstupů a přijetí chyb ověřování na přidruženém `EditContext`.
   * Zobrazí chyby ověřování v uživatelském rozhraní, aniž by došlo ke konfliktu s uživatelem, který zadává další data z formuláře.
 
 **Globalizace**
 
 hodnoty `@bind` jsou formátovány pro zobrazení a analýzu pomocí pravidel aktuální jazykové verze.
 
-K aktuální jazykové verzi lze přistupovat z vlastnosti <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName>.
+K aktuální jazykové verzi je možné přistupovat z vlastnosti <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName>.
 
 [CultureInfo. InvariantCulture](xref:System.Globalization.CultureInfo.InvariantCulture) se používá pro následující typy polí (`<input type="{TYPE}" />`):
 
@@ -325,19 +370,19 @@ Předchozí typy polí:
 * Text s volným formulářem nemůže obsahovat.
 * Poskytněte charakteristiky interakce s uživatelem na základě implementace prohlížeče.
 
-Následující typy polí mají specifické požadavky na formátování a aktuálně nejsou podporovány v Blazor, protože nejsou podporovány ve všech hlavních prohlížečích:
+Následující typy polí mají specifické požadavky na formátování a aktuálně nejsou podporovány Blazor, protože nejsou podporovány ve všech hlavních prohlížečích:
 
 * `datetime-local`
 * `month`
 * `week`
 
-`@bind` podporuje parametr `@bind:culture` k poskytnutí <xref:System.Globalization.CultureInfo?displayProperty=fullName> pro analýzu a formátování hodnoty. Zadání jazykové verze se nedoporučuje při použití typů polí `date` a `number`. `date` a `number` mají integrovanou podporu Blazor, která poskytuje požadovanou jazykovou verzi.
+`@bind` podporuje parametr `@bind:culture` k poskytnutí <xref:System.Globalization.CultureInfo?displayProperty=fullName> pro analýzu a formátování hodnoty. Při použití typů polí `date` a `number` se nedoporučuje zadat jazykovou verzi. `date` a `number` mají integrovanou Blazor podporu, která poskytuje požadovanou jazykovou verzi.
 
 Informace o tom, jak nastavit jazykovou verzi uživatele, najdete v části [lokalizace](#localization) .
 
 **Řetězce formátu**
 
-Datové vazby fungují s řetězci formátu <xref:System.DateTime> pomocí [@bind:format](xref:mvc/views/razor#bind). Jiné formátovací výrazy, jako je například Měna nebo formáty čísel, nejsou v tuto chvíli k dispozici.
+Datové vazby fungují s <xref:System.DateTime> formátovacími řetězci pomocí [@bind:format](xref:mvc/views/razor#bind). Jiné formátovací výrazy, jako je například Měna nebo formáty čísel, nejsou v tuto chvíli k dispozici.
 
 ```cshtml
 <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
@@ -348,22 +393,22 @@ Datové vazby fungují s řetězci formátu <xref:System.DateTime> pomocí [@bin
 }
 ```
 
-V předchozím kódu je typ pole elementu `<input>` (`type`) standardně `text`. `@bind:format` se podporuje pro vazby následujících typů .NET:
+V předchozím kódu je výchozí hodnota typu pole `<input>` elementu (`type`) `text`. `@bind:format` se podporuje pro vázání následujících typů .NET:
 
 * <xref:System.DateTime?displayProperty=fullName>
 * <xref:System.DateTime?displayProperty=fullName>?
 * <xref:System.DateTimeOffset?displayProperty=fullName>
 * <xref:System.DateTimeOffset?displayProperty=fullName>?
 
-Atribut `@bind:format` určuje formát data, který má být použit pro `value` prvku `<input>`. Formát se používá také k analýze hodnoty při výskytu události `onchange`.
+Atribut `@bind:format` určuje formát data, který má být použit pro `value` elementu `<input>`. Formát se používá také k analýze hodnoty při výskytu události `onchange`.
 
-Zadání formátu pro typ pole `date` se nedoporučuje, protože Blazor má vestavěnou podporu pro formátování kalendářních dat.
+Zadání formátu pro typ pole `date` se nedoporučuje, protože Blazor obsahuje integrovanou podporu pro formátování dat.
 
 **Parametry součásti**
 
-Vazba rozpoznává parametry komponenty, kde `@bind-{property}` může svázat hodnotu vlastnosti napříč komponentami.
+Vazba rozpoznává parametry komponenty, kde `@bind-{property}` mohou svázat hodnotu vlastnosti napříč komponentami.
 
-Následující podřízená komponenta (`ChildComponent`) má parametr komponenty `Year` a zpětné volání `YearChanged`:
+Následující podřízená komponenta (`ChildComponent`) má parametr `Year` součásti a `YearChanged` zpětného volání:
 
 ```cshtml
 <h2>Child Component</h2>
@@ -381,7 +426,7 @@ Následující podřízená komponenta (`ChildComponent`) má parametr komponent
 
 `EventCallback<T>` je vysvětleno v části [vnořenou eventCallback](#eventcallback) .
 
-Následující nadřazená komponenta používá `ChildComponent` a váže parametr `ParentYear` z nadřazené položky k parametru `Year` v podřízené komponentě:
+Následující nadřazená komponenta používá `ChildComponent` a váže `ParentYear` parametr z nadřazené položky k parametru `Year` pro podřízenou komponentu:
 
 ```cshtml
 @page "/ParentComponent"
@@ -419,7 +464,7 @@ Načtení `ParentComponent` vytvoří následující kód:
 <p>Year: 1978</p>
 ```
 
-Pokud se hodnota vlastnosti `ParentYear` změní výběrem tlačítka v `ParentComponent`, bude aktualizována vlastnost `Year` `ChildComponent`. Nová hodnota `Year` se vykreslí v uživatelském rozhraní, když se `ParentComponent` znovu vykreslí:
+Pokud je hodnota vlastnosti `ParentYear` změněna výběrem tlačítka v `ParentComponent`, je aktualizována vlastnost `Year` `ChildComponent`. Nová hodnota `Year` se vykreslí v uživatelském rozhraní, když se `ParentComponent` znovu vykreslí:
 
 ```html
 <h1>Parent Component</h1>
@@ -431,7 +476,7 @@ Pokud se hodnota vlastnosti `ParentYear` změní výběrem tlačítka v `ParentC
 <p>Year: 1986</p>
 ```
 
-Parametr `Year` je svázán, protože obsahuje doprovodnou událost `YearChanged`, která odpovídá typu parametru `Year`.
+Parametr `Year` je svázán, protože má doprovodnou událost `YearChanged`, která odpovídá typu `Year` parametru.
 
 Podle konvence `<ChildComponent @bind-Year="ParentYear" />` v podstatě ekvivalentem zápisu:
 
@@ -447,9 +492,9 @@ Obecně platí, že vlastnost může být svázána s odpovídající obslužnou
 
 ## <a name="event-handling"></a>Zpracování událostí
 
-Komponenty Razor poskytují funkce pro zpracování událostí. Pro atribut elementu HTML s názvem `on{event}` (například `onclick` a `onsubmit`) s hodnotou delegovanou pomocí komponenty Razor se hodnota atributu považuje za obslužnou rutinu události. Název atributu má vždycky formát [@on {Event}](xref:mvc/views/razor#onevent).
+Komponenty Razor poskytují funkce pro zpracování událostí. Pro atribut elementu HTML s názvem `on{EVENT}` (například `onclick` a `onsubmit`) s hodnotou delegovanou typem, komponenty Razor považují hodnotu atributu za obslužnou rutinu události. Název atributu je vždy formátován [@onudálosti {Event}](xref:mvc/views/razor#onevent).
 
-Následující kód volá metodu `UpdateHeading`, pokud je vybráno tlačítko v uživatelském rozhraní:
+Následující kód volá metodu `UpdateHeading`, pokud je tlačítko vybráno v uživatelském rozhraní:
 
 ```cshtml
 <button class="btn btn-primary" @onclick="UpdateHeading">
@@ -464,7 +509,7 @@ Následující kód volá metodu `UpdateHeading`, pokud je vybráno tlačítko v
 }
 ```
 
-Následující kód volá metodu `CheckChanged`, pokud je zaškrtávací políčko v uživatelském rozhraní změněno:
+Následující kód volá metodu `CheckChanged`, když je zaškrtávací políčko v uživatelském rozhraní změněno:
 
 ```cshtml
 <input type="checkbox" class="form-check-input" @onchange="CheckChanged" />
@@ -477,7 +522,7 @@ Následující kód volá metodu `CheckChanged`, pokud je zaškrtávací políč
 }
 ```
 
-Obslužné rutiny událostí mohou být také asynchronní a vracet <xref:System.Threading.Tasks.Task>. Není nutné ručně volat `StateHasChanged()`. Výjimky jsou protokolovány, když k nim dojde.
+Obslužné rutiny událostí mohou být také asynchronní a vracet <xref:System.Threading.Tasks.Task>. Nemusíte ručně volat `StateHasChanged()`. Výjimky jsou protokolovány, když k nim dojde.
 
 V následujícím příkladu je `UpdateHeading` volána asynchronně, když je vybráno tlačítko:
 
@@ -500,19 +545,20 @@ U některých událostí jsou povoleny typy argumentů události. Pokud přístu
 
 Podporované `EventArgs` jsou uvedeny v následující tabulce.
 
-| Událost | Třída |
-| ----- | ----- |
-| Schránka        | `ClipboardEventArgs` |
-| Myší             | `DragEventArgs` &ndash; `DataTransfer` a `DataTransferItem` blokování dat přetažených položek. |
-| Chyba            | `ErrorEventArgs` |
-| Vybrána            | `FocusEventArgs` &ndash; nezahrnuje podporu pro `relatedTarget`. |
-| Změna `<input>` | `ChangeEventArgs` |
-| Klávesnice         | `KeyboardEventArgs` |
-| Stisknut            | `MouseEventArgs` |
-| Ukazatel myši    | `PointerEventArgs` |
-| Kolečko myši      | `WheelEventArgs` |
-| Průběh         | `ProgressEventArgs` |
-| Dotykové ovládání            | `TouchEventArgs` &ndash; `TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
+| Událost            | Třída                | Události a poznámky modelu DOM |
+| ---------------- | -------------------- | -------------------- |
+| Schránka        | `ClipboardEventArgs` | `oncut`, `oncopy`, `onpaste` |
+| Přetažení             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` a `DataTransferItem` uchování přetažených dat položky. |
+| Chyba            | `ErrorEventArgs`     | `onerror` |
+| Událost            | `EventArgs`          | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Input* (Vstup)<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting` |
+| Vybrána            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>Neobsahuje podporu pro `relatedTarget`. |
+| Vstup            | `ChangeEventArgs`    | `onchange`, `oninput` |
+| Klávesnice         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress`, `onkeyup` |
+| Stisknut            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
+| Ukazatele myši    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
+| Kolečko myši      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
+| Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
+| Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br>`TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
 
 Informace o vlastnostech a chování zpracování událostí událostí v předchozí tabulce naleznete v tématu [třídy EventArgs ve zdroji referencí (ASPNET/AspNetCore Release/3.0)](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web).
 
@@ -524,7 +570,7 @@ Lambda výrazy lze také použít:
 <button @onclick="@(e => Console.WriteLine("Hello, world!"))">Say hello</button>
 ```
 
-Je často vhodné uzavřít další hodnoty, jako například při iteraci přes sadu prvků. Následující příklad vytvoří tři tlačítka, z nichž každá volá `UpdateHeading`, která předá argument události (`MouseEventArgs`) a číslo jeho tlačítka (`buttonNumber`), pokud je vybrána v uživatelském rozhraní:
+Je často vhodné uzavřít další hodnoty, jako například při iteraci přes sadu prvků. Následující příklad vytvoří tři tlačítka, z nichž každá volá `UpdateHeading` předání argumentu události (`MouseEventArgs`) a jeho číslo tlačítka (`buttonNumber`), pokud je vybráno v uživatelském rozhraní:
 
 ```cshtml
 <h2>@message</h2>
@@ -551,11 +597,11 @@ Je často vhodné uzavřít další hodnoty, jako například při iteraci přes
 ```
 
 > [!NOTE]
-> Nepoužívejte **proměnnou** smyčky (`i`) ve smyčce `for` přímo ve výrazu lambda. Jinak je stejná proměnná používána všemi výrazy lambda, což způsobí, že hodnota `i` bude stejná ve všech výrazech lambda. Vždycky zachytit svou hodnotu v místní proměnné (`buttonNumber` v předchozím příkladu) a pak ji použít.
+> Nepoužívejte **proměnnou** smyčky (`i`) ve `for` smyčce přímo ve výrazu lambda. V opačném případě se stejná proměnná používá u všech výrazů lambda, které způsobují, že hodnota `i`být stejná ve všech výrazech lambda. Vždycky zachytit svou hodnotu v místní proměnné (`buttonNumber` v předchozím příkladu) a pak ji použít.
 
 ### <a name="eventcallback"></a>Vnořenou eventCallback
 
-Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřazené komponenty, když dojde k události podřízené součásti &mdash;for například, když dojde k události `onclick` v podřízeném objektu. Chcete-li zobrazit události napříč komponentami, použijte `EventCallback`. Nadřazená komponenta může přiřadit metodu zpětného volání podřízené součásti `EventCallback`.
+Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřazené komponenty, když dojde k události podřízené součásti&mdash;například při výskytu události `onclick` v podřízeném objektu. Chcete-li zobrazit události napříč komponentami, použijte `EventCallback`. Nadřazená komponenta může přiřadit metodu zpětného volání podřízené `EventCallback`komponenty.
 
 `ChildComponent` v ukázkové aplikaci ukazuje, jak je nastavená obslužná rutina `onclick` tlačítka pro příjem `EventCallback`ho delegáta z `ParentComponent`ukázky. `EventCallback` se zadává pomocí `MouseEventArgs`, která je vhodná pro událost `onclick` z periferního zařízení:
 
@@ -567,10 +613,10 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
 
 Když je vybráno tlačítko v `ChildComponent`:
 
-* Je volána metoda `ParentComponent` `ShowMessage`. `messageText` se aktualizuje a zobrazí v `ParentComponent`.
-* Volání metody `StateHasChanged` není vyžadováno v metodě zpětného volání (`ShowMessage`). `StateHasChanged` se zavolá automaticky a znovu vykreslí `ParentComponent` stejně jako podřízené události, které aktivují revykreslování komponenty v obslužných rutinách událostí, které se spouštějí v rámci podřízeného objektu.
+* Je volána metoda `ShowMessage` `ParentComponent`. `messageText` se aktualizuje a zobrazí v `ParentComponent`.
+* V metodě zpětného volání (`ShowMessage`) není vyžadováno volání `StateHasChanged`. `StateHasChanged` se zavolá automaticky, aby se `ParentComponent`znovu vykreslila, stejně jako podřízené události spouštějí revykreslování komponenty v obslužných rutinách události, které se spouštějí v rámci podřízeného objektu
 
-`EventCallback` a `EventCallback<T>` povolí asynchronní delegáty. `EventCallback<T>` je silného typu a vyžaduje konkrétní typ argumentu. `EventCallback` je slabě typované a umožňuje jakýkoli typ argumentu.
+`EventCallback` a `EventCallback<T>` povolují asynchronní delegáty. `EventCallback<T>` je silného typu a vyžaduje konkrétní typ argumentu. `EventCallback` je slabě typované a umožňuje jakýkoli typ argumentu.
 
 ```cshtml
 <p><b>@messageText</b></p>
@@ -593,18 +639,88 @@ await callback.InvokeAsync(arg);
 
 Pro zpracování událostí a parametry komponenty vazby použijte `EventCallback` a `EventCallback<T>`.
 
-Dáváte přednost silnému typu `EventCallback<T>` přes `EventCallback`. `EventCallback<T>` poskytuje lepší odezvu na chyby uživatelů součásti. Podobně jako u jiných obslužných rutin událostí uživatelského rozhraní je zadání parametru události volitelné. Pokud zpětnému volání není předáno žádné číslo, použijte `EventCallback`.
+Preferovat `EventCallback<T>` silného typu přes `EventCallback`. `EventCallback<T>` poskytuje uživatelům součásti lepší zpětnou vazbu k chybám. Podobně jako u jiných obslužných rutin událostí uživatelského rozhraní je zadání parametru události volitelné. Použijte `EventCallback`, pokud není předána žádná hodnota zpětnému volání.
+
+::: moniker range=">= aspnetcore-3.1"
+
+### <a name="prevent-default-actions"></a>Zabránit výchozím akcím
+
+K zabránění výchozí akci pro událost použijte atribut direktivy [@on{Event}:P reventdefault](xref:mvc/views/razor#oneventpreventdefault) .
+
+Když je vybraný klíč na vstupním zařízení a fokus prvku je v textovém poli, prohlížeč normálně zobrazuje znak klíče v textovém poli. V následujícím příkladu je znemožněno výchozí chování zadáním atributu direktiva `@onkeypress:preventDefault`. Čítač zvýší a **+** klíč není zachycen do hodnoty `<input>` elementu:
+
+```cshtml
+<input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
+
+@code {
+    private int _count = 0;
+
+    private void KeyHandler(KeyboardEventArgs e)
+    {
+        if (e.Key == "+")
+        {
+            _count++;
+        }
+    }
+}
+```
+
+Zadání atributu `@on{EVENT}:preventDefault` bez hodnoty je ekvivalentem `@on{EVENT}:preventDefault="true"`.
+
+Hodnotou atributu může být také výraz. V následujícím příkladu je `_shouldPreventDefault` `bool` pole nastaveno na hodnotu `true` nebo `false`:
+
+```cshtml
+<input @onkeypress:preventDefault="_shouldPreventDefault" />
+```
+
+Obslužná rutina události není nutná, aby se zabránilo výchozí akci. Obslužná rutina události a zabraňuje použití výchozích akcí, lze použít nezávisle.
+
+### <a name="stop-event-propagation"></a>Zastavit šíření událostí
+
+Pro zastavení šíření události použijte atribut direktivy [@on{Event}: stopPropagation](xref:mvc/views/razor#oneventstoppropagation) .
+
+V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na události z druhého podřízeného `<div>` z rozšiřování do nadřazené `<div>`:
+
+```cshtml
+<label>
+    <input @bind="_stopPropagation" type="checkbox" />
+    Stop Propagation
+</label>
+
+<div @onclick="OnSelectParentDiv">
+    <h3>Parent div</h3>
+
+    <div @onclick="OnSelectChildDiv">
+        Child div that doesn't stop propagation when selected.
+    </div>
+
+    <div @onclick="OnSelectChildDiv" @onclick:stopPropagation="_stopPropagation">
+        Child div that stops propagation when selected.
+    </div>
+</div>
+
+@code {
+    private bool _stopPropagation = false;
+
+    private void OnSelectParentDiv() => 
+        Console.WriteLine($"The parent div was selected. {DateTime.Now}");
+    private void OnSelectChildDiv() => 
+        Console.WriteLine($"A child div was selected. {DateTime.Now}");
+}
+```
+
+::: moniker-end
 
 ## <a name="chained-bind"></a>Zřetězená vazba
 
 Běžným scénářem je zřetězení parametru vázaného na data na element stránky ve výstupu součásti. Tento scénář se nazývá *zřetězená vazba* , protože k více úrovním vazby dochází současně.
 
-Zřetězenou BIND nelze implementovat s syntaxí `@bind` v elementu stránky. Obslužná rutina události a hodnota se musí zadat samostatně. Nadřazená komponenta však může použít syntaxi `@bind` s parametrem součásti.
+Zřetězenou BIND nelze implementovat s syntaxí `@bind` v elementu stránky. Obslužná rutina události a hodnota se musí zadat samostatně. Nadřazená komponenta však může použít `@bind` syntaxe s parametrem komponenty.
 
 Následující součást `PasswordField` (*PasswordField. Razor*):
 
-* Nastaví hodnotu elementu `<input>` na vlastnost `Password`.
-* Zveřejňuje změny vlastnosti `Password` u nadřazené komponenty pomocí [vnořenou eventCallback](#eventcallback).
+* Nastaví hodnotu `<input>` elementu na vlastnost `Password`.
+* Zpřístupňuje změny vlastnosti `Password` nadřazené komponentě pomocí [vnořenou eventCallback](#eventcallback).
 
 ```cshtml
 Password: 
@@ -653,8 +769,8 @@ Komponenta `PasswordField` se používá v jiné součásti:
 
 Chcete-li provést kontrolu nebo chyby depeše v předchozím příkladu:
 
-* Vytvořte pole pro zálohování pro `Password` (`password` v následujícím ukázkovém kódu).
-* Proveďte kontroly nebo chyby depeší v metodě setter `Password`.
+* Vytvořte pole zálohování pro `Password` (`password` v následujícím ukázkovém kódu).
+* Proveďte kontroly nebo chyby depeší ve `Password` setter.
 
 Následující příklad poskytuje okamžitou zpětnou vazbu uživateli, pokud se v hodnotě hesla používá mezera:
 
@@ -717,9 +833,9 @@ Password:
 
 ## <a name="capture-references-to-components"></a>Zachytit odkazy na komponenty
 
-Odkazy na součásti poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance, například `Show` nebo `Reset`. Zachytit odkaz na komponentu:
+Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance, například `Show` nebo `Reset`. Zachytit odkaz na komponentu:
 
-* Přidejte atribut [@ref](xref:mvc/views/razor#ref) do podřízené součásti.
+* Přidejte atribut [@ref](xref:mvc/views/razor#ref) pro podřízenou komponentu.
 * Definujte pole stejného typu jako podřízená komponenta.
 
 ```cshtml
@@ -735,19 +851,19 @@ Odkazy na součásti poskytují způsob, jak odkazovat na instanci komponenty, a
 }
 ```
 
-Při vykreslení komponenty se v poli `loginDialog` naplní instance podřízené komponenty `MyLoginDialog`. Pak můžete vyvolat metody .NET v instanci komponenty.
+Při vykreslení komponenty je pole `loginDialog` vyplněno instancí `MyLoginDialog` podřízená komponenta. Pak můžete vyvolat metody .NET v instanci komponenty.
 
 > [!IMPORTANT]
 > Proměnná `loginDialog` je naplněna pouze po vykreslení komponenty a její výstup obsahuje prvek `MyLoginDialog`. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [metody OnAfterRenderAsync nebo OnAfterRender](#lifecycle-methods).
 
-Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachycení odkazů na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není to funkce [interoperability JavaScriptu](xref:blazor/javascript-interop) . Odkazy na součásti nejsou předány kódu jazyka JavaScript &mdash;they jsou používány pouze v kódu .NET.
+Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachycení odkazů na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není to funkce [interoperability JavaScriptu](xref:blazor/javascript-interop) . Odkazy na součásti nejsou předány kódu jazyka JavaScript&mdash;jsou používány pouze v kódu .NET.
 
 > [!NOTE]
 > Nepoužívejte odkazy na součásti **pro použití stavu** podřízených komponent. Místo toho použijte k předání dat podřízeným komponentám běžné deklarativní parametry. Použití běžných deklarativních parametrů má za následek podřízené komponenty, které jsou automaticky revykreslovány ve správný čas.
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>Vyvolat metody komponenty externě na stav aktualizace
 
-Blazor používá `SynchronizationContext` k vykonání jednoho logického vlákna provádění. Metody životního cyklu komponenty a všechna zpětná volání událostí, která jsou aktivována nástrojem Blazor, jsou spouštěna v tomto `SynchronizationContext`. V případě, že komponenta musí být aktualizována na základě externí události, jako je například časovač nebo jiné oznámení, použijte metodu `InvokeAsync`, která se odešle do `SynchronizationContext` Blazor.
+Blazor používá `SynchronizationContext` k vykonání jediného logického vlákna provádění. Metody životního cyklu komponenty a všechna zpětná volání událostí, která jsou aktivována nástrojem Blazor, jsou spouštěna v tomto `SynchronizationContext`. V případě, že komponenta musí být aktualizována na základě externí události, jako je například časovač nebo jiné oznámení, použijte metodu `InvokeAsync`, která se odešle do `SynchronizationContext`Blazor.
 
 Představte si například *službu* pro upozorňování, která může oznámit všechny součásti, které jsou v aktualizovaném stavu:
 
@@ -800,13 +916,13 @@ Použití `NotifierService` k aktualizaci součásti:
 }
 ```
 
-V předchozím příkladu `NotifierService` vyvolá metodu `OnNotify` komponenty mimo Blazor `SynchronizationContext`. `InvokeAsync` slouží k přepnutí do správného kontextu a vykreslení vykreslování do fronty.
+V předchozím příkladu `NotifierService` vyvolá metodu `OnNotify` komponenty mimo `SynchronizationContext`Blazor. `InvokeAsync` slouží k přepnutí do správného kontextu a vykreslení vykreslování do fronty.
 
-## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>Použití \@key k řízení uchovávání prvků a komponent
+## <a name="use-key-to-control-the-preservation-of-elements-and-components"></a>Použití \@Key k řízení uchovávání prvků a komponent
 
-Při vykreslování seznamu prvků nebo komponent a následné změny prvků nebo komponent musí být Blazor rozdílový algoritmus rozhodnout, které z předchozích prvků nebo komponent lze zachovat a jak se mají objekty modelu namapovat. Obvykle je tento proces automatický a může být ignorován, ale existují případy, kdy můžete chtít řídit proces.
+Při vykreslování seznamu prvků nebo komponent a následné změny prvků nebo komponent musí být Blazorrozdílový algoritmus rozhodnout, které z předchozích prvků nebo komponent lze zachovat a jak se mají objekty modelu namapovat. Obvykle je tento proces automatický a může být ignorován, ale existují případy, kdy můžete chtít řídit proces.
 
-Vezměte v úvahu následující příklad:
+Vezměte v úvahu v následujícím příkladu:
 
 ```csharp
 @foreach (var person in People)
@@ -820,9 +936,9 @@ Vezměte v úvahu následující příklad:
 }
 ```
 
-Obsah kolekce `People` se může změnit vloženými, odstraněnými nebo znovu seřazenými položkami. Když se komponenta znovu vykreslí, součást `<DetailsEditor>` se může změnit, aby přijímala různé hodnoty parametrů `Details`. To může způsobit složitější revykreslování, než se očekávalo. V některých případech může reprodukce vést k viditelným rozdílům v chování, jako je například ztracený fokus elementu.
+Obsah kolekce `People` se může změnit vloženými, odstraněnými nebo znovu seřazenými položkami. Při revykreslování komponenty se může komponenta `<DetailsEditor>` změnit, aby přijímala jiné hodnoty parametrů `Details`. To může způsobit složitější revykreslování, než se očekávalo. V některých případech může reprodukce vést k viditelným rozdílům v chování, jako je například ztracený fokus elementu.
 
-Proces mapování lze řídit pomocí atributu direktivy `@key`. `@key` způsobí, že rozdílový algoritmus zaručuje zachování prvků nebo komponent na základě hodnoty klíče:
+Proces mapování lze řídit pomocí atributu direktivy `@key`. `@key` způsobí, že rozdílový algoritmus zaručuje uchovávání prvků nebo komponent na základě hodnoty klíče:
 
 ```csharp
 @foreach (var person in People)
@@ -836,22 +952,22 @@ Proces mapování lze řídit pomocí atributu direktivy `@key`. `@key` způsob�
 }
 ```
 
-Když se změní kolekce `People`, rozdílový algoritmus zachová přidružení mezi instancemi `<DetailsEditor>` a instancemi `person`:
+Když dojde ke změně kolekce `People`, rozdílový algoritmus zachovává přidružení mezi instancemi `<DetailsEditor>` a instancemi `person`:
 
 * Pokud se ze seznamu `People` odstraní `Person`, z uživatelského rozhraní se odebere jenom odpovídající instance `<DetailsEditor>`. Ostatní instance zůstanou beze změny.
 * Pokud je na některém místě v seznamu vložená `Person`, do příslušné pozice se vloží jedna nová instance `<DetailsEditor>`. Ostatní instance zůstanou beze změny.
-* Pokud jsou položky `Person` znovu objednány, odpovídající instance `<DetailsEditor>` jsou zachovány a znovu uspořádány v uživatelském rozhraní.
+* Pokud jsou položky `Person` znovu seřazeny, odpovídající instance `<DetailsEditor>` jsou zachovány a v uživatelském rozhraní znovu seřazeny.
 
-V některých scénářích použití `@key` minimalizuje složitost opětovného vykreslování a vyhnete se potenciálním problémům se měnícími se stavovou částí modelu DOM, jako je například pozice fokusu.
+V některých scénářích použití `@key` minimalizuje složitost reprodukce a vyhnete se potenciálním problémům se měnícími se stavovou částí modelu DOM, jako je například pozice fokusu.
 
 > [!IMPORTANT]
 > Klíče jsou místní pro každý prvek kontejneru nebo komponentu. Klíče nejsou v dokumentu globálně porovnány.
 
-### <a name="when-to-use-key"></a>Kdy použít \@key
+### <a name="when-to-use-key"></a>Kdy použít klíč \@
 
-Obvykle má smysl použít `@key` při každém vykreslení seznamu (například v bloku `@foreach`) a existuje vhodná hodnota pro definování `@key`.
+Obvykle má smysl použít `@key` vždy, když je vygenerován seznam (například v bloku `@foreach`), a existuje vhodná hodnota pro definování `@key`.
 
-Můžete také použít `@key`, chcete-li zabránit Blazor v zachování prvku nebo podstromu komponenty při změně objektu:
+Můžete také použít `@key` k zabránění Blazor při zachování prvku nebo podstromu komponenty při změně objektu:
 
 ```cshtml
 <div @key="currentPerson">
@@ -859,26 +975,26 @@ Můžete také použít `@key`, chcete-li zabránit Blazor v zachování prvku n
 </div>
 ```
 
-Pokud se změní `@currentPerson`, direktiva Attribute `@key` vynutí, aby Blazor zahození celého `<div>` a jeho následníků a znovu sestaví podstrom v uživatelském rozhraní s novými prvky a komponentami. To může být užitečné, pokud potřebujete zaručit, že při změně `@currentPerson` se nezachová žádný stav uživatelského rozhraní.
+Pokud `@currentPerson` změny, direktiva `@key` atributu vynutí Blazor zahodit celý `<div>` a jeho následníky a znovu sestavit podstrom v uživatelském rozhraní s novými prvky a komponentami. To může být užitečné, pokud potřebujete zaručit, že při `@currentPerson` změny se nezachová žádný stav uživatelského rozhraní.
 
-### <a name="when-not-to-use-key"></a>Kdy nepoužívat \@key
+### <a name="when-not-to-use-key"></a>Kdy se \@klíč nepoužívá
 
-Při rozdílech s `@key` se účtují náklady na výkon. Náklady na výkon nejsou velké, ale zadávejte pouze `@key`, pokud řízení pravidel uchovávání prvků nebo komponent těží z aplikace.
+Při rozdílech s `@key`se účtují náklady na výkon. Náklady na výkon nejsou velké, ale zadávejte `@key` jenom v případě, že řízení pravidel uchovávání prvků nebo součástí má aplikace výhodu.
 
-I v případě, že `@key` se nepoužívá, Blazor zachová podřízený element a instance komponenty co nejvíce. Jedinou výhodou použití `@key` je řízení způsobu, *jakým* jsou instance modelů mapovány na zachované instance komponent namísto rozdílového algoritmu výběru mapování.
+I v případě, že `@key` nepoužívá, Blazor zachová podřízené prvky a instance komponent co nejvíce. Jedinou výhodou použití `@key` je řídit, *jak* jsou instance modelů mapovány na zachované instance komponent namísto rozdílového algoritmu výběru mapování.
 
-### <a name="what-values-to-use-for-key"></a>Jaké hodnoty se mají použít pro \@key
+### <a name="what-values-to-use-for-key"></a>Jaké hodnoty se mají použít pro klíč \@
 
-Obecně dává smysl, aby jeden z následujících typů hodnot `@key`:
+Obecně je vhodné dodat jeden z následujících typů hodnoty pro `@key`:
 
 * Instance objektů modelu (například instance `Person` jako v předchozím příkladu). To zajišťuje zachování v závislosti na rovnosti odkazů na objekty.
-* Jedinečné identifikátory (například hodnoty primárního klíče typu `int`, `string` nebo `Guid`).
+* Jedinečné identifikátory (například hodnoty primárního klíče typu `int`, `string`nebo `Guid`).
 
-Zajistěte, aby hodnoty používané pro `@key` nekolidují. Pokud jsou v rámci stejného nadřazeného prvku zjištěny hodnoty střetu, Blazor vyvolá výjimku, protože nemůže deterministické namapovat staré prvky nebo komponenty na nové prvky nebo komponenty. Používejte pouze jedinečné hodnoty, například instance objektů nebo hodnoty primárního klíče.
+Zajistěte, aby hodnoty používané pro `@key` nekolidovat. Pokud jsou v rámci stejného nadřazeného prvku zjištěny hodnoty konfliktu, Blazor vyvolá výjimku, protože nemůže deterministickém mapovat staré prvky nebo komponenty na nové prvky nebo komponenty. Používejte pouze jedinečné hodnoty, například instance objektů nebo hodnoty primárního klíče.
 
 ## <a name="lifecycle-methods"></a>Metody životního cyklu
 
-`OnInitializedAsync` a `OnInitialized` spustí kód pro inicializaci komponenty. K provedení asynchronní operace použijte `OnInitializedAsync` a klíčové slovo `await` pro operaci:
+`OnInitializedAsync` a `OnInitialized` spustit kód pro inicializaci součásti. K provedení asynchronní operace použijte `OnInitializedAsync` a klíčové slovo `await` na operaci:
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -888,7 +1004,7 @@ protected override async Task OnInitializedAsync()
 ```
 
 > [!NOTE]
-> Asynchronní práce během inicializace komponenty se musí vyskytnout během události `OnInitializedAsync` životního cyklu.
+> Asynchronní práce během inicializace komponenty se musí vyskytnout během `OnInitializedAsync` události životního cyklu.
 
 Pro synchronní operaci použijte `OnInitialized`:
 
@@ -899,7 +1015,7 @@ protected override void OnInitialized()
 }
 ```
 
-`OnParametersSetAsync` a `OnParametersSet` jsou volány, když komponenta přijímá parametry z nadřazené položky a hodnoty jsou přiřazeny vlastnostem. Tyto metody jsou spouštěny po inicializaci komponenty a pokaždé, když je vykreslena komponenta:
+`OnParametersSetAsync` a `OnParametersSet` jsou volány, když komponenta přijímá parametry z nadřazené položky a hodnoty jsou přiřazeny vlastnostem. Tyto metody jsou spouštěny po inicializaci komponenty a pokaždé, když je vykreslena nadřazená komponenta:
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -909,7 +1025,7 @@ protected override async Task OnParametersSetAsync()
 ```
 
 > [!NOTE]
-> Asynchronní práce při aplikování parametrů a hodnot vlastností musí nastat během události `OnParametersSetAsync` životního cyklu.
+> Asynchronní práce při aplikování parametrů a hodnot vlastností musí probíhat během události `OnParametersSetAsync` životního cyklu.
 
 ```csharp
 protected override void OnParametersSet()
@@ -920,7 +1036,7 @@ protected override void OnParametersSet()
 
 `OnAfterRenderAsync` a `OnAfterRender` jsou volány po dokončení vykreslování součásti. V tuto chvíli se naplní odkazy na element a komponentu. Tuto fázi použijte k provedení dalších kroků inicializace pomocí vykresleného obsahu, jako je například aktivace knihoven JavaScript třetích stran, které pracují s vykreslenými prvky modelu DOM.
 
-*při předvykreslování na serveru se nevolá* `OnAfterRender`.
+`OnAfterRender` se *nevolá při předvykreslování na serveru.*
 
 Parametr `firstRender` pro `OnAfterRenderAsync` a `OnAfterRender` je:
 
@@ -938,7 +1054,7 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 ```
 
 > [!NOTE]
-> Asynchronní práce ihned po vykreslení musí nastat během události životního cyklu `OnAfterRenderAsync`.
+> Asynchronní práce ihned po vykreslení musí nastat během `OnAfterRenderAsync` události životního cyklu.
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -952,9 +1068,9 @@ protected override void OnAfterRender(bool firstRender)
 
 ### <a name="handle-incomplete-async-actions-at-render"></a>Zpracovat nedokončené asynchronní akce při vykreslení
 
-Asynchronní akce provedené v událostech životního cyklu se možná nedokončily, než se komponenta vykreslí. Objekty mohou být `null` nebo kompletně naplněna daty při provádění metody životního cyklu. Poskytněte logiku vykreslování pro potvrzení, že jsou objekty inicializovány. Vykreslí zástupné prvky uživatelského rozhraní (například zprávu o načítání), zatímco objekty jsou `null`.
+Asynchronní akce provedené v událostech životního cyklu se možná nedokončily, než se komponenta vykreslí. Objekty mohou být při provádění metody životního cyklu `null` nebo nedokončené s daty. Poskytněte logiku vykreslování pro potvrzení, že jsou objekty inicializovány. Vykreslí prvky uživatelského rozhraní zástupného textu (například zprávu o načítání), zatímco objekty jsou `null`.
 
-V komponentě `FetchData` v šablonách Blazor `OnInitializedAsync` bude přepsáno, aby asynchronně přijímat data předpovědi (`forecasts`). Pokud je `forecasts` `null`, uživateli se zobrazí zpráva o načítání. Po dokončení `Task` vráceného `OnInitializedAsync` se komponenta znovu vykreslí s aktualizovaným stavem.
+V `FetchData` součásti šablon Blazor je `OnInitializedAsync` přepsáno na asynchronně příjem dat předpovědi (`forecasts`). Pokud je `forecasts` `null`, uživateli se zobrazí zpráva o načítání. Jakmile se `Task` vrátí `OnInitializedAsync` dokončí, komponenta se znovu vykreslí s aktualizovaným stavem.
 
 *Stránky/FetchData. Razor*:
 
@@ -962,7 +1078,7 @@ V komponentě `FetchData` v šablonách Blazor `OnInitializedAsync` bude přeps�
 
 ### <a name="execute-code-before-parameters-are-set"></a>Spustit kód před nastavením parametrů
 
-`SetParameters` může být přepsáno, aby se spustil kód před nastavením parametrů:
+`SetParameters` lze přepsat pro spuštění kódu před nastavením parametrů:
 
 ```csharp
 public override void SetParameters(ParameterView parameters)
@@ -973,11 +1089,11 @@ public override void SetParameters(ParameterView parameters)
 }
 ```
 
-Pokud není vyvoláno `base.SetParameters`, vlastní kód může interpretovat hodnotu příchozích parametrů jakýmkoli způsobem, který je vyžadován. Například příchozí parametry nemusejí být přiřazeny vlastnostem třídy.
+Pokud `base.SetParameters` není vyvolán, vlastní kód může interpretovat hodnotu příchozích parametrů jakýmkoli způsobem, který je vyžadován. Například příchozí parametry nemusejí být přiřazeny vlastnostem třídy.
 
 ### <a name="suppress-refreshing-of-the-ui"></a>Potlačit aktualizaci uživatelského rozhraní
 
-`ShouldRender` se dá přepsat, aby se potlačila aktualizace uživatelského rozhraní. Pokud implementace vrátí `true`, uživatelské rozhraní se aktualizuje. I když je přepsána hodnota `ShouldRender`, komponenta je vždy zpočátku vykreslena.
+`ShouldRender` lze přepsat, aby se potlačila aktualizace uživatelského rozhraní. Pokud implementace vrátí `true`, uživatelské rozhraní se aktualizuje. I v případě, že je `ShouldRender` přepsat, komponenta je vždy zpočátku vykreslena.
 
 ```csharp
 protected override bool ShouldRender()
@@ -990,7 +1106,7 @@ protected override bool ShouldRender()
 
 ## <a name="component-disposal-with-idisposable"></a>Vyřazení komponent pomocí IDisposable
 
-Pokud komponenta implementuje <xref:System.IDisposable>, [Metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) se zavolá, když se komponenta odebere z uživatelského rozhraní. Následující komponenta používá `@implements IDisposable` a metodu `Dispose`:
+Pokud komponenta implementuje <xref:System.IDisposable>, je volána [Metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) při odebrání komponenty z uživatelského rozhraní. Následující komponenta používá `@implements IDisposable` a metodu `Dispose`:
 
 ```csharp
 @using System
@@ -1011,9 +1127,9 @@ Pokud komponenta implementuje <xref:System.IDisposable>, [Metoda Dispose](/dotne
 
 ## <a name="routing"></a>Směrování
 
-Směrování v Blazor se dosahuje tak, že poskytuje šablonu směrování pro každou dostupnou součást aplikace.
+Směrování v Blazor dosáhnete tak, že v aplikaci poskytnete šablonu směrování pro každou dostupnou součást.
 
-Když je zkompilován soubor Razor s direktivou `@page`, vygenerovaná Třída předává <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> určující šablonu trasy. V době běhu Směrovač vyhledává třídy komponent s `RouteAttribute` a vykreslí, že každá komponenta má šablonu směrování, která odpovídá požadované adrese URL.
+Když je zkompilován soubor Razor s direktivou `@page`, vygenerovaná třída má <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> určující šablonu trasy. V době běhu směrovač vyhledá třídy komponent pomocí `RouteAttribute` a vykreslí, že každá komponenta má šablonu směrování, která odpovídá požadované adrese URL.
 
 Pro komponentu lze použít více šablon směrování. Následující komponenta reaguje na požadavky na `/BlazorRoute` a `/DifferentBlazorRoute`:
 
@@ -1021,13 +1137,13 @@ Pro komponentu lze použít více šablon směrování. Následující komponent
 
 ## <a name="route-parameters"></a>Parametry směrování
 
-Komponenty mohou přijímat parametry tras z šablony trasy uvedené v direktivě `@page`. Směrovač používá parametry směrování k naplnění odpovídajících parametrů komponent.
+Komponenty mohou přijímat parametry směrování z šablony směrování uvedené v direktivě `@page`. Směrovač používá parametry směrování k naplnění odpovídajících parametrů komponent.
 
 *Komponenta parametru směrování*:
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
 
-Volitelné parametry nejsou podporované, takže se v předchozím příkladu použijí dvě direktivy `@page`. První umožňuje navigaci na součást bez parametru. Druhá direktiva `@page` přijímá parametr trasy `{text}` a přiřazuje hodnotu vlastnosti `Text`.
+Volitelné parametry nejsou podporované, takže se v předchozím příkladu použijí dvě direktivy `@page`. První umožňuje navigaci na součást bez parametru. Druhá direktiva `@page` přebírá parametr trasy `{text}` a přiřazuje hodnotu vlastnosti `Text`.
 
 ::: moniker range=">= aspnetcore-3.1"
 
@@ -1035,7 +1151,7 @@ Volitelné parametry nejsou podporované, takže se v předchozím příkladu po
 
 Komponenty Razor jsou generovány jako částečné třídy. Komponenty Razor jsou vytvořeny některým z následujících přístupů:
 
-* C#kód je definován v [@code](xref:mvc/views/razor#code) bloku pomocí značek HTML a kódu Razor v jednom souboru. Šablony Blazor definují své komponenty Razor pomocí tohoto přístupu.
+* C#kód je definován v [@code](xref:mvc/views/razor#code) bloku pomocí značek HTML a kódu Razor v jednom souboru. šablony Blazor definují své komponenty Razor pomocí tohoto přístupu.
 * C#kód je umístěn v souboru kódu na pozadí, který je definován jako částečná třída.
 
 Následující příklad ukazuje výchozí komponentu `Counter` s blokem `@code` v aplikaci vygenerovanou šablonou Blazor. Značky HTML, kód Razor a C# kód jsou ve stejném souboru:
@@ -1100,7 +1216,7 @@ namespace BlazorApp.Pages
 
 Direktivu `@inherits` lze použít k určení základní třídy pro komponentu.
 
-[Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje, jak komponenta může dědit základní třídu, `BlazorRocksBase`, k poskytnutí vlastností a metod součásti.
+[Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje, jak komponenta může dědit základní třídu, `BlazorRocksBase`, aby poskytovala vlastnosti a metody komponenty.
 
 *Stránky/BlazorRocks. Razor*:
 
@@ -1135,14 +1251,14 @@ Základní třída by měla být odvozena od `ComponentBase`.
 Obor názvů komponenty, která je vytvořená pomocí Razor, je založen na (v pořadí podle priority):
 
 * [@namespace](xref:mvc/views/razor#namespace) označení v souboru Razor ( *. Razor*) značky (`@namespace BlazorSample.MyNamespace`).
-* Projektový `RootNamespace` v souboru projektu (`<RootNamespace>BlazorSample</RootNamespace>`).
-* Název projektu, pořízený z názvu souboru projektu ( *. csproj*) a cesta z kořenového adresáře projektu ke komponentě. Například rozhraní řeší *{Project root}/pages/index.Razor* (*BlazorSample. csproj*) na obor názvů `BlazorSample.Pages`. Komponenty následují C# pravidla vazeb názvů. V tomto příkladu komponenty `Index` jsou součástí oboru všechny komponenty:
+* `RootNamespace` projektu v souboru projektu (`<RootNamespace>BlazorSample</RootNamespace>`).
+* Název projektu, pořízený z názvu souboru projektu ( *. csproj*) a cesta z kořenového adresáře projektu ke komponentě. Například rozhraní řeší *{Project root}/pages/index.Razor* (*BlazorSample. csproj*) na obor názvů `BlazorSample.Pages`. Komponenty následují C# pravidla vazeb názvů. Pro komponentu `Index` v tomto příkladu komponenty v oboru jsou všechny komponenty:
   * Ve stejné složce *stránky*.
   * Komponenty v kořenu projektu, které explicitně neurčují jiný obor názvů.
 
 Komponenty definované v jiném oboru názvů se přenesou do rozsahu pomocí direktivy [@using](xref:mvc/views/razor#using) Razor.
 
-Pokud je v *BlazorSample/Shared/* Folder jiná komponenta `NavMenu.razor`, součást se dá použít v `Index.razor` s následujícím příkazem `@using`:
+Pokud v *BlazorSample/Shared/* Folder existuje jiná komponenta, `NavMenu.razor`, lze komponentu použít v `Index.razor` pomocí následujícího příkazu `@using`:
 
 ```cshtml
 @using BlazorSample.Shared
@@ -1163,15 +1279,15 @@ This is the Index page.
 > [!NOTE]
 > Kvalifikace `global::` není podporována.
 >
-> Import komponent s aliasem `using` příkazy-0 (například `@using Foo = Bar`) se nepodporuje.
+> Import komponent s aliasy `using` příkazy (například `@using Foo = Bar`) není podporován.
 >
-> Částečně kvalifikované názvy nejsou podporovány. Například přidání `@using BlazorSample` a odkazování `NavMenu.razor` s `<Shared.NavMenu></Shared.NavMenu>` se nepodporuje.
+> Částečně kvalifikované názvy nejsou podporovány. Například přidání `@using BlazorSample` a odkazování `NavMenu.razor` pomocí `<Shared.NavMenu></Shared.NavMenu>` není podporováno.
 
 ## <a name="conditional-html-element-attributes"></a>Podmíněné atributy elementu HTML
 
-Atributy elementu HTML jsou podmíněně vykresleny na základě hodnoty .NET. Pokud je hodnota `false` nebo `null`, atribut se nevykresluje. Pokud je hodnota `true`, atribut se vykreslí jako minimalizovaný.
+Atributy elementu HTML jsou podmíněně vykresleny na základě hodnoty .NET. Pokud je hodnota `false` nebo `null`, není atribut vykreslen. Pokud je hodnota `true`, vykreslí se atribut jako minimalizovaný.
 
-V následujícím příkladu `IsCompleted` určuje, zda je v označení prvku vykreslena `checked`:
+V následujícím příkladu `IsCompleted` určuje, zda je `checked` vykreslen v kódu elementu:
 
 ```cshtml
 <input type="checkbox" checked="@IsCompleted" />
@@ -1197,7 +1313,7 @@ Pokud je `IsCompleted` `false`, zaškrtávací políčko se vykreslí jako:
 Další informace najdete v tématu <xref:mvc/views/razor>.
 
 > [!WARNING]
-> Některé atributy HTML, jako je například [Standard ARIA](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons), nebudou fungovat správně, pokud je typ .NET `bool`. V těchto případech použijte místo `bool` `string` typ.
+> Některé atributy HTML, jako je například [Standard ARIA](https://developer.mozilla.org/docs/Web/Accessibility/ARIA/Roles/button_role#Toggle_buttons), nebudou fungovat správně, pokud je typ .NET `bool`. V těchto případech použijte místo `bool``string` typ.
 
 ## <a name="raw-html"></a>Nezpracovaný kód HTML
 
@@ -1249,7 +1365,7 @@ Při použití komponenty se šablonou lze parametry šablony zadat pomocí pod�
 
 ### <a name="template-context-parameters"></a>Kontextové parametry šablony
 
-Argumenty součásti typu `RenderFragment<T>` předané jako elementy mají implicitní parametr s názvem `context` (například z předchozí ukázky kódu `@context.PetId`), ale můžete změnit název parametru pomocí atributu `Context` v podřízeném elementu. V následujícím příkladu atribut `Context` elementu `RowTemplate` určuje parametr `pet`:
+Argumenty součásti typu `RenderFragment<T>` předány jako elementy mají implicitní parametr s názvem `context` (například z předchozí ukázky kódu `@context.PetId`), ale můžete změnit název parametru pomocí atributu `Context` u podřízeného elementu. V následujícím příkladu atribut `Context` elementu `RowTemplate` určuje parametr `pet`:
 
 ```cshtml
 <TableTemplate Items="pets">
@@ -1264,7 +1380,7 @@ Argumenty součásti typu `RenderFragment<T>` předané jako elementy mají impl
 </TableTemplate>
 ```
 
-Alternativně lze zadat atribut `Context` u prvku součásti. Zadaný atribut `Context` se vztahuje na všechny zadané parametry šablony. To může být užitečné, pokud chcete zadat název parametru obsahu pro implicitní podřízený obsah (bez nutnosti zalamování podřízeného elementu). V následujícím příkladu se atribut `Context` zobrazuje u prvku `TableTemplate` a vztahuje se na všechny parametry šablony:
+Alternativně lze zadat atribut `Context` prvku komponenty. Zadaný atribut `Context` se vztahuje na všechny zadané parametry šablony. To může být užitečné, pokud chcete zadat název parametru obsahu pro implicitní podřízený obsah (bez nutnosti zalamování podřízeného elementu). V následujícím příkladu se atribut `Context` zobrazí u elementu `TableTemplate` a vztahuje se na všechny parametry šablony:
 
 ```cshtml
 <TableTemplate Items="pets" Context="pet">
@@ -1281,7 +1397,7 @@ Alternativně lze zadat atribut `Context` u prvku součásti. Zadaný atribut `C
 
 ### <a name="generic-typed-components"></a>Komponenty s obecným typem
 
-Komponenty se šablonami jsou často typu obecně typované. Například obecná komponenta `ListViewTemplate` může být použita k vykreslování hodnot `IEnumerable<T>`. Chcete-li definovat obecné komponenty, použijte direktivu [@typeparam](xref:mvc/views/razor#typeparam) pro určení parametrů typu:
+Komponenty se šablonami jsou často typu obecně typované. Například obecná `ListViewTemplate` komponenta může být použita pro vykreslení `IEnumerable<T>`ch hodnot. Chcete-li definovat obecné komponenty, použijte direktivu [@typeparam](xref:mvc/views/razor#typeparam) pro určení parametrů typu:
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 
@@ -1322,9 +1438,9 @@ public class ThemeInfo
 }
 ```
 
-Komponenta předchůdce může poskytnout kaskádovou hodnotu pomocí komponenty kaskádová hodnota. Komponenta `CascadingValue` balí podstrom hierarchie komponent a poskytuje jednu hodnotu všem součástem v rámci daného podstromu.
+Komponenta předchůdce může poskytnout kaskádovou hodnotu pomocí komponenty kaskádová hodnota. Komponenta `CascadingValue` zabalí podstrom hierarchie komponent a poskytne jednu hodnotu všem součástem v rámci daného podstromu.
 
-Například ukázková aplikace určuje informace o motivu (`ThemeInfo`) v jednom z rozložení aplikace jako kaskádový parametr pro všechny komponenty, které tvoří text rozložení vlastnosti `@Body`. `ButtonClass` je v komponentě rozložení přiřazena hodnota `btn-success`. Jakákoli odvozená komponenta může tuto vlastnost spotřebovat prostřednictvím kaskádového objektu `ThemeInfo`.
+Například ukázková aplikace určuje informace o motivu (`ThemeInfo`) v jednom z rozložení aplikace jako kaskádový parametr pro všechny komponenty, které tvoří text rozložení `@Body` vlastnosti. `ButtonClass` je v komponentě rozložení přiřazena hodnota `btn-success`. Jakákoli následná komponenta může tuto vlastnost spotřebovat prostřednictvím `ThemeInfo` kaskádového objektu.
 
 součást `CascadingValuesParametersLayout`:
 
@@ -1354,7 +1470,7 @@ součást `CascadingValuesParametersLayout`:
 
 Chcete-li použít kaskádové hodnoty, komponenty deklaruje kaskádové parametry pomocí atributu `[CascadingParameter]`. Kaskádové hodnoty jsou vázány na kaskádové parametry podle typu.
 
-V ukázkové aplikaci váže komponenta `CascadingValuesParametersTheme` kaskádovou hodnotu `ThemeInfo` k kaskádovým parametrům. Parametr slouží k nastavení třídy CSS pro jedno z tlačítek zobrazených komponentou.
+V ukázkové aplikaci `CascadingValuesParametersTheme` komponenta váže kaskádovou hodnotu `ThemeInfo` na kaskádový parametr. Parametr slouží k nastavení třídy CSS pro jedno z tlačítek zobrazených komponentou.
 
 součást `CascadingValuesParametersTheme`:
 
@@ -1392,7 +1508,7 @@ součást `CascadingValuesParametersTheme`:
 }
 ```
 
-Chcete-li do stejného podstromu přenést více hodnot stejného typu, zadejte jedinečný řetězec `Name` ke každé komponentě `CascadingValue` a odpovídající `CascadingParameter`. V následujícím příkladu jsou dvě komponenty `CascadingValue` kaskádovitě odlišné instance `MyCascadingType` podle názvu:
+Pro kaskádování více hodnot stejného typu v rámci stejného podstromu zadejte jedinečný `Name` řetězec pro každou `CascadingValue` komponentu a odpovídající `CascadingParameter`. V následujícím příkladu se dvě `CascadingValue` komponenty zanášejí do různých instancí `MyCascadingType` podle názvu:
 
 ```cshtml
 <CascadingValue Value=@ParentCascadeParameter1 Name="CascadeParam1">
@@ -1429,21 +1545,21 @@ V komponentě následníka tyto parametry přebírají své hodnoty z odpovídaj
 
 Kaskádové parametry také umožňují komponentám spolupracovat napříč hierarchií součástí. Podívejte se například na následující příklad *TabSet* v ukázkové aplikaci.
 
-Ukázková aplikace obsahuje rozhraní `ITab`, které karty implementují:
+Ukázková aplikace má `ITab` rozhraní, které tyto karty implementují:
 
 [!code-csharp[](common/samples/3.x/BlazorWebAssemblySample/UIInterfaces/ITab.cs)]
 
-Komponenta `CascadingValuesParametersTabSet` používá komponentu `TabSet`, která obsahuje několik součástí `Tab`:
+Komponenta `CascadingValuesParametersTabSet` používá součást `TabSet`, která obsahuje několik `Tab` komponent:
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/CascadingValuesParametersTabSet.razor?name=snippet_TabSet)]
 
-Podřízené součásti `Tab` nejsou explicitně předány jako parametry `TabSet`. Místo toho jsou podřízené součásti `Tab` součástí podřízeného obsahu `TabSet`. `TabSet` však stále potřebuje znát každou součást `Tab`, aby mohla vykreslovat hlavičky a aktivní kartu. Chcete-li povolit tuto koordinaci bez nutnosti dalšího kódu, komponenta `TabSet` *může poskytnout sebe sama jako kaskádovou hodnotu* , která je poté odebrána pomocí podřízených `Tab` komponent.
+Podřízené `Tab` komponenty nejsou explicitně předány jako parametry `TabSet`. Místo toho jsou podřízené součásti `Tab` součástí podřízeného obsahu `TabSet`. `TabSet` však stále potřebuje znát každou součást `Tab`, aby mohla vykreslovat hlavičky a aktivní kartu. Chcete-li povolit tuto koordinaci bez nutnosti dalšího kódu, komponenta `TabSet` *může poskytnout sebe sama jako kaskádovou hodnotu* , která je poté odebrána pomocí podřízených `Tab` komponent.
 
 součást `TabSet`:
 
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Components/TabSet.razor)]
 
-Podřízené komponenty `Tab` zachytí obsahující `TabSet` jako kaskádový parametr, takže součásti `Tab` přidají sebe sama do `TabSet` a koordinují, na které kartě je aktivní.
+Podřízené `Tab` komponenty zachytí obsahující `TabSet` jako kaskádový parametr, takže součásti `Tab` přidají sebe do `TabSet` a koordinují, na které kartě je aktivní.
 
 součást `Tab`:
 
@@ -1457,7 +1573,7 @@ Fragmenty vykreslování lze definovat pomocí syntaxe šablony Razor. Šablony 
 @<{HTML tag}>...</{HTML tag}>
 ```
 
-Následující příklad ukazuje, jak zadat hodnoty `RenderFragment` a `RenderFragment<T>` a vykreslit šablony přímo v komponentě. Fragmenty vykreslování mohou být také předány jako argumenty [součástem šablon](#templated-components).
+Následující příklad ukazuje, jak určit hodnoty `RenderFragment` a `RenderFragment<T>` a vykreslit šablony přímo v komponentě. Fragmenty vykreslování mohou být také předány jako argumenty [součástem šablon](#templated-components).
 
 ```cshtml
 @timeTemplate
@@ -1486,12 +1602,12 @@ Vykreslený výstup předchozího kódu:
 
 ## <a name="manual-rendertreebuilder-logic"></a>Ruční logika RenderTreeBuilder
 
-`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder` poskytuje metody pro manipulaci s komponentami a prvky, včetně sestavování C# komponent ručně v kódu.
+`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder` poskytuje metody pro práci s komponentami a prvky, včetně sestavování C# komponent ručně v kódu.
 
 > [!NOTE]
-> Použití `RenderTreeBuilder` pro vytváření komponent je pokročilý scénář. Poškozená komponenta (například značka neuzavřeného označení) může mít za následek nedefinované chování.
+> Použití `RenderTreeBuilder` k vytváření komponent je pokročilý scénář. Poškozená komponenta (například značka neuzavřeného označení) může mít za následek nedefinované chování.
 
-Vezměte v úvahu následující součást `PetDetails`, kterou je možné ručně vytvořit do jiné součásti:
+Vezměte v úvahu následující součást `PetDetails`, kterou je možné ručně vytvořit do jiné komponenty:
 
 ```cshtml
 <h2>Pet Details Component</h2>
@@ -1540,15 +1656,15 @@ součást `BuiltContent`:
 }
 ```
 
-> ! Upozornění Typy v `Microsoft.AspNetCore.Components.RenderTree` umožňují zpracování *výsledků* operací vykreslování. Jedná se o interní podrobnosti implementace Blazor Framework. Tyto typy by měly být považovány za *nestabilní* a mohou se změnit v budoucích verzích.
+> ! Upozornění Typy v `Microsoft.AspNetCore.Components.RenderTree` umožňují zpracování *výsledků* operací vykreslování. Toto jsou interní podrobnosti o implementaci rozhraní Blazor Framework. Tyto typy by měly být považovány za *nestabilní* a mohou se změnit v budoucích verzích.
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>Pořadová čísla se vztahují na čísla řádků kódu a nikoli na pořadí provádění.
 
-Soubory Blazor `.razor` jsou vždy kompilovány. To je potenciálně skvělý přínos pro `.razor`, protože krok kompilace lze použít k vložení informací, které zlepšují výkon aplikace za běhu.
+soubory `.razor` Blazor jsou vždy kompilovány. Tato možnost je potenciálně výhodná pro `.razor`, protože krok kompilace lze použít k vložení informací, které zlepšují výkon aplikace za běhu.
 
 Hlavní příklad těchto vylepšení zahrnuje *pořadová čísla*. Pořadová čísla označují modul runtime, ze kterého výstupy pocházejí, ze kterých se liší a seřazené řádky kódu. Modul runtime používá tyto informace k vygenerování efektivních rozdílů stromu v lineárním čase, což je mnohem rychlejší než obvykle pro obecný rozdílový algoritmus stromu.
 
-Vezměte v úvahu následující jednoduchý soubor `.razor`:
+Vezměte v úvahu následující jednoduchý `.razor` soubor:
 
 ```cshtml
 @if (someFlag)
@@ -1570,18 +1686,18 @@ if (someFlag)
 builder.AddContent(1, "Second");
 ```
 
-Při prvním spuštění kódu, pokud `someFlag` je `true`, tvůrce obdrží:
+Při prvním spuštění kódu, pokud je `someFlag` `true`, tvůrce obdrží:
 
 | Sequence | Typ      | Data   |
 | :------: | --------- | :----: |
-| 0,8        | Textový uzel | První  |
-| první        | Textový uzel | Sekunda |
+| 0        | Textový uzel | první  |
+| 1        | Textový uzel | Sekunda |
 
-Představte si, že `someFlag` se naplní `false` a kód se znovu vykreslí. Tentokrát Tvůrce získá:
+Představte si, že `someFlag` se budou `false`a kód se znovu vykreslí. Tentokrát Tvůrce získá:
 
 | Sequence | Typ       | Data   |
 | :------: | ---------- | :----: |
-| první        | Textový uzel  | Sekunda |
+| 1        | Textový uzel  | Sekunda |
 
 Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci `0` byla odebrána, takže generuje následující skript triviálního *úprav*:
 
@@ -1606,21 +1722,21 @@ Teď je první výstup:
 
 | Sequence | Typ      | Data   |
 | :------: | --------- | :----: |
-| 0,8        | Textový uzel | První  |
-| první        | Textový uzel | Sekunda |
+| 0        | Textový uzel | první  |
+| 1        | Textový uzel | Sekunda |
 
-Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je ve druhém vykreslování `false` a výstup je následující:
+Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je `false` při druhém vykreslování a výstup je:
 
 | Sequence | Typ      | Data   |
 | :------: | --------- | ------ |
-| 0,8        | Textový uzel | Sekunda |
+| 0        | Textový uzel | Sekunda |
 
 Tentokrát rozdílový algoritmus uvidí, že došlo ke *dvěma* změnám, a algoritmus generuje následující skript pro úpravy:
 
 * Změňte hodnotu prvního textového uzlu na `Second`.
 * Odeberte druhý textový uzel.
 
-Generování pořadových čísel ztratilo všechny užitečné informace o tom, kde se v původním kódu objevily větve `if/else` a smyčky. To vede ke rozdílu **dvakrát, jak dlouho** chcete.
+Generování pořadových čísel ztratilo všechny užitečné informace o tom, kde `if/else` větve a smyčky byly obsaženy v původním kódu. To vede ke rozdílu **dvakrát, jak dlouho** chcete.
 
 Toto je triviální příklad. Ve složitějších případech se složitými a hluboce vnořenými strukturami, a to hlavně pomocí smyček, náklady na výkon jsou závažnější. Místo toho, aby se ihned identifikovaly, které bloky nebo větve smyček byly vloženy nebo odebrány, je třeba rozdílový algoritmus přepracovat hluboko do stromů vykreslování a obvykle sestavovat mnohem delší úpravu skriptů, protože je nepřehledně neinformován o tom, jak staré a nové struktury vzájemná vazba.
 
@@ -1628,20 +1744,24 @@ Toto je triviální příklad. Ve složitějších případech se složitými a 
 
 * Pokud jsou automaticky generována pořadová čísla, je výkon aplikace zhoršen.
 * Rozhraní nemůže automaticky vytvořit vlastní pořadová čísla za běhu, protože potřebné informace neexistují, pokud není zachycena v době kompilace.
-* Nepište dlouhé bloky ručně implementovaného `RenderTreeBuilder` logiky. Preferovat `.razor` souborů a umožňuje kompilátoru zabývat se čísly sekvence. Nemůžete-li se vyhnout ruční logice `RenderTreeBuilder`, rozdělte dlouhé bloky kódu do menších částí zabalených do `OpenRegion` / `CloseRegion` volání. Každá oblast má vlastní oddělený prostor pořadových čísel, takže v každé oblasti můžete restartovat z nuly (nebo jakéhokoli jiného libovolného čísla).
+* Nepište dlouhé bloky manuálně implementované `RenderTreeBuilder` logiky. Preferovat `.razor` soubory a umožněte kompilátoru, aby se zabývat pořadovým číslem. Nemůžete-li se vyhnout ruční logice `RenderTreeBuilder`, rozdělte dlouhé bloky kódu do menších částí zabalených do `OpenRegion`/`CloseRegion` volání. Každá oblast má vlastní oddělený prostor pořadových čísel, takže v každé oblasti můžete restartovat z nuly (nebo jakéhokoli jiného libovolného čísla).
 * Pokud jsou pořadová čísla pevně zakódované, rozdílový algoritmus vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou nepodstatné. Jednou z oprávněných možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit podle hodnoty nebo stovky (případně z upřednostňovaného intervalu). 
-* Blazor používá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdíly jsou mnohem rychlejší při použití pořadových čísel a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře vytvářející `.razor` souborů.
+* Blazor používá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdíly jsou mnohem rychlejší, když se používají pořadová čísla, a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře vytvářející soubory *. Razor* .
 
 ## <a name="localization"></a>Lokalizace
 
-Aplikace Blazor serveru jsou lokalizovány pomocí [middleware pro lokalizaci](xref:fundamentals/localization#localization-middleware). Middleware vybere vhodnou jazykovou verzi pro uživatele, kteří žádají o prostředky z aplikace.
+aplikace Blazor serveru jsou lokalizovány pomocí [middlewaru pro lokalizaci](xref:fundamentals/localization#localization-middleware). Middleware vybere vhodnou jazykovou verzi pro uživatele, kteří žádají o prostředky z aplikace.
 
 Tuto jazykovou verzi lze nastavit pomocí jednoho z následujících přístupů:
 
 * [Soubory cookie](#cookies)
 * [Poskytnutí uživatelského rozhraní pro výběr jazykové verze](#provide-ui-to-choose-the-culture)
 
-Další informace a příklady najdete v tématu <xref:fundamentals/localization>.
+Další informace a příklady naleznete v tématu <xref:fundamentals/localization>.
+
+### <a name="configure-the-linker-for-internationalization-opno-locblazor-webassembly"></a>Konfigurace linkeru pro mezinárodní navýšení (Blazor WebAssembly)
+
+Ve výchozím nastavení Blazorkonfigurace linkeru pro Blazor aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Další informace a pokyny k řízení chování linkeru naleznete v tématu <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>.
 
 ### <a name="cookies"></a>Soubory cookie
 
@@ -1675,11 +1795,11 @@ Lokalizace se zpracovává v aplikaci:
 1. Metoda `OnGet` v *_Host. cshtml. cs* uchovává v rámci odpovědi jazykovou verzi v souboru cookie.
 1. Prohlížeč otevře připojení pomocí protokolu WebSocket a vytvoří interaktivní relaci serveru Blazor.
 1. Middleware lokalizace přečte soubor cookie a přiřadí jazykovou verzi.
-1. Relace serveru Blazor začíná správnou jazykovou verzí.
+1. Relace Blazor serveru začíná správnou jazykovou verzí.
 
-## <a name="provide-ui-to-choose-the-culture"></a>Poskytnutí uživatelského rozhraní pro výběr jazykové verze
+### <a name="provide-ui-to-choose-the-culture"></a>Poskytnutí uživatelského rozhraní pro výběr jazykové verze
 
-K poskytnutí uživatelského rozhraní, které uživateli umožní vybrat jazykovou verzi, se doporučuje *přístup založený na přesměrování* . Proces se podobá tomu, co se stane ve webové aplikaci, když se uživatel pokusí o přístup k zabezpečenému prostředku &mdash;the uživatel je přesměrován na přihlašovací stránku a pak se přesměruje zpátky na původní prostředek. 
+K poskytnutí uživatelského rozhraní, které uživateli umožní vybrat jazykovou verzi, se doporučuje *přístup založený na přesměrování* . Proces se podobá tomu, co se stane ve webové aplikaci, když se uživatel pokusí o přístup k zabezpečenému prostředku&mdash;uživatel je přesměrován na přihlašovací stránku a pak se přesměruje zpátky na původní prostředek. 
 
 Aplikace zachovává vybranou jazykovou verzi uživatele prostřednictvím přesměrování na kontroler. Řadič Nastaví vybranou jazykovou verzi uživatele na soubor cookie a přesměruje uživatele zpět na původní identifikátor URI.
 
@@ -1705,7 +1825,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> Pomocí akce `LocalRedirect` zabráníte útokům v otevřeném přesměrování. Další informace najdete v tématu <xref:security/preventing-open-redirects>.
+> Použijte `LocalRedirect` výsledek akce, aby se zabránilo otevřeným útokům přes přesměrování. Další informace najdete v tématu <xref:security/preventing-open-redirects>.
 
 Následující komponenta ukazuje příklad, jak provést počáteční přesměrování, když uživatel vybere jazykovou verzi:
 
@@ -1736,19 +1856,19 @@ Následující komponenta ukazuje příklad, jak provést počáteční přesmě
 }
 ```
 
-### <a name="use-net-localization-scenarios-in-blazor-apps"></a>Použití scénářů lokalizace .NET v aplikacích Blazor
+### <a name="use-net-localization-scenarios-in-opno-locblazor-apps"></a>Použití scénářů lokalizace rozhraní .NET v aplikacích Blazor
 
-V aplikacích Blazor jsou k dispozici následující scénáře lokalizace a globalizace rozhraní .NET:
+V rámci Blazor aplikací jsou k dispozici následující scénáře lokalizace a globalizace rozhraní .NET:
 
 * . Systém prostředků netto
 * Formátování čísla a data specifické pro jazykovou verzi
 
-Funkce Blazor `@bind` provádí globalizaci na základě aktuální jazykové verze uživatele. Další informace najdete v části [vázání dat](#data-binding) .
+funkce `@bind` Blazorprovádí globalizaci na základě aktuální jazykové verze uživatele. Další informace najdete v části [vázání dat](#data-binding) .
 
 V současné době se podporuje omezená sada scénářů lokalizace ASP.NET Core:
 
 * `IStringLocalizer<>` *se* v aplikacích Blazor podporuje.
-* `IHtmlLocalizer<>`, `IViewLocalizer<>` a lokalizace datových poznámek jsou ASP.NET Core scénáře MVC a **nejsou podporovány** v aplikacích Blazor.
+* lokalizace `IHtmlLocalizer<>`, `IViewLocalizer<>`a datových poznámek jsou ASP.NET Core scénáře MVC a **nejsou podporovány** v aplikacích Blazor.
 
 Další informace najdete v tématu <xref:fundamentals/localization>.
 
@@ -1768,8 +1888,8 @@ Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů
 }
 ```
 
-Vložené značky SVG se však ve všech scénářích nepodporují. Pokud značku `<svg>` umístíte přímo do souboru komponenty ( *. Razor*), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů se ještě nepodporuje. Například značky `<use>` nejsou aktuálně dodrženy a `@bind` nelze použít s některými značkami SVG. Očekáváme, že tato omezení vyřešíme v budoucí verzi.
+Vložené značky SVG se však ve všech scénářích nepodporují. Pokud značku `<svg>` umístíte přímo do souboru komponenty ( *. Razor*), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů se ještě nepodporuje. Například `<use>` značky nejsou aktuálně dodrženy a `@bind` nelze použít s některými značkami SVG. Očekáváme, že tato omezení vyřešíme v budoucí verzi.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
-* <xref:security/blazor/server> &ndash; obsahuje pokyny k vytváření aplikací serveru Blazor, které musí soupeří s vyčerpáním prostředků.
+* <xref:security/blazor/server> &ndash; obsahuje pokyny k vytváření Blazor serverových aplikací, které se musí soupeří s vyčerpáním prostředků.
