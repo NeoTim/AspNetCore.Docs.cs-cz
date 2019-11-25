@@ -5,33 +5,33 @@ description: Naučte se řídit linker zprostředkujícího jazyka (IL) při ses
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/21/2019
 no-loc:
 - Blazor
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: b30669a7ca02c756fa10c8cf9973ef87e29e7bd4
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 0bc987d72d2f684b1ecbd4a883e9a09fac7c801e
+ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963607"
+ms.lasthandoff: 11/22/2019
+ms.locfileid: "74317292"
 ---
-# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a><span data-ttu-id="a096e-103">Konfigurace linkeru pro ASP.NET Core Blazor</span><span class="sxs-lookup"><span data-stu-id="a096e-103">Configure the Linker for ASP.NET Core Blazor</span></span>
+# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a><span data-ttu-id="30480-103">Konfigurace linkeru pro ASP.NET Core Blazor</span><span class="sxs-lookup"><span data-stu-id="30480-103">Configure the Linker for ASP.NET Core Blazor</span></span>
 
-<span data-ttu-id="a096e-104">Od [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="a096e-104">By [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="30480-104">Podle [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="30480-104">By [Luke Latham](https://github.com/guardrex)</span></span>
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor<span data-ttu-id="a096e-105"> provádí propojování v [prostředním jazyce (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení pro vydání, aby se z výstupních sestavení aplikace odstranilo zbytečné Il.</span><span class="sxs-lookup"><span data-stu-id="a096e-105"> performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during a Release build to remove unnecessary IL from the app's output assemblies.</span></span>
+Blazor<span data-ttu-id="30480-105"> provádí propojování v [prostředním jazyce (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení pro odebrání zbytečného Il z výstupních sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="30480-105"> performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during a build to remove unnecessary IL from the app's output assemblies.</span></span>
 
-<span data-ttu-id="a096e-106">Ovládací prvek propojuje sestavení pomocí některého z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="a096e-106">Control assembly linking using either of the following approaches:</span></span>
+<span data-ttu-id="30480-106">Ovládací prvek propojuje sestavení pomocí některého z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="30480-106">Control assembly linking using either of the following approaches:</span></span>
 
-* <span data-ttu-id="a096e-107">Zakáže propojení globálně s [vlastností MSBuild](#disable-linking-with-a-msbuild-property).</span><span class="sxs-lookup"><span data-stu-id="a096e-107">Disable linking globally with a [MSBuild property](#disable-linking-with-a-msbuild-property).</span></span>
-* <span data-ttu-id="a096e-108">Řízení propojení podle jednotlivých sestavení pomocí [konfiguračního souboru](#control-linking-with-a-configuration-file).</span><span class="sxs-lookup"><span data-stu-id="a096e-108">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
+* <span data-ttu-id="30480-107">Zakáže propojení globálně s [vlastností MSBuild](#disable-linking-with-a-msbuild-property).</span><span class="sxs-lookup"><span data-stu-id="30480-107">Disable linking globally with a [MSBuild property](#disable-linking-with-a-msbuild-property).</span></span>
+* <span data-ttu-id="30480-108">Řízení propojení podle jednotlivých sestavení pomocí [konfiguračního souboru](#control-linking-with-a-configuration-file).</span><span class="sxs-lookup"><span data-stu-id="30480-108">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
 
-## <a name="disable-linking-with-a-msbuild-property"></a><span data-ttu-id="a096e-109">Zakázat propojení s vlastností MSBuild</span><span class="sxs-lookup"><span data-stu-id="a096e-109">Disable linking with a MSBuild property</span></span>
+## <a name="disable-linking-with-a-msbuild-property"></a><span data-ttu-id="30480-109">Zakázat propojení s vlastností MSBuild</span><span class="sxs-lookup"><span data-stu-id="30480-109">Disable linking with a MSBuild property</span></span>
 
-<span data-ttu-id="a096e-110">Propojení je ve výchozím nastavení povoleno v režimu vydání, když je sestavena aplikace, která zahrnuje publikování.</span><span class="sxs-lookup"><span data-stu-id="a096e-110">Linking is enabled by default in Release mode when an app is built, which includes publishing.</span></span> <span data-ttu-id="a096e-111">Chcete-li zakázat propojování pro všechna sestavení, nastavte vlastnost MSBuild `BlazorLinkOnBuild` na hodnotu `false` v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="a096e-111">To disable linking for all assemblies, set the `BlazorLinkOnBuild` MSBuild property to `false` in the project file:</span></span>
+<span data-ttu-id="30480-110">Propojení je ve výchozím nastavení povoleno, pokud je aplikace sestavena, včetně publikování.</span><span class="sxs-lookup"><span data-stu-id="30480-110">Linking is enabled by default when an app is built, which includes publishing.</span></span> <span data-ttu-id="30480-111">Chcete-li zakázat propojování pro všechna sestavení, nastavte vlastnost `BlazorLinkOnBuild` MSBuild na `false` v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="30480-111">To disable linking for all assemblies, set the `BlazorLinkOnBuild` MSBuild property to `false` in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -39,9 +39,9 @@ Blazor<span data-ttu-id="a096e-105"> provádí propojování v [prostředním ja
 </PropertyGroup>
 ```
 
-## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="a096e-112">Řízení propojování pomocí konfiguračního souboru</span><span class="sxs-lookup"><span data-stu-id="a096e-112">Control linking with a configuration file</span></span>
+## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="30480-112">Řízení propojování pomocí konfiguračního souboru</span><span class="sxs-lookup"><span data-stu-id="30480-112">Control linking with a configuration file</span></span>
 
-<span data-ttu-id="a096e-113">Řízení propojení na základě sestavení zadáním konfiguračního souboru XML a zadáním souboru jako položky MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="a096e-113">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
+<span data-ttu-id="30480-113">Řízení propojení na základě sestavení zadáním konfiguračního souboru XML a zadáním souboru jako položky MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="30480-113">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
 
 ```xml
 <ItemGroup>
@@ -49,7 +49,7 @@ Blazor<span data-ttu-id="a096e-105"> provádí propojování v [prostředním ja
 </ItemGroup>
 ```
 
-<span data-ttu-id="a096e-114">*Linker. XML*:</span><span class="sxs-lookup"><span data-stu-id="a096e-114">*Linker.xml*:</span></span>
+<span data-ttu-id="30480-114">*Linker. XML*:</span><span class="sxs-lookup"><span data-stu-id="30480-114">*Linker.xml*:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -81,4 +81,30 @@ Blazor<span data-ttu-id="a096e-105"> provádí propojování v [prostředním ja
 </linker>
 ```
 
-<span data-ttu-id="a096e-115">Další informace naleznete v tématu [linkeru Il: syntaxe popisovače XML](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span><span class="sxs-lookup"><span data-stu-id="a096e-115">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
+<span data-ttu-id="30480-115">Další informace naleznete v tématu [linkeru Il: syntaxe popisovače XML](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span><span class="sxs-lookup"><span data-stu-id="30480-115">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
+
+### <a name="configure-the-linker-for-internationalization"></a><span data-ttu-id="30480-116">Konfigurace linkeru pro mezinárodní využití</span><span class="sxs-lookup"><span data-stu-id="30480-116">Configure the linker for internationalization</span></span>
+
+<span data-ttu-id="30480-117">Ve výchozím nastavení Blazorkonfigurace linkeru pro Blazor aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot.</span><span class="sxs-lookup"><span data-stu-id="30480-117">By default, Blazor's linker configuration for Blazor WebAssembly apps strips out internationalization information except for locales explicitly requested.</span></span> <span data-ttu-id="30480-118">Odebrání těchto sestavení minimalizuje velikost aplikace.</span><span class="sxs-lookup"><span data-stu-id="30480-118">Removing these assemblies minimizes the app's size.</span></span>
+
+<span data-ttu-id="30480-119">Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<MonoLinkerI18NAssemblies>` MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="30480-119">To control which I18N assemblies are retained, set the `<MonoLinkerI18NAssemblies>` MSBuild property in the project file:</span></span>
+
+```xml
+<PropertyGroup>
+  <MonoLinkerI18NAssemblies>{all|none|REGION1,REGION2,...}</MonoLinkerI18NAssemblies>
+</PropertyGroup>
+```
+
+| <span data-ttu-id="30480-120">Hodnota oblasti</span><span class="sxs-lookup"><span data-stu-id="30480-120">Region Value</span></span>     | <span data-ttu-id="30480-121">Sestavení oblasti mono</span><span class="sxs-lookup"><span data-stu-id="30480-121">Mono region assembly</span></span>    |
+| ---------------- | ----------------------- |
+| `all`            | <span data-ttu-id="30480-122">Všechna sestavení, která jsou součástí</span><span class="sxs-lookup"><span data-stu-id="30480-122">All assemblies included</span></span> |
+| `cjk`            | <span data-ttu-id="30480-123">*I18N. CJK. dll*</span><span class="sxs-lookup"><span data-stu-id="30480-123">*I18N.CJK.dll*</span></span>          |
+| `mideast`        | <span data-ttu-id="30480-124">*I18N. MidEast. dll*</span><span class="sxs-lookup"><span data-stu-id="30480-124">*I18N.MidEast.dll*</span></span>      |
+| <span data-ttu-id="30480-125">`none` (výchozí)</span><span class="sxs-lookup"><span data-stu-id="30480-125">`none` (default)</span></span> | <span data-ttu-id="30480-126">Žádný</span><span class="sxs-lookup"><span data-stu-id="30480-126">None</span></span>                    |
+| `other`          | <span data-ttu-id="30480-127">*I18N. Jiná knihovna. dll*</span><span class="sxs-lookup"><span data-stu-id="30480-127">*I18N.Other.dll*</span></span>        |
+| `rare`           | <span data-ttu-id="30480-128">*I18N. Vzácná knihovna DLL*</span><span class="sxs-lookup"><span data-stu-id="30480-128">*I18N.Rare.dll*</span></span>         |
+| `west`           | <span data-ttu-id="30480-129">*I18N. Západ. dll*</span><span class="sxs-lookup"><span data-stu-id="30480-129">*I18N.West.dll*</span></span>         |
+
+<span data-ttu-id="30480-130">Oddělte více hodnot pomocí čárky (například `mideast,west`).</span><span class="sxs-lookup"><span data-stu-id="30480-130">Use a comma to separate multiple values (for example, `mideast,west`).</span></span>
+
+<span data-ttu-id="30480-131">Další informace najdete v tématu [i18n: Pnetlib internationaling Framework knihovnu (úložiště GitHub mono/mono)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span><span class="sxs-lookup"><span data-stu-id="30480-131">For more information, see [I18N: Pnetlib Internationalization Framework Libary (mono/mono GitHub repository)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span></span>
