@@ -1,7 +1,7 @@
 ---
-title: Make HTTP requests using IHttpClientFactory in ASP.NET Core
+title: Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 author: stevejgordon
-description: Learn about using the IHttpClientFactory interface to manage logical HttpClient instances in ASP.NET Core.
+description: Přečtěte si o používání rozhraní IHttpClientFactory ke správě logických instancí HttpClient v ASP.NET Core.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/27/2019
@@ -13,120 +13,120 @@ ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/25/2019
 ms.locfileid: "74478741"
 ---
-# <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Make HTTP requests using IHttpClientFactory in ASP.NET Core
+# <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
-By [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/rynowak),  [Steve Gordon](https://github.com/stevejgordon), [Rick Anderson](https://twitter.com/RickAndMSFT), and [Kirk Larkin](https://github.com/serpent5)
+[Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/rynowak), [Steve Gordon](https://github.com/stevejgordon), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Kirka](https://github.com/serpent5) Larkin
 
-An <xref:System.Net.Http.IHttpClientFactory> can be registered and used to configure and create <xref:System.Net.Http.HttpClient> instances in an app. `IHttpClientFactory` offers the following benefits:
+<xref:System.Net.Http.IHttpClientFactory> lze zaregistrovat a použít ke konfiguraci a vytvoření <xref:System.Net.Http.HttpClient> instancí v aplikaci. `IHttpClientFactory` nabízí následující výhody:
 
-* Provides a central location for naming and configuring logical `HttpClient` instances. For example, a client named  *github* could be registered and configured to access [GitHub](https://github.com/). A default client can be registered for general access.
-* Codifies the concept of outgoing middleware via delegating handlers in `HttpClient`. Provides extensions for Polly-based middleware to take advantage of delegating handlers in `HttpClient`.
-* Manages the pooling and lifetime of underlying `HttpClientMessageHandler` instances. Automatic management avoids common DNS (Domain Name System) problems that occur when manually managing `HttpClient` lifetimes.
-* Adds a configurable logging experience (via `ILogger`) for all requests sent through clients created by the factory.
+* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Například klient s názvem *GitHub* by mohl být zaregistrován a nakonfigurován pro přístup k [GitHubu](https://github.com/). Pro obecný přístup je možné zaregistrovat výchozího klienta.
+* Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient`. Poskytuje rozšíření pro middleware založené na Polly k využití výhod delegování obslužných rutin v `HttpClient`.
+* Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`. Automatická správa zabraňuje běžným problémům DNS (Domain Name System), ke kterým dochází při ruční správě `HttpClient`ch dob života.
+* Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
 
-[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([how to download](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
-The sample code in this topic version uses <xref:System.Text.Json> to deserialize JSON content returned in HTTP responses. For samples that use `Json.NET` and `ReadAsAsync<T>`, use the version selector to select a 2.x version of this topic.
+Vzorový kód v této verzi tématu používá <xref:System.Text.Json> k deserializaci obsahu JSON vráceného v odpovědích HTTP. V případě ukázek, které používají `Json.NET` a `ReadAsAsync<T>`použijte selektor verzí k výběru verze 2. x tohoto tématu.
 
-## <a name="consumption-patterns"></a>Consumption patterns
+## <a name="consumption-patterns"></a>Vzorce spotřeby
 
-There are several ways `IHttpClientFactory` can be used in an app:
+Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
-* [Basic usage](#basic-usage)
-* [Named clients](#named-clients)
-* [Typed clients](#typed-clients)
-* [Generated clients](#generated-clients)
+* [Základní využití](#basic-usage)
+* [Pojmenovaná klienti](#named-clients)
+* [Typové klienti](#typed-clients)
+* [Vygenerované klienty](#generated-clients)
 
-The best approach depends upon the app's requirements.
+Nejlepší přístup závisí na požadavcích aplikace.
 
-### <a name="basic-usage"></a>Basic usage
+### <a name="basic-usage"></a>Základní využití
 
-`IHttpClientFactory` can be registered by calling `AddHttpClient`:
+`IHttpClientFactory` lze zaregistrovat voláním `AddHttpClient`:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
-An `IHttpClientFactory` can be requested using [dependency injection (DI)](xref:fundamentals/dependency-injection). The following code uses `IHttpClientFactory` to create an `HttpClient` instance:
+`IHttpClientFactory` lze požadovat pomocí [Injektáže závislostí (di)](xref:fundamentals/dependency-injection). Následující kód používá `IHttpClientFactory` k vytvoření instance `HttpClient`:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Pages/BasicUsage.cshtml.cs?name=snippet1&highlight=9-12,21)]
 
-Using `IHttpClientFactory` like in the preceding example is a good way to refactor an existing app. It has no impact on how `HttpClient` is used. In places where `HttpClient` instances are created in an existing app, replace those occurrences with calls to <xref:System.Net.Http.IHttpClientFactory.CreateClient*>.
+Použití `IHttpClientFactory` jako v předchozím příkladu je dobrým způsobem, jak refaktorovat existující aplikaci. Nemá žádný vliv na to, jak se používá `HttpClient`. V místech, kde jsou `HttpClient` instance vytvořené v existující aplikaci, nahraďte tyto výskyty voláními <xref:System.Net.Http.IHttpClientFactory.CreateClient*>.
 
-### <a name="named-clients"></a>Named clients
+### <a name="named-clients"></a>Pojmenovaná klienti
 
-Named clients are a good choice when:
+Pojmenovaná klienti jsou dobrou volbou v těchto případech:
 
-* The app requires many distinct uses of `HttpClient`.
-* Many `HttpClient`s have different configuration.
+* Aplikace vyžaduje mnoho různých použití `HttpClient`.
+* Mnoho `HttpClient`s má odlišnou konfiguraci.
 
-Configuration for a named `HttpClient` can be specified during registration in `Startup.ConfigureServices`:
+Konfigurace pro pojmenovanou `HttpClient` se dá zadat během registrace v `Startup.ConfigureServices`:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet2)]
 
-In the preceding code the client is configured with:
+V předchozím kódu je klient nakonfigurován pomocí nástroje:
 
-* The base address `https://api.github.com/`.
-* Two headers required to work with the GitHub API.
+* Základní adresa `https://api.github.com/`.
+* Pro práci s rozhraním API GitHubu jsou nutná dvě záhlaví.
 
 #### <a name="createclient"></a>CreateClient
 
-Each time <xref:System.Net.Http.IHttpClientFactory.CreateClient*> is called:
+Pokaždé, když <xref:System.Net.Http.IHttpClientFactory.CreateClient*>, je volána:
 
-* A new instance of `HttpClient` is created.
-* The configuration action is called.
+* Vytvoří se nová instance `HttpClient`.
+* Je volána akce konfigurace.
 
-To create a named client, pass its name into `CreateClient`:
+Chcete-li vytvořit pojmenovaného klienta, předejte jeho název do `CreateClient`:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Pages/NamedClient.cshtml.cs?name=snippet1&highlight=21)]
 
-In the preceding code, the request doesn't need to specify a hostname. The code can pass just the path, since the base address configured for the client is used.
+V předchozím kódu nemusí požadavek určovat název hostitele. Kód může předat jenom cestu, protože se používá základní adresa nakonfigurovaná pro klienta.
 
-### <a name="typed-clients"></a>Typed clients
+### <a name="typed-clients"></a>Typové klienti
 
-Typed clients:
+Klienti typu:
 
-* Provide the same capabilities as named clients without the need to use strings as keys.
-* Provides IntelliSense and compiler help when consuming clients.
-* Provide a single location to configure and interact with a particular `HttpClient`. For example, a single typed client might be used:
-  * For a single backend endpoint.
-  * To encapsulate all logic dealing with the endpoint.
-* Work with DI and can be injected where required in the app.
+* Poskytněte stejné funkce jako pojmenované klienty, aniž by bylo nutné používat řetězce jako klíče.
+* Poskytuje IntelliSense a pomocníka s kompilátorem při spotřebovávání klientů.
+* Poskytněte jedno umístění pro konfiguraci a interakci s konkrétním `HttpClient`. Můžete například použít jednoho typu klienta:
+  * Pro jeden koncový bod back-endu.
+  * Zapouzdřit veškerou práci s koncovým bodem.
+* Práce s DI a může být vložena tam, kde je to potřeba v aplikaci.
 
-A typed client accepts a `HttpClient` parameter in its constructor:
+Typový klient přijímá parametr `HttpClient` ve svém konstruktoru:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
-In the preceding code:
+V předchozím kódu:
 
-* The configuration is moved into the typed client.
-* The `HttpClient` object is exposed as a public property.
+* Konfigurace je přesunuta do typovaného klienta.
+* Objekt `HttpClient` je vystaven jako veřejná vlastnost.
 
-API-specific methods can be created that expose `HttpClient` functionality. For example, the `GetAspNetDocsIssues` method encapsulates code to retrieve open issues.
+Je možné vytvořit metody specifické pro rozhraní API, které zpřístupňují funkce `HttpClient`. Například metoda `GetAspNetDocsIssues` zapouzdřuje kód, aby načetla otevřené problémy.
 
-The following code calls <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> in `Startup.ConfigureServices` to register a typed client class:
+Následující kód volá <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> v `Startup.ConfigureServices` k registraci typové třídy klienta:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet3)]
 
-The typed client is registered as transient with DI. The typed client can be injected and consumed directly:
+Typový klient je zaregistrován jako přechodný s DI. Typového klienta lze vložit a spotřebovat přímo:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Pages/TypedClient.cshtml.cs?name=snippet1&highlight=11-14,20)]
 
-The configuration for a typed client can be specified during registration in `Startup.ConfigureServices`, rather than in the typed client's constructor:
+Konfigurace pro zadaného klienta se dá zadat během registrace v `Startup.ConfigureServices`místo v konstruktoru typovaného klienta:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet4)]
 
-The `HttpClient` can be encapsulated within a typed client. Rather than exposing it as a property, define a method which calls the `HttpClient` instance internally:
+`HttpClient` lze zapouzdřit v rámci zadaného klienta. Místo toho, abyste ho vystavili jako vlastnost, definujte metodu, která interně volá instanci `HttpClient`:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/GitHub/RepoService.cs?name=snippet1&highlight=4)]
 
-In the preceding code, the `HttpClient` is stored in a private field. Access to the `HttpClient` is by the public `GetRepos` method.
+V předchozím kódu je `HttpClient` uložen v soukromém poli. Přístup k `HttpClient` je veřejným `GetRepos` metodou.
 
-### <a name="generated-clients"></a>Generated clients
+### <a name="generated-clients"></a>Vygenerované klienty
 
-`IHttpClientFactory` can be used in combination with third-party libraries such as [Refit](https://github.com/paulcbetts/refit). Refit is a REST library for .NET. It converts REST APIs into live interfaces. An implementation of the interface is generated dynamically by the `RestService`, using `HttpClient` to make the external HTTP calls.
+`IHttpClientFactory` lze použít v kombinaci s knihovnami třetích stran, jako je například [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky `RestService`pomocí `HttpClient` k vytvoření externích volání HTTP.
 
-An interface and a reply are defined to represent the external API and its response:
+Rozhraní a odpověď jsou definované tak, aby představovaly externí rozhraní API a jeho odpověď:
 
 ```csharp
 public interface IHelloClient
@@ -141,7 +141,7 @@ public class Reply
 }
 ```
 
-A typed client can be added, using Refit to generate the implementation:
+K vygenerování implementace se dá přidat typový klient s použitím REFIT:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -156,7 +156,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-The defined interface can be consumed where necessary, with the implementation provided by DI and Refit:
+Definované rozhraní lze v případě potřeby spotřebovat pomocí implementace, kterou poskytuje DI a REFIT:
 
 ```csharp
 [ApiController]
@@ -177,279 +177,279 @@ public class ValuesController : ControllerBase
 }
 ```
 
-## <a name="outgoing-request-middleware"></a>Outgoing request middleware
+## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient` has the concept of delegating handlers that can be linked together for outgoing HTTP requests. `IHttpClientFactory`:
+`HttpClient` má koncepci delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory`:
 
-* Simplifies defining the handlers to apply for each named client.
-* Supports registration and chaining of multiple handlers to build an outgoing request middleware pipeline. Each of these handlers is able to perform work before and after the outgoing request. This pattern:
+* Zjednodušuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta.
+* Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model:
 
-  * Is similar to the inbound middleware pipeline in ASP.NET Core.
-  * Provides a mechanism to manage cross-cutting concerns around HTTP requests, such as:
+  * Se podobá příchozímu kanálu middleware v ASP.NET Core.
+  * Poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, jako je například:
 
     * ukládání do mezipaměti
     * zpracování chyb
     * serializace
     * protokolování
 
-To create a delegating handler:
+Vytvoření obslužné rutiny delegování:
 
-* Derive from <xref:System.Net.Http.DelegatingHandler>.
-* Override <xref:System.Net.Http.DelegatingHandler.SendAsync*>. Execute code before passing the request to the next handler in the pipeline:
+* Odvodit z <xref:System.Net.Http.DelegatingHandler>.
+* Přepsat <xref:System.Net.Http.DelegatingHandler.SendAsync*>. Před předáním požadavku další obslužné rutině v kanálu spusťte kód:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Handlers/ValidateHeaderHandler.cs?name=snippet1)]
 
-The preceding code checks if the `X-API-KEY` header is in the request. If `X-API-KEY` is missing, <xref:System.Net.HttpStatusCode.BadRequest> is returned.
+Předchozí kód zkontroluje, zda je hlavička `X-API-KEY` v žádosti. Pokud chybí `X-API-KEY`, vrátí se <xref:System.Net.HttpStatusCode.BadRequest>.
 
-More than one handler can be added to the configuration for a `HttpClient` with <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*?displayProperty=fullName>:
+Do konfigurace pro `HttpClient` se dá přidat víc než jedna obslužná rutina s <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*?displayProperty=fullName>:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup2.cs?name=snippet1)]
 
-In the preceding code, the `ValidateHeaderHandler` is registered with DI. The `IHttpClientFactory` creates a separate DI scope for each handler. Handlers can depend upon services of any scope. Services that handlers depend upon are disposed when the handler is disposed.
+V předchozím kódu je `ValidateHeaderHandler` zaregistrován v DI. `IHttpClientFactory` vytvoří samostatný obor DI pro každou obslužnou rutinu. Obslužné rutiny mohou záviset na službách jakéhokoli oboru. Služby, na kterých obslužné rutiny závisejí, jsou uvolněny při uvolnění obslužné rutiny.
 
-Once registered, <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*> can be called, passing in the type for the handler.
+Po zaregistrování je možné volat <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*>, předání v typu pro obslužnou rutinu.
 
-Multiple handlers can be registered in the order that they should execute. Each handler wraps the next handler until the final `HttpClientHandler` executes the request:
+Více obslužných rutin lze registrovat v pořadí, ve kterém by měly být spuštěny. Každá obslužná rutina zabalí další obslužnou rutinu, dokud poslední `HttpClientHandler` nespustí požadavek:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet6)]
 
-Use one of the following approaches to share per-request state with message handlers:
+Ke sdílení stavu jednotlivých požadavků pomocí obslužných rutin zpráv použijte jeden z následujících přístupů:
 
-* Pass data into the handler using [HttpRequestMessage.Properties](xref:System.Net.Http.HttpRequestMessage.Properties).
-* Use <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> to access the current request.
-* Create a custom <xref:System.Threading.AsyncLocal`1> storage object to pass the data.
+* Předejte data do obslužné rutiny pomocí [zprávy HttpRequestMessage. Properties](xref:System.Net.Http.HttpRequestMessage.Properties).
+* Pro přístup k aktuálnímu požadavku použijte <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor>.
+* Vytvořte vlastní objekt úložiště <xref:System.Threading.AsyncLocal`1>, který bude předávat data.
 
-## <a name="use-polly-based-handlers"></a>Use Polly-based handlers
+## <a name="use-polly-based-handlers"></a>Použití obslužných rutin založené na Polly
 
-`IHttpClientFactory` integrates with the third-party library [Polly](https://github.com/App-vNext/Polly). Polly is a comprehensive resilience and transient fault-handling library for .NET. It allows developers to express policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback in a fluent and thread-safe manner.
+`IHttpClientFactory` se integruje s knihovnou [Polly](https://github.com/App-vNext/Polly)třetí strany. Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
 
-Extension methods are provided to enable the use of Polly policies with configured `HttpClient` instances. The Polly extensions support adding Polly-based handlers to clients. Polly requires the [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) NuGet package.
+K dispozici jsou rozšiřující metody umožňující použití zásad Polly s konfigurovanými instancemi `HttpClient`. Rozšíření Polly podporují přidávání obslužných rutin založených na Polly do klientů. Polly vyžaduje balíček NuGet [Microsoft. Extensions. http. Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) .
 
-### <a name="handle-transient-faults"></a>Handle transient faults
+### <a name="handle-transient-faults"></a>Zpracování přechodných chyb
 
-Faults typically occur when external HTTP calls are transient. <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddTransientHttpErrorPolicy*> allows a policy to be defined to handle transient errors. Policies configured with `AddTransientHttpErrorPolicy` handle the following responses:
+K chybám obvykle dochází, když jsou externí volání HTTP přechodný. <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddTransientHttpErrorPolicy*> umožňuje definovat zásadu pro zpracování přechodných chyb. Zásady nakonfigurované pomocí `AddTransientHttpErrorPolicy` zpracovávají následující odpovědi:
 
 * <xref:System.Net.Http.HttpRequestException>
-* HTTP 5xx
+* 5xx HTTP
 * HTTP 408
 
-`AddTransientHttpErrorPolicy` provides access to a `PolicyBuilder` object configured to handle errors representing a possible transient fault:
+`AddTransientHttpErrorPolicy` poskytuje přístup k objektu `PolicyBuilder` nakonfigurovanému pro zpracování chyb představujících možnou přechodnou chybu:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup3.cs?name=snippet1)]
 
-In the preceding code, a `WaitAndRetryAsync` policy is defined. Failed requests are retried up to three times with a delay of 600 ms between attempts.
+V předchozím kódu je definována zásada `WaitAndRetryAsync`. U neúspěšných žádostí se Opakovaný pokus opakuje více než třikrát s prodlevou 600 MS mezi pokusy.
 
-### <a name="dynamically-select-policies"></a>Dynamically select policies
+### <a name="dynamically-select-policies"></a>Dynamické výběry zásad
 
-Extension methods are provided to add Polly-based handlers, for example, <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddPolicyHandler*>. The following `AddPolicyHandler` overload inspects the request to decide which policy to apply:
+Rozšiřující metody jsou k dispozici pro přidání obslužných rutin na základě Polly, například <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddPolicyHandler*>. Následující `AddPolicyHandler` Overload zkontroluje požadavek na rozhodnutí, které zásady se mají použít:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet8)]
 
-In the preceding code, if the outgoing request is an HTTP GET, a 10-second timeout is applied. For any other HTTP method, a 30-second timeout is used.
+Pokud je v předchozím kódu odchozí požadavek HTTP GET, použije se časový limit 10 sekund. Pro jakoukoliv jinou metodu HTTP se použije časový limit 30 sekund.
 
-### <a name="add-multiple-polly-handlers"></a>Add multiple Polly handlers
+### <a name="add-multiple-polly-handlers"></a>Přidání více obslužných rutin Polly
 
-It's common to nest Polly policies:
+Je běžné vnořovat zásady Polly:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup.cs?name=snippet9)]
 
-In the preceding example:
+V předchozím příkladu:
 
-* Two handlers are added.
-* The first handler uses <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddTransientHttpErrorPolicy*> to add a retry policy. Failed requests are retried up to three times.
-* The second `AddTransientHttpErrorPolicy` call adds a circuit breaker policy. Further external requests are blocked for 30 seconds if 5 failed attempts occur sequentially. Circuit breaker policies are stateful. All calls through this client share the same circuit state.
+* Přidávají se dvě obslužné rutiny.
+* První obslužná rutina používá <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddTransientHttpErrorPolicy*> k přidání zásady opakování. Neúspěšné požadavky se opakují třikrát.
+* Druhý `AddTransientHttpErrorPolicy` volání přidá zásadu dělení na okruhy. Další externí požadavky se zablokují po dobu 30 sekund, pokud se 5 nezdařených pokusů vyskytnou sekvenčně. Zásady pro dělení na okruhy jsou stavové. Všechna volání prostřednictvím tohoto klienta sdílejí stejný stav okruhu.
 
-### <a name="add-policies-from-the-polly-registry"></a>Add policies from the Polly registry
+### <a name="add-policies-from-the-polly-registry"></a>Přidání zásad z registru Polly
 
-An approach to managing regularly used policies is to define them once and register them with a `PolicyRegistry`.
+Přístup ke správě pravidelně používaných zásad je jejich definování jednou a jejich registrací pomocí `PolicyRegistry`.
 
-In the following code:
+V následujícím kódu:
 
-* The "regular" and "long" polices are added.
-* <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddPolicyHandlerFromRegistry*>  adds the "regular" and "long" policies from the registry.
+* Přidávají se zásady "regular" a "Long".
+* <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddPolicyHandlerFromRegistry*> přidá do registru zásady "regular" a "Long".
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup4.cs?name=snippet1)]
 
-For more information on `IHttpClientFactory` and Polly integrations, see the [Polly wiki](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory).
+Další informace o integraci `IHttpClientFactory` a Polly najdete na [wikiwebu Polly](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory).
 
-## <a name="httpclient-and-lifetime-management"></a>HttpClient and lifetime management
+## <a name="httpclient-and-lifetime-management"></a>Správa HttpClient a životního cyklu
 
-A new `HttpClient` instance is returned each time `CreateClient` is called on the `IHttpClientFactory`. An <xref:System.Net.Http.HttpMessageHandler> is created per named client. The factory manages the lifetimes of the `HttpMessageHandler` instances.
+Nová instance `HttpClient` se vrátí pokaždé, když `CreateClient` je volána na `IHttpClientFactory`. Vytvoří se <xref:System.Net.Http.HttpMessageHandler> pro každého pojmenovaného klienta. Továrna spravuje životnost instancí `HttpMessageHandler`.
 
-`IHttpClientFactory` pools the `HttpMessageHandler` instances created by the factory to reduce resource consumption. An `HttpMessageHandler` instance may be reused from the pool when creating a new `HttpClient` instance if its lifetime hasn't expired.
+`IHttpClientFactory` fonduje `HttpMessageHandler` instance vytvořené továrnou, aby se snížila spotřeba prostředků. Při vytváření nové instance `HttpClient` se dá z fondu znovu použít instance `HttpMessageHandler`, pokud její životnost ještě nevypršela.
 
-Pooling of handlers is desirable as each handler typically manages its own underlying HTTP connections. Creating more handlers than necessary can result in connection delays. Some handlers also keep connections open indefinitely, which can prevent the handler from reacting to DNS (Domain Name System) changes.
+Sdružování obslužných rutin je žádoucí, protože každá obslužná rutina obvykle spravuje vlastní podkladová připojení HTTP. Vytváření dalších obslužných rutin, než je potřeba, může způsobit zpoždění připojení. Některé obslužné rutiny také udržují připojení otevřené po neomezenou dobu, což může zabránit obslužné rutině v reakce na změny DNS (Domain Name System).
 
-The default handler lifetime is two minutes. The default value can be overridden on a per named client basis:
+Výchozí životnost obslužné rutiny je dvě minuty. Výchozí hodnota může být přepsána podle pojmenovaných klientů:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup5.cs?name=snippet1)]
 
-`HttpClient` instances can generally be treated as .NET objects **not** requiring disposal. Disposal cancels outgoing requests and guarantees the given `HttpClient` instance can't be used after calling <xref:System.IDisposable.Dispose*>. `IHttpClientFactory` tracks and disposes resources used by `HttpClient` instances.
+instance `HttpClient` můžou být obecně ošetřené **jako objekty .NET, které** nevyžadují vyřazení. Vyřazení zruší odchozí žádosti a zaručuje, že danou instanci `HttpClient` nelze použít po volání <xref:System.IDisposable.Dispose*>. `IHttpClientFactory` sleduje a odstraňuje prostředky používané `HttpClient` instancemi.
 
-Keeping a single `HttpClient` instance alive for a long duration is a common pattern used before the inception of `IHttpClientFactory`. This pattern becomes unnecessary after migrating to `IHttpClientFactory`.
+Udržování jedné instance `HttpClient` aktivní pro dlouhou dobu je společný vzor, který se používá před zahájením `IHttpClientFactory`. Tento model se po migraci na `IHttpClientFactory`nepotřebuje.
 
-### <a name="alternatives-to-ihttpclientfactory"></a>Alternatives to IHttpClientFactory
+### <a name="alternatives-to-ihttpclientfactory"></a>Alternativy k IHttpClientFactory
 
-Using `IHttpClientFactory` in a DI-enabled app avoids:
+Použití `IHttpClientFactory` v aplikaci s podporou DI se vyhne:
 
-* Resource exhaustion problems by pooling `HttpMessageHandler` instances.
-* Stale-DNS problems by cycling `HttpMessageHandler` instances at regular instances.
+* Problémy s vyčerpáním prostředků sdružováním `HttpMessageHandler` instancí.
+* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných instancích.
 
-There are alternative ways to solve the preceding problems using a long-lived <xref:System.Net.Http.SocketsHttpHandler> instance.
+Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dlouhotrvající instance <xref:System.Net.Http.SocketsHttpHandler>.
 
-- Create an instance of `SocketsHttpHandler` when the app starts and use it for the life of the app.
-- Configure <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> to an appropriate value based on DNS refresh times.
-- Create `HttpClient` instances using `new HttpClient(handler, dispostHandler: false)` as needed.
+- Vytvořte instanci `SocketsHttpHandler`, když se aplikace spustí a použije se po celou dobu životnosti aplikace.
+- Nakonfigurujte <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> na odpovídající hodnotu na základě časů aktualizace DNS.
+- Podle potřeby vytvořte `HttpClient` instance pomocí `new HttpClient(handler, dispostHandler: false)`.
 
-The preceding approaches solve the resource management problems that `IHttpClientFactory` solves in a similar way.
+Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpClientFactory` vyřešit podobným způsobem.
 
-- The `SocketsHttpHandler` shares connections across `HttpClient` instances. This sharing prevents socket exhaustion.
-- The `SocketsHttpHandler ` cycles connections according to `PooledConnectionLifetime` to avoid state-DNS problems.
+- `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
+- `SocketsHttpHandler ` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo problémům se stavem služby DNS.
 
-### <a name="cookies"></a>Cookies
+### <a name="cookies"></a>Soubory cookie
 
-The pooled `HttpMessageHandler` instances results in `CookieContainer` objects being shared. Unanticipated `CookieContainer` object sharing often results in incorrect code. For apps that require cookies, consider either:
+Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
- - Disabling automatic cookie handling
- - Avoiding `IHttpClientFactory`
+ - Zakázání automatického zpracování souborů cookie
+ - Předcházení `IHttpClientFactory`
 
-Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic cookie handling:
+Voláním <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> zakážete automatické zpracování souborů cookie:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
-Clients created via `IHttpClientFactory` record log messages for all requests. Enable the appropriate information level in the logging configuration to see the default log messages. Additional logging, such as the logging of request headers, is only included at trace level.
+Klienti vytvoření pomocí `IHttpClientFactory` zaznamenávají zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
-The log category used for each client includes the name of the client. A client named *MyNamedClient*, for example, logs messages with a category of "System.Net.Http.HttpClient.**MyNamedClient**.LogicalHandler". Messages suffixed with *LogicalHandler* occur outside the request handler pipeline. On the request, messages are logged before any other handlers in the pipeline have processed it. On the response, messages are logged after any other pipeline handlers have received the response.
+Kategorie protokolu použitá pro každého klienta zahrnuje název klienta. Klient s názvem *MyNamedClient*například protokoluje zprávy s kategorií "System .NET. http. HttpClient. **MyNamedClient**. LogicalHandler". Zprávy s příponou *LogicalHandler* se vyskytují mimo kanál obslužné rutiny žádosti. V žádosti se zprávy protokolují předtím, než je zpracuje kterákoli jiný obslužná rutina v kanálu. Na základě odpovědi se zprávy zaprotokolují, až ostatní obslužné rutiny kanálu obdrží odpověď.
 
-Logging also occurs inside the request handler pipeline. In the *MyNamedClient* example, those messages are logged with the log category "System.Net.Http.HttpClient.**MyNamedClient**.ClientHandler". For the request, this occurs after all other handlers have run and immediately before the request is sent. On the response, this logging includes the state of the response before it passes back through the handler pipeline.
+K protokolování dojde také uvnitř kanálu obslužné rutiny žádosti. V příkladu *MyNamedClient* jsou tyto zprávy protokolovány pomocí kategorie log "System .NET. http. HttpClient. **MyNamedClient**. ClientHandler". Pro požadavek se k tomu dochází po spuštění všech ostatních obslužných rutin a bezprostředně před odesláním žádosti. V odpovědi Toto protokolování zahrnuje stav odpovědi předtím, než se přepošle zpět přes kanál obslužné rutiny.
 
-Enabling logging outside and inside the pipeline enables inspection of the changes made by the other pipeline handlers. This may include changes to request headers or to the response status code.
+Povolení protokolování mimo kanál a uvnitř kanálu umožňuje kontrolu změn provedených ostatními obslužnými rutinami kanálu. To může zahrnovat změny hlaviček žádostí nebo kód stavu odpovědi.
 
-Including the name of the client in the log category enables log filtering for specific named clients.
+Zahrnutí názvu klienta do kategorie protokolu umožňuje filtrování protokolu pro konkrétní pojmenované klienty.
 
-## <a name="configure-the-httpmessagehandler"></a>Configure the HttpMessageHandler
+## <a name="configure-the-httpmessagehandler"></a>Konfigurace HttpMessageHandler
 
-It may be necessary to control the configuration of the inner `HttpMessageHandler` used by a client.
+Může být nutné řídit konfiguraci vnitřních `HttpMessageHandler` používaných klientem.
 
-An `IHttpClientBuilder` is returned when adding named or typed clients. The <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> extension method can be used to define a delegate. The delegate is used to create and configure the primary `HttpMessageHandler` used by that client:
+Při přidávání pojmenovaných nebo typových klientů se vrátí `IHttpClientBuilder`. Metodu rozšíření <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> lze použít k definování delegáta. Delegát slouží k vytvoření a konfiguraci primárního `HttpMessageHandler` používaného tímto klientem:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactorySample/Startup6.cs?name=snippet1)]
 
-## <a name="use-ihttpclientfactory-in-a-console-app"></a>Use IHttpClientFactory in a console app
+## <a name="use-ihttpclientfactory-in-a-console-app"></a>Použití IHttpClientFactory v konzolové aplikaci
 
-In a console app, add the following package references to the project:
+V aplikaci konzoly přidejte do projektu následující odkazy na balíček:
 
-* [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting)
-* [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http)
+* [Microsoft. Extensions. hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting)
+* [Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http)
 
-In the following example:
+V následujícím příkladu:
 
-* <xref:System.Net.Http.IHttpClientFactory> is registered in the [Generic Host's](xref:fundamentals/host/generic-host) service container.
-* `MyService` creates a client factory instance from the service, which is used to create an `HttpClient`. `HttpClient` is used to retrieve a webpage.
-* `Main` creates a scope to execute the service's `GetPage` method and write the first 500 characters of the webpage content to the console.
+* <xref:System.Net.Http.IHttpClientFactory> je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
+* `MyService` vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient`. `HttpClient` slouží k načtení webové stránky.
+* `Main` vytvoří obor pro spuštění metody `GetPage` služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
-* [Implement HTTP call retries with exponential backoff with HttpClientFactory and Polly policies](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
+* [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
 * [Implementace systému jističe](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-circuit-breaker-pattern)
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.2"
 
-By [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/rynowak), and [Steve Gordon](https://github.com/stevejgordon)
+Od [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/rynowak)a [Steve Gordon](https://github.com/stevejgordon)
 
-An <xref:System.Net.Http.IHttpClientFactory> can be registered and used to configure and create <xref:System.Net.Http.HttpClient> instances in an app. It offers the following benefits:
+<xref:System.Net.Http.IHttpClientFactory> lze zaregistrovat a použít ke konfiguraci a vytvoření <xref:System.Net.Http.HttpClient> instancí v aplikaci. Nabízí následující výhody:
 
-* Provides a central location for naming and configuring logical `HttpClient` instances. For example, a *github* client can be registered and configured to access [GitHub](https://github.com/). A default client can be registered for other purposes.
-* Codifies the concept of outgoing middleware via delegating handlers in `HttpClient` and provides extensions for Polly-based middleware to take advantage of that.
-* Manages the pooling and lifetime of underlying `HttpClientMessageHandler` instances to avoid common DNS problems that occur when manually managing `HttpClient` lifetimes.
-* Adds a configurable logging experience (via `ILogger`) for all requests sent through clients created by the factory.
+* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován k jiným účelům.
+* Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient` a poskytuje rozšíření pro middleware založené na Polly, které tuto funkci využívají.
+* Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`, aby nedocházelo k běžným problémům služby DNS, ke kterým dochází při ruční správě `HttpClient` životního cyklu.
+* Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
 
-[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([how to download](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="consumption-patterns"></a>Consumption patterns
+## <a name="consumption-patterns"></a>Vzorce spotřeby
 
-There are several ways `IHttpClientFactory` can be used in an app:
+Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
-* [Basic usage](#basic-usage)
-* [Named clients](#named-clients)
-* [Typed clients](#typed-clients)
-* [Generated clients](#generated-clients)
+* [Základní využití](#basic-usage)
+* [Pojmenovaná klienti](#named-clients)
+* [Typové klienti](#typed-clients)
+* [Vygenerované klienty](#generated-clients)
 
-None of them are strictly superior to another. The best approach depends upon the app's constraints.
+Žádná z nich není výhradně nadřízena jiným. Nejlepší přístup závisí na omezeních aplikace.
 
-### <a name="basic-usage"></a>Basic usage
+### <a name="basic-usage"></a>Základní využití
 
-The `IHttpClientFactory` can be registered by calling the `AddHttpClient` extension method on the `IServiceCollection`, inside the `Startup.ConfigureServices` method.
+`IHttpClientFactory` lze zaregistrovat voláním metody rozšíření `AddHttpClient` na `IServiceCollection`v rámci metody `Startup.ConfigureServices`.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
-Once registered, code can accept an `IHttpClientFactory` anywhere services can be injected with [dependency injection (DI)](xref:fundamentals/dependency-injection). The `IHttpClientFactory` can be used to create a `HttpClient` instance:
+Po registraci může kód přijmout `IHttpClientFactory` služby kdekoli, kde se dají vložit do [Injektáže závislostí (di)](xref:fundamentals/dependency-injection). `IHttpClientFactory` lze použít k vytvoření instance `HttpClient`:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/BasicUsage.cshtml.cs?name=snippet1&highlight=9-12,21)]
 
-Using `IHttpClientFactory` in this fashion is a good way to refactor an existing app. It has no impact on the way `HttpClient` is used. In places where `HttpClient` instances are currently created, replace those occurrences with a call to <xref:System.Net.Http.IHttpClientFactory.CreateClient*>.
+Použití `IHttpClientFactory` tímto způsobem je dobrým způsobem, jak refaktorovat existující aplikaci. Nemá žádný vliv na způsob, jakým se používá `HttpClient`. V místech, kde jsou aktuálně vytvářeny `HttpClient` instance, nahraďte tyto výskyty voláním <xref:System.Net.Http.IHttpClientFactory.CreateClient*>.
 
-### <a name="named-clients"></a>Named clients
+### <a name="named-clients"></a>Pojmenovaná klienti
 
-If an app requires many distinct uses of `HttpClient`, each with a different configuration, an option is to use **named clients**. Configuration for a named `HttpClient` can be specified during registration in `Startup.ConfigureServices`.
+Pokud aplikace vyžaduje mnoho různých použití `HttpClient`, každá s jinou konfigurací, je možnost použít **pojmenované klienty**. Konfiguraci pro pojmenovanou `HttpClient` lze zadat během registrace v `Startup.ConfigureServices`.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet2)]
 
-In the preceding code, `AddHttpClient` is called, providing the name *github*. This client has some default configuration applied&mdash;namely the base address and two headers required to work with the GitHub API.
+V předchozím kódu je zavolána `AddHttpClient`, který poskytuje název *GitHub*. U tohoto klienta se používá některá výchozí konfigurace&mdash;konkrétně základní adresa a dvě hlavičky, které se vyžadují pro práci s rozhraním API GitHubu.
 
-Each time `CreateClient` is called, a new instance of `HttpClient` is created and the configuration action is called.
+Pokaždé, když je volána `CreateClient`, je vytvořena nová instance `HttpClient` a je volána akce konfigurace.
 
-To consume a named client, a string parameter can be passed to `CreateClient`. Specify the name of the client to be created:
+Chcete-li využívat pojmenovaného klienta, lze předat řetězcové parametry do `CreateClient`. Zadejte název klienta, který se má vytvořit:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/NamedClient.cshtml.cs?name=snippet1&highlight=21)]
 
-In the preceding code, the request doesn't need to specify a hostname. It can pass just the path, since the base address configured for the client is used.
+V předchozím kódu nemusí požadavek určovat název hostitele. Může předat jenom cestu, protože se používá základní adresa nakonfigurovaná pro klienta.
 
-### <a name="typed-clients"></a>Typed clients
+### <a name="typed-clients"></a>Typové klienti
 
-Typed clients:
+Klienti typu:
 
-* Provide the same capabilities as named clients without the need to use strings as keys.
-* Provides IntelliSense and compiler help when consuming clients.
-* Provide a single location to configure and interact with a particular `HttpClient`. For example, a single typed client might be used for a single backend endpoint and encapsulate all logic dealing with that endpoint.
-* Work with DI and can be injected where required in your app.
+* Poskytněte stejné funkce jako pojmenované klienty, aniž by bylo nutné používat řetězce jako klíče.
+* Poskytuje IntelliSense a pomocníka s kompilátorem při spotřebovávání klientů.
+* Poskytněte jedno umístění pro konfiguraci a interakci s konkrétním `HttpClient`. Například jediný typ klienta může být použit pro jeden koncový bod back-end a zapouzdření veškeré logiky v rámci tohoto koncového bodu.
+* Práce s DI a může být vložena tam, kde je to potřeba ve vaší aplikaci.
 
-A typed client accepts a `HttpClient` parameter in its constructor:
+Typový klient přijímá parametr `HttpClient` ve svém konstruktoru:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
-In the preceding code, the configuration is moved into the typed client. The `HttpClient` object is exposed as a public property. It's possible to define API-specific methods that expose `HttpClient` functionality. The `GetAspNetDocsIssues` method encapsulates the code needed to query for and parse out the latest open issues from a GitHub repository.
+V předchozím kódu se konfigurace přesune do typovaného klienta. Objekt `HttpClient` je vystaven jako veřejná vlastnost. Je možné definovat metody specifické pro rozhraní API, které zpřístupňují funkce `HttpClient`. Metoda `GetAspNetDocsIssues` zapouzdřuje kód potřebný k dotazování na a analyzuje nejnovější otevřené problémy z úložiště GitHubu.
 
-To register a typed client, the generic <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> extension method can be used within `Startup.ConfigureServices`, specifying the typed client class:
+K registraci typovaného klienta lze použít metodu rozšíření Generic <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> v rámci `Startup.ConfigureServices`a zadat typovou třídu klienta:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet3)]
 
-The typed client is registered as transient with DI. The typed client can be injected and consumed directly:
+Typový klient je zaregistrován jako přechodný s DI. Typového klienta lze vložit a spotřebovat přímo:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/TypedClient.cshtml.cs?name=snippet1&highlight=11-14,20)]
 
-If preferred, the configuration for a typed client can be specified during registration in `Startup.ConfigureServices`, rather than in the typed client's constructor:
+Pokud je to preferováno, může být konfigurace pro zadaného klienta zadána během registrace v `Startup.ConfigureServices`, nikoli v konstruktoru typovaného klienta:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet4)]
 
-It's possible to entirely encapsulate the `HttpClient` within a typed client. Rather than exposing it as a property, public methods can be provided which call the `HttpClient` instance internally.
+Je možné zapouzdřit `HttpClient` v rámci zadaného klienta. Místo toho, aby jej vystavila jako vlastnost, lze poskytnout veřejné metody, které volají instanci `HttpClient` interně.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/GitHub/RepoService.cs?name=snippet1&highlight=4)]
 
-In the preceding code, the `HttpClient` is stored as a private field. All access to make external calls goes through the `GetRepos` method.
+V předchozím kódu je `HttpClient` uložen jako soukromé pole. Veškerý přístup k externím voláním projde metodou `GetRepos`.
 
-### <a name="generated-clients"></a>Generated clients
+### <a name="generated-clients"></a>Vygenerované klienty
 
-`IHttpClientFactory` can be used in combination with other third-party libraries such as [Refit](https://github.com/paulcbetts/refit). Refit is a REST library for .NET. It converts REST APIs into live interfaces. An implementation of the interface is generated dynamically by the `RestService`, using `HttpClient` to make the external HTTP calls.
+`IHttpClientFactory` lze použít v kombinaci s jinými knihovnami třetích stran, jako je například [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky `RestService`pomocí `HttpClient` k vytvoření externích volání HTTP.
 
-An interface and a reply are defined to represent the external API and its response:
+Rozhraní a odpověď jsou definované tak, aby představovaly externí rozhraní API a jeho odpověď:
 
 ```csharp
 public interface IHelloClient
@@ -464,7 +464,7 @@ public class Reply
 }
 ```
 
-A typed client can be added, using Refit to generate the implementation:
+K vygenerování implementace se dá přidat typový klient s použitím REFIT:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -479,7 +479,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-The defined interface can be consumed where necessary, with the implementation provided by DI and Refit:
+Definované rozhraní lze v případě potřeby spotřebovat pomocí implementace, kterou poskytuje DI a REFIT:
 
 ```csharp
 [ApiController]
@@ -500,261 +500,261 @@ public class ValuesController : ControllerBase
 }
 ```
 
-## <a name="outgoing-request-middleware"></a>Outgoing request middleware
+## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient` already has the concept of delegating handlers that can be linked together for outgoing HTTP requests. The `IHttpClientFactory` makes it easy to define the handlers to apply for each named client. It supports registration and chaining of multiple handlers to build an outgoing request middleware pipeline. Each of these handlers is able to perform work before and after the outgoing request. This pattern is similar to the inbound middleware pipeline in ASP.NET Core. The pattern provides a mechanism to manage cross-cutting concerns around HTTP requests, including caching, error handling, serialization, and logging.
+`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento návrhový vzor je podobný příchozímu middlewarovému kanálu v ASP.NET Core. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
-To create a handler, define a class deriving from <xref:System.Net.Http.DelegatingHandler>. Override the `SendAsync` method to execute code before passing the request to the next handler in the pipeline:
+Chcete-li vytvořit obslužnou rutinu, Definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler>. Před předáním požadavku další obslužné rutině v kanálu přepište metodu `SendAsync` pro spuštění kódu.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Handlers/ValidateHeaderHandler.cs?name=snippet1)]
 
-The preceding code defines a basic handler. It checks to see if an `X-API-KEY` header has been included on the request. If the header is missing, it can avoid the HTTP call and return a suitable response.
+Předchozí kód definuje základní obslužnou rutinu. Kontroluje, zda byla v žádosti obsažena hlavička `X-API-KEY`. Pokud záhlaví chybí, může se vyhnout volání HTTP a vracet vhodnou odpověď.
 
-During registration, one or more handlers can be added to the configuration for a `HttpClient`. This task is accomplished via extension methods on the <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder>.
+Během registrace lze do konfigurace `HttpClient`přidat jeden nebo více obslužných rutin. Tato úloha se provádí prostřednictvím rozšiřujících metod na <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder>.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet5)]
 
-In the preceding code, the `ValidateHeaderHandler` is registered with DI. The `IHttpClientFactory` creates a separate DI scope for each handler. Handlers are free to depend upon services of any scope. Services that handlers depend upon are disposed when the handler is disposed.
+V předchozím kódu je `ValidateHeaderHandler` zaregistrován v DI. `IHttpClientFactory` vytvoří samostatný obor DI pro každou obslužnou rutinu. Obslužné rutiny jsou zadarmo závislé na službách jakéhokoli oboru. Služby, na kterých obslužné rutiny závisejí, jsou uvolněny při uvolnění obslužné rutiny.
 
-Once registered, <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*> can be called, passing in the type for the handler.
+Po zaregistrování je možné volat <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*>, předání v typu pro obslužnou rutinu.
 
-Multiple handlers can be registered in the order that they should execute. Each handler wraps the next handler until the final `HttpClientHandler` executes the request:
+Více obslužných rutin lze registrovat v pořadí, ve kterém by měly být spuštěny. Každá obslužná rutina zabalí další obslužnou rutinu, dokud poslední `HttpClientHandler` nespustí požadavek:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet6)]
 
-Use one of the following approaches to share per-request state with message handlers:
+Ke sdílení stavu jednotlivých požadavků pomocí obslužných rutin zpráv použijte jeden z následujících přístupů:
 
-* Pass data into the handler using `HttpRequestMessage.Properties`.
-* Use `IHttpContextAccessor` to access the current request.
-* Create a custom `AsyncLocal` storage object to pass the data.
+* Předejte data obslužné rutině pomocí `HttpRequestMessage.Properties`.
+* Pro přístup k aktuálnímu požadavku použijte `IHttpContextAccessor`.
+* Vytvořte vlastní objekt úložiště `AsyncLocal`, který bude předávat data.
 
-## <a name="use-polly-based-handlers"></a>Use Polly-based handlers
+## <a name="use-polly-based-handlers"></a>Použití obslužných rutin založené na Polly
 
-`IHttpClientFactory` integrates with a popular third-party library called [Polly](https://github.com/App-vNext/Polly). Polly is a comprehensive resilience and transient fault-handling library for .NET. It allows developers to express policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback in a fluent and thread-safe manner.
+`IHttpClientFactory` se integruje s oblíbenou knihovnou třetích stran s názvem [Polly](https://github.com/App-vNext/Polly). Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
 
-Extension methods are provided to enable the use of Polly policies with configured `HttpClient` instances. The Polly extensions:
+K dispozici jsou rozšiřující metody umožňující použití zásad Polly s konfigurovanými instancemi `HttpClient`. Rozšíření Polly:
 
-* Support adding Polly-based handlers to clients.
-* Can be used after installing the [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) NuGet package. The package isn't included in the ASP.NET Core shared framework.
+* Podpora přidávání obslužných rutin na základě Polly do klientů.
+* Dá se použít po instalaci balíčku NuGet [Microsoft. Extensions. http. Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) . Balíček není zahrnutý ve ASP.NET Core sdíleném rozhraní.
 
-### <a name="handle-transient-faults"></a>Handle transient faults
+### <a name="handle-transient-faults"></a>Zpracování přechodných chyb
 
-Most common faults occur when external HTTP calls are transient. A convenient extension method called `AddTransientHttpErrorPolicy` is included which allows a policy to be defined to handle transient errors. Policies configured with this extension method handle `HttpRequestException`, HTTP 5xx responses, and HTTP 408 responses.
+K většině běžných chyb dochází, když jsou externí volání HTTP přechodný. K dispozici je vhodná rozšiřující metoda s názvem `AddTransientHttpErrorPolicy`, která umožňuje definovat zásadu pro zpracování přechodných chyb. Zásady konfigurované pomocí této metody rozšíření zpracovávají `HttpRequestException`, odpovědi HTTP 5xx a odpovědi HTTP 408.
 
-The `AddTransientHttpErrorPolicy` extension can be used within `Startup.ConfigureServices`. The extension provides access to a `PolicyBuilder` object configured to handle errors representing a possible transient fault:
+Rozšíření `AddTransientHttpErrorPolicy` lze použít v `Startup.ConfigureServices`. Rozšíření poskytuje přístup k objektu `PolicyBuilder` nakonfigurovanému pro zpracování chyb představujících možnou přechodnou chybu:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet7)]
 
-In the preceding code, a `WaitAndRetryAsync` policy is defined. Failed requests are retried up to three times with a delay of 600 ms between attempts.
+V předchozím kódu je definována zásada `WaitAndRetryAsync`. U neúspěšných žádostí se Opakovaný pokus opakuje více než třikrát s prodlevou 600 MS mezi pokusy.
 
-### <a name="dynamically-select-policies"></a>Dynamically select policies
+### <a name="dynamically-select-policies"></a>Dynamické výběry zásad
 
-Additional extension methods exist which can be used to add Polly-based handlers. One such extension is `AddPolicyHandler`, which has multiple overloads. One overload allows the request to be inspected when defining which policy to apply:
+Existují další rozšiřující metody, které lze použít k přidání obslužných rutin založených na Polly. Jedno takové rozšíření je `AddPolicyHandler`, které má více přetížení. Jedno přetížení umožňuje, aby byl požadavek zkontrolován při definování zásady, která se má použít:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet8)]
 
-In the preceding code, if the outgoing request is an HTTP GET, a 10-second timeout is applied. For any other HTTP method, a 30-second timeout is used.
+Pokud je v předchozím kódu odchozí požadavek HTTP GET, použije se časový limit 10 sekund. Pro jakoukoliv jinou metodu HTTP se použije časový limit 30 sekund.
 
-### <a name="add-multiple-polly-handlers"></a>Add multiple Polly handlers
+### <a name="add-multiple-polly-handlers"></a>Přidání více obslužných rutin Polly
 
-It's common to nest Polly policies to provide enhanced functionality:
+Je běžné vnořovat zásady Polly, které poskytují vylepšené funkce:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet9)]
 
-In the preceding example, two handlers are added. The first uses the `AddTransientHttpErrorPolicy` extension to add a retry policy. Failed requests are retried up to three times. The second call to `AddTransientHttpErrorPolicy` adds a circuit breaker policy. Further external requests are blocked for 30 seconds if five failed attempts occur sequentially. Circuit breaker policies are stateful. All calls through this client share the same circuit state.
+V předchozím příkladu jsou přidány dvě obslužné rutiny. První používá rozšíření `AddTransientHttpErrorPolicy` k přidání zásady opakování. Neúspěšné požadavky se opakují třikrát. Druhé volání `AddTransientHttpErrorPolicy` přidá zásadu pro přerušení okruhu. Další externí požadavky se zablokují po dobu 30 sekund, pokud dojde k pěti pokusům o selhání po sobě. Zásady pro dělení na okruhy jsou stavové. Všechna volání prostřednictvím tohoto klienta sdílejí stejný stav okruhu.
 
-### <a name="add-policies-from-the-polly-registry"></a>Add policies from the Polly registry
+### <a name="add-policies-from-the-polly-registry"></a>Přidání zásad z registru Polly
 
-An approach to managing regularly used policies is to define them once and register them with a `PolicyRegistry`. An extension method is provided which allows a handler to be added using a policy from the registry:
+Přístup ke správě pravidelně používaných zásad je jejich definování jednou a jejich registrací pomocí `PolicyRegistry`. K dispozici je rozšiřující metoda, která umožňuje přidání obslužné rutiny pomocí zásady z registru:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet10)]
 
-In the preceding code, two policies are registered when the `PolicyRegistry` is added to the `ServiceCollection`. To use a policy from the registry, the `AddPolicyHandlerFromRegistry` method is used, passing the name of the policy to apply.
+V předchozím kódu jsou při přidání `PolicyRegistry` do `ServiceCollection`zaregistrovány dvě zásady. Pokud chcete použít zásadu z registru, použije se `AddPolicyHandlerFromRegistry` metoda, která předává název zásady, která se má použít.
 
-Further information about `IHttpClientFactory` and Polly integrations can be found on the [Polly wiki](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory).
+Další informace o integraci `IHttpClientFactory` a Polly najdete na [wikiwebu Polly](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory).
 
-## <a name="httpclient-and-lifetime-management"></a>HttpClient and lifetime management
+## <a name="httpclient-and-lifetime-management"></a>Správa HttpClient a životního cyklu
 
-A new `HttpClient` instance is returned each time `CreateClient` is called on the `IHttpClientFactory`. There's an <xref:System.Net.Http.HttpMessageHandler> per named client. The factory manages the lifetimes of the `HttpMessageHandler` instances.
+Nová instance `HttpClient` se vrátí pokaždé, když `CreateClient` je volána na `IHttpClientFactory`. Je k dispozici <xref:System.Net.Http.HttpMessageHandler> pro každého pojmenovaného klienta. Továrna spravuje životnost instancí `HttpMessageHandler`.
 
-`IHttpClientFactory` pools the `HttpMessageHandler` instances created by the factory to reduce resource consumption. An `HttpMessageHandler` instance may be reused from the pool when creating a new `HttpClient` instance if its lifetime hasn't expired.
+`IHttpClientFactory` fonduje `HttpMessageHandler` instance vytvořené továrnou, aby se snížila spotřeba prostředků. Při vytváření nové instance `HttpClient` se dá z fondu znovu použít instance `HttpMessageHandler`, pokud její životnost ještě nevypršela.
 
-Pooling of handlers is desirable as each handler typically manages its own underlying HTTP connections. Creating more handlers than necessary can result in connection delays. Some handlers also keep connections open indefinitely, which can prevent the handler from reacting to DNS changes.
+Sdružování obslužných rutin je žádoucí, protože každá obslužná rutina obvykle spravuje vlastní podkladová připojení HTTP. Vytváření dalších obslužných rutin, než je potřeba, může způsobit zpoždění připojení. Některé obslužné rutiny také udržují připojení otevřené po neomezenou dobu, což může zabránit obslužné rutině v rekomunikaci se změnami DNS.
 
-The default handler lifetime is two minutes. The default value can be overridden on a per named client basis. To override it, call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> on the `IHttpClientBuilder` that is returned when creating the client:
+Výchozí životnost obslužné rutiny je dvě minuty. Výchozí hodnota může být přepsána u jednotlivých pojmenovaných klientů. Chcete-li jej přepsat, zavolejte <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> na `IHttpClientBuilder`, který je vrácen při vytváření klienta:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
 
-Disposal of the client isn't required. Disposal cancels outgoing requests and guarantees the given `HttpClient` instance can't be used after calling <xref:System.IDisposable.Dispose*>. `IHttpClientFactory` tracks and disposes resources used by `HttpClient` instances. The `HttpClient` instances can generally be treated as .NET objects not requiring disposal.
+Vyřazení klienta se nevyžaduje. Vyřazení zruší odchozí žádosti a zaručuje, že danou instanci `HttpClient` nelze použít po volání <xref:System.IDisposable.Dispose*>. `IHttpClientFactory` sleduje a odstraňuje prostředky používané `HttpClient` instancemi. Instance `HttpClient` můžou být obecně ošetřené jako objekty .NET, které nevyžadují vyřazení.
 
-Keeping a single `HttpClient` instance alive for a long duration is a common pattern used before the inception of `IHttpClientFactory`. This pattern becomes unnecessary after migrating to `IHttpClientFactory`.
+Udržování jedné instance `HttpClient` aktivní pro dlouhou dobu je společný vzor, který se používá před zahájením `IHttpClientFactory`. Tento model se po migraci na `IHttpClientFactory`nepotřebuje.
 
-### <a name="alternatives-to-ihttpclientfactory"></a>Alternatives to IHttpClientFactory
+### <a name="alternatives-to-ihttpclientfactory"></a>Alternativy k IHttpClientFactory
 
-Using `IHttpClientFactory` in a DI-enabled app avoids:
+Použití `IHttpClientFactory` v aplikaci s podporou DI se vyhne:
 
-* Resource exhaustion problems by pooling `HttpMessageHandler` instances.
-* Stale-DNS problems by cycling `HttpMessageHandler` instances at regular instances.
+* Problémy s vyčerpáním prostředků sdružováním `HttpMessageHandler` instancí.
+* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných instancích.
 
-There are alternative ways to solve the preceding problems using a long-lived <xref:System.Net.Http.SocketsHttpHandler> instance.
+Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dlouhotrvající instance <xref:System.Net.Http.SocketsHttpHandler>.
 
-- Create an instance of `SocketsHttpHandler` when the app starts and use it for the life of the app.
-- Configure <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> to an appropriate value based on DNS refresh times.
-- Create `HttpClient` instances using `new HttpClient(handler, dispostHandler: false)` as needed.
+- Vytvořte instanci `SocketsHttpHandler`, když se aplikace spustí a použije se po celou dobu životnosti aplikace.
+- Nakonfigurujte <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> na odpovídající hodnotu na základě časů aktualizace DNS.
+- Podle potřeby vytvořte `HttpClient` instance pomocí `new HttpClient(handler, dispostHandler: false)`.
 
-The preceding approaches solve the resource management problems that `IHttpClientFactory` solves in a similar way.
+Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpClientFactory` vyřešit podobným způsobem.
 
-- The `SocketsHttpHandler` shares connections across `HttpClient` instances. This sharing prevents socket exhaustion.
-- The `SocketsHttpHandler ` cycles connections according to `PooledConnectionLifetime` to avoid state-DNS problems.
+- `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
+- `SocketsHttpHandler ` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo problémům se stavem služby DNS.
 
-### <a name="cookies"></a>Cookies
+### <a name="cookies"></a>Soubory cookie
 
-The pooled `HttpMessageHandler` instances results in `CookieContainer` objects being shared. Unanticipated `CookieContainer` object sharing often results in incorrect code. For apps that require cookies, consider either:
+Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
- - Disabling automatic cookie handling
- - Avoiding `IHttpClientFactory`
+ - Zakázání automatického zpracování souborů cookie
+ - Předcházení `IHttpClientFactory`
 
-Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic cookie handling:
+Voláním <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> zakážete automatické zpracování souborů cookie:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
-Clients created via `IHttpClientFactory` record log messages for all requests. Enable the appropriate information level in your logging configuration to see the default log messages. Additional logging, such as the logging of request headers, is only included at trace level.
+Klienti vytvoření pomocí `IHttpClientFactory` zaznamenávají zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
-The log category used for each client includes the name of the client. A client named *MyNamedClient*, for example, logs messages with a category of `System.Net.Http.HttpClient.MyNamedClient.LogicalHandler`. Messages suffixed with *LogicalHandler* occur outside the request handler pipeline. On the request, messages are logged before any other handlers in the pipeline have processed it. On the response, messages are logged after any other pipeline handlers have received the response.
+Kategorie protokolu použitá pro každého klienta zahrnuje název klienta. Klient s názvem *MyNamedClient*například protokoluje zprávy s kategorií `System.Net.Http.HttpClient.MyNamedClient.LogicalHandler`. Zprávy s příponou *LogicalHandler* se vyskytují mimo kanál obslužné rutiny žádosti. V žádosti se zprávy protokolují předtím, než je zpracuje kterákoli jiný obslužná rutina v kanálu. Na základě odpovědi se zprávy zaprotokolují, až ostatní obslužné rutiny kanálu obdrží odpověď.
 
-Logging also occurs inside the request handler pipeline. In the *MyNamedClient* example, those messages are logged against the log category `System.Net.Http.HttpClient.MyNamedClient.ClientHandler`. For the request, this occurs after all other handlers have run and immediately before the request is sent out on the network. On the response, this logging includes the state of the response before it passes back through the handler pipeline.
+K protokolování dojde také uvnitř kanálu obslužné rutiny žádosti. V *MyNamedClient* příkladu se tyto zprávy protokolují do kategorie protokolu `System.Net.Http.HttpClient.MyNamedClient.ClientHandler`. Pro požadavek se k tomu dochází po spuštění všech ostatních obslužných rutin a bezprostředně před odesláním žádosti v síti. V odpovědi Toto protokolování zahrnuje stav odpovědi předtím, než se přepošle zpět přes kanál obslužné rutiny.
 
-Enabling logging outside and inside the pipeline enables inspection of the changes made by the other pipeline handlers. This may include changes to request headers, for example, or to the response status code.
+Povolení protokolování mimo kanál a uvnitř kanálu umožňuje kontrolu změn provedených ostatními obslužnými rutinami kanálu. To může zahrnovat změny hlaviček žádostí, například nebo stavový kód odpovědi.
 
-Including the name of the client in the log category enables log filtering for specific named clients where necessary.
+Zahrnutí názvu klienta do kategorie protokolu umožňuje filtrování protokolu pro konkrétní pojmenované klienty, pokud je to nutné.
 
-## <a name="configure-the-httpmessagehandler"></a>Configure the HttpMessageHandler
+## <a name="configure-the-httpmessagehandler"></a>Konfigurace HttpMessageHandler
 
-It may be necessary to control the configuration of the inner `HttpMessageHandler` used by a client.
+Může být nutné řídit konfiguraci vnitřních `HttpMessageHandler` používaných klientem.
 
-An `IHttpClientBuilder` is returned when adding named or typed clients. The <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> extension method can be used to define a delegate. The delegate is used to create and configure the primary `HttpMessageHandler` used by that client:
+Při přidávání pojmenovaných nebo typových klientů se vrátí `IHttpClientBuilder`. Metodu rozšíření <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> lze použít k definování delegáta. Delegát slouží k vytvoření a konfiguraci primárního `HttpMessageHandler` používaného tímto klientem:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet12)]
 
-## <a name="use-ihttpclientfactory-in-a-console-app"></a>Use IHttpClientFactory in a console app
+## <a name="use-ihttpclientfactory-in-a-console-app"></a>Použití IHttpClientFactory v konzolové aplikaci
 
-In a console app, add the following package references to the project:
+V aplikaci konzoly přidejte do projektu následující odkazy na balíček:
 
-* [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting)
-* [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http)
+* [Microsoft. Extensions. hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting)
+* [Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http)
 
-In the following example:
+V následujícím příkladu:
 
-* <xref:System.Net.Http.IHttpClientFactory> is registered in the [Generic Host's](xref:fundamentals/host/generic-host) service container.
-* `MyService` creates a client factory instance from the service, which is used to create an `HttpClient`. `HttpClient` is used to retrieve a webpage.
-* `Main` creates a scope to execute the service's `GetPage` method and write the first 500 characters of the webpage content to the console.
+* <xref:System.Net.Http.IHttpClientFactory> je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
+* `MyService` vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient`. `HttpClient` slouží k načtení webové stránky.
+* `Main` vytvoří obor pro spuštění metody `GetPage` služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
-* [Implement HTTP call retries with exponential backoff with HttpClientFactory and Polly policies](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
+* [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
 * [Implementace systému jističe](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-circuit-breaker-pattern)
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.1"
 
-By [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/rynowak), and [Steve Gordon](https://github.com/stevejgordon)
+Od [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/rynowak)a [Steve Gordon](https://github.com/stevejgordon)
 
-An <xref:System.Net.Http.IHttpClientFactory> can be registered and used to configure and create <xref:System.Net.Http.HttpClient> instances in an app. It offers the following benefits:
+<xref:System.Net.Http.IHttpClientFactory> lze zaregistrovat a použít ke konfiguraci a vytvoření <xref:System.Net.Http.HttpClient> instancí v aplikaci. Nabízí následující výhody:
 
-* Provides a central location for naming and configuring logical `HttpClient` instances. For example, a *github* client can be registered and configured to access [GitHub](https://github.com/). A default client can be registered for other purposes.
-* Codifies the concept of outgoing middleware via delegating handlers in `HttpClient` and provides extensions for Polly-based middleware to take advantage of that.
-* Manages the pooling and lifetime of underlying `HttpClientMessageHandler` instances to avoid common DNS problems that occur when manually managing `HttpClient` lifetimes.
-* Adds a configurable logging experience (via `ILogger`) for all requests sent through clients created by the factory.
+* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován k jiným účelům.
+* Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient` a poskytuje rozšíření pro middleware založené na Polly, které tuto funkci využívají.
+* Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`, aby nedocházelo k běžným problémům služby DNS, ke kterým dochází při ruční správě `HttpClient` životního cyklu.
+* Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
 
-[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([how to download](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
-Projects targeting .NET Framework require installation of the [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet package. Projects that target .NET Core and reference the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app) already include the `Microsoft.Extensions.Http` package.
+Projekty, které cílí na .NET Framework vyžadují instalaci balíčku [Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) NuGet. Projekty, které cílí na .NET Core a odkazují na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) , už obsahují balíček `Microsoft.Extensions.Http`.
 
-## <a name="consumption-patterns"></a>Consumption patterns
+## <a name="consumption-patterns"></a>Vzorce spotřeby
 
-There are several ways `IHttpClientFactory` can be used in an app:
+Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
-* [Basic usage](#basic-usage)
-* [Named clients](#named-clients)
-* [Typed clients](#typed-clients)
-* [Generated clients](#generated-clients)
+* [Základní využití](#basic-usage)
+* [Pojmenovaná klienti](#named-clients)
+* [Typové klienti](#typed-clients)
+* [Vygenerované klienty](#generated-clients)
 
-None of them are strictly superior to another. The best approach depends upon the app's constraints.
+Žádná z nich není výhradně nadřízena jiným. Nejlepší přístup závisí na omezeních aplikace.
 
-### <a name="basic-usage"></a>Basic usage
+### <a name="basic-usage"></a>Základní využití
 
-The `IHttpClientFactory` can be registered by calling the `AddHttpClient` extension method on the `IServiceCollection`, inside the `Startup.ConfigureServices` method.
+`IHttpClientFactory` lze zaregistrovat voláním metody rozšíření `AddHttpClient` na `IServiceCollection`v rámci metody `Startup.ConfigureServices`.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet1)]
 
-Once registered, code can accept an `IHttpClientFactory` anywhere services can be injected with [dependency injection (DI)](xref:fundamentals/dependency-injection). The `IHttpClientFactory` can be used to create a `HttpClient` instance:
+Po registraci může kód přijmout `IHttpClientFactory` služby kdekoli, kde se dají vložit do [Injektáže závislostí (di)](xref:fundamentals/dependency-injection). `IHttpClientFactory` lze použít k vytvoření instance `HttpClient`:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/BasicUsage.cshtml.cs?name=snippet1&highlight=9-12,21)]
 
-Using `IHttpClientFactory` in this fashion is a good way to refactor an existing app. It has no impact on the way `HttpClient` is used. In places where `HttpClient` instances are currently created, replace those occurrences with a call to <xref:System.Net.Http.IHttpClientFactory.CreateClient*>.
+Použití `IHttpClientFactory` tímto způsobem je dobrým způsobem, jak refaktorovat existující aplikaci. Nemá žádný vliv na způsob, jakým se používá `HttpClient`. V místech, kde jsou aktuálně vytvářeny `HttpClient` instance, nahraďte tyto výskyty voláním <xref:System.Net.Http.IHttpClientFactory.CreateClient*>.
 
-### <a name="named-clients"></a>Named clients
+### <a name="named-clients"></a>Pojmenovaná klienti
 
-If an app requires many distinct uses of `HttpClient`, each with a different configuration, an option is to use **named clients**. Configuration for a named `HttpClient` can be specified during registration in `Startup.ConfigureServices`.
+Pokud aplikace vyžaduje mnoho různých použití `HttpClient`, každá s jinou konfigurací, je možnost použít **pojmenované klienty**. Konfiguraci pro pojmenovanou `HttpClient` lze zadat během registrace v `Startup.ConfigureServices`.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet2)]
 
-In the preceding code, `AddHttpClient` is called, providing the name *github*. This client has some default configuration applied&mdash;namely the base address and two headers required to work with the GitHub API.
+V předchozím kódu je zavolána `AddHttpClient`, který poskytuje název *GitHub*. U tohoto klienta se používá některá výchozí konfigurace&mdash;konkrétně základní adresa a dvě hlavičky, které se vyžadují pro práci s rozhraním API GitHubu.
 
-Each time `CreateClient` is called, a new instance of `HttpClient` is created and the configuration action is called.
+Pokaždé, když je volána `CreateClient`, je vytvořena nová instance `HttpClient` a je volána akce konfigurace.
 
-To consume a named client, a string parameter can be passed to `CreateClient`. Specify the name of the client to be created:
+Chcete-li využívat pojmenovaného klienta, lze předat řetězcové parametry do `CreateClient`. Zadejte název klienta, který se má vytvořit:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/NamedClient.cshtml.cs?name=snippet1&highlight=21)]
 
-In the preceding code, the request doesn't need to specify a hostname. It can pass just the path, since the base address configured for the client is used.
+V předchozím kódu nemusí požadavek určovat název hostitele. Může předat jenom cestu, protože se používá základní adresa nakonfigurovaná pro klienta.
 
-### <a name="typed-clients"></a>Typed clients
+### <a name="typed-clients"></a>Typové klienti
 
-Typed clients:
+Klienti typu:
 
-* Provide the same capabilities as named clients without the need to use strings as keys.
-* Provides IntelliSense and compiler help when consuming clients.
-* Provide a single location to configure and interact with a particular `HttpClient`. For example, a single typed client might be used for a single backend endpoint and encapsulate all logic dealing with that endpoint.
-* Work with DI and can be injected where required in your app.
+* Poskytněte stejné funkce jako pojmenované klienty, aniž by bylo nutné používat řetězce jako klíče.
+* Poskytuje IntelliSense a pomocníka s kompilátorem při spotřebovávání klientů.
+* Poskytněte jedno umístění pro konfiguraci a interakci s konkrétním `HttpClient`. Například jediný typ klienta může být použit pro jeden koncový bod back-end a zapouzdření veškeré logiky v rámci tohoto koncového bodu.
+* Práce s DI a může být vložena tam, kde je to potřeba ve vaší aplikaci.
 
-A typed client accepts a `HttpClient` parameter in its constructor:
+Typový klient přijímá parametr `HttpClient` ve svém konstruktoru:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/GitHub/GitHubService.cs?name=snippet1&highlight=5)]
 
-In the preceding code, the configuration is moved into the typed client. The `HttpClient` object is exposed as a public property. It's possible to define API-specific methods that expose `HttpClient` functionality. The `GetAspNetDocsIssues` method encapsulates the code needed to query for and parse out the latest open issues from a GitHub repository.
+V předchozím kódu se konfigurace přesune do typovaného klienta. Objekt `HttpClient` je vystaven jako veřejná vlastnost. Je možné definovat metody specifické pro rozhraní API, které zpřístupňují funkce `HttpClient`. Metoda `GetAspNetDocsIssues` zapouzdřuje kód potřebný k dotazování na a analyzuje nejnovější otevřené problémy z úložiště GitHubu.
 
-To register a typed client, the generic <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> extension method can be used within `Startup.ConfigureServices`, specifying the typed client class:
+K registraci typovaného klienta lze použít metodu rozšíření Generic <xref:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient*> v rámci `Startup.ConfigureServices`a zadat typovou třídu klienta:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet3)]
 
-The typed client is registered as transient with DI. The typed client can be injected and consumed directly:
+Typový klient je zaregistrován jako přechodný s DI. Typového klienta lze vložit a spotřebovat přímo:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Pages/TypedClient.cshtml.cs?name=snippet1&highlight=11-14,20)]
 
-If preferred, the configuration for a typed client can be specified during registration in `Startup.ConfigureServices`, rather than in the typed client's constructor:
+Pokud je to preferováno, může být konfigurace pro zadaného klienta zadána během registrace v `Startup.ConfigureServices`, nikoli v konstruktoru typovaného klienta:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet4)]
 
-It's possible to entirely encapsulate the `HttpClient` within a typed client. Rather than exposing it as a property, public methods can be provided which call the `HttpClient` instance internally.
+Je možné zapouzdřit `HttpClient` v rámci zadaného klienta. Místo toho, aby jej vystavila jako vlastnost, lze poskytnout veřejné metody, které volají instanci `HttpClient` interně.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/GitHub/RepoService.cs?name=snippet1&highlight=4)]
 
-In the preceding code, the `HttpClient` is stored as a private field. All access to make external calls goes through the `GetRepos` method.
+V předchozím kódu je `HttpClient` uložen jako soukromé pole. Veškerý přístup k externím voláním projde metodou `GetRepos`.
 
-### <a name="generated-clients"></a>Generated clients
+### <a name="generated-clients"></a>Vygenerované klienty
 
-`IHttpClientFactory` can be used in combination with other third-party libraries such as [Refit](https://github.com/paulcbetts/refit). Refit is a REST library for .NET. It converts REST APIs into live interfaces. An implementation of the interface is generated dynamically by the `RestService`, using `HttpClient` to make the external HTTP calls.
+`IHttpClientFactory` lze použít v kombinaci s jinými knihovnami třetích stran, jako je například [REFIT](https://github.com/paulcbetts/refit). REFIT je knihovna REST pro .NET. Převede rozhraní REST API na živá rozhraní. Implementace rozhraní je vygenerována dynamicky `RestService`pomocí `HttpClient` k vytvoření externích volání HTTP.
 
-An interface and a reply are defined to represent the external API and its response:
+Rozhraní a odpověď jsou definované tak, aby představovaly externí rozhraní API a jeho odpověď:
 
 ```csharp
 public interface IHelloClient
@@ -769,7 +769,7 @@ public class Reply
 }
 ```
 
-A typed client can be added, using Refit to generate the implementation:
+K vygenerování implementace se dá přidat typový klient s použitím REFIT:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -784,7 +784,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-The defined interface can be consumed where necessary, with the implementation provided by DI and Refit:
+Definované rozhraní lze v případě potřeby spotřebovat pomocí implementace, kterou poskytuje DI a REFIT:
 
 ```csharp
 [ApiController]
@@ -805,166 +805,166 @@ public class ValuesController : ControllerBase
 }
 ```
 
-## <a name="outgoing-request-middleware"></a>Outgoing request middleware
+## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient` already has the concept of delegating handlers that can be linked together for outgoing HTTP requests. The `IHttpClientFactory` makes it easy to define the handlers to apply for each named client. It supports registration and chaining of multiple handlers to build an outgoing request middleware pipeline. Each of these handlers is able to perform work before and after the outgoing request. This pattern is similar to the inbound middleware pipeline in ASP.NET Core. The pattern provides a mechanism to manage cross-cutting concerns around HTTP requests, including caching, error handling, serialization, and logging.
+`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento návrhový vzor je podobný příchozímu middlewarovému kanálu v ASP.NET Core. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
-To create a handler, define a class deriving from <xref:System.Net.Http.DelegatingHandler>. Override the `SendAsync` method to execute code before passing the request to the next handler in the pipeline:
+Chcete-li vytvořit obslužnou rutinu, Definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler>. Před předáním požadavku další obslužné rutině v kanálu přepište metodu `SendAsync` pro spuštění kódu.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Handlers/ValidateHeaderHandler.cs?name=snippet1)]
 
-The preceding code defines a basic handler. It checks to see if an `X-API-KEY` header has been included on the request. If the header is missing, it can avoid the HTTP call and return a suitable response.
+Předchozí kód definuje základní obslužnou rutinu. Kontroluje, zda byla v žádosti obsažena hlavička `X-API-KEY`. Pokud záhlaví chybí, může se vyhnout volání HTTP a vracet vhodnou odpověď.
 
-During registration, one or more handlers can be added to the configuration for a `HttpClient`. This task is accomplished via extension methods on the <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder>.
+Během registrace lze do konfigurace `HttpClient`přidat jeden nebo více obslužných rutin. Tato úloha se provádí prostřednictvím rozšiřujících metod na <xref:Microsoft.Extensions.DependencyInjection.IHttpClientBuilder>.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet5)]
 
-In the preceding code, the `ValidateHeaderHandler` is registered with DI. The handler **must** be registered in DI as a transient service, never scoped. If the handler is registered as a scoped service and any services that the handler depends upon are disposable:
+V předchozím kódu je `ValidateHeaderHandler` zaregistrován v DI. Obslužná rutina **musí** být registrována v di jako přechodné služby bez oboru. Pokud je obslužná rutina registrována jako Oborová služba a všechny služby, na kterých závisí obslužná rutina, jsou jednorázové:
 
-* The handler's services could be disposed before the handler goes out of scope.
-* The disposed handler services causes the handler to fail.
+* Služby obslužné rutiny mohou být odstraněny před tím, než se obslužná rutina dostane mimo rozsah.
+* Vyřazené obslužné služby způsobí selhání obslužné rutiny.
 
-Once registered, <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*> can be called, passing in the handler type.
+Po zaregistrování můžete <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.AddHttpMessageHandler*> volat a předat do něj typ obslužné rutiny.
 
-Multiple handlers can be registered in the order that they should execute. Each handler wraps the next handler until the final `HttpClientHandler` executes the request:
+Více obslužných rutin lze registrovat v pořadí, ve kterém by měly být spuštěny. Každá obslužná rutina zabalí další obslužnou rutinu, dokud poslední `HttpClientHandler` nespustí požadavek:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet6)]
 
-Use one of the following approaches to share per-request state with message handlers:
+Ke sdílení stavu jednotlivých požadavků pomocí obslužných rutin zpráv použijte jeden z následujících přístupů:
 
-* Pass data into the handler using `HttpRequestMessage.Properties`.
-* Use `IHttpContextAccessor` to access the current request.
-* Create a custom `AsyncLocal` storage object to pass the data.
+* Předejte data obslužné rutině pomocí `HttpRequestMessage.Properties`.
+* Pro přístup k aktuálnímu požadavku použijte `IHttpContextAccessor`.
+* Vytvořte vlastní objekt úložiště `AsyncLocal`, který bude předávat data.
 
-## <a name="use-polly-based-handlers"></a>Use Polly-based handlers
+## <a name="use-polly-based-handlers"></a>Použití obslužných rutin založené na Polly
 
-`IHttpClientFactory` integrates with a popular third-party library called [Polly](https://github.com/App-vNext/Polly). Polly is a comprehensive resilience and transient fault-handling library for .NET. It allows developers to express policies such as Retry, Circuit Breaker, Timeout, Bulkhead Isolation, and Fallback in a fluent and thread-safe manner.
+`IHttpClientFactory` se integruje s oblíbenou knihovnou třetích stran s názvem [Polly](https://github.com/App-vNext/Polly). Polly je komplexní odolnost a přechodná knihovna pro zpracování chyb pro .NET. Umožňuje vývojářům vyjádřit zásady, jako je opakování, přerušení okruhů, časový limit, izolaci přepážek a nouzové řešení v rámci Fluent a bezpečného přístupu z více vláken.
 
-Extension methods are provided to enable the use of Polly policies with configured `HttpClient` instances. The Polly extensions:
+K dispozici jsou rozšiřující metody umožňující použití zásad Polly s konfigurovanými instancemi `HttpClient`. Rozšíření Polly:
 
-* Support adding Polly-based handlers to clients.
-* Can be used after installing the [Microsoft.Extensions.Http.Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) NuGet package. The package isn't included in the ASP.NET Core shared framework.
+* Podpora přidávání obslužných rutin na základě Polly do klientů.
+* Dá se použít po instalaci balíčku NuGet [Microsoft. Extensions. http. Polly](https://www.nuget.org/packages/Microsoft.Extensions.Http.Polly/) . Balíček není zahrnutý ve ASP.NET Core sdíleném rozhraní.
 
-### <a name="handle-transient-faults"></a>Handle transient faults
+### <a name="handle-transient-faults"></a>Zpracování přechodných chyb
 
-Most common faults occur when external HTTP calls are transient. A convenient extension method called `AddTransientHttpErrorPolicy` is included which allows a policy to be defined to handle transient errors. Policies configured with this extension method handle `HttpRequestException`, HTTP 5xx responses, and HTTP 408 responses.
+K většině běžných chyb dochází, když jsou externí volání HTTP přechodný. K dispozici je vhodná rozšiřující metoda s názvem `AddTransientHttpErrorPolicy`, která umožňuje definovat zásadu pro zpracování přechodných chyb. Zásady konfigurované pomocí této metody rozšíření zpracovávají `HttpRequestException`, odpovědi HTTP 5xx a odpovědi HTTP 408.
 
-The `AddTransientHttpErrorPolicy` extension can be used within `Startup.ConfigureServices`. The extension provides access to a `PolicyBuilder` object configured to handle errors representing a possible transient fault:
+Rozšíření `AddTransientHttpErrorPolicy` lze použít v `Startup.ConfigureServices`. Rozšíření poskytuje přístup k objektu `PolicyBuilder` nakonfigurovanému pro zpracování chyb představujících možnou přechodnou chybu:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet7)]
 
-In the preceding code, a `WaitAndRetryAsync` policy is defined. Failed requests are retried up to three times with a delay of 600 ms between attempts.
+V předchozím kódu je definována zásada `WaitAndRetryAsync`. U neúspěšných žádostí se Opakovaný pokus opakuje více než třikrát s prodlevou 600 MS mezi pokusy.
 
-### <a name="dynamically-select-policies"></a>Dynamically select policies
+### <a name="dynamically-select-policies"></a>Dynamické výběry zásad
 
-Additional extension methods exist which can be used to add Polly-based handlers. One such extension is `AddPolicyHandler`, which has multiple overloads. One overload allows the request to be inspected when defining which policy to apply:
+Existují další rozšiřující metody, které lze použít k přidání obslužných rutin založených na Polly. Jedno takové rozšíření je `AddPolicyHandler`, které má více přetížení. Jedno přetížení umožňuje, aby byl požadavek zkontrolován při definování zásady, která se má použít:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet8)]
 
-In the preceding code, if the outgoing request is an HTTP GET, a 10-second timeout is applied. For any other HTTP method, a 30-second timeout is used.
+Pokud je v předchozím kódu odchozí požadavek HTTP GET, použije se časový limit 10 sekund. Pro jakoukoliv jinou metodu HTTP se použije časový limit 30 sekund.
 
-### <a name="add-multiple-polly-handlers"></a>Add multiple Polly handlers
+### <a name="add-multiple-polly-handlers"></a>Přidání více obslužných rutin Polly
 
-It's common to nest Polly policies to provide enhanced functionality:
+Je běžné vnořovat zásady Polly, které poskytují vylepšené funkce:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet9)]
 
-In the preceding example, two handlers are added. The first uses the `AddTransientHttpErrorPolicy` extension to add a retry policy. Failed requests are retried up to three times. The second call to `AddTransientHttpErrorPolicy` adds a circuit breaker policy. Further external requests are blocked for 30 seconds if five failed attempts occur sequentially. Circuit breaker policies are stateful. All calls through this client share the same circuit state.
+V předchozím příkladu jsou přidány dvě obslužné rutiny. První používá rozšíření `AddTransientHttpErrorPolicy` k přidání zásady opakování. Neúspěšné požadavky se opakují třikrát. Druhé volání `AddTransientHttpErrorPolicy` přidá zásadu pro přerušení okruhu. Další externí požadavky se zablokují po dobu 30 sekund, pokud dojde k pěti pokusům o selhání po sobě. Zásady pro dělení na okruhy jsou stavové. Všechna volání prostřednictvím tohoto klienta sdílejí stejný stav okruhu.
 
-### <a name="add-policies-from-the-polly-registry"></a>Add policies from the Polly registry
+### <a name="add-policies-from-the-polly-registry"></a>Přidání zásad z registru Polly
 
-An approach to managing regularly used policies is to define them once and register them with a `PolicyRegistry`. An extension method is provided which allows a handler to be added using a policy from the registry:
+Přístup ke správě pravidelně používaných zásad je jejich definování jednou a jejich registrací pomocí `PolicyRegistry`. K dispozici je rozšiřující metoda, která umožňuje přidání obslužné rutiny pomocí zásady z registru:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet10)]
 
-In the preceding code, two policies are registered when the `PolicyRegistry` is added to the `ServiceCollection`. To use a policy from the registry, the `AddPolicyHandlerFromRegistry` method is used, passing the name of the policy to apply.
+V předchozím kódu jsou při přidání `PolicyRegistry` do `ServiceCollection`zaregistrovány dvě zásady. Pokud chcete použít zásadu z registru, použije se `AddPolicyHandlerFromRegistry` metoda, která předává název zásady, která se má použít.
 
-Further information about `IHttpClientFactory` and Polly integrations can be found on the [Polly wiki](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory).
+Další informace o integraci `IHttpClientFactory` a Polly najdete na [wikiwebu Polly](https://github.com/App-vNext/Polly/wiki/Polly-and-HttpClientFactory).
 
-## <a name="httpclient-and-lifetime-management"></a>HttpClient and lifetime management
+## <a name="httpclient-and-lifetime-management"></a>Správa HttpClient a životního cyklu
 
-A new `HttpClient` instance is returned each time `CreateClient` is called on the `IHttpClientFactory`. There's an <xref:System.Net.Http.HttpMessageHandler> per named client. The factory manages the lifetimes of the `HttpMessageHandler` instances.
+Nová instance `HttpClient` se vrátí pokaždé, když `CreateClient` je volána na `IHttpClientFactory`. Je k dispozici <xref:System.Net.Http.HttpMessageHandler> pro každého pojmenovaného klienta. Továrna spravuje životnost instancí `HttpMessageHandler`.
 
-`IHttpClientFactory` pools the `HttpMessageHandler` instances created by the factory to reduce resource consumption. An `HttpMessageHandler` instance may be reused from the pool when creating a new `HttpClient` instance if its lifetime hasn't expired.
+`IHttpClientFactory` fonduje `HttpMessageHandler` instance vytvořené továrnou, aby se snížila spotřeba prostředků. Při vytváření nové instance `HttpClient` se dá z fondu znovu použít instance `HttpMessageHandler`, pokud její životnost ještě nevypršela.
 
-Pooling of handlers is desirable as each handler typically manages its own underlying HTTP connections. Creating more handlers than necessary can result in connection delays. Some handlers also keep connections open indefinitely, which can prevent the handler from reacting to DNS changes.
+Sdružování obslužných rutin je žádoucí, protože každá obslužná rutina obvykle spravuje vlastní podkladová připojení HTTP. Vytváření dalších obslužných rutin, než je potřeba, může způsobit zpoždění připojení. Některé obslužné rutiny také udržují připojení otevřené po neomezenou dobu, což může zabránit obslužné rutině v rekomunikaci se změnami DNS.
 
-The default handler lifetime is two minutes. The default value can be overridden on a per named client basis. To override it, call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> on the `IHttpClientBuilder` that is returned when creating the client:
+Výchozí životnost obslužné rutiny je dvě minuty. Výchozí hodnota může být přepsána u jednotlivých pojmenovaných klientů. Chcete-li jej přepsat, zavolejte <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.SetHandlerLifetime*> na `IHttpClientBuilder`, který je vrácen při vytváření klienta:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet11)]
 
-Disposal of the client isn't required. Disposal cancels outgoing requests and guarantees the given `HttpClient` instance can't be used after calling <xref:System.IDisposable.Dispose*>. `IHttpClientFactory` tracks and disposes resources used by `HttpClient` instances. The `HttpClient` instances can generally be treated as .NET objects not requiring disposal.
+Vyřazení klienta se nevyžaduje. Vyřazení zruší odchozí žádosti a zaručuje, že danou instanci `HttpClient` nelze použít po volání <xref:System.IDisposable.Dispose*>. `IHttpClientFactory` sleduje a odstraňuje prostředky používané `HttpClient` instancemi. Instance `HttpClient` můžou být obecně ošetřené jako objekty .NET, které nevyžadují vyřazení.
 
-Keeping a single `HttpClient` instance alive for a long duration is a common pattern used before the inception of `IHttpClientFactory`. This pattern becomes unnecessary after migrating to `IHttpClientFactory`.
+Udržování jedné instance `HttpClient` aktivní pro dlouhou dobu je společný vzor, který se používá před zahájením `IHttpClientFactory`. Tento model se po migraci na `IHttpClientFactory`nepotřebuje.
 
-### <a name="alternatives-to-ihttpclientfactory"></a>Alternatives to IHttpClientFactory
+### <a name="alternatives-to-ihttpclientfactory"></a>Alternativy k IHttpClientFactory
 
-Using `IHttpClientFactory` in a DI-enabled app avoids:
+Použití `IHttpClientFactory` v aplikaci s podporou DI se vyhne:
 
-* Resource exhaustion problems by pooling `HttpMessageHandler` instances.
-* Stale-DNS problems by cycling `HttpMessageHandler` instances at regular instances.
+* Problémy s vyčerpáním prostředků sdružováním `HttpMessageHandler` instancí.
+* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných instancích.
 
-There are alternative ways to solve the preceding problems using a long-lived <xref:System.Net.Http.SocketsHttpHandler> instance.
+Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dlouhotrvající instance <xref:System.Net.Http.SocketsHttpHandler>.
 
-- Create an instance of `SocketsHttpHandler` when the app starts and use it for the life of the app.
-- Configure <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> to an appropriate value based on DNS refresh times.
-- Create `HttpClient` instances using `new HttpClient(handler, dispostHandler: false)` as needed.
+- Vytvořte instanci `SocketsHttpHandler`, když se aplikace spustí a použije se po celou dobu životnosti aplikace.
+- Nakonfigurujte <xref:System.Net.Http.SocketsHttpHandler.PooledConnectionLifetime> na odpovídající hodnotu na základě časů aktualizace DNS.
+- Podle potřeby vytvořte `HttpClient` instance pomocí `new HttpClient(handler, dispostHandler: false)`.
 
-The preceding approaches solve the resource management problems that `IHttpClientFactory` solves in a similar way.
+Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpClientFactory` vyřešit podobným způsobem.
 
-- The `SocketsHttpHandler` shares connections across `HttpClient` instances. This sharing prevents socket exhaustion.
-- The `SocketsHttpHandler ` cycles connections according to `PooledConnectionLifetime` to avoid state-DNS problems.
+- `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
+- `SocketsHttpHandler ` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo problémům se stavem služby DNS.
 
-### <a name="cookies"></a>Cookies
+### <a name="cookies"></a>Soubory cookie
 
-The pooled `HttpMessageHandler` instances results in `CookieContainer` objects being shared. Unanticipated `CookieContainer` object sharing often results in incorrect code. For apps that require cookies, consider either:
+Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
- - Disabling automatic cookie handling
- - Avoiding `IHttpClientFactory`
+ - Zakázání automatického zpracování souborů cookie
+ - Předcházení `IHttpClientFactory`
 
-Call <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> to disable automatic cookie handling:
+Voláním <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> zakážete automatické zpracování souborů cookie:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
-Clients created via `IHttpClientFactory` record log messages for all requests. Enable the appropriate information level in your logging configuration to see the default log messages. Additional logging, such as the logging of request headers, is only included at trace level.
+Klienti vytvoření pomocí `IHttpClientFactory` zaznamenávají zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
-The log category used for each client includes the name of the client. A client named *MyNamedClient*, for example, logs messages with a category of `System.Net.Http.HttpClient.MyNamedClient.LogicalHandler`. Messages suffixed with *LogicalHandler* occur outside the request handler pipeline. On the request, messages are logged before any other handlers in the pipeline have processed it. On the response, messages are logged after any other pipeline handlers have received the response.
+Kategorie protokolu použitá pro každého klienta zahrnuje název klienta. Klient s názvem *MyNamedClient*například protokoluje zprávy s kategorií `System.Net.Http.HttpClient.MyNamedClient.LogicalHandler`. Zprávy s příponou *LogicalHandler* se vyskytují mimo kanál obslužné rutiny žádosti. V žádosti se zprávy protokolují předtím, než je zpracuje kterákoli jiný obslužná rutina v kanálu. Na základě odpovědi se zprávy zaprotokolují, až ostatní obslužné rutiny kanálu obdrží odpověď.
 
-Logging also occurs inside the request handler pipeline. In the *MyNamedClient* example, those messages are logged against the log category `System.Net.Http.HttpClient.MyNamedClient.ClientHandler`. For the request, this occurs after all other handlers have run and immediately before the request is sent out on the network. On the response, this logging includes the state of the response before it passes back through the handler pipeline.
+K protokolování dojde také uvnitř kanálu obslužné rutiny žádosti. V *MyNamedClient* příkladu se tyto zprávy protokolují do kategorie protokolu `System.Net.Http.HttpClient.MyNamedClient.ClientHandler`. Pro požadavek se k tomu dochází po spuštění všech ostatních obslužných rutin a bezprostředně před odesláním žádosti v síti. V odpovědi Toto protokolování zahrnuje stav odpovědi předtím, než se přepošle zpět přes kanál obslužné rutiny.
 
-Enabling logging outside and inside the pipeline enables inspection of the changes made by the other pipeline handlers. This may include changes to request headers, for example, or to the response status code.
+Povolení protokolování mimo kanál a uvnitř kanálu umožňuje kontrolu změn provedených ostatními obslužnými rutinami kanálu. To může zahrnovat změny hlaviček žádostí, například nebo stavový kód odpovědi.
 
-Including the name of the client in the log category enables log filtering for specific named clients where necessary.
+Zahrnutí názvu klienta do kategorie protokolu umožňuje filtrování protokolu pro konkrétní pojmenované klienty, pokud je to nutné.
 
-## <a name="configure-the-httpmessagehandler"></a>Configure the HttpMessageHandler
+## <a name="configure-the-httpmessagehandler"></a>Konfigurace HttpMessageHandler
 
-It may be necessary to control the configuration of the inner `HttpMessageHandler` used by a client.
+Může být nutné řídit konfiguraci vnitřních `HttpMessageHandler` používaných klientem.
 
-An `IHttpClientBuilder` is returned when adding named or typed clients. The <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> extension method can be used to define a delegate. The delegate is used to create and configure the primary `HttpMessageHandler` used by that client:
+Při přidávání pojmenovaných nebo typových klientů se vrátí `IHttpClientBuilder`. Metodu rozšíření <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensions.ConfigurePrimaryHttpMessageHandler*> lze použít k definování delegáta. Delegát slouží k vytvoření a konfiguraci primárního `HttpMessageHandler` používaného tímto klientem:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet12)]
 
-## <a name="use-ihttpclientfactory-in-a-console-app"></a>Use IHttpClientFactory in a console app
+## <a name="use-ihttpclientfactory-in-a-console-app"></a>Použití IHttpClientFactory v konzolové aplikaci
 
-In a console app, add the following package references to the project:
+V aplikaci konzoly přidejte do projektu následující odkazy na balíček:
 
-* [Microsoft.Extensions.Hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting)
-* [Microsoft.Extensions.Http](https://www.nuget.org/packages/Microsoft.Extensions.Http)
+* [Microsoft. Extensions. hosting](https://www.nuget.org/packages/Microsoft.Extensions.Hosting)
+* [Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http)
 
-In the following example:
+V následujícím příkladu:
 
-* <xref:System.Net.Http.IHttpClientFactory> is registered in the [Generic Host's](xref:fundamentals/host/generic-host) service container.
-* `MyService` creates a client factory instance from the service, which is used to create an `HttpClient`. `HttpClient` is used to retrieve a webpage.
-* `Main` creates a scope to execute the service's `GetPage` method and write the first 500 characters of the webpage content to the console.
+* <xref:System.Net.Http.IHttpClientFactory> je zaregistrován v kontejneru služby [obecného hostitele](xref:fundamentals/host/generic-host) .
+* `MyService` vytvoří instanci klientské továrny ze služby, která se používá k vytvoření `HttpClient`. `HttpClient` slouží k načtení webové stránky.
+* `Main` vytvoří obor pro spuštění metody `GetPage` služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
-* [Implement HTTP call retries with exponential backoff with HttpClientFactory and Polly policies](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
+* [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
 * [Implementace systému jističe](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-circuit-breaker-pattern)
 
 ::: moniker-end

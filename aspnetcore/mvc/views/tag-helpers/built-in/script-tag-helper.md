@@ -15,7 +15,7 @@ ms.locfileid: "74317124"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>Pomocník značek Script v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Od [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [Pomocník značek Script](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper) vygeneruje odkaz na primární soubor nebo soubor skriptu. Obvykle je soubor primárního skriptu na [Content Delivery Network](/office365/enterprise/content-delivery-networks#what-exactly-is-a-cdn) (CDN).
 

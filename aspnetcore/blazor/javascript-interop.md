@@ -24,7 +24,7 @@ ms.locfileid: "74317196"
 
 Blazor aplikace může vyvolat JavaScriptové funkce z metod .NET a .NET z kódu JavaScriptu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="invoke-javascript-functions-from-net-methods"></a>Vyvolání funkcí jazyka JavaScript z metod .NET
 
@@ -89,7 +89,7 @@ V ukázkové aplikaci na straně klienta, která doprovází toto téma, jsou k 
 * `showPrompt` &ndash; vytvoří výzvu k přijetí vstupu uživatele (jméno uživatele) a vrátí název volajícímu.
 * `displayWelcome` &ndash; přiřadí uvítací zprávu od volajícího k objektu modelu DOM pomocí `id` `welcome`.
 
-*wwwroot/exampleJsInterop.js*:
+*wwwroot/exampleJsInterop. js*:
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
@@ -115,7 +115,7 @@ Ukázková aplikace obsahuje komponentu, která předvádí interoperabilitu JS.
 * Vrátí text do komponenty pro zpracování.
 * Volá druhou funkci JavaScriptu, která komunikuje s modelem DOM, aby zobrazila úvodní zprávu.
 
-*Pages/JSInterop.razor*:
+*Stránky/JSInterop. Razor*:
 
 [!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop1&highlight=3,19-21,23-25)]
 
@@ -170,7 +170,7 @@ Pokud se jedná o kód .NET, `ElementReference` je neprůhledný popisovač. *Je
 
 Například následující kód definuje metodu rozšíření .NET, která umožňuje nastavení fokusu na prvek:
 
-*exampleJsInterop.js*:
+*exampleJsInterop. js*:
 
 ```javascript
 window.exampleJsFunctions = {
@@ -209,13 +209,13 @@ Chcete-li vyvolat statickou metodu .NET z JavaScriptu, použijte funkce `DotNet.
 
 Ukázková aplikace obsahuje C# metodu pro vrácení pole `int`s. Atribut `JSInvokable` se aplikuje na metodu.
 
-*Pages/JsInterop.razor*:
+*Stránky/JsInterop. Razor*:
 
 [!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop2&highlight=7-11)]
 
 JavaScript, který obsluhuje klient, vyvolá C# metodu .NET.
 
-*wwwroot/exampleJsInterop.js*:
+*wwwroot/exampleJsInterop. js*:
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
@@ -241,7 +241,7 @@ Můžete také volat metody instance rozhraní .NET z JavaScriptu. Vyvolání me
 
 Když je vybráno tlačítko **aktivovat metodu instance .NET HelloHelper. sayHello** , je volána `ExampleJsInterop.CallHelloHelperSayHello` a předá do metody název, `Blazor`.
 
-*Pages/JsInterop.razor*:
+*Stránky/JsInterop. Razor*:
 
 [!code-cshtml[](./common/samples/3.x/BlazorWebAssemblySample/Pages/JsInterop.razor?name=snippet_JSInterop3&highlight=8-9)]
 
@@ -251,13 +251,13 @@ Když je vybráno tlačítko **aktivovat metodu instance .NET HelloHelper. sayHe
 
 [!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=10-16)]
 
-*wwwroot/exampleJsInterop.js*:
+*wwwroot/exampleJsInterop. js*:
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
 Název je předán konstruktoru `HelloHelper`, který nastaví vlastnost `HelloHelper.Name`. Je-li funkce JavaScriptu `sayHello` spuštěna, vrátí `HelloHelper.SayHello` zprávu `Hello, {Name}!`, která je zapsána do konzoly funkcí JavaScriptu.
 
-*JsInteropClasses/HelloHelper.cs*:
+*JsInteropClasses/HelloHelper. cs*:
 
 [!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
 

@@ -73,7 +73,7 @@ Pro Blazor serverových aplikací doporučujeme používat [službu Azure Signal
 
    * Konfigurace (použijte **jeden** z následujících přístupů):
   
-     * *appsettings.json*:
+     * *appSettings. JSON*:
 
        ```json
        "Azure:SignalR:ServerStickyMode": "Required"

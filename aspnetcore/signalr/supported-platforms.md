@@ -26,7 +26,7 @@ SignalR pro ASP.NET Core podporuje jakoukoli serverovou platformu, která ASP.NE
 
 [Klient jazyka JavaScript](xref:signalr/javascript-client) běží na NodeJS 8 a novějších verzích a v následujících prohlížečích:
 
-| Browser                         | Version         |
+| Browser                         | Verze         |
 | ------------------------------- | --------------- |
 | Microsoft Edge                  | Aktuální&dagger; |
 | Mozilla Firefox                 | Aktuální&dagger; |

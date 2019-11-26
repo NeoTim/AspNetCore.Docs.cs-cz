@@ -27,7 +27,7 @@ Tato ukázka používá [ověřování Google](xref:security/authentication/goog
 * [Ověřování Twitteru](xref:security/authentication/twitter-logins)
 * [Další zprostředkovatelé](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>Konfigurace
+## <a name="configuration"></a>Konfiguraci
 
 V metodě `ConfigureServices` nakonfigurujte ověřovací schémata aplikace pomocí metod <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>, <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>a <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*>:
 
@@ -63,7 +63,7 @@ Chcete-li odhlásit aktuálního uživatele a odstranit svůj soubor cookie, zav
 
 Všimněte si, že volání `SignOutAsync` neurčuje schéma ověřování. `DefaultScheme` aplikace `CookieAuthenticationDefaults.AuthenticationScheme` se používá jako vrácení.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>
@@ -82,7 +82,7 @@ Tato ukázka používá [ověřování Google](xref:security/authentication/goog
 * [Ověřování Twitteru](xref:security/authentication/twitter-logins)
 * [Další zprostředkovatelé](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>Konfigurace
+## <a name="configuration"></a>Konfiguraci
 
 V metodě `ConfigureServices` nakonfigurujte ověřovací schémata aplikace pomocí metod `AddAuthentication`, `AddCookie`a `AddGoogle`:
 
@@ -118,7 +118,7 @@ Chcete-li odhlásit aktuálního uživatele a odstranit svůj soubor cookie, zav
 
 Všimněte si, že volání `SignOutAsync` neurčuje schéma ověřování. `DefaultScheme` aplikace `CookieAuthenticationDefaults.AuthenticationScheme` se používá jako vrácení.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>

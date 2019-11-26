@@ -1,4 +1,4 @@
-Run the following .NET Core CLI commands:
+Spusťte následující příkazy .NET Core CLI:
 
 ```dotnetcli
 dotnet tool install --global dotnet-ef
@@ -9,11 +9,11 @@ dotnet add package Microsoft.EntityFrameworkCore.Design
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-The preceding commands add:
+Do předchozích příkazů přidejte:
 
-* The [aspnet-codegenerator scaffolding tool](xref:fundamentals/tools/dotnet-aspnet-codegenerator).
-* The Entity Framework Core Tools for the .NET Core CLI.
-* The EF Core SQLite provider, which installs the EF Core package as a dependency.
-* Packages needed for scaffolding: `Microsoft.VisualStudio.Web.CodeGeneration.Design` and `Microsoft.EntityFrameworkCore.SqlServer`.
+* [Nástroj pro generování uživatelského rozhraní ASPNET-CodeGenerator](xref:fundamentals/tools/dotnet-aspnet-codegenerator).
+* Entity Framework Core nástroje pro .NET Core CLI.
+* Zprostředkovatel SQLite EF Core, který nainstaluje EF Core balíček jako závislost.
+* Balíčky nutné pro generování uživatelského rozhraní: `Microsoft.VisualStudio.Web.CodeGeneration.Design` a `Microsoft.EntityFrameworkCore.SqlServer`.
 
-For guidance on multiple environment configuration that permits an app to configure its database contexts by environment, see <xref:fundamentals/environments#environment-based-startup-class-and-methods>.
+Pokyny pro konfiguraci více prostředí, která umožňuje aplikaci nakonfigurovat kontexty databáze podle prostředí, najdete v tématu <xref:fundamentals/environments#environment-based-startup-class-and-methods>.

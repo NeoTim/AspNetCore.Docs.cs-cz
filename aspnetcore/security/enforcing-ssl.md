@@ -15,7 +15,7 @@ ms.locfileid: "74317360"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Od [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V tomto dokumentu se dozvíte, jak:
 
@@ -383,7 +383,7 @@ Předchozí příkazy vyřeší většinu problémů s důvěryhodností prohlí
 ### <a name="docker---certificate-not-trusted"></a>Docker – certifikát není důvěryhodný.
 
 * Odstraňte složku *C:\Users\{uživateli} \AppData\Roaming\ASP.NET\Https* .
-* Vyčistěte řešení. Odstranit *bin* a *obj* složek.
+* Vyčistěte řešení. Odstraňte složky *bin* a *obj* .
 * Restartujte nástroj pro vývoj. Například Visual Studio, Visual Studio Code nebo Visual Studio pro Mac.
 
 ### <a name="windows---certificate-not-trusted"></a>Windows – certifikát není důvěryhodný.

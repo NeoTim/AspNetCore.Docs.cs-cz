@@ -28,7 +28,7 @@ Kód protokolování pro aplikace bez obecného hostitele se liší v způsobu [
 
 ::: moniker-end
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="add-providers"></a>Přidat zprostředkovatele
 
@@ -297,7 +297,7 @@ public class Program
 
 Protokolování by mělo být tak rychlé, aby neplatilo náklady na výkon asynchronního kódu. Pokud je úložiště dat protokolování pomalé, nezapište ho přímo. Nejprve zvažte možnost zapsat zprávy protokolu do rychlého úložiště a pak je později přesunout do pomalého úložiště. Například pokud se přihlašujete k SQL Server, nechcete to provést přímo v metodě `Log`, protože `Log` metody jsou synchronní. Místo toho můžete synchronně přidat protokolové zprávy do fronty v paměti a nechat pracovní proces na pozadí získat zprávy z fronty, aby asynchronní operace vkládání dat do SQL Server.
 
-## <a name="configuration"></a>Konfigurace
+## <a name="configuration"></a>Konfiguraci
 
 Konfigurace zprostředkovatele protokolování je poskytována jedním nebo více poskytovateli konfigurace:
 
@@ -465,9 +465,9 @@ Chcete-li explicitně zadat kategorii, zavolejte `ILoggerFactory.CreateLogger`:
 
 `ILogger<T>` je ekvivalentní volání `CreateLogger` s plně kvalifikovaným názvem typu `T`.
 
-## <a name="log-level"></a>Úroveň protokolování
+## <a name="log-level"></a>Úroveň protokolu
 
-Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat `Information` protokol, pokud metoda končí normálně `Warning` a protokol, když metoda vrátí stavový kód *404 Nenalezeno*.
+Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat protokol `Information`, když metoda končí normálně, a protokol `Warning`, když metoda vrátí stavový kód 404, který *nebyl nalezen* .
 
 Následující kód vytvoří protokoly `Information` a `Warning`:
 
@@ -746,14 +746,14 @@ Konfigurační data a kód `AddFilter` zobrazené v předchozích příkladech v
 
 | Číslo | Poskytovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| 1      | Ladit         | Všechny kategorie                          | Information       |
+| 1      | Ladit         | Všechny kategorie                          | Informace       |
 | 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
 | 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
 | 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
-| 5      | Konzola       | Všechny kategorie                          | Information       |
+| 5      | Konzola       | Všechny kategorie                          | Informace       |
 | 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
 | 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
-| 8      | Ladit         | Microsoft                               | Přehled             |
+| 8      | Ladit         | Microsoft                               | Trasování             |
 
 Když se vytvoří objekt `ILogger`, vybere objekt `ILoggerFactory` jedno pravidlo pro každého poskytovatele, které se použije pro tento protokolovací nástroj. Všechny zprávy napsané instancí `ILogger` jsou filtrovány na základě vybraných pravidel. V dostupných pravidlech se vybere nejpřesnější pravidlo pro jednotlivé dvojice zprostředkovatel a kategorie.
 
@@ -889,7 +889,7 @@ warn: TodoApiSample.Controllers.TodoController[4000]
 ASP.NET Core dodává následující poskytovatele:
 
 * [Console](#console-provider)
-* [Ladění](#debug-provider)
+* [Ladí](#debug-provider)
 * [EventSource](#event-source-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
@@ -1024,7 +1024,7 @@ Shromažďování trasování z aplikace pomocí trasovacích nástrojů dotnet:
 
 1. Otevřete trasování pomocí [PerfView](#perfview). Otevřete soubor *Trace. nettrace* a prozkoumejte události trasování.
 
-Další informace naleznete v tématu:
+Další informace naleznete v tématu:
 
 * [Trasování pro nástroj Analýza výkonu (dotnet-Trace)](/dotnet/core/diagnostics/dotnet-trace) (dokumentace k .NET Core)
 * [Trasování pro nástroj Analýza výkonu (dotnet-Trace)](https://github.com/dotnet/diagnostics/blob/master/documentation/dotnet-trace-instructions.md) (dokumentace k úložišti GitHub/Diagnostika)
@@ -1155,7 +1155,7 @@ Protokolovací architektury třetích stran, které pracují s ASP.NET Core:
 * [elmah.IO](https://elmah.io/) ([úložiště GitHub](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
 * [GELF](https://docs.graylog.org/en/2.3/pages/gelf.html) ([úložiště GitHub](https://github.com/mattwcole/gelf-extensions-logging))
 * [JSNLog](https://jsnlog.com/) ([úložiště GitHub](https://github.com/mperdeck/jsnlog))
-* [KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))
+* [KissLog.NET](https://kisslog.net/) ([úložiště GitHub](https://github.com/catalingavan/KissLog-net))
 * [Log4Net](https://logging.apache.org/log4net/) ([úložiště GitHub](https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore))
 * [Loggr](https://loggr.net/) ([úložiště GitHub](https://github.com/imobile3/Loggr.Extensions.Logging))
 * [NLOG](https://nlog-project.org/) ([úložiště GitHub](https://github.com/NLog/NLog.Extensions.Logging))
@@ -1172,6 +1172,6 @@ Použití architektury třetí strany se podobá použití jednoho z vestavěný
 
 Další informace najdete v dokumentaci pro každého poskytovatele. Microsoft nepodporuje zprostředkovatele protokolování třetích stran.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * <xref:fundamentals/logging/loggermessage>

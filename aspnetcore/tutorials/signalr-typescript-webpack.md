@@ -30,7 +30,7 @@ V tomto kurzu se naučíte:
 > * Konfigurace serveru SignalR
 > * Povolit komunikaci mezi klientem a serverem
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -274,13 +274,13 @@ Ověřte, že aplikace funguje s následujícím postupem.
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje ASP.NET a webu**
-* [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
+* [.NET Core SDK 2,2 nebo novější](https://www.microsoft.com/net/download/all)
 * [Node. js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
-* [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
+* [.NET Core SDK 2,2 nebo novější](https://www.microsoft.com/net/download/all)
 * [C#pro Visual Studio Code verze 1.17.1 nebo novější](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 * [Node. js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
 

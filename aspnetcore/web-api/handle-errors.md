@@ -1,7 +1,7 @@
 ---
-title: Handle errors in ASP.NET Core web APIs
+title: Zpracování chyb v ASP.NET Core webových rozhraní API
 author: pranavkm
-description: Learn about error handling with ASP.NET Core web APIs.
+description: Přečtěte si o zpracování chyb s ASP.NET Core webovými rozhraními API.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: prkrishn
 ms.custom: mvc
@@ -14,19 +14,19 @@ ms.contentlocale: cs-CZ
 ms.lasthandoff: 11/23/2019
 ms.locfileid: "74412103"
 ---
-# <a name="handle-errors-in-aspnet-core-web-apis"></a>Handle errors in ASP.NET Core web APIs
+# <a name="handle-errors-in-aspnet-core-web-apis"></a>Zpracování chyb v ASP.NET Core webových rozhraní API
 
-This article describes how to handle and customize error handling with ASP.NET Core web APIs.
+Tento článek popisuje, jak zpracovat a přizpůsobit zpracování chyb pomocí ASP.NET Core webových rozhraní API.
 
-[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/handle-errors/samples) ([How to download](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/handle-errors/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="developer-exception-page"></a>Developer Exception Page
+## <a name="developer-exception-page"></a>Stránka s výjimkou pro vývojáře
 
-The [Developer Exception Page](xref:fundamentals/error-handling) is a useful tool to get detailed stack traces for server errors. It uses <xref:Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware> to capture synchronous and asynchronous exceptions from the HTTP pipeline and to generate error responses. To illustrate, consider the following controller action:
+[Stránka s výjimkou vývojáře](xref:fundamentals/error-handling) je užitečný nástroj k získání podrobných trasování zásobníku pro chyby serveru. Používá <xref:Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware> k zachycení synchronních a asynchronních výjimek z kanálu HTTP a k vygenerování odpovědí na chyby. K ilustraci zvažte následující akci kontroleru:
 
 [!code-csharp[](handle-errors/samples/3.x/Controllers/WeatherForecastController.cs?name=snippet_GetByCity)]
 
-Run the following `curl` command to test the preceding action:
+Spusťte následující příkaz `curl`, který otestuje předchozí akci:
 
 ```bash
 curl -i https://localhost:5001/weatherforecast/chicago
@@ -34,7 +34,7 @@ curl -i https://localhost:5001/weatherforecast/chicago
 
 ::: moniker range=">= aspnetcore-3.0"
 
-In ASP.NET Core 3.0 and later, the Developer Exception Page displays a plain-text response if the client doesn't request HTML-formatted output. The following output appears:
+V ASP.NET Core 3,0 a novějších se na stránce s výjimkou vývojáře zobrazuje odpověď v podobě prostého textu, pokud klient nepožaduje výstup ve formátu HTML. Zobrazí se následující výstup:
 
 ```console
 HTTP/1.1 500 Internal Server Error
@@ -68,19 +68,19 @@ Host: localhost:44312
 User-Agent: curl/7.55.1
 ```
 
-To display an HTML-formatted response instead, set the `Accept` HTTP request header to the `text/html` media type. Příklad:
+Chcete-li místo toho zobrazit odpověď ve formátu HTML, nastavte `Accept` hlavičce požadavku HTTP na typ média `text/html`. Příklad:
 
 ```bash
 curl -i -H "Accept: text/html" https://localhost:5001/weatherforecast/chicago
 ```
 
-Consider the following excerpt from the HTTP response:
+Vezměte v úvahu následující úryvek z odpovědi HTTP:
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-In ASP.NET Core 2.2 and earlier, the Developer Exception Page displays an HTML-formatted response. For example, consider the following excerpt from the HTTP response:
+V ASP.NET Core 2,2 a starších verzích se na stránce s výjimkou vývojáře zobrazuje odpověď ve formátu HTML. Zvažte například následující výpis z odpovědi HTTP:
 
 ::: moniker-end
 
@@ -108,20 +108,20 @@ Date: Fri, 27 Sep 2019 16:55:37 GMT
 
 ::: moniker range=">= aspnetcore-3.0"
 
-The HTML-formatted response becomes useful when testing via tools like Postman. The following screen capture shows both the plain-text and the HTML-formatted responses in Postman:
+Odpověď ve formátu HTML se bude užitečná při testování prostřednictvím nástrojů, jako je post. Následující snímek obrazovky ukazuje jako text odpovědi v podobě prostého textu i formátu HTML v poli post:
 
-![Developer Exception Page testing in Postman](handle-errors/_static/developer-exception-page-postman.gif)
+![Testování stránky s výjimkou vývojářů v předzálohovacím](handle-errors/_static/developer-exception-page-postman.gif)
 
 ::: moniker-end
 
 > [!WARNING]
-> Enable the Developer Exception Page **only when the app is running in the Development environment**. You don't want to share detailed exception information publicly when the app runs in production. For more information on configuring environments, see <xref:fundamentals/environments>.
+> Stránku s výjimkou vývojářů povolte **jenom v případě, že aplikace běží ve vývojovém prostředí**. Nechcete veřejně sdílet podrobné informace o výjimkách, když aplikace běží v produkčním prostředí. Další informace o konfiguraci prostředí najdete v tématu <xref:fundamentals/environments>.
 
-## <a name="exception-handler"></a>Exception handler
+## <a name="exception-handler"></a>Obslužná rutina výjimky
 
-In non-development environments, [Exception Handling Middleware](xref:fundamentals/error-handling) can be used to produce an error payload:
+V nevývojovém prostředí lze [middleware zpracování výjimek](xref:fundamentals/error-handling) použít k vytvoření datové části chyby:
 
-1. In `Startup.Configure`, invoke <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> to use the middleware:
+1. V `Startup.Configure`volejte <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler%2A> pro použití middlewaru:
 
     ::: moniker range=">= aspnetcore-3.0"
 
@@ -135,7 +135,7 @@ In non-development environments, [Exception Handling Middleware](xref:fundamenta
 
     ::: moniker-end
 
-1. Configure a controller action to respond to the `/error` route:
+1. Nakonfigurujte akci kontroleru tak, aby odpovídala trase `/error`:
 
     ::: moniker range=">= aspnetcore-3.0"
 
@@ -149,11 +149,11 @@ In non-development environments, [Exception Handling Middleware](xref:fundamenta
 
     ::: moniker-end
 
-The preceding `Error` action sends an [RFC7807](https://tools.ietf.org/html/rfc7807)-compliant payload to the client.
+Předchozí akce `Error` odešle klientovi datovou část kompatibilní s [RFC7807](https://tools.ietf.org/html/rfc7807).
 
-Exception Handling Middleware can also provide more detailed content-negotiated output in the local development environment. Use the following steps to produce a consistent payload format across development and production environments:
+Middleware zpracování výjimek může také poskytnout podrobnější výstup vyjednaný z hlediska obsahu v místním vývojovém prostředí. Pomocí následujících kroků můžete vytvořit konzistentní formát datové části napříč vývojovým a produkčním prostředím:
 
-1. In `Startup.Configure`, register environment-specific Exception Handling Middleware instances:
+1. V `Startup.Configure`Zaregistrujte instance middlewaru specifické pro prostředí pro zpracování výjimky:
 
     ::: moniker range=">= aspnetcore-3.0"
 
@@ -191,12 +191,12 @@ Exception Handling Middleware can also provide more detailed content-negotiated 
 
     ::: moniker-end
 
-    In the preceding code, the middleware is registered with:
+    V předchozím kódu je middleware zaregistrován pomocí:
 
-    * A route of `/error-local-development` in the Development environment.
-    * A route of `/error` in environments that aren't Development.
+    * Trasa `/error-local-development` ve vývojovém prostředí.
+    * Trasa `/error` v prostředích, která nejsou vývojová.
     
-1. Apply attribute routing to controller actions:
+1. Použít směrování atributů na akce kontroleru:
 
     ::: moniker range=">= aspnetcore-3.0"
 
@@ -210,19 +210,19 @@ Exception Handling Middleware can also provide more detailed content-negotiated 
 
     ::: moniker-end
 
-## <a name="use-exceptions-to-modify-the-response"></a>Use exceptions to modify the response
+## <a name="use-exceptions-to-modify-the-response"></a>Použití výjimek pro úpravu odpovědi
 
-The contents of the response can be modified from outside of the controller. In ASP.NET 4.x Web API, one way to do this was using the <xref:System.Web.Http.HttpResponseException> type. ASP.NET Core doesn't include an equivalent type. Support for `HttpResponseException` can be added with the following steps:
+Obsah odpovědi se dá změnit mimo kontroler. V rozhraní Web API ASP.NET 4. x jeden způsob, jak to provést, byl použit typ <xref:System.Web.Http.HttpResponseException>. ASP.NET Core neobsahuje ekvivalentní typ. Podporu pro `HttpResponseException` lze přidat pomocí následujících kroků:
 
-1. Create a well-known exception type named `HttpResponseException`:
+1. Vytvořte známý typ výjimky s názvem `HttpResponseException`:
 
     [!code-csharp[](handle-errors/samples/3.x/Exceptions/HttpResponseException.cs?name=snippet_HttpResponseException)]
 
-1. Create an action filter named `HttpResponseExceptionFilter`:
+1. Vytvořte filtr akcí s názvem `HttpResponseExceptionFilter`:
 
     [!code-csharp[](handle-errors/samples/3.x/Filters/HttpResponseExceptionFilter.cs?name=snippet_HttpResponseExceptionFilter)]
 
-1. In `Startup.ConfigureServices`, add the action filter to the filters collection:
+1. V `Startup.ConfigureServices`přidejte filtr akcí do kolekce Filters:
 
     ::: moniker range=">= aspnetcore-3.0"
 
@@ -242,9 +242,9 @@ The contents of the response can be modified from outside of the controller. In 
 
     ::: moniker-end
 
-## <a name="validation-failure-error-response"></a>Validation failure error response
+## <a name="validation-failure-error-response"></a>Odezva na chybu při ověřování
 
-For web API controllers, MVC responds with a <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> response type when model validation fails. MVC uses the results of <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory> to construct the error response for a validation failure. The following example uses the factory to change the default response type to <xref:Microsoft.AspNetCore.Mvc.SerializableError> in `Startup.ConfigureServices`:
+V případě řadičů webového rozhraní API na webu MVC odpoví <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> typ odpovědi, když se ověřování modelu nezdařilo. MVC používá výsledky <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.InvalidModelStateResponseFactory> k vytvoření chybové odpovědi pro chybu ověřování. Následující příklad používá objekt pro vytváření a změnu výchozího typu odpovědi na <xref:Microsoft.AspNetCore.Mvc.SerializableError> v `Startup.ConfigureServices`:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -264,22 +264,22 @@ For web API controllers, MVC responds with a <xref:Microsoft.AspNetCore.Mvc.Vali
 
 ::: moniker-end
 
-## <a name="client-error-response"></a>Client error response
+## <a name="client-error-response"></a>Odezva na chybu klienta
 
-An *error result* is defined as a result with an HTTP status code of 400 or higher. For web API controllers, MVC transforms an error result to a result with <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.
+*Výsledek chyby* je definován jako výsledek se stavovým kódem HTTP 400 nebo vyšší. Pro řadiče webového rozhraní API MVC transformuje výsledek z důvodu <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.
 
 ::: moniker range=">= aspnetcore-3.0"
 
-The error response can be configured in one of the following ways:
+Odpověď na chybu lze nakonfigurovat jedním z následujících způsobů:
 
-1. [Implement ProblemDetailsFactory](#implement-problemdetailsfactory)
-1. [Use ApiBehaviorOptions.ClientErrorMapping](#use-apibehavioroptionsclienterrormapping)
+1. [Implementovat ProblemDetailsFactory](#implement-problemdetailsfactory)
+1. [Použití ApiBehaviorOptions. ClientErrorMapping](#use-apibehavioroptionsclienterrormapping)
 
-### <a name="implement-problemdetailsfactory"></a>Implement ProblemDetailsFactory
+### <a name="implement-problemdetailsfactory"></a>Implementovat ProblemDetailsFactory
 
-MVC uses `Microsoft.AspNetCore.Mvc.ProblemDetailsFactory` to produce all instances of <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> and <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>. This includes client error responses, validation failure error responses, and the `Microsoft.AspNetCore.Mvc.ControllerBase.Problem` and <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem> helper methods.
+MVC používá `Microsoft.AspNetCore.Mvc.ProblemDetailsFactory` k tvorbě všech instancí <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> a <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails>. To zahrnuje odpovědi na chyby klienta, odpovědi na chyby při selhání ověřování a pomocné metody `Microsoft.AspNetCore.Mvc.ControllerBase.Problem` a <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem>.
 
-To customize the problem details response, register a custom implementation of `ProblemDetailsFactory` in `Startup.ConfigureServices`:
+Chcete-li přizpůsobit odpověď na podrobnosti o problému, zaregistrujte vlastní implementaci `ProblemDetailsFactory` v `Startup.ConfigureServices`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection serviceCollection)
@@ -293,15 +293,15 @@ public void ConfigureServices(IServiceCollection serviceCollection)
 
 ::: moniker range="= aspnetcore-2.2"
 
-The error response can be configured as outlined in the [Use ApiBehaviorOptions.ClientErrorMapping](#use-apibehavioroptionsclienterrormapping) section.
+Odpověď na chybu lze nakonfigurovat tak, jak je uvedeno v části [Use ApiBehaviorOptions. ClientErrorMapping](#use-apibehavioroptionsclienterrormapping) .
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.2"
 
-### <a name="use-apibehavioroptionsclienterrormapping"></a>Use ApiBehaviorOptions.ClientErrorMapping
+### <a name="use-apibehavioroptionsclienterrormapping"></a>Použití ApiBehaviorOptions. ClientErrorMapping
 
-Use the <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.ClientErrorMapping%2A> property to configure the contents of the `ProblemDetails` response. For example, the following code in `Startup.ConfigureServices` updates the `type` property for 404 responses:
+K nakonfigurování obsahu odpovědi `ProblemDetails` použijte vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.ClientErrorMapping%2A>. Například následující kód v `Startup.ConfigureServices` aktualizuje vlastnost `type` pro odpovědi 404:
 
 ::: moniker-end
 

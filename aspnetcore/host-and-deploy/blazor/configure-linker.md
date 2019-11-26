@@ -18,7 +18,7 @@ ms.locfileid: "74317292"
 ---
 # <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -100,7 +100,7 @@ Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<M
 | `all`            | Všechna sestavení, která jsou součástí |
 | `cjk`            | *I18N. CJK. dll*          |
 | `mideast`        | *I18N. MidEast. dll*      |
-| `none` (výchozí) | Žádný                    |
+| `none` (výchozí) | Žádné                    |
 | `other`          | *I18N. Jiná knihovna. dll*        |
 | `rare`           | *I18N. Vzácná knihovna DLL*         |
 | `west`           | *I18N. Západ. dll*         |

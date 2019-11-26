@@ -20,7 +20,7 @@ ms.locfileid: "74317203"
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 aplikace Blazor jsou sestaveny pomocí *komponent*. Součást je samostatně obsažený blok uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenta obsahuje značky HTML a logiku zpracování potřebnou k vkládání dat nebo reakci na události uživatelského rozhraní. Komponenty jsou flexibilní a odlehčené. Můžou být vnořené, opakovaně používané a sdílené mezi projekty.
 
@@ -547,18 +547,18 @@ Podporované `EventArgs` jsou uvedeny v následující tabulce.
 
 | Událost            | Třída                | Události a poznámky modelu DOM |
 | ---------------- | -------------------- | -------------------- |
-| Schránka        | `ClipboardEventArgs` | `oncut`, `oncopy`, `onpaste` |
+| Schránka        | `ClipboardEventArgs` | `oncut`, `oncopy``onpaste` |
 | Přetažení             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` a `DataTransferItem` uchování přetažených dat položky. |
 | Chyba            | `ErrorEventArgs`     | `onerror` |
-| Událost            | `EventArgs`          | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Input* (Vstup)<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting` |
-| Vybrána            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>Neobsahuje podporu pro `relatedTarget`. |
-| Vstup            | `ChangeEventArgs`    | `onchange`, `oninput` |
-| Klávesnice         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress`, `onkeyup` |
+| Událost            | `EventArgs`          | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy``onbeforepaste`<br><br>*Vstup*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart``onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting` |
+| Vybrána            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin``onfocusout`<br><br>Neobsahuje podporu pro `relatedTarget`. |
+| Vstup            | `ChangeEventArgs`    | `onchange``oninput` |
+| Klávesnice         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress``onkeyup` |
 | Stisknut            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | Ukazatele myši    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
-| Kolečko myši      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
-| Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
-| Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br>`TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
+| Kolečko myši      | `WheelEventArgs`     | `onwheel``onmousewheel` |
+| Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress``ontimeout` |
+| Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave``ontouchcancel`<br><br>`TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
 
 Informace o vlastnostech a chování zpracování událostí událostí v předchozí tabulce naleznete v tématu [třídy EventArgs ve zdroji referencí (ASPNET/AspNetCore Release/3.0)](https://github.com/aspnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web).
 
@@ -1688,14 +1688,14 @@ builder.AddContent(1, "Second");
 
 Při prvním spuštění kódu, pokud je `someFlag` `true`, tvůrce obdrží:
 
-| Sequence | Typ      | Data   |
+| Pořadí | Typ      | Data   |
 | :------: | --------- | :----: |
-| 0        | Textový uzel | první  |
+| 0        | Textový uzel | První  |
 | 1        | Textový uzel | Sekunda |
 
 Představte si, že `someFlag` se budou `false`a kód se znovu vykreslí. Tentokrát Tvůrce získá:
 
-| Sequence | Typ       | Data   |
+| Pořadí | Typ       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Textový uzel  | Sekunda |
 
@@ -1720,14 +1720,14 @@ builder.AddContent(seq++, "Second");
 
 Teď je první výstup:
 
-| Sequence | Typ      | Data   |
+| Pořadí | Typ      | Data   |
 | :------: | --------- | :----: |
-| 0        | Textový uzel | první  |
+| 0        | Textový uzel | První  |
 | 1        | Textový uzel | Sekunda |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je `false` při druhém vykreslování a výstup je:
 
-| Sequence | Typ      | Data   |
+| Pořadí | Typ      | Data   |
 | :------: | --------- | ------ |
 | 0        | Textový uzel | Sekunda |
 

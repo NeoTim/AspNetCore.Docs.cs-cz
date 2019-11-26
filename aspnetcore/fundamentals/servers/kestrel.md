@@ -33,7 +33,7 @@ Kestrel podporuje následující scénáře:
 
 Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Core.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
@@ -49,7 +49,7 @@ Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Co
 &dagger;HTTP/2 bude v budoucí verzi podporován v macOS.
 &Dagger;Kestrel má omezená podpora HTTP/2 na Windows Serveru 2012 R2 a Windows 8.1. Podpora je omezená, protože seznam podporovaných šifrovacích sad TLS, které jsou k dispozici v těchto operačních systémech, je omezený. Pro zabezpečení připojení TLS může být vyžadován certifikát vygenerovaný pomocí algoritmu ECDSA (s připojením typu eliptická křivka).
 
-Pokud se připojení HTTP/2, [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) sestavy `HTTP/2`.
+Pokud je navázáno připojení HTTP/2, `HTTP/2`sestavy [protokolu HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
 
 HTTP/2 je ve výchozím nastavení zakázané. Další informace o konfiguraci najdete v částech [Možnosti Kestrel](#kestrel-options) a [ListenOptions. Protocols](#listenoptionsprotocols) .
 
@@ -352,7 +352,7 @@ Ve výchozím nastavení ASP.NET Core váže k:
 
 Zadejte adresy URL pomocí:
 
-* `ASPNETCORE_URLS` proměnné prostředí.
+* `ASPNETCORE_URLS` proměnnou prostředí.
 * `--urls` argument příkazového řádku.
 * `urls` konfigurační klíč hostitele.
 * `UseUrls` metoda rozšíření.
@@ -939,7 +939,7 @@ Jako alternativní řešení použijte middleware pro filtrování hostitele. Mi
 
 Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. json*/*appSettings.\<prostředí >. JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
-*appsettings.json*:
+*appSettings. JSON*:
 
 ```json
 {
@@ -969,7 +969,7 @@ Kestrel podporuje následující scénáře:
 
 Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Core.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
@@ -985,7 +985,7 @@ Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Co
 &dagger;HTTP/2 bude v budoucí verzi podporován v macOS.
 &Dagger;Kestrel má omezená podpora HTTP/2 na Windows Serveru 2012 R2 a Windows 8.1. Podpora je omezená, protože seznam podporovaných šifrovacích sad TLS, které jsou k dispozici v těchto operačních systémech, je omezený. Pro zabezpečení připojení TLS může být vyžadován certifikát vygenerovaný pomocí algoritmu ECDSA (s připojením typu eliptická křivka).
 
-Pokud se připojení HTTP/2, [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) sestavy `HTTP/2`.
+Pokud je navázáno připojení HTTP/2, `HTTP/2`sestavy [protokolu HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
 
 HTTP/2 je ve výchozím nastavení zakázané. Další informace o konfiguraci najdete v částech [Možnosti Kestrel](#kestrel-options) a [ListenOptions. Protocols](#listenoptionsprotocols) .
 
@@ -1319,7 +1319,7 @@ Ve výchozím nastavení ASP.NET Core váže k:
 
 Zadejte adresy URL pomocí:
 
-* `ASPNETCORE_URLS` proměnné prostředí.
+* `ASPNETCORE_URLS` proměnnou prostředí.
 * `--urls` argument příkazového řádku.
 * `urls` konfigurační klíč hostitele.
 * `UseUrls` metoda rozšíření.
@@ -1790,7 +1790,7 @@ Protokoly zadané v hodnotách přepisu kódu nastavených podle konfigurace
 S vydáním ASP.NET Core 2,1 není výchozí přenos Kestrel založen na Libuv, ale na základě spravovaných soketů. Jedná se o zásadní změnu pro aplikace ASP.NET Core 2,0 upgradované na 2,1, která volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> a závisí na jednom z následujících balíčků:
 
 * [Microsoft. AspNetCore. Server. Kestrel](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.Kestrel/) (přímý odkaz na balíček)
-* [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
+* [Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
 
 Pro projekty, které vyžadují použití Libuv:
 
@@ -1872,7 +1872,7 @@ Jako alternativní řešení použijte middleware pro filtrování hostitele. Mi
 
 Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. json*/*appSettings.\<prostředí >. JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
-*appsettings.json*:
+*appSettings. JSON*:
 
 ```json
 {
@@ -1899,7 +1899,7 @@ Kestrel podporuje následující scénáře:
 
 Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Core.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-kestrel-with-a-reverse-proxy"></a>Kdy použít Kestrel s reverzním proxy serverem
 
@@ -2166,7 +2166,7 @@ Ve výchozím nastavení ASP.NET Core váže k:
 
 Zadejte adresy URL pomocí:
 
-* `ASPNETCORE_URLS` proměnné prostředí.
+* `ASPNETCORE_URLS` proměnnou prostředí.
 * `--urls` argument příkazového řádku.
 * `urls` konfigurační klíč hostitele.
 * `UseUrls` metoda rozšíření.
@@ -2562,7 +2562,7 @@ Při použití služby IIS jsou vazby adresy URL pro přepsání vazby služby I
 S vydáním ASP.NET Core 2,1 není výchozí přenos Kestrel založen na Libuv, ale na základě spravovaných soketů. Jedná se o zásadní změnu pro aplikace ASP.NET Core 2,0 upgradované na 2,1, která volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> a závisí na jednom z následujících balíčků:
 
 * [Microsoft. AspNetCore. Server. Kestrel](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.Kestrel/) (přímý odkaz na balíček)
-* [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
+* [Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
 
 Pro projekty, které vyžadují použití Libuv:
 
@@ -2644,7 +2644,7 @@ Jako alternativní řešení použijte middleware pro filtrování hostitele. Mi
 
 Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. json*/*appSettings.\<prostředí >. JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
-*appsettings.json*:
+*appSettings. JSON*:
 
 ```json
 {
@@ -2659,7 +2659,7 @@ Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Ch
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * <xref:test/troubleshoot>
 * <xref:security/enforcing-ssl>
