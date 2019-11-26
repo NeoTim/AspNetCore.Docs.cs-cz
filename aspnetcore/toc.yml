@@ -587,8 +587,6 @@
       uid: grpc/troubleshoot
 - name: 'Testování, ladění a odstraňování potíží'
   items:
-    - name: Testování jednotek
-      href: /dotnet/core/testing/unit-testing-with-dotnet-test?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
     - name: Testy jednotek stránek Razor
       uid: test/razor-pages-tests
     - name: Testovací kontrolery
