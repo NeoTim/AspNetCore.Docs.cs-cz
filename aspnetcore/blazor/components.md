@@ -5,16 +5,16 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 267a6f5aa96feeecc280238abbef86949750b07e
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 89c92fbd5a3939cd2b4a34c39163767bcdf73bb8
+ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317203"
+ms.lasthandoff: 11/27/2019
+ms.locfileid: "74550309"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -283,7 +283,7 @@ Vykreslený `<div>` v komponentě `Parent` obsahuje `extra="10"` při předání
 <div extra="10" />
 ```
 
-## <a name="data-binding"></a>Vytváření datových vazeb
+## <a name="data-binding"></a>Datová vazba
 
 Datové vazby na součásti a prvky modelu DOM jsou provedeny atributem [@bind](xref:mvc/views/razor#bind) . Následující příklad váže vlastnost `CurrentValue` k hodnotě v textovém poli:
 
@@ -548,14 +548,14 @@ Podporované `EventArgs` jsou uvedeny v následující tabulce.
 | Událost            | Třída                | Události a poznámky modelu DOM |
 | ---------------- | -------------------- | -------------------- |
 | Schránka        | `ClipboardEventArgs` | `oncut`, `oncopy``onpaste` |
-| Přetažení             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` a `DataTransferItem` uchování přetažených dat položky. |
+| Myší             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` a `DataTransferItem` uchování přetažených dat položky. |
 | Chyba            | `ErrorEventArgs`     | `onerror` |
 | Událost            | `EventArgs`          | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy``onbeforepaste`<br><br>*Vstup*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart``onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting` |
 | Vybrána            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin``onfocusout`<br><br>Neobsahuje podporu pro `relatedTarget`. |
 | Vstup            | `ChangeEventArgs`    | `onchange``oninput` |
 | Klávesnice         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress``onkeyup` |
 | Stisknut            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
-| Ukazatele myši    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
+| Ukazatel myši    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
 | Kolečko myši      | `WheelEventArgs`     | `onwheel``onmousewheel` |
 | Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress``ontimeout` |
 | Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave``ontouchcancel`<br><br>`TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
@@ -922,7 +922,7 @@ V předchozím příkladu `NotifierService` vyvolá metodu `OnNotify` komponenty
 
 Při vykreslování seznamu prvků nebo komponent a následné změny prvků nebo komponent musí být Blazorrozdílový algoritmus rozhodnout, které z předchozích prvků nebo komponent lze zachovat a jak se mají objekty modelu namapovat. Obvykle je tento proces automatický a může být ignorován, ale existují případy, kdy můžete chtít řídit proces.
 
-Vezměte v úvahu v následujícím příkladu:
+Vezměte v úvahu následující příklad:
 
 ```csharp
 @foreach (var person in People)
@@ -1144,6 +1144,8 @@ Komponenty mohou přijímat parametry směrování z šablony směrování uvede
 [!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter)]
 
 Volitelné parametry nejsou podporované, takže se v předchozím příkladu použijí dvě direktivy `@page`. První umožňuje navigaci na součást bez parametru. Druhá direktiva `@page` přebírá parametr trasy `{text}` a přiřazuje hodnotu vlastnosti `Text`.
+
+*Catch-All –* syntaxe parametru (`*`/`**`), která zachycuje cestu mezi více hranicemi složek, **není v** součástech Razor ( *. Razor*) podporována.
 
 ::: moniker range=">= aspnetcore-3.1"
 
@@ -1688,16 +1690,16 @@ builder.AddContent(1, "Second");
 
 Při prvním spuštění kódu, pokud je `someFlag` `true`, tvůrce obdrží:
 
-| Pořadí | Typ      | Data   |
+| Sequence | Type      | Datové   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
-| 1        | Textový uzel | Sekunda |
+| 1        | Textový uzel | Druhá |
 
 Představte si, že `someFlag` se budou `false`a kód se znovu vykreslí. Tentokrát Tvůrce získá:
 
-| Pořadí | Typ       | Data   |
+| Sequence | Type       | Datové   |
 | :------: | ---------- | :----: |
-| 1        | Textový uzel  | Sekunda |
+| 1        | Textový uzel  | Druhá |
 
 Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci `0` byla odebrána, takže generuje následující skript triviálního *úprav*:
 
@@ -1720,16 +1722,16 @@ builder.AddContent(seq++, "Second");
 
 Teď je první výstup:
 
-| Pořadí | Typ      | Data   |
+| Sequence | Type      | Datové   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
-| 1        | Textový uzel | Sekunda |
+| 1        | Textový uzel | Druhá |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je `false` při druhém vykreslování a výstup je:
 
-| Pořadí | Typ      | Data   |
+| Sequence | Type      | Datové   |
 | :------: | --------- | ------ |
-| 0        | Textový uzel | Sekunda |
+| 0        | Textový uzel | Druhá |
 
 Tentokrát rozdílový algoritmus uvidí, že došlo ke *dvěma* změnám, a algoritmus generuje následující skript pro úpravy:
 
@@ -1890,6 +1892,6 @@ Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů
 
 Vložené značky SVG se však ve všech scénářích nepodporují. Pokud značku `<svg>` umístíte přímo do souboru komponenty ( *. Razor*), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů se ještě nepodporuje. Například `<use>` značky nejsou aktuálně dodrženy a `@bind` nelze použít s některými značkami SVG. Očekáváme, že tato omezení vyřešíme v budoucí verzi.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:security/blazor/server> &ndash; obsahuje pokyny k vytváření Blazor serverových aplikací, které se musí soupeří s vyčerpáním prostředků.

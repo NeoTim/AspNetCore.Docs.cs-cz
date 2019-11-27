@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/19/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: b23e64077290f0f613e904651e4bb640fcbba95d
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 23ce2d09d2ce9f415ce71bcd7c21c29cb2a040fc
+ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289094"
+ms.lasthandoff: 11/27/2019
+ms.locfileid: "74550364"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -295,9 +295,9 @@ public class Program
 
 ### <a name="no-asynchronous-logger-methods"></a>Žádné metody asynchronního protokolovacího nástroje
 
-Protokolování by mělo být tak rychlé, aby neplatilo náklady na výkon asynchronního kódu. Pokud je úložiště dat protokolování pomalé, nezapište ho přímo. Nejprve zvažte možnost zapsat zprávy protokolu do rychlého úložiště a pak je později přesunout do pomalého úložiště. Například pokud se přihlašujete k SQL Server, nechcete to provést přímo v metodě `Log`, protože `Log` metody jsou synchronní. Místo toho můžete synchronně přidat protokolové zprávy do fronty v paměti a nechat pracovní proces na pozadí získat zprávy z fronty, aby asynchronní operace vkládání dat do SQL Server.
+Protokolování by mělo být tak rychlé, aby neplatilo náklady na výkon asynchronního kódu. Pokud je úložiště dat protokolování pomalé, nezapište ho přímo. Nejprve zvažte možnost zapsat zprávy protokolu do rychlého úložiště a pak je později přesunout do pomalého úložiště. Například pokud se přihlašujete k SQL Server, nechcete to provést přímo v metodě `Log`, protože `Log` metody jsou synchronní. Místo toho můžete synchronně přidat protokolové zprávy do fronty v paměti a nechat pracovní proces na pozadí získat zprávy z fronty, aby asynchronní operace vkládání dat do SQL Server. Další informace najdete v [tomto](https://github.com/aspnet/AspNetCore.Docs/issues/11801) problému GitHubu.
 
-## <a name="configuration"></a>Konfiguraci
+## <a name="configuration"></a>Konfigurace
 
 Konfigurace zprostředkovatele protokolování je poskytována jedním nebo více poskytovateli konfigurace:
 
@@ -744,16 +744,16 @@ Druhý `AddFilter` Určuje poskytovatele ladění pomocí jeho názvu typu. Prvn
 
 Konfigurační data a kód `AddFilter` zobrazené v předchozích příkladech vytvoří pravidla uvedená v následující tabulce. Prvních šest přicházejí z příkladu konfigurace a poslední dva pocházejí z příkladu kódu.
 
-| Číslo | Poskytovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
+| Počet | Zprostředkovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| 1      | Ladit         | Všechny kategorie                          | Informace       |
-| 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
-| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
-| 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
-| 5      | Konzola       | Všechny kategorie                          | Informace       |
+| 1      | Ladit         | Všechny kategorie                          | Informace o nástroji       |
+| 2      | Konzola       | Microsoft. AspNetCore. Mvc. Razor. Internal | Upozornění           |
+| 3      | Konzola       | Microsoft. AspNetCore. Mvc. Razor. Razor    | Ladit             |
+| 4      | Konzola       | Microsoft. AspNetCore. Mvc. Razor          | Chyba             |
+| 5      | Konzola       | Všechny kategorie                          | Informace o nástroji       |
 | 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
 | 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
-| 8      | Ladit         | Microsoft                               | Trasování             |
+| 8      | Ladit         | Síťový                               | Trasování             |
 
 Když se vytvoří objekt `ILogger`, vybere objekt `ILoggerFactory` jedno pravidlo pro každého poskytovatele, které se použije pro tento protokolovací nástroj. Všechny zprávy napsané instancí `ILogger` jsou filtrovány na základě vybraných pravidel. V dostupných pravidlech se vybere nejpřesnější pravidlo pro jednotlivé dvojice zprostředkovatel a kategorie.
 
@@ -824,15 +824,15 @@ Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core 
 
 | Kategorie                            | Poznámky |
 | ----------------------------------- | ----- |
-| Microsoft.AspNetCore                | Obecná diagnostika ASP.NET Core. |
-| Microsoft.AspNetCore.DataProtection | Které klíče byly zváženy, nalezeny a použity. |
-| Microsoft.AspNetCore.HostFiltering  | Hostitelé povoleni. |
-| Microsoft.AspNetCore.Hosting        | Doba, po kterou trvalo dokončení požadavků HTTP a čas jejich spuštění. Která hostující spouštěcí sestavení byla načtena. |
-| Microsoft.AspNetCore.Mvc            | Diagnostika MVC a Razor Vazba modelů, spuštění filtru, zobrazení kompilace, výběr akce. |
-| Microsoft.AspNetCore.Routing        | Informace o shodě trasy. |
-| Microsoft.AspNetCore.Server         | Připojení – spouštění, zastavování a udržování reakcí na Alive. Informace o certifikátu HTTPS |
-| Microsoft.AspNetCore.StaticFiles    | Soubory byly obsluhovány. |
-| Microsoft.EntityFrameworkCore       | Obecná diagnostika Entity Framework Core. Databázová aktivita a konfigurace, detekce změn, migrace. |
+| Microsoft. AspNetCore                | Obecná diagnostika ASP.NET Core. |
+| Microsoft. AspNetCore. DataProtection | Které klíče byly zváženy, nalezeny a použity. |
+| Microsoft. AspNetCore. HostFiltering  | Hostitelé povoleni. |
+| Microsoft. AspNetCore. hosting        | Doba, po kterou trvalo dokončení požadavků HTTP a čas jejich spuštění. Která hostující spouštěcí sestavení byla načtena. |
+| Microsoft. AspNetCore. Mvc            | Diagnostika MVC a Razor Vazba modelů, spuštění filtru, zobrazení kompilace, výběr akce. |
+| Microsoft. AspNetCore. Routing        | Informace o shodě trasy. |
+| Microsoft. AspNetCore. Server         | Připojení – spouštění, zastavování a udržování reakcí na Alive. Informace o certifikátu HTTPS |
+| Microsoft. AspNetCore. StaticFiles    | Soubory byly obsluhovány. |
+| Microsoft. EntityFrameworkCore       | Obecná diagnostika Entity Framework Core. Databázová aktivita a konfigurace, detekce změn, migrace. |
 
 ## <a name="log-scopes"></a>Rozsahy protokolů
 
@@ -1024,7 +1024,7 @@ Shromažďování trasování z aplikace pomocí trasovacích nástrojů dotnet:
 
 1. Otevřete trasování pomocí [PerfView](#perfview). Otevřete soubor *Trace. nettrace* a prozkoumejte události trasování.
 
-Další informace naleznete v tématu:
+Další informace najdete v části .
 
 * [Trasování pro nástroj Analýza výkonu (dotnet-Trace)](/dotnet/core/diagnostics/dotnet-trace) (dokumentace k .NET Core)
 * [Trasování pro nástroj Analýza výkonu (dotnet-Trace)](https://github.com/dotnet/diagnostics/blob/master/documentation/dotnet-trace-instructions.md) (dokumentace k úložišti GitHub/Diagnostika)
@@ -1140,7 +1140,7 @@ Zprostředkovatel protokolování je zahrnutý jako závislost na [Microsoft. Ap
 
 Nepoužívejte balíček [Microsoft. ApplicationInsights. Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) , který je k dis&mdash;pro ASP.NET 4. x.
 
-Další informace naleznete v následujících materiálech:
+Další informace naleznete v následujících zdrojích:
 
 * [Přehled Application Insights](/azure/application-insights/app-insights-overview)
 * [Application Insights pro ASP.NET Core aplikace](/azure/azure-monitor/app/asp-net-core) – začněte zde, pokud chcete implementovat celou řadu Application Insights telemetrie spolu s protokolováním.
@@ -1172,6 +1172,6 @@ Použití architektury třetí strany se podobá použití jednoho z vestavěný
 
 Další informace najdete v dokumentaci pro každého poskytovatele. Microsoft nepodporuje zprostředkovatele protokolování třetích stran.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:fundamentals/logging/loggermessage>
