@@ -282,6 +282,8 @@
           uid: blazor/hosting-models
         - name: Sestavení první aplikace
           uid: tutorials/first-blazor-app
+        - name: Šablony
+          uid: blazor/templates
         - name: Komponenty
           uid: blazor/components
         - name: Formuláře a ověřování
@@ -1100,6 +1102,9 @@
       uid: fundamentals/middleware/extensibility-third-party-container
 - name: Migrace
   items:
+    - name: Z verze 3.0 do verze 3.1
+      displayName: 'migrate, migration'
+      uid: migration/30-to-31
     - name: Z verze 2.2 do verze 3.0
       displayName: 'migrate, migration'
       uid: migration/22-to-30
