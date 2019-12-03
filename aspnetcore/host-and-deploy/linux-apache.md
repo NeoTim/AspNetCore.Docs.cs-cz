@@ -5,14 +5,14 @@ description: Naučte se, jak nastavit Apache jako reverzní proxy server v CentO
 monikerRange: '>= aspnetcore-2.1'
 ms.author: shboyer
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 12/02/2019
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: fce91db736908e433ba6803319aa8984bb68a554
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 730ed1847ec5728657d56db3ccf0f1f5fab6b5dd
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73659889"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717361"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Hostování ASP.NET Core v systému Linux pomocí Apache
 
@@ -24,10 +24,13 @@ Pomocí této příručky se naučíte, jak nastavit [Apache](https://httpd.apac
 
 * Server se systémem CentOS 7 se standardním uživatelským účtem s oprávněním sudo.
 * Nainstalujte modul runtime .NET Core na server.
-   1. Navštivte [stránku všechny soubory ke stažení pro .NET Core](https://www.microsoft.com/net/download/all).
-   1. V seznamu pod položkou **runtime**vyberte nejnovější modul runtime, který není ve verzi Preview.
-   1. Vyberte a postupujte podle pokynů pro CentOS/Oracle.
+   1. Navštivte [stránku stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core).
+   1. Vyberte nejnovější verzi rozhraní .NET Core, která není ve verzi Preview.
+   1. Stáhněte si nejnovější modul runtime bez verze Preview v tabulce v části **Spustit aplikace – modul runtime**.
+   1. Vyberte odkaz **pokyny správce balíčků** pro Linux a postupujte podle pokynů pro CentOS.
 * Existující aplikace ASP.NET Core.
+
+V jakémkoli okamžiku v budoucnu po upgradu sdílené architektury restartujte aplikace ASP.NET Core hostované serverem.
 
 ## <a name="publish-and-copy-over-the-app"></a>Publikování a kopírování přes aplikaci
 
@@ -145,7 +148,7 @@ Pro aplikaci vytvořte konfigurační soubor s názvem *helloapp. conf*:
 Blok `VirtualHost` se může objevit několikrát, v jednom nebo více souborech na serveru. V předchozím konfiguračním souboru akceptuje Apache veřejný provoz na portu 80. Doména `www.example.com` se zpracovává a alias `*.example.com` se překládá na stejný web. Další informace najdete v tématu [Podpora virtuálních hostitelů založených na názvech](https://httpd.apache.org/docs/current/vhosts/name-based.html) . Žádosti jsou proxy servery v kořenovém adresáři na port 5000 serveru na adrese 127.0.0.1. Pro obousměrnou komunikaci se vyžadují `ProxyPass` a `ProxyPassReverse`. Pokud chcete změnit IP adresu/port Kestrel, přečtěte si téma [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
-> Nepovedlo se zadat správnou [direktivu servername](https://httpd.apache.org/docs/current/mod/core.html#servername) v bloku **VirtualHost** k vystavení ohrožení zabezpečení vaší aplikace. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Zobrazit [rfc7230 části-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) Další informace.
+> Nepovedlo se zadat správnou [direktivu servername](https://httpd.apache.org/docs/current/mod/core.html#servername) v bloku **VirtualHost** k vystavení ohrožení zabezpečení vaší aplikace. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
 
 Protokolování lze nakonfigurovat na `VirtualHost` pomocí direktiv `ErrorLog` a `CustomLog`. `ErrorLog` je umístění, kde Server protokoluje chyby, a `CustomLog` nastaví název souboru a formát souboru protokolu. V tomto případě se jedná o případ, kdy se zaprotokolují informace o žádosti. Pro každý požadavek je k dispozici jeden řádek.
 
@@ -247,7 +250,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a>Zobrazení protokolů
+### <a name="view-logs"></a>Zobrazit protokoly
 
 Vzhledem k tomu, že webová aplikace používající Kestrel je spravovaná pomocí *systému*, události a procesy se zaznamenávají do centralizovaného deníku. Tento deník ale obsahuje položky pro všechny služby a procesy spravované *systémem*. Chcete-li zobrazit položky specifické pro `kestrel-helloapp.service`, použijte následující příkaz:
 
@@ -263,13 +266,13 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="data-protection"></a>Ochrana dat
 
-[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud není nakonfigurovaná ochrana dat, jsou klíče uložené v paměti a při restartování aplikace.
+[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
 
-Pokud kanál klíče jsou uloženy v paměti, při restartování aplikace:
+Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny tokeny ověřování na základě souborů cookie nejsou zneplatněny.
-* Uživatelé se musí znovu přihlásit v jejich další požadavek.
-* Všechna data chráněná pomocí aktualizační kanál, který klíč můžete už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [soubory cookie v ASP.NET Core MVC TempData](xref:fundamentals/app-state#tempdata).
+* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené.
+* Uživatelé se musí znovu přihlásit na svůj další požadavek.
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete nakonfigurovat ochranu dat, aby zachovala a zašifroval klíč Ring, přečtěte si:
 
@@ -380,6 +383,10 @@ sudo systemctl restart httpd
 ```
 
 ## <a name="additional-apache-suggestions"></a>Další návrhy Apache
+
+### <a name="restart-apps-with-shared-framework-updates"></a>Restartovat aplikace se sdílenými aktualizacemi rozhraní
+
+Po upgradu sdílené architektury na serveru restartujte aplikace ASP.NET Core hostované serverem.
 
 ### <a name="additional-headers"></a>Další záhlaví
 
