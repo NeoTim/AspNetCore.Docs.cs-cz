@@ -5,16 +5,16 @@ description: Přečtěte si, jak zachovat stav v aplikacích Blazor Server.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/state-management
-ms.openlocfilehash: 38ee5fccdf476f08c9f39d01b53c81b48eea04bf
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: facd6c2747bb0b31404c3c4fce25b76cd141932e
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317186"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74680977"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -85,7 +85,7 @@ Po uložení dat v databázi může nový okruh spustit uživatel kdykoli. Data 
 
 Další informace o možnostech Azure Data Storage najdete v [dokumentaci Azure Storage](/azure/storage/) a v [databázích Azure](https://azure.microsoft.com/product-categories/databases/).
 
-### <a name="url"></a>Adresa URL
+### <a name="url"></a>URL
 
 Pro přechodná data představující stav navigace modelujte data jako součást adresy URL. Mezi příklady stavu zahrnutých v adrese URL patří:
 
@@ -138,7 +138,7 @@ Příklad balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-pro
 > [!WARNING]
 > `Microsoft.AspNetCore.ProtectedBrowserStorage` je nepodporovaný experimentální balíček nevhodný pro použití v produkčním prostředí.
 
-### <a name="installation"></a>Instalace
+### <a name="installation"></a>Instalace služby
 
 Instalace balíčku `Microsoft.AspNetCore.ProtectedBrowserStorage`:
 
@@ -194,7 +194,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-Pokud parametry komponenty obsahují navigační stav, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v `OnParametersSetAsync`, nikoli `OnInitializedAsync`. `OnInitializedAsync` se volá pouze jednou při prvním vytvoření instance komponenty. `OnInitializedAsync` se později nevolá, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce.
+Pokud parametry komponenty obsahují navigační stav, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v `OnParametersSetAsync`, nikoli `OnInitializedAsync`. `OnInitializedAsync` se volá pouze jednou při prvním vytvoření instance komponenty. `OnInitializedAsync` se později nevolá, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace najdete v tématu <xref:blazor/lifecycle>.
 
 > [!WARNING]
 > Příklady v této části fungují pouze v případě, že server nemá povolené předvykreslování. Pokud je povoleno předvykreslování, je vygenerována chyba podobná této:

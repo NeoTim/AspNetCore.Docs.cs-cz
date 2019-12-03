@@ -5,17 +5,17 @@ description: Pochopení Blazor modelů hostování serverů a Blazor serveru.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: a017737eacd93ac776afe7ee8024eed602d7edcc
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 38db9804c9cdd1aa31ca48af2dd9ec2e85175156
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317217"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681042"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>Modely hostování ASP.NET Core Blazor
 
@@ -222,7 +222,7 @@ aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-Když je `ServerPrerendered``RenderMode`, komponenta se zpočátku generuje jako součást stránky staticky. Jakmile prohlížeč vytvoří připojení zpátky k serveru, komponenta se *znovu*vykreslí a komponenta je teď interaktivní. Pokud je k dispozici [Metoda životního cyklu](xref:blazor/components#lifecycle-methods) pro inicializaci komponenty (`OnInitialized{Async}`), metoda je provedena *dvakrát*:
+Když je `ServerPrerendered``RenderMode`, komponenta se zpočátku generuje jako součást stránky staticky. Jakmile prohlížeč vytvoří připojení zpátky k serveru, komponenta se *znovu*vykreslí a komponenta je teď interaktivní. Pokud je k dispozici metoda inicializace životního cyklu "inicializujd [{Async}](xref:blazor/lifecycle#component-initialization-methods) " pro inicializaci komponenty, je metoda provedena *dvakrát*:
 
 * Když se komponenta předem vykreslí.
 * Po navázání připojení k serveru.
@@ -393,7 +393,7 @@ Konfigurace klienta SignalR v souboru *Pages/_Host. cshtml* :
 </script>
 ```
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>

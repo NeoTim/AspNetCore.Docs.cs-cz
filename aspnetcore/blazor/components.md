@@ -9,12 +9,12 @@ ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/components
-ms.openlocfilehash: 89c92fbd5a3939cd2b4a34c39163767bcdf73bb8
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 764e5e7db995b2dcadccf6d93c826ccf32c9ba04
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550309"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681003"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -522,7 +522,7 @@ Následující kód volá metodu `CheckChanged`, když je zaškrtávací políč
 }
 ```
 
-Obslužné rutiny událostí mohou být také asynchronní a vracet <xref:System.Threading.Tasks.Task>. Nemusíte ručně volat `StateHasChanged()`. Výjimky jsou protokolovány, když k nim dojde.
+Obslužné rutiny událostí mohou být také asynchronní a vracet <xref:System.Threading.Tasks.Task>. Není nutné ručně volat [StateHasChanged](xref:blazor/lifecycle#state-changes). Výjimky jsou protokolovány, když k nim dojde.
 
 V následujícím příkladu je `UpdateHeading` volána asynchronně, když je vybráno tlačítko:
 
@@ -614,7 +614,7 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
 Když je vybráno tlačítko v `ChildComponent`:
 
 * Je volána metoda `ShowMessage` `ParentComponent`. `messageText` se aktualizuje a zobrazí v `ParentComponent`.
-* V metodě zpětného volání (`ShowMessage`) není vyžadováno volání `StateHasChanged`. `StateHasChanged` se zavolá automaticky, aby se `ParentComponent`znovu vykreslila, stejně jako podřízené události spouštějí revykreslování komponenty v obslužných rutinách události, které se spouštějí v rámci podřízeného objektu
+* Volání [StateHasChanged](xref:blazor/lifecycle#state-changes) není vyžadováno v metodě zpětného volání (`ShowMessage`). `StateHasChanged` se zavolá automaticky, aby se `ParentComponent`znovu vykreslila, stejně jako podřízené události spouštějí revykreslování komponenty v obslužných rutinách události, které se spouštějí v rámci podřízeného objektu
 
 `EventCallback` a `EventCallback<T>` povolují asynchronní delegáty. `EventCallback<T>` je silného typu a vyžaduje konkrétní typ argumentu. `EventCallback` je slabě typované a umožňuje jakýkoli typ argumentu.
 
@@ -854,7 +854,7 @@ Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, a
 Při vykreslení komponenty je pole `loginDialog` vyplněno instancí `MyLoginDialog` podřízená komponenta. Pak můžete vyvolat metody .NET v instanci komponenty.
 
 > [!IMPORTANT]
-> Proměnná `loginDialog` je naplněna pouze po vykreslení komponenty a její výstup obsahuje prvek `MyLoginDialog`. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [metody OnAfterRenderAsync nebo OnAfterRender](#lifecycle-methods).
+> Proměnná `loginDialog` je naplněna pouze po vykreslení komponenty a její výstup obsahuje prvek `MyLoginDialog`. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [metody OnAfterRenderAsync nebo OnAfterRender](xref:blazor/lifecycle#after-component-render).
 
 Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachycení odkazů na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není to funkce [interoperability JavaScriptu](xref:blazor/javascript-interop) . Odkazy na součásti nejsou předány kódu jazyka JavaScript&mdash;jsou používány pouze v kódu .NET.
 
@@ -863,7 +863,7 @@ Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachyc
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>Vyvolat metody komponenty externě na stav aktualizace
 
-Blazor používá `SynchronizationContext` k vykonání jediného logického vlákna provádění. Metody životního cyklu komponenty a všechna zpětná volání událostí, která jsou aktivována nástrojem Blazor, jsou spouštěna v tomto `SynchronizationContext`. V případě, že komponenta musí být aktualizována na základě externí události, jako je například časovač nebo jiné oznámení, použijte metodu `InvokeAsync`, která se odešle do `SynchronizationContext`Blazor.
+Blazor používá `SynchronizationContext` k vykonání jediného logického vlákna provádění. [Metody životního cyklu](xref:blazor/lifecycle) komponenty a všechna zpětná volání událostí, která jsou aktivována nástrojem Blazor, jsou spouštěna v tomto `SynchronizationContext`. V případě, že komponenta musí být aktualizována na základě externí události, jako je například časovač nebo jiné oznámení, použijte metodu `InvokeAsync`, která se odešle do `SynchronizationContext`Blazor.
 
 Představte si například *službu* pro upozorňování, která může oznámit všechny součásti, které jsou v aktualizovaném stavu:
 
@@ -991,139 +991,6 @@ Obecně je vhodné dodat jeden z následujících typů hodnoty pro `@key`:
 * Jedinečné identifikátory (například hodnoty primárního klíče typu `int`, `string`nebo `Guid`).
 
 Zajistěte, aby hodnoty používané pro `@key` nekolidovat. Pokud jsou v rámci stejného nadřazeného prvku zjištěny hodnoty konfliktu, Blazor vyvolá výjimku, protože nemůže deterministickém mapovat staré prvky nebo komponenty na nové prvky nebo komponenty. Používejte pouze jedinečné hodnoty, například instance objektů nebo hodnoty primárního klíče.
-
-## <a name="lifecycle-methods"></a>Metody životního cyklu
-
-`OnInitializedAsync` a `OnInitialized` spustit kód pro inicializaci součásti. K provedení asynchronní operace použijte `OnInitializedAsync` a klíčové slovo `await` na operaci:
-
-```csharp
-protected override async Task OnInitializedAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> Asynchronní práce během inicializace komponenty se musí vyskytnout během `OnInitializedAsync` události životního cyklu.
-
-Pro synchronní operaci použijte `OnInitialized`:
-
-```csharp
-protected override void OnInitialized()
-{
-    ...
-}
-```
-
-`OnParametersSetAsync` a `OnParametersSet` jsou volány, když komponenta přijímá parametry z nadřazené položky a hodnoty jsou přiřazeny vlastnostem. Tyto metody jsou spouštěny po inicializaci komponenty a pokaždé, když je vykreslena nadřazená komponenta:
-
-```csharp
-protected override async Task OnParametersSetAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> Asynchronní práce při aplikování parametrů a hodnot vlastností musí probíhat během události `OnParametersSetAsync` životního cyklu.
-
-```csharp
-protected override void OnParametersSet()
-{
-    ...
-}
-```
-
-`OnAfterRenderAsync` a `OnAfterRender` jsou volány po dokončení vykreslování součásti. V tuto chvíli se naplní odkazy na element a komponentu. Tuto fázi použijte k provedení dalších kroků inicializace pomocí vykresleného obsahu, jako je například aktivace knihoven JavaScript třetích stran, které pracují s vykreslenými prvky modelu DOM.
-
-`OnAfterRender` se *nevolá při předvykreslování na serveru.*
-
-Parametr `firstRender` pro `OnAfterRenderAsync` a `OnAfterRender` je:
-
-* Nastavte na `true` při prvním vyvolání instance komponenty.
-* Zajistí, že se práce s inicializací provádí jenom jednou.
-
-```csharp
-protected override async Task OnAfterRenderAsync(bool firstRender)
-{
-    if (firstRender)
-    {
-        await ...
-    }
-}
-```
-
-> [!NOTE]
-> Asynchronní práce ihned po vykreslení musí nastat během `OnAfterRenderAsync` události životního cyklu.
-
-```csharp
-protected override void OnAfterRender(bool firstRender)
-{
-    if (firstRender)
-    {
-        ...
-    }
-}
-```
-
-### <a name="handle-incomplete-async-actions-at-render"></a>Zpracovat nedokončené asynchronní akce při vykreslení
-
-Asynchronní akce provedené v událostech životního cyklu se možná nedokončily, než se komponenta vykreslí. Objekty mohou být při provádění metody životního cyklu `null` nebo nedokončené s daty. Poskytněte logiku vykreslování pro potvrzení, že jsou objekty inicializovány. Vykreslí prvky uživatelského rozhraní zástupného textu (například zprávu o načítání), zatímco objekty jsou `null`.
-
-V `FetchData` součásti šablon Blazor je `OnInitializedAsync` přepsáno na asynchronně příjem dat předpovědi (`forecasts`). Pokud je `forecasts` `null`, uživateli se zobrazí zpráva o načítání. Jakmile se `Task` vrátí `OnInitializedAsync` dokončí, komponenta se znovu vykreslí s aktualizovaným stavem.
-
-*Stránky/FetchData. Razor*:
-
-[!code-cshtml[](components/samples_snapshot/3.x/FetchData.razor?highlight=9)]
-
-### <a name="execute-code-before-parameters-are-set"></a>Spustit kód před nastavením parametrů
-
-`SetParameters` lze přepsat pro spuštění kódu před nastavením parametrů:
-
-```csharp
-public override void SetParameters(ParameterView parameters)
-{
-    ...
-
-    base.SetParameters(parameters);
-}
-```
-
-Pokud `base.SetParameters` není vyvolán, vlastní kód může interpretovat hodnotu příchozích parametrů jakýmkoli způsobem, který je vyžadován. Například příchozí parametry nemusejí být přiřazeny vlastnostem třídy.
-
-### <a name="suppress-refreshing-of-the-ui"></a>Potlačit aktualizaci uživatelského rozhraní
-
-`ShouldRender` lze přepsat, aby se potlačila aktualizace uživatelského rozhraní. Pokud implementace vrátí `true`, uživatelské rozhraní se aktualizuje. I v případě, že je `ShouldRender` přepsat, komponenta je vždy zpočátku vykreslena.
-
-```csharp
-protected override bool ShouldRender()
-{
-    var renderUI = true;
-
-    return renderUI;
-}
-```
-
-## <a name="component-disposal-with-idisposable"></a>Vyřazení komponent pomocí IDisposable
-
-Pokud komponenta implementuje <xref:System.IDisposable>, je volána [Metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) při odebrání komponenty z uživatelského rozhraní. Následující komponenta používá `@implements IDisposable` a metodu `Dispose`:
-
-```csharp
-@using System
-@implements IDisposable
-
-...
-
-@code {
-    public void Dispose()
-    {
-        ...
-    }
-}
-```
-
-> [!NOTE]
-> Volání `StateHasChanged` v `Dispose` není podporováno. `StateHasChanged` může být vyvolána jako součást zobrazovací jednotky. Požadavek na aktualizace uživatelského rozhraní v tomto okamžiku není podporován.
 
 ## <a name="routing"></a>Směrování
 

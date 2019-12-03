@@ -5,16 +5,16 @@ description: Naučte se volat funkce jazyka JavaScript z metod .NET a .NET z Jav
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: f55eda512f8dcf0695c2e7f4655db83b26ea4159
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 79555ca6c987e2ca57e0cfab9779024498fdd58b
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317196"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681019"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>Zprostředkovatel komunikace s ASP.NET Core Blazor JavaScript
 
@@ -199,7 +199,7 @@ Metoda je volána přímo na objektu. Následující příklad předpokládá, �
 [!code-cshtml[](javascript-interop/samples_snapshot/component2.razor?highlight=1,4,12)]
 
 > [!IMPORTANT]
-> Proměnná `username` se naplní až po vykreslení komponenty. Pokud je vyplněný `ElementReference` předán kódu jazyka JavaScript, kód jazyka JavaScript obdrží hodnotu `null`. Chcete-li manipulovat s odkazy na elementy po dokončení vykreslování komponenty (pro nastavení prvotního zaměření na element), použijte [metody životního cyklu komponent](xref:blazor/components#lifecycle-methods)`OnAfterRenderAsync` nebo `OnAfterRender`.
+> Proměnná `username` se naplní až po vykreslení komponenty. Pokud je vyplněný `ElementReference` předán kódu jazyka JavaScript, kód jazyka JavaScript obdrží hodnotu `null`. Chcete-li manipulovat s odkazy na elementy po dokončení vykreslování komponenty (pro nastavení prvotního zaměření na prvek), použijte [metody životního cyklu komponenty OnAfterRenderAsync nebo OnAfterRender](xref:blazor/lifecycle#after-component-render).
 
 ## <a name="invoke-net-methods-from-javascript-functions"></a>Vyvolat metody .NET z funkcí JavaScriptu
 

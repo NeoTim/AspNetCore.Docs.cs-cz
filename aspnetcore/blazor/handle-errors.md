@@ -5,17 +5,17 @@ description: Zjistěte, jak ASP.NET Core Blazor jak Blazor spravuje neošetřen�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 11/23/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: f2fa59259f1dd36f50e81256bddea265e347554b
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 9784b357c2cdeb7422bbe40a39f881c97f6d716a
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317156"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74680990"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
 
@@ -122,7 +122,7 @@ Okruh se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter p
 
 ### <a name="lifecycle-methods"></a>Metody životního cyklu
 
-Během životnosti komponenty Blazor vyvolá metody životního cyklu:
+Během životnosti komponenty Blazor vyvolá [metody životního cyklu](xref:blazor/lifecycle):
 
 * `OnInitialized` / `OnInitializedAsync`
 * `OnParametersSet` / `OnParametersSetAsync`
@@ -173,7 +173,7 @@ Součást může být odebrána z uživatelského rozhraní, například proto, 
 
 Pokud metoda `Dispose` komponenty vyvolá neošetřenou výjimku, je výjimka pro okruh závažná. Pokud logika vyřazení může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
-Další informace o vyřazení součástí najdete v tématu <xref:blazor/components#component-disposal-with-idisposable>.
+Další informace o vyřazení součástí najdete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.
 
 ### <a name="javascript-interop"></a>Interoperabilita JavaScriptu
 

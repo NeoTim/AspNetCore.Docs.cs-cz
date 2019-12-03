@@ -7,32 +7,32 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: mvc/controllers/testing
-ms.openlocfilehash: 7f4fcb1a5d6e9959c751ebe24e41b39ee05a5819
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 449d8791962e4233d599f364b2e8c922f0975d2f
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799503"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681094"
 ---
-# <a name="test-controller-logic-in-aspnet-core"></a>Logicer Test Controller v ASP.NET Core
+# <a name="unit-test-controller-logic-in-aspnet-core"></a>Logika kontroleru testu jednotek v ASP.NET Core
 
 [Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[Řadiče](xref:mvc/controllers/actions) hrají v libovolné ASP.NET Core aplikaci MVC ústřední roli. V takovém případě byste měli mít jistotu, že se řadiče chovají tak, jak mají. Automatizované testy můžou detekovat chyby, než se aplikace nasadí do produkčního prostředí.
-
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
-
-## <a name="unit-tests-of-controller-logic"></a>Testování částí logiky kontroleru
-
 [Testy jednotek](/dotnet/articles/core/testing/unit-testing-with-dotnet-test) zahrnují testování součásti aplikace v izolaci od jejich infrastruktury a závislostí. V případě logiky kontroleru testování jednotek je testován pouze obsah jedné akce, nikoli chování jeho závislostí nebo samotného rozhraní.
+
+## <a name="unit-testing-controllers"></a>Řadiče testování částí
 
 Nastavte testy jednotek pro akce kontroleru, abyste se mohli soustředit na chování řadiče. Test jednotek kontroleru zabraňuje scénářům, jako jsou [filtry](xref:mvc/controllers/filters), [Směrování](xref:fundamentals/routing)a [vazby modelů](xref:mvc/models/model-binding). Testy, které pokrývají interakce mezi součástmi, které společně reagují na žádost, jsou zpracovávány *integračními testy*. Další informace o integračních testech naleznete v tématu <xref:test/integration-tests>.
 
 Pokud vytváříte vlastní filtry a trasy, jednotkové testy je třeba izolovat, nikoli jako součást testů na konkrétní akci kontroleru.
 
-Chcete-li předvést testy jednotek kontrol, zkontrolujte následující kontroler v ukázkové aplikaci. V domovském řadiči se zobrazuje seznam relací debaty a umožňuje vytváření nových relací debaty s požadavkem POST:
+Chcete-li předvést testy jednotek kontrol, zkontrolujte následující kontroler v ukázkové aplikaci. 
+
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+
+V domovském řadiči se zobrazuje seznam relací debaty a umožňuje vytváření nových relací debaty s požadavkem POST:
 
 [!code-csharp[](testing/samples/3.x/TestingControllersSample/src/TestingControllersSample/Controllers/HomeController.cs?name=snippet_HomeController&highlight=1,5,10,31-32)]
 
@@ -45,7 +45,7 @@ Předchozí kontroler:
 Metoda `HTTP GET Index` nemá žádné smyček ani větvení a volá jenom jednu metodu. Testování částí pro tuto akci:
 
 * Napodobuje `IBrainstormSessionRepository` službu pomocí metody `GetTestSessions`. `GetTestSessions` vytvoří dvě návrhy pracovních debat s daty a názvy relací.
-* Spustí metodu `Index`.
+* Provede metodu `Index`.
 * Provede kontrolní výrazy u výsledku vráceného metodou:
   * Vrátí se <xref:Microsoft.AspNetCore.Mvc.ViewResult>.
   * [ViewDataDictionary. model](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary.Model*) je `StormSessionViewModel`.
@@ -208,7 +208,7 @@ Předchozí kontroler:
 Metoda `HTTP GET Index` nemá žádné smyček ani větvení a volá jenom jednu metodu. Testování částí pro tuto akci:
 
 * Napodobuje `IBrainstormSessionRepository` službu pomocí metody `GetTestSessions`. `GetTestSessions` vytvoří dvě návrhy pracovních debat s daty a názvy relací.
-* Spustí metodu `Index`.
+* Provede metodu `Index`.
 * Provede kontrolní výrazy u výsledku vráceného metodou:
   * Vrátí se <xref:Microsoft.AspNetCore.Mvc.ViewResult>.
   * [ViewDataDictionary. model](xref:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary.Model*) je `StormSessionViewModel`.
@@ -344,7 +344,7 @@ Pro platnou relaci `id`konečný test potvrzuje, že:
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:test/integration-tests>
 * [Vytvoření a spuštění testů jednotek pomocí sady Visual Studio](/visualstudio/test/unit-test-your-code)

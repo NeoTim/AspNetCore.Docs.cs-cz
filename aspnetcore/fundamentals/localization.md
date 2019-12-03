@@ -3,14 +3,14 @@ title: Globalizace a lokalizace v ASP.NET Core
 author: rick-anderson
 description: Přečtěte si, jak ASP.NET Core poskytuje služby a middleware pro lokalizaci obsahu do různých jazyků a kultur.
 ms.author: riande
-ms.date: 01/14/2017
+ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: 36235e305037c0bbf20093327e2a0ff21b3de809
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 391786498dc7088f3a06915128f23b2c0e734656
+ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963670"
+ms.lasthandoff: 12/02/2019
+ms.locfileid: "74681107"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -276,7 +276,7 @@ Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživ
 
 6. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
 
-::: moniker range=">= aspnetcore-3.0"
+::: moniker range=">= aspnetcore-3.1"
 ### <a name="the-content-language-http-header"></a>Hlavička protokolu HTTP v jazykovém obsahu
 
 Hlavička entity [jazyka obsahu](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) :
@@ -286,9 +286,9 @@ Hlavička entity [jazyka obsahu](https://developer.mozilla.org/en-US/docs/Web/HT
 
 Záhlaví entit se používají v požadavcích HTTP i v odpovědích.
 
-V ASP.NET Core 3,0 lze přidat záhlaví `Content-Language` nastavením vlastnosti `ApplyCurrentCultureToResponseHeaders`.
+Hlavičku `Content-Language` lze přidat nastavením vlastnosti `ApplyCurrentCultureToResponseHeaders`.
 
-Přidává se hlavička `Content-Language`:
+Přidání hlavičky `Content-Language`:
 
  - Umožňuje RequestLocalizationMiddleware nastavit hlavičku `Content-Language` pomocí `CurrentUICulture`.
  - Eliminuje nutnost nastavit hlavičku odpovědi `Content-Language` explicitně.
@@ -400,12 +400,11 @@ Uvedenými
 [!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.
 * [Globalizace a lokalizace aplikací .NET](/dotnet/standard/globalization-localization/index)
 * [Prostředky v souborech. resx](/dotnet/framework/resources/working-with-resx-files-programmatically)
 * [Sada nástrojů pro vícejazyčné aplikace od Microsoftu](https://marketplace.visualstudio.com/items?itemName=MultilingualAppToolkit.MultilingualAppToolkit-18308)
-* [Lokalizace & – obecné typy](https://github.com/hishamco/hishambinateya.com/blob/master/Posts/localization-and-generics.md)
-* [Co je nového v lokalizaci v ASP.NET Core 3,0](http://hishambinateya.com/what-is-new-in-localization-in-asp.net-core-3.0)
+* [Lokalizace & – obecné typy](http://hishambinateya.com/localization-and-generics)
