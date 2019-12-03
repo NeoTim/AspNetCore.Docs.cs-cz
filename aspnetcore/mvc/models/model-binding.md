@@ -6,12 +6,12 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
 ms.date: 11/21/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: 823d92c279454fc6c744eebbecf4268412774eba
-ms.sourcegitcommit: a104ba258ae7c0b3ee7c6fa7eaea1ddeb8b6eb73
+ms.openlocfilehash: a49fec38a6d38bbd33e9461cbcceb39bfe810f5c
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/25/2019
-ms.locfileid: "74478707"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717283"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
@@ -342,8 +342,8 @@ Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shod
 
 * Pro všechny předchozí ukázkové formáty předává vazba modelu pole dvou položek do parametru `selectedCourses`:
 
-  * selectedCourses[0]=1050
-  * selectedCourses[1]=2000
+  * selectedCourses [0] = 1050
+  * selectedCourses [1] = 2000
 
   Formáty dat, které používají čísla v dolním indexu (... [0]... [1]...) musí se ujistit, že jsou číslovány sekvenčně počínaje nulou. Pokud jsou v číslování dolních indexů nějaké mezery, všechny položky po mezerě se ignorují. Například pokud jsou v dolním indexu 0 a 2 místo 0 a 1, bude druhá položka ignorována.
 
@@ -378,8 +378,29 @@ U `Dictionary`ch cílů vyhledá vazba modelu shody pro *parameter_name* nebo *P
 
 * Pro všechny předchozí ukázkové formáty model vazby předává slovník dvou položek do parametru `selectedCourses`:
 
-  * selectedCourses["1050"]="Chemistry"
-  * selectedCourses["2000"]="Economics"
+  * selectedCourses ["1050"] = "chemie"
+  * selectedCourses ["2000"] = "ekonomické"
+
+<a name="glob"></a>
+
+## <a name="globalization-behavior-of-model-binding-route-data-and-query-strings"></a>Chování globalizace dat trasy vazby modelu a řetězce dotazů
+
+Zprostředkovatel hodnoty trasy ASP.NET Core a zprostředkovatel hodnoty řetězce dotazu:
+
+* Považovat hodnoty za invariantní jazykovou verzi.
+* Je očekáváno, že adresy URL jsou invariantní jazykové verze.
+
+Na rozdíl od hodnoty, které pocházejí z dat formuláře, procházejí převod zohledňující jazykovou verzi. To je záměrné, takže adresy URL lze sdílet napříč národními prostředími.
+
+Aby zprostředkovatel hodnoty trasy ASP.NET Core a zprostředkovatel hodnoty řetězce dotazu prošly převodem závislým na jazykové verzi:
+
+* Zdědit z <xref:Microsoft.AspNetCore.Mvc.ModelBinding.IValueProviderFactory>
+* Kopírování kódu z [QueryStringValueProviderFactory](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs) nebo [RouteValueValueProviderFactory](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Core/src/ModelBinding/RouteValueProviderFactory.cs)
+* Nahraďte [hodnotu jazykové verze](https://github.com/aspnet/AspNetCore/blob/e625fe29b049c60242e8048b4ea743cca65aa7b5/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs#L30) předanou konstruktoru zprostředkovatele hodnoty pomocí [CultureInfo. CurrentCulture.](xref:System.Globalization.CultureInfo.CurrentCulture)
+* V možnostech MVC nahraďte výchozí továrnu poskytovatele hodnot pomocí nového:
+
+[!code-csharp[](model-binding/samples/StartupMB.cs?name=snippet)]
+[!code-csharp[](model-binding/samples/StartupMB.cs?name=snippet1)]
 
 ## <a name="special-data-types"></a>Speciální datové typy
 
@@ -393,7 +414,7 @@ Nahraný soubor zahrnutý v požadavku HTTP.  Podporuje se taky `IEnumerable<IFo
 
 Slouží k zrušení aktivity v asynchronních řadičích.
 
-### <a name="formcollection"></a>FormCollection
+### <a name="formcollection"></a>Formulářcollection
 
 Používá se k načtení všech hodnot z publikovaných dat formuláře.
 
@@ -447,7 +468,7 @@ Vazbu modelu lze vyvolat ručně pomocí metody <xref:Microsoft.AspNetCore.Mvc.C
 
 Název tohoto atributu se řídí vzorem atributů vazby modelu, které určují zdroj dat. Nejedná se ale o vazbu dat od poskytovatele hodnot. Získává instanci typu z kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Jeho účelem je poskytnout alternativu k injektáže konstruktoru, pokud potřebujete službu pouze v případě, že je volána konkrétní metoda.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:mvc/models/validation>
 * <xref:mvc/advanced/custom-model-binding>

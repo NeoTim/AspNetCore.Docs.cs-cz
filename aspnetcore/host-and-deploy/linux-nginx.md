@@ -5,14 +5,14 @@ description: Naučte se, jak nastavit Nginx jako reverzní proxy na Ubuntu 16,04
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 12/02/2019
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: c6ae86ec9ac54ddf2d487fd72156199fbdd029ef
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: f307a1c3e0dc62c5dc03e50d710696fadd9fd487
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73659874"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717387"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -36,10 +36,13 @@ Tato příručka:
 
 1. Přístup k serveru Ubuntu 16,04 se standardním uživatelským účtem s oprávněním sudo.
 1. Nainstalujte modul runtime .NET Core na server.
-   1. Navštivte [stránku všechny soubory ke stažení pro .NET Core](https://www.microsoft.com/net/download/all).
-   1. V seznamu pod položkou **runtime**vyberte nejnovější modul runtime, který není ve verzi Preview.
-   1. Vyberte a postupujte podle pokynů pro Ubuntu, které odpovídají verzi Ubuntu serveru.
+   1. Navštivte [stránku stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core).
+   1. Vyberte nejnovější verzi rozhraní .NET Core, která není ve verzi Preview.
+   1. Stáhněte si nejnovější modul runtime bez verze Preview v tabulce v části **Spustit aplikace – modul runtime**.
+   1. Vyberte odkaz **pokyny správce balíčků** pro Linux a postupujte podle pokynů pro Ubuntu pro vaši verzi Ubuntu.
 1. Existující aplikace ASP.NET Core.
+
+V jakémkoli okamžiku v budoucnu po upgradu sdílené architektury restartujte aplikace ASP.NET Core hostované serverem.
 
 ## <a name="publish-and-copy-over-the-app"></a>Publikování a kopírování přes aplikaci
 
@@ -63,7 +66,7 @@ Zkopírujte aplikaci ASP.NET Core na server pomocí nástroje, který se integru
 > [!NOTE]
 > V rámci scénáře nasazení v produkčním prostředí provádí pracovní postup průběžné integrace publikování aplikace a zkopírování prostředků na server.
 
-Testování aplikace:
+Otestujte aplikaci:
 
 1. Z příkazového řádku spusťte aplikaci: `dotnet <app_assembly>.dll`.
 1. V prohlížeči přejděte na `http://<serveraddress>:<port>` a ověřte, že aplikace funguje na Linux místně.
@@ -155,7 +158,7 @@ server {
 S předchozím konfiguračním souborem a výchozím serverem Nginx přijímá veřejný provoz na portu 80 s hlavičkou hostitele `example.com` nebo `*.example.com`. Požadavky, které se neshodují s těmito hostiteli, se nebudou přesílat na Kestrel. Nginx přepošle požadavky na Kestrel na `http://localhost:5000`. Další informace najdete v tématu [jak Nginx zpracovává požadavek](https://nginx.org/docs/http/request_processing.html) . Pokud chcete změnit IP adresu/port Kestrel, přečtěte si téma [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
-> Nepovedlo se určit správnou [direktivu server_name](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace zpřístupňuje bezpečnostním hrozbám. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Zobrazit [rfc7230 části-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) Další informace.
+> Nepovedlo se určit správnou [direktivu server_name](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace zpřístupňuje bezpečnostním hrozbám. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
 
 Po navázání konfigurace nginx spusťte `sudo nginx -t` a ověřte syntaxi konfiguračních souborů. Pokud je test konfiguračního souboru úspěšný, vynutí Nginx, aby se změny vybraly spuštěním `sudo nginx -s reload`.
 
@@ -256,7 +259,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a>Zobrazení protokolů
+### <a name="view-logs"></a>Zobrazit protokoly
 
 Vzhledem k tomu, že je webová aplikace používající Kestrel spravovaná pomocí `systemd`, všechny události a procesy se zaprotokolují do centralizovaného deníku. Tento deník ale obsahuje všechny položky pro všechny služby a procesy spravované pomocí `systemd`. Chcete-li zobrazit položky specifické pro `kestrel-helloapp.service`, použijte následující příkaz:
 
@@ -272,13 +275,13 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="data-protection"></a>Ochrana dat
 
-[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud není nakonfigurovaná ochrana dat, jsou klíče uložené v paměti a při restartování aplikace.
+[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
 
-Pokud kanál klíče jsou uloženy v paměti, při restartování aplikace:
+Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny tokeny ověřování na základě souborů cookie nejsou zneplatněny.
-* Uživatelé se musí znovu přihlásit v jejich další požadavek.
-* Všechna data chráněná pomocí aktualizační kanál, který klíč můžete už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [soubory cookie v ASP.NET Core MVC TempData](xref:fundamentals/app-state#tempdata).
+* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené.
+* Uživatelé se musí znovu přihlásit na svůj další požadavek.
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete nakonfigurovat ochranu dat, aby zachovala a zašifroval klíč Ring, přečtěte si:
 
@@ -326,7 +329,7 @@ sudo ufw enable
 
 #### <a name="change-the-nginx-response-name"></a>Změnit název odpovědi Nginx
 
-Edit *src/http/ngx_http_header_filter_module.c*:
+Upravit *Src/http/ngx_http_header_filter_module. c*:
 
 ```
 static char ngx_http_server_string[] = "Server: Web Server" CRLF;
@@ -393,6 +396,10 @@ sudo nano /etc/nginx/nginx.conf
 ```
 
 Přidejte `add_header X-Content-Type-Options "nosniff";` řádku a uložte soubor a pak restartujte Nginx.
+
+## <a name="additional-nginx-suggestions"></a>Další návrhy Nginx
+
+Po upgradu sdílené architektury na serveru restartujte aplikace ASP.NET Core hostované serverem.
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 

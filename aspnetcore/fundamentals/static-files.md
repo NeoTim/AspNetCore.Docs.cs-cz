@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: b989b90100318ac874dc399daf65ef7d21c5549f
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 00bab51cb411552c884f85fa63d42d0691b401b1
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799482"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717270"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -100,7 +100,7 @@ Požadavek může získat přístup k souboru *banner1. SVG* nakonfigurováním 
 
 [!code-csharp[](static-files/samples/1x/StartupTwoStaticFiles.cs?name=snippet_ConfigureMethod&highlight=5-10)]
 
-V předchozím kódu se hierarchie adresáře *MyStaticFiles* zveřejňuje veřejně prostřednictvím segmentu URI *StaticFiles* . Požadavek na *http://\<server_address >/StaticFiles/images/banner1.SVG* zachovává soubor *banner1. SVG* .
+V předchozím kódu se hierarchie adresáře *MyStaticFiles* zveřejňuje veřejně prostřednictvím segmentu URI *StaticFiles* . Požadavek na *http://\<server_address >/StaticFiles/images/banner1.SVG* slouží jako soubor *banner1. SVG* .
 
 Následující značky odkazují na *MyStaticFiles/images/banner1. SVG*:
 
@@ -137,7 +137,7 @@ Přidejte požadované služby vyvoláním metody [AddDirectoryBrowser](/dotnet/
 
 [!code-csharp[](static-files/samples/1x/StartupBrowse.cs?name=snippet_ConfigureServicesMethod&highlight=3)]
 
-Předchozí kód umožňuje procházení adresářů složky *wwwroot/imagí* pomocí adresy URL *http://\<server_address >/MyImages*s odkazy na jednotlivé soubory a složky:
+Předchozí kód umožňuje procházení adresářů složky *wwwroot/imagí* pomocí adresy URL *http://\<server_address >/MyImages*, s odkazy na jednotlivé soubory a složky:
 
 ![procházení adresářů](static-files/_static/dir-browse.png)
 
@@ -206,12 +206,12 @@ Následující kód povoluje statické soubory, výchozí soubory a procházení
 
 Pomocí hierarchie souborů a předchozího kódu adresy URL překládat následujícím způsobem:
 
-| Identifikátor URI            |                             Základě  |
+| URI            |                             Odpověď  |
 | ------- | ------|
 | *http://\<server_address >/StaticFiles/images/banner1.svg*    |      MyStaticFiles/images/banner1. SVG |
 | *http://\<server_address >/StaticFiles*             |     MyStaticFiles/default.html |
 
-Pokud v adresáři *MyStaticFiles* neexistuje žádný výchozí soubor s názvem, *http://\<server_address >/StaticFiles* vrátí seznam adresářů s odkazy kliknutím:
+Pokud v adresáři *MyStaticFiles* neexistuje žádný výchozí soubor s názvem, *http://\<server_address >/StaticFiles* vrátí výpis adresáře s odkazy kliknutím:
 
 ![Seznam statických souborů](static-files/_static/db2.png)
 
@@ -239,6 +239,10 @@ V předchozím kódu se jako obrázek vrátí požadavek na soubor s neznámým 
 > [!WARNING]
 > Povolení [ServeUnknownFileTypes](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions.serveunknownfiletypes#Microsoft_AspNetCore_Builder_StaticFileOptions_ServeUnknownFileTypes) je bezpečnostní riziko. Ve výchozím nastavení je zakázané a její použití se nedoporučuje. [FileExtensionContentTypeProvider](#fileextensioncontenttypeprovider) poskytuje bezpečnější alternativu pro obsluhu souborů s nestandardními rozšířeními.
 
+## <a name="serve-files-from-multiple-locations"></a>Obsluhovat soubory z více míst
+
+`UseStaticFiles` a `UseFileServer` ve výchozím nastavení poskytovatel souborů odkazující na *wwwroot*. Můžete poskytnout další instance `UseStaticFiles` a `UseFileServer` jiným poskytovatelům souborů pro obsluhu souborů z jiných umístění. Další informace najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/15578).
+
 ### <a name="considerations"></a>Odůvodněn
 
 > [!WARNING]
@@ -258,7 +262,7 @@ V předchozím kódu se jako obrázek vrátí požadavek na soubor s neznámým 
 
 * Umístěte soubory kódu (včetně *. cs* a *. cshtml*) mimo [kořenový adresář webu](xref:fundamentals/index#web-root)projektu aplikace. Vytvoří se logické oddělení mezi obsahem aplikace na straně klienta a kódem serveru. Tím zabráníte úniku kódu na straně serveru.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Middleware](xref:fundamentals/middleware/index)
 * [Úvod do ASP.NET Core](xref:index)

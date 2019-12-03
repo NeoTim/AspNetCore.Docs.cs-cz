@@ -5,14 +5,14 @@ description: Naučte se používat globální nástroj HTTP REPL .NET Core k pro
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 10/07/2019
+ms.date: 12/02/2019
 uid: web-api/http-repl
-ms.openlocfilehash: bb3757f51487a307ebfb97452b80995f84e95e4b
-ms.sourcegitcommit: 73a451e9a58ac7102f90b608d661d8c23dd9bbaf
+ms.openlocfilehash: c6e3ab5685b5bd0b154d20585fb0d187f81da641
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/08/2019
-ms.locfileid: "72037707"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717162"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -27,12 +27,12 @@ Smyčka HTTP Read-Eval-Print (REPL) je:
 Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods) :
 
 * [DSTRANIT](#test-http-delete-requests)
-* [GET](#test-http-get-requests)
+* [Čtěte](#test-http-get-requests)
 * [ZÁHLAVÍ](#test-http-head-requests)
 * [NASTAVENÍ](#test-http-options-requests)
 * [POUŽITA](#test-http-patch-requests)
-* [POST](#test-http-post-requests)
-* [PUT](#test-http-put-requests)
+* [SPUŠTĚNÍ](#test-http-post-requests)
+* [PŘEVÉST](#test-http-put-requests)
 
 Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhraní API nebo si ho stáhněte](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([jak si ho stáhnout](xref:index#how-to-download-a-sample)).
 
@@ -40,7 +40,7 @@ Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhr
 
 * [!INCLUDE [2.1-SDK](~/includes/2.1-SDK.md)]
 
-## <a name="installation"></a>Instalace
+## <a name="installation"></a>Instalace služby
 
 Pro instalaci HTTP REPL spusťte následující příkaz:
 
@@ -50,7 +50,7 @@ dotnet tool install -g Microsoft.dotnet-httprepl
 
 [Globální nástroj .NET Core](/dotnet/core/tools/global-tools#install-a-global-tool) je nainstalovaný z balíčku NuGet [Microsoft. dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) .
 
-## <a name="usage"></a>Využití
+## <a name="usage"></a>Použití
 
 Po úspěšné instalaci nástroje spusťte následující příkaz, který spustí HTTP REPL:
 
@@ -213,7 +213,7 @@ Pokud chcete přejít na jiný koncový bod webového rozhraní API, spusťte p�
 https://localhost:5001/~ cd people
 ```
 
-Cesta za příkazem `cd` rozlišuje velká a malá písmena. Zobrazí se následující výstupní formát:
+Cesta za příkazem `cd` nerozlišuje velká a malá písmena. Zobrazí se následující výstupní formát:
 
 ```console
 /people    [get|post]
@@ -235,7 +235,7 @@ Výchozí [barvy](#set-color-preferences) REPL http je možné přizpůsobit. Kr
 
 # <a name="windowstabwindows"></a>[Windows](#tab/windows)
 
-*%USERPROFILE%\\.httpreplprefs*
+*% USERPROFILE%\\. httpreplprefs*
 
 ---
 
@@ -264,20 +264,20 @@ colors.status=BoldYellow
 
 ### <a name="set-color-preferences"></a>Nastavit předvolby barev
 
-Vybarvení odpovědi je aktuálně podporováno pouze pro JSON. Chcete-li přizpůsobit výchozí barevné vybarvení nástroje HTTP REPL, vyhledejte klíč odpovídající barvě, který má být změněn. Pokyny k vyhledání klíčů najdete v části [zobrazení nastavení](#view-the-settings) . Například změňte hodnotu klíče `colors.json` z `Green` na `White` následujícím způsobem:
+Vybarvení odpovědi je aktuálně podporováno pouze pro JSON. Chcete-li přizpůsobit výchozí barevné vybarvení nástroje HTTP REPL, vyhledejte klíč odpovídající barvě, který má být změněn. Pokyny k vyhledání klíčů najdete v části [zobrazení nastavení](#view-the-settings) . Můžete například změnit hodnotu `colors.json` klíče z `Green` na `White` následujícím způsobem:
 
 ```console
 https://localhost:5001/people~ pref set colors.json White
 ```
 
-Mohou být použity pouze [povolené barvy](https://github.com/aspnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs) . Následné požadavky HTTP zobrazují výstup s novými zvýrazněními.
+Mohou být použity pouze [povolené barvy](https://github.com/dotnet/HttpRepl/blob/01d5c3c3373e98fe566ff5ef8a17c571de880293/src/Microsoft.Repl/ConsoleHandling/AllowedColors.cs) . Následné požadavky HTTP zobrazují výstup s novými zvýrazněními.
 
 Pokud nejsou nastavené určité klíče barev, považují se za obecnější klíče. K předvedení tohoto nouzového chování Vezměte v úvahu následující příklad:
 
 * Pokud `colors.json.name` nemá hodnotu, použije se `colors.json.string`.
 * Pokud `colors.json.string` nemá hodnotu, použije se `colors.json.literal`.
 * Pokud `colors.json.literal` nemá hodnotu, použije se `colors.json`. 
-* Pokud `colors.json` nemá hodnotu, použije se výchozí barva textu příkazového prostředí (`AllowedColors.None`).
+* Pokud `colors.json` nemá hodnotu, použije se výchozí barva textu (`AllowedColors.None`) příkazového prostředí.
 
 ### <a name="set-indentation-size"></a>Nastavit velikost odsazení
 
@@ -370,7 +370,7 @@ Ve výchozím nastavení má REPL HTTP sadu relativních cest, které používá
 - */swagger.json*
 - */swagger/v1/swagger.json*
 
-Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte předvolby `swagger.searchPaths`. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Příklad:
+Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte předvolbu `swagger.searchPaths`. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Příklad:
 
 ```console
 pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
@@ -384,7 +384,7 @@ pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
 get <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -434,7 +434,7 @@ Vystavení požadavku HTTP GET:
     https://localhost:5001/people~
     ```
 
-1. Načtěte určitý záznam předáním parametru příkazu `get`:
+1. Načtěte určitý záznam předáním parametru `get` příkazu:
 
     ```console
     https://localhost:5001/people~ get 2
@@ -468,7 +468,7 @@ Vystavení požadavku HTTP GET:
 post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -490,7 +490,7 @@ Vystavení požadavku HTTP POST:
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
 
-    V předchozím příkazu je hlavička požadavku HTTP `Content-Type` nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
+    V předchozím příkazu je hlavička požadavku HTTP `Content-Type` nastavena tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
 
     ```json
     {
@@ -538,7 +538,7 @@ Vystavení požadavku HTTP POST:
 put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -554,7 +554,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Vydání požadavku HTTP PUT:
 
-1. *Volitelné*: Před úpravou zobrazte data spuštěním příkazu `get`:
+1. *Volitelné*: pro zobrazení dat před úpravou použijte příkaz `get`:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -585,7 +585,7 @@ Vydání požadavku HTTP PUT:
     https://localhost:5001/fruits~ put 2 -h Content-Type=application/json
     ```
 
-    V předchozím příkazu je hlavička požadavku HTTP `Content-Type` nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
+    V předchozím příkazu je hlavička požadavku HTTP `Content-Type` nastavena tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
 
     ```json
     {
@@ -615,7 +615,7 @@ Vydání požadavku HTTP PUT:
     Server: Kestrel
     ```
 
-1. *Volitelné*: Chcete-li zobrazit změny, vydejte příkaz `get`. Pokud například zadáte "možnost" v textovém editoru, vrátí `get` následující:
+1. *Volitelné*: vydejte `get` příkaz pro zobrazení úprav. Například pokud jste v textovém editoru zadali "" ", `get` vrátí následující:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -652,7 +652,7 @@ Vydání požadavku HTTP PUT:
 delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -666,7 +666,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Postup při vystavení žádosti o odstranění protokolu HTTP:
 
-1. *Volitelné*: Před úpravou zobrazte data spuštěním příkazu `get`:
+1. *Volitelné*: pro zobrazení dat před úpravou použijte příkaz `get`:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -705,7 +705,7 @@ Postup při vystavení žádosti o odstranění protokolu HTTP:
     Server: Kestrel
     ```
 
-1. *Volitelné*: Chcete-li zobrazit změny, vydejte příkaz `get`. V tomto příkladu `get` vrátí následující:
+1. *Volitelné*: vydejte `get` příkaz pro zobrazení úprav. V tomto příkladu `get` vrátí následující:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -738,7 +738,7 @@ Postup při vystavení žádosti o odstranění protokolu HTTP:
 patch <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -758,7 +758,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 head <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -776,7 +776,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -850,7 +850,7 @@ Pokud chcete získat přístup ke koncovému bodu hostovanému v Azure nebo pou�
     httprepl https://management.azure.com
     ```
 
-1. Nastavte hlavičku požadavku HTTP `Authorization`:
+1. Nastavte `Authorization` hlavičce požadavku HTTP:
 
     ```console
     https://management.azure.com/> set header Authorization "bearer <ACCESS TOKEN>"
@@ -898,7 +898,7 @@ Ve výchozím nastavení se zobrazí potlačení požadavku HTTP na odeslání. 
 
 ### <a name="enable-request-display"></a>Povolit zobrazení žádosti
 
-Spuštěním příkazu `echo on` Zobrazte požadavek HTTP, který se posílá. Příklad:
+Spuštěním příkazu `echo on` Zobrazte požadavek HTTP, který odesíláte. Příklad:
 
 ```console
 https://localhost:5001/people~ echo on
@@ -943,7 +943,7 @@ https://localhost:5001/people~
 
 ### <a name="disable-request-display"></a>Zakázat zobrazení žádosti
 
-Potlačit zobrazení požadavku HTTP odesílaného spuštěním příkazu `echo off` Příklad:
+Potlačit zobrazení požadavku HTTP odesílaného spuštěním příkazu `echo off`. Příklad:
 
 ```console
 https://localhost:5001/people~ echo off
@@ -952,7 +952,7 @@ Request echoing is off
 
 ## <a name="run-a-script"></a>Spuštění skriptu
 
-Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložení do textového souboru. Příkazy v souboru přebírají stejnou formu, jakou byly provedeny ručně na příkazovém řádku. Příkazy lze v dávce spustit pomocí příkazu `run`. Příklad:
+Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložení do textového souboru. Příkazy v souboru přebírají stejnou formu, jakou byly provedeny ručně na příkazovém řádku. Příkazy lze spustit v dávce způsobem pomocí příkazu `run`. Příklad:
 
 1. Vytvoří textový soubor obsahující sadu příkazů s oddělovači na nový řádek. Pro ilustraci zvažte soubor *People-Script. txt* , který obsahuje následující příkazy:
 
@@ -1034,7 +1034,7 @@ Po spuštění předchozího příkazu obsahuje příkazové prostředí pouze n
 https://localhost:5001/~
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [REST API žádosti](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
-* [Úložiště GitHub HTTP REPL](https://github.com/aspnet/HttpRepl)
+* [Úložiště GitHub HTTP REPL](https://github.com/dotnet/HttpRepl)

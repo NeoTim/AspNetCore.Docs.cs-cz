@@ -5,12 +5,12 @@ description: Přečtěte si, jak ASP.NET Core poskytuje služby a middleware pro
 ms.author: riande
 ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: 391786498dc7088f3a06915128f23b2c0e734656
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 645f680436336acbe1d5c2854a242527c9b4b9cb
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681107"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717400"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -372,6 +372,10 @@ Metoda `SetLanguage` nastaví soubor cookie jazykové verze.
 [!code-csharp[](localization/sample/Localization/Controllers/HomeController.cs?range=57-67)]
 
 Nemůžete připojit *_SelectLanguagePartial. cshtml* k ukázkovému kódu pro tento projekt. Projekt **Localization. StarterWeb** na [GitHubu](https://github.com/aspnet/entropy) obsahuje kód pro tok `RequestLocalizationOptions` do sady Razor částečně prostřednictvím kontejneru pro [vkládání závislostí](dependency-injection.md) .
+
+## <a name="model-binding-route-data-and-query-strings"></a>Vazba modelu data směrování a řetězce dotazů
+
+Podívejte [se na téma chování globalizace modelu vazby dat trasy a řetězce dotazu](xref:mvc/models/model-binding#glob).
 
 ## <a name="globalization-and-localization-terms"></a>Výrazy globalizace a lokalizace
 

@@ -5,16 +5,16 @@ description: Přečtěte si, jak ASP.NET Core SignalR Library zjednodušuje při
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 11/27/2019
 no-loc:
 - SignalR
 uid: signalr/introduction
-ms.openlocfilehash: 7108d9f223db78937dd1203a1cb4b890006b20ec
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: e84dd0d086cbfc80a80bc10baa33979da9b5d137
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963943"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717231"
 ---
 # <a name="introduction-to-aspnet-core-opno-locsignalr"></a>Úvod do ASP.NET Core SignalR
 
@@ -42,7 +42,7 @@ Zdroj je hostovaný v [SignalR úložišti na GitHubu](https://github.com/aspnet
 
 ## <a name="transports"></a>Přenosy
 
-SignalR podporuje několik postupů pro zpracování komunikace v reálném čase:
+SignalR podporuje následující techniky pro zpracování komunikace v reálném čase (v pořadí podle řádného použití):
 
 * [Webové sokety](https://tools.ietf.org/html/rfc7118)
 * Události odeslané serverem
@@ -58,7 +58,7 @@ Centrum je kanál vysoké úrovně, který umožňuje klientovi a serveru volat 
 
 Centra volají kód na straně klienta odesláním zpráv, které obsahují název a parametry metody na straně klienta. Objekty odeslané jako parametry metody jsou deserializovány pomocí nakonfigurovaného protokolu. Klient se pokusí porovnat název s metodou v kódu na straně klienta. Když klient najde shodu, zavolá metodu a předá jí deserializovaná data parametrů.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Začínáme s SignalR pro ASP.NET Core](xref:tutorials/signalr)
 * [Podporované platformy](xref:signalr/supported-platforms)

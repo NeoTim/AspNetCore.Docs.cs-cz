@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/27/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 7a5b5c84775ea2482034ef9f3e8a2376036e66cb
-ms.sourcegitcommit: a104ba258ae7c0b3ee7c6fa7eaea1ddeb8b6eb73
+ms.openlocfilehash: 746604bc92775a6fac124ee8bfcf37635786fe41
+ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/25/2019
-ms.locfileid: "74478741"
+ms.lasthandoff: 12/03/2019
+ms.locfileid: "74717006"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -293,7 +293,7 @@ Udržování jedné instance `HttpClient` aktivní pro dlouhou dobu je společn�
 Použití `IHttpClientFactory` v aplikaci s podporou DI se vyhne:
 
 * Problémy s vyčerpáním prostředků sdružováním `HttpMessageHandler` instancí.
-* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných instancích.
+* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných intervalech.
 
 Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dlouhotrvající instance <xref:System.Net.Http.SocketsHttpHandler>.
 
@@ -304,7 +304,7 @@ Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dl
 Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpClientFactory` vyřešit podobným způsobem.
 
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
-- `SocketsHttpHandler ` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo problémům se stavem služby DNS.
+- `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
 ### <a name="cookies"></a>Soubory cookie
 
@@ -317,7 +317,7 @@ Voláním <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtens
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření pomocí `IHttpClientFactory` zaznamenávají zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -352,7 +352,7 @@ V následujícím příkladu:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
@@ -366,7 +366,7 @@ Od [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/r
 
 <xref:System.Net.Http.IHttpClientFactory> lze zaregistrovat a použít ke konfiguraci a vytvoření <xref:System.Net.Http.HttpClient> instancí v aplikaci. Nabízí následující výhody:
 
-* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován k jiným účelům.
+* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován pro jiné účely.
 * Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient` a poskytuje rozšíření pro middleware založené na Polly, které tuto funkci využívají.
 * Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`, aby nedocházelo k běžným problémům služby DNS, ke kterým dochází při ruční správě `HttpClient` životního cyklu.
 * Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
@@ -502,7 +502,7 @@ public class ValuesController : ControllerBase
 
 ## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento návrhový vzor je podobný příchozímu middlewarovému kanálu v ASP.NET Core. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
+`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model je podobný vstupnímu kanálu middlewaru v ASP.NET Core. Vzor poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
 Chcete-li vytvořit obslužnou rutinu, Definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler>. Před předáním požadavku další obslužné rutině v kanálu přepište metodu `SendAsync` pro spuštění kódu.
 
@@ -594,7 +594,7 @@ Udržování jedné instance `HttpClient` aktivní pro dlouhou dobu je společn�
 Použití `IHttpClientFactory` v aplikaci s podporou DI se vyhne:
 
 * Problémy s vyčerpáním prostředků sdružováním `HttpMessageHandler` instancí.
-* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných instancích.
+* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných intervalech.
 
 Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dlouhotrvající instance <xref:System.Net.Http.SocketsHttpHandler>.
 
@@ -605,7 +605,7 @@ Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dl
 Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpClientFactory` vyřešit podobným způsobem.
 
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
-- `SocketsHttpHandler ` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo problémům se stavem služby DNS.
+- `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
 ### <a name="cookies"></a>Soubory cookie
 
@@ -618,7 +618,7 @@ Voláním <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtens
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření pomocí `IHttpClientFactory` zaznamenávají zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -653,7 +653,7 @@ V následujícím příkladu:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
@@ -667,7 +667,7 @@ Od [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/r
 
 <xref:System.Net.Http.IHttpClientFactory> lze zaregistrovat a použít ke konfiguraci a vytvoření <xref:System.Net.Http.HttpClient> instancí v aplikaci. Nabízí následující výhody:
 
-* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován k jiným účelům.
+* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován pro jiné účely.
 * Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient` a poskytuje rozšíření pro middleware založené na Polly, které tuto funkci využívají.
 * Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`, aby nedocházelo k běžným problémům služby DNS, ke kterým dochází při ruční správě `HttpClient` životního cyklu.
 * Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
@@ -807,7 +807,7 @@ public class ValuesController : ControllerBase
 
 ## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento návrhový vzor je podobný příchozímu middlewarovému kanálu v ASP.NET Core. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
+`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model je podobný vstupnímu kanálu middlewaru v ASP.NET Core. Vzor poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
 Chcete-li vytvořit obslužnou rutinu, Definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler>. Před předáním požadavku další obslužné rutině v kanálu přepište metodu `SendAsync` pro spuštění kódu.
 
@@ -902,7 +902,7 @@ Udržování jedné instance `HttpClient` aktivní pro dlouhou dobu je společn�
 Použití `IHttpClientFactory` v aplikaci s podporou DI se vyhne:
 
 * Problémy s vyčerpáním prostředků sdružováním `HttpMessageHandler` instancí.
-* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných instancích.
+* Zastaralé problémy se službou DNS cyklem `HttpMessageHandler` instance v pravidelných intervalech.
 
 Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dlouhotrvající instance <xref:System.Net.Http.SocketsHttpHandler>.
 
@@ -913,7 +913,7 @@ Existují alternativní způsoby, jak vyřešit předchozí problémy pomocí dl
 Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpClientFactory` vyřešit podobným způsobem.
 
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
-- `SocketsHttpHandler ` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo problémům se stavem služby DNS.
+- `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
 ### <a name="cookies"></a>Soubory cookie
 
@@ -926,7 +926,7 @@ Voláním <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtens
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření pomocí `IHttpClientFactory` zaznamenávají zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -961,7 +961,7 @@ V následujícím příkladu:
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
