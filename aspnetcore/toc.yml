@@ -286,6 +286,8 @@
           uid: blazor/templates
         - name: Komponenty
           uid: blazor/components
+        - name: Životní cyklus
+          uid: blazor/lifecycle
         - name: Formuláře a ověřování
           uid: blazor/forms-validation
         - name: Knihovny komponent
@@ -819,6 +821,8 @@
       uid: security/index
     - name: Ověřování
       items:
+        - name: Přehled
+          uid: security/authentication/index
         - name: Úvod do systému Identity
           uid: security/authentication/identity
         - name: Identity s jednostránkovými aplikacemi (SPA)
