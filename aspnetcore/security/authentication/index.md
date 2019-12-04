@@ -4,14 +4,14 @@ author: mjrousos
 description: Přečtěte si o ověřování v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/22/2019
+ms.date: 12/04/2019
 uid: security/authentication/index
-ms.openlocfilehash: 5e6c875188831c468bc6ca52ce71c5961b43573c
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 324b2669d3b69e4757a284e4ae7e1de5f4e87e5a
+ms.sourcegitcommit: 05ca05a5c8f6ae556aaad66ad9e4ec1e6b643c77
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681453"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74810249"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>Přehled ověřování ASP.NET Core
 
@@ -57,7 +57,7 @@ Schéma ověřování je název, který odpovídá:
 * Obslužná rutina ověřování
 * Možnosti pro konfiguraci této konkrétní instance obslužné rutiny.
 
-Schémata jsou užitečná jako mechanismus pro odkazování na chování související obslužné rutiny při ověřování, výzvě a nezakazujících. Zásady autorizace můžou například určovat podle názvu, který autorizační schéma (nebo schémata) by se měl použít k ověření uživatele. Při konfiguraci ověřování je běžné určit výchozí schéma ověřování. Výchozí schéma se použije, pokud prostředek nepožaduje konkrétní schéma. Je také možné:
+Schémata jsou užitečná jako mechanismus pro odkazování na chování související obslužné rutiny při ověřování, výzvě a nezakazujících. Například zásady autorizace můžou použít názvy schémat k určení, které schéma ověřování (nebo schémat) by se mělo použít k ověření uživatele. Při konfiguraci ověřování je běžné určit výchozí schéma ověřování. Výchozí schéma se použije, pokud prostředek nepožaduje konkrétní schéma. Je také možné:
 
 * Zadejte různá výchozí schémata, která se mají použít pro akce ověřování, výzvy a zakazujení.
 * Kombinování několika schémat do jednoho pomocí [schémat zásad](xref:security/authentication/policyschemes).
@@ -78,14 +78,14 @@ Obslužné rutiny ověřování na základě konfigurace schématu ověřování
   * Nemají oprávnění k přístupu (zakázat).
   * Pokud nejsou ověřeny (výzva).
 
-### <a name="authenticate"></a>Prohlížečů
+### <a name="authenticate"></a>Ověření
 
 Akce ověření schématu ověřování zodpovídá za sestavení identity uživatele na základě kontextu požadavku. Vrátí <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult>, který označuje, zda bylo ověřování úspěšné, a pokud ano, identitu uživatele v ověřovacím lístku. Viz HttpContext. AuthenticateAsync. Mezi příklady ověřování patří:
 
 * Schéma ověřování souborů cookie, které vytváří identitu uživatele z souborů cookie.
 * Deserializace a ověření nosného tokenu JWT pro sestavení identity uživatele.
 
-### <a name="challenge"></a>Výzev
+### <a name="challenge"></a>Úloha
 
 Ověření je vyvoláno autorizací, když neověřený uživatel požádá o koncový bod, který vyžaduje ověření. Výzva k ověření se vydá, například když anonymní uživatel požádá o omezený prostředek nebo klikne na odkaz pro přihlášení. Autorizace vyvolá výzvu pomocí zadaných schémat ověřování nebo výchozí hodnota, pokud není zadána. Viz HttpContext. ChallengeAsync. Příklady výzev k ověřování zahrnují:
 
