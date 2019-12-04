@@ -12,6 +12,8 @@
   uid: getting-started
 - name: Co je nového
   items:
+    - name: Novinky ve verzi 3.1
+      uid: aspnetcore-3.1
     - name: Novinky ve verzi 3.0
       uid: aspnetcore-3.0
     - name: Novinky ve verzi 2.2
@@ -1016,6 +1018,8 @@
       uid: security/cors
     - name: Sdílení souborů cookie mezi aplikacemi
       uid: security/cookie-sharing
+    - name: Soubory cookie SameSite
+      uid: security/samesite
     - name: Seznam bezpečných IP adres
       uid: security/ip-safelist
     - name: Zabezpečení aplikací – OWASP
