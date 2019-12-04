@@ -1,22 +1,22 @@
 ---
-title: Migrace z ASP.NET do ASP.NET Core
+title: Migrace z ASP.NET na ASP.NET Core
 author: isaac2004
-description: Získat pokyny pro migraci stávajících rozhraní ASP.NET MVC nebo webového rozhraní API aplikací na Core.web technologie ASP.NET
+description: Dodržení pokynů k migraci stávajících ASP.NET MVC nebo webových aplikací API na ASP.NET Core. Web
 ms.author: scaddie
-ms.date: 12/11/2018
+ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 9c97b9c0f13a265ab5c90225dcd5a581a1272701
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 1564b644b774939c3c242a41812851917e96d2b2
+ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815469"
+ms.lasthandoff: 10/18/2019
+ms.locfileid: "74803341"
 ---
-# <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET do ASP.NET Core
+# <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET na ASP.NET Core
 
-Podle [Petr Levin](https://isaaclevin.com)
+Od [Petr Levin](https://isaaclevin.com)
 
-Tento článek slouží jako referenční příručka pro migraci aplikace v ASP.NET do ASP.NET Core.
+Tento článek slouží jako referenční příručka pro migraci aplikací ASP.NET na ASP.NET Core.
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -24,11 +24,11 @@ Tento článek slouží jako referenční příručka pro migraci aplikace v ASP
 
 ## <a name="target-frameworks"></a>Cílové architektury
 
-Projekty ASP.NET Core nabízí vývojářům flexibilitu cílí na .NET Core a .NET Framework. Zobrazit [volba mezi .NET Core a .NET Framework pro serverové aplikace](/dotnet/standard/choosing-core-framework-server) k určení, která Cílová architektura je nejvhodnější.
+Projekty ASP.NET Core nabízejí vývojářům flexibilitu při cílení na rozhraní .NET Core, .NET Framework nebo obojí. V tématu [Výběr mezi .NET Core a .NET Framework pro serverové aplikace](/dotnet/standard/choosing-core-framework-server) určíte, které cílové rozhraní je nejvhodnější.
 
-Při cílení na rozhraní .NET Framework, projektech muset odkazovat na jednotlivé balíčky NuGet.
+Při cílení na .NET Framework musí projekty odkazovat na jednotlivé balíčky NuGet.
 
-Cílení na .NET Core umožňuje eliminovat řadu odkazy na balíček explicitní, díky technologii ASP.NET Core [Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Nainstalujte `Microsoft.AspNetCore.App` Microsoft.aspnetcore.all ve vašem projektu:
+Cílení na .NET Core vám umožní eliminovat mnoho explicitních odkazů na balíčky díky ASP.NET Core [Metapackage](xref:fundamentals/metapackage-app). Do projektu nainstalujte `Microsoft.AspNetCore.App` Metapackage:
 
 ```xml
 <ItemGroup>
@@ -36,71 +36,71 @@ Cílení na .NET Core umožňuje eliminovat řadu odkazy na balíček explicitn�
 </ItemGroup>
 ```
 
-Při použití Microsoft.aspnetcore.all žádné balíčky odkazuje Microsoft.aspnetcore.all nasazených s aplikací. Store modulu Runtime .NET Core zahrnuje tyto prostředky a že předkompilovaný ke zlepšení výkonu. Zobrazit [Microsoft.AspNetCore.App Microsoft.aspnetcore.all pro ASP.NET Core](xref:fundamentals/metapackage-app) další podrobnosti.
+Při použití Metapackage se s aplikací nasadí žádné balíčky, na které se neodkazuje v Metapackage. Běhové úložiště .NET Core zahrnuje tyto prostředky a jsou předkompilovány pro zlepšení výkonu. Další podrobnosti najdete v článku [Microsoft. AspNetCore. app Metapackage pro ASP.NET Core](xref:fundamentals/metapackage-app) .
 
-## <a name="project-structure-differences"></a>Rozdíly struktura projektu
+## <a name="project-structure-differences"></a>Rozdíly struktury projektu
 
-*.Csproj* zjednodušili jsme formát souborů v ASP.NET Core. Některé důležité změny patří:
+Formát souboru *. csproj* byl v ASP.NET Core zjednodušený. Mezi významné změny patří:
 
-- Explicitní zařazení souborů není nezbytné pro ně být považováno za součást projektu. Tím se snižuje riziko konfliktů sloučení XML při práci na velkých týmů.
-- Neexistují žádné na základě identifikátoru GUID odkazy na jiné projekty, což zlepšuje čitelnost souboru.
-- Tento soubor lze upravovat bez uvolnění v sadě Visual Studio:
+- Explicitní zahrnutí souborů není nutné, aby byly považovány za součást projektu. Tím se snižuje riziko konfliktů při sloučení XML při práci na velkých týmech.
+- Neexistují žádné odkazy založené na identifikátorech GUID na jiné projekty, což vylepšuje čitelnost souboru.
+- Soubor lze upravovat bez jeho uvolnění v aplikaci Visual Studio:
 
-    ![Edit CSPROJ context menu option in Visual Studio 2017](_static/EditProjectVs2017.png)
+    ![Možnost úpravy kontextové nabídky příkazu CSPROJ v aplikaci Visual Studio 2017](_static/EditProjectVs2017.png)
 
-## <a name="globalasax-file-replacement"></a>Nahrazení souboru Global.asax
+## <a name="globalasax-file-replacement"></a>Nahrazení souboru Global. asax
 
-ASP.NET Core zavedl nový mechanismus pro spuštění aplikace. Vstupní bod pro aplikace ASP.NET je *Global.asax* souboru. Úlohy, jako je konfigurace směrování a filtrování a oblasti registrace zachází *Global.asax* souboru.
+ASP.NET Core zavádí nový mechanismus pro zavedení aplikace. Vstupním bodem pro aplikace ASP.NET je soubor *Global. asax* . Úlohy, jako je konfigurace směrování a registrace do oblasti, jsou zpracovávány v souboru *Global. asax* .
 
 [!code-csharp[](samples/globalasax-sample.cs)]
 
-Tento přístup páry v odstupu aplikace a serveru, na kterém je nasazená tak, že dochází ke kolizím s implementací. Abyste mohli oddělit [OWIN](https://owin.org/) se seznámili s čistší způsob, jak použít více platforem současně. OWIN poskytuje kanál přidat pouze moduly, které jsou potřeba. Hostitelské prostředí přijímá [spuštění](xref:fundamentals/startup) funkce ke konfiguraci služby a kanál žádosti o aplikace. `Startup` registruje sadu middlewaru v aplikaci. Pro každý požadavek aplikace volá všechny komponenty middlewaru pomocí hlavního ukazatele odkazovaného seznamu do existující sady rutin. Každá komponenta middlewaru můžete přidat jeden nebo více obslužných rutin k žádosti o zpracování kanálu. Toho dosahuje tak, že vrací odkaz na obslužnou rutinu, která je na novou hlavičku seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužná rutina v seznamu. Pomocí ASP.NET Core je vstupním bodem k aplikaci `Startup`, a už nebude mít závislost *Global.asax*. Při použití s rozhraním .NET Framework OWIN, použijte jako kanál nějak takto:
+Tento přístup Couples aplikaci a server, na který je nasazený, způsobem, který je v konfliktu s implementací. Ve snaze oddělit se [Owin](https://owin.org/) zavedla k tomu, aby poskytovala čisticí způsob, jak používat víc platforem dohromady. OWIN poskytuje kanál pro přidání pouze těch potřebných modulů. Hostující prostředí přijímá [spouštěcí](xref:fundamentals/startup) funkci ke konfiguraci služeb a kanálu požadavků aplikace. `Startup` registruje sadu middlewaru s aplikací. Pro každý požadavek aplikace volá každou součást middlewaru s ukazatelem na hlavní seznam s ukazatelem na existující sadu obslužných rutin. Každá součást middleware může do kanálu zpracování požadavků přidat jednu nebo více obslužných rutin. To je dosaženo vrácením odkazu na obslužnou rutinu, která je nového záhlaví seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužné rutiny v seznamu. Při ASP.NET Core je vstupním bodem aplikace `Startup`a již nemusíte mít závislost na *Global. asax*. Při použití OWIN s .NET Framework použijte jako kanál něco podobného jako v následujícím tvaru:
 
 [!code-csharp[](samples/webapi-owin.cs)]
 
-Nakonfiguruje výchozí trasy a výchozí hodnota je XmlSerialization přes Json. Podle potřeby (načítání služeb, nastavení konfigurace, statické soubory, atd.), přidejte do tohoto kanálu další Middleware.
+Tím se nakonfigurují výchozí trasy a ve výchozím nastavení se XmlSerialization přes JSON. Podle potřeby přidejte do tohoto kanálu další middleware (načítají se služby, nastavení konfigurace, statické soubory atd.).
 
-ASP.NET Core používá podobný přístup, ale nemusí spoléhat na OWIN pro zpracování vstupu. Místo toho, který se provádí prostřednictvím *Program.cs* `Main` – metoda (podobně jako konzolové aplikace) a `Startup` je načteno do něj.
+ASP.NET Core používá podobný přístup, ale nespoléhá na OWIN k tomu, aby záznam zpracoval. Místo toho se provádí pomocí metody *Program.cs* `Main` (podobně jako u konzolových aplikací) a `Startup` se načítají přes něj.
 
 [!code-csharp[](samples/program.cs)]
 
-`Startup` musí obsahovat `Configure` metoda. V `Configure`, přidat nezbytné middleware do kanálu. V následujícím příkladu (z výchozí šablony webové stránky) konfiguraci metody rozšíření kanálu s podporou:
+`Startup` musí zahrnovat metodu `Configure`. V `Configure`do kanálu přidejte potřebný middleware. V následujícím příkladu (z výchozí šablony webu) rozšiřující metody konfigurují kanál s podporou pro:
 
 - Chybové stránky
-- Zabezpečení striktní přenosu HTTP
-- Přesměrování protokolu HTTP na HTTPS
+- Striktní přenosová zabezpečení HTTP
+- Přesměrování HTTP na HTTPS
 - ASP.NET Core MVC
 
 [!code-csharp[](samples/startup.cs)]
 
-Host a aplikace byla odděleném poskytující možnost přechodu na různé platformy v budoucnu.
+Hostitel a aplikace se odlišily, což poskytuje flexibilitu přesunu na jinou platformu v budoucnu.
 
 > [!NOTE]
-> Najdete podrobnější referenční dokumentace k ASP.NET Core spuštění a Middleware, naleznete v tématu [při spuštění v ASP.NET Core](xref:fundamentals/startup)
+> Podrobnější informace o ASP.NET Core spouštění a middlewaru najdete v tématu [spuštění v ASP.NET Core](xref:fundamentals/startup)
 
-## <a name="store-configurations"></a>Konfigurace Store
+## <a name="store-configurations"></a>Konfigurace úložiště
 
-Podporuje ASP.NET ukládat nastavení. Tato nastavení se používají, například pro podporu prostředí, do kterého byly nasazené aplikace. Běžnou praxí je pro uložení všech vlastních páry klíč hodnota v `<appSettings>` část *Web.config* souboru:
+ASP.NET podporuje ukládání nastavení. Toto nastavení se používá například pro podporu prostředí, do kterého byly aplikace nasazeny. Běžný postup je uložit všechny vlastní páry klíč-hodnota do `<appSettings>` části souboru *Web. config* :
 
 [!code-xml[](samples/webconfig-sample.xml)]
 
-Číst nastavení pomocí aplikací `ConfigurationManager.AppSettings` kolekce `System.Configuration` obor názvů:
+Aplikace čtou tato nastavení pomocí kolekce `ConfigurationManager.AppSettings` v oboru názvů `System.Configuration`:
 
 [!code-csharp[](samples/read-webconfig.cs)]
 
-ASP.NET Core můžete uložit konfigurační data pro aplikaci na jakýkoli soubor a načíst jako součást spuštění middlewaru. Je výchozí soubor použitý v šablonách projektů *appsettings.json*:
+ASP.NET Core může ukládat konfigurační data pro aplikaci do libovolného souboru a načíst je jako součást zavádění middlewaru. Výchozím souborem použitým v šablonách projektu je *appSettings. JSON*:
 
 [!code-json[](samples/appsettings-sample.json)]
 
-Načítají se tento soubor do instance `IConfiguration` uvnitř vaší aplikace se provádí v *Startup.cs*:
+Načtení tohoto souboru do instance `IConfiguration` v rámci aplikace se provádí v *Startup.cs*:
 
 [!code-csharp[](samples/startup-builder.cs)]
 
-Aplikace načte z `Configuration` zobrazíte nastavení:
+Aplikace načte z `Configuration`, aby získala nastavení:
 
 [!code-csharp[](samples/read-appsettings.cs)]
 
-Rozšíření tohoto přístupu, aby proces robustnější, jako je třeba použití [injektáž závislostí](xref:fundamentals/dependency-injection) (DI) pro načtení služby s těmito hodnotami. DI přístup poskytuje sadu objektů konfigurace silného typu.
+Existují rozšíření tohoto přístupu, aby byl proces robustnější, jako je například použití [vkládání závislostí](xref:fundamentals/dependency-injection) (di) k načtení služby s těmito hodnotami. Metoda DI má k dispozici sadu konfiguračních objektů se silným typem.
 
 ````csharp
 // Assume AppConfiguration is a class representing a strongly-typed version of AppConfiguration section
@@ -108,53 +108,57 @@ services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"
 ````
 
 > [!NOTE]
-> Podrobnější odkazu ke konfiguraci ASP.NET Core, najdete v části [konfigurace v ASP.NET Core](xref:fundamentals/configuration/index).
+> Podrobnější informace o konfiguraci ASP.NET Core najdete v tématu [konfigurace v ASP.NET Core](xref:fundamentals/configuration/index).
 
-## <a name="native-dependency-injection"></a>Injektáž závislostí nativní
+## <a name="native-dependency-injection"></a>Vkládání nativních závislostí
 
-Důležité cíle, při vytváření velké a škálovatelné aplikace je volné párování komponent a služeb. [Injektáž závislostí](xref:fundamentals/dependency-injection) je technika oblíbených pro dosažení tohoto cíle a jedná se o nativní součást ASP.NET Core.
+Důležitým cílem při sestavování rozsáhlých škálovatelných aplikací je volně přizpůsobitelné spojování komponent a služeb. [Vkládání závislostí](xref:fundamentals/dependency-injection) je oblíbená technika pro dosažení tohoto a je to nativní součást ASP.NET Core.
 
-V aplikacích technologie ASP.NET vývojáři spoléhají na knihovny třetích stran k implementaci vkládání závislostí. Jeden takový knihovna je [Unity](https://github.com/unitycontainer/unity), k dispozici ve Microsoft Patterns a postupy.
+V aplikacích ASP.NET se vývojáři spoléhají na knihovnu třetí strany, která implementuje vkládání závislostí. Jedna taková knihovna je [Unity](https://github.com/unitycontainer/unity), kterou poskytují vzory Microsoftu & postupy.
 
-Příklad nastavení injektáž závislostí v Unity je implementace `IDependencyResolver` , která zabalí `UnityContainer`:
+Příkladem nastavení vstřiku závislosti s Unity je implementace `IDependencyResolver`, která zabalí `UnityContainer`:
 
 [!code-csharp[](samples/sample8.cs)]
 
-Vytvoření instance vaší `UnityContainer`, zaregistrujte vaši službu a nastavit překladač závislostí `HttpConfiguration` nové instance `UnityResolver` kontejneru:
+Vytvořte instanci `UnityContainer`, zaregistrujte službu a nastavte překladač závislostí `HttpConfiguration` na novou instanci `UnityResolver` pro váš kontejner:
 
 [!code-csharp[](samples/sample9.cs)]
 
-Vložit `IProductRepository` místech:
+Vložení `IProductRepository` tam, kde je potřeba:
 
 [!code-csharp[](samples/sample5.cs)]
 
-Protože injektáž závislostí je součástí ASP.NET Core, můžete přidat služby v `ConfigureServices` metoda *Startup.cs*:
+Protože vkládání závislostí je součástí ASP.NET Core, můžete přidat službu v metodě `ConfigureServices` *Startup.cs*:
 
 [!code-csharp[](samples/configure-services.cs)]
 
-Úložiště lze vloženy kdekoliv, protože dřív platilo pomocí Unity.
+Úložiště může být vloženo kdekoli, stejně jako u Unity.
 
 > [!NOTE]
-> Další informace o vkládání závislostí, naleznete v tématu [injektáž závislostí](xref:fundamentals/dependency-injection).
+> Další informace o vkládání závislostí naleznete v tématu [Injektáže závislosti](xref:fundamentals/dependency-injection).
 
-## <a name="serve-static-files"></a>Doručování statických souborů
+## <a name="serve-static-files"></a>Obsluhovat statické soubory
 
-Důležitou součástí vývoje pro web je schopnost poskytovat statické a na straně klienta prostředky. Většina běžných příkladů statické soubory jsou HTML, CSS, Javascript a bitové kopie. Tyto soubory musí uložený v publikované umístění aplikace (nebo CDN) a odkazovat tak je možné načíst žádostí. Tento proces byl změněn v ASP.NET Core.
+Důležitou součástí vývoje webu je schopnost poskytovat statické prostředky na straně klienta. Nejběžnějšími příklady statických souborů jsou HTML, CSS, JavaScript a image. Tyto soubory musí být uloženy v publikovaném umístění aplikace (nebo CDN) a odkazovány, aby je bylo možné načíst pomocí žádosti. Tento proces se v ASP.NET Core změnil.
 
-V technologii ASP.NET jsou statické soubory uložené v různých adresářích a odkazované v zobrazeních.
+V ASP.NET jsou statické soubory uloženy v různých adresářích a odkazovány v zobrazeních.
 
-V ASP.NET Core, statické soubory se ukládají do "kořenový adresář webové" ( *&lt;obsahu kořenové&gt;/wwwroot*), pokud se nenakonfiguruje. Soubory se načtou do kanálu požadavku vyvoláním `UseStaticFiles` rozšiřující metoda z `Startup.Configure`:
+V ASP.NET Core jsou statické soubory uloženy v kořenu "Web root" ( *&lt;kořenovém obsahu&gt;/wwwroot*), pokud nejsou nakonfigurovány jinak. Soubory jsou načteny do kanálu požadavků vyvoláním metody rozšíření `UseStaticFiles` z `Startup.Configure`:
 
 [!code-csharp[](../../fundamentals/static-files/samples/1x/StartupStaticFiles.cs?highlight=3&name=snippet_ConfigureMethod)]
 
 > [!NOTE]
-> Pokud se zaměřujete na rozhraní .NET Framework, nainstalujte balíček NuGet `Microsoft.AspNetCore.StaticFiles`.
+> Pokud cílíte .NET Framework, nainstalujte balíček NuGet `Microsoft.AspNetCore.StaticFiles`.
 
-Například prostředek obrázku v *wwwroot/imagí* , jako je přístupná v prohlížeči v umístění složka `http://<app>/images/<imageFileName>`.
+Například prostředek obrázku ve složce *wwwroot/images* je přístupný prohlížeči v umístění, jako je například `http://<app>/images/<imageFileName>`.
 
 > [!NOTE]
-> Podrobnější odkaz na zpracování statických souborů v ASP.NET Core, najdete v části [statické soubory](xref:fundamentals/static-files).
+> Podrobnější informace o obsluze statických souborů v ASP.NET Core najdete v tématu [statické soubory](xref:fundamentals/static-files).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="multi-value-cookies"></a>Soubory cookie s více hodnotami
 
-- [Přenos knihoven pro .NET Core](/dotnet/core/porting/libraries)
+[Soubory cookie s více hodnotami](xref:System.Web.HttpCookie.Values) nejsou v ASP.NET Core podporovány. Vytvoří jeden soubor cookie na hodnotu.
+
+## <a name="additional-resources"></a>Další materiály a zdroje informací
+
+- [Portování knihoven do .NET Core](/dotnet/core/porting/libraries)

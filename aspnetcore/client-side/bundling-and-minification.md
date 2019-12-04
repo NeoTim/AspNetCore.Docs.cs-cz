@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
-ms.openlocfilehash: 7499381a24a2513a4fbd1205f245e624c86647c3
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: a7a5c40d6c31c4416212c02c1b491dd794f2a1d3
+ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080562"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74803276"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Statické prostředky sady prostředků a minimalizuje v ASP.NET Core
 
@@ -25,9 +25,9 @@ Sdružování a minifikace jsou dvě odlišná optimalizace výkonu, které mů�
 
 Seřízení a minifikace primárně zlepšují dobu načtení první stránky. Po vyžádání webové stránky prohlížeč ukládá do mezipaměti statické prostředky (JavaScript, CSS a image). V důsledku toho sdružování a minifikace nezlepšují výkon při požadavku na stejnou stránku nebo stránky ve stejné lokalitě, která vyžaduje stejné prostředky. Pokud není hlavička Expires v prostředcích správně nastavená a pokud se nepoužívá sdružování a minifikace, budou heuristické aktuálnosti v prohlížeči označovat prostředky zastaralé po několika dnech. Kromě toho prohlížeč vyžaduje žádost o ověření pro každý Asset. V tomto případě přináší sdružování a minifikace vylepšení výkonu i po první žádosti stránky.
 
-### <a name="bundling"></a>sdružování
+### <a name="bundling"></a>Sdružování
 
-Sdružování kombinuje více souborů do jednoho souboru. Sdružování snižuje počet požadavků serveru, které jsou nezbytné k vykreslování webového prostředku, například webové stránky. Můžete vytvořit libovolný počet jednotlivých sad konkrétně pro šablony stylů CSS, JavaScript atd. Méně souborů znamená méně požadavků HTTP z prohlížeče na server nebo ze služby, která poskytuje vaši aplikaci. Výsledkem je lepší výkon při načítání první stránky.
+Sdružování kombinuje několik souborů do jediného souboru. Sdružování snižuje počet požadavků serveru, které jsou nezbytné k vykreslování webového prostředku, například webové stránky. Můžete vytvořit libovolný počet jednotlivých sad konkrétně pro šablony stylů CSS, JavaScript atd. Méně souborů znamená méně požadavků HTTP z prohlížeče na server nebo ze služby, která poskytuje vaši aplikaci. Výsledkem je lepší výkon při načítání první stránky.
 
 ### <a name="minification"></a>Minifikace
 
@@ -85,16 +85,16 @@ Soubor *bundleconfig. JSON* definuje možnosti pro jednotlivé sady. V předchoz
 
 Mezi možnosti konfigurace patří:
 
-* `outputFileName`: Název souboru sady pro výstup. Může obsahovat relativní cestu ze souboru *bundleconfig. JSON* . **požadovanou**
-* `inputFiles`: Pole souborů, které se mají seskupit Jedná se o relativní cesty ke konfiguračnímu souboru. **volitelné**, * prázdná hodnota vede k prázdnému výstupnímu souboru. jsou podporovány vzory [expanze](https://www.tldp.org/LDP/abs/html/globbingref.html) .
-* `minify`: Možnosti minifikace pro typ výstupu. **volitelné**, *výchozí – `minify: { enabled: true }`*
+* `outputFileName`: název souboru sady prostředků pro výstup. Může obsahovat relativní cestu ze souboru *bundleconfig. JSON* . **požadovanou**
+* `inputFiles`: pole souborů, které se mají seskupit. Jedná se o relativní cesty ke konfiguračnímu souboru. **volitelné**, * prázdná hodnota vede k prázdnému výstupnímu souboru. jsou podporovány vzory [expanze](https://www.tldp.org/LDP/abs/html/globbingref.html) .
+* `minify`: minifikace možnosti pro typ výstupu. **volitelné**, *výchozí-`minify: { enabled: true }`*
   * Možnosti konfigurace jsou k dispozici pro jednotlivé typy výstupních souborů.
     * [Šablony stylů CSS Minifier](https://github.com/madskristensen/BundlerMinifier/wiki/cssminifier)
     * [JavaScriptový Minifier](https://github.com/madskristensen/BundlerMinifier/wiki/JavaScript-Minifier-settings)
     * [Minifier HTML](https://github.com/madskristensen/BundlerMinifier/wiki)
-* `includeInProject`: Příznak označující, zda se mají přidat generované soubory do souboru projektu **volitelné**, *výchozí – NEPRAVDA*
-* `sourceMap`: Příznak označující, zda se má generovat zdrojová mapa pro soubor v balíčku **volitelné**, *výchozí – NEPRAVDA*
-* `sourceMapRootPath`: Kořenová cesta pro uložení vygenerovaného zdrojového souboru mapování
+* `includeInProject`: příznak označující, zda se mají přidat generované soubory do souboru projektu. **volitelné**, *výchozí – NEPRAVDA*
+* `sourceMap`: příznak označující, zda se má generovat zdrojová mapa pro soubor v balíčku. **volitelné**, *výchozí – NEPRAVDA*
+* `sourceMapRootPath`: kořenová cesta pro uložení vygenerovaného zdrojového souboru mapování.
 
 ## <a name="build-time-execution-of-bundling-and-minification"></a>Provádění sdružování a minifikace při sestavení
 
@@ -168,7 +168,7 @@ Vyčistit projekt:
 dotnet clean
 ```
 
-Zobrazí se následující výstup:
+Zobrazí se výstup:
 
 ```console
 Microsoft (R) Build Engine version 15.4.8.50001 for .NET Core
@@ -197,7 +197,7 @@ dotnet bundle
 ```
 
 > [!IMPORTANT]
-> Správce balíčků NuGet přidává do souboru *. csproj závislosti jako `<PackageReference />` uzly. Příkaz je zaregistrován v .NET Core CLI pouze v `<DotNetCliToolReference />` případě, že je uzel použit. `dotnet bundle` Upravte soubor *. csproj odpovídajícím způsobem.
+> Správce balíčků NuGet přidává do souboru *. csproj závislosti jako uzly `<PackageReference />`. Příkaz `dotnet bundle` je zaregistrován v .NET Core CLI pouze v případě, že je použit uzel `<DotNetCliToolReference />`. Upravte soubor *. csproj odpovídajícím způsobem.
 
 ## <a name="add-files-to-workflow"></a>Přidat soubory do pracovního postupu
 
@@ -213,7 +213,7 @@ Pokud chcete minimalizuje *vlastní soubor. CSS* a seskupit ho pomocí *site. CS
 > Případně můžete použít následující vzor expanze názvů:
 >
 > ```json
-> "inputFiles": ["wwwroot/**/*(*.css|!(*.min.css))"]
+> "inputFiles": ["wwwroot/**/!(*.min).css" ]
 > ```
 >
 > Tento vzor expanze názvů se shoduje se všemi soubory šablon stylů CSS a vylučuje vzor souboru minifikovaného.
@@ -226,7 +226,7 @@ Jako osvědčený postup by se měly v produkčním prostředí používat balí
 
 Určete soubory, které chcete zahrnout na vaše stránky, pomocí [pomocné rutiny tag prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper) v zobrazeních. Pomocník značek prostředí vykresluje obsah pouze při spuštění v konkrétních [prostředích](xref:fundamentals/environments).
 
-Následující `environment` značka vykresluje nezpracované soubory šablon stylů CSS při spuštění `Development` v prostředí:
+Následující `environment` značka vykresluje nezpracované soubory šablon stylů CSS při spuštění v prostředí `Development`:
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -240,7 +240,7 @@ Následující `environment` značka vykresluje nezpracované soubory šablon st
 
 ::: moniker-end
 
-Následující `environment` značka vykresluje soubory šablon stylů CSS a minifikovaného při spuštění v jiném prostředí než `Development`. Například spuštění v `Production` nebo `Staging` spustí vykreslování těchto šablon stylů:
+Následující `environment` značka vykresluje soubory šablon stylů CSS a minifikovaného, když běží v jiném prostředí než `Development`. Například spuštění v `Production` nebo `Staging` aktivuje vykreslování těchto šablon stylů:
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -265,11 +265,11 @@ Rozšíření sady Visual Studio [& Minifier](https://marketplace.visualstudio.c
 > [!NOTE]
 > Rozšíření & rozšíření Minifier patří do komunitního projektu na GitHubu, pro který Microsoft neposkytuje žádnou podporu. [Zde](https://github.com/madskristensen/BundlerMinifier/issues)by měly být uloženy problémy.
 
-V Průzkumník řešení klikněte pravým tlačítkem na soubor *bundleconfig. JSON* a vyberte možnost **& Minifier** > **převést na Gulp...** :
+Pravým tlačítkem myši klikněte na soubor *bundleconfig. JSON* v Průzkumník řešení a vyberte možnost **& Minifier** > **převést na Gulp...** :
 
 ![Převést na položku kontextové nabídky Gulp](../client-side/bundling-and-minification/_static/convert-to-gulp.png)
 
-Soubory *gulpfile. js* a *Package. JSON* jsou přidány do projektu. Jsou nainstalovány podpůrné balíčky [npm](https://www.npmjs.com/) uvedené v `devDependencies` oddílu souboru *Package. JSON* .
+Soubory *gulpfile. js* a *Package. JSON* jsou přidány do projektu. Jsou nainstalovány podpůrné balíčky [npm](https://www.npmjs.com/) uvedené v oddílu souboru *package. JSON* `devDependencies`.
 
 Spusťte následující příkaz v okně PMC a nainstalujte Gulp CLI jako globální závislost:
 
@@ -285,10 +285,10 @@ Soubor *gulpfile. js* přečte soubor *bundleconfig. JSON* pro vstupy, výstupy 
 
 Pokud není k dispozici sada Visual Studio nebo rozšíření Minifier &, proveďte převod ručně.
 
-Do kořenového adresáře projektu přidejte soubor *Package. JSON* s následujícím `devDependencies`kódem:
+Přidejte soubor *Package. JSON* s následujícím `devDependencies`do kořenového adresáře projektu:
 
 > [!WARNING]
-> `gulp-uglify` Modul nepodporuje ECMAScript (ES) 2015/ES6 a novější. Nainstalujte [Gulp-terser](https://www.npmjs.com/package/gulp-terser) namísto `gulp-uglify` použití ES2015/ES6 nebo novějšího.
+> Modul `gulp-uglify` nepodporuje ECMAScript (ES) 2015/ES6 a novější. Nainstalujte [Gulp-terser](https://www.npmjs.com/package/gulp-terser) namísto `gulp-uglify` pro použití ES2015/ES6 nebo novějšího.
 
 [!code-json[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/package.json?range=5-13)]
 
@@ -314,7 +314,7 @@ Chcete-li aktivovat úlohu Gulp minifikace před sestavením projektu v aplikaci
 
 [!code-xml[](../client-side/bundling-and-minification/samples/BuildBundlerMinifierApp/BuildBundlerMinifierApp.csproj?range=14-16)]
 
-V tomto příkladu všechny úlohy, které jsou `MyPreCompileTarget` definovány v rámci cílového prostředí, před předdefinovaným `Build` cílem. Výstup podobný následujícímu se zobrazí v okně výstupu sady Visual Studio:
+V tomto příkladu jsou všechny úlohy definované v rámci `MyPreCompileTarget` Target spouštěny před předdefinovaným cílem `Build`. Výstup podobný následujícímu se zobrazí v okně výstupu sady Visual Studio:
 
 ```console
 1>------ Build started: Project: BuildBundlerMinifierApp, Configuration: Debug Any CPU ------
@@ -328,8 +328,7 @@ V tomto příkladu všechny úlohy, které jsou `MyPreCompileTarget` definovány
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
 
-
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Použití nástroje Grunt](xref:client-side/using-grunt)
 * [Používání více prostředí](xref:fundamentals/environments)

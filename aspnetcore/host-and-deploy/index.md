@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: host-and-deploy/index
-ms.openlocfilehash: aa6e3da5f40211535037c671de913ab3219f063a
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: 8c7c131ca328f3118c45e822d6d5c86f0d44001f
+ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799339"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74803263"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>ASP.NET Core hostitele a nasazení
 
@@ -40,10 +40,10 @@ ASP.NET Core aplikace je Konzolová aplikace, která se musí spustit, když se 
 
 * Linux
   * [Nginx](xref:host-and-deploy/linux-nginx)
-  * [Webový](xref:host-and-deploy/linux-apache)
+  * [Apache](xref:host-and-deploy/linux-apache)
 * Windows
-  * [SLUŽBU](xref:host-and-deploy/iis/index)
-  * [Služba systému Windows](xref:host-and-deploy/windows-service)
+  * [SLUŽBA IIS](xref:host-and-deploy/iis/index)
+  * [Windows Service](xref:host-and-deploy/windows-service)
 
 ## <a name="set-up-a-reverse-proxy"></a>Nastavení reverzního proxy serveru
 
@@ -51,9 +51,9 @@ Pokud aplikace používá server [Kestrel](xref:fundamentals/servers/kestrel) , 
 
 Konfigurace hostování je&mdash;s nebo bez&mdash;proxy server s reverzním. Další informace najdete v tématu [kdy používat Kestrel s reverzním proxy serverem](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy).
 
-## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
+## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 
-Pro aplikace hostované za proxy servery a nástroji pro vyrovnávání zatížení může být vyžadována další konfigurace. Bez další konfigurace může aplikace mít přístup ke schématu (HTTP/HTTPS) a vzdálené IP adrese, kde požadavek vznikl. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+Pro aplikace hostované za proxy servery a nástroji pro vyrovnávání zatížení může být vyžadována další konfigurace. Bez další konfigurace může aplikace mít přístup ke schématu (HTTP/HTTPS) a vzdálené IP adrese, kde požadavek vznikl. Další informace najdete v tématu [konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="use-visual-studio-and-msbuild-to-automate-deployments"></a>Použití sady Visual Studio a nástroje MSBuild k automatizaci nasazení
 
@@ -85,7 +85,9 @@ Pomocí middleware pro kontrolu stavu můžete provádět kontroly stavu aplikac
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:host-and-deploy/docker/index>
 * <xref:test/troubleshoot>
+* [ASP.NET Hosting](https://dotnet.microsoft.com/apps/aspnet/hosting)
+
