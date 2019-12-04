@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 4737747f84a59780fe70f63195f7580bd812e4de
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
-ms.translationtype: HT
+ms.openlocfilehash: 634c6937089a0a0fe1f862a83771aff65a1f8418
+ms.sourcegitcommit: 5974e3e66dab3398ecf2324fbb82a9c5636f70de
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 12/03/2019
-ms.locfileid: "74734024"
+ms.locfileid: "74778840"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>Co je nového v ASP.NET Core 3,1
 
@@ -51,9 +51,9 @@ Další informace najdete v tématu [integrace součástí do aplikací Razor Pa
 
 [!code-csharp[](sample/Program.cs?name=snippet)]
 
-<!-- TODO
-## Breaking changes for SameSite cookies
--->
+## <a name="breaking-changes-for-samesite-cookies"></a>Průlomové změny pro soubory cookie SameSite
+
+Chování souborů cookie SameSite bylo změněno tak, aby odráželo nadcházející změny prohlížeče. To může mít vliv na scénáře ověřování, jako je AzureAd, OpenIdConnect nebo WsFederation. Další informace najdete v tématu <xref:security/samesite>.
 
 ## <a name="prevent-default-actions-for-events-in-opno-locblazor-apps"></a>Zakázat výchozí akce pro události v aplikacích Blazor
 
