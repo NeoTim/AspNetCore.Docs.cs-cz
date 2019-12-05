@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/04/2019
 uid: security/authentication/index
-ms.openlocfilehash: 324b2669d3b69e4757a284e4ae7e1de5f4e87e5a
-ms.sourcegitcommit: 05ca05a5c8f6ae556aaad66ad9e4ec1e6b643c77
+ms.openlocfilehash: 40b2fb59b96486435a2ec0a7d69bee5ab4a814d2
+ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74810249"
+ms.lasthandoff: 12/05/2019
+ms.locfileid: "74852711"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>Přehled ověřování ASP.NET Core
 
@@ -41,7 +41,7 @@ Parametr `AddAuthentication` `JwtBearerDefaults.AuthenticationScheme` je název 
 
 Pokud se používá víc schémat, zásady autorizace (nebo autorizační atributy) můžou [určit schéma ověřování (nebo schémata)](xref:security/authorization/limitingidentitybyscheme) , na kterých závisí, aby ověřili uživatele. V předchozím příkladu se schéma ověřování souborů cookie dalo použít zadáním jeho názvu (`CookieAuthenticationDefaults.AuthenticationScheme` ve výchozím nastavení, při volání `AddCookie`) by se ale dalo zadat jiný název.
 
-V některých případech je volání `AddAuthentication` automaticky provedeno jinými metodami rozšíření. Například při použití [ASP.NET Core identity](xref:security/authentication/identity)se`AddAuthentication` nazývá interně.
+V některých případech je volání `AddAuthentication` automaticky provedeno jinými metodami rozšíření. Například při použití [ASP.NET Core identity](xref:security/authentication/identity)se `AddAuthentication` nazývá interně.
 
 Middleware ověřování se přidá v `Startup.Configure` zavoláním metody rozšíření <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> na `IApplicationBuilder`aplikace. Volání `UseAuthentication` registruje middleware, který používá dříve registrovaná schémata ověřování. Před všemi middlewary, které jsou závislé na ověřených uživatelích, zavolejte `UseAuthentication`. Při použití směrování koncového bodu musí volání `UseAuthentication`:
 
@@ -80,14 +80,14 @@ Obslužné rutiny ověřování na základě konfigurace schématu ověřování
 
 ### <a name="authenticate"></a>Ověření
 
-Akce ověření schématu ověřování zodpovídá za sestavení identity uživatele na základě kontextu požadavku. Vrátí <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult>, který označuje, zda bylo ověřování úspěšné, a pokud ano, identitu uživatele v ověřovacím lístku. Viz HttpContext. AuthenticateAsync. Mezi příklady ověřování patří:
+Akce ověření schématu ověřování zodpovídá za sestavení identity uživatele na základě kontextu požadavku. Vrátí <xref:Microsoft.AspNetCore.Authentication.AuthenticateResult>, který označuje, zda bylo ověřování úspěšné, a pokud ano, identitu uživatele v ověřovacím lístku. Podívejte se na téma `HttpContext.AuthenticateAsync`. Mezi příklady ověřování patří:
 
 * Schéma ověřování souborů cookie, které vytváří identitu uživatele z souborů cookie.
 * Deserializace a ověření nosného tokenu JWT pro sestavení identity uživatele.
 
 ### <a name="challenge"></a>Úloha
 
-Ověření je vyvoláno autorizací, když neověřený uživatel požádá o koncový bod, který vyžaduje ověření. Výzva k ověření se vydá, například když anonymní uživatel požádá o omezený prostředek nebo klikne na odkaz pro přihlášení. Autorizace vyvolá výzvu pomocí zadaných schémat ověřování nebo výchozí hodnota, pokud není zadána. Viz HttpContext. ChallengeAsync. Příklady výzev k ověřování zahrnují:
+Ověření je vyvoláno autorizací, když neověřený uživatel požádá o koncový bod, který vyžaduje ověření. Výzva k ověření se vydá, například když anonymní uživatel požádá o omezený prostředek nebo klikne na odkaz pro přihlášení. Autorizace vyvolá výzvu pomocí zadaných schémat ověřování nebo výchozí hodnota, pokud není zadána. Podívejte se na téma `HttpContext.ChallengeAsync`. Příklady výzev k ověřování zahrnují:
 
 * Schéma ověřování souborů cookie přesměruje uživatele na přihlašovací stránku.
 * Schéma nosiče JWT vracející 401 výsledek s hlavičkou `www-authenticate: bearer`.
@@ -96,7 +96,7 @@ Akce výzvy by měla dát uživateli informace o tom, jaký ověřovací mechani
 
 ### <a name="forbid"></a>Zalomen
 
-Akce zakázat autorizačnímu schématu je volána v případě, že se ověřený uživatel pokusí o přístup k prostředku, ke kterému nemají přístup. Viz HttpContext. ForbidAsync. Mezi příklady ověřování, které patří:
+Akce zakázat autorizačnímu schématu je volána v případě, že se ověřený uživatel pokusí o přístup k prostředku, ke kterému nemají přístup. Podívejte se na téma `HttpContext.ForbidAsync`. Mezi příklady ověřování, které patří:
 * Schéma ověřování souborů cookie přesměruje uživatele na stránku oznamující, že přístup byl zakázán.
 * Schéma nosiče JWT vracející výsledek 403.
 * Vlastní schéma ověřování přesměrované na stránku, kde může uživatel požádat o přístup k prostředku.
