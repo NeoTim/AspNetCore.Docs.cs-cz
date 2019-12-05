@@ -1,18 +1,18 @@
 ---
-title: Protokolování v .NET Core a ASP.NET Core
+title: Přihlášení v .NET Core a ASP.NET Core
 author: rick-anderson
 description: Naučte se používat protokolovací rozhraní poskytovanou balíčkem NuGet Microsoft. Extensions. Logging.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/19/2019
+ms.date: 12/04/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 23ce2d09d2ce9f415ce71bcd7c21c29cb2a040fc
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 49d598330948c5f4a137c534094e14ed5e01e27c
+ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550364"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74825494"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -28,7 +28,7 @@ Kód protokolování pro aplikace bez obecného hostitele se liší v způsobu [
 
 ::: moniker-end
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="add-providers"></a>Přidat zprostředkovatele
 
@@ -48,10 +48,10 @@ V konzolové aplikaci, která není hostitelem, zavolejte při vytváření `Log
 
 Výchozí ASP.NET Core šablony projektů volají <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>, které přidávají následující zprostředkovatele protokolování:
 
-* Konzola
-* Ladit
-* EventSource
-* Protokol událostí (pouze při spuštění v systému Windows)
+* [Console](#console-provider)
+* [Ladění](#debug-provider)
+* [EventSource](#event-source-provider)
+* Protokol [událostí](#windows-eventlog-provider) (pouze při spuštění v systému Windows)
 
 Výchozí poskytovatele můžete nahradit vašimi vlastními možnostmi. Zavolejte <xref:Microsoft.Extensions.Logging.LoggingBuilderExtensions.ClearProviders%2A>a přidejte poskytovatele, které chcete.
 
@@ -129,7 +129,7 @@ V následujících příkladech ASP.NET Core a konzolových aplikací se k vytv�
 
 Chcete-li zapisovat protokoly ve třídě `Program` aplikace ASP.NET Core, po sestavení hostitele získat instanci `ILogger` od typu DI:
 
-[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_LogFromMain&highlight=9,10)]
+[!code-csharp[](index/samples_snapshot/3.x/TodoApiSample/Program.cs?highlight=9,10)]
 
 Protokolování během konstrukce hostitele není přímo podporováno. Lze však použít samostatný protokolovací nástroj. V následujícím příkladu se k přihlášení `CreateHostBuilder`používá protokolovací nástroj [Serilog](https://serilog.net/) . `AddSerilog` používá statickou konfiguraci určenou v `Log.Logger`:
 
@@ -467,7 +467,7 @@ Chcete-li explicitně zadat kategorii, zavolejte `ILoggerFactory.CreateLogger`:
 
 ## <a name="log-level"></a>Úroveň protokolu
 
-Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat protokol `Information`, když metoda končí normálně, a protokol `Warning`, když metoda vrátí stavový kód 404, který *nebyl nalezen* .
+Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat `Information` protokol, pokud metoda končí normálně `Warning` a protokol, když metoda vrátí stavový kód *404 Nenalezeno*.
 
 Následující kód vytvoří protokoly `Information` a `Warning`:
 
@@ -747,9 +747,9 @@ Konfigurační data a kód `AddFilter` zobrazené v předchozích příkladech v
 | Počet | Zprostředkovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
 | 1      | Ladit         | Všechny kategorie                          | Informace o nástroji       |
-| 2      | Konzola       | Microsoft. AspNetCore. Mvc. Razor. Internal | Upozornění           |
-| 3      | Konzola       | Microsoft. AspNetCore. Mvc. Razor. Razor    | Ladit             |
-| 4      | Konzola       | Microsoft. AspNetCore. Mvc. Razor          | Chyba             |
+| 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
+| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
+| 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
 | 5      | Konzola       | Všechny kategorie                          | Informace o nástroji       |
 | 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
 | 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
@@ -802,7 +802,7 @@ Existuje nastavení minimální úrovně, které se projeví pouze v případě,
 
 Pokud nenastavíte explicitně minimální úroveň, výchozí hodnota je `Information`, což znamená, že protokoly `Trace` a `Debug` se ignorují.
 
-### <a name="filter-functions"></a>Funkce filtru
+### <a name="filter-functions"></a>Filtrovací funkce
 
 Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemají pravidla přiřazena pomocí konfigurace nebo kódu. Kód ve funkci má přístup k typu poskytovatele, kategorii a úrovni protokolu. Příklad:
 
@@ -824,15 +824,15 @@ Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core 
 
 | Kategorie                            | Poznámky |
 | ----------------------------------- | ----- |
-| Microsoft. AspNetCore                | Obecná diagnostika ASP.NET Core. |
-| Microsoft. AspNetCore. DataProtection | Které klíče byly zváženy, nalezeny a použity. |
-| Microsoft. AspNetCore. HostFiltering  | Hostitelé povoleni. |
-| Microsoft. AspNetCore. hosting        | Doba, po kterou trvalo dokončení požadavků HTTP a čas jejich spuštění. Která hostující spouštěcí sestavení byla načtena. |
-| Microsoft. AspNetCore. Mvc            | Diagnostika MVC a Razor Vazba modelů, spuštění filtru, zobrazení kompilace, výběr akce. |
-| Microsoft. AspNetCore. Routing        | Informace o shodě trasy. |
-| Microsoft. AspNetCore. Server         | Připojení – spouštění, zastavování a udržování reakcí na Alive. Informace o certifikátu HTTPS |
-| Microsoft. AspNetCore. StaticFiles    | Soubory byly obsluhovány. |
-| Microsoft. EntityFrameworkCore       | Obecná diagnostika Entity Framework Core. Databázová aktivita a konfigurace, detekce změn, migrace. |
+| Microsoft.AspNetCore                | Obecná diagnostika ASP.NET Core. |
+| Microsoft.AspNetCore.DataProtection | Které klíče byly zváženy, nalezeny a použity. |
+| Microsoft.AspNetCore.HostFiltering  | Hostitelé povoleni. |
+| Microsoft.AspNetCore.Hosting        | Doba, po kterou trvalo dokončení požadavků HTTP a čas jejich spuštění. Která hostující spouštěcí sestavení byla načtena. |
+| Microsoft.AspNetCore.Mvc            | Diagnostika MVC a Razor Vazba modelů, spuštění filtru, zobrazení kompilace, výběr akce. |
+| Microsoft.AspNetCore.Routing        | Informace o shodě trasy. |
+| Microsoft.AspNetCore.Server         | Připojení – spouštění, zastavování a udržování reakcí na Alive. Informace o certifikátu HTTPS |
+| Microsoft.AspNetCore.StaticFiles    | Soubory byly obsluhovány. |
+| Microsoft.EntityFrameworkCore       | Obecná diagnostika Entity Framework Core. Databázová aktivita a konfigurace, detekce změn, migrace. |
 
 ## <a name="log-scopes"></a>Rozsahy protokolů
 
@@ -889,7 +889,7 @@ warn: TodoApiSample.Controllers.TodoController[4000]
 ASP.NET Core dodává následující poskytovatele:
 
 * [Console](#console-provider)
-* [Ladí](#debug-provider)
+* [Ladění](#debug-provider)
 * [EventSource](#event-source-provider)
 * [EventLog](#windows-eventlog-provider)
 * [TraceSource](#tracesource-provider)
@@ -1051,7 +1051,11 @@ Balíček poskytovatele [Microsoft. Extensions. log. EventLog](https://www.nuget
 logging.AddEventLog();
 ```
 
-[AddEventLog přetížení](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions) umožňují předat <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>.
+[AddEventLog přetížení](xref:Microsoft.Extensions.Logging.EventLoggerFactoryExtensions) umožňují předat <xref:Microsoft.Extensions.Logging.EventLog.EventLogSettings>. Pokud `null` nebo neurčíte, použijí se následující výchozí nastavení:
+
+* `LogName` &ndash; "Application"
+* `SourceName` &ndash; ".NET runtime"
+* `MachineName` &ndash; místní počítač
 
 ### <a name="tracesource-provider"></a>Poskytovatel TraceSource
 
@@ -1155,7 +1159,7 @@ Protokolovací architektury třetích stran, které pracují s ASP.NET Core:
 * [elmah.IO](https://elmah.io/) ([úložiště GitHub](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
 * [GELF](https://docs.graylog.org/en/2.3/pages/gelf.html) ([úložiště GitHub](https://github.com/mattwcole/gelf-extensions-logging))
 * [JSNLog](https://jsnlog.com/) ([úložiště GitHub](https://github.com/mperdeck/jsnlog))
-* [KissLog.NET](https://kisslog.net/) ([úložiště GitHub](https://github.com/catalingavan/KissLog-net))
+* [KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))
 * [Log4Net](https://logging.apache.org/log4net/) ([úložiště GitHub](https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore))
 * [Loggr](https://loggr.net/) ([úložiště GitHub](https://github.com/imobile3/Loggr.Extensions.Logging))
 * [NLOG](https://nlog-project.org/) ([úložiště GitHub](https://github.com/NLog/NLog.Extensions.Logging))
