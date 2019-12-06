@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: 3323b7b614b7e8bc711b2c5acfb501b65b3d783b
-ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
+ms.openlocfilehash: 0bbd6af01ce3a29d3931faa2853a50dc895490cc
+ms.sourcegitcommit: fd2483f0a384b1c479c5b4af025ee46917db1919
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 12/05/2019
-ms.locfileid: "74852685"
+ms.locfileid: "74868027"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>Bezpečné ukládání tajných kódů aplikací ve vývoji v ASP.NET Core
 
@@ -27,7 +27,7 @@ Proměnné prostředí se používají k tomu, aby nedocházelo k ukládání ta
 
 ::: moniker range="<= aspnetcore-1.1"
 
-Nakonfigurujte čtení hodnot proměnných prostředí voláním <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> v konstruktoru `Startup`:
+Nakonfigurujte čtení hodnot proměnných prostředí voláním <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables%2A> v konstruktoru `Startup`:
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=8)]
 
@@ -229,11 +229,11 @@ Pokud je projekt cílen .NET Framework, nainstalujte balíček NuGet [Microsoft.
 
 ::: moniker range=">= aspnetcore-2.0"
 
-V ASP.NET Core 2,0 nebo novějším je zdroj konfigurace uživatelských tajných kódů automaticky přidán do režimu vývoje, pokud projekt volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> k inicializaci nové instance hostitele s předem konfigurovanými výchozími hodnotami. `CreateDefaultBuilder` volá <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*>, když je <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>:
+V ASP.NET Core 2,0 nebo novějším je zdroj konfigurace uživatelských tajných kódů automaticky přidán do režimu vývoje, pokud projekt volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> k inicializaci nové instance hostitele s předem konfigurovanými výchozími hodnotami. `CreateDefaultBuilder` volá <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>, když je <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>:
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
-Pokud `CreateDefaultBuilder` není volána, přidejte zdroj konfigurace uživatelských tajných klíčů explicitně voláním <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> v konstruktoru `Startup`. Volejte `AddUserSecrets` pouze v případě, že aplikace běží ve vývojovém prostředí, jak je znázorněno v následujícím příkladu:
+Pokud `CreateDefaultBuilder` není volána, přidejte zdroj konfigurace uživatelských tajných klíčů explicitně voláním <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> v konstruktoru `Startup`. Volejte `AddUserSecrets` pouze v případě, že aplikace běží ve vývojovém prostředí, jak je znázorněno v následujícím příkladu:
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -243,7 +243,7 @@ Pokud `CreateDefaultBuilder` není volána, přidejte zdroj konfigurace uživate
 
 Nainstalujte balíček NuGet [Microsoft. Extensions. Configuration. UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) .
 
-Přidejte zdroj konfigurace uživatelských tajných klíčů s voláním <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets*> v konstruktoru `Startup`:
+Přidejte zdroj konfigurace uživatelských tajných klíčů s voláním <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> v konstruktoru `Startup`:
 
 [!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
 
@@ -303,7 +303,7 @@ Odeberte dvojici klíč-hodnota `Password` z připojovacího řetězce v souboru
 
 [!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
 
-Hodnota tajného klíče může být nastavena na vlastnost <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password*> objektu <xref:System.Data.SqlClient.SqlConnectionStringBuilder> k dokončení připojovacího řetězce:
+Hodnota tajného klíče může být nastavena na vlastnost <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A> objektu <xref:System.Data.SqlClient.SqlConnectionStringBuilder> k dokončení připojovacího řetězce:
 
 ::: moniker range=">= aspnetcore-2.0"
 

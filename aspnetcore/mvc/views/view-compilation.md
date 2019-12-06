@@ -5,18 +5,18 @@ description: Přečtěte si, jak probíhá kompilace souborů Razor v aplikaci A
 monikerRange: '>= aspnetcore-1.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/31/2019
+ms.date: 12/05/2019
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 95fa0d72ed9c088945707ac6b79c3fbde35a5a30
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 0a5770a00c5cb319b571628659a07e73e0de54f9
+ms.sourcegitcommit: fd2483f0a384b1c479c5b4af025ee46917db1919
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416149"
+ms.lasthandoff: 12/05/2019
+ms.locfileid: "74867975"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>Kompilace souboru Razor v ASP.NET Core
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range="= aspnetcore-1.1"
 
@@ -94,7 +94,7 @@ Připravte aplikaci pro [nasazení závislé na rozhraní](/dotnet/core/deployin
 dotnet publish -c Release
 ```
 
-*\<PROJECT_NAME. Soubor PrecompiledViews. dll* obsahující zkompilované soubory Razor je vytvořen po úspěšném dokončení předkompilace. Například následující snímek obrazovky znázorňuje obsah souboru *index. cshtml* v rámci *WebApplication1. PrecompiledViews. dll*:
+*\<project_name >. Soubor PrecompiledViews. dll* obsahující zkompilované soubory Razor je vytvořen po úspěšném dokončení předkompilace. Například následující snímek obrazovky znázorňuje obsah souboru *index. cshtml* v rámci *WebApplication1. PrecompiledViews. dll*:
 
 ![Zobrazení Razor v knihovně DLL](view-compilation/_static/razor-views-in-dll.png)
 
@@ -115,7 +115,7 @@ Kompilace v době sestavení je doplněna kompilací souborů Razor za běhu. <x
 Výchozí hodnota je `true` pro:
 
 * Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_1> nebo dřívější
-* Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> nebo novější a aplikace se nachází ve vývojovém prostředí <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*>. Jinými slovy, soubory Razor nebudou znovu zkompilovány v nevývojovém prostředí, pokud není explicitně nastaveno <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange>.
+* Pokud je verze kompatibility aplikace nastavená na <xref:Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_2_2> nebo novější a aplikace se nachází ve vývojovém prostředí <xref:Microsoft.AspNetCore.Hosting.HostingEnvironmentExtensions.IsDevelopment*>. Jinými slovy, soubory Razor nemusely být znovu zkompilovány v nevývojovém prostředí, pokud není explicitně nastaveno <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.AllowRecompilingViewsOnFileChange>.
 
 Pokyny a příklady nastavení verze kompatibility aplikace najdete v tématu <xref:mvc/compatibility-version>.
 
@@ -123,20 +123,61 @@ Pokyny a příklady nastavení verze kompatibility aplikace najdete v tématu <x
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Kompilace za běhu je povolena pomocí balíčku `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`. Aby bylo možné povolit kompilaci za běhu, aplikace musí:
+Povolení kompilace za běhu pro všechna prostředí a režimy konfigurace:
 
-* Nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. Razor. RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) .
-* Aktualizujte metodu `Startup.ConfigureServices` projektu tak, aby zahrnovala volání `AddRazorRuntimeCompilation`:
+1. Nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. Razor. RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) .
 
-  ```csharp
-  services
-      .AddControllersWithViews()
-      .AddRazorRuntimeCompilation();
-  ```
+1. Aktualizujte metodu `Startup.ConfigureServices` projektu tak, aby zahrnovala volání `AddRazorRuntimeCompilation`. Příklad:
+
+    ```csharp
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddRazorPages()
+            .AddRazorRuntimeCompilation();
+
+        // code omitted for brevity
+    }
+    ```
+
+### <a name="conditionally-enable-runtime-compilation"></a>Podmíněně povolit kompilaci za běhu
+
+Je možné povolit kompilaci za běhu, aby byla dostupná pouze pro místní vývoj. Podmíněné povolení tímto způsobem zajistí, že publikovaný výstup:
+
+* Používá kompilovaná zobrazení.
+* Má menší velikost.
+* Nepovoluje sledovací procesy souborů v produkčním prostředí.
+
+Povolení kompilace za běhu na základě prostředí a konfiguračního režimu:
+
+1. Podmíněně odkázat na balíček [Microsoft. AspNetCore. Mvc. Razor. RuntimeCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation/) na základě hodnoty Active `Configuration`:
+
+    ```xml
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.0" Condition="'$(Configuration)' == 'Debug'" />
+    ```
+
+1. Aktualizujte metodu `Startup.ConfigureServices` projektu tak, aby zahrnovala volání `AddRazorRuntimeCompilation`. Podmíněně vykoná `AddRazorRuntimeCompilation` tak, že se spustí pouze v režimu ladění, pokud je proměnná `ASPNETCORE_ENVIRONMENT` nastavená na `Development`:
+
+    ```csharp
+    public IWebHostEnvironment Env { get; set; }
+    
+    public void ConfigureServices(IServiceCollection services)
+    {
+        IMvcBuilder builder = services.AddRazorPages();
+    
+    #if DEBUG
+        if (Env.IsDevelopment())
+        {
+            builder.AddRazorRuntimeCompilation();
+        }
+    #endif
+
+        // code omitted for brevity
+    }
+    ```
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 ::: moniker range="= aspnetcore-1.1"
 
