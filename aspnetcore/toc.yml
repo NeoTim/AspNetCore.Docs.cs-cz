@@ -350,8 +350,6 @@
               uid: client-side/libman/libman-vs
         - name: Grunt
           uid: client-side/using-grunt
-        - name: Bower
-          uid: client-side/bower
         - name: Vytvoření balíčku a minifikace
           uid: client-side/bundling-and-minification
         - name: Browser Link
@@ -557,6 +555,13 @@
     - name: Protokolování a diagnostika
       displayName: signalr
       uid: signalr/diagnostics
+    - name: Specifikace
+      displayName: 'signalr, specs'
+      items:
+        - name: Protokol centra
+          href: 'https://github.com/aspnet/AspNetCore/blob/master/src/SignalR/docs/specs/HubProtocol.md'
+        - name: Přenosové protokoly
+          href: 'https://github.com/aspnet/AspNetCore/blob/master/src/SignalR/docs/specs/TransportProtocols.md'
 - name: Aplikace využívající vzdálené volání procedur
   items:
     - name: Úvod ke službě gRPC
